@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_GEOMETRY_EXPORTER_H__
 #define __COLLADA_MAYA_GEOMETRY_EXPORTER_H__
 
@@ -124,7 +123,7 @@ namespace COLLADAMaya
     public:
 
         /* @param streamWriter The stream the output will be written to                                                                     */
-        GeometryExporter ( COLLADA::StreamWriter* _streamWriter, DocumentExporter* _documentExporter );
+        GeometryExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
         virtual ~GeometryExporter();
 
         /** Walk through the scene graph and export all geometries. */
@@ -142,13 +141,13 @@ namespace COLLADAMaya
     private:
 
         /** Exports all geometry data of the current mesh. */
-        void exportMesh ( const MObject &obj, String meshId, MString &nodeNameCollada );
+        void exportMesh ( MFnMesh& fnMesh, String meshId, String& nodeNameCollada );
 
         /** Exports an extra tag. */
-        void exportExtra ( const MFnMesh &fnMesh );
+        void exportExtra ( const MFnMesh& fnMesh );
 
         /** Exports the double sided extra tag. */
-        bool isDoubleSided ( const MFnMesh &fnMesh );
+        bool isDoubleSided ( const MFnMesh& fnMesh );
 
         /** Export the vertex positions of the current mesh */
         void exportVertexPositions ( const MFnMesh& fnMesh, const String& meshId );

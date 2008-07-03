@@ -18,14 +18,12 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_ANIMATED_ELEMENT_H__
 #define __COLLADA_MAYA_ANIMATED_ELEMENT_H__
 
 #include "ColladaMayaPrerequisites.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaConversion.h"
-#include "ColladaMayaAnimationCurves.h"
 
 namespace COLLADAMaya
 {

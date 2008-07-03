@@ -17,8 +17,7 @@
     You should have received a copy of the MIT License along with
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
-*/
-#ifndef __COLLADA_MAYA_FILE_TRANSLATOR_H__
+*/#ifndef __COLLADA_MAYA_FILE_TRANSLATOR_H__
 #define __COLLADA_MAYA_FILE_TRANSLATOR_H__
 
 #include "COLLADAMayaDocumentNode.h"

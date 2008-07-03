@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaAnimationExporter.h"
@@ -113,9 +112,10 @@ namespace COLLADAMaya
     {
         const MDagPath dagPath = sceneElement->getPath();
 
-        SceneElement::Type type = sceneElement->getType();
+        // Check if it is a mesh and an export node
 
-        if ( type == SceneElement::MESH )
+        if ( sceneElement->getType() == SceneElement::MESH &&
+                sceneElement->getIsExportNode() )
         {
             MStatus status;
             MFnMesh fnMesh ( dagPath.node(), &status );
@@ -143,10 +143,6 @@ namespace COLLADAMaya
                     // Add shader-specific parameters (TexCoords sets).
                     // Add symbolic name for the material used on this polygon set.
                     MObject shadingEngine = shaders[shaderPosition];
-                    MFnDependencyNode shaderFn ( shaders[shaderPosition] );
-                    String shaderName = shaderFn.name().asChar();
-                    MString materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name() );
-
                     MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
                     exportEffect ( shader );
                 }
@@ -158,7 +154,6 @@ namespace COLLADAMaya
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
-
             exportMeshEffects ( childElement );
         }
     }
@@ -175,7 +170,7 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return;
 
         // Get the name of the current material
-        String materialName = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true ).asChar();
+        String materialName = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true );
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;
@@ -285,10 +280,10 @@ namespace COLLADAMaya
         // Emission color / Incandescence
         effectProfile->setEmission ( mayaColor2ColorOrTexture ( matFn.incandescence() ) );
 
-        exportTexturedParameter ( shadingNetwork, ATTR_INCANDESCENE, effectProfile, EffectExporter::EMISSION, nextTextureIndex );
+        exportTexturedParameter ( shadingNetwork, ATTR_INCANDESCENCE, effectProfile, EffectExporter::EMISSION, nextTextureIndex );
 
         // TODO Test
-        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_INCANDESCENE, RGBA_PARAMETERS, kColour );
+        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_INCANDESCENCE, RGBA_PARAMETERS, kColour );
 
         // Ambient color
         effectProfile->setAmbient ( mayaColor2ColorOrTexture ( matFn.ambientColor() ) );
@@ -583,7 +578,8 @@ namespace COLLADAMaya
         // TODO Test
         animationExporter->addPlugAnimation ( shadingNetwork, attributeName, EMPTY_PARAMETER, kColour );
 
-        // For the 'opaque' attribute, check the plug's name, that's connected to the shader's 'transparency' plug.
+        // For the 'opaque' attribute, check the plug's name, that's connected to
+        // the shader's 'transparency' plug.
         MPlug connectedPlug;
 
         if ( !transparentTextureNode.isNull() )
@@ -597,9 +593,12 @@ namespace COLLADAMaya
             DagHelper::getPlugConnectedTo ( shadingNetwork, attributeName, connectedPlug );
             String partialName = connectedPlug.partialName().asChar();
 
-            if ( connectedPlug.partialName() == ATTR_OPAQUE_OC ) effectProfile->setOpacity ( COLLADA::EffectProfile::RGB_ZERO ); // should be RGB_ONE.
-            else if ( connectedPlug.partialName() == ATTR_OPAQUE_OT ) effectProfile->setOpacity ( COLLADA::EffectProfile::A_ONE );
-            else if ( connectedPlug.partialName() == ATTR_OPAQUE_OA ) effectProfile->setOpacity ( COLLADA::EffectProfile::A_ONE ); // valid?
+            if ( connectedPlug.partialName() == ATTR_OPAQUE_OC )
+                effectProfile->setOpacity ( COLLADA::EffectProfile::RGB_ZERO ); // should be RGB_ONE.
+            else if ( connectedPlug.partialName() == ATTR_OPAQUE_OT )
+                effectProfile->setOpacity ( COLLADA::EffectProfile::A_ONE );
+            else if ( connectedPlug.partialName() == ATTR_OPAQUE_OA )
+                effectProfile->setOpacity ( COLLADA::EffectProfile::A_ONE ); // valid?
 
             if ( effectProfile->getOpacity() == COLLADA::EffectProfile::A_ONE )
             {

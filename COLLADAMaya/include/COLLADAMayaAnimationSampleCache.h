@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_ANIMATION_SAMPLE_CACHE_H__
 #define __COLLADA_MAYA_ANIMATION_SAMPLE_CACHE_H__
 
@@ -139,8 +138,19 @@ namespace COLLADAMaya
         void sampleConstraint ( const MDagPath& dagPath );
 
         /**
-         * @todo documentation
-         * @param dagPath
+         * Set the path to sampling, if it is a valid inverse kinematic handle.
+         * Maya provides inverse kinematics tools called "IK handles". The effect
+         * of an IK handle on a joint chain is determined by the type of IK solver
+         * that you choose.
+         * There are three types of IK handles with corresponding solvers:
+         * Single Chain (SC) Handle, Rotate Plane (RP) Handle, and Spline Handle.
+         * - Single Chain (SC) Handle and Rotate Plane (RP)
+         *  Handle can be used to animate the motion of an articulated figure's
+         *  limbs, and similar objects.
+         * - Spline Handle can be used to animate the motion of curvy or twisty shapes,
+         *  such as tails, necks, spines, tentacles, bull-whips, and snakes.
+         * @see http://accad.osu.edu/~midori/Materials/IK_solvers.html
+         * @param dagPath The path to the IK-handle.
          */
         void sampleIKHandle ( const MDagPath& dagPath );
 

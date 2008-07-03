@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaMaterialExporter.h"
 #include "COLLADAMayaEffectExporter.h"
@@ -129,14 +128,12 @@ namespace COLLADAMaya
     void MaterialExporter::exportConnectedMaterials ( SceneElement* sceneElement )
     {
         // Check if it is a mesh object and an export node
-        if ( sceneElement->getType() == SceneElement::MESH && sceneElement->getIsExportNode() )
+        if ( sceneElement->getType() == SceneElement::MESH &&
+                sceneElement->getIsExportNode() )
         {
             MDagPath dagPath = sceneElement->getPath();
 
             // Attach a function set
-            MFnDependencyNode fn ( dagPath.node() );
-            String theNodeName = fn.name().asChar();
-
             MStatus status;
             MFnMesh fnMesh ( dagPath.node(), &status );
 
@@ -163,10 +160,6 @@ namespace COLLADAMaya
                     // Add shader-specific parameters (TexCoords sets).
                     // Add symbolic name for the material used on this polygon set.
                     MObject shadingEngine = shaders[shaderPosition];
-                    MFnDependencyNode shaderFn ( shaders[shaderPosition] );
-                    String shaderName = shaderFn.name().asChar();
-                    MString materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name() );
-
                     exportMaterial ( shadingEngine );
                 }
             }
@@ -177,12 +170,6 @@ namespace COLLADAMaya
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
-
-            // Attach a function set
-            const MDagPath dagPath = childElement->getPath();
-            MFnDependencyNode fn ( dagPath.node() );
-            String theNodeName = fn.name().asChar();
-
             exportConnectedMaterials ( childElement );
         }
     }
@@ -202,7 +189,7 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return;
 
         // Get the name of the current material
-        String materialId = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true ).asChar();
+        String materialId = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true );
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;

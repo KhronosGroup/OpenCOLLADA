@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaExportOptions.h"
@@ -43,7 +42,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    MObject SceneElement::getNode()
+    const MObject& SceneElement::getNode()
     {
         if ( mNode.isNull() )
         {
@@ -68,22 +67,22 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    MString SceneElement::getNodeName()
+    const String& SceneElement::getNodeName()
     {
-        if ( mNodeName == NULL )
+        if ( mNodeName.empty() )
         {
-            MObject _node = this->getNode();
+            MObject _node = getNode();
 
             // Attach a function set
             MFnDependencyNode fn ( _node );
-            mNodeName = fn.name();
+            mNodeName = fn.name().asChar();
         }
 
         return mNodeName;
     }
 
     // -------------------------------------------
-    SceneElement::Type SceneElement::getType() const
+    const SceneElement::Type& SceneElement::getType() const
     {
         if ( mType == UNDETERMINED ) mType = determineType();
 
@@ -91,7 +90,7 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    SceneElement::Type SceneElement::determineType() const
+    const SceneElement::Type SceneElement::determineType() const
     {
         if ( mType != UNDETERMINED ) return mType;
 
@@ -133,15 +132,7 @@ namespace COLLADAMaya
             break;
 
         case MFn::kIkHandle:
-
-            if ( ExportOptions::exportJointsAndSkin() )
-            {
-                // TODO
-                //    doc->GetAnimationCache()->SampleIKHandle(dagPath);
-            }
-
-            return UNKNOWN;
-
+            return IKHANDLE;
             break;
 
         case MFn::kCamera:
@@ -197,7 +188,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------------------
-    bool SceneElement::containsChildElement ( MDagPath searchedPath )
+    const bool SceneElement::containsChildElement ( MDagPath searchedPath ) const
     {
         for ( uint i=0; i<mChildElements.size(); ++i )
         {
@@ -210,7 +201,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------------------
-    bool SceneElement::containsChildElement ( SceneElement* searchedSceneElement )
+    const bool SceneElement::containsChildElement ( SceneElement* searchedSceneElement ) const
     {
         for ( uint i=0; i<mChildElements.size(); ++i )
         {

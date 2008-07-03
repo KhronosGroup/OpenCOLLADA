@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_ANIMATION_CURVES_H__
 #define __COLLADA_MAYA_ANIMATION_CURVES_H__
 

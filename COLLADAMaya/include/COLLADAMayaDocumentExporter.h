@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_DOCUMENT_EXPORTER_H__
 #define __COLLADA_MAYA_DOCUMENT_EXPORTER_H__
 
@@ -49,6 +48,8 @@ namespace COLLADAMaya
 
     class AnimationSampleCache;
 
+    class ControllerLibrary;
+
     /**
      * The main exporter class. This class exports all data of the scene.
      */
@@ -66,18 +67,27 @@ namespace COLLADAMaya
 
         /** Exports the materials. */
         MaterialExporter* mMaterialExporter;
+
         /** Exports the effects. */
         EffectExporter* mEffectExporter;
+
         /** Exports the images. */
         ImageExporter* mImageExporter;
-        /** Exports the geometrie. */
+
+        /** Exports the geometry. */
         GeometryExporter* mGeometryExporter;
+
         /** Exports the visual scene. */
         VisualSceneExporter* mVisualSceneExporter;
+
         /** Exports the animations. */
         AnimationExporter* mAnimationExporter;
+
         /** Exports the animation clips. */
         AnimationClipExporter* mAnimationClipExporter;
+
+        /** Handles the controllers. */
+        ControllerLibrary* mControllerLibrary;
 
         /*
         CAnimCache* animCache;
@@ -222,6 +232,15 @@ namespace COLLADAMaya
             return mAnimationClipExporter;
         }
 
+        /**
+        * Returns a pointer to the controller library.
+        * @return ControllerLibrary* Pointer to the controller library
+        */
+        ControllerLibrary* getControllerLibrary()
+        {
+            return mControllerLibrary;
+        }
+
         // Create COLLADA names and ids
         /**
          * Converts the given string to a valid collada string.
@@ -229,26 +248,26 @@ namespace COLLADAMaya
          * @param removeNamespace True, if the namespace should be removed.
          * @return MString Maya string with the converted string.
          */
-        MString mayaNameToColladaName ( const MString& str, bool removeNamespace=true );
+        String mayaNameToColladaName ( const MString& str, bool removeNamespace=true );
         /**
          * Make an unique COLLADA Id from a dagPath.
          * @param dagPath The dag path to convert.
          * @return MString The converted collada id.
          */
-        MString dagPathToColladaId ( const MDagPath& dagPath );
+        String dagPathToColladaId ( const MDagPath& dagPath );
         /**
          * Get a COLLADA suitable node name from a DAG path
          * @param dagPath The dag path to convert.
          * @return MString The converted collada name.
          */
-        MString dagPathToColladaName ( const MDagPath& dagPath );
+        String dagPathToColladaName ( const MDagPath& dagPath );
 
         /**
          * Make a COLLADA name suitable for a DAG name.
          * @param name The name to convert.
          * @return MString Valid dag name.
          */
-        MString colladaNameToDagName ( const MString& name );
+        String colladaNameToDagName ( const MString& name );
 
         /**
          * Exports all data of the current scene.
@@ -284,8 +303,10 @@ namespace COLLADAMaya
         /** Exports the scene*/
         void exportScene();
 
-        /** Manage the import/export libraries */
+        /** Creates the import/export libraries */
         void createLibraries();
+
+        /** Releases the import/export libraries */
         void releaseLibraries();
 
     };

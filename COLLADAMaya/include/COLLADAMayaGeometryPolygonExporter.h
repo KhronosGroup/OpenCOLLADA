@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_GEOMETRY_POLYGON_EXPORTER_H__
 #define __COLLADA_MAYA_GEOMETRY_POLYGON_EXPORTER_H__
 
@@ -129,17 +128,9 @@ namespace COLLADAMaya
         {
 
         public:
-            PolygonSource ( Sources vertexAttributes, uint exportType=POLYLIST )
+            PolygonSource ( const Sources& vertexAttributes, uint exportType=POLYLIST )
                     : mVertexAttributes ( vertexAttributes ), mExportType ( exportType ), mIsHoled ( false )
-            {
-//     // Make a copy of the vector elements!
-//     Sources::const_iterator it = vertexAttributes.begin();
-//     for (; it!=vertexAttributes.end(); ++it)
-//     {
-//      SourceInput& input = *it;
-//      mVertexAttributes.push_back(new SourceInput(*input));
-//     }
-            }
+            {}
 
             /** The export type of the current polygon (POLYLIST, POLYGONS OR TRIANGLES) */
             uint mExportType;

@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneGraph.h"
@@ -30,6 +29,7 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaAnimationClipExporter.h"
 #include "COLLADAMayaAnimationSampleCache.h"
+#include "COLLADAMayaControllerLibrary.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaConvert.h"
@@ -61,6 +61,7 @@ namespace COLLADAMaya
             , mVisualSceneExporter ( NULL )
             , mAnimationExporter ( NULL )
             , mAnimationClipExporter ( NULL )
+            , mControllerLibrary ( NULL )
             , mSceneId ( "MayaScene" )
     {
     }
@@ -102,6 +103,8 @@ namespace COLLADAMaya
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
 
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
+
+        mControllerLibrary = new ControllerLibrary ( &mStreamWriter, this );
     }
 
     //---------------------------------------------------------------
@@ -116,6 +119,7 @@ namespace COLLADAMaya
         delete mVisualSceneExporter;
         delete mAnimationExporter;
         delete mAnimationClipExporter;
+        delete mControllerLibrary;
     }
 
 
@@ -147,7 +151,7 @@ namespace COLLADAMaya
             // Export the images
             mImageExporter->exportImages ( imageMap );
 
-            // Export the geometries
+            // Export the geometries and the controllers
             mGeometryExporter->exportGeometries();
 
             // Export the visual scene
@@ -300,7 +304,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     // Replace characters that are supported in Maya,
     // but not supported in collada names
-    MString DocumentExporter::mayaNameToColladaName ( const MString& str, bool removeNamespace )
+    String DocumentExporter::mayaNameToColladaName ( const MString& str, bool removeNamespace )
     {
         // NathanM: Strip off namespace prefixes
         // TODO: Should really be exposed as an option in the Exporter
@@ -339,7 +343,7 @@ namespace COLLADAMaya
         MString returnString ( buffer );
         delete buffer;
 
-        return returnString;
+        return returnString.asChar();
     }
 
     //---------------------------------------------------------------
@@ -348,7 +352,7 @@ namespace COLLADAMaya
     // a honking unique name for readability - but in future we
     // could just use an incrementing integer
     //
-    MString DocumentExporter::dagPathToColladaId ( const MDagPath& dagPath )
+    String DocumentExporter::dagPathToColladaId ( const MDagPath& dagPath )
     {
         return mayaNameToColladaName ( dagPath.partialPathName(), false );
     }
@@ -360,7 +364,7 @@ namespace COLLADAMaya
     // Maya node name. If we include any more of the path, we'll
     // get viral node names after repeated import/export.
     //
-    MString DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
+    String DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
     {
         MFnDependencyNode node ( dagPath.node() );
         return mayaNameToColladaName ( node.name(), true );
@@ -370,7 +374,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     // Make a COLLADA name suitable for a DAG name
     //
-    MString DocumentExporter::colladaNameToDagName ( const MString& dagPath )
+    String DocumentExporter::colladaNameToDagName ( const MString& dagPath )
     {
         int length = dagPath.length();
         char* tmp = new char[length + 1];
@@ -387,7 +391,7 @@ namespace COLLADAMaya
         MString rv ( tmp, length );
 
         delete[] tmp;
-        return rv;
+        return rv.asChar();
     }
 
 }

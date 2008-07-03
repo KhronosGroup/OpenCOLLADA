@@ -18,17 +18,20 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_SCENE_ELEMENT_H__
 #define __COLLADA_MAYA_SCENE_ELEMENT_H__
 
 #include "COLLADAMayaStableHeaders.h"
 #include "ColladaMayaPrerequisites.h"
 
-class MFnDagNode;
-
 namespace COLLADAMaya
 {
+
+    class SceneElement;
+
+    /** List of scene element. */
+    typedef std::vector<SceneElement*> SceneElementsList;
+
 
     /**
      * This class should be the base class for all the FCollada 'user-handle' structures.
@@ -45,6 +48,7 @@ namespace COLLADAMaya
             UNKNOWN,
             TRANSFORM,
             MESH,
+            IKHANDLE, // Inverse Kinematic
             CAMERA,
             LIGHT,
             PHYSIK,
@@ -57,9 +61,6 @@ namespace COLLADAMaya
 
     private:
 
-        /** List of scene element. */
-        typedef std::vector<SceneElement*> SceneElementsList;
-
         /** Persistent information for DAG nodes */
         const MDagPath mDagPath;
 
@@ -67,9 +68,10 @@ namespace COLLADAMaya
         MObject mNode;
 
         /** The unique id of the node */
-        MString mNodeId;
+        String mNodeId;
+
         /** The name of the node */
-        MString mNodeName;
+        String mNodeName;
 
         /** std::vector with parent elements */
         SceneElementsList mParentElements;
@@ -96,28 +98,28 @@ namespace COLLADAMaya
         virtual ~SceneElement();
 
         const MDagPath getPath() const; /** returns the node path */
-        MObject getNode();
+        const MObject& getNode();
 
         /** Returns the type of the node*/
-        Type getType() const;
-        void setType ( Type _type )
+        const Type& getType() const;
+        void setType ( const Type& _type )
         {
             mType = _type;
         }
 
         /** Set the unique id of the export node to @a id*/
-        void setId ( MString id )
+        void setId ( const String& id )
         {
             mNodeId = id;
         }
 
         /** Set the unique id of the export node to @a id*/
-        void setNodeName ( MString name )
+        void setNodeName ( const String& name )
         {
             mNodeName = name;
         }
 
-        MString getNodeName();
+        const String& getNodeName();
 
         /** Adds @a exportNode to its children*/
         void addParentElement ( SceneElement* exportElement )
@@ -126,15 +128,15 @@ namespace COLLADAMaya
         }
 
         /** Returns the number of child nodes*/
-        size_t getParentCount() const
+        const size_t getParentCount() const
         {
             return mParentElements.size();
         }
 
         /** Returns the @a i'th  child*/
-        SceneElement* getParent ( size_t i ) const
+        SceneElement* getParent ( size_t index=0 ) const
         {
-            return mParentElements[i];
+            return mParentElements[index];
         }
 
         bool containsParentElement ( SceneElement* searchedSceneElement );
@@ -147,7 +149,7 @@ namespace COLLADAMaya
         }
 
         /** Returns the number of child nodes*/
-        size_t getChildCount() const
+        const size_t getChildCount() const
         {
             return mChildElements.size();
         }
@@ -158,38 +160,38 @@ namespace COLLADAMaya
             return mChildElements[i];
         }
 
-        bool containsChildElement ( SceneElement* searchedSceneElement );
-        bool containsChildElement ( MDagPath searchedPath );
+        const bool containsChildElement ( SceneElement* searchedSceneElement ) const;
+        const bool containsChildElement ( MDagPath searchedPath ) const;
 
         /** Set the export flag on the current scene element. */
-        void setIsExportNode ( bool _isExportNode )
+        void setIsExportNode ( const bool _isExportNode )
         {
             isExportNode = _isExportNode;
         }
 
-        bool getIsExportNode()
+        const bool getIsExportNode() const
         {
             return isExportNode;
         }
 
         /** Set the forced flag on the current scene element. */
-        void setIsForced ( bool _isForced )
+        void setIsForced ( const bool _isForced )
         {
             isForced = _isForced;
         }
 
-        bool getIsForced()
+        const bool getIsForced() const
         {
             return isForced;
         }
 
         /** Set the visible flag on the current scene element. */
-        void setIsVisible ( bool _isVisible )
+        void setIsVisible ( const bool _isVisible )
         {
             isVisible= _isVisible;
         }
 
-        bool getIsVisible()
+        const bool getIsVisible() const
         {
             return isVisible;
         }
@@ -197,7 +199,7 @@ namespace COLLADAMaya
     private:
 
         /** Returns the type of the node*/
-        Type determineType() const;
+        const Type determineType() const;
     };
 }
 

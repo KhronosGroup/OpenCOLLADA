@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectTextureExporter.h"
 #include "COLLADAMayaShaderHelper.h"
@@ -205,7 +204,7 @@ namespace COLLADAMaya
         }
 
         // Convert the image name
-        String colladaImageName = mDocumentExporter->mayaNameToColladaName ( mayaName ).asChar();
+        String colladaImageName = mDocumentExporter->mayaNameToColladaName ( mayaName );
 
         // Create a new image structure
         COLLADA::Image* colladaImage = new COLLADA::Image ( fullFileNameURI, colladaImageName, colladaImageName );
@@ -216,7 +215,7 @@ namespace COLLADAMaya
         colladaImage->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_TEXTURE_NODETYPE, nodeType );
 
         // Export whether this image is in fact an image sequence
-        MPlug imgSeqPlug = dgFn.findPlug ( "useFrameExtension" );
+        MPlug imgSeqPlug = dgFn.findPlug ( ATTR_IMAGE_SEQUENCE );
 
         bool isImgSeq = false;
 

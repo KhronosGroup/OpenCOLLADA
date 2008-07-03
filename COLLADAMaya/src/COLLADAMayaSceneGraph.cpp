@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
@@ -274,7 +273,7 @@ namespace COLLADAMaya
 
         // Get the node name
         String nodeName = fn.name().asChar();
-        sceneElement->setNodeName ( fn.name() );
+        sceneElement->setNodeName ( fn.name().asChar() );
 
         // Check if it's a node to export and
         // tell the scene node to be transformed or not.

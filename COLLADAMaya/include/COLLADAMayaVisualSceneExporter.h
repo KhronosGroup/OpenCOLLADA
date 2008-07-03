@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_VISUAL_SCENE_EXPORTER_H__
 #define __COLLADA_MAYA_VISUAL_SCENE_EXPORTER_H__
 
@@ -52,7 +51,7 @@ namespace COLLADAMaya
         bool isJoint;
 
         /** Flag, if we handle the first rotation. */
-        bool isFirstRotation;
+        bool mIsFirstRotation;
 
         /** The id of the current scene. */
         const String& mSceneId;
@@ -104,12 +103,28 @@ namespace COLLADAMaya
         bool exportVisualSceneNodes ( SceneElement* sceneElement, bool& isLocal );
 
         /**
-         * Creates and opens a visual scene node and writes the transforms
+         * Creates and opens a visual scene node of type node and writes the transforms
          * and the references to the geometries and materials of the current scene element.
          * @param sceneNode The collada node to write.
          * @param sceneElement The node to export.
          */
-        bool exportVisualSceneNode ( COLLADA::Node* sceneNode, SceneElement* sceneElement );
+        bool exportNodeVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
+
+        /**
+        * Creates and opens a visual scene node of type joint and writes the transforms
+        * and the references to the geometries and materials of the current scene element.
+        * @param sceneNode The collada node.
+        * @param dagPath The node to export.
+        */
+        bool exportJointVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
+
+        /**
+        * Creates and opens a visual scene node and writes the transforms
+        * and the references to the geometries and materials of the current scene element.
+        * @param sceneNode The collada node to write.
+        * @param sceneElement The node to export.
+        */
+        bool exportVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
 
         /**
          * Initializes the transform objects.

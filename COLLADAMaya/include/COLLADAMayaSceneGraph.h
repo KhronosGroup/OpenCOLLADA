@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_SCENE_GRAPH_H__
 #define __COLLADA_MAYA_SCENE_GRAPH_H__
 
@@ -38,10 +37,6 @@ class VisualSceneExporter;
 
 namespace COLLADAMaya
 {
-
-    /** List of scene element. */
-    typedef std::vector<SceneElement*> SceneElementsList;
-
 
     /**
      * Creates the scene graph of the current scene.

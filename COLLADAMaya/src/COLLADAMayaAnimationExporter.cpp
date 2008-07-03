@@ -18,13 +18,13 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaSceneGraph.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
@@ -92,6 +92,9 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     const AnimationClipList* AnimationExporter::exportAnimations()
     {
+        // Go through the scene graph and look for IK-Handles to sample.
+        lookForSamples();
+
         // Create the curves for the samples
         AnimationSampleCache* animationSampleCache = mDocumentExporter->getAnimationCache();
         animationSampleCache->samplePlugs();
@@ -113,6 +116,62 @@ namespace COLLADAMaya
 
         // Return the list with the animation clips to export
         return &mAnimationClips;
+    }
+
+    //---------------------------------------------------------------
+    void AnimationExporter::lookForSamples()
+    {
+        if ( ExportOptions::exportJointsAndSkin() )
+        {
+            // Get the list with the transform nodes.
+            SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+            SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
+
+            // Export all/selected DAG nodes
+            uint length = exportNodesTree->size();
+
+            for ( uint i = 0; i < length; ++i )
+            {
+                SceneElement* sceneElement = ( *exportNodesTree ) [i];
+
+                // Recursive call for the current element and all children.
+                lookForSamples ( sceneElement );
+            }
+        }
+    }
+
+    // --------------------------------------------------------
+    void AnimationExporter::lookForSamples ( SceneElement* sceneElement )
+    {
+        // Get the animation cache
+        AnimationSampleCache* animationCache = mDocumentExporter->getAnimationCache();
+
+        // Get the current dag path
+        MDagPath dagPath = sceneElement->getPath();
+
+        // Check if it is an export node
+
+        if ( sceneElement->getIsExportNode() )
+        {
+            // Check, if it is an Inverse Kinematic
+            if ( sceneElement->getType() == SceneElement::IKHANDLE )
+            {
+                animationCache->sampleIKHandle ( dagPath );
+            }
+
+            else if ( sceneElement->getType() == SceneElement::CONSTRAINT )
+            {
+                animationCache->sampleConstraint ( dagPath );
+            }
+        }
+
+        // Recursive call for all the child elements
+
+        for ( uint i=0; i<sceneElement->getChildCount(); ++i )
+        {
+            SceneElement* childElement = sceneElement->getChild ( i );
+            lookForSamples ( childElement );
+        }
     }
 
     //---------------------------------------------------------------
@@ -902,6 +961,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + INPUT_SOURCE_ID_SUFFIX );
+            source.setName ( sourceId + INPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( TIME_PARAMETER );
@@ -943,6 +1003,7 @@ namespace COLLADAMaya
         {
             COLLADA::TypeIndependentSource source ( mSW );
             source.setId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
+            source.setName ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( dimension );
 
@@ -989,6 +1050,7 @@ namespace COLLADAMaya
         {
             COLLADA::NameSource source ( mSW );
             source.setId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
+            source.setName ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( INTERPOLATION_PARAMETER );
@@ -1029,6 +1091,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + sourceIdSuffix );
+            source.setName ( sourceId + sourceIdSuffix );
             source.setArrayId ( sourceId + sourceIdSuffix + ARRAY_ID_SUFFIX );
 
             uint stride = dimension * 2; // One for the in- and one for the outtangent.
@@ -1060,6 +1123,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + TCBS_SOURCE_ID_SUFFIX );
+            source.setName ( sourceId + TCBS_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + TCBS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( TCBS_PARAMETER );
@@ -1082,6 +1146,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + EASES_SOURCE_ID_SUFFIX );
+            source.setName ( sourceId + EASES_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + EASES_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( EASES_PARAMETER );
@@ -1145,7 +1210,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     String AnimationExporter::getBaseId ( const MPlug &plug )
     {
-        return mDocumentExporter->mayaNameToColladaName ( plug.name() ).asChar();
+        return mDocumentExporter->mayaNameToColladaName ( plug.name() );
 
         /*
         if ( animation.getDimension() == 1 )
@@ -1160,7 +1225,7 @@ namespace COLLADAMaya
     {
         MObject node = plug.node();
         MFnDagNode fnDagNode ( node );
-        String name = mDocumentExporter->mayaNameToColladaName ( fnDagNode.partialPathName(), false ).asChar();
+        String name = mDocumentExporter->mayaNameToColladaName ( fnDagNode.partialPathName(), false );
 
         return name;
     }
@@ -1544,7 +1609,7 @@ namespace COLLADAMaya
                 if ( status != MStatus::kSuccess ) continue;
 
                 // Create the corresponding COLLADA animation clip
-                String clipName = mDocumentExporter->mayaNameToColladaName ( clipFn.name() ).asChar();
+                String clipName = mDocumentExporter->mayaNameToColladaName ( clipFn.name() );
 
                 float startTime = ( float ) clipFn.getSourceStart().as ( MTime::kSeconds );
 

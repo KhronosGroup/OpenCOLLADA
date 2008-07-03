@@ -1,4 +1,4 @@
-/**
+/*
     Copyright (c) 2008 Intel Corporation
     Copyright (c) 2005-2008 Sony Computer Entertainment America
     Copyright (c) 2008 NetAllied Systems GmbH
@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_TEXTURE_EXPORTER_H__
 #define __COLLADA_MAYA_TEXTURE_EXPORTER_H__
 

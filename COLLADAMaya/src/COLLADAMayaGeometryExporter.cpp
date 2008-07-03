@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
@@ -28,6 +27,7 @@
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationExporter.h"
+#include "COLLADAMayaControllerLibrary.h"
 #include <algorithm>
 #include <ostream>
 
@@ -114,7 +114,6 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    // Walk through the scene graph and export all geometries.
     void GeometryExporter::exportGeometries()
     {
         // Get the list with the transform nodes.
@@ -135,56 +134,77 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    // Exports the current scene element and all it's children.
     void GeometryExporter::exportGeometries ( SceneElement* sceneElement )
     {
+        // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
-        if ( sceneElement->getType() == SceneElement::MESH )
+        // Check if it is a mesh and an export node
+
+        if ( sceneElement->getType() == SceneElement::MESH &&
+                sceneElement->getIsExportNode() )
         {
-            // Check if it is an export node
-            if ( sceneElement->getIsExportNode() )
+            // Get the controller library
+            ControllerLibrary* controller = mDocumentExporter->getControllerLibrary();
+
+            // Add the controller and/or geometry to our libraries
+            bool hasSkinController =
+                ExportOptions::exportJointsAndSkin() &&
+                controller->hasSkinController ( dagPath.node() );
+
+            bool hasMorphController = controller->hasMorphController ( dagPath.node() );
+
+            // Handle the controllers
+
+            if ( hasSkinController || hasMorphController )
             {
+                // TODO This isn't ready...
+                // Create a skin/morph transform object and export the geometry
+                controller->exportController ( sceneElement, hasSkinController );
+            }
+
+            else
+            {
+                // Export the geometry directly in the collada document
                 exportGeometry ( dagPath.node() );
             }
         }
 
+        // Recursive call for all the child elements
+
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
-
-            // recursive call for all the child elements
             exportGeometries ( childElement );
         }
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::exportGeometry ( const MObject& meshObject )
+    void GeometryExporter::exportGeometry ( const MObject& meshNode )
     {
-        // Clear the old list with the polygons
-        if ( !mPolygonSources.empty() ) mPolygonSources.clear();
-
-        // the mesh object
+        // Attach a function set to the mesh node.
+        // We access all of the meshes data through the function set
         MStatus status;
-
-        MFnMesh fnMesh ( meshObject, &status );
+        MFnMesh fnMesh ( meshNode, &status );
 
         if ( status != MStatus::kSuccess ) return;
 
-        // The unique ID
+        // TODO Create the unique ID
+//   mDocumentExporter->dagPathToColladaId(dagPath);
+//   mDocumentExporter->dagPathToColladaName(dagPath);
+
         MString nodeNameMaya = fnMesh.name();
 
-        MString nodeNameCollada = mDocumentExporter->mayaNameToColladaName ( nodeNameMaya, true );
+        String nodeNameCollada = mDocumentExporter->mayaNameToColladaName ( nodeNameMaya, true );
 
-        String meshId = GEOMETRY_ID_PRAEFIX + nodeNameCollada.asChar();
+        String meshId = /*GEOMETRY_ID_PRAEFIX +*/ nodeNameCollada;
 
         // Write the mesh data
-        exportMesh ( meshObject, meshId, nodeNameCollada );
+        exportMesh ( fnMesh, meshId, nodeNameCollada );
     }
 
     // --------------------------------------------------------
-    // Exports all geometry data of the current mesh
-    void GeometryExporter::exportMesh ( const MObject &meshObject, String meshId, MString &nodeNameCollada )
+    void GeometryExporter::exportMesh ( MFnMesh& fnMesh, String meshId, String &nodeNameCollada )
     {
         // Check if the geometry isn't already exported
         std::vector<String>::iterator geometryIter;
@@ -195,18 +215,11 @@ namespace COLLADAMaya
         // Push the exported geometry in the export list
         mExportedGeometries.push_back ( meshId );
 
-        // Get the type
-        const char* type = meshObject.apiTypeStr();
-
-        // Attach a function set to the mesh node.
-        // We access all of the meshes data through the function set
-        MFnMesh fnMesh ( meshObject );
-
         // Retrieve all uv set names for this mesh,
         // then generate corresponding textureCoordinateIds.
         MStringArray uvSetNames;
 
-        MPlug uvSetPlug = fnMesh.findPlug ( "uvSet" );
+        MPlug uvSetPlug = fnMesh.findPlug ( ATTR_UV_SET );
 
         for ( uint i = 0; i < uvSetPlug.numElements(); i++ )
         {
@@ -223,7 +236,7 @@ namespace COLLADAMaya
         std::vector<String> texcoordIds = generateTexCoordIds ( uvSetNames, meshId );
 
         // Opens the mesh tag in the collada document
-        openMesh ( meshId, nodeNameCollada.asChar() );
+        openMesh ( meshId, nodeNameCollada );
 
         // The list for the color sets. We have to clean!
         ColourSetList colorSets;
@@ -326,6 +339,7 @@ namespace COLLADAMaya
     {
         COLLADA::FloatSource vertexSource ( mSW );
         vertexSource.setId ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
+        vertexSource.setName ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
         vertexSource.setArrayId ( meshId + POSITIONS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         vertexSource.setAccessorStride ( 3 );
 
@@ -417,6 +431,8 @@ namespace COLLADAMaya
         COLLADA::FloatSource normalSource ( mSW );
 
         normalSource.setId ( meshId + NORMALS_SOURCE_ID_SUFFIX );
+
+        normalSource.setName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
 
         normalSource.setArrayId ( meshId + NORMALS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 
@@ -604,6 +620,8 @@ namespace COLLADAMaya
             // Geo-tangent
             tangentSource.setId ( meshId + GEOTANGENT_ID_SUFFIX );
 
+            tangentSource.setName ( meshId + GEOTANGENT_ID_SUFFIX );
+
             tangentSource.setArrayId ( meshId + GEOTANGENT_ID_SUFFIX + ARRAY_ID_SUFFIX );
 
             tangentSource.setAccessorStride ( 3 );
@@ -630,6 +648,7 @@ namespace COLLADAMaya
 
             // Geo-binormal
             binormalSource.setId ( meshId + GEOBINORMAL_ID_SUFFIX );
+            binormalSource.setName ( meshId + GEOBINORMAL_ID_SUFFIX );
             binormalSource.setArrayId ( meshId + GEOBINORMAL_ID_SUFFIX + ARRAY_ID_SUFFIX );
             binormalSource.setAccessorStride ( 3 );
             binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
@@ -779,6 +798,8 @@ namespace COLLADAMaya
 
             colorSource.setId ( colorSourceId );
 
+            colorSource.setName ( colorSourceId );
+
             colorSource.setArrayId ( colorSourceId + ARRAY_ID_SUFFIX );
 
             colorSource.setAccessorStride ( stride );
@@ -820,6 +841,7 @@ namespace COLLADAMaya
     {
         COLLADA::Vertices vertices ( mSW );
         vertices.setId ( meshId + VERTICES_ID_SUFFIX );
+        vertices.setNodeName ( meshId + VERTICES_ID_SUFFIX );
 
         // Get the input list
         COLLADA::InputList* inputList = &vertices.getInputList();
@@ -881,6 +903,8 @@ namespace COLLADAMaya
             COLLADA::FloatSource texCoordSource ( mSW );
 
             texCoordSource.setId ( texCoordinateId );
+
+            texCoordSource.setName ( texCoordinateId );
 
             texCoordSource.setArrayId ( texCoordinateId + ARRAY_ID_SUFFIX );
 

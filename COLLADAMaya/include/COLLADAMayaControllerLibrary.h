@@ -23,7 +23,9 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
+#include "COLLADAMayaSceneElement.h"
 
+#include <vector>
 
 namespace COLLADAMaya
 {
@@ -35,7 +37,7 @@ namespace COLLADAMaya
      * Represents a controller.
      */
 
-    class DaeController
+    class Controller
     {
 
     public:
@@ -43,11 +45,39 @@ namespace COLLADAMaya
 //  FMMatrix44List bindPoses; // export-only
 //  ControllerInstanceList instances; // export-only;
 
-        DaeController ( const MObject& node ) {}
+        Controller ( const MObject& node ) {}
 
-        virtual ~DaeController() {}
+        virtual ~Controller() {}
     };
 
+    typedef std::vector<Controller> ControllerList;
+
+    /**
+     * Holds any controller associated with the given plug.
+     */
+
+    struct ControllerStackItem
+    {
+        bool isSkin;
+        MObject skinControllerNode;
+        MObjectArray morphControllerNodes;
+        std::vector<long> nodeStates;
+    };
+
+    typedef std::vector<ControllerStackItem*> ControllerStack;
+
+    /**
+    * Represents a mesh controller item.
+    */
+
+    struct ControllerMeshItem
+    {
+        MObject mesh;
+        bool isIntermediate;
+        bool isVisible;
+    };
+
+    typedef std::vector<ControllerMeshItem> ControllerMeshStack;
 
     /**
      * Class to control the skins and morphs
@@ -56,9 +86,18 @@ namespace COLLADAMaya
     class ControllerLibrary
     {
 
+    private:
+
+        DocumentExporter* mDocumentExporter;
+
+        // A lookup table of elements we've already processed
+        ControllerList importedMorphControllers;
+        ControllerList skinControllers;
+        unsigned long boneCounter; // ensure unique joint names
+
     public:
         ControllerLibrary ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
-        ~ControllerLibrary();
+        virtual ~ControllerLibrary();
 
 //   // Create the requested controller instance
 //   // Note: this function returns whether the id is a controller, not success
@@ -83,10 +122,26 @@ namespace COLLADAMaya
 //
 //   // Export any controller associated with the given plug.
 //   void addForceNodes(const MDagPath& dagPath);
-//   void exportJoint(FCDSceneNode* sceneNode, const MDagPath& dagPath, bool isLocal);
-//   DaeEntity* exportController(FCDSceneNode* sceneNode, const MDagPath& dagPath, bool isSkin,
-//    bool instantiate=true);
-//   DaeEntity* exportController(FCDSceneNode* sceneNode, const MObject& node);
+
+        /**
+         * @todo documentation
+         * @param sceneNode
+         * @param dagPath
+         * @param isSkin
+         * @param instantiate
+         */
+        void exportController ( SceneElement* sceneNode,
+                                bool isSkin,
+                                bool instantiate=true );
+
+        /**
+         * @todo documentation
+         * @param sceneNode
+         * @param node
+        * @return True, if the controller was exported.
+         */
+        bool exportController ( SceneElement* sceneNode, const MObject& node );
+
 //   DaeEntity* exportMorphController(FCDSceneNode* sceneNode, MObjectArray& controllerNodes, DaeEntity* target);
 //   DaeEntity* exportSkinController(MObject controllerNode, MDagPath outputShape, DaeEntity* target);
 //   FCDGeometry* exportMorphTarget(MPlug& vertexListPlug, MPlug& targetComponentListPlug, uint targetIndex, FCDGeometry* baseMesh);
@@ -94,19 +149,12 @@ namespace COLLADAMaya
 //   void completeInstanceExport(FCDControllerInstance* instance, FCDController* entity);
 //   void completeControllerExport();
 //
-//   // Returns true if 'node' is of a supported shape type and it has a controller.
-//   bool hasController(const MObject& node);
-//   bool hasSkinController(const MObject& node);
-//   bool hasMorphController(const MObject& node);
+        // Returns true if 'node' is of a supported shape type and it has a controller.
+        bool hasController ( const MObject& node );
+        bool hasSkinController ( const MObject& node );
+        bool hasMorphController ( const MObject& node );
 
     private:
-
-        DocumentExporter* mDocumentExporter;
-
-        // A lookup table of elements we've already processed
-//   ControllerList importedMorphControllers;
-//   ControllerList skinControllers;
-        unsigned long boneCounter; // ensure unique joint names
 
         // Support for Joint clusters pipeline
 //  void getJointClusterInfluences(const MObject& controllerNode, MDagPathArray& influences, MObjectArray& weightFilters, uint clusterIndex);

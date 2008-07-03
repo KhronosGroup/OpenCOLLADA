@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
 #include "COLLADAMayaExportOptions.h"
@@ -222,7 +221,7 @@ namespace COLLADAMaya
                 // Add symbolic name for the material used on this polygon set.
                 MFnDependencyNode shaderFn ( shaders[shaderPosition] );
                 String shaderName = shaderFn.name().asChar();
-                String materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name() ).asChar();
+                String materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name() );
                 primitivesBasePoly->setMaterial ( materialName );
             }
 

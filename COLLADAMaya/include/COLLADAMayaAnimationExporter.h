@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 #define __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 
@@ -28,6 +27,7 @@
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaAnimationElement.h"
+#include "COLLADAMayaSceneElement.h"
 
 #include <maya/MFnAnimCurve.h>
 
@@ -164,6 +164,12 @@ namespace COLLADAMaya
                                 ConversionFunctor* conversion = NULL );
 
     private:
+
+        /** Go through the scene graph and look for IK-Handles to sample. */
+        void lookForSamples();
+
+        /** Checks the current scene element and all it's children for sampling as IK-Handle. */
+        void lookForSamples ( SceneElement* sceneElement );
 
         /**
         * Exports all animation curves of the animated elements and the child

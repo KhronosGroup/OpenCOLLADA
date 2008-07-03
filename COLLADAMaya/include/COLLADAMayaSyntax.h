@@ -18,7 +18,6 @@
     COLLADAMaya; see the file COPYING. If not have a look here:
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_SYNTAX_H__
 #define __COLLADA_MAYA_SYNTAX_H__
 
@@ -108,6 +107,10 @@ namespace COLLADAMaya
     static const char* MAYA_DESATURATE_BLENDMODE     = "DESATURATE";
     static const char* MAYA_ILLUMINATE_BLENDMODE     = "ILLUMINATE";
 
+    static const char* MAYA_NOTE_PARAMETER       = "note";
+    static const char* MAYA_ENDTIME_PARAMETER      = "end_time";
+    static const char* MAYA_STARTTIME_PARAMETER      = "start_time";
+    static const char* MAYA_SEGMENTSCALECOMP_PARAMETER    = "segment_scale_compensate";
 
     // COLLADA 1.4 Max-specific profile
     static const char* MAX_PROFILE         = "MAX3D";
@@ -139,6 +142,7 @@ namespace COLLADAMaya
     static const String Z_PARAMETER[1]    = { "Z" };
     static const String XY_PARAMETERS[2]   = { "X", "Y" };
     static const String XYZ_PARAMETERS[3]   = { "X", "Y", "Z" };
+    static const String ZYX_PARAMETERS[3]   = { "Z", "Y", "X" };
     static const String XYZW_PARAMETERS[4]   = { "X", "Y", "Z", "W" };
     static const String RGBA_PARAMETERS[4]   = { "R", "G", "B", "A" };
     static const String STPQ_PARAMETERS[4]   = { "S", "T", "P", "Q" };
@@ -165,12 +169,15 @@ namespace COLLADAMaya
     static const char* ATTR_COSINE_POWER    = "cosinePower";
     static const char* ATTR_ECCENTRICITY    = "eccentricity";
     static const char* ATTR_FILE_TEXTURE_NAME   = "fileTextureName";
-    static const char* ATTR_INCANDESCENE    = "incandescence";
+    static const char* ATTR_IMAGE_SEQUENCE    = "useFrameExtension";
+    static const char* ATTR_INCANDESCENCE    = "incandescence";
     static const char* ATTR_IN_MESH      = "inMesh";
+    static const char* ATTR_INTERMEDIATE_OBJECT   = "io";
     static const char* ATTR_INPUt      = "input";
     static const char* ATTR_INVERT      = "invert";
     static const char* ATTR_JOINT_ORIENT    = "jointOrient";
     static const char* ATTR_MATRIX      = "matrix";
+    static const char* ATTR_NODE_STATE     = "nodeState";
     static const char* ATTR_NORMAL_CAMERA    = "normalCamera";
     static const char* ATTR_OPAQUE_OA     = "oa";
     static const char* ATTR_OPAQUE_OC     = "oc";
@@ -183,7 +190,9 @@ namespace COLLADAMaya
     static const char* ATTR_SCALE_PIVOT     = "scalePivot";
     static const char* ATTR_SCALE_PIVOT_TRANSLATION  = "scalePivotTranslation";
     static const char* ATTR_SPECULAR_COLOR    = "specularColor";
+    static const char* ATTR_SEGMENT_SCALE_COMPENSATE = "ssc";
     static const char* ATTR_SURFACE_SHADER    = "surfaceShader";
+    static const char* ATTR_UV_SET      = "uvSet";
     static const char* ATTR_REFLECTIVITY    = "reflectivity";
     static const char* ATTR_REFLECTED_COLOR    = "reflectedColor";
     static const char* ATTR_REFRACTIONS     = "refractions";
@@ -200,6 +209,7 @@ namespace COLLADAMaya
     static const char* ATTR_TRANSLATE     = "translate";
     static const char* ATTR_TRANSPARENCY    = "transparency";
     static const char* ATTR_VISIBILITY     = "visibility";
+
 
     static const char* ATTR_PROJECTION_TYPE    = "projType";
     static const char* ATTR_PLACEMENT_MATRIX    = "placementMatrix";
