@@ -1,0 +1,8 @@
+Download, compile and copy the generated file "COLLADAMaya.mll" into the 
+folder /bin/plug-ins of your Autodesk Maya installation.
+
+When you start Autodesk Maya, go to the menu 
+"Window", "Settings/Preferences", "Plug-in Manager"
+and load the plug-in "COLLADAMaya.mll" from the list.
+
+Now you can export your maya scene.

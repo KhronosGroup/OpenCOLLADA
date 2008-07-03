@@ -1,0 +1,58 @@
+=======================================
+-   General
+    -   absolute vs. relative path
+    -   installer
+    -   64bit
+    -   build system
+    -   layer
+    -   reader
+    -   unit tests
+    -   test framework
+    -   gui
+    -   options
+    -   i18n
+    -   documentation / user
+
+=======================================
+-   VisualScene
+    -   joints and skins
+    -   Reference to effect texture
+
+=======================================
+-   Geometry:
+
+    -   Materials:
+        -   test blinn
+        
+    - Polygons export:
+        LINES 
+	    LINE_STRIPS 
+	    TRIANGLE_FANS
+	    TRIANGLE_STRIPS
+	    POINTS
+	    
+=======================================
+-   Effects:
+    -   exportColladaFXShader
+    -   exportColladaFXPasses
+
+=======================================
+-   Animations
+    -   CExportOptions::ExportVertexColorAnimations()
+    -   Constraints (point, orient, parent)
+
+=======================================
+-   Lights
+
+
+=======================================
+-   Cameras
+
+=======================================
+-   PhysicalScene
+
+=======================================
+-   Spline
+
+=======================================
+-   Nurbs

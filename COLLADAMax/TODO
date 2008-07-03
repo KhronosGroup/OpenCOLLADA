@@ -1,0 +1,58 @@
+=======================================
+-   General
+    -   absolute vs. relative path
+    -   installer to automatically copy the plug-in and its dependencies to the right place 
+    -   64bit version of the plug-in
+    -   build system
+    -   layer
+    -   import plug-in
+    -   unit tests
+    -   test framework to test all the features of the plug-in
+    -   options to control the behavior of the plug-in. i.e. what and how to export
+    -   gui to select options and to report problems
+    -   i18n
+    -   documentation how to use the plug-in and what features are supported
+
+=======================================
+-   VisualScene
+    -   joints and skins
+    -   Reference to effect texture
+
+=======================================
+-   Geometry:
+
+    -   Materials:
+        -   test blinn
+        
+    - Polygons export:
+        LINES 
+	    LINE_STRIPS 
+	    TRIANGLE_FANS
+	    TRIANGLE_STRIPS
+	    POINTS
+	    
+=======================================
+-   Effects:
+    -   Shader export
+
+=======================================
+-   Animations
+	- Only simple transformation animations are currently supported
+
+=======================================
+-   Lights
+
+=======================================
+-   Cameras
+
+=======================================
+-   PhysicalScene
+
+=======================================
+-   Spline
+
+=======================================
+-   Nurbs
+
+=======================================
+-   Object External References (XREFs)

@@ -1,0 +1,29 @@
+/** 
+  @mainpage API Reference for COLLADAMaya
+  
+  <ol>
+    <li>
+        <a href="#intro">Introduction</a>
+        <ol style="list-style-type:lower-alpha">
+            <li><a href="#COLLADAMaya">COLLADAMaya</a></li>
+            <li><a href="#colladastreamwriter">COLLADAStreamWriter</a></li>
+        </ol>
+    </li>
+  
+  @section intro Introduction  
+  
+  This is the complete API reference for the COLLADAMaya exporter plugin and the COLLADAStreamWriter.
+  
+  @subsection COLLADAMaya  COLLADAMaya
+  COLLADAMaya is a new implementation of a Autodesk Maya plug-in to export a Maya scene or 
+  parts of it to a <a href="http://www.collada.org/mediawiki/index.php/COLLADA">COLLADA</a> file, 
+  released under an MIT-license.  In contrast to other existing Autodesk Maya to COLLADA exporters, 
+  this new plug-in does not store the COLLADA document in an intermidiate data model but writes it 
+  directly to file. This leads to a dramatic reduction of memory consumption and to a much better 
+  performance.
+  
+  
+  @subsection colladastreamwriter COLLADAStreamWriter
+  The COLLADAStreamWriter is a library to simplify writing COLLADA files directly to a file, without 
+  storing them in an intermidiate data model.
+*/
