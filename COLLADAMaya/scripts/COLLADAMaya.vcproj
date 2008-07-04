@@ -183,6 +183,14 @@
 				<File
 					RelativePath="..\src\COLLADAMayaPrecompiledHeaders.cpp"
 					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
 				</File>
 				<Filter
 					Name="Animation"
