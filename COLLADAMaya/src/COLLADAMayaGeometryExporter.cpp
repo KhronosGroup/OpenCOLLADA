@@ -243,6 +243,13 @@ namespace COLLADAMaya
 
         // Export the geometry
         exportVertexPositions ( fnMesh, meshId );
+
+        bool error = false;
+        if (strcmp(meshId.c_str(), "PlatformShape") == 0)
+        {
+            error = true;
+        }
+
         bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, meshId );
         exportTextureCoords ( fnMesh, meshId, uvSetNames, texcoordIds );
         // exportVertexBlindData(fnMesh);

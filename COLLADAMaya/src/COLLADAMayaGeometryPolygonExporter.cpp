@@ -68,7 +68,7 @@ namespace COLLADAMaya
         mUvSetNames = uvSetNames;
         mPolygonSources = polygonSources;
         mVertexSources = vertexSources;
-        hasFaceVertexNormals = hasFaceVertexNorms;
+        mHasFaceVertexNormals = hasFaceVertexNorms;
         mColorSets = colorSets;
 
         // If triangulation is requested, verify that it is feasible by checking with all the mesh polygons
@@ -144,14 +144,26 @@ namespace COLLADAMaya
         // Iterate through all polygons of the current mesh
         MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
 
+        bool error = false;
+        if (strcmp(mMeshId.c_str(), "PlatformShape") == 0)
+        {
+            error = true;
+        }
+
+
         for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
         {
             // Is this polygon shaded by this shader?
             int polyIndex = meshPolygonsIter.index();
 
-            if ( shaderPosition < realShaderCount && ( uint ) shaderIndices[polyIndex] != shaderPosition ) continue;
+            if ( shaderPosition < realShaderCount && 
+                ( uint ) shaderIndices[polyIndex] != shaderPosition ) 
+                continue;
 
-            if ( shaderPosition >= realShaderCount && ( shaderIndices[polyIndex] >= 0 && shaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
+            if ( shaderPosition >= realShaderCount && 
+                ( shaderIndices[polyIndex] >= 0 && 
+                    shaderIndices[polyIndex] < ( int ) realShaderCount ) ) 
+                    continue;
 
             // Initialize the polylist if it is the first polygon to export
             if ( numPolygons == 0 )
@@ -187,6 +199,11 @@ namespace COLLADAMaya
             }
         }
 
+
+        if (shaderPolygons.size() == 100)
+        {
+ //           return;
+        }
 
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
@@ -251,9 +268,7 @@ namespace COLLADAMaya
                 Sources vertexAttributes = currentPolygon->mVertexAttributes;
 
                 uint numVertices = 0;
-
                 size_t numAttributes = vertexAttributes.size();
-
                 if ( numAttributes > 0 )
                     numVertices = vertexAttributes[0].mIndexes.size();
 
@@ -265,9 +280,10 @@ namespace COLLADAMaya
                 uint sumOfFaceVertexCounts = currentPolygon->mFaceVertexCounts[currentFaceIndex];
 
                 // Check if the current face is a normal polygon or a hole and open the corresponding tag.
-                if ( exportType == POLYGONS ) openPolygonOrHoleElement ( primitivesBasePoly,
-                            currentPolygon,
-                            currentFaceIndex );
+                if ( exportType == POLYGONS ) 
+                    openPolygonOrHoleElement ( primitivesBasePoly, 
+                                               currentPolygon,
+                                               currentFaceIndex );
 
                 // --------------------------------------------
                 // For every vertex
@@ -519,7 +535,7 @@ namespace COLLADAMaya
             // Buffer the face normal indices
             MIntArray normalIndices;
 
-            if ( hasFaceVertexNormals )
+            if ( mHasFaceVertexNormals )
             {
                 fnMesh.getFaceNormalIds ( polyIndex, normalIndices );
             }
@@ -616,14 +632,13 @@ namespace COLLADAMaya
             case COLLADA::GEOTANGENT:
 
             case COLLADA::GEOBINORMAL:
+            {
+                fnMesh.getFaceNormalIds ( 0, normalIndices );
 
-                if ( hasFaceVertexNormals )
-                {
-                    int currentVertexIndex = normalIndices[iteratorVertexIndex];
-                    vertexAttributes.mIndexes.push_back ( currentVertexIndex );
-                }
-
+                int currentVertexIndex = normalIndices[iteratorVertexIndex];
+                vertexAttributes.mIndexes.push_back ( currentVertexIndex );
                 break;
+            }
 
             case COLLADA::TEXCOORD:
             {
@@ -681,8 +696,9 @@ namespace COLLADAMaya
     /**
     * Generate the polygon set inputs.
     */
-    void GeometryPolygonExporter::generatePolygonSetInputs ( COLLADA::PrimitivesBase* polylist,
-            Sources* vertexAttributes )
+    void GeometryPolygonExporter::generatePolygonSetInputs ( 
+        COLLADA::PrimitivesBase* polylist,
+        Sources* vertexAttributes )
     {
         // Generate the polygon set inputs.
         int nextIdx = 1, normalsIdx = -1;
@@ -691,9 +707,17 @@ namespace COLLADAMaya
 
         for ( size_t p = 0; p < inputCount; ++p )
         {
-            SourceInput& param = ( *mPolygonSources ) [p];
-            COLLADA::SourceBase& source = param.mSource;
-            COLLADA::Semantics& type = param.mType;
+            SourceInput param = ( *mPolygonSources ) [p];
+            COLLADA::SourceBase source = param.mSource;
+            COLLADA::Semantics type = param.mType;
+
+            bool error = false;
+            if (strcmp(source.getId().c_str(), "pin_Shape1-normals") == 0)
+            {
+                if (strcmp(mMeshId.c_str(), "PlatformShape") == 0)
+                    error = true;
+            }
+
 
             // Figure out which idx this parameter will use
             int foundIdx = -1;
@@ -750,7 +774,7 @@ namespace COLLADAMaya
                 // Get the generated id of the source for reference
                 String sourceId = source.getId();
 
-                // The vertex sources must reference to the vertices element
+                // The vertex sources must reference to the vertexes element
 
                 if ( type == COLLADA::VERTEX )
                 {
@@ -774,7 +798,7 @@ namespace COLLADAMaya
             if ( newIdx )
             {
                 // param for the last time.
-                vertexAttributes->push_back ( param );
+                vertexAttributes->push_back ( SourceInput(param) );
             }
 
         }

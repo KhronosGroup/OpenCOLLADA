@@ -49,8 +49,7 @@ namespace COLLADAMaya
 
     typedef std::vector<SourceInput> Sources;
 
-    // A generic Input attribute
-
+    /** A generic Input attribute */
     class SourceInput
     {
 
@@ -80,7 +79,7 @@ namespace COLLADAMaya
         static bool containsSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase );
 
         /**
-        * Returns true, if the given list contains the given SourceInput and erased sucessfull.
+        * Returns true, if the given list contains the given SourceInput and erased sucessful.
         */
         static bool eraseSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase );
     };

@@ -37,19 +37,6 @@
 namespace COLLADAMaya
 {
 
-    /**
-    * We have to hold the Importer and the Exporter in a global way.
-    * Otherwise we aren't able to delete them after use.
-    */
-    FileTranslator* globalExporter;
-    FileTranslator* globalImporter;
-
-    /**
-    * We have to hold a global document node for the plug-in initialization.
-    * Otherwise we aren't able to delete them after use.
-    */
-    DocumentNode* globalDocumentNode = NULL;
-
     // This is a nasty bit of hackyness for compilation under Windows. Under Win32 you need
     // to compile a dll project and change the extension from "dll" to "mll". One additional
     // thing we have to do is 'export' the initializePlugin and uninitializePlugin functions.
@@ -75,35 +62,35 @@ namespace COLLADAMaya
     {
         MStatus   status;
 
-        MFnPlugin plugin ( obj, TRANSLATOR_VENDOR, "1.0", TRANSLATOR_MAYA_API_VERSION );
+        MFnPlugin plugin ( obj, TRANSLATOR_VENDOR, TRANSLATOR_VERSION, TRANSLATOR_MAYA_API_VERSION );
 
         // Add plug-in feature registration here
         //
 
-        // Register the COLLADA document node
-        // This node is needed by the translator: register it before the translation plug-in.
-        status = plugin.registerNode ( COLLADA_DOCUMENT,
-                                       DocumentNode::id,
-                                       DocumentNode::creator,
-                                       DocumentNode::initialize,
-                                       MPxNode::kDependNode );
-
-        if ( status != MStatus::kSuccess )
-        {
-            status.perror ( "registerNode" );
-            return status;
-        }
+//         // Register the COLLADA document node
+//         // This node is needed by the translator: register it before the translation plug-in.
+//         status = plugin.registerNode ( COLLADA_DOCUMENT,
+//                                        DocumentNode::id,
+//                                        DocumentNode::creator,
+//                                        DocumentNode::initialize,
+//                                        MPxNode::kDependNode );
+// 
+//         if ( status != MStatus::kSuccess )
+//         {
+//             status.perror ( "registerNode" );
+//             return status;
+//         }
 
         // --------------------------------------------------------------
         // Register the import and the export file translator plug-ins.
 
         // Export-Plugin
-        status = plugin.registerFileTranslator ( COLLADA_EXPORTER,
+        status = plugin.registerFileTranslator ( 
+                 COLLADA_EXPORTER,
                  "", // pathname of the icon used in file selection dialogs
                  FileTranslator::createExporter, // this class implements the new file type
                  MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
-                 NULL, // defaultOptionsString
-                 false ); // don't execute MEL scripts
+                 NULL ); // defaultOptionsString
 
         if ( !status )
         {
@@ -113,12 +100,12 @@ namespace COLLADAMaya
         }
 
         // Import-Plugin
-        status = plugin.registerFileTranslator ( COLLADA_IMPORTER,
+        status = plugin.registerFileTranslator ( 
+                COLLADA_IMPORTER,
                  "",
                  FileTranslator::createImporter,
                  MEL_IMPORT_OPTS,
-                 NULL,
-                 false );
+                 NULL );
 
         if ( !status )
         {
@@ -187,12 +174,11 @@ namespace COLLADAMaya
         MStatus   status;
         MFnPlugin plugin ( obj );
 
-        // Add plug-in feature unregistration here
+        // Add plug-in feature de-registration here
         //
 
         // Export-Plugin
         status = plugin.deregisterFileTranslator ( COLLADA_EXPORTER );
-
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
@@ -200,19 +186,14 @@ namespace COLLADAMaya
             return status;
         }
 
-        delete globalExporter;
-
         // Import-Plugin
         status = plugin.deregisterFileTranslator ( COLLADA_IMPORTER );
-
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
             MGlobal::displayError ( MString ( "Unable to unregister COLLADA importer: " ) + status );
             return status;
         }
-
-        delete globalImporter;
 
         /*
         status = plugin.deregisterNode(CFXShaderNode::id);
@@ -242,15 +223,12 @@ namespace COLLADAMaya
 #endif // MAYA 8.0 and 8.5
 
 
-        status = plugin.deregisterNode ( DocumentNode::id );
-
-        if ( !status )
-        {
-            status.perror ( "deregisterNode" );
-            return status;
-        }
-
-        delete globalDocumentNode;
+//         status = plugin.deregisterNode ( DocumentNode::id );
+//         if ( !status )
+//         {
+//             status.perror ( "deregisterNode" );
+//             return status;
+//         }
 
         return status;
     }
@@ -276,14 +254,12 @@ namespace COLLADAMaya
     // These two methods are registered to Maya's plugin module in the above initializePlugin function.
     void* FileTranslator::createExporter()
     {
-        globalExporter = new FileTranslator ( false );
-        return globalExporter;
+        return new FileTranslator ( false );
     }
 
     void* FileTranslator::createImporter()
     {
-        globalImporter = new FileTranslator ( true );
-        return globalImporter;
+        return new FileTranslator ( true );
     }
 
     /************************************************************************/

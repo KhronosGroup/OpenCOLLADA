@@ -63,7 +63,7 @@ namespace COLLADAMaya
         MStringArray mUvSetNames;
 
         /** Flag, if face vertex normals exist */
-        bool hasFaceVertexNormals;
+        bool mHasFaceVertexNormals;
 
         /** The list with the color sets */
         ColourSetList mColorSets;
@@ -128,9 +128,14 @@ namespace COLLADAMaya
         {
 
         public:
+
+            /** Constructor */
             PolygonSource ( const Sources& vertexAttributes, uint exportType=POLYLIST )
                     : mVertexAttributes ( vertexAttributes ), mExportType ( exportType ), mIsHoled ( false )
             {}
+
+            /** Destructor */
+            virtual ~PolygonSource(){};
 
             /** The export type of the current polygon (POLYLIST, POLYGONS OR TRIANGLES) */
             uint mExportType;

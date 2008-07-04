@@ -34,13 +34,14 @@ namespace COLLADAMaya
     // Mel-Scripts
     // Name of a MEL script that will be used to display the contents of the
     // options dialog during file open and save
-    static char*  MEL_EXPORT_OPTS         = "colladaTranslatorOpts";
-    static char*  MEL_IMPORT_OPTS         = "colladaImporterOpts";
+    static char*  MEL_EXPORT_OPTS                           = "colladaTranslatorOpts";
+    static char*  MEL_IMPORT_OPTS                           = "colladaImporterOpts";
 
     // COLLADA NetAllied Systems
-    static const char* COLLADA_PROFILE        = "COLLADA";
-    static const char* TRANSLATOR_VENDOR       = "NetAllied Systems";
-    static const char* TRANSLATOR_MAYA_API_VERSION     = "2008";
+    static const char* COLLADA_PROFILE                      = "COLLADA";
+    static const char* TRANSLATOR_VENDOR                    = "NetAllied Systems GmbH";
+    static const char* TRANSLATOR_VERSION                   = "0.8.0";
+    static const char* TRANSLATOR_MAYA_API_VERSION          = "2008";
 
     // COLLADA 1.4 Maya-specific definitions
     static const char* MAYA_PROFILE         = "MAYA";
