@@ -1,4 +1,3 @@
-
 COLLADAMax is a new implementation of a 3ds Max plug-in to export a Max scene or 
 parts of it to a COLLADA file, released under an MIT-license. 
 In contrast to other existing 3ds Max to COLLADA exporters, this new plug-in does not store the
