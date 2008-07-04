@@ -826,7 +826,7 @@ namespace COLLADAMaya
             if ( scale[i] != 1 ) isOneVector = false;
         }
 
-        if ( mTransformObject != MObject::kNullObj || !isOneVector )
+        if ( mTransformObject != MObject::kNullObj && !isOneVector )
         {
             mVisualSceneNode->addScale ( ATTR_SCALE, scale[0], scale[1], scale[2] );
 
