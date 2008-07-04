@@ -22,6 +22,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaAnimationElement.h"
+#include "COLLADAMayaAnimationCurves.h"
 
 
 namespace COLLADAMaya

@@ -1,6 +1,6 @@
 Requirements:
 -------------
-To build the COLLADAMaya plug-in you need a installed version of Autodesk Maya, 
+To build the COLLADAMaya plug-in, you need a version of Autodesk Maya, 
 including the SDK, installed.
 
 Supported versions are:
@@ -14,20 +14,10 @@ the COLLADAMaya directory ./scripts.
 Build:
 ---------
 Before you can start to build you have to define the environment variable 
-"MAYA_LOCATION" to your installation path of Autodesk Maya.
+"MAYA_PATH2008" to your installation path of Autodesk Maya.
 
-Download and compile the sources of COLLADAMaya. Copy the generated file 
-"COLLADAMaya.mll" into the folder /bin/plug-ins of your Autodesk Maya 
-installation.
-You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
-generated mll-file into the pointed directory.
+Download and compile the sources of COLLADAMaya. The "COLLADAMaya.mll" file 
+will be created in the output folder.
 
-Start:
---------
-When you start Autodesk Maya, go to the menu 
-    << Window >>, 
-        << Settings/Preferences >>, 
-            << Plug-in Manager >>
-and load the plug-in "COLLADAMaya.mll" from the extended list.
 
-Now you can export your maya scene in a COLLADA file.
+For help on installation, please read the INSTALL file.
