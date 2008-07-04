@@ -17,7 +17,10 @@ Before you can start to build you have to define the environment variable
 "MAYA_PATH2008" to your installation path of Autodesk Maya.
 
 Download and compile the sources of COLLADAMaya. The "COLLADAMaya.mll" file 
-will be created in the output folder.
+will be created in the output folder and copied into the folder 
+$(MAYA_PATH2008)/bin/plug-ins of your Autodesk Maya installation.
 
+If you don't use the MS Visual Studio project file, you have to copy the 
+created "COLLADAMaya.mll" file into this directory.
 
 For help on installation, please read the INSTALL file.

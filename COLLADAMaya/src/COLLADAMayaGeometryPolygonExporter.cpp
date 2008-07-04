@@ -136,9 +136,6 @@ namespace COLLADAMaya
         // Number of polygons (could also be triangles)
         uint numPolygons = 0;
 
-        // List for the polygon set inputs.
-        Sources polygonSetInputs;
-
         // true, if the current shape has one or more polygons, which have one or more holes.
         bool currentShapeIsHoled = false;
 
@@ -146,14 +143,10 @@ namespace COLLADAMaya
         // Iterate through all polygons of the current mesh
         MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
 
-        bool error = false;
-        if (strcmp(mMeshId.c_str(), "PlatformShape") == 0)
-        {
-            error = true;
-        }
+       // List for the polygon set inputs.
+       Sources polygonSetInputs;
 
-
-        for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
+       for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
         {
             // Is this polygon shaded by this shader?
             int polyIndex = meshPolygonsIter.index();
@@ -175,7 +168,7 @@ namespace COLLADAMaya
             }
 
             // Create a polygon to store the vertex indexes to export
-            PolygonSource* polygon = new PolygonSource ( Sources ( polygonSetInputs ) );
+            PolygonSource* polygon = new PolygonSource ( polygonSetInputs );
 
             // -----------------------------------------------------
             // Export the vertices and increment polygon count
@@ -201,11 +194,6 @@ namespace COLLADAMaya
             }
         }
 
-
-        if (shaderPolygons.size() == 100)
-        {
- //           return;
-        }
 
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
@@ -251,7 +239,6 @@ namespace COLLADAMaya
             // Iterate through the list of polygons
 
             uint numPolygons = shaderPolygons.size();
-
             for ( uint pp=0; pp<numPolygons; ++pp )
             {
                 PolygonSource* currentPolygon = shaderPolygons[pp];
@@ -321,12 +308,18 @@ namespace COLLADAMaya
                         SourceInput& sourceInput = vertexAttributes[kk];
                         std::vector<int>& indexes = sourceInput.mIndexes;
 
-                        if ( indexes.size() < vertexPosition+1 )
+                        if (vertexPosition < indexes.size())
+                        {
+                            int index = indexes[vertexPosition];
+
+                            primitivesBasePoly->appendValues ( index );
+                        }
+                        else
+                        {
+                            // Assert, cause the index position is wrong. 
+                            // There is something wrong with the created polygons!
                             assert ( "Index position in vertex attributes wrong!" );
-
-                        int index = indexes[vertexPosition];
-
-                        primitivesBasePoly->appendValues ( index );
+                        }
                     }
                 }
 
@@ -635,10 +628,17 @@ namespace COLLADAMaya
 
             case COLLADA::GEOBINORMAL:
             {
-                fnMesh.getFaceNormalIds ( 0, normalIndices );
-
-                int currentVertexIndex = normalIndices[iteratorVertexIndex];
-                vertexAttributes.mIndexes.push_back ( currentVertexIndex );
+                if (mHasFaceVertexNormals)
+                {
+                    int currentVertexIndex = normalIndices[iteratorVertexIndex];
+                    vertexAttributes.mIndexes.push_back ( currentVertexIndex );
+                }
+                else
+                {
+                    // Assert, if we don't have initialized the normal indices, 
+                    // but want to read them out here!
+                    assert("No face vertex normals to proceed!");
+                }
                 break;
             }
 
@@ -712,14 +712,6 @@ namespace COLLADAMaya
             SourceInput param = ( *mPolygonSources ) [p];
             COLLADA::SourceBase source = param.mSource;
             COLLADA::Semantics type = param.mType;
-
-            bool error = false;
-            if (strcmp(source.getId().c_str(), "pin_Shape1-normals") == 0)
-            {
-                if (strcmp(mMeshId.c_str(), "PlatformShape") == 0)
-                    error = true;
-            }
-
 
             // Figure out which idx this parameter will use
             int foundIdx = -1;

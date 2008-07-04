@@ -9,10 +9,15 @@ For help on build, please read the BUILD file.
 
 Install:
 ---------
-Copy the generated file "COLLADAMaya.mll" into the folder /bin/plug-ins of 
-your Autodesk Maya installation.
+On build with the project file of MS Visual Studio, the "COLLADAMaya.mll" file 
+will copied into the folder $(MAYA_PATH2008)/bin/plug-ins of your Autodesk 
+Maya installation.
+If you don't use the MS Visual Studio project file, you have to copy the 
+created "COLLADAMaya.mll" file into this directory.
+
 You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
-generated mll-file into the pointed directory.
+generated mll-file into the pointed directory. Autodesk Maya will load this
+directory too.
 
 Start:
 --------

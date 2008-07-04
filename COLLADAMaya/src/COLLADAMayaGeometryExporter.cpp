@@ -217,6 +217,9 @@ namespace COLLADAMaya
         // Push the exported geometry in the export list
         mExportedGeometries.push_back ( meshId );
 
+        // Clear the list with the current polygons
+        mPolygonSources.clear();
+
         // Retrieve all uv set names for this mesh,
         // then generate corresponding textureCoordinateIds.
         MStringArray uvSetNames;
@@ -245,13 +248,6 @@ namespace COLLADAMaya
 
         // Export the geometry
         exportVertexPositions ( fnMesh, meshId );
-
-        bool error = false;
-        if (strcmp(meshId.c_str(), "PlatformShape") == 0)
-        {
-            error = true;
-        }
-
         bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, meshId );
         exportTextureCoords ( fnMesh, meshId, uvSetNames, texcoordIds );
         // exportVertexBlindData(fnMesh);

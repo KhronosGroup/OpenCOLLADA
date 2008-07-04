@@ -88,7 +88,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;"
+				Description="Copying plugin to Maya install"
+				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -162,7 +163,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;"
+				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
