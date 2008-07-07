@@ -39,7 +39,7 @@ namespace COLLADA
         /** Constructor
         @param streamWriter the stream writer the library should be written to
         */
-        Library ( StreamWriter * streamWriter, const String & name );
+        Library ( StreamWriter* streamWriter, const String& name );
 
         /** Destructor*/
         virtual ~Library() {}
@@ -57,7 +57,7 @@ namespace COLLADA
     private:
         TagCloser mLibraryCloser;    ///< Used to close the library  tag
         bool mLibraryOpen;      ///< true, if a library has been open and not closed. false otherwise.
-        const String & mName;
+        const String& mName;
 
 
     };

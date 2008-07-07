@@ -23,6 +23,10 @@
 
 #include "COLLADAEffectProfile.h"
 #include "COLLADASWC.h"
+#include "COLLADAExtra.h"
+#include "COLLADATechnique.h"
+#include <assert.h>
+#include <algorithm>
 
 namespace COLLADA
 {
@@ -71,10 +75,16 @@ namespace COLLADA
     //---------------------------------------------------------------
     bool Color::isValid() const
     {
-        return ( mR >= 0 && mR <= 1 ) &&
-               ( mG >= 0 && mG <= 1 ) &&
-               ( mB >= 0 && mB <= 1 ) &&
-               ( mA >= 0 && mA <= 1 );
+        if (!( mR >= 0 && mR <= 1 ) &&
+             ( mG >= 0 && mG <= 1 ) &&
+             ( mB >= 0 && mB <= 1 ) &&
+             ( mA >= 0 && mA <= 1 ))
+        {
+            assert("Current color is not valid!");
+            return false;
+        }
+
+        return true;
     }
 
 
@@ -85,6 +95,7 @@ namespace COLLADA
     //---------------------------------------------------------------
     EffectProfile::EffectProfile ( StreamWriter * streamWriter )
             : ElementWriter ( streamWriter ),
+            BaseExtraTechnique(),
             mTechniqueSid ( DEFAULT_TECHNIQUE_SID ),
             mShaderType ( UNSPECIFIED ),
             mReflectivity ( -1 ),
@@ -94,7 +105,7 @@ namespace COLLADA
     {}
 
     //---------------------------------------------------------------
-    void EffectProfile::add() const
+    void EffectProfile::add(bool closeProfile) 
     {
         TagCloser profileCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_PROFILE_COMMON );
 
@@ -102,7 +113,8 @@ namespace COLLADA
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mTechniqueSid );
-        mSW->openElement ( getShaderTypeName ( mShaderType ) );
+
+        TagCloser shaderTypeCloser = mSW->openElement ( getShaderTypeName ( mShaderType ) );
 
         addColorOrTexture ( CSWC::COLLADA_ELEMENT_EMISSION, mEmission );
         addColorOrTexture ( CSWC::COLLADA_ELEMENT_AMBIENT, mAmbient );
@@ -114,13 +126,45 @@ namespace COLLADA
         addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mOpaque );
         addFloat ( CSWC::COLLADA_ELEMENT_TRANSPARENCY, mTransparency );
 
+        addTextureExtraTechniques( *mSW );
+
+        shaderTypeCloser.close();
+
+        addExtraTechniqueColorOrTexture(mExtraTechniqueColorOrTexture);
+
         profileCloser.close();
     }
 
+    //---------------------------------------------------------------
+    void EffectProfile::addExtraTechniqueColorOrTexture ( 
+        const ColorOrTexture& colorOrTexture)
+    {
+        if ( colorOrTexture.isTexture() )
+        {
+            const Texture& texture = colorOrTexture.getTexture();
 
+            const String& profileName = texture.getProfileName();
+            const String& childElement = texture.getChildElementName();
+
+            // Open the extra tag
+            COLLADA::Extra colladaExtra ( mSW );
+            colladaExtra.openExtra();
+
+            // Open the technique tag
+            COLLADA::Technique colladaTechnique ( mSW );
+            colladaTechnique.openTechnique(profileName);
+
+            // Add the texture
+            addColorOrTexture(childElement, colorOrTexture);
+
+            // Close the technique and extra tags
+            colladaTechnique.closeTechnique();
+            colladaExtra.closeExtra();
+        }
+    }
 
     //---------------------------------------------------------------
-    void EffectProfile::addSamplers() const
+    void EffectProfile::addSamplers() 
     {
         addSampler ( mEmission );
         addSampler ( mAmbient );
@@ -132,47 +176,58 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void EffectProfile::addSampler ( const ColorOrTexture & colorOrTexture ) const
+    void EffectProfile::addSampler ( const ColorOrTexture & colorOrTexture ) 
     {
+        // TODO: Don't implement double textures!
         if ( colorOrTexture.isTexture() )
         {
             // TODO: add COLLADA 1.5 texture
             const Texture& texture = colorOrTexture.getTexture();
 
-            // surface
-            TagCloser surfaceNewParam = mSW->openElement ( CSWC::COLLADA_ELEMENT_NEWPARAM );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, texture.getSurfaceSid() );
-            mSW->openElement ( CSWC::COLLADA_ELEMENT_SURFACE );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, getSurfaceTypeString ( texture.getSurfaceType() ) );
-            mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_INIT_FROM, texture.getImageID() );
-            mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_FORMAT, texture.getFormat() );
-            surfaceNewParam.close();
+            // Have a look, if we have this surface already written.
+            std::vector<String>::const_iterator iter;
+            iter = find(mSampledImages.begin(), mSampledImages.end(), texture.getImageId());
+            if (iter == mSampledImages.end())
+            {
+                // Push the id of the image in the list of sampled surface image ids
+                mSampledImages.push_back(texture.getImageId());
 
-            //sampler
-            TagCloser samplerNewParam = mSW->openElement ( CSWC::COLLADA_ELEMENT_NEWPARAM );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, texture.getSamplerSid() );
-            mSW->openElement ( CSWC::COLLADA_ELEMENT_SAMPLER2D );
-            mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_SOURCE, texture.getSurfaceSid() );
+                // surface
+                TagCloser surfaceNewParam = mSW->openElement ( CSWC::COLLADA_ELEMENT_NEWPARAM );
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, texture.getSurfaceSid() );
+                mSW->openElement ( CSWC::COLLADA_ELEMENT_SURFACE );
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, getSurfaceTypeString ( texture.getSurfaceType() ) );
+                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_INIT_FROM, texture.getImageID() );
+                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_FORMAT, texture.getFormat() );
+                surfaceNewParam.close();
 
-            if ( texture.getWrapS() != Texture::WRAP_MODE_UNSPECIFIED )
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_S, getWrapModeString ( texture.getWrapS() ) );
+                //sampler
+                TagCloser samplerNewParam = mSW->openElement ( CSWC::COLLADA_ELEMENT_NEWPARAM );
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, texture.getSamplerSid() );
+                mSW->openElement ( CSWC::COLLADA_ELEMENT_SAMPLER2D );
+                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_SOURCE, texture.getSurfaceSid() );
 
-            if ( texture.getWrapT() != Texture::WRAP_MODE_UNSPECIFIED )
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_T, getWrapModeString ( texture.getWrapT() ) );
+                if ( texture.getWrapS() != Texture::WRAP_MODE_UNSPECIFIED )
+                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_S, getWrapModeString ( texture.getWrapS() ) );
 
-            if ( texture.getWrapP() != Texture::WRAP_MODE_UNSPECIFIED )
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_P, getWrapModeString ( texture.getWrapP() ) );
+                if ( texture.getWrapT() != Texture::WRAP_MODE_UNSPECIFIED )
+                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_T, getWrapModeString ( texture.getWrapT() ) );
 
-            if ( texture.getMinFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MINFILTER, getSamplerFilterString ( texture.getMinFilter() ) );
+                if ( texture.getWrapP() != Texture::WRAP_MODE_UNSPECIFIED )
+                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_P, getWrapModeString ( texture.getWrapP() ) );
 
-            if ( texture.getMagFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MAGFILTER, getSamplerFilterString ( texture.getMagFilter() ) );
+                if ( texture.getMinFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
+                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MINFILTER, getSamplerFilterString ( texture.getMinFilter() ) );
 
-            if ( texture.getMipFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MIPFILTER, getSamplerFilterString ( texture.getMipFilter() ) );
+                if ( texture.getMagFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
+                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MAGFILTER, getSamplerFilterString ( texture.getMagFilter() ) );
 
-            samplerNewParam.close();
+                if ( texture.getMipFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
+                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MIPFILTER, getSamplerFilterString ( texture.getMipFilter() ) );
+
+                samplerNewParam.close();
+            }
+
         }
     }
 

@@ -281,35 +281,27 @@ namespace COLLADAMaya
 
         // Emission color / Incandescence
         effectProfile->setEmission ( mayaColor2ColorOrTexture ( matFn.incandescence() ) );
-
         exportTexturedParameter ( shadingNetwork, ATTR_INCANDESCENCE, effectProfile, EffectExporter::EMISSION, nextTextureIndex );
-
         // TODO Test
         animationExporter->addPlugAnimation ( shadingNetwork, ATTR_INCANDESCENCE, RGBA_PARAMETERS, kColour );
 
         // Ambient color
         effectProfile->setAmbient ( mayaColor2ColorOrTexture ( matFn.ambientColor() ) );
-
         exportTexturedParameter ( shadingNetwork, ATTR_AMBIENT_COLOR, effectProfile, EffectExporter::AMBIENT, nextTextureIndex );
-
         // TODO Test
         animationExporter->addPlugAnimation ( shadingNetwork, ATTR_AMBIENT_COLOR, RGBA_PARAMETERS, kColour );
 
         // Diffuse color
         effectProfile->setDiffuse ( mayaColor2ColorOrTexture ( matFn.color(), matFn.diffuseCoeff() ) );
-
         exportTexturedParameter ( shadingNetwork, ATTR_COLOR, effectProfile, EffectExporter::DIFFUSE, nextTextureIndex );
-
         // TODO Test
         ConversionFunctor* conversion = new ConversionScaleFunctor ( matFn.diffuseCoeff() );
-
         animationExporter->addPlugAnimation ( shadingNetwork, ATTR_COLOR, RGBA_PARAMETERS, kColour, conversion );
 
         // Transparent color
         exportTransparency ( shadingNetwork, matFn.transparency(), effectProfile, ATTR_TRANSPARENCY, nextTextureIndex );
 
         float coeff = matFn.translucenceCoeff();
-
         effectProfile->setTransparency ( 1.0f );
 
         // Bump textures
@@ -380,11 +372,12 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     // Find any textures connected to a material attribute and create the
     // associated texture elements.
-    MObject EffectExporter::exportTexturedParameter ( const MObject& node,
-            const char* attributeName,
-            COLLADA::EffectProfile* effectProfile,
-            EffectExporter::Channel channel,
-            int& nextTextureIndex )
+    MObject EffectExporter::exportTexturedParameter ( 
+        const MObject& node,
+        const char* attributeName,
+        COLLADA::EffectProfile* effectProfile,
+        EffectExporter::Channel channel,
+        int& nextTextureIndex )
     {
         // Retrieve all the file textures
         MObjectArray fileTextures;
@@ -394,12 +387,11 @@ namespace COLLADAMaya
         // What the hell??? Collada tells me, that there can be only
         // one texture for every related shader element!!!
         uint fileTextureCount = fileTextures.length();
-
         for ( uint i = 0; i < fileTextureCount; ++i )
         {
             // Verify that the texture is linked to a filename: COLLADA doesn't like empty file texture nodes.
             MFnDependencyNode nodeFn ( fileTextures[i] );
-            MPlug filenamePlug = nodeFn.findPlug ( "fileTextureName" );
+            MPlug filenamePlug = nodeFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
             MString filename;
             filenamePlug.getValue ( filename );
 
@@ -453,7 +445,16 @@ namespace COLLADAMaya
             case AMBIENT:
                 effectProfile->setAmbient ( COLLADA::ColorOrTexture ( colladaTexture ) );
                 break;
-                //  case BUMP: bumpTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
+
+            case BUMP: 
+            {
+                // Set the profile name and the child element name to the texture.
+                // Then we can add it as the extra technique texture.
+                colladaTexture.setProfileName(COLLADA_PROFILE);
+                colladaTexture.setChildElementName(MAYA_BUMP_PARAMETER);
+                effectProfile->setExtraTechniqueColorOrTexture(COLLADA::ColorOrTexture(colladaTexture));
+                break;
+            }
 
             case DIFFUSE:
             {
@@ -480,7 +481,7 @@ namespace COLLADAMaya
                 break;
                 //  case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
 
-            case TRANSPARENT:
+            case TRANSPARENt:
                 effectProfile->setTransparent ( COLLADA::ColorOrTexture ( colladaTexture ) );
                 break;
 
@@ -510,12 +511,12 @@ namespace COLLADAMaya
             // Bypass the bump and projection nodes
             if ( texture.hasFn ( MFn::kBump ) || texture.hasFn ( MFn::kBump3d ) )
             {
-                texture = DagHelper::getSourceNodeConnectedTo ( texture, "bumpValue" );
+                texture = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_BUMP_VALUE );
             }
 
             else if ( texture.hasFn ( MFn::kProjection ) )
             {
-                texture = DagHelper::getSourceNodeConnectedTo ( texture, "image" );
+                texture = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_IMAGE );
             }
 
             else break;
@@ -576,7 +577,6 @@ namespace COLLADAMaya
 
         // Get the animation exporter
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-
         // TODO Test
         animationExporter->addPlugAnimation ( shadingNetwork, attributeName, EMPTY_PARAMETER, kColour );
 

@@ -28,7 +28,7 @@ namespace COLLADA
 {
 
     //---------------------------------------------------------------
-    Library::Library ( COLLADA::StreamWriter * streamWriter, const String & name )
+    Library::Library ( COLLADA::StreamWriter *streamWriter, const String &name )
             : ElementWriter ( streamWriter ),
             mLibraryOpen ( false ),
             mName ( name )

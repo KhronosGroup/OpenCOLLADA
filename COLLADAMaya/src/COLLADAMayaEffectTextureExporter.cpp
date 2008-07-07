@@ -89,7 +89,8 @@ namespace COLLADAMaya
         // Add blend mode information
         String blendModeString = getBlendMode ( blendMode );
 
-        colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_TEXTURE_BLENDMODE_PARAMETER, blendModeString );
+        colladaTexture->addExtraTechniqueParameter ( 
+            MAYA_PROFILE, MAYA_TEXTURE_BLENDMODE_PARAMETER, blendModeString );
 
         // Wrap elements
         switch ( colladaTexture->getSurfaceType() )
@@ -194,7 +195,8 @@ namespace COLLADAMaya
         // Get the URI of the file
         String fileNameString = filename.asChar();
 
-        String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( fileNameString );
+        String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + 
+                                    COLLADA::Utils::UriEncode ( fileNameString );
 
         // Have we seen this texture node before?
         ImageMap::iterator exportedImagesIter = mExportedImageMap.find ( filename.asChar() );
@@ -209,7 +211,8 @@ namespace COLLADAMaya
         String colladaImageName = mDocumentExporter->mayaNameToColladaName ( mayaName );
 
         // Create a new image structure
-        COLLADA::Image* colladaImage = new COLLADA::Image ( fullFileNameURI, colladaImageName, colladaImageName );
+        COLLADA::Image* colladaImage = new COLLADA::Image ( 
+            fullFileNameURI, colladaImageName, colladaImageName );
 
         // Export the node type, because PSD textures don't behave the same as File textures.
         String nodeType = texture.hasFn ( MFn::kPsdFileTexture ) ? MAYA_TEXTURE_PSDTEXTURE : MAYA_TEXTURE_FILETEXTURE;

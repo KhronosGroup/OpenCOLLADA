@@ -36,6 +36,11 @@ namespace COLLADA
     class LibraryEffects : public Library
     {
 
+    private:
+
+         /** Used to close the current effect */
+        TagCloser mCurrentEffectCloser;   
+
     public:
         /** Constructor
         @param streamWriter The stream the @a \<library_Effects\> and @a \<effect\>'s
@@ -50,10 +55,10 @@ namespace COLLADA
         /** Writes the opening @a \<effect\> tag and, if necessary the opening @a \<library_effects\> tag.
         closeVisualScene() must be use to close the opened tags.
         @param id the id of the effect*/
-        void openEffect ( const String & id = EMPTY_STRING );
+        void openEffect ( const String& id = EMPTY_STRING );
 
         /** Add @a effectProfile to the current effect*/
-        void addEffectProfile ( const EffectProfile & effectProfile )
+        void addEffectProfile ( EffectProfile& effectProfile )
         {
             effectProfile.add();
         };
@@ -61,9 +66,6 @@ namespace COLLADA
         /** Closes the tag opened by openEffect()*/
         void closeEffect();
 
-
-    private:
-        TagCloser mCurrentEffectCloser;    //!< Used to close the current effect
     };
 
 } //namespace COLLADA

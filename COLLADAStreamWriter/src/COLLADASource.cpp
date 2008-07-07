@@ -31,7 +31,7 @@ namespace COLLADA
     void SourceBase::prepareBaseToAppendValues ( const String *arrayName )
     {
         mSourceCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_SOURCE );
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mId );
+        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mNodeId );
         mSW->openElement ( *arrayName );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mArrayId );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_COUNT, mAccessorCount * mAccessorStride );

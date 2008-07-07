@@ -40,7 +40,7 @@ namespace COLLADA
         @param streamWriter The stream the @a \<library_visual_scenes\> and @a \<visual_scene\>'s
         should be written to.
         */
-        LibraryVisualScenes ( StreamWriter * streamWriter );
+        LibraryVisualScenes ( StreamWriter* streamWriter );
 
         /** Destructor*/
         virtual ~LibraryVisualScenes() {}
@@ -49,7 +49,7 @@ namespace COLLADA
         /** Writes the opening @a \<visual_scene\> tag and, if necessary the opening @a \<library_visual_scenes\> tag.
         closeVisualScene() must be use to close the opened tags.
         @param id the id of the visual scene*/
-        void openVisualScene ( const String & id = EMPTY_STRING );
+        void openVisualScene ( const String& nodeId = EMPTY_STRING, const String& nodeName = EMPTY_STRING );
 
         /** Closes the tag opened by openVisualScene()*/
         void closeVisualScene();

@@ -963,7 +963,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + INPUT_SOURCE_ID_SUFFIX );
-            source.setName ( sourceId + INPUT_SOURCE_ID_SUFFIX );
+            source.setNodeName ( sourceId + INPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( TIME_PARAMETER );
@@ -1005,7 +1005,7 @@ namespace COLLADAMaya
         {
             COLLADA::TypeIndependentSource source ( mSW );
             source.setId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
-            source.setName ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
+            source.setNodeName ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( dimension );
 
@@ -1052,7 +1052,7 @@ namespace COLLADAMaya
         {
             COLLADA::NameSource source ( mSW );
             source.setId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
-            source.setName ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
+            source.setNodeName ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( INTERPOLATION_PARAMETER );
@@ -1093,7 +1093,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + sourceIdSuffix );
-            source.setName ( sourceId + sourceIdSuffix );
+            source.setNodeName ( sourceId + sourceIdSuffix );
             source.setArrayId ( sourceId + sourceIdSuffix + ARRAY_ID_SUFFIX );
 
             uint stride = dimension * 2; // One for the in- and one for the outtangent.
@@ -1125,7 +1125,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + TCBS_SOURCE_ID_SUFFIX );
-            source.setName ( sourceId + TCBS_SOURCE_ID_SUFFIX );
+            source.setNodeName ( sourceId + TCBS_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + TCBS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( TCBS_PARAMETER );
@@ -1148,7 +1148,7 @@ namespace COLLADAMaya
         {
             COLLADA::FloatSource source ( mSW );
             source.setId ( sourceId + EASES_SOURCE_ID_SUFFIX );
-            source.setName ( sourceId + EASES_SOURCE_ID_SUFFIX );
+            source.setNodeName ( sourceId + EASES_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + EASES_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( EASES_PARAMETER );

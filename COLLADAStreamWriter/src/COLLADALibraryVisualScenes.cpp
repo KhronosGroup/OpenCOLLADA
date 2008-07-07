@@ -30,19 +30,22 @@ namespace COLLADA
 {
 
     //---------------------------------------------------------------
-    LibraryVisualScenes::LibraryVisualScenes ( COLLADA::StreamWriter * streamWriter )
+    LibraryVisualScenes::LibraryVisualScenes ( COLLADA::StreamWriter *streamWriter )
             : Library ( streamWriter, CSWC::COLLADA_ELEMENT_LIBRARY_VISUAL_SCENES )
     {}
 
 
     //---------------------------------------------------------------
-    void LibraryVisualScenes::openVisualScene ( const String & id )
+    void LibraryVisualScenes::openVisualScene ( const String &nodeId, const String &nodeName )
     {
         openLibrary();
         mCurrentVisualSceneCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_VISUAL_SCENE );
 
-        if ( !id.empty() )
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, id );
+        if ( !nodeId.empty() )
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, nodeId );
+
+        if ( !nodeName.empty() )
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, nodeName );
     }
 
 

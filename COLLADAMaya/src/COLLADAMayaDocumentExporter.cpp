@@ -36,6 +36,8 @@
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaConvert.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaSyntax.h"
+#include <time.h>
 
 #include "COLLADAAsset.h"
 #include "COLLADAScene.h"
@@ -139,8 +141,20 @@ namespace COLLADAMaya
 
         mStreamWriter.startDocument();
 
+        SYSTEMTIME startSystemTime, endSystemTime;
+        GetSystemTime(&startSystemTime);
+
+        time_t startTime, endTime;
+        time(&startTime);
+
         if ( mSceneGraph->create ( selectionOnly ) )
         {
+            time(&endTime);
+            printf("SceneGraph->create(): %d", startTime-endTime);
+            struct tm *t = localtime ( &startTime );
+
+            GetSystemTime(&endSystemTime);
+
             // Export the asset of the document.
             exportAsset();
 
@@ -283,7 +297,7 @@ namespace COLLADAMaya
     void DocumentExporter::exportScene()
     {
         COLLADA::Scene scene ( &mStreamWriter );
-        scene.mInstanceVisualSceneUrl = "#" + mSceneId;
+        scene.mInstanceVisualSceneUrl = "#" + VISUAL_SCENE_NODE_ID;
         scene.add();
     }
 

@@ -329,7 +329,8 @@ namespace COLLADAMaya
 
         if ( !visualSceneAdded )
         {
-            openVisualScene ( mSceneId );
+            // There is always just one visual scene. Give it a valid unique id.
+            openVisualScene ( VISUAL_SCENE_NODE_ID, mSceneId );
             visualSceneAdded = true;
         }
 
@@ -783,8 +784,7 @@ namespace COLLADAMaya
 
         else
         {
-            // Get the camera matrix from which the other parameters
-            // are computed.
+            // Get the camera matrix from which the other parameters are computed.
             MFnCamera camera ( cameraObject );
             MMatrix matrix = transformFunctionSet.transformationMatrix();
             matrix.homogenize();

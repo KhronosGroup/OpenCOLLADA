@@ -49,25 +49,25 @@ namespace COLLADA
         /** Returns a reference to the id of the source*/
         const String& getId() const
         {
-            return mId;
+            return mNodeId;
         }
 
         /** Sets the id of the source*/
         void setId ( const String& id )
         {
-            mId = id;
+            mNodeId = id;
         }
 
         /** Returns a reference to the name of the source*/
-        const String& getName() const
+        const String& getNodeName() const
         {
-            return mName;
+            return mNodeName;
         }
 
         /** Sets the name of the source*/
-        void setName ( const String& name )
+        void setNodeName ( const String& name )
         {
-            mName = name;
+            mNodeName = name;
         }
 
         /** Returns a reference to the id of the array of the node*/
@@ -135,10 +135,10 @@ namespace COLLADA
         TagCloser mSourceCloser;
 
         /** The id of the source*/
-        String mId;
+        String mNodeId;
 
         /** The name of source node */
-        String mName;
+        String mNodeName;
 
         /** The id of the array*/
         String mArrayId;

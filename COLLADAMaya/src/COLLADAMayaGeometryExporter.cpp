@@ -344,7 +344,7 @@ namespace COLLADAMaya
     {
         COLLADA::FloatSource vertexSource ( mSW );
         vertexSource.setId ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
-        vertexSource.setName ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
+        vertexSource.setNodeName ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
         vertexSource.setArrayId ( meshId + POSITIONS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         vertexSource.setAccessorStride ( 3 );
 
@@ -437,7 +437,7 @@ namespace COLLADAMaya
 
         normalSource.setId ( meshId + NORMALS_SOURCE_ID_SUFFIX );
 
-        normalSource.setName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
+        normalSource.setNodeName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
 
         normalSource.setArrayId ( meshId + NORMALS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 
@@ -625,7 +625,7 @@ namespace COLLADAMaya
             // Geo-tangent
             tangentSource.setId ( meshId + GEOTANGENT_ID_SUFFIX );
 
-            tangentSource.setName ( meshId + GEOTANGENT_ID_SUFFIX );
+            tangentSource.setNodeName ( meshId + GEOTANGENT_ID_SUFFIX );
 
             tangentSource.setArrayId ( meshId + GEOTANGENT_ID_SUFFIX + ARRAY_ID_SUFFIX );
 
@@ -653,7 +653,7 @@ namespace COLLADAMaya
 
             // Geo-binormal
             binormalSource.setId ( meshId + GEOBINORMAL_ID_SUFFIX );
-            binormalSource.setName ( meshId + GEOBINORMAL_ID_SUFFIX );
+            binormalSource.setNodeName ( meshId + GEOBINORMAL_ID_SUFFIX );
             binormalSource.setArrayId ( meshId + GEOBINORMAL_ID_SUFFIX + ARRAY_ID_SUFFIX );
             binormalSource.setAccessorStride ( 3 );
             binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
@@ -803,7 +803,7 @@ namespace COLLADAMaya
 
             colorSource.setId ( colorSourceId );
 
-            colorSource.setName ( colorSourceId );
+            colorSource.setNodeName ( colorSourceId );
 
             colorSource.setArrayId ( colorSourceId + ARRAY_ID_SUFFIX );
 
@@ -909,7 +909,7 @@ namespace COLLADAMaya
 
             texCoordSource.setId ( texCoordinateId );
 
-            texCoordSource.setName ( texCoordinateId );
+            texCoordSource.setNodeName ( texCoordinateId );
 
             texCoordSource.setArrayId ( texCoordinateId + ARRAY_ID_SUFFIX );
 
