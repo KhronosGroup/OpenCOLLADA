@@ -47,9 +47,12 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     GeometryPolygonExporter::GeometryPolygonExporter ( COLLADA::StreamWriter* _streamWriter,
             DocumentExporter* _documentExporter )
-            : COLLADA::LibraryGeometries ( _streamWriter ),
-            mDocumentExporter ( _documentExporter ),
-            mPolygonSources ( NULL ), triangulated ( false ), holeCount ( 0 )
+            : COLLADA::LibraryGeometries ( _streamWriter )
+            , mDocumentExporter ( _documentExporter )
+            , mPolygonSources ( NULL )
+            , mVertexSources ( NULL )
+            , triangulated ( false )
+            , holeCount ( 0 )
     {
     }
 

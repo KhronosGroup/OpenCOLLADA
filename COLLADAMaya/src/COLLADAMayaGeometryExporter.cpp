@@ -217,8 +217,9 @@ namespace COLLADAMaya
         // Push the exported geometry in the export list
         mExportedGeometries.push_back ( meshId );
 
-        // Clear the list with the current polygons
+        // Clear the list with the current polygons and the list with the vertexes
         mPolygonSources.clear();
+        mVertexSources.clear();
 
         // Retrieve all uv set names for this mesh,
         // then generate corresponding textureCoordinateIds.
@@ -436,24 +437,17 @@ namespace COLLADAMaya
         COLLADA::FloatSource normalSource ( mSW );
 
         normalSource.setId ( meshId + NORMALS_SOURCE_ID_SUFFIX );
-
         normalSource.setNodeName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
-
         normalSource.setArrayId ( meshId + NORMALS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
-
         normalSource.setAccessorStride ( 3 );
 
         // Check for all smooth normals
         uint normalCount = fnMesh.numNormals();
 
         normalSource.setAccessorCount ( normalCount );
-
         normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-
         normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-
         normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
-
         normalSource.prepareToAppendValues();
 
         MFloatVectorArray normals ( normalCount );
@@ -461,7 +455,6 @@ namespace COLLADAMaya
         uint verticesCount = ( uint ) fnMesh.numVertices();
 
         bool perVertexNormals = ( normalCount == verticesCount );
-
         if ( perVertexNormals )
         {
             // Get the unindexed normals in a separate buffer

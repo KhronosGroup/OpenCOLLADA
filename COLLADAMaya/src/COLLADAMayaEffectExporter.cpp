@@ -209,12 +209,12 @@ namespace COLLADAMaya
             exportStandardShader ( &effectProfile, shader );
         }
 
-        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == "colladafxShader" )
+        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_SHADER )
         {
             // TODO
             //  exportColladaFXShader(&effectProfile, shader, colladaMaterial);
         }
-        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == "colladafxPasses" )
+        else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_PASSES )
         {
             // TODO
             //  effect = ExportColladaFXPasses(&effectProfile, shader, colladaMaterial);

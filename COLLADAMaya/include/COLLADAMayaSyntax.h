@@ -145,23 +145,26 @@ namespace COLLADAMaya
 
 
     /** The parameters for the animation exports. */
-    static const String X_PARAMETER[1]    = { "X" };
-    static const String Y_PARAMETER[1]    = { "Y" };
-    static const String Z_PARAMETER[1]    = { "Z" };
-    static const String XY_PARAMETERS[2]   = { "X", "Y" };
-    static const String XYZ_PARAMETERS[3]   = { "X", "Y", "Z" };
-    static const String ZYX_PARAMETERS[3]   = { "Z", "Y", "X" };
-    static const String XYZW_PARAMETERS[4]   = { "X", "Y", "Z", "W" };
-    static const String RGBA_PARAMETERS[4]   = { "R", "G", "B", "A" };
-    static const String STPQ_PARAMETERS[4]   = { "S", "T", "P", "Q" };
-    static const String ANGLE_PARAMETER[1]   = { "ANGLE" };
+    static const String X_PARAMETER[1]                              = { "X" };
+    static const String Y_PARAMETER[1]                              = { "Y" };
+    static const String Z_PARAMETER[1]                              = { "Z" };
+    static const String XY_PARAMETERS[2]                            = { "X", "Y" };
+    static const String XYZ_PARAMETERS[3]                           = { "X", "Y", "Z" };
+    static const String ZYX_PARAMETERS[3]                           = { "Z", "Y", "X" };
+    static const String XYZW_PARAMETERS[4]                          = { "X", "Y", "Z", "W" };
+    static const String RGBA_PARAMETERS[4]                          = { "R", "G", "B", "A" };
+    static const String STPQ_PARAMETERS[4]                          = { "S", "T", "P", "Q" };
+    static const String ANGLE_PARAMETER[1]                          = { "ANGLE" };
 
-    static const String TRANSLATION_PARAMETERS[3] = { "X", "Y", "Z" };
-    static const String SCALE_PARAMETERS[3]   = { "X", "Y", "Z" };
-    static const String MATRIX_PARAMETER[1]   = { "MATRIX" };
-    static const String EMPTY_PARAMETER[1]   = { "" };
-    static const String TANGENT_PARAMETERS[2]  = {"X", "Y" };
+    static const String TRANSLATION_PARAMETERS[3]                   = { "X", "Y", "Z" };
+    static const String SCALE_PARAMETERS[3]                         = { "X", "Y", "Z" };
+    static const String MATRIX_PARAMETER[1]                         = { "MATRIX" };
+    static const String EMPTY_PARAMETER[1]                          = { "" };
+    static const String TANGENT_PARAMETERS[2]                       = {"X", "Y" };
 
+    static const String SKEW_XY_SID                                 = "skewXY";
+    static const String SKEW_XZ_SID                                 = "skewXZ";
+    static const String SKEW_YZ_SID                                 = "skewYZ";
 
     /** The plug ids for the animation exports. */
     static const char* ATTR_ALPHA_GAIN                              = "alphaGain";
@@ -195,6 +198,8 @@ namespace COLLADAMaya
     static const char* ATTR_OUT_COLOR                               = "outColor";
     static const char* ATTR_OUTPUT                                  = "output";
     static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
+    static const char* ATTR_PLACEMENT_MATRIX                        = "placementMatrix";
+    static const char* ATTR_PROJECTION_TYPE                         = "projType";
     static const char* ATTR_SCALE                                   = "scale";
     static const char* ATTR_SCALE_PIVOT_INVERSE                     = "scalePivotInverse";
     static const char* ATTR_SCALE_PIVOT                             = "scalePivot";
@@ -220,22 +225,23 @@ namespace COLLADAMaya
     static const char* ATTR_TRANSPARENCY                            = "transparency";
     static const char* ATTR_VISIBILITY                              = "visibility";
 
-
-    static const char* ATTR_PROJECTION_TYPE    = "projType";
-    static const char* ATTR_PLACEMENT_MATRIX    = "placementMatrix";
-
-    static const char* SKEW_XY_SID      = "skewXY";
-    static const char* SKEW_XZ_SID      = "skewXZ";
-    static const char* SKEW_YZ_SID      = "skewYZ";
-
     /** Constants for the cameras */
-    static const char* CAMERA_PERSP      = "persp";
-    static const char* CAMERA_TOP      = "top";
-    static const char* CAMERA_SIDE      = "side";
-    static const char* CAMERA_FRONT      = "front";
+    static const char* CAMERA_PERSP                                 = "persp";
+    static const char* CAMERA_TOP                                   = "top";
+    static const char* CAMERA_SIDE                                  = "side";
+    static const char* CAMERA_FRONT                                 = "front";
 
-    static const char* NIMA_INTERNAL_PHYSIKS   = "nimaInternalPhysics";
-    static const char* BLANK_COLORSET_NAME    = "_blank-color-set";
+    /** Constants for the physical scenes. */
+    static const char* NIMA_INTERNAL_PHYSIKS                        = "nimaInternalPhysics";
+    static const char* AGEIA_PHYSIKS_MODEL                          = "AgeiaPhysicsModel";
+
+    /** Constant for the mesh helper. For to get the valid mesh color sets. */
+    static const char* BLANK_COLORSET_NAME                          = "_blank-color-set";
+
+    /** Shader constants */
+    static const char* COLLADA_FX_SHADER                            = "colladafxShader";
+    static const char* COLLADA_FX_PASSES                            = "colladafxPasses";
+    
 }
 
 
