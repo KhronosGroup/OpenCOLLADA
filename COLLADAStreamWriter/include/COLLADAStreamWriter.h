@@ -31,6 +31,7 @@
 #include <fstream>
 #include <stack>
 #include <list>
+#include <vector>
 #include "COLLADAPrerequisites.h"
 
 #define WHITESPACESTRINGLENGTH 1000
@@ -81,7 +82,7 @@ namespace COLLADA
 
     public:
         /** Creates a stream writer that writes to file @a fileName*/
-        StreamWriter ( const String & fileName );
+        StreamWriter ( const String& fileName );
 
         /** Closes all open tags and closes the stream*/
         ~StreamWriter();
@@ -96,19 +97,19 @@ namespace COLLADA
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String & name, const String & value );
+        void appendAttribute ( const String& name, const String & value );
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String & name, double value );
+        void appendAttribute ( const String& name, double value );
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String & name, unsigned long value );
+        void appendAttribute ( const String& name, unsigned long value );
 
         /** Adds @a text to the COLLADA file.
         No checks are performed, if @a text contains forbidden characters. */
-        void appendText ( const String & text );
+        void appendText ( const String& text );
 
         /** Adds @a number to the COLLADA file.*/
         void appendValues ( double number );
@@ -123,7 +124,28 @@ namespace COLLADA
         void appendValues ( double number1, double number2, double number3, double number4 );
 
         /** Adds all values in the array to the COLLADA file.*/
-        void appendValues ( const float values[] );
+        void appendValues ( const float values[], const size_t length );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const double values[], const size_t length );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const float matrix[4][4] );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const double matrix[4][4] );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const std::vector<float>& values );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const std::vector<double>& values );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const std::vector<String>& values );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const std::vector<unsigned long>& values );
 
         /** Adds @a number to the COLLADA file.*/
         void appendValues ( int number );

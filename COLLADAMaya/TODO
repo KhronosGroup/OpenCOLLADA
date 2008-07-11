@@ -17,6 +17,13 @@
 -   Multiple documents
 
 =======================================
+
+-   Testsuite
+
+-   Testcases:
+    -   morph controller
+
+=======================================
 -   VisualScene
     -   joints and skins
     -   Reference to effect texture
@@ -59,8 +66,4 @@
 
 =======================================
 -   Nurbs
-
-=======================================
--   Testcases:
-    -   morph controller
 

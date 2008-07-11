@@ -85,13 +85,19 @@ namespace COLLADAMaya
         mutable Type mType;
 
         /** true, if the node should be exported */
-        bool isExportNode;
+        bool mIsExportNode;
 
         /** true, if the node is a mesh node from type MFn::kSkinClusterFilter or MFn::kJointCluster. */
-        bool isForced;
+        bool mIsForced;
 
         /** true, if it is a visible node */
-        bool isVisible;
+        bool mIsVisible;
+
+        /** True, if the current node has a skin controller. */
+        bool mHasSkinController;
+
+        /** True, if the current node has a morph controller. */
+        bool mHasMorphController;
 
     public:
 
@@ -168,35 +174,57 @@ namespace COLLADAMaya
         /** Set the export flag on the current scene element. */
         void setIsExportNode ( const bool _isExportNode )
         {
-            isExportNode = _isExportNode;
+            mIsExportNode = _isExportNode;
         }
 
         const bool getIsExportNode() const
         {
-            return isExportNode;
+            return mIsExportNode;
         }
 
         /** Set the forced flag on the current scene element. */
         void setIsForced ( const bool _isForced )
         {
-            isForced = _isForced;
+            mIsForced = _isForced;
         }
 
         const bool getIsForced() const
         {
-            return isForced;
+            return mIsForced;
         }
 
         /** Set the visible flag on the current scene element. */
         void setIsVisible ( const bool _isVisible )
         {
-            isVisible= _isVisible;
+            mIsVisible= _isVisible;
         }
 
         const bool getIsVisible() const
         {
-            return isVisible;
+            return mIsVisible;
         }
+
+        /**
+         * True, if the current node has a skin controller.
+         * @return bool True, if the current node has a skin controller.
+         */
+        bool getHasSkinController() const { return mHasSkinController; }
+        /**
+         * True, if the current node has a skin controller.
+         * @param val True, if the current node has a skin controller.
+         */
+        void setHasSkinController(bool val) { mHasSkinController = val; }
+
+        /**
+         * True, if the current node has a morph controller.
+         * @return bool True, if the current node has a morph controller.
+         */
+        bool getHasMorphController() const { return mHasMorphController; }
+        /**
+         * True, if the current node has a morph controller.
+         * @param val True, if the current node has a morph controller.
+         */
+        void setHasMorphController(bool val) { mHasMorphController = val; }
 
     private:
 

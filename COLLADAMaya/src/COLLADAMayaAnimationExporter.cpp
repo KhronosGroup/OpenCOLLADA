@@ -43,12 +43,12 @@
 namespace COLLADAMaya
 {
 
-    const String AnimationExporter::INTERPOLATION_PARAMETER  = "INTERPOLATION";
-    const String AnimationExporter::EASES_PARAMETER    = "EASES";
-    const String AnimationExporter::TCBS_PARAMETER    = "TCBS";
-    const String AnimationExporter::TIME_PARAMETER    = "TIME";
-    const String AnimationExporter::TRANSFORM_PARAMETER   = "TRANSFORM";
-    const String AnimationExporter::X_Y_PARAMETER    = "X_Y";
+    const String AnimationExporter::PARAM_TYPE_INTERPOLATION     = "INTERPOLATION";
+    const String AnimationExporter::PARAM_TYPE_EASES             = "EASES";
+    const String AnimationExporter::PARAM_TYPE_TCBS              = "TCBS";
+    const String AnimationExporter::PARAM_TYPE_TIME              = "TIME";
+    const String AnimationExporter::PARAM_TYPE_TRANSFORM         = "TRANSFORM";
+    const String AnimationExporter::PARAM_TYPE_X_Y               = "X_Y";
 
 #define SMALL_DELTA 0.001f
 
@@ -259,7 +259,6 @@ namespace COLLADAMaya
 
         // Get the dimension
         uint dimension = animatedCurves.size();
-
         if ( dimension == 0 ) return multiCurve;
 
         // We just take the first curve from list
@@ -267,31 +266,23 @@ namespace COLLADAMaya
 
         // Create the new multi curve
         multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getSubId(), dimension );
-
         multiCurve->setPreInfinity ( mergedCurve->getPreInfinity() );
-
         multiCurve->setPostInfinity ( mergedCurve->getPostInfinity() );
 
         // Calculate the merged input keys and their wanted interpolations.
         std::vector<float> mergedInputs;
-
         std::vector<uint> mergedInterpolations;
-
-        AnimationCurveList::iterator curveIter;
-
-        for ( curveIter=animatedCurves.begin(); curveIter!=animatedCurves.end(); ++curveIter )
+        AnimationCurveList::iterator curveIter = animatedCurves.begin();
+        for ( ; curveIter!=animatedCurves.end(); ++curveIter )
         {
             const AnimationCurve* curve = *curveIter;
-
             if ( curve == NULL ) continue;
 
             const AnimationKeyList curveKeys = curve->getKeys();
 
             // Merge each curve's keys, which should already be sorted, into the multi-curve's
             uint multiCurveKeyCount = mergedInputs.size(), m = 0;
-
             uint curveKeyCount = curve->getKeyCount(), c = 0;
-
             while ( m < multiCurveKeyCount && c < curveKeyCount )
             {
                 if ( mergedInputs[m] == curveKeys[c]->input )
@@ -303,12 +294,10 @@ namespace COLLADAMaya
 
                     ++m;
                 }
-
                 else if ( mergedInputs[m] < curveKeys[c]->input )
                 {
                     ++m;
                 }
-
                 else
                 {
                     // Insert this new key within the merged list.
@@ -332,7 +321,6 @@ namespace COLLADAMaya
         uint keyCount = mergedInputs.size();
 
         // Create the multi-dimensional keys.
-
         for ( size_t curvePosition=0; curvePosition<keyCount; ++curvePosition )
         {
             AnimationMKey* key = multiCurve->addKey ( ( COLLADA::LibraryAnimations::InterpolationType ) mergedInterpolations[curvePosition] );
@@ -346,7 +334,6 @@ namespace COLLADAMaya
         for ( uint curvePosition=0; curvePosition<dimension; ++curvePosition )
         {
             const AnimationCurve* curve = animatedCurves[curvePosition];
-
             if ( curve == NULL || curve->getKeyCount() == 0 )
             {
                 // No curve, or an empty curve, set the default value on all the keys
@@ -372,7 +359,6 @@ namespace COLLADAMaya
             const std::vector<float> mergedInputs )
     {
         float defaultValue = ( curvePosition < defaultValues.size() ) ? defaultValues[curvePosition] : 0.0f;
-
         for ( size_t k = 0; k < keyCount; ++k )
         {
             ( *keys ) [k]->output[curvePosition] = defaultValue;
@@ -961,33 +947,25 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSource source ( mSW );
+            COLLADA::FloatSourceF source ( mSW );
             source.setId ( sourceId + INPUT_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + INPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
-            source.getParameterNameList().push_back ( TIME_PARAMETER );
+            source.getParameterNameList().push_back ( PARAM_TYPE_TIME );
             source.setAccessorCount ( values.size() );
             source.prepareToAppendValues();
-
-            for ( uint i=0; i<values.size(); ++i )
-                source.appendValues ( values[i] );
-
+            source.appendValues ( values );
             source.finish ( false );
 
             // Export the infinity parameters
             COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
             COLLADA::Technique techniqueSource ( streamWriter );
-
             techniqueSource.openTechnique ( MAYA_PROFILE );
-
             techniqueSource.addParameter ( MAYA_PREINFINITY_PARAMETER, preInfinityType );
-
             techniqueSource.addParameter ( MAYA_POSTINFINITY_PARAMETER, postInfinityType );
-
             techniqueSource.closeTechnique();
-
             source.closeSourceElement();
         }
     }
@@ -1003,7 +981,7 @@ namespace COLLADAMaya
 
         if ( values.size() > 0 && dimension > 0 )
         {
-            COLLADA::TypeIndependentSource source ( mSW );
+            COLLADA::TypeIndependentSourceF source ( mSW );
             source.setId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1013,7 +991,6 @@ namespace COLLADAMaya
             {
                 // It's a float source.
                 source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_PARAM_TYPE_FLOAT );
-
                 for ( uint i=0; i<dimension; ++i )
                     source.getParameterNameList().push_back ( * ( parameters + i ) );
             }
@@ -1022,23 +999,19 @@ namespace COLLADAMaya
             {
                 // It's a matrix source.
                 source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_PARAM_TYPE_FLOAT4x4 );
-                source.getParameterNameList().push_back ( TRANSFORM_PARAMETER ); // That's the "TRANSFORM" parameter
+                source.getParameterNameList().push_back ( PARAM_TYPE_TRANSFORM ); // That's the "TRANSFORM" parameter
             }
 
             else if ( dimension == 32 )
             {
                 // It's a matrix source.
                 source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_PARAM_TYPE_FLOAT4x4 );
-                source.getParameterNameList().push_back ( X_Y_PARAMETER ); // That's the "X_Y" parameter
+                source.getParameterNameList().push_back ( PARAM_TYPE_X_Y ); // That's the "X_Y" parameter
             }
 
             source.setAccessorCount ( values.size() / dimension );
-
             source.prepareToAppendValues();
-
-            for ( uint i=0; i<values.size(); ++i )
-                source.appendValues ( values[i] );
-
+            source.appendValues ( values );
             source.finish();
         }
     }
@@ -1055,13 +1028,10 @@ namespace COLLADAMaya
             source.setNodeName ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
-            source.getParameterNameList().push_back ( INTERPOLATION_PARAMETER );
+            source.getParameterNameList().push_back ( PARAM_TYPE_INTERPOLATION );
             source.setAccessorCount ( interpolations.size() );
             source.prepareToAppendValues();
-
-            for ( uint i=0; i<interpolations.size(); ++i )
-                source.appendValues ( interpolations[i] );
-
+            source.appendValues ( interpolations );
             source.finish();
         }
     }
@@ -1091,7 +1061,7 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSource source ( mSW );
+            COLLADA::FloatSourceF source ( mSW );
             source.setId ( sourceId + sourceIdSuffix );
             source.setNodeName ( sourceId + sourceIdSuffix );
             source.setArrayId ( sourceId + sourceIdSuffix + ARRAY_ID_SUFFIX );
@@ -1101,17 +1071,13 @@ namespace COLLADAMaya
 
             for ( uint i=0; i<dimension; ++i )
             {
-                source.getParameterNameList().push_back ( * ( TANGENT_PARAMETERS + 0 ) );
-                source.getParameterNameList().push_back ( * ( TANGENT_PARAMETERS + 1 ) );
+                source.getParameterNameList().push_back ( * ( XY_PARAMETERS + 0 ) );
+                source.getParameterNameList().push_back ( * ( XY_PARAMETERS + 1 ) );
             }
 
             source.setAccessorCount ( values.size() / stride );
-
             source.prepareToAppendValues();
-
-            for ( uint i=0; i<values.size(); ++i )
-                source.appendValues ( values[i] );
-
+            source.appendValues ( values );
             source.finish();
         }
     }
@@ -1123,18 +1089,15 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSource source ( mSW );
+            COLLADA::FloatSourceF source ( mSW );
             source.setId ( sourceId + TCBS_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + TCBS_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + TCBS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
-            source.getParameterNameList().push_back ( TCBS_PARAMETER );
+            source.getParameterNameList().push_back ( PARAM_TYPE_TCBS );
             source.setAccessorCount ( values.size() );
             source.prepareToAppendValues();
-
-            for ( uint i=0; i<values.size(); ++i )
-                source.appendValues ( values[i] );
-
+            source.appendValues ( values );
             source.finish();
         }
     }
@@ -1146,18 +1109,15 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSource source ( mSW );
+            COLLADA::FloatSourceF source ( mSW );
             source.setId ( sourceId + EASES_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + EASES_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + EASES_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
-            source.getParameterNameList().push_back ( EASES_PARAMETER );
+            source.getParameterNameList().push_back ( PARAM_TYPE_EASES );
             source.setAccessorCount ( values.size() );
             source.prepareToAppendValues();
-
-            for ( uint i=0; i<values.size(); ++i )
-                source.appendValues ( values[i] );
-
+            source.appendValues ( values );
             source.finish();
         }
     }
@@ -1261,9 +1221,7 @@ namespace COLLADAMaya
 
         // get the plug to the requested attribute
         MStatus status;
-
         MPlug plug = fn.findPlug ( attrname.c_str(), &status );
-
         if ( status != MS::kSuccess ) return;
 
         addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
@@ -1299,7 +1257,6 @@ namespace COLLADAMaya
 
         // Buffer the call to support driven-key animations
         String baseId = getBaseId ( plug );
-
         String nodeId = getNodeId ( plug );
 
         AnimationElement* animatedElement = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );

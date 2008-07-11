@@ -34,7 +34,13 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     SceneElement::SceneElement ( const MDagPath _nodePath, Type _type )
-            : mDagPath ( _nodePath ), mType ( _type ), isExportNode ( false )
+            : mDagPath ( _nodePath )
+            , mType ( _type )
+            , mIsExportNode ( false )
+            , mIsForced ( false )
+            , mIsVisible ( false )
+            , mHasSkinController ( false )
+            , mHasMorphController ( false )
     {}
 
     //---------------------------------------------------------------

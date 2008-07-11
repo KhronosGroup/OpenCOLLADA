@@ -22,22 +22,11 @@
 
 
 #include "COLLADABindMaterial.h"
+#include "COLLADAInstanceMaterial.h"
 #include "COLLADASWC.h"
 
 namespace COLLADA
 {
-
-    //---------------------------------------------------------------
-    void InstanceMaterialList::add()
-    {
-        for ( List::iterator it = mList.begin(); it != mList.end(); ++it )
-        {
-            mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_MATERIAL );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SYMBOL, it->getSymbol() );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TARGET, it->getTarget() );
-            mSW->closeElement();
-        }
-    }
 
     //---------------------------------------------------------------
     void BindMaterial::add()
@@ -46,7 +35,9 @@ namespace COLLADA
         {
             mBindMaterialCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_BIND_MATERIAL );
             mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE_COMMON );
+
             mInstanceMaterialList.add();
+
             mBindMaterialCloser.close();
         }
     }

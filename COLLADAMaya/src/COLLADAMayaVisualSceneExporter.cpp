@@ -44,19 +44,22 @@
 
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
+#include "COLLADAInstanceController.h"
 #include "COLLADAMathUtils.h"
+#include "COLLADALibraryControllers.h"
 
 
 namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    VisualSceneExporter::VisualSceneExporter ( COLLADA::StreamWriter* _streamWriter,
-            DocumentExporter* _documentExporter,
-            const String& _sceneId )
-            : COLLADA::LibraryVisualScenes ( _streamWriter ),
-            mDocumentExporter ( _documentExporter ),
-            mSceneId ( _sceneId )
+    VisualSceneExporter::VisualSceneExporter ( 
+        COLLADA::StreamWriter* _streamWriter,
+        DocumentExporter* _documentExporter,
+        const String& _sceneId )
+    :   COLLADA::LibraryVisualScenes ( _streamWriter )
+    ,   mDocumentExporter ( _documentExporter )
+    ,   mSceneId ( _sceneId )
     {
         visualSceneAdded = false;
         isJoint = false;
@@ -74,37 +77,28 @@ namespace COLLADAMaya
         // Assign a name to the scene
         MString sceneName;
         MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );
-
         if ( sceneName.length() != 0 ) sceneID = sceneName.asChar();
 
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
         // The flag, if a node was exported and the visual scene tags must to be closed
         bool nodeExported = false;
-
         bool isLocal = true;
 
         // Export all/selected DAG nodes
         uint length = exportNodesTree->size();
-
         for ( uint i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
-            const MDagPath dagPath = sceneElement->getPath();
-            MFnDependencyNode fn ( dagPath.node() );
-            String theNodeName = fn.name().asChar();
 
             // Exports all the nodes in a node and all its child nodes recursive
-
             if ( exportVisualSceneNodes ( sceneElement, isLocal ) ) nodeExported = true;
         }
 
         // Just if a node was exported, the visual scene tag
         // in the collada document is open and should be closed.
-
         if ( nodeExported ) closeVisualScene();
 
         closeLibrary();
@@ -136,11 +130,9 @@ namespace COLLADAMaya
         // The transform node
         MStatus status;
         MObject transformNode = dagPath.transform ( &status );
-
         if ( ( status != MS::kSuccess ) && status.statusCode () == MStatus::kInvalidParameter ) return false;
 
         MFnDagNode transform ( transformNode, &status );
-
         if ( !status )
         {
             status.perror ( "MFnDagNode constructor" );
@@ -148,17 +140,13 @@ namespace COLLADAMaya
         }
 
         bool isForced = false;
-
         bool isVisible = false;
-
         if ( !sceneGraph->isExportNode ( dagPath, isForced, isVisible ) ) return false;
 
         // TODO
         // If this is a DAG node (not a DAG shape) check to see whether we should enter
         bool animationExport = true;
-
         bool isSceneRoot = dagPath.length() == 0;
-
         if ( !isSceneRoot )
         {
 //    if (!exportNode || !enterDagNode(sceneNode, dagPath))
@@ -175,13 +163,11 @@ namespace COLLADAMaya
 
         // Export the transform
         bool isTransform = dagPath.hasFn ( MFn::kTransform );
-
         if ( isTransform )
         {
             sceneElement->setType ( SceneElement::TRANSFORM );
 
             // Export the scene graph node for all transform-derivatives
-
             if ( dagPath.hasFn ( MFn::kJoint ) )
             {
                 if ( ExportOptions::exportJointsAndSkin() )
@@ -194,19 +180,16 @@ namespace COLLADAMaya
                         // Push it into the list of the exported elements
                         sceneGraph->addElement ( sceneElement );
                     }
-
                     else
                     {
                         isLocal = true;
                     }
                 }
-
                 else
                 {
                     isTransform = false; // we didn't do anything to this node
                 }
             }
-
             else
             {
                 // Taken out of VisitTransform.  If VisitTransform
@@ -316,21 +299,21 @@ namespace COLLADAMaya
         const MDagPath dagPath = sceneElement->getPath();
 
         // Initialize the member varibles
-
         if ( !initializeTransform ( dagPath ) )
         {
-            String pathName = dagPath.fullPathName().asChar();
-            String message = "Could not initialize the transform object of the path " + pathName;
-            assert ( message.c_str() );
+            MString pathName = dagPath.fullPathName();
+            MString message = "Could not initialize the transform object of the path " + pathName;
+            MGlobal::displayError( message );
+            assert ( initializeTransform ( dagPath ) );
             return false;
         }
 
         // Add the visual scene, if not done before
-
         if ( !visualSceneAdded )
         {
             // There is always just one visual scene. Give it a valid unique id.
-            openVisualScene ( VISUAL_SCENE_NODE_ID, mSceneId );
+            String visualSceneName = mDocumentExporter->checkNCName( mSceneId );
+            openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
             visualSceneAdded = true;
         }
 
@@ -345,12 +328,10 @@ namespace COLLADAMaya
         {
             exportMatrixTransform();
         }
-
         else if ( ExportOptions::exportCameraAsLookat() && dagPath.hasFn ( MFn::kCamera ) )
         {
             exportLookatTransform();
         }
-
         else
         {
             exportDecomposedTransform();
@@ -372,62 +353,101 @@ namespace COLLADAMaya
             SceneElement* childElement = sceneElement->getChild ( i );
 
             // Check if the child element is a mesh object and an export node
-
             if ( childElement->getType() == SceneElement::MESH &&
                     childElement->getIsExportNode() )
             {
                 MDagPath childDagPath = childElement->getPath();
                 String childNodeID = childElement->getNodeName();
 
-                // Write the geometry instance
-                COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
-                instanceGeometry.setUrl ( "#" + /*COLLADA::LibraryGeometries::GEOMETRY_ID_PRAEFIX +*/ childNodeID );
-
-                // Write all materials
-                COLLADA::InstanceMaterialList& instanceMaterialList =
-                    instanceGeometry.getBindMaterial().getInstanceMaterialList();
-
-                // Find how many shaders are used by this instance of the mesh
-                MFnMesh fnMesh ( childDagPath.node() );
-
-                String nodeName = fnMesh.name().asChar();
-                String pathName = childDagPath.fullPathName().asChar();
-
-                MObjectArray shaders;
-                MIntArray shaderIndices;
-                fnMesh.getConnectedShaders ( 0, shaders, shaderIndices );
-
-                uint realShaderCount = ( uint ) shaders.length();
-                uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
-
-                for ( uint shaderPosition = 0; shaderPosition < numShaders; ++shaderPosition )
+                if (childElement->getHasSkinController())
                 {
-                    if ( shaderPosition < realShaderCount )
-                    {
-                        // Add shader-specific parameters (TexCoords sets).
-                        // Add symbolic name for the material used on this polygon set.
-                        MObject shadingEngine = shaders[shaderPosition];
-                        MFnDependencyNode shadingEngineFn ( shadingEngine );
-                        String colladaName = mDocumentExporter->mayaNameToColladaName ( shadingEngineFn.name(), true );
+                    COLLADA::InstanceController instanceController ( streamWriter );
+                    instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
 
-                        String shadingEngineName = shadingEngineFn.name().asChar();
-                        String materialName = mDocumentExporter->mayaNameToColladaName ( shadingEngineFn.name() );
+                    // TODO Collada-Spec: Indicates where a skin controller is to start to search for the
+                    // joint nodes it needs. This element is meaningless for morph controllers. See main entry.
+                    instanceController.setSkeletonId( "#blubber" + childNodeID);
 
-                        // This object contains a reference to a shader, or material, so we might call
-                        // our own function to write that material to our own data structure for later export.
-                        MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
-                        MFnDependencyNode shaderFn ( shader );
-                        String shaderName = shaderFn.name().asChar();
+                    // Write all materials
+                    COLLADA::InstanceMaterialList& instanceMaterialList =
+                        instanceController.getBindMaterial().getInstanceMaterialList();
 
-                        instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, "#" + shaderName ) );
-                    }
+                    // Export the materials
+                    exportMaterialList(instanceMaterialList, childDagPath);
+
+                    instanceController.add();
                 }
+                else if (childElement->getHasMorphController())
+                {
+                    COLLADA::InstanceController instanceController ( streamWriter );
+                    instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
 
-                instanceGeometry.add();
+                    // Write all materials
+                    COLLADA::InstanceMaterialList& instanceMaterialList =
+                        instanceController.getBindMaterial().getInstanceMaterialList();
+
+                    // Export the materials
+                    exportMaterialList(instanceMaterialList, childDagPath);
+
+                    instanceController.add();
+                }
+                else
+                {
+                    // Write the geometry instance
+                    COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
+                    instanceGeometry.setUrl ( "#" + /*GEOMETRY_ID_PRAEFIX +*/ childNodeID );
+
+                    // Write all materials
+                    COLLADA::InstanceMaterialList& instanceMaterialList =
+                        instanceGeometry.getBindMaterial().getInstanceMaterialList();
+
+                    // Export the materials
+                    exportMaterialList(instanceMaterialList, childDagPath);
+
+                    instanceGeometry.add();
+                }
             }
         }
 
         return true;
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportMaterialList( 
+        COLLADA::InstanceMaterialList &instanceMaterialList, 
+        MDagPath &dagPath )
+    {
+        // Find how many shaders are used by this instance of the mesh
+        MFnMesh fnMesh ( dagPath.node() );
+
+        MObjectArray shaders;
+        MIntArray shaderIndices;
+        fnMesh.getConnectedShaders ( 0, shaders, shaderIndices );
+
+        uint realShaderCount = ( uint ) shaders.length();
+        uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
+
+        for ( uint shaderPosition = 0; shaderPosition < numShaders; ++shaderPosition )
+        {
+            if ( shaderPosition < realShaderCount )
+            {
+                // Add shader-specific parameters (TexCoords sets).
+                // Add symbolic name for the material used on this polygon set.
+                MObject shadingEngine = shaders[shaderPosition];
+                MFnDependencyNode shadingEngineFn ( shadingEngine );
+
+                String shadingEngineName = shadingEngineFn.name().asChar();
+                String materialName = mDocumentExporter->mayaNameToColladaName ( shadingEngineFn.name() );
+
+                // This object contains a reference to a shader, or material, so we might call
+                // our own function to write that material to our own data structure for later export.
+                MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
+                MFnDependencyNode shaderFn ( shader );
+                String shaderName = shaderFn.name().asChar();
+
+                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, "#" + shaderName ) );
+            }
+        }
     }
 
     //---------------------------------------------------------------
@@ -567,7 +587,7 @@ namespace COLLADAMaya
         float yAxis[] = {0.0f, 1.0f, 0.0f};
         float zAxis[] = {0.0f, 0.0f, 1.0f};
 
-        if ( shear[0] != 0.0 )
+        if ( !COLLADA::MathUtils::equals( shear[0], 0.0 ) )
         {
             float angle = COLLADA::MathUtils::radToDegF ( ( float ) atan ( shear[0] ) );
             float* rotateAxis ( xAxis );
@@ -576,7 +596,7 @@ namespace COLLADAMaya
             mVisualSceneNode->addSkew ( SKEW_XY_SID, angle, rotateAxis, aroundAxis );
         }
 
-        if ( shear[1] != 0.0 )
+        if ( !COLLADA::MathUtils::equals( shear[1], 0.0 ) )
         {
             float angle = COLLADA::MathUtils::radToDegF ( ( float ) atan ( shear[1] ) );
             float* rotateAxis ( xAxis );
@@ -585,7 +605,7 @@ namespace COLLADAMaya
             mVisualSceneNode->addSkew ( SKEW_XZ_SID, angle, rotateAxis, aroundAxis );
         }
 
-        if ( shear[2] != 0.0 )
+        if ( !COLLADA::MathUtils::equals( shear[2], 0.0 ) )
         {
             float angle = COLLADA::MathUtils::radToDegF ( ( float ) atan ( shear[2] ) );
             float* rotateAxis ( yAxis );
@@ -630,7 +650,7 @@ namespace COLLADAMaya
             if ( animation )
             {
                 AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                animationExporter->addPlugAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, TRANSLATION_PARAMETERS, kVector | kLength );
+                animationExporter->addPlugAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, XYZ_PARAMETERS, kVector | kLength );
                 //   animationExporter->addPlugAnimation(mDagPath.node(), name, translation, kVector | kLength);
                 /*
                 ANIM->AddPlugAnimation(transform, name, colladaTranslate->GetTranslation(), kVector | kLength);
@@ -670,29 +690,31 @@ namespace COLLADAMaya
 //         bool eliminateEmptyRotation = true;
 //         if ( eliminateEmptyRotation && rotation.x == 0.0 ) eliminateRotation = true;
 
-        mVisualSceneNode->addRotateZ(name + XYZ_PARAMETERS[2], COLLADA::MathUtils::radToDeg(rotation.z));
-        mVisualSceneNode->addRotateY(name + XYZ_PARAMETERS[1], COLLADA::MathUtils::radToDeg(rotation.y));
-        mVisualSceneNode->addRotateX(name + XYZ_PARAMETERS[0], COLLADA::MathUtils::radToDeg(rotation.x));
+//         mVisualSceneNode->addRotateZ(name + XYZ_PARAMETERS[2], COLLADA::MathUtils::radToDeg(rotation.z));
+//         mVisualSceneNode->addRotateY(name + XYZ_PARAMETERS[1], COLLADA::MathUtils::radToDeg(rotation.y));
+//         mVisualSceneNode->addRotateX(name + XYZ_PARAMETERS[0], COLLADA::MathUtils::radToDeg(rotation.x));
 
         // Set zero flags, where the rotation is zero
-        bool isZero[3] = { ( rotation.x == 0.0 ), ( rotation.y == 0.0 ), ( rotation.z == 0.0 ) };
+        bool isZero[3] = {  COLLADA::MathUtils::equals( rotation.x, 0.0 ), 
+                            COLLADA::MathUtils::equals( rotation.y, 0.0 ), 
+                            COLLADA::MathUtils::equals( rotation.z, 0.0 ) };
 
         // Go through the axes
         for ( uint i=0; i<3; ++i )
         {
             // TODO
-//             bool rotationIsNecessary = ( !mIsFirstRotation && isZero[i] );
-// 
-//             if ( mTransformObject != MObject::kNullObj && rotationIsNecessary )
-//             {
-//                 // Add the rotation in the order ZYX
-//                 mVisualSceneNode->addRotate (
-//                     name+ZYX_PARAMETERS[i],
-//                     matrixRotate[i][0],
-//                     matrixRotate[i][1],
-//                     matrixRotate[i][2],
-//                     matrixRotate[i][3] );
-//             }
+            bool rotationIsNecessary = !( !mIsFirstRotation && isZero[i] );
+
+            if ( mTransformObject != MObject::kNullObj && rotationIsNecessary )
+            {
+                // Add the rotation in the order ZYX
+                mVisualSceneNode->addRotate (
+                    name+ZYX_PARAMETERS[i],
+                    matrixRotate[i][0],
+                    matrixRotate[i][1],
+                    matrixRotate[i][2],
+                    matrixRotate[i][3] );
+            }
 
             // Add the animation in the order XYZ
             animationExporter->addPlugAnimation (
@@ -831,7 +853,7 @@ namespace COLLADAMaya
             mVisualSceneNode->addScale ( ATTR_SCALE, scale[0], scale[1], scale[2] );
 
             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addPlugAnimation ( mTransformObject, ATTR_SCALE, SCALE_PARAMETERS, kVector );
+            animationExporter->addPlugAnimation ( mTransformObject, ATTR_SCALE, XYZ_PARAMETERS, kVector );
         }
     }
 

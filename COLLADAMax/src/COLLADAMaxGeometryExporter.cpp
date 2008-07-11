@@ -25,7 +25,7 @@
 
 #include "COLLADAStreamWriter.h"
 #include "COLLADASource.h"
-#include "COLLADAVertices.h"
+#include "COLLADABaseInputElement.h"
 #include "COLLADAPrimitves.h"
 #include "COLLADAUtils.h"
 
@@ -343,7 +343,7 @@ namespace COLLADAMax
                         if ( it == polylistListPerMaterialIdMap.end() )
                             it = ( polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADA::Polylist> ( materialId, COLLADA::Polylist ( mGeometriesExporter->mSW ) ) ) ).first;
 
-                        it->second.mVCountList.push_back ( face->deg );
+                        it->second.getVCountList().push_back ( face->deg );
 
                         if ( find ( materialIDs.begin(), materialIDs.end(), materialId ) == materialIDs.end() )
                             materialIDs.push_back ( materialId );
@@ -359,7 +359,7 @@ namespace COLLADAMax
                     for ( int i = 0; i < numberOfFaces; ++i )
                     {
                         MNFace *face = mnMesh.F ( i );
-                        polylistListPerMaterialIdMap[ 0 ].mVCountList.push_back ( face->deg );
+                        polylistListPerMaterialIdMap[ 0 ].getVCountList().push_back ( face->deg );
                     }
 
                     materialIDs.push_back ( 0 );
@@ -789,7 +789,7 @@ namespace COLLADAMax
         MNNormalSpec *normmalSpec = mnMesh.GetSpecifiedNormals();
 
         int offset = 0;
-        polylist.setCount ( ( unsigned long ) polylist.mVCountList.size() );
+        polylist.setCount ( ( unsigned long ) polylist.getVCountList().size() );
         polylist.setMaterial ( symbol );
         polylist.getInputList().push_back ( COLLADA::Input ( COLLADA::VERTEX, "#" + mId + COLLADA::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
         polylist.getInputList().push_back ( COLLADA::Input ( COLLADA::NORMAL, "#" + mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );

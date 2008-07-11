@@ -30,6 +30,7 @@
 
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
+#include "COLLADAInstanceMaterial.h"
 
 #include <maya/MDagPath.h>
 #include <maya/MFnTransform.h>
@@ -128,6 +129,14 @@ namespace COLLADAMaya
         */
         bool exportVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
 
+        /**
+         * @todo documentation
+         * @param instanceMaterialList
+         * @param childDagPath
+         * @return void
+         */
+        void exportMaterialList( COLLADA::InstanceMaterialList &instanceMaterialList, MDagPath &childDagPath );
+        
         /**
          * Initializes the transform objects.
          * @param dagPath The path to the transform object.

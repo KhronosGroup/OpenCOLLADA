@@ -29,6 +29,8 @@
 #include "COLLADAMayaMeshHelper.h"
 
 #include <vector>
+#include <time.h>
+
 #include <maya/MFnMesh.h>
 #include <maya/MDagPath.h>
 #include <maya/MItMeshPolygon.h>
@@ -97,10 +99,6 @@ namespace COLLADAMaya
 
     private:
 
-        /** Constants for parameters */
-        static const String PARAMETER_DOUBLESIDED;
-        static const String VERTEX_SID;
-
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
@@ -134,7 +132,7 @@ namespace COLLADAMaya
         void exportGeometries ( SceneElement* sceneElement );
 
         /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
-        void exportGeometry ( const MObject& meshObject );
+        void exportGeometry ( const MDagPath& dagPath );
 
         /** closes the geometry tags in the collada document */
         void endExport();
@@ -142,7 +140,14 @@ namespace COLLADAMaya
     private:
 
         /** Exports all geometry data of the current mesh. */
-        void exportMesh ( MFnMesh& fnMesh, String meshId, String& nodeNameCollada );
+        void exportMesh ( MFnMesh& fnMesh, String meshId, String& meshName );
+
+        /**
+         * Get the uv set names of the current mesh.
+         * @param fnMesh The mesh object.
+         * @param uvSetNames String array for the uv set names.
+         */
+        void getUVSetNames( MFnMesh &fnMesh, MStringArray &uvSetNames );
 
         /** Exports an extra tag. */
         void exportExtra ( const MFnMesh& fnMesh );

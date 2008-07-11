@@ -126,7 +126,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String & name, const String & value )
+    void StreamWriter::appendAttribute ( const String &name, const String &value )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -142,7 +142,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String & name, double value )
+    void StreamWriter::appendAttribute ( const String &name, double value )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -156,7 +156,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String & name, unsigned long value )
+    void StreamWriter::appendAttribute ( const String &name, unsigned long value )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -170,7 +170,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendText ( const String & text )
+    void StreamWriter::appendText ( const String &text )
     {
         prepareToAddContents();
         appendString ( text );
@@ -200,9 +200,7 @@ namespace COLLADA
             appendChar ( ' ' );
 
         appendNumber ( number1 );
-
         appendChar ( ' ' );
-
         appendNumber ( number2 );
 
         mOpenTags.top().mHasText = true;
@@ -218,13 +216,9 @@ namespace COLLADA
             appendChar ( ' ' );
 
         appendNumber ( number1 );
-
         appendChar ( ' ' );
-
         appendNumber ( number2 );
-
         appendChar ( ' ' );
-
         appendNumber ( number3 );
 
         mOpenTags.top().mHasText = true;
@@ -239,34 +233,202 @@ namespace COLLADA
             appendChar ( ' ' );
 
         appendNumber ( number1 );
-
         appendChar ( ' ' );
-
         appendNumber ( number2 );
-
         appendChar ( ' ' );
-
         appendNumber ( number3 );
-
         appendChar ( ' ' );
-
         appendNumber ( number4 );
 
         mOpenTags.top().mHasText = true;
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const float values[] )
+    void StreamWriter::appendValues ( const float values[], const size_t length )
     {
         prepareToAddContents();
 
         if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
 
-        size_t size = sizeof ( values ) / sizeof ( float );
-
-        for ( size_t i=0; i<size; ++i )
+        for ( size_t i=0; i<length; ++i )
         {
             appendNumber ( values[i] );
+            appendChar ( ' ' );
+        }
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const float matrix[4][4] )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( matrix[0][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[0][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[0][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[0][3] );
+        appendChar ( ' ' );
+
+        appendNumber ( matrix[1][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[1][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[1][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[1][3] );
+        appendChar ( ' ' );
+
+        appendNumber ( matrix[2][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[2][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[2][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[2][3] );
+        appendChar ( ' ' );
+
+        appendNumber ( matrix[3][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[3][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[3][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[3][3] );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const double values[], const size_t length )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+
+        for ( size_t i=0; i<length; ++i )
+        {
+            appendNumber ( values[i] );
+            appendChar ( ' ' );
+        }
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const double matrix[4][4] )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( matrix[0][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[0][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[0][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[0][3] );
+        appendChar ( ' ' );
+
+        appendNumber ( matrix[1][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[1][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[1][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[1][3] );
+        appendChar ( ' ' );
+
+        appendNumber ( matrix[2][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[2][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[2][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[2][3] );
+        appendChar ( ' ' );
+
+        appendNumber ( matrix[3][0] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[3][1] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[3][2] );
+        appendChar ( ' ' );
+        appendNumber ( matrix[3][3] );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const std::vector<float> &values )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+
+        std::vector<float>::const_iterator it = values.begin();
+        for ( ; it!=values.end(); ++it )
+        {
+            appendNumber ( *it );
+            appendChar ( ' ' );
+        }
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const std::vector<double> &values )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+
+        std::vector<double>::const_iterator it = values.begin();
+        for ( ; it!=values.end(); ++it )
+        {
+            appendNumber ( *it );
+            appendChar ( ' ' );
+        }
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const std::vector<String> &values )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+
+        std::vector<String>::const_iterator it = values.begin();
+        for ( ; it!=values.end(); ++it )
+        {
+            appendString ( *it );
+            appendChar ( ' ' );
+        }
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const std::vector<unsigned long> &values )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+
+        std::vector<unsigned long>::const_iterator it = values.begin();
+        for ( ; it!=values.end(); ++it )
+        {
+            appendNumber ( *it );
             appendChar ( ' ' );
         }
 
@@ -308,9 +470,7 @@ namespace COLLADA
             appendChar ( ' ' );
 
         appendNumber ( number1 );
-
         appendChar ( ' ' );
-
         appendNumber ( number2 );
 
         mOpenTags.top().mHasText = true;
@@ -326,13 +486,9 @@ namespace COLLADA
             appendChar ( ' ' );
 
         appendNumber ( number1 );
-
         appendChar ( ' ' );
-
         appendNumber ( number2 );
-
         appendChar ( ' ' );
-
         appendNumber ( number3 );
 
         mOpenTags.top().mHasText = true;
@@ -347,17 +503,11 @@ namespace COLLADA
             appendChar ( ' ' );
 
         appendNumber ( number1 );
-
         appendChar ( ' ' );
-
         appendNumber ( number2 );
-
         appendChar ( ' ' );
-
         appendNumber ( number3 );
-
         appendChar ( ' ' );
-
         appendNumber ( number4 );
 
         mOpenTags.top().mHasText = true;
@@ -377,6 +527,7 @@ namespace COLLADA
     }
 
 
+    //---------------------------------------------------------------
     void StreamWriter::appendValues ( const String & text )
     {
         prepareToAddContents();
@@ -384,11 +535,10 @@ namespace COLLADA
         if ( mOpenTags.top().mHasText )
             appendChar ( ' ' );
 
-        appendText ( text );
+        appendString ( text );
 
         mOpenTags.top().mHasText = true;
     }
-
 
     //---------------------------------------------------------------
     TagCloser StreamWriter::openElement ( const String & name )

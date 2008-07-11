@@ -145,6 +145,7 @@ namespace COLLADAMaya
 
 
     /** The parameters for the animation exports. */
+    static const String EMPTY_PARAMETER[1]                          = { "" };
     static const String X_PARAMETER[1]                              = { "X" };
     static const String Y_PARAMETER[1]                              = { "Y" };
     static const String Z_PARAMETER[1]                              = { "Z" };
@@ -155,13 +156,11 @@ namespace COLLADAMaya
     static const String RGBA_PARAMETERS[4]                          = { "R", "G", "B", "A" };
     static const String STPQ_PARAMETERS[4]                          = { "S", "T", "P", "Q" };
     static const String ANGLE_PARAMETER[1]                          = { "ANGLE" };
-
-    static const String TRANSLATION_PARAMETERS[3]                   = { "X", "Y", "Z" };
-    static const String SCALE_PARAMETERS[3]                         = { "X", "Y", "Z" };
     static const String MATRIX_PARAMETER[1]                         = { "MATRIX" };
-    static const String EMPTY_PARAMETER[1]                          = { "" };
-    static const String TANGENT_PARAMETERS[2]                       = {"X", "Y" };
 
+    static const String DOUBLE_SIDED_PARAMETER                      = "double_sided";
+
+    static const String VERTEX_SID                                  = "VERTEX";
     static const String SKEW_XY_SID                                 = "skewXY";
     static const String SKEW_XZ_SID                                 = "skewXZ";
     static const String SKEW_YZ_SID                                 = "skewYZ";
@@ -170,23 +169,28 @@ namespace COLLADAMaya
     static const char* ATTR_ALPHA_GAIN                              = "alphaGain";
     static const char* ATTR_ALPHA_OFFSET                            = "alphaOffset";
     static const char* ATTR_AMBIENT_COLOR                           = "ambientColor";
+    static const char* ATTR_BACKFACE_CULLING                        = "backfaceCulling";
     static const char* ATTR_BUMP_DEPTH                              = "bumpDepth";
     static const char* ATTR_BUMP_INTERP                             = "bumpInterp";
     static const char* ATTR_BUMP_VALUE                              = "bumpValue";
     static const char* ATTR_COLOR                                   = "color";
     static const char* ATTR_COLOR_NAME                              = "cn";
+    static const char* ATTR_COLOR_PER_VERTEX                        = "colorPerVertex";
     static const char* ATTR_COLORSET                                = "colorSet";
     static const char* ATTR_COLORSET_NAME                           = "clsn";
     static const char* ATTR_COLORSET_POINTS                         = "clsp";
     static const char* ATTR_COSINE_POWER                            = "cosinePower";
+    static const char* ATTR_DOUBLE_SIDED                            = "doubleSided";
     static const char* ATTR_ECCENTRICITY                            = "eccentricity";
     static const char* ATTR_FILE_TEXTURE_NAME                       = "fileTextureName";
+    static const char* ATTR_GEOM_MATRIX                             = "geomMatrix";
     static const char* ATTR_IMAGE                                   = "image";
     static const char* ATTR_IMAGE_SEQUENCE                          = "useFrameExtension";
     static const char* ATTR_INCANDESCENCE                           = "incandescence";
     static const char* ATTR_IN_MESH                                 = "inMesh";
     static const char* ATTR_INTERMEDIATE_OBJECT                     = "io";
     static const char* ATTR_INPUt                                   = "input";
+    static const char* ATTR_INPUT_GEOMETRY                          = "ig";
     static const char* ATTR_INVERT                                  = "invert";
     static const char* ATTR_JOINT_ORIENT                            = "jointOrient";
     static const char* ATTR_MATRIX                                  = "matrix";
@@ -200,14 +204,6 @@ namespace COLLADAMaya
     static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
     static const char* ATTR_PLACEMENT_MATRIX                        = "placementMatrix";
     static const char* ATTR_PROJECTION_TYPE                         = "projType";
-    static const char* ATTR_SCALE                                   = "scale";
-    static const char* ATTR_SCALE_PIVOT_INVERSE                     = "scalePivotInverse";
-    static const char* ATTR_SCALE_PIVOT                             = "scalePivot";
-    static const char* ATTR_SCALE_PIVOT_TRANSLATION                 = "scalePivotTranslation";
-    static const char* ATTR_SPECULAR_COLOR                          = "specularColor";
-    static const char* ATTR_SEGMENT_SCALE_COMPENSATE                = "ssc";
-    static const char* ATTR_SURFACE_SHADER                          = "surfaceShader";
-    static const char* ATTR_UV_SET                                  = "uvSet";
     static const char* ATTR_REFLECTIVITY                            = "reflectivity";
     static const char* ATTR_REFLECTED_COLOR                         = "reflectedColor";
     static const char* ATTR_REFRACTIONS                             = "refractions";
@@ -220,10 +216,25 @@ namespace COLLADAMaya
     static const char* ATTR_ROTATE_X                                = "rotateX";
     static const char* ATTR_ROTATE_Y                                = "rotateY";
     static const char* ATTR_ROTATE_Z                                = "rotateZ";
+    static const char* ATTR_SCALE                                   = "scale";
+    static const char* ATTR_SCALE_PIVOT_INVERSE                     = "scalePivotInverse";
+    static const char* ATTR_SCALE_PIVOT                             = "scalePivot";
+    static const char* ATTR_SCALE_PIVOT_TRANSLATION                 = "scalePivotTranslation";
+    static const char* ATTR_SPECULAR_COLOR                          = "specularColor";
+    static const char* ATTR_SEGMENT_SCALE_COMPENSATE                = "ssc";
+    static const char* ATTR_SURFACE_SHADER                          = "surfaceShader";
     static const char* ATTR_TRANSFORM                               = "transform";
     static const char* ATTR_TRANSLATE                               = "translate";
     static const char* ATTR_TRANSPARENCY                            = "transparency";
+    static const char* ATTR_UV_SET                                  = "uvSet";
     static const char* ATTR_VISIBILITY                              = "visibility";
+    static const char* ATTR_VERTEX_POSITION_TWEAKS                  = "pt";
+    static const char* ATTR_VERTEX_ALPHA                            = "vxal";
+    static const char* ATTR_VERTEX_COLOR                            = "vclr";
+    static const char* ATTR_VERTEX_COLOR_RGB                        = "vrgb";
+    static const char* ATTR_VERTEX_FACE_ALPHA                       = "vfal";
+    static const char* ATTR_VERTEX_FACE_COLOR                       = "vfcl";
+    static const char* ATTR_VERTEX_FACE_COLOR_RGB                   = "frgb";
 
     /** Constants for the cameras */
     static const char* CAMERA_PERSP                                 = "persp";

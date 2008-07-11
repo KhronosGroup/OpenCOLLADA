@@ -19,9 +19,6 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 */
-
-
-
 #include "COLLADAVertices.h"
 #include "COLLADASWC.h"
 #include "COLLADAUtils.h"

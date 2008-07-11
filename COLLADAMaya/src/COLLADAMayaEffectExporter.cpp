@@ -208,16 +208,19 @@ namespace COLLADAMaya
         {
             exportStandardShader ( &effectProfile, shader );
         }
-
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_SHADER )
         {
             // TODO
             //  exportColladaFXShader(&effectProfile, shader, colladaMaterial);
+            MGlobal::displayError("Export of ColladaFXShader not implemented!"); 
+            bool colladaFXShader = false; assert( colladaFXShader );
         }
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_PASSES )
         {
             // TODO
             //  effect = ExportColladaFXPasses(&effectProfile, shader, colladaMaterial);
+            MGlobal::displayError("Export of ColladaFXPasses not implemented!"); 
+            bool colladaFXPasses = false; assert( colladaFXPasses );
         }
         else
         {
@@ -234,8 +237,9 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void EffectExporter::exportConstantShader ( COLLADA::EffectProfile* effectProfile,
-            MObject shadingNetwork )
+    void EffectExporter::exportConstantShader ( 
+        COLLADA::EffectProfile* effectProfile,
+        MObject shadingNetwork )
     {
         // Create the constant effect
         effectProfile->setShaderType ( COLLADA::EffectProfile::CONSTANT );

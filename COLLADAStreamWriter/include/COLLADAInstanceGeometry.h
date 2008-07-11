@@ -37,11 +37,21 @@ namespace COLLADA
 	class InstanceGeometry : public ElementWriter
     {
 
+    private:
+
+        /** To bind the materials. */
+        BindMaterial mBindMaterial;
+
+        /** The URL of the location of the object to instantiate.*/
+        String mUrl;
+
     public:
+
 		/** Constructor
 		@param The stream the instance geometry should be written to
 		*/
-		InstanceGeometry ( StreamWriter * streamWriter ) : ElementWriter ( streamWriter ), mBindMaterial ( streamWriter ) {}
+		InstanceGeometry ( StreamWriter * streamWriter ) 
+            : ElementWriter ( streamWriter ), mBindMaterial ( streamWriter ) {}
 
 		/** Destructor*/
 		~InstanceGeometry(){}
@@ -53,12 +63,12 @@ namespace COLLADA
         }
 
         /** Returns the url of the instance geometry*/
-        const String & getUrl()
+        const String& getUrl()
         {
             return mUrl;
         }
 
-        BindMaterial & getBindMaterial()
+        BindMaterial& getBindMaterial()
         {
             return mBindMaterial;
         }
@@ -66,11 +76,6 @@ namespace COLLADA
         /** Adds the instance geometry to the stream*/
         void add();
 
-    private:
-        BindMaterial mBindMaterial;
-
-        /** The URL of the location of the object to instantiate.*/
-        String mUrl;
     };
 
 

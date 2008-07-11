@@ -123,11 +123,35 @@ namespace COLLADAMaya
         };
 
         /**
-        * The class for the lists of vertex indexes of each polygon.
-        */
-
+         * The class for the lists of vertex indexes of each polygon.
+         */
         class PolygonSource
         {
+
+        public:
+
+            /** The list of v-counts. */
+            typedef std::vector<unsigned long> VCountList;
+
+        private:
+
+            /** The export type of the current polygon (POLYLIST, POLYGONS OR TRIANGLES) */
+            uint mExportType;
+
+            /** The list with the count of vertex attributes of the polygon. */
+            VCountList mVertexCountList;
+
+            /** The list of the vertex attributes of the polygon. */
+            Sources mVertexAttributes;
+
+            /** Vector with the number of vertexes for every face. */
+            std::vector<uint> mFaceVertexCounts;
+
+            /** Vector with the indices of faces which are holes. */
+            std::vector<uint> mHoleFaces;
+
+            /** True, if the current polygon has one or more holes. */
+            bool mIsHoled;
 
         public:
 
@@ -139,23 +163,73 @@ namespace COLLADAMaya
             /** Destructor */
             virtual ~PolygonSource(){};
 
-            /** The export type of the current polygon (POLYLIST, POLYGONS OR TRIANGLES) */
-            uint mExportType;
+            /**
+             * Returns a reference to the list with the counts of vertex attributes of the polygon.
+             * @return std::vector<unsigned long>& 
+             *          Reference to the list with the counts of vertex attributes of the polygon. 
+             */
+            VCountList& getVertexCountList() { return mVertexCountList; }
 
-            /** The list with the count of vertex attributes of the polygon. */
-            std::vector<unsigned long> mVertexCountList;
+            /**
+             * Returns the list with the counts of vertex attributes of the polygon.
+             * @return std::vector<unsigned long>& 
+             *          The list with the counts of vertex attributes of the polygon. 
+             */
+            const VCountList getVertexCountList() const { return mVertexCountList; }
 
-            /** The list of the vertex attributes of the polygon. */
-            Sources mVertexAttributes;
+            /**
+             * Returns true, if the current polygon has one or more holes.
+             * @return bool True, if the current polygon has one or more holes.
+             */
+            bool isHoled() const { return mIsHoled; }
+            
+            /**
+             * Set the @mIsHoled flag.
+             * @param holed Value for the @mIsHoled flag.
+             */
+            void isHoled( bool holed ) { mIsHoled = holed; }
 
-            /** Vector with the number of vertexes for every face. */
-            std::vector<uint> mFaceVertexCounts;
+            /**
+             * Returns the list of the vertex attributes of the polygon.
+             * @return Sources The list of the vertex attributes of the polygon.
+             */
+            const Sources getVertexAttributes() const { return mVertexAttributes; }
+
+            /**
+             * Returns a reference to the list of the vertex attributes of the polygon.
+             * @return Sources& Reference to the list of the vertex attributes of the polygon.
+             */
+            Sources& getVertexAttributes() { return mVertexAttributes; }
+
+            /**
+             * Returns a reference to the Vector with the number of vertexes for every face.
+             * @return std::vector<uint> 
+             *              Reference to the Vector with the number of vertexes for every face.
+             */
+            std::vector<uint>& getFaceVertexCounts() { return mFaceVertexCounts; }
+
+            /**
+             * Returns a const of the Vector with the number of vertexes for every face.
+             * @return const std::vector<uint>
+             *          Const of the Vector with the number of vertexes for every face.
+             */
+            const std::vector<uint> getFaceVertexCounts() const { return mFaceVertexCounts; }
 
             /** Vector with the indices of faces which are holes. */
-            std::vector<uint> mHoleFaces;
+            /**
+             * Returns a reference to the vector with the indices of faces which are holes.
+             * @return std::vector<uint>&
+             *          Reference to the vector with the indices of faces which are holes.
+             */
+            std::vector<uint>& getHoleFaces() { return mHoleFaces; }
 
-            /** true, if the current polygon has one or more holes. */
-            bool mIsHoled;
+            /**
+             * Returns the const vector with the indices of faces which are holes.
+             * @return const std::vector<uint>
+             *          Const vector with the indices of faces which are holes.
+             */
+            const std::vector<uint> getHoleFaces() const { return mHoleFaces; }
+
         };
 
         typedef std::vector<PolygonSource*> PolygonSourceList;
@@ -183,7 +257,7 @@ namespace COLLADAMaya
         /**
         * Exports the data of all polygons from the shaders in the mesh.
         */
-        void exportPolygons ( MFnMesh &fnMesh,
+        void exportPolygonSources ( MFnMesh &fnMesh,
                               String meshId,
                               MStringArray uvSetNames,
                               ColourSetList &colorSets,
@@ -197,11 +271,42 @@ namespace COLLADAMaya
         * Exports the data of all polygons of the current shader.
         */
         void exportShaderPolygons ( MFnMesh &fnMesh,
-                                    uint shaderPosition,
-                                    uint realShaderCount,
+                                    const uint shaderPosition,
+                                    const uint realShaderCount,
                                     MObjectArray shaders,
-                                    MIntArray shaderIndices );
+                                    const MIntArray shaderIndices );
 
+        /**
+         * Creates the polygon sources of the current shader polygon.
+         * @param fnMesh The mesh object.
+         * @param shaderPosition The position of the current shader polygon.
+         * @param realShaderCount The num of real shaders.
+         * @param shaderIndices The list of shader indices.
+         * @param dummyPrimitivesBase The collada source.
+         * @param shaderPolygons The polygon shader sources.
+         * @param currentShapeIsHoled True, if the current shape is holded.
+         * @return uint Number of polygons (could also be triangles)
+         */
+        uint createShaderPolygons( 
+            MFnMesh &fnMesh, 
+            const uint shaderPosition, 
+            const uint realShaderCount, 
+            const MIntArray shaderIndices, 
+            COLLADA::PrimitivesBase *dummyPrimitivesBase, 
+            PolygonSourceList &shaderPolygons, 
+            bool &currentShapeIsHoled );
+
+        /**
+         * Exports the created polygon sources of the current shader polygon 
+         * into the collada document.
+         * @param shaderPolygons List of the polygon sources to export.
+         * @param primitivesBasePoly The collada object to export.
+         * @param exportType The type of the polygon source.
+         */
+        void writeShaderPolygons( PolygonSourceList &shaderPolygons, 
+                                  COLLADA::PrimitivesBase* primitivesBasePoly,
+                                  uint exportType);
+  
         /**
         * Sets the vertex count list in the primitivesBasePoly from all polygons.
         */
@@ -216,8 +321,9 @@ namespace COLLADAMaya
         /**
         * Create the real Polylist/Polygons/Triangles element.
         */
-        COLLADA::PrimitivesBase* createPrimitivesBase ( COLLADA::PrimitivesBase dummyPoly,
-                uint exportType );
+        COLLADA::PrimitivesBase* createPrimitivesBase ( 
+            COLLADA::PrimitivesBase dummyPoly,
+            uint exportType );
 
         /**
         * Prepare the list for add the vertex indexes.
@@ -241,7 +347,7 @@ namespace COLLADAMaya
         * @return
         *   returns the number of exported polygons (triangles)
         */
-        int exportPoylgonVertices ( MFnMesh &fnMesh,
+        int exportPolygonVertices ( MFnMesh &fnMesh,
                                     MItMeshPolygon &meshPolygonsIter,
                                     COLLADA::PrimitivesBase* polylist,
                                     PolygonSource* polygon );

@@ -124,10 +124,10 @@ namespace COLLADA
         void addRotate ( double x, double y, double z, double angle ) const ;
 
         /** Adds a matrix with sid @a sid*/
-        void addMatrix ( const String& sid, double matrix[][4] ) const ;
+        void addMatrix ( const String& sid, double matrix[4][4] ) const ;
 
         /** Adds a matrix*/
-        void addMatrix ( double matrix[][4] ) const ;
+        void addMatrix ( double matrix[4][4] ) const ;
 
         /** Adds a scale with sid @a sid*/
         void addScale ( const String& sid, double x, double y, double z )  const;
@@ -136,8 +136,8 @@ namespace COLLADA
         void addScale ( double x, double y, double z ) const;
 
         /** Adds the skew of the current mesh element. */
-        void addSkew ( const String& sid, float angle,
-                       float rotateAxis[], float aroundAxis[] ) const;
+        void addSkew ( const String& sid, const float angle,
+                       const float rotateAxis[3], const float aroundAxis[3] ) const;
 
         /** Closes the node
         It must have been opened using open()*/

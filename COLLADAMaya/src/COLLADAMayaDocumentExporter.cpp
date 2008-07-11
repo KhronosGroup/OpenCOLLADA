@@ -93,21 +93,13 @@ namespace COLLADAMaya
 
         // Create the basic elements
         mSceneGraph = new SceneGraph ( this );
-
         mMaterialExporter = new MaterialExporter ( &mStreamWriter, this );
-
         mEffectExporter = new EffectExporter ( &mStreamWriter, this );
-
         mImageExporter = new ImageExporter ( &mStreamWriter );
-
         mGeometryExporter = new GeometryExporter ( &mStreamWriter, this );
-
         mVisualSceneExporter = new VisualSceneExporter ( &mStreamWriter, this, mSceneId );
-
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
-
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
-
         mControllerLibrary = new ControllerLibrary ( &mStreamWriter, this );
     }
 
@@ -141,46 +133,123 @@ namespace COLLADAMaya
 
         mStreamWriter.startDocument();
 
-        SYSTEMTIME startSystemTime, endSystemTime;
+        SYSTEMTIME startSystemTime;
         GetSystemTime(&startSystemTime);
-
-        time_t startTime, endTime;
+        time_t startTime;
         time(&startTime);
 
+#ifdef _DEBUG
+        clock_t startClock, endClock;
+        cout << endl << endl << "Current export time stops: " << endl << endl;
+
+        startClock = clock();
+#endif
         if ( mSceneGraph->create ( selectionOnly ) )
         {
-            time(&endTime);
-            printf("SceneGraph->create(): %d", startTime-endTime);
-            struct tm *t = localtime ( &startTime );
-
-            GetSystemTime(&endSystemTime);
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Create scene graph: " << endClock - startClock << endl;
+#endif
 
             // Export the asset of the document.
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             exportAsset();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export asset: " << endClock - startClock << endl;
+#endif
 
             // Export the material URLs and get the material list
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             MaterialMap* materialMap = mMaterialExporter->exportMaterials();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export materials: " << endClock - startClock << endl;
+#endif
 
             // Export the effects (materials)
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export effects: " << endClock - startClock << endl;
+#endif
 
             // Export the images
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             mImageExporter->exportImages ( imageMap );
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export images: " << endClock - startClock << endl;
+#endif
 
-            // Export the geometries and the controllers
+            // Export the geometries
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             mGeometryExporter->exportGeometries();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export geometries: " << endClock - startClock << endl;
+#endif
+
+            // Export the controllers
+#ifdef _DEBUG
+            startClock = clock();
+#endif
+            mControllerLibrary->exportControllers();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export controllers: " << endClock - startClock << endl;
+#endif
 
             // Export the visual scene
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             mVisualSceneExporter->exportVisualScenes();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export visual scenes: " << endClock - startClock << endl;
+#endif
 
             // Export the animations
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export animations: " << endClock - startClock << endl;
+#endif
 
             // Export the animation clips
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             mAnimationClipExporter->exportAnimationClips ( animationClips );
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export animation clips: " << endClock - startClock << endl;
+#endif
 
             // Export the scene
+#ifdef _DEBUG
+            startClock = clock();
+#endif
             exportScene();
+#ifdef _DEBUG
+            endClock = clock();
+            cout << "Export scene: " << endClock - startClock << endl;
+#endif
 
 
             // TODO
@@ -274,16 +343,12 @@ namespace COLLADAMaya
 
         // Retrieve the unit name and set the asset's unit information
         MString unitName;
-
         MGlobal::executeCommand ( "currentUnit -q -linear -fullName;", unitName );
 
         // Get the UI unit type (internal units are centimeter)
         MDistance testDistance ( 1.0f, MDistance::uiUnit() );
-
         float conversionFactor = ( float ) testDistance.as ( MDistance::kMeters );
-
         double uiUnitFactor = 1.0f / conversionFactor;
-
         asset.setUnit ( unitName.asChar(), conversionFactor );
 
         // TODO
@@ -318,26 +383,23 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    // Replace characters that are supported in Maya,
-    // but not supported in collada names
     String DocumentExporter::mayaNameToColladaName ( const MString& str, bool removeNamespace )
     {
+        // Replace characters that are supported in Maya,
+        // but not supported in collada names
+        
         // NathanM: Strip off namespace prefixes
         // TODO: Should really be exposed as an option in the Exporter
         MString mayaName;
-
         if ( removeNamespace )
         {
             int prefixIndex = str.rindex ( ':' );
             mayaName = ( prefixIndex < 0 ) ? str : str.substring ( prefixIndex + 1, str.length() );
         }
-
         else mayaName = str;
 
         const char* c = mayaName.asChar();
-
         uint length = mayaName.length();
-
         char* buffer = new char[length+1];
 
         // Replace offending characters by some that are supported within xml:
@@ -353,45 +415,43 @@ namespace COLLADAMaya
 
             buffer[i] = d;
         }
-
         buffer[length] = '\0';
 
-        MString returnString ( buffer );
+        MString mayaReturnString ( buffer );
         delete buffer;
 
-        return returnString.asChar();
+//        String returnString = mayaReturnString.asChar();
+        String returnString = checkNCName( mayaReturnString.asChar() );
+        return returnString;
     }
 
     //---------------------------------------------------------------
-    // Make an unique COLLADA Id from a dagPath.
-    // We are free to use anything we want for Ids. For now use
-    // a honking unique name for readability - but in future we
-    // could just use an incrementing integer
-    //
     String DocumentExporter::dagPathToColladaId ( const MDagPath& dagPath )
     {
+        // Make an unique COLLADA Id from a dagPath.
+        // We are free to use anything we want for Ids. For now use
+        // a honking unique name for readability - but in future we
+        // could just use an incrementing integer
         return mayaNameToColladaName ( dagPath.partialPathName(), false );
     }
 
 
     //---------------------------------------------------------------
-    // Get a COLLADA suitable node name from a DAG path
-    // For import/export symmetry, this should be exactly the
-    // Maya node name. If we include any more of the path, we'll
-    // get viral node names after repeated import/export.
-    //
     String DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
     {
+        // Get a COLLADA suitable node name from a DAG path
+        // For import/export symmetry, this should be exactly the
+        // Maya node name. If we include any more of the path, we'll
+        // get viral node names after repeated import/export.
         MFnDependencyNode node ( dagPath.node() );
         return mayaNameToColladaName ( node.name(), true );
     }
 
 
     //---------------------------------------------------------------
-    // Make a COLLADA name suitable for a DAG name
-    //
     String DocumentExporter::colladaNameToDagName ( const MString& dagPath )
     {
+        // Make a COLLADA name suitable for a DAG name
         int length = dagPath.length();
         char* tmp = new char[length + 1];
         const char* c = dagPath.asChar();
@@ -410,4 +470,27 @@ namespace COLLADAMaya
         return rv.asChar();
     }
 
+    //---------------------------------------------------------------
+    String DocumentExporter::checkNCName(const String &ncName)
+    {
+        std::string copy = ncName;
+        std::string::size_type found;
+        while ((found = copy.find(' ')) != std::string::npos)
+        {
+            copy.replace(found, 1, 1, '_');
+        }
+        while ((found = copy.find(':')) != std::string::npos)
+        {
+            copy.replace(found, 1, 1, '_');
+        }
+        if ( (copy[0] < 'a' || copy[0] > 'z')
+            && (copy[0] < 'A' || copy[0] > 'Z')
+            && copy[0] != '_')
+            copy.insert(copy.begin(), 1, '_');
+
+        //if (!isalpha((unsigned char)copy[0]) && copy[0] != '_')
+        //   
+
+        return copy;
+    } 
 }

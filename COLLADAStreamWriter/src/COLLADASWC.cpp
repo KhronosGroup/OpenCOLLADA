@@ -43,10 +43,12 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_AUTHORING_TOOL = "authoring_tool";
     const String CSWC::COLLADA_ELEMENT_BLINN = "blinn";
     const String CSWC::COLLADA_ELEMENT_BIND_MATERIAL = "bind_material";
+    const String CSWC::COLLADA_ELEMENT_BIND_SHAPE_MATRIX = "bind_shape_matrix";
     const String CSWC::COLLADA_ELEMENT_CHANNEL = "channel";
     const String CSWC::COLLADA_ELEMENT_COMMENTS = "comments";
     const String CSWC::COLLADA_ELEMENT_CONSTANT = "constant";
     const String CSWC::COLLADA_ELEMENT_CONTRIBUTOR = "contributor";
+    const String CSWC::COLLADA_ELEMENT_CONTROLLER = "controller";
     const String CSWC::COLLADA_ELEMENT_COPYRIGHT = "copyright";
     const String CSWC::COLLADA_ELEMENT_CREATED = "created";
     const String CSWC::COLLADA_ELEMENT_COLLADA = "COLLADA";
@@ -64,14 +66,17 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_INIT_FROM = "init_from";
     const String CSWC::COLLADA_ELEMENT_INPUT = "input";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_ANIMATION = "instance_animation";
+    const String CSWC::COLLADA_ELEMENT_INSTANCE_CONTROLLER = "instance_controller";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT = "instance_effect";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_MATERIAL = "instance_material";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE = "instance_visual_scene";
+    const String CSWC::COLLADA_ELEMENT_JOINTS = "joints";
     const String CSWC::COLLADA_ELEMENT_KEYWORDS = "keywords";
     const String CSWC::COLLADA_ELEMENT_LAMBERT = "lambert";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_ANIMATIONS = "library_animations";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_ANIMATION_CLIPS = "library_animation_clips";
+    const String CSWC::COLLADA_ELEMENT_LIBRARY_CONTROLLERS = "library_controllers";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_EFFECTS = "library_effects";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_GEOMETRIES = "library_geometries";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_IMAGES = "library_images";
@@ -104,6 +109,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_SCENE = "scene";
     const String CSWC::COLLADA_ELEMENT_SHININESS = "shininess";
     const String CSWC::COLLADA_ELEMENT_SKEW = "skew";
+    const String CSWC::COLLADA_ELEMENT_SKIN = "skin";
     const String CSWC::COLLADA_ELEMENT_SPECULAR = "specular";
     const String CSWC::COLLADA_ELEMENT_SOURCE = "source";
     const String CSWC::COLLADA_ELEMENT_SOURCE_DATA = "source_data";
@@ -120,6 +126,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_UNIT = "unit";
     const String CSWC::COLLADA_ELEMENT_UP_AXIS = "up_axis";
     const String CSWC::COLLADA_ELEMENT_VCOUNT = "vcount";
+    const String CSWC::COLLADA_ELEMENT_VERTEX_WEIGHTS = "vertex_weights";
     const String CSWC::COLLADA_ELEMENT_VERTICES = "vertices";
     const String CSWC::COLLADA_ELEMENT_VISUAL_SCENE = "visual_scene";
     const String CSWC::COLLADA_ELEMENT_WRAP_S = "wrap_s";
@@ -152,20 +159,21 @@ namespace COLLADA
     const String CSWC::COLLADA_ATTRIBUTE_XMLNS = "xmlns";
 
 
-    const String CSWC::COLLADA_SEMANTIC_POSITION = "POSITION";
-    const String CSWC::COLLADA_SEMANTIC_VERTEX = "VERTEX";
-    const String CSWC::COLLADA_SEMANTIC_NORMAL = "NORMAL";
-    const String CSWC::COLLADA_SEMANTIC_TEXCOORD = "TEXCOORD";
-    const String CSWC::COLLADA_SEMANTIC_INTERPOLATION = "INTERPOLATION";
-    const String CSWC::COLLADA_SEMANTIC_LINEAR_STEPS = "LINEAR_STEPS";
-    const String CSWC::COLLADA_SEMANTIC_INPUT = "INPUT";
+    const String CSWC::COLLADA_SEMANTIC_BINDMATRIX = "INV_BIND_MATRIX";
     const String CSWC::COLLADA_SEMANTIC_COLOR = "COLOR";
-    const String CSWC::COLLADA_SEMANTIC_OUTPUT = "OUTPUT";
-    const String CSWC::COLLADA_SEMANTIC_IN_TANGENT = "IN_TANGENT";
-    const String CSWC::COLLADA_SEMANTIC_OUT_TANGENT = "OUT_TANGENT";
     const String CSWC::COLLADA_SEMANTIC_CONTINUITY = "CONTINUITY";
-
-
+    const String CSWC::COLLADA_SEMANTIC_INTERPOLATION = "INTERPOLATION";
+    const String CSWC::COLLADA_SEMANTIC_INPUT = "INPUT";
+    const String CSWC::COLLADA_SEMANTIC_IN_TANGENT = "IN_TANGENT";
+    const String CSWC::COLLADA_SEMANTIC_JOINT = "JOINT";
+    const String CSWC::COLLADA_SEMANTIC_LINEAR_STEPS = "LINEAR_STEPS";
+    const String CSWC::COLLADA_SEMANTIC_NORMAL = "NORMAL";
+    const String CSWC::COLLADA_SEMANTIC_OUTPUT = "OUTPUT";
+    const String CSWC::COLLADA_SEMANTIC_OUT_TANGENT = "OUT_TANGENT";
+    const String CSWC::COLLADA_SEMANTIC_POSITION = "POSITION";
+    const String CSWC::COLLADA_SEMANTIC_TEXCOORD = "TEXCOORD";
+    const String CSWC::COLLADA_SEMANTIC_VERTEX = "VERTEX";
+    const String CSWC::COLLADA_SEMANTIC_WEIGHT = "WEIGHT";
 
     const String CSWC::COLLADA_TEXT_X_UP = "X_UP";
     const String CSWC::COLLADA_TEXT_Y_UP = "Y_UP";

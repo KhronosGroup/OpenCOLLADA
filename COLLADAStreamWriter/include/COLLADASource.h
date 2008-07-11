@@ -173,6 +173,24 @@ namespace COLLADA
         }
 
         /** Adds @a value to the array*/
+        void appendValues ( const double matrix[][4] )
+        {
+            mSW->appendValues ( matrix );
+        }
+
+        /** Adds @a value to the array*/
+        void appendValues ( const float matrix[][4] )
+        {
+            mSW->appendValues ( matrix );
+        }
+
+        /** Adds @a value to the array*/
+        void appendValues ( const std::vector<Type>& value )
+        {
+            mSW->appendValues ( value );
+        }
+
+        /** Adds @a value to the array*/
         void appendValues ( Type value )
         {
             mSW->appendValues ( value );
@@ -223,10 +241,20 @@ namespace COLLADA
         const String* mParameterTypeName;
     };
 
-
+    /** Param type independent source with double values. */
     typedef Source<double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY> TypeIndependentSource;
+    /** Param type independent source with float values. */
+    typedef Source<float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY> TypeIndependentSourceF;
+
+    /** Param type "FLOAT" source with double values. */
     typedef Source<double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_PARAM_TYPE_FLOAT> FloatSource;
+    /** Param type "FLOAT" source with float values. */
+    typedef Source<float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_PARAM_TYPE_FLOAT> FloatSourceF;
+
+    /** Param type "FLOAT4x4" source with double values. */
     typedef Source<double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_PARAM_TYPE_FLOAT4x4> Float4x4Source;
+
+    /** Param type "NAME" source with String values. */
     typedef Source<String, &CSWC::COLLADA_ELEMENT_NAME_ARRAY, &CSWC::COLLADA_PARAM_TYPE_NAME> NameSource;
 
 } //namespace COLLADA

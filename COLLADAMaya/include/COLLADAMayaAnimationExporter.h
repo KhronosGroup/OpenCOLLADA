@@ -50,22 +50,22 @@ namespace COLLADAMaya
     private:
 
         /** Parameter, used for the transforms, if we have a matrix source with dimension 32. */
-        static const String TRANSFORM_PARAMETER;
+        static const String PARAM_TYPE_TRANSFORM;
 
         /** Parameter, used for the transforms, if we have a matrix source with dimension 16. */
-        static const String X_Y_PARAMETER;
+        static const String PARAM_TYPE_X_Y;
 
         /** The time parameter for the animation. */
-        static const String TIME_PARAMETER;
+        static const String PARAM_TYPE_TIME;
 
         /** The interpolation parameter for the animation. */
-        static const String INTERPOLATION_PARAMETER;
+        static const String PARAM_TYPE_INTERPOLATION;
 
         /** The tcb parameter for animations. */
-        static const String TCBS_PARAMETER;
+        static const String PARAM_TYPE_TCBS;
 
         /** The eases parameter for the animation. Used with tcbs. */
-        static const String EASES_PARAMETER;
+        static const String PARAM_TYPE_EASES;
 
         /** Pointer to the main document exporter. */
         DocumentExporter* mDocumentExporter;

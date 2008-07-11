@@ -751,12 +751,12 @@ namespace COLLADAMaya
         MStatus status;
 
         MFnMatrixData mxData;
-        MObject o = mxData.create();
-        status = plug.getValue ( o );
+        MObject object = mxData.create();
+        status = plug.getValue ( object );
 
         if ( status != MStatus::kSuccess ) return false;
 
-        mxData.setObject ( o );
+        mxData.setObject ( object );
 
         // MFnMatrixData mxData(o, &status);
         if ( status != MStatus::kSuccess ) return false;

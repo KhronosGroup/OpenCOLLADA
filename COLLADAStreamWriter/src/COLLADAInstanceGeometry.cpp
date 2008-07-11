@@ -31,7 +31,9 @@ namespace COLLADA
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_GEOMETRY );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
+
         mBindMaterial.add();
+
         mSW->closeElement();
     }
 

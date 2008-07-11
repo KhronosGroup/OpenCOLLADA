@@ -54,10 +54,12 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_AUTHORING_TOOL;
         static const String COLLADA_ELEMENT_BLINN;
         static const String COLLADA_ELEMENT_BIND_MATERIAL;
+        static const String COLLADA_ELEMENT_BIND_SHAPE_MATRIX;
         static const String COLLADA_ELEMENT_CHANNEL;
         static const String COLLADA_ELEMENT_COMMENTS;
         static const String COLLADA_ELEMENT_CONSTANT;
         static const String COLLADA_ELEMENT_CONTRIBUTOR;
+        static const String COLLADA_ELEMENT_CONTROLLER;
         static const String COLLADA_ELEMENT_COPYRIGHT;
         static const String COLLADA_ELEMENT_CREATED;
         static const String COLLADA_ELEMENT_COLLADA;
@@ -75,14 +77,17 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_INIT_FROM;
         static const String COLLADA_ELEMENT_INPUT;
         static const String COLLADA_ELEMENT_INSTANCE_ANIMATION;
+        static const String COLLADA_ELEMENT_INSTANCE_CONTROLLER;
         static const String COLLADA_ELEMENT_INSTANCE_EFFECT;
         static const String COLLADA_ELEMENT_INSTANCE_GEOMETRY;
         static const String COLLADA_ELEMENT_INSTANCE_MATERIAL;
         static const String COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE;
+        static const String COLLADA_ELEMENT_JOINTS;
         static const String COLLADA_ELEMENT_KEYWORDS;
         static const String COLLADA_ELEMENT_LAMBERT;
         static const String COLLADA_ELEMENT_LIBRARY_ANIMATIONS;
         static const String COLLADA_ELEMENT_LIBRARY_ANIMATION_CLIPS;
+        static const String COLLADA_ELEMENT_LIBRARY_CONTROLLERS;
         static const String COLLADA_ELEMENT_LIBRARY_EFFECTS;
         static const String COLLADA_ELEMENT_LIBRARY_GEOMETRIES;
         static const String COLLADA_ELEMENT_LIBRARY_IMAGES;
@@ -115,6 +120,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_SCENE;
         static const String COLLADA_ELEMENT_SHININESS;
         static const String COLLADA_ELEMENT_SKEW;
+        static const String COLLADA_ELEMENT_SKIN;
         static const String COLLADA_ELEMENT_SPECULAR;
         static const String COLLADA_ELEMENT_SOURCE;
         static const String COLLADA_ELEMENT_SOURCE_DATA;
@@ -131,6 +137,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_UNIT;
         static const String COLLADA_ELEMENT_UP_AXIS;
         static const String COLLADA_ELEMENT_VCOUNT;
+        static const String COLLADA_ELEMENT_VERTEX_WEIGHTS;
         static const String COLLADA_ELEMENT_VERTICES;
         static const String COLLADA_ELEMENT_VISUAL_SCENE;
         static const String COLLADA_ELEMENT_WRAP_S;
@@ -162,24 +169,25 @@ namespace COLLADA
         static const String COLLADA_ATTRIBUTE_VERSION;
         static const String COLLADA_ATTRIBUTE_XMLNS;
 
-
-        static const String COLLADA_SEMANTIC_POSITION;
-        static const String COLLADA_SEMANTIC_VERTEX;
-        static const String COLLADA_SEMANTIC_NORMAL;
-        static const String COLLADA_SEMANTIC_TEXCOORD;
-        static const String COLLADA_SEMANTIC_INTERPOLATION;
-        static const String COLLADA_SEMANTIC_LINEAR_STEPS;
-        static const String COLLADA_SEMANTIC_INPUT;
+        static const String COLLADA_SEMANTIC_BINDMATRIX;
         static const String COLLADA_SEMANTIC_COLOR;
-        static const String COLLADA_SEMANTIC_OUTPUT;
-        static const String COLLADA_SEMANTIC_IN_TANGENT;
-        static const String COLLADA_SEMANTIC_OUT_TANGENT;
         static const String COLLADA_SEMANTIC_CONTINUITY;
+        static const String COLLADA_SEMANTIC_INPUT;
+        static const String COLLADA_SEMANTIC_INTERPOLATION;
+        static const String COLLADA_SEMANTIC_IN_TANGENT;
+        static const String COLLADA_SEMANTIC_JOINT;
+        static const String COLLADA_SEMANTIC_LINEAR_STEPS;
+        static const String COLLADA_SEMANTIC_NORMAL;
+        static const String COLLADA_SEMANTIC_OUTPUT;
+        static const String COLLADA_SEMANTIC_OUT_TANGENT;
+        static const String COLLADA_SEMANTIC_POSITION;
+        static const String COLLADA_SEMANTIC_TEXCOORD;
+        static const String COLLADA_SEMANTIC_VERTEX;
+        static const String COLLADA_SEMANTIC_WEIGHT;
 
         static const String COLLADA_TEXT_X_UP;
         static const String COLLADA_TEXT_Y_UP;
         static const String COLLADA_TEXT_Z_UP;
-
 
         static const String COLLADA_NODE_TYPE_JOINT;
         static const String COLLADA_NODE_TYPE_NODE;

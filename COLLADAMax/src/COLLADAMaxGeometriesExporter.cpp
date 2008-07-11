@@ -25,7 +25,7 @@
 
 #include "COLLADAStreamWriter.h"
 #include "COLLADASource.h"
-#include "COLLADAVertices.h"
+#include "COLLADABaseInputElement.h"
 #include "COLLADAPrimitves.h"
 #include "COLLADAUtils.h"
 

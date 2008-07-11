@@ -31,25 +31,15 @@ namespace COLLADAMaya
 {
 
     class SceneGraph;
-
     class MaterialExporter;
-
     class EffectExporter;
-
     class EffectTextureExporter;
-
     class ImageExporter;
-
     class GeometryExporter;
-
     class VisualSceneExporter;
-
     class AnimationExporter;
-
     class AnimationClipExporter;
-
     class AnimationSampleCache;
-
     class ControllerLibrary;
 
     /**
@@ -296,6 +286,14 @@ namespace COLLADAMaya
          * Do all stuff to end the export.
          */
         void endExport();
+
+        /**
+         * Makes a valid NCName from the given string.
+         * @param ncName Any string.
+         * @return COLLADAMaya::String A valid NCName.
+         */
+        String DocumentExporter::checkNCName(const String &ncName);
+
 
     private:
 

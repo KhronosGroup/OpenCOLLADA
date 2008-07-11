@@ -41,10 +41,7 @@ namespace COLLADA
         if ( !mVCountList.empty() )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_VCOUNT );
-
-            for ( VCountList::iterator it = mVCountList.begin(); it != mVCountList.end(); ++it )
-                mSW->appendValues ( *it );
-
+            mSW->appendValues ( mVCountList );
             mSW->closeElement();
         }
 

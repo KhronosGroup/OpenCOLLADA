@@ -50,7 +50,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    const String & InputList::getSemanticString ( Semantics semantic )
+    const String& InputList::getSemanticString ( Semantics semantic )
     {
         switch ( semantic )
         {
@@ -69,6 +69,15 @@ namespace COLLADA
 
         case COLOR:
             return CSWC::COLLADA_SEMANTIC_COLOR;
+
+        case JOINT:
+            return CSWC::COLLADA_SEMANTIC_JOINT;
+
+        case BINDMATRIX:
+            return CSWC::COLLADA_SEMANTIC_BINDMATRIX;
+
+        case WEIGHT:
+            return CSWC::COLLADA_SEMANTIC_WEIGHT;
 
         default:
             return CSWC::EMPTY_STRING;

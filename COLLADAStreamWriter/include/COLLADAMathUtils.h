@@ -26,13 +26,12 @@
 
 #include "COLLADAPrerequisites.h"
 
-#define TOLERANCE 0.001f
+#define TOLERANCE 0.0001f
 
 namespace COLLADA
 {
 
     // A class that holds some static math utility functions
-
     class MathUtils
     {
 
@@ -51,7 +50,7 @@ namespace COLLADA
         static const float DEG_TO_RAD_f;
         static const float RAD_TO_DEG_f;
 
-        /** Returns true iff @a value1 and @a value2 are equal within the tolerance*/
+        /** Returns true if @a value1 and @a value2 are equal within the tolerance*/
         template<class T>
         static bool equals ( const T & value1, const T & value2 )
         {
@@ -59,7 +58,7 @@ namespace COLLADA
         }
 
 
-        /** Returns true iff @a value1, @a value2 and @a value3 are equal within the tolerance*/
+        /** Returns true if @a value1, @a value2 and @a value3 are equal within the tolerance*/
         template<class T>
         static bool equals3 ( const T & value1, const T & value2, const T & value3 )
         {
@@ -67,13 +66,13 @@ namespace COLLADA
         }
 
 
-        /** Returns true iff @a value is equal to zero within the tolerance*/
+        /** Returns true if @a value is equal to zero within the tolerance*/
         static bool equalsZero ( const float & value )
         {
             return equals ( value, 0.0f );
         }
 
-        /** Returns true iff @a value is equal to zero within the tolerance*/
+        /** Returns true if @a value is equal to zero within the tolerance*/
         static bool equalsZero ( const double & value )
         {
             return equals ( value, 0.0 );

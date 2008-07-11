@@ -194,13 +194,11 @@ namespace COLLADAMaya
         // TODO
         // Get the URI of the file
         String fileNameString = filename.asChar();
-
         String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + 
                                     COLLADA::Utils::UriEncode ( fileNameString );
 
         // Have we seen this texture node before?
         ImageMap::iterator exportedImagesIter = mExportedImageMap.find ( filename.asChar() );
-
         if ( exportedImagesIter != mExportedImageMap.end() )
         {
             COLLADA::Image* colladaImage = ( *exportedImagesIter ).second;
@@ -216,16 +214,12 @@ namespace COLLADAMaya
 
         // Export the node type, because PSD textures don't behave the same as File textures.
         String nodeType = texture.hasFn ( MFn::kPsdFileTexture ) ? MAYA_TEXTURE_PSDTEXTURE : MAYA_TEXTURE_FILETEXTURE;
-
         colladaImage->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_TEXTURE_NODETYPE, nodeType );
 
         // Export whether this image is in fact an image sequence
         MPlug imgSeqPlug = dgFn.findPlug ( ATTR_IMAGE_SEQUENCE );
-
         bool isImgSeq = false;
-
         imgSeqPlug.getValue ( isImgSeq );
-
         colladaImage->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_TEXTURE_IMAGE_SEQUENCE, isImgSeq );
 
         // Add this texture to our list of exported images

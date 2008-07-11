@@ -26,15 +26,22 @@
 
 #include "COLLADAPrerequisites.h"
 #include "COLLADAElementWriter.h"
+#include "COLLADABaseElement.h"
+#include "COLLADASWC.h"
 
 namespace COLLADA
 {
 
     class InputList;
-
     class PrimitivesBase;
+    
+//     template<const String& mElementName> 
+//     class BaseElement;
 
-    class Vertices;
+//     template<const String& elementName> 
+//     class BaseInputElement;
+
+     class BaseInputElement;
 
     /** The geometry source data types. */
     enum Semantics
@@ -55,6 +62,9 @@ namespace COLLADA
      This is a type::POINTS specific type.  If the size is 0, a single pixel pt is rendered. */
         POINT_ROTATION, /**< Used to give a billboard orientation.  This is a type::POINTS
       specific type, and is not compulsory */
+        JOINT, /** Used for the skin controller element. */ 
+        BINDMATRIX, /** Used for the skin controller element. */ 
+        WEIGHT, /** Used for the skin controller element. */ 
         UNKNOWN = -1, /**< An unknown data source. */
     };
 
@@ -70,7 +80,7 @@ namespace COLLADA
         @param offset The offset of the @a \<input\> element.
         @param set The set of the @a \<input\> element.
         */
-        Input ( Semantics semantic, const String & source, int offset = -1, int set = -1 )
+        Input ( Semantics semantic, const String& source, int offset = -1, int set = -1 )
                 : mSemantic ( semantic ),
                 mSource ( source ),
                 mOffset ( offset ),
@@ -117,10 +127,10 @@ namespace COLLADA
     public:
         /** Constructor
         @param The stream the InputList should be written to*/
-        InputList ( StreamWriter * streamWriter ) : ElementWriter ( streamWriter ) {}
+        InputList ( StreamWriter* streamWriter ) : ElementWriter ( streamWriter ) {}
 
         /** Destructor*/
-        ~InputList() {}
+        virtual ~InputList() {}
 
         /** Adds @a input to list of inputs that should be added*/
         void push_back ( Input input )
@@ -129,8 +139,11 @@ namespace COLLADA
         }
 
     private:
+
+        /** Declare friend, so the class can use the 'add()' method. */
         friend PrimitivesBase;
-        friend Vertices;
+        /** Declare friend, so the class can use the 'add()' method. */
+        friend BaseInputElement;
 
         /** List of all the inputs*/
         typedef std::list<Input> List;
@@ -140,7 +153,7 @@ namespace COLLADA
         void add();
 
         /** Returns a string containing the semantic name*/
-        const String & getSemanticString ( Semantics semantic );
+        const String& getSemanticString ( Semantics semantic );
     };
 
 

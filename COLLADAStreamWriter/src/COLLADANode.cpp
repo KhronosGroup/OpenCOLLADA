@@ -98,7 +98,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void Node::addMatrix ( const String &sid, double matrix[][4] ) const
+    void Node::addMatrix ( const String &sid, double matrix[4][4] ) const
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_MATRIX );
 
@@ -106,11 +106,8 @@ namespace COLLADA
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, sid );
 
         mSW->appendValues ( matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3] );
-
         mSW->appendValues ( matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3] );
-
         mSW->appendValues ( matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3] );
-
         mSW->appendValues ( matrix[3][0], matrix[3][1], matrix[3][2], matrix[3][3] );
 
         mSW->closeElement();
@@ -118,7 +115,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Node::addMatrix ( double matrix[][4] ) const
+    void Node::addMatrix ( double matrix[4][4] ) const
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_MATRIX );
         mSW->appendValues ( matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3] );
@@ -152,7 +149,7 @@ namespace COLLADA
 
     //---------------------------------------------------------------
     void Node::addSkew ( const String &sid, float angle,
-                         float rotateAxis[], float aroundAxis[] ) const
+                         const float rotateAxis[3], const float aroundAxis[3] ) const
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_SKEW );
 
@@ -160,10 +157,8 @@ namespace COLLADA
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, sid );
 
         mSW->appendValues ( angle );
-
-        mSW->appendValues ( rotateAxis );
-
-        mSW->appendValues ( aroundAxis );
+        mSW->appendValues ( rotateAxis, 3 );
+        mSW->appendValues ( aroundAxis, 3 );
 
         mSW->closeElement();
     }
