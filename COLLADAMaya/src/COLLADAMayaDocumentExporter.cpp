@@ -31,7 +31,7 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaAnimationClipExporter.h"
 #include "COLLADAMayaAnimationSampleCache.h"
-#include "COLLADAMayaControllerLibrary.h"
+#include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaConvert.h"
@@ -100,7 +100,7 @@ namespace COLLADAMaya
         mVisualSceneExporter = new VisualSceneExporter ( &mStreamWriter, this, mSceneId );
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
-        mControllerLibrary = new ControllerLibrary ( &mStreamWriter, this );
+        mControllerLibrary = new ControllerExporter ( &mStreamWriter, this );
     }
 
     //---------------------------------------------------------------

@@ -40,7 +40,7 @@ namespace COLLADAMaya
     class AnimationExporter;
     class AnimationClipExporter;
     class AnimationSampleCache;
-    class ControllerLibrary;
+    class ControllerExporter;
 
     /**
      * The main exporter class. This class exports all data of the scene.
@@ -79,7 +79,7 @@ namespace COLLADAMaya
         AnimationClipExporter* mAnimationClipExporter;
 
         /** Handles the controllers. */
-        ControllerLibrary* mControllerLibrary;
+        ControllerExporter* mControllerLibrary;
 
         /*
         CAnimCache* animCache;
@@ -228,7 +228,7 @@ namespace COLLADAMaya
         * Returns a pointer to the controller library.
         * @return ControllerLibrary* Pointer to the controller library
         */
-        ControllerLibrary* getControllerLibrary()
+        ControllerExporter* getControllerLibrary()
         {
             return mControllerLibrary;
         }

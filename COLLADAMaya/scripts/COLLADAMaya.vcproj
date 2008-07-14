@@ -254,7 +254,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\src\COLLADAMayaControllerLibrary.cpp"
+					RelativePath="..\src\COLLADAMayaControllerExporter.cpp"
 					>
 				</File>
 				<File
@@ -415,7 +415,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\include\COLLADAMayaControllerLibrary.h"
+					RelativePath="..\include\COLLADAMayaControllerExporter.h"
 					>
 				</File>
 				<File

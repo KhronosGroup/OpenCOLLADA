@@ -29,7 +29,7 @@
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationExporter.h"
-#include "COLLADAMayaControllerLibrary.h"
+#include "COLLADAMayaControllerExporter.h"
 #include <algorithm>
 
 #include <maya/MItDependencyNodes.h>
@@ -143,7 +143,7 @@ namespace COLLADAMaya
                 sceneElement->getIsExportNode() )
         {
             // Get the controller library
-            ControllerLibrary* controller = mDocumentExporter->getControllerLibrary();
+            ControllerExporter* controller = mDocumentExporter->getControllerLibrary();
 
             // Add the controller and/or geometry to our libraries
             bool hasSkinController =
