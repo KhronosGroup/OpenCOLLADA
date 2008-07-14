@@ -152,7 +152,7 @@ namespace COLLADAMaya
     /**
      * Class to control the skins and morphs
      */
-    class ControllerLibrary : public COLLADA::LibraryControllers
+    class ControllerExporter : public COLLADA::LibraryControllers
     {
 
     private:
@@ -175,8 +175,8 @@ namespace COLLADAMaya
         unsigned long boneCounter; // ensure unique joint names
 
     public:
-        ControllerLibrary ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
-        virtual ~ControllerLibrary();
+        ControllerExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        virtual ~ControllerExporter();
 
         /**
          * Exports all controllers in the current scene graph.

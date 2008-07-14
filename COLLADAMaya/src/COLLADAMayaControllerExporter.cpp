@@ -21,7 +21,7 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADAMayaControllerLibrary.h"
+#include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaSceneGraph.h"
@@ -45,12 +45,12 @@
 namespace COLLADAMaya
 {
 
-    const String ControllerLibrary::PARAM_TYPE_TRANSFORM    = "TRANSFORM";
-    const String ControllerLibrary::PARAM_TYPE_JOINT        = "JOINT";
-    const String ControllerLibrary::PARAM_TYPE_WEIGHT       = "WEIGHT";
+    const String ControllerExporter::PARAM_TYPE_TRANSFORM    = "TRANSFORM";
+    const String ControllerExporter::PARAM_TYPE_JOINT        = "JOINT";
+    const String ControllerExporter::PARAM_TYPE_WEIGHT       = "WEIGHT";
 
     //------------------------------------------------------
-    ControllerLibrary::ControllerLibrary ( COLLADA::StreamWriter* streamWriter,
+    ControllerExporter::ControllerExporter ( COLLADA::StreamWriter* streamWriter,
                                            DocumentExporter* documentExporter )
     : COLLADA::LibraryControllers ( streamWriter )
     , mDocumentExporter ( documentExporter )
@@ -58,14 +58,14 @@ namespace COLLADAMaya
     {}
 
     //------------------------------------------------------
-    ControllerLibrary::~ControllerLibrary()
+    ControllerExporter::~ControllerExporter()
     {
         importedMorphControllers.clear();
         skinControllers.clear();
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportControllers()
+    void ControllerExporter::exportControllers()
     {
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -86,7 +86,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportControllers(SceneElement* sceneElement)
+    void ControllerExporter::exportControllers(SceneElement* sceneElement)
     {
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
@@ -115,7 +115,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerLibrary::exportController( SceneElement* sceneElement )
+    bool ControllerExporter::exportController( SceneElement* sceneElement )
     {
         // Get the current mesh node.
         MDagPath dagPath = sceneElement->getPath();
@@ -175,7 +175,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportControllerStack( 
+    void ControllerExporter::exportControllerStack( 
         const SceneElement *sceneElement, 
         const ControllerStack &stack )
     {
@@ -220,7 +220,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportSkinController(
+    void ControllerExporter::exportSkinController(
         const SceneElement* sceneElement, 
         const MObject controllerNode, 
         MDagPath outputShape )
@@ -289,7 +289,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::collectVertexWeights( 
+    void ControllerExporter::collectVertexWeights( 
         ColladaSkinController* colladaSkinController, 
         const MObject &controllerNode, 
         const MDagPath &outputShape,
@@ -318,7 +318,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::collectSkinClusterFilterVertexWeights( 
+    void ControllerExporter::collectSkinClusterFilterVertexWeights( 
         std::vector<SkinControllerVertex>& colladaInfluences, 
         const MObject& controllerNode, 
         const MDagPath& outputShape, 
@@ -356,7 +356,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::collectJointClusterVertexWeights( 
+    void ControllerExporter::collectJointClusterVertexWeights( 
         std::vector<SkinControllerVertex>& colladaInfluences, 
         const MObjectArray &weightFilters, 
         const MDagPath &outputShape, 
@@ -403,7 +403,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::gatherJoints( 
+    void ControllerExporter::gatherJoints( 
         MayaController *targetController, 
         const MObject &controllerNode, 
         MObjectArray &weightFilters, 
@@ -425,7 +425,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::gatherBindMatrices( 
+    void ControllerExporter::gatherBindMatrices( 
         MayaController* targetController, 
         const MObject& controllerNode )
     {
@@ -446,7 +446,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::getJointClusterInfluences(
+    void ControllerExporter::getJointClusterInfluences(
         const MObject &controllerNode, 
         MDagPathArray &influences, 
         MObjectArray &weightFilters, 
@@ -479,7 +479,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::getBindShapeTransform(
+    void ControllerExporter::getBindShapeTransform(
         ColladaSkinController* skinController,
         const MFnGeometryFilter &clusterFn,
         const bool isJointCluster,
@@ -498,7 +498,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerLibrary::exportController ( SceneElement* sceneNode, const MObject& node )
+    bool ControllerExporter::exportController ( SceneElement* sceneNode, const MObject& node )
     {
         // Get the current's element path
         MDagPath dagPath = sceneNode->getPath();
@@ -557,7 +557,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportController ( 
+    void ControllerExporter::exportController ( 
         SceneElement* sceneNode,
         bool isSkin,
         bool instantiate )
@@ -658,7 +658,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerLibrary::findAffectedNodes( 
+    bool ControllerExporter::findAffectedNodes( 
         const MObject& node, 
         ControllerStack &stack, 
         ControllerMeshStack &meshStack )
@@ -734,13 +734,13 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerLibrary::hasController ( const MObject& node )
+    bool ControllerExporter::hasController ( const MObject& node )
     {
         return hasSkinController ( node ) || hasMorphController ( node );
     }
 
     //------------------------------------------------------
-    bool ControllerLibrary::hasSkinController ( const MObject& node )
+    bool ControllerExporter::hasSkinController ( const MObject& node )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( ATTR_IN_MESH, &status );
@@ -772,7 +772,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerLibrary::hasMorphController ( const MObject& node )
+    bool ControllerExporter::hasMorphController ( const MObject& node )
     {
         MPlug plug = MFnDependencyNode ( node ).findPlug ( ATTR_IN_MESH );
 
@@ -798,7 +798,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    uint ControllerLibrary::retrieveInstanceInformation( 
+    uint ControllerExporter::retrieveInstanceInformation( 
         const MFnMesh &fnMesh, const MFnGeometryFilter &clusterFn, MDagPath &outputShape )
     {
         MStatus status;
@@ -833,7 +833,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportJointSource( MayaController* targetController )
+    void ControllerExporter::exportJointSource( MayaController* targetController )
     {
         COLLADA::NameSource jointSource( mDocumentExporter->getStreamWriter() );
         String controllerId = targetController->controllerId;
@@ -862,7 +862,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportBindPosesSource( MayaController* targetController )
+    void ControllerExporter::exportBindPosesSource( MayaController* targetController )
     {
         COLLADA::Float4x4Source bindPosesSource( mDocumentExporter->getStreamWriter() );
         String controllerId = targetController->controllerId;
@@ -892,7 +892,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportWeightSource( 
+    void ControllerExporter::exportWeightSource( 
         String controllerId, 
         ColladaSkinController &colladaSkinController )
     {
@@ -930,7 +930,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportBindShapeTransform( ColladaSkinController &colladaSkinController )
+    void ControllerExporter::exportBindShapeTransform( ColladaSkinController &colladaSkinController )
     {
         // Write the bind shape transform matrix in the collada document.
         MMatrix mayaBindShapeMatrix = colladaSkinController.bindShapeTransform;
@@ -940,7 +940,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerLibrary::exportController( 
+    void ControllerExporter::exportController( 
         String skinTarget, 
         ColladaSkinController colladaSkinController, 
         MayaController* targetController )
