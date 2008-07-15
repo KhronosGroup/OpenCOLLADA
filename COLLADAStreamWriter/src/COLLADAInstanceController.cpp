@@ -20,6 +20,13 @@ namespace COLLADA
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_CONTROLLER );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
 
+        if ( !mSkeletonId.empty() )
+        {
+            mSW->openElement( CSWC::COLLADA_ELEMENT_SKELETON );
+            mSW->appendValues( mSkeletonId );
+            mSW->closeElement();
+        }
+
         mBindMaterial.add();
 
         mSW->closeElement();

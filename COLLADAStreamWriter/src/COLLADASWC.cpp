@@ -96,6 +96,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_SCALE = "scale";
     const String CSWC::COLLADA_ELEMENT_SCENE = "scene";
     const String CSWC::COLLADA_ELEMENT_SHININESS = "shininess";
+    const String CSWC::COLLADA_ELEMENT_SKELETON = "skeleton";
     const String CSWC::COLLADA_ELEMENT_SKEW = "skew";
     const String CSWC::COLLADA_ELEMENT_SKIN = "skin";
     const String CSWC::COLLADA_ELEMENT_SPECULAR = "specular";

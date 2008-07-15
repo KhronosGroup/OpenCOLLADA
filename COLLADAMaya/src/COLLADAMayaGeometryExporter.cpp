@@ -114,11 +114,7 @@ namespace COLLADAMaya
         for ( uint i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
-
-#ifdef _DEBUG
-            cout << "   Start export " << sceneElement->getNodeName() << endl;
-#endif
-           exportGeometries ( sceneElement );
+            exportGeometries ( sceneElement );
         }
 
         endExport();
@@ -161,15 +157,7 @@ namespace COLLADAMaya
 //             else
             {
                 // Export the geometry directly in the collada document
-#ifdef _DEBUG
-                clock_t startClock, endClock;
-                startClock = clock();
-#endif
                 exportGeometry ( dagPath );
-#ifdef _DEBUG
-                endClock = clock();
-                cout << "   End export " << sceneElement->getNodeName() << ": " << endClock - startClock << endl;
-#endif
             }
         }
 
@@ -235,78 +223,31 @@ namespace COLLADAMaya
         // The list for the color sets. We have to clean!
         ColourSetList colorSets;
 
-#ifdef _DEBUG
-        clock_t startClock, endClock;
-#endif
-
         // Export the vertex positions
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         exportVertexPositions ( fnMesh, meshId );
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "       Export vertex-positions: " << endClock - startClock << endl;
-#endif
 
         // Export the vertex normals
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         bool hasFaceVertexNormals = exportVertexNormals ( fnMesh, meshId );
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "       Export vertex-normals: " << endClock - startClock << endl;
-#endif
         
         // Export the texture coordinates
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         exportTextureCoords ( fnMesh, meshId, uvSetNames, texcoordIds );
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "       Export texture coordinates: " << endClock - startClock << endl;
-#endif
         
         // exportVertexBlindData(fnMesh);
         
         // Export the color sets
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         exportColorSets ( fnMesh, meshId, colorSets );
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "       Export color sets: " << endClock - startClock << endl;
-#endif
         
         // Export the vertexes
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         exportVertices ( meshId );
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "       Export vertexes: " << endClock - startClock << endl;
-#endif
-
 
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         polygonExporter.exportPolygonSources ( fnMesh, meshId,
                                          uvSetNames,
                                          colorSets,
                                          &mPolygonSources,
                                          &mVertexSources,
                                          hasFaceVertexNormals );
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "       Export polygons: " << endClock - startClock << endl;
-#endif
 
         // Delete the created color sets
         ColourSetList::iterator it = colorSets.begin();
@@ -710,10 +651,7 @@ namespace COLLADAMaya
         return !perVertexNormals;
     }
 
-    /**
-     * Returns a list of names for each tex-coord id that corresponds to the equivalent
-     * Maya uv set name, as returned by MFnMesh.getUVSetNames().
-     */
+    // ----------------------------------------------------
     std::vector<String> GeometryExporter::generateTexCoordIds ( const MStringArray& uvSetNames,
             const String& meshId )
     {
@@ -798,9 +736,10 @@ namespace COLLADAMaya
     // --------------------------------------------------------------------
     // Export the color sets
     // Returns true if we should proceed to export the given color set Ids.
-    void GeometryExporter::exportColorSets ( const MFnMesh& fnMesh,
-            const String& meshId,
-            ColourSetList& colorSets )
+    void GeometryExporter::exportColorSets ( 
+        const MFnMesh& fnMesh,
+        const String& meshId,
+        ColourSetList& colorSets )
     {
         if ( !ExportOptions::exportVertexColors() ) return;
 
@@ -894,14 +833,11 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------------------
-    /**
-     * Export the texture coordinates listed in the two arrays given in argument,
-     * that correspond respectively to the Maya uv set name and the collada texcoord id.
-     */
-    void GeometryExporter::exportTextureCoords ( const MFnMesh& fnMesh,
-            const String& meshId,
-            const MStringArray& uvSetNames,
-            const std::vector<String>& texcoordIds )
+    void GeometryExporter::exportTextureCoords ( 
+        const MFnMesh& fnMesh,
+        const String& meshId,
+        const MStringArray& uvSetNames,
+        const std::vector<String>& texcoordIds )
     {
         if ( !ExportOptions::exportTexCoords() ) return;
 
@@ -966,9 +902,10 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::getMeshColorSet ( const MObject &mesh,
-            std::vector<float> &meshColorSet,
-            ColourSet &colorSet )
+    void GeometryExporter::getMeshColorSet ( 
+        const MObject &mesh,
+        std::vector<float> &meshColorSet,
+        ColourSet &colorSet )
     {
         // Is this a mesh?
         if ( !mesh.hasFn ( MFn::kMesh ) ) return;

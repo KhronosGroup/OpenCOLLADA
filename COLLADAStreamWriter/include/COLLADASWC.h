@@ -107,6 +107,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_SCALE;
         static const String COLLADA_ELEMENT_SCENE;
         static const String COLLADA_ELEMENT_SHININESS;
+        static const String COLLADA_ELEMENT_SKELETON;
         static const String COLLADA_ELEMENT_SKEW;
         static const String COLLADA_ELEMENT_SKIN;
         static const String COLLADA_ELEMENT_SPECULAR;

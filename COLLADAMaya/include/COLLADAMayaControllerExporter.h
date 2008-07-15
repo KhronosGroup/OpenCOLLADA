@@ -13,13 +13,15 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADA_MAYA_CONTROLLER_LIBRARY_H___
-#define __COLLADA_MAYA_CONTROLLER_LIBRARY_H___
+#ifndef __COLLADA_MAYA_CONTROLLER_EXPORTER_H___
+#define __COLLADA_MAYA_CONTROLLER_EXPORTER_H___
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADALibraryControllers.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
+#include "COLLADAMayaBaseController.h"
+#include "COLLADAMayaSkinController.h"
 
 #include <vector>
 #include <map>
@@ -41,83 +43,6 @@ namespace COLLADAMaya
 #define MWeightArray MFloatArray
 #endif
 
-//  typedef std::vector<ControllerInstance> ControllerInstanceList;
-//  typedef std::vector<Controller> ControllerList;
-
-    /**
-     * Represents a controller.
-     */
-    class MayaController
-    {
-    public:
-
-        /** The unique controller id. */
-        String controllerId;
-
-        /** The name of the controller. */
-        String controllerName;
-
-        /** List of influences. */
-        MDagPathArray influences; // export-only
-
-        /** A dynamically-sized array of 4x4 matrices. */
-        std::vector<MMatrix> bindPoses; // export-only
-
-//  ControllerInstanceList instances; // export-only;
-
-        /**
-         * Constructor
-         * @param _controllerId The unique id of the current controller.
-         */
-        MayaController ( const String& _controllerId, const String& _controllerName ) 
-        : controllerId(_controllerId) 
-        , controllerName(_controllerName)
-        {}
-
-        /**
-         * Destructor.
-         */
-        virtual ~MayaController() {}
-    };
-    typedef std::vector<MayaController*> ControllerList;
-
-
-    typedef std::map<int, float> SkinControllerVertex;
-    typedef std::map<String, MMatrix> SkinControllerJoint;
-
-   /**
-     * Holds the data for the skin controller to export.
-     */
-    class ColladaSkinController
-    {
-    public:
-
-        /** The unique controller id. */
-        String controllerId;
-
-        /** The bind shape transform matrix. 
-            Provides extra information about the position 
-            and orientation of the base mesh before binding.*/
-        MMatrix bindShapeTransform; 
-
-        /** The list with the influences for the collada document. */
-        std::vector<SkinControllerVertex> colladaVertexInfluences;
-
-        /** The list with the joints for the collada document. */
-        std::vector<SkinControllerJoint> colladaJoints;
-
-    public:
-        /**
-        * Constructor
-        * @param _controllerId The unique id of the current controller.
-        */
-        ColladaSkinController ( const String& _controllerId ) : controllerId(_controllerId) {}
-
-        /**
-        * Destructor.
-        */
-        virtual ~ColladaSkinController() {}
-    };
 
     /**
      * Holds any controller associated with the given plug.
@@ -176,30 +101,6 @@ namespace COLLADAMaya
          */
         void exportControllers();
 
-//   // Create the requested controller instance
-//   // Note: this function returns whether the id is a controller, not success
-//   void Import();
-//   DaeEntity* ImportController(FCDController* colladaController);
-//   void InstantiateController(DaeEntity* sceneNode, FCDGeometryInstance* colladaInstance, FCDController* colladaController);
-//   void AttachControllers();
-//   MObject AttachMorphController(DaeController* controller, FCDGeometry* baseMesh);
-//   bool ObjectMatchesInstance(const DaeEntityList& influences, const MDagPathArray& paths);
-//   void LinkSkinControllerInstance(FCDControllerInstance* instance, FCDSkinController* skinController, DaeController* controller);
-//   MObject AttachSkinController(DaeController* controller);
-//   MObject AttachSkinController(DaeController* controller, MString meshName);
-//   void ImportMorphTarget(MPlug& vertexListPlug, MPlug& componentListPlug, FCDGeometry* baseMesh, FCDGeometryMesh* targetMesh);
-
-//   // After import: release the unnecessary memory hogging data
-//   void leanMemory();
-//   void leanSkin(SkinController* colladaSkin);
-//
-//   // If the given 'node' is of a supported shape type and has a controller,
-//   // return true and set 'controllerNode'. Otherwise, return false.
-//   bool getMorphController(const MObject& node, MObjectArray& controllerNodes);
-//
-//   // Export any controller associated with the given plug.
-//   void addForceNodes(const MDagPath& dagPath);
-
         /**
          * @todo documentation
          * @param sceneNode
@@ -224,8 +125,15 @@ namespace COLLADAMaya
 //   FCDGeometry* exportMorphTarget(MPlug& vertexListPlug, MPlug& targetComponentListPlug, uint targetIndex, FCDGeometry* baseMesh);
 //
 //   void completeInstanceExport(FCDControllerInstance* instance, FCDController* entity);
-//   void completeControllerExport();
-//
+
+
+        /**
+         * Write the controller data into the collada document.
+         */
+        void completeControllerExport();
+        void completeInstanceExport(BaseController* colladaController);
+
+
         // Returns true if 'node' is of a supported shape type and it has a controller.
         bool hasController ( const MObject& node );
         bool hasSkinController ( const MObject& node );
@@ -280,40 +188,52 @@ namespace COLLADAMaya
             MDagPath outputShape );
 
         /**
-         * Exports the current controller element.
+         * Writes all data of the current controller element into the collada file.
+
          * @param skinTarget
          * @param colladaSkinController
          * @param targetController
          */
         void exportController( 
-            String skinTarget, 
-            ColladaSkinController colladaSkinController, 
-            MayaController* targetController );
+            const String skinTarget, 
+            const ColladaSkinController &colladaSkinController, 
+            const BaseController* targetController );
+
+        /**
+         * Writes the joint source into the collada document.
+         */
+        void exportElementJoints();
+
+        /**
+         * Writes the vertex weights element into the collada document.
+         * @param colladaSkinController Reference to the collada skin controller.
+         */
+        void exportElementVertexWeights( const ColladaSkinController &colladaSkinController );
 
         /**
          * Exports the bind shape transform of the given controller.
          * @param colladaSkinController The collada skin controller with the values to export.
          */
-        void exportBindShapeTransform( ColladaSkinController& colladaSkinController );
+        void exportBindShapeTransform( const ColladaSkinController& colladaSkinController );
 
         /**
         * Exports the bind poses source of the given controller.
         * @param controllerId The controller id to export.
         * @param colladaSkinController The collada skin controller with the values to export.
         */
-        void exportWeightSource( String controllerId, ColladaSkinController& colladaSkinController );
+        void exportWeightSource( const String controllerId, const ColladaSkinController& colladaSkinController );
 
         /**
         * Exports the bind poses source of the given controller.
         * @param targetController The controller with the data to export.
          */
-        void exportBindPosesSource( MayaController* targetController );
+        void exportBindPosesSource( const BaseController* targetController );
 
         /**
          * Exports the joint source of the given controller.
          * @param targetController The controller with the data to export.
          */
-        void exportJointSource( MayaController* targetController );
+        void exportJointSource( const ColladaSkinController* skinController );
 
         /**
          * Retrieve the instance information for this skinned character.
@@ -348,7 +268,7 @@ namespace COLLADAMaya
          * @param clusterIndex The current cluster index for the skinned character.
          */
         void gatherJoints( 
-            MayaController* targetController, 
+            ColladaSkinController* skinController, 
             const MObject& controllerNode, 
             MObjectArray& weightFilters, 
             const uint clusterIndex );
@@ -361,7 +281,7 @@ namespace COLLADAMaya
          * @param controllerNode The controller node of the current object.
          */
         void gatherBindMatrices( 
-            MayaController* targetController, 
+            BaseController* targetController, 
             const MObject& controllerNode );
 
         /**
@@ -428,4 +348,4 @@ namespace COLLADAMaya
 
 }
 
-#endif // __COLLADA_MAYA_CONTROLLER_LIBRARY_H___
+#endif // __COLLADA_MAYA_CONTROLLER_EXPORTER_H___

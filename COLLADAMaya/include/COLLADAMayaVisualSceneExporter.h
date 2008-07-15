@@ -170,7 +170,13 @@ namespace COLLADAMaya
         /** Exports the skew */
         void exportSkew ( double* shear );
 
-        /** Exports the visibility technique tag and the visibility animation.  */
+        /**
+         * Exports the visibility technique tag and the visibility animation.
+         * A hidden visual scene node will not be rendered but will
+         * still affect the world. This parameter is a floating-point value
+         * because it is animated. It should be intepreted as a Boolean value.
+         * @param sceneNode The collada scene node to export the values.
+         */
         void exportVisibility ( COLLADA::Node* sceneNode );
     };
 

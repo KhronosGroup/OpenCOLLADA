@@ -19,6 +19,7 @@
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include <time.h>
 
 #include <maya/MFnPlugin.h>
 #include <maya/MFileIO.h>
@@ -28,6 +29,7 @@
 #if MAYA_API_VERSION >= 700
 #include <maya/MHWShaderSwatchGenerator.h>
 #endif
+
 
 namespace COLLADAMaya
 {
@@ -359,14 +361,22 @@ namespace COLLADAMaya
 //    return MStatus::kFailure;
 //   }
 
-        // Actually export the document
+        /** To get the time */
+        clock_t startClock, endClock;
+        startClock = clock();
+
+       // Actually export the document
         DocumentExporter* documentExporter = new DocumentExporter ( ( const String ) filename.asChar() );
         documentExporter->exportCurrentScene ( selectionOnly );
         delete documentExporter;
 
         // Display some closing information.
-        MString message;
-        message = "ColladaMaya export finished:  \"" + filename + "\"";
+        endClock = clock();
+        std::ostringstream stream; 
+        stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
+
+        MString message(stream.str().c_str());
+//         message = "ColladaMaya export finished:  \"" + filename + "\"";
         MGlobal::displayInfo ( message );
 
         return status;

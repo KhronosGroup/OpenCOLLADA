@@ -21,6 +21,7 @@
 
 namespace COLLADAMaya
 {
+
     // Names for the creation of the plug-in
     static const char* COLLADA_EXPORTER                             = "COLLADA exporter";
     static const char* COLLADA_IMPORTER                             = "COLLADA importer";

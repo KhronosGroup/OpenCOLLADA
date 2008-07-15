@@ -163,6 +163,7 @@ namespace COLLADAMaya
             // Export the scene graph node for all transform-derivatives
             if ( dagPath.hasFn ( MFn::kJoint ) )
             {
+                sceneElement->setHasJoint(true);
                 if ( ExportOptions::exportJointsAndSkin() )
                 {
                     if ( animationExport )
@@ -206,7 +207,6 @@ namespace COLLADAMaya
         }
 
         // Check if the element isn't already exported
-
         if ( isLocal && !hasPreviousInstance )
         {
             // Recursive call for all the child elements
@@ -218,7 +218,6 @@ namespace COLLADAMaya
         }
 
         // Close the visual scene tag in the collada document
-
         if ( colladaSceneNode != NULL )
         {
             if ( nodeExported )
@@ -229,7 +228,6 @@ namespace COLLADAMaya
                 // Close the current scene node
                 colladaSceneNode->end();
             }
-
             delete ( colladaSceneNode );
 
             colladaSceneNode = NULL;
@@ -313,7 +311,6 @@ namespace COLLADAMaya
         // Prepares the visual scene node. TODO Differ in Joints and nodes.
         openVisualSceneNode ( dagPath );
 
-
         // ------------------------------------------------------
         // Export the transformation information
 
@@ -335,7 +332,7 @@ namespace COLLADAMaya
 
 
         // ------------------------------------------------------
-        // Write the geometries in the collada document
+        // Write the urls of the geometries/controllers in the collada document
 
         // Get the streamWriter from the export document
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -465,13 +462,10 @@ namespace COLLADAMaya
 
         MStatus status;
         MObject transformNode = dagPath.transform ( &status );
-
         if ( ( status != MS::kSuccess ) && status.statusCode () == MStatus::kInvalidParameter ) return false;
 
         mTransformObject = transformNode;
-
         MFnDagNode transform ( transformNode, &status );
-
         if ( !status )
         {
             status.perror ( "MFnDagNode constructor" );
@@ -480,13 +474,10 @@ namespace COLLADAMaya
 
         // get the transforms local translation
         MFnTransform fn ( transformNode );
-
         mTransformMatrix = fn.transformation();
-
         if ( fn.parentCount() > 0 )
         {
             MFnTransform t ( fn.parent ( 0 ) );
-
             if ( t.hasObj ( MFn::kClusterFilter ) || t.hasObj ( MFn::kSkinClusterFilter ) )
             {
                 mTransformMatrix = MTransformationMatrix ( mTransformMatrix.asMatrix() * t.transformationMatrix() );
@@ -509,20 +500,16 @@ namespace COLLADAMaya
 
         MEulerRotation jointOrientation, rotation, rotationAxis;
         bool isJoint;
-
         if ( mTransformObject != MObject::kNullObj )
         {
             isJoint = DagHelper::getPlugValue ( mTransformObject, ATTR_JOINT_ORIENT, jointOrientation );
 
             if ( !DagHelper::getPlugValue ( mTransformObject, ATTR_ROTATE, rotation ) ) rotation.setValue ( 0, 0, 0 );
-
             if ( !DagHelper::getPlugValue ( mTransformObject, ATTR_ROTATE_AXIS, rotationAxis ) ) rotationAxis.setValue ( 0, 0, 0 );
 
             rotation.order = ( MEulerRotation::RotationOrder ) ( ( int ) mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ );
-
             rotationAxis.order = jointOrientation.order = MEulerRotation::kXYZ;
         }
-
         else
         {
             rotation = mTransformMatrix.eulerRotation();
@@ -543,21 +530,14 @@ namespace COLLADAMaya
         // NOTE: Left multiplying, column-order matrices
         //
         exportTranslation ( ATTR_TRANSLATE, translation, true );
-
         exportTranslation ( ATTR_ROTATE_PIVOT_TRANSLATION, rotatePivotTranslation, false );
-
         exportTranslation ( ATTR_ROTATE_PIVOT, rotatePivot, false );
 
         if ( isJoint ) exportRotation ( ATTR_JOINT_ORIENT, jointOrientation );
-
         exportRotation ( ATTR_ROTATE, rotation );
 
-        // exportRotation(ROTATE_AXIS_SID, rotationAxis); // Also called rotate orient in documentation
-
         exportTranslation ( ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1, false );
-
         exportTranslation ( ATTR_SCALE_PIVOT_TRANSLATION, scalePivotTranslation, false );
-
         exportTranslation ( ATTR_SCALE_PIVOT, scalePivot, false );
 
         exportSkew ( shear );

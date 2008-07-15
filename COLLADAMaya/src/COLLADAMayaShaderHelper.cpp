@@ -28,6 +28,7 @@ class MFnNurbsSurface;
 
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
+#include "COLLADAMayaSyntax.h"
 
 namespace COLLADAMaya
 {
@@ -140,10 +141,8 @@ namespace COLLADAMaya
         MFnMesh mesh ( shape );
 
         MStringArray setNames;
-
         mesh.getUVSetNames ( setNames );
-
-        MPlug uvSetPlug = mesh.findPlug ( "uvSet" );
+        MPlug uvSetPlug = mesh.findPlug ( ATTR_UV_SET );
 
         for ( uint i = 0; i < uvSetPlug.numElements(); ++i )
         {

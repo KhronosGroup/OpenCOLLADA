@@ -70,7 +70,6 @@ namespace COLLADAMaya
         mColorSets = colorSets;
 
         // If triangulation is requested, verify that it is feasible by checking with all the mesh polygons
-
         if ( ExportOptions::exportTriangles() )
         {
             triangulated = true;
@@ -98,24 +97,14 @@ namespace COLLADAMaya
         uint realShaderCount = ( uint ) shaders.length();
         uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
 
-#ifdef _DEBUG
-        clock_t startClock, endClock;
-#endif
         for ( uint shaderPosition = 0; shaderPosition<numShaders; ++shaderPosition )
         {
             // Export the polygons of the current shader
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             exportShaderPolygons ( fnMesh,
                                    shaderPosition,
                                    realShaderCount,
                                    shaders,
                                    shaderIndices );
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "           Export shader polygons: " << endClock - startClock << endl;
-#endif
         }
     }
 
@@ -126,9 +115,6 @@ namespace COLLADAMaya
             MObjectArray shaders,
             const MIntArray shaderIndices )
     {
-        /** To get the time */
-        clock_t startClock, endClock;
-
         // The list with the shader polygons with the vertex indexes
         PolygonSourceList shaderPolygons;
 
@@ -142,16 +128,9 @@ namespace COLLADAMaya
 
         // --------------------------------------------
         // Iterate through all polygons of the current mesh and create them to export
-#ifdef _DEBUG
-        startClock = clock();
-#endif
         uint numPolygons = createShaderPolygons(
             fnMesh, shaderPosition, realShaderCount, shaderIndices, 
             &dummyPrimitivesBase, shaderPolygons, currentShapeIsHoled);
-#ifdef _DEBUG
-        endClock = clock();
-        cout << "                " << shaderPolygons.size() << " Polygons created: " << endClock - startClock << endl;
-#endif
 
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
@@ -193,14 +172,7 @@ namespace COLLADAMaya
 
             // Iterate through the list of polygons and 
             // write them into the collada file.
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             writeShaderPolygons(shaderPolygons, primitivesBasePoly, exportType);
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "                " << shaderPolygons.size() << " Polygons exported: " << endClock - startClock << endl;
-#endif
         }
 
         // Delete the created primitivesBasePoly
@@ -243,7 +215,7 @@ namespace COLLADAMaya
             }
 
             // Insert the list of indices of the vertex attributes for the polygon list
-            Sources& vertexAttributes = currentPolygon->getVertexAttributes();
+            const Sources vertexAttributes = currentPolygon->getVertexAttributes();
 
             uint numVertices = 0;
             size_t numAttributes = vertexAttributes.size();
@@ -293,8 +265,8 @@ namespace COLLADAMaya
 
                 for ( uint kk=0; kk<numAttributes; ++kk )
                 {
-                    SourceInput& sourceInput = vertexAttributes[kk];
-                    std::vector<int>& indexes = sourceInput.mIndexes;
+                    const SourceInput sourceInput = vertexAttributes[kk];
+                    const std::vector<int> indexes = sourceInput.mIndexes;
 
                     if ( vertexPosition < indexes.size() )
                     {
@@ -775,7 +747,6 @@ namespace COLLADAMaya
 
         // Ordered insert
         std::vector<uint>::iterator it = holeFaces.begin();
-
         for ( ; it != holeFaces.end(); ++it )
         {
             if ( index < ( *it ) ) break;

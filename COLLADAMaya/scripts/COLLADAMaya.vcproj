@@ -135,7 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /incremental:no /machine:I386 /export:initializePlugin /export:uninitializePlugin"
+				AdditionalOptions="/subsystem:windows /incremental:no /machine:I386 /export:initializePlugin /export:uninitializePlugin /LTCG"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib COLLADAStreamWriter.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release"
@@ -323,6 +323,14 @@
 			Name="Header Files"
 			Filter="h"
 			>
+			<File
+				RelativePath="..\include\COLLADAMayaBaseController.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAMayaSkinController.h"
+				>
+			</File>
 			<Filter
 				Name="Utils"
 				>

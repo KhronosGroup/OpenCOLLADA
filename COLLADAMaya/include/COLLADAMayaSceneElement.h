@@ -92,6 +92,9 @@ namespace COLLADAMaya
         /** True, if the current node has a morph controller. */
         bool mHasMorphController;
 
+        /** True, if the transform element has joints. */
+        bool mHasJoint;
+
     public:
 
         /** Constructor. */
@@ -218,6 +221,18 @@ namespace COLLADAMaya
          * @param val True, if the current node has a morph controller.
          */
         void setHasMorphController(bool val) { mHasMorphController = val; }
+
+        /**
+         * True, if the transform element has joints.
+         * @param hasJoint True, if the transform element has joints.
+         */
+        void setHasJoint( bool hasJoint ) { mHasJoint = hasJoint; }
+
+        /**
+         * True, if the transform element has joints.
+         * @return bool True, if the transform element has joints.
+         */
+        bool getHasJoint() { return mHasJoint; }
 
     private:
 
