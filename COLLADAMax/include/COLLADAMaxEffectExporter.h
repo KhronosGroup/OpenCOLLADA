@@ -85,7 +85,21 @@ namespace COLLADAMax
             STD2_OREN_NAYER_BLINN_CLASS_ID = 0x2857f421
         };
 
-    public:
+	public:
+		class MaterialChannelPair
+		{
+		public:
+			MaterialChannelPair():mMaterial(0), mChannel(0){};
+			MaterialChannelPair(Mtl* material, int channel):mMaterial(material), mChannel(channel){};
+			bool operator<(const MaterialChannelPair & rhs) const;
+		private:
+			Mtl* mMaterial;
+			int mChannel;
+		};
+
+		typedef std::map<MaterialChannelPair, IParamBlock*> MaterialChannelPairParamBlockMap;
+
+	public:
         static const String COLOR_EFFECT_ID_PREFIX;
 
         static const String TEXCOORD_BASE;
@@ -128,6 +142,9 @@ namespace COLLADAMax
         /** List of unique base effect ids.*/
         COLLADA::IDList mEffectIdList;
 
+		/** Maps material and channels to the IParamBlock of the corresponding StdUVGen*/
+		MaterialChannelPairParamBlockMap mMaterialChannelPairParamBlockMap;
+
     public:
         /** Constructor
         @param streamWriter The stream the animation should be written to
@@ -158,6 +175,12 @@ namespace COLLADAMax
         {
             return mExportedImageMap;
         }
+
+		/** Returns the MaterialChannelPairParamBlockMap used by the effect exporter*/
+		const MaterialChannelPairParamBlockMap & getMaterialChannelPairParamBlockMap() const
+		{
+			return mMaterialChannelPairParamBlockMap;
+		}
 
     private:
         EffectExporter ( const EffectExporter & effectExporter );
@@ -204,13 +227,13 @@ namespace COLLADAMax
 
 
         /**Exports the map @a texMap.*/
-        void exportMap ( unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight );
+        void exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight );
 
         /** Exports the image represented by @a map.*/
-        String EffectExporter::exportImage ( Texmap* map );
+        String EffectExporter::exportImage ( Texmap* map, String& fullFileName );
 
         /** Exports the image represented by @a bitmapInfo.*/
-        String EffectExporter::exportImage ( BitmapInfo& bitmapInfo );
+        String EffectExporter::exportImage ( BitmapInfo& bitmapInfo, String& fullFileName );
 
 
         /** Blends the color on colorOrTexture with blendColor an amount @a amount.*/

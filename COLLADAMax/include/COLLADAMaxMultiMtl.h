@@ -160,7 +160,7 @@ namespace COLLADAMax
         };
     }
 
-    namespace StdUVGen
+    namespace StdUVGenEnums
     {
         enum { pblock };
 

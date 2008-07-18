@@ -40,7 +40,9 @@ namespace COLLADAMax
             : mMaxInterface ( i ),
             mStreamWriter ( filepath ),
             mExportSceneGraph ( mMaxInterface->GetRootNode() )
-    {}
+    {
+		splitFilePath(filepath);
+	}
 
 
     //---------------------------------------------------------------
@@ -230,4 +232,17 @@ namespace COLLADAMax
         free ( buffer );
         return variableValue;
     }
+
+
+	void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName )
+	{
+		size_t lastBackSlashPosition = filePath.find_last_of('\\');
+		fileDir = filePath.substr(0, lastBackSlashPosition + 1);
+		fileName = filePath.substr(lastBackSlashPosition + 1, String::npos);
+	}
+
+	void DocumentExporter::splitFilePath( const String& filePath )
+	{
+		splitFilePath(filePath, mOutputDir, mOutputFileName);
+	}
 }

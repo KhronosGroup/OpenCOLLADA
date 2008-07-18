@@ -59,7 +59,6 @@ namespace COLLADAMax
         /** Exports all geometries in the export scene graph.*/
         void doExport();
 
-
     private:
         GeometriesExporter ( const GeometriesExporter & geometriesExporter );
         GeometriesExporter &operator= ( const GeometriesExporter & geometriesExporter );

@@ -64,7 +64,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
+				AdditionalDependencies="COLLADAStreamWriter.lib FreeImaged.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_PATH9)/maxsdk/lib&quot;;$(NOINHERIT)"
@@ -148,7 +148,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
+				AdditionalDependencies="COLLADAStreamWriter.lib FreeImage.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Release;&quot;$(MAX_PATH9)/maxsdk/lib&quot;"
@@ -237,6 +237,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_PATH2009)/maxsdk/lib&quot;"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -491,7 +492,7 @@
 				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_PATH2008)/maxsdk/lib&quot;"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_PATH2009)/maxsdk/lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"

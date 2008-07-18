@@ -40,6 +40,12 @@ namespace COLLADAMax
     {
 
     private:
+		/** The name of the output file.*/
+		String mOutputFileName;
+
+		/** The directory where the output file(s) are written to. The last backslash is included.*/
+		String mOutputDir;
+
         /** The effect exporter used by the document exporter.*/
         EffectExporter * mEffectExporter;
 
@@ -68,6 +74,12 @@ namespace COLLADAMax
         @param i the max interface
         @param filepath The file path the COLLADA document should be written to*/
         DocumentExporter ( Interface* i, const String &filepath );
+
+		/** Returns the file name of the output file.*/
+		const String& getOutputFileName() const {return mOutputFileName;}
+
+		/** Returns the output directory.*/
+		const String& getOutputDir() const {return mOutputDir;}
 
         /** Returns a pointer to the max interface.*/
         inline Interface* getMaxInterface()
@@ -102,9 +114,16 @@ namespace COLLADAMax
             return mOptions;
         }
 
+		/** Splits the filepath in directory and file name */
+		static void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName );
+
     private:
         DocumentExporter ( const DocumentExporter & documentExporter );
         DocumentExporter & operator= ( const DocumentExporter & documentExporter );
+
+		/** Splits the filepath in directory and file name and stores them in @a mOutputDir 
+		and mOutputFileName.*/
+		void splitFilePath(const String& fileName);
 
         /** Creates the scene graph of the nodes, that should be exported.*/
         bool createExportSceneGraph();

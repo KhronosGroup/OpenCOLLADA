@@ -27,14 +27,20 @@
 #include "COLLADAMaxGeometryExporter.h"
 #include "COLLADAMaxMaterialExporter.h"
 #include "COLLADAMaxExportSceneGraph.h"
+//#include "COLLADAMaxEffectExporter.h"
 
 #include "COLLADAMaxGeometryExtra.h"
+
+#include "COLLADAMaxMultiMtl.h"
 
 #include <algorithm>
 
 #include <max.h>
 #include <modstack.h>
 #include <MeshNormalSpec.h>
+#include <iparamb2.h>
+#include <iparamm2.h>
+
 
 // ST - TODO: Check where we should be sticking these defines..
 
@@ -72,6 +78,7 @@ namespace COLLADAMax
             : mExportNode ( exportNode ),
             mGeometriesExporter ( geometriesExporter ),
             mDocumentExporter ( documentExporter ),
+			mMaterialChannelPairParamBlockMap(documentExporter->getEffectExporter()->getMaterialChannelPairParamBlockMap()),
             mPolyObject ( 0 ),
             mTriObject ( 0 ),
             mGeomObject ( 0 ),
@@ -301,13 +308,14 @@ namespace COLLADAMax
             }
 
 
-            exportTextures ( channelList );
-
             // Retrieve the list of materials assigned to the different polygons of this mesh
             Mtl* mat = iNode->GetMtl();
+
+			exportTextures ( channelList, mat );
+
             MaterialList materials;
 
-            if ( mat != NULL )
+            if ( mat )
             {
                 flattenMaterials ( mat, materials );
             }
@@ -318,7 +326,7 @@ namespace COLLADAMax
 
             //map<Matid, number of faces>
             std::map<size_t, size_t> facesPerMaterialIdMap;
-            //map<Matid, VCountList>
+            //map<Matid, COLLADA::Polylist>
             typedef std::map<size_t, COLLADA::Polylist> PolylistListPerMaterialIdMap;
             PolylistListPerMaterialIdMap polylistListPerMaterialIdMap;
 
@@ -398,7 +406,7 @@ namespace COLLADAMax
 
                 String symbol;
 
-                if ( mat == NULL )
+                if ( !mat )
                 {
                     symbol = COLOR_MATERIAL_SYMBOL;
                 }
@@ -407,7 +415,7 @@ namespace COLLADAMax
                 {
                     Mtl* subMaterial = materials[ matID % numMaterials ];
 
-                    if ( subMaterial != NULL )
+                    if ( subMaterial )
                     {
 
                         // check for XRefs
@@ -622,7 +630,7 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    void GeometryExporter::exportTextures ( const ChannelList & channelList )
+    void GeometryExporter::exportTextures ( const ChannelList & channelList, Mtl* material )
     {
         // Export the map channel sources (valid indices are from -2 to 99)
         // Offset the negative map channels indices by MAX_MESHMAPS, in order to bring
@@ -630,13 +638,13 @@ namespace COLLADAMax
 
         for ( size_t i = 0; i < channelList.size(); ++i )
         {
-            exportTextureChannel ( channelList[ i ] );
+            exportTextureChannel ( channelList[ i ], material );
         }
     }
 
 
     //---------------------------------------------------------------
-    void GeometryExporter::exportTextureChannel ( int channelIndex )
+    void GeometryExporter::exportTextureChannel ( int channelIndex, Mtl* material )
     {
         // return if channel index is invalid
         /* if (channelIndex >= mesh.getNumMaps() || channelIndex < -NUM_HIDDENMAPS)
@@ -662,12 +670,44 @@ namespace COLLADAMax
             source.getParameterNameList().push_back ( "P" );
         }
 
+		/* start testing */
+
+		int numSubTexMaps = material->NumSubTexmaps();
+
+		Texmap* map = 0;
+		for ( int i = 0; (i < numSubTexMaps) && !map; i++ )
+		{
+			map = material->GetSubTexmap ( i );
+		}
+
+		Matrix3 uvTransfomationMatrix;
+		bool applyUVTransformation = false;
+		if ( map )
+		{
+			map->GetUVTransform(uvTransfomationMatrix);
+			applyUVTransformation = !uvTransfomationMatrix.IsIdentity();
+		}
+
+/*		EffectExporter::MaterialChannelPairParamBlockMap::const_iterator it = mMaterialChannelPairParamBlockMap.find(EffectExporter::MaterialChannelPair(material, channelIndex));
+
+		IParamBlock * uVGenParamBlock = 0;
+
+		if ( it != mMaterialChannelPairParamBlockMap.end() ) 
+			uVGenParamBlock = it->second;
+
+		float wAngle = 0;
+		if ( uVGenParamBlock )
+			wAngle = uVGenParamBlock->GetFloat(StdUVGenEnums::w_angle, TIME_EXPORT_START);
+
+			*/
+		/* end testing*/
+
         if ( isEditablePoly() )
         {
             MNMesh & mnMesh = mPolyObject->GetMesh();
             MNMap *mnMap = mnMesh.M ( channelIndex );
 
-            if ( mnMap == NULL )
+            if ( !mnMap )
                 return ;
 
             int mapVertexCount = mnMap->numv;
@@ -683,9 +723,15 @@ namespace COLLADAMax
                 // TODO: find a better solution for the case of not existing texture coordinates
 
                 if ( isFinite ( texCoord ) )
+				{
+					if ( applyUVTransformation )
+						texCoord = uvTransfomationMatrix * texCoord;
                     source.appendValues ( texCoord.x, texCoord.y, texCoord.z );
+				}
                 else
+				{
                     source.appendValues ( 0, 0, 1 );
+				}
             }
         }
 
@@ -703,9 +749,15 @@ namespace COLLADAMax
                 // TODO: find a better solution for the case of not existing texture coordinates
 
                 if ( isFinite ( texCoord ) )
+				{
+					if ( applyUVTransformation )
+						texCoord = uvTransfomationMatrix * texCoord;
                     source.appendValues ( texCoord.x, texCoord.y, texCoord.z );
+				}
                 else
+				{
                     source.appendValues ( 0, 0, 1 );
+				}
             }
 
         }

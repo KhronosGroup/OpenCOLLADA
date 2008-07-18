@@ -19,10 +19,12 @@
 #include "ColladaMaxStableHeaders.h"
 
 #include "COLLADAMaxEffectExporter.h"
-#include "COLLADANode.h"
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxMultiMtl.h"
+
+#include "COLLADANode.h"
+//#include "COLLADATextureModifier.h"
 
 #include <algorithm>
 
@@ -109,7 +111,7 @@ namespace COLLADAMax
             {
                 Mtl* submat = material->GetSubMtl ( j );
 
-                if ( submat != NULL )
+                if ( submat )
                     exportEffect ( exportNode, submat );
             }
         }
@@ -374,14 +376,14 @@ namespace COLLADAMax
             // export now.
 
             if ( exportThisMap )
-                exportMap ( channel, map, effectProfile, weight * mapAmount );
+                exportMap (material, channel, map, effectProfile, weight * mapAmount );
         }
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::exportMap ( unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight )
+    void EffectExporter::exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight )
     {
-        if ( texMap == NULL )
+        if ( !texMap )
             return ;
 
         //if (weight <= 0) return;
@@ -389,9 +391,9 @@ namespace COLLADAMax
         // Get any weight control directly on this texmap
         float amount = weight;
 
-        Control* weightControl = NULL;
+        Control* weightControl = 0;
 
-        if ( texMap != NULL && GetIBitmapTextInterface ( texMap ) != NULL )
+        if ( texMap  && GetIBitmapTextInterface ( texMap ) != 0 )
         {
             try
             {
@@ -419,7 +421,8 @@ namespace COLLADAMax
         }
 
         // Export image
-        String imageId = exportImage ( texMap );
+		String fullFileName;
+        String imageId = exportImage ( texMap, fullFileName );
 
         if ( !imageId.empty() )
         {
@@ -427,9 +430,32 @@ namespace COLLADAMax
 
             int mapChannel = 1;
 
-            if ( texMap != NULL )
+            if ( texMap )
             {
-                mapChannel = texMap->GetMapChannel();
+				mapChannel = texMap->GetMapChannel();
+
+				UVGen* uvGen = texMap->GetTheUVGen();
+				if (uvGen && uvGen->ClassID().PartA() == STDUV_CLASS_ID)
+				{
+					StdUVGen* stdGen = (StdUVGen*)uvGen;
+					int uvFlags = stdGen->GetTextureTiling();
+					IParamBlock* uvParams = (IParamBlock*)stdGen->GetReference(StdUVGenEnums::pblock);	
+
+					float rotationAngle = uvParams->GetFloat(StdUVGenEnums::w_angle);
+
+/*					String textureFileName;
+					String textureDir;
+					DocumentExporter::splitFilePath(fullFileName, textureDir, textureFileName);
+					COLLADA::TextureModifier textureModifier(fullFileName, mDocumentExporter->getOutputDir() + textureFileName);	
+				
+					textureModifier.setRotationAngle(rotationAngle);
+
+					textureModifier.performModifications();
+*/
+					mMaterialChannelPairParamBlockMap[MaterialChannelPair(material, index)] = uvParams;
+
+				}
+
 
                 // TODO: add extra tag
             }
@@ -558,7 +584,7 @@ namespace COLLADAMax
                 if ( texMap->SubTexmapOn ( subIdx ) == 0 )
                     subAmount = 0;
 
-                exportMap ( index, subMap, profile, subAmount );
+                exportMap (material, index, subMap, profile, subAmount );
             }
         }
     }
@@ -865,24 +891,24 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    String EffectExporter::exportImage ( Texmap* map )
+    String EffectExporter::exportImage ( Texmap* map, String& fullFileName  )
     {
-        if ( map == NULL )
-            return NULL;
+        if ( !map  )
+            return 0;
 
         if ( map->ClassID() == Class_ID ( BMTEX_CLASS_ID, 0x00 ) )
         {
             BitmapTex * baseBitmap = ( BitmapTex* ) map;
 
-            if ( baseBitmap == NULL )
-                return NULL;
+            if ( !baseBitmap )
+                return 0;
 
             // get a valid filename
             BitmapInfo bitmapInfo;
 
             bitmapInfo.SetName ( baseBitmap->GetMapName() );
 
-            return exportImage ( bitmapInfo );
+            return exportImage ( bitmapInfo, fullFileName );
         }
 
         else if ( map->ClassID() == Class_ID ( MIX_CLASS_ID, 0x00 ) )
@@ -895,7 +921,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    String EffectExporter::exportImage ( BitmapInfo& bitmapInfo )
+    String EffectExporter::exportImage ( BitmapInfo& bitmapInfo, String& fullFileName )
     {
         const TCHAR * fileName = bitmapInfo.Name();
 
@@ -903,7 +929,7 @@ namespace COLLADAMax
         {
 
             BMMGetFullFilename ( &bitmapInfo );
-            String fullFileName ( bitmapInfo.Name() );
+            fullFileName  = bitmapInfo.Name();
             String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( fullFileName );
             String imageId;
             // Export the equivalent <image> node in the image library and add
@@ -957,4 +983,19 @@ namespace COLLADAMax
 
 
 
+
+	bool EffectExporter::MaterialChannelPair::operator<( const EffectExporter::MaterialChannelPair & rhs ) const
+	{
+		if ( mMaterial < rhs.mMaterial )
+			return true;
+		if ( mMaterial > rhs.mMaterial )
+			return false;
+
+		if ( mChannel < rhs.mChannel )
+			return true;
+		if ( mChannel > rhs.mChannel )
+			return false;
+
+		return false;
+	}
 }

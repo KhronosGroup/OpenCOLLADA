@@ -26,6 +26,7 @@
 #include "COLLADAPrimitves.h"
 
 #include "COLLADAMaxGeometriesExporter.h"
+#include "COLLADAMaxEffectExporter.h"
 
 namespace COLLADAMax
 {
@@ -58,6 +59,9 @@ namespace COLLADAMax
         GeometriesExporter * mGeometriesExporter;
 
         DocumentExporter * mDocumentExporter;
+
+		/** Maps material and channels to the IParamBlock of the corresponding StdUVGen*/
+		const EffectExporter::MaterialChannelPairParamBlockMap & mMaterialChannelPairParamBlockMap; 
 
         /** The geometry as a PolyObject.*/
         PolyObject * mPolyObject;
@@ -120,10 +124,10 @@ namespace COLLADAMax
         void exportEditablePolyNormals();
 
         /** Exports the textures of @a mesh.*/
-        void exportTextures ( const ChannelList & channelList );
+        void exportTextures ( const ChannelList & channelList, Mtl* material );
 
         /** Exports the texture channel of @a mesh.*/
-        void exportTextureChannel ( int channelIndex );
+        void exportTextureChannel ( int channelIndex, Mtl* material );
 
         /** Exports the vertices element.*/
         void exportVertices ( const String & meshId );

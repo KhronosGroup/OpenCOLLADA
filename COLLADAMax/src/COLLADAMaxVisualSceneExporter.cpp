@@ -158,7 +158,8 @@ namespace COLLADAMax
 
         INode *parent = iNode->GetParentNode();
 
-        Matrix3 transformationMatrix = iNode->GetObjectTM ( 0 );
+		//Matrix3 transformationMatrix = iNode->GetObjectTM ( 0 );
+		Matrix3 transformationMatrix = iNode->GetNodeTM ( 0 );
 
         if ( parent != NULL && !parent->IsRootNode() )
         {
@@ -282,6 +283,23 @@ namespace COLLADAMax
                 }
             }
         }
+
+		// testing
+		if ( !iNode->IsRootNode() )
+		{
+			// Calculate the pivot transform. It should already be in local space.
+			Matrix3 objectOffsetTransformationMatrix(1); 
+			CalculateObjectOffsetTransformation(iNode, objectOffsetTransformationMatrix);
+
+			// only export the pivot node if the transform is not an identity
+			// of if the node is a group head node (this is a temporary fix until we add a PIVOT type)
+			if ( !objectOffsetTransformationMatrix.IsIdentity() || iNode->IsGroupHead() )
+			{
+				double matrix[ 4 ][ 4 ] ;
+				Matrix3ToDouble4x4 ( matrix, objectOffsetTransformationMatrix );
+				colladaNode.addMatrix ( matrix );
+			}
+		}
     }
 
     //---------------------------------------------------------------
@@ -294,8 +312,8 @@ namespace COLLADAMax
         copy[ 0 ][ 1 ] = original[ 1 ][ 0 ];
         copy[ 1 ][ 1 ] = original[ 1 ][ 1 ];
         copy[ 2 ][ 1 ] = original[ 1 ][ 2 ];
-        copy[ 3 ][ 1 ] = 0,
-                         copy[ 0 ][ 2 ] = original[ 2 ][ 0 ];
+        copy[ 3 ][ 1 ] = 0;
+		copy[ 0 ][ 2 ] = original[ 2 ][ 0 ];
         copy[ 1 ][ 2 ] = original[ 2 ][ 1 ];
         copy[ 2 ][ 2 ] = original[ 2 ][ 2 ];
         copy[ 3 ][ 2 ] = 0;
@@ -305,5 +323,36 @@ namespace COLLADAMax
         copy[ 3 ][ 3 ] = 1;
 
     }
+
+	void VisualSceneExporter::CalculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm)
+	{
+
+		// When sampling matrices, we apply the sample the ObjTMAfterWSM
+		// to get the final 
+/*		if (OPTS->BakeMatrices())
+		{
+			IDerivedObject* derivedObj = maxNode->GetWSMDerivedObject();
+			if (derivedObj != NULL)
+			{
+				// If we have WSM attached, always export a pivot
+				TimeValue t = OPTS->AnimStart();
+				tm = maxNode->GetObjTMAfterWSM(t) * Inverse(maxNode->GetNodeTM(t));
+				return;
+			}
+		}
+*/
+		Point3 opos = maxNode->GetObjOffsetPos();
+		Quat orot = maxNode->GetObjOffsetRot();
+		ScaleValue oscale = maxNode->GetObjOffsetScale();
+
+		// this should already be in local space
+		// only do this if necessary to preserve identity tags
+		ApplyScaling(tm, oscale);
+		RotateMatrix(tm, orot);
+		tm.Translate(opos);
+
+		tm.ValidateFlags();
+	}
+
 
 }
