@@ -26,4 +26,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		AMDCaProjectFile = C:\netallied\projekte\COLLADA\COLLADANextgen\COLLADAMaya\CodeAnalyst\COLLADAMaya.caw
+	EndGlobalSection
 EndGlobal

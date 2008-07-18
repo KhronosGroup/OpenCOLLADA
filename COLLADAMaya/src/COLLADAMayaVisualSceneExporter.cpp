@@ -603,12 +603,12 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportTranslation ( const String name,
-            const MVector& translation,
-            bool animation )
+    void VisualSceneExporter::exportTranslation ( 
+        const String name,
+        const MVector& translation,
+        bool animation )
     {
         bool isZero = true;
-
         for ( int i=0; i<3 && isZero; ++i )
         {
             if ( translation[i] != 0 ) isZero = false;
@@ -667,16 +667,33 @@ namespace COLLADAMaya
 //         mVisualSceneNode->addRotateY(name + XYZ_PARAMETERS[1], COLLADA::MathUtils::radToDeg(rotation.y));
 //         mVisualSceneNode->addRotateX(name + XYZ_PARAMETERS[0], COLLADA::MathUtils::radToDeg(rotation.x));
 
-        // Set zero flags, where the rotation is zero
-        bool isZero[3] = {  COLLADA::MathUtils::equals( rotation.x, 0.0 ), 
+        // Set zero flags, where the rotation is zero. The order of rotation is ZYX.
+        bool isZero[3] = {  COLLADA::MathUtils::equals( rotation.z, 0.0 ), 
                             COLLADA::MathUtils::equals( rotation.y, 0.0 ), 
-                            COLLADA::MathUtils::equals( rotation.z, 0.0 ) };
+                            COLLADA::MathUtils::equals( rotation.x, 0.0 ) };
 
-        // Go through the axes
+        // The array for the animations.
+        bool isAnimated[3] = { false, false, false };
+
+        // Go through the axes for the animations.
         for ( uint i=0; i<3; ++i )
         {
-            // TODO
-            bool rotationIsNecessary = !( !mIsFirstRotation && isZero[i] );
+            // Add the animation in the order XYZ
+            isAnimated[i] = animationExporter->addPlugAnimation (
+                mTransformObject,
+                name + ZYX_PARAMETERS[i],
+                ANGLE_PARAMETER,
+                kSingle | kQualifiedAngle );
+        }
+
+        // Go through the axes for the rotations.
+        for ( uint i=0; i<3; ++i )
+        {
+            // You have to write the rotation, if the element is animated.
+            bool rotationIsNecessary = ( isAnimated[i] || !( !mIsFirstRotation && isZero[i] ));
+
+            // A joint must always have a rotation.
+            if ( strcmp(name.c_str(), ATTR_JOINT_ORIENT) == 0 ) rotationIsNecessary = true;
 
             if ( mTransformObject != MObject::kNullObj && rotationIsNecessary )
             {
@@ -688,13 +705,6 @@ namespace COLLADAMaya
                     matrixRotate[i][2],
                     matrixRotate[i][3] );
             }
-
-            // Add the animation in the order XYZ
-            animationExporter->addPlugAnimation (
-                mTransformObject,
-                name + XYZ_PARAMETERS[i],
-                ANGLE_PARAMETER,
-                kSingle | kQualifiedAngle );
 
             // TODO
 //    if (rotateHelper.colladaRotations[i] != NULL)

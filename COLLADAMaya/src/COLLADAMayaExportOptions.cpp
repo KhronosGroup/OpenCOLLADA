@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSetHelper.h"
@@ -25,6 +24,10 @@ namespace COLLADAMaya
     bool ExportOptions::mBakeTransforms = false;
     bool ExportOptions::mBakeLighting = false;
     bool ExportOptions::mRelativePaths = true;
+
+    /** True, if the texture files should be copied to the destination folder. */
+    bool ExportOptions::mCopyTextures = false;
+
     bool ExportOptions::mExportPolygonMeshes = true;
     bool ExportOptions::mExportLights  = true;
     bool ExportOptions::mExportCameras = true;
@@ -72,6 +75,10 @@ namespace COLLADAMaya
         mBakeTransforms = false;
         mBakeLighting = false;
         mRelativePaths = true;
+
+        /** True, if the texture files should be copied to the destination folder. */
+        mCopyTextures = false;
+
         mIsSampling = false;
         mCurveConstrainSampling = false;
         mRemoveStaticCurves = true;
@@ -101,7 +108,6 @@ namespace COLLADAMaya
         mCameraYFov = true;
 
         // Parse option String
-
         if ( optionsString.length() > 0 )
         {
             MStringArray optionList;
@@ -130,6 +136,7 @@ namespace COLLADAMaya
                 if ( optionName == "bakeTransforms" ) mBakeTransforms = value;
                 else if ( optionName == "bakeLighting" ) mBakeLighting = value;
                 else if ( optionName == "relativePaths" ) mRelativePaths = value;
+                else if ( optionName == "copyTextures" ) mCopyTextures = value;
                 else if ( optionName == "exportPolygonMeshes" ) mExportPolygonMeshes = value;
                 else if ( optionName == "exportLights" ) mExportLights = value;
                 else if ( optionName == "exportCameras" ) mExportCameras = value;

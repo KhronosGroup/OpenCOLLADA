@@ -78,6 +78,7 @@ namespace COLLADAMaya
 //             return status;
 //         }
 
+
         // --------------------------------------------------------------
         // Register the import and the export file translator plug-ins.
 
@@ -96,19 +97,19 @@ namespace COLLADAMaya
             return status;
         }
 
-        // Import-Plugin
-        status = plugin.registerFileTranslator ( 
-                COLLADA_IMPORTER,
-                 "",
-                 FileTranslator::createImporter,
-                 MEL_IMPORT_OPTS,
-                 NULL );
-
-        if ( !status )
-        {
-            status.perror ( "registerFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
-        }
+//         // Import-Plugin
+//         status = plugin.registerFileTranslator ( 
+//                 COLLADA_IMPORTER,
+//                  "",
+//                  FileTranslator::createImporter,
+//                  MEL_IMPORT_OPTS,
+//                  NULL );
+// 
+//         if ( !status )
+//         {
+//             status.perror ( "registerFileTranslator" );
+//             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
+//         }
 
         /*
         // TODO
@@ -183,14 +184,14 @@ namespace COLLADAMaya
             return status;
         }
 
-        // Import-Plugin
-        status = plugin.deregisterFileTranslator ( COLLADA_IMPORTER );
-        if ( !status )
-        {
-            status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to unregister COLLADA importer: " ) + status );
-            return status;
-        }
+//         // Import-Plugin
+//         status = plugin.deregisterFileTranslator ( COLLADA_IMPORTER );
+//         if ( !status )
+//         {
+//             status.perror ( "deregisterFileTranslator" );
+//             MGlobal::displayError ( MString ( "Unable to unregister COLLADA importer: " ) + status );
+//             return status;
+//         }
 
         /*
         status = plugin.deregisterNode(CFXShaderNode::id);

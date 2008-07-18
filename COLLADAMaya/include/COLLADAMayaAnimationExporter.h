@@ -103,8 +103,9 @@ namespace COLLADAMaya
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
+         * @return True, if the element is animated.
          */
-        void addPlugAnimation ( MObject &node,
+        bool addPlugAnimation ( MObject &node,
                                 const String attrname,
                                 const String* parameters,
                                 const uint sampleType,
@@ -120,8 +121,9 @@ namespace COLLADAMaya
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
+         * @return True, if the element is animated.
          */
-        void addPlugAnimation ( MObject& node,
+        bool addPlugAnimation ( MObject& node,
                                 const String subId,
                                 const String attrname,
                                 const String* parameters,
@@ -136,8 +138,9 @@ namespace COLLADAMaya
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
+         * @return True, if the element is animated.
          */
-        void addPlugAnimation ( MPlug& plug,
+        bool addPlugAnimation ( MPlug& plug,
                                 const String subId,
                                 const String* parameters,
                                 const SampleType sampleType,
@@ -151,8 +154,9 @@ namespace COLLADAMaya
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
+         * @return True, if the element is animated.
          */
-        void addPlugAnimation ( MPlug& plug,
+        bool addPlugAnimation ( MPlug& plug,
                                 const String subId,
                                 const String* parameters,
                                 const uint sampleType,

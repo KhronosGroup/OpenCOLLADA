@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneGraph.h"
@@ -30,7 +29,6 @@
 #include "COLLADAMayaConvert.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
-#include <time.h>
 
 #include "COLLADAAsset.h"
 #include "COLLADAScene.h"
@@ -126,123 +124,38 @@ namespace COLLADAMaya
 
         mStreamWriter.startDocument();
 
-        SYSTEMTIME startSystemTime;
-        GetSystemTime(&startSystemTime);
-        time_t startTime;
-        time(&startTime);
-
-#ifdef _DEBUG
-        clock_t startClock, endClock;
-        cout << endl << endl << "Current export time stops: " << endl << endl;
-
-        startClock = clock();
-#endif
         if ( mSceneGraph->create ( selectionOnly ) )
         {
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Create scene graph: " << endClock - startClock << endl;
-#endif
 
             // Export the asset of the document.
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             exportAsset();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export asset: " << endClock - startClock << endl;
-#endif
 
             // Export the material URLs and get the material list
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             MaterialMap* materialMap = mMaterialExporter->exportMaterials();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export materials: " << endClock - startClock << endl;
-#endif
 
             // Export the effects (materials)
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export effects: " << endClock - startClock << endl;
-#endif
 
             // Export the images
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             mImageExporter->exportImages ( imageMap );
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export images: " << endClock - startClock << endl;
-#endif
 
             // Export the geometries
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             mGeometryExporter->exportGeometries();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export geometries: " << endClock - startClock << endl;
-#endif
 
             // Export the controllers
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             mControllerLibrary->exportControllers();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export controllers: " << endClock - startClock << endl;
-#endif
 
             // Export the visual scene
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             mVisualSceneExporter->exportVisualScenes();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export visual scenes: " << endClock - startClock << endl;
-#endif
 
             // Export the animations
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export animations: " << endClock - startClock << endl;
-#endif
 
             // Export the animation clips
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             mAnimationClipExporter->exportAnimationClips ( animationClips );
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export animation clips: " << endClock - startClock << endl;
-#endif
 
             // Export the scene
-#ifdef _DEBUG
-            startClock = clock();
-#endif
             exportScene();
-#ifdef _DEBUG
-            endClock = clock();
-            cout << "Export scene: " << endClock - startClock << endl;
-#endif
 
 
             // TODO
@@ -291,15 +204,13 @@ namespace COLLADAMaya
         TCHAR* userName = getenv ( "USERNAME" );
 
         if ( userName == NULL || *userName == 0 ) userName = getenv ( "USER" );
-
         if ( userName != NULL && *userName != 0 ) asset.getContributor().mAuthor = String ( userName );
 
         //  asset.getContributor().mSourceData =
         //   COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode(fileName);
 
-        // source is the scene we have exported from
+        // Source is the scene we have exported from
         MString currentScene = MFileIO::currentFile();
-
         if ( currentScene.length() != 0 )
         {
             // Intentionally not relative
@@ -309,7 +220,7 @@ namespace COLLADAMaya
             asset.getContributor().mSourceData = sourceFile;
         }
 
-        asset.getContributor().mAuthoringTool = "COLLADA Maya2008";
+        asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
 
         // comments
         MString optstr = MString ( "ColladaMaya export options: bakeTransforms=" ) + ExportOptions::bakeTransforms()
@@ -323,14 +234,13 @@ namespace COLLADAMaya
                          + ";\nexportVertexColors=" + ExportOptions::exportVertexColors()
                          + ";exportVertexColorsAnimation=" + ExportOptions::exportVertexColorAnimations()
                          + ";exportTangents=" + ExportOptions::exportTangents()
-                         + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() + ";exportConstraints=" + ExportOptions::ExportConstraints()
-                         + ";exportPhysics=" + ExportOptions::ExportPhysics() + ";exportXRefs=" + ExportOptions::exportXRefs()
+                         + ";\nexportTexTangents=" + ExportOptions::exportTexTangents() + ";exportConstraints=" + ExportOptions::exportConstraints()
+                         + ";exportPhysics=" + ExportOptions::exportPhysics() + ";exportXRefs=" + ExportOptions::exportXRefs()
                          + ";\ndereferenceXRefs=" + ExportOptions::dereferenceXRefs() + ";cameraXFov=" + ExportOptions::cameraXFov()
                          + ";cameraYFov=" + ExportOptions::cameraYFov();
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis
-
         if ( MGlobal::isYAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Y_UP );
         else if ( MGlobal::isZAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Z_UP );
 

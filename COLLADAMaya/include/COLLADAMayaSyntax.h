@@ -23,9 +23,10 @@ namespace COLLADAMaya
 {
 
     // Names for the creation of the plug-in
-    static const char* COLLADA_EXPORTER                             = "COLLADA exporter";
-    static const char* COLLADA_IMPORTER                             = "COLLADA importer";
+    static const char* COLLADA_EXPORTER                             = "COLLADA nextgen exporter";
+    static const char* COLLADA_IMPORTER                             = "COLLADA nextgen importer";
     static const char* COLLADA_DOCUMENT                             = "colladaDocument";
+    static const String AUTHORING_TOOL_NAME                         = "COLLADA Maya";
 
     /** The unique name for the visual scene node on export. */
     static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
@@ -33,7 +34,7 @@ namespace COLLADAMaya
     // Mel-Scripts
     // Name of a MEL script that will be used to display the contents of the
     // options dialog during file open and save
-    static char*  MEL_EXPORT_OPTS                                   = "colladaTranslatorOpts";
+    static char*  MEL_EXPORT_OPTS                                   = "colladaNextGenExporterOpts";
     static char*  MEL_IMPORT_OPTS                                   = "colladaImporterOpts";
 
     // COLLADA NetAllied Systems
@@ -220,6 +221,7 @@ namespace COLLADAMaya
     static const char* ATTR_TRANSFORM                               = "transform";
     static const char* ATTR_TRANSLATE                               = "translate";
     static const char* ATTR_TRANSPARENCY                            = "transparency";
+    static const char* ATTR_UV_COORD                                = "uvCoord";
     static const char* ATTR_UV_SET                                  = "uvSet";
     static const char* ATTR_VISIBILITY                              = "visibility";
     static const char* ATTR_VERTEX_POSITION_TWEAKS                  = "pt";

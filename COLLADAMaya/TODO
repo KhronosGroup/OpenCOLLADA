@@ -16,6 +16,9 @@
 =======================================
 -   Multiple documents
 
+-	Multiple mesh instances
+	http://www.robthebloke.org/research/maya/mfnmesh.htm
+
 =======================================
 
 -   Testsuite
@@ -27,6 +30,7 @@
 -   VisualScene
     -   joints and skins
     -   Reference to effect texture
+    - 	copyTexture: create sub directories
 
 =======================================
 -   Geometry:

@@ -19,10 +19,13 @@
 #include "COLLADAMayaConvert.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaAnimationExporter.h"
+#include "COLLADAMayaExportOptions.h"
 
 #include "COLLADAMathUtils.h"
 #include "COLLADAStreamWriter.h"
 #include "COLLADALibraryImages.h"
+
+#include <maya/MFileIO.h>
 
 namespace COLLADAMaya
 {
@@ -73,7 +76,6 @@ namespace COLLADAMaya
 
         // Check for 3D projection node
         MObject colorReceiver = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_OUT_COLOR );
-
         if ( colorReceiver != MObject::kNullObj && colorReceiver.apiType() == MFn::kProjection )
         {
             add3DProjection ( colladaTexture, colorReceiver );
@@ -178,24 +180,80 @@ namespace COLLADAMaya
     {
         // Retrieve the texture filename
         MFnDependencyNode dgFn ( texture );
-        MString mayaName = dgFn.name(), filename;
+        MString mayaName = dgFn.name(), fileName;
         MPlug filenamePlug = dgFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
-        filenamePlug.getValue ( filename );
 
-        if ( filename.length() == 0 ) return NULL;
+        // Get the maya filename with the path to the file.
+        filenamePlug.getValue ( fileName );
+        if ( fileName.length() == 0 ) return NULL;
 
-        // TODO
-        // Get the URI of the file
-        String fileNameString = filename.asChar();
-        String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + 
-                                    COLLADA::Utils::UriEncode ( fileNameString );
+        // Get the file name and the URI
+        String fullFileName;
+        String fullFileNameURI;
+
+        if ( ExportOptions::relativePaths() )
+        {
+            // Get the path to the maya source file
+            String sourceFile = MFileIO::currentFile().asChar();
+            String sourcePath = COLLADA::Utils::getAbsolutePahFromFile ( sourceFile );
+
+            // Get the relative file name
+            String relativeFileName = COLLADA::Utils::getRelativeFilename( sourcePath, fileName.asChar() );
+
+            // Get the filename
+            fullFileName = relativeFileName;
+
+            // Get the URI of the file
+            fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + fullFileName;
+        }
+        else
+        {
+            // Get the filename
+            fullFileName = fileName.asChar();
+
+            // Get the URI of the file
+            fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( fileName.asChar() );
+        }
 
         // Have we seen this texture node before?
-        ImageMap::iterator exportedImagesIter = mExportedImageMap.find ( filename.asChar() );
+        ImageMap::iterator exportedImagesIter = mExportedImageMap.find ( fullFileName );
         if ( exportedImagesIter != mExportedImageMap.end() )
         {
             COLLADA::Image* colladaImage = ( *exportedImagesIter ).second;
             return colladaImage->getImageId();
+        }
+
+        // Check, if we should copy the texture to the destination folder.
+        if ( ExportOptions::copyTexturesToDestinationDirectory() )
+        {
+            // Target file
+            String targetFileName = mDocumentExporter->getFilename();
+            String targetPath = COLLADA::Utils::getAbsolutePahFromFile ( targetFileName );
+
+            // Get the file path and name
+            String filePathString = COLLADA::Utils::getAbsolutePahFromFile ( fileName.asChar() );
+            String fileNameWithoutPath = COLLADA::Utils::getFileNameFromFile( fileName.asChar() );
+
+            // Get the path to the maya source file
+            String sourceFile = MFileIO::currentFile().asChar();
+            String sourcePath = COLLADA::Utils::getAbsolutePahFromFile ( sourceFile );
+
+            // Get the relative file name
+            String relativeFileName = COLLADA::Utils::getRelativeFilename( sourcePath, fileName.asChar() );
+            
+            // Generate the target file name
+            String targetFile = targetPath + relativeFileName;
+
+            // TODO If the image is in a sub-directory, we have to create 
+            // the sub-directories before copying the file!
+
+            // Copy the file to the destination directory
+            if ( !COLLADA::Utils::copyFile( fileName.asChar(), targetFile ) )
+            {
+                String message = "Couldn't successful copy the texture from \"";
+                message += fileName.asChar(); message += "\" to \"" + targetFile + "\"!";
+                MGlobal::displayError( message.c_str() );
+            }
         }
 
         // Convert the image name
@@ -216,7 +274,7 @@ namespace COLLADAMaya
         colladaImage->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_TEXTURE_IMAGE_SEQUENCE, isImgSeq );
 
         // Add this texture to our list of exported images
-        mExportedImageMap[filename.asChar() ] = colladaImage;
+        mExportedImageMap[ fullFileName ] = colladaImage;
 
         return colladaImageName;
     }
@@ -226,7 +284,7 @@ namespace COLLADAMaya
     void EffectTextureExporter::add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture )
     {
         // Is there a texture placement applied to this texture?
-        MObject placementNode = DagHelper::getSourceNodeConnectedTo ( texture, "uvCoord" );
+        MObject placementNode = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_UV_COORD );
 
         if ( placementNode.hasFn ( MFn::kPlace2dTexture ) )
         {
@@ -261,19 +319,21 @@ namespace COLLADAMaya
         int projectionType;
         DagHelper::getPlugValue ( projection, ATTR_PROJECTION_TYPE, projectionType );
         String strProjectionType = ShaderHelper::projectionTypeToString ( projectionType );
-        colladaTexture->addExtraTechniqueChildParameter ( MAYA_PROFILE,
-                MAYA_PROJECTION_ELEMENT,
-                MAYA_PROJECTION_TYPE_PARAMETER,
-                strProjectionType );
+        colladaTexture->addExtraTechniqueChildParameter ( 
+            MAYA_PROFILE,
+            MAYA_PROJECTION_ELEMENT,
+            MAYA_PROJECTION_TYPE_PARAMETER,
+            strProjectionType );
 
         MMatrix projectionMx;
         DagHelper::getPlugValue ( projection, ATTR_PLACEMENT_MATRIX, projectionMx );
         double sceneMatrix[4][4];
         MConvert::convertMMatrixToDouble4x4 ( sceneMatrix, projectionMx );
-        colladaTexture->addExtraTechniqueChildParameter ( MAYA_PROFILE,
-                MAYA_PROJECTION_ELEMENT,
-                MAYA_PROJECTION_MATRIX_PARAMETER,
-                sceneMatrix );
+        colladaTexture->addExtraTechniqueChildParameter ( 
+            MAYA_PROFILE,
+            MAYA_PROJECTION_ELEMENT,
+            MAYA_PROJECTION_MATRIX_PARAMETER,
+            sceneMatrix );
     }
 
     // ------------------------------------------------------------

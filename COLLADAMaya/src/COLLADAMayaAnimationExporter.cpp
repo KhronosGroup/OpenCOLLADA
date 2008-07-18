@@ -1186,7 +1186,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::addPlugAnimation ( MObject &node,
+    bool AnimationExporter::addPlugAnimation ( MObject &node,
             const String attrname,
             const String* parameters,
             const uint sampleType,
@@ -1195,11 +1195,11 @@ namespace COLLADAMaya
         // Take the attribute name as the sub id.
         String subId = attrname;
 
-        addPlugAnimation ( node, subId, attrname, parameters, ( SampleType ) sampleType, conversion );
+        return addPlugAnimation ( node, subId, attrname, parameters, ( SampleType ) sampleType, conversion );
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::addPlugAnimation ( MObject &node,
+    bool AnimationExporter::addPlugAnimation ( MObject &node,
             const String subId,
             const String attrname,
             const String* parameters,
@@ -1207,7 +1207,7 @@ namespace COLLADAMaya
             ConversionFunctor* conversion )
     {
         // We will not proceed, if we don't have a node object
-        if ( node == MObject::kNullObj ) return;
+        if ( node == MObject::kNullObj ) return false;
 
         // attach the function set to the object
         MFnDependencyNode fn ( node );
@@ -1215,28 +1215,30 @@ namespace COLLADAMaya
         // get the plug to the requested attribute
         MStatus status;
         MPlug plug = fn.findPlug ( attrname.c_str(), &status );
-        if ( status != MS::kSuccess ) return;
+        if ( status != MS::kSuccess ) return false;
 
-        addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
+        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::addPlugAnimation ( MPlug &plug,
+    bool AnimationExporter::addPlugAnimation ( MPlug &plug,
             const String subId,
             const String* parameters,
             const uint sampleType,
             ConversionFunctor* conversion )
     {
-        addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
+        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::addPlugAnimation ( MPlug &plug,
+    bool AnimationExporter::addPlugAnimation ( MPlug &plug,
             const String subId,
             const String* parameters,
             const SampleType sampleType,
             ConversionFunctor* conversion )
     {
+        bool isAnimated = false;
+
         // if (animatedValue == NULL) return;
 
         bool isSampling = false;
@@ -1262,7 +1264,6 @@ namespace COLLADAMaya
         {
             animatedElement->setConversion ( conversion );
         }
-
         else if ( ( sampleType & kAngle ) == kAngle )
         {
             ConversionFunctor* conversion = new ConversionScaleFunctor ( isImport ? COLLADA::MathUtils::degToRadF ( 1.0f ) : COLLADA::MathUtils::radToDegF ( 1.0f ) );
@@ -1272,11 +1273,12 @@ namespace COLLADAMaya
         if ( isSampling )
         {
             mAnimationElements.push_back ( animatedElement );
+            isAnimated = true;
         }
-
         else if ( exportAnimation ( animatedElement ) )
         {
             mAnimationElements.push_back ( animatedElement );
+            isAnimated = true;
 
             /*
             // TODO
@@ -1295,11 +1297,12 @@ namespace COLLADAMaya
             }
             */
         }
-
         else
         {
             delete animatedElement;
         }
+
+        return isAnimated;
     }
 
     // ------------------------------------------------------------

@@ -35,6 +35,10 @@ namespace COLLADAMaya
         static bool mBakeTransforms;
         static bool mBakeLighting;
         static bool mRelativePaths;
+
+        /** True, if the texture files should be copied to the destination folder. */
+        static bool mCopyTextures;
+
         static bool mExportPolygonMeshes;
         static bool mExportLights;
         static bool mExportCameras;
@@ -164,7 +168,7 @@ namespace COLLADAMaya
         {
             return mExportVertexColors;
         }
-
+ 
         static bool exportVertexColorAnimations()
         {
             return mExportVertexColorAnimations;
@@ -181,17 +185,17 @@ namespace COLLADAMaya
         }
 
         // DF Export Filters
-        static bool ExportConstraints()
+        static bool exportConstraints()
         {
             return mExportConstraints;
         }
 
-        static bool ExportPhysics()
+        static bool exportPhysics()
         {
             return mExportPhysics;
         }
 
-        static MStringArray GetExclusionSets()
+        static MStringArray getExclusionSets()
         {
             return mExclusionSets;
         }
@@ -216,6 +220,12 @@ namespace COLLADAMaya
         static bool cameraYFov()
         {
             return mCameraYFov;
+        }
+
+        /** True, if the texture files should be copied to the destination folder. */
+        static bool copyTexturesToDestinationDirectory() 
+        { 
+            return mCopyTextures; 
         }
 
     };

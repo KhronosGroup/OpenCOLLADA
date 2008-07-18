@@ -69,9 +69,6 @@ namespace COLLADAMaya
         for ( uint i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
-#ifdef _DEBUG
-            cout << "   Start export " << sceneElement->getNodeName() << endl;
-#endif
             exportControllers ( sceneElement );
         }
 
@@ -89,14 +86,7 @@ namespace COLLADAMaya
             sceneElement->getIsExportNode() )
         {
             // Create a skin/morph transform object and export the controller
-            clock_t startClock, endClock;
-            startClock = clock();
             bool exported = exportController ( sceneElement );
-            endClock = clock();
-#ifdef _DEBUG
-            if (exported)
-                cout << "   End export controller "  << sceneElement->getNodeName() << ": "  << endClock - startClock << endl;
-#endif
         }
 
         // Recursive call for all the child elements

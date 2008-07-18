@@ -379,6 +379,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAPlatform.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAPrerequisites.h"
 				>
 			</File>

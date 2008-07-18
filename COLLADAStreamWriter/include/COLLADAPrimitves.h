@@ -102,6 +102,14 @@ namespace COLLADA
             return mVCountList; 
         }
 
+        /**
+        * Set the vCountList.         
+        * @param VCountList& The vCountList.
+        */
+        void setVCountList(VCountList vCountList) 
+        { 
+            mVCountList = vCountList; 
+        }
 
         /** Adds @a number to the array*/
         void appendValues ( const std::vector<unsigned long>& numberVec )

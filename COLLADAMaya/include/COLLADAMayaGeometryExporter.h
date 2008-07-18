@@ -50,12 +50,18 @@ namespace COLLADAMaya
     class SourceInput
     {
 
-    public:
+    private:
+
         /** Collada source */
         COLLADA::SourceBase mSource;
 
         /** Index list. */
-        std::vector<int> mIndexes;
+        std::vector<int> mIndices;
+
+        /** The number of vertex indices. */
+        uint mNumVertexIndices;
+
+        /** Index of the current vertex source. */
         int mIdx;
 
         /** Type of the source. */
@@ -65,15 +71,41 @@ namespace COLLADAMaya
 
         /** Constructor */
         SourceInput ( COLLADA::SourceBase& source, COLLADA::Semantics type, int idx = -1 )
-                : mSource ( source ), mType ( type ), mIdx ( idx ) {}
+            : mSource ( source )
+            , mType ( type )
+            , mIdx ( idx ) 
+            , mNumVertexIndices (0)
+        {}
 
         /** Destructor */
         virtual ~SourceInput() {}
 
+        /** Collada source */
+        const COLLADA::SourceBase& getSource() const { return mSource; }
+        void setSource(COLLADA::SourceBase val) { mSource = val; }
+
+        /** Index list. */
+        const std::vector<int>& getIndices() const { return mIndices; }
+        std::vector<int>& getIndices() { return mIndices; }
+        void setIndices(std::vector<int> val) { mIndices = val; }
+
+        /** The number of vertex indices. */
+        const uint getNumVertexIndices() const { return mIndices.size(); } //mNumVertexIndices; }
+        void setNumVertexIndices(uint val) { mNumVertexIndices = val; }
+        void incrementNumVertexIndices() { ++mNumVertexIndices; }
+
+        /** Type of the source. */
+        const COLLADA::Semantics& getType() const { return mType; }
+        void setType(COLLADA::Semantics val) { mType = val; }
+
+        /** Index of the current vertex source. */
+        const int getIdx() const { return mIdx; }
+        void setIdx(int val) { mIdx = val; }
+
         /**
          * Returns true, if the given list contains the given SourceInput.
          */
-        static bool containsSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase );
+        static bool containsSourceBase ( const Sources* sources, const COLLADA::SourceBase* searchedSourceBase );
 
         /**
         * Returns true, if the given list contains the given SourceInput and erased sucessful.

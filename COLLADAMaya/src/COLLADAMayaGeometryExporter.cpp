@@ -42,16 +42,15 @@ namespace COLLADAMaya
 {
 
     // --------------------------------------------------------
-    bool SourceInput::containsSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase )
+    bool SourceInput::containsSourceBase ( const Sources* sources, const COLLADA::SourceBase* searchedSourceBase )
     {
         bool sourceFound = false;
 
-        Sources::iterator sourcesIter = sources->begin();
-
+        Sources::const_iterator sourcesIter = sources->begin();
         for ( ; sourcesIter!=sources->end() && !sourceFound; ++sourcesIter )
         {
-            SourceInput& sourceInput = *sourcesIter;
-            COLLADA::SourceBase& sourceBase = sourceInput.mSource;
+            const SourceInput& sourceInput = *sourcesIter;
+            const COLLADA::SourceBase& sourceBase = sourceInput.mSource;
 
             if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
                 sourceFound = true;
@@ -539,11 +538,8 @@ namespace COLLADAMaya
 
                     // Calculate the T/Bs (code repeated below)
                     MPoint& neighborPosition = vertexPositions[vertexNeighbors[0]];
-
                     MVector directionV = neighborPosition - vertexPositions[vertexIndex];
-
                     tangents[vertexIndex] = ( directionV ^ normals[vertexIndex] ).normal();
-
                     binormals[vertexIndex] = ( normals[vertexIndex] ^ tangents[vertexIndex] ).normal();
                 }
 
@@ -570,7 +566,6 @@ namespace COLLADAMaya
                 for ( MItMeshPolygon faceIt ( fnMesh.object() ); !faceIt.isDone(); faceIt.next() )
                 {
                     int faceVertexCount = faceIt.polygonVertexCount();
-
                     for ( int i = 0; i < faceVertexCount; ++i )
                     {
                         int normalIndex = faceIt.normalIndex ( i );
@@ -784,7 +779,6 @@ namespace COLLADAMaya
             colorSource.appendValues ( meshColorSet );
             colorSource.finish();
 
-
             if ( colorSet.isVertexColor )
             {
                 // Insert a per-vertex color set input
@@ -814,16 +808,15 @@ namespace COLLADAMaya
 
         // Push all other vertex sources into the vertices element
         Sources::iterator it = mVertexSources.begin();
-
         for ( ; it!=mVertexSources.end(); ++it )
         {
             // Get the current vertices source and read the id
-            SourceInput& sourceInput = *it;
-            COLLADA::SourceBase& source = sourceInput.mSource;
+            const SourceInput& sourceInput = *it;
+            const COLLADA::SourceBase& source = sourceInput.getSource();
             String sourceId = source.getId();
 
             // Get the type of the current vertex source
-            COLLADA::Semantics& type = sourceInput.mType;
+            const COLLADA::Semantics& type = sourceInput.getType();
 
             // Push the vertex source to the collada vertices
             inputList->push_back ( COLLADA::Input ( type, "#" + sourceId ) );
@@ -842,7 +835,6 @@ namespace COLLADAMaya
         if ( !ExportOptions::exportTexCoords() ) return;
 
         uint texCoordsCount = uvSetNames.length();
-
         for ( uint i=0; i<texCoordsCount; ++i )
         {
             MFloatArray uArray, vArray;
@@ -961,7 +953,6 @@ namespace COLLADAMaya
 
                 // TODO TEST!
                 // Add the animation curve, if there's any (not supported according to the API docs)
-
                 if ( ExportOptions::exportVertexColorAnimations() )
                 {
                     //     ANIM->AddPlugAnimation(colorPlug.child(0), source->GetSourceData().GetAnimated(4*j+0), kSingle);
@@ -1225,9 +1216,7 @@ namespace COLLADAMaya
                     }
 
                     valueCount = vertexCount;
-
                     colorSet.whiteColorIndex = 0;
-
                     for ( uint cc = 0; cc < valueCount; ++cc )
                     {
                         MColor& color = vertexColours[cc];
@@ -1241,11 +1230,8 @@ namespace COLLADAMaya
                         // TODO
                         //     source->SetValue(cc, MConvert::ToFMVector4(c));
                         meshColorSet[cc*colorElements] = color.r;
-
                         meshColorSet[cc*colorElements+1] = color.g;
-
                         meshColorSet[cc*colorElements+2] = color.b;
-
                         meshColorSet[cc*colorElements+3] = color.a;
                     }
                 }
@@ -1298,7 +1284,6 @@ namespace COLLADAMaya
                 {
                     meshFn.getColors ( colours, &colorSet.name );
                 }
-
                 else
 #endif
                 {
@@ -1325,11 +1310,8 @@ namespace COLLADAMaya
 
                         //colorSource->SetValue(j, v);
                         meshColorSet[j*colorElements] = colours[j].r;
-
                         meshColorSet[j*colorElements+1] = colours[j].g;
-
                         meshColorSet[j*colorElements+2] = colours[j].b;
-
                         meshColorSet[j*colorElements+3] = colours[j].a;
                     }
 

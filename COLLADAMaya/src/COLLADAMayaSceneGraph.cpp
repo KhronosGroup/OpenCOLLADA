@@ -399,7 +399,7 @@ namespace COLLADAMaya
             if ( dagPath.hasFn ( MFn::kManipulator ) || dagPath.hasFn ( MFn::kViewManip ) ) return false;
 
             // Check for constraints which are not exported
-            if ( !ExportOptions::ExportConstraints() && dagPath.hasFn ( MFn::kConstraint ) ) return false;
+            if ( !ExportOptions::exportConstraints() && dagPath.hasFn ( MFn::kConstraint ) ) return false;
 
             // Check set membership exclusion/inclusion
             if ( SetHelper::isExcluded ( dagPath ) ) return false;
