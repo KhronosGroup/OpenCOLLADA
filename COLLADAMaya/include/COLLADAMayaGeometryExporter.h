@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_GEOMETRY_EXPORTER_H__
 #define __COLLADA_MAYA_GEOMETRY_EXPORTER_H__
 
@@ -186,11 +185,41 @@ namespace COLLADAMaya
         /** Export the vertex normals of the current mesh */
         bool exportVertexNormals ( const MFnMesh& fnMesh, const String& meshId );
 
+        /** Implement TangentSource and BinormalSource. */
+        void exportTangents( 
+            const MFnMesh& fnMesh, 
+            const String& meshId, 
+            const bool perVertexNormals, 
+            const MFloatVectorArray& normals );
+
+        /** Calculate the geometric tangents and binormals(T/Bs). */
+        void getTangents( 
+            const MFnMesh& fnMesh, 
+            const MFloatVectorArray& normals, 
+            uint normalCount, 
+            MVectorArray& binormals, 
+            MVectorArray& tangents );
+
+        /** Calculate the geometric tangents and binormals(T/Bs) in case of "per vertex normals". */
+        void getPerVertexNormalsTangents( 
+            const MFnMesh& fnMesh, 
+            const MFloatVectorArray& normals, 
+            MVectorArray& tangents, 
+            MVectorArray& binormals );
+
+        /** Implement NormalSource. */
+        bool exportNormals( 
+            const MFnMesh& fnMesh, 
+            const String& meshId, 
+            MFloatVectorArray& normals );
+
         /**
          * Returns a list of names for each texcoord id that corresponds to the equivalent
          * Maya uv set name, as returned by MFnMesh.getUVSetNames().
          */
-        std::vector<String> generateTexCoordIds ( const MStringArray& uvSetNames, const String& meshId );
+        std::vector<String> generateTexCoordIds ( 
+            const MStringArray& uvSetNames, 
+            const String& meshId );
 
         /**
          * Export the texture coordinates listed in the two arrays given in argument,

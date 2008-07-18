@@ -241,12 +241,13 @@ namespace COLLADAMaya
 
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
-        polygonExporter.exportPolygonSources ( fnMesh, meshId,
-                                         uvSetNames,
-                                         colorSets,
-                                         &mPolygonSources,
-                                         &mVertexSources,
-                                         hasFaceVertexNormals );
+        polygonExporter.exportPolygonSources ( 
+            fnMesh, meshId,
+            uvSetNames,
+            colorSets,
+            &mPolygonSources,
+            &mVertexSources,
+            hasFaceVertexNormals );
 
         // Delete the created color sets
         ColourSetList::iterator it = colorSets.begin();
@@ -348,9 +349,9 @@ namespace COLLADAMaya
         vertexSource.setArrayId ( meshId + POSITIONS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         vertexSource.setAccessorStride ( 3 );
 
-        // Retrieves the vertex positions.
+        // Retrieves the vertex positions. 
         MPointArray vertexArray;
-        fnMesh.getPoints ( vertexArray, MSpace::kObject );
+        fnMesh.getPoints ( vertexArray, MSpace::kObject ); // With the meteorite-example, 10MB will be allocated!
         uint vertexCount = vertexArray.length();
         vertexSource.setAccessorCount ( vertexCount );
 
@@ -362,7 +363,6 @@ namespace COLLADAMaya
         // Remove the vertex position tweaks that will be exported as animations
         MPlug positionTweakArrayPlug = fnMesh.findPlug ( ATTR_VERTEX_POSITION_TWEAKS );
         uint positionTweakCount = positionTweakArrayPlug.numElements();
-
         for ( uint i = 0; i < positionTweakCount; ++i )
         {
             MPlug positionTweakPlug = positionTweakArrayPlug.elementByPhysicalIndex ( i );
@@ -410,7 +410,7 @@ namespace COLLADAMaya
         for ( uint i = 0; i < vertexCount; ++i )
         {
             MPoint &pointData = vertexArray[i];
-            vertexSource.appendValues ( pointData.x, pointData.y, pointData.z );
+            vertexSource.appendValues ( vertexArray[i].x, vertexArray[i].y, vertexArray[i].z );
         }
 
         vertexSource.finish();
@@ -421,234 +421,27 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    bool GeometryExporter::exportVertexNormals ( const MFnMesh& fnMesh, const String& meshId )
+    bool GeometryExporter::exportVertexNormals ( 
+        const MFnMesh& fnMesh, 
+        const String& meshId )
     {
         if ( !ExportOptions::exportNormals() ) return false;
 
-        // --------------------------------------------------
-        // Implement NormalSource
-
-        COLLADA::FloatSource normalSource ( mSW );
-
-        normalSource.setId ( meshId + NORMALS_SOURCE_ID_SUFFIX );
-        normalSource.setNodeName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
-        normalSource.setArrayId ( meshId + NORMALS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
-        normalSource.setAccessorStride ( 3 );
-
-        // Check for all smooth normals
+        // Export the normals
         uint normalCount = fnMesh.numNormals();
-
-        normalSource.setAccessorCount ( normalCount );
-        normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-        normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-        normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
-        normalSource.prepareToAppendValues();
-
         MFloatVectorArray normals ( normalCount );
+        bool perVertexNormals = exportNormals( fnMesh, meshId, normals );
 
-        uint verticesCount = ( uint ) fnMesh.numVertices();
-
-        bool perVertexNormals = ( normalCount == verticesCount );
-        if ( perVertexNormals )
-        {
-            // Get the unindexed normals in a separate buffer
-            MFloatVectorArray unindexedNormals;
-            fnMesh.getNormals ( unindexedNormals, MSpace::kObject );
-
-            // Index the normals to match the vertex indices
-
-            for ( MItMeshPolygon meshPolygonIter ( fnMesh.object() ); 
-                !meshPolygonIter.isDone(); meshPolygonIter.next() )
-            {
-                uint vertexCount = meshPolygonIter.polygonVertexCount();
-
-                for ( uint i = 0; i < vertexCount; ++i )
-                {
-                    int normalIndex = meshPolygonIter.normalIndex ( i );
-                    int vertexIndex = meshPolygonIter.vertexIndex ( i );
-                    normals[vertexIndex] = unindexedNormals[normalIndex];
-                }
-            }
-
-            if ( !SourceInput::containsSourceBase ( &mVertexSources, &normalSource ) )
-                mVertexSources.push_back ( SourceInput ( normalSource, COLLADA::NORMAL ) );
-        }
-
-        else
-        {
-            // Retrieve the per-face, per-vertex normals
-            fnMesh.getNormals ( normals, MSpace::kObject );
-
-            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADA::NORMAL ) );
-
-            // Erase the normal source from the list of vertex sources, if it is inside
-            SourceInput::eraseSourceBase ( &mVertexSources, &normalSource );
-        }
-
-        for ( uint i = 0; i < normalCount; ++i )
-        {
-            MFloatVector &normal = normals[i];
-            normalSource.appendValues ( normal.x, normal.y, normal.z );
-
-            // TODO: find a better solution for the case of not existing normals
-            //  if (isFinite(normal))
-            //   normalSource.add(normal.x, normal.y, normal.z);
-            //  else
-            //   source.add(0, 0, 1);
-
-        }
-
-        normalSource.finish();
-
-
-        // --------------------------------------------------
-        // Implement TangentSource and BinormalSource
-
-        if ( ExportOptions::exportTangents() )
-        {
-            uint normalCount = fnMesh.numNormals();
-
-            // Geo-tangent and -binormal
-            COLLADA::FloatSource tangentSource ( mSW );
-            COLLADA::FloatSource binormalSource ( mSW );
-
-            MVectorArray tangents ( normalCount ), binormals ( normalCount );
-
-            if ( perVertexNormals )
-            {
-                // Calculate and export the geometric tangents and binormals(T/Bs)
-                // Retrieve all the vertex positions for our calculations
-                MPointArray vertexPositions;
-                fnMesh.getPoints ( vertexPositions );
-                uint vertexCount = vertexPositions.length();
-                MObject meshObject ( fnMesh.object() );
-
-                for ( MItMeshVertex vertexIt ( meshObject ); !vertexIt.isDone(); vertexIt.next() )
-                {
-                    MIntArray vertexNeighbors;
-                    int vertexIndex = vertexIt.index();
-                    vertexIt.getConnectedVertices ( vertexNeighbors );
-
-                    if ( vertexNeighbors.length() == 0 || vertexNeighbors[0] >= ( int ) vertexCount || vertexIndex >= ( int ) vertexCount )
-                    {
-                        tangents[vertexIndex] = MFloatVector::yAxis;
-                        binormals[vertexIndex] = MFloatVector::zAxis;
-                        continue;
-                    }
-
-                    // Calculate the T/Bs (code repeated below)
-                    MPoint& neighborPosition = vertexPositions[vertexNeighbors[0]];
-                    MVector directionV = neighborPosition - vertexPositions[vertexIndex];
-                    tangents[vertexIndex] = ( directionV ^ normals[vertexIndex] ).normal();
-                    binormals[vertexIndex] = ( normals[vertexIndex] ^ tangents[vertexIndex] ).normal();
-                }
-
-                if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
-                    mVertexSources.push_back ( SourceInput ( tangentSource, COLLADA::GEOTANGENT ) );
-
-                if ( !SourceInput::containsSourceBase ( &mVertexSources, &binormalSource ) )
-                    mVertexSources.push_back ( SourceInput ( binormalSource, COLLADA::GEOBINORMAL ) );
-            }
-
-            else
-            {
-                // Calculate and export the geometric tangents and binormals(T/Bs)
-                // Retrieve all the vertex positions for our calculations
-                MPointArray vertexPositions;
-                fnMesh.getPoints ( vertexPositions );
-                uint vertexCount = vertexPositions.length();
-
-                for ( uint i = 0; i < normalCount; ++i )
-                {
-                    binormals[i] = tangents[i] = MFloatVector::zero;
-                }
-
-                for ( MItMeshPolygon faceIt ( fnMesh.object() ); !faceIt.isDone(); faceIt.next() )
-                {
-                    int faceVertexCount = faceIt.polygonVertexCount();
-                    for ( int i = 0; i < faceVertexCount; ++i )
-                    {
-                        int normalIndex = faceIt.normalIndex ( i );
-                        if ( normalIndex >= ( int ) normalCount ) continue;
-
-                        // Don't recalculate T/Bs
-                        if ( !tangents[normalIndex].isEquivalent ( MFloatVector::zero ) ) continue;
-
-                        // Retrieve the vertex position and the position of its closest neighbor within the face
-                        int vertexIndex = faceIt.vertexIndex ( i );
-                        int neighborVertexIndex = faceIt.vertexIndex ( ( i == 0 ) ? faceVertexCount - 1 : i - 1 );
-                        if ( neighborVertexIndex >= ( int ) vertexCount || vertexIndex >= ( int ) vertexCount ) continue;
-
-                        MPoint& vertexPosition = vertexPositions[vertexIndex];
-                        MPoint& neighborPosition = vertexPositions[neighborVertexIndex];
-
-                        // Calculate the T/Bs (code repeated above)
-                        MFloatVector directionV = MFloatVector ( neighborPosition - vertexPosition );
-
-                        tangents[normalIndex] = ( directionV ^ normals[normalIndex] ).normal();
-                        binormals[normalIndex] = ( normals[normalIndex] ^ tangents[normalIndex] ).normal();
-                    }
-                }
-
-                // Erase the normal source from the list of vertex sources, if it is inside
-                SourceInput::eraseSourceBase ( &mVertexSources, &tangentSource );
-                SourceInput::eraseSourceBase ( &mVertexSources, &binormalSource );
-
-                // Push them in the polygon sources list.
-                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADA::GEOTANGENT ) );
-                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADA::GEOBINORMAL ) );
-            }
-
-            // Geo-tangent
-            tangentSource.setId ( meshId + GEOTANGENT_ID_SUFFIX );
-            tangentSource.setNodeName ( meshId + GEOTANGENT_ID_SUFFIX );
-            tangentSource.setArrayId ( meshId + GEOTANGENT_ID_SUFFIX + ARRAY_ID_SUFFIX );
-            tangentSource.setAccessorStride ( 3 );
-            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
-            tangentSource.prepareToAppendValues();
-
-            uint tangentCount = tangents.length();
-
-            tangentSource.setAccessorCount ( tangentCount );
-
-            for ( uint i = 0; i < tangentCount; ++i )
-            {
-                MVector &tangent = tangents[i];
-                tangentSource.appendValues ( tangent.x, tangent.y, tangent.z );
-            }
-
-            tangentSource.finish();
-
-            // Geo-binormal
-            binormalSource.setId ( meshId + GEOBINORMAL_ID_SUFFIX );
-            binormalSource.setNodeName ( meshId + GEOBINORMAL_ID_SUFFIX );
-            binormalSource.setArrayId ( meshId + GEOBINORMAL_ID_SUFFIX + ARRAY_ID_SUFFIX );
-            binormalSource.setAccessorStride ( 3 );
-            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
-            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
-            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
-            binormalSource.prepareToAppendValues();
-
-            uint binormalCount = binormals.length();
-            binormalSource.setAccessorCount ( binormalCount );
-
-            for ( uint i = 0; i < binormalCount; ++i )
-            {
-                MVector &binormal = binormals[i];
-                binormalSource.appendValues ( binormal.x, binormal.y, binormal.z );
-            }
-
-            binormalSource.finish();
-        }
+        // Export the tangents
+        exportTangents( fnMesh, meshId, perVertexNormals, normals );
 
         return !perVertexNormals;
     }
 
     // ----------------------------------------------------
-    std::vector<String> GeometryExporter::generateTexCoordIds ( const MStringArray& uvSetNames,
-            const String& meshId )
+    std::vector<String> GeometryExporter::generateTexCoordIds ( 
+        const MStringArray& uvSetNames,
+        const String& meshId )
     {
         std::vector<String> texcoordIds;
 
@@ -779,12 +572,15 @@ namespace COLLADAMaya
             colorSource.appendValues ( meshColorSet );
             colorSource.finish();
 
-            if ( colorSet.isVertexColor )
-            {
-                // Insert a per-vertex color set input
-                mVertexSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR ) );
-            }
-            else
+            // TODO Don't put the source into the vertex sources, 
+            // put it into the polygon sources.
+            // That's about the other plugins, they don't support this.
+//             if ( colorSet.isVertexColor )
+//             {
+//                 // Insert a per-vertex color set input
+//                 mVertexSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR ) );
+//             }
+//             else
             {
                 // Insert a per-face-vertex color set input
                 mPolygonSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR, i ) );
@@ -951,7 +747,7 @@ namespace COLLADAMaya
                     opaqueWhiteFound = true;
                 }
 
-                // TODO TEST!
+                // TODO ???!
                 // Add the animation curve, if there's any (not supported according to the API docs)
                 if ( ExportOptions::exportVertexColorAnimations() )
                 {
@@ -985,7 +781,6 @@ namespace COLLADAMaya
 
             else meshColorSet.resize ( setPlugElementCount * colorElements );
         }
-
         else
 #endif
         {
@@ -994,7 +789,6 @@ namespace COLLADAMaya
 
             // If requested, bake lighting information into per-vertex colors.
             MFnDependencyNode bakeLightingFn;
-
             if ( colorSet.isBlankSet && ExportOptions::bakeLighting() )
             {
                 MGlobal::executeCommand ( "undoInfo -state on -infinity on", false, true );
@@ -1010,7 +804,6 @@ namespace COLLADAMaya
                 melCommand += " ";
 
                 uint shaderCount = shaderGroups.length();
-
                 for ( uint i = 0; i < shaderCount; ++i )
                 {
                     MFnDependencyNode fn ( shaderGroups[i] );
@@ -1047,13 +840,10 @@ namespace COLLADAMaya
                 uint polygonCount = meshFn.numPolygons();
 
                 std::vector<MIntArray> polygonVertexIndices;
-
-                MIntArray polygonOffsets ( polygonCount );
-
                 polygonVertexIndices.resize ( polygonCount );
 
+                MIntArray polygonOffsets ( polygonCount );
                 uint faceVertexCount = 0;
-
                 for ( uint i = 0; i < polygonCount; ++i )
                 {
                     polygonOffsets[i] = faceVertexCount;
@@ -1064,7 +854,6 @@ namespace COLLADAMaya
 
                 // Initialize the output index array
                 colorSet.indices.setLength ( faceVertexCount );
-
                 for ( uint i = 0; i < faceVertexCount; ++i )
                 {
                     colorSet.indices[i] = invalidColorIndex;
@@ -1072,13 +861,10 @@ namespace COLLADAMaya
 
                 // Grab all the color information from the vertex color node
                 MFnDependencyNode nodeFn ( colorSet.polyColorPerVertexNode );
-
                 MPlug globalPlug = nodeFn.findPlug ( ATTR_COLOR_PER_VERTEX );
-
                 globalPlug = DagHelper::getChildPlug ( globalPlug, ATTR_VERTEX_COLOR ); // "vertexColor"
 
                 uint elementCount = globalPlug.numElements();
-
                 if ( elementCount == 0 )
                 {
                     colorSet.indices.clear();
@@ -1092,13 +878,11 @@ namespace COLLADAMaya
                 meshColorSet.resize ( maxValueCount*colorElements );
 
                 size_t valueCount = 0;
-
                 for ( uint i = 0; i < elementCount; ++i )
                 {
                     // The logical index may be out-of-order.
                     MPlug vertexPlug = globalPlug.elementByPhysicalIndex ( i );
                     int vertexId = vertexPlug.logicalIndex();
-
                     if ( vertexId < 0 || vertexId >= ( int ) vertexCount ) continue;
 
                     MColor& vertexColor = vertexColours[vertexId];
@@ -1107,51 +891,40 @@ namespace COLLADAMaya
                     MPlug perFaceVertexPlug = DagHelper::getChildPlug ( vertexPlug, ATTR_VERTEX_FACE_COLOR ); // "vertexFaceColor"
 
                     uint childElementCount = perFaceVertexPlug.numElements();
-
                     for ( uint j = 0; j < childElementCount; ++j )
                     {
                         // Get the information about this polygon
                         MPlug faceVertexColorPlug = perFaceVertexPlug.elementByPhysicalIndex ( j );
                         uint polyIndex = faceVertexColorPlug.logicalIndex();
-
                         if ( polyIndex >= polygonCount ) continue;
 
                         MIntArray& faceVertices = polygonVertexIndices[polyIndex];
-
                         uint offset = polygonOffsets[polyIndex];
 
                         // Look for the vertex index in the known mesh face-vertex array
                         uint vertexOffset = 0;
-
                         for ( ; vertexOffset < polygonCount; ++vertexOffset )
                         {
                             if ( vertexId == faceVertices[vertexOffset] ) break;
                         }
-
                         if ( vertexOffset == polygonCount ) continue;
 
                         offset += vertexOffset;
 
                         // Now that the vertex-face std::pair is identified, get its color
                         MColor faceVertexColor;
-
                         MPlug actualColorPlug = DagHelper::getChildPlug ( faceVertexColorPlug, ATTR_VERTEX_FACE_COLOR_RGB ); // "vertexFaceColorRGB"
-
                         MPlug actualAlphaPlug = DagHelper::getChildPlug ( faceVertexColorPlug, ATTR_VERTEX_FACE_ALPHA ); // "vertexFaceAlpha"
 
                         DagHelper::getPlugValue ( actualColorPlug, faceVertexColor );
-
                         DagHelper::getPlugValue ( actualAlphaPlug, faceVertexColor.a );
 
                         if ( valueCount >= maxValueCount ) break;
 
                         //     source->SetValue(valueCount, MConvert::ToFMVector4(faceVertexColor));
                         meshColorSet[valueCount*colorElements] = faceVertexColor.r;
-
                         meshColorSet[valueCount*colorElements+1] = faceVertexColor.g;
-
                         meshColorSet[valueCount*colorElements+2] = faceVertexColor.b;
-
                         meshColorSet[valueCount*colorElements+3] = faceVertexColor.a;
 
                         // TODO
@@ -1177,7 +950,6 @@ namespace COLLADAMaya
 
                     // Use per-vertex color instead
                     const MColor invalid ( MColor::kRGB, 0.0f, 0.0f, 0.0f, 1.0f );
-
                     for ( uint i = 0; i < elementCount; ++i )
                     {
                         MPlug vertexPlug = globalPlug.elementByPhysicalIndex ( i );
@@ -1185,19 +957,14 @@ namespace COLLADAMaya
                         if ( vertexPlug.numChildren() > 0 )
                         {
                             int vertexId = vertexPlug.logicalIndex();
-
                             if ( vertexId >= ( int ) vertexCount ) continue;
 
                             // Get the color plug, don't use its color (SourceForge #1283335) if it is (0,0,0,1).
                             // but always check for an animation.
                             MColor c;
-
                             MPlug colorPlug = DagHelper::getChildPlug ( vertexPlug, ATTR_VERTEX_COLOR_RGB ); // "vertexColorRGB"
-
                             MPlug alphaPlug = DagHelper::getChildPlug ( vertexPlug, ATTR_VERTEX_ALPHA ); // "vertexAlpha"
-
                             DagHelper::getPlugValue ( colorPlug, c );
-
                             DagHelper::getPlugValue ( alphaPlug, c.a );
 
                             if ( c != invalid || vertexColours[vertexId].a == -1.0f )
@@ -1220,7 +987,6 @@ namespace COLLADAMaya
                     for ( uint cc = 0; cc < valueCount; ++cc )
                     {
                         MColor& color = vertexColours[cc];
-
                         if ( color.a < 0.0f )
                         {
                             color.a = 1.0f; // This is triggered only for missing vertex colors. Use white.
@@ -1339,10 +1105,247 @@ namespace COLLADAMaya
         }
     }
 
-    // --------------------------------------------------------
+    // --------------------------------------------------
     void GeometryExporter::endExport()
     {
         closeLibrary();
     }
 
+    // --------------------------------------------------
+    bool GeometryExporter::exportNormals( 
+        const MFnMesh &fnMesh, 
+        const String &meshId,
+        MFloatVectorArray &normals )
+    {
+        uint normalCount = normals.length();
+
+        // Implement NormalSource
+        COLLADA::FloatSource normalSource ( mSW );
+        normalSource.setId ( meshId + NORMALS_SOURCE_ID_SUFFIX );
+        normalSource.setNodeName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
+        normalSource.setArrayId ( meshId + NORMALS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
+        normalSource.setAccessorStride ( 3 );
+        normalSource.setAccessorCount ( normalCount );
+        normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+        normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+        normalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+        normalSource.prepareToAppendValues();
+
+        uint verticesCount = ( uint ) fnMesh.numVertices();
+
+        // TODO Don't put the source into the vertex sources, 
+        // put it into the polygon sources.
+        // That's about the other plugins, they don't support this.
+
+        bool perVertexNormals = false; //( normalCount == verticesCount );
+        if ( perVertexNormals )
+        {
+            // Get the unindexed normals in a separate buffer
+            MFloatVectorArray unindexedNormals;
+            fnMesh.getNormals ( unindexedNormals, MSpace::kObject );
+
+            // Index the normals to match the vertex indices
+            for ( MItMeshPolygon meshPolygonIter ( fnMesh.object() ); 
+                !meshPolygonIter.isDone(); meshPolygonIter.next() )
+            {
+                uint vertexCount = meshPolygonIter.polygonVertexCount();
+                for ( uint i = 0; i < vertexCount; ++i )
+                {
+                    int normalIndex = meshPolygonIter.normalIndex ( i );
+                    int vertexIndex = meshPolygonIter.vertexIndex ( i );
+                    normals[vertexIndex] = unindexedNormals[normalIndex];
+                }
+            }
+
+            if ( !SourceInput::containsSourceBase ( &mVertexSources, &normalSource ) )
+                mVertexSources.push_back ( SourceInput ( normalSource, COLLADA::NORMAL ) );
+        }
+        else
+        {
+            // Retrieve the per-face, per-vertex normals
+            fnMesh.getNormals ( normals, MSpace::kObject );
+
+            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADA::NORMAL ) );
+
+            // Erase the normal source from the list of vertex sources, if it is inside
+            SourceInput::eraseSourceBase ( &mVertexSources, &normalSource );
+        }
+
+        for ( uint i = 0; i < normalCount; ++i )
+        {
+            MFloatVector &normal = normals[i];
+            normalSource.appendValues ( normal.x, normal.y, normal.z );
+        }
+
+        normalSource.finish();
+
+        return perVertexNormals;
+    }
+
+    // --------------------------------------------------
+    void GeometryExporter::exportTangents( 
+        const MFnMesh &fnMesh, 
+        const String &meshId, 
+        const bool perVertexNormals,
+        const MFloatVectorArray &normals )
+    {
+        // Implement TangentSource and BinormalSource
+       if ( ExportOptions::exportTangents() )
+        {
+            // Geo-tangent and -binormal
+            COLLADA::FloatSource tangentSource ( mSW );
+            COLLADA::FloatSource binormalSource ( mSW );
+
+            uint normalCount = fnMesh.numNormals();
+            MVectorArray tangents ( normalCount ), binormals ( normalCount );
+
+            if ( perVertexNormals )
+            {
+                // Calculate the geometric tangents and binormals(T/Bs)
+                getPerVertexNormalsTangents(fnMesh, normals, tangents, binormals );
+
+               if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
+                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADA::GEOTANGENT ) );
+
+               if ( !SourceInput::containsSourceBase ( &mVertexSources, &binormalSource ) )
+                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADA::GEOBINORMAL ) );
+            }
+            else
+            {
+                // Calculate the geometric tangents and binormals(T/Bs)
+                getTangents(fnMesh, normals, normalCount, binormals, tangents);
+
+                // Erase the normal source from the list of vertex sources, if it is inside
+                SourceInput::eraseSourceBase ( &mVertexSources, &tangentSource );
+                SourceInput::eraseSourceBase ( &mVertexSources, &binormalSource );
+
+                // Push them in the polygon sources list.
+                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADA::GEOTANGENT ) );
+                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADA::GEOBINORMAL ) );
+            }
+
+            // Geo-tangent
+            tangentSource.setId ( meshId + GEOTANGENT_ID_SUFFIX );
+            tangentSource.setNodeName ( meshId + GEOTANGENT_ID_SUFFIX );
+            tangentSource.setArrayId ( meshId + GEOTANGENT_ID_SUFFIX + ARRAY_ID_SUFFIX );
+            tangentSource.setAccessorStride ( 3 );
+            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+            tangentSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+            tangentSource.prepareToAppendValues();
+
+            uint tangentCount = tangents.length();
+            tangentSource.setAccessorCount ( tangentCount );
+            for ( uint i = 0; i < tangentCount; ++i )
+            {
+                MVector &tangent = tangents[i];
+                tangentSource.appendValues ( tangent.x, tangent.y, tangent.z );
+            }
+
+            tangentSource.finish();
+
+            // Geo-binormal
+            binormalSource.setId ( meshId + GEOBINORMAL_ID_SUFFIX );
+            binormalSource.setNodeName ( meshId + GEOBINORMAL_ID_SUFFIX );
+            binormalSource.setArrayId ( meshId + GEOBINORMAL_ID_SUFFIX + ARRAY_ID_SUFFIX );
+            binormalSource.setAccessorStride ( 3 );
+            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[0] );
+            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[1] );
+            binormalSource.getParameterNameList().push_back ( XYZW_PARAMETERS[2] );
+            binormalSource.prepareToAppendValues();
+
+            uint binormalCount = binormals.length();
+            binormalSource.setAccessorCount ( binormalCount );
+
+            for ( uint i = 0; i < binormalCount; ++i )
+            {
+                MVector &binormal = binormals[i];
+                binormalSource.appendValues ( binormal.x, binormal.y, binormal.z );
+            }
+
+            binormalSource.finish();
+        }
+    }
+
+    // --------------------------------------------------
+    void GeometryExporter::getPerVertexNormalsTangents( 
+        const MFnMesh &fnMesh, 
+        const MFloatVectorArray &normals, 
+        MVectorArray &tangents, 
+        MVectorArray &binormals )
+    {
+        // Calculate and export the geometric tangents and binormals(T/Bs)
+        // Retrieve all the vertex positions for our calculations
+        MPointArray vertexPositions;
+        fnMesh.getPoints ( vertexPositions );
+        uint vertexCount = vertexPositions.length();
+        MObject meshObject ( fnMesh.object() );
+
+        for ( MItMeshVertex vertexIt ( meshObject ); !vertexIt.isDone(); vertexIt.next() )
+        {
+            MIntArray vertexNeighbors;
+            int vertexIndex = vertexIt.index();
+            vertexIt.getConnectedVertices ( vertexNeighbors );
+
+            if ( vertexNeighbors.length() == 0 || 
+                vertexNeighbors[0] >= ( int ) vertexCount || 
+                vertexIndex >= ( int ) vertexCount )
+            {
+                tangents[vertexIndex] = MFloatVector::yAxis;
+                binormals[vertexIndex] = MFloatVector::zAxis;
+                continue;
+            }
+
+            // Calculate the T/Bs (code repeated below)
+            MPoint& neighborPosition = vertexPositions[vertexNeighbors[0]];
+            MVector directionV = neighborPosition - vertexPositions[vertexIndex];
+            tangents[vertexIndex] = ( directionV ^ normals[vertexIndex] ).normal();
+            binormals[vertexIndex] = ( normals[vertexIndex] ^ tangents[vertexIndex] ).normal();
+        }
+    }
+
+    // --------------------------------------------------
+    void GeometryExporter::getTangents( 
+        const MFnMesh &fnMesh, 
+        const MFloatVectorArray &normals, 
+        uint normalCount, 
+        MVectorArray &binormals, 
+        MVectorArray &tangents )
+    {
+        // Retrieve all the vertex positions for our calculations
+        MPointArray vertexPositions;
+        fnMesh.getPoints ( vertexPositions );
+        uint vertexCount = vertexPositions.length();
+        for ( uint i = 0; i < normalCount; ++i )
+        {
+            binormals[i] = tangents[i] = MFloatVector::zero;
+        }
+
+        for ( MItMeshPolygon faceIt ( fnMesh.object() ); !faceIt.isDone(); faceIt.next() )
+        {
+            int faceVertexCount = faceIt.polygonVertexCount();
+            for ( int i = 0; i < faceVertexCount; ++i )
+            {
+                int normalIndex = faceIt.normalIndex ( i );
+                if ( normalIndex >= ( int ) normalCount ) continue;
+
+                // Don't recalculate T/Bs
+                if ( !tangents[normalIndex].isEquivalent ( MFloatVector::zero ) ) continue;
+
+                // Retrieve the vertex position and the position of its closest neighbor within the face
+                int vertexIndex = faceIt.vertexIndex ( i );
+                int neighborVertexIndex = faceIt.vertexIndex ( ( i == 0 ) ? faceVertexCount - 1 : i - 1 );
+                if ( neighborVertexIndex >= ( int ) vertexCount || vertexIndex >= ( int ) vertexCount ) continue;
+
+                MPoint& vertexPosition = vertexPositions[vertexIndex];
+                MPoint& neighborPosition = vertexPositions[neighborVertexIndex];
+
+                // Calculate the T/Bs (code repeated above)
+                MFloatVector directionV = MFloatVector ( neighborPosition - vertexPosition );
+
+                tangents[normalIndex] = ( directionV ^ normals[normalIndex] ).normal();
+                binormals[normalIndex] = ( normals[normalIndex] ^ tangents[normalIndex] ).normal();
+            }
+        }
+    }
 }
