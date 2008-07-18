@@ -70,7 +70,7 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 					checkBoxGrp
 							-l " "
 							-ncb 2
-							-va2 true false
+							-va2 false false
 							-la2 "Relative Paths" "Copy Textures"
 							colladaRelativePaths;
 							
