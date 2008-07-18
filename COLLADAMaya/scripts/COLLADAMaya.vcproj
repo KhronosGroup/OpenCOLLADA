@@ -89,7 +89,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;"
+				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -164,7 +164,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;"
+				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 	</Configurations>
@@ -306,10 +306,6 @@
 			<Filter
 				Name="Plugin"
 				>
-				<File
-					RelativePath="..\src\COLLADAMayaDocumentNode.cpp"
-					>
-				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaExportOptions.cpp"
 					>
@@ -475,10 +471,6 @@
 			<Filter
 				Name="Plugin"
 				>
-				<File
-					RelativePath="..\include\COLLADAMayaDocumentNode.h"
-					>
-				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaExportOptions.h"
 					>

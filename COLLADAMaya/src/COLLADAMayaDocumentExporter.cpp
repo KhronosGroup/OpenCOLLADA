@@ -157,7 +157,6 @@ namespace COLLADAMaya
             // Export the scene
             exportScene();
 
-
             // TODO
             /*
             // Export rigid constraints if required.
