@@ -15,7 +15,6 @@
 #ifndef __COLLADA_MAYA_FILE_TRANSLATOR_H__
 #define __COLLADA_MAYA_FILE_TRANSLATOR_H__
 
-#include "COLLADAMayaDocumentNode.h"
 // #include "vld.h"
 // #include "vldapi.h"
 
