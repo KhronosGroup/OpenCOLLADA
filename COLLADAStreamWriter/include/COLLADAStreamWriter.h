@@ -331,6 +331,8 @@ namespace COLLADA
 
         char *mBuffer; // 2MB Puffer!!
 
+		static const int BUFFERSIZE; 
+
         static const String mWhiteSpaceString;
 
         friend TagCloser;

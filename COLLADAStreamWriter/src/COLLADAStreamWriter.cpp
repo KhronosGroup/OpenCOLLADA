@@ -68,6 +68,7 @@ namespace COLLADA
 
     const String StreamWriter::mWhiteSpaceString ( WHITESPACESTRINGLENGTH,' ' );
 
+	const int StreamWriter::BUFFERSIZE = 2097152;
 
 
     //---------------------------------------------------------------
@@ -76,14 +77,14 @@ namespace COLLADA
             ,mIndent ( 2 )
             ,mBuffer ( NULL )
     {
-
+		mBuffer = new char[BUFFERSIZE];
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 		String mLocale = setlocale(LC_NUMERIC, 0);
 		setlocale(LC_NUMERIC, "C");
         fopen_s ( &mStream, fileName.c_str(), "w" );
+		setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE );
 #else
-        mBuffer = new char[2097152];
-        mOutFile.rdbuf() ->pubsetbuf ( mBuffer, sizeof ( mBuffer ) );
+        mOutFile.rdbuf() ->pubsetbuf ( mBuffer, /*sizeof ( mBuffer )*/BUFFERSIZE );
         mOutFile.open ( fileName.c_str() );
 #endif
     }
