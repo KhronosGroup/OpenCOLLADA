@@ -79,14 +79,14 @@ namespace COLLADA
         /** Appends the material symbol. */
         void appendMaterial ( const String& material );
 
-        /** Append the given count to the list. */
-        void appendCount ( const unsigned int count );
-
         /** Appends the input list. */
         void appendInputList ( );
 
+        /** Append the given count to the list. */
+        void appendCount ( const unsigned int count );
+
         /** Appends the the count. */
-        void appendCount ( const unsigned long &count );
+        void appendCount ( const unsigned long count );
 
         /** Appends the vertex count element. */
         void appendVertexCount( const unsigned long vCount );
@@ -96,9 +96,6 @@ namespace COLLADA
 
         /** Opens the vertex count list element. */
         void openVertexCountListElement();
-
-        /** Closes the vertex count list element. */
-        void closeVertexCountListElement();
 
         /** Close the last opened element. */
         void closeElement ();
@@ -158,6 +155,24 @@ namespace COLLADA
         void appendValues ( const std::vector<unsigned long>& numberVec )
         {
             mSW->appendValues ( numberVec );
+        }
+
+        /** Adds @a number to the array*/
+        void appendValues ( const int number )
+        {
+            mSW->appendValues ( number );
+        }
+
+        /** Adds @a number to the array*/
+        void appendValues ( const unsigned int number )
+        {
+            mSW->appendValues ( number );
+        }
+
+        /** Adds @a number to the array*/
+        void appendValues ( const long number )
+        {
+            mSW->appendValues ( number );
         }
 
         /** Adds @a number to the array*/

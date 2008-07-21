@@ -264,7 +264,7 @@ namespace COLLADAMaya
             ColourSetList &colorSets,
             Sources* geometrySourcesList,
             Sources* vertexes,
-            bool hasFaceVertexNorms );
+            const bool hasFaceVertexNorms );
 
     private:
 
@@ -460,9 +460,12 @@ namespace COLLADAMaya
         /**
          * Establish the number of vertexes in the polygon.
          * @param meshPolygonsIter The current shapes mesh polygons itertator.
-         * @return uint -1 if the polygon is not valid.
+         * @param numVertices The current vertex count.
+         * return True, if the vertex count should be added to the list.
          */
-        uint getPolygonVertexCount( MItMeshPolygon &meshPolygonsIter );
+        bool getPolygonVertexCount( 
+            MItMeshPolygon& meshPolygonsIter,
+            unsigned long& numVertices );
     };
 }
 

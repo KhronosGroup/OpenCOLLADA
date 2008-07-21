@@ -54,6 +54,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
+    void PrimitivesBase::appendCount ( const unsigned long count )
+    {
+        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_COUNT, count );
+    }
+
+    //---------------------------------------------------------------
     void PrimitivesBase::appendVertexCount( const unsigned long vCount )
     {
         mSW->appendValues ( vCount );

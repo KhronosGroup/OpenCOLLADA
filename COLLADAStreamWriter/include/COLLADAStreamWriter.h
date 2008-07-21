@@ -93,31 +93,31 @@ namespace COLLADA
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String& name, double value );
+        void appendAttribute ( const String& name, const double value );
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String& name, unsigned long value );
+        void appendAttribute ( const String& name, const unsigned long value );
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String& name, unsigned int value );
+        void appendAttribute ( const String& name, const unsigned int value );
 
         /** Adds @a text to the COLLADA file.
         No checks are performed, if @a text contains forbidden characters. */
         void appendText ( const String& text );
 
         /** Adds @a number to the COLLADA file.*/
-        void appendValues ( double number );
+        void appendValues ( const double number );
 
         /** Adds @a number1 and @a number2 to the COLLADA file.*/
-        void appendValues ( double number1, double number2 );
+        void appendValues ( const double number1, const double number2 );
 
         /** Adds @a number1, @a number2 and @a number3 to the COLLADA file.*/
-        void appendValues ( double number1, double number2, double number3 );
+        void appendValues ( const double number1, const double number2, const double number3 );
 
         /** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADA file.*/
-        void appendValues ( double number1, double number2, double number3, double number4 );
+        void appendValues ( const double number1, const double number2, const double number3, const double number4 );
 
         /** Adds all values in the array to the COLLADA file.*/
         void appendValues ( const float values[], const size_t length );
@@ -144,22 +144,28 @@ namespace COLLADA
         void appendValues ( const std::vector<unsigned long>& values );
 
         /** Adds @a number to the COLLADA file.*/
-        void appendValues ( int number );
+        void appendValues ( const int number );
 
         /** Adds @a number to the COLLADA file.*/
-        void appendValues ( unsigned long number );
+        void appendValues ( const unsigned int number );
+
+        /** Adds @a number to the COLLADA file.*/
+        void appendValues ( const long number );
+
+        /** Adds @a number to the COLLADA file.*/
+        void appendValues ( const unsigned long number );
 
         /** Adds @a number1 and @a number2 to the COLLADA file.*/
-        void appendValues ( unsigned long number1, unsigned long number2 );
+        void appendValues ( const unsigned long number1, const unsigned long number2 );
 
         /** Adds @a number1, @a number2 and @a number3 to the COLLADA file.*/
-        void appendValues ( unsigned long number1, unsigned long number2, unsigned long number3 );
+        void appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3 );
 
         /** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADA file.*/
-        void appendValues ( unsigned long number1, unsigned long number2, unsigned long number3, unsigned long number4 );
+        void appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3, const unsigned long number4 );
 
         /** Adds the float @a number to the COLLADA file.*/
-        void appendValues ( bool value );
+        void appendValues ( const bool value );
 
         /** Adds @a text to the COLLADA file.
         No checks are performed, if @a text contains forbidden characters. */
@@ -260,7 +266,7 @@ namespace COLLADA
 #endif
 
         /** Adds the char @a c to the stream*/
-        inline void appendChar ( char c )
+        inline void appendChar ( const char c )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%c", c );
@@ -270,7 +276,7 @@ namespace COLLADA
         }
 
         /** Adds the double @a number to the stream*/
-        inline void appendNumber ( double number )
+        inline void appendNumber ( const double number )
         {
 			if ( MathUtils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
 			{
@@ -291,7 +297,7 @@ namespace COLLADA
         }
 
         /** Adds the float @a number to the stream*/
-        inline void appendNumber ( float number )
+        inline void appendNumber ( const float number )
         {
 			if ( MathUtils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
 			{
@@ -304,7 +310,7 @@ namespace COLLADA
 			else
 			{
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%g", number );
+            fprintf_s ( mStream, "%f", number );
 #else
             mOutFile << number;
 #endif
@@ -312,27 +318,37 @@ namespace COLLADA
         }
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( int number )
+        inline void appendNumber ( const int number )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%f", number );
+            fprintf_s ( mStream, "%d", number );
 #else
             mOutFile << number;
 #endif
         }
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( unsigned int number )
+        inline void appendNumber ( const unsigned int number )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%f", number );
+            fprintf_s ( mStream, "%u", number );
 #else
             mOutFile << number;
 #endif
         }
 
         /** Adds the long @a number to the stream*/
-        inline void appendNumber ( unsigned long number )
+        inline void appendNumber ( const long number )
+        {
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+            fprintf_s ( mStream, "%li", number );
+#else
+            mOutFile << number;
+#endif
+        }
+
+        /** Adds the long @a number to the stream*/
+        inline void appendNumber ( const unsigned long number )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 			fprintf_s ( mStream, "%lu", number );
@@ -342,7 +358,7 @@ namespace COLLADA
         }
 
         /** Adds the bool @a value to the stream*/
-        void appendBoolean ( bool value )
+        void appendBoolean ( const bool value )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%i", ( int ) value );
@@ -358,7 +374,7 @@ namespace COLLADA
         }
 
         /** Adds @a number white spaces to the stream*/
-        void addWhiteSpace ( size_t number );
+        void addWhiteSpace ( const size_t number );
 
     private:
 

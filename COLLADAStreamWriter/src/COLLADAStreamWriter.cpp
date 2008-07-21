@@ -136,7 +136,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String &name, double value )
+    void StreamWriter::appendAttribute ( const String &name, const double value )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -150,7 +150,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String &name, unsigned long value )
+    void StreamWriter::appendAttribute ( const String &name, const unsigned long value )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -163,7 +163,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String &name, unsigned int value )
+    void StreamWriter::appendAttribute ( const String &name, const unsigned int value )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -185,7 +185,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( double number )
+    void StreamWriter::appendValues ( const double number )
     {
         prepareToAddContents();
 
@@ -198,7 +198,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( double number1, double number2 )
+    void StreamWriter::appendValues ( const double number1, const double number2 )
     {
         prepareToAddContents();
 
@@ -214,7 +214,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( double number1, double number2, double number3 )
+    void StreamWriter::appendValues ( const double number1, const double number2, const double number3 )
     {
         prepareToAddContents();
 
@@ -231,7 +231,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( double number1, double number2, double number3, double number4 )
+    void StreamWriter::appendValues ( const double number1, const double number2, const double number3, const double number4 )
     {
         prepareToAddContents();
 
@@ -442,33 +442,43 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( unsigned long number )
+    void StreamWriter::appendValues ( const int number )
     {
         prepareToAddContents();
-
-        if ( mOpenTags.top().mHasText )
-            appendChar ( ' ' );
-
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
-
         mOpenTags.top().mHasText = true;
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( int number )
+    void StreamWriter::appendValues ( const unsigned int number )
     {
         prepareToAddContents();
-
-        if ( mOpenTags.top().mHasText )
-            appendChar ( ' ' );
-
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
-
         mOpenTags.top().mHasText = true;
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( unsigned long number1, unsigned long number2 )
+    void StreamWriter::appendValues ( const long number )
+    {
+        prepareToAddContents();
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        appendNumber ( number );
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const unsigned long number )
+    {
+        prepareToAddContents();
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        appendNumber ( number );
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const unsigned long number1, const unsigned long number2 )
     {
         prepareToAddContents();
 
@@ -484,7 +494,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( unsigned long number1, unsigned long number2, unsigned long number3 )
+    void StreamWriter::appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3 )
     {
         prepareToAddContents();
 
@@ -501,7 +511,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( unsigned long number1, unsigned long number2, unsigned long number3, unsigned long number4 )
+    void StreamWriter::appendValues ( const unsigned long number1, const unsigned long number2, const unsigned long number3, const unsigned long number4 )
     {
         prepareToAddContents();
 
@@ -520,7 +530,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( bool value )
+    void StreamWriter::appendValues ( const bool value )
     {
         prepareToAddContents();
 
@@ -621,7 +631,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::addWhiteSpace ( size_t number )
+    void StreamWriter::addWhiteSpace ( const size_t number )
     {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 
