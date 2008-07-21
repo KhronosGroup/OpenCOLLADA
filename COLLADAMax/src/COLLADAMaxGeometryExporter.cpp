@@ -672,20 +672,24 @@ namespace COLLADAMax
 
 		/* start testing */
 
-		int numSubTexMaps = material->NumSubTexmaps();
-
-		Texmap* map = 0;
-		for ( int i = 0; (i < numSubTexMaps) && !map; i++ )
-		{
-			map = material->GetSubTexmap ( i );
-		}
-
-		Matrix3 uvTransfomationMatrix;
 		bool applyUVTransformation = false;
-		if ( map )
+		Matrix3 uvTransfomationMatrix;
+
+		if ( material )
 		{
-			map->GetUVTransform(uvTransfomationMatrix);
-			applyUVTransformation = !uvTransfomationMatrix.IsIdentity();
+			int numSubTexMaps = material->NumSubTexmaps();
+
+			Texmap* map = 0;
+			for ( int i = 0; (i < numSubTexMaps) && !map; i++ )
+			{
+				map = material->GetSubTexmap ( i );
+			}
+
+			if ( map )
+			{
+				map->GetUVTransform(uvTransfomationMatrix);
+				applyUVTransformation = !uvTransfomationMatrix.IsIdentity();
+			}
 		}
 
 /*		EffectExporter::MaterialChannelPairParamBlockMap::const_iterator it = mMaterialChannelPairParamBlockMap.find(EffectExporter::MaterialChannelPair(material, channelIndex));

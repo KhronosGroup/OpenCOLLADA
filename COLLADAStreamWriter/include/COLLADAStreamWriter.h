@@ -13,14 +13,16 @@
 #define __COLLADASTREAMWRITER_H__
 
 
-//#define USE_FPRINTF
+//#define COLLADASTREAMWRITER_USE_FPRINTF_S
 
-
+#include "COLLADAPrerequisites.h"
+#include "COLLADAMathUtils.h"
 #include <fstream>
 #include <stack>
 #include <list>
 #include <vector>
-#include "COLLADAPrerequisites.h"
+#include <limits>
+
 
 #define WHITESPACESTRINGLENGTH 1000
 
@@ -174,7 +176,7 @@ namespace COLLADA
         /** Adds the string @a str to the stream*/
         inline void appendString ( const String & str )
         {
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, str.c_str() );
 #else
             mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
@@ -183,7 +185,7 @@ namespace COLLADA
 
         /** Adds the first @n characters of string @a str to the stream.
         @a n must not be larger than the length of @a str.*/
-#ifndef USE_FPRINTF
+#ifndef COLLADASTREAMWRITER_USE_FPRINTF_S
         inline void appendString ( const String & str, size_t n )
         {
             mOutFile.write ( str.c_str(), ( std::streamsize ) n );
@@ -194,7 +196,7 @@ namespace COLLADA
         /** Adds the char @a c to the stream*/
         inline void appendChar ( char c )
         {
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%c", c );
 #else
             mOutFile.put ( c );
@@ -204,27 +206,49 @@ namespace COLLADA
         /** Adds the double @a number to the stream*/
         inline void appendNumber ( double number )
         {
-#ifdef USE_FPRINTF
-            fprintf_s ( mStream, "%g", number );
+			if ( MathUtils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
+			{
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+				fprintf_s ( mStream, "0");
 #else
-            mOutFile << number;
+				mOutFile << "0";
 #endif
+			}
+			else
+			{
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+				fprintf_s ( mStream, "%g", number );
+#else
+				mOutFile << number;
+#endif
+			}
         }
 
         /** Adds the float @a number to the stream*/
         inline void appendNumber ( float number )
         {
-#ifdef USE_FPRINTF
+			if ( MathUtils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
+			{
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+				fprintf_s ( mStream, "0");
+#else
+				mOutFile << "0";
+#endif
+			}
+			else
+			{
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%g", number );
 #else
             mOutFile << number;
 #endif
+			}
         }
 
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( int number )
         {
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%f", number );
 #else
             mOutFile << number;
@@ -234,8 +258,8 @@ namespace COLLADA
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( unsigned long number )
         {
-#ifdef USE_FPRINTF
-            fprintf_s ( mStream, "%llu", number );
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+			fprintf_s ( mStream, "%lu", number );
 #else
             mOutFile << number;
 #endif
@@ -244,7 +268,7 @@ namespace COLLADA
         /** Adds the bool @a value to the stream*/
         void appendBoolean ( bool value )
         {
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%i", ( int ) value );
 #else
             mOutFile << value;
@@ -259,7 +283,6 @@ namespace COLLADA
 
         /** Adds @a number white spaces to the stream*/
         void addWhiteSpace ( size_t number );
-
 
     private:
 
@@ -279,8 +302,9 @@ namespace COLLADA
             bool mHasText;     //!< true, if text has been added to the element
         };
 
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
         FILE *mStream;        //!< The stream the Collada file will be written to.
+		String mLocale;			//!< The LC_NUMERIC locale that was set before the Streamwriter was instantiated.
 #else
         std::ofstream mOutFile;         //!< The stream the Collada file will be written to.
 #endif

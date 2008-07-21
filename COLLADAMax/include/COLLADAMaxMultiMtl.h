@@ -19,6 +19,8 @@
 #ifndef _COLLADAMAX_MULTI_MTL_H_
 #define _COLLADAMAX_MULTI_MTL_H_
 
+#include "COLLADAMaxPrerequisites.h"
+
 namespace COLLADAMax
 {
 

@@ -76,7 +76,10 @@ namespace COLLADA
             ,mIndent ( 2 )
             ,mBuffer ( NULL )
     {
-#ifdef USE_FPRINTF
+
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+		String mLocale = setlocale(LC_NUMERIC, 0);
+		setlocale(LC_NUMERIC, "C");
         fopen_s ( &mStream, fileName.c_str(), "w" );
 #else
         mBuffer = new char[2097152];
@@ -89,12 +92,14 @@ namespace COLLADA
     StreamWriter::~StreamWriter()
     {
         endDocument();
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
         fclose ( mStream );
+		setlocale(LC_NUMERIC, mLocale.c_str());
 #else
         mOutFile.close();
 #endif
         delete[] mBuffer;
+
     }
 
     //---------------------------------------------------------------
@@ -605,7 +610,7 @@ namespace COLLADA
     //---------------------------------------------------------------
     void StreamWriter::addWhiteSpace ( size_t number )
     {
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 
         for ( int i = 0; i<number; ++i )
             appendChar ( ' ' );

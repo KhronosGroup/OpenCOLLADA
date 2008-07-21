@@ -38,13 +38,21 @@ namespace COLLADA
         static const float DEG_TO_RAD_f;
         static const float RAD_TO_DEG_f;
 
-        /** Returns true if @a value1 and @a value2 are equal within the tolerance*/
-        template<class T>
+		/** Returns true if @a value1 and @a value2 are equal within @a tolerance*/
+		template<class T>
+		static bool equals ( const T & value1, const T & value2, const T & tolerance = (T)TOLERANCE )
+		{
+			return value1 - value2 < tolerance && value1 - value2 > -tolerance;
+		}
+
+		
+		/** Returns true if @a value1 and @a value2 are equal within the default tolerance*/
+/*        template<class T>
         static bool equals ( const T & value1, const T & value2 )
         {
             return value1 - value2 < TOLERANCE && value1 - value2 > -TOLERANCE;
         }
-
+*/
 
         /** Returns true if @a value1, @a value2 and @a value3 are equal within the tolerance*/
         template<class T>
