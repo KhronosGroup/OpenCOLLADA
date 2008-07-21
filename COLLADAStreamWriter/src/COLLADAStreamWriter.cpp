@@ -106,7 +106,7 @@ namespace COLLADA
     //---------------------------------------------------------------
     void StreamWriter::startDocument()
     {
-        appendString ( CSWC::XML_START_ELEMENT );
+        appendNCNameString ( CSWC::XML_START_ELEMENT );
         openElement ( CSWC::COLLADA_ELEMENT_COLLADA );
         appendAttribute ( CSWC::COLLADA_ATTRIBUTE_XMLNS, CSWC::COLLADA_NAMESPACE );
         appendAttribute ( CSWC::COLLADA_ATTRIBUTE_VERSION, CSWC::COLLADA_VERSION );
@@ -127,7 +127,7 @@ namespace COLLADA
         if ( !value.empty() )
         {
             appendChar ( ' ' );
-            appendString ( name );
+            appendNCNameString ( name );
             appendChar ( '=' );
             appendChar ( '\"' );
             appendString ( value );
@@ -141,7 +141,7 @@ namespace COLLADA
         assert ( !mOpenTags.top().mHasContents );
 
         appendChar ( ' ' );
-        appendString ( name );
+        appendNCNameString ( name );
         appendChar ( '=' );
         appendChar ( '\"' );
         appendNumber ( value );
@@ -155,7 +155,7 @@ namespace COLLADA
         assert ( !mOpenTags.top().mHasContents );
 
         appendChar ( ' ' );
-        appendString ( name );
+        appendNCNameString ( name );
         appendChar ( '=' );
         appendChar ( '\"' );
         appendNumber ( value );
@@ -168,7 +168,7 @@ namespace COLLADA
         assert ( !mOpenTags.top().mHasContents );
 
         appendChar ( ' ' );
-        appendString ( name );
+        appendNCNameString ( name );
         appendChar ( '=' );
         appendChar ( '\"' );
         appendNumber ( value );
@@ -554,7 +554,7 @@ namespace COLLADA
         addWhiteSpace ( mLevel * mIndent );
         mLevel++;
         appendChar ( '<' );
-        appendString ( name );
+        appendNCNameString ( name );
         mOpenTags.push ( OpenTag ( &name ) );
 
         for ( TagCloserList::iterator it = mTagClosers.begin(); it != mTagClosers.end(); it++ )
@@ -582,7 +582,7 @@ namespace COLLADA
             appendChar ( '<' );
 
             appendChar ( '/' );
-            appendString ( *mOpenTags.top().mName );
+            appendNCNameString ( *mOpenTags.top().mName );
             appendChar ( '>' );
         }
 
@@ -625,7 +625,7 @@ namespace COLLADA
     {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 
-        for ( int i = 0; i<number; ++i )
+        for ( size_t i = 0; i<number; ++i )
             appendChar ( ' ' );
 
 #else
@@ -634,9 +634,9 @@ namespace COLLADA
         size_t remainder = number % WHITESPACESTRINGLENGTH;
 
         for ( size_t i = 0; i < numberOfWholeStrings; ++i )
-            appendString ( mWhiteSpaceString );
+            appendNCNameString ( mWhiteSpaceString );
 
-        appendString ( mWhiteSpaceString, remainder );
+        appendNCNameString ( mWhiteSpaceString, remainder );
 
 #endif
 

@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaAnimationExporter.h"
@@ -121,14 +120,11 @@ namespace COLLADAMaya
             MObjectArray shaders;
 
             MIntArray shaderIndices;
-
             unsigned instanceNumber = dagPath.instanceNumber();
-
             fnMesh.getConnectedShaders ( instanceNumber, shaders, shaderIndices );
 
             // Find the polygons that correspond to each materials and export them
             uint realShaderCount = ( uint ) shaders.length();
-
             uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
 
             for ( uint shaderPosition = 0; shaderPosition < numShaders; ++shaderPosition )
@@ -169,9 +165,7 @@ namespace COLLADAMaya
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;
-
         materialMapIter = ( *mMaterialMap ).find ( materialName );
-
         if ( materialMapIter == ( *mMaterialMap ).end() )
         {
             // This is a new shading engine
@@ -180,14 +174,11 @@ namespace COLLADAMaya
 
         // Check if this effect is already exported
         EffectMap::iterator effectMapIter;
-
         effectMapIter = mExportedEffectMap.find ( materialName );
-
         if ( effectMapIter != mExportedEffectMap.end() ) return;
 
         // Push the shader into the mExportedEffectMap
         mExportedEffectMap[materialName] = &shader;
-
 
         // Open a tag for the current effect in the collada document
         String effectId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
@@ -394,13 +385,10 @@ namespace COLLADAMaya
 
             // Create the texture linking object.
             MObject fileTexture = fileTextures[i];
-
             int blendMode = blendModes[i];
-
             String channelSemantic = TEXCOORD_BASE + COLLADA::Utils::toString ( channel );
 
             COLLADA::Texture colladaTexture;
-
             mTextureExporter.exportTexture ( &colladaTexture,
                                              channelSemantic,
                                              fileTextures[i],
@@ -519,9 +507,7 @@ namespace COLLADAMaya
 
         // Verify that we have a supported texture type: file or layered.
         bool isFileTexture = texture.hasFn ( MFn::kFileTexture );
-
         bool isLayeredTexture = texture.hasFn ( MFn::kLayeredTexture );
-
         if ( !isFileTexture && !isLayeredTexture ) return;
 
         // Return the textures and blend modes

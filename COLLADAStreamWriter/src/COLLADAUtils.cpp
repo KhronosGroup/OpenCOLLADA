@@ -237,17 +237,25 @@ namespace COLLADA
         }
 
         // check that the result will not be too long
-        if(levels * 3 + afLen - afMarker > MAX_FILENAME_LEN)
+        if (levels * 3 + afLen - afMarker > MAX_FILENAME_LEN)
         {
             return NULL;
         }
 
         // add the appropriate number of "..\"s.
         rfMarker = 0;
-        for (i = 0; i < levels; i++)
+        if (levels == 1)
         {
-            relativeFilename += "..";
+            relativeFilename += ".";
             relativeFilename += FILE_DELIMITER;
+        }
+        else
+        {
+            for (i = 0; i < levels; i++)
+            {
+                relativeFilename += "..";
+                relativeFilename += FILE_DELIMITER;
+            }
         }
 
         // copy the rest of the filename into the result string

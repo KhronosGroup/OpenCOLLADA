@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectTextureExporter.h"
 #include "COLLADAMayaShaderHelper.h"
@@ -46,7 +45,6 @@ namespace COLLADAMaya
         if ( !mExportedImageMap.empty() )
         {
             ImageMap::iterator it = mExportedImageMap.begin();
-
             for ( ; it!=mExportedImageMap.end(); ++it )
             {
                 COLLADA::Image* image = it->second;
@@ -194,22 +192,53 @@ namespace COLLADAMaya
 
         if ( ExportOptions::relativePaths() )
         {
-            // Get the path to the maya source file and get the relative file name.
-            String sourceMayaFile = MFileIO::currentFile().asChar();
-            String sourceMayaPath = COLLADA::Utils::getAbsolutePathFromFile ( sourceMayaFile );
-            String relativeFileName = COLLADA::Utils::getRelativeFilename( sourceMayaPath, sourceMayaFile );
+            // Different filename and URI, if we copy the textures to the destination directory!
+            if ( ExportOptions::copyTexturesToDestinationDirectory() )
+            {
+                // TODO In the moment, we don't create sub folders in the destination directory
+                // for the texture. Instead, we copy them directly in the destination folder.
 
-            // Get the filename and the URI
-            fullFileName = relativeFileName;
-            fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + relativeFileName;
+                // Get the filename with the path to the destination directory.
+                String targetFile = getTargetFileName( sourceFile );
+                String targetColladaFile = mDocumentExporter->getFilename();
+                String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetColladaFile );
+                String relativeFileName = COLLADA::Utils::getRelativeFilename( targetPath, targetFile );
+
+                // Get the filename and the URI
+                fullFileName = relativeFileName;
+                if ( relativeFileName[0] != '.' )
+                    fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + relativeFileName;
+                else
+                    fullFileNameURI = relativeFileName;
+            }
+            else
+            {
+                // Get the relative file path from the destination folder to the source texture
+                String targetFile = mDocumentExporter->getFilename();
+                String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
+
+//                 String sourceMayaFile = MFileIO::currentFile().asChar();
+//                 String sourceMayaPath = COLLADA::Utils::getAbsolutePathFromFile ( sourceMayaFile );
+
+                String relativeFileName = COLLADA::Utils::getRelativeFilename( targetFile, sourceFile );
+
+                // Get the filename and the URI
+                fullFileName = relativeFileName;
+                if ( relativeFileName[0] != '.' )
+                    fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + relativeFileName;
+                else
+                    fullFileNameURI = relativeFileName;
+            }
         }
         else
         {
             // Different filename and URI, if we copy the textures to the destination directory!
             if ( ExportOptions::copyTexturesToDestinationDirectory() )
             {
+                // TODO In the moment, we don't create sub folders in the destination directory
+                // for the texture. Instead, we copy them directly in the destination folder.
+
                 // Get the filename with the path to the destination directory.
-                String sourceFile = MFileIO::currentFile().asChar();
                 String targetFile = getTargetFileName( sourceFile );
 
                 // Get the filename and the URI
@@ -282,6 +311,9 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     String EffectTextureExporter::getTargetFileName( String &sourceFile )
     {
+        // TODO In the moment, we don't create sub folders in the destination directory
+        // for the texture. Instead, we copy them directly in the destination folder.
+
         // Target file
         String targetFile = mDocumentExporter->getFilename();
         String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );

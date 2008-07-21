@@ -22,6 +22,8 @@
 #include <list>
 #include <vector>
 #include <limits>
+#include <algorithm>
+
 
 
 #define WHITESPACESTRINGLENGTH 1000
@@ -174,11 +176,71 @@ namespace COLLADA
         void appendTextElement ( const String& elementName, const String& text );
 
 
+    private:
 
-
-    protected:
         /** Adds the string @a str to the stream*/
+        inline void appendString ( String & str )
+        {
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+            String searchString = "%";
+            size_t found = str.find ( searchString );
+            if ( found != String::npos ) 
+            {
+                String replaceString = "%%";
+                size_t searchStrLength = searchString.length();
+                size_t replaceStrLength = replaceString.length();
+                do
+                {
+                    str.replace ( found, searchStrLength, replaceString );
+                    found = str.find (searchString, found + replaceStrLength );
+                } while ( found != String::npos );
+
+                fprintf_s ( mStream, str.c_str() );
+            }
+            else
+            {
+                fprintf_s ( mStream, str.c_str() );
+            }
+
+#else
+            mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
+#endif
+        }
+
+        /** Adds the string @a str to the stream.
+            We replace all "%" with "%%" if we write with printf.
+            Do a copy of the const string to proceed. */
         inline void appendString ( const String & str )
+        {
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+            String searchString = "%";
+            size_t found = str.find ( searchString );
+            if ( found != String::npos ) 
+            {
+                String strCopy ( str );
+                String replaceString = "%%";
+                size_t searchStrLength = searchString.length();
+                size_t replaceStrLength = replaceString.length();
+                do
+                {
+                    strCopy.replace ( found, searchStrLength, replaceString );
+                    found = strCopy.find (searchString, found + replaceStrLength );
+                } while ( found != String::npos );
+
+                fprintf_s ( mStream, strCopy.c_str() );
+            }
+            else
+            {
+                fprintf_s ( mStream, str.c_str() );
+            }
+#else
+            mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
+#endif
+        }
+
+        /** Adds the string @a str to the stream. 
+            The string have to be a valid ncname. */
+        inline void appendNCNameString ( const String & str )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, str.c_str() );
@@ -190,7 +252,7 @@ namespace COLLADA
         /** Adds the first @n characters of string @a str to the stream.
         @a n must not be larger than the length of @a str.*/
 #ifndef COLLADASTREAMWRITER_USE_FPRINTF_S
-        inline void appendString ( const String & str, size_t n )
+        inline void appendNCNameString ( const String & str, size_t n )
         {
             mOutFile.write ( str.c_str(), ( std::streamsize ) n );
         }
@@ -262,7 +324,7 @@ namespace COLLADA
         /** Adds the long @a number to the stream*/
         inline void appendNumber ( unsigned int number )
         {
-#ifdef USE_FPRINTF
+#ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             fprintf_s ( mStream, "%f", number );
 #else
             mOutFile << number;
