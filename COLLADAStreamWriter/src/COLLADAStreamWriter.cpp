@@ -161,6 +161,18 @@ namespace COLLADA
         appendChar ( '\"' );
     }
 
+    //---------------------------------------------------------------
+    void StreamWriter::appendAttribute ( const String &name, unsigned int value )
+    {
+        assert ( !mOpenTags.top().mHasContents );
+
+        appendChar ( ' ' );
+        appendString ( name );
+        appendChar ( '=' );
+        appendChar ( '\"' );
+        appendNumber ( value );
+        appendChar ( '\"' );
+    }
 
     //---------------------------------------------------------------
     void StreamWriter::appendText ( const String &text )

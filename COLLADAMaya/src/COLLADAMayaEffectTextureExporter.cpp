@@ -180,12 +180,13 @@ namespace COLLADAMaya
     {
         // Retrieve the texture filename
         MFnDependencyNode dgFn ( texture );
-        MString mayaName = dgFn.name(), fileName;
+        MString mayaName = dgFn.name(), mayaFileName;
         MPlug filenamePlug = dgFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
 
         // Get the maya filename with the path to the file.
-        filenamePlug.getValue ( fileName );
-        if ( fileName.length() == 0 ) return NULL;
+        filenamePlug.getValue ( mayaFileName );
+        if ( mayaFileName.length() == 0 ) return NULL;
+        String sourceFile = mayaFileName.asChar ();
 
         // Get the file name and the URI
         String fullFileName;
@@ -193,26 +194,34 @@ namespace COLLADAMaya
 
         if ( ExportOptions::relativePaths() )
         {
-            // Get the path to the maya source file
-            String sourceFile = MFileIO::currentFile().asChar();
-            String sourcePath = COLLADA::Utils::getAbsolutePahFromFile ( sourceFile );
+            // Get the path to the maya source file and get the relative file name.
+            String sourceMayaFile = MFileIO::currentFile().asChar();
+            String sourceMayaPath = COLLADA::Utils::getAbsolutePathFromFile ( sourceMayaFile );
+            String relativeFileName = COLLADA::Utils::getRelativeFilename( sourceMayaPath, sourceMayaFile );
 
-            // Get the relative file name
-            String relativeFileName = COLLADA::Utils::getRelativeFilename( sourcePath, fileName.asChar() );
-
-            // Get the filename
+            // Get the filename and the URI
             fullFileName = relativeFileName;
-
-            // Get the URI of the file
-            fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + fullFileName;
+            fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + relativeFileName;
         }
         else
         {
-            // Get the filename
-            fullFileName = fileName.asChar();
+            // Different filename and URI, if we copy the textures to the destination directory!
+            if ( ExportOptions::copyTexturesToDestinationDirectory() )
+            {
+                // Get the filename with the path to the destination directory.
+                String sourceFile = MFileIO::currentFile().asChar();
+                String targetFile = getTargetFileName( sourceFile );
 
-            // Get the URI of the file
-            fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( fileName.asChar() );
+                // Get the filename and the URI
+                fullFileName = targetFile;
+                fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( targetFile );
+            }
+            else
+            {
+                // Get the filename and the URI
+                fullFileName = sourceFile;
+                fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( sourceFile );
+            }
         }
 
         // Have we seen this texture node before?
@@ -226,34 +235,7 @@ namespace COLLADAMaya
         // Check, if we should copy the texture to the destination folder.
         if ( ExportOptions::copyTexturesToDestinationDirectory() )
         {
-            // Target file
-            String targetFileName = mDocumentExporter->getFilename();
-            String targetPath = COLLADA::Utils::getAbsolutePahFromFile ( targetFileName );
-
-            // Get the file path and name
-            String filePathString = COLLADA::Utils::getAbsolutePahFromFile ( fileName.asChar() );
-            String fileNameWithoutPath = COLLADA::Utils::getFileNameFromFile( fileName.asChar() );
-
-            // Get the path to the maya source file
-            String sourceFile = MFileIO::currentFile().asChar();
-            String sourcePath = COLLADA::Utils::getAbsolutePahFromFile ( sourceFile );
-
-            // Get the relative file name
-            String relativeFileName = COLLADA::Utils::getRelativeFilename( sourcePath, fileName.asChar() );
-            
-            // Generate the target file name
-            String targetFile = targetPath + relativeFileName;
-
-            // TODO If the image is in a sub-directory, we have to create 
-            // the sub-directories before copying the file!
-
-            // Copy the file to the destination directory
-            if ( !COLLADA::Utils::copyFile( fileName.asChar(), targetFile ) )
-            {
-                String message = "Couldn't successful copy the texture from \"";
-                message += fileName.asChar(); message += "\" to \"" + targetFile + "\"!";
-                MGlobal::displayError( message.c_str() );
-            }
+            copyTexturesToDestination( sourceFile );
         }
 
         // Convert the image name
@@ -280,12 +262,51 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
+    void EffectTextureExporter::copyTexturesToDestination( String &sourceFile )
+    {
+        // Get the target file from source file.
+        String targetFile = getTargetFileName( sourceFile );
+
+        // TODO If the image is in a sub-directory, we have to create 
+        // the sub-directories before copying the file!
+
+        // Copy the source file to the destination directory
+        if ( !COLLADA::Utils::copyFile( sourceFile, targetFile ) )
+        {
+            String message = "Couldn't successful copy the texture from \""
+                            + sourceFile + "\" to \"" + targetFile + "\"!";
+            MGlobal::displayError( message.c_str() );
+        }
+    }
+
+    // ------------------------------------------------------------
+    String EffectTextureExporter::getTargetFileName( String &sourceFile )
+    {
+        // Target file
+        String targetFile = mDocumentExporter->getFilename();
+        String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
+
+        // Get the file path and name
+        String filePathString = COLLADA::Utils::getAbsolutePathFromFile ( sourceFile );
+        String fileNameWithoutPath = COLLADA::Utils::getFileNameFromFile( sourceFile );
+
+        // Get the path to the maya source file
+        String mayaSourceFile = MFileIO::currentFile().asChar();
+        String mayaSourcePath = COLLADA::Utils::getAbsolutePathFromFile ( mayaSourceFile );
+
+        // Get the relative file name
+        String relativeFileName = COLLADA::Utils::getRelativeFilename( mayaSourcePath, sourceFile );
+
+        // Generate the target file name
+        return targetPath + relativeFileName;
+    }
+
+    // ------------------------------------------------------------
     // Helper to dump a place2dTexture node
     void EffectTextureExporter::add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture )
     {
         // Is there a texture placement applied to this texture?
         MObject placementNode = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_UV_COORD );
-
         if ( placementNode.hasFn ( MFn::kPlace2dTexture ) )
         {
             MFnDependencyNode placement2d ( placementNode );
@@ -433,4 +454,5 @@ namespace COLLADAMaya
             techniqueIsOpen = false;
         }
     }
+
 }

@@ -251,8 +251,8 @@ namespace COLLADAMaya
         MObjectArray weightFilters;
 
         // Gather the list of joints
-        gatherJoints( &colladaSkinController, controllerNode, weightFilters, clusterIndex );
         gatherBindMatrices( targetController, controllerNode );
+        gatherJoints( &colladaSkinController, controllerNode, weightFilters, clusterIndex );
 
         // Collect the vertex weights into the collada skin controller.
         uint numInfluences = targetController->getInfluences().length();
@@ -405,23 +405,6 @@ namespace COLLADAMaya
             // Support for joint clusters pipeline
             getJointClusterInfluences(controllerNode, influences, weightFilters, clusterIndex);
         }
-
-        // TODO Not ready!
-        // Create the joints with their ids.
-        SkinControllerJoints& joints = colladaSkinController->getColladaJoints();
-        uint numInfluences = influences.length();
-        joints.resize( numInfluences );
-        String boneBuffer = "bone";
-        for (uint i=0; i<numInfluences; ++i)
-        {
-            std::ostringstream floatStream; 
-            floatStream << i;
-            String boneId = boneBuffer + floatStream.str();
-
-            SkinControllerJoint &joint = joints[i];
-            joint.first = boneId;
-            joint.second = colladaSkinController->getBindPoses()[i];
-        }
     }
 
     //------------------------------------------------------
@@ -443,6 +426,32 @@ namespace COLLADAMaya
             MObject influence = influences[i].node();
             MMatrix mayaBindPoseMatrix = DagHelper::getBindPoseInverse(controllerNode, influence);
             bindPoses.push_back( mayaBindPoseMatrix );
+        }
+    }
+
+    //------------------------------------------------------
+    void ControllerExporter::createJoints( 
+        ColladaSkinController* colladaSkinController )
+    {
+        // Gather the list of joints
+        const MDagPathArray& influences = colladaSkinController->getInfluences();
+
+        // TODO Not ready!
+        // Create the joints with their ids.
+        SkinControllerJoints& joints = colladaSkinController->getColladaJoints();
+        uint numInfluences = influences.length();
+        joints.resize( numInfluences );
+
+        String boneBuffer = "bone";
+        for (uint i=0; i<numInfluences; ++i)
+        {
+            std::ostringstream floatStream; 
+            floatStream << i;
+            String boneId = boneBuffer + floatStream.str();
+
+            SkinControllerJoint &joint = joints[i];
+            joint.first = boneId;
+            joint.second = colladaSkinController->getBindPoses()[i];
         }
     }
 

@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
@@ -56,13 +55,11 @@ namespace COLLADAMaya
         {
             // Release the nodes tree
             SceneElementsList::iterator it = mExportNodesTree.begin();
-
             for ( ; it!= mExportNodesTree.end(); ++it )
             {
                 SceneElement* sceneElement = *it;
                 delete sceneElement;
             }
-
             mExportNodesTree.clear();
         }
 
@@ -79,11 +76,9 @@ namespace COLLADAMaya
         // Add all the expressions
         MObjectArray expressions;
         MItDependencyNodes depIter ( MFn::kExpression );
-
         for ( ; !depIter.isDone(); depIter.next() )
         {
             MObject item = depIter.item();
-
             if ( item.hasFn ( MFn::kExpression ) )
             {
                 expressions.append ( item );
@@ -104,7 +99,6 @@ namespace COLLADAMaya
             String theNodeName = fn.name().asChar();
 
             // Check if it's the world node
-
             if ( it.depth() == 0 ) continue;
 
             if ( status == MStatus::kSuccess )
@@ -130,7 +124,6 @@ namespace COLLADAMaya
 
             // For all the non-transforms selected, make sure to extend to the transforms underneath.
             MDagPathArray additions;
-
             MIntArray removals;
 
             for ( uint32 i = 0; i < mTargets.length(); ++i )
@@ -141,7 +134,6 @@ namespace COLLADAMaya
                 if ( !itemPath.node().hasFn ( MFn::kTransform ) )
                 {
                     MDagPath transformPath = itemPath;
-
                     while ( transformPath.length() > 0 )
                     {
                         transformPath.pop();
@@ -158,16 +150,13 @@ namespace COLLADAMaya
             }
 
             for ( uint32 i = 0; i < removals.length(); ++i ) mTargets.remove ( removals[i] - i );
-
             for ( uint32 i = 0; i < additions.length(); ++i ) mTargets.add ( additions[i] );
 
             // Add all the forced nodes to the list.
             uint32 forceNodeCount = mForcedNodes.length();
-
             for ( uint32 i = 0; i < forceNodeCount; ++i )
             {
                 MDagPath p = mForcedNodes[i];
-
                 if ( mTargets.hasItem ( p ) ) continue;
 
                 mTargets.add ( p );
@@ -202,7 +191,6 @@ namespace COLLADAMaya
         for ( ; !depIter.isDone(); depIter.next() )
         {
             MObject item = depIter.item();
-
             if ( item.hasFn ( MFn::kExpression ) )
             {
                 expressions.append ( item );
@@ -211,7 +199,6 @@ namespace COLLADAMaya
 
         // Start by caching the expressions that will be sampled
         uint expressionCount = expressions.length();
-
         for ( uint i = 0; i < expressionCount; ++i )
         {
             // expressions only for sampling
@@ -229,17 +216,14 @@ namespace COLLADAMaya
         {
             MDagPath dagPath;
             MStatus status = mTargets.getDagPath ( i, dagPath );
-
             if ( status != MStatus::kSuccess ) return false;
 
             // This node has no transform - i.e., it's the world node
             MObject transformNode = dagPath.transform ( &status );
-
             if ( !status && status.statusCode () == MStatus::kInvalidParameter ) continue;
 
             // Check if it is a valid transform node
             MFnDagNode transform ( transformNode, &status );
-
             if ( !status )
             {
                 status.perror ( "MFnDagNode constructor" );
@@ -304,7 +288,6 @@ namespace COLLADAMaya
         MFnDagNode dagFn ( dagPath );
 
         uint childCount = dagFn.childCount();
-
         for ( uint i = 0; i < childCount; ++i )
         {
             MObject child = dagFn.child ( i );
@@ -346,14 +329,12 @@ namespace COLLADAMaya
 
         // Ignore default and intermediate nodes (history items)
         bool isIntermediateObject = dagFn.isIntermediateObject();
-
         if ( ( dagFn.isDefaultNode() && !isSceneRoot ) || isIntermediateObject )
         {
             return false;
         }
 
         MString nodeName = dagPath.partialPathName();
-
         if ( nodeName == MString ( NIMA_INTERNAL_PHYSIKS ) )
         {
             // Skip this node, which is only used
@@ -364,7 +345,6 @@ namespace COLLADAMaya
         // If we are not already forcing this node, its children
         // check whether we should be forcing it (skinning of hidden joints).
         isForced = isForcedNode ( dagPath );
-
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
 
         if ( !isForced )
@@ -373,13 +353,11 @@ namespace COLLADAMaya
             if ( !ExportOptions::exportInvisibleNodes() && !isVisible )
             {
                 AnimationSampleCache* animationCache = mDocumentExporter->getAnimationCache();
-
                 if ( !AnimationHelper::isAnimated ( animationCache, dagPath.node(), ATTR_VISIBILITY ) )
                 {
                     return false;
                 }
             }
-
             else if ( !isVisible && !ExportOptions::exportDefaultCameras() )
             {
                 // Check for the default camera transform names.
@@ -392,7 +370,6 @@ namespace COLLADAMaya
         }
 
         isForced &= !isVisible;
-
         if ( !isForced )
         {
             // We don't want to process manipulators
@@ -428,21 +405,17 @@ namespace COLLADAMaya
                 return MStatus::kFailure;
 
             uint dagIdepth = dagIPath.length();
-
             for ( int j = i - 1; j >= 0; --j )
             {
                 MDagPath dagJPath;
-
                 if ( selectionList.getDagPath ( j, dagJPath ) != MStatus::kSuccess )
                     return MStatus::kFailure;
 
-                uint dagJdepth = dagJPath.length();
-
                 // Test if the longer of these two dag paths contains the shorter ...
+                uint dagJdepth = dagJPath.length();
                 if ( dagJdepth >= dagIdepth )
                 {
                     bool isParent = false;
-
                     for ( int depth = dagIdepth - 1; depth > 0 && !isParent; --depth )
                     {
                         dagJPath.pop();
@@ -455,7 +428,6 @@ namespace COLLADAMaya
                         i--;
                     }
                 }
-
                 else
                 {
                     bool isParent = false;
@@ -484,31 +456,25 @@ namespace COLLADAMaya
     {
         MStatus status;
         int length = selectionList.length ( &status );
-
         if ( status != MStatus::kSuccess ) return MStatus::kFailure;
 
         for ( int i=0; i<length; i++ )
         {
             MDagPath dagPath;
-
             if ( selectionList.getDagPath ( i, dagPath ) != MStatus::kSuccess ) return MStatus::kFailure;
 
             if ( dagPath.isInstanced() )
             {
                 int includedInstance=dagPath.instanceNumber ( &status );
-
                 if ( status != MStatus::kSuccess ) return MStatus::kFailure;
 
                 MObject object=dagPath.node ( &status );
-
                 if ( status != MStatus::kSuccess ) return MStatus::kFailure;
 
                 MDagPathArray paths;
-
                 if ( MDagPath::getAllPathsTo ( object, paths ) != MStatus::kSuccess ) return MStatus::kFailure;
 
                 int numPaths=paths.length();
-
                 for ( int p=0; p<numPaths; p++ )
                     if ( p!=includedInstance )
                         selectionList.add ( paths[p] );
@@ -522,7 +488,6 @@ namespace COLLADAMaya
     SceneElement* SceneGraph::findElement ( const MDagPath& dagPath )
     {
         static bool output = false;
-
         if ( output ) MGlobal::displayInfo ( MString ( "Comparing against: " ) + dagPath.fullPathName() );
 
         for ( SceneElementsList::iterator it = mExportedNodes.begin(); it != mExportedNodes.end(); ++it )
@@ -549,7 +514,6 @@ namespace COLLADAMaya
         String theNodeName = fn.name().asChar();
 
         MDagPath dagPathCopy = dagPath;
-
         while ( dagPathCopy.length() > 0 && !isForcedNode ( dagPathCopy ) )
         {
             // Attach a function set
@@ -598,7 +562,6 @@ namespace COLLADAMaya
                 }
 
                 // Look for a mesh
-
                 if ( selectedPath.node().hasFn ( MFn::kMesh ) )
                 {
                     // export forced nodes in path
@@ -606,7 +569,6 @@ namespace COLLADAMaya
                 }
             }
         }
-
         else
         {
             for ( MItDag dagIt ( MItDag::kBreadthFirst ); !dagIt.isDone(); dagIt.next() )
@@ -665,7 +627,6 @@ namespace COLLADAMaya
                         if ( stat == MS::kSuccess )
                         {
                             uint count = jointPaths.length();
-
                             for ( uint i = 0; i < count; ++i ) appendForcedNodeToList ( jointPaths[i] );
                         }
                     }
@@ -685,7 +646,6 @@ namespace COLLADAMaya
     bool SceneGraph::isForcedNode ( const MDagPath& dagPath )
     {
         uint count = mForcedNodes.length();
-
         for ( uint i = 0; i < count; ++i )
         {
             if ( dagPath == mForcedNodes[i] ) return true;

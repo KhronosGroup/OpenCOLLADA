@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
@@ -126,7 +125,6 @@ namespace COLLADAMaya
         MDagPath dagPath = sceneElement->getPath();
 
         // Check if it is a mesh and an export node
-
         if ( sceneElement->getType() == SceneElement::MESH &&
                 sceneElement->getIsExportNode() )
         {

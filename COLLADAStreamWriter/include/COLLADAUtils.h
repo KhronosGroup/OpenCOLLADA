@@ -107,7 +107,7 @@ namespace COLLADA
          * @param absoluteFilename The current absolute filename
          * @return COLLADA::String Returns the absolute path of the current absolute filename.
          */
-        static String getAbsolutePahFromFile( const String& absoluteFilename );
+        static String getAbsolutePathFromFile( const String& absoluteFilename );
 
         /**
          * Returns the filename from the absolute filename (= filename + path).

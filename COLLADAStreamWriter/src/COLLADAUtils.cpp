@@ -118,7 +118,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    String Utils::getAbsolutePahFromFile( const String& absoluteFilename )
+    String Utils::getAbsolutePathFromFile( const String& absoluteFilename )
     {
         String absolutePath;
 

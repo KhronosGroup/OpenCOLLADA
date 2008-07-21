@@ -118,6 +118,20 @@ namespace COLLADAMaya
         /** Exports the texture image */
         String exportImage ( const MObject &texture );
 
+        /**
+         * Copy the textures with their relative pathes from the source to the 
+         * destination directory.
+         * @param sourceFileName The name with path of the current texture.
+         */
+        void copyTexturesToDestination( String &sourceFileName );
+
+        /**
+         * Returns the target file name of the given source file name.
+         * @param sourceFileName The source file name.
+         * @return String The target file name.
+         */
+        String getTargetFileName( String &sourceFileName );
+
         /** Dump a place2dTexture node */
         void add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture );
 

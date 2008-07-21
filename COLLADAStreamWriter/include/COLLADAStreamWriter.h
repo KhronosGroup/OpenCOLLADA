@@ -97,6 +97,10 @@ namespace COLLADA
         This function can only be called after openElement() before any content is written.*/
         void appendAttribute ( const String& name, unsigned long value );
 
+        /** Adds the attribute @a name with value @a value to the last opened element.
+        This function can only be called after openElement() before any content is written.*/
+        void appendAttribute ( const String& name, unsigned int value );
+
         /** Adds @a text to the COLLADA file.
         No checks are performed, if @a text contains forbidden characters. */
         void appendText ( const String& text );
@@ -249,6 +253,16 @@ namespace COLLADA
         inline void appendNumber ( int number )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
+            fprintf_s ( mStream, "%f", number );
+#else
+            mOutFile << number;
+#endif
+        }
+
+        /** Adds the long @a number to the stream*/
+        inline void appendNumber ( unsigned int number )
+        {
+#ifdef USE_FPRINTF
             fprintf_s ( mStream, "%f", number );
 #else
             mOutFile << number;

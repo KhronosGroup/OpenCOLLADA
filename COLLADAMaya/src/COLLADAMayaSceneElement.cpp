@@ -96,34 +96,23 @@ namespace COLLADAMaya
         if ( mType != UNDETERMINED ) return mType;
 
         MFn::Type mayaType = mDagPath.apiType();
-
         switch ( mayaType )
         {
 
         case MFn::kLookAt:
-
         case MFn::kParentConstraint:
-
         case MFn::kOrientConstraint:
-
         case MFn::kConstraint:
-
         case MFn::kAimConstraint:
-
         case MFn::kPoleVectorConstraint:
-
         case MFn::kPointConstraint:
-
         case MFn::kNormalConstraint:
             return CONSTRAINT;
             break;
 
         case MFn::kAmbientLight:
-
         case MFn::kSpotLight:
-
         case MFn::kPointLight:
-
         case MFn::kDirectionalLight:
             return LIGHT;
             break;
@@ -157,23 +146,14 @@ namespace COLLADAMaya
             break;
 
         case MFn::kAir:
-
         case MFn::kDrag:
-
         case MFn::kField:
-
         case MFn::kGravity:
-
         case MFn::kNewton:
-
         case MFn::kRadial:
-
         case MFn::kTurbulence:
-
         case MFn::kUniform:
-
         case MFn::kVortex:
-
         case MFn::kVolumeAxis:
             return UNKNOWN;
             break;
@@ -194,7 +174,6 @@ namespace COLLADAMaya
         for ( uint i=0; i<mChildElements.size(); ++i )
         {
             SceneElement* childElement = mChildElements[i];
-
             if ( childElement->mDagPath == searchedPath ) return true;
         }
 
@@ -207,7 +186,6 @@ namespace COLLADAMaya
         for ( uint i=0; i<mChildElements.size(); ++i )
         {
             SceneElement* childElement = mChildElements[i];
-
             if ( childElement->mDagPath == searchedSceneElement->getPath() ) return true;
         }
 
@@ -220,7 +198,6 @@ namespace COLLADAMaya
         for ( uint i=0; i<mParentElements.size(); ++i )
         {
             SceneElement* parentElement = mParentElements[i];
-
             if ( parentElement->mDagPath == searchedPath ) return true;
         }
 
@@ -233,7 +210,6 @@ namespace COLLADAMaya
         for ( uint i=0; i<mParentElements.size(); ++i )
         {
             SceneElement* parentElement = mParentElements[i];
-
             if ( parentElement->mDagPath == searchedSceneElement->getPath() ) return true;
         }
 

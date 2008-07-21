@@ -297,7 +297,13 @@ namespace COLLADAMaya
             MObjectArray& weightFilters, 
             const uint clusterIndex );
 
-         /**
+        /**
+        * Creates the joints.
+        * @param colladaSkinController The skin controller with the joint imformation.
+        */
+        void createJoints( ColladaSkinController* colladaSkinController );
+
+        /**
           * Collects the data of the vertex weights and push it into the collada 
           * skin controller object.
           * @param skinController The collada skin controller object to export.

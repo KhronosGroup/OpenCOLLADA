@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
 #include "COLLADAMayaExportOptions.h"
@@ -90,34 +89,28 @@ namespace COLLADAMaya
         fnMesh.getHoles ( mHoleInfoArray, mHoleVertexArray, &status );
         holeCount = ( status != MStatus::kSuccess ) ? 0 : ( mHoleInfoArray.length() / 3 );
 
-        // Find how many shaders are used by this instance of the mesh
-        MObjectArray shaders;
-        MIntArray shaderIndices;
-        fnMesh.getConnectedShaders ( 0, shaders, shaderIndices );
+        // Find how many shaders are used by this instance of the mesh.
+        // Each instance may apply a number of different materials to different faces. 
+        // We can use the getConnectedShaders member function of MFnMesh to find out 
+        // this shader information for each instance.
+        mShaders.clear(); mShaderIndices.clear();
+        fnMesh.getConnectedShaders ( 0, mShaders, mShaderIndices );
 
-        // Find the polygons that correspond to each materials and export them
-        uint realShaderCount = ( uint ) shaders.length();
-        uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
+        // Find the polygons that correspond to each materials and export them.
+        uint realShaderCount = ( uint ) mShaders.length();
+        uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) mShaders.length() );
 
         for ( uint shaderPosition = 0; shaderPosition<numShaders; ++shaderPosition )
         {
             // Export the polygons of the current shader
-            exportShaderPolygons ( 
-                fnMesh,
-                shaderPosition,
-                realShaderCount,
-                shaders,
-                shaderIndices );
+            exportShaderPolygons ( fnMesh, shaderPosition );
         }
     }
 
     //---------------------------------------------------------------
     void GeometryPolygonExporter::exportShaderPolygons ( 
         MFnMesh &fnMesh,
-        uint shaderPosition,
-        uint realShaderCount,
-        MObjectArray shaders,
-        const MIntArray &shaderIndices )
+        uint shaderPosition )
     {
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
@@ -125,7 +118,7 @@ namespace COLLADAMaya
         COLLADA::PrimitivesBase dummyPrimitivesBase ( mSW );
 
         // Get the polygons count.
-        uint numPolygons = getShaderPolygonsCount(  fnMesh, shaderPosition, realShaderCount, shaderIndices );
+        uint numPolygons = getShaderPolygonsCount(  fnMesh, shaderPosition );
 
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
@@ -137,33 +130,19 @@ namespace COLLADAMaya
         {
             // Retrieves the information, if we have a hole in any polygon under the current shape
             // (then we have to create a polygon element, instead of a polylist element).
-            bool isHoledShape = verifyPolygonsForHoles ( fnMesh, shaderPosition, realShaderCount, shaderIndices );
+            bool isHoledShape = verifyPolygonsForHoles ( fnMesh, shaderPosition );
 
             // Determine the export type (polylist/polygon/triangles)
             uint exportType = determinePrimitivesBaseExportType ( isHoledShape );
-
-            // The list for the vertex counts
-            std::vector<unsigned long> vertexCountList;
-
-            // Retrieve the vertex count list for the polylist element.
-            if ( exportType == POLYLIST )
-            {
-                // Retrieves the vertex count list to export.
-                getVertexCountList(
-                    fnMesh, shaderPosition, realShaderCount, shaderIndices, vertexCountList );
-            }
 
             // Create the polylist/polygon/triangles element and set the 
             // materials and the vertices count list before writing the 
             // list of the polylist/polygon/triangles vertices.
             primitivesBasePoly = preparePrimitivesBase( 
-                dummyPrimitivesBase, numPolygons, vertexCountList, 
-                shaderPosition, realShaderCount, exportType, shaders);
+                dummyPrimitivesBase, fnMesh, numPolygons, shaderPosition, exportType );
 
             // Retrieve the shader polygon vertices and write them directly into the collada file.
-            writeShaderPolygons( 
-                primitivesBasePoly, exportType, 
-                fnMesh, shaderIndices, shaderPosition, realShaderCount );
+            writeShaderPolygons( primitivesBasePoly, exportType, fnMesh, shaderPosition );
 
         }
 
@@ -180,30 +159,27 @@ namespace COLLADAMaya
         COLLADA::PrimitivesBase* primitivesBasePoly,
         const uint exportType,
         MFnMesh &fnMesh, 
-        const MIntArray &shaderIndices, 
-        const uint shaderPosition, 
-        const uint realShaderCount )
+        const uint shaderPosition )
     {
         // Number of polygons (could also be triangles)
         uint numPolygons = 0; 
 
-        // List for the polygon set inputs.
-        Sources polygonSetInputs;
-
         // Generate the polygon set inputs.
-        generatePolygonSetInputs ( primitivesBasePoly, &polygonSetInputs );
+        Sources polygonSetInputs;
+        getVerticesInputAttributes( polygonSetInputs );
 
         // Iterate through all polygons of the current mesh and create them to export
         MItMeshPolygon meshPolygonsIter ( fnMesh.object() );
         for ( meshPolygonsIter.reset(); !meshPolygonsIter.isDone(); meshPolygonsIter.next() )
         {
             // Is this polygon shaded by this shader?
+            uint realShaderCount = ( uint ) mShaders.length();
             int polyIndex = meshPolygonsIter.index();
             if ( shaderPosition < realShaderCount && 
-                ( uint ) shaderIndices[polyIndex] != shaderPosition ) continue;
+                ( uint ) mShaderIndices[polyIndex] != shaderPosition ) continue;
             if ( shaderPosition >= realShaderCount && 
-                ( shaderIndices[polyIndex] >= 0 && 
-                shaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
+                ( mShaderIndices[polyIndex] >= 0 && 
+                mShaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
 
             // Create a polygon to store the vertex indexes to export
             PolygonSource polygon ( polygonSetInputs );
@@ -294,7 +270,7 @@ namespace COLLADAMaya
         {
             if ( polygon->isHoled() )
             {
-                ( ( COLLADA::Polygons* ) primitivesBasePoly )->openPolylistHole();
+                ( ( COLLADA::Polygons* ) primitivesBasePoly )->openPolylistHoleElement();
             }
         }
 
@@ -380,9 +356,7 @@ namespace COLLADAMaya
     // ----------------------------------------
     bool GeometryPolygonExporter::verifyPolygonsForHoles( 
         const MFnMesh &fnMesh,
-        const uint shaderPosition, 
-        const uint realShaderCount, 
-        const MIntArray &shaderIndices )
+        const uint shaderPosition )
     {
         // If we want to export triangles, holes aren't of note.
         if ( triangulated ) return false;
@@ -394,15 +368,12 @@ namespace COLLADAMaya
         {
             // Is this polygon shaded by this shader?
             int polyIndex = meshPolygonsIter.index();
-
+            uint realShaderCount = ( uint ) mShaders.length();
             if ( shaderPosition < realShaderCount && 
-                ( uint ) shaderIndices[polyIndex] != shaderPosition ) 
-                continue;
-
+                ( uint ) mShaderIndices[polyIndex] != shaderPosition ) continue;
             if ( shaderPosition >= realShaderCount && 
-                ( shaderIndices[polyIndex] >= 0 && 
-                shaderIndices[polyIndex] < ( int ) realShaderCount ) ) 
-                continue;
+                ( mShaderIndices[polyIndex] >= 0 && 
+                mShaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
             
             // Look for holes in this polygon
             // ASSUMPTION: Holes are automatically removed by triangulation.
@@ -418,12 +389,10 @@ namespace COLLADAMaya
     }
 
     // ----------------------------------------
-    void GeometryPolygonExporter::getVertexCountList(
+    void GeometryPolygonExporter::writeVertexCountList(
+        COLLADA::PrimitivesBase* primitivesBase, 
         const MFnMesh &fnMesh, 
-        const uint shaderPosition, 
-        const uint realShaderCount, 
-        const MIntArray &shaderIndices, 
-        std::vector<unsigned long> &vertexCountList )
+        const uint shaderPosition )
     {
         // Iterate through all polygons of the current mesh.
         // Check their polygons for holes and retrieve the vertexCountList.
@@ -432,33 +401,28 @@ namespace COLLADAMaya
         {
             // Is this polygon shaded by this shader?
             int polyIndex = meshPolygonsIter.index();
-
+            uint realShaderCount = ( uint ) mShaders.length();
             if ( shaderPosition < realShaderCount && 
-                ( uint ) shaderIndices[polyIndex] != shaderPosition ) 
-                continue;
-
+                ( uint ) mShaderIndices[polyIndex] != shaderPosition ) continue;
             if ( shaderPosition >= realShaderCount && 
-                ( shaderIndices[polyIndex] >= 0 && 
-                shaderIndices[polyIndex] < ( int ) realShaderCount ) ) 
-                continue;
+                ( mShaderIndices[polyIndex] >= 0 && 
+                mShaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
 
             // Get the polygon count
-            getPolygonVertexCounts ( meshPolygonsIter, vertexCountList );
-
+            uint vertexCount = getPolygonVertexCount ( meshPolygonsIter );
+            if ( vertexCount >= 0 ) primitivesBase->appendValues( vertexCount );
         }
     }
 
     // ----------------------------------------
-    void GeometryPolygonExporter::getPolygonVertexCounts(
-        MItMeshPolygon &meshPolygonsIter,
-        std::vector<unsigned long> &vertexCountList )
+    uint GeometryPolygonExporter::getPolygonVertexCount( MItMeshPolygon &meshPolygonsIter )
     {
         // Establish the number of vertexes in the polygon.
         // We don't need the vertex count list for triangulation
-        if ( triangulated ) return;
+        if ( triangulated ) return -1;
 
         // The number of vertices
-        uint numVertices = 0;
+        uint numVertices = -1;
 
         // Retrieve the vertices and increment polygon count
         // Get the number of vertices in the current mesh's polygon
@@ -496,18 +460,15 @@ namespace COLLADAMaya
 #else
             numVertices = polygonVertexCount;
 #endif
-
-            // Push the number of vertices of the current polygon in the vcount list.
-            vertexCountList.push_back ( numVertices );
         }
+
+        return numVertices;
     }
 
     // ----------------------------------------
     uint GeometryPolygonExporter::getShaderPolygonsCount(
         const MFnMesh &fnMesh, 
-        const uint shaderPosition, 
-        const uint realShaderCount, 
-        const MIntArray &shaderIndices )
+        const uint shaderPosition )
     {
         uint numPolygons = 0;
 
@@ -518,15 +479,12 @@ namespace COLLADAMaya
         {
             // Is this polygon shaded by this shader?
             int polyIndex = meshPolygonsIter.index();
-
+            uint realShaderCount = ( uint ) mShaders.length();
             if ( shaderPosition < realShaderCount && 
-                ( uint ) shaderIndices[polyIndex] != shaderPosition ) 
-                continue;
-
+                ( uint ) mShaderIndices[polyIndex] != shaderPosition ) continue;
             if ( shaderPosition >= realShaderCount && 
-                ( shaderIndices[polyIndex] >= 0 && 
-                shaderIndices[polyIndex] < ( int ) realShaderCount ) ) 
-                continue;
+                ( mShaderIndices[polyIndex] >= 0 && 
+                mShaderIndices[polyIndex] < ( int ) realShaderCount ) ) continue;
 
             // Get the polygon count
             uint numMeshPolygons = 0, numVertices = 0;
@@ -669,47 +627,25 @@ namespace COLLADAMaya
     }
 
     // ----------------------------------------------------------------------------------
-    COLLADA::PrimitivesBase* GeometryPolygonExporter::createPrimitivesBase ( 
-        COLLADA::PrimitivesBase dummyPoly,
-        const uint exportType )
+    COLLADA::PrimitivesBase* GeometryPolygonExporter::createPrimitivesBase ( const uint baseExportType )
     {
         COLLADA::PrimitivesBase* primitivesBasePoly;
 
-        switch ( exportType )
+        switch ( baseExportType )
         {
         case POLYGONS:
-            primitivesBasePoly = new COLLADA::Polygons ( dummyPoly );
+            primitivesBasePoly = new COLLADA::Polygons ( mSW );
             break;
         case TRIANGLES:
-            primitivesBasePoly = new COLLADA::Triangles ( dummyPoly );
+            primitivesBasePoly = new COLLADA::Triangles ( mSW );
             break;
         case POLYLIST:
         default:
-            primitivesBasePoly = new COLLADA::Polylist ( dummyPoly );
+            primitivesBasePoly = new COLLADA::Polylist ( mSW );
             break;
         }
 
         return primitivesBasePoly;
-    }
-
-    // ----------------------------------------------------------------------------------
-    void GeometryPolygonExporter::preparePrimitivesBaseToAppendValues ( 
-        COLLADA::PrimitivesBase* polylist,
-        const uint exportType )
-    {
-        switch ( exportType )
-        {
-        case POLYGONS:
-            ( ( COLLADA::Polygons* ) polylist )->prepareToAppendValues();
-            break;
-        case TRIANGLES:
-            ( ( COLLADA::Triangles* ) polylist )->prepareToAppendValues();
-            break;
-        case POLYLIST:
-        default:
-            ( ( COLLADA::Polylist* ) polylist )->prepareToAppendValues();
-            break;
-        }
     }
 
     // ----------------------------------------------------------------------------------
@@ -721,11 +657,11 @@ namespace COLLADAMaya
         bool currentFaceIsHole = checkForHole ( poly, currentFaceIndex );
         if ( currentFaceIsHole )
         {
-            ( ( COLLADA::Polygons* ) polylist )->openHole();
+            ( ( COLLADA::Polygons* ) polylist )->openHoleElement();
         }
         else
         {
-            ( ( COLLADA::Polygons* ) polylist )->openPolylist();
+            ( ( COLLADA::Polygons* ) polylist )->openPolylistElement();
         }
     }
 
@@ -782,15 +718,13 @@ namespace COLLADAMaya
     }
 
     // ---------------------------------------------
-    void GeometryPolygonExporter::generatePolygonSetInputs ( 
-        COLLADA::PrimitivesBase* polylist,
-        Sources* vertexAttributes )
+    void GeometryPolygonExporter::getVerticesInputAttributes( Sources &vertexAttributes )
     {
         // Generate the polygon set inputs.
         int nextIdx = 1, normalsIdx = -1;
         int offset = 0; // Offset for the input list
-        size_t inputCount = mPolygonSources->size();
 
+        size_t inputCount = mPolygonSources->size();
         for ( size_t p = 0; p < inputCount; ++p )
         {
             const SourceInput param = ( *mPolygonSources ) [p];
@@ -810,11 +744,11 @@ namespace COLLADAMaya
             // Check for duplicate vertex attributes to use their idx
             if ( foundIdx == -1 )
             {
-                size_t vertexAttributeCount = vertexAttributes->size();
+                size_t vertexAttributeCount = vertexAttributes.size();
                 for ( size_t v = 0; v < vertexAttributeCount; ++v )
                 {
-                    if ( ( *vertexAttributes ) [v].getType() == type &&
-                        ( *vertexAttributes ) [v].getIdx() == param.getIdx() )
+                    if ( vertexAttributes[v].getType() == type &&
+                        vertexAttributes[v].getIdx() == param.getIdx() )
                     {
                         foundIdx = ( int ) v;
                         break;
@@ -822,28 +756,37 @@ namespace COLLADAMaya
                 }
             }
 
-            // Check if the vertex is already registered
-            bool isVertexSource = SourceInput::containsSourceBase ( mVertexSources, &source );
-
             // New vertex attribute, so generate a new idx
-            bool newIdx = foundIdx == -1;
+            bool newIdx = (foundIdx == -1);
             if ( newIdx )
             {
-                // Assign it the correct offset/idx.
-                foundIdx = ( !isVertexSource ) ? nextIdx++ : 0;
-
-                if ( type == COLLADA::NORMAL || type == COLLADA::GEOTANGENT || type == COLLADA::GEOBINORMAL )
-                {
-                    normalsIdx = foundIdx;
-                }
+                // param for the last time.
+                vertexAttributes.push_back ( SourceInput(param) );
             }
+
+        }
+    }
+
+    // ---------------------------------------------
+    void GeometryPolygonExporter::getPolygonInputAttributes ( COLLADA::InputList &inputList )
+    {
+        // Generate the polygon set inputs.
+        int nextIdx = 1, normalsIdx = -1;
+        int offset = 0; // Offset for the input list
+
+        size_t inputCount = mPolygonSources->size();
+        for ( size_t p = 0; p < inputCount; ++p )
+        {
+            const SourceInput param = ( *mPolygonSources ) [p];
+            const COLLADA::SourceBase source = param.getSource();
+            const COLLADA::Semantics type = param.getType();
+
+            // Check if the vertex is already registered
+            bool isVertexSource = SourceInput::containsSourceBase ( mVertexSources, &source );
 
             // Add the per-face, per-vertex input to the polygons description
             if ( !isVertexSource )
             {
-                // Get the input list
-                COLLADA::InputList* inputList = &polylist->getInputList();
-
                 // Get the generated id of the source for reference
                 String sourceId = source.getId();
 
@@ -857,23 +800,14 @@ namespace COLLADAMaya
                 if ( type == COLLADA::TEXCOORD )
                 {
                     // For texture coordinate-related inputs: set the 'set' attribute.
-                    inputList->push_back ( COLLADA::Input ( type, "#" + sourceId, offset++, param.getIdx() ) );
+                    inputList.push_back ( COLLADA::Input ( type, "#" + sourceId, offset++, param.getIdx() ) );
                 }
                 else
                 {
-                    inputList->push_back ( COLLADA::Input ( type, "#" + sourceId, offset++ ) );
+                    inputList.push_back ( COLLADA::Input ( type, "#" + sourceId, offset++ ) );
                 }
             }
-
-
-            if ( newIdx )
-            {
-                // param for the last time.
-                vertexAttributes->push_back ( SourceInput(param) );
-            }
-
         }
-
     }
 
     // --------------------------------------------------------
@@ -980,52 +914,53 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     COLLADA::PrimitivesBase* GeometryPolygonExporter::preparePrimitivesBase( 
         COLLADA::PrimitivesBase& dummyPrimitivesBase, 
-        uint numPolygons, 
-        std::vector<unsigned long>& vCountList, 
-        uint shaderPosition, 
-        uint realShaderCount, 
-        uint exportType, 
-        MObjectArray shaders )
+        const MFnMesh &fnMesh, 
+        const uint numPolygons, 
+        const uint shaderPosition, 
+        const uint exportType )
     {
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
         // If we want to export as triangles, we have to use <triangles>.
-        COLLADA::PrimitivesBase* primitivesBasePoly = NULL;
+        COLLADA::PrimitivesBase* primitivesBasePoly = createPrimitivesBase ( exportType );
 
-        // List for the polygon set inputs.
-        Sources polygonSetInputs;
+        // Begin to write.
+        primitivesBasePoly->openPrimitiveElement();
 
-        // Generate the polygon set inputs.
-        generatePolygonSetInputs ( &dummyPrimitivesBase, &polygonSetInputs );
-
-        // Now create the real Polylist/Polygons/Triangles element in depend
-        // of the current export type. If the export type is POLYLIST, set the vertex count list.
-        primitivesBasePoly = createPrimitivesBase ( dummyPrimitivesBase, exportType );
-
-        // Set the number of polygons
-        primitivesBasePoly->setCount ( numPolygons );
-
-        // Set the vertex count list, if we have a POLYLIST
-        if ( exportType == POLYLIST )
-        {
-            // TODO Method writeVCountList()
-            primitivesBasePoly->setVCountList( vCountList );
-        }
-
-        // TODO Method to get all materials of the current mesh.
         // Check if the material should be set
+        uint realShaderCount = ( uint ) mShaders.length();
         if ( shaderPosition < realShaderCount )
         {
             // Add shader-specific parameters (TexCoords sets).
             // Add symbolic name for the material used on this polygon set.
-            MFnDependencyNode shaderFn ( shaders[shaderPosition] );
+            MFnDependencyNode shaderFn ( mShaders[shaderPosition] );
             String shaderName = shaderFn.name().asChar();
             String materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name() );
-            primitivesBasePoly->setMaterial ( materialName );
+            primitivesBasePoly->appendMaterial ( materialName );
         }
 
-        // Prepare the list for add the vertex indexes
-        preparePrimitivesBaseToAppendValues ( primitivesBasePoly, exportType );
+        // Set the number of polygons
+        primitivesBasePoly->appendCount ( numPolygons );
+
+        // Get the polygon input list
+        COLLADA::InputList& inputList = primitivesBasePoly->getInputList();
+        getPolygonInputAttributes ( inputList );
+        primitivesBasePoly->appendInputList();
+
+        // Set the vertex count list, if we have a POLYLIST
+        if ( exportType == POLYLIST )
+        {
+            // Retrieve the vertex count list for the polylist element.
+            primitivesBasePoly->openVertexCountListElement();
+            writeVertexCountList( primitivesBasePoly, fnMesh, shaderPosition );
+            primitivesBasePoly->closeElement();
+        }
+
+        if ( exportType != POLYGONS )
+        {
+            // Prepare the list for add the vertex indexes
+            primitivesBasePoly->openPolylistElement();
+        }
 
         return primitivesBasePoly;
     }

@@ -33,7 +33,11 @@ namespace COLLADA
 
     private:
 
+        /** Pointer to the primitives closer. */
         TagCloser mPrimitiveCloser;
+
+        /** Name of the current primitive. */
+        String mPrimitiveName;
 
         /** The material symbol*/
         String mMaterial;
@@ -53,18 +57,57 @@ namespace COLLADA
          * Constructor.
          * @param streamWriter Pointer to the collada stream.
          */
-        PrimitivesBase ( StreamWriter * streamWriter ) 
+        PrimitivesBase ( StreamWriter* streamWriter, const String& primitiveName=EMPTY_STRING ) 
         : ElementWriter ( streamWriter )
-        , mInputList ( streamWriter ) 
-        {}
+        , mInputList ( streamWriter )
+        , mPrimitiveName ( primitiveName )
+        {
+            if ( strcmp(primitiveName.c_str(), mPrimitiveName.c_str() ) != 0)
+            {
+                mPrimitiveCloser = mSW->openElement ( primitiveName );
+            }
+        }
 
         /**
          * Destructor.
          */
         virtual ~PrimitivesBase() {}
 
+        /** Opens the primitives name element. */
+        void openPrimitiveElement ( );
+
+        /** Appends the material symbol. */
+        void appendMaterial ( const String& material );
+
+        /** Append the given count to the list. */
+        void appendCount ( const unsigned int count );
+
+        /** Appends the input list. */
+        void appendInputList ( );
+
+        /** Appends the the count. */
+        void appendCount ( const unsigned long &count );
+
+        /** Appends the vertex count element. */
+        void appendVertexCount( const unsigned long vCount );
+
+        /** Appends the vertex count elements in the list. */
+        void appendVertexCount( const VCountList& vCountList );
+
+        /** Opens the vertex count list element. */
+        void openVertexCountListElement();
+
+        /** Closes the vertex count list element. */
+        void closeVertexCountListElement();
+
+        /** Close the last opened element. */
+        void closeElement ();
+
+        /** Opens the polylist element. */
+        void openPolylistElement ();
+
         /** Sets the material symbol*/
-        void setMaterial ( const String & material )
+        void setMaterial ( const String& material )
         {
             mMaterial = material;
         }
@@ -151,17 +194,19 @@ namespace COLLADA
 
         /** Prepares to fill the <p> element. This member must be called exactly once
         before add is called the first time.*/
-        void prepareBaseToAppendValues ( const String * primitiveName, bool openPolylistElement=true );
+        void prepareBaseToAppendValues ( bool openThePolylistElement=true );
 
     };
 
 
-    template<const String * primitiveName>
+    template<const String& primitiveName>
     class Primitive : public PrimitivesBase
     {
 
     public:
-        Primitive ( StreamWriter * streamWriter ) : PrimitivesBase ( streamWriter ) {}
+        Primitive ( StreamWriter* streamWriter ) 
+        : PrimitivesBase ( streamWriter, primitiveName ) 
+        {}
 
         /** This constructor should never be called. It is only provided to make std::map happy*/
         Primitive() : PrimitivesBase ( 0 )
@@ -170,13 +215,14 @@ namespace COLLADA
         }
 
         /** Copy constructor */
-        Primitive ( PrimitivesBase primitivesBase ) : PrimitivesBase ( primitivesBase ) {}
+        Primitive ( PrimitivesBase primitivesBase ) 
+        : PrimitivesBase ( primitivesBase ) {}
 
         /** Prepares to fill the @a \<p\> element.
         This member must be called exactly once before add is called the first time.*/
         void prepareToAppendValues()
         {
-            prepareBaseToAppendValues ( primitiveName );
+            prepareBaseToAppendValues ( );
         }
 
     };
@@ -193,29 +239,23 @@ namespace COLLADA
          * Constructor.
          * @param streamWriter Pointer to the collada stream.
          */
-        Polygons ( StreamWriter* streamWriter ) : PrimitivesBase ( streamWriter ) {}
+        Polygons ( StreamWriter* streamWriter ) 
+        : PrimitivesBase ( streamWriter, CSWC::COLLADA_ELEMENT_POLYGONS ) {}
 
         /** Copy constructor */
-        Polygons ( PrimitivesBase primitivesBase ) : PrimitivesBase ( primitivesBase ) {}
+        Polygons ( PrimitivesBase primitivesBase ) 
+        : PrimitivesBase ( primitivesBase ) {}
 
         /** We don't want to open the polylist tag */
         void prepareToAppendValues()
         {
-            prepareBaseToAppendValues ( &CSWC::COLLADA_ELEMENT_POLYGONS, false );
-        }
-
-        /**
-         * Opens the polylist element.
-         */
-        void openPolylist()
-        {
-            mSW->openElement ( CSWC::COLLADA_ELEMENT_P );
+            prepareBaseToAppendValues ( false );
         }
 
         /**
         * Opens the polylist hole element.
         */
-        void openPolylistHole()
+        void openPolylistHoleElement()
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_PH );
         }
@@ -223,25 +263,18 @@ namespace COLLADA
         /**
         * Opens the hole element.
         */
-        void openHole()
+        void openHoleElement()
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_H );
         }
 
-        /**
-        * Close the last opened element.
-        */
-        void closeElement()
-        {
-            mSW->closeElement();
-        }
     };
 
 
 
-    typedef Primitive<&CSWC::COLLADA_ELEMENT_TRIANGLES> Triangles;
-    typedef Primitive<&CSWC::COLLADA_ELEMENT_POLYLIST> Polylist;
-    typedef Primitive<&CSWC::COLLADA_ELEMENT_VERTEX_WEIGHTS> VertexWeightsElement;
+    typedef Primitive<CSWC::COLLADA_ELEMENT_TRIANGLES> Triangles;
+    typedef Primitive<CSWC::COLLADA_ELEMENT_POLYLIST> Polylist;
+    typedef Primitive<CSWC::COLLADA_ELEMENT_VERTEX_WEIGHTS> VertexWeightsElement;
 
 } //namespace COLLADA
 

@@ -65,6 +65,12 @@ namespace COLLADAMaya
         /** Flag, if face vertex normals exist */
         bool mHasFaceVertexNormals;
 
+        /** The shaders of the current mesh. */
+        MObjectArray mShaders;
+
+        /** The shader indices of the current mesh. */
+        MIntArray mShaderIndices;
+
         /** The list with the color sets */
         ColourSetList mColorSets;
 
@@ -267,24 +273,17 @@ namespace COLLADAMaya
         */
         void exportShaderPolygons ( 
             MFnMesh &fnMesh,
-            const uint shaderPosition,
-            const uint realShaderCount,
-            MObjectArray shaders,
-            const MIntArray& shaderIndices );
+            const uint shaderPosition );
 
         /**
          * Verify the polygons of the meshes shader for holes.
          * @param fnMesh The current mesh object.
          * @param shaderPosition Position of the current shader.
-         * @param realShaderCount The number of valid shaders.
-         * @param shaderIndices List of shader indices.
          * @return bool True, if the shader has a holed polygon.
          */
         bool verifyPolygonsForHoles( 
             const MFnMesh &fnMesh,
-            const uint shaderPosition, 
-            const uint realShaderCount, 
-            const MIntArray& shaderIndices );
+            const uint shaderPosition );
 
         /**
          * Prepares the polylist in the collada file to add the list values.
@@ -292,19 +291,15 @@ namespace COLLADAMaya
          * @param numPolygons Number of polygons.
          * @param vCountList List with the vertex counts.
          * @param shaderPosition Position of the current shader for the materials.
-         * @param realShaderCount Shader count to append the materials.
          * @param currentShapeIsHoled True, if we have to implement a polygon instead of a polylist element.
-         * @param shaders List with the mesh materials.
          * @return COLLADA::PrimitivesBase* Pointer to the created Template object.
          */
         COLLADA::PrimitivesBase* preparePrimitivesBase( 
             COLLADA::PrimitivesBase& dummyPrimitivesBase, 
-            uint numPolygons, 
-            std::vector<unsigned long>& vCountList, 
-            uint shaderPosition, 
-            uint realShaderCount, 
-            uint currentShapeIsHoled, 
-            MObjectArray shaders );
+            const MFnMesh& fnMesh, 
+            const uint numPolygons, 
+            const uint shaderPosition, 
+            const uint currentShapeIsHoled );
         
         /**
          * Retrieve the shader polygon vertices and write them directly into the collada file.
@@ -315,9 +310,7 @@ namespace COLLADAMaya
             COLLADA::PrimitivesBase* primitivesBasePoly,
             const uint baseExportType,
             MFnMesh &fnMesh, 
-            const MIntArray& shaderIndices, 
-            const uint shaderPosition, 
-            const uint realShaderCount );
+            const uint shaderPosition );
 
         /**
          * Retrieve the vertex indices and establish the number of polygons (in case of
@@ -368,14 +361,7 @@ namespace COLLADAMaya
         /**
         * Create the real Polylist/Polygons/Triangles element.
         */
-        COLLADA::PrimitivesBase* createPrimitivesBase ( 
-            COLLADA::PrimitivesBase dummyPoly,
-            const uint baseExportType );
-
-        /**
-        * Prepare the list for add the vertex indexes.
-        */
-        void preparePrimitivesBaseToAppendValues ( COLLADA::PrimitivesBase* polylist, const uint baseExportType );
+        COLLADA::PrimitivesBase* createPrimitivesBase ( const uint baseExportType );
 
         /**
         * Check if the current face is a normal polygon or a hole and open the corresponding tag.
@@ -438,7 +424,11 @@ namespace COLLADAMaya
         /*
         * Generate the list of the polygon set inputs.
         */
-        void generatePolygonSetInputs ( COLLADA::PrimitivesBase* polylist, Sources* vertexAttributes );
+        void getPolygonInputAttributes ( COLLADA::InputList& inputList );
+
+        /** Retrieve the list of vertex attributes. 
+            That's the input list of vertexes in the collada document. */
+        void getVerticesInputAttributes( Sources& vertexAttributes );
 
         /** Adds a new hole identifier.
         The face-vertex count entry should already exist and the identifier will be place
@@ -448,43 +438,31 @@ namespace COLLADAMaya
 
         /**
          * Retrieves the number of polygons and the vertex count list to export.
+         * @param primitivesBase The collada element to write.
          * @param fnMesh The mesh object.
          * @param shaderPosition The position of the current shader polygon.
-         * @param realShaderCount The number of real shaders.
-         * @param shaderIndices The list of shader indices.
-         * @param currentShapeIsHoled
-         * @param vertexCountList
-         * @param faceVertexCounts
          */
-        void getVertexCountList( 
+        void writeVertexCountList( 
+            COLLADA::PrimitivesBase* primitivesBase, 
             const MFnMesh &fnMesh, 
-            const uint shaderPosition, 
-            const uint realShaderCount, 
-            const MIntArray& shaderIndices,
-            std::vector<unsigned long>& vertexCountList );
+            const uint shaderPosition );
         
         /**
          * Counts the number of polygons in the current shape.
          * @param fnMesh The mesh object.
          * @param shaderPosition The position of the current shader polygon.
-         * @param realShaderCount The number of real shaders.
-         * @param shaderIndices The list of shader indices.
          * @return uint Number of polygons in the current shape.
          */
         uint getShaderPolygonsCount(
             const MFnMesh &fnMesh, 
-            const uint shaderPosition, 
-            const uint realShaderCount, 
-            const MIntArray& shaderIndices );
+            const uint shaderPosition );
 
         /**
          * Establish the number of vertexes in the polygon.
-         * @param meshPolygonsIter
-         * @param vertexCountList
+         * @param meshPolygonsIter The current shapes mesh polygons itertator.
+         * @return uint -1 if the polygon is not valid.
          */
-        void getPolygonVertexCounts( 
-            MItMeshPolygon &meshPolygonsIter, 
-            std::vector<unsigned long>& vertexCountList );
+        uint getPolygonVertexCount( MItMeshPolygon &meshPolygonsIter );
     };
 }
 
