@@ -241,17 +241,17 @@ namespace COLLADA
         {
             return NULL;
         }
-
+        
         // add the appropriate number of "..\"s.
         rfMarker = 0;
-        if (levels == 1)
+        for (i = 0; i < levels; i++)
         {
-            relativeFilename += ".";
-            relativeFilename += FILE_DELIMITER;
-        }
-        else
-        {
-            for (i = 0; i < levels; i++)
+            if ( i == 0 )
+            {
+                relativeFilename += ".";
+                relativeFilename += FILE_DELIMITER;
+            }
+            else
             {
                 relativeFilename += "..";
                 relativeFilename += FILE_DELIMITER;

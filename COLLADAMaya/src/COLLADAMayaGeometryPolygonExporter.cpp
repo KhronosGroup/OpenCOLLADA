@@ -36,6 +36,9 @@
 namespace COLLADAMaya
 {
 
+#undef VALIDATE_DATA
+
+
     // --------------------------------------------------------
     GeometryPolygonExporter::GeometryPolygonExporter ( COLLADA::StreamWriter* _streamWriter,
         DocumentExporter* _documentExporter )
@@ -216,7 +219,7 @@ namespace COLLADAMaya
 
         // Retrieve the vertex indices and establish the number of polygons (in case of
         // triangulation more than one is possible) and the number of vertexes in the polygon.
-        vertexIndices = retrieveVertexIndices ( 
+        retrieveVertexIndices ( 
             vertexIndices,
             meshPolygonsIter,
             numPolygons,
@@ -235,11 +238,8 @@ namespace COLLADAMaya
             // Iterate through the vertexes of the current polygon
             for ( uint vertexPosition=0; vertexPosition<numVertices; vertexPosition++ )
             {
-                // Handle front face vs back face by walking
-                // the vertexes backward on the back-face
+                // Handle front face vs back face by walking the vertexes backward on the back-face
                 int iteratorVertexIndex = vertexIndices[polygonPosition * numVertices + vertexPosition];
-
-                // Handle front face vs back face by walking the vertices backward on the backface
                 int vertexIndex = meshPolygonsIter.vertexIndex ( iteratorVertexIndex );
 
                 // Look for holes in this polygon
@@ -296,15 +296,6 @@ namespace COLLADAMaya
         {
             fnMesh.getFaceNormalIds ( polyIndex, normalIndices );
         }
-        uint length = normalIndices.length ();
-        int value = normalIndices[0];
-        cout << "value 0 = " << value << endl;
-        value = normalIndices[1];
-        cout << "value 1 = " << value << endl;
-        value = normalIndices[2];
-        cout << "value 2 = " << value << endl;
-        value = normalIndices[3];
-        cout << "value 3 = " << value << endl;
 
         // Iterate through the polygons (normally just one polygon,
         // just in case of triangulation it could be more than one)
@@ -319,7 +310,8 @@ namespace COLLADAMaya
             for ( uint vertexPosition=0; vertexPosition<numVertices; ++vertexPosition )
             {
                 // Handle front face vs back face by walking the vertexes backward on the back-face
-                int iteratorVertexIndex = vertexIndices[polygonPosition * numVertices + vertexPosition];
+                uint vertexIndexPosition = polygonPosition * numVertices + vertexPosition;
+                int iteratorVertexIndex = vertexIndices[vertexIndexPosition];
                 int vertexIndex = meshPolygonsIter.vertexIndex ( iteratorVertexIndex );
 
                 // If we write a holed polygon and the actual vertex position is the last
@@ -450,28 +442,30 @@ namespace COLLADAMaya
             // reject the face, and can crash other COLLADA
             // consumers, so better to lose the data here
             MIntArray vertexIndices;
-            vertexIndices->setLength ( polygonVertexCount );
+            vertexIndices.setLength ( polygonVertexCount );
             for ( int pv = 0; pv < polygonVertexCount; ++pv )
             {
-                ( *vertexIndices ) [pv] = pv;
+                vertexIndices[pv] = pv;
             }
 
-            for ( uint n = 0; n < vertexIndices->length() - 1; ++n )
+            for ( uint n = 0; n < vertexIndices.length() - 1; ++n )
             {
-                for ( uint m = n + 1; m < vertexIndices->length(); )
+                for ( uint m = n + 1; m < vertexIndices.length(); )
                 {
-                    if ( ( *vertexIndices ) [n] == ( *vertexIndices ) [m] )
+                    if ( vertexIndices[n] == vertexIndices[m] )
                     {
-                        vertexIndices->remove ( m );
+                        vertexIndices.remove ( m );
                     }
                     else ++m;
                 }
             }
             // Get the number of vertices of the current polygon.
-            numVertices = vertexIndices->length();
+            numVertices = vertexIndices.length();
 #else
+            // Get the number of vertices of the current polygon.
             numVertices = polygonVertexCount;
 #endif
+
             addVertexCount = true;
         }
 
@@ -538,7 +532,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    MIntArray& GeometryPolygonExporter::retrieveVertexIndices ( 
+    void GeometryPolygonExporter::retrieveVertexIndices ( 
         MIntArray &vertexIndices,
         MItMeshPolygon &meshPolygonsIter,
         uint &numPolygons,
@@ -583,7 +577,6 @@ namespace COLLADAMaya
         {
             numPolygons = 1;
             vertexIndices.setLength ( polygonVertexCount );
-
             for ( int pv = 0; pv < polygonVertexCount; ++pv )
             {
                 vertexIndices[pv] = pv;
@@ -597,7 +590,6 @@ namespace COLLADAMaya
             // This will cause the read-back of this data to
             // reject the face, and can crash other COLLADA
             // consumers, so better to lose the data here
-            //
             for ( uint n = 0; n < vertexIndices.length() - 1; ++n )            {
                 for ( uint m = n + 1; m < vertexIndices.length(); )
                 {
@@ -608,13 +600,13 @@ namespace COLLADAMaya
                     else ++m;
                 }
             }
-#endif
-
             // Get the number of vertices of the current polygon.
-            numVertices = vertexIndices.length();
+            numVertices = vertexIndices->length();
+#else
+            // Get the number of vertices of the current polygon.
+            numVertices = polygonVertexCount;
+#endif
         }
-
-        return vertexIndices;
     }
 
     // ----------------------------------------------------------------------------------
@@ -872,7 +864,6 @@ namespace COLLADAMaya
                     if (mHasFaceVertexNormals)
                     {
                         int currentVertexIndex = normalIndices[iteratorVertexIndex];
-                        cout << "currentVertexIndex = " << currentVertexIndex << endl;
                         primitivesBasePoly->appendValues ( currentVertexIndex );
                     }
                     else

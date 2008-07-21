@@ -379,7 +379,7 @@ namespace COLLADAMaya
         * Retrieve the vertex indices and establish the number of polygons (in case of
         * triangulation more than one is possible) and the number of vertexes in the polygon.
         */
-        MIntArray& retrieveVertexIndices ( 
+        void retrieveVertexIndices ( 
             MIntArray &vertexIndices,
             MItMeshPolygon &meshPolygonsIter,
             uint &numPolygons,
