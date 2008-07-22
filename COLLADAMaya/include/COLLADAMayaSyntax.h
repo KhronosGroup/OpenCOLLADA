@@ -182,6 +182,10 @@ namespace COLLADAMaya
     static const char* ATTR_IMAGE                                   = "image";
     static const char* ATTR_IMAGE_SEQUENCE                          = "useFrameExtension";
     static const char* ATTR_INCANDESCENCE                           = "incandescence";
+    /** The standard input attribute of the polyShape node. This attribute accepts input
+    mesh data from other DG nodes and forwards the data through the node to the
+    outMesh. It stores its own internal copy of the geometry being passed into the
+    node. inMesh is only valid if there is an input connection. Otherwise it is ignored. */
     static const char* ATTR_IN_MESH                                 = "inMesh";
     static const char* ATTR_INTERMEDIATE_OBJECT                     = "io";
     static const char* ATTR_INPUt                                   = "input";
@@ -196,6 +200,11 @@ namespace COLLADAMaya
     static const char* ATTR_OPAQUE_OT                               = "ot";
     static const char* ATTR_OUT_COLOR                               = "outColor";
     static const char* ATTR_OUTPUT                                  = "output";
+    /** The standard output attribute of the polyShape node. This attribute receives input
+    mesh data from either the inMesh or cachedInMesh (depending on the node
+    state) and stores it as its own internal copy of the mesh. The outMesh geometry
+    represents the final geometry of the shape and is always valid. */
+    static const char* ATTR_OUT_MESH                                = "outMesh";
     static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
     static const char* ATTR_PLACEMENT_MATRIX                        = "placementMatrix";
     static const char* ATTR_PROJECTION_TYPE                         = "projType";

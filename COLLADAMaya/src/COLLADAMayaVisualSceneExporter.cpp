@@ -348,40 +348,41 @@ namespace COLLADAMaya
             {
                 MDagPath childDagPath = childElement->getPath();
                 String childNodeID = childElement->getNodeName();
-
-                if (childElement->getHasSkinController())
-                {
-                    COLLADA::InstanceController instanceController ( streamWriter );
-                    instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
-
-                    // TODO Collada-Spec: Indicates where a skin controller is to start to search for the
-                    // joint nodes it needs. This element is meaningless for morph controllers. See main entry.
-                    instanceController.setSkeletonId( "#blubber" + childNodeID);
-
-                    // Write all materials
-                    COLLADA::InstanceMaterialList& instanceMaterialList =
-                        instanceController.getBindMaterial().getInstanceMaterialList();
-
-                    // Export the materials
-                    exportMaterialList(instanceMaterialList, childDagPath);
-
-                    instanceController.add();
-                }
-                else if (childElement->getHasMorphController())
-                {
-                    COLLADA::InstanceController instanceController ( streamWriter );
-                    instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
-
-                    // Write all materials
-                    COLLADA::InstanceMaterialList& instanceMaterialList =
-                        instanceController.getBindMaterial().getInstanceMaterialList();
-
-                    // Export the materials
-                    exportMaterialList(instanceMaterialList, childDagPath);
-
-                    instanceController.add();
-                }
-                else
+                
+                // TODO
+//                 if (childElement->getHasSkinController())
+//                 {
+//                     COLLADA::InstanceController instanceController ( streamWriter );
+//                     instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
+// 
+//                     // TODO Collada-Spec: Indicates where a skin controller is to start to search for the
+//                     // joint nodes it needs. This element is meaningless for morph controllers. See main entry.
+//                     instanceController.setSkeletonId( "#blubber" + childNodeID);
+// 
+//                     // Write all materials
+//                     COLLADA::InstanceMaterialList& instanceMaterialList =
+//                         instanceController.getBindMaterial().getInstanceMaterialList();
+// 
+//                     // Export the materials
+//                     exportMaterialList(instanceMaterialList, childDagPath);
+// 
+//                     instanceController.add();
+//                 }
+//                 else if (childElement->getHasMorphController())
+//                 {
+//                     COLLADA::InstanceController instanceController ( streamWriter );
+//                     instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
+// 
+//                     // Write all materials
+//                     COLLADA::InstanceMaterialList& instanceMaterialList =
+//                         instanceController.getBindMaterial().getInstanceMaterialList();
+// 
+//                     // Export the materials
+//                     exportMaterialList(instanceMaterialList, childDagPath);
+// 
+//                     instanceController.add();
+//                 }
+//                 else
                 {
                     // Write the geometry instance
                     COLLADA::InstanceGeometry instanceGeometry ( streamWriter );

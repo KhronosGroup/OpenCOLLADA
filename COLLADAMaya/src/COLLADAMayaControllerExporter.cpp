@@ -332,7 +332,6 @@ namespace COLLADAMaya
                     double value = weights[i];
                     //float vertexValue = vertex[i];
                     bool equal = COLLADA::MathUtils::equals(weights[i], MWeight(0));
-                    String bla = "blubber";
                 }
             }
         }

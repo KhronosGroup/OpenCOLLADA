@@ -15,7 +15,7 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="Debug Maya2008|Win32"
+			Name="DebugPlugin2008|Win32"
 			OutputDirectory="..\obj\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -89,11 +89,11 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
-			Name="Release Maya2008|Win32"
+			Name="ReleasePlugin2008|Win32"
 			OutputDirectory="..\obj\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
@@ -164,7 +164,159 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying plugin to Maya install"
-				CommandLine="copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\..\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugConsole2008|Win32"
+			OutputDirectory="..\obj\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
+				WarningLevel="3"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib COLLADAStreamWriter.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
+				GenerateDebugInformation="true"
+				SubSystem="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuit &gt; nul&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleaseConsole2008|Win32"
+			OutputDirectory="..\obj\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			ConfigurationType="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
+				WarningLevel="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib COLLADAStreamWriter.lib"
+				OutputFile="$(OutDir)\$(ProjectName).exe"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying console application into the testsuite"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuit &gt; nul"
 			/>
 		</Configuration>
 	</Configurations>
@@ -186,7 +338,15 @@
 					RelativePath="..\src\COLLADAMayaPrecompiledHeaders.cpp"
 					>
 					<FileConfiguration
-						Name="Release Maya2008|Win32"
+						Name="ReleasePlugin2008|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -315,19 +475,55 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="Console"
+				>
+				<File
+					RelativePath="..\src\COLLADAMayaConsoleFileDialog.cpp"
+					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaConsoleMain.cpp"
+					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h"
 			>
-			<File
-				RelativePath="..\include\COLLADAMayaBaseController.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAMayaSkinController.h"
-				>
-			</File>
 			<Filter
 				Name="Utils"
 				>
@@ -380,6 +576,18 @@
 					</File>
 					<File
 						RelativePath="..\include\COLLADAMayaAnimationTools.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="Controller"
+					>
+					<File
+						RelativePath="..\include\COLLADAMayaBaseController.h"
+						>
+					</File>
+					<File
+						RelativePath="..\include\COLLADAMayaSkinController.h"
 						>
 					</File>
 				</Filter>
@@ -485,6 +693,14 @@
 				</File>
 				<File
 					RelativePath="..\include\vldapi.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Console"
+				>
+				<File
+					RelativePath="..\include\COLLADAMayaConsoleFileDialog.h"
 					>
 				</File>
 			</Filter>

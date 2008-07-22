@@ -142,8 +142,8 @@ namespace COLLADAMaya
             // Export the geometries
             mGeometryExporter->exportGeometries();
 
-            // Export the controllers
-            mControllerLibrary->exportControllers();
+            // TODO Export the controllers
+//            mControllerLibrary->exportControllers();
 
             // Export the visual scene
             mVisualSceneExporter->exportVisualScenes();

@@ -289,4 +289,21 @@ namespace COLLADA
 
         return false;
     }
+
+    //-----------------------------------------------------------------------
+    void Utils::stringFindAndReplace ( String &source, const String searchString, const String replaceString )
+    {
+        size_t found = source.find ( searchString );
+        if ( found != String::npos ) 
+        {
+            size_t searchStrLength = searchString.length();
+            size_t replaceStrLength = replaceString.length();
+            do
+            {
+                source.replace ( found, searchStrLength, replaceString );
+                found = source.find (searchString, found + replaceStrLength );
+            } while ( found != String::npos );
+        }
+
+    }
 }

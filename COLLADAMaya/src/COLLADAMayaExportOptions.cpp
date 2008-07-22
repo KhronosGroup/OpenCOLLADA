@@ -23,7 +23,7 @@ namespace COLLADAMaya
     // Static Members
     bool ExportOptions::mBakeTransforms = false;
     bool ExportOptions::mBakeLighting = false;
-    bool ExportOptions::mRelativePaths = true;
+    bool ExportOptions::mRelativePaths = false;
 
     /** True, if the texture files should be copied to the destination folder. */
     bool ExportOptions::mCopyTextures = false;
@@ -74,7 +74,7 @@ namespace COLLADAMaya
         // Reset everything to the default value
         mBakeTransforms = false;
         mBakeLighting = false;
-        mRelativePaths = true;
+        mRelativePaths = false;
 
         /** True, if the texture files should be copied to the destination folder. */
         mCopyTextures = false;

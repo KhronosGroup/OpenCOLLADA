@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "ColladaMayaPlatform.h"
 #include "COLLADAMayaSyntax.h"
@@ -292,7 +291,6 @@ namespace COLLADAMaya
 
             // Maya forces the write of all the references, on export.
             // Intentionally skip known reference file paths.
-
             for ( MItDependencyNodes it ( MFn::kReference ); !it.isDone(); it.next() )
             {
                 MObject refNode = it.item();
@@ -366,10 +364,10 @@ namespace COLLADAMaya
         clock_t startClock, endClock;
         startClock = clock();
 
+
        // Actually export the document
-        DocumentExporter* documentExporter = new DocumentExporter ( ( const String ) filename.asChar() );
-        documentExporter->exportCurrentScene ( selectionOnly );
-        delete documentExporter;
+        DocumentExporter documentExporter ( ( const String ) filename.asChar() );
+        documentExporter.exportCurrentScene ( selectionOnly );
 
         // Display some closing information.
         endClock = clock();
@@ -416,14 +414,10 @@ namespace COLLADAMaya
 
 #if defined (OSMac_)
         char nameBuffer[MAXPATHLEN];
-
         strcpy ( nameBuffer, file.fullName().asChar() );
-
         const MString fname ( nameBuffer );
-
 #else
         const MString fname = file.fullName();
-
 #endif  // OSMac
 
         MStatus rval ( MS::kSuccess );
@@ -494,4 +488,6 @@ namespace COLLADAMaya
     {
         return "*.dae;*.xml";
     }
-}
+
+
+}// namespace COLLADA

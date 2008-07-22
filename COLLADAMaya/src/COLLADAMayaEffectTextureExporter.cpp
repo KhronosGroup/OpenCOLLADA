@@ -56,11 +56,12 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void EffectTextureExporter::exportTexture ( COLLADA::Texture* colladaTexture,
-            String channelSemantic,
-            const MObject& texture,
-            int blendMode,
-            int textureIndex )
+    void EffectTextureExporter::exportTexture ( 
+        COLLADA::Texture* colladaTexture,
+        String channelSemantic,
+        const MObject& texture,
+        int blendMode,
+        int textureIndex )
     {
         String colladaImageName = exportImage ( texture );
 

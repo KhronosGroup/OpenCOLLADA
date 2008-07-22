@@ -17,6 +17,7 @@
 
 #include "COLLADAPrerequisites.h"
 #include "COLLADAMathUtils.h"
+#include "COLLADAUtils.h"
 #include <fstream>
 #include <stack>
 #include <list>
@@ -188,26 +189,9 @@ namespace COLLADA
         inline void appendString ( String & str )
         {
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            String searchString = "%";
-            size_t found = str.find ( searchString );
-            if ( found != String::npos ) 
-            {
-                String replaceString = "%%";
-                size_t searchStrLength = searchString.length();
-                size_t replaceStrLength = replaceString.length();
-                do
-                {
-                    str.replace ( found, searchStrLength, replaceString );
-                    found = str.find (searchString, found + replaceStrLength );
-                } while ( found != String::npos );
-
-                fprintf_s ( mStream, str.c_str() );
-            }
-            else
-            {
-                fprintf_s ( mStream, str.c_str() );
-            }
-
+            String searchString = "%", replaceString = "%%";
+            Utils::stringFindAndReplace( str, searchString, replaceString );
+            fprintf_s ( mStream, str.c_str() );
 #else
             mOutFile.write ( str.c_str(), ( std::streamsize ) str.length() );
 #endif
@@ -225,14 +209,7 @@ namespace COLLADA
             {
                 String strCopy ( str );
                 String replaceString = "%%";
-                size_t searchStrLength = searchString.length();
-                size_t replaceStrLength = replaceString.length();
-                do
-                {
-                    strCopy.replace ( found, searchStrLength, replaceString );
-                    found = strCopy.find (searchString, found + replaceStrLength );
-                } while ( found != String::npos );
-
+                Utils::stringFindAndReplace( strCopy, searchString, replaceString );
                 fprintf_s ( mStream, strCopy.c_str() );
             }
             else

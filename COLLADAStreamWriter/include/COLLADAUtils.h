@@ -138,6 +138,14 @@ namespace COLLADA
         static bool copyFile( const String& src, const String& dest );
         static bool copyFile( std::ifstream& src, std::ofstream& dest );
 
+        /**
+         * Searches all search strings in the source string and replace it with the replaceString.
+         * @param source Reference to the source string.
+         * @param searchString The search string.
+         * @param replaceString The replace string.
+         */
+        static void stringFindAndReplace ( String& source, const String searchString, const String replaceString );
+
     };
 
 }
