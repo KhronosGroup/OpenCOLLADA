@@ -81,7 +81,11 @@ namespace COLLADA
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 		String mLocale = setlocale(LC_NUMERIC, 0);
 		setlocale(LC_NUMERIC, "C");
-        fopen_s ( &mStream, fileName.c_str(), "w" );
+        errno_t error = fopen_s ( &mStream, fileName.c_str(), "w" );
+        if ( error != 0 )
+        {
+            fprintf ( stderr, "Failure open file. errno_t = %d", error );
+        }
 		setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE );
 #else
         mOutFile.rdbuf() ->pubsetbuf ( mBuffer, /*sizeof ( mBuffer )*/BUFFERSIZE );
