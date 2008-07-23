@@ -242,7 +242,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
-				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuit &gt; nul&#x0D;&#x0A;"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
@@ -316,7 +316,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying console application into the testsuite"
-				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuit &gt; nul"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\testsuite &gt; nul"
 			/>
 		</Configuration>
 	</Configurations>
