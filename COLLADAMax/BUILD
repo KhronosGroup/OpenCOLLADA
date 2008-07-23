@@ -15,9 +15,9 @@ Building:
 Before you can start to build you need to set two environment variables. The MAX_PATH* variable 
 must be set to the installation path of the 3ds Max installation you want to use, i.e. the path  
 hat contains 3dsmax.exe and the MAX_SDK_PATH* variable must be set to the installation path of the 
-3ds Max installation you want to use, i.e. the path hat contains "maxsdk"  
-and "plugins" directories. The complete name of the environment variable depends on the version of 
-3ds Max as listed below:
+3ds Max installation you want to use, i.e. the path hat contains, among others,  the "include"  
+and "lib" directories. The complete name of the environment variable 
+depends on the version of 3ds Max as listed below:
 
 3ds Max Version  |  max environment variable   |  max sdk environment variable 
 ------------------------------------------------------------------------------
