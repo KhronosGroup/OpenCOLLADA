@@ -71,6 +71,9 @@ namespace COLLADAMaya
         /** The shader indices of the current mesh. */
         MIntArray mShaderIndices;
 
+        /** The position of the current shader. */
+        uint mShaderPosition;
+
         /** The list with the color sets */
         ColourSetList mColorSets;
 
@@ -270,35 +273,27 @@ namespace COLLADAMaya
 
         /**
         * Exports the data of all polygons of the current shader.
+        * @param fnMesh The current mesh object.
         */
-        void exportShaderPolygons ( 
-            MFnMesh &fnMesh,
-            const uint shaderPosition );
+        void exportShaderPolygons ( MFnMesh &fnMesh );
 
         /**
          * Verify the polygons of the meshes shader for holes.
          * @param fnMesh The current mesh object.
-         * @param shaderPosition Position of the current shader.
          * @return bool True, if the shader has a holed polygon.
          */
-        bool verifyPolygonsForHoles( 
-            const MFnMesh &fnMesh,
-            const uint shaderPosition );
+        bool verifyPolygonsForHoles( const MFnMesh &fnMesh );
 
         /**
          * Prepares the polylist in the collada file to add the list values.
-         * @param dummyPrimitivesBase The collada source.
+         * @param fnMesh The current mesh object.
          * @param numPolygons Number of polygons.
-         * @param vCountList List with the vertex counts.
-         * @param shaderPosition Position of the current shader for the materials.
          * @param currentShapeIsHoled True, if we have to implement a polygon instead of a polylist element.
          * @return COLLADA::PrimitivesBase* Pointer to the created Template object.
          */
         COLLADA::PrimitivesBase* preparePrimitivesBase( 
-            COLLADA::PrimitivesBase& dummyPrimitivesBase, 
             const MFnMesh& fnMesh, 
             const uint numPolygons, 
-            const uint shaderPosition, 
             const uint currentShapeIsHoled );
         
         /**
@@ -309,8 +304,7 @@ namespace COLLADAMaya
         void writeShaderPolygons( 
             COLLADA::PrimitivesBase* primitivesBasePoly,
             const uint baseExportType,
-            MFnMesh &fnMesh, 
-            const uint shaderPosition );
+            MFnMesh &fnMesh );
 
         /**
          * Retrieve the vertex indices and establish the number of polygons (in case of
@@ -357,6 +351,14 @@ namespace COLLADAMaya
          * @return uint The export Type (polylist, polygons or triangles)
          */
         uint determinePrimitivesBaseExportType ( const bool isHoledShape );
+
+        /**
+         * If we should export a polylist and all polygons of the current mesh 
+         * are triangles, we will export triangles instead of polygons! 
+         * @param fnMesh The current mesh object.
+         * @return bool True, if all polygons in the mesh are triangles.
+         */
+        bool verifyTriangulation ( MFnMesh &fnMesh );
 
         /**
         * Create the real Polylist/Polygons/Triangles element.
@@ -440,22 +442,17 @@ namespace COLLADAMaya
          * Retrieves the number of polygons and the vertex count list to export.
          * @param primitivesBase The collada element to write.
          * @param fnMesh The mesh object.
-         * @param shaderPosition The position of the current shader polygon.
          */
         void writeVertexCountList( 
             COLLADA::PrimitivesBase* primitivesBase, 
-            const MFnMesh &fnMesh, 
-            const uint shaderPosition );
+            const MFnMesh &fnMesh );
         
         /**
          * Counts the number of polygons in the current shape.
          * @param fnMesh The mesh object.
-         * @param shaderPosition The position of the current shader polygon.
          * @return uint Number of polygons in the current shape.
          */
-        uint getShaderPolygonsCount(
-            const MFnMesh &fnMesh, 
-            const uint shaderPosition );
+        uint getShaderPolygonsCount( const MFnMesh &fnMesh );
 
         /**
          * Establish the number of vertexes in the polygon.
