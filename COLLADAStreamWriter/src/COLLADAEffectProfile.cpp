@@ -89,7 +89,8 @@ namespace COLLADA
             mReflectivity ( -1 ),
             mOpaque ( UNSPECIFIED_OPAQUE ),
             mTransparency ( -1 ),
-            mIndexOfRefrection ( -1 )
+            mIndexOfRefrection ( -1 ),
+            mShininess ( -1 )
     {}
 
     //---------------------------------------------------------------
