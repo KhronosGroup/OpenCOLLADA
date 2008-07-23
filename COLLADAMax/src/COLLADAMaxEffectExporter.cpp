@@ -33,6 +33,7 @@
 #include <iparamm2.h>
 #include <stdmat.h>
 #include <shaders.h>
+#include <imtl.h> 
 
 namespace COLLADAMax
 {
@@ -279,7 +280,7 @@ namespace COLLADAMax
 
         Shader* shader = material->GetShader();
 
-        TimeValue time = 0;
+        TimeValue time = TIME_EXPORT_START;
 
         if ( !inited )
         {
@@ -291,7 +292,7 @@ namespace COLLADAMax
 
         IParamBlock2* extendedParameters = ( IParamBlock2* ) material->GetReference ( StandardMaterial::EXTENDED_PB_REF );
 
-        TimeValue initTime = 0; //TIME_EXPORT_START;
+        TimeValue initTime = TIME_EXPORT_START;
 
         if ( !inited )
         {
@@ -303,6 +304,22 @@ namespace COLLADAMax
             effectProfile.setReflective ( COLLADA::ColorOrTexture ( COLLADA::Color::BLACK ) );
             effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( time ), weight ) );
             effectProfile.setShininess ( shader->GetGlossiness ( time ) * 100 * weight );
+
+			bool useEmissionColor = shader->IsSelfIllumClrOn();
+			//stdProfile->SetIsEmissionFactor(useEmissionColor == FALSE);
+			if (useEmissionColor)
+			{
+				effectProfile.setEmission( maxColor2ColorOrTexture ( shader->GetSelfIllumClr ( time ), weight ) );
+				//stdProfile->SetEmissionColor(scaleConversion(ToFMVector4(shader->GetSelfIllumClr(initTime))));
+				//ANIM->ExportProperty(_T("self_illumination"), shaderParameters, TSTR("Self-Illum Color"), 0, stdProfile->GetEmissionColorParam()->GetValue(), &scaleConversion);
+			}
+			else
+			{
+				//stdProfile->SetEmissionFactor(scaleConversion(shader->GetSelfIllum(initTime)));
+				//ANIM->ExportProperty(_T("self_illumination_f"), shaderParameters, TSTR("Self-Illumination"), 0, stdProfile->GetEmissionFactorParam()->GetValue(), NULL);
+			}
+
+			
         }
 
         // Export child maps
@@ -434,16 +451,23 @@ namespace COLLADAMax
             {
 				mapChannel = texMap->GetMapChannel();
 
-				UVGen* uvGen = texMap->GetTheUVGen();
-				if (uvGen && uvGen->ClassID().PartA() == STDUV_CLASS_ID)
+				UVGen* uvCoordinatesGenerator = texMap->GetTheUVGen();
+				if (uvCoordinatesGenerator && uvCoordinatesGenerator->ClassID().PartA() == STDUV_CLASS_ID)
 				{
-					StdUVGen* stdGen = (StdUVGen*)uvGen;
-					int uvFlags = stdGen->GetTextureTiling();
-					IParamBlock* uvParams = (IParamBlock*)stdGen->GetReference(StdUVGenEnums::pblock);	
+					StdUVGen* uvGenParameters = (StdUVGen*)uvCoordinatesGenerator;
+					int uvFlags = uvGenParameters->GetTextureTiling();
+					
+					texture.setWrapS(COLLADA::Texture::WRAP_MODE_WRAP);
 
+
+					IParamBlock* uvParams = (IParamBlock*)uvGenParameters->GetReference(StdUVGenEnums::pblock);	
+
+
+					
+/*
 					float rotationAngle = uvParams->GetFloat(StdUVGenEnums::w_angle);
 
-/*					String textureFileName;
+					String textureFileName;
 					String textureDir;
 					DocumentExporter::splitFilePath(fullFileName, textureDir, textureFileName);
 					COLLADA::TextureModifier textureModifier(fullFileName, mDocumentExporter->getOutputDir() + textureFileName);	
@@ -487,12 +511,16 @@ namespace COLLADAMax
                 // case REFRACTION: refractionTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
                 // case SHININESS: shininessTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
 
+			case REFLECTION: 
+				profile.setReflective( COLLADA::ColorOrTexture ( texture ) );
+				break;
+
             case SPECULAR:
                 profile.setSpecular ( COLLADA::ColorOrTexture ( texture ) );
                 break;
                 // case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
 
-            case TRANSPARENT:
+            case TRANSPARENt:
                 profile.setTransparent ( COLLADA::ColorOrTexture ( texture ) );
                 break;
 
@@ -855,7 +883,7 @@ namespace COLLADAMax
         // Only one transparency factor is supported, so retrieve only the first texture from this bucket.
 
         if ( texMap == NULL )
-            return COLLADA::EffectProfile::UNSPECIFIED_OPAQUE;
+            return COLLADA::EffectProfile::A_ONE;
 
         BitmapTex* bmap = GetIBitmapTextInterface ( texMap );
 

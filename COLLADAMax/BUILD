@@ -12,16 +12,18 @@ You also need MS Visual Studio 2005.
 
 Building:
 ---------
-Before you can start to build you need to set an environment variable to the installation 
-path of the 3ds Max installation you want to use, i.e. the path that contains the "maxsdk"  
-and "plugins" directories. The name of the environment variable depends on the version of 
+Before you can start to build you need to set two environment variables. The MAX_PATH* variable 
+must be set to the installation path of the 3ds Max installation you want to use, i.e. the path  
+hat contains 3dsmax.exe and the MAX_SDK_PATH* variable must be set to the installation path of the 
+3ds Max installation you want to use, i.e. the path hat contains "maxsdk"  
+and "plugins" directories. The complete name of the environment variable depends on the version of 
 3ds Max as listed below:
 
-3ds Max Version  |  name of the  environment variable
------------------------------------------------------
-3ds Max 9        |  MAX_PATH9
-3ds Max 2008     |  MAX_PATH2008
-3ds Max 2009     |  MAX_PATH2009
+3ds Max Version  |  max environment variable   |  max sdk environment variable 
+------------------------------------------------------------------------------
+3ds Max 9        |  MAX_PATH9                  |  MAX_SDK_PATH9
+3ds Max 2008     |  MAX_PATH2008               |  MAX_SDK_PATH2008
+3ds Max 2009     |  MAX_PATH2009               |  MAX_SDK_PATH2009
 
 
 To build the plug-in open "COLLADAMax.sln" with MS Visual Studio 2005, choose the configuration 

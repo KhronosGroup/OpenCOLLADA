@@ -388,7 +388,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     GeometryExtra::GeometryExtra ( COLLADA::StreamWriter * streamWriter, Object * object )
             : Extra ( streamWriter ),
-            mTimeValue ( 0 ),
+            mTimeValue ( TIME_EXPORT_START ),
             mInterval ( FOREVER ),
             mObject ( object )
     {}

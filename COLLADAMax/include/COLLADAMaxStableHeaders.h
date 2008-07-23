@@ -42,6 +42,7 @@
 #include <shaders.h>   // for shaders
 #include <decomp.h>    // for decomposition of transformations
 #include <simpobj.h>   //for SimpleObject2
+#include <imtl.h>      // for UVGen
 
 
 #include <IDxMaterial.h>  // for IDxMaterial
