@@ -481,42 +481,10 @@
 				<File
 					RelativePath="..\src\COLLADAMayaConsoleFileDialog.cpp"
 					>
-					<FileConfiguration
-						Name="DebugPlugin2008|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin2008|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaConsoleMain.cpp"
 					>
-					<FileConfiguration
-						Name="DebugPlugin2008|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin2008|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>

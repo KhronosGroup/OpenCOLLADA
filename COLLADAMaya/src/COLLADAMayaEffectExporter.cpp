@@ -317,9 +317,7 @@ namespace COLLADAMaya
 
         // index of refraction
         bool refractive;
-
         DagHelper::getPlugValue ( shadingNetwork, ATTR_REFRACTIONS, refractive );
-
         if ( refractive )
         {
             effectProfile->setIndexOfRefrection ( matFn.refractiveIndex() );
@@ -328,7 +326,6 @@ namespace COLLADAMaya
         }
 
         // Phong and Blinn's specular factor
-
         if ( shadingNetwork.hasFn ( MFn::kPhong ) )
         {
             MFnPhongShader phongFn ( shadingNetwork );
