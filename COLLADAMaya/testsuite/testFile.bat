@@ -2,14 +2,17 @@
 ECHO.
 
 set mayaFilename=%1
+set mayaFilenamePath=%CD%\%1
+
 set stripped=%mayaFilename:.mb=%
 set daeFilename=%stripped%.dae
+set daeFilenamePath=%CD%\%stripped%.dae
 
 ECHO Creating %daeFilename% file from %mayaFilename%...
-CALL COLLADAMaya.exe ./%mayaFilename% ./%daeFilename% 
+CALL COLLADAMaya.exe %mayaFilenamePath% %daeFilenamePath% 
 IF ERRORLEVEL 1 GOTO error1
 
-CALL coherencytest.exe ./%daeFilename%
+CALL coherencytest.exe %daeFilename%
 IF ERRORLEVEL 1 GOTO error2
 ECHO Coherencytest on %daeFilename% successful.
 
