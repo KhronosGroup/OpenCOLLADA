@@ -1,21 +1,12 @@
 -   General
     -   absolute vs. relative path
-    -   installer
     -   64bit
-    -   build system
     -   layer
     -   reader
     -   unit tests
-    -   test framework
-    -   gui
-    -   options
-    -   i18n
-    -   documentation / user
+    -   internationalisierung (i18n)
 
 -   Multiple documents
-
--	Multiple mesh instances
-	http://www.robthebloke.org/research/maya/mfnmesh.htm
 
 -   Testsuite
 
