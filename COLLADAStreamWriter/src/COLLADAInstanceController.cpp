@@ -18,7 +18,7 @@ namespace COLLADA
     void InstanceController::add()
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_CONTROLLER );
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
+        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
 
         if ( !mSkeletonId.empty() )
         {

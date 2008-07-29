@@ -69,6 +69,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_INSTANCE_EFFECT;
         static const String COLLADA_ELEMENT_INSTANCE_GEOMETRY;
         static const String COLLADA_ELEMENT_INSTANCE_MATERIAL;
+        static const String COLLADA_ELEMENT_INSTANCE_NODE;
         static const String COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE;
         static const String COLLADA_ELEMENT_JOINTS;
         static const String COLLADA_ELEMENT_KEYWORDS;

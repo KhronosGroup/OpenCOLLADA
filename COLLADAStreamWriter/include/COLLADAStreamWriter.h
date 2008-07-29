@@ -88,9 +88,13 @@ namespace COLLADA
         /** Closes all open tags*/
         void endDocument();
 
+        /** Adds the attribute @a name with value "#" plus @a value to the last opened element.
+        This function can only be called after openElement() before any content is written.*/
+        void appendURLAttribute ( const String& name, const String& value );
+
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendAttribute ( const String& name, const String & value );
+        void appendAttribute ( const String& name, const String& value );
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/

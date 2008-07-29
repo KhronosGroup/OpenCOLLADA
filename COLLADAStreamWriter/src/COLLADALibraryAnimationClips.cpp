@@ -55,7 +55,6 @@ namespace COLLADA
         const AnimationInstances instancedAnimations = animationClip.getInstancedAnimations();
 
         AnimationInstances::const_iterator instancedAnimationsIter = instancedAnimations.begin();
-
         for ( ; instancedAnimationsIter != instancedAnimations.end(); ++instancedAnimationsIter )
         {
             String instanceName = *instancedAnimationsIter;

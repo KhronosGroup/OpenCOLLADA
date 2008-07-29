@@ -20,25 +20,44 @@ namespace COLLADA
     //---------------------------------------------------------------
     void Node::start()
     {
-        mNodeCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_NODE );
-
-        if ( !mNodeId.empty() )
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mNodeId );
-
-        if ( !mNodeName.empty() )
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, mNodeName );
-
-        switch ( mType )
+        if ( !mIsInstanceNode )
         {
+            mNodeCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_NODE );
 
-        case NODE:
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, CSWC::COLLADA_NODE_TYPE_NODE );
-            break;
+            if ( !mNodeId.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mNodeId );
 
-        case JOINT:
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, CSWC::COLLADA_NODE_TYPE_JOINT );
-            break;
+            if ( !mNodeName.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, mNodeName );
+
+            switch ( mType )
+            {
+            case NODE:
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, CSWC::COLLADA_NODE_TYPE_NODE );
+                break;
+
+            case JOINT:
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, CSWC::COLLADA_NODE_TYPE_JOINT );
+                break;
+
+            default:
+                fprintf ( stderr, "Not a valid node type: %d", mType );
+                break;
+            }
         }
+        else
+        {
+            mNodeCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_NODE );
+
+            if ( mNodeURL.empty() )
+            {
+                fprintf ( stderr, "No node URL for the instance node!" );
+                return; 
+            }
+
+            mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mNodeURL );
+        }
+
     }
 
 

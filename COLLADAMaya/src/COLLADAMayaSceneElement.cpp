@@ -34,6 +34,7 @@ namespace COLLADAMaya
             , mIsVisible ( false )
             , mHasSkinController ( false )
             , mHasMorphController ( false )
+            , mInstantiatedSceneElement ( NULL )
     {}
 
     //---------------------------------------------------------------

@@ -26,12 +26,6 @@ namespace COLLADA
     {
 
     public:
-        Node ( StreamWriter* streamWriter )
-                : ElementWriter ( streamWriter ),
-                mType ( DEFAULT ),
-                mNodeId ( "" ),
-                mNodeName ( "" )
-        {}
 
         /** The node types*/
         enum Type
@@ -40,6 +34,49 @@ namespace COLLADA
             NODE,
             JOINT // Joints are called bones in 3dsMax. A joint is a scene node that is used in skinning.
         };
+
+    private:
+
+        /** Closer to close the node*/
+        TagCloser mNodeCloser;
+
+        /** The id of the node*/
+        String mNodeId;
+
+        /** The name of the node*/
+        String mNodeName;
+
+        /** The URL of an instance node. */
+        String mNodeURL;
+
+        /** The type of the node*/
+        Type mType;
+
+        /** Flag, if it is an node instance. */
+        bool mIsInstanceNode;
+
+    public:
+
+        Node ( StreamWriter* streamWriter, const bool isInstanceNode=false )
+                : ElementWriter ( streamWriter ),
+                mType ( DEFAULT ),
+                mNodeId ( EMPTY_STRING ),
+                mNodeName ( EMPTY_STRING ),
+                mNodeURL ( EMPTY_STRING ), 
+                mIsInstanceNode ( isInstanceNode )
+        {}
+
+        /** Flag, if it is an node instance. */
+        bool getIsInstanceNode() const 
+        { 
+            return mIsInstanceNode; 
+        }
+        
+        /** Flag, if it is an node instance. */
+        void setIsInstanceNode( const bool val ) 
+        { 
+            mIsInstanceNode = val; 
+        }
 
         /** Returns a reference to the id of the node*/
         const String& getId() const
@@ -63,6 +100,18 @@ namespace COLLADA
         void setNodeName ( const String& nodeName )
         {
             mNodeName = nodeName;
+        }
+
+        /** The URL of an instance node. */
+        const String& getNodeURL() const 
+        { 
+            return mNodeURL; 
+        }
+
+        /** The URL of an instance node. */
+        void setNodeURL( const String& val ) 
+        { 
+            mNodeURL = val; 
         }
 
         /** Returns the type of the node*/
@@ -130,19 +179,6 @@ namespace COLLADA
         /** Closes the node
         It must have been opened using open()*/
         void end() ;
-
-    private:
-        /** Closer to close the node*/
-        TagCloser mNodeCloser;
-
-        /** The id of the node*/
-        String mNodeId;
-
-        /** The name of the node*/
-        String mNodeName;
-
-        /** The type of the node*/
-        Type mType;
 
     };
 

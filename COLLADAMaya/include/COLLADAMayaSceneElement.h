@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_SCENE_ELEMENT_H__
 #define __COLLADA_MAYA_SCENE_ELEMENT_H__
 
@@ -31,7 +30,6 @@ namespace COLLADAMaya
     /**
      * This class should be the base class for all the FCollada 'user-handle' structures.
      */
-
     class SceneElement
     {
 
@@ -73,6 +71,9 @@ namespace COLLADAMaya
 
         /** std::vector with child elements */
         SceneElementsList mChildElements;
+
+        /** Pointer to the instantiated scene element, if it exist. */
+        SceneElement* mInstantiatedSceneElement;
 
         /** The type of the node*/
         mutable Type mType;
@@ -166,6 +167,18 @@ namespace COLLADAMaya
 
         const bool containsChildElement ( SceneElement* searchedSceneElement ) const;
         const bool containsChildElement ( MDagPath searchedPath ) const;
+
+        /** Pointer to the instantiated scene element, if it exist. */
+        SceneElement* getInstantiatedSceneElement() const  
+        { 
+            return mInstantiatedSceneElement; 
+        }
+
+        /** Pointer to the instantiated scene element, if it exist. */
+        void setInstantiatedSceneElement( SceneElement* val ) 
+        { 
+            mInstantiatedSceneElement = val; 
+        }
 
         /** Set the export flag on the current scene element. */
         void setIsExportNode ( const bool _isExportNode )

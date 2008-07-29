@@ -139,11 +139,11 @@ namespace COLLADAMaya
 
             // If we should export a polylist and all polygons of the current mesh 
             // are triangles, we will export triangles instead of polygons! 
-            if ( exportType == POLYLIST )
+            if ( exportType == PolygonSource::POLYLIST )
             {
                 if ( verifyTriangulation( fnMesh ) )
                 {
-                    exportType = TRIANGLES;
+                    exportType = PolygonSource::TRIANGLES;
                     triangulated = true;
                 }
             }
@@ -298,7 +298,7 @@ namespace COLLADAMaya
         const uint &numVertices )
     {
         // Add the open tags for the polygons
-        if ( exportType == POLYGONS )
+        if ( exportType == PolygonSource::POLYGONS )
         {
             if ( polygon->isHoled() )
             {
@@ -310,7 +310,7 @@ namespace COLLADAMaya
         uint currentFaceIndex = 0;
 
         // Check if the current face is a normal polygon or a hole and open the corresponding tag.
-        if ( exportType == POLYGONS ) 
+        if ( exportType == PolygonSource::POLYGONS ) 
         {
             openPolygonOrHoleElement ( 
                 primitivesBasePoly, 
@@ -347,7 +347,7 @@ namespace COLLADAMaya
 
                 // If we write a holed polygon and the actual vertex position is the last
                 // position of the current face, then go to the next face in the list.
-                if ( exportType == POLYGONS &&
+                if ( exportType == PolygonSource::POLYGONS &&
                      polygon->isHoled() &&
                      vertexPosition == faceVertexCounts )
                 {
@@ -374,7 +374,7 @@ namespace COLLADAMaya
         }
 
         // Add the tags for the polygons
-        if ( exportType == POLYGONS )
+        if ( exportType == PolygonSource::POLYGONS )
         {
             if ( polygon->isHoled() ) 
                 ( ( COLLADA::Polygons* ) primitivesBasePoly )->closeElement();
@@ -645,15 +645,15 @@ namespace COLLADAMaya
         // Just create the polylist, if there are polygons to export
         if ( currentShapeIsHoled && !triangulated )
         {
-            exportType = POLYGONS;
+            exportType = PolygonSource::POLYGONS;
         }
         else if ( triangulated )
         {
-            exportType = TRIANGLES;
+            exportType = PolygonSource::TRIANGLES;
         }
         else
         {
-            exportType = POLYLIST;
+            exportType = PolygonSource::POLYLIST;
         }
 
         return exportType;
@@ -666,13 +666,13 @@ namespace COLLADAMaya
 
         switch ( baseExportType )
         {
-        case POLYGONS:
+        case PolygonSource::POLYGONS:
             primitivesBasePoly = new COLLADA::Polygons ( mSW );
             break;
-        case TRIANGLES:
+        case PolygonSource::TRIANGLES:
             primitivesBasePoly = new COLLADA::Triangles ( mSW );
             break;
-        case POLYLIST:
+        case PolygonSource::POLYLIST:
         default:
             primitivesBasePoly = new COLLADA::Polylist ( mSW );
             break;
@@ -979,7 +979,7 @@ namespace COLLADAMaya
         primitivesBasePoly->appendInputList();
 
         // Set the vertex count list, if we have a POLYLIST
-        if ( exportType == POLYLIST )
+        if ( exportType == PolygonSource::POLYLIST )
         {
             // Retrieve the vertex count list for the polylist element.
             primitivesBasePoly->openVertexCountListElement();
@@ -987,7 +987,7 @@ namespace COLLADAMaya
             primitivesBasePoly->closeElement();
         }
 
-        if ( exportType != POLYGONS )
+        if ( exportType != PolygonSource::POLYGONS )
         {
             // Prepare the list for add the vertex indexes
             primitivesBasePoly->openPolylistElement();

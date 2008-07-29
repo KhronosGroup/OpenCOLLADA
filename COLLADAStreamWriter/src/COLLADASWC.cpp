@@ -58,6 +58,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT = "instance_effect";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_MATERIAL = "instance_material";
+    const String CSWC::COLLADA_ELEMENT_INSTANCE_NODE = "instance_node";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE = "instance_visual_scene";
     const String CSWC::COLLADA_ELEMENT_JOINTS = "joints";
     const String CSWC::COLLADA_ELEMENT_KEYWORDS = "keywords";

@@ -54,7 +54,7 @@ namespace COLLADAMaya
     ,   mDocumentExporter ( _documentExporter )
     ,   mSceneId ( _sceneId )
     {
-        visualSceneAdded = false;
+        mVisualSceneAdded = false;
         isJoint = false;
         mIsFirstRotation = true;
         mVisualSceneNode = NULL;
@@ -111,7 +111,12 @@ namespace COLLADAMaya
 
         // Check if the element isn't already exported
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-        bool hasPreviousInstance = sceneGraph->findElement ( dagPath ) != NULL;
+        SceneElement* instantiatedSceneElement = sceneGraph->findElement ( dagPath );
+        bool hasPreviousInstance =  ( instantiatedSceneElement != NULL );
+        if ( hasPreviousInstance )
+        {
+            sceneElement->setInstantiatedSceneElement ( instantiatedSceneElement );
+        }
 
         // Attach a function set
         MFnDependencyNode fn ( dagPath.node() );
@@ -168,7 +173,7 @@ namespace COLLADAMaya
                 {
                     if ( animationExport )
                     {
-                        colladaSceneNode = new COLLADA::Node ( mDocumentExporter->getStreamWriter() );
+                        colladaSceneNode = new COLLADA::Node ( mDocumentExporter->getStreamWriter(), hasPreviousInstance );
                         nodeExported = exportJointVisualSceneNode ( colladaSceneNode, sceneElement );
 
                         // Push it into the list of the exported elements
@@ -192,13 +197,12 @@ namespace COLLADAMaya
 
                 if ( animationExport )
                 {
-                    colladaSceneNode = new COLLADA::Node ( mDocumentExporter->getStreamWriter() );
+                    colladaSceneNode = new COLLADA::Node ( mDocumentExporter->getStreamWriter(), hasPreviousInstance );
                     nodeExported = exportNodeVisualSceneNode ( colladaSceneNode, sceneElement );
 
                     // push it into the list of the exported elements
                     sceneGraph->addElement ( sceneElement );
                 }
-
                 else
                 {
                     isLocal = true;
@@ -275,10 +279,6 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    /**
-     * Creates and opens a visual scene node
-     * and writes the references to the geometries and materials.
-     */
     bool VisualSceneExporter::exportVisualSceneNode (
         COLLADA::Node* sceneNode,
         const SceneElement* sceneElement )
@@ -289,113 +289,114 @@ namespace COLLADAMaya
         // Get the dagPath from the scene element
         const MDagPath dagPath = sceneElement->getPath();
 
-        // Initialize the member varibles
-        if ( !initializeTransform ( dagPath ) )
+        // Flag, if the node is already instantiated
+        bool isInstanceNode = mVisualSceneNode->getIsInstanceNode();
+        if ( isInstanceNode )
         {
-            MString pathName = dagPath.fullPathName();
-            MString message = "Could not initialize the transform object of the path " + pathName;
-            MGlobal::displayError( message );
-            assert ( initializeTransform ( dagPath ) );
-            return false;
-        }
-
-        // Add the visual scene, if not done before
-        if ( !visualSceneAdded )
-        {
-            // There is always just one visual scene. Give it a valid unique id.
-            String visualSceneName = mDocumentExporter->checkNCName( mSceneId );
-            openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
-            visualSceneAdded = true;
-        }
-
-        // Prepares the visual scene node. TODO Differ in Joints and nodes.
-        openVisualSceneNode ( dagPath );
-
-        // ------------------------------------------------------
-        // Export the transformation information
-
-        if ( ExportOptions::bakeTransforms() )
-        {
-            exportMatrixTransform();
-        }
-        else if ( ExportOptions::exportCameraAsLookat() && dagPath.hasFn ( MFn::kCamera ) )
-        {
-            exportLookatTransform();
+            // Prepares the visual scene node. 
+            openVisualSceneNode ( sceneElement );
         }
         else
         {
-            exportDecomposedTransform();
-        }
-
-        // Exports the visibility technique tag and the visibility animation.
-        exportVisibility ( sceneNode );
-
-
-        // ------------------------------------------------------
-        // Write the urls of the geometries/controllers in the collada document
-
-        // Get the streamWriter from the export document
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
-        // Check the geometry instances, which use this visual scene
-        for ( uint i=0; i<sceneElement->getChildCount(); ++i )
-        {
-            SceneElement* childElement = sceneElement->getChild ( i );
-
-            // Check if the child element is a mesh object and an export node
-            if ( childElement->getType() == SceneElement::MESH &&
-                    childElement->getIsExportNode() )
+            // Initialize the member variables
+            if ( !initializeTransform ( dagPath ) )
             {
-                MDagPath childDagPath = childElement->getPath();
-                String childNodeID = childElement->getNodeName();
-                
-                // TODO
-//                 if (childElement->getHasSkinController())
-//                 {
-//                     COLLADA::InstanceController instanceController ( streamWriter );
-//                     instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
-// 
-//                     // TODO Collada-Spec: Indicates where a skin controller is to start to search for the
-//                     // joint nodes it needs. This element is meaningless for morph controllers. See main entry.
-//                     instanceController.setSkeletonId( "#blubber" + childNodeID);
-// 
-//                     // Write all materials
-//                     COLLADA::InstanceMaterialList& instanceMaterialList =
-//                         instanceController.getBindMaterial().getInstanceMaterialList();
-// 
-//                     // Export the materials
-//                     exportMaterialList(instanceMaterialList, childDagPath);
-// 
-//                     instanceController.add();
-//                 }
-//                 else if (childElement->getHasMorphController())
-//                 {
-//                     COLLADA::InstanceController instanceController ( streamWriter );
-//                     instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
-// 
-//                     // Write all materials
-//                     COLLADA::InstanceMaterialList& instanceMaterialList =
-//                         instanceController.getBindMaterial().getInstanceMaterialList();
-// 
-//                     // Export the materials
-//                     exportMaterialList(instanceMaterialList, childDagPath);
-// 
-//                     instanceController.add();
-//                 }
-//                 else
+                MString pathName = dagPath.fullPathName();
+                MString message = "Could not initialize the transform object of the path " + pathName;
+                MGlobal::displayError( message );
+                assert ( initializeTransform ( dagPath ) );
+                return false;
+            }
+
+            // Prepares the visual scene node. 
+            openVisualSceneNode ( sceneElement );
+
+            // ------------------------------------------------------
+            // Export the transformation information
+
+            if ( ExportOptions::bakeTransforms() )
+            {
+                exportMatrixTransform();
+            }
+            else if ( ExportOptions::exportCameraAsLookat() && dagPath.hasFn ( MFn::kCamera ) )
+            {
+                exportLookatTransform();
+            }
+            else
+            {
+                exportDecomposedTransform();
+            }
+
+            // Exports the visibility technique tag and the visibility animation.
+            exportVisibility ( sceneNode );
+
+
+            // ------------------------------------------------------
+            // Write the urls of the geometries/controllers in the collada document
+
+            // Get the streamWriter from the export document
+            COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+            // Check the geometry instances, which use this visual scene
+            for ( uint i=0; i<sceneElement->getChildCount(); ++i )
+            {
+                SceneElement* childElement = sceneElement->getChild ( i );
+
+                // Check if the child element is a mesh object and an export node
+                if ( childElement->getType() == SceneElement::MESH &&
+                        childElement->getIsExportNode() )
                 {
-                    // Write the geometry instance
-                    COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
-                    instanceGeometry.setUrl ( "#" + /*GEOMETRY_ID_PRAEFIX +*/ childNodeID );
+                    MDagPath childDagPath = childElement->getPath();
+                    String childNodeID = childElement->getNodeName();
+                    
+                    // TODO
+    //                 if (childElement->getHasSkinController())
+    //                 {
+    //                     COLLADA::InstanceController instanceController ( streamWriter );
+    //                     instanceController.setUrl ( childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
+    // 
+    //                     // TODO Collada-Spec: Indicates where a skin controller is to start to search for the
+    //                     // joint nodes it needs. This element is meaningless for morph controllers. See main entry.
+    //                     instanceController.setSkeletonId( "#blubber" + childNodeID);
+    // 
+    //                     // Write all materials
+    //                     COLLADA::InstanceMaterialList& instanceMaterialList =
+    //                         instanceController.getBindMaterial().getInstanceMaterialList();
+    // 
+    //                     // Export the materials
+    //                     exportMaterialList(instanceMaterialList, childDagPath);
+    // 
+    //                     instanceController.add();
+    //                 }
+    //                 else if (childElement->getHasMorphController())
+    //                 {
+    //                     COLLADA::InstanceController instanceController ( streamWriter );
+    //                     instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
+    // 
+    //                     // Write all materials
+    //                     COLLADA::InstanceMaterialList& instanceMaterialList =
+    //                         instanceController.getBindMaterial().getInstanceMaterialList();
+    // 
+    //                     // Export the materials
+    //                     exportMaterialList(instanceMaterialList, childDagPath);
+    // 
+    //                     instanceController.add();
+    //                 }
+    //                 else
+                    {
+                        // Write the geometry instance
+                        COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
+                        instanceGeometry.setUrl ( /*GEOMETRY_ID_PRAEFIX +*/ childNodeID );
 
-                    // Write all materials
-                    COLLADA::InstanceMaterialList& instanceMaterialList =
-                        instanceGeometry.getBindMaterial().getInstanceMaterialList();
+                        // Write all materials
+                        COLLADA::InstanceMaterialList& instanceMaterialList =
+                            instanceGeometry.getBindMaterial().getInstanceMaterialList();
 
-                    // Export the materials
-                    exportMaterialList(instanceMaterialList, childDagPath);
+                        // Export the materials
+                        exportMaterialList(instanceMaterialList, childDagPath);
 
-                    instanceGeometry.add();
+                        instanceGeometry.add();
+                    }
                 }
             }
         }
@@ -436,21 +437,46 @@ namespace COLLADAMaya
                 MFnDependencyNode shaderFn ( shader );
                 String shaderName = shaderFn.name().asChar();
 
-                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, "#" + shaderName ) );
+                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, shaderName ) );
             }
         }
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::openVisualSceneNode ( const MDagPath &dagPath )
+    void VisualSceneExporter::openVisualSceneNode ( const SceneElement* sceneElement )
     {
-        // Get the node ID and name
-        String nodeID = mDocumentExporter->dagPathToColladaId ( dagPath );
-        String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
+        // Get the dagPath from the scene element
+        const MDagPath dagPath = sceneElement->getPath();
 
-        // Create the scene node
-        mVisualSceneNode->setId ( nodeID );
-        mVisualSceneNode->setNodeName ( nodeName );
+        // Add the visual scene, if not done before
+        if ( !mVisualSceneAdded )
+        {
+            // There is always just one visual scene. Give it a valid unique id.
+            String visualSceneName = mDocumentExporter->checkNCName( mSceneId );
+            openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
+            mVisualSceneAdded = true;
+        }
+
+        if ( mVisualSceneNode->getIsInstanceNode() )
+        {
+            // Get the URL of the instantiated visual scene node
+            SceneElement* instantiatedSceneElement = sceneElement->getInstantiatedSceneElement();
+            MDagPath instantiatedDagPath = instantiatedSceneElement->getPath();
+
+            // Set the node URL
+            String instanceNodeURL = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
+            mVisualSceneNode->setNodeURL ( instanceNodeURL );
+        }
+        else
+        {
+            // Get the node ID and name
+            String nodeID = mDocumentExporter->dagPathToColladaId ( dagPath );
+            String nodeName = mDocumentExporter->dagPathToColladaName ( dagPath );
+
+            // Create the scene node
+            mVisualSceneNode->setId ( nodeID );
+            mVisualSceneNode->setNodeName ( nodeName );
+        }
 
         // open the scene node
         mVisualSceneNode->start();
@@ -846,14 +872,25 @@ namespace COLLADAMaya
     {
         bool isVisible;
 
-        if ( mTransformObject != MObject::kNullObj &&
-                DagHelper::getPlugValue ( mTransformObject, ATTR_VISIBILITY, isVisible ) )
+        if ( mTransformObject != MObject::kNullObj )
         {
-            // Add an <extra> node with a visibility parameters that the animation can target
-            sceneNode->addExtraTechniqueParameter ( COLLADA_PROFILE, ATTR_VISIBILITY, isVisible );
+            // Get the visibility value, if it exist
+            if ( DagHelper::getPlugValue ( mTransformObject, ATTR_VISIBILITY, isVisible ) )
+            {
+                AnimationSampleCache* animationCache = mDocumentExporter->getAnimationCache();
+                AnimationResult animationResult;
+                animationResult = AnimationHelper::isAnimated( animationCache, mTransformObject, ATTR_VISIBILITY );
 
-            AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addPlugAnimation ( mTransformObject, ATTR_VISIBILITY, EMPTY_PARAMETER, kBoolean );
+                // Write out the visibility of this node, if it is not visible or if it is animated.
+                if ( !isVisible || animationResult != kISANIM_None )
+                {
+                    // Add an <extra> node with a visibility parameters that the animation can target
+                    sceneNode->addExtraTechniqueParameter ( COLLADA_PROFILE, ATTR_VISIBILITY, isVisible );
+
+                    AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+                    animationExporter->addPlugAnimation ( mTransformObject, ATTR_VISIBILITY, EMPTY_PARAMETER, kBoolean );
+                }
+            }
         }
     }
 

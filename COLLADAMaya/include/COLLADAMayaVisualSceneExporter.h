@@ -56,7 +56,7 @@ namespace COLLADAMaya
         DocumentExporter* mDocumentExporter;
 
         /** Flag if the visual scene library is already added. */
-        bool visualSceneAdded;
+        bool mVisualSceneAdded;
 
         /** A pointer to the actual visual scene node. */
         COLLADA::Node* mVisualSceneNode;
@@ -139,9 +139,9 @@ namespace COLLADAMaya
 
         /**
          * Prepares a new the visual scene node.
-         * @param dagPath The
+         * @param sceneElement The scene element of the node.
          */
-        void openVisualSceneNode ( const MDagPath &dagPath );
+        void openVisualSceneNode ( const SceneElement *sceneElement );
 
         /**
          * Compute local space parameters and export them. These parameters are:

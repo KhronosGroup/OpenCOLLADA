@@ -124,6 +124,26 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
+    void StreamWriter::appendURLAttribute ( const String &name, const String &value )
+    {
+        assert ( !mOpenTags.top().mHasContents );
+
+        if ( !value.empty() )
+        {
+            appendChar ( ' ' );
+            appendNCNameString ( name );
+            appendChar ( '=' );
+            appendChar ( '\"' );
+            if ( value[0] != '#' )
+            {
+                appendChar ( '#' );
+            }
+            appendString ( value );
+            appendChar ( '\"' );
+        }
+    }
+
+    //---------------------------------------------------------------
     void StreamWriter::appendAttribute ( const String &name, const String &value )
     {
         assert ( !mOpenTags.top().mHasContents );
