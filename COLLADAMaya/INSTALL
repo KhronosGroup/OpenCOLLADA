@@ -5,6 +5,10 @@ To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 Supported versions are:
 Autodesk Maya 2008
 
+To run the binary you have to install the Microsoft Visual C++ 2005 
+Redistributable Package (x86). You can download and install it from:
+http://www.microsoft.com/downloads/details.aspx?FamilyID=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
+
 For help on build, please read the BUILD file.
 
 Install:
