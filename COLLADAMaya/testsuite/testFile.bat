@@ -16,7 +16,7 @@ ECHO Creating %daeFilename% file from %mayaFilename%...
 CALL COLLADAMaya.exe %mayaFilenamePath% %daeFilenamePath% 
 IF ERRORLEVEL 1 GOTO error1
 
-CALL coherencytest.exe %daeFilename%
+CALL coherencytest.exe %daeFilenamePath%
 IF ERRORLEVEL 1 GOTO error2
 ECHO Coherencytest on %daeFilename% successful.
 
