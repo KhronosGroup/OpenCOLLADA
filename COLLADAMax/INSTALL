@@ -1,36 +1,26 @@
 Requirements:
 -------------
-To build the COLLADAMax plug-in you need to have a version of 3ds Max, including the SDK, installed.
+To run the COLLADAMax plugin you need a version of 3ds Max installed that matches the version 
+your plugin has been build against.
+
 Supported versions are:
 3ds Max 9
 3ds Max 2008
 3ds Max 2009
 
-You also need MS Visual Studio 2005.
+To run the binary you have to install the Microsoft Visual C++ 2005 
+Redistributable Package (x86). You can download and install it from:
+http://www.microsoft.com/downloads/details.aspx?FamilyID=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
 
 
-
-Building:
+Install:
 ---------
-Before you can start to build you need to set two environment variables. The MAX_PATH* variable 
-must be set to the installation path of the 3ds Max installation you want to use, i.e. the path  
-hat contains 3dsmax.exe and the MAX_SDK_PATH* variable must be set to the installation path of the 
-3ds Max installation you want to use, i.e. the path hat contains, among others,  the "include"  
-and "lib" directories. The complete name of the environment variable 
-depends on the version of 3ds Max as listed below:
+If you build the plugin yourself using the provided build scripts the plugin file (ColladaMaxNew.dle) 
+is automatically copied into your "plugins" directory of your 3ds Max installation.
 
-3ds Max Version  |  max environment variable   |  max sdk environment variable 
-------------------------------------------------------------------------------
-3ds Max 9        |  MAX_PATH9                  |  MAX_SDK_PATH9
-3ds Max 2008     |  MAX_PATH2008               |  MAX_SDK_PATH2008
-3ds Max 2009     |  MAX_PATH2009               |  MAX_SDK_PATH2009
-
-
-To build the plug-in open "COLLADAMax.sln" with MS Visual Studio 2005, choose the configuration 
-you want to build und build the project.
-
-If the build process succeeded the plug-in file (ColladaMaxNew.dle) is automatically copied into 
-your "plugins" directory of your 3ds Max installation.
+If you use the precompiled version of the plugin you have to copy it in your "plugins" 
+directory of your 3ds Max installation.
 
 After the next start of 3ds Max the plugin is available and can be found as "NEWCOLLADA" in the 
 export dialog.
+
