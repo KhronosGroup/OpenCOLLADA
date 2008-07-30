@@ -11,9 +11,10 @@ Install:
 --------
 On build with MS Visual Studio, the required plugin files will be copied into 
 your Autodesk Maya directories.
-If you install the binary, you have to copy the "COLLADAMaya.mll" file into 
-$(MAYA_PATH2008)/bin/plug-ins directory and the "colladaNextGenExporterOpts.mel"
-file into the directory $(MAYA_PATH2008)\scripts\others.
+
+If you install the binary, you have to copy following files:
+- "COLLADAMaya.mll" into $(MAYA_PATH2008)/bin/plug-ins directory 
+- "colladaNextGenExporterOpts.mel" into $(MAYA_PATH2008)\scripts\others directory 
 
 You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
 mll-file into the refered directory. Autodesk Maya will load the plugs 
