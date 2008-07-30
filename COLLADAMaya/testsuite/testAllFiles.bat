@@ -2,11 +2,11 @@
 ECHO.
 ECHO Test all Maya files for COLLADAMaya exporter.
 
-if EXIST .\*.log DEL .\*.log
-if EXIST .\*.dae DEL .\*.dae
-if EXIST .\*.out DEL .\*.out
+if EXIST .\*.log DEL /S .\*.log
+if EXIST .\*.dae DEL /S .\*.dae
+if EXIST .\*.out DEL /S .\*.out
 
-FOR %%G IN (*.mb) DO CALL testFile.bat %%G
+FOR /R %%G IN (*.mb) DO CALL testFile.bat %%G
 ECHO.
 
 ECHO COLLADAMaya has finished.

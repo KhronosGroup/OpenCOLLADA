@@ -1,12 +1,16 @@
 @ECHO OFF
 ECHO.
 
-set mayaFilename=%1
-set mayaFilenamePath=%CD%\%1
+REM Only the filename 
+set filename=%~n1
+set filepath=%~dp1
+
+set mayaFilename=%~nx1
+set mayaFilenamePath=%~f1
 
 set stripped=%mayaFilename:.mb=%
-set daeFilename=%stripped%.dae
-set daeFilenamePath=%CD%\%stripped%.dae
+set daeFilename=%filename%.dae
+set daeFilenamePath=%filepath%%daeFilename%
 
 ECHO Creating %daeFilename% file from %mayaFilename%...
 CALL COLLADAMaya.exe %mayaFilenamePath% %daeFilenamePath% 
