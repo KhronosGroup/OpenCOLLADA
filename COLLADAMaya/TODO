@@ -1,5 +1,4 @@
 -   General
-    -   absolute vs. relative path
     -   64bit
     -   layer
     -   reader
@@ -8,8 +7,6 @@
 
 -   Multiple documents
 
--   Testsuite
-
 -	Scene graph
 	-	Transform joints
 
@@ -17,15 +14,16 @@
 	-	Morph controller
 	-	Skin controller
 
+- 	blend shape deformer
+
 -   VisualScene
-    -   Reference to effect texture
-    - 	copyTexture: create sub directories
+    -   Reference to the effect texture
 	    
 -   Effects:
     -   Hardware shader
+    -	multiple color material
 
 -   Animations
-    -   CExportOptions::ExportVertexColorAnimations()
     -   Constraints (point, orient, parent)
 
 -   Lights
