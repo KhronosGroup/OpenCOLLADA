@@ -3,16 +3,18 @@
     -   layer
     -   reader
     -   unit tests
-    -   internationalisierung (i18n)
+    -   internationalisation (i18n)
+    -   unix
+    -   mac os
 
 -   Multiple documents
 
--	Scene graph
-	-	Transform joints
+-	  Scene graph
+	-	  Transform joints
 
--	Controller
-	-	Morph controller
-	-	Skin controller
+-	  Controller
+	-	  Morph controller
+	-	  Skin controller
 
 - 	blend shape deformer
 
@@ -21,7 +23,7 @@
 	    
 -   Effects:
     -   Hardware shader
-    -	multiple color material
+    -	  multiple color material
 
 -   Animations
     -   Constraints (point, orient, parent)

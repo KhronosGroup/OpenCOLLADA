@@ -1,0 +1,28 @@
+- Scene graph
+    - Transform nodes
+    - Multiple object instances
+	
+- Geometry   
+    - Mesh: 
+	    - POSITION, VERTEX, NORMAL, TEXCOORD (multiple also), COLOR, 
+	      GEOTANGENT, GEOBINORMAL 
+	    - POLYLIST, POLYGONS (also with holes) or TRIANGLES
+
+- Materials / Effects
+    - Texture and color materials
+    - Materials Phong, Blinn and Lambert (nvidia viewer can‘t show)
+
+- Animation
+    - Rotation / Transformation
+    - Sampled animation
+    - Expressions
+    - Animation clips
+    
+- Instances
+    - Visual scenes
+    - Geometries
+    - Materials
+    - Effects
+    - Animations (clips)
+    - Nodes
+
