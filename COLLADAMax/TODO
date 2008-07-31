@@ -1,58 +1,49 @@
-=======================================
 -   General
-    -   absolute vs. relative path
-    -   installer to automatically copy the plug-in and its dependencies to the right place 
-    -   64bit version of the plug-in
-    -   build system
-    -   layer
-    -   import plug-in
-    -   unit tests
-    -   test framework to test all the features of the plug-in
-    -   options to control the behavior of the plug-in. i.e. what and how to export
-    -   gui to select options and to report problems
-    -   i18n
-    -   documentation how to use the plug-in and what features are supported
+    - absolute vs. relative path
+    - installer to automatically copy the plug-in and its dependencies to the right place 
+    - 64bit version of the plug-in
+    - build system
+    - layer
+    - import plug-in
+    - unit tests
+    - test framework to test all the features of the plug-in
+    - options to control the behavior of the plug-in. i.e. what and how to export
+    - gui to select options and to report problems
+    - i18n
+    - documentation how to use the plug-in and what features are supported
 
-=======================================
--   VisualScene
-    -   joints and skins
-    -   Reference to effect texture
 
-=======================================
--   Geometry:
+Scene graph
+    - Transform joints
+    - Multiple object instances
 
-    -   Materials:
-        -   test blinn
-        
-    - Polygons export:
-        LINES 
-	    LINE_STRIPS 
-	    TRIANGLE_FANS
-	    TRIANGLE_STRIPS
-	    POINTS
-	    
-=======================================
--   Effects:
-    -   Shader export
+Materials / Effects
+    - Material Lambert
+    
+Controller
+    - Morph controller
+    - Skin controller
 
-=======================================
--   Animations
-	- Only simple transformation animations are currently supported
+Animation
+    - Sampled animation
+    - Expressions
+    - Animation clips
+    - Constraints (point, orient, parent)
 
-=======================================
--   Lights
+Physical scene
 
-=======================================
--   Cameras
+Effects
+    - Hardware shader
 
-=======================================
--   PhysicalScene
+Instances
+    - Animations (clips)
+    - Nodes
 
-=======================================
--   Spline
+Lights and Cameras
 
-=======================================
--   Nurbs
+Subdivision surfaces, nurbs and splines
 
-=======================================
--   Object External References (XREFs)
+Object External References (XREFs)
+
+
+

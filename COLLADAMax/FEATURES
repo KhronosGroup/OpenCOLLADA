@@ -1,0 +1,25 @@
+COLLADAMax Nextgen: Export - Supported features
+-------------------------------------------------
+
+Scene graph
+    - Transform nodes
+	
+Geometry   
+    - Mesh: 
+	    - POSITION, VERTEX, NORMAL, TEXCOORD (multiple also), COLOR
+	    - POLYLIST or TRIANGLES
+	- Extra tags for primitives (box, sphere, ...)
+
+Materials / Effects
+    - Texture and color materials
+    - Materials Phong and Blinn 
+
+Animation
+    - Rotation / Transformation
+    
+Instances
+    - Visual scenes
+    - Geometries
+    - Materials
+    - Effects
+
