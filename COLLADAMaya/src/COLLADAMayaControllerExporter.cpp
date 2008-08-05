@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaDagHelper.h"
@@ -47,7 +46,7 @@ namespace COLLADAMaya
                                            DocumentExporter* documentExporter )
     : COLLADA::LibraryControllers ( streamWriter )
     , mDocumentExporter ( documentExporter )
-    , boneCounter(0)
+    , mExportedControllers ( NULL )
     {}
 
     //------------------------------------------------------
@@ -85,7 +84,7 @@ namespace COLLADAMaya
         if ( sceneElement->getType() == SceneElement::MESH &&
             sceneElement->getIsExportNode() )
         {
-            // Create a skin/morph transform object and export the controller
+            // Create a skin/morph transform object and export the controller.
             bool exported = exportController ( sceneElement );
         }
 
@@ -109,10 +108,8 @@ namespace COLLADAMaya
         ControllerMeshStack meshStack;
 
         // Iterate upstream finding all the nodes which affect the mesh.
-        if (!findAffectedNodes(meshNode, stack, meshStack)) 
+        if ( !findAffectedNodes( meshNode, stack, meshStack ) ) 
         {
-            // TODO Don't export the geometry of the current scene element!
-            sceneElement->setIsForced(true);
             return false;
         }
 
@@ -120,46 +117,20 @@ namespace COLLADAMaya
         exportControllerStack( sceneElement, stack );
 
         // Reset all the intermediate mesh parameters.
-        while ( !meshStack.empty() )
-        {
-            ControllerMeshItem& item = meshStack.back();
+        resetMeshParameters( meshStack );
 
-            DagHelper::setPlugValue ( item.mesh, ATTR_INTERMEDIATE_OBJECT, item.isIntermediate );
-            DagHelper::setPlugValue ( item.mesh, ATTR_VISIBILITY, item.isVisible );
+        // Reset all the controller node states.
+        resetControllerNodeStates(stack);
 
-            meshStack.pop_back();
-        }
-
-        // Reset all the controller node states
-        for ( size_t i = 0; i < stack.size(); ++i )
-        {
-            ControllerStackItem* item = stack[i];
-            if ( item->isSkin )
-            {
-                DagHelper::setPlugValue ( 
-                    item->skinControllerNode, ATTR_NODE_STATE, item->nodeStates.front() );
-            }
-            else
-            {
-                for ( uint j = 0; j < item->morphControllerNodes.length(); ++j )
-                {
-                    DagHelper::setPlugValue ( 
-                        item->morphControllerNodes[j], ATTR_NODE_STATE, item->nodeStates[j] );
-                }
-            }
-            delete item;
-        }
+        // Clear the stack.
         stack.clear();
 
-
-//         //  if (target != NULL) target->SetNode(node);
-//         //  return target;
         return true;
     }
 
     //------------------------------------------------------
     void ControllerExporter::exportControllerStack( 
-        const SceneElement *sceneElement, 
+        SceneElement *sceneElement, 
         const ControllerStack &stack )
     {
         // Get the current path and the mesh node.
@@ -186,7 +157,7 @@ namespace COLLADAMaya
                         !stack[i-1]->skinControllerNode.hasFn ( MFn::kJointCluster ) )
                     {
                         // TODO
-                        exportSkinController(sceneElement, skinControllerNode, MDagPath::getAPathTo(meshNode));
+                        exportSkinController(sceneElement, skinControllerNode, MDagPath::getAPathTo( meshNode ));
                 //      target = exportSkinController(item->skinControllerNode, MDagPath::getAPathTo(node), target);
                 //      doc->GetEntityManager()->ExportEntity(item->skinControllerNode, target->entity);
                         alreadyHasSkin = true;
@@ -204,10 +175,21 @@ namespace COLLADAMaya
 
     //------------------------------------------------------
     void ControllerExporter::exportSkinController(
-        const SceneElement* sceneElement, 
+        SceneElement* sceneElement, 
         const MObject controllerNode, 
         MDagPath outputShape )
     {
+        // Create the unique controller ID
+        String controllerId = sceneElement->getNodeName() + LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+
+        // Check if the controller isn't already exported
+        std::vector<String>::iterator controllerIter;
+        controllerIter = find ( mExportedControllers.begin(), mExportedControllers.end(), controllerId );
+        if ( controllerIter != mExportedControllers.end() ) return;
+
+        // Push the exported controller in the export list
+        mExportedControllers.push_back ( controllerId );
+
         // Get the current path and the mesh node.
         MDagPath targetDagPath = sceneElement->getPath();
 
@@ -224,23 +206,17 @@ namespace COLLADAMaya
         MFnGeometryFilter clusterFn(controllerNode);
         uint clusterIndex = retrieveInstanceInformation( meshFn, clusterFn, outputShape );
 
-        // Create the unique controller IDs
-        String controllerId = mDocumentExporter->dagPathToColladaId( targetDagPath ) + 
-                                LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        // Create the controller name
         MString mayaControllerName = ( isSkinCluster ) ? clusterFn.name() : outputShape.partialPathName();
         String controllerName = mayaControllerName.asChar();
 
         // Get the skin target
-        String skinTarget = mDocumentExporter->dagPathToColladaId( outputShape );
-
-        // --------------------------------
-        // Create the COLLADA controller and its ColladaMaya equivalent.
-        BaseController* targetController = new BaseController( controllerId, controllerName );
-        // Push the controller into the list of controllers.
-        skinControllers.push_back( targetController );
+        MFnDependencyNode fn ( outputShape.node() );
+        String skinTarget =  fn.name().asChar();
 
         // Create an skin controller to hold the data
         ColladaSkinController colladaSkinController( controllerId, controllerName );
+
         // Push the controller into the list of controllers.
         skinControllers.push_back( &colladaSkinController );
 
@@ -251,11 +227,33 @@ namespace COLLADAMaya
         MObjectArray weightFilters;
 
         // Gather the list of joints
-        gatherBindMatrices( targetController, controllerNode );
         gatherJoints( &colladaSkinController, controllerNode, weightFilters, clusterIndex );
 
+        // Set the joint entry into the other scene element, shich use this joints.
+        MDagPathArray influences = colladaSkinController.getInfluences();
+        if ( influences.length() > 0 )
+        {
+            MDagPath skeletonPath = influences[0];
+            String skeletonId = mDocumentExporter->dagPathToColladaId( skeletonPath ); 
+            sceneElement->setSkeletonId( skeletonId );
+
+            // Set the id on the other instanced nodes.
+            bool isInstanced = targetDagPath.isInstanced ();
+            uint instanceNumber = targetDagPath.instanceNumber ();
+            MDagPathArray pathes;
+            MDagPath::getAllPathsTo( targetDagPath.node(), pathes );
+            for (uint i=0; i<pathes.length(); ++i)
+            {
+                SceneElement* foundElement = mDocumentExporter->getSceneGraph()->findElement( pathes[i] );
+                if ( foundElement != NULL ) 
+                    foundElement->setSkeletonId( skeletonId );
+            }
+        }
+
+        gatherBindMatrices( &colladaSkinController, controllerNode );
+
         // Collect the vertex weights into the collada skin controller.
-        uint numInfluences = targetController->getInfluences().length();
+        uint numInfluences = colladaSkinController.getInfluences().length();
         collectVertexWeights( 
             &colladaSkinController, 
             controllerNode, 
@@ -264,10 +262,11 @@ namespace COLLADAMaya
             clusterIndex, 
             numInfluences );
 
-        // TODO Have to calculate bind poses!
+        // Create the joints
+        createJoints ( &colladaSkinController );
 
         // Export the data into the collada document.
-        exportController( skinTarget, colladaSkinController, targetController );
+        exportController( skinTarget, colladaSkinController );
 
     }
 
@@ -285,7 +284,7 @@ namespace COLLADAMaya
 
         // Collect all the weights
         uint numVertices = meshFn.numVertices();
-        SkinControllerVertices colladaInfluences = colladaSkinController->getColladaVertexInfluences();
+        SkinControllerVertices& colladaInfluences = colladaSkinController->getColladaVertexInfluences();
         colladaInfluences.resize(numVertices);
 
         if (controllerNode.apiType() == MFn::kSkinClusterFilter)
@@ -326,12 +325,6 @@ namespace COLLADAMaya
                 if (!COLLADA::MathUtils::equals(weights[i], MWeight(0)))
                 {
                     vertex[i] = (float)weights[i];
-                }
-                else
-                {
-                    double value = weights[i];
-                    //float vertexValue = vertex[i];
-                    bool equal = COLLADA::MathUtils::equals(weights[i], MWeight(0));
                 }
             }
         }
@@ -408,15 +401,15 @@ namespace COLLADAMaya
 
     //------------------------------------------------------
     void ControllerExporter::gatherBindMatrices( 
-        BaseController* targetController, 
+        ColladaSkinController* colladaSkinController, 
         const MObject& controllerNode )
     {
         // The list of joints
-        MDagPathArray& influences = targetController->getInfluences();
+        MDagPathArray& influences = colladaSkinController->getInfluences();
 
         // Request a change in capacity
         uint numInfluences = influences.length();
-        std::vector<MMatrix>& bindPoses = targetController->getBindPoses();
+        std::vector<MMatrix>& bindPoses = colladaSkinController->getBindPoses();
         bindPoses.reserve(numInfluences);
 
         // Gather the bind matrices
@@ -435,21 +428,17 @@ namespace COLLADAMaya
         // Gather the list of joints
         const MDagPathArray& influences = colladaSkinController->getInfluences();
 
-        // TODO Not ready!
         // Create the joints with their ids.
         SkinControllerJoints& joints = colladaSkinController->getColladaJoints();
         uint numInfluences = influences.length();
         joints.resize( numInfluences );
 
-        String boneBuffer = "bone";
         for (uint i=0; i<numInfluences; ++i)
         {
-            std::ostringstream floatStream; 
-            floatStream << i;
-            String boneId = boneBuffer + floatStream.str();
+            MDagPath dagPath = influences[i];
 
             SkinControllerJoint &joint = joints[i];
-            joint.first = boneId;
+            joint.first = mDocumentExporter->dagPathToColladaId ( dagPath );
             joint.second = colladaSkinController->getBindPoses()[i];
         }
     }
@@ -522,9 +511,7 @@ namespace COLLADAMaya
         // Already done in the geometry! 
         // TODO Don't export the geometry, if we don't have affected nodes!
         // At the end, export the base mesh
-//        mDocumentExporter->getGeometryExporter()->exportGeometry ( dagPath );
-
-//  DaeEntity* target = doc->GetGeometryLibrary()->exportMesh(node);
+        mDocumentExporter->getGeometryExporter()->exportGeometry ( dagPath );
 
         // Exports all the mesh affected nodes in the controller stack.
         exportControllerStack( sceneNode, stack );
@@ -703,6 +690,7 @@ namespace COLLADAMaya
 
                     DagHelper::setPlugValue ( thisNode, ATTR_NODE_STATE, 1 ); // pass-through.
                 }
+                // TODO Test!
                 else if ( thisNode.hasFn ( MFn::kBlendShape ) )
                 {
                     int nodeState;
@@ -842,24 +830,24 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerExporter::exportJointSource( const ColladaSkinController* skinController )
+    void ControllerExporter::exportJointSource( const ColladaSkinController &colladaSkinController )
     {
         COLLADA::NameSource jointSource( mDocumentExporter->getStreamWriter() );
-        String controllerId = skinController->getControllerId();
+        String controllerId = colladaSkinController.getControllerId();
         jointSource.setId ( controllerId + JOINTS_SOURCE_ID_SUFFIX );
         jointSource.setNodeName ( controllerId + JOINTS_SOURCE_ID_SUFFIX );
         jointSource.setArrayId ( controllerId + JOINTS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         jointSource.setAccessorStride ( 1 );
 
         // Retrieves the vertex positions.
-        const MDagPathArray& influences = skinController->getInfluences();
+        const MDagPathArray& influences = colladaSkinController.getInfluences();
         uint numInfluences = influences.length();
         jointSource.setAccessorCount ( numInfluences );
 
         jointSource.getParameterNameList().push_back ( PARAM_TYPE_JOINT );
         jointSource.prepareToAppendValues();
 
-        const SkinControllerJoints& joints = skinController->getColladaJoints();
+        const SkinControllerJoints& joints = colladaSkinController.getColladaJoints();
         SkinControllerJoints::const_iterator it = joints.begin();
         for (; it<joints.end(); ++it)
         {
@@ -870,24 +858,24 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerExporter::exportBindPosesSource( const BaseController* targetController )
+    void ControllerExporter::exportBindPosesSource( const ColladaSkinController &colladaSkinController )
     {
         COLLADA::Float4x4Source bindPosesSource( mDocumentExporter->getStreamWriter() );
-        String controllerId = targetController->getControllerId();
+        String controllerId = colladaSkinController.getControllerId();
         bindPosesSource.setId ( controllerId + BIND_POSES_SOURCE_ID_SUFFIX );
         bindPosesSource.setNodeName ( controllerId + BIND_POSES_SOURCE_ID_SUFFIX );
         bindPosesSource.setArrayId ( controllerId + BIND_POSES_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         bindPosesSource.setAccessorStride ( 16 );
 
         // Retrieves the vertex positions.
-        const MDagPathArray& influences = targetController->getInfluences();
+        const MDagPathArray& influences = colladaSkinController.getInfluences();
         uint numInfluences = influences.length();
         bindPosesSource.setAccessorCount ( numInfluences );
 
         bindPosesSource.getParameterNameList().push_back ( PARAM_TYPE_TRANSFORM );
         bindPosesSource.prepareToAppendValues();
 
-        const std::vector<MMatrix>& bindPosesVec = targetController->getBindPoses();
+        const std::vector<MMatrix>& bindPosesVec = colladaSkinController.getBindPoses();
         uint numBindPoses = bindPosesVec.size();
         for (uint i=0; i<bindPosesVec.size(); ++i)
         {
@@ -921,8 +909,8 @@ namespace COLLADAMaya
             SkinControllerVertex vertex = vertexes[i];
             for (uint j=0; j<vertex.size(); ++j)
             {
-                float value = vertex[j];
-                if (vertex[j] != 0.0f) 
+                if ( !COLLADA::MathUtils::equalsZero( vertex[j] ) && 
+                     !COLLADA::MathUtils::equals( vertex[j], 1.0f ) ) 
                 {
                     vertexVec.push_back(vertex[j]);
                     ++numVertexPoints;
@@ -950,21 +938,20 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::exportController( 
         const String skinTarget, 
-        const ColladaSkinController &colladaSkinController, 
-        const BaseController* targetController )
+        const ColladaSkinController &colladaSkinController )
     {
         // Get the unique id and the name of the current controller.
-        String controllerId = targetController->getControllerId();
-        String controllerName = targetController->getControllerName();
+        String controllerId = colladaSkinController.getControllerId();
+        String controllerName = colladaSkinController.getControllerName();
 
         // Opens the skin tag in the collada document.
         openSkin ( controllerId , controllerName, skinTarget );
-
+        
         exportBindShapeTransform( colladaSkinController );
-        exportJointSource( &colladaSkinController );
-        exportBindPosesSource( targetController );
+        exportJointSource( colladaSkinController );
+        exportBindPosesSource( colladaSkinController );
         exportWeightSource( controllerId, colladaSkinController );
-        exportElementJoints();
+        exportElementJoints( colladaSkinController );
         exportElementVertexWeights( colladaSkinController );
 
         // Close the opened skin tag.
@@ -977,14 +964,15 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::exportElementVertexWeights( const ColladaSkinController &colladaSkinController )
     {
-        String jointSourceId;
-        String weightSourceId;
+        String controllerId = colladaSkinController.getControllerId();
+        String jointSourceId = controllerId + JOINTS_SOURCE_ID_SUFFIX;
+        String weightSourceId = controllerId + WEIGHTS_SOURCE_ID_SUFFIX;
 
         uint offset = 0;
         COLLADA::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
         COLLADA::InputList &inputList = vertexWeightsElement.getInputList();
-        inputList.push_back ( COLLADA::Input ( COLLADA::JOINT, "#" + jointSourceId, ++offset ) );
-        inputList.push_back ( COLLADA::Input ( COLLADA::WEIGHT, "#" + weightSourceId, ++offset ) );
+        inputList.push_back ( COLLADA::Input ( COLLADA::JOINT, "#" + jointSourceId, offset++ ) );
+        inputList.push_back ( COLLADA::Input ( COLLADA::WEIGHT, "#" + weightSourceId, offset++ ) );
 
         // The list for the vertex values.
         std::vector<unsigned long> vertexMatches;
@@ -994,6 +982,7 @@ namespace COLLADAMaya
 
         // Counter for the influence counts
         uint influenceCount = vertexes.size();
+        vertexWeightsElement.setCount( influenceCount );
 
         // Generate the vertex count and match value strings and export the <v> and <vcount> elements
         uint weightOffset = 1;
@@ -1013,18 +1002,20 @@ namespace COLLADAMaya
                     vertexMatches.push_back ( 0 );
             }
         }
-        if (!vertexMatches.empty()) vertexMatches.pop_back();
-
+        // TODO In FCollada, the last element was erased?!?
+//        if (!vertexMatches.empty()) vertexMatches.pop_back();
+        
         vertexWeightsElement.prepareToAppendValues();
         vertexWeightsElement.appendValues( vertexMatches );
         vertexWeightsElement.finish();
     }
 
     //------------------------------------------------------
-    void ControllerExporter::exportElementJoints()
+    void ControllerExporter::exportElementJoints( const ColladaSkinController &colladaSkinController )
     {
-        String jointSourceId;
-        String jointBindSourceId;
+        String controllerId = colladaSkinController.getControllerId();
+        String jointSourceId = controllerId + JOINTS_SOURCE_ID_SUFFIX;
+        String jointBindSourceId = controllerId + BIND_POSES_SOURCE_ID_SUFFIX;
 
         COLLADA::JointsElement jointsElement( mDocumentExporter->getStreamWriter() );
         COLLADA::InputList &jointsInputList = jointsElement.getInputList();
@@ -1116,5 +1107,43 @@ namespace COLLADAMaya
         }
     }
 
+    //------------------------------------------------------
+    void ControllerExporter::resetMeshParameters( ControllerMeshStack &meshStack )
+    {
+        // Reset all the intermediate mesh parameters.
+        while ( !meshStack.empty() )
+        {
+            ControllerMeshItem& item = meshStack.back();
+
+            DagHelper::setPlugValue ( item.mesh, ATTR_INTERMEDIATE_OBJECT, item.isIntermediate );
+            DagHelper::setPlugValue ( item.mesh, ATTR_VISIBILITY, item.isVisible );
+
+            meshStack.pop_back();
+        }
+    }
+
+    //------------------------------------------------------
+    void ControllerExporter::resetControllerNodeStates( ControllerStack &stack )
+    {
+        // Reset all the controller node states
+        for ( size_t i = 0; i < stack.size(); ++i )
+        {
+            ControllerStackItem* item = stack[i];
+            if ( item->isSkin )
+            {
+                DagHelper::setPlugValue ( 
+                    item->skinControllerNode, ATTR_NODE_STATE, item->nodeStates.front() );
+            }
+            else
+            {
+                for ( uint j = 0; j < item->morphControllerNodes.length(); ++j )
+                {
+                    DagHelper::setPlugValue ( 
+                        item->morphControllerNodes[j], ATTR_NODE_STATE, item->nodeStates[j] );
+                }
+            }
+            delete item;
+        }
+    }
 }
 

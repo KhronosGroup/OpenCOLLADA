@@ -207,9 +207,15 @@ namespace COLLADA
 
     protected:
 
-        /** Prepares to fill the <p> element. This member must be called exactly once
-        before add is called the first time.*/
-        void prepareBaseToAppendValues ( bool openThePolylistElement=true );
+        /** 
+         * Prepares to fill the <p> element. This member must be called exactly 
+         * once before add is called the first time.
+         * @param openPolyListElement If true, the <p> element will be opened.
+         * @param openVertexListElement 
+         *          If true, and the parameter @openPolylistElement is false, 
+         *          the <v> element will be opened.
+         */
+        void prepareBaseToAppendValues ( bool openPolyListElement=true, bool openVertexListElement=false );
 
     };
 
@@ -248,8 +254,8 @@ namespace COLLADA
      */
     class Polygons : public PrimitivesBase
     {
-
     public:
+
         /**
          * Constructor.
          * @param streamWriter Pointer to the collada stream.
@@ -285,11 +291,34 @@ namespace COLLADA
 
     };
 
+    /**
+    * Class for the polygons element.
+    */
+    class VertexWeightsElement : public PrimitivesBase
+    {
+    public:
+
+        /**
+        * Constructor.
+        * @param streamWriter Pointer to the collada stream.
+        */
+        VertexWeightsElement ( StreamWriter* streamWriter ) 
+            : PrimitivesBase ( streamWriter, CSWC::COLLADA_ELEMENT_VERTEX_WEIGHTS ) {}
+
+        /** Copy constructor */
+        VertexWeightsElement ( PrimitivesBase primitivesBase ) 
+            : PrimitivesBase ( primitivesBase ) {}
+
+        /** We want to open the vertexlist tag. */
+        void prepareToAppendValues()
+        {
+            prepareBaseToAppendValues ( false, true );
+        }
+    };
 
 
     typedef Primitive<CSWC::COLLADA_ELEMENT_TRIANGLES> Triangles;
     typedef Primitive<CSWC::COLLADA_ELEMENT_POLYLIST> Polylist;
-    typedef Primitive<CSWC::COLLADA_ELEMENT_VERTEX_WEIGHTS> VertexWeightsElement;
 
 } //namespace COLLADA
 

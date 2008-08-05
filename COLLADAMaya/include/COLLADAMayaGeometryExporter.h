@@ -126,7 +126,7 @@ namespace COLLADAMaya
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
-        /** List of the exported geometries. */
+        /** List of meshIds from the already exported geometries. */
         std::vector<String> mExportedGeometries;
 
         /**
@@ -156,7 +156,7 @@ namespace COLLADAMaya
         void exportGeometries ( SceneElement* sceneElement );
 
         /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
-        void exportGeometry ( const MDagPath& dagPath );
+        bool exportGeometry ( const MDagPath& dagPath );
 
         /** closes the geometry tags in the collada document */
         void endExport();
@@ -164,7 +164,7 @@ namespace COLLADAMaya
     private:
 
         /** Exports all geometry data of the current mesh. */
-        void exportMesh ( MFnMesh& fnMesh, String meshId, String& meshName );
+        bool exportMesh ( MFnMesh& fnMesh, String meshId, String& meshName );
 
         /**
          * Get the uv set names of the current mesh.

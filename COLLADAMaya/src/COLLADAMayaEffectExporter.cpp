@@ -64,14 +64,13 @@ namespace COLLADAMaya
             MaterialExporter* materialExporter = mDocumentExporter->getMaterialExporter();
             mMaterialMap = materialExporter->getExportedMaterialsMap();
         }
-
         else
         {
             mMaterialMap = materialMap;
         }
 
+        // Iterate through the list of materials and export them
         MaterialMap::iterator materialsIter = mMaterialMap->begin();
-
         for ( ; materialsIter != mMaterialMap->end(); ++materialsIter )
         {
             MObject* shadingEngine = & ( ( *materialsIter ).second );
@@ -184,7 +183,7 @@ namespace COLLADAMaya
         String effectId = materialName + EffectExporter::EFFECT_ID_SUFFIX;
 
         openEffect ( effectId );
-
+        
         // Add the correct effect for the material
         COLLADA::EffectProfile effectProfile ( mSW );
 
@@ -245,9 +244,10 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void EffectExporter::exportStandardShader ( COLLADA::EffectProfile* effectProfile,
-            MObject shadingNetwork,
-            bool initialized )
+    void EffectExporter::exportStandardShader ( 
+        COLLADA::EffectProfile* effectProfile,
+        MObject shadingNetwork,
+        bool initialized )
     {
         MFnDependencyNode shaderNode ( shadingNetwork );
         MFnLambertShader matFn ( shadingNetwork );
@@ -255,7 +255,6 @@ namespace COLLADAMaya
         int nextTextureIndex = 0;
 
         // Add the shader element: <constant> and the <extra><technique profile="MAYA"> elements
-
         if ( shadingNetwork.hasFn ( MFn::kPhong ) )
             effectProfile->setShaderType ( COLLADA::EffectProfile::PHONG );
         else if ( shadingNetwork.hasFn ( MFn::kBlinn ) )
@@ -282,7 +281,7 @@ namespace COLLADAMaya
         exportTexturedParameter ( shadingNetwork, ATTR_COLOR, effectProfile, EffectExporter::DIFFUSE, nextTextureIndex );
         // TODO Test
         ConversionFunctor* conversion = new ConversionScaleFunctor ( matFn.diffuseCoeff() );
-        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_COLOR, RGBA_PARAMETERS, kColour, conversion );
+        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_COLOR, RGBA_PARAMETERS, kColour, false, conversion );
 
         // Transparent color
         exportTransparency ( shadingNetwork, matFn.transparency(), effectProfile, ATTR_TRANSPARENCY, nextTextureIndex );
@@ -397,12 +396,10 @@ namespace COLLADAMaya
             if ( channel == EffectExporter::BUMP )
             {
                 MObject bumpNode = DagHelper::getNodeConnectedTo ( node, attributeName );
-
                 if ( !bumpNode.isNull() && ( bumpNode.hasFn ( MFn::kBump ) || bumpNode.hasFn ( MFn::kBump3d ) ) )
                 {
                     float amount = 1.0f;
                     MFnDependencyNode ( bumpNode ).findPlug ( ATTR_BUMP_DEPTH ).getValue ( amount );
-
                     colladaTexture.addExtraTechniqueParameter ( MAX_PROFILE, MAX_AMOUNT_TEXTURE_PARAMETER, amount );
 
                     // Get the animation exporter
@@ -493,7 +490,6 @@ namespace COLLADAMaya
             {
                 texture = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_BUMP_VALUE );
             }
-
             else if ( texture.hasFn ( MFn::kProjection ) )
             {
                 texture = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_IMAGE );
@@ -596,7 +592,7 @@ namespace COLLADAMaya
                 else
                 {
                     // TODO Test
-                    animationExporter->addPlugAnimation ( transparentTextureNode, ATTR_ALPHA_OFFSET, EMPTY_PARAMETER, kSingle, new ConversionOffsetFunctor ( 1.0f ) );
+                    animationExporter->addPlugAnimation ( transparentTextureNode, ATTR_ALPHA_OFFSET, EMPTY_PARAMETER, kSingle, false, new ConversionOffsetFunctor ( 1.0f ) );
                 }
             }
         }

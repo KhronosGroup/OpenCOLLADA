@@ -126,7 +126,6 @@ namespace COLLADAMaya
 
         if ( mSceneGraph->create ( selectionOnly ) )
         {
-
             // Export the asset of the document.
             exportAsset();
 
@@ -139,11 +138,11 @@ namespace COLLADAMaya
             // Export the images
             mImageExporter->exportImages ( imageMap );
 
+            // TODO Export the controllers
+            mControllerLibrary->exportControllers();
+
             // Export the geometries
             mGeometryExporter->exportGeometries();
-
-            // TODO Export the controllers
-//            mControllerLibrary->exportControllers();
 
             // Export the visual scene
             mVisualSceneExporter->exportVisualScenes();

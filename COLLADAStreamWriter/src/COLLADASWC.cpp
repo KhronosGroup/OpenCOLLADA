@@ -115,6 +115,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_TRIANGLES = "triangles";
     const String CSWC::COLLADA_ELEMENT_UNIT = "unit";
     const String CSWC::COLLADA_ELEMENT_UP_AXIS = "up_axis";
+    const String CSWC::COLLADA_ELEMENT_V = "v";
     const String CSWC::COLLADA_ELEMENT_VCOUNT = "vcount";
     const String CSWC::COLLADA_ELEMENT_VERTEX_WEIGHTS = "vertex_weights";
     const String CSWC::COLLADA_ELEMENT_VERTICES = "vertices";

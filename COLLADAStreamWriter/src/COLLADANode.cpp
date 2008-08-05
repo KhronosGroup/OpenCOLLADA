@@ -7,8 +7,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
-
 #include "COLLADANode.h"
 #include "COLLADASWC.h"
 #include "COLLADAUtils.h"
@@ -29,6 +27,9 @@ namespace COLLADA
 
             if ( !mNodeName.empty() )
                 mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, mNodeName );
+
+            if ( !mNodeSid.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mNodeSid );
 
             switch ( mType )
             {

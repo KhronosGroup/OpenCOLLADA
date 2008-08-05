@@ -20,6 +20,8 @@ namespace COLLADA
     {
         mSourceCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_SOURCE );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mNodeId );
+        if ( !mNodeName.empty() )
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, mNodeName );
         mSW->openElement ( *arrayName );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, mArrayId );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_COUNT, mAccessorCount * mAccessorStride );

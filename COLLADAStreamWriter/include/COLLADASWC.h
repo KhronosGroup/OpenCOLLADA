@@ -126,6 +126,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_TRIANGLES;
         static const String COLLADA_ELEMENT_UNIT;
         static const String COLLADA_ELEMENT_UP_AXIS;
+        static const String COLLADA_ELEMENT_V;
         static const String COLLADA_ELEMENT_VCOUNT;
         static const String COLLADA_ELEMENT_VERTEX_WEIGHTS;
         static const String COLLADA_ELEMENT_VERTICES;

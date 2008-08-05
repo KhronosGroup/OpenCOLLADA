@@ -167,7 +167,7 @@ namespace COLLADA
     //---------------------------------------------------------------
     void EffectProfile::addSampler ( const ColorOrTexture & colorOrTexture ) 
     {
-        // TODO: Don't implement double textures!
+        // Don't implement double textures!
         if ( colorOrTexture.isTexture() )
         {
             // TODO: add COLLADA 1.5 texture

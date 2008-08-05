@@ -462,6 +462,7 @@ namespace COLLADA
             polygon normals to determine how much light should affect each polygon.
             This value is multiplied to the diffuse color and (1 + the ambient color). */
             LAMBERT,
+
             /** The Phong lighting model.
             This lighting model improves on the Lambert lighting model by
             calculating how much light is reflected by the polygons into the viewer's eye.

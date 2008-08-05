@@ -37,7 +37,7 @@ namespace COLLADA
 
         mSkinCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_SKIN );
 
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, skinTarget );
+        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, skinTarget );
     }
 
     //---------------------------------------------------------------

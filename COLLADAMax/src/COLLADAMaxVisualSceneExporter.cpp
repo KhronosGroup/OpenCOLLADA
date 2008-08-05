@@ -85,7 +85,7 @@ namespace COLLADAMax
 
         INode *node = exportNode->getINode();
 
-        colladaNode.setId ( NODE_ID_PRAEFIX + exportNode->getId() );
+        colladaNode.setNodeId ( NODE_ID_PRAEFIX + exportNode->getId() );
         colladaNode.setNodeName ( COLLADA::Utils::checkNCName ( node->GetName() ) );
 
         colladaNode.start();

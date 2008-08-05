@@ -80,6 +80,7 @@ namespace COLLADAMaya
         * @return const SkinControllerVertices& List of influences.
         */
         const SkinControllerVertices& getColladaVertexInfluences() const { return colladaVertexInfluences; }
+        SkinControllerVertices& getColladaVertexInfluences() { return colladaVertexInfluences; }
 
         /** The list with the joints for the collada document. */
         const SkinControllerJoints& getColladaJoints() const { return colladaJoints; }

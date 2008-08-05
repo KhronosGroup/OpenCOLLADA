@@ -63,7 +63,7 @@ namespace COLLADAMaya
 
         key->interpolation = interpolation;
 
-        keys.push_back ( key );
+        mKeys.push_back ( key );
 
         return key;
     }
@@ -76,53 +76,41 @@ namespace COLLADAMaya
 
         // Check for empty curves and poses (curves with 1 key).
 
-        if ( keys.size() == 0 ) return 0.0f;
+        if ( mKeys.size() == 0 ) return 0.0f;
+        if ( mKeys.size() == 1 ) return mKeys.front()->output;
 
-        if ( keys.size() == 1 ) return keys.front()->output;
-
-        float inputStart = keys.front()->input;
-
-        float inputEnd = keys.back()->input;
-
+        float inputStart = mKeys.front()->input;
+        float inputEnd = mKeys.back()->input;
         float inputSpan = inputEnd - inputStart;
-
-        float outputStart = keys.front()->output;
-
-        float outputEnd = keys.back()->output;
-
+        float outputStart = mKeys.front()->output;
+        float outputEnd = mKeys.back()->output;
         float outputSpan = outputEnd - outputStart;
 
         // Account for pre-infinity mode
         float outputOffset = 0.0f;
-
         if ( input < inputStart )
         {
             float inputDifference = inputStart - input;
-
-            switch ( preInfinity )
+            switch ( mPreInfinity )
             {
-
             case MFnAnimCurve::kConstant:
             {
                 evaluatedInput = outputStart;
                 evaluated = true;
                 break;
             }
-
             case MFnAnimCurve::kLinear:
             {
-                evaluatedInput = outputStart + inputDifference * ( keys[1]->output - outputStart ) / ( keys[1]->input - inputStart );
+                evaluatedInput = outputStart + inputDifference * ( mKeys[1]->output - outputStart ) / ( mKeys[1]->input - inputStart );
                 evaluated = true;
                 break;
             }
-
             case MFnAnimCurve::kCycle:
             {
                 float cycleCount = ceilf ( inputDifference / inputSpan );
                 input += cycleCount * inputSpan;
                 break;
             }
-
             case MFnAnimCurve::kCycleRelative:
             {
                 float cycleCount = ceilf ( inputDifference / inputSpan );
@@ -130,7 +118,6 @@ namespace COLLADAMaya
                 outputOffset -= cycleCount * outputSpan;
                 break;
             }
-
             case MFnAnimCurve::kOscillate:
             {
                 float cycleCount = ceilf ( inputDifference / ( 2.0f * inputSpan ) );
@@ -138,7 +125,6 @@ namespace COLLADAMaya
                 input = inputEnd - fabsf ( input - inputEnd );
                 break;
             }
-
             default:
                 evaluatedInput = outputStart;
                 evaluated = true;
@@ -147,35 +133,29 @@ namespace COLLADAMaya
         }
 
         // Account for post-infinity mode
-
         else if ( input >= inputEnd )
         {
             float inputDifference = input - inputEnd;
-
-            switch ( postInfinity )
+            switch ( mPostInfinity )
             {
-
             case MFnAnimCurve::kConstant:
             {
                 evaluatedInput = outputEnd;
                 evaluated = true;
                 break;
             }
-
             case MFnAnimCurve::kLinear:
             {
-                evaluatedInput = outputEnd + inputDifference * ( keys[keys.size() - 2]->output - outputEnd ) / ( keys[keys.size() - 2]->input - inputEnd );
+                evaluatedInput = outputEnd + inputDifference * ( mKeys[mKeys.size() - 2]->output - outputEnd ) / ( mKeys[mKeys.size() - 2]->input - inputEnd );
                 evaluated = true;
                 break;
             }
-
             case MFnAnimCurve::kCycle:
             {
                 float cycleCount = ceilf ( inputDifference / inputSpan );
                 input -= cycleCount * inputSpan;
                 break;
             }
-
             case MFnAnimCurve::kCycleRelative:
             {
                 float cycleCount = ceilf ( inputDifference / inputSpan );
@@ -183,7 +163,6 @@ namespace COLLADAMaya
                 outputOffset += cycleCount * outputSpan;
                 break;
             }
-
             case MFnAnimCurve::kOscillate:
             {
                 float cycleCount = ceilf ( inputDifference / ( 2.0f * inputSpan ) );
@@ -191,7 +170,6 @@ namespace COLLADAMaya
                 input = inputStart + fabsf ( input - inputStart );
                 break;
             }
-
             default:
             {
                 evaluatedInput = outputEnd;
@@ -204,10 +182,9 @@ namespace COLLADAMaya
         if ( !evaluated )
         {
             // Find the current interval
-            AnimationKeyList::const_iterator it, start = keys.begin(), terminate = keys.end();
+            AnimationKeyList::const_iterator it, start = mKeys.begin(), terminate = mKeys.end();
 
             // Binary search.
-
             while ( terminate - start > 3 )
             {
                 // Find the median value between the iterators
@@ -218,13 +195,12 @@ namespace COLLADAMaya
             }
 
             // Linear search is more efficient on the last interval
-
             for ( it = start; it != terminate; ++it )
             {
                 if ( ( *it )->input >= input ) break;
             }
 
-            if ( it == keys.begin() )
+            if ( it == mKeys.begin() )
             {
                 evaluatedInput = outputOffset + outputStart;
                 evaluated = true;
@@ -239,18 +215,16 @@ namespace COLLADAMaya
                 float outputInterval = endKey->output - startKey->output;
 
                 // Interpolate the output.
-                // Similar code is found in AnimationMultiCurve.cpp. If you update this, update the other one too.
+                // Similar code is found in AnimationMultiCurve.cpp. 
+                // If you update this, update the other one too.
                 float output;
-
                 switch ( startKey->interpolation )
                 {
-
                 case COLLADA::LibraryAnimations::LINEAR:
                 {
                     output = startKey->output + ( input - startKey->input ) / inputInterval * outputInterval;
                     break;
                 }
-
                 case COLLADA::LibraryAnimations::BEZIER:
                 {
                     if ( endKey->interpolation == COLLADA::LibraryAnimations::LINEAR )
@@ -266,22 +240,20 @@ namespace COLLADAMaya
                         break;
                     }
 
-                    //Code that applies to both whether the endKey is Bezier or TCB.
+                    // Code that applies to both whether the endKey is Bezier or TCB.
                     AnimationKeyBezier* bkey1 = ( AnimationKeyBezier* ) startKey;
 
                     TangentPoint inTangent;
-
                     if ( endKey->interpolation == COLLADA::LibraryAnimations::BEZIER )
                     {
                         inTangent = ( ( AnimationKeyBezier* ) endKey )->inTangent;
                     }
-
                     else if ( endKey->interpolation == COLLADA::LibraryAnimations::TCB )
                     {
                         AnimationKeyTCB* tkey2 = ( AnimationKeyTCB* ) endKey;
                         TangentPoint tempTangent;
                         tempTangent.x = tempTangent.y = 0.0f;
-                        const AnimationKey* nextKey = ( it + 1 ) < keys.end() ? ( * ( it + 1 ) ) : NULL;
+                        const AnimationKey* nextKey = ( it + 1 ) < mKeys.end() ? ( * ( it + 1 ) ) : NULL;
                         computeTCBTangent ( startKey, endKey, nextKey, tkey2->tension, tkey2->continuity, tkey2->bias, inTangent, tempTangent );
                         //Change this when we've figured out the values of the vectors from TCB...
                         inTangent.x = endKey->input + inTangent.x;
@@ -289,17 +261,12 @@ namespace COLLADAMaya
                     }
 
                     float t = ( input - startKey->input ) / inputInterval;
-
                     if ( mIs2DEvaluation ) t = findT ( bkey1->input, bkey1->outTangent.x, inTangent.x, endKey->input, input, t );
 
                     float b = bkey1->outTangent.y;
-
                     float c = inTangent.y;
-
                     float ti = 1.0f - t;
-
                     float br = 3.0f;
-
                     float cr = 3.0f;
 
                     if ( !mIs2DEvaluation )
@@ -314,7 +281,6 @@ namespace COLLADAMaya
 
                     break;
                 }
-
                 case COLLADA::LibraryAnimations::TCB:
                 {
                     if ( endKey->interpolation == COLLADA::LibraryAnimations::LINEAR )
@@ -334,27 +300,23 @@ namespace COLLADAMaya
                     AnimationKeyTCB* tkey1 = ( AnimationKeyTCB* ) startKey;
 
                     TangentPoint startTangent, tempTangent, endTangent;
-
                     startTangent.x = startTangent.y = tempTangent.x = tempTangent.y = endTangent.x = endTangent.y = 0.0f;
 
-                    const AnimationKey* previousKey = ( it - 1 ) > keys.begin() ? ( * ( it - 2 ) ) : NULL;
-
+                    const AnimationKey* previousKey = ( it - 1 ) > mKeys.begin() ? ( * ( it - 2 ) ) : NULL;
                     computeTCBTangent ( previousKey, startKey, endKey, tkey1->tension, tkey1->continuity, tkey1->bias, tempTangent, startTangent );
 
                     // Calculate the end key's in-tangent.
                     float by = 0.0f, cy= 0.0f; //will be used in the Bezier equation.
-
                     float bx = 0.0f, cx = 0.0f; //will be used in FindT.. x equivalent of the point at b and c
 
                     if ( endKey->interpolation == COLLADA::LibraryAnimations::TCB )
                     {
                         AnimationKeyTCB* tkey2 = ( AnimationKeyTCB* ) endKey;
-                        const AnimationKey* nextKey = ( it + 1 ) < keys.end() ? ( * ( it + 1 ) ) : NULL;
+                        const AnimationKey* nextKey = ( it + 1 ) < mKeys.end() ? ( * ( it + 1 ) ) : NULL;
                         computeTCBTangent ( startKey, endKey, nextKey, tkey2->tension, tkey2->continuity, tkey2->bias, endTangent, tempTangent );
                         cy = endKey->output + endTangent.y; //Assuming the tangent is GOING from the point.
                         cx = endKey->output + endTangent.x;
                     }
-
                     else if ( endKey->interpolation == COLLADA::LibraryAnimations::BEZIER )
                     {
                         AnimationKeyBezier* tkey2 = ( AnimationKeyBezier* ) endKey;
@@ -364,7 +326,6 @@ namespace COLLADAMaya
                     }
 
                     float t = ( input - inputStart ) / inputInterval;
-
                     by = startKey->output - startTangent.y; //Assuming the tangent is GOING from the point.
                     bx = startKey->input - startTangent.x;
 
@@ -375,7 +336,6 @@ namespace COLLADAMaya
                     //  }
 
                     float ti = 1.0f - t;
-
                     output = startKey->output*ti*ti*ti +
                              3*by*t*ti*ti +
                              3*cy*t*t*ti +
@@ -383,16 +343,13 @@ namespace COLLADAMaya
 
                     break;
                 }
-
                 case COLLADA::LibraryAnimations::STEP:
-
                 default:
                     output = startKey->output;
                     break;
                 }
 
                 evaluatedInput = outputOffset + output;
-
                 evaluated = true;
             }
         }
@@ -406,7 +363,7 @@ namespace COLLADAMaya
     {
         if ( valueConversion != NULL )
         {
-            for ( AnimationKeyList::iterator it = keys.begin(); it != keys.end(); ++it )
+            for ( AnimationKeyList::iterator it = mKeys.begin(); it != mKeys.end(); ++it )
             {
                 ( *it )->output = ( *valueConversion ) ( ( *it )->output );
             }
@@ -414,7 +371,7 @@ namespace COLLADAMaya
 
         if ( tangentConversion != NULL )
         {
-            for ( AnimationKeyList::iterator it = keys.begin(); it != keys.end(); ++it )
+            for ( AnimationKeyList::iterator it = mKeys.begin(); it != mKeys.end(); ++it )
             {
                 if ( ( *it )->interpolation == COLLADA::LibraryAnimations::BEZIER )
                 {
@@ -428,9 +385,11 @@ namespace COLLADAMaya
 
 
     // --------------------------------------------------
-    AnimationMultiCurve::AnimationMultiCurve ( const AnimationElement* parent,
-            const String& baseId, const uint dimension )
-            : BaseAnimationCurve ( parent, baseId, dimension )
+    AnimationMultiCurve::AnimationMultiCurve ( 
+        const AnimationElement* parent,
+        const String& baseId, 
+        const uint dimension )
+    : BaseAnimationCurve ( parent, baseId, dimension )
     {}
 
     // ----------------------------------------------------
@@ -440,33 +399,27 @@ namespace COLLADAMaya
 
         switch ( interpolation )
         {
-
         case COLLADA::LibraryAnimations::STEP:
             key = new AnimationMKey ( mDimension );
             break;
-
         case COLLADA::LibraryAnimations::LINEAR:
             key = new AnimationMKey ( mDimension );
             break;
-
         case COLLADA::LibraryAnimations::BEZIER:
             this->setHasTangents ( true );
             key = new AnimationMKeyBezier ( mDimension );
             break;
-
         case COLLADA::LibraryAnimations::TCB:
             this->setHasTCB ( true );
             key = new AnimationMKeyTCB ( mDimension );
             break;
-
         default:
             key = new AnimationMKey ( mDimension );
             break;
         }
 
         key->interpolation = interpolation;
-
-        keys.push_back ( key );
+        mKeys.push_back ( key );
 
         return key;
     }
@@ -475,22 +428,20 @@ namespace COLLADAMaya
     void AnimationMultiCurve::evaluate ( float input, float* output ) const
     {
         // Check for empty curves and poses (curves with 1 key).
-        if ( keys.size() == 0 )
+        if ( mKeys.size() == 0 )
         {
             for ( uint i=0; i<mDimension; ++i ) output[i] = 0.0f;
         }
-
-        else if ( keys.size() == 1 )
+        else if ( mKeys.size() == 1 )
         {
-            for ( uint i=0; i<mDimension; ++i ) output[i] = keys.front()->output[i];
+            for ( uint i=0; i<mDimension; ++i ) output[i] = mKeys.front()->output[i];
         }
-
         else
         {
             // Find the current interval
-            AnimationMKeyList::const_iterator it, start=keys.begin(), terminate=keys.end();
-            // Binary search.
+            AnimationMKeyList::const_iterator it, start=mKeys.begin(), terminate=mKeys.end();
 
+            // Binary search.
             while ( terminate - start > 3 )
             {
                 // Find the median value between the iterators
@@ -501,28 +452,23 @@ namespace COLLADAMaya
             }
 
             // Linear search is more efficient on the last interval
-
             for ( it = start; it != terminate; ++it )
             {
                 if ( ( *it )->input > input ) break;
             }
 
-            if ( it == keys.end() )
+            if ( it == mKeys.end() )
             {
                 // We're sampling after the curve, return the last values
-                const AnimationMKey* lastKey = keys.back();
-
+                const AnimationMKey* lastKey = mKeys.back();
                 for ( uint i=0; i<mDimension; ++i ) output[i] = lastKey->output[i];
             }
-
-            else if ( it == keys.begin() )
+            else if ( it == mKeys.begin() )
             {
                 // We're sampling before the curve, return the first values
-                const AnimationMKey* firstKey = keys.front();
-
+                const AnimationMKey* firstKey = mKeys.front();
                 for ( uint i=0; i<mDimension; ++i ) output[i] = firstKey->output[i];
             }
-
             else
             {
                 // Get the keys and values for this interval
@@ -532,64 +478,45 @@ namespace COLLADAMaya
 
                 // Interpolate the outputs.
                 // Similar code is found in AnimationCurve.cpp. If you update this, update the other one too.
-
                 switch ( startKey->interpolation )
                 {
-
                 case COLLADA::LibraryAnimations::LINEAR:
-
                     for ( uint i=0; i<mDimension; ++i )
                     {
                         output[i] = startKey->output[i] + ( input - startKey->input ) / inputInterval * ( endKey->output[i] - startKey->output[i] );
                     }
-
                     break;
-
                 case COLLADA::LibraryAnimations::BEZIER:
                 {
                     AnimationMKeyBezier* bkey1 = ( AnimationMKeyBezier* ) startKey;
-
                     for ( uint i=0; i<mDimension; ++i )
                     {
                         TangentPoint inTangent;
-
                         if ( endKey->interpolation == COLLADA::LibraryAnimations::BEZIER )
                             inTangent = ( ( AnimationMKeyBezier* ) endKey )->inTangent[i];
                         else inTangent = TangentPoint ( endKey->input, 0.0f );
 
                         float t = ( input - startKey->input ) / inputInterval;
-
                         if ( mIs2DEvaluation )
                             t = findT ( startKey->input, bkey1->outTangent[i].x, inTangent.x, endKey->input, input, t );
 
                         float b = bkey1->outTangent[i].v;
-
                         float c = inTangent.v;
-
                         float ti = 1.0f - t;
-
                         float br = inputInterval / ( bkey1->outTangent[i].u - startKey->input );
-
                         float cr = inputInterval / ( endKey->input - inTangent.u );
 
                         br = COLLADA::MathUtils::clamp ( br, 0.01f, 100.0f );
-
                         cr = COLLADA::MathUtils::clamp ( cr, 0.01f, 100.0f );
 
                         output[i] = startKey->output[i] * ti * ti * ti + br* b * ti * ti * t + cr * c * ti * t * t + endKey->output[i] * t * t * t;
                     }
-
                     break;
                 }
-
                 case COLLADA::LibraryAnimations::TCB: // Not implemented..
-
                 case COLLADA::LibraryAnimations::STEP:
-
                 default:
-
                     for ( uint i=0; i<mDimension; ++i ) output[i] = startKey->output[i];
-
                     break;
                 }
             }

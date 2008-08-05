@@ -12,7 +12,9 @@
 namespace COLLADA
 {
     //---------------------------------------------------------------
-    void PrimitivesBase::prepareBaseToAppendValues ( bool openPolylistElement )
+    void PrimitivesBase::prepareBaseToAppendValues ( 
+        const bool openPolylistElement, 
+        const bool openVertexlistElement )
     {
         mPrimitiveCloser = mSW->openElement ( mPrimitiveName );
 
@@ -32,7 +34,13 @@ namespace COLLADA
         }
 
         if ( openPolylistElement )
+        {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_P );
+        }
+        else if ( openVertexlistElement )
+        {
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_V );
+        }
     }
 
     //---------------------------------------------------------------

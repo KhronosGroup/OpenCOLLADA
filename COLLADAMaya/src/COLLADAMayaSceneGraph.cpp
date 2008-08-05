@@ -241,8 +241,9 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    SceneElement* SceneGraph::createSceneElement ( const MDagPath &dagPath,
-            SceneElement* parentSceneElement )
+    SceneElement* SceneGraph::createSceneElement ( 
+        const MDagPath &dagPath,
+        SceneElement* parentSceneElement )
     {
         // Create a new scene element
         SceneElement* sceneElement = new SceneElement ( dagPath );
@@ -489,11 +490,49 @@ namespace COLLADAMaya
     {
         static bool output = false;
         if ( output ) MGlobal::displayInfo ( MString ( "Comparing against: " ) + dagPath.fullPathName() );
-
-        for ( SceneElementsList::iterator it = mExportedNodes.begin(); it != mExportedNodes.end(); ++it )
+        for ( SceneElementsList::iterator it = mExportNodesTree.begin(); it != mExportNodesTree.end(); ++it )
         {
             if ( output ) MGlobal::displayInfo ( MString ( "Local value: " ) + MFnDependencyNode ( ( *it )->getNode() ).name() );
 
+            SceneElement* sceneElement = *it;
+            if ( sceneElement->getPath() == dagPath ) return ( sceneElement );
+
+            // Recursive call for all the child elements
+            for ( uint i=0; i<sceneElement->getChildCount(); ++i )
+            {
+                SceneElement* childElement = sceneElement->getChild ( i );
+                if ( ( childElement = findElement ( dagPath, childElement ) ) != NULL) return childElement;
+            }
+        }
+
+        return NULL;
+    }
+
+    // --------------------------------------------------------------------
+    SceneElement* SceneGraph::findElement ( 
+        const MDagPath& dagPath, 
+        SceneElement* sceneElement )
+    {
+        if ( sceneElement->getPath() == dagPath ) return ( sceneElement );
+
+        // Recursive call for all the child elements
+        for ( uint i=0; i<sceneElement->getChildCount(); ++i )
+        {
+            SceneElement* childElement = sceneElement->getChild ( i );
+            if ( ( childElement = findElement ( dagPath, childElement ) ) != NULL) return childElement;
+        }
+
+        return NULL;
+    }
+
+    // --------------------------------------------------------------------
+    SceneElement* SceneGraph::findExportedElement ( const MDagPath& dagPath )
+    {
+        static bool output = false;
+        if ( output ) MGlobal::displayInfo ( MString ( "Comparing against: " ) + dagPath.fullPathName() );
+        for ( SceneElementsList::iterator it = mExportedNodes.begin(); it != mExportedNodes.end(); ++it )
+        {
+            if ( output ) MGlobal::displayInfo ( MString ( "Local value: " ) + MFnDependencyNode ( ( *it )->getNode() ).name() );
             if ( ( *it )->getNode() == dagPath.node() ) return ( *it );
         }
 
@@ -541,7 +580,6 @@ namespace COLLADAMaya
             {
                 MDagPath selectedPath;
                 status = selectedItems.getDagPath ( i, selectedPath );
-
                 if ( status == MStatus::kSuccess ) queue.append ( selectedPath );
             }
 
@@ -552,7 +590,6 @@ namespace COLLADAMaya
 
                 // Queue up the children.
                 uint childCount = selectedPath.childCount();
-
                 for ( uint i = 0; i < childCount; ++i )
                 {
                     MObject node = selectedPath.child ( i );
@@ -575,12 +612,10 @@ namespace COLLADAMaya
             {
                 MDagPath currentPath;
                 status = dagIt.getPath ( currentPath );
-
                 if ( status == MStatus::kSuccess )
                 {
                     MFnDagNode node ( currentPath );
                     String nodeName = node.name().asChar();
-
                     if ( currentPath.node().hasFn ( MFn::kMesh ) )
                     {
                         // export forced nodes in path
@@ -599,7 +634,6 @@ namespace COLLADAMaya
         // Iterate upstream finding all the nodes which affect the mesh.
         MStatus stat;
         MPlug plug = meshFn.findPlug ( ATTR_IN_MESH );
-
         if ( plug.isConnected() )
         {
             MItDependencyGraph dependGraphIter ( plug,
@@ -612,7 +646,6 @@ namespace COLLADAMaya
             if ( stat == MS::kSuccess )
             {
                 dependGraphIter.disablePruningOnFilter();
-
                 for ( ; ! dependGraphIter.isDone(); dependGraphIter.next() )
                 {
                     MObject thisNode = dependGraphIter.thisNode();
@@ -623,14 +656,12 @@ namespace COLLADAMaya
                         MFnSkinCluster clusterFn ( thisNode );
                         MDagPathArray jointPaths;
                         clusterFn.influenceObjects ( jointPaths, &stat );
-
                         if ( stat == MS::kSuccess )
                         {
                             uint count = jointPaths.length();
                             for ( uint i = 0; i < count; ++i ) appendForcedNodeToList ( jointPaths[i] );
                         }
                     }
-
                     else if ( thisNode.apiType() == MFn::kJointCluster )
                     {
                         MObject joint = DagHelper::getNodeConnectedTo ( thisNode, ATTR_MATRIX );

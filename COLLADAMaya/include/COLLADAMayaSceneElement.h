@@ -96,13 +96,21 @@ namespace COLLADAMaya
         /** True, if the transform element has joints. */
         bool mHasJoint;
 
+        /** Set the skeletonId. It indicates where a skin 
+            controller is to start to search for the joint nodes 
+            it needs. This element is meaningless for morph controllers. */
+        String mSkeletonId;
+
     public:
 
         /** Constructor. */
         SceneElement ( const MDagPath _nodePath, Type _type=UNDETERMINED );
         virtual ~SceneElement();
 
-        const MDagPath getPath() const; /** returns the node path */
+        /** Returns the node path */
+        const MDagPath getPath() const; 
+        
+        /** Returns the node */
         const MObject& getNode();
 
         /** Returns the type of the node*/
@@ -246,6 +254,12 @@ namespace COLLADAMaya
          * @return bool True, if the transform element has joints.
          */
         bool getHasJoint() { return mHasJoint; }
+
+        /** Set the skeletonId. It indicates where a skin 
+        controller is to start to search for the joint nodes 
+        it needs. This element is meaningless for morph controllers. */
+        const String getSkeletonId() const { return mSkeletonId; }
+        void setSkeletonId( String& val ) { mSkeletonId = val; }
 
     private:
 

@@ -7,7 +7,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #include "COLLADAInstanceController.h"
 
 
@@ -23,7 +22,10 @@ namespace COLLADA
         if ( !mSkeletonId.empty() )
         {
             mSW->openElement( CSWC::COLLADA_ELEMENT_SKELETON );
-            mSW->appendValues( mSkeletonId );
+            if ( mSkeletonId[0] != '#' ) 
+                mSW->appendText( "#" + mSkeletonId );
+            else 
+                mSW->appendValues( mSkeletonId );
             mSW->closeElement();
         }
 

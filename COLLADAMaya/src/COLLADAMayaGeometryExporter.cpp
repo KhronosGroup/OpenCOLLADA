@@ -50,7 +50,6 @@ namespace COLLADAMaya
         {
             const SourceInput& sourceInput = *sourcesIter;
             const COLLADA::SourceBase& sourceBase = sourceInput.mSource;
-
             if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
                 sourceFound = true;
         }
@@ -64,12 +63,10 @@ namespace COLLADAMaya
         bool sourceFound = false;
 
         Sources::iterator sourcesIter = sources->begin();
-
         for ( ; sourcesIter!=sources->end() && !sourceFound; ++sourcesIter )
         {
             SourceInput& sourceInput = *sourcesIter;
             COLLADA::SourceBase& sourceBase = sourceInput.mSource;
-
             if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
             {
                 sourceFound = true;
@@ -87,9 +84,9 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     GeometryExporter::GeometryExporter ( COLLADA::StreamWriter* streamWriter,
                                          DocumentExporter* documentExporter )
-            : COLLADA::LibraryGeometries ( streamWriter ),
-            mDocumentExporter ( documentExporter ),
-            mExportedGeometries ( NULL )
+    : COLLADA::LibraryGeometries ( streamWriter )
+    , mDocumentExporter ( documentExporter )
+    , mExportedGeometries ( NULL )
     {
     }
 
@@ -135,26 +132,39 @@ namespace COLLADAMaya
             bool hasSkinController =
                 ExportOptions::exportJointsAndSkin() &&
                 controller->hasSkinController ( dagPath.node() );
-            sceneElement->setHasSkinController(hasSkinController);
+            sceneElement->setHasSkinController ( hasSkinController );
 
             bool hasMorphController = controller->hasMorphController ( dagPath.node() );
-            sceneElement->setHasMorphController(hasMorphController);
+            sceneElement->setHasMorphController ( hasMorphController );
 
-//             // Handle the controllers
-//             if ( hasSkinController || hasMorphController )
-//             {
-//                 // TODO This isn't ready...
-//                 // Create a skin/morph transform object and export the geometry
-//                 clock_t startClock, endClock;
-//                 startClock = clock();
-//                 controller->exportController ( sceneElement, hasSkinController );
-//                 endClock = clock();
-//                 cout << "   Export controller: " << endClock - startClock << endl;
-//             }
-//             else
+            // TODO Handle the controllers
+            if ( hasSkinController || hasMorphController )
             {
-                // Export the geometry directly in the collada document
+                // The stacks of the controllers for the affected nodes.
+                ControllerStack stack;
+                ControllerMeshStack meshStack;
+
+                // Iterate upstream finding all the nodes which affect the mesh.
+                if ( !ControllerExporter::findAffectedNodes( dagPath.node(), stack, meshStack ) ) return;
+
+                // Export the geometry 
                 exportGeometry ( dagPath );
+
+                // Reset all the intermediate mesh parameters.
+                ControllerExporter::resetMeshParameters( meshStack );
+
+                // Reset all the controller node states.
+                ControllerExporter::resetControllerNodeStates(stack);
+
+                // Clear the stack.
+                stack.clear();
+            }
+            else
+            {
+                // Export the geometry 
+                bool exported = exportGeometry ( dagPath );
+                if ( exported )
+                    mDocumentExporter->getSceneGraph()->addElement( sceneElement );
             }
         }
 
@@ -167,7 +177,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::exportGeometry ( const MDagPath& dagPath )
+    bool GeometryExporter::exportGeometry ( const MDagPath& dagPath )
     {
         //  Get the node of the current mesh
         MObject meshNode = dagPath.node();
@@ -176,7 +186,7 @@ namespace COLLADAMaya
         // We access all of the meshes data through the function set
         MStatus status;
         MFnMesh fnMesh ( meshNode, &status );
-        if ( status != MStatus::kSuccess ) return;
+        if ( status != MStatus::kSuccess ) return false;
 
         // Create the unique ID
         MString nodeNameMaya = fnMesh.name();
@@ -188,17 +198,16 @@ namespace COLLADAMaya
         String meshName = mDocumentExporter->dagPathToColladaName(dagPath);
 
         // Write the mesh data
-        exportMesh ( fnMesh, meshId, meshName );
+        return exportMesh ( fnMesh, meshId, meshName );
     }
 
     // --------------------------------------------------------
-    void GeometryExporter::exportMesh ( MFnMesh& fnMesh, String meshId, String &meshName )
+    bool GeometryExporter::exportMesh ( MFnMesh& fnMesh, String meshId, String &meshName )
     {
         // Check if the geometry isn't already exported
         std::vector<String>::iterator geometryIter;
         geometryIter = find ( mExportedGeometries.begin(), mExportedGeometries.end(), meshId );
-
-        if ( geometryIter != mExportedGeometries.end() ) return;
+        if ( geometryIter != mExportedGeometries.end() ) return false;
 
         // Push the exported geometry in the export list
         mExportedGeometries.push_back ( meshId );
@@ -281,6 +290,8 @@ namespace COLLADAMaya
         exportExtra ( fnMesh );
 
         closeGeometry();
+
+        return true;
     }
 
     // --------------------------------------------------------
@@ -401,18 +412,19 @@ namespace COLLADAMaya
 
                 // TODO Parameters??? TEST!
                 AnimationExporter* animExporter = mDocumentExporter->getAnimationExporter();
-                animExporter->addPlugAnimation ( childPlug, VERTEX_SID, XYZW_PARAMETERS, kSingle | kLength );
+                animExporter->addPlugAnimation ( childPlug, VERTEX_SID, XYZW_PARAMETERS, kSingle | kLength, true );
             }
         }
 
         for ( uint i = 0; i < vertexCount; ++i )
         {
             MPoint &pointData = vertexArray[i];
-            vertexSource.appendValues ( vertexArray[i].x, vertexArray[i].y, vertexArray[i].z );
+            vertexSource.appendValues ( 
+                COLLADA::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : vertexArray[i].x, 
+                COLLADA::MathUtils::equalsZero ( vertexArray[i].y ) ? 0 : vertexArray[i].y, 
+                COLLADA::MathUtils::equalsZero ( vertexArray[i].z ) ? 0 : vertexArray[i].z );
         }
-
         vertexSource.finish();
-
 
         // Add input to the mesh <vertices> node
         mPolygonSources.push_back ( SourceInput ( vertexSource, COLLADA::VERTEX ) );
@@ -572,7 +584,7 @@ namespace COLLADAMaya
 
             // TODO Don't put the source into the vertex sources, 
             // put it into the polygon sources.
-            // That's about the other plugins, they don't support this.
+            // That's about the other plug-ins, they don't support this.
 //             if ( colorSet.isVertexColor )
 //             {
 //                 // Insert a per-vertex color set input
@@ -661,7 +673,9 @@ namespace COLLADAMaya
 
             for ( uint j = 0; j < uvCount; ++j )
             {
-                texCoordSource.appendValues ( uArray[j], vArray[j] );
+                texCoordSource.appendValues ( 
+                    COLLADA::MathUtils::equalsZero ( uArray[j] ) ? 0 : uArray[j], 
+                    COLLADA::MathUtils::equalsZero ( vArray[j] ) ? 0 : vArray[j] );
             }
 
             // Figure out the real index for this texture coordinate set
@@ -1172,7 +1186,10 @@ namespace COLLADAMaya
         for ( uint i = 0; i < normalCount; ++i )
         {
             MFloatVector &normal = normals[i];
-            normalSource.appendValues ( normal.x, normal.y, normal.z );
+            normalSource.appendValues ( 
+                COLLADA::MathUtils::equalsZero ( normal.x ) ? 0 : normal.x, 
+                COLLADA::MathUtils::equalsZero ( normal.y ) ? 0 : normal.y, 
+                COLLADA::MathUtils::equalsZero ( normal.z ) ? 0 : normal.z );
         }
 
         normalSource.finish();
@@ -1237,9 +1254,11 @@ namespace COLLADAMaya
             for ( uint i = 0; i < tangentCount; ++i )
             {
                 MVector &tangent = tangents[i];
-                tangentSource.appendValues ( tangent.x, tangent.y, tangent.z );
+                tangentSource.appendValues ( 
+                    COLLADA::MathUtils::equalsZero ( tangent.x ) ? 0 : tangent.x, 
+                    COLLADA::MathUtils::equalsZero ( tangent.y ) ? 0 : tangent.y, 
+                    COLLADA::MathUtils::equalsZero ( tangent.z ) ? 0 : tangent.z );
             }
-
             tangentSource.finish();
 
             // Geo-binormal
@@ -1258,9 +1277,11 @@ namespace COLLADAMaya
             for ( uint i = 0; i < binormalCount; ++i )
             {
                 MVector &binormal = binormals[i];
-                binormalSource.appendValues ( binormal.x, binormal.y, binormal.z );
+                binormalSource.appendValues ( 
+                    COLLADA::MathUtils::equalsZero ( binormal.x ) ? 0 : binormal.x, 
+                    COLLADA::MathUtils::equalsZero ( binormal.y ) ? 0 : binormal.y, 
+                    COLLADA::MathUtils::equalsZero ( binormal.z ) ? 0 : binormal.z );
             }
-
             binormalSource.finish();
         }
     }

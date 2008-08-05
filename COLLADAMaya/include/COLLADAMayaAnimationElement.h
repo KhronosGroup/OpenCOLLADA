@@ -79,6 +79,9 @@ namespace COLLADAMaya
         /** True, if the current animated element has grouped attributes. Children exist. */
         bool mIsCompound;
 
+        /** Flag to indicate that the animation should be applied relative to the default value. */
+        bool mIsRelativeAnimation;
+
     public:
 
         /** Constructor */
@@ -192,6 +195,18 @@ namespace COLLADAMaya
         void isCompoundElement ( bool isCompound )
         {
             mIsCompound = isCompound;
+        }
+
+        /** Flag to indicate that the animation should be applied relative to the default value. */
+        const bool getIsRelativeAnimation() const 
+        { 
+            return mIsRelativeAnimation; 
+        }
+
+        /** Flag to indicate that the animation should be applied relative to the default value. */
+        void setIsRelativeAnimation( bool val ) 
+        { 
+            mIsRelativeAnimation = val; 
         }
 
     };

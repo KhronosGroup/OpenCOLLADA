@@ -22,12 +22,23 @@ namespace COLLADAMaya
 {
 
     // ----------------------------------------------------------
-    AnimationElement::AnimationElement ( MPlug plug, const String& baseId,
-                                         const String& subId, const String& nodeId,
-                                         const String parameters[], SampleType sampleType )
-            : mAnimatedCurves ( NULL ), mPlug ( plug ), mBaseId ( baseId ),
-            mSubId ( subId ), mNodeId ( nodeId ), mIsCompound ( false ),
-            mParameters ( parameters ), mSampleType ( sampleType ), mConversion ( NULL )
+    AnimationElement::AnimationElement ( 
+        MPlug plug, 
+        const String& baseId,
+        const String& subId, 
+        const String& nodeId,
+        const String parameters[], 
+        SampleType sampleType )
+    : mAnimatedCurves ( NULL )
+    , mPlug ( plug )
+    , mBaseId ( baseId )
+    , mSubId ( subId )
+    , mNodeId ( nodeId )
+    , mIsCompound ( false )
+    , mParameters ( parameters )
+    , mSampleType ( sampleType )
+    , mConversion ( NULL )
+    , mIsRelativeAnimation ( false )
     {}
 
     // ----------------------------------------------------------
@@ -38,26 +49,22 @@ namespace COLLADAMaya
         {
             // Delete the added curves
             AnimationCurveList::iterator it = mAnimatedCurves.begin();
-
             for ( ; it!=mAnimatedCurves.end(); ++it )
             {
                 AnimationCurve* curve = *it;
                 delete curve;
             }
-
             mAnimatedCurves.clear();
         }
 
         {
             // Delete the childs
             AnimatedElementList::iterator it = mAnimatedChildElements.begin();
-
             for ( ; it!=mAnimatedChildElements.end(); ++it )
             {
                 AnimationElement* animatedElement = *it;
                 delete animatedElement;
             }
-
             mAnimatedChildElements.clear();
         }
     }
@@ -96,7 +103,6 @@ namespace COLLADAMaya
         if ( mAnimatedCurves.size() > 0 ) return true;
 
         AnimatedElementList::const_iterator it = mAnimatedChildElements.begin();
-
         for ( ; it!=mAnimatedChildElements.end(); ++it )
         {
             if ( ( *it )->hasCurves() ) return true;

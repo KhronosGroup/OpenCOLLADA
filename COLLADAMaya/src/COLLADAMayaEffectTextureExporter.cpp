@@ -26,6 +26,10 @@
 
 #include <maya/MFileIO.h>
 
+#include "boost/filesystem.hpp"
+using namespace boost::filesystem;
+
+
 namespace COLLADAMaya
 {
 
@@ -194,11 +198,8 @@ namespace COLLADAMaya
         if ( ExportOptions::relativePaths() )
         {
             // Different filename and URI, if we copy the textures to the destination directory!
-            if ( ExportOptions::copyTexturesToDestinationDirectory() )
+            if ( ExportOptions::copyTextures() )
             {
-                // TODO In the moment, we don't create sub folders in the destination directory
-                // for the texture. Instead, we copy them directly in the destination folder.
-
                 // Get the filename with the path to the destination directory.
                 String targetFile = getTargetFileName( sourceFile );
                 String targetColladaFile = mDocumentExporter->getFilename();
@@ -217,10 +218,6 @@ namespace COLLADAMaya
                 // Get the relative file path from the destination folder to the source texture
                 String targetFile = mDocumentExporter->getFilename();
                 String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
-
-//                 String sourceMayaFile = MFileIO::currentFile().asChar();
-//                 String sourceMayaPath = COLLADA::Utils::getAbsolutePathFromFile ( sourceMayaFile );
-
                 String relativeFileName = COLLADA::Utils::getRelativeFilename( targetFile, sourceFile );
 
                 // Get the filename and the URI
@@ -234,11 +231,8 @@ namespace COLLADAMaya
         else
         {
             // Different filename and URI, if we copy the textures to the destination directory!
-            if ( ExportOptions::copyTexturesToDestinationDirectory() )
+            if ( ExportOptions::copyTextures() )
             {
-                // TODO In the moment, we don't create sub folders in the destination directory
-                // for the texture. Instead, we copy them directly in the destination folder.
-
                 // Get the filename with the path to the destination directory.
                 String targetFile = getTargetFileName( sourceFile );
 
@@ -263,9 +257,23 @@ namespace COLLADAMaya
         }
 
         // Check, if we should copy the texture to the destination folder.
-        if ( ExportOptions::copyTexturesToDestinationDirectory() )
+        if ( ExportOptions::copyTextures() )
         {
-            copyTexturesToDestination( sourceFile );
+            // Get the target file from source file.
+            String targetFile = getTargetFileName( sourceFile );
+            path pathSourceFile ( sourceFile );
+            path pathTargetFile ( targetFile );
+
+            // Copy the texture
+            if ( !exists( targetFile ) )
+            {
+                // Create the target directory, if necessary
+                create_directory( COLLADA::Utils::getAbsolutePathFromFile( targetFile ) );
+
+                // Throws: basic_filesystem_error<Path> if 
+                // from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
+                copy_file( pathSourceFile, pathTargetFile );
+            }
         }
 
         // Convert the image name
@@ -289,24 +297,6 @@ namespace COLLADAMaya
         mExportedImageMap[ fullFileName ] = colladaImage;
 
         return colladaImageName;
-    }
-
-    // ------------------------------------------------------------
-    void EffectTextureExporter::copyTexturesToDestination( String &sourceFile )
-    {
-        // Get the target file from source file.
-        String targetFile = getTargetFileName( sourceFile );
-
-        // TODO If the image is in a sub-directory, we have to create 
-        // the sub-directories before copying the file!
-
-        // Copy the source file to the destination directory
-        if ( !COLLADA::Utils::copyFile( sourceFile, targetFile ) )
-        {
-            String message = "Couldn't successful copy the texture from \""
-                            + sourceFile + "\" to \"" + targetFile + "\"!";
-            MGlobal::displayError( message.c_str() );
-        }
     }
 
     // ------------------------------------------------------------

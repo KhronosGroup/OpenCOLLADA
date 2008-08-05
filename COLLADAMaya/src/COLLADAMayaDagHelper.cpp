@@ -61,14 +61,12 @@ namespace COLLADAMaya
         MStatus status;
         MFnDependencyNode dgFn ( node );
         MPlug plug = dgFn.findPlug ( attribute, &status );
-
         if ( status == MS::kSuccess && plug.isConnected() )
         {
             // Get the connection - there can be at most one input to a plug
-            //
             MPlugArray connections;
             plug.connectedTo ( connections, true, false );
-
+            size_t length = connections.length();
             if ( connections.length() > 0 )
             {
                 return connections[0].node();

@@ -291,7 +291,7 @@ namespace COLLADA
 			else
 			{
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-            fprintf_s ( mStream, "%f", number );
+            fprintf_s ( mStream, "%g", number );
 #else
             mOutFile << number;
 #endif

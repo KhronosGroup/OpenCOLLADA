@@ -47,8 +47,8 @@ namespace COLLADAMaya
         typedef std::vector<T*> KeyList;
 
         // Curve information
-        KeyList keys;
-        MFnAnimCurve::InfinityType preInfinity, postInfinity;
+        KeyList mKeys;
+        MFnAnimCurve::InfinityType mPreInfinity, mPostInfinity;
 
         // The animation element owning this curve.
         const AnimationElement* mParent;
@@ -71,9 +71,19 @@ namespace COLLADAMaya
         /** The parameters of the current curve. */
         String* mParameters;
 
-        /** The index of the current curve in the list of curve elements.
-        Needed to detect the correct parameter. */
+        /** 
+          * The index of the current curve in the list of curve elements.
+          * Needed to detect the correct parameter. 
+          */
         uint mCurveIndex;
+
+        /** 
+          * The animCurve is considered to be static if it would return 
+          * the same value regardless of the evaluation time. 
+          * This basically means that the values of all the keys are 
+          * the same and the y component of all the tangents is 0.  
+          */
+        bool mIsStatic;
 
     public:
         /** Returns the owning element of the current curve */
@@ -97,12 +107,12 @@ namespace COLLADAMaya
         @return The list of keys. */
         inline KeyList getKeys()
         {
-            return keys;
+            return mKeys;
         }
 
         inline const KeyList getKeys() const
         {
-            return keys;    /**< See above. */
+            return mKeys;    /**< See above. */
         }
 
         /** Get the key at the current index */
@@ -111,7 +121,7 @@ namespace COLLADAMaya
         /** Returns the number of keys in the curve. */
         uint getKeyCount() const
         {
-            return keys.size();
+            return mKeys.size();
         };
 
         /** Retrieves the number of dimensions for the curve.
@@ -130,26 +140,26 @@ namespace COLLADAMaya
         outside the input interval defined by the curve keys and less than any key input value.*/
         void setPreInfinity ( MFnAnimCurve::InfinityType _preInfinity )
         {
-            preInfinity = _preInfinity;
+            mPreInfinity = _preInfinity;
         }
 
         /** The pre-infinity behavior of the curve. */
         MFnAnimCurve::InfinityType getPreInfinity() const
         {
-            return preInfinity;
+            return mPreInfinity;
         }
 
         /** Retrieves the type of behavior for the curve if the input value is
         outside the input interval defined by the curve keys and greater than any key input value. */
         void setPostInfinity ( MFnAnimCurve::InfinityType _postInfinity )
         {
-            postInfinity = _postInfinity;
+            mPostInfinity = _postInfinity;
         }
 
         /** The post-infinity behavior of the curve. */
         MFnAnimCurve::InfinityType getPostInfinity() const
         {
-            return postInfinity;
+            return mPostInfinity;
         }
 
         /** Returns the parameters of the current curve. */
@@ -232,6 +242,15 @@ namespace COLLADAMaya
             mCurveIndex = curveIndex;
         }
 
+        /** 
+        * The animCurve is considered to be static if it would return 
+        * the same value regardless of the evaluation time. 
+        * This basically means that the values of all the keys are 
+        * the same and the y component of all the tangents is 0.  
+        */
+        const bool getIsStatic() const { return mIsStatic; }
+        void setIsStatic( bool val ) { mIsStatic = val; }
+
     protected:
 
         BaseAnimationCurve ( const AnimationElement* parent,
@@ -244,6 +263,7 @@ namespace COLLADAMaya
                 , mHasTangents ( false )
                 , mHasTCB ( false )
                 , mParameters ( NULL )
+                , mIsStatic ( false )
         {
             // Set the parenting dimension as default
             if ( dimension==-1 ) mDimension = parent->getDimension();
@@ -295,15 +315,15 @@ namespace COLLADAMaya
     {
         mParent = NULL;
 
-        KeyList::iterator it = keys.begin();
+        KeyList::iterator it = mKeys.begin();
 
-        for ( ; it!=keys.end(); ++it )
+        for ( ; it!=mKeys.end(); ++it )
         {
             T* key = *it;
             delete key;
         }
 
-        keys.clear();
+        mKeys.clear();
     }
 
     // --------------------------------------------------
@@ -314,9 +334,9 @@ namespace COLLADAMaya
     template<class T>
     T* BaseAnimationCurve<T>::getKey ( uint index ) const
     {
-        if ( keys.size() < index ) MGlobal::displayError ( MString ( "Key index not valid! " ) + index );
+        if ( mKeys.size() < index ) MGlobal::displayError ( MString ( "Key index not valid! " ) + index );
 
-        return keys[index];
+        return mKeys[index];
     }
 
     /**
@@ -326,36 +346,36 @@ namespace COLLADAMaya
     * @return void
     */
     template<class T>
-    void BaseAnimationCurve<T>::setKeyCount ( size_t count,
-            COLLADA::LibraryAnimations::InterpolationType interpolation )
+    void BaseAnimationCurve<T>::setKeyCount ( 
+        size_t count,
+        COLLADA::LibraryAnimations::InterpolationType interpolation )
     {
-        size_t oldCount = keys.size();
-
+        size_t oldCount = mKeys.size();
         if ( oldCount < count )
         {
             for ( ; oldCount < count; ++oldCount ) addKey ( interpolation );
         }
-
         else if ( count < oldCount )
         {
-            while ( keys.size() > count )
+            while ( mKeys.size() > count )
             {
-                delete keys[keys.size()-1];
-                keys.pop_back();
+                delete mKeys[mKeys.size()-1];
+                mKeys.pop_back();
             }
         }
     }
 
     // ---------------------------------------------------
     template<class T>
-    void BaseAnimationCurve<T>::computeTCBTangent ( const AnimationKey* previousKey,
-            const AnimationKey* currentKey,
-            const AnimationKey* nextKey,
-            const float tens,
-            const float cont,
-            const float bias,
-            TangentPoint& leftTangent,
-            TangentPoint& rightTangent ) const
+    void BaseAnimationCurve<T>::computeTCBTangent ( 
+        const AnimationKey* previousKey,
+        const AnimationKey* currentKey,
+        const AnimationKey* nextKey,
+        const float tens,
+        const float cont,
+        const float bias,
+        TangentPoint& leftTangent,
+        TangentPoint& rightTangent ) const
     {
         if ( currentKey == NULL )
         {
@@ -365,7 +385,6 @@ namespace COLLADAMaya
 
         // Calculate the intervals and allow for time differences of both sides.
         TangentPoint pCurrentMinusPrevious;
-
         TangentPoint pNextMinusCurrent;
 
         //If the previous key or the last key is NULL, do make one up...
@@ -376,7 +395,6 @@ namespace COLLADAMaya
 
             pCurrentMinusPrevious.y = 0.0f;
         }
-
         else
         {
             pCurrentMinusPrevious.x = previousKey->input - currentKey->input;
@@ -390,7 +408,6 @@ namespace COLLADAMaya
 
             pNextMinusCurrent.y = 0.0f;
         }
-
         else
         {
             pNextMinusCurrent.x = nextKey->input - currentKey->input;
@@ -399,19 +416,13 @@ namespace COLLADAMaya
 
         //Calculate the constants applied that contain the continuity, tension, and bias.
         float k1 = ( ( 1.0f - tens ) * ( 1.0f - cont ) * ( 1.0f + bias ) ) /2;
-
         float k2 = ( ( 1.0f - tens ) * ( 1.0f + cont ) * ( 1.0f - bias ) ) /2;
-
         float k3 = ( ( 1.0f - tens ) * ( 1.0f + cont ) * ( 1.0f + bias ) ) /2;
-
         float k4 = ( ( 1.0f - tens ) * ( 1.0f - cont ) * ( 1.0f - bias ) ) /2;
 
         leftTangent.x = k1 * pCurrentMinusPrevious.x + k2 * pNextMinusCurrent.x;
-
         leftTangent.y = k1 * pCurrentMinusPrevious.y + k2 * pNextMinusCurrent.y;
-
         rightTangent.x = k3 * pCurrentMinusPrevious.x + k4 * pNextMinusCurrent.x;
-
         rightTangent.y = k3 * pCurrentMinusPrevious.y + k4 * pNextMinusCurrent.y;
     }
 
@@ -436,14 +447,12 @@ namespace COLLADAMaya
         else midT = initialGuess;
 
         bool once = true;
-
         while ( ( highT-lowT ) > localTolerance )
         {
             if ( once ) once = false;
             else midT = ( highT - lowT ) / 2.0f + lowT;
 
             float ti = 1.0f - midT; // (1 - t)
-
             float calculatedTime = cp0x*ti*ti*ti + 3*cp1x*midT*ti*ti + 3*cp2x*midT*midT*ti + cp3x*midT*midT*midT;
 
             if ( fabsf ( calculatedTime - input ) <= localTolerance ) break; //If we 'fall' very close, we like it and break.

@@ -121,8 +121,15 @@ namespace COLLADAMaya
         void addForcedNodes ( const MDagPath& dagPath );
         bool isForcedNode ( const MDagPath& dagPath );
 
-        // Look-ups
+        /** Look-ups for an element in the entire scene graph. */
         SceneElement* findElement ( const MDagPath& dagPath );
+
+        /** Look-ups for an element from the position of the current 
+            element in the scene graph downwards. */
+        SceneElement* findElement ( const MDagPath& dagPath, SceneElement* sceneElement );
+
+        /** Look-ups for exported elements */
+        SceneElement* findExportedElement ( const MDagPath& dagPath );
 
         /** Adds this element to the list of exported elements */
         void addElement ( SceneElement* entity );

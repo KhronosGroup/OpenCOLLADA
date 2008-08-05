@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 #define __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 
@@ -102,6 +101,7 @@ namespace COLLADAMaya
          * @param attrname The name of the attribute, we want to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
@@ -109,6 +109,7 @@ namespace COLLADAMaya
                                 const String attrname,
                                 const String* parameters,
                                 const uint sampleType,
+                                const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
         /**
@@ -120,6 +121,7 @@ namespace COLLADAMaya
          * @param attrname The name of the attribute, we want to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
@@ -128,6 +130,7 @@ namespace COLLADAMaya
                                 const String attrname,
                                 const String* parameters,
                                 const uint sampleType,
+                                const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
         /**
@@ -137,6 +140,7 @@ namespace COLLADAMaya
          * @param subId The id of the attribute to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
@@ -144,6 +148,7 @@ namespace COLLADAMaya
                                 const String subId,
                                 const String* parameters,
                                 const SampleType sampleType,
+                                const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
         /**
@@ -153,6 +158,7 @@ namespace COLLADAMaya
          * @param subId The id of the attribute to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
@@ -160,6 +166,7 @@ namespace COLLADAMaya
                                 const String subId,
                                 const String* parameters,
                                 const uint sampleType,
+                                const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
     private:

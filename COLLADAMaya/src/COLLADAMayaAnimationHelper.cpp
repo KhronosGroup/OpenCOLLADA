@@ -36,7 +36,6 @@ namespace COLLADAMaya
     {
         // Early withdrawal: check for no direct connections on plug
         MObject animating = DagHelper::getSourceNodeConnectedTo ( plug );
-
         if ( animating.isNull() ) return animating;
 
         // By-pass any unit conversion nodes
@@ -50,9 +49,10 @@ namespace COLLADAMaya
 
     // -------------------------------------------
     // Figure out whether a given plug is animated
-    AnimationResult AnimationHelper::isAnimated ( AnimationSampleCache *acache,
-            const MObject& node,
-            const String& attribute )
+    AnimationResult AnimationHelper::isAnimated ( 
+        AnimationSampleCache *acache,
+        const MObject& node,
+        const String& attribute )
     {
         MStatus status;
         MPlug p = MFnDependencyNode ( node ).findPlug ( attribute.c_str(), &status );
@@ -60,30 +60,32 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    AnimationResult AnimationHelper::isAnimated ( AnimationSampleCache* cache,
-            const MPlug& plug )
+    AnimationResult AnimationHelper::isAnimated ( 
+        AnimationSampleCache* cache,
+        const MPlug& plug )
     {
         // First check for sampling in our cache -- if this exists, it overrides
         // all other considerations.  We could have sampling on a node without any
         // connections (for example, IK driven nodes).
         bool animated;
-
         if ( cache->findCachePlug ( plug, animated ) )
         {
             return ( !animated ) ? kISANIM_None : kISANIM_Sample;
         }
-
         else
         {
             // Get the connected animating object
             MObject connectedNode = getAnimatingNode ( plug );
-
             if ( connectedNode == MObject::kNullObj ) return kISANIM_None;
             else if ( connectedNode.hasFn ( MFn::kAnimCurve ) )
             {
                 MFnAnimCurve curveFn ( connectedNode );
                 AnimationResult result = curveFn.numKeys() >= 1 ? kISANIM_Curve : kISANIM_None;
 
+                // The animCurve is considered to be static if it would return 
+                // the same value regardless of the evaluation time. 
+                // This basically means that the values of all the keys are 
+                // the same and the y component of all the tangents is 0. 
                 if ( ExportOptions::removeStaticCurves() )
                 {
                     if ( result == kISANIM_Curve && curveFn.isStatic() ) result = kISANIM_None;
@@ -91,13 +93,11 @@ namespace COLLADAMaya
 
                 return result;
             }
-
             else if ( connectedNode.hasFn ( MFn::kCharacter ) )
             {
                 return kISANIM_Character;
             }
         }
-
         return kISANIM_None;
     }
 
@@ -119,7 +119,6 @@ namespace COLLADAMaya
 
         // Order and parse the given floats as a function
         uint elementCount = function.length();
-
         if ( elementCount > 1 && elementCount % 3 != 0 ) return false;
 
         if ( elementCount == 0 )
@@ -127,7 +126,6 @@ namespace COLLADAMaya
             generateSamplingFunction();
             return true;
         }
-
         else if ( elementCount == 1 )
         {
             SamplingInterval interval;
@@ -136,12 +134,10 @@ namespace COLLADAMaya
             interval.period = function[0];
             parsedFunction.push_back ( interval );
         }
-
         else
         {
             uint intervalCount = elementCount / 3;
             parsedFunction.resize ( intervalCount );
-
             for ( uint i = 0; i < intervalCount; ++i )
             {
                 SamplingInterval& interval = parsedFunction[i];
@@ -153,17 +149,12 @@ namespace COLLADAMaya
 
         // Check for a valid sampling function
         uint parsedFunctionSize = ( uint ) parsedFunction.size();
-
         for ( uint i = 0; i < parsedFunctionSize; ++i )
         {
             SamplingInterval& interval = parsedFunction[i];
-
             if ( interval.end <= interval.start ) return false;
-
             if ( interval.period > interval.end - interval.start ) return false;
-
             if ( i > 0 && parsedFunction[i - 1].end > interval.start ) return false;
-
             if ( interval.period <= 0.0f ) return false;
         }
 
@@ -171,14 +162,12 @@ namespace COLLADAMaya
         samplingTimes.clear();
 
         float previousTime = ( float ) animationStartTime().as ( MTime::kSeconds );
-
         float previousPeriodTakenRatio = 1.0f;
 
         for ( std::vector<SamplingInterval>::iterator it = parsedFunction.begin(); it != parsedFunction.end(); ++it )
         {
             SamplingInterval& interval = ( *it );
             float time = interval.start;
-
             if ( time == previousTime )
             {
                 // Continuity in the sampling, calculate overlap start time
@@ -207,7 +196,6 @@ namespace COLLADAMaya
         // [NMartz] Avoid any potential precision accumulation problems by using the MTime class as an iterator
         MTime startT = animationStartTime();
         MTime endT = animationEndTime();
-
         for ( MTime currentT = startT; currentT <= endT; ++currentT )
         {
             samplingTimes.push_back ( ( float ) currentT.as ( MTime::kSeconds ) );
@@ -215,17 +203,16 @@ namespace COLLADAMaya
     }
 
     // Sample animated values for a given plug
-    bool AnimationHelper::sampleAnimatedPlug ( AnimationSampleCache* cache,
-            const MPlug& plug,
-            AnimationCurve* curve,
-            ConversionFunctor* converter )
+    bool AnimationHelper::sampleAnimatedPlug ( 
+        AnimationSampleCache* cache,
+        const MPlug& plug,
+        AnimationCurve* curve,
+        ConversionFunctor* converter )
     {
         MStatus status;
-
         if ( cache == NULL ) return false;
 
         std::vector<float>* inputs = NULL;
-
         std::vector<float>* outputs = NULL;
 
         // Buffer temporarly the inputs and outputs, so they can be sorted
@@ -238,7 +225,6 @@ namespace COLLADAMaya
         {
             // Drop the keys and their outputs that don't belong to the attached animation curve
             MFnAnimCurve curveFn ( plug, &status );
-
             if ( status == MStatus::kSuccess && curveFn.numKeys() > 0 )
             {
                 float startTime = ( float ) curveFn.time ( 0 ).as ( MTime::kSeconds );
@@ -246,16 +232,13 @@ namespace COLLADAMaya
                 uint count = 0;
 
                 // To avoid memory re-allocations, start by counting the number of keys that are within the curve
-
                 for ( uint i = 0; i < inputCount; ++i )
                 {
                     if ( inputs->at ( i ) + FLT_TOLERANCE >= startTime && inputs->at ( i ) - FLT_TOLERANCE <= endTime ) ++count;
                 }
-
                 curve->setKeyCount ( count, COLLADA::LibraryAnimations::LINEAR );
 
                 // Copy over the keys belonging to the curve's timeframe
-
                 for ( uint i = 0; i < inputCount; ++i )
                 {
                     if ( inputs->at ( i ) + FLT_TOLERANCE >= startTime && inputs->at ( i ) - FLT_TOLERANCE <= endTime )
@@ -265,12 +248,10 @@ namespace COLLADAMaya
                     }
                 }
             }
-
             else if ( status != MStatus::kSuccess )
             {
                 // No curve found, so use the sampled inputs/outputs directly
                 curve->setKeyCount ( inputs->size(), COLLADA::LibraryAnimations::LINEAR );
-
                 for ( uint i = 0; i < inputCount; ++i )
                 {
                     curve->getKey ( i )->input = inputs->at ( i );
@@ -282,7 +263,6 @@ namespace COLLADAMaya
         else
         {
             curve->setKeyCount ( inputs->size(), COLLADA::LibraryAnimations::LINEAR );
-
             for ( uint i = 0; i < inputCount; ++i )
             {
                 curve->getKey ( i )->input = inputs->at ( i );
@@ -291,7 +271,6 @@ namespace COLLADAMaya
         }
 
         // Convert the samples
-
         if ( converter != NULL )
         {
             curve->convertValues ( converter, converter );
@@ -310,15 +289,12 @@ namespace COLLADAMaya
         if ( curves.size() != 16 ) return;
 
         std::vector<float>* inputs = NULL,* outputs = NULL;
-
         if ( !cache->findCachePlug ( plug, inputs, outputs ) || inputs == NULL || outputs == NULL ) return;
 
         size_t keyCount = inputs->size();
-
         for ( size_t i = 0; i < 16; ++i )
         {
             curves[i]->setKeyCount ( keyCount, COLLADA::LibraryAnimations::LINEAR );
-
             for ( size_t j = 0; j < keyCount; ++j )
             {
                 BaseAnimationKey* key = curves[i]->getKey ( j );
@@ -392,12 +368,10 @@ namespace COLLADAMaya
         {
             return parentPlug.child ( index );
         }
-
         else if ( index >= 0 && parentPlug.isArray() )
         {
             return parentPlug.elementByLogicalIndex ( index );
         }
-
         else return parentPlug;
     }
 
@@ -408,7 +382,6 @@ namespace COLLADAMaya
     {
         switch ( outType )
         {
-
         case MFnAnimCurve::kTangentGlobal:
             return COLLADA::LibraryAnimations::BEZIER;
 

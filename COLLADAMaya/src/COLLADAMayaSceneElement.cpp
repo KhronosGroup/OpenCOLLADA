@@ -35,6 +35,7 @@ namespace COLLADAMaya
             , mHasSkinController ( false )
             , mHasMorphController ( false )
             , mInstantiatedSceneElement ( NULL )
+            , mSkeletonId ( "" )
     {}
 
     //---------------------------------------------------------------

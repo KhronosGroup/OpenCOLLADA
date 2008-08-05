@@ -223,7 +223,7 @@ namespace COLLADAMaya
         }
 
         /** True, if the texture files should be copied to the destination folder. */
-        static bool copyTexturesToDestinationDirectory() 
+        static bool copyTextures() 
         { 
             return mCopyTextures; 
         }

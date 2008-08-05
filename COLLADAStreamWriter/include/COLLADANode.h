@@ -7,8 +7,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
-
 #ifndef __COLLADASTREAMWRITER_NODE_H__
 #define __COLLADASTREAMWRITER_NODE_H__
 
@@ -46,6 +44,9 @@ namespace COLLADA
         /** The name of the node*/
         String mNodeName;
 
+        /** The sid of the current node. Used for joints. */
+        String mNodeSid;
+
         /** The URL of an instance node. */
         String mNodeURL;
 
@@ -79,13 +80,13 @@ namespace COLLADA
         }
 
         /** Returns a reference to the id of the node*/
-        const String& getId() const
+        const String& getNodeId() const
         {
             return mNodeId;
         }
 
         /** Sets the id of the node*/
-        void setId ( const String& id )
+        void setNodeId ( const String& id )
         {
             mNodeId = id;
         }
@@ -100,6 +101,18 @@ namespace COLLADA
         void setNodeName ( const String& nodeName )
         {
             mNodeName = nodeName;
+        }
+
+        /** The sid of the current node. Used for joints. */
+        const String getNodeSid() const 
+        { 
+            return mNodeSid; 
+        }
+
+        /** The sid of the current node. Used for joints. */
+        void setNodeSid( String& val ) 
+        { 
+            mNodeSid = val; 
         }
 
         /** The URL of an instance node. */

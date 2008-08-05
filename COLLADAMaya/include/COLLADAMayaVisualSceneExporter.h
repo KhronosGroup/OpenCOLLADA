@@ -123,12 +123,15 @@ namespace COLLADAMaya
         bool exportVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
 
         /**
-         * @todo documentation
-         * @param instanceMaterialList
-         * @param childDagPath
-         * @return void
+         * Exports the material instances.
+         * @param instanceMaterialList The instance list to fill.
+         * @param childDagPath The path of the current node to export the material instances.
+         * @param instanceNumber The current instance number of the shape.
          */
-        void exportMaterialList( COLLADA::InstanceMaterialList &instanceMaterialList, MDagPath &childDagPath );
+        void exportMaterialList( 
+            COLLADA::InstanceMaterialList &instanceMaterialList, 
+            MDagPath &childDagPath, 
+            const uint instanceNumber );
         
         /**
          * Initializes the transform objects.

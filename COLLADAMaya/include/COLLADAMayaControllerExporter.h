@@ -12,7 +12,6 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
 #ifndef __COLLADA_MAYA_CONTROLLER_EXPORTER_H___
 #define __COLLADA_MAYA_CONTROLLER_EXPORTER_H___
 
@@ -84,15 +83,25 @@ namespace COLLADAMaya
         /** Parameter, used for the weight. */
         static const String PARAM_TYPE_WEIGHT;
 
+    private:
+
         /** Pointer to the document exporter. */
         DocumentExporter* mDocumentExporter;
 
         // A lookup table of elements we've already processed
         ControllerList importedMorphControllers;
         ControllerList skinControllers;
-        unsigned long boneCounter; // ensure unique joint names
+
+        /** List of controllerIds from the already exported controllers. */
+        std::vector<String> mExportedControllers;
 
     public:
+
+        /**
+         * Constructor.
+         * @param streamWriter
+         * @param documentExporter
+         */
         ControllerExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
         virtual ~ControllerExporter();
 
@@ -139,6 +148,31 @@ namespace COLLADAMaya
         bool hasSkinController ( const MObject& node );
         bool hasMorphController ( const MObject& node );
 
+        /**
+        * Iterate upstream finding all the nodes which affect the mesh.
+        * @param node The mesh node.
+        * @param stack The controller stack for the affected nodes.
+        * @param meshStack The controller stack for the affected meshes.
+        * @return bool False, if the "inMesh" attribute is connected we don't have affected nodes.
+        */
+        static bool findAffectedNodes( 
+            const MObject& node, 
+            ControllerStack& stack, 
+            ControllerMeshStack& meshStack );
+
+        /**
+        * Reset all the controller node states.
+        * @param stack The stack with the controller nodes to reset the states.
+        */
+        static void resetControllerNodeStates( ControllerStack &stack );
+
+        /**
+        * Reset all the intermediate mesh parameters.
+        * @param meshStack The stack with the meshes to reset the parameters.
+        */
+        static void resetMeshParameters( ControllerMeshStack &meshStack );
+
+
     private:
 
         /**
@@ -161,20 +195,8 @@ namespace COLLADAMaya
         * @param stack The controller stack.
         */
         void exportControllerStack( 
-            const SceneElement* sceneElement, 
+            SceneElement* sceneElement, 
             const ControllerStack& stack );
-
-        /**
-        * Iterate upstream finding all the nodes which affect the mesh.
-        * @param node The mesh node.
-        * @param stack The controller stack for the affected nodes.
-        * @param meshStack The controller stack for the affected meshes.
-        * @return bool False, if the "inMesh" attribute is connected we don't have affected nodes.
-        */
-        bool findAffectedNodes( 
-            const MObject& node, 
-            ControllerStack& stack, 
-            ControllerMeshStack& meshStack );
 
         /**
          * Exports a skin/joint cluster.
@@ -183,57 +205,62 @@ namespace COLLADAMaya
          * @param outputShape The path to the output shape.
          */
         void exportSkinController(
-            const SceneElement* sceneElement, 
+            SceneElement* sceneElement, 
             const MObject controllerNode, 
             MDagPath outputShape );
 
         /**
          * Writes all data of the current controller element into the collada file.
-
          * @param skinTarget
-         * @param colladaSkinController
-         * @param targetController
+         * @param colladaSkinController 
+         *          Reference to the collada skin controller with the export data.
          */
         void exportController( 
             const String skinTarget, 
-            const ColladaSkinController &colladaSkinController, 
-            const BaseController* targetController );
+            const ColladaSkinController& colladaSkinController );
 
         /**
          * Writes the joint source into the collada document.
+         * @param colladaSkinController 
+         *          Reference to the collada skin controller with the export data.
          */
-        void exportElementJoints();
+        void exportElementJoints( const ColladaSkinController& colladaSkinController );
 
         /**
          * Writes the vertex weights element into the collada document.
-         * @param colladaSkinController Reference to the collada skin controller.
+         * @param colladaSkinController 
+         *          Reference to the collada skin controller with the export data.
          */
         void exportElementVertexWeights( const ColladaSkinController &colladaSkinController );
 
         /**
          * Exports the bind shape transform of the given controller.
-         * @param colladaSkinController The collada skin controller with the values to export.
+         * @param colladaSkinController 
+         *          Reference to the collada skin controller with the export data.
          */
         void exportBindShapeTransform( const ColladaSkinController& colladaSkinController );
 
         /**
         * Exports the bind poses source of the given controller.
         * @param controllerId The controller id to export.
-        * @param colladaSkinController The collada skin controller with the values to export.
+        * @param colladaSkinController 
+        *          Reference to the collada skin controller with the export data.
         */
         void exportWeightSource( const String controllerId, const ColladaSkinController& colladaSkinController );
 
         /**
         * Exports the bind poses source of the given controller.
-        * @param targetController The controller with the data to export.
+        * @param colladaSkinController 
+        *          Reference to the collada skin controller with the export data.
          */
-        void exportBindPosesSource( const BaseController* targetController );
+        void exportBindPosesSource( const ColladaSkinController& colladaSkinController );
 
         /**
          * Exports the joint source of the given controller.
-         * @param targetController The controller with the data to export.
+         * @param colladaSkinController 
+         *          Reference to the collada skin controller with the export data.
          */
-        void exportJointSource( const ColladaSkinController* skinController );
+        void exportJointSource( const ColladaSkinController& colladaSkinController );
 
         /**
          * Retrieve the instance information for this skinned character.
@@ -276,12 +303,11 @@ namespace COLLADAMaya
         /**
          * Gather the bind matrices of the current controller node and writes 
          * them as the bind poses in the target controller object.
-         * @param targetController The target controller to hold the data.
-         * @param influences The list of 
+         * @param colladaSkinController The controller to hold the data.
          * @param controllerNode The controller node of the current object.
          */
         void gatherBindMatrices( 
-            BaseController* targetController, 
+            ColladaSkinController* colladaSkinController, 
             const MObject& controllerNode );
 
         /**

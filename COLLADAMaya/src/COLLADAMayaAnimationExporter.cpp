@@ -12,8 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
-#include "COLLADAMayaStableHeaders.h"
+#include "ColladaMayaStableHeaders.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaDagHelper.h"
@@ -61,25 +60,21 @@ namespace COLLADAMaya
     {
         {
             AnimatedElementList::iterator it = mAnimationElements.begin();
-
             for ( ; it!=mAnimationElements.end(); ++it )
             {
                 AnimationElement* animatedElement = *it;
                 delete animatedElement;
             }
-
             mAnimationElements.clear();
         }
 
         {
             AnimationClipList::iterator it = mAnimationClips.begin();
-
             for ( ; it!=mAnimationClips.end(); ++it )
             {
                 AnimationClip* animationClip = *it;
                 delete animationClip;
             }
-
             mAnimationClips.clear();
         }
     }
@@ -124,7 +119,6 @@ namespace COLLADAMaya
 
             // Export all/selected DAG nodes
             uint length = exportNodesTree->size();
-
             for ( uint i = 0; i < length; ++i )
             {
                 SceneElement* sceneElement = ( *exportNodesTree ) [i];
@@ -145,7 +139,6 @@ namespace COLLADAMaya
         MDagPath dagPath = sceneElement->getPath();
 
         // Check if it is an export node
-
         if ( sceneElement->getIsExportNode() )
         {
             // Check, if it is an Inverse Kinematic
@@ -153,7 +146,6 @@ namespace COLLADAMaya
             {
                 animationCache->sampleIKHandle ( dagPath );
             }
-
             else if ( sceneElement->getType() == SceneElement::CONSTRAINT )
             {
                 animationCache->sampleConstraint ( dagPath );
@@ -161,7 +153,6 @@ namespace COLLADAMaya
         }
 
         // Recursive call for all the child elements
-
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
@@ -174,41 +165,34 @@ namespace COLLADAMaya
     {
         // Export the curves of the animated element and of the child elements recursive
         AnimatedElementList::const_iterator elementIter = animatedElements.begin();
-
         for ( ; elementIter!=animatedElements.end(); ++elementIter )
         {
             // Get the animated element
             AnimationElement* animatedElement = *elementIter;
 
             // Check the flag, if the element or a child element has curves
-
             if ( !animatedElement->hasCurves() ) continue;
 
             // Open an animation node and add the channel of the current animation
             const String& baseId = animatedElement->getBaseId();
-
             openAnimation ( baseId );
 
             // Recursive call for all the animated children
             const AnimatedElementList childElements = animatedElement->getAnimatedChildElements();
-
             exportAnimatedElements ( childElements );
 
             // Get the animated curves
             AnimationCurveList animatedCurves = animatedElement->getAnimatedCurves();
-
             if ( animatedCurves.size() > 0 )
             {
                 // Check if the curves in the animated element can be merged.
                 std::vector<float> defaultValues;
                 curvesAreMergeable ( animatedElement, &defaultValues );
-
                 if ( defaultValues.size() != 0 )
                 {
                     // Create a multi curve and export it
                     exportAnimatedMultiCurve ( animatedElement, defaultValues );
                 }
-
                 else
                 {
                     // Export the data of every curve in the animated element
@@ -222,12 +206,13 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportAnimatedMultiCurve ( AnimationElement *animatedElement,
-            std::vector<float> &defaultValues )
+    void AnimationExporter::exportAnimatedMultiCurve ( 
+        AnimationElement *animatedElement,
+        std::vector<float> &defaultValues )
     {
         // Merge and export the curves
         AnimationMultiCurve* mergedCurve = createAnimationMultiCurve ( animatedElement, defaultValues );
-
+        
         // Export the sources
         exportAnimationSource ( *mergedCurve );
 
@@ -242,20 +227,25 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    AnimationMultiCurve* AnimationExporter::createAnimationMultiCurve ( AnimationElement *animatedElement,
-            std::vector<float> &defaultValues )
+    AnimationMultiCurve* AnimationExporter::createAnimationMultiCurve ( 
+        AnimationElement *animatedElement,
+        std::vector<float> &defaultValues )
     {
+        // The multi curve object 
         AnimationMultiCurve* multiCurve = NULL;
 
-        // Get the animated curves
-        AnimationCurveList animatedCurves = animatedElement->getAnimatedCurves();
+        // Get the animated curves (possibly without the static curves)
+        AnimationCurveList curves = animatedElement->getAnimatedCurves();
 
-        // Get the dimension
-        uint dimension = animatedCurves.size();
-        if ( dimension == 0 ) return multiCurve;
+        // Check for a reference curve
+        if ( curves.size() == 0 ) return multiCurve;
+        AnimationCurve* mergedCurve = curves[0];
 
-        // We just take the first curve from list
-        AnimationCurve* mergedCurve = animatedCurves[0];
+        // Get the number of created curves.
+        uint curveCount = curves.size();
+
+        // Get the real curve count (with the removed static curves)
+        uint dimension = animatedElement->getDimension();
 
         // Create the new multi curve
         multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getSubId(), dimension );
@@ -265,8 +255,8 @@ namespace COLLADAMaya
         // Calculate the merged input keys and their wanted interpolations.
         std::vector<float> mergedInputs;
         std::vector<uint> mergedInterpolations;
-        AnimationCurveList::iterator curveIter = animatedCurves.begin();
-        for ( ; curveIter!=animatedCurves.end(); ++curveIter )
+        AnimationCurveList::iterator curveIter = curves.begin();
+        for ( ; curveIter!=curves.end(); ++curveIter )
         {
             const AnimationCurve* curve = *curveIter;
             if ( curve == NULL ) continue;
@@ -282,9 +272,7 @@ namespace COLLADAMaya
                 {
                     if ( mergedInterpolations[m] != curveKeys[c]->interpolation )
                         mergedInterpolations[m] = COLLADA::LibraryAnimations::BEZIER;
-
                     ++c;
-
                     ++m;
                 }
                 else if ( mergedInputs[m] < curveKeys[c]->input )
@@ -323,10 +311,20 @@ namespace COLLADAMaya
         // Get the keys
         AnimationMKeyList keys = multiCurve->getKeys();
 
+        // Create a curves list
+        AnimationCurveList multiCurves;
+        multiCurves.resize( dimension, NULL );
+        uint numCurves = curves.size();
+        for ( uint c=0; c<numCurves; ++c )
+        {
+            AnimationCurve* curve = curves[c];
+            multiCurves[curve->getCurveIndex()] = curve;
+        }
+
         // Merge the curves one by one into the multi-curve
         for ( uint curvePosition=0; curvePosition<dimension; ++curvePosition )
         {
-            const AnimationCurve* curve = animatedCurves[curvePosition];
+            const AnimationCurve* curve = multiCurves[curvePosition];
             if ( curve == NULL || curve->getKeyCount() == 0 )
             {
                 // No curve, or an empty curve, set the default value on all the keys
@@ -345,11 +343,12 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::createDefaultKeys ( AnimationMKeyList* keys,
-            uint curvePosition,
-            std::vector<float> &defaultValues,
-            const uint keyCount,
-            const std::vector<float> mergedInputs )
+    void AnimationExporter::createDefaultKeys ( 
+        AnimationMKeyList* keys,
+        uint curvePosition,
+        std::vector<float> &defaultValues,
+        const uint keyCount,
+        const std::vector<float> mergedInputs )
     {
         float defaultValue = ( curvePosition < defaultValues.size() ) ? defaultValues[curvePosition] : 0.0f;
         for ( size_t k = 0; k < keyCount; ++k )
@@ -369,10 +368,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::mergeCurves ( AnimationMKeyList* keys,
-                                          const AnimationCurve* curve,
-                                          uint keyCount,
-                                          uint curvePosition )
+    void AnimationExporter::mergeCurves ( 
+        AnimationMKeyList* keys,
+        const AnimationCurve* curve,
+        uint keyCount,
+        uint curvePosition )
     {
         const AnimationKeyList curveKeys = curve->getKeys();
         uint curveKeyCount = curve->getKeyCount();
@@ -389,20 +389,17 @@ namespace COLLADAMaya
             {
                 sampleMKey ( key, curve, curvePosition, input, previousSpan, nextSpan );
             }
-
             else
             {
                 // Keys match, grab the value directly
                 key->output[curvePosition] = curveKeys[keyPosition]->output;
 
                 // Check the wanted interpolation type to retrieve/calculate the extra necessary information.
-
                 if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
                 {
                     createBezierMKey ( key, curveKeys, curvePosition,
                                        previousSpan, nextSpan, keyPosition );
                 }
-
                 else if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
                 {
                     createTCBMKey ( key, curveKeys, curvePosition, keyPosition );
@@ -415,89 +412,97 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::curvesAreMergeable ( const AnimationElement* animationElement,
-            std::vector<float>* defaultValues )
+    bool AnimationExporter::curvesAreMergeable ( 
+        const AnimationElement* animationElement,
+        std::vector<float>* defaultValues )
     {
-        bool mergeCurves = true;
+        // Flag, if the curves can be merged.
+        bool doMergeCurves = true;
 
-        // Get the animated curves
-        AnimationCurveList curves = animationElement->getAnimatedCurves();
+        // Get the real curve count (with the removed static curves)
+        uint realCurveCount = animationElement->getDimension();
 
         // Placeholder for the master curve
         AnimationCurve* masterCurve = NULL;
 
+        // Get the animated curves (possibly without the static curves)
+        AnimationCurveList curves = animationElement->getAnimatedCurves();
+        
         // Check if all curves have the same inputs, interpolations and infinity types
-        uint curveCount = curves.size();
-
-        if ( curveCount <= 1 )
+        if ( curves.size() <= 1 )
         {
-            mergeCurves = false;
+            doMergeCurves = false;
         }
-
         else
         {
-            AnimationCurveList::iterator curveIter;
-
-            for ( curveIter=curves.begin(); curveIter!=curves.end() && mergeCurves; ++curveIter )
+            // Iterate through the curves and merge them
+            AnimationCurveList::iterator curveIter = curves.begin();
+            for ( ; curveIter!=curves.end() && doMergeCurves; ++curveIter )
             {
                 if ( masterCurve == NULL ) masterCurve = *curveIter;
-                else mergeCurves = curveIsMergeable ( masterCurve, *curveIter );
+                else doMergeCurves = curveIsMergeable ( masterCurve, *curveIter );
             }
         }
 
         // If the curves have the same inputs, interpolations and infinity types,
         // we are allowed to copy the input values of any curve.
-
-        if ( mergeCurves )
+        if ( doMergeCurves )
             createDefaultValues ( masterCurve, defaultValues );
 
-        return mergeCurves;
+        return doMergeCurves;
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::curveIsMergeable ( const AnimationCurve* masterCurve,
-            const AnimationCurve* curve )
+    bool AnimationExporter::curveIsMergeable ( 
+        const AnimationCurve* masterCurve,
+        const AnimationCurve* curve )
     {
-        bool mergeCurves = true;
+        bool doMergeCurves = true;
 
         // Check the infinity types, the keys and the interpolations.
         uint curveKeyCount = curve->getKeyCount();
         uint masterKeyCount = masterCurve->getKeyCount();
-        mergeCurves &= masterKeyCount == curveKeyCount;
+        doMergeCurves &= masterKeyCount == curveKeyCount;
+        if ( !doMergeCurves ) return doMergeCurves;
 
-        if ( !mergeCurves ) return mergeCurves;
-
-        for ( uint j = 0; j < curveKeyCount && mergeCurves; ++j )
+        for ( uint j = 0; j < curveKeyCount && doMergeCurves; ++j )
         {
             AnimationKey* curveKey = curve->getKey ( j );
             AnimationKey* masterKey = masterCurve->getKey ( j );
-            mergeCurves &= ( curveKey->input == masterKey->input );
-            mergeCurves &= ( curveKey->interpolation == masterKey->interpolation );
+            doMergeCurves &= ( curveKey->input == masterKey->input );
+            doMergeCurves &= ( curveKey->interpolation == masterKey->interpolation );
 
             // Prevent curve having TCB interpolation from merging
-            mergeCurves &= curveKey->interpolation != COLLADA::LibraryAnimations::TCB;
-            mergeCurves &= masterKey->interpolation != COLLADA::LibraryAnimations::TCB;
+            doMergeCurves &= curveKey->interpolation != COLLADA::LibraryAnimations::TCB;
+            doMergeCurves &= masterKey->interpolation != COLLADA::LibraryAnimations::TCB;
         }
 
-        if ( mergeCurves )
+        if ( doMergeCurves )
         {
-            mergeCurves &= curve->getPostInfinity() == masterCurve->getPostInfinity();
-            mergeCurves &= curve->getPreInfinity() == masterCurve->getPreInfinity();
+            doMergeCurves &= curve->getPostInfinity() == masterCurve->getPostInfinity();
+            doMergeCurves &= curve->getPreInfinity() == masterCurve->getPreInfinity();
         }
 
-        return mergeCurves;
+        return doMergeCurves;
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::createDefaultValues ( const AnimationCurve* masterCurve,
-            std::vector<float>* defaultValues )
+    void AnimationExporter::createDefaultValues ( 
+        const AnimationCurve* masterCurve,
+        std::vector<float>* defaultValues )
     {
         uint keyCount = masterCurve->getKeyCount();
-
         for ( uint i=0; i<keyCount; ++i )
         {
-            AnimationKey* key = masterCurve->getKey ( i );
-            defaultValues->push_back ( key->input );
+            if ( masterCurve->getParent()->getIsRelativeAnimation() )
+            {
+                AnimationKey* key = masterCurve->getKey ( i );
+                defaultValues->push_back ( key->input );
+            }
+            else
+            {
+                defaultValues->push_back ( 0.0f );
+            }
         }
     }
 
@@ -511,7 +516,6 @@ namespace COLLADAMaya
         AnimationCurveList::const_iterator curveIter;
 
         uint curveIndex=0;
-
         for ( curveIter=animatedCurves.begin(); curveIter!=animatedCurves.end(); ++curveIter )
         {
             // Get the current curve
@@ -522,7 +526,6 @@ namespace COLLADAMaya
         }
 
         // Export the samplers for every curve
-
         for ( curveIter=animatedCurves.begin(); curveIter!=animatedCurves.end(); ++curveIter )
         {
             // Get the current curve
@@ -533,7 +536,6 @@ namespace COLLADAMaya
         }
 
         // Export the channel for every curve
-
         for ( curveIter=animatedCurves.begin(); curveIter!=animatedCurves.end(); ++curveIter )
         {
             // Get the current curve
@@ -548,13 +550,11 @@ namespace COLLADAMaya
     void AnimationExporter::postSampling()
     {
         AnimatedElementList::iterator it = mAnimationElements.begin();
-
         while ( it!=mAnimationElements.end() )
         {
             AnimationElement* animatedElement = *it;
 
             // Sample the animated elements, which aren't created until now
-
             if ( animatedElement->isSampling() )
             {
                 if ( !exportAnimation ( animatedElement ) )
@@ -564,13 +564,11 @@ namespace COLLADAMaya
                     // After erase, the iterator points to the next element in the list
                     it = mAnimationElements.erase ( it );
                 }
-
                 else
                 {
                     ++it;
                 }
             }
-
             else
             {
                 ++it;
@@ -588,7 +586,6 @@ namespace COLLADAMaya
 
         // Get the animation plug
         const MPlug& plug = animatedElement->getPlug();
-
         // FCDAnimated* animated = animation->animatedValue;
 
         // Get the sample type
@@ -606,14 +603,12 @@ namespace COLLADAMaya
             curveCreated = createAnimationCurve ( animatedElement, plug, typeValue, conversion, curves );
 
             // Push the generated curves in the curves list of the animation element
-
             for ( uint i=0; i<curves.size(); ++i )
             {
                 // Add the curve to the animated element
                 animatedElement->addAnimatedCurve ( curves[i] );
             }
         }
-
         else
         {
             // Set the flag, that it is a compound element
@@ -624,10 +619,12 @@ namespace COLLADAMaya
             // TODO
             //  uint elementCount = min(numChildren, elementCount);
             uint elementCount = numChildren;
-
             for ( uint curveIndex=0; curveIndex<elementCount; ++curveIndex )
             {
                 MPlug childPlug = plug.child ( curveIndex );
+                String plugName = childPlug.name().asChar();
+                MFnDependencyNode fn (childPlug.node());
+                String name = fn.name().asChar();
 
                 // The list for the created curves
                 AnimationCurveList curves;
@@ -636,7 +633,6 @@ namespace COLLADAMaya
                 ConversionFunctor* conversion = animatedElement->getConversion();
 
                 // Creates the curve(s)
-
                 if ( createAnimationCurve ( animatedElement, childPlug, typeValue, conversion, curves, curveIndex ) )
                     curveCreated = true;
 
@@ -673,7 +669,6 @@ namespace COLLADAMaya
         bool hasTCB = animationCurve.hasTCB();
 
         // Add the key values
-
         for ( uint i=0; i<keyCount; ++i )
         {
             AnimationKey* key = ( ( AnimationKey* ) animationCurve.getKey ( i ) );
@@ -683,7 +678,6 @@ namespace COLLADAMaya
             interpolations.push_back ( COLLADA::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
 
             // Handle Tangents
-
             if ( hasTangents )
             {
                 if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
@@ -695,7 +689,6 @@ namespace COLLADAMaya
                     outTangents.push_back ( bezKey->outTangent.x );
                     outTangents.push_back ( bezKey->outTangent.y );
                 }
-
                 else
                 {
                     // Export flat tangents
@@ -707,7 +700,6 @@ namespace COLLADAMaya
             }
 
             // Handle TCB
-
             if ( hasTCB )
             {
                 if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
@@ -721,7 +713,6 @@ namespace COLLADAMaya
                     eases.push_back ( tcbKey->easeIn );
                     eases.push_back ( tcbKey->easeOut );
                 }
-
                 else
                 {
                     // Export flat tangents
@@ -742,14 +733,15 @@ namespace COLLADAMaya
 
     // ---------------------------------------------------------------------
     template<class T>
-    void AnimationExporter::writeAnimationSource ( const BaseAnimationCurve<T> &animationCurve,
-            const std::vector<float> &input,
-            const std::vector<float> &output,
-            const std::vector<String> &interpolations,
-            const std::vector<float> &inTangents,
-            const std::vector<float> &outTangents,
-            const std::vector<float> &tcbs,
-            const std::vector<float> &eases )
+    void AnimationExporter::writeAnimationSource ( 
+        const BaseAnimationCurve<T> &animationCurve,
+        const std::vector<float> &input,
+        const std::vector<float> &output,
+        const std::vector<String> &interpolations,
+        const std::vector<float> &inTangents,
+        const std::vector<float> &outTangents,
+        const std::vector<float> &tcbs,
+        const std::vector<float> &eases )
     {
         // Get the source id
         String sourceId = animationCurve.getSourceId();
@@ -807,7 +799,6 @@ namespace COLLADAMaya
         bool hasTCB = animationCurve.hasTCB();
 
         // Add the key values
-
         for ( uint i=0; i<keyCount; ++i )
         {
             AnimationMKey* key = ( ( AnimationMKey* ) animationCurve.getKey ( i ) );
@@ -815,7 +806,6 @@ namespace COLLADAMaya
 
             // Write the output list
             float* outputList = key->output;
-
             for ( uint j=0; j<dimension; ++j )
             {
                 output.push_back ( *outputList );
@@ -932,10 +922,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportInputSource ( const String sourceId,
-            const std::vector<float> &values,
-            String preInfinityType,
-            String postInfinityType )
+    void AnimationExporter::exportInputSource ( 
+        const String sourceId,
+        const std::vector<float> &values,
+        String preInfinityType,
+        String postInfinityType )
     {
         // Just export if there are values
         if ( values.size() > 0 )
@@ -953,7 +944,6 @@ namespace COLLADAMaya
 
             // Export the infinity parameters
             COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
             COLLADA::Technique techniqueSource ( streamWriter );
             techniqueSource.openTechnique ( MAYA_PROFILE );
             techniqueSource.addParameter ( MAYA_PREINFINITY_PARAMETER, preInfinityType );
@@ -1165,7 +1155,9 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     String AnimationExporter::getBaseId ( const MPlug &plug )
     {
-        return mDocumentExporter->mayaNameToColladaName ( plug.name() );
+        // TODO Unique name!
+        return mDocumentExporter->mayaNameToColladaName ( plug.name() ) + "_" + getNodeId ( plug );
+//        return mDocumentExporter->mayaNameToColladaName ( plug.name() );
 
         /*
         if ( animation.getDimension() == 1 )
@@ -1186,25 +1178,29 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addPlugAnimation ( MObject &node,
-            const String attrname,
-            const String* parameters,
-            const uint sampleType,
-            ConversionFunctor* conversion )
+    bool AnimationExporter::addPlugAnimation ( 
+        MObject &node,
+        const String attrname,
+        const String* parameters,
+        const uint sampleType,
+        const bool isRelativeAnimation, 
+        ConversionFunctor* conversion )
     {
         // Take the attribute name as the sub id.
         String subId = attrname;
 
-        return addPlugAnimation ( node, subId, attrname, parameters, ( SampleType ) sampleType, conversion );
+        return addPlugAnimation ( node, subId, attrname, parameters, ( SampleType ) sampleType, isRelativeAnimation, conversion );
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addPlugAnimation ( MObject &node,
-            const String subId,
-            const String attrname,
-            const String* parameters,
-            const uint sampleType,
-            ConversionFunctor* conversion )
+    bool AnimationExporter::addPlugAnimation ( 
+        MObject &node,
+        const String subId,
+        const String attrname,
+        const String* parameters,
+        const uint sampleType,
+        const bool isRelativeAnimation, 
+        ConversionFunctor* conversion )
     {
         // We will not proceed, if we don't have a node object
         if ( node == MObject::kNullObj ) return false;
@@ -1217,30 +1213,32 @@ namespace COLLADAMaya
         MPlug plug = fn.findPlug ( attrname.c_str(), &status );
         if ( status != MS::kSuccess ) return false;
 
-        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
+        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, isRelativeAnimation, conversion );
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addPlugAnimation ( MPlug &plug,
-            const String subId,
-            const String* parameters,
-            const uint sampleType,
-            ConversionFunctor* conversion )
+    bool AnimationExporter::addPlugAnimation ( 
+        MPlug &plug,
+        const String subId,
+        const String* parameters,
+        const uint sampleType,
+        const bool isRelativeAnimation, 
+        ConversionFunctor* conversion )
     {
-        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, conversion );
+        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, isRelativeAnimation, conversion );
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addPlugAnimation ( MPlug &plug,
-            const String subId,
-            const String* parameters,
-            const SampleType sampleType,
-            ConversionFunctor* conversion )
+    bool AnimationExporter::addPlugAnimation ( 
+        MPlug &plug,
+        const String subId,
+        const String* parameters,
+        const SampleType sampleType,
+        const bool isRelativeAnimation, 
+        ConversionFunctor* conversion )
     {
-        bool isAnimated = false;
-
         // if (animatedValue == NULL) return;
-
+        bool isAnimated = false;
         bool isSampling = false;
 
         if ( !isImport )
@@ -1255,6 +1253,7 @@ namespace COLLADAMaya
         String nodeId = getNodeId ( plug );
 
         AnimationElement* animatedElement = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
+        animatedElement->setIsRelativeAnimation( isRelativeAnimation );
 
         // animatedElement->animatedVector = animatedVector;
         animatedElement->setIsSampling ( isSampling );
@@ -1307,12 +1306,13 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     // Export any animation associated with the specified plug
-    bool AnimationExporter::createAnimationCurve ( AnimationElement* animatedElement,
-            const MPlug& plug,
-            const SampleType sampleType,
-            ConversionFunctor* conversion,
-            AnimationCurveList& curves,
-            const uint curveIndex )
+    bool AnimationExporter::createAnimationCurve ( 
+        AnimationElement* animatedElement,
+        const MPlug& plug,
+        const SampleType sampleType,
+        ConversionFunctor* conversion,
+        AnimationCurveList& curves,
+        const uint curveIndex )
     {
         bool curveCreated = false;
 
@@ -1326,7 +1326,6 @@ namespace COLLADAMaya
         MPlugArray connections, sourcePlugs;
         AnimationSampleCache* animCache = mDocumentExporter->getAnimationCache();
         AnimationResult aresult = AnimationHelper::isAnimated ( animCache, plug );
-
         if ( aresult == kISANIM_None && !animatedMatrix ) return false;
 
         if ( !ExportOptions::isSampling() && ( aresult == kISANIM_Curve || aresult == kISANIM_Character ) )
@@ -1342,10 +1341,8 @@ namespace COLLADAMaya
                 AnimationCurve* curve = createAnimationCurveFromNode ( animatedElement, curveObject, baseId, curveIndex );
 
                 // Push the curve in the list of curves
-
                 if ( curve != NULL ) curves.push_back ( curve );
             }
-
             else if ( aresult == kISANIM_Character )
             {
                 // Create the animation curve from the current clip
@@ -1359,9 +1356,8 @@ namespace COLLADAMaya
                 createAnimationCurve ( animatedElement, plugIntermediate, sampleType, NULL, curves, curveIndex );
             }
 
-            // For a boolean-typed curve, back out early. The curve is valid, but doesn't
-            // include interpolations or tangents
-
+            // For a boolean-typed curve, back out early. The curve is valid, 
+            // but doesn't include interpolations or tangents.
             for ( AnimationCurveList::iterator itC = curves.begin(); itC != curves.end(); ++itC )
             {
                 AnimationCurve* curve = ( *itC );
@@ -1371,7 +1367,6 @@ namespace COLLADAMaya
                 curveCreated = true;
             }
         }
-
         else
         {
             // Get the cache with the animations
@@ -1379,7 +1374,6 @@ namespace COLLADAMaya
             String baseId = getBaseId ( plug );
 
             // Sample the animation.
-
             if ( animatedMatrix )
             {
                 for ( uint i = 0; i<16; ++i )
@@ -1392,7 +1386,6 @@ namespace COLLADAMaya
 
                 AnimationHelper::sampleAnimatedTransform ( animCache, plug, curves );
             }
-
             else
             {
                 AnimationCurve* curve = new AnimationCurve ( animatedElement, baseId );
@@ -1414,7 +1407,6 @@ namespace COLLADAMaya
                     delete curve;
                     curve = NULL;
                 }
-
                 curves.clear();
 
                 // Reset the flag, that a curve exist.
@@ -1435,7 +1427,6 @@ namespace COLLADAMaya
         {
             AnimationCurve* curve = curves[i];
             uint valueCount = curve->getKeyCount();
-
             if ( valueCount > 1 )
             {
                 for ( uint j=0; j< ( valueCount-1 ) && equals; ++j )
@@ -1452,11 +1443,12 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     // Export a plug's animations, if present
-    bool AnimationExporter::createAnimationCurveFromClip ( AnimationElement* animatedElement,
-            const MPlug& plug,
-            ConversionFunctor* conversion,
-            AnimationCurveList& curves,
-            const uint curveIndex )
+    bool AnimationExporter::createAnimationCurveFromClip ( 
+        AnimationElement* animatedElement,
+        const MPlug& plug,
+        ConversionFunctor* conversion,
+        AnimationCurveList& curves,
+        const uint curveIndex )
     {
         // Flag, if a curve was created
         bool curveCreated = false;
@@ -1465,14 +1457,11 @@ namespace COLLADAMaya
         MStatus status;
         MObject characterNode = AnimationHelper::getAnimatingNode ( plug );
         MFnCharacter characterFn ( characterNode, &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         // Find/Create the clips associated with this character node
         AnimationClipList clips;
-
         getCharacterClips ( characterNode, clips );
-
         if ( clips.empty() ) return false;
 
         // Iterate through the clips
@@ -1480,20 +1469,14 @@ namespace COLLADAMaya
         {
             AnimationClip* clip = ( *it );
             int index = clip->findPlug ( plug );
-
             if ( index == -1 ) continue;
 
             // Create a new animated element
             String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
-
             String subId = animatedElement->getSubId();
-
             String nodeId = animatedElement->getNodeId();
-
             const String* parameters = animatedElement->getParameters();
-
             SampleType sampleType = animatedElement->getSampleType();
-
             AnimationElement* animatedChild = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
 
             // Push the animated child in the child list of the parent animated element
@@ -1501,7 +1484,6 @@ namespace COLLADAMaya
 
             // Create the curve segment for this clip-plug std::pair
             MObject animCurveNode = clip->animCurves[index];
-
             AnimationCurve* curve = createAnimationCurveFromNode ( animatedChild, animCurveNode, baseId, curveIndex );
 
             if ( curve == NULL ) continue;
@@ -1531,14 +1513,14 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     // Retrieve/Create the clips associated with a character node
-    void AnimationExporter::getCharacterClips ( const MObject& characterNode,
-            AnimationClipList& characterClips )
+    void AnimationExporter::getCharacterClips ( 
+        const MObject& characterNode,
+        AnimationClipList& characterClips )
     {
         MStatus status;
 
         // Retrieve the known clips associated with this character node
         AnimationClipList::iterator itC = mAnimationClips.begin();
-
         for ( ; itC != mAnimationClips.end(); ++itC )
         {
             if ( ( *itC )->characterNode == characterNode )
@@ -1550,36 +1532,27 @@ namespace COLLADAMaya
             // Create the clips associated with this character
             MFnCharacter characterFn ( characterNode );
             int clipCount = characterFn.getSourceClipCount();
-
             if ( clipCount == 0 ) return;
 
             MPlugArray plugs;
-
             for ( int i=0; i<clipCount; ++i )
             {
                 // Export any source clip, including poses, which are simply 1-key curves.
                 MObject clipNode = characterFn.getSourceClip ( i );
                 MFnClip clipFn ( clipNode, &status );
-
                 if ( status != MStatus::kSuccess ) continue;
 
                 // Create the corresponding COLLADA animation clip
                 String clipName = mDocumentExporter->mayaNameToColladaName ( clipFn.name() );
-
                 float startTime = ( float ) clipFn.getSourceStart().as ( MTime::kSeconds );
-
                 float endTime = startTime + ( float ) clipFn.getSourceDuration().as ( MTime::kSeconds );
 
                 AnimationClip* clip = new AnimationClip();
-
                 clip->colladaClip = new COLLADA::ColladaAnimationClip ( clipName, startTime, endTime );
-
                 clip->characterNode = characterNode;
-
                 clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
 
                 mAnimationClips.push_back ( clip );
-
                 characterClips.push_back ( clip );
             }
         }
@@ -1587,21 +1560,19 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     // Create a curve from a Maya node, which should be an 'animCurveXX' type
-    AnimationCurve* AnimationExporter::createAnimationCurveFromNode ( AnimationElement* animatedElement,
-            const MObject& curveObject,
-            const String& baseId,
-            const uint curveIndex )
+    AnimationCurve* AnimationExporter::createAnimationCurveFromNode ( 
+        AnimationElement* animatedElement,
+        const MObject& curveObject,
+        const String& baseId,
+        const uint curveIndex )
     {
         MStatus status;
         MFnAnimCurve animCurveFn ( curveObject, &status );
-
         if ( status != MStatus::kSuccess ) return NULL;
 
         // Check for a supported curve type
         bool isLengthCurve = false;
-
         MFnAnimCurve::AnimCurveType curveType = animCurveFn.animCurveType();
-
         if ( curveType == MFnAnimCurve::kAnimCurveTT ||
                 curveType == MFnAnimCurve::kAnimCurveUT ||
                 curveType == MFnAnimCurve::kAnimCurveUnknown )
@@ -1617,10 +1588,10 @@ namespace COLLADAMaya
         curve->setCurveIndex ( curveIndex );
         curve->setPreInfinity ( animCurveFn.preInfinityType() );
         curve->setPostInfinity ( animCurveFn.postInfinityType() );
+        curve->setIsStatic ( animCurveFn.isStatic() );
 
         // TODO
         AnimationElement* infoElement = NULL; // used for driven key only
-
         if ( !animCurveFn.isTimeInput() && animCurveFn.isUnitlessInput() )
         {
             int index = -1;
@@ -1628,7 +1599,6 @@ namespace COLLADAMaya
             // Figure out the real curve input
             MPlug connected;
             bool connection = DagHelper::getPlugConnectedTo ( animCurveFn.object(), ATTR_INPUT, connected );
-
             if ( connection && connected.node() != MObject::kNullObj )
             {
                 // Look-ups for the element
@@ -1658,7 +1628,6 @@ namespace COLLADAMaya
     {
         // Check the known plugs and their child plugs
         AnimatedElementList::iterator it = mAnimationElements.begin();
-
         for ( ; it != mAnimationElements.end(); ++it )
         {
             if ( findAnimated ( plug, index, *it ) ) return *it;
@@ -1675,11 +1644,9 @@ namespace COLLADAMaya
             index = -1;
             return true;
         }
-
         else
         {
             uint childCount = animation->getPlug().numChildren();
-
             for ( uint j = 0; j < childCount; ++j )
             {
                 if ( animation->getPlug().child ( j ) == plug )
@@ -1695,13 +1662,13 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     // Create the animation keys
-    void AnimationExporter::createAnimationCurveKeys ( MFnAnimCurve &animCurveFn,
-            AnimationCurve* curve,
-            AnimationElement* animatedElement )
+    void AnimationExporter::createAnimationCurveKeys ( 
+        MFnAnimCurve &animCurveFn,
+        AnimationCurve* curve,
+        AnimationElement* animatedElement )
     {
         // Create the animation keys
         uint keyCount = animCurveFn.numKeys();
-
         for ( uint keyPosition = 0; keyPosition < keyCount; ++keyPosition )
         {
             InterpolationType interpolationType;
@@ -1709,20 +1676,17 @@ namespace COLLADAMaya
             AnimationKey* key = ( ( AnimationKey* ) curve->addKey ( interpolationType ) );
 
             // Gather the key time values
-
             if ( animCurveFn.isTimeInput() )
             {
                 key->input = ( float ) animCurveFn.time ( keyPosition ).as ( MTime::kSeconds );
                 key->output = ( float ) animCurveFn.value ( keyPosition );
             }
-
             else if ( animCurveFn.isUnitlessInput() )
             {
                 // Driven-key animation curve!
 
                 // Transform the input values into something known by COLLADA
                 float value = ( float ) animCurveFn.unitlessInput ( keyPosition );
-
                 if ( animatedElement != NULL )
                 {
                     if ( animatedElement->getConversion() != NULL )
@@ -1736,7 +1700,6 @@ namespace COLLADAMaya
                 }
 
                 key->input = value;
-
                 key->output = ( float ) animCurveFn.value ( keyPosition );
             }
 
@@ -1748,10 +1711,11 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void AnimationExporter::createBezierKey ( AnimationKey* key,
-            MFnAnimCurve &animCurveFn,
-            uint keyPosition,
-            uint keyCount )
+    void AnimationExporter::createBezierKey ( 
+        AnimationKey* key,
+        MFnAnimCurve &animCurveFn,
+        uint keyPosition,
+        uint keyCount )
     {
         // Get tangent control points and fill in the animation data structure
         AnimationKeyBezier* bkey = ( AnimationKeyBezier* ) key;
@@ -1773,7 +1737,6 @@ namespace COLLADAMaya
             slopeY *= ( curTime - prevTime ) / 3.0f / slopeX;
             slopeX = ( curTime - prevTime ) / 3.0f;
         }
-
         else
         {
             // Take out the strange 3.0 factor.
@@ -1825,7 +1788,6 @@ namespace COLLADAMaya
             bkey->inTangent[curvePosition] = TangentPoint ( input - previousSpan, value - slope * previousSpan );
             bkey->outTangent[curvePosition] = TangentPoint ( input + nextSpan, value + slope * nextSpan );
         }
-
         else if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
         {
             // Don't fool around: just set default values.
@@ -1852,7 +1814,6 @@ namespace COLLADAMaya
             tkey->easeIn[curvePosition] = tkey2->easeIn;
             tkey->easeOut[curvePosition] = tkey2->easeOut;
         }
-
         else
         {
             // Default to flat values.
@@ -1862,12 +1823,13 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void AnimationExporter::createBezierMKey ( AnimationMKey* key,
-            const AnimationKeyList& curveKeys,
-            const uint curvePosition,
-            const float previousSpan,
-            const float nextSpan,
-            const uint keyPosition )
+    void AnimationExporter::createBezierMKey ( 
+        AnimationMKey* key,
+        const AnimationKeyList& curveKeys,
+        const uint curvePosition,
+        const float previousSpan,
+        const float nextSpan,
+        const uint keyPosition )
     {
         uint curveKeyCount = curveKeys.size();
         float oldPreviousSpan = ( keyPosition > 0 ? curveKeys[keyPosition]->input - curveKeys[keyPosition - 1]->input : 1.0f ) / 3.0f;
@@ -1888,7 +1850,6 @@ namespace COLLADAMaya
             bkey->inTangent[curvePosition] = absolute + ( bkey2->inTangent - absolute ) / oldPreviousSpan * previousSpan;
             bkey->outTangent[curvePosition] = absolute + ( bkey2->outTangent - absolute ) / oldNextSpan * nextSpan;
         }
-
         else
         {
             // Default to flat tangents.
