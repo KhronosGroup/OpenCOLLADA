@@ -132,7 +132,7 @@ namespace COLLADAMaya
         SceneElement* findExportedElement ( const MDagPath& dagPath );
 
         /** Adds this element to the list of exported elements */
-        void addElement ( SceneElement* entity );
+        void addExportedElement ( SceneElement* entity );
 
         /** Checks if the node should be exported */
         bool isExportNode ( const MDagPath& dagPath,

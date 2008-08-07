@@ -19,65 +19,7 @@
 namespace COLLADA
 {
 
-    const String Texture::SAMPLER_SID_SUFFIX = "-sampler";
-    const String Texture::SURFACE_SID_SUFFIX = "-surface";
-
-
-    //---------------------------------------------------------------
-    Texture::Texture ( const String & imageID, Texture::SurfaceType surfaceType )
-            : BaseExtraTechnique(), mImageID ( imageID ),
-            mSurfaceType ( surfaceType ),
-            mWrap_s ( Texture::WRAP_MODE_UNSPECIFIED ),
-            mWrap_t ( Texture::WRAP_MODE_UNSPECIFIED ),
-            mWrap_p ( Texture::WRAP_MODE_UNSPECIFIED ),
-            mMinFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED ),
-            mMagFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED ),
-            mMipFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-    {}
-
-
-    //---------------------------------------------------------------
-    Texture::Texture()
-            : mSurfaceType ( SURFACE_TYPE_UNSPECIFIED ),
-            mWrap_s ( Texture::WRAP_MODE_UNSPECIFIED ),
-            mWrap_t ( Texture::WRAP_MODE_UNSPECIFIED ),
-            mWrap_p ( Texture::WRAP_MODE_UNSPECIFIED ),
-            mMinFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED ),
-            mMagFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED ),
-            mMipFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-    {}
-
-    //---------------------------------------------------------------
-    const Color Color::WHITE = Color ( 1.0, 1.0, 1.0, 1.0 );
-    const Color Color::BLACK = Color ( 0.0, 0.0, 0.0, 1.0 );
-
-    //---------------------------------------------------------------
-    void Color::set ( double r, double g, double b, double a )
-    {
-        mR=r;
-        mG=g;
-        mB=b;
-        mA=a;
-    }
-
-    //---------------------------------------------------------------
-    bool Color::isValid() const
-    {
-        if (!( mR >= 0 && mR <= 1 ) &&
-             ( mG >= 0 && mG <= 1 ) &&
-             ( mB >= 0 && mB <= 1 ) &&
-             ( mA >= 0 && mA <= 1 ))
-        {
-            assert("Current color is not valid!");
-            return false;
-        }
-
-        return true;
-    }
-
-
     const String EffectProfile::DEFAULT_TECHNIQUE_SID = "common";
-
 
 
     //---------------------------------------------------------------

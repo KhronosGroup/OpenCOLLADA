@@ -378,6 +378,14 @@
 						>
 					</File>
 				</Filter>
+				<Filter
+					Name="Geometry"
+					>
+					<File
+						RelativePath="..\src\COLLADAMayaSourceInput.cpp"
+						>
+					</File>
+				</Filter>
 			</Filter>
 			<Filter
 				Name="Helpers"
@@ -440,6 +448,10 @@
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaImageExporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaLightExporter.cpp"
 					>
 				</File>
 				<File
@@ -566,6 +578,10 @@
 						RelativePath="..\include\COLLADAMayaPolygonSource.h"
 						>
 					</File>
+					<File
+						RelativePath="..\include\COLLADAMayaSourceInput.h"
+						>
+					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -629,6 +645,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaImageExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaLightExporter.h"
 					>
 				</File>
 				<File

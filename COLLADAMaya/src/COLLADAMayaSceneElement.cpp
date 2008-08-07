@@ -59,7 +59,6 @@ namespace COLLADAMaya
     SceneElement::~SceneElement()
     {
         SceneElementsList::iterator it = mChildElements.begin();
-
         for ( ; it!= mChildElements.end(); ++it )
         {
             SceneElement* sceneElement = *it;

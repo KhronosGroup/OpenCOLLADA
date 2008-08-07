@@ -22,14 +22,7 @@ namespace COLLADA
 
     class InputList;
     class PrimitivesBase;
-    
-//     template<const String& mElementName> 
-//     class BaseElement;
-
-//     template<const String& elementName> 
-//     class BaseInputElement;
-
-     class BaseInputElement;
+    class BaseInputElement;
 
     /** The geometry source data types. */
     enum Semantics

@@ -8,7 +8,6 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-
 #ifndef __COLLADASTREAMWRITER_ELEMENT_WRITER_H__
 #define __COLLADASTREAMWRITER_ELEMENT_WRITER_H__
 

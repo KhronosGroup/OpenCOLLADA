@@ -1,25 +1,12 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+	This file is part of COLLADAStreamWriter.
+	
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
-
 
 #ifndef __COLLADASTREAMWRITER_INSTANCE_MATERIAL_H__
 #define __COLLADASTREAMWRITER_INSTANCE_MATERIAL_H__
@@ -37,12 +24,19 @@ namespace COLLADA
     class InstanceMaterial
     {
 
+    private:
+
+        String mSymbol;
+        String mTarget;
+
     public:
+
         /** Constructor
         @param symbol The symbol name
         @param target The target
         */
-        InstanceMaterial ( String symbol, String target ) : mSymbol ( symbol ), mTarget ( target ) {}
+        InstanceMaterial ( String symbol, String target ) 
+        : mSymbol ( symbol ), mTarget ( target ) {}
 
         /** Returns the symbol*/
         const String & getSymbol() const
@@ -55,11 +49,6 @@ namespace COLLADA
         {
             return mTarget;
         }
-
-    private:
-
-        String mSymbol;
-        String mTarget;
 
     };
 

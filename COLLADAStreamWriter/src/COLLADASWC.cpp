@@ -57,6 +57,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_INSTANCE_CONTROLLER = "instance_controller";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT = "instance_effect";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
+    const String CSWC::COLLADA_ELEMENT_INSTANCE_LIGHT = "instance_light";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_MATERIAL = "instance_material";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_NODE = "instance_node";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE = "instance_visual_scene";
@@ -69,8 +70,15 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_LIBRARY_EFFECTS = "library_effects";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_GEOMETRIES = "library_geometries";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_IMAGES = "library_images";
+    const String CSWC::COLLADA_ELEMENT_LIBRARY_LIGHTS = "library_lights";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_MATERIALS = "library_materials";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_VISUAL_SCENES = "library_visual_scenes";
+    const String CSWC::COLLADA_ELEMENT_LIGHT = "light";
+    const String CSWC::COLLADA_ELEMENT_LIGHT_INSTANCE_LIGHT = "instance_light";
+    const String CSWC::COLLADA_ELEMENT_LIGHT_AMBIENT = "ambient";
+    const String CSWC::COLLADA_ELEMENT_LIGHT_DIRECTIONAL = "directional";
+    const String CSWC::COLLADA_ELEMENT_LIGHT_POINT = "point";
+    const String CSWC::COLLADA_ELEMENT_LIGHT_SPOT = "spot";
     const String CSWC::COLLADA_ELEMENT_MAGFILTER = "magfilter";
     const String CSWC::COLLADA_ELEMENT_MATERIAL = "material";
     const String CSWC::COLLADA_ELEMENT_MATRIX = "matrix";

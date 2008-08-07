@@ -24,6 +24,7 @@
 #include "COLLADAMayaAnimationClipExporter.h"
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaControllerExporter.h"
+#include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaConvert.h"
@@ -56,7 +57,8 @@ namespace COLLADAMaya
             , mVisualSceneExporter ( NULL )
             , mAnimationExporter ( NULL )
             , mAnimationClipExporter ( NULL )
-            , mControllerLibrary ( NULL )
+            , mControllerExporter ( NULL )
+            , mLightExporter ( NULL )
             , mSceneId ( "MayaScene" )
     {
     }
@@ -91,7 +93,8 @@ namespace COLLADAMaya
         mVisualSceneExporter = new VisualSceneExporter ( &mStreamWriter, this, mSceneId );
         mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
-        mControllerLibrary = new ControllerExporter ( &mStreamWriter, this );
+        mControllerExporter = new ControllerExporter ( &mStreamWriter, this );
+        mLightExporter = new LightExporter ( &mStreamWriter, this );
     }
 
     //---------------------------------------------------------------
@@ -106,7 +109,8 @@ namespace COLLADAMaya
         delete mVisualSceneExporter;
         delete mAnimationExporter;
         delete mAnimationClipExporter;
-        delete mControllerLibrary;
+        delete mControllerExporter;
+        delete mLightExporter;
     }
 
 
@@ -129,6 +133,9 @@ namespace COLLADAMaya
             // Export the asset of the document.
             exportAsset();
 
+            // Export the lights.
+            mLightExporter->exportLights();
+
             // Export the material URLs and get the material list
             MaterialMap* materialMap = mMaterialExporter->exportMaterials();
 
@@ -139,7 +146,7 @@ namespace COLLADAMaya
             mImageExporter->exportImages ( imageMap );
 
             // TODO Export the controllers
-            mControllerLibrary->exportControllers();
+            mControllerExporter->exportControllers();
 
             // Export the geometries
             mGeometryExporter->exportGeometries();

@@ -41,47 +41,6 @@ namespace COLLADAMaya
 {
 
     // --------------------------------------------------------
-    bool SourceInput::containsSourceBase ( const Sources* sources, const COLLADA::SourceBase* searchedSourceBase )
-    {
-        bool sourceFound = false;
-
-        Sources::const_iterator sourcesIter = sources->begin();
-        for ( ; sourcesIter!=sources->end() && !sourceFound; ++sourcesIter )
-        {
-            const SourceInput& sourceInput = *sourcesIter;
-            const COLLADA::SourceBase& sourceBase = sourceInput.mSource;
-            if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
-                sourceFound = true;
-        }
-
-        return sourceFound;
-    }
-
-    // --------------------------------------------------------
-    bool SourceInput::eraseSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase )
-    {
-        bool sourceFound = false;
-
-        Sources::iterator sourcesIter = sources->begin();
-        for ( ; sourcesIter!=sources->end() && !sourceFound; ++sourcesIter )
-        {
-            SourceInput& sourceInput = *sourcesIter;
-            COLLADA::SourceBase& sourceBase = sourceInput.mSource;
-            if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
-            {
-                sourceFound = true;
-            }
-        }
-
-        if ( sourceFound )
-        {
-            sources->erase ( sourcesIter );
-        }
-
-        return sourceFound;
-    }
-
-    // --------------------------------------------------------
     GeometryExporter::GeometryExporter ( COLLADA::StreamWriter* streamWriter,
                                          DocumentExporter* documentExporter )
     : COLLADA::LibraryGeometries ( streamWriter )
@@ -126,7 +85,7 @@ namespace COLLADAMaya
                 sceneElement->getIsExportNode() )
         {
             // Get the controller library
-            ControllerExporter* controller = mDocumentExporter->getControllerLibrary();
+            ControllerExporter* controller = mDocumentExporter->getControllerExporter();
 
             // Add the controller and/or geometry to our libraries
             bool hasSkinController =
@@ -163,8 +122,10 @@ namespace COLLADAMaya
             {
                 // Export the geometry 
                 bool exported = exportGeometry ( dagPath );
+
+                // Push it in the list of exported elements.
                 if ( exported )
-                    mDocumentExporter->getSceneGraph()->addElement( sceneElement );
+                    mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
             }
         }
 

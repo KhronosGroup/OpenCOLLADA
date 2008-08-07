@@ -299,6 +299,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAColor.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAEffectProfile.cpp"
 				>
 			</File>
@@ -328,6 +332,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAInstanceGeometry.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAInstanceLight.cpp"
 				>
 			</File>
 			<File
@@ -363,11 +371,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADALibraryLights.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADALibraryMaterials.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADALibraryVisualScenes.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADALight.cpp"
 				>
 			</File>
 			<File
@@ -403,6 +419,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADATexture.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAUtils.cpp"
 				>
 			</File>
@@ -426,6 +446,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADABindMaterial.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAColor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAColorOrTexture.h"
 				>
 			</File>
 			<File
@@ -461,6 +489,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAInstanceLight.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAInstanceMaterial.h"
 				>
 			</File>
@@ -493,11 +525,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADALibraryLights.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADALibraryMaterials.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADALibraryVisualScenes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADALight.h"
 				>
 			</File>
 			<File
@@ -538,6 +578,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADATechnique.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADATexture.h"
 				>
 			</File>
 			<File

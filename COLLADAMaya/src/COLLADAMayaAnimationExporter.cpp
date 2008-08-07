@@ -1598,7 +1598,7 @@ namespace COLLADAMaya
 
             // Figure out the real curve input
             MPlug connected;
-            bool connection = DagHelper::getPlugConnectedTo ( animCurveFn.object(), ATTR_INPUT, connected );
+            bool connection = DagHelper::getPlugConnectedTo ( animCurveFn.object(), ATTR_INPUt, connected );
             if ( connection && connected.node() != MObject::kNullObj )
             {
                 // Look-ups for the element

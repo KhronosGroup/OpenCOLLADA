@@ -34,6 +34,7 @@ namespace COLLADAMaya
     class AnimationClipExporter;
     class AnimationSampleCache;
     class ControllerExporter;
+    class LightExporter;
 
     /**
      * The main exporter class. This class exports all data of the scene.
@@ -72,7 +73,10 @@ namespace COLLADAMaya
         AnimationClipExporter* mAnimationClipExporter;
 
         /** Handles the controllers. */
-        ControllerExporter* mControllerLibrary;
+        ControllerExporter* mControllerExporter;
+
+        /** Exports the lights. */
+        LightExporter* mLightExporter;
 
         /*
         CAnimCache* animCache;
@@ -218,13 +222,23 @@ namespace COLLADAMaya
         }
 
         /**
-        * Returns a pointer to the controller library.
-        * @return ControllerLibrary* Pointer to the controller library
+        * Returns a pointer to the controller exporter.
+        * @return ControllerLibrary* Pointer to the controller exporter
         */
-        ControllerExporter* getControllerLibrary()
+        ControllerExporter* getControllerExporter()
         {
-            return mControllerLibrary;
+            return mControllerExporter;
         }
+
+        /**
+        * Returns a pointer to the light exporter.
+        * @return LightLibrary* Pointer to the light exporter
+        */
+        LightExporter* getLightExporter()
+        {
+            return mLightExporter;
+        }
+        
 
         // Create COLLADA names and ids
         /**

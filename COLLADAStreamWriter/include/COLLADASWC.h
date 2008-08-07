@@ -17,9 +17,7 @@
 namespace COLLADA
 {
 
-
     /** A class that contains all constants used by COLLADAStreamWriter*/
-
     class CSWC
     {
 
@@ -27,11 +25,9 @@ namespace COLLADA
 
         static const String EMPTY_STRING;
 
-
         static const String XML_START_ELEMENT;
         static const String COLLADA_NAMESPACE;
         static const String COLLADA_VERSION;
-
 
         static const String COLLADA_ELEMENT_ACCESSOR;
         static const String COLLADA_ELEMENT_AMBIENT;
@@ -68,6 +64,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_INSTANCE_CONTROLLER;
         static const String COLLADA_ELEMENT_INSTANCE_EFFECT;
         static const String COLLADA_ELEMENT_INSTANCE_GEOMETRY;
+        static const String COLLADA_ELEMENT_INSTANCE_LIGHT;
         static const String COLLADA_ELEMENT_INSTANCE_MATERIAL;
         static const String COLLADA_ELEMENT_INSTANCE_NODE;
         static const String COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE;
@@ -80,8 +77,15 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_LIBRARY_EFFECTS;
         static const String COLLADA_ELEMENT_LIBRARY_GEOMETRIES;
         static const String COLLADA_ELEMENT_LIBRARY_IMAGES;
+        static const String COLLADA_ELEMENT_LIBRARY_LIGHTS;
         static const String COLLADA_ELEMENT_LIBRARY_MATERIALS;
         static const String COLLADA_ELEMENT_LIBRARY_VISUAL_SCENES;
+        static const String COLLADA_ELEMENT_LIGHT;
+        static const String COLLADA_ELEMENT_LIGHT_INSTANCE_LIGHT;
+        static const String COLLADA_ELEMENT_LIGHT_AMBIENT;
+        static const String COLLADA_ELEMENT_LIGHT_DIRECTIONAL;
+        static const String COLLADA_ELEMENT_LIGHT_POINT;
+        static const String COLLADA_ELEMENT_LIGHT_SPOT;
         static const String COLLADA_ELEMENT_MAGFILTER;
         static const String COLLADA_ELEMENT_MATERIAL;
         static const String COLLADA_ELEMENT_MATRIX;

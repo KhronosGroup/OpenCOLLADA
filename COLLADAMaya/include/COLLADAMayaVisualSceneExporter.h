@@ -122,6 +122,11 @@ namespace COLLADAMaya
         */
         bool exportVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
 
+        void exportGeometryInstance( SceneElement* childElement );
+        void exportMorphControllerInstance( SceneElement* childElement );
+        void exportSkinControllerInstance( SceneElement* childElement );
+        void exportLightInstance ( SceneElement* childElement );
+
         /**
          * Exports the material instances.
          * @param instanceMaterialList The instance list to fill.

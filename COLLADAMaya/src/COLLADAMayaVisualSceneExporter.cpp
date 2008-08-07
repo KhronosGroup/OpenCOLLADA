@@ -39,6 +39,7 @@
 #include "COLLADAInstanceController.h"
 #include "COLLADAMathUtils.h"
 #include "COLLADALibraryControllers.h"
+#include "COLLADAInstanceLight.h"
 
 
 namespace COLLADAMaya
@@ -176,7 +177,7 @@ namespace COLLADAMaya
                         nodeExported = exportJointVisualSceneNode ( colladaSceneNode, sceneElement );
 
                         // Push it into the list of the exported elements
-                        sceneGraph->addElement ( sceneElement );
+                        sceneGraph->addExportedElement ( sceneElement );
                     }
                     else
                     {
@@ -200,7 +201,7 @@ namespace COLLADAMaya
                     nodeExported = exportNodeVisualSceneNode ( colladaSceneNode, sceneElement );
 
                     // push it into the list of the exported elements
-                    sceneGraph->addElement ( sceneElement );
+                    sceneGraph->addExportedElement ( sceneElement );
                 }
                 else
                 {
@@ -335,10 +336,8 @@ namespace COLLADAMaya
 
 
             // ------------------------------------------------------
-            // Write the urls of the geometries/controllers in the collada document
-
-            // Get the streamWriter from the export document
-            COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+            // Write the instance urls of the geometries, controllers 
+            // and lights into the collada document.
 
             // Check the geometry instances, which use this visual scene
             uint childCount = sceneElement->getChildCount();
@@ -348,66 +347,26 @@ namespace COLLADAMaya
 
                 // Check if the child element is a mesh object and an export node
                 if ( childElement->getType() == SceneElement::MESH &&
-                        childElement->getIsExportNode() )
+                     childElement->getIsExportNode() )
                 {
-                    MDagPath childDagPath = childElement->getPath();
-                    String childNodeID = childElement->getNodeName();
-
                     // Check for controllers, otherwise instantiate the geometry. 
                     if (childElement->getHasSkinController())
                     {
-                        COLLADA::InstanceController instanceController ( streamWriter );
-                        instanceController.setUrl ( childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
-    
-                        // Set the skeletonId. It indicates where a skin 
-                        // controller is to start to search for the joint nodes 
-                        // it needs. This element is meaningless for morph controllers.
-
-                        // Get the skeleton id from the element
-                        String skeletonId = childElement->getSkeletonId();
-                        instanceController.setSkeletonId( skeletonId );
-
-                        // Write all materials
-                        COLLADA::InstanceMaterialList& instanceMaterialList =
-                            instanceController.getBindMaterial().getInstanceMaterialList();
-
-                        // Export the materials
-                        uint instanceNumber = childDagPath.instanceNumber();
-                        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
-
-                        instanceController.add();
+                        exportSkinControllerInstance ( childElement );
                     }
                     else if (childElement->getHasMorphController())
                     {
-                        COLLADA::InstanceController instanceController ( streamWriter );
-                        instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
-
-                        // Write all materials
-                        COLLADA::InstanceMaterialList& instanceMaterialList =
-                            instanceController.getBindMaterial().getInstanceMaterialList();
-
-                        // Export the materials
-                        uint instanceNumber = childDagPath.instanceNumber();
-                        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
-
-                        instanceController.add();
+                        exportMorphControllerInstance ( childElement );
                     }
                     else
                     {
-                        // Write the geometry instance
-                        COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
-                        instanceGeometry.setUrl ( /*GEOMETRY_ID_PRAEFIX +*/ childNodeID );
-
-                        // Write all materials
-                        COLLADA::InstanceMaterialList& instanceMaterialList =
-                            instanceGeometry.getBindMaterial().getInstanceMaterialList();
-
-                        // Export the materials
-                        uint instanceNumber = childDagPath.instanceNumber();
-                        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
-
-                        instanceGeometry.add();
+                        exportGeometryInstance ( childElement );
                     }
+                }
+                else if ( childElement->getType() == SceneElement::LIGHT &&
+                          childElement->getIsExportNode() )
+                {
+                    exportLightInstance ( childElement );
                 }
             }
         }
@@ -425,8 +384,8 @@ namespace COLLADAMaya
         MFnMesh fnMesh ( dagPath.node() );
 
         // Get the connected shaders of the main mesh instance (we will take always the zero).
-        // This is to get symbolic material name. This is used to share a pointer in the geometry,
-        // but to use different materials in the node.
+        // This is a COLLADA workaround to get the symbolic material name. 
+        // This is used to share a pointer in the geometry, but to use different materials in the node.
         MObjectArray shaders;
         MIntArray shaderIndices;
         fnMesh.getConnectedShaders ( 0, shaders, shaderIndices );
@@ -922,6 +881,102 @@ namespace COLLADAMaya
                 }
             }
         }
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportSkinControllerInstance( SceneElement* childElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the path and the id of the child element
+        MDagPath childDagPath = childElement->getPath();
+        String childNodeID = childElement->getNodeName();
+
+        COLLADA::InstanceController instanceController ( streamWriter );
+        instanceController.setUrl ( childNodeID + COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX );
+
+        // Set the skeletonId. It indicates where a skin 
+        // controller is to start to search for the joint nodes 
+        // it needs. This element is meaningless for morph controllers.
+
+        // Get the skeleton id from the element
+        String skeletonId = childElement->getSkeletonId();
+        instanceController.setSkeletonId( skeletonId );
+
+        // Write all materials
+        COLLADA::InstanceMaterialList& instanceMaterialList =
+            instanceController.getBindMaterial().getInstanceMaterialList();
+
+        // Export the materials
+        uint instanceNumber = childDagPath.instanceNumber();
+        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
+
+        instanceController.add();
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportMorphControllerInstance( SceneElement* childElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the path and the id of the child element
+        MDagPath childDagPath = childElement->getPath();
+        String childNodeID = childElement->getNodeName();
+
+        COLLADA::InstanceController instanceController ( streamWriter );
+        instanceController.setUrl ( "#" + childNodeID + COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX );
+
+        // Write all materials
+        COLLADA::InstanceMaterialList& instanceMaterialList =
+            instanceController.getBindMaterial().getInstanceMaterialList();
+
+        // Export the materials
+        uint instanceNumber = childDagPath.instanceNumber();
+        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
+
+        instanceController.add();
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportGeometryInstance( SceneElement* childElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the path and the id of the child element
+        MDagPath childDagPath = childElement->getPath();
+        String childNodeID = childElement->getNodeName();
+
+        // Write the geometry instance
+        COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
+        instanceGeometry.setUrl ( /*GEOMETRY_ID_PRAEFIX +*/ childNodeID );
+
+        // Write all materials
+        COLLADA::InstanceMaterialList& instanceMaterialList =
+            instanceGeometry.getBindMaterial().getInstanceMaterialList();
+
+        // Export the materials
+        uint instanceNumber = childDagPath.instanceNumber();
+        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
+
+        instanceGeometry.add();
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportLightInstance( SceneElement* childElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the path and the id of the child element
+        MDagPath childDagPath = childElement->getPath();
+        String childNodeID = childElement->getNodeName();
+
+        // Create and write the light instance
+        COLLADA::InstanceLight instanceLight ( streamWriter, childNodeID );
+        instanceLight.add();
     }
 
 }

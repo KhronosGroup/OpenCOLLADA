@@ -294,10 +294,14 @@ namespace COLLADAMaya
 
         if ( shadingNetwork.hasFn ( MFn::kReflect ) ) // includes Phong and Blinn
         {
-            // Specular color
             MFnReflectShader reflectFn ( shadingNetwork );
-            effectProfile->setSpecular ( mayaColor2ColorOrTexture ( reflectFn.specularColor() ) );
-            exportTexturedParameter ( shadingNetwork, ATTR_SPECULAR_COLOR, effectProfile, EffectExporter::SPECULAR, nextTextureIndex );
+
+            // Specular color
+            if ( effectProfile->getShaderType() != COLLADA::EffectProfile::LAMBERT )
+            {
+                effectProfile->setSpecular ( mayaColor2ColorOrTexture ( reflectFn.specularColor() ) );
+                exportTexturedParameter ( shadingNetwork, ATTR_SPECULAR_COLOR, effectProfile, EffectExporter::SPECULAR, nextTextureIndex );
+            }
             // TODO Test
             animationExporter->addPlugAnimation ( shadingNetwork, ATTR_SPECULAR_COLOR, RGBA_PARAMETERS, kColour );
 

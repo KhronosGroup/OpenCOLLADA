@@ -433,7 +433,6 @@ namespace COLLADAMaya
                 {
                     bool isParent = false;
                     MDagPath dagIt = dagIPath;
-
                     for ( int depth = dagIdepth - 1; depth > 0 && !isParent; --depth )
                     {
                         dagIt.pop();
@@ -540,7 +539,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------------------
-    void SceneGraph::addElement ( SceneElement* exportedElement )
+    void SceneGraph::addExportedElement ( SceneElement* exportedElement )
     {
         mExportedNodes.push_back ( exportedElement );
     }
