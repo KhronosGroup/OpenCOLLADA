@@ -1252,7 +1252,8 @@ namespace COLLADAMaya
         String baseId = getBaseId ( plug );
         String nodeId = getNodeId ( plug );
 
-        AnimationElement* animatedElement = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
+        AnimationElement* animatedElement;
+        animatedElement = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
 
         // animatedElement->animatedVector = animatedVector;
@@ -1265,7 +1266,8 @@ namespace COLLADAMaya
         }
         else if ( ( sampleType & kAngle ) == kAngle )
         {
-            ConversionFunctor* conversion = new ConversionScaleFunctor ( isImport ? COLLADA::MathUtils::degToRadF ( 1.0f ) : COLLADA::MathUtils::radToDegF ( 1.0f ) );
+            ConversionFunctor* conversion;
+            conversion = new ConversionScaleFunctor ( isImport ? COLLADA::MathUtils::degToRadF ( 1.0f ) : COLLADA::MathUtils::radToDegF ( 1.0f ) );
             animatedElement->setConversion ( conversion );
         }
 
@@ -1338,7 +1340,8 @@ namespace COLLADAMaya
 
                 // Create the curve with the ids
                 String baseId = getBaseId ( plug );
-                AnimationCurve* curve = createAnimationCurveFromNode ( animatedElement, curveObject, baseId, curveIndex );
+                AnimationCurve* curve;
+                curve = createAnimationCurveFromNode ( animatedElement, curveObject, baseId, curveIndex );
 
                 // Push the curve in the list of curves
                 if ( curve != NULL ) curves.push_back ( curve );

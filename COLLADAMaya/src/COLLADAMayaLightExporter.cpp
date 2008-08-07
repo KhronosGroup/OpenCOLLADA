@@ -93,7 +93,7 @@ namespace COLLADAMaya
 
         // Generate a COLLADA id for the new light object
         String lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
-        String lightName = lightFn.name().asChar();
+        String lightName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Color/Intensity are the common attributes of all lights
         MColor mayaColor = lightFn.color(&status); 
@@ -171,7 +171,6 @@ namespace COLLADAMaya
 //            ANIM->AddPlugAnimation(lightNode, "dropoff", colladaLight->GetDropoff(), kSingle);
         }
         
-
         addLight ( *light );
 
         return true;

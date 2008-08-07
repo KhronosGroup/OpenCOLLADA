@@ -161,17 +161,37 @@ namespace COLLADAMaya
             ControllerMeshStack& meshStack );
 
         /**
+         * Disables any effects on the node so that fewer calculations are 
+         * necessary at the time of redraw. The effect does not render until 
+         * you reset the Node State back to Normal. Maya evaluates the nodes in 
+         * the node’s history, but not the node itself. 
+         * @param stack The stack with the controller nodes.
+         */
+        static void setControllerNodeStatesToNoEffect( ControllerStack &stack );
+
+        /**
         * Reset all the controller node states.
-        * @param stack The stack with the controller nodes to reset the states.
+        * @param stack The stack with the controller nodes.
         */
         static void resetControllerNodeStates( ControllerStack &stack );
 
         /**
-        * Reset all the intermediate mesh parameters.
+         * Set all meshes as visible and not intermediate.
+         * @param meshStack The stack with the meshes to reset the parameters.
+         */
+        static void setValidMeshParameters( ControllerMeshStack &meshStack );
+
+        /**
+        * Reset the intermediate and visibility mesh parameters.
         * @param meshStack The stack with the meshes to reset the parameters.
         */
         static void resetMeshParameters( ControllerMeshStack &meshStack );
 
+        /**
+         * Delete the stack items.
+         * @param stack The stack with the controller nodes.
+         */
+        static void deleteControllerStackItems ( ControllerStack &stack );
 
     private:
 

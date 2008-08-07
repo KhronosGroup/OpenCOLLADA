@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
@@ -82,7 +83,7 @@ namespace COLLADAMaya
 
         // Check if it is a mesh and an export node
         if ( sceneElement->getType() == SceneElement::MESH &&
-                sceneElement->getIsExportNode() )
+             sceneElement->getIsExportNode() )
         {
             // Get the controller library
             ControllerExporter* controller = mDocumentExporter->getControllerExporter();
@@ -106,14 +107,20 @@ namespace COLLADAMaya
                 // Iterate upstream finding all the nodes which affect the mesh.
                 if ( !ControllerExporter::findAffectedNodes( dagPath.node(), stack, meshStack ) ) return;
 
+                // Disable any effects on the nodes.
+                ControllerExporter::setControllerNodeStatesToNoEffect ( stack );
+                // Set all meshes as visible and not intermediate.
+                ControllerExporter::setValidMeshParameters ( meshStack );
+
                 // Export the geometry 
                 exportGeometry ( dagPath );
 
                 // Reset all the intermediate mesh parameters.
                 ControllerExporter::resetMeshParameters( meshStack );
-
                 // Reset all the controller node states.
                 ControllerExporter::resetControllerNodeStates(stack);
+                // Delete the controller stack items and clear the stack.
+                ControllerExporter::deleteControllerStackItems( stack );
 
                 // Clear the stack.
                 stack.clear();
@@ -150,13 +157,10 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return false;
 
         // Create the unique ID
-        MString nodeNameMaya = fnMesh.name();
-        String nodeNameCollada = mDocumentExporter->mayaNameToColladaName ( nodeNameMaya, true );
-        String meshId = /*GEOMETRY_ID_PRAEFIX +*/ nodeNameCollada;
-//        String meshId = mDocumentExporter->dagPathToColladaId(dagPath);
+        String meshId = mDocumentExporter->dagPathToColladaId( dagPath );
   
         // Get the mesh name
-        String meshName = mDocumentExporter->dagPathToColladaName(dagPath);
+        String meshName = mDocumentExporter->dagPathToColladaName( dagPath );
 
         // Write the mesh data
         return exportMesh ( fnMesh, meshId, meshName );

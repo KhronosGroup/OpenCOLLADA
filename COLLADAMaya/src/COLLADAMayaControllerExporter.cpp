@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaDagHelper.h"
@@ -113,17 +114,20 @@ namespace COLLADAMaya
             return false;
         }
 
+        // Disable any effects on the nodes.
+        setControllerNodeStatesToNoEffect ( stack );
+        // Set all meshes as visible and not intermediate.
+        setValidMeshParameters ( meshStack );
+
         // Exports all the mesh affected nodes in the controller stack.
         exportControllerStack( sceneElement, stack );
 
-        // Reset all the intermediate mesh parameters.
+        // Reset the intermediate and visibility mesh parameters.
         resetMeshParameters( meshStack );
-
-        // Reset all the controller node states.
-        resetControllerNodeStates(stack);
-
-        // Clear the stack.
-        stack.clear();
+        // Reset the controller node states.
+        resetControllerNodeStates( stack );
+        // Delete the controller stack items and clear the stack.
+        deleteControllerStackItems( stack );
 
         return true;
     }
@@ -179,8 +183,12 @@ namespace COLLADAMaya
         const MObject controllerNode, 
         MDagPath outputShape )
     {
+        // Get the current path.
+        MDagPath targetDagPath = sceneElement->getPath();
+
         // Create the unique controller ID
-        String controllerId = sceneElement->getNodeName() + LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        String controllerId = mDocumentExporter->dagPathToColladaId( targetDagPath ) + 
+                                LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         // Check if the controller isn't already exported
         std::vector<String>::iterator controllerIter;
@@ -189,9 +197,6 @@ namespace COLLADAMaya
 
         // Push the exported controller in the export list
         mExportedControllers.push_back ( controllerId );
-
-        // Get the current path and the mesh node.
-        MDagPath targetDagPath = sceneElement->getPath();
 
         // Attach a function set to the controller node.
         MStatus status;
@@ -508,6 +513,11 @@ namespace COLLADAMaya
         // Iterate upstream finding all the nodes which affect the mesh.
         if (!findAffectedNodes(node, stack, meshStack)) return false;
 
+        // Disable any effects on the nodes.
+        setControllerNodeStatesToNoEffect ( stack );
+        // Set all meshes as visible and not intermediate.
+        setValidMeshParameters ( meshStack );
+
         // Already done in the geometry! 
         // TODO Don't export the geometry, if we don't have affected nodes!
         // At the end, export the base mesh
@@ -516,39 +526,13 @@ namespace COLLADAMaya
         // Exports all the mesh affected nodes in the controller stack.
         exportControllerStack( sceneNode, stack );
 
-        // Reset all the intermediate mesh parameters.
-        while ( !meshStack.empty() )
-        {
-            ControllerMeshItem& item = meshStack.back();
+        // Reset the intermediate and visibility mesh parameters.
+        resetMeshParameters( meshStack );
+        // Reset the controller node states.
+        resetControllerNodeStates( stack );
+        // Delete the controller stack items and clear the stack.
+        deleteControllerStackItems( stack );
 
-            DagHelper::setPlugValue ( item.mesh, ATTR_INTERMEDIATE_OBJECT, item.isIntermediate );
-            DagHelper::setPlugValue ( item.mesh, ATTR_VISIBILITY, item.isVisible );
-
-            meshStack.pop_back();
-        }
-
-        // Reset all the controller node states
-        for ( size_t i = 0; i < stack.size(); ++i )
-        {
-            ControllerStackItem* item = stack[i];
-            if ( item->isSkin )
-            {
-                DagHelper::setPlugValue ( item->skinControllerNode, ATTR_NODE_STATE, item->nodeStates.front() );
-            }
-            else
-            {
-                for ( uint j = 0; j < item->morphControllerNodes.length(); ++j )
-                {
-                    DagHelper::setPlugValue ( item->morphControllerNodes[j], ATTR_NODE_STATE, item->nodeStates[j] );
-                }
-            }
-            delete item;
-        }
-
-        stack.clear();
-
-//  if (target != NULL) target->SetNode(node);
-//  return target;
         return false;
     }
 
@@ -654,83 +638,6 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerExporter::findAffectedNodes( 
-        const MObject& node, 
-        ControllerStack &stack, 
-        ControllerMeshStack &meshStack )
-    {
-        MStatus stat;
-        MPlug plug = MFnDependencyNode ( node ).findPlug ( ATTR_IN_MESH );
-
-        if ( plug.isConnected() )
-        {
-            MItDependencyGraph dgIt ( plug,
-                MFn::kInvalid,
-                MItDependencyGraph::kUpstream,
-                MItDependencyGraph::kBreadthFirst,
-                MItDependencyGraph::kNodeLevel,
-                &stat );
-            if ( MS::kSuccess != stat ) return false;
-
-            dgIt.disablePruningOnFilter();
-            for ( ; ! dgIt.isDone(); dgIt.next() )
-            {
-                MObject thisNode = dgIt.thisNode();
-                if ( thisNode.hasFn ( MFn::kSkinClusterFilter ) || thisNode.hasFn ( MFn::kJointCluster ) )
-                {
-                    int nodeState;
-                    DagHelper::getPlugValue ( thisNode, ATTR_NODE_STATE, nodeState );
-
-                    // Append and disable the skin controller node.
-                    ControllerStackItem* item = new ControllerStackItem();
-                    item->isSkin = true;
-                    item->skinControllerNode = thisNode;
-                    item->nodeStates.push_back ( nodeState );
-                    stack.push_back ( item );
-
-                    DagHelper::setPlugValue ( thisNode, ATTR_NODE_STATE, 1 ); // pass-through.
-                }
-                // TODO Test!
-                else if ( thisNode.hasFn ( MFn::kBlendShape ) )
-                {
-                    int nodeState;
-                    DagHelper::getPlugValue ( thisNode, ATTR_NODE_STATE, nodeState );
-
-                    // Check for subsequent, multiple blend shape deformers.
-                    if ( stack.size() > 0 && !stack.back()->isSkin )
-                    {
-                        stack.back()->morphControllerNodes.append ( thisNode );
-                    }
-                    else
-                    {
-                        ControllerStackItem* item = new ControllerStackItem();
-                        item->isSkin = false;
-                        item->morphControllerNodes.append ( thisNode );
-                        stack.push_back ( item );
-                    }
-
-                    stack.back()->nodeStates.push_back ( nodeState );
-
-                    DagHelper::setPlugValue ( thisNode, ATTR_NODE_STATE, 1 ); // pass-through.
-                }
-                else if ( thisNode.hasFn ( MFn::kMesh ) )
-                {
-                    // Queue up this mesh and set valid object parameters
-                    ControllerMeshItem item;
-                    item.mesh = thisNode;
-                    DagHelper::getPlugValue ( thisNode, ATTR_INTERMEDIATE_OBJECT, item.isIntermediate );
-                    DagHelper::getPlugValue ( thisNode, ATTR_VISIBILITY, item.isVisible );
-                    DagHelper::setPlugValue ( thisNode, ATTR_INTERMEDIATE_OBJECT, false );
-                    DagHelper::setPlugValue ( thisNode, ATTR_VISIBILITY, true );
-                    meshStack.push_back ( item );
-                }
-            }
-        }
-
-        return true;
-    }
-
-    //------------------------------------------------------
     bool ControllerExporter::hasController ( const MObject& node )
     {
         return hasSkinController ( node ) || hasMorphController ( node );
@@ -796,7 +703,9 @@ namespace COLLADAMaya
 
     //------------------------------------------------------
     uint ControllerExporter::retrieveInstanceInformation( 
-        const MFnMesh &fnMesh, const MFnGeometryFilter &clusterFn, MDagPath &outputShape )
+        const MFnMesh &fnMesh, 
+        const MFnGeometryFilter &clusterFn, 
+        MDagPath &outputShape )
     {
         MStatus status;
 
@@ -1108,9 +1017,145 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
+    bool ControllerExporter::findAffectedNodes( 
+        const MObject& node, 
+        ControllerStack &stack, 
+        ControllerMeshStack &meshStack )
+    {
+        MStatus stat;
+        MPlug plug = MFnDependencyNode ( node ).findPlug ( ATTR_IN_MESH );
+
+        if ( plug.isConnected() )
+        {
+            MItDependencyGraph dgIt ( plug,
+                MFn::kInvalid,
+                MItDependencyGraph::kUpstream,
+                MItDependencyGraph::kBreadthFirst,
+                MItDependencyGraph::kNodeLevel,
+                &stat );
+            if ( MS::kSuccess != stat ) return false;
+
+            dgIt.disablePruningOnFilter();
+            for ( ; ! dgIt.isDone(); dgIt.next() )
+            {
+                MObject thisNode = dgIt.thisNode();
+                if ( thisNode.hasFn ( MFn::kSkinClusterFilter ) || thisNode.hasFn ( MFn::kJointCluster ) )
+                {
+                    // Append the skin controller node.
+                    ControllerStackItem* item = new ControllerStackItem();
+                    item->isSkin = true;
+                    item->skinControllerNode = thisNode;
+                    stack.push_back ( item );
+                }
+                // TODO Test!
+                else if ( thisNode.hasFn ( MFn::kBlendShape ) )
+                {
+                    // Check for subsequent, multiple blend shape deformers.
+                    if ( stack.size() > 0 && !stack.back()->isSkin )
+                    {
+                        stack.back()->morphControllerNodes.append ( thisNode );
+                    }
+                    else
+                    {
+                        ControllerStackItem* item = new ControllerStackItem();
+                        item->isSkin = false;
+                        item->morphControllerNodes.append ( thisNode );
+                        stack.push_back ( item );
+                    }
+                }
+                else if ( thisNode.hasFn ( MFn::kMesh ) )
+                {
+                    // Queue up this mesh.
+                    ControllerMeshItem item;
+                    item.mesh = thisNode;
+                    meshStack.push_back ( item );
+                }
+            }
+        }
+
+        return true;
+    }
+
+    //------------------------------------------------------
+    void ControllerExporter::setControllerNodeStatesToNoEffect( ControllerStack &stack )
+    {
+        // Set the controller node states
+        for ( size_t i=0; i<stack.size(); ++i )
+        {
+            ControllerStackItem* item = stack[i];
+
+            // Disable the skin controller node
+            if ( item->isSkin )
+            {
+                int nodeState;
+                DagHelper::getPlugValue ( item->skinControllerNode, ATTR_NODE_STATE, nodeState );
+                DagHelper::setPlugValue ( item->skinControllerNode, ATTR_NODE_STATE, 1 ); // pass-through.
+                item->nodeStates.push_back ( nodeState );
+            }
+
+            // Disable the morph controllers
+            for ( uint j=0; j<item->morphControllerNodes.length(); ++j )
+            {
+                int nodeState;
+                DagHelper::getPlugValue ( item->morphControllerNodes[j], ATTR_NODE_STATE, nodeState );
+                DagHelper::setPlugValue ( item->morphControllerNodes[j], ATTR_NODE_STATE, 1 ); // pass-through.
+                item->nodeStates.push_back( nodeState );
+            }
+        }
+    }
+
+    //------------------------------------------------------
+    void ControllerExporter::resetControllerNodeStates( ControllerStack &stack )
+    {
+        // Reset all the controller node states
+        for ( size_t i=0; i<stack.size(); ++i )
+        {
+            ControllerStackItem* item = stack[i];
+            if ( item->isSkin )
+            {
+                // Reset the skin controller node state.
+                DagHelper::setPlugValue ( 
+                    item->skinControllerNode, ATTR_NODE_STATE, item->nodeStates.front() );
+
+                // Maybe there are some morph controllers to reset.
+                for ( uint i=0; i<item->morphControllerNodes.length(); ++i )
+                {
+                    DagHelper::setPlugValue ( 
+                        item->morphControllerNodes[i], ATTR_NODE_STATE, item->nodeStates[i+1] );
+                }
+            }
+            else
+            {
+                // Reset the morph controller node states.
+                for ( uint j=0; j<item->morphControllerNodes.length(); ++j )
+                {
+                    DagHelper::setPlugValue ( 
+                        item->morphControllerNodes[j], ATTR_NODE_STATE, item->nodeStates[j] );
+                }
+            }
+            delete item;
+        }
+    }
+
+    //------------------------------------------------------
+    void ControllerExporter::setValidMeshParameters( ControllerMeshStack &meshStack )
+    {
+        // Set valid mesh parameters (visible and not intermediate).
+        for ( size_t i=0; i<meshStack.size(); ++i )
+        {
+            ControllerMeshItem& item = meshStack[i];
+
+            DagHelper::getPlugValue ( item.mesh, ATTR_INTERMEDIATE_OBJECT, item.isIntermediate );
+            DagHelper::getPlugValue ( item.mesh, ATTR_VISIBILITY, item.isVisible );
+            DagHelper::setPlugValue ( item.mesh, ATTR_INTERMEDIATE_OBJECT, false );
+            DagHelper::setPlugValue ( item.mesh, ATTR_VISIBILITY, true );
+        }
+    }
+
+    //------------------------------------------------------
     void ControllerExporter::resetMeshParameters( ControllerMeshStack &meshStack )
     {
-        // Reset all the intermediate mesh parameters.
+        // Reset all the intermediate and visibility mesh parameters.
         while ( !meshStack.empty() )
         {
             ControllerMeshItem& item = meshStack.back();
@@ -1123,27 +1168,17 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerExporter::resetControllerNodeStates( ControllerStack &stack )
+    void ControllerExporter::deleteControllerStackItems( ControllerStack &stack )
     {
-        // Reset all the controller node states
-        for ( size_t i = 0; i < stack.size(); ++i )
+        // Delete the controllerStack items
+        for ( size_t i=0; i<stack.size(); ++i )
         {
             ControllerStackItem* item = stack[i];
-            if ( item->isSkin )
-            {
-                DagHelper::setPlugValue ( 
-                    item->skinControllerNode, ATTR_NODE_STATE, item->nodeStates.front() );
-            }
-            else
-            {
-                for ( uint j = 0; j < item->morphControllerNodes.length(); ++j )
-                {
-                    DagHelper::setPlugValue ( 
-                        item->morphControllerNodes[j], ATTR_NODE_STATE, item->nodeStates[j] );
-                }
-            }
             delete item;
         }
+
+        stack.clear();
     }
+
 }
 
