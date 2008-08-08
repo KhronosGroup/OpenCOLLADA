@@ -46,7 +46,7 @@ namespace COLLADAMaya
                                          DocumentExporter* documentExporter )
     : COLLADA::LibraryGeometries ( streamWriter )
     , mDocumentExporter ( documentExporter )
-    , mExportedGeometries ( NULL )
+//    , mExportedGeometries ( NULL )
     {
     }
 
@@ -83,8 +83,11 @@ namespace COLLADAMaya
 
         // Check if it is a mesh and an export node
         if ( sceneElement->getType() == SceneElement::MESH &&
-             sceneElement->getIsExportNode() )
+             sceneElement->getIsExportNode() && 
+             mDocumentExporter->getSceneGraph()->findExportedElement ( dagPath ) == NULL )
         {
+            bool exported = false;
+
             // Get the controller library
             ControllerExporter* controller = mDocumentExporter->getControllerExporter();
 
@@ -92,12 +95,9 @@ namespace COLLADAMaya
             bool hasSkinController =
                 ExportOptions::exportJointsAndSkin() &&
                 controller->hasSkinController ( dagPath.node() );
-            sceneElement->setHasSkinController ( hasSkinController );
-
             bool hasMorphController = controller->hasMorphController ( dagPath.node() );
-            sceneElement->setHasMorphController ( hasMorphController );
 
-            // TODO Handle the controllers
+            // Handle the controllers
             if ( hasSkinController || hasMorphController )
             {
                 // The stacks of the controllers for the affected nodes.
@@ -113,7 +113,7 @@ namespace COLLADAMaya
                 ControllerExporter::setValidMeshParameters ( meshStack );
 
                 // Export the geometry 
-                exportGeometry ( dagPath );
+                exported = exportGeometry ( sceneElement );
 
                 // Reset all the intermediate mesh parameters.
                 ControllerExporter::resetMeshParameters( meshStack );
@@ -128,12 +128,12 @@ namespace COLLADAMaya
             else
             {
                 // Export the geometry 
-                bool exported = exportGeometry ( dagPath );
-
-                // Push it in the list of exported elements.
-                if ( exported )
-                    mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
+                exported = exportGeometry ( sceneElement );
             }
+
+            // Push it in the list of exported elements.
+            if ( exported )
+                mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
         }
 
         // Recursive call for all the child elements
@@ -145,8 +145,11 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    bool GeometryExporter::exportGeometry ( const MDagPath& dagPath )
+    bool GeometryExporter::exportGeometry ( SceneElement* sceneElement )
     {
+        // Get the current dag path
+        MDagPath dagPath = sceneElement->getPath();
+
         //  Get the node of the current mesh
         MObject meshNode = dagPath.node();
 
@@ -157,10 +160,26 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return false;
 
         // Create the unique ID
-        String meshId = mDocumentExporter->dagPathToColladaId( dagPath );
-  
+        String meshId1 = mDocumentExporter->dagPathToColladaId( dagPath );
+        String meshId = mDocumentExporter->mayaNameToColladaName ( fnMesh.name() );
+        
+        bool isInstanced = dagPath.isInstanced();
+        uint instanceNumber = dagPath.instanceNumber();
+
         // Get the mesh name
         String meshName = mDocumentExporter->dagPathToColladaName( dagPath );
+
+//         // Check if the geometry isn't already exported
+//         std::vector<String>::iterator geometryIter;
+//         geometryIter = find ( mExportedGeometries.begin(), mExportedGeometries.end(), meshId );
+//         if ( geometryIter != mExportedGeometries.end() ) return false;
+// 
+//         // Push the geometry in the list of exported geometries
+//         mExportedGeometries.push_back ( meshId );
+
+        // Set a new mesh id in the list of unique exported mesh geometries.
+        meshId = mExportedGeometries.addId ( meshId );
+        sceneElement->setNodeId ( meshId );
 
         // Write the mesh data
         return exportMesh ( fnMesh, meshId, meshName );
@@ -169,14 +188,6 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     bool GeometryExporter::exportMesh ( MFnMesh& fnMesh, String meshId, String &meshName )
     {
-        // Check if the geometry isn't already exported
-        std::vector<String>::iterator geometryIter;
-        geometryIter = find ( mExportedGeometries.begin(), mExportedGeometries.end(), meshId );
-        if ( geometryIter != mExportedGeometries.end() ) return false;
-
-        // Push the exported geometry in the export list
-        mExportedGeometries.push_back ( meshId );
-
         // Clear the list with the current polygons and the list with the vertexes
         mPolygonSources.clear();
         mVertexSources.clear();

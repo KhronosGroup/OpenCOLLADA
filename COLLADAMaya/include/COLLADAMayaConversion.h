@@ -91,6 +91,21 @@ namespace COLLADAMaya
         }
     };
 
+    /** Exporter converter functors */
+    class FocalLengthConverter : public ConversionFunctor
+    {
+    public:
+        float aperture;
+
+        FocalLengthConverter(float _aperture) { aperture = _aperture; }
+
+        virtual float operator() (float v) 
+        { 
+            return COLLADA::MathUtils::radToDegF ( 2.0f * atan(25.4f * aperture / 2.0f / v) ); 
+        }
+    };
+
+
 }
 
 #endif // __COLLADA_MAYA_CONVERSION_H__

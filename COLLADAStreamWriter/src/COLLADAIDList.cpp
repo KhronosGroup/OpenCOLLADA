@@ -14,39 +14,31 @@
 namespace COLLADA
 {
 
-
-
     String IDList::addId ( const String & newId )
     {
         String newIdChecked = Utils::checkID ( newId );
 
         IDSet::iterator it = mIdSet.find ( newIdChecked );
-
         if ( it == mIdSet.end() )
         {
             mIdSet.insert ( newIdChecked );
             return newIdChecked;
         }
 
-        String idCanditate;
-
+        String idCandidate;
         size_t numberSuffix = 0;
-
         do
         {
             numberSuffix++;
-            idCanditate = newIdChecked + Utils::toString ( numberSuffix );
+            idCandidate = newIdChecked + "_" + Utils::toString ( numberSuffix );
         }
+        while ( mIdSet.find ( idCandidate ) != mIdSet.end() );
 
-        while ( mIdSet.find ( idCanditate ) != mIdSet.end() );
+        mIdSet.insert ( idCandidate );
 
-        mIdSet.insert ( idCanditate );
-
-        return idCanditate;
+        return idCandidate;
 
     }
-
-
 
 
 }

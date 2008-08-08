@@ -111,32 +111,6 @@ namespace COLLADAMaya
         void exportControllers();
 
         /**
-         * @todo documentation
-         * @param sceneNode
-         * @param dagPath
-         * @param isSkin
-         * @param instantiate
-         */
-        void exportController ( SceneElement* sceneNode,
-                                bool isSkin,
-                                bool instantiate=true );
-
-        /**
-         * @todo documentation
-         * @param sceneNode
-         * @param node
-        * @return True, if the controller was exported.
-         */
-        bool exportController ( SceneElement* sceneNode, const MObject& node );
-
-//   DaeEntity* exportMorphController(FCDSceneNode* sceneNode, MObjectArray& controllerNodes, DaeEntity* target);
-//   DaeEntity* exportSkinController(MObject controllerNode, MDagPath outputShape, DaeEntity* target);
-//   FCDGeometry* exportMorphTarget(MPlug& vertexListPlug, MPlug& targetComponentListPlug, uint targetIndex, FCDGeometry* baseMesh);
-//
-//   void completeInstanceExport(FCDControllerInstance* instance, FCDController* entity);
-
-
-        /**
          * Write the controller data into the collada document.
          */
         void completeControllerExport();

@@ -147,6 +147,12 @@ namespace COLLADAMaya
         void exportLightInstance ( SceneElement* childElement );
 
         /**
+        * Exports the camera instances of the given transform scene element.
+        * @param childElement The transform scene element.
+        */
+        void exportCameraInstance ( SceneElement* childElement );
+
+        /**
          * Exports the material instances.
          * @param instanceMaterialList The instance list to fill.
          * @param childDagPath The path of the current node to export the material instances.

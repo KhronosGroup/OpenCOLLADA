@@ -87,12 +87,6 @@ namespace COLLADAMaya
         /** true, if it is a visible node */
         bool mIsVisible;
 
-        /** True, if the current node has a skin controller. */
-        bool mHasSkinController;
-
-        /** True, if the current node has a morph controller. */
-        bool mHasMorphController;
-
         /** True, if the transform element has joints. */
         bool mHasJoint;
 
@@ -121,9 +115,15 @@ namespace COLLADAMaya
         }
 
         /** Set the unique id of the export node to @a id*/
-        void setId ( const String& id )
+        void setNodeId ( const String& id )
         {
             mNodeId = id;
+        }
+
+        /** Set the unique id of the export node to @a id*/
+        const String& getNodeId ( ) const
+        {
+            return mNodeId;
         }
 
         /** Set the unique id of the export node to @a id*/
@@ -220,28 +220,6 @@ namespace COLLADAMaya
         {
             return mIsVisible;
         }
-
-        /**
-         * True, if the current node has a skin controller.
-         * @return bool True, if the current node has a skin controller.
-         */
-        bool getHasSkinController() const { return mHasSkinController; }
-        /**
-         * True, if the current node has a skin controller.
-         * @param val True, if the current node has a skin controller.
-         */
-        void setHasSkinController(bool val) { mHasSkinController = val; }
-
-        /**
-         * True, if the current node has a morph controller.
-         * @return bool True, if the current node has a morph controller.
-         */
-        bool getHasMorphController() const { return mHasMorphController; }
-        /**
-         * True, if the current node has a morph controller.
-         * @param val True, if the current node has a morph controller.
-         */
-        void setHasMorphController(bool val) { mHasMorphController = val; }
 
         /**
          * True, if the transform element has joints.

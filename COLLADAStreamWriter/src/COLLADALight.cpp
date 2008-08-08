@@ -15,15 +15,6 @@
 namespace COLLADA
 {
 
-    // --------------------------------------------
-    const String Light::CONSTANT_ATTENUATION    = "constant_attenuation";
-    const String Light::LINEAR_ATTENUATION      = "linear_attenuation";
-    const String Light::QUADRATIC_ATTENUATION   = "quadratic_attenuation";
-    const String Light::ZFAR                    = "zfar";
-
-    const String Light::FALLOFF_ANGLE           = "falloff_angle";
-    const String Light::FALLOFF_EXPONENT        = "falloff_exponent";
-
     // ---------------------------------------------------
     Light::Light ( 
         StreamWriter* streamWriter, 
@@ -98,21 +89,21 @@ namespace COLLADA
         mSW->appendValues ( mColor.getRed(), mColor.getGreen(), mColor.getBlue() );
         mSW->closeElement(); // COLLADA_ELEMENT_COLOR
 
-        mSW->openElement ( Light::CONSTANT_ATTENUATION );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT );
         mSW->appendValues ( mConstantAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( Light::LINEAR_ATTENUATION );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR );
         mSW->appendValues ( mLinearAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( Light::QUADRATIC_ATTENUATION );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC );
         mSW->appendValues ( mQuadraticAttenuation );
         mSW->closeElement();
 
         if ( !COLLADA::MathUtils::equals ( mZFar, 0.0f ) )
         {
-            mSW->openElement ( Light::ZFAR );
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_ZFAR );
             mSW->appendValues ( mZFar );
             mSW->closeElement();
         }
@@ -129,28 +120,28 @@ namespace COLLADA
         mSW->appendValues ( mColor.getRed(), mColor.getGreen(), mColor.getBlue() );
         mSW->closeElement(); // COLLADA_ELEMENT_COLOR
 
-        mSW->openElement ( Light::CONSTANT_ATTENUATION );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT );
         mSW->appendValues ( mConstantAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( Light::LINEAR_ATTENUATION );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR );
         mSW->appendValues ( mLinearAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( Light::QUADRATIC_ATTENUATION );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC );
         mSW->appendValues ( mQuadraticAttenuation );
         mSW->closeElement();
 
         if ( !COLLADA::MathUtils::equals ( mFallOffAngle, 180.0f ) )
         {
-            mSW->openElement ( Light::FALLOFF_ANGLE );
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_FALLOFF_ANGLE );
             mSW->appendValues ( mFallOffAngle );
             mSW->closeElement();
         }
 
         if ( !COLLADA::MathUtils::equals ( mFallOffExponent, 0.0f ) )
         {
-            mSW->openElement ( Light::FALLOFF_EXPONENT );
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_FALLOFF_EXPONENT );
             mSW->appendValues ( mFallOffExponent );
             mSW->closeElement();
         }

@@ -32,8 +32,6 @@ namespace COLLADAMaya
             , mIsExportNode ( false )
             , mIsForced ( false )
             , mIsVisible ( false )
-            , mHasSkinController ( false )
-            , mHasMorphController ( false )
             , mInstantiatedSceneElement ( NULL )
             , mSkeletonId ( "" )
     {}

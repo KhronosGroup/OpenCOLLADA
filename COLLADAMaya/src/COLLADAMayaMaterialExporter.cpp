@@ -74,7 +74,6 @@ namespace COLLADAMaya
         MPlug defaultShadersPlug = MFnDependencyNode ( defaultShaderList ).findPlug ( "shaders" );
 
         uint shaderCount = defaultShadersPlug.evaluateNumElements();
-
         for ( uint i = 0; i < shaderCount; ++i )
         {
             MObject shader = DagHelper::getNodeConnectedTo ( defaultShadersPlug.elementByPhysicalIndex ( i ) );
@@ -102,14 +101,12 @@ namespace COLLADAMaya
 
         // Export all/selected DAG nodes
         uint length = exportNodesTree->size();
-
         for ( uint i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
             const MDagPath dagPath = sceneElement->getPath();
 
             uint childCount = sceneElement->getChildCount();
-
             for ( uint i=0; i<childCount; ++i )
             {
                 SceneElement* childSceneElement = sceneElement->getChild ( i );
@@ -136,16 +133,12 @@ namespace COLLADAMaya
 
             // Find how many shaders are used by this instance of the mesh
             MObjectArray shaders;
-
             MIntArray shaderIndices;
-
             unsigned instanceNumber = dagPath.instanceNumber();
-
             fnMesh.getConnectedShaders ( instanceNumber, shaders, shaderIndices );
 
             // Find the polygons that correspond to each materials and export them
             uint realShaderCount = ( uint ) shaders.length();
-
             uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
 
             for ( uint shaderPosition = 0; shaderPosition < numShaders; ++shaderPosition )
@@ -161,7 +154,6 @@ namespace COLLADAMaya
         }
 
         // recursive call for all the child elements
-
         for ( uint i=0; i<sceneElement->getChildCount(); ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
@@ -180,7 +172,6 @@ namespace COLLADAMaya
         // Find the actual shader node, since this function received shading sets as input
         MStatus status;
         MFnDependencyNode shaderNode ( shader, &status );
-
         if ( status != MStatus::kSuccess ) return;
 
         // Get the name of the current material
@@ -188,9 +179,7 @@ namespace COLLADAMaya
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;
-
         materialMapIter = mMaterialMap.find ( materialId );
-
         if ( materialMapIter == mMaterialMap.end() )
         {
             // This is a new shading engine
@@ -198,7 +187,6 @@ namespace COLLADAMaya
         }
 
         // Check if the material should be written
-
         if ( mWriteMaterials )
         {
             // Have we exported this shader already?

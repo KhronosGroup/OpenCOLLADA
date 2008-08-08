@@ -25,6 +25,7 @@
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaLightExporter.h"
+#include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaConvert.h"
@@ -59,6 +60,7 @@ namespace COLLADAMaya
             , mAnimationClipExporter ( NULL )
             , mControllerExporter ( NULL )
             , mLightExporter ( NULL )
+            , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
     {
     }
@@ -95,6 +97,7 @@ namespace COLLADAMaya
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
         mControllerExporter = new ControllerExporter ( &mStreamWriter, this );
         mLightExporter = new LightExporter ( &mStreamWriter, this );
+        mCameraExporter = new CameraExporter ( &mStreamWriter, this );
     }
 
     //---------------------------------------------------------------
@@ -111,6 +114,7 @@ namespace COLLADAMaya
         delete mAnimationClipExporter;
         delete mControllerExporter;
         delete mLightExporter;
+        delete mCameraExporter;
     }
 
 
@@ -135,6 +139,9 @@ namespace COLLADAMaya
 
             // Export the lights.
             mLightExporter->exportLights();
+
+            // Export the cameras.
+            mCameraExporter->exportCameras();
 
             // Export the material URLs and get the material list
             MaterialMap* materialMap = mMaterialExporter->exportMaterials();

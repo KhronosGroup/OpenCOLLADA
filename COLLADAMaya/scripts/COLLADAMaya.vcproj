@@ -423,6 +423,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaCameraExporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaControllerExporter.cpp"
 					>
 				</File>
@@ -617,6 +621,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaAnimationExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaCameraExporter.h"
 					>
 				</File>
 				<File

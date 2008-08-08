@@ -8,7 +8,6 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-
 #ifndef __COLLADASTREAMWRITER_CSWC_H__
 #define __COLLADASTREAMWRITER_CSWC_H__
 
@@ -29,16 +28,24 @@ namespace COLLADA
         static const String COLLADA_NAMESPACE;
         static const String COLLADA_VERSION;
 
+
         static const String COLLADA_ELEMENT_ACCESSOR;
         static const String COLLADA_ELEMENT_AMBIENT;
         static const String COLLADA_ELEMENT_ANIMATION;
         static const String COLLADA_ELEMENT_ANIMATION_CLIP;
+        static const String COLLADA_ELEMENT_ASPECT_RATIO;
         static const String COLLADA_ELEMENT_ASSET;
+        static const String COLLADA_ELEMENT_ATTENUATION_CONSTANT;
+        static const String COLLADA_ELEMENT_ATTENUATION_LINEAR;
+        static const String COLLADA_ELEMENT_ATTENUATION_QUADRATIC;
         static const String COLLADA_ELEMENT_AUTHOR;
         static const String COLLADA_ELEMENT_AUTHORING_TOOL;
         static const String COLLADA_ELEMENT_BLINN;
         static const String COLLADA_ELEMENT_BIND_MATERIAL;
         static const String COLLADA_ELEMENT_BIND_SHAPE_MATRIX;
+        static const String COLLADA_ELEMENT_CAMERA;
+        static const String COLLADA_ELEMENT_CAMERA_ORTHOGRAPHIC;
+        static const String COLLADA_ELEMENT_CAMERA_PERSPECTIVE;
         static const String COLLADA_ELEMENT_CHANNEL;
         static const String COLLADA_ELEMENT_COMMENTS;
         static const String COLLADA_ELEMENT_CONSTANT;
@@ -52,6 +59,8 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_EFFECT;
         static const String COLLADA_ELEMENT_EMISSION;
         static const String COLLADA_ELEMENT_EXTRA;
+        static const String COLLADA_ELEMENT_FALLOFF_ANGLE; 
+        static const String COLLADA_ELEMENT_FALLOFF_EXPONENT;
         static const String COLLADA_ELEMENT_FLOAT;
         static const String COLLADA_ELEMENT_FLOAT_ARRAY;
         static const String COLLADA_ELEMENT_FORMAT;
@@ -61,6 +70,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_INIT_FROM;
         static const String COLLADA_ELEMENT_INPUT;
         static const String COLLADA_ELEMENT_INSTANCE_ANIMATION;
+        static const String COLLADA_ELEMENT_INSTANCE_CAMERA;
         static const String COLLADA_ELEMENT_INSTANCE_CONTROLLER;
         static const String COLLADA_ELEMENT_INSTANCE_EFFECT;
         static const String COLLADA_ELEMENT_INSTANCE_GEOMETRY;
@@ -73,6 +83,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_LAMBERT;
         static const String COLLADA_ELEMENT_LIBRARY_ANIMATIONS;
         static const String COLLADA_ELEMENT_LIBRARY_ANIMATION_CLIPS;
+        static const String COLLADA_ELEMENT_LIBRARY_CAMERAS;
         static const String COLLADA_ELEMENT_LIBRARY_CONTROLLERS;
         static const String COLLADA_ELEMENT_LIBRARY_EFFECTS;
         static const String COLLADA_ELEMENT_LIBRARY_GEOMETRIES;
@@ -96,6 +107,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_NAME_ARRAY;
         static const String COLLADA_ELEMENT_NEWPARAM;
         static const String COLLADA_ELEMENT_NODE;
+        static const String COLLADA_ELEMENT_OPTICS;
         static const String COLLADA_ELEMENT_P;
         static const String COLLADA_ELEMENT_PARAM;
         static const String COLLADA_ELEMENT_PH;
@@ -138,6 +150,12 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_WRAP_S;
         static const String COLLADA_ELEMENT_WRAP_T;
         static const String COLLADA_ELEMENT_WRAP_P;
+        static const String COLLADA_ELEMENT_XFOV;
+        static const String COLLADA_ELEMENT_XMAG;
+        static const String COLLADA_ELEMENT_YFOV;
+        static const String COLLADA_ELEMENT_YMAG;
+        static const String COLLADA_ELEMENT_ZFAR;
+        static const String COLLADA_ELEMENT_ZNEAR;
 
 
         static const String COLLADA_ATTRIBUTE_COUNT;

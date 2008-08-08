@@ -33,6 +33,7 @@
 #include "COLLADALibraryGeometries.h"
 #include "COLLADAInputList.h"
 #include "COLLADAPrimitves.h"
+#include "COLLADAIDList.h"
 
 
 namespace COLLADAMaya
@@ -53,8 +54,9 @@ namespace COLLADAMaya
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
-        /** List of meshIds from the already exported geometries. */
-        std::vector<String> mExportedGeometries;
+        /** List of unique meshIds from the already exported geometries. */
+//         std::vector<String> mExportedGeometries;
+        COLLADA::IDList mExportedGeometries;
 
         /**
         * Holds all the polygon sources of the geometry of the current mesh.
@@ -83,7 +85,7 @@ namespace COLLADAMaya
         void exportGeometries ( SceneElement* sceneElement );
 
         /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
-        bool exportGeometry ( const MDagPath& dagPath );
+        bool exportGeometry ( SceneElement* sceneElement );
 
         /** closes the geometry tags in the collada document */
         void endExport();

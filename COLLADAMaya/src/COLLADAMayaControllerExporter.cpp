@@ -76,7 +76,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerExporter::exportControllers(SceneElement* sceneElement)
+    void ControllerExporter::exportControllers( SceneElement* sceneElement )
     {
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
@@ -187,9 +187,20 @@ namespace COLLADAMaya
         MDagPath targetDagPath = sceneElement->getPath();
 
         // Create the unique controller ID
-        String controllerId = mDocumentExporter->dagPathToColladaId( targetDagPath ) + 
-                                LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
-
+//         String controllerId = mDocumentExporter->dagPathToColladaId( targetDagPath ) + 
+//                                 LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        String controllerId;
+        if ( !sceneElement->getNodeId().empty() )
+        {
+            controllerId = sceneElement->getNodeId() + 
+                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        }
+        else
+        {
+            controllerId = sceneElement->getNodeName() + 
+                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        }
+        
         // Check if the controller isn't already exported
         std::vector<String>::iterator controllerIter;
         controllerIter = find ( mExportedControllers.begin(), mExportedControllers.end(), controllerId );
@@ -501,143 +512,6 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    bool ControllerExporter::exportController ( SceneElement* sceneNode, const MObject& node )
-    {
-        // Get the current's element path
-        MDagPath dagPath = sceneNode->getPath();
-
-        // The stacks of the controllers for the affected nodes.
-        ControllerStack stack;
-        ControllerMeshStack meshStack;
-
-        // Iterate upstream finding all the nodes which affect the mesh.
-        if (!findAffectedNodes(node, stack, meshStack)) return false;
-
-        // Disable any effects on the nodes.
-        setControllerNodeStatesToNoEffect ( stack );
-        // Set all meshes as visible and not intermediate.
-        setValidMeshParameters ( meshStack );
-
-        // Already done in the geometry! 
-        // TODO Don't export the geometry, if we don't have affected nodes!
-        // At the end, export the base mesh
-        mDocumentExporter->getGeometryExporter()->exportGeometry ( dagPath );
-
-        // Exports all the mesh affected nodes in the controller stack.
-        exportControllerStack( sceneNode, stack );
-
-        // Reset the intermediate and visibility mesh parameters.
-        resetMeshParameters( meshStack );
-        // Reset the controller node states.
-        resetControllerNodeStates( stack );
-        // Delete the controller stack items and clear the stack.
-        deleteControllerStackItems( stack );
-
-        return false;
-    }
-
-    //------------------------------------------------------
-    void ControllerExporter::exportController ( 
-        SceneElement* sceneNode,
-        bool isSkin,
-        bool instantiate )
-    {
-        // Get the current's element path
-        MDagPath dagPath = sceneNode->getPath();
-
-        // Controllers are tricky: they cannot be on an animated node
-        // and in the case of skin controllers,
-        // the bind-shape matrix must be taken out.
-        bool exported = exportController ( sceneNode, dagPath.node() );
-        if ( !exported ) return;
-
-        SceneElement* pivotNode = NULL;
-
-        //  FCDSceneNode* pivotNode = NULL;
-        MFnTransform transformFn ( dagPath.transform() );
-
-        if ( isSkin )
-        {
-            // Calculate the number of visible children.
-            uint visibleChildCount = 0;
-
-            for ( uint i = 0; i < transformFn.childCount(); ++i )
-            {
-                bool isVisible = false;
-                MFnDagNode dagFn ( transformFn.child ( i ) );
-                dagFn.findPlug ( ATTR_VISIBILITY ).getValue ( isVisible );
-
-                if ( !dagFn.isIntermediateObject() &&
-                    ( !ExportOptions::exportInvisibleNodes() || isVisible ) )
-                    ++visibleChildCount;
-            }
-
-            if ( visibleChildCount > 1 )
-            {
-                // Create a new scene node
-                SceneElement* parentNode = sceneNode->getParent();
-                if ( parentNode == NULL ) 
-                {
-                    MGlobal::displayError( "Parent node can't be null!" ); // shouldn't happen.
-                    return;
-                }
-
-                parentNode->addChildElement ( pivotNode );
-                pivotNode->addParentElement ( parentNode );
-
-                //    pivotNode = parentNode->AddChildNode();
-                //    FCDSceneNode* parentNode = sceneNode->GetParent();
-                //    FUAssert(parentNode != NULL, return NULL); // shouldn't happen.
-
-                // TODO
-                // Create a new node entity for the pivot.
-                //    DaeEntity* pivotEntity = new DaeEntity(doc, pivotNode, dagPath.transform());
-
-                // TODO
-                //     // Process the previously imported scene node
-                //     if (!pivotEntity->isOriginal)
-                //     {
-                //      // Take out the transforms: they are fair-game, for now.
-                //      while (pivotNode->GetTransformCount() > 0) pivotNode->GetTransform(0)->Release();
-                //
-                //      // Mark the instances/children to be able to later delete the unused ones.
-                //      size_t pivotInstanceCount = pivotNode->GetInstanceCount();
-                //      for (size_t pi = 0; pi < pivotInstanceCount; ++pi)
-                //      {
-                //       pivotNode->GetInstance(pi)->SetUserHandle((void*) 1);
-                //      }
-                //     }
-                //     else
-                {
-                    // Get the node ID and name
-                    pivotNode->setId ( mDocumentExporter->dagPathToColladaId ( dagPath ) );
-                }
-
-                pivotNode->setNodeName ( mDocumentExporter->dagPathToColladaName ( dagPath ) );
-
-                //     pivotEntity->instanceCount = 1;
-                //     doc->GetSceneGraph()->AddElement(pivotEntity);
-                //     pivotEntity->transform = new DaeTransform(doc, pivotNode);
-                //     pivotEntity->transform->SetTransform(transformFn.object());
-                //     pivotEntity->transform->SetTransformation(transformFn.transformation());
-            }
-
-            else
-            {
-                // Reset the local transformation.
-                //     DaeEntity* currentEntity = (DaeEntity*) sceneNode->GetUserHandle();
-                //     currentEntity->transform->SetTransformation(transformFn.transformation());
-            }
-        }
-
-        // Export the instance on the pivot, if it exists.
-        //   if (pivotNode == NULL) pivotNode = sceneNode;
-        //   if (instantiate) doc->GetSceneGraph()->ExportInstance(pivotNode, entity->entity);
-
-        //  return entity;
-    }
-
-    //------------------------------------------------------
     bool ControllerExporter::hasController ( const MObject& node )
     {
         return hasSkinController ( node ) || hasMorphController ( node );
@@ -809,6 +683,9 @@ namespace COLLADAMaya
 
         // Create the vertex list
         std::vector<float> vertexVec;
+
+        // Push a single one weight in front of the list. The vertex_weights array
+        // can always reference to it, if we have a one weight.
         vertexVec.push_back(1.0f);
         uint numVertexPoints = 1;
 
@@ -818,6 +695,10 @@ namespace COLLADAMaya
             SkinControllerVertex vertex = vertexes[i];
             for (uint j=0; j<vertex.size(); ++j)
             {
+                // We don't need to write the zero weight, cause then there is no 
+                // influence. We don't write the one weights, cause we have written 
+                // (see below) a one weight in front of the vertex_weights array and 
+                // always reference to it from the vertex_weights array.
                 if ( !COLLADA::MathUtils::equalsZero( vertex[j] ) && 
                      !COLLADA::MathUtils::equals( vertex[j], 1.0f ) ) 
                 {
@@ -908,6 +789,8 @@ namespace COLLADAMaya
                 if ( !COLLADA::MathUtils::equals( (*it).second, 1.0f ) ) 
                     vertexMatches.push_back( weightOffset++ );
                 else 
+                    // There is a one in the first position of the weight source array.
+                    // We will always reference to this element, if the weight is a one.
                     vertexMatches.push_back ( 0 );
             }
         }
@@ -1114,26 +997,30 @@ namespace COLLADAMaya
             if ( item->isSkin )
             {
                 // Reset the skin controller node state.
-                DagHelper::setPlugValue ( 
-                    item->skinControllerNode, ATTR_NODE_STATE, item->nodeStates.front() );
+                uint nodeStateSize = item->nodeStates.size();
+                assert ( nodeStateSize >= 1 );
+                long nodeState = item->nodeStates.front();
+                DagHelper::setPlugValue ( item->skinControllerNode, ATTR_NODE_STATE, nodeState );
 
                 // Maybe there are some morph controllers to reset.
                 for ( uint i=0; i<item->morphControllerNodes.length(); ++i )
                 {
-                    DagHelper::setPlugValue ( 
-                        item->morphControllerNodes[i], ATTR_NODE_STATE, item->nodeStates[i+1] );
+                    assert ( nodeStateSize < i+1 );
+                    nodeState = item->nodeStates[i+1];
+                    DagHelper::setPlugValue ( item->morphControllerNodes[i], ATTR_NODE_STATE, nodeState );
                 }
             }
             else
             {
                 // Reset the morph controller node states.
+                uint nodeStateSize = item->nodeStates.size();
                 for ( uint j=0; j<item->morphControllerNodes.length(); ++j )
                 {
-                    DagHelper::setPlugValue ( 
-                        item->morphControllerNodes[j], ATTR_NODE_STATE, item->nodeStates[j] );
+                    assert ( nodeStateSize < j );
+                    long nodeState = item->nodeStates[j];
+                    DagHelper::setPlugValue ( item->morphControllerNodes[j], ATTR_NODE_STATE, nodeState );
                 }
             }
-            delete item;
         }
     }
 

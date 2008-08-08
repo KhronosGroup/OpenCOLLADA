@@ -8,14 +8,12 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-
 #include "COLLADASWC.h"
 
 namespace COLLADA
 {
 
     const String CSWC::EMPTY_STRING = "";
-
 
     const String CSWC::XML_START_ELEMENT = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
     const String CSWC::COLLADA_NAMESPACE = "http://www.collada.org/2005/11/COLLADASchema";
@@ -26,12 +24,19 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_AMBIENT = "ambient";
     const String CSWC::COLLADA_ELEMENT_ANIMATION = "animation";
     const String CSWC::COLLADA_ELEMENT_ANIMATION_CLIP = "animation_clip";
+    const String CSWC::COLLADA_ELEMENT_ASPECT_RATIO = "aspect_ratio";
     const String CSWC::COLLADA_ELEMENT_ASSET = "asset";
+    const String CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT = "constant_attenuation";
+    const String CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR = "linear_attenuation";
+    const String CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC = "quadratic_attenuation";
     const String CSWC::COLLADA_ELEMENT_AUTHOR = "author";
     const String CSWC::COLLADA_ELEMENT_AUTHORING_TOOL = "authoring_tool";
     const String CSWC::COLLADA_ELEMENT_BLINN = "blinn";
     const String CSWC::COLLADA_ELEMENT_BIND_MATERIAL = "bind_material";
     const String CSWC::COLLADA_ELEMENT_BIND_SHAPE_MATRIX = "bind_shape_matrix";
+    const String CSWC::COLLADA_ELEMENT_CAMERA = "camera";
+    const String CSWC::COLLADA_ELEMENT_CAMERA_ORTHOGRAPHIC = "orthographic";
+    const String CSWC::COLLADA_ELEMENT_CAMERA_PERSPECTIVE = "perspective";
     const String CSWC::COLLADA_ELEMENT_CHANNEL = "channel";
     const String CSWC::COLLADA_ELEMENT_COMMENTS = "comments";
     const String CSWC::COLLADA_ELEMENT_CONSTANT = "constant";
@@ -45,6 +50,8 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_EFFECT = "effect";
     const String CSWC::COLLADA_ELEMENT_EMISSION = "emission";
     const String CSWC::COLLADA_ELEMENT_EXTRA = "extra";
+    const String CSWC::COLLADA_ELEMENT_FALLOFF_ANGLE = "falloff_angle";
+    const String CSWC::COLLADA_ELEMENT_FALLOFF_EXPONENT = "falloff_exponent";
     const String CSWC::COLLADA_ELEMENT_FLOAT = "float";
     const String CSWC::COLLADA_ELEMENT_FLOAT_ARRAY = "float_array";
     const String CSWC::COLLADA_ELEMENT_FORMAT = "format";
@@ -54,6 +61,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_INIT_FROM = "init_from";
     const String CSWC::COLLADA_ELEMENT_INPUT = "input";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_ANIMATION = "instance_animation";
+    const String CSWC::COLLADA_ELEMENT_INSTANCE_CAMERA = "instance_camera";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_CONTROLLER = "instance_controller";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT = "instance_effect";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
@@ -66,6 +74,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_LAMBERT = "lambert";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_ANIMATIONS = "library_animations";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_ANIMATION_CLIPS = "library_animation_clips";
+    const String CSWC::COLLADA_ELEMENT_LIBRARY_CAMERAS = "library_cameras";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_CONTROLLERS = "library_controllers";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_EFFECTS = "library_effects";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_GEOMETRIES = "library_geometries";
@@ -89,6 +98,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_NAME_ARRAY = "Name_array";
     const String CSWC::COLLADA_ELEMENT_NEWPARAM = "newparam";
     const String CSWC::COLLADA_ELEMENT_NODE = "node";
+    const String CSWC::COLLADA_ELEMENT_OPTICS = "optics";
     const String CSWC::COLLADA_ELEMENT_P = "p";
     const String CSWC::COLLADA_ELEMENT_PARAM = "param";
     const String CSWC::COLLADA_ELEMENT_PH = "ph";
@@ -131,7 +141,12 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_WRAP_S = "wrap_s";
     const String CSWC::COLLADA_ELEMENT_WRAP_T = "wrap_t";
     const String CSWC::COLLADA_ELEMENT_WRAP_P = "wrap_p";
-
+    const String CSWC::COLLADA_ELEMENT_XFOV = "xfov";
+    const String CSWC::COLLADA_ELEMENT_XMAG = "xmag";
+    const String CSWC::COLLADA_ELEMENT_YFOV = "yfov";
+    const String CSWC::COLLADA_ELEMENT_YMAG = "ymag";
+    const String CSWC::COLLADA_ELEMENT_ZFAR = "zfar";
+    const String CSWC::COLLADA_ELEMENT_ZNEAR = "znear";
 
     const String CSWC::COLLADA_ATTRIBUTE_COUNT = "count";
     const String CSWC::COLLADA_ATTRIBUTE_END = "end";
@@ -177,7 +192,6 @@ namespace COLLADA
     const String CSWC::COLLADA_TEXT_X_UP = "X_UP";
     const String CSWC::COLLADA_TEXT_Y_UP = "Y_UP";
     const String CSWC::COLLADA_TEXT_Z_UP = "Z_UP";
-
 
     const String CSWC::COLLADA_NODE_TYPE_JOINT = "JOINT";
     const String CSWC::COLLADA_NODE_TYPE_NODE = "NODE";

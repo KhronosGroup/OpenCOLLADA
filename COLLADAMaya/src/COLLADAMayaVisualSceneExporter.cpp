@@ -23,6 +23,7 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaControllerExporter.h"
 
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnMesh.h>
@@ -40,6 +41,7 @@
 #include "COLLADAMathUtils.h"
 #include "COLLADALibraryControllers.h"
 #include "COLLADAInstanceLight.h"
+#include "COLLADAInstanceCamera.h"
 
 
 namespace COLLADAMaya
@@ -349,12 +351,18 @@ namespace COLLADAMaya
                 if ( childElement->getType() == SceneElement::MESH &&
                      childElement->getIsExportNode() )
                 {
+                    // Get the controller library
+                    ControllerExporter* controller = mDocumentExporter->getControllerExporter();
+                    MObject childNode = childElement->getPath().node();
+
                     // Check for controllers, otherwise instantiate the geometry. 
-                    if (childElement->getHasSkinController())
+                    // Add the controller and/or geometry to our libraries
+                    if ( ExportOptions::exportJointsAndSkin() &&
+                         controller->hasSkinController ( childNode ) )
                     {
                         exportSkinControllerInstance ( childElement );
                     }
-                    else if (childElement->getHasMorphController())
+                    else if ( controller->hasMorphController ( childNode ) )
                     {
                         exportMorphControllerInstance ( childElement );
                     }
@@ -367,6 +375,11 @@ namespace COLLADAMaya
                           childElement->getIsExportNode() )
                 {
                     exportLightInstance ( childElement );
+                }
+                else if ( childElement->getType() == SceneElement::CAMERA &&
+                          childElement->getIsExportNode() )
+                {
+                    exportCameraInstance ( childElement );
                 }
             }
         }
@@ -893,8 +906,20 @@ namespace COLLADAMaya
         MDagPath childDagPath = childElement->getPath();
 
         // Create the unique controller ID
-        String controllerId = mDocumentExporter->dagPathToColladaId( childDagPath ) + 
-                                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+//         String controllerId = mDocumentExporter->dagPathToColladaId( childDagPath ) + 
+//                                 COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+
+        String controllerId;
+        if ( !childElement->getNodeId().empty() )
+        {
+            controllerId = childElement->getNodeId() + 
+                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        }
+        else
+        {
+            controllerId = childElement->getNodeName() + 
+                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        }
 
         COLLADA::InstanceController instanceController ( streamWriter );
         instanceController.setUrl ( controllerId );
@@ -928,8 +953,19 @@ namespace COLLADAMaya
         MDagPath childDagPath = childElement->getPath();
 
         // Create the unique controller ID
-        String controllerId = mDocumentExporter->dagPathToColladaId ( childDagPath ) + 
-                                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+//         String controllerId = mDocumentExporter->dagPathToColladaId ( childDagPath ) + 
+//                                 COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+        String controllerId;
+        if ( !childElement->getNodeId().empty() )
+        {
+            controllerId = childElement->getNodeId() + 
+                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+        }
+        else
+        {
+            controllerId = childElement->getNodeName() + 
+                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+        }
 
         COLLADA::InstanceController instanceController ( streamWriter );
         instanceController.setUrl ( controllerId );
@@ -953,8 +989,10 @@ namespace COLLADAMaya
 
         // Get the path and the id of the child element
         MDagPath childDagPath = childElement->getPath();
-        String geometryId = mDocumentExporter->dagPathToColladaId ( childDagPath );
-
+//        String geometryId = mDocumentExporter->dagPathToColladaId ( childDagPath );
+        String geometryId = childElement->getNodeId();
+        if ( geometryId.empty() ) geometryId = childElement->getNodeName();
+        
         // Write the geometry instance
         COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
         instanceGeometry.setUrl ( geometryId );
@@ -983,6 +1021,21 @@ namespace COLLADAMaya
         // Create and write the light instance
         COLLADA::InstanceLight instanceLight ( streamWriter, lightId );
         instanceLight.add();
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportCameraInstance( SceneElement* childElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the path and the id of the child element
+        MDagPath childDagPath = childElement->getPath();
+        String lightId = mDocumentExporter->dagPathToColladaId ( childDagPath );
+
+        // Create and write the camera instance
+        COLLADA::InstanceCamera instanceCamera ( streamWriter, lightId );
+        instanceCamera.add();
     }
 
 }

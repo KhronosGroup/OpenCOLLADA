@@ -34,18 +34,6 @@ namespace COLLADA
             SPOT
         };
 
-    protected:
-
-        /** Constants used for the point and spot lights. */
-        static const String CONSTANT_ATTENUATION;
-        static const String LINEAR_ATTENUATION;
-        static const String QUADRATIC_ATTENUATION;
-        static const String ZFAR;
-
-        /** Constants used for the spot lights. */
-        static const String FALLOFF_ANGLE;
-        static const String FALLOFF_EXPONENT;
-
     private:
 
         friend class LibraryLights;
