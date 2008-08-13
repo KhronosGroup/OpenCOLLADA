@@ -33,9 +33,48 @@ namespace COLLADAMax
     class Options
     {
 
-    public:
+	public:
+		static const String CONFIGURATION_FILE_NAME;
+		static const String CONFIGURATION_HEADER_NAME;
+
+		static const String OPTION_NORMALS_NAME;
+		static const String OPTION_TRIANGULAT_NAME;
+		static const String OPTION_XREFS_NAME;
+		static const String OPTION_TANGENTS_NAME;
+		static const String OPTION_ANIMATIONS_NAME;
+		static const String OPTION_SAMPLEANIMATIONS_NAME;
+		static const String OPTION_CREATECLIP_NAME;
+		static const String OPTION_BAKEMATRICES_NAME;
+		static const String OPTION_RELATIVEPATHS_NAME;
+		static const String OPTION_CHECKIFANIMATIONISANIMATED_NAME;
+		static const String OPTION_ANIMATIONSTART_NAME;
+		static const String OPTION_ANIMATIONEND_NAME;
+
+
+	private:
+		// options dialog state
+		Interface* mMaxInterface;
+		bool mNormals;						//!< export normals
+		bool mTriangulate;					//!< convert Editable Polygons to triangles
+		bool mXrefs;						//!< export external references
+		bool mTangents;						//!< export tangents and binormals
+		bool mAnimations;					//!< export animations;
+		bool mSampleAnimation;				//!< export sampled animation
+		bool mCreateClip;					//!< create one animation clip with all the animations of the scene
+		bool mBakeMatrices;					//!< export transforms as matrices
+		bool mRelativePaths;				//!< export relative paths
+		bool importUnits;					//!< import assets in their units
+		bool importUpAxis;					//!< import assets in their up-axis
+		bool mCheckIfAnimationIsAnimated;   //!< export animations only if it is really animated (time consuming)
+		TimeValue mAnimationStart;			//!< start sample TimeValue(frame * GetTicksPerFrame)
+		TimeValue mAnimationEnd;			//!< end sample TimeValue  (frame * GetTicksPerFrame)
+		bool mSelectionOnly;				//!< export only selected nodes/objects
+
+
+	
+	public:
         /** Constructor*/
-        Options();
+        Options(Interface* maxInterface);
 
         /** Destructor*/
         ~Options()
@@ -45,95 +84,96 @@ namespace COLLADAMax
         //bool ShowDialog(bool exporter);
 
         /** Returns if the normals are exported */
-        bool exportNormals() const
+        bool getExportNormals() const
         {
             return mNormals;
         }
 
         /** Returns, if the editable polygons are exported as triangles.*/
-        bool exportEPolyAsTriangles() const
+        bool getExportEPolyAsTriangles() const
         {
             return mTriangulate;
         }
 
         /** Returns, if XRef are exported.*/
-        bool exportXRefs() const
+        bool getExportXRefs() const
         {
             return mXrefs;
         }
 
         /** Returns, if tangents are exported.*/
-        bool exportTangents() const
+        bool getExportTangents() const
         {
             return mTangents;
         }
 
         /** Returns, if animations are exported.*/
-        bool exportAnimations() const
+        bool getExportAnimations() const
         {
             return mAnimations;
         }
 
         /** Returns, if animations are sampled.*/
-        bool sampleAnimation() const
+        bool getSampleAnimation() const
         {
             return mSampleAnimation;
         }
 
         /** Returns, if an animation clip is exported.*/
-        bool exportAnimClip() const
+        bool getExportAnimClip() const
         {
             return mCreateClip;
         }
 
         /** Returns, if the transformations are exported as matrices.*/
-        bool bakeMatrices() const
+        bool getBakeMatrices() const
         {
             return mBakeMatrices;
         }
 
         /** Returns, if paths are exported as relative paths.*/
-        bool exportRelativePaths() const
+        bool getExportRelativePaths() const
         {
             return mRelativePaths;
         }
 
+		/** Returns, if animations are checked if they are really animated*/
+		bool getCheckIfAnimationsIsAnimated() const { return mCheckIfAnimationIsAnimated;}
+
+
         /** Returns if only the selected parts are exported.*/
-        bool exportSelected() const
+        bool getExportSelected() const
         {
             return mSelectionOnly;
         }
 
         /** Returns the animation start time.*/
-        TimeValue animationStart() const
+        TimeValue getAnimationStart() const
         {
             return mAnimationStart;
         }
 
         /** Returns the animation end time.*/
-        TimeValue animationEnd() const
+        TimeValue getAnimationEnd() const
         {
             return mAnimationEnd;
         }
 
 
+		/** Change the animation start/end for sampling*/
+		void setAnimBounds(int start, int end) { mAnimationStart = start; mAnimationEnd = end; }
 
-    private:
-        // options dialog state
-        bool mNormals;     //!< export normals
-        bool mTriangulate;    //!< convert Editable Polygons to triangles
-        bool mXrefs;     //!< export external references
-        bool mTangents;     //!< export tangents and binormals
-        bool mAnimations;    //!< export animations;
-        bool mSampleAnimation;   //!< export sampled animation
-        bool mCreateClip;    //!< create one animation clip with all the animations of the scene
-        bool mBakeMatrices;    //!< export transforms as matrices
-        bool mRelativePaths;   //!< export relative paths
-        bool importUnits;    //!< import assets in their units
-        bool importUpAxis;    //!< import assets in their up-axis
-        TimeValue mAnimationStart; //!< start sample TimeValue(frame * GetTicksPerFrame)
-        TimeValue mAnimationEnd;  //!< end sample TimeValue  (frame * GetTicksPerFrame)
-        bool mSelectionOnly;   //!< export only selected nodes/objects
+
+		bool ShowDialog();
+
+		INT_PTR ExportOptionsDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+		static INT_PTR CALLBACK ExportOptionsDlgProcS(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+
+		/** Save the export options to an .ini file, located in the APP_PLUGCFG_DIR directory*/
+		void SaveOptions();
+
+		void LoadOptions();
 
     };
 

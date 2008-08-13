@@ -59,7 +59,6 @@ namespace COLLADAMax
         {"X", "Y", "Z", "ANGLE"
         };
 
-
     //---------------------------------------------------------------
     VisualSceneExporter::VisualSceneExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter )
             : COLLADA::LibraryVisualScenes ( streamWriter ),
@@ -171,7 +170,7 @@ namespace COLLADAMax
 
         AnimationExporter * animationExporter = mDocumentExporter->getAnimationExporter();
 
-        if ( mDocumentExporter->getOptions().bakeMatrices() )
+        if ( mDocumentExporter->getOptions().getBakeMatrices() )
         {
             /// @TODO implement export of baked matrices
             double matrix[ 4 ][ 4 ] ;
@@ -190,7 +189,7 @@ namespace COLLADAMax
             // Translation
             Control * translationController = ( transformationController ) ? transformationController->GetPositionController() : 0 ;
 
-            if ( transformationController && translationController->IsAnimated() )
+			if ( AnimationExporter::isAnimated(transformationController) )
             {
                 colladaNode.addTranslate ( TRANSLATE_SID, affineParts.t.x, affineParts.t.y, affineParts.t.z );
                 animationExporter->addAnimatedPoint3 ( translationController, fullNodeId, TRANSLATE_SID, TRANSLATION_PARAMETERS );
@@ -207,7 +206,7 @@ namespace COLLADAMax
 
             ///@TODO: add controller
             //  exportNode->setRotationController(rotationController);
-            if ( !rotationController || !rotationController->IsAnimated() )
+            if ( !AnimationExporter::isAnimated(rotationController) )
             {
                 // Save as axis-angle rotation.
                 Matrix3 rotationMatrix;
@@ -226,7 +225,7 @@ namespace COLLADAMax
             {
                 float eulerAngles[ 3 ];
                 Quat quaternion;
-                rotationController->GetValue ( mDocumentExporter->getOptions().animationStart(), &quaternion, FOREVER, CTRL_ABSOLUTE );
+                rotationController->GetValue ( mDocumentExporter->getOptions().getAnimationStart(), &quaternion, FOREVER, CTRL_ABSOLUTE );
                 QuatToEuler ( quaternion, eulerAngles, EULERTYPE_XYZ );
 
                 // Export XYZ euler rotation in Z Y X order in the file
@@ -246,7 +245,7 @@ namespace COLLADAMax
             // Animated scale includes animated scale axis, so export that carefully.
             Control* scaleController = transformationController ? transformationController->GetScaleController() : 0;
 
-            bool hasAnimatedScale = scaleController && scaleController->IsAnimated();
+			bool hasAnimatedScale = AnimationExporter::isAnimated(scaleController);
 
             if ( hasAnimatedScale || !affineParts.k.Equals ( Point3 ( 1.0f, 1.0f, 1.0f ), TOLERANCE ) )
             {
@@ -262,6 +261,7 @@ namespace COLLADAMax
                 {
                     Point3 & rotationAxis = scaleRotation.axis;
                     colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+					animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_INVERSE_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS_R );
 
                     /// @TODO find a way to handle this problem
                     // Once the animation has been exported, verify that there was, indeed, something animated.
@@ -273,6 +273,7 @@ namespace COLLADAMax
                 }
 
                 colladaNode.addScale ( SCALE_SID, affineParts.k.x, affineParts.k.y, affineParts.k.z );
+				animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS );
 
                 // Rotate back to the rotation basis
 
@@ -280,11 +281,11 @@ namespace COLLADAMax
                 {
                     Point3 & rotationAxis = scaleRotation.axis;
                     colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+					animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS );
                 }
             }
         }
 
-		// testing
 		if ( !iNode->IsRootNode() )
 		{
 			// Calculate the pivot transform. It should already be in local space.

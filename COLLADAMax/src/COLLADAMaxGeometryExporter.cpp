@@ -136,7 +136,7 @@ namespace COLLADAMax
 
         Class_ID id = object->ClassID();
 
-        bool exportEPolyAsTriangles = mDocumentExporter->getOptions().exportEPolyAsTriangles();
+        bool exportEPolyAsTriangles = mDocumentExporter->getOptions().getExportEPolyAsTriangles();
 
         if ( !exportEPolyAsTriangles )
         {

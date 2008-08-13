@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MAX_9"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -125,7 +125,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;Max_9"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -209,7 +209,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\res;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MAX_2009"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -295,7 +295,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MAX_2009"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -381,7 +381,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MAX_2008"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -465,7 +465,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MAX_2008"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -731,6 +731,26 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Resource Files"
+			>
+			<File
+				RelativePath="..\res\ColladaMax.def"
+				>
+			</File>
+			<File
+				RelativePath="..\res\ColladaMax.rc"
+				>
+			</File>
+			<File
+				RelativePath="..\res\resource.h"
+				>
+			</File>
+		</Filter>
+		<File
+			RelativePath="..\res\error.fx"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

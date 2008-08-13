@@ -30,8 +30,8 @@
 
 #include <Max.h>
 #include <istdplug.h>
-#include <iparamb2.h>
-#include <iparamm2.h>
+#include <iparamb2.h>	// for IparamBlock2
+#include <iparamm2.h>    // for IparamBlock2
 #include <bitmap.h>    //for bitmap info
 #include <triobj.h>
 #include <MeshNormalSpec.h>
@@ -43,6 +43,7 @@
 #include <decomp.h>    // for decomposition of transformations
 #include <simpobj.h>   //for SimpleObject2
 #include <imtl.h>      // for UVGen
+#include <custcont.h>  //for dialog
 
 
 #include <IDxMaterial.h>  // for IDxMaterial

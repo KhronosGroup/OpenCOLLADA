@@ -305,7 +305,7 @@ namespace COLLADAMax
             effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( time ), weight ) );
             effectProfile.setShininess ( shader->GetGlossiness ( time ) * 100 * weight );
 
-			bool useEmissionColor = shader->IsSelfIllumClrOn();
+			bool useEmissionColor = shader->IsSelfIllumClrOn() != false;
 			//stdProfile->SetIsEmissionFactor(useEmissionColor == FALSE);
 			if (useEmissionColor)
 			{
@@ -978,7 +978,7 @@ namespace COLLADAMax
 
                 imageId = ( slashIndex != String::npos ) ? fullFileName.substr ( slashIndex + 1 ) : fullFileName;
 
-                imageId = COLLADA::Utils::replaceDot ( imageId );
+				imageId = COLLADA::Utils::replaceDot ( COLLADA::Utils::checkID(imageId) );
 
                 // image not exported
                 mExportedImageMap[ fullFileNameURI ] = imageId;

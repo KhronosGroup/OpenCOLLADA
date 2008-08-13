@@ -1,0 +1,337 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_EXPORT_OPTIONS DIALOGEX 0, 0, 271, 143
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "ColladaMax NextGen Export"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    CONTROL         "Normals",IDC_GEOM_NORMALS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,49,43,10
+    RTEXT           "Start:",IDC_START_LABEL,111,106,23,8
+    RTEXT           "End:",IDC_END_LABEL,194,106,18,8
+    DEFPUSHBUTTON   "OK",IDOK,172,124,44,15
+    PUSHBUTTON      "Cancel",IDCANCEL,222,124,44,15
+    GROUPBOX        "Geometry",IDC_STATIC,7,37,259,41
+    CONTROL         "",IDC_ANIM_START,"CustEdit",WS_TABSTOP,139,105,37,10
+    CONTROL         "",IDC_ANIM_START_SPIN,"SpinnerControl",0x0,177,105,7,10
+    CONTROL         "",IDC_ANIM_END,"CustEdit",WS_TABSTOP,215,105,37,10
+    CONTROL         "",IDC_ANIM_END_SPIN,"SpinnerControl",0x0,253,105,7,10
+    GROUPBOX        "Animation",IDC_STATIC,7,80,259,40
+    CONTROL         "Triangulate",IDC_GEOM_TRIANGLES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,49,69,10
+    CONTROL         "Sample animation",IDC_ANIM_SAMPLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,105,71,10
+    CONTROL         "Create clip",IDC_ANIM_CLIP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,92,49,10
+    GROUPBOX        "Standard Options",IDC_STATIC,7,6,259,28
+    CONTROL         "Bake Matrices",IDC_BAKE_MATRICES,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,19,61,10
+    CONTROL         "Relative Paths",IDC_RELATIVE_PATHS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,84,19,62,10
+    CONTROL         "Tangents/Binormals",IDC_GEOM_TANGENTS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,61,79,10
+    CONTROL         "XRefs",IDC_GEOM_XREFS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,163,49,69,10
+    CONTROL         "Enable export",IDC_ANIM_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,92,59,10
+END
+
+IDD_XREF_REUSE DIALOGEX 0, 0, 485, 84
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_TOPMOST
+CAPTION "Reuse Existing Max Files?"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "Yes",IDC_BUTTON_YES,137,63,50,14
+    PUSHBUTTON      "No",IDC_BUTTON_NO,245,63,50,14
+    PUSHBUTTON      "Yes to All",IDC_BUTTON_YESTOALL,191,63,50,14
+    PUSHBUTTON      "No to All",IDC_BUTTON_NOTOALL,299,63,50,14
+    LTEXT           "Reuse the following Max file to resolve XRefs?",IDC_STATIC,6,12,148,8
+    LTEXT           "id\nid",IDC_STATIC_FILENAME,6,24,472,36
+END
+
+IDD_COLLADA_EFFECT_TECHNIQUES DIALOGEX 0, 0, 216, 68
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Remove",IDC_BUTTON_T_REM,156,30,48,12
+    PUSHBUTTON      "Add",IDC_BUTTON_T_ADD,156,6,48,12
+    LISTBOX         IDC_LIST_TECHNIQUES,6,6,144,36,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Custom2",IDC_EDIT_T_NAME,"CustEdit",WS_TABSTOP,30,46,174,13
+    PUSHBUTTON      "Replace",IDC_BUTTON_T_REP,156,18,48,12
+    LTEXT           "Name:",IDC_STATIC,7,50,22,8
+END
+
+IDD_COLLADA_EFFECT_PASSES DIALOGEX 0, 0, 216, 68
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Remove",IDC_BUTTON_P_REM,156,30,48,12
+    PUSHBUTTON      "Add",IDC_BUTTON_P_ADD,156,6,48,12
+    LISTBOX         IDC_LIST_PASSES,6,6,144,36,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Custom2",IDC_EDIT_P_NAME,"CustEdit",WS_TABSTOP,30,46,174,13
+    PUSHBUTTON      "Replace",IDC_BUTTON_P_REP,156,18,48,12
+    LTEXT           "Name:",IDC_STATIC,7,50,22,8
+END
+
+IDD_COLLADA_EFFECT_RSTATES DIALOGEX 0, 0, 216, 68
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    PUSHBUTTON      "Remove",IDC_BUTTON_RS_REM,156,48,48,12
+    PUSHBUTTON      "Add",IDC_BUTTON_RS_ADD,156,36,48,12
+    LISTBOX         IDC_LIST_RS,6,6,144,54,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_COLLADA_EFFECT_SHADERS DIALOGEX 0, 0, 216, 126
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    RTEXT           "Source",IDC_STATIC,18,17,24,8
+    EDITTEXT        IDC_EDIT_S_VERTEX,47,15,123,13,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Load...",IDC_BUTTON_S_LOADVERTEX,173,15,33,12
+    RTEXT           "Entry",IDC_STATIC,25,31,17,8
+    GROUPBOX        "Vertex Shader",IDC_STATIC,5,5,205,41
+    RTEXT           "Technique:",IDC_STATIC,13,106,37,8
+    LTEXT           "TECH",IDC_STATIC_CGFXTECH,53,106,62,8
+    RTEXT           "Pass:",IDC_STATIC,119,106,18,8
+    LTEXT           "PASS",IDC_STATIC_CGFXPASS,140,106,62,8
+    RTEXT           "Source",IDC_STATIC,18,62,24,8
+    EDITTEXT        IDC_EDIT_S_FRAGMENT,47,60,123,13,ES_AUTOHSCROLL | ES_READONLY
+    PUSHBUTTON      "Load...",IDC_BUTTON_S_LOADFRAGMENT,173,60,33,12
+    RTEXT           "Entry",IDC_STATIC,25,77,17,8
+    GROUPBOX        "Fragment Shader",IDC_STATIC,5,50,205,41
+    GROUPBOX        "CgFX",IDC_STATIC,5,95,205,26
+    PUSHBUTTON      "Reload",IDC_BUTTON_FRELOAD,173,75,33,12
+    PUSHBUTTON      "Reload",IDC_BUTTON_VRELOAD,173,29,33,12
+    CONTROL         "Custom2",IDC_EDIT_VENTRY,"CustEdit",WS_TABSTOP,47,29,123,13
+    CONTROL         "Custom2",IDC_EDIT_FENTRY,"CustEdit",WS_TABSTOP,47,75,123,13
+END
+
+IDD_COLLADA_EFFECT_ERROR DIALOGEX 0, 0, 216, 53
+STYLE DS_SETFONT | WS_CHILD
+FONT 8, "Microsoft Sans Serif", 400, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDIT_CE_ERROR,2,3,211,48,ES_MULTILINE | ES_AUTOHSCROLL | ES_READONLY | WS_VSCROLL | WS_HSCROLL
+END
+
+IDD_IMPORT_OPTIONS DIALOGEX 0, 0, 202, 58
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "ColladaMax Import"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,107,40,44,15
+    PUSHBUTTON      "Cancel",IDCANCEL,155,40,44,15
+    GROUPBOX        "Standard Options",-1,7,6,192,28
+    CONTROL         "Import Units",IDC_IMPORT_UNITS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,18,19,53,10
+    CONTROL         "Import Up-axis",IDC_IMPORT_UPAXIS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,105,19,61,10
+END
+
+IDD_COLLADA_EFFECT_TARGETS DIALOGEX 0, 0, 186, 143
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Choose CgFx targets"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,102,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,118,50,14
+    GROUPBOX        "Pass",IDC_STATIC,7,72,119,64
+    LISTBOX         IDC_LIST_PASSES,9,82,115,51,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Technique",IDC_STATIC,7,7,119,64
+    LISTBOX         IDC_LIST_TECHNIQUES,9,17,115,51,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_EXPORT_OPTIONS, DIALOG
+    BEGIN
+        VERTGUIDE, 84
+        BOTTOMMARGIN, 139
+    END
+
+    IDD_XREF_REUSE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 478
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 77
+    END
+
+    IDD_IMPORT_OPTIONS, DIALOG
+    BEGIN
+        RIGHTMARGIN, 199
+        BOTTOMMARGIN, 55
+        HORZGUIDE, 29
+    END
+
+    IDD_COLLADA_EFFECT_TARGETS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 136
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RCDATA
+//
+
+IDR_RCDATA1             RCDATA                  "error.fx"
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,0,0,0
+ PRODUCTVERSION 0,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "NetAllied Systems GmbH"
+            VALUE "FileDescription", "COLLADA NextGen Export"
+            VALUE "FileVersion", "0, 0, 0, 0"
+            VALUE "InternalName", "COLLADAMax"
+            VALUE "LegalCopyright", "© 2008 NetAllied Systems GmbH. © 2006 Feeling Software. All rights reserved."
+            VALUE "OriginalFilename", "ColladaMax.dle"
+            VALUE "ProductName", "COLLADAMax NextGen"
+            VALUE "ProductVersion", "0, 0, 0, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDS_LIBDESCRIPTION      "ColladaMax"
+    IDS_CATEGORY_E          "Export"
+    IDS_CLASS_NAME_E        "ColladaExporter"
+    IDS_COLLADA_EFFECT_CLASS_NAME "ColladaEffect"
+    IDS_CATEGORY_I          "Import"
+    IDS_CLASS_NAME_I        "ColladaImporter"
+    IDS_COLLADA_XREF_CA     "COLLADA XRef"
+    IDS_COLLADA_EFFECT_NAME "Collada Effect"
+    IDS_CE_NAME             "Techniques"
+    IDS_CE_TECHNIQUES       "Techniques"
+    IDS_CE_PASSES           "Passes"
+    IDS_CE_RSTATES          "Render States"
+    IDS_CE_TECHNIQUES_PARAMS "Techniques"
+    IDS_CE_PASSES_PARAMS    "Passes"
+    IDS_CE_RSTATES_PARAMS   "Render States"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_COLLADA_A_PARAMS    "COLLADA Params"
+    IDS_CLASS_NAME_A        "ColladaXml"
+    IDS_CLASS_NAME_XREF     "ColladaXRef"
+    IDS_CE_SHADERS_PARAMS   "Shaders"
+END
+
+STRINGTABLE 
+BEGIN
+    IDS_COLLADA_XREF_ID     "Collada ID"
+    IDS_CE_BOOL             "My check box"
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

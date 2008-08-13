@@ -30,6 +30,8 @@
 #include "COLLADAScene.h"
 #include "COLLADASWC.h"
 
+#include <max.h>
+
 namespace COLLADAMax
 {
 
@@ -37,12 +39,15 @@ namespace COLLADAMax
 
     //---------------------------------------------------------------
     DocumentExporter::DocumentExporter ( Interface * i, const String &filepath )
-            : mMaxInterface ( i ),
+            : 
+			mOptions(i),
+			mMaxInterface ( i ),
             mStreamWriter ( filepath ),
             mExportSceneGraph ( mMaxInterface->GetRootNode() )
     {
 		splitFilePath(filepath);
 	}
+
 
 
     //---------------------------------------------------------------
@@ -73,7 +78,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     bool DocumentExporter::createExportSceneGraph()
     {
-        return mExportSceneGraph.create ( mOptions.exportSelected() );
+        return mExportSceneGraph.create ( mOptions.getExportSelected() );
     }
 
     //---------------------------------------------------------------
@@ -245,4 +250,30 @@ namespace COLLADAMax
 	{
 		splitFilePath(filePath, mOutputDir, mOutputFileName);
 	}
+
+
+	bool DocumentExporter::ShowExportOptions(bool suppressPrompts)
+	{
+		if (!suppressPrompts) 
+		{
+			// Prompt the user with our dialogbox, and get all the options.
+			// The user may cancel the export at this point.
+			if (!mOptions.ShowDialog()) 
+				return false;
+		}
+		else if (!mOptions.getSampleAnimation())
+		{
+			Interval animRange = GetCOREInterface()->GetAnimRange();
+			int sceneStart = animRange.Start();
+			int sceneEnd = animRange.End();
+			mOptions.setAnimBounds(sceneStart, sceneEnd);
+		}
+
+		// Set relative/absolute export
+	//	colladaDocument->GetFileManager()->SetForceAbsoluteFlag(!options->ExportRelativePaths());
+
+		return true;
+	}
+
+
 }

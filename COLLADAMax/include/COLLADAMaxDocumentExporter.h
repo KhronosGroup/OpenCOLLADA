@@ -114,6 +114,11 @@ namespace COLLADAMax
             return mOptions;
         }
 
+		/** Shows the export options dialog.
+		@param suppressPrompts If set to true, no dialog is shows (for scripting).*/
+		bool ShowExportOptions(bool suppressPrompts);
+
+
 		/** Splits the filepath in directory and file name */
 		static void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName );
 
@@ -160,6 +165,9 @@ namespace COLLADAMax
 
         /** Returns the value of the environment variable @a variableName.*/
         String getEnvironmentVariable ( const String & variableName );
+
+
+
 
     };
 }

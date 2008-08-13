@@ -127,17 +127,24 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    int COLLADAExporter::DoExport ( const TCHAR* name, ExpInterface* UNUSED ( ei ), Interface* i, BOOL suppressPrompts, DWORD options )
+    int COLLADAExporter::DoExport ( const TCHAR* name, ExpInterface* UNUSED ( ei ), Interface* maxInterface, BOOL suppressPrompts, DWORD options )
     {
         bool success = true;
-        i->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
+        maxInterface->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
 
         try
         {
-            DocumentExporter document ( i, name );
-            /// @todo add options dialog here
-            /// @todo handle errors here
-            document.exportCurrentMaxScene();
+			DocumentExporter document ( maxInterface, name );
+			if (document.ShowExportOptions(suppressPrompts) != false)
+			{
+				/// @todo handle errors here
+				document.exportCurrentMaxScene();
+			}
+			else
+			{
+				// Set to TRUE although nothing happened in other to avoid the "generic failure" dialog.
+				success = true; 
+			}
         }
 
         catch ( ... )
@@ -146,7 +153,7 @@ namespace COLLADAMax
             MessageBox ( 0, FATALERROR.c_str(), SHORTDESCRIPTION.c_str(), MB_OK );
         }
 
-        i->ProgressEnd();
+        maxInterface->ProgressEnd();
 
         return success;
     }
