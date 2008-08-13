@@ -199,10 +199,10 @@ namespace COLLADAMax
 		static const float DEFAULT_OUTLENGHT_FLOAT;
 
 		/** Value used for inlength for animated points if none is specified.*/
-		static const Point3 DEFAULT_INLENGHT_POINT;
+		static float DEFAULT_INLENGHT_POINTX_FLOAT_ARRAY[4];
 
 		/** Value used for outlength for animated points if none is specified.*/
-		static const Point3 DEFAULT_OUTLENGHT_POINT;
+		static float DEFAULT_OUTLENGHT_POINTX_FLOAT_ARRAY[4];
 
         /** The documentexporter this exporter belongs to.*/
         DocumentExporter * mDocumentExporter;
@@ -321,13 +321,13 @@ namespace COLLADAMax
         from @a keyInterface of @a animation and stores it  in the float buffer @a keyValues. The buffer
         @a keyValues must have at least length 1.*/
 		template<class KeyType>
-        void getPoint3SingleValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
+        void getPointXSingleValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
 
         /** Retrieves the three @a keyIndex'th position values of a position animation that animates all
         three values from @a keyInterface of @a animation and stores it in the float buffer @a keyValues.
         The buffer @a keyValues must have at least length 3.*/
-		template<class KeyType>
-        void getPoint3Value ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
+		template<int dimension, class KeyType>
+        void getPointXValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
 
         /** Retrieves the @a keyIndex'th rotation value of a rotation animation that animates one value
         from @a keyInterface of @a animation and stores it  in the float buffer @a keyValues. The buffer
@@ -355,10 +355,9 @@ namespace COLLADAMax
 		void getRotationValuePatchEuler ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
 
 
-		void getLinearScaleValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
 
-		template<bool reversed>
-		void getLinearScaleRotationAxisValue( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
+		template<class KeyType, bool reversed>
+		void getScaleRotationAxisValue( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation );
 
 
         /** Exports a tangent  source element. It can be used for both in and out tangents.
@@ -398,7 +397,8 @@ namespace COLLADAMax
 		@param keyCount The number of keys in the animation
 		@param animation The animation to export
 		*/
-		void getPoint3SingleInTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
+		template <class KeyType>
+		void getPointXSingleInTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
 
 
 		/** Retrieves three in tangent values of an animated position or Point3.
@@ -408,7 +408,8 @@ namespace COLLADAMax
 		@param keyIndex The index of the key
 		@param keyCount The number of keys in the animation
 		@param animation The animation to export*/
-		void getPoint3InTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
+		template <int dimension, class KeyType>
+		void getPointXInTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
 
 
 		/** Retrieves an in tangent value pair of an Bezier animated rotation. It uses @a mKeyValueList to retrieve the
@@ -461,7 +462,8 @@ namespace COLLADAMax
 		@param keyCount The number of keys in the animation
 		@param animation The animation to export
 		*/
-		void getPoint3SingleOutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
+		template <class KeyType>
+		void getPointXSingleOutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
 
 
 		/** Retrieves three out tangent value pair of an animated position or Point3.
@@ -472,7 +474,8 @@ namespace COLLADAMax
 		@param keyIndex The index of the key
 		@param keyCount The number of keys in the animation
 		@param animation The animation to export*/
-		void getPoint3OutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
+		template <int dimension, class KeyType>
+		void getPointXOutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation );
 
 
 		/** Retrieves an in tangent value pair of an Bezier animated rotation. It uses @a mKeyValueList to retrieve the

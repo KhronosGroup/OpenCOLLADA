@@ -81,9 +81,11 @@ namespace COLLADAMax
 	const float AnimationExporter::DEFAULT_INLENGHT = 0.333f;
 	const float AnimationExporter::DEFAULT_OUTLENGHT = 0.333f;
     const float AnimationExporter::DEFAULT_INLENGHT_FLOAT = AnimationExporter::DEFAULT_INLENGHT;
-	const Point3 AnimationExporter::DEFAULT_INLENGHT_POINT = Point3(AnimationExporter::DEFAULT_INLENGHT, AnimationExporter::DEFAULT_INLENGHT, AnimationExporter::DEFAULT_INLENGHT);
-    const float AnimationExporter::DEFAULT_OUTLENGHT_FLOAT = AnimationExporter::DEFAULT_OUTLENGHT;
-	const Point3 AnimationExporter::DEFAULT_OUTLENGHT_POINT = Point3(AnimationExporter::DEFAULT_OUTLENGHT, AnimationExporter::DEFAULT_OUTLENGHT, AnimationExporter::DEFAULT_OUTLENGHT);
+
+	float AnimationExporter::DEFAULT_INLENGHT_POINTX_FLOAT_ARRAY[4] = {AnimationExporter::DEFAULT_INLENGHT, AnimationExporter::DEFAULT_INLENGHT, AnimationExporter::DEFAULT_INLENGHT, AnimationExporter::DEFAULT_INLENGHT};
+    
+	const float AnimationExporter::DEFAULT_OUTLENGHT_FLOAT = AnimationExporter::DEFAULT_OUTLENGHT;
+	float AnimationExporter::DEFAULT_OUTLENGHT_POINTX_FLOAT_ARRAY[4] = {AnimationExporter::DEFAULT_OUTLENGHT, AnimationExporter::DEFAULT_OUTLENGHT, AnimationExporter::DEFAULT_OUTLENGHT, AnimationExporter::DEFAULT_OUTLENGHT};
 
 
     const float AnimationExporter::mTimeFactor = 1.0f / ( GetTicksPerFrame() * GetFrameRate() );
@@ -395,9 +397,9 @@ namespace COLLADAMax
                     exportInputSource<ILinPoint3Key> ( baseId, controller, keyInterface );
 
                     if ( animation.getDimension() == 1 )
-                        exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleValue<ILinPoint3Key> );
+                        exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleValue<ILinPoint3Key> );
                     else
-                        exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3Value<ILinPoint3Key> );
+                        exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXValue<3, ILinPoint3Key> );
 
                     exportInterpolationSource ( baseId, keyInterface, getUniformInterpolation<LibraryAnimations::LINEAR_NAME>, keyInterface->GetNumKeys() );
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
@@ -413,9 +415,18 @@ namespace COLLADAMax
 
                     exportInterpolationSource ( baseId, keyInterface, getUniformInterpolation<LibraryAnimations::LINEAR_NAME>, keyInterface->GetNumKeys() );
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
-
                     break;
-
+				case LININTERP_SCALE_CLASS_ID:
+					exportInputSource<ILinScaleKey> ( baseId, controller, keyInterface );
+					if ( animation.getType() == Animation::SCALE)
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXValue<3, ILinScaleKey> );
+					else if ( animation.getType() == Animation::SCALE_ROT_AXIS )
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getScaleRotationAxisValue<ILinScaleKey, false> );
+					else if ( animation.getType() == Animation::SCALE_ROT_AXIS_R )
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getScaleRotationAxisValue<ILinScaleKey, true> );
+					exportInterpolationSource ( baseId, keyInterface, getUniformInterpolation<LibraryAnimations::LINEAR_NAME>, keyInterface->GetNumKeys() );
+					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+					break;
                 case HYBRIDINTERP_FLOAT_CLASS_ID:
                     exportInputSource<IBezFloatKey> ( baseId, controller, keyInterface );
 
@@ -435,15 +446,15 @@ namespace COLLADAMax
 					exportInputSource<IBezPoint3Key> ( baseId, controller, keyInterface );
 					if ( animation.getDimension() == 1 )
 					{
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleValue<IBezPoint3Key> );
-						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleInTangentValue );
-						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleOutTangentValue );
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleValue<IBezPoint3Key> );
+						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleInTangentValue<IBezPoint3Key>);
+						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleOutTangentValue<IBezPoint3Key> );
 					}
 					else
 					{
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3Value<IBezPoint3Key> );
-						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3InTangentValue );
-						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3OutTangentValue );
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXValue<3, IBezPoint3Key> );
+						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXInTangentValue<3, IBezPoint3Key> );
+						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXOutTangentValue<3, IBezPoint3Key> );
 					}
 					exportInterpolationSource ( baseId, keyInterface, getBezierInterpolation<IBezPoint3Key>, keyInterface->GetNumKeys() );
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::IN_TANGENT | Animation::OUT_TANGENT | Animation::INTERPOLATION);
@@ -453,17 +464,17 @@ namespace COLLADAMax
 					exportInputSource<IBezPoint4Key> ( baseId, controller, keyInterface );
 					if ( animation.getDimension() == 1 )
 					{
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleValue<IBezPoint3Key> );
-						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleInTangentValue );
-						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3SingleOutTangentValue );
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleValue<IBezPoint4Key> );
+						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleInTangentValue<IBezPoint4Key> );
+						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXSingleOutTangentValue<IBezPoint4Key> );
 					}
 					else
 					{
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3Value<IBezPoint3Key> );
-						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3InTangentValue );
-						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPoint3OutTangentValue );
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXValue<4, IBezPoint4Key> );
+						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXInTangentValue<4, IBezPoint4Key> );
+						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXOutTangentValue<4, IBezPoint4Key> );
 					}
-					exportInterpolationSource ( baseId, keyInterface, getBezierInterpolation<IBezPoint3Key>, keyInterface->GetNumKeys() );
+					exportInterpolationSource ( baseId, keyInterface, getBezierInterpolation<IBezPoint4Key>, keyInterface->GetNumKeys() );
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::IN_TANGENT | Animation::OUT_TANGENT | Animation::INTERPOLATION);
 					break;
 
@@ -487,17 +498,30 @@ namespace COLLADAMax
 					exportInterpolationSource ( baseId, keyInterface, getBezierInterpolation<IBezQuatKey>, keyInterface->GetNumKeys() );
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::IN_TANGENT | Animation::OUT_TANGENT | Animation::INTERPOLATION);
 					break;
-				case LININTERP_SCALE_CLASS_ID:
-					exportInputSource<ILinScaleKey> ( baseId, controller, keyInterface );
+				case HYBRIDINTERP_SCALE_CLASS_ID:
+					exportInputSource<IBezScaleKey> ( baseId, controller, keyInterface );
 					if ( animation.getType() == Animation::SCALE)
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getLinearScaleValue );
+					{
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXValue<3, IBezScaleKey> );
+						exportInTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXInTangentValue<3, IBezScaleKey> );
+						exportOutTangentSource ( animation, baseId, keyInterface, &AnimationExporter::getPointXOutTangentValue<3, IBezScaleKey> );
+						exportInterpolationSource ( baseId, keyInterface, getBezierInterpolation<IBezScaleKey>, keyInterface->GetNumKeys() );
+						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::IN_TANGENT | Animation::OUT_TANGENT | Animation::INTERPOLATION);
+					}
 					else if ( animation.getType() == Animation::SCALE_ROT_AXIS )
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getLinearScaleRotationAxisValue<false> );
+					{
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getScaleRotationAxisValue<IBezScaleKey, false> );
+						exportInterpolationSource ( baseId, keyInterface, getUniformInterpolation<LibraryAnimations::LINEAR_NAME>, keyInterface->GetNumKeys() );
+						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+					}
 					else if ( animation.getType() == Animation::SCALE_ROT_AXIS_R )
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getLinearScaleRotationAxisValue<true> );
-					exportInterpolationSource ( baseId, keyInterface, getUniformInterpolation<LibraryAnimations::LINEAR_NAME>, keyInterface->GetNumKeys() );
-					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+					{
+						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getScaleRotationAxisValue<IBezScaleKey, true> );
+						exportInterpolationSource ( baseId, keyInterface, getUniformInterpolation<LibraryAnimations::LINEAR_NAME>, keyInterface->GetNumKeys() );
+						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+					}
 					break;
+
 //				case TCBINTERP_FLOAT_CLASS_ID:
 //					exportInputSource<ITCBFloatKey> ( baseId, controller, keyInterface );
 //					exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getFloatValue<ITCBFloatKey> );
@@ -535,6 +559,8 @@ namespace COLLADAMax
 					exportSamplingRotationOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
 					break;
+				default:
+					int gg = 5;
 				}
 				exportSamplingInterpolationSource(baseId, startTime, endTime, ticksPerFrame);
 			}
@@ -619,7 +645,7 @@ namespace COLLADAMax
 
     //---------------------------------------------------------------
 	template<class KeyType>
-    void AnimationExporter::getPoint3SingleValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
+    void AnimationExporter::getPointXSingleValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
     {
         KeyType key;
         keyInterface->GetKey ( keyIndex, &key );
@@ -627,14 +653,13 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-	template<class KeyType>
-    void AnimationExporter::getPoint3Value ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
+	template<int dimension, class KeyType>
+    void AnimationExporter::getPointXValue ( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
     {
         KeyType key;
         keyInterface->GetKey ( keyIndex, &key );
-        keyValues[ 0 ] = key.val[ 0 ];
-        keyValues[ 1 ] = key.val[ 1 ];
-        keyValues[ 2 ] = key.val[ 2 ];
+		for ( int i = 0; i<dimension; ++i)
+			keyValues[ i ] = key.val[ i ];
     }
 
     //---------------------------------------------------------------
@@ -715,21 +740,12 @@ namespace COLLADAMax
 		}
 	}
 
-	//---------------------------------------------------------------
-	void AnimationExporter::getLinearScaleValue( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
-	{
-		ILinScaleKey key;
-		keyInterface->GetKey ( keyIndex, &key );
-		keyValues[0] = key.val.s.x;
-		keyValues[1] = key.val.s.y;
-		keyValues[2] = key.val.s.z;
-	}
 
 	//---------------------------------------------------------------
-	template<bool reversed>
-	void AnimationExporter::getLinearScaleRotationAxisValue( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
+	template<class KeyType, bool reversed>
+	void AnimationExporter::getScaleRotationAxisValue( float * keyValues, IKeyControl * keyInterface, const int & keyIndex, const Animation & animation )
 	{
-		ILinScaleKey key;
+		KeyType key;
 		keyInterface->GetKey ( keyIndex, &key );
 		AngAxis angleAxis(key.val.q);
 
@@ -828,9 +844,10 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::getPoint3SingleInTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
+	template <class KeyType>
+	void AnimationExporter::getPointXSingleInTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
 	{
-		IBezPoint3Key key;
+		KeyType key;
 		keyInterface->GetKey ( keyIndex, &key );
 
 		float previousTime = ( float ) getPreviousTime ( keyIndex, animation.getController() );
@@ -851,7 +868,7 @@ namespace COLLADAMax
 		if ( interpolationOutType == BEZIER )
 		{
 			if ( GetInTanType ( key.flags ) != BEZKEY_USER )
-				key.inLength = DEFAULT_INLENGHT_POINT;
+				key.inLength = DEFAULT_INLENGHT_POINTX_FLOAT_ARRAY;
 			else if ( key.flags & BEZKEY_UNCONSTRAINHANDLE )
 				key.inLength *= GetTicksPerFrame() / ( float ) ( key.time - previousTime );
 
@@ -870,9 +887,10 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::getPoint3InTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
+	template <int dimension, class KeyType>
+	void AnimationExporter::getPointXInTangentValue ( float * inTangentValuesX, float * inTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
 	{
-		IBezPoint3Key key;
+		KeyType key;
 		keyInterface->GetKey ( keyIndex, &key );
 
 		float previousTime = ( float ) getPreviousTime ( keyIndex, animation.getController() );
@@ -891,36 +909,29 @@ namespace COLLADAMax
 		if ( interpolationOutType == BEZIER )
 		{
 			if ( GetInTanType ( key.flags ) != BEZKEY_USER )
-				key.inLength = DEFAULT_INLENGHT_POINT;
+				key.inLength = DEFAULT_INLENGHT_POINTX_FLOAT_ARRAY;
 			else if ( key.flags & BEZKEY_UNCONSTRAINHANDLE )
 				key.inLength *= GetTicksPerFrame() / ( float ) ( key.time - previousTime );
 
 			float inInterval;
-
-			inInterval = ( key.time - previousTime ) * key.inLength.x;
-			inTangentValuesX[0] = ( key.time - inInterval ) * mTimeFactor;
-			inTangentValuesY[0] = key.val.x + key.intan.x * inInterval;
-
-			inInterval = ( key.time - previousTime ) * key.inLength.y;
-			inTangentValuesX[1] = ( key.time - inInterval ) * mTimeFactor;
-			inTangentValuesY[1] = key.val.y + key.intan.y * inInterval;
-
-			inInterval = ( key.time - previousTime ) * key.inLength.z;
-			inTangentValuesX[2] = ( key.time - inInterval ) * mTimeFactor;
-			inTangentValuesY[2] = key.val.z + key.intan.z * inInterval;
+			
+			for ( int i = 0; i<dimension; ++i)
+			{
+				inInterval = ( key.time - previousTime ) * key.inLength[i];
+				inTangentValuesX[i] = ( key.time - inInterval ) * mTimeFactor;
+				inTangentValuesY[i] = key.val[i] + key.intan[i] * inInterval;
+			}
 
 		}
 
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
-			inTangentValuesX[0] = key.time * mTimeFactor;
-			inTangentValuesX[1] = key.time * mTimeFactor;
-			inTangentValuesX[2] = key.time * mTimeFactor;
-			
-			inTangentValuesY[0] = key.val.x;
-			inTangentValuesY[1] = key.val.y;
-			inTangentValuesY[2] = key.val.z;
+			for ( int i = 0; i<dimension; ++i)
+			{
+				inTangentValuesX[i] = key.time * mTimeFactor;
+				inTangentValuesY[i] = key.val[i];
+			}
 		}
 	}
 
@@ -1063,9 +1074,10 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::getPoint3SingleOutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
+	template <class KeyType>
+	void AnimationExporter::getPointXSingleOutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
 	{
-		IBezPoint3Key key;
+		KeyType key;
 		keyInterface->GetKey ( keyIndex, &key );
 
 		float nextTime = ( float ) getNextTime ( keyIndex, keyCount, animation.getController() );
@@ -1087,7 +1099,7 @@ namespace COLLADAMax
 		{
 
 			if ( GetOutTanType ( key.flags ) != BEZKEY_USER )
-				key.outLength = DEFAULT_OUTLENGHT_POINT;
+				key.outLength = DEFAULT_OUTLENGHT_POINTX_FLOAT_ARRAY;
 			else if ( key.flags & BEZKEY_UNCONSTRAINHANDLE )
 				key.outLength *= GetTicksPerFrame() / ( float ) ( nextTime - key.time );
 
@@ -1107,9 +1119,10 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::getPoint3OutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
+	template <int dimension, class KeyType>
+	void AnimationExporter::getPointXOutTangentValue ( float * outTangentValuesX, float * outTangentValuesY, IKeyControl * keyInterface, const int & keyIndex, const int & keyCount, const Animation & animation )
 	{
-		IBezPoint3Key key;
+		KeyType key;
 		keyInterface->GetKey ( keyIndex, &key );
 
 		float nextTime = ( float ) getNextTime ( keyIndex, keyCount, animation.getController() );
@@ -1128,36 +1141,28 @@ namespace COLLADAMax
 		if ( interpolationOutType == BEZIER )
 		{
 			if ( GetOutTanType ( key.flags ) != BEZKEY_USER )
-				key.outLength = DEFAULT_OUTLENGHT_POINT;
+				key.outLength = DEFAULT_OUTLENGHT_POINTX_FLOAT_ARRAY;
 			else if ( key.flags & BEZKEY_UNCONSTRAINHANDLE )
 				key.outLength *= GetTicksPerFrame() / ( float ) ( nextTime - key.time );
 
 			float outInterval;
 
-			outInterval = ( nextTime - key.time ) * key.outLength.x;
-			outTangentValuesX[0] = ( key.time + outInterval ) * mTimeFactor;
-			outTangentValuesY[0] = key.val.x + key.outtan.x * outInterval;
-
-			outInterval = ( nextTime - key.time ) * key.outLength.y;
-			outTangentValuesX[1] = ( key.time + outInterval ) * mTimeFactor;
-			outTangentValuesY[1] = key.val.y + key.outtan.y * outInterval;
-
-			outInterval = ( nextTime - key.time ) * key.outLength.z;
-			outTangentValuesX[2] = ( key.time + outInterval ) * mTimeFactor;
-			outTangentValuesY[2] = key.val.z + key.outtan.z * outInterval;
-
+			for ( int i = 0; i<dimension; ++i)
+			{
+				outInterval = ( nextTime - key.time ) * key.outLength[i];
+				outTangentValuesX[i] = ( key.time + outInterval ) * mTimeFactor;
+				outTangentValuesY[i] = key.val[i] + key.outtan[i] * outInterval;
+			}
 		}
 
 		else
 		{
 			/// @TODO: clarify if this makes sense or if we should export the same as above
-			outTangentValuesX[0] = key.time * mTimeFactor;
-			outTangentValuesX[1] = key.time * mTimeFactor;
-			outTangentValuesX[2] = key.time * mTimeFactor;
-
-			outTangentValuesY[0] = key.val.x;
-			outTangentValuesY[1] = key.val.y;
-			outTangentValuesY[2] = key.val.z;
+			for ( int i = 0; i<dimension; ++i)
+			{
+				outTangentValuesX[i] = key.time * mTimeFactor;
+				outTangentValuesY[i] = key.val[i];
+			}
 		}
 	}
 
@@ -1321,7 +1326,7 @@ namespace COLLADAMax
 
 		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
 		{
-			source.appendValues ( time / TIME_TICKSPERSEC );
+			source.appendValues ( (float)time / (float)TIME_TICKSPERSEC );
 		}
 
 		source.finish();
@@ -1423,12 +1428,23 @@ namespace COLLADAMax
 
 		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
 		{
-			AngAxis keyValue;
-			animation.getController()->GetValue(time, &keyValue, FOREVER, CTRL_ABSOLUTE);
 
 			float eulerAngles[ 3 ];
-			Quat quaternion(keyValue);
-			quaternion.GetEuler ( &eulerAngles[ 0 ], &eulerAngles[ 1 ], &eulerAngles[ 2 ] );
+
+			if ( keyLength == 1 )
+			{
+				Quat quaternion;
+				animation.getController()->GetValue(time, &quaternion, FOREVER, CTRL_ABSOLUTE);
+				QuatToEuler(quaternion, eulerAngles, EULERTYPE_XYZ);
+			}
+			else
+			{
+				AngAxis angleAxis;
+				animation.getController()->GetValue(time, &angleAxis, FOREVER, CTRL_ABSOLUTE);
+				Quat quaternion(angleAxis);
+				quaternion.GetEuler ( &eulerAngles[ 0 ], &eulerAngles[ 1 ], &eulerAngles[ 2 ] );
+			}
+
 			if ( time > startTime)
 				patchEuler(mPreviousEulerAngles, eulerAngles);
 
@@ -1453,6 +1469,8 @@ namespace COLLADAMax
 				}
 				source.appendValues( eulerAngles[0], eulerAngles[1], eulerAngles[2] );
 			}
+
+
 		}
 		source.finish();
 	}
