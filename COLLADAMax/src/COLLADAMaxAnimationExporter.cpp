@@ -37,6 +37,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     Animation::Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction )
             : mController ( controller ),
+			mINode(0),
             mId ( id ),
             mSid ( sid ),
             mParameters ( parameter ),
@@ -45,7 +46,22 @@ namespace COLLADAMax
 			mInputTypeFlags(NONE)
     {}
 
-    //---------------------------------------------------------------
+
+	//---------------------------------------------------------------
+	Animation::Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction )
+		: 
+		mController(0),
+		mINode ( iNode ),
+		mId ( id ),
+		mSid ( sid ),
+		mParameters ( parameter ),
+		mType ( type ),
+		mConversionFunction ( conversionFunction ),
+		mInputTypeFlags(NONE)
+	{}
+
+	
+	//---------------------------------------------------------------
     int Animation::getDimension() const
     {
         switch ( mType )
@@ -72,6 +88,8 @@ namespace COLLADAMax
 		case SCALE_ROT_AXIS_R:
 		case SCALE_ROT_AXIS:
 			return 4;
+		case FLOAT4x4:
+			return 16;
 
         default:
             return 0;
@@ -110,6 +128,53 @@ namespace COLLADAMax
         return ( i < keyCount - 1 ) ? controller->GetKeyTime ( i + 1 ) : controller->GetKeyTime ( i ) + TimeValue ( 1.0f / mTimeFactor );
     }
 
+
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::forceSampleMatrices(INode* iNode)
+	{
+		if ( iNode )
+		{
+			Control* controller = iNode->GetTMController();
+			// The -only- class we can hope to export without sampling is the PRS controller
+			if ( controller )
+				return (controller->ClassID() != Class_ID(PRS_CONTROL_CLASS_ID, 0) || findConstraint(controller));
+		}
+		return false;
+	}
+
+	// Function searches controller and all subanims for presence of a Constraint.
+	// This is bit of a cheap fix, a slightly better option may be to include
+	// parent offset calculation in rotation/position sampling (like Matrix sampling).
+	//---------------------------------------------------------------
+	bool AnimationExporter::findConstraint(Animatable* controller)
+	{
+		if (controller->SuperClassID() == CTRL_FLOAT_CLASS_ID) 
+			return false;
+		Class_ID classId = controller->ClassID();
+		if (classId.PartB() == 0)
+		{
+			unsigned long classIdPartA = classId.PartA();
+			if (classIdPartA == POSITION_CONSTRAINT_CLASS_ID ||
+				classIdPartA == ORIENTATION_CONSTRAINT_CLASS_ID ||
+				classIdPartA == LOOKAT_CONSTRAINT_CLASS_ID)
+			{
+				return true;
+			}
+		}
+
+		int SubcontrollerCount = controller->NumSubs();
+		for (int i = 0; i < SubcontrollerCount; i++)
+		{
+			Animatable* subController = controller->SubAnim(i);
+			if (subController != NULL)
+			{
+				if (findConstraint(subController)) 
+					return true;
+			}
+		}
+		return false;
+	}
 
 
     //---------------------------------------------------------------
@@ -204,6 +269,14 @@ namespace COLLADAMax
 		}
 	}
 
+
+	//---------------------------------------------------------------
+	void AnimationExporter::addAnimatedFloat4x4 ( INode * node, const String & id, const String & sid, const String parameters[] )
+	{
+		Animation animation ( node, id, sid, parameters, Animation::FLOAT4x4);
+		addAnimation ( animation );
+
+	}
 
 
     /* void AnimationExporter::addAnimation4( Control * controller, const String & id, const String & sid, const String parameters[])
@@ -351,16 +424,18 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void AnimationExporter::exportSources ( Animation & animation )
     {
-        bool isSampling = mDocumentExporter->getOptions().getSampleAnimation(); //||forceSampling;
+		Control * controller = animation.getController();
+		INode * iNode = animation.getNode();
 
-        Control * controller = animation.getController();
+		bool isSampling = !controller || mDocumentExporter->getOptions().getSampleAnimation(); 
 
         String baseId = getBaseId ( animation );
 
-		IKeyControl * keyInterface = GetKeyControlInterface ( controller );
+		IKeyControl * keyInterface = 0;
 
 		if (!isSampling)
 		{
+			keyInterface = GetKeyControlInterface ( controller );
 			if ( !keyInterface ) 
 				isSampling = true;
 			else if (keyInterface->GetNumKeys() <= 1) 
@@ -543,24 +618,32 @@ namespace COLLADAMax
 			if ( endTime > startTime )
 			{
 				exportSamplingInputSource(baseId, startTime, endTime, ticksPerFrame);
-				SClass_ID type = controller->SuperClassID();
-				switch (type)
+				if ( controller )
 				{
-				case CTRL_FLOAT_CLASS_ID:
-					exportSamplingFloatOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
+					SClass_ID type = controller->SuperClassID();
+					switch (type)
+					{
+					case CTRL_FLOAT_CLASS_ID:
+						exportSamplingFloatOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
+						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+						break;
+					case CTRL_POINT3_CLASS_ID:
+					case CTRL_POSITION_CLASS_ID:
+						exportSamplingPoint3OutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
+						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+						break;
+					case CTRL_ROTATION_CLASS_ID:
+						exportSamplingRotationOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
+						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
+						break;
+					default:
+						int gg = 5;
+					}
+				}
+				else if ( iNode )
+				{
+					exportSamplingTransformationOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
 					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
-					break;
-				case CTRL_POINT3_CLASS_ID:
-				case CTRL_POSITION_CLASS_ID:
-					exportSamplingPoint3OutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
-					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
-					break;
-				case CTRL_ROTATION_CLASS_ID:
-					exportSamplingRotationOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
-					animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
-					break;
-				default:
-					int gg = 5;
 				}
 				exportSamplingInterpolationSource(baseId, startTime, endTime, ticksPerFrame);
 			}
@@ -1475,6 +1558,54 @@ namespace COLLADAMax
 		source.finish();
 	}
 
+
+	void AnimationExporter::exportSamplingTransformationOutputSource( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame )
+	{
+		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
+		int keyLength = animation.getDimension();
+
+		COLLADA::Float4x4Source source ( mSW );
+		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
+		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
+		source.setAccessorStride ( keyLength );
+
+		source.getParameterNameList().push_back ( * (animation.getParameter()) );
+
+		source.setAccessorCount ( keyCount );
+		source.prepareToAppendValues();
+
+		INode * iNode = animation.getNode();
+
+		Matrix3 transformationMatrix, parentTransformationMatrix;
+		INode* parentINode = iNode->GetParentNode();
+
+		if (parentINode && parentINode->IsRootNode()) 
+			parentINode = 0;
+
+		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
+		{
+			// Export the base NODE TM
+			transformationMatrix = iNode->GetNodeTM(time);
+
+			if (parentINode)
+			{
+				// export a relative TM
+				// We have to use whatever value we exported for this parent
+				// in order to remain consistent in collada
+				parentTransformationMatrix = parentINode->GetNodeTM(time);
+				parentTransformationMatrix.Invert();
+				transformationMatrix = transformationMatrix * parentTransformationMatrix;
+			}
+
+			const Matrix3& constTransformationMatrix = transformationMatrix;
+			for ( int row = 0; row < 3; ++row)
+				source.appendValues(constTransformationMatrix[0][row], constTransformationMatrix[1][row], constTransformationMatrix[2][row], constTransformationMatrix[3][row]);
+			source.appendValues(0, 0, 0, 1);
+
+		}
+
+		source.finish();
+	}
 
 
 	//---------------------------------------------------------------

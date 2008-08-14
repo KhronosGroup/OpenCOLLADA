@@ -52,7 +52,9 @@ namespace COLLADAMax
             MESH,
             CAMERA,
             LIGHT,
-            BONE
+            BONE,
+			HELPER,
+			MATERIAL
         };
 
         struct Symbol

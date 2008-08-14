@@ -60,6 +60,7 @@ namespace COLLADAMax
         /** Exports the library visual scene.*/
         void doExport();
 
+		static const String MATRIX_SID;
         static const String TRANSLATE_SID;
         static const String ROTATE_SID;
         static const String ROTATE_X_SID;
@@ -69,6 +70,7 @@ namespace COLLADAMax
         static const String ROTATE_SCALE_AXIS_INVERSE_SID;
         static const String SCALE_SID;
 
+		static const String MATRIX_PARAMETERS[ 1 ];
         static const String TRANSLATION_PARAMETERS[ 3 ];
         static const String ROTATION_PARAMETER[ 1 ];
         static const String ROTATION_PARAMETERS[ 4 ];

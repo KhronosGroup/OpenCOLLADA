@@ -66,7 +66,8 @@ namespace COLLADAMax
             exportImages();
             exportGeometries();
             exportVisualScenes();
-            exportAnimations();
+			if ( mOptions.getExportAnimations() )
+				exportAnimations();
             exportScene();
 
             deleteExporters();

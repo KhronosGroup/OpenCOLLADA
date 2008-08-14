@@ -43,6 +43,7 @@ namespace COLLADAMax
             FLOAT,				    //!< Animated float
             FLOAT3,					//!< Animated float3
             FLOAT4,					//!< Animated float4
+			FLOAT4x4,				//!< Animated float4x4
 
             POSITION_X,				//!< Animated x translation
             POSITION_Y,				//!< Animated y translation
@@ -77,7 +78,10 @@ namespace COLLADAMax
         /** The max controller.*/
         Control * mController;
 
-        /** The id of the element to animate.*/
+		/** The max node, used for sampled transformations (matrices).*/
+		INode * mINode;
+		
+		/** The id of the element to animate.*/
         String mId;
 
         /** The sid of the element to animate.*/
@@ -105,11 +109,19 @@ namespace COLLADAMax
         @param conversionFunction Pointer to conversion function, to convert all animated values*/
         Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction = 0 );
 
-        /** Destructor*/
+		/**Use this constructor to creat an animation for sampled transformation matrices of a max node
+		@param nIode the max node which transformation should be animated (sampled)
+		@param id The id of the element to animate
+		@param sid The sid of the element to animate
+		@param parameter A pointer to an array of parameters to animate
+		@param type Type of animation
+		@param conversionFunction Pointer to conversion function, to convert all animated values*/
+		Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction = 0 );
+
+		
+		/** Destructor*/
         virtual ~Animation()
         {}
-
-
 
         /** Returns the controller.*/
         Control * getController() const
@@ -117,7 +129,13 @@ namespace COLLADAMax
             return mController;
         }
 
-        /** Returns the id of the element to animate.*/
+		/** Returns the max node.*/
+		INode * getNode() const
+		{
+			return mINode;
+		}
+
+		/** Returns the id of the element to animate.*/
         const String & getId() const
         {
             return mId;
@@ -261,7 +279,10 @@ namespace COLLADAMax
 
 
 		void addAnimatedAxisAngle(Control * controller, const String & id, const String & sid, const String parameters[], int type);
-		
+
+		void addAnimatedFloat4x4 ( INode * node, const String & id, const String & sid, const String parameters[] );
+
+
 		/** Adds an animation that animates a Point3.
         @param controller The controller that contains the animation
         @param id The id of the element to animate
@@ -279,6 +300,12 @@ namespace COLLADAMax
         /** Generates the correct target string for use in the @a \<channel\> element.*/
         static String getTarget ( const Animation & animation );
 
+		/** Checks, if the transformations of node @a iNode must be sampled, i.e. it has no stnadart controller*/
+		static bool forceSampleMatrices(INode* iNode);
+
+
+
+
     private:
         /** Disable copy constructor.*/
         AnimationExporter ( const AnimationExporter & animationExporter );
@@ -292,6 +319,14 @@ namespace COLLADAMax
 
         /** Get the time of the key next to key number @a i of @a controller.*/
         TimeValue getNextTime ( const int & i, const int & keyCount, Control * controller ) const;
+
+
+		/** Function searches @a controller and all subanims for presence of a Constraint.
+		 This is bit of a cheap fix, a slightly better option may be to include
+		 parent offset calculation in rotation/position sampling (like Matrix sampling).
+		 */
+		static bool findConstraint(Animatable* controller);
+
 
         /** Exports all the source elements for @a animation.*/
         void exportSources ( Animation & animation );
@@ -523,6 +558,9 @@ namespace COLLADAMax
 		void exportSamplingPoint3OutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
 		void exportSamplingRotationOutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
+
+
+		void exportSamplingTransformationOutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
 
 		void exportSamplingInterpolationSource ( const String & baseId, TimeValue startTime, TimeValue endTime, int ticksPerFrame );

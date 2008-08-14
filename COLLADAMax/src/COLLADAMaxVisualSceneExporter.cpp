@@ -37,6 +37,7 @@ namespace COLLADAMax
 
     const String VisualSceneExporter::NODE_ID_PRAEFIX = "node-";
 
+	const String VisualSceneExporter::MATRIX_SID = "matrix";
     const String VisualSceneExporter::TRANSLATE_SID = "translation";
     const String VisualSceneExporter::ROTATE_SID = "rotation";
     const String VisualSceneExporter::ROTATE_X_SID = "rotationX";
@@ -47,7 +48,12 @@ namespace COLLADAMax
     const String VisualSceneExporter::SCALE_SID = "scale";
 
 
-    const String VisualSceneExporter::TRANSLATION_PARAMETERS[ 3 ] =
+	const String VisualSceneExporter::MATRIX_PARAMETERS[ 1 ] =
+	{"TRANSFORM"
+	};
+
+	
+	const String VisualSceneExporter::TRANSLATION_PARAMETERS[ 3 ] =
         {"X", "Y", "Z"
         };
 
@@ -86,6 +92,9 @@ namespace COLLADAMax
 
         colladaNode.setNodeId ( NODE_ID_PRAEFIX + exportNode->getId() );
         colladaNode.setNodeName ( COLLADA::Utils::checkNCName ( node->GetName() ) );
+
+		if ( exportNode->getType() == ExportNode::BONE )
+			colladaNode.setType( COLLADA::Node::JOINT );
 
         colladaNode.start();
 
@@ -137,7 +146,7 @@ namespace COLLADAMax
                     instanceGeometry.add();
                 }
             }
-        }
+        } 
 
         //export the child nodes
         size_t numberOfChildren = exportNode->getNumberOfChildren();
@@ -170,12 +179,13 @@ namespace COLLADAMax
 
         AnimationExporter * animationExporter = mDocumentExporter->getAnimationExporter();
 
-        if ( mDocumentExporter->getOptions().getBakeMatrices() )
+		if ( mDocumentExporter->getOptions().getBakeMatrices() || AnimationExporter::forceSampleMatrices(iNode))
         {
-            /// @TODO implement export of baked matrices
             double matrix[ 4 ][ 4 ] ;
             Matrix3ToDouble4x4 ( matrix, transformationMatrix );
-            colladaNode.addMatrix ( matrix );
+			/// @TODO check if matrix is animated
+            colladaNode.addMatrix (MATRIX_SID, matrix );
+			animationExporter->addAnimatedFloat4x4 ( iNode, fullNodeId, MATRIX_SID, MATRIX_PARAMETERS );
         }
 
         else
@@ -260,8 +270,15 @@ namespace COLLADAMax
                 if ( hasScaleAxis )
                 {
                     Point3 & rotationAxis = scaleRotation.axis;
-                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
-					animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_INVERSE_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS_R );
+					if ( hasAnimatedScale )
+					{
+	                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_INVERSE_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS_R );
+					}
+					else
+					{
+						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+					}
 
                     /// @TODO find a way to handle this problem
                     // Once the animation has been exported, verify that there was, indeed, something animated.
@@ -271,17 +288,30 @@ namespace COLLADAMax
                      hasScaleAxis = false;
                     }*/
                 }
-
-                colladaNode.addScale ( SCALE_SID, affineParts.k.x, affineParts.k.y, affineParts.k.z );
-				animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS );
+				
+				if ( hasAnimatedScale )
+				{
+					colladaNode.addScale ( SCALE_SID, affineParts.k.x, affineParts.k.y, affineParts.k.z );
+					animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS );
+				}
+				else
+				{
+					colladaNode.addScale ( affineParts.k.x, affineParts.k.y, affineParts.k.z );
+				}
 
                 // Rotate back to the rotation basis
-
                 if ( hasScaleAxis )
                 {
                     Point3 & rotationAxis = scaleRotation.axis;
-                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
-					animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS );
+					if ( hasAnimatedScale )
+					{
+		                colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS );
+					}
+					else
+					{
+						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+					}
                 }
             }
         }
@@ -293,7 +323,7 @@ namespace COLLADAMax
 			CalculateObjectOffsetTransformation(iNode, objectOffsetTransformationMatrix);
 
 			// only export the pivot node if the transform is not an identity
-			// of if the node is a group head node (this is a temporary fix until we add a PIVOT type)
+			// or if the node is a group head node (this is a temporary fix until we add a PIVOT type)
 			if ( !objectOffsetTransformationMatrix.IsIdentity() || iNode->IsGroupHead() )
 			{
 				double matrix[ 4 ][ 4 ] ;

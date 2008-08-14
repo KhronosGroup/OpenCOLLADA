@@ -31,18 +31,12 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     ExportNode::ExportNode ( INode * iNode )
             : mINode ( iNode ),
-            /*  mTranslationController(0),
-              mRotationController(0),
-              mScaleController(0),*/
             mType ( UNDETERMINED )
     {}
 
     //---------------------------------------------------------------
     ExportNode::ExportNode ( INode * iNode, Type type )
             : mINode ( iNode ),
-            /*  mTranslationController(0),
-              mRotationController(0),
-              mScaleController(0),*/
             mType ( type )
     {}
 
@@ -94,29 +88,59 @@ namespace COLLADAMax
         {
 
         case GEOMOBJECT_CLASS_ID:
-        {
-#if 1
-            //we need this, as soon as we support bones
-            // Check for a Max bone mesh
+			{
+				//we need this, as soon as we support bones
+				// Check for a Max bone mesh
 
-            if ( classId == BONE_OBJ_CLASSID )
-                return ExportNode::BONE;
+				if ( classId == BONE_OBJ_CLASSID )
+					return ExportNode::BONE;
 
-            // Check for biped
-            Control* control = iNode->GetTMController();
+				// Check for biped
+				Control* control = iNode->GetTMController();
 
-            if ( control != NULL )
-            {
-                Class_ID ccid = control->ClassID();
+				if ( control != NULL )
+				{
+					Class_ID controllerClassId = control->ClassID();
 
-                if ( ccid == BIPSLAVE_CONTROL_CLASS_ID || ccid == BIPBODY_CONTROL_CLASS_ID || ccid == FOOTPRINT_CLASS_ID || ccid == BIPED_CLASS_ID )
-                    return ExportNode::BONE;
-            }
+					if ( controllerClassId == BIPSLAVE_CONTROL_CLASS_ID || controllerClassId == BIPBODY_CONTROL_CLASS_ID || controllerClassId == FOOTPRINT_CLASS_ID || controllerClassId == BIPED_CLASS_ID )
+						return ExportNode::BONE;
+				}
+				return ExportNode::MESH;
+			}
+		case CAMERA_CLASS_ID: 
+			return CAMERA;
 
+		case LIGHT_CLASS_ID: 
+			return LIGHT;
+#if 0
+			//for surfaces
+		case SHAPE_CLASS_ID:
+			// Modifiers can act on a spline to produce a mesh
+			if (p != base)
+			{
+				// BUG368: For some reason the CanConvertToType function stopped working.
+				// This is the best option anyway, evaluate the object actually created by
+				// the modifier stack.
+				ObjectState os = ((IDerivedObject*)p)->Eval(0);
+				return Get(node, os.obj, detectXRef);
+			}
+			if (classId == EDITABLE_SURF_CLASS_ID || classId == EDITABLE_CVCURVE_CLASS_ID || classId == EDITABLE_FPCURVE_CLASS_ID)
+			{
+				return NURBS_CURVE;
+			}
+			else
+			{
+				return SPLINE;
+			}
 #endif
-            return ExportNode::MESH;
+		case HELPER_CLASS_ID: 
+			return (classId.PartA() == BONE_CLASS_ID) ? BONE : HELPER;
+		
+		case MATERIAL_CLASS_ID: 
+			return MATERIAL;
+
         }
-        }
+
 
         return ExportNode::UNKNOWN;
     }
