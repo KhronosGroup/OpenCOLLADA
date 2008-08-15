@@ -1,28 +1,48 @@
-- Scene graph
-    - Transform nodes
-    - Multiple object instances
+- 	Scene graph
+    - 	Transform nodes and joints ( lookat, matrix, rotate, scale, skew )
+    - 	instances: camera, controller, geometry, light, node 
+    - 	Multiple object instances
 	
-- Geometry   
-    - Mesh: 
-	    - POSITION, VERTEX, NORMAL, TEXCOORD (multiple also), COLOR, 
-	      GEOTANGENT, GEOBINORMAL 
-	    - POLYLIST, POLYGONS (also with holes) or TRIANGLES
+- 	Geometry   
+    - 	Mesh: 
+	    - 	POSITION, VERTEX, NORMAL, TEXCOORD (multiple also), COLOR, 
+	      	GEOTANGENT, GEOBINORMAL 
+	    - 	POLYLIST, POLYGONS (also with holes) or TRIANGLES
 
-- Materials / Effects
-    - Texture and color materials
-    - Materials Phong, Blinn and Lambert (nvidia viewer can‘t show)
+- 	Materials / Effects
+    - 	Texture and color materials
+    - 	Materials Phong, Blinn and Lambert (nvidia viewer can‘t show)
 
-- Animation
-    - Rotation / Transformation
-    - Sampled animation
-    - Expressions
-    - Animation clips
+- 	Animation
+    - 	Rotation / Transformation
+    - 	Sampled animation
+    - 	Expressions
+    - 	Animation clips
+    - 	Skin
+    - 	Morph
     
-- Instances
-    - Visual scenes
-    - Geometries
-    - Materials
-    - Effects
-    - Animations (clips)
-    - Nodes
+- 	Instances
+    - 	Visual scenes
+    - 	Geometries
+    - 	Materials
+    - 	Effects
+    - 	Animations (clips)
+    - 	Nodes
+    
+- 	Cameras
+	-	optics (orthographic or perspective)
+
+- 	Lights
+ 	-	ambient 
+ 	-	directional 
+ 	-	point 
+ 	-	spot
+
+-	Controller
+	-	Morph controller
+	-	Skin controller
+
+- 	Deformer
+
+
 

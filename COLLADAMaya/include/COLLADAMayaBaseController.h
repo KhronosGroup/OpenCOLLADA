@@ -45,13 +45,6 @@ namespace COLLADAMaya
         /** The name of the controller. */
         String mControllerName;
 
-        /** List of influences. The combination of a transform (node) 
-        and its corresponding weight is called an influence. */
-        MDagPathArray mInfluences; // export-only
-
-        /** A dynamically-sized array of 4x4 matrices. */
-        std::vector<MMatrix> mBindPoses; // export-only
-
         //  ControllerInstanceList instances; // export-only;
 
         /** True, if the current controller is a instance of a skin controller. */
@@ -93,20 +86,6 @@ namespace COLLADAMaya
         * @return COLLADAMaya::String The controller name.
         */
         const COLLADAMaya::String& getControllerName() const { return mControllerName; }
-
-        /**
-        * Returns the list of influences.
-        * @return MDagPathArray List of influences.
-        */
-        const MDagPathArray& getInfluences() const { return mInfluences; }
-        MDagPathArray& getInfluences() { return mInfluences; }
-
-        /**
-        * Returns the bind poses.
-        * @return const std::vector<MMatrix>& Bind poses.
-        */
-        const std::vector<MMatrix>& getBindPoses() const { return mBindPoses; }
-        std::vector<MMatrix>& getBindPoses() { return mBindPoses; }
 
     };
     typedef std::vector<BaseController*> ControllerList;

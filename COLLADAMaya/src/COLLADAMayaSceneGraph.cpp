@@ -73,22 +73,11 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     bool SceneGraph::retrieveExportNodes()
     {
-        // Add all the expressions
-        MObjectArray expressions;
-        MItDependencyNodes depIter ( MFn::kExpression );
-        for ( ; !depIter.isDone(); depIter.next() )
-        {
-            MObject item = depIter.item();
-            if ( item.hasFn ( MFn::kExpression ) )
-            {
-                expressions.append ( item );
-            }
-        }
-
         // Create a selection list containing only the root nodes (implies export all!)
         MSelectionList allTargets;
-
-        for ( MItDag it ( MItDag::kBreadthFirst ); it.depth() <= 1 && it.item() != MObject::kNullObj; it.next() )
+        for (   MItDag it ( MItDag::kBreadthFirst ); 
+                it.depth()<=1 && it.item()!=MObject::kNullObj; 
+                it.next() )
         {
             MDagPath path;
             MStatus status = it.getPath ( path );
@@ -111,7 +100,6 @@ namespace COLLADAMaya
         }
 
         // now fill in the targets, either the same as allTargets, or it is export selection only
-
         if ( mExportSelectedOnly )
         {
             // Export the selection:
@@ -130,7 +118,6 @@ namespace COLLADAMaya
             {
                 MDagPath itemPath;
                 mTargets.getDagPath ( i, itemPath );
-
                 if ( !itemPath.node().hasFn ( MFn::kTransform ) )
                 {
                     MDagPath transformPath = itemPath;
@@ -144,7 +131,6 @@ namespace COLLADAMaya
                             break;
                         }
                     }
-
                     removals.append ( i );
                 }
             }
@@ -187,7 +173,6 @@ namespace COLLADAMaya
         // Add all the animation expressions
         MObjectArray expressions;
         MItDependencyNodes depIter ( MFn::kExpression );
-
         for ( ; !depIter.isDone(); depIter.next() )
         {
             MObject item = depIter.item();
@@ -210,8 +195,9 @@ namespace COLLADAMaya
 
         // Fills the list with all root targets to export.
         bool success = retrieveExportNodes();
-
+        
         // Create a selection list containing only the root nodes (implies export all!)
+        uint length = mTargets.length();
         for ( uint i=0; i<mTargets.length(); ++i )
         {
             MDagPath dagPath;
@@ -233,8 +219,11 @@ namespace COLLADAMaya
             // Create a new scene element
             SceneElement* sceneElement = createSceneElement ( dagPath );
 
-            // Create the child elemements.
-            createChildSceneElements ( sceneElement, true );
+            // Create the child elements, if it is a valid node element.
+            if ( sceneElement->getIsExportNode() )
+            {
+                createChildSceneElements ( sceneElement, true );
+            }
         }
 
         return true;

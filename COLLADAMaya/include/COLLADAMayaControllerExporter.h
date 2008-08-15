@@ -21,6 +21,7 @@
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaBaseController.h"
 #include "COLLADAMayaSkinController.h"
+#include "COLLADAMayaMorphController.h"
 
 #include <vector>
 #include <map>
@@ -50,6 +51,8 @@ namespace COLLADAMaya
     {
         bool isSkin;
         MObject skinControllerNode;
+        /** Used to disable the blend shape. */
+        float envelope;
         MObjectArray morphControllerNodes;
         std::vector<long> nodeStates;
     };
@@ -80,6 +83,12 @@ namespace COLLADAMaya
         /** Parameter, used for the joint. */
         static const String PARAM_TYPE_JOINT;
 
+        /** Parameter, used for the morph target. */
+        static const String PARAM_TYPE_MORPH_TARGET;
+
+        /** Parameter, used for the morph weight. */
+        static const String PARAM_TYPE_MORPH_WEIGHT;
+
         /** Parameter, used for the weight. */
         static const String PARAM_TYPE_WEIGHT;
 
@@ -90,7 +99,7 @@ namespace COLLADAMaya
 
         // A lookup table of elements we've already processed
         ControllerList importedMorphControllers;
-        ControllerList skinControllers;
+        ControllerList mSkinControllers;
 
         /** List of controllerIds from the already exported controllers. */
         std::vector<String> mExportedControllers;
@@ -121,6 +130,12 @@ namespace COLLADAMaya
         bool hasController ( const MObject& node );
         bool hasSkinController ( const MObject& node );
         bool hasMorphController ( const MObject& node );
+
+        /** Disable the blend shape influences. */
+        static void disableBlendShape ( ControllerStack &stack );
+
+        /** Enable the blend shape influences. */
+        static void enableBlendShape ( ControllerStack &stack );
 
         /**
         * Iterate upstream finding all the nodes which affect the mesh.
@@ -204,57 +219,100 @@ namespace COLLADAMaya
             MDagPath outputShape );
 
         /**
-         * Writes all data of the current controller element into the collada file.
-         * @param skinTarget
-         * @param colladaSkinController 
-         *          Reference to the collada skin controller with the export data.
+         * Exports the morph controllers of a mesh.
+         * @param sceneElement The scene element to export.
+         * @param controllerNodes The morph controller nodes to export.
          */
-        void exportController( 
-            const String skinTarget, 
-            const ColladaSkinController& colladaSkinController );
+        void exportMorphController(
+            SceneElement* sceneElement, 
+            MObjectArray& controllerNodes );
+
+
+        void exportMorphTarget(
+            MPlug& targetVertexListPlug, 
+            MPlug& targetComponentListPlug, 
+            uint currentIndex );
 
         /**
-         * Writes the joint source into the collada document.
-         * @param colladaSkinController 
+         * Writes all data of the current controller element into the collada file.
+         * @param skinTarget The skin target.
+         * @param skinController Reference to the collada skin controller with the export data.
+         */
+        void writeSkinController( 
+            const String skinTarget, 
+            const SkinController& skinController );
+
+        /**
+         * Writes all data of the current controller element into the collada file.
+         * @param skinTarget The morph target.
+         * @param skinController Reference to the collada morph controller with the export data.
+         */
+        void writeMorphController ( 
+            const String morphTarget, 
+            const MorphController &morphController );
+
+        /**
+         * Writes the joint element into the collada document.
+         * @param skinController 
          *          Reference to the collada skin controller with the export data.
          */
-        void exportElementJoints( const ColladaSkinController& colladaSkinController );
+        void writeSkinElementJoints( const SkinController& skinController );
+
+        /**
+         * Writes the target element into the collada document.
+         * @param morphController
+         *          Reference to the collada controller with the export data.
+         */
+        void writeMorphElementTargets( const MorphController &morphController );
 
         /**
          * Writes the vertex weights element into the collada document.
-         * @param colladaSkinController 
+         * @param skinController 
          *          Reference to the collada skin controller with the export data.
          */
-        void exportElementVertexWeights( const ColladaSkinController &colladaSkinController );
+        void writeSkinElementVertexWeights( const SkinController &skinController );
 
         /**
          * Exports the bind shape transform of the given controller.
-         * @param colladaSkinController 
+         * @param skinController 
          *          Reference to the collada skin controller with the export data.
          */
-        void exportBindShapeTransform( const ColladaSkinController& colladaSkinController );
+        void writeSkinBindShapeTransform( const SkinController& skinController );
 
         /**
         * Exports the bind poses source of the given controller.
-        * @param controllerId The controller id to export.
-        * @param colladaSkinController 
+        * @param skinController 
         *          Reference to the collada skin controller with the export data.
         */
-        void exportWeightSource( const String controllerId, const ColladaSkinController& colladaSkinController );
+        void writeSkinWeightSource( const SkinController& skinController );
 
         /**
         * Exports the bind poses source of the given controller.
-        * @param colladaSkinController 
+        * @param morphController 
+        *          Reference to the collada morph controller with the export data.
+        */
+        void writeMorphWeightSource( const MorphController& morphController );
+
+        /**
+        * Exports the bind poses source of the given controller.
+        * @param skinController 
         *          Reference to the collada skin controller with the export data.
          */
-        void exportBindPosesSource( const ColladaSkinController& colladaSkinController );
+        void writeSkinBindPosesSource( const SkinController& skinController );
 
         /**
          * Exports the joint source of the given controller.
-         * @param colladaSkinController 
+         * @param skinController 
          *          Reference to the collada skin controller with the export data.
          */
-        void exportJointSource( const ColladaSkinController& colladaSkinController );
+        void writeSkinJointSource( const SkinController& skinController );
+
+        /**
+        * Exports the target source of the given controller.
+        * @param morphController 
+        *          Reference to the collada morph controller with the export data.
+         */
+        void writeMorphTargetSource( const MorphController &morphController );
 
         /**
          * Retrieve the instance information for this skinned character.
@@ -275,7 +333,7 @@ namespace COLLADAMaya
          * @param clusterIndex The current cluster index for the skinned character.
          */
         void getBindShapeTransform(
-            ColladaSkinController* skinController,
+            SkinController* skinController,
             const MFnGeometryFilter& clusterFn,
             const bool isJointCluster,
             const uint clusterIndex );
@@ -289,7 +347,7 @@ namespace COLLADAMaya
          * @param clusterIndex The current cluster index for the skinned character.
          */
         void gatherJoints( 
-            ColladaSkinController* skinController, 
+            SkinController* skinController, 
             const MObject& controllerNode, 
             MObjectArray& weightFilters, 
             const uint clusterIndex );
@@ -297,11 +355,11 @@ namespace COLLADAMaya
         /**
          * Gather the bind matrices of the current controller node and writes 
          * them as the bind poses in the target controller object.
-         * @param colladaSkinController The controller to hold the data.
+         * @param skinController The controller to hold the data.
          * @param controllerNode The controller node of the current object.
          */
         void gatherBindMatrices( 
-            ColladaSkinController* colladaSkinController, 
+            SkinController* skinController, 
             const MObject& controllerNode );
 
         /**
@@ -319,9 +377,9 @@ namespace COLLADAMaya
 
         /**
         * Creates the joints.
-        * @param colladaSkinController The skin controller with the joint imformation.
+        * @param skinController The skin controller with the joint imformation.
         */
-        void createJoints( ColladaSkinController* colladaSkinController );
+        void createJoints( SkinController* skinController );
 
         /**
           * Collects the data of the vertex weights and push it into the collada 
@@ -334,7 +392,7 @@ namespace COLLADAMaya
           * @param numInfluences The number of influences.
           */
          void collectVertexWeights( 
-             ColladaSkinController* skinController, 
+             SkinController* skinController, 
              const MObject& controllerNode, 
              const MDagPath& outputShape,
              const MObjectArray& weightFilters, 

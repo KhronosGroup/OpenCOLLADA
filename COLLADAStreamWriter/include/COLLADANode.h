@@ -7,6 +7,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #ifndef __COLLADASTREAMWRITER_NODE_H__
 #define __COLLADASTREAMWRITER_NODE_H__
 
@@ -188,6 +189,23 @@ namespace COLLADA
         /** Adds the skew of the current mesh element. */
         void addSkew ( const String& sid, const float angle,
                        const float rotateAxis[3], const float aroundAxis[3] ) const;
+
+        /**
+         * The <lookat> element contains a float3x3, which is three 
+         * mathematical vectors.
+         * Positioning and orienting a camera or object in the scene is often 
+         * complicated when using a matrix. A lookat transform is an intuitive 
+         * way to specify an eye position, interest point, and orientation.
+         * @param eyePosition[3] The position of the object.
+         * @param interestPosition[3] The position of the interest point.
+         * @param upPosition[3] The direction that points up.
+         * @param sid Subidentifier of this element, optional.
+         */
+        void addLookat ( 
+            const float eyePosition[3], 
+            const float interestPosition[3], 
+            const float upPosition[3], 
+            const String &sid = "" );
 
         /** Closes the node
         It must have been opened using open()*/

@@ -3,33 +3,25 @@
     -   linux
     -   mac os
     - 	other maya versions
-    -   reader
-    -   unit tests
     -   internationalisation (i18n)
+    -   reader
 
 -   Multiple documents
 
--	  Scene graph
-	-	  Transform joints
-
--	  Controller
-	-	  Morph controller
-	-	  Skin controller
-
-- 	blend shape deformer
+-	Scene graph
+	-	transform translate (unit displacement)
 
 -   VisualScene
     -   Reference to the effect texture
 	    
 -   Effects:
-    -   Hardware shader
-    -	  multiple color material
+	- 	Hardware shader
+    -	multiple color material
 
 -   Animations
     -   Constraints (point, orient, parent)
+    - 	Camera
 
--   Lights
--   Cameras
 -   PhysicalScene
 -   Subdivision surfaces
 -   Nurbs

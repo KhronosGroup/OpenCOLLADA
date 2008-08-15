@@ -26,12 +26,17 @@ namespace COLLADA
 
     public:
 
-        static const String SKIN_CONTROLLER_ID_SUFFIX;
-        static const String MORPH_CONTROLLER_ID_SUFFIX;
         static const String ARRAY_ID_SUFFIX;
-        static const String JOINTS_SOURCE_ID_SUFFIX;
         static const String BIND_POSES_SOURCE_ID_SUFFIX;
+        static const String MORPH_CONTROLLER_ID_SUFFIX;
+        static const String MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
+        static const String JOINTS_SOURCE_ID_SUFFIX;
+        static const String SKIN_CONTROLLER_ID_SUFFIX;
+        static const String TARGETS_SOURCE_ID_SUFFIX;
         static const String WEIGHTS_SOURCE_ID_SUFFIX;
+
+        static const String ATTRIBUTE_METHOD_NORMALIZED;
+        static const String ATTRIBUTE_METHOD_RELATIVE;
 
     private:
 
@@ -40,6 +45,9 @@ namespace COLLADA
 
         /** Used to close the current skin element */
         TagCloser mSkinCloser;
+
+        /** Used to close the current morph element */
+        TagCloser mMorphCloser;
 
     public:
 
@@ -55,9 +63,9 @@ namespace COLLADA
          * Writes the opening \<controller\> and \<skin\> tags 
          * and, if necessary the opening @a \<library_controllers\> tag.
          * closeSkin() must be use to close the opened tags.
-         * @param controllerId The id of the geometry
+         * @param controllerId The id of the controller
          * @param controllerName The Name of the geometry
-         * @param skinTarget The target of the skin
+         * @param skinTarget The target of the skin (the id of the geometry)
          */
         void openSkin ( 
             const String& controllerId, 
@@ -68,19 +76,35 @@ namespace COLLADA
         * Writes the opening \<controller\> and \<skin\> tags 
         * and, if necessary the opening @a \<library_controllers\> tag.
         * closeSkin() must be use to close the opened tags.
-        * @param controllerId The id of the geometry
-        * @param controllerName The Name of the geometry
-        * @param skinTarget The target of the skin
+        * @param controllerId The id of the controller
+        * @param skinTarget The target of the skin (the id of the geometry)
         */
         void openSkin ( 
             const String& controllerId, 
             const String& skinTarget )
         {
-            openSkin(controllerId, EMPTY_STRING, skinTarget);
+            openSkin( controllerId, EMPTY_STRING, skinTarget );
         }
 
-        /** Closes the tag opened by openSkin()*/
+        /** Closes the tag opened by openSkin(). */
         void closeSkin();
+
+        /** 
+        * Writes the opening \<controller\> and \<morph\> tags 
+        * and, if necessary the opening @a \<library_controllers\> tag.
+        * closeMorph() must be use to close the opened tags.
+        * @param controllerId The id of the controller
+        * @param controllerName The Name of the geometry
+        * @param morphTarget The target of the morph (the id of the geometry)
+        */
+        void openMorph ( 
+            const String& controllerId, 
+            const String& controllerName, 
+            const String& morphTarget, 
+            const String& morphMethod = ATTRIBUTE_METHOD_NORMALIZED );
+
+        /** Closes the tag opened by openMorph(). */
+        void closeMorph();
 
         /** 
          * Writes the opening \<controller\> tag 

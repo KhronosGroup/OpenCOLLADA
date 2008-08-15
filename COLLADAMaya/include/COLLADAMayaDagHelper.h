@@ -92,7 +92,7 @@ namespace COLLADAMaya
         static bool   setPlugValue ( MPlug& plug, const MColor& value );
         static bool   setPlugValue ( MPlug& plug, const String& value );
 #ifdef UNICODE
-        static bool   setPlugValue ( MPlug& plug, const fstring& value );
+        static bool   setPlugValue ( MPlug& plug, const String& value );
 #endif // UNICODE
         static bool   setPlugValue ( MPlug& plug, const MString& value )
         {

@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneGraph.h"
@@ -48,7 +49,6 @@ namespace COLLADAMaya
             : mStreamWriter ( _fileName )
             , mFileName ( _fileName )
             , mSceneGraph ( NULL )
-            , mUnitFactor ( 1.0f )
             , mIsImport ( true )
             , mAnimationCache ( NULL )
             , mMaterialExporter ( NULL )
@@ -125,13 +125,8 @@ namespace COLLADAMaya
         mIsImport = false;
         createLibraries();
 
-        // Get the UI unit type (internal units are centimeter)
-        MDistance testDistance ( 1.0f, MDistance::uiUnit() );
-        float conversionFactor = ( float ) testDistance.as ( MDistance::kMeters );
-        mUnitFactor = 1.0f / conversionFactor;
-
         mStreamWriter.startDocument();
-
+        
         if ( mSceneGraph->create ( selectionOnly ) )
         {
             // Export the asset of the document.
@@ -256,20 +251,28 @@ namespace COLLADAMaya
         if ( MGlobal::isYAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Y_UP );
         else if ( MGlobal::isZAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Z_UP );
 
-        // Retrieve the unit name and set the asset's unit information
-        MString unitName;
-        MGlobal::executeCommand ( "currentUnit -q -linear -fullName;", unitName );
+        // Retrieve the linear unit name 
+        MString mayaLinearUnitName;
+        MGlobal::executeCommand ( "currentUnit -q -linear -fullName;", mayaLinearUnitName );
+        String linearUnitName = mayaLinearUnitName.asChar();
 
-        // Get the UI unit type (internal units are centimeter)
+        // Get the UI unit type (internal units are centimeter, collada want 
+        // a number relative to meters).
+        // All transform components with units will be in maya's internal units 
+        // (radians for rotations and centimeters for translations).
         MDistance testDistance ( 1.0f, MDistance::uiUnit() );
-        float conversionFactor = ( float ) testDistance.as ( MDistance::kMeters );
-        double uiUnitFactor = 1.0f / conversionFactor;
-        asset.setUnit ( unitName.asChar(), conversionFactor );
+
+        // Get the conversion factor relative to meters for the collada document.
+        // For example, 1.0 for the name "meter"; 1000 for the name "kilometer"; 
+        // 0.3048 for the name "foot".
+        double colladaConversionFactor = ( float ) testDistance.as ( MDistance::kMeters );
+        float colladaUnitFactor = float ( 1.0 / colladaConversionFactor );
+        asset.setUnit ( linearUnitName, colladaConversionFactor );
 
         // TODO
         // FCDocumentTools::StandardizeUpAxisAndLength(colladaDocument, FMVector3::Origin, conversionFactor);
 
-        // Asset herausschreiben
+        // Asset heraus schreiben
         asset.add();
     }
 

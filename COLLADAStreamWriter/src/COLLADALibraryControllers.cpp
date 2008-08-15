@@ -16,12 +16,17 @@
 namespace COLLADA
 {
 
-    const String LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX = "-skin";
-    const String LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX = "-morph";
-    const String LibraryControllers::ARRAY_ID_SUFFIX = "-array";
-    const String LibraryControllers::JOINTS_SOURCE_ID_SUFFIX = "-joints";
-    const String LibraryControllers::BIND_POSES_SOURCE_ID_SUFFIX = "-bind_poses";
-    const String LibraryControllers::WEIGHTS_SOURCE_ID_SUFFIX = "-weights";
+    const String LibraryControllers::ARRAY_ID_SUFFIX                    = "-array";
+    const String LibraryControllers::BIND_POSES_SOURCE_ID_SUFFIX        = "-bind_poses";
+    const String LibraryControllers::JOINTS_SOURCE_ID_SUFFIX            = "-joints";
+    const String LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX         = "-morph";
+    const String LibraryControllers::MORPH_WEIGHTS_SOURCE_ID_SUFFIX     = "-morph_weights";
+    const String LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX          = "-skin";
+    const String LibraryControllers::TARGETS_SOURCE_ID_SUFFIX           = "-targets";
+    const String LibraryControllers::WEIGHTS_SOURCE_ID_SUFFIX           = "-weights";
+    
+    const String LibraryControllers::ATTRIBUTE_METHOD_NORMALIZED        = "NORMALIZED";
+    const String LibraryControllers::ATTRIBUTE_METHOD_RELATIVE          = "RELATIVE";
     
 
     //---------------------------------------------------------------
@@ -44,6 +49,30 @@ namespace COLLADA
     void LibraryControllers::closeSkin()
     {
         mSkinCloser.close();
+    }
+
+    //---------------------------------------------------------------
+    void LibraryControllers::openMorph ( 
+        const String &controllerId, 
+        const String &controllerName, 
+        const String &morphTarget, 
+        const String &morphMethod )
+    {
+        openController ( controllerId, controllerName );
+
+        mSkinCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_MORPH );
+
+        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, morphTarget );
+
+        // Which blending technique to use. Valid values are NORMALIZED and
+        // RELATIVE. The default is NORMALIZED.
+        mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_METHOD, morphMethod );
+    }
+
+    //---------------------------------------------------------------
+    void LibraryControllers::closeMorph()
+    {
+        mMorphCloser.close();
     }
 
     //---------------------------------------------------------------

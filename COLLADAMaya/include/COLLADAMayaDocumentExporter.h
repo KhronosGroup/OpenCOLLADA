@@ -18,6 +18,7 @@
 
 #include "ColladaMayaPrerequisites.h"
 #include "COLLADAStreamWriter.h"
+#include "maya/MDistance.h"
 
 
 namespace COLLADAMaya
@@ -113,9 +114,6 @@ namespace COLLADAMaya
 
         /** The id of the current scene. */
         String mSceneId;
-
-        // Length Conversion Factor
-        float mUnitFactor;
 
     public:
 
@@ -313,7 +311,6 @@ namespace COLLADAMaya
          * @return COLLADAMaya::String A valid NCName.
          */
         String DocumentExporter::checkNCName(const String &ncName);
-
 
     private:
 

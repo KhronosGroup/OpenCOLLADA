@@ -60,6 +60,8 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     void GeometryExporter::exportGeometries()
     {
+        if ( !ExportOptions::exportPolygonMeshes() ) return;
+
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
@@ -83,7 +85,7 @@ namespace COLLADAMaya
 
         // Check if it is a mesh and an export node
         if ( sceneElement->getType() == SceneElement::MESH &&
-             sceneElement->getIsExportNode() && 
+             sceneElement->getIsExportNode() &&
              mDocumentExporter->getSceneGraph()->findExportedElement ( dagPath ) == NULL )
         {
             bool exported = false;
@@ -103,37 +105,65 @@ namespace COLLADAMaya
                 // The stacks of the controllers for the affected nodes.
                 ControllerStack stack;
                 ControllerMeshStack meshStack;
-
+                
                 // Iterate upstream finding all the nodes which affect the mesh.
                 if ( !ControllerExporter::findAffectedNodes( dagPath.node(), stack, meshStack ) ) return;
 
+//                 // Disable the blend shape influences.
+//                 ControllerExporter::disableBlendShape( stack );
                 // Disable any effects on the nodes.
                 ControllerExporter::setControllerNodeStatesToNoEffect ( stack );
                 // Set all meshes as visible and not intermediate.
                 ControllerExporter::setValidMeshParameters ( meshStack );
-
+                
                 // Export the geometry 
                 exported = exportGeometry ( sceneElement );
 
-                // Reset all the intermediate mesh parameters.
-                ControllerExporter::resetMeshParameters( meshStack );
-                // Reset all the controller node states.
-                ControllerExporter::resetControllerNodeStates(stack);
-                // Delete the controller stack items and clear the stack.
-                ControllerExporter::deleteControllerStackItems( stack );
+                // Push it in the list of exported elements.
+                if ( exported )
+                    mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
 
-                // Clear the stack.
-                stack.clear();
+                // Delete the controllerStack items
+                for ( size_t i=0; i<meshStack.size(); ++i )
+                {
+                    ControllerMeshItem item = meshStack[i];
+                    MDagPath currentDagPath = MDagPath::getAPathTo ( item.mesh );
+                    String currentPath = currentDagPath.fullPathName().asChar();
+                    SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+                    if ( sceneGraph->findExportedElement( currentDagPath ) == NULL )
+                    {
+                        SceneElement* meshSceneElement = sceneGraph->findElement( currentDagPath );
+                        if ( meshSceneElement!=NULL ) 
+                        {
+                            // Export the geometry 
+                            exportGeometry ( meshSceneElement );
+
+                            // Push it in the list of exported elements.
+                            if ( exported )
+                                mDocumentExporter->getSceneGraph()->addExportedElement( meshSceneElement );
+                        }
+                    }
+                }
+                
+                // Reset all the controller node states.
+                ControllerExporter::resetControllerNodeStates ( stack );
+//                 // Enable the blend shape influences.
+//                 ControllerExporter::enableBlendShape ( stack );
+                // Reset the meshes as visible and not intermediate.
+                ControllerExporter::resetMeshParameters ( meshStack );
+                // Delete the controller stack items and clear the stack.
+                ControllerExporter::deleteControllerStackItems ( stack );
             }
             else
             {
                 // Export the geometry 
                 exported = exportGeometry ( sceneElement );
+
+                // Push it in the list of exported elements.
+                if ( exported )
+                    mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
             }
 
-            // Push it in the list of exported elements.
-            if ( exported )
-                mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
         }
 
         // Recursive call for all the child elements
@@ -147,6 +177,8 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     bool GeometryExporter::exportGeometry ( SceneElement* sceneElement )
     {
+        if ( !ExportOptions::exportPolygonMeshes() ) return false;
+
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
@@ -396,9 +428,9 @@ namespace COLLADAMaya
         {
             MPoint &pointData = vertexArray[i];
             vertexSource.appendValues ( 
-                COLLADA::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : vertexArray[i].x, 
-                COLLADA::MathUtils::equalsZero ( vertexArray[i].y ) ? 0 : vertexArray[i].y, 
-                COLLADA::MathUtils::equalsZero ( vertexArray[i].z ) ? 0 : vertexArray[i].z );
+                COLLADA::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : MDistance::internalToUI ( vertexArray[i].x ), 
+                COLLADA::MathUtils::equalsZero ( vertexArray[i].y ) ? 0 : MDistance::internalToUI ( vertexArray[i].y ), 
+                COLLADA::MathUtils::equalsZero ( vertexArray[i].z ) ? 0 : MDistance::internalToUI ( vertexArray[i].z ) );
         }
         vertexSource.finish();
 
@@ -561,12 +593,12 @@ namespace COLLADAMaya
             // TODO Don't put the source into the vertex sources, 
             // put it into the polygon sources.
             // That's about the other plug-ins, they don't support this.
-//             if ( colorSet.isVertexColor )
-//             {
-//                 // Insert a per-vertex color set input
-//                 mVertexSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR ) );
-//             }
-//             else
+            if ( ExportOptions::exportVertexColorsPerVertex() && colorSet.isVertexColor )
+            {
+                // Insert a per-vertex color set input
+                mVertexSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR ) );
+            }
+            else
             {
                 // Insert a per-face-vertex color set input
                 mPolygonSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR, i ) );
@@ -915,6 +947,8 @@ namespace COLLADAMaya
                         meshColorSet[valueCount*colorElements+2] = faceVertexColor.b;
                         meshColorSet[valueCount*colorElements+3] = faceVertexColor.a;
 
+//                         AnimationExporter* animExpo = mDocumentExporter->getAnimationExporter();
+//                         animExpo->addPlugAnimation( actualColorPlug.child(0), ATTR_VERTEX_COLOR, )
                         // TODO
                         /*
                         ANIM->AddPlugAnimation(actualColorPlug.child(0), source->GetSourceData().GetAnimated(4 * valueCount + 0), kSingle);
@@ -1125,7 +1159,12 @@ namespace COLLADAMaya
         // put it into the polygon sources.
         // That's about the other plugins, they don't support this.
 
-        bool perVertexNormals = false; //( normalCount == verticesCount );
+        bool perVertexNormals = false;
+        if ( ExportOptions::exportNormalsPerVertex() )
+        {
+            perVertexNormals = ( normalCount == verticesCount ); 
+        }
+
         if ( perVertexNormals )
         {
             // Get the unindexed normals in a separate buffer

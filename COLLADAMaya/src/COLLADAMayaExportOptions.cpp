@@ -37,8 +37,10 @@ namespace COLLADAMaya
     bool ExportOptions::mExportInvisibleNodes = false;
     bool ExportOptions::mExportDefaultCameras = false;
     bool ExportOptions::mExportNormals = true;
+    bool ExportOptions::mExportNormalsPerVertex = true;
     bool ExportOptions::mExportTexCoords = true;
     bool ExportOptions::mExportVertexColors = true;
+    bool ExportOptions::mExportVertexColorsPerVertex = true;
     bool ExportOptions::mExportVertexColorAnimations = false;
     bool ExportOptions::mExportTangents = false;
     bool ExportOptions::mExportTexTangents = false;
@@ -94,8 +96,10 @@ namespace COLLADAMaya
         mExportInvisibleNodes = false;
         mExportDefaultCameras = false;
         mExportNormals = true;
+        mExportNormalsPerVertex = true;
         mExportTexCoords = true;
         mExportVertexColors = true;
+        mExportVertexColorsPerVertex = true;
         mExportVertexColorAnimations = false;
         mExportTangents = false;
         mExportTexTangents = false;
@@ -145,8 +149,10 @@ namespace COLLADAMaya
                 else if ( optionName == "exportInvisibleNodes" ) mExportInvisibleNodes = value;
                 else if ( optionName == "exportDefaultCameras" ) mExportDefaultCameras = value;
                 else if ( optionName == "exportNormals" ) mExportNormals = value;
+                else if ( optionName == "exportNormalsPerVertex" ) mExportNormalsPerVertex = value;
                 else if ( optionName == "exportTexCoords" ) mExportTexCoords = value;
                 else if ( optionName == "exportVertexColors" ) mExportVertexColors = value;
+                else if ( optionName == "exportVertexColorsPerVertex" ) mExportVertexColorsPerVertex = value;
                 else if ( optionName == "exportVertexColorAnimations" ) mExportVertexColorAnimations = value;
                 else if ( optionName == "exportTangents" ) mExportTangents = value;
                 else if ( optionName == "exportTexTangents" ) mExportTexTangents = value;

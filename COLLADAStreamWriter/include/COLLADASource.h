@@ -245,6 +245,9 @@ namespace COLLADA
     /** Param type "NAME" source with String values. */
     typedef Source<String, &CSWC::COLLADA_ELEMENT_NAME_ARRAY, &CSWC::COLLADA_PARAM_TYPE_NAME> NameSource;
 
+    /** Param type "NAME" source with String values. */
+    typedef Source<String, &CSWC::COLLADA_ELEMENT_IDREF_ARRAY, &CSWC::COLLADA_PARAM_TYPE_IDREF> IdRefSource;
+
 } //namespace COLLADA
 
 

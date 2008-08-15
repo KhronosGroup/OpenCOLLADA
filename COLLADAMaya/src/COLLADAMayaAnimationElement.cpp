@@ -39,6 +39,7 @@ namespace COLLADAMaya
     , mSampleType ( sampleType )
     , mConversion ( NULL )
     , mIsRelativeAnimation ( false )
+    , mArrayElement ( -1 )
     {}
 
     // ----------------------------------------------------------

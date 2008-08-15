@@ -176,36 +176,43 @@ namespace COLLADAMaya
     static const char* ATTR_COLORSET_POINTS                         = "clsp";
     static const char* ATTR_COSINE_POWER                            = "cosinePower";
     static const char* ATTR_DOUBLE_SIDED                            = "doubleSided";
+    static const char* ATTR_ENVELOPE                                = "en";
     static const char* ATTR_ECCENTRICITY                            = "eccentricity";
     static const char* ATTR_FILE_TEXTURE_NAME                       = "fileTextureName";
     static const char* ATTR_GEOM_MATRIX                             = "geomMatrix";
     static const char* ATTR_IMAGE                                   = "image";
     static const char* ATTR_IMAGE_SEQUENCE                          = "useFrameExtension";
-    static const char* ATTR_INCANDESCENCE                           = "incandescence";
     /** The standard input attribute of the polyShape node. This attribute accepts input
     mesh data from other DG nodes and forwards the data through the node to the
     outMesh. It stores its own internal copy of the geometry being passed into the
     node. inMesh is only valid if there is an input connection. Otherwise it is ignored. */
     static const char* ATTR_IN_MESH                                 = "inMesh";
-    static const char* ATTR_INTERMEDIATE_OBJECT                     = "io";
+    static const char* ATTR_INCANDESCENCE                           = "incandescence";
     static const char* ATTR_INPUt                                   = "input";
+    static const char* ATTR_INPUT_GEOM_TARGET                       = "igt";
     static const char* ATTR_INPUT_GEOMETRY                          = "ig";
+    static const char* ATTR_INPUT_COMPONENT_TARGET                  = "ict";
+    static const char* ATTR_INPUT_POINTS_TARGET                     = "ipt";
+    static const char* ATTR_INPUT_TARGET                            = "it";
+    static const char* ATTR_INPUT_TARGET_GROUP                      = "itg";
+    static const char* ATTR_INPUT_TARGET_INPUT                      = "iti";
+    static const char* ATTR_INTERMEDIATE_OBJECT                     = "io";
     static const char* ATTR_INVERT                                  = "invert";
     static const char* ATTR_JOINT_ORIENT                            = "jointOrient";
     static const char* ATTR_MATRIX                                  = "matrix";
     static const char* ATTR_NODE_STATE                              = "nodeState";
     static const char* ATTR_NORMAL_CAMERA                           = "normalCamera";
-    static const char* ATTR_OPAQUE_OA                               = "oa";
-    static const char* ATTR_OPAQUE_OC                               = "oc";
-    static const char* ATTR_OPAQUE_OT                               = "ot";
-    static const char* ATTR_OUT_COLOR                               = "outColor";
-    static const char* ATTR_OUTPUT                                  = "output";
+    static const char* ATTR_OUT_ALPHA                               = "oa"; 
+    static const char* ATTR_OUT_COLOR                               = "oc"; 
+//    static const char* ATTR_OUT_COLOR                               = "outColor";
     /** The standard output attribute of the polyShape node. This attribute receives input
     mesh data from either the inMesh or cachedInMesh (depending on the node
     state) and stores it as its own internal copy of the mesh. The outMesh geometry
     represents the final geometry of the shape and is always valid. */
     static const char* ATTR_OUT_MESH                                = "outMesh";
-    static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
+    static const char* ATTR_OUTPUT                                  = "output";
+    static const char* ATTR_OUT_TRANSPARENCY                        = "ot"; 
+//    static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
     static const char* ATTR_PLACEMENT_MATRIX                        = "placementMatrix";
     static const char* ATTR_PROJECTION_TYPE                         = "projType";
     static const char* ATTR_REFLECTIVITY                            = "reflectivity";
@@ -240,6 +247,7 @@ namespace COLLADAMaya
     static const char* ATTR_VERTEX_FACE_ALPHA                       = "vfal";
     static const char* ATTR_VERTEX_FACE_COLOR                       = "vfcl";
     static const char* ATTR_VERTEX_FACE_COLOR_RGB                   = "frgb";
+    static const char* ATTR_WEIGHT                                  = "w";
 
     /** Constants for the cameras */
     static const char* CAMERA_PERSP                                 = "persp";

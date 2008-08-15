@@ -46,6 +46,8 @@ namespace COLLADA
         JOINT, /** Used for the skin controller element. */ 
         BINDMATRIX, /** Used for the skin controller element. */ 
         WEIGHT, /** Used for the skin controller element. */ 
+        MORPH_TARGET, /** Used for the morph controller element. */ 
+        MORPH_WEIGHT, /** Used for the morph controller element. */ 
         UNKNOWN = -1, /**< An unknown data source. */
     };
 

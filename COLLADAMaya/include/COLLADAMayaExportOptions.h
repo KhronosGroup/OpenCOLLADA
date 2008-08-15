@@ -49,8 +49,10 @@ namespace COLLADAMaya
         static bool mExportInvisibleNodes;
         static bool mExportDefaultCameras;
         static bool mExportNormals;
+        static bool mExportNormalsPerVertex;
         static bool mExportTexCoords;
         static bool mExportVertexColors;
+        static bool mExportVertexColorsPerVertex;
         static bool mExportVertexColorAnimations;
         static bool mExportTangents;
         static bool mExportTexTangents;
@@ -159,6 +161,11 @@ namespace COLLADAMaya
             return mExportNormals;
         }
 
+        static bool exportNormalsPerVertex()
+        {
+            return mExportNormalsPerVertex;
+        }
+
         static bool exportTexCoords()
         {
             return mExportTexCoords;
@@ -168,7 +175,12 @@ namespace COLLADAMaya
         {
             return mExportVertexColors;
         }
- 
+
+        static bool exportVertexColorsPerVertex()
+        {
+            return mExportVertexColorsPerVertex;
+        }
+
         static bool exportVertexColorAnimations()
         {
             return mExportVertexColorAnimations;

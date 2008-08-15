@@ -82,12 +82,19 @@ namespace COLLADAMaya
         /** Flag to indicate that the animation should be applied relative to the default value. */
         bool mIsRelativeAnimation;
 
+        /** The array element of the animated value. */
+        int mArrayElement;
+
     public:
 
         /** Constructor */
-        AnimationElement ( MPlug plug, const String& baseId,
-                           const String& subId, const String& nodeId,
-                           const String parameters[], SampleType sampleType=kSingle );
+        AnimationElement ( 
+            MPlug plug, 
+            const String& baseId,
+            const String& subId, 
+            const String& nodeId,
+            const String parameters[], 
+            SampleType sampleType = kSingle );
         virtual ~AnimationElement();
 
         /** Returns the base id. */
@@ -209,6 +216,17 @@ namespace COLLADAMaya
             mIsRelativeAnimation = val; 
         }
 
+        /** The array element of the animated value. */
+        const int getArrayElement() const 
+        { 
+            return mArrayElement; 
+        }
+
+        /** The array element of the animated value. */
+        void setArrayElement ( int val ) 
+        { 
+            mArrayElement = val; 
+        }
     };
 
 }

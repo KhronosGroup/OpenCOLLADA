@@ -67,6 +67,12 @@ namespace COLLADA
         case WEIGHT:
             return CSWC::COLLADA_SEMANTIC_WEIGHT;
 
+        case MORPH_TARGET:
+            return CSWC::COLLADA_SEMANTIC_MORPH_TARGET;
+
+        case MORPH_WEIGHT:
+            return CSWC::COLLADA_SEMANTIC_MORPH_WEIGHT;
+
         default:
             return CSWC::EMPTY_STRING;
         }

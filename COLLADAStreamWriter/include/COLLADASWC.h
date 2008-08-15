@@ -66,6 +66,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_FORMAT;
         static const String COLLADA_ELEMENT_GEOMETRY;
         static const String COLLADA_ELEMENT_H;
+        static const String COLLADA_ELEMENT_IDREF_ARRAY;
         static const String COLLADA_ELEMENT_IMAGE;
         static const String COLLADA_ELEMENT_INIT_FROM;
         static const String COLLADA_ELEMENT_INPUT;
@@ -97,6 +98,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_LIGHT_DIRECTIONAL;
         static const String COLLADA_ELEMENT_LIGHT_POINT;
         static const String COLLADA_ELEMENT_LIGHT_SPOT;
+        static const String COLLADA_ELEMENT_LOOKAT;
         static const String COLLADA_ELEMENT_MAGFILTER;
         static const String COLLADA_ELEMENT_MATERIAL;
         static const String COLLADA_ELEMENT_MATRIX;
@@ -104,6 +106,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_MINFILTER;
         static const String COLLADA_ELEMENT_MIPFILTER;
         static const String COLLADA_ELEMENT_MODIFIED;
+        static const String COLLADA_ELEMENT_MORPH;
         static const String COLLADA_ELEMENT_NAME_ARRAY;
         static const String COLLADA_ELEMENT_NEWPARAM;
         static const String COLLADA_ELEMENT_NODE;
@@ -132,6 +135,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_SOURCE_DATA;
         static const String COLLADA_ELEMENT_SUBJECT;
         static const String COLLADA_ELEMENT_SURFACE;
+        static const String COLLADA_ELEMENT_TARGETS;
         static const String COLLADA_ELEMENT_TECHNIQUE;
         static const String COLLADA_ELEMENT_TECHNIQUE_COMMON;
         static const String COLLADA_ELEMENT_TEXTURE;
@@ -163,6 +167,7 @@ namespace COLLADA
         static const String COLLADA_ATTRIBUTE_ID;
         static const String COLLADA_ATTRIBUTE_MATERIAL;
         static const String COLLADA_ATTRIBUTE_METER;
+        static const String COLLADA_ATTRIBUTE_METHOD;
         static const String COLLADA_ATTRIBUTE_NAME;
         static const String COLLADA_ATTRIBUTE_OFFSET;
         static const String COLLADA_ATTRIBUTE_OPAQUE;
@@ -190,6 +195,8 @@ namespace COLLADA
         static const String COLLADA_SEMANTIC_IN_TANGENT;
         static const String COLLADA_SEMANTIC_JOINT;
         static const String COLLADA_SEMANTIC_LINEAR_STEPS;
+        static const String COLLADA_SEMANTIC_MORPH_WEIGHT;
+        static const String COLLADA_SEMANTIC_MORPH_TARGET;
         static const String COLLADA_SEMANTIC_NORMAL;
         static const String COLLADA_SEMANTIC_OUTPUT;
         static const String COLLADA_SEMANTIC_OUT_TANGENT;
@@ -208,6 +215,7 @@ namespace COLLADA
         static const String COLLADA_PARAM_TYPE_FLOAT;
         static const String COLLADA_PARAM_TYPE_FLOAT4x4;
         static const String COLLADA_PARAM_TYPE_NAME;
+        static const String COLLADA_PARAM_TYPE_IDREF;
 
         static const String COLLADA_SAMPLER_FILTER_LINEAR;
         static const String COLLADA_SAMPLER_FILTER_LINEAR_MIPMAP_LINEAR;

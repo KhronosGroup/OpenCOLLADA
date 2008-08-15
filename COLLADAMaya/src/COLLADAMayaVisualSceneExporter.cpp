@@ -319,7 +319,7 @@ namespace COLLADAMaya
 
             // ------------------------------------------------------
             // Export the transformation information
-
+        
             if ( ExportOptions::bakeTransforms() )
             {
                 exportMatrixTransform();
@@ -355,16 +355,14 @@ namespace COLLADAMaya
                     ControllerExporter* controller = mDocumentExporter->getControllerExporter();
                     MObject childNode = childElement->getPath().node();
 
+                    bool hasSkinController = controller->hasSkinController ( childNode );
+                    bool hasMorphController = controller->hasMorphController ( childNode );
+
                     // Check for controllers, otherwise instantiate the geometry. 
                     // Add the controller and/or geometry to our libraries
-                    if ( ExportOptions::exportJointsAndSkin() &&
-                         controller->hasSkinController ( childNode ) )
+                    if ( ( ExportOptions::exportJointsAndSkin() && hasSkinController ) || hasMorphController )
                     {
-                        exportSkinControllerInstance ( childElement );
-                    }
-                    else if ( controller->hasMorphController ( childNode ) )
-                    {
-                        exportMorphControllerInstance ( childElement );
+                        exportControllerInstance ( childElement, hasSkinController, hasMorphController );
                     }
                     else
                     {
@@ -583,40 +581,35 @@ namespace COLLADAMaya
 
         if ( !COLLADA::MathUtils::equals( shear[0], 0.0 ) )
         {
-            float angle = COLLADA::MathUtils::radToDegF ( ( float ) atan ( shear[0] ) );
+            double angle = COLLADA::MathUtils::radToDeg ( atan ( shear[0] ) );
             angle = COLLADA::MathUtils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( xAxis );
             float* aroundAxis ( yAxis );
 
-            mVisualSceneNode->addSkew ( SKEW_XY_SID, angle, rotateAxis, aroundAxis );
+            mVisualSceneNode->addSkew ( SKEW_XY_SID, (float) angle, rotateAxis, aroundAxis );
         }
 
         if ( !COLLADA::MathUtils::equals( shear[1], 0.0 ) )
         {
-            float angle = COLLADA::MathUtils::radToDegF ( ( float ) atan ( shear[1] ) );
+            double angle = COLLADA::MathUtils::radToDeg ( atan ( shear[1] ) );
             angle = COLLADA::MathUtils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( xAxis );
             float* aroundAxis ( zAxis );
 
-            mVisualSceneNode->addSkew ( SKEW_XZ_SID, angle, rotateAxis, aroundAxis );
+            mVisualSceneNode->addSkew ( SKEW_XZ_SID, (float) angle, rotateAxis, aroundAxis );
         }
 
         if ( !COLLADA::MathUtils::equals( shear[2], 0.0 ) )
         {
-            float angle = COLLADA::MathUtils::radToDegF ( ( float ) atan ( shear[2] ) );
+//            double angle = COLLADA::MathUtils::radToDeg ( atan ( shear[2] ) );
+            double angle = MAngle::internalToUI ( atan ( shear[2] ) );
             angle = COLLADA::MathUtils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( yAxis );
             float* aroundAxis ( zAxis );
 
-            mVisualSceneNode->addSkew ( SKEW_YZ_SID, angle, rotateAxis, aroundAxis );
+            mVisualSceneNode->addSkew ( SKEW_YZ_SID, (float) angle, rotateAxis, aroundAxis );
         }
     }
-
-    //---------------------------------------------------------------
-    //
-    // Element export
-    //
-    //---------------------------------------------------------------
 
     //---------------------------------------------------------------
     void VisualSceneExporter::exportTranslation ( const String name,
@@ -642,28 +635,15 @@ namespace COLLADAMaya
         {
             mVisualSceneNode->addTranslate ( 
                 name, 
-                COLLADA::MathUtils::equalsZero( translation.x ) ? 0 : translation.x, 
-                COLLADA::MathUtils::equalsZero( translation.y ) ? 0 : translation.y, 
-                COLLADA::MathUtils::equalsZero( translation.z ) ? 0 : translation.z );
-
-            // TODO
+                COLLADA::MathUtils::equalsZero( translation.x ) ? 0 : MDistance::internalToUI ( translation.x ), 
+                COLLADA::MathUtils::equalsZero( translation.y ) ? 0 : MDistance::internalToUI ( translation.y ), 
+                COLLADA::MathUtils::equalsZero( translation.z ) ? 0 : MDistance::internalToUI ( translation.z ) );
 
             if ( animation )
             {
                 AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                animationExporter->addPlugAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, XYZ_PARAMETERS, kVector | kLength );
-                //   animationExporter->addPlugAnimation(mDagPath.node(), name, translation, kVector | kLength);
-                /*
-                ANIM->AddPlugAnimation(transform, name, colladaTranslate->GetTranslation(), kVector | kLength);
-                presence.trans = isZero ? DaeTransformPresence::kPresent : DaeTransformPresence::kNecessary;
-                presence.transNode = colladaTranslate;
-
-                if (transform == MObject::kNullObj && presence.trans == DaeTransformPresence::kPresent)
-                {
-                 SAFE_RELEASE(presence.transNode);
-                 presence.trans = DaeTransformPresence::kUnused;
-                }
-                */
+                animationExporter->addPlugAnimation ( 
+                    mDagPath.node(), ATTR_TRANSLATE, name, XYZ_PARAMETERS, kVector | kLength );
             }
         }
     }
@@ -721,7 +701,7 @@ namespace COLLADAMaya
             bool rotationIsNecessary = ( isAnimated[i] || !( !mIsFirstRotation && isZero[i] ));
 
             // A joint must always have a rotation.
-            if ( strcmp(name.c_str(), ATTR_JOINT_ORIENT) == 0 ) rotationIsNecessary = true;
+            if ( strcmp( name.c_str(), ATTR_JOINT_ORIENT ) == 0 ) rotationIsNecessary = true;
 
             if ( mTransformObject != MObject::kNullObj && rotationIsNecessary )
             {
@@ -733,21 +713,6 @@ namespace COLLADAMaya
                     COLLADA::MathUtils::equalsZero( matrixRotate[i][2] ) ? 0 : matrixRotate[i][2],
                     COLLADA::MathUtils::equalsZero( matrixRotate[i][3] ) ? 0 : matrixRotate[i][3] );
             }
-
-            // TODO
-//    if (rotateHelper.colladaRotations[i] != NULL)
-//    {
-//     FCDAnimated* animated = rotateHelper.colladaRotations[i]->GetAngleAxis().GetAnimated();
-//     ANIM->AddPlugAnimation(transform, str + components[i], animated, kSingle | kQualifiedAngle);
-//     p[i] = (!isFirstRotation && isZero[i]) ? DaeTransformPresence::kPresent : DaeTransformPresence::kNecessary;
-//     rotationTransforms[i] = rotateHelper.colladaRotations[i];
-//
-//     if (transform == MObject::kNullObj && p[i] == DaeTransformPresence::kPresent)
-//     {
-//      SAFE_RELEASE(rotationTransforms[i]);
-//      p[i] = DaeTransformPresence::kUnused;
-//     }
-//    }
         }
 
         mIsFirstRotation = false;
@@ -767,17 +732,6 @@ namespace COLLADAMaya
 
         MPlug plug = MFnDagNode ( mTransformObject ).findPlug ( ATTR_MATRIX );
         mDocumentExporter->getAnimationCache()->cachePlug ( plug, true );
-        animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, MATRIX_PARAMETER, kMatrix );
-        // animationExporter->addPlugAnimation(plug, translation, kMatrix);
-
-        /*
-        // For animations, sampling is always enforced for baked transforms.
-        MPlug p = MFnDagNode(transform).findPlug("matrix");
-        doc->GetAnimationCache()->CachePlug(p, true);
-
-        FCDAnimated* animated = colladaTransform->GetTransform().GetAnimated();
-        ANIM->AddPlugAnimation(p, animated, kMatrix);
-        */
     }
 
     //---------------------------------------------------------------
@@ -797,7 +751,6 @@ namespace COLLADAMaya
         // Locate the camera in the dagPath
         MObject cameraObject ( MObject::kNullObj );
         uint pathChildCount = transformFunctionSet.childCount();
-
         for ( uint i = 0; i < pathChildCount; ++i )
         {
             MObject child = transformFunctionSet.child ( i );
@@ -815,28 +768,39 @@ namespace COLLADAMaya
         }
         else
         {
+            // Positioning and orienting a camera or object in the scene is often 
+            // complicated when using a matrix. A lookat transform is an intuitive 
+            // way to specify an eye position, interest point, and orientation.
+
             // Get the camera matrix from which the other parameters are computed.
             MFnCamera camera ( cameraObject );
             MMatrix matrix = transformFunctionSet.transformationMatrix();
             matrix.homogenize();
 
             // Get the position of the camera in local space.
-            MVector eye ( matrix[3][0], matrix[3][1], matrix[3][2] );
+            MVector eye(matrix[3][0], matrix[3][1], matrix[3][2]);
+            float eyePosition[3] = {
+                COLLADA::MathUtils::equalsZero( matrix[3][0] ) ? 0.0f : (float) matrix[3][0], 
+                COLLADA::MathUtils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][2], 
+                COLLADA::MathUtils::equalsZero( matrix[3][2] ) ? 0.0f : (float) matrix[3][2] };
 
             // Compute center of interest.
             double centerOfInterestDistance = camera.centerOfInterestPoint ( MSpace::kObject ).z;
-            MVector front ( matrix[2][0], matrix[2][1], matrix[2][2] );
+            MVector front ( matrix[2][0], matrix[2][2], matrix[2][2] );
             MVector centerOfInterest = eye + ( front * centerOfInterestDistance );
-
-            // TODO
-            /*
-            FCDTLookAt* lookAtTransform = (FCDTLookAt*) colladaNode->AddTransform(FCDTransform::LOOKAT);
-            lookAtTransform->SetPosition(MConvert::ToFMVector(eye));
-            lookAtTransform->SetTarget(MConvert::ToFMVector(centerOfInterest));
+            float interestPosition[3] = {
+                COLLADA::MathUtils::equalsZero( centerOfInterest.x ) ? 0.0f : (float) centerOfInterest.x, 
+                COLLADA::MathUtils::equalsZero( centerOfInterest.y ) ? 0.0f : (float) centerOfInterest.y, 
+                COLLADA::MathUtils::equalsZero( centerOfInterest.z ) ? 0.0f : (float) centerOfInterest.z };
 
             // Extract the up direction, which corresponds to the second row.
-            lookAtTransform->SetUp((float) matrix[1][0], (float) matrix[1][1], (float) matrix[1][2]);
-            */
+            float upPosition[3] = { 
+                COLLADA::MathUtils::equalsZero( matrix[1][0] ) ? 0.0f : (float) matrix[1][0], 
+                COLLADA::MathUtils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][2], 
+                COLLADA::MathUtils::equalsZero( matrix[1][2] ) ? 0.0f : (float) matrix[1][2] };
+
+            // Add the camera lookat
+            mVisualSceneNode->addLookat ( eyePosition, interestPosition, upPosition );
         }
     }
 
@@ -897,7 +861,10 @@ namespace COLLADAMaya
     }
     
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportSkinControllerInstance( SceneElement* childElement )
+    void VisualSceneExporter::exportControllerInstance( 
+        SceneElement* childElement, 
+        bool hasSkinController, 
+        bool hasMorphController )
     {
         // Get the streamWriter from the export document
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -910,16 +877,12 @@ namespace COLLADAMaya
 //                                 COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         String controllerId;
-        if ( !childElement->getNodeId().empty() )
-        {
-            controllerId = childElement->getNodeId() + 
-                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
-        }
-        else
-        {
-            controllerId = childElement->getNodeName() + 
-                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
-        }
+        if ( !childElement->getNodeId().empty() ) controllerId = childElement->getNodeId();
+        else controllerId = childElement->getNodeName();
+        if ( hasMorphController )
+            controllerId += COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+        if ( hasSkinController )
+            controllerId += COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         COLLADA::InstanceController instanceController ( streamWriter );
         instanceController.setUrl ( controllerId );
@@ -931,44 +894,6 @@ namespace COLLADAMaya
         // Get the skeleton id from the element
         String skeletonId = childElement->getSkeletonId();
         instanceController.setSkeletonId( skeletonId );
-
-        // Write all materials
-        COLLADA::InstanceMaterialList& instanceMaterialList =
-            instanceController.getBindMaterial().getInstanceMaterialList();
-
-        // Export the materials
-        uint instanceNumber = childDagPath.instanceNumber();
-        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
-
-        instanceController.add();
-    }
-
-    //---------------------------------------------------------------
-    void VisualSceneExporter::exportMorphControllerInstance( SceneElement* childElement )
-    {
-        // Get the streamWriter from the export document
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
-        // Get the path and the id of the child element
-        MDagPath childDagPath = childElement->getPath();
-
-        // Create the unique controller ID
-//         String controllerId = mDocumentExporter->dagPathToColladaId ( childDagPath ) + 
-//                                 COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
-        String controllerId;
-        if ( !childElement->getNodeId().empty() )
-        {
-            controllerId = childElement->getNodeId() + 
-                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
-        }
-        else
-        {
-            controllerId = childElement->getNodeName() + 
-                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
-        }
-
-        COLLADA::InstanceController instanceController ( streamWriter );
-        instanceController.setUrl ( controllerId );
 
         // Write all materials
         COLLADA::InstanceMaterialList& instanceMaterialList =

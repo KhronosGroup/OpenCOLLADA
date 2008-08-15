@@ -40,15 +40,23 @@ namespace COLLADA
 
         struct Unit
         {
-            /** The name of the unit.*/
+            /** 
+            * The name of the distance unit to use in the scene. For example, 
+            * "meter", "centimeter", "inches", or "parsec". This can be the 
+            * real name of a measurement, or an imaginary name.
+            */
             String mName;
 
-            /** The measurement with respect to the meter.*/
+            /** 
+            * The length of one unit with respect to the meter.
+            * For example, 1.0 for the name "meter"; 1000 for the 
+            * name "kilometer"; 0.3048 for the name "foot".
+            */
             double mMeter;
         };
 
         /*Descriptive information about the coordinate system
-        of the geometric data. All coordinates are righthanded
+        of the geometric data. All coordinates are right handed
         by definition. Valid values are X_UP, Y_UP,
         or Z_UP. This element specifies which axis is
         considered upward, which is considered to the
@@ -152,9 +160,15 @@ namespace COLLADA
             mUnit = unit;
         }
 
-        /** Sets the unit used by the document
-        @param name The name of the unit to use.
-        @param meter The length of one unit in meter, .e.g. 0.0254 for inch.
+        /** 
+        * Sets the unit used by the document
+        * @param name The name of the unit to use. The name of the distance 
+        *               unit. For example, "meter", "centimeter", "inches", or 
+        *               "parsec". This can be the real name of a measurement, 
+        *               or an imaginary name.
+        * @param meter The length of one unit in meter. 
+        *               For example, 1.0 for the name "meter"; 1000 for the 
+        *               name "kilometer"; 0.3048 for the name "foot".
         */
         void setUnit ( String name, double meter )
         {

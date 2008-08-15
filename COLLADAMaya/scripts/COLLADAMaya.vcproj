@@ -571,6 +571,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\include\COLLADAMayaMorphController.h"
+						>
+					</File>
+					<File
 						RelativePath="..\include\COLLADAMayaSkinController.h"
 						>
 					</File>

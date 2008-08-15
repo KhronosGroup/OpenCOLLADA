@@ -92,6 +92,7 @@ namespace COLLADAMaya
             return mParent;
         }
 
+        /** The id of the parent's node. */
         const String& getNodeId() const
         {
             return mParent->getNodeId();
@@ -110,6 +111,8 @@ namespace COLLADAMaya
             return mKeys;
         }
 
+        /** Retrieves the list of keys for the animation curve.
+        @return The list of keys. */
         inline const KeyList getKeys() const
         {
             return mKeys;    /**< See above. */
@@ -131,6 +134,7 @@ namespace COLLADAMaya
             return mDimension;
         }
 
+        /** The number of dimensions for the curve. */
         void setDimension ( uint dimension )
         {
             mDimension = dimension;
@@ -176,17 +180,19 @@ namespace COLLADAMaya
             return mHasTangents;
         }
 
+        /** Flag to sign, if the curve has tangents and we have to create the tangents for every key. */
         void setHasTangents ( bool _hasTangents )
         {
             mHasTangents = _hasTangents;
         }
 
         /** Flag to sign, if the curve has tcbs and we have to create the values for every key. */
-        bool hasTCB() const
+        bool hasTCB () const
         {
             return mHasTCB;
         }
 
+        /** Flag to sign, if the curve has tcbs and we have to create the values for every key. */
         void setHasTCB ( bool _hasTCB )
         {
             mHasTCB = _hasTCB;
@@ -206,12 +212,13 @@ namespace COLLADAMaya
             return mIs2DEvaluation;
         }
 
-        /** The ids of the current curve. */
+        /** The base id of the current curve. */
         const String& getBaseId() const
         {
             return mBaseId;
         }
 
+        /** The base id of the current curve. */
         void setBaseId ( const String& baseId )
         {
             mBaseId = baseId;
@@ -223,6 +230,7 @@ namespace COLLADAMaya
             return mParent->getSubId();
         }
 
+        /** Get the source id of the animated element. */
         const String getSourceId() const
         {
             return mParent->getBaseId() + "_" + this->getBaseId();
@@ -249,7 +257,20 @@ namespace COLLADAMaya
         * the same and the y component of all the tangents is 0.  
         */
         const bool getIsStatic() const { return mIsStatic; }
+
+        /** 
+        * The animCurve is considered to be static if it would return 
+        * the same value regardless of the evaluation time. 
+        * This basically means that the values of all the keys are 
+        * the same and the y component of all the tangents is 0.  
+        */
         void setIsStatic( bool val ) { mIsStatic = val; }
+
+        /** The array element of the animated value. */
+        const int getArrayElement() const 
+        { 
+            return mParent->getArrayElement(); 
+        }
 
     protected:
 

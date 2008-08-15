@@ -217,10 +217,10 @@ namespace COLLADAMaya
         exportAnimationSource ( *mergedCurve );
 
         // Export the sampler
-        exportAnimationSampler ( *mergedCurve );
+        writeAnimationSampler ( *mergedCurve );
 
         // Export the channel
-        exportAnimationChannel ( *mergedCurve );
+        writeAnimationChannel ( *mergedCurve );
 
         // Delete the created merged curve
         delete mergedCurve;
@@ -532,7 +532,7 @@ namespace COLLADAMaya
             AnimationCurve* curve = *curveIter;
 
             // Export the sampler
-            exportAnimationSampler ( *curve );
+            writeAnimationSampler ( *curve );
         }
 
         // Export the channel for every curve
@@ -542,7 +542,7 @@ namespace COLLADAMaya
             AnimationCurve* curve = *curveIter;
 
             // Export the channel
-            exportAnimationChannel ( *curve );
+            writeAnimationChannel ( *curve );
         }
     }
 
@@ -589,18 +589,18 @@ namespace COLLADAMaya
         // FCDAnimated* animated = animation->animatedValue;
 
         // Get the sample type
-        SampleType typeValue = ( SampleType ) ( animatedElement->getSampleType() & kValueMask );
+        SampleType sampleType = ( SampleType ) ( animatedElement->getSampleType() & kValueMask );
 
         // TODO
         // size_t elementCount = animated->GetValueCount();
-        if ( !plug.isCompound() ) // || elementCount == 1)
+        if ( !plug.isCompound() || ( sampleType & kSingle ) == kSingle ) // || elementCount == 1)
         {
             // Create the list for the curves
             AnimationCurveList curves;
 
             // Export the single curve without fuss
             ConversionFunctor* conversion = animatedElement->getConversion();
-            curveCreated = createAnimationCurve ( animatedElement, plug, typeValue, conversion, curves );
+            curveCreated = createAnimationCurve ( animatedElement, plug, sampleType, conversion, curves );
 
             // Push the generated curves in the curves list of the animation element
             for ( uint i=0; i<curves.size(); ++i )
@@ -633,7 +633,7 @@ namespace COLLADAMaya
                 ConversionFunctor* conversion = animatedElement->getConversion();
 
                 // Creates the curve(s)
-                if ( createAnimationCurve ( animatedElement, childPlug, typeValue, conversion, curves, curveIndex ) )
+                if ( createAnimationCurve ( animatedElement, childPlug, sampleType, conversion, curves, curveIndex ) )
                     curveCreated = true;
 
                 // Add the curves to the animated elements
@@ -749,7 +749,7 @@ namespace COLLADAMaya
         // Export the infinity parameters
         String preInfinityType = AnimationHelper::mayaInfinityTypeToString ( animationCurve.getPreInfinity() );
         String postInfinityType = AnimationHelper::mayaInfinityTypeToString ( animationCurve.getPostInfinity() );
-        exportInputSource ( sourceId, input, preInfinityType, postInfinityType );
+        writeInputSource ( sourceId, input, preInfinityType, postInfinityType );
 
         // Get the parameters of the current curve
         const String* parameters = animationCurve.getParameters();
@@ -761,23 +761,23 @@ namespace COLLADAMaya
         uint dimension2 = animationCurve.getParent()->getDimension();
         uint dimension = animationCurve.getDimension();
 
-        exportOutputSource ( sourceId, parameters+index, dimension, output );
-        exportInterpolationSource ( sourceId, interpolations );
+        writeOutputSource ( sourceId, parameters+index, dimension, output );
+        writeInterpolationSource ( sourceId, interpolations );
 
         bool hasTangents = animationCurve.hasTangents();
 
         if ( hasTangents )
         {
-            exportInTangentSource ( sourceId, dimension, inTangents );
-            exportOutTangentSource ( sourceId, dimension, outTangents );
+            writeInTangentSource ( sourceId, dimension, inTangents );
+            writeOutTangentSource ( sourceId, dimension, outTangents );
         }
 
         bool hasTCB = animationCurve.hasTCB();
 
         if ( hasTCB )
         {
-            exportTCBSource ( sourceId, tcbs );
-            exportEasesSource ( sourceId, eases );
+            writeTCBSource ( sourceId, tcbs );
+            writeEasesSource ( sourceId, eases );
         }
     }
 
@@ -830,10 +830,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::createMultiCurveTCBs ( AnimationMKey* key,
-            uint dimension,
-            std::vector<float> &tcbs,
-            std::vector<float> &eases )
+    void AnimationExporter::createMultiCurveTCBs ( 
+        AnimationMKey* key,
+        uint dimension,
+        std::vector<float> &tcbs,
+        std::vector<float> &eases )
     {
         if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
         {
@@ -877,11 +878,12 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::createMultiCurveTangents ( AnimationMKey* key,
-            uint dimension,
-            std::vector<float> &inTangents,
-            std::vector<float> &outTangents,
-            float* outputList )
+    void AnimationExporter::createMultiCurveTangents ( 
+        AnimationMKey* key,
+        uint dimension,
+        std::vector<float> &inTangents,
+        std::vector<float> &outTangents,
+        float* outputList )
     {
         if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
         {
@@ -922,7 +924,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportInputSource ( 
+    void AnimationExporter::writeInputSource ( 
         const String sourceId,
         const std::vector<float> &values,
         String preInfinityType,
@@ -954,7 +956,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportOutputSource ( const String sourceId,
+    void AnimationExporter::writeOutputSource ( const String sourceId,
             const String* parameters,
             const uint dimension,
             const std::vector<float> &values )
@@ -1000,7 +1002,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportInterpolationSource ( const String sourceId,
+    void AnimationExporter::writeInterpolationSource ( const String sourceId,
             const std::vector<String> interpolations )
     {
         // Just export if there are values
@@ -1020,23 +1022,23 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportInTangentSource ( const String sourceId,
+    void AnimationExporter::writeInTangentSource ( const String sourceId,
             const uint dimension,
             const std::vector<float> &inTangent )
     {
-        exportTangentSource ( sourceId, INTANGENT_SOURCE_ID_SUFFIX, dimension, inTangent );
+        writeTangentSource ( sourceId, INTANGENT_SOURCE_ID_SUFFIX, dimension, inTangent );
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportOutTangentSource ( const String sourceId,
+    void AnimationExporter::writeOutTangentSource ( const String sourceId,
             const uint dimension,
             const std::vector<float> &outTangent )
     {
-        exportTangentSource ( sourceId, OUTTANGENT_SOURCE_ID_SUFFIX, dimension, outTangent );
+        writeTangentSource ( sourceId, OUTTANGENT_SOURCE_ID_SUFFIX, dimension, outTangent );
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportTangentSource ( const String sourceId,
+    void AnimationExporter::writeTangentSource ( const String sourceId,
             const String sourceIdSuffix,
             const uint dimension,
             const std::vector<float> &values )
@@ -1066,7 +1068,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportTCBSource ( const String sourceId,
+    void AnimationExporter::writeTCBSource ( const String sourceId,
             const std::vector<float> &values )
     {
         // Just export if there are values
@@ -1086,7 +1088,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::exportEasesSource ( const String sourceId,
+    void AnimationExporter::writeEasesSource ( const String sourceId,
             const std::vector<float> &values )
     {
         // Just export if there are values
@@ -1107,7 +1109,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     template<class T>
-    void AnimationExporter::exportAnimationSampler ( const BaseAnimationCurve<T> &animationCurve )
+    void AnimationExporter::writeAnimationSampler ( const BaseAnimationCurve<T> &animationCurve )
     {
         String sourceId = animationCurve.getSourceId();
 
@@ -1128,7 +1130,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     template<class T>
-    void AnimationExporter::exportAnimationChannel ( const BaseAnimationCurve<T> &animationCurve )
+    void AnimationExporter::writeAnimationChannel ( const BaseAnimationCurve<T> &animationCurve )
     {
         String sourceId = animationCurve.getSourceId();
         String target = getTarget ( animationCurve );
@@ -1140,23 +1142,38 @@ namespace COLLADAMaya
     template<class T>
     String AnimationExporter::getTarget ( const BaseAnimationCurve<T> &animationCurve )
     {
+        String subId = animationCurve.getSubId();
         String nodeId = animationCurve.getNodeId();
         const uint dimension = animationCurve.getDimension();
 
-        const String* parameters = animationCurve.getParameters();
-        const uint index = animationCurve.getCurveIndex();
-
-        if ( dimension == 1 && ! ( *parameters ).empty() )
-            return nodeId + "/" + animationCurve.getSubId() + "." + * ( parameters+index );
+        int arrayElement = animationCurve.getArrayElement();
+        if ( arrayElement >= 0 )
+        {
+            std::ostringstream stream; 
+            stream << subId << "(" << arrayElement << ")";
+            return stream.str();
+        }
         else
-            return nodeId + "/" + animationCurve.getSubId();
+        {
+            const String* parameters = animationCurve.getParameters();
+            const uint index = animationCurve.getCurveIndex();
+
+            if ( dimension == 1 && ! ( *parameters ).empty() )
+                return nodeId + "/" + subId + "." + * ( parameters+index );
+            else
+                return nodeId + "/" + subId;
+        }
     }
 
     //---------------------------------------------------------------
     String AnimationExporter::getBaseId ( const MPlug &plug )
     {
-        // TODO Unique name!
-        return mDocumentExporter->mayaNameToColladaName ( plug.name() ) + "_" + getNodeId ( plug );
+        String nodeId = getNodeId ( plug );
+        if ( nodeId.empty() )
+        {
+            return mDocumentExporter->mayaNameToColladaName ( plug.name() );
+        }
+        return mDocumentExporter->mayaNameToColladaName ( plug.name() ) + "_" + nodeId;
 //        return mDocumentExporter->mayaNameToColladaName ( plug.name() );
 
         /*
@@ -1172,9 +1189,12 @@ namespace COLLADAMaya
     {
         MObject node = plug.node();
         MFnDagNode fnDagNode ( node );
-        String name = mDocumentExporter->mayaNameToColladaName ( fnDagNode.partialPathName(), false );
-
-        return name;
+        String partialPathName = fnDagNode.partialPathName().asChar();
+        if ( partialPathName.empty() )
+        {
+            return partialPathName;
+        }
+        return mDocumentExporter->mayaNameToColladaName ( fnDagNode.partialPathName(), false );
     }
 
     //---------------------------------------------------------------
@@ -1183,13 +1203,22 @@ namespace COLLADAMaya
         const String attrname,
         const String* parameters,
         const uint sampleType,
+        const int arrayElement, 
         const bool isRelativeAnimation, 
         ConversionFunctor* conversion )
     {
         // Take the attribute name as the sub id.
         String subId = attrname;
 
-        return addPlugAnimation ( node, subId, attrname, parameters, ( SampleType ) sampleType, isRelativeAnimation, conversion );
+        return addPlugAnimation ( 
+            node, 
+            subId, 
+            attrname, 
+            parameters, 
+            sampleType, 
+            arrayElement, 
+            isRelativeAnimation, 
+            conversion );
     }
 
     //---------------------------------------------------------------
@@ -1199,6 +1228,7 @@ namespace COLLADAMaya
         const String attrname,
         const String* parameters,
         const uint sampleType,
+        const int arrayElement, 
         const bool isRelativeAnimation, 
         ConversionFunctor* conversion )
     {
@@ -1213,7 +1243,14 @@ namespace COLLADAMaya
         MPlug plug = fn.findPlug ( attrname.c_str(), &status );
         if ( status != MS::kSuccess ) return false;
 
-        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, isRelativeAnimation, conversion );
+        return addPlugAnimation ( 
+            plug, 
+            subId, 
+            parameters, 
+            ( SampleType ) sampleType, 
+            arrayElement, 
+            isRelativeAnimation, 
+            conversion );
     }
 
     //---------------------------------------------------------------
@@ -1222,10 +1259,18 @@ namespace COLLADAMaya
         const String subId,
         const String* parameters,
         const uint sampleType,
+        const int arrayElement, 
         const bool isRelativeAnimation, 
         ConversionFunctor* conversion )
     {
-        return addPlugAnimation ( plug, subId, parameters, ( SampleType ) sampleType, isRelativeAnimation, conversion );
+        return addPlugAnimation ( 
+            plug, 
+            subId, 
+            parameters, 
+            ( SampleType ) sampleType, 
+            arrayElement, 
+            isRelativeAnimation, 
+            conversion );
     }
 
     //---------------------------------------------------------------
@@ -1234,6 +1279,7 @@ namespace COLLADAMaya
         const String subId,
         const String* parameters,
         const SampleType sampleType,
+        const int arrayElement, 
         const bool isRelativeAnimation, 
         ConversionFunctor* conversion )
     {
@@ -1255,6 +1301,7 @@ namespace COLLADAMaya
         AnimationElement* animatedElement;
         animatedElement = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
+        animatedElement->setArrayElement ( arrayElement );
 
         // animatedElement->animatedVector = animatedVector;
         animatedElement->setIsSampling ( isSampling );
@@ -1266,8 +1313,8 @@ namespace COLLADAMaya
         }
         else if ( ( sampleType & kAngle ) == kAngle )
         {
-            ConversionFunctor* conversion;
-            conversion = new ConversionScaleFunctor ( isImport ? COLLADA::MathUtils::degToRadF ( 1.0f ) : COLLADA::MathUtils::radToDegF ( 1.0f ) );
+            ConversionFunctor* conversion = new ConversionScaleFunctor ( 
+                isImport ? COLLADA::MathUtils::degToRadF ( 1.0f ) : COLLADA::MathUtils::radToDegF ( 1.0f ) );
             animatedElement->setConversion ( conversion );
         }
 
@@ -1724,15 +1771,24 @@ namespace COLLADAMaya
         AnimationKeyBezier* bkey = ( AnimationKeyBezier* ) key;
 
         bool isWeightedCurve = animCurveFn.isWeighted();
-        float prevTime = keyPosition > 0 ? ( float ) animCurveFn.time ( keyPosition-1 ).as ( MTime::kSeconds ) : ( float ) ( animCurveFn.time ( 0 ).as ( MTime::kSeconds ) - 1.0 );
+        float prevTime = 
+            keyPosition > 0 ? 
+            ( float ) animCurveFn.time ( keyPosition-1 ).as ( MTime::kSeconds ) : 
+            ( float ) ( animCurveFn.time ( 0 ).as ( MTime::kSeconds ) - 1.0 );
         float curTime = ( float ) animCurveFn.time ( keyPosition ).as ( MTime::kSeconds );
-        float nextTime = keyPosition < keyCount - 1 ? ( float ) animCurveFn.time ( keyPosition+1 ).as ( MTime::kSeconds ) : ( float ) ( animCurveFn.time ( keyPosition ).as ( MTime::kSeconds ) + 1.0 );
+        float nextTime = 
+            keyPosition < keyCount - 1 ? 
+            ( float ) animCurveFn.time ( keyPosition+1 ).as ( MTime::kSeconds ) : 
+            ( float ) ( animCurveFn.time ( keyPosition ).as ( MTime::kSeconds ) + 1.0 );
 
+        // --------------------------------
         // In-tangent
+        
         float slopeX, slopeY;
-        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition > 0 );
+        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>0 );
 
-        if ( slopeX < 0.01f && slopeX > -0.01f ) slopeX = COLLADA::MathUtils::sign ( slopeX ) * 0.01f;
+        if ( slopeX < 0.01f && slopeX > -0.01f ) 
+            slopeX = COLLADA::MathUtils::sign ( slopeX ) * 0.01f;
 
         if ( !isWeightedCurve )
         {
@@ -1746,13 +1802,15 @@ namespace COLLADAMaya
             slopeX /= 3.0f;
             slopeY /= 3.0f;
         }
-
         bkey->inTangent = TangentPoint ( bkey->input - slopeX, bkey->output - slopeY );
 
+        // --------------------------------
         // Out-tangent
-        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition >= keyCount - 1 );
 
-        if ( slopeX < 0.01f && slopeX > -0.01f ) slopeX = COLLADA::MathUtils::sign ( slopeX ) * 0.01f;
+        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>=keyCount-1 );
+
+        if ( slopeX < 0.01f && slopeX > -0.01f ) 
+            slopeX = COLLADA::MathUtils::sign ( slopeX ) * 0.01f;
 
         if ( !isWeightedCurve )
         {
@@ -1760,7 +1818,6 @@ namespace COLLADAMaya
             slopeY *= ( nextTime - curTime ) / 3.0f / slopeX;
             slopeX = ( nextTime - curTime ) / 3.0f;
         }
-
         else
         {
             // Take out the strange 3.0 factor.

@@ -101,6 +101,7 @@ namespace COLLADAMaya
          * @param attrname The name of the attribute, we want to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
@@ -109,6 +110,7 @@ namespace COLLADAMaya
                                 const String attrname,
                                 const String* parameters,
                                 const uint sampleType,
+                                const int arrayElement = -1, 
                                 const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
@@ -121,6 +123,7 @@ namespace COLLADAMaya
          * @param attrname The name of the attribute, we want to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
@@ -130,6 +133,7 @@ namespace COLLADAMaya
                                 const String attrname,
                                 const String* parameters,
                                 const uint sampleType,
+                                const int arrayElement = -1, 
                                 const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
@@ -140,6 +144,7 @@ namespace COLLADAMaya
          * @param subId The id of the attribute to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
@@ -148,6 +153,7 @@ namespace COLLADAMaya
                                 const String subId,
                                 const String* parameters,
                                 const SampleType sampleType,
+                                const int arrayElement = -1, 
                                 const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
@@ -158,6 +164,7 @@ namespace COLLADAMaya
          * @param subId The id of the attribute to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
@@ -166,6 +173,7 @@ namespace COLLADAMaya
                                 const String subId,
                                 const String* parameters,
                                 const uint sampleType,
+                                const int arrayElement = -1, 
                                 const bool isRelativeAnimation = false, 
                                 ConversionFunctor* conversion = NULL );
 
@@ -429,14 +437,14 @@ namespace COLLADAMaya
          * @param animationCurve The animated curve to export.
          */
         template<class T>
-        void exportAnimationSampler ( const BaseAnimationCurve<T> &animationCurve );
+        void writeAnimationSampler ( const BaseAnimationCurve<T> &animationCurve );
 
         /**
          * Writes the channel of the animation curve in the collada document.
          * @param animationCurve The animated curve to export.
          */
         template<class T>
-        void exportAnimationChannel ( const BaseAnimationCurve<T> &animationCurve );
+        void writeAnimationChannel ( const BaseAnimationCurve<T> &animationCurve );
 
         /**
          * Writes the curve in the collada document.
@@ -504,7 +512,7 @@ namespace COLLADAMaya
          * @param preInfinityType The interpolation type in front of the curve.
          * @param postInfinityType The interpolation type after the curve.
          */
-        void exportInputSource ( const String sourceId,
+        void writeInputSource ( const String sourceId,
                                  const std::vector<float> &values,
                                  String preInfinityType,
                                  String postInfinityType );
@@ -516,7 +524,7 @@ namespace COLLADAMaya
          * @param dimension The dimension of the curve.
          * @param values Values to export.
          */
-        void exportOutputSource ( const String sourceId,
+        void writeOutputSource ( const String sourceId,
                                   const String* parameters,
                                   const uint dimension,
                                   const std::vector<float> &values );
@@ -526,7 +534,7 @@ namespace COLLADAMaya
          * @param sourceId The source id.
          * @param interpolations List of export values.
          */
-        void exportInterpolationSource ( const String sourceId,
+        void writeInterpolationSource ( const String sourceId,
                                          const std::vector<String> interpolations );
 
         /**
@@ -535,7 +543,7 @@ namespace COLLADAMaya
          * @param dimension The dimension of the curve.
          * @param inTangent List of export values.
          */
-        void exportInTangentSource ( const String sourceId,
+        void writeInTangentSource ( const String sourceId,
                                      const uint dimension,
                                      const std::vector<float> &inTangent );
 
@@ -545,7 +553,7 @@ namespace COLLADAMaya
          * @param dimension The dimension of the curve.
          * @param outTangent List of export values.
          */
-        void exportOutTangentSource ( const String sourceId,
+        void writeOutTangentSource ( const String sourceId,
                                       const uint dimension,
                                       const std::vector<float> &outTangent );
 
@@ -557,7 +565,7 @@ namespace COLLADAMaya
          * @param dimension The dimension of the curve.
          * @param values List of export values.
          */
-        void exportTangentSource ( const String sourceId,
+        void writeTangentSource ( const String sourceId,
                                    const String sourceIdSuffix,
                                    const uint dimension,
                                    const std::vector<float> &values );
@@ -567,7 +575,7 @@ namespace COLLADAMaya
          * @param sourceId The source id.
          * @param values List of export values.
          */
-        void exportTCBSource ( const String sourceId,
+        void writeTCBSource ( const String sourceId,
                                const std::vector<float> &values );
 
         /**
@@ -575,7 +583,7 @@ namespace COLLADAMaya
          * @param sourceId The source id.
          * @param values List of export values.
          */
-        void exportEasesSource ( const String sourceId,
+        void writeEasesSource ( const String sourceId,
                                  const std::vector<float> &values );
 
         /**

@@ -259,7 +259,6 @@ namespace COLLADAMaya
                 }
             }
         }
-
         else
         {
             curve->setKeyCount ( inputs->size(), COLLADA::LibraryAnimations::LINEAR );

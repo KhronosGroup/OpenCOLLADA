@@ -57,6 +57,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_FORMAT = "format";
     const String CSWC::COLLADA_ELEMENT_GEOMETRY = "geometry";
     const String CSWC::COLLADA_ELEMENT_H = "h";
+    const String CSWC::COLLADA_ELEMENT_IDREF_ARRAY = "IDREF_array";
     const String CSWC::COLLADA_ELEMENT_IMAGE = "image";
     const String CSWC::COLLADA_ELEMENT_INIT_FROM = "init_from";
     const String CSWC::COLLADA_ELEMENT_INPUT = "input";
@@ -88,6 +89,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_LIGHT_DIRECTIONAL = "directional";
     const String CSWC::COLLADA_ELEMENT_LIGHT_POINT = "point";
     const String CSWC::COLLADA_ELEMENT_LIGHT_SPOT = "spot";
+    const String CSWC::COLLADA_ELEMENT_LOOKAT = "lookat";
     const String CSWC::COLLADA_ELEMENT_MAGFILTER = "magfilter";
     const String CSWC::COLLADA_ELEMENT_MATERIAL = "material";
     const String CSWC::COLLADA_ELEMENT_MATRIX = "matrix";
@@ -95,6 +97,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_MINFILTER = "minfilter";
     const String CSWC::COLLADA_ELEMENT_MIPFILTER = "mipfilter";
     const String CSWC::COLLADA_ELEMENT_MODIFIED = "modified";
+    const String CSWC::COLLADA_ELEMENT_MORPH = "morph";
     const String CSWC::COLLADA_ELEMENT_NAME_ARRAY = "Name_array";
     const String CSWC::COLLADA_ELEMENT_NEWPARAM = "newparam";
     const String CSWC::COLLADA_ELEMENT_NODE = "node";
@@ -123,6 +126,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_SOURCE_DATA = "source_data";
     const String CSWC::COLLADA_ELEMENT_SUBJECT = "subject";
     const String CSWC::COLLADA_ELEMENT_SURFACE = "surface";
+    const String CSWC::COLLADA_ELEMENT_TARGETS = "targets";
     const String CSWC::COLLADA_ELEMENT_TECHNIQUE = "technique";
     const String CSWC::COLLADA_ELEMENT_TECHNIQUE_COMMON = "technique_common";
     const String CSWC::COLLADA_ELEMENT_TEXTURE = "texture";
@@ -153,6 +157,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ATTRIBUTE_ID = "id";
     const String CSWC::COLLADA_ATTRIBUTE_MATERIAL = "material";
     const String CSWC::COLLADA_ATTRIBUTE_METER = "meter";
+    const String CSWC::COLLADA_ATTRIBUTE_METHOD = "method";
     const String CSWC::COLLADA_ATTRIBUTE_NAME = "name";
     const String CSWC::COLLADA_ATTRIBUTE_OFFSET = "offset";
     const String CSWC::COLLADA_ATTRIBUTE_OPAQUE = "opaque";
@@ -181,6 +186,8 @@ namespace COLLADA
     const String CSWC::COLLADA_SEMANTIC_IN_TANGENT = "IN_TANGENT";
     const String CSWC::COLLADA_SEMANTIC_JOINT = "JOINT";
     const String CSWC::COLLADA_SEMANTIC_LINEAR_STEPS = "LINEAR_STEPS";
+    const String CSWC::COLLADA_SEMANTIC_MORPH_WEIGHT = "MORPH_WEIGHT";
+    const String CSWC::COLLADA_SEMANTIC_MORPH_TARGET = "MORPH_TARGET";
     const String CSWC::COLLADA_SEMANTIC_NORMAL = "NORMAL";
     const String CSWC::COLLADA_SEMANTIC_OUTPUT = "OUTPUT";
     const String CSWC::COLLADA_SEMANTIC_OUT_TANGENT = "OUT_TANGENT";
@@ -199,7 +206,7 @@ namespace COLLADA
     const String CSWC::COLLADA_PARAM_TYPE_FLOAT = "float";
     const String CSWC::COLLADA_PARAM_TYPE_FLOAT4x4 = "float4x4";
     const String CSWC::COLLADA_PARAM_TYPE_NAME = "name";
-
+    const String CSWC::COLLADA_PARAM_TYPE_IDREF = "IDREF";
 
     const String CSWC::COLLADA_SAMPLER_FILTER_LINEAR = "LINEAR";
     const String CSWC::COLLADA_SAMPLER_FILTER_LINEAR_MIPMAP_LINEAR = "LINEAR_MIPMAP_LINEAR" ;

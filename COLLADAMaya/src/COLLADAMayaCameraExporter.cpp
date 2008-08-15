@@ -38,6 +38,8 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void CameraExporter::exportCameras ( )
     {
+        if ( !ExportOptions::exportCameras() ) return;
+
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
@@ -83,6 +85,8 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     bool CameraExporter::exportCamera ( const MDagPath& dagPath )
     {
+        if ( !ExportOptions::exportCameras() ) return false;
+
         MObject cameraNode = dagPath.node();
 
         // Retrieve the Maya camera object

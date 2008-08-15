@@ -35,7 +35,13 @@ namespace COLLADAMaya
 {
 
     /**
-     * Exports the data of the visual scene.
+     * Exports the transform data of the visual scene.
+     * 
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * All transform components with units will be in maya's internal units 
+     * (radians for rotations and centimeters for translations).
+     * We have to translate them into the working units of the current scene!
+     * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
     class VisualSceneExporter : public COLLADA::LibraryVisualScenes
@@ -129,16 +135,13 @@ namespace COLLADAMaya
         void exportGeometryInstance( SceneElement* childElement );
 
         /**
-        * Exports the morph controller instances of the given transform scene element.
-        * @param childElement The transform scene element.
-         */
-        void exportMorphControllerInstance( SceneElement* childElement );
-
-        /**
         * Exports the skin controller instances of the given transform scene element.
         * @param childElement The transform scene element.
          */
-        void exportSkinControllerInstance( SceneElement* childElement );
+        void exportControllerInstance( 
+            SceneElement* childElement, 
+            bool hasSkinController, 
+            bool hasMorphController );
 
         /**
         * Exports the light instances of the given transform scene element.

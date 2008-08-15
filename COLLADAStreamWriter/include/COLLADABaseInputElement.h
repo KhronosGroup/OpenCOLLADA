@@ -75,6 +75,9 @@ namespace COLLADA
     /** Joints input element for the controller. */
     typedef BaseInputElementTemplate<CSWC::COLLADA_ELEMENT_JOINTS> JointsElement;
 
+    /** Joints input element for the controller. */
+    typedef BaseInputElementTemplate<CSWC::COLLADA_ELEMENT_TARGETS> TargetsElement;
+
 
 } //namespace COLLADA
 

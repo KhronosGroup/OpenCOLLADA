@@ -172,6 +172,25 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
+    void Node::addLookat ( 
+        const float eyePosition[3], 
+        const float interestPosition[3], 
+        const float upPosition[3], 
+        const String &sid )
+    {
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_LOOKAT );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+
+        mSW->appendValues ( eyePosition, 3 );
+        mSW->appendValues ( interestPosition, 3 );
+        mSW->appendValues ( upPosition, 3 );
+
+        mSW->closeElement();
+    }
+
+    //---------------------------------------------------------------
     void Node::end()
     {
         mNodeCloser.close();

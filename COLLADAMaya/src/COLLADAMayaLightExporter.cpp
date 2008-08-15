@@ -17,6 +17,7 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaLightExporter.h"
+#include "COLLADAMayaExportOptions.h"
 
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>
@@ -39,6 +40,8 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void LightExporter::exportLights ( )
     {
+        if ( !ExportOptions::exportLights() ) return;
+
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
@@ -84,6 +87,8 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     bool LightExporter::exportLight ( const MDagPath& dagPath )
     {
+        if ( !ExportOptions::exportLights() ) return false;
+
         MObject lightNode = dagPath.node();
 
         // Retrieve the Maya light object

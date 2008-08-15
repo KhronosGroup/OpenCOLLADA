@@ -341,7 +341,6 @@ namespace COLLADAMaya
     {
         MPlugArray plugs;
         plug.connectedTo ( plugs, asDestination, asSource );
-
         if ( plugs.length() > 0 ) return true;
 
         return plug.numConnectedChildren() > 0;
@@ -353,25 +352,20 @@ namespace COLLADAMaya
     MMatrix DagHelper::getBindPoseInverse ( const MObject& controller, const MObject& influence )
     {
         MStatus status;
-
         if ( controller.apiType() == MFn::kSkinClusterFilter )
         {
             MFnSkinCluster controllerFn ( controller );
 
             // Find the correct index for the pre-bind matrix
             uint index = controllerFn.indexForInfluenceObject ( MDagPath::getAPathTo ( influence ), &status );
-
             if ( status != MStatus::kSuccess ) return MMatrix::identity;
 
             MPlug preBindMatrixPlug = controllerFn.findPlug ( "bindPreMatrix", &status );
-
             preBindMatrixPlug = preBindMatrixPlug.elementByLogicalIndex ( index, &status );
-
             if ( status != MStatus::kSuccess ) return MMatrix::identity;
 
             // Get the plug's matrix
             MMatrix ret;
-
             if ( !DagHelper::getPlugValue ( preBindMatrixPlug, ret ) ) return MMatrix::identity;
 
             return ret;
@@ -395,7 +389,6 @@ namespace COLLADAMaya
         MStatus status;
         MFnDependencyNode dgFn ( node );
         MPlug bindPosePlug = dgFn.findPlug ( "bindPose", &status );
-
         if ( status != MS::kSuccess )
         {
             MGlobal::displayWarning ( MString ( "No bindPose found on node " ) + dgFn.name() );
@@ -403,10 +396,8 @@ namespace COLLADAMaya
         }
 
         MFnMatrixData matrixFn;
-
         MObject val = matrixFn.create ( bindPoseInverse.inverse(), &status );
         MObject invval = matrixFn.create ( bindPoseInverse, &status );
-
         if ( status != MS::kSuccess )
         {
             MGlobal::displayWarning ( MString ( "Error setting bindPose on node " ) + dgFn.name() );
@@ -414,7 +405,6 @@ namespace COLLADAMaya
         }
 
         // set the bind pose on the joint itself
-        //
         bindPosePlug.setValue ( val );
 
         // Now, perhaps more significantly, see if there's a
@@ -424,11 +414,8 @@ namespace COLLADAMaya
         // current position, and our importer may not want to
         // disturb the current scene state just to put bones
         // in a bind position before creating skin clusters)
-        //
         MObject _node ( node );
-
         MItDependencyGraph it ( _node, MFn::kSkinClusterFilter );
-
         while ( !it.isDone() )
         {
             MPlug plug = it.thisPlug();
@@ -441,7 +428,6 @@ namespace COLLADAMaya
                 // The skinCluster stores inverse inclusive matrix
                 // so notice we use invval (the MObject created off
                 // the inverse matrix here)
-                //
                 skinBindPosePlug = skinBindPosePlug.elementByLogicalIndex ( idx );
                 skinBindPosePlug.setValue ( invval );
             }
@@ -457,66 +443,51 @@ namespace COLLADAMaya
     {
         MStatus st;
         uint childCount = parent.numChildren ( &st );
-
         if ( st != MStatus::kSuccess )
         {
             if ( rc != NULL ) *rc = st;
-
             return parent;
         }
 
         // Check shortNames first
-
         for ( uint i = 0; i < childCount; ++i )
         {
             MPlug child = parent.child ( i, &st );
-
             if ( st != MStatus::kSuccess )
             {
                 if ( rc != NULL ) *rc = st;
-
                 return parent;
             }
 
             MFnAttribute attributeFn ( child.attribute() );
-
             MString n = attributeFn.shortName();
-
             if ( n == name )
             {
                 if ( rc != NULL ) *rc = MStatus::kSuccess;
-
                 return child;
             }
         }
 
         // Check longNames second, use shortNames!
-
         for ( uint i = 0; i < childCount; ++i )
         {
             MPlug child = parent.child ( i, &st );
-
             if ( st != MStatus::kSuccess )
             {
                 if ( rc != NULL ) *rc = st;
-
                 return parent;
             }
 
             MFnAttribute attributeFn ( child.attribute() );
-
             MString n = attributeFn.name();
-
             if ( n == name )
             {
                 if ( rc != NULL ) *rc = MStatus::kSuccess;
-
                 return child;
             }
         }
 
         if ( rc != NULL ) *rc = MStatus::kNotFound;
-
         return parent;
     }
 
@@ -528,7 +499,6 @@ namespace COLLADAMaya
         CHECK_MSTATUS_AND_RETURN ( st, -1 );
 
         // Check shortNames first
-
         for ( uint i = 0; i < childCount; ++i )
         {
             MPlug child = parent.child ( i, &st );
@@ -546,7 +516,6 @@ namespace COLLADAMaya
         }
 
         // Check longNames second, use shortNames!
-
         for ( uint i = 0; i < childCount; ++i )
         {
             MPlug child = parent.child ( i, &st );
@@ -573,11 +542,9 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         status = plug.getValue ( value );
-
         return status == MStatus::kSuccess;
     }
 
@@ -586,11 +553,9 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         status = plug.getValue ( value );
-
         return status == MStatus::kSuccess;
     }
 
@@ -661,21 +626,17 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         if ( plug.isCompound() && plug.numChildren() >= 3 )
         {
             status = plug.child ( 0 ).getValue ( value.x );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = plug.child ( 1 ).getValue ( value.y );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = plug.child ( 2 ).getValue ( value.z );
-
             if ( status != MStatus::kSuccess ) return false;
 
             return true;
@@ -689,11 +650,9 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         status = plug.getValue ( value );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return true;
@@ -704,7 +663,6 @@ namespace COLLADAMaya
     {
         MStatus status;
         status = plug.getValue ( value );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return true;
@@ -715,11 +673,9 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         status = plug.getValue ( value );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return true;
@@ -730,7 +686,6 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return getPlugValue ( plug, value );
@@ -744,11 +699,9 @@ namespace COLLADAMaya
         MFnMatrixData mxData;
         MObject object = mxData.create();
         status = plug.getValue ( object );
-
         if ( status != MStatus::kSuccess ) return false;
 
         mxData.setObject ( object );
-
         // MFnMatrixData mxData(o, &status);
         if ( status != MStatus::kSuccess ) return false;
 
@@ -762,7 +715,6 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return getPlugValue ( plug, value );
@@ -772,28 +724,22 @@ namespace COLLADAMaya
     bool DagHelper::getPlugValue ( const MPlug& plug, MColor& value )
     {
         MStatus status;
-
         if ( plug.isCompound() && plug.numChildren() >= 3 )
         {
             status = plug.child ( 0 ).getValue ( value.r );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = plug.child ( 1 ).getValue ( value.g );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = plug.child ( 2 ).getValue ( value.b );
-
             if ( status != MStatus::kSuccess ) return false;
 
             if ( plug.numChildren() >= 4 )
             {
                 status = plug.child ( 3 ).getValue ( value.a );
-
                 if ( status != MStatus::kSuccess ) return false;
             }
-
             else value.a = 1.0f;
 
             return true;
@@ -807,14 +753,17 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return plug.getValue ( value );
     }
 
     //---------------------------------------------------
-    void DagHelper::getPlugValue ( const MObject& node, const String attributeName, MStringArray& output, MStatus* ReturnStatus )
+    void DagHelper::getPlugValue ( 
+        const MObject& node, 
+        const String attributeName, 
+        MStringArray& output, 
+        MStatus* ReturnStatus )
     {
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), ReturnStatus );
         getPlugValue ( plug, output, ReturnStatus );
@@ -827,7 +776,6 @@ namespace COLLADAMaya
         plug.getValue ( str_obj );
         MFnStringArrayData f_astr ( str_obj, ReturnStatus );
         unsigned int len = f_astr.length();
-
         for ( unsigned int i = 0; i < len; ++i )
         {
             const MString& val = f_astr[i];
@@ -842,11 +790,9 @@ namespace COLLADAMaya
         plug.getValue ( obj );
         MStatus status;
         MFnNumericData fcolor ( obj, &status );
-
         if ( !status ) return 0;
 
         fcolor.getData ( x , y );
-
         return 1;
     }
 
@@ -857,7 +803,6 @@ namespace COLLADAMaya
         plug.getValue ( obj );
         MStatus status;
         MFnNumericData fcolor ( obj, &status );
-
         if ( !status ) return 0;
 
         fcolor.getData ( x , y , z );
@@ -871,7 +816,6 @@ namespace COLLADAMaya
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return getPlugValue ( plug, value );
@@ -903,13 +847,10 @@ namespace COLLADAMaya
         MFnNumericData dataCreator;
 
         MObject float3Data = dataCreator.create ( MFnNumericData::k3Float, &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         dataCreator.setData ( ( float ) value.x, ( float ) value.y, ( float ) value.z );
-
         status = plug.setValue ( float3Data );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return true;
@@ -919,41 +860,32 @@ namespace COLLADAMaya
     bool DagHelper::setPlugValue ( MPlug& plug, const MColor& value )
     {
         MStatus status;
-
         if ( plug.isCompound() && plug.numChildren() >= 3 )
         {
             MPlug rPlug = plug.child ( 0, &status );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = rPlug.setValue ( value.r );
-
             if ( status != MStatus::kSuccess ) return false;
 
             MPlug gPlug = plug.child ( 1, &status );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = gPlug.setValue ( value.g );
-
             if ( status != MStatus::kSuccess ) return false;
 
             MPlug bPlug = plug.child ( 2, &status );
-
             if ( status != MStatus::kSuccess ) return false;
 
             status = bPlug.setValue ( value.b );
-
             if ( status != MStatus::kSuccess ) return false;
 
             if ( plug.numChildren() >= 4 )
             {
                 MPlug aPlug = plug.child ( 3, &status );
-
                 if ( status != MStatus::kSuccess ) return false;
 
                 status = aPlug.setValue ( value.a );
-
                 if ( status != MStatus::kSuccess ) return false;
             }
         }
@@ -968,11 +900,9 @@ namespace COLLADAMaya
         MFnMatrixData dataCreator;
 
         MObject matrixData = dataCreator.create ( value, &status );
-
         if ( status != MStatus::kSuccess ) return false;
 
         status = plug.setValue ( matrixData );
-
         if ( status != MStatus::kSuccess ) return false;
 
         return true;
@@ -988,7 +918,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------
 #ifdef UNICODE
-    bool DagHelper::setPlugValue ( MPlug& plug, const fstring& value )
+    bool DagHelper::setPlugValue ( MPlug& plug, const String& value )
     {
         MStatus status;
         status = plug.setValue ( MString ( value.c_str() ) );
@@ -1057,9 +987,7 @@ namespace COLLADAMaya
 
 #else
         MObject node = plug.node();
-
         MString plugPath = plug.info();
-
         if ( node.hasFn ( MFn::kDagNode ) )
         {
             MFnDagNode dagFn ( node );
@@ -1088,37 +1016,33 @@ namespace COLLADAMaya
             MFnNumericAttribute attr;
             MStatus status;
             attribute = attr.create ( attributeName,attributeShortName,type,0,&status );
-
             if ( status != MStatus::kSuccess ) return MObject::kNullObj;
 
             attr.setStorable ( true );
-
             attr.setKeyable ( false );
-
             attr.setCached ( true );
-
             attr.setReadable ( true );
-
             attr.setWritable ( true );
-
             status = nodeFn.addAttribute ( attribute, MFnDependencyNode::kLocalDynamicAttr );
-
             if ( status != MStatus::kSuccess ) return MObject::kNullObj;
 
             plug = nodeFn.findPlug ( attribute, &status );
-
             if ( status != MStatus::kSuccess ) return MObject::kNullObj;
         }
 
         status = plug.setValue ( value );
-
         if ( status != MStatus::kSuccess ) return MObject::kNullObj;
 
         return attribute;
     }
 
     //---------------------------------------------------
-    MObject DagHelper::createAttribute ( const MObject& node, const char* attributeName, const char* attributeShortName, MFnData::Type type, const char *value )
+    MObject DagHelper::createAttribute ( 
+        const MObject& node, 
+        const char* attributeName, 
+        const char* attributeShortName,
+        MFnData::Type type, 
+        const char *value )
     {
         // Before creating a new attribute: verify that an old one doesn't already exist
         MStatus status;
@@ -1131,30 +1055,21 @@ namespace COLLADAMaya
             MFnTypedAttribute attr;
             MStatus status;
             attribute = attr.create ( attributeName,attributeShortName,type,&status );
-
             if ( status != MStatus::kSuccess ) return MObject::kNullObj;
 
             attr.setStorable ( true );
-
             attr.setKeyable ( false );
-
             attr.setCached ( true );
-
             attr.setReadable ( true );
-
             attr.setWritable ( true );
-
             status = nodeFn.addAttribute ( attribute, MFnDependencyNode::kLocalDynamicAttr );
-
             if ( status != MStatus::kSuccess ) return MObject::kNullObj;
 
             plug = nodeFn.findPlug ( attribute, &status );
-
             if ( status != MStatus::kSuccess ) return MObject::kNullObj;
         }
 
         status = plug.setValue ( value );
-
         if ( status != MStatus::kSuccess ) return MObject::kNullObj;
 
         return attribute;
@@ -1167,7 +1082,6 @@ namespace COLLADAMaya
         MFnAttribute attributeFn ( attribute );
         MFnDependencyNode depFn ( node );
         MStatus status = depFn.addAttribute ( attribute, MFnDependencyNode::kLocalDynamicAttr );
-
         if ( status == MStatus::kSuccess )
         {
             plug = depFn.findPlug ( attribute );
@@ -1183,11 +1097,9 @@ namespace COLLADAMaya
         MDagPathArray paths;
         MDagPath::getAllPathsTo ( node, paths );
         MDagPath shortestPath;
-
         if ( paths.length() > 0 )
         {
             shortestPath = paths[0];
-
             for ( uint i = 1; i < paths.length(); ++i )
             {
                 if ( shortestPath.length() > paths[i].length() )
