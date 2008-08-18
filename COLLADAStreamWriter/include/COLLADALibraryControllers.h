@@ -18,6 +18,7 @@
 
 namespace COLLADA
 {
+	class URI;
 
     /** Class to simply the creation of @a \<library_controllers\> and @a \<controller\>'s*/
 
@@ -65,25 +66,25 @@ namespace COLLADA
          * closeSkin() must be use to close the opened tags.
          * @param controllerId The id of the controller
          * @param controllerName The Name of the geometry
-         * @param skinTarget The target of the skin (the id of the geometry)
+         * @param skinSource The target of the skin (the id of the geometry)
          */
         void openSkin ( 
             const String& controllerId, 
             const String& controllerName, 
-            const String& skinTarget );
+            const URI& skinTarget );
 
         /** 
         * Writes the opening \<controller\> and \<skin\> tags 
         * and, if necessary the opening @a \<library_controllers\> tag.
         * closeSkin() must be use to close the opened tags.
         * @param controllerId The id of the controller
-        * @param skinTarget The target of the skin (the id of the geometry)
+        * @param skinSource The target of the skin (the id of the geometry)
         */
         void openSkin ( 
             const String& controllerId, 
-            const String& skinTarget )
+            const URI& skinSource )
         {
-            openSkin( controllerId, EMPTY_STRING, skinTarget );
+            openSkin( controllerId, EMPTY_STRING, skinSource );
         }
 
         /** Closes the tag opened by openSkin(). */
@@ -100,7 +101,7 @@ namespace COLLADA
         void openMorph ( 
             const String& controllerId, 
             const String& controllerName, 
-            const String& morphTarget, 
+            const URI& morphSource, 
             const String& morphMethod = ATTRIBUTE_METHOD_NORMALIZED );
 
         /** Closes the tag opened by openMorph(). */

@@ -439,6 +439,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAURI.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAUtils.cpp"
 				>
 			</File>
@@ -614,6 +618,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADATexture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAURI.h"
 				>
 			</File>
 			<File

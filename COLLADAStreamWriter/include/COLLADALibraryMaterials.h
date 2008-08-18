@@ -18,6 +18,8 @@
 namespace COLLADA
 {
 
+	class URI;
+
     /** Class to simply the creation of @a \<library_materials\> and @a \<material\>'s*/
 
     class LibraryMaterials : public Library
@@ -36,8 +38,8 @@ namespace COLLADA
     protected:
         /** Adds @a \<material\> element and @a \<instance_effect\> element.
         If not already opened, it opens @a \<library_materials\>*/
-        void addInstanceEffect ( const String & effectURL = EMPTY_STRING,
-                                 const String & materialId = EMPTY_STRING,
+        void addInstanceEffect ( const URI & effectURL,
+                                 const String & materialSid = EMPTY_STRING,
                                  const String & materialName = EMPTY_STRING );
 
 

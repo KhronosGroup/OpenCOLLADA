@@ -109,7 +109,17 @@ namespace COLLADA
         mPrimitiveCloser.close();
     }
 
+	void PrimitivesBase::CloseVCountAndOpenVElement()
+	{
+		closeElement();
+		mSW->openElement(CSWC::COLLADA_ELEMENT_V);
+	}
 
-
+	//---------------------------------------------------------------
+	void VertexWeightsElement::prepareToAppendVCountValues()
+	{
+		prepareBaseToAppendValues ( false, false );
+		openVertexCountListElement ();
+	}
 } //namespace COLLADA
 

@@ -16,6 +16,7 @@
 #include <assert.h>
 
 #include "COLLADASWC.h"
+#include "COLLADAURI.h"
 
 namespace COLLADA
 {
@@ -124,23 +125,16 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendURLAttribute ( const String &name, const String &value )
+    void StreamWriter::appendURLAttribute ( const String &name, const URI &uri )
     {
         assert ( !mOpenTags.top().mHasContents );
 
-        if ( !value.empty() )
-        {
-            appendChar ( ' ' );
-            appendNCNameString ( name );
-            appendChar ( '=' );
-            appendChar ( '\"' );
-            if ( value[0] != '#' )
-            {
-                appendChar ( '#' );
-            }
-            appendString ( value );
-            appendChar ( '\"' );
-        }
+		appendChar ( ' ' );
+		appendNCNameString ( name );
+		appendChar ( '=' );
+		appendChar ( '\"' );
+		appendString ( uri.getURIString() );
+		appendChar ( '\"' );
     }
 
     //---------------------------------------------------------------

@@ -50,7 +50,7 @@ namespace COLLADA
         {
             mNodeCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_NODE );
 
-            if ( mNodeURL.empty() )
+            if ( !mNodeURL.isValid() )
             {
                 fprintf ( stderr, "No node URL for the instance node!" );
                 return; 

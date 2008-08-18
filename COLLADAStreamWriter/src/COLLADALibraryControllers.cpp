@@ -36,13 +36,13 @@ namespace COLLADA
 
     //---------------------------------------------------------------
     void LibraryControllers::openSkin ( 
-        const String &controllerId, const String &controllerName, const String &skinTarget )
+        const String &controllerId, const String &controllerName, const URI &skinSource )
     {
         openController ( controllerId, controllerName );
 
         mSkinCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_SKIN );
 
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, skinTarget );
+        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, skinSource );
     }
 
     //---------------------------------------------------------------
@@ -55,14 +55,14 @@ namespace COLLADA
     void LibraryControllers::openMorph ( 
         const String &controllerId, 
         const String &controllerName, 
-        const String &morphTarget, 
+        const URI &morphSource, 
         const String &morphMethod )
     {
         openController ( controllerId, controllerName );
 
         mSkinCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_MORPH );
 
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, morphTarget );
+        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, morphSource );
 
         // Which blending technique to use. Valid values are NORMALIZED and
         // RELATIVE. The default is NORMALIZED.

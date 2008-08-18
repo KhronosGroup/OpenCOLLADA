@@ -98,10 +98,10 @@ namespace COLLADA
         virtual ~BaseOptic() {}
 
         /** The distance to the far clipping plane. */
-        void setZFar ( const float val ) { mZFar = val; mHasZFar = true; }
+        void setZFar ( float val ) { mZFar = val; mHasZFar = true; }
 
         /** The distance to the near clipping plane. */
-        void setZNear ( const float val ) { mZNear = val; mHasZNear = true; }
+        void setZNear ( float val ) { mZNear = val; mHasZNear = true; }
 
         /** The aspect ratio of the field of view. If the <aspect_ratio> 
         element is not specified, it is calculated from the <xfov> or <yfov> 

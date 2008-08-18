@@ -19,15 +19,8 @@ namespace COLLADA
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_CONTROLLER );
         mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
 
-        if ( !mSkeletonId.empty() )
-        {
-            mSW->openElement( CSWC::COLLADA_ELEMENT_SKELETON );
-            if ( mSkeletonId[0] != '#' ) 
-                mSW->appendText( "#" + mSkeletonId );
-            else 
-                mSW->appendValues( mSkeletonId );
-            mSW->closeElement();
-        }
+		for ( SkeletonUrlList::const_iterator it = mSkeletonUrlList.begin(); it!=mSkeletonUrlList.end(); ++it)
+			mSW->appendTextElement(CSWC::COLLADA_ELEMENT_SKELETON, it->getURIString());
 
         mBindMaterial.add();
 

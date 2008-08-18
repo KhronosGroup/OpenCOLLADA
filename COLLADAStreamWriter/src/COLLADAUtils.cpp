@@ -17,6 +17,7 @@ namespace COLLADA
     const String Utils::FILE_DELIMITER = "/";
     const char Utils::FILE_DELIMITER_CHAR = '/';
 
+	const String Utils::EMPTY_STRING = String();
 
     // defines
 #define MAX_FILENAME_LEN 512

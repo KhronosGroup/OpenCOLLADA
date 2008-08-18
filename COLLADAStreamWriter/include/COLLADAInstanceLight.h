@@ -13,6 +13,7 @@
 
 #include "COLLADAPrerequisites.h"
 #include "COLLADAElementWriter.h"
+#include "COLLADAURI.h"
 
 namespace COLLADA
 {
@@ -24,7 +25,7 @@ namespace COLLADA
     private:
 
         /** The url to the light information (library_lights) */
-        String mUrl;
+        URI mUrl;
         String mSid;
         String mName;
 
@@ -35,7 +36,7 @@ namespace COLLADA
          * @param sid The sid
          * @param name The name
         */
-        InstanceLight ( StreamWriter* streamWriter, String url, String sid="", String name="" )  
+        InstanceLight ( StreamWriter* streamWriter, const URI& url, String sid="", String name="" )  
         : ElementWriter ( streamWriter )
         , mUrl ( url )
         , mSid ( sid ) 
@@ -43,7 +44,7 @@ namespace COLLADA
         {}
 
         /** Returns the url */
-        const String& getUrl() const
+        const URI& getUrl() const
         {
             return mUrl;
         }

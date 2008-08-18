@@ -78,7 +78,7 @@ namespace COLLADA
         }
 
         /** Returns the source of the Input*/
-        String getSource() const
+        const String& getSource() const
         {
             return mSource;
         }

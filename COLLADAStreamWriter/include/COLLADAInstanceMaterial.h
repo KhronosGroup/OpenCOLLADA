@@ -14,6 +14,7 @@
 #include "COLLADAPrerequisites.h"
 #include "COLLADAElementWriter.h"
 #include "COLLADASWC.h"
+#include "COLLADAURI.h"
 
 namespace COLLADA
 {
@@ -27,7 +28,7 @@ namespace COLLADA
     private:
 
         String mSymbol;
-        String mTarget;
+        URI mTarget;
 
     public:
 
@@ -35,7 +36,7 @@ namespace COLLADA
         @param symbol The symbol name
         @param target The target
         */
-        InstanceMaterial ( String symbol, String target ) 
+        InstanceMaterial ( const String& symbol, const URI& target ) 
         : mSymbol ( symbol ), mTarget ( target ) {}
 
         /** Returns the symbol*/
@@ -45,7 +46,7 @@ namespace COLLADA
         }
 
         /** Returns the target*/
-        const String & getTarget() const
+        const URI & getTarget() const
         {
             return mTarget;
         }

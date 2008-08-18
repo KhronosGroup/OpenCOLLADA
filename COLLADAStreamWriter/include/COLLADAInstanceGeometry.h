@@ -15,6 +15,7 @@
 #include "COLLADAPrerequisites.h"
 #include "COLLADAElementWriter.h"
 #include "COLLADABindMaterial.h"
+#include "COLLADAURI.h"
 
 #include <string>
 
@@ -31,7 +32,7 @@ namespace COLLADA
         BindMaterial mBindMaterial;
 
         /** The URL of the location of the object to instantiate.*/
-        String mUrl;
+        URI mUrl;
 
     public:
 
@@ -45,13 +46,13 @@ namespace COLLADA
 		~InstanceGeometry(){}
 
         /** Sets the url of the instance geometry*/
-        void setUrl ( const String url )
+        void setUrl ( const URI& url )
         {
             mUrl=url;
         }
 
         /** Returns the url of the instance geometry*/
-        const String& getUrl()
+        const URI& getUrl()
         {
             return mUrl;
         }

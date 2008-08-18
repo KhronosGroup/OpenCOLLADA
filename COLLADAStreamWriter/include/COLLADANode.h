@@ -15,6 +15,7 @@
 #include "COLLADAElementWriter.h"
 #include "COLLADAExtraTechnique.h"
 #include "COLLADASWC.h"
+#include "COLLADAURI.h"
 
 namespace COLLADA
 {
@@ -49,7 +50,7 @@ namespace COLLADA
         String mNodeSid;
 
         /** The URL of an instance node. */
-        String mNodeURL;
+        URI mNodeURL;
 
         /** The type of the node*/
         Type mType;
@@ -68,19 +69,19 @@ namespace COLLADA
                 mIsInstanceNode ( isInstanceNode )
         {}
 
-        /** Flag, if it is an node instance. */
+		/** Flag, if it is an node instance. */
         bool getIsInstanceNode() const 
         { 
             return mIsInstanceNode; 
         }
         
         /** Flag, if it is an node instance. */
-        void setIsInstanceNode( const bool val ) 
+        void setIsInstanceNode( bool val ) 
         { 
             mIsInstanceNode = val; 
         }
 
-        /** Returns a reference to the id of the node*/
+		/** Returns a reference to the id of the node*/
         const String& getNodeId() const
         {
             return mNodeId;
@@ -111,13 +112,13 @@ namespace COLLADA
         }
 
         /** The sid of the current node. Used for joints. */
-        void setNodeSid( String& val ) 
+        void setNodeSid( const String& val ) 
         { 
             mNodeSid = val; 
         }
 
         /** The URL of an instance node. */
-        const String& getNodeURL() const 
+        const URI& getNodeURL() const 
         { 
             return mNodeURL; 
         }

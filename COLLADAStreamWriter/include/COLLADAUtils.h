@@ -29,6 +29,8 @@ namespace COLLADA
         static const String FILE_DELIMITER;
         static const char FILE_DELIMITER_CHAR;
 
+		static const String EMPTY_STRING;
+
 
 		/** Checks for a valid xs:NCName.
 		1. replaces all not allowed characters

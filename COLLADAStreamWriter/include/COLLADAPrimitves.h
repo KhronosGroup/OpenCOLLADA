@@ -97,6 +97,10 @@ namespace COLLADA
         /** Opens the vertex count list element. */
         void openVertexCountListElement();
 
+		/** Closes the \<vcount\> element and opens the \<v\> element. Call openVertexCountListElement() to open
+		the \<vcount\> element. Call finish() to close the \<v\> element.*/
+		void CloseVCountAndOpenVElement();
+
         /** Close the last opened element. */
         void closeElement ();
 
@@ -314,7 +318,13 @@ namespace COLLADA
         {
             prepareBaseToAppendValues ( false, true );
         }
-    };
+
+		/** Writes the \<wertex_weights\> element until the opening \<vcount\> element. Use this 
+		function if you want to fill the \<vcount\> element using appandValues(). Call CloseVCountAndOpenVElement()
+		to start filling the \<v\> element.*/
+		void prepareToAppendVCountValues();
+
+	};
 
 
     typedef Primitive<CSWC::COLLADA_ELEMENT_TRIANGLES> Triangles;

@@ -27,7 +27,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void LibraryMaterials::addInstanceEffect ( const String & effectURL, const String & materialId, const String & materialName )
+    void LibraryMaterials::addInstanceEffect ( const URI & effectURL, const String & materialId, const String & materialName )
     {
         openLibrary();
         mSW->openElement ( CSWC::COLLADA_ELEMENT_MATERIAL );
@@ -40,8 +40,7 @@ namespace COLLADA
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT );
 
-        if ( !effectURL.empty() )
-            mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, effectURL );
+        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, effectURL );
 
         mSW->closeElement();
 

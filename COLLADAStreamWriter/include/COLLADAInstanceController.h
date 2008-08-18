@@ -15,8 +15,10 @@
 #include "COLLADAPrerequisites.h"
 #include "COLLADAElementWriter.h"
 #include "COLLADABindMaterial.h"
+#include "COLLADAURI.h"
 
 #include <string>
+#include <vector>
 
 namespace COLLADA
 {
@@ -25,16 +27,19 @@ namespace COLLADA
     class InstanceController : public ElementWriter
     {
 
+	public:
+		typedef std::vector<URI> SkeletonUrlList;
+
     private:
 
         /** The material to bind. */
         BindMaterial mBindMaterial;
 
         /** The URL of the location of the object to instantiate.*/
-        String mUrl;
+        URI mUrl;
 
-        /** The id of the skeleton data of the controller. */
-        String mSkeletonId;
+        /** List of the URLs in the \<skeleton\> elements. */
+		SkeletonUrlList mSkeletonUrlList;
 
     public:
 
@@ -44,21 +49,20 @@ namespace COLLADA
         InstanceController ( StreamWriter* streamWriter ) 
             : ElementWriter ( streamWriter )
             , mBindMaterial ( streamWriter ) 
-            , mUrl ( EMPTY_STRING )
-            , mSkeletonId ( EMPTY_STRING )
+            , mUrl()
         {}
 
         /** Destructor*/
         ~InstanceController(){}
 
         /** Sets the url of the instance geometry*/
-        void setUrl ( const String url )
+        void setUrl ( const URI& url )
         {
             mUrl=url;
         }
 
         /** Returns the url of the instance geometry*/
-        const String& getUrl()
+        const URI& getUrl()const
         {
             return mUrl;
         }
@@ -72,12 +76,12 @@ namespace COLLADA
          * Get the id of the skeleton.
          * @return COLLADA::String The skeleton id.
          */
-        COLLADA::String getSkeletonId() const { return mSkeletonId; }
+        const SkeletonUrlList& getSkeletonUrlList() const { return mSkeletonUrlList; }
         /**
-         * Set the skeleton id.
-         * @param val Skeleton id to set.
+         * Adds a skeleton to the \<instance_controller\> element.
+         * @param url The url the skeleton points to.
          */
-        void setSkeletonId(COLLADA::String val) { mSkeletonId = val; }
+        void addSkeleton(const URI& url) { mSkeletonUrlList.push_back(url); }
 
         /** Adds the instance geometry to the stream*/
         void add();

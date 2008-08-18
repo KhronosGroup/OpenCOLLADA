@@ -138,7 +138,7 @@ namespace COLLADA
         }
 
         /** Sets the emission to @a emission */
-        void setEmission( ColorOrTexture emission )
+        void setEmission( const ColorOrTexture& emission )
         {
             mEmission = emission;
         }
@@ -150,7 +150,7 @@ namespace COLLADA
         }
 
         /** Sets the ambient to @a ambient */
-        void  setAmbient( ColorOrTexture ambient )
+        void  setAmbient( const ColorOrTexture& ambient )
         {
             mAmbient = ambient;
         }
@@ -162,7 +162,7 @@ namespace COLLADA
         }
 
         /** Sets the diffuse to @a diffuse */
-        void  setDiffuse( ColorOrTexture diffuse )
+        void  setDiffuse( const ColorOrTexture& diffuse )
         {
             mDiffuse = diffuse;
         }
@@ -174,7 +174,7 @@ namespace COLLADA
         }
 
         /** Sets the specular to @a specular */
-        void  setSpecular( ColorOrTexture specular )
+        void  setSpecular( const ColorOrTexture& specular )
         {
             mSpecular = specular;
         }
@@ -198,7 +198,7 @@ namespace COLLADA
         }
 
         /** Sets the reflective to @a reflective */
-        void  setReflective( ColorOrTexture reflective )
+        void  setReflective( const ColorOrTexture& reflective )
         {
             mReflective = reflective;
         }
@@ -216,7 +216,7 @@ namespace COLLADA
         }
 
         /** Sets the transparent to @a transparent */
-        void setTransparent( ColorOrTexture transparent )
+        void setTransparent( const ColorOrTexture& transparent )
         {
             mTransparent = transparent;
         }

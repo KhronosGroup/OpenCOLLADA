@@ -170,7 +170,7 @@ namespace COLLADA
         *               For example, 1.0 for the name "meter"; 1000 for the 
         *               name "kilometer"; 0.3048 for the name "foot".
         */
-        void setUnit ( String name, double meter )
+        void setUnit ( const String& name, double meter )
         {
             mUnit.mName = name;
             mUnit.mMeter = meter;
