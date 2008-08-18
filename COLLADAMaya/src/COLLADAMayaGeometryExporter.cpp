@@ -83,10 +83,14 @@ namespace COLLADAMaya
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
+        // Get the scene graph 
+        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+
         // Check if it is a mesh and an export node
-        if ( sceneElement->getType() == SceneElement::MESH &&
+        SceneElement::Type type = sceneElement->getType();
+        if ( type == SceneElement::MESH &&
              sceneElement->getIsExportNode() &&
-             mDocumentExporter->getSceneGraph()->findExportedElement ( dagPath ) == NULL )
+             sceneGraph->findExportedElement ( dagPath ) == NULL )
         {
             bool exported = false;
 
@@ -121,7 +125,7 @@ namespace COLLADAMaya
 
                 // Push it in the list of exported elements.
                 if ( exported )
-                    mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
+                    sceneGraph->addExportedElement( sceneElement );
 
                 // Delete the controllerStack items
                 for ( size_t i=0; i<meshStack.size(); ++i )
@@ -129,7 +133,6 @@ namespace COLLADAMaya
                     ControllerMeshItem item = meshStack[i];
                     MDagPath currentDagPath = MDagPath::getAPathTo ( item.mesh );
                     String currentPath = currentDagPath.fullPathName().asChar();
-                    SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
                     if ( sceneGraph->findExportedElement( currentDagPath ) == NULL )
                     {
                         SceneElement* meshSceneElement = sceneGraph->findElement( currentDagPath );
@@ -140,7 +143,7 @@ namespace COLLADAMaya
 
                             // Push it in the list of exported elements.
                             if ( exported )
-                                mDocumentExporter->getSceneGraph()->addExportedElement( meshSceneElement );
+                                sceneGraph->addExportedElement( meshSceneElement );
                         }
                     }
                 }
@@ -161,7 +164,7 @@ namespace COLLADAMaya
 
                 // Push it in the list of exported elements.
                 if ( exported )
-                    mDocumentExporter->getSceneGraph()->addExportedElement( sceneElement );
+                    sceneGraph->addExportedElement( sceneElement );
             }
 
         }
@@ -420,12 +423,14 @@ namespace COLLADAMaya
 
                 // TODO Parameters??? TEST!
                 AnimationExporter* animExporter = mDocumentExporter->getAnimationExporter();
-                animExporter->addPlugAnimation ( childPlug, VERTEX_SID, XYZW_PARAMETERS, kSingle | kLength, true );
+                animExporter->addPlugAnimation ( childPlug, VERTEX_SID, kSingle | kLength, XYZW_PARAMETERS, true );
             }
         }
 
         for ( uint i = 0; i < vertexCount; ++i )
         {
+            // Convert the  maya internal unit type from centimeters 
+            // into the working units of the current scene!
             MPoint &pointData = vertexArray[i];
             vertexSource.appendValues ( 
                 COLLADA::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : MDistance::internalToUI ( vertexArray[i].x ), 
@@ -618,7 +623,7 @@ namespace COLLADAMaya
 
         // Always push the vertex positions in the vertices element
         // (we have to create a vertices element with a reference)
-        inputList->push_back ( COLLADA::Input ( COLLADA::POSITION, "#" + meshId + POSITIONS_SOURCE_ID_SUFFIX ) );
+        inputList->push_back ( COLLADA::Input ( COLLADA::POSITION, COLLADA::URI ( "", meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
 
         // Push all other vertex sources into the vertices element
         Sources::iterator it = mVertexSources.begin();
@@ -633,7 +638,7 @@ namespace COLLADAMaya
             const COLLADA::Semantics& type = sourceInput.getType();
 
             // Push the vertex source to the collada vertices
-            inputList->push_back ( COLLADA::Input ( type, "#" + sourceId ) );
+            inputList->push_back ( COLLADA::Input ( type, COLLADA::URI ( "", sourceId ) ) );
         }
 
         vertices.add();

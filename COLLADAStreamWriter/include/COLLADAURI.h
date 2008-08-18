@@ -25,7 +25,7 @@ namespace COLLADA
 		String mResource;
 		bool mIsValid;
 
-	public:
+	private:
 		/** Creates an URI from @a uriString. Currently it is assumed to be of the form: 
 		[resource][#fragment]. At least one of the parts must not be empty to create a valid URI.*/
 		URI(const String& uriString);

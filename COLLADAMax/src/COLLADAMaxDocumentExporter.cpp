@@ -211,8 +211,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-        COLLADA::Scene scene ( &mStreamWriter );
-        scene.mInstanceVisualSceneUrl = "#" + SCENE_ID;
+        COLLADA::Scene scene ( &mStreamWriter, COLLADA::URI ( "", SCENE_ID ) );
         scene.add();
     }
 

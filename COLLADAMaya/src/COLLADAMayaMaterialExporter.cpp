@@ -197,7 +197,7 @@ namespace COLLADAMaya
             {
                 // Write the material with the effect URL into the collada file
                 String effectURL = materialId + EffectExporter::EFFECT_ID_SUFFIX;
-                addInstanceEffect ( "#" + effectURL, materialId, materialId );
+                addInstanceEffect ( COLLADA::URI ( "", effectURL ), materialId, materialId );
 
                 // Push the if of the exported material into the list for the exported materials
                 mExportedMaterials.push_back ( materialId );

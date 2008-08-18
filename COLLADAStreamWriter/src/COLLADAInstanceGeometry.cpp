@@ -18,7 +18,7 @@ namespace COLLADA
     void InstanceGeometry::add()
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_GEOMETRY );
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
 
         mBindMaterial.add();
 

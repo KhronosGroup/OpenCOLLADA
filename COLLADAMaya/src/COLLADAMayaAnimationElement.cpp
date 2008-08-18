@@ -32,7 +32,7 @@ namespace COLLADAMaya
     : mAnimatedCurves ( NULL )
     , mPlug ( plug )
     , mBaseId ( baseId )
-    , mSubId ( subId )
+    , mTargetSubId ( subId )
     , mNodeId ( nodeId )
     , mIsCompound ( false )
     , mParameters ( parameters )

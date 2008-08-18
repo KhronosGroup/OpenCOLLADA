@@ -100,15 +100,18 @@ namespace COLLADAMaya
         String lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
         String lightName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
+        // Get a pointer to the animation exporter.
+        AnimationExporter* animExpo = mDocumentExporter->getAnimationExporter();
+
         // Color/Intensity are the common attributes of all lights
-        MColor mayaColor = lightFn.color(&status); 
-        CHECK_MSTATUS(status);
+        MColor mayaColor = lightFn.color(&status); CHECK_MSTATUS(status);
         COLLADA::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
         // TODO
+//         if ( animExpo->addNodeAnimation( lightNode, COLOR_SID, ATTR_COLOR, kColour ) )
+//             lightColor.setColorSid ( COLOR_SID );
 //        ANIM->AddPlugAnimation(lightNode, "color", colladaLight->GetColor(), kColour);
 
-        float intensity = lightFn.intensity(&status); 
-        CHECK_MSTATUS(status);
+        float intensity = lightFn.intensity(&status); CHECK_MSTATUS(status);
         // TODO
 //        ANIM->AddPlugAnimation(lightNode, "intensity", colladaLight->GetIntensity(), kSingle);
 

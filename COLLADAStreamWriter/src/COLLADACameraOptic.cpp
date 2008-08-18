@@ -27,6 +27,11 @@ namespace COLLADA
         , mHasAspectRatio ( false )
         , mHasZNear ( false )
         , mHasZFar ( false )
+        , mXMagSid ( "" )
+        , mXFovSid ( "" )
+        , mYFovSid ( "" )
+        , mZNearSid ( "" )
+        , mZFarSid ( "" )
     {}
 
     // ---------------------------------------------------
@@ -56,6 +61,8 @@ namespace COLLADA
         if ( mHasXFov )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_XFOV );
+            if ( !mXFovSid.empty() )
+                mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mXFovSid );
             mSW->appendValues ( mXFov );
             mSW->closeElement(); // COLLADA_ELEMENT_XFOV
         }
@@ -63,6 +70,8 @@ namespace COLLADA
         if ( mHasYFov )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_YFOV );
+            if ( !mYFovSid.empty() )
+                mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mYFovSid );
             mSW->appendValues ( mYFov );
             mSW->closeElement(); // COLLADA_ELEMENT_YFOV
         }
@@ -75,10 +84,14 @@ namespace COLLADA
         }
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_ZNEAR );
+        if ( !mZNearSid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mZNearSid );
         mSW->appendValues ( mZNear );
         mSW->closeElement(); // COLLADA_ELEMENT_ZNEAR
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_ZFAR );
+        if ( !mZFarSid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mZFarSid );
         mSW->appendValues ( mZFar );
         mSW->closeElement(); // COLLADA_ELEMENT_ZFAR
 
@@ -90,14 +103,16 @@ namespace COLLADA
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_CAMERA_ORTHOGRAPHIC );
 
-        assert ( !mHasXMag && !mHasYMag );
-        assert ( mHasAspectRatio && mHasXMag && mHasYMag );
-        assert ( !mHasZNear );
-        assert ( !mHasZFar );
+        assert ( !( !mHasXMag && !mHasYMag ) );
+        assert ( !( mHasAspectRatio && mHasXMag && mHasYMag ) );
+        assert ( mHasZNear );
+        assert ( mHasZFar );
 
         if ( mHasXMag )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_XMAG );
+            if ( !mXMagSid.empty() )
+                mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mXMagSid );
             mSW->appendValues ( mXMag );
             mSW->closeElement(); // COLLADA_ELEMENT_XMAG
         }
@@ -117,10 +132,14 @@ namespace COLLADA
         }
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_ZNEAR );
+        if ( !mZNearSid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mZNearSid );
         mSW->appendValues ( mZNear );
         mSW->closeElement(); // COLLADA_ELEMENT_ZNEAR
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_ZFAR );
+        if ( !mZFarSid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, mZFarSid );
         mSW->appendValues ( mZFar );
         mSW->closeElement(); // COLLADA_ELEMENT_ZFAR
 

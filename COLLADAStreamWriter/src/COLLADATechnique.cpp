@@ -44,9 +44,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const String &value )
+    void Technique::addParameter ( const String &paramName, const String &value, const String sid )
     {
         mSW->openElement ( paramName );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, sid );
 
         if ( !value.empty() )
             mSW->appendText ( value );
@@ -55,33 +58,61 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const bool &value )
+    void Technique::addParameter ( const String &paramName, const bool &value, const String sid )
     {
         mSW->openElement ( paramName );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+
         mSW->appendValues ( value );
         mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const int &value )
+    void Technique::addParameter ( const String &paramName, const int &value, const String sid )
     {
         mSW->openElement ( paramName );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+
         mSW->appendValues ( value );
         mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const double &value )
+    void Technique::addParameter ( const String &paramName, const double &value, const String sid )
     {
         mSW->openElement ( paramName );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+
         mSW->appendValues ( value );
         mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-    void Technique::addMatrixParameter ( const String &paramName, const double matrix[][4] ) const
+    void Technique::addParameter ( const String &paramName, const float &value, const String sid )
     {
         mSW->openElement ( paramName );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+
+        mSW->appendValues ( value );
+        mSW->closeElement();
+    }
+
+    //---------------------------------------------------------------
+    void Technique::addMatrixParameter ( const String &paramName, const double matrix[][4], const String sid ) const
+    {
+        mSW->openElement ( paramName );
+
+        if ( !sid.empty() )
+            mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+
         mSW->appendValues ( matrix[0][0], matrix[0][1], matrix[0][2], matrix[0][3] );
         mSW->appendValues ( matrix[1][0], matrix[1][1], matrix[1][2], matrix[1][3] );
         mSW->appendValues ( matrix[2][0], matrix[2][1], matrix[2][2], matrix[2][3] );

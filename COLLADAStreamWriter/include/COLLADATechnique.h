@@ -41,19 +41,22 @@ namespace COLLADA
         void openTechnique ( const String &profile, const String &xmlns="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const String &value="" );
+        void addParameter ( const String &paramName, const String &value="", const String sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const int &value );
+        void addParameter ( const String &paramName, const int &value, const String sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const double &value );
+        void addParameter ( const String &paramName, const double &value, const String sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const bool &value );
+        void addParameter ( const String &paramName, const float &value, const String sid="" );
 
         /** Adds a parameter to the technique */
-        void addMatrixParameter ( const String &paramName, const double matrix[][4] ) const;
+        void addParameter ( const String &paramName, const bool &value, const String sid="" );
+
+        /** Adds a parameter to the technique */
+        void addMatrixParameter ( const String &paramName, const double matrix[][4], const String sid="" ) const;
 
         /** Opens a tag with the given name and adds the TagCloser to the child element into a map */
         void addChildElement ( const String &childElementName );

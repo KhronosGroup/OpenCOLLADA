@@ -23,7 +23,7 @@ namespace COLLADA
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_INPUT );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SEMANTIC, getSemanticString ( it->getSemantic() ) );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, it->getSource() );
+            mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, it->getSource() );
 
             if ( it->getOffset() >= 0 )
                 mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_OFFSET, ( unsigned long ) it->getOffset() );

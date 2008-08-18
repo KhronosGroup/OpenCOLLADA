@@ -65,7 +65,7 @@ namespace COLLADA
                 mType ( DEFAULT ),
                 mNodeId ( EMPTY_STRING ),
                 mNodeName ( EMPTY_STRING ),
-                mNodeURL ( EMPTY_STRING ), 
+                mNodeURL ( EMPTY_STRING, EMPTY_STRING ), 
                 mIsInstanceNode ( isInstanceNode )
         {}
 
@@ -124,7 +124,7 @@ namespace COLLADA
         }
 
         /** The URL of an instance node. */
-        void setNodeURL( const String& val ) 
+        void setNodeURL( const URI& val ) 
         { 
             mNodeURL = val; 
         }

@@ -56,7 +56,7 @@ namespace COLLADA
                 return; 
             }
 
-            mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mNodeURL );
+            mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mNodeURL );
         }
 
     }

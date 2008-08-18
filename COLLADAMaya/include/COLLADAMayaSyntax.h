@@ -139,7 +139,7 @@ namespace COLLADAMaya
     static const char* MAX_FRAMERATE_PARAMETER                      = "frame_rate";
 
 
-    /** The parameters for the animation exports. */
+    /** Parameters for the animation exports. */
     static const String EMPTY_PARAMETER[1]                          = { "" };
     static const String X_PARAMETER[1]                              = { "X" };
     static const String Y_PARAMETER[1]                              = { "Y" };
@@ -159,6 +159,38 @@ namespace COLLADAMaya
     static const String SKEW_XY_SID                                 = "skewXY";
     static const String SKEW_XZ_SID                                 = "skewXZ";
     static const String SKEW_YZ_SID                                 = "skewYZ";
+
+    /** Attribute names and sids for camera animation. */
+    static const String XMAG_SID                                    = "xmag";
+    static const String YFOV_SID                                    = "yfov";
+    static const String XFOV_SID                                    = "xfov";
+    static const String NEAR_CLIP_SID                               = "near_clip";
+    static const String FAR_CLIP_SID                                = "far_clip";
+    static const String VERTICAL_APERTURE_SID                       = "vertical_aperture";
+    static const String HORIZONTAL_APERTURE_SID                     = "horizontal_aperture";
+    static const String LENS_SQUEEZE_SID                            = "lens_squeeze";
+    static const String FILM_FIT_OFFSET_SID                         = "film_fit_offset";
+    static const String HORIZONTAL_FILM_OFFSET_SID                  = "horizontal_film_offset";
+    static const String VERTICAL_FILM_OFFSET_SID                    = "vertical_film_offset";
+
+    static const String ATTR_ORTHOGRAPHIC_WIDTH                     = "orthographicWidth";
+    static const String ATTR_FOCAL_LENGTH                           = "focalLength";
+    static const String ATTR_NEAR_CLIP_PLANE                        = "nearClipPlane";
+    static const String ATTR_FAR_CLIP_PLANE                         = "farClipPlane";
+    static const String ATTR_VERTICAL_FILM_APERTURE                 = "verticalFilmAperture";
+    static const String ATTR_HORIZONTAL_FILM_APERTURE               = "horizontalFilmAperture";
+    static const String ATTR_LENS_SQUEEZE_RATIO                     = "lensSqueezeRatio";
+    static const String ATTR_FILM_FIT_OFFSET                        = "filmFitOffset";
+    static const String ATTR_HORIZONTAL_FILM_OFFSET                 = "horizontalFilmOffset"; // XYZ
+    static const String ATTR_VERTICAL_FILM_OFFSET                   = "verticalFilmOffset"; // XYZ
+
+    static const String MAYA_VAPERTURE_PARAMETER                    = "vertical_aperture";
+    static const String MAYA_HAPERTURE_PARAMETER                    = "horizontal_aperture";
+    static const String MAYA_LENS_SQUEEZE_PARAMETER                 = "lens_squeeze";
+    static const String MAYA_FILM_FIT_PARAMETER                     = "film_fit";
+    static const String MAYA_FILM_FIT_OFFSET_PARAMETER              = "film_fit_offset";
+    static const String MAYA_FILM_OFFSET_X_PARAMETER                = "film_offsetX";
+    static const String MAYA_FILM_OFFSET_Y_PARAMETER                = "film_offsetY";
 
     /** The plug ids for the animation exports. */
     static const char* ATTR_ALPHA_GAIN                              = "alphaGain";

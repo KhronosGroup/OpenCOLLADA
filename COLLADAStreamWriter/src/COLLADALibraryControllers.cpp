@@ -42,7 +42,7 @@ namespace COLLADA
 
         mSkinCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_SKIN );
 
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, skinSource );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, skinSource );
     }
 
     //---------------------------------------------------------------
@@ -62,7 +62,7 @@ namespace COLLADA
 
         mSkinCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_MORPH );
 
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, morphSource );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, morphSource );
 
         // Which blending technique to use. Valid values are NORMALIZED and
         // RELATIVE. The default is NORMALIZED.

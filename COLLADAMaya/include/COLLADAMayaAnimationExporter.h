@@ -22,6 +22,7 @@
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaAnimationElement.h"
 #include "COLLADAMayaSceneElement.h"
+#include "COLLADAMayaSyntax.h"
 
 #include <maya/MFnAnimCurve.h>
 
@@ -106,20 +107,21 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addPlugAnimation ( MObject &node,
-                                const String attrname,
-                                const String* parameters,
-                                const uint sampleType,
-                                const int arrayElement = -1, 
-                                const bool isRelativeAnimation = false, 
-                                ConversionFunctor* conversion = NULL );
+        bool addNodeAnimation ( 
+            MObject &node, 
+            const String attrname, 
+            const uint sampleType, 
+            const String* parameters = EMPTY_PARAMETER, 
+            const int arrayElement = -1, 
+            const bool isRelativeAnimation = false, 
+            ConversionFunctor* conversion = NULL );
 
         /**
          * Searches the plug with the given attribute of the given node
          * and adds the plug with the given sample type to the list of animations,
          * if it is a valid animation.
-         * @param node The node, from which we want to export the attribute
-         * @param subId The id of the attribute to export.
+         * @param node The node, from which we want to export the attribute.
+         * @param targetSubId The id of the animated element.
          * @param attrname The name of the attribute, we want to export.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
@@ -128,20 +130,21 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addPlugAnimation ( MObject& node,
-                                const String subId,
-                                const String attrname,
-                                const String* parameters,
-                                const uint sampleType,
-                                const int arrayElement = -1, 
-                                const bool isRelativeAnimation = false, 
-                                ConversionFunctor* conversion = NULL );
+        bool addNodeAnimation ( 
+            MObject& node,
+            const String targetSubId,
+            const String attrname,
+            const uint sampleType,
+            const String* parameters = EMPTY_PARAMETER,
+            const int arrayElement = -1, 
+            const bool isRelativeAnimation = false, 
+            ConversionFunctor* conversion = NULL );
 
         /**
          * Adds the plug with the given sample type to the list of animations,
          * if it is a valid animation.
          * @param plug The plug which is compound with the searched attribute.
-         * @param subId The id of the attribute to export.
+         * @param targetSubId The id of the animated element.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
          * @param arrayElement Used to address a target specific target attribute in the channel.
@@ -149,19 +152,20 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addPlugAnimation ( MPlug& plug,
-                                const String subId,
-                                const String* parameters,
-                                const SampleType sampleType,
-                                const int arrayElement = -1, 
-                                const bool isRelativeAnimation = false, 
-                                ConversionFunctor* conversion = NULL );
+        bool addPlugAnimation ( 
+            MPlug& plug,
+            const String targetSubId,
+            const SampleType sampleType,
+            const String* parameters = EMPTY_PARAMETER,
+            const int arrayElement = -1, 
+            const bool isRelativeAnimation = false, 
+            ConversionFunctor* conversion = NULL );
 
         /**
          * Adds the plug with the given sample type to the list of animations,
          * if it is a valid animation.
          * @param plug The plug which is compound with the searched attribute.
-         * @param subId The id of the attribute to export.
+         * @param targetSubId The id of the animated element.
          * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
          * @param arrayElement Used to address a target specific target attribute in the channel.
@@ -169,13 +173,14 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addPlugAnimation ( MPlug& plug,
-                                const String subId,
-                                const String* parameters,
-                                const uint sampleType,
-                                const int arrayElement = -1, 
-                                const bool isRelativeAnimation = false, 
-                                ConversionFunctor* conversion = NULL );
+        bool addPlugAnimation ( 
+            MPlug& plug,
+            const String targetSubId,
+            const uint sampleType,
+            const String* parameters = EMPTY_PARAMETER,
+            const int arrayElement = -1, 
+            const bool isRelativeAnimation = false, 
+            ConversionFunctor* conversion = NULL );
 
     private:
 

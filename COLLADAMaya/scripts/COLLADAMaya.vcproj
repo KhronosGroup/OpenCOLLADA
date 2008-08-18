@@ -331,10 +331,6 @@
 				Name="Utils"
 				>
 				<File
-					RelativePath="..\src\COLLADAMayaConvert.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\src\COLLADAMayaPrecompiledHeaders.cpp"
 					>
 					<FileConfiguration
@@ -513,10 +509,6 @@
 				>
 				<File
 					RelativePath="..\include\COLLADAMayaConversion.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\COLLADAMayaConvert.h"
 					>
 				</File>
 				<File

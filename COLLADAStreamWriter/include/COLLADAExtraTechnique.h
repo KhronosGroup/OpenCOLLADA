@@ -26,6 +26,7 @@ namespace COLLADA
         STRING = 0,
         INTEGER,
         DOUBLE,
+        FLOAT, 
         BOOL,
         MATRIX
     };
@@ -34,11 +35,14 @@ namespace COLLADA
     //---------------------------------------------------------------
     /** Structure with the parameter value. */
 
-    struct ParamValue
+    struct ParamData
     {
+        String sid;
+
         String stringValue;
         int integerValue;
         double doubleValue;
+        float floatValue;
         bool boolValue;
         double ( *matrix ) [4];
 
@@ -48,8 +52,8 @@ namespace COLLADA
 
     //---------------------------------------------------------------
     /** Map with the parameter names and the value */
-    typedef std::map<String, ParamValue> Parameters;
-    typedef std::pair<String, ParamValue> Parameter;
+    typedef std::map<String, ParamData> Parameters;
+    typedef std::pair<String, ParamData> Parameter;
 
     /** The child elements with their parameters under the current profile */
     typedef std::map<String, Parameters> ChildElementsMap;
@@ -102,17 +106,19 @@ namespace COLLADA
         * Creates an extra and a technique tag with the profile name (if not already exist)
         * and writes the given parameter in the tags.
         */
-        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const String &value="" );
-        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const int &value );
-        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const double &value );
-        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const bool &value );
+        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const String &value="", const String paramSid="" );
+        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const int &value, const String paramSid="" );
+        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const double &value, const String paramSid="" );
+        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const float &value, const String paramSid="" );
+        void addExtraTechniqueParameter ( const String& profileName, const String& paramName, const bool &value, const String paramSid="" );
 
         /** Adds a child element under the given profile. */
-        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const String &value="" );
-        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const int &value );
-        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const double &value );
-        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const bool &value );
-        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, double matrix[][4] );
+        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const String &value="", const String paramSid="" );
+        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const int &value, const String paramSid="" );
+        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const double &value, const String paramSid="" );
+        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const float &value, const String paramSid="" );
+        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, const bool &value, const String paramSid="" );
+        void addExtraTechniqueChildParameter ( const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String paramSid="" );
 
         /** Returns the map with the extra techniques. */
         const ExtraTechniquesMap& getExtraTechniques()

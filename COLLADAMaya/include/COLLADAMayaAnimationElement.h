@@ -52,8 +52,8 @@ namespace COLLADAMaya
 
         /** The ids of the current element. */
         String mBaseId;
-        String mSubId;
         String mNodeId;
+        String mTargetSubId;
 
         /** The plug, which is the connection to the animated attribute. */
         MPlug mPlug;
@@ -91,7 +91,7 @@ namespace COLLADAMaya
         AnimationElement ( 
             MPlug plug, 
             const String& baseId,
-            const String& subId, 
+            const String& targetSubId, 
             const String& nodeId,
             const String parameters[], 
             SampleType sampleType = kSingle );
@@ -103,9 +103,9 @@ namespace COLLADAMaya
             return mBaseId;
         }
 
-        const String& getSubId() const
+        const String& getTargetSubId() const
         {
-            return mSubId;
+            return mTargetSubId;
         }
 
         const String& getNodeId() const

@@ -235,7 +235,7 @@ namespace COLLADAMaya
 
         // TODO Test
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_OUT_COLOR, RGBA_PARAMETERS, kColour );
+        animationExporter->addNodeAnimation ( shadingNetwork, ATTR_OUT_COLOR, kColour, RGBA_PARAMETERS );
 
         // Transparent color
         MColor transparentColor;
@@ -268,7 +268,7 @@ namespace COLLADAMaya
         effectProfile->setEmission ( mayaColor2ColorOrTexture ( matFn.incandescence() ) );
         exportTexturedParameter ( shadingNetwork, ATTR_INCANDESCENCE, effectProfile, EffectExporter::EMISSION, nextTextureIndex );
         // TODO Test
-        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_INCANDESCENCE, RGBA_PARAMETERS, kColour );
+        animationExporter->addNodeAnimation ( shadingNetwork, ATTR_INCANDESCENCE, kColour, RGBA_PARAMETERS );
 
         // Ambient color
         effectProfile->setAmbient ( mayaColor2ColorOrTexture ( matFn.ambientColor() ) );
@@ -276,7 +276,7 @@ namespace COLLADAMaya
             shadingNetwork, ATTR_AMBIENT_COLOR, effectProfile, 
             EffectExporter::AMBIENT, nextTextureIndex );
         // TODO Test
-        animationExporter->addPlugAnimation ( shadingNetwork, ATTR_AMBIENT_COLOR, RGBA_PARAMETERS, kColour );
+        animationExporter->addNodeAnimation ( shadingNetwork, ATTR_AMBIENT_COLOR, kColour, RGBA_PARAMETERS );
 
         // Diffuse color
         effectProfile->setDiffuse ( mayaColor2ColorOrTexture ( matFn.color(), matFn.diffuseCoeff() ) );
@@ -284,8 +284,8 @@ namespace COLLADAMaya
             shadingNetwork, ATTR_COLOR, effectProfile, EffectExporter::DIFFUSE, nextTextureIndex );
         // TODO Test
         ConversionFunctor* conversion = new ConversionScaleFunctor ( matFn.diffuseCoeff() );
-        animationExporter->addPlugAnimation ( 
-            shadingNetwork, ATTR_COLOR, RGBA_PARAMETERS, kColour, -1, false, conversion );
+        animationExporter->addNodeAnimation ( 
+            shadingNetwork, ATTR_COLOR, kColour, RGBA_PARAMETERS, -1, false, conversion );
 
         // Transparent color
         exportTransparency (
@@ -313,7 +313,7 @@ namespace COLLADAMaya
                     EffectExporter::SPECULAR, nextTextureIndex );
             }
             // TODO Test
-            animationExporter->addPlugAnimation ( shadingNetwork, ATTR_SPECULAR_COLOR, RGBA_PARAMETERS, kColour );
+            animationExporter->addNodeAnimation ( shadingNetwork, ATTR_SPECULAR_COLOR, kColour, RGBA_PARAMETERS );
 
             // Reflected color
             effectProfile->setReflective ( mayaColor2ColorOrTexture ( reflectFn.reflectedColor() ) );
@@ -321,12 +321,12 @@ namespace COLLADAMaya
                 shadingNetwork, ATTR_REFLECTED_COLOR, effectProfile, 
                 EffectExporter::REFLECTION, nextTextureIndex );
             // TODO Test
-            animationExporter->addPlugAnimation ( shadingNetwork, ATTR_REFLECTED_COLOR, RGBA_PARAMETERS, kColour );
+            animationExporter->addNodeAnimation ( shadingNetwork, ATTR_REFLECTED_COLOR, kColour, RGBA_PARAMETERS );
 
             // Reflectivity factor
             effectProfile->setReflectivity ( reflectFn.reflectivity() );
             // TODO Test
-            animationExporter->addPlugAnimation ( shadingNetwork, ATTR_REFLECTIVITY, EMPTY_PARAMETER, kSingle );
+            animationExporter->addNodeAnimation ( shadingNetwork, ATTR_REFLECTIVITY, kSingle );
             //  ANIM->AddPlugAnimation(shadingNetwork, "reflectivity", effectProfile->GetReflectivityFactorParam()->GetValue(), kSingle);
         }
 
@@ -337,7 +337,7 @@ namespace COLLADAMaya
         {
             effectProfile->setIndexOfRefrection ( matFn.refractiveIndex() );
             // TODO Test
-            animationExporter->addPlugAnimation ( shadingNetwork, ATTR_REFRACTIVE_INDEX, EMPTY_PARAMETER, kSingle );
+            animationExporter->addNodeAnimation ( shadingNetwork, ATTR_REFRACTIVE_INDEX, kSingle );
         }
 
         // Phong and Blinn's specular factor
@@ -346,7 +346,7 @@ namespace COLLADAMaya
             MFnPhongShader phongFn ( shadingNetwork );
             effectProfile->setShininess ( phongFn.cosPower() );
             // TODO Test
-            animationExporter->addPlugAnimation ( shadingNetwork, ATTR_COSINE_POWER, EMPTY_PARAMETER, kSingle );
+            animationExporter->addNodeAnimation ( shadingNetwork, ATTR_COSINE_POWER, kSingle );
         }
 
         else if ( shadingNetwork.hasFn ( MFn::kBlinn ) )
@@ -356,14 +356,14 @@ namespace COLLADAMaya
             BlinnEccentricityToShininess* converter = new BlinnEccentricityToShininess();
             effectProfile->setShininess ( ( *converter ) ( blinnFn.eccentricity() ) );
             // TODO Test
-            animationExporter->addPlugAnimation ( 
-                shadingNetwork, ATTR_ECCENTRICITY, EMPTY_PARAMETER, kSingle, -1, false, converter );
+            animationExporter->addNodeAnimation ( 
+                shadingNetwork, ATTR_ECCENTRICITY, kSingle, EMPTY_PARAMETER, -1, false, converter );
 #else
             MFnBlinnShader blinnFn ( shadingNetwork );
             effectProfile->setShininess ( blinnFn.eccentricity() );
             // TODO Test
-            animationExporter->addPlugAnimation ( 
-                shadingNetwork, ATTR_ECCENTRICITY, EMPTY_PARAMETER, kSingle );
+            animationExporter->addNodeAnimation ( 
+                shadingNetwork, ATTR_ECCENTRICITY, kSingle );
 #endif // BLINN_EXPONENT_MODEL  
         }
     }
@@ -423,7 +423,7 @@ namespace COLLADAMaya
                     // Get the animation exporter
                     AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
                     // TODO Test
-                    animationExporter->addPlugAnimation ( bumpNode, ATTR_BUMP_DEPTH, EMPTY_PARAMETER, kSingle );
+                    animationExporter->addNodeAnimation ( bumpNode, ATTR_BUMP_DEPTH, kSingle );
 
                     int interp = 0;
                     MFnDependencyNode ( bumpNode ).findPlug ( ATTR_BUMP_INTERP ).getValue ( interp );
@@ -565,12 +565,13 @@ namespace COLLADAMaya
         effectProfile->setTransparent ( mayaColor2ColorOrTexture ( transparentColor ) );
 
         MObject transparentTextureNode =
-            exportTexturedParameter ( shadingNetwork, attributeName, effectProfile, EffectExporter::TRANSPARENt, nextTextureIndex );
+            exportTexturedParameter ( shadingNetwork, attributeName, effectProfile, 
+            EffectExporter::TRANSPARENt, nextTextureIndex );
 
         // Get the animation exporter
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
         // TODO Test
-        animationExporter->addPlugAnimation ( shadingNetwork, attributeName, EMPTY_PARAMETER, kColour );
+        animationExporter->addNodeAnimation ( shadingNetwork, attributeName, kColour );
 
         // For the 'opaque' attribute, check the plug's name, that's connected to
         // the shader's 'transparency' plug.
@@ -603,20 +604,19 @@ namespace COLLADAMaya
                 if ( AnimationHelper::isAnimated ( animationCache, transparentTextureNode, ATTR_ALPHA_GAIN ) )
                 {
                     // TODO Test
-                    animationExporter->addPlugAnimation ( 
+                    animationExporter->addNodeAnimation ( 
                         transparentTextureNode, 
                         ATTR_ALPHA_GAIN, 
-                        EMPTY_PARAMETER, 
                         kSingle );
                 }
                 else
                 {
                     // TODO Test
-                    animationExporter->addPlugAnimation ( 
+                    animationExporter->addNodeAnimation ( 
                         transparentTextureNode, 
                         ATTR_ALPHA_OFFSET, 
-                        EMPTY_PARAMETER, 
                         kSingle, 
+                        EMPTY_PARAMETER, 
                         -1, 
                         false, 
                         new ConversionOffsetFunctor ( 1.0f ) );

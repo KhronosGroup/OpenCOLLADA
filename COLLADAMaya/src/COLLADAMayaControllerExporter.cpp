@@ -21,7 +21,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaGeometryExporter.h"
-#include "COLLADAMayaConvert.h"
+#include "COLLADAMayaConversion.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include <assert.h>
@@ -379,7 +379,7 @@ namespace COLLADAMaya
 
             String subId = controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
             AnimationExporter* animExport = mDocumentExporter->getAnimationExporter();
-            animExport->addPlugAnimation( weightPlug, subId, XY_PARAMETERS, kSingle, j );
+            animExport->addPlugAnimation( weightPlug, subId, kSingle, XY_PARAMETERS, j );
         }
 
         // Write the controller data into the COLLADA document
@@ -1014,9 +1014,15 @@ namespace COLLADAMaya
         uint numBindPoses = bindPosesVec.size();
         for (uint i=0; i<bindPosesVec.size(); ++i)
         {
-            double bindPoses[4][4];
             MMatrix mayaBindPoses = bindPosesVec[i];
-            MConvert::convertMMatrixToDouble4x4(bindPoses, mayaBindPoses);
+            double bindPoses[4][4];
+            convertMMatrixToDouble4x4(bindPoses, mayaBindPoses);
+
+            // Convert the  maya internal unit type of the transform part of the 
+            // matrix from centimeters into the working units of the current scene!
+            for ( uint i=0; i<3; ++i)
+                bindPoses [i][3] = MDistance::internalToUI ( bindPoses [i][3] );
+
             bindPosesSource.appendValues ( bindPoses );
         }
         bindPosesSource.finish();
@@ -1091,7 +1097,13 @@ namespace COLLADAMaya
         // Write the bind shape transform matrix in the collada document.
         const MMatrix& mayaBindShapeMatrix = skinController.getBindShapeTransform();
         double bindShapeMatrix[4][4] ;
-        MConvert::convertMMatrixToDouble4x4 ( bindShapeMatrix, mayaBindShapeMatrix );
+        convertMMatrixToDouble4x4 ( bindShapeMatrix, mayaBindShapeMatrix );
+
+        // Convert the  maya internal unit type of the transform part of the 
+        // matrix from centimeters into the working units of the current scene!
+        for ( uint i=0; i<3; ++i)
+            bindShapeMatrix [i][3] = MDistance::internalToUI ( bindShapeMatrix [i][3] );
+
         addBindShapeTransform( bindShapeMatrix );
     }
 
@@ -1105,7 +1117,7 @@ namespace COLLADAMaya
         String controllerName = skinController.getControllerName();
 
         // Opens the skin tag in the collada document.
-        openSkin ( controllerId , controllerName, skinTarget );
+        openSkin ( controllerId , controllerName, COLLADA::URI ( "", skinTarget ) );
         
         writeSkinBindShapeTransform( skinController );
         writeSkinJointSource( skinController );
@@ -1131,7 +1143,7 @@ namespace COLLADAMaya
         String controllerName = morphController.getControllerName();
 
         // Opens the skin tag in the collada document.
-        openMorph ( controllerId , controllerName, morphTarget );
+        openMorph ( controllerId , controllerName, COLLADA::URI ( "", morphTarget ) );
 
         writeMorphTargetSource( morphController );
         writeMorphWeightSource ( morphController );
@@ -1155,8 +1167,8 @@ namespace COLLADAMaya
         uint offset = 0;
         COLLADA::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
         COLLADA::InputList &inputList = vertexWeightsElement.getInputList();
-        inputList.push_back ( COLLADA::Input ( COLLADA::JOINT, "#" + jointSourceId, offset++ ) );
-        inputList.push_back ( COLLADA::Input ( COLLADA::WEIGHT, "#" + weightSourceId, offset++ ) );
+        inputList.push_back ( COLLADA::Input ( COLLADA::JOINT, COLLADA::URI ("", jointSourceId ), offset++ ) );
+        inputList.push_back ( COLLADA::Input ( COLLADA::WEIGHT, COLLADA::URI ("", weightSourceId ), offset++ ) );
 
         // The list for the vertex values.
         std::vector<unsigned long> vertexMatches;
@@ -1205,8 +1217,8 @@ namespace COLLADAMaya
 
         COLLADA::JointsElement jointsElement( mDocumentExporter->getStreamWriter() );
         COLLADA::InputList &jointsInputList = jointsElement.getInputList();
-        jointsInputList.push_back ( COLLADA::Input ( COLLADA::JOINT, "#" + jointSourceId ) );
-        jointsInputList.push_back ( COLLADA::Input ( COLLADA::BINDMATRIX, "#" + jointBindSourceId ) );
+        jointsInputList.push_back ( COLLADA::Input ( COLLADA::JOINT, COLLADA::URI ( "", jointSourceId ) ) );
+        jointsInputList.push_back ( COLLADA::Input ( COLLADA::BINDMATRIX, COLLADA::URI ( "", jointBindSourceId ) ) );
         jointsElement.add();
     }
 
@@ -1219,92 +1231,9 @@ namespace COLLADAMaya
 
         COLLADA::TargetsElement targetsElement( mDocumentExporter->getStreamWriter() );
         COLLADA::InputList &targetsInputList = targetsElement.getInputList();
-        targetsInputList.push_back ( COLLADA::Input ( COLLADA::MORPH_TARGET, "#" + targetSourceId ) );
-        targetsInputList.push_back ( COLLADA::Input ( COLLADA::MORPH_WEIGHT, "#" + morphWeightsSourceId ) );
+        targetsInputList.push_back ( COLLADA::Input ( COLLADA::MORPH_TARGET, COLLADA::URI ( "", targetSourceId ) ) );
+        targetsInputList.push_back ( COLLADA::Input ( COLLADA::MORPH_WEIGHT, COLLADA::URI ( "", morphWeightsSourceId ) ) );
         targetsElement.add();
-    }
-
-    //------------------------------------------------------
-    void ControllerExporter::completeControllerExport()
-    {
-        // Attach the skin controllers next
-        for (ControllerList::iterator it = mSkinControllers.begin(); it != mSkinControllers.end(); ++it)
-        {
-            BaseController* baseController = (*it);
-//             ColladaSkinController* colladaSkin = ((BaseController*) &*(c->entity))->GetSkinController();
-//             if (colladaSkin != NULL)
-//             {
-//                 for (FCDControllerInstanceList::iterator itI = c->instances.begin(); itI != c->instances.end(); ++itI)
-                {
-                    completeInstanceExport( baseController );
-//                    completeInstanceExport(*itI, (FCDController*) &*c->entity);
-                }
-//            }
-        }
-
-        // Release the skin controllers
-        for (ControllerList::iterator it = mSkinControllers.begin(); it != mSkinControllers.end(); ++it)
-        {
-            BaseController* baseController = (*it);
-            delete baseController;
-        }
-        mSkinControllers.clear();
-    }
-
-    //------------------------------------------------------
-    void ControllerExporter::completeInstanceExport(BaseController* colladaController)
-    {
-        if (colladaController->isSkinController())
-        {
-            // Gather our required info.
-            SkinController* colladaSkin = (SkinController*)colladaController;
-
-//             // We don't preserve any <skeleton> information.
-//             DaeController*  daeController = (DaeController*)colladaController->GetUserHandle();
-//             colladaInstance->ResetJoints();
-
-            uint count = colladaSkin->getInfluences().length();
-
-//             bool initColladaSkin = (colladaSkin->GetJointCount() != count);
-//             if (initColladaSkin) colladaSkin->SetJointCount(count);
-// 
-//             for (uint i = 0; i < count; ++i)
-//             {
-//                 DaeEntity* element = doc->GetSceneGraph()->FindElement(daeController->influences[i]);
-//                 if (element != NULL && element->entity != NULL && element->entity->GetObjectType() == FCDSceneNode::GetClassType())
-//                 {
-//                     FCDSceneNode* sceneNode = (FCDSceneNode*) &*(element->entity);
-//                     colladaInstance->AddJoint(sceneNode);
-//                     if (initColladaSkin)
-//                     {
-//                         if (sceneNode->GetSubId().empty())
-//                         {
-//                             FUSStringBuilder boneId("bone"); 
-//                             boneId.append(boneCounter);
-//                             boneCounter++;
-//                             sceneNode->SetSubId(boneId.ToCharPtr());
-//                         }
-//                         FCDSkinControllerJoint* joint = colladaSkin->GetJoint(i);
-//                         joint->SetBindPoseInverse(daeController->bindPoses[i]);
-//                         joint->SetId(sceneNode->GetSubId());
-//                     }
-//                 }
-// #ifdef _DEBUG
-//                 else
-//                 {
-//                     MString ss = daeController->influences[i].fullPathName();
-//                     const char* tt = ss.asChar();
-//                     FUFail(tt);
-//                 }
-// #endif // _DEBUG
-//             }
-//             colladaInstance->CalculateRootIds();
-//         }
-//         else
-//         {
-//             // Nothing to export for morph instances.
-//         }
-        }
     }
 
     //------------------------------------------------------

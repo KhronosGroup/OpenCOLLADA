@@ -21,7 +21,7 @@ namespace COLLADA
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_SCENE );
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_VISUAL_SCENE );
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mInstanceVisualSceneUrl );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mInstanceVisualSceneUrl );
         mSW->closeElement();
         mSW->closeElement();
     }

@@ -125,7 +125,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendURLAttribute ( const String &name, const URI &uri )
+    void StreamWriter::appendURIAttribute ( const String &name, const URI &uri )
     {
         assert ( !mOpenTags.top().mHasContents );
 

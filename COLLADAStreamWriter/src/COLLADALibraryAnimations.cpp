@@ -129,7 +129,7 @@ namespace COLLADA
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_INPUT );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SEMANTIC, Sampler::getElementNameBySemantic ( it->semantic ) );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, it->source );
+            mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, it->source );
             mSW->closeElement();
         }
 
@@ -137,16 +137,16 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void LibraryAnimations::addChannel ( const String & source, const String & target )
+    void LibraryAnimations::addChannel ( const URI& source, const String& target )
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_CHANNEL );
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, source );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_SOURCE, source );
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TARGET, target );
         mSW->closeElement();
     }
 
     //---------------------------------------------------------------
-    void LibraryAnimations::Sampler::addInput ( Semantic semantic, const String & source )
+    void LibraryAnimations::Sampler::addInput ( Semantic semantic, const URI& source )
     {
         Input input;
         input.semantic = semantic;

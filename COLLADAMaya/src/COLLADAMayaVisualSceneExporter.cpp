@@ -19,7 +19,7 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaDagHelper.h"
-#include "COLLADAMayaConvert.h"
+#include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaSyntax.h"
@@ -42,6 +42,7 @@
 #include "COLLADALibraryControllers.h"
 #include "COLLADAInstanceLight.h"
 #include "COLLADAInstanceCamera.h"
+#include "COLLADAURI.h"
 
 
 namespace COLLADAMaya
@@ -429,7 +430,7 @@ namespace COLLADAMaya
                 MFnDependencyNode shaderFn ( shader );
                 String shaderName = shaderFn.name().asChar();
 
-                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, shaderName ) );
+                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, COLLADA::URI ( "", shaderName ) ) );
             }
         }
     }
@@ -457,7 +458,7 @@ namespace COLLADAMaya
 
             // Set the node URL
             String instanceNodeURL = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
-            mVisualSceneNode->setNodeURL ( instanceNodeURL );
+            mVisualSceneNode->setNodeURL ( COLLADA::URI ( "", instanceNodeURL ) );
         }
         else
         {
@@ -633,6 +634,8 @@ namespace COLLADAMaya
 
         if ( animation || !isZero )
         {
+            // Convert the  maya internal unit type from centimeters 
+            // into the working units of the current scene!
             mVisualSceneNode->addTranslate ( 
                 name, 
                 COLLADA::MathUtils::equalsZero( translation.x ) ? 0 : MDistance::internalToUI ( translation.x ), 
@@ -642,8 +645,8 @@ namespace COLLADAMaya
             if ( animation )
             {
                 AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                animationExporter->addPlugAnimation ( 
-                    mDagPath.node(), ATTR_TRANSLATE, name, XYZ_PARAMETERS, kVector | kLength );
+                animationExporter->addNodeAnimation ( 
+                    mDagPath.node(), ATTR_TRANSLATE, name, kVector | kLength, XYZ_PARAMETERS );
             }
         }
     }
@@ -687,11 +690,11 @@ namespace COLLADAMaya
         for ( uint i=0; i<3; ++i )
         {
             // Add the animation in the order XYZ
-            isAnimated[i] = animationExporter->addPlugAnimation (
+            isAnimated[i] = animationExporter->addNodeAnimation (
                 mTransformObject,
                 name + ZYX_PARAMETERS[i],
-                ANGLE_PARAMETER,
-                kSingle | kQualifiedAngle );
+                kSingle | kQualifiedAngle,
+                ANGLE_PARAMETER );
         }
 
         // Go through the axes for the rotations.
@@ -723,7 +726,13 @@ namespace COLLADAMaya
     {
         MMatrix mayaSceneMatrix = mTransformMatrix.asMatrix();
         double sceneMatrix[4][4] ;
-        MConvert::convertMMatrixToDouble4x4 ( sceneMatrix, mayaSceneMatrix );
+        convertMMatrixToDouble4x4 ( sceneMatrix, mayaSceneMatrix );
+
+        // Convert the  maya internal unit type of the transform part of the 
+        // matrix from centimeters into the working units of the current scene!
+        for ( uint i=0; i<3; ++i)
+            sceneMatrix [i][3] = MDistance::internalToUI ( sceneMatrix [i][3] );
+
         mVisualSceneNode->addMatrix ( ATTR_TRANSFORM, sceneMatrix );
 
         // For animations, sampling is always enforced for baked transforms.
@@ -829,7 +838,7 @@ namespace COLLADAMaya
                 COLLADA::MathUtils::equalsZero(scale[2]) ? 0 : scale[2] );
 
             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addPlugAnimation ( mTransformObject, ATTR_SCALE, XYZ_PARAMETERS, kVector );
+            animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
         }
     }
 
@@ -854,7 +863,7 @@ namespace COLLADAMaya
                     sceneNode->addExtraTechniqueParameter ( COLLADA_PROFILE, ATTR_VISIBILITY, isVisible );
 
                     AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                    animationExporter->addPlugAnimation ( mTransformObject, ATTR_VISIBILITY, EMPTY_PARAMETER, kBoolean );
+                    animationExporter->addNodeAnimation ( mTransformObject, ATTR_VISIBILITY, kBoolean );
                 }
             }
         }
@@ -885,7 +894,7 @@ namespace COLLADAMaya
             controllerId += COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         COLLADA::InstanceController instanceController ( streamWriter );
-        instanceController.setUrl ( controllerId );
+        instanceController.setUrl ( COLLADA::URI ( "", controllerId ) );
 
         // Set the skeletonId. It indicates where a skin 
         // controller is to start to search for the joint nodes 
@@ -893,7 +902,7 @@ namespace COLLADAMaya
 
         // Get the skeleton id from the element
         String skeletonId = childElement->getSkeletonId();
-        instanceController.setSkeletonId( skeletonId );
+        instanceController.addSkeleton( COLLADA::URI ( "", skeletonId ) );
 
         // Write all materials
         COLLADA::InstanceMaterialList& instanceMaterialList =
@@ -920,7 +929,7 @@ namespace COLLADAMaya
         
         // Write the geometry instance
         COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
-        instanceGeometry.setUrl ( geometryId );
+        instanceGeometry.setUrl ( COLLADA::URI ( "", geometryId ) );
 
         // Write all materials
         COLLADA::InstanceMaterialList& instanceMaterialList =
@@ -944,7 +953,7 @@ namespace COLLADAMaya
         String lightId = mDocumentExporter->dagPathToColladaId ( childDagPath );
 
         // Create and write the light instance
-        COLLADA::InstanceLight instanceLight ( streamWriter, lightId );
+        COLLADA::InstanceLight instanceLight ( streamWriter, COLLADA::URI ( "", lightId ) );
         instanceLight.add();
     }
 
@@ -959,7 +968,7 @@ namespace COLLADAMaya
         String lightId = mDocumentExporter->dagPathToColladaId ( childDagPath );
 
         // Create and write the camera instance
-        COLLADA::InstanceCamera instanceCamera ( streamWriter, lightId );
+        COLLADA::InstanceCamera instanceCamera ( streamWriter, COLLADA::URI ( "", lightId ) );
         instanceCamera.add();
     }
 

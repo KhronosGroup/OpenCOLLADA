@@ -833,11 +833,11 @@ namespace COLLADAMaya
                 if ( type == COLLADA::TEXCOORD )
                 {
                     // For texture coordinate-related inputs: set the 'set' attribute.
-                    inputList.push_back ( COLLADA::Input ( type, "#" + sourceId, offset++, param.getIdx() ) );
+                    inputList.push_back ( COLLADA::Input ( type, COLLADA::URI ( "", sourceId ), offset++, param.getIdx() ) );
                 }
                 else
                 {
-                    inputList.push_back ( COLLADA::Input ( type, "#" + sourceId, offset++ ) );
+                    inputList.push_back ( COLLADA::Input ( type, COLLADA::URI ( "", sourceId ), offset++ ) );
                 }
             }
         }

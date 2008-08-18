@@ -40,7 +40,7 @@ namespace COLLADA
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT );
 
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, effectURL );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, effectURL );
 
         mSW->closeElement();
 

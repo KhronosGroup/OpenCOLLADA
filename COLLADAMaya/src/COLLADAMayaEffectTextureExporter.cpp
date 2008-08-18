@@ -15,7 +15,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectTextureExporter.h"
 #include "COLLADAMayaShaderHelper.h"
-#include "COLLADAMayaConvert.h"
+#include "COLLADAMayaConversion.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
@@ -372,7 +372,13 @@ namespace COLLADAMaya
         MMatrix projectionMx;
         DagHelper::getPlugValue ( projection, ATTR_PLACEMENT_MATRIX, projectionMx );
         double sceneMatrix[4][4];
-        MConvert::convertMMatrixToDouble4x4 ( sceneMatrix, projectionMx );
+        convertMMatrixToDouble4x4 ( sceneMatrix, projectionMx );
+
+        // Convert the  maya internal unit type of the transform part of the 
+        // matrix from centimeters into the working units of the current scene!
+        for ( uint i=0; i<3; ++i)
+            sceneMatrix [i][3] = MDistance::internalToUI ( sceneMatrix [i][3] );
+
         colladaTexture->addExtraTechniqueChildParameter ( 
             MAYA_PROFILE,
             MAYA_PROJECTION_ELEMENT,
@@ -397,8 +403,7 @@ namespace COLLADAMaya
 
             // TODO Parameters???
             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            String parameters[] = {"BOOL"};
-            animationExporter->addPlugAnimation ( plug, plugName, parameters, kBoolean );
+            animationExporter->addPlugAnimation ( plug, plugName, kBoolean );
             //  ANIM->AddPlugAnimation(placementNode, plugName, colladaParameter->GetAnimated(), kBoolean); }
         }
     }
@@ -420,8 +425,7 @@ namespace COLLADAMaya
 
             // TODO Parameters???
             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            String parameters[] = {"FLOAT"};
-            animationExporter->addPlugAnimation ( plug, plugName, parameters, kSingle );
+            animationExporter->addPlugAnimation ( plug, plugName, kSingle );
             //  ANIM->AddPlugAnimation(placementNode, plugName, colladaParameter->GetAnimated(), kSingle); }
         }
     }
@@ -443,8 +447,7 @@ namespace COLLADAMaya
 
             // TODO Parameters???
             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            String parameters[] = {"ANGLE"};
-            animationExporter->addPlugAnimation ( plug, plugName, parameters, kSingle | kAngle );
+            animationExporter->addPlugAnimation ( plug, plugName, kSingle | kAngle );
             //  ANIM->AddPlugAnimation(placementNode, plugName, colladaParameter->GetAnimated(), kSingle | kAngle); }
         }
     }

@@ -16,6 +16,7 @@
 #include "COLLADAElementWriter.h"
 #include "COLLADABaseElement.h"
 #include "COLLADASWC.h"
+#include "COLLADAURI.h"
 
 namespace COLLADA
 {
@@ -63,7 +64,7 @@ namespace COLLADA
         @param offset The offset of the @a \<input\> element.
         @param set The set of the @a \<input\> element.
         */
-        Input ( Semantics semantic, const String& source, int offset = -1, int set = -1 )
+        Input ( Semantics semantic, const URI& source, int offset = -1, int set = -1 )
                 : mSemantic ( semantic ),
                 mSource ( source ),
                 mOffset ( offset ),
@@ -78,7 +79,7 @@ namespace COLLADA
         }
 
         /** Returns the source of the Input*/
-        const String& getSource() const
+        const URI& getSource() const
         {
             return mSource;
         }
@@ -97,7 +98,7 @@ namespace COLLADA
 
     private:
         Semantics mSemantic;
-        String mSource;
+        URI mSource;
         int mOffset;
         int mSet;
     };

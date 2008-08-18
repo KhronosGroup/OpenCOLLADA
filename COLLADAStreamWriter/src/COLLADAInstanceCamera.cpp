@@ -19,7 +19,7 @@ namespace COLLADA
     void InstanceCamera::add()
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_CAMERA );
-        mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
         mSW->closeElement();
     }
 

@@ -27,15 +27,15 @@ namespace COLLADA
             mExtraTechniques.insert ( ExtraTechnique ( profileName, Profile() ) );
 
         it = mExtraTechniques.find ( profileName );
-
         if ( it == mExtraTechniques.end() ) assert ( "Could not create a profile" );
 
         return ( *it ).second;
     }
 
     //---------------------------------------------------------------
-    Parameters& BaseExtraTechnique::getChildParameters ( ChildElementsMap& childElements,
-            const String& childName )
+    Parameters& BaseExtraTechnique::getChildParameters ( 
+        ChildElementsMap& childElements,
+        const String& childName )
     {
         // Is the given childElement already in the map?
         ChildElementsMap::iterator it = childElements.find ( childName );
@@ -44,22 +44,24 @@ namespace COLLADA
             childElements.insert ( ChildElement ( childName, Parameters() ) );
 
         it = childElements.find ( childName );
-
         if ( it == childElements.end() ) assert ( "Can't create a child parameter!" );
 
         return ( *it ).second;
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueParameter ( const String& profileName,
-            const String& paramName,
-            const String& value )
+    void BaseExtraTechnique::addExtraTechniqueParameter ( 
+        const String& profileName,
+        const String& paramName,
+        const String& value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.stringValue = value;
         paramValue.paramType = STRING;
 
@@ -68,10 +70,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueChildParameter ( const String& profileName,
-            const String& childName,
-            const String& paramName,
-            const String &value )
+    void BaseExtraTechnique::addExtraTechniqueChildParameter ( 
+        const String& profileName,
+        const String& childName,
+        const String& paramName,
+        const String &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -83,7 +87,8 @@ namespace COLLADA
         Parameters& childParameters = getChildParameters ( childElements, childName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.stringValue = value;
         paramValue.paramType = STRING;
 
@@ -92,15 +97,18 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueParameter ( const String& profileName,
-            const String& paramName,
-            const int &value )
+    void BaseExtraTechnique::addExtraTechniqueParameter ( 
+        const String& profileName,
+        const String& paramName,
+        const int &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.integerValue = value;
         paramValue.paramType = INTEGER;
 
@@ -109,10 +117,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueChildParameter ( const String& profileName,
-            const String& childName,
-            const String& paramName,
-            const int &value )
+    void BaseExtraTechnique::addExtraTechniqueChildParameter ( 
+        const String& profileName,
+        const String& childName,
+        const String& paramName,
+        const int &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -121,7 +131,8 @@ namespace COLLADA
         Parameters& childParameters = getChildParameters ( profile.mChildElements, childName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.integerValue = value;
         paramValue.paramType = INTEGER;
 
@@ -130,15 +141,18 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueParameter ( const String& profileName,
-            const String& paramName,
-            const double &value )
+    void BaseExtraTechnique::addExtraTechniqueParameter ( 
+        const String& profileName,
+        const String& paramName,
+        const double &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.doubleValue = value;
         paramValue.paramType = DOUBLE;
 
@@ -147,10 +161,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueChildParameter ( const String& profileName,
-            const String& childName,
-            const String& paramName,
-            const double &value )
+    void BaseExtraTechnique::addExtraTechniqueChildParameter ( 
+        const String& profileName,
+        const String& childName,
+        const String& paramName,
+        const double &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -159,7 +175,8 @@ namespace COLLADA
         Parameters& childParameters = getChildParameters ( profile.mChildElements, childName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.doubleValue = value;
         paramValue.paramType = DOUBLE;
 
@@ -168,15 +185,62 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueParameter ( const String& profileName,
-            const String& paramName,
-            const bool &value )
+    void BaseExtraTechnique::addExtraTechniqueParameter ( 
+        const String& profileName,
+        const String& paramName,
+        const float &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.floatValue = value;
+        paramValue.paramType = FLOAT;
+
+        // Insert the value into the parameters map of the current profile.
+        profile.mParameters.insert ( Parameter ( paramName, paramValue ) );
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueChildParameter ( 
+        const String& profileName,
+        const String& childName,
+        const String& paramName,
+        const float &value, 
+        const String paramSid )
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile ( profileName );
+
+        // Get the current childElement from the map or create a new one.
+        Parameters& childParameters = getChildParameters ( profile.mChildElements, childName );
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
+        paramValue.floatValue = value;
+        paramValue.paramType = FLOAT;
+
+        // Add the given parameter into the parameter list of the child element
+        childParameters.insert ( Parameter ( childName, paramValue ) );
+    }
+
+    //---------------------------------------------------------------
+    void BaseExtraTechnique::addExtraTechniqueParameter ( 
+        const String& profileName,
+        const String& paramName,
+        const bool &value, 
+        const String paramSid )
+    {
+        // Get the current Profile from the map or create a new one.
+        Profile& profile = getProfile ( profileName );
+
+        // Create the value
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.boolValue = value;
         paramValue.paramType = BOOL;
 
@@ -185,10 +249,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueChildParameter ( const String& profileName,
-            const String& childName,
-            const String& paramName,
-            const bool &value )
+    void BaseExtraTechnique::addExtraTechniqueChildParameter ( 
+        const String& profileName,
+        const String& childName,
+        const String& paramName,
+        const bool &value, 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -197,7 +263,8 @@ namespace COLLADA
         Parameters& childParameters = getChildParameters ( profile.mChildElements, childName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.boolValue = value;
         paramValue.paramType = BOOL;
 
@@ -206,10 +273,12 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueChildParameter ( const String& profileName,
-            const String& childName,
-            const String& paramName,
-            double matrix[][4] )
+    void BaseExtraTechnique::addExtraTechniqueChildParameter ( 
+        const String& profileName,
+        const String& childName,
+        const String& paramName,
+        double matrix[][4], 
+        const String paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -218,7 +287,8 @@ namespace COLLADA
         Parameters& childParameters = getChildParameters ( profile.mChildElements, childName );
 
         // Create the value
-        ParamValue paramValue;
+        ParamData paramValue;
+        paramValue.sid = paramSid;
         paramValue.matrix = matrix;
         paramValue.paramType = MATRIX;
 
@@ -289,25 +359,29 @@ namespace COLLADA
         {
             // Add this parameter
             String paramName = ( *paramsIt ).first;
-            ParamValue paramValue = ( *paramsIt ).second;
+            ParamData paramData = ( *paramsIt ).second;
 
-            switch ( paramValue.paramType )
+            switch ( paramData.paramType )
             {
 
             case STRING:
-                colladaTechnique.addParameter ( paramName, paramValue.stringValue );
+                colladaTechnique.addParameter ( paramName, paramData.stringValue );
                 break;
 
             case INTEGER:
-                colladaTechnique.addParameter ( paramName, paramValue.integerValue );
+                colladaTechnique.addParameter ( paramName, paramData.integerValue );
                 break;
 
             case DOUBLE:
-                colladaTechnique.addParameter ( paramName, paramValue.doubleValue );
+                colladaTechnique.addParameter ( paramName, paramData.doubleValue );
+                break;
+
+            case FLOAT:
+                colladaTechnique.addParameter ( paramName, paramData.floatValue );
                 break;
 
             case BOOL:
-                colladaTechnique.addParameter ( paramName, paramValue.boolValue );
+                colladaTechnique.addParameter ( paramName, paramData.boolValue );
                 break;
             }
 

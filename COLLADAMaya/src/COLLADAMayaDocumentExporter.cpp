@@ -29,7 +29,7 @@
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
-#include "COLLADAMayaConvert.h"
+#include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
 
@@ -279,8 +279,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-        COLLADA::Scene scene ( &mStreamWriter );
-        scene.mInstanceVisualSceneUrl = "#" + VISUAL_SCENE_NODE_ID;
+        COLLADA::Scene scene ( &mStreamWriter, COLLADA::URI ( "", VISUAL_SCENE_NODE_ID ) );
         scene.add();
     }
 

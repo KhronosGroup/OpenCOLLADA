@@ -20,7 +20,7 @@ namespace COLLADA
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_MATERIAL );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SYMBOL, it->getSymbol() );
-            mSW->appendURLAttribute ( CSWC::COLLADA_ATTRIBUTE_TARGET, it->getTarget() );
+            mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_TARGET, it->getTarget() );
             mSW->closeElement();
         }
     }

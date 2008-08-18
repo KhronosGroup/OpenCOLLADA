@@ -14,6 +14,7 @@
 
 #include "COLLADAPrerequisites.h"
 #include "COLLADAElementWriter.h"
+#include "COLLADAURI.h"
 #include <string>
 
 namespace COLLADA
@@ -25,16 +26,20 @@ namespace COLLADA
     class Scene : public ElementWriter
     {
 
+    private:
+
+        /** The url of the instance visual scene.*/
+        URI mInstanceVisualSceneUrl;
+
     public:
         /** Constructor that sets the stream the scene should be written to*/
-        Scene ( StreamWriter * streamWriter ) : ElementWriter ( streamWriter ) {}
+        Scene ( StreamWriter * streamWriter, URI instanceURI ) 
+        : ElementWriter ( streamWriter ) 
+        , mInstanceVisualSceneUrl ( instanceURI )
+        {}
 
         /** Adds the scene to the stream, i.e. performes the actual writing*/
         void add();
-
-
-        /** The url of the instance visual scene.*/
-        String mInstanceVisualSceneUrl;
     };
 
 } //namespace COLLADA

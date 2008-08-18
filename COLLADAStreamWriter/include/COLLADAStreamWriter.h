@@ -91,7 +91,7 @@ namespace COLLADA
 
         /** Adds the attribute @a name with value "#" plus @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/
-        void appendURLAttribute ( const String& name, const URI& value );
+        void appendURIAttribute ( const String& name, const URI& value );
 
         /** Adds the attribute @a name with value @a value to the last opened element.
         This function can only be called after openElement() before any content is written.*/

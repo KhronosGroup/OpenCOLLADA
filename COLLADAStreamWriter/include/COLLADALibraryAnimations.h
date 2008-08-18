@@ -15,6 +15,7 @@
 #include "COLLADAPrerequisites.h"
 #include "COLLADALibrary.h"
 #include "COLLADAInputList.h"
+#include "COLLADAUri.h"
 
 #include <vector>
 #include <list>
@@ -78,7 +79,7 @@ namespace COLLADA
             struct Input
             {
                 Semantic semantic;
-                String source;
+                URI source;
             };
 
             /** A list of inputs*/
@@ -105,7 +106,7 @@ namespace COLLADA
             }
 
             /** Adds an input element to the sampler*/
-            void addInput ( Semantic semantic, const String & source );
+            void addInput ( Semantic semantic, const URI& source );
 
             /** Returns a const reference of the Inputlist*/
             const InputList& getInputList() const
@@ -173,7 +174,7 @@ namespace COLLADA
         void addSampler ( const Sampler& sampler );
 
         /** Adds channel with @a source and @a target to the animation*/
-        void addChannel ( const String& source, const String& target );
+        void addChannel ( const URI& source, const String& target );
 
         /** Returns the name of the interpolation type*/
         static const String& getNameOfInterpolation ( const InterpolationType& type );

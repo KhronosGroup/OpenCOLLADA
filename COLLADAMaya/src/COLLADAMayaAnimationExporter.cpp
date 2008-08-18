@@ -17,7 +17,6 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaAnimationHelper.h"
-#include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaSceneGraph.h"
 
 #include <maya/MFnDependencyNode.h>
@@ -248,7 +247,7 @@ namespace COLLADAMaya
         uint dimension = animatedElement->getDimension();
 
         // Create the new multi curve
-        multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getSubId(), dimension );
+        multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getTargetSubId(), dimension );
         multiCurve->setPreInfinity ( mergedCurve->getPreInfinity() );
         multiCurve->setPostInfinity ( mergedCurve->getPostInfinity() );
 
@@ -1115,14 +1114,14 @@ namespace COLLADAMaya
 
         LibraryAnimations::Sampler sampler ( sourceId + SAMPLER_ID_SUFFIX );
 
-        sampler.addInput ( LibraryAnimations::Sampler::INPUT, "#" + sourceId + INPUT_SOURCE_ID_SUFFIX );
-        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, "#" + sourceId + OUTPUT_SOURCE_ID_SUFFIX );
-        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, "#" + sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
+        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADA::URI ( "", sourceId + INPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADA::URI ( "", sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADA::URI ( "", sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
 
         if ( animationCurve.hasTangents() )
         {
-            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, "#" + sourceId + INTANGENT_SOURCE_ID_SUFFIX );
-            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, "#" + sourceId + OUTTANGENT_SOURCE_ID_SUFFIX );
+            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADA::URI ( "", sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADA::URI ( "", sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
         }
 
         addSampler ( sampler );
@@ -1135,14 +1134,14 @@ namespace COLLADAMaya
         String sourceId = animationCurve.getSourceId();
         String target = getTarget ( animationCurve );
 
-        addChannel ( "#" + sourceId + SAMPLER_ID_SUFFIX, target );
+        addChannel ( COLLADA::URI ( "", sourceId + SAMPLER_ID_SUFFIX ), target );
     }
 
     //---------------------------------------------------------------
     template<class T>
     String AnimationExporter::getTarget ( const BaseAnimationCurve<T> &animationCurve )
     {
-        String subId = animationCurve.getSubId();
+        String subId = animationCurve.getTargetSubId();
         String nodeId = animationCurve.getNodeId();
         const uint dimension = animationCurve.getDimension();
 
@@ -1198,39 +1197,39 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addPlugAnimation ( 
-        MObject &node,
-        const String attrname,
-        const String* parameters,
-        const uint sampleType,
-        const int arrayElement, 
-        const bool isRelativeAnimation, 
-        ConversionFunctor* conversion )
+    bool AnimationExporter::addNodeAnimation( 
+        MObject &node, 
+        const String attrname, 
+        const uint sampleType, 
+        const String* parameters /* = EMPTY_PARAMETER */, 
+        const int arrayElement /*= -1*/, 
+        const bool isRelativeAnimation /*= false*/, 
+        ConversionFunctor* conversion /*= NULL */ )
     {
         // Take the attribute name as the sub id.
-        String subId = attrname;
+        String targetSubId = attrname;
 
-        return addPlugAnimation ( 
+        return addNodeAnimation ( 
             node, 
-            subId, 
+            targetSubId, 
             attrname, 
-            parameters, 
             sampleType, 
+            parameters, 
             arrayElement, 
             isRelativeAnimation, 
             conversion );
     }
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addPlugAnimation ( 
+    bool AnimationExporter::addNodeAnimation ( 
         MObject &node,
-        const String subId,
+        const String targetSubId,
         const String attrname,
-        const String* parameters,
         const uint sampleType,
-        const int arrayElement, 
-        const bool isRelativeAnimation, 
-        ConversionFunctor* conversion )
+        const String* parameters /* = EMPTY_PARAMETER */, 
+        const int arrayElement /*= -1*/, 
+        const bool isRelativeAnimation /*= false*/, 
+        ConversionFunctor* conversion /*= NULL */ )
     {
         // We will not proceed, if we don't have a node object
         if ( node == MObject::kNullObj ) return false;
@@ -1245,9 +1244,9 @@ namespace COLLADAMaya
 
         return addPlugAnimation ( 
             plug, 
-            subId, 
-            parameters, 
+            targetSubId, 
             ( SampleType ) sampleType, 
+            parameters, 
             arrayElement, 
             isRelativeAnimation, 
             conversion );
@@ -1256,18 +1255,18 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     bool AnimationExporter::addPlugAnimation ( 
         MPlug &plug,
-        const String subId,
-        const String* parameters,
+        const String targetSubId,
         const uint sampleType,
-        const int arrayElement, 
-        const bool isRelativeAnimation, 
-        ConversionFunctor* conversion )
+        const String* parameters /* = EMPTY_PARAMETER */, 
+        const int arrayElement /*= -1*/, 
+        const bool isRelativeAnimation /*= false*/, 
+        ConversionFunctor* conversion /*= NULL */ )
     {
         return addPlugAnimation ( 
             plug, 
-            subId, 
-            parameters, 
+            targetSubId, 
             ( SampleType ) sampleType, 
+            parameters, 
             arrayElement, 
             isRelativeAnimation, 
             conversion );
@@ -1276,12 +1275,12 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     bool AnimationExporter::addPlugAnimation ( 
         MPlug &plug,
-        const String subId,
-        const String* parameters,
+        const String targetSubId,
         const SampleType sampleType,
-        const int arrayElement, 
-        const bool isRelativeAnimation, 
-        ConversionFunctor* conversion )
+        const String* parameters /* = EMPTY_PARAMETER */, 
+        const int arrayElement /*= -1*/, 
+        const bool isRelativeAnimation /*= false*/, 
+        ConversionFunctor* conversion /*= NULL */ )
     {
         // if (animatedValue == NULL) return;
         bool isAnimated = false;
@@ -1299,7 +1298,7 @@ namespace COLLADAMaya
         String nodeId = getNodeId ( plug );
 
         AnimationElement* animatedElement;
-        animatedElement = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
+        animatedElement = new AnimationElement ( plug, baseId, targetSubId, nodeId, parameters, sampleType );
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
         animatedElement->setArrayElement ( arrayElement );
 
@@ -1523,7 +1522,7 @@ namespace COLLADAMaya
 
             // Create a new animated element
             String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
-            String subId = animatedElement->getSubId();
+            String subId = animatedElement->getTargetSubId();
             String nodeId = animatedElement->getNodeId();
             const String* parameters = animatedElement->getParameters();
             SampleType sampleType = animatedElement->getSampleType();

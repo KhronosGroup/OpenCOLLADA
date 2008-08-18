@@ -119,14 +119,7 @@ namespace COLLADAMaya
          */
         void exportControllers();
 
-        /**
-         * Write the controller data into the collada document.
-         */
-        void completeControllerExport();
-        void completeInstanceExport(BaseController* colladaController);
-
-
-        // Returns true if 'node' is of a supported shape type and it has a controller.
+        /** Returns true if 'node' is of a supported shape type and it has a controller. */
         bool hasController ( const MObject& node );
         bool hasSkinController ( const MObject& node );
         bool hasMorphController ( const MObject& node );
