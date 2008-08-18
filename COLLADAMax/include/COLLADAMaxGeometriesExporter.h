@@ -59,6 +59,10 @@ namespace COLLADAMax
         /** Exports all geometries in the export scene graph.*/
         void doExport();
 
+		/** Creates an id for the geometry, derived from the node id*/
+		static String getGeometryId(const ExportNode& exportNode);
+
+
     private:
         GeometriesExporter ( const GeometriesExporter & geometriesExporter );
         GeometriesExporter &operator= ( const GeometriesExporter & geometriesExporter );

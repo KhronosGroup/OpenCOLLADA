@@ -20,7 +20,9 @@
 
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
+#include "COLLADAInstanceController.h"
 #include "COLLADAMathUtils.h"
+#include "COLLADAURI.h"
 
 
 #include "COLLADAMaxVisualSceneExporter.h"
@@ -91,10 +93,16 @@ namespace COLLADAMax
         INode *node = exportNode->getINode();
 
         colladaNode.setNodeId ( NODE_ID_PRAEFIX + exportNode->getId() );
+
+		if ( exportNode->hasSid() )
+			colladaNode.setNodeSid(exportNode->getSid());
+
         colladaNode.setNodeName ( COLLADA::Utils::checkNCName ( node->GetName() ) );
 
-		if ( exportNode->getType() == ExportNode::BONE )
+		if ( exportNode->getIsJoint() )
+		{
 			colladaNode.setType( COLLADA::Node::JOINT );
+		}
 
         colladaNode.start();
 
@@ -102,50 +110,21 @@ namespace COLLADAMax
 
         if ( exportNode->getType() == ExportNode::MESH )
         {
-            // 13.05.08 SL: This is neccessary, too. See example Messerschmidt for node "Spot01.Target"
-            Object * object = exportNode->getINode() ->EvalWorldState ( 0 ).obj;
+			if ( exportNode->hasControllers() )
+			{
+				COLLADA::InstanceController instanceController ( mSW );
+				instanceController.setUrl ( "#" + exportNode->getLastControllerId() );
+				setBindMaterial(instanceController, exportNode);
+				instanceController.add();
 
-            if ( object )
-            {
-                if ( object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
-                {
-                    COLLADA::InstanceGeometry instanceGeometry ( mSW );
-                    instanceGeometry.setUrl ( "#" + COLLADA::LibraryGeometries::GEOMETRY_ID_PRAEFIX + exportNode->getId() );
-
-                    COLLADA::InstanceMaterialList & instanceMaterialList = instanceGeometry.getBindMaterial().getInstanceMaterialList();
-                    const ExportNode::MeshSymbolMap & symbolMap = exportNode->getMeshSymbolMap();
-
-                    if ( symbolMap.empty() )
-                    {
-                        String materialId = MaterialExporter::getMaterialIdFromEffectId ( EffectExporter::getEffectId ( exportNode->getWireFrameColor() ) );
-                        //String materialSymbol = symbolIt->first;
-                        const String & materialSymbol = GeometryExporter::COLOR_MATERIAL_SYMBOL;
-                        instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialSymbol, "#" + materialId ) );
-                    }
-
-                    else
-                    {
-                        ExportNode::MeshSymbolMap::const_iterator symbolIt = symbolMap.begin();
-
-                        for ( ; symbolIt != symbolMap.end(); ++symbolIt )
-                        {
-                            ExportNode::Symbol symbol = symbolIt->second;
-
-                            if ( symbol.used )
-                            {
-                                Mtl * material = symbolIt->first;
-                                EffectMap::const_iterator it = mEffectMap.find ( material );
-                                assert ( it != mEffectMap.end() );
-                                String materialId = MaterialExporter::getMaterialIdFromEffectId ( it->second );
-                                //String materialSymbol = symbolIt->first;
-                                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( symbol.name, "#" + materialId ) );
-                            }
-                        }
-                    }
-
-                    instanceGeometry.add();
-                }
-            }
+			}
+			else
+			{
+				COLLADA::InstanceGeometry instanceGeometry ( mSW );
+				instanceGeometry.setUrl ( "#" + GeometriesExporter::getGeometryId(*exportNode) );
+				setBindMaterial(instanceGeometry, exportNode);
+				instanceGeometry.add();
+			}
         } 
 
         //export the child nodes
@@ -355,6 +334,7 @@ namespace COLLADAMax
 
     }
 
+	//---------------------------------------------------------------
 	void VisualSceneExporter::CalculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm)
 	{
 
@@ -372,18 +352,57 @@ namespace COLLADAMax
 			}
 		}
 */
-		Point3 opos = maxNode->GetObjOffsetPos();
-		Quat orot = maxNode->GetObjOffsetRot();
-		ScaleValue oscale = maxNode->GetObjOffsetScale();
+		Point3 objectOffsetPosition = maxNode->GetObjOffsetPos();
+		Quat objectOffsetRotation = maxNode->GetObjOffsetRot();
+		ScaleValue objectOffsetScale = maxNode->GetObjOffsetScale();
 
 		// this should already be in local space
 		// only do this if necessary to preserve identity tags
-		ApplyScaling(tm, oscale);
-		RotateMatrix(tm, orot);
-		tm.Translate(opos);
+		ApplyScaling(tm, objectOffsetScale);
+		RotateMatrix(tm, objectOffsetRotation);
+		tm.Translate(objectOffsetPosition);
 
 		tm.ValidateFlags();
 	}
+
+
+	//---------------------------------------------------------------
+	template<class InstanceType>
+	void COLLADAMax::VisualSceneExporter::setBindMaterial( InstanceType &instance, ExportNode * exportNode )
+	{
+		COLLADA::InstanceMaterialList & instanceMaterialList = instance.getBindMaterial().getInstanceMaterialList();
+		const ExportNode::MeshSymbolMap & symbolMap = exportNode->getMeshSymbolMap();
+
+		if ( symbolMap.empty() )
+		{
+			String materialId = MaterialExporter::getMaterialIdFromEffectId ( EffectExporter::getEffectId ( exportNode->getWireFrameColor() ) );
+			//String materialSymbol = symbolIt->first;
+			const String & materialSymbol = GeometryExporter::COLOR_MATERIAL_SYMBOL;
+			instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialSymbol, "#" + materialId ) );
+		}
+
+		else
+		{
+			ExportNode::MeshSymbolMap::const_iterator symbolIt = symbolMap.begin();
+
+			for ( ; symbolIt != symbolMap.end(); ++symbolIt )
+			{
+				ExportNode::Symbol symbol = symbolIt->second;
+
+				if ( symbol.used )
+				{
+					Mtl * material = symbolIt->first;
+					EffectMap::const_iterator it = mEffectMap.find ( material );
+					assert ( it != mEffectMap.end() );
+					String materialId = MaterialExporter::getMaterialIdFromEffectId ( it->second );
+					//String materialSymbol = symbolIt->first;
+					instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( symbol.name, "#" + materialId ) );
+				}
+			}
+		}
+
+	}
+
 
 
 }

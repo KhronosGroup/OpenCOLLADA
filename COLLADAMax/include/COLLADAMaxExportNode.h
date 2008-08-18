@@ -25,6 +25,9 @@
 
 #include "COLLADAUtils.h"
 #include "COLLADAIDList.h"
+
+#include "COLLADAMaxControllerList.h"
+
 #include <map>
 #include <vector>
 
@@ -84,18 +87,27 @@ namespace COLLADAMax
         /** The type of the node.*/
         mutable Type mType;
 
+		/** Indicates if the node is a joint*/
+		bool mIsJoint;
+
         /** The unique id of the node.*/
         String mId;
 
-        COLLADA::IDList mIdList;
+		/** The sid of the node.*/
+		String mSid;
 
+		/** List of the unique symbols of the mesh. (Only used if the node is a mesh).*/
+        COLLADA::IDList mSymbolList;
+
+		/** All the controllers that are applied to the represented node and that are supported by COLLADA.*/
+		ControllerList * mControllerList;
 
     public:
         /** Constructor
         @param iNode The INode represented by the Export node. */
         ExportNode ( INode * iNode );
 
-        /** Desrtuctor*/
+        /** Destructor*/
         virtual ~ExportNode()
         {
             clean();
@@ -107,8 +119,30 @@ namespace COLLADAMax
             return mId;
         }
 
+		/** Returns the sid of the node.*/
+		const String & getSid() const
+		{
+			return mSid;
+		}
+
+		/** Sets the sid of the node*/
+		void setSid(const String & sid){mSid=sid;}
+
+		/** Returns if the node has already an sid*/
+		bool hasSid()const {return !mSid.empty();}
+
+		/** Sets the type of the node to UNKNOWN. Use this if you notify that the simple 
+		approach based on class ids failed.*/
+		void setTypeToUnknown() {mType = UNKNOWN;}
+
         /** Returns the type of the node.*/
         Type getType() const;
+
+		/** Returns if the node is a joint*/
+		bool getIsJoint()const {return mIsJoint; }
+
+		/** Sets if the node is a joint*/
+		void setIsJoint(bool isJoint){mIsJoint=isJoint;}
 
         /** Returns the INode associated with this Export Node.*/
         INode * getINode() const
@@ -134,10 +168,26 @@ namespace COLLADAMax
             return mChildren[ i ];
         }
 
+		/** Returns the ControllerList*/
+		ControllerList * getControllerList()const{ return mControllerList; }
+
+		/** Sets the controller list.*/
+		void createControllerList();
+
+		/** Returns if the node has controllers applied to it.*/
+		bool hasControllers()const{ return mControllerList ? mControllerList->hasControllers() : false; }
+
+		/** Returns the id of the last controller applied to the nodes geometry or an empty string if no 
+		controllers are assigned.*/
+		String getLastControllerId()const;
+
+		/** Returns the initial pose of the object, before all controllers that will be exported are applied.*/
+		Object* getInitialPose()const;
+
         /** Determines and returns the type of @a INode.*/
         static Type determineType ( INode * iNode );
 
-        /** Adds channel @a channel with corresponding effect id @a effectId. The symbol us marked as unused.*/
+        /** Adds channel @a channel with corresponding effect id @a effectId. The symbol is marked as unused.*/
         void addSymbol ( Mtl * material, const String & symbol );
 
         /** Returns the symbol that corresponds to @a material.*/

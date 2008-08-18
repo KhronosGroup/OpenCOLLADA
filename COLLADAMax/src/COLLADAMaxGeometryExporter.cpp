@@ -27,7 +27,7 @@
 #include "COLLADAMaxGeometryExporter.h"
 #include "COLLADAMaxMaterialExporter.h"
 #include "COLLADAMaxExportSceneGraph.h"
-//#include "COLLADAMaxEffectExporter.h"
+#include "COLLADAMaxControllerList.h"
 
 #include "COLLADAMaxGeometryExtra.h"
 
@@ -97,6 +97,7 @@ namespace COLLADAMax
 
 
 
+
     //---------------------------------------------------------------
     void GeometryExporter::getBaseObjectAndID ( Object*& object, SClass_ID& sid )
     {
@@ -148,7 +149,7 @@ namespace COLLADAMax
             }
         }
 
-        if ( mPolyObject == NULL )
+        if ( !mPolyObject )
         {
             // Check for the possibility of an editable mesh object.
 
@@ -157,7 +158,7 @@ namespace COLLADAMax
                 mTriObject = ( TriObject* ) object;
             }
 
-            if ( mTriObject == NULL )
+            if ( !mTriObject )
             {
 #if 0
                 // Check for geometry primitives (Box, Cylinder, Torus, etc.) and convert them to TriObject
@@ -189,13 +190,13 @@ namespace COLLADAMax
 
 #endif
 
-                if ( mTriObject == NULL && !exportEPolyAsTriangles && object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
+                if ( !mTriObject && !exportEPolyAsTriangles && object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
                 {
                     mPolyObject = ( PolyObject* ) object->ConvertToType ( TIME_EXPORT_START, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
                     mDeleteObject = true;
                 }
 
-                if ( mTriObject == NULL && mPolyObject == NULL && object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
+                if ( !mTriObject && !mPolyObject && object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
                 {
                     mTriObject = ( TriObject* ) object->ConvertToType ( TIME_EXPORT_START, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
                     // ST - Copy over animated vertices, this is not done by default
@@ -226,7 +227,7 @@ namespace COLLADAMax
                     mDeleteObject = true;
                 }
 
-                if ( mTriObject == NULL && exportEPolyAsTriangles )
+                if ( !mTriObject && exportEPolyAsTriangles )
                 {
                     // Last possibility: do check for an editable poly type that does not convert to a TriObject on its own.
                     //[untested].
@@ -242,7 +243,7 @@ namespace COLLADAMax
             }
         }
 
-        mGeomObject = ( mPolyObject != NULL ) ? ( GeomObject* ) mPolyObject : ( GeomObject* ) mTriObject;
+        mGeomObject = ( mPolyObject ) ? ( GeomObject* ) mPolyObject : ( GeomObject* ) mTriObject;
     }
 
 
@@ -254,9 +255,11 @@ namespace COLLADAMax
         String id = mExportNode->getId();
         INode * iNode = mExportNode->getINode();
 
+		mExportNode->createControllerList();
 
-        //Object * object = exportNode->getINode()->GetObjectRef();
-        Object * object = iNode->EvalWorldState ( 0 ).obj;
+		Object * object = mExportNode->getInitialPose();
+        //Object * object = mExportNode->getINode()->GetObjectRef();
+       // Object * object = iNode->EvalWorldState ( 0 ).obj;
 
         if ( object )
         {
@@ -264,11 +267,14 @@ namespace COLLADAMax
             // Retrieve the TriObject or PolyObject representation of this geometric object.
             classifyObject ( object /*, affectsControllers*/ );
 
-            if ( mGeomObject == NULL || ( mTriObject == NULL && mPolyObject == NULL ) )
+            if ( !mGeomObject || ( !mTriObject && !mPolyObject ) )
+			{	
+				mExportNode->setTypeToUnknown();
                 return ;
+			}
 
             //Mesh & mesh = mTriObject->GetMesh();
-            mId = ( COLLADA::LibraryGeometries::GEOMETRY_ID_PRAEFIX + mExportNode->getId() );
+			mId = GeometriesExporter::getGeometryId(*mExportNode);
 
             mGeometriesExporter->openMesh ( mId, COLLADA::Utils::checkNCName ( iNode->GetName() ) );
 

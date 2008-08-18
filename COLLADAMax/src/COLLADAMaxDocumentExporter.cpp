@@ -20,6 +20,7 @@
 
 #include "COLLADAMaxDocumentExporter.h"
 #include "COLLADAMaxGeometryExporter.h"
+#include "COLLADAMaxControllerExporter.h"
 #include "COLLADAMaxVisualSceneExporter.h"
 #include "COLLADAMaxEffectExporter.h"
 #include "COLLADAMaxAnimationExporter.h"
@@ -65,6 +66,7 @@ namespace COLLADAMax
             exportMaterials();
             exportImages();
             exportGeometries();
+			exportControllers();
             exportVisualScenes();
 			if ( mOptions.getExportAnimations() )
 				exportAnimations();
@@ -166,6 +168,13 @@ namespace COLLADAMax
         GeometriesExporter geometriesExporter ( &mStreamWriter, &mExportSceneGraph, this );
         geometriesExporter.doExport();
     }
+
+	//---------------------------------------------------------------
+	void DocumentExporter::exportControllers()
+	{
+		ControllerExporter controllerExporter ( &mStreamWriter, &mExportSceneGraph, this  );
+		controllerExporter.doExport();
+	}
 
     //---------------------------------------------------------------
     void DocumentExporter::exportEffects()

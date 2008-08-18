@@ -19,6 +19,7 @@
 #include "ColladaMaxStableHeaders.h"
 
 #include "COLLADAMaxExportSceneGraph.h"
+#include "COLLADAUtils.h"
 
 #include <sstream>
 #include <iostream>
@@ -30,8 +31,12 @@ namespace COLLADAMax
     ExportSceneGraph::ExportSceneGraph ( INode * iNode )
             : mExportSelection ( false ),
             mRootNode ( iNode ),
-            mRootExportNode ( 0 )
+            mRootExportNode ( 0 ),
+			mBoneCount(0)
     {}
+
+
+	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
 
 
     //---------------------------------------------------------------
@@ -76,13 +81,15 @@ namespace COLLADAMax
         if ( exportCurrentNode )
         {
 
-            exportNode->setId ( mNodeIdList.addId ( exportNode->getINode() ->GetName() ) );
+            exportNode->setId ( mNodeIdList.addId ( exportNode->getINode()->GetName() ) );
+			mINodeExportNodeMap[iNode] = exportNode;
             return exportNode;
         }
-
-        delete exportNode;
-
-        return 0;
+		else
+		{
+			delete exportNode;
+			return 0;
+		}
     }
 
 
@@ -93,4 +100,20 @@ namespace COLLADAMax
 
     }
 
+	//---------------------------------------------------------------
+	COLLADA::String ExportSceneGraph::createJointSid()
+	{
+		return JOINT_SID_BASE_NAME + COLLADA::Utils::toString(mBoneCount++);
+	}
+
+	//---------------------------------------------------------------
+	ExportNode * ExportSceneGraph::getExportNode( INode* iNode ) const
+	{
+		INodeExportNodeMap::const_iterator it = mINodeExportNodeMap.find(iNode);
+
+		if ( it != mINodeExportNodeMap.end() )
+			return it->second;
+		else
+			return 0;
+	}
 }

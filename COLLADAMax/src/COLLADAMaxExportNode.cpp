@@ -19,6 +19,7 @@
 #include "ColladaMaxStableHeaders.h"
 
 #include "COLLADAMaxExportNode.h"
+#include "COLLADAMaxControllerExporter.h"
 
 #include <max.h>
 #include <modstack.h>
@@ -31,13 +32,16 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     ExportNode::ExportNode ( INode * iNode )
             : mINode ( iNode ),
-            mType ( UNDETERMINED )
+            mType ( UNDETERMINED ),
+			mIsJoint(false),
+			mControllerList(0)
     {}
 
     //---------------------------------------------------------------
     ExportNode::ExportNode ( INode * iNode, Type type )
             : mINode ( iNode ),
-            mType ( type )
+            mType ( type ),
+			mControllerList(0)
     {}
 
 
@@ -60,6 +64,8 @@ namespace COLLADAMax
             delete mChildren.back();
             mChildren.pop_back();
         }
+
+		delete mControllerList;
     }
 
 
@@ -157,7 +163,7 @@ namespace COLLADAMax
     {
         Symbol newSymbol;
         newSymbol.used = false;
-        newSymbol.name = mIdList.addId ( symbol );
+        newSymbol.name = mSymbolList.addId ( symbol );
         mMeshSymbolMap[ material ] = newSymbol;
     }
 
@@ -174,4 +180,33 @@ namespace COLLADAMax
 
         return it->second.name;
     }
+
+	//---------------------------------------------------------------
+	void ExportNode::createControllerList()
+	{
+		if ( !mControllerList )
+			mControllerList = new ControllerList(*this);
+	}
+
+	//---------------------------------------------------------------
+	Object* ExportNode::getInitialPose() const
+	{
+		if ( mControllerList )
+		{
+			Object* initialPose = mControllerList->getInitialPose();
+			if ( initialPose )
+				return initialPose;
+		}
+		return mINode->GetObjectRef();
+	}
+
+	//---------------------------------------------------------------
+	String ExportNode::getLastControllerId() const
+	{
+		if ( !hasControllers() )
+			return COLLADA::Utils::EMPTY_STRING;
+
+		return ControllerExporter::getControllerId(*this, mControllerList->getControllerCount());
+	}
+
 }

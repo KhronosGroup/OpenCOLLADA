@@ -600,6 +600,18 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxController.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxControllerExporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxControllerList.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxDocumentExporter.cpp"
 					>
 				</File>
@@ -671,6 +683,18 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxColladaExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxController.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxControllerExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxControllerList.h"
 					>
 				</File>
 				<File

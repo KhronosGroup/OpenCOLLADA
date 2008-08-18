@@ -60,6 +60,10 @@ namespace COLLADAMax
         /** Exports the library visual scene.*/
         void doExport();
 
+		/** Fills the two dimensional array @a copy with the values contained in @a original.*/
+		static void Matrix3ToDouble4x4 ( double copy[][ 4 ], const Matrix3 & original );
+
+
 		static const String MATRIX_SID;
         static const String TRANSLATE_SID;
         static const String ROTATE_SID;
@@ -95,8 +99,9 @@ namespace COLLADAMax
         /** Exports all the transformations of a node.*/
         void exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode );
 
-        /** Fills the two dimensional array @a copy with the values contained in @a original.*/
-        static void Matrix3ToDouble4x4 ( double copy[][ 4 ], const Matrix3 & original );
+		/** Exports instance geometry or instance controller.*/
+		template<class InstanceType>
+		void setBindMaterial(InstanceType &instance, ExportNode * exportNode);
 
 		void CalculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm);
 

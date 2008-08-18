@@ -73,5 +73,12 @@ namespace COLLADAMax
     }
 
 
+	//---------------------------------------------------------------
+	COLLADA::String GeometriesExporter::getGeometryId( const ExportNode& exportNode )
+	{
+		return COLLADA::LibraryGeometries::GEOMETRY_ID_PRAEFIX + exportNode.getId() ;
+	}
+
+
 
 }

@@ -26,6 +26,8 @@
 
 #include <map>
 
+class INode;
+
 namespace COLLADAMax
 {
 
@@ -34,6 +36,8 @@ namespace COLLADAMax
 
     class ExportSceneGraph
     {
+	public:
+		typedef std::map<INode*, ExportNode*> INodeExportNodeMap;
 
     private:
         /** True if only the selection should be exported, false if the entire scene should be exported.*/
@@ -47,6 +51,15 @@ namespace COLLADAMax
 
         /** Holds the unique ids of the nodes.*/
         COLLADA::IDList mNodeIdList;
+
+		/** Mapping between INodes and ExportNodes.*/
+		INodeExportNodeMap mINodeExportNodeMap;
+
+		/** The number nodes identified as bones in the scene graph. We use it to generate unique sids for the joint nodes.*/
+		size_t mBoneCount;
+
+		/** The base of the joint sid created by createJointSid().*/
+		static const String JOINT_SID_BASE_NAME;
 
     public:
         ExportSceneGraph ( INode * iNode );
@@ -62,6 +75,12 @@ namespace COLLADAMax
         {
             return mRootExportNode;
         }
+
+		/** Creates a unique sid for joints.*/
+		String createJointSid();
+
+		/** Returns the export node that represents @a iNode. If the node is not in the scene grapf, null is returned.*/
+		ExportNode * getExportNode(INode* iNode)const;
 
     private:
         ExportSceneGraph ( const ExportSceneGraph & exportSceneGraph );

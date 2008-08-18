@@ -24,6 +24,7 @@
 #include <vector>
 #include <map>
 
+class INode;
 
 namespace COLLADAMax
 {
@@ -39,6 +40,9 @@ namespace COLLADAMax
 
     /**map<filename,imageID>*/
     typedef std::map<String, String> ExportedImageMap;
+
+	/** List of INodes*/
+	typedef std::vector<INode*> INodeList;
 
 }
 
