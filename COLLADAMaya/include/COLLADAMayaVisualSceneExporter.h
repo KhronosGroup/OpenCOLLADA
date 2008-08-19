@@ -50,7 +50,7 @@ namespace COLLADAMaya
     private:
 
         /** Flag, if the current node is a joint. */
-        bool isJoint;
+        bool mIsJoint;
 
         /** Flag, if we handle the first rotation. */
         bool mIsFirstRotation;
@@ -66,6 +66,9 @@ namespace COLLADAMaya
 
         /** A pointer to the actual visual scene node. */
         COLLADA::Node* mVisualSceneNode;
+
+        /** Pointer to the current scene element. */
+        SceneElement* mSceneElement;
 
         /** The path of the current node. */
         MDagPath mDagPath;
@@ -185,17 +188,17 @@ namespace COLLADAMaya
          * - Interest point
          * - Up-axis direction
          */
-        void exportLookatTransform();
+        void exportLookatTransform ();
 
         /** Exports all transforms */
-        void exportDecomposedTransform();
+        void exportDecomposedTransform ();
 
         /** Exports the translation */
         void exportTranslation ( const String name, const MPoint& translation, bool animation );
         void exportTranslation ( const String name, const MVector& translation, bool animation );
 
         /** Exports the translation in matrix style */
-        void exportMatrixTransform();
+        void exportMatrixTransform ();
 
         /** Exports the Rotation */
         void exportRotation ( const String name, const MEulerRotation& rotation );

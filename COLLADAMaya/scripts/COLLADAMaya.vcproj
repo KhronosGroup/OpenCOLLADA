@@ -399,6 +399,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaRotateHelper.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaSetHelper.cpp"
 					>
 				</File>
@@ -527,10 +531,6 @@
 					RelativePath="..\include\COLLADAMayaSyntax.h"
 					>
 				</File>
-				<File
-					RelativePath="..\include\COLLADAMayaTangentPoint.h"
-					>
-				</File>
 				<Filter
 					Name="Animation"
 					>
@@ -552,6 +552,10 @@
 					</File>
 					<File
 						RelativePath="..\include\COLLADAMayaAnimationTools.h"
+						>
+					</File>
+					<File
+						RelativePath="..\include\COLLADAMayaTangentPoint.h"
 						>
 					</File>
 				</Filter>
@@ -597,6 +601,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaMeshHelper.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaRotateHelper.h"
 					>
 				</File>
 				<File

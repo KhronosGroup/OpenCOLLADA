@@ -25,9 +25,7 @@ typedef MObject MObjectHandle;
 #include <vector>
 
 class MStringArray;
-
 class MDagPath;
-
 class MFnSet;
 
 namespace COLLADAMaya

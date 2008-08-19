@@ -24,6 +24,7 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaControllerExporter.h"
+#include "COLLADAMayaRotateHelper.h"
 
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnMesh.h>
@@ -56,7 +57,7 @@ namespace COLLADAMaya
     : COLLADA::LibraryVisualScenes ( _streamWriter )
     , mDocumentExporter ( _documentExporter )
     , mSceneId ( _sceneId )
-    , isJoint ( false )
+    , mIsJoint ( false )
     , mIsFirstRotation ( true )
     , mVisualSceneAdded ( false )
     , mVisualSceneNode ( NULL )
@@ -96,7 +97,7 @@ namespace COLLADAMaya
         // Just if a node was exported, the visual scene tag
         // in the collada document is open and should be closed.
         if ( nodeExported ) closeVisualScene();
-
+        
         closeLibrary();
 
         // TODO
@@ -323,15 +324,15 @@ namespace COLLADAMaya
         
             if ( ExportOptions::bakeTransforms() )
             {
-                exportMatrixTransform();
+                exportMatrixTransform ();
             }
             else if ( ExportOptions::exportCameraAsLookat() && dagPath.hasFn ( MFn::kCamera ) )
             {
-                exportLookatTransform();
+                exportLookatTransform ();
             }
             else
-            {
-                exportDecomposedTransform();
+            {   
+                exportDecomposedTransform ();
             }
 
             // Exports the visibility technique tag and the visibility animation.
@@ -519,10 +520,9 @@ namespace COLLADAMaya
         mTransformMatrix.getShear ( shear, MSpace::kTransform );
 
         MEulerRotation jointOrientation, rotation, rotationAxis;
-        bool isJoint;
         if ( mTransformObject != MObject::kNullObj )
         {
-            isJoint = DagHelper::getPlugValue ( mTransformObject, ATTR_JOINT_ORIENT, jointOrientation );
+            mIsJoint = DagHelper::getPlugValue ( mTransformObject, ATTR_JOINT_ORIENT, jointOrientation );
 
             if ( !DagHelper::getPlugValue ( mTransformObject, ATTR_ROTATE, rotation ) ) rotation.setValue ( 0, 0, 0 );
             if ( !DagHelper::getPlugValue ( mTransformObject, ATTR_ROTATE_AXIS, rotationAxis ) ) rotationAxis.setValue ( 0, 0, 0 );
@@ -534,7 +534,7 @@ namespace COLLADAMaya
         {
             rotation = mTransformMatrix.eulerRotation();
             rotation.order = ( MEulerRotation::RotationOrder ) ( ( int ) mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ );
-            isJoint = false;
+            mIsJoint = false;
         }
 
         // This is the order of the transforms:
@@ -553,7 +553,7 @@ namespace COLLADAMaya
         exportTranslation ( ATTR_ROTATE_PIVOT_TRANSLATION, rotatePivotTranslation, false );
         exportTranslation ( ATTR_ROTATE_PIVOT, rotatePivot, false );
 
-        if ( isJoint ) exportRotation ( ATTR_JOINT_ORIENT, jointOrientation );
+        if ( mIsJoint ) exportRotation ( ATTR_JOINT_ORIENT, jointOrientation );
         exportRotation ( ATTR_ROTATE, rotation );
 
         exportTranslation ( ATTR_ROTATE_PIVOT_INVERSE, rotatePivot * -1, false );
@@ -657,31 +657,17 @@ namespace COLLADAMaya
     // code can then ignore the 'w' parameter, and just output x,y,z rotation values.
     void VisualSceneExporter::exportRotation ( const String name, const MEulerRotation& rotation )
     {
-        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-
-        // Export XYZ euler rotation in Z Y X order in the file
-        // The rotation order is set to XYZ, Collada reads the parameter from behind
-
-        double matrixRotate[3][4] =
-        {
-            {0, 0, 1, COLLADA::MathUtils::radToDeg ( rotation.z ) },
-            {0, 1, 0, COLLADA::MathUtils::radToDeg ( rotation.y ) },
-            {1, 0, 0, COLLADA::MathUtils::radToDeg ( rotation.x ) }
-        };
-
-        // TODO Don't eliminate empty rotations, if we have a animated rotation???
-//         bool eliminateRotation = false;
-//         bool eliminateEmptyRotation = true;
-//         if ( eliminateEmptyRotation && rotation.x == 0.0 ) eliminateRotation = true;
-
-//         mVisualSceneNode->addRotateZ(name + XYZ_PARAMETERS[2], COLLADA::MathUtils::radToDeg(rotation.z));
-//         mVisualSceneNode->addRotateY(name + XYZ_PARAMETERS[1], COLLADA::MathUtils::radToDeg(rotation.y));
-//         mVisualSceneNode->addRotateX(name + XYZ_PARAMETERS[0], COLLADA::MathUtils::radToDeg(rotation.x));
-
+        RotateHelper rotateHelper ( rotation );
+        std::vector<std::vector<double>>& matrixRotate = rotateHelper.getRotationMatrix ();
+        std::vector<String>& rotateParams = rotateHelper.getRotationParameters ();
+        
         // Set zero flags, where the rotation is zero. The order of rotation is ZYX.
-        bool isZero[3] = {  COLLADA::MathUtils::equals( rotation.z, 0.0 ), 
-                            COLLADA::MathUtils::equals( rotation.y, 0.0 ), 
-                            COLLADA::MathUtils::equals( rotation.x, 0.0 ) };
+        bool isZero[3] = {  COLLADA::MathUtils::equals( matrixRotate[0][3], 0.0 ), 
+                            COLLADA::MathUtils::equals( matrixRotate[1][3], 0.0 ), 
+                            COLLADA::MathUtils::equals( matrixRotate[2][3], 0.0 ) };
+
+        // Get a pointer to the animation exporter.
+        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
 
         // The array for the animations.
         bool isAnimated[3] = { false, false, false };
@@ -692,7 +678,7 @@ namespace COLLADAMaya
             // Add the animation in the order XYZ
             isAnimated[i] = animationExporter->addNodeAnimation (
                 mTransformObject,
-                name + ZYX_PARAMETERS[i],
+                name + rotateParams[i],
                 kSingle | kQualifiedAngle,
                 ANGLE_PARAMETER );
         }
@@ -700,17 +686,17 @@ namespace COLLADAMaya
         // Go through the axes for the rotations.
         for ( uint i=0; i<3; ++i )
         {
-            // You have to write the rotation, if the element is animated.
-            bool rotationIsNecessary = ( isAnimated[i] || !( !mIsFirstRotation && isZero[i] ));
-
+            bool rotationIsNecessary;
             // A joint must always have a rotation.
-            if ( strcmp( name.c_str(), ATTR_JOINT_ORIENT ) == 0 ) rotationIsNecessary = true;
+            if ( mIsJoint ) rotationIsNecessary = true;
+            // You have to write the rotation, if the element is animated.
+            else rotationIsNecessary = ( isAnimated[i] || !( !mIsFirstRotation && isZero[i] ));
 
             if ( mTransformObject != MObject::kNullObj && rotationIsNecessary )
             {
                 // Add the rotation in the order ZYX
                 mVisualSceneNode->addRotate (
-                    name+ZYX_PARAMETERS[i],
+                    name + rotateParams[i],
                     COLLADA::MathUtils::equalsZero( matrixRotate[i][0] ) ? 0 : matrixRotate[i][0],
                     COLLADA::MathUtils::equalsZero( matrixRotate[i][1] ) ? 0 : matrixRotate[i][1],
                     COLLADA::MathUtils::equalsZero( matrixRotate[i][2] ) ? 0 : matrixRotate[i][2],

@@ -21,7 +21,7 @@
 -   Animations
 	- 	Path animation
     -   Constraints (point, orient, parent)
-    - 	Camera
+    - 	Lights
 
 -   PhysicalScene
 -   Subdivision surfaces
