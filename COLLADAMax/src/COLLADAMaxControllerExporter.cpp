@@ -83,9 +83,9 @@ namespace COLLADAMax
 			String controllerId = getControllerId(*exportNode, controllerCount - i);
 			String controllerSource;
 			if ( i <  controllerCount - 1)
-				controllerSource = getControllerId(*exportNode, controllerCount - i - 1);
+				controllerSource = '#' +  getControllerId(*exportNode, controllerCount - i - 1);
 			else
-				controllerSource = GeometriesExporter::getGeometryId(*exportNode);
+				controllerSource = '#' + GeometriesExporter::getGeometryId(*exportNode);
 			exportController(exportNode, controllerList->getController(i), controllerId, controllerSource);
 		}
 	}
@@ -116,7 +116,7 @@ namespace COLLADAMax
 		Matrix3 bindShapeTransformationMatrix;
 		skin->GetSkinInitTM(iNode, bindShapeTransformationMatrix, true);	
 		double  bindShapeTransformationArray[4][4];
-		VisualSceneExporter::Matrix3ToDouble4x4(bindShapeTransformationArray, bindShapeTransformationMatrix);
+		VisualSceneExporter::matrix3ToDouble4x4(bindShapeTransformationArray, bindShapeTransformationMatrix);
 
 		addBindShapeTransform(bindShapeTransformationArray);
 
@@ -148,6 +148,9 @@ namespace COLLADAMax
 			if ( !boneExportNode->hasSid() )
 				boneExportNode->setSid(mExportSceneGraph->createJointSid());
 
+			exportNode->getControllerList()->addReferencedJoint(boneExportNode);
+			boneExportNode->setIsJoint();
+
 			jointSource.appendValues(boneExportNode->getSid());
 
 		}
@@ -174,13 +177,10 @@ namespace COLLADAMax
 			bindPose.Invert();
 
 			double bindPoseArray[4][4];
-			VisualSceneExporter::Matrix3ToDouble4x4(bindPoseArray, bindPose);
+			VisualSceneExporter::matrix3ToDouble4x4(bindPoseArray, bindPose);
 			inverseBindMatrixSource.appendValues(bindPoseArray);
 		}
 		inverseBindMatrixSource.finish();
-
-
-
 
 
 		ISkinContextData* contextData = skin->GetContextInterface(iNode);

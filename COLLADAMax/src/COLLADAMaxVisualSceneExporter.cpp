@@ -92,7 +92,7 @@ namespace COLLADAMax
 
         INode *node = exportNode->getINode();
 
-        colladaNode.setNodeId ( NODE_ID_PRAEFIX + exportNode->getId() );
+        colladaNode.setNodeId ( getNodeId(*exportNode) );
 
 		if ( exportNode->hasSid() )
 			colladaNode.setNodeSid(exportNode->getSid());
@@ -113,8 +113,13 @@ namespace COLLADAMax
 			if ( exportNode->hasControllers() )
 			{
 				COLLADA::InstanceController instanceController ( mSW );
+				ExportNodeSet referencedJoints = exportNode->getControllerList()->getReferencedJoints();
+				
+				for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
+					instanceController.addSkeleton('#' + getNodeId(**it));
+				
 				instanceController.setUrl ( "#" + exportNode->getLastControllerId() );
-				setBindMaterial(instanceController, exportNode);
+				fillInstanceMaterialList(instanceController.getBindMaterial().getInstanceMaterialList(), exportNode);
 				instanceController.add();
 
 			}
@@ -122,7 +127,7 @@ namespace COLLADAMax
 			{
 				COLLADA::InstanceGeometry instanceGeometry ( mSW );
 				instanceGeometry.setUrl ( "#" + GeometriesExporter::getGeometryId(*exportNode) );
-				setBindMaterial(instanceGeometry, exportNode);
+				fillInstanceMaterialList(instanceGeometry.getBindMaterial().getInstanceMaterialList(), exportNode);
 				instanceGeometry.add();
 			}
         } 
@@ -139,7 +144,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void VisualSceneExporter::exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode )
     {
-        const String & fullNodeId = NODE_ID_PRAEFIX + exportNode->getId();
+        const String & fullNodeId = getNodeId(*exportNode);
 
         INode * iNode = exportNode->getINode();
 
@@ -161,7 +166,7 @@ namespace COLLADAMax
 		if ( mDocumentExporter->getOptions().getBakeMatrices() || AnimationExporter::forceSampleMatrices(iNode))
         {
             double matrix[ 4 ][ 4 ] ;
-            Matrix3ToDouble4x4 ( matrix, transformationMatrix );
+            matrix3ToDouble4x4 ( matrix, transformationMatrix );
 			/// @TODO check if matrix is animated
             colladaNode.addMatrix (MATRIX_SID, matrix );
 			animationExporter->addAnimatedFloat4x4 ( iNode, fullNodeId, MATRIX_SID, MATRIX_PARAMETERS );
@@ -299,21 +304,21 @@ namespace COLLADAMax
 		{
 			// Calculate the pivot transform. It should already be in local space.
 			Matrix3 objectOffsetTransformationMatrix(1); 
-			CalculateObjectOffsetTransformation(iNode, objectOffsetTransformationMatrix);
+			calculateObjectOffsetTransformation(iNode, objectOffsetTransformationMatrix);
 
 			// only export the pivot node if the transform is not an identity
 			// or if the node is a group head node (this is a temporary fix until we add a PIVOT type)
 			if ( !objectOffsetTransformationMatrix.IsIdentity() || iNode->IsGroupHead() )
 			{
 				double matrix[ 4 ][ 4 ] ;
-				Matrix3ToDouble4x4 ( matrix, objectOffsetTransformationMatrix );
+				matrix3ToDouble4x4 ( matrix, objectOffsetTransformationMatrix );
 				colladaNode.addMatrix ( matrix );
 			}
 		}
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::Matrix3ToDouble4x4 ( double copy[][ 4 ], const Matrix3 & original )
+    void VisualSceneExporter::matrix3ToDouble4x4 ( double copy[][ 4 ], const Matrix3 & original )
     {
         copy[ 0 ][ 0 ] = original[ 0 ][ 0 ];
         copy[ 1 ][ 0 ] = original[ 0 ][ 1 ];
@@ -335,7 +340,7 @@ namespace COLLADAMax
     }
 
 	//---------------------------------------------------------------
-	void VisualSceneExporter::CalculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm)
+	void VisualSceneExporter::calculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm)
 	{
 
 		// When sampling matrices, we apply the sample the ObjTMAfterWSM
@@ -365,12 +370,15 @@ namespace COLLADAMax
 		tm.ValidateFlags();
 	}
 
+	//---------------------------------------------------------------
+	String VisualSceneExporter::getNodeId( const ExportNode& exportNode )
+	{
+		return NODE_ID_PRAEFIX + exportNode.getId();
+	}
 
 	//---------------------------------------------------------------
-	template<class InstanceType>
-	void COLLADAMax::VisualSceneExporter::setBindMaterial( InstanceType &instance, ExportNode * exportNode )
+	void COLLADAMax::VisualSceneExporter::fillInstanceMaterialList( COLLADA::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )
 	{
-		COLLADA::InstanceMaterialList & instanceMaterialList = instance.getBindMaterial().getInstanceMaterialList();
 		const ExportNode::MeshSymbolMap & symbolMap = exportNode->getMeshSymbolMap();
 
 		if ( symbolMap.empty() )

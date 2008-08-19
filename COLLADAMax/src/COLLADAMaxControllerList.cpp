@@ -52,18 +52,13 @@ namespace COLLADAMax
 			derivedObject = (IDerivedObject*)object;
 			while (superClassId == GEN_DERIVOB_CLASS_ID || superClassId == DERIVOB_CLASS_ID || superClassId == WSM_DERIVOB_CLASS_ID)
 			{
-				for (int modifierIndex = 0; modifierIndex < derivedObject->NumModifiers(); ++modifierIndex/*, modIdx++*/)
+				for (int modifierIndex = 0; modifierIndex < derivedObject->NumModifiers(); ++modifierIndex)
 				{
 					Modifier* modifier = derivedObject->GetModifier(modifierIndex);
 					if ( SkinController::isSkinController(modifier) )
 					{
 						SkinController * skinController = new SkinController(derivedObject, modifierIndex, modifier->IsEnabled() != false);
 						mControllers.push_back(skinController);
-					//	object = derivedObject;
-					//	modifierIndex = modifierIndex;
-					//	modifierStackIndex = modIdx;
-					//	resolved = true;
-					//	return;
 					}
 					else
 						return;

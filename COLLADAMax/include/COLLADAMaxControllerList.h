@@ -22,6 +22,7 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADAMaxController.h"
+#include "COLLADAMaxTypes.h"
 
 namespace COLLADAMax
 {
@@ -37,6 +38,8 @@ namespace COLLADAMax
 
     private:
 		Controllers mControllers;
+		/** Set of all the joints, that are referenced (using their sid) in at least one controller.*/
+		ExportNodeSet mReferencedJoints;
 
     public:
         /** Constructor
@@ -54,6 +57,12 @@ namespace COLLADAMax
 
 		/** Returns the index'th controller*/
 		Controller* getController(size_t index)const {return mControllers.at(index);}
+
+		/** Returns the set of joints, referenced in at least one controller in this controller list.*/
+		const ExportNodeSet& getReferencedJoints()const{return mReferencedJoints;}
+
+		/** Add @a joint to the set of referenced joints.*/
+		void addReferencedJoint(ExportNode* joint){mReferencedJoints.insert(joint);}
 
 		/** Returns the initial pose of the object, before all controllers that will be exported are applied.*/
 		Object* getInitialPose()const;

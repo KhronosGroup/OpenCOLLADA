@@ -23,8 +23,10 @@
 
 #include <vector>
 #include <map>
+#include <set>
 
 class INode;
+class ExportNode;
 
 namespace COLLADAMax
 {
@@ -43,6 +45,8 @@ namespace COLLADAMax
 
 	/** List of INodes*/
 	typedef std::vector<INode*> INodeList;
+
+	typedef std::set<ExportNode*> ExportNodeSet;
 
 }
 

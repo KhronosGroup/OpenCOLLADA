@@ -41,6 +41,7 @@
 #include <iparamb2.h>
 #include <iparamm2.h>
 
+#include <patch.h>
 
 // ST - TODO: Check where we should be sticking these defines..
 

@@ -30,6 +30,7 @@ namespace COLLADA
 {
 
     class Node;
+	class InstanceMaterialList;
 }
 
 namespace COLLADAMax
@@ -43,6 +44,37 @@ namespace COLLADAMax
 
     class VisualSceneExporter : public COLLADA::LibraryVisualScenes
     {
+
+	public :
+		static const String MATRIX_SID;
+		static const String TRANSLATE_SID;
+		static const String ROTATE_SID;
+		static const String ROTATE_X_SID;
+		static const String ROTATE_Y_SID;
+		static const String ROTATE_Z_SID;
+		static const String ROTATE_SCALE_AXIS_SID;
+		static const String ROTATE_SCALE_AXIS_INVERSE_SID;
+		static const String SCALE_SID;
+
+		static const String MATRIX_PARAMETERS[ 1 ];
+		static const String TRANSLATION_PARAMETERS[ 3 ];
+		static const String ROTATION_PARAMETER[ 1 ];
+		static const String ROTATION_PARAMETERS[ 4 ];
+
+
+	private:
+		ExportSceneGraph * mExportSceneGraph;
+
+		const EffectMap & mEffectMap;
+
+		/** The id of the visual scene.*/
+		const String & mVisualSceneId;
+
+		DocumentExporter * mDocumentExporter;
+
+		/** The praefix used for node ids.*/
+		static const String NODE_ID_PRAEFIX;
+
 
     public:
         /** Constructor
@@ -61,49 +93,24 @@ namespace COLLADAMax
         void doExport();
 
 		/** Fills the two dimensional array @a copy with the values contained in @a original.*/
-		static void Matrix3ToDouble4x4 ( double copy[][ 4 ], const Matrix3 & original );
+		static void matrix3ToDouble4x4 ( double copy[][ 4 ], const Matrix3 & original );
 
+		/** Creates an id for the NODE, derived from the node id*/
+		static String getNodeId(const ExportNode& exportNode);
 
-		static const String MATRIX_SID;
-        static const String TRANSLATE_SID;
-        static const String ROTATE_SID;
-        static const String ROTATE_X_SID;
-        static const String ROTATE_Y_SID;
-        static const String ROTATE_Z_SID;
-        static const String ROTATE_SCALE_AXIS_SID;
-        static const String ROTATE_SCALE_AXIS_INVERSE_SID;
-        static const String SCALE_SID;
-
-		static const String MATRIX_PARAMETERS[ 1 ];
-        static const String TRANSLATION_PARAMETERS[ 3 ];
-        static const String ROTATION_PARAMETER[ 1 ];
-        static const String ROTATION_PARAMETERS[ 4 ];
-
-
-    private:
-        ExportSceneGraph * mExportSceneGraph;
-
-        const EffectMap & mEffectMap;
-
-        /** The id of the visual scene.*/
-        const String & mVisualSceneId;
-
-        DocumentExporter * mDocumentExporter;
-
-        /** The praefix used for node ids.*/
-        static const String NODE_ID_PRAEFIX;
-
-        /** Exports all the nodes in @a node and all its child nodes.*/
+	private:
+		/** Exports all the nodes in @a node and all its child nodes.*/
         void doExport ( ExportNode* exportNode );
 
         /** Exports all the transformations of a node.*/
         void exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode );
 
-		/** Exports instance geometry or instance controller.*/
-		template<class InstanceType>
-		void setBindMaterial(InstanceType &instance, ExportNode * exportNode);
+		/** Fill @a instanceMaterialList with the appropriate elements.
+		@param instanceMaterialList The COLLADA::InstanceMaterialList to fill
+		@param exportNode The ExportNode which this instance material list is for. */
+		void fillInstanceMaterialList(COLLADA::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode);
 
-		void CalculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm);
+		void calculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm);
 
 
     };

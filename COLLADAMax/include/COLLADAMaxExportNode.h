@@ -142,7 +142,7 @@ namespace COLLADAMax
 		bool getIsJoint()const {return mIsJoint; }
 
 		/** Sets if the node is a joint*/
-		void setIsJoint(bool isJoint){mIsJoint=isJoint;}
+		void setIsJoint(bool isJoint = true){mIsJoint=isJoint;}
 
         /** Returns the INode associated with this Export Node.*/
         INode * getINode() const
