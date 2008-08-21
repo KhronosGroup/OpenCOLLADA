@@ -59,6 +59,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_H = "h";
     const String CSWC::COLLADA_ELEMENT_IDREF_ARRAY = "IDREF_array";
     const String CSWC::COLLADA_ELEMENT_IMAGE = "image";
+    const String CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION = "index_of_refraction";
     const String CSWC::COLLADA_ELEMENT_INIT_FROM = "init_from";
     const String CSWC::COLLADA_ELEMENT_INPUT = "input";
     const String CSWC::COLLADA_ELEMENT_INSTANCE_ANIMATION = "instance_animation";

@@ -32,21 +32,21 @@
 namespace COLLADAMaya
 {
     // --------------------------------------------
-    AnimationSampleCache::AnimationSampleCache() : nodeSearch ( NULL ) {}
+    AnimationSampleCache::AnimationSampleCache() : mNodeSearch ( NULL ) {}
 
     // --------------------------------------------
     AnimationSampleCache::~AnimationSampleCache()
     {
-        nodeSearch = NULL;
+        mNodeSearch = NULL;
 
-        CacheNodeMap::iterator it = nodes.begin();
-        for ( ; it!=nodes.end(); ++it )
+        CacheNodeMap::iterator it = mNodes.begin();
+        for ( ; it!=mNodes.end(); ++it )
         {
             CacheNode* node = ( *it ).second;
             delete node;
         }
 
-        nodes.clear();
+        mNodes.clear();
     }
 
     // --------------------------------------------
@@ -65,7 +65,6 @@ namespace COLLADAMaya
             ADD_PLUG ( ATTR_MATRIX, true );
 #undef ADD_PLUG
         }
-
         else
         {
             MGlobal::displayError ( MString ( "Unsupported sampling type: " ) + node.apiTypeStr() );
@@ -79,10 +78,10 @@ namespace COLLADAMaya
         MFnDependencyNode fn ( node );
         String nodeName = fn.name().asChar();
 
-        CacheNodeMap::iterator it = nodes.find ( nodeName );
-        if ( it != nodes.end() )
+        CacheNodeMap::iterator it = mNodes.find ( nodeName );
+        if ( it != mNodes.end() )
         {
-            nodeSearch = ( *it ).second;
+            mNodeSearch = ( *it ).second;
             return true;
         }
 
@@ -97,16 +96,16 @@ namespace COLLADAMaya
         inputs = NULL;
         outputs = NULL;
 
-        if ( nodeSearch == NULL || nodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
-        if ( nodeSearch == NULL ) return false;
+        if ( mNodeSearch == NULL || mNodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
+        if ( mNodeSearch == NULL ) return false;
 
-        for ( CachePartList::iterator it = nodeSearch->parts.begin(); it != nodeSearch->parts.end(); ++it )
+        for ( CachePartList::iterator it = mNodeSearch->parts.begin(); it != mNodeSearch->parts.end(); ++it )
         {
             if ( ( *it ).plug == plug && ( *it ).plug.logicalIndex() == plug.logicalIndex() )
             {
                 if ( ( *it ).isAnimated )
                 {
-                    inputs = &AnimationHelper::samplingTimes;
+                    inputs = &AnimationHelper::mSamplingTimes;
                     outputs = & ( *it ).values;
                 }
 
@@ -120,10 +119,10 @@ namespace COLLADAMaya
     // --------------------------------------------
     bool AnimationSampleCache::findCachePlug ( const MPlug& plug, bool& isAnimated )
     {
-        if ( nodeSearch == NULL || nodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
-        if ( nodeSearch == NULL ) return false;
+        if ( mNodeSearch == NULL || mNodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
+        if ( mNodeSearch == NULL ) return false;
 
-        for ( CachePartList::iterator it = nodeSearch->parts.begin(); it != nodeSearch->parts.end(); ++it )
+        for ( CachePartList::iterator it = mNodeSearch->parts.begin(); it != mNodeSearch->parts.end(); ++it )
         {
             if ( ( *it ).plug == plug && ( *it ).plug.logicalIndex() == plug.logicalIndex() )
             {
@@ -138,8 +137,8 @@ namespace COLLADAMaya
     // --------------------------------------------
     bool AnimationSampleCache::markPlugWanted ( const MPlug& plug )
     {
-        if ( nodeSearch == NULL || nodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
-        if ( nodeSearch == NULL ) return false;
+        if ( mNodeSearch == NULL || mNodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
+        if ( mNodeSearch == NULL ) return false;
 
         bool isSampling = false;
         uint childCount = plug.numChildren();
@@ -147,7 +146,7 @@ namespace COLLADAMaya
         marks[childCount] = plug;
 
         for ( uint i = 0; i < childCount; ++i ) marks[i] = plug.child ( i );
-        for ( CachePartList::iterator it = nodeSearch->parts.begin(); it != nodeSearch->parts.end(); ++it )
+        for ( CachePartList::iterator it = mNodeSearch->parts.begin(); it != mNodeSearch->parts.end(); ++it )
         {
             for ( uint i = 0; i < childCount + 1; ++i )
             {
@@ -165,14 +164,14 @@ namespace COLLADAMaya
     // --------------------------------------------
     void AnimationSampleCache::cachePlug ( const MPlug& plug, bool isMatrix )
     {
-        if ( nodeSearch == NULL || nodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
-        if ( nodeSearch == NULL )
+        if ( mNodeSearch == NULL || mNodeSearch->node != plug.node() ) findCacheNode ( plug.node() );
+        if ( mNodeSearch == NULL )
         {
-            nodeSearch = new CacheNode ( plug.node() );
+            mNodeSearch = new CacheNode ( plug.node() );
 
             MFnDependencyNode fn ( plug.node() );
             String nodeName = fn.name().asChar();
-            nodes.insert ( std::pair<String, CacheNode*> ( nodeName, nodeSearch ) );
+            mNodes.insert ( std::pair<String, CacheNode*> ( nodeName, mNodeSearch ) );
         }
 
         std::vector<MPlug> marks;
@@ -193,14 +192,14 @@ namespace COLLADAMaya
             MPlug p = marks[i];
             bool found = false;
 
-            for ( CachePartList::iterator it = nodeSearch->parts.begin(); it != nodeSearch->parts.end() && !found; ++it )
+            for ( CachePartList::iterator it = mNodeSearch->parts.begin(); it != mNodeSearch->parts.end() && !found; ++it )
             {
                 found = ( *it ).plug == p && ( *it ).plug.logicalIndex() == p.logicalIndex();
             }
             if ( !found )
             {
-                nodeSearch->parts.push_back ( CacheNode::Part ( p ) );
-                nodeSearch->parts.back().isMatrix = isMatrix;
+                mNodeSearch->parts.push_back ( CacheNode::Part ( p ) );
+                mNodeSearch->parts.back().isMatrix = isMatrix;
             }
         }
     }
@@ -289,18 +288,18 @@ namespace COLLADAMaya
     // --------------------------------------------
     void AnimationSampleCache::samplePlugs()
     {
-        if ( nodes.empty() ) return;
+        if ( mNodes.empty() ) return;
 
         MTime originalTime;
         MFnMatrixData matrixData;
         MStatus stat;
         AnimationHelper::getCurrentTime ( originalTime );
 
-        std::vector<float>& times = AnimationHelper::samplingTimes;
+        std::vector<float>& times = AnimationHelper::mSamplingTimes;
         uint sampleCount = ( uint ) times.size();
 
         // Allocate the necessary memory in all the plug timing buffers
-        for ( CacheNodeMap::iterator it = nodes.begin(); it != nodes.end(); ++it )
+        for ( CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it )
         {
             CacheNode* c = ( *it ).second;
             for ( CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2 )
@@ -319,7 +318,7 @@ namespace COLLADAMaya
             MTime t ( times[i], MTime::kSeconds );
             AnimationHelper::setCurrentTime ( t );
 
-            for ( CacheNodeMap::iterator it = nodes.begin(); it != nodes.end(); ++it )
+            for ( CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it )
             {
                 CacheNode* c = ( *it ).second;
 

@@ -26,6 +26,7 @@ namespace COLLADA
     {
 
     public:
+
         enum SurfaceType
         {
             SURFACE_TYPE_UNSPECIFIED,
@@ -71,8 +72,11 @@ namespace COLLADA
         };
 
     private:
+
         static const String SAMPLER_SID_SUFFIX;
         static const String SURFACE_SID_SUFFIX;
+
+        String mSid;
 
         /** the ID of the image element assigned to the texture. Required*/
         String mImageID;
@@ -110,7 +114,7 @@ namespace COLLADA
     public:
 
         /**Constructor that sets all required attributes and the default values for optional attributes.*/
-        Texture ( const String& imageID, SurfaceType surfaceType );
+        Texture ( const String &imageID, SurfaceType surfaceType, const String &sid="" );
 
         /**Constructor that creates an invalid texture.*/
         Texture();

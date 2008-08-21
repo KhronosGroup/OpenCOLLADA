@@ -76,7 +76,7 @@ namespace COLLADAMaya
     {
 
     public:
-        static std::vector<float> samplingTimes;
+        static std::vector<float> mSamplingTimes;
 
     public:
         // Returns whether the plug has any sort of animation, keyed or expression-wise.

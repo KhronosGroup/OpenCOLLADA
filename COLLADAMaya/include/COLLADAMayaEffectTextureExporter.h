@@ -76,13 +76,16 @@ namespace COLLADAMaya
         ImageMap mExportedImageMap;
 
         /** true, if the <extra> and a <technique> tags are already open */
-        bool techniqueIsOpen;
+        bool mTechniqueIsOpen;
 
         /** The <extra> tag */
         COLLADA::Extra* mExtraSource;
 
         /** The <technique> tag */
         COLLADA::Technique* mTechniqueSource;
+
+        /** The target path for animated elements. */
+        String mAnimationTargetPath;
 
     public:
 
@@ -100,7 +103,7 @@ namespace COLLADAMaya
                              String channelSemantic,
                              const MObject &texture,
                              int blendMode,
-                             int textureIndexconst );
+                             const String &targetPath );
 
         /**
         * Returns the std::map with the exported images.

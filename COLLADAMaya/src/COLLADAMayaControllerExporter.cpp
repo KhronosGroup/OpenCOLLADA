@@ -60,8 +60,6 @@ namespace COLLADAMaya
     //------------------------------------------------------
     ControllerExporter::~ControllerExporter()
     {
-        importedMorphControllers.clear();
-        mSkinControllers.clear();
     }
 
     //------------------------------------------------------
@@ -505,7 +503,7 @@ namespace COLLADAMaya
         String controllerName = mayaControllerName.asChar();
 
         // Get the skin target
-        // TODO If the output shape has a morph controller, the target 
+        // If the output shape has a morph controller, the target 
         // is not the shape's geometry, but the morph controller.
         MFnDependencyNode fn ( outputShape.node() );
         String skinTarget =  fn.name().asChar();
@@ -514,10 +512,6 @@ namespace COLLADAMaya
 
         // Create an skin controller to hold the data
         SkinController skinController( controllerId, controllerName );
-
-        // Push the controller into the list of controllers.
-        // TODO Do we need this???
-        mSkinControllers.push_back( &skinController );
 
         // Get the transform matrix for the shape.
         getBindShapeTransform( &skinController, clusterFn, isJointCluster, clusterIndex );
@@ -1271,7 +1265,6 @@ namespace COLLADAMaya
                     item->skinControllerNode = thisNode;
                     stack.push_back ( item );
                 }
-                // TODO Test!
                 else if ( thisNode.hasFn ( MFn::kBlendShape ) )
                 {
                     // Check for subsequent, multiple blend shape deformers.

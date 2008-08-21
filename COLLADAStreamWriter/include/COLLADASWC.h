@@ -68,6 +68,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_H;
         static const String COLLADA_ELEMENT_IDREF_ARRAY;
         static const String COLLADA_ELEMENT_IMAGE;
+        static const String COLLADA_ELEMENT_INDEX_OF_REFRACTION;
         static const String COLLADA_ELEMENT_INIT_FROM;
         static const String COLLADA_ELEMENT_INPUT;
         static const String COLLADA_ELEMENT_INSTANCE_ANIMATION;

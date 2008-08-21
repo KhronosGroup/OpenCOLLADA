@@ -29,7 +29,7 @@
 namespace COLLADAMaya
 {
 
-    std::vector<float> AnimationHelper::samplingTimes;
+    std::vector<float> AnimationHelper::mSamplingTimes;
 
     // -------------------------------------------
     MObject AnimationHelper::getAnimatingNode ( const MPlug& plug )
@@ -41,7 +41,7 @@ namespace COLLADAMaya
         // By-pass any unit conversion nodes
         while ( animating.hasFn ( MFn::kUnitConversion ) )
         {
-            animating = DagHelper::getSourceNodeConnectedTo ( animating, "input" );
+            animating = DagHelper::getSourceNodeConnectedTo ( animating, ATTR_INPUt );
         }
 
         return animating;
@@ -159,7 +159,7 @@ namespace COLLADAMaya
         }
 
         // Gather the sampling times
-        samplingTimes.clear();
+        mSamplingTimes.clear();
 
         float previousTime = ( float ) animationStartTime().as ( MTime::kSeconds );
         float previousPeriodTakenRatio = 1.0f;
@@ -176,10 +176,10 @@ namespace COLLADAMaya
 
             for ( ; time <= interval.end - interval.period + FLT_TOLERANCE; time += interval.period )
             {
-                samplingTimes.push_back ( time );
+                mSamplingTimes.push_back ( time );
             }
 
-            samplingTimes.push_back ( time );
+            mSamplingTimes.push_back ( time );
 
             previousTime = interval.end;
             previousPeriodTakenRatio = ( interval.end - time ) / interval.period;
@@ -191,14 +191,14 @@ namespace COLLADAMaya
     // -------------------------------------------
     void AnimationHelper::generateSamplingFunction()
     {
-        samplingTimes.clear();
+        mSamplingTimes.clear();
 
         // [NMartz] Avoid any potential precision accumulation problems by using the MTime class as an iterator
         MTime startT = animationStartTime();
         MTime endT = animationEndTime();
         for ( MTime currentT = startT; currentT <= endT; ++currentT )
         {
-            samplingTimes.push_back ( ( float ) currentT.as ( MTime::kSeconds ) );
+            mSamplingTimes.push_back ( ( float ) currentT.as ( MTime::kSeconds ) );
         }
     }
 
@@ -507,13 +507,15 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    void AnimationHelper::checkForSampling ( AnimationSampleCache* cache, SampleType sampleType, const MPlug& plug )
+    void AnimationHelper::checkForSampling ( 
+        AnimationSampleCache* cache, 
+        SampleType sampleType, 
+        const MPlug& plug )
     {
         switch ( sampleType & kValueMask )
         {
 
         case kBoolean:
-
         case kSingle:
         {
             bool forceSampling = ExportOptions::isSampling();
@@ -524,7 +526,6 @@ namespace COLLADAMaya
                 forceSampling |= !connection.isNull() && !connection.hasFn ( MFn::kCharacter ) && !connection.hasFn ( MFn::kAnimCurve );
                 forceSampling &= !isPhysicsAnimation ( connection );
             }
-
             if ( forceSampling ) cache->cachePlug ( plug, false );
 
             break;
@@ -533,19 +534,15 @@ namespace COLLADAMaya
         case kMatrix:
         {
             bool forceSampling = cache->findCacheNode ( plug.node() );
-
             if ( forceSampling ) cache->cachePlug ( plug, false );
-
             break;
         }
 
         case kVector:
-
         case kColour:
         {
             // Check for one node affecting the whole value.
             bool forceSampling = ExportOptions::isSampling();
-
             if ( !forceSampling )
             {
                 MObject connection = AnimationHelper::getAnimatingNode ( plug );
@@ -558,7 +555,6 @@ namespace COLLADAMaya
             {
                 // Check for nodes affecting the children.
                 uint childCount = plug.numChildren();
-
                 for ( uint i = 0; i < childCount; ++i )
                 {
                     MObject connection = AnimationHelper::getAnimatingNode ( plug.child ( i ) );

@@ -147,7 +147,7 @@ namespace COLLADAMaya
             // Export the images
             mImageExporter->exportImages ( imageMap );
 
-            // TODO Export the controllers
+            // Export the controllers
             mControllerExporter->exportControllers();
 
             // Export the geometries
@@ -268,9 +268,6 @@ namespace COLLADAMaya
         double colladaConversionFactor = ( float ) testDistance.as ( MDistance::kMeters );
         float colladaUnitFactor = float ( 1.0 / colladaConversionFactor );
         asset.setUnit ( linearUnitName, colladaConversionFactor );
-
-        // TODO
-        // FCDocumentTools::StandardizeUpAxisAndLength(colladaDocument, FMVector3::Origin, conversionFactor);
 
         // Asset heraus schreiben
         asset.add();

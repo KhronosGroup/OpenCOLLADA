@@ -160,13 +160,17 @@ namespace COLLADAMaya
         void exportEffect ( MObject& shadingEngine );
 
         /** Export a shader, by type */
-        void exportConstantShader ( COLLADA::EffectProfile* effectProfile,
-                                    MObject shadingNetwork );
+        void exportConstantShader ( 
+            const String& effectId, 
+            COLLADA::EffectProfile* effectProfile,
+            MObject shadingNetwork );
 
         /** Exports an standard shader */
-        void exportStandardShader ( COLLADA::EffectProfile* effectProfile,
-                                    MObject shadingNetwork,
-                                    bool initialized=false );
+        void exportStandardShader ( 
+            const String& effectId, 
+            COLLADA::EffectProfile* effectProfile,
+            MObject shadingNetwork,
+            bool initialized=false );
 
         /** Export a shader, by type */
         void exportColladaFXShader ( COLLADA::EffectProfile* effectProfile,
@@ -182,11 +186,14 @@ namespace COLLADAMaya
          * @param nextTextureIndex The texture index
          * @return MObject If exported, the texture element, otherwise NULL.
          */
-        MObject exportTexturedParameter ( const MObject& node,
-                                          const char* attributeName,
-                                          COLLADA::EffectProfile* effectProfile,
-                                          EffectExporter::Channel channel,
-                                          int& nextTextureIndex );
+        MObject exportTexturedParameter ( 
+            const String& effectId, 
+            COLLADA::EffectProfile* effectProfile, 
+            const MObject& node, 
+            const char* attributeName, 
+            EffectExporter::Channel channel, 
+            int& nextTextureIndex, 
+            bool animated = false );
 
         /**
          * Retrieve any texture (file or layered) associated with a material attribute.
@@ -208,11 +215,13 @@ namespace COLLADAMaya
          * @param attributeName Name of the attribute.
          * @param nextTextureIndex Index of the texture.
          */
-        void exportTransparency ( MObject shadingNetwork,
-                                  const MColor& transparentColor,
-                                  COLLADA::EffectProfile* effectProfile,
-                                  const char* attributeName,
-                                  int& nextTextureIndex );
+        void exportTransparency ( 
+            const String& effectId, 
+            COLLADA::EffectProfile* effectProfile, 
+            MObject shadingNetwork, 
+            const MColor& transparentColor, 
+            const char* attributeName, 
+            int& nextTextureIndex );
 
         /** Blends the color on colorOrTexture with blendColor an amount @a amount*/
         void blendColor ( COLLADA::ColorOrTexture &colorOrTexture, COLLADA::Color blendColor, double ammount );

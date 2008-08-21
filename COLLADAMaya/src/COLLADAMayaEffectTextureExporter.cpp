@@ -37,10 +37,11 @@ namespace COLLADAMaya
 
     //------------------------------------------------------
     EffectTextureExporter::EffectTextureExporter ( DocumentExporter* _documentExporter )
-            : mDocumentExporter ( _documentExporter ),
-            techniqueIsOpen ( false ),
-            mExtraSource ( NULL ),
-            mTechniqueSource ( NULL )
+    : mDocumentExporter ( _documentExporter )
+    , mTechniqueIsOpen ( false )
+    , mExtraSource ( NULL )
+    , mTechniqueSource ( NULL )
+    , mAnimationTargetPath ( "" )
     {}
 
     //---------------------------------------------------------------
@@ -65,8 +66,10 @@ namespace COLLADAMaya
         String channelSemantic,
         const MObject& texture,
         int blendMode,
-        int textureIndex )
+        const String& targetPath )
     {
+        mAnimationTargetPath = targetPath;
+
         String colladaImageName = exportImage ( texture );
 
         colladaTexture->setImageId ( colladaImageName );
@@ -95,34 +98,27 @@ namespace COLLADAMaya
         {
 
         case COLLADA::Texture::SURFACE_TYPE_1D:
-        {
             colladaTexture->setWrapS ( COLLADA::Texture::WRAP_MODE_WRAP );
-        }
-
-        break;
+            break;
 
         case COLLADA::Texture::SURFACE_TYPE_2D:
         {
             colladaTexture->setWrapS ( COLLADA::Texture::WRAP_MODE_WRAP );
             colladaTexture->setWrapT ( COLLADA::Texture::WRAP_MODE_WRAP );
         }
-
         break;
 
         case COLLADA::Texture::SURFACE_TYPE_3D:
-
         case COLLADA::Texture::SURFACE_TYPE_CUBE:
         {
             colladaTexture->setWrapS ( COLLADA::Texture::WRAP_MODE_WRAP );
             colladaTexture->setWrapT ( COLLADA::Texture::WRAP_MODE_WRAP );
             colladaTexture->setWrapP ( COLLADA::Texture::WRAP_MODE_WRAP );
         }
-
         break;
         }
 
         colladaTexture->setMinFilter ( COLLADA::Texture::SAMPLER_FILTER_NONE );
-
         colladaTexture->setMagFilter ( COLLADA::Texture::SAMPLER_FILTER_NONE );
         colladaTexture->setMipFilter ( COLLADA::Texture::SAMPLER_FILTER_NONE );
     }
@@ -178,7 +174,6 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    // Export an image
     String EffectTextureExporter::exportImage ( const MObject &texture )
     {
         // Retrieve the texture filename
@@ -302,9 +297,6 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     String EffectTextureExporter::getTargetFileName( String &sourceFile )
     {
-        // TODO In the moment, we don't create sub folders in the destination directory
-        // for the texture. Instead, we copy them directly in the destination folder.
-
         // Target file
         String targetFile = mDocumentExporter->getFilename();
         String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
@@ -325,7 +317,6 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    // Helper to dump a place2dTexture node
     void EffectTextureExporter::add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture )
     {
         // Is there a texture placement applied to this texture?
@@ -387,9 +378,10 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::addBoolParameter ( COLLADA::Texture* colladaTexture,
-            const char* plugName,
-            MFnDependencyNode &placement2d )
+    void EffectTextureExporter::addBoolParameter ( 
+        COLLADA::Texture* colladaTexture,
+        const char* plugName,
+        MFnDependencyNode &placement2d )
     {
         MStatus status;
         MPlug plug = placement2d.findPlug ( plugName, &status );
@@ -399,19 +391,23 @@ namespace COLLADAMaya
             bool value = false;
             plug.getValue ( value );
 
-            colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, plugName, value );
-
-            // TODO Parameters???
-            AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addPlugAnimation ( plug, plugName, kBoolean );
-            //  ANIM->AddPlugAnimation(placementNode, plugName, colladaParameter->GetAnimated(), kBoolean); }
+            // Get the animation exporter
+            AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
+            // The target id for the animation
+            String targetSid = mAnimationTargetPath + plugName;
+            // Create the animation
+            bool animated = anim->addPlugAnimation ( plug, targetSid, kBoolean );
+            // Add the parameter
+            String paramSid = ""; if ( animated ) paramSid = plugName;
+            colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, plugName, value, paramSid );
         }
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::addFloatParameter ( COLLADA::Texture* colladaTexture,
-            const char* plugName,
-            MFnDependencyNode &placement2d )
+    void EffectTextureExporter::addFloatParameter ( 
+        COLLADA::Texture* colladaTexture,
+        const char* plugName,
+        MFnDependencyNode &placement2d )
     {
         MStatus status;
         MPlug plug = placement2d.findPlug ( plugName, &status );
@@ -421,19 +417,23 @@ namespace COLLADAMaya
             float value;
             plug.getValue ( value );
 
-            colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, plugName, value );
-
-            // TODO Parameters???
-            AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addPlugAnimation ( plug, plugName, kSingle );
-            //  ANIM->AddPlugAnimation(placementNode, plugName, colladaParameter->GetAnimated(), kSingle); }
+            // Get the animation exporter
+            AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
+            // The target id for the animation
+            String targetSid = mAnimationTargetPath + plugName;
+            // Create the animation
+            bool animated = anim->addPlugAnimation ( plug, targetSid, kBoolean );
+            // Add the parameter
+            String paramSid = ""; if ( animated ) paramSid = plugName;
+            colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, plugName, value, paramSid );
         }
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::addAngleParameter ( COLLADA::Texture* colladaTexture,
-            const char* plugName,
-            MFnDependencyNode &placement2d )
+    void EffectTextureExporter::addAngleParameter ( 
+        COLLADA::Texture* colladaTexture,
+        const char* plugName,
+        MFnDependencyNode &placement2d )
     {
         MStatus status;
         MPlug plug = placement2d.findPlug ( plugName, &status );
@@ -443,19 +443,22 @@ namespace COLLADAMaya
             float value;
             plug.getValue ( value );
 
-            colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, plugName, value );
-
-            // TODO Parameters???
-            AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addPlugAnimation ( plug, plugName, kSingle | kAngle );
-            //  ANIM->AddPlugAnimation(placementNode, plugName, colladaParameter->GetAnimated(), kSingle | kAngle); }
+            // Get the animation exporter
+            AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
+            // The target id for the animation
+            String targetSid = mAnimationTargetPath + plugName;
+            // Create the animation
+            bool animated = anim->addPlugAnimation ( plug, targetSid, kBoolean );
+            // Add the parameter
+            String paramSid = ""; if ( animated ) paramSid = plugName;
+            colladaTexture->addExtraTechniqueParameter ( MAYA_PROFILE, plugName, value, paramSid );
         }
     }
 
     // ------------------------------------------------------------
     void EffectTextureExporter::openTechnique()
     {
-        if ( !techniqueIsOpen )
+        if ( !mTechniqueIsOpen )
         {
             COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
@@ -465,19 +468,19 @@ namespace COLLADAMaya
             mTechniqueSource = new COLLADA::Technique ( streamWriter );
             mTechniqueSource->openTechnique ( MAYA_PROFILE );
 
-            techniqueIsOpen = true;
+            mTechniqueIsOpen = true;
         }
     }
 
     // ------------------------------------------------------------
     void EffectTextureExporter::closeTechnique()
     {
-        if ( techniqueIsOpen )
+        if ( mTechniqueIsOpen )
         {
             mTechniqueSource->closeTechnique();
             mExtraSource->closeExtra();
 
-            techniqueIsOpen = false;
+            mTechniqueIsOpen = false;
         }
     }
 

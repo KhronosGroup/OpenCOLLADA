@@ -315,6 +315,8 @@ namespace COLLADAMaya
     {
         // Does this dagPath already exist? If so, only recurse if FollowInstancedChildren() is set.
         MFnDagNode dagFn ( dagPath );
+        String dagNodeName = dagFn.name().asChar();
+
         bool isSceneRoot = dagPath.length() == 0;
 
         // Ignore default and intermediate nodes (history items)
@@ -336,6 +338,8 @@ namespace COLLADAMaya
         // check whether we should be forcing it (skinning of hidden joints).
         isForced = isForcedNode ( dagPath );
         DagHelper::getPlugValue ( dagPath.node(), ATTR_VISIBILITY, isVisible );
+        bool isInstanced = dagPath.isInstanced();
+        uint instanceNumber = dagPath.instanceNumber();
 
         if ( !isForced )
         {

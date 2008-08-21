@@ -97,10 +97,6 @@ namespace COLLADAMaya
         /** Pointer to the document exporter. */
         DocumentExporter* mDocumentExporter;
 
-        // A lookup table of elements we've already processed
-        ControllerList importedMorphControllers;
-        ControllerList mSkinControllers;
-
         /** List of controllerIds from the already exported controllers. */
         std::vector<String> mExportedControllers;
 

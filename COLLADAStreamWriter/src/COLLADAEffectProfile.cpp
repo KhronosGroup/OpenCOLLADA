@@ -8,9 +8,7 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-
 #include "COLLADAEffectProfile.h"
-#include "COLLADASWC.h"
 #include "COLLADAExtra.h"
 #include "COLLADATechnique.h"
 #include <assert.h>
@@ -24,15 +22,27 @@ namespace COLLADA
 
     //---------------------------------------------------------------
     EffectProfile::EffectProfile ( StreamWriter * streamWriter )
-            : ElementWriter ( streamWriter ),
-            BaseExtraTechnique(),
-            mTechniqueSid ( DEFAULT_TECHNIQUE_SID ),
-            mShaderType ( UNSPECIFIED ),
-            mReflectivity ( -1 ),
-            mOpaque ( UNSPECIFIED_OPAQUE ),
-            mTransparency ( -1 ),
-            mIndexOfRefrection ( -1 ),
-            mShininess ( -1 )
+    : ElementWriter ( streamWriter )
+    , BaseExtraTechnique()
+    , mTechniqueSid ( DEFAULT_TECHNIQUE_SID )
+    , mShaderType ( UNSPECIFIED )
+    , mReflectivity ( -1 )
+    , mOpaque ( UNSPECIFIED_OPAQUE )
+    , mTransparency ( -1 )
+    , mIndexOfRefraction ( -1 )
+    , mShininess ( -1 )
+    , mTransparentSid ( "" )
+    , mEmissionSid ( "" )
+    , mAmbientSid ( "" )
+    , mDiffuseSid ( "" )
+    , mSpecularSid ( "" )
+    , mReflectiveSid ( "" )
+    , mShininessSid ( "" )
+    , mReflectivitySid ( "" )
+    , mOpaqueSid ( "" )
+    , mTransparencySid ( "" )
+    , mIndexOfRefractionSid ( "" )
+    , mExtraTechniqueColorOrTextureSid ( "" )
     {}
 
     //---------------------------------------------------------------
@@ -47,28 +57,30 @@ namespace COLLADA
 
         TagCloser shaderTypeCloser = mSW->openElement ( getShaderTypeName ( mShaderType ) );
 
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_EMISSION, mEmission );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_AMBIENT, mAmbient );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_DIFFUSE, mDiffuse );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_SPECULAR, mSpecular );
-        addFloat ( CSWC::COLLADA_ELEMENT_SHININESS, mShininess );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_REFLECTIVE, mReflective );
-        addFloat ( CSWC::COLLADA_ELEMENT_REFLECTIVITY, mReflectivity );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mOpaque );
-        addFloat ( CSWC::COLLADA_ELEMENT_TRANSPARENCY, mTransparency );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_EMISSION, mEmission, mEmissionSid );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_AMBIENT, mAmbient, mAmbientSid );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_DIFFUSE, mDiffuse, mDiffuseSid );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_SPECULAR, mSpecular, mSpecularSid );
+        addFloat ( CSWC::COLLADA_ELEMENT_SHININESS, mShininess, mShininessSid );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_REFLECTIVE, mReflective, mReflectiveSid );
+        addFloat ( CSWC::COLLADA_ELEMENT_REFLECTIVITY, mReflectivity, mReflectivitySid );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, mOpaque, mOpaqueSid );
+        addFloat ( CSWC::COLLADA_ELEMENT_TRANSPARENCY, mTransparency, mTransparencySid );
+        addFloat ( CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION, mIndexOfRefraction, mIndexOfRefractionSid );
 
         addTextureExtraTechniques( *mSW );
 
         shaderTypeCloser.close();
 
-        addExtraTechniqueColorOrTexture(mExtraTechniqueColorOrTexture);
+        addExtraTechniqueColorOrTexture( mExtraTechniqueColorOrTexture, mExtraTechniqueColorOrTextureSid );
 
         profileCloser.close();
     }
 
     //---------------------------------------------------------------
     void EffectProfile::addExtraTechniqueColorOrTexture ( 
-        const ColorOrTexture& colorOrTexture)
+        const ColorOrTexture& colorOrTexture, 
+        const String& elementSid )
     {
         if ( colorOrTexture.isTexture() )
         {
@@ -83,10 +95,10 @@ namespace COLLADA
 
             // Open the technique tag
             COLLADA::Technique colladaTechnique ( mSW );
-            colladaTechnique.openTechnique(profileName);
+            colladaTechnique.openTechnique( profileName );
 
             // Add the texture
-            addColorOrTexture(childElement, colorOrTexture);
+            addColorOrTexture( childElement, colorOrTexture, elementSid );
 
             // Close the technique and extra tags
             colladaTechnique.closeTechnique();
@@ -107,7 +119,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void EffectProfile::addSampler ( const ColorOrTexture & colorOrTexture ) 
+    void EffectProfile::addSampler ( const ColorOrTexture& colorOrTexture ) 
     {
         // Don't implement double textures!
         if ( colorOrTexture.isTexture() )
@@ -303,9 +315,12 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void EffectProfile::addColorOrTexture ( const String & elementName,
-                                            const ColorOrTexture & colorOrTexture,
-                                            Opaque opaque ) const
+    void EffectProfile::addColorOrTexture ( 
+        const String& elementName,
+        const ColorOrTexture& colorOrTexture,
+        const String& elementSid,
+        Opaque opaque, 
+        const String& opaqueSid ) const
     {
         bool isColor = colorOrTexture.isColor();
         bool isTexture =  colorOrTexture.isTexture();
@@ -315,6 +330,9 @@ namespace COLLADA
 
         mSW->openElement ( elementName );
 
+        if ( !opaqueSid.empty() )
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, opaqueSid );
+
         if ( opaque != UNSPECIFIED_OPAQUE )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_OPAQUE, getOpaqueString ( opaque ) );
 
@@ -323,6 +341,8 @@ namespace COLLADA
             const Texture& texture = colorOrTexture.getTexture();
 
             mSW->openElement ( CSWC::COLLADA_ELEMENT_TEXTURE );
+            if ( !elementSid.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, elementSid );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TEXTURE, texture.getSamplerSid() );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TEXCOORD, texture.getTexcoord() );
 
@@ -334,6 +354,8 @@ namespace COLLADA
         else if ( isColor )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_COLOR );
+            if ( !elementSid.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, elementSid );
             const Color& color = colorOrTexture.getColor();
             mSW->appendValues ( color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() );
             mSW->closeElement();
@@ -343,12 +365,17 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void EffectProfile::addFloat ( const String & elementName, const double & number ) const
+    void EffectProfile::addFloat ( 
+        const String& elementName, 
+        const double& number, 
+        const String& elementSid ) const
     {
         if ( number >= 0 )
         {
             mSW->openElement ( elementName );
             mSW->openElement ( CSWC::COLLADA_ELEMENT_FLOAT );
+            if ( !elementSid.empty() ) 
+                mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, elementSid );
             mSW->appendValues ( number );
             mSW->closeElement();
             mSW->closeElement();

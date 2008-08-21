@@ -42,7 +42,6 @@ namespace COLLADAMaya
         struct CacheNode
         {
             /** The parts are the sample plugs of the current node */
-
             struct Part
             {
                 MPlug plug;
@@ -50,7 +49,6 @@ namespace COLLADAMaya
                 bool isMatrix, isWanted, isAnimated;
 
                 Part() : isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
-
                 Part ( const MPlug& plug ) : plug ( plug ), isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
             };
 
@@ -72,8 +70,8 @@ namespace COLLADAMaya
         typedef std::vector<CacheNode::Part> CachePartList;
 
         // list of nodes that require sampling
-        CacheNodeMap nodes;
-        CacheNode* nodeSearch;
+        CacheNodeMap mNodes;
+        CacheNode* mNodeSearch;
 
     public:
         /** Constructor */

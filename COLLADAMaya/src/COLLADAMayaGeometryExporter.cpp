@@ -93,7 +93,7 @@ namespace COLLADAMaya
              sceneGraph->findExportedElement ( dagPath ) == NULL )
         {
             bool exported = false;
-
+            
             // Get the controller library
             ControllerExporter* controller = mDocumentExporter->getControllerExporter();
 
@@ -127,16 +127,19 @@ namespace COLLADAMaya
                 if ( exported )
                     sceneGraph->addExportedElement( sceneElement );
 
-                // Delete the controllerStack items
+                // Export the controllerStack items
                 for ( size_t i=0; i<meshStack.size(); ++i )
                 {
                     ControllerMeshItem item = meshStack[i];
                     MDagPath currentDagPath = MDagPath::getAPathTo ( item.mesh );
+                    MFnDagNode dagFn ( currentDagPath );
+                    bool isIntermediate = dagFn.isIntermediateObject();
                     String currentPath = currentDagPath.fullPathName().asChar();
+
                     if ( sceneGraph->findExportedElement( currentDagPath ) == NULL )
                     {
                         SceneElement* meshSceneElement = sceneGraph->findElement( currentDagPath );
-                        if ( meshSceneElement!=NULL ) 
+                        if ( meshSceneElement != NULL && meshSceneElement->getHasJoint() ) 
                         {
                             // Export the geometry 
                             exportGeometry ( meshSceneElement );

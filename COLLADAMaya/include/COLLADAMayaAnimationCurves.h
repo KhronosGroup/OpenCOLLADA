@@ -225,9 +225,9 @@ namespace COLLADAMaya
         };
 
         /** Get the sub id of the animated element. */
-        const String& getTargetSubId() const
+        const String& getTargetSid() const
         {
-            return mParent->getTargetSubId();
+            return mParent->getTargetSid();
         }
 
         /** Get the source id of the animated element. */

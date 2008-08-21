@@ -888,7 +888,10 @@ namespace COLLADAMaya
 
         // Get the skeleton id from the element
         String skeletonId = childElement->getSkeletonId();
-        instanceController.addSkeleton( COLLADA::URI ( "", skeletonId ) );
+        if ( !skeletonId.empty() )
+        {
+            instanceController.addSkeleton( COLLADA::URI ( "", skeletonId ) );
+        }
 
         // Write all materials
         COLLADA::InstanceMaterialList& instanceMaterialList =

@@ -247,7 +247,7 @@ namespace COLLADAMaya
         uint dimension = animatedElement->getDimension();
 
         // Create the new multi curve
-        multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getTargetSubId(), dimension );
+        multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getTargetSid(), dimension );
         multiCurve->setPreInfinity ( mergedCurve->getPreInfinity() );
         multiCurve->setPostInfinity ( mergedCurve->getPostInfinity() );
 
@@ -298,9 +298,8 @@ namespace COLLADAMaya
             }
         }
 
-        uint keyCount = mergedInputs.size();
-
         // Create the multi-dimensional keys.
+        uint keyCount = mergedInputs.size();
         for ( size_t curvePosition=0; curvePosition<keyCount; ++curvePosition )
         {
             AnimationMKey* key = multiCurve->addKey ( ( COLLADA::LibraryAnimations::InterpolationType ) mergedInterpolations[curvePosition] );
@@ -317,7 +316,11 @@ namespace COLLADAMaya
         for ( uint c=0; c<numCurves; ++c )
         {
             AnimationCurve* curve = curves[c];
-            multiCurves[curve->getCurveIndex()] = curve;
+            uint index = curve->getCurveIndex();
+            uint multiCurvesSize = multiCurves.size();
+            if ( index>=multiCurvesSize ) { 
+                MGlobal::displayError("Wrong curve index!"); return NULL; }
+            else multiCurves[index] = curve;
         }
 
         // Merge the curves one by one into the multi-curve
@@ -592,7 +595,8 @@ namespace COLLADAMaya
 
         // TODO
         // size_t elementCount = animated->GetValueCount();
-        if ( !plug.isCompound() || ( sampleType & kSingle ) == kSingle ) // || elementCount == 1)
+        bool isCompound = plug.isCompound();
+        if ( !isCompound || sampleType == kSingle ) // || elementCount == 1)
         {
             // Create the list for the curves
             AnimationCurveList curves;
@@ -756,8 +760,7 @@ namespace COLLADAMaya
         // The index of the curve, if it is a compound object.
         uint index = animationCurve.getCurveIndex();
 
-        // TODO
-        uint dimension2 = animationCurve.getParent()->getDimension();
+        // Get the dimension
         uint dimension = animationCurve.getDimension();
 
         writeOutputSource ( sourceId, parameters+index, dimension, output );
@@ -1141,7 +1144,7 @@ namespace COLLADAMaya
     template<class T>
     String AnimationExporter::getTarget ( const BaseAnimationCurve<T> &animationCurve )
     {
-        String subId = animationCurve.getTargetSubId();
+        String subId = animationCurve.getTargetSid();
         String nodeId = animationCurve.getNodeId();
         const uint dimension = animationCurve.getDimension();
 
@@ -1207,11 +1210,11 @@ namespace COLLADAMaya
         ConversionFunctor* conversion /*= NULL */ )
     {
         // Take the attribute name as the sub id.
-        String targetSubId = attrname;
+        String targetSid = attrname;
 
         return addNodeAnimation ( 
             node, 
-            targetSubId, 
+            targetSid, 
             attrname, 
             sampleType, 
             parameters, 
@@ -1223,7 +1226,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     bool AnimationExporter::addNodeAnimation ( 
         MObject &node,
-        const String targetSubId,
+        const String targetSid,
         const String attrname,
         const uint sampleType,
         const String* parameters /* = EMPTY_PARAMETER */, 
@@ -1244,7 +1247,7 @@ namespace COLLADAMaya
 
         return addPlugAnimation ( 
             plug, 
-            targetSubId, 
+            targetSid, 
             ( SampleType ) sampleType, 
             parameters, 
             arrayElement, 
@@ -1255,7 +1258,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     bool AnimationExporter::addPlugAnimation ( 
         MPlug &plug,
-        const String targetSubId,
+        const String targetSid,
         const uint sampleType,
         const String* parameters /* = EMPTY_PARAMETER */, 
         const int arrayElement /*= -1*/, 
@@ -1264,7 +1267,7 @@ namespace COLLADAMaya
     {
         return addPlugAnimation ( 
             plug, 
-            targetSubId, 
+            targetSid, 
             ( SampleType ) sampleType, 
             parameters, 
             arrayElement, 
@@ -1275,7 +1278,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     bool AnimationExporter::addPlugAnimation ( 
         MPlug &plug,
-        const String targetSubId,
+        const String targetSid,
         const SampleType sampleType,
         const String* parameters /* = EMPTY_PARAMETER */, 
         const int arrayElement /*= -1*/, 
@@ -1298,7 +1301,7 @@ namespace COLLADAMaya
         String nodeId = getNodeId ( plug );
 
         AnimationElement* animatedElement;
-        animatedElement = new AnimationElement ( plug, baseId, targetSubId, nodeId, parameters, sampleType );
+        animatedElement = new AnimationElement ( plug, baseId, targetSid, nodeId, parameters, sampleType );
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
         animatedElement->setArrayElement ( arrayElement );
 
@@ -1522,7 +1525,7 @@ namespace COLLADAMaya
 
             // Create a new animated element
             String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
-            String subId = animatedElement->getTargetSubId();
+            String subId = animatedElement->getTargetSid();
             String nodeId = animatedElement->getNodeId();
             const String* parameters = animatedElement->getParameters();
             SampleType sampleType = animatedElement->getSampleType();

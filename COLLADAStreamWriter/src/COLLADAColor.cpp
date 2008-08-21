@@ -24,12 +24,13 @@ namespace COLLADA
     const Color Color::BLACK = Color ( 0.0, 0.0, 0.0, 1.0 );
 
     //---------------------------------------------------------------
-    void Color::set ( double r, double g, double b, double a )
+    void Color::set ( double r, double g, double b, double a, String sid )
     {
-        mR=r;
-        mG=g;
-        mB=b;
-        mA=a;
+        mR = r;
+        mG = g;
+        mB = b;
+        mA = a;
+        mSid = sid;
     }
 
     //---------------------------------------------------------------
