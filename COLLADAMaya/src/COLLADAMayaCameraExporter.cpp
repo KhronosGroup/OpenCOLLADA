@@ -103,7 +103,8 @@ namespace COLLADAMaya
         COLLADA::BaseOptic* optics = NULL;
 
         // Get a pointer to the animation exporter.
-        AnimationExporter* animExpo = mDocumentExporter->getAnimationExporter();
+        AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
+        bool animated = false;
 
         // Set the orthographic and perspective-specific parameters
         bool isOrthographic = cameraFn.isOrtho ( &status ); CHECK_MSTATUS(status);
@@ -114,9 +115,9 @@ namespace COLLADAMaya
 
             double width = cameraFn.orthoWidth(&status); CHECK_MSTATUS(status);
             optics->setAspectRatio( (float) cameraFn.aspectRatio( &status ) ); CHECK_MSTATUS(status);
-            if ( animExpo->addNodeAnimation( cameraFn.object(), XMAG_SID, ATTR_ORTHOGRAPHIC_WIDTH, kSingle ) )
-                optics->setXMag ( (float) width / 2.0f, XMAG_SID );
-            else optics->setXMag ( (float) width / 2.0f );
+
+            animated = anim->addNodeAnimation( cameraFn.object(), XMAG_SID, ATTR_ORTHOGRAPHIC_WIDTH, kSingle );
+            optics->setXMag ( (float) width / 2.0f, animated );
         }
         else
         {
@@ -128,17 +129,15 @@ namespace COLLADAMaya
                 FocalLengthConverter* converter = new FocalLengthConverter ( (float) cameraFn.verticalFilmAperture() );
                 float verticalFilmAperture = (float) cameraFn.verticalFilmAperture();
                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
-                if ( animExpo->addNodeAnimation( cameraFn.object(), YFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter ) )
-                    optics->setYFov ( focalLength, YFOV_SID ); 
-                else optics->setYFov ( focalLength ); 
+                animated = anim->addNodeAnimation( cameraFn.object(), YFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter );
+                optics->setYFov ( focalLength, animated ); 
             }
             if ( ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
             {
                 FocalLengthConverter* converter = new FocalLengthConverter( (float) (cameraFn.horizontalFilmAperture() * cameraFn.lensSqueezeRatio()));
                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
-                if ( animExpo->addNodeAnimation( cameraFn.object(), XFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter ) )
-                    optics->setXFov ( focalLength, XFOV_SID ); 
-                else optics->setXFov ( focalLength ); 
+                animated = anim->addNodeAnimation( cameraFn.object(), XFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter );
+                optics->setXFov ( focalLength, animated ); 
             }
             if ( !ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
             {
@@ -149,15 +148,13 @@ namespace COLLADAMaya
         // Add the camera common parameters.
         // Convert the  maya internal unit type from centimeters into the working units of the current scene!
         double zNear = MDistance::internalToUI ( cameraFn.nearClippingPlane ( &status ) ); CHECK_MSTATUS ( status );
-        if ( animExpo->addNodeAnimation( cameraFn.object(), NEAR_CLIP_SID, ATTR_NEAR_CLIP_PLANE, kSingle | kLength ) )
-            optics->setZNear ( (float) zNear, NEAR_CLIP_SID ); 
-        else optics->setZNear ( (float) zNear ); 
+        animated = anim->addNodeAnimation( cameraFn.object(), NEAR_CLIP_SID, ATTR_NEAR_CLIP_PLANE, kSingle | kLength );
+        optics->setZNear ( (float) zNear, animated ); 
 
         // Convert the  maya internal unit type from centimeters into the working units of the current scene!
         double zFar = MDistance::internalToUI ( cameraFn.farClippingPlane ( &status ) ); CHECK_MSTATUS ( status );
-        if ( animExpo->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, kSingle | kLength ) )
-            optics->setZFar ( (float) zFar, FAR_CLIP_SID ); 
-        else optics->setZFar ( (float) zFar ); 
+        animated = anim->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, kSingle | kLength );
+        optics->setZFar ( (float) zFar, animated ); 
 
         // Generate a COLLADA id for the new camera object
         String cameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
@@ -165,42 +162,43 @@ namespace COLLADAMaya
 
         // Create the camera
         COLLADA::Camera camera ( streamWriter, optics, cameraId, cameraName );
+        String paramSid = "";
 
         // Add the Maya-specific parameters
         double vAperture = cameraFn.verticalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
-        if ( animExpo->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
-            kSingle | kLength, EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) ) )
-            camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_VAPERTURE_PARAMETER, vAperture, VERTICAL_APERTURE_SID );
-        else camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_VAPERTURE_PARAMETER, vAperture );
+        animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
+            kSingle | kLength, EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
+        paramSid = ""; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
+        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
 
-         double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
-         if ( animExpo->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
-             kSingle | kLength, EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) ) )
-             camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_HAPERTURE_PARAMETER, hAperture, HORIZONTAL_APERTURE_SID );
-         else camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_HAPERTURE_PARAMETER, hAperture );
+        double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
+        animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
+            kSingle | kLength, EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
+        paramSid = ""; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
+        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
  
-         double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_MSTATUS(status);
-         if ( animExpo->addNodeAnimation( cameraFn.object(), LENS_SQUEEZE_SID, ATTR_LENS_SQUEEZE_RATIO, kSingle ) ) 
-             camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, LENS_SQUEEZE_SID );
-         else camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze );
+        double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_MSTATUS(status);
+        animated = anim->addNodeAnimation( cameraFn.object(), LENS_SQUEEZE_SID, ATTR_LENS_SQUEEZE_RATIO, kSingle );
+        paramSid = ""; if ( animated ) paramSid = LENS_SQUEEZE_SID;
+        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
 
         int filmFit = cameraFn.filmFit ( &status ); CHECK_MSTATUS(status);
         camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_FIT_PARAMETER, filmFit ); 
 
         double filmFitOffset = cameraFn.filmFitOffset ();
-        if ( animExpo->addNodeAnimation( cameraFn.object(), FILM_FIT_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle ) ) 
-         camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, FILM_FIT_OFFSET_SID ); 
-        else camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset ); 
+        animated = anim->addNodeAnimation( cameraFn.object(), FILM_FIT_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle );
+        paramSid = ""; if ( animated ) paramSid = FILM_FIT_OFFSET_SID;
+        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
 
         double filmOffsetX = cameraFn.horizontalFilmOffset ();
-        if ( animExpo->addNodeAnimation( cameraFn.object(), HORIZONTAL_FILM_OFFSET_SID, ATTR_HORIZONTAL_FILM_OFFSET, kSingle, XYZ_PARAMETERS ) ) 
-            camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, HORIZONTAL_FILM_OFFSET_SID ); 
-        else camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX ); 
+        animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_FILM_OFFSET_SID, ATTR_HORIZONTAL_FILM_OFFSET, kSingle, XYZ_PARAMETERS );
+        paramSid = ""; if ( animated ) paramSid = HORIZONTAL_FILM_OFFSET_SID;
+        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
 
         double filmOffsetY = cameraFn.verticalFilmOffset ();
-        if ( animExpo->addNodeAnimation( cameraFn.object(), VERTICAL_FILM_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle, XYZ_PARAMETERS ) ) 
-            camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, VERTICAL_FILM_OFFSET_SID ); 
-        else camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY ); 
+        animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_FILM_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle, XYZ_PARAMETERS );
+        paramSid = ""; if ( animated ) paramSid = VERTICAL_FILM_OFFSET_SID;
+        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
 
         // Write the camera data in the collada document.
         addCamera ( camera );

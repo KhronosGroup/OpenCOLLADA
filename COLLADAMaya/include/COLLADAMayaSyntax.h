@@ -51,6 +51,10 @@ namespace COLLADAMaya
     static const char* MAYA_TEXTURE_PSDTEXTURE                      = "kPSDFile";
     static const char* MAYA_TEXTURE_IMAGE_SEQUENCE                  = "image_sequence";
 
+    static const char* MAYA_PENUMBRA_LIGHT_PARAMETER				= "penumbra_angle";
+    static const char* MAYA_DROPOFF_LIGHT_PARAMETER					= "dropoff";
+    static const char* MAYA_AMBIENTSHADE_LIGHT_PARAMETER			= "ambient_shade";
+
     // COLLADA 1.3 Maya-specific definitions
     static const char* MAYA_BLINDNAME_PARAMETER                     = "BLINDNAME";
     static const char* MAYA_BLINDTYPEID_PARAMETER                   = "BLINDTYPEID";
@@ -196,6 +200,7 @@ namespace COLLADAMaya
     static const char* ATTR_ALPHA_GAIN                              = "alphaGain";
     static const char* ATTR_ALPHA_OFFSET                            = "alphaOffset";
     static const char* ATTR_AMBIENT_COLOR                           = "ambientColor";
+    static const char* ATTR_AMBIENT_SHADE                           = "ambientShade";
     static const char* ATTR_BACKFACE_CULLING                        = "backfaceCulling";
     static const char* ATTR_BUMP_DEPTH                              = "bumpDepth";
     static const char* ATTR_BUMP_INTERP                             = "bumpInterp";
@@ -206,8 +211,10 @@ namespace COLLADAMaya
     static const char* ATTR_COLORSET                                = "colorSet";
     static const char* ATTR_COLORSET_NAME                           = "clsn";
     static const char* ATTR_COLORSET_POINTS                         = "clsp";
+    static const char* ATTR_CONE_ANGLE                              = "coneAngle";
     static const char* ATTR_COSINE_POWER                            = "cosinePower";
     static const char* ATTR_DOUBLE_SIDED                            = "doubleSided";
+    static const char* ATTR_DROP_OFF                                = "dropoff";
     static const char* ATTR_ENVELOPE                                = "en";
     static const char* ATTR_ECCENTRICITY                            = "eccentricity";
     static const char* ATTR_FILE_TEXTURE_NAME                       = "fileTextureName";
@@ -228,6 +235,7 @@ namespace COLLADAMaya
     static const char* ATTR_INPUT_TARGET                            = "it";
     static const char* ATTR_INPUT_TARGET_GROUP                      = "itg";
     static const char* ATTR_INPUT_TARGET_INPUT                      = "iti";
+    static const char* ATTR_INTENSITY                               = "intensity";
     static const char* ATTR_INTERMEDIATE_OBJECT                     = "io";
     static const char* ATTR_INVERT                                  = "invert";
     static const char* ATTR_JOINT_ORIENT                            = "jointOrient";
@@ -245,6 +253,7 @@ namespace COLLADAMaya
     static const char* ATTR_OUTPUT                                  = "output";
     static const char* ATTR_OUT_TRANSPARENCY                        = "ot"; 
 //    static const char* ATTR_OUT_TRANSPARENCY                        = "outTransparency";
+    static const char* ATTR_PENUMBRA_ANGLE                          = "penumbraAngle";
     static const char* ATTR_PLACEMENT_MATRIX                        = "placementMatrix";
     static const char* ATTR_PROJECTION_TYPE                         = "projType";
     static const char* ATTR_REFLECTIVITY                            = "reflectivity";

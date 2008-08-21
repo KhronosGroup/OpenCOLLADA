@@ -18,6 +18,7 @@
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaLightExporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaAnimationExporter.h"
 
 #include <maya/MFnLight.h>
 #include <maya/MFnNonAmbientLight.h>
@@ -98,22 +99,6 @@ namespace COLLADAMaya
 
         // Generate a COLLADA id for the new light object
         String lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
-        String lightName = mDocumentExporter->dagPathToColladaName ( dagPath );
-
-        // Get a pointer to the animation exporter.
-        AnimationExporter* animExpo = mDocumentExporter->getAnimationExporter();
-
-        // Color/Intensity are the common attributes of all lights
-        MColor mayaColor = lightFn.color(&status); CHECK_MSTATUS(status);
-        COLLADA::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
-        // TODO
-//         if ( animExpo->addNodeAnimation( lightNode, COLOR_SID, ATTR_COLOR, kColour ) )
-//             lightColor.setColorSid ( COLOR_SID );
-//        ANIM->AddPlugAnimation(lightNode, "color", colladaLight->GetColor(), kColour);
-
-        float intensity = lightFn.intensity(&status); CHECK_MSTATUS(status);
-        // TODO
-//        ANIM->AddPlugAnimation(lightNode, "intensity", colladaLight->GetIntensity(), kSingle);
 
         // Get a pointer to the stream writer.
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -124,19 +109,37 @@ namespace COLLADAMaya
         switch (type)
         {
         case MFn::kAmbientLight: 
-            light = new COLLADA::AmbientLight( streamWriter, lightId, lightColor, intensity, lightName); 
+            light = new COLLADA::AmbientLight( streamWriter, lightId ); 
             break; 
         case MFn::kDirectionalLight: 
-            light = new COLLADA::DirectionalLight( streamWriter, lightId, lightColor, intensity, lightName); 
+            light = new COLLADA::DirectionalLight( streamWriter, lightId ); 
             break;
         case MFn::kSpotLight: 
-            light = new COLLADA::SpotLight( streamWriter, lightId, lightColor, intensity, lightName); 
+            light = new COLLADA::SpotLight( streamWriter, lightId ); 
             break;
         case MFn::kPointLight: // Intentional pass-through
         default: 
-            light = new COLLADA::PointLight( streamWriter, lightId, lightColor, intensity, lightName); 
+            light = new COLLADA::PointLight( streamWriter, lightId ); 
             break;
         }
+
+        // The light name
+        String lightName = mDocumentExporter->dagPathToColladaName ( dagPath );
+        light->setLightName( lightName );
+
+        // Get a pointer to the animation exporter.
+        AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
+        bool animated = false;
+
+        // Color/Intensity are the common attributes of all lights
+        MColor mayaColor = lightFn.color ( &status ); CHECK_MSTATUS(status);
+        COLLADA::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
+        animated = anim->addNodeAnimation ( lightNode, ATTR_COLOR, kColour );
+        light->setColor( lightColor, animated );
+
+        float intensity = lightFn.intensity ( &status ); CHECK_MSTATUS(status);
+        animated = anim->addNodeAnimation ( lightNode, ATTR_INTENSITY, kColour );
+        light->setIntensity( intensity, animated );
 
         // Add the type specific attributes
         if (lightNode.hasFn(MFn::kNonAmbientLight))
@@ -145,18 +148,21 @@ namespace COLLADAMaya
             // Attenuation in COLLADA is equal to Decay in Maya.
             MFnNonAmbientLight naLightFn(lightNode);
             int decayRate = naLightFn.decayRate(&status); CHECK_MSTATUS(status);
-            decayRate = min(decayRate, 2); decayRate = max(decayRate, 0);
+            decayRate = min ( decayRate, 2 ); 
+            decayRate = max ( decayRate, 0 );
 
-            light->setConstantAttenuation((decayRate == 0) ? 1.0f : 0.0f);
-            light->setLinearAttenuation((decayRate == 1) ? 1.0f : 0.0f);
-            light->setQuadraticAttenuation((decayRate == 2) ? 1.0f : 0.0f);
+            light->setConstantAttenuation ( ( decayRate == 0 ) ? 1.0f : 0.0f);
+            light->setLinearAttenuation ( ( decayRate == 1 ) ? 1.0f : 0.0f);
+            light->setQuadraticAttenuation ( ( decayRate == 2 ) ? 1.0f : 0.0f);
         }
         else if (lightNode.hasFn(MFn::kAmbientLight))
         {
             MFnAmbientLight ambientLightFn ( lightNode );
-//             FCDETechnique* mayaTechnique = light->GetExtra()->GetDefaultType()->AddTechnique(DAEMAYA_MAYA_PROFILE);
-//             FCDENode* ambientShadeParameter = mayaTechnique->AddParameter(DAEMAYA_AMBIENTSHADE_LIGHT_PARAMETER, ambientLightFn.ambientShade());
-//            ANIM->AddPlugAnimation(lightNode, "ambientShade", ambientShadeParameter->GetAnimated(), kSingle);
+            float ambientShade = ambientLightFn.ambientShade();
+            String paramSid = "";
+            animated = anim->addNodeAnimation ( lightNode, ATTR_AMBIENT_SHADE, kSingle );
+            if ( animated ) paramSid = ATTR_AMBIENT_SHADE;
+            light->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_AMBIENTSHADE_LIGHT_PARAMETER, ambientShade, paramSid );
         }
 
         if (lightNode.hasFn(MFn::kSpotLight))
@@ -164,19 +170,20 @@ namespace COLLADAMaya
             // Put in the needed spot light type attributes : Falloff, Falloff_Scale and Angle
             MFnSpotLight spotFn(lightNode);
 
-            float fallOffAngle = COLLADA::MathUtils::radToDegF( (float)spotFn.coneAngle(&status) ); 
-            CHECK_MSTATUS(status);
-            light->setFallOffAngle( fallOffAngle );
-//            ANIM->AddPlugAnimation(lightNode, "coneAngle", colladaLight->GetFallOffAngle(), kSingle | kAngle);
-            light->setFallOffExponent(1.0f);
+            float fallOffAngle = COLLADA::MathUtils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_MSTATUS(status);
+            animated = anim->addNodeAnimation ( lightNode, ATTR_CONE_ANGLE, kSingle | kAngle );
+            light->setFallOffAngle ( fallOffAngle, animated );
 
-            float penumbraValue = COLLADA::MathUtils::radToDegF ( (float)spotFn.penumbraAngle(&status) ); 
-            CHECK_MSTATUS(status);
-//            ANIM->AddPlugAnimation(lightNode, "penumbraAngle", colladaLight->GetOuterAngle(), kSingle | kAngle);
+            light->setFallOffExponent ( 1.0f );
+
+            float penumbraValue = COLLADA::MathUtils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_MSTATUS(status);
+            animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, kSingle | kAngle );
+            // TODO
 //            FCDLightTools::LoadPenumbra(light, penumbraValue, colladaLight->GetOuterAngle().GetAnimated());
 
-//            light->SetDropoff((float) spotFn.dropOff(&status)); CHECK_MSTATUS(status);
-//            ANIM->AddPlugAnimation(lightNode, "dropoff", colladaLight->GetDropoff(), kSingle);
+            // TODO
+//             animated = anim->addNodeAnimation ( lightNode, ATTR_DROP_OFF, kSingle );
+//             light->setDropOff ( (float) spotFn.dropOff ( &status ), animated ); CHECK_MSTATUS(status);
         }
         
         addLight ( *light );

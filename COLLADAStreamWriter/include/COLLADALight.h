@@ -58,28 +58,42 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         float mConstantAttenuation;
+        String mConstantAttenuationSid;
+
         float mLinearAttenuation;
+        String mLinearAttenuationSid;
+
         float mQuadraticAttenuation;
+        String mQuadraticAttenuationSid;
 
         /** 
         * Contains a floating-point number that describes the distance 
         * to the far clipping plane.
         */
         float mZFar;
+        String mZFarSid;
 
         /**
         * The <falloff_angle> and <falloff_exponent> are used to specify the 
         * amount of attenuation based on the direction of the light.
         */
         float mFallOffAngle;
+        String mFallOffAngleSid;
+
         float mFallOffExponent;
+        String mFallOffExponentSid;
 
         /** The color attribute. */
         Color mColor;
+        String mColorSid;
 
         /** The color intensity. To calculate the light color,
         multiply the base color with the intensity. */
         float mIntensity;
+        String mIntensitySid;
+
+//         float mDropOff;
+//         String mDropOffSid;
 
     protected:
 
@@ -100,7 +114,6 @@ namespace COLLADA
             StreamWriter* streamWriter, 
             const String& lightId,
             const LightType& lightType, 
-            const Color& color, 
             const float intensity = 1.0f,
             const String& lightName = ElementWriter::EMPTY_STRING );
 
@@ -116,9 +129,14 @@ namespace COLLADA
         /** Returns a reference to the light name */
         const String& getLightName() const { return mLightName; }
 
+        /** The name of the light.*/
+        void setLightName ( const String& val ) { mLightName = val; }
+
         /** The color attribute. */
         const Color getColor() const { return mColor; }
-        void setColor ( const Color val ) { mColor = val; }
+
+        /** The color attribute. */
+        void setColor ( const Color val, const bool useDefaultSid = false, const String& sid = "" );
 
         /** Retrieves the intensity of the light. To calculate the light color,
         multiply the base color with the intensity.
@@ -128,7 +146,7 @@ namespace COLLADA
         /** Sets the intensity of the light. To calculate the light color,
         multiply the base color with the intensity.
         @param intensity The intensity of the light. */
-        void setIntensity ( float intensity ) { mIntensity = intensity; }
+        void setIntensity ( float intensity, const bool useDefaultSid = false, const String& sid = "" );
 
         /** 
         * The <constant_attenuation>, <linear_attenuation>, and 
@@ -139,7 +157,16 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         const float getConstantAttenuation() const { return mConstantAttenuation; }
-        void setConstantAttenuation ( const float val ) { mConstantAttenuation = val; }
+
+        /** 
+        * The <constant_attenuation>, <linear_attenuation>, and 
+        * <quadratic_attenuation> are used to calculate the total attenuation 
+        * of this light given a distance. The equation used is
+        * A = constant_attenuation +
+        *     ( Dist * linear_attenuation ) +
+        *     (( Dist^2 ) * quadratic_attenuation ). 
+        */ 
+        void setConstantAttenuation ( const float val, const bool useDefaultSid = false, const String& sid = "" );
 
         /** 
         * The <constant_attenuation>, <linear_attenuation>, and 
@@ -150,7 +177,16 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         const float getLinearAttenuation() const { return mLinearAttenuation; }
-        void setLinearAttenuation ( const float val ) { mLinearAttenuation = val; }
+
+        /** 
+        * The <constant_attenuation>, <linear_attenuation>, and 
+        * <quadratic_attenuation> are used to calculate the total attenuation 
+        * of this light given a distance. The equation used is
+        * A = constant_attenuation +
+        *     ( Dist * linear_attenuation ) +
+        *     (( Dist^2 ) * quadratic_attenuation ). 
+        */ 
+        void setLinearAttenuation ( const float val, const bool useDefaultSid = false, const String& sid = "" );
 
         /** 
         * The <constant_attenuation>, <linear_attenuation>, and 
@@ -161,28 +197,52 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         const float getQuadraticAttenuation() const { return mQuadraticAttenuation; }
-        void setQuadraticAttenuation ( const float val ) { mQuadraticAttenuation = val; }
+
+        /** 
+        * The <constant_attenuation>, <linear_attenuation>, and 
+        * <quadratic_attenuation> are used to calculate the total attenuation 
+        * of this light given a distance. The equation used is
+        * A = constant_attenuation +
+        *     ( Dist * linear_attenuation ) +
+        *     (( Dist^2 ) * quadratic_attenuation ). 
+        */ 
+        void setQuadraticAttenuation ( const float val, const bool useDefaultSid = false, const String& sid = "" );
 
         /** 
         * Contains a floating-point number that describes the distance 
         * to the far clipping plane.
         */
         const float getZFar() const { return mZFar; }
-        void setZFar ( const float val ) { mZFar = val; }
+
+        /** 
+        * Contains a floating-point number that describes the distance 
+        * to the far clipping plane.
+        */
+        void setZFar ( const float val, const bool useDefaultSid = false, const String& sid = "" );
 
         /**
         * The <falloff_angle> and <falloff_exponent> are used to specify the 
         * amount of attenuation based on the direction of the light.
         */
         const float getFallOffAngle() const { return mFallOffAngle; }
-        void setFallOffAngle ( const float val ) { mFallOffAngle = val; }
+
+        /**
+        * The <falloff_angle> and <falloff_exponent> are used to specify the 
+        * amount of attenuation based on the direction of the light.
+        */
+        void setFallOffAngle ( const float val, const bool useDefaultSid = false, const String& sid = "" );
 
         /**
         * The <falloff_angle> and <falloff_exponent> are used to specify the 
         * amount of attenuation based on the direction of the light.
         */
         const float getFallOffExponent() const { return mFallOffExponent; }
-        void setFallOffExponent ( const float val ) { mFallOffExponent = val; }
+
+        /**
+        * The <falloff_angle> and <falloff_exponent> are used to specify the 
+        * amount of attenuation based on the direction of the light.
+        */
+        void setFallOffExponent ( const float val, const bool useDefaultSid = false, const String& sid = "" );
 
     };
 
@@ -200,10 +260,9 @@ namespace COLLADA
         AmbientLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const Color& color, 
             const float intensity = 1.0f,
             const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, AMBIENT, color, intensity, lightName )
+        : Light ( streamWriter, lightId, AMBIENT, intensity, lightName )
         {}
 
         virtual ~AmbientLight() {}
@@ -228,10 +287,9 @@ namespace COLLADA
         DirectionalLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const Color& color, 
             const float intensity = 1.0f,
             const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, DIRECTIONAL, color, intensity, lightName ) 
+        : Light ( streamWriter, lightId, DIRECTIONAL, intensity, lightName ) 
         {}
 
         virtual ~DirectionalLight() {}
@@ -256,10 +314,9 @@ namespace COLLADA
         PointLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const Color& color, 
             const float intensity = 1.0f,
             const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, POINT, color, intensity, lightName )
+        : Light ( streamWriter, lightId, POINT, intensity, lightName )
         {}
 
         virtual ~PointLight() {}
@@ -284,10 +341,9 @@ namespace COLLADA
         SpotLight ( 
             StreamWriter* streamWriter, 
             const String& lightId,
-            const Color& color, 
             const float intensity = 1.0f,
             const String& lightName = ElementWriter::EMPTY_STRING )
-        : Light ( streamWriter, lightId, POINT, color, intensity, lightName )
+        : Light ( streamWriter, lightId, POINT, intensity, lightName )
         {}
 
 

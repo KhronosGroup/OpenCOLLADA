@@ -49,6 +49,69 @@ namespace COLLADA
     }
 
     // --------------------------------------------
+    void BaseOptic::setZFar( const float val, const bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mZFar = val;
+        if ( useDefaultSid ) mZFarSid = CSWC::COLLADA_ELEMENT_ZFAR;
+        else mZFarSid = sid; 
+        mHasZFar = true;
+    }
+
+    // --------------------------------------------
+    void BaseOptic::setZNear( const float val, const bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mZNear = val; 
+        if ( useDefaultSid ) mZNearSid = CSWC::COLLADA_ELEMENT_ZNEAR;
+        else mZNearSid = sid; 
+        mHasZNear = true;
+    }
+
+    // --------------------------------------------
+    void BaseOptic::setAspectRatio( float val, const bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mAspectRatio = val; 
+        if ( useDefaultSid ) mAspectRatioSid = CSWC::COLLADA_ELEMENT_ASPECT_RATIO;
+        else mAspectRatioSid = sid;
+        mHasAspectRatio = true;
+    }
+
+    // --------------------------------------------
+    void BaseOptic::setXFov( float val, const bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mXFov = val; 
+        if ( useDefaultSid ) mXFovSid = CSWC::COLLADA_ELEMENT_XFOV;
+        else mXFovSid = sid; 
+        mHasXFov = true;
+    }
+
+    // --------------------------------------------
+    void BaseOptic::setYFov( float val, const bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mYFov = val; 
+        if ( useDefaultSid ) mYFovSid = CSWC::COLLADA_ELEMENT_YFOV;
+        else mYFovSid = sid; 
+        mHasYFov = true;
+    }
+
+    // --------------------------------------------
+    void BaseOptic::setXMag( float val, bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mXMag = val; 
+        if ( useDefaultSid ) mXMagSid = CSWC::COLLADA_ELEMENT_XMAG;
+        else mXMagSid = sid; 
+        mHasXMag = true;
+    }
+
+    // --------------------------------------------
+    void BaseOptic::setYMag( float val, const bool useDefaultSid /*= false*/, const String sid/*="" */ )
+    {
+        mYMag = val; 
+        if ( useDefaultSid ) mYMagSid = CSWC::COLLADA_ELEMENT_YMAG;
+        else mYMagSid = sid;
+        mHasYMag = true;
+    }
+
+    // --------------------------------------------
     void PerspectiveOptic::addTypeSpecificInfos() const
     {
         mSW->openElement ( CSWC::COLLADA_ELEMENT_CAMERA_PERSPECTIVE );
