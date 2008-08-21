@@ -77,6 +77,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     GeometryExporter::GeometryExporter ( ExportNode * exportNode, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter )
             : mExportNode ( exportNode ),
+			mMorphControllerHelperGeometry(0),
             mGeometriesExporter ( geometriesExporter ),
             mDocumentExporter ( documentExporter ),
 			mMaterialChannelPairParamBlockMap(documentExporter->getEffectExporter()->getMaterialChannelPairParamBlockMap()),
@@ -85,6 +86,19 @@ namespace COLLADAMax
             mGeomObject ( 0 ),
             mDeleteObject ( false )
     {}
+
+	//---------------------------------------------------------------
+	GeometryExporter::GeometryExporter ( const MorphControllerHelperGeometry * helperGeometry, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter )
+		: mExportNode ( helperGeometry->exportNode ),
+		mMorphControllerHelperGeometry(helperGeometry),
+		mGeometriesExporter ( geometriesExporter ),
+		mDocumentExporter ( documentExporter ),
+		mMaterialChannelPairParamBlockMap(documentExporter->getEffectExporter()->getMaterialChannelPairParamBlockMap()),
+		mPolyObject ( 0 ),
+		mTriObject ( 0 ),
+		mGeomObject ( 0 ),
+		mDeleteObject ( false )
+	{}
 
 
 
@@ -95,8 +109,6 @@ namespace COLLADAMax
         idSuffix << COLLADA::LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX << channel;
         return idSuffix.str();
     }
-
-
 
 
     //---------------------------------------------------------------
@@ -253,14 +265,17 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void GeometryExporter::doExport()
     {
-        String id = mExportNode->getId();
+		if ( !mMorphControllerHelperGeometry && !(mExportNode->getIsInVisualScene() || mExportNode->getIsReferenced()) )
+			return;
+
         INode * iNode = mExportNode->getINode();
 
-		mExportNode->createControllerList();
-
-		Object * object = mExportNode->getInitialPose();
-        //Object * object = mExportNode->getINode()->GetObjectRef();
-       // Object * object = iNode->EvalWorldState ( 0 ).obj;
+		Object * object;
+		// Max does not apply any controller to morph targets. Therefore we need the base geometry if we export helper geometries.
+		if ( mMorphControllerHelperGeometry )
+			object = mExportNode->getINode()->GetObjectRef();
+		else
+			object = mExportNode->getInitialPose();
 
         if ( object )
         {
@@ -275,11 +290,17 @@ namespace COLLADAMax
 			}
 
             //Mesh & mesh = mTriObject->GetMesh();
-			mId = GeometriesExporter::getGeometryId(*mExportNode);
+			if ( mMorphControllerHelperGeometry )
+				mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
+			else
+				mId = GeometriesExporter::getGeometryId(*mExportNode);
 
             mGeometriesExporter->openMesh ( mId, COLLADA::Utils::checkNCName ( iNode->GetName() ) );
 
-            exportPositions();
+			if ( mMorphControllerHelperGeometry )
+				exportMorphHelperPositions();
+			else
+				exportPositions();
 
             exportNormals();
 
@@ -514,6 +535,33 @@ namespace COLLADAMax
 
         source.finish();
     }
+
+
+
+	//---------------------------------------------------------------
+	void GeometryExporter::exportMorphHelperPositions()
+	{
+		COLLADA::FloatSource source ( mGeometriesExporter->mSW );
+		source.setId ( mId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
+		source.setArrayId ( mId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADA::LibraryGeometries::ARRAY_ID_SUFFIX );
+		source.setAccessorStride ( 3 );
+		source.getParameterNameList().push_back ( "X" );
+		source.getParameterNameList().push_back ( "Y" );
+		source.getParameterNameList().push_back ( "Z" );
+
+		morphChannel& channel = mMorphControllerHelperGeometry->morphController->getMorph()->chanBank[mMorphControllerHelperGeometry->channelBankindex];
+
+		source.setAccessorCount ( channel.mNumPoints );
+		source.prepareToAppendValues();
+			
+		for (int i = 0; i < channel.mNumPoints; ++i)
+		{
+			const Point3& point = channel.mPoints[i];
+			source.appendValues(point.x, point.y, point.z);
+		}
+		source.finish();
+	}
+
 
 
     //---------------------------------------------------------------

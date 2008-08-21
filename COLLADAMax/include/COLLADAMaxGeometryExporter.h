@@ -32,6 +32,7 @@ namespace COLLADAMax
 {
 
     class ExportNode;
+	struct MorphControllerHelperGeometry;
 
     /** Class to export a single geometry.*/
 
@@ -50,10 +51,14 @@ namespace COLLADAMax
         static const String COLOR_MATERIAL_SYMBOL;
 
     private:
-        /** The export node which geoemetry should be exported.*/
+        /** The export node which geometry should be exported.*/
         ExportNode * mExportNode;
 
-        /** The id of the geometry.*/
+		/** The helper geometry that should be exported.*/
+		const MorphControllerHelperGeometry * mMorphControllerHelperGeometry;
+
+		
+		/** The id of the geometry.*/
         String mId;
 
         GeometriesExporter * mGeometriesExporter;
@@ -85,6 +90,14 @@ namespace COLLADAMax
         */
         GeometryExporter ( ExportNode * exportNode, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter );
 
+		/** Constructor
+		@param helperGeometry The helper geometry that should be exported
+		@param geometriesExporter The geometries exporter
+		@param documentExporter The document exporter this exporter belongs to
+		*/
+		GeometryExporter ( const MorphControllerHelperGeometry * helperGeometry, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter );
+
+
         /** Exports the geometry.*/
         void doExport();
 
@@ -111,8 +124,11 @@ namespace COLLADAMax
         /** Exports all the geometries in @a node and all its child nodes.*/
         void doExport ( const ExportNode* exportNode );
 
-        /** Exports the positions of the mesh mesh.*/
+        /** Exports the positions of the mesh.*/
         void exportPositions();
+
+		/** Exports the positions of the mesh retrieved from the morph controller.*/
+		void exportMorphHelperPositions();
 
         /** Exports the normals of the mesh.*/
         void exportNormals();

@@ -22,6 +22,7 @@
 
 #include <max.h>
 #include <iskin.h> 
+#include "MorphR3.h"
 
 namespace COLLADAMax
 {
@@ -82,5 +83,17 @@ namespace COLLADAMax
 		if ( modifier )
 			return (ISkin *)modifier->GetInterface(I_SKIN);
 		return 0;
+	}
+
+	//---------------------------------------------------------------
+	bool MorphController::isMorphController( Modifier * modifier )
+	{
+		return ( modifier->ClassID() == MORPHER_CLASS_ID ) != 0;
+	}
+
+	//---------------------------------------------------------------
+	MorphR3* MorphController::getMorph() const
+	{
+		return (MorphR3*)getModifier();
 	}
 }

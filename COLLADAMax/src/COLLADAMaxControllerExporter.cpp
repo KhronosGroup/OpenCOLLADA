@@ -30,6 +30,7 @@
 
 #include <max.h>
 #include <iskin.h>
+#include "MorphR3.h"
 
 namespace COLLADAMax
 {
@@ -44,9 +45,16 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	COLLADA::String ControllerExporter::getControllerId( const ExportNode& exportNode, size_t number )
+	COLLADA::String ControllerExporter::getControllerId( const ExportNode& exportNode, size_t number, Controller::ControllerType controllerType )
 	{
-		return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX + COLLADA::Utils::toString(number);
+		switch ( controllerType )
+		{
+		case Controller::SKIN:
+			return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX + COLLADA::Utils::toString(number);
+		case Controller::MORPH:
+			return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX + COLLADA::Utils::toString(number);
+		}
+		return EMPTY_STRING;
 	}
 
 
@@ -62,6 +70,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void ControllerExporter::doExport( ExportNode* exportNode )
 	{
+		if ( !exportNode->getIsInVisualScene() )
+			return;
+
 		exportControllers(exportNode);
 
 		size_t numberOfChildren = exportNode->getNumberOfChildren();
@@ -80,10 +91,10 @@ namespace COLLADAMax
 		size_t controllerCount = controllerList->getControllerCount();
 		for ( size_t i = 0; i < controllerCount; ++i)
 		{
-			String controllerId = getControllerId(*exportNode, controllerCount - i);
+			String controllerId = getControllerId(*exportNode, controllerCount - i, controllerList->getController(i)->getType());
 			String controllerSource;
 			if ( i <  controllerCount - 1)
-				controllerSource = '#' +  getControllerId(*exportNode, controllerCount - i - 1);
+				controllerSource = '#' +  getControllerId(*exportNode, controllerCount - i - 1, controllerList->getController(i+1)->getType());
 			else
 				controllerSource = '#' + GeometriesExporter::getGeometryId(*exportNode);
 			exportController(exportNode, controllerList->getController(i), controllerId, controllerSource);
@@ -96,6 +107,8 @@ namespace COLLADAMax
 	{
 		if ( controller->getControllerType() == Controller::SKIN )
 			exportSkinController(exportNode, (SkinController*)controller, controllerId, controllerSource);
+		else if ( controller->getControllerType() == Controller::MORPH )
+			exportMorphController(exportNode, (MorphController*)controller, controllerId, controllerSource);
 
 		closeController();
 	}
@@ -134,6 +147,9 @@ namespace COLLADAMax
 		jointSource.setAccessorCount(jointCount);
 		jointSource.prepareToAppendValues();
 
+
+		ExportNodeSet referencedJoints;
+
 		for (int i = 0; i <  jointCount; ++i)
 		{
 			// there should not be any null bone.
@@ -142,20 +158,22 @@ namespace COLLADAMax
 			assert(boneNode);
 			boneINodes.push_back(boneNode);
 
-			ExportNode* boneExportNode = mExportSceneGraph->getExportNode(boneNode);
-			assert(boneExportNode);
+			ExportNode* jointExportNode = mExportSceneGraph->getExportNode(boneNode);
+			assert(jointExportNode);
 
-			if ( !boneExportNode->hasSid() )
-				boneExportNode->setSid(mExportSceneGraph->createJointSid());
+			if ( !jointExportNode->hasSid() )
+				jointExportNode->setSid(mExportSceneGraph->createJointSid());
 
-			exportNode->getControllerList()->addReferencedJoint(boneExportNode);
-			boneExportNode->setIsJoint();
+			referencedJoints.insert(jointExportNode);
+			//exportNode->getControllerList()->addReferencedJoint(jointExportNode);
+			jointExportNode->setIsJoint();
 
-			jointSource.appendValues(boneExportNode->getSid());
+			jointSource.appendValues(jointExportNode->getSid());
 
 		}
 		jointSource.finish();
 
+		calculateSkeletonRoots(referencedJoints, exportNode->getControllerList());
 
 		//export inverse bind matrix source
 		String inverseBindMatrixId = controllerId + BIND_POSES_SOURCE_ID_SUFFIX;
@@ -205,7 +223,7 @@ namespace COLLADAMax
 		weightsSource.setId(weightsId);
 		weightsSource.setArrayId(weightsId + ARRAY_ID_SUFFIX);
 		weightsSource.setAccessorStride(1);
-		weightsSource.getParameterNameList().push_back("TRANSFORM");
+		weightsSource.getParameterNameList().push_back("WEIGHT");
 		weightsSource.setAccessorCount(weightsCount);
 		weightsSource.prepareToAppendValues();
 
@@ -282,9 +300,118 @@ namespace COLLADAMax
 
 
 #endif
-
-
 		closeSkin();
+	}
+
+
+	//---------------------------------------------------------------
+	void ControllerExporter::exportMorphController( ExportNode* exportNode, MorphController* morphController, const String& controllerId, const String& morphSource )
+	{
+		MorphR3* morpher = morphController->getMorph();
+
+
+		FloatList listOfWeights;
+		StringList listOfTargetIds;
+
+		size_t channelBankCount = morpher->chanBank.size();
+		for ( size_t i = 0; i<channelBankCount; ++i)
+		{
+			morphChannel& channel = morpher->chanBank[i];
+			
+			if (!channel.mActive || channel.mNumPoints == 0) 
+				continue;
+
+			INode* targetINode = channel.mConnection;
+
+			listOfWeights.push_back(0.01f * channel.cblock->GetFloat(0, TIME_EXPORT_START));
+
+			if ( !targetINode )
+			{
+				MorphControllerHelperGeometry morphControllerHelperGeometry;
+				morphControllerHelperGeometry.exportNode = exportNode;
+				morphControllerHelperGeometry.controllerId = controllerId;
+				morphControllerHelperGeometry.morphController = morphController;
+				morphControllerHelperGeometry.channelBankindex = i;
+				
+				String targetId = ExportSceneGraph::getMorphControllerHelperId(morphControllerHelperGeometry);
+				listOfTargetIds.push_back(targetId);
+			}
+			else
+			{
+				ExportNode* targetExportNode = mExportSceneGraph->getExportNode(targetINode);
+				assert(targetExportNode);
+
+				listOfTargetIds.push_back(GeometriesExporter::getGeometryId(*targetExportNode));
+			}
+		}
+
+		openMorph(controllerId, EMPTY_STRING, morphSource);
+
+		//export weights source
+		String targetId = controllerId + TARGETS_SOURCE_ID_SUFFIX;
+		COLLADA::IdRefSource targetsSource(mSW);
+		targetsSource.setId(targetId);
+		targetsSource.setArrayId(targetId + ARRAY_ID_SUFFIX);
+		targetsSource.setAccessorStride(1);
+		targetsSource.getParameterNameList().push_back("MORPH_TARGET");
+		targetsSource.setAccessorCount((unsigned long)listOfTargetIds.size());
+		targetsSource.prepareToAppendValues();
+
+		for ( StringList::const_iterator it = listOfTargetIds.begin(); it != listOfTargetIds.end(); ++it)
+			targetsSource.appendValues(*it);
+
+		targetsSource.finish();
+
+
+		//export weights source
+		String weightsId = controllerId + WEIGHTS_SOURCE_ID_SUFFIX;
+		COLLADA::FloatSource weightsSource(mSW);
+		weightsSource.setId(weightsId);
+		weightsSource.setArrayId(weightsId + ARRAY_ID_SUFFIX);
+		weightsSource.setAccessorStride(1);
+		weightsSource.getParameterNameList().push_back("MORPH_WEIGHT");
+		weightsSource.setAccessorCount((unsigned long)listOfWeights.size());
+		weightsSource.prepareToAppendValues();
+		
+		for ( FloatList::const_iterator it = listOfWeights.begin(); it != listOfWeights.end(); ++it)
+			weightsSource.appendValues(*it);
+		
+		weightsSource.finish();
+
+
+		COLLADA::TargetsElement targets(mSW);
+		targets.getInputList().push_back(COLLADA::Input(COLLADA::MORPH_TARGET, "#" + targetId));
+		targets.getInputList().push_back(COLLADA::Input(COLLADA::MORPH_WEIGHT, "#" + weightsId));
+		targets.add();
+
+		closeMorph();
+
+	}
+
+
+	//---------------------------------------------------------------
+	void ControllerExporter::calculateSkeletonRoots( const ExportNodeSet &referencedJoints, ControllerList * controllerList)
+	{
+		for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
+		{
+			ExportNode* joint = *it;
+			if ( !isOneParentInSet(joint, referencedJoints) )
+				controllerList->addReferencedJoint(joint);
+		}
+	}
+
+	//---------------------------------------------------------------
+	bool ControllerExporter::isOneParentInSet( ExportNode *joint, const ExportNodeSet &jointSet )
+	{
+		ExportNode* parentNode = joint->getParent();
+		
+		if ( !parentNode )
+			return false;
+
+		if ( jointSet.count(parentNode) != 0 )
+			return true;
+
+		return isOneParentInSet(parentNode, jointSet);
 	}
 
 }

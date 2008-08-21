@@ -60,6 +60,11 @@ namespace COLLADAMax
 						SkinController * skinController = new SkinController(derivedObject, modifierIndex, modifier->IsEnabled() != false);
 						mControllers.push_back(skinController);
 					}
+					else if ( MorphController::isMorphController(modifier) )
+					{
+						MorphController * morphController = new MorphController(derivedObject, modifierIndex, modifier->IsEnabled() != false);
+						mControllers.push_back(morphController);
+					}
 					else
 						return;
 				}

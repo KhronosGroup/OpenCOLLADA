@@ -24,6 +24,8 @@
 HINSTANCE hInstance;
 int controlsInit = FALSE;
 
+static const COLLADAMax::String LIBDESCRIPTION = "COLLADAMax NextGen";
+
 BOOL WINAPI DllMain ( HINSTANCE hinstDLL, ULONG fdwReason, LPVOID UNUSED ( lpvReserved ) )
 {
     switch ( fdwReason )
@@ -47,7 +49,7 @@ BOOL WINAPI DllMain ( HINSTANCE hinstDLL, ULONG fdwReason, LPVOID UNUSED ( lpvRe
 
 extern "C" __declspec ( dllexport ) const TCHAR* LibDescription()
 {
-    return "libdescription";
+    return LIBDESCRIPTION.c_str();
 }
 
 extern "C" __declspec ( dllexport ) int LibNumberClasses()
@@ -64,7 +66,7 @@ extern "C" __declspec ( dllexport ) ClassDesc* LibClassDesc ( int i )
         return COLLADAMax::getCOLLADAExporterDesc();
 
     default:
-        return NULL;
+        return 0;
     }
 }
 
@@ -84,5 +86,5 @@ extern "C" __declspec ( dllexport ) ULONG CanAutoDefer()
 TCHAR* GetString ( int id )
 {
     static TCHAR buf[ 1024 ];
-    return ( hInstance != NULL && LoadString ( hInstance, id, buf, sizeof ( buf ) ) ) ? buf : NULL;
+    return ( hInstance  && LoadString ( hInstance, id, buf, sizeof ( buf ) ) ) ? buf : 0;
 }

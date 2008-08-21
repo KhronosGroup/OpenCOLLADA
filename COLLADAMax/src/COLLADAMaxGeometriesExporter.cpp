@@ -51,6 +51,17 @@ namespace COLLADAMax
     void GeometriesExporter::doExport()
     {
         doExport ( mExportSceneGraph->getRootExportNode() );
+
+		const MorphControllerHelperGeometryList& morphControllerHelperGeometryList = mExportSceneGraph->getMorphControllerHelperGeometryList();
+
+		for ( MorphControllerHelperGeometryList::const_iterator it = morphControllerHelperGeometryList.begin(); it != morphControllerHelperGeometryList.end(); ++it)
+		{
+			const MorphControllerHelperGeometry& morphControllerHelperGeometry = *it;
+			GeometryExporter geometryExporter ( &morphControllerHelperGeometry, this, mDocumentExporter );
+
+			geometryExporter.doExport();
+		}
+
         closeLibrary();
     }
 

@@ -30,17 +30,24 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    ExportNode::ExportNode ( INode * iNode )
+    ExportNode::ExportNode ( INode * iNode, ExportNode* parent  )
             : mINode ( iNode ),
+			mParent(parent),
             mType ( UNDETERMINED ),
 			mIsJoint(false),
+			mIsInVisualScene(false),
+			mIsReferenced(false),
 			mControllerList(0)
     {}
 
     //---------------------------------------------------------------
-    ExportNode::ExportNode ( INode * iNode, Type type )
+    ExportNode::ExportNode ( INode * iNode, ExportNode* parent , Type type )
             : mINode ( iNode ),
+			mParent(parent),
             mType ( type ),
+			mIsJoint(false),
+			mIsInVisualScene(false),
+			mIsReferenced(false),
 			mControllerList(0)
     {}
 
@@ -55,7 +62,6 @@ namespace COLLADAMax
     }
 
 
-
     //---------------------------------------------------------------
     void ExportNode::clean()
     {
@@ -64,10 +70,8 @@ namespace COLLADAMax
             delete mChildren.back();
             mChildren.pop_back();
         }
-
 		delete mControllerList;
     }
-
 
     //---------------------------------------------------------------
     ExportNode::Type ExportNode::determineType ( INode * iNode )
@@ -206,7 +210,8 @@ namespace COLLADAMax
 		if ( !hasControllers() )
 			return COLLADA::Utils::EMPTY_STRING;
 
-		return ControllerExporter::getControllerId(*this, mControllerList->getControllerCount());
+		size_t controllerCount = mControllerList->getControllerCount();
+		return ControllerExporter::getControllerId(*this, controllerCount, mControllerList->getController(0)->getType());
 	}
 
 }

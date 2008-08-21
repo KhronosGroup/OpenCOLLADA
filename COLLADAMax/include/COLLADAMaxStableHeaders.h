@@ -45,12 +45,15 @@
 #include <imtl.h>      // for UVGen
 #include <custcont.h>  //for dialog
 
-
 #include <IDxMaterial.h>  // for IDxMaterial
+
+#include "MorphR3.h"		//for morph controller MorphR3 
+
 
 //STL
 #include <map>
 #include <vector>
+#include <set>
 #include <sstream>
 #include <algorithm>
 

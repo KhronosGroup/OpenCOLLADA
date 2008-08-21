@@ -26,13 +26,16 @@
 #include <set>
 
 class INode;
-class ExportNode;
 
 namespace COLLADAMax
 {
 
+	class ExportNode;
+
+	typedef std::vector<String> StringList;
+
     /** A list of ids of effects that are exported*/
-    typedef std::vector<String> ExportedEffectIdList;
+    typedef StringList ExportedEffectIdList;
 
     /** A list of wire frame colors that are exported*/
     typedef std::vector<DWORD> WireFrameColorEffectList;
@@ -47,6 +50,8 @@ namespace COLLADAMax
 	typedef std::vector<INode*> INodeList;
 
 	typedef std::set<ExportNode*> ExportNodeSet;
+
+	typedef std::vector<float> FloatList;
 
 }
 

@@ -19,6 +19,7 @@
 #include "ColladaMaxStableHeaders.h"
 
 #include "COLLADAMaxExportSceneGraph.h"
+#include "COLLADAMaxControllerExporter.h"
 #include "COLLADAUtils.h"
 
 #include <sstream>
@@ -27,6 +28,7 @@
 namespace COLLADAMax
 {
 
+	const String ExportSceneGraph::HELPER_GEOMETRY_ID_SUFFIX ="-helper_geometry";
 
     ExportSceneGraph::ExportSceneGraph ( INode * iNode )
             : mExportSelection ( false ),
@@ -47,17 +49,21 @@ namespace COLLADAMax
         if ( mRootExportNode )
             delete mRootExportNode;
 
-        return ( mRootExportNode = create ( mRootNode ) ) != 0;
+		bool isNotEmpty;
+		mRootExportNode = create ( mRootNode, 0, isNotEmpty );
+
+		findReferencedObjects(mRootExportNode);
+
+        return isNotEmpty;
     }
 
     //---------------------------------------------------------------
-    ExportNode * ExportSceneGraph::create ( INode *iNode )
+    ExportNode * ExportSceneGraph::create ( INode *iNode, ExportNode* parent, bool& isInVisualScene)
     {
-        bool exportCurrentNode = exportThisNode ( iNode );
 
-        ExportNode * exportNode;
+        ExportNode * exportNode = new ExportNode ( iNode, parent );
 
-        exportNode = new ExportNode ( iNode );
+		isInVisualScene = isNodeInVisualScene(iNode);
 
         int numberOfChildren = iNode->NumberOfChildren();
 
@@ -66,35 +72,35 @@ namespace COLLADAMax
         for ( int i = 0; i < numberOfChildren; ++i )
         {
             INode * child = iNode->GetChildNode ( i );
-            ExportNode * childExportNode = create ( child );
+			bool isChildInVisualScene;
+            ExportNode * childExportNode = create ( child, exportNode, isChildInVisualScene );
 
-            if ( childExportNode )
-            {
+			exportNode->add( childExportNode );
 
-                exportNode->add
-                ( childExportNode );
-
-                exportCurrentNode = true;
-            }
+            if ( isChildInVisualScene )
+               isInVisualScene = true;
         }
 
-        if ( exportCurrentNode )
+ //       if ( exportCurrentNode )
         {
 
             exportNode->setId ( mNodeIdList.addId ( exportNode->getINode()->GetName() ) );
 			mINodeExportNodeMap[iNode] = exportNode;
+			exportNode->createControllerList();
+			exportNode->setIsInVisualScene(isInVisualScene);
             return exportNode;
         }
-		else
+/*		else
 		{
 			delete exportNode;
 			return 0;
 		}
+		*/
     }
 
 
     //---------------------------------------------------------------
-    bool ExportSceneGraph::exportThisNode ( INode * iNode )
+    bool ExportSceneGraph::isNodeInVisualScene ( INode * iNode )
     {
         return ! ( mExportSelection && !iNode->Selected() ) && !iNode->IsHidden();
 
@@ -115,5 +121,94 @@ namespace COLLADAMax
 			return it->second;
 		else
 			return 0;
+	}
+
+	//---------------------------------------------------------------
+	void ExportSceneGraph::findReferencedObjects( ExportNode* exportNode )
+	{
+		if ( exportNode->hasControllers() )
+		{
+			ControllerList* controllerList = exportNode->getControllerList();
+
+			size_t controllerCount = controllerList->getControllerCount();
+
+			for ( size_t j = 0; j < controllerCount; ++j)
+			{
+				Controller* controller = controllerList->getController(j);
+
+				if ( controller->getType() != Controller::MORPH )
+					continue;
+
+				MorphController* morphController = (MorphController*)controller;
+
+				MorphR3* morpher = morphController->getMorph();
+
+				size_t channelBankCount = morpher->chanBank.size();
+				for ( size_t i = 0; i<channelBankCount; ++i)
+				{
+					morphChannel& channel = morpher->chanBank[i];
+
+					if (!channel.mActive || channel.mNumPoints == 0) 
+						continue;
+
+					INode* targetINode = channel.mConnection;
+
+					if ( !targetINode )
+					{
+						MorphControllerHelperGeometry morphControllerHelperGeometry;
+						morphControllerHelperGeometry.exportNode = exportNode;
+						morphControllerHelperGeometry.morphController = morphController;
+						morphControllerHelperGeometry.controllerId = ControllerExporter::getControllerId(*exportNode, controllerCount - j, controllerList->getController(j)->getType());
+						morphControllerHelperGeometry.channelBankindex = i;
+						mMorphControllerHelperGeometryList.push_back(morphControllerHelperGeometry);
+					}
+					else
+					{
+						ExportNode* targetExportNode = getExportNode(targetINode);
+						targetExportNode->setIsReferenced(true);
+					}
+				}
+
+			}
+		}
+
+		size_t numberOfChildren = exportNode->getNumberOfChildren();
+
+		for ( size_t i = 0; i < numberOfChildren; ++i )
+			findReferencedObjects(exportNode->getChild(i));
+
+	}
+
+	//---------------------------------------------------------------
+	String ExportSceneGraph::getMorphControllerHelperId( const MorphControllerHelperGeometry& morphControllerHelperGeometry )
+	{
+		String id = morphControllerHelperGeometry.controllerId;
+		id += HELPER_GEOMETRY_ID_SUFFIX;
+		id += COLLADA::Utils::toString(morphControllerHelperGeometry.channelBankindex);
+		return id;
+	}
+
+	//---------------------------------------------------------------
+	bool MorphControllerHelperGeometry::operator<( const MorphControllerHelperGeometry& rhs ) const
+	{
+		if ( exportNode < rhs.exportNode)
+			return true;
+
+		if ( exportNode > rhs.exportNode)
+			return false;
+
+		if ( morphController < rhs.morphController)
+			return true;
+
+		if ( morphController > rhs.morphController)
+			return false;
+
+		if ( channelBankindex < rhs.channelBankindex)
+			return true;
+
+		if ( channelBankindex > rhs.channelBankindex)
+			return false;
+
+		return false;
 	}
 }

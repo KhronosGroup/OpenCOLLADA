@@ -82,6 +82,8 @@ namespace COLLADAMax
         /** The INode this export node wraps.*/
         INode * mINode;
 
+		ExportNode* mParent;
+
         Children mChildren;
 
         /** The type of the node.*/
@@ -89,6 +91,13 @@ namespace COLLADAMax
 
 		/** Indicates if the node is a joint*/
 		bool mIsJoint;
+
+		/** Indicates if the node is in the visual scene, i.e. not hidden or selected if export selection only
+		is choosen.*/
+		bool mIsInVisualScene;
+
+		/** Indicates if the node is referenced some where.*/
+		bool mIsReferenced;
 
         /** The unique id of the node.*/
         String mId;
@@ -105,7 +114,7 @@ namespace COLLADAMax
     public:
         /** Constructor
         @param iNode The INode represented by the Export node. */
-        ExportNode ( INode * iNode );
+        ExportNode ( INode * iNode, ExportNode* parent );
 
         /** Destructor*/
         virtual ~ExportNode()
@@ -149,6 +158,23 @@ namespace COLLADAMax
         {
             return mINode;
         }
+
+		/** Returns if the node is in the visual scene, i.e. not hidden or selected if export selection only
+		is choosen.*/
+		bool getIsInVisualScene()const {return mIsInVisualScene;}
+
+		/** Sets if the node is in the visual scene, i.e. not hidden or selected if export selection only
+		is choosen.*/
+		void setIsInVisualScene(bool isInVisualScene){mIsInVisualScene = isInVisualScene;}
+
+		/** Returns if the node is referenced some where.*/
+		bool getIsReferenced()const {return mIsReferenced;}
+
+		/** Sets if the node is referenced some where.*/
+		void setIsReferenced(bool isReferenced){mIsReferenced = isReferenced;}
+
+		/** Returns the parent or NULL if it has no parent.*/
+		ExportNode* getParent()const{return mParent;}
 
         /** Returns the number of child nodes.*/
         size_t getNumberOfChildren() const
@@ -232,7 +258,7 @@ namespace COLLADAMax
         }
 
     protected:
-        ExportNode ( INode * iNode, Type type );
+        ExportNode ( INode * iNode, ExportNode* parent, Type type );
 
     private:
 

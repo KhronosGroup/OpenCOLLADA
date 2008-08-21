@@ -26,6 +26,7 @@
 
 class Modifier;
 class ISkin;
+class MorphR3;
 
 namespace COLLADAMax
 {
@@ -64,6 +65,9 @@ namespace COLLADAMax
 		/** Returns the modifier.*/
 		Modifier* getModifier()const {return mDerivedObject->GetModifier(mModifierIndex);}
 
+		/** Returns the type of the controller*/
+		ControllerType getType()const { return mControllerType; }
+
     protected:
 		/** Sets the controller type*/
 		void setControllerType(ControllerType controllerType){mControllerType=controllerType;}
@@ -76,8 +80,6 @@ namespace COLLADAMax
 
 
 	typedef std::vector<Controller*> Controllers;
-
-	//typedef std::auto_ptr<ControllerList> ControllerListPtr;
 
 
 	class SkinController : public Controller
@@ -92,6 +94,22 @@ namespace COLLADAMax
 		ISkin* getSkin()const;
 
 	};
+
+
+
+	class MorphController : public Controller
+	{
+	public:
+		MorphController(IDerivedObject * object, int modifierIndex, bool enabled) : Controller(object, modifierIndex, enabled, MORPH){}
+
+		/** Returns true, if the modifier is as morph controller.*/
+		static bool isMorphController(Modifier * modifier);
+
+		/** Returns the skin controller.*/
+		MorphR3* getMorph()const;
+
+	};
+
 
 }
 

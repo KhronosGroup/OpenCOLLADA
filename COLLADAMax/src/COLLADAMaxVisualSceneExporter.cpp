@@ -87,6 +87,8 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void VisualSceneExporter::doExport ( ExportNode* exportNode )
     {
+		if ( !exportNode->getIsInVisualScene() )
+			return;
 
         COLLADA::Node colladaNode ( mSW );
 

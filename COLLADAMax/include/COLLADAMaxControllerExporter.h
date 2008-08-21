@@ -22,6 +22,8 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADALibraryControllers.h"
+#include "COLLADAMaxTypes.h"
+#include "COLLADAMaxController.h"
 
 
 namespace COLLADAMax
@@ -29,8 +31,8 @@ namespace COLLADAMax
 	class ExportSceneGraph;
 	class ExportNode;
 	class DocumentExporter;
-	class Controller;
 	class SkinController;
+	class MorphController;
 	class ControllerList;
 
     /** Base class to export extra tags in max.*/
@@ -57,7 +59,7 @@ namespace COLLADAMax
 		void doExport();
 
 		/** Creates an id for the controller, derived from the node id of @a exportNode and the number @a number*/
-		static String getControllerId(const ExportNode& exportNode, size_t number);
+		static String getControllerId(const ExportNode& exportNode, size_t number, Controller::ControllerType controllerType);
 
 
     private:
@@ -74,7 +76,15 @@ namespace COLLADAMax
 		/** Exports @a skinController.*/
 		void exportSkinController( ExportNode* exportNode, SkinController* skinController, const String& controllerId, const String& skinSource);
 
-	
+		/** Exports @a morphController.*/
+		void exportMorphController( ExportNode* exportNode, MorphController* morphController, const String& controllerId, const String& morphSource);
+
+		/** Calculates the skeleton roots of. */
+		static void calculateSkeletonRoots( const ExportNodeSet &referencedJoints, ControllerList * controllerList);
+
+		/** Determines if one of the parents of @a joint is in @a jointSet. 
+		@return Returns true if @a joint is in @a jointSet set, otherwise false.*/
+		static bool isOneParentInSet(ExportNode *joint, const ExportNodeSet &jointSet);
 	};
 
 

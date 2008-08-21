@@ -78,6 +78,9 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void EffectExporter::exportEffect ( ExportNode* exportNode )
     {
+		if ( !exportNode->getIsInVisualScene() )
+			return;
+
         INode * iNode = exportNode->getINode();
         Mtl * material = iNode->GetMtl();
 
