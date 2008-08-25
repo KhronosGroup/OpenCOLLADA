@@ -35,6 +35,18 @@ namespace COLLADA
             : mNumberOfOpenElements ( 0 ), mStreamWriter ( 0 )
     {}
 
+	TagCloser::TagCloser( const TagCloser & other )
+	{
+		if ( &other != this )
+		{
+			mStreamWriter = other.mStreamWriter;
+			mNumberOfOpenElements = other.mNumberOfOpenElements;
+
+			if ( mStreamWriter )
+				mStreamWriter->addTagCloser ( this );
+		}
+	}
+
     //---------------------------------------------------------------
     TagCloser::~TagCloser()
     {

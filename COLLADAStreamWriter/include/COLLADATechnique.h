@@ -31,7 +31,7 @@ namespace COLLADA
         TagCloser mTechniqueCloser;
 
         /** Manages a map with the currently opened child elements */
-        std::map<String, TagCloser*> mOpenChildElements;
+        std::map<String, TagCloser> mOpenChildElements;
 
     public:
         /** Constructor that sets the stream the asset should be written to*/
@@ -41,22 +41,22 @@ namespace COLLADA
         void openTechnique ( const String &profile, const String &xmlns="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const String &value="", const String sid="" );
+        void addParameter ( const String &paramName, const String &value="", const String &sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const int &value, const String sid="" );
+        void addParameter ( const String &paramName, const int &value, const String &sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const double &value, const String sid="" );
+        void addParameter ( const String &paramName, const double &value, const String &sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const float &value, const String sid="" );
+        void addParameter ( const String &paramName, const float &value, const String &sid="" );
 
         /** Adds a parameter to the technique */
-        void addParameter ( const String &paramName, const bool &value, const String sid="" );
+        void addParameter ( const String &paramName, const bool &value, const String &sid="" );
 
         /** Adds a parameter to the technique */
-        void addMatrixParameter ( const String &paramName, const double matrix[][4], const String sid="" ) const;
+        void addMatrixParameter ( const String &paramName, const double matrix[][4], const String &sid="" ) const;
 
         /** Opens a tag with the given name and adds the TagCloser to the child element into a map */
         void addChildElement ( const String &childElementName );

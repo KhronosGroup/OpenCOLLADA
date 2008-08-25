@@ -265,6 +265,9 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void GeometryExporter::doExport()
     {
+		if ( mExportNode->getType() != ExportNode::MESH )
+			return;
+
 		if ( !mMorphControllerHelperGeometry && !(mExportNode->getIsInVisualScene() || mExportNode->getIsReferenced()) )
 			return;
 
@@ -289,7 +292,6 @@ namespace COLLADAMax
                 return ;
 			}
 
-            //Mesh & mesh = mTriObject->GetMesh();
 			if ( mMorphControllerHelperGeometry )
 				mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
 			else

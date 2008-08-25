@@ -61,7 +61,8 @@ namespace COLLADA
         for ( ParameterNameList::iterator it = mParameterNameList.begin(); it != mParameterNameList.end(); ++it )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_PARAM );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, *it );
+			if ( !it->empty() )
+				mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, *it );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, *parameterTypeName );
             mSW->closeElement();
         }

@@ -25,11 +25,14 @@
 #include "COLLADALibraryAnimations.h"
 
 #include "COLLADAMaxDocumentExporter.h"
+#include "COLLADAMaxConversionFunctor.h"
 
 class Control;
 
 namespace COLLADAMax
 {
+
+
 
     /** A class that holds all information needed to export an animation.*/
 
@@ -72,7 +75,9 @@ namespace COLLADAMax
  		};
 
         /** Function pointer for conversion functions, to convert doubles.*/
-        typedef float ( *ConversionFunction ) ( const float & );
+    //    typedef float ( *ConversionFunction ) ( const float & );
+
+
 
     private:
         /** The max controller.*/
@@ -93,11 +98,11 @@ namespace COLLADAMax
         /** Type of animation.*/
         int mType;
 
-		/** Flags that idicate which inputs need to be exported in the sampler*/
+		/** Flags that indicates which inputs need to be exported in the sampler*/
 		int mInputTypeFlags;
 
         /** Pointer to conversion function, to convert all animated values.*/
-        ConversionFunction mConversionFunction;
+        ConversionFunctor* mConversionFunctor;
 
     public:
         /**
@@ -106,8 +111,8 @@ namespace COLLADAMax
         @param sid The sid of the element to animate
         @param parameter A pointer to an array of parameters to animate
         @param type Type of animation
-        @param conversionFunction Pointer to conversion function, to convert all animated values*/
-        Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction = 0 );
+        @param conversionFunctor Pointer to conversion function, to convert all animated values*/
+        Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunctor* conversionFunctor = 0 );
 
 		/**Use this constructor to creat an animation for sampled transformation matrices of a max node
 		@param nIode the max node which transformation should be animated (sampled)
@@ -115,13 +120,12 @@ namespace COLLADAMax
 		@param sid The sid of the element to animate
 		@param parameter A pointer to an array of parameters to animate
 		@param type Type of animation
-		@param conversionFunction Pointer to conversion function, to convert all animated values*/
-		Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction = 0 );
+		@param conversionFunctor Pointer to conversion function, to convert all animated values*/
+		Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunctor* conversionFunctor = 0 );
 
 		
 		/** Destructor*/
-        virtual ~Animation()
-        {}
+		virtual ~Animation();
 
         /** Returns the controller.*/
         Control * getController() const
@@ -160,9 +164,9 @@ namespace COLLADAMax
         }
 
         /** Returns the pointer to conversion function, to convert all animated values.*/
-        const ConversionFunction & getConversionFunction() const
+        const ConversionFunctor* const & getConversionFunctor() const
         {
-            return mConversionFunction;
+            return mConversionFunctor;
         }
 
         /** Returns the dimension of the animation, i.e. how many values are animated. */
@@ -176,6 +180,10 @@ namespace COLLADAMax
 
 		/** Returns true if at least one input type flag is set.*/
 		bool hasAnyInputFlagsSet()const { return mInputTypeFlags != NONE; }
+	
+		Animation(const Animation& other);
+		const Animation& operator=(const Animation& other);
+
     };
 
 
@@ -291,8 +299,19 @@ namespace COLLADAMax
         */
         void addAnimation4 ( Control * controller, const String & id, const String & sid, const String parameters[] );
 
+		void addAnimatedParameter(IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
+
+		void addAnimatedParameter(IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
+
+
         /** Returns true, if the controller is animated an should be exported.*/
         static bool isAnimated ( Control * controller );
+
+		/** Returns true, if the parameter of @a paramBlock with index @a parameterId is animated an should be exported.*/
+		static bool isAnimated ( IParamBlock * paramBlock, int parameterId );
+
+		/** Returns true, if the parameter of @a paramBlock with index @a parameterId is animated an should be exported.*/
+		static bool isAnimated ( IParamBlock2 * paramBlock, int parameterId );
 
         /** Generates an id from all the strings contained in @a animation.*/
         static String getBaseId ( const Animation & animation );

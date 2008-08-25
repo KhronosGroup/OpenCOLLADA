@@ -105,22 +105,26 @@ namespace COLLADA
         virtual ~BaseOptic() {}
 
         /** The distance to the far clipping plane. */
-        void setZFar ( const float val, const bool useDefaultSid = false, const String sid="" );
+        void setZFar ( float val, const String& sid="" ) { mZFar = val; mZFarSid = sid; mHasZFar = true; }
+		void setZFar( const float val, const bool useDefaultSid, const String& sid=""  );
 
         /** The distance to the near clipping plane. */
-        void setZNear ( const float val, const bool useDefaultSid = false, const String sid="" );
+        void setZNear ( float val, const String& sid="" ) { mZNear = val; mZNearSid = sid; mHasZNear = true; }
+		void setZNear( const float val, const bool useDefaultSid, const String& sid=""  );
 
         /** The aspect ratio of the field of view. If the <aspect_ratio> 
         element is not specified, it is calculated from the <xfov> or <yfov> 
         elements and the current viewport. The aspect ratio is defined as the 
         ratio of the field of view’s width over its height. */
-        void setAspectRatio ( float val, const bool useDefaultSid = false, const String sid="" );
+        void setAspectRatio ( float val, const bool useDefaultSid = false, const String& sid="" );
 
         /** The horizontal field of view in degrees - used for the perspective camera. */
-        void setXFov ( float val, const bool useDefaultSid = false, const String sid="" );
+        void setXFov ( float val, const String& sid="" ) { mXFov = val; mXFovSid = sid; mHasXFov = true; }
+		void setXFov( float val, const bool useDefaultSid, const String& sid=""  );
 
         /** The vertical field of view in degrees - used for the perspective camera. */
-        void setYFov ( float val, const bool useDefaultSid = false, const String sid="" );
+        void setYFov ( float val, const String& sid="" ) { mYFov = val; mYFovSid = sid; mHasYFov = true; }
+		void setYFov( float val, const bool useDefaultSid, const String& sid=""  );
 
         /** The horizontal (X) magnification of the view. 
         The X and Y magnifications are simple scale factors, applied to the 
@@ -130,7 +134,8 @@ namespace COLLADA
         [[-xmag,xmag],[-ymag,ymag]]. This gives an orthographic width of 
         xmag/2 and an orthographic height of ymag/2. 
         - used for the orthographic camera.*/
-        void setXMag ( float val, bool useDefaultSid = false, const String sid="" );
+		void setXMag ( float val, const String& sid="" ) { mXMag = val; mXMagSid = sid; mHasXMag = true; }
+        void setXMag ( float val, bool useDefaultSid, const String& sid="" );
 
         /** The vertical (Y) magnification of the view. 
         The X and Y magnifications are simple scale factors, applied to the 
@@ -140,7 +145,8 @@ namespace COLLADA
         [[-xmag,xmag],[-ymag,ymag]]. This gives an orthographic width of 
         xmag/2 and an orthographic height of ymag/2. 
         - used for the orthographic camera.*/
-        void setYMag ( float val, const bool useDefaultSid = false, const String sid="" );
+		void setYMag ( float val, const String& sid="" ) { mYMag = val; mYMagSid = sid; mHasYMag = true; }
+        void setYMag ( float val, bool useDefaultSid, const String& sid="" );
 
     };
 

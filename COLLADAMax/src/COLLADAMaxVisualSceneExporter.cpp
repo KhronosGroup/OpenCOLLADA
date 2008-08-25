@@ -21,6 +21,7 @@
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
 #include "COLLADAInstanceController.h"
+#include "COLLADAInstanceCamera.h"
 #include "COLLADAMathUtils.h"
 #include "COLLADAURI.h"
 
@@ -30,6 +31,8 @@
 #include "COLLADAMaxGeometryExporter.h"
 #include "COLLADAMaxMaterialExporter.h"
 #include "COLLADAMaxAnimationExporter.h"
+#include "COLLADAMaxCameraExporter.h"
+#include "COLLADAMaxDocumentExporter.h"
 
 #include <decomp.h>
 
@@ -133,6 +136,11 @@ namespace COLLADAMax
 				instanceGeometry.add();
 			}
         } 
+		else if ( exportNode->getType() == ExportNode::CAMERA )
+		{
+			COLLADA::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
+			instanceCamera.add();
+		}
 
         //export the child nodes
         size_t numberOfChildren = exportNode->getNumberOfChildren();
@@ -377,6 +385,7 @@ namespace COLLADAMax
 	{
 		return NODE_ID_PRAEFIX + exportNode.getId();
 	}
+
 
 	//---------------------------------------------------------------
 	void COLLADAMax::VisualSceneExporter::fillInstanceMaterialList( COLLADA::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )

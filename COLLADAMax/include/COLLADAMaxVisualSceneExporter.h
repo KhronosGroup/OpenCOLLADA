@@ -98,6 +98,10 @@ namespace COLLADAMax
 		/** Creates an id for the NODE, derived from the node id*/
 		static String getNodeId(const ExportNode& exportNode);
 
+		/** Returns the world transformation matrix at the animation start time*/
+		static Matrix3 getWorldTransform(INode* node);
+
+
 	private:
 		/** Exports all the nodes in @a node and all its child nodes.*/
         void doExport ( ExportNode* exportNode );

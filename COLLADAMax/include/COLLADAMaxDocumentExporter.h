@@ -145,6 +145,10 @@ namespace COLLADAMax
 		/** Exports all the controllers contained in the export scene graph.*/
 		void exportControllers();
 
+		/** Exports all the cameras contained in the export scene graph.*/
+		void exportCameras();
+
+
         /** Exports all the effects used by the nodes in the export scene graph.*/
         void exportEffects();
 

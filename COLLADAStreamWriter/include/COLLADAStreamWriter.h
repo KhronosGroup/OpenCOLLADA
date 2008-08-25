@@ -42,6 +42,7 @@ namespace COLLADA
 
     public:
         TagCloser();
+		TagCloser ( const TagCloser & other );
         ~TagCloser();
 
         /** Closes all elements that have been open and not closed, since this object has been instantiated*/

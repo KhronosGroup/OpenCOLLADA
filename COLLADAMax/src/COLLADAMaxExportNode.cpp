@@ -83,6 +83,8 @@ namespace COLLADAMax
 
         Animatable* base = animatable;
 
+		String gg = iNode->GetName();
+
         // Modifiers are applied to the object, acquire the base object
         while ( base->SuperClassID() == GEN_DERIVOB_CLASS_ID )
         {

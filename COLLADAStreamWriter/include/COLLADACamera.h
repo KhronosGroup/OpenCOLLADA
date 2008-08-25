@@ -58,9 +58,7 @@ namespace COLLADA
 
         /** Destructor */
         virtual ~Camera() 
-        {
-            if ( mOptics != NULL ) delete mOptics;
-        }
+        { }
 
         /** Returns a reference to the camera id */
         const String& getCameraId() const { return mCameraId; }

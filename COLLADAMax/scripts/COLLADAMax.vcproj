@@ -596,6 +596,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxCameraExporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxColladaExporter.cpp"
 					>
 				</File>
@@ -609,6 +613,10 @@
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMaxControllerList.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxConversionFunctor.cpp"
 					>
 				</File>
 				<File
@@ -682,6 +690,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\include\COLLADAMaxCameraExporter.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMaxColladaExporter.h"
 					>
 				</File>
@@ -695,6 +707,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxControllerList.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxConversionFunctor.h"
 					>
 				</File>
 				<File

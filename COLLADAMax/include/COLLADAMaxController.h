@@ -21,6 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
+#include "max.h"
+
 #include <vector>
 #include <memory>
 

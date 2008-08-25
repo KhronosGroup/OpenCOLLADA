@@ -54,7 +54,7 @@ namespace COLLADA
         const String& profileName,
         const String& paramName,
         const String& value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -75,7 +75,7 @@ namespace COLLADA
         const String& childName,
         const String& paramName,
         const String &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -101,7 +101,7 @@ namespace COLLADA
         const String& profileName,
         const String& paramName,
         const int &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -122,7 +122,7 @@ namespace COLLADA
         const String& childName,
         const String& paramName,
         const int &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -137,7 +137,7 @@ namespace COLLADA
         paramValue.paramType = INTEGER;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( childName, paramValue ) );
+        childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -145,7 +145,7 @@ namespace COLLADA
         const String& profileName,
         const String& paramName,
         const double &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -166,7 +166,7 @@ namespace COLLADA
         const String& childName,
         const String& paramName,
         const double &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -181,7 +181,7 @@ namespace COLLADA
         paramValue.paramType = DOUBLE;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( childName, paramValue ) );
+        childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -189,7 +189,7 @@ namespace COLLADA
         const String& profileName,
         const String& paramName,
         const float &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -210,7 +210,7 @@ namespace COLLADA
         const String& childName,
         const String& paramName,
         const float &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -225,7 +225,7 @@ namespace COLLADA
         paramValue.paramType = FLOAT;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( childName, paramValue ) );
+        childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -233,7 +233,7 @@ namespace COLLADA
         const String& profileName,
         const String& paramName,
         const bool &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -254,7 +254,7 @@ namespace COLLADA
         const String& childName,
         const String& paramName,
         const bool &value, 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -269,7 +269,7 @@ namespace COLLADA
         paramValue.paramType = BOOL;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( childName, paramValue ) );
+        childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -278,7 +278,7 @@ namespace COLLADA
         const String& childName,
         const String& paramName,
         double matrix[][4], 
-        const String paramSid )
+        const String &paramSid )
     {
         // Get the current Profile from the map or create a new one.
         Profile& profile = getProfile ( profileName );
@@ -293,7 +293,7 @@ namespace COLLADA
         paramValue.paramType = MATRIX;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( childName, paramValue ) );
+        childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------

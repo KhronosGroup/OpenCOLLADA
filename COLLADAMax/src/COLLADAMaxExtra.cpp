@@ -26,7 +26,7 @@ namespace COLLADAMax
 {
 
 
-    const String Extra::TECHNIQUE_PROFILE = "MAX3D";
+    const String Extra::TECHNIQUE_PROFILE_3DSMAX = "3dsMAX";
 
 
     //---------------------------------------------------------------
@@ -41,7 +41,7 @@ namespace COLLADAMax
     void Extra::openTechnique()
     {
         mExtra.openExtra();
-        mTechnique.openTechnique ( TECHNIQUE_PROFILE );
+        mTechnique.openTechnique ( TECHNIQUE_PROFILE_3DSMAX );
     }
 
     //---------------------------------------------------------------

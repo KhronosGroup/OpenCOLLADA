@@ -37,7 +37,7 @@ namespace COLLADAMax
 
     public:
         /** The technique profile name.*/
-        static const String TECHNIQUE_PROFILE;
+        static const String TECHNIQUE_PROFILE_3DSMAX;
 
     private:
         COLLADA::Extra mExtra;

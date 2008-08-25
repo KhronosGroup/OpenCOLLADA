@@ -35,20 +35,20 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    Animation::Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction )
+    Animation::Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunctor* conversionFunctor )
             : mController ( controller ),
 			mINode(0),
             mId ( id ),
             mSid ( sid ),
             mParameters ( parameter ),
             mType ( type ),
-            mConversionFunction ( conversionFunction ),
+			mConversionFunctor( conversionFunctor ? conversionFunctor->clone() : 0 ),
 			mInputTypeFlags(NONE)
     {}
 
 
 	//---------------------------------------------------------------
-	Animation::Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunction conversionFunction )
+	Animation::Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunctor* conversionFunctor )
 		: 
 		mController(0),
 		mINode ( iNode ),
@@ -56,10 +56,34 @@ namespace COLLADAMax
 		mSid ( sid ),
 		mParameters ( parameter ),
 		mType ( type ),
-		mConversionFunction ( conversionFunction ),
+		mConversionFunctor( conversionFunctor ? conversionFunctor->clone() : 0 ),
 		mInputTypeFlags(NONE)
 	{}
 
+
+	Animation::Animation( const Animation& other ):
+		mController (other.mController),
+		mINode (other.mINode),
+		mId( other.mId),
+		mSid(other.mSid),
+		mParameters(other.mParameters),
+		mType(other.mType),
+		mInputTypeFlags(other.mInputTypeFlags),
+		mConversionFunctor ( other.mConversionFunctor ? other.mConversionFunctor->clone() : 0)
+	{}
+
+	const Animation& Animation::operator=( const Animation& other )
+	{
+		mController  = other.mController;
+		mINode  = other.mINode;
+		mId =  other.mId;
+		mSid = other.mSid;
+		mParameters = other.mParameters;
+		mType = other.mType;
+		mInputTypeFlags = other.mInputTypeFlags;
+		mConversionFunctor  = other.mConversionFunctor ? other.mConversionFunctor->clone() : 0; 
+		return *this;
+	}
 	
 	//---------------------------------------------------------------
     int Animation::getDimension() const
@@ -95,6 +119,11 @@ namespace COLLADAMax
             return 0;
         }
     }
+
+	Animation::~Animation()
+	{
+		delete mConversionFunctor;
+	}
 
 	const float AnimationExporter::DEFAULT_INLENGHT = 0.333f;
 	const float AnimationExporter::DEFAULT_OUTLENGHT = 0.333f;
@@ -252,7 +281,7 @@ namespace COLLADAMax
             if ( xyzController != NULL )
                 controller = xyzController;
 
-            Animation animation ( controller, id, sid, parameters, animatedAngle, &COLLADA::MathUtils::radToDegF );
+			Animation animation ( controller, id, sid, parameters, animatedAngle, &ConversionFunctors::radToDeg );
 
             addAnimation ( animation );
         }
@@ -275,7 +304,39 @@ namespace COLLADAMax
 	{
 		Animation animation ( node, id, sid, parameters, Animation::FLOAT4x4);
 		addAnimation ( animation );
+	}
 
+
+	//---------------------------------------------------------------
+	void AnimationExporter::addAnimatedParameter( IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
+	{
+		ParamType type = parameterBlock->GetParameterType(parameterId);
+		Control* controller = parameterBlock->GetController(parameterId);
+
+		switch ( type )
+		{
+		case TYPE_FLOAT:
+			Animation animation(controller, id, sid, parameters, Animation::FLOAT, conversionFunctor);
+			addAnimation(animation);
+			break;
+		}
+	}
+
+
+	//---------------------------------------------------------------
+	void AnimationExporter::addAnimatedParameter( IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
+	{
+		ParamType2 type = parameterBlock->GetParameterType(parameterId);
+		int animationNumber = parameterBlock->GetAnimNum(parameterId);
+		Control *controller = parameterBlock->GetController(animationNumber);
+
+		switch ( type )
+		{
+		case TYPE_FLOAT:
+			Animation animation(controller, id, sid, parameters, Animation::FLOAT, conversionFunctor);
+			addAnimation(animation);
+			break;
+		}
 	}
 
 
@@ -307,6 +368,21 @@ namespace COLLADAMax
 #endif
 		return animated;
     }
+
+	bool AnimationExporter::isAnimated( IParamBlock * paramBlock, int parameterId )
+	{
+		Control* controller = paramBlock->GetController(parameterId);
+		return isAnimated(controller);
+	}
+
+	bool AnimationExporter::isAnimated( IParamBlock2 * paramBlock, int parameterId )
+	{
+		int animationNumber = paramBlock->GetAnimNum(parameterId);
+		Control *controller = paramBlock->GetController(animationNumber);
+		return isAnimated(controller);
+	}
+
+
 
 #if 0
 	/** @TODO implement a test that check if an animations animated, i.e. if the values change */
@@ -406,7 +482,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     String AnimationExporter::getBaseId ( const Animation & animation )
     {
-        if ( animation.getDimension() == 1 )
+        if ( (animation.getDimension() == 1) && (animation.getParameter()) )
             return animation.getId() + "_" + animation.getSid() + "." + * ( animation.getParameter() );
         else
             return animation.getId() + "_" + animation.getSid();
@@ -415,7 +491,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     String AnimationExporter::getTarget ( const Animation & animation )
     {
-        if ( animation.getDimension() == 1 )
+        if ( (animation.getDimension() == 1) && (animation.getParameter()) )
             return animation.getId() + "/" + animation.getSid() + "." + * ( animation.getParameter() );
         else
             return animation.getId() + "/" + animation.getSid();
@@ -689,7 +765,12 @@ namespace COLLADAMax
         source.setAccessorStride ( keyLength );
 
         for ( int i = 0; i < keyLength; ++i )
-            source.getParameterNameList().push_back ( * ( animation.getParameter() + i ) );
+		{
+			if ( animation.getParameter() ) 
+				source.getParameterNameList().push_back ( * ( animation.getParameter() + i) );
+			else
+				source.getParameterNameList().push_back ( EMPTY_STRING );
+		}
 
         source.setAccessorCount ( keyCount );
 
@@ -703,10 +784,10 @@ namespace COLLADAMax
 
             for ( int j = 0; j < keyLength; ++j )
             {
-                const Animation::ConversionFunction & conversionFunction = animation.getConversionFunction();
+                ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
 
-                if ( conversionFunction )
-                    source.appendValues ( conversionFunction ( keyBuffer[ j ] ) );
+                if ( conversionFunctor )
+                    source.appendValues ( (*conversionFunctor) ( keyBuffer[ j ] ) );
                 else
                     source.appendValues ( keyBuffer[ j ] );
             }
@@ -782,9 +863,9 @@ namespace COLLADAMax
 
 		*keyValues = eulerAngles[ animation.getType() - Animation::ROTATION_X ];
 		
-		Animation::ConversionFunction conversionFunction = animation.getConversionFunction();
-		if ( conversionFunction )
-			mKeyValueList.push_back((float)(conversionFunction(*keyValues)));
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+		if ( conversionFunctor )
+			mKeyValueList.push_back((float)((*conversionFunctor)(*keyValues)));
 		else
 			mKeyValueList.push_back((float)(*keyValues));
 
@@ -808,12 +889,12 @@ namespace COLLADAMax
 		keyValues[ 1 ] = eulerAngles[1];
 		keyValues[ 2 ] = eulerAngles[2];
 
-		Animation::ConversionFunction conversionFunction = animation.getConversionFunction();
-		if ( conversionFunction )
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+		if ( conversionFunctor )
 		{
-			mKeyValueList.push_back((float)(conversionFunction(eulerAngles[0])));
-			mKeyValueList.push_back((float)(conversionFunction(eulerAngles[1])));
-			mKeyValueList.push_back((float)(conversionFunction(eulerAngles[2])));
+			mKeyValueList.push_back((float)((*conversionFunctor)(eulerAngles[0])));
+			mKeyValueList.push_back((float)((*conversionFunctor)(eulerAngles[1])));
+			mKeyValueList.push_back((float)((*conversionFunctor)(eulerAngles[2])));
 		}
 		else
 		{
@@ -863,12 +944,17 @@ namespace COLLADAMax
 		float * keyBufferX = new float[ keyLength ];
 		float * keyBufferY = new float[ keyLength ];
 
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
         for ( int i = 0; i < keyCount; ++i )
         {
             ( this->*tangentValueFunction ) ( keyBufferX, keyBufferY, keyInterface, i, keyCount, animation );
 			for ( int j = 0; j < keyLength; ++j )
 			{
-	            source.appendValues ( keyBufferX[j], keyBufferY[j] );
+				if ( conversionFunctor )
+					source.appendValues ( keyBufferX[j], (*conversionFunctor)(keyBufferY[j]) );
+				else
+					source.appendValues ( keyBufferX[j], keyBufferY[j] );
 			}
         }
 
@@ -1426,7 +1512,12 @@ namespace COLLADAMax
 		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( 1 );
-		source.getParameterNameList().push_back ( *(animation.getParameter()) );
+
+		if ( animation.getParameter() )
+			source.getParameterNameList().push_back ( *(animation.getParameter()) );
+		else
+			source.getParameterNameList().push_back ( EMPTY_STRING );
+		
 		source.setAccessorCount ( keyCount );
 		source.prepareToAppendValues();
 
@@ -1453,7 +1544,12 @@ namespace COLLADAMax
 		source.setAccessorStride ( keyLength );
 
 		for ( int i = 0; i < keyLength; ++i )
-			source.getParameterNameList().push_back ( * ( animation.getParameter() + i ) );
+		{
+			if ( animation.getParameter() ) 
+				source.getParameterNameList().push_back ( * ( animation.getParameter() + i) );
+			else
+				source.getParameterNameList().push_back ( EMPTY_STRING );
+		}
 
 		source.setAccessorCount ( keyCount );
 		source.prepareToAppendValues();
@@ -1464,12 +1560,12 @@ namespace COLLADAMax
 			Point3 keyValue;
 			animation.getController()->GetValue(time, &keyValue, FOREVER, CTRL_ABSOLUTE);
 
-			const Animation::ConversionFunction & conversionFunction = animation.getConversionFunction();
+			ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
 
 			if ( keyLength == 1)
 			{
-				if ( conversionFunction )
-					source.appendValues ( conversionFunction ( keyValue[ animation.getType() - Animation::POSITION_X ] ) );
+				if ( conversionFunctor )
+					source.appendValues ( (*conversionFunctor) ( keyValue[ animation.getType() - Animation::POSITION_X ] ) );
 				else
 					source.appendValues ( keyValue[ animation.getType() - Animation::POSITION_X ] );
 			}
@@ -1479,8 +1575,8 @@ namespace COLLADAMax
 				{
 					assert( keyLength == 3);
 
-					if ( conversionFunction )
-						source.appendValues ( conversionFunction ( keyValue[ j ] ) );
+					if ( conversionFunctor )
+						source.appendValues ( (*conversionFunctor) ( keyValue[ j ] ) );
 					else
 						source.appendValues ( keyValue[ j ] );
 				}
@@ -1502,12 +1598,17 @@ namespace COLLADAMax
 		source.setAccessorStride ( keyLength );
 
 		for ( int i = 0; i < keyLength; ++i )
-			source.getParameterNameList().push_back ( * ( animation.getParameter() + i ) );
+		{		
+			if ( animation.getParameter() ) 
+				source.getParameterNameList().push_back ( * ( animation.getParameter() + i) );
+			else
+				source.getParameterNameList().push_back ( EMPTY_STRING );
+		}
 
 		source.setAccessorCount ( keyCount );
 		source.prepareToAppendValues();
 
-		Animation::ConversionFunction conversionFunction = animation.getConversionFunction();
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
 
 		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
 		{
@@ -1537,18 +1638,18 @@ namespace COLLADAMax
 
 			if ( keyLength == 1)
 			{
-				if ( conversionFunction )
-					source.appendValues( conversionFunction(eulerAngles[ animation.getType() - Animation::ROTATION_X ]) );
+				if ( conversionFunctor )
+					source.appendValues( (*conversionFunctor)(eulerAngles[ animation.getType() - Animation::ROTATION_X ]) );
 				else
 					source.appendValues( eulerAngles[ animation.getType() - Animation::ROTATION_X ] );
 			}
 			else
 			{
-				if ( conversionFunction )
+				if ( conversionFunctor )
 				{
-					eulerAngles[0] = conversionFunction( eulerAngles[0] );
-					eulerAngles[1] = conversionFunction( eulerAngles[1] );
-					eulerAngles[2] = conversionFunction( eulerAngles[2] );
+					eulerAngles[0] = (*conversionFunctor)( eulerAngles[0] );
+					eulerAngles[1] = (*conversionFunctor)( eulerAngles[1] );
+					eulerAngles[2] = (*conversionFunctor)( eulerAngles[2] );
 				}
 				source.appendValues( eulerAngles[0], eulerAngles[1], eulerAngles[2] );
 			}
@@ -1569,7 +1670,10 @@ namespace COLLADAMax
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( keyLength );
 
-		source.getParameterNameList().push_back ( * (animation.getParameter()) );
+		if ( animation.getParameter() ) 
+			source.getParameterNameList().push_back ( * ( animation.getParameter()) );
+		else
+			source.getParameterNameList().push_back ( EMPTY_STRING );
 
 		source.setAccessorCount ( keyCount );
 		source.prepareToAppendValues();

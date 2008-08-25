@@ -32,19 +32,19 @@ namespace COLLADA
     {
         TagCloser childElementCloser = mSW->openElement ( childElementName );
 
-        mOpenChildElements[childElementName] = &childElementCloser;
+        mOpenChildElements[childElementName] = childElementCloser;
     }
 
     //---------------------------------------------------------------
     void Technique::closeChildElement ( const String &childElementName )
     {
-        TagCloser* childElementCloser = mOpenChildElements[childElementName];
+        TagCloser& childElementCloser = mOpenChildElements[childElementName];
 
-        if ( childElementCloser ) childElementCloser->close();
+        childElementCloser.close();
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const String &value, const String sid )
+    void Technique::addParameter ( const String &paramName, const String &value, const String &sid )
     {
         mSW->openElement ( paramName );
 
@@ -58,7 +58,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const bool &value, const String sid )
+    void Technique::addParameter ( const String &paramName, const bool &value, const String &sid )
     {
         mSW->openElement ( paramName );
 
@@ -70,7 +70,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const int &value, const String sid )
+    void Technique::addParameter ( const String &paramName, const int &value, const String &sid )
     {
         mSW->openElement ( paramName );
 
@@ -82,7 +82,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const double &value, const String sid )
+    void Technique::addParameter ( const String &paramName, const double &value, const String &sid )
     {
         mSW->openElement ( paramName );
 
@@ -94,7 +94,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addParameter ( const String &paramName, const float &value, const String sid )
+    void Technique::addParameter ( const String &paramName, const float &value, const String &sid )
     {
         mSW->openElement ( paramName );
 
@@ -106,7 +106,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void Technique::addMatrixParameter ( const String &paramName, const double matrix[][4], const String sid ) const
+    void Technique::addMatrixParameter ( const String &paramName, const double matrix[][4], const String &sid ) const
     {
         mSW->openElement ( paramName );
 
