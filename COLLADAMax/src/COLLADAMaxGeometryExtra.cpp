@@ -386,11 +386,10 @@ namespace COLLADAMax
     };
 
     //---------------------------------------------------------------
-    GeometryExtra::GeometryExtra ( COLLADA::StreamWriter * streamWriter, Object * object )
-            : Extra ( streamWriter ),
-            mTimeValue ( TIME_EXPORT_START ),
-            mInterval ( FOREVER ),
-            mObject ( object )
+    GeometryExtra::GeometryExtra ( COLLADA::StreamWriter * streamWriter, AnimationExporter * animationExporter, Object * object, const String& geometryId )
+            : Extra ( streamWriter,  animationExporter),
+            mObject ( object ),
+			mGeometryId(geometryId)
     {}
 
     //---------------------------------------------------------------
@@ -534,44 +533,23 @@ namespace COLLADAMax
         fb.close();
 
 #endif
-
+		
+		addExtraTechniques();
     }
 
-    //---------------------------------------------------------------
-    void GeometryExtra::openPrimitive ( const String & primitive )
-    {
-        openTechnique();
-        mSW->openElement ( primitive );
-    }
 
     //---------------------------------------------------------------
     void GeometryExtra::exportParamBlock ( const String & elementName, const ExtraParameter extraParameters[], int extraParametersCount )
     {
-        openPrimitive ( elementName );
         IParamBlock * paramBlock = mObject->GetParamBlock() ->GetParamBlock();
-
-        for ( int i = 0; i < extraParametersCount; ++i )
-        {
-            const ExtraParameter & parameter = extraParameters[ i ];
-            addParamBlockParameter ( parameter.type, parameter.paramId, parameter.paramName, paramBlock );
-        }
-
-        closeExtra();
+		addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
     }
 
     //---------------------------------------------------------------
     void GeometryExtra::exportParamBlock2 ( const String & elementName, const ExtraParameter extraParameters[], int extraParametersCount )
     {
-        openPrimitive ( elementName );
         IParamBlock2 * paramBlock = ( ( SimpleObject2 * ) mObject ) ->pblock2;
-
-        for ( int i = 0; i < extraParametersCount; ++i )
-        {
-            const ExtraParameter & parameter = extraParameters[ i ];
-            addParamBlockParameter ( parameter.type, parameter.paramId, parameter.paramName, paramBlock );
-        }
-
-        closeExtra();
+		addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
     }
 
 }

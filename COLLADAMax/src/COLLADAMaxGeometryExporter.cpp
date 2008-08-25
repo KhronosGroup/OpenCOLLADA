@@ -482,7 +482,7 @@ namespace COLLADAMax
 
             mGeometriesExporter->closeMesh();
 
-            GeometryExtra geometryExtra ( mGeometriesExporter->mSW, object );
+            GeometryExtra geometryExtra ( mGeometriesExporter->mSW, mDocumentExporter->getAnimationExporter(), object, GeometriesExporter::getGeometryId(*mExportNode) );
 
             geometryExtra.doExport();
 

@@ -23,6 +23,7 @@
 
 #include "COLLADALibraryCameras.h"
 #include "COLLADAMaxConversionFunctor.h"
+#include "COLLADAMaxExtra.h"
 
 #define FMULTI_PASS_MOTION_BLUR_CLASS_ID Class_ID(0xd481518, 0x687d7c99)
 #define FMULTI_PASS_DOF_CLASS_ID Class_ID(0xd481815, 0x687d799c)
@@ -57,59 +58,9 @@ namespace COLLADAMax
 	};
 
 
-	namespace MultiPassEffectMB
-	{
-		// parameter blocks IDs
-		enum
-		{
-			multiPassMotionBlur_params,
-		};
-
-		// parameters for multiPassMotionBlur_params
-		enum
-		{
-			prm_displayPasses,
-			prm_totalPasses,
-			prm_duration,
-			prm_bias,
-			prm_normalizeWeights,
-			prm_ditherStrength,
-			prm_tileSize,
-			prm_disableFiltering,
-			prm_disableAntialiasing,
-		};
-	}
-
-	// Again from the samples...
-
-	namespace MultiPassEffectDOF
-	{
-		// parameter blocks IDs
-		enum
-		{
-			multiPassDOF_params,
-		};
-
-		// parameters for multiPassDOF_params
-		enum
-		{
-			prm_useTargetDistance,
-			prm_focalDepth,
-			prm_displayPasses,
-			prm_totalPasses,
-			prm_sampleRadius,
-			prm_sampleBias,
-			prm_normalizeWeights,
-			prm_ditherStrength,
-			prm_tileSize,
-			prm_disableFiltering,
-			prm_disableAntialiasing,
-			prm_useOriginalLocation,
-		};
-	}
 
     /** Class to export cameras.*/
-    class CameraExporter : public COLLADA::LibraryCameras
+    class CameraExporter : public COLLADA::LibraryCameras, public Extra
     {
 	public:
 		/** Conversion functor to calculate the orthographic left for a camera's FOV.*/
@@ -142,35 +93,22 @@ namespace COLLADAMax
 
 		static const String EXTRA_PARAMETER_TARGET;
 
-
-		static const String MOTION_BLUR_ELEMENT;
-		static const String MOTION_BLUR_DISPLAYPASSES_PARAMETER;
-		static const String MOTION_BLUR_TOTALPASSES_PARAMETER;
-		static const String MOTION_BLUR_DURATION_PARAMETER;
-		static const String MOTION_BLUR_BIAS_PARAMETER;
-		static const String MOTION_BLUR_NORMWEIGHTS_PARAMETER;
-		static const String MOTION_BLUR_DITHERSTRENGTH_PARAMETER;
-		static const String MOTION_BLUR_TILESIZE_PARAMETER;
-		static const String MOTION_BLUR_DISABLEFILTER_PARAMETER;
-		static const String MOTION_BLUR_DISABLEANTIALIAS_PARAMETER;
-
-
-		static const String DEPTH_OF_FIELD_ELEMENT;
-		static const String DEPTH_OF_FIELD_USETARGETDIST_PARAMETER;
-		static const String DEPTH_OF_FIELD_FOCALDEPTH_PARAMETER;
-		static const String DEPTH_OF_FIELD_DISPLAYPASSES_PARAMETER;
-		static const String DEPTH_OF_FIELD_USEORIGLOC_PARAMETER;
-		static const String DEPTH_OF_FIELD_TOTALPASSES_PARAMETER;
-		static const String DEPTH_OF_FIELD_SAMPLERADIUS_PARAMETER;
-		static const String DEPTH_OF_FIELD_SAMPLEBIAS_PARAMETER;
-		static const String DEPTH_OF_FIELD_NORMWEIGHTS_PARAMETER;
-		static const String DEPTH_OF_FIELD_DITHERSTR_PARAMETER;
-		static const String DEPTH_OF_FIELD_TILESIZE_PARAMETER;
-		static const String DEPTH_OF_FIELD_DISFILTERING_PARAMETER;
-		static const String DEPTH_OF_FIELD_DISANTIALIAS_PARAMETER;
-
 		static const String TARGETDISTANCE_PARAMETER;
 
+
+		/** Name of the motion blur extra tag.*/
+		static const String MOTION_BLUR_ELEMENT;
+		/** Number of motion blur extra parameters.*/
+		static const int MOTION_BLUR_PARAMETER_COUNT;
+		/** Motion blur parameters.*/
+		static const ExtraParameter MOTION_BLUR_PARAMETERS[];
+
+		/** Name of the depth of field extra tag.*/
+		static const String DEPTH_OF_FIELD_ELEMENT;
+		/** Number of depth of field extra parameters.*/
+		static const int DEPTH_OF_FIELD_PARAMETER_COUNT;
+		/** Depth of field parameters.*/
+		static const ExtraParameter CameraExporter::DEPTH_OF_FIELD_PARAMETERS[];
 
 
     private:
@@ -200,8 +138,6 @@ namespace COLLADAMax
 
 		/** Exports the camera represented by @a exportNode.*/
 		void CameraExporter::exportCamera( ExportNode* exportNode );
-
-		void exportExtraParameter(const String & parameterName, const String& childName, IParamBlock2* parameters, int parameterIndex, const String& cameraId);
 
 
 	};

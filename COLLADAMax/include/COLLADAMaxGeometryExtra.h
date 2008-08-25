@@ -25,8 +25,6 @@
 #include "COLLADAMaxExtra.h"
 
 #include <max.h>
-#include <iparamb2.h>
-#include <iparamm2.h>
 
 class Object;
 
@@ -39,23 +37,11 @@ namespace COLLADAMax
     {
 
     private:
-
-        struct ExtraParameter
-        {
-            /** Type of the parameter. One of the max types TYPE_FLOAT, TYPE_INT, TYPE_BOOL.*/
-            int type;
-            /** The id of the option to retrieve from the param block.*/
-            int paramId;
-            /** The name of the parameter, which is equals the elements name in the extra tag.*/
-            String paramName;
-        };
-
-    private:
-        TimeValue mTimeValue;
-        Interval mInterval;
-
         /** The object which extra tag should be exported.*/
         Object * mObject;
+
+		/** The id of the geometry the extra tags are exported for.*/
+		const String mGeometryId;
 
         /* Element names of the primitives*/
         static const String ELEMENT_BOX;
@@ -172,18 +158,15 @@ namespace COLLADAMax
 
     public:
         /** Constructor
-        @param streamWriter The stream the animation should be written to
+        @param streamWriter The stream the extra tags should be written to
         @param object The object which extra tag should be exported
         */
-        GeometryExtra ( COLLADA::StreamWriter * streamWriter, Object * object );
+        GeometryExtra ( COLLADA::StreamWriter * streamWriter, AnimationExporter * animationExporter, Object * object, const String& geometryId );
 
         /** Performs the actual export.*/
         void doExport();
 
     private:
-
-        /**Opens a primitive element within a new extra tag.*/
-        void openPrimitive ( const String & primitive );
 
         /** Exports all known parameters of the parameter block associated with the current object in to an extra tag.*/
         void exportParamBlock ( const String & elementName, const ExtraParameter extraParameters[], int extraParametersCount );
@@ -191,27 +174,6 @@ namespace COLLADAMax
         /** Exports all known parameters of the parameter block 2 associated with the current object in to an extra tag.*/
         void exportParamBlock2 ( const String & elementName, const ExtraParameter extraParameters[], int extraParametersCount );
 
-        /** Adds parameter of type @a type with index @a paramBlockIndex, contained in @a paramBlock in an element named @a parameterElementName.*/
-
-        template <class ParameterType, class ParameterBlock>
-        void addParamBlockParameter ( ParameterType type, int paramBlockIndex, const String & parameterElementName, ParameterBlock *paramBlock )
-        {
-            switch ( type )
-            {
-
-            case TYPE_BOOL:
-                addParameter ( parameterElementName, paramBlock->GetInt ( paramBlockIndex, mTimeValue ) );
-                break;
-
-            case TYPE_INT:
-                addParameter ( parameterElementName, paramBlock->GetInt ( paramBlockIndex, mTimeValue ) );
-                break;
-
-            case TYPE_FLOAT:
-                addParameter ( parameterElementName, paramBlock->GetFloat ( paramBlockIndex, mTimeValue ) );
-                break;
-            }
-        }
     };
 }
 

@@ -41,31 +41,39 @@ namespace COLLADAMax
 
 
 
-    const String CameraExporter::MOTION_BLUR_ELEMENT = "motion_blur";
-	const String CameraExporter::MOTION_BLUR_DISPLAYPASSES_PARAMETER = "display_passes";
-	const String CameraExporter::MOTION_BLUR_TOTALPASSES_PARAMETER = "total_passes";
-	const String CameraExporter::MOTION_BLUR_DURATION_PARAMETER = "duration";
-	const String CameraExporter::MOTION_BLUR_BIAS_PARAMETER = "bias";
-	const String CameraExporter::MOTION_BLUR_NORMWEIGHTS_PARAMETER = "normalized_weights";
-	const String CameraExporter::MOTION_BLUR_DITHERSTRENGTH_PARAMETER = "dither_strength";
-	const String CameraExporter::MOTION_BLUR_TILESIZE_PARAMETER = "tile_size";
-	const String CameraExporter::MOTION_BLUR_DISABLEFILTER_PARAMETER = "disable_filtering";
-	const String CameraExporter::MOTION_BLUR_DISABLEANTIALIAS_PARAMETER = "disable_antialiasing";
+	const String CameraExporter::MOTION_BLUR_ELEMENT = "motion_blur";
+	const int CameraExporter::MOTION_BLUR_PARAMETER_COUNT = 9;
+	const Extra::ExtraParameter CameraExporter::MOTION_BLUR_PARAMETERS[] =
+	{
+		{TYPE_FLOAT, 0, "display_passes"},
+		{TYPE_FLOAT, 1, "total_passes"},
+		{TYPE_INT, 2, "duration"},
+		{TYPE_INT, 3, "bias"},
+		{TYPE_INT, 4, "normalized_weights"},
+		{TYPE_INT, 5, "dither_strength"},
+		{TYPE_INT, 6, "tile_size"},
+		{TYPE_INT, 7, "disable_filtering"},
+		{TYPE_INT, 8, "disable_antialiasing"}
+	};
 
 
 	const String CameraExporter::DEPTH_OF_FIELD_ELEMENT = "depth_of_field";
-	const String CameraExporter::DEPTH_OF_FIELD_USETARGETDIST_PARAMETER = "use_target_dist";
-	const String CameraExporter::DEPTH_OF_FIELD_FOCALDEPTH_PARAMETER = "focal_depth";
-	const String CameraExporter::DEPTH_OF_FIELD_DISPLAYPASSES_PARAMETER = "display_passes";
-	const String CameraExporter::DEPTH_OF_FIELD_USEORIGLOC_PARAMETER = "use_original_location";
-	const String CameraExporter::DEPTH_OF_FIELD_TOTALPASSES_PARAMETER = "total_passes";
-	const String CameraExporter::DEPTH_OF_FIELD_SAMPLERADIUS_PARAMETER = "sample_radius";
-	const String CameraExporter::DEPTH_OF_FIELD_SAMPLEBIAS_PARAMETER = "sample_bias";
-	const String CameraExporter::DEPTH_OF_FIELD_NORMWEIGHTS_PARAMETER = "normalized_weights";
-	const String CameraExporter::DEPTH_OF_FIELD_DITHERSTR_PARAMETER = "dither_strength";
-	const String CameraExporter::DEPTH_OF_FIELD_TILESIZE_PARAMETER = "tile_size";
-	const String CameraExporter::DEPTH_OF_FIELD_DISFILTERING_PARAMETER = "disable_filtering";
-	const String CameraExporter::DEPTH_OF_FIELD_DISANTIALIAS_PARAMETER = "disable_antialiasing";
+	const int CameraExporter::DEPTH_OF_FIELD_PARAMETER_COUNT = 12;
+	const Extra::ExtraParameter CameraExporter::DEPTH_OF_FIELD_PARAMETERS[] =
+	{
+		{TYPE_FLOAT, 0, "use_target_dist"},
+		{TYPE_FLOAT, 1, "focal_depth"},
+		{TYPE_INT, 2, "display_passes"},
+		{TYPE_INT, 3, "total_passes"},
+		{TYPE_INT, 4, "sample_radius"},
+		{TYPE_INT, 5, "sample_bias"},
+		{TYPE_INT, 6, "normalized_weights"},
+		{TYPE_INT, 7, "dither_strength"},
+		{TYPE_INT, 8, "tile_size"},
+		{TYPE_INT, 9, "disable_filtering"},
+		{TYPE_INT, 10, "disable_antialiasing"},
+		{TYPE_INT, 11, "use_original_location"}
+	};
 
 	const String CameraExporter::TARGETDISTANCE_PARAMETER = "target_distance";
 
@@ -75,6 +83,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     CameraExporter::CameraExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
             : COLLADA::LibraryCameras ( streamWriter ),
+			Extra(streamWriter, documentExporter->getAnimationExporter()),
 			mExportSceneGraph(exportSceneGraph),
 			mDocumentExporter(documentExporter),
 			mAnimationExporter(documentExporter->getAnimationExporter())
@@ -132,7 +141,7 @@ namespace COLLADAMax
 			COLLADA::BaseOptic * optics = 0; 
 			if ( camera->IsOrtho() )
 			{
-				optics = new COLLADA::OrthographicOptic(mSW);
+				optics = new COLLADA::OrthographicOptic(COLLADA::LibraryCameras::mSW);
 
 				// Calculate the target distance for FOV calculations
 				float targetDistance;
@@ -160,7 +169,7 @@ namespace COLLADAMax
 			}
 			else
 			{
-				optics = new COLLADA::PerspectiveOptic(mSW);
+				optics = new COLLADA::PerspectiveOptic(COLLADA::LibraryCameras::mSW);
 				if ( AnimationExporter::isAnimated(parameters, MaxCamera::FOV) )
 				{
 					optics->setXFov(COLLADA::MathUtils::radToDegF(parameters->GetFloat(MaxCamera::FOV)), XFOV_SID);
@@ -193,7 +202,7 @@ namespace COLLADAMax
 			}
 
 
-			COLLADA::Camera colladaCamera(mSW, optics, cameraId, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));
+			COLLADA::Camera colladaCamera(COLLADA::LibraryCameras::mSW, optics, cameraId, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));
 			addCamera(colladaCamera);
 
 
@@ -201,7 +210,7 @@ namespace COLLADAMax
 			if ( targetNode )
 			{
 				ExportNode* targetExportNode = mExportSceneGraph->getExportNode(targetNode);
-				addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, EXTRA_PARAMETER_TARGET, "#" + targetExportNode->getId());
+				addExtraParameter(EXTRA_PARAMETER_TARGET, "#" + targetExportNode->getId());
 			}
 
 			if (camera->GetMultiPassEffectEnabled(0, FOREVER))
@@ -217,15 +226,7 @@ namespace COLLADAMax
 						IParamBlock2 *parameters = multiPassCameraEffect->GetParamBlock(0);
 						if (parameters )
 						{
-							exportExtraParameter( MOTION_BLUR_DISPLAYPASSES_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_displayPasses, cameraId);
-							exportExtraParameter( MOTION_BLUR_TOTALPASSES_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_totalPasses, cameraId);
-							exportExtraParameter( MOTION_BLUR_DURATION_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_duration, cameraId);
-							exportExtraParameter( MOTION_BLUR_BIAS_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_bias, cameraId);
-							exportExtraParameter( MOTION_BLUR_NORMWEIGHTS_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_normalizeWeights, cameraId);
-							exportExtraParameter( MOTION_BLUR_DITHERSTRENGTH_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_ditherStrength, cameraId);
-							exportExtraParameter( MOTION_BLUR_TILESIZE_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_tileSize, cameraId);
-							exportExtraParameter( MOTION_BLUR_DISABLEFILTER_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_disableFiltering, cameraId);
-							exportExtraParameter( MOTION_BLUR_DISABLEANTIALIAS_PARAMETER, MOTION_BLUR_ELEMENT, parameters, MultiPassEffectMB::prm_disableAntialiasing, cameraId);
+							addParamBlockAnimatedExtraParameters(MOTION_BLUR_ELEMENT, MOTION_BLUR_PARAMETERS, MOTION_BLUR_PARAMETER_COUNT, parameters, cameraId);
 						}
 					}
 					else if (id == FMULTI_PASS_DOF_CLASS_ID)
@@ -233,72 +234,15 @@ namespace COLLADAMax
 						IParamBlock2 *parameters = multiPassCameraEffect->GetParamBlock(0);
 						if (parameters )
 						{
-							exportExtraParameter( DEPTH_OF_FIELD_USETARGETDIST_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_useTargetDistance, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_FOCALDEPTH_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_focalDepth, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_DISPLAYPASSES_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_displayPasses, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_USEORIGLOC_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_useOriginalLocation, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_TOTALPASSES_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_totalPasses, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_SAMPLERADIUS_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_sampleRadius, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_NORMWEIGHTS_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_normalizeWeights, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_DITHERSTR_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_ditherStrength, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_TILESIZE_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_tileSize, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_DISFILTERING_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_disableFiltering, cameraId);
-							exportExtraParameter( DEPTH_OF_FIELD_DISANTIALIAS_PARAMETER, DEPTH_OF_FIELD_ELEMENT, parameters, MultiPassEffectDOF::prm_disableAntialiasing, cameraId);
-
-							addExtraTechniqueParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, TARGETDISTANCE_PARAMETER, camera->GetTDist(0));
+							addParamBlockAnimatedExtraParameters(DEPTH_OF_FIELD_ELEMENT, DEPTH_OF_FIELD_PARAMETERS, DEPTH_OF_FIELD_PARAMETER_COUNT, parameters, cameraId);
+							addExtraParameter(TARGETDISTANCE_PARAMETER, camera->GetTDist(0));
 						}
 					}
 				}
-
 			}
-			addTextureExtraTechniques(*mSW);
+			addExtraTechniques();
 		
 			delete optics;
-		}
-
-	}
-
-
-	void CameraExporter::exportExtraParameter(const String & parameterName, const String& childName, IParamBlock2* parameters, int parameterIndex, const String& cameraId)
-	{
-		ParamType2 parametrType = parameters->GetParameterType(parameterIndex);
-
-		// use the animation number with the GetController method
-		// since the parameters enumeration doesn't reflect the param
-		// block order.
-		int animationNumber = parameters->GetAnimNum(parameterIndex);
-		Control *controller = parameters->GetController(animationNumber);
-
-		switch (parametrType)
-		{
-		case TYPE_BOOL:
-			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex)!= false);
-			// NO ANIMATION ON BOOLEANS
-			break;
-		case TYPE_INT:
-			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
-			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex) , parameterName);
-				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, cameraId, parameterName, 0);
-			}
-			else
-			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex));
-			}
-			break;
-		case TYPE_FLOAT:
-			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
-			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex), parameterName);
-				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, cameraId, parameterName, 0);
-			}
-			else
-			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex));
-			}
-			break;
-		default:
-			break;
 		}
 
 	}

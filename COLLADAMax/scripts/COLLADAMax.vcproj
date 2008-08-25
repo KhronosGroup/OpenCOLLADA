@@ -656,6 +656,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxLightExporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxMaterialExporter.cpp"
 					>
 				</File>
@@ -747,6 +751,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxImageExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxLightExporter.h"
 					>
 				</File>
 				<File
