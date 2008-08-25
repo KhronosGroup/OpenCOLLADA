@@ -145,7 +145,7 @@ namespace COLLADA
 		appendNCNameString ( name );
 		appendChar ( '=' );
 		appendChar ( '\"' );
-		appendString ( uri.getURIString() );
+		appendString ( uri.getAbsoluteUri() );
 		appendChar ( '\"' );
     }
 

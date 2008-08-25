@@ -16,27 +16,21 @@
 #ifndef __COLLADA_MAYA_SCENE_GRAPH_H__
 #define __COLLADA_MAYA_SCENE_GRAPH_H__
 
-#include "COLLADAMayaVisualSceneExporter.h"
-
+#include "COLLADAMayaPrerequisites.h"
 #include <maya/MSelectionList.h>
-
-class MFnPlugin;
-
-class DaeDoc;
-
-class SceneElement;
-
-class DocumentExporter;
-
-class VisualSceneExporter;
 
 namespace COLLADAMaya
 {
 
+    class SceneElement;
+    class DocumentExporter;
+
+    /** List of scene element. */
+    typedef std::vector<SceneElement*> SceneElementsList;
+
     /**
      * Creates the scene graph of the current scene.
      */
-
     class SceneGraph
     {
 
@@ -64,6 +58,9 @@ namespace COLLADAMaya
 
         /** A pointer to the document exporter. It coordinates the export. */
         DocumentExporter* mDocumentExporter;
+
+        /** The list of animation expressions for animation sampling. */
+        MObjectArray mAnimationExpressions;
 
     public:
         /**
@@ -135,14 +132,18 @@ namespace COLLADAMaya
         void addExportedElement ( SceneElement* entity );
 
         /** Checks if the node should be exported */
-        bool isExportNode ( const MDagPath& dagPath,
-                            bool& isForced,
-                            bool& isVisible );
+        bool getIsExportNode ( 
+            const MDagPath& dagPath,
+            bool& isForced,
+            bool& isVisible );
+
+        /** Samples and caches the animation expressions. */
+        void sampleAnimationExpressions ();
 
     private:
 
         /** Iterate recursive though the DAG nodes and build the scene graph tree. */
-        bool createChildSceneElements ( SceneElement* sceneElement, bool isTransform = false );
+        bool createChildSceneElements ( SceneElement* sceneElement );
 
         /** Fills the list with all targets to export. */
         bool retrieveExportNodes();

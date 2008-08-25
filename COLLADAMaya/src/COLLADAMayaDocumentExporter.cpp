@@ -32,6 +32,7 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaReferenceManager.h"
 
 #include "COLLADAAsset.h"
 #include "COLLADAScene.h"
@@ -80,9 +81,11 @@ namespace COLLADAMaya
         // Get the sceneID (assign a name to the scene)
         MString sceneName;
         MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );
-
         if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
 
+        // Initialize the reference manager
+        ReferenceManager::getInstance()->initialize ();
+        
         // Create the cache for the animations
         mAnimationCache = new AnimationSampleCache();
 
@@ -121,14 +124,18 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void DocumentExporter::exportCurrentScene ( bool selectionOnly )
     {
-        // Create the import/export library helpers.
         mIsImport = false;
+
+        // Create the import/export library helpers.
         createLibraries();
 
         mStreamWriter.startDocument();
         
         if ( mSceneGraph->create ( selectionOnly ) )
         {
+            // Start by caching the expressions that will be sampled
+            mSceneGraph->sampleAnimationExpressions();
+
             // Export the asset of the document.
             exportAsset();
 
@@ -223,8 +230,10 @@ namespace COLLADAMaya
             // Intentionally not relative
             //  FUUri uri(colladaDocument->GetFileManager()->GetCurrentUri().MakeAbsolute(MConvert::ToFChar(currentScene)));
             //  fstring sourceDocumentPath = uri.GetAbsolutePath();
-            String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
-            asset.getContributor().mSourceData = sourceFile;
+//             String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
+//             asset.getContributor().mSourceData = sourceFile;
+            COLLADA::URI uri ( currentScene.asChar() );
+            asset.getContributor().mSourceData = uri.getAbsoluteUri ();
         }
 
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();

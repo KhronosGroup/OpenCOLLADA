@@ -105,8 +105,8 @@ namespace COLLADAMaya
         mExportTexTangents = false;
         mExportMaterialsOnly = false;
 
-        mExportXRefs = false;
-        mDereferenceXRefs = true;
+        mExportXRefs = true;
+        mDereferenceXRefs = false;
 
         mCameraXFov = false;
         mCameraYFov = true;

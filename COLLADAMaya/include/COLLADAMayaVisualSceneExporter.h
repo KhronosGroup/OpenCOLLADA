@@ -103,9 +103,8 @@ namespace COLLADAMaya
         /**
          * Exports all the nodes in a node and all its child nodes recursive.
          * @param sceneElement The node to export.
-         * @param isLocal todo
          */
-        bool exportVisualSceneNodes ( SceneElement* sceneElement, bool& isLocal );
+        bool exportVisualSceneNodes ( SceneElement* sceneElement );
 
         /**
          * Creates and opens a visual scene node of type node and writes the transforms
@@ -217,6 +216,21 @@ namespace COLLADAMaya
          * @param sceneNode The collada scene node to export the values.
          */
         void exportVisibility ( COLLADA::Node* sceneNode );
+
+        /**
+         * @todo documentation
+         * @param sceneElement
+         * @param instantiate
+         * @return bool
+         */
+        bool enterDagNode( const SceneElement* sceneElement, bool instantiate );
+
+        /**
+         * Exports a node instance of the current scene element.
+         * @param sceneElement The scene element to instantiate.
+         */
+        void exportNodeInstance ( const SceneElement* sceneElement );
+
     };
 
 }

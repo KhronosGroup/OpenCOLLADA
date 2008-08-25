@@ -223,20 +223,20 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
 
-// 			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "XRef Options" colladaXRefFrame;
-// 				columnLayout -adj true colladaXRefOptions;
-// 				
-// 					checkBoxGrp
-// 							-l " "
-// 							-ncb 2
-// 							-va2 true false
-// 							-la2 "Export References" "De-Reference"
-// 							-on1 "checkBoxGrp -e -en2 true colladaXRef;"
-// 							-of1 "checkBoxGrp -e -en2 false colladaXRef;"
-// 							colladaXRef;
-// 
-// 				setParent ..;
-// 			setParent ..;
+			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "XRef Options" colladaXRefFrame;
+				columnLayout -adj true colladaXRefOptions;
+				
+					checkBoxGrp
+							-l " "
+							-ncb 2
+							-va2 true false
+							-la2 "Export References" "De-Reference"
+							-on1 "checkBoxGrp -e -en2 true colladaXRef;"
+							-of1 "checkBoxGrp -e -en2 false colladaXRef;"
+							colladaXRef;
+
+				setParent ..;
+			setParent ..;
 
 			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Camera Options" colladaCameraFrame;
 				columnLayout -adj true colladaCameraOptions;
@@ -492,10 +492,10 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 // 		$currentOptions = $currentOptions + "exclusionSetMode=" + ( `optionMenuGrp -q -select colladaExclusionSetMode` - 1 )+ ";";        
 // 		$currentOptions = $currentOptions + "exclusionSets=" + `textFieldGrp -q -tx colladaExclusionSets` + ";";
 
-// Camera options
+// External references options
 //
-// 		$currentOptions = $currentOptions + "exportXRefs=" + `checkBoxGrp -q -v1 colladaXRef` + ";";
-// 		$currentOptions = $currentOptions + "dereferenceXRefs=" + `checkBoxGrp -q -v2 colladaXRef` + ";";
+		$currentOptions = $currentOptions + "exportXRefs=" + `checkBoxGrp -q -v1 colladaXRef` + ";";
+		$currentOptions = $currentOptions + "dereferenceXRefs=" + `checkBoxGrp -q -v2 colladaXRef` + ";";
 
 // Camera options
 //

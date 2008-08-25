@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaEffectExporter.h"
 #include "COLLADAMayaAnimationExporter.h"
@@ -91,7 +92,6 @@ namespace COLLADAMaya
 
         // Export all/selected DAG nodes
         uint length = rootExportNodes->size();
-
         for ( uint i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *rootExportNodes ) [i];
@@ -106,7 +106,6 @@ namespace COLLADAMaya
         const MDagPath dagPath = sceneElement->getPath();
 
         // Check if it is a mesh and an export node
-
         if ( sceneElement->getType() == SceneElement::MESH &&
                 sceneElement->getIsExportNode() )
         {

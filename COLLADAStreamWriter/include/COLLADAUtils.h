@@ -31,6 +31,10 @@ namespace COLLADA
 
 		static const String EMPTY_STRING;
 
+        /**
+         * Returns true, if both strings are equal.
+         */
+        static bool equals ( const String &str1, const String &str2 );
 
 		/** Checks for a valid xs:NCName.
 		1. replaces all not allowed characters

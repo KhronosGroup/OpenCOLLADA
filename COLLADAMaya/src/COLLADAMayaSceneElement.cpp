@@ -30,6 +30,7 @@ namespace COLLADAMaya
             : mDagPath ( _nodePath )
             , mType ( _type )
             , mIsExportNode ( false )
+            , mIsLocal ( true )
             , mIsForced ( false )
             , mIsVisible ( false )
             , mInstantiatedSceneElement ( NULL )

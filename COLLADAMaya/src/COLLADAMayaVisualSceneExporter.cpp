@@ -25,6 +25,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaRotateHelper.h"
+#include "COLLADAMayaReferenceManager.h"
 
 #include <maya/MFnIkHandle.h>
 #include <maya/MFnMesh.h>
@@ -35,6 +36,7 @@
 #include <maya/MEulerRotation.h>
 #include <maya/MDagPath.h>
 #include <maya/MFnCamera.h>
+#include <maya/MFileIO.h>
 
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
@@ -43,6 +45,7 @@
 #include "COLLADALibraryControllers.h"
 #include "COLLADAInstanceLight.h"
 #include "COLLADAInstanceCamera.h"
+#include "COLLADAInstanceNode.h"
 #include "COLLADAURI.h"
 
 
@@ -82,7 +85,6 @@ namespace COLLADAMaya
 
         // The flag, if a node was exported and the visual scene tags must to be closed
         bool nodeExported = false;
-        bool isLocal = true;
 
         // Export all/selected DAG nodes
         uint length = exportNodesTree->size();
@@ -91,7 +93,7 @@ namespace COLLADAMaya
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
 
             // Exports all the nodes in a node and all its child nodes recursive
-            if ( exportVisualSceneNodes ( sceneElement, isLocal ) ) nodeExported = true;
+            if ( exportVisualSceneNodes ( sceneElement ) ) nodeExported = true;
         }
 
         // Just if a node was exported, the visual scene tag
@@ -108,7 +110,7 @@ namespace COLLADAMaya
 
     // ---------------------------------------------------------------
     // Exports all the nodes in a node and all its child nodes recursive
-    bool VisualSceneExporter::exportVisualSceneNodes ( SceneElement* sceneElement, bool &isLocal )
+    bool VisualSceneExporter::exportVisualSceneNodes ( SceneElement* sceneElement )
     {
         // Get the path of the current scene element.
         const MDagPath dagPath = sceneElement->getPath();
@@ -141,20 +143,23 @@ namespace COLLADAMaya
             return false;
         }
 
-        bool isForced = false;
-        bool isVisible = false;
-        if ( !sceneGraph->isExportNode ( dagPath, isForced, isVisible ) ) return false;
+        bool isForced = sceneElement->getIsForced();
+        bool isVisible = sceneElement->getIsVisible();
+        bool isExportNode = sceneElement->getIsExportNode();
+//        if ( !sceneGraph->getIsExportNode ( dagPath, isForced, isVisible ) ) return false;
 
-        // TODO
+        // Check for a file reference
+        bool isLocal = sceneElement->getIsLocal();
+
         // If this is a DAG node (not a DAG shape) check to see whether we should enter
         bool animationExport = true;
         bool isSceneRoot = dagPath.length() == 0;
         if ( !isSceneRoot )
         {
-//    if (!exportNode || !enterDagNode(sceneNode, dagPath))
-//    {
-//     animationExport = false;
-//    }
+            if ( !isExportNode )
+            {
+                animationExport = false;
+            }
         }
 
         // The COLLADA Node
@@ -221,7 +226,7 @@ namespace COLLADAMaya
             for ( uint i=0; i<sceneElement->getChildCount(); ++i )
             {
                 SceneElement* childElement = sceneElement->getChild ( i );
-                exportVisualSceneNodes ( childElement, isLocal );
+                exportVisualSceneNodes ( childElement );
             }
         }
 
@@ -299,10 +304,23 @@ namespace COLLADAMaya
 
         // Flag, if the node is already instantiated
         bool isInstanceNode = mVisualSceneNode->getIsInstanceNode();
+
+        // False, if the node has a external reference.
+        bool isLocal = sceneElement->getIsLocal();
+
+        // Check if we should export a node instance.
         if ( isInstanceNode )
         {
-            // Prepares the visual scene node. 
+            // Prepare the visual scene node and export the instance node
+            SceneElement* instantiatedElement = sceneElement->getInstantiatedSceneElement();
+            openVisualSceneNode ( instantiatedElement );
+            exportNodeInstance ( instantiatedElement );
+        }
+        else if ( !isLocal )
+        {
+            // Prepare the visual scene node and export the instance node
             openVisualSceneNode ( sceneElement );
+            exportNodeInstance ( sceneElement );
         }
         else
         {
@@ -947,18 +965,45 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportCameraInstance( SceneElement* childElement )
+    void VisualSceneExporter::exportCameraInstance( SceneElement* sceneElement )
     {
         // Get the streamWriter from the export document
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
-        // Get the path and the id of the child element
-        MDagPath childDagPath = childElement->getPath();
-        String lightId = mDocumentExporter->dagPathToColladaId ( childDagPath );
+        // Get the path and the id of the element
+        MDagPath dagPath = sceneElement->getPath();
+        String cameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
         // Create and write the camera instance
-        COLLADA::InstanceCamera instanceCamera ( streamWriter, COLLADA::URI ( "", lightId ) );
+        COLLADA::InstanceCamera instanceCamera ( streamWriter, COLLADA::URI ( "", cameraId ) );
         instanceCamera.add();
     }
 
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportNodeInstance ( const SceneElement* sceneElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the path and the id of the element
+        MDagPath dagPath = sceneElement->getPath();
+
+        // Load the external reference through the reference manager.
+        COLLADA::URI uri;
+        if ( !sceneElement->getIsLocal() )
+        {
+            String referenceFilename = ReferenceManager::getReferenceFilename( dagPath ).asChar();
+            uri.initializeURI ( referenceFilename );
+        }
+        else
+        {
+            // Get the id of the element
+            String nodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
+            uri.setFragment ( nodeId );
+        }
+        
+        // Create and write the camera instance
+        COLLADA::InstanceNode instanceNode ( streamWriter, uri );
+        instanceNode.add();
+    }
 }

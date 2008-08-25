@@ -130,7 +130,7 @@ namespace COLLADAMaya
         // Get a pointer to the animation exporter.
         AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
         bool animated = false;
-
+        
         // Color/Intensity are the common attributes of all lights
         MColor mayaColor = lightFn.color ( &status ); CHECK_MSTATUS(status);
         COLLADA::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );

@@ -74,14 +74,14 @@ namespace COLLADAMaya
     uint AnimationElement::getDimension() const
     {
 
-        if ( ( ( mSampleType & kAngle ) == kAngle ) ||
-                ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
-        {
-            MGlobal::displayError ( MString ( "Unknown dimension: " ) + mSampleType );
-            return 0;
-        }
+//         if ( ( ( mSampleType & kAngle ) == kAngle ) ||
+//                 ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
+//         {
+//             MGlobal::displayError ( MString ( "Unknown dimension: " ) + mSampleType );
+//             return 0;
+//         }
 
-        else if ( ( mSampleType & kMatrix ) == kMatrix )
+        if ( ( mSampleType & kMatrix ) == kMatrix )
             return 16;
 
         else if ( ( mSampleType & kColour ) == kColour )
@@ -91,7 +91,9 @@ namespace COLLADAMaya
             return 3;
 
         else if ( ( ( mSampleType & kSingle ) == kSingle ) ||
-            ( ( mSampleType & kBoolean ) == kBoolean ) )
+            ( ( mSampleType & kBoolean ) == kBoolean ) || 
+            ( ( mSampleType & kAngle ) == kAngle ) ||
+            ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
             return 1;
 
         MGlobal::displayError ( MString ( "Unknown sampleType: " ) + mSampleType );

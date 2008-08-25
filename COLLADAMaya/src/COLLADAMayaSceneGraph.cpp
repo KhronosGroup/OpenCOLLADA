@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADANode.h"
 #include "COLLADAInstanceGeometry.h"
@@ -171,23 +172,14 @@ namespace COLLADAMaya
         mExportSelectedOnly = selectionOnly;
 
         // Add all the animation expressions
-        MObjectArray expressions;
         MItDependencyNodes depIter ( MFn::kExpression );
         for ( ; !depIter.isDone(); depIter.next() )
         {
             MObject item = depIter.item();
             if ( item.hasFn ( MFn::kExpression ) )
             {
-                expressions.append ( item );
+                mAnimationExpressions.append ( item );
             }
-        }
-
-        // Start by caching the expressions that will be sampled
-        uint expressionCount = expressions.length();
-        for ( uint i = 0; i < expressionCount; ++i )
-        {
-            // expressions only for sampling
-            mDocumentExporter->getAnimationCache()->sampleExpression ( expressions[i] );
         }
 
         // Push all nodes from root down to all meshes which have to be exported in a list.
@@ -219,14 +211,29 @@ namespace COLLADAMaya
             // Create a new scene element
             SceneElement* sceneElement = createSceneElement ( dagPath );
 
-            // Create the child elements, if it is a valid node element.
-            if ( sceneElement->getIsExportNode() )
+            // Push the root nodes into the tree.
+            mExportNodesTree.push_back ( sceneElement );
+            
+            // Create the child elements
+            //if ( sceneElement->getIsExportNode() )
             {
-                createChildSceneElements ( sceneElement, true );
+                createChildSceneElements ( sceneElement );
             }
         }
 
         return true;
+    }
+
+    // ------------------------------------------------------------
+    void SceneGraph::sampleAnimationExpressions ()
+    {
+        // Start by caching the expressions that will be sampled
+        uint expressionCount = mAnimationExpressions.length();
+        for ( uint i=0; i<expressionCount; ++i )
+        {
+            // expressions only for sampling
+            mDocumentExporter->getAnimationCache()->sampleExpression ( mAnimationExpressions[i] );
+        }
     }
 
     // ------------------------------------------------------------
@@ -248,10 +255,17 @@ namespace COLLADAMaya
         // tell the scene node to be transformed or not.
         bool isForced = false;
         bool isVisible = false;
-        bool exportNode = isExportNode ( dagPath, isForced, isVisible );
-        sceneElement->setIsExportNode ( exportNode );
+        bool isExportNode = getIsExportNode ( dagPath, isForced, isVisible );
         sceneElement->setIsForced ( isForced );
         sceneElement->setIsVisible ( isVisible );
+
+        // Check for a file reference
+        MFnDagNode dagFn ( dagPath );
+        bool isLocal = !dagFn.isFromReferencedFile();
+        if ( ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
+        if ( !isLocal && !ExportOptions::exportXRefs() ) isExportNode = false;
+        sceneElement->setIsExportNode ( isExportNode );
+        sceneElement->setIsLocal ( isLocal );
 
         if ( parentSceneElement != NULL )
         {
@@ -266,11 +280,8 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    bool SceneGraph::createChildSceneElements ( SceneElement* sceneElement, bool isRootTransformNode )
+    bool SceneGraph::createChildSceneElements ( SceneElement* sceneElement )
     {
-        // Check if it is a root node. If so, push it in the tree.
-        if ( isRootTransformNode ) mExportNodesTree.push_back ( sceneElement );
-
         // Get the current path
         MDagPath dagPath = sceneElement->getPath();
 
@@ -309,7 +320,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------------------
-    bool SceneGraph::isExportNode ( const MDagPath& dagPath,
+    bool SceneGraph::getIsExportNode ( const MDagPath& dagPath,
                                     bool& isForced,
                                     bool& isVisible )
     {

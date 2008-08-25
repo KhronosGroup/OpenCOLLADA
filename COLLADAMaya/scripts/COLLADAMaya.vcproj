@@ -62,7 +62,7 @@
 				AdditionalOptions="/subsystem:windows /dll /incremental:yes /debug /machine:I386 /export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib COLLADAStreamWriter.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
 				GenerateDebugInformation="true"
 			/>
 			<Tool
@@ -350,6 +350,10 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaReferenceManager.cpp"
+					>
+				</File>
 				<Filter
 					Name="Animation"
 					>
@@ -521,6 +525,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaPrerequisites.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaReferenceManager.h"
 					>
 				</File>
 				<File

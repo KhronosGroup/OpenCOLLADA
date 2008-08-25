@@ -307,4 +307,11 @@ namespace COLLADA
         }
 
     }
+
+    //-----------------------------------------------------------------------
+    bool Utils::equals( const String &str1, const String &str2 )
+    {
+        return ( strcmp ( str1.c_str(), str2.c_str() ) == 0 );
+    }
+
 }

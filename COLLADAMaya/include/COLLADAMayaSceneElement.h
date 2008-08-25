@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #ifndef __COLLADA_MAYA_SCENE_ELEMENT_H__
 #define __COLLADA_MAYA_SCENE_ELEMENT_H__
 
@@ -80,6 +81,9 @@ namespace COLLADAMaya
 
         /** true, if the node should be exported */
         bool mIsExportNode;
+
+        /** false, if the node has a file reference */
+        bool mIsLocal;
 
         /** true, if the node is a mesh node from type MFn::kSkinClusterFilter or MFn::kJointCluster. */
         bool mIsForced;
@@ -152,7 +156,10 @@ namespace COLLADAMaya
             return mParentElements[index];
         }
 
+        /** True, if the node has the element as parent. */
         bool containsParentElement ( SceneElement* searchedSceneElement );
+
+        /** True, if the node has the element as parent. */
         bool containsParentElement ( MDagPath searchedPath );
 
         /** Adds @a exportNode to its children*/
@@ -173,7 +180,10 @@ namespace COLLADAMaya
             return mChildElements[i];
         }
 
+        /** True, if the node has the element as child. */
         const bool containsChildElement ( SceneElement* searchedSceneElement ) const;
+
+        /** True, if the node has the element as child. */
         const bool containsChildElement ( MDagPath searchedPath ) const;
 
         /** Pointer to the instantiated scene element, if it exist. */
@@ -194,10 +204,17 @@ namespace COLLADAMaya
             mIsExportNode = _isExportNode;
         }
 
+        /** Set the export flag on the current scene element. */
         const bool getIsExportNode() const
         {
             return mIsExportNode;
         }
+
+        /** false, if the node has a file reference */
+        const bool getIsLocal() const { return mIsLocal; }
+
+        /** false, if the node has a file reference */
+        void setIsLocal ( const bool val ) { mIsLocal = val; }
 
         /** Set the forced flag on the current scene element. */
         void setIsForced ( const bool _isForced )
@@ -205,6 +222,7 @@ namespace COLLADAMaya
             mIsForced = _isForced;
         }
 
+        /** Set the forced flag on the current scene element. */
         const bool getIsForced() const
         {
             return mIsForced;
@@ -216,6 +234,7 @@ namespace COLLADAMaya
             mIsVisible= _isVisible;
         }
 
+        /** Set the visible flag on the current scene element. */
         const bool getIsVisible() const
         {
             return mIsVisible;
@@ -237,6 +256,10 @@ namespace COLLADAMaya
         controller is to start to search for the joint nodes 
         it needs. This element is meaningless for morph controllers. */
         const String getSkeletonId() const { return mSkeletonId; }
+
+        /** Set the skeletonId. It indicates where a skin 
+        controller is to start to search for the joint nodes 
+        it needs. This element is meaningless for morph controllers. */
         void setSkeletonId( String& val ) { mSkeletonId = val; }
 
     private:
