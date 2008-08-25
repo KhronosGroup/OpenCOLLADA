@@ -356,10 +356,10 @@ namespace COLLADA
         if (mPath.size() > 1 && mPath[1] == '|') mPath[1] = ':';
         else if (mPath.size() > 2 && mPath[2] == '|') mPath[2] = ':';
 
-        if (!isFile())
-        {
-            mPath.append("/");
-        }
+//         if ( !isFile() )
+//         {
+//             mPath.append("/");
+//         }
 
         mPath = COLLADA::Utils::UriEncode ( mPath );
     }
