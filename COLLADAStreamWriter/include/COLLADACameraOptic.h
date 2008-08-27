@@ -107,10 +107,14 @@ namespace COLLADA
         /** The distance to the far clipping plane. */
         void setZFar ( float val, const String& sid="" ) { mZFar = val; mZFarSid = sid; mHasZFar = true; }
 		void setZFar( const float val, const bool useDefaultSid, const String& sid=""  );
+		/** Returns the default sid used for the zfar element*/ 
+		static const String& getZFarDefaultSid() { return CSWC::COLLADA_ELEMENT_ZFAR; }
 
         /** The distance to the near clipping plane. */
         void setZNear ( float val, const String& sid="" ) { mZNear = val; mZNearSid = sid; mHasZNear = true; }
 		void setZNear( const float val, const bool useDefaultSid, const String& sid=""  );
+		/** Returns the default sid used for the znear element*/ 
+		static const String& getZNearDefaultSid() { return CSWC::COLLADA_ELEMENT_ZNEAR; }
 
         /** The aspect ratio of the field of view. If the <aspect_ratio> 
         element is not specified, it is calculated from the <xfov> or <yfov> 
@@ -121,10 +125,14 @@ namespace COLLADA
         /** The horizontal field of view in degrees - used for the perspective camera. */
         void setXFov ( float val, const String& sid="" ) { mXFov = val; mXFovSid = sid; mHasXFov = true; }
 		void setXFov( float val, const bool useDefaultSid, const String& sid=""  );
+		/** Returns the default sid used for the xfovelement*/ 
+		static const String& getXFovDefaultSid() { return CSWC::COLLADA_ELEMENT_XFOV; }
 
         /** The vertical field of view in degrees - used for the perspective camera. */
         void setYFov ( float val, const String& sid="" ) { mYFov = val; mYFovSid = sid; mHasYFov = true; }
 		void setYFov( float val, const bool useDefaultSid, const String& sid=""  );
+		/** Returns the default sid used for the yfov element*/ 
+		static const String& getYFovDefaultSid() { return CSWC::COLLADA_ELEMENT_YFOV; }
 
         /** The horizontal (X) magnification of the view. 
         The X and Y magnifications are simple scale factors, applied to the 
@@ -136,6 +144,8 @@ namespace COLLADA
         - used for the orthographic camera.*/
 		void setXMag ( float val, const String& sid="" ) { mXMag = val; mXMagSid = sid; mHasXMag = true; }
         void setXMag ( float val, bool useDefaultSid, const String& sid="" );
+		/** Returns the default sid used for the xmag element*/ 
+		static const String& getXMagDefaultSid() { return CSWC::COLLADA_ELEMENT_XMAG; }
 
         /** The vertical (Y) magnification of the view. 
         The X and Y magnifications are simple scale factors, applied to the 
@@ -147,6 +157,8 @@ namespace COLLADA
         - used for the orthographic camera.*/
 		void setYMag ( float val, const String& sid="" ) { mYMag = val; mYMagSid = sid; mHasYMag = true; }
         void setYMag ( float val, bool useDefaultSid, const String& sid="" );
+		/** Returns the default sid used for the ymag element*/ 
+		static const String& getYMagDefaultSid() { return CSWC::COLLADA_ELEMENT_YMAG; }
 
     };
 

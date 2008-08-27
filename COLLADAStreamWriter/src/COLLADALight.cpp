@@ -40,8 +40,6 @@ namespace COLLADA
     , mFallOffAngleSid ( "" )
     , mFallOffExponent ( 0.0f )
     , mFallOffExponentSid ( "" )
-    , mZFar ( 0.0f )
-    , mZFarSid ( "" )
     {}
 
     // ---------------------------------------------------
@@ -63,7 +61,7 @@ namespace COLLADA
     }
 
     // --------------------------------------------
-    void Light::setColor( const Color val, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    void Light::setColor( const Color& val, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
     {
         mColor = val; 
         if ( useDefaultSid ) mColorSid = CSWC::COLLADA_ELEMENT_COLOR;
@@ -82,7 +80,7 @@ namespace COLLADA
     void Light::setConstantAttenuation( const float val, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
     {
         mConstantAttenuation = val; 
-        if ( useDefaultSid ) mConstantAttenuationSid = CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT;
+        if ( useDefaultSid ) mConstantAttenuationSid = CSWC::COLLADA_ELEMENT_CONSTANT_ATTENUATION;
         else mConstantAttenuationSid = sid;
     }
 
@@ -90,7 +88,7 @@ namespace COLLADA
     void Light::setLinearAttenuation( const float val, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
     {
         mLinearAttenuation = val; 
-        if ( useDefaultSid ) mLinearAttenuationSid = CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR;
+        if ( useDefaultSid ) mLinearAttenuationSid = CSWC::COLLADA_ELEMENT_LINEAR_ATTENUATION;
         else mLinearAttenuationSid = sid;
     }
 
@@ -98,16 +96,8 @@ namespace COLLADA
     void Light::setQuadraticAttenuation( const float val, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
     {
         mQuadraticAttenuation = val; 
-        if ( useDefaultSid ) mQuadraticAttenuationSid = CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC;
+        if ( useDefaultSid ) mQuadraticAttenuationSid = CSWC::COLLADA_ELEMENT_QUADRATIC_ATTENUATION;
         else mQuadraticAttenuationSid = sid;
-    }
-
-    // --------------------------------------------
-    void Light::setZFar( const float val, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
-    {
-        mZFar = val; 
-        if ( useDefaultSid ) mZFarSid = CSWC::COLLADA_ELEMENT_ZFAR;
-        else mZFarSid = sid;
     }
 
     // --------------------------------------------
@@ -163,32 +153,23 @@ namespace COLLADA
         mSW->appendValues ( mColor.getRed(), mColor.getGreen(), mColor.getBlue() );
         mSW->closeElement(); // COLLADA_ELEMENT_COLOR
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_CONSTANT_ATTENUATION );
         if ( !mConstantAttenuationSid.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mConstantAttenuationSid );
         mSW->appendValues ( mConstantAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_LINEAR_ATTENUATION );
         if ( !mLinearAttenuationSid.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mLinearAttenuationSid );
         mSW->appendValues ( mLinearAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_QUADRATIC_ATTENUATION );
         if ( !mQuadraticAttenuationSid.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mQuadraticAttenuationSid );
         mSW->appendValues ( mQuadraticAttenuation );
         mSW->closeElement();
-
-        if ( !COLLADA::MathUtils::equals ( mZFar, 0.0f ) )
-        {
-            mSW->openElement ( CSWC::COLLADA_ELEMENT_ZFAR );
-            if ( !mZFarSid.empty() )
-                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mZFarSid );
-            mSW->appendValues ( mZFar );
-            mSW->closeElement();
-        }
 
         mSW->closeElement(); // COLLADA_ELEMENT_LIGHT_POINT
     }
@@ -204,19 +185,19 @@ namespace COLLADA
         mSW->appendValues ( mColor.getRed(), mColor.getGreen(), mColor.getBlue() );
         mSW->closeElement(); // COLLADA_ELEMENT_COLOR
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_CONSTANT_ATTENUATION );
         if ( !mConstantAttenuationSid.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mConstantAttenuationSid );
         mSW->appendValues ( mConstantAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_LINEAR_ATTENUATION );
         if ( !mLinearAttenuationSid.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mLinearAttenuationSid );
         mSW->appendValues ( mLinearAttenuation );
         mSW->closeElement();
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_QUADRATIC_ATTENUATION );
         if ( !mQuadraticAttenuationSid.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mQuadraticAttenuationSid );
         mSW->appendValues ( mQuadraticAttenuation );

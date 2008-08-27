@@ -17,6 +17,8 @@
 
 #include "COLLADASWC.h"
 #include "COLLADAURI.h"
+#include "COLLADAStreamWriterException.h"
+#include "COLLADAUtils.h"
 
 namespace COLLADA
 {
@@ -97,9 +99,17 @@ namespace COLLADA
         errno_t error = fopen_s ( &mStream, fileName.c_str(), "w" );
         if ( error != 0 )
         {
-            fprintf ( stderr, "Failure open file. errno_t = %d", error );
+			delete[] mBuffer;
+			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
         }
-		setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE );
+		
+		bool failed = setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE );
+		if ( failed )
+		{
+			delete[] mBuffer;
+			throw StreamWriterException(StreamWriterException::ERROR_SET_BUFFER, "Could not set buffer for writing.");
+		}
+
 #else
         mOutFile.rdbuf() ->pubsetbuf ( mBuffer, /*sizeof ( mBuffer )*/BUFFERSIZE );
         mOutFile.open ( fileName.c_str() );

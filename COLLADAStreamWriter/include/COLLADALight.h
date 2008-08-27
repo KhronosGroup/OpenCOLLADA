@@ -20,7 +20,7 @@
 namespace COLLADA
 {
 
-    /** A class that hold all information about an @a \<light\> element.*/
+    /** A class that hold all information about a @a \<light\> element.*/
     class Light : public ElementWriter, public BaseExtraTechnique
     {
     public:
@@ -66,13 +66,6 @@ namespace COLLADA
         float mQuadraticAttenuation;
         String mQuadraticAttenuationSid;
 
-        /** 
-        * Contains a floating-point number that describes the distance 
-        * to the far clipping plane.
-        */
-        float mZFar;
-        String mZFarSid;
-
         /**
         * The <falloff_angle> and <falloff_exponent> are used to specify the 
         * amount of attenuation based on the direction of the light.
@@ -104,7 +97,7 @@ namespace COLLADA
         virtual void addTypeSpecificInfos () const = 0;
 
     public:
-
+ 
         /** 
          * Constructor
          * @param lightId The id of the light.
@@ -133,10 +126,12 @@ namespace COLLADA
         void setLightName ( const String& val ) { mLightName = val; }
 
         /** The color attribute. */
-        const Color getColor() const { return mColor; }
+        const Color& getColor() const { return mColor; }
 
         /** The color attribute. */
-        void setColor ( const Color val, const bool useDefaultSid = false, const String& sid = "" );
+        void setColor ( const Color& val, const bool useDefaultSid = false, const String& sid = "" );
+		/** Returns the default sid used for the color element*/ 
+		static const String& getColorDefaultSid() { return CSWC::COLLADA_ELEMENT_COLOR; }
 
         /** Retrieves the intensity of the light. To calculate the light color,
         multiply the base color with the intensity.
@@ -167,6 +162,8 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         void setConstantAttenuation ( const float val, const bool useDefaultSid = false, const String& sid = "" );
+		/** Returns the default sid used for the ConstantAttenuation element*/ 
+		static const String& getConstantAttenuationDefaultSid() { return CSWC::COLLADA_ELEMENT_CONSTANT_ATTENUATION; }
 
         /** 
         * The <constant_attenuation>, <linear_attenuation>, and 
@@ -187,6 +184,8 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         void setLinearAttenuation ( const float val, const bool useDefaultSid = false, const String& sid = "" );
+		/** Returns the default sid used for the LinearAttenuation element*/ 
+		static const String& getLinearAttenuationDefaultSid() { return CSWC::COLLADA_ELEMENT_LINEAR_ATTENUATION; }
 
         /** 
         * The <constant_attenuation>, <linear_attenuation>, and 
@@ -207,24 +206,16 @@ namespace COLLADA
         *     (( Dist^2 ) * quadratic_attenuation ). 
         */ 
         void setQuadraticAttenuation ( const float val, const bool useDefaultSid = false, const String& sid = "" );
-
-        /** 
-        * Contains a floating-point number that describes the distance 
-        * to the far clipping plane.
-        */
-        const float getZFar() const { return mZFar; }
-
-        /** 
-        * Contains a floating-point number that describes the distance 
-        * to the far clipping plane.
-        */
-        void setZFar ( const float val, const bool useDefaultSid = false, const String& sid = "" );
+		/** Returns the default sid used for the QuadraticAttenuation element*/ 
+		static const String& getQuadraticAttenuationDefaultSid() { return CSWC::COLLADA_ELEMENT_QUADRATIC_ATTENUATION; }
 
         /**
         * The <falloff_angle> and <falloff_exponent> are used to specify the 
         * amount of attenuation based on the direction of the light.
         */
         const float getFallOffAngle() const { return mFallOffAngle; }
+		/** Returns the default sid used for the FallOffAngle element*/ 
+		static const String& getFallOffAngleDefaultSid() { return CSWC::COLLADA_ELEMENT_FALLOFF_ANGLE; }
 
         /**
         * The <falloff_angle> and <falloff_exponent> are used to specify the 
@@ -243,6 +234,8 @@ namespace COLLADA
         * amount of attenuation based on the direction of the light.
         */
         void setFallOffExponent ( const float val, const bool useDefaultSid = false, const String& sid = "" );
+		/** Returns the default sid used for the FallOffExponent element*/ 
+		static const String& getFallOffExponentDefaultSid() { return CSWC::COLLADA_ELEMENT_FALLOFF_EXPONENT; }
 
     };
 

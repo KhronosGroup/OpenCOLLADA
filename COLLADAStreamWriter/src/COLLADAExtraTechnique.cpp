@@ -93,7 +93,7 @@ namespace COLLADA
         paramValue.paramType = STRING;
 
         // Add the given parameter into the parameter list of the child element
-        childParameters.insert ( Parameter ( childName, paramValue ) );
+        childParameters.insert ( Parameter ( paramName, paramValue ) );
     }
 
     //---------------------------------------------------------------
@@ -365,23 +365,23 @@ namespace COLLADA
             {
 
             case STRING:
-                colladaTechnique.addParameter ( paramName, paramData.stringValue );
+                colladaTechnique.addParameter ( paramName, paramData.stringValue, paramData.sid );
                 break;
 
             case INTEGER:
-                colladaTechnique.addParameter ( paramName, paramData.integerValue );
+                colladaTechnique.addParameter ( paramName, paramData.integerValue, paramData.sid );
                 break;
 
             case DOUBLE:
-                colladaTechnique.addParameter ( paramName, paramData.doubleValue );
+                colladaTechnique.addParameter ( paramName, paramData.doubleValue, paramData.sid );
                 break;
 
             case FLOAT:
-                colladaTechnique.addParameter ( paramName, paramData.floatValue );
+                colladaTechnique.addParameter ( paramName, paramData.floatValue, paramData.sid );
                 break;
 
             case BOOL:
-                colladaTechnique.addParameter ( paramName, paramData.boolValue );
+                colladaTechnique.addParameter ( paramName, paramData.boolValue, paramData.sid );
                 break;
             }
 

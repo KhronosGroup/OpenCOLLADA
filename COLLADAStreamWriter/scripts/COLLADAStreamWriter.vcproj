@@ -431,6 +431,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAStreamWriterException.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWC.cpp"
 				>
 			</File>
@@ -614,6 +618,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAStreamWriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAStreamWriterException.h"
 				>
 			</File>
 			<File

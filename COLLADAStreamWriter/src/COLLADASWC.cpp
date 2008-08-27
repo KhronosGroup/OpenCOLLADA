@@ -26,9 +26,6 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_ANIMATION_CLIP = "animation_clip";
     const String CSWC::COLLADA_ELEMENT_ASPECT_RATIO = "aspect_ratio";
     const String CSWC::COLLADA_ELEMENT_ASSET = "asset";
-    const String CSWC::COLLADA_ELEMENT_ATTENUATION_CONSTANT = "constant_attenuation";
-    const String CSWC::COLLADA_ELEMENT_ATTENUATION_LINEAR = "linear_attenuation";
-    const String CSWC::COLLADA_ELEMENT_ATTENUATION_QUADRATIC = "quadratic_attenuation";
     const String CSWC::COLLADA_ELEMENT_AUTHOR = "author";
     const String CSWC::COLLADA_ELEMENT_AUTHORING_TOOL = "authoring_tool";
     const String CSWC::COLLADA_ELEMENT_BLINN = "blinn";
@@ -40,6 +37,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_CHANNEL = "channel";
     const String CSWC::COLLADA_ELEMENT_COMMENTS = "comments";
     const String CSWC::COLLADA_ELEMENT_CONSTANT = "constant";
+	const String CSWC::COLLADA_ELEMENT_CONSTANT_ATTENUATION = "constant_attenuation";
     const String CSWC::COLLADA_ELEMENT_CONTRIBUTOR = "contributor";
     const String CSWC::COLLADA_ELEMENT_CONTROLLER = "controller";
     const String CSWC::COLLADA_ELEMENT_COPYRIGHT = "copyright";
@@ -90,6 +88,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_LIGHT_DIRECTIONAL = "directional";
     const String CSWC::COLLADA_ELEMENT_LIGHT_POINT = "point";
     const String CSWC::COLLADA_ELEMENT_LIGHT_SPOT = "spot";
+	const String CSWC::COLLADA_ELEMENT_LINEAR_ATTENUATION = "linear_attenuation";
     const String CSWC::COLLADA_ELEMENT_LOOKAT = "lookat";
     const String CSWC::COLLADA_ELEMENT_MAGFILTER = "magfilter";
     const String CSWC::COLLADA_ELEMENT_MATERIAL = "material";
@@ -110,6 +109,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_POLYLIST = "polylist";
     const String CSWC::COLLADA_ELEMENT_POLYGONS = "polygons";
     const String CSWC::COLLADA_ELEMENT_PROFILE_COMMON = "profile_COMMON";
+	const String CSWC::COLLADA_ELEMENT_QUADRATIC_ATTENUATION = "quadratic_attenuation";
     const String CSWC::COLLADA_ELEMENT_REFLECTIVE = "reflective";
     const String CSWC::COLLADA_ELEMENT_REFLECTIVITY = "reflectivity";
     const String CSWC::COLLADA_ELEMENT_REVISION = "revision";

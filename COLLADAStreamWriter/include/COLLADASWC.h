@@ -35,9 +35,6 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_ANIMATION_CLIP;
         static const String COLLADA_ELEMENT_ASPECT_RATIO;
         static const String COLLADA_ELEMENT_ASSET;
-        static const String COLLADA_ELEMENT_ATTENUATION_CONSTANT;
-        static const String COLLADA_ELEMENT_ATTENUATION_LINEAR;
-        static const String COLLADA_ELEMENT_ATTENUATION_QUADRATIC;
         static const String COLLADA_ELEMENT_AUTHOR;
         static const String COLLADA_ELEMENT_AUTHORING_TOOL;
         static const String COLLADA_ELEMENT_BLINN;
@@ -48,6 +45,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_CAMERA_PERSPECTIVE;
         static const String COLLADA_ELEMENT_CHANNEL;
         static const String COLLADA_ELEMENT_COMMENTS;
+		static const String COLLADA_ELEMENT_CONSTANT_ATTENUATION;
         static const String COLLADA_ELEMENT_CONSTANT;
         static const String COLLADA_ELEMENT_CONTRIBUTOR;
         static const String COLLADA_ELEMENT_CONTROLLER;
@@ -99,6 +97,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_LIGHT_DIRECTIONAL;
         static const String COLLADA_ELEMENT_LIGHT_POINT;
         static const String COLLADA_ELEMENT_LIGHT_SPOT;
+		static const String COLLADA_ELEMENT_LINEAR_ATTENUATION;
         static const String COLLADA_ELEMENT_LOOKAT;
         static const String COLLADA_ELEMENT_MAGFILTER;
         static const String COLLADA_ELEMENT_MATERIAL;
@@ -119,6 +118,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_POLYLIST;
         static const String COLLADA_ELEMENT_POLYGONS;
         static const String COLLADA_ELEMENT_PROFILE_COMMON;
+		static const String COLLADA_ELEMENT_QUADRATIC_ATTENUATION;
         static const String COLLADA_ELEMENT_REFLECTIVE;
         static const String COLLADA_ELEMENT_REFLECTIVITY;
         static const String COLLADA_ELEMENT_REVISION;
