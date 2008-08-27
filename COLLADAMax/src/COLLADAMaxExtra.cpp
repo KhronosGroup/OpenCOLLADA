@@ -31,17 +31,24 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    Extra::Extra ( COLLADA::StreamWriter * streamWriter, AnimationExporter * animationExporter )
+    Extra::Extra ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter )
             : COLLADA::BaseExtraTechnique ( ),
 			mSW(streamWriter),
-			mAnimationExporter(animationExporter)
+			mAnimationExporter(documentExporter->getAnimationExporter()),
+			mOptions(documentExporter->getOptions())
     {}
 
 
 	//---------------------------------------------------------------
 	void Extra::addAnimatedExtraParameter(const String & parameterName, const String& childName, IParamBlock2* parameters, int parameterIndex, const String& baseId)
 	{
+		//check if the parameterIndex is a valid index for this param block
+		if ( parameters->IDtoIndex(parameterIndex) < 0 )
+			return;
+
 		ParamType2 parameterType = parameters->GetParameterType(parameterIndex);
+
+		TimeValue animationStart = mOptions.getAnimationStart();
 
 		// use the animation number with the GetController method
 		// since the parameters enumeration doesn't reflect the param
@@ -52,29 +59,29 @@ namespace COLLADAMax
 		switch (parameterType)
 		{
 		case TYPE_BOOL:
-			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex)!= false);
+			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart)!= false);
 			// NO ANIMATION ON BOOLEANS
 			break;
 		case TYPE_INT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex) , parameterName);
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart) , parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex));
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
 			}
 			break;
 		case TYPE_FLOAT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex), parameterName);
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart), parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex));
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart));
 			}
 			break;
 		default:
@@ -86,7 +93,12 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void Extra::addAnimatedExtraParameter(const String & parameterName, const String& childName, IParamBlock* parameters, int parameterIndex, const String& baseId)
 	{
+		if ( parameterIndex >= parameters->NumParams() )
+			return;
+
 		ParamType parameterType = parameters->GetParameterType(parameterIndex);
+
+		TimeValue animationStart = mOptions.getAnimationStart();
 
 		// use the animation number with the GetController method
 		// since the parameters enumeration doesn't reflect the param
@@ -96,29 +108,29 @@ namespace COLLADAMax
 		switch (parameterType)
 		{
 		case TYPE_BOOL:
-			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex)!= false);
+			addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart)!= false);
 			// NO ANIMATION ON BOOLEANS
 			break;
 		case TYPE_INT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex) , parameterName);
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart) , parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex));
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetInt(parameterIndex, animationStart));
 			}
 			break;
 		case TYPE_FLOAT:
 			if ( AnimationExporter::isAnimated(parameters, parameterIndex) )
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex), parameterName);
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart), parameterName);
 				mAnimationExporter->addAnimatedParameter(parameters, parameterIndex, baseId, parameterName, 0);
 			}
 			else
 			{
-				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex));
+				addExtraTechniqueChildParameter(Extra::TECHNIQUE_PROFILE_3DSMAX, childName, parameterName, parameters->GetFloat(parameterIndex, animationStart));
 			}
 			break;
 		default:
@@ -153,5 +165,122 @@ namespace COLLADAMax
 	{
 		addTextureExtraTechniques(*mSW);
 	}
+
+	void Extra::writeParameterBlockInfo( const String& fileName, IParamBlock* parameters )
+	{
+
+		std::filebuf fb;
+
+		fb.open ( fileName.c_str(), std::ios::app );
+
+		std::ostream os ( &fb );
+
+
+		int count = parameters->NumParams();
+
+
+		for (int i = 0; i<count; ++i)
+		{
+			ParamType type = parameters->GetParameterType(i);
+
+			os << i << " ";
+
+			switch ( type )
+			{
+
+			case TYPE_BOOL:
+				os << "TYPE_BOOL " << parameters->GetInt ( i ) << " ";
+				break;
+
+			case TYPE_FLOAT:
+				os << "TYPE_FLOAT " << parameters->GetFloat ( i ) << " ";
+				break;
+
+			case TYPE_INT:
+				os << "TYPE_INT " << parameters->GetInt ( i ) << " ";
+				break;
+			case TYPE_RGBA:
+				Color color = parameters->GetColor(i);
+				os << "TYPE_RGBA " << color.r << " " << color.g << " " << color.b << " " ;
+				break;
+
+
+			}
+
+			os << std::endl << std::endl;
+		}
+
+		fb.close();
+	}
+
+
+	void Extra::writeParameterBlockInfo( const String& fileName, IParamBlock2* parameters )
+	{
+
+		std::filebuf fb;
+
+		fb.open ( fileName.c_str(), std::ios::app );
+
+		std::ostream os ( &fb );
+
+
+		int count = parameters->NumParams();
+
+
+		for (int i = 0; i<count; ++i)
+		{
+
+			int parameterID = parameters->IndextoID(i);
+
+			ParamType2 type = parameters->GetParameterType(parameterID);
+			bool printName = true;
+
+			os << i << " " << parameterID << " ";
+
+			switch ( type )
+			{
+
+			case TYPE_BOOL:
+				os << "TYPE_BOOL " << parameters->GetInt ( parameterID ) << " ";
+				break;
+
+			case TYPE_FLOAT:
+				os << "TYPE_FLOAT " << parameters->GetFloat ( parameterID ) << " ";
+				break;
+
+			case TYPE_INT:
+				os << "TYPE_INT " << parameters->GetInt ( parameterID ) << " ";
+				break;
+			case TYPE_RGBA:
+				{
+					Color color = parameters->GetColor(i);
+					os << "TYPE_RGBA " << color.r << " " << color.g << " " << color.b << " " ;
+					break;
+				}
+			case TYPE_TEXMAP:
+				{
+					Texmap* texmap = parameters->GetTexmap(i);
+					os << "TYPE_TEXMAP ";
+					if ( texmap )
+						os << texmap->GetName();
+					os << " " ;
+					break;
+				}
+			default:
+				printName = false;
+
+
+			}
+
+			if ( printName )
+				os << parameters->GetLocalName ( parameterID );
+
+			os << std::endl << std::endl;
+		}
+
+		fb.close();
+	}
+
+
 
 }

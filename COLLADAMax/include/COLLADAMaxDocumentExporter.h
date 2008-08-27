@@ -96,6 +96,13 @@ namespace COLLADAMax
             return mEffectExporter;
         }
 
+		/** Returns a pointer to the effect exporter used by the document exporter.*/
+		EffectExporter * const getEffectExporter() 
+		{
+			return mEffectExporter;
+		}
+
+
         /** Returns a pointer to the material exporter used by the document exporter.*/
         MaterialExporter * getMaterialExporter()
         {
@@ -148,6 +155,8 @@ namespace COLLADAMax
 		/** Exports all the cameras contained in the export scene graph.*/
 		void exportCameras();
 
+		/** Exports all the lights contained in the export scene graph.*/
+		void exportLights();
 
         /** Exports all the effects used by the nodes in the export scene graph.*/
         void exportEffects();

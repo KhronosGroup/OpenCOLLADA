@@ -31,7 +31,9 @@ class Object;
 namespace COLLADAMax
 {
 
+	class DocumentExporter;
 	class AnimationExporter;
+	class Options;
 
 	/** Base class to export extra tags in max.*/
     class Extra : public COLLADA::BaseExtraTechnique
@@ -57,11 +59,12 @@ namespace COLLADAMax
     private:
 		COLLADA::StreamWriter* mSW;
 		AnimationExporter * mAnimationExporter;
+		const Options& mOptions;
 
     public:
         /** Constructor
          @param streamWriter the stream the extra tags should be written to.*/
-        Extra ( COLLADA::StreamWriter * streamWriter, AnimationExporter * animationExporter );
+        Extra ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter  );
 
         /** Destructor*/
         virtual ~Extra()
@@ -78,7 +81,16 @@ namespace COLLADAMax
 			addExtraTechniqueParameter (TECHNIQUE_PROFILE_3DSMAX , paramName, value, paramSid );
 		}
 
-		
+
+		/** Adds a parameter with name @a paramName, value @a value and optional sid @a paramSid to the list 
+		of parameters in the max profile.*/
+		template<class ValueType> 
+		void addExtraChildParameter ( const String& childName, const String& paramName, const ValueType &value, const String &paramSid="" )
+		{
+			addExtraTechniqueChildParameter (TECHNIQUE_PROFILE_3DSMAX, childName, paramName, value, paramSid );
+		}
+
+
 		/** Adds an animatable parameter to the list of parameters in the max profile.
 		@param parameterName Name of the parameter element. If the parameter is animated, this is also used as sid.
 		@param childName The name of the element (child element of the technique element) this parameter should be added to.
@@ -118,6 +130,11 @@ namespace COLLADAMax
 		void addParamBlockAnimatedExtraParameters ( const String & childElementName, const ExtraParameter extraParameters[], int extraParametersCount, IParamBlock2 * paramBlock, const String& baseId );
 
 		void addExtraTechniques();
+
+		/** Writes all information of the IParamBlock2 @a parameters to the file @a fileName. For development purposes
+		only.*/
+		void writeParameterBlockInfo(const String& fileName, IParamBlock2* parameters);
+		void writeParameterBlockInfo(const String& fileName, IParamBlock* parameters);
 
     };
 

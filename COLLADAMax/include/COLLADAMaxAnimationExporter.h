@@ -268,13 +268,26 @@ namespace COLLADAMax
             mAnimationList.push_back ( animation );
         }
 
+
+		/** Adds an animation that animates a float.
+		@param controller The controller that contains the animation.
+		@param id The id of the element to animate.
+		@param sid The sid of the element to animate.
+		@param parameters The parameter list of the element to animate.
+		@param conversionFunctor Conversion functor used to convert the output values
+		@return Returns true if the float is animated, false otherwise.
+		*/
+		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
+
+
         /** Adds an animation that animates a Point3.
         @param controller The controller that contains the animation
         @param id The id of the element to animate
         @param sid The sid of the element to animate
         @param parameters The parameter list of the element to animate
+		@return Returns true if the Point3 is animated, false otherwise.
         */
-        void addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[] );
+        bool addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
 
         /** Adds an animation that animates an angle.
         @param controller The controller that contains the animation
@@ -299,9 +312,9 @@ namespace COLLADAMax
         */
         void addAnimation4 ( Control * controller, const String & id, const String & sid, const String parameters[] );
 
-		void addAnimatedParameter(IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
+		bool addAnimatedParameter(IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
 
-		void addAnimatedParameter(IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
+		bool addAnimatedParameter(IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
 
 
         /** Returns true, if the controller is animated an should be exported.*/

@@ -20,6 +20,7 @@
 
 #include "COLLADAMaxColladaExporter.h"
 #include "COLLADAMaxDocumentExporter.h"
+#include "COLLADAStreamWriterException.h"
 
 namespace COLLADAMax
 {
@@ -146,6 +147,11 @@ namespace COLLADAMax
 				success = true; 
 			}
         }
+		catch ( COLLADA::StreamWriterException& streamWriterException  )
+		{
+			// Add some check, here, for full UI-mode or batch-mode only.
+			MessageBox ( 0, streamWriterException.getMessage().c_str(), SHORTDESCRIPTION.c_str(), MB_OK );
+		}
 
         catch ( ... )
         {

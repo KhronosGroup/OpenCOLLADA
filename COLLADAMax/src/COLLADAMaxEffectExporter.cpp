@@ -709,10 +709,17 @@ namespace COLLADAMax
         return name.str();
     }
 
+	//---------------------------------------------------------------
+	COLLADA::Color EffectExporter::maxColor2Color ( const Color & color, double scale )
+	{
+		return  COLLADA::Color ( color.r * scale, color.g * scale, color.b * scale, scale );
+	}
+
+
     //---------------------------------------------------------------
     COLLADA::ColorOrTexture EffectExporter::maxColor2ColorOrTexture ( const Color & color, double scale )
     {
-        return COLLADA::ColorOrTexture ( COLLADA::Color ( color.r * scale, color.g * scale, color.b * scale, scale ) );
+        return COLLADA::ColorOrTexture ( maxColor2Color( color, scale ) );
     }
 
     //---------------------------------------------------------------
@@ -925,14 +932,14 @@ namespace COLLADAMax
     String EffectExporter::exportImage ( Texmap* map, String& fullFileName  )
     {
         if ( !map  )
-            return 0;
+            return EMPTY_STRING;
 
         if ( map->ClassID() == Class_ID ( BMTEX_CLASS_ID, 0x00 ) )
         {
             BitmapTex * baseBitmap = ( BitmapTex* ) map;
 
             if ( !baseBitmap )
-                return 0;
+                return EMPTY_STRING;
 
             // get a valid filename
             BitmapInfo bitmapInfo;
@@ -956,7 +963,7 @@ namespace COLLADAMax
     {
         const TCHAR * fileName = bitmapInfo.Name();
 
-        if ( fileName != NULL && _tcslen ( fileName ) != 0 && _tcsicmp ( fileName, _T ( "none" ) ) != 0 )
+        if ( fileName && _tcslen ( fileName ) != 0 && _tcsicmp ( fileName, "none" ) != 0 )
         {
 
             BMMGetFullFilename ( &bitmapInfo );

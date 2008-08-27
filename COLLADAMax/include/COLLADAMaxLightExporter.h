@@ -21,6 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
+#include "COLLADAMaxExtra.h"
+
 #include "COLLADALibraryLights.h"
 
 
@@ -105,10 +107,52 @@ namespace COLLADAMax
 
 
     /** Class to export lights.*/
-    class LightExporter : public COLLADA::LibraryLights
+    class LightExporter : public COLLADA::LibraryLights, public Extra
     {
 	public:
 		static const String LIGHT_ID_SUFFIX;
+
+		/** Name of the light extra tag.*/
+		static const String LIGHT_ELEMENT;
+		static const String LIGHT_MAP_ELEMENT;
+		/** Number of light extra parameters.*/
+		static const int LIGHT_PARAMETER_COUNT;
+		/** light parameters.*/
+		static const ExtraParameter LIGHT_PARAMETERS[];
+
+		/** Name of the skylight extra tag.*/
+		static const String SKYLIGHT_ELEMENT;
+		static const String SKYLIGHT_COLORMAP_ELEMENT;
+		/** Number of skylight extra parameters.*/
+		static const int SKYLIGHT_PARAMETER_COUNT;
+		/** skylight parameters.*/
+		static const ExtraParameter SKYLIGHT_PARAMETERS[];
+
+
+		static const String OVERSHOOT_PARAMETER;
+		static const String DECAY_TYPE_PARAMETER;
+		static const String USE_FAR_ATTENUATION_PARAMETER;
+		static const String USE_NEAR_ATTENUATION_PARAMETER;
+
+
+		static const String SHADOW_ATTRIBS;
+		static const String SHADOW_TYPE;
+		static const String SHADOW_TYPE_MAP;
+		static const String SHADOW_TYPE_RAYTRACE;
+		static const String SHADOW_AFFECTS;
+		static const String SHADOW_AFFECTS_LIST_NODES;
+		static const String SHADOW_AFFECTS_LIST_EXCLUDES;
+		static const String SHADOW_AFFECTS_LIST_ILLUMINATES;
+		static const String SHADOW_AFFECTS_LIST_CASTS;
+
+
+		static const String SHADOW_MAP;
+		static const String SHADOW_PROJ_IMAGE;
+		static const String SHADOW_PROJ_COLOR;
+		static const String SHADOW_PROJ_COLOR_MULT;
+		static const String LIGHT_AFFECTS_SHADOW;
+
+
 
 	private:
 		ExportSceneGraph* mExportSceneGraph;
@@ -138,7 +182,12 @@ namespace COLLADAMax
 		/** Exports the camera represented by @a exportNode.*/
 		void exportLight( ExportNode* exportNode );
 
-		void exportExtraParameter(const String & parameterName, const String& childName, IParamBlock2* parameters, int parameterIndex, const String& cameraId);
+		/** Exports the shadow parameters*/
+		void exportShadowParameters(GenLight* light);
+
+
+		/** Exports the Texmap @a map, i.e. adds it to \<library_images\>*/
+		String exportTexMap(Texmap *map);
 
 
 	};

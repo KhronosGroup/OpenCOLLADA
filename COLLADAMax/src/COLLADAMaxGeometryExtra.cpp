@@ -386,8 +386,8 @@ namespace COLLADAMax
     };
 
     //---------------------------------------------------------------
-    GeometryExtra::GeometryExtra ( COLLADA::StreamWriter * streamWriter, AnimationExporter * animationExporter, Object * object, const String& geometryId )
-            : Extra ( streamWriter,  animationExporter),
+    GeometryExtra::GeometryExtra ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter, Object * object, const String& geometryId )
+            : Extra ( streamWriter,  documentExporter),
             mObject ( object ),
 			mGeometryId(geometryId)
     {}

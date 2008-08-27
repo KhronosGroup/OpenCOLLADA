@@ -27,6 +27,7 @@
 #include "COLLADAMaxMaterialExporter.h"
 #include "COLLADAMaxImageExporter.h"
 #include "COLLADAMaxCameraExporter.h"
+#include "COLLADAMaxLightExporter.h"
 
 #include "COLLADAAsset.h"
 #include "COLLADAScene.h"
@@ -65,10 +66,11 @@ namespace COLLADAMax
             exportAsset();
             exportEffects();
             exportMaterials();
-            exportImages();
             exportGeometries();
 			exportControllers();
 			exportCameras();
+			exportLights();
+			exportImages();
             exportVisualScenes();
 			if ( mOptions.getExportAnimations() )
 				exportAnimations();
@@ -185,6 +187,12 @@ namespace COLLADAMax
 		cameraExporter.doExport();
 	}
 
+	//---------------------------------------------------------------
+	void DocumentExporter::exportLights()
+	{
+		LightExporter lightExporter(&mStreamWriter, &mExportSceneGraph, this);
+		lightExporter.doExport();
+	}
 
     //---------------------------------------------------------------
     void DocumentExporter::exportEffects()

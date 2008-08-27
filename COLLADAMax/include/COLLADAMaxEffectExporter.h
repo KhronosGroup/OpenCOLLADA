@@ -182,6 +182,17 @@ namespace COLLADAMax
 			return mMaterialChannelPairParamBlockMap;
 		}
 
+		/** Converts a max color to a COLLADA Color.*/
+		static COLLADA::Color maxColor2Color ( const Color & color, double scale = 1.0 );
+
+		/** Converts a max color to a COLLADA ColorOrTexture.*/
+		static COLLADA::ColorOrTexture maxColor2ColorOrTexture ( const Color & color, double scale = 1.0 );
+
+		/** Exports the image represented by @a map.
+		@param fullFileName Is set to the full file name of the image.
+		@return The id of the image*/
+		String EffectExporter::exportImage ( Texmap* map, String& fullFileName );
+
     private:
         EffectExporter ( const EffectExporter & effectExporter );
         EffectExporter & operator= ( const EffectExporter & effectExporter );
@@ -207,9 +218,6 @@ namespace COLLADAMax
         /** Exports a color effect with color @a color.*/
         void exportColorEffect ( ExportNode* exportNode, DWORD color );
 
-        /** Converts a max color to a CommonColorOrTextureType.*/
-        static COLLADA::ColorOrTexture maxColor2ColorOrTexture ( const Color & color, double scale = 1.0 );
-
         /** Retrieves the effect channel.
         @param mtl The max material
         @param id The id*/
@@ -229,10 +237,10 @@ namespace COLLADAMax
         /**Exports the map @a texMap.*/
         void exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight );
 
-        /** Exports the image represented by @a map.*/
-        String EffectExporter::exportImage ( Texmap* map, String& fullFileName );
 
-        /** Exports the image represented by @a bitmapInfo.*/
+        /** Exports the image represented by @a bitmapInfo. 
+		@param fullFileName Is set to the full file name of the image.
+		@return The id of the image*/
         String EffectExporter::exportImage ( BitmapInfo& bitmapInfo, String& fullFileName );
 
 

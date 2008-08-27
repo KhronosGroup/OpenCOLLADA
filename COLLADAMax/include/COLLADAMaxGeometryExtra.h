@@ -161,7 +161,7 @@ namespace COLLADAMax
         @param streamWriter The stream the extra tags should be written to
         @param object The object which extra tag should be exported
         */
-        GeometryExtra ( COLLADA::StreamWriter * streamWriter, AnimationExporter * animationExporter, Object * object, const String& geometryId );
+        GeometryExtra ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter, Object * object, const String& geometryId );
 
         /** Performs the actual export.*/
         void doExport();

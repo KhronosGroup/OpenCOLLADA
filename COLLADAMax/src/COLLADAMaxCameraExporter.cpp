@@ -83,7 +83,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     CameraExporter::CameraExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
             : COLLADA::LibraryCameras ( streamWriter ),
-			Extra(streamWriter, documentExporter->getAnimationExporter()),
+			Extra(streamWriter, documentExporter),
 			mExportSceneGraph(exportSceneGraph),
 			mDocumentExporter(documentExporter),
 			mAnimationExporter(documentExporter->getAnimationExporter())
@@ -181,25 +181,11 @@ namespace COLLADAMax
 				}
 			}
 
-			if ( AnimationExporter::isAnimated(parameters, MaxCamera::NEAR_CLIP) )
-			{
-				optics->setZNear(parameters->GetFloat(MaxCamera::NEAR_CLIP), ZNEAR_SID);
-				mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::NEAR_CLIP, cameraId, ZNEAR_SID, 0);
-			}
-			else
-			{
-				optics->setZNear(parameters->GetFloat(MaxCamera::NEAR_CLIP));
-			}
+			bool hasAnimatedZNear = mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::NEAR_CLIP, cameraId, optics->getZNearDefaultSid(), 0);
+			optics->setZNear(parameters->GetFloat(MaxCamera::NEAR_CLIP), hasAnimatedZNear);
 
-			if ( AnimationExporter::isAnimated(parameters, MaxCamera::FAR_CLIP) )
-			{
-				optics->setZFar(parameters->GetFloat(MaxCamera::FAR_CLIP), ZFAR_SID);
-				mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FAR_CLIP, cameraId, ZFAR_SID, 0);
-			}
-			else
-			{
-				optics->setZFar(parameters->GetFloat(MaxCamera::FAR_CLIP));
-			}
+			bool hasAnimatedZFar = mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FAR_CLIP, cameraId, optics->getZFarDefaultSid(), 0);
+			optics->setZFar(parameters->GetFloat(MaxCamera::FAR_CLIP), hasAnimatedZFar);
 
 
 			COLLADA::Camera colladaCamera(COLLADA::LibraryCameras::mSW, optics, cameraId, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));

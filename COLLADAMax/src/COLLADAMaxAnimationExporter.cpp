@@ -196,7 +196,7 @@ namespace COLLADAMax
 		for (int i = 0; i < SubcontrollerCount; i++)
 		{
 			Animatable* subController = controller->SubAnim(i);
-			if (subController != NULL)
+			if (subController )
 			{
 				if (findConstraint(subController)) 
 					return true;
@@ -226,21 +226,40 @@ namespace COLLADAMax
         }
     }
 
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor)
+	{
+		if ( !isAnimated(controller) )
+			return false;
+
+		Animation animation(controller, id, sid, parameters, Animation::FLOAT, conversionFunctor);
+		addAnimation(animation);
+
+		return true;
+	}
+
+
+
+
     //---------------------------------------------------------------
-    void AnimationExporter::addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[] )
+    bool AnimationExporter::addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor )
     {
+		bool animated = false;
+
         Control * subControllers[ 3 ] = {controller->GetXController(), controller->GetYController(), controller->GetZController() };
 
         // First, Try to extract animations from the component controllers
 
-        if ( subControllers[ 0 ] != NULL && subControllers[ 1 ] != NULL && subControllers[ 2 ] != NULL )
+        if ( subControllers[ 0 ] && subControllers[ 1 ]  && subControllers[ 2 ]  )
         {
             for ( int i = 0; i < 3; ++i )
             {
                 if ( isAnimated ( subControllers[ i ] ) )
                 {
-                    Animation animation ( subControllers[ i ], id, sid, parameters + i, Animation::FLOAT );
+                    Animation animation ( subControllers[ i ], id, sid, parameters + i, Animation::FLOAT, conversionFunctor );
                     addAnimation ( animation );
+					animated = true;
                 }
             }
         }
@@ -248,9 +267,12 @@ namespace COLLADAMax
         else if ( isAnimated ( controller ) )
         {
             // Else, with no subs, try and export ourselves as keyframes
-            Animation animation ( controller, id, sid, parameters, Animation::FLOAT3 );
+            Animation animation ( controller, id, sid, parameters, Animation::FLOAT3, conversionFunctor );
             addAnimation ( animation );
+			animated = true;
         }
+
+		return animated;
     }
 
     //---------------------------------------------------------------
@@ -308,35 +330,45 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::addAnimatedParameter( IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
+	bool AnimationExporter::addAnimatedParameter( IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
 	{
 		ParamType type = parameterBlock->GetParameterType(parameterId);
 		Control* controller = parameterBlock->GetController(parameterId);
 
+		if ( !isAnimated(controller) )
+			return false;
+
 		switch ( type )
 		{
 		case TYPE_FLOAT:
-			Animation animation(controller, id, sid, parameters, Animation::FLOAT, conversionFunctor);
-			addAnimation(animation);
-			break;
+			return addAnimatedFloat(controller, id, sid, parameters, conversionFunctor);
+		case TYPE_COLOR:
+		case TYPE_RGBA:
+			return addAnimatedPoint3(controller, id, sid, parameters, conversionFunctor);
 		}
+		return false;
 	}
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::addAnimatedParameter( IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
+	bool AnimationExporter::addAnimatedParameter( IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
 	{
 		ParamType2 type = parameterBlock->GetParameterType(parameterId);
 		int animationNumber = parameterBlock->GetAnimNum(parameterId);
 		Control *controller = parameterBlock->GetController(animationNumber);
 
+		if ( !isAnimated(controller) )
+			return false;
+
 		switch ( type )
 		{
 		case TYPE_FLOAT:
-			Animation animation(controller, id, sid, parameters, Animation::FLOAT, conversionFunctor);
-			addAnimation(animation);
-			break;
+			return addAnimatedFloat(controller, id, sid, parameters, conversionFunctor);
+		case TYPE_COLOR:
+		case TYPE_RGBA:
+			return addAnimatedPoint3(controller, id, sid, parameters, conversionFunctor);
 		}
+		return false;
 	}
 
 

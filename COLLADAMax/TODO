@@ -20,12 +20,7 @@ Scene graph
 Materials / Effects
     - Material Lambert
     
-Controller
-    - Morph controller
-    - Skin controller
-
 Animation
-    - Sampled animation
     - Expressions
     - Animation clips
     - Constraints (point, orient, parent)
@@ -38,8 +33,6 @@ Effects
 Instances
     - Animations (clips)
     - Nodes
-
-Lights and Cameras
 
 Subdivision surfaces, nurbs and splines
 
