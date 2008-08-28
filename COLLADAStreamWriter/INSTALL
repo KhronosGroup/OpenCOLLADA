@@ -1,0 +1,8 @@
+Requirements:
+-------------
+This is just a library, not a stand alone programm. This library is for use 
+with the COLLADAMaya and COLLADAMax plug-ins.
+Please read the INSTALL file with the requirements of the plug-in project you 
+want to use. 
+
+For help on build, please read the BUILD file.
