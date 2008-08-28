@@ -79,8 +79,11 @@ namespace COLLADAMax
 		/** Exports @a morphController.*/
 		void exportMorphController( ExportNode* exportNode, MorphController* morphController, const String& controllerId, const String& morphSource);
 
-		/** Calculates the skeleton roots of. */
-		static void calculateSkeletonRoots( const ExportNodeSet &referencedJoints, ControllerList * controllerList);
+		/** Determines the referenced joints. This is required to export the skeleton elements.*/
+		void determineReferencedJoints(ExportNode* exportNode, SkinController* skinController);
+
+		/** Determines the skeleton roots of. */
+		static void determineSkeletonRoots( const ExportNodeSet &referencedJoints, ControllerList * controllerList);
 
 		/** Determines if one of the parents of @a joint is in @a jointSet. 
 		@return Returns true if @a joint is in @a jointSet set, otherwise false.*/

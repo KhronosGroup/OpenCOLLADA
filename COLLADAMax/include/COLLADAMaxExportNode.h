@@ -159,6 +159,15 @@ namespace COLLADAMax
             return mINode;
         }
 
+		/** Returns the camera object represented by the export node. This functions returns a non zero pointer
+		only if the node is a camera.*/
+		CameraObject* getCamera()const{ return (CameraObject*)mINode->GetObjectRef(); }
+
+		/** Returns the light object represented by the export node. This functions returns a non zero pointer
+		only if the node is a light.*/
+		LightObject* getLight()const{ return (LightObject*)mINode->GetObjectRef(); }
+
+
 		/** Returns if the node is in the visual scene, i.e. not hidden or selected if export selection only
 		is choosen.*/
 		bool getIsInVisualScene()const {return mIsInVisualScene;}
@@ -207,10 +216,17 @@ namespace COLLADAMax
 		controllers are assigned.*/
 		String getLastControllerId()const;
 
+		/** Returns the the last controller applied to the nodes geometry or 0 if no 
+		controllers are assigned.*/
+		Controller* getLastController()const;
+
 		/** Returns the initial pose of the object, before all controllers that will be exported are applied.*/
 		Object* getInitialPose()const;
 
-        /** Determines and returns the type of @a INode.*/
+		/** Returns the final pose of the object, after all controllers are applied.*/
+		Object* getFinalPose()const;
+
+		/** Determines and returns the type of @a INode.*/
         static Type determineType ( INode * iNode );
 
         /** Adds channel @a channel with corresponding effect id @a effectId. The symbol is marked as unused.*/

@@ -38,7 +38,7 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	Object* Controller::getInitialPose() const
+	Object* Controller::getPoseBefore() const
 	{
 		Object* initialPose = 0;
 		// Remember that 3dsMax has the modifier stack reversed
@@ -47,7 +47,6 @@ namespace COLLADAMax
 		if (mModifierIndex < modifierCount - 1)
 		{
 			ObjectState state = mDerivedObject->Eval(TIME_INITIAL_POSE, mModifierIndex + 1);
-//			ObjectState state = mDerivedObject->Eval(TIME_INITIAL_POSE, mModifierIndex + 1);
 			initialPose = state.obj;
 		}
 		else
@@ -57,6 +56,28 @@ namespace COLLADAMax
 		return initialPose;
 
 	}
+
+
+	//---------------------------------------------------------------
+	Object* Controller::getPoseAfter() const
+	{
+		Object* initialPose = 0;
+		// Remember that 3dsMax has the modifier stack reversed
+		// So that evaluating the zero'th modifier implies evaluating the whole modifier stack.
+		int modifierCount = mDerivedObject->NumModifiers();
+		if ( mModifierIndex < modifierCount )
+		{
+			ObjectState state = mDerivedObject->Eval(TIME_INITIAL_POSE, mModifierIndex);
+			initialPose = state.obj;
+		}
+		else
+		{
+			initialPose = mDerivedObject->GetObjRef();
+		}
+		return initialPose;
+
+	}
+
 
 
 	//---------------------------------------------------------------

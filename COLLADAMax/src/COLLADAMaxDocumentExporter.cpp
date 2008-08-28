@@ -266,6 +266,7 @@ namespace COLLADAMax
     }
 
 
+	//---------------------------------------------------------------
 	void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName )
 	{
 		size_t lastBackSlashPosition = filePath.find_last_of('\\');
@@ -273,13 +274,15 @@ namespace COLLADAMax
 		fileName = filePath.substr(lastBackSlashPosition + 1, String::npos);
 	}
 
+	//---------------------------------------------------------------
 	void DocumentExporter::splitFilePath( const String& filePath )
 	{
 		splitFilePath(filePath, mOutputDir, mOutputFileName);
 	}
 
 
-	bool DocumentExporter::ShowExportOptions(bool suppressPrompts)
+	//---------------------------------------------------------------
+	bool DocumentExporter::showExportOptions(bool suppressPrompts)
 	{
 		if (!suppressPrompts) 
 		{
@@ -302,4 +305,41 @@ namespace COLLADAMax
 		return true;
 	}
 
+	//---------------------------------------------------------------
+	bool DocumentExporter::isExportedObject( ObjectIdentifier& object )
+	{
+		return mExportedObjects.find(object) != mExportedObjects.end();
+	}
+
+	//---------------------------------------------------------------
+	void DocumentExporter::insertExportedObject( ObjectIdentifier& object, const String& objectId )
+	{
+		mExportedObjects[object] = objectId;
+	}
+
+	//---------------------------------------------------------------
+	const String& DocumentExporter::getExportedObjectId( ObjectIdentifier& object )
+	{
+		ObjectIdMap::const_iterator it = mExportedObjects.find(object);
+		if ( it != mExportedObjects.end() )
+			return it->second;
+		else
+			return COLLADA::Utils::EMPTY_STRING;
+	}
+
+	//---------------------------------------------------------------
+	bool ObjectIdentifier::operator<( const ObjectIdentifier& other ) const
+	{
+		if ( mObject < other.mObject )
+			return true;
+		if ( mObject > other.mObject )
+			return false;
+
+		if ( mIdentificationNumber < other.mIdentificationNumber )
+			return true;
+		if ( mIdentificationNumber > other.mIdentificationNumber )
+			return false;
+
+		return false;
+	}
 }

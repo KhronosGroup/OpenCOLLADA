@@ -206,6 +206,16 @@ namespace COLLADAMax
 		return mINode->GetObjectRef();
 	}
 
+
+	//---------------------------------------------------------------
+	Object* ExportNode::getFinalPose() const
+	{
+		if ( !hasControllers() )
+			return 0;
+		return mControllerList->getController(0)->getPoseAfter();
+	}
+
+
 	//---------------------------------------------------------------
 	String ExportNode::getLastControllerId() const
 	{
@@ -216,4 +226,11 @@ namespace COLLADAMax
 		return ControllerExporter::getControllerId(*this, controllerCount, mControllerList->getController(0)->getType());
 	}
 
+	//---------------------------------------------------------------
+	Controller* ExportNode::getLastController() const
+	{
+		if ( !hasControllers() )
+			return 0;
+		return  mControllerList->getController(0);
+	}
 }

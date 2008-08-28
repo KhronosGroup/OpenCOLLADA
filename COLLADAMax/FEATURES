@@ -3,6 +3,11 @@ COLLADAMax Nextgen: Export - Supported features
 
 Scene graph
     - Transform nodes
+    - Instances
+      - Visual scenes
+      - Geometries
+      - Materials
+      - Effects
 	
 Geometry   
     - Mesh: 
@@ -15,11 +20,12 @@ Materials / Effects
     - Materials Phong and Blinn 
 
 Animation
-    - Rotation / Transformation
+    - LINEAR, STEP, BEZIER
+    - Rotation / Transformation / Scale
+    - Extra parameters of camera, light, primitives
     
-Instances
-    - Visual scenes
-    - Geometries
-    - Materials
-    - Effects
+Camera
+
+Light
+    
 

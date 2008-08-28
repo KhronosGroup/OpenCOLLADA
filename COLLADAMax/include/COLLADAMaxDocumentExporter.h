@@ -36,8 +36,22 @@ namespace COLLADAMax
 
     class AnimationExporter;
 
+
+	class ObjectIdentifier
+	{
+	private:
+		void* mObject;
+		int mIdentificationNumber;
+	public:
+		ObjectIdentifier(void* object) : mObject(object),mIdentificationNumber(0){}
+		ObjectIdentifier(void* object, int identificationNumber) :mObject(object),mIdentificationNumber(identificationNumber){}
+		bool operator<(const ObjectIdentifier& other)const;
+	};
+
     class DocumentExporter
     {
+	private:
+		typedef std::map<ObjectIdentifier, String> ObjectIdMap;
 
     private:
 		/** The name of the output file.*/
@@ -68,6 +82,9 @@ namespace COLLADAMax
 
         /** The id of the @a \<scene\> element.*/
         static const String SCENE_ID;
+
+		/** A map, that hold all already exported objects with their ids*/
+		ObjectIdMap mExportedObjects;
 
     public:
         /** Constructor
@@ -123,11 +140,20 @@ namespace COLLADAMax
 
 		/** Shows the export options dialog.
 		@param suppressPrompts If set to true, no dialog is shows (for scripting).*/
-		bool ShowExportOptions(bool suppressPrompts);
-
+		bool showExportOptions(bool suppressPrompts);
 
 		/** Splits the filepath in directory and file name */
 		static void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName );
+
+		/** Returns if @a object has already been exported*/
+		bool isExportedObject(ObjectIdentifier& object);
+
+		/** Inserts @a object with id @a objectId to the list of exported objects*/
+		void insertExportedObject(ObjectIdentifier& object, const String& objectId);
+
+		/** Returns the id of the the already exported object @a object. 
+		If @a object has not been exported, an empty string is returned*/
+		const String& getExportedObjectId(ObjectIdentifier& object);
 
     private:
         DocumentExporter ( const DocumentExporter & documentExporter );

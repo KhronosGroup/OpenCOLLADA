@@ -59,7 +59,12 @@ namespace COLLADAMax
         virtual ~Controller()
         {}
 
-		Object* getInitialPose()const;
+		/** Returns the pose before the application of the controller.*/
+		Object* getPoseBefore()const;
+
+		/** Returns the pose after the application of the controller.*/
+		Object* getPoseAfter()const;
+
 
 		/** Returns the controller type*/
 		ControllerType getControllerType()const{return mControllerType;}
@@ -69,6 +74,12 @@ namespace COLLADAMax
 
 		/** Returns the type of the controller*/
 		ControllerType getType()const { return mControllerType; }
+
+		/** Returns the modifier index of the controller.*/
+		int getModifierIndex()const { return mModifierIndex; }
+
+		/** Returns the derived object.*/
+		IDerivedObject* getDerivedObject()const{ return mDerivedObject; }
 
     protected:
 		/** Sets the controller type*/

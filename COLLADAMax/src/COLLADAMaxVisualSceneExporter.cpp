@@ -22,6 +22,7 @@
 #include "COLLADAInstanceGeometry.h"
 #include "COLLADAInstanceController.h"
 #include "COLLADAInstanceCamera.h"
+#include "COLLADAInstanceLight.h"
 #include "COLLADAMathUtils.h"
 #include "COLLADAURI.h"
 
@@ -122,8 +123,12 @@ namespace COLLADAMax
 				
 				for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
 					instanceController.addSkeleton('#' + getNodeId(**it));
+
+				String controllerId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(exportNode->getLastController()->getDerivedObject(), 0));
+				assert( !controllerId.empty() );
 				
-				instanceController.setUrl ( "#" + exportNode->getLastControllerId() );
+				instanceController.setUrl ( "#" + controllerId );
+//				instanceController.setUrl ( "#" + exportNode->getLastControllerId() );
 				fillInstanceMaterialList(instanceController.getBindMaterial().getInstanceMaterialList(), exportNode);
 				instanceController.add();
 
@@ -131,15 +136,31 @@ namespace COLLADAMax
 			else
 			{
 				COLLADA::InstanceGeometry instanceGeometry ( mSW );
-				instanceGeometry.setUrl ( "#" + GeometriesExporter::getGeometryId(*exportNode) );
+
+				String geometryId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(exportNode->getInitialPose()));
+				assert( !geometryId.empty() );
+
+				instanceGeometry.setUrl ( "#" + geometryId );
 				fillInstanceMaterialList(instanceGeometry.getBindMaterial().getInstanceMaterialList(), exportNode);
 				instanceGeometry.add();
 			}
         } 
 		else if ( exportNode->getType() == ExportNode::CAMERA )
 		{
-			COLLADA::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
+			String cameraId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(exportNode->getCamera()));
+			assert( !cameraId.empty() );
+
+			COLLADA::InstanceCamera instanceCamera(mSW, "#" + cameraId);
+//			COLLADA::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
 			instanceCamera.add();
+		}
+		else if ( exportNode->getType() == ExportNode::LIGHT )
+		{
+			String lightId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(exportNode->getLight()));
+			assert( !lightId.empty() );
+
+			COLLADA::InstanceLight instanceLight(mSW, "#" + lightId);
+			instanceLight.add();
 		}
 
         //export the child nodes

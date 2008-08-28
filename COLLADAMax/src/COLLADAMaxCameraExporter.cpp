@@ -135,6 +135,12 @@ namespace COLLADAMax
 		if ( camera )
 		{
 
+			if (  mDocumentExporter->isExportedObject(ObjectIdentifier(camera)) )
+				return;
+
+			mDocumentExporter->insertExportedObject(ObjectIdentifier(camera), cameraId);
+
+
 			// Retrieve the camera parameters block
 			IParamBlock* parameters = (IParamBlock*) camera->GetReference(MaxCamera::PBLOCK_REF);
 

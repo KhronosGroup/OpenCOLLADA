@@ -282,6 +282,8 @@ namespace COLLADAMax
 
         if ( object )
         {
+			if ( !mMorphControllerHelperGeometry && mDocumentExporter->isExportedObject(ObjectIdentifier(object)) )
+				return;
 
             // Retrieve the TriObject or PolyObject representation of this geometric object.
             classifyObject ( object /*, affectsControllers*/ );
@@ -296,6 +298,9 @@ namespace COLLADAMax
 				mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
 			else
 				mId = GeometriesExporter::getGeometryId(*mExportNode);
+
+			if ( !mMorphControllerHelperGeometry )
+				mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mId);
 
             mGeometriesExporter->openMesh ( mId, COLLADA::Utils::checkNCName ( iNode->GetName() ) );
 
@@ -482,7 +487,7 @@ namespace COLLADAMax
 
             mGeometriesExporter->closeMesh();
 
-            GeometryExtra geometryExtra ( mGeometriesExporter->mSW, mDocumentExporter, object, GeometriesExporter::getGeometryId(*mExportNode) );
+            GeometryExtra geometryExtra ( mGeometriesExporter->mSW, mDocumentExporter, object, mId );
 
             geometryExtra.doExport();
 

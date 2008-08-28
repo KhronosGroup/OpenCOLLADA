@@ -89,15 +89,39 @@ namespace COLLADAMax
 			return;
 
 		size_t controllerCount = controllerList->getControllerCount();
-		for ( size_t i = 0; i < controllerCount; ++i)
+		for ( size_t j = 0; j < controllerCount; ++j)
 		{
-			String controllerId = getControllerId(*exportNode, controllerCount - i, controllerList->getController(i)->getType());
+			size_t i = controllerCount - j - 1;
+	
+			Controller* controller = controllerList->getController(i);
+
+			ObjectIdentifier poseAfter(controller->getDerivedObject(), (int)i);
+
+			if ( mDocumentExporter->isExportedObject(poseAfter) )
+			{
+				if ( controller->getType() == Controller::SKIN )
+					determineReferencedJoints(exportNode, (SkinController*)controller);
+				continue;
+			}
+
+			String controllerId = getControllerId(*exportNode, controllerCount - i, controller->getType());
 			String controllerSource;
 			if ( i <  controllerCount - 1)
-				controllerSource = '#' +  getControllerId(*exportNode, controllerCount - i - 1, controllerList->getController(i+1)->getType());
+			{
+				String previousControllerId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(controllerList->getController(i+1)->getDerivedObject(), (int)i+1));
+				assert( !previousControllerId.empty() );
+				controllerSource = '#' +  previousControllerId;
+//				controllerSource = '#' +  getControllerId(*exportNode, controllerCount - i - 1, controllerList->getController(i+1)->getType());
+			}
 			else
-				controllerSource = '#' + GeometriesExporter::getGeometryId(*exportNode);
-			exportController(exportNode, controllerList->getController(i), controllerId, controllerSource);
+			{
+				String geometryId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(exportNode->getInitialPose()));
+				assert( !geometryId.empty() );
+				controllerSource = '#' + geometryId;
+//				controllerSource = '#' + GeometriesExporter::getGeometryId(*exportNode);
+			}
+			exportController(exportNode, controller, controllerId, controllerSource);
+			mDocumentExporter->insertExportedObject(poseAfter, controllerId);
 		}
 	}
 
@@ -147,9 +171,6 @@ namespace COLLADAMax
 		jointSource.setAccessorCount(jointCount);
 		jointSource.prepareToAppendValues();
 
-
-		ExportNodeSet referencedJoints;
-
 		for (int i = 0; i <  jointCount; ++i)
 		{
 			// there should not be any null bone.
@@ -164,16 +185,13 @@ namespace COLLADAMax
 			if ( !jointExportNode->hasSid() )
 				jointExportNode->setSid(mExportSceneGraph->createJointSid());
 
-			referencedJoints.insert(jointExportNode);
-			//exportNode->getControllerList()->addReferencedJoint(jointExportNode);
 			jointExportNode->setIsJoint();
 
 			jointSource.appendValues(jointExportNode->getSid());
-
 		}
 		jointSource.finish();
 
-		calculateSkeletonRoots(referencedJoints, exportNode->getControllerList());
+		determineReferencedJoints(exportNode, skinController);
 
 		//export inverse bind matrix source
 		String inverseBindMatrixId = controllerId + BIND_POSES_SOURCE_ID_SUFFIX;
@@ -341,7 +359,10 @@ namespace COLLADAMax
 				ExportNode* targetExportNode = mExportSceneGraph->getExportNode(targetINode);
 				assert(targetExportNode);
 
-				listOfTargetIds.push_back(GeometriesExporter::getGeometryId(*targetExportNode));
+				String geometryId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(targetExportNode->getInitialPose()));
+				assert( !geometryId.empty() );
+				listOfTargetIds.push_back(geometryId);
+//				listOfTargetIds.push_back(GeometriesExporter::getGeometryId(*targetExportNode));
 			}
 		}
 
@@ -389,8 +410,34 @@ namespace COLLADAMax
 	}
 
 
+	void ControllerExporter::determineReferencedJoints(ExportNode* exportNode, SkinController* skinController)
+	{
+		ISkin* skin = skinController->getSkin();
+
+		int jointCount = skin->GetNumBones();
+
+		ExportNodeSet referencedJoints;
+
+		for (int i = 0; i <  jointCount; ++i)
+		{
+			// there should not be any null bone.
+			// the ISkin::GetBone, not GetBoneFlat, function is called here.
+			INode* boneNode = skin->GetBone(i);
+			assert(boneNode);
+
+			ExportNode* jointExportNode = mExportSceneGraph->getExportNode(boneNode);
+			assert(jointExportNode);
+
+			referencedJoints.insert(jointExportNode);
+		}
+
+		determineSkeletonRoots(referencedJoints, exportNode->getControllerList());
+	}
+
+
+
 	//---------------------------------------------------------------
-	void ControllerExporter::calculateSkeletonRoots( const ExportNodeSet &referencedJoints, ControllerList * controllerList)
+	void ControllerExporter::determineSkeletonRoots( const ExportNodeSet &referencedJoints, ControllerList * controllerList)
 	{
 		for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
 		{

@@ -53,6 +53,8 @@ namespace COLLADAMax
 
 	typedef std::vector<float> FloatList;
 
+
+	typedef std::map<Object*, String> ObjectStringMap;
 }
 
 

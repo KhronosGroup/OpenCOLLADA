@@ -99,7 +99,7 @@ namespace COLLADAMax
 	Object* ControllerList::getInitialPose() const
 	{
 		if ( !mControllers.empty() )
-			return mControllers.back()->getInitialPose();
+			return mControllers.back()->getPoseBefore();
 		else
 			return 0;
 	}

@@ -159,6 +159,11 @@ namespace COLLADAMax
 		if ( !lightObject )
 			return;
 
+		if (  mDocumentExporter->isExportedObject(ObjectIdentifier(lightObject)) )
+			return;
+
+		mDocumentExporter->insertExportedObject(ObjectIdentifier(lightObject), lightId);
+
 		// Retrieve the target node, if we are not baking matrices.
 		// Baked matrices must always sample the transform!
 		ULONG ClassId = lightObject->ClassID().PartA();
