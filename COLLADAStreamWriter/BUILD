@@ -1,10 +1,13 @@
 Requirements:
 -------------
 To build the COLLADAStreamWriter, you need following installations:
-- 	Boost C++ libraries
+- 	Latest version of Boost C++ libraries
 
-Supported versions of boost c++ libraries:
+Supported and tested versions of boost c++ libraries:
 -	Boost 1.35
+
+You can download the latest version of boost from:
+http://www.boost.org/users/download/
 
 You also need a c++ compiler. The current Project was build with 
 Microsoft Visual Studio 2005 and the VC2005 platform SDK. You can 
