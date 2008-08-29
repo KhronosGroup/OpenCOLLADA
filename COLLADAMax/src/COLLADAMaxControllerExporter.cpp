@@ -21,7 +21,9 @@
 #include "COLLADAMaxControllerExporter.h"
 #include "COLLADAMaxGeometriesExporter.h"
 #include "COLLADAMaxVisualSceneExporter.h"
+#include "COLLADAMaxAnimationExporter.h"
 #include "COLLADAMaxTypes.h"
+#include "COLLADAMaxConversionFunctor.h"
 
 #include "COLLADASource.h"
 #include "COLLADABaseInputElement.h"
@@ -108,20 +110,18 @@ namespace COLLADAMax
 			String controllerSource;
 			if ( i <  controllerCount - 1)
 			{
-				String previousControllerId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(controllerList->getController(i+1)->getDerivedObject(), (int)i+1));
-				assert( !previousControllerId.empty() );
-				controllerSource = '#' +  previousControllerId;
-//				controllerSource = '#' +  getControllerId(*exportNode, controllerCount - i - 1, controllerList->getController(i+1)->getType());
+				ExportNode* previousControllerExportNode = mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(controllerList->getController(i+1)->getDerivedObject(), (int)i+1));
+				assert( previousControllerExportNode );
+				controllerSource = '#' +  getControllerId(*previousControllerExportNode, controllerCount - i - 1, controllerList->getController(i+1)->getType());
 			}
 			else
 			{
-				String geometryId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(exportNode->getInitialPose()));
-				assert( !geometryId.empty() );
-				controllerSource = '#' + geometryId;
-//				controllerSource = '#' + GeometriesExporter::getGeometryId(*exportNode);
+				ExportNode* geometryExportNode = mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getInitialPose()));
+				assert( geometryExportNode );
+				controllerSource = '#' + GeometriesExporter::getGeometryId(*geometryExportNode);
 			}
 			exportController(exportNode, controller, controllerId, controllerSource);
-			mDocumentExporter->insertExportedObject(poseAfter, controllerId);
+			mDocumentExporter->insertExportedObject(poseAfter, exportNode);
 		}
 	}
 
@@ -145,7 +145,7 @@ namespace COLLADAMax
 
 		if ( !skin )
 			return;
-			
+
 		openSkin(controllerId, skinSource);
 	
 		INode* iNode = exportNode->getINode();
@@ -331,6 +331,8 @@ namespace COLLADAMax
 		FloatList listOfWeights;
 		StringList listOfTargetIds;
 
+		String weightsId = controllerId + WEIGHTS_SOURCE_ID_SUFFIX;
+
 		size_t channelBankCount = morpher->chanBank.size();
 		for ( size_t i = 0; i<channelBankCount; ++i)
 		{
@@ -341,7 +343,10 @@ namespace COLLADAMax
 
 			INode* targetINode = channel.mConnection;
 
-			listOfWeights.push_back(0.01f * channel.cblock->GetFloat(0, TIME_EXPORT_START));
+			listOfWeights.push_back(ConversionFunctors::fromPercent(channel.cblock->GetFloat(morphChannel::cblock_weight_index, mDocumentExporter->getOptions().getAnimationStart())));
+
+			Control* weightController = channel.cblock->GetController(morphChannel::cblock_weight_index);
+			mDocumentExporter->getAnimationExporter()->addAnimatedFloat(weightController, weightsId, EMPTY_STRING, (int)i, &ConversionFunctors::fromPercent );
 
 			if ( !targetINode )
 			{
@@ -359,10 +364,10 @@ namespace COLLADAMax
 				ExportNode* targetExportNode = mExportSceneGraph->getExportNode(targetINode);
 				assert(targetExportNode);
 
-				String geometryId = mDocumentExporter->getExportedObjectId(ObjectIdentifier(targetExportNode->getInitialPose()));
-				assert( !geometryId.empty() );
-				listOfTargetIds.push_back(geometryId);
-//				listOfTargetIds.push_back(GeometriesExporter::getGeometryId(*targetExportNode));
+				ExportNode* geometryExportNode = mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(targetExportNode->getInitialPose()));
+				assert( geometryExportNode );
+//				listOfTargetIds.push_back(geometryExportNode);
+				listOfTargetIds.push_back(GeometriesExporter::getGeometryId(*geometryExportNode));
 			}
 		}
 
@@ -385,7 +390,6 @@ namespace COLLADAMax
 
 
 		//export weights source
-		String weightsId = controllerId + WEIGHTS_SOURCE_ID_SUFFIX;
 		COLLADA::FloatSource weightsSource(mSW);
 		weightsSource.setId(weightsId);
 		weightsSource.setArrayId(weightsId + ARRAY_ID_SUFFIX);

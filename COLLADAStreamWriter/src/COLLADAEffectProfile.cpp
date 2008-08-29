@@ -31,18 +31,17 @@ namespace COLLADA
     , mTransparency ( -1 )
     , mIndexOfRefraction ( -1 )
     , mShininess ( -1 )
-    , mTransparentSid ( "" )
-    , mEmissionSid ( "" )
-    , mAmbientSid ( "" )
-    , mDiffuseSid ( "" )
-    , mSpecularSid ( "" )
-    , mReflectiveSid ( "" )
-    , mShininessSid ( "" )
-    , mReflectivitySid ( "" )
-    , mOpaqueSid ( "" )
-    , mTransparencySid ( "" )
-    , mIndexOfRefractionSid ( "" )
-    , mExtraTechniqueColorOrTextureSid ( "" )
+    , mTransparentSid (  )
+    , mEmissionSid (  )
+    , mAmbientSid (  )
+    , mDiffuseSid (  )
+    , mSpecularSid (  )
+    , mReflectiveSid (  )
+    , mShininessSid (  )
+    , mReflectivitySid (  )
+    , mTransparencySid (  )
+    , mIndexOfRefractionSid (  )
+    , mExtraTechniqueColorOrTextureSid (  )
     {}
 
     //---------------------------------------------------------------
@@ -64,7 +63,7 @@ namespace COLLADA
         addFloat ( CSWC::COLLADA_ELEMENT_SHININESS, mShininess, mShininessSid );
         addColorOrTexture ( CSWC::COLLADA_ELEMENT_REFLECTIVE, mReflective, mReflectiveSid );
         addFloat ( CSWC::COLLADA_ELEMENT_REFLECTIVITY, mReflectivity, mReflectivitySid );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, mOpaque, mOpaqueSid );
+        addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, mOpaque);
         addFloat ( CSWC::COLLADA_ELEMENT_TRANSPARENCY, mTransparency, mTransparencySid );
         addFloat ( CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION, mIndexOfRefraction, mIndexOfRefractionSid );
 
@@ -319,8 +318,8 @@ namespace COLLADA
         const String& elementName,
         const ColorOrTexture& colorOrTexture,
         const String& elementSid,
-        Opaque opaque, 
-        const String& opaqueSid ) const
+        Opaque opaque
+		) const
     {
         bool isColor = colorOrTexture.isColor();
         bool isTexture =  colorOrTexture.isTexture();
@@ -329,9 +328,6 @@ namespace COLLADA
             return;
 
         mSW->openElement ( elementName );
-
-        if ( !opaqueSid.empty() )
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, opaqueSid );
 
         if ( opaque != UNSPECIFIED_OPAQUE )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_OPAQUE, getOpaqueString ( opaque ) );

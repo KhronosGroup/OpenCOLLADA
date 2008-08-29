@@ -162,7 +162,7 @@ namespace COLLADAMax
 		if (  mDocumentExporter->isExportedObject(ObjectIdentifier(lightObject)) )
 			return;
 
-		mDocumentExporter->insertExportedObject(ObjectIdentifier(lightObject), lightId);
+		mDocumentExporter->insertExportedObject(ObjectIdentifier(lightObject), exportNode);
 
 		// Retrieve the target node, if we are not baking matrices.
 		// Baked matrices must always sample the transform!
@@ -340,9 +340,6 @@ namespace COLLADAMax
 				addExtraChildParameter(SKYLIGHT_ELEMENT, SKYLIGHT_COLORMAP_ELEMENT, "#" + imageId);
 			}
 		}
-
-		if ( parametersSky )
-			writeParameterBlockInfo("c:\\temp\\paramters.txt", parametersSky);
 
 		addExtraTechniques();
 

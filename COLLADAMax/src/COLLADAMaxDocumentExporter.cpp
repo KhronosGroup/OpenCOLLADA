@@ -91,9 +91,9 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::createExporters()
     {
+		mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
         mEffectExporter = new EffectExporter ( &mStreamWriter, &mExportSceneGraph, this );
         mMaterialExporter = new MaterialExporter ( &mStreamWriter, this );
-        mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
 
     }
 
@@ -312,19 +312,19 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
-	void DocumentExporter::insertExportedObject( ObjectIdentifier& object, const String& objectId )
+	void DocumentExporter::insertExportedObject( ObjectIdentifier& object, ExportNode* objectExportNode )
 	{
-		mExportedObjects[object] = objectId;
+		mExportedObjects[object] = objectExportNode;
 	}
 
 	//---------------------------------------------------------------
-	const String& DocumentExporter::getExportedObjectId( ObjectIdentifier& object )
+	ExportNode* DocumentExporter::getExportedObjectExportNode( ObjectIdentifier& object )
 	{
-		ObjectIdMap::const_iterator it = mExportedObjects.find(object);
+		ObjectExportNodeMap::const_iterator it = mExportedObjects.find(object);
 		if ( it != mExportedObjects.end() )
 			return it->second;
 		else
-			return COLLADA::Utils::EMPTY_STRING;
+			return 0;
 	}
 
 	//---------------------------------------------------------------

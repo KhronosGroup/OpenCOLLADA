@@ -41,10 +41,26 @@ namespace COLLADAMax
             mId ( id ),
             mSid ( sid ),
             mParameters ( parameter ),
+			mMatrixIndex(-1),
             mType ( type ),
 			mConversionFunctor( conversionFunctor ? conversionFunctor->clone() : 0 ),
 			mInputTypeFlags(NONE)
     {}
+
+
+	//---------------------------------------------------------------
+	Animation::Animation ( Control * controller, const String & id, const String & sid, int matrixIndex, int type, ConversionFunctor* conversionFunctor )
+		: mController ( controller ),
+		mINode(0),
+		mId ( id ),
+		mSid ( sid ),
+		mParameters ( 0 ),
+		mMatrixIndex(matrixIndex),
+		mType ( type ),
+		mConversionFunctor( conversionFunctor ? conversionFunctor->clone() : 0 ),
+		mInputTypeFlags(NONE)
+	{}
+
 
 
 	//---------------------------------------------------------------
@@ -55,6 +71,7 @@ namespace COLLADAMax
 		mId ( id ),
 		mSid ( sid ),
 		mParameters ( parameter ),
+		mMatrixIndex(-1),
 		mType ( type ),
 		mConversionFunctor( conversionFunctor ? conversionFunctor->clone() : 0 ),
 		mInputTypeFlags(NONE)
@@ -67,6 +84,7 @@ namespace COLLADAMax
 		mId( other.mId),
 		mSid(other.mSid),
 		mParameters(other.mParameters),
+		mMatrixIndex(other.mMatrixIndex),
 		mType(other.mType),
 		mInputTypeFlags(other.mInputTypeFlags),
 		mConversionFunctor ( other.mConversionFunctor ? other.mConversionFunctor->clone() : 0)
@@ -79,6 +97,7 @@ namespace COLLADAMax
 		mId =  other.mId;
 		mSid = other.mSid;
 		mParameters = other.mParameters;
+		mMatrixIndex = other.mMatrixIndex;
 		mType = other.mType;
 		mInputTypeFlags = other.mInputTypeFlags;
 		mConversionFunctor  = other.mConversionFunctor ? other.mConversionFunctor->clone() : 0; 
@@ -92,17 +111,11 @@ namespace COLLADAMax
         {
 
         case FLOAT:
-
         case POSITION_X:
-
         case POSITION_Y:
-
         case POSITION_Z:
-
         case ROTATION_X:
-
         case ROTATION_Y:
-
         case ROTATION_Z:
             return 1;
 
@@ -111,7 +124,9 @@ namespace COLLADAMax
 		
 		case SCALE_ROT_AXIS_R:
 		case SCALE_ROT_AXIS:
+		case FLOAT4:
 			return 4;
+
 		case FLOAT4x4:
 			return 16;
 
@@ -156,8 +171,6 @@ namespace COLLADAMax
     {
         return ( i < keyCount - 1 ) ? controller->GetKeyTime ( i + 1 ) : controller->GetKeyTime ( i ) + TimeValue ( 1.0f / mTimeFactor );
     }
-
-
 
 	//---------------------------------------------------------------
 	bool AnimationExporter::forceSampleMatrices(INode* iNode)
@@ -240,6 +253,18 @@ namespace COLLADAMax
 	}
 
 
+	//---------------------------------------------------------------
+	bool AnimationExporter::addAnimatedFloat ( Control * controller, const String & id, const String & sid, int matrixIndex, ConversionFunctor* conversionFunctor)
+	{
+		if ( !isAnimated(controller) )
+			return false;
+
+		Animation animation(controller, id, sid, matrixIndex, Animation::FLOAT, conversionFunctor);
+		addAnimation(animation);
+
+		return true;
+	}
+
 
 
     //---------------------------------------------------------------
@@ -275,7 +300,42 @@ namespace COLLADAMax
 		return animated;
     }
 
-    //---------------------------------------------------------------
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor )
+	{
+		bool animated = false;
+
+		Control * subControllers[ 4 ] = {controller->GetXController(), controller->GetYController(), controller->GetZController(), controller->GetWController() };
+
+		// First, Try to extract animations from the component controllers
+
+		if ( subControllers[ 0 ] && subControllers[ 1 ]  && subControllers[ 2 ]  && subControllers[ 3 ] )
+		{
+			for ( int i = 0; i < 3; ++i )
+			{
+				if ( isAnimated ( subControllers[ i ] ) )
+				{
+					Animation animation ( subControllers[ i ], id, sid, parameters + i, Animation::FLOAT, conversionFunctor );
+					addAnimation ( animation );
+					animated = true;
+				}
+			}
+		}
+
+		else if ( isAnimated ( controller ) )
+		{
+			// Else, with no subs, try and export ourselves as keyframes
+			Animation animation ( controller, id, sid, parameters, Animation::FLOAT4, conversionFunctor );
+			addAnimation ( animation );
+			animated = true;
+		}
+
+		return animated;
+	}
+
+	
+	//---------------------------------------------------------------
     void AnimationExporter::addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle )
     {
         if ( isAnimated ( controller ) )
@@ -344,7 +404,7 @@ namespace COLLADAMax
 			return addAnimatedFloat(controller, id, sid, parameters, conversionFunctor);
 		case TYPE_COLOR:
 		case TYPE_RGBA:
-			return addAnimatedPoint3(controller, id, sid, parameters, conversionFunctor);
+			return addAnimatedPoint4(controller, id, sid, parameters, conversionFunctor);
 		}
 		return false;
 	}
@@ -366,7 +426,7 @@ namespace COLLADAMax
 			return addAnimatedFloat(controller, id, sid, parameters, conversionFunctor);
 		case TYPE_COLOR:
 		case TYPE_RGBA:
-			return addAnimatedPoint3(controller, id, sid, parameters, conversionFunctor);
+			return addAnimatedPoint4(controller, id, sid, parameters, conversionFunctor);
 		}
 		return false;
 	}
@@ -514,19 +574,48 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     String AnimationExporter::getBaseId ( const Animation & animation )
     {
-        if ( (animation.getDimension() == 1) && (animation.getParameter()) )
-            return animation.getId() + "_" + animation.getSid() + "." + * ( animation.getParameter() );
-        else
-            return animation.getId() + "_" + animation.getSid();
+
+		String baseId = animation.getId();
+
+		const String& sid = animation.getSid();
+
+		if ( !sid.empty() )
+			baseId += "_" + animation.getSid();
+
+
+		if ( animation.getMatrixIndex() < 0)
+		{
+			if ( (animation.getDimension() == 1) && (animation.getParameter()) )
+				baseId += "." + * ( animation.getParameter() );
+		}
+		else
+		{
+			baseId += "_" + COLLADA::Utils::toString(animation.getMatrixIndex()) + "_";
+		}
+		return baseId;
     }
 
     //---------------------------------------------------------------
     String AnimationExporter::getTarget ( const Animation & animation )
     {
-        if ( (animation.getDimension() == 1) && (animation.getParameter()) )
-            return animation.getId() + "/" + animation.getSid() + "." + * ( animation.getParameter() );
-        else
-            return animation.getId() + "/" + animation.getSid();
+		String target = animation.getId();
+
+		const String& sid = animation.getSid();
+
+		if ( !sid.empty() )
+			target += "/" + animation.getSid();
+
+
+		if ( animation.getMatrixIndex() < 0)
+		{
+			if ( (animation.getDimension() == 1) && (animation.getParameter()) )
+				target += "." + * ( animation.getParameter() );
+		}
+		else
+		{
+			target += "(" + COLLADA::Utils::toString(animation.getMatrixIndex()) + ")";
+		}
+		return target;
     }
 
     //---------------------------------------------------------------

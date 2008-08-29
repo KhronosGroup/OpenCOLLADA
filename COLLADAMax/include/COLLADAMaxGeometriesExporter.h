@@ -38,6 +38,13 @@ namespace COLLADAMax
     class GeometriesExporter : public COLLADA::LibraryGeometries
     {
 
+	public:
+		/** List of material ids.*/
+		typedef std::vector<size_t> MaterialIDList;
+
+		/** Maps Objects to material lists.*/
+		typedef std::map<Object*, MaterialIDList> ObjectMaterialIDListMap;
+
     private:
         /** The export scene graph to export.*/
         ExportSceneGraph * mExportSceneGraph;
@@ -47,6 +54,9 @@ namespace COLLADAMax
 
         /** Prefix of the symbol names.*/
         static const String SYMBOL_NAME_PREFIX;
+
+		/** Maps exported geometry objects to their list of material ids.*/
+		GeometriesExporter::ObjectMaterialIDListMap mExportedObjectMaterialIDListMap;
 
     public:
         /** Constructor
@@ -62,7 +72,6 @@ namespace COLLADAMax
 		/** Creates an id for the geometry, derived from the node id*/
 		static String getGeometryId(const ExportNode& exportNode);
 
-
     private:
         GeometriesExporter ( const GeometriesExporter & geometriesExporter );
         GeometriesExporter &operator= ( const GeometriesExporter & geometriesExporter );
@@ -71,6 +80,10 @@ namespace COLLADAMax
 
         /** Exports all the geometries in @a node and all its child nodes.*/
         void doExport ( ExportNode* exportNode );
+
+		/** Returns the map of exported geometry objects to their list of material ids.*/
+		ObjectMaterialIDListMap& getExportedObjectMaterialIDListMap(){return mExportedObjectMaterialIDListMap;}
+
 
     };
 

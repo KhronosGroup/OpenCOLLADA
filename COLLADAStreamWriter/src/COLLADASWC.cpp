@@ -45,6 +45,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_COLLADA = "COLLADA";
     const String CSWC::COLLADA_ELEMENT_COLOR = "color";
     const String CSWC::COLLADA_ELEMENT_DIFFUSE = "diffuse";
+	const String CSWC::COLLADA_ELEMENT_DIRECTIONAL = "directional";
     const String CSWC::COLLADA_ELEMENT_EFFECT = "effect";
     const String CSWC::COLLADA_ELEMENT_EMISSION = "emission";
     const String CSWC::COLLADA_ELEMENT_EXTRA = "extra";
@@ -83,11 +84,6 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_LIBRARY_MATERIALS = "library_materials";
     const String CSWC::COLLADA_ELEMENT_LIBRARY_VISUAL_SCENES = "library_visual_scenes";
     const String CSWC::COLLADA_ELEMENT_LIGHT = "light";
-    const String CSWC::COLLADA_ELEMENT_LIGHT_INSTANCE_LIGHT = "instance_light";
-    const String CSWC::COLLADA_ELEMENT_LIGHT_AMBIENT = "ambient";
-    const String CSWC::COLLADA_ELEMENT_LIGHT_DIRECTIONAL = "directional";
-    const String CSWC::COLLADA_ELEMENT_LIGHT_POINT = "point";
-    const String CSWC::COLLADA_ELEMENT_LIGHT_SPOT = "spot";
 	const String CSWC::COLLADA_ELEMENT_LINEAR_ATTENUATION = "linear_attenuation";
     const String CSWC::COLLADA_ELEMENT_LOOKAT = "lookat";
     const String CSWC::COLLADA_ELEMENT_MAGFILTER = "magfilter";
@@ -106,6 +102,7 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_PARAM = "param";
     const String CSWC::COLLADA_ELEMENT_PH = "ph";
     const String CSWC::COLLADA_ELEMENT_PHONG = "phong";
+	const String CSWC::COLLADA_ELEMENT_POINT = "point";
     const String CSWC::COLLADA_ELEMENT_POLYLIST = "polylist";
     const String CSWC::COLLADA_ELEMENT_POLYGONS = "polygons";
     const String CSWC::COLLADA_ELEMENT_PROFILE_COMMON = "profile_COMMON";
@@ -125,7 +122,8 @@ namespace COLLADA
     const String CSWC::COLLADA_ELEMENT_SPECULAR = "specular";
     const String CSWC::COLLADA_ELEMENT_SOURCE = "source";
     const String CSWC::COLLADA_ELEMENT_SOURCE_DATA = "source_data";
-    const String CSWC::COLLADA_ELEMENT_SUBJECT = "subject";
+	const String CSWC::COLLADA_ELEMENT_SPOT = "spot";
+	const String CSWC::COLLADA_ELEMENT_SUBJECT = "subject";
     const String CSWC::COLLADA_ELEMENT_SURFACE = "surface";
     const String CSWC::COLLADA_ELEMENT_TARGETS = "targets";
     const String CSWC::COLLADA_ELEMENT_TECHNIQUE = "technique";

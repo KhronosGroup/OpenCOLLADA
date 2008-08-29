@@ -138,7 +138,7 @@ namespace COLLADAMax
 			if (  mDocumentExporter->isExportedObject(ObjectIdentifier(camera)) )
 				return;
 
-			mDocumentExporter->insertExportedObject(ObjectIdentifier(camera), cameraId);
+			mDocumentExporter->insertExportedObject(ObjectIdentifier(camera), exportNode);
 
 
 			// Retrieve the camera parameters block
@@ -159,7 +159,7 @@ namespace COLLADAMax
 				}
 				else
 				{
-					targetDistance = camera->GetTDist(TIME_EXPORT_START);
+					targetDistance = camera->GetTDist(mDocumentExporter->getOptions().getAnimationStart());
 				}
 				ConversionInverseOrthoFOVFunctor conversionInverseOrthoFOVFunctor(targetDistance);
 

@@ -47,29 +47,35 @@ namespace COLLADAMax
 
 	typedef const ConversionFunctor* const & ConversionFunctorType;
 
-	/** Conversion functor to convert from radians to degree. */
-	class RadToDegConversionFunctor : public ConversionFunctor
+
+	/** Conversion functor to convert to percent, i.e. ist divides by 100 */
+	class ScaleConversionFunctor : public ConversionFunctor
 	{
+	private:
+		float mScaleFactor;
 	public:
 		/** Constructor. */
-		RadToDegConversionFunctor() {}
+		ScaleConversionFunctor(float scaleFactor) : mScaleFactor(scaleFactor) {}
 
 		/** Destructor. */
-		virtual ~RadToDegConversionFunctor() {} 
+		virtual ~ScaleConversionFunctor() {} 
 
 		/** This member must create a new instance of the class and return a pointer to it.*/
-		virtual ConversionFunctor* clone()const { return new RadToDegConversionFunctor(*this); }
+		virtual ConversionFunctor* clone()const { return new ScaleConversionFunctor(*this); }
 
 		/** Main functor to override. 
 		@param v The value to convert. @return The converted value. */
-		virtual float operator() (float v)const { return COLLADA::MathUtils::radToDegF(v); }; 
+		virtual float operator() (float v)const { return v * mScaleFactor; }; 
 	};
+
 
 	/** Collection of instantiations of conversion functors*/
 	class ConversionFunctors
 	{
 	public:
-		static RadToDegConversionFunctor radToDeg;
+		static ScaleConversionFunctor radToDeg;
+		static ScaleConversionFunctor fromPercent;
+		static ScaleConversionFunctor toPercent;
 
 	};
 

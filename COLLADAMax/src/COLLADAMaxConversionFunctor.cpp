@@ -25,6 +25,8 @@
 namespace COLLADAMax
 {
 
-	RadToDegConversionFunctor ConversionFunctors::radToDeg = RadToDegConversionFunctor();
+	ScaleConversionFunctor ConversionFunctors::radToDeg = ScaleConversionFunctor(COLLADA::MathUtils::RAD_TO_DEG_f);
+	ScaleConversionFunctor ConversionFunctors::fromPercent = ScaleConversionFunctor( 0.01f );
+	ScaleConversionFunctor ConversionFunctors::toPercent = ScaleConversionFunctor( 100 );
 
 }

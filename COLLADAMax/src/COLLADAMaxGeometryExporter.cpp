@@ -59,7 +59,6 @@ namespace COLLADAMax
 {
 
 
-    typedef std::vector<size_t> MaterialIDList;
 
     inline bool isFinite ( const Point3& p )
     {
@@ -282,8 +281,27 @@ namespace COLLADAMax
 
         if ( object )
         {
-			if ( !mMorphControllerHelperGeometry && mDocumentExporter->isExportedObject(ObjectIdentifier(object)) )
+
+			// Retrieve the list of materials assigned to the different polygons of this mesh
+			Mtl* nodeMaterial = iNode->GetMtl();
+
+			MaterialList materials;
+
+			if ( nodeMaterial )
+			{
+				flattenMaterials ( nodeMaterial, materials );
+			}
+
+			GeometriesExporter::MaterialIDList& materialIDs = mGeometriesExporter->getExportedObjectMaterialIDListMap()[object];
+
+			ExportNode* exportedObjectExportNode = mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(object));
+
+			if ( !mMorphControllerHelperGeometry && exportedObjectExportNode )
+			{
+				// We only need to set the required material symbols as used.
+				setSymbolsAsUsed(mExportNode, exportedObjectExportNode, materialIDs, materials);
 				return;
+			}
 
             // Retrieve the TriObject or PolyObject representation of this geometric object.
             classifyObject ( object /*, affectsControllers*/ );
@@ -295,12 +313,13 @@ namespace COLLADAMax
 			}
 
 			if ( mMorphControllerHelperGeometry )
-				mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
+				assert(false); // solve id problem in mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mExportNode);
+				//mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
 			else
 				mId = GeometriesExporter::getGeometryId(*mExportNode);
 
 			if ( !mMorphControllerHelperGeometry )
-				mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mId);
+				mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mExportNode);
 
             mGeometriesExporter->openMesh ( mId, COLLADA::Utils::checkNCName ( iNode->GetName() ) );
 
@@ -343,19 +362,9 @@ namespace COLLADAMax
             }
 
 
-            // Retrieve the list of materials assigned to the different polygons of this mesh
-            Mtl* mat = iNode->GetMtl();
 
-			exportTextures ( channelList, mat );
+			exportTextures ( channelList, nodeMaterial );
 
-            MaterialList materials;
-
-            if ( mat )
-            {
-                flattenMaterials ( mat, materials );
-            }
-
-            MaterialIDList materialIDs;
 
             size_t numMaterials = materials.size();
 
@@ -435,13 +444,13 @@ namespace COLLADAMax
             // Create one COLLADA polygon set for each material used in the mesh
             //   FCDMaterial* blackMtl = NULL;
 
-            for ( MaterialIDList::iterator it = materialIDs.begin(); it != materialIDs.end(); ++it )
+			for ( GeometriesExporter::MaterialIDList::iterator it = materialIDs.begin(); it != materialIDs.end(); ++it )
             {
                 size_t matID = *it;
 
                 String symbol;
 
-                if ( !mat )
+                if ( !nodeMaterial )
                 {
                     symbol = COLOR_MATERIAL_SYMBOL;
                 }
@@ -485,6 +494,7 @@ namespace COLLADAMax
             }
 
 
+
             mGeometriesExporter->closeMesh();
 
             GeometryExtra geometryExtra ( mGeometriesExporter->mSW, mDocumentExporter, object, mId );
@@ -497,6 +507,75 @@ namespace COLLADAMax
         }
 
     }
+
+
+
+	//---------------------------------------------------------------
+	void GeometryExporter::setSymbolsAsUsed(ExportNode* exportNode, ExportNode* exportedObjectExportNode, const GeometriesExporter::MaterialIDList& materialIDs, const MaterialList& materials)
+	{
+		Mtl* nodeMaterial = exportNode->getINode()->GetMtl();
+
+		size_t numMaterials = materials.size();
+
+
+		MaterialList exportedObjectMaterials;
+
+		Mtl* exportedObjectMaterial = exportedObjectExportNode->getINode()->GetMtl();
+
+		if ( exportedObjectMaterial )
+		{
+			flattenMaterials ( exportedObjectMaterial, exportedObjectMaterials );
+		}
+
+		size_t numExportedObjectMaterials = exportedObjectMaterials.size();
+
+		ExportNode::MeshSymbolMap & exportedObjectMeshSymbolMap = exportedObjectExportNode->getMeshSymbolMap();
+
+		ExportNode::MeshSymbolMap & meshSymbolMap = exportNode->getMeshSymbolMap();
+		// We need construct the mesh symbol map completely new, since we need the material symbols from the already exported 
+		// object
+		meshSymbolMap.clear();
+
+		for ( GeometriesExporter::MaterialIDList::const_iterator it = materialIDs.begin(); it != materialIDs.end(); ++it )
+		{
+			size_t matID = *it;
+
+			if ( nodeMaterial )
+			{
+				Mtl* subMaterial = materials[ matID % numMaterials ];
+
+				if ( subMaterial )
+				{
+					// check for XRefs
+					/*      if (XRefFunctions::IsXRefMaterial(subMaterial))
+					{
+					if (!OPTS->ExportXRefs())
+					{
+					// resolve the source
+					subMaterial = XRefFunctions::GetXRefMaterialSource(subMaterial);
+					}
+					// else do nothing, this is only a material instance
+					}
+					*/
+					// if this is a XRef it'll return NULL
+
+
+					ExportNode::Symbol& symbol = meshSymbolMap[subMaterial];
+
+					Mtl* exportedObjectSubMaterial = exportedObjectMaterials[ matID % numExportedObjectMaterials ];
+
+					symbol.name = exportedObjectMeshSymbolMap[exportedObjectSubMaterial].name;
+					symbol.used = true;
+
+
+//					mExportNode->getSymbolByMaterialAndSetAsUsed ( subMaterial );
+
+				}
+			}
+
+		}
+
+	}
 
 
 
@@ -825,9 +904,7 @@ namespace COLLADAMax
                     source.appendValues ( 0, 0, 1 );
 				}
             }
-
         }
-
         source.finish();
     }
 
@@ -939,15 +1016,10 @@ namespace COLLADAMax
                     }
                 }
             }
-
         }
-
         polylist.finish();
     }
 
-
-
-    // from fcollada
     //---------------------------------------------------------------
     void GeometryExporter::flattenMaterials ( Mtl* material, MaterialList& materialMap, int materialIndex )
     {
@@ -1007,5 +1079,9 @@ namespace COLLADAMax
             materialMap.push_back ( material );
         }
     }
+
+
+
+
 
 }

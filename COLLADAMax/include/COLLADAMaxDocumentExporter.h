@@ -51,7 +51,7 @@ namespace COLLADAMax
     class DocumentExporter
     {
 	private:
-		typedef std::map<ObjectIdentifier, String> ObjectIdMap;
+		typedef std::map<ObjectIdentifier, ExportNode*> ObjectExportNodeMap;
 
     private:
 		/** The name of the output file.*/
@@ -84,7 +84,7 @@ namespace COLLADAMax
         static const String SCENE_ID;
 
 		/** A map, that hold all already exported objects with their ids*/
-		ObjectIdMap mExportedObjects;
+		ObjectExportNodeMap mExportedObjects;
 
     public:
         /** Constructor
@@ -149,11 +149,11 @@ namespace COLLADAMax
 		bool isExportedObject(ObjectIdentifier& object);
 
 		/** Inserts @a object with id @a objectId to the list of exported objects*/
-		void insertExportedObject(ObjectIdentifier& object, const String& objectId);
+		void insertExportedObject(ObjectIdentifier& object, ExportNode* objectExportNode);
 
 		/** Returns the id of the the already exported object @a object. 
 		If @a object has not been exported, an empty string is returned*/
-		const String& getExportedObjectId(ObjectIdentifier& object);
+		ExportNode* getExportedObjectExportNode(ObjectIdentifier& object);
 
     private:
         DocumentExporter ( const DocumentExporter & documentExporter );

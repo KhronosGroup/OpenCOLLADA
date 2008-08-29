@@ -22,6 +22,8 @@
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxMultiMtl.h"
+#include "COLLADAMaxAnimationExporter.h"
+#include "COLLADAMaxConversionFunctor.h"
 
 #include "COLLADANode.h"
 //#include "COLLADATextureModifier.h"
@@ -59,11 +61,56 @@ namespace COLLADAMax
     const String EffectExporter::EMPTY_STRING = "";
 
 
+	const String EffectExporter::SELF_ILLUMINATION_PARAMETER = "self_illumination";
+	
+
+
+	const String EffectExporter::COLOR_PARAMETERS[ 4 ] =
+	{"R", "G", "B", "A"
+	};
+
+
+
+	const String EffectExporter::SHADER_ELEMENT = "shader";
+	const int EffectExporter::SHADER_PARAMETER_COUNT = 7;
+	const Extra::ExtraParameter EffectExporter::SHADER_PARAMETERS[] =
+	{
+		{TYPE_BOOL, 3, "ambient_diffuse_lexture_lock"},
+		{TYPE_BOOL, 4, "ambient_diffuse_lock"},
+		{TYPE_BOOL, 5, "diffuse_specular_lock"},
+		{TYPE_BOOL, 6, "use_self_illum_color"},
+		{TYPE_PCNT_FRAC, 7, "self_illumination"},
+		{TYPE_PCNT_FRAC, 9, "specular_level"},
+		{TYPE_FLOAT, 11, "soften"}
+	};
+
+
+	const String EffectExporter::EXTENDED_SHADER_ELEMENT = "extended_shader";
+	const int EffectExporter::EXTENDED_SHADER_PARAMETER_COUNT = 11;
+	const Extra::ExtraParameter EffectExporter::EXTENDED_SHADER_PARAMETERS[] =
+	{
+		{TYPE_INT, 0, "opacity_type"},
+		{TYPE_RGBA, 2, "filter_color"},
+		{TYPE_TEXMAP, 3, "filtert_map"},
+		{TYPE_INT, 4, "falloff_type"},
+		{TYPE_PCNT_FRAC, 5, "falloff"},
+		{TYPE_FLOAT, 6, "index_of_refraction"},
+		{TYPE_FLOAT, 7, "wire_Size"},
+		{TYPE_INT, 8, "wire_units"},
+		{TYPE_BOOL, 9, "apply_reflection_dimming"},
+		{TYPE_FLOAT, 10, "dim_level"},
+		{TYPE_FLOAT, 11, "reflection_level"}
+	};
+
+
+
     //---------------------------------------------------------------
     EffectExporter::EffectExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
             : COLLADA::LibraryEffects ( streamWriter ),
+			Extra(streamWriter, documentExporter),
             mExportSceneGraph ( exportSceneGraph ),
-            mDocumentExporter ( documentExporter )
+            mDocumentExporter ( documentExporter ),
+			mAnimationExporter( documentExporter->getAnimationExporter() )
     {}
 
     //---------------------------------------------------------------
@@ -169,7 +216,7 @@ namespace COLLADAMax
 
         openEffect ( effectId );
 
-        COLLADA::EffectProfile effectProfile ( mSW );
+		COLLADA::EffectProfile effectProfile ( LibraryEffects::mSW );
 
 
         // Write out the custom attributes
@@ -206,6 +253,8 @@ namespace COLLADAMax
         }
 
         addEffectProfile ( effectProfile );
+
+		addExtraTechniques();
 
         closeEffect();
 
@@ -283,7 +332,7 @@ namespace COLLADAMax
 
         Shader* shader = material->GetShader();
 
-        TimeValue time = TIME_EXPORT_START;
+        TimeValue animationStart = mDocumentExporter->getOptions().getAnimationStart();
 
         if ( !inited )
         {
@@ -295,34 +344,48 @@ namespace COLLADAMax
 
         IParamBlock2* extendedParameters = ( IParamBlock2* ) material->GetReference ( StandardMaterial::EXTENDED_PB_REF );
 
-        TimeValue initTime = TIME_EXPORT_START;
+        TimeValue initTime = mDocumentExporter->getOptions().getAnimationStart();
 
         if ( !inited )
         {
+			ScaleConversionFunctor scaleConversion(weight);
+
             // effectProfile.setShaderType(COLLADA::EffectProfile::PHONG);
-            effectProfile.setAmbient ( maxColor2ColorOrTexture ( shader->GetAmbientClr ( time ), weight ) );
-            effectProfile.setDiffuse ( maxColor2ColorOrTexture ( shader->GetDiffuseClr ( time ), weight ) );
-            effectProfile.setTransparent ( COLLADA::ColorOrTexture ( COLLADA::Color::WHITE ) );
-            effectProfile.setTransparency ( material->GetOpacity ( time ) * weight );
+			bool isAmbientAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::AMBIENT_COLOR, effectId, effectProfile.getAmbientDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+            effectProfile.setAmbient ( maxColor2ColorOrTexture ( shader->GetAmbientClr ( animationStart ), weight ), isAmbientAnimated );
+
+			bool isDiffuseAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::DIFFUSE_COLOR, effectId, effectProfile.getDiffuseDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+            effectProfile.setDiffuse ( maxColor2ColorOrTexture ( shader->GetDiffuseClr ( animationStart ), weight ), isDiffuseAnimated );
+
+			effectProfile.setTransparent ( COLLADA::ColorOrTexture ( COLLADA::Color::WHITE ) );
+
+			bool isOpacityAnimated = mAnimationExporter->addAnimatedParameter(extendedParameters, ExtendedParameterIndices::OPACITY, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS);
+            effectProfile.setTransparency ( material->GetOpacity ( animationStart ) * weight );
+
             effectProfile.setReflective ( COLLADA::ColorOrTexture ( COLLADA::Color::BLACK ) );
-            effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( time ), weight ) );
-            effectProfile.setShininess ( shader->GetGlossiness ( time ) * 100 * weight );
+
+			bool isSpecularAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_COLOR, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+			effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( animationStart ), weight ), isSpecularAnimated );
+
+			bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, &ConversionFunctors::toPercent);
+			effectProfile.setShininess ( ConversionFunctors::toPercent(shader->GetGlossiness ( animationStart )) * weight, isGlossinessAnimated );
 
 			bool useEmissionColor = shader->IsSelfIllumClrOn() != false;
 			//stdProfile->SetIsEmissionFactor(useEmissionColor == FALSE);
 			if (useEmissionColor)
 			{
-				effectProfile.setEmission( maxColor2ColorOrTexture ( shader->GetSelfIllumClr ( time ), weight ) );
-				//stdProfile->SetEmissionColor(scaleConversion(ToFMVector4(shader->GetSelfIllumClr(initTime))));
-				//ANIM->ExportProperty(_T("self_illumination"), shaderParameters, TSTR("Self-Illum Color"), 0, stdProfile->GetEmissionColorParam()->GetValue(), &scaleConversion);
+				bool isEmissionAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SELF_ILLUMINATION_COLOR, effectId, effectProfile.getEmissionDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+				effectProfile.setEmission( maxColor2ColorOrTexture ( shader->GetSelfIllumClr ( animationStart ), weight ), isEmissionAnimated );
 			}
 			else
 			{
-				//stdProfile->SetEmissionFactor(scaleConversion(shader->GetSelfIllum(initTime)));
-				//ANIM->ExportProperty(_T("self_illumination_f"), shaderParameters, TSTR("Self-Illumination"), 0, stdProfile->GetEmissionFactorParam()->GetValue(), NULL);
+				bool isEmissionAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SELF_ILLUMINATION_COLOR, effectId, effectProfile.getEmissionDefaultSid(), COLOR_PARAMETERS);
+				effectProfile.setEmission( maxColor2ColorOrTexture ( shader->GetSelfIllumClr ( animationStart ) ), isEmissionAnimated );
 			}
 
+			addParamBlockAnimatedExtraParameters(SHADER_ELEMENT, SHADER_PARAMETERS, SHADER_PARAMETER_COUNT, shaderParameters, effectId);
 			
+			addParamBlockAnimatedExtraParameters(EXTENDED_SHADER_ELEMENT, EXTENDED_SHADER_PARAMETERS, EXTENDED_SHADER_PARAMETER_COUNT, extendedParameters, effectId);
         }
 
         // Export child maps
@@ -355,7 +418,7 @@ namespace COLLADAMax
                 break;
 
             case TRANSPARENt:
-                effectProfile.setOpacity ( getOpacity ( map ) );
+                effectProfile.setOpaque ( getOpacity ( map ) );
                 break;
             }
 
@@ -679,7 +742,7 @@ namespace COLLADAMax
 
             openEffect ( effectId );
 
-            COLLADA::EffectProfile effectProfile ( mSW );
+			COLLADA::EffectProfile effectProfile ( LibraryEffects::mSW );
             effectProfile.setShaderType ( COLLADA::EffectProfile::PHONG );
             COLLADA::Color commonColor ( GetRValue ( color ) / 255.0f, GetGValue ( color ) / 255.0f, GetBValue ( color ) / 255.0f );
             effectProfile.setAmbient ( COLLADA::ColorOrTexture ( commonColor ) );
@@ -691,6 +754,8 @@ namespace COLLADAMax
             effectProfile.setShininess ( 10.0 );
 
             addEffectProfile ( effectProfile );
+
+			addExtraTechniques();
 
             closeEffect();
 
@@ -725,7 +790,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     EffectExporter::Channel EffectExporter::maxIdToEffectChannel ( StdMat2* material, int id )
     {
-        assert ( material != NULL );
+        assert ( material );
 
         // Order of channels depends on shader.
         bool stdShader = true;

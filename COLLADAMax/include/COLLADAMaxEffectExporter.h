@@ -28,6 +28,7 @@
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxMaterialExporter.h"
+#include "COLLADAMaxExtra.h"
 #include "COLLADAMaxTypes.h"
 
 class Mtl;
@@ -37,9 +38,32 @@ class StdMat2;
 namespace COLLADAMax
 {
 
-    /** Class to export all used materials in a max scene to the library effect in COLLADA*/
+	class AnimationExporter;
 
-    class EffectExporter : public COLLADA::LibraryEffects
+	namespace ShaderParameterIndices
+	{
+		enum MaxEffectParamIndices
+		{
+			AMBIENT_COLOR = 0,
+			DIFFUSE_COLOR = 1,
+			SPECULAR_COLOR = 2,
+			SELF_ILLUMINATION_COLOR = 8,
+			GLOSSINESS = 10
+		};
+	}
+
+
+	namespace ExtendedParameterIndices
+	{
+		enum MaxEffectParamIndices
+		{
+			OPACITY = 1,
+		};
+	}
+
+
+    /** Class to export all used materials in a max scene to the library effect in COLLADA*/
+	class EffectExporter : public COLLADA::LibraryEffects, public Extra
     {
 
     private:
@@ -104,6 +128,8 @@ namespace COLLADAMax
 
         static const String TEXCOORD_BASE;
 
+		static const String COLOR_PARAMETERS[ 4 ];
+
 
     private:
 
@@ -123,12 +149,26 @@ namespace COLLADAMax
 
         static const String EMPTY_STRING;
 
+		static const String SELF_ILLUMINATION_PARAMETER;
+
+
+		static const String SHADER_ELEMENT;
+		static const int SHADER_PARAMETER_COUNT;
+		static const Extra::ExtraParameter SHADER_PARAMETERS[];
+
+		static const String EXTENDED_SHADER_ELEMENT;
+		static const int EXTENDED_SHADER_PARAMETER_COUNT;
+		static const Extra::ExtraParameter EXTENDED_SHADER_PARAMETERS[];
+
+
         ExportSceneGraph * mExportSceneGraph;
 
         /** Maps already exported wire frame colors to the corresponding COLLADA effect id.*/
         WireFrameColorEffectList mWireFrameColorEffectList;
 
-        DocumentExporter * mDocumentExporter;
+		DocumentExporter * mDocumentExporter;
+
+		AnimationExporter * mAnimationExporter;
 
         /** List of ids of the already exported materials that are used in the COLLADA file.*/
         ExportedEffectIdList * mExportedEffectIdList;

@@ -95,6 +95,9 @@ namespace COLLADAMax
         /** A pointer to an array of parameters to animate.*/
         const String * mParameters;
 
+		/** Matrix index of the the value to animate. If it is set, the parameters in @a mParameters are ignored.*/
+		int mMatrixIndex;
+
         /** Type of animation.*/
         int mType;
 
@@ -109,16 +112,28 @@ namespace COLLADAMax
         @param controller the controller used for the animation
         @param id The id of the element to animate
         @param sid The sid of the element to animate
-        @param parameter A pointer to an array of parameters to animate
+        @param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
         @param type Type of animation
         @param conversionFunctor Pointer to conversion function, to convert all animated values*/
         Animation ( Control * controller, const String & id, const String & sid, const String * parameter, int type, ConversionFunctor* conversionFunctor = 0 );
+
+		/**
+		@param controller the controller used for the animation
+		@param id The id of the element to animate
+		@param sid The sid of the element to animate
+		@param matrixIndex Matrix index of the array to animate
+		@param type Type of animation
+		@param conversionFunctor Pointer to conversion function, to convert all animated values*/
+		Animation ( Control * controller, const String & id, const String & sid, int matrixIndex, int type, ConversionFunctor* conversionFunctor = 0 );
+
 
 		/**Use this constructor to creat an animation for sampled transformation matrices of a max node
 		@param nIode the max node which transformation should be animated (sampled)
 		@param id The id of the element to animate
 		@param sid The sid of the element to animate
-		@param parameter A pointer to an array of parameters to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
 		@param type Type of animation
 		@param conversionFunctor Pointer to conversion function, to convert all animated values*/
 		Animation ( INode * iNode, const String & id, const String & sid, const String * parameter, int type, ConversionFunctor* conversionFunctor = 0 );
@@ -157,7 +172,15 @@ namespace COLLADAMax
             return mParameters;
         }
 
-        /** Returns the type of the animation.*/
+		/** Returns the matrix index to animate ore -1 if no matrix is animted.*/
+		int getMatrixIndex() const
+		{
+			return mMatrixIndex;
+		}
+
+
+		
+		/** Returns the type of the animation.*/
         int getType() const
         {
             return mType;
@@ -273,27 +296,53 @@ namespace COLLADAMax
 		@param controller The controller that contains the animation.
 		@param id The id of the element to animate.
 		@param sid The sid of the element to animate.
-		@param parameters The parameter list of the element to animate.
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
 		@param conversionFunctor Conversion functor used to convert the output values
 		@return Returns true if the float is animated, false otherwise.
 		*/
 		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
 
 
+		/** Adds an animation that animates a float.
+		@param controller The controller that contains the animation.
+		@param id The id of the element to animate.
+		@param sid The sid of the element to animate.
+		@param matrixIndex Matrix index of the array to animate
+		@param conversionFunctor Conversion functor used to convert the output values
+		@return Returns true if the float is animated, false otherwise.
+		*/
+		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, int  matrixIndex, ConversionFunctor* conversionFunctor = 0);
+
+
         /** Adds an animation that animates a Point3.
         @param controller The controller that contains the animation
         @param id The id of the element to animate
         @param sid The sid of the element to animate
-        @param parameters The parameter list of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
 		@return Returns true if the Point3 is animated, false otherwise.
         */
         bool addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
 
-        /** Adds an animation that animates an angle.
+
+		/** Adds an animation that animates a Point4, i.e. a parameter that has 4 values, e.g. color
+		@param controller The controller that contains the animation
+		@param id The id of the element to animate
+		@param sid The sid of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
+		@return Returns true if the Point3 is animated, false otherwise.
+		*/
+		bool addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
+
+		
+		/** Adds an animation that animates an angle.
         @param controller The controller that contains the animation
         @param id The id of the element to animate
         @param sid The sid of the element to animate
-        @param parameters The parameter list of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
         @param animatedAngle The type of the angle that should be animated
         */
         void addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle );
@@ -308,12 +357,31 @@ namespace COLLADAMax
         @param controller The controller that contains the animation
         @param id The id of the element to animate
         @param sid The sid of the element to animate
-        @param parameters The parameter list of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
         */
         void addAnimation4 ( Control * controller, const String & id, const String & sid, const String parameters[] );
 
+		/** Adds an animation that animates a parameter within a IParamBlock.
+		@param parameterBlock The IParamBlock that contains the parameter
+		@param parameterId The id of the parameter in the IParamBlock
+		@param id The id of the element to animate
+		@param sid The sid of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
+		@param conversionFunctor Conversion Functor used to convert the animated values
+		*/
 		bool addAnimatedParameter(IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
 
+		/** Adds an animation that animates a parameter within a IParamBlock2.
+		@param parameterBlock2 The IParamBlock2 that contains the parameter
+		@param parameterId The id of the parameter in the IParamBlock2
+		@param id The id of the element to animate
+		@param sid The sid of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
+		@param conversionFunctor Conversion Functor used to convert the animated values
+		*/
 		bool addAnimatedParameter(IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
 
 

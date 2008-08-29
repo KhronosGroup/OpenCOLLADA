@@ -247,6 +247,9 @@ namespace COLLADAMax
 			case TYPE_FLOAT:
 				os << "TYPE_FLOAT " << parameters->GetFloat ( parameterID ) << " ";
 				break;
+			case TYPE_PCNT_FRAC:
+				os << "TYPE_PCNT_FRAC " << parameters->GetFloat ( parameterID ) << " ";
+				break;
 
 			case TYPE_INT:
 				os << "TYPE_INT " << parameters->GetInt ( parameterID ) << " ";

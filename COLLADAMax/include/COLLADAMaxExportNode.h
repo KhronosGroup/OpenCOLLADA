@@ -241,6 +241,12 @@ namespace COLLADAMax
             return mMeshSymbolMap;
         }
 
+		/** Returns the @a MeshSymbolMap of this node.*/
+		MeshSymbolMap & getMeshSymbolMap()
+		{
+			return mMeshSymbolMap;
+		}
+
 
         /** Sets the wire frame color.*/
         void setWireFrameColor ( DWORD color )

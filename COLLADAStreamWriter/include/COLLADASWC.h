@@ -54,6 +54,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_COLLADA;
         static const String COLLADA_ELEMENT_COLOR;
         static const String COLLADA_ELEMENT_DIFFUSE;
+		static const String COLLADA_ELEMENT_DIRECTIONAL;
         static const String COLLADA_ELEMENT_EFFECT;
         static const String COLLADA_ELEMENT_EMISSION;
         static const String COLLADA_ELEMENT_EXTRA;
@@ -92,11 +93,6 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_LIBRARY_MATERIALS;
         static const String COLLADA_ELEMENT_LIBRARY_VISUAL_SCENES;
         static const String COLLADA_ELEMENT_LIGHT;
-        static const String COLLADA_ELEMENT_LIGHT_INSTANCE_LIGHT;
-        static const String COLLADA_ELEMENT_LIGHT_AMBIENT;
-        static const String COLLADA_ELEMENT_LIGHT_DIRECTIONAL;
-        static const String COLLADA_ELEMENT_LIGHT_POINT;
-        static const String COLLADA_ELEMENT_LIGHT_SPOT;
 		static const String COLLADA_ELEMENT_LINEAR_ATTENUATION;
         static const String COLLADA_ELEMENT_LOOKAT;
         static const String COLLADA_ELEMENT_MAGFILTER;
@@ -115,6 +111,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_PARAM;
         static const String COLLADA_ELEMENT_PH;
         static const String COLLADA_ELEMENT_PHONG;
+		static const String COLLADA_ELEMENT_POINT;
         static const String COLLADA_ELEMENT_POLYLIST;
         static const String COLLADA_ELEMENT_POLYGONS;
         static const String COLLADA_ELEMENT_PROFILE_COMMON;
@@ -134,6 +131,7 @@ namespace COLLADA
         static const String COLLADA_ELEMENT_SPECULAR;
         static const String COLLADA_ELEMENT_SOURCE;
         static const String COLLADA_ELEMENT_SOURCE_DATA;
+		static const String COLLADA_ELEMENT_SPOT;
         static const String COLLADA_ELEMENT_SUBJECT;
         static const String COLLADA_ELEMENT_SURFACE;
         static const String COLLADA_ELEMENT_TARGETS;

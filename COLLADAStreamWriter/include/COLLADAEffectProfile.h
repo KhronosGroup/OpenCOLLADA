@@ -121,7 +121,6 @@ namespace COLLADA
         String mReflectivitySid;
 
         Opaque mOpaque;
-        String mOpaqueSid;
 
         double mTransparency;
         String mTransparencySid;
@@ -168,6 +167,8 @@ namespace COLLADA
             if ( useDefaultSid ) mEmissionSid = CSWC::COLLADA_ELEMENT_EMISSION;
             else mEmissionSid = sid;
         }
+		/** Returns the default sid used for the emission element*/ 
+		static const String& getEmissionDefaultSid() { return CSWC::COLLADA_ELEMENT_EMISSION; }
 
         /** Returns a reference to the emission*/
         ColorOrTexture& getEmission()
@@ -182,6 +183,8 @@ namespace COLLADA
             if ( useDefaultSid ) mAmbientSid = CSWC::COLLADA_ELEMENT_AMBIENT;
             else mAmbientSid = sid;
         }
+		/** Returns the default sid used for the ambient element*/ 
+		static const String& getAmbientDefaultSid() { return CSWC::COLLADA_ELEMENT_AMBIENT; }
 
         /** Returns a reference to ambient*/
         ColorOrTexture& getAmbient()
@@ -196,6 +199,8 @@ namespace COLLADA
             if ( useDefaultSid ) mDiffuseSid = CSWC::COLLADA_ELEMENT_DIFFUSE;
             else mDiffuseSid = sid;
         }
+		/** Returns the default sid used for the diffuse element*/ 
+		static const String& getDiffuseDefaultSid() { return CSWC::COLLADA_ELEMENT_DIFFUSE; }
 
         /** Returns a reference to diffuse*/
         ColorOrTexture& getDiffuse()
@@ -210,6 +215,8 @@ namespace COLLADA
             if ( useDefaultSid ) mSpecularSid = CSWC::COLLADA_ELEMENT_SPECULAR;
             else mSpecularSid = sid;
         }
+		/** Returns the default sid used for the specular element*/ 
+		static const String& getSpecularDefaultSid() { return CSWC::COLLADA_ELEMENT_SPECULAR; }
 
         /** Returns a reference to specular*/
         ColorOrTexture& getSpecular()
@@ -224,6 +231,8 @@ namespace COLLADA
             if ( useDefaultSid ) mShininessSid = CSWC::COLLADA_ELEMENT_SHININESS;
             else mShininessSid = sid;
         }
+		/** Returns the default sid used for the shininess element*/ 
+		static const String& getShininessDefaultSid() { return CSWC::COLLADA_ELEMENT_SHININESS; }
 
         /** Returns the shininess*/
         double getShininess() const
@@ -238,6 +247,9 @@ namespace COLLADA
             if ( useDefaultSid ) mReflectiveSid = CSWC::COLLADA_ELEMENT_REFLECTIVE;
             else mReflectiveSid = sid;
         }
+		/** Returns the default sid used for the reflective element*/ 
+		static const String& getReflectiveDefaultSid() { return CSWC::COLLADA_ELEMENT_REFLECTIVE; }
+
 
         /** Returns a reference to reflective*/
         ColorOrTexture& getReflective()
@@ -252,6 +264,9 @@ namespace COLLADA
             if ( useDefaultSid ) mReflectivitySid = CSWC::COLLADA_ELEMENT_REFLECTIVITY;
             else mReflectivitySid = sid;
         }
+		/** Returns the default sid used for the reflectivity element*/ 
+		static const String& getReflectivityDefaultSid() { return CSWC::COLLADA_ELEMENT_REFLECTIVITY; }
+
 
         /** Sets the transparent to @a transparent */
         void setTransparent( const ColorOrTexture& transparent, const bool useDefaultSid = false, const String& sid = "" )
@@ -260,6 +275,8 @@ namespace COLLADA
             if ( useDefaultSid ) mTransparentSid = CSWC::COLLADA_ELEMENT_TRANSPARENT;
             else mTransparentSid = sid;
         }
+		/** Returns the default sid used for the transparent element*/ 
+		static const String& getTransparentDefaultSid() { return CSWC::COLLADA_ELEMENT_TRANSPARENT; }
 
         /** Returns a reference to transparent*/
         ColorOrTexture& getTransparent()
@@ -268,15 +285,13 @@ namespace COLLADA
         }
 
         /** Sets the opaque attribute of transparent to @a opaque */
-        void setOpacity( Opaque opaque, const bool useDefaultSid = false, const String& sid = "" )
+        void setOpaque( Opaque opaque)
         {
             mOpaque = opaque;
-            if ( useDefaultSid ) mOpaqueSid = CSWC::COLLADA_ATTRIBUTE_OPAQUE;
-            else mOpaqueSid = sid;
         }
 
         /** Sets the opaque attribute of transparent to @a opaque */
-        Opaque getOpacity()
+        Opaque getOpaque()
         {
             return mOpaque;
         }
@@ -288,6 +303,9 @@ namespace COLLADA
             if ( useDefaultSid ) mTransparencySid = CSWC::COLLADA_ELEMENT_TRANSPARENCY;
             else mTransparencySid = sid;
         }
+		/** Returns the default sid used for the transparency element*/ 
+		static const String& getTransparencyDefaultSid() { return CSWC::COLLADA_ELEMENT_TRANSPARENCY; }
+
 
         /** Sets the indexOfRefrection to @a indexOfRefrection */
         void  setIndexOfRefraction( double indexOfRefrection, const bool useDefaultSid = false, const String& sid = "" )
@@ -296,6 +314,8 @@ namespace COLLADA
             if ( useDefaultSid ) mIndexOfRefractionSid = CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION;
             else mIndexOfRefractionSid = sid;
         }
+		/** Returns the default sid used for the indexOfRefrection element*/ 
+		static const String& getIndexOfRefractionSid() { return CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION; }
 
         /**
         * Adds extra technique tags to the current effect and writes 
@@ -342,8 +362,7 @@ namespace COLLADA
             const String &elementName, 
             const ColorOrTexture &colorOrTexture, 
             const String &elementSid, 
-            Opaque opaque = UNSPECIFIED_OPAQUE, 
-            const String &opaqueSid = "" ) const;
+            Opaque opaque = UNSPECIFIED_OPAQUE ) const;
 
         /** Adds element @a elementName and adds @a number to it.*/
         void addFloat ( 

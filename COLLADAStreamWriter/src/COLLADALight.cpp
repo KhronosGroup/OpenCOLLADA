@@ -119,19 +119,19 @@ namespace COLLADA
     // --------------------------------------------
     void AmbientLight::addTypeSpecificInfos() const
     {
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_LIGHT_AMBIENT );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_AMBIENT );
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_COLOR );
         mSW->appendValues ( mColor.getRed(), mColor.getGreen(), mColor.getBlue() );
         mSW->closeElement(); // COLLADA_ELEMENT_COLOR
 
-        mSW->closeElement(); // COLLADA_ELEMENT_LIGHT_AMBIENT
+        mSW->closeElement(); // COLLADA_ELEMENT_AMBIENT
     }
 
     // --------------------------------------------
     void DirectionalLight::addTypeSpecificInfos() const
     {
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_LIGHT_DIRECTIONAL );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_DIRECTIONAL );
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_COLOR );
         if ( !mColorSid.empty() )
@@ -139,13 +139,13 @@ namespace COLLADA
         mSW->appendValues ( mColor.getRed(), mColor.getGreen(), mColor.getBlue() );
         mSW->closeElement(); // COLLADA_ELEMENT_COLOR
 
-        mSW->closeElement(); // COLLADA_ELEMENT_LIGHT_DIRECTIONAL
+        mSW->closeElement(); // COLLADA_ELEMENT_DIRECTIONAL
     }
 
     // --------------------------------------------
     void PointLight::addTypeSpecificInfos() const
     {
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_LIGHT_POINT );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_POINT );
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_COLOR );
         if ( !mColorSid.empty() )
@@ -171,13 +171,13 @@ namespace COLLADA
         mSW->appendValues ( mQuadraticAttenuation );
         mSW->closeElement();
 
-        mSW->closeElement(); // COLLADA_ELEMENT_LIGHT_POINT
+        mSW->closeElement(); // COLLADA_ELEMENT_POINT
     }
 
     // --------------------------------------------
     void SpotLight::addTypeSpecificInfos() const
     { 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_LIGHT_SPOT );
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_SPOT );
 
         mSW->openElement ( CSWC::COLLADA_ELEMENT_COLOR );
         if ( !mColorSid.empty() )
@@ -221,7 +221,7 @@ namespace COLLADA
             mSW->closeElement();
         }
 
-        mSW->closeElement(); // COLLADA_ELEMENT_LIGHT_SPOT
+        mSW->closeElement(); // COLLADA_ELEMENT_SPOT
     }
 
 

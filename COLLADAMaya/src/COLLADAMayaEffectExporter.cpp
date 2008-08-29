@@ -618,13 +618,13 @@ namespace COLLADAMaya
             String partialName = connectedPlug.partialName().asChar();
 
             if ( connectedPlug.partialName() == ATTR_OUT_COLOR )
-                effectProfile->setOpacity ( COLLADA::EffectProfile::RGB_ZERO ); // should be RGB_ONE.
+                effectProfile->setOpaque ( COLLADA::EffectProfile::RGB_ZERO ); // should be RGB_ONE.
             else if ( connectedPlug.partialName() == ATTR_OUT_TRANSPARENCY )
-                effectProfile->setOpacity ( COLLADA::EffectProfile::A_ONE );
+                effectProfile->setOpaque ( COLLADA::EffectProfile::A_ONE );
             else if ( connectedPlug.partialName() == ATTR_OUT_ALPHA )
-                effectProfile->setOpacity ( COLLADA::EffectProfile::A_ONE ); // valid?
+                effectProfile->setOpaque ( COLLADA::EffectProfile::A_ONE ); // valid?
 
-            if ( effectProfile->getOpacity() == COLLADA::EffectProfile::A_ONE )
+            if ( effectProfile->getOpaque() == COLLADA::EffectProfile::A_ONE )
             {
                 // Get the animation cache
                 AnimationSampleCache* animationCache = mDocumentExporter->getAnimationCache();
@@ -658,7 +658,7 @@ namespace COLLADAMaya
         }
         else
         {
-            effectProfile->setOpacity ( COLLADA::EffectProfile::RGB_ZERO ); // correctly RGB_zero.
+            effectProfile->setOpaque ( COLLADA::EffectProfile::RGB_ZERO ); // correctly RGB_zero.
         }
     }
 

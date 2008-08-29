@@ -46,6 +46,7 @@ namespace COLLADAMax
         /** List of max materials.*/
         typedef std::vector<Mtl*> MaterialList;
 
+
     public:
         /** Symbol used for simple color materials.*/
         static const String COLOR_MATERIAL_SYMBOL;
@@ -123,6 +124,10 @@ namespace COLLADAMax
 
         /** Exports all the geometries in @a node and all its child nodes.*/
         void doExport ( const ExportNode* exportNode );
+
+		/** Sets the material symbols used geometry, represented by @a exportNode as used, if they
+		are really used.*/
+		void setSymbolsAsUsed(ExportNode* exportNode, ExportNode* exportedObjectExportNode, const GeometriesExporter::MaterialIDList& materialIDs, const MaterialList& materials);
 
         /** Exports the positions of the mesh.*/
         void exportPositions();

@@ -132,7 +132,9 @@ namespace COLLADAMax
 		void addExtraTechniques();
 
 		/** Writes all information of the IParamBlock2 @a parameters to the file @a fileName. For development purposes
-		only.*/
+		only.
+		sample usage: if ( extendedParameters ) writeParameterBlockInfo("c:\\temp\\paramters.txt", extendedParameters);
+		*/
 		void writeParameterBlockInfo(const String& fileName, IParamBlock2* parameters);
 		void writeParameterBlockInfo(const String& fileName, IParamBlock* parameters);
 
