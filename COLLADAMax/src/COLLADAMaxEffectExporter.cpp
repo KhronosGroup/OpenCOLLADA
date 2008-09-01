@@ -95,7 +95,7 @@ namespace COLLADAMax
 		{TYPE_INT, 4, "falloff_type"},
 		{TYPE_PCNT_FRAC, 5, "falloff"},
 		{TYPE_FLOAT, 6, "index_of_refraction"},
-		{TYPE_FLOAT, 7, "wire_Size"},
+		{TYPE_FLOAT, 7, "wire_size"},
 		{TYPE_INT, 8, "wire_units"},
 		{TYPE_BOOL, 9, "apply_reflection_dimming"},
 		{TYPE_FLOAT, 10, "dim_level"},

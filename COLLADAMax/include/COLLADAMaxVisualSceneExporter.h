@@ -72,7 +72,7 @@ namespace COLLADAMax
 
 		DocumentExporter * mDocumentExporter;
 
-		/** The praefix used for node ids.*/
+		/** The prefix used for node ids.*/
 		static const String NODE_ID_PRAEFIX;
 
 
@@ -104,10 +104,10 @@ namespace COLLADAMax
 
 	private:
 		/** Exports all the nodes in @a node and all its child nodes.*/
-        void doExport ( ExportNode* exportNode );
+        void doExport ( ExportNode* exportNode, const Matrix3& objectOffsetTransformationMatrix );
 
         /** Exports all the transformations of a node.*/
-        void exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode );
+        Matrix3 exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix );
 
 		/** Fill @a instanceMaterialList with the appropriate elements.
 		@param instanceMaterialList The COLLADA::InstanceMaterialList to fill

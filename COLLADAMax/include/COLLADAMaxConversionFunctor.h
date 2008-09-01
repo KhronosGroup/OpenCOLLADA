@@ -55,7 +55,10 @@ namespace COLLADAMax
 		float mScaleFactor;
 	public:
 		/** Constructor. */
-		ScaleConversionFunctor(float scaleFactor) : mScaleFactor(scaleFactor) {}
+		ScaleConversionFunctor(float scaleFactor) : mScaleFactor(scaleFactor) 
+		{
+			int gg=6;
+		}
 
 		/** Destructor. */
 		virtual ~ScaleConversionFunctor() {} 

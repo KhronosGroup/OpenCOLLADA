@@ -86,12 +86,12 @@ namespace COLLADAMax
     void VisualSceneExporter::doExport()
     {
         openVisualScene ( mVisualSceneId );
-        doExport ( mExportSceneGraph->getRootExportNode() );
+		doExport ( mExportSceneGraph->getRootExportNode(), Matrix3(true));
         closeLibrary();
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::doExport ( ExportNode* exportNode )
+    void VisualSceneExporter::doExport ( ExportNode* exportNode, const Matrix3& objectOffsetTransformationMatrix )
     {
 		if ( !exportNode->getIsInVisualScene() )
 			return;
@@ -114,7 +114,7 @@ namespace COLLADAMax
 
         colladaNode.start();
 
-        exportTransformations ( exportNode, colladaNode );
+        Matrix3 thisNodeObjectOffsetTransformationMatrix = exportTransformations ( exportNode, colladaNode, objectOffsetTransformationMatrix );
 
         if ( exportNode->getType() == ExportNode::MESH )
         {
@@ -169,13 +169,13 @@ namespace COLLADAMax
         size_t numberOfChildren = exportNode->getNumberOfChildren();
 
         for ( size_t i = 0; i < numberOfChildren; ++i )
-            doExport ( exportNode->getChild ( i ) );
+            doExport ( exportNode->getChild ( i ), thisNodeObjectOffsetTransformationMatrix );
 
         colladaNode.end();
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode )
+    Matrix3 VisualSceneExporter::exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix  )
     {
         const String & fullNodeId = getNodeId(*exportNode);
 
@@ -183,13 +183,25 @@ namespace COLLADAMax
 
         INode *parent = iNode->GetParentNode();
 
-		//Matrix3 transformationMatrix = iNode->GetObjectTM ( 0 );
-		Matrix3 transformationMatrix = iNode->GetNodeTM ( 0 );
+		// Add the inverse of the parents object transformation matrix, if its not  identity
+		if ( !objectOffsetTransformationMatrix.IsIdentity() )
+		{
+			Matrix3 inverseObjectOffsetTransformationMatrix(objectOffsetTransformationMatrix);
+			inverseObjectOffsetTransformationMatrix.Invert();
+			double matrix[ 4 ][ 4 ] ;
+			matrix3ToDouble4x4 ( matrix, inverseObjectOffsetTransformationMatrix );
+			colladaNode.addMatrix ( matrix );
+		}
+			
 
-        if ( parent != NULL && !parent->IsRootNode() )
+
+		//Matrix3 transformationMatrix = iNode->GetObjectTM ( 0 );
+		Matrix3 transformationMatrix = iNode->GetNodeTM ( mDocumentExporter->getOptions().getAnimationStart() );
+
+        if ( parent && !parent->IsRootNode() )
         {
             //transformationMatrix *= Inverse(parent->GetNodeTM(0));
-            transformationMatrix *= Inverse ( parent->GetObjectTM ( 0 ) );
+            transformationMatrix *= Inverse ( parent->GetNodeTM ( mDocumentExporter->getOptions().getAnimationStart() ) );
         }
 
         Control* transformationController = iNode->GetTMController();
@@ -333,21 +345,23 @@ namespace COLLADAMax
             }
         }
 
+		Matrix3 thisNodeObjectOffsetTransformationMatrix(true); 
 		if ( !iNode->IsRootNode() )
 		{
 			// Calculate the pivot transform. It should already be in local space.
-			Matrix3 objectOffsetTransformationMatrix(1); 
-			calculateObjectOffsetTransformation(iNode, objectOffsetTransformationMatrix);
+			calculateObjectOffsetTransformation(iNode, thisNodeObjectOffsetTransformationMatrix);
 
 			// only export the pivot node if the transform is not an identity
 			// or if the node is a group head node (this is a temporary fix until we add a PIVOT type)
-			if ( !objectOffsetTransformationMatrix.IsIdentity() || iNode->IsGroupHead() )
+			if ( !thisNodeObjectOffsetTransformationMatrix.IsIdentity() || iNode->IsGroupHead() )
 			{
 				double matrix[ 4 ][ 4 ] ;
-				matrix3ToDouble4x4 ( matrix, objectOffsetTransformationMatrix );
+				matrix3ToDouble4x4 ( matrix, thisNodeObjectOffsetTransformationMatrix );
 				colladaNode.addMatrix ( matrix );
 			}
 		}
+
+		return thisNodeObjectOffsetTransformationMatrix;
     }
 
     //---------------------------------------------------------------
@@ -373,7 +387,7 @@ namespace COLLADAMax
     }
 
 	//---------------------------------------------------------------
-	void VisualSceneExporter::calculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm)
+	void VisualSceneExporter::calculateObjectOffsetTransformation(INode* maxNode, Matrix3& transformationMatrix)
 	{
 
 		// When sampling matrices, we apply the sample the ObjTMAfterWSM
@@ -385,7 +399,7 @@ namespace COLLADAMax
 			{
 				// If we have WSM attached, always export a pivot
 				TimeValue t = OPTS->AnimStart();
-				tm = maxNode->GetObjTMAfterWSM(t) * Inverse(maxNode->GetNodeTM(t));
+				transformationMatrix = maxNode->GetObjTMAfterWSM(t) * Inverse(maxNode->GetNodeTM(t));
 				return;
 			}
 		}
@@ -396,11 +410,12 @@ namespace COLLADAMax
 
 		// this should already be in local space
 		// only do this if necessary to preserve identity tags
-		ApplyScaling(tm, objectOffsetScale);
-		RotateMatrix(tm, objectOffsetRotation);
-		tm.Translate(objectOffsetPosition);
+		transformationMatrix.IdentityMatrix();
+		ApplyScaling(transformationMatrix, objectOffsetScale);
+		RotateMatrix(transformationMatrix, objectOffsetRotation);
+		transformationMatrix.Translate(objectOffsetPosition);
 
-		tm.ValidateFlags();
+		transformationMatrix.ValidateFlags();
 	}
 
 	//---------------------------------------------------------------

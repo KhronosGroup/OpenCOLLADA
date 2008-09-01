@@ -365,6 +365,8 @@ namespace COLLADAMax
 
 			Animation animation ( controller, id, sid, parameters, animatedAngle, &ConversionFunctors::radToDeg );
 
+			Animation a(animation);
+
             addAnimation ( animation );
         }
     }
