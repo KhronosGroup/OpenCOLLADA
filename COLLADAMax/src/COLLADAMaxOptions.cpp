@@ -67,6 +67,15 @@ namespace COLLADAMax
 		return match;
 	}
 
+	template<>
+	bool readOption<bool>(char* token, const String & optionName, char* value, bool &optionValue)
+	{
+		bool match = strcmp(token, optionName.c_str()) == 0;
+		if ( match )
+			optionValue = atoi(value) != false;
+		return match;
+	}
+
 
 	const String Options::CONFIGURATION_FILE_NAME = "NewColladaMax.ini";
 	const String Options::CONFIGURATION_HEADER_NAME = "NewColladaMax";

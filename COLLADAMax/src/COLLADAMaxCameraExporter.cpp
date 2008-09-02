@@ -166,7 +166,7 @@ namespace COLLADAMax
 				if ( AnimationExporter::isAnimated(parameters, MaxCamera::FOV) )
 				{
 					optics->setXMag(conversionInverseOrthoFOVFunctor(parameters->GetFloat(MaxCamera::FOV)), XMAG_SID);
-					mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FOV, cameraId, XMAG_SID, 0, &conversionInverseOrthoFOVFunctor);
+					mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FOV, cameraId, XMAG_SID, 0, true, &conversionInverseOrthoFOVFunctor);
 				}
 				else
 				{
@@ -179,7 +179,7 @@ namespace COLLADAMax
 				if ( AnimationExporter::isAnimated(parameters, MaxCamera::FOV) )
 				{
 					optics->setXFov(COLLADA::MathUtils::radToDegF(parameters->GetFloat(MaxCamera::FOV)), XFOV_SID);
-					mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FOV, cameraId, XFOV_SID, 0, &ConversionFunctors::radToDeg);
+					mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FOV, cameraId, XFOV_SID, 0, true, &ConversionFunctors::radToDeg);
 				}
 				else
 				{

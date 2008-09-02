@@ -241,35 +241,46 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	bool AnimationExporter::addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor)
+	bool AnimationExporter::addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor)
 	{
 		if ( !isAnimated(controller) )
 			return false;
 
 		Animation animation(controller, id, sid, parameters, Animation::FLOAT, conversionFunctor);
-		addAnimation(animation);
 
-		return true;
+		if ( !forceFullCheck || isAnimated(animation, true) )
+		{
+			addAnimation(animation);
+			return true;
+		}
+		return false;
 	}
 
 
 	//---------------------------------------------------------------
-	bool AnimationExporter::addAnimatedFloat ( Control * controller, const String & id, const String & sid, int matrixIndex, ConversionFunctor* conversionFunctor)
+	bool AnimationExporter::addAnimatedFloat ( Control * controller, const String & id, const String & sid, int matrixIndex, bool forceFullCheck, ConversionFunctor* conversionFunctor)
 	{
 		if ( !isAnimated(controller) )
 			return false;
 
 		Animation animation(controller, id, sid, matrixIndex, Animation::FLOAT, conversionFunctor);
-		addAnimation(animation);
 
-		return true;
+		if ( !forceFullCheck || isAnimated(animation, true) )
+		{
+			addAnimation(animation);
+			return true;
+		}
+		return false;
 	}
 
 
 
     //---------------------------------------------------------------
-    bool AnimationExporter::addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor )
+    bool AnimationExporter::addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor )
     {
+		if ( !isAnimated(controller))
+			return false;
+
 		bool animated = false;
 
         Control * subControllers[ 3 ] = {controller->GetXController(), controller->GetYController(), controller->GetZController() };
@@ -283,26 +294,30 @@ namespace COLLADAMax
                 if ( isAnimated ( subControllers[ i ] ) )
                 {
                     Animation animation ( subControllers[ i ], id, sid, parameters + i, Animation::FLOAT, conversionFunctor );
-                    addAnimation ( animation );
-					animated = true;
+					if ( !forceFullCheck || isAnimated(animation, true) )
+					{
+						addAnimation ( animation );
+						animated = true;
+					}
                 }
             }
         }
-
         else if ( isAnimated ( controller ) )
         {
             // Else, with no subs, try and export ourselves as keyframes
             Animation animation ( controller, id, sid, parameters, Animation::FLOAT3, conversionFunctor );
-            addAnimation ( animation );
-			animated = true;
+			if ( !forceFullCheck || isAnimated(animation, true) )
+			{
+				addAnimation ( animation );
+				animated = true;
+			}
         }
-
 		return animated;
     }
 
 
 	//---------------------------------------------------------------
-	bool AnimationExporter::addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor )
+	bool AnimationExporter::addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor )
 	{
 		bool animated = false;
 
@@ -317,8 +332,11 @@ namespace COLLADAMax
 				if ( isAnimated ( subControllers[ i ] ) )
 				{
 					Animation animation ( subControllers[ i ], id, sid, parameters + i, Animation::FLOAT, conversionFunctor );
-					addAnimation ( animation );
-					animated = true;
+					if ( !forceFullCheck || isAnimated(animation, true) )
+					{
+						addAnimation ( animation );
+						animated = true;
+					}
 				}
 			}
 		}
@@ -327,8 +345,11 @@ namespace COLLADAMax
 		{
 			// Else, with no subs, try and export ourselves as keyframes
 			Animation animation ( controller, id, sid, parameters, Animation::FLOAT4, conversionFunctor );
-			addAnimation ( animation );
-			animated = true;
+			if ( !forceFullCheck || isAnimated(animation, true) )
+			{
+				addAnimation ( animation );
+				animated = true;
+			}
 		}
 
 		return animated;
@@ -336,63 +357,78 @@ namespace COLLADAMax
 
 	
 	//---------------------------------------------------------------
-    void AnimationExporter::addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle )
+    bool AnimationExporter::addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle, bool forceFullCheck  )
     {
-        if ( isAnimated ( controller ) )
-        {
+        if ( !isAnimated ( controller ) )
+			return false;
+        
+		// maybe this rotation controller doesn't have XYZ components
+		Control * xyzController = NULL;
 
-            // maybe this rotation controller doesn't have XYZ components
-            Control * xyzController = NULL;
+		switch ( animatedAngle )
+		{
 
-            switch ( animatedAngle )
-            {
+		case Animation::ROTATION_X:
+			xyzController = controller->GetXController();
+			break;
 
-            case Animation::ROTATION_X:
-                xyzController = controller->GetXController();
-                break;
+		case Animation::ROTATION_Y:
+			xyzController = controller->GetYController();
+			break;
 
-            case Animation::ROTATION_Y:
-                xyzController = controller->GetYController();
-                break;
+		case Animation::ROTATION_Z:
+			xyzController = controller->GetZController();
+			break;
+		}
 
-            case Animation::ROTATION_Z:
-                xyzController = controller->GetZController();
-                break;
-            }
+		if ( xyzController != NULL )
+			controller = xyzController;
 
-            if ( xyzController != NULL )
-                controller = xyzController;
+		Animation animation ( controller, id, sid, parameters, animatedAngle, &ConversionFunctors::radToDeg );
 
-			Animation animation ( controller, id, sid, parameters, animatedAngle, &ConversionFunctors::radToDeg );
+		if ( !forceFullCheck || isAnimated(animation, true) )
+		{
+			addAnimation ( animation );
+			return true;
+		}
 
-			Animation a(animation);
-
-            addAnimation ( animation );
-        }
+		return false;
     }
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::addAnimatedAxisAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int type )
+	bool AnimationExporter::addAnimatedAxisAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int type, bool forceFullCheck )
 	{
-		if ( isAnimated ( controller ) )
+		if ( !isAnimated ( controller ) )
+			return false;
+
+		Animation animation ( controller, id, sid, parameters, type);
+		if ( !forceFullCheck || isAnimated(animation, true) )
 		{
-			Animation animation ( controller, id, sid, parameters, type);
 			addAnimation ( animation );
+			return true;
 		}
+		return false;
 	}
 
 
 	//---------------------------------------------------------------
-	void AnimationExporter::addAnimatedFloat4x4 ( INode * node, const String & id, const String & sid, const String parameters[] )
+	bool AnimationExporter::addAnimatedFloat4x4 ( INode * node, const String & id, const String & sid, const String parameters[], bool forceFullCheck )
 	{
 		Animation animation ( node, id, sid, parameters, Animation::FLOAT4x4);
-		addAnimation ( animation );
+	
+		if ( !forceFullCheck || isAnimated(animation, true) )
+		{
+			addAnimation ( animation );
+			return true;
+		}
+	
+		return false;
 	}
 
 
 	//---------------------------------------------------------------
-	bool AnimationExporter::addAnimatedParameter( IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
+	bool AnimationExporter::addAnimatedParameter( IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor  )
 	{
 		ParamType type = parameterBlock->GetParameterType(parameterId);
 		Control* controller = parameterBlock->GetController(parameterId);
@@ -403,17 +439,17 @@ namespace COLLADAMax
 		switch ( type )
 		{
 		case TYPE_FLOAT:
-			return addAnimatedFloat(controller, id, sid, parameters, conversionFunctor);
+			return addAnimatedFloat(controller, id, sid, parameters, forceFullCheck, conversionFunctor);
 		case TYPE_COLOR:
 		case TYPE_RGBA:
-			return addAnimatedPoint4(controller, id, sid, parameters, conversionFunctor);
+			return addAnimatedPoint4(controller, id, sid, parameters, forceFullCheck, conversionFunctor);
 		}
 		return false;
 	}
 
 
 	//---------------------------------------------------------------
-	bool AnimationExporter::addAnimatedParameter( IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor  )
+	bool AnimationExporter::addAnimatedParameter( IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], bool forceFullCheck, ConversionFunctor* conversionFunctor  )
 	{
 		ParamType2 type = parameterBlock->GetParameterType(parameterId);
 		int animationNumber = parameterBlock->GetAnimNum(parameterId);
@@ -425,10 +461,10 @@ namespace COLLADAMax
 		switch ( type )
 		{
 		case TYPE_FLOAT:
-			return addAnimatedFloat(controller, id, sid, parameters, conversionFunctor);
+			return addAnimatedFloat(controller, id, sid, parameters, forceFullCheck, conversionFunctor);
 		case TYPE_COLOR:
 		case TYPE_RGBA:
-			return addAnimatedPoint4(controller, id, sid, parameters, conversionFunctor);
+			return addAnimatedPoint4(controller, id, sid, parameters, forceFullCheck, conversionFunctor);
 		}
 		return false;
 	}
@@ -452,16 +488,25 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     bool AnimationExporter::isAnimated ( Control * controller )
     {
+		return controller && controller->IsAnimated();
+    }
+
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::isAnimated ( const Animation& animation, bool forceFullCheck )
+	{
+		Control* controller = animation.getController();
+
 		bool animated = controller && controller->IsAnimated();
 
 		if ( !animated )
 			return false;
-#if 0
-		if ( mDocumentExporter->getOptions().getCheckIfAnimationsIsAnimated() )
-			return checkIfIsAnimated(controller);
-#endif
+
+		if ( forceFullCheck )
+			return checkIfIsAnimated(animation);
 		return animated;
-    }
+	}
+
 
 	bool AnimationExporter::isAnimated( IParamBlock * paramBlock, int parameterId )
 	{
@@ -478,12 +523,11 @@ namespace COLLADAMax
 
 
 
-#if 0
 	/** @TODO implement a test that check if an animations animated, i.e. if the values change */
 	//---------------------------------------------------------------
-	bool AnimationExporter::checkIfIsAnimated ( Control * controller )
+	bool AnimationExporter::checkIfIsAnimated ( const Animation& animation )
 	{
-		bool animated;
+		Control* controller = animation.getController();
 
 		bool isSampling = mDocumentExporter->getOptions().getSampleAnimation(); 
 
@@ -508,58 +552,58 @@ namespace COLLADAMax
 				{
 
 				case LININTERP_FLOAT_CLASS_ID:
-					exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getFloatValue<ILinFloatKey> );
+					return checkIfIsAnimated ( animation,  keyInterface, &AnimationExporter::getFloatValue<ILinFloatKey> );
 					break;
 
 				case LININTERP_POSITION_CLASS_ID:
 					if ( animation.getDimension() == 1 )
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPositionSingleValue<ILinPoint3Key> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getPointXSingleValue<ILinPoint3Key> );
 					else
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPositionValue<ILinPoint3Key> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getPointXValue<3, ILinPoint3Key> );
 
 					break;
 
 				case LININTERP_ROTATION_CLASS_ID:
 					if ( animation.getDimension() == 1 )
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getRotationSingleValue<ILinRotKey> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getRotationSingleValue<ILinRotKey> );
 					else
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getRotationValue<ILinRotKey> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getRotationValue<ILinRotKey> );
 					break;
 
 				case HYBRIDINTERP_FLOAT_CLASS_ID:
-					exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getFloatValue<IBezFloatKey> );
-					break;
+//					return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getFloatValue<IBezFloatKey> );
 				case HYBRIDINTERP_POINT3_CLASS_ID:
 				case HYBRIDINTERP_POSITION_CLASS_ID: 
-					if ( animation.getDimension() == 1 )
+				case HYBRIDINTERP_COLOR_CLASS_ID:
+/*					if ( animation.getDimension() == 1 )
 					{
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPositionSingleValue<IBezPoint3Key> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getPointXSingleValue<IBezPoint3Key> );
 					}
 					else
 					{
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getPositionValue<IBezPoint3Key> );
-					}
-					break;
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getPointXValue<3, IBezPoint3Key> );
+					}*/
 				case HYBRIDINTERP_ROTATION_CLASS_ID:
-					if ( animation.getDimension() == 1 )
+/*					if ( animation.getDimension() == 1 )
 					{
 						mKeyValueList.reserve( keyInterface->GetNumKeys() );
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getRotationSingleValuePatchEuler );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getRotationSingleValuePatchEuler );
 					}
 					else
 					{
 						mKeyValueList.reserve( 3 * keyInterface->GetNumKeys() );
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getRotationValuePatchEuler );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getRotationValuePatchEuler );
 					}
-					mKeyValueList.clear();
+					mKeyValueList.clear();*/
+					return true; //For hybrid controllers its more complicated te test if they are constant (in-outtangens)
 					break;
 				case LININTERP_SCALE_CLASS_ID:
 					if ( animation.getType() == Animation::SCALE)
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getLinearScaleValue );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getPointXValue<3, IBezScaleKey> );
 					else if ( animation.getType() == Animation::SCALE_ROT_AXIS )
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getLinearScaleRotationAxisValue<false> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getScaleRotationAxisValue<IBezScaleKey, false> );
 					else if ( animation.getType() == Animation::SCALE_ROT_AXIS_R )
-						exportOutputSource ( animation, baseId, keyInterface, &AnimationExporter::getLinearScaleRotationAxisValue<true> );
+						return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getScaleRotationAxisValue<IBezScaleKey, true> );
 					break;
 				default:
 					isSampling = true;
@@ -568,10 +612,292 @@ namespace COLLADAMax
 			}
 		}
 
+		if ( isSampling )
+		{
+			int ticksPerFrame = GetTicksPerFrame();
+			TimeValue startTime = mDocumentExporter->getOptions().getAnimationStart();
+			TimeValue endTime = mDocumentExporter->getOptions().getAnimationEnd() + 1;
 
+			if ( endTime > startTime )
+			{
+				if ( controller )
+				{
+					SClass_ID type = controller->SuperClassID();
+					switch (type)
+					{
+					case CTRL_FLOAT_CLASS_ID:
+						return checkIfSampledFloatIsAnimated(animation, keyInterface, startTime, endTime, ticksPerFrame);
+						break;
+					case CTRL_POINT3_CLASS_ID:
+					case CTRL_POSITION_CLASS_ID:
+						return checkIfSampledPoint3IsAnimated(animation, keyInterface, startTime, endTime, ticksPerFrame);
+						break;
+					case CTRL_ROTATION_CLASS_ID:
+						return checkIfSampledRotationIsAnimated(animation, keyInterface, startTime, endTime, ticksPerFrame);
+						break;
+					}
+				}
+				else if ( animation.getNode() )
+				{
+					return checkIfSampledTransformationIsAnimated(animation, keyInterface, startTime, endTime, ticksPerFrame);
+				}
+			}
+
+		}
+
+		return false;
+	}
+
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::checkIfIsAnimated ( const Animation & animation, IKeyControl* keyInterface, OutputValueFunctionPtr outputValueFunction )
+	{
+		int keyCount = keyInterface->GetNumKeys();
+		int keyLength = animation.getDimension();
+
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
+		bool animated = false;
+
+		float * firstKeyBuffer = new float[ keyLength ];
+
+		float * keyBuffer = new float[ keyLength ];
+
+		for ( int i = 0; i < keyCount && !animated; ++i )
+		{
+			(this->*outputValueFunction) ( keyBuffer, keyInterface, i, animation );
+
+			for ( int j = 0; j < keyLength && !animated; ++j )
+			{
+				if ( conversionFunctor )
+					keyBuffer[j] = (*conversionFunctor) ( keyBuffer[ j ] );
+
+				if ( i == 0 )
+					std::swap(firstKeyBuffer, keyBuffer);
+				else if ( !COLLADA::MathUtils::equals(keyBuffer[j], firstKeyBuffer[j]) )
+					animated = true;
+			}
+		}
+
+		delete[] keyBuffer;
+		delete[] firstKeyBuffer;
+	
 		return animated;
 	}
-#endif
+
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::checkIfSampledFloatIsAnimated ( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame )
+	{
+		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
+
+		if ( keyCount < 2 )
+			return false;
+
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
+		float firstKeyValue;
+
+		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
+		{
+			float keyValue;
+			animation.getController()->GetValue(time, &keyValue, FOREVER, CTRL_ABSOLUTE);
+
+			if ( conversionFunctor )
+				keyValue = (*conversionFunctor)(keyValue);
+
+			if ( time == startTime )
+				firstKeyValue = keyValue;
+			else if ( !COLLADA::MathUtils::equals(keyValue, firstKeyValue) )
+				return true;
+		}
+		return false;
+	}
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::checkIfSampledPoint3IsAnimated ( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame )
+	{
+		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
+
+		if ( keyCount < 2 )
+			return false;
+
+		int keyLength = animation.getDimension();
+
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
+		float firstFloatKeyValue;
+		Point3 firstKeyValue;
+
+		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
+		{
+
+			Point3 keyValue;
+			animation.getController()->GetValue(time, &keyValue, FOREVER, CTRL_ABSOLUTE);
+
+
+			if ( keyLength == 1)
+			{
+				float floatKeyValue = keyValue[ animation.getType() - Animation::POSITION_X ];
+
+				if ( conversionFunctor )
+					floatKeyValue = (*conversionFunctor)( floatKeyValue );
+
+				if ( time == startTime )
+					firstFloatKeyValue = floatKeyValue;
+				else if ( !COLLADA::MathUtils::equals(floatKeyValue, firstFloatKeyValue) )
+					return true;
+
+			}
+			else
+			{
+				for ( int j = 0; j < keyLength; ++j )
+				{
+					assert( keyLength == 3);
+
+					if ( conversionFunctor )
+						keyValue[j] = (*conversionFunctor) ( keyValue[ j ] );
+
+					if ( time > startTime && !COLLADA::MathUtils::equals(keyValue[j], firstKeyValue[j]) )
+						return true;
+				}
+
+				if ( time == startTime )
+					firstKeyValue = keyValue;
+			}
+		}
+		return false;
+	}
+
+
+	//---------------------------------------------------------------
+	bool AnimationExporter::checkIfSampledRotationIsAnimated ( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame )
+	{
+		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
+		int keyLength = animation.getDimension();
+
+		if ( keyCount < 2 )
+			return false;
+
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
+		float firstFloatKeyValue;
+		float firstEulerAngles[ 3 ];
+
+		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
+		{
+
+			float eulerAngles[ 3 ];
+
+			if ( keyLength == 1 )
+			{
+				Quat quaternion;
+				animation.getController()->GetValue(time, &quaternion, FOREVER, CTRL_ABSOLUTE);
+				QuatToEuler(quaternion, eulerAngles, EULERTYPE_XYZ);
+			}
+			else
+			{
+				AngAxis angleAxis;
+				animation.getController()->GetValue(time, &angleAxis, FOREVER, CTRL_ABSOLUTE);
+				Quat quaternion(angleAxis);
+				quaternion.GetEuler ( &eulerAngles[ 0 ], &eulerAngles[ 1 ], &eulerAngles[ 2 ] );
+			}
+
+			if ( time > startTime)
+				patchEuler(mPreviousEulerAngles, eulerAngles);
+
+			mPreviousEulerAngles[0] = eulerAngles[0];
+			mPreviousEulerAngles[1] = eulerAngles[1];
+			mPreviousEulerAngles[2] = eulerAngles[2];
+
+			if ( keyLength == 1)
+			{
+				float floatKeyValue = eulerAngles[ animation.getType() - Animation::ROTATION_X ];
+
+				if ( conversionFunctor )
+					floatKeyValue = (*conversionFunctor)(floatKeyValue);
+
+				if ( time == startTime )
+					firstFloatKeyValue = floatKeyValue;
+				else if ( !COLLADA::MathUtils::equals(floatKeyValue, firstFloatKeyValue) )
+					return true;
+			}
+			else
+			{
+				for ( int j = 0; j < 3; ++j )
+				{
+					if ( conversionFunctor )
+						eulerAngles[j] = (*conversionFunctor) ( eulerAngles[ j ] );
+
+					if ( time == startTime )
+						firstEulerAngles[j] = eulerAngles[j];
+					else if ( !COLLADA::MathUtils::equals(eulerAngles[j], firstEulerAngles[j]) )
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+
+	bool AnimationExporter::checkIfSampledTransformationIsAnimated( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame )
+	{
+		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
+		int keyLength = animation.getDimension();
+
+		if ( keyCount < 2 )
+			return false;
+
+		INode * iNode = animation.getNode();
+
+		Matrix3 transformationMatrix;
+		Matrix3 firstTransformationMatrix;
+		Matrix3 parentTransformationMatrix;
+		
+		INode* parentINode = iNode->GetParentNode();
+
+		if (parentINode && parentINode->IsRootNode()) 
+			parentINode = 0;
+
+		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
+		{
+			// Export the base NODE TM
+			transformationMatrix = iNode->GetNodeTM(time);
+
+			if (parentINode)
+			{
+				// export a relative TM
+				// We have to use whatever value we exported for this parent
+				// in order to remain consistent in collada
+				parentTransformationMatrix = parentINode->GetNodeTM(time);
+				parentTransformationMatrix.Invert();
+				transformationMatrix = transformationMatrix * parentTransformationMatrix;
+			}
+
+			const Matrix3& constTransformationMatrix = transformationMatrix;
+
+			if ( time = startTime )
+			{
+				firstTransformationMatrix = transformationMatrix;
+			}
+			else
+			{
+				const Matrix3& constTransformationMatrix = transformationMatrix;
+				const Matrix3& constFirstTransformationMatrix = firstTransformationMatrix;
+
+				for ( int row = 0; row < 3; ++row)
+					for ( int col = 0; col < 4; ++col)
+						if ( !COLLADA::MathUtils::equals(constTransformationMatrix[col][row], constFirstTransformationMatrix[col][row] ) )
+							return true;
+			}
+
+		}
+
+		return false;
+	}
+
+
 
     //---------------------------------------------------------------
     String AnimationExporter::getBaseId ( const Animation & animation )
@@ -835,8 +1161,6 @@ namespace COLLADAMax
 						exportSamplingRotationOutputSource(animation, baseId, keyInterface, startTime, endTime, ticksPerFrame);
 						animation.setInputTypeFlags(Animation::INPUT | Animation::OUTPUT | Animation::INTERPOLATION);
 						break;
-					default:
-						int gg = 5;
 					}
 				}
 				else if ( iNode )
@@ -1644,11 +1968,16 @@ namespace COLLADAMax
 		source.setAccessorCount ( keyCount );
 		source.prepareToAppendValues();
 
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
 		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
 		{
 			float keyValue;
 			animation.getController()->GetValue(time, &keyValue, FOREVER, CTRL_ABSOLUTE);
-			source.appendValues ( keyValue );
+			if ( conversionFunctor )
+				source.appendValues ( (*conversionFunctor)(keyValue) );
+			else
+				source.appendValues ( keyValue );
 		}
 
 		source.finish();
@@ -1677,13 +2006,13 @@ namespace COLLADAMax
 		source.setAccessorCount ( keyCount );
 		source.prepareToAppendValues();
 
+		ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
+
 		for (TimeValue time = startTime; time < endTime; time += ticksPerFrame)
 		{
 
 			Point3 keyValue;
 			animation.getController()->GetValue(time, &keyValue, FOREVER, CTRL_ABSOLUTE);
-
-			ConversionFunctorType conversionFunctor = animation.getConversionFunctor();
 
 			if ( keyLength == 1)
 			{

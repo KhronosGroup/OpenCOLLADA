@@ -212,9 +212,12 @@ namespace COLLADAMax
         {
             double matrix[ 4 ][ 4 ] ;
             matrix3ToDouble4x4 ( matrix, transformationMatrix );
-			/// @TODO check if matrix is animated
-            colladaNode.addMatrix (MATRIX_SID, matrix );
-			animationExporter->addAnimatedFloat4x4 ( iNode, fullNodeId, MATRIX_SID, MATRIX_PARAMETERS );
+			bool animatedMatrix = animationExporter->addAnimatedFloat4x4 ( iNode, fullNodeId, MATRIX_SID, MATRIX_PARAMETERS, true );
+		
+			if ( animatedMatrix )
+				colladaNode.addMatrix (MATRIX_SID, matrix );
+			else
+				colladaNode.addMatrix (matrix );
         }
 
         else
@@ -228,10 +231,9 @@ namespace COLLADAMax
             // Translation
             Control * translationController = ( transformationController ) ? transformationController->GetPositionController() : 0 ;
 
-			if ( AnimationExporter::isAnimated(transformationController) )
+			if ( animationExporter->addAnimatedPoint3 ( translationController, fullNodeId, TRANSLATE_SID, TRANSLATION_PARAMETERS, true ) )
             {
                 colladaNode.addTranslate ( TRANSLATE_SID, affineParts.t.x, affineParts.t.y, affineParts.t.z );
-                animationExporter->addAnimatedPoint3 ( translationController, fullNodeId, TRANSLATE_SID, TRANSLATION_PARAMETERS );
             }
 
             else
@@ -243,8 +245,6 @@ namespace COLLADAMax
             // first try with the Rotation controller
             Control * rotationController = ( transformationController ) ? transformationController->GetRotationController() : 0;
 
-            ///@TODO: add controller
-            //  exportNode->setRotationController(rotationController);
             if ( !AnimationExporter::isAnimated(rotationController) )
             {
                 // Save as axis-angle rotation.
@@ -268,14 +268,20 @@ namespace COLLADAMax
                 QuatToEuler ( quaternion, eulerAngles, EULERTYPE_XYZ );
 
                 // Export XYZ euler rotation in Z Y X order in the file
-                colladaNode.addRotateZ ( ROTATE_Z_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
-                animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Z_SID, ROTATION_PARAMETER, Animation::ROTATION_Z );
+                if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Z_SID, ROTATION_PARAMETER, Animation::ROTATION_Z, true ))
+					colladaNode.addRotateZ ( ROTATE_Z_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
+				else
+					colladaNode.addRotateZ ( COLLADA::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
 
-                colladaNode.addRotateY ( ROTATE_Y_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
-                animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Y_SID, ROTATION_PARAMETER, Animation::ROTATION_Y );
+                if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Y_SID, ROTATION_PARAMETER, Animation::ROTATION_Y, true ) )
+					colladaNode.addRotateY ( ROTATE_Y_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
+				else
+					colladaNode.addRotateY ( COLLADA::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
 
-                colladaNode.addRotateX ( ROTATE_X_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
-                animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_X_SID, ROTATION_PARAMETER, Animation::ROTATION_X );
+                if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_X_SID, ROTATION_PARAMETER, Animation::ROTATION_X, true ) )
+					colladaNode.addRotateX ( ROTATE_X_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
+				else
+					colladaNode.addRotateX ( COLLADA::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
             }
 
             //Scaling
@@ -284,7 +290,7 @@ namespace COLLADAMax
             // Animated scale includes animated scale axis, so export that carefully.
             Control* scaleController = transformationController ? transformationController->GetScaleController() : 0;
 
-			bool hasAnimatedScale = AnimationExporter::isAnimated(scaleController);
+			bool hasAnimatedScale = animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS, true );
 
             if ( hasAnimatedScale || !affineParts.k.Equals ( Point3 ( 1.0f, 1.0f, 1.0f ), TOLERANCE ) )
             {
@@ -296,46 +302,33 @@ namespace COLLADAMax
                                     ! ( COLLADA::MathUtils::equalsZero ( scaleRotation.angle ) ) ||
                                     ! ( COLLADA::MathUtils::equals3 ( affineParts.k.x, affineParts.k.y, affineParts.k.z ) );
 
+				bool hasAnimatedScaleAxis = false;
                 if ( hasScaleAxis )
                 {
                     Point3 & rotationAxis = scaleRotation.axis;
-					if ( hasAnimatedScale )
-					{
-	                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
-						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_INVERSE_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS_R );
-					}
-					else
-					{
-						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
-					}
 
-                    /// @TODO find a way to handle this problem
-                    // Once the animation has been exported, verify that there was, indeed, something animated.
-                    /*if (animatedScaleAxis == NULL && Equals(scaleRotation.angle, 0.0f))
-                    {
-                     SAFE_DELETE(rotation);
-                     hasScaleAxis = false;
-                    }*/
+					if ( hasAnimatedScale )
+						hasAnimatedScaleAxis = animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_INVERSE_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS_R, true );
+
+					if ( hasAnimatedScaleAxis )
+	                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+					else
+						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
                 }
 				
 				if ( hasAnimatedScale )
-				{
 					colladaNode.addScale ( SCALE_SID, affineParts.k.x, affineParts.k.y, affineParts.k.z );
-					animationExporter->addAnimatedPoint3( scaleController, fullNodeId, SCALE_SID, TRANSLATION_PARAMETERS );
-				}
 				else
-				{
 					colladaNode.addScale ( affineParts.k.x, affineParts.k.y, affineParts.k.z );
-				}
 
                 // Rotate back to the rotation basis
                 if ( hasScaleAxis )
                 {
                     Point3 & rotationAxis = scaleRotation.axis;
-					if ( hasAnimatedScale )
+					if ( hasAnimatedScaleAxis )
 					{
 		                colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
-						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS );
+						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS, false );
 					}
 					else
 					{

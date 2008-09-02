@@ -351,10 +351,10 @@ namespace COLLADAMax
 			ScaleConversionFunctor scaleConversion(weight);
 
             // effectProfile.setShaderType(COLLADA::EffectProfile::PHONG);
-			bool isAmbientAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::AMBIENT_COLOR, effectId, effectProfile.getAmbientDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+			bool isAmbientAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::AMBIENT_COLOR, effectId, effectProfile.getAmbientDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
             effectProfile.setAmbient ( maxColor2ColorOrTexture ( shader->GetAmbientClr ( animationStart ), weight ), isAmbientAnimated );
 
-			bool isDiffuseAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::DIFFUSE_COLOR, effectId, effectProfile.getDiffuseDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+			bool isDiffuseAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::DIFFUSE_COLOR, effectId, effectProfile.getDiffuseDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
             effectProfile.setDiffuse ( maxColor2ColorOrTexture ( shader->GetDiffuseClr ( animationStart ), weight ), isDiffuseAnimated );
 
 			effectProfile.setTransparent ( COLLADA::ColorOrTexture ( COLLADA::Color::WHITE ) );
@@ -364,17 +364,16 @@ namespace COLLADAMax
 
             effectProfile.setReflective ( COLLADA::ColorOrTexture ( COLLADA::Color::BLACK ) );
 
-			bool isSpecularAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_COLOR, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+			bool isSpecularAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_COLOR, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
 			effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( animationStart ), weight ), isSpecularAnimated );
 
-			bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, &ConversionFunctors::toPercent);
+			bool isGlossinessAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::GLOSSINESS, effectId, effectProfile.getShininessDefaultSid(), 0, true, &ConversionFunctors::toPercent);
 			effectProfile.setShininess ( ConversionFunctors::toPercent(shader->GetGlossiness ( animationStart )) * weight, isGlossinessAnimated );
 
 			bool useEmissionColor = shader->IsSelfIllumClrOn() != false;
-			//stdProfile->SetIsEmissionFactor(useEmissionColor == FALSE);
 			if (useEmissionColor)
 			{
-				bool isEmissionAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SELF_ILLUMINATION_COLOR, effectId, effectProfile.getEmissionDefaultSid(), COLOR_PARAMETERS, &scaleConversion);
+				bool isEmissionAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SELF_ILLUMINATION_COLOR, effectId, effectProfile.getEmissionDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
 				effectProfile.setEmission( maxColor2ColorOrTexture ( shader->GetSelfIllumClr ( animationStart ), weight ), isEmissionAnimated );
 			}
 			else

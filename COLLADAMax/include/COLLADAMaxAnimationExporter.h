@@ -301,7 +301,7 @@ namespace COLLADAMax
 		@param conversionFunctor Conversion functor used to convert the output values
 		@return Returns true if the float is animated, false otherwise.
 		*/
-		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
+		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
 
 
 		/** Adds an animation that animates a float.
@@ -312,7 +312,7 @@ namespace COLLADAMax
 		@param conversionFunctor Conversion functor used to convert the output values
 		@return Returns true if the float is animated, false otherwise.
 		*/
-		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, int  matrixIndex, ConversionFunctor* conversionFunctor = 0);
+		bool addAnimatedFloat ( Control * controller, const String & id, const String & sid, int  matrixIndex, bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
 
 
         /** Adds an animation that animates a Point3.
@@ -323,7 +323,7 @@ namespace COLLADAMax
 		exists until the animation has been exported.
 		@return Returns true if the Point3 is animated, false otherwise.
         */
-        bool addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
+        bool addAnimatedPoint3 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
 
 
 		/** Adds an animation that animates a Point4, i.e. a parameter that has 4 values, e.g. color
@@ -334,7 +334,7 @@ namespace COLLADAMax
 		exists until the animation has been exported.
 		@return Returns true if the Point3 is animated, false otherwise.
 		*/
-		bool addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[] = 0, ConversionFunctor* conversionFunctor = 0);
+		bool addAnimatedPoint4 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0);
 
 		
 		/** Adds an animation that animates an angle.
@@ -344,13 +344,25 @@ namespace COLLADAMax
 		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
 		exists until the animation has been exported.
         @param animatedAngle The type of the angle that should be animated
+		@param forceFullCheck If true, a full check will be performed f the animations is not constant.
+		@return Returns true if the angle is animated, false otherwise.
         */
-        void addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle );
+        bool addAnimatedAngle ( Control * controller, const String & id, const String & sid, const String parameters[], int animatedAngle, bool forceFullCheck = true );
 
 
-		void addAnimatedAxisAngle(Control * controller, const String & id, const String & sid, const String parameters[], int type);
+		/** Adds an animation that animates an axis angle rotation
+		@param controller The controller that contains the animation
+		@param id The id of the element to animate
+		@param sid The sid of the element to animate
+		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
+		exists until the animation has been exported.
+		@param type The type of the animation
+		@param forceFullCheck If true, a full check will be performed f the animations is not constant.
+		@return Returns true if the Point3 is animated, false otherwise.
+		*/
+		bool addAnimatedAxisAngle(Control * controller, const String & id, const String & sid, const String parameters[], int type, bool forceFullCheck = true);
 
-		void addAnimatedFloat4x4 ( INode * node, const String & id, const String & sid, const String parameters[] );
+		bool addAnimatedFloat4x4 ( INode * node, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true );
 
 
 		/** Adds an animation that animates a Point3.
@@ -360,7 +372,7 @@ namespace COLLADAMax
 		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
 		exists until the animation has been exported.
         */
-        void addAnimation4 ( Control * controller, const String & id, const String & sid, const String parameters[] );
+        bool addAnimation4 ( Control * controller, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true );
 
 		/** Adds an animation that animates a parameter within a IParamBlock.
 		@param parameterBlock The IParamBlock that contains the parameter
@@ -370,8 +382,10 @@ namespace COLLADAMax
 		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
 		exists until the animation has been exported.
 		@param conversionFunctor Conversion Functor used to convert the animated values
+		@param forceFullCheck Specifies, if a full check should be performed.
+		@return Returns true, if the controller is animated, false if not.
 		*/
-		bool addAnimatedParameter(IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
+		bool addAnimatedParameter(IParamBlock * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0  );
 
 		/** Adds an animation that animates a parameter within a IParamBlock2.
 		@param parameterBlock2 The IParamBlock2 that contains the parameter
@@ -381,12 +395,30 @@ namespace COLLADAMax
 		@param parameter A pointer to an array of parameters to animate. The programmer must ensure, that this array
 		exists until the animation has been exported.
 		@param conversionFunctor Conversion Functor used to convert the animated values
+		@param forceFullCheck Specifies, if a full check should be performed.
+		@return Returns true, if the controller is animated, false if not.
 		*/
-		bool addAnimatedParameter(IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], ConversionFunctor* conversionFunctor = 0  );
+		bool addAnimatedParameter(IParamBlock2 * parameterBlock, int parameterId, const String & id, const String & sid, const String parameters[], bool forceFullCheck = true, ConversionFunctor* conversionFunctor = 0  );
 
 
-        /** Returns true, if the controller is animated an should be exported.*/
+        /** Returns true, if the controller is animated an should be exported. 
+		This method does not perform a full check, i.e. it only checks if the controller says it is animated, but does
+		not check, if the key values are constant. Use isAnimated(const Animation& animation, bool forceFullCheck) to 
+		perform a full check.
+		@param control The controller that should be checked.
+		@return Returns true, if the controller is animated, false if not.
+		*/
         static bool isAnimated ( Control * controller );
+
+		/** Returns true, if the controller is animated an should be exported. 
+		If @a forceFullCheck is true, this method perform a full check, i.e. it checks if the key values are 
+		not constant. This method might be time consuming for laregh animations that are constsnt. If @a forceFullCheck 
+		id false, this method behaves exacly as isAnimated ( Control * controller ).
+		@param control The controller that should be checked.
+		@param forceFullCheck Specifies, if a full check should be performed.
+		@return Returns true, if the controller is animated, false if not.
+		*/
+		bool isAnimated (  const Animation& animation, bool forceFullCheck = false );
 
 		/** Returns true, if the parameter of @a paramBlock with index @a parameterId is animated an should be exported.*/
 		static bool isAnimated ( IParamBlock * paramBlock, int parameterId );
@@ -427,6 +459,57 @@ namespace COLLADAMax
 		 */
 		static bool findConstraint(Animatable* controller);
 
+		/** Checks if an animation is really animated, by comparing the key values with the first key value.
+		@param animation The animation that should be checked.
+		@return Returns true, if animated, false if not.*/
+		bool checkIfIsAnimated ( const Animation& animation );
+
+		/** Checks if an animation is really animated, by comparing the key values with the first key value.
+		@param animation The animation being exported.
+		@param keyInterface The key control interface used to retrieve the key values.
+		@param outputValueFunction Function pointer to a function used to retrieve the output values.
+		@return Returns true, if animated, false if not.*/
+		bool checkIfIsAnimated ( const Animation & animation, IKeyControl* keyInterface, OutputValueFunctionPtr outputValueFunction );
+
+		/** Checks if a sampled float value animation is really animated, by comparing the key values with the first key value.
+		@param animation The animation to export.
+		@param keyInterface The key control interface used to retrieve the key values.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		@return Returns true, if animated, false if not.
+		*/
+		bool checkIfSampledFloatIsAnimated ( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
+
+		/** Checks if a sampled Point3 animation is really animated, by comparing the key values with the first key value.
+		@param animation The animation to export.
+		@param keyInterface The key control interface used to retrieve the key values.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		@return Returns true, if animated, false if not.
+		*/
+		bool checkIfSampledPoint3IsAnimated ( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
+
+		/** Checks if a sampled rotation animation is really animated, by comparing the key values with the first key value.
+		@param animation The animation to export.
+		@param keyInterface The key control interface used to retrieve the key values.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		@return Returns true, if animated, false if not.
+		*/
+		bool checkIfSampledRotationIsAnimated ( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
+
+		/** Checks if a sampled transformation animation is really animated, by comparing the key values with the first key value.
+		@param animation The animation to export.
+		@param keyInterface The key control interface used to retrieve the key values.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		@return Returns true, if animated, false if not.
+		*/
+		bool checkIfSampledTransformationIsAnimated( const Animation & animation, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
         /** Exports all the source elements for @a animation.*/
         void exportSources ( Animation & animation );
@@ -647,24 +730,57 @@ namespace COLLADAMax
         */
         void exportInterpolationSource ( const String & baseId, IKeyControl * keyInterface, InterpolationTypeFunctionPtr interpolationTypeFunction, int keyCount );
 
-
-
-
+		/** Exports the input values (time values) of a sampled animation.
+		@param baseId The base id of the animation
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		*/
 		void exportSamplingInputSource ( const String & baseId, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
-
 		
+		/** Exports the output values of a sampled float value animation.
+		@param animation The animation to export.
+		@param baseId The base id of the animation.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		*/
 		void exportSamplingFloatOutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
+		/** Exports the output values of a sampled Point3 animation.
+		@param animation The animation to export.
+		@param baseId The base id of the animation.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		*/
 		void exportSamplingPoint3OutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
+		/** Exports the output values of a sampled rotation animation.
+		@param animation The animation to export.
+		@param baseId The base id of the animation.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		*/
 		void exportSamplingRotationOutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
-
+		/** Exports the output values of a sampled transformation animation.
+		@param animation The animation to export.
+		@param baseId The base id of the animation.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		*/
 		void exportSamplingTransformationOutputSource ( const Animation & animation, const String & baseId, IKeyControl* keyInterface, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
 
-
+		/** Exports the interpolation type of a sampled animation.
+		@param baseId The base id of the animation.
+		@param startTime The time the animation should start.
+		@param endTime The time the animation should end.
+		@param ticksPerFrame The ticks per frame used by the animation
+		*/
 		void exportSamplingInterpolationSource ( const String & baseId, TimeValue startTime, TimeValue endTime, int ticksPerFrame );
-
 
         /** Returns @a interpolationTypeName for all values of @a keyInterface and keyIndex.*/
         template <const String & interpolationTypeName>

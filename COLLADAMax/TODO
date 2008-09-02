@@ -15,7 +15,6 @@
 
 Scene graph
     - Transform joints
-    - Multiple object instances
 
 Materials / Effects
     - Material Lambert

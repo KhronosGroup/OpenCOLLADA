@@ -346,7 +346,7 @@ namespace COLLADAMax
 			listOfWeights.push_back(ConversionFunctors::fromPercent(channel.cblock->GetFloat(morphChannel::cblock_weight_index, mDocumentExporter->getOptions().getAnimationStart())));
 
 			Control* weightController = channel.cblock->GetController(morphChannel::cblock_weight_index);
-			mDocumentExporter->getAnimationExporter()->addAnimatedFloat(weightController, weightsId, EMPTY_STRING, (int)i, &ConversionFunctors::fromPercent );
+			mDocumentExporter->getAnimationExporter()->addAnimatedFloat(weightController, weightsId, EMPTY_STRING, (int)i, true, &ConversionFunctors::fromPercent );
 
 			if ( !targetINode )
 			{

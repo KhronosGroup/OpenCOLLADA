@@ -136,7 +136,7 @@ namespace COLLADAMax
         try
         {
 			DocumentExporter document ( maxInterface, name );
-			if (document.showExportOptions(suppressPrompts) != false)
+			if (document.showExportOptions(suppressPrompts != false) )
 			{
 				/// @todo handle errors here
 				document.exportCurrentMaxScene();
