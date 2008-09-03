@@ -172,7 +172,27 @@ namespace COLLADA
             addRotate ( sid, 0, 0, 1, angle );
         }
 
-        /** Adds a rotation*/
+		/** Adds a rotation around the x-axis.*/
+		void addRotateX ( double angle ) const
+		{
+			addRotate ( 1, 0, 0, angle );
+		}
+
+		/** Adds a rotation around the y-axis.*/
+		void addRotateY (  double angle )  const
+		{
+			addRotate ( 0, 1, 0, angle );
+		}
+
+		/** Adds a rotation around the Z-axis.*/
+		void addRotateZ ( double angle ) const
+		{
+			addRotate ( 0, 0, 1, angle );
+		}
+
+
+		
+		/** Adds a rotation*/
         void addRotate ( double x, double y, double z, double angle ) const ;
 
         /** Adds a matrix with sid @a sid*/
