@@ -2,19 +2,20 @@ Requirements:
 -------------
 To build the COLLADAMaya plug-in, you need following installations:
 -	Autodesk Maya, including the SDK
-- 	boost c++ libraries
-
+- 	Latest version of Boost C++ libraries
 
 Supported versions of Autodesk Maya are:
 -	Autodesk Maya 2008
 
-Supported versions of boost c++ libraries:
--	boost 1.35
+Supported and tested versions of boost c++ libraries:
+-	Boost 1.35
 
+You can download the latest version of boost from:
+http://www.boost.org/users/download/
 
 You also need a c++ compiler. The current Project was build with 
-Microsoft Visual Studio 2005. You can find the visual studio project file in 
-the COLLADAMaya directory ./scripts.
+Microsoft Visual Studio 2005 and the VC2005 platform SDK. You can 
+find the vs project file in the COLLADAMaya directory ./scripts.
 
 
 Build:
@@ -24,11 +25,21 @@ variables:
 -	"MAYA_PATH2008" to your installation path of Autodesk Maya
 -	"BOOST_ROOT" to your installation path of boost
 
-Download and compile the sources of COLLADAMaya. The "COLLADAMaya.mll" file 
+Download and compile the sources of COLLADAMaya from
+https://colladamaya.svn.sourceforge.net/svnroot/colladamaya/branches/nextgen.
+
+Open the "COLLADAMaya.sln" solution in ./nextgen/COLLADAMaya/COLLADAMaya.sln.
+The solution configuration "ReleasePlugin2008" and "DebugPlugin2008" will 
+create a dynamic library called "COLLADAMaya.mll". The "COLLADAMaya.mll" file 
 will be created in the output folder and copied into the folder 
 $(MAYA_PATH2008)/bin/plug-ins of your Autodesk Maya installation.
-
 If you don't use the MS Visual Studio project file, you have to copy the 
 created "COLLADAMaya.mll" file into this directory.
+
+The solution configuration "ReleaseConsole2008" and "DebugConsole2008" create
+the "COLLADAMaya.exe" file in the output folder and will be copied into the
+./nextgen/COLLADAMaya/testsuite folder. If you start the "testAllFiles.bat",
+all maya files in the current directory and all sub-directories will be 
+converted to collada dae files and checked with the coherency checker.
 
 For help on installation, please read the INSTALL file.
