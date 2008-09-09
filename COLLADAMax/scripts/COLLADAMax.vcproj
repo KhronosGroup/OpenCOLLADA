@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MAX_9"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -126,7 +126,7 @@
 				Optimization="3"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;Max_9"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -210,7 +210,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;$(NOINHERIT)"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MAX_2009"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -296,7 +296,7 @@
 				Optimization="3"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MAX_2009"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -382,7 +382,7 @@
 				Optimization="3"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;MAX_2008"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
 				BufferSecurityCheck="false"
@@ -466,7 +466,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;MAX_2008"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -492,7 +492,7 @@
 				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH2009)/lib&quot;"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH2008)/lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -671,6 +671,114 @@
 					RelativePath="..\src\COLLADAMaxVisualSceneExporter.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxXRefExporter.cpp"
+					>
+					<FileConfiguration
+						Name="Debug Max9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Max9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug Max2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Max2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Max2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug Max2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxXRefFile.cpp"
+					>
+					<FileConfiguration
+						Name="Debug Max9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Max9|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug Max2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Max2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release Max2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug Max2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxXRefFunctions.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -775,6 +883,22 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxVisualSceneExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxXRefExporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxXRefFile.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxXRefFunctions.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxXRefIncludes.h"
 					>
 				</File>
 			</Filter>

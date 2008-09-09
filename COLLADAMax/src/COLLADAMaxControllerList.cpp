@@ -21,6 +21,8 @@
 #include "COLLADAMaxControllerList.h"
 #include "COLLADAMaxExportNode.h"
 
+#include "COLLADAMaxXRefFunctions.h"
+	
 #include <max.h>
 
 
@@ -31,13 +33,20 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     ControllerList::ControllerList(const ExportNode& exportNode)
     {
-		Object* object = exportNode.getINode()->GetObjectRef();
-		resolveControllers(exportNode, object);
+		resolveControllers(exportNode);
 	}
 
 	//---------------------------------------------------------------
-	void ControllerList::resolveControllers( const ExportNode& exportNode, Object * object )
+	void ControllerList::resolveControllers( const ExportNode& exportNode )
 	{
+		Object* object = exportNode.getINode()->GetObjectRef();
+
+		if ( !object )
+			return;
+
+		if ( exportNode.getIsXRefObject() )
+			object = XRefFunctions::getXRefItemSource(object);
+
 		if ( !object )
 			return;
 

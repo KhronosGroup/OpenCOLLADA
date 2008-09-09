@@ -57,7 +57,8 @@ namespace COLLADAMax
             LIGHT,
             BONE,
 			HELPER,
-			MATERIAL
+			MATERIAL,
+			XREF_OBJECT
         };
 
         struct Symbol
@@ -71,6 +72,27 @@ namespace COLLADAMax
 
     private:
         typedef std::vector<ExportNode *> Children;
+
+		enum Flags
+		{
+			NONE                 = 0x0000,
+			
+			/** Indicates if the node is a joint*/
+			ISJOINT              = 0x0001,
+			
+			/** Indicates if the node is in the visual scene, i.e. not hidden or selected if export selection only
+			is choosen.*/
+			ISINVISUALSCENE      = 0x0002,
+			
+			/** Indicates if the node is referenced some where.*/
+			ISREFERENCED         = 0x0004,
+
+			/** Indicates if the nodes object is an XRef object.*/
+			ISXREFOBJECT         = 0x0008,
+
+			/** Indicates if the nodes object is an XRef material.*/
+			ISXREFMATERIAL       = 0x0010
+		};
 
     private:
         /** Maps max material to symbol name.*/
@@ -87,17 +109,10 @@ namespace COLLADAMax
         Children mChildren;
 
         /** The type of the node.*/
-        mutable Type mType;
+        Type mType;
 
-		/** Indicates if the node is a joint*/
-		bool mIsJoint;
-
-		/** Indicates if the node is in the visual scene, i.e. not hidden or selected if export selection only
-		is choosen.*/
-		bool mIsInVisualScene;
-
-		/** Indicates if the node is referenced some where.*/
-		bool mIsReferenced;
+		/** Flags used to store properties of the export node*/
+		int mFlags;
 
         /** The unique id of the node.*/
         String mId;
@@ -145,13 +160,13 @@ namespace COLLADAMax
 		void setTypeToUnknown() {mType = UNKNOWN;}
 
         /** Returns the type of the node.*/
-        Type getType() const;
+		Type getType() const { return mType; };
 
 		/** Returns if the node is a joint*/
-		bool getIsJoint()const {return mIsJoint; }
+		bool getIsJoint()const {return (mFlags & ISJOINT) != 0;}
 
 		/** Sets if the node is a joint*/
-		void setIsJoint(bool isJoint = true){mIsJoint=isJoint;}
+		void setIsJoint(bool isJoint = true){ isJoint ? mFlags |= ISJOINT : mFlags &= ~ISJOINT;}
 
         /** Returns the INode associated with this Export Node.*/
         INode * getINode() const
@@ -170,17 +185,29 @@ namespace COLLADAMax
 
 		/** Returns if the node is in the visual scene, i.e. not hidden or selected if export selection only
 		is choosen.*/
-		bool getIsInVisualScene()const {return mIsInVisualScene;}
+		bool getIsInVisualScene()const {return (mFlags & ISINVISUALSCENE) != 0;}
 
 		/** Sets if the node is in the visual scene, i.e. not hidden or selected if export selection only
 		is choosen.*/
-		void setIsInVisualScene(bool isInVisualScene){mIsInVisualScene = isInVisualScene;}
+		void setIsInVisualScene(bool isInVisualScene = true){isInVisualScene ? mFlags |= ISINVISUALSCENE : mFlags &= ~ISINVISUALSCENE;}
 
 		/** Returns if the node is referenced some where.*/
-		bool getIsReferenced()const {return mIsReferenced;}
+		bool getIsReferenced()const {return (mFlags & ISREFERENCED) != 0;}
 
 		/** Sets if the node is referenced some where.*/
-		void setIsReferenced(bool isReferenced){mIsReferenced = isReferenced;}
+		void setIsReferenced(bool isReferenced = true){isReferenced ? mFlags |= ISREFERENCED : mFlags &= ~ISREFERENCED;}
+
+		/** Returns if the nodes object is an XRef object.*/
+		bool getIsXRefObject()const {return (mFlags & ISXREFOBJECT) != 0;}
+
+		/** Sets if the nodes object is an XRef object.*/
+		void setIsXRefObject(bool isXRef = true){isXRef ? mFlags |= ISXREFOBJECT : mFlags &= ~ISXREFOBJECT;}
+
+		/** Returns if the nodes material is an XRef material.*/
+		bool getIsXRefMaterial()const {return (mFlags & ISXREFMATERIAL) != 0;}
+
+		/** Sets if the nodes material is an XRef material.*/
+		void setIsXRefMaterial(bool isXRef = true){isXRef ? mFlags |= ISXREFMATERIAL : mFlags &= ~ISXREFMATERIAL;}
 
 		/** Returns the parent or NULL if it has no parent.*/
 		ExportNode* getParent()const{return mParent;}
@@ -226,9 +253,6 @@ namespace COLLADAMax
 		/** Returns the final pose of the object, after all controllers are applied.*/
 		Object* getFinalPose()const;
 
-		/** Determines and returns the type of @a INode.*/
-        static Type determineType ( INode * iNode );
-
         /** Adds channel @a channel with corresponding effect id @a effectId. The symbol is marked as unused.*/
         void addSymbol ( Mtl * material, const String & symbol );
 
@@ -246,7 +270,6 @@ namespace COLLADAMax
 		{
 			return mMeshSymbolMap;
 		}
-
 
         /** Sets the wire frame color.*/
         void setWireFrameColor ( DWORD color )
@@ -283,9 +306,11 @@ namespace COLLADAMax
         ExportNode ( INode * iNode, ExportNode* parent, Type type );
 
     private:
+		/** Determines and returns the type of @a INode.*/
+		Type determineType ( INode * iNode );
 
         /** Determines the type of the export node.*/
-        Type determineType() const;
+        void determineType();
     };
 
 }

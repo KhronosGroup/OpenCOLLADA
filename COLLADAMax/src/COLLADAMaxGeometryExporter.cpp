@@ -33,6 +33,8 @@
 
 #include "COLLADAMaxMultiMtl.h"
 
+#include "COLLADAMaxXRefFunctions.h"
+
 #include <algorithm>
 
 #include <max.h>
@@ -147,6 +149,8 @@ namespace COLLADAMax
         SClass_ID sid;
         getBaseObjectAndID ( object, sid );
 
+		TimeValue animationStart = mDocumentExporter->getOptions().getAnimationStart();
+
         Class_ID id = object->ClassID();
 
         bool exportEPolyAsTriangles = mDocumentExporter->getOptions().getExportEPolyAsTriangles();
@@ -195,7 +199,7 @@ namespace COLLADAMax
                 {
                     if ( object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
                     {
-                        mTriObject = ( TriObject* ) object->ConvertToType ( TIME_EXPORT_START, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
+                        mTriObject = ( TriObject* ) object->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
                         mDeleteObject = true;
                     }
                 }
@@ -204,13 +208,13 @@ namespace COLLADAMax
 
                 if ( !mTriObject && !exportEPolyAsTriangles && object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
                 {
-                    mPolyObject = ( PolyObject* ) object->ConvertToType ( TIME_EXPORT_START, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
+                    mPolyObject = ( PolyObject* ) object->ConvertToType ( animationStart, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
                     mDeleteObject = true;
                 }
 
                 if ( !mTriObject && !mPolyObject && object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
                 {
-                    mTriObject = ( TriObject* ) object->ConvertToType ( TIME_EXPORT_START, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
+                    mTriObject = ( TriObject* ) object->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
                     // ST - Copy over animated vertices, this is not done by default
 
                     if ( id == EPOLYOBJ_CLASS_ID || id.PartA() == POLYOBJ_CLASS_ID )
@@ -246,8 +250,8 @@ namespace COLLADAMax
 
                     if ( object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
                     {
-                        PolyObject * tempPolyObject = ( PolyObject* ) object->ConvertToType ( TIME_EXPORT_START, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
-                        mTriObject = ( TriObject* ) tempPolyObject->ConvertToType ( TIME_EXPORT_START, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
+                        PolyObject * tempPolyObject = ( PolyObject* ) object->ConvertToType ( animationStart, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
+                        mTriObject = ( TriObject* ) tempPolyObject->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
                         tempPolyObject->DeleteMe();
                         mDeleteObject = true;
                     }
@@ -278,6 +282,10 @@ namespace COLLADAMax
 			object = mExportNode->getINode()->GetObjectRef();
 		else
 			object = mExportNode->getInitialPose();
+
+
+		if ( !object )
+			return;
 
         if ( object )
         {
@@ -319,7 +327,7 @@ namespace COLLADAMax
 				mId = GeometriesExporter::getGeometryId(*mExportNode);
 
 			if ( !mMorphControllerHelperGeometry )
-				mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mExportNode);
+				mDocumentExporter->insertExportedObject(ObjectIdentifier( object ), mExportNode);
 
             mGeometriesExporter->openMesh ( mId, COLLADA::Utils::checkNCName ( iNode->GetName() ) );
 
@@ -461,21 +469,17 @@ namespace COLLADAMax
 
                     if ( subMaterial )
                     {
-
                         // check for XRefs
-                        /*      if (XRefFunctions::IsXRefMaterial(subMaterial))
-                              {
-                               if (!OPTS->ExportXRefs())
-                               {
-                                // resolve the source
-                                subMaterial = XRefFunctions::GetXRefMaterialSource(subMaterial);
-                               }
-                               // else do nothing, this is only a material instance
-                              }
-                        */
-                        // if this is a XRef it'll return NULL
+						if (XRefFunctions::isXRefMaterial(subMaterial))
+						{
+							if ( mDocumentExporter->getOptions().getIncludeXRefs() )
+							{
+								// resolve the source
+								subMaterial = XRefFunctions::getXRefMaterialSource(subMaterial);
+							}
+							// else do nothing, this is only a material instance
+						}
                         symbol = mExportNode->getSymbolByMaterialAndSetAsUsed ( subMaterial );
-
                     }
 
                     else
@@ -552,7 +556,7 @@ namespace COLLADAMax
 					if (!OPTS->ExportXRefs())
 					{
 					// resolve the source
-					subMaterial = XRefFunctions::GetXRefMaterialSource(subMaterial);
+					subMaterial = XRefFunctions::getXRefMaterialSource(subMaterial);
 					}
 					// else do nothing, this is only a material instance
 					}
@@ -1024,16 +1028,14 @@ namespace COLLADAMax
     void GeometryExporter::flattenMaterials ( Mtl* material, MaterialList& materialMap, int materialIndex )
     {
         // check for XRefs
-        /* if (material != NULL && XRefFunctions::IsXRefMaterial(material))
-         {
-          material = XRefFunctions::GetXRefMaterialSource(material);
-         }
-        */
-        // KEEP THE NULL POINTER! Null pointers are actually allowed in max, and we need to
+		if ( material && XRefFunctions::isXRefMaterial(material))
+		{
+			material = XRefFunctions::getXRefMaterialSource(material);
+		}
+
+		// KEEP THE NULL POINTER! Null pointers are actually allowed in max, and we need to
         // maintain the material list.
-        Class_ID matId = ( material == NULL ) ?
-                         Class_ID ( STANDIN_CLASS_ID, STANDIN_CLASS_ID ) :
-                         material->ClassID();
+        Class_ID matId =  !material ? Class_ID ( STANDIN_CLASS_ID, STANDIN_CLASS_ID ) : material->ClassID();
 
         if ( matId == Class_ID ( MULTI_CLASS_ID, 0 ) )
         {

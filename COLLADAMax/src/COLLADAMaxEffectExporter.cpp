@@ -25,6 +25,8 @@
 #include "COLLADAMaxAnimationExporter.h"
 #include "COLLADAMaxConversionFunctor.h"
 
+#include "COLLADAMaxXRefFunctions.h"
+
 #include "COLLADANode.h"
 //#include "COLLADATextureModifier.h"
 
@@ -153,6 +155,24 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void EffectExporter::exportEffect ( ExportNode* exportNode, Mtl* material )
     {
+
+		// check for XRefs
+		if (XRefFunctions::isXRefMaterial(material))
+		{
+			if ( mDocumentExporter->getOptions().getIncludeXRefs() )
+			{
+				// we don't export XRef materials, but remember them for later use
+				material = XRefFunctions::getXRefMaterialSource(material);
+			}
+			else
+			{
+				assert(false);
+//				xRefedMaterialList.push_back(mat);
+				return;
+			}
+		}
+
+
         if ( material->IsMultiMtl() )
         {
             // This material type is used for meshes with multiple materials:
@@ -178,23 +198,21 @@ namespace COLLADAMax
     void EffectExporter::exportSimpleEffect ( ExportNode* exportNode, Mtl* baseMaterial )
     {
         // check if this is not an XRef
-#if 0
 
-        if ( XRefFunctions::IsXRefMaterial ( baseMaterial ) )
+        if ( XRefFunctions::isXRefMaterial ( baseMaterial ) )
         {
-            if ( OPTS->ExportXRefs() )
+            if ( mDocumentExporter->getOptions().getIncludeXRefs() )
             {
                 // don't generate the FCDMaterial
-                return ;
+				baseMaterial = XRefFunctions::getXRefMaterialSource( baseMaterial );
             }
 
             else
             {
-                baseMaterial = XRefFunctions::GetXRefMaterialSource ( baseMaterial );
+				return ;
             }
         }
 
-#endif
 
         EffectMap::iterator it = mEffectMap.find ( baseMaterial );
 

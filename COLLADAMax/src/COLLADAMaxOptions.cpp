@@ -86,7 +86,7 @@ namespace COLLADAMax
 		// Set the option values to their default
 		mNormals(true),
 		mTriangulate(true),
-		mXrefs(true),
+		mIncludeXrefs(true),
 		mTangents(false),
 		mAnimations(true),
 		mSampleAnimation(false),
@@ -153,7 +153,7 @@ namespace COLLADAMax
 			// setup checkboxes
 			CheckDlgButton(hWnd, IDC_GEOM_NORMALS, mNormals);
 			CheckDlgButton(hWnd, IDC_GEOM_TRIANGLES, mTriangulate);
-			CheckDlgButton(hWnd, IDC_GEOM_XREFS, mXrefs);
+			CheckDlgButton(hWnd, IDC_GEOM_XREFS, mIncludeXrefs);
 			CheckDlgButton(hWnd, IDC_GEOM_TANGENTS, mTangents);
 			CheckDlgButton(hWnd, IDC_ANIM_ENABLE, mAnimations);
 			CheckDlgButton(hWnd, IDC_ANIM_SAMPLE, mSampleAnimation);
@@ -230,7 +230,7 @@ namespace COLLADAMax
 			mCreateClip = IsDlgButtonChecked(hWnd, IDC_ANIM_CLIP) == BST_CHECKED;
 			mNormals = IsDlgButtonChecked(hWnd, IDC_GEOM_NORMALS) == BST_CHECKED;
 			mTriangulate = IsDlgButtonChecked(hWnd, IDC_GEOM_TRIANGLES) == BST_CHECKED;
-			mXrefs = IsDlgButtonChecked(hWnd, IDC_GEOM_XREFS) == BST_CHECKED;
+			mIncludeXrefs = IsDlgButtonChecked(hWnd, IDC_GEOM_XREFS) == BST_CHECKED;
 			mTangents = IsDlgButtonChecked(hWnd, IDC_GEOM_TANGENTS) == BST_CHECKED;
 
 			spin = GetISpinner(GetDlgItem(hWnd, IDC_ANIM_START_SPIN)); 
@@ -294,7 +294,7 @@ namespace COLLADAMax
 		writeOption(file, OPTION_NORMALS_NAME, mNormals );
 
 		writeOption(file, OPTION_TRIANGULAT_NAME, mTriangulate );
-		writeOption(file, OPTION_XREFS_NAME, mXrefs );
+		writeOption(file, OPTION_XREFS_NAME, mIncludeXrefs );
 		writeOption(file, OPTION_TANGENTS_NAME, mTangents );
 		writeOption(file, OPTION_ANIMATIONS_NAME, mAnimations );
 		writeOption(file, OPTION_SAMPLEANIMATIONS_NAME, mSampleAnimation );
@@ -350,7 +350,7 @@ namespace COLLADAMax
 						// Look for/read in the ColladaMax options.
 						readOption<bool>(token, OPTION_NORMALS_NAME, value, mNormals) ||
 						readOption<bool>(token, OPTION_TRIANGULAT_NAME, value, mTriangulate) ||
-						readOption<bool>(token, OPTION_XREFS_NAME, value, mXrefs) ||
+						readOption<bool>(token, OPTION_XREFS_NAME, value, mIncludeXrefs) ||
 						readOption<bool>(token, OPTION_TRIANGULAT_NAME, value, mTangents) ||
 						readOption<bool>(token, OPTION_SAMPLEANIMATIONS_NAME, value, mSampleAnimation) ||
 						readOption<bool>(token, OPTION_ANIMATIONS_NAME, value, mAnimations) ||

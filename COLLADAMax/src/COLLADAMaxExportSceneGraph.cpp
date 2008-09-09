@@ -67,8 +67,6 @@ namespace COLLADAMax
 
         int numberOfChildren = iNode->NumberOfChildren();
 
-        String name = iNode->GetName();
-
         for ( int i = 0; i < numberOfChildren; ++i )
         {
             INode * child = iNode->GetChildNode ( i );
@@ -81,21 +79,12 @@ namespace COLLADAMax
                isInVisualScene = true;
         }
 
- //       if ( exportCurrentNode )
-        {
+		exportNode->setId ( mNodeIdList.addId ( iNode->GetName() ) );
+		mINodeExportNodeMap[iNode] = exportNode;
+		exportNode->createControllerList();
+		exportNode->setIsInVisualScene(isInVisualScene);
 
-            exportNode->setId ( mNodeIdList.addId ( exportNode->getINode()->GetName() ) );
-			mINodeExportNodeMap[iNode] = exportNode;
-			exportNode->createControllerList();
-			exportNode->setIsInVisualScene(isInVisualScene);
-            return exportNode;
-        }
-/*		else
-		{
-			delete exportNode;
-			return 0;
-		}
-		*/
+		return exportNode;
     }
 
 

@@ -96,11 +96,11 @@ namespace COLLADAMax
     Mtl* MaterialExporter::GetSubMaterialById ( Mtl* mtl, int materialId )
     {
         if ( !mtl->IsMultiMtl() )
-            return NULL;
+            return 0;
 
         IParamBlock2* subMaterialParameters = ( IParamBlock2* ) mtl->GetReference ( MultiMaterial::PBLOCK_REF );
 
-        if ( subMaterialParameters == NULL )
+        if ( !subMaterialParameters )
             return mtl->GetSubMtl ( materialId );
 
         // check if we ever reach this point
@@ -110,18 +110,18 @@ namespace COLLADAMax
 
         for ( int subMaterialIndex = 0; subMaterialIndex < subMaterialCount; ++subMaterialIndex )
         {
-            int subMatId = subMaterialParameters->GetInt ( MultiMaterial::multi_ids, TIME_EXPORT_START, subMaterialIndex );
+            int subMatId = subMaterialParameters->GetInt ( MultiMaterial::multi_ids,0 , subMaterialIndex );
 
             if ( subMatId == materialId )
             {
                 Mtl * material = mtl->GetSubMtl ( subMaterialIndex );
 
-                if ( material != NULL )
+                if ( material )
                     return material;
             }
         }
 
-        return NULL;
+        return 0;
     }
 
 }

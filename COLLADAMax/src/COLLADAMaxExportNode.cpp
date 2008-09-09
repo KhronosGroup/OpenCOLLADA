@@ -21,6 +21,8 @@
 #include "COLLADAMaxExportNode.h"
 #include "COLLADAMaxControllerExporter.h"
 
+#include "COLLADAMaxXRefFunctions.h"
+
 #include <max.h>
 #include <modstack.h>
 #include <cs/bipexp.h>
@@ -34,32 +36,22 @@ namespace COLLADAMax
             : mINode ( iNode ),
 			mParent(parent),
             mType ( UNDETERMINED ),
-			mIsJoint(false),
-			mIsInVisualScene(false),
-			mIsReferenced(false),
+			mFlags(NONE),
 			mControllerList(0)
-    {}
+    {
+		determineType();
+	}
 
     //---------------------------------------------------------------
     ExportNode::ExportNode ( INode * iNode, ExportNode* parent , Type type )
             : mINode ( iNode ),
 			mParent(parent),
             mType ( type ),
-			mIsJoint(false),
-			mIsInVisualScene(false),
-			mIsReferenced(false),
+			mFlags(NONE),
 			mControllerList(0)
-    {}
-
-
-    //---------------------------------------------------------------
-    ExportNode::Type ExportNode::getType() const
     {
-        if ( mType == UNDETERMINED )
-            mType = determineType();
-
-        return mType;
-    }
+		determineType();
+	}
 
 
     //---------------------------------------------------------------
@@ -78,19 +70,40 @@ namespace COLLADAMax
     {
         Animatable * animatable = iNode->GetObjectRef();
 
-        if ( animatable == 0 )
+        if ( !animatable )
             return ExportNode::UNKNOWN;
 
         Animatable* base = animatable;
 
 		String gg = iNode->GetName();
 
-        // Modifiers are applied to the object, acquire the base object
-        while ( base->SuperClassID() == GEN_DERIVOB_CLASS_ID )
-        {
-            IDerivedObject * derivedObject = ( IDerivedObject* ) base;
-            base = derivedObject->GetObjRef();
-        }
+
+		// check for an XRef
+		if (XRefFunctions::isXRefItem(base))
+		{
+			setIsXRefObject();
+			// replace the current animatable by the x-ref object
+			base = XRefFunctions::getXRefItemSource((Object*)base);
+			if ( !base ) 
+				return ExportNode::UNKNOWN;
+		}
+		else if (XRefFunctions::isXRefMaterial(base))
+		{
+			setIsXRefMaterial();
+			base = XRefFunctions::getXRefMaterialSource((Mtl*)base);
+			if ( !base ) 
+				return ExportNode::UNKNOWN;
+		}
+
+
+		// Modifiers are applied to the object, acquire the base object
+		while ( base->SuperClassID() == GEN_DERIVOB_CLASS_ID )
+		{
+			IDerivedObject * derivedObject = ( IDerivedObject* ) base;
+			base = derivedObject->GetObjRef();
+		}
+
+
 
         SClass_ID superClassId = base->SuperClassID();
 
@@ -98,19 +111,16 @@ namespace COLLADAMax
 
         switch ( superClassId )
         {
-
         case GEOMOBJECT_CLASS_ID:
 			{
-				//we need this, as soon as we support bones
 				// Check for a Max bone mesh
-
 				if ( classId == BONE_OBJ_CLASSID )
 					return ExportNode::BONE;
 
 				// Check for biped
 				Control* control = iNode->GetTMController();
 
-				if ( control != NULL )
+				if ( control )
 				{
 					Class_ID controllerClassId = control->ClassID();
 
@@ -152,16 +162,14 @@ namespace COLLADAMax
 			return MATERIAL;
 
         }
-
-
         return ExportNode::UNKNOWN;
     }
 
 
     //---------------------------------------------------------------
-    ExportNode::Type ExportNode::determineType() const
+    void ExportNode::determineType() 
     {
-        return determineType ( mINode );
+        mType = determineType ( mINode );
     }
 
 
@@ -197,13 +205,18 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	Object* ExportNode::getInitialPose() const
 	{
+		Object* initialPose = 0;
+
 		if ( mControllerList )
-		{
-			Object* initialPose = mControllerList->getInitialPose();
-			if ( initialPose )
-				return initialPose;
-		}
-		return mINode->GetObjectRef();
+			initialPose = mControllerList->getInitialPose();
+
+		if ( !initialPose )
+			initialPose  = mINode->GetObjectRef();
+
+		if ( getIsXRefObject() )
+			return XRefFunctions::getXRefItemSource(initialPose);
+		else
+			return initialPose;
 	}
 
 

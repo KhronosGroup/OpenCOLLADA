@@ -220,11 +220,9 @@ namespace COLLADAMax
 
 
 		ISkinContextData* contextData = skin->GetContextInterface(iNode);
-		assert(contextData);
-
 		int vertexCount = contextData->GetNumPoints();
 		
-		//count weights, excluding the ones equals one
+		//count weights, excluding the ones that are
 		int weightsCount = 1;
 		for (int i = 0; i < vertexCount; ++i)
 		{

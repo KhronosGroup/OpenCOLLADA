@@ -21,18 +21,55 @@
 
 #define UNUSED(a) /**< Removes a piece of code during the pre-process. This macro is useful for these pesky unused variable warnings. */
 
+#include "maxversion.h"
+
+
+#if ( MAX_VERSION_MAJOR >= 7 )
+#  define MAX_7_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 7 )
+#  define MAX_7
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 8 )
+#  define MAX_8_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 8 )
+#  define MAX_8
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 9 )
+#  define MAX_9_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 9 )
+#  define MAX_9
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 10 )
+#  define MAX_2008_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 10 )
+#  define MAX_2008
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 11 )
+#  define MAX_2009_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 11 )
+#  define MAX_2009
+#endif
 
 
 // Max 2009 requires RTTI to be enabled
-#ifdef MAX_2009
+#ifdef MAX_2009_OR_NEWER
 #ifndef _CPPRTTI
-#error "Max 2009 requires RTTI to be enabled. Please enable and try again..."
+#error "Max 2009 or newer requires RTTI to be enabled. Please enable and try again..."
 #endif
 #endif
 
 
 #define TIME_INITIAL_POSE  0
-#define TIME_EXPORT_START  0//OPTS->AnimStart()
+//#define TIME_EXPORT_START  0//OPTS->AnimStart()
 
 
 #include <string>

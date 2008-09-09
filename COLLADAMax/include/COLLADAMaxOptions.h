@@ -56,7 +56,7 @@ namespace COLLADAMax
 		Interface* mMaxInterface;
 		bool mNormals;						//!< export normals
 		bool mTriangulate;					//!< convert Editable Polygons to triangles
-		bool mXrefs;						//!< export external references
+		bool mIncludeXrefs;						//!< export external references
 		bool mTangents;						//!< export tangents and binormals
 		bool mAnimations;					//!< export animations;
 		bool mSampleAnimation;				//!< export sampled animation
@@ -96,9 +96,9 @@ namespace COLLADAMax
         }
 
         /** Returns, if XRef are exported.*/
-        bool getExportXRefs() const
+        bool getIncludeXRefs() const
         {
-            return mXrefs;
+            return mIncludeXrefs;
         }
 
         /** Returns, if tangents are exported.*/

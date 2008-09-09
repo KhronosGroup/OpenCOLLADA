@@ -20,11 +20,13 @@
 #define __COLLADAMAX_STABLE_HEADERS_H__
 
 
+#include "COLLADAMaxPrerequisites.h"
+
 #ifdef MAX_9
 #pragma message ("Compling for Max9")
-#elif MAX_2008
+#elif defined MAX_2008
 #pragma message ("Compling for Max2008")
-#elif MAX_2009
+#elif defined MAX_2009
 #pragma message ("Compling for Max2009")
 #endif
 
@@ -48,6 +50,8 @@
 #include <IDxMaterial.h>  // for IDxMaterial
 
 #include "MorphR3.h"		//for morph controller MorphR3 
+
+#include "COLLADAMaxXRefIncludes.h"
 
 
 //STL

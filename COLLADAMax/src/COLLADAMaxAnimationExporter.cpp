@@ -496,14 +496,16 @@ namespace COLLADAMax
 	bool AnimationExporter::isAnimated ( const Animation& animation, bool forceFullCheck )
 	{
 		Control* controller = animation.getController();
+		INode* iNode = animation.getNode();
 
-		bool animated = controller && controller->IsAnimated();
+		bool animated = isAnimated(controller) || iNode;
 
 		if ( !animated )
 			return false;
 
 		if ( forceFullCheck )
 			return checkIfIsAnimated(animation);
+
 		return animated;
 	}
 
@@ -527,11 +529,21 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool AnimationExporter::checkIfIsAnimated ( const Animation& animation )
 	{
-		Control* controller = animation.getController();
+		Control * controller = animation.getController();
+		INode * iNode = animation.getNode();
 
-		bool isSampling = mDocumentExporter->getOptions().getSampleAnimation(); 
+		bool isSampling = !controller || mDocumentExporter->getOptions().getSampleAnimation(); 
 
-		IKeyControl * keyInterface = GetKeyControlInterface ( controller );
+		IKeyControl * keyInterface = 0;
+
+		if (!isSampling)
+		{
+			keyInterface = GetKeyControlInterface ( controller );
+			if ( !keyInterface ) 
+				isSampling = true;
+			else if (keyInterface->GetNumKeys() <= 1) 
+				return false;
+		}
 
 		if ( !isSampling )
 		{

@@ -8,24 +8,39 @@ Scene graph
       - Geometries
       - Materials
       - Effects
+      - Cameras
+      - Light
 	
 Geometry   
     - Mesh: 
 	    - POSITION, VERTEX, NORMAL, TEXCOORD (multiple also), COLOR
 	    - POLYLIST or TRIANGLES
-	- Extra tags for primitives (box, sphere, ...)
+	  - Extra tags for primitives (box, sphere, ...)
 
 Materials / Effects
     - Texture and color materials
     - Materials Phong and Blinn 
 
 Animation
-    - LINEAR, STEP, BEZIER
-    - Rotation / Transformation / Scale
+    - Animation types: LINEAR, STEP, BEZIER
+    - All kinds of node transformations 
+    - Material parameters like color
+    - Morph controller weights
     - Extra parameters of camera, light, primitives
     
+Controller
+    - Skin and morph controller
+    - multiple controllers
+    
 Camera
+    - orthographic and perspective
 
 Light
+    - ambient, point, spot, directional
+    
+XRefs
+    - Geometries
+    - Materials
+    - Transformations
     
 

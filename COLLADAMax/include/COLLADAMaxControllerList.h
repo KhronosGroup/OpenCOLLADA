@@ -71,7 +71,7 @@ namespace COLLADAMax
 		/** Resolves all the controllers of the node, represented by the exportNode and stores them in @a mControllers.
 		We iterate thru the modifier stack, starting with the last one that is applied, until we hit the first modifier
 		that is not support by COLLADA, i.e. is neither a skin nor a morph controller.*/
-		void resolveControllers(const ExportNode& exportNode, Object * object);
+		void resolveControllers(const ExportNode& exportNode);
 
     protected:
 
