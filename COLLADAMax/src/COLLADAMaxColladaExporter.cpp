@@ -139,11 +139,11 @@ namespace COLLADAMax
 			if (document.showExportOptions(suppressPrompts != false) )
 			{
 				/// @todo handle errors here
-				document.exportCurrentMaxScene();
+				document.exportRootMaxScene();
 			}
 			else
 			{
-				// Set to TRUE although nothing happened in other to avoid the "generic failure" dialog.
+				// Set to TRUE although nothing happened in order to avoid the "generic failure" dialog.
 				success = true; 
 			}
         }

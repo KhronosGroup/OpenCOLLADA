@@ -56,7 +56,7 @@ namespace COLLADAMax
 		Interface* mMaxInterface;
 		bool mNormals;						//!< export normals
 		bool mTriangulate;					//!< convert Editable Polygons to triangles
-		bool mIncludeXrefs;						//!< export external references
+		bool mIncludeXrefs;					//!< export external references
 		bool mTangents;						//!< export tangents and binormals
 		bool mAnimations;					//!< export animations;
 		bool mSampleAnimation;				//!< export sampled animation
@@ -69,6 +69,7 @@ namespace COLLADAMax
 		TimeValue mAnimationStart;			//!< start sample TimeValue(frame * GetTicksPerFrame)
 		TimeValue mAnimationEnd;			//!< end sample TimeValue  (frame * GetTicksPerFrame)
 		bool mSelectionOnly;				//!< export only selected nodes/objects
+		String mXRefOutputDir;              //!< The directory where all the xref scenes should be exported to
 
 
 	
@@ -159,6 +160,8 @@ namespace COLLADAMax
             return mAnimationEnd;
         }
 
+		/** Returns the directory where the XRef files should be exported to.*/
+		const String& getXRefOutputDir() const { return mXRefOutputDir; }
 
 		/** Change the animation start/end for sampling*/
 		void setAnimBounds(int start, int end) { mAnimationStart = start; mAnimationEnd = end; }

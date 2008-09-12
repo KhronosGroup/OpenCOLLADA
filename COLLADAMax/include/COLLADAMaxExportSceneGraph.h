@@ -23,6 +23,7 @@
 
 #include "COLLADAMaxExportNode.h"
 #include "COLLADAIDList.h"
+#include "COLLADAURI.h"
 
 #include <map>
 #include <vector>
@@ -52,6 +53,15 @@ namespace COLLADAMax
 	public:
 		typedef std::map<INode*, ExportNode*> INodeExportNodeMap;
 
+		/** Struct that holds information about a XRef scene*/
+		struct XRefSceneGraph
+		{
+			COLLADA::URI exportFileURI;                 //!< Name of the created COLLADA file
+			ExportSceneGraph* exportSceneGraph;    //!< The export scene graph of the XRef scene file
+		};
+
+		typedef std::vector<XRefSceneGraph> XRefSceneGraphList;
+
     private:
         /** True if only the selection should be exported, false if the entire scene should be exported.*/
         bool mExportSelection;
@@ -61,6 +71,9 @@ namespace COLLADAMax
 
         /** The root INode.*/
         INode * mRootNode;
+
+		/** List of all XRef scenes belows the file represented by this export scene graph*/
+		XRefSceneGraphList mXRefSceneGraphList;
 
         /** Holds the unique ids of the nodes.*/
         COLLADA::IDList mNodeIdList;
@@ -82,8 +95,7 @@ namespace COLLADAMax
 
     public:
         ExportSceneGraph ( INode * iNode );
-        ~ExportSceneGraph()
-        {}
+        ~ExportSceneGraph();
 
         /** Creates the export scene graph.
         @a return returns true if there are nodes to export and false otherwise.*/
@@ -94,6 +106,9 @@ namespace COLLADAMax
         {
             return mRootExportNode;
         }
+
+		/** Checks, if @a exportNode is the root node of the export scene graph.*/
+		bool isRootExportNode(ExportNode* exportNode) { return exportNode == mRootExportNode;}
 
 		/** Creates a unique sid for joints.*/
 		String createJointSid();
@@ -106,6 +121,9 @@ namespace COLLADAMax
 
 		/** Returns the list of helper geometries used by morph controllers.*/
 		const MorphControllerHelperGeometryList& getMorphControllerHelperGeometryList()const{return mMorphControllerHelperGeometryList;}
+
+		/** Returns the XRefSceneGraphList of all XRef scenes.*/
+		const XRefSceneGraphList& getXRefSceneGraphList() const { return mXRefSceneGraphList; }
 
     private:
         ExportSceneGraph ( const ExportSceneGraph & exportSceneGraph );

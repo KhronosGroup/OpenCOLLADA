@@ -64,7 +64,10 @@ namespace COLLADAMax
 				for (int modifierIndex = 0; modifierIndex < derivedObject->NumModifiers(); ++modifierIndex)
 				{
 					Modifier* modifier = derivedObject->GetModifier(modifierIndex);
-					if ( SkinController::isSkinController(modifier) )
+					//no iskin support for xrefs
+					// TODO needs further investigation...
+
+					if ( SkinController::isSkinController(modifier) /*&& !exportNode.getIsXRefObject() */) 
 					{
 						SkinController * skinController = new SkinController(derivedObject, modifierIndex, modifier->IsEnabled() != false);
 						mControllers.push_back(skinController);

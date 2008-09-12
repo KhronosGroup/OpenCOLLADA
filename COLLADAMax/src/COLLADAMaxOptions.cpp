@@ -99,7 +99,8 @@ namespace COLLADAMax
 		mSelectionOnly(false),
 
 		mAnimationStart(TIME_INITIAL_POSE),
-		mAnimationEnd(TIME_PosInfinity)
+		mAnimationEnd(TIME_PosInfinity),
+		mXRefOutputDir()
 	{
 
 		// Load the export options from the configuration file

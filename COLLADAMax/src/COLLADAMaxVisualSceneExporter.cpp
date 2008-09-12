@@ -23,6 +23,7 @@
 #include "COLLADAInstanceController.h"
 #include "COLLADAInstanceCamera.h"
 #include "COLLADAInstanceLight.h"
+#include "COLLADAInstanceNode.h"
 #include "COLLADAMathUtils.h"
 #include "COLLADAURI.h"
 
@@ -163,6 +164,19 @@ namespace COLLADAMax
 
 			COLLADA::InstanceLight instanceLight(mSW, "#" + lightId);
 			instanceLight.add();
+		}
+
+		//export instance nodes for XRef scenes
+		if ( mExportSceneGraph->isRootExportNode(exportNode) )
+		{
+			const ExportSceneGraph::XRefSceneGraphList& xRefScenes = mExportSceneGraph->getXRefSceneGraphList();
+			for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes.begin(); it != xRefScenes.end(); ++it)
+			{
+				String outputFileName = mDocumentExporter->getXRefOutputPath(it->exportFileURI);
+				COLLADA::URI target(outputFileName, getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
+				COLLADA::InstanceNode instanceNode(mSW, target);
+				instanceNode.add();
+			}
 		}
 
         //export the child nodes

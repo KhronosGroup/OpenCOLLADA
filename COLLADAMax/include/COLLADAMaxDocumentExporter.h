@@ -77,8 +77,14 @@ namespace COLLADAMax
         /** The stream writer used to write the COLLADA file.*/
         COLLADA::StreamWriter mStreamWriter;
 
+		/** The uri of the main output file.*/
+		COLLADA::URI mOutputFileUri;
+
         /** The scene graph which nodes will be exported.*/
-        ExportSceneGraph mExportSceneGraph;
+        ExportSceneGraph* mExportSceneGraph;
+
+		/** Indicates, if the ExportSceneGraph should be deleted on destruction or not.*/
+		bool mDeleteExportSceneGraph;
 
         /** The id of the @a \<scene\> element.*/
         static const String SCENE_ID;
@@ -92,11 +98,24 @@ namespace COLLADAMax
         @param filepath The file path the COLLADA document should be written to*/
         DocumentExporter ( Interface* i, const String &filepath );
 
+
+		/** Constructor. 
+		@param i the max interface.
+		@param exportSceneGraph The scene graph to export.
+		@param filepath The file path the COLLADA document should be written to
+		@param options The options to use during export.*/
+		DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const String &filepath, const Options& options );
+
+		~DocumentExporter();
+
 		/** Returns the file name of the output file.*/
 		const String& getOutputFileName() const {return mOutputFileName;}
 
 		/** Returns the output directory.*/
 		const String& getOutputDir() const {return mOutputDir;}
+
+		/** Returns the path of the COLLADA file created for the max file with URi @a sourceFile.*/
+		String getXRefOutputPath(const COLLADA::URI& sourceFile) const;
 
         /** Returns a pointer to the max interface.*/
         inline Interface* getMaxInterface()
@@ -104,8 +123,13 @@ namespace COLLADAMax
             return mMaxInterface;
         }
 
-        /** Exports the scene currently loaded in max.*/
-        void exportCurrentMaxScene();
+        /** Exports the scene currently loaded in max and all its XRef scenes. Before export, it creates an 
+		ExportSceneGraph of the scene and all XRef scenes.*/
+        void exportRootMaxScene();
+
+		/** Exports the scene currently loaded in max and all its XRef scenes. Expects that the ExportSceneGraph has
+		already been created.*/
+		void exportMaxScene();
 
         /** Returns a pointer to the effect exporter used by the document exporter.*/
         const EffectExporter * const getEffectExporter() const
@@ -142,9 +166,6 @@ namespace COLLADAMax
 		@param suppressPrompts If set to true, no dialog is shows (for scripting).*/
 		bool showExportOptions(bool suppressPrompts);
 
-		/** Splits the filepath in directory and file name */
-		static void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName );
-
 		/** Returns if @a object has already been exported*/
 		bool isExportedObject(ObjectIdentifier& object);
 
@@ -158,10 +179,6 @@ namespace COLLADAMax
     private:
         DocumentExporter ( const DocumentExporter & documentExporter );
         DocumentExporter & operator= ( const DocumentExporter & documentExporter );
-
-		/** Splits the filepath in directory and file name and stores them in @a mOutputDir 
-		and mOutputFileName.*/
-		void splitFilePath(const String& fileName);
 
         /** Creates the scene graph of the nodes, that should be exported.*/
         bool createExportSceneGraph();

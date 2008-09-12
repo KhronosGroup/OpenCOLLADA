@@ -29,6 +29,7 @@ namespace COLLADAMax
 {
 
 	const String ExportSceneGraph::HELPER_GEOMETRY_ID_SUFFIX ="-helper_geometry";
+	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
 
     ExportSceneGraph::ExportSceneGraph ( INode * iNode )
             : mExportSelection ( false ),
@@ -38,7 +39,14 @@ namespace COLLADAMax
     {}
 
 
-	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
+	//---------------------------------------------------------------
+	ExportSceneGraph::~ExportSceneGraph()
+	{
+		for ( XRefSceneGraphList::iterator it = mXRefSceneGraphList.begin(); it!=mXRefSceneGraphList.end(); ++it)
+			delete it->exportSceneGraph;
+	}
+
+
 
 
     //---------------------------------------------------------------
@@ -53,6 +61,27 @@ namespace COLLADAMax
 		mRootExportNode = create ( mRootNode, 0, isNotEmpty );
 
 		findReferencedObjects(mRootExportNode);
+
+		int xRefFileCount = mRootNode->GetXRefFileCount();
+
+		for ( int i = 0; i < xRefFileCount; ++i)
+		{
+			XRefSceneGraph xRefScene;
+			/*String xRefSceneFileName = mRootNode->GetXRefFileName(i);
+			COLLADA::URI xRefSceneUri(xRefSceneFileName);
+			String baseName = xRefSceneUri.getPathFileBase();*/
+			xRefScene.exportFileURI = String(mRootNode->GetXRefFileName(i));
+			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i));
+			if ( xRefScene.exportSceneGraph->create(exportSelection) )
+			{
+				mXRefSceneGraphList.push_back(xRefScene);
+				isNotEmpty = true;
+			}
+			else
+			{
+				delete xRefScene.exportSceneGraph;
+			}
+		}
 
         return isNotEmpty;
     }

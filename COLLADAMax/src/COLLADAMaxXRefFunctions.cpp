@@ -166,6 +166,7 @@ namespace COLLADAMax
 		if ( gg > 0)
 			n = nodes[0];
 
+
 		INode* m = n->GetActualINode();
 
 		INode* bb = xRefObject->GetWorldSpaceObjectNode();
@@ -179,7 +180,7 @@ namespace COLLADAMax
 		INode* bb1 = source->GetWorldSpaceObjectNode();
 
 
-		int hh = 5;
+		int h1h = 5;
 
 #else
 

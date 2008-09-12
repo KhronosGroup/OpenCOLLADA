@@ -34,6 +34,7 @@
 #include <iskin.h>
 #include "MorphR3.h"
 
+
 namespace COLLADAMax
 {
 
@@ -218,8 +219,21 @@ namespace COLLADAMax
 		}
 		inverseBindMatrixSource.finish();
 
+		// We cannot use skin->GetContextInterface to get ISkinContextData if we are exporting an XRef, since we cannot access
+		// the INode the object belongs to in the referenced file. To solve this problem, we temporarily create an INode, that references
+		// the object and delete it immediately. 
+		ISkinContextData* contextData;
+		if ( exportNode->getIsXRefObject() )
+		{
+			INode* helperNode = mDocumentExporter->getMaxInterface()->CreateObjectNode(skinController->getDerivedObject());
+			contextData = skin->GetContextInterface(helperNode);
+			mDocumentExporter->getMaxInterface()->DeleteNode(helperNode);
+		}
+		else
+		{
+			contextData = skin->GetContextInterface(iNode);
+		}
 
-		ISkinContextData* contextData = skin->GetContextInterface(iNode);
 		assert(contextData);
 
 		int vertexCount = contextData->GetNumPoints();
@@ -323,6 +337,37 @@ namespace COLLADAMax
 		closeSkin();
 	}
 
+
+#if 0
+// This function can be used to retrive the ISkinContextInterface without having an INode
+// Requires to include a header file from the max sdk samples
+#include "\maxsdk\samples\modifiers\bonesdef\bonesdef.h"
+
+	//---------------------------------------------------------------
+	ISkinContextData *ControllerExporter::getISkinContextInterface(SkinController* skinController)
+	{
+		if (!skinController ) 
+			return 0;
+
+		IDerivedObject* derivedObject = skinController->getDerivedObject();
+
+		if ( !derivedObject )
+			return 0;
+
+		ModContext * modContext = derivedObject->GetModContext(skinController->getModifierIndex());
+
+		if ( !modContext )
+			return 0;
+
+		LocalModData* localModData = modContext->localData;
+
+		if ( !localModData )
+			return 0;
+
+		return (BoneModData *)localModData;
+	}
+
+#endif
 
 	//---------------------------------------------------------------
 	void ControllerExporter::exportMorphController( ExportNode* exportNode, MorphController* morphController, const String& controllerId, const String& morphSource )

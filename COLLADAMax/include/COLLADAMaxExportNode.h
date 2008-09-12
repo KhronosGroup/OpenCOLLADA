@@ -71,7 +71,7 @@ namespace COLLADAMax
         typedef std::map<Mtl *, Symbol> MeshSymbolMap;
 
     private:
-        typedef std::vector<ExportNode *> Children;
+        typedef std::vector<ExportNode *> ExportNodeList;
 
 		enum Flags
 		{
@@ -106,7 +106,8 @@ namespace COLLADAMax
 
 		ExportNode* mParent;
 
-        Children mChildren;
+		/** Children of the export node.*/
+        ExportNodeList mChildren;
 
         /** The type of the node.*/
         Type mType;

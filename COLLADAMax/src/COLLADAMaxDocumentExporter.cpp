@@ -46,53 +46,91 @@ namespace COLLADAMax
 			mOptions(i),
 			mMaxInterface ( i ),
             mStreamWriter ( filepath ),
-            mExportSceneGraph ( mMaxInterface->GetRootNode() )
+			mOutputFileUri ( filepath ),
+            mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode()) ),
+			mDeleteExportSceneGraph(true)
     {
-		splitFilePath(filepath);
+		String dir, baseName, extension;
+		mOutputFileUri.pathComponents(mOutputDir, baseName, extension);
+		mOutputFileName = baseName + "." + extension;
 	}
 
 
+	//---------------------------------------------------------------
+	DocumentExporter::DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const String &filepath, const Options& options )
+		: 
+		mOptions( options ),
+		mMaxInterface ( i ),
+		mStreamWriter ( filepath ),
+		mOutputFileUri ( filepath ),
+		mExportSceneGraph ( exportSceneGraph ),
+		mDeleteExportSceneGraph(false)
+	{
+		String dir, baseName, extension;
+		mOutputFileUri.pathComponents(mOutputDir, baseName, extension);
+		mOutputFileName = baseName + "." + extension;
+	}
+
+	//---------------------------------------------------------------
+	DocumentExporter::~DocumentExporter()
+	{
+		if ( mDeleteExportSceneGraph )
+			delete mExportSceneGraph;
+	}
+
+
+	//---------------------------------------------------------------
+	void DocumentExporter::exportRootMaxScene()
+	{
+		if ( createExportSceneGraph() )
+			exportMaxScene();
+	}
 
     //---------------------------------------------------------------
-    void DocumentExporter::exportCurrentMaxScene()
+    void DocumentExporter::exportMaxScene()
     {
         mStreamWriter.startDocument();
 
-        if ( createExportSceneGraph() )
-        {
+		createExporters();
 
-            createExporters();
+		exportAsset();
+		exportEffects();
+		exportMaterials();
+		exportGeometries();
+		exportControllers();
+		exportCameras();
+		exportLights();
+		exportImages();
+		exportVisualScenes();
+		if ( mOptions.getExportAnimations() )
+			exportAnimations();
+		exportScene();
 
-            exportAsset();
-            exportEffects();
-            exportMaterials();
-            exportGeometries();
-			exportControllers();
-			exportCameras();
-			exportLights();
-			exportImages();
-            exportVisualScenes();
-			if ( mOptions.getExportAnimations() )
-				exportAnimations();
-            exportScene();
-
-            deleteExporters();
-        }
+		deleteExporters();
 
         mStreamWriter.endDocument();
+
+		const ExportSceneGraph::XRefSceneGraphList& sceneGraphList = mExportSceneGraph->getXRefSceneGraphList();
+
+		for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = sceneGraphList.begin(); it!=sceneGraphList.end(); ++it )
+		{
+			String outputFileName = getXRefOutputPath(it->exportFileURI);
+			DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions);
+			document.exportMaxScene();
+		}
     }
 
     //---------------------------------------------------------------
     bool DocumentExporter::createExportSceneGraph()
     {
-        return mExportSceneGraph.create ( mOptions.getExportSelected() );
+        return mExportSceneGraph->create ( mOptions.getExportSelected() );
     }
 
     //---------------------------------------------------------------
     void DocumentExporter::createExporters()
     {
 		mAnimationExporter = new AnimationExporter ( &mStreamWriter, this );
-        mEffectExporter = new EffectExporter ( &mStreamWriter, &mExportSceneGraph, this );
+        mEffectExporter = new EffectExporter ( &mStreamWriter, mExportSceneGraph, this );
         mMaterialExporter = new MaterialExporter ( &mStreamWriter, this );
 
     }
@@ -169,28 +207,28 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::exportGeometries()
     {
-        GeometriesExporter geometriesExporter ( &mStreamWriter, &mExportSceneGraph, this );
+        GeometriesExporter geometriesExporter ( &mStreamWriter, mExportSceneGraph, this );
         geometriesExporter.doExport();
     }
 
 	//---------------------------------------------------------------
 	void DocumentExporter::exportControllers()
 	{
-		ControllerExporter controllerExporter ( &mStreamWriter, &mExportSceneGraph, this  );
+		ControllerExporter controllerExporter ( &mStreamWriter, mExportSceneGraph, this  );
 		controllerExporter.doExport();
 	}
 
 	//---------------------------------------------------------------
 	void DocumentExporter::exportCameras()
 	{
-		CameraExporter cameraExporter(&mStreamWriter, &mExportSceneGraph, this);
+		CameraExporter cameraExporter(&mStreamWriter, mExportSceneGraph, this);
 		cameraExporter.doExport();
 	}
 
 	//---------------------------------------------------------------
 	void DocumentExporter::exportLights()
 	{
-		LightExporter lightExporter(&mStreamWriter, &mExportSceneGraph, this);
+		LightExporter lightExporter(&mStreamWriter, mExportSceneGraph, this);
 		lightExporter.doExport();
 	}
 
@@ -216,7 +254,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::exportVisualScenes()
     {
-        VisualSceneExporter visualSceneExporter ( &mStreamWriter, &mExportSceneGraph, SCENE_ID, this );
+        VisualSceneExporter visualSceneExporter ( &mStreamWriter, mExportSceneGraph, SCENE_ID, this );
         visualSceneExporter.doExport();
     }
 
@@ -267,21 +305,6 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void DocumentExporter::splitFilePath( const String& filePath, String& fileDir, String& fileName )
-	{
-		size_t lastBackSlashPosition = filePath.find_last_of('\\');
-		fileDir = filePath.substr(0, lastBackSlashPosition + 1);
-		fileName = filePath.substr(lastBackSlashPosition + 1, String::npos);
-	}
-
-	//---------------------------------------------------------------
-	void DocumentExporter::splitFilePath( const String& filePath )
-	{
-		splitFilePath(filePath, mOutputDir, mOutputFileName);
-	}
-
-
-	//---------------------------------------------------------------
 	bool DocumentExporter::showExportOptions(bool suppressPrompts)
 	{
 		if (!suppressPrompts) 
@@ -325,6 +348,15 @@ namespace COLLADAMax
 			return it->second;
 		else
 			return 0;
+	}
+
+	COLLADAMax::String DocumentExporter::getXRefOutputPath( const COLLADA::URI& sourceFile ) const
+	{
+		const String& xRefOutputFileDir = getOptions().getXRefOutputDir();
+		if ( xRefOutputFileDir.empty() )
+			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		else
+			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 	}
 
 	//---------------------------------------------------------------
