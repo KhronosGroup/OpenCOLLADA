@@ -22,6 +22,13 @@ namespace COLLADA
 	class Utils
     {
 
+	public:
+		// System type info. We only need to distinguish between Posix and Winodws for now.
+		enum SystemType {
+			POSIX,
+			WINDOWS
+		};
+
     public:
 
 
@@ -30,6 +37,11 @@ namespace COLLADA
         static const char FILE_DELIMITER_CHAR;
 
 		static const String EMPTY_STRING;
+
+
+		// Get the system type at runtime.
+		static SystemType getSystemType();
+
 
         /**
          * Returns true, if both strings are equal.

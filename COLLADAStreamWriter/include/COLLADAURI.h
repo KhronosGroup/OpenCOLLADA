@@ -208,7 +208,39 @@ namespace COLLADA
         @return The URI string. */
         String getRelativeUri ( const URI& uri ) const;
 
+		/** Splits the path into ist components: directory, base file name, extension
+		@param dir Is set to the directory.
+		@param baseName Is set to the base name.
+		@param extension Is set to the extension.*/
+		void pathComponents(String& dir, String& baseName, String& extension) const {
+			parsePath(mPath, dir, baseName, extension);
+		}
 
+		/** Splits the path into ist components: directory, base file name, extension
+		@parm path The path to split
+		@param dir Is set to the directory.
+		@param baseName Is set to the base name.
+		@param extension Is set to the extension.*/
+		void parsePath(const String& path,
+			/* out */ String& dir,
+			/* out */ String& baseName,
+			/* out */ String& extension) const;
+
+		/** Returns the base file name without extension.
+		URI("/foo/bar.ext").getPathFileBase == "bar"*/
+		String getPathFileBase() const;
+
+		/** Returns the file name with extension.
+		URI("/foo/bar.ext").getPathFile == "bar.ext"*/
+		String getPathFile() const;
+
+		/** Returns the file name with extension.
+		URI("/foo/bar.ext").getPathDirectory == "/foo"*/
+		String getPathDirectory() const;
+
+		/** Returns the file name with extension.
+		URI("/foo/bar.ext").getPathExtension == "ext"*/
+		String getPathExtension() const;
 	private:
 
 		/** Checks if the uri is valid.*/

@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+	Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAStreamWriter.
+	This file is part of COLLADAStreamWriter.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+	Licensed under the MIT Open Source License, 
+	for details please see LICENSE file or the website
+	http://www.opensource.org/licenses/mit-license.php
 */
 
 #include "COLLADAURI.h"
@@ -86,8 +86,13 @@ namespace COLLADA
     , mPort ( 0 )
     , mPath ( path )
     , mFragment ( fragment )
+	, mSchemeDelimiter ( "://" )
 	{
-        if ( mPath.empty() ) mScheme = URI::NONE;
+        if ( mPath.empty() ) 
+		{
+			mScheme = URI::NONE;
+			mSchemeDelimiter = "";
+		}
 
         Utils::stringFindAndReplace ( mPath, "\\", "/" );
         if (mPath.length() > 2 && path[1] == ':') 
@@ -140,6 +145,7 @@ namespace COLLADA
 
         validate();
     }
+
 
 	//---------------------------------------------------------------
 	String URI::getURIString() const
@@ -795,6 +801,53 @@ namespace COLLADA
         return relativePath;
     }
 
+
+	void URI::parsePath(const String& path,
+		/* out */ String& dir,
+		/* out */ String& baseName,
+		/* out */ String& extension) const
+	{
+		size_t dotPosition = path.find_last_of(".");
+		size_t lastSlashPosition = path.find_last_of("/");
+		size_t lastBackSlashPosition = path.find_last_of("\\");
+		size_t baseNameBegin = std::max(lastSlashPosition == path.npos ? 0 : lastSlashPosition, lastBackSlashPosition == path.npos ? 0 : lastBackSlashPosition);
+
+		dir.assign(path, 0, baseNameBegin);
+		baseName.assign(path, baseNameBegin + 1, dotPosition - baseNameBegin - 1);
+		extension.assign(path, dotPosition + 1, path.npos);
+	}
+
+	//---------------------------------------------------------------
+	String URI::getPathFileBase() const
+	{
+		String dir, baseName, extension;
+		pathComponents(dir, baseName, extension);
+		return baseName;
+	}
+
+	//---------------------------------------------------------------
+	String URI::getPathExtension() const
+	{
+		String dir, baseName, extension;
+		pathComponents(dir, baseName, extension);
+		return extension;
+	}
+
+	//---------------------------------------------------------------
+	String URI::getPathFile() const
+	{
+		String dir, baseName, extension;
+		pathComponents(dir, baseName, extension);
+		return baseName + "." + extension;
+	}
+
+	//---------------------------------------------------------------
+	String URI::getPathDirectory() const
+	{
+		String dir, baseName, extension;
+		pathComponents(dir, baseName, extension);
+		return dir;
+	}
 
 } //namespace COLLADA
 

@@ -314,4 +314,13 @@ namespace COLLADA
         return ( strcmp ( str1.c_str(), str2.c_str() ) == 0 );
     }
 
+	Utils::SystemType Utils::getSystemType()
+	{
+#ifdef WIN32
+		return WINDOWS;
+#else
+		return POSIX;
+#endif
+	}
+
 }
