@@ -103,7 +103,7 @@ namespace COLLADA
 			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
         }
 		
-		bool failed = setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE );
+		bool failed = setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE ) != false;
 		if ( failed )
 		{
 			delete[] mBuffer;
@@ -155,7 +155,7 @@ namespace COLLADA
 		appendNCNameString ( name );
 		appendChar ( '=' );
 		appendChar ( '\"' );
-		appendString ( uri.getAbsoluteUri() );
+		appendString ( uri.getURIString() );
 		appendChar ( '\"' );
     }
 

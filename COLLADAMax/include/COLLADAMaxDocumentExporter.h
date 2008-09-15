@@ -54,11 +54,6 @@ namespace COLLADAMax
 		typedef std::map<ObjectIdentifier, ExportNode*> ObjectExportNodeMap;
 
     private:
-		/** The name of the output file.*/
-		String mOutputFileName;
-
-		/** The directory where the output file(s) are written to. The last backslash is included.*/
-		String mOutputDir;
 
         /** The effect exporter used by the document exporter.*/
         EffectExporter * mEffectExporter;
@@ -96,7 +91,7 @@ namespace COLLADAMax
         /** Constructor
         @param i the max interface
         @param filepath The file path the COLLADA document should be written to*/
-        DocumentExporter ( Interface* i, const String &filepath );
+        DocumentExporter ( Interface* i, const String &filepath, COLLADA::IDList& xRefExportFileNames  );
 
 
 		/** Constructor. 
@@ -108,14 +103,12 @@ namespace COLLADAMax
 
 		~DocumentExporter();
 
-		/** Returns the file name of the output file.*/
-		const String& getOutputFileName() const {return mOutputFileName;}
-
-		/** Returns the output directory.*/
-		const String& getOutputDir() const {return mOutputDir;}
-
 		/** Returns the path of the COLLADA file created for the max file with URi @a sourceFile.*/
-		String getXRefOutputPath(const COLLADA::URI& sourceFile) const;
+		String getXRefOutputPath(const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph) const;
+
+		/** Returns the URI of the COLLADA file created for the max file with URi @a sourceFile relative
+		to the main COLLADA file.*/
+		COLLADA::URI DocumentExporter::getXRefOutputURI( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const;
 
         /** Returns a pointer to the max interface.*/
         inline Interface* getMaxInterface()

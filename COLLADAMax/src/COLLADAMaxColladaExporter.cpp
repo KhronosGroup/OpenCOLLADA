@@ -135,7 +135,7 @@ namespace COLLADAMax
 
         try
         {
-			DocumentExporter document ( maxInterface, name );
+			DocumentExporter document ( maxInterface, name, mXRefExportFileNames );
 			if (document.showExportOptions(suppressPrompts != false) )
 			{
 				/// @todo handle errors here

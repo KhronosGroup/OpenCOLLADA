@@ -31,12 +31,17 @@ namespace COLLADAMax
 	const String ExportSceneGraph::HELPER_GEOMETRY_ID_SUFFIX ="-helper_geometry";
 	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
 
-    ExportSceneGraph::ExportSceneGraph ( INode * iNode )
+	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADA::URI& maxFileUri, COLLADA::IDList& xRefExportFileNames )
             : mExportSelection ( false ),
             mRootNode ( iNode ),
+			mMaxFileUri(maxFileUri),
+			mXRefExportFileNames(xRefExportFileNames),
             mRootExportNode ( 0 ),
 			mBoneCount(0)
-    {}
+    {
+		if ( mMaxFileUri.getScheme().empty() )
+			mMaxFileUri.setScheme(COLLADA::URI::SCHEME_FILE);
+	}
 
 
 	//---------------------------------------------------------------
@@ -45,8 +50,6 @@ namespace COLLADAMax
 		for ( XRefSceneGraphList::iterator it = mXRefSceneGraphList.begin(); it!=mXRefSceneGraphList.end(); ++it)
 			delete it->exportSceneGraph;
 	}
-
-
 
 
     //---------------------------------------------------------------
@@ -67,11 +70,9 @@ namespace COLLADAMax
 		for ( int i = 0; i < xRefFileCount; ++i)
 		{
 			XRefSceneGraph xRefScene;
-			/*String xRefSceneFileName = mRootNode->GetXRefFileName(i);
-			COLLADA::URI xRefSceneUri(xRefSceneFileName);
-			String baseName = xRefSceneUri.getPathFileBase();*/
-			xRefScene.exportFileURI = String(mRootNode->GetXRefFileName(i));
-			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i));
+			COLLADA::URI uri(COLLADA::URI::nativePathToUri(String(mRootNode->GetXRefFileName(i))));
+			xRefScene.exportFileBaseName = mXRefExportFileNames.addId(uri.getPathFileBase(), false);
+			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i), uri, mXRefExportFileNames);
 			if ( xRefScene.exportSceneGraph->create(exportSelection) )
 			{
 				mXRefSceneGraphList.push_back(xRefScene);

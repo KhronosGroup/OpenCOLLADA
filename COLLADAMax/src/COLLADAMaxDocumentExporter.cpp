@@ -41,18 +41,15 @@ namespace COLLADAMax
     const String DocumentExporter::SCENE_ID = "MaxScene";
 
     //---------------------------------------------------------------
-    DocumentExporter::DocumentExporter ( Interface * i, const String &filepath )
+	DocumentExporter::DocumentExporter ( Interface * i, const String &filepath, COLLADA::IDList& xRefExportFileNames  )
             : 
 			mOptions(i),
 			mMaxInterface ( i ),
             mStreamWriter ( filepath ),
-			mOutputFileUri ( filepath ),
-            mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode()) ),
+			mOutputFileUri ( COLLADA::URI::nativePathToUri(filepath) ),
+			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADA::URI::nativePathToUri(String(i->GetCurFilePath())), xRefExportFileNames ) ),
 			mDeleteExportSceneGraph(true)
     {
-		String dir, baseName, extension;
-		mOutputFileUri.pathComponents(mOutputDir, baseName, extension);
-		mOutputFileName = baseName + "." + extension;
 	}
 
 
@@ -62,13 +59,10 @@ namespace COLLADAMax
 		mOptions( options ),
 		mMaxInterface ( i ),
 		mStreamWriter ( filepath ),
-		mOutputFileUri ( filepath ),
+		mOutputFileUri ( COLLADA::URI::nativePathToUri(filepath) ),
 		mExportSceneGraph ( exportSceneGraph ),
 		mDeleteExportSceneGraph(false)
 	{
-		String dir, baseName, extension;
-		mOutputFileUri.pathComponents(mOutputDir, baseName, extension);
-		mOutputFileName = baseName + "." + extension;
 	}
 
 	//---------------------------------------------------------------
@@ -114,7 +108,7 @@ namespace COLLADAMax
 
 		for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = sceneGraphList.begin(); it!=sceneGraphList.end(); ++it )
 		{
-			String outputFileName = getXRefOutputPath(it->exportFileURI);
+			String outputFileName = getXRefOutputPath(*it);
 			DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions);
 			document.exportMaxScene();
 		}
@@ -150,9 +144,7 @@ namespace COLLADAMax
         if ( !userName.empty() )
             asset.getContributor().mAuthor = String ( userName );
 
-        const TSTR& filename = getMaxInterface() ->GetCurFilePath();
-
-        asset.getContributor().mSourceData = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( String ( filename.data() ) );
+		asset.getContributor().mSourceData = mExportSceneGraph->getMaxFileUri().getURIString();
 
         asset.getContributor().mAuthoringTool = "COLLADAMax";
 
@@ -350,14 +342,45 @@ namespace COLLADAMax
 			return 0;
 	}
 
-	COLLADAMax::String DocumentExporter::getXRefOutputPath( const COLLADA::URI& sourceFile ) const
+	COLLADAMax::String DocumentExporter::getXRefOutputPath( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const
 	{
 		const String& xRefOutputFileDir = getOptions().getXRefOutputDir();
+
 		if ( xRefOutputFileDir.empty() )
-			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		{
+			COLLADA::URI uri(mOutputFileUri, xRefSceneGraph.exportFileBaseName + ".dae");
+			return uri.toNativePath();
+			//			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		}
 		else
-			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		{
+			COLLADA::URI xRefOutputFileDirURI(COLLADA::URI::nativePathToUri(xRefOutputFileDir));
+			COLLADA::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
+			return uri.toNativePath();
+//			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		}
 	}
+
+	COLLADA::URI DocumentExporter::getXRefOutputURI( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const
+	{
+		const String& xRefOutputFileDir = getOptions().getXRefOutputDir();
+
+		if ( xRefOutputFileDir.empty() )
+		{
+			COLLADA::URI uri(xRefSceneGraph.exportFileBaseName + ".dae");
+			return uri;
+			//			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		}
+		else
+		{
+			COLLADA::URI xRefOutputFileDirURI(COLLADA::URI::nativePathToUri(xRefOutputFileDir));
+			COLLADA::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
+			uri.makeRelativeTo(&mOutputFileUri, true);
+			return uri;
+			//			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
+		}
+	}
+
 
 	//---------------------------------------------------------------
 	bool ObjectIdentifier::operator<( const ObjectIdentifier& other ) const

@@ -56,7 +56,7 @@ namespace COLLADAMax
 		/** Struct that holds information about a XRef scene*/
 		struct XRefSceneGraph
 		{
-			COLLADA::URI exportFileURI;                 //!< Name of the created COLLADA file
+			String exportFileBaseName;                 //!< Base name of the created COLLADA file
 			ExportSceneGraph* exportSceneGraph;    //!< The export scene graph of the XRef scene file
 		};
 
@@ -72,11 +72,18 @@ namespace COLLADAMax
         /** The root INode.*/
         INode * mRootNode;
 
-		/** List of all XRef scenes belows the file represented by this export scene graph*/
+		/** The file name of the max file represented by this export scene graph.*/
+		COLLADA::URI mMaxFileUri;
+
+		/** List of all XRef scenes below the file represented by this export scene graph*/
 		XRefSceneGraphList mXRefSceneGraphList;
 
         /** Holds the unique ids of the nodes.*/
         COLLADA::IDList mNodeIdList;
+
+		/** Holds the unique file names of the exported XRef files. This is necessary if all files
+		are exported into the same directory.*/
+		COLLADA::IDList& mXRefExportFileNames;
 
 		/** Mapping between INodes and ExportNodes.*/
 		INodeExportNodeMap mINodeExportNodeMap;
@@ -90,11 +97,11 @@ namespace COLLADAMax
 		/** Suffix used to build ids for helper geometries used by morphers.*/
 		static const String HELPER_GEOMETRY_ID_SUFFIX;
 
-		/** List of all helper geometries required by morph controllers.*/
+		/** List of all helper geometries required by morph controllers. Does not work yet.*/
 		MorphControllerHelperGeometryList mMorphControllerHelperGeometryList;
 
     public:
-        ExportSceneGraph ( INode * iNode );
+		ExportSceneGraph ( INode * iNode, const COLLADA::URI& maxFileUri, COLLADA::IDList& xRefExportFileNames );
         ~ExportSceneGraph();
 
         /** Creates the export scene graph.
@@ -106,6 +113,12 @@ namespace COLLADAMax
         {
             return mRootExportNode;
         }
+
+		/** Returns the uri of the max file represented by this export scene graph.*/
+		const COLLADA::URI& getMaxFileUri() const
+		{
+			return mMaxFileUri;
+		}
 
 		/** Checks, if @a exportNode is the root node of the export scene graph.*/
 		bool isRootExportNode(ExportNode* exportNode) { return exportNode == mRootExportNode;}

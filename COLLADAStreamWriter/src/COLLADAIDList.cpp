@@ -9,20 +9,24 @@
 */
 
 #include "COLLADAIDList.h"
-#include "COLLADAUtils.h"
 
 namespace COLLADA
 {
 
-    String IDList::addId ( const String & newId )
+	IDList::IDList(StringConversionFunction conversionFunction ) 
+		: mConversionFunction(conversionFunction)
+	{}
+
+
+    String IDList::addId ( const String & newId, bool returnConverted )
     {
-        String newIdChecked = Utils::checkID ( newId );
+        String newIdChecked = mConversionFunction( newId );
 
         IDSet::iterator it = mIdSet.find ( newIdChecked );
         if ( it == mIdSet.end() )
         {
             mIdSet.insert ( newIdChecked );
-            return newIdChecked;
+			return returnConverted ? newIdChecked : newId;
         }
 
         String idCandidate;
@@ -36,8 +40,7 @@ namespace COLLADA
 
         mIdSet.insert ( idCandidate );
 
-        return idCandidate;
-
+		return returnConverted ? idCandidate : newId + "_" + Utils::toString ( numberSuffix );
     }
 
 

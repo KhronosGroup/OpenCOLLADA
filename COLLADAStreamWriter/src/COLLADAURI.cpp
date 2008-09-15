@@ -1,853 +1,788 @@
 /*
-	Copyright (c) 2008 NetAllied Systems GmbH
+Copyright (c) 2008 NetAllied Systems GmbH
+Copyright 2006 Sony Computer Entertainment Inc.
 
-	This file is part of COLLADAStreamWriter.
+This file is part of COLLADAStreamWriter.
 
-	Licensed under the MIT Open Source License, 
-	for details please see LICENSE file or the website
-	http://www.opensource.org/licenses/mit-license.php
+Licensed under the MIT Open Source License, 
+for details please see LICENSE file or the website
+http://www.opensource.org/licenses/mit-license.php
 */
 
+#include <algorithm>
 #include "COLLADAURI.h"
-#include "COLLADAUtils.h"
-
+#include <boost/regex.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
-//using namespace boost::filesystem;
 
+//#include <pcrecpp.h>
 
 namespace COLLADA
 {
 
-#ifdef WIN32
-#define FOLDER_CHAR '\\'
-#define UNWANTED_FOLDER_CHAR '/'
-#define FOLDER_STRING "\\"
-#define UNWANTED_FOLDER_STRING "/"
-#else
-#define FOLDER_CHAR '/'
-#define UNWANTED_FOLDER_CHAR '\\'
-#define FOLDER_STRING "/"
-#define UNWANTED_FOLDER_STRING "\\"
-#endif
+	const String URI::SCHEME_FILE = "file";
+	const String URI::SCHEME_HTTP = "http";
+	const String URI::SCHEME_HTTPS = "https";
 
-	//---------------------------------------------------------------
-	URI::URI ( const String& uri )
-    : mIsValid ( false )
-    , mScheme ( URI::NONE )
-    , mPort ( 0 )
-    , mPath ( "" )
+	void setStringFromMatches(String& matchString, boost::smatch matches, int index)
 	{
-        initializeURI ( uri );
-
-//         // Find the mFragment.
-// 		size_t last = uriString.find_last_of('#');
-// 		if ( last == uriString.npos )
-// 		{
-// 			mPath = COLLADA::Utils::UriEncode(uriString);
-// 			mIsValid = mPath.empty() ? false : true;
-// 			return;
-// 		}
-// 
-// 		mPath = COLLADA::Utils::UriEncode ( uriString.substr(0, last) );
-// 		mFragment.assign(uriString, last + 1, uriString.length() - last);
-// 		validate();
+		boost::smatch::const_reference match = matches[index];
+		if ( match.matched )
+			matchString = String(match.first, match.second);
 	}
 
-    //---------------------------------------------------------------
-    void URI::initializeURI ( const String& uri )
-    {
-        if ( uri.empty() ) return;
 
-        String uriString = uri;
-
-        // Replace all '\\' characters by '/' so the mPath is only using them
-        Utils::stringFindAndReplace( uriString, "\\", "/" );
-
-        size_t schemeDelimiterIndex = 0;
-        size_t hostIndex = 0;
-        size_t hostDelimiterIndex = 0;
-
-        // Find the mScheme from its ':' delimiter
-        if ( findScheme ( uriString, schemeDelimiterIndex, hostIndex ) )
-        {
-            // Find the hostname from its '/' delimiter. 
-            if ( findHostname ( uriString, schemeDelimiterIndex, hostIndex, hostDelimiterIndex ) )
-            {
-                // Find the mPath and the fragment.
-                findPathAndFragment ( uriString, hostDelimiterIndex );
-            }
-        }
-    }
-
-	//---------------------------------------------------------------
-	URI::URI( const String& path, const String& fragment )
-    : mIsValid ( false )
-    , mScheme ( URI::FILE )
-    , mPort ( 0 )
-    , mPath ( path )
-    , mFragment ( fragment )
-	, mSchemeDelimiter ( "://" )
+	void URI::initialize() 
 	{
-        if ( mPath.empty() ) 
-		{
-			mScheme = URI::NONE;
-			mSchemeDelimiter = "";
+		reset();
+	}
+
+	URI::~URI() { }
+
+
+	URI::URI(const String& uriStr, bool nofrag) {
+		initialize();
+
+		if (nofrag) {
+			size_t pos = uriStr.find_last_of('#');
+			if (pos != String::npos) {
+				set(uriStr.substr(0, pos));
+				return;
+			}
 		}
 
-        Utils::stringFindAndReplace ( mPath, "\\", "/" );
-        if (mPath.length() > 2 && path[1] == ':') 
-            mPath.insert ( mPath.begin(), '/');
-
-		validate();
+		set(uriStr);
 	}
 
-    //---------------------------------------------------------------
-    URI::URI ( 
-        Scheme scheme, 
-        const String& host, 
-        const String& path, 
-        const String& fragment )
-    : mScheme ( scheme )
-    , mHostname ( host )
-    , mPort ( 0 )
-    , mPath ( path )
-    , mFragment ( fragment )
-    {
-        Utils::stringFindAndReplace ( mPath, "\\", "/" );
-        if (mPath.length() > 2 && path[1] == ':') 
-            mPath.insert ( mPath.begin(), '/');
 
-        validate();
-    }
-
-    //---------------------------------------------------------------
-    URI::URI ( 
-        Scheme scheme,
-        const String& user, 
-        const String& passwd, 
-        const String& host, 
-        unsigned int port,
-        const String& path, 
-        const String& query,
-        const String& fragment)
-    : mScheme ( scheme )
-    , mUsername( user ) 
-    , mPassword( passwd ) 
-    , mHostname ( host )
-    , mPort ( port )
-    , mPath ( path )
-    , mFragment ( fragment )
-    , mQuery ( query ) 
-    {
-        Utils::stringFindAndReplace ( mPath, "\\", "/" );
-        if (mPath.length() > 2 && path[1] == ':') 
-            mPath.insert ( mPath.begin(), '/');
-
-        validate();
-    }
-
-
-	//---------------------------------------------------------------
-	String URI::getURIString() const
+	URI::URI( const String& path, const String& fragment )
 	{
-		String uriString = mPath;
-
-		if ( !mFragment.empty())
-			uriString += '#' + mFragment;
-
-		return uriString;
+		initialize();
+		set("", "", path, "", fragment);
 	}
 
-	//---------------------------------------------------------------
-	void URI::setPath ( const String& path )
+
+	URI::URI()
+		: mIsValid( false)
 	{
-        if ( !path.empty() ) mScheme = URI::FILE;
-        mPath = COLLADA::Utils::UriEncode ( path ); 
-		validate();
+		initialize();
 	}
 
 
-	//---------------------------------------------------------------
+	URI::URI(const URI& baseURI, const String& uriStr)
+	{
+		initialize();
+		set(uriStr, &baseURI);
+	}
+
+	URI::URI(const URI& copyFrom_) 
+	{
+		initialize();
+		copyFrom(copyFrom_);
+	}
+
+	void URI::copyFrom(const URI& copyFrom)
+	{
+		set(copyFrom.originalStr());
+	}
+
+	URI& URI::operator=(const URI& other) {
+		copyFrom(other);
+		return *this;
+	}
+
+	URI& URI::operator=(const String& uriStr) {
+		set(uriStr);
+		return *this;
+	}
+
+	void URI::reset() 
+	{
+		// Clear everything 
+		mUriString.clear();
+		mOriginalURIString.clear();
+		mScheme.clear();
+		mAuthority.clear();
+		mPath.clear();
+		mQuery.clear();
+		mFragment.clear();
+	}
+
+
+	const String& URI::getURIString() const {
+		return mUriString;
+	}
+
+	const String& URI::originalStr() const {
+		return mOriginalURIString;
+	}
+
+	void URI::parsePath(const String& path,
+		/* out */ String& dir,
+		/* out */ String& baseName,
+		/* out */ String& extension) {
+			// !!!steveT Currently, if we have a file name that begins with a '.', as in
+			// ".emacs", that will be treated as having no base name with an extension
+			// of ".emacs". We might want to change this behavior, so that the base name
+			// is considered ".emacs" and the extension is empty. I think this is more
+			// in line with what path parsers in other libraries/languages do, and it
+			// more accurately reflects the intended structure of the file name.
+
+			// The following implementation cannot handle paths like this:
+			// /tmp/se.3/file
+			//static pcrecpp::RE re("(.*/)?([^.]*)?(\\..*)?");
+			//dir = baseName = extension = "";
+			//re.FullMatch(path, &dir, &baseName, &extension);
+
+			
+			static boost::regex findDir("(.*/)?(.*)?");
+			static boost::regex findExt("([^.]*)?(\\.(.*))?");
+			String tmpFile;
+			dir.clear();
+			baseName.clear();
+			extension.clear();
+			boost::smatch dirMatches; 
+			if(regex_match(path, dirMatches, findDir)) 
+			{	
+				setStringFromMatches(dir, dirMatches, 1);
+				setStringFromMatches(tmpFile, dirMatches, 2);
+				//findDir.PartialMatch(path, &dir, &tmpFile);
+
+				boost::smatch extMatches;
+				if(regex_match(tmpFile, extMatches, findExt)) 
+				{
+					setStringFromMatches(baseName, extMatches, 1);
+					setStringFromMatches(extension, extMatches, 3);
+				}
+			}
+			//findExt.PartialMatch(tmpFile, &baseName, &extension);
+
+	}
+
+	void URI::set(const String& uriStr_, const URI* baseURI) {
+		// We make a copy of the uriStr so that set(mOriginalURIString, ...) works properly.
+		String uriStr = uriStr_;
+		reset();
+		mOriginalURIString = uriStr;
+
+		if (!parseUriRef(uriStr, mScheme, mAuthority, mPath, mQuery, mFragment)) 
+		{
+			reset();
+			return;
+		}
+		else
+		{
+			mIsValid = true;
+		}
+
+		validate(baseURI);
+	}
+
+	void URI::set(const String& scheme_,
+		const String& authority_,
+		const String& path_,
+		const String& query_,
+		const String& fragment_,
+		const URI* baseURI)
+	{
+		set(assembleUri(scheme_, authority_, path_, query_, fragment_), baseURI);
+	}
+
+
+	const String& URI::scheme() const { return mScheme; }
+	const String& URI::authority() const { return mAuthority; }
+	const String& URI::path() const { return mPath; }
+	const String& URI::query() const { return mQuery; }
+	const String& URI::fragment() const { return mFragment; }
+	const String& URI::id() const { return fragment(); }
+
+
+	namespace {
+		String addSlashToEnd(const String& s) {
+			return (!s.empty() && s[s.length()-1] != '/')  ?  s + '/' : s;
+		}
+	}
+
+	void URI::pathComponents(String& dir, String& baseName, String& ext) const {
+		parsePath(mPath, dir, baseName, ext);
+	}
+
+	String URI::getPathDir() const {
+		String dir, base, ext;
+		parsePath(mPath, dir, base, ext);
+		return dir;
+	}
+
+	String URI::getPathFileBase() const {
+		String dir, base, ext;
+		parsePath(mPath, dir, base, ext);
+		return base;
+	}
+
+	String URI::getPathExtension() const {
+		String dir, base, ext;
+		parsePath(mPath, dir, base, ext);
+		return ext;
+	}
+
+	String URI::getPathFile() const {
+		String dir, base, ext;
+		parsePath(mPath, dir, base, ext);
+		String pathFile = base;
+		if ( !ext.empty() )
+			pathFile += "." + ext;
+		return pathFile;
+	}
+
+	void URI::setPath(const String& dir, const String& baseName, const String& ext) {
+		setPath(addSlashToEnd(dir) + baseName + ext);
+	}
+
+	void URI::setPathDir(const String& dir) {
+		String tmp, base, ext;
+		parsePath(mPath, tmp, base, ext);
+		setPath(addSlashToEnd(dir), base, ext);
+	}
+
+	void URI::setPathFileBase(const String& baseName) {
+		String dir, tmp, ext;
+		parsePath(mPath, dir, tmp, ext);
+		setPath(dir, baseName, ext);
+	}
+
+	void URI::setPathExtension(const String& ext) 
+	{
+		String dir, base, tmp;
+		parsePath(mPath, dir, base, tmp);
+		setPath(dir, base, ext);
+	}
+
+	void URI::setPathFile(const String& file) {
+		String dir, base, ext;
+		parsePath(mPath, dir, base, ext);
+		setPath(dir, file, "");
+	}
+
+
+	void URI::setScheme(const String& scheme_) { set(scheme_, mAuthority, mPath, mQuery, mFragment); };
+	void URI::setAuthority(const String& authority_) { set(mScheme, authority_, mPath, mQuery, mFragment); }
+	void URI::setPath(const String& path_) { set(mScheme, mAuthority, path_, mQuery, mFragment); }
+	void URI::setQuery(const String& query_) { set(mScheme, mAuthority, mPath, query_, mFragment); }
+	void URI::setFragment(const String& fragment_) { set(mScheme, mAuthority, mPath, mQuery, fragment_); }
+	void URI::setId(const String& id) { setFragment(id); }
+
+
+	namespace {
+		void normalize(String& path) {
+			URI::normalizeURIPath(const_cast<char*>(path.c_str()));
+			path = path.substr(0, strlen(path.c_str()));
+		}
+	}
+
 	void URI::validate()
 	{
 		mIsValid = !mPath.empty() || !mFragment.empty();
 	}
 
-    //---------------------------------------------------------------
-	void URI::setFragment( const String& _fragment )
+	void URI::validate(const URI* baseURI)
 	{
-		mFragment = _fragment;
+		// If no base URI was supplied, use the container's document URI. If there's
+		// no container or the container doesn't have a doc URI, use the application
+		// base URI.
+/*		if (!baseURI) {
+			if (container)
+			{
+				if (container->getDocument())
+				{
+					if (container->getDocument()->isZAERootDocument())
+						baseURI = &container->getDocument()->getExtractedFileURI();
+					else
+						baseURI = container->getDocumentURI();
+				}
+			}
+			if (!baseURI)
+				baseURI = &dae->getBaseURI();
+			if (this == baseURI)
+				return;
+		}
+*/
+		// This is rewritten according to the updated rfc 3986
+		if (!mScheme.empty()) // if defined(R.scheme) then
+		{
+			// Everything stays the same except path which we normalize
+			// T.scheme    = R.scheme;
+			// T.authority = R.authority;
+			// T.path      = remove_dot_segments(R.path);
+			// T.query     = R.query;
+			normalize(mPath);
+		}
+		else
+		{
+			if (!mAuthority.empty()) // if defined(R.authority) then
+			{
+				// Authority and query stay the same, path is normalized
+				// T.authority = R.authority;
+				// T.path      = remove_dot_segments(R.path);
+				// T.query     = R.query;
+				normalize(mPath);
+			}
+			else
+			{
+				if (mPath.empty())  // if (R.path == "") then
+				{
+					if ( baseURI )
+					{
+						// T.path = Base.path;
+						mPath = baseURI->mPath;
+
+						//if defined(R.query) then
+						//   T.query = R.query;
+						//else
+						//   T.query = Base.query;
+						//endif;
+						if (mQuery.empty())
+							mQuery = baseURI->mQuery;
+					}
+				}
+				else
+				{
+					if (mPath[0] == '/')  // if (R.path starts-with "/") then
+					{
+						// T.path = remove_dot_segments(R.path);
+						normalize(mPath);
+					}
+					else
+					{
+						// T.path = merge(Base.path, R.path);
+						if ( baseURI )
+						{
+							if (!baseURI->mAuthority.empty() && baseURI->mPath.empty()) // authority defined, path empty
+							{
+								mPath.insert(0, "/");
+							}
+							else 
+							{
+								String dir, baseName, ext;
+								parsePath(baseURI->mPath, dir, baseName, ext);
+								mPath = dir + mPath;
+							}
+							// T.path = remove_dot_segments(T.path);
+							normalize(mPath);
+						}
+					}
+					// T.query = R.query;
+				}
+				// T.authority = Base.authority;
+				if ( baseURI )
+					mAuthority = baseURI->mAuthority;
+			}
+			// T.scheme = Base.scheme;
+			if ( baseURI )
+				mScheme = baseURI->mScheme;
+		}
+		// T.fragment = R.fragment;
+
+		// Reassemble all this into a String version of the URI
+		mUriString = assembleUri(mScheme, mAuthority, mPath, mQuery, mFragment);
+
 		validate();
 	}
 
-    //---------------------------------------------------------------
-    bool URI::findScheme ( const String &uriString, size_t &schemeDelimiterIndex, size_t &hostIndex )
-    {
-        schemeDelimiterIndex = uriString.find ( ':' );
 
-        if (schemeDelimiterIndex != String::npos && schemeDelimiterIndex > 1)
-        {
-            String _scheme = uriString.substr(0, schemeDelimiterIndex);
 
-            if ( Utils::equals (_scheme, "FILE") || Utils::equals (_scheme, "file"))
-            {
-                mScheme = URI::FILE;
-            }
-            else if (Utils::equals (_scheme, "FTP") || Utils::equals (_scheme, "ftp"))
-            {
-                mScheme = URI::FTP;
-            }
-            else if (Utils::equals (_scheme, "HTTP") || Utils::equals (_scheme, "http"))
-            {
-                mScheme = URI::HTTP;
-            }
-            else if (Utils::equals (_scheme, "HTTPS") || Utils::equals (_scheme, "https"))
-            {
-                mScheme = URI::HTTPS;
-            }
-            else
-            {
-#ifdef WIN32
-                // Scheme not supported (could be a NFS mPath)
-                assert ( "Scheme not supported!" );
-                return false;
-#endif // WIN32
-            }
-
-            mSchemeDelimiter = uriString.substr(schemeDelimiterIndex, 3);
-            hostIndex = schemeDelimiterIndex + 3;
-        }
-        else
-        {
-#ifdef WIN32
-            // Check for windows file mPath
-            if (schemeDelimiterIndex == 1)
-            {
-                mPath = "/" + uriString;
-#else
-            // Check for file mPath
-            if (schemeDelimiterIndex == String::npos && uriString[0] == '/')
-            {
-                mPath = uriString;
-#endif
-                mSchemeDelimiter = "://";
-
-                // We got a file mPath
-                mScheme = URI::FILE;
-
-                // Check for mFragment
-                size_t fragmentIndex = mPath.find('#');
-                if (fragmentIndex != String::npos)
-                {
-                    // Extract mFragment
-                    mFragment = mPath.substr(fragmentIndex + 1);
-                    mPath = mPath.substr(0, fragmentIndex);
-                }
-
-                // Our URI is parsed
-                return false;
-            }
-#ifdef WIN32
-            // Check for windows UNC mPath
-            else if (schemeDelimiterIndex == String::npos && uriString[0] == '/' && uriString[1] == '/')
-            {
-                // We got a UNC mPath
-                mScheme = URI::FILE;
-                mSchemeDelimiter = "://";
-                hostIndex = 2;
-            }
-#endif
-            else
-            {
-                // We couldn't detect any mScheme
-                mScheme = URI::NONE;
-            }
-        }
-
-        // We have to parse more parts of the URI.
-        return true;
-    }
-
-    //---------------------------------------------------------------
-    bool URI::findHostname ( 
-        const String &uriString, 
-        size_t &schemeDelimiterIndex, 
-        size_t &hostIndex, 
-        size_t &hostDelimiterIndex )
-    {
-        // Find the mHostname from its '/' delimiter. 
-        // The absence of mScheme implies the absence of hostname.
-        hostDelimiterIndex = 0;
-        if (mScheme != URI::NONE)
-        {
-            hostDelimiterIndex = uriString.find('/', hostIndex);
-
-            // If we have a URI, then the first piece is always the host.
-            if (hostDelimiterIndex == String::npos) hostDelimiterIndex = uriString.length();
-
-            if (hostDelimiterIndex > hostIndex)
-            {
-                mHostname = uriString.substr(hostIndex, hostDelimiterIndex - hostIndex);
-
-                // Check for mPort
-                size_t portIndex = mHostname.find(':');
-                if (portIndex != String::npos)
-                {
-                    String _port = mHostname.substr(portIndex + 1);
-                    mPort = atoi(_port.c_str());
-                    mHostname = mHostname.substr(0, portIndex);
-                }
-
-                if (mHostname.empty() && (uriString.size() > hostDelimiterIndex + 1) && (uriString[hostDelimiterIndex+1] == '/'))
-                {
-                    // public bug #44 says need file://// for networked paths
-                    hostIndex++;
-
-                    while ((uriString.size() > hostDelimiterIndex + 1) && (uriString[hostDelimiterIndex] == '/'))
-                    {
-                        hostDelimiterIndex++;
-                    }
-
-                    size_t realHostDelimiterIndex = uriString.find('/', hostDelimiterIndex);
-                    if (realHostDelimiterIndex == String::npos)
-                    {
-                        // This should not happen, so assume that we have a full filename
-                        mScheme = URI::FILE;
-                        mPath = uriString;
-                        return false;
-                    }
-
-                    mHostname = uriString.substr(hostDelimiterIndex, realHostDelimiterIndex - hostDelimiterIndex);
-                    hostDelimiterIndex = realHostDelimiterIndex;
-                }
-
-                // Check for bad URIs that don't include enough slashes.
-                if (mHostname.size() > 1 && (mHostname[1] == ':' || mHostname[1] == '|'))
-                {
-                    mHostname.clear();
-                    hostDelimiterIndex = schemeDelimiterIndex + 2;
-                }
-            }
-        }
-
-        // We have to parse more parts of the URI.
-        return true;
-    }
-
-    //---------------------------------------------------------------
-    void URI::findPathAndFragment ( const String& uriString, size_t &hostDelimiterIndex )
-    {
-        // Find the mPath
-        size_t queryDelimiter = uriString.find('?');
-        size_t fragmentDelimiter = uriString.find('#');
-
-        if (queryDelimiter != String::npos) 
-            mQuery = uriString.substr(queryDelimiter + 1, fragmentDelimiter - queryDelimiter);
-        if (fragmentDelimiter != String::npos) 
-            mFragment = uriString.substr(fragmentDelimiter + 1);
-
-        if (queryDelimiter == String::npos && fragmentDelimiter == String::npos)
-        {
-            mPath = uriString.substr(hostDelimiterIndex);
-        }
-        else if (queryDelimiter == String::npos && fragmentDelimiter != String::npos)
-        {
-            mPath = uriString.substr(hostDelimiterIndex, fragmentDelimiter - hostDelimiterIndex);
-        }
-        else
-        {
-            mPath = uriString.substr(hostDelimiterIndex, queryDelimiter - hostDelimiterIndex);
-        }
-
-        if (mPath.size() > 1 && mPath[1] == '|') mPath[1] = ':';
-        else if (mPath.size() > 2 && mPath[2] == '|') mPath[2] = ':';
-
-//         if ( !isFile() )
-//         {
-//             mPath.append("/");
-//         }
-
-        mPath = COLLADA::Utils::UriEncode ( mPath );
-    }
-
-    //---------------------------------------------------------------
-    bool URI::isFile() const
-    {
-        return mPath.length() > 1 && mPath[mPath.length()-1] != '/';
-    }
-
-    //---------------------------------------------------------------
-    String URI::getAbsolutePath() const
-    {
-        if (mScheme == URI::FILE)
-        {
-            if (getHostname().empty())
-            {
-#ifdef WIN32
-                // Check if we have a drive letter
-                if (mPath[0] == '/' && mPath[3] == '/')
-                {
-                    String absolutePath;
-                    String uri = mPath;
-
-                    // Replace all '/' by '\\' to be compliant with Windows mPath
-                    Utils::stringFindAndReplace( uri, UNWANTED_FOLDER_STRING, FOLDER_STRING );
-
-                    // First letter is a drive letter
-                    char driveLetter[2];
-                    driveLetter[0] = uri[1];
-                    driveLetter[1] = '\0';
-                    boost::to_upper(driveLetter);
-
-                    absolutePath.append(1, driveLetter[0]);
-                    absolutePath.append(uri.substr(2));
-
-                    return absolutePath;
-                }
-                else 
-                {
-                    String uri = mPath.substr(1);
-                    // Replace all '/' by '\\' to be compliant with Windows mPath
-                    Utils::stringFindAndReplace( uri, UNWANTED_FOLDER_STRING, FOLDER_STRING );
-                    return uri;
-                }
-#else
-                return mPath;
-#endif
-            }
-        }
-
-        String outString;
-
-        if (mScheme == URI::FTP)
-        {
-            outString.append("ftp");
-        }
-        else if (mScheme == URI::HTTP)
-        {
-            outString.append("http");
-        }
-        else if (mScheme == URI::HTTPS)
-        {
-            outString.append("https");
-        }
-
-
-        if (mScheme == URI::FILE)
-        {
-            if (Utils::equals(getHostname(), "localhost"))
-            {
-                outString = mPath;
-                Utils::stringFindAndReplace( outString, UNWANTED_FOLDER_STRING, FOLDER_STRING );
-                return outString;
-            }
-            // UNC mScheme
-            outString.append("\\\\");
-        }
-        else
-        {
-            outString.append(mSchemeDelimiter);
-        }
-
-        outString.append(getAuthority());
-        outString.append(mPath);
-
-        if (mScheme == URI::FILE && !getHostname().empty())
-        {
-            Utils::stringFindAndReplace( outString, UNWANTED_FOLDER_STRING, FOLDER_STRING );
-        }
-
-        // A query can be necessary to specify the actual file...
-        if ((mScheme == URI::HTTP || mScheme == URI::HTTPS) 
-            && !getQuery().empty())
-        {
-            outString.append("?");
-            outString.append(getQuery());
-        }
-
-        return outString;
-    }
-
-    //---------------------------------------------------------------
-    String URI::getAuthority() const
-    {
-        String authority;
-        String userInformations = getUserInformations();
-
-        if (!userInformations.empty())
-        {
-            authority.append(userInformations);
-            authority.append("@");
-        }
-
-        authority.append(getHostname());
-
-        if (getPort() != 0)
-        {
-            authority.append(":");
-            authority.append(Utils::toString(getPort()));
-        }
-
-        return authority;
-    }
-
-    //---------------------------------------------------------------
-    String URI::getUserInformations() const
-    {
-        // Return a formated string (user[@password])
-        if (getUsername().empty()) return "";
-        if (getPassword().empty()) return getUsername();
-        return getUsername() + ":" + getPassword();
-    }
-
-    //---------------------------------------------------------------
-    String URI::makeAbsolute ( const String& relativePath ) const
-    {
-        if ( relativePath.empty() ) return relativePath;
-        URI uri ( relativePath );
-
-        makeAbsolute(uri);
-
-        return uri.getAbsolutePath();
-    }
-
-    //---------------------------------------------------------------
-    void URI::makeAbsolute ( URI& uri ) const
-    {
-        String filePath = uri.getPath();
-
-        if (uri.getScheme() != URI::NONE)
-        {
-            return;
-        }
-        else
-        {
-            // Since path is relative to this one
-            uri.setScheme ( this->mScheme );
-            uri.setSchemeDelimiter ( this->mSchemeDelimiter );
-            uri.setHostname ( this->mHostname );
-            uri.setPort ( this->mPort );
-        }
-
-#ifdef WIN32
-        if (filePath.size() > 1 && filePath[1] == '|') filePath[1] = ':';
-#endif // WIN32
-
-
-        if (uri.getScheme() == FILE || uri.getScheme() == NONE)
-        {
-            if ( (!filePath.empty() && (filePath[0] == '\\' || filePath[0] == '/')) || 
-                (filePath.size() > 1 && filePath[1] == ':') )
-            {
-#ifdef WIN32
-                // In win32 we need to add the drive to the path
-                if ( mPath.size() > 1 )
-                {
-                    String path = mPath.substr(0, 3);
-                    path.append(filePath);
-                    Utils::stringFindAndReplace ( path, "\\", "/" );
-                    uri.setPath ( path );
-                }
-#endif
-
-                // Path is already absolute
-                return;
-            }
-        }
-
-        if ( mScheme == HTTP )
-        {
-            // path is already absolute.
-            if (filePath[0] == '/')
-            {
-                return;
-            }
-        }
-
-
-        // Relative file path
-        std::vector<String> documentPaths, localPaths;
-        extractPathStack ( mPath, documentPaths, false);
-        extractPathStack ( filePath, localPaths, true);
-
-        for (std::vector<String>::iterator it = localPaths.begin(); it != localPaths.end(); ++it)
-        {
-            if ((*it) == ".") {}	// Do nothing
-            else if ((*it) == "..")
-            {
-                // Pop one path out
-                if (!documentPaths.empty()) documentPaths.pop_back();
-            }
-            else // Traverse this path
-            {
-                documentPaths.push_back(*it);
-            }
-        }
-
-        // Recreate the absolute filename
-        String outPath;
-
-        for (std::vector<String>::iterator it = documentPaths.begin(); it != documentPaths.end(); ++it)
-        {
-            outPath.append("/");
-            outPath.append(*it);
-        }
-
-        uri.setPath ( outPath );
-    }
-
-    //---------------------------------------------------------------
-    URI URI::resolve ( const String& relativePath ) const
-    {
-        String absolute = makeAbsolute(relativePath);
-        return URI(absolute);
-    }
-
-    //---------------------------------------------------------------
-    void URI::extractPathStack (
-        const String& name, 
-        std::vector<String>& list, 
-        bool includeFilename) const
-    {
-        list.clear();
-        list.reserve(6);
-
-        String split = name;
-        Utils::stringFindAndReplace( split, "\\", "/" );
-
-        while (!split.empty())
-        {
-            // Extract out the next path
-            size_t slashIndex = split.find('/');
-            if (slashIndex != String::npos && slashIndex != 0)
-            {
-                list.push_back(split.substr(0, slashIndex));
-                split.erase(0, slashIndex + 1);
-            }
-            else if (slashIndex != 0)
-            {
-                if (includeFilename) list.push_back(split);
-                split.clear();
-            }
-            else
-            {
-                split.erase(0, 1);
-            }
-        }
-    }
-
-    //---------------------------------------------------------------
-    String URI::makeRelative ( const String& _path ) const
-    {
-        String filePath = _path;
-
-        if ( !filePath.empty() )
-        {
-            // First ensure that we have an absolute file path
-            filePath = makeAbsolute ( filePath );
-            URI uri (filePath) ;
-            uri.setScheme( this->getScheme() );
-
-            filePath = uri.getPath();
-
-            if ( !Utils::equals( getHostname(), uri.getHostname() ) )
-            {
-                // If it's not the same host so we use the absolute path
-                return _path;
-            }
-
-            // Relative file path
-            std::vector<String> documentPaths, localPaths;
-            extractPathStack ( mPath, documentPaths, false );
-            extractPathStack ( filePath, localPaths, true );
-
-            if (getHostname().empty() && getScheme() == uri.getScheme() && getScheme() == URI::FILE)
-            {
-                if ( !Utils::equals ( documentPaths.front(), localPaths.front() ) )
-                {
-                    // We're not on the same drive, return absolute path
-                    return _path;
-                }
-
-#ifdef WIN32
-                // Pop drive from the path stacks
-                documentPaths.erase ( documentPaths.begin() );
-                localPaths.erase ( documentPaths.begin() );
-#endif // WIN32
-
-                // If the next folder is different return absolute path
-                if ( documentPaths.empty() || localPaths.empty() || 
-                    !Utils::equals ( documentPaths.front(), localPaths.front() ) )
-                {
-                    return _path;
-                }
-            }
-
-            // Extract the filename from the stack
-            String filename = localPaths.back();
-            localPaths.pop_back();
-
-            // Look for commonality in the path stacks
-            size_t documentPathCount = documentPaths.size();
-            size_t filePathCount = localPaths.size();
-            size_t matchIndex = 0;
-
-            for (; matchIndex < filePathCount && matchIndex < documentPathCount; ++matchIndex)
-            {
-                if ( !Utils::equals ( documentPaths[matchIndex], localPaths[matchIndex]) ) break;
-            }
-
-            if (matchIndex > 0)
-            {
-                // There are some similar parts, so generate the relative filename
-                String relativePath;
-
-                if (documentPathCount > matchIndex)
-                {
-                    // Backtrack the document's path
-                    for (size_t i = matchIndex; i < documentPathCount; ++i)
-                    {
-                        relativePath += "../";
-                    }
-                }
-                else
-                {
-                    relativePath = "./";
-                }
-
-                // Add the file's relative path
-                for (size_t i = matchIndex; i < filePathCount; ++i)
-                {
-                    relativePath += localPaths[i] + "/";
-                }
-
-                filePath = relativePath + filename;
-            }
-        }
-
-        Utils::stringFindAndReplace( filePath, UNWANTED_FOLDER_STRING, FOLDER_STRING );
-
-        return filePath;
-    }
-
-
-    //---------------------------------------------------------------
-    String URI::getAbsoluteUri ( bool _fragment ) const
-    {
-        String outString;
-
-        if (mScheme == URI::FILE)
-        {
-            outString.append("file");
-        }
-        else if (mScheme == URI::FTP)
-        {
-            outString.append("ftp");
-        }
-        else if (mScheme == URI::HTTP)
-        {
-            outString.append("http");
-        }
-        else if (mScheme == URI::HTTPS)
-        {
-            outString.append("https");
-        }
-
-        outString.append(mSchemeDelimiter);
-        outString.append(getAuthority());
-        outString.append(mPath);
-
-        if ( !mQuery.empty() )
-        {
-            outString.append("?");
-            outString.append(mQuery);
-        }
-
-        if (_fragment && !mFragment.empty())
-        {
-            outString.append("#");
-            outString.append(mFragment);
-        }
-
-        return outString;
-    }
-
-    //---------------------------------------------------------------
-    String URI::getRelativeUri ( const URI& uri ) const
-    {
-        String relativePath = uri.makeRelative(getAbsolutePath());
-
-        // If we got an absolute uri
-        if (relativePath.size() > 0 && relativePath[0] != '.')
-        {
-            return getAbsoluteUri();
-        }
-
-        if (!mQuery.empty())
-        {
-            relativePath.append("?");
-            relativePath.append(mQuery);
-        }
-
-        if (!mFragment.empty())
-        {
-            relativePath.append("#");
-            relativePath.append(mFragment);
-        }
-
-#ifdef WIN32
-        Utils::stringFindAndReplace ( relativePath, "\\", "/" );
-#endif // WIN32
-        return relativePath;
-    }
-
-
-	void URI::parsePath(const String& path,
-		/* out */ String& dir,
-		/* out */ String& baseName,
-		/* out */ String& extension) const
+	// This code is loosely based on the RFC 2396 normalization code from
+	// libXML. Specifically it does the RFC steps 6.c->6.g from section 5.2
+	// The path is modified in place, there is no error return.
+	void URI::normalizeURIPath(char* path)
 	{
-		size_t dotPosition = path.find_last_of(".");
-		size_t lastSlashPosition = path.find_last_of("/");
-		size_t lastBackSlashPosition = path.find_last_of("\\");
-		size_t baseNameBegin = std::max(lastSlashPosition == path.npos ? 0 : lastSlashPosition, lastBackSlashPosition == path.npos ? 0 : lastBackSlashPosition);
+		char *cur, // location we are currently processing
+			*out; // Everything from this back we are done with
 
-		dir.assign(path, 0, baseNameBegin);
-		baseName.assign(path, baseNameBegin + 1, dotPosition - baseNameBegin - 1);
-		extension.assign(path, dotPosition + 1, path.npos);
+		// Return if the path pointer is null
+
+		if ( !path ) 
+			return;
+
+		// Skip any initial / characters to get us to the start of the first segment
+
+		for(cur=path; *cur == '/'; cur++);
+
+		// Return if we hit the end of the String
+
+		if (*cur == 0) return;
+
+		// Keep everything we've seen so far.
+
+		out = cur;
+
+		// Analyze each segment in sequence for cases (c) and (d).
+
+		while (*cur != 0) 
+		{
+			// (c) All occurrences of "./", where "." is a complete path segment, are removed from the buffer String.
+
+			if ((*cur == '.') && (*(cur+1) == '/')) 
+			{
+				cur += 2;
+				// If there were multiple slashes, skip them too
+				while (*cur == '/') cur++;
+				continue;
+			}
+
+			// (d) If the buffer String ends with "." as a complete path segment, that "." is removed.
+
+			if ((*cur == '.') && (*(cur+1) == 0))
+				break;
+
+			// If we passed the above tests copy the segment to the output side
+
+			while (*cur != '/' && *cur != 0)
+			{
+				*(out++) = *(cur++);
+			}
+
+			if(*cur != 0)
+			{
+				// Skip any occurrances of // at the end of the segment
+
+				while ((*cur == '/') && (*(cur+1) == '/')) cur++;
+
+				// Bring the last character in the segment (/ or a null terminator) into the output
+
+				*(out++) = *(cur++);
+			}
+		}
+
+		*out = 0;
+
+		// Restart at the beginning of the first segment for the next part
+
+		for(cur=path; *cur == '/'; cur++);
+		if (*cur == 0) return;
+
+		// Analyze each segment in sequence for cases (e) and (f).
+		//
+		// e) All occurrences of "<segment>/../", where <segment> is a
+		//    complete path segment not equal to "..", are removed from the
+		//    buffer String.  Removal of these path segments is performed
+		//    iteratively, removing the leftmost matching pattern on each
+		//    iteration, until no matching pattern remains.
+		//
+		// f) If the buffer String ends with "<segment>/..", where <segment>
+		//    is a complete path segment not equal to "..", that
+		//    "<segment>/.." is removed.
+		//
+		// To satisfy the "iterative" clause in (e), we need to collapse the
+		// String every time we find something that needs to be removed.  Thus,
+		// we don't need to keep two pointers into the String: we only need a
+		// "current position" pointer.
+		//
+		while (true)
+		{
+			char *segp, *tmp;
+
+			// At the beginning of each iteration of this loop, "cur" points to
+			// the first character of the segment we want to examine.
+
+			// Find the end of the current segment.  
+
+			for(segp = cur;(*segp != '/') && (*segp != 0); ++segp);
+
+			// If this is the last segment, we're done (we need at least two
+			// segments to meet the criteria for the (e) and (f) cases).
+
+			if (*segp == 0)
+				break;
+
+			// If the first segment is "..", or if the next segment _isn't_ "..",
+			// keep this segment and try the next one.
+
+			++segp;
+			if (((*cur == '.') && (cur[1] == '.') && (segp == cur+3))
+				|| ((*segp != '.') || (segp[1] != '.')
+				|| ((segp[2] != '/') && (segp[2] != 0)))) 
+			{
+				cur = segp;
+				continue;
+			}
+
+			// If we get here, remove this segment and the next one and back up
+			// to the previous segment (if there is one), to implement the
+			// "iteratively" clause.  It's pretty much impossible to back up
+			// while maintaining two pointers into the buffer, so just compact
+			// the whole buffer now.
+
+			// If this is the end of the buffer, we're done.
+
+			if (segp[2] == 0) 
+			{
+				*cur = 0;
+				break;
+			}
+
+			// Strings overlap during this copy, but not in a bad way, just avoid using strcpy
+
+			tmp = cur;
+			segp += 3;
+			while ((*(tmp++) = *(segp++)) != 0);
+
+			// If there are no previous segments, then keep going from here.
+
+			segp = cur;
+			while ((segp > path) && (*(--segp) == '/'));
+
+			if (segp == path)
+				continue;
+
+			// "segp" is pointing to the end of a previous segment; find it's
+			// start.  We need to back up to the previous segment and start
+			// over with that to handle things like "foo/bar/../..".  If we
+			// don't do this, then on the first pass we'll remove the "bar/..",
+			// but be pointing at the second ".." so we won't realize we can also
+			// remove the "foo/..".
+
+			for(cur = segp;(cur > path) && (*(cur-1) != '/'); cur--);
+		}
+
+		*out = 0;
+
+		// g) If the resulting buffer String still begins with one or more
+		//    complete path segments of "..", then the reference is
+		//    considered to be in error. Implementations may handle this
+		//    error by retaining these components in the resolved path (i.e.,
+		//    treating them as part of the final URI), by removing them from
+		//    the resolved path (i.e., discarding relative levels above the
+		//    root), or by avoiding traversal of the reference.
+		//
+		// We discard them from the final path.
+
+		if (*path == '/') 
+		{
+			for(cur=path; (*cur == '/') && (cur[1] == '.') && (cur[2] == '.') && ((cur[3] == '/') || (cur[3] == 0)); cur += 3);
+
+			if (cur != path) 
+			{
+				for(out=path; *cur != 0; *(out++) = *(cur++));
+
+				*out = 0;
+			}
+		}
+		return;
 	}
 
-	//---------------------------------------------------------------
-	String URI::getPathFileBase() const
+	// This function will take a resolved URI and create a version of it that is relative to
+	// another existing URI.  The new URI is stored in the "originalURI"
+	bool URI::makeRelativeTo(const URI* relativeToURI, bool ignoreCase)
 	{
-		String dir, baseName, extension;
-		pathComponents(dir, baseName, extension);
-		return baseName;
+		// Can only do this function if both URIs have the same scheme and authority
+		if (mScheme != relativeToURI->mScheme  ||  mAuthority != relativeToURI->mAuthority)
+			return false;
+
+		// advance till we find a segment that doesn't match
+		const char *this_path        = getPath().c_str();
+		const char *relativeTo_path  = relativeToURI->getPath().c_str();
+		const char *this_slash       = this_path;
+		const char *relativeTo_slash = relativeTo_path;
+
+		while( *this_path )
+		{
+
+			if  ( ignoreCase )
+			{
+				char characters[3];
+				characters[0] = *this_path;
+				characters[1] = *relativeTo_path;
+
+				boost::to_lower(characters);
+
+				if  ( characters[0] != characters[1] ) 
+					break;
+			}
+			else
+			{
+				if (*this_path != *relativeTo_path) 
+					break;
+			}
+
+			if(*this_path == '/')
+			{
+				this_slash = this_path;
+				relativeTo_slash = relativeTo_path;
+			}
+			this_path++;
+			relativeTo_path++;
+		}
+
+		// Decide how many ../ segments are needed (Filepath should always end in a /)
+		int segment_count = 0;
+		relativeTo_slash++;
+		while(*relativeTo_slash != 0)
+		{
+			if(*relativeTo_slash == '/')
+				segment_count ++;
+			relativeTo_slash++;
+		}
+		this_slash++;
+
+		String newPath;
+		for (int i = 0; i < segment_count; i++)
+			newPath += "../";
+		newPath += this_slash;
+
+		set("", "", newPath, mQuery, mFragment, 0/*relativeToURI*/);
+		return true;
 	}
 
-	//---------------------------------------------------------------
-	String URI::getPathExtension() const
+
+
+	// Returns true if parsing succeeded, false otherwise. Parsing can fail if the uri
+	// reference isn't properly formed.
+	bool URI::parseUriRef(const String& uriRef,
+		String& scheme,
+		String& authority,
+		String& path,
+		String& query,
+		String& fragment) 
 	{
-		String dir, baseName, extension;
-		pathComponents(dir, baseName, extension);
-		return extension;
+			// This regular expression for parsing URI references comes from the URI spec:
+			//   http://tools.ietf.org/html/rfc3986#appendix-B
+		static boost::regex re("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+			//String s1, s3, s6, s8;
+
+
+			boost::smatch matches;
+			if(regex_match(uriRef, matches, re)) 
+			{
+				setStringFromMatches(scheme, matches, 2);
+				setStringFromMatches(authority, matches, 4);
+				setStringFromMatches(path, matches, 5);
+				setStringFromMatches(query, matches, 6);
+				setStringFromMatches(fragment, matches, 9);
+				return true;
+			}
+
+			//if (re.FullMatch(uriRef, &s1, &scheme, &s3, &authority, &path, &s6, &query, &s8, &fragment))
+			//	return true;
+
+			return false;
 	}
 
-	//---------------------------------------------------------------
-	String URI::getPathFile() const
-	{
-		String dir, baseName, extension;
-		pathComponents(dir, baseName, extension);
-		return baseName + "." + extension;
+	namespace {
+		String safeSubstr(const String& s, size_t offset, size_t length) {
+			String result = s.substr(offset, std::min(length, s.length() - offset));
+			result.resize(length, '\0');
+			return result;
+		}
 	}
 
-	//---------------------------------------------------------------
-	String URI::getPathDirectory() const
-	{
-		String dir, baseName, extension;
-		pathComponents(dir, baseName, extension);
-		return dir;
+	String URI::assembleUri(const String& scheme,
+		const String& authority,
+		const String& path,
+		const String& query,
+		const String& fragment,
+		bool forceLibxmlCompatible) {
+			String p = safeSubstr(path, 0, 3);
+			bool libxmlHack = forceLibxmlCompatible && scheme == "file";
+			bool uncPath = false;
+			String uri;
+
+			if (!scheme.empty())
+				uri += scheme + "://";
+
+/*			if (!authority.empty() || libxmlHack || (p[0] == '/' && p[1] == '/'))
+				uri += "//";
+*/
+			if (!authority.empty())
+			{
+				if (libxmlHack) {
+					// We have a UNC path URI of the form file://otherMachine/file.dae.
+					// Convert it to file://///otherMachine/file.dae, which is how libxml
+					// does UNC paths.
+					uri += "///" + authority;
+					uncPath = true;
+				}
+				else {
+					uri += authority;
+				}
+			}
+
+			if (!uncPath && libxmlHack && Utils::getSystemType() == Utils::WINDOWS) {
+				// We have to be delicate in how we pass absolute path URIs to libxml on Windows.
+				// If the path is an absolute path with no drive letter, add an extra slash to
+				// appease libxml.
+				if (p[0] == '/' && p[1] != '/' && p[2] != ':') {
+					uri += "/";
+				}
+			}
+			uri += path;
+
+			if (!query.empty())
+				uri += "?" + query;
+			if (!fragment.empty())
+				uri += "#" + fragment;
+
+			return uri;
 	}
 
-} //namespace COLLADA
+	String URI::nativePathToUri(const String& nativePath, Utils::SystemType type) 
+	{
+		String uri = nativePath;
 
+		if (type == Utils::WINDOWS) {
+			// Convert "c:\" to "/c:/"
+			if (uri.length() >= 2  &&  isalpha(uri[0])  &&  uri[1] == ':')
+				uri.insert(0, "/");
+			// Convert backslashes to forward slashes
+			Utils::stringFindAndReplace(uri, "\\", "/");
+		}
+
+		// Convert spaces to %20
+		Utils::stringFindAndReplace(uri, " ", "%20");
+
+		return uri;
+	}
+
+	String URI::filePathToUri(const String& filePath) {
+		return nativePathToUri(filePath);
+	}
+
+	String URI::toNativePath(Utils::SystemType type) {
+//		String scheme, authority, path, query, fragment;
+//		parseUriRef(uriRef, scheme, authority, path, query, fragment);
+
+		// Make sure we have a file scheme URI, or that it doesn't have a scheme
+		if (!mScheme.empty()  &&  mScheme != "file")
+			return "";
+
+		String filePath;
+
+		if (type == Utils::WINDOWS) {
+			if (!mAuthority.empty())
+				filePath += String("\\\\") + mAuthority; // UNC path
+
+			// Replace two leading slashes with one leading slash, so that
+			// ///otherComputer/file.dae becomes //otherComputer/file.dae and
+			// //folder/file.dae becomes /folder/file.dae
+			if (mPath.length() >= 2  &&  mPath[0] == '/'  &&  mPath[1] == '/')
+				mPath.erase(0, 1);
+
+			// Convert "/C:/" to "C:/"
+			if (mPath.length() >= 3  &&  mPath[0] == '/'  &&  mPath[2] == ':')
+				mPath.erase(0, 1);
+
+			// Convert forward slashes to back slashes
+			Utils::stringFindAndReplace(mPath, "/", "\\");
+		}
+
+		filePath += mPath;
+
+		// Replace %20 with space
+		Utils::stringFindAndReplace(filePath, "%20", " ");
+
+		return filePath;
+	}
+
+
+
+
+
+}

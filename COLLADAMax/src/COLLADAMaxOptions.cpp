@@ -100,7 +100,7 @@ namespace COLLADAMax
 
 		mAnimationStart(TIME_INITIAL_POSE),
 		mAnimationEnd(TIME_PosInfinity),
-		mXRefOutputDir()
+		mXRefOutputDir("C:\\Temp\\xref\\")
 	{
 
 		// Load the export options from the configuration file

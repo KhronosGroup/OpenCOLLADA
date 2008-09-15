@@ -77,7 +77,7 @@ namespace COLLADA
             return ( c >= 'a' ) && ( c <= 'z' ) ;
         }
 
-        /** Checks if @a c is a ASCII character*/
+        /** Checks if @a c is an ASCII character*/
         static bool isAsciiAlphaChar ( char c )
         {
             return isLowerAsciiChar ( c ) || isUpperAsciiChar ( c ) ;

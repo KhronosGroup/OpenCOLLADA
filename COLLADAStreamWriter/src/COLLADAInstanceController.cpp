@@ -20,7 +20,7 @@ namespace COLLADA
         mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mUrl );
 
 		for ( SkeletonUrlList::const_iterator it = mSkeletonUrlList.begin(); it!=mSkeletonUrlList.end(); ++it)
-			mSW->appendTextElement(CSWC::COLLADA_ELEMENT_SKELETON, it->getAbsoluteUri());
+			mSW->appendTextElement(CSWC::COLLADA_ELEMENT_SKELETON, it->getURIString());
 
         mBindMaterial.add();
 

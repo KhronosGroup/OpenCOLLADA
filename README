@@ -1,0 +1,23 @@
+COLLADAMax and COLALDAMaya are new implementation of a 3ds Max or Maya  plug-ins to export scene or 
+parts of it to a COLLADA file, released under an MIT-license. 
+
+In contrast to other existing COLLADA exporters, this new plug-ins do not store the
+COLLADA document in an intermidiate data model but writes it directly to file. This leads to a dramatic 
+reduction of memory consumption and to much a better performance.
+
+For more information about the plug-ins and how to build them, please read the README files in 
+COLLADAMax and COLLADAMaya directories.
+
+NOTE: The COLLADA.sln solution, contained in this directory, exists only for development purposes.
+      To build the NextGen plug-ins, please use the solutions in the COLLADAMax anf COLLADAMaya
+      directories.
+
+
+Directories
+-----------
+COLLADAMax                  COLLADAMax NextGen plug-in sources
+COLLADAMaya                 COLLADAMaya NextGen plug-in sources
+COLLADAStreamWriter         COLLADAStreamWriter sources (Library to write COLLADA files) 
+Externals                   Third party projects required to build the NextGen plug-ins            
+
+

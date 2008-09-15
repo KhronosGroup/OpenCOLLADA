@@ -172,8 +172,8 @@ namespace COLLADAMax
 			const ExportSceneGraph::XRefSceneGraphList& xRefScenes = mExportSceneGraph->getXRefSceneGraphList();
 			for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes.begin(); it != xRefScenes.end(); ++it)
 			{
-				String outputFileName = mDocumentExporter->getXRefOutputPath(it->exportFileURI);
-				COLLADA::URI target(outputFileName, getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
+				COLLADA::URI target = mDocumentExporter->getXRefOutputURI(*it);
+				target.setFragment(getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
 				COLLADA::InstanceNode instanceNode(mSW, target);
 				instanceNode.add();
 			}

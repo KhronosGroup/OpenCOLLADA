@@ -233,7 +233,7 @@ namespace COLLADAMaya
 //             String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
 //             asset.getContributor().mSourceData = sourceFile;
             COLLADA::URI uri ( currentScene.asChar() );
-            asset.getContributor().mSourceData = uri.getAbsoluteUri ();
+            asset.getContributor().mSourceData = uri.getURIString();
         }
 
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();

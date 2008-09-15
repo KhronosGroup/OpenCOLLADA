@@ -449,17 +449,8 @@
 			<File
 				RelativePath="..\src\COLLADAURI.cpp"
 				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAUtils.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\daeURI.cpp"
-				>
 				<FileConfiguration
 					Name="Debug|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -467,7 +458,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -475,7 +465,6 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Release fprintf_s|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
@@ -483,12 +472,15 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug fprintf_s|Win32"
-					ExcludedFromBuild="true"
 					>
 					<Tool
 						Name="VCCLCompilerTool"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAUtils.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
