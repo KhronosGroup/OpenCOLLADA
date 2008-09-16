@@ -1,0 +1,27 @@
+cgfxShader: 
+===========
+
+The Maya Cg Plug-in allows artists to author and visualize content using 
+advanced hardware rendering and the Cg high level language.
+The plug-in includes:
+
+    * Intuitive artist controls
+          o Slider control over key real-time parameters (such as bump depth, etc...)
+    * Integration with Maya's lights
+    * CgFX integration with Maya's Hypershade node-based shader editor
+    * Dynamic shader-specific GUIs
+          o Supports standard GPU image formats (such as DDS)
+          o Supports .fx shader format
+    * Samples include:
+          o Bumpy Shiny, Toon Shading, Anisotropic Metal, Ghostly, Refraction, Dispersion, Rainbow, and more
+
+The cross-API capability of Cg is a breakthrough for development teams 
+targeting content for multiple platforms. The Maya Cg Plug-in supports the CgFX 
+file format (.fx) and automatically provides intuitive interface controls and 
+semantics to users and developers alike - for editing shader effects in 
+real-time. Since the CgFX format also supports both DirectX and OpenGL, 
+developers may encapsulate a series of fallback techniques for rendering any 
+effect. CgFX files are text-based and describe the complete render state for a 
+particular effect -- multiple passes, texture states, and any number of 
+individual vertex and pixel shaders maybe defined to create a complete 
+appearance or effect.

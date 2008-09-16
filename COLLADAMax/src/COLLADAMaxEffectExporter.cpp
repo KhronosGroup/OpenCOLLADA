@@ -272,7 +272,7 @@ namespace COLLADAMax
 
         addEffectProfile ( effectProfile );
 
-		addExtraTechniques();
+		addMaxExtraTechniques();
 
         closeEffect();
 
@@ -526,7 +526,22 @@ namespace COLLADAMax
 
         if ( !imageId.empty() )
         {
-            COLLADA::Texture texture ( imageId, COLLADA::Texture::SURFACE_TYPE_2D );
+            COLLADA::Texture texture ( imageId );
+
+            // Create the surface
+            String surfaceSid = imageId + COLLADA::Surface::SURFACE_SID_SUFFIX;
+            COLLADA::Surface surface ( COLLADA::Surface::SURFACE_TYPE_2D, surfaceSid );
+            //surface.setFormat ( FORMAT );
+            COLLADA::SurfaceInitOption initOption ( COLLADA::SurfaceInitOption::INIT_FROM );
+            initOption.setImageReference ( imageId );
+            surface.setInitOption ( initOption );
+            texture.setSurface ( surface );
+
+            // Create the sampler
+            String samplerSid = imageId + COLLADA::Sampler::SAMPLER_SID_SUFFIX;
+            COLLADA::Sampler sampler ( COLLADA::Sampler::SAMPLER_TYPE_2D, samplerSid );
+            sampler.setSource ( surfaceSid );
+            texture.setSampler ( sampler );
 
             int mapChannel = 1;
 
@@ -540,7 +555,7 @@ namespace COLLADAMax
 					StdUVGen* uvGenParameters = (StdUVGen*)uvCoordinatesGenerator;
 					int uvFlags = uvGenParameters->GetTextureTiling();
 					
-					texture.setWrapS(COLLADA::Texture::WRAP_MODE_WRAP);
+					sampler.setWrapS(COLLADA::Sampler::WRAP_MODE_WRAP);
 
 
 					IParamBlock* uvParams = (IParamBlock*)uvGenParameters->GetReference(StdUVGenEnums::pblock);	
@@ -772,7 +787,7 @@ namespace COLLADAMax
 
             addEffectProfile ( effectProfile );
 
-			addExtraTechniques();
+			addMaxExtraTechniques();
 
             closeEffect();
 
@@ -990,7 +1005,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    COLLADA::EffectProfile::ShaderTypes EffectExporter::maxShaderToShaderType ( Class_ID id )
+    COLLADA::EffectProfile::ShaderType EffectExporter::maxShaderToShaderType ( Class_ID id )
     {
         switch ( id.PartA() )
         {
@@ -1050,7 +1065,7 @@ namespace COLLADAMax
 
             BMMGetFullFilename ( &bitmapInfo );
             fullFileName  = bitmapInfo.Name();
-            String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( fullFileName );
+            String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::uriEncode ( fullFileName );
             String imageId;
             // Export the equivalent <image> node in the image library and add
             // the <init_from> element to the sampler's surface definition.

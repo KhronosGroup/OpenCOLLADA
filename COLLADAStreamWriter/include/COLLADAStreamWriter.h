@@ -18,6 +18,7 @@
 #include "COLLADAPrerequisites.h"
 #include "COLLADAMathUtils.h"
 #include "COLLADAUtils.h"
+#include "COLLADAColor.h"
 #include <fstream>
 #include <stack>
 #include <list>
@@ -110,6 +111,10 @@ namespace COLLADA
         This function can only be called after openElement() before any content is written.*/
         void appendAttribute ( const String& name, const unsigned int value );
 
+        /** Adds the attribute @a name with value @a value to the last opened element.
+        This function can only be called after openElement() before any content is written.*/
+        void appendAttribute ( const String& name, const int value );
+
         /** Adds @a text to the COLLADA file.
         No checks are performed, if @a text contains forbidden characters. */
         void appendText ( const String& text );
@@ -126,8 +131,23 @@ namespace COLLADA
         /** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADA file.*/
         void appendValues ( const double number1, const double number2, const double number3, const double number4 );
 
+        /** Adds @a number to the COLLADA file.*/
+        void appendValues ( const float number );
+
+        /** Adds @a number1 and @a number2 to the COLLADA file.*/
+        void appendValues ( const float number1, const float number2 );
+
+        /** Adds @a number1, @a number2 and @a number3 to the COLLADA file.*/
+        void appendValues ( const float number1, const float number2, const float number3 );
+
+        /** Adds @a number1, @a number2, @a number3 and @a number4 to the COLLADA file.*/
+        void appendValues ( const float number1, const float number2, const float number3, const float number4 );
+
         /** Adds all values in the array to the COLLADA file.*/
         void appendValues ( const float values[], const size_t length );
+
+        /** Adds all values in the array to the COLLADA file.*/
+        void appendValues ( const int values[], const size_t length );
 
         /** Adds all values in the array to the COLLADA file.*/
         void appendValues ( const double values[], const size_t length );
@@ -154,7 +174,13 @@ namespace COLLADA
         void appendValues ( const int number );
 
         /** Adds @a number to the COLLADA file.*/
+        void appendValues ( const int number, const int number2 );
+
+        /** Adds @a number to the COLLADA file.*/
         void appendValues ( const unsigned int number );
+
+        /** Adds @a number to the COLLADA file.*/
+        void appendValues ( const unsigned int number, const unsigned int number2 );
 
         /** Adds @a number to the COLLADA file.*/
         void appendValues ( const long number );
@@ -174,6 +200,9 @@ namespace COLLADA
         /** Adds the float @a number to the COLLADA file.*/
         void appendValues ( const bool value );
 
+        /** Adds the float @a number to the COLLADA file.*/
+        void appendValues ( const Color value );
+
         /** Adds @a text to the COLLADA file.
         No checks are performed, if @a text contains forbidden characters. */
         void appendValues ( const String& text );
@@ -182,11 +211,14 @@ namespace COLLADA
         The string must persist at least until the corresponding closeElement() member is called.*/
         TagCloser openElement ( const String& name );
 
-        /** Closes the previously opened element*/
+        /** Closes the previously opened element. */
         void closeElement();
 
         /** Adds an element with name @a elementName that contains only @a text.*/
         void appendTextElement ( const String& elementName, const String& text );
+
+        /** Adds an element with name @a elementName that contains only @a text.*/
+        void appendURIElement ( const String& elementName, const URI& text );
 
 
     private:

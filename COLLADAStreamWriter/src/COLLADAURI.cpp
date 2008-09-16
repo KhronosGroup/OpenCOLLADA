@@ -67,7 +67,6 @@ namespace COLLADA
 		initialize();
 	}
 
-
 	URI::URI(const URI& baseURI, const String& uriStr)
 	{
 		initialize();
@@ -786,3 +785,4 @@ namespace COLLADA
 
 
 }
+

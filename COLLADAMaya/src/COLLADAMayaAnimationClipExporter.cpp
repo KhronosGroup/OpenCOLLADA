@@ -18,7 +18,7 @@
 
 namespace COLLADAMaya
 {
-
+    
     //---------------------------------------------------------------
     AnimationClipExporter::AnimationClipExporter ( COLLADA::StreamWriter* _streamWriter )
             : COLLADA::LibraryAnimationClips ( _streamWriter )
@@ -28,7 +28,6 @@ namespace COLLADAMaya
     void AnimationClipExporter::exportAnimationClips ( const AnimationClipList* animationClips )
     {
         AnimationClipList::const_iterator clipIter = animationClips->begin();
-
         for ( ; clipIter!= animationClips->end(); ++clipIter )
         {
             AnimationClip* animationClip = *clipIter;

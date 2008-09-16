@@ -18,6 +18,7 @@
 #include "COLLADAColor.h"
 #include "COLLADAColorOrTexture.h"
 #include "COLLADASWC.h"
+#include "COLLADAURI.h"
 #include <vector>
 #include <map>
 
@@ -31,8 +32,17 @@ namespace COLLADA
 
     public:
 
+        /** The possible profile types. */
+        enum ProfileType
+        {
+            COMMON, 
+            CG,
+            GLES,
+            GLSL
+        };
+
         /** The list of the lighting models supported by the COMMON profile of COLLADA. */
-        enum ShaderTypes
+        enum ShaderType
         {
             /** The constant lighting model.
             This lighting model uses the emissive color everywhere, without
@@ -78,13 +88,29 @@ namespace COLLADA
 
         friend class LibraryEffects;
 
+        /** The include sid and uri for the cg profile. */
+        String mIncludeSid;
+        URI mIncludeURI;
+
+        /** For writing code directly into code tags. */
+        String mCodeSid;
+        String mCode;
+
         /** The technique sid that is used, if no other is specified*/
         static const String DEFAULT_TECHNIQUE_SID;
 
         /** The sid of the technique element*/
         String mTechniqueSid;
 
-        ShaderTypes mShaderType;
+        TagCloser mTechniqueCloser;
+
+        /** The current profile type. */
+        ProfileType mProfileType;
+
+        TagCloser mProfileCloser;
+
+        /** The current shader type. */
+        ShaderType mShaderType;
 
         /** The ColorOrTexture-values can be sampled. */
         ColorOrTexture mEmission;
@@ -136,186 +162,120 @@ namespace COLLADA
         EffectProfile ( StreamWriter* streamWriter );
         virtual ~EffectProfile(){};
 
+        /** The current profile type. */
+        const EffectProfile::ProfileType& getProfileType () const { return mProfileType; }
+
+        /** The current profile type. */
+        void setProfileType ( const EffectProfile::ProfileType& val ) { mProfileType = val; }
+
+        /** Opens the current profile. */
+        void openProfile ();
+
+        /** Close the current profile. */
+        void closeProfile ();
+
+        /** Adds the EffectProfile to the stream*/
+        void addProfileElements ();
+
+        /** Opens a technique element with the given sid.  */
+        void openTechnique ( const String& techniqueSid );
+
+        /** Close the current technique element. */
+        void closeTechnique ();
+
         /** Sets the sid of the @a \<technique\> element*/
-        void setTechniqueSid ( const String& techniqueSid )
-        {
-            mTechniqueSid = techniqueSid;
-        }
+        void setTechniqueSid ( const String& techniqueSid );
 
         /** Returns the sid of the @a \<technique\> element*/
-        const String& getTechniqueSid () const 
-        {
-            return mTechniqueSid;
-        }
+        const String& getTechniqueSid () const;
 
         /** Sets the shader type to @a shaderType */
-        void setShaderType( ShaderTypes shaderType )
-        {
-            mShaderType = shaderType;
-        }
+        void setShaderType( ShaderType shaderType );
 
         /** Returns the shader type */
-        ShaderTypes getShaderType() const
-        {
-            return mShaderType;
-        }
+        ShaderType getShaderType() const;
+
+        /** For writing code directly into code tags. */
+        const String& getCode () const;
+        void setCode ( const String &code, const String &sid="" );
 
         /** Sets the emission to @a emission */
-        void setEmission( const ColorOrTexture& emission, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mEmission = emission;
-            if ( useDefaultSid ) mEmissionSid = CSWC::COLLADA_ELEMENT_EMISSION;
-            else mEmissionSid = sid;
-        }
+        void setEmission( const ColorOrTexture& emission, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the emission element*/ 
-		static const String& getEmissionDefaultSid() { return CSWC::COLLADA_ELEMENT_EMISSION; }
+		static const String& getEmissionDefaultSid();
 
         /** Returns a reference to the emission*/
-        ColorOrTexture& getEmission()
-        {
-            return mEmission;
-        }
+        ColorOrTexture& getEmission();
 
         /** Sets the ambient to @a ambient */
-        void  setAmbient( const ColorOrTexture& ambient, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mAmbient = ambient;
-            if ( useDefaultSid ) mAmbientSid = CSWC::COLLADA_ELEMENT_AMBIENT;
-            else mAmbientSid = sid;
-        }
+        void  setAmbient( const ColorOrTexture& ambient, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the ambient element*/ 
-		static const String& getAmbientDefaultSid() { return CSWC::COLLADA_ELEMENT_AMBIENT; }
+		static const String& getAmbientDefaultSid();
 
         /** Returns a reference to ambient*/
-        ColorOrTexture& getAmbient()
-        {
-            return mAmbient;
-        }
+        ColorOrTexture& getAmbient();
 
         /** Sets the diffuse to @a diffuse */
-        void  setDiffuse( const ColorOrTexture& diffuse, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mDiffuse = diffuse;
-            if ( useDefaultSid ) mDiffuseSid = CSWC::COLLADA_ELEMENT_DIFFUSE;
-            else mDiffuseSid = sid;
-        }
+        void  setDiffuse( const ColorOrTexture& diffuse, const bool useDefaultSid = false, const String& sid = "" );
+
 		/** Returns the default sid used for the diffuse element*/ 
-		static const String& getDiffuseDefaultSid() { return CSWC::COLLADA_ELEMENT_DIFFUSE; }
+		static const String& getDiffuseDefaultSid();
 
         /** Returns a reference to diffuse*/
-        ColorOrTexture& getDiffuse()
-        {
-            return mDiffuse;
-        }
+        ColorOrTexture& getDiffuse();
 
         /** Sets the specular to @a specular */
-        void  setSpecular( const ColorOrTexture& specular, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mSpecular = specular;
-            if ( useDefaultSid ) mSpecularSid = CSWC::COLLADA_ELEMENT_SPECULAR;
-            else mSpecularSid = sid;
-        }
+        void  setSpecular( const ColorOrTexture& specular, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the specular element*/ 
-		static const String& getSpecularDefaultSid() { return CSWC::COLLADA_ELEMENT_SPECULAR; }
+		static const String& getSpecularDefaultSid();
 
         /** Returns a reference to specular*/
-        ColorOrTexture& getSpecular()
-        {
-            return mSpecular;
-        }
+        ColorOrTexture& getSpecular();
 
         /** Sets the shininess to @a shininess */
-        void  setShininess( double shininess, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mShininess = shininess;
-            if ( useDefaultSid ) mShininessSid = CSWC::COLLADA_ELEMENT_SHININESS;
-            else mShininessSid = sid;
-        }
+        void  setShininess( double shininess, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the shininess element*/ 
 		static const String& getShininessDefaultSid() { return CSWC::COLLADA_ELEMENT_SHININESS; }
 
         /** Returns the shininess*/
-        double getShininess() const
-        {
-            return mShininess;
-        }
+        double getShininess() const;
 
         /** Sets the reflective to @a reflective */
-        void  setReflective( const ColorOrTexture& reflective, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mReflective = reflective;
-            if ( useDefaultSid ) mReflectiveSid = CSWC::COLLADA_ELEMENT_REFLECTIVE;
-            else mReflectiveSid = sid;
-        }
+        void  setReflective( const ColorOrTexture& reflective, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the reflective element*/ 
-		static const String& getReflectiveDefaultSid() { return CSWC::COLLADA_ELEMENT_REFLECTIVE; }
-
+		static const String& getReflectiveDefaultSid();
 
         /** Returns a reference to reflective*/
-        ColorOrTexture& getReflective()
-        {
-            return mReflective;
-        }
+        ColorOrTexture& getReflective();
 
         /** Sets the reflectivity to @a reflectivity */
-        void  setReflectivity( double reflectivity, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mReflectivity = reflectivity;
-            if ( useDefaultSid ) mReflectivitySid = CSWC::COLLADA_ELEMENT_REFLECTIVITY;
-            else mReflectivitySid = sid;
-        }
+        void  setReflectivity( double reflectivity, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the reflectivity element*/ 
-		static const String& getReflectivityDefaultSid() { return CSWC::COLLADA_ELEMENT_REFLECTIVITY; }
-
+		static const String& getReflectivityDefaultSid();
 
         /** Sets the transparent to @a transparent */
-        void setTransparent( const ColorOrTexture& transparent, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mTransparent = transparent;
-            if ( useDefaultSid ) mTransparentSid = CSWC::COLLADA_ELEMENT_TRANSPARENT;
-            else mTransparentSid = sid;
-        }
+        void setTransparent( const ColorOrTexture& transparent, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the transparent element*/ 
-		static const String& getTransparentDefaultSid() { return CSWC::COLLADA_ELEMENT_TRANSPARENT; }
+		static const String& getTransparentDefaultSid();
 
         /** Returns a reference to transparent*/
-        ColorOrTexture& getTransparent()
-        {
-            return mTransparent;
-        }
+        ColorOrTexture& getTransparent();
 
         /** Sets the opaque attribute of transparent to @a opaque */
-        void setOpaque( Opaque opaque)
-        {
-            mOpaque = opaque;
-        }
+        void setOpaque( Opaque opaque);
 
         /** Sets the opaque attribute of transparent to @a opaque */
-        Opaque getOpaque()
-        {
-            return mOpaque;
-        }
+        Opaque getOpaque();
 
         /** Sets the transparency to @a transparency */
-        void  setTransparency( double transparency, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mTransparency = transparency;
-            if ( useDefaultSid ) mTransparencySid = CSWC::COLLADA_ELEMENT_TRANSPARENCY;
-            else mTransparencySid = sid;
-        }
+        void  setTransparency( double transparency, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the transparency element*/ 
 		static const String& getTransparencyDefaultSid() { return CSWC::COLLADA_ELEMENT_TRANSPARENCY; }
 
-
         /** Sets the indexOfRefrection to @a indexOfRefrection */
-        void  setIndexOfRefraction( double indexOfRefrection, const bool useDefaultSid = false, const String& sid = "" )
-        {
-            mIndexOfRefraction = indexOfRefrection;
-            if ( useDefaultSid ) mIndexOfRefractionSid = CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION;
-            else mIndexOfRefractionSid = sid;
-        }
+        void  setIndexOfRefraction( double indexOfRefrection, const bool useDefaultSid = false, const String& sid = "" );
 		/** Returns the default sid used for the indexOfRefrection element*/ 
-		static const String& getIndexOfRefractionSid() { return CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION; }
+		static const String& getIndexOfRefractionSid();
 
         /**
         * Adds extra technique tags to the current effect and writes 
@@ -325,34 +285,29 @@ namespace COLLADA
         * @param childElement Name of the colorOrTexture child element.
         * @param colorOrTexture The colorOrTexture to set.
         */
-        void setExtraTechniqueColorOrTexture ( const ColorOrTexture& colorOrTexture, const String& sid = "" )
-        {
-            mExtraTechniqueColorOrTexture = colorOrTexture;
-            mExtraTechniqueColorOrTextureSid = sid;
-        }
-
-    private:
-
-        /** Adds the EffectProfile to the stream*/
-        void add( bool closeProfile = true );
-
-        /** Add the samplers required by the textures to the stream*/
-        void addSamplers();
+        void setExtraTechniqueColorOrTexture ( const ColorOrTexture& colorOrTexture, const String& sid = "" );
 
         /** Add the sampler required by @a colorOrTexture to the stream*/
         void addSampler ( const ColorOrTexture &colorOrTexture );
 
-        /** Returns the element name of the shader*/
-        static const String& getShaderTypeName ( ShaderTypes shaderType );
+    private:
 
-        /** Returns a reference to the COLLADA name of the surface type*/
-        static const String& getSurfaceTypeString ( Texture::SurfaceType surfaceType );
+        /** Adds the EffectProfile to the stream*/
+        void addProfileCommon ();
 
-        /** Returns a reference to the COLLADA name of the SamplerFilter*/
-        static const String& getSamplerFilterString ( Texture::SamplerFilter samplerFilter );
+        /** Adds the EffectProfile to the stream*/
+        void addProfileCG ();
+        void addProfileGLSL ();
+        void addProfileGLES ();
 
-        /** Returns a reference to the COLLADA name of the wrap mode. */
-        static const String& getWrapModeString ( Texture::WrapMode wrapMode );
+        /** Add the samplers required by the textures to the stream*/
+        void addSamplers();
+
+        /** Returns the element name of the profile type. */
+        static const String& getProfileTypeName ( ProfileType profileType );
+
+        /** Returns the element name of the shader. */
+        static const String& getShaderTypeName ( ShaderType shaderType );
 
         /** Returns a reference to the COLLADA name of the opaque type*/
         static const String& getOpaqueString ( Opaque opaque );
@@ -380,7 +335,7 @@ namespace COLLADA
         */
         void addExtraTechniqueColorOrTexture ( 
             const ColorOrTexture &colorOrTexture, 
-            const String &elementSid );
+            const String &elementSid ) const;
     };
 
 

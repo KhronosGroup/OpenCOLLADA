@@ -19,12 +19,18 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
-#include <map>
 
 #include "COLLADAStreamWriter.h"
 #include "COLLADALibraryMaterials.h"
+#include "COLLADASurface.h"
+#include "COLLADASampler.h"
+#include "COLLADAValueType.h"
+
+#include "cgfxAttrDef.h"
 
 #include <maya/MObject.h>
+
+#include <map>
 
 class DocumentExporter;
 
@@ -66,6 +72,10 @@ namespace COLLADAMaya
         /** list already exported materials with the corresponding collada material id*/
         std::vector<String> mExportedMaterials;
 
+        /** The filename of the current shader to export. */
+        COLLADA::URI mShaderFxFileUri;
+
+
     public:
 
         /**
@@ -80,6 +90,12 @@ namespace COLLADAMaya
         MaterialMap* getExportedMaterialsMap();
 
     private:
+
+        /** Set the filename of the current shader to export. */
+        void setShaderFxFileUri ( const COLLADA::URI& shaderFxFileName );
+
+        /** Returns the filename of the current shader fx file. */
+        const COLLADA::URI& getShaderFxFileUri () const;
 
         /**
         * Get all shaders, which are in the default shader list.
@@ -102,6 +118,23 @@ namespace COLLADAMaya
         /** Writes the material of the shading engine into the collada document
         and adds the material into the materials list. */
         void exportMaterial ( MObject shadingEngine );
+
+        /** Exports the data for a custom hardware shader node. */
+        void exportCustomHwShaderNode( COLLADA::InstanceEffect &effectInstance, MObject shader  );
+
+        /** Adds the technique hint and the effect attributes to the collada document. */
+        void exportCgfxShaderNode ( COLLADA::InstanceEffect &effectInstance, MFnDependencyNode &fnNode );
+
+        /** Adds a <setparam> of the given attribute to the collada document. */
+        void setSetParam( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute );
+
+        /** Adds the <setparam> element of the attributes texture. */
+        void setSetParamTexture (
+            const cgfxAttrDef* attribute, 
+            MObject textureNode, 
+            COLLADA::Surface::SurfaceType surfaceType, 
+            COLLADA::Sampler::SamplerType samplerType, 
+            COLLADA::ValueType::ColladaType samplerValueType );
 
     };
 }

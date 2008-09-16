@@ -60,12 +60,18 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void CameraExporter::exportCameras ( SceneElement* sceneElement )
     {
+        // If we have a external reference, we don't need to export the data here.
+        if ( !sceneElement->getIsLocal() ) return;
+
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
+        // Check for instance
+        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+
         // Check if it is a camera and an export node
         if ( sceneElement->getType() == SceneElement::CAMERA &&
-             sceneElement->getIsExportNode() )
+             sceneElement->getIsExportNode() && !isInstance )
         {
             // Export the geometry 
             bool exported = exportCamera ( dagPath );
@@ -169,36 +175,36 @@ namespace COLLADAMaya
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
             kSingle | kLength, EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
 
         double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
             kSingle | kLength, EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
  
         double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_MSTATUS(status);
         animated = anim->addNodeAnimation( cameraFn.object(), LENS_SQUEEZE_SID, ATTR_LENS_SQUEEZE_RATIO, kSingle );
         paramSid = ""; if ( animated ) paramSid = LENS_SQUEEZE_SID;
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
 
         int filmFit = cameraFn.filmFit ( &status ); CHECK_MSTATUS(status);
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_FIT_PARAMETER, filmFit ); 
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_FIT_PARAMETER, filmFit ); 
 
         double filmFitOffset = cameraFn.filmFitOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), FILM_FIT_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle );
         paramSid = ""; if ( animated ) paramSid = FILM_FIT_OFFSET_SID;
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
 
         double filmOffsetX = cameraFn.horizontalFilmOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_FILM_OFFSET_SID, ATTR_HORIZONTAL_FILM_OFFSET, kSingle, XYZ_PARAMETERS );
         paramSid = ""; if ( animated ) paramSid = HORIZONTAL_FILM_OFFSET_SID;
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
 
         double filmOffsetY = cameraFn.verticalFilmOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_FILM_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle, XYZ_PARAMETERS );
         paramSid = ""; if ( animated ) paramSid = VERTICAL_FILM_OFFSET_SID;
-        camera.addExtraTechniqueParameter( MAYA_PROFILE, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
+        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
 
         // Write the camera data in the collada document.
         addCamera ( camera );

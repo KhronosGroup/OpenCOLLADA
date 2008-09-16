@@ -11,6 +11,7 @@
 #include "COLLADAEffectProfile.h"
 #include "COLLADAExtra.h"
 #include "COLLADATechnique.h"
+#include "COLLADAParamTemplate.h"
 #include <assert.h>
 #include <algorithm>
 
@@ -25,7 +26,8 @@ namespace COLLADA
     : ElementWriter ( streamWriter )
     , BaseExtraTechnique()
     , mTechniqueSid ( DEFAULT_TECHNIQUE_SID )
-    , mShaderType ( UNSPECIFIED )
+    , mProfileType ( EffectProfile::COMMON )
+    , mShaderType ( EffectProfile::UNSPECIFIED )
     , mReflectivity ( -1 )
     , mOpaque ( UNSPECIFIED_OPAQUE )
     , mTransparency ( -1 )
@@ -42,44 +44,125 @@ namespace COLLADA
     , mTransparencySid (  )
     , mIndexOfRefractionSid (  )
     , mExtraTechniqueColorOrTextureSid (  )
+    , mIncludeSid ( "" )
     {}
 
     //---------------------------------------------------------------
-    void EffectProfile::add(bool closeProfile) 
+    void EffectProfile::addProfileElements ()
     {
-        TagCloser profileCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_PROFILE_COMMON );
+        switch ( mProfileType )
+        {
+        case EffectProfile::COMMON:
+            addProfileCommon ();
+            break;
+        case EffectProfile::CG:
+            addProfileCG ();
+            break;
+        case EffectProfile::GLSL:
+            addProfileGLSL ();
+            break;
+        case EffectProfile::GLES:
+            addProfileGLES ();
+            break;
+        }
+    }
 
+    //---------------------------------------------------------------
+    void EffectProfile::openProfile ()
+    {
+        mProfileCloser = mSW->openElement ( getProfileTypeName( mProfileType ) );
+    }
+
+    //---------------------------------------------------------------
+    void EffectProfile::closeProfile ()
+    {
+        mProfileCloser.close();
+    }
+
+    //---------------------------------------------------------------
+    void EffectProfile::addProfileCG ()
+    {
+        if ( !mCode.empty() )
+        {
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_CODE );
+            if ( !mCodeSid.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mCodeSid );
+            mSW->appendText ( Utils::translateToXML ( mCode ) );
+            mSW->closeElement();
+        }
+
+        if ( !mIncludeSid.empty() )
+        {
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_INCLUDE );
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mIncludeSid );
+            mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mIncludeURI.getURIString() );
+        }
+    }
+
+    //--------------------------------------------------------------- 
+    void EffectProfile::addProfileGLSL ()
+    {
+        if ( !mCode.empty() )
+        {
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_CODE );
+            if ( !mCodeSid.empty() )
+                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mCodeSid );
+            mSW->appendText ( Utils::translateToXML ( mCode ) );
+            mSW->closeElement();
+        }
+
+        if ( !mIncludeSid.empty() )
+        {
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_INCLUDE );
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mIncludeSid );
+            mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, mIncludeURI.getURIString() );
+        }
+    }
+
+    //---------------------------------------------------------------
+    void EffectProfile::addProfileGLES ()
+    {
+
+    }
+
+    //---------------------------------------------------------------
+    void EffectProfile::addProfileCommon ()
+    {
         addSamplers();
 
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE );
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mTechniqueSid );
+        if ( !mTechniqueSid.empty() )
+        {
+            mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE );
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mTechniqueSid );
 
-        TagCloser shaderTypeCloser = mSW->openElement ( getShaderTypeName ( mShaderType ) );
+            if ( mShaderType != EffectProfile::UNSPECIFIED )
+            {
+                TagCloser shaderTypeCloser = mSW->openElement ( getShaderTypeName ( mShaderType ) );
 
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_EMISSION, mEmission, mEmissionSid );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_AMBIENT, mAmbient, mAmbientSid );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_DIFFUSE, mDiffuse, mDiffuseSid );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_SPECULAR, mSpecular, mSpecularSid );
-        addFloat ( CSWC::COLLADA_ELEMENT_SHININESS, mShininess, mShininessSid );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_REFLECTIVE, mReflective, mReflectiveSid );
-        addFloat ( CSWC::COLLADA_ELEMENT_REFLECTIVITY, mReflectivity, mReflectivitySid );
-        addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, mOpaque);
-        addFloat ( CSWC::COLLADA_ELEMENT_TRANSPARENCY, mTransparency, mTransparencySid );
-        addFloat ( CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION, mIndexOfRefraction, mIndexOfRefractionSid );
+                addColorOrTexture ( CSWC::COLLADA_ELEMENT_EMISSION, mEmission, mEmissionSid );
+                addColorOrTexture ( CSWC::COLLADA_ELEMENT_AMBIENT, mAmbient, mAmbientSid );
+                addColorOrTexture ( CSWC::COLLADA_ELEMENT_DIFFUSE, mDiffuse, mDiffuseSid );
+                addColorOrTexture ( CSWC::COLLADA_ELEMENT_SPECULAR, mSpecular, mSpecularSid );
+                addFloat ( CSWC::COLLADA_ELEMENT_SHININESS, mShininess, mShininessSid );
+                addColorOrTexture ( CSWC::COLLADA_ELEMENT_REFLECTIVE, mReflective, mReflectiveSid );
+                addFloat ( CSWC::COLLADA_ELEMENT_REFLECTIVITY, mReflectivity, mReflectivitySid );
+                addColorOrTexture ( CSWC::COLLADA_ELEMENT_TRANSPARENT, mTransparent, mTransparentSid, mOpaque );
+                addFloat ( CSWC::COLLADA_ELEMENT_TRANSPARENCY, mTransparency, mTransparencySid );
+                addFloat ( CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION, mIndexOfRefraction, mIndexOfRefractionSid );
 
-        addTextureExtraTechniques( *mSW );
+                addExtraTechniques( mSW );
 
-        shaderTypeCloser.close();
+                shaderTypeCloser.close();
+            }
 
-        addExtraTechniqueColorOrTexture( mExtraTechniqueColorOrTexture, mExtraTechniqueColorOrTextureSid );
-
-        profileCloser.close();
+            addExtraTechniqueColorOrTexture( mExtraTechniqueColorOrTexture, mExtraTechniqueColorOrTextureSid );
+        }
     }
 
     //---------------------------------------------------------------
     void EffectProfile::addExtraTechniqueColorOrTexture ( 
         const ColorOrTexture& colorOrTexture, 
-        const String& elementSid )
+        const String& elementSid ) const
     {
         if ( colorOrTexture.isTexture() )
         {
@@ -106,7 +189,7 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void EffectProfile::addSamplers() 
+    void EffectProfile::addSamplers()
     {
         addSampler ( mEmission );
         addSampler ( mAmbient );
@@ -128,46 +211,23 @@ namespace COLLADA
 
             // Have a look, if we have this surface already written.
             std::vector<String>::const_iterator iter;
-            iter = find(mSampledImages.begin(), mSampledImages.end(), texture.getImageId());
-            if (iter == mSampledImages.end())
+            iter = find ( mSampledImages.begin(), mSampledImages.end(), texture.getImageId() );
+            if ( iter == mSampledImages.end() )
             {
                 // Push the id of the image in the list of sampled surface image ids
-                mSampledImages.push_back(texture.getImageId());
+                mSampledImages.push_back( texture.getImageId() );
 
-                // surface
-                TagCloser surfaceNewParam = mSW->openElement ( CSWC::COLLADA_ELEMENT_NEWPARAM );
-                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, texture.getSurfaceSid() );
-                mSW->openElement ( CSWC::COLLADA_ELEMENT_SURFACE );
-                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TYPE, getSurfaceTypeString ( texture.getSurfaceType() ) );
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_INIT_FROM, texture.getImageID() );
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_FORMAT, texture.getFormat() );
-                surfaceNewParam.close();
-
-                //sampler
-                TagCloser samplerNewParam = mSW->openElement ( CSWC::COLLADA_ELEMENT_NEWPARAM );
-                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, texture.getSamplerSid() );
-                mSW->openElement ( CSWC::COLLADA_ELEMENT_SAMPLER2D );
-                mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_SOURCE, texture.getSurfaceSid() );
-
-                if ( texture.getWrapS() != Texture::WRAP_MODE_UNSPECIFIED )
-                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_S, getWrapModeString ( texture.getWrapS() ) );
-
-                if ( texture.getWrapT() != Texture::WRAP_MODE_UNSPECIFIED )
-                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_T, getWrapModeString ( texture.getWrapT() ) );
-
-                if ( texture.getWrapP() != Texture::WRAP_MODE_UNSPECIFIED )
-                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_WRAP_P, getWrapModeString ( texture.getWrapP() ) );
-
-                if ( texture.getMinFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
-                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MINFILTER, getSamplerFilterString ( texture.getMinFilter() ) );
-
-                if ( texture.getMagFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
-                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MAGFILTER, getSamplerFilterString ( texture.getMagFilter() ) );
-
-                if ( texture.getMipFilter() != Texture::SAMPLER_FILTER_UNSPECIFIED )
-                    mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_MIPFILTER, getSamplerFilterString ( texture.getMipFilter() ) );
-
-                samplerNewParam.close();
+                // Add the surface <newparam>
+                COLLADA::NewParamSurface paramSurface ( mSW );
+                paramSurface.openParam ( texture.getSurfaceSid() );
+                texture.getSurface().add ( mSW );
+                paramSurface.closeParam ();
+                
+                // Add the sampler <newparam>
+                COLLADA::NewParamSampler paramSampler ( mSW );
+                paramSampler.openParam ( texture.getSamplerSid() );
+                texture.getSampler().add ( mSW );
+                paramSampler.closeParam ();
             }
 
         }
@@ -175,115 +235,36 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    const String& EffectProfile::getShaderTypeName ( ShaderTypes shaderType )
+    const String& EffectProfile::getShaderTypeName ( ShaderType shaderType )
     {
         switch ( shaderType )
         {
-
         case EffectProfile::CONSTANT:
             return CSWC::COLLADA_ELEMENT_CONSTANT;
-
         case EffectProfile::LAMBERT:
             return CSWC::COLLADA_ELEMENT_LAMBERT;
-
         case EffectProfile::PHONG:
             return CSWC::COLLADA_ELEMENT_PHONG;
-
         case EffectProfile::BLINN:
             return CSWC::COLLADA_ELEMENT_BLINN;
-
         default:
             return CSWC::EMPTY_STRING;
         }
     }
 
     //---------------------------------------------------------------
-    const String& EffectProfile::getSurfaceTypeString ( Texture::SurfaceType surfaceType )
+    const String& EffectProfile::getProfileTypeName ( ProfileType profileType )
     {
-        switch ( surfaceType )
+        switch ( profileType )
         {
-
-        case Texture::SURFACE_TYPE_1D:
-            return CSWC::COLLADA_SURFACE_TYPE_1D;
-
-        case Texture::SURFACE_TYPE_2D:
-            return CSWC::COLLADA_SURFACE_TYPE_2D;
-
-        case Texture::SURFACE_TYPE_3D:
-            return CSWC::COLLADA_SURFACE_TYPE_3D;
-
-        case Texture::SURFACE_TYPE_CUBE:
-            return CSWC::COLLADA_SURFACE_TYPE_CUBE;
-
-        case Texture::SURFACE_TYPE_DEPTH:
-            return CSWC::COLLADA_SURFACE_TYPE_DEPTH;
-
-        case Texture::SURFACE_TYPE_RECT:
-            return CSWC::COLLADA_SURFACE_TYPE_RECT;
-
-        case Texture::SURFACE_TYPE_UNTYPED:
-            return CSWC::COLLADA_SURFACE_TYPE_UNTYPED;
-
-        default:
-            return CSWC::EMPTY_STRING;
-        }
-
-    }
-
-
-    //---------------------------------------------------------------
-    const String& EffectProfile::getSamplerFilterString ( Texture::SamplerFilter samplerFilter )
-    {
-        switch ( samplerFilter )
-        {
-
-        case Texture::SAMPLER_FILTER_NONE:
-            return CSWC::COLLADA_SAMPLER_FILTER_NONE;
-
-        case Texture::SAMPLER_FILTER_LINEAR:
-            return CSWC::COLLADA_SAMPLER_FILTER_LINEAR;
-
-        case Texture::SAMPLER_FILTER_LINEAR_MIPMAP_LINEAR:
-            return CSWC::COLLADA_SAMPLER_FILTER_LINEAR_MIPMAP_LINEAR;
-
-        case Texture::SAMPLER_FILTER_LINEAR_MIPMAP_NEAREST:
-            return CSWC::COLLADA_SAMPLER_FILTER_LINEAR_MIPMAP_NEAREST;
-
-        case Texture::SAMPLER_FILTER_NEAREST:
-            return CSWC::COLLADA_SAMPLER_FILTER_NEAREST;
-
-        case Texture::SAMPLER_FILTER_NEAREST_MIPMAP_LINEAR:
-            return CSWC::COLLADA_SAMPLER_FILTER_NEAREST_MIPMAP_LINEAR;
-
-        case Texture::SAMPLER_FILTER_NEAREST_MIPMAP_NEAREST:
-            return CSWC::COLLADA_SAMPLER_FILTER_NEAREST_MIPMAP_NEAREST;
-
-        default:
-            return CSWC::EMPTY_STRING;
-        }
-    }
-
-    //---------------------------------------------------------------
-    const String& EffectProfile::getWrapModeString ( Texture::WrapMode wrapMode )
-    {
-        switch ( wrapMode )
-        {
-
-        case Texture::WRAP_MODE_NONE:
-            return CSWC::COLLADA_TEXTURE_WRAP_NONE;
-
-        case Texture::WRAP_MODE_WRAP:
-            return CSWC::COLLADA_TEXTURE_WRAP_WRAP;
-
-        case Texture::WRAP_MODE_MIRROR:
-            return CSWC::COLLADA_TEXTURE_WRAP_MIRROR;
-
-        case Texture::WRAP_MODE_CLAMP:
-            return CSWC::COLLADA_TEXTURE_WRAP_CLAMP;
-
-        case Texture::WRAP_MODE_BORDER:
-            return CSWC::COLLADA_TEXTURE_WRAP_BORDER;
-
+        case EffectProfile::COMMON:
+            return CSWC::COLLADA_ELEMENT_PROFILE_COMMON;
+        case EffectProfile::CG:
+            return CSWC::COLLADA_ELEMENT_PROFILE_CG;
+        case EffectProfile::GLES:
+            return CSWC::COLLADA_ELEMENT_PROFILE_GLES;
+        case EffectProfile::GLSL:
+            return CSWC::COLLADA_ELEMENT_PROFILE_GLSL;
         default:
             return CSWC::EMPTY_STRING;
         }
@@ -294,24 +275,18 @@ namespace COLLADA
     {
         switch ( opaque )
         {
-
         case A_ONE:
             return CSWC::COLLADA_OPAQUE_TYPE_A_ONE;
-
         case RGB_ZERO:
             return CSWC::COLLADA_OPAQUE_TYPE_RGB_ZERO;
-
         case RGB_ONE:
             return CSWC::COLLADA_OPAQUE_TYPE_RGB_ONE;
-
         case A_ZERO:
             return CSWC::COLLADA_OPAQUE_TYPE_A_ZERO;
-
         default:
             return EMPTY_STRING;
         }
     }
-
 
     //---------------------------------------------------------------
     void EffectProfile::addColorOrTexture ( 
@@ -323,9 +298,7 @@ namespace COLLADA
     {
         bool isColor = colorOrTexture.isColor();
         bool isTexture =  colorOrTexture.isTexture();
-
-        if ( ! ( isColor || isTexture ) )
-            return;
+        if ( ! ( isColor || isTexture ) ) return;
 
         mSW->openElement ( elementName );
 
@@ -337,16 +310,13 @@ namespace COLLADA
             const Texture& texture = colorOrTexture.getTexture();
 
             mSW->openElement ( CSWC::COLLADA_ELEMENT_TEXTURE );
-            if ( !elementSid.empty() )
-                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, elementSid );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TEXTURE, texture.getSamplerSid() );
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_TEXCOORD, texture.getTexcoord() );
-
-            texture.addTextureExtraTechniques ( *mSW );
+            
+            texture.addExtraTechniques ( mSW );
 
             mSW->closeElement();
         }
-
         else if ( isColor )
         {
             mSW->openElement ( CSWC::COLLADA_ELEMENT_COLOR );
@@ -378,6 +348,205 @@ namespace COLLADA
         }
     }
 
+    void EffectProfile::openTechnique( const String& techniqueSid )
+    {
+        mTechniqueCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE );
+        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mTechniqueSid );
+    }
 
+    void EffectProfile::closeTechnique()
+    {
+        mTechniqueCloser.close ();
+    }
 
+    void EffectProfile::setTechniqueSid( const String& techniqueSid )
+    {
+        mTechniqueSid = techniqueSid;
+    }
+
+    const String& EffectProfile::getTechniqueSid() const
+    {
+        return mTechniqueSid;
+    }
+
+    void EffectProfile::setShaderType( ShaderType shaderType )
+    {
+        mShaderType = shaderType;
+    }
+
+    COLLADA::EffectProfile::ShaderType EffectProfile::getShaderType() const
+    {
+        return mShaderType;
+    }
+
+    const String& EffectProfile::getCode() const
+    {
+        return mCode;
+    }
+
+    void EffectProfile::setCode( const String &code, const String &sid/*="" */ )
+    {
+        mCode = code; mCodeSid = sid;
+    }
+
+    void EffectProfile::setEmission( const ColorOrTexture& emission, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mEmission = emission;
+        if ( useDefaultSid ) mEmissionSid = CSWC::COLLADA_ELEMENT_EMISSION;
+        else mEmissionSid = sid;
+    }
+
+    const String& EffectProfile::getEmissionDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_EMISSION;
+    }
+
+    ColorOrTexture& EffectProfile::getEmission()
+    {
+        return mEmission;
+    }
+
+    void EffectProfile::setAmbient( const ColorOrTexture& ambient, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mAmbient = ambient;
+        if ( useDefaultSid ) mAmbientSid = CSWC::COLLADA_ELEMENT_AMBIENT;
+        else mAmbientSid = sid;
+    }
+
+    const String& EffectProfile::getAmbientDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_AMBIENT;
+    }
+
+    ColorOrTexture& EffectProfile::getAmbient()
+    {
+        return mAmbient;
+    }
+
+    void EffectProfile::setDiffuse( const ColorOrTexture& diffuse, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mDiffuse = diffuse;
+        if ( useDefaultSid ) mDiffuseSid = CSWC::COLLADA_ELEMENT_DIFFUSE;
+        else mDiffuseSid = sid;
+    }
+
+    const String& EffectProfile::getDiffuseDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_DIFFUSE;
+    }
+
+    ColorOrTexture& EffectProfile::getDiffuse()
+    {
+        return mDiffuse;
+    }
+
+    void EffectProfile::setSpecular( const ColorOrTexture& specular, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mSpecular = specular;
+        if ( useDefaultSid ) mSpecularSid = CSWC::COLLADA_ELEMENT_SPECULAR;
+        else mSpecularSid = sid;
+    }
+
+    const String& EffectProfile::getSpecularDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_SPECULAR;
+    }
+
+    ColorOrTexture& EffectProfile::getSpecular()
+    {
+        return mSpecular;
+    }
+
+    void EffectProfile::setShininess( double shininess, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mShininess = shininess;
+        if ( useDefaultSid ) mShininessSid = CSWC::COLLADA_ELEMENT_SHININESS;
+        else mShininessSid = sid;
+    }
+
+    double EffectProfile::getShininess() const
+    {
+        return mShininess;
+    }
+
+    void EffectProfile::setReflective( const ColorOrTexture& reflective, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mReflective = reflective;
+        if ( useDefaultSid ) mReflectiveSid = CSWC::COLLADA_ELEMENT_REFLECTIVE;
+        else mReflectiveSid = sid;
+    }
+
+    const String& EffectProfile::getReflectiveDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_REFLECTIVE;
+    }
+
+    ColorOrTexture& EffectProfile::getReflective()
+    {
+        return mReflective;
+    }
+
+    void EffectProfile::setReflectivity( double reflectivity, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mReflectivity = reflectivity;
+        if ( useDefaultSid ) mReflectivitySid = CSWC::COLLADA_ELEMENT_REFLECTIVITY;
+        else mReflectivitySid = sid;
+    }
+
+    const String& EffectProfile::getReflectivityDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_REFLECTIVITY;
+    }
+
+    void EffectProfile::setTransparent( const ColorOrTexture& transparent, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mTransparent = transparent;
+        if ( useDefaultSid ) mTransparentSid = CSWC::COLLADA_ELEMENT_TRANSPARENT;
+        else mTransparentSid = sid;
+    }
+
+    const String& EffectProfile::getTransparentDefaultSid()
+    {
+        return CSWC::COLLADA_ELEMENT_TRANSPARENT;
+    }
+
+    ColorOrTexture& EffectProfile::getTransparent()
+    {
+        return mTransparent;
+    }
+
+    void EffectProfile::setOpaque( Opaque opaque )
+    {
+        mOpaque = opaque;
+    }
+
+    COLLADA::EffectProfile::Opaque EffectProfile::getOpaque()
+    {
+        return mOpaque;
+    }
+
+    void EffectProfile::setTransparency( double transparency, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mTransparency = transparency;
+        if ( useDefaultSid ) mTransparencySid = CSWC::COLLADA_ELEMENT_TRANSPARENCY;
+        else mTransparencySid = sid;
+    }
+
+    void EffectProfile::setIndexOfRefraction( double indexOfRefrection, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    {
+        mIndexOfRefraction = indexOfRefrection;
+        if ( useDefaultSid ) mIndexOfRefractionSid = CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION;
+        else mIndexOfRefractionSid = sid;
+    }
+
+    const String& EffectProfile::getIndexOfRefractionSid()
+    {
+        return CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION;
+    }
+
+    void EffectProfile::setExtraTechniqueColorOrTexture( const ColorOrTexture& colorOrTexture, const String& sid /*= "" */ )
+    {
+        mExtraTechniqueColorOrTexture = colorOrTexture;
+        mExtraTechniqueColorOrTextureSid = sid;
+    }
 } //namespace COLLADA

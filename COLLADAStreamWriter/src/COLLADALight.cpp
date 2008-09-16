@@ -49,13 +49,12 @@ namespace COLLADA
         mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, getLightId() );
         if ( !getLightName().empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, getLightName() );
+
         mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE_COMMON );
-
         this->addTypeSpecificInfos ();
-
-        addTextureExtraTechniques ( *mSW );
-
         mSW->closeElement(); // COLLADA_ELEMENT_TECHNIQUE_COMMON
+        addExtraTechniques ( mSW );
+
         mSW->closeElement(); // COLLADA_ELEMENT_LIGHT
 
     }

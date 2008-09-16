@@ -24,12 +24,13 @@ namespace COLLADA
     public:
         /** Constructor
         @param streamWriter The stream writer that should be used to write to the stream*/
-        ElementWriter ( StreamWriter * streamWriter ) : mSW ( streamWriter ) {}
+        ElementWriter ( StreamWriter* streamWriter ) : mSW ( streamWriter ) {}
 
         static const String EMPTY_STRING;
 
     protected:
-        StreamWriter * mSW;
+
+        StreamWriter* mSW;
 
 
     };

@@ -42,7 +42,7 @@ namespace COLLADA
         // Write the optics element
         mOptics->add ();
 
-        addTextureExtraTechniques ( *mSW );
+        addExtraTechniques ( mSW );
 
         mSW->closeElement(); // COLLADA_ELEMENT_CAMERA
 

@@ -116,17 +116,20 @@ namespace COLLADAMaya
             return &mExportedImageMap;
         }
 
-    private:
-
         /** Exports the texture image */
         String exportImage ( const MObject &texture );
+
+        /** Exports the texture image */
+        COLLADA::Image* exportImage( const String& colladaImageId, const String& sourceFile );
+
+    private:
 
         /**
          * Returns the target file name of the given source file name.
          * @param sourceFileName The source file name.
          * @return String The target file name.
          */
-        String getTargetFileName( String &sourceFileName );
+        String getTargetFileName ( const String &sourceFileName );
 
         /** Dump a place2dTexture node */
         void add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture );

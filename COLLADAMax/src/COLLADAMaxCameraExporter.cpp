@@ -232,7 +232,7 @@ namespace COLLADAMax
 					}
 				}
 			}
-			addExtraTechniques();
+			addMaxExtraTechniques();
 		
 			delete optics;
 		}

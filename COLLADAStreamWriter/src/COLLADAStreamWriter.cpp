@@ -103,7 +103,7 @@ namespace COLLADA
 			throw StreamWriterException(StreamWriterException::ERROR_FILE_OPEN, "Could not open file \"" + fileName + "\" for writing. errno_t = " + Utils::toString(error) );
         }
 		
-		bool failed = setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE ) != false;
+		bool failed = ( setvbuf ( mStream , mBuffer, _IOFBF, BUFFERSIZE ) != 0 );
 		if ( failed )
 		{
 			delete[] mBuffer;
@@ -190,7 +190,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String &name, const unsigned long value )
+    void StreamWriter::appendAttribute ( const String &name, const unsigned long val )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -198,12 +198,12 @@ namespace COLLADA
         appendNCNameString ( name );
         appendChar ( '=' );
         appendChar ( '\"' );
-        appendNumber ( value );
+        appendNumber ( val );
         appendChar ( '\"' );
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendAttribute ( const String &name, const unsigned int value )
+    void StreamWriter::appendAttribute ( const String &name, const unsigned int val )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -211,7 +211,20 @@ namespace COLLADA
         appendNCNameString ( name );
         appendChar ( '=' );
         appendChar ( '\"' );
-        appendNumber ( value );
+        appendNumber ( val );
+        appendChar ( '\"' );
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendAttribute ( const String &name, const int val )
+    {
+        assert ( !mOpenTags.top().mHasContents );
+
+        appendChar ( ' ' );
+        appendNCNameString ( name );
+        appendChar ( '=' );
+        appendChar ( '\"' );
+        appendNumber ( val );
         appendChar ( '\"' );
     }
 
@@ -290,7 +303,89 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const float number )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( number );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const float number1, const float number2 )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( number1 );
+        appendChar ( ' ' );
+        appendNumber ( number2 );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const float number1, const float number2, const float number3 )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( number1 );
+        appendChar ( ' ' );
+        appendNumber ( number2 );
+        appendChar ( ' ' );
+        appendNumber ( number3 );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( 
+        const float number1, const float number2, const float number3, const float number4 )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( number1 );
+        appendChar ( ' ' );
+        appendNumber ( number2 );
+        appendChar ( ' ' );
+        appendNumber ( number3 );
+        appendChar ( ' ' );
+        appendNumber ( number4 );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
     void StreamWriter::appendValues ( const float values[], const size_t length )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+
+        for ( size_t i=0; i<length; ++i )
+        {
+            appendNumber ( values[i] );
+            appendChar ( ' ' );
+        }
+
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const int values[], const size_t length )
     {
         prepareToAddContents();
 
@@ -491,11 +586,33 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const int number, const int number2 )
+    {
+        prepareToAddContents();
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        appendNumber ( number );
+        appendChar ( ' ' );
+        appendNumber ( number2 );
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
     void StreamWriter::appendValues ( const unsigned int number )
     {
         prepareToAddContents();
         if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
         appendNumber ( number );
+        mOpenTags.top().mHasText = true;
+    }
+
+    //---------------------------------------------------------------
+    void StreamWriter::appendValues ( const unsigned int number, const unsigned int number2 )
+    {
+        prepareToAddContents();
+        if ( mOpenTags.top().mHasText ) appendChar ( ' ' );
+        appendNumber ( number );
+        appendChar ( ' ' );
+        appendNumber ( number2 );
         mOpenTags.top().mHasText = true;
     }
 
@@ -570,6 +687,26 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
+    void StreamWriter::appendValues( const Color val )
+    {
+        prepareToAddContents();
+
+        if ( mOpenTags.top().mHasText )
+            appendChar ( ' ' );
+
+        appendNumber ( val.getRed() );
+        appendChar ( ' ' );
+        appendNumber ( val.getGreen() );
+        appendChar ( ' ' );
+        appendNumber ( val.getBlue() );
+        appendChar ( ' ' );
+        appendNumber ( val.getAlpha() );
+
+        mOpenTags.top().mHasText = true;
+    }
+
+
+    //---------------------------------------------------------------
     void StreamWriter::appendValues ( const bool value )
     {
         prepareToAddContents();
@@ -584,7 +721,7 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendValues ( const String & text )
+    void StreamWriter::appendValues ( const String& text )
     {
         prepareToAddContents();
 
@@ -650,13 +787,20 @@ namespace COLLADA
 
 
     //---------------------------------------------------------------
-    void StreamWriter::appendTextElement ( const String & elementName, const String & text )
+    void StreamWriter::appendTextElement ( const String& elementName, const String& text )
     {
         openElement ( elementName );
         appendText ( text );
         closeElement();
     }
 
+    //---------------------------------------------------------------
+    void StreamWriter::appendURIElement ( const String& elementName, const URI& uri )
+    {
+        openElement ( elementName );
+        appendText ( uri.getURIString() );
+        closeElement();
+    }
 
     //---------------------------------------------------------------
     void StreamWriter::prepareToAddContents()

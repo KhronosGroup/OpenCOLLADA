@@ -534,7 +534,7 @@ namespace COLLADAMax
 
 #endif
 		
-		addExtraTechniques();
+		addMaxExtraTechniques();
     }
 
 

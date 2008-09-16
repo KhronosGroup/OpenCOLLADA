@@ -20,32 +20,38 @@ namespace COLLADA
     const String LibraryMaterials::MATERIAL_ID_SUFFIX = "-material";
 
 
-    //---------------------------------------------------------------
-    LibraryMaterials::LibraryMaterials ( COLLADA::StreamWriter * streamWriter )
-            : Library ( streamWriter,CSWC::COLLADA_ELEMENT_LIBRARY_MATERIALS )
+    //-------------------------------------
+    LibraryMaterials::LibraryMaterials ( COLLADA::StreamWriter* streamWriter )
+            : Library ( streamWriter, CSWC::COLLADA_ELEMENT_LIBRARY_MATERIALS )
     {}
 
+    //-------------------------------------
+    void LibraryMaterials::addInstanceEffect( const URI &effectURL )
+    {
+        mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT );
+        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, effectURL );
+        mSW->closeElement();
+    }
 
-    //---------------------------------------------------------------
-    void LibraryMaterials::addInstanceEffect ( const URI & effectURL, const String & materialId, const String & materialName )
+    //-------------------------------------
+    void LibraryMaterials::openMaterial( 
+        const String& materialId /*= EMPTY_STRING */, 
+        const String& materialName /*= EMPTY_STRING */ )
     {
         openLibrary();
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_MATERIAL );
+
+        mMaterialCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_MATERIAL );
 
         if ( !materialId.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, materialId );
 
         if ( !materialName.empty() )
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_NAME, materialName );
-
-        mSW->openElement ( CSWC::COLLADA_ELEMENT_INSTANCE_EFFECT );
-
-        mSW->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, effectURL );
-
-        mSW->closeElement();
-
-        mSW->closeElement();
     }
 
-
+    //-------------------------------------
+    void LibraryMaterials::closeMaterial()
+    {
+        mMaterialCloser.close();
+    }
 } //namespace COLLADA

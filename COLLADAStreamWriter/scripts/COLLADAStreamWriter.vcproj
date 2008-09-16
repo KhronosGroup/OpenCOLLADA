@@ -327,7 +327,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFormatHint.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAIDList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAImage.cpp"
 				>
 			</File>
 			<File
@@ -340,6 +348,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAInstanceController.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAInstanceEffect.cpp"
 				>
 			</File>
 			<File
@@ -415,11 +427,35 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAParamBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAPass.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAPassState.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAPrimitves.cpp"
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADARenderState.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASampler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAScene.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAShader.cpp"
 				>
 			</File>
 			<File
@@ -435,11 +471,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASurface.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASurfaceInitOption.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASWC.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADATechnique.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADATechniqueFX.cpp"
 				>
 			</File>
 			<File
@@ -489,6 +537,10 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\include\COLLADAAnnotation.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAAsset.h"
 				>
 			</File>
@@ -510,6 +562,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADACameraOptic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADACode.h"
 				>
 			</File>
 			<File
@@ -537,7 +593,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFormatHint.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAIDList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAImage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAInclude.h"
 				>
 			</File>
 			<File
@@ -550,6 +618,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAInstanceController.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAInstanceEffect.h"
 				>
 			</File>
 			<File
@@ -625,6 +697,26 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAOpenGLConstants.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAParamBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAParamTemplate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAPass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAPassState.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAPlatform.h"
 				>
 			</File>
@@ -637,7 +729,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADARenderState.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADARenderStateStatic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASampler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAScene.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAShader.h"
 				>
 			</File>
 			<File
@@ -653,11 +761,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASurface.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASurfaceInitOption.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASWC.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADATechnique.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADATechniqueFX.h"
 				>
 			</File>
 			<File
@@ -701,7 +821,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\daeURI.h"
+				RelativePath="..\include\COLLADAValueType.h"
 				>
 			</File>
 		</Filter>

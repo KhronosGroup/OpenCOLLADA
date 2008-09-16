@@ -40,16 +40,15 @@ namespace COLLADA
         virtual ~LibraryEffects() {}
 
     protected:
-        /** Writes the opening @a \<effect\> tag and, if necessary the opening @a \<library_effects\> tag.
+
+        /** Writes the opening @a \<effect\> tag and, if necessary the opening 
+        @a \<library_effects\> tag.
         closeVisualScene() must be use to close the opened tags.
-        @param id the id of the effect*/
+        @param id the id of the effect. */
         void openEffect ( const String& id = EMPTY_STRING );
 
         /** Add @a effectProfile to the current effect*/
-        void addEffectProfile ( EffectProfile& effectProfile )
-        {
-            effectProfile.add();
-        };
+        void addEffectProfile ( EffectProfile& effectProfile );;
 
         /** Closes the tag opened by openEffect()*/
         void closeEffect();

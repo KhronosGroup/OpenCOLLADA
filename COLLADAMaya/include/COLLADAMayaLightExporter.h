@@ -16,7 +16,7 @@
 #ifndef __COLLADA_MAYA_LIGHT_EXPORTER_H__
 #define __COLLADA_MAYA_LIGHT_EXPORTER_H__
 
-#include "COLLADAMayaStableHeaders.h"
+#include "ColladaMayaPrerequisites.h"
 #include "COLLADAStreamWriter.h"
 #include "COLLADALibraryLights.h"
 

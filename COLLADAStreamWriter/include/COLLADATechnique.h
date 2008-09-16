@@ -19,9 +19,7 @@
 namespace COLLADA
 {
 
-    //---------------------------------------------------------------
-    /** A class to add an Asset to the stream*/
-
+    /** A class to add an asset to the stream*/
     class Technique : public ElementWriter
     {
 

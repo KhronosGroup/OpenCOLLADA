@@ -763,18 +763,18 @@ namespace COLLADAMaya
         const MObject& node, 
         const String attributeName, 
         MStringArray& output, 
-        MStatus* ReturnStatus )
+        MStatus* status )
     {
-        MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), ReturnStatus );
-        getPlugValue ( plug, output, ReturnStatus );
+        MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), status );
+        getPlugValue ( plug, output, status );
     }
 
     //---------------------------------------------------
-    void DagHelper::getPlugValue ( const MPlug& plug, MStringArray& output, MStatus* ReturnStatus )
+    void DagHelper::getPlugValue ( const MPlug& plug, MStringArray& output, MStatus* status )
     {
         MObject str_obj;
         plug.getValue ( str_obj );
-        MFnStringArrayData f_astr ( str_obj, ReturnStatus );
+        MFnStringArrayData f_astr ( str_obj, status );
         unsigned int len = f_astr.length();
         for ( unsigned int i = 0; i < len; ++i )
         {

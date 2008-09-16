@@ -81,7 +81,10 @@ namespace COLLADAMaya
 //             return 0;
 //         }
 
-        if ( ( mSampleType & kMatrix ) == kMatrix )
+        if ( ( mSampleType & kBoolean ) == kBoolean )
+            return 1;
+
+        else if ( ( mSampleType & kMatrix ) == kMatrix )
             return 16;
 
         else if ( ( mSampleType & kColour ) == kColour )
@@ -91,7 +94,6 @@ namespace COLLADAMaya
             return 3;
 
         else if ( ( ( mSampleType & kSingle ) == kSingle ) ||
-            ( ( mSampleType & kBoolean ) == kBoolean ) || 
             ( ( mSampleType & kAngle ) == kAngle ) ||
             ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
             return 1;

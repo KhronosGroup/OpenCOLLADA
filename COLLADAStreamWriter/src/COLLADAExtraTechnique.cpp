@@ -297,21 +297,20 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addTextureExtraTechniques ( StreamWriter &streamWriter ) const
+    void BaseExtraTechnique::addExtraTechniques ( StreamWriter* streamWriter ) const
     {
         if ( !mExtraTechniques.empty() )
         {
             // Open the extra tag
-            COLLADA::Extra colladaExtra ( &streamWriter );
+            COLLADA::Extra colladaExtra ( streamWriter );
             colladaExtra.openExtra();
 
             // Go through every extra-technique (for the different profiles)
             ExtraTechniquesMap::const_iterator extraTechniquesIt = mExtraTechniques.begin();
-
             while ( extraTechniquesIt != mExtraTechniques.end() )
             {
                 // Write the current technique profile
-                COLLADA::Technique colladaTechnique ( &streamWriter );
+                COLLADA::Technique colladaTechnique ( streamWriter );
 
                 const String profileName = ( *extraTechniquesIt ).first;
                 colladaTechnique.openTechnique ( profileName );
@@ -324,9 +323,7 @@ namespace COLLADA
 
                 // Write the child elements
                 const ChildElementsMap& childElements = profile.mChildElements;
-
                 ChildElementsMap::const_iterator childIt = childElements.begin();
-
                 while ( childIt != childElements.end() )
                 {
                     const String childElementName = ( *childIt ).first;
@@ -350,8 +347,9 @@ namespace COLLADA
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addTechniqueParameters ( COLLADA::Technique &colladaTechnique,
-            const Parameters &parameters ) const
+    void BaseExtraTechnique::addTechniqueParameters ( 
+        COLLADA::Technique &colladaTechnique,
+        const Parameters &parameters ) const
     {
         Parameters::const_iterator paramsIt = parameters.begin();
 

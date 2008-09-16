@@ -341,7 +341,7 @@ namespace COLLADAMax
 			}
 		}
 
-		addExtraTechniques();
+		addMaxExtraTechniques();
 
 		delete colladaLight;
 

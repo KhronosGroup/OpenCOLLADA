@@ -84,8 +84,8 @@ namespace COLLADAMaya
         static bool   getPlugValue ( const MPlug& plug, float& x, float& y );
         static bool   getPlugValue ( const MPlug& plug, float& x, float& y, float& z );
         static bool   getPlugValue ( const MPlug& plug, MVector& value );
-        static void   getPlugValue ( const MObject& node, const String attributeName, MStringArray& output, MStatus* ReturnStatus = NULL );
-        static void   getPlugValue ( const MPlug& plug, MStringArray& output, MStatus* ReturnStatus = NULL );
+        static void   getPlugValue ( const MObject& node, const String attributeName, MStringArray& output, MStatus* status = NULL );
+        static void   getPlugValue ( const MPlug& plug, MStringArray& output, MStatus* status = NULL );
 
         static bool   setPlugValue ( MPlug& plug, const MVector& value );
         static bool   setPlugValue ( MPlug& plug, const MMatrix& value );

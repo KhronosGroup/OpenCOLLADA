@@ -129,7 +129,7 @@ namespace COLLADAMax
 		ids for the animation.*/
 		void addParamBlockAnimatedExtraParameters ( const String & childElementName, const ExtraParameter extraParameters[], int extraParametersCount, IParamBlock2 * paramBlock, const String& baseId );
 
-		void addExtraTechniques();
+		void addMaxExtraTechniques();
 
 		/** Writes all information of the IParamBlock2 @a parameters to the file @a fileName. For development purposes
 		only.

@@ -13,37 +13,89 @@
 namespace COLLADA
 {
 
-    const String Texture::SAMPLER_SID_SUFFIX = "-sampler";
-    const String Texture::SURFACE_SID_SUFFIX = "-surface";
-
-
-    //---------------------------------------------------------------
-    Texture::Texture ( const String& imageID, Texture::SurfaceType surfaceType, const String& sid )
+    //------------------------------
+    Texture::Texture ( const String& imageID, const String& sid )
         : BaseExtraTechnique()
         , mSid ( sid )
         , mImageID ( imageID )
-        , mSurfaceType ( surfaceType )
-        , mWrap_s ( Texture::WRAP_MODE_UNSPECIFIED )
-        , mWrap_t ( Texture::WRAP_MODE_UNSPECIFIED )
-        , mWrap_p ( Texture::WRAP_MODE_UNSPECIFIED )
-        , mMinFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-        , mMagFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-        , mMipFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
     {}
 
 
-    //---------------------------------------------------------------
+    //------------------------------
     Texture::Texture()
-        : mSurfaceType ( SURFACE_TYPE_UNSPECIFIED )
-        , mSid ( "" )
-        , mImageID ( "" )
-        , mWrap_s ( Texture::WRAP_MODE_UNSPECIFIED )
-        , mWrap_t ( Texture::WRAP_MODE_UNSPECIFIED )
-        , mWrap_p ( Texture::WRAP_MODE_UNSPECIFIED )
-        , mMinFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-        , mMagFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-        , mMipFilter ( Texture::SAMPLER_FILTER_UNSPECIFIED )
-    {}
+        : mSid ( "" )
+        , mImageID ( "" ) {}
 
+    //------------------------------
+    bool Texture::isValid() const
+    {
+        return ( !mImageID.empty() ) && ( mSurface.getSurfaceType() != Surface::SURFACE_TYPE_UNSPECIFIED );
+    }
+
+    //------------------------------
+    void Texture::setTexcoord( const String texcoord )
+    {
+        mTexcoord = texcoord;
+    }
+
+    //------------------------------
+    const String& Texture::getTexcoord() const
+    {
+        return mTexcoord;
+    }
+
+    //------------------------------
+    const String& Texture::getImageID() const
+    {
+        return mImageID;
+    }
+
+    //------------------------------
+    const String& Texture::getImageId() const
+    {
+        return mImageID;
+    }
+
+    //------------------------------
+    const Surface& Texture::getSurface() const
+    {
+        return mSurface;
+    }
+
+    //------------------------------
+    void Texture::setSurface( const Surface& surface )
+    {
+        mSurface = surface;
+    }
+
+    //------------------------------
+    const Sampler& Texture::getSampler() const
+    {
+        return mSampler;
+    }
+
+    //------------------------------
+    void Texture::setSampler( const Sampler& val )
+    {
+        mSampler = val;
+    }
+
+    //------------------------------
+    COLLADA::String Texture::getSamplerSid() const
+    {
+        return mImageID + Sampler::SAMPLER_SID_SUFFIX;
+    }
+
+    //------------------------------
+    COLLADA::String Texture::getSurfaceSid() const
+    {
+        return mSurface.getSurfaceSid();
+    }
+
+    //------------------------------
+    void Texture::setImageId( String imageId )
+    {
+        mImageID = imageId;
+    }
 
 } //namespace COLLADA

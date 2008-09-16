@@ -37,7 +37,6 @@ namespace COLLADAMaya
     * Represents the base of an animation curve.
     */
     template <class T>
-
     class BaseAnimationCurve
     {
 
@@ -86,6 +85,7 @@ namespace COLLADAMaya
         bool mIsStatic;
 
     public:
+
         /** Returns the owning element of the current curve */
         const AnimationElement* getParent() const
         {

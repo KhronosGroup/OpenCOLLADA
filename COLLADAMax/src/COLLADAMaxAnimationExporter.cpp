@@ -2129,7 +2129,7 @@ namespace COLLADAMax
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 		int keyLength = animation.getDimension();
 
-		COLLADA::Float4x4Source source ( mSW );
+		COLLADA::Float4x4SourceF source ( mSW );
 		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( keyLength );

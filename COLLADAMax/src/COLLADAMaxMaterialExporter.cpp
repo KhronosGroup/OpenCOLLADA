@@ -69,7 +69,10 @@ namespace COLLADAMax
         {
             const String & effectURL = EffectExporter::getEffectId ( *it );
             String materialId = getMaterialIdFromEffectId ( effectURL );
-            addInstanceEffect ( "#" + effectURL, materialId, materialId );
+
+            openMaterial ( materialId, materialId );
+            addInstanceEffect ( "#" + effectURL );
+            closeMaterial ();
         }
 
         // export all ordinary materials
@@ -78,7 +81,10 @@ namespace COLLADAMax
         {
             const String & effectURL = *it;
             String materialId = getMaterialIdFromEffectId ( effectURL );
-            addInstanceEffect ( "#" + effectURL, materialId, materialId );
+
+            openMaterial ( materialId, materialId );
+            addInstanceEffect ( "#" + effectURL );
+            closeMaterial ();
         }
 
         closeLibrary();

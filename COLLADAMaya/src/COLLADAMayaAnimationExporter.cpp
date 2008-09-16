@@ -949,7 +949,7 @@ namespace COLLADAMaya
             // Export the infinity parameters
             COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
             COLLADA::Technique techniqueSource ( streamWriter );
-            techniqueSource.openTechnique ( MAYA_PROFILE );
+            techniqueSource.openTechnique ( COLLADA::CSWC::COLLADA_PROFILE_MAYA );
             techniqueSource.addParameter ( MAYA_PREINFINITY_PARAMETER, preInfinityType );
             techniqueSource.addParameter ( MAYA_POSTINFINITY_PARAMETER, postInfinityType );
             techniqueSource.closeTechnique();
@@ -958,10 +958,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void AnimationExporter::writeOutputSource ( const String sourceId,
-            const String* parameters,
-            const uint dimension,
-            const std::vector<float> &values )
+    void AnimationExporter::writeOutputSource ( 
+        const String sourceId,
+        const String* parameters,
+        const uint dimension,
+        const std::vector<float> &values )
     {
         // Just export if there are values
         uint size = values.size();
@@ -977,7 +978,7 @@ namespace COLLADAMaya
             if ( dimension != 16 && dimension != 32 )
             {
                 // It's a float source.
-                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_PARAM_TYPE_FLOAT );
+                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_VALUE_TYPE_FLOAT );
                 for ( uint i=0; i<dimension; ++i )
                     source.getParameterNameList().push_back ( * ( parameters + i ) );
             }
@@ -985,14 +986,14 @@ namespace COLLADAMaya
             else if ( dimension == 16 )
             {
                 // It's a matrix source.
-                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_PARAM_TYPE_FLOAT4x4 );
+                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_VALUE_TYPE_FLOAT4x4 );
                 source.getParameterNameList().push_back ( PARAM_TYPE_TRANSFORM ); // That's the "TRANSFORM" parameter
             }
 
             else if ( dimension == 32 )
             {
                 // It's a matrix source.
-                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_PARAM_TYPE_FLOAT4x4 );
+                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_VALUE_TYPE_FLOAT4x4 );
                 source.getParameterNameList().push_back ( PARAM_TYPE_X_Y ); // That's the "X_Y" parameter
             }
 

@@ -46,7 +46,6 @@ namespace COLLADAMaya
                                          DocumentExporter* documentExporter )
     : COLLADA::LibraryGeometries ( streamWriter )
     , mDocumentExporter ( documentExporter )
-//    , mExportedGeometries ( NULL )
     {
     }
 
@@ -80,17 +79,22 @@ namespace COLLADAMaya
     // --------------------------------------------------------
     void GeometryExporter::exportGeometries ( SceneElement* sceneElement )
     {
+        // If we have a external reference, we don't need to export the data here.
+        if ( !sceneElement->getIsLocal() ) return;
+
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
         // Get the scene graph 
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+        
+        // Check for instance
+        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
 
         // Check if it is a mesh and an export node
         SceneElement::Type type = sceneElement->getType();
         if ( type == SceneElement::MESH &&
-             sceneElement->getIsExportNode() &&
-             sceneGraph->findExportedElement ( dagPath ) == NULL )
+             sceneElement->getIsExportNode() && !isInstance )
         {
             bool exported = false;
             
@@ -334,7 +338,7 @@ namespace COLLADAMaya
         extraSource.openExtra();
 
         COLLADA::Technique techniqueSource ( mSW );
-        techniqueSource.openTechnique ( MAYA_PROFILE );
+        techniqueSource.openTechnique ( COLLADA::CSWC::COLLADA_PROFILE_MAYA );
         techniqueSource.addParameter ( DOUBLE_SIDED_PARAMETER, doubleSided );
         techniqueSource.closeTechnique();
 

@@ -20,6 +20,12 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaHwShaderExporter.h"
+
+#include "COLLADAUtils.h"
+#include "COLLADANode.h"
+#include "COLLADAEffectProfile.h"
+#include "COLLADAExtraTechnique.h"
 
 #include <assert.h>
 
@@ -32,11 +38,6 @@
 #ifndef _MPxHwShaderNode
 #include <maya/MPxHwShaderNode.h>
 #endif // _MPxHwShaderNode
-
-#include "COLLADANode.h"
-#include "COLLADAUtils.h"
-#include "COLLADAEffectProfile.h"
-#include "COLLADAExtraTechnique.h"
 
 namespace COLLADAMaya
 {
@@ -103,11 +104,15 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void EffectExporter::exportMeshEffects ( SceneElement* sceneElement )
     {
+        // If we have a external reference, we don't need to export the data here.
+        if ( !sceneElement->getIsLocal() ) return;
+
+        // Get the current path
         const MDagPath dagPath = sceneElement->getPath();
 
         // Check if it is a mesh and an export node
         if ( sceneElement->getType() == SceneElement::MESH &&
-                sceneElement->getIsExportNode() )
+             sceneElement->getIsExportNode() )
         {
             MStatus status;
             MFnMesh fnMesh ( dagPath.node(), &status );
@@ -124,7 +129,6 @@ namespace COLLADAMaya
             // Find the polygons that correspond to each materials and export them
             uint realShaderCount = ( uint ) shaders.length();
             uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
-
             for ( uint shaderPosition = 0; shaderPosition < numShaders; ++shaderPosition )
             {
                 if ( shaderPosition < realShaderCount )
@@ -205,8 +209,10 @@ namespace COLLADAMaya
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) ) 
         {
             // TODO
-            //  exportColladaFXShader(&effectProfile, shader, colladaMaterial);
-            MGlobal::displayError("Export of HwShaderNode not implemented!"); 
+//            exportStandardShader ( effectId, &effectProfile, shader );
+
+            exportHwShaderNode ( effectId, &effectProfile, shader );
+            //MGlobal::displayError("Export of HwShaderNode not implemented!"); 
         }
         // Custom hardware shaders derived from MPxHwShaderNode (the old stuff)
         else if ( shader.hasFn ( MFn::kPluginHardwareShader ) )
@@ -222,11 +228,18 @@ namespace COLLADAMaya
             exportConstantShader ( effectId, &effectProfile, shader );
         }
 
-        // Writes the current effect profile into the collada document
-        addEffectProfile ( effectProfile );
-
         // Closes the current effect tag
         closeEffect();
+    }
+
+    // ---------------------------------
+    void EffectExporter::exportHwShaderNode (
+        const String &effectId, 
+        COLLADA::EffectProfile *effectProfile,
+        MObject shaderNode )
+    {
+        HwShaderExporter hwShaderExporter ( mDocumentExporter );
+        hwShaderExporter.exportPluginHwShaderNode ( effectId, effectProfile, shaderNode );
     }
 
     //------------------------------------------------------
@@ -267,6 +280,12 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( shadingNetwork, ATTR_OUT_TRANSPARENCY, transparentColor );
         exportTransparency ( effectId, effectProfile, shadingNetwork, transparentColor, 
             ATTR_OUT_TRANSPARENCY, nextTextureIndex );
+
+        // Writes the current effect profile into the collada document
+        effectProfile->openProfile ();
+        effectProfile->addProfileElements ();
+        effectProfile->closeProfile ();
+
     }
 
     //------------------------------------------------------
@@ -395,6 +414,11 @@ namespace COLLADAMaya
             effectProfile->setShininess ( blinnFn.eccentricity(), animated );
 #endif // BLINN_EXPONENT_MODEL  
         }
+
+        // Writes the current effect profile into the collada document
+        effectProfile->openProfile ();
+        effectProfile->addProfileElements ();
+        effectProfile->closeProfile ();
     }
 
 
@@ -480,9 +504,9 @@ namespace COLLADAMaya
             {
                 // Set the profile name and the child element name to the texture.
                 // Then we can add it as the extra technique texture.
-                colladaTexture.setProfileName( COLLADA_PROFILE );
+                colladaTexture.setProfileName( COLLADA::CSWC::COLLADA_PROFILE_COLLADA );
                 colladaTexture.setChildElementName( MAYA_BUMP_PARAMETER );
-                effectProfile->setExtraTechniqueColorOrTexture( COLLADA::ColorOrTexture(colladaTexture), MAYA_BUMP_PARAMETER );
+                effectProfile->setExtraTechniqueColorOrTexture( COLLADA::ColorOrTexture ( colladaTexture ), MAYA_BUMP_PARAMETER );
                 break;
             }
             case DIFFUSE:
@@ -516,10 +540,11 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     // Retrieve any texture (file or layered) associated with a material attribute
     //
-    void EffectExporter::getShaderTextures ( const MObject& shader,
-            const char* attributeName,
-            MObjectArray& textures,
-            MIntArray& blendModes )
+    void EffectExporter::getShaderTextures ( 
+        const MObject& shader,
+        const char* attributeName,
+        MObjectArray& textures,
+        MIntArray& blendModes )
     {
         MObject texture = DagHelper::getSourceNodeConnectedTo ( shader, attributeName );
 
@@ -547,7 +572,6 @@ namespace COLLADAMaya
             textures.append ( texture );
             blendModes.append ( 0 ); // 0 -> No blending
         }
-
         else if ( isLayeredTexture )
         {
             ShaderHelper::getLayeredTextures ( texture, textures, blendModes );
@@ -572,7 +596,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     COLLADA::ColorOrTexture EffectExporter::mayaColor2ColorOrTexture ( const MColor &color, double scale )
     {
-        return COLLADA::ColorOrTexture ( COLLADA::Color ( color.r * scale, color.g * scale, color.b * scale, scale ) );
+        return COLLADA::ColorOrTexture ( COLLADA::Color ( color.r * scale, color.g * scale, color.b * scale, color.a ) );
     }
 
     //---------------------------------------------------------------
@@ -662,263 +686,4 @@ namespace COLLADAMaya
         }
     }
 
-    //---------------------------------------------------------------
-    // Export ColladaFX shader
-    void EffectExporter::exportColladaFXShader ( COLLADA::EffectProfile* effectProfile,
-            MObject shadingNetwork
-            /*FCDMaterial* instance*/ )
-    {
-        // FCDEffect* effect = colladaDocument->GetEffectLibrary()->AddEntity();
-        MFnDependencyNode nodeFn ( shadingNetwork );
-        /*
-        CFXShaderNode* fxShader = (CFXShaderNode*) nodeFn.userNode();
-
-        // Retrieve the ColladaFX shader node and force its loading.
-        CFXShaderNode* colladaFxNode = (CFXShaderNode*) nodeFn.userNode();
-        if (colladaFxNode == NULL) return effect;
-        if (!colladaFxNode->IsLoaded()) colladaFxNode->forceLoad();
-
-        FCDEffectProfileFX* profile = (FCDEffectProfileFX*) effect->AddProfile(FUDaeProfileType::CG);
-
-        // export effect parameters
-        ExportNewParameters(profile, shadingNetwork, instance);
-
-        // add effect technique node
-        FCDEffectTechnique* technique = profile->AddTechnique();
-        technique->SetName(fxShader->getTechniqueName());
-        FCDEffectPass* pass = technique->AddPass();
-        pass->SetPassName(fxShader->getPassName());
-        ExportPass(profile, pass, shadingNetwork, instance);
-
-        // Export a <technique_hint>.
-        FCDMaterialTechniqueHint hint;
-        hint.platform = FC("PC-OGL");
-        hint.technique = TO_STRING(fxShader->getTechniqueName());
-        instance->GetTechniqueHints().push_back(hint);
-        */
-    }
-
-
-    /*
-    void DaeMaterialLibrary::ExportPass(FCDEffectProfileFX* profile, FCDEffectPass* pass, MObject shaderObj, FCDMaterial* instance)
-    {
-     profile->SetPlatform(FC("PC-OGL"));
-
-     // Retrieve the ColladaFX shader node and make sure it is loaded.
-     MFnDependencyNode shaderFn(shaderObj);
-     CFXShaderNode* pNode = (CFXShaderNode*)shaderFn.userNode();
-     if (pNode == NULL) return;
-     if (!pNode->IsLoaded()) pNode->forceLoad();
-
-     pass->SetPassName(MConvert::ToFChar(doc->MayaNameToColladaName(shaderFn.name())));
-     FCDEffectPassShader* vertexShader = pass->AddVertexShader();
-     FCDEffectPassShader* fragmentShader = pass->AddFragmentShader();
-
-     vertexShader->SetName(pNode->getVertexEntry());
-     fragmentShader->SetName(pNode->getFragmentEntry());
-
-     MString f_strM;
-     DagHelper::GetPlugValue(shaderObj, "vertexProgram", f_strM);
-     FCDEffectCode* vCode = profile->AddCode();
-     vCode->SetFilename(MConvert::ToFChar(f_strM));
-     vertexShader->SetCode(vCode);
-
-     DagHelper::GetPlugValue(shaderObj, "fragmentProgram", f_strM);
-     vCode = profile->AddCode();
-     vCode->SetFilename(MConvert::ToFChar(f_strM));
-     fragmentShader->SetCode(vCode);
-
-     ExportProgramBinding(vertexShader, MString("vertParam"), shaderFn);
-     ExportProgramBinding(fragmentShader, MString("fragParam"), shaderFn);
-
-     // Export the pass render states.
-     for (CFXRenderStateList::iterator it = pNode->GetRenderStates().begin(); it != pNode->GetRenderStates().end(); ++it)
-     {
-      const FCDEffectPassState* fxState = (*it)->GetData();
-      FCDEffectPassState* colladaState = pass->AddRenderState(fxState->GetType());
-      fxState->Clone(colladaState);
-     }
-    }
-    */
-
-    /*
-    void DaeMaterialLibrary::ExportNewParameters(FCDEffectProfileFX* profile, const MObject& shader, FCDMaterial* instance)
-    {
-     MFnDependencyNode shaderFn(shader);
-     CFXShaderNode* pNode = (CFXShaderNode*)shaderFn.userNode();
-     CFXParameterList& parameters = pNode->GetParameters();
-     size_t parameterCount = parameters.size();
-     for (size_t i = 0; i < parameterCount; ++i)
-     {
-      CFXParameter* attrib = parameters[i];
-      fm::String reference = (shaderFn.name() + attrib->getName()).asChar();
-
-      switch (attrib->getType())
-      {
-      case CFXParameter::kBool: {
-       bool bval;
-       DagHelper::GetPlugValue(attrib->getPlug(), bval);
-
-       FCDEffectParameterBool* parameter = (FCDEffectParameterBool*) profile->AddEffectParameter(FCDEffectParameter::BOOLEAN);
-       parameter->SetGenerator();
-       parameter->SetSemantic(attrib->getSemanticStringForFXC());
-       parameter->SetValue(bval);
-       parameter->SetReference(reference);
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UINAME), FCDEffectParameter::STRING, attrib->getName());
-
-       parameter = (FCDEffectParameterBool*) instance->AddEffectParameter(FCDEffectParameter::BOOLEAN);
-       parameter->SetModifier();
-       parameter->SetReference(reference);
-       parameter->SetValue(bval);
-       break; }
-
-      case CFXParameter::kHalf:
-      case CFXParameter::kFloat: {
-       FCDEffectParameterFloat* parameter = (FCDEffectParameterFloat*) profile->AddEffectParameter(FCDEffectParameter::FLOAT);
-       parameter->SetGenerator();
-       parameter->SetSemantic(attrib->getSemanticStringForFXC());
-       parameter->SetValue(attrib->getFloatValue());
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat ? FCDEffectParameterFloat::FLOAT : FCDEffectParameterFloat::HALF);
-
-       MFnNumericAttribute fnum(attrib->getAttribute());
-       double fmin, fmax;
-       fnum.getMin(fmin);
-       fnum.getMax(fmax);
-
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UINAME), FCDEffectParameter::STRING, attrib->getName());
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UIMIN), FCDEffectParameter::FLOAT, (float)fmin);
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UIMAX), FCDEffectParameter::FLOAT, (float)fmax);
-
-       if (attrib->getSemantic() != CFXParameter::kTIME)
-       {
-        FCDAnimated* animated = parameter->GetValue().GetAnimated();
-        ANIM->AddPlugAnimation(shader, attrib->getAttributeName(), animated, kSingle);
-       }
-
-       parameter = (FCDEffectParameterFloat*) instance->AddEffectParameter(FCDEffectParameter::FLOAT);
-       parameter->SetModifier();
-       parameter->SetValue(attrib->getFloatValue());
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat ? FCDEffectParameterFloat::FLOAT : FCDEffectParameterFloat::HALF);
-       break; }
-
-      case CFXParameter::kFloat2:
-      case CFXParameter::kHalf2: {
-       FCDEffectParameterFloat2* parameter = (FCDEffectParameterFloat2*) profile->AddEffectParameter(FCDEffectParameter::FLOAT2);
-       parameter->SetGenerator();
-       parameter->SetSemantic(attrib->getSemanticStringForFXC());
-       parameter->SetValue(FMVector2(attrib->getFloatValueX(), attrib->getFloatValueY()));
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat2 ? FCDEffectParameterFloat2::FLOAT : FCDEffectParameterFloat2::HALF);
-
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UINAME), FCDEffectParameter::STRING, attrib->getName());
-
-       parameter = (FCDEffectParameterFloat2*) instance->AddEffectParameter(FCDEffectParameter::FLOAT2);
-       parameter->SetModifier();
-       parameter->SetValue(FMVector2(attrib->getFloatValueX(), attrib->getFloatValueY()));
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat2 ? FCDEffectParameterFloat2::FLOAT : FCDEffectParameterFloat2::HALF);
-       break; }
-
-      case CFXParameter::kHalf3:
-      case CFXParameter::kFloat3: {
-       FCDEffectParameterFloat3* parameter = (FCDEffectParameterFloat3*) profile->AddEffectParameter(FCDEffectParameter::FLOAT3);
-       parameter->SetGenerator();
-       parameter->SetSemantic(attrib->getSemanticStringForFXC());
-       parameter->SetValue(FMVector3(attrib->getFloatValueX(), attrib->getFloatValueY(), attrib->getFloatValueZ()));
-       parameter->SetReference(reference);
-
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UINAME), FCDEffectParameter::STRING, attrib->getName());
-       fstring s = TO_FSTRING(attrib->getUIType().asChar());
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UITYPE), FCDEffectParameter::STRING, s.c_str());
-
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat3 ? FCDEffectParameterFloat3::FLOAT : FCDEffectParameterFloat3::HALF);
-
-       ANIM->AddPlugAnimation(shader, attrib->getAttributeName(), parameter->GetValue().GetAnimated(), kColour);
-
-       parameter = (FCDEffectParameterFloat3*) instance->AddEffectParameter(FCDEffectParameter::FLOAT3);
-       parameter->SetModifier();
-       parameter->SetValue(FMVector3(attrib->getFloatValueX(), attrib->getFloatValueY(), attrib->getFloatValueZ()));
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat3 ? FCDEffectParameterFloat3::FLOAT : FCDEffectParameterFloat3::HALF);
-       break; }
-
-      case CFXParameter::kFloat4:
-      case CFXParameter::kHalf4: {
-       FCDEffectParameterVector* parameter = (FCDEffectParameterVector*) profile->AddEffectParameter(FCDEffectParameter::VECTOR);
-       parameter->SetGenerator();
-       parameter->SetSemantic(attrib->getSemanticStringForFXC());
-       parameter->SetValue(FMVector4(attrib->getFloatValueX(), attrib->getFloatValueY(), attrib->getFloatValueZ(), 0.0f));
-       parameter->SetReference(reference);
-
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UINAME), FCDEffectParameter::STRING, attrib->getName());
-       fstring s = TO_FSTRING(attrib->getUIType().asChar());
-       parameter->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UITYPE), FCDEffectParameter::STRING, s.c_str());
-
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat4 ? FCDEffectParameterVector::FLOAT : FCDEffectParameterVector::HALF);
-
-       ANIM->AddPlugAnimation(shader, attrib->getAttributeName(), parameter->GetValue().GetAnimated(), kColour);
-
-       parameter = (FCDEffectParameterVector*) instance->AddEffectParameter(FCDEffectParameter::VECTOR);
-       parameter->SetModifier();
-       parameter->SetValue(FMVector4(attrib->getFloatValueX(), attrib->getFloatValueY(), attrib->getFloatValueZ(), 0.0f));
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat4 ? FCDEffectParameterVector::FLOAT : FCDEffectParameterVector::HALF);
-       break; }
-
-      case CFXParameter::kHalf4x4:
-      case CFXParameter::kFloat4x4: {
-       FCDEffectParameterMatrix* parameter = (FCDEffectParameterMatrix*) profile->AddEffectParameter(FCDEffectParameter::MATRIX);
-       parameter->SetGenerator();
-       parameter->SetSemantic(attrib->getSemanticStringForFXC());
-       parameter->SetValue(FMMatrix44::Identity);
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat4x4 ? FCDEffectParameterMatrix::FLOAT : FCDEffectParameterMatrix::HALF);
-
-       parameter = (FCDEffectParameterMatrix*) instance->AddEffectParameter(FCDEffectParameter::MATRIX);
-       parameter->SetModifier();
-       parameter->SetValue(FMMatrix44::Identity);
-       parameter->SetReference(reference);
-       parameter->SetFloatType(attrib->getType() == CFXParameter::kFloat4x4 ? FCDEffectParameterMatrix::FLOAT : FCDEffectParameterMatrix::HALF);
-       break; }
-
-      case CFXParameter::kSampler2D:
-      case CFXParameter::kSamplerCUBE:
-       {
-        MPlug tex_plug;
-        if (DagHelper::GetPlugConnectedTo(attrib->getPlug(), tex_plug))
-        {
-         FCDEffectParameterSampler* parameter1 = (FCDEffectParameterSampler*) profile->AddEffectParameter(FCDEffectParameter::SAMPLER);
-         parameter1->SetGenerator();
-         parameter1->SetSemantic(attrib->getSemanticStringForFXC());
-         parameter1->SetReference(reference);
-         parameter1->AddAnnotation(TO_FSTRING(CFX_ANNOTATION_UINAME), FCDEffectParameter::STRING, attrib->getName());
-         parameter1->SetSamplerType(attrib->getType() == CFXParameter::kSampler2D ? FCDEffectParameterSampler::SAMPLER2D : FCDEffectParameterSampler::SAMPLERCUBE);
-
-         FCDEffectParameterSampler* parameter2 = (FCDEffectParameterSampler*) instance->AddEffectParameter(FCDEffectParameter::SAMPLER);
-         parameter2->SetModifier();
-         parameter2->SetReference(reference);
-         parameter2->SetSamplerType(attrib->getType() == CFXParameter::kSampler2D ? FCDEffectParameterSampler::SAMPLER2D : FCDEffectParameterSampler::SAMPLERCUBE);
-
-         const char* type = attrib->getType() == CFXParameter::kSampler2D ? "2D" : "CUBE";
-
-         // Export the surface.
-         FCDEffectParameterSurface* surfaceParameter = writeSurfaceTexture(profile, tex_plug.node(), instance, type);
-         parameter1->SetSurface(surfaceParameter);
-         parameter2->SetSurface(surfaceParameter);
-        }
-        break;
-       }
-      case CFXParameter::kSurface:
-      case CFXParameter::kStruct:
-      case CFXParameter::kUnknown:
-      default:
-       // FUFail?
-       break;
-      }
-     }
-    }
-
-    */
 }

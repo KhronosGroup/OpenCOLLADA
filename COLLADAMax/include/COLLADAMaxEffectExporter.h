@@ -268,7 +268,7 @@ namespace COLLADAMax
 
 
         /** Determines shader type from max shader.*/
-        COLLADA::EffectProfile::ShaderTypes maxShaderToShaderType ( Class_ID id );
+        COLLADA::EffectProfile::ShaderType maxShaderToShaderType ( Class_ID id );
 
 
         static EffectExporter::Channel channelFromString ( const String & value );

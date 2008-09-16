@@ -7,6 +7,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #ifndef __COLLADASTREAMWRITER_UTIL_H__
 #define __COLLADASTREAMWRITER_UTIL_H__
 
@@ -14,6 +15,7 @@
 
 #include <sstream>
 #include <fstream>
+#include <map>
 
 namespace COLLADA
 {
@@ -23,11 +25,17 @@ namespace COLLADA
     {
 
 	public:
+
 		// System type info. We only need to distinguish between Posix and Winodws for now.
 		enum SystemType {
 			POSIX,
 			WINDOWS
 		};
+
+        typedef std::map<String, unsigned int> EntityNameMap;
+        typedef std::pair<String, unsigned int> EntityNamePair;
+        static EntityNameMap entityNames;
+
 
     public:
 
@@ -44,9 +52,14 @@ namespace COLLADA
 
 
         /**
-         * Returns true, if both strings are equal.
+         * Returns true, if both strings are equal. The comparison is case sensitive.
          */
         static bool equals ( const String &str1, const String &str2 );
+
+        /**
+        * Returns true, if both strings are equal. The comparison is case intensitive.
+        */
+        static bool equalsIgnoreCase ( const String& s1, const String& s2 );
 
 		/** Checks for a valid xs:NCName.
 		1. replaces all not allowed characters
@@ -101,7 +114,9 @@ namespace COLLADA
             return isAsciiAlphaChar ( c ) || isDigit ( c ) || isIDExtraChar ( c ) ;
         }
 
-        static String UriEncode ( const String & sSrc );
+        static String uriEncode ( const String & sSrc );
+
+        static String translateToXML ( const String &srcString );
 
 		/**  Returns @a text with all dots replaced by underlines*/
         static String replaceDot ( const String &text );
@@ -163,9 +178,7 @@ namespace COLLADA
          * @param replaceString The replace string.
          */
         static void stringFindAndReplace ( String& source, const String searchString, const String replaceString );
-
     };
-
 }
 
 #endif // #define __COLLADASTREAMWRITER_UTIL_H__

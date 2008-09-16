@@ -40,7 +40,7 @@ namespace COLLADA
         mSW->openElement ( CSWC::COLLADA_ELEMENT_OPTICS );
         mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE_COMMON );
 
-        addTextureExtraTechniques ( *mSW );
+        addExtraTechniques ( mSW );
 
         this->addTypeSpecificInfos ();
 

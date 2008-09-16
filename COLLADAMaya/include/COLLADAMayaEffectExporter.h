@@ -65,7 +65,6 @@ namespace COLLADAMaya
     typedef std::map<String, MObject*> EffectMap;
 
     /** This class writes the <library_materials>. It uses informations created my an effect exporter*/
-
     class EffectExporter : public COLLADA::LibraryEffects
     {
 
@@ -154,6 +153,9 @@ namespace COLLADAMaya
             return mTextureExporter.getExportedImageMap();
         }
 
+        /** For export the textures */
+        EffectTextureExporter* getTextureExporter () { return &mTextureExporter; }
+
     private:
 
         /** Exports the effects of a shader */
@@ -172,9 +174,11 @@ namespace COLLADAMaya
             MObject shadingNetwork,
             bool initialized=false );
 
-        /** Export a shader, by type */
-        void exportColladaFXShader ( COLLADA::EffectProfile* effectProfile,
-                                     MObject shadingNetwork );
+        /** Export a hardware shader node. */
+        void exportHwShaderNode (
+            const String &effectId, 
+            COLLADA::EffectProfile *effectProfile,
+            MObject shadingNetwork );
 
         /**
          * Find any textures connected to a material attribute and create the

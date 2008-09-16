@@ -14,6 +14,7 @@
 
 #include "COLLADAPrerequisites.h"
 #include "COLLADALibrary.h"
+#include "COLLADAInstanceEffect.h"
 
 namespace COLLADA
 {
@@ -21,31 +22,47 @@ namespace COLLADA
 	class URI;
 
     /** Class to simply the creation of @a \<library_materials\> and @a \<material\>'s*/
-
     class LibraryMaterials : public Library
     {
 
+    private:
+
+        /** Used to close the current material */
+        TagCloser mMaterialCloser;   
+
+    protected:
+
+        /** The suffix for a new material. */
+        static const String MATERIAL_ID_SUFFIX;
+
     public:
+
         /** Constructor
         @param streamWriter The stream the @a \<library_materials\> and @a \<material\>'s
         should be written to.
         */
-        LibraryMaterials ( StreamWriter * streamWriter );
+        LibraryMaterials ( StreamWriter *streamWriter );
 
         /** Destructor*/
         virtual ~LibraryMaterials() {}
 
     protected:
-        /** Adds @a \<material\> element and @a \<instance_effect\> element.
-        If not already opened, it opens @a \<library_materials\>*/
-        void addInstanceEffect ( const URI & effectURL,
-                                 const String & materialSid = EMPTY_STRING,
-                                 const String & materialName = EMPTY_STRING );
 
+        /** Writes the opening @a \<material\> tag and, if necessary the opening 
+        @a \<library_effects\> tag.
+        closeMaterial() must be use to close the opened tags.
+        @param materialId the id of the material. 
+        @param materialName the name of the material. */
+        void openMaterial ( 
+            const String &materialId = EMPTY_STRING,
+            const String &materialName = EMPTY_STRING );
 
-        static const String MATERIAL_ID_SUFFIX;
+        /** Adds @a \<instance_effect\> element with the given URI. */
+        void addInstanceEffect ( const URI &effectURL );
 
-    private:
+        /** Closes the tag opened by openEffect()*/
+        void closeMaterial();
+
     };
 
 } //namespace COLLADA

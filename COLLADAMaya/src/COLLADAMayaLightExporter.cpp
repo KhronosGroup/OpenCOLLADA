@@ -61,12 +61,18 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void LightExporter::exportLights ( SceneElement* sceneElement )
     {
+        // If we have a external reference, we don't need to export the data here.
+        if ( !sceneElement->getIsLocal() ) return;
+
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
+        // Check for instance
+        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+
         // Check if it is a mesh and an export node
         if ( sceneElement->getType() == SceneElement::LIGHT &&
-             sceneElement->getIsExportNode() )
+             sceneElement->getIsExportNode() && !isInstance )
         {
             // Export the geometry 
             bool exported = exportLight ( dagPath );
@@ -162,7 +168,8 @@ namespace COLLADAMaya
             String paramSid = "";
             animated = anim->addNodeAnimation ( lightNode, ATTR_AMBIENT_SHADE, kSingle );
             if ( animated ) paramSid = ATTR_AMBIENT_SHADE;
-            light->addExtraTechniqueParameter ( MAYA_PROFILE, MAYA_AMBIENTSHADE_LIGHT_PARAMETER, ambientShade, paramSid );
+            light->addExtraTechniqueParameter ( 
+                COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_AMBIENTSHADE_LIGHT_PARAMETER, ambientShade, paramSid );
         }
 
         if (lightNode.hasFn(MFn::kSpotLight))

@@ -134,7 +134,7 @@ namespace COLLADAMaya
          * Exports the geometry instances of the given transform scene element.
          * @param childElement The transform scene element.
          */
-        void exportGeometryInstance( SceneElement* childElement );
+        void exportGeometryInstance( SceneElement* sceneElement );
 
         /**
         * Exports the skin controller instances of the given transform scene element.
@@ -142,20 +142,26 @@ namespace COLLADAMaya
          */
         void exportControllerInstance( 
             SceneElement* childElement, 
-            bool hasSkinController, 
-            bool hasMorphController );
+            const bool hasSkinController, 
+            const bool hasMorphController );
 
         /**
         * Exports the light instances of the given transform scene element.
         * @param childElement The transform scene element.
          */
-        void exportLightInstance ( SceneElement* childElement );
+        void exportLightInstance ( const SceneElement* childElement );
+
+        /**
+         * Creates the uri for the scene element. Checks for instances 
+         * and creates the right element.
+         */
+        COLLADA::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = "" );
 
         /**
         * Exports the camera instances of the given transform scene element.
         * @param childElement The transform scene element.
         */
-        void exportCameraInstance ( SceneElement* childElement );
+        void exportCameraInstance ( const SceneElement* childElement );
 
         /**
          * Exports the material instances.
@@ -165,8 +171,7 @@ namespace COLLADAMaya
          */
         void exportMaterialList( 
             COLLADA::InstanceMaterialList &instanceMaterialList, 
-            MDagPath &childDagPath, 
-            const uint instanceNumber );
+            const MDagPath &dagPath );
         
         /**
          * Initializes the transform objects.

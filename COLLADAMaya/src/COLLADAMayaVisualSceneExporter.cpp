@@ -13,9 +13,7 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 #include "COLLADAMayaStableHeaders.h"
-
 #include "COLLADAMayaVisualSceneExporter.h"
-#include "assert.h"
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaDagHelper.h"
@@ -47,6 +45,9 @@
 #include "COLLADAInstanceCamera.h"
 #include "COLLADAInstanceNode.h"
 #include "COLLADAURI.h"
+#include "COLLADASWC.h"
+
+#include "assert.h"
 
 
 namespace COLLADAMaya
@@ -236,7 +237,7 @@ namespace COLLADAMaya
             if ( nodeExported )
             {
                 // Write the extra technique tags in the collada document
-                colladaSceneNode->addTextureExtraTechniques ( *mSW );
+                colladaSceneNode->addExtraTechniques ( mSW );
 
                 // Close the current scene node
                 colladaSceneNode->end();
@@ -271,7 +272,7 @@ namespace COLLADAMaya
                                   segmentScaleCompensate );
 
         // Not animateable
-        sceneNode->addExtraTechniqueParameter ( MAYA_PROFILE,
+        sceneNode->addExtraTechniqueParameter ( COLLADA::CSWC::COLLADA_PROFILE_MAYA,
                                                 MAYA_SEGMENTSCALECOMP_PARAMETER,
                                                 segmentScaleCompensate );
 
@@ -408,8 +409,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void VisualSceneExporter::exportMaterialList( 
         COLLADA::InstanceMaterialList &instanceMaterialList, 
-        MDagPath &dagPath,
-        const uint instanceNumber )
+        const MDagPath &dagPath )
     {
         // Find how many shaders are used by this instance of the mesh
         MFnMesh fnMesh ( dagPath.node() );
@@ -434,6 +434,9 @@ namespace COLLADAMaya
                 String shadingEngineName = shadingEngineFn.name().asChar();
                 String materialName = mDocumentExporter->mayaNameToColladaName ( shadingEngineFn.name() );
 
+                MStatus status;
+                uint instanceNumber = dagPath.instanceNumber( &status ); CHECK_MSTATUS( status );
+
                 // To get the right shader name, we have to take the correct mesh instance.
                 if ( instanceNumber > 0 )
                 {
@@ -449,7 +452,8 @@ namespace COLLADAMaya
                 MFnDependencyNode shaderFn ( shader );
                 String shaderName = shaderFn.name().asChar();
 
-                instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialName, COLLADA::URI ( "", shaderName ) ) );
+                COLLADA::InstanceMaterial materialInstance ( materialName, COLLADA::URI ( "", shaderName ) );
+                instanceMaterialList.push_back ( materialInstance );
             }
         }
     }
@@ -864,7 +868,7 @@ namespace COLLADAMaya
                 if ( !isVisible || animationResult != kISANIM_None )
                 {
                     // Add an <extra> node with a visibility parameters that the animation can target
-                    sceneNode->addExtraTechniqueParameter ( COLLADA_PROFILE, ATTR_VISIBILITY, isVisible );
+                    sceneNode->addExtraTechniqueParameter ( COLLADA::CSWC::COLLADA_PROFILE_COLLADA, ATTR_VISIBILITY, isVisible );
 
                     AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
                     animationExporter->addNodeAnimation ( mTransformObject, ATTR_VISIBILITY, kBoolean );
@@ -875,37 +879,41 @@ namespace COLLADAMaya
     
     //---------------------------------------------------------------
     void VisualSceneExporter::exportControllerInstance( 
-        SceneElement* childElement, 
-        bool hasSkinController, 
-        bool hasMorphController )
+        SceneElement* sceneElement, 
+        const bool hasSkinController, 
+        const bool hasMorphController )
     {
         // Get the streamWriter from the export document
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the path and the id of the child element
-        MDagPath childDagPath = childElement->getPath();
+        MDagPath dagPath = sceneElement->getPath();
 
         // Create the unique controller ID
-//         String controllerId = mDocumentExporter->dagPathToColladaId( childDagPath ) + 
-//                                 COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
-
         String controllerId;
-        if ( !childElement->getNodeId().empty() ) controllerId = childElement->getNodeId();
-        else controllerId = childElement->getNodeName();
+        if ( !sceneElement->getNodeId().empty() ) 
+            controllerId = sceneElement->getNodeId();
+        else 
+          controllerId = sceneElement->getNodeName();
+
         if ( hasMorphController )
             controllerId += COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
         if ( hasSkinController )
             controllerId += COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
+        // Get the uri of the current scene
+        COLLADA::URI uri ( getSceneElementURI ( sceneElement, controllerId  ) );
+
+        // Create the collada controller instance
         COLLADA::InstanceController instanceController ( streamWriter );
-        instanceController.setUrl ( COLLADA::URI ( "", controllerId ) );
+        instanceController.setUrl ( uri );
 
         // Set the skeletonId. It indicates where a skin 
         // controller is to start to search for the joint nodes 
         // it needs. This element is meaningless for morph controllers.
 
         // Get the skeleton id from the element
-        String skeletonId = childElement->getSkeletonId();
+        String skeletonId = sceneElement->getSkeletonId();
         if ( !skeletonId.empty() )
         {
             instanceController.addSkeleton( COLLADA::URI ( "", skeletonId ) );
@@ -916,66 +924,66 @@ namespace COLLADAMaya
             instanceController.getBindMaterial().getInstanceMaterialList();
 
         // Export the materials
-        uint instanceNumber = childDagPath.instanceNumber();
-        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
+        exportMaterialList ( instanceMaterialList, dagPath );
 
         instanceController.add();
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportGeometryInstance( SceneElement* childElement )
-    {
-        // Get the streamWriter from the export document
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
-        // Get the path and the id of the child element
-        MDagPath childDagPath = childElement->getPath();
-//        String geometryId = mDocumentExporter->dagPathToColladaId ( childDagPath );
-        String geometryId = childElement->getNodeId();
-        if ( geometryId.empty() ) geometryId = childElement->getNodeName();
-        
-        // Write the geometry instance
-        COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
-        instanceGeometry.setUrl ( COLLADA::URI ( "", geometryId ) );
-
-        // Write all materials
-        COLLADA::InstanceMaterialList& instanceMaterialList =
-            instanceGeometry.getBindMaterial().getInstanceMaterialList();
-
-        // Export the materials
-        uint instanceNumber = childDagPath.instanceNumber();
-        exportMaterialList( instanceMaterialList, childDagPath, instanceNumber );
-
-        instanceGeometry.add();
-    }
-
-    //---------------------------------------------------------------
-    void VisualSceneExporter::exportLightInstance( SceneElement* childElement )
-    {
-        // Get the streamWriter from the export document
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
-        // Get the path and the id of the child element
-        MDagPath childDagPath = childElement->getPath();
-        String lightId = mDocumentExporter->dagPathToColladaId ( childDagPath );
-
-        // Create and write the light instance
-        COLLADA::InstanceLight instanceLight ( streamWriter, COLLADA::URI ( "", lightId ) );
-        instanceLight.add();
-    }
-
-    //---------------------------------------------------------------
-    void VisualSceneExporter::exportCameraInstance( SceneElement* sceneElement )
+    void VisualSceneExporter::exportGeometryInstance( SceneElement* sceneElement )
     {
         // Get the streamWriter from the export document
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the path and the id of the element
         MDagPath dagPath = sceneElement->getPath();
-        String cameraId = mDocumentExporter->dagPathToColladaId ( dagPath );
+        String geometryId = sceneElement->getNodeId();
+        if ( geometryId.empty() ) 
+            geometryId = sceneElement->getNodeName();
+        
+        // Get the uri of the current scene
+        COLLADA::URI uri ( getSceneElementURI ( sceneElement, geometryId  ) );
+
+        // Write the geometry instance
+        COLLADA::InstanceGeometry instanceGeometry ( streamWriter );
+        instanceGeometry.setUrl ( uri );
+//        instanceGeometry.setUrl ( COLLADA::URI ( "", geometryId ) );
+
+        // Write all materials
+        COLLADA::InstanceMaterialList& instanceMaterialList =
+            instanceGeometry.getBindMaterial().getInstanceMaterialList();
+
+        // Export the materials
+        exportMaterialList ( instanceMaterialList, sceneElement->getPath() );
+
+        instanceGeometry.add();
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportLightInstance( const SceneElement* sceneElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the uri of the current scene
+        COLLADA::URI uri ( getSceneElementURI ( sceneElement ) );
+
+        // Create and write the light instance
+        COLLADA::InstanceLight instanceLight ( streamWriter, uri );
+        instanceLight.add();
+    }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportCameraInstance( const SceneElement* sceneElement )
+    {
+        // Get the streamWriter from the export document
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        // Get the uri of the current scene
+        COLLADA::URI uri ( getSceneElementURI ( sceneElement ) );
 
         // Create and write the camera instance
-        COLLADA::InstanceCamera instanceCamera ( streamWriter, COLLADA::URI ( "", cameraId ) );
+        COLLADA::InstanceCamera instanceCamera ( streamWriter, uri );
         instanceCamera.add();
     }
 
@@ -985,25 +993,47 @@ namespace COLLADAMaya
         // Get the streamWriter from the export document
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
-        // Get the path and the id of the element
+        // Get the uri of the current scene
+        COLLADA::URI uri ( getSceneElementURI ( sceneElement ) );
+        
+        // Create and write the camera instance
+        COLLADA::InstanceNode instanceNode ( streamWriter, uri );
+        instanceNode.add();
+    }
+
+    //---------------------------------------------------------------
+    COLLADA::URI VisualSceneExporter::getSceneElementURI ( 
+        const SceneElement* sceneElement, 
+        const String& elementId /** = "" */ )
+    {
+        // Get the path of the element
         MDagPath dagPath = sceneElement->getPath();
 
-        // Load the external reference through the reference manager.
+        // Check if the element is instanced.
+        uint instanceNumber = 0;
+        if ( dagPath.isInstanced() )
+        {
+            SceneElement* exportedElement = 
+                mDocumentExporter->getSceneGraph()->findExportedElement( dagPath );
+            dagPath = exportedElement->getPath();
+        }
+
+        // Get the Uri of the element.
         COLLADA::URI uri;
         if ( !sceneElement->getIsLocal() )
         {
+            // Load the external reference through the reference manager.
             String referenceFilename = ReferenceManager::getReferenceFilename( dagPath ).asChar();
             uri.initializeURI ( referenceFilename );
         }
         else
         {
             // Get the id of the element
-            String nodeId = mDocumentExporter->dagPathToColladaId ( dagPath );
-            uri.setFragment ( nodeId );
+            if ( !elementId.empty() )
+                uri.setFragment ( elementId );
+            else uri.setFragment ( mDocumentExporter->dagPathToColladaId ( dagPath ) );
         }
-        
-        // Create and write the camera instance
-        COLLADA::InstanceNode instanceNode ( streamWriter, uri );
-        instanceNode.add();
+
+        return uri;
     }
 }

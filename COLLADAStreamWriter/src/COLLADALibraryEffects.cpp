@@ -16,13 +16,13 @@
 namespace COLLADA
 {
 
-    //---------------------------------------------------------------
+    //--------------------------
     LibraryEffects::LibraryEffects ( COLLADA::StreamWriter * streamWriter )
             : Library ( streamWriter, CSWC::COLLADA_ELEMENT_LIBRARY_EFFECTS )
     {}
 
 
-    //---------------------------------------------------------------
+    //--------------------------
     void LibraryEffects::openEffect ( const String & id )
     {
         openLibrary();
@@ -32,13 +32,18 @@ namespace COLLADA
             mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_ID, id );
     }
 
-
-
-
-    //---------------------------------------------------------------
+    //--------------------------
     void LibraryEffects::closeEffect()
     {
         mCurrentEffectCloser.close();
+    }
+
+    //--------------------------
+    void LibraryEffects::addEffectProfile( EffectProfile& effectProfile )
+    {
+        effectProfile.openProfile ();
+        effectProfile.addProfileElements ();
+        effectProfile.closeProfile ();
     }
 
 } //namespace COLLADA

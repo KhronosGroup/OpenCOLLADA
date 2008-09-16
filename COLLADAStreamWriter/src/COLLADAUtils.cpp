@@ -38,7 +38,7 @@ namespace COLLADA
 #endif
 
 
-	//---------------------------------------------------------------
+    //---------------------------------
     String Utils::checkNCName ( const String &ncName )
     {
         String result;
@@ -66,15 +66,49 @@ namespace COLLADA
         return result;
     }
 
-	//---------------------------------------------------------------
+    //---------------------------------
     String Utils::checkID ( const String &id )
     {
         return checkNCName ( id );
     }
 
+    //---------------------------------
+    String Utils::translateToXML ( const String &srcString )
+    {
+        String returnString = ""; 
 
-	//---------------------------------------------------------------
-    String Utils::UriEncode ( const String & sSrc )
+        for ( unsigned int i=0; i<srcString.length(); ++i )
+        {
+            switch ( srcString[i])
+            {
+            case '\r':  
+                returnString += "&#13";
+                break;
+            case '<':  
+                returnString += "&lt;";
+                break;
+            case '>': 
+                returnString += "&gt;";
+                break;
+            case '&':  
+                returnString += "&amp;";
+                break;
+            case '"':  
+                returnString += "&quot;";
+                break;
+            case '\'':  
+                returnString += "&apos;";
+                break;
+            default :   
+                returnString += srcString[i];
+            }
+        }
+
+        return returnString;
+    }
+
+    //---------------------------------
+    String Utils::uriEncode ( const String & sSrc )
     {
         const char DEC2HEX[16 + 1] = "0123456789ABCDEF";
         const unsigned char * pSrc = ( const unsigned char * ) sSrc.c_str();
@@ -102,7 +136,7 @@ namespace COLLADA
         return sResult;
     }
 
-	//---------------------------------------------------------------
+    //---------------------------------
     String Utils::replaceDot ( const String &text )
     {
         std::stringstream stream;
@@ -118,7 +152,7 @@ namespace COLLADA
         return stream.str();
     }
 
-    //---------------------------------------------------------------
+    //---------------------------------
     String Utils::getAbsolutePathFromFile( const String& absoluteFilename )
     {
         String absolutePath;
@@ -132,7 +166,7 @@ namespace COLLADA
         return absolutePath;
     }
 
-    //---------------------------------------------------------------
+    //---------------------------------
     String Utils::getFileNameFromFile( const String& absoluteFilename )
     {
         String absolutePath;
@@ -146,7 +180,7 @@ namespace COLLADA
         return absolutePath;
     }
 
-    //---------------------------------------------------------------
+    //---------------------------------
     String Utils::getRelativeFilename(const String currentDirectory, const String absoluteFilename)
     {
         // Given the absolute current directory and an absolute file 
@@ -265,7 +299,7 @@ namespace COLLADA
         return relativeFilename;
     }
 
-    //-----------------------------------------------------------------------
+    //---------------------------------
     bool Utils::copyFile( const String& src, const String& dest )
     {
         std::ifstream in;
@@ -278,7 +312,7 @@ namespace COLLADA
         return success;
     }
 
-    //-----------------------------------------------------------------------
+    //---------------------------------
     bool Utils::copyFile( std::ifstream& src, std::ofstream& dest )
     {
         if ( src.is_open() && dest.is_open() )
@@ -291,7 +325,7 @@ namespace COLLADA
         return false;
     }
 
-    //-----------------------------------------------------------------------
+    //---------------------------------
     void Utils::stringFindAndReplace ( String &source, const String searchString, const String replaceString )
     {
         size_t found = source.find ( searchString );
@@ -308,12 +342,36 @@ namespace COLLADA
 
     }
 
-    //-----------------------------------------------------------------------
-    bool Utils::equals( const String &str1, const String &str2 )
+    //---------------------------------
+    bool Utils::equals ( const String &str1, const String &str2 )
     {
         return ( strcmp ( str1.c_str(), str2.c_str() ) == 0 );
     }
 
+    //--------------------------------
+    bool Utils::equalsIgnoreCase ( const String& s1, const String& s2 ) 
+    {
+        String::const_iterator it1=s1.begin();
+        String::const_iterator it2=s2.begin();
+
+        // has the end of at least one of the strings been reached?
+        while ( (it1!=s1.end()) && (it2!=s2.end()) ) 
+        { 
+            if(::toupper(*it1) != ::toupper(*it2)) //letters differ?
+                // return -1 to indicate 'smaller than', 1 otherwise
+                return false; 
+            // proceed to the next character in each string
+            ++it1;
+            ++it2;
+        }
+        size_t size1=s1.size(), size2=s2.size();// cache lengths
+        //return -1,0 or 1 according to strings' lengths
+        if (size1==size2) 
+            return true;
+        return false;
+    }
+
+    //--------------------------------
 	Utils::SystemType Utils::getSystemType()
 	{
 #ifdef WIN32

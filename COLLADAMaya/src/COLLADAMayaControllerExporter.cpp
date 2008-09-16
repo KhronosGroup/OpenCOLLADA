@@ -83,12 +83,18 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::exportControllers( SceneElement* sceneElement )
     {
+        // If we have a external reference, we don't need to export the data here.
+        if ( !sceneElement->getIsLocal() ) return;
+
         // Get the current dag path
         MDagPath dagPath = sceneElement->getPath();
 
+        // Check for instance
+        bool isInstance = ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 );
+
         // Check if it is a mesh and an export node
         if ( sceneElement->getType() == SceneElement::MESH &&
-            sceneElement->getIsExportNode() )
+            sceneElement->getIsExportNode() && !isInstance )
         {
             // Create a skin/morph transform object and export the controller.
             bool exported = exportController ( sceneElement );
@@ -105,8 +111,10 @@ namespace COLLADAMaya
     //------------------------------------------------------
     bool ControllerExporter::exportController( SceneElement* sceneElement )
     {
-        // Get the current mesh node.
         MDagPath dagPath = sceneElement->getPath();
+        if ( dagPath.isInstanced() && dagPath.instanceNumber() > 0 ) return false;
+
+        // Get the current mesh node.
         MObject meshNode = dagPath.node();
 
         // The stacks of the controllers for the affected nodes.

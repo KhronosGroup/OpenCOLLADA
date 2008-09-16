@@ -78,17 +78,18 @@ namespace COLLADA
         ChildElementsMap mChildElements;
     };
 
-    /** Map with all names of the techniques to add and the corresponding parameters */
-    typedef std::map<String, Profile> ExtraTechniquesMap;
-    typedef std::pair<String, Profile> ExtraTechnique;
-
-
 
     //---------------------------------------------------------------
     /** The base class, if you want to add extra and technique tags into the derived COLLADA element. */
 
     class BaseExtraTechnique
     {
+
+    private:
+
+        /** Map with all names of the techniques to add and the corresponding parameters */
+        typedef std::map<String, Profile> ExtraTechniquesMap;
+        typedef std::pair<String, Profile> ExtraTechnique;
 
     protected:
 
@@ -127,7 +128,7 @@ namespace COLLADA
         }
 
         /** Writes the extra techniques of the texture in the COLLADA file. */
-        void addTextureExtraTechniques ( StreamWriter &streamWriter ) const;
+        void addExtraTechniques ( StreamWriter* streamWriter ) const;
 
     private:
 

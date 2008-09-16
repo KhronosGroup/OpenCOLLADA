@@ -38,14 +38,11 @@ namespace COLLADAMaya
     static char*  MEL_IMPORT_OPTS                                   = "colladaImporterOpts";
 
     // COLLADA NetAllied Systems
-    static const char* COLLADA_PROFILE                              = "COLLADA";
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
     static const char* TRANSLATOR_VERSION                           = "0.8.0";
     static const char* TRANSLATOR_MAYA_API_VERSION                  = "2008";
 
     // COLLADA 1.4 Maya-specific definitions
-    static const char* MAYA_PROFILE                                 = "MAYA";
-
     static const char* MAYA_TEXTURE_NODETYPE                        = "dgnode_type";
     static const char* MAYA_TEXTURE_FILETEXTURE                     = "kFile";
     static const char* MAYA_TEXTURE_PSDTEXTURE                      = "kPSDFile";
@@ -213,6 +210,7 @@ namespace COLLADAMaya
     static const char* ATTR_COLORSET_POINTS                         = "clsp";
     static const char* ATTR_CONE_ANGLE                              = "coneAngle";
     static const char* ATTR_COSINE_POWER                            = "cosinePower";
+    static const char* ATTR_DEFAULT_SHADER_LIST1                    = "defaultShaderList1";
     static const char* ATTR_DOUBLE_SIDED                            = "doubleSided";
     static const char* ATTR_DROP_OFF                                = "dropoff";
     static const char* ATTR_ENVELOPE                                = "en";
@@ -272,8 +270,9 @@ namespace COLLADAMaya
     static const char* ATTR_SCALE_PIVOT_INVERSE                     = "scalePivotInverse";
     static const char* ATTR_SCALE_PIVOT                             = "scalePivot";
     static const char* ATTR_SCALE_PIVOT_TRANSLATION                 = "scalePivotTranslation";
-    static const char* ATTR_SPECULAR_COLOR                          = "specularColor";
+    static const char* ATTR_SHADERS                                 = "shaders";
     static const char* ATTR_SEGMENT_SCALE_COMPENSATE                = "ssc";
+    static const char* ATTR_SPECULAR_COLOR                          = "specularColor";
     static const char* ATTR_SURFACE_SHADER                          = "surfaceShader";
     static const char* ATTR_TRANSFORM                               = "transform";
     static const char* ATTR_TRANSLATE                               = "translate";

@@ -161,9 +161,9 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
-	void Extra::addExtraTechniques()
+	void Extra::addMaxExtraTechniques()
 	{
-		addTextureExtraTechniques(*mSW);
+		addExtraTechniques(mSW);
 	}
 
 	void Extra::writeParameterBlockInfo( const String& fileName, IParamBlock* parameters )
