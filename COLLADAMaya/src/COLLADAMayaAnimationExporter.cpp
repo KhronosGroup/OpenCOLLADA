@@ -247,7 +247,8 @@ namespace COLLADAMaya
         uint dimension = animatedElement->getDimension();
 
         // Create the new multi curve
-        multiCurve = new AnimationMultiCurve ( animatedElement, animatedElement->getTargetSid(), dimension );
+        String baseId = COLLADA::Utils::checkID ( animatedElement->getTargetSid() );
+        multiCurve = new AnimationMultiCurve ( animatedElement, baseId, dimension );
         multiCurve->setPreInfinity ( mergedCurve->getPreInfinity() );
         multiCurve->setPostInfinity ( mergedCurve->getPostInfinity() );
 
@@ -1160,11 +1161,21 @@ namespace COLLADAMaya
         {
             const String* parameters = animationCurve.getParameters();
             const uint index = animationCurve.getCurveIndex();
-
+            
             if ( dimension == 1 && ! ( *parameters ).empty() )
-                return nodeId + "/" + subId + "." + * ( parameters+index );
+            {
+                if ( !nodeId.empty() )
+                    return nodeId + "/" + subId + "." + * ( parameters+index );
+                else
+                    return subId + "." + * ( parameters+index );
+            }
             else
-                return nodeId + "/" + subId;
+            {
+                if ( !nodeId.empty() )
+                    return nodeId + "/" + subId;
+                else
+                    return subId;
+            }
         }
     }
 
@@ -1526,7 +1537,7 @@ namespace COLLADAMaya
 
             // Create a new animated element
             String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
-            String subId = animatedElement->getTargetSid();
+            String subId = COLLADA::Utils::checkID ( animatedElement->getTargetSid() );
             String nodeId = animatedElement->getNodeId();
             const String* parameters = animatedElement->getParameters();
             SampleType sampleType = animatedElement->getSampleType();

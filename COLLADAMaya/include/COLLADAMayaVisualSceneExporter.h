@@ -130,6 +130,7 @@ namespace COLLADAMaya
         */
         bool exportVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
 
+        void exportChildNodeInstances( const SceneElement* sceneElement );
         /**
          * Exports the geometry instances of the given transform scene element.
          * @param childElement The transform scene element.

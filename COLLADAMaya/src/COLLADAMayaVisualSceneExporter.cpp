@@ -207,7 +207,8 @@ namespace COLLADAMaya
 
                 if ( animationExport )
                 {
-                    colladaSceneNode = new COLLADA::Node ( mDocumentExporter->getStreamWriter(), hasPreviousInstance );
+                    COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+                    colladaSceneNode = new COLLADA::Node ( streamWriter, hasPreviousInstance );
                     nodeExported = exportNodeVisualSceneNode ( colladaSceneNode, sceneElement );
 
                     // push it into the list of the exported elements
@@ -308,22 +309,9 @@ namespace COLLADAMaya
 
         // False, if the node has a external reference.
         bool isLocal = sceneElement->getIsLocal();
-
-        // Check if we should export a node instance.
-        if ( isInstanceNode )
-        {
-            // Prepare the visual scene node and export the instance node
-            SceneElement* instantiatedElement = sceneElement->getInstantiatedSceneElement();
-            openVisualSceneNode ( instantiatedElement );
-            exportNodeInstance ( instantiatedElement );
-        }
-        else if ( !isLocal )
-        {
-            // Prepare the visual scene node and export the instance node
-            openVisualSceneNode ( sceneElement );
-            exportNodeInstance ( sceneElement );
-        }
-        else
+        
+        // Do all the stuff if we export a full node.
+        if ( !isInstanceNode && isLocal )
         {
             // Initialize the member variables
             if ( !initializeTransform ( dagPath ) )
@@ -334,13 +322,16 @@ namespace COLLADAMaya
                 assert ( initializeTransform ( dagPath ) );
                 return false;
             }
+        }
 
-            // Prepares the visual scene node. 
-            openVisualSceneNode ( sceneElement );
+        // Prepares the visual scene node 
+        // (open the visual scene node o a node instance, if we need this).
+        openVisualSceneNode ( sceneElement );
 
-            // ------------------------------------------------------
+        // Do all the stuff if we export a full node.
+        if ( !isInstanceNode && isLocal )
+        {
             // Export the transformation information
-        
             if ( ExportOptions::bakeTransforms() )
             {
                 exportMatrixTransform ();
@@ -357,50 +348,9 @@ namespace COLLADAMaya
             // Exports the visibility technique tag and the visibility animation.
             exportVisibility ( sceneNode );
 
-
-            // ------------------------------------------------------
             // Write the instance urls of the geometries, controllers 
             // and lights into the collada document.
-
-            // Check the geometry instances, which use this visual scene
-            uint childCount = sceneElement->getChildCount();
-            for ( uint i=0; i<childCount; ++i )
-            {
-                SceneElement* childElement = sceneElement->getChild ( i );
-
-                // Check if the child element is a mesh object and an export node
-                if ( childElement->getType() == SceneElement::MESH &&
-                     childElement->getIsExportNode() )
-                {
-                    // Get the controller library
-                    ControllerExporter* controller = mDocumentExporter->getControllerExporter();
-                    MObject childNode = childElement->getPath().node();
-
-                    bool hasSkinController = controller->hasSkinController ( childNode );
-                    bool hasMorphController = controller->hasMorphController ( childNode );
-
-                    // Check for controllers, otherwise instantiate the geometry. 
-                    // Add the controller and/or geometry to our libraries
-                    if ( ( ExportOptions::exportJointsAndSkin() && hasSkinController ) || hasMorphController )
-                    {
-                        exportControllerInstance ( childElement, hasSkinController, hasMorphController );
-                    }
-                    else
-                    {
-                        exportGeometryInstance ( childElement );
-                    }
-                }
-                else if ( childElement->getType() == SceneElement::LIGHT &&
-                          childElement->getIsExportNode() )
-                {
-                    exportLightInstance ( childElement );
-                }
-                else if ( childElement->getType() == SceneElement::CAMERA &&
-                          childElement->getIsExportNode() )
-                {
-                    exportCameraInstance ( childElement );
-                }
-            }
+            exportChildNodeInstances(sceneElement);
         }
 
         return true;
@@ -473,7 +423,8 @@ namespace COLLADAMaya
             mVisualSceneAdded = true;
         }
 
-        if ( mVisualSceneNode->getIsInstanceNode() )
+        bool isInstanceNode = mVisualSceneNode->getIsInstanceNode();
+        if ( isInstanceNode )
         {
             // Get the URL of the instantiated visual scene node
             SceneElement* instantiatedSceneElement = sceneElement->getInstantiatedSceneElement();
@@ -481,7 +432,7 @@ namespace COLLADAMaya
 
             // Set the node URL
             String instanceNodeURL = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
-            mVisualSceneNode->setNodeURL ( COLLADA::URI ( "", instanceNodeURL ) );
+            mVisualSceneNode->setNodeURL ( COLLADA::URI ( "#" + instanceNodeURL ) );
         }
         else
         {
@@ -1036,4 +987,49 @@ namespace COLLADAMaya
 
         return uri;
     }
+
+    //---------------------------------------------------------------
+    void VisualSceneExporter::exportChildNodeInstances( const SceneElement* sceneElement )
+    {
+        // Check the geometry instances, which use this visual scene
+        uint childCount = sceneElement->getChildCount();
+        for ( uint i=0; i<childCount; ++i )
+        {
+            SceneElement* childElement = sceneElement->getChild ( i );
+
+            // Check if the child element is a mesh object and an export node
+            if ( childElement->getType() == SceneElement::MESH &&
+                childElement->getIsExportNode() )
+            {
+                // Get the controller library
+                ControllerExporter* controller = mDocumentExporter->getControllerExporter();
+                MObject childNode = childElement->getPath().node();
+
+                bool hasSkinController = controller->hasSkinController ( childNode );
+                bool hasMorphController = controller->hasMorphController ( childNode );
+
+                // Check for controllers, otherwise instantiate the geometry. 
+                // Add the controller and/or geometry to our libraries
+                if ( ( ExportOptions::exportJointsAndSkin() && hasSkinController ) || hasMorphController )
+                {
+                    exportControllerInstance ( childElement, hasSkinController, hasMorphController );
+                }
+                else
+                {
+                    exportGeometryInstance ( childElement );
+                }
+            }
+            else if ( childElement->getType() == SceneElement::LIGHT &&
+                childElement->getIsExportNode() )
+            {
+                exportLightInstance ( childElement );
+            }
+            else if ( childElement->getType() == SceneElement::CAMERA &&
+                childElement->getIsExportNode() )
+            {
+                exportCameraInstance ( childElement );
+            }
+        }
+    }
+
 }
