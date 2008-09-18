@@ -175,9 +175,16 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 
 					checkBoxGrp
 							-l " "
+							-ncb 1
+							-va1 true 
+							-la1 "Texture Coordinates"
+							colladaExportFilter5a;
+					
+					checkBoxGrp
+							-l " "
 							-ncb 2
 							-va2 true true
-							-la2 "Normals" "Texture Coordinates"
+							-la2 "Normals" "Normals Per Vertex"
 							colladaExportFilter5;
 					
 					checkBoxGrp
@@ -360,12 +367,17 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v2 $intVal colladaExportFilter4;
 				}
+				else if ($optionBreakDown[0] == "exportTexCoords")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportFilter5a;
+				}
 				else if ($optionBreakDown[0] == "exportNormals")
 				{
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaExportFilter5;
 				}
-				else if ($optionBreakDown[0] == "exportTexCoords")
+				else if ($optionBreakDown[0] == "exportNormalsPerVertex")
 				{
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v2 $intVal colladaExportFilter5;
@@ -477,8 +489,9 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "exportAnimations=" + `checkBoxGrp -q -v1 colladaExportFilter3` + ";";
  		$currentOptions = $currentOptions + "exportInvisibleNodes=" + `checkBoxGrp -q -v1 colladaExportFilter4` + ";";
  		$currentOptions = $currentOptions + "exportDefaultCameras=" + `checkBoxGrp -q -v2 colladaExportFilter4` + ";";
+		$currentOptions = $currentOptions + "exportTexCoords=" + `checkBoxGrp -q -v1 colladaExportFilter5a` + ";";
 		$currentOptions = $currentOptions + "exportNormals=" + `checkBoxGrp -q -v1 colladaExportFilter5` + ";";
-		$currentOptions = $currentOptions + "exportTexCoords=" + `checkBoxGrp -q -v2 colladaExportFilter5` + ";";
+		$currentOptions = $currentOptions + "exportNormalsPerVertex=" + `checkBoxGrp -q -v2 colladaExportFilter5` + ";";
  		$currentOptions = $currentOptions + "exportVertexColors=" + `checkBoxGrp -q -v1 colladaExportFilter6` + ";";
  		$currentOptions = $currentOptions + "exportVertexColorsPerVertex=" + `checkBoxGrp -q -v2 colladaExportFilter6` + ";";
 // 		$currentOptions = $currentOptions + "exportVertexColorAnimations=" + `checkBoxGrp -q -v3 colladaExportFilter6` + ";";
