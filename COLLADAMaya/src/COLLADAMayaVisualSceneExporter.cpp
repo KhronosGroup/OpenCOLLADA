@@ -328,9 +328,15 @@ namespace COLLADAMaya
         // (open the visual scene node o a node instance, if we need this).
         openVisualSceneNode ( sceneElement );
 
-        // Do all the stuff if we export a full node.
-        if ( !isInstanceNode && isLocal )
+        if ( !isLocal )
         {
+            // Export the node external reference
+            exportNodeInstance ( sceneElement );
+        }
+        else if ( !isInstanceNode )
+        {
+            // Do all the stuff if we export a full node.
+
             // Export the transformation information
             if ( ExportOptions::bakeTransforms() )
             {
@@ -975,7 +981,7 @@ namespace COLLADAMaya
         {
             // Load the external reference through the reference manager.
             String referenceFilename = ReferenceManager::getReferenceFilename( dagPath ).asChar();
-            uri.initializeURI ( referenceFilename );
+            COLLADA::URI::nativePathToUri ( referenceFilename );
         }
         else
         {
