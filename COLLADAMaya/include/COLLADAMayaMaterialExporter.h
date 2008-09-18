@@ -123,7 +123,7 @@ namespace COLLADAMaya
         void exportCustomHwShaderNode( COLLADA::InstanceEffect &effectInstance, MObject shader  );
 
         /** Adds the technique hint and the effect attributes to the collada document. */
-        void exportCgfxShaderNode ( COLLADA::InstanceEffect &effectInstance, MFnDependencyNode &fnNode );
+        void exportCgfxShaderNode ( COLLADA::InstanceEffect &effectInstance, cgfxShaderNode *fnNode );
 
         /** Adds a <setparam> of the given attribute to the collada document. */
         void setSetParam( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute );

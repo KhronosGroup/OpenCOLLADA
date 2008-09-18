@@ -618,19 +618,16 @@ namespace COLLADAMaya
         if ( fnNode.typeId() == cgfxShaderNode::sId ) 
         {
             // Add the technique hint and the effect attributes to the collada document.
-            exportCgfxShaderNode( effectInstance, fnNode );
+            exportCgfxShaderNode( effectInstance, (cgfxShaderNode*) fnNode.userNode () );
         }
 
     }
 
     //---------------------------------------
     void MaterialExporter::exportCgfxShaderNode ( 
-        COLLADA::InstanceEffect &effectInstance, 
-        MFnDependencyNode &fnNode )
+        COLLADA::InstanceEffect& effectInstance, 
+        cgfxShaderNode* shaderNodeCgfx )
     {
-        // Create a cgfx shader node
-        cgfxShaderNode* shaderNodeCgfx = ( cgfxShaderNode* ) fnNode.userNode();
-
         // Get the filename of the current cgfx file
         MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
         String shaderFxFileName = shaderFxFile.asChar(); // check3d.cgfx
