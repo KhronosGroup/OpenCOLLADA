@@ -740,10 +740,6 @@ namespace COLLADA
 		return uri;
 	}
 
-	String URI::filePathToUri(const String& filePath) {
-		return nativePathToUri(filePath);
-	}
-
 	String URI::toNativePath(Utils::SystemType type) {
 //		String scheme, authority, path, query, fragment;
 //		parseUriRef(uriRef, scheme, authority, path, query, fragment);

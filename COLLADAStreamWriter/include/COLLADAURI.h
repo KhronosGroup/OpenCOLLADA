@@ -179,9 +179,6 @@ namespace COLLADA
 		// Setter function for setting the full uri.
 		void set(const String& uriStr, const URI* baseURI = 0);
 
-		// alias for set(const String& uriStr, 0)
-		void initializeURI(const String& uriStr){set(uriStr);}
-
 		// Setter function for setting the individual uri components.
 		void set(const String& scheme,
 			const String& authority,
@@ -321,7 +318,7 @@ namespace COLLADA
 		static void normalizeURIPath(char* path);
 
 
-		// This function takes a file path in the OS's native format and converts it to
+		/** This function takes a file path in the OS's native format and converts it to
 		// a URI reference. If a relative path is given, a relative URI reference is
 		// returned. If an absolute path is given, a relative URI reference containing 
 		// a fully specified path is returned. Spaces are encoded as %20. The 'type'
@@ -336,11 +333,11 @@ namespace COLLADA
 		// Examples - Linux/Mac
 		//   nativePathToUri("/myFolder/myFile.dae") --> "/myFolder/myFile.dae"
 		//   nativePathToUri("../myFolder/myFile.dae") --> "../myFolder/myFile.dae"
-		//   nativePathToUri("/my folder/my file.dae") --> "/my%20folder/my%20file.dae"
+		//   nativePathToUri("/my folder/my file.dae") --> "/my%20folder/my%20file.dae" */
 		static String nativePathToUri(const String& nativePath,
 			Utils::SystemType type = Utils::getSystemType());
 
-		// This function takes a URI reference and converts it to an OS file path. Conversion
+		/** This function takes a URI reference and converts it to an OS file path. Conversion
 		// can fail if the URI reference is ill-formed, or if the URI contains a scheme other
 		// than "file", in which case an empty string is returned. The 'type' parameter
 		// indicates the format of the returned native path.
@@ -355,12 +352,10 @@ namespace COLLADA
 		// Examples - Linux/Mac
 		//   uriToNativePath("../folder/file.dae") --> "../folder/file.dae"
 		//   uriToNativePath("file:/folder/file.dae") --> "/folder/file.dae"
-		//   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!)
+		//   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!) */
 		String toNativePath(Utils::SystemType type = Utils::getSystemType());
 
-		String filePathToUri(const String& filePath); // Alias for nativePathToUri
-		String uriToFilePath(const String& uriRef); // Alias for uriToNativePath
-	};
+    };
 
 }
 
