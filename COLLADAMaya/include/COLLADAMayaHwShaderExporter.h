@@ -106,23 +106,13 @@ namespace COLLADAMaya
         /** Write the render states parameter. */
         template <class Type>
         void exportRenderStateParam ( const String &renderStateName, const Type *values, int valueCount );
+        void exportRenderStateParam ( const String &renderStateName, const CGbool *values, int valueCount );
 
         /** Export the shader program data into the collada file. */
         void exportShaderProgramData ( CGstateassignment& cgStateAssignment, bool readCode=false );
 
         /** Gernerate the program source string. */
         String getProgramSourceString( const char* programSourceCG );
-
-        /** Adds a <newparam> of the given attribute to the collada document. */
-        void setNewParam ( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute );
-
-        /** Adds the <newparam> element of the attributes texture. */
-        void setNewParamTexture( 
-            const cgfxAttrDef* attribute, 
-            MObject textureNode, 
-            COLLADA::Surface::SurfaceType surfaceType, 
-            COLLADA::Sampler::SamplerType samplerType, 
-            COLLADA::ValueType::ColladaType samplerValueType );
 
         /** Set the semantic and the annotation to the parameter. */
         template<class Type>

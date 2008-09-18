@@ -144,7 +144,7 @@ namespace COLLADAMaya
         light->setColor( lightColor, animated );
 
         float intensity = lightFn.intensity ( &status ); CHECK_MSTATUS(status);
-        animated = anim->addNodeAnimation ( lightNode, ATTR_INTENSITY, kColour );
+        animated = anim->addNodeAnimation ( lightNode, ATTR_INTENSITY, kSingle );
         light->setIntensity( intensity, animated );
 
         // Add the type specific attributes

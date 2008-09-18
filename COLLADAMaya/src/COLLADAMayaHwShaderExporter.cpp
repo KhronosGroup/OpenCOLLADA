@@ -229,6 +229,26 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------
+    void HwShaderExporter::exportRenderStateParam ( 
+        const String& renderStateName, 
+        const CGbool* values, 
+        int valueCount )
+    {
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+
+        COLLADA::ParamBase param ( streamWriter, renderStateName );
+        param.openParam();
+        for ( int j=0; j<valueCount; ++j )
+        {
+            if ( values[j] > 0 )
+                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, "true" );
+            else
+                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, "false" );
+        }
+        param.closeParam();
+    }
+
+    // --------------------------------------
     void HwShaderExporter::exportPass ( CGpass& cgPass )
     {
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -885,316 +905,6 @@ namespace COLLADAMaya
         }
     }
 
-    //------------------------------------------------------
-    void HwShaderExporter::setNewParam ( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute )
-    {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-        String attributeName = attribute->fName.asChar();
-        const char* suffix = attribute->getExtraAttrSuffix ();
-        String semantic = attribute->fSemantic.asChar();
-        String description = attribute->fDescription.asChar();
-        double* minimum = attribute->fNumericMin;
-        double* maximum = attribute->fNumericMin;
-
-        cgfxAttrDef::cgfxAttrType attributeType = attribute->fType;
-        switch ( attributeType )
-        {
-        case cgfxAttrDef::kAttrTypeBool:
-            {
-                COLLADA::NewParamBool newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                newParam.appendValues ( attribute->fNumericDef && attribute->fNumericDef[0] );
-                newParam.closeParam ();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeInt:
-            {
-                COLLADA::NewParamInt newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                newParam.appendValues ( (int) attribute->fNumericDef[0] );
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeString:
-            {
-                COLLADA::NewParamString newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                newParam.appendValues ( String ( attribute->fStringDef.asChar() ) );
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeFloat:
-            {
-                COLLADA::NewParamFloat newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                newParam.appendValues ( attribute->fNumericDef[0] );
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeVector2:
-            {
-                COLLADA::NewParamFloat2 newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                for ( int i=0; i<attribute->fSize; ++i )
-                {
-                    double val = attribute->fNumericDef[i];
-                    newParam.appendValues( val );
-                }
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeVector3:
-        case cgfxAttrDef::kAttrTypeColor3:
-            {
-                COLLADA::NewParamFloat3 newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                for ( int i=0; i<attribute->fSize; ++i )
-                {
-                    if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[i]!=NULL )  
-                    {
-                        double val = attribute->fNumericDef[i];
-                        newParam.appendValues( val );
-                    }
-                }
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeVector4:
-        case cgfxAttrDef::kAttrTypeColor4:
-            {
-                COLLADA::NewParamFloat4 newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                for ( int i=0; i<attribute->fSize; ++i )
-                {
-                    double val = attribute->fNumericDef[i];
-                    newParam.appendValues( val );
-                }
-                newParam.closeParam ();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeWorldDir:
-        case cgfxAttrDef::kAttrTypeWorldPos:
-            {
-                // Read the value
-                double tmp[4];
-                for ( int i=0; i<attribute->fSize; ++i )
-                {
-                    tmp[i] = attribute->fNumericDef[i];
-                }
-                if (attribute->fSize == 3) tmp[3] = 1.0;
-
-                // Find the coordinate space, and whether it is a point or a vector
-                int base = cgfxAttrDef::kAttrTypeFirstPos;
-                if (attribute->fType <= cgfxAttrDef::kAttrTypeLastDir) 
-                    base = cgfxAttrDef::kAttrTypeFirstDir;
-                int space = attribute->fType - base;
-
-                // Compute the transform matrix
-                MMatrix mat;
-                switch (space)
-                {
-                    /* case 0:	object space, handled in view dependent method */
-                case 1:	/* world space  - do nothing, identity */ break;
-                    /* case 2: eye space, unsupported yet */
-                    /* case 3: clip space, unsupported yet */
-                    /* case 4: screen space, unsupported yet */
-                }
-
-                if ( base == cgfxAttrDef::kAttrTypeFirstPos )
-                {
-                    MPoint point(tmp[0], tmp[1], tmp[2], tmp[3]);
-                    point *= mat;
-                    tmp[0] = point.x;
-                    tmp[1] = point.y;
-                    tmp[2] = point.z;
-                    tmp[3] = point.w;
-                }
-                else
-                {
-                    MVector vec(tmp[0], tmp[1], tmp[2]);
-                    vec *= mat;
-                    tmp[0] = vec.x;
-                    tmp[1] = vec.y;
-                    tmp[2] = vec.z;
-                    tmp[3] = 1;
-                }
-
-                COLLADA::NewParamFloat4 newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-                newParam.appendValues( tmp[0], tmp[1], tmp[2], tmp[3] );
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeMatrix:
-        case cgfxAttrDef::kAttrTypeWorldMatrix:
-        case cgfxAttrDef::kAttrTypeViewMatrix:
-        case cgfxAttrDef::kAttrTypeProjectionMatrix:
-        case cgfxAttrDef::kAttrTypeWorldViewMatrix:
-        case cgfxAttrDef::kAttrTypeWorldViewProjectionMatrix:
-            {
-                COLLADA::NewParamFloat4x4 newParam ( streamWriter );
-                newParam.openParam ( attributeName );
-                prepareParam ( newParam, attribute );
-
-                MMatrix mayaMatrix;
-                double* p = &mayaMatrix.matrix[0][0];
-                for ( int k=0; k<attribute->fSize; ++k )
-                {
-                    p[k] = attribute->fNumericDef[k];
-                }
-
-                MMatrix wMatrix, vMatrix, pMatrix, sMatrix;
-                MMatrix wvMatrix, wvpMatrix, wvpsMatrix;
-                {
-                    float tmp[4][4];
-
-                    wMatrix.setToIdentity();
-
-                    glGetFloatv(GL_MODELVIEW_MATRIX, &tmp[0][0]);
-                    wvMatrix = MMatrix(tmp);
-
-                    vMatrix = wMatrix.inverse() * wvMatrix;
-
-                    glGetFloatv(GL_PROJECTION_MATRIX, &tmp[0][0]);
-                    pMatrix = MMatrix(tmp);
-
-                    wvpMatrix = wvMatrix * pMatrix;
-
-                    float vpt[4];
-                    float depth[2];
-
-                    glGetFloatv(GL_VIEWPORT, vpt);
-                    glGetFloatv(GL_DEPTH_RANGE, depth);
-
-                    // Construct the NDC -> screen space matrix
-                    //
-                    float x0, y0, z0, w, h, d;
-
-                    x0 = vpt[0];
-                    y0 = vpt[1];
-                    z0 = depth[0];
-                    w  = vpt[2];
-                    h  = vpt[3];
-                    d  = depth[1] - z0;
-
-                    // Make a reference to ease the typing
-                    //
-                    double* s = &sMatrix.matrix[0][0];
-
-                    s[ 0] = w/2;	s[ 1] = 0.0;	s[ 2] = 0.0;	s[ 3] = 0.0;
-                    s[ 4] = 0.0;	s[ 5] = h/2;	s[ 6] = 0.0;	s[ 7] = 0.0;
-                    s[ 8] = 0.0;	s[ 9] = 0.0;	s[10] = d/2;	s[11] = 0.0;
-                    s[12] = x0+w/2;	s[13] = y0+h/2;	s[14] = z0+d/2;	s[15] = 1.0;
-
-                    wvpsMatrix = wvpMatrix * sMatrix;
-                }		
-
-                switch ( attribute->fType )
-                {
-                case cgfxAttrDef::kAttrTypeWorldMatrix:
-                    mayaMatrix = wMatrix; break;
-                case cgfxAttrDef::kAttrTypeViewMatrix:
-                    mayaMatrix = vMatrix; break;
-                case cgfxAttrDef::kAttrTypeProjectionMatrix:
-                    mayaMatrix = pMatrix; break;
-                case cgfxAttrDef::kAttrTypeWorldViewMatrix:
-                    mayaMatrix = wvMatrix; break;
-                case cgfxAttrDef::kAttrTypeWorldViewProjectionMatrix:
-                    mayaMatrix = wvpMatrix; break;
-                default:
-                    break;
-                }
-
-                if (attribute->fInvertMatrix)
-                    mayaMatrix = mayaMatrix.inverse();
-
-                if (!attribute->fTransposeMatrix)
-                    mayaMatrix = mayaMatrix.transpose();
-
-                double matrix[4][4];
-                convertMMatrixToDouble4x4 ( matrix, mayaMatrix );
-                newParam.appendValues( matrix );
-                newParam.closeParam();
-                break;
-            }
-        case cgfxAttrDef::kAttrTypeColor1DTexture:
-        case cgfxAttrDef::kAttrTypeColor2DTexture:
-        case cgfxAttrDef::kAttrTypeColor3DTexture:
-        case cgfxAttrDef::kAttrTypeColor2DRectTexture:
-        case cgfxAttrDef::kAttrTypeNormalTexture:
-        case cgfxAttrDef::kAttrTypeBumpTexture:
-        case cgfxAttrDef::kAttrTypeCubeTexture:
-        case cgfxAttrDef::kAttrTypeEnvTexture:
-        case cgfxAttrDef::kAttrTypeNormalizationTexture:
-            {
-                // -------------------------------
-                MObject oNode = shaderNodeCgfx->thisMObject();
-                MFnDependencyNode oNodeFn ( oNode );
-                String oNodeName = oNodeFn.name().asChar(); // cgfxShader1
-
-                MPlug plug;
-                if ( DagHelper::getPlugConnectedTo( oNode, attributeName, plug ) )
-                {
-                    String plugName = plug.name().asChar(); // file1.outColor
-                    MObject textureNode = plug.node();
-
-                    COLLADA::Surface::SurfaceType surfaceType;
-                    COLLADA::Sampler::SamplerType samplerType;
-                    COLLADA::ValueType::ColladaType samplerValueType;
-
-                    switch ( attributeType )
-                    {
-                    case cgfxAttrDef::kAttrTypeColor1DTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_1D;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_1D;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_1D;
-                        break;
-                    case cgfxAttrDef::kAttrTypeColor2DTexture:
-                    case cgfxAttrDef::kAttrTypeNormalTexture:
-                    case cgfxAttrDef::kAttrTypeBumpTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_2D;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_2D;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_2D;
-                        break;
-                    case cgfxAttrDef::kAttrTypeColor3DTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_3D;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_3D;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_3D;
-                        break;
-                    case cgfxAttrDef::kAttrTypeColor2DRectTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_RECT;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_RECT;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_RECT;
-                        break;
-                    case cgfxAttrDef::kAttrTypeCubeTexture:
-                    case cgfxAttrDef::kAttrTypeEnvTexture:
-                    case cgfxAttrDef::kAttrTypeNormalizationTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_CUBE;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_CUBE;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_CUBE;
-                        break;
-                    default:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_UNTYPED;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_UNSPECIFIED;
-                        samplerValueType = COLLADA::ValueType::VALUE_TYPE_UNSPECIFIED;
-                    }
-
-                    // Write the params elements
-                    setNewParamTexture( attribute, textureNode, surfaceType, samplerType, samplerValueType );
-
-                }
-            }
-        }
-    }
-
     // --------------------------------------
     template<class Type>
     void HwShaderExporter::prepareParam ( Type &newParam, const cgfxAttrDef* attribute )
@@ -1228,58 +938,6 @@ namespace COLLADAMaya
              attributeType == cgfxAttrDef::kAttrTypeColor4 )
             newParam.addAnnotation ( COLLADA::CSWC::COLLADA_FX_ANNOTATION_UI_TYPE, 
             COLLADA::ValueType::STRING, COLLADA::CSWC::COLLADA_FX_UI_TYPE_COLOR );
-    }
-
-    // --------------------------------------
-    void HwShaderExporter::setNewParamTexture( 
-        const cgfxAttrDef* attribute, 
-        MObject textureNode, 
-        COLLADA::Surface::SurfaceType surfaceType, 
-        COLLADA::Sampler::SamplerType samplerType, 
-        COLLADA::ValueType::ColladaType samplerValueType )
-    {
-        // Get a pointer to the current stream writer.
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
-        // Get the image id
-        MFnDependencyNode pluNodeFn ( textureNode );
-        String imageId = pluNodeFn.name().asChar(); // file1
-
-        // Get the current attribute name
-        String attributeName = attribute->fName.asChar();
-
-        // Create the surface
-        String surfaceSid = attributeName + COLLADA::Surface::SURFACE_SID_SUFFIX;
-        COLLADA::Surface surface ( surfaceType, surfaceSid );
-        surface.setFormat ( "A8R8G8B8" );
-
-        // Create the surface init option
-        COLLADA::SurfaceInitOption initOption ( COLLADA::SurfaceInitOption::INIT_FROM );
-        initOption.setImageReference ( imageId );
-        surface.setInitOption ( initOption );
-
-        // Add the surface <newparam>
-        COLLADA::NewParamSurface paramSurface ( streamWriter );
-        paramSurface.openParam ( surfaceSid );
-        prepareParam ( paramSurface, attribute );
-        surface.add ( streamWriter );
-        paramSurface.closeParam ();
-
-        // Create the sampler and add the sampler <newparam>
-        COLLADA::Sampler sampler ( samplerType, surfaceSid );
-        String suffix = COLLADA::Sampler::SAMPLER_SID_SUFFIX;
-        String samplerSid = attributeName + COLLADA::Sampler::SAMPLER_SID_SUFFIX;
-        COLLADA::NewParamSampler paramSampler ( streamWriter );
-        paramSampler.setParamType( samplerValueType );
-        paramSampler.openParam ( samplerSid );
-        prepareParam ( paramSampler, attribute );
-        sampler.add ( streamWriter );
-        paramSampler.closeParam ();
-
-        // Export the image
-        EffectTextureExporter* textureExporter = 
-            mDocumentExporter->getEffectExporter()->getTextureExporter();
-        textureExporter->exportImage ( textureNode );
     }
 
     // --------------------------------------
