@@ -1,0 +1,8 @@
+#include "COLLADAMayaStableHeaders.h"
+#include "cgfxAttrDef.cpp"
+#include "cgfxEffectDef.cpp"
+#include "cgfxFindImage.cpp"
+#include "cgfxShaderCmd.cpp"
+#include "cgfxShaderNode.cpp"
+#include "cgfxVector.cpp"
+#include "nv_dds.cpp"
