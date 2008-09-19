@@ -155,7 +155,7 @@ namespace COLLADAMaya
     {
         // Get the current stream writer
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-
+        
         // Write the render states.
         CGstate cgState = cgGetStateAssignmentState ( cgStateAssignment );
         const char* cgStateNameC = cgGetStateName ( cgState );
@@ -165,7 +165,7 @@ namespace COLLADAMaya
         
         // The state name depend on the current shader scope 
         COLLADA::Shader::Stage shaderStage = COLLADA::Shader::getStageTypeByName ( cgStateName );
-
+        
         // Create a shader and export it
         COLLADA::Shader shader ( streamWriter, mShaderScope, shaderStage );
         shader.openShader();

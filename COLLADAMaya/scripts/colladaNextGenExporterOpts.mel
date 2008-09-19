@@ -176,8 +176,8 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 					checkBoxGrp
 							-l " "
 							-ncb 1
-							-va1 true 
-							-la1 "Texture Coordinates"
+							-v1 true 
+							-l1 "Texture Coordinates"
 							colladaExportFilter5a;
 					
 					checkBoxGrp
