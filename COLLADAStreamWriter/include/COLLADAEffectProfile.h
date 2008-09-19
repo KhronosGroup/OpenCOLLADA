@@ -195,6 +195,9 @@ namespace COLLADA
         /** Returns the shader type */
         ShaderType getShaderType() const;
 
+        /** Reference to the included file. */
+        void setInclude ( const URI &includeUri, const String &sid="" );
+
         /** For writing code directly into code tags. */
         const String& getCode () const;
         void setCode ( const String &code, const String &sid="" );

@@ -92,8 +92,8 @@ namespace COLLADAMaya
         SceneElementsList* rootExportNodes = sceneGraph->getExportNodesTree();
 
         // Export all/selected DAG nodes
-        uint length = rootExportNodes->size();
-        for ( uint i = 0; i < length; ++i )
+        size_t length = rootExportNodes->size();
+        for ( size_t i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *rootExportNodes ) [i];
 

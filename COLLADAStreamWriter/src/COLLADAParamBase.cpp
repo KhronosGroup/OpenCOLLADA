@@ -27,7 +27,7 @@ namespace COLLADA
     }
 
     // -----------------------------
-    void ParamBase::openParam( const String refe/*="" */ )
+    void ParamBase::openParam( const String& refe/*=""*/ )
     {
         mParamCloser = mSW->openElement ( mParamName );
 

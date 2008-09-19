@@ -23,6 +23,7 @@
 #include "COLLADAParamTemplate.h"
 #include "COLLADAValueType.h"
 #include "COLLADAEffectProfile.h"
+#include "COLLADAShader.h"
 
 #include "cgfxAttrDef.h"
 
@@ -45,6 +46,9 @@ namespace COLLADAMaya
         /** The currently used collada effect profile to write the data. */
         COLLADA::EffectProfile *mEffectProfile;
 
+        /** The scope of the current shader. */
+        COLLADA::Shader::Scope mShaderScope;
+
     public:
 
         HwShaderExporter ( DocumentExporter* documentExporter ) : mDocumentExporter ( documentExporter ) {}
@@ -57,6 +61,10 @@ namespace COLLADAMaya
             COLLADA::EffectProfile *effectProfile,
             MObject shadingNetwork );
 
+        /** The scope of the current shader. */
+        const COLLADA::Shader::Scope& getShaderScope () const { return mShaderScope; }
+        void setShaderScope ( const COLLADA::Shader::Scope& val ) { mShaderScope = val; }
+
     private:
 
         /** Set the filename of the current shader to export. */
@@ -66,13 +74,13 @@ namespace COLLADAMaya
         const COLLADA::URI& getShaderFxFileUri () const;
 
         /** Exports the effect data of a cgfxShader node. */
-        void exportCgfxShader ( MFnDependencyNode &fnNode );
+        void exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx );
 
         /** Export the effects parameter. */
-        void exportEffectParameters ( CGeffect &cgEffect );
+        void exportEffectParameters ( const CGeffect &cgEffect );
 
         /** Export the current sampler. */
-        void exportSampler( CGparameter& cgParameter );
+        void exportSampler( const CGparameter& cgParameter );
 
         /** Export the current texture element. */
         void exportTexture( 
@@ -86,37 +94,42 @@ namespace COLLADAMaya
             COLLADA::Sampler::SamplerType &samplerType, 
             COLLADA::ValueType::ColladaType &samplerValueType );
 
-        /** Export the current sampler state assignments. */
-        void exportSamplerStateAssignments( 
-            const CGparameter &cgParameter, 
-            CGparameter &cgTextureParam );
+        /** Exports the given parameter with all his annotations, the semantic and the given values. */
+        template<class Type>
+        void exportParam ( 
+            const CGparameter& cgParameter, 
+            COLLADA::ParamBase *param, 
+            const Type* paramValues,
+            const int numOfValues ); 
 
         /** Exports the annotation data of the given parameter. */
-        void exportAnnotations ( const CGparameter &cgParameter, COLLADA::ParamBase* param );
+        void exportAnnotations ( const CGparameter &cgParameter, COLLADA::ParamBase *param );
+
+        /** Exports the semantic data of the given parameter. */
+        void exportSemantic( const CGparameter &cgParameter, COLLADA::ParamBase *param );
 
         /** Write the current technique and all sub-elements into the current collada document. */
-        void exportTechnique ( const CGtechnique& cgTechnique );
+        void exportTechnique ( const CGtechnique &cgTechnique );
 
         /** Write the pass data into the collada file. */
-        void exportPass ( CGpass &cgPass );
+        void exportPass ( const CGpass &cgPass );
+
+        /** Exports the vertex and the fragment shader. */
+        void exportShaders ( const CGpass& cgPass );
 
         /** Export the current pass state. */
-        void exportPassState ( CGstateassignment &cgStateAssignment );
+        void exportPassRenderState ( const CGstateassignment &cgStateAssignment );
 
         /** Write the render states parameter. */
         template <class Type>
-        void exportRenderStateParam ( const String &renderStateName, const Type *values, int valueCount );
-        void exportRenderStateParam ( const String &renderStateName, const CGbool *values, int valueCount );
+        void exportRenderStateParam ( const String &renderStateName, const Type *values, const int valueCount );
+        void exportRenderStateParam ( const String &renderStateName, const CGbool *values, const int valueCount );
 
         /** Export the shader program data into the collada file. */
-        void exportShaderProgramData ( CGstateassignment& cgStateAssignment, bool readCode=false );
+        void exportShaderProgramData ( const CGstateassignment& cgStateAssignment, const bool readCode=false );
 
         /** Gernerate the program source string. */
         String getProgramSourceString( const char* programSourceCG );
-
-        /** Set the semantic and the annotation to the parameter. */
-        template<class Type>
-        void prepareParam ( Type &newParam, const cgfxAttrDef *attribute );
 
     };
 }

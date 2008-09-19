@@ -105,14 +105,14 @@ namespace COLLADAMaya
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
         // Export all/selected DAG nodes
-        uint length = exportNodesTree->size();
-        for ( uint i = 0; i < length; ++i )
+        size_t length = exportNodesTree->size();
+        for ( size_t i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
             const MDagPath dagPath = sceneElement->getPath();
 
-            uint childCount = sceneElement->getChildCount();
-            for ( uint i=0; i<childCount; ++i )
+            size_t childCount = sceneElement->getChildCount();
+            for ( size_t i=0; i<childCount; ++i )
             {
                 SceneElement* childSceneElement = sceneElement->getChild ( i );
 
@@ -650,113 +650,6 @@ namespace COLLADAMaya
             cgfxAttrDef* effectAttribute = *effectIt;
             setSetParam ( shaderNodeCgfx, effectAttribute );
         }
- 
-//         shaderNodeCgfx->analyseVertexAttributes();
-// 
-//         String attribute;
-//         MString attributeMaya;
-//         MStringArray attributeList;
-//         shaderNodeCgfx->getAttributeList( attributeList );
-//         uint length = attributeList.length();
-//         cout << endl << "attributeList: " << endl;
-//         for ( uint i=0; i<length; ++i )
-//         {
-//             attribute = attributeList[i].asChar();
-//             cout << attribute << endl;
-// 
-//             String splittedAttribute;
-//             MStringArray splitStringArray;
-//             attributeMaya = attributeList[i];
-//             attributeMaya.split ( '\t', splitStringArray );
-//             uint splittedLength = splitStringArray.length();
-//             for ( uint j=0; j<splittedLength; ++j )
-//             {
-//                 splittedAttribute = splitStringArray[j].asChar();
-//             }
-//         }
-// 
-//         MObject shader = shaderNodeCgfx->sShader;
-//         MObject colorSrc = shaderNodeCgfx->sColorSource;
-// 
-//         // -lt / -listTechniques
-//         //     Return the technique names defined by the current effect.
-//         //
-//         //     Each item in the result array has the form
-//         //         "techniqueName<TAB>numPasses"
-//         //     where 
-//         //         numPasses is the number of passes defined by the 
-//         //             technique, or 0 if the technique is not valid.   
-//         //     (Future versions of the cgfxShader plug-in may append
-//         //      additional tab-separated fields.)
-//         //
-//         //     Result type is string[].  (Query only; set internally)
-//         MStringArray techniqueList = shaderNodeCgfx->getTechniqueList();
-//         MString techniqueName;
-//         length = techniqueList.length();
-//         cout << endl << "techniqueList: " << endl;
-//         for ( uint i=0; i<length; ++i )
-//         {
-//             attribute = techniqueList[i].asChar();
-//             MStringArray tecAttr;
-//             techniqueList[i].split( '\t', tecAttr );
-//             techniqueName = tecAttr[0];
-//             cout << attribute << endl;
-//         }
-// 
-//         // -tcs / -texCoordSource
-//         //     Returns the value of the texCoordSource attribute, because
-//         //     the MEL "getAttr" command doesn't work with string arrays.
-//         //     Result type is string[].  (Query only; set via "setAttr")
-//         MStringArray texCoordSourceArray = shaderNodeCgfx->getTexCoordSource();
-//         length = texCoordSourceArray.length();
-//         cout << endl << "texCoordSourceArray: " << endl;
-//         for ( uint i=0; i<length; ++i )
-//         {
-//             attribute = texCoordSourceArray[i].asChar();
-//             cout << attribute << endl;
-//         }
-// 
-// 
-//         // -cs / -colorSource
-//         //     Returns the value of the colorSource attribute, because
-//         //     the MEL "getAttr" command doesn't work with string arrays.
-//         //     Result type is string[].  (Query only; set via "setAttr")
-//         MStringArray colorSourceArray = shaderNodeCgfx->getColorSource();
-//         length = colorSourceArray.length();
-//         cout << endl << "colorSourceArray: " << endl;
-//         for ( uint i=0; i<length; ++i )
-//         {
-//             attribute = colorSourceArray[i].asChar();
-//             cout << attribute << endl;
-//         }
-// 
-// 
-//         // -------------------------------
-//         MObject oNode = shaderNodeCgfx->thisMObject();
-//         MFnDependencyNode oNodeFn ( oNode );
-//         String oNodeName = oNodeFn.name().asChar(); // cgfxShader1
-// 
-//         MPlug plug;
-//         if ( DagHelper::getPlugConnectedTo( oNode, "ColorSampler", plug ) )
-//         {
-//             String plugName = plug.name().asChar(); // file1.outColor
-//             MFnDependencyNode pluNodeFn ( plug.node() );
-//             String plugNodeName = pluNodeFn.name().asChar(); // file1
-//             MPlug tex_plug;
-//             if ( DagHelper::getPlugConnectedTo ( plug, tex_plug ) )
-//             {
-//                 MFnDependencyNode textureFn ( tex_plug.node() );
-//                 String textureName = textureFn.name().asChar(); // cgfxShader1
-//             }
-//         }
-
-//         // -------------------------------
-//         // Add the shader element
-//         if ( oNode.hasFn ( MFn::kPhong ) )
-//             effectProfile->setShaderType ( COLLADA::EffectProfile::PHONG );
-//         else if ( oNode.hasFn ( MFn::kBlinn ) )
-//             effectProfile->setShaderType ( COLLADA::EffectProfile::BLINN );
-//         else effectProfile->setShaderType ( COLLADA::EffectProfile::LAMBERT );
     }
 
     // --------------------------------------

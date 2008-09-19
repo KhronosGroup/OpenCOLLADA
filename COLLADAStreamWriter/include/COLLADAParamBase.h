@@ -59,7 +59,7 @@ namespace COLLADA
         void setParamName ( const String& paramName );
 
         /** Opens the current param element. */
-        void openParam ( const String refe="" );
+        virtual void openParam ( const String& refe="" );
 
         /** Set a param attribute */
         void appendAttribute ( const String& name, const String& val );

@@ -343,15 +343,15 @@ namespace COLLADA
             if ( !elementSid.empty() ) 
                 mSW->appendAttribute( CSWC::COLLADA_ATTRIBUTE_SID, elementSid );
             mSW->appendValues ( number );
-            mSW->closeElement();
-            mSW->closeElement();
+            mSW->closeElement ();
+            mSW->closeElement ();
         }
     }
 
     void EffectProfile::openTechnique( const String& techniqueSid )
     {
         mTechniqueCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_TECHNIQUE );
-        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, mTechniqueSid );
+        mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, techniqueSid );
     }
 
     void EffectProfile::closeTechnique()
@@ -384,12 +384,17 @@ namespace COLLADA
         return mCode;
     }
 
-    void EffectProfile::setCode( const String &code, const String &sid/*="" */ )
+    void EffectProfile::setInclude ( const URI &includeUri, const String &sid/*="" */ )
+    {
+        mIncludeURI = includeUri; mIncludeSid = sid;
+    }
+
+    void EffectProfile::setCode ( const String &code, const String &sid/*="" */ )
     {
         mCode = code; mCodeSid = sid;
     }
 
-    void EffectProfile::setEmission( const ColorOrTexture& emission, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
+    void EffectProfile::setEmission ( const ColorOrTexture& emission, const bool useDefaultSid /*= false*/, const String& sid /*= "" */ )
     {
         mEmission = emission;
         if ( useDefaultSid ) mEmissionSid = CSWC::COLLADA_ELEMENT_EMISSION;

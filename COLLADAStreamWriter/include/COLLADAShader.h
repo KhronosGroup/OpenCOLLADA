@@ -19,9 +19,9 @@ namespace COLLADA
 {
 
     /** 
-    Declares and prepares a shader for execution in the rendering pipeline of a <pass>. 
-
-    Concepts.
+    Profile: CG, GLSL
+    Introduction: Declares and prepares a shader for execution in the rendering pipeline of a <pass>. 
+    Concepts:
     Executable shaders are small functions or programs that execute at a specific stage in the rendering
     pipeline. Shaders can be built from preloaded, precompiled binaries or dynamically generated at run time
     from embedded source code. The <shader> declaration holds all the settings necessary for compiling a
@@ -33,26 +33,60 @@ namespace COLLADA
     Previously defined parameters, shader source, and binaries are considered merged into the same
     namespace / symbol table/source code string so that all symbols and functions are available to shader
     declarations, allowing common functions to be used in several shaders in a <technique>, for example,
-    common lighting code. FX Runtimes that use the concept of “translation units” are allowed to name each
+    common lighting code. FX Runtimes that use the concept of "translation units" are allowed to name each
     source code block to break up the namespace.
     Shaders with uniform input parameters can bind either previously defined parameters or literal values to
     these values during shader declaration, allowing compilers to inline literal and constant values. 
     */
     class Shader : public ElementWriter
     {
+
+    public:
+
+        /** The different shader scope types. */
+        enum Scope
+        {
+            SCOPE_CG,
+            SCOPE_GLSL,
+            SCOPE_UNDEFINED
+        };
+
+        /** In which pipeline stage this programmable shader is designed to execute. 
+        Initial defined values in GLSL scope are VERTEXPROGRAM and FRAGMENTPROGRAM; 
+        in CG scope, they are VERTEX and FRAGMENT. Optional. */
+        enum Stage
+        {
+            STAGE_VERTEX,
+            STAGE_FRAGMENT,
+            STAGE_UNDEFINED
+        };
+
     private:
 
+        /** The tag closer for the shader. */
         TagCloser mShaderCloser;
 
-        String mStage;
+        /** The scope of the current shader. */
+        Scope mScope;
+
+        /** In which pipeline stage this programmable shader is designed to execute. 
+        Initial defined values in GLSL scope are VERTEXPROGRAM and FRAGMENTPROGRAM; 
+        in CG scope, they are VERTEX and FRAGMENT. Optional. */
+        Stage mStage;
 
     public:
 
         /** Constructor. */
-        Shader ( StreamWriter* sw, String stage="" );
+        Shader ( StreamWriter* sw, const Scope& scope=SCOPE_UNDEFINED, const Stage& stage=STAGE_UNDEFINED );
 
         /** Destructor. */
         ~Shader () {}
+
+        /** Returns the stage name depending on the scope and the stage. */
+        const String& getStageNameByScopeAndStage ( const Scope& scope, const Stage& stage );
+
+        /** Returns the initial defined stage depending on the given name. */
+        static const Stage getStageTypeByName ( const String& stageName );
 
         /** Declares and prepares a shader for execution in the rendering pipeline of a <pass>. */
         void openShader ();

@@ -14,18 +14,23 @@ namespace COLLADA
 {
 
     // ----------------------------
-    Shader::Shader( StreamWriter* sw, String stage/*="" */ ) : ElementWriter ( sw ), mStage ( stage )
-    {
-
-    }
+    Shader::Shader ( 
+        StreamWriter* sw, 
+        const Scope& scope/*=SCOPE_UNDEFINED*/, 
+        const Stage& stage/*=STAGE_UNDEFINED */ ) 
+    : ElementWriter ( sw )
+    , mScope ( scope )
+    , mStage ( stage )
+    {}
 
     // ----------------------------
     void Shader::openShader()
     {
         mShaderCloser = mSW->openElement ( CSWC::COLLADA_ELEMENT_SHADER );
 
-        if ( !mStage.empty() )
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_STAGE, mStage );
+        const String& stageName = getStageNameByScopeAndStage ( mScope, mStage );
+        if ( !stageName.empty() )
+            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_STAGE, getStageNameByScopeAndStage ( mScope, mStage ) );
     }
 
     // ----------------------------
@@ -56,4 +61,50 @@ namespace COLLADA
         mSW->closeElement ();
     }
 
+    // ----------------------------
+    const String& Shader::getStageNameByScopeAndStage ( 
+        const Shader::Scope& scope, 
+        const Shader::Stage& stage )
+    {
+        switch ( scope )
+        {
+        case SCOPE_CG: 
+            {
+                switch ( stage )
+                {
+                case STAGE_VERTEX: return CSWC::COLLADA_FX_SHADER_STAGE_VERTEX;
+                case STAGE_FRAGMENT: return CSWC::COLLADA_FX_SHADER_STAGE_FRAGMENT;
+                case STAGE_UNDEFINED: return CSWC::EMPTY_STRING;
+                }
+            }
+        case SCOPE_GLSL: 
+            {
+                switch ( stage )
+                {
+                case STAGE_VERTEX: return CSWC::COLLADA_FX_SHADER_STAGE_VERTEXPROGRAM;
+                case STAGE_FRAGMENT: return CSWC::COLLADA_FX_SHADER_STAGE_FRAGMENTPROGRAM;
+                case STAGE_UNDEFINED: return CSWC::EMPTY_STRING;
+                }
+            }
+        case SCOPE_UNDEFINED: 
+        default:
+            return CSWC::EMPTY_STRING;
+        }
+    }
+
+    // ----------------------------
+    const Shader::Stage Shader::getStageTypeByName ( const String& stageName )
+    {
+        if ( Utils::equalsIgnoreCase ( stageName, CSWC::COLLADA_FX_SHADER_STAGE_VERTEX ) ||
+            Utils::equalsIgnoreCase ( stageName, CSWC::COLLADA_FX_SHADER_STAGE_VERTEXPROGRAM ) )
+        {
+            return STAGE_VERTEX;
+        }
+        else if ( Utils::equalsIgnoreCase ( stageName, CSWC::COLLADA_FX_SHADER_STAGE_FRAGMENT ) ||
+            Utils::equalsIgnoreCase ( stageName, CSWC::COLLADA_FX_SHADER_STAGE_FRAGMENTPROGRAM ) )
+        {
+            return STAGE_FRAGMENT;
+        }
+        else return STAGE_UNDEFINED;
+    }
 }

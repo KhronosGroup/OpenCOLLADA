@@ -70,7 +70,7 @@ namespace COLLADAMaya
         void setIndices(std::vector<int> val) { mIndices = val; }
 
         /** The number of vertex indices. */
-        const uint getNumVertexIndices() const { return mIndices.size(); } //mNumVertexIndices; }
+        const size_t getNumVertexIndices() const { return mIndices.size(); } //mNumVertexIndices; }
         void setNumVertexIndices(uint val) { mNumVertexIndices = val; }
         void incrementNumVertexIndices() { ++mNumVertexIndices; }
 

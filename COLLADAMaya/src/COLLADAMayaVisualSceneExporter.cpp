@@ -88,8 +88,8 @@ namespace COLLADAMaya
         bool nodeExported = false;
 
         // Export all/selected DAG nodes
-        uint length = exportNodesTree->size();
-        for ( uint i = 0; i < length; ++i )
+        size_t length = exportNodesTree->size();
+        for ( size_t i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
 
@@ -998,8 +998,8 @@ namespace COLLADAMaya
     void VisualSceneExporter::exportChildNodeInstances( const SceneElement* sceneElement )
     {
         // Check the geometry instances, which use this visual scene
-        uint childCount = sceneElement->getChildCount();
-        for ( uint i=0; i<childCount; ++i )
+        size_t childCount = sceneElement->getChildCount();
+        for ( size_t i=0; i<childCount; ++i )
         {
             SceneElement* childElement = sceneElement->getChild ( i );
 

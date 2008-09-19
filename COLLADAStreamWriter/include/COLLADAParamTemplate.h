@@ -71,7 +71,7 @@ namespace COLLADA
         Opens the param element and set the attributes. 
         @param sid Identifier for this parameter (that is, the variable name). Required.
         */
-        void openParam ( const String& sid )
+        virtual void openParam ( const String& sid )
         {
             mParamCloser = mSW->openElement ( mParamName );
             
