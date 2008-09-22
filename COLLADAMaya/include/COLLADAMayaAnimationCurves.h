@@ -119,10 +119,10 @@ namespace COLLADAMaya
         }
 
         /** Get the key at the current index */
-        T* getKey ( uint index ) const;
+        T* getKey ( size_t index ) const;
 
         /** Returns the number of keys in the curve. */
-        uint getKeyCount() const
+        size_t getKeyCount() const
         {
             return mKeys.size();
         };
@@ -353,7 +353,7 @@ namespace COLLADAMaya
     * cause otherwise we will get an unresolved external linkage error.
     */
     template<class T>
-    T* BaseAnimationCurve<T>::getKey ( uint index ) const
+    T* BaseAnimationCurve<T>::getKey ( size_t index ) const
     {
         if ( mKeys.size() < index ) MGlobal::displayError ( MString ( "Key index not valid! " ) + index );
 

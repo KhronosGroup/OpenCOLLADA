@@ -333,7 +333,7 @@ namespace COLLADAMaya
         for ( uint polygonPosition=0; polygonPosition<numPolygons; ++polygonPosition )
         {
             // Initialize the data for polygons with holes
-            uint numFaceVertices = polygon->getFaceVertexCounts().size();
+            size_t numFaceVertices = polygon->getFaceVertexCounts().size();
             uint currentFaceIndex = 0;
             uint faceVertexCounts = polygon->getFaceVertexCounts()[currentFaceIndex];
 
@@ -703,8 +703,8 @@ namespace COLLADAMaya
     {
         // Check if the current face is a normal polygon or a hole
         bool currentFaceIsHole = false;
-        uint numHoles = polygon->getHoleFaces().size();
-        for ( uint holeIndex=0; holeIndex<numHoles && !currentFaceIsHole; ++holeIndex )
+        size_t numHoles = polygon->getHoleFaces().size();
+        for ( size_t holeIndex=0; holeIndex<numHoles && !currentFaceIsHole; ++holeIndex )
         {
             uint holeFaceIndex = polygon->getHoleFaces()[holeIndex];
             if ( holeFaceIndex == currentFaceIndex )
@@ -873,7 +873,7 @@ namespace COLLADAMaya
         int polyIndex )
     {
         // Dump the indices
-        uint numAttributes = polygon->getVertexAttributes().size();
+        size_t numAttributes = polygon->getVertexAttributes().size();
 
         // Output each vertex attribute we need
         for ( size_t kk = 0; kk < numAttributes; ++kk )

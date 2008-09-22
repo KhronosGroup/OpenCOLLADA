@@ -273,6 +273,72 @@
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
+		<Configuration
+			Name="DebugPlugin85|Win32"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
+			ConfigurationType="4"
+			CharacterSet="1"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;"
+				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;COLLADASTREAMWRITER_USE_FPRINTF_S"
+				MinimalRebuild="true"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="false"
+				UsePrecompiledHeader="0"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile="$(OutDir)\$(ProjectName).lib"
+				AdditionalLibraryDirectories=""
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -432,10 +498,6 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAPass.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAPassState.cpp"
 				>
 			</File>
 			<File
@@ -685,10 +747,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAPassState.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAPlatform.h"
 				>
 			</File>
@@ -782,6 +840,13 @@
 				</FileConfiguration>
 				<FileConfiguration
 					Name="Debug fprintf_s|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="DebugPlugin85|Win32"
 					>
 					<Tool
 						Name="VCCustomBuildTool"

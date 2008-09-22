@@ -117,8 +117,8 @@ namespace COLLADAMaya
             SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
             // Export all/selected DAG nodes
-            uint length = exportNodesTree->size();
-            for ( uint i = 0; i < length; ++i )
+            size_t length = exportNodesTree->size();
+            for ( size_t i=0; i<length; ++i )
             {
                 SceneElement* sceneElement = ( *exportNodesTree ) [i];
 
@@ -241,7 +241,7 @@ namespace COLLADAMaya
         AnimationCurve* mergedCurve = curves[0];
 
         // Get the number of created curves.
-        uint curveCount = curves.size();
+        size_t curveCount = curves.size();
 
         // Get the real curve count (with the removed static curves)
         uint dimension = animatedElement->getDimension();
@@ -264,8 +264,8 @@ namespace COLLADAMaya
             const AnimationKeyList curveKeys = curve->getKeys();
 
             // Merge each curve's keys, which should already be sorted, into the multi-curve's
-            uint multiCurveKeyCount = mergedInputs.size(), m = 0;
-            uint curveKeyCount = curve->getKeyCount(), c = 0;
+            size_t multiCurveKeyCount = mergedInputs.size(), m = 0;
+            size_t curveKeyCount = curve->getKeyCount(), c = 0;
             while ( m < multiCurveKeyCount && c < curveKeyCount )
             {
                 if ( mergedInputs[m] == curveKeys[c]->input )
@@ -300,7 +300,7 @@ namespace COLLADAMaya
         }
 
         // Create the multi-dimensional keys.
-        uint keyCount = mergedInputs.size();
+        size_t keyCount = mergedInputs.size();
         for ( size_t curvePosition=0; curvePosition<keyCount; ++curvePosition )
         {
             AnimationMKey* key = multiCurve->addKey ( ( COLLADA::LibraryAnimations::InterpolationType ) mergedInterpolations[curvePosition] );
@@ -313,19 +313,19 @@ namespace COLLADAMaya
         // Create a curves list
         AnimationCurveList multiCurves;
         multiCurves.resize( dimension, NULL );
-        uint numCurves = curves.size();
-        for ( uint c=0; c<numCurves; ++c )
+        size_t numCurves = curves.size();
+        for ( size_t c=0; c<numCurves; ++c )
         {
             AnimationCurve* curve = curves[c];
             uint index = curve->getCurveIndex();
-            uint multiCurvesSize = multiCurves.size();
+            size_t multiCurvesSize = multiCurves.size();
             if ( index>=multiCurvesSize ) { 
                 MGlobal::displayError("Wrong curve index!"); return NULL; }
             else multiCurves[index] = curve;
         }
 
         // Merge the curves one by one into the multi-curve
-        for ( uint curvePosition=0; curvePosition<dimension; ++curvePosition )
+        for ( size_t curvePosition=0; curvePosition<dimension; ++curvePosition )
         {
             const AnimationCurve* curve = multiCurves[curvePosition];
             if ( curve == NULL || curve->getKeyCount() == 0 )
@@ -348,13 +348,13 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void AnimationExporter::createDefaultKeys ( 
         AnimationMKeyList* keys,
-        uint curvePosition,
+        size_t curvePosition,
         std::vector<float> &defaultValues,
-        const uint keyCount,
+        const size_t keyCount,
         const std::vector<float> mergedInputs )
     {
         float defaultValue = ( curvePosition < defaultValues.size() ) ? defaultValues[curvePosition] : 0.0f;
-        for ( size_t k = 0; k < keyCount; ++k )
+        for ( size_t k=0; k<keyCount; ++k )
         {
             ( *keys ) [k]->output[curvePosition] = defaultValue;
 
@@ -374,13 +374,13 @@ namespace COLLADAMaya
     void AnimationExporter::mergeCurves ( 
         AnimationMKeyList* keys,
         const AnimationCurve* curve,
-        uint keyCount,
-        uint curvePosition )
+        size_t keyCount,
+        size_t curvePosition )
     {
         const AnimationKeyList curveKeys = curve->getKeys();
-        uint curveKeyCount = curve->getKeyCount();
+        size_t curveKeyCount = curve->getKeyCount();
 
-        for ( uint k=0, keyPosition=0; k<keyCount; ++k )
+        for ( size_t k=0, keyPosition=0; k<keyCount; ++k )
         {
             AnimationMKey* key = ( *keys ) [k];
 
@@ -463,12 +463,12 @@ namespace COLLADAMaya
         bool doMergeCurves = true;
 
         // Check the infinity types, the keys and the interpolations.
-        uint curveKeyCount = curve->getKeyCount();
-        uint masterKeyCount = masterCurve->getKeyCount();
+        size_t curveKeyCount = curve->getKeyCount();
+        size_t masterKeyCount = masterCurve->getKeyCount();
         doMergeCurves &= masterKeyCount == curveKeyCount;
         if ( !doMergeCurves ) return doMergeCurves;
 
-        for ( uint j = 0; j < curveKeyCount && doMergeCurves; ++j )
+        for ( size_t j=0; j<curveKeyCount && doMergeCurves; ++j )
         {
             AnimationKey* curveKey = curve->getKey ( j );
             AnimationKey* masterKey = masterCurve->getKey ( j );
@@ -494,8 +494,8 @@ namespace COLLADAMaya
         const AnimationCurve* masterCurve,
         std::vector<float>* defaultValues )
     {
-        uint keyCount = masterCurve->getKeyCount();
-        for ( uint i=0; i<keyCount; ++i )
+        size_t keyCount = masterCurve->getKeyCount();
+        for ( size_t i=0; i<keyCount; ++i )
         {
             if ( masterCurve->getParent()->getIsRelativeAnimation() )
             {
@@ -663,7 +663,7 @@ namespace COLLADAMaya
     void AnimationExporter::exportAnimationSource ( AnimationCurve &animationCurve )
     {
         // Get the key count
-        uint keyCount = animationCurve.getKeyCount();
+        size_t keyCount = animationCurve.getKeyCount();
 
         // The value lists for the collada sources
         std::vector<float> input, output, inTangents, outTangents, tcbs, eases;
@@ -788,7 +788,7 @@ namespace COLLADAMaya
     void AnimationExporter::exportAnimationSource ( AnimationMultiCurve &animationCurve )
     {
         // Get the key count and dimension
-        uint keyCount = animationCurve.getKeyCount();
+        size_t keyCount = animationCurve.getKeyCount();
         uint dimension = animationCurve.getDimension();
 
         // Create the source id
@@ -942,7 +942,7 @@ namespace COLLADAMaya
             source.setArrayId ( sourceId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( PARAM_TYPE_TIME );
-            source.setAccessorCount ( values.size() );
+            source.setAccessorCount ( ( unsigned long ) values.size() );
             source.prepareToAppendValues();
             source.appendValues ( values );
             source.finish ( false );
@@ -966,8 +966,7 @@ namespace COLLADAMaya
         const std::vector<float> &values )
     {
         // Just export if there are values
-        uint size = values.size();
-
+        size_t size = values.size();
         if ( values.size() > 0 && dimension > 0 )
         {
             COLLADA::TypeIndependentSourceF source ( mSW );
@@ -998,7 +997,7 @@ namespace COLLADAMaya
                 source.getParameterNameList().push_back ( PARAM_TYPE_X_Y ); // That's the "X_Y" parameter
             }
 
-            source.setAccessorCount ( values.size() / dimension );
+            source.setAccessorCount ( ( unsigned long ) ( values.size() / dimension ) );
             source.prepareToAppendValues();
             source.appendValues ( values );
             source.finish();
@@ -1018,7 +1017,7 @@ namespace COLLADAMaya
             source.setArrayId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( PARAM_TYPE_INTERPOLATION );
-            source.setAccessorCount ( interpolations.size() );
+            source.setAccessorCount ( ( unsigned long ) interpolations.size() );
             source.prepareToAppendValues();
             source.appendValues ( interpolations );
             source.finish();
@@ -1064,7 +1063,7 @@ namespace COLLADAMaya
                 source.getParameterNameList().push_back ( * ( XY_PARAMETERS + 1 ) );
             }
 
-            source.setAccessorCount ( values.size() / stride );
+            source.setAccessorCount ( ( unsigned long ) ( values.size() / stride ) );
             source.prepareToAppendValues();
             source.appendValues ( values );
             source.finish();
@@ -1084,7 +1083,7 @@ namespace COLLADAMaya
             source.setArrayId ( sourceId + TCBS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( PARAM_TYPE_TCBS );
-            source.setAccessorCount ( values.size() );
+            source.setAccessorCount ( ( unsigned long ) values.size() );
             source.prepareToAppendValues();
             source.appendValues ( values );
             source.finish();
@@ -1104,7 +1103,7 @@ namespace COLLADAMaya
             source.setArrayId ( sourceId + EASES_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
             source.setAccessorStride ( 1 );
             source.getParameterNameList().push_back ( PARAM_TYPE_EASES );
-            source.setAccessorCount ( values.size() );
+            source.setAccessorCount ( ( unsigned long ) values.size() );
             source.prepareToAppendValues();
             source.appendValues ( values );
             source.finish();
@@ -1490,10 +1489,10 @@ namespace COLLADAMaya
         for ( uint i=0; i<curves.size() && equals; ++i )
         {
             AnimationCurve* curve = curves[i];
-            uint valueCount = curve->getKeyCount();
+            size_t valueCount = curve->getKeyCount();
             if ( valueCount > 1 )
             {
-                for ( uint j=0; j< ( valueCount-1 ) && equals; ++j )
+                for ( size_t j=0; j< ( valueCount-1 ) && equals; ++j )
                 {
                     AnimationKey* key1 = ( ( AnimationKey* ) curve->getKey ( j ) );
                     AnimationKey* key2 = ( ( AnimationKey* ) curve->getKey ( j+1 ) );
@@ -1845,7 +1844,7 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     void AnimationExporter::sampleMKey ( AnimationMKey* key,
                                          const AnimationCurve* curve,
-                                         const uint curvePosition,
+                                         const size_t curvePosition,
                                          const float input,
                                          const float previousSpan,
                                          const float nextSpan )
@@ -1874,8 +1873,8 @@ namespace COLLADAMaya
     // ------------------------------------------------------------
     void AnimationExporter::createTCBMKey ( AnimationMKey* key,
                                             const AnimationKeyList& curveKeys,
-                                            const uint curvePosition,
-                                            const uint keyPosition )
+                                            const size_t curvePosition,
+                                            const size_t keyPosition )
     {
         AnimationMKeyTCB* tkey = ( AnimationMKeyTCB* ) key;
 
@@ -1900,12 +1899,12 @@ namespace COLLADAMaya
     void AnimationExporter::createBezierMKey ( 
         AnimationMKey* key,
         const AnimationKeyList& curveKeys,
-        const uint curvePosition,
+        const size_t curvePosition,
         const float previousSpan,
         const float nextSpan,
-        const uint keyPosition )
+        const size_t keyPosition )
     {
-        uint curveKeyCount = curveKeys.size();
+        size_t curveKeyCount = curveKeys.size();
         float oldPreviousSpan = ( keyPosition > 0 ? curveKeys[keyPosition]->input - curveKeys[keyPosition - 1]->input : 1.0f ) / 3.0f;
         float oldNextSpan = ( keyPosition < curveKeyCount - 1 ? curveKeys[keyPosition + 1]->input - curveKeys[keyPosition]->input : 1.0f ) / 3.0f;
 

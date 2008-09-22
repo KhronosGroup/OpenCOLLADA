@@ -66,8 +66,8 @@ namespace COLLADAMaya
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
         // Export all/selected DAG nodes
-        uint length = exportNodesTree->size();
-        for ( uint i = 0; i < length; ++i )
+        size_t length = exportNodesTree->size();
+        for ( size_t i = 0; i < length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
             exportGeometries ( sceneElement );
@@ -413,7 +413,7 @@ namespace COLLADAMaya
             positionTweakPlug.getValue ( vectorObject );
             MFnNumericData data ( vectorObject );
 
-            MFloatPoint positionTweak;
+            MPoint positionTweak;
             data.getData ( positionTweak.x, positionTweak.y, positionTweak.z );
 
             pointData -= positionTweak;
@@ -565,9 +565,8 @@ namespace COLLADAMaya
         MeshHelper::getMeshValidColorSets ( fnMesh.object(), colorSets );
 
         // Process the color sets
-        uint colorSetCount = colorSets.size();
-
-        for ( uint i = 0; i < colorSetCount; ++i )
+        size_t colorSetCount = colorSets.size();
+        for ( size_t i=0; i<colorSetCount; ++i )
         {
             ColourSet& colorSet = *colorSets[i];
             String colorSetName = colorSet.name.asChar();
@@ -579,22 +578,22 @@ namespace COLLADAMaya
             getMeshColorSet ( fnMesh.object(), meshColorSet, colorSet );
 
             // If we don't have a mesh color set, we don't need to implement a color source.
-            uint numMeshColorSets = meshColorSet.size();
+            size_t numMeshColorSets = meshColorSet.size();
             if ( numMeshColorSets == 0 ) continue;
 
             // Create the id of the color source
             String colorSourceId = meshId + "-" + colorSetName;
 
-            uint stride = 4;
+            size_t stride = 4;
 
             // Create the source
             COLLADA::FloatSourceF colorSource ( mSW );
             colorSource.setId ( colorSourceId );
             colorSource.setNodeName ( colorSourceId );
             colorSource.setArrayId ( colorSourceId + ARRAY_ID_SUFFIX );
-            colorSource.setAccessorStride ( stride );
-            colorSource.setAccessorCount ( numMeshColorSets/stride );
-            for ( uint p=0; p<stride; ++p )
+            colorSource.setAccessorStride ( ( unsigned long ) stride );
+            colorSource.setAccessorCount ( ( unsigned long ) ( numMeshColorSets / stride ) );
+            for ( size_t p=0; p<stride; ++p )
                 colorSource.getParameterNameList().push_back ( RGBA_PARAMETERS[p] );
             colorSource.prepareToAppendValues();
 
@@ -613,7 +612,7 @@ namespace COLLADAMaya
             else
             {
                 // Insert a per-face-vertex color set input
-                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR, i ) );
+                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR, ( int ) i ) );
             }
         }
     }

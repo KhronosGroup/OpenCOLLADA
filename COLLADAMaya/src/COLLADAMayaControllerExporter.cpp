@@ -70,8 +70,8 @@ namespace COLLADAMaya
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
         // Export all/selected DAG nodes
-        uint length = exportNodesTree->size();
-        for ( uint i = 0; i < length; ++i )
+        size_t length = exportNodesTree->size();
+        for ( size_t i=0; i<length; ++i )
         {
             SceneElement* sceneElement = ( *exportNodesTree ) [i];
             exportControllers ( sceneElement );
@@ -369,11 +369,11 @@ namespace COLLADAMaya
             }
         }
 
-        uint targetCount = blendTargets.size();
+        size_t targetCount = blendTargets.size();
         if (targetCount == 0) return ;
 
         // Set the weights and export the morph target weight animations
-        for ( uint j=0; j<targetCount; ++j )
+        for ( size_t j=0; j<targetCount; ++j )
         {
             MPlug& weightPlug = weightPlugs[j];
             MPlug enveloppePlug = MFnDependencyNode( weightPlug.node() ).findPlug( ATTR_ENVELOPE ); 
@@ -385,7 +385,7 @@ namespace COLLADAMaya
 
             String subId = controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
             AnimationExporter* animExport = mDocumentExporter->getAnimationExporter();
-            animExport->addPlugAnimation( weightPlug, subId, kSingle, XY_PARAMETERS, j );
+            animExport->addPlugAnimation( weightPlug, subId, kSingle, XY_PARAMETERS, ( int ) j );
         }
 
         // Write the controller data into the COLLADA document
@@ -986,8 +986,8 @@ namespace COLLADAMaya
         
         // Retrieve the morph controller targets.
         const MorphControllerTargets& morphControllerTargets = morphController.getMorphControllerTargets();
-        uint numTargets = morphControllerTargets.size();
-        targetSource.setAccessorCount ( numTargets );
+        size_t numTargets = morphControllerTargets.size();
+        targetSource.setAccessorCount ( ( unsigned long ) numTargets );
         targetSource.getParameterNameList().push_back ( PARAM_TYPE_MORPH_TARGET );
         targetSource.prepareToAppendValues();
         targetSource.appendValues ( morphControllerTargets );
@@ -1013,8 +1013,8 @@ namespace COLLADAMaya
         bindPosesSource.prepareToAppendValues();
 
         const std::vector<MMatrix>& bindPosesVec = skinController.getBindPoses();
-        uint numBindPoses = bindPosesVec.size();
-        for (uint i=0; i<bindPosesVec.size(); ++i)
+        size_t numBindPoses = bindPosesVec.size();
+        for (size_t i=0; i<bindPosesVec.size(); ++i)
         {
             MMatrix mayaBindPoses = bindPosesVec[i];
             double bindPoses[4][4];
@@ -1086,7 +1086,7 @@ namespace COLLADAMaya
 
         // Get the morph weights
         const std::vector<float> morphWeights = morphController.getMorphControllerWeights ();
-        weightSource.setAccessorCount ( morphWeights.size() );
+        weightSource.setAccessorCount ( ( unsigned long ) morphWeights.size() );
         weightSource.getParameterNameList().push_back ( PARAM_TYPE_MORPH_WEIGHT );
         weightSource.prepareToAppendValues();
         weightSource.appendValues ( morphWeights );
@@ -1179,15 +1179,15 @@ namespace COLLADAMaya
         const SkinControllerVertices& vertexes = skinController.getVertexInfluences();
 
         // Counter for the influence counts
-        uint influenceCount = vertexes.size();
-        vertexWeightsElement.setCount( influenceCount );
+        size_t influenceCount = vertexes.size();
+        vertexWeightsElement.setCount( ( unsigned long ) influenceCount );
 
         // Generate the vertex count and match value strings and export the <v> and <vcount> elements
         uint weightOffset = 1;
         for (size_t j=0; j<influenceCount; ++j)
         {
             SkinControllerVertex vertex = vertexes[j];
-            vertexWeightsElement.getVCountList().push_back( vertex.size() );
+            vertexWeightsElement.getVCountList().push_back( ( unsigned long ) vertex.size() );
 
             std::map<int, float>::const_iterator it = vertex.begin();
             for (; it!=vertex.end(); ++it)
@@ -1339,7 +1339,7 @@ namespace COLLADAMaya
             if ( item->isSkin )
             {
                 // Reset the skin controller node state.
-                uint nodeStateSize = item->nodeStates.size();
+                size_t nodeStateSize = item->nodeStates.size();
                 assert ( nodeStateSize >= 1 );
                 long nodeState = item->nodeStates.front();
                 DagHelper::setPlugValue ( item->skinControllerNode, ATTR_NODE_STATE, nodeState );
@@ -1355,7 +1355,7 @@ namespace COLLADAMaya
             else
             {
                 // Reset the morph controller node states.
-                uint nodeStateSize = item->nodeStates.size();
+                size_t nodeStateSize = item->nodeStates.size();
                 for ( uint j=0; j<item->morphControllerNodes.length(); ++j )
                 {
                     assert ( nodeStateSize >= j );

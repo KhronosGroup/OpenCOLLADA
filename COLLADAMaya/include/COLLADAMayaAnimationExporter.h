@@ -241,9 +241,9 @@ namespace COLLADAMaya
          * @param mergedInputs The merged input values.
          */
         void createDefaultKeys ( AnimationMKeyList* keys,
-                                 uint curvePosition,
+                                 size_t curvePosition,
                                  std::vector<float> &defaultValues,
-                                 const uint keyCount,
+                                 const size_t keyCount,
                                  const std::vector<float> mergedInputs );
 
         /**
@@ -257,8 +257,8 @@ namespace COLLADAMaya
          */
         void mergeCurves ( AnimationMKeyList* keys,
                            const AnimationCurve* curve,
-                           uint keyCount,
-                           uint curvePosition );
+                           size_t keyCount,
+                           size_t curvePosition );
 
         /**
          * Creates a TCB multi key.
@@ -269,8 +269,8 @@ namespace COLLADAMaya
          */
         void createTCBMKey ( AnimationMKey* key,
                              const AnimationKeyList& curveKeys,
-                             const uint curvePosition,
-                             const uint keyPosition );
+                             const size_t curvePosition,
+                             const size_t keyPosition );
 
         /**
          * Creates a bezier multi key.
@@ -283,10 +283,10 @@ namespace COLLADAMaya
          */
         void createBezierMKey ( AnimationMKey* key,
                                 const AnimationKeyList& curveKeys,
-                                const uint curvePosition,
+                                const size_t curvePosition,
                                 const float previousSpan,
                                 const float nextSpan,
-                                const uint keyPosition );
+                                const size_t keyPosition );
 
         /**
          * Sample the curve key.
@@ -299,7 +299,7 @@ namespace COLLADAMaya
          */
         void sampleMKey ( AnimationMKey* key,
                           const AnimationCurve* curve,
-                          const uint curvePosition,
+                          const size_t curvePosition,
                           const float input,
                           const float previousSpan,
                           const float nextSpan );

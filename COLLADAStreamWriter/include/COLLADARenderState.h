@@ -15,7 +15,6 @@
 #include "COLLADAStreamWriter.h"
 #include "COLLADASWC.h"
 #include "COLLADAUtils.h"
-#include "COLLADAPassState.h"
 
 namespace COLLADA
 {

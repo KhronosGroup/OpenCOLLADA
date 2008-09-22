@@ -169,7 +169,7 @@ namespace COLLADAMaya
         // Create a shader and export it
         COLLADA::Shader shader ( streamWriter, mShaderScope, shaderStage );
         shader.openShader();
-
+        
         // Get the program
         CGprogram cgProgram	= cgGetProgramStateAssignmentValue ( cgStateAssignment );
 

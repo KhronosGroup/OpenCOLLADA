@@ -213,7 +213,8 @@ namespace COLLADAMaya
 
             exportHwShaderNode ( effectId, &effectProfile, shader );
             //MGlobal::displayError("Export of HwShaderNode not implemented!"); 
-        }
+        }   
+#if MAYA_API_VERSION <= 700 || MAYA_API_VERSION == 200800
         // Custom hardware shaders derived from MPxHwShaderNode (the old stuff)
         else if ( shader.hasFn ( MFn::kPluginHardwareShader ) )
         {
@@ -221,6 +222,7 @@ namespace COLLADAMaya
             //  exportColladaFXShader(&effectProfile, shader, colladaMaterial);
             MGlobal::displayError("Export HardwareShader not implemented!"); 
         }
+#endif
         else
         {
             // For the constant shader, you should use the "surface shader" node in Maya
