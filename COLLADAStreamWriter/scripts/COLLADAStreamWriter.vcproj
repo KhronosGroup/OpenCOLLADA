@@ -86,8 +86,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -216,8 +216,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -343,8 +343,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release fprintf_s|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\$(PlatformName)\Release"
+			IntermediateDirectory="..\obj\$(PlatformName)\Release"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -367,6 +367,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				EnableFiberSafeOptimizations="false"
 				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;"
 				PreprocessorDefinitions="WIN64;NDEBUG;_LIB;COLLADASTREAMWRITER_USE_FPRINTF_S"
 				RuntimeLibrary="2"
@@ -473,8 +474,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug fprintf_s|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\$(PlatformName)\Debug"
+			IntermediateDirectory="..\obj\$(PlatformName)\Debug"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
