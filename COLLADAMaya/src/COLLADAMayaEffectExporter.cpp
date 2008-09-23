@@ -229,7 +229,7 @@ namespace COLLADAMaya
             // But always export some material parameters, even if we don't know this material.
             exportConstantShader ( effectId, &effectProfile, shader );
         }
-
+        
         // Closes the current effect tag
         closeEffect();
     }
