@@ -63,7 +63,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /dll /incremental:yes /debug /machine:I386 /export:initializePlugin /export:uninitializePlugin "
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
@@ -99,8 +98,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin2008|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -122,8 +121,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\cgfxShader\include;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="false"
@@ -143,10 +142,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /dll /incremental:yes /debug /machine:I386 /export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cgfxShader.lib cg.lib cgGL.lib glut32.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;;..\..\cgfxShader\lib\debug;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -220,10 +218,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /machine:I386 /export:initializePlugin /export:uninitializePlugin "
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\lib&quot;;..\..\Externals\cgfxShader\lib\release;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				IgnoreAllDefaultLibraries="false"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -260,8 +257,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin2008|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -283,8 +280,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\cgfxShader\include;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
@@ -302,10 +299,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /incremental:no /machine:I386 /export:initializePlugin /export:uninitializePlugin /LTCG"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cgfxShader.lib cg.lib cgGL.lib glut32.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;;..\..\cgfxShader\lib\debug;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				IgnoreAllDefaultLibraries="false"
 				TargetMachine="17"
 			/>
@@ -361,7 +357,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="false"
@@ -383,7 +379,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;;..\..\Externals\cgfxShader\lib\debug;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 			/>
@@ -416,8 +412,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugConsole2008|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -439,8 +435,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\cgfxShader\include;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="false"
@@ -460,9 +456,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cgfxShader.lib cg.lib cgGL.lib glut32.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;;..\..\cgfxShader\lib\debug;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="17"
@@ -539,7 +535,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\lib&quot;;..\..\Externals\cgfxShader\lib\release;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -577,8 +573,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseConsole2008|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -600,8 +596,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\cgfxShader\include;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
@@ -619,9 +615,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cgfxShader.lib cg.lib cgGL.lib glut32.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;;..\..\cgfxShader\lib\debug;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -657,7 +653,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin85|Win32"
-			OutputDirectory="$(ConfigurationName)"
+			OutputDirectory="..\obj\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="2"
 			>
@@ -679,7 +675,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -701,10 +697,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /dll /incremental:yes /debug /machine:I386 /export:initializePlugin /export:uninitializePlugin "
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 			/>
@@ -737,8 +732,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin85|x64"
-			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -760,8 +755,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\cgfxShader\include;&quot;$(CG_INC_PATH)&quot;"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="false"
@@ -781,10 +776,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/subsystem:windows /dll /incremental:yes /debug /machine:I386 /export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cgfxShader.lib cg.lib cgGL.lib glut32.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;;..\..\cgfxShader\lib\debug;&quot;$(CG_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>

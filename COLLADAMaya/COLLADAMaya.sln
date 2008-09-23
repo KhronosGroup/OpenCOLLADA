@@ -38,16 +38,20 @@ Global
 		{60331F1F-2334-42AF-80A8-A4A6E3299186}.ReleasePlugin2008|x64.Build.0 = ReleasePlugin2008|x64
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugConsole2008|Win32.ActiveCfg = Debug fprintf_s|Win32
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugConsole2008|Win32.Build.0 = Debug fprintf_s|Win32
-		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugConsole2008|x64.ActiveCfg = DebugPlugin85|Win32
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugConsole2008|x64.ActiveCfg = DebugPlugin85|x64
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugConsole2008|x64.Build.0 = DebugPlugin85|x64
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugPlugin2008|Win32.ActiveCfg = Debug fprintf_s|Win32
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugPlugin2008|Win32.Build.0 = Debug fprintf_s|Win32
-		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugPlugin2008|x64.ActiveCfg = DebugPlugin85|Win32
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugPlugin2008|x64.ActiveCfg = DebugPlugin85|x64
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.DebugPlugin2008|x64.Build.0 = DebugPlugin85|x64
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleaseConsole2008|Win32.ActiveCfg = Release fprintf_s|Win32
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleaseConsole2008|Win32.Build.0 = Release fprintf_s|Win32
-		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleaseConsole2008|x64.ActiveCfg = Release fprintf_s|Win32
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleaseConsole2008|x64.ActiveCfg = Release fprintf_s|x64
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleaseConsole2008|x64.Build.0 = Release fprintf_s|x64
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleasePlugin2008|Win32.ActiveCfg = Release fprintf_s|Win32
 		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleasePlugin2008|Win32.Build.0 = Release fprintf_s|Win32
-		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleasePlugin2008|x64.ActiveCfg = Release fprintf_s|Win32
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleasePlugin2008|x64.ActiveCfg = Release fprintf_s|x64
+		{EAB66F01-60B5-43C9-B78D-A8B0B545A20B}.ReleasePlugin2008|x64.Build.0 = Release fprintf_s|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

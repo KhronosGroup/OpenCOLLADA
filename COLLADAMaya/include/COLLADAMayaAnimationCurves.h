@@ -355,7 +355,8 @@ namespace COLLADAMaya
     template<class T>
     T* BaseAnimationCurve<T>::getKey ( size_t index ) const
     {
-        if ( mKeys.size() < index ) MGlobal::displayError ( MString ( "Key index not valid! " ) + index );
+        if ( mKeys.size() < index ) 
+            MGlobal::displayError ( MString ( "Key index not valid! "  + index ) );
 
         return mKeys[index];
     }
