@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #ifndef __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 #define __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 
@@ -31,12 +32,10 @@
 
 namespace COLLADAMaya
 {
-
-    // ----------------------------------------------------------
+	
     /**
      * Exports all animation data of the current scene.
      */
-
     class AnimationExporter : public COLLADA::LibraryAnimations
     {
 
