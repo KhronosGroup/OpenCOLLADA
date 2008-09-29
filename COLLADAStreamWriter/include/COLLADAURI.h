@@ -166,7 +166,6 @@ namespace COLLADA
 		*/
 		URI();
 
-
 		/** Returns if the URi is valid.*/
 		bool isValid() { return mIsValid; }
 
@@ -264,7 +263,53 @@ namespace COLLADA
 		URI& operator=(const URI& other);
 		URI& operator=(const String& uri);
 
-	private:
+        /**
+        * Performs RFC2396 path normalization.
+        * @param path Path to be normalized.
+        */
+        static void normalizeURIPath(char* path);
+
+
+        /** This function takes a file path in the OS's native format and converts it to
+        // a URI reference. If a relative path is given, a relative URI reference is
+        // returned. If an absolute path is given, a relative URI reference containing 
+        // a fully specified path is returned. Spaces are encoded as %20. The 'type'
+        // parameter indicates the format of the nativePath.
+        //
+        // Examples - Windows
+        //   nativePathToUri("C:\myFolder\myFile.dae") --> "/C:/myFolder/myFile.dae"
+        //   nativePathToUri("\myFolder\myFile.dae") --> "/myFolder/myFile.dae"
+        //   nativePathToUri("..\myFolder\myFile.dae") --> "../myFolder/myFile.dae"
+        //   nativePathToUri("\\otherComputer\myFile.dae") --> "//otherComputer/myFile.dae"
+        //
+        // Examples - Linux/Mac
+        //   nativePathToUri("/myFolder/myFile.dae") --> "/myFolder/myFile.dae"
+        //   nativePathToUri("../myFolder/myFile.dae") --> "../myFolder/myFile.dae"
+        //   nativePathToUri("/my folder/my file.dae") --> "/my%20folder/my%20file.dae" */
+        static String nativePathToUri (
+            const String& nativePath,
+            Utils::SystemType type = Utils::getSystemType() );
+
+        /** This function takes a URI reference and converts it to an OS file path. Conversion
+        // can fail if the URI reference is ill-formed, or if the URI contains a scheme other
+        // than "file", in which case an empty string is returned. The 'type' parameter
+        // indicates the format of the returned native path.
+        //
+        // Examples - Windows
+        //   uriToNativePath("../folder/file.dae") --> "..\folder\file.dae"
+        //   uriToNativePath("/folder/file.dae") --> "\folder\file.dae"
+        //   uriToNativePath("file:/C:/folder/file.dae") --> "C:\folder\file.dae"
+        //   uriToNativePath("file://otherComputer/file.dae") --> "\\otherComputer\file.dae"
+        //   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!)
+        //
+        // Examples - Linux/Mac
+        //   uriToNativePath("../folder/file.dae") --> "../folder/file.dae"
+        //   uriToNativePath("file:/folder/file.dae") --> "/folder/file.dae"
+        //   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!) */
+        String toNativePath(Utils::SystemType type = Utils::getSystemType());
+
+    private:
+
 		/**
 		* Resets this URI; frees all string references
 		* and returns <tt><i>state</i></tt> to @c empty.
@@ -308,52 +353,6 @@ namespace COLLADA
 			bool forceLibxmlCompatible = false);
 
 		void setURI(String _URIString, const URI* baseURI);
-
-
-	public:
-		/**
-		* Performs RFC2396 path normalization.
-		* @param path Path to be normalized.
-		*/
-		static void normalizeURIPath(char* path);
-
-
-		/** This function takes a file path in the OS's native format and converts it to
-		// a URI reference. If a relative path is given, a relative URI reference is
-		// returned. If an absolute path is given, a relative URI reference containing 
-		// a fully specified path is returned. Spaces are encoded as %20. The 'type'
-		// parameter indicates the format of the nativePath.
-		//
-		// Examples - Windows
-		//   nativePathToUri("C:\myFolder\myFile.dae") --> "/C:/myFolder/myFile.dae"
-		//   nativePathToUri("\myFolder\myFile.dae") --> "/myFolder/myFile.dae"
-		//   nativePathToUri("..\myFolder\myFile.dae") --> "../myFolder/myFile.dae"
-		//   nativePathToUri("\\otherComputer\myFile.dae") --> "//otherComputer/myFile.dae"
-		//
-		// Examples - Linux/Mac
-		//   nativePathToUri("/myFolder/myFile.dae") --> "/myFolder/myFile.dae"
-		//   nativePathToUri("../myFolder/myFile.dae") --> "../myFolder/myFile.dae"
-		//   nativePathToUri("/my folder/my file.dae") --> "/my%20folder/my%20file.dae" */
-		static String nativePathToUri(const String& nativePath,
-			Utils::SystemType type = Utils::getSystemType());
-
-		/** This function takes a URI reference and converts it to an OS file path. Conversion
-		// can fail if the URI reference is ill-formed, or if the URI contains a scheme other
-		// than "file", in which case an empty string is returned. The 'type' parameter
-		// indicates the format of the returned native path.
-		//
-		// Examples - Windows
-		//   uriToNativePath("../folder/file.dae") --> "..\folder\file.dae"
-		//   uriToNativePath("/folder/file.dae") --> "\folder\file.dae"
-		//   uriToNativePath("file:/C:/folder/file.dae") --> "C:\folder\file.dae"
-		//   uriToNativePath("file://otherComputer/file.dae") --> "\\otherComputer\file.dae"
-		//   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!)
-		//
-		// Examples - Linux/Mac
-		//   uriToNativePath("../folder/file.dae") --> "../folder/file.dae"
-		//   uriToNativePath("file:/folder/file.dae") --> "/folder/file.dae"
-		//   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!) */
-		String toNativePath(Utils::SystemType type = Utils::getSystemType());
 
     };
 

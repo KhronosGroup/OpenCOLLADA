@@ -204,22 +204,8 @@ namespace COLLADAMaya
                 // Open a tag for the current material in the collada document
                 openMaterial ( materialId, materialId );
 
-                // Create the effect instance
-                String effectURL = materialId + EffectExporter::EFFECT_ID_SUFFIX;
-                COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-                COLLADA::InstanceEffect effectInstance ( streamWriter, COLLADA::URI ( "#" + effectURL ) );
-
-                // Opens the current effect instance. 
-                effectInstance.open();
-
-                // Custom hardware shaders derived from MPxHardwareShader (the new stuff)
-                if ( shader.hasFn ( MFn::kPluginHwShaderNode ) )
-                {
-                    exportCustomHwShaderNode( effectInstance, shader );
-                }
-
-                // Close the current effect element.
-                effectInstance.close();
+                // Export the reference to the effect and the hardware shader components.
+                exportEffectInstance ( materialId, shader );
 
                 // Closes the current effect tag
                 closeMaterial();
@@ -618,7 +604,7 @@ namespace COLLADAMaya
         if ( fnNode.typeId() == cgfxShaderNode::sId ) 
         {
             // Add the technique hint and the effect attributes to the collada document.
-            exportCgfxShaderNode( effectInstance, (cgfxShaderNode*) fnNode.userNode () );
+            exportCgfxShaderNode ( effectInstance, (cgfxShaderNode*) fnNode.userNode () );
         }
 
     }
@@ -631,7 +617,7 @@ namespace COLLADAMaya
         // Get the filename of the current cgfx file
         MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
         String shaderFxFileName = shaderFxFile.asChar(); // check3d.cgfx
-        setShaderFxFileUri ( COLLADA::URI ( shaderFxFileName ) );
+        setShaderFxFileUri ( COLLADA::URI ( COLLADA::URI::nativePathToUri ( shaderFxFileName ) ) );
 
         // Get the current technique name
         String techniqueName = shaderNodeCgfx->getTechnique().asChar(); // techniqueName.asChar()
@@ -664,4 +650,25 @@ namespace COLLADAMaya
         return mShaderFxFileUri;
     }
 
+    // --------------------------------------
+    void MaterialExporter::exportEffectInstance( String materialId, MObject &shader )
+    {
+        // Create the effect instance
+        String effectURL = materialId + EffectExporter::EFFECT_ID_SUFFIX;
+        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADA::InstanceEffect effectInstance ( streamWriter, COLLADA::URI ( "", effectURL ) );
+
+        // Opens the current effect instance. 
+        effectInstance.open();
+
+        // Custom hardware shaders derived from MPxHardwareShader (the new stuff)
+        if ( shader.hasFn ( MFn::kPluginHwShaderNode ) )
+        {
+            // Export the effect technique reference and the hardware shader parameters.
+            exportCustomHwShaderNode ( effectInstance, shader );
+        }
+
+        // Close the current effect element.
+        effectInstance.close();
+    }
 }

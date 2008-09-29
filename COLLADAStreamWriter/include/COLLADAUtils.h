@@ -114,6 +114,7 @@ namespace COLLADA
             return isAsciiAlphaChar ( c ) || isDigit ( c ) || isIDExtraChar ( c ) ;
         }
 
+        /** Encodes the current URI (replace the special characters with %hexadecimal value). */
         static String uriEncode ( const String & sSrc );
 
         static String translateToXML ( const String &srcString );

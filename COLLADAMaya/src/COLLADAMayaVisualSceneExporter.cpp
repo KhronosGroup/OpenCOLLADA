@@ -438,7 +438,7 @@ namespace COLLADAMaya
 
             // Set the node URL
             String instanceNodeURL = mDocumentExporter->dagPathToColladaId ( instantiatedDagPath );
-            mVisualSceneNode->setNodeURL ( COLLADA::URI ( "#" + instanceNodeURL ) );
+            mVisualSceneNode->setNodeURL ( COLLADA::URI ( "", instanceNodeURL ) );
         }
         else
         {
@@ -976,22 +976,19 @@ namespace COLLADAMaya
         }
 
         // Get the Uri of the element.
-        COLLADA::URI uri;
         if ( !sceneElement->getIsLocal() )
         {
             // Load the external reference through the reference manager.
             String referenceFilename = ReferenceManager::getReferenceFilename( dagPath ).asChar();
-            COLLADA::URI::nativePathToUri ( referenceFilename );
+            return COLLADA::URI ( COLLADA::URI::nativePathToUri ( referenceFilename ) );
         }
         else
         {
             // Get the id of the element
             if ( !elementId.empty() )
-                uri.setFragment ( elementId );
-            else uri.setFragment ( mDocumentExporter->dagPathToColladaId ( dagPath ) );
+                return COLLADA::URI ( "", elementId );
+            else return COLLADA::URI ( "", mDocumentExporter->dagPathToColladaId ( dagPath ) );
         }
-
-        return uri;
     }
 
     //---------------------------------------------------------------

@@ -215,25 +215,26 @@ namespace COLLADAMaya
 
         // Add contributor information
         // Set the author
-        TCHAR* userName = getenv ( "USERNAME" );
+        TCHAR* userName = getenv ( USERNAME );
 
-        if ( userName == NULL || *userName == 0 ) userName = getenv ( "USER" );
+        if ( userName == NULL || *userName == 0 ) userName = getenv ( USER );
         if ( userName != NULL && *userName != 0 ) asset.getContributor().mAuthor = String ( userName );
 
         //  asset.getContributor().mSourceData =
         //   COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode(fileName);
 
         // Source is the scene we have exported from
-        MString currentScene = MFileIO::currentFile();
-        if ( currentScene.length() != 0 )
+        String currentScene = MFileIO::currentFile().asChar();
+        if ( currentScene.size() > 0 )
         {
+            // TODO Relative paths?
             // Intentionally not relative
-            //  FUUri uri(colladaDocument->GetFileManager()->GetCurrentUri().MakeAbsolute(MConvert::ToFChar(currentScene)));
-            //  fstring sourceDocumentPath = uri.GetAbsolutePath();
-//             String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
-//             asset.getContributor().mSourceData = sourceFile;
-            COLLADA::URI uri ( currentScene.asChar() );
-            asset.getContributor().mSourceData = uri.getURIString();
+//          String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
+            COLLADA::URI uri ( COLLADA::URI::nativePathToUri ( COLLADA::Utils::FILE_PROTOCOL + currentScene ) );
+            if ( ExportOptions::relativePaths() )
+                asset.getContributor().mSourceData = 
+                uri.makeRelativeTo ( &COLLADA::URI ( COLLADA::URI::nativePathToUri ( COLLADA::Utils::FILE_PROTOCOL + currentScene ) ) );
+            else asset.getContributor().mSourceData = uri.getURIString();
         }
 
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();

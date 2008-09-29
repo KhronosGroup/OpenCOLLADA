@@ -208,7 +208,7 @@ namespace COLLADAMaya
         colladaImage->addExtraTechniqueParameter ( 
             COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_IMAGE_SEQUENCE, isImgSeq );
 
-        return colladaImageId;
+        return colladaImage->getImageId();
     }
 
     // -------------------------------
@@ -240,9 +240,19 @@ namespace COLLADAMaya
             {
                 // Get the relative file path from the destination folder to the source texture
                 String targetFile = mDocumentExporter->getFilename();
-                String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
-                String relativeFileName = COLLADA::Utils::getRelativeFilename( targetFile, sourceFile );
+                COLLADA::URI targetFileUri ( COLLADA::URI::nativePathToUri ( targetFile ) );
 
+                // Utils::getSystem --> case sensitive / intensitive
+                
+
+                String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
+                targetPath = targetFileUri.getPathDir();
+
+                String relativeFileName = COLLADA::Utils::getRelativeFilename ( targetFile, sourceFile );
+
+                COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( sourceFile ) );
+                sourceFileUri.makeRelativeTo ( &targetFileUri );
+                
                 // Get the filename and the URI
                 fullFileName = relativeFileName;
                 if ( relativeFileName[0] != '.' )

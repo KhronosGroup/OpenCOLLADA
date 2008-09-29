@@ -21,7 +21,7 @@ If you install the binary, you have to copy following files:
 - "colladaNextGenExporterOpts.mel" into $(MAYA_PATH2008)\scripts\others directory 
 
 You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
-mll-file into the refered directory. Autodesk Maya will load the plugs 
+mll-file into the refered directory. Autodesk Maya will load the plug-ins 
 from this directory too.
 
 Execute:

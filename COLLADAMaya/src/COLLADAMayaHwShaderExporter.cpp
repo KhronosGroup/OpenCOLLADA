@@ -88,7 +88,7 @@ namespace COLLADAMaya
         // Get the filename of the current cgfx file
         MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
         String shaderFxFileName = shaderFxFile.asChar (); // check3d.cgfx
-        COLLADA::URI  shaderFxFileUri ( shaderFxFileName );
+        COLLADA::URI  shaderFxFileUri ( COLLADA::URI::nativePathToUri ( shaderFxFileName ) );
         setShaderFxFileUri ( shaderFxFileUri );
 
         // Set the current include file

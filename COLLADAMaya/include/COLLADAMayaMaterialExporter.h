@@ -119,6 +119,10 @@ namespace COLLADAMaya
         and adds the material into the materials list. */
         void exportMaterial ( MObject shadingEngine );
 
+        /** Export the reference to the effect and, in case of an hardware shader, 
+            the effect technique reference and the hardware shader parameters. */
+        void exportEffectInstance( String materialId, MObject &shader );
+
         /** Exports the data for a custom hardware shader node. */
         void exportCustomHwShaderNode( COLLADA::InstanceEffect &effectInstance, MObject shader  );
 

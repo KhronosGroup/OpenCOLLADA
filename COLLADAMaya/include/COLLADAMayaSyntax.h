@@ -41,6 +41,8 @@ namespace COLLADAMaya
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
     static const char* TRANSLATOR_VERSION                           = "0.8.0";
     static const char* TRANSLATOR_MAYA_API_VERSION                  = "2008";
+    static const char* USERNAME                                     = "USERNAME";
+    static const char* USER                                         = "USER";
 
     // COLLADA 1.4 Maya-specific definitions
     static const char* MAYA_TEXTURE_NODETYPE                        = "dgnode_type";

@@ -600,11 +600,12 @@ namespace COLLADAMaya
             // Push the data from the meshColorSet into the color source of the collada document.
             colorSource.appendValues ( meshColorSet );
             colorSource.finish();
-
+            
             // TODO Don't put the source into the vertex sources, 
             // put it into the polygon sources.
             // That's about the other plug-ins, they don't support this.
-            if ( ExportOptions::exportVertexColorsPerVertex() && colorSet.isVertexColor )
+            bool exportPerVertex = ExportOptions::exportVertexColorsPerVertex();
+            if ( exportPerVertex && colorSet.isVertexColor )
             {
                 // Insert a per-vertex color set input
                 mVertexSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR ) );

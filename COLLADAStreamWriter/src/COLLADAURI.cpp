@@ -734,8 +734,8 @@ namespace COLLADA
 			Utils::stringFindAndReplace(uri, "\\", "/");
 		}
 
-		// Convert spaces to %20
-		Utils::stringFindAndReplace(uri, " ", "%20");
+		// Encode the uri string to a valid uri
+        uri = Utils::uriEncode ( uri );
 
 		return uri;
 	}
