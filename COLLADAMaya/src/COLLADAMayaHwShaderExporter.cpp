@@ -203,7 +203,7 @@ namespace COLLADAMaya
             CGbool isUsed = cgIsParameterUsed ( progParam, cgProgram );
             if ( isUsed && !COLLADA::Utils::equals( paramName, programEntryString ) )
             {
-                COLLADA::ParamBase bindParam ( streamWriter, COLLADA::CSWC::COLLADA_ELEMENT_BIND );
+                COLLADA::ParamBase bindParam ( streamWriter, &COLLADA::CSWC::COLLADA_ELEMENT_BIND );
                 bindParam.openParam ();
                 bindParam.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_SYMBOL, paramName );
                 COLLADA::ParamBase param ( streamWriter );
@@ -227,7 +227,7 @@ namespace COLLADAMaya
     {
         COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
-        COLLADA::ParamBase param ( streamWriter, renderStateName );
+        COLLADA::ParamBase param ( streamWriter, &renderStateName );
         param.openParam();
         for ( int j=0; j<valueCount; ++j )
             param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE,

@@ -766,7 +766,6 @@ namespace COLLADAMaya
         writeInterpolationSource ( sourceId, interpolations );
 
         bool hasTangents = animationCurve.hasTangents();
-
         if ( hasTangents )
         {
             writeInTangentSource ( sourceId, dimension, inTangents );
@@ -774,7 +773,6 @@ namespace COLLADAMaya
         }
 
         bool hasTCB = animationCurve.hasTCB();
-
         if ( hasTCB )
         {
             writeTCBSource ( sourceId, tcbs );

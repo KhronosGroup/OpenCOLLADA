@@ -51,7 +51,7 @@ namespace COLLADAMaya
         class ExportedEffect
         {
             MObject* shader; // The shader object, that was use to export the effect
-            DWORD mColor;  // The color that was used to export the effect
+            unsigned long mColor;  // The color that was used to export the effect
         };
 
         /** Pointer to the document exporter */

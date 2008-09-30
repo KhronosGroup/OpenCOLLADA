@@ -154,8 +154,8 @@ namespace COLLADAMaya
             // Attenuation in COLLADA is equal to Decay in Maya.
             MFnNonAmbientLight naLightFn(lightNode);
             int decayRate = naLightFn.decayRate(&status); CHECK_MSTATUS(status);
-            decayRate = min ( decayRate, 2 ); 
-            decayRate = max ( decayRate, 0 );
+            decayRate = std::min ( decayRate, 2 ); 
+            decayRate = std::max ( decayRate, 0 );
 
             light->setConstantAttenuation ( ( decayRate == 0 ) ? 1.0f : 0.0f);
             light->setLinearAttenuation ( ( decayRate == 1 ) ? 1.0f : 0.0f);

@@ -905,7 +905,7 @@ namespace COLLADAMaya
 
                 colorSet.isVertexColor = true; // assume true then get proved wrong..
 
-                size_t maxValueCount = max ( ( size_t ) elementCount, ( size_t ) vertexCount ) * 16; // * 16 to give enough space and avoid a resize that would break the export of animations..
+                size_t maxValueCount = std::max ( ( size_t ) elementCount, ( size_t ) vertexCount ) * 16; // * 16 to give enough space and avoid a resize that would break the export of animations..
                 //   source->SetDataCount(maxValueCount);
                 meshColorSet.resize ( maxValueCount*colorElements );
 

@@ -128,7 +128,7 @@ namespace COLLADAMaya
 
             // Find the polygons that correspond to each materials and export them
             uint realShaderCount = ( uint ) shaders.length();
-            uint numShaders = ( uint ) max ( ( size_t ) 1, ( size_t ) shaders.length() );
+            uint numShaders = ( uint ) std::max ( ( size_t ) 1, ( size_t ) shaders.length() );
             for ( uint shaderPosition = 0; shaderPosition < numShaders; ++shaderPosition )
             {
                 if ( shaderPosition < realShaderCount )
