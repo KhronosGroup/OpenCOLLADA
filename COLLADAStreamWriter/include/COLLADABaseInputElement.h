@@ -70,7 +70,7 @@ namespace COLLADA
     //---------------------------------------------------------------
 
     /** Vertices input element for the geometry. */
-    typedef BaseInputElementTemplate<CSWC::COLLADA_ELEMENT_VERTICES> Vertices;
+    typedef BaseInputElementTemplate<CSWC::COLLADA_ELEMENT_VERTICES> VerticesElement;
 
     /** Joints input element for the controller. */
     typedef BaseInputElementTemplate<CSWC::COLLADA_ELEMENT_JOINTS> JointsElement;

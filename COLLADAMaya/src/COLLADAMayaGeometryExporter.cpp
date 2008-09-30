@@ -621,7 +621,7 @@ namespace COLLADAMaya
     // --------------------------------------------------------------------
     void GeometryExporter::exportVertices ( const String& meshId )
     {
-        COLLADA::Vertices vertices ( mSW );
+        COLLADA::VerticesElement vertices ( mSW );
         vertices.setId ( meshId + VERTICES_ID_SUFFIX );
         vertices.setNodeName ( meshId + VERTICES_ID_SUFFIX );
 

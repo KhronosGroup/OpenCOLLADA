@@ -915,7 +915,7 @@ namespace COLLADAMax
 
     void GeometryExporter::exportVertices ( const String & meshId )
     {
-        COLLADA::Vertices vertices ( mGeometriesExporter->mSW );
+        COLLADA::VerticesElement vertices ( mGeometriesExporter->mSW );
         vertices.setId ( meshId + COLLADA::LibraryGeometries::VERTICES_ID_SUFFIX );
         vertices.getInputList().push_back ( COLLADA::Input ( COLLADA::POSITION, "#" + meshId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
         vertices.add();
