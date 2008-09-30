@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -28,13 +28,13 @@
 
 #include <maya/MFileIO.h>
 
-#include "boost/filesystem.hpp"
+#include <boost/filesystem.hpp>
 using namespace boost::filesystem;
 
 
 namespace COLLADAMaya
 {
-    
+
     const String EffectTextureExporter::FORMAT = "A8R8G8B8";
 
     //------------------------------------------------------
@@ -63,7 +63,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void EffectTextureExporter::exportTexture ( 
+    void EffectTextureExporter::exportTexture (
         COLLADA::Texture* colladaTexture,
         String channelSemantic,
         const MObject& texture,
@@ -108,7 +108,7 @@ namespace COLLADAMaya
         // Add blend mode information
         String blendModeString = getBlendMode ( blendMode );
 
-        colladaTexture->addExtraTechniqueParameter ( 
+        colladaTexture->addExtraTechniqueParameter (
             COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_BLENDMODE_PARAMETER, blendModeString );
 
         // Wrap elements
@@ -198,14 +198,14 @@ namespace COLLADAMaya
 
         // Export the node type, because PSD textures don't behave the same as File textures.
         String nodeType = texture.hasFn ( MFn::kPsdFileTexture ) ? MAYA_TEXTURE_PSDTEXTURE : MAYA_TEXTURE_FILETEXTURE;
-        colladaImage->addExtraTechniqueParameter ( 
+        colladaImage->addExtraTechniqueParameter (
             COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_NODETYPE, nodeType );
 
         // Export whether this image is in fact an image sequence
         MPlug imgSeqPlug = dgFn.findPlug ( ATTR_IMAGE_SEQUENCE );
         bool isImgSeq = false;
         imgSeqPlug.getValue ( isImgSeq );
-        colladaImage->addExtraTechniqueParameter ( 
+        colladaImage->addExtraTechniqueParameter (
             COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_IMAGE_SEQUENCE, isImgSeq );
 
         return colladaImage->getImageId();
@@ -243,7 +243,7 @@ namespace COLLADAMaya
                 COLLADA::URI targetFileUri ( COLLADA::URI::nativePathToUri ( targetFile ) );
 
                 // Utils::getSystem --> case sensitive / intensitive
-                
+
 
                 String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
                 targetPath = targetFileUri.getPathDir();
@@ -252,7 +252,7 @@ namespace COLLADAMaya
 
                 COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( sourceFile ) );
                 sourceFileUri.makeRelativeTo ( &targetFileUri );
-                
+
                 // Get the filename and the URI
                 fullFileName = relativeFileName;
                 if ( relativeFileName[0] != '.' )
@@ -303,14 +303,14 @@ namespace COLLADAMaya
                 // Create the target directory, if necessary
                 create_directory( COLLADA::Utils::getAbsolutePathFromFile( targetFile ) );
 
-                // Throws: basic_filesystem_error<Path> if 
+                // Throws: basic_filesystem_error<Path> if
                 // from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
                 copy_file( pathSourceFile, pathTargetFile );
             }
         }
 
         // Create a new image structure
-        COLLADA::Image* colladaImage = new COLLADA::Image ( 
+        COLLADA::Image* colladaImage = new COLLADA::Image (
             fullFileNameURI, colladaImageId, colladaImageId );
 
         // Add this texture to our list of exported images
@@ -379,7 +379,7 @@ namespace COLLADAMaya
         int projectionType;
         DagHelper::getPlugValue ( projection, ATTR_PROJECTION_TYPE, projectionType );
         String strProjectionType = ShaderHelper::projectionTypeToString ( projectionType );
-        colladaTexture->addExtraTechniqueChildParameter ( 
+        colladaTexture->addExtraTechniqueChildParameter (
             COLLADA::CSWC::COLLADA_PROFILE_MAYA,
             MAYA_PROJECTION_ELEMENT,
             MAYA_PROJECTION_TYPE_PARAMETER,
@@ -390,12 +390,12 @@ namespace COLLADAMaya
         double sceneMatrix[4][4];
         convertMMatrixToDouble4x4 ( sceneMatrix, projectionMx );
 
-        // Convert the  maya internal unit type of the transform part of the 
+        // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!
         for ( uint i=0; i<3; ++i)
             sceneMatrix [i][3] = MDistance::internalToUI ( sceneMatrix [i][3] );
 
-        colladaTexture->addExtraTechniqueChildParameter ( 
+        colladaTexture->addExtraTechniqueChildParameter (
             COLLADA::CSWC::COLLADA_PROFILE_MAYA,
             MAYA_PROJECTION_ELEMENT,
             MAYA_PROJECTION_MATRIX_PARAMETER,
@@ -403,7 +403,7 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::addBoolParameter ( 
+    void EffectTextureExporter::addBoolParameter (
         COLLADA::Texture* colladaTexture,
         const char* plugName,
         MFnDependencyNode &placement2d )
@@ -429,7 +429,7 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::addFloatParameter ( 
+    void EffectTextureExporter::addFloatParameter (
         COLLADA::Texture* colladaTexture,
         const char* plugName,
         MFnDependencyNode &placement2d )
@@ -455,7 +455,7 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::addAngleParameter ( 
+    void EffectTextureExporter::addAngleParameter (
         COLLADA::Texture* colladaTexture,
         const char* plugName,
         MFnDependencyNode &placement2d )

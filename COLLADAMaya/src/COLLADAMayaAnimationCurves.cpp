@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -28,7 +28,8 @@ namespace COLLADAMaya
 
     // --------------------------------------------------
     AnimationCurve::AnimationCurve ( const AnimationElement* parent, const String& baseId )
-            : BaseAnimationCurve ( parent, baseId ) {}
+    : BaseAnimationCurve < COLLADAMaya::AnimationKey > ( parent, baseId )
+    {}
 
     // --------------------------------------------------
     AnimationKey* AnimationCurve::addKey ( COLLADA::LibraryAnimations::InterpolationType interpolation )
@@ -215,7 +216,7 @@ namespace COLLADAMaya
                 float outputInterval = endKey->output - startKey->output;
 
                 // Interpolate the output.
-                // Similar code is found in AnimationMultiCurve.cpp. 
+                // Similar code is found in AnimationMultiCurve.cpp.
                 // If you update this, update the other one too.
                 float output;
                 switch ( startKey->interpolation )
@@ -385,11 +386,11 @@ namespace COLLADAMaya
 
 
     // --------------------------------------------------
-    AnimationMultiCurve::AnimationMultiCurve ( 
+    AnimationMultiCurve::AnimationMultiCurve (
         const AnimationElement* parent,
-        const String& baseId, 
+        const String& baseId,
         const uint dimension )
-    : BaseAnimationCurve ( parent, baseId, dimension )
+    : BaseAnimationCurve < COLLADAMaya::AnimationMKey > ( parent, baseId, dimension )
     {}
 
     // ----------------------------------------------------

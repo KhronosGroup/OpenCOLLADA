@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -17,7 +17,7 @@
 #define __COLLADA_MAYA_SCENE_ELEMENT_H__
 
 #include "COLLADAMayaStableHeaders.h"
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 
 namespace COLLADAMaya
 {
@@ -94,8 +94,8 @@ namespace COLLADAMaya
         /** True, if the transform element has joints. */
         bool mHasJoint;
 
-        /** Set the skeletonId. It indicates where a skin 
-            controller is to start to search for the joint nodes 
+        /** Set the skeletonId. It indicates where a skin
+            controller is to start to search for the joint nodes
             it needs. This element is meaningless for morph controllers. */
         String mSkeletonId;
 
@@ -106,8 +106,8 @@ namespace COLLADAMaya
         virtual ~SceneElement();
 
         /** Returns the node path */
-        const MDagPath getPath() const; 
-        
+        const MDagPath getPath() const;
+
         /** Returns the node */
         const MObject& getNode();
 
@@ -187,15 +187,15 @@ namespace COLLADAMaya
         const bool containsChildElement ( MDagPath searchedPath ) const;
 
         /** Pointer to the instantiated scene element, if it exist. */
-        SceneElement* getInstantiatedSceneElement() const  
-        { 
-            return mInstantiatedSceneElement; 
+        SceneElement* getInstantiatedSceneElement() const
+        {
+            return mInstantiatedSceneElement;
         }
 
         /** Pointer to the instantiated scene element, if it exist. */
-        void setInstantiatedSceneElement( SceneElement* val ) 
-        { 
-            mInstantiatedSceneElement = val; 
+        void setInstantiatedSceneElement( SceneElement* val )
+        {
+            mInstantiatedSceneElement = val;
         }
 
         /** Set the export flag on the current scene element. */
@@ -252,13 +252,13 @@ namespace COLLADAMaya
          */
         bool getHasJoint() { return mHasJoint; }
 
-        /** Set the skeletonId. It indicates where a skin 
-        controller is to start to search for the joint nodes 
+        /** Set the skeletonId. It indicates where a skin
+        controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
         const String getSkeletonId() const { return mSkeletonId; }
 
-        /** Set the skeletonId. It indicates where a skin 
-        controller is to start to search for the joint nodes 
+        /** Set the skeletonId. It indicates where a skin
+        controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
         void setSkeletonId( String& val ) { mSkeletonId = val; }
 

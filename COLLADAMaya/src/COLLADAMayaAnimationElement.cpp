@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -22,22 +22,23 @@ namespace COLLADAMaya
 {
 
     // ----------------------------------------------------------
-    AnimationElement::AnimationElement ( 
-        MPlug plug, 
+    AnimationElement::AnimationElement (
+        MPlug plug,
         const String& baseId,
-        const String& subId, 
+        const String& subId,
         const String& nodeId,
-        const String parameters[], 
+        const String parameters[],
         SampleType sampleType )
-    : mAnimatedCurves ( NULL )
-    , mPlug ( plug )
-    , mBaseId ( baseId )
-    , mTargetSid ( subId )
+    : mBaseId ( baseId )
     , mNodeId ( nodeId )
-    , mIsCompound ( false )
+    , mTargetSid ( subId )
+    , mPlug ( plug )
+    , mIsSampling ( false )
     , mParameters ( parameters )
     , mSampleType ( sampleType )
+    , mAnimatedCurves ( NULL )
     , mConversion ( NULL )
+    , mIsCompound ( false )
     , mIsRelativeAnimation ( false )
     , mArrayElement ( -1 )
     {}

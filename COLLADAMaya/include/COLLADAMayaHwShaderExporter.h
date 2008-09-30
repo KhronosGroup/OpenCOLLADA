@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -16,7 +16,7 @@
 #ifndef __COLLADA_MAYA_HW_SHADER_EXPORTER_H__
 #define __COLLADA_MAYA_HW_SHADER_EXPORTER_H__
 
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaDocumentExporter.h"
 
 #include "COLLADAParamBase.h"
@@ -57,7 +57,7 @@ namespace COLLADAMaya
 
         /** Export a hardware shader node. */
         void exportPluginHwShaderNode (
-            const String &effectId, 
+            const String &effectId,
             COLLADA::EffectProfile *effectProfile,
             MObject shadingNetwork );
 
@@ -83,24 +83,24 @@ namespace COLLADAMaya
         void exportSampler( const CGparameter& cgParameter );
 
         /** Export the current texture element. */
-        void exportTexture( 
-            const CGparameter& cgTextureParam, 
+        void exportTexture(
+            const CGparameter& cgTextureParam,
             const COLLADA::Surface::SurfaceType& surfaceType );
 
         /** Returns the type data of the current resource. */
-        void getResourceType( 
-            const CGparameter& cgTextureParam, 
-            COLLADA::Surface::SurfaceType &surfaceType, 
-            COLLADA::Sampler::SamplerType &samplerType, 
+        void getResourceType(
+            const CGparameter& cgTextureParam,
+            COLLADA::Surface::SurfaceType &surfaceType,
+            COLLADA::Sampler::SamplerType &samplerType,
             COLLADA::ValueType::ColladaType &samplerValueType );
 
         /** Exports the given parameter with all his annotations, the semantic and the given values. */
         template<class Type>
-        void exportParam ( 
-            const CGparameter& cgParameter, 
-            COLLADA::ParamBase *param, 
+        void exportParam (
+            const CGparameter& cgParameter,
+            COLLADA::ParamBase *param,
             const Type* paramValues,
-            const int numOfValues ); 
+            const int numOfValues );
 
         /** Exports the annotation data of the given parameter. */
         void exportAnnotations ( const CGparameter &cgParameter, COLLADA::ParamBase *param );

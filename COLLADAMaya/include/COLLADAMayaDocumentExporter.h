@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -16,7 +16,7 @@
 #ifndef __COLLADA_MAYA_DOCUMENT_EXPORTER_H__
 #define __COLLADA_MAYA_DOCUMENT_EXPORTER_H__
 
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAStreamWriter.h"
 #include "maya/MDistance.h"
 
@@ -240,7 +240,7 @@ namespace COLLADAMaya
         {
             return mLightExporter;
         }
-        
+
         /**
         * Returns a pointer to the camera exporter.
         * @return CameraExporter* Pointer to the light exporter

@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -16,7 +16,7 @@
 #ifndef __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 #define __COLLADA_MAYA_ANIMATION_EXPORTER_H__
 
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaDocumentExporter.h"
@@ -32,7 +32,7 @@
 
 namespace COLLADAMaya
 {
-	
+
     /**
      * Exports all animation data of the current scene.
      */
@@ -106,13 +106,13 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addNodeAnimation ( 
-            MObject &node, 
-            const String attrname, 
-            const uint sampleType, 
-            const String* parameters = EMPTY_PARAMETER, 
-            const int arrayElement = -1, 
-            const bool isRelativeAnimation = false, 
+        bool addNodeAnimation (
+            MObject &node,
+            const String attrname,
+            const uint sampleType,
+            const String* parameters = EMPTY_PARAMETER,
+            const int arrayElement = -1,
+            const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
 
         /**
@@ -129,14 +129,14 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addNodeAnimation ( 
+        bool addNodeAnimation (
             MObject& node,
             const String targetSubId,
             const String attrname,
             const uint sampleType,
             const String* parameters = EMPTY_PARAMETER,
-            const int arrayElement = -1, 
-            const bool isRelativeAnimation = false, 
+            const int arrayElement = -1,
+            const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
 
         /**
@@ -151,13 +151,13 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addPlugAnimation ( 
+        bool addPlugAnimation (
             MPlug& plug,
             const String targetSubId,
             const SampleType sampleType,
             const String* parameters = EMPTY_PARAMETER,
-            const int arrayElement = -1, 
-            const bool isRelativeAnimation = false, 
+            const int arrayElement = -1,
+            const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
 
         /**
@@ -172,13 +172,13 @@ namespace COLLADAMaya
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
          * @return True, if the element is animated.
          */
-        bool addPlugAnimation ( 
+        bool addPlugAnimation (
             MPlug& plug,
             const String targetSubId,
             const uint sampleType,
             const String* parameters = EMPTY_PARAMETER,
-            const int arrayElement = -1, 
-            const bool isRelativeAnimation = false, 
+            const int arrayElement = -1,
+            const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
 
     private:

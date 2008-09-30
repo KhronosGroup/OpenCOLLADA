@@ -7,15 +7,15 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 #ifndef __COLLADA_MAYA_CONVERSION_H__
 #define __COLLADA_MAYA_CONVERSION_H__
 
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 
 
 namespace COLLADAMaya
@@ -137,9 +137,9 @@ namespace COLLADAMaya
 
         FocalLengthConverter(float _aperture) { aperture = _aperture; }
 
-        virtual float operator() (float v) 
-        { 
-            return COLLADA::MathUtils::radToDegF ( 2.0f * atan(25.4f * aperture / 2.0f / v) ); 
+        virtual float operator() (float v)
+        {
+            return COLLADA::MathUtils::radToDegF ( 2.0f * atan(25.4f * aperture / 2.0f / v) );
         }
     };
 

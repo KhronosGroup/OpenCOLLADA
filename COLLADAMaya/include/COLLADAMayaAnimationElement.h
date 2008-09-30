@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -16,7 +16,7 @@
 #ifndef __COLLADA_MAYA_ANIMATED_ELEMENT_H__
 #define __COLLADA_MAYA_ANIMATED_ELEMENT_H__
 
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaConversion.h"
 
@@ -88,12 +88,12 @@ namespace COLLADAMaya
     public:
 
         /** Constructor */
-        AnimationElement ( 
-            MPlug plug, 
+        AnimationElement (
+            MPlug plug,
             const String& baseId,
-            const String& targetSid, 
+            const String& targetSid,
             const String& nodeId,
-            const String parameters[], 
+            const String parameters[],
             SampleType sampleType = kSingle );
         virtual ~AnimationElement();
 
@@ -205,27 +205,27 @@ namespace COLLADAMaya
         }
 
         /** Flag to indicate that the animation should be applied relative to the default value. */
-        const bool getIsRelativeAnimation() const 
-        { 
-            return mIsRelativeAnimation; 
+        const bool getIsRelativeAnimation() const
+        {
+            return mIsRelativeAnimation;
         }
 
         /** Flag to indicate that the animation should be applied relative to the default value. */
-        void setIsRelativeAnimation( bool val ) 
-        { 
-            mIsRelativeAnimation = val; 
+        void setIsRelativeAnimation( bool val )
+        {
+            mIsRelativeAnimation = val;
         }
 
         /** The array element of the animated value. */
-        const int getArrayElement() const 
-        { 
-            return mArrayElement; 
+        const int getArrayElement() const
+        {
+            return mArrayElement;
         }
 
         /** The array element of the animated value. */
-        void setArrayElement ( int val ) 
-        { 
-            mArrayElement = val; 
+        void setArrayElement ( int val )
+        {
+            mArrayElement = val;
         }
     };
 

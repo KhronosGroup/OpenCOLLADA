@@ -8,7 +8,7 @@
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -34,7 +34,7 @@ namespace COLLADAMaya
         MEulerRotation rotation;
 
         /** The rotation matrix to generate, depending on the rotation order. */
-        std::vector< std::vector<double> > rotationMatrix; 
+        std::vector< std::vector<double> > rotationMatrix;
 
         /** The vector with the rotation parameters in the rotation order. */
         std::vector<String> rotationParameters;
@@ -51,9 +51,9 @@ namespace COLLADAMaya
          * Returns the rotation vector (2x3 matrix).
          * @return std::vector< std::vector<double>>&
          */
-        std::vector< std::vector<double>>& getRotationMatrix () 
-        { 
-            return rotationMatrix; 
+        std::vector < std::vector < double > >& getRotationMatrix ()
+        {
+            return rotationMatrix;
         }
 
         /**

@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -16,7 +16,7 @@
 #ifndef __COLLADA_MAYA_ANIMATION_CURVES_H__
 #define __COLLADA_MAYA_ANIMATION_CURVES_H__
 
-#include "ColladaMayaPrerequisites.h"
+#include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaAnimationElement.h"
 #include "COLLADAMayaAnimationKeys.h"
 #include "COLLADAMayaTangentPoint.h"
@@ -43,7 +43,7 @@ namespace COLLADAMaya
     protected:
 
         /** List of keys. */
-        typedef std::vector<T*> KeyList;
+        typedef typename std::vector<T*> KeyList;
 
         // Curve information
         KeyList mKeys;
@@ -70,17 +70,17 @@ namespace COLLADAMaya
         /** The parameters of the current curve. */
         String* mParameters;
 
-        /** 
+        /**
           * The index of the current curve in the list of curve elements.
-          * Needed to detect the correct parameter. 
+          * Needed to detect the correct parameter.
           */
         uint mCurveIndex;
 
-        /** 
-          * The animCurve is considered to be static if it would return 
-          * the same value regardless of the evaluation time. 
-          * This basically means that the values of all the keys are 
-          * the same and the y component of all the tangents is 0.  
+        /**
+          * The animCurve is considered to be static if it would return
+          * the same value regardless of the evaluation time.
+          * This basically means that the values of all the keys are
+          * the same and the y component of all the tangents is 0.
           */
         bool mIsStatic;
 
@@ -250,44 +250,44 @@ namespace COLLADAMaya
             mCurveIndex = curveIndex;
         }
 
-        /** 
-        * The animCurve is considered to be static if it would return 
-        * the same value regardless of the evaluation time. 
-        * This basically means that the values of all the keys are 
-        * the same and the y component of all the tangents is 0.  
+        /**
+        * The animCurve is considered to be static if it would return
+        * the same value regardless of the evaluation time.
+        * This basically means that the values of all the keys are
+        * the same and the y component of all the tangents is 0.
         */
         const bool getIsStatic() const { return mIsStatic; }
 
-        /** 
-        * The animCurve is considered to be static if it would return 
-        * the same value regardless of the evaluation time. 
-        * This basically means that the values of all the keys are 
-        * the same and the y component of all the tangents is 0.  
+        /**
+        * The animCurve is considered to be static if it would return
+        * the same value regardless of the evaluation time.
+        * This basically means that the values of all the keys are
+        * the same and the y component of all the tangents is 0.
         */
         void setIsStatic( bool val ) { mIsStatic = val; }
 
         /** The array element of the animated value. */
-        const int getArrayElement() const 
-        { 
-            return mParent->getArrayElement(); 
+        const int getArrayElement() const
+        {
+            return mParent->getArrayElement();
         }
 
     protected:
 
         BaseAnimationCurve ( const AnimationElement* parent,
                              const String& baseId,
-                             const uint dimension = -1 )
+                             const uint dimension = 0 )
                 : mParent ( parent )
-                , mBaseId ( baseId )
-                , mCurveIndex ( 0 )
                 , mDimension ( dimension )
+                , mBaseId ( baseId )
                 , mHasTangents ( false )
                 , mHasTCB ( false )
                 , mParameters ( NULL )
+                , mCurveIndex ( 0 )
                 , mIsStatic ( false )
         {
             // Set the parenting dimension as default
-            if ( dimension==-1 ) mDimension = parent->getDimension();
+            if ( dimension==0 ) mDimension = parent->getDimension();
         }
 
         /** Destructor */
@@ -326,9 +326,6 @@ namespace COLLADAMaya
 
     };
 
-    /** Animation curve list */
-    typedef std::vector<BaseAnimationCurve*> BaseAnimationCurveList;
-
 
     // --------------------------------------------------
     template<class T>
@@ -336,7 +333,7 @@ namespace COLLADAMaya
     {
         mParent = NULL;
 
-        KeyList::iterator it = mKeys.begin();
+        typename KeyList::iterator it = mKeys.begin();
 
         for ( ; it!=mKeys.end(); ++it )
         {
@@ -355,7 +352,7 @@ namespace COLLADAMaya
     template<class T>
     T* BaseAnimationCurve<T>::getKey ( size_t index ) const
     {
-        if ( mKeys.size() < index ) 
+        if ( mKeys.size() < index )
             MGlobal::displayError ( MString ( "Key index not valid! "  + index ) );
 
         return mKeys[index];
@@ -368,7 +365,7 @@ namespace COLLADAMaya
     * @return void
     */
     template<class T>
-    void BaseAnimationCurve<T>::setKeyCount ( 
+    void BaseAnimationCurve<T>::setKeyCount (
         size_t count,
         COLLADA::LibraryAnimations::InterpolationType interpolation )
     {
@@ -389,7 +386,7 @@ namespace COLLADAMaya
 
     // ---------------------------------------------------
     template<class T>
-    void BaseAnimationCurve<T>::computeTCBTangent ( 
+    void BaseAnimationCurve<T>::computeTCBTangent (
         const AnimationKey* previousKey,
         const AnimationKey* currentKey,
         const AnimationKey* nextKey,

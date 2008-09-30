@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -18,7 +18,7 @@
 
 namespace COLLADAMaya
 {
-    
+
     //---------------------------------------------------------------
     AnimationClipExporter::AnimationClipExporter ( COLLADA::StreamWriter* _streamWriter )
             : COLLADA::LibraryAnimationClips ( _streamWriter )
