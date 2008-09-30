@@ -335,8 +335,7 @@ namespace COLLADAMaya
         // Diffuse color
         targetSid = targetPath + ATTR_COLOR;
         ConversionFunctor* conversion = new ConversionScaleFunctor ( matFn.diffuseCoeff() );
-        animated = animationExporter->addNodeAnimation ( 
-            shadingNetwork, targetSid, ATTR_COLOR, kColour, EMPTY_PARAMETER, -1, false, conversion );
+        animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, ATTR_COLOR, kColour, EMPTY_PARAMETER, -1, false, conversion );
         effectProfile->setDiffuse ( mayaColor2ColorOrTexture ( matFn.color(), matFn.diffuseCoeff() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shadingNetwork, 
             ATTR_COLOR, EffectExporter::DIFFUSE, nextTextureIndex, animated );
@@ -360,8 +359,7 @@ namespace COLLADAMaya
             if ( effectProfile->getShaderType() != COLLADA::EffectProfile::LAMBERT )
             {
                 targetSid = targetPath + ATTR_SPECULAR_COLOR;
-                animated = animationExporter->addNodeAnimation ( 
-                    shadingNetwork, targetSid, ATTR_SPECULAR_COLOR, kColour );
+                animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, ATTR_SPECULAR_COLOR, kColour );
                 effectProfile->setSpecular ( mayaColor2ColorOrTexture ( reflectFn.specularColor() ), animated );
                 exportTexturedParameter ( effectId, effectProfile, shadingNetwork, 
                     ATTR_SPECULAR_COLOR, EffectExporter::SPECULAR, nextTextureIndex, animated );
@@ -405,8 +403,7 @@ namespace COLLADAMaya
             BlinnEccentricityToShininess* converter = new BlinnEccentricityToShininess();
             double shininess = ( *converter ) ( blinnFn.eccentricity() );
             targetSid = targetPath + ATTR_ECCENTRICITY;
-            animated = animationExporter->addNodeAnimation ( 
-                shadingNetwork, targetSid, ATTR_ECCENTRICITY, kSingle, EMPTY_PARAMETER, -1, false, converter );
+            animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, ATTR_ECCENTRICITY, kSingle, EMPTY_PARAMETER, -1, false, converter );
             effectProfile->setShininess ( shininess, animated );
             delete converter;
 #else
@@ -660,25 +657,13 @@ namespace COLLADAMaya
                 {
                     // TODO Test
                     String targetSubId = targetPath + ATTR_ALPHA_GAIN;
-                    animationExporter->addNodeAnimation ( 
-                        transparentTextureNode, 
-                        targetSubId, 
-                        ATTR_ALPHA_GAIN, 
-                        kSingle );
+                    animationExporter->addNodeAnimation ( transparentTextureNode, targetSubId, ATTR_ALPHA_GAIN, kSingle );
                 }
                 else
                 {
                     // TODO Test
                     String targetSubId = targetPath + ATTR_ALPHA_OFFSET;
-                    animationExporter->addNodeAnimation ( 
-                        transparentTextureNode, 
-                        targetSubId, 
-                        ATTR_ALPHA_OFFSET, 
-                        kSingle, 
-                        EMPTY_PARAMETER, 
-                        -1, 
-                        false, 
-                        new ConversionOffsetFunctor ( 1.0f ) );
+                    animationExporter->addNodeAnimation ( transparentTextureNode, targetSubId, ATTR_ALPHA_OFFSET, kSingle, EMPTY_PARAMETER, -1, false, new ConversionOffsetFunctor ( 1.0f ) );
                 }
             }
         }

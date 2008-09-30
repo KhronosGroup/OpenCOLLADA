@@ -108,8 +108,8 @@ namespace COLLADAMaya
          */
         bool addNodeAnimation (
             MObject &node,
-            const String attrname,
-            const uint sampleType,
+            const String& attrname,
+            const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
@@ -131,9 +131,9 @@ namespace COLLADAMaya
          */
         bool addNodeAnimation (
             MObject& node,
-            const String targetSubId,
-            const String attrname,
-            const uint sampleType,
+            const String& targetSubId,
+            const String& attrname,
+            const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
@@ -153,8 +153,8 @@ namespace COLLADAMaya
          */
         bool addPlugAnimation (
             MPlug& plug,
-            const String targetSubId,
-            const SampleType sampleType,
+            const String& targetSubId,
+            const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
@@ -174,7 +174,7 @@ namespace COLLADAMaya
          */
         bool addPlugAnimation (
             MPlug& plug,
-            const String targetSubId,
+            const String& targetSubId,
             const uint sampleType,
             const String* parameters = EMPTY_PARAMETER,
             const int arrayElement = -1,

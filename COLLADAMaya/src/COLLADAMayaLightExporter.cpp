@@ -178,13 +178,13 @@ namespace COLLADAMaya
             MFnSpotLight spotFn(lightNode);
 
             float fallOffAngle = COLLADA::MathUtils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_MSTATUS(status);
-            animated = anim->addNodeAnimation ( lightNode, ATTR_CONE_ANGLE, kSingle | kAngle );
+            animated = anim->addNodeAnimation ( lightNode, ATTR_CONE_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             light->setFallOffAngle ( fallOffAngle, animated );
 
             light->setFallOffExponent ( 1.0f );
 
             float penumbraValue = COLLADA::MathUtils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_MSTATUS(status);
-            animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, kSingle | kAngle );
+            animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             // TODO
 //            FCDLightTools::LoadPenumbra(light, penumbraValue, colladaLight->GetOuterAngle().GetAnimated());
 

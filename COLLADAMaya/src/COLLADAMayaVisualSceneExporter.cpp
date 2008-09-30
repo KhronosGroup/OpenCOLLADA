@@ -624,8 +624,7 @@ namespace COLLADAMaya
             if ( animation )
             {
                 AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                animationExporter->addNodeAnimation ( 
-                    mDagPath.node(), ATTR_TRANSLATE, name, kVector | kLength, XYZ_PARAMETERS );
+                animationExporter->addNodeAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, ( SampleType ) ( kVector | kLength ), XYZ_PARAMETERS );
             }
         }
     }
@@ -655,11 +654,7 @@ namespace COLLADAMaya
         for ( uint i=0; i<3; ++i )
         {
             // Add the animation in the order XYZ
-            isAnimated[i] = animationExporter->addNodeAnimation (
-                mTransformObject,
-                name + rotateParams[i],
-                kSingle | kQualifiedAngle,
-                ANGLE_PARAMETER );
+            isAnimated[i] = animationExporter->addNodeAnimation ( mTransformObject, name + rotateParams[i], ( SampleType ) ( kSingle | kQualifiedAngle ), ANGLE_PARAMETER );
         }
 
         // Go through the axes for the rotations.
