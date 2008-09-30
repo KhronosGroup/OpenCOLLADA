@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -44,9 +44,9 @@ namespace COLLADA
 
         /** Constructor
         @param streamWriter The stream the asset should be written to.*/
-        ParamBase ( 
-            StreamWriter* streamWriter, 
-            const String& paramName=CSWC::COLLADA_ELEMENT_PARAM, 
+        ParamBase (
+            StreamWriter* streamWriter,
+            const String* paramName=&CSWC::COLLADA_ELEMENT_PARAM,
             const ValueType::ColladaType& paramType=ValueType::VALUE_TYPE_UNSPECIFIED );
 
         /** Destructor*/
@@ -57,6 +57,9 @@ namespace COLLADA
 
         /** Set the current param name. */
         void setParamName ( const String& paramName );
+
+        /** Returns the name of the current parameter. */
+        const String& getParamName () const { return mParamName; }
 
         /** Opens the current param element. */
         virtual void openParam ( const String& refe="" );
@@ -69,9 +72,9 @@ namespace COLLADA
 
         /** Adds a annotation to the param. */
         template <class T>
-        void addAnnotation ( 
-            const String &name, 
-            const ValueType::ColladaType &valueType, 
+        void addAnnotation (
+            const String &name,
+            const ValueType::ColladaType &valueType,
             const T val )
         {
             COLLADA::Annotation annotation ( mSW );
@@ -84,10 +87,10 @@ namespace COLLADA
 
         /** Adds a annotation to the param. */
         template <class T>
-        void addAnnotation ( 
-            const String &name, 
-            const ValueType::ColladaType &valueType, 
-            const T val, 
+        void addAnnotation (
+            const String &name,
+            const ValueType::ColladaType &valueType,
+            const T val,
             const int nval )
         {
             COLLADA::Annotation annotation ( mSW );
@@ -151,6 +154,15 @@ namespace COLLADA
         * @param closeSourceElement false, if we want to add some extra tags and close the element later.
         */
         void closeParam ();
+
+    protected:
+
+    	/** Returns the closer tag for the current parameter. */
+    	TagCloser& getParamCloser () { return mParamCloser; }
+
+    	/** Set the current tag closer. */
+    	void setParamCloser ( const TagCloser& tagCloser ) { mParamCloser = tagCloser; }
+
     };
 
 } //namespace COLLADA

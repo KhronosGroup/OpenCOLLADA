@@ -4,7 +4,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -24,12 +24,12 @@ namespace COLLADA
 	* The @c URI is a simple class designed to aid in the parsing and resolution
 	* of URI references inside COLLADA elements.
 	* A @c URI is created for every @c anyURL and @c IDREF in the COLLADA schema.
-	* For example, the <instance> element has the url= attribute of type @c anyURL, and the 
+	* For example, the <instance> element has the url= attribute of type @c anyURL, and the
 	* <controller> element has the target= attribute of type @c IDREF.
 	* The @c URI class contains a URI string; the @c set() method breaks the string into
 	* its components including scheme, authority, path (directory), and fragment.
 	* It also has the capability to attempt to resolve this reference
-	* into a @c daeElement, through the method @c resolveElement().  
+	* into a @c daeElement, through the method @c resolveElement().
 	* If a @c URI is stored within a @c daeElement, it fills
 	* its container field to point to the containing element.
 	*
@@ -38,14 +38,14 @@ namespace COLLADA
 	*
 	* URIs are resolved hierarchically, where each URI is resolved based on
 	* the following criteria via itself and its element's base URI, which represents the
-	* URI of the document that contains the element, retrieved by 
+	* URI of the document that contains the element, retrieved by
 	* <tt>daeElement::getBaseURI().</tt>
 	* If no base URI is provided, then the application URI
 	* is used as a base.
 	*
 	* The URI resolution order for the COLLADA DOM is as follows:
 	* - Absolute URI is specified (see definition below):
-	*   The URI ignores its parent/base URI when validating. 
+	*   The URI ignores its parent/base URI when validating.
 	* - Relative URI is specified:
 	*   The URI uses the base URI to provide the scheme, authority, and base path.
 	*    This URI's path is appended to the path given the the base URI.
@@ -54,10 +54,10 @@ namespace COLLADA
 	*    containing file until the top level is reached.  Then the application URI
 	*    is used as the default.
 	*
-	* <b>Definition of Absolute URI:</b>  
+	* <b>Definition of Absolute URI:</b>
 	* For the purposes of the COLLADA DOM, a URI is considered absolute
 	* if it starts by specifying a scheme.
-	* For example, 
+	* For example,
 	* - file:///c:/data/foo.dae#myScene is an absolute URI.
 	* - foo.dae#myScene is relative.
 	* - foo.dae is a top-level file reference and is relative.
@@ -143,12 +143,12 @@ namespace COLLADA
 		*/
 		URI(const String& URIString, bool nofrag = false);
 
-		/** Constructs an URI of the form: 
+		/** Constructs an URI of the form:
 		[@a resource][#@a fragment]. At least one of the parts must not be empty to create a valid URI.*/
 		URI ( const String& path, const String& fragment );
 
 		/**
-		* Constructs a URI object using a <tt><i>baseURI</i></tt> and a <tt><i>mUriString.</i></tt> 
+		* Constructs a URI object using a <tt><i>baseURI</i></tt> and a <tt><i>mUriString.</i></tt>
 		* Calls set(URIString), and @c validate(baseURI).
 		* @param baseURI Base URI to resolve against.
 		* @param URIString String designating this URI.
@@ -156,7 +156,7 @@ namespace COLLADA
 		URI(const URI& baseURI, const String& URIString);
 
 		/**
-		* Constructs a URI object based on a simple copy from an existing @c URI. 
+		* Constructs a URI object based on a simple copy from an existing @c URI.
 		* @param constructFromURI  URI to copy into this one.
 		*/
 		URI(const URI& constructFromURI);
@@ -322,7 +322,7 @@ namespace COLLADA
 		void initialize();
 
 		/** Parses @a path and splits it in its components.*/
-		static void URI::parsePath(const String& path,
+		static void parsePath(const String& path,
 			/* out */ String& dir,
 			/* out */ String& baseName,
 			/* out */ String& extension);

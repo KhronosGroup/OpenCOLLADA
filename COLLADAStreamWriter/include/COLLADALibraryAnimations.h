@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -15,7 +15,7 @@
 #include "COLLADAPrerequisites.h"
 #include "COLLADALibrary.h"
 #include "COLLADAInputList.h"
-#include "COLLADAUri.h"
+#include "COLLADAURI.h"
 
 #include <vector>
 #include <list>
@@ -86,12 +86,12 @@ namespace COLLADA
             typedef std::vector<Input>  InputList;
 
         private:
+
             /** The id of the sampler*/
             String mId;
 
             /** The list of inputs of the sampler*/
             InputList mInputList;
-
 
         public:
             /** Constructor
@@ -116,7 +116,6 @@ namespace COLLADA
 
             /** Returns the element name of the given type semantic. */
             static const String& getElementNameBySemantic ( Semantic semantic );
-
 
         };
 

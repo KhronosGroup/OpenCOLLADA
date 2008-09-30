@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -23,7 +23,7 @@ namespace COLLADA
 {
 
     /** A class to add a param to the stream.*/
-    template < const String& paramName, class ClassType, ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
+    template < const String* paramName, class ClassType, ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
     class BaseParamTemplate : public ParamBase
     {
 
@@ -31,21 +31,23 @@ namespace COLLADA
 
         /** Constructor
         @param streamWriter The stream the asset should be written to.*/
-        BaseParamTemplate ( StreamWriter* streamWriter ) 
-        : ParamBase ( streamWriter, paramName, paramType ) {}
+        BaseParamTemplate ( StreamWriter* streamWriter )
+        : ParamBase ( streamWriter, paramName, paramType )
+        {}
 
         /** Destructor*/
         virtual ~BaseParamTemplate() {}
+
     };
 
     /** A class to add a <newparam> to the stream.*/
     template < class Type, const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
-    class NewParam : public BaseParamTemplate < CSWC::COLLADA_ELEMENT_NEWPARAM, Type, paramType >
+    class NewParam : public BaseParamTemplate < &CSWC::COLLADA_ELEMENT_NEWPARAM, Type, paramType >
     {
     public:
 
-        /** Provides additional information about the volatility or linkage of 
-        a <newparam> declaration. Allows COLLADA FX parameter declarations to 
+        /** Provides additional information about the volatility or linkage of
+        a <newparam> declaration. Allows COLLADA FX parameter declarations to
         specify constant, external, or uniform parameters. */
         enum Modifier
         {
@@ -62,29 +64,31 @@ namespace COLLADA
 
         /** Constructor
         @param streamWriter The stream the asset should be written to.*/
-        NewParam ( StreamWriter* streamWriter ) : BaseParamTemplate ( streamWriter ) {}
+        NewParam ( StreamWriter* streamWriter )
+        : BaseParamTemplate < &CSWC::COLLADA_ELEMENT_NEWPARAM, Type, paramType > ( streamWriter )
+        {}
 
         /** Destructor*/
         virtual ~NewParam() {}
 
-        /** 
-        Opens the param element and set the attributes. 
+        /**
+        Opens the param element and set the attributes.
         @param sid Identifier for this parameter (that is, the variable name). Required.
         */
         virtual void openParam ( const String& sid )
         {
-            mParamCloser = mSW->openElement ( mParamName );
-            
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, sid );
+        	this->mParamCloser = this->mSW->openElement ( this->mParamName );
+
+            this->mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, sid );
         }
 
-        /** Allows COLLADA FX parameter declarations to specify constant, 
+        /** Allows COLLADA FX parameter declarations to specify constant,
         external, or uniform parameters. */
         void addModifier ( const Modifier& modifier )
         {
-            mSW->openElement ( CSWC::COLLADA_ELEMENT_MODIFIER );
-            mSW->appendValues ( getModifierString ( modifier ) );
-            mSW->closeElement ();
+        	this->mSW->openElement ( CSWC::COLLADA_ELEMENT_MODIFIER );
+        	this->mSW->appendValues ( getModifierString ( modifier ) );
+        	this->mSW->closeElement ();
         }
 
     private:
@@ -94,13 +98,13 @@ namespace COLLADA
         {
             switch ( modifier )
             {
-            case Modifier::MODI_CONST: return CSWC::COLLADA_MODIFIER_CONST;
-            case Modifier::MODI_UNIFORM: return CSWC::COLLADA_MODIFIER_UNIFORM;
-            case Modifier::MODI_VARYING: return CSWC::COLLADA_MODIFIER_VARYING;
-            case Modifier::MODI_STATIC: return CSWC::COLLADA_MODIFIER_STATIC;
-            case Modifier::MODI_VOLATILE: return CSWC::COLLADA_MODIFIER_VOLATILE;
-            case Modifier::MODI_EXTERN: return CSWC::COLLADA_MODIFIER_EXTERN;
-            case Modifier::MODI_SHARED: return CSWC::COLLADA_MODIFIER_SHARED;
+            case MODI_CONST: return CSWC::COLLADA_MODIFIER_CONST;
+            case MODI_UNIFORM: return CSWC::COLLADA_MODIFIER_UNIFORM;
+            case MODI_VARYING: return CSWC::COLLADA_MODIFIER_VARYING;
+            case MODI_STATIC: return CSWC::COLLADA_MODIFIER_STATIC;
+            case MODI_VOLATILE: return CSWC::COLLADA_MODIFIER_VOLATILE;
+            case MODI_EXTERN: return CSWC::COLLADA_MODIFIER_EXTERN;
+            case MODI_SHARED: return CSWC::COLLADA_MODIFIER_SHARED;
             default: return CSWC::EMPTY_STRING;
             }
         }
@@ -119,34 +123,36 @@ namespace COLLADA
     typedef NewParam < Sampler > NewParamSampler;
 
     /** A class to add a <setparam> to the stream.*/
-    template<class Type, const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED>
-    class SetParam : public BaseParamTemplate<CSWC::COLLADA_ELEMENT_SETPARAM, Type, paramType>
+    template < class Type, const ValueType::ColladaType paramType=ValueType::VALUE_TYPE_UNSPECIFIED >
+    class SetParam : public BaseParamTemplate < &CSWC::COLLADA_ELEMENT_SETPARAM, Type, paramType >
     {
 
     public:
 
         /** Constructor
         @param streamWriter The stream the asset should be written to.*/
-        SetParam ( StreamWriter* streamWriter ) : BaseParamTemplate ( streamWriter ) {}
+        SetParam ( StreamWriter* streamWriter )
+        : BaseParamTemplate < &CSWC::COLLADA_ELEMENT_SETPARAM, Type, paramType > ( streamWriter )
+        {}
 
         /** Destructor*/
         virtual ~SetParam() {}
 
-        /** 
-        Opens the param element and set the attributes. 
-        @param refe Attempts to reference the predefined parameter that will 
+        /**
+        Opens the param element and set the attributes.
+        @param refe Attempts to reference the predefined parameter that will
                         have its value set. Required.
-        @param program Optional in <usertype> and in <technique> for GLSL and 
-                        CG profiles; not valid in GLES profile, <generator>, or 
+        @param program Optional in <usertype> and in <technique> for GLSL and
+                        CG profiles; not valid in GLES profile, <generator>, or
                         <instance_effect>.
          */
         void openParam ( const String& refe, const String& program = "" )
         {
-            mParamCloser = mSW->openElement ( mParamName );
-            mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_REF, refe );
+            this->mParamCloser = this->mSW->openElement ( this->mParamName );
+            this->mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_REF, refe );
 
             if ( !program.empty() )
-                mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_PROGRAM, program );
+            	this->mSW->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_PROGRAM, program );
         }
 
     };

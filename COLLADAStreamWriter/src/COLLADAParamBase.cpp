@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -14,12 +14,12 @@ namespace COLLADA
 {
 
     // -----------------------------
-    ParamBase::ParamBase( 
-        StreamWriter* streamWriter, 
-        const String& paramName/*=CSWC::COLLADA_ELEMENT_PARAM*/, 
-        const ValueType::ColladaType& paramType/*=ValueType::UNKNOWN */ ) 
-        : ElementWriter ( streamWriter ) 
-        , mParamName ( paramName )
+    ParamBase::ParamBase(
+        StreamWriter* streamWriter,
+        const String* paramName/*=&CSWC::COLLADA_ELEMENT_PARAM*/,
+        const ValueType::ColladaType& paramType/*=ValueType::UNKNOWN */ )
+        : ElementWriter ( streamWriter )
+        , mParamName ( *paramName )
         , mParamType ( paramType )
         , mValueElementIsOpen ( false )
     {
@@ -65,7 +65,7 @@ namespace COLLADA
     // -----------------------------
     void ParamBase::closeValuesElement()
     {
-        if ( mValueElementIsOpen ) 
+        if ( mValueElementIsOpen )
         {
             mSW->closeElement ();
             mValueElementIsOpen = false;

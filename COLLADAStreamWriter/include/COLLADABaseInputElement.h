@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -63,12 +63,11 @@ namespace COLLADA
     class BaseInputElementTemplate : public BaseInputElement
     {
     public:
-        BaseInputElementTemplate ( StreamWriter* streamWriter ) 
+        BaseInputElementTemplate ( StreamWriter* streamWriter )
             : BaseInputElement( streamWriter, elementName ) {};
     };
 
     //---------------------------------------------------------------
-
     /** Vertices input element for the geometry. */
     typedef BaseInputElementTemplate<CSWC::COLLADA_ELEMENT_VERTICES> VerticesElement;
 

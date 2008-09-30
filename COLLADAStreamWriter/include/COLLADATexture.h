@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -46,7 +46,7 @@ namespace COLLADA
         /** The name of the profile, if we want to add the texture as an extra technique tag. */
         String mProfileName;
 
-        /** The name of the child element, if we have set a profile name and we want 
+        /** The name of the child element, if we have set a profile name and we want
         to add the texture as an extra technique tag under a child element.*/
         String mChildElementName;
 
@@ -71,10 +71,10 @@ namespace COLLADA
         const String& getTexcoord() const;
 
         /** Returns the image ID*/
-        const String& getImageID() const;;
+        const String& getImageID() const;
 
         /** Returns the image ID*/
-        const String& getImageId() const;;
+        const String& getImageId() const;
 
         void setImageId ( String imageId );
 
@@ -108,20 +108,20 @@ namespace COLLADA
         * Get the name of the profile, if we want to add the texture as an extra technique tag.
         * @return mProfileName Name of the extra technique profile.
         */
-        const String& getProfileName() const { return mProfileName; } 
+        const String& getProfileName() const { return mProfileName; }
 
         /**
-        * Set the name of the child element, if we have set a profile name and we want 
+        * Set the name of the child element, if we have set a profile name and we want
         * to add the texture as an extra technique tag under a child element.
         * @param childElementName Name of the child element.
         */
         void setChildElementName(const String& childElementName)  { mChildElementName = childElementName; }
         /**
-        * Get the name of the child element, if we have set a profile name and we want 
+        * Get the name of the child element, if we have set a profile name and we want
         * to add the texture as an extra technique tag under a child element.
         * @return childElementName Name of the child element.
         */
-        const String& getChildElementName() const { return mChildElementName; } 
+        const String& getChildElementName() const { return mChildElementName; }
 
     };
 

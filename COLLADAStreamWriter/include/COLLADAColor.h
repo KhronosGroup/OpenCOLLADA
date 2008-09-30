@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -22,13 +22,14 @@ namespace COLLADA
 
     private:
 
-        String mSid;
         double mR;
         double mG;
         double mB;
         double mA;
+        String mSid;
 
     public:
+
         Color ( double r, double g, double b, double a, String sid="" )
             : mR ( r ), mG ( g ), mB ( b ), mA ( a ), mSid ( sid ) {}
 

@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -117,6 +117,9 @@ namespace COLLADA
         case Z_UP :
             mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_UP_AXIS, CSWC::COLLADA_TEXT_Z_UP );
             break;
+
+        default:
+            mSW->appendTextElement ( CSWC::COLLADA_ELEMENT_UP_AXIS, CSWC::COLLADA_TEXT_Z_UP );
         }
 
         asset.close();

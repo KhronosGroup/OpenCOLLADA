@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -52,7 +52,7 @@ namespace COLLADA
         TagCloser & operator= ( const TagCloser & other );
 
     private:
-        friend StreamWriter;
+        friend class StreamWriter;
         TagCloser ( StreamWriter * streamWriter );
 
         inline void increaseOpenElements()
@@ -243,7 +243,7 @@ namespace COLLADA
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
             String searchString = "%";
             size_t found = str.find ( searchString );
-            if ( found != String::npos ) 
+            if ( found != String::npos )
             {
                 String strCopy ( str );
                 String replaceString = "%%";
@@ -259,7 +259,7 @@ namespace COLLADA
 #endif
         }
 
-        /** Adds the string @a str to the stream. 
+        /** Adds the string @a str to the stream.
             The string have to be a valid ncname. */
         inline void appendNCNameString ( const String & str )
         {
@@ -424,11 +424,11 @@ namespace COLLADA
 
         char *mBuffer; // 2MB Puffer!!
 
-		static const int BUFFERSIZE; 
+		static const int BUFFERSIZE;
 
         static const String mWhiteSpaceString;
 
-        friend TagCloser;
+        friend class TagCloser;
 
         typedef std::list<TagCloser*> TagCloserList;
         TagCloserList mTagClosers;

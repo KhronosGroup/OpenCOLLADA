@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -12,11 +12,11 @@
 
 namespace COLLADA
 {
-    
+
     const String Sampler::SAMPLER_SID_SUFFIX = "-sampler";
 
     //-------------------------------
-    Sampler::Sampler ( const SamplerType& samplerType, const String& source ) 
+    Sampler::Sampler ( const SamplerType& samplerType, const String& source )
         : BaseExtraTechnique()
         , mSamplerType ( samplerType )
         , mSource ( source )
@@ -61,7 +61,7 @@ namespace COLLADA
         case Sampler::SAMPLER_TYPE_STATE:
             mWrap_s = Sampler::WRAP_MODE_WRAP;
             mWrap_t = Sampler::WRAP_MODE_WRAP;
-            mMipmapMaxlevel = 255; 
+            mMipmapMaxlevel = 255;
             break;
         case Sampler::SAMPLER_TYPE_3D:
         case Sampler::SAMPLER_TYPE_CUBE:
@@ -69,7 +69,7 @@ namespace COLLADA
             mWrap_s = Sampler::WRAP_MODE_WRAP;
             mWrap_t = Sampler::WRAP_MODE_WRAP;
             mWrap_p = Sampler::WRAP_MODE_WRAP;
-            mMipmapMaxlevel = 255; 
+            mMipmapMaxlevel = 255;
             break;
         case Sampler::SAMPLER_TYPE_DEPTH:
             mWrap_s = Sampler::WRAP_MODE_WRAP;
@@ -119,19 +119,19 @@ namespace COLLADA
     //-------------------------------
     const Sampler::WrapMode& Sampler::getWrapS() const
     {
-        return ( WrapMode ) mWrap_s;
+        return mWrap_s;
     }
 
     //-------------------------------
     const Sampler::WrapMode& Sampler::getWrapT() const
     {
-        return ( WrapMode ) mWrap_t;    /**< See above.*/
+        return mWrap_t;    /**< See above.*/
     }
 
     //-------------------------------
     const Sampler::WrapMode& Sampler::getWrapP() const
     {
-        return ( WrapMode ) mWrap_p;    /**< See above.*/
+        return mWrap_p;    /**< See above.*/
     }
 
     //-------------------------------
@@ -206,15 +206,15 @@ namespace COLLADA
     {
         switch ( samplerType )
         {
-        case Sampler::SAMPLER_TYPE_1D: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_1D; 
-        case Sampler::SAMPLER_TYPE_2D: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_2D; 
+        case Sampler::SAMPLER_TYPE_1D: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_1D;
+        case Sampler::SAMPLER_TYPE_2D: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_2D;
         case Sampler::SAMPLER_TYPE_3D: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_3D;
-        case Sampler::SAMPLER_TYPE_CUBE: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_CUBE; 
-        case Sampler::SAMPLER_TYPE_DEPTH: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_DEPTH; 
-        case Sampler::SAMPLER_TYPE_RECT: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_RECT; 
-        case Sampler::SAMPLER_TYPE_STATE: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_STATE; 
-        case Sampler::SAMPLER_TYPE_UNSPECIFIED: 
-        default: return CSWC::EMPTY_STRING; 
+        case Sampler::SAMPLER_TYPE_CUBE: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_CUBE;
+        case Sampler::SAMPLER_TYPE_DEPTH: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_DEPTH;
+        case Sampler::SAMPLER_TYPE_RECT: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_RECT;
+        case Sampler::SAMPLER_TYPE_STATE: return CSWC::COLLADA_VALUE_TYPE_SAMPLER_STATE;
+        case Sampler::SAMPLER_TYPE_UNSPECIFIED:
+        default: return CSWC::EMPTY_STRING;
         }
     }
 
@@ -296,10 +296,10 @@ namespace COLLADA
         }
 
         bool writeMipMapLevel = false;
-        if ( mMipmapMaxlevel != 0 && 
+        if ( mMipmapMaxlevel != 0 &&
             ( mSamplerType == SAMPLER_TYPE_1D || mSamplerType == SAMPLER_TYPE_DEPTH ) )
             writeMipMapLevel = true;
-        if ( mMipmapMaxlevel != 255 && 
+        if ( mMipmapMaxlevel != 255 &&
             ( mSamplerType != SAMPLER_TYPE_1D || mSamplerType != SAMPLER_TYPE_DEPTH || mSamplerType != SAMPLER_TYPE_UNSPECIFIED ) )
             writeMipMapLevel = true;
         if ( writeMipMapLevel )

@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -22,7 +22,19 @@ namespace COLLADA
     class Vertices : public ElementWriter
     {
 
+    private:
+
+        /** List of all the inputs*/
+        InputList mInputList;
+
+    	/** The id of the vertex element*/
+        String mNodeId;
+
+        /** The name of the vertex node*/
+        String mNodeName;
+
     public:
+
         Vertices ( StreamWriter* streamWriter )
                 : ElementWriter ( streamWriter ),
                 mInputList ( streamWriter ),
@@ -62,16 +74,6 @@ namespace COLLADA
 
         /** Adds the vertex to the stream*/
         void add();
-
-    private:
-        /** The id of the vertex element*/
-        String mNodeId;
-
-        /** The name of the vertex node*/
-        String mNodeName;
-
-        /** List of all the inputs*/
-        InputList mInputList;
 
     };
 

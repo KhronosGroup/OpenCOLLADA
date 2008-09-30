@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -29,10 +29,35 @@ namespace COLLADA
     {
 
     public:
+
         /** A list that contains the names of all the parameter in the accessor*/
         typedef std::vector<String> ParameterNameList;
 
-        SourceBase ( StreamWriter* streamWriter ) : ElementWriter ( streamWriter ) {}
+    private:
+
+        TagCloser mSourceCloser;
+
+        /** The id of the source*/
+        String mNodeId;
+
+        /** The name of source node */
+        String mNodeName;
+
+        /** The id of the array*/
+        String mArrayId;
+
+        /** The value of the count attribute of the accessor*/
+        unsigned long mAccessorCount;
+
+        /** The value of the stride attribute of the accessor*/
+        unsigned long mAccessorStride;
+
+        /** The list with the parameters. */
+        ParameterNameList mParameterNameList;
+
+    public:
+
+    	SourceBase ( StreamWriter* streamWriter ) : ElementWriter ( streamWriter ) {}
 
         /** Returns a reference to the id of the source*/
         const String& getId() const
@@ -102,6 +127,7 @@ namespace COLLADA
 
 
     protected:
+
         /** Prepares to fill the array. This member must be called exactly once
         before add is called the first time.*/
         void prepareBaseToAppendValues ( const String* arrayName );
@@ -119,37 +145,18 @@ namespace COLLADA
         /** Adds the base technique common to the source. */
         void addBaseTechnique ( const String* parameterTypeName );
 
-    private:
-        TagCloser mSourceCloser;
-
-        /** The id of the source*/
-        String mNodeId;
-
-        /** The name of source node */
-        String mNodeName;
-
-        /** The id of the array*/
-        String mArrayId;
-
-        /** The value of the count attribute of the accessor*/
-        unsigned long mAccessorCount;
-
-        /** The value of the stride attribute of the accessor*/
-        unsigned long mAccessorStride;
-
-        /** The list with the parameters. */
-        ParameterNameList mParameterNameList;
-
     };
 
     /** A class template to add a source, including an the array and an accessor*/
-    template<class Type, const String* arrayName, const String* parameterTypeName=NULL>
+    template < class Type, const String* arrayName, const String* parameterTypeName >
     class Source : public SourceBase
     {
 
     public:
         Source ( StreamWriter * streamWriter )
-                : SourceBase ( streamWriter ), mParameterTypeName ( parameterTypeName ) {}
+        : SourceBase ( streamWriter )
+        , mParameterTypeName ( parameterTypeName )
+        {}
 
         /** Prepares to fill the array. This member must be called exactly once
         before add is called the first time.*/
@@ -169,7 +176,7 @@ namespace COLLADA
         {
             mSW->appendValues ( matrix );
         }
- 
+
         /** Adds @a value to the array*/
         void appendValues ( const std::vector<Type>& value )
         {
@@ -217,9 +224,9 @@ namespace COLLADA
         }
 
         /** Sets the parameter type name */
-        void setParameterTypeName ( const String* parameterTypeName )
+        void setParameterTypeName ( const String* paramTypeName )
         {
-            mParameterTypeName = parameterTypeName;
+            mParameterTypeName = paramTypeName;
         }
 
     private:
@@ -228,25 +235,25 @@ namespace COLLADA
     };
 
     /** Param type independent source with double values. */
-    typedef Source<double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY> TypeIndependentSource;
+    typedef Source < double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::EMPTY_STRING > TypeIndependentSource;
     /** Param type independent source with float values. */
-    typedef Source<float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY> TypeIndependentSourceF;
+    typedef Source < float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::EMPTY_STRING > TypeIndependentSourceF;
 
     /** Param type "FLOAT" source with double values. */
-    typedef Source<double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT> FloatSource;
+    typedef Source < double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT > FloatSource;
     /** Param type "FLOAT" source with float values. */
-    typedef Source<float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT> FloatSourceF;
+    typedef Source < float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT > FloatSourceF;
 
     /** Param type "FLOAT4x4" source with double values. */
-    typedef Source<double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT4x4> Float4x4Source;
+    typedef Source < double, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT4x4 > Float4x4Source;
     /** Param type "FLOAT4x4" source with double values. */
-    typedef Source<float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT4x4> Float4x4SourceF;
+    typedef Source < float, &CSWC::COLLADA_ELEMENT_FLOAT_ARRAY, &CSWC::COLLADA_VALUE_TYPE_FLOAT4x4 > Float4x4SourceF;
 
     /** Param type "NAME" source with String values. */
-    typedef Source<String, &CSWC::COLLADA_ELEMENT_NAME_ARRAY, &CSWC::COLLADA_VALUE_TYPE_NAME> NameSource;
+    typedef Source < String, &CSWC::COLLADA_ELEMENT_NAME_ARRAY, &CSWC::COLLADA_VALUE_TYPE_NAME > NameSource;
 
     /** Param type "NAME" source with String values. */
-    typedef Source<String, &CSWC::COLLADA_ELEMENT_IDREF_ARRAY, &CSWC::COLLADA_VALUE_TYPE_IDREF> IdRefSource;
+    typedef Source < String, &CSWC::COLLADA_ELEMENT_IDREF_ARRAY, &CSWC::COLLADA_VALUE_TYPE_IDREF > IdRefSource;
 
 } //namespace COLLADA
 

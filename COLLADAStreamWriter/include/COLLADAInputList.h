@@ -2,8 +2,8 @@
     Copyright (c) 2008 NetAllied Systems GmbH
 
 	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -24,6 +24,7 @@ namespace COLLADA
     class InputList;
     class PrimitivesBase;
     class BaseInputElement;
+    class Vertices;
 
     /** The geometry source data types. */
     enum Semantics
@@ -44,12 +45,12 @@ namespace COLLADA
      This is a type::POINTS specific type.  If the size is 0, a single pixel pt is rendered. */
         POINT_ROTATION, /**< Used to give a billboard orientation.  This is a type::POINTS
       specific type, and is not compulsory */
-        JOINT, /** Used for the skin controller element. */ 
-        BINDMATRIX, /** Used for the skin controller element. */ 
-        WEIGHT, /** Used for the skin controller element. */ 
-        MORPH_TARGET, /** Used for the morph controller element. */ 
-        MORPH_WEIGHT, /** Used for the morph controller element. */ 
-        UNKNOWN = -1, /**< An unknown data source. */
+        JOINT, /** Used for the skin controller element. */
+        BINDMATRIX, /** Used for the skin controller element. */
+        WEIGHT, /** Used for the skin controller element. */
+        MORPH_TARGET, /** Used for the morph controller element. */
+        MORPH_WEIGHT, /** Used for the morph controller element. */
+        UNKNOWN = -1 /**< An unknown data source. */
     };
 
     /** A class that holds information about an @a \<input\> element.*/
@@ -108,7 +109,23 @@ namespace COLLADA
     class InputList : public ElementWriter
     {
 
+    private:
+
+        /** Declare friend, so the class can use the 'add()' method. */
+        friend class PrimitivesBase;
+
+        /** Declare friend, so the class can use the 'add()' method. */
+        friend class BaseInputElement;
+
+        /** Declare friend, so the class can use the 'add()' method. */
+        friend class Vertices;
+
+        /** List of all the inputs*/
+        typedef std::list<Input> List;
+        List mList;
+
     public:
+
         /** Constructor
         @param The stream the InputList should be written to*/
         InputList ( StreamWriter* streamWriter ) : ElementWriter ( streamWriter ) {}
@@ -124,20 +141,12 @@ namespace COLLADA
 
     private:
 
-        /** Declare friend, so the class can use the 'add()' method. */
-        friend PrimitivesBase;
-        /** Declare friend, so the class can use the 'add()' method. */
-        friend BaseInputElement;
-
-        /** List of all the inputs*/
-        typedef std::list<Input> List;
-        List mList;
-
         /** Add all the inputs, added using push_back(), to the stream*/
         void add();
 
         /** Returns a string containing the semantic name*/
         const String& getSemanticString ( Semantics semantic );
+
     };
 
 
