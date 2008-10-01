@@ -3,7 +3,7 @@
 
     This file is part of COLLADAStreamWriter.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -44,18 +44,18 @@ namespace COLLADA
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param color The color that should be represented.
         */
-        ColorOrTexture ( Color color, const String& sid = "" ) 
+        ColorOrTexture ( Color color, const String& sid = "" )
         : mColor ( color )
-        , mType ( COLOR ) 
+        , mType ( COLOR )
         , mSid ( sid )
         {};
 
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param texture The color that should be represented.
         */
-        ColorOrTexture ( Texture texture, const String& sid = "" ) 
+        ColorOrTexture ( Texture texture, const String& sid = "" )
         : mTexture ( texture )
-        , mType ( TEXTURE ) 
+        , mType ( TEXTURE )
         , mSid ( sid )
         {};
 
@@ -63,7 +63,7 @@ namespace COLLADA
         ColorOrTexture() : mType ( UNSPECIFIED ) {};
 
         /** Copy-Constructor */
-        ColorOrTexture ( ColorOrTexture& cot )
+        ColorOrTexture ( const ColorOrTexture& cot )
         {
             mColor = cot.mColor;
             mTexture = cot.mTexture;
@@ -72,7 +72,7 @@ namespace COLLADA
         }
 
         /** Returns the sid. */
-        const String& getSid () const 
+        const String& getSid () const
         {
             return mSid;
         }
