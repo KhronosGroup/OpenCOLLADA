@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -85,7 +85,7 @@ namespace COLLADAMaya
 
         // Initialize the reference manager
         ReferenceManager::getInstance()->initialize ();
-        
+
         // Create the cache for the animations
         mAnimationCache = new AnimationSampleCache();
 
@@ -130,7 +130,7 @@ namespace COLLADAMaya
         createLibraries();
 
         mStreamWriter.startDocument();
-        
+
         if ( mSceneGraph->create ( selectionOnly ) )
         {
             // Start by caching the expressions that will be sampled
@@ -215,7 +215,7 @@ namespace COLLADAMaya
 
         // Add contributor information
         // Set the author
-        TCHAR* userName = getenv ( USERNAME );
+        char* userName = getenv ( USERNAME );
 
         if ( userName == NULL || *userName == 0 ) userName = getenv ( USER );
         if ( userName != NULL && *userName != 0 ) asset.getContributor().mAuthor = String ( userName );
@@ -232,7 +232,7 @@ namespace COLLADAMaya
 //          String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
             COLLADA::URI uri ( COLLADA::URI::nativePathToUri ( COLLADA::Utils::FILE_PROTOCOL + currentScene ) );
             if ( ExportOptions::relativePaths() )
-                asset.getContributor().mSourceData = 
+                asset.getContributor().mSourceData =
                 uri.makeRelativeTo ( &COLLADA::URI ( COLLADA::URI::nativePathToUri ( COLLADA::Utils::FILE_PROTOCOL + currentScene ) ) );
             else asset.getContributor().mSourceData = uri.getURIString();
         }
@@ -261,19 +261,19 @@ namespace COLLADAMaya
         if ( MGlobal::isYAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Y_UP );
         else if ( MGlobal::isZAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Z_UP );
 
-        // Retrieve the linear unit name 
+        // Retrieve the linear unit name
         MString mayaLinearUnitName;
         MGlobal::executeCommand ( "currentUnit -q -linear -fullName;", mayaLinearUnitName );
         String linearUnitName = mayaLinearUnitName.asChar();
 
-        // Get the UI unit type (internal units are centimeter, collada want 
+        // Get the UI unit type (internal units are centimeter, collada want
         // a number relative to meters).
-        // All transform components with units will be in maya's internal units 
+        // All transform components with units will be in maya's internal units
         // (radians for rotations and centimeters for translations).
         MDistance testDistance ( 1.0f, MDistance::uiUnit() );
 
         // Get the conversion factor relative to meters for the collada document.
-        // For example, 1.0 for the name "meter"; 1000 for the name "kilometer"; 
+        // For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
         // 0.3048 for the name "foot".
         double colladaConversionFactor = ( float ) testDistance.as ( MDistance::kMeters );
         float colladaUnitFactor = float ( 1.0 / colladaConversionFactor );
@@ -311,7 +311,7 @@ namespace COLLADAMaya
     {
         // Replace characters that are supported in Maya,
         // but not supported in collada names
-        
+
         // NathanM: Strip off namespace prefixes
         // TODO: Should really be exposed as an option in the Exporter
         MString mayaName;
@@ -413,8 +413,8 @@ namespace COLLADAMaya
             copy.insert(copy.begin(), 1, '_');
 
         //if (!isalpha((unsigned char)copy[0]) && copy[0] != '_')
-        //   
+        //
 
         return copy;
-    } 
+    }
 }

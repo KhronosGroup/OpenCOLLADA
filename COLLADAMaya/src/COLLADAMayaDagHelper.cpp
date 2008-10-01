@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -759,10 +759,10 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    void DagHelper::getPlugValue ( 
-        const MObject& node, 
-        const String attributeName, 
-        MStringArray& output, 
+    void DagHelper::getPlugValue (
+        const MObject& node,
+        const String attributeName,
+        MStringArray& output,
         MStatus* status )
     {
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), status );
@@ -1003,7 +1003,12 @@ namespace COLLADAMaya
 
     //---------------------------------------------------
     // Creates a typed attribute. Used for maya "notes" attributes.
-    MObject DagHelper::createAttribute ( const MObject& node, const char* attributeName, const char* attributeShortName, MFnNumericData::Type type, const char *value )
+    MObject DagHelper::createAttribute (
+    	const MObject& node,
+    	const char* attributeName,
+    	const char* attributeShortName,
+    	MFnNumericData::Type type,
+    	const char *value )
     {
         // Before creating a new attribute: verify that an old one doesn't already exist
         MStatus status;
@@ -1037,11 +1042,11 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    MObject DagHelper::createAttribute ( 
-        const MObject& node, 
-        const char* attributeName, 
+    MObject DagHelper::createAttribute (
+        const MObject& node,
+        const char* attributeName,
         const char* attributeShortName,
-        MFnData::Type type, 
+        MFnData::Type type,
         const char *value )
     {
         // Before creating a new attribute: verify that an old one doesn't already exist

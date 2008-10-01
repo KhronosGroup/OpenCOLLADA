@@ -252,7 +252,7 @@ namespace COLLADAMaya
 
         // Calculate the merged input keys and their wanted interpolations.
         std::vector<float> mergedInputs;
-        std::vector<uint> mergedInterpolations;
+        std::vector<int> mergedInterpolations;
         AnimationCurveList::iterator curveIter = curves.begin();
         for ( ; curveIter!=curves.end(); ++curveIter )
         {
@@ -1208,7 +1208,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     bool AnimationExporter::addNodeAnimation(
-        MObject &node,
+        MObject node,
         const String& attrname,
         const SampleType& sampleType,
         const String* parameters /* = EMPTY_PARAMETER */,
@@ -1232,7 +1232,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     bool AnimationExporter::addNodeAnimation (
-        MObject &node,
+        MObject node,
         const String& targetSid,
         const String& attrname,
         const SampleType& sampleType,

@@ -2,23 +2,24 @@
 ///	\file	FileDialog.cpp
 ///	\author	Robert	Bateman
 /// \brief	This just provides some linux and win32 file dialogs. Under Linux it uses gtk2
-///	\note	
+///	\note
 /// 		This sourcefile is provided for free use for non-commercial purposes only. The
 /// 		Software is provided 'as is' and no responsibility can be taken for any damages
-/// 		that may be caused while using it. If you make use of this software within 
+/// 		that may be caused while using it. If you make use of this software within
 /// 		your code then it would be nice to have a small credit somewhere in your
 /// 		finished product for my hard work :(
 /// 		An e-mail saying you found it useful and possibly even a link to your product
 /// 		would be really nice too ;)
 ///
 ///			Slip me a couple of quid and i might be kind enough to offer assistance in
-/// 		sorting out your exporters ;) 
+/// 		sorting out your exporters ;)
 ///
-///				(C) 2004 Rob 'give me a job offer' Bateman 
+///				(C) 2004 Rob 'give me a job offer' Bateman
 ///
 //////////////////////////////////////////////////////////////////////////////////////////////
-#include "ColladaMayaStableHeaders.h"
-#ifndef WIN32
+#include "COLLADAMayaStableHeaders.h"
+//#ifndef WIN32
+#ifdef LINUX
 #include <gtk/gtk.h>
 #include <string.h>
 #include <assert.h>
@@ -81,6 +82,7 @@ int SaveFileDialog(char FileName[]) {
 
 
 #else
+#ifdef WIN32
 #include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -149,3 +151,5 @@ namespace COLLADAMaya
 }
 
 #endif
+#endif
+

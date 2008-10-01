@@ -7,11 +7,12 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaVisualSceneExporter.h"
 #include "COLLADAMayaSceneGraph.h"
@@ -54,7 +55,7 @@ namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    VisualSceneExporter::VisualSceneExporter ( 
+    VisualSceneExporter::VisualSceneExporter (
         COLLADA::StreamWriter* _streamWriter,
         DocumentExporter* _documentExporter,
         const String& _sceneId )
@@ -100,7 +101,7 @@ namespace COLLADAMaya
         // Just if a node was exported, the visual scene tag
         // in the collada document is open and should be closed.
         if ( nodeExported ) closeVisualScene();
-        
+
         closeLibrary();
 
         // TODO
@@ -126,7 +127,7 @@ namespace COLLADAMaya
         }
 
         // The unique ID
-        String meshId = mDocumentExporter->dagPathToColladaId ( dagPath ); 
+        String meshId = mDocumentExporter->dagPathToColladaId ( dagPath );
 //         // Attach a function set
 //         MFnDependencyNode fn ( dagPath.node() );
 //         String nodeNameCollada = mDocumentExporter->mayaNameToColladaName ( fn.name(), true );
@@ -309,7 +310,7 @@ namespace COLLADAMaya
 
         // False, if the node has a external reference.
         bool isLocal = sceneElement->getIsLocal();
-        
+
         // Do all the stuff if we export a full node.
         if ( !isInstanceNode && isLocal )
         {
@@ -324,7 +325,7 @@ namespace COLLADAMaya
             }
         }
 
-        // Prepares the visual scene node 
+        // Prepares the visual scene node
         // (open the visual scene node o a node instance, if we need this).
         openVisualSceneNode ( sceneElement );
 
@@ -347,14 +348,14 @@ namespace COLLADAMaya
                 exportLookatTransform ();
             }
             else
-            {   
+            {
                 exportDecomposedTransform ();
             }
 
             // Exports the visibility technique tag and the visibility animation.
             exportVisibility ( sceneNode );
 
-            // Write the instance urls of the geometries, controllers 
+            // Write the instance urls of the geometries, controllers
             // and lights into the collada document.
             exportChildNodeInstances(sceneElement);
         }
@@ -363,15 +364,15 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportMaterialList( 
-        COLLADA::InstanceMaterialList &instanceMaterialList, 
+    void VisualSceneExporter::exportMaterialList(
+        COLLADA::InstanceMaterialList &instanceMaterialList,
         const MDagPath &dagPath )
     {
         // Find how many shaders are used by this instance of the mesh
         MFnMesh fnMesh ( dagPath.node() );
 
         // Get the connected shaders of the main mesh instance (we will take always the zero).
-        // This is a COLLADA workaround to get the symbolic material name. 
+        // This is a COLLADA workaround to get the symbolic material name.
         // This is used to share a pointer in the geometry, but to use different materials in the node.
         MObjectArray shaders;
         MIntArray shaderIndices;
@@ -600,7 +601,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportTranslation ( 
+    void VisualSceneExporter::exportTranslation (
         const String name,
         const MVector& translation,
         bool animation )
@@ -613,12 +614,12 @@ namespace COLLADAMaya
 
         if ( animation || !isZero )
         {
-            // Convert the  maya internal unit type from centimeters 
+            // Convert the  maya internal unit type from centimeters
             // into the working units of the current scene!
-            mVisualSceneNode->addTranslate ( 
-                name, 
-                COLLADA::MathUtils::equalsZero( translation.x ) ? 0 : MDistance::internalToUI ( translation.x ), 
-                COLLADA::MathUtils::equalsZero( translation.y ) ? 0 : MDistance::internalToUI ( translation.y ), 
+            mVisualSceneNode->addTranslate (
+                name,
+                COLLADA::MathUtils::equalsZero( translation.x ) ? 0 : MDistance::internalToUI ( translation.x ),
+                COLLADA::MathUtils::equalsZero( translation.y ) ? 0 : MDistance::internalToUI ( translation.y ),
                 COLLADA::MathUtils::equalsZero( translation.z ) ? 0 : MDistance::internalToUI ( translation.z ) );
 
             if ( animation )
@@ -636,12 +637,12 @@ namespace COLLADAMaya
     void VisualSceneExporter::exportRotation ( const String name, const MEulerRotation& rotation )
     {
         RotateHelper rotateHelper ( rotation );
-        std::vector<std::vector<double>>& matrixRotate = rotateHelper.getRotationMatrix ();
-        std::vector<String>& rotateParams = rotateHelper.getRotationParameters ();
-        
+        std::vector < std::vector < double > >& matrixRotate = rotateHelper.getRotationMatrix ();
+        std::vector < String >& rotateParams = rotateHelper.getRotationParameters ();
+
         // Set zero flags, where the rotation is zero. The order of rotation is ZYX.
-        bool isZero[3] = {  COLLADA::MathUtils::equals( matrixRotate[0][3], 0.0 ), 
-                            COLLADA::MathUtils::equals( matrixRotate[1][3], 0.0 ), 
+        bool isZero[3] = {  COLLADA::MathUtils::equals( matrixRotate[0][3], 0.0 ),
+                            COLLADA::MathUtils::equals( matrixRotate[1][3], 0.0 ),
                             COLLADA::MathUtils::equals( matrixRotate[2][3], 0.0 ) };
 
         // Get a pointer to the animation exporter.
@@ -688,7 +689,7 @@ namespace COLLADAMaya
         double sceneMatrix[4][4] ;
         convertMMatrixToDouble4x4 ( sceneMatrix, mayaSceneMatrix );
 
-        // Convert the  maya internal unit type of the transform part of the 
+        // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!
         for ( uint i=0; i<3; ++i)
             sceneMatrix [i][3] = MDistance::internalToUI ( sceneMatrix [i][3] );
@@ -737,8 +738,8 @@ namespace COLLADAMaya
         }
         else
         {
-            // Positioning and orienting a camera or object in the scene is often 
-            // complicated when using a matrix. A lookat transform is an intuitive 
+            // Positioning and orienting a camera or object in the scene is often
+            // complicated when using a matrix. A lookat transform is an intuitive
             // way to specify an eye position, interest point, and orientation.
 
             // Get the camera matrix from which the other parameters are computed.
@@ -749,8 +750,8 @@ namespace COLLADAMaya
             // Get the position of the camera in local space.
             MVector eye(matrix[3][0], matrix[3][1], matrix[3][2]);
             float eyePosition[3] = {
-                COLLADA::MathUtils::equalsZero( matrix[3][0] ) ? 0.0f : (float) matrix[3][0], 
-                COLLADA::MathUtils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][2], 
+                COLLADA::MathUtils::equalsZero( matrix[3][0] ) ? 0.0f : (float) matrix[3][0],
+                COLLADA::MathUtils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][2],
                 COLLADA::MathUtils::equalsZero( matrix[3][2] ) ? 0.0f : (float) matrix[3][2] };
 
             // Compute center of interest.
@@ -758,14 +759,14 @@ namespace COLLADAMaya
             MVector front ( matrix[2][0], matrix[2][2], matrix[2][2] );
             MVector centerOfInterest = eye + ( front * centerOfInterestDistance );
             float interestPosition[3] = {
-                COLLADA::MathUtils::equalsZero( centerOfInterest.x ) ? 0.0f : (float) centerOfInterest.x, 
-                COLLADA::MathUtils::equalsZero( centerOfInterest.y ) ? 0.0f : (float) centerOfInterest.y, 
+                COLLADA::MathUtils::equalsZero( centerOfInterest.x ) ? 0.0f : (float) centerOfInterest.x,
+                COLLADA::MathUtils::equalsZero( centerOfInterest.y ) ? 0.0f : (float) centerOfInterest.y,
                 COLLADA::MathUtils::equalsZero( centerOfInterest.z ) ? 0.0f : (float) centerOfInterest.z };
 
             // Extract the up direction, which corresponds to the second row.
-            float upPosition[3] = { 
-                COLLADA::MathUtils::equalsZero( matrix[1][0] ) ? 0.0f : (float) matrix[1][0], 
-                COLLADA::MathUtils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][2], 
+            float upPosition[3] = {
+                COLLADA::MathUtils::equalsZero( matrix[1][0] ) ? 0.0f : (float) matrix[1][0],
+                COLLADA::MathUtils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][2],
                 COLLADA::MathUtils::equalsZero( matrix[1][2] ) ? 0.0f : (float) matrix[1][2] };
 
             // Add the camera lookat
@@ -791,10 +792,10 @@ namespace COLLADAMaya
 
         if ( mTransformObject != MObject::kNullObj && !isOneVector )
         {
-            mVisualSceneNode->addScale ( 
-                ATTR_SCALE, 
-                COLLADA::MathUtils::equalsZero(scale[0]) ? 0 : scale[0], 
-                COLLADA::MathUtils::equalsZero(scale[1]) ? 0 : scale[1], 
+            mVisualSceneNode->addScale (
+                ATTR_SCALE,
+                COLLADA::MathUtils::equalsZero(scale[0]) ? 0 : scale[0],
+                COLLADA::MathUtils::equalsZero(scale[1]) ? 0 : scale[1],
                 COLLADA::MathUtils::equalsZero(scale[2]) ? 0 : scale[2] );
 
             AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
@@ -828,11 +829,11 @@ namespace COLLADAMaya
             }
         }
     }
-    
+
     //---------------------------------------------------------------
-    void VisualSceneExporter::exportControllerInstance( 
-        SceneElement* sceneElement, 
-        const bool hasSkinController, 
+    void VisualSceneExporter::exportControllerInstance(
+        SceneElement* sceneElement,
+        const bool hasSkinController,
         const bool hasMorphController )
     {
         // Get the streamWriter from the export document
@@ -843,9 +844,9 @@ namespace COLLADAMaya
 
         // Create the unique controller ID
         String controllerId;
-        if ( !sceneElement->getNodeId().empty() ) 
+        if ( !sceneElement->getNodeId().empty() )
             controllerId = sceneElement->getNodeId();
-        else 
+        else
           controllerId = sceneElement->getNodeName();
 
         if ( hasMorphController )
@@ -860,8 +861,8 @@ namespace COLLADAMaya
         COLLADA::InstanceController instanceController ( streamWriter );
         instanceController.setUrl ( uri );
 
-        // Set the skeletonId. It indicates where a skin 
-        // controller is to start to search for the joint nodes 
+        // Set the skeletonId. It indicates where a skin
+        // controller is to start to search for the joint nodes
         // it needs. This element is meaningless for morph controllers.
 
         // Get the skeleton id from the element
@@ -890,9 +891,9 @@ namespace COLLADAMaya
         // Get the path and the id of the element
         MDagPath dagPath = sceneElement->getPath();
         String geometryId = sceneElement->getNodeId();
-        if ( geometryId.empty() ) 
+        if ( geometryId.empty() )
             geometryId = sceneElement->getNodeName();
-        
+
         // Get the uri of the current scene
         COLLADA::URI uri ( getSceneElementURI ( sceneElement, geometryId  ) );
 
@@ -947,15 +948,15 @@ namespace COLLADAMaya
 
         // Get the uri of the current scene
         COLLADA::URI uri ( getSceneElementURI ( sceneElement ) );
-        
+
         // Create and write the camera instance
         COLLADA::InstanceNode instanceNode ( streamWriter, uri );
         instanceNode.add();
     }
 
     //---------------------------------------------------------------
-    COLLADA::URI VisualSceneExporter::getSceneElementURI ( 
-        const SceneElement* sceneElement, 
+    COLLADA::URI VisualSceneExporter::getSceneElementURI (
+        const SceneElement* sceneElement,
         const String& elementId /** = "" */ )
     {
         // Get the path of the element
@@ -965,7 +966,7 @@ namespace COLLADAMaya
         uint instanceNumber = 0;
         if ( dagPath.isInstanced() )
         {
-            SceneElement* exportedElement = 
+            SceneElement* exportedElement =
                 mDocumentExporter->getSceneGraph()->findExportedElement( dagPath );
             dagPath = exportedElement->getPath();
         }
@@ -1006,7 +1007,7 @@ namespace COLLADAMaya
                 bool hasSkinController = controller->hasSkinController ( childNode );
                 bool hasMorphController = controller->hasMorphController ( childNode );
 
-                // Check for controllers, otherwise instantiate the geometry. 
+                // Check for controllers, otherwise instantiate the geometry.
                 // Add the controller and/or geometry to our libraries
                 if ( ( ExportOptions::exportJointsAndSkin() && hasSkinController ) || hasMorphController )
                 {

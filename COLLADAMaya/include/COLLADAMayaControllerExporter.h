@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -54,7 +54,7 @@ namespace COLLADAMaya
         /** Used to disable the blend shape. */
         float envelope;
         MObjectArray morphControllerNodes;
-        std::vector<long> nodeStates;
+        std::vector<int> nodeStates;
     };
     typedef std::vector<ControllerStackItem*> ControllerStack;
 
@@ -76,7 +76,7 @@ namespace COLLADAMaya
     {
 
     private:
-        
+
         /** Parameter, used for the bind poses transform. */
         static const String PARAM_TYPE_TRANSFORM;
 
@@ -133,16 +133,16 @@ namespace COLLADAMaya
         * @param meshStack The controller stack for the affected meshes.
         * @return bool False, if the "inMesh" attribute is connected we don't have affected nodes.
         */
-        static bool findAffectedNodes( 
-            const MObject& node, 
-            ControllerStack& stack, 
+        static bool findAffectedNodes(
+            const MObject& node,
+            ControllerStack& stack,
             ControllerMeshStack& meshStack );
 
         /**
-         * Disables any effects on the node so that fewer calculations are 
-         * necessary at the time of redraw. The effect does not render until 
-         * you reset the Node State back to Normal. Maya evaluates the nodes in 
-         * the node’s history, but not the node itself. 
+         * Disables any effects on the node so that fewer calculations are
+         * necessary at the time of redraw. The effect does not render until
+         * you reset the Node State back to Normal. Maya evaluates the nodes in
+         * the node’s history, but not the node itself.
          * @param stack The stack with the controller nodes.
          */
         static void setControllerNodeStatesToNoEffect( ControllerStack &stack );
@@ -176,14 +176,14 @@ namespace COLLADAMaya
         /**
          * Recursive call to exports the controller of the current scene element
          * and all child elements.
-         * @param sceneElement The element to export. 
+         * @param sceneElement The element to export.
          */
         void exportControllers(SceneElement* sceneElement);
 
         /**
         * Recursive call to exports the controller of the current scene element
         * and all child elements.
-        * @param sceneElement The element to export. 
+        * @param sceneElement The element to export.
         * @return bool True, if a controller element was exported.
         */
         bool exportController(SceneElement* sceneElement);
@@ -192,8 +192,8 @@ namespace COLLADAMaya
         * Exports all the mesh affected nodes in the controller stack.
         * @param stack The controller stack.
         */
-        void exportControllerStack( 
-            SceneElement* sceneElement, 
+        void exportControllerStack(
+            SceneElement* sceneElement,
             const ControllerStack& stack );
 
         /**
@@ -203,8 +203,8 @@ namespace COLLADAMaya
          * @param outputShape The path to the output shape.
          */
         void exportSkinController(
-            SceneElement* sceneElement, 
-            const MObject controllerNode, 
+            SceneElement* sceneElement,
+            const MObject controllerNode,
             MDagPath outputShape );
 
         /**
@@ -213,13 +213,13 @@ namespace COLLADAMaya
          * @param controllerNodes The morph controller nodes to export.
          */
         void exportMorphController(
-            SceneElement* sceneElement, 
+            SceneElement* sceneElement,
             MObjectArray& controllerNodes );
 
 
         void exportMorphTarget(
-            MPlug& targetVertexListPlug, 
-            MPlug& targetComponentListPlug, 
+            MPlug& targetVertexListPlug,
+            MPlug& targetComponentListPlug,
             uint currentIndex );
 
         /**
@@ -227,8 +227,8 @@ namespace COLLADAMaya
          * @param skinTarget The skin target.
          * @param skinController Reference to the collada skin controller with the export data.
          */
-        void writeSkinController( 
-            const String skinTarget, 
+        void writeSkinController(
+            const String skinTarget,
             const SkinController& skinController );
 
         /**
@@ -236,13 +236,13 @@ namespace COLLADAMaya
          * @param skinTarget The morph target.
          * @param skinController Reference to the collada morph controller with the export data.
          */
-        void writeMorphController ( 
-            const String morphTarget, 
+        void writeMorphController (
+            const String morphTarget,
             const MorphController &morphController );
 
         /**
          * Writes the joint element into the collada document.
-         * @param skinController 
+         * @param skinController
          *          Reference to the collada skin controller with the export data.
          */
         void writeSkinElementJoints( const SkinController& skinController );
@@ -256,49 +256,49 @@ namespace COLLADAMaya
 
         /**
          * Writes the vertex weights element into the collada document.
-         * @param skinController 
+         * @param skinController
          *          Reference to the collada skin controller with the export data.
          */
         void writeSkinElementVertexWeights( const SkinController &skinController );
 
         /**
          * Exports the bind shape transform of the given controller.
-         * @param skinController 
+         * @param skinController
          *          Reference to the collada skin controller with the export data.
          */
         void writeSkinBindShapeTransform( const SkinController& skinController );
 
         /**
         * Exports the bind poses source of the given controller.
-        * @param skinController 
+        * @param skinController
         *          Reference to the collada skin controller with the export data.
         */
         void writeSkinWeightSource( const SkinController& skinController );
 
         /**
         * Exports the bind poses source of the given controller.
-        * @param morphController 
+        * @param morphController
         *          Reference to the collada morph controller with the export data.
         */
         void writeMorphWeightSource( const MorphController& morphController );
 
         /**
         * Exports the bind poses source of the given controller.
-        * @param skinController 
+        * @param skinController
         *          Reference to the collada skin controller with the export data.
          */
         void writeSkinBindPosesSource( const SkinController& skinController );
 
         /**
          * Exports the joint source of the given controller.
-         * @param skinController 
+         * @param skinController
          *          Reference to the collada skin controller with the export data.
          */
         void writeSkinJointSource( const SkinController& skinController );
 
         /**
         * Exports the target source of the given controller.
-        * @param morphController 
+        * @param morphController
         *          Reference to the collada morph controller with the export data.
          */
         void writeMorphTargetSource( const MorphController &morphController );
@@ -310,9 +310,9 @@ namespace COLLADAMaya
          * @param outputShape The output shape
          * @return uint The current cluster index.
          */
-        uint retrieveInstanceInformation( 
-            const MFnMesh& meshFn, 
-            const MFnGeometryFilter& clusterFn, 
+        uint retrieveInstanceInformation(
+            const MFnMesh& meshFn,
+            const MFnGeometryFilter& clusterFn,
             MDagPath& outputShape );
 
         /**
@@ -328,27 +328,27 @@ namespace COLLADAMaya
             const uint clusterIndex );
 
         /**
-         * Gather the joints of the current controller node and writes them as 
+         * Gather the joints of the current controller node and writes them as
          * the influences in the target controller object.
          * @param targetController The controller object to fill the bind poses.
          * @param controllerNode The controller node of the current object.
          * @param weightFilters The weight filters to fill.
          * @param clusterIndex The current cluster index for the skinned character.
          */
-        void gatherJoints( 
-            SkinController* skinController, 
-            const MObject& controllerNode, 
-            MObjectArray& weightFilters, 
+        void gatherJoints(
+            SkinController* skinController,
+            const MObject& controllerNode,
+            MObjectArray& weightFilters,
             const uint clusterIndex );
 
         /**
-         * Gather the bind matrices of the current controller node and writes 
+         * Gather the bind matrices of the current controller node and writes
          * them as the bind poses in the target controller object.
          * @param skinController The controller to hold the data.
          * @param controllerNode The controller node of the current object.
          */
-        void gatherBindMatrices( 
-            SkinController* skinController, 
+        void gatherBindMatrices(
+            SkinController* skinController,
             const MObject& controllerNode );
 
         /**
@@ -359,9 +359,9 @@ namespace COLLADAMaya
          * @param clusterIndex The current cluster index for the skinned character.
          */
         void getJointClusterInfluences(
-            const MObject& controllerNode, 
-            MDagPathArray& influences, 
-            MObjectArray& weightFilters, 
+            const MObject& controllerNode,
+            MDagPathArray& influences,
+            MObjectArray& weightFilters,
             const uint clusterIndex );
 
         /**
@@ -371,7 +371,7 @@ namespace COLLADAMaya
         void createJoints( SkinController* skinController );
 
         /**
-          * Collects the data of the vertex weights and push it into the collada 
+          * Collects the data of the vertex weights and push it into the collada
           * skin controller object.
           * @param skinController The collada skin controller object to export.
           * @param controllerNode The controller node.
@@ -380,12 +380,12 @@ namespace COLLADAMaya
           * @param clusterIndex The current cluster index for the skinned character.
           * @param numInfluences The number of influences.
           */
-         void collectVertexWeights( 
-             SkinController* skinController, 
-             const MObject& controllerNode, 
+         void collectVertexWeights(
+             SkinController* skinController,
+             const MObject& controllerNode,
              const MDagPath& outputShape,
-             const MObjectArray& weightFilters, 
-             const uint clusterIndex, 
+             const MObjectArray& weightFilters,
+             const uint clusterIndex,
              uint numInfluences );
 
          /**
@@ -395,10 +395,10 @@ namespace COLLADAMaya
           * @param outputShape The current output shape.
           * @param numInfluences The number of vertex influences.
           */
-         void collectSkinClusterFilterVertexWeights( 
-             std::vector<SkinControllerVertex>& colladaInfluences, 
-             const MObject& controllerNode, 
-             const MDagPath& outputShape, 
+         void collectSkinClusterFilterVertexWeights(
+             std::vector<SkinControllerVertex>& colladaInfluences,
+             const MObject& controllerNode,
+             const MDagPath& outputShape,
              uint numInfluences );
 
          /**
@@ -408,10 +408,10 @@ namespace COLLADAMaya
           * @param outputShape The current output shape.
           * @param clusterIndex The current cluster index.
           */
-         void collectJointClusterVertexWeights( 
-             std::vector<SkinControllerVertex>& colladaInfluences, 
-             const MObjectArray &weightFilters, 
-             const MDagPath &outputShape, 
+         void collectJointClusterVertexWeights(
+             std::vector<SkinControllerVertex>& colladaInfluences,
+             const MObjectArray &weightFilters,
+             const MDagPath &outputShape,
              const uint clusterIndex );
 
 

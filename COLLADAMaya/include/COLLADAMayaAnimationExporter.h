@@ -107,7 +107,7 @@ namespace COLLADAMaya
          * @return True, if the element is animated.
          */
         bool addNodeAnimation (
-            MObject &node,
+            MObject node,
             const String& attrname,
             const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
@@ -130,7 +130,7 @@ namespace COLLADAMaya
          * @return True, if the element is animated.
          */
         bool addNodeAnimation (
-            MObject& node,
+            MObject node,
             const String& targetSubId,
             const String& attrname,
             const SampleType& sampleType,
