@@ -586,6 +586,7 @@ namespace COLLADAMax
 //					return checkIfIsAnimated ( animation, keyInterface, &AnimationExporter::getFloatValue<IBezFloatKey> );
 				case HYBRIDINTERP_POINT3_CLASS_ID:
 				case HYBRIDINTERP_POSITION_CLASS_ID: 
+				case HYBRIDINTERP_SCALE_CLASS_ID:
 				case HYBRIDINTERP_COLOR_CLASS_ID:
 /*					if ( animation.getDimension() == 1 )
 					{

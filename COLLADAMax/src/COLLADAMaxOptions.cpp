@@ -92,7 +92,7 @@ namespace COLLADAMax
 		mSampleAnimation(false),
 		mCreateClip(false),
 		mBakeMatrices(false),
-		mRelativePaths(true),
+		mRelativePaths(false),
 		mCheckIfAnimationIsAnimated(false),
 		importUnits(true),
 		importUpAxis(true),
