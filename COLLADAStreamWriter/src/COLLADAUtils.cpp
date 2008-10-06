@@ -38,6 +38,7 @@ namespace COLLADA
 #endif
 
 
+
     //---------------------------------
     String Utils::checkNCName ( const String &ncName )
     {
@@ -107,34 +108,7 @@ namespace COLLADA
         return returnString;
     }
 
-    //---------------------------------
-    String Utils::uriEncode ( const String & sSrc )
-    {
-        const char DEC2HEX[16 + 1] = "0123456789ABCDEF";
-        const unsigned char * pSrc = ( const unsigned char * ) sSrc.c_str();
-        const int SRC_LEN = ( const int ) sSrc.length();
-        unsigned char * const pStart = new unsigned char[SRC_LEN * 3];
-        unsigned char * pEnd = pStart;
-        const unsigned char * const SRC_END = pSrc + SRC_LEN;
 
-        for ( ; pSrc < SRC_END; ++pSrc )
-        {
-            if ( *pSrc > 32 )
-                *pEnd++ = ( *pSrc == 0x5c ) ? 0x2f : *pSrc;
-            else
-            {
-                // escape this char
-                *pEnd++ = '%';
-                *pEnd++ = DEC2HEX[*pSrc >> 4];
-                *pEnd++ = DEC2HEX[*pSrc & 0x0F];
-            }
-        }
-
-        String sResult ( ( char * ) pStart, ( char * ) pEnd );
-
-        delete [] pStart;
-        return sResult;
-    }
 
     //---------------------------------
     String Utils::replaceDot ( const String &text )

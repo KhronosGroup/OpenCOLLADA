@@ -115,7 +115,9 @@ namespace COLLADA
         }
 
         /** Encodes the current URI (replace the special characters with %hexadecimal value). */
-        static String uriEncode ( const String & sSrc );
+   //     static String uriEncode ( const String & sSrc );
+
+
 
         static String translateToXML ( const String &srcString );
 

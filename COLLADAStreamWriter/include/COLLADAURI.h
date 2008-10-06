@@ -253,6 +253,16 @@ namespace COLLADA
 		bool makeRelativeTo(const URI* uri, bool ignoreCase = false);
 
 		/**
+		Returns this URI relative to some  @a uri
+		@param uri the URI to return "this" relative to.
+		@param ignoreCase If set to false, file paths are considered to be case sensitive, if set to true
+		they are considered to be case insensitive.
+		@note this is experimental and not fully tested, please don't use in critical code yet.
+		*/
+		URI getRelativeTo(const URI* uri, bool ignoreCase = false);
+
+
+		/**
 		* Comparison operator.
 		* @return Returns true if URI's are equal.
 		*/
@@ -307,6 +317,13 @@ namespace COLLADA
         //   uriToNativePath("file:/folder/file.dae") --> "/folder/file.dae"
         //   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!) */
         String toNativePath(Utils::SystemType type = Utils::getSystemType());
+
+		/** Decodes the current URI (replace the %hexadecimal value with special characters). */
+		static String uriDecode(const String & sSrc);
+
+		/** Encodes the current URI (replace the special characters with %hexadecimal value). */
+		static String uriEncode ( const String & sSrc );
+
 
     private:
 
