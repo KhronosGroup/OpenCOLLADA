@@ -250,7 +250,7 @@ namespace COLLADA
 		they are considered to be case insensitive.
 		@note this is experimental and not fully tested, please don't use in critical code yet.
 		*/
-		bool makeRelativeTo(const URI* uri, bool ignoreCase = false);
+		bool makeRelativeTo ( const URI& uri, bool ignoreCase = false );
 
 		/**
 		Returns this URI relative to some  @a uri
@@ -259,14 +259,14 @@ namespace COLLADA
 		they are considered to be case insensitive.
 		@note this is experimental and not fully tested, please don't use in critical code yet.
 		*/
-		URI getRelativeTo(const URI* uri, bool ignoreCase = false);
-
+		URI getRelativeTo ( const URI& uri, bool& success, bool ignoreCase = false ) const;
 
 		/**
 		* Comparison operator.
 		* @return Returns true if URI's are equal.
 		*/
-		inline bool operator==(const URI& other) const {
+		inline bool operator==(const URI& other) const 
+        {
 			return mUriString == other.mUriString;
 		}
 
@@ -316,7 +316,7 @@ namespace COLLADA
         //   uriToNativePath("../folder/file.dae") --> "../folder/file.dae"
         //   uriToNativePath("file:/folder/file.dae") --> "/folder/file.dae"
         //   uriToNativePath("http://www.slashdot.org") --> "" (it's not a file scheme URI!) */
-        String toNativePath(Utils::SystemType type = Utils::getSystemType());
+        String toNativePath(Utils::SystemType type = Utils::getSystemType()) const;
 
 		/** Decodes the current URI (replace the %hexadecimal value with special characters). */
 		static String uriDecode(const String & sSrc);
@@ -346,8 +346,8 @@ namespace COLLADA
 
 
 
-		// Returns true if parsing succeeded, false otherwise. Parsing can fail if the uri
-		// reference isn't properly formed.
+        // Returns true if parsing succeeded, false otherwise. 
+        // Parsing can fail if the uri reference isn't properly formed.
 		static bool parseUriRef(const String& uriRef,
 			String& scheme,
 			String& authority,

@@ -236,7 +236,7 @@
 				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"

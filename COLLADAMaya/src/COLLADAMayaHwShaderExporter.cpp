@@ -27,6 +27,7 @@
 
 #include "cgfxShaderNode.h"
 #include "cgfxFindImage.h"
+#include "hlslShader.h"
 
 #include <assert.h>
 
@@ -53,13 +54,20 @@ namespace COLLADAMaya
         String workspaceName = workspace.asChar();
 
         MFnDependencyNode fnNode ( shaderNode );
-        if ( fnNode.typeId() == cgfxShaderNode::sId )
+        if ( fnNode.typeId () == cgfxShaderNode::sId )
         {
             // Create a cgfx shader node
             cgfxShaderNode* shaderNodeCgfx = ( cgfxShaderNode* ) fnNode.userNode();
 
             // Exports the effect data of a cgfxShader node.
             exportCgfxShader( shaderNodeCgfx );
+        }
+        else if ( fnNode.typeId () == 0xF3560C30 ) // hlslShader::sId )
+        {
+            // Create a hlsl shader node
+            hlslShader* hlslShaderFx = ( hlslShader* ) fnNode.userNode();
+//            LPD3DXEFFECT d3DEffect = hlslShaderFx->fD3DEffect;
+
         }
         else
         {
@@ -793,13 +801,15 @@ namespace COLLADAMaya
             COLLADA::URI shaderFxFileUri = getShaderFxFileUri();
 
             // Take the filename for the unique image name
-            COLLADA::URI sourceUri ( shaderFxFileUri, String ( annotationValue ) );
-            String imageId = sourceUri.getPathFileBase();
+            COLLADA::URI sourceFileUri ( shaderFxFileUri, String ( annotationValue ) );
+            sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+
+            String imageId = sourceFileUri.getPathFileBase();
 
             // Export the image
             EffectTextureExporter* textureExporter =
                 mDocumentExporter->getEffectExporter()->getTextureExporter();
-            COLLADA::Image* colladaImage = textureExporter->exportImage ( imageId, sourceUri.getURIString() );
+            COLLADA::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
 
             // Get the image id of the exported collada image
             imageId = colladaImage->getImageId();

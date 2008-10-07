@@ -220,21 +220,13 @@ namespace COLLADAMaya
         if ( userName == NULL || *userName == 0 ) userName = getenv ( USER );
         if ( userName != NULL && *userName != 0 ) asset.getContributor().mAuthor = String ( userName );
 
-        //  asset.getContributor().mSourceData =
-        //   COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode(fileName);
-
         // Source is the scene we have exported from
         String currentScene = MFileIO::currentFile().asChar();
         if ( currentScene.size() > 0 )
         {
-            // TODO Relative paths?
-            // Intentionally not relative
-//          String sourceFile = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::UriEncode ( currentScene.asChar() );
-            COLLADA::URI uri ( COLLADA::URI::nativePathToUri ( COLLADA::Utils::FILE_PROTOCOL + currentScene ) );
-            if ( ExportOptions::relativePaths() )
-                asset.getContributor().mSourceData =
-                uri.makeRelativeTo ( &COLLADA::URI ( COLLADA::URI::nativePathToUri ( COLLADA::Utils::FILE_PROTOCOL + currentScene ) ) );
-            else asset.getContributor().mSourceData = uri.getURIString();
+            COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( currentScene ) );
+            sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+            asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
 
         asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();

@@ -1065,7 +1065,7 @@ namespace COLLADAMax
 
             BMMGetFullFilename ( &bitmapInfo );
             fullFileName  = bitmapInfo.Name();
-            String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::uriEncode ( fullFileName );
+            String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::URI::uriEncode ( fullFileName );
             String imageId;
             // Export the equivalent <image> node in the image library and add
             // the <init_from> element to the sampler's surface definition.

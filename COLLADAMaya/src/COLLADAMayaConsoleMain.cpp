@@ -23,6 +23,7 @@
 
 // generic linux(gtk2) & win32 file dialog code
 #include "COLLADAMayaConsoleFileDialog.h"
+#include "COLLADAMayaException.h"
 #include "COLLADAUtils.h"
 
 // link to some fairly funky maya libs. NOTE: The Image library only became part of maya
@@ -39,7 +40,8 @@
 // defines
 #define MAX_FILENAME_LEN 512
 
-
+namespace COLLADAMaya
+{
     #ifdef WIN32
     int main(int argc,char** argv)
     {
@@ -121,7 +123,19 @@
 
             // Actually export the document
             COLLADAMaya::DocumentExporter documentExporter ( outFileName );
-            documentExporter.exportCurrentScene ( selectionOnly );
+
+            try
+            {
+                documentExporter.exportCurrentScene ( selectionOnly );
+            }
+            catch ( COLLADAMaya::ColladaMayaException* ex )
+            {
+                std::cerr << "[COLLADAMayaException] " << ex->getMessage() << std::endl;
+            }
+            catch ( ... )
+            {
+                std::cerr << "Export not successful! " << std::endl;
+            }
 
             // Display some closing information.
             endClock = clock();
@@ -136,3 +150,4 @@
 
 	    return 0;
     }
+}

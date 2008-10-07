@@ -1,24 +1,28 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-	This file is part of COLLADAStreamWriter.
+	This file is part of COLLADAMaya.
+
+    Portions of the code are:
+    Copyright (c) 2005-2007 Feeling Software Inc.
+    Copyright (c) 2005-2007 Sony Computer Entertainment America
+    Copyright (c) 2004-2005 Alias Systems Corp.
 	
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
+#ifndef __COLLADAMAYAEXCEPTION_H__
+#define __COLLADAMAYAEXCEPTION_H__
 
-#ifndef __COLLADASTREAMWRITEREXCEPTION_H__
-#define __COLLADASTREAMWRITEREXCEPTION_H__
+#include "COLLADAMayaPrerequisites.h"
 
-#include "COLLADAPrerequisites.h"
-
-namespace COLLADA
+namespace COLLADAMaya
 {
 
     /** Class that is throw by the stream writer classes if something goes wrong*/
-    class StreamWriterException
+    class ColladaMayaException
     {
 
 	public:
@@ -33,8 +37,9 @@ namespace COLLADA
 		String mMessage;
 
     public:
+
         /** Creates an exception of type @a type*/
-		StreamWriterException ( Type exceptionType, const String& message ) 
+		ColladaMayaException ( Type exceptionType, const String& message ) 
         : mExceptionType(exceptionType)
         , mMessage(message)
         {}
@@ -51,4 +56,4 @@ namespace COLLADA
 } //namespace COLLADA
 
 
-#endif //__COLLADASTREAMWRITEREXCEPTION_H__
+#endif //__COLLADAMAYAEXCEPTION_H__

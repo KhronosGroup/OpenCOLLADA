@@ -120,16 +120,23 @@ namespace COLLADAMaya
         String exportImage ( const MObject &texture );
 
         /** Exports the texture image */
-        COLLADA::Image* exportImage( const String& colladaImageId, const String& sourceFile );
+        COLLADA::Image* exportImage ( const String &colladaImageId, const COLLADA::URI &sourceFile );
 
     private:
+
+        /** Checks if the source file exist and is valid. If not, the method 
+        returns false. Fills the full file URI of the texture in dependency
+        of the current export options. */
+        bool getTextureFileInfos( 
+            const COLLADA::URI &sourceUri, 
+            COLLADA::URI &fullFileNameURI );
 
         /**
          * Returns the target file name of the given source file name.
          * @param sourceFileName The source file name.
          * @return String The target file name.
          */
-        String getTargetFileName ( const String &sourceFileName );
+        COLLADA::URI createTargetURI ( const COLLADA::URI &sourceUri );
 
         /** Dump a place2dTexture node */
         void add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture );

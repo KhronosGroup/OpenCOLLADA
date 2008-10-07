@@ -30,9 +30,6 @@
 #endif
 
 
-namespace COLLADAMaya
-{
-
     // This is a nasty bit of hackyness for compilation under Windows. Under Win32 you need
     // to compile a dll project and change the extension from "dll" to "mll". One additional
     // thing we have to do is 'export' the initializePlugin and uninitializePlugin functions.
@@ -58,35 +55,20 @@ namespace COLLADAMaya
     {
         MStatus   status;
 
-        MFnPlugin plugin ( obj, TRANSLATOR_VENDOR, TRANSLATOR_VERSION, TRANSLATOR_MAYA_API_VERSION );
-
-        // Add plug-in feature registration here
-        //
-
-//         // Register the COLLADA document node
-//         // This node is needed by the translator: register it before the translation plug-in.
-//         status = plugin.registerNode ( COLLADA_DOCUMENT,
-//                                        DocumentNode::id,
-//                                        DocumentNode::creator,
-//                                        DocumentNode::initialize,
-//                                        MPxNode::kDependNode );
-// 
-//         if ( status != MStatus::kSuccess )
-//         {
-//             status.perror ( "registerNode" );
-//             return status;
-//         }
-
+        MFnPlugin plugin ( obj, 
+            COLLADAMaya::TRANSLATOR_VENDOR, 
+            COLLADAMaya::TRANSLATOR_VERSION, 
+            COLLADAMaya::TRANSLATOR_MAYA_API_VERSION );
 
         // --------------------------------------------------------------
         // Register the import and the export file translator plug-ins.
 
         // Export-Plugin
         status = plugin.registerFileTranslator ( 
-                 COLLADA_EXPORTER,
+                 COLLADAMaya::COLLADA_EXPORTER,
                  "", // pathname of the icon used in file selection dialogs
-                 FileTranslator::createExporter, // this class implements the new file type
-                 MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
+                 COLLADAMaya::FileTranslator::createExporter, // this class implements the new file type
+                 COLLADAMaya::MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
                  NULL ); // defaultOptionsString
 
         if ( !status )
@@ -110,7 +92,6 @@ namespace COLLADAMaya
 //             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
 //         }
 
-        /*
         // TODO
         MString UserClassify("shader/surface/utility");
 
@@ -122,37 +103,6 @@ namespace COLLADAMaya
          UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
         }
         #endif // MAYA_API_VERSION >= 700
-
-        status = plugin.registerNode("colladafxShader", CFXShaderNode::id, CFXShaderNode::creator,
-         CFXShaderNode::initialize, MPxNode::kHwShaderNode,
-         &UserClassify);
-        if (!status) {
-         status.perror("registerNode");
-         return status;
-        }
-
-        status = plugin.registerNode("colladafxPasses", CFXPasses::id, CFXPasses::creator,
-         CFXPasses::initialize, MPxNode::kHwShaderNode,
-         &UserClassify);
-
-        if (!status) {
-         status.perror("registerNode");
-         return status;
-        }
-        */
-
-        /*
-        // TODO
-        plugin.registerCommand("colladafxShaderCmd", CFXShaderCommand::creator, CFXShaderCommand::newSyntax);
-
-        plugin.registerDragAndDropBehavior("CFXBehavior", CFXBehavior::creator);
-
-        MGlobal::executeCommand("if (`pluginInfo -query -loaded cgfxShader.mll`){ print(\"cgfxShader.mll must be unloaded to use ColladaFX shader plug-in.\");unloadPlugin cgfxShader.mll; }");
-        MGlobal::executeCommand("source AEcolladafxShaderTemplate.mel");
-        MGlobal::executeCommand("source AEcolladafxPassesTemplate.mel");
-        */
-        // needed in CFXParameter::loadDefaultTexture()
-
 
         return status;
     }
@@ -175,7 +125,7 @@ namespace COLLADAMaya
         //
 
         // Export-Plugin
-        status = plugin.deregisterFileTranslator ( COLLADA_EXPORTER );
+        status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_EXPORTER );
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
@@ -192,26 +142,6 @@ namespace COLLADAMaya
 //             return status;
 //         }
 
-        /*
-        status = plugin.deregisterNode(CFXShaderNode::id);
-        if (!status)
-        {
-         status.perror("deregisterNode");
-         return status;
-        }
-
-        status = plugin.deregisterNode(CFXPasses::id);
-        if (!status)
-        {
-         status.perror("deregisterNode");
-         return status;
-        }
-
-        plugin.deregisterCommand("CFXShaderCommand");
-        plugin.deregisterDragAndDropBehavior("CFXBehavior");
-        plugin.deregisterNode(DaeDocNode::id);
-        */
-
 #if MAYA_API_VERSION >= 800
         // Disable the shared-reference node options.
         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsSharedReference\" 0;" );
@@ -219,17 +149,12 @@ namespace COLLADAMaya
         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
 #endif // MAYA 8.0 and 8.5
 
-
-//         status = plugin.deregisterNode ( DocumentNode::id );
-//         if ( !status )
-//         {
-//             status.perror ( "deregisterNode" );
-//             return status;
-//         }
-
         return status;
     }
 
+
+namespace COLLADAMaya
+{
 
     /************************************************************************/
     /* Constructor and Destructor of the DaeFileTranslator class                                                                     */
@@ -314,6 +239,10 @@ namespace COLLADAMaya
 #ifndef _DEBUG
         }
 
+        catch ( COLLADA::StreamWriterException& swException  )
+        {
+            MGlobal::displayError( "StreamWriterException: " + swException.getMessage() );
+        }
         catch ( ... )
         {
             MGlobal::displayError ( "ColladaMaya has thrown an exception!" );

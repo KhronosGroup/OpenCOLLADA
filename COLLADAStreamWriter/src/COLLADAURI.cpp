@@ -88,7 +88,7 @@ namespace COLLADA
 		// (0-9, A-F) are reserved for future extension"
 
 		const unsigned char * pSrc = (const unsigned char *)sSrc.c_str();
-		const int SRC_LEN = sSrc.length();
+		const size_t SRC_LEN = sSrc.length();
 		const unsigned char * const SRC_END = pSrc + SRC_LEN;
 		// last decodable '%'
 		const unsigned char * const SRC_LAST_DEC = SRC_END - 2;
@@ -671,15 +671,15 @@ namespace COLLADA
 
 	// This function will take a resolved URI and create a version of it that is relative to
 	// another existing URI.  The new URI is stored in the "originalURI"
-	bool URI::makeRelativeTo(const URI* relativeToURI, bool ignoreCase)
+	bool URI::makeRelativeTo ( const URI& relativeToURI, bool ignoreCase)
 	{
 		// Can only do this function if both URIs have the same scheme and authority
-		if (mScheme != relativeToURI->mScheme  ||  mAuthority != relativeToURI->mAuthority)
+		if (mScheme != relativeToURI.mScheme  ||  mAuthority != relativeToURI.mAuthority)
 			return false;
 
 		// advance till we find a segment that doesn't match
 		const char *this_path        = getPath().c_str();
-		const char *relativeTo_path  = relativeToURI->getPath().c_str();
+		const char *relativeTo_path  = relativeToURI.getPath().c_str();
 		const char *this_slash       = this_path;
 		const char *relativeTo_slash = relativeTo_path;
 
@@ -739,20 +739,17 @@ namespace COLLADA
 		return true;
 	}
 
-
 	//---------------------------------------------------------------
-	URI URI::getRelativeTo(const URI* uri, bool ignoreCase)
+	URI URI::getRelativeTo ( const URI& uri, bool& success,  bool ignoreCase ) const
 	{
 		URI relative(*this);
-		relative.makeRelativeTo(uri, ignoreCase);
+		success = relative.makeRelativeTo ( uri, ignoreCase );
 		return relative;
 	}
 
-
-
-	// Returns true if parsing succeeded, false otherwise. Parsing can fail if the uri
-	// reference isn't properly formed.
-	bool URI::parseUriRef(const String& uriRef,
+    //---------------------------------------------------------------
+	bool URI::parseUriRef (
+        const String& uriRef,
 		String& scheme,
 		String& authority,
 		String& path,
@@ -857,7 +854,8 @@ namespace COLLADA
 		return uri;
 	}
 
-	String URI::toNativePath(Utils::SystemType type) {
+	String URI::toNativePath(Utils::SystemType type) const
+    {
 //		String scheme, authority, path, query, fragment;
 //		parseUriRef(uriRef, scheme, authority, path, query, fragment);
 
@@ -866,6 +864,7 @@ namespace COLLADA
 			return "";
 
 		String filePath;
+        String currentPath ( mPath );
 
 		if (type == Utils::WINDOWS) {
 			if (!mAuthority.empty())
@@ -874,18 +873,18 @@ namespace COLLADA
 			// Replace two leading slashes with one leading slash, so that
 			// ///otherComputer/file.dae becomes //otherComputer/file.dae and
 			// //folder/file.dae becomes /folder/file.dae
-			if (mPath.length() >= 2  &&  mPath[0] == '/'  &&  mPath[1] == '/')
-				mPath.erase(0, 1);
+			if (currentPath.length() >= 2  &&  currentPath[0] == '/'  &&  currentPath[1] == '/')
+				currentPath.erase(0, 1);
 
 			// Convert "/C:/" to "C:/"
-			if (mPath.length() >= 3  &&  mPath[0] == '/'  &&  mPath[2] == ':')
-				mPath.erase(0, 1);
+			if (currentPath.length() >= 3  &&  currentPath[0] == '/'  &&  currentPath[2] == ':')
+				currentPath.erase(0, 1);
 
 			// Convert forward slashes to back slashes
-			Utils::stringFindAndReplace(mPath, "/", "\\");
+			Utils::stringFindAndReplace(currentPath, "/", "\\");
 		}
 
-		filePath += mPath;
+		filePath += currentPath;
 
 		// Replace % encoded characters
 		filePath = URI::uriDecode ( filePath );

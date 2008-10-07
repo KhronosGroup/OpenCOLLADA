@@ -190,10 +190,12 @@ namespace COLLADAMaya
 
         // Get the maya filename with the path to the file.
         filenamePlug.getValue ( mayaFileName );
-        if ( mayaFileName.length() == 0 ) return NULL;
+        if ( mayaFileName.length () == 0 ) return NULL;
         String sourceFile = mayaFileName.asChar ();
+        COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( sourceFile ) );
+        sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
 
-        COLLADA::Image* colladaImage = exportImage( colladaImageId, sourceFile );
+        COLLADA::Image* colladaImage = exportImage ( colladaImageId, sourceFileUri );
         if ( colladaImage == NULL ) return NULL;
 
         // Export the node type, because PSD textures don't behave the same as File textures.
@@ -212,74 +214,14 @@ namespace COLLADAMaya
     }
 
     // -------------------------------
-    COLLADA::Image* EffectTextureExporter::exportImage ( const String &colladaImageId, const String &sourceFile )
+    COLLADA::Image* EffectTextureExporter::exportImage ( 
+        const String& colladaImageId, 
+        const COLLADA::URI& sourceUri )
     {
         // Get the file name and the URI
-        String fullFileName;
-        String fullFileNameURI;
-
-        if ( ExportOptions::relativePaths() )
-        {
-            // Different filename and URI, if we copy the textures to the destination directory!
-            if ( ExportOptions::copyTextures() )
-            {
-                // Get the filename with the path to the destination directory.
-                String targetFile = getTargetFileName( sourceFile );
-                String targetColladaFile = mDocumentExporter->getFilename();
-                String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetColladaFile );
-                String relativeFileName = COLLADA::Utils::getRelativeFilename( targetPath, targetFile );
-
-                // Get the filename and the URI
-                fullFileName = relativeFileName;
-                if ( relativeFileName[0] != '.' )
-                    fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + relativeFileName;
-                else
-                    fullFileNameURI = relativeFileName;
-            }
-            else
-            {
-                // Get the relative file path from the destination folder to the source texture
-                String targetFile = mDocumentExporter->getFilename();
-                COLLADA::URI targetFileUri ( COLLADA::URI::nativePathToUri ( targetFile ) );
-
-                // Utils::getSystem --> case sensitive / intensitive
-
-
-                String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
-                targetPath = targetFileUri.getPathDir();
-
-                String relativeFileName = COLLADA::Utils::getRelativeFilename ( targetFile, sourceFile );
-
-                COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( sourceFile ) );
-                sourceFileUri.makeRelativeTo ( &targetFileUri );
-
-                // Get the filename and the URI
-                fullFileName = relativeFileName;
-                if ( relativeFileName[0] != '.' )
-                    fullFileNameURI = "." + COLLADA::Utils::FILE_DELIMITER + relativeFileName;
-                else
-                    fullFileNameURI = relativeFileName;
-            }
-        }
-        else
-        {
-            // Different filename and URI, if we copy the textures to the destination directory!
-            if ( ExportOptions::copyTextures() )
-            {
-                // Get the filename with the path to the destination directory.
-                String targetFile = getTargetFileName( sourceFile );
-
-                // Get the filename and the URI
-                fullFileName = targetFile;
-                fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::uriEncode ( targetFile );
-            }
-            else
-            {
-                // Get the filename and the URI
-                fullFileName = sourceFile;
-                fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::Utils::uriEncode ( sourceFile );
-            }
-        }
+        COLLADA::URI fullFileNameURI;
+        getTextureFileInfos ( sourceUri, fullFileNameURI );
+        String fullFileName = fullFileNameURI.toNativePath ();
 
         // Have we seen this texture node before?
         ImageMap::iterator exportedImagesIter = mExportedImageMap.find ( fullFileName );
@@ -293,19 +235,30 @@ namespace COLLADAMaya
         if ( ExportOptions::copyTextures() )
         {
             // Get the target file from source file.
-            String targetFile = getTargetFileName( sourceFile );
-            path pathSourceFile ( sourceFile );
-            path pathTargetFile ( targetFile );
+            COLLADA::URI targetUri = createTargetURI ( sourceUri );
 
-            // Copy the texture
-            if ( !exists( targetFile ) )
+            // Copy the texture, if it isn't already there...
+            if ( !exists( targetUri.toNativePath () ) )
             {
-                // Create the target directory, if necessary
-                create_directory( COLLADA::Utils::getAbsolutePathFromFile( targetFile ) );
+                try 
+                {
+                    // Create the target directory, if necessary. 
+                    // Note: some systems (window$) requires the string to be 
+                    // enclosed in quotes when a space is present.
+                    COLLADA::URI targetPathUri ( targetUri.getPathDir() );
+                    create_directory ( targetPathUri.toNativePath() );
 
-                // Throws: basic_filesystem_error<Path> if
-                // from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
-                copy_file( pathSourceFile, pathTargetFile );
+                    // Throws: basic_filesystem_error<Path> if
+                    // from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
+                    copy_file ( path ( sourceUri.toNativePath() ), path ( targetUri.toNativePath() ) );
+                }
+                catch ( std::exception ex )
+                {
+                    String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
+                    MGlobal::displayError( message.c_str() );
+                    MGlobal::displayError( ex.what() );
+                    std::cerr << "[ERROR] Could not copy file " << sourceUri.toNativePath() << std::endl;
+                }
             }
         }
 
@@ -320,25 +273,19 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    String EffectTextureExporter::getTargetFileName ( const String &sourceFile )
+    COLLADA::URI EffectTextureExporter::createTargetURI ( const COLLADA::URI& sourceUri )
     {
         // Target file
         String targetFile = mDocumentExporter->getFilename();
-        String targetPath = COLLADA::Utils::getAbsolutePathFromFile ( targetFile );
+        COLLADA::URI targetUri ( COLLADA::URI::nativePathToUri ( targetFile ) );
 
-        // Get the file path and name
-        String filePathString = COLLADA::Utils::getAbsolutePathFromFile ( sourceFile );
-        String fileNameWithoutPath = COLLADA::Utils::getFileNameFromFile( sourceFile );
-
-        // Get the path to the maya source file
-        String mayaSourceFile = MFileIO::currentFile().asChar();
-        String mayaSourcePath = COLLADA::Utils::getAbsolutePathFromFile ( mayaSourceFile );
-
-        // Get the relative file name
-        String relativeFileName = COLLADA::Utils::getRelativeFilename( mayaSourcePath, sourceFile );
+        // Get the pure file name of the source file and set 
+        // the source file name to the target path
+        targetUri.setPathFile ( sourceUri.getPathFile () );
+        targetUri.setScheme ( COLLADA::URI::SCHEME_FILE );
 
         // Generate the target file name
-        return targetPath + relativeFileName;
+        return targetUri;
     }
 
     // ------------------------------------------------------------
@@ -509,4 +456,94 @@ namespace COLLADAMaya
         }
     }
 
+    // ------------------------------------------------------------
+    bool EffectTextureExporter::getTextureFileInfos( 
+        const COLLADA::URI &sourceUri, 
+        COLLADA::URI &fullFileNameURI )
+    {
+        bool returnValue = true;
+
+        // Check if the file exist!
+        String sourceUriString = sourceUri.toNativePath();
+        if ( !exists ( sourceUri.toNativePath() ) )
+        {
+            String message = "The texture file doesn't exist! Filename = " + sourceUri.toNativePath();
+            MGlobal::displayWarning ( message.c_str() );
+            std::cerr << message << std::endl;
+            returnValue = false;
+        }
+
+        if ( ExportOptions::relativePaths() )
+        {
+            // Different filename and URI, if we copy the textures to the destination directory!
+            if ( ExportOptions::copyTextures() )
+            {
+                // Get the URI of the COLLADA file.
+                String targetColladaFile = mDocumentExporter->getFilename();
+                COLLADA::URI targetColladaUri ( COLLADA::URI::nativePathToUri ( targetColladaFile ) );
+                targetColladaUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+
+                // Get the URI of the copied texture file.
+                COLLADA::URI textureUri = createTargetURI ( sourceUri );
+
+                // Get the texture URI relative to the COLLADA file URI.
+                bool success = false;
+                COLLADA::URI targetUri = textureUri.getRelativeTo ( targetColladaUri, success );
+                if ( !success ) 
+                {
+                    String message = "Not able to generate a relative path from " 
+                        + textureUri.getURIString() + " to " + targetColladaUri.getURIString() 
+                        + ". An absolute path will be written! ";
+                    MGlobal::displayError ( message.c_str() );
+                    targetUri = textureUri;
+                    returnValue = false;
+                }
+
+                // Get the file URI
+                fullFileNameURI = targetUri;
+            }
+            else
+            {
+                // Get the URI of the COLLADA file.
+                String targetColladaFile = mDocumentExporter->getFilename();
+                COLLADA::URI targetColladaUri ( COLLADA::URI::nativePathToUri ( targetColladaFile ) );
+                targetColladaUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+
+                // Get the texture URI relative to the COLLADA file URI.
+                bool success = false;
+                COLLADA::URI targetUri = sourceUri.getRelativeTo ( targetColladaUri, success );
+                if ( !success ) 
+                {
+                    String message = "Not able to generate a relative path from " 
+                        + sourceUri.getURIString() + " to " + targetColladaUri.getURIString() 
+                        + ". An absolute path will be written! ";
+                    MGlobal::displayError ( message.c_str() );
+                    targetUri = sourceUri;
+                    returnValue = false;
+                }
+
+                // Get the file URI
+                fullFileNameURI = targetUri;
+            }
+        }
+        else
+        {
+            // Different filename and URI, if we copy the textures to the destination directory!
+            if ( ExportOptions::copyTextures() )
+            {
+                // Get the texture URI relative to the COLLADA file URI.
+                COLLADA::URI targetUri = createTargetURI ( sourceUri );
+
+                // Get the file URI
+                fullFileNameURI = targetUri;
+            }
+            else
+            {
+                // Get the file URI
+                fullFileNameURI = sourceUri;
+            }
+        }
+
+        return returnValue;
+    }
 }

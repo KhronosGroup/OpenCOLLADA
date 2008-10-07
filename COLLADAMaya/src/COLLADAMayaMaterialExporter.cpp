@@ -556,13 +556,14 @@ namespace COLLADAMaya
         COLLADA::URI shaderFxFileUri = getShaderFxFileUri ();
 
         // Take the filename for the unique image name 
-        COLLADA::URI sourceUri ( shaderFxFileUri, fileName );
-        String imageId = sourceUri.getPathFileBase();
+        COLLADA::URI sourceFileUri ( shaderFxFileUri, fileName );
+        sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+        String imageId = sourceFileUri.getPathFileBase();
 
         // Export the image
         EffectTextureExporter* textureExporter = 
             mDocumentExporter->getEffectExporter()->getTextureExporter();
-        COLLADA::Image* colladaImage = textureExporter->exportImage ( imageId, sourceUri.getURIString() );
+        COLLADA::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
 
         // Get the image id of the exported collada image 
         imageId = colladaImage->getImageId();
