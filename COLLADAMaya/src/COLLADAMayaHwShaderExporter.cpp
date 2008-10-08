@@ -27,7 +27,10 @@
 
 #include "cgfxShaderNode.h"
 #include "cgfxFindImage.h"
+
+#ifdef WIN32
 #include "hlslShader.h"
+#endif
 
 #include <assert.h>
 
@@ -62,6 +65,7 @@ namespace COLLADAMaya
             // Exports the effect data of a cgfxShader node.
             exportCgfxShader( shaderNodeCgfx );
         }
+#ifdef WIN32
         else if ( fnNode.typeId () == 0xF3560C30 ) // hlslShader::sId )
         {
             // Create a hlsl shader node
@@ -69,6 +73,7 @@ namespace COLLADAMaya
 //            LPD3DXEFFECT d3DEffect = hlslShaderFx->fD3DEffect;
 
         }
+#endif
         else
         {
             // Writes the current effect profile into the collada document

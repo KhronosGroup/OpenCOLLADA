@@ -18,12 +18,14 @@
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAStreamWriterException.h"
 #include <time.h>
 
 #include <maya/MFnPlugin.h>
 #include <maya/MFileIO.h>
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnDependencyNode.h>
+#include <maya/MGlobal.h>
 
 #if MAYA_API_VERSION >= 700
 #include <maya/MHWShaderSwatchGenerator.h>
@@ -187,7 +189,7 @@ namespace COLLADAMaya
     /************************************************************************/
     /* The writer() method provides a message through the script editor and
     /* returns a status to indicate the results.
-    /* In this example, only ‘export all’ and ‘export selection’ options are
+    /* In this example, only Ã«export allÃ­ and Ã«export selectionÃ­ options are
     /* allowed when trying to save data. Other options will result in the
     /* display of a failure message through the script editor and returns a
     /* MS:kFailure, which indicates that the file type cannot be understood
@@ -239,9 +241,10 @@ namespace COLLADAMaya
 #ifndef _DEBUG
         }
 
-        catch ( COLLADA::StreamWriterException& swException  )
+        catch ( COLLADA::StreamWriterException* swException  )
         {
-            MGlobal::displayError( "StreamWriterException: " + swException.getMessage() );
+            String message = "StreamWriterException: " + swException->getMessage();
+            MGlobal::displayError ( message.c_str() );
         }
         catch ( ... )
         {
