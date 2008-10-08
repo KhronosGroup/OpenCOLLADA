@@ -1,7 +1,5 @@
 -   General
-    -   64bit
     -   linux
-    -   mac os
     - 	other maya versions
     -   internationalisation (i18n)
     -   reader
@@ -15,7 +13,7 @@
     -   Reference to the effect texture
 	    
 -   Effects:
-	- 	Hardware shader
+	- 	hlsl shader
     -	multiple color material
 
 -   Animations

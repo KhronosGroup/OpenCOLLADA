@@ -14,7 +14,7 @@
 
 
 
-#if defined(__APPLE__) && (defined(__GNUC__) || defined(__xlC__) || defined(__xlc__))
+#if (defined(__APPLE__) || defined(OSMac_)) && (defined(__GNUC__) || defined(__xlC__) || defined(__xlc__))
 #  define STREAMWRITER_OS_MAC
 #  ifdef __LP64__
 #    define STREAMWRITER_OS_MAC64

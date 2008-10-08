@@ -14,14 +14,19 @@ Supported and tested versions of boost c++ libraries:
 You can download the latest version of boost from:
 http://www.boost.org/users/download/
 
-You also need a c++ compiler. The current Project was build with 
-Microsoft Visual Studio 2005 and the VC2005 platform SDK. You can 
-find the vs project file in the COLLADAMaya directory ./scripts.
+You also need a c++ compiler. The Project was build and tested with: 
+-	For Windows: Microsoft Visual Studio 2005 and the VC2005 Platform SDK. 
+	You find the MVS solution file in ~project_dir/COLLADAMaya/COLLADAMaya.sln, 
+	respectively the MVS project file in 
+	~project_dir/COLLADAMaya/scripts/COLLADAMaya.vcproj
+- 	For OSMac: XCode 
+	You can find the XCode project file in 
+	~project_dir/COLLADAMaya/COLLADAMaya.xcodeproj
 
-The project's build is tested for win32 and x64.
+The project's build is tested for: win32, x64, mac.
 
 Build:
----------
+------
 Before you start to build, you have to define following environment 
 variables for a win32, respectively a x64 system: 
 
@@ -44,9 +49,9 @@ x64:
 Download and compile the sources of COLLADAMaya from
 https://colladamaya.svn.sourceforge.net/svnroot/colladamaya/branches/nextgen.
 
-Open the "COLLADAMaya.sln" solution in "./nextgen/COLLADAMaya/COLLADAMaya.sln".
-The solution configuration "ReleasePlugin2008" and "DebugPlugin2008" will 
-create a dynamic library called "COLLADAMaya.mll". The "COLLADAMaya.mll" file 
+Open the solution in ~project_dir/COLLADAMaya/COLLADAMaya.sln
+The solution configurations "ReleasePlugin2008" and "DebugPlugin2008" will 
+create a dynamic library called "COLLADAMaya.mll". The file 
 will be created in the output folder and copied into the folder 
 $(MAYA_PATH2008)/bin/plug-ins of your Autodesk Maya installation.
 If you don't use the MS Visual Studio project file, you have to copy the 
@@ -58,4 +63,4 @@ the "COLLADAMaya.exe" file in the output folder and will be copied into the
 all maya files in the current directory and all sub-directories will be 
 converted to collada "dae" files and checked with the coherency checker.
 
-For help on installation, please read the INSTALL file.
+For help on installation, please read the INSTALL_WIN.TXT file.

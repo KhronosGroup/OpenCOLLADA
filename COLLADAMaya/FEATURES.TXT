@@ -12,6 +12,7 @@
 - 	Materials / Effects
     - 	Texture and color materials
     - 	Materials Phong, Blinn and Lambert (nvidia viewer can‘t show)
+	- 	cgfx shader
 
 - 	Animation
     - 	Rotation / Transformation

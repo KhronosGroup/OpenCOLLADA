@@ -137,24 +137,6 @@ namespace COLLADA
         }
 
         /**
-         * Returns the absolute path of the current absolute filename.
-         * For example, if the absolute filename is C:\foo\bar\text.txt,
-         * the function will return C:\foo\bar.
-         * @param absoluteFilename The current absolute filename
-         * @return COLLADA::String Returns the absolute path of the current absolute filename.
-         */
-        static String getAbsolutePathFromFile( const String& absoluteFilename );
-
-        /**
-         * Returns the filename from the absolute filename (= filename + path).
-         * For example, if the absolute filename is C:\foo\bar\text.txt,
-         * the function will return text.txt.
-         * @param absoluteFilename The current absolute filename.
-         * @return COLLADA::String The single filename without the path.
-         */
-        static String getFileNameFromFile( const String& absoluteFilename );
-
-        /**
          * Given the absolute current directory and an absolute file name, 
          * returns a relative file name.
          * For example, if the current directory is C:\foo\bar and the  
@@ -165,14 +147,6 @@ namespace COLLADA
          * @return char* The relative path of the file.
          */
         static String getRelativeFilename(const String currentDirectory, const String absoluteFilename);
-
-        /**
-         * Copies the file from the source to the destination.
-         * @param src The source file.
-         * @param dest The destination file.
-         */
-        static bool copyFile( const String& src, const String& dest );
-        static bool copyFile( std::ifstream& src, std::ofstream& dest );
 
         /**
          * Searches all search strings in the source string and replace it with the replaceString.
