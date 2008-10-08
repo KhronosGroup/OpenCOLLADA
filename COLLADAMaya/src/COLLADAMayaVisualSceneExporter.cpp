@@ -406,10 +406,10 @@ namespace COLLADAMaya
                 // This object contains a reference to a shader, or material, so we might call
                 // our own function to write that material to our own data structure for later export.
                 MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
-                MFnDependencyNode shaderFn ( shader );
-                String shaderName = shaderFn.name().asChar();
+                MFnDependencyNode shaderNode ( shader );
+                String materialId = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true );
 
-                COLLADA::InstanceMaterial materialInstance ( materialName, COLLADA::URI ( "", shaderName ) );
+                COLLADA::InstanceMaterial materialInstance ( materialName, COLLADA::URI ( "", materialId ) );
                 instanceMaterialList.push_back ( materialInstance );
             }
         }

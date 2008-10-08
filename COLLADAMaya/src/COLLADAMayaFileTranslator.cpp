@@ -189,7 +189,7 @@ namespace COLLADAMaya
     /************************************************************************/
     /* The writer() method provides a message through the script editor and
     /* returns a status to indicate the results.
-    /* In this example, only ëexport allí and ëexport selectioní options are
+    /* In this example, only "export all" and "export selection" options are
     /* allowed when trying to save data. Other options will result in the
     /* display of a failure message through the script editor and returns a
     /* MS:kFailure, which indicates that the file type cannot be understood
@@ -212,6 +212,7 @@ namespace COLLADAMaya
             const MString fileName = file.fullName();
 #endif // OSMac
 
+            // TODO Export the referenced files!
             // Maya forces the write of all the references, on export.
             // Intentionally skip known reference file paths.
             for ( MItDependencyNodes it ( MFn::kReference ); !it.isDone(); it.next() )
@@ -224,6 +225,12 @@ namespace COLLADAMaya
                                           refNodeFilename );
 
                 if ( refNodeFilename == fileName ) return MStatus::kSuccess;
+
+                if ( ExportOptions::exportXRefs() )
+                {
+                    // TODO Open file export dialog to export the referenced file.
+                    
+                }
             }
 
             // Parse the export options

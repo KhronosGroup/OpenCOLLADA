@@ -21,6 +21,7 @@
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaConversion.h"
+#include "COLLADAMayaExportOptions.h"
 
 #include "COLLADANode.h"
 #include "COLLADAParamTemplate.h"
@@ -87,7 +88,18 @@ namespace COLLADAMaya
             bool isFromReferencedFile = shadingEngineFn.isFromReferencedFile();
             bool isDefaulNode = shadingEngineFn.isDefaultNode();
 
-            if ( !isFromReferencedFile && !isDefaulNode )
+            bool doExportMaterial = true;
+            if ( isDefaulNode ) 
+            {
+                doExportMaterial = false;
+            }
+            else if ( isFromReferencedFile )
+            {
+                if ( ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs() ) doExportMaterial = true;
+                else doExportMaterial = false;
+            }
+
+            if ( doExportMaterial )
             {
                 MObject shadingEngine = ShaderHelper::getShadingEngine ( shader );
                 exportMaterial ( shadingEngine );
