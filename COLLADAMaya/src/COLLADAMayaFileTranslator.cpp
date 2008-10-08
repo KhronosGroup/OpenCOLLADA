@@ -201,12 +201,8 @@ namespace COLLADAMaya
     {
         MStatus status = MStatus::kFailure;
 
-#ifndef _DEBUG
-
         try
         {
-#endif
-
             // Extract the filename
 #if defined (OSMac_)
             char nameBuffer[MAXPATHLEN];
@@ -238,9 +234,8 @@ namespace COLLADAMaya
             // Do the actual export now
             status = exportIntoFile ( fileName, exportSelection );
 
-#ifndef _DEBUG
+            MGlobal::displayInfo ( "Export successful!" );
         }
-
         catch ( COLLADA::StreamWriterException* swException  )
         {
             String message = "StreamWriterException: " + swException->getMessage();
@@ -250,24 +245,6 @@ namespace COLLADAMaya
         {
             MGlobal::displayError ( "ColladaMaya has thrown an exception!" );
         }
-
-#endif
-
-        /*
-        if (MPxFileTranslator::kExportAccessMode == mode) {
-         if (MStatus::kFailure == exportAll(newFile)) {
-          return MStatus::kFailure;
-         }
-        } else if (MPxFileTranslator::kExportActiveAccessMode == mode) {
-         if (MStatus::kFailure == exportSelection(newFile)) {
-          return MStatus::kFailure;
-         }
-        } else {
-         return MStatus::kFailure;
-        }
-        */
-
-        MGlobal::displayInfo ( "Export successful!" );
 
         return status;
     }
