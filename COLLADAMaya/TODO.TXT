@@ -6,15 +6,11 @@
 
 -   Multiple documents
 
--	Scene graph
-	-	transform translate (unit displacement)
-
 -   VisualScene
     -   Reference to the effect texture
 	    
 -   Effects:
 	- 	hlsl shader
-    -	multiple color material
 
 -   Animations
 	- 	Path animation
@@ -22,6 +18,8 @@
     - 	Lights
 
 -   PhysicalScene
+    -   Constraints (point, orient, parent)
+
 -   Subdivision surfaces
 -   Nurbs
 - 	Splines
