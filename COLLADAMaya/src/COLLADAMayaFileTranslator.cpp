@@ -31,6 +31,8 @@
 #include <maya/MHWShaderSwatchGenerator.h>
 #endif
 
+//#include "DAE.h"
+
 
     // This is a nasty bit of hackyness for compilation under Windows. Under Win32 you need
     // to compile a dll project and change the extension from "dll" to "mll". One additional
@@ -228,7 +230,8 @@ namespace COLLADAMaya
 
                 if ( ExportOptions::exportXRefs() )
                 {
-                    // TODO Open file export dialog to export the referenced file.
+                    // TODO Open file export dialog ( !? HOW ?! ) to get a DAE filename 
+                    // to export the referenced file.
                     
                 }
             }
@@ -236,6 +239,7 @@ namespace COLLADAMaya
             // Parse the export options
             ExportOptions::set ( options );
 
+            // Check, if we should just export the selected Objects
             exportSelection = mode == MPxFileTranslator::kExportActiveAccessMode;
 
             // Do the actual export now
@@ -264,22 +268,9 @@ namespace COLLADAMaya
     {
         MStatus status = MS::kSuccess;
 
-//   if (MPxFileTranslator::kExportAccessMode == mode) {
-//    if (MStatus::kFailure == exportAll(newFile)) {
-//     return MStatus::kFailure;
-//    }
-//   } else if (MPxFileTranslator::kExportActiveAccessMode == mode) {
-//    if (MStatus::kFailure == exportSelection(newFile)) {
-//     return MStatus::kFailure;
-//    }
-//   } else {
-//    return MStatus::kFailure;
-//   }
-
         /** To get the time */
         clock_t startClock, endClock;
         startClock = clock();
-
 
        // Actually export the document
         DocumentExporter documentExporter ( ( const String ) filename.asChar() );
@@ -289,9 +280,7 @@ namespace COLLADAMaya
         endClock = clock();
         std::ostringstream stream; 
         stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
-
-        MString message(stream.str().c_str());
-//         message = "ColladaMaya export finished:  \"" + filename + "\"";
+        MString message( stream.str().c_str() );
         MGlobal::displayInfo ( message );
 
         return status;
@@ -336,45 +325,73 @@ namespace COLLADAMaya
         const MString fname = file.fullName();
 #endif  // OSMac
 
+
+        // TODO Process the import options
+//        ImportOptions::set ( options, mode );
+
         MStatus rval ( MS::kSuccess );
 
-        /*
-        const int maxLineSize = 1024;
-        char buf[maxLineSize];
-        ifstream inputfile(fname.asChar(), ios::in);
-        if (!inputfile) {
-         // open failed
-         cerr << fname << ": could not be opened for reading\n";
-         return MS::kFailure;
-        }
-        if (!inputfile.getline (buf, maxLineSize)) {
-         cerr << "file " << fname << " contained no lines ... aborting\n";
-         return MS::kFailure;
-        }
-        if (0 != strncmp(buf, magic.asChar(), magic.length())) {
-         cerr << "first line of file " << fname;
-         cerr << " did not contain " << magic.asChar() << " ... aborting\n";
-         return MS::kFailure;
-        }
-        while (inputfile.getline (buf, maxLineSize)) {
-         //processing each line of the file
-         MString cmdString;
-         cmdString.set(buf);
-         if (!MGlobal::executeCommand(cmdString))
-          rval = MS::kFailure;
-        }
-        inputfile.close();
-        */
+//         const int maxLineSize = 1024;
+//         char buf [ maxLineSize ];
+//         ifstream inputfile( fname.asChar(), ios::in );
+//         if ( !inputfile ) 
+//         {
+//             // open failed
+//             cerr << fname << ": could not be opened for reading\n";
+//             return MS::kFailure;
+//         }
+// 
+//         if (!inputfile.getline (buf, maxLineSize)) 
+//         {
+//             cerr << "file " << fname << " contained no lines ... aborting\n";
+//             return MS::kFailure;
+//         }
+// 
+//         if (0 != strncmp(buf, magic.asChar(), magic.length())) 
+//         {
+//             cerr << "first line of file " << fname;
+//             cerr << " did not contain " << magic.asChar() << " ... aborting\n";
+//             return MS::kFailure;
+//         }
+// 
+//         while (inputfile.getline (buf, maxLineSize)) 
+//         {
+//             //processing each line of the file
+//             MString cmdString;
+//             cmdString.set(buf);
+//             if (!MGlobal::executeCommand(cmdString))
+//                 rval = MS::kFailure;
+//         }
+//         inputfile.close();
 
         return rval;
     }
 
+    // ------------------------------
+    MStatus FileTranslator::importFromFile ( const MString& filename )
+    {
+        MStatus status = MS::kSuccess;
+
+//         DAE dae;
+//         dae.open ( filename.asChar() );
+
+        // Importing our scene
+//         DaeDoc* document = colladaNode->NewDocument(filename);
+//         document->Import(CImportOptions::IsReferenceMode() && readDepth > 1);
+
+        //if (CImportOptions::HasError()) status = MStatus::kFailure;
+
+        return status;
+    }
+
+
     /************************************************************************/
     /* Check the given file to see if it is COLLADA data
     /************************************************************************/
-    MPxFileTranslator::MFileKind FileTranslator::identifyFile ( const MFileObject &fileObject,
-            const char *buffer,
-            short size )
+    MPxFileTranslator::MFileKind FileTranslator::identifyFile ( 
+        const MFileObject &fileObject,
+        const char *buffer,
+        short size )
     const
     {
         // Just check for the proper extension for now

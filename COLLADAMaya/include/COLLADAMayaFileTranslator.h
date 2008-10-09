@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #ifndef __COLLADA_MAYA_FILE_TRANSLATOR_H__
 #define __COLLADA_MAYA_FILE_TRANSLATOR_H__
 
@@ -149,11 +150,11 @@ namespace COLLADAMaya
         MStatus exportIntoFile ( const MString& filename, const bool selectionOnly );
 
         /**
-         * @todo documentation
+         * Parses the COLLADA document and generates the Maya structures.
          * @param filename
          * @return MStatus
          */
-        MStatus import ( const MString& filename );
+        MStatus importFromFile ( const MString& filename );
 
     };
 
