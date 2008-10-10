@@ -310,7 +310,7 @@ namespace COLLADAMaya
          * @param ncName Any string.
          * @return COLLADAMaya::String A valid NCName.
          */
-        String DocumentExporter::checkNCName(const String &ncName);
+        String checkNCName(const String &ncName);
 
     private:
 
