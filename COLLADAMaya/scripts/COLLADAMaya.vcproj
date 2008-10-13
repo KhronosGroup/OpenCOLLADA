@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -64,9 +64,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib Image.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\stage\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 			/>
@@ -221,7 +221,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib OpenMayaFX.lib Image.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -382,7 +382,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib Image.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\stage\lib&quot;"
 				GenerateDebugInformation="true"
@@ -542,7 +542,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib Image.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -802,6 +802,331 @@
 				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008%\scripts\others&quot;&#x0D;&#x0A;"
 			/>
 		</Configuration>
+		<Configuration
+			Name="DebugPlugin2009|Win32"
+			OutputDirectory="..\obj\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
+				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
+				DebugInformationFormat="4"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
+				IgnoreDefaultLibraryNames=""
+				GenerateDebugInformation="true"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="DebugPlugin2009|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="3"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
+				WarningLevel="3"
+				DebugInformationFormat="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				GenerateDebugInformation="true"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="mkdir ..\bin\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy &quot;$(TargetDir)\COLLADAMaya.mll&quot; &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleasePlugin2009|Win32"
+			OutputDirectory="..\obj\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			ConfigurationType="2"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				InlineFunctionExpansion="1"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
+				RuntimeLibrary="2"
+				EnableFunctionLevelLinking="true"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
+				WarningLevel="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;"
+				IgnoreAllDefaultLibraries="false"
+				SubSystem="2"
+				OptimizeReferences="1"
+				EnableCOMDATFolding="1"
+				LinkTimeCodeGeneration="1"
+				EntryPointSymbol=""
+				ResourceOnlyDLL="false"
+				TargetMachine="1"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="mkdir ..\bin\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2009%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2009%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
+		<Configuration
+			Name="ReleasePlugin2009|x64"
+			OutputDirectory="$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+			ConfigurationType="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				TargetEnvironment="3"
+			/>
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="2"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE"
+				RuntimeLibrary="2"
+				RuntimeTypeInfo="true"
+				UsePrecompiledHeader="1"
+				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
+				WarningLevel="3"
+			/>
+			<Tool
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
+			<Tool
+				Name="VCLinkerTool"
+				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				OutputFile="$(OutDir)\$(ProjectName).mll"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				IgnoreAllDefaultLibraries="false"
+				LinkTimeCodeGeneration="1"
+				TargetMachine="17"
+			/>
+			<Tool
+				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
+			/>
+			<Tool
+				Name="VCXDCMakeTool"
+			/>
+			<Tool
+				Name="VCBscMakeTool"
+			/>
+			<Tool
+				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
+				Name="VCPostBuildEventTool"
+				Description="Copying plugin to Maya install"
+				CommandLine="mkdir ..\bin\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH2008_X64%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH2008_X64%\scripts\others&quot;&#x0D;&#x0A;"
+			/>
+		</Configuration>
 	</Configurations>
 	<References>
 	</References>
@@ -846,6 +1171,22 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleaseConsole2008|x64"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="1"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
 						>
 						<Tool
 							Name="VCCLCompilerTool"

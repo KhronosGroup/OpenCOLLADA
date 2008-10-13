@@ -28,7 +28,6 @@ namespace COLLADAMaya
     /**
      * The main class for the maya plug-in.
      */
-
     class FileTranslator : public MPxFileTranslator
     {
 

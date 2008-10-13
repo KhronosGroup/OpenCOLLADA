@@ -35,12 +35,12 @@ namespace COLLADAMaya
 
 #define WEIGHT_TOLERANCE 0.001f
 
-#if MAYA_API_VERSION >= 650
-#define MWeight double
-#define MWeightArray MDoubleArray
+#if MAYA_API_VERSION >= 650 
+#define Weight double
+#define WeightArray MDoubleArray
 #else
-#define MWeight float
-#define MWeightArray MFloatArray
+#define Weight float
+#define WeightArray MFloatArray
 #endif
 
 

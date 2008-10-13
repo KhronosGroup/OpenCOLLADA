@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "ColladaMayaPlatform.h"
 #include "COLLADAMayaSyntax.h"
@@ -31,7 +32,9 @@
 #include <maya/MHWShaderSwatchGenerator.h>
 #endif
 
-//#include "DAE.h"
+//#include <DAE.h>
+//#include <dom/domCOLLADA.h>
+//#include <dom/domElements.h>
 
 
     // This is a nasty bit of hackyness for compilation under Windows. Under Win32 you need
@@ -272,7 +275,7 @@ namespace COLLADAMaya
         clock_t startClock, endClock;
         startClock = clock();
 
-       // Actually export the document
+        // Actually export the document
         DocumentExporter documentExporter ( ( const String ) filename.asChar() );
         documentExporter.exportCurrentScene ( selectionOnly );
 
@@ -331,38 +334,8 @@ namespace COLLADAMaya
 
         MStatus rval ( MS::kSuccess );
 
-//         const int maxLineSize = 1024;
-//         char buf [ maxLineSize ];
-//         ifstream inputfile( fname.asChar(), ios::in );
-//         if ( !inputfile ) 
-//         {
-//             // open failed
-//             cerr << fname << ": could not be opened for reading\n";
-//             return MS::kFailure;
-//         }
-// 
-//         if (!inputfile.getline (buf, maxLineSize)) 
-//         {
-//             cerr << "file " << fname << " contained no lines ... aborting\n";
-//             return MS::kFailure;
-//         }
-// 
-//         if (0 != strncmp(buf, magic.asChar(), magic.length())) 
-//         {
-//             cerr << "first line of file " << fname;
-//             cerr << " did not contain " << magic.asChar() << " ... aborting\n";
-//             return MS::kFailure;
-//         }
-// 
-//         while (inputfile.getline (buf, maxLineSize)) 
-//         {
-//             //processing each line of the file
-//             MString cmdString;
-//             cmdString.set(buf);
-//             if (!MGlobal::executeCommand(cmdString))
-//                 rval = MS::kFailure;
-//         }
-//         inputfile.close();
+        // Import the COLLADA DAE file
+        rval = importFromFile ( fname );
 
         return rval;
     }
@@ -372,8 +345,28 @@ namespace COLLADAMaya
     {
         MStatus status = MS::kSuccess;
 
+//         // Actually import the document
+//         DocumentExporter documentExporter ( ( const String ) filename.asChar() );
+// 
 //         DAE dae;
-//         dae.open ( filename.asChar() );
+//         domCOLLADA* colladaDocument = dae.open ( filename.asChar() );
+// 
+//         domLibrary_visual_scenes_Array visualScenesArray = colladaDocument->getLibrary_visual_scenes_array();
+// 
+//         // TODO Import the COLLADA DAE file!
+//         size_t numOfScenes = visualScenesArray.getCount();
+//         for ( size_t i=0; i<numOfScenes; ++i )
+//         {
+//             domLibrary_visual_scenesRef vsRef = visualScenesArray.get ( i );
+//             const domVisual_scene_Array vs = vsRef->getVisual_scene_array();
+//             for (size_t j = 0; j < vs.getCount(); j++)
+//             {
+//             }
+// 
+//             // TODO
+//            documentExporter.importScene ();
+//        }
+
 
         // Importing our scene
 //         DaeDoc* document = colladaNode->NewDocument(filename);

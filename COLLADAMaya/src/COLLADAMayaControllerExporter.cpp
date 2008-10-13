@@ -613,7 +613,7 @@ namespace COLLADAMaya
             int index = componentIt.index();
             SkinControllerVertex& vertex = colladaInfluences[index];
 
-            MWeightArray weights;
+            WeightArray weights;
             MObject component = componentIt.component();
             if (skinClusterFn.getWeights(outputShape, component, weights, numInfluences) != MS::kSuccess)
             {
@@ -623,7 +623,7 @@ namespace COLLADAMaya
             uint weightCount = weights.length();
             for (uint i = 0; i < weightCount; ++i)
             {
-                if (!COLLADA::MathUtils::equals(weights[i], MWeight(0)))
+                if (!COLLADA::MathUtils::equals(weights[i], Weight(0)))
                 {
                     vertex[i] = (float)weights[i];
                 }
