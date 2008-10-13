@@ -997,7 +997,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB916108733D950010E9CD /* Debug */ = {
+		1DEB916108733D950010E9CD /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1068,9 +1068,9 @@
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
 				ZERO_LINK = YES;
 			};
-			name = Debug;
+			name = "Debug 2008";
 		};
-		1DEB916208733D950010E9CD /* Release */ = {
+		1DEB916208733D950010E9CD /* Release 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1134,9 +1134,9 @@
 				STRIP_STYLE = "non-global";
 				ZERO_LINK = YES;
 			};
-			name = Release;
+			name = "Release 2008";
 		};
-		1DEB916508733D950010E9CD /* Debug */ = {
+		1DEB916508733D950010E9CD /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -1148,9 +1148,9 @@
 				PREBINDING = NO;
 				SDKROOT = macosx10.5;
 			};
-			name = Debug;
+			name = "Debug 2008";
 		};
-		1DEB916608733D950010E9CD /* Release */ = {
+		1DEB916608733D950010E9CD /* Release 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -1177,9 +1177,9 @@
 				PREBINDING = YES;
 				SDKROOT = macosx10.5;
 			};
-			name = Release;
+			name = "Release 2008";
 		};
-		CE6095220E93CD6C007F776B /* Debug */ = {
+		CE6095220E93CD6C007F776B /* Debug 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1204,9 +1204,9 @@
 				SDKROOT = "";
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
-			name = Debug;
+			name = "Debug 2008";
 		};
-		CE6095230E93CD6C007F776B /* Release */ = {
+		CE6095230E93CD6C007F776B /* Release 2008 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1233,7 +1233,247 @@
 				SDKROOT = "";
 				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
 			};
-			name = Release;
+			name = "Release 2008";
+		};
+		CE84B2D80E9F7BF400728F47 /* Debug 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = "Debug 2009";
+		};
+		CE84B2D90E9F7BF400728F47 /* Debug 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Autodesk/maya2009/maya.app/Contents/Frameworks\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					DEBUG,
+					_BOOL,
+				);
+				GCC_VERSION = "";
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(MAYA_PATH2009)/devkit/include",
+					"$(MAYA_PATH2009)/devkit/plug-ins",
+					"/usr/local/include/boost-1_36",
+					../../COLLADAStreamWriter/include,
+					../../Externals/include,
+				);
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2009/plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+					/usr/local/lib,
+				);
+				LIBRARY_STYLE = BUNDLE;
+				MACH_O_TYPE = mh_bundle;
+				MACOSX_DEPLOYMENT_TARGET = "";
+				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				OTHER_CFLAGS = "-fPIC";
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-L$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+					"-Wl,-executable_path,$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-ICOLLADAStreamWriter",
+					"-lboost_filesystem-xgcc40-mt-1_36",
+					"-lboost_system-xgcc40-mt-1_36",
+					"-shared",
+					"-lboost_regex-xgcc40-mt-1_36",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAMaya;
+				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = dynamic;
+				ZERO_LINK = YES;
+			};
+			name = "Debug 2009";
+		};
+		CE84B2DA0E9F7BF400728F47 /* Debug 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					DEBUG,
+				);
+				HEADER_SEARCH_PATHS = "/usr/local/include/boost-1_36";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAStreamWriter;
+				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+			};
+			name = "Debug 2009";
+		};
+		CE84B3330E9F96D600728F47 /* Release 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREFIX_HEADER = "$(MAYA_PATH2008)/devkit/include/maya/OpenMayaMac.h";
+				GCC_PREPROCESSOR_DEFINITIONS = REQUIRE_IOSTREAM;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = NO;
+				HEADER_SEARCH_PATHS = (
+					"/usr/local/include/boost-1_36",
+					"$(MAYA_PATH2008)/devkit/include/",
+				);
+				LIBRARY_SEARCH_PATHS = "$(MAYA_PATH2008)/Maya.app/Contents/MacOS";
+				LIBRARY_STYLE = BUNDLE;
+				MAYA_PATH2008 = /Applications/Autodesk/maya2008;
+				OTHER_LDFLAGS = (
+					"-lOpenMaya",
+					"-lFoundation",
+					"-Wl,-executable_path,$(MAYA_PATH2008)/Contents/MacOS",
+					"-lOpenMaya",
+					"-lOpenMayaUI",
+					"-lFoundation",
+				);
+				PREBINDING = YES;
+				SDKROOT = macosx10.5;
+			};
+			name = "Release 2009";
+		};
+		CE84B3340E9F96D600728F47 /* Release 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = "";
+				DYLIB_CURRENT_VERSION = "";
+				EXECUTABLE_EXTENSION = bundle;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Autodesk/maya2009/Maya.app/Contents/Frameworks\"",
+				);
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					MAC_PLUGIN,
+					NDEBUG,
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					GLUT_NO_LIB_PRAGMA,
+					CM_EXPORTS,
+					GLUT_NO_WARNING_DISABLE,
+					_CRT_NONSTDC_NO_DEPRECATE,
+					_BOOL,
+				);
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(MAYA_PATH2009)/devkit/include",
+					"$(MAYA_PATH2009)/devkit/plug-ins",
+					"/usr/local/include/boost-1_36",
+					../../COLLADAStreamWriter/include,
+					../../Externals/include,
+				);
+				INSTALL_MODE_FLAG = "u+rwx,go+rwx,a+rwX";
+				INSTALL_PATH = "/Users/Shared/Autodesk/maya/2009/plug-ins";
+				LIBRARY_SEARCH_PATHS = (
+					"$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+					/usr/local/lib,
+				);
+				MACH_O_TYPE = mh_bundle;
+				MAYA_PATH2009 = /Applications/Autodesk/maya2009;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-L$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+					"-Wl,-executable_path,$(MAYA_PATH2009)/Maya.app/Contents/MacOS",
+					"-lOpenMaya",
+					"-lFoundation",
+					"-lOpenMayaUI",
+					"-lOpenMayaAnim",
+					"-lOpenMayaRender",
+					"-ICOLLADAStreamWriter",
+					"-lboost_filesystem-xgcc40-mt-1_36",
+					"-lboost_system-xgcc40-mt-1_36",
+					"-shared",
+					"-lboost_regex-xgcc40-mt-1_36",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAMaya;
+				SDKROOT = "";
+				STRIP_INSTALLED_PRODUCT = YES;
+				STRIP_STYLE = "non-global";
+				ZERO_LINK = YES;
+			};
+			name = "Release 2009";
+		};
+		CE84B3350E9F96D600728F47 /* Release 2009 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(NATIVE_ARCH)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					OSMac_,
+					REQUIRE_IOSTREAM,
+					NDEBUG,
+				);
+				HEADER_SEARCH_PATHS = "/usr/local/include/boost-1_36";
+				INSTALL_PATH = /usr/local/lib;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib",
+					"-lboost_regex-xgcc40-mt-1_36",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = COLLADAStreamWriter;
+				SDKROOT = "";
+				STANDARD_C_PLUS_PLUS_LIBRARY_TYPE = static;
+			};
+			name = "Release 2009";
 		};
 /* End XCBuildConfiguration section */
 
@@ -1241,29 +1481,35 @@
 		1DEB916008733D950010E9CD /* Build configuration list for PBXNativeTarget "COLLADAMaya" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916108733D950010E9CD /* Debug */,
-				1DEB916208733D950010E9CD /* Release */,
+				1DEB916108733D950010E9CD /* Debug 2008 */,
+				CE84B2D90E9F7BF400728F47 /* Debug 2009 */,
+				1DEB916208733D950010E9CD /* Release 2008 */,
+				CE84B3340E9F96D600728F47 /* Release 2009 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release 2008";
 		};
 		1DEB916408733D950010E9CD /* Build configuration list for PBXProject "COLLADAMaya" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DEB916508733D950010E9CD /* Debug */,
-				1DEB916608733D950010E9CD /* Release */,
+				1DEB916508733D950010E9CD /* Debug 2008 */,
+				CE84B2D80E9F7BF400728F47 /* Debug 2009 */,
+				1DEB916608733D950010E9CD /* Release 2008 */,
+				CE84B3330E9F96D600728F47 /* Release 2009 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release 2008";
 		};
 		CE6095240E93CD8A007F776B /* Build configuration list for PBXNativeTarget "COLLADAStreamWriter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CE6095220E93CD6C007F776B /* Debug */,
-				CE6095230E93CD6C007F776B /* Release */,
+				CE6095220E93CD6C007F776B /* Debug 2008 */,
+				CE84B2DA0E9F7BF400728F47 /* Debug 2009 */,
+				CE6095230E93CD6C007F776B /* Release 2008 */,
+				CE84B3350E9F96D600728F47 /* Release 2009 */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = "Release 2008";
 		};
 /* End XCConfigurationList section */
 	};
