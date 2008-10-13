@@ -177,7 +177,6 @@ namespace COLLADAMaya
         // Set the current programs profile
         CGprofile cgProgramProfile = cgGetProgramProfile( cgProgram );
         const char* profileString = cgGetProfileString ( cgProgramProfile ); // arbvp1
-        CGdomain cgProfileDomain = cgGetProfileDomain( cgProgramProfile );
         if ( profileString != NULL )
             shader.addCompilerTarget ( profileString );
 

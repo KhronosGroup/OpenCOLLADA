@@ -195,31 +195,22 @@ namespace COLLADAMaya
         }
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_SHADER )
         {
-            // TODO
-            //  exportColladaFXShader(&effectProfile, shader, colladaMaterial);
             MGlobal::displayError("Export of ColladaFXShader not implemented!");
         }
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) && shaderNode.typeName() == COLLADA_FX_PASSES )
         {
-            // TODO
-            //  effect = ExportColladaFXPasses(&effectProfile, shader, colladaMaterial);
             MGlobal::displayError("Export of ColladaFXPasses not implemented!");
         }
         // Custom hardware shaders derived from MPxHardwareShader (the new stuff)
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) )
         {
-            // TODO
-//            exportStandardShader ( effectId, &effectProfile, shader );
-
+            // Export a cgfx hardware shader node.
             exportHwShaderNode ( effectId, &effectProfile, shader );
-            //MGlobal::displayError("Export of HwShaderNode not implemented!");
         }
-#if MAYA_API_VERSION <= 700 || MAYA_API_VERSION == 200800
+#if MAYA_API_VERSION < 700 || MAYA_API_VERSION == 200800
         // Custom hardware shaders derived from MPxHwShaderNode (the old stuff)
         else if ( shader.hasFn ( MFn::kPluginHardwareShader ) )
         {
-            // TODO
-            //  exportColladaFXShader(&effectProfile, shader, colladaMaterial);
             MGlobal::displayError("Export HardwareShader not implemented!");
         }
 #endif

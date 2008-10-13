@@ -5,7 +5,9 @@ To build the COLLADAMaya plug-in, you need following installations:
 - 	Boost C++ libraries
 
 Supported versions of Autodesk Maya are:
+-	Autodesk Maya 8.5
 -	Autodesk Maya 2008
+-	Autodesk Maya 2009
 
 Supported and tested versions of boost c++ libraries:
 -	Boost 1.35
@@ -26,8 +28,15 @@ Download and compile the sources of COLLADAMaya from
 https://colladamaya.svn.sourceforge.net/svnroot/colladamaya/branches/nextgen.
 
 Open the project from ~project_dir/COLLADAMaya/COLLADAMaya.xcodeproj
-The solution configurations "Release" and "Debug" will create a bundle called 
-"COLLADAMaya.bundle". The file will be created in the output folder under 
+The solution configurations 
+- Release 2009
+- Debug 2009
+- Release 2008
+- Debug 2008
+- Release 8.5
+- Debug 8.5
+will create a bundle called "COLLADAMaya.bundle". The file will be created in 
+the output folder under 
 ~project_dir/COLLADAMaya/build/Debug, respectively in 
 ~project_dir/COLLADAMaya/Release. 
 

@@ -4,6 +4,7 @@ To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
 Autodesk Maya 2008
+Autodesk Maya 2009
 
 For help on build, please read the BUILD file.
 
@@ -11,6 +12,12 @@ Install:
 --------
 On build with XCode, the required plugin files will be copied into 
 your Autodesk Maya directories.
+
+NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
+version. Following environment variables to your Maya location are supported:
+- MAYA_PATH85
+- MAYA_PATH2008
+- MAYA_PATH2009
 
 You have to copy following files:
 - ~project_dir/COLLADAMaya/build/Debug/COLLADAMaya.bundle to your personal

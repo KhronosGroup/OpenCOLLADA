@@ -5,7 +5,9 @@ To build the COLLADAMaya plug-in, you need following installations:
 - 	Boost C++ libraries
 
 Supported versions of Autodesk Maya are:
+-	Autodesk Maya 8.5
 -	Autodesk Maya 2008
+-	Autodesk Maya 2009
 
 Supported and tested versions of boost c++ libraries:
 -	Boost 1.35
@@ -30,18 +32,27 @@ Build:
 Before you start to build, you have to define following environment 
 variables for a win32, respectively a x64 system: 
 
+NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
+version. Following environment variables to your Maya location are supported:
+- MAYA_PATH2009
+- MAYA_PATH2009_X64
+- MAYA_PATH2008
+- MAYA_PATH2008_X64
+- MAYA_PATH85
+- MAYA_PATH85_X64
+
 win32:
--	"MAYA_PATH2008" to your installation path of Autodesk Maya
-	The include directory of maya has to be "$(MAYA_PATH2008)\include"
-	The lib directory of maya has to be "$(MAYA_PATH2008)\lib"
+-	"YOUR_MAYA_PATH" to your installation path of Autodesk Maya
+	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include"
+	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib"
 -	"BOOST_ROOT" to your installation path of boost
 	The boost include directory has to be "$(BOOST_ROOT)"
 	The lib directory of boost has to be "$(BOOST_ROOT)\stage\lib"
 	
 x64:
 -	"MAYA_PATH2008_X64" to your installation path of Autodesk Maya
-	The include directory of maya has to be "$(MAYA_PATH2008_X64)\include"
-	The lib directory of maya has to be "$(MAYA_PATH2008_X64)\lib"
+	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include"
+	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib"
 -	"BOOST_ROOT" to your installation path of boost
 	The boost include directory has to be "$(BOOST_ROOT)"
 	The lib directory of boost has to be "$(BOOST_ROOT)\stage64\lib"
@@ -50,10 +61,16 @@ Download and compile the sources of COLLADAMaya from
 https://colladamaya.svn.sourceforge.net/svnroot/colladamaya/branches/nextgen.
 
 Open the solution in ~project_dir/COLLADAMaya/COLLADAMaya.sln
-The solution configurations "ReleasePlugin2008" and "DebugPlugin2008" will 
-create a dynamic library called "COLLADAMaya.mll". The file 
+The solution configurations 
+- ReleasePlugin2009
+- DebugPlugin2009
+- ReleasePlugin2008
+- DebugPlugin2008
+- ReleasePlugin85 
+- DebugPlugin85
+will create a dynamic library called "COLLADAMaya.mll". The file 
 will be created in the output folder and copied into the folder 
-$(MAYA_PATH2008)/bin/plug-ins of your Autodesk Maya installation.
+$(YOUR_MAYA_PATH)/bin/plug-ins of your Autodesk Maya installation.
 If you don't use the MS Visual Studio project file, you have to copy the 
 created "COLLADAMaya.mll" file into this directory.
 
