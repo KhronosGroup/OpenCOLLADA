@@ -35,7 +35,7 @@ namespace COLLADAMaya
     // Name of a MEL script that will be used to display the contents of the
     // options dialog during file open and save
     static char*  MEL_EXPORT_OPTS                                   = "colladaNextGenExporterOpts";
-    static char*  MEL_IMPORT_OPTS                                   = "colladaImporterOpts";
+    static char*  MEL_IMPORT_OPTS                                   = "colladaNextGenImporterOpts";
 
     // COLLADA NetAllied Systems
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";

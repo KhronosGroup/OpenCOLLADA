@@ -69,7 +69,7 @@ class MGLFunctionTable;
 #include <maya/MVectorArray.h>
 
 #ifdef WIN32
-#elif defined(MAC_PLUGIN)
+#elif (defined(MAC_PLUGIN) || defined (OSMac_))
 
 #elif defined(LINUX)
 

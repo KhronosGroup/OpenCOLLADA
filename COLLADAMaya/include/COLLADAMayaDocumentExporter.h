@@ -18,6 +18,7 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAStreamWriter.h"
+
 #include "maya/MDistance.h"
 
 
@@ -41,7 +42,6 @@ namespace COLLADAMaya
     /**
      * The main exporter class. This class exports all data of the scene.
      */
-
     class DocumentExporter
     {
 
@@ -104,7 +104,7 @@ namespace COLLADAMaya
         */
 
         /** The name of the collada file. */
-        const String mFileName;
+        String mFileName;
 
         /** The stream writer, to write the collada document. */
         COLLADA::StreamWriter mStreamWriter;
@@ -121,137 +121,99 @@ namespace COLLADAMaya
          * Constructor.
          * @param _fileName Name of the collada file.
          */
-        DocumentExporter ( const String& _fileName );
+        DocumentExporter ( const String& fileName );
         virtual ~DocumentExporter();
+
+        /**
+        * Exports all data of the current scene.
+        * @param selectionOnly True, if just the selected elements should be exported.
+        */
+        void exportCurrentScene ( bool selectionOnly );
 
         /**
          * Returns a pointer to the scene graph.
          * @return SceneGraph* Pointer to the scene graph
          */
-        inline SceneGraph* getSceneGraph()
-        {
-            return mSceneGraph;
-        }
+        SceneGraph* getSceneGraph();
 
         /**
          * Returns the name of the current collada file to export.
          * @return const String& Name of the current collada file
          */
-        inline const String& getFilename() const
-        {
-            return mFileName;
-        }
+        const String& getFilename() const;
 
         /**
         * Returns a pointer to the collada stream writer.
-        * @return SceneGraph* Pointer to the collada stream writer
+        * @return StreamWriter* Pointer to the collada stream writer
         */
-        inline COLLADA::StreamWriter* getStreamWriter()
-        {
-            return &mStreamWriter;
-        }
+        COLLADA::StreamWriter* getStreamWriter();
 
         /**
         * Returns a pointer to the animation cache.
-        * @return MaterialExporter* Pointer to the animation cache
+        * @return AnimationSampleCache* Pointer to the animation cache
         */
-        AnimationSampleCache* getAnimationCache()
-        {
-            return mAnimationCache;
-        }
+        AnimationSampleCache* getAnimationCache();
 
         /**
          * Returns a pointer to the material exporter.
          * @return MaterialExporter* Pointer to the material exporter
          */
-        MaterialExporter* getMaterialExporter()
-        {
-            return mMaterialExporter;
-        }
+        MaterialExporter* getMaterialExporter();
 
         /**
         * Returns a pointer to the effect exporter.
-        * @return MaterialExporter* Pointer to the effect exporter
+        * @return EffectExporter* Pointer to the effect exporter
         */
-        EffectExporter* getEffectExporter()
-        {
-            return mEffectExporter;
-        }
+        EffectExporter* getEffectExporter();
 
         /**
         * Returns a pointer to the image exporter.
-        * @return MaterialExporter* Pointer to the image exporter
+        * @return ImageExporter* Pointer to the image exporter
         */
-        ImageExporter* getImageExporter()
-        {
-            return mImageExporter;
-        }
+        ImageExporter* getImageExporter();
 
         /**
         * Returns a pointer to the geometry exporter.
-        * @return MaterialExporter* Pointer to the geometry exporter
+        * @return GeometryImporter* Pointer to the geometry exporter
         */
-        GeometryExporter* getGeometryExporter()
-        {
-            return mGeometryExporter;
-        }
+        GeometryExporter* getGeometryExporter();
 
         /**
         * Returns a pointer to the visual scene exporter.
-        * @return MaterialExporter* Pointer to the visual scene exporter
+        * @return VisualSceneExporter* Pointer to the visual scene exporter
         */
-        VisualSceneExporter* getVisualSceneExporter()
-        {
-            return mVisualSceneExporter;
-        }
+        VisualSceneExporter* getVisualSceneExporter();
 
         /**
         * Returns a pointer to the animation exporter.
-        * @return MaterialExporter* Pointer to the animation exporter
+        * @return AnimationExporter* Pointer to the animation exporter
         */
-        AnimationExporter* getAnimationExporter()
-        {
-            return mAnimationExporter;
-        }
+        AnimationExporter* getAnimationExporter();
 
         /**
         * Returns a pointer to the animation clip exporter.
-        * @return MaterialExporter* Pointer to the animation clip exporter
+        * @return AnimationClipExporter* Pointer to the animation clip exporter
         */
-        AnimationClipExporter* getAnimationClipExporter()
-        {
-            return mAnimationClipExporter;
-        }
+        AnimationClipExporter* getAnimationClipExporter();
 
         /**
         * Returns a pointer to the controller exporter.
         * @return ControllerExporter* Pointer to the controller exporter
         */
-        ControllerExporter* getControllerExporter()
-        {
-            return mControllerExporter;
-        }
+        ControllerExporter* getControllerExporter();
 
         /**
         * Returns a pointer to the light exporter.
         * @return LightExporter* Pointer to the light exporter
         */
-        LightExporter* getLightExporter()
-        {
-            return mLightExporter;
-        }
+        LightExporter* getLightExporter();
 
         /**
         * Returns a pointer to the camera exporter.
         * @return CameraExporter* Pointer to the light exporter
         */
-        CameraExporter* getCameraExporter()
-        {
-            return mCameraExporter;
-        }
+        CameraExporter* getCameraExporter();
 
-
-        // Create COLLADA names and ids
         /**
          * Converts the given string to a valid collada string.
          * @param str String to convert
@@ -259,12 +221,14 @@ namespace COLLADAMaya
          * @return MString Maya string with the converted string.
          */
         String mayaNameToColladaName ( const MString& str, bool removeNamespace=true );
+
         /**
          * Make an unique COLLADA Id from a dagPath.
          * @param dagPath The dag path to convert.
          * @return MString The converted collada id.
          */
         String dagPathToColladaId ( const MDagPath& dagPath );
+
         /**
          * Get a COLLADA suitable node name from a DAG path
          * @param dagPath The dag path to convert.
@@ -280,25 +244,10 @@ namespace COLLADAMaya
         String colladaNameToDagName ( const MString& name );
 
         /**
-         * Exports all data of the current scene.
-         * @param selectionOnly True, if just the selected elements should be exported.
-         */
-        void exportCurrentScene ( bool selectionOnly );
-
-        /**
          * Return the id of the current scene.
          * @return const String& The current scene id.
          */
-        const String& getSceneID()
-        {
-            return mSceneId;
-        }
-
-        /** Opens an <extra> and a <technique> tag in the collada document */
-        void openTechnique ( const String &profile );
-
-        /** Closes the <extra> and a <technique> tag in the collada document, if open */
-        void closeTechnique();
+        const String& getSceneID();
 
         /**
          * Do all stuff to end the export.
@@ -314,10 +263,10 @@ namespace COLLADAMaya
 
     private:
 
-        /** Exports the asset*/
+        /** Exports the asset. */
         void exportAsset();
 
-        /** Exports the scene*/
+        /** Exports the current scene. */
         void exportScene();
 
         /** Creates the import/export libraries */

@@ -23,6 +23,9 @@
 #include <maya/MPxFileTranslator.h>
 #endif // _MPxFileTranslator
 
+#include <dom/domCOLLADA.h>
+
+
 namespace COLLADAMaya
 {
     /**
@@ -150,10 +153,10 @@ namespace COLLADAMaya
 
         /**
          * Parses the COLLADA document and generates the Maya structures.
-         * @param filename
-         * @return MStatus
+         * @param filename The collada document name to read in.
+         * @return MStatus Error, if something went wrong.
          */
-        MStatus importFromFile ( const MString& filename );
+        MStatus importFromFile ( const String& filename );
 
     };
 

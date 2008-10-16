@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSetHelper.h"
@@ -60,17 +61,8 @@ namespace COLLADAMaya
     bool ExportOptions::mCurveConstrainSampling = false;
     MFloatArray ExportOptions::mSamplingFunction;
 
-    bool CImportOptions::mIsOpenCall = false;
-    bool CImportOptions::mIsReferenceCall = false;
-    bool CImportOptions::mFileLoadDeferRefOptionVar = false;
-    bool CImportOptions::mHasError = false;
-
-    bool CImportOptions::mImportUpAxis = true;
-    bool CImportOptions::mImportUnits = true;
-    bool CImportOptions::mImportNormals = false;
 
     // Parse the options String
-    //
     void ExportOptions::set ( const MString& optionsString )
     {
         // Reset everything to the default value
@@ -212,81 +204,159 @@ namespace COLLADAMaya
         SetHelper::setSets ( mExclusionSets, ( SetHelper::SetModes ) mExclusionSetMode );
     }
 
-    //
-    // Parse the options String
-    //
-    void CImportOptions::set ( const MString& optionsString, MPxFileTranslator::FileAccessMode mode )
+    bool ExportOptions::bakeTransforms()
     {
-        // Default option values
-        mImportUpAxis = true;
-        mImportUnits = true;
-        mImportNormals = false;
+        return mBakeTransforms;
+    }
 
-        mHasError = false;
+    bool ExportOptions::exportPolygonMeshes()
+    {
+        return mExportPolygonMeshes;
+    }
 
-        switch ( mode )
-        {
+    bool ExportOptions::bakeLighting()
+    {
+        return mBakeLighting;
+    }
 
-        case MPxFileTranslator::kOpenAccessMode:
-            mIsOpenCall = true;
-            mIsReferenceCall = false;
-            break;
-#if MAYA_API_VERSION >= 650
+    bool ExportOptions::isSampling()
+    {
+        return mIsSampling;
+    }
 
-        case MPxFileTranslator::kReferenceAccessMode:
-            mIsOpenCall = false;
-            mIsReferenceCall = true;
-            break;
-#endif
+    bool ExportOptions::curveConstrainSampling()
+    {
+        return mCurveConstrainSampling;
+    }
 
-        case MPxFileTranslator::kImportAccessMode:
-            mIsOpenCall = false;
-            mIsReferenceCall = false;
-            break;
+    bool ExportOptions::removeStaticCurves()
+    {
+        return mRemoveStaticCurves;
+    }
 
-        default:
-            mIsOpenCall = false;
-            break;
-        }
+    bool ExportOptions::exportCameraAsLookat()
+    {
+        return mExportCameraAsLookat;
+    }
 
-        // Parse option String
+    bool ExportOptions::relativePaths()
+    {
+        return mRelativePaths;
+    }
 
-        if ( optionsString.length() > 0 )
-        {
-            MStringArray optionList;
-            optionsString.split ( ';', optionList );
-            uint optionCount = optionList.length();
+    bool ExportOptions::exportLights()
+    {
+        return mExportLights;
+    }
 
-            for ( uint i = 0; i < optionCount; ++i )
-            {
-                MString& currentOption = optionList[i];
+    bool ExportOptions::exportCameras()
+    {
+        return mExportCameras;
+    }
 
-                // Process option name and values.
-                MStringArray decomposedOption;
-                currentOption.split ( '=', decomposedOption );
-                MString& optionName = decomposedOption[0];
+    bool ExportOptions::exportJointsAndSkin()
+    {
+        return mExportJointsAndSkin;
+    }
 
-                // For boolean values, the value is assumed to be true
-                // if omitted.
-                bool value = true;
+    bool ExportOptions::exportAnimations()
+    {
+        return mExportAnimations;
+    }
 
-                if ( decomposedOption.length() > 1 && decomposedOption[1] != "true" && decomposedOption[1] != "1" )
-                {
-                    value = false;
-                }
+    bool ExportOptions::exportTriangles()
+    {
+        return mExportTriangles;
+    }
 
-                // Process options.
+    bool ExportOptions::exportInvisibleNodes()
+    {
+        return mExportInvisibleNodes;
+    }
 
-                if ( optionName == "importUpAxis" ) mImportUpAxis = value;
-                else if ( optionName == "importUnits" ) mImportUnits = value;
-                else if ( optionName == "importNormals" ) mImportNormals = value;
-            }
-        }
+    bool ExportOptions::exportDefaultCameras()
+    {
+        return mExportDefaultCameras;
+    }
 
-        int optionValue;
+    bool ExportOptions::exportNormals()
+    {
+        return mExportNormals;
+    }
 
-        MGlobal::executeCommand ( "optionVar -q \"fileLoadDeferRef\";", optionValue );
-        mFileLoadDeferRefOptionVar = optionValue != 0;
+    bool ExportOptions::exportNormalsPerVertex()
+    {
+        return mExportNormalsPerVertex;
+    }
+
+    bool ExportOptions::exportTexCoords()
+    {
+        return mExportTexCoords;
+    }
+
+    bool ExportOptions::exportVertexColors()
+    {
+        return mExportVertexColors;
+    }
+
+    bool ExportOptions::exportVertexColorsPerVertex()
+    {
+        return mExportVertexColorsPerVertex;
+    }
+
+    bool ExportOptions::exportVertexColorAnimations()
+    {
+        return mExportVertexColorAnimations;
+    }
+
+    bool ExportOptions::exportTangents()
+    {
+        return mExportTangents;
+    }
+
+    bool ExportOptions::exportTexTangents()
+    {
+        return mExportTexTangents;
+    }
+
+    bool ExportOptions::exportConstraints()
+    {
+        return mExportConstraints;
+    }
+
+    bool ExportOptions::exportPhysics()
+    {
+        return mExportPhysics;
+    }
+
+    MStringArray ExportOptions::getExclusionSets()
+    {
+        return mExclusionSets;
+    }
+
+    bool ExportOptions::exportXRefs()
+    {
+        return mExportXRefs;
+    }
+
+    bool ExportOptions::dereferenceXRefs()
+    {
+        return mDereferenceXRefs;
+    }
+
+    bool ExportOptions::cameraXFov()
+    {
+        return mCameraXFov;
+    }
+
+    bool ExportOptions::cameraYFov()
+    {
+        return mCameraYFov;
+    }
+
+    bool ExportOptions::copyTextures()
+    {
+        return mCopyTextures;
     }
 
 }

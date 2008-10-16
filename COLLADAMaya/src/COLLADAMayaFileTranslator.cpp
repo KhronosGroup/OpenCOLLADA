@@ -18,8 +18,13 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
+#include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaImportOptions.h"
 #include "COLLADAStreamWriterException.h"
+
+#include "COLLADAURI.h"
+
 #include <time.h>
 
 #include <maya/MFnPlugin.h>
@@ -27,14 +32,14 @@
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnDependencyNode.h>
 #include <maya/MGlobal.h>
-
 #if MAYA_API_VERSION >= 700
 #include <maya/MHWShaderSwatchGenerator.h>
 #endif
 
-//#include <DAE.h>
-//#include <dom/domCOLLADA.h>
-//#include <dom/domElements.h>
+#include <fstream>
+
+#include <DAE.h>
+#include <dom/domElements.h>
 
 
     // This is a nasty bit of hackyness for compilation under Windows. Under Win32 you need
@@ -70,14 +75,13 @@
         // --------------------------------------------------------------
         // Register the import and the export file translator plug-ins.
 
-        // Export-Plugin
+        // Export plug-in
         status = plugin.registerFileTranslator ( 
-                 COLLADAMaya::COLLADA_EXPORTER,
-                 "", // pathname of the icon used in file selection dialogs
-                 COLLADAMaya::FileTranslator::createExporter, // this class implements the new file type
-                 COLLADAMaya::MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
-                 NULL ); // defaultOptionsString
-
+            COLLADAMaya::COLLADA_EXPORTER,
+            "", // pathname of the icon used in file selection dialogs
+            COLLADAMaya::FileTranslator::createExporter, // this class implements the new file type
+            COLLADAMaya::MEL_EXPORT_OPTS, // name of a MEL script that will be used to display the contents of the options dialog during file open and save
+            NULL ); // defaultOptionsString
         if ( !status )
         {
             status.perror ( "registerFileTranslator" );
@@ -85,19 +89,18 @@
             return status;
         }
 
-//         // Import-Plugin
-//         status = plugin.registerFileTranslator ( 
-//                 COLLADA_IMPORTER,
-//                  "",
-//                  FileTranslator::createImporter,
-//                  MEL_IMPORT_OPTS,
-//                  NULL );
-// 
-//         if ( !status )
-//         {
-//             status.perror ( "registerFileTranslator" );
-//             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
-//         }
+        // Import plug-in
+        status = plugin.registerFileTranslator ( 
+            COLLADAMaya::COLLADA_IMPORTER,
+            "",
+            COLLADAMaya::FileTranslator::createImporter,
+            COLLADAMaya::MEL_IMPORT_OPTS,
+            NULL );
+        if ( !status )
+        {
+            status.perror ( "registerFileTranslator" );
+            MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
+        }
 
         // TODO
         MString UserClassify("shader/surface/utility");
@@ -129,25 +132,24 @@
         MFnPlugin plugin ( obj );
 
         // Add plug-in feature de-registration here
-        //
 
-        // Export-Plugin
+        // Export plug-in
         status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_EXPORTER );
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to unregister COLLADA exporter: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya exporter: " ) + status );
             return status;
         }
 
-//         // Import-Plugin
-//         status = plugin.deregisterFileTranslator ( COLLADA_IMPORTER );
-//         if ( !status )
-//         {
-//             status.perror ( "deregisterFileTranslator" );
-//             MGlobal::displayError ( MString ( "Unable to unregister COLLADA importer: " ) + status );
-//             return status;
-//         }
+        // Import plug-in
+        status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_IMPORTER );
+        if ( !status )
+        {
+            status.perror ( "deregisterFileTranslator" );
+            MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
+            return status;
+        }
 
 #if MAYA_API_VERSION >= 800
         // Disable the shared-reference node options.
@@ -276,7 +278,7 @@ namespace COLLADAMaya
         startClock = clock();
 
         // Actually export the document
-        DocumentExporter documentExporter ( ( const String ) filename.asChar() );
+        DocumentExporter documentExporter ( filename.asChar() );
         documentExporter.exportCurrentScene ( selectionOnly );
 
         // Display some closing information.
@@ -323,56 +325,42 @@ namespace COLLADAMaya
 #if defined (OSMac_)
         char nameBuffer[MAXPATHLEN];
         strcpy ( nameBuffer, file.fullName().asChar() );
-        const MString fname ( nameBuffer );
+        const MString filename ( nameBuffer );
 #else
-        const MString fname = file.fullName();
+        const MString filename = file.fullName();
 #endif  // OSMac
 
+        MStatus status ( MS::kSuccess );
 
-        // TODO Process the import options
-//        ImportOptions::set ( options, mode );
-
-        MStatus rval ( MS::kSuccess );
+        // Process the import options
+        ImportOptions::set ( options, mode );
+        if (ImportOptions::hasError()) status = MStatus::kFailure;
 
         // Import the COLLADA DAE file
-        rval = importFromFile ( fname );
+        status = importFromFile ( filename.asChar() );
 
-        return rval;
+        return status;
     }
 
     // ------------------------------
-    MStatus FileTranslator::importFromFile ( const MString& filename )
+    MStatus FileTranslator::importFromFile ( const String& filename )
     {
         MStatus status = MS::kSuccess;
 
-//         // Actually import the document
-//         DocumentExporter documentExporter ( ( const String ) filename.asChar() );
-// 
-//         DAE dae;
-//         domCOLLADA* colladaDocument = dae.open ( filename.asChar() );
-// 
-//         domLibrary_visual_scenes_Array visualScenesArray = colladaDocument->getLibrary_visual_scenes_array();
-// 
-//         // TODO Import the COLLADA DAE file!
-//         size_t numOfScenes = visualScenesArray.getCount();
-//         for ( size_t i=0; i<numOfScenes; ++i )
-//         {
-//             domLibrary_visual_scenesRef vsRef = visualScenesArray.get ( i );
-//             const domVisual_scene_Array vs = vsRef->getVisual_scene_array();
-//             for (size_t j = 0; j < vs.getCount(); j++)
-//             {
-//             }
-// 
-//             // TODO
-//            documentExporter.importScene ();
-//        }
+        // Get the time 
+        clock_t startClock, endClock;
+        startClock = clock();
 
+        // Actually import the document
+        DocumentImporter documentImporter ( filename );
+        documentImporter.importCurrentScene ();
 
-        // Importing our scene
-//         DaeDoc* document = colladaNode->NewDocument(filename);
-//         document->Import(CImportOptions::IsReferenceMode() && readDepth > 1);
-
-        //if (CImportOptions::HasError()) status = MStatus::kFailure;
+        // Display some closing information.
+        endClock = clock();
+        std::ostringstream stream; 
+        stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
+        MString message( stream.str().c_str() );
+        MGlobal::displayInfo ( message );
 
         return status;
     }
@@ -394,7 +382,6 @@ namespace COLLADAMaya
         if ( extLocation > 0 )
         {
             MString ext = fileObject.name().substring ( extLocation + 1, fileObject.name().length()-1 ).toLowerCase();
-
             if ( ext == "dae" || ext == "xml" )
             {
                 rval = kIsMyFileType;

@@ -91,7 +91,7 @@ int SaveFileDialog(char FileName[]) {
 namespace COLLADAMaya
 {
 
-    int OpenFileDialog(char FileName[])
+    int openFileDialog( char fileName[], char* fileExtension )
     {
 	    char Dir[512];
 	    char fn[512] = {0};
@@ -101,7 +101,7 @@ namespace COLLADAMaya
 	    ofn.lpstrFile = fn;
 	    ofn.nMaxFile = 512;
 	    ofn.lpstrTitle = "Open File";
-
+        ofn.lpstrFilter = fileExtension;
 
 	    GetCurrentDirectory(512,Dir);
 	    if( GetOpenFileName(&ofn) )
@@ -112,16 +112,16 @@ namespace COLLADAMaya
 			    if( fn[i] == '\\' )
 				    fn[i] = '/';
 		    }
-		    strcpy(FileName,fn);
+		    strcpy(fileName,fn);
 		    SetCurrentDirectory(Dir);
 		    return 1;
 	    }
-	    FileName[0] = '\0';
+	    fileName[0] = '\0';
 	    SetCurrentDirectory(Dir);
 	    return 0;
     }
 
-    int SaveFileDialog(char FileName[])
+    int saveFileDialog ( char fileName[], char* fileExtension )
     {
 	    char Dir[512];
 	    char fn[512] = {0};
@@ -131,6 +131,8 @@ namespace COLLADAMaya
 	    ofn.lpstrFile = fn;
 	    ofn.nMaxFile = 512;
 	    ofn.lpstrTitle = "Save File";
+        ofn.lpstrFilter = fileExtension;
+
 	    GetCurrentDirectory(512,Dir);
 	    if( GetSaveFileName(&ofn) )
 	    {
@@ -140,11 +142,11 @@ namespace COLLADAMaya
 			    if( fn[i] == '\\' )
 				    fn[i] = '/';
 		    }
-		    strcpy(FileName,fn);
+		    strcpy(fileName,fn);
 		    SetCurrentDirectory(Dir);
 		    return 1;
 	    }
-	    FileName[0] = '\0';
+	    fileName[0] = '\0';
 	    SetCurrentDirectory(Dir);
 	    return 0;
     }

@@ -46,9 +46,9 @@ namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    DocumentExporter::DocumentExporter ( const String& _fileName )
-            : mStreamWriter ( _fileName )
-            , mFileName ( _fileName )
+    DocumentExporter::DocumentExporter ( const String& fileName )
+            : mStreamWriter ( fileName )
+            , mFileName ( fileName )
             , mSceneGraph ( NULL )
             , mIsImport ( true )
             , mAnimationCache ( NULL )
@@ -408,5 +408,80 @@ namespace COLLADAMaya
         //
 
         return copy;
+    }
+
+    SceneGraph* DocumentExporter::getSceneGraph()
+    {
+        return mSceneGraph;
+    }
+
+    const String& DocumentExporter::getFilename() const
+    {
+        return mFileName;
+    }
+
+    COLLADA::StreamWriter* DocumentExporter::getStreamWriter()
+    {
+        return &mStreamWriter;
+    }
+
+    AnimationSampleCache* DocumentExporter::getAnimationCache()
+    {
+        return mAnimationCache;
+    }
+
+    MaterialExporter* DocumentExporter::getMaterialExporter()
+    {
+        return mMaterialExporter;
+    }
+
+    EffectExporter* DocumentExporter::getEffectExporter()
+    {
+        return mEffectExporter;
+    }
+
+    ImageExporter* DocumentExporter::getImageExporter()
+    {
+        return mImageExporter;
+    }
+
+    GeometryExporter* DocumentExporter::getGeometryExporter()
+    {
+        return mGeometryExporter;
+    }
+
+    VisualSceneExporter* DocumentExporter::getVisualSceneExporter()
+    {
+        return mVisualSceneExporter;
+    }
+
+    AnimationExporter* DocumentExporter::getAnimationExporter()
+    {
+        return mAnimationExporter;
+    }
+
+    AnimationClipExporter* DocumentExporter::getAnimationClipExporter()
+    {
+        return mAnimationClipExporter;
+    }
+
+    ControllerExporter* DocumentExporter::getControllerExporter()
+    {
+        return mControllerExporter;
+    }
+
+    LightExporter* DocumentExporter::getLightExporter()
+    {
+        return mLightExporter;
+    }
+
+    CameraExporter* DocumentExporter::getCameraExporter()
+    {
+        return mCameraExporter;
+    }
+
+    const String& DocumentExporter::getSceneID()
+    {
+        return mSceneId;
     }
 }

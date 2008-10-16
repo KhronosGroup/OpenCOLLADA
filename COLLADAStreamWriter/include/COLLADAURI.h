@@ -9,8 +9,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __DAE_URI_H__
-#define __DAE_URI_H__
+#ifndef __COLLADA_URI_H__
+#define __COLLADA_URI_H__
 
 #include "COLLADAPrerequisites.h"
 #include "COLLADAUtils.h"
@@ -376,4 +376,4 @@ namespace COLLADA
 }
 
 
-#endif //__DAE_URI_H__
+#endif //__COLLADA_URI_H__
