@@ -21,10 +21,10 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
 
-#include "COLLADAMathUtils.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryImages.h"
-#include "COLLADASurface.h"
+#include "COLLADASWMathUtils.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryImages.h"
+#include "COLLADASWSurface.h"
 
 #include <maya/MFileIO.h>
 
@@ -54,7 +54,7 @@ namespace COLLADAMaya
             ImageMap::iterator it = mExportedImageMap.begin();
             for ( ; it!=mExportedImageMap.end(); ++it )
             {
-                COLLADA::Image* image = it->second;
+                COLLADASW::Image* image = it->second;
                 delete image;
             }
 
@@ -64,7 +64,7 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     void EffectTextureExporter::exportTexture (
-        COLLADA::Texture* colladaTexture,
+        COLLADASW::Texture* colladaTexture,
         String channelSemantic,
         const MObject& texture,
         int blendMode,
@@ -78,20 +78,20 @@ namespace COLLADAMaya
         colladaTexture->setTexcoord ( channelSemantic );
 
         // Get the current stream writer
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Create the surface
-        String surfaceSid = colladaImageId + COLLADA::Surface::SURFACE_SID_SUFFIX;
-        COLLADA::Surface surface ( COLLADA::Surface::SURFACE_TYPE_2D, surfaceSid );
+        String surfaceSid = colladaImageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
+        COLLADASW::Surface surface ( COLLADASW::Surface::SURFACE_TYPE_2D, surfaceSid );
         surface.setFormat ( FORMAT );
-        COLLADA::SurfaceInitOption initOption ( COLLADA::SurfaceInitOption::INIT_FROM );
+        COLLADASW::SurfaceInitOption initOption ( COLLADASW::SurfaceInitOption::INIT_FROM );
         initOption.setImageReference ( colladaImageId );
         surface.setInitOption ( initOption );
         colladaTexture->setSurface ( surface );
 
         // Create the sampler
-        String samplerSid = colladaImageId + COLLADA::Sampler::SAMPLER_SID_SUFFIX;
-        COLLADA::Sampler sampler ( COLLADA::Sampler::SAMPLER_TYPE_2D, samplerSid );
+        String samplerSid = colladaImageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+        COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid );
         sampler.setSource ( surfaceSid );
         colladaTexture->setSampler ( sampler );
 
@@ -109,36 +109,36 @@ namespace COLLADAMaya
         String blendModeString = getBlendMode ( blendMode );
 
         colladaTexture->addExtraTechniqueParameter (
-            COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_BLENDMODE_PARAMETER, blendModeString );
+            COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_TEXTURE_BLENDMODE_PARAMETER, blendModeString );
 
         // Wrap elements
         switch ( colladaTexture->getSurface().getSurfaceType() )
         {
 
-        case COLLADA::Surface::SURFACE_TYPE_1D:
-            sampler.setWrapS ( COLLADA::Sampler::WRAP_MODE_WRAP );
+        case COLLADASW::Surface::SURFACE_TYPE_1D:
+            sampler.setWrapS ( COLLADASW::Sampler::WRAP_MODE_WRAP );
             break;
 
-        case COLLADA::Surface::SURFACE_TYPE_2D:
+        case COLLADASW::Surface::SURFACE_TYPE_2D:
         {
-            sampler.setWrapS ( COLLADA::Sampler::WRAP_MODE_WRAP );
-            sampler.setWrapT ( COLLADA::Sampler::WRAP_MODE_WRAP );
+            sampler.setWrapS ( COLLADASW::Sampler::WRAP_MODE_WRAP );
+            sampler.setWrapT ( COLLADASW::Sampler::WRAP_MODE_WRAP );
         }
         break;
 
-        case COLLADA::Surface::SURFACE_TYPE_3D:
-        case COLLADA::Surface::SURFACE_TYPE_CUBE:
+        case COLLADASW::Surface::SURFACE_TYPE_3D:
+        case COLLADASW::Surface::SURFACE_TYPE_CUBE:
         {
-            sampler.setWrapS ( COLLADA::Sampler::WRAP_MODE_WRAP );
-            sampler.setWrapT ( COLLADA::Sampler::WRAP_MODE_WRAP );
-            sampler.setWrapP ( COLLADA::Sampler::WRAP_MODE_WRAP );
+            sampler.setWrapS ( COLLADASW::Sampler::WRAP_MODE_WRAP );
+            sampler.setWrapT ( COLLADASW::Sampler::WRAP_MODE_WRAP );
+            sampler.setWrapP ( COLLADASW::Sampler::WRAP_MODE_WRAP );
         }
         break;
         }
 
-        sampler.setMinFilter ( COLLADA::Sampler::SAMPLER_FILTER_NONE );
-        sampler.setMagFilter ( COLLADA::Sampler::SAMPLER_FILTER_NONE );
-        sampler.setMipFilter ( COLLADA::Sampler::SAMPLER_FILTER_NONE );
+        sampler.setMinFilter ( COLLADASW::Sampler::SAMPLER_FILTER_NONE );
+        sampler.setMagFilter ( COLLADASW::Sampler::SAMPLER_FILTER_NONE );
+        sampler.setMipFilter ( COLLADASW::Sampler::SAMPLER_FILTER_NONE );
     }
 
     //---------------------------------------------------------------
@@ -192,34 +192,34 @@ namespace COLLADAMaya
         filenamePlug.getValue ( mayaFileName );
         if ( mayaFileName.length () == 0 ) return NULL;
         String sourceFile = mayaFileName.asChar ();
-        COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( sourceFile ) );
-        sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+        COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( sourceFile ) );
+        sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
-        COLLADA::Image* colladaImage = exportImage ( colladaImageId, sourceFileUri );
+        COLLADASW::Image* colladaImage = exportImage ( colladaImageId, sourceFileUri );
         if ( colladaImage == NULL ) return NULL;
 
         // Export the node type, because PSD textures don't behave the same as File textures.
         String nodeType = texture.hasFn ( MFn::kPsdFileTexture ) ? MAYA_TEXTURE_PSDTEXTURE : MAYA_TEXTURE_FILETEXTURE;
         colladaImage->addExtraTechniqueParameter (
-            COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_NODETYPE, nodeType );
+            COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_TEXTURE_NODETYPE, nodeType );
 
         // Export whether this image is in fact an image sequence
         MPlug imgSeqPlug = dgFn.findPlug ( ATTR_IMAGE_SEQUENCE );
         bool isImgSeq = false;
         imgSeqPlug.getValue ( isImgSeq );
         colladaImage->addExtraTechniqueParameter (
-            COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_TEXTURE_IMAGE_SEQUENCE, isImgSeq );
+            COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_TEXTURE_IMAGE_SEQUENCE, isImgSeq );
 
         return colladaImage->getImageId();
     }
 
     // -------------------------------
-    COLLADA::Image* EffectTextureExporter::exportImage ( 
+    COLLADASW::Image* EffectTextureExporter::exportImage ( 
         const String& colladaImageId, 
-        const COLLADA::URI& sourceUri )
+        const COLLADASW::URI& sourceUri )
     {
         // Get the file name and the URI
-        COLLADA::URI fullFileNameURI;
+        COLLADASW::URI fullFileNameURI;
         getTextureFileInfos ( sourceUri, fullFileNameURI );
         String fullFileName = fullFileNameURI.toNativePath ();
 
@@ -227,7 +227,7 @@ namespace COLLADAMaya
         ImageMap::iterator exportedImagesIter = mExportedImageMap.find ( fullFileName );
         if ( exportedImagesIter != mExportedImageMap.end() )
         {
-            COLLADA::Image* colladaImage = ( *exportedImagesIter ).second;
+            COLLADASW::Image* colladaImage = ( *exportedImagesIter ).second;
             return colladaImage;
         }
 
@@ -235,7 +235,7 @@ namespace COLLADAMaya
         if ( ExportOptions::copyTextures() )
         {
             // Get the target file from source file.
-            COLLADA::URI targetUri = createTargetURI ( sourceUri );
+            COLLADASW::URI targetUri = createTargetURI ( sourceUri );
 
             // Copy the texture, if it isn't already there...
             if ( !exists( targetUri.toNativePath () ) )
@@ -245,7 +245,7 @@ namespace COLLADAMaya
                     // Create the target directory, if necessary. 
                     // Note: some systems (window$) requires the string to be 
                     // enclosed in quotes when a space is present.
-                    COLLADA::URI targetPathUri ( targetUri.getPathDir() );
+                    COLLADASW::URI targetPathUri ( targetUri.getPathDir() );
                     create_directory ( targetPathUri.toNativePath() );
 
                     // Throws: basic_filesystem_error<Path> if
@@ -263,7 +263,7 @@ namespace COLLADAMaya
         }
 
         // Create a new image structure
-        COLLADA::Image* colladaImage = new COLLADA::Image (
+        COLLADASW::Image* colladaImage = new COLLADASW::Image (
             fullFileNameURI, colladaImageId, colladaImageId );
 
         // Add this texture to our list of exported images
@@ -273,23 +273,23 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    COLLADA::URI EffectTextureExporter::createTargetURI ( const COLLADA::URI& sourceUri )
+    COLLADASW::URI EffectTextureExporter::createTargetURI ( const COLLADASW::URI& sourceUri )
     {
         // Target file
         String targetFile = mDocumentExporter->getFilename();
-        COLLADA::URI targetUri ( COLLADA::URI::nativePathToUri ( targetFile ) );
+        COLLADASW::URI targetUri ( COLLADASW::URI::nativePathToUri ( targetFile ) );
 
         // Get the pure file name of the source file and set 
         // the source file name to the target path
         targetUri.setPathFile ( sourceUri.getPathFile () );
-        targetUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+        targetUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
         // Generate the target file name
         return targetUri;
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture )
+    void EffectTextureExporter::add2DPlacement ( COLLADASW::Texture* colladaTexture, MObject texture )
     {
         // Is there a texture placement applied to this texture?
         MObject placementNode = DagHelper::getSourceNodeConnectedTo ( texture, ATTR_UV_COORD );
@@ -321,13 +321,13 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    void EffectTextureExporter::add3DProjection ( COLLADA::Texture* colladaTexture, MObject projection )
+    void EffectTextureExporter::add3DProjection ( COLLADASW::Texture* colladaTexture, MObject projection )
     {
         int projectionType;
         DagHelper::getPlugValue ( projection, ATTR_PROJECTION_TYPE, projectionType );
         String strProjectionType = ShaderHelper::projectionTypeToString ( projectionType );
         colladaTexture->addExtraTechniqueChildParameter (
-            COLLADA::CSWC::COLLADA_PROFILE_MAYA,
+            COLLADASW::CSWC::CSW_PROFILE_MAYA,
             MAYA_PROJECTION_ELEMENT,
             MAYA_PROJECTION_TYPE_PARAMETER,
             strProjectionType );
@@ -343,7 +343,7 @@ namespace COLLADAMaya
             sceneMatrix [i][3] = MDistance::internalToUI ( sceneMatrix [i][3] );
 
         colladaTexture->addExtraTechniqueChildParameter (
-            COLLADA::CSWC::COLLADA_PROFILE_MAYA,
+            COLLADASW::CSWC::CSW_PROFILE_MAYA,
             MAYA_PROJECTION_ELEMENT,
             MAYA_PROJECTION_MATRIX_PARAMETER,
             sceneMatrix );
@@ -351,7 +351,7 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     void EffectTextureExporter::addBoolParameter (
-        COLLADA::Texture* colladaTexture,
+        COLLADASW::Texture* colladaTexture,
         const char* plugName,
         MFnDependencyNode &placement2d )
     {
@@ -371,13 +371,13 @@ namespace COLLADAMaya
             bool animated = anim->addPlugAnimation ( plug, targetSid, kBoolean );
             // Add the parameter
             String paramSid = ""; if ( animated ) paramSid = plugName;
-            colladaTexture->addExtraTechniqueParameter ( COLLADA::CSWC::COLLADA_PROFILE_MAYA, plugName, value, paramSid );
+            colladaTexture->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_MAYA, plugName, value, paramSid );
         }
     }
 
     // ------------------------------------------------------------
     void EffectTextureExporter::addFloatParameter (
-        COLLADA::Texture* colladaTexture,
+        COLLADASW::Texture* colladaTexture,
         const char* plugName,
         MFnDependencyNode &placement2d )
     {
@@ -397,13 +397,13 @@ namespace COLLADAMaya
             bool animated = anim->addPlugAnimation ( plug, targetSid, kBoolean );
             // Add the parameter
             String paramSid = ""; if ( animated ) paramSid = plugName;
-            colladaTexture->addExtraTechniqueParameter ( COLLADA::CSWC::COLLADA_PROFILE_MAYA, plugName, value, paramSid );
+            colladaTexture->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_MAYA, plugName, value, paramSid );
         }
     }
 
     // ------------------------------------------------------------
     void EffectTextureExporter::addAngleParameter (
-        COLLADA::Texture* colladaTexture,
+        COLLADASW::Texture* colladaTexture,
         const char* plugName,
         MFnDependencyNode &placement2d )
     {
@@ -423,7 +423,7 @@ namespace COLLADAMaya
             bool animated = anim->addPlugAnimation ( plug, targetSid, kBoolean );
             // Add the parameter
             String paramSid = ""; if ( animated ) paramSid = plugName;
-            colladaTexture->addExtraTechniqueParameter ( COLLADA::CSWC::COLLADA_PROFILE_MAYA, plugName, value, paramSid );
+            colladaTexture->addExtraTechniqueParameter ( COLLADASW::CSWC::CSW_PROFILE_MAYA, plugName, value, paramSid );
         }
     }
 
@@ -432,13 +432,13 @@ namespace COLLADAMaya
     {
         if ( !mTechniqueIsOpen )
         {
-            COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+            COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
-            mExtraSource = new COLLADA::Extra ( streamWriter );
+            mExtraSource = new COLLADASW::Extra ( streamWriter );
             mExtraSource->openExtra();
 
-            mTechniqueSource = new COLLADA::Technique ( streamWriter );
-            mTechniqueSource->openTechnique ( COLLADA::CSWC::COLLADA_PROFILE_MAYA );
+            mTechniqueSource = new COLLADASW::Technique ( streamWriter );
+            mTechniqueSource->openTechnique ( COLLADASW::CSWC::CSW_PROFILE_MAYA );
 
             mTechniqueIsOpen = true;
         }
@@ -458,8 +458,8 @@ namespace COLLADAMaya
 
     // ------------------------------------------------------------
     bool EffectTextureExporter::getTextureFileInfos( 
-        const COLLADA::URI &sourceUri, 
-        COLLADA::URI &fullFileNameURI )
+        const COLLADASW::URI &sourceUri, 
+        COLLADASW::URI &fullFileNameURI )
     {
         bool returnValue = true;
 
@@ -480,15 +480,15 @@ namespace COLLADAMaya
             {
                 // Get the URI of the COLLADA file.
                 String targetColladaFile = mDocumentExporter->getFilename();
-                COLLADA::URI targetColladaUri ( COLLADA::URI::nativePathToUri ( targetColladaFile ) );
-                targetColladaUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+                COLLADASW::URI targetColladaUri ( COLLADASW::URI::nativePathToUri ( targetColladaFile ) );
+                targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
                 // Get the URI of the copied texture file.
-                COLLADA::URI textureUri = createTargetURI ( sourceUri );
+                COLLADASW::URI textureUri = createTargetURI ( sourceUri );
 
                 // Get the texture URI relative to the COLLADA file URI.
                 bool success = false;
-                COLLADA::URI targetUri = textureUri.getRelativeTo ( targetColladaUri, success );
+                COLLADASW::URI targetUri = textureUri.getRelativeTo ( targetColladaUri, success );
                 if ( !success ) 
                 {
                     String message = "Not able to generate a relative path from " 
@@ -506,12 +506,12 @@ namespace COLLADAMaya
             {
                 // Get the URI of the COLLADA file.
                 String targetColladaFile = mDocumentExporter->getFilename();
-                COLLADA::URI targetColladaUri ( COLLADA::URI::nativePathToUri ( targetColladaFile ) );
-                targetColladaUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+                COLLADASW::URI targetColladaUri ( COLLADASW::URI::nativePathToUri ( targetColladaFile ) );
+                targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
                 // Get the texture URI relative to the COLLADA file URI.
                 bool success = false;
-                COLLADA::URI targetUri = sourceUri.getRelativeTo ( targetColladaUri, success );
+                COLLADASW::URI targetUri = sourceUri.getRelativeTo ( targetColladaUri, success );
                 if ( !success ) 
                 {
                     String message = "Not able to generate a relative path from " 
@@ -532,7 +532,7 @@ namespace COLLADAMaya
             if ( ExportOptions::copyTextures() )
             {
                 // Get the texture URI relative to the COLLADA file URI.
-                COLLADA::URI targetUri = createTargetURI ( sourceUri );
+                COLLADASW::URI targetUri = createTargetURI ( sourceUri );
 
                 // Get the file URI
                 fullFileNameURI = targetUri;

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,11 +16,11 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxControllerExporter.h"
-#include "COLLADAUtils.h"
+#include "COLLADASWUtils.h"
 
 #include <sstream>
 #include <iostream>
@@ -31,7 +31,7 @@ namespace COLLADAMax
 	const String ExportSceneGraph::HELPER_GEOMETRY_ID_SUFFIX ="-helper_geometry";
 	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
 
-	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADA::URI& maxFileUri, COLLADA::IDList& xRefExportFileNames )
+	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, COLLADASW::IDList& xRefExportFileNames )
             : mExportSelection ( false ),
             mRootNode ( iNode ),
 			mMaxFileUri(maxFileUri),
@@ -40,7 +40,7 @@ namespace COLLADAMax
 			mBoneCount(0)
     {
 		if ( mMaxFileUri.getScheme().empty() )
-			mMaxFileUri.setScheme(COLLADA::URI::SCHEME_FILE);
+			mMaxFileUri.setScheme(COLLADASW::URI::SCHEME_FILE);
 	}
 
 
@@ -70,7 +70,7 @@ namespace COLLADAMax
 		for ( int i = 0; i < xRefFileCount; ++i)
 		{
 			XRefSceneGraph xRefScene;
-			COLLADA::URI uri(COLLADA::URI::nativePathToUri(String(mRootNode->GetXRefFileName(i))));
+			COLLADASW::URI uri(COLLADASW::URI::nativePathToUri(String(mRootNode->GetXRefFileName(i))));
 			xRefScene.exportFileBaseName = mXRefExportFileNames.addId(uri.getPathFileBase(), false);
 			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i), uri, mXRefExportFileNames);
 			if ( xRefScene.exportSceneGraph->create(exportSelection) )
@@ -126,9 +126,9 @@ namespace COLLADAMax
     }
 
 	//---------------------------------------------------------------
-	COLLADA::String ExportSceneGraph::createJointSid()
+	COLLADASW::String ExportSceneGraph::createJointSid()
 	{
-		return JOINT_SID_BASE_NAME + COLLADA::Utils::toString(mBoneCount++);
+		return JOINT_SID_BASE_NAME + COLLADASW::Utils::toString(mBoneCount++);
 	}
 
 	//---------------------------------------------------------------
@@ -203,7 +203,7 @@ namespace COLLADAMax
 	{
 		String id = morphControllerHelperGeometry.controllerId;
 		id += HELPER_GEOMETRY_ID_SUFFIX;
-		id += COLLADA::Utils::toString(morphControllerHelperGeometry.channelBankindex);
+		id += COLLADASW::Utils::toString(morphControllerHelperGeometry.channelBankindex);
 		return id;
 	}
 

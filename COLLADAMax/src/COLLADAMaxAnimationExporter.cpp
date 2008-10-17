@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -15,11 +15,11 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADASource.h"
-#include "COLLADAMathUtils.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWMathUtils.h"
 
 #include "COLLADAMaxAnimationExporter.h"
 #include "COLLADAMaxExportSceneGraph.h"
@@ -155,8 +155,8 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    AnimationExporter::AnimationExporter ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter )
-            : COLLADA::LibraryAnimations ( streamWriter ),
+    AnimationExporter::AnimationExporter ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryAnimations ( streamWriter ),
             mDocumentExporter ( documentExporter )
     {}
 
@@ -687,7 +687,7 @@ namespace COLLADAMax
 
 				if ( i == 0 )
 					std::swap(firstKeyBuffer, keyBuffer);
-				else if ( !COLLADA::MathUtils::equals(keyBuffer[j], firstKeyBuffer[j]) )
+				else if ( !COLLADASW::MathUtils::equals(keyBuffer[j], firstKeyBuffer[j]) )
 					animated = true;
 			}
 		}
@@ -721,7 +721,7 @@ namespace COLLADAMax
 
 			if ( time == startTime )
 				firstKeyValue = keyValue;
-			else if ( !COLLADA::MathUtils::equals(keyValue, firstKeyValue) )
+			else if ( !COLLADASW::MathUtils::equals(keyValue, firstKeyValue) )
 				return true;
 		}
 		return false;
@@ -758,7 +758,7 @@ namespace COLLADAMax
 
 				if ( time == startTime )
 					firstFloatKeyValue = floatKeyValue;
-				else if ( !COLLADA::MathUtils::equals(floatKeyValue, firstFloatKeyValue) )
+				else if ( !COLLADASW::MathUtils::equals(floatKeyValue, firstFloatKeyValue) )
 					return true;
 
 			}
@@ -771,7 +771,7 @@ namespace COLLADAMax
 					if ( conversionFunctor )
 						keyValue[j] = (*conversionFunctor) ( keyValue[ j ] );
 
-					if ( time > startTime && !COLLADA::MathUtils::equals(keyValue[j], firstKeyValue[j]) )
+					if ( time > startTime && !COLLADASW::MathUtils::equals(keyValue[j], firstKeyValue[j]) )
 						return true;
 				}
 
@@ -832,7 +832,7 @@ namespace COLLADAMax
 
 				if ( time == startTime )
 					firstFloatKeyValue = floatKeyValue;
-				else if ( !COLLADA::MathUtils::equals(floatKeyValue, firstFloatKeyValue) )
+				else if ( !COLLADASW::MathUtils::equals(floatKeyValue, firstFloatKeyValue) )
 					return true;
 			}
 			else
@@ -844,7 +844,7 @@ namespace COLLADAMax
 
 					if ( time == startTime )
 						firstEulerAngles[j] = eulerAngles[j];
-					else if ( !COLLADA::MathUtils::equals(eulerAngles[j], firstEulerAngles[j]) )
+					else if ( !COLLADASW::MathUtils::equals(eulerAngles[j], firstEulerAngles[j]) )
 						return true;
 				}
 			}
@@ -901,7 +901,7 @@ namespace COLLADAMax
 
 				for ( int row = 0; row < 3; ++row)
 					for ( int col = 0; col < 4; ++col)
-						if ( !COLLADA::MathUtils::equals(constTransformationMatrix[col][row], constFirstTransformationMatrix[col][row] ) )
+						if ( !COLLADASW::MathUtils::equals(constTransformationMatrix[col][row], constFirstTransformationMatrix[col][row] ) )
 							return true;
 			}
 
@@ -931,7 +931,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			baseId += "_" + COLLADA::Utils::toString(animation.getMatrixIndex()) + "_";
+			baseId += "_" + COLLADASW::Utils::toString(animation.getMatrixIndex()) + "_";
 		}
 		return baseId;
     }
@@ -954,7 +954,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			target += "(" + COLLADA::Utils::toString(animation.getMatrixIndex()) + ")";
+			target += "(" + COLLADASW::Utils::toString(animation.getMatrixIndex()) + ")";
 		}
 		return target;
     }
@@ -1194,7 +1194,7 @@ namespace COLLADAMax
     {
         int keyCount = keyInterface->GetNumKeys();
 
-        COLLADA::FloatSource source ( mSW );
+        COLLADASW::FloatSource source ( mSW );
         source.setId ( baseId + INPUT_SOURCE_ID_SUFFIX );
         source.setArrayId ( baseId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         source.setAccessorStride ( 1 );
@@ -1219,7 +1219,7 @@ namespace COLLADAMax
         int keyCount = keyInterface->GetNumKeys();
         int keyLength = animation.getDimension();
 
-        COLLADA::FloatSource source ( mSW );
+        COLLADASW::FloatSource source ( mSW );
         source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
         source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         source.setAccessorStride ( keyLength );
@@ -1377,9 +1377,9 @@ namespace COLLADAMax
 		keyValues[1] = angleAxis.axis.y;
 		keyValues[2] = angleAxis.axis.z;
 		if ( reversed )
-			keyValues[3] = -COLLADA::MathUtils::radToDegF(angleAxis.angle);
+			keyValues[3] = -COLLADASW::MathUtils::radToDegF(angleAxis.angle);
 		else
-			keyValues[3] = COLLADA::MathUtils::radToDegF(angleAxis.angle);
+			keyValues[3] = COLLADASW::MathUtils::radToDegF(angleAxis.angle);
 	}
 
 	
@@ -1389,7 +1389,7 @@ namespace COLLADAMax
         int keyCount = keyInterface->GetNumKeys();
 		int keyLength = animation.getDimension();
 
-        COLLADA::FloatSource source ( mSW );
+        COLLADASW::FloatSource source ( mSW );
         source.setId ( baseId + sourceIdSuffix );
         source.setArrayId ( baseId + sourceIdSuffix + ARRAY_ID_SUFFIX );
         source.setAccessorStride ( 2 * keyLength );
@@ -1907,7 +1907,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void AnimationExporter::exportInterpolationSource ( const String & baseId, IKeyControl * keyInterface, InterpolationTypeFunctionPtr interpolationTypeFunction, int keyCount )
     {
-        COLLADA::NameSource source ( mSW );
+        COLLADASW::NameSource source ( mSW );
         source.setId ( baseId + INTERPOLATION_SOURCE_ID_SUFFIX );
         source.setArrayId ( baseId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
         source.setAccessorStride ( 1 );
@@ -1944,7 +1944,7 @@ namespace COLLADAMax
 	{
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 
-		COLLADA::FloatSource source ( mSW );
+		COLLADASW::FloatSource source ( mSW );
 		source.setId ( baseId + INPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( 1 );
@@ -1968,7 +1968,7 @@ namespace COLLADAMax
 	{
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 
-		COLLADA::FloatSource source ( mSW );
+		COLLADASW::FloatSource source ( mSW );
 		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( 1 );
@@ -2003,7 +2003,7 @@ namespace COLLADAMax
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 		int keyLength = animation.getDimension();
 
-		COLLADA::FloatSource source ( mSW );
+		COLLADASW::FloatSource source ( mSW );
 		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( keyLength );
@@ -2057,7 +2057,7 @@ namespace COLLADAMax
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 		int keyLength = animation.getDimension();
 
-		COLLADA::FloatSource source ( mSW );
+		COLLADASW::FloatSource source ( mSW );
 		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( keyLength );
@@ -2130,7 +2130,7 @@ namespace COLLADAMax
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 		int keyLength = animation.getDimension();
 
-		COLLADA::Float4x4SourceF source ( mSW );
+		COLLADASW::Float4x4SourceF source ( mSW );
 		source.setId ( baseId + OUTPUT_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( keyLength );
@@ -2182,7 +2182,7 @@ namespace COLLADAMax
 	{
 		int keyCount = (endTime - startTime) / ticksPerFrame + 1;
 
-		COLLADA::NameSource source ( mSW );
+		COLLADASW::NameSource source ( mSW );
 		source.setId ( baseId + INTERPOLATION_SOURCE_ID_SUFFIX );
 		source.setArrayId ( baseId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( 1 );
@@ -2240,10 +2240,10 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void AnimationExporter::angleApproach(float pval, float& val)
 	{
-		while (val - pval > COLLADA::MathUtils::COLLADA_PI_f) 
-			val -= COLLADA::MathUtils::COLLADA_PI_f * 2.0f;
-		while (val - pval < -COLLADA::MathUtils::COLLADA_PI_f) 
-			val += COLLADA::MathUtils::COLLADA_PI_f * 2.0f;
+		while (val - pval > COLLADASW::MathUtils::COLLADASW_PI_f) 
+			val -= COLLADASW::MathUtils::COLLADASW_PI_f * 2.0f;
+		while (val - pval < -COLLADASW::MathUtils::COLLADASW_PI_f) 
+			val += COLLADASW::MathUtils::COLLADASW_PI_f * 2.0f;
 	}
 
 
@@ -2259,7 +2259,7 @@ namespace COLLADAMax
 			distanceSq += (val[i] - pval[i]) * (val[i] - pval[i]);
 
 		// All quaternions can be expressed two ways. Check if the second way is better.
-		float alternative[3] = { val[0] + COLLADA::MathUtils::COLLADA_PI_f, COLLADA::MathUtils::COLLADA_PI_f - val[1], val[2] + COLLADA::MathUtils::COLLADA_PI_f };
+		float alternative[3] = { val[0] + COLLADASW::MathUtils::COLLADASW_PI_f, COLLADASW::MathUtils::COLLADASW_PI_f - val[1], val[2] + COLLADASW::MathUtils::COLLADASW_PI_f };
 		for (int i = 0; i < 3; ++i) 
 			angleApproach(pval[i], alternative[i]);
 		

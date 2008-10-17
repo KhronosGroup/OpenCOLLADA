@@ -27,10 +27,10 @@
 #include <maya/MItMeshVertex.h>
 #include <maya/MItDag.h>
 
-#include "COLLADASource.h"
-#include "COLLADABaseInputElement.h"
-#include "COLLADAInputList.h"
-#include "COLLADAExtraTechnique.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWBaseInputElement.h"
+#include "COLLADASWInputList.h"
+#include "COLLADASWExtraTechnique.h"
 
 
 namespace COLLADAMaya
@@ -41,9 +41,9 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     GeometryPolygonExporter::GeometryPolygonExporter (
-    	COLLADA::StreamWriter* _streamWriter,
+    	COLLADASW::StreamWriter* _streamWriter,
         DocumentExporter* _documentExporter )
-        : COLLADA::LibraryGeometries ( _streamWriter )
+        : COLLADASW::LibraryGeometries ( _streamWriter )
         , mDocumentExporter ( _documentExporter )
         , mPolygonSources ( NULL )
         , mVertexSources ( NULL )
@@ -126,7 +126,7 @@ namespace COLLADAMaya
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
         // If we want to export as triangles, we have to use <triangles>.
-        COLLADA::PrimitivesBase* primitivesBasePoly = NULL;
+        COLLADASW::PrimitivesBase* primitivesBasePoly = NULL;
 
         // Just create the polylist, if there are polygons in the shader to export
         if ( numPolygons > 0 )
@@ -193,7 +193,7 @@ namespace COLLADAMaya
 
     // ----------------------------------------
     void GeometryPolygonExporter::writeShaderPolygons(
-        COLLADA::PrimitivesBase* primitivesBasePoly,
+        COLLADASW::PrimitivesBase* primitivesBasePoly,
         const uint exportType,
         MFnMesh &fnMesh )
     {
@@ -289,7 +289,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     void GeometryPolygonExporter::writeElementVertexIndices(
-        COLLADA::PrimitivesBase* primitivesBasePoly,
+        COLLADASW::PrimitivesBase* primitivesBasePoly,
         PolygonSource* polygon,
         MFnMesh &fnMesh,
         MItMeshPolygon &meshPolygonsIter,
@@ -303,7 +303,7 @@ namespace COLLADAMaya
         {
             if ( polygon->isHoled() )
             {
-                ( ( COLLADA::Polygons* ) primitivesBasePoly )->openPolylistHoleElement();
+                ( ( COLLADASW::Polygons* ) primitivesBasePoly )->openPolylistHoleElement();
             }
         }
 
@@ -356,7 +356,7 @@ namespace COLLADAMaya
                     ++currentFaceIndex;
 
                     // Close the tag for the last face
-                    ( ( COLLADA::Polygons* ) primitivesBasePoly )->closeElement();
+                    ( ( COLLADASW::Polygons* ) primitivesBasePoly )->closeElement();
 
                     // Get the vertex count of the current face
                     uint currentFaceVertexCount = polygon->getFaceVertexCounts()[currentFaceIndex];
@@ -378,9 +378,9 @@ namespace COLLADAMaya
         if ( exportType == PolygonSource::POLYGONS )
         {
             if ( polygon->isHoled() )
-                ( ( COLLADA::Polygons* ) primitivesBasePoly )->closeElement();
+                ( ( COLLADASW::Polygons* ) primitivesBasePoly )->closeElement();
 
-            ( ( COLLADA::Polygons* ) primitivesBasePoly )->closeElement();
+            ( ( COLLADASW::Polygons* ) primitivesBasePoly )->closeElement();
         }
     }
 
@@ -420,7 +420,7 @@ namespace COLLADAMaya
 
     // ----------------------------------------
     void GeometryPolygonExporter::writeVertexCountList(
-        COLLADA::PrimitivesBase* primitivesBase,
+        COLLADASW::PrimitivesBase* primitivesBase,
         const MFnMesh &fnMesh )
     {
         // Iterate through all polygons of the current mesh.
@@ -661,21 +661,21 @@ namespace COLLADAMaya
     }
 
     // ----------------------------------------------------------------------------------
-    COLLADA::PrimitivesBase* GeometryPolygonExporter::createPrimitivesBase ( const uint baseExportType )
+    COLLADASW::PrimitivesBase* GeometryPolygonExporter::createPrimitivesBase ( const uint baseExportType )
     {
-        COLLADA::PrimitivesBase* primitivesBasePoly;
+        COLLADASW::PrimitivesBase* primitivesBasePoly;
 
         switch ( baseExportType )
         {
         case PolygonSource::POLYGONS:
-            primitivesBasePoly = new COLLADA::Polygons ( mSW );
+            primitivesBasePoly = new COLLADASW::Polygons ( mSW );
             break;
         case PolygonSource::TRIANGLES:
-            primitivesBasePoly = new COLLADA::Triangles ( mSW );
+            primitivesBasePoly = new COLLADASW::Triangles ( mSW );
             break;
         case PolygonSource::POLYLIST:
         default:
-            primitivesBasePoly = new COLLADA::Polylist ( mSW );
+            primitivesBasePoly = new COLLADASW::Polylist ( mSW );
             break;
         }
 
@@ -684,18 +684,18 @@ namespace COLLADAMaya
 
     // ----------------------------------------------------------------------------------
     void GeometryPolygonExporter::openPolygonOrHoleElement (
-        COLLADA::PrimitivesBase* polylist,
+        COLLADASW::PrimitivesBase* polylist,
         PolygonSource* poly,
         const uint currentFaceIndex )
     {
         bool currentFaceIsHole = checkForHole ( poly, currentFaceIndex );
         if ( currentFaceIsHole )
         {
-            ( ( COLLADA::Polygons* ) polylist )->openHoleElement();
+            ( ( COLLADASW::Polygons* ) polylist )->openHoleElement();
         }
         else
         {
-            ( ( COLLADA::Polygons* ) polylist )->openPolylistElement();
+            ( ( COLLADASW::Polygons* ) polylist )->openPolylistElement();
         }
     }
 
@@ -762,15 +762,15 @@ namespace COLLADAMaya
         for ( size_t p = 0; p < inputCount; ++p )
         {
             const SourceInput param = ( *mPolygonSources ) [p];
-            const COLLADA::SourceBase source = param.getSource();
-            const COLLADA::Semantics type = param.getType();
+            const COLLADASW::SourceBase source = param.getSource();
+            const COLLADASW::Semantics type = param.getType();
 
             // Figure out which idx this parameter will use
             int foundIdx = -1;
 
             // For geometric tangents and bi-normals, use the same idx as the normals.
             // For texture tangents and bi-normals, group together for each UV set.
-            if ( type == COLLADA::NORMAL || type == COLLADA::GEOTANGENT || type == COLLADA::GEOBINORMAL )
+            if ( type == COLLADASW::NORMAL || type == COLLADASW::GEOTANGENT || type == COLLADASW::GEOBINORMAL )
             {
                 foundIdx = normalsIdx;
             }
@@ -802,7 +802,7 @@ namespace COLLADAMaya
     }
 
     // ---------------------------------------------
-    void GeometryPolygonExporter::getPolygonInputAttributes ( COLLADA::InputList &inputList )
+    void GeometryPolygonExporter::getPolygonInputAttributes ( COLLADASW::InputList &inputList )
     {
         // Generate the polygon set inputs.
         int nextIdx = 1, normalsIdx = -1;
@@ -812,8 +812,8 @@ namespace COLLADAMaya
         for ( size_t p = 0; p < inputCount; ++p )
         {
             const SourceInput param = ( *mPolygonSources ) [p];
-            const COLLADA::SourceBase source = param.getSource();
-            const COLLADA::Semantics type = param.getType();
+            const COLLADASW::SourceBase source = param.getSource();
+            const COLLADASW::Semantics type = param.getType();
 
             // Check if the vertex is already registered
             bool isVertexSource = SourceInput::containsSourceBase ( mVertexSources, &source );
@@ -825,20 +825,20 @@ namespace COLLADAMaya
                 String sourceId = source.getId();
 
                 // The vertex sources must reference to the vertexes element
-                if ( type == COLLADA::VERTEX )
+                if ( type == COLLADASW::VERTEX )
                 {
                     String suffix = getSuffixBySemantic ( type );
                     sourceId = mMeshId + suffix;
                 }
 
-                if ( type == COLLADA::TEXCOORD )
+                if ( type == COLLADASW::TEXCOORD )
                 {
                     // For texture coordinate-related inputs: set the 'set' attribute.
-                    inputList.push_back ( COLLADA::Input ( type, COLLADA::URI ( "", sourceId ), offset++, param.getIdx() ) );
+                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( "", sourceId ), offset++, param.getIdx() ) );
                 }
                 else
                 {
-                    inputList.push_back ( COLLADA::Input ( type, COLLADA::URI ( "", sourceId ), offset++ ) );
+                    inputList.push_back ( COLLADASW::Input ( type, COLLADASW::URI ( "", sourceId ), offset++ ) );
                 }
             }
         }
@@ -864,7 +864,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------------------
     void GeometryPolygonExporter::writeVertexIndices(
-        COLLADA::PrimitivesBase* primitivesBasePoly,
+        COLLADASW::PrimitivesBase* primitivesBasePoly,
         PolygonSource *polygon,
         int vertexIndex,
         MIntArray &normalIndices,
@@ -882,13 +882,13 @@ namespace COLLADAMaya
             SourceInput& vertexAttributes = polygon->getVertexAttributes()[kk];
             switch ( vertexAttributes.getType() )
             {
-            case COLLADA::VERTEX:
-            case COLLADA::POSITION:
+            case COLLADASW::VERTEX:
+            case COLLADASW::POSITION:
                 primitivesBasePoly->appendValues ( vertexIndex );
                 break;
-            case COLLADA::NORMAL:
-            case COLLADA::GEOTANGENT:
-            case COLLADA::GEOBINORMAL:
+            case COLLADASW::NORMAL:
+            case COLLADASW::GEOTANGENT:
+            case COLLADASW::GEOBINORMAL:
                 {
                     if (mHasFaceVertexNormals)
                     {
@@ -905,14 +905,14 @@ namespace COLLADAMaya
                     }
                     break;
                 }
-            case COLLADA::TEXCOORD:
+            case COLLADASW::TEXCOORD:
                 {
                     int uvIndex = 0;
                     meshPolygonsIter.getUVIndex ( iteratorVertexIndex, uvIndex, &mUvSetNames[vertexAttributes.getIdx()] );
                     primitivesBasePoly->appendValues ( uvIndex );
                     break;
                 }
-            case COLLADA::COLOR:
+            case COLLADASW::COLOR:
                 {
                     ColourSet& set = *mColorSets[vertexAttributes.getIdx()];
                     int colorIndex = 0;
@@ -936,9 +936,9 @@ namespace COLLADAMaya
                     primitivesBasePoly->appendValues ( colorIndex );
                     break;
                 }
-            case COLLADA::UNKNOWN:
-            case COLLADA::UV:
-            case COLLADA::EXTRA:
+            case COLLADASW::UNKNOWN:
+            case COLLADASW::UV:
+            case COLLADASW::EXTRA:
             default:
                 break; // Not exported/supported
             }
@@ -946,7 +946,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    COLLADA::PrimitivesBase* GeometryPolygonExporter::preparePrimitivesBase(
+    COLLADASW::PrimitivesBase* GeometryPolygonExporter::preparePrimitivesBase(
         const MFnMesh &fnMesh,
         const uint numPolygons,
         const uint exportType )
@@ -954,7 +954,7 @@ namespace COLLADAMaya
         // Just create a polylist, if there are polygons to export
         // If we have holes in the polygon, we have to use <polygons> instead of <polylist>.
         // If we want to export as triangles, we have to use <triangles>.
-        COLLADA::PrimitivesBase* primitivesBasePoly = createPrimitivesBase ( exportType );
+        COLLADASW::PrimitivesBase* primitivesBasePoly = createPrimitivesBase ( exportType );
 
         // Begin to write.
         primitivesBasePoly->openPrimitiveElement();
@@ -975,7 +975,7 @@ namespace COLLADAMaya
         primitivesBasePoly->appendCount ( numPolygons );
 
         // Get the polygon input list
-        COLLADA::InputList& inputList = primitivesBasePoly->getInputList();
+        COLLADASW::InputList& inputList = primitivesBasePoly->getInputList();
         getPolygonInputAttributes ( inputList );
         primitivesBasePoly->appendInputList();
 

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,4 +16,4 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,8 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryGeometries.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryGeometries.h"
 
 #include "COLLADAMaxDocumentExporter.h"
 
@@ -35,7 +35,7 @@ namespace COLLADAMax
 
     /** Class to exports all nodes in an export scene graph.*/
 
-    class GeometriesExporter : public COLLADA::LibraryGeometries
+    class GeometriesExporter : public COLLADASW::LibraryGeometries
     {
 
 	public:
@@ -64,7 +64,7 @@ namespace COLLADAMax
         @param exportSceneGraph The scene graph to export
         @param documentExporter The document exporter this exporter belongs to
         */
-        GeometriesExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter );
+        GeometriesExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter );
 
         /** Exports all geometries in the export scene graph.*/
         void doExport();

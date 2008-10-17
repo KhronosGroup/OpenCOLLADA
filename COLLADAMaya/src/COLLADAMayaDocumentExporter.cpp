@@ -34,10 +34,10 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaReferenceManager.h"
 
-#include "COLLADAAsset.h"
-#include "COLLADAScene.h"
-#include "COLLADAUtils.h"
-#include "COLLADASWC.h"
+#include "COLLADASWAsset.h"
+#include "COLLADASWScene.h"
+#include "COLLADASWUtils.h"
+#include "COLLADASWConstants.h"
 
 #include <maya/MFileIO.h>
 
@@ -211,7 +211,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void DocumentExporter::exportAsset()
     {
-        COLLADA::Asset asset ( &mStreamWriter );
+        COLLADASW::Asset asset ( &mStreamWriter );
 
         // Add contributor information
         // Set the author
@@ -224,8 +224,8 @@ namespace COLLADAMaya
         String currentScene = MFileIO::currentFile().asChar();
         if ( currentScene.size() > 0 )
         {
-            COLLADA::URI sourceFileUri ( COLLADA::URI::nativePathToUri ( currentScene ) );
-            sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+            COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( currentScene ) );
+            sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
             asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
 
@@ -250,8 +250,8 @@ namespace COLLADAMaya
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis
-        if ( MGlobal::isYAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Y_UP );
-        else if ( MGlobal::isZAxisUp() ) asset.setUpAxisType ( COLLADA::Asset::Z_UP );
+        if ( MGlobal::isYAxisUp() ) asset.setUpAxisType ( COLLADASW::Asset::Y_UP );
+        else if ( MGlobal::isZAxisUp() ) asset.setUpAxisType ( COLLADASW::Asset::Z_UP );
 
         // Retrieve the linear unit name
         MString mayaLinearUnitName;
@@ -278,7 +278,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-        COLLADA::Scene scene ( &mStreamWriter, COLLADA::URI ( "", VISUAL_SCENE_NODE_ID ) );
+        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( "", VISUAL_SCENE_NODE_ID ) );
         scene.add();
     }
 
@@ -420,7 +420,7 @@ namespace COLLADAMaya
         return mFileName;
     }
 
-    COLLADA::StreamWriter* DocumentExporter::getStreamWriter()
+    COLLADASW::StreamWriter* DocumentExporter::getStreamWriter()
     {
         return &mStreamWriter;
     }

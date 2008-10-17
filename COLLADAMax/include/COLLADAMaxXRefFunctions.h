@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -47,7 +47,7 @@ namespace COLLADAMax
 		static bool isXRefMaterial(Animatable* material);
 
 		static String GetURL(Animatable* xref);
-		static bool IsXRefCOLLADA(Animatable* xref);
+		static bool IsXRefCOLLADASW(Animatable* xref);
 		static String GetSourceName(Animatable* xref);
 
 		/** Recursively resolves the XRef object, i.e. it returns the object that is referenced.

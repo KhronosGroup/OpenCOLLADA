@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -23,7 +23,7 @@
 
 #include "COLLADAMaxExtra.h"
 
-#include "COLLADALibraryLights.h"
+#include "COLLADASWLibraryLights.h"
 
 
 // extra class ID from the samples (systems/sunlight/natLight.cpp)
@@ -107,7 +107,7 @@ namespace COLLADAMax
 
 
     /** Class to export lights.*/
-    class LightExporter : public COLLADA::LibraryLights, public Extra
+    class LightExporter : public COLLADASW::LibraryLights, public Extra
     {
 	public:
 		static const String LIGHT_ID_SUFFIX;
@@ -162,7 +162,7 @@ namespace COLLADAMax
     public:
         /** Constructor
          @param streamWriter the stream the extra tags should be written to.*/
-        LightExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter  );
+        LightExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter  );
 
         /** Destructor*/
         virtual ~LightExporter()

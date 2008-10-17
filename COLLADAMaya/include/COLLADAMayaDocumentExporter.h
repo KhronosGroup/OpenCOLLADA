@@ -17,7 +17,7 @@
 #define __COLLADA_MAYA_DOCUMENT_EXPORTER_H__
 
 #include "COLLADAMayaPrerequisites.h"
-#include "COLLADAStreamWriter.h"
+#include "COLLADASWStreamWriter.h"
 
 #include "maya/MDistance.h"
 
@@ -107,7 +107,7 @@ namespace COLLADAMaya
         String mFileName;
 
         /** The stream writer, to write the collada document. */
-        COLLADA::StreamWriter mStreamWriter;
+        COLLADASW::StreamWriter mStreamWriter;
 
         /** true, if we import a collada file. */
         bool mIsImport;
@@ -146,7 +146,7 @@ namespace COLLADAMaya
         * Returns a pointer to the collada stream writer.
         * @return StreamWriter* Pointer to the collada stream writer
         */
-        COLLADA::StreamWriter* getStreamWriter();
+        COLLADASW::StreamWriter* getStreamWriter();
 
         /**
         * Returns a pointer to the animation cache.

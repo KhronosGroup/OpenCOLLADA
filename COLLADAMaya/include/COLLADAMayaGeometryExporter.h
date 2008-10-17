@@ -28,12 +28,12 @@
 #include <maya/MDagPath.h>
 #include <maya/MItMeshPolygon.h>
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADASource.h"
-#include "COLLADALibraryGeometries.h"
-#include "COLLADAInputList.h"
-#include "COLLADAPrimitves.h"
-#include "COLLADAIDList.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWLibraryGeometries.h"
+#include "COLLADASWInputList.h"
+#include "COLLADASWPrimitves.h"
+#include "COLLADASWIDList.h"
 
 
 namespace COLLADAMaya
@@ -46,7 +46,7 @@ namespace COLLADAMaya
     /************************************************************************/
     /* This class writes the <library_geometries>.                                                                     */
     /************************************************************************/
-    class GeometryExporter : public COLLADA::LibraryGeometries
+    class GeometryExporter : public COLLADASW::LibraryGeometries
     {
 
     private:
@@ -56,7 +56,7 @@ namespace COLLADAMaya
 
         /** List of unique meshIds from the already exported geometries. */
 //         std::vector<String> mExportedGeometries;
-        COLLADA::IDList mExportedGeometries;
+        COLLADASW::IDList mExportedGeometries;
 
         /**
         * Holds all the polygon sources of the geometry of the current mesh.
@@ -75,7 +75,7 @@ namespace COLLADAMaya
     public:
 
         /* @param streamWriter The stream the output will be written to                                                                     */
-        GeometryExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        GeometryExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
         virtual ~GeometryExporter();
 
         /** Walk through the scene graph and export all geometries. */

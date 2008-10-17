@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,10 +21,10 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "ColladaMaxStableHeaders.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryEffects.h"
-#include "COLLADAIDList.h"
+#include "COLLADAMaxStableHeaders.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryEffects.h"
+#include "COLLADASWIDList.h"
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxMaterialExporter.h"
@@ -62,8 +62,8 @@ namespace COLLADAMax
 	}
 
 
-    /** Class to export all used materials in a max scene to the library effect in COLLADA*/
-	class EffectExporter : public COLLADA::LibraryEffects, public Extra
+    /** Class to export all used materials in a max scene to the library effect in COLLADASW*/
+	class EffectExporter : public COLLADASW::LibraryEffects, public Extra
     {
 
     private:
@@ -163,24 +163,24 @@ namespace COLLADAMax
 
         ExportSceneGraph * mExportSceneGraph;
 
-        /** Maps already exported wire frame colors to the corresponding COLLADA effect id.*/
+        /** Maps already exported wire frame colors to the corresponding COLLADASW effect id.*/
         WireFrameColorEffectList mWireFrameColorEffectList;
 
 		DocumentExporter * mDocumentExporter;
 
 		AnimationExporter * mAnimationExporter;
 
-        /** List of ids of the already exported materials that are used in the COLLADA file.*/
+        /** List of ids of the already exported materials that are used in the COLLADASW file.*/
         ExportedEffectIdList * mExportedEffectIdList;
 
-        /** Maps already exported effect (material in max) to the corresponding COLLADA effect id.*/
+        /** Maps already exported effect (material in max) to the corresponding COLLADASW effect id.*/
         EffectMap mEffectMap;
 
         /** Maps already exported image file names to the corresponding image id.*/
         ExportedImageMap mExportedImageMap;
 
         /** List of unique base effect ids.*/
-        COLLADA::IDList mEffectIdList;
+        COLLADASW::IDList mEffectIdList;
 
 		/** Maps material and channels to the IParamBlock of the corresponding StdUVGen*/
 		MaterialChannelPairParamBlockMap mMaterialChannelPairParamBlockMap;
@@ -191,7 +191,7 @@ namespace COLLADAMax
         @param exportSceneGraph The scene graph to export
         @param documentExporter The documentexporter this exporter belongs to
         */
-        EffectExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter );
+        EffectExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter );
 
         void doExport();
 
@@ -222,11 +222,11 @@ namespace COLLADAMax
 			return mMaterialChannelPairParamBlockMap;
 		}
 
-		/** Converts a max color to a COLLADA Color.*/
-		static COLLADA::Color maxColor2Color ( const Color & color, double scale = 1.0 );
+		/** Converts a max color to a COLLADASW Color.*/
+		static COLLADASW::Color maxColor2Color ( const Color & color, double scale = 1.0 );
 
-		/** Converts a max color to a COLLADA ColorOrTexture.*/
-		static COLLADA::ColorOrTexture maxColor2ColorOrTexture ( const Color & color, double scale = 1.0 );
+		/** Converts a max color to a COLLADASW ColorOrTexture.*/
+		static COLLADASW::ColorOrTexture maxColor2ColorOrTexture ( const Color & color, double scale = 1.0 );
 
 		/** Exports the image represented by @a map.
 		@param fullFileName Is set to the full file name of the image.
@@ -244,13 +244,13 @@ namespace COLLADAMax
         void exportEffect ( ExportNode* exportNode, Mtl* material );
 
         /** Exports the max standard material @a material.*/
-        void exportStandardEffect ( COLLADA::EffectProfile & effectProfile, ExportNode* exportNode, StdMat2* material, const String & effectId, float weight, bool inited );
+        void exportStandardEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, StdMat2* material, const String & effectId, float weight, bool inited );
 
         /** Exports the max standard material @a material.*/
-        void exportUnknownEffect ( COLLADA::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId );
+        void exportUnknownEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId );
 
-        /** Exports am common COLLADA effect created from  @a material.*/
-        void exportCommonEffect ( COLLADA::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight = 1.0, bool inited = false );
+        /** Exports am common COLLADASW effect created from  @a material.*/
+        void exportCommonEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight = 1.0, bool inited = false );
 
         /** Exports the material @a material.*/
         void exportSimpleEffect ( ExportNode* exportNode, Mtl* material );
@@ -264,18 +264,18 @@ namespace COLLADAMax
         static EffectExporter::Channel maxIdToEffectChannel ( StdMat2* mtl, int id );
 
         /** Sets the appropriate opacity.*/
-        static COLLADA::EffectProfile::Opaque getOpacity ( Texmap *tmap );
+        static COLLADASW::EffectProfile::Opaque getOpacity ( Texmap *tmap );
 
 
         /** Determines shader type from max shader.*/
-        COLLADA::EffectProfile::ShaderType maxShaderToShaderType ( Class_ID id );
+        COLLADASW::EffectProfile::ShaderType maxShaderToShaderType ( Class_ID id );
 
 
         static EffectExporter::Channel channelFromString ( const String & value );
 
 
         /**Exports the map @a texMap.*/
-        void exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight );
+        void exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADASW::EffectProfile & profile, float weight );
 
 
         /** Exports the image represented by @a bitmapInfo. 
@@ -285,7 +285,7 @@ namespace COLLADAMax
 
 
         /** Blends the color on colorOrTexture with blendColor an amount @a amount.*/
-        void EffectExporter::blendColor ( COLLADA::ColorOrTexture & colorOrTexture, Color blendColor, double amount );
+        void EffectExporter::blendColor ( COLLADASW::ColorOrTexture & colorOrTexture, Color blendColor, double amount );
 
 
     };

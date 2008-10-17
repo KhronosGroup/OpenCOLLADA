@@ -21,20 +21,20 @@
 #include "COLLADAMayaDagHelper.h"
 #include <map>
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryEffects.h"
-#include "COLLADAExtraTechnique.h"
-#include "COLLADAExtra.h"
-#include "COLLADAEffectProfile.h"
-#include "COLLADAUtils.h"
-#include "COLLADALibraryImages.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryEffects.h"
+#include "COLLADASWExtraTechnique.h"
+#include "COLLADASWExtra.h"
+#include "COLLADASWEffectProfile.h"
+#include "COLLADASWUtils.h"
+#include "COLLADASWLibraryImages.h"
 
 #include <maya/MFnDependencyNode.h>
 
 namespace COLLADAMaya
 {
 
-    typedef std::map<String, COLLADA::Image*> ImageMap;
+    typedef std::map<String, COLLADASW::Image*> ImageMap;
 
     /**
     * Class which manages the textures.
@@ -79,10 +79,10 @@ namespace COLLADAMaya
         bool mTechniqueIsOpen;
 
         /** The <extra> tag */
-        COLLADA::Extra* mExtraSource;
+        COLLADASW::Extra* mExtraSource;
 
         /** The <technique> tag */
-        COLLADA::Technique* mTechniqueSource;
+        COLLADASW::Technique* mTechniqueSource;
 
         /** The target path for animated elements. */
         String mAnimationTargetPath;
@@ -99,7 +99,7 @@ namespace COLLADAMaya
         * export the bump height in the "amount" texture parameter.
         * Exists currently within the ColladaMax profile.
         */
-        void exportTexture ( COLLADA::Texture* colladaTexture,
+        void exportTexture ( COLLADASW::Texture* colladaTexture,
                              String channelSemantic,
                              const MObject &texture,
                              int blendMode,
@@ -120,7 +120,7 @@ namespace COLLADAMaya
         String exportImage ( const MObject &texture );
 
         /** Exports the texture image */
-        COLLADA::Image* exportImage ( const String &colladaImageId, const COLLADA::URI &sourceFile );
+        COLLADASW::Image* exportImage ( const String &colladaImageId, const COLLADASW::URI &sourceFile );
 
     private:
 
@@ -128,21 +128,21 @@ namespace COLLADAMaya
         returns false. Fills the full file URI of the texture in dependency
         of the current export options. */
         bool getTextureFileInfos( 
-            const COLLADA::URI &sourceUri, 
-            COLLADA::URI &fullFileNameURI );
+            const COLLADASW::URI &sourceUri, 
+            COLLADASW::URI &fullFileNameURI );
 
         /**
          * Returns the target file name of the given source file name.
          * @param sourceFileName The source file name.
          * @return String The target file name.
          */
-        COLLADA::URI createTargetURI ( const COLLADA::URI &sourceUri );
+        COLLADASW::URI createTargetURI ( const COLLADASW::URI &sourceUri );
 
         /** Dump a place2dTexture node */
-        void add2DPlacement ( COLLADA::Texture* colladaTexture, MObject texture );
+        void add2DPlacement ( COLLADASW::Texture* colladaTexture, MObject texture );
 
         /** Dump a place2dTexture 3DProjection */
-        void add3DProjection ( COLLADA::Texture* colladaTexture, MObject projection );
+        void add3DProjection ( COLLADASW::Texture* colladaTexture, MObject projection );
 
         /** Opens an <extra> and a <technique> tag in the collada document */
         void openTechnique();
@@ -151,17 +151,17 @@ namespace COLLADAMaya
         void closeTechnique();
 
         /** Adds an bool parameter into the <technique> tag */
-        void addBoolParameter ( COLLADA::Texture* colladaTexture,
+        void addBoolParameter ( COLLADASW::Texture* colladaTexture,
                                 const char* plugName,
                                 MFnDependencyNode &placement2d );
 
         /** Adds an float parameter into the <technique> tag */
-        void addFloatParameter ( COLLADA::Texture* colladaTexture,
+        void addFloatParameter ( COLLADASW::Texture* colladaTexture,
                                  const char* plugName,
                                  MFnDependencyNode &placement2d );
 
         /** Adds an angle parameter into the <technique> tag */
-        void addAngleParameter ( COLLADA::Texture* colladaTexture,
+        void addAngleParameter ( COLLADASW::Texture* colladaTexture,
                                  const char* plugName,
                                  MFnDependencyNode &placement2d );
 

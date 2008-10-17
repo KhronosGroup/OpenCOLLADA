@@ -19,11 +19,11 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaConversion.h"
 
-#include "COLLADAPass.h"
-#include "COLLADARenderState.h"
-#include "COLLADAShader.h"
-#include "COLLADAAnnotation.h"
-#include "COLLADAOpenGLConstants.h"
+#include "COLLADASWPass.h"
+#include "COLLADASWRenderState.h"
+#include "COLLADASWShader.h"
+#include "COLLADASWAnnotation.h"
+#include "COLLADASWOpenGLConstants.h"
 
 #include "cgfxShaderNode.h"
 #include "cgfxFindImage.h"
@@ -37,7 +37,7 @@ namespace COLLADAMaya
     // ---------------------------------
     void HwShaderExporter::exportPluginHwShaderNode (
         const String &effectId,
-        COLLADA::EffectProfile *effectProfile,
+        COLLADASW::EffectProfile *effectProfile,
         MObject shaderNode )
     {
         // Set the effect profile
@@ -74,19 +74,19 @@ namespace COLLADAMaya
     void HwShaderExporter::exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx )
     {
         // Set the current shader scope to CG
-        setShaderScope ( COLLADA::Shader::SCOPE_CG );
+        setShaderScope ( COLLADASW::Shader::SCOPE_CG );
 
         // Writes the current effect profile into the collada document
-        mEffectProfile->setProfileType ( COLLADA::EffectProfile::CG );
+        mEffectProfile->setProfileType ( COLLADASW::EffectProfile::CG );
         mEffectProfile->openProfile ();
 
         // Get a pointer to the current stream writer
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the filename of the current cgfx file
         MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
         String shaderFxFileName = shaderFxFile.asChar (); // check3d.cgfx
-        COLLADA::URI  shaderFxFileUri ( COLLADA::URI::nativePathToUri ( shaderFxFileName ) );
+        COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) );
         setShaderFxFileUri ( shaderFxFileUri );
 
         // Set the current include file
@@ -152,7 +152,7 @@ namespace COLLADAMaya
         const bool readCode )
     {
         // Get the current stream writer
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Write the render states.
         CGstate cgState = cgGetStateAssignmentState ( cgStateAssignment );
@@ -162,10 +162,10 @@ namespace COLLADAMaya
         if ( cgStateType != CG_PROGRAM_TYPE ) return;
 
         // The state name depend on the current shader scope
-        COLLADA::Shader::Stage shaderStage = COLLADA::Shader::getStageTypeByName ( cgStateName );
+        COLLADASW::Shader::Stage shaderStage = COLLADASW::Shader::getStageTypeByName ( cgStateName );
 
         // Create a shader and export it
-        COLLADA::Shader shader ( streamWriter, mShaderScope, shaderStage );
+        COLLADASW::Shader shader ( streamWriter, mShaderScope, shaderStage );
         shader.openShader();
 
         // Get the program
@@ -185,7 +185,7 @@ namespace COLLADAMaya
         if ( programEntryString != NULL )
         {
             // Get the code sid
-            COLLADA::URI fileURI = getShaderFxFileUri ();
+            COLLADASW::URI fileURI = getShaderFxFileUri ();
             String codeSid = fileURI.getPathFileBase ();
             shader.addName ( programEntryString, codeSid );
         }
@@ -198,12 +198,12 @@ namespace COLLADAMaya
             CGtype paramType = cgGetParameterBaseType ( progParam );
 
             CGbool isUsed = cgIsParameterUsed ( progParam, cgProgram );
-            if ( isUsed && !COLLADA::Utils::equals( paramName, programEntryString ) )
+            if ( isUsed && !COLLADASW::Utils::equals( paramName, programEntryString ) )
             {
-                COLLADA::ParamBase bindParam ( streamWriter, &COLLADA::CSWC::COLLADA_ELEMENT_BIND );
+                COLLADASW::ParamBase bindParam ( streamWriter, &COLLADASW::CSWC::CSW_ELEMENT_BIND );
                 bindParam.openParam ();
-                bindParam.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_SYMBOL, paramName );
-                COLLADA::ParamBase param ( streamWriter );
+                bindParam.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_SYMBOL, paramName );
+                COLLADASW::ParamBase param ( streamWriter );
                 param.openParam ( paramName );
                 param.closeParam ();
                 bindParam.closeParam ();
@@ -222,13 +222,13 @@ namespace COLLADAMaya
         const Type* values,
         const int valueCount )
     {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
-        COLLADA::ParamBase param ( streamWriter, &renderStateName );
+        COLLADASW::ParamBase param ( streamWriter, &renderStateName );
         param.openParam();
         for ( int j=0; j<valueCount; ++j )
-            param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE,
-                                    COLLADA::Utils::toString ( values[j] ) );
+            param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE,
+                                    COLLADASW::Utils::toString ( values[j] ) );
         param.closeParam();
     }
 
@@ -238,16 +238,16 @@ namespace COLLADAMaya
         const CGbool* values,
         const int valueCount )
     {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
-        COLLADA::ParamBase param ( streamWriter, &renderStateName );
+        COLLADASW::ParamBase param ( streamWriter, &renderStateName );
         param.openParam();
         for ( int j=0; j<valueCount; ++j )
         {
             if ( values[j] > 0 )
-                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, "true" );
+                param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, "true" );
             else
-                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, "false" );
+                param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, "false" );
         }
         param.closeParam();
     }
@@ -255,10 +255,10 @@ namespace COLLADAMaya
     // --------------------------------------
     void HwShaderExporter::exportPass ( const CGpass& cgPass )
     {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Write the pass into the collada file
-        COLLADA::Pass colladaPass ( streamWriter );
+        COLLADASW::Pass colladaPass ( streamWriter );
         const char* cgPassName = cgGetPassName ( cgPass );
         if ( cgPassName == NULL ) cgPassName = "";
         colladaPass.openPass ( cgPassName );
@@ -289,19 +289,19 @@ namespace COLLADAMaya
 
         // Export the vertex stage assignment
         cgStateAssignment = cgGetNamedStateAssignment ( cgPass,
-            COLLADA::CSWC::COLLADA_FX_SHADER_STAGE_VERTEXPROGRAM.c_str() );
+            COLLADASW::CSWC::CSW_FX_SHADER_STAGE_VERTEXPROGRAM.c_str() );
         exportShaderProgramData ( cgStateAssignment );
 
         // Export the fragment stage assignment
         cgStateAssignment = cgGetNamedStateAssignment ( cgPass,
-            COLLADA::CSWC::COLLADA_FX_SHADER_STAGE_FRAGMENTPROGRAM.c_str() );
+            COLLADASW::CSWC::CSW_FX_SHADER_STAGE_FRAGMENTPROGRAM.c_str() );
         exportShaderProgramData ( cgStateAssignment );
     }
 
     // --------------------------------------
     void HwShaderExporter::exportPassRenderState ( const CGstateassignment& cgStateAssignment )
     {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Write the render states.
         CGstate cgState = cgGetStateAssignmentState ( cgStateAssignment );
@@ -309,9 +309,9 @@ namespace COLLADAMaya
         String cgStateName ( cgStateNameC );
         CGtype cgStateType = cgGetStateType ( cgState );
 
-        COLLADA::RenderState::PassState passState =
-            COLLADA::RenderState::getRenderStateFromCgName( cgStateNameC );
-        const String& renderStateName = COLLADA::RenderState::getColladaRenderStateName ( passState );
+        COLLADASW::RenderState::PassState passState =
+            COLLADASW::RenderState::getRenderStateFromCgName( cgStateNameC );
+        const String& renderStateName = COLLADASW::RenderState::getColladaRenderStateName ( passState );
 
         switch ( cgStateType )
         {
@@ -335,16 +335,16 @@ namespace COLLADAMaya
                 int valueCount = 0;
                 const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
 
-                COLLADA::ParamBase param ( streamWriter, &renderStateName );
+                COLLADASW::ParamBase param ( streamWriter, &renderStateName );
                 param.openParam ();
                 for ( int j=0; j<valueCount; ++j )
                 {
                     const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[j] );
-                    COLLADA::RenderState::PassStateFunction passStateFunction =
-                        COLLADA::RenderState::getPassStateFunction ( cgStateEnum );
+                    COLLADASW::RenderState::PassStateFunction passStateFunction =
+                        COLLADASW::RenderState::getPassStateFunction ( cgStateEnum );
                     const String renderStateFunctionName =
-                        COLLADA::RenderState::getColladaPassStateString ( passStateFunction );
-                    param.appendAttribute ( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, renderStateFunctionName );
+                        COLLADASW::RenderState::getColladaPassStateString ( passStateFunction );
+                    param.appendAttribute ( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, renderStateFunctionName );
                 }
                 param.closeParam ();
                 break;
@@ -363,9 +363,9 @@ namespace COLLADAMaya
         case CG_STRING:
             {
                 const char* val = cgGetStringStateAssignmentValue( cgStateAssignment );
-                COLLADA::ParamBase param ( streamWriter, &renderStateName );
+                COLLADASW::ParamBase param ( streamWriter, &renderStateName );
                 param.openParam();
-                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, val );
+                param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, val );
                 param.closeParam();
                 break;
             }
@@ -373,9 +373,9 @@ namespace COLLADAMaya
             {
                 CGparameter textureParam = cgGetTextureStateAssignmentValue ( cgStateAssignment );
                 const char* textureName = cgGetParameterName( textureParam );
-                COLLADA::ParamBase param ( streamWriter, &renderStateName );
+                COLLADASW::ParamBase param ( streamWriter, &renderStateName );
                 param.openParam();
-                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, textureName );
+                param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, textureName );
                 param.closeParam();
                 break;
             }
@@ -387,9 +387,9 @@ namespace COLLADAMaya
             {
                 CGparameter samplerParam = cgGetSamplerStateAssignmentValue ( cgStateAssignment );
                 const char* samplerName = cgGetParameterName( samplerParam );
-                COLLADA::ParamBase param ( streamWriter, &renderStateName );
+                COLLADASW::ParamBase param ( streamWriter, &renderStateName );
                 param.openParam();
-                param.appendAttribute( COLLADA::CSWC::COLLADA_ATTRIBUTE_VALUE, samplerName );
+                param.appendAttribute( COLLADASW::CSWC::CSW_ATTRIBUTE_VALUE, samplerName );
                 param.closeParam();
                 break;
             }
@@ -411,7 +411,7 @@ namespace COLLADAMaya
     // --------------------------------------
     void HwShaderExporter::exportEffectParameters ( const CGeffect& cgEffect )
     {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Write the parameters
         CGparameter cgParameter = cgGetFirstEffectParameter ( cgEffect );
@@ -435,7 +435,7 @@ namespace COLLADAMaya
             {
                 // TODO
                 // Create the parameter
-                COLLADA::NewParam<int> newParam ( streamWriter );
+                COLLADASW::NewParam<int> newParam ( streamWriter );
 
                 // Get the values
                 int numOfValues = 0;
@@ -448,7 +448,7 @@ namespace COLLADAMaya
             case CG_FLOAT:
             {
                 // Create the parameter
-                COLLADA::NewParam<double> newParam ( streamWriter );
+                COLLADASW::NewParam<double> newParam ( streamWriter );
 
                 // Get the values
                 int numOfValues = 0;
@@ -460,26 +460,26 @@ namespace COLLADAMaya
                 {
                 case CG_FLOAT:
                 case CG_HALF:
-                    newParam.setParamType ( COLLADA::ValueType::FLOAT ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT ); break;
                 case CG_FLOAT2:
                 case CG_HALF2:
-                    newParam.setParamType ( COLLADA::ValueType::FLOAT2 ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT2 ); break;
                 case CG_FLOAT3:
                 case CG_HALF3:
-                    newParam.setParamType ( COLLADA::ValueType::FLOAT3 ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT3 ); break;
                 case CG_FLOAT4:
                 case CG_HALF4:
-                    newParam.setParamType ( COLLADA::ValueType::FLOAT4 ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT4 ); break;
                 case CG_FLOAT3x3:
                 case CG_HALF3x3:
-                    newParam.setParamType ( COLLADA::ValueType::FLOAT3x3 ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT3x3 ); break;
                 case CG_FLOAT4x4:
                 case CG_HALF4x4:
-                    newParam.setParamType ( COLLADA::ValueType::FLOAT4x4 ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::FLOAT4x4 ); break;
                 case CG_ARRAY:
                 case CG_STRUCT:
                 default:
-                    newParam.setParamType ( COLLADA::ValueType::VALUE_TYPE_UNSPECIFIED ); break;
+                    newParam.setParamType ( COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED ); break;
                 }
 
                 // Export the parameter data.
@@ -521,7 +521,7 @@ namespace COLLADAMaya
     template <class Type>
     void HwShaderExporter::exportParam (
         const CGparameter& cgParameter,
-        COLLADA::ParamBase* param,
+        COLLADASW::ParamBase* param,
         const Type* paramValues,
         const int numOfValues )
     {
@@ -539,7 +539,7 @@ namespace COLLADAMaya
 
     // --------------------------------------
     void HwShaderExporter::exportAnnotations (
-        const CGparameter& cgParameter, COLLADA::ParamBase* param )
+        const CGparameter& cgParameter, COLLADASW::ParamBase* param )
     {
         CGannotation cgAnno = cgGetFirstParameterAnnotation ( cgParameter );
         while ( cgAnno )
@@ -557,7 +557,7 @@ namespace COLLADAMaya
                 {
                     int nvalues = 0;
                     const CGbool* values = cgGetBoolAnnotationValues( cgAnno, &nvalues );
-                    param->addAnnotation ( annotationName, COLLADA::ValueType::BOOL, values, nvalues );
+                    param->addAnnotation ( annotationName, COLLADASW::ValueType::BOOL, values, nvalues );
                     break;
                 }
             case CG_INT:
@@ -568,7 +568,7 @@ namespace COLLADAMaya
                 {
                     int nvalues = 0;
                     const int* values = cgGetIntAnnotationValues( cgAnno, &nvalues );
-                    param->addAnnotation ( annotationName, COLLADA::ValueType::BOOL, values, nvalues );
+                    param->addAnnotation ( annotationName, COLLADASW::ValueType::BOOL, values, nvalues );
                     break;
                 }
             case CG_HALF:
@@ -583,7 +583,7 @@ namespace COLLADAMaya
                 {
                     int nvalues = 0;
                     const float* values = cgGetFloatAnnotationValues ( cgAnno, &nvalues );
-                    param->addAnnotation ( annotationName, COLLADA::ValueType::FLOAT, values, nvalues );
+                    param->addAnnotation ( annotationName, COLLADASW::ValueType::FLOAT, values, nvalues );
                     break;
                 }
             case CG_HALF4x4:
@@ -596,7 +596,7 @@ namespace COLLADAMaya
             case CG_STRING:
                 {
                     const char* val = cgGetStringAnnotationValue ( cgAnno );
-                    param->addAnnotation ( annotationName, COLLADA::ValueType::STRING, String ( val ) );
+                    param->addAnnotation ( annotationName, COLLADASW::ValueType::STRING, String ( val ) );
                     break;
                 }
             default:
@@ -609,7 +609,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------
-    void HwShaderExporter::exportSemantic ( const CGparameter& cgParameter, COLLADA::ParamBase* param )
+    void HwShaderExporter::exportSemantic ( const CGparameter& cgParameter, COLLADASW::ParamBase* param )
     {
         const char *semantic = cgGetParameterSemantic( cgParameter );
 
@@ -623,13 +623,13 @@ namespace COLLADAMaya
         if ( cgGetParameterClass ( cgParameter ) != CG_PARAMETERCLASS_SAMPLER ) return;
 
         // Get a pointer to the current stream writer.
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the name of the current parameter
         const char* paramName = cgGetParameterName ( cgParameter );
 
         // Create the collada sampler object
-        COLLADA::Sampler sampler ( COLLADA::Sampler::SAMPLER_TYPE_UNSPECIFIED );
+        COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED );
 
         // The texture parameter (a sampler must have a texture)
         CGparameter cgTextureParam = NULL;
@@ -637,7 +637,7 @@ namespace COLLADAMaya
         int valueCount = 0;
 
         // Look for the "source" state assignment
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_TEXTURE.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_TEXTURE.c_str() );
         if ( cgStateAssignment )
         {
             cgTextureParam = cgGetTextureStateAssignmentValue ( cgStateAssignment );
@@ -646,78 +646,78 @@ namespace COLLADAMaya
         }
 
         // Look for the wraps
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_WRAP_S.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_WRAP_S.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[0] );
-            sampler.setWrapS ( COLLADA::OPEN_GL::getWrapModeFromOpenGL ( cgStateEnum ) );
+            sampler.setWrapS ( COLLADASW::OPEN_GL::getWrapModeFromOpenGL ( cgStateEnum ) );
         }
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_WRAP_T.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_WRAP_T.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[0] );
-            sampler.setWrapT ( COLLADA::OPEN_GL::getWrapModeFromOpenGL ( cgStateEnum ) );
+            sampler.setWrapT ( COLLADASW::OPEN_GL::getWrapModeFromOpenGL ( cgStateEnum ) );
         }
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_WRAP_P.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_WRAP_P.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[0] );
-            sampler.setWrapP ( COLLADA::OPEN_GL::getWrapModeFromOpenGL ( cgStateEnum ) );
+            sampler.setWrapP ( COLLADASW::OPEN_GL::getWrapModeFromOpenGL ( cgStateEnum ) );
         }
 
         // Look for the filters
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_MAGFILTER.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_MAGFILTER.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[0] );
-            sampler.setMagFilter( COLLADA::OPEN_GL::getSamplerFilterFromOpenGL ( cgStateEnum ) );
+            sampler.setMagFilter( COLLADASW::OPEN_GL::getSamplerFilterFromOpenGL ( cgStateEnum ) );
         }
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_MINFILTER.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_MINFILTER.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[0] );
-            sampler.setMinFilter( COLLADA::OPEN_GL::getSamplerFilterFromOpenGL ( cgStateEnum ) );
+            sampler.setMinFilter( COLLADASW::OPEN_GL::getSamplerFilterFromOpenGL ( cgStateEnum ) );
         }
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_MIPFILTER.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_MIPFILTER.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             const char* cgStateEnum = cgGetStateEnumerantName ( cgState, values[0] );
-            sampler.setMipFilter( COLLADA::OPEN_GL::getSamplerFilterFromOpenGL ( cgStateEnum ) );
+            sampler.setMipFilter( COLLADASW::OPEN_GL::getSamplerFilterFromOpenGL ( cgStateEnum ) );
         }
 
         // Look for the border color
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_BORDER_COLOR.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_BORDER_COLOR.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const float* values = cgGetFloatStateAssignmentValues ( cgStateAssignment, &valueCount );
             if ( valueCount == 3 )
-                sampler.setBorderColor ( COLLADA::Color ( values[0], values[1], values[2] ) );
+                sampler.setBorderColor ( COLLADASW::Color ( values[0], values[1], values[2] ) );
             else if ( valueCount == 4 )
-                sampler.setBorderColor ( COLLADA::Color ( values[0], values[1], values[2], values[3] ) );
+                sampler.setBorderColor ( COLLADASW::Color ( values[0], values[1], values[2], values[3] ) );
         }
 
         // Look for the mipmaps
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_MIPMAP_MAXLEVEL.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_MIPMAP_MAXLEVEL.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
             const int* values = cgGetIntStateAssignmentValues ( cgStateAssignment, &valueCount );
             sampler.setMipmapMaxlevel ( ( unsigned char ) ( values[0] ) );
         }
-        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADA::CSWC::COLLADA_ELEMENT_MIPMAP_BIAS.c_str() );
+        cgStateAssignment = cgGetNamedSamplerStateAssignment ( cgParameter, COLLADASW::CSWC::CSW_ELEMENT_MIPMAP_BIAS.c_str() );
         if ( cgStateAssignment )
         {
             CGstate cgState = cgGetSamplerStateAssignmentState ( cgStateAssignment );
@@ -729,9 +729,9 @@ namespace COLLADAMaya
 //        exportSamplerStateAssignments (cgParameter, cgTextureParam, surfaceType, samplerType, samplerValueType);
 
         // Get the type of the resource ( 1D, 2D, 3D, CUBE )
-        COLLADA::Surface::SurfaceType surfaceType = COLLADA::Surface::SURFACE_TYPE_UNSPECIFIED;
-        COLLADA::Sampler::SamplerType samplerType = COLLADA::Sampler::SAMPLER_TYPE_UNSPECIFIED;
-        COLLADA::ValueType::ColladaType samplerValueType = COLLADA::ValueType::VALUE_TYPE_UNSPECIFIED;
+        COLLADASW::Surface::SurfaceType surfaceType = COLLADASW::Surface::SURFACE_TYPE_UNSPECIFIED;
+        COLLADASW::Sampler::SamplerType samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
+        COLLADASW::ValueType::ColladaType samplerValueType = COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
 
         if ( cgTextureParam )
         {
@@ -746,7 +746,7 @@ namespace COLLADAMaya
         }
 
         // Open the samplers newparam
-        COLLADA::NewParamSampler paramSampler ( streamWriter );
+        COLLADASW::NewParamSampler paramSampler ( streamWriter );
         paramSampler.setParamType( samplerValueType );
         paramSampler.openParam ( paramName );
         exportAnnotations ( cgParameter, &paramSampler );
@@ -760,45 +760,45 @@ namespace COLLADAMaya
     // --------------------------------------
     void HwShaderExporter::exportTexture (
         const CGparameter& cgTextureParam,
-        const COLLADA::Surface::SurfaceType& surfaceType )
+        const COLLADASW::Surface::SurfaceType& surfaceType )
     {
         CGtype paramType = cgGetParameterBaseType( cgTextureParam );
         if ( paramType != CG_TEXTURE ) return;
 
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Name of the current texture
         const char* cgTextureName = cgGetParameterName( cgTextureParam );
 
         // Create the surface
-        COLLADA::Surface surface ( surfaceType, cgTextureName );
+        COLLADASW::Surface surface ( surfaceType, cgTextureName );
         surface.setFormat ( "A8R8G8B8" );
 
         // Create the surface init option
-        COLLADA::SurfaceInitOption initOption ( COLLADA::SurfaceInitOption::INIT_FROM );
+        COLLADASW::SurfaceInitOption initOption ( COLLADASW::SurfaceInitOption::INIT_FROM );
 
         // Get the name of the resource for default value
         CGannotation resourceNameAnnotation =
             cgGetNamedParameterAnnotation( cgTextureParam,
-            COLLADA::CSWC::COLLADA_FX_ANNOTATION_RESOURCE_NAME.c_str() );
+            COLLADASW::CSWC::CSW_FX_ANNOTATION_RESOURCE_NAME.c_str() );
         if ( resourceNameAnnotation )
         {
             // Get the name of the annotation
             const char* annotationValue = cgGetStringAnnotationValue ( resourceNameAnnotation );
 
             // Get the image path
-            COLLADA::URI shaderFxFileUri = getShaderFxFileUri();
+            COLLADASW::URI shaderFxFileUri = getShaderFxFileUri();
 
             // Take the filename for the unique image name
-            COLLADA::URI sourceFileUri ( shaderFxFileUri, String ( annotationValue ) );
-            sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+            COLLADASW::URI sourceFileUri ( shaderFxFileUri, String ( annotationValue ) );
+            sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
             String imageId = sourceFileUri.getPathFileBase();
 
             // Export the image
             EffectTextureExporter* textureExporter =
                 mDocumentExporter->getEffectExporter()->getTextureExporter();
-            COLLADA::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
+            COLLADASW::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
 
             // Get the image id of the exported collada image
             imageId = colladaImage->getImageId();
@@ -809,7 +809,7 @@ namespace COLLADAMaya
         surface.setInitOption ( initOption );
 
         // Add the surface <newparam>
-        COLLADA::NewParamSurface paramSurface ( streamWriter );
+        COLLADASW::NewParamSurface paramSurface ( streamWriter );
         paramSurface.openParam ( cgTextureName );
         exportAnnotations( cgTextureParam, &paramSurface );
         surface.add ( streamWriter );
@@ -817,13 +817,13 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------
-    void HwShaderExporter::setShaderFxFileUri( const COLLADA::URI& shaderFxFileName )
+    void HwShaderExporter::setShaderFxFileUri( const COLLADASW::URI& shaderFxFileName )
     {
         mShaderFxFileUri = shaderFxFileName;
     }
 
     // --------------------------------------
-    const COLLADA::URI& HwShaderExporter::getShaderFxFileUri() const
+    const COLLADASW::URI& HwShaderExporter::getShaderFxFileUri() const
     {
         return mShaderFxFileUri;
     }
@@ -831,49 +831,49 @@ namespace COLLADAMaya
     // --------------------------------------
     void HwShaderExporter::getResourceType(
         const CGparameter& cgTextureParam,
-        COLLADA::Surface::SurfaceType &surfaceType,
-        COLLADA::Sampler::SamplerType &samplerType,
-        COLLADA::ValueType::ColladaType &samplerValueType )
+        COLLADASW::Surface::SurfaceType &surfaceType,
+        COLLADASW::Sampler::SamplerType &samplerType,
+        COLLADASW::ValueType::ColladaType &samplerValueType )
     {
         // Get the type of the resource for default value
         CGannotation resourceTypeAnnotation =
             cgGetNamedParameterAnnotation( cgTextureParam,
-            COLLADA::CSWC::COLLADA_FX_ANNOTATION_RESOURCE_TYPE.c_str() );
+            COLLADASW::CSWC::CSW_FX_ANNOTATION_RESOURCE_TYPE.c_str() );
         if ( resourceTypeAnnotation )
         {
             // Get the name of the annotation
             const char* annotationValue = cgGetStringAnnotationValue ( resourceTypeAnnotation );
             String resourceTypeString ( annotationValue );
 
-            if ( COLLADA::Utils::equalsIgnoreCase ( resourceTypeString, COLLADA::CSWC::COLLADA_SURFACE_TYPE_1D ) )
+            if ( COLLADASW::Utils::equalsIgnoreCase ( resourceTypeString, COLLADASW::CSWC::CSW_SURFACE_TYPE_1D ) )
             {
-                surfaceType = COLLADA::Surface::SURFACE_TYPE_1D;
-                samplerType = COLLADA::Sampler::SAMPLER_TYPE_1D;
-                samplerValueType = COLLADA::ValueType::SAMPLER_1D;
+                surfaceType = COLLADASW::Surface::SURFACE_TYPE_1D;
+                samplerType = COLLADASW::Sampler::SAMPLER_TYPE_1D;
+                samplerValueType = COLLADASW::ValueType::SAMPLER_1D;
             }
-            else if ( COLLADA::Utils::equalsIgnoreCase ( resourceTypeString, COLLADA::CSWC::COLLADA_SURFACE_TYPE_2D ) )
+            else if ( COLLADASW::Utils::equalsIgnoreCase ( resourceTypeString, COLLADASW::CSWC::CSW_SURFACE_TYPE_2D ) )
             {
-                surfaceType = COLLADA::Surface::SURFACE_TYPE_2D;
-                samplerType = COLLADA::Sampler::SAMPLER_TYPE_2D;
-                samplerValueType = COLLADA::ValueType::SAMPLER_2D;
+                surfaceType = COLLADASW::Surface::SURFACE_TYPE_2D;
+                samplerType = COLLADASW::Sampler::SAMPLER_TYPE_2D;
+                samplerValueType = COLLADASW::ValueType::SAMPLER_2D;
             }
-            else if ( COLLADA::Utils::equalsIgnoreCase ( resourceTypeString, COLLADA::CSWC::COLLADA_SURFACE_TYPE_3D ) )
+            else if ( COLLADASW::Utils::equalsIgnoreCase ( resourceTypeString, COLLADASW::CSWC::CSW_SURFACE_TYPE_3D ) )
             {
-                surfaceType = COLLADA::Surface::SURFACE_TYPE_3D;
-                samplerType = COLLADA::Sampler::SAMPLER_TYPE_3D;
-                samplerValueType = COLLADA::ValueType::SAMPLER_3D;
+                surfaceType = COLLADASW::Surface::SURFACE_TYPE_3D;
+                samplerType = COLLADASW::Sampler::SAMPLER_TYPE_3D;
+                samplerValueType = COLLADASW::ValueType::SAMPLER_3D;
             }
-            else if ( COLLADA::Utils::equalsIgnoreCase ( resourceTypeString, COLLADA::CSWC::COLLADA_SURFACE_TYPE_CUBE ) )
+            else if ( COLLADASW::Utils::equalsIgnoreCase ( resourceTypeString, COLLADASW::CSWC::CSW_SURFACE_TYPE_CUBE ) )
             {
-                surfaceType = COLLADA::Surface::SURFACE_TYPE_CUBE;
-                samplerType = COLLADA::Sampler::SAMPLER_TYPE_CUBE;
-                samplerValueType = COLLADA::ValueType::SAMPLER_CUBE;
+                surfaceType = COLLADASW::Surface::SURFACE_TYPE_CUBE;
+                samplerType = COLLADASW::Sampler::SAMPLER_TYPE_CUBE;
+                samplerValueType = COLLADASW::ValueType::SAMPLER_CUBE;
             }
-            else if ( COLLADA::Utils::equalsIgnoreCase ( resourceTypeString, COLLADA::CSWC::COLLADA_SURFACE_TYPE_RECT ) )
+            else if ( COLLADASW::Utils::equalsIgnoreCase ( resourceTypeString, COLLADASW::CSWC::CSW_SURFACE_TYPE_RECT ) )
             {
-                surfaceType = COLLADA::Surface::SURFACE_TYPE_RECT;
-                samplerType = COLLADA::Sampler::SAMPLER_TYPE_RECT;
-                samplerValueType = COLLADA::ValueType::SAMPLER_RECT;
+                surfaceType = COLLADASW::Surface::SURFACE_TYPE_RECT;
+                samplerType = COLLADASW::Sampler::SAMPLER_TYPE_RECT;
+                samplerValueType = COLLADASW::ValueType::SAMPLER_RECT;
             }
         }
     }
@@ -884,7 +884,7 @@ namespace COLLADAMaya
         // Generate the source string
         String sourceString ( programSourceCG );
 
-        COLLADA::Utils::translateToXML ( sourceString );
+        COLLADASW::Utils::translateToXML ( sourceString );
 
 //         // Remove the comments /** */
 //         String uncommentedString = sourceString;
@@ -916,13 +916,13 @@ namespace COLLADAMaya
         // TODO Remove all techniques.
 
         // Find the position of the first "technique" element
-        size_t techniqueStart = sourceString.find ( COLLADA::CSWC::COLLADA_ELEMENT_TECHNIQUE );
+        size_t techniqueStart = sourceString.find ( COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE );
 
         // Get the substring from the beginning to the first "technique" element
         String withoutTechniqueString = sourceString.substr ( 0, techniqueStart );
 
         // TODO Don't believe, that the "technique" element is always the last...
-//         String withTechniqueString = sourceString.substr ( techniqueStart+COLLADA::CSWC::COLLADA_ELEMENT_TECHNIQUE.length() );
+//         String withTechniqueString = sourceString.substr ( techniqueStart+COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE.length() );
 //
 //         size_t numOfOpenBraces = 0;
 //

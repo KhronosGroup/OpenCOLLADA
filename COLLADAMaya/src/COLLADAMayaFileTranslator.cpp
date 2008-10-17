@@ -21,9 +21,9 @@
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaImportOptions.h"
-#include "COLLADAStreamWriterException.h"
 
-#include "COLLADAURI.h"
+#include "COLLADASWException.h"
+#include "COLLADASWURI.h"
 
 #include <time.h>
 
@@ -252,7 +252,7 @@ namespace COLLADAMaya
 
             MGlobal::displayInfo ( "Export successful!" );
         }
-        catch ( COLLADA::StreamWriterException* swException  )
+        catch ( COLLADASW::StreamWriterException* swException  )
         {
             String message = "StreamWriterException: " + swException->getMessage();
             MGlobal::displayError ( message.c_str() );

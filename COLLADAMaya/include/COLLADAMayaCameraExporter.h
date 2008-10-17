@@ -17,15 +17,15 @@
 #define __COLLADA_MAYA_CAMERA_EXPORTER_H__
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryCameras.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryCameras.h"
 
 
 namespace COLLADAMaya
 {
 
     /** This class writes the <library_cameras>. */
-    class CameraExporter : public COLLADA::LibraryCameras
+    class CameraExporter : public COLLADASW::LibraryCameras
     {
     private:
 
@@ -37,7 +37,7 @@ namespace COLLADAMaya
         * @param streamWriter The stream the output will be written to
         * @param documentExporter The document exporter this material exporter is used in
         */
-        CameraExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        CameraExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
         virtual ~CameraExporter() {};
 
         /** Exports the cameras in the scene graph. */

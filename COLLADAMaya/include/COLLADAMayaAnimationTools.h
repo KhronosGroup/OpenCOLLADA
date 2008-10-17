@@ -17,7 +17,7 @@
 #define __COLLADA_MAYA_ANIMATION_TOOLS_H__
 
 #include "COLLADAMayaPrerequisites.h"
-#include "COLLADALibraryAnimationClips.h"
+#include "COLLADASWLibraryAnimationClips.h"
 
 namespace COLLADAMaya
 {
@@ -78,7 +78,7 @@ namespace COLLADAMaya
 
         MObject characterNode;
 
-        COLLADA::ColladaAnimationClip* colladaClip;
+        COLLADASW::ColladaAnimationClip* colladaClip;
         MObjectArray animCurves;
         MPlugArray plugs;
 

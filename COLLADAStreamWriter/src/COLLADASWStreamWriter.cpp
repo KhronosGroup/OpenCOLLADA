@@ -17,7 +17,7 @@
 
 #include "COLLADASWConstants.h"
 #include "COLLADASWURI.h"
-#include "COLLADASWStreamWriterException.h"
+#include "COLLADASWException.h"
 #include "COLLADASWUtils.h"
 
 namespace COLLADASW

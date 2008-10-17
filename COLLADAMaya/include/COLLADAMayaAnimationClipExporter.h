@@ -19,7 +19,7 @@
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaAnimationTools.h"
 
-#include "COLLADALibraryAnimationClips.h"
+#include "COLLADASWLibraryAnimationClips.h"
 
 
 namespace COLLADAMaya
@@ -30,13 +30,13 @@ namespace COLLADAMaya
     * Class to export the animation clips.
     */
 
-    class AnimationClipExporter : public COLLADA::LibraryAnimationClips
+    class AnimationClipExporter : public COLLADASW::LibraryAnimationClips
     {
 
     public:
 
         /** Constructor */
-        AnimationClipExporter ( COLLADA::StreamWriter* _streamWriter );
+        AnimationClipExporter ( COLLADASW::StreamWriter* _streamWriter );
         virtual ~AnimationClipExporter() {};
 
         /** Exports all animation clips from the member animation list. */

@@ -16,8 +16,8 @@
 #define __COLLADA_MAYA_TANGENT_POINT_H__
 
 #include "COLLADAMayaPrerequisites.h"
-#include "COLLADALibraryAnimations.h"
-#include "COLLADALibraryAnimationClips.h"
+#include "COLLADASWLibraryAnimations.h"
+#include "COLLADASWLibraryAnimationClips.h"
 #include <maya/MFnAnimCurve.h>
 
 namespace COLLADAMaya

@@ -17,8 +17,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug Max9|Win32"
-			OutputDirectory="..\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			>
@@ -64,10 +64,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADAStreamWriter.lib FreeImaged.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
+				AdditionalDependencies="COLLADAStreamWriter-d.lib FreeImaged.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;;$(NOINHERIT)"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\win\$(PlatformName);&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;;$(NOINHERIT)"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -100,8 +100,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release Max9|Win32"
-			OutputDirectory="..\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
@@ -151,7 +151,7 @@
 				AdditionalDependencies="COLLADAStreamWriter.lib FreeImage.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Release;&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\win\$(PlatformName);&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -186,8 +186,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug Max2009|Win32"
-			OutputDirectory="..\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			>
@@ -233,10 +233,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
+				AdditionalDependencies="COLLADAStreamWriter-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -270,8 +270,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release Max2009|Win32"
-			OutputDirectory="..\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
@@ -321,7 +321,7 @@
 				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Release;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\win\$(PlatformName);&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -356,8 +356,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release Max2008|Win32"
-			OutputDirectory="..\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			WholeProgramOptimization="1"
@@ -407,7 +407,7 @@
 				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Release;&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\win\$(PlatformName);&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -442,8 +442,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug Max2008|Win32"
-			OutputDirectory="..\bin\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="0"
 			>
@@ -489,10 +489,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADAStreamWriter.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
+				AdditionalDependencies="COLLADAStreamWriter-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\COLLADAStreamWriter\lib\Debug;&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -31,7 +31,7 @@ namespace COLLADAMax
 
     /** Base class to export extra tags in max.*/
 
-    class XRefExporter : public COLLADA::LibraryControllers
+    class XRefExporter : public COLLADASW::LibraryControllers
     {
 
     public:
@@ -43,7 +43,7 @@ namespace COLLADAMax
     public:
         /** Constructor
          @param streamWriter the stream the extra tags should be written to.*/
-        XRefExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter  );
+        XRefExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter  );
 
         /** Destructor*/
         virtual ~XRefExporter()

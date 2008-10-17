@@ -19,7 +19,7 @@
 	<Configurations>
 		<Configuration
 			Name="DebugPlugin2008|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -65,9 +65,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 			/>
@@ -100,8 +100,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin2008|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -148,7 +148,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -181,7 +181,7 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin2008|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			>
@@ -225,7 +225,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -262,8 +262,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin2008|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			>
 			<Tool
@@ -308,7 +308,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -342,7 +342,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugConsole2008|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
@@ -387,9 +387,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 			/>
@@ -422,8 +422,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugConsole2008|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -470,7 +470,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				TargetMachine="17"
@@ -504,7 +504,7 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseConsole2008|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
@@ -548,7 +548,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -586,8 +586,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleaseConsole2008|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -632,7 +632,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -669,7 +669,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin85|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -705,7 +705,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -736,8 +737,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin85|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -785,7 +786,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -818,7 +819,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin2009|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -864,9 +865,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 			/>
@@ -899,8 +900,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin2009|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -948,7 +949,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -981,7 +982,7 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin2009|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -1028,7 +1029,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				SubSystem="2"
 				OptimizeReferences="1"
@@ -1067,8 +1068,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin2009|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -1114,7 +1115,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1148,7 +1149,7 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin80|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -1191,9 +1192,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -1230,8 +1231,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin80|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -1277,7 +1278,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1311,7 +1312,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin70|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -1347,7 +1348,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1378,8 +1380,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin70|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -1427,7 +1429,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -1460,7 +1462,7 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin85|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -1503,9 +1505,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -1542,8 +1544,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin85|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -1589,7 +1591,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1623,7 +1625,7 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin80|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -1669,9 +1671,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;..\..\COLLADAStreamWriter\lib\debug"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 			/>
@@ -1704,8 +1706,8 @@
 		</Configuration>
 		<Configuration
 			Name="DebugPlugin80|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -1753,7 +1755,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\debug&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
 			/>
@@ -1785,7 +1787,7 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin70|Win32"
-			OutputDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -1828,9 +1830,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;..\..\COLLADAStreamWriter\lib\release;&quot;$(BOOST_ROOT)\stage\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
@@ -1867,8 +1869,8 @@
 		</Configuration>
 		<Configuration
 			Name="ReleasePlugin70|x64"
-			OutputDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			>
@@ -1914,7 +1916,7 @@
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\$(PlatformName)\release&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage64\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,7 +21,7 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
+#include "COLLADASWStreamWriter.h"
 #include "COLLADAMaxExtra.h"
 
 #include <max.h>
@@ -161,7 +161,7 @@ namespace COLLADAMax
         @param streamWriter The stream the extra tags should be written to
         @param object The object which extra tag should be exported
         */
-        GeometryExtra ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter, Object * object, const String& geometryId );
+        GeometryExtra ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter, Object * object, const String& geometryId );
 
         /** Performs the actual export.*/
         void doExport();

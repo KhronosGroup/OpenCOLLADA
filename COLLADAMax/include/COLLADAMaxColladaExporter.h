@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,28 +16,28 @@
 */
 
 
-#ifndef __COLLADAMAX_COLLADAEXPORTER_H__
-#define __COLLADAMAX_COLLADAEXPORTER_H__
+#ifndef __COLLADAMAX_COLLADASWEXPORTER_H__
+#define __COLLADAMAX_COLLADASWEXPORTER_H__
 
 #include "COLLADAMaxPrerequisites.h"
-#include "COLLADAIDList.h"
+#include "COLLADASWIDList.h"
 
 #include <max.h>
 #include <iparamb2.h>
 
 // Exporter class ID
-//#define COLLADAEXPORTER_CLASS_ID Class_ID(0x7d656d57, 0x6f963848)
+//#define COLLADASWEXPORTER_CLASS_ID Class_ID(0x7d656d57, 0x6f963848)
 
 namespace COLLADAMax
 {
 
     // main exporter class
 
-    class COLLADAExporter : public SceneExport
+    class COLLADASWExporter : public SceneExport
     {
 
     public:
-        static const Class_ID COLLADAEXPORTER_CLASS_ID;
+        static const Class_ID COLLADASWEXPORTER_CLASS_ID;
 
         static const String EXTENSIONNAME;
         static const String LONGDESCRIPTION;
@@ -57,11 +57,11 @@ namespace COLLADAMax
 	private:
 		/** Holds the unique file names of the exported XRef files. This is necessary if all files
 		are exported into the same directory.*/
-		COLLADA::IDList mXRefExportFileNames;
+		COLLADASW::IDList mXRefExportFileNames;
 
     public:
-        COLLADAExporter();
-        virtual ~COLLADAExporter();
+        COLLADASWExporter();
+        virtual ~COLLADASWExporter();
 
         // from SceneExport
         int ExtCount();     // Returns the number of file name extensions supported by the plug-in.
@@ -80,14 +80,14 @@ namespace COLLADAMax
 
     private:
         /** Disable copy constructor*/
-        COLLADAExporter ( const COLLADAExporter & colladaExporter );
+        COLLADASWExporter ( const COLLADASWExporter & colladaExporter );
 
         /** Disable assignment operator*/
-        COLLADAExporter & operator= ( const COLLADAExporter & colladaExporter );
+        COLLADASWExporter & operator= ( const COLLADASWExporter & colladaExporter );
 
     };
 
-    ClassDesc2* getCOLLADAExporterDesc();
+    ClassDesc2* getCOLLADASWExporterDesc();
 
 
     //
@@ -106,7 +106,7 @@ namespace COLLADAMax
         void * Create ( BOOL isLoading = FALSE )
         {
             isLoading;
-            return new COLLADAExporter();
+            return new COLLADASWExporter();
         }
 
         const TCHAR * ClassName()
@@ -121,7 +121,7 @@ namespace COLLADAMax
 
         Class_ID ClassID()
         {
-            return COLLADAExporter::COLLADAEXPORTER_CLASS_ID;
+            return COLLADASWExporter::COLLADASWEXPORTER_CLASS_ID;
         }
 
         const TCHAR* Category()
@@ -131,7 +131,7 @@ namespace COLLADAMax
 
         const TCHAR* InternalName()
         {
-            return _T ( "COLLADAExporter" );
+            return _T ( "COLLADASWExporter" );
         } // returns fixed parsable name (scripter-visible name)
 
         HINSTANCE HInstance()
@@ -146,4 +146,4 @@ namespace COLLADAMax
 }
 
 
-#endif // __COLLADAMAX_COLLADAEXPORTER_H__
+#endif // __COLLADAMAX_COLLADASWEXPORTER_H__

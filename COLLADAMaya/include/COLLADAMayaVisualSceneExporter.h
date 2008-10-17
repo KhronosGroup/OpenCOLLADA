@@ -17,13 +17,13 @@
 #define __COLLADA_MAYA_VISUAL_SCENE_EXPORTER_H__
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADALibraryVisualScenes.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADANode.h"
+#include "COLLADASWLibraryVisualScenes.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWNode.h"
 
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
-#include "COLLADAInstanceMaterial.h"
+#include "COLLADASWInstanceMaterial.h"
 
 #include <maya/MDagPath.h>
 #include <maya/MFnTransform.h>
@@ -44,7 +44,7 @@ namespace COLLADAMaya
      * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
 
-    class VisualSceneExporter : public COLLADA::LibraryVisualScenes
+    class VisualSceneExporter : public COLLADASW::LibraryVisualScenes
     {
 
     private:
@@ -65,7 +65,7 @@ namespace COLLADAMaya
         bool mVisualSceneAdded;
 
         /** A pointer to the actual visual scene node. */
-        COLLADA::Node* mVisualSceneNode;
+        COLLADASW::Node* mVisualSceneNode;
 
         /** Pointer to the current scene element. */
         SceneElement* mSceneElement;
@@ -87,7 +87,7 @@ namespace COLLADAMaya
          * @param documentExporter Pointer to the main document exporter.
          * @param sceneId Name of the current scene to export. Has an empty string as default value.
          */
-        VisualSceneExporter ( COLLADA::StreamWriter* streamWriter,
+        VisualSceneExporter ( COLLADASW::StreamWriter* streamWriter,
                               DocumentExporter* documentExporter,
                               const String& sceneId = "" );
         /**
@@ -112,7 +112,7 @@ namespace COLLADAMaya
          * @param sceneNode The collada node to write.
          * @param sceneElement The node to export.
          */
-        bool exportNodeVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
+        bool exportNodeVisualSceneNode ( COLLADASW::Node* sceneNode, const SceneElement* sceneElement );
 
         /**
         * Creates and opens a visual scene node of type joint and writes the transforms
@@ -120,7 +120,7 @@ namespace COLLADAMaya
         * @param sceneNode The collada node.
         * @param dagPath The node to export.
         */
-        bool exportJointVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
+        bool exportJointVisualSceneNode ( COLLADASW::Node* sceneNode, const SceneElement* sceneElement );
 
         /**
         * Creates and opens a visual scene node and writes the transforms
@@ -128,7 +128,7 @@ namespace COLLADAMaya
         * @param sceneNode The collada node to write.
         * @param sceneElement The node to export.
         */
-        bool exportVisualSceneNode ( COLLADA::Node* sceneNode, const SceneElement* sceneElement );
+        bool exportVisualSceneNode ( COLLADASW::Node* sceneNode, const SceneElement* sceneElement );
 
         void exportChildNodeInstances( const SceneElement* sceneElement );
         /**
@@ -156,7 +156,7 @@ namespace COLLADAMaya
          * Creates the uri for the scene element. Checks for instances 
          * and creates the right element.
          */
-        COLLADA::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = "" );
+        COLLADASW::URI getSceneElementURI ( const SceneElement* sceneElement, const String& elementId = "" );
 
         /**
         * Exports the camera instances of the given transform scene element.
@@ -171,7 +171,7 @@ namespace COLLADAMaya
          * @param instanceNumber The current instance number of the shape.
          */
         void exportMaterialList( 
-            COLLADA::InstanceMaterialList &instanceMaterialList, 
+            COLLADASW::InstanceMaterialList &instanceMaterialList, 
             const MDagPath &dagPath );
         
         /**
@@ -221,7 +221,7 @@ namespace COLLADAMaya
          * because it is animated. It should be intepreted as a Boolean value.
          * @param sceneNode The collada scene node to export the values.
          */
-        void exportVisibility ( COLLADA::Node* sceneNode );
+        void exportVisibility ( COLLADASW::Node* sceneNode );
 
         /**
          * @todo documentation

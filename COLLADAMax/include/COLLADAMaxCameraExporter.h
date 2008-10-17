@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,7 +21,7 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADALibraryCameras.h"
+#include "COLLADASWLibraryCameras.h"
 #include "COLLADAMaxConversionFunctor.h"
 #include "COLLADAMaxExtra.h"
 
@@ -60,7 +60,7 @@ namespace COLLADAMax
 
 
     /** Class to export cameras.*/
-    class CameraExporter : public COLLADA::LibraryCameras, public Extra
+    class CameraExporter : public COLLADASW::LibraryCameras, public Extra
     {
 	public:
 		/** Conversion functor to calculate the orthographic left for a camera's FOV.*/
@@ -119,7 +119,7 @@ namespace COLLADAMax
     public:
         /** Constructor
          @param streamWriter the stream the extra tags should be written to.*/
-        CameraExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter  );
+        CameraExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter  );
 
         /** Destructor*/
         virtual ~CameraExporter()

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,8 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryMaterials.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryMaterials.h"
 
 #include "COLLADAMaxDocumentExporter.h"
 #include "COLLADAMaxEffectExporter.h"
@@ -37,11 +37,11 @@ namespace COLLADAMax
 
     /** This class writes the @a \<library_materials\>. It uses informations created my an effect exporter*/
 
-    class MaterialExporter : public COLLADA::LibraryMaterials
+    class MaterialExporter : public COLLADASW::LibraryMaterials
     {
 
     private:
-        /** maps already exported wire frame colors to the corresponding COLLADA effect id*/
+        /** maps already exported wire frame colors to the corresponding COLLADASW effect id*/
         const WireFrameColorEffectList * mWireFrameColorEffectList;
 
         /** The document exporter*/
@@ -54,7 +54,7 @@ namespace COLLADAMax
         /**
         @param streamWriter The stream the output will be written to.
         @param documentExporter The document exporter this material exporter is used in.*/
-        MaterialExporter ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter );
+        MaterialExporter ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter );
 
         /** Destructor*/
         virtual ~MaterialExporter()

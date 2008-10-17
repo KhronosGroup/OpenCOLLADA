@@ -1,15 +1,15 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by ColladaMax.rc
+// Used by COLLADAMax.rc
 //
 #define IDS_LIBDESCRIPTION              1
 #define IDS_CATEGORY_E                  2
 #define IDS_CLASS_NAME_E                3
-#define IDS_COLLADA_EFFECT_CLASS_NAME   4
+#define IDS_COLLADASW_EFFECT_CLASS_NAME   4
 #define IDS_CATEGORY_I                  5
 #define IDS_CLASS_NAME_I                6
-#define IDS_COLLADA_XREF_CA             7
-#define IDS_COLLADA_EFFECT_NAME         8
+#define IDS_COLLADASW_XREF_CA             7
+#define IDS_COLLADASW_EFFECT_NAME         8
 #define IDS_CE_NAME                     9
 #define IDS_CE_TECHNIQUES               10
 #define IDS_CE_PASSES                   11
@@ -17,23 +17,23 @@
 #define IDS_CE_TECHNIQUES_PARAMS        13
 #define IDS_CE_PASSES_PARAMS            14
 #define IDS_CE_RSTATES_PARAMS           15
-#define IDS_COLLADA_A_PARAMS            16
+#define IDS_COLLADASW_A_PARAMS            16
 #define IDS_CLASS_NAME_A                17
 #define IDS_CLASS_NAME_XREF             18
 #define IDS_CE_SHADERS_PARAMS           19
 #define IDD_EXPORT_OPTIONS              101
 #define IDD_XREF_REUSE                  103
-#define IDS_COLLADA_XREF_ID             104
-#define IDD_COLLADA_EFFECT              105
+#define IDS_COLLADASW_XREF_ID             104
+#define IDD_COLLADASW_EFFECT              105
 #define IDS_CE_BOOL                     106
 #define IDR_RCDATA1                     107
-#define IDD_COLLADA_EFFECT_TECHNIQUES   108
-#define IDD_COLLADA_EFFECT_PASSES       109
-#define IDD_COLLADA_EFFECT_RSTATES      110
-#define IDD_COLLADA_EFFECT_SHADERS      111
-#define IDD_COLLADA_EFFECT_ERROR        112
+#define IDD_COLLADASW_EFFECT_TECHNIQUES   108
+#define IDD_COLLADASW_EFFECT_PASSES       109
+#define IDD_COLLADASW_EFFECT_RSTATES      110
+#define IDD_COLLADASW_EFFECT_SHADERS      111
+#define IDD_COLLADASW_EFFECT_ERROR        112
 #define IDD_IMPORT_OPTIONS              113
-#define IDD_COLLADA_EFFECT_TARGETS      114
+#define IDD_COLLADASW_EFFECT_TARGETS      114
 #define IDC_GEOM_NORMALS                1002
 #define IDC_BAKE_MATRICES               1003
 #define IDC_RELATIVE_PATHS              1006

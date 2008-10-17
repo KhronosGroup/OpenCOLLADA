@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,12 +21,12 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
+#include "COLLADASWStreamWriter.h"
 #include "COLLADAMaxEffectExporter.h"
-#include "COLLADALibraryVisualScenes.h"
+#include "COLLADASWLibraryVisualScenes.h"
 #include "COLLADAMaxDocumentExporter.h"
 
-namespace COLLADA
+namespace COLLADASW
 {
 
     class Node;
@@ -42,7 +42,7 @@ namespace COLLADAMax
 
     /** Class to export the visual scene.*/
 
-    class VisualSceneExporter : public COLLADA::LibraryVisualScenes
+    class VisualSceneExporter : public COLLADASW::LibraryVisualScenes
     {
 
 	public :
@@ -83,7 +83,7 @@ namespace COLLADAMax
         @param sceneId The id of the scene.
         @param documentExporter
         */
-        VisualSceneExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter );
+        VisualSceneExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter );
         virtual ~VisualSceneExporter()
         {}
 
@@ -107,12 +107,12 @@ namespace COLLADAMax
         void doExport ( ExportNode* exportNode, const Matrix3& objectOffsetTransformationMatrix );
 
         /** Exports all the transformations of a node.*/
-        Matrix3 exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix );
+        Matrix3 exportTransformations ( ExportNode * exportNode, const COLLADASW::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix );
 
 		/** Fill @a instanceMaterialList with the appropriate elements.
-		@param instanceMaterialList The COLLADA::InstanceMaterialList to fill
+		@param instanceMaterialList The COLLADASW::InstanceMaterialList to fill
 		@param exportNode The ExportNode which this instance material list is for. */
-		void fillInstanceMaterialList(COLLADA::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode);
+		void fillInstanceMaterialList(COLLADASW::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode);
 
 		void calculateObjectOffsetTransformation(INode* maxNode, Matrix3& tm);
 

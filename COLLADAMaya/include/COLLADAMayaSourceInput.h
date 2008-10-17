@@ -16,8 +16,8 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADA_MAYA_SOURCE_INPUT_H__
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADASource.h"
-#include "COLLADAInputList.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWInputList.h"
 
 
 namespace COLLADAMaya
@@ -33,7 +33,7 @@ namespace COLLADAMaya
     private:
 
         /** Collada source */
-        COLLADA::SourceBase mSource;
+        COLLADASW::SourceBase mSource;
 
         /** Index list. */
         std::vector<int> mIndices;
@@ -45,12 +45,12 @@ namespace COLLADAMaya
         int mIdx;
 
         /** Type of the source. */
-        COLLADA::Semantics mType;
+        COLLADASW::Semantics mType;
 
     public:
 
         /** Constructor */
-        SourceInput ( COLLADA::SourceBase& source, COLLADA::Semantics type, int idx = -1 )
+        SourceInput ( COLLADASW::SourceBase& source, COLLADASW::Semantics type, int idx = -1 )
             : mSource ( source )
             , mType ( type )
             , mIdx ( idx ) 
@@ -61,8 +61,8 @@ namespace COLLADAMaya
         virtual ~SourceInput() {}
 
         /** Collada source */
-        const COLLADA::SourceBase& getSource() const { return mSource; }
-        void setSource(COLLADA::SourceBase val) { mSource = val; }
+        const COLLADASW::SourceBase& getSource() const { return mSource; }
+        void setSource(COLLADASW::SourceBase val) { mSource = val; }
 
         /** Index list. */
         const std::vector<int>& getIndices() const { return mIndices; }
@@ -75,8 +75,8 @@ namespace COLLADAMaya
         void incrementNumVertexIndices() { ++mNumVertexIndices; }
 
         /** Type of the source. */
-        const COLLADA::Semantics& getType() const { return mType; }
-        void setType(COLLADA::Semantics val) { mType = val; }
+        const COLLADASW::Semantics& getType() const { return mType; }
+        void setType(COLLADASW::Semantics val) { mType = val; }
 
         /** Index of the current vertex source. */
         const int getIdx() const { return mIdx; }
@@ -85,12 +85,12 @@ namespace COLLADAMaya
         /**
         * Returns true, if the given list contains the given SourceInput.
         */
-        static bool containsSourceBase ( const Sources* sources, const COLLADA::SourceBase* searchedSourceBase );
+        static bool containsSourceBase ( const Sources* sources, const COLLADASW::SourceBase* searchedSourceBase );
 
         /**
         * Returns true, if the given list contains the given SourceInput and erased sucessful.
         */
-        static bool eraseSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase );
+        static bool eraseSourceBase ( Sources* sources, COLLADASW::SourceBase* searchedSourceBase );
     };
 
 }

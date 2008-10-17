@@ -19,7 +19,7 @@ namespace COLLADAMaya
 {
 
     // --------------------------------------------------------
-    bool SourceInput::containsSourceBase ( const Sources* sources, const COLLADA::SourceBase* searchedSourceBase )
+    bool SourceInput::containsSourceBase ( const Sources* sources, const COLLADASW::SourceBase* searchedSourceBase )
     {
         bool sourceFound = false;
 
@@ -27,7 +27,7 @@ namespace COLLADAMaya
         for ( ; sourcesIter!=sources->end() && !sourceFound; ++sourcesIter )
         {
             const SourceInput& sourceInput = *sourcesIter;
-            const COLLADA::SourceBase& sourceBase = sourceInput.mSource;
+            const COLLADASW::SourceBase& sourceBase = sourceInput.mSource;
             if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
                 sourceFound = true;
         }
@@ -36,7 +36,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
-    bool SourceInput::eraseSourceBase ( Sources* sources, COLLADA::SourceBase* searchedSourceBase )
+    bool SourceInput::eraseSourceBase ( Sources* sources, COLLADASW::SourceBase* searchedSourceBase )
     {
         bool sourceFound = false;
 
@@ -44,7 +44,7 @@ namespace COLLADAMaya
         for ( ; sourcesIter!=sources->end() && !sourceFound; ++sourcesIter )
         {
             SourceInput& sourceInput = *sourcesIter;
-            COLLADA::SourceBase& sourceBase = sourceInput.mSource;
+            COLLADASW::SourceBase& sourceBase = sourceInput.mSource;
             if ( strcmp ( sourceBase.getId().c_str(), searchedSourceBase->getId().c_str() ) == 0 )
             {
                 sourceFound = true;

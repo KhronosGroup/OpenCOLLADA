@@ -17,15 +17,15 @@
 #define __COLLADA_MAYA_LIGHT_EXPORTER_H__
 
 #include "COLLADAMayaPrerequisites.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryLights.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryLights.h"
 
 
 namespace COLLADAMaya
 {
 
     /** This class writes the <library_lights>. */
-    class LightExporter : public COLLADA::LibraryLights
+    class LightExporter : public COLLADASW::LibraryLights
     {
     private:
 
@@ -37,7 +37,7 @@ namespace COLLADAMaya
         * @param streamWriter The stream the output will be written to
         * @param documentExporter The document exporter this material exporter is used in
         */
-        LightExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        LightExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
         virtual ~LightExporter() {};
 
         /** Exports the lights in the scene graph. */

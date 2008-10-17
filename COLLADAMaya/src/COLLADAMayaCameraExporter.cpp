@@ -30,9 +30,9 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     CameraExporter::CameraExporter ( 
-        COLLADA::StreamWriter* streamWriter,
+        COLLADASW::StreamWriter* streamWriter,
         DocumentExporter* documentExporter )
-    : COLLADA::LibraryCameras ( streamWriter )
+    : COLLADASW::LibraryCameras ( streamWriter )
     , mDocumentExporter ( documentExporter )
     {}
 
@@ -103,10 +103,10 @@ namespace COLLADAMaya
         if (status != MStatus::kSuccess) return false;
 
         // Get the stream writer
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Figure out the type of camera optic and create it
-        COLLADA::BaseOptic* optics = NULL;
+        COLLADASW::BaseOptic* optics = NULL;
 
         // Get a pointer to the animation exporter.
         AnimationExporter* anim = mDocumentExporter->getAnimationExporter();
@@ -117,7 +117,7 @@ namespace COLLADAMaya
         if (isOrthographic)
         {
             // Create a orthographic projection optic
-            optics = new COLLADA::OrthographicOptic ( streamWriter );
+            optics = new COLLADASW::OrthographicOptic ( streamWriter );
 
             double width = cameraFn.orthoWidth(&status); CHECK_MSTATUS(status);
             optics->setAspectRatio( (float) cameraFn.aspectRatio( &status ) ); CHECK_MSTATUS(status);
@@ -128,7 +128,7 @@ namespace COLLADAMaya
         else
         {
             // Create a perspective projection optic
-            optics = new COLLADA::PerspectiveOptic ( streamWriter );
+            optics = new COLLADASW::PerspectiveOptic ( streamWriter );
 
             if ( ExportOptions::cameraYFov() )
             {
@@ -167,7 +167,7 @@ namespace COLLADAMaya
         String cameraName = mDocumentExporter->dagPathToColladaName ( dagPath );
 
         // Create the camera
-        COLLADA::Camera camera ( streamWriter, optics, cameraId, cameraName );
+        COLLADASW::Camera camera ( streamWriter, optics, cameraId, cameraName );
         String paramSid = "";
 
         // Add the Maya-specific parameters
@@ -175,36 +175,36 @@ namespace COLLADAMaya
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
             ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
 
         double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
             ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
  
         double lensSqueeze = cameraFn.lensSqueezeRatio ( &status ); CHECK_MSTATUS(status);
         animated = anim->addNodeAnimation( cameraFn.object(), LENS_SQUEEZE_SID, ATTR_LENS_SQUEEZE_RATIO, kSingle );
         paramSid = ""; if ( animated ) paramSid = LENS_SQUEEZE_SID;
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_LENS_SQUEEZE_PARAMETER, lensSqueeze, paramSid );
 
         int filmFit = cameraFn.filmFit ( &status ); CHECK_MSTATUS(status);
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_FIT_PARAMETER, filmFit ); 
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_FIT_PARAMETER, filmFit ); 
 
         double filmFitOffset = cameraFn.filmFitOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), FILM_FIT_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle );
         paramSid = ""; if ( animated ) paramSid = FILM_FIT_OFFSET_SID;
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_FIT_OFFSET_PARAMETER, filmFitOffset, paramSid ); 
 
         double filmOffsetX = cameraFn.horizontalFilmOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_FILM_OFFSET_SID, ATTR_HORIZONTAL_FILM_OFFSET, kSingle, XYZ_PARAMETERS );
         paramSid = ""; if ( animated ) paramSid = HORIZONTAL_FILM_OFFSET_SID;
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_OFFSET_X_PARAMETER, filmOffsetX, paramSid ); 
 
         double filmOffsetY = cameraFn.verticalFilmOffset ();
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_FILM_OFFSET_SID, ATTR_FILM_FIT_OFFSET, kSingle, XYZ_PARAMETERS );
         paramSid = ""; if ( animated ) paramSid = VERTICAL_FILM_OFFSET_SID;
-        camera.addExtraTechniqueParameter( COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
+        camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_FILM_OFFSET_Y_PARAMETER, filmOffsetY, paramSid ); 
 
         // Write the camera data in the collada document.
         addCamera ( camera );

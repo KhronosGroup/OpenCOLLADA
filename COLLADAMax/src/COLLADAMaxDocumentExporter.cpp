@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxDocumentExporter.h"
 #include "COLLADAMaxGeometryExporter.h"
@@ -29,9 +29,9 @@
 #include "COLLADAMaxCameraExporter.h"
 #include "COLLADAMaxLightExporter.h"
 
-#include "COLLADAAsset.h"
-#include "COLLADAScene.h"
-#include "COLLADASWC.h"
+#include "COLLADASWAsset.h"
+#include "COLLADASWScene.h"
+#include "COLLADASWConstants.h"
 
 #include <max.h>
 
@@ -41,13 +41,13 @@ namespace COLLADAMax
     const String DocumentExporter::SCENE_ID = "MaxScene";
 
     //---------------------------------------------------------------
-	DocumentExporter::DocumentExporter ( Interface * i, const String &filepath, COLLADA::IDList& xRefExportFileNames  )
+	DocumentExporter::DocumentExporter ( Interface * i, const String &filepath, COLLADASW::IDList& xRefExportFileNames  )
             : 
 			mOptions(i),
 			mMaxInterface ( i ),
             mStreamWriter ( filepath ),
-			mOutputFileUri ( COLLADA::URI::nativePathToUri(filepath) ),
-			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADA::URI::nativePathToUri(String(i->GetCurFilePath())), xRefExportFileNames ) ),
+			mOutputFileUri ( COLLADASW::URI::nativePathToUri(filepath) ),
+			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(String(i->GetCurFilePath())), xRefExportFileNames ) ),
 			mDeleteExportSceneGraph(true)
     {
 	}
@@ -59,7 +59,7 @@ namespace COLLADAMax
 		mOptions( options ),
 		mMaxInterface ( i ),
 		mStreamWriter ( filepath ),
-		mOutputFileUri ( COLLADA::URI::nativePathToUri(filepath) ),
+		mOutputFileUri ( COLLADASW::URI::nativePathToUri(filepath) ),
 		mExportSceneGraph ( exportSceneGraph ),
 		mDeleteExportSceneGraph(false)
 	{
@@ -132,7 +132,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::exportAsset()
     {
-        COLLADA::Asset asset ( &mStreamWriter );
+        COLLADASW::Asset asset ( &mStreamWriter );
 
         // Add contributor information
         // Set the author
@@ -191,7 +191,7 @@ namespace COLLADAMax
             break;
         }
 
-        asset.setUpAxisType ( COLLADA::Asset::Z_UP );
+        asset.setUpAxisType ( COLLADASW::Asset::Z_UP );
 
         asset.add();
     }
@@ -259,7 +259,7 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void DocumentExporter::exportScene()
     {
-        COLLADA::Scene scene ( &mStreamWriter, COLLADA::URI ( "", SCENE_ID ) );
+        COLLADASW::Scene scene ( &mStreamWriter, COLLADASW::URI ( "", SCENE_ID ) );
         scene.add();
     }
 
@@ -348,34 +348,34 @@ namespace COLLADAMax
 
 		if ( xRefOutputFileDir.empty() )
 		{
-			COLLADA::URI uri(mOutputFileUri, xRefSceneGraph.exportFileBaseName + ".dae");
+			COLLADASW::URI uri(mOutputFileUri, xRefSceneGraph.exportFileBaseName + ".dae");
 			return uri.toNativePath();
 			//			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 		else
 		{
-			COLLADA::URI xRefOutputFileDirURI(COLLADA::URI::nativePathToUri(xRefOutputFileDir));
-			COLLADA::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
+			COLLADASW::URI xRefOutputFileDirURI(COLLADASW::URI::nativePathToUri(xRefOutputFileDir));
+			COLLADASW::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
 			return uri.toNativePath();
 //			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 	}
 
-	COLLADA::URI DocumentExporter::getXRefOutputURI( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const
+	COLLADASW::URI DocumentExporter::getXRefOutputURI( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const
 	{
 		const String& xRefOutputFileDir = getOptions().getXRefOutputDir();
 
 		if ( xRefOutputFileDir.empty() )
 		{
-			COLLADA::URI uri(xRefSceneGraph.exportFileBaseName + ".dae");
+			COLLADASW::URI uri(xRefSceneGraph.exportFileBaseName + ".dae");
 			return uri;
 			//			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 		else
 		{
-			COLLADA::URI xRefOutputFileDirURI(COLLADA::URI::nativePathToUri(xRefOutputFileDir));
-			COLLADA::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
-			uri.makeRelativeTo(&mOutputFileUri, true);
+			COLLADASW::URI xRefOutputFileDirURI(COLLADASW::URI::nativePathToUri(xRefOutputFileDir));
+			COLLADASW::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
+			uri.makeRelativeTo(mOutputFileUri, true);
 			return uri;
 			//			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}

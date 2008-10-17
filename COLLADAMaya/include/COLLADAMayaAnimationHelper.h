@@ -19,7 +19,7 @@
 #include "COLLADAMayaAnimationCurves.h"
 #include "COLLADAMayaAnimationSampleCache.h"
 
-#include "COLLADALibraryAnimations.h"
+#include "COLLADASWLibraryAnimations.h"
 
 #include <maya/MFnAnimCurve.h>
 #include <maya/MTime.h>
@@ -105,8 +105,8 @@ namespace COLLADAMaya
         static MPlug getTargetedPlug ( MPlug parentPlug, int index );
 
         // Interpolation Type Handling
-        static COLLADA::LibraryAnimations::InterpolationType toInterpolation ( MFnAnimCurve::TangentType outType );
-        static MFnAnimCurve::TangentType toTangentType ( COLLADA::LibraryAnimations::InterpolationType type );
+        static COLLADASW::LibraryAnimations::InterpolationType toInterpolation ( MFnAnimCurve::TangentType outType );
+        static MFnAnimCurve::TangentType toTangentType ( COLLADASW::LibraryAnimations::InterpolationType type );
 
         static const String mayaInfinityTypeToString ( MFnAnimCurve::InfinityType type );
 

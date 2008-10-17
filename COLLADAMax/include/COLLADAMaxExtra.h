@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,9 +21,9 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADAExtraTechnique.h"
-#include "COLLADAExtra.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWExtraTechnique.h"
+#include "COLLADASWExtra.h"
 
 
 class Object;
@@ -36,7 +36,7 @@ namespace COLLADAMax
 	class Options;
 
 	/** Base class to export extra tags in max.*/
-    class Extra : public COLLADA::BaseExtraTechnique
+    class Extra : public COLLADASW::BaseExtraTechnique
     {
 
 	protected:
@@ -57,14 +57,14 @@ namespace COLLADAMax
         static const String TECHNIQUE_PROFILE_3DSMAX;
 
     private:
-		COLLADA::StreamWriter* mSW;
+		COLLADASW::StreamWriter* mSW;
 		AnimationExporter * mAnimationExporter;
 		const Options& mOptions;
 
     public:
         /** Constructor
          @param streamWriter the stream the extra tags should be written to.*/
-        Extra ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter  );
+        Extra ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter  );
 
         /** Destructor*/
         virtual ~Extra()

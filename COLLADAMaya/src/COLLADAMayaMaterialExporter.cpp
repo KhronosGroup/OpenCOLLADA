@@ -23,9 +23,9 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaExportOptions.h"
 
-#include "COLLADANode.h"
-#include "COLLADAParamTemplate.h"
-#include "COLLADASWC.h"
+#include "COLLADASWNode.h"
+#include "COLLADASWParamTemplate.h"
+#include "COLLADASWConstants.h"
 
 #include "cgfxShaderNode.h"
 
@@ -39,9 +39,9 @@ namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    MaterialExporter::MaterialExporter ( COLLADA::StreamWriter* streamWriter,
+    MaterialExporter::MaterialExporter ( COLLADASW::StreamWriter* streamWriter,
                                          DocumentExporter* _documentExporter )
-            : COLLADA::LibraryMaterials ( streamWriter ),
+            : COLLADASW::LibraryMaterials ( streamWriter ),
             mDocumentExporter ( _documentExporter ),
             mExportedMaterials ( NULL ),
             mWriteMaterials ( false ),
@@ -239,7 +239,7 @@ namespace COLLADAMaya
     //---------------------------------------
     void MaterialExporter::setSetParam ( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute )
     {
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         String attributeName = attribute->fName.asChar();
 
         cgfxAttrDef::cgfxAttrType attributeType = attribute->fType;
@@ -247,7 +247,7 @@ namespace COLLADAMaya
         {
         case cgfxAttrDef::kAttrTypeBool:
             {
-                COLLADA::SetParamBool setParam ( streamWriter );
+                COLLADASW::SetParamBool setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 setParam.appendValues ( attribute->fNumericDef && attribute->fNumericDef[0] );
                 setParam.closeParam ();
@@ -255,7 +255,7 @@ namespace COLLADAMaya
             }
         case cgfxAttrDef::kAttrTypeInt:
             {
-                COLLADA::SetParamInt setParam ( streamWriter );
+                COLLADASW::SetParamInt setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 setParam.appendValues ( (int) attribute->fNumericDef[0] );
                 setParam.closeParam();
@@ -263,7 +263,7 @@ namespace COLLADAMaya
             }
         case cgfxAttrDef::kAttrTypeString:
             {
-                COLLADA::SetParamString setParam ( streamWriter );
+                COLLADASW::SetParamString setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 if ( attribute->fStringDef != NULL ) 
                     setParam.appendValues ( String ( attribute->fStringDef.asChar() ) );
@@ -272,7 +272,7 @@ namespace COLLADAMaya
             }
         case cgfxAttrDef::kAttrTypeFloat:
             {
-                COLLADA::SetParamFloat setParam ( streamWriter );
+                COLLADASW::SetParamFloat setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 if ( attribute->fNumericDef!=NULL && attribute->fNumericDef[0]!=NULL )  
                     setParam.appendValues ( attribute->fNumericDef[0] );
@@ -281,7 +281,7 @@ namespace COLLADAMaya
             }
         case cgfxAttrDef::kAttrTypeVector2:
             {
-                COLLADA::SetParamFloat2 setParam ( streamWriter );
+                COLLADASW::SetParamFloat2 setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
@@ -297,7 +297,7 @@ namespace COLLADAMaya
         case cgfxAttrDef::kAttrTypeVector3:
         case cgfxAttrDef::kAttrTypeColor3:
             {
-                COLLADA::SetParamFloat3 setParam ( streamWriter );
+                COLLADASW::SetParamFloat3 setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
@@ -313,7 +313,7 @@ namespace COLLADAMaya
         case cgfxAttrDef::kAttrTypeVector4:
         case cgfxAttrDef::kAttrTypeColor4:
             {
-                COLLADA::SetParamFloat4 setParam ( streamWriter );
+                COLLADASW::SetParamFloat4 setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 for ( int i=0; i<attribute->fSize; ++i )
                 {
@@ -373,7 +373,7 @@ namespace COLLADAMaya
                     tmp[3] = 1;
                 }
 
-                COLLADA::SetParamFloat4 setParam ( streamWriter );
+                COLLADASW::SetParamFloat4 setParam ( streamWriter );
                 setParam.openParam ( attributeName );
                 setParam.appendValues( tmp[0], tmp[1], tmp[2], tmp[3] );
                 setParam.closeParam();
@@ -386,7 +386,7 @@ namespace COLLADAMaya
         case cgfxAttrDef::kAttrTypeWorldViewMatrix:
         case cgfxAttrDef::kAttrTypeWorldViewProjectionMatrix:
             {
-                COLLADA::SetParamFloat4x4 setParam ( streamWriter );
+                COLLADASW::SetParamFloat4x4 setParam ( streamWriter );
                 setParam.openParam ( attributeName );
 
                 MMatrix mayaMatrix;
@@ -493,45 +493,45 @@ namespace COLLADAMaya
                     String plugName = plug.name().asChar(); // file1.outColor
                     MObject textureNode = plug.node();
 
-                    COLLADA::Surface::SurfaceType surfaceType;
-                    COLLADA::Sampler::SamplerType samplerType;
-                    COLLADA::ValueType::ColladaType samplerValueType;
+                    COLLADASW::Surface::SurfaceType surfaceType;
+                    COLLADASW::Sampler::SamplerType samplerType;
+                    COLLADASW::ValueType::ColladaType samplerValueType;
 
                     switch ( attributeType )
                     {
                     case cgfxAttrDef::kAttrTypeColor1DTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_1D;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_1D;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_1D;
+                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_1D;
+                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_1D;
+                        samplerValueType = COLLADASW::ValueType::SAMPLER_1D;
                         break;
                     case cgfxAttrDef::kAttrTypeColor2DTexture:
                     case cgfxAttrDef::kAttrTypeNormalTexture:
                     case cgfxAttrDef::kAttrTypeBumpTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_2D;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_2D;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_2D;
+                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_2D;
+                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_2D;
+                        samplerValueType = COLLADASW::ValueType::SAMPLER_2D;
                         break;
                     case cgfxAttrDef::kAttrTypeColor3DTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_3D;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_3D;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_3D;
+                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_3D;
+                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_3D;
+                        samplerValueType = COLLADASW::ValueType::SAMPLER_3D;
                         break;
                     case cgfxAttrDef::kAttrTypeColor2DRectTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_RECT;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_RECT;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_RECT;
+                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_RECT;
+                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_RECT;
+                        samplerValueType = COLLADASW::ValueType::SAMPLER_RECT;
                         break;
                     case cgfxAttrDef::kAttrTypeCubeTexture:
                     case cgfxAttrDef::kAttrTypeEnvTexture:
                     case cgfxAttrDef::kAttrTypeNormalizationTexture:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_CUBE;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_CUBE;
-                        samplerValueType = COLLADA::ValueType::SAMPLER_CUBE;
+                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_CUBE;
+                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_CUBE;
+                        samplerValueType = COLLADASW::ValueType::SAMPLER_CUBE;
                         break;
                     default:
-                        surfaceType = COLLADA::Surface::SURFACE_TYPE_UNTYPED;
-                        samplerType = COLLADA::Sampler::SAMPLER_TYPE_UNSPECIFIED;
-                        samplerValueType = COLLADA::ValueType::VALUE_TYPE_UNSPECIFIED;
+                        surfaceType = COLLADASW::Surface::SURFACE_TYPE_UNTYPED;
+                        samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
+                        samplerValueType = COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
                     }
 
                     // Write the params elements
@@ -546,12 +546,12 @@ namespace COLLADAMaya
     void MaterialExporter::setSetParamTexture (
         const cgfxAttrDef* attribute, 
         MObject textureNode, 
-        COLLADA::Surface::SurfaceType surfaceType, 
-        COLLADA::Sampler::SamplerType samplerType, 
-        COLLADA::ValueType::ColladaType samplerValueType )
+        COLLADASW::Surface::SurfaceType surfaceType, 
+        COLLADASW::Sampler::SamplerType samplerType, 
+        COLLADASW::ValueType::ColladaType samplerValueType )
     {
         // Get a pointer to the current stream writer.
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Get the image id
         MFnDependencyNode pluNodeFn ( textureNode );
@@ -565,43 +565,43 @@ namespace COLLADAMaya
         String fileName = mayaFileName.asChar ();
         
         // Get the image path
-        COLLADA::URI shaderFxFileUri = getShaderFxFileUri ();
+        COLLADASW::URI shaderFxFileUri = getShaderFxFileUri ();
 
         // Take the filename for the unique image name 
-        COLLADA::URI sourceFileUri ( shaderFxFileUri, fileName );
-        sourceFileUri.setScheme ( COLLADA::URI::SCHEME_FILE );
+        COLLADASW::URI sourceFileUri ( shaderFxFileUri, fileName );
+        sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
         String imageId = sourceFileUri.getPathFileBase();
 
         // Export the image
         EffectTextureExporter* textureExporter = 
             mDocumentExporter->getEffectExporter()->getTextureExporter();
-        COLLADA::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
+        COLLADASW::Image* colladaImage = textureExporter->exportImage ( imageId, sourceFileUri );
 
         // Get the image id of the exported collada image 
         imageId = colladaImage->getImageId();
 
         // Create the surface
-        String surfaceSid = imageId + COLLADA::Surface::SURFACE_SID_SUFFIX;
-        COLLADA::Surface surface ( surfaceType, surfaceSid );
+        String surfaceSid = imageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
+        COLLADASW::Surface surface ( surfaceType, surfaceSid );
         surface.setFormat ( "A8R8G8B8" );
 
         // Create the sampler and add the sampler <newparam>
-        COLLADA::Sampler sampler ( samplerType, surfaceSid );
-        String suffix = COLLADA::Sampler::SAMPLER_SID_SUFFIX;
-        String samplerSid = imageId + COLLADA::Sampler::SAMPLER_SID_SUFFIX;
-        COLLADA::SetParamSampler paramSampler ( streamWriter );
+        COLLADASW::Sampler sampler ( samplerType, surfaceSid );
+        String suffix = COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+        String samplerSid = imageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+        COLLADASW::SetParamSampler paramSampler ( streamWriter );
         paramSampler.setParamType( samplerValueType );
         paramSampler.openParam ( samplerSid );
         sampler.add ( streamWriter );
         paramSampler.closeParam ();
 
         // Create the surface init option
-        COLLADA::SurfaceInitOption initOption ( COLLADA::SurfaceInitOption::INIT_FROM );
+        COLLADASW::SurfaceInitOption initOption ( COLLADASW::SurfaceInitOption::INIT_FROM );
         initOption.setImageReference ( colladaImage->getImageId() );
         surface.setInitOption ( initOption );
 
         // Add the surface <newparam>
-        COLLADA::SetParamSurface paramSurface ( streamWriter );
+        COLLADASW::SetParamSurface paramSurface ( streamWriter );
         paramSurface.openParam ( surfaceSid );
         surface.add ( streamWriter );
         paramSurface.closeParam ();
@@ -610,7 +610,7 @@ namespace COLLADAMaya
 
     //---------------------------------------
     void MaterialExporter::exportCustomHwShaderNode( 
-        COLLADA::InstanceEffect &effectInstance, 
+        COLLADASW::InstanceEffect &effectInstance, 
         MObject shader )
     {
         MFnDependencyNode fnNode ( shader );
@@ -624,19 +624,19 @@ namespace COLLADAMaya
 
     //---------------------------------------
     void MaterialExporter::exportCgfxShaderNode ( 
-        COLLADA::InstanceEffect& effectInstance, 
+        COLLADASW::InstanceEffect& effectInstance, 
         cgfxShaderNode* shaderNodeCgfx )
     {
         // Get the filename of the current cgfx file
         MString shaderFxFile = shaderNodeCgfx->shaderFxFile();
         String shaderFxFileName = shaderFxFile.asChar(); // check3d.cgfx
-        setShaderFxFileUri ( COLLADA::URI ( COLLADA::URI::nativePathToUri ( shaderFxFileName ) ) );
+        setShaderFxFileUri ( COLLADASW::URI ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) ) );
 
         // Get the current technique name
         String techniqueName = shaderNodeCgfx->getTechnique().asChar(); // techniqueName.asChar()
 
         // Add the technique hint to the collada document.
-        effectInstance.addTechniqueHint ( techniqueName, COLLADA::CSWC::COLLADA_PLATFORM_PC_OGL );
+        effectInstance.addTechniqueHint ( techniqueName, COLLADASW::CSWC::CSW_PLATFORM_PC_OGL );
 
         // Get the setParams attributes
         CGeffect cgEffect = shaderNodeCgfx->effect();
@@ -652,13 +652,13 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------
-    void MaterialExporter::setShaderFxFileUri( const COLLADA::URI& shaderFxFileName )
+    void MaterialExporter::setShaderFxFileUri( const COLLADASW::URI& shaderFxFileName )
     {
         mShaderFxFileUri = shaderFxFileName;
     }
 
     // --------------------------------------
-    const COLLADA::URI& MaterialExporter::getShaderFxFileUri() const
+    const COLLADASW::URI& MaterialExporter::getShaderFxFileUri() const
     {
         return mShaderFxFileUri;
     }
@@ -668,8 +668,8 @@ namespace COLLADAMaya
     {
         // Create the effect instance
         String effectURL = materialId + EffectExporter::EFFECT_ID_SUFFIX;
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-        COLLADA::InstanceEffect effectInstance ( streamWriter, COLLADA::URI ( "", effectURL ) );
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::InstanceEffect effectInstance ( streamWriter, COLLADASW::URI ( "", effectURL ) );
 
         // Opens the current effect instance. 
         effectInstance.open();

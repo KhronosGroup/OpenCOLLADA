@@ -1,4 +1,4 @@
-LIBRARY ColladaMax.dle
+LIBRARY COLLADAMax.dle
 EXPORTS
 	LibDescription			@1
 	LibNumberClasses		@2

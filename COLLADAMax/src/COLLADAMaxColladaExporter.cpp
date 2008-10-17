@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,102 +16,102 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxColladaExporter.h"
 #include "COLLADAMaxDocumentExporter.h"
-#include "COLLADAStreamWriterException.h"
+#include "COLLADASWException.h"
 
 namespace COLLADAMax
 {
 
-    const Class_ID COLLADAExporter::COLLADAEXPORTER_CLASS_ID ( 0x7d656d57, 0x6f963848 );
+    const Class_ID COLLADASWExporter::COLLADASWEXPORTER_CLASS_ID ( 0x7d656d57, 0x6f963848 );
 
-    const String COLLADAExporter::EXTENSIONNAME = "dae";
-    const String COLLADAExporter::LONGDESCRIPTION = "New COLLADA Document";
-    const String COLLADAExporter::SHORTDESCRIPTION = "NEWCOLLADA";
-    const String COLLADAExporter::AUTHORNAME = "netAllied";
-    const String COLLADAExporter::COPYRIGHTMESSAGE = "Copyright 2008 netAllied. Copyright 2006 Feeling Software. Based on Autodesk' 3dsMax COLLADA Tools.";
-    const String COLLADAExporter::OTHERMESSAGE1 = "";
-    const String COLLADAExporter::OTHERMESSAGE2 = "";
+    const String COLLADASWExporter::EXTENSIONNAME = "dae";
+    const String COLLADASWExporter::LONGDESCRIPTION = "New COLLADA Document";
+    const String COLLADASWExporter::SHORTDESCRIPTION = "NEWCOLLADA";
+    const String COLLADASWExporter::AUTHORNAME = "netAllied";
+    const String COLLADASWExporter::COPYRIGHTMESSAGE = "Copyright 2008 netAllied. Copyright 2006 Feeling Software. Based on Autodesk' 3dsMax COLLADASW Tools.";
+    const String COLLADASWExporter::OTHERMESSAGE1 = "";
+    const String COLLADASWExporter::OTHERMESSAGE2 = "";
 
-    const String COLLADAExporter::PROGRESSSTART = "COLLADA export...";
+    const String COLLADASWExporter::PROGRESSSTART = "COLLADA export...";
 
-    const String COLLADAExporter::FATALERROR = "Fatal Error: exception caught.";
+    const String COLLADASWExporter::FATALERROR = "Fatal Error: exception caught.";
 
-    const unsigned int COLLADAExporter::PLUGINVERSION = 400;
+    const unsigned int COLLADASWExporter::PLUGINVERSION = 400;
 
 
     //---------------------------------------------------------------
-    COLLADAExporter::COLLADAExporter()
+    COLLADASWExporter::COLLADASWExporter()
     {}
 
     //---------------------------------------------------------------
-    COLLADAExporter::~COLLADAExporter()
+    COLLADASWExporter::~COLLADASWExporter()
     {}
 
     //---------------------------------------------------------------
-    int COLLADAExporter::ExtCount()
+    int COLLADASWExporter::ExtCount()
     {
         return 1;
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::Ext ( int )
+    const TCHAR* COLLADASWExporter::Ext ( int )
     {
         return EXTENSIONNAME.c_str();
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::LongDesc()
+    const TCHAR* COLLADASWExporter::LongDesc()
     {
         return LONGDESCRIPTION.c_str();
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::ShortDesc()
+    const TCHAR* COLLADASWExporter::ShortDesc()
     {
         return SHORTDESCRIPTION.c_str();
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::AuthorName()
+    const TCHAR* COLLADASWExporter::AuthorName()
     {
         return AUTHORNAME.c_str();
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::CopyrightMessage()
+    const TCHAR* COLLADASWExporter::CopyrightMessage()
     {
         return COPYRIGHTMESSAGE.c_str();
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::OtherMessage1()
+    const TCHAR* COLLADASWExporter::OtherMessage1()
     {
         return OTHERMESSAGE1.c_str();
     }
 
     //---------------------------------------------------------------
-    const TCHAR* COLLADAExporter::OtherMessage2()
+    const TCHAR* COLLADASWExporter::OtherMessage2()
     {
         return OTHERMESSAGE2.c_str();
     }
 
     //---------------------------------------------------------------
-    unsigned int COLLADAExporter::Version()
+    unsigned int COLLADASWExporter::Version()
     {
         return PLUGINVERSION;
     }
 
     //---------------------------------------------------------------
-    void COLLADAExporter::ShowAbout ( HWND )
+    void COLLADASWExporter::ShowAbout ( HWND )
     {
         /// @todo add about dialog
     }
 
     //---------------------------------------------------------------
-    BOOL COLLADAExporter::SupportsOptions ( int, DWORD )
+    BOOL COLLADASWExporter::SupportsOptions ( int, DWORD )
     {
         // @TODO Decide which options to support.  Simply return
         // true for each option supported by each Extension
@@ -128,7 +128,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    int COLLADAExporter::DoExport ( const TCHAR* name, ExpInterface* UNUSED ( ei ), Interface* maxInterface, BOOL suppressPrompts, DWORD options )
+    int COLLADASWExporter::DoExport ( const TCHAR* name, ExpInterface* UNUSED ( ei ), Interface* maxInterface, BOOL suppressPrompts, DWORD options )
     {
         bool success = true;
         maxInterface->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
@@ -147,7 +147,7 @@ namespace COLLADAMax
 				success = true; 
 			}
         }
-		catch ( COLLADA::StreamWriterException& streamWriterException  )
+		catch ( COLLADASW::StreamWriterException& streamWriterException  )
 		{
 			// Add some check, here, for full UI-mode or batch-mode only.
 			MessageBox ( 0, streamWriterException.getMessage().c_str(), SHORTDESCRIPTION.c_str(), MB_OK );
@@ -165,7 +165,7 @@ namespace COLLADAMax
     }
 
 
-    ClassDesc2* getCOLLADAExporterDesc()
+    ClassDesc2* getCOLLADASWExporterDesc()
     {
         static ColladaExporterClassDesc description;
         return &description;

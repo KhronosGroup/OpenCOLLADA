@@ -20,8 +20,8 @@ namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    AnimationClipExporter::AnimationClipExporter ( COLLADA::StreamWriter* _streamWriter )
-            : COLLADA::LibraryAnimationClips ( _streamWriter )
+    AnimationClipExporter::AnimationClipExporter ( COLLADASW::StreamWriter* _streamWriter )
+            : COLLADASW::LibraryAnimationClips ( _streamWriter )
     {}
 
     //---------------------------------------------------------------

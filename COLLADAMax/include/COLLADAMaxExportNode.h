@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -23,8 +23,8 @@
 
 #include <max.h>
 
-#include "COLLADAUtils.h"
-#include "COLLADAIDList.h"
+#include "COLLADASWUtils.h"
+#include "COLLADASWIDList.h"
 
 #include "COLLADAMaxControllerList.h"
 
@@ -67,7 +67,7 @@ namespace COLLADAMax
             String name;
         };
 
-        /** Maps max materials to COLLADA symbols map<material, symbol>.*/
+        /** Maps max materials to COLLADASW symbols map<material, symbol>.*/
         typedef std::map<Mtl *, Symbol> MeshSymbolMap;
 
     private:
@@ -122,9 +122,9 @@ namespace COLLADAMax
 		String mSid;
 
 		/** List of the unique symbols of the mesh. (Only used if the node is a mesh).*/
-        COLLADA::IDList mSymbolList;
+        COLLADASW::IDList mSymbolList;
 
-		/** All the controllers that are applied to the represented node and that are supported by COLLADA.*/
+		/** All the controllers that are applied to the represented node and that are supported by COLLADASW.*/
 		ControllerList * mControllerList;
 
     public:
@@ -288,7 +288,7 @@ namespace COLLADAMax
         It is ensured, that the id is a valid id according to the xml spec*/
         const String& setId ( const String& id )
         {
-            mId = COLLADA::Utils::checkID ( id );
+            mId = COLLADASW::Utils::checkID ( id );
             return mId;
         }
 

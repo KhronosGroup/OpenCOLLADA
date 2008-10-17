@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxXRefFunctions.h"
 
@@ -93,7 +93,7 @@ namespace COLLADAMax
 
 #if 0
 	//---------------------------------------------------------------
-	bool XRefFunctions::IsXRefCOLLADA(Animatable* xref)
+	bool XRefFunctions::IsXRefCOLLADASW(Animatable* xref)
 	{
 		// Not performant, but the simplest method is to look at the extension of the filename.
 		FUUri uri(XRefFunctions::GetURL(xref));

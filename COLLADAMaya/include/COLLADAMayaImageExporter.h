@@ -17,8 +17,8 @@
 #define __COLLADA_MAYA_IMAGE_EXPORTER_H__
 
 #include "COLLADAMayaPrerequisites.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryImages.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryImages.h"
 
 #include "COLLADAMayaEffectTextureExporter.h"
 #include "COLLADAMayaDocumentExporter.h"
@@ -29,14 +29,14 @@ namespace COLLADAMaya
 
     /** This class writes the <library_images>. It uses informations created my an effect exporter*/
 
-    class ImageExporter : public COLLADA::LibraryImages
+    class ImageExporter : public COLLADASW::LibraryImages
     {
 
     public:
         /**
         @param streamWriter The stream the output will be written to
         @param documentExporter The document exporter this material exporter is used in*/
-        ImageExporter ( COLLADA::StreamWriter* streamWriter );
+        ImageExporter ( COLLADASW::StreamWriter* streamWriter );
         virtual ~ImageExporter() {};
 
         /** Exports the given list of images. */

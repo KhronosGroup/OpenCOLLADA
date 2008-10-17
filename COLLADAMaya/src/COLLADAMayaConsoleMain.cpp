@@ -26,7 +26,7 @@
 // generic linux(gtk2) & win32 file dialog code
 #include "COLLADAMayaConsoleFileDialog.h"
 #include "COLLADAMayaException.h"
-#include "COLLADAUtils.h"
+#include "COLLADASWUtils.h"
 
 // link to some fairly funky maya libs. NOTE: The Image library only became part of maya
 // from version 4.01 onwards. It is not available in version 4.0
@@ -73,7 +73,7 @@ int main(int argc,char** argv)
         stream << argv[1];
 
         std::string message ( stream.str().c_str() );
-        if ( COLLADA::Utils::equalsIgnoreCase ( message, "-i" ) )
+        if ( COLLADASW::Utils::equalsIgnoreCase ( message, "-i" ) )
         {
             isImport = true;
             inFileExtension = "dae file\0*.dae\0\0";

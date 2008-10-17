@@ -22,8 +22,8 @@
 #include "COLLADAMayaTangentPoint.h"
 #include "COLLADAMayaConversion.h"
 
-#include "COLLADALibraryAnimationClips.h"
-#include "COLLADALibraryAnimations.h"
+#include "COLLADASWLibraryAnimationClips.h"
+#include "COLLADASWLibraryAnimations.h"
 
 #include <maya/MFnAnimCurve.h>
 
@@ -99,10 +99,10 @@ namespace COLLADAMaya
         }
 
         /** Adds a key in depend of the interpolation type to the curve. */
-        virtual T* addKey ( COLLADA::LibraryAnimations::InterpolationType interpolation ) = 0;
+        virtual T* addKey ( COLLADASW::LibraryAnimations::InterpolationType interpolation ) = 0;
 
         /** Resizes the current key std::vector. */
-        void setKeyCount ( size_t count, COLLADA::LibraryAnimations::InterpolationType interpolation );
+        void setKeyCount ( size_t count, COLLADASW::LibraryAnimations::InterpolationType interpolation );
 
         /** Retrieves the list of keys for the animation curve.
         @return The list of keys. */
@@ -367,7 +367,7 @@ namespace COLLADAMaya
     template<class T>
     void BaseAnimationCurve<T>::setKeyCount (
         size_t count,
-        COLLADA::LibraryAnimations::InterpolationType interpolation )
+        COLLADASW::LibraryAnimations::InterpolationType interpolation )
     {
         size_t oldCount = mKeys.size();
         if ( oldCount < count )
@@ -500,7 +500,7 @@ namespace COLLADAMaya
         * Adds a key of the given interpolation type to the curve.
         * If it is a tangent or a tcb interpolation type, the flag of using this will be set.
         */
-        AnimationKey* addKey ( COLLADA::LibraryAnimations::InterpolationType interpolation );
+        AnimationKey* addKey ( COLLADASW::LibraryAnimations::InterpolationType interpolation );
 
         /** Applies a conversion function to the key output values of the animation curve.
         * @param valueConversion The conversion function to use on the key outputs.
@@ -542,7 +542,7 @@ namespace COLLADAMaya
         virtual ~AnimationMultiCurve() {};
 
         /** Adds a key in depend of the interpolation type to the curve. */
-        AnimationMKey* addKey ( COLLADA::LibraryAnimations::InterpolationType interpolation );
+        AnimationMKey* addKey ( COLLADASW::LibraryAnimations::InterpolationType interpolation );
 
         /** Samples all the curves for a given input.
         @param input An input value.

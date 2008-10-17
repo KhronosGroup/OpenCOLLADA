@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxEffectExporter.h"
 
@@ -27,8 +27,8 @@
 
 #include "COLLADAMaxXRefFunctions.h"
 
-#include "COLLADANode.h"
-//#include "COLLADATextureModifier.h"
+#include "COLLADASWNode.h"
+//#include "COLLADASWTextureModifier.h"
 
 #include <algorithm>
 
@@ -107,8 +107,8 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    EffectExporter::EffectExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADA::LibraryEffects ( streamWriter ),
+    EffectExporter::EffectExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryEffects ( streamWriter ),
 			Extra(streamWriter, documentExporter),
             mExportSceneGraph ( exportSceneGraph ),
             mDocumentExporter ( documentExporter ),
@@ -234,7 +234,7 @@ namespace COLLADAMax
 
         openEffect ( effectId );
 
-		COLLADA::EffectProfile effectProfile ( LibraryEffects::mSW );
+		COLLADASW::EffectProfile effectProfile ( LibraryEffects::mSW );
 
 
         // Write out the custom attributes
@@ -259,7 +259,7 @@ namespace COLLADAMax
             //   ExportEffectHLSL(material, baseMaterial);
         }
 
-        //  else if (baseMaterial->ClassID() == COLLADA_EFFECT_ID)
+        //  else if (baseMaterial->ClassID() == COLLADASW_EFFECT_ID)
         //  {
         //   exportColladaEffect(material, (ColladaEffect*)baseMaterial);
         //  }
@@ -279,7 +279,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::exportCommonEffect ( COLLADA::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight, bool inited )
+    void EffectExporter::exportCommonEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId, float weight, bool inited )
     {
         // Export all submaterials first.
         int subMaterialCount = material->NumSubMtls();
@@ -325,7 +325,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::exportStandardEffect ( COLLADA::EffectProfile & effectProfile, ExportNode* exportNode, StdMat2* material, const String & effectId, float weight, bool inited )
+    void EffectExporter::exportStandardEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, StdMat2* material, const String & effectId, float weight, bool inited )
     {
         assert ( material != 0 );
 
@@ -368,19 +368,19 @@ namespace COLLADAMax
         {
 			ScaleConversionFunctor scaleConversion(weight);
 
-            // effectProfile.setShaderType(COLLADA::EffectProfile::PHONG);
+            // effectProfile.setShaderType(COLLADASW::EffectProfile::PHONG);
 			bool isAmbientAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::AMBIENT_COLOR, effectId, effectProfile.getAmbientDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
             effectProfile.setAmbient ( maxColor2ColorOrTexture ( shader->GetAmbientClr ( animationStart ), weight ), isAmbientAnimated );
 
 			bool isDiffuseAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::DIFFUSE_COLOR, effectId, effectProfile.getDiffuseDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
             effectProfile.setDiffuse ( maxColor2ColorOrTexture ( shader->GetDiffuseClr ( animationStart ), weight ), isDiffuseAnimated );
 
-			effectProfile.setTransparent ( COLLADA::ColorOrTexture ( COLLADA::Color::WHITE ) );
+			effectProfile.setTransparent ( COLLADASW::ColorOrTexture ( COLLADASW::Color::WHITE ) );
 
 			bool isOpacityAnimated = mAnimationExporter->addAnimatedParameter(extendedParameters, ExtendedParameterIndices::OPACITY, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS);
             effectProfile.setTransparency ( material->GetOpacity ( animationStart ) * weight );
 
-            effectProfile.setReflective ( COLLADA::ColorOrTexture ( COLLADA::Color::BLACK ) );
+            effectProfile.setReflective ( COLLADASW::ColorOrTexture ( COLLADASW::Color::BLACK ) );
 
 			bool isSpecularAnimated = mAnimationExporter->addAnimatedParameter(shaderParameters, ShaderParameterIndices::SPECULAR_COLOR, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS, true, &scaleConversion);
 			effectProfile.setSpecular ( maxColor2ColorOrTexture ( shader->GetSpecularClr ( animationStart ), weight ), isSpecularAnimated );
@@ -481,7 +481,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADA::EffectProfile & profile, float weight )
+    void EffectExporter::exportMap ( Mtl * material, unsigned int index, Texmap* texMap, COLLADASW::EffectProfile & profile, float weight )
     {
         if ( !texMap )
             return ;
@@ -526,20 +526,20 @@ namespace COLLADAMax
 
         if ( !imageId.empty() )
         {
-            COLLADA::Texture texture ( imageId );
+            COLLADASW::Texture texture ( imageId );
 
             // Create the surface
-            String surfaceSid = imageId + COLLADA::Surface::SURFACE_SID_SUFFIX;
-            COLLADA::Surface surface ( COLLADA::Surface::SURFACE_TYPE_2D, surfaceSid );
+            String surfaceSid = imageId + COLLADASW::Surface::SURFACE_SID_SUFFIX;
+            COLLADASW::Surface surface ( COLLADASW::Surface::SURFACE_TYPE_2D, surfaceSid );
             //surface.setFormat ( FORMAT );
-            COLLADA::SurfaceInitOption initOption ( COLLADA::SurfaceInitOption::INIT_FROM );
+            COLLADASW::SurfaceInitOption initOption ( COLLADASW::SurfaceInitOption::INIT_FROM );
             initOption.setImageReference ( imageId );
             surface.setInitOption ( initOption );
             texture.setSurface ( surface );
 
             // Create the sampler
-            String samplerSid = imageId + COLLADA::Sampler::SAMPLER_SID_SUFFIX;
-            COLLADA::Sampler sampler ( COLLADA::Sampler::SAMPLER_TYPE_2D, samplerSid );
+            String samplerSid = imageId + COLLADASW::Sampler::SAMPLER_SID_SUFFIX;
+            COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_2D, samplerSid );
             sampler.setSource ( surfaceSid );
             texture.setSampler ( sampler );
 
@@ -555,7 +555,7 @@ namespace COLLADAMax
 					StdUVGen* uvGenParameters = (StdUVGen*)uvCoordinatesGenerator;
 					int uvFlags = uvGenParameters->GetTextureTiling();
 					
-					sampler.setWrapS(COLLADA::Sampler::WRAP_MODE_WRAP);
+					sampler.setWrapS(COLLADASW::Sampler::WRAP_MODE_WRAP);
 
 
 					IParamBlock* uvParams = (IParamBlock*)uvGenParameters->GetReference(StdUVGenEnums::pblock);	
@@ -568,7 +568,7 @@ namespace COLLADAMax
 					String textureFileName;
 					String textureDir;
 					DocumentExporter::splitFilePath(fullFileName, textureDir, textureFileName);
-					COLLADA::TextureModifier textureModifier(fullFileName, mDocumentExporter->getOutputDir() + textureFileName);	
+					COLLADASW::TextureModifier textureModifier(fullFileName, mDocumentExporter->getOutputDir() + textureFileName);	
 				
 					textureModifier.setRotationAngle(rotationAngle);
 
@@ -582,7 +582,7 @@ namespace COLLADAMax
                 // TODO: add extra tag
             }
 
-            String semantic = TEXCOORD_BASE + COLLADA::Utils::toString ( mapChannel );
+            String semantic = TEXCOORD_BASE + COLLADASW::Utils::toString ( mapChannel );
 
             texture.setTexcoord ( semantic );
 
@@ -592,34 +592,34 @@ namespace COLLADAMax
             {
 
             case AMBIENT:
-                profile.setAmbient ( COLLADA::ColorOrTexture ( texture ) );
+                profile.setAmbient ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case BUMP: bumpTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
+                // case BUMP: bumpTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
 
             case DIFFUSE:
-                profile.setDiffuse ( COLLADA::ColorOrTexture ( texture ) );
+                profile.setDiffuse ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case DISPLACEMENT: displacementTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
+                // case DISPLACEMENT: displacementTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
 
             case EMISSION:
-                profile.setEmission ( COLLADA::ColorOrTexture ( texture ) );
+                profile.setEmission ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case FILTER: filterTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
-                // case REFLECTION: reflectivityTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
-                // case REFRACTION: refractionTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
-                // case SHININESS: shininessTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
+                // case FILTER: filterTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
+                // case REFLECTION: reflectivityTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
+                // case REFRACTION: refractionTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
+                // case SHININESS: shininessTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
 
 			case REFLECTION: 
-				profile.setReflective( COLLADA::ColorOrTexture ( texture ) );
+				profile.setReflective( COLLADASW::ColorOrTexture ( texture ) );
 				break;
 
             case SPECULAR:
-                profile.setSpecular ( COLLADA::ColorOrTexture ( texture ) );
+                profile.setSpecular ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
-                // case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADA::ColorOrTexture(texture)); break;
+                // case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADASW::ColorOrTexture(texture)); break;
 
             case TRANSPARENt:
-                profile.setTransparent ( COLLADA::ColorOrTexture ( texture ) );
+                profile.setTransparent ( COLLADASW::ColorOrTexture ( texture ) );
                 break;
 
             default:
@@ -716,17 +716,17 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::exportUnknownEffect ( COLLADA::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId )
+    void EffectExporter::exportUnknownEffect ( COLLADASW::EffectProfile & effectProfile, ExportNode* exportNode, Mtl* material, const String & effectId )
     {
         assert ( material != 0 );
 
         /* TODO: think about this*/
 
-        if ( effectProfile.getShaderType() == COLLADA::EffectProfile::UNSPECIFIED )
+        if ( effectProfile.getShaderType() == COLLADASW::EffectProfile::UNSPECIFIED )
         {
             float specularLevel = material->GetShinStr();
             bool isPhong = specularLevel > 0.2f;
-            effectProfile.setShaderType ( isPhong ? COLLADA::EffectProfile::PHONG : COLLADA::EffectProfile::BLINN );
+            effectProfile.setShaderType ( isPhong ? COLLADASW::EffectProfile::PHONG : COLLADASW::EffectProfile::BLINN );
         }
 
         if ( material->GetSelfIllumColorOn() && !effectProfile.getEmission().isValid() )
@@ -739,7 +739,7 @@ namespace COLLADAMax
             effectProfile.setDiffuse ( maxColor2ColorOrTexture ( material->GetDiffuse() ) );
 
 
-        if ( effectProfile.getShaderType() == COLLADA::EffectProfile::PHONG )
+        if ( effectProfile.getShaderType() == COLLADASW::EffectProfile::PHONG )
         {
             if ( !effectProfile.getSpecular().isValid() )
                 effectProfile.setSpecular ( maxColor2ColorOrTexture ( material->GetSpecular() ) );
@@ -774,15 +774,15 @@ namespace COLLADAMax
 
             openEffect ( effectId );
 
-			COLLADA::EffectProfile effectProfile ( LibraryEffects::mSW );
-            effectProfile.setShaderType ( COLLADA::EffectProfile::PHONG );
-            COLLADA::Color commonColor ( GetRValue ( color ) / 255.0f, GetGValue ( color ) / 255.0f, GetBValue ( color ) / 255.0f );
-            effectProfile.setAmbient ( COLLADA::ColorOrTexture ( commonColor ) );
-            effectProfile.setDiffuse ( COLLADA::ColorOrTexture ( commonColor ) );
-            effectProfile.setTransparent ( COLLADA::ColorOrTexture ( COLLADA::Color::WHITE ) );
+			COLLADASW::EffectProfile effectProfile ( LibraryEffects::mSW );
+            effectProfile.setShaderType ( COLLADASW::EffectProfile::PHONG );
+            COLLADASW::Color commonColor ( GetRValue ( color ) / 255.0f, GetGValue ( color ) / 255.0f, GetBValue ( color ) / 255.0f );
+            effectProfile.setAmbient ( COLLADASW::ColorOrTexture ( commonColor ) );
+            effectProfile.setDiffuse ( COLLADASW::ColorOrTexture ( commonColor ) );
+            effectProfile.setTransparent ( COLLADASW::ColorOrTexture ( COLLADASW::Color::WHITE ) );
             effectProfile.setTransparency ( 1.0 );
-            effectProfile.setReflective ( COLLADA::ColorOrTexture ( COLLADA::Color::BLACK ) );
-            effectProfile.setSpecular ( COLLADA::ColorOrTexture ( COLLADA::Color::WHITE ) );
+            effectProfile.setReflective ( COLLADASW::ColorOrTexture ( COLLADASW::Color::BLACK ) );
+            effectProfile.setSpecular ( COLLADASW::ColorOrTexture ( COLLADASW::Color::WHITE ) );
             effectProfile.setShininess ( 10.0 );
 
             addEffectProfile ( effectProfile );
@@ -807,16 +807,16 @@ namespace COLLADAMax
     }
 
 	//---------------------------------------------------------------
-	COLLADA::Color EffectExporter::maxColor2Color ( const Color & color, double scale )
+	COLLADASW::Color EffectExporter::maxColor2Color ( const Color & color, double scale )
 	{
-		return  COLLADA::Color ( color.r * scale, color.g * scale, color.b * scale, scale );
+		return  COLLADASW::Color ( color.r * scale, color.g * scale, color.b * scale, scale );
 	}
 
 
     //---------------------------------------------------------------
-    COLLADA::ColorOrTexture EffectExporter::maxColor2ColorOrTexture ( const Color & color, double scale )
+    COLLADASW::ColorOrTexture EffectExporter::maxColor2ColorOrTexture ( const Color & color, double scale )
     {
-        return COLLADA::ColorOrTexture ( maxColor2Color( color, scale ) );
+        return COLLADASW::ColorOrTexture ( maxColor2Color( color, scale ) );
     }
 
     //---------------------------------------------------------------
@@ -985,12 +985,12 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    COLLADA::EffectProfile::Opaque EffectExporter::getOpacity ( Texmap *texMap )
+    COLLADASW::EffectProfile::Opaque EffectExporter::getOpacity ( Texmap *texMap )
     {
         // Only one transparency factor is supported, so retrieve only the first texture from this bucket.
 
         if ( texMap == NULL )
-            return COLLADA::EffectProfile::A_ONE;
+            return COLLADASW::EffectProfile::A_ONE;
 
         BitmapTex* bmap = GetIBitmapTextInterface ( texMap );
 
@@ -1001,11 +1001,11 @@ namespace COLLADAMax
 
         // As far as my tests are concerned, the only real way to get alpha-transparency is through
         // the mono-channel output as Alpha.
-        return isAlphaTransparency ? COLLADA::EffectProfile::A_ONE : COLLADA::EffectProfile::RGB_ZERO;
+        return isAlphaTransparency ? COLLADASW::EffectProfile::A_ONE : COLLADASW::EffectProfile::RGB_ZERO;
     }
 
     //---------------------------------------------------------------
-    COLLADA::EffectProfile::ShaderType EffectExporter::maxShaderToShaderType ( Class_ID id )
+    COLLADASW::EffectProfile::ShaderType EffectExporter::maxShaderToShaderType ( Class_ID id )
     {
         switch ( id.PartA() )
         {
@@ -1015,13 +1015,13 @@ namespace COLLADAMax
         case StandardMaterial::STD2_OREN_NAYER_BLINN_CLASS_ID:
 
         case StandardMaterial::STD2_METAL_SHADER_CLASS_ID:
-            return COLLADA::EffectProfile::BLINN;
+            return COLLADASW::EffectProfile::BLINN;
 
         case StandardMaterial::STD2_PHONG_CLASS_ID:
-            return COLLADA::EffectProfile::PHONG;
+            return COLLADASW::EffectProfile::PHONG;
 
         default:
-            return COLLADA::EffectProfile::PHONG;
+            return COLLADASW::EffectProfile::PHONG;
         }
     }
 
@@ -1065,7 +1065,7 @@ namespace COLLADAMax
 
             BMMGetFullFilename ( &bitmapInfo );
             fullFileName  = bitmapInfo.Name();
-            String fullFileNameURI = COLLADA::Utils::FILE_PROTOCOL + COLLADA::URI::uriEncode ( fullFileName );
+            String fullFileNameURI = COLLADASW::Utils::FILE_PROTOCOL + COLLADASW::URI::uriEncode ( fullFileName );
             String imageId;
             // Export the equivalent <image> node in the image library and add
             // the <init_from> element to the sampler's surface definition.
@@ -1085,7 +1085,7 @@ namespace COLLADAMax
 
                 imageId = ( slashIndex != String::npos ) ? fullFileName.substr ( slashIndex + 1 ) : fullFileName;
 
-				imageId = COLLADA::Utils::replaceDot ( COLLADA::Utils::checkID(imageId) );
+				imageId = COLLADASW::Utils::replaceDot ( COLLADASW::Utils::checkID(imageId) );
 
                 // image not exported
                 mExportedImageMap[ fullFileNameURI ] = imageId;
@@ -1101,11 +1101,11 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::blendColor ( COLLADA::ColorOrTexture & colorOrTexture, Color blendColor, double ammount )
+    void EffectExporter::blendColor ( COLLADASW::ColorOrTexture & colorOrTexture, Color blendColor, double ammount )
     {
         if ( colorOrTexture.isColor() )
         {
-            COLLADA::Color & color = colorOrTexture.getColor();
+            COLLADASW::Color & color = colorOrTexture.getColor();
 
             color.set ( color.getRed() + ( blendColor[ 0 ] - color.getRed() ) * ammount,
                         color.getGreen() + ( blendColor[ 1 ] - color.getGreen() ) * ammount,

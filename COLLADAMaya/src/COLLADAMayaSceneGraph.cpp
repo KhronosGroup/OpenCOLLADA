@@ -14,9 +14,9 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADANode.h"
-#include "COLLADAInstanceGeometry.h"
-#include "COLLADABindMaterial.h"
+#include "COLLADASWNode.h"
+#include "COLLADASWInstanceGeometry.h"
+#include "COLLADASWBindMaterial.h"
 
 #include <maya/MSelectionList.h>
 #include <maya/MItDependencyNodes.h>

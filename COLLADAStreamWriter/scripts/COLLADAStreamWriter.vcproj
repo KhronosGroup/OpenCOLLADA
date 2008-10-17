@@ -20,8 +20,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\lib\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -65,7 +65,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName).lib"
+				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -86,8 +86,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
-			OutputDirectory="..\lib\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -132,7 +132,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName).lib"
+				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -153,8 +153,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\lib\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(ConfigurationName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -216,8 +216,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
-			OutputDirectory="..\lib\$(PlatformName)\$(ConfigurationName)"
-			IntermediateDirectory="..\obj\$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -280,8 +280,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release fprintf_s|Win32"
-			OutputDirectory="..\lib\Release"
-			IntermediateDirectory="..\obj\Release"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -343,8 +343,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release fprintf_s|x64"
-			OutputDirectory="..\lib\$(PlatformName)\Release"
-			IntermediateDirectory="..\obj\$(PlatformName)\Release"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -408,8 +408,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug fprintf_s|Win32"
-			OutputDirectory="..\lib\Debug"
-			IntermediateDirectory="..\obj\Debug"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -453,7 +453,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName).lib"
+				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -474,8 +474,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug fprintf_s|x64"
-			OutputDirectory="..\lib\$(PlatformName)\Debug"
-			IntermediateDirectory="..\obj\$(PlatformName)\Debug"
+			OutputDirectory="..\lib\win\$(PlatformName)"
+			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			CharacterSet="1"
 			>
@@ -520,7 +520,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile="$(OutDir)\$(ProjectName).lib"
+				OutputFile="$(OutDir)\$(ProjectName)-d.lib"
 				AdditionalLibraryDirectories=""
 			/>
 			<Tool
@@ -587,6 +587,18 @@
 			<File
 				RelativePath="..\src\COLLADASWElementWriter.cpp"
 				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWException.cpp"
+				>
+				<FileConfiguration
+					Name="Debug fprintf_s|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\COLLADASWExtra.cpp"
@@ -733,10 +745,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASWStreamWriterException.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADASWSurface.cpp"
 				>
 			</File>
@@ -824,6 +832,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWElementWriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWException.h"
 				>
 			</File>
 			<File
@@ -992,10 +1004,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWStreamWriter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASWStreamWriterException.h"
 				>
 			</File>
 			<File

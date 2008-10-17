@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,9 +21,9 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryGeometries.h"
-#include "COLLADAPrimitves.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryGeometries.h"
+#include "COLLADASWPrimitves.h"
 
 #include "COLLADAMaxGeometriesExporter.h"
 #include "COLLADAMaxEffectExporter.h"
@@ -157,7 +157,7 @@ namespace COLLADAMax
         void exportTriangles ( const String & symbol, unsigned long numberOfFaces, int matId, size_t numMaterials, const ChannelList & channelList );
 
         /** Exports the mesh as a polylist.*/
-        void exportPolylist ( const String & symbol, COLLADA::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList );
+        void exportPolylist ( const String & symbol, COLLADASW::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList );
 
         /** Create list of materials used by this geometry.*/
         void flattenMaterials ( Mtl* material, MaterialList& mtlMap, int materialIndex = -1 );

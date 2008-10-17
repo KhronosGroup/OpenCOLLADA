@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -22,8 +22,8 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADAMaxExportNode.h"
-#include "COLLADAIDList.h"
-#include "COLLADAURI.h"
+#include "COLLADASWIDList.h"
+#include "COLLADASWURI.h"
 
 #include <map>
 #include <vector>
@@ -56,7 +56,7 @@ namespace COLLADAMax
 		/** Struct that holds information about a XRef scene*/
 		struct XRefSceneGraph
 		{
-			String exportFileBaseName;                 //!< Base name of the created COLLADA file
+			String exportFileBaseName;                 //!< Base name of the created COLLADASW file
 			ExportSceneGraph* exportSceneGraph;    //!< The export scene graph of the XRef scene file
 		};
 
@@ -73,17 +73,17 @@ namespace COLLADAMax
         INode * mRootNode;
 
 		/** The file name of the max file represented by this export scene graph.*/
-		COLLADA::URI mMaxFileUri;
+		COLLADASW::URI mMaxFileUri;
 
 		/** List of all XRef scenes below the file represented by this export scene graph*/
 		XRefSceneGraphList mXRefSceneGraphList;
 
         /** Holds the unique ids of the nodes.*/
-        COLLADA::IDList mNodeIdList;
+        COLLADASW::IDList mNodeIdList;
 
 		/** Holds the unique file names of the exported XRef files. This is necessary if all files
 		are exported into the same directory.*/
-		COLLADA::IDList& mXRefExportFileNames;
+		COLLADASW::IDList& mXRefExportFileNames;
 
 		/** Mapping between INodes and ExportNodes.*/
 		INodeExportNodeMap mINodeExportNodeMap;
@@ -101,7 +101,7 @@ namespace COLLADAMax
 		MorphControllerHelperGeometryList mMorphControllerHelperGeometryList;
 
     public:
-		ExportSceneGraph ( INode * iNode, const COLLADA::URI& maxFileUri, COLLADA::IDList& xRefExportFileNames );
+		ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, COLLADASW::IDList& xRefExportFileNames );
         ~ExportSceneGraph();
 
         /** Creates the export scene graph.
@@ -115,7 +115,7 @@ namespace COLLADAMax
         }
 
 		/** Returns the uri of the max file represented by this export scene graph.*/
-		const COLLADA::URI& getMaxFileUri() const
+		const COLLADASW::URI& getMaxFileUri() const
 		{
 			return mMaxFileUri;
 		}

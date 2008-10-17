@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxControllerExporter.h"
 #include "COLLADAMaxGeometriesExporter.h"
@@ -25,10 +25,10 @@
 #include "COLLADAMaxTypes.h"
 #include "COLLADAMaxConversionFunctor.h"
 
-#include "COLLADASource.h"
-#include "COLLADABaseInputElement.h"
-#include "COLLADAPrimitves.h"
-#include "COLLADAURI.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWBaseInputElement.h"
+#include "COLLADASWPrimitves.h"
+#include "COLLADASWURI.h"
 
 #include <max.h>
 #include <iskin.h>
@@ -40,22 +40,22 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    ControllerExporter::ControllerExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADA::LibraryControllers ( streamWriter ),
+    ControllerExporter::ControllerExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryControllers ( streamWriter ),
 			mExportSceneGraph(exportSceneGraph),
 			mDocumentExporter(documentExporter)
     {}
 
 
 	//---------------------------------------------------------------
-	COLLADA::String ControllerExporter::getControllerId( const ExportNode& exportNode, size_t number, Controller::ControllerType controllerType )
+	COLLADASW::String ControllerExporter::getControllerId( const ExportNode& exportNode, size_t number, Controller::ControllerType controllerType )
 	{
 		switch ( controllerType )
 		{
 		case Controller::SKIN:
-			return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX + COLLADA::Utils::toString(number);
+			return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX + COLLADASW::Utils::toString(number);
 		case Controller::MORPH:
-			return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX + COLLADA::Utils::toString(number);
+			return GeometriesExporter::getGeometryId(exportNode) + LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX + COLLADASW::Utils::toString(number);
 		}
 		return EMPTY_STRING;
 	}
@@ -164,7 +164,7 @@ namespace COLLADAMax
 
 		// Export joints source
 		String jointsId = controllerId + JOINTS_SOURCE_ID_SUFFIX;
-		COLLADA::NameSource jointSource(mSW);
+		COLLADASW::NameSource jointSource(mSW);
 		jointSource.setId(jointsId);
 		jointSource.setArrayId(jointsId + ARRAY_ID_SUFFIX);
 		jointSource.setAccessorStride(1);
@@ -196,7 +196,7 @@ namespace COLLADAMax
 
 		//export inverse bind matrix source
 		String inverseBindMatrixId = controllerId + BIND_POSES_SOURCE_ID_SUFFIX;
-		COLLADA::Float4x4Source inverseBindMatrixSource(mSW);
+		COLLADASW::Float4x4Source inverseBindMatrixSource(mSW);
 		inverseBindMatrixSource.setId(inverseBindMatrixId);
 		inverseBindMatrixSource.setArrayId(inverseBindMatrixId + ARRAY_ID_SUFFIX);
 		inverseBindMatrixSource.setAccessorStride(16);
@@ -246,14 +246,14 @@ namespace COLLADAMax
 			for (int p = 0; p < jointCount; ++p)
 			{
 				float weight = contextData->GetBoneWeight(i, p);
-				if ( !COLLADA::MathUtils::equals(weight, 1.0f) )
+				if ( !COLLADASW::MathUtils::equals(weight, 1.0f) )
 					weightsCount++;
 			}
 		}
 
 		//export weights source
 		String weightsId = controllerId + WEIGHTS_SOURCE_ID_SUFFIX;
-		COLLADA::FloatSource weightsSource(mSW);
+		COLLADASW::FloatSource weightsSource(mSW);
 		weightsSource.setId(weightsId);
 		weightsSource.setArrayId(weightsId + ARRAY_ID_SUFFIX);
 		weightsSource.setAccessorStride(1);
@@ -268,21 +268,21 @@ namespace COLLADAMax
 			for (int p = 0; p < jointCount; ++p)
 			{
 				float weight = contextData->GetBoneWeight(i, p);
-				if ( !COLLADA::MathUtils::equals(weight, 1.0f) )
+				if ( !COLLADASW::MathUtils::equals(weight, 1.0f) )
 					weightsSource.appendValues(weight);
 			}
 		}
 		weightsSource.finish();
 
-		COLLADA::JointsElement joints(mSW);
-		joints.getInputList().push_back(COLLADA::Input(COLLADA::JOINT, "#" + jointsId));
-		joints.getInputList().push_back(COLLADA::Input(COLLADA::BINDMATRIX, "#" + inverseBindMatrixId));
+		COLLADASW::JointsElement joints(mSW);
+		joints.getInputList().push_back(COLLADASW::Input(COLLADASW::JOINT, "#" + jointsId));
+		joints.getInputList().push_back(COLLADASW::Input(COLLADASW::BINDMATRIX, "#" + inverseBindMatrixId));
 		joints.add();
 
-		COLLADA::VertexWeightsElement vertexWeights(mSW);
-		COLLADA::Input weightInput(COLLADA::WEIGHT, "#" + weightsId);
-		vertexWeights.getInputList().push_back(COLLADA::Input(COLLADA::JOINT, "#" + jointsId, 0));
-		vertexWeights.getInputList().push_back(COLLADA::Input(COLLADA::WEIGHT, "#" + weightsId, 1));
+		COLLADASW::VertexWeightsElement vertexWeights(mSW);
+		COLLADASW::Input weightInput(COLLADASW::WEIGHT, "#" + weightsId);
+		vertexWeights.getInputList().push_back(COLLADASW::Input(COLLADASW::JOINT, "#" + jointsId, 0));
+		vertexWeights.getInputList().push_back(COLLADASW::Input(COLLADASW::WEIGHT, "#" + weightsId, 1));
 		vertexWeights.setCount(vertexCount);
 
 		vertexWeights.prepareToAppendVCountValues();
@@ -300,7 +300,7 @@ namespace COLLADAMax
 			{
 				vertexWeights.appendValues(contextData->GetAssignedBone(i, p));
 				float weight = contextData->GetBoneWeight(i, p);
-				if ( !COLLADA::MathUtils::equals(weight, 1.0f) )
+				if ( !COLLADASW::MathUtils::equals(weight, 1.0f) )
 				{
 					vertexWeights.appendValues(currentIndex++);
 				}
@@ -422,7 +422,7 @@ namespace COLLADAMax
 
 		//export weights source
 		String targetId = controllerId + TARGETS_SOURCE_ID_SUFFIX;
-		COLLADA::IdRefSource targetsSource(mSW);
+		COLLADASW::IdRefSource targetsSource(mSW);
 		targetsSource.setId(targetId);
 		targetsSource.setArrayId(targetId + ARRAY_ID_SUFFIX);
 		targetsSource.setAccessorStride(1);
@@ -437,7 +437,7 @@ namespace COLLADAMax
 
 
 		//export weights source
-		COLLADA::FloatSource weightsSource(mSW);
+		COLLADASW::FloatSource weightsSource(mSW);
 		weightsSource.setId(weightsId);
 		weightsSource.setArrayId(weightsId + ARRAY_ID_SUFFIX);
 		weightsSource.setAccessorStride(1);
@@ -451,9 +451,9 @@ namespace COLLADAMax
 		weightsSource.finish();
 
 
-		COLLADA::TargetsElement targets(mSW);
-		targets.getInputList().push_back(COLLADA::Input(COLLADA::MORPH_TARGET, "#" + targetId));
-		targets.getInputList().push_back(COLLADA::Input(COLLADA::MORPH_WEIGHT, "#" + weightsId));
+		COLLADASW::TargetsElement targets(mSW);
+		targets.getInputList().push_back(COLLADASW::Input(COLLADASW::MORPH_TARGET, "#" + targetId));
+		targets.getInputList().push_back(COLLADASW::Input(COLLADASW::MORPH_WEIGHT, "#" + weightsId));
 		targets.add();
 
 		closeMorph();

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxXRefExporter.h"
 namespace COLLADAMax
@@ -24,8 +24,8 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    XRefExporter::XRefExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADA::LibraryControllers ( streamWriter ),
+    XRefExporter::XRefExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryControllers ( streamWriter ),
 			mExportSceneGraph(exportSceneGraph),
 			mDocumentExporter(documentExporter)
     {}

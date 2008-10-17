@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,13 +16,13 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADASource.h"
-#include "COLLADABaseInputElement.h"
-#include "COLLADAPrimitves.h"
-#include "COLLADAUtils.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWBaseInputElement.h"
+#include "COLLADASWPrimitves.h"
+#include "COLLADASWUtils.h"
 
 #include "COLLADAMaxGeometriesExporter.h"
 #include "COLLADAMaxGeometryExporter.h"
@@ -40,8 +40,8 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    GeometriesExporter::GeometriesExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADA::LibraryGeometries ( streamWriter ),
+    GeometriesExporter::GeometriesExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryGeometries ( streamWriter ),
             mExportSceneGraph ( exportSceneGraph ),
             mDocumentExporter ( documentExporter )
     {}
@@ -85,9 +85,9 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	COLLADA::String GeometriesExporter::getGeometryId( const ExportNode& exportNode )
+	COLLADASW::String GeometriesExporter::getGeometryId( const ExportNode& exportNode )
 	{
-		return COLLADA::LibraryGeometries::GEOMETRY_ID_PRAEFIX + exportNode.getId() ;
+		return COLLADASW::LibraryGeometries::GEOMETRY_ID_PRAEFIX + exportNode.getId() ;
 	}
 
 

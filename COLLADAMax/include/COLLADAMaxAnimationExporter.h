@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,8 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryAnimations.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryAnimations.h"
 
 #include "COLLADAMaxDocumentExporter.h"
 #include "COLLADAMaxConversionFunctor.h"
@@ -212,7 +212,7 @@ namespace COLLADAMax
 
     /** Class to exports all animations of a max document.*/
 
-    class AnimationExporter : public COLLADA::LibraryAnimations
+    class AnimationExporter : public COLLADASW::LibraryAnimations
     {
 
     private:
@@ -275,7 +275,7 @@ namespace COLLADAMax
         @param streamWriter The stream the animation should be written to
         @param documentExporter The documentexporter this exporter belongs to
         */
-        AnimationExporter ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter );
+        AnimationExporter ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter );
 
         /** Destructor*/
         ~AnimationExporter()

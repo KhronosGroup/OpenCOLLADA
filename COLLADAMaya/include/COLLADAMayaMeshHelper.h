@@ -17,7 +17,7 @@
 #define __COLLADA_MAYA_MESH_HELPER_H__
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADASource.h"
+#include "COLLADASWSource.h"
 
 #include <maya/MPlug.h>
 #include <maya/MIntArray.h>

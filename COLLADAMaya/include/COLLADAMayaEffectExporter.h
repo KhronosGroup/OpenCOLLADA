@@ -23,10 +23,10 @@
 #include "COLLADAMayaEffectTextureExporter.h"
 #include <map>
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADAEffectProfile.h"
-#include "COLLADALibraryEffects.h"
-#include "COLLADAIDList.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWEffectProfile.h"
+#include "COLLADASWLibraryEffects.h"
+#include "COLLADASWIDList.h"
 
 #include <maya/MObject.h>
 
@@ -65,7 +65,7 @@ namespace COLLADAMaya
     typedef std::map<String, MObject*> EffectMap;
 
     /** This class writes the <library_materials>. It uses informations created my an effect exporter*/
-    class EffectExporter : public COLLADA::LibraryEffects
+    class EffectExporter : public COLLADASW::LibraryEffects
     {
 
     public:
@@ -102,7 +102,7 @@ namespace COLLADAMaya
         EffectMap mExportedEffectMap;
 
         /** List of unique base effect ids*/
-        COLLADA::IDList mEffectIdList;
+        COLLADASW::IDList mEffectIdList;
 
         /** A texture channel.
         Used by standard effects to assign textures to channels.
@@ -131,7 +131,7 @@ namespace COLLADAMaya
         /**
         @param streamWriter The stream the output will be written to
         @paramdocumentExporter The document exporter this material exporter is used in*/
-        EffectExporter ( COLLADA::StreamWriter* _streamWriter, DocumentExporter* _documentExporter );
+        EffectExporter ( COLLADASW::StreamWriter* _streamWriter, DocumentExporter* _documentExporter );
         virtual ~EffectExporter() {}
 
         /** Gets all the shaders and exports the effects of each */
@@ -164,20 +164,20 @@ namespace COLLADAMaya
         /** Export a shader, by type */
         void exportConstantShader ( 
             const String& effectId, 
-            COLLADA::EffectProfile* effectProfile,
+            COLLADASW::EffectProfile* effectProfile,
             MObject shadingNetwork );
 
         /** Exports an standard shader */
         void exportStandardShader ( 
             const String& effectId, 
-            COLLADA::EffectProfile* effectProfile,
+            COLLADASW::EffectProfile* effectProfile,
             MObject shadingNetwork,
             bool initialized=false );
 
         /** Export a hardware shader node. */
         void exportHwShaderNode (
             const String &effectId, 
-            COLLADA::EffectProfile *effectProfile,
+            COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
 
         /**
@@ -192,7 +192,7 @@ namespace COLLADAMaya
          */
         MObject exportTexturedParameter ( 
             const String& effectId, 
-            COLLADA::EffectProfile* effectProfile, 
+            COLLADASW::EffectProfile* effectProfile, 
             const MObject& node, 
             const char* attributeName, 
             EffectExporter::Channel channel, 
@@ -221,17 +221,17 @@ namespace COLLADAMaya
          */
         void exportTransparency ( 
             const String& effectId, 
-            COLLADA::EffectProfile* effectProfile, 
+            COLLADASW::EffectProfile* effectProfile, 
             MObject shadingNetwork, 
             const MColor& transparentColor, 
             const char* attributeName, 
             int& nextTextureIndex );
 
         /** Blends the color on colorOrTexture with blendColor an amount @a amount*/
-        void blendColor ( COLLADA::ColorOrTexture &colorOrTexture, COLLADA::Color blendColor, double ammount );
+        void blendColor ( COLLADASW::ColorOrTexture &colorOrTexture, COLLADASW::Color blendColor, double ammount );
 
         /** Converts a maya color to a common ColorOrTexture type*/
-        COLLADA::ColorOrTexture mayaColor2ColorOrTexture ( const MColor &color, double scale=1.0 );
+        COLLADASW::ColorOrTexture mayaColor2ColorOrTexture ( const MColor &color, double scale=1.0 );
 
         /** Exports all materials from the current mesh */
         void exportMeshEffects ( SceneElement* sceneElement );

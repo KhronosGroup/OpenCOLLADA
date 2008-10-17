@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,16 +16,16 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
-#include "COLLADANode.h"
-#include "COLLADAInstanceGeometry.h"
-#include "COLLADAInstanceController.h"
-#include "COLLADAInstanceCamera.h"
-#include "COLLADAInstanceLight.h"
-#include "COLLADAInstanceNode.h"
-#include "COLLADAMathUtils.h"
-#include "COLLADAURI.h"
+#include "COLLADASWNode.h"
+#include "COLLADASWInstanceGeometry.h"
+#include "COLLADASWInstanceController.h"
+#include "COLLADASWInstanceCamera.h"
+#include "COLLADASWInstanceLight.h"
+#include "COLLADASWInstanceNode.h"
+#include "COLLADASWMathUtils.h"
+#include "COLLADASWURI.h"
 
 
 #include "COLLADAMaxVisualSceneExporter.h"
@@ -75,8 +75,8 @@ namespace COLLADAMax
         };
 
     //---------------------------------------------------------------
-    VisualSceneExporter::VisualSceneExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter )
-            : COLLADA::LibraryVisualScenes ( streamWriter ),
+    VisualSceneExporter::VisualSceneExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, const String & sceneId, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryVisualScenes ( streamWriter ),
             mExportSceneGraph ( exportSceneGraph ),
             mEffectMap ( documentExporter->getEffectExporter() ->getEffectMap() ),
             mVisualSceneId ( sceneId ),
@@ -97,7 +97,7 @@ namespace COLLADAMax
 		if ( !exportNode->getIsInVisualScene() )
 			return;
 
-        COLLADA::Node colladaNode ( mSW );
+        COLLADASW::Node colladaNode ( mSW );
 
         INode *node = exportNode->getINode();
 
@@ -106,11 +106,11 @@ namespace COLLADAMax
 		if ( exportNode->hasSid() )
 			colladaNode.setNodeSid(exportNode->getSid());
 
-        colladaNode.setNodeName ( COLLADA::Utils::checkNCName ( node->GetName() ) );
+        colladaNode.setNodeName ( COLLADASW::Utils::checkNCName ( node->GetName() ) );
 
 		if ( exportNode->getIsJoint() )
 		{
-			colladaNode.setType( COLLADA::Node::JOINT );
+			colladaNode.setType( COLLADASW::Node::JOINT );
 		}
 
         colladaNode.start();
@@ -121,7 +121,7 @@ namespace COLLADAMax
         {
 			if ( exportNode->hasControllers() )
 			{
-				COLLADA::InstanceController instanceController ( mSW );
+				COLLADASW::InstanceController instanceController ( mSW );
 				ExportNodeSet referencedJoints = exportNode->getControllerList()->getReferencedJoints();
 				
 				for ( ExportNodeSet::const_iterator it = referencedJoints.begin(); it!=referencedJoints.end(); ++it)
@@ -138,7 +138,7 @@ namespace COLLADAMax
 			}
 			else
 			{
-				COLLADA::InstanceGeometry instanceGeometry ( mSW );
+				COLLADASW::InstanceGeometry instanceGeometry ( mSW );
 
 				String geometryId = GeometriesExporter::getGeometryId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getInitialPose())));
 				assert( !geometryId.empty() );
@@ -153,8 +153,8 @@ namespace COLLADAMax
 			String cameraId = CameraExporter::getCameraId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getCamera())));
 			assert( !cameraId.empty() );
 
-			COLLADA::InstanceCamera instanceCamera(mSW, "#" + cameraId);
-//			COLLADA::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
+			COLLADASW::InstanceCamera instanceCamera(mSW, "#" + cameraId);
+//			COLLADASW::InstanceCamera instanceCamera(mSW, "#" + CameraExporter::getCameraId(*exportNode));
 			instanceCamera.add();
 		}
 		else if ( exportNode->getType() == ExportNode::LIGHT )
@@ -162,7 +162,7 @@ namespace COLLADAMax
 			String lightId = LightExporter::getLightId(*mDocumentExporter->getExportedObjectExportNode(ObjectIdentifier(exportNode->getLight())));
 			assert( !lightId.empty() );
 
-			COLLADA::InstanceLight instanceLight(mSW, "#" + lightId);
+			COLLADASW::InstanceLight instanceLight(mSW, "#" + lightId);
 			instanceLight.add();
 		}
 
@@ -172,9 +172,9 @@ namespace COLLADAMax
 			const ExportSceneGraph::XRefSceneGraphList& xRefScenes = mExportSceneGraph->getXRefSceneGraphList();
 			for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = xRefScenes.begin(); it != xRefScenes.end(); ++it)
 			{
-				COLLADA::URI target = mDocumentExporter->getXRefOutputURI(*it);
+				COLLADASW::URI target = mDocumentExporter->getXRefOutputURI(*it);
 				target.setFragment(getNodeId( *(it->exportSceneGraph->getRootExportNode()) ) );
-				COLLADA::InstanceNode instanceNode(mSW, target);
+				COLLADASW::InstanceNode instanceNode(mSW, target);
 				instanceNode.add();
 			}
 		}
@@ -189,7 +189,7 @@ namespace COLLADAMax
     }
 
     //---------------------------------------------------------------
-    Matrix3 VisualSceneExporter::exportTransformations ( ExportNode * exportNode, const COLLADA::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix  )
+    Matrix3 VisualSceneExporter::exportTransformations ( ExportNode * exportNode, const COLLADASW::Node & colladaNode, const Matrix3& objectOffsetTransformationMatrix  )
     {
         const String & fullNodeId = getNodeId(*exportNode);
 
@@ -267,10 +267,10 @@ namespace COLLADAMax
 
                 AngAxis angleAxisRotation = AngAxis ( rotationMatrix );
 
-                if ( !angleAxisRotation.axis.Equals ( Point3::Origin ) && !COLLADA::MathUtils::equalsZero ( angleAxisRotation.angle ) )
+                if ( !angleAxisRotation.axis.Equals ( Point3::Origin ) && !COLLADASW::MathUtils::equalsZero ( angleAxisRotation.angle ) )
                 {
                     Point3 & rotationAxis = angleAxisRotation.axis;
-                    colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( angleAxisRotation.angle ) );
+                    colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADASW::MathUtils::radToDeg ( angleAxisRotation.angle ) );
                 }
             }
 
@@ -283,19 +283,19 @@ namespace COLLADAMax
 
                 // Export XYZ euler rotation in Z Y X order in the file
                 if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Z_SID, ROTATION_PARAMETER, Animation::ROTATION_Z, true ))
-					colladaNode.addRotateZ ( ROTATE_Z_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
+					colladaNode.addRotateZ ( ROTATE_Z_SID, COLLADASW::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
 				else
-					colladaNode.addRotateZ ( COLLADA::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
+					colladaNode.addRotateZ ( COLLADASW::MathUtils::radToDeg ( eulerAngles[ 2 ] ) );
 
                 if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_Y_SID, ROTATION_PARAMETER, Animation::ROTATION_Y, true ) )
-					colladaNode.addRotateY ( ROTATE_Y_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
+					colladaNode.addRotateY ( ROTATE_Y_SID, COLLADASW::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
 				else
-					colladaNode.addRotateY ( COLLADA::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
+					colladaNode.addRotateY ( COLLADASW::MathUtils::radToDeg ( eulerAngles[ 1 ] ) );
 
                 if ( animationExporter->addAnimatedAngle ( rotationController, fullNodeId, ROTATE_X_SID, ROTATION_PARAMETER, Animation::ROTATION_X, true ) )
-					colladaNode.addRotateX ( ROTATE_X_SID, COLLADA::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
+					colladaNode.addRotateX ( ROTATE_X_SID, COLLADASW::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
 				else
-					colladaNode.addRotateX ( COLLADA::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
+					colladaNode.addRotateX ( COLLADASW::MathUtils::radToDeg ( eulerAngles[ 0 ] ) );
             }
 
             //Scaling
@@ -313,8 +313,8 @@ namespace COLLADAMax
                 // Rotate to match the scale axis
                 bool hasScaleAxis = hasAnimatedScale ||
                                     !scaleRotation.axis.Equals ( Point3::Origin, TOLERANCE ) ||
-                                    ! ( COLLADA::MathUtils::equalsZero ( scaleRotation.angle ) ) ||
-                                    ! ( COLLADA::MathUtils::equals3 ( affineParts.k.x, affineParts.k.y, affineParts.k.z ) );
+                                    ! ( COLLADASW::MathUtils::equalsZero ( scaleRotation.angle ) ) ||
+                                    ! ( COLLADASW::MathUtils::equals3 ( affineParts.k.x, affineParts.k.y, affineParts.k.z ) );
 
 				bool hasAnimatedScaleAxis = false;
                 if ( hasScaleAxis )
@@ -325,9 +325,9 @@ namespace COLLADAMax
 						hasAnimatedScaleAxis = animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_INVERSE_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS_R, true );
 
 					if ( hasAnimatedScaleAxis )
-	                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+	                    colladaNode.addRotate ( ROTATE_SCALE_AXIS_INVERSE_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
 					else
-						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, -COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
                 }
 				
 				if ( hasAnimatedScale )
@@ -341,12 +341,12 @@ namespace COLLADAMax
                     Point3 & rotationAxis = scaleRotation.axis;
 					if ( hasAnimatedScaleAxis )
 					{
-		                colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+		                colladaNode.addRotate ( ROTATE_SCALE_AXIS_SID, rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
 						animationExporter->addAnimatedAxisAngle( scaleController, fullNodeId, ROTATE_SCALE_AXIS_SID, ROTATION_PARAMETERS, Animation::SCALE_ROT_AXIS, false );
 					}
 					else
 					{
-						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADA::MathUtils::radToDeg ( scaleRotation.angle ) );
+						colladaNode.addRotate ( rotationAxis.x, rotationAxis.y, rotationAxis.z, COLLADASW::MathUtils::radToDeg ( scaleRotation.angle ) );
 					}
                 }
             }
@@ -433,7 +433,7 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void COLLADAMax::VisualSceneExporter::fillInstanceMaterialList( COLLADA::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )
+	void COLLADAMax::VisualSceneExporter::fillInstanceMaterialList( COLLADASW::InstanceMaterialList & instanceMaterialList, ExportNode * exportNode )
 	{
 		const ExportNode::MeshSymbolMap & symbolMap = exportNode->getMeshSymbolMap();
 
@@ -442,7 +442,7 @@ namespace COLLADAMax
 			String materialId = MaterialExporter::getMaterialIdFromEffectId ( EffectExporter::getEffectId ( exportNode->getWireFrameColor() ) );
 			//String materialSymbol = symbolIt->first;
 			const String & materialSymbol = GeometryExporter::COLOR_MATERIAL_SYMBOL;
-			instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( materialSymbol, "#" + materialId ) );
+			instanceMaterialList.push_back ( COLLADASW::InstanceMaterial ( materialSymbol, "#" + materialId ) );
 		}
 
 		else
@@ -460,7 +460,7 @@ namespace COLLADAMax
 					assert ( it != mEffectMap.end() );
 					String materialId = MaterialExporter::getMaterialIdFromEffectId ( it->second );
 					//String materialSymbol = symbolIt->first;
-					instanceMaterialList.push_back ( COLLADA::InstanceMaterial ( symbol.name, "#" + materialId ) );
+					instanceMaterialList.push_back ( COLLADASW::InstanceMaterial ( symbol.name, "#" + materialId ) );
 				}
 			}
 		}

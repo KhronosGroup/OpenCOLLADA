@@ -19,11 +19,11 @@
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaDocumentExporter.h"
 
-#include "COLLADAParamBase.h"
-#include "COLLADAParamTemplate.h"
-#include "COLLADAValueType.h"
-#include "COLLADAEffectProfile.h"
-#include "COLLADAShader.h"
+#include "COLLADASWParamBase.h"
+#include "COLLADASWParamTemplate.h"
+#include "COLLADASWValueType.h"
+#include "COLLADASWEffectProfile.h"
+#include "COLLADASWShader.h"
 
 #include "cgfxAttrDef.h"
 
@@ -41,13 +41,13 @@ namespace COLLADAMaya
         DocumentExporter* mDocumentExporter;
 
         /** The filename of the current shader to export. */
-        COLLADA::URI mShaderFxFileUri;
+        COLLADASW::URI mShaderFxFileUri;
 
         /** The currently used collada effect profile to write the data. */
-        COLLADA::EffectProfile *mEffectProfile;
+        COLLADASW::EffectProfile *mEffectProfile;
 
         /** The scope of the current shader. */
-        COLLADA::Shader::Scope mShaderScope;
+        COLLADASW::Shader::Scope mShaderScope;
 
     public:
 
@@ -58,20 +58,20 @@ namespace COLLADAMaya
         /** Export a hardware shader node. */
         void exportPluginHwShaderNode (
             const String &effectId,
-            COLLADA::EffectProfile *effectProfile,
+            COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
 
         /** The scope of the current shader. */
-        const COLLADA::Shader::Scope& getShaderScope () const { return mShaderScope; }
-        void setShaderScope ( const COLLADA::Shader::Scope& val ) { mShaderScope = val; }
+        const COLLADASW::Shader::Scope& getShaderScope () const { return mShaderScope; }
+        void setShaderScope ( const COLLADASW::Shader::Scope& val ) { mShaderScope = val; }
 
     private:
 
         /** Set the filename of the current shader to export. */
-        void setShaderFxFileUri ( const COLLADA::URI& shaderFxFileName );
+        void setShaderFxFileUri ( const COLLADASW::URI& shaderFxFileName );
 
         /** Returns the filename of the current shader fx file. */
-        const COLLADA::URI& getShaderFxFileUri () const;
+        const COLLADASW::URI& getShaderFxFileUri () const;
 
         /** Exports the effect data of a cgfxShader node. */
         void exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx );
@@ -85,28 +85,28 @@ namespace COLLADAMaya
         /** Export the current texture element. */
         void exportTexture(
             const CGparameter& cgTextureParam,
-            const COLLADA::Surface::SurfaceType& surfaceType );
+            const COLLADASW::Surface::SurfaceType& surfaceType );
 
         /** Returns the type data of the current resource. */
         void getResourceType(
             const CGparameter& cgTextureParam,
-            COLLADA::Surface::SurfaceType &surfaceType,
-            COLLADA::Sampler::SamplerType &samplerType,
-            COLLADA::ValueType::ColladaType &samplerValueType );
+            COLLADASW::Surface::SurfaceType &surfaceType,
+            COLLADASW::Sampler::SamplerType &samplerType,
+            COLLADASW::ValueType::ColladaType &samplerValueType );
 
         /** Exports the given parameter with all his annotations, the semantic and the given values. */
         template<class Type>
         void exportParam (
             const CGparameter& cgParameter,
-            COLLADA::ParamBase *param,
+            COLLADASW::ParamBase *param,
             const Type* paramValues,
             const int numOfValues );
 
         /** Exports the annotation data of the given parameter. */
-        void exportAnnotations ( const CGparameter &cgParameter, COLLADA::ParamBase *param );
+        void exportAnnotations ( const CGparameter &cgParameter, COLLADASW::ParamBase *param );
 
         /** Exports the semantic data of the given parameter. */
-        void exportSemantic( const CGparameter &cgParameter, COLLADA::ParamBase *param );
+        void exportSemantic( const CGparameter &cgParameter, COLLADASW::ParamBase *param );
 
         /** Write the current technique and all sub-elements into the current collada document. */
         void exportTechnique ( const CGtechnique &cgTechnique );

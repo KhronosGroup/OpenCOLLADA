@@ -32,19 +32,19 @@
 #include <maya/MItDag.h>
 #include <maya/MFnNumericData.h>
 
-#include "COLLADASource.h"
-#include "COLLADABaseInputElement.h"
-#include "COLLADAInputList.h"
-#include "COLLADAExtraTechnique.h"
-#include "COLLADAExtra.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWBaseInputElement.h"
+#include "COLLADASWInputList.h"
+#include "COLLADASWExtraTechnique.h"
+#include "COLLADASWExtra.h"
 
 namespace COLLADAMaya
 {
 
     // --------------------------------------------------------
-    GeometryExporter::GeometryExporter ( COLLADA::StreamWriter* streamWriter,
+    GeometryExporter::GeometryExporter ( COLLADASW::StreamWriter* streamWriter,
                                          DocumentExporter* documentExporter )
-    : COLLADA::LibraryGeometries ( streamWriter )
+    : COLLADASW::LibraryGeometries ( streamWriter )
     , mDocumentExporter ( documentExporter )
     {
     }
@@ -264,7 +264,7 @@ namespace COLLADAMaya
         // Export the vertexes
         exportVertices ( meshId );
 
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         GeometryPolygonExporter polygonExporter ( streamWriter, mDocumentExporter );
         polygonExporter.exportPolygonSources ( 
             fnMesh, meshId,
@@ -296,7 +296,7 @@ namespace COLLADAMaya
             //   for (; sourceIter!=mPolygonSources.end(); ++sourceIter)
             //   {
             //    SourceInput &source = *sourceIter;
-            //    if (source.type == COLLADA::TEXCOORD)
+            //    if (source.type == COLLADASW::TEXCOORD)
             //    {
             // //    FCDGeometryPolygonsTools::GenerateTextureTangentBasis(colladaMesh, source, true);
             //    }
@@ -334,11 +334,11 @@ namespace COLLADAMaya
     {
         bool doubleSided = isDoubleSided ( fnMesh );
 
-        COLLADA::Extra extraSource ( mSW );
+        COLLADASW::Extra extraSource ( mSW );
         extraSource.openExtra();
 
-        COLLADA::Technique techniqueSource ( mSW );
-        techniqueSource.openTechnique ( COLLADA::CSWC::COLLADA_PROFILE_MAYA );
+        COLLADASW::Technique techniqueSource ( mSW );
+        techniqueSource.openTechnique ( COLLADASW::CSWC::CSW_PROFILE_MAYA );
         techniqueSource.addParameter ( DOUBLE_SIDED_PARAMETER, doubleSided );
         techniqueSource.closeTechnique();
 
@@ -370,7 +370,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void GeometryExporter::exportVertexPositions ( const MFnMesh &fnMesh, const String &meshId )
     {
-        COLLADA::FloatSource vertexSource ( mSW );
+        COLLADASW::FloatSource vertexSource ( mSW );
         vertexSource.setId ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
         vertexSource.setNodeName ( meshId + POSITIONS_SOURCE_ID_SUFFIX );
         vertexSource.setArrayId ( meshId + POSITIONS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -440,14 +440,14 @@ namespace COLLADAMaya
             // into the working units of the current scene!
             MPoint &pointData = vertexArray[i];
             vertexSource.appendValues ( 
-                COLLADA::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : MDistance::internalToUI ( vertexArray[i].x ), 
-                COLLADA::MathUtils::equalsZero ( vertexArray[i].y ) ? 0 : MDistance::internalToUI ( vertexArray[i].y ), 
-                COLLADA::MathUtils::equalsZero ( vertexArray[i].z ) ? 0 : MDistance::internalToUI ( vertexArray[i].z ) );
+                COLLADASW::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : MDistance::internalToUI ( vertexArray[i].x ), 
+                COLLADASW::MathUtils::equalsZero ( vertexArray[i].y ) ? 0 : MDistance::internalToUI ( vertexArray[i].y ), 
+                COLLADASW::MathUtils::equalsZero ( vertexArray[i].z ) ? 0 : MDistance::internalToUI ( vertexArray[i].z ) );
         }
         vertexSource.finish();
 
         // Add input to the mesh <vertices> node
-        mPolygonSources.push_back ( SourceInput ( vertexSource, COLLADA::VERTEX ) );
+        mPolygonSources.push_back ( SourceInput ( vertexSource, COLLADASW::VERTEX ) );
     }
 
     //---------------------------------------------------------------
@@ -587,7 +587,7 @@ namespace COLLADAMaya
             size_t stride = 4;
 
             // Create the source
-            COLLADA::FloatSourceF colorSource ( mSW );
+            COLLADASW::FloatSourceF colorSource ( mSW );
             colorSource.setId ( colorSourceId );
             colorSource.setNodeName ( colorSourceId );
             colorSource.setArrayId ( colorSourceId + ARRAY_ID_SUFFIX );
@@ -608,12 +608,12 @@ namespace COLLADAMaya
             if ( exportPerVertex && colorSet.isVertexColor )
             {
                 // Insert a per-vertex color set input
-                mVertexSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR ) );
+                mVertexSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR ) );
             }
             else
             {
                 // Insert a per-face-vertex color set input
-                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADA::COLOR, ( int ) i ) );
+                mPolygonSources.push_back ( SourceInput ( colorSource, COLLADASW::COLOR, ( int ) i ) );
             }
         }
     }
@@ -621,16 +621,16 @@ namespace COLLADAMaya
     // --------------------------------------------------------------------
     void GeometryExporter::exportVertices ( const String& meshId )
     {
-        COLLADA::VerticesElement vertices ( mSW );
+        COLLADASW::VerticesElement vertices ( mSW );
         vertices.setId ( meshId + VERTICES_ID_SUFFIX );
         vertices.setNodeName ( meshId + VERTICES_ID_SUFFIX );
 
         // Get the input list
-        COLLADA::InputList* inputList = &vertices.getInputList();
+        COLLADASW::InputList* inputList = &vertices.getInputList();
 
         // Always push the vertex positions in the vertices element
         // (we have to create a vertices element with a reference)
-        inputList->push_back ( COLLADA::Input ( COLLADA::POSITION, COLLADA::URI ( "", meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
+        inputList->push_back ( COLLADASW::Input ( COLLADASW::POSITION, COLLADASW::URI ( "", meshId + POSITIONS_SOURCE_ID_SUFFIX ) ) );
 
         // Push all other vertex sources into the vertices element
         Sources::iterator it = mVertexSources.begin();
@@ -638,14 +638,14 @@ namespace COLLADAMaya
         {
             // Get the current vertices source and read the id
             const SourceInput& sourceInput = *it;
-            const COLLADA::SourceBase& source = sourceInput.getSource();
+            const COLLADASW::SourceBase& source = sourceInput.getSource();
             String sourceId = source.getId();
 
             // Get the type of the current vertex source
-            const COLLADA::Semantics& type = sourceInput.getType();
+            const COLLADASW::Semantics& type = sourceInput.getType();
 
             // Push the vertex source to the collada vertices
-            inputList->push_back ( COLLADA::Input ( type, COLLADA::URI ( "", sourceId ) ) );
+            inputList->push_back ( COLLADASW::Input ( type, COLLADASW::URI ( "", sourceId ) ) );
         }
 
         vertices.add();
@@ -677,7 +677,7 @@ namespace COLLADAMaya
             // Get the stride
             uint stride = 2;
 
-            COLLADA::FloatSource texCoordSource ( mSW );
+            COLLADASW::FloatSource texCoordSource ( mSW );
             texCoordSource.setId ( texCoordinateId );
             texCoordSource.setNodeName ( texCoordinateId );
             texCoordSource.setArrayId ( texCoordinateId + ARRAY_ID_SUFFIX );
@@ -694,8 +694,8 @@ namespace COLLADAMaya
             for ( uint j = 0; j < uvCount; ++j )
             {
                 texCoordSource.appendValues ( 
-                    COLLADA::MathUtils::equalsZero ( uArray[j] ) ? 0 : uArray[j], 
-                    COLLADA::MathUtils::equalsZero ( vArray[j] ) ? 0 : vArray[j] );
+                    COLLADASW::MathUtils::equalsZero ( uArray[j] ) ? 0 : uArray[j], 
+                    COLLADASW::MathUtils::equalsZero ( vArray[j] ) ? 0 : vArray[j] );
             }
 
             // Figure out the real index for this texture coordinate set
@@ -717,7 +717,7 @@ namespace COLLADAMaya
 
             texCoordSource.finish();
 
-            mPolygonSources.push_back ( SourceInput ( texCoordSource, COLLADA::TEXCOORD, realIndex ) );
+            mPolygonSources.push_back ( SourceInput ( texCoordSource, COLLADASW::TEXCOORD, realIndex ) );
         }
     }
 
@@ -1154,7 +1154,7 @@ namespace COLLADAMaya
         uint normalCount = normals.length();
 
         // Implement NormalSource
-        COLLADA::FloatSource normalSource ( mSW );
+        COLLADASW::FloatSource normalSource ( mSW );
         normalSource.setId ( meshId + NORMALS_SOURCE_ID_SUFFIX );
         normalSource.setNodeName ( meshId + NORMALS_SOURCE_ID_SUFFIX );
         normalSource.setArrayId ( meshId + NORMALS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1197,14 +1197,14 @@ namespace COLLADAMaya
             }
 
             if ( !SourceInput::containsSourceBase ( &mVertexSources, &normalSource ) )
-                mVertexSources.push_back ( SourceInput ( normalSource, COLLADA::NORMAL ) );
+                mVertexSources.push_back ( SourceInput ( normalSource, COLLADASW::NORMAL ) );
         }
         else
         {
             // Retrieve the per-face, per-vertex normals
             fnMesh.getNormals ( normals, MSpace::kObject );
 
-            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADA::NORMAL ) );
+            mPolygonSources.push_back ( SourceInput ( normalSource, COLLADASW::NORMAL ) );
 
             // Erase the normal source from the list of vertex sources, if it is inside
             SourceInput::eraseSourceBase ( &mVertexSources, &normalSource );
@@ -1214,9 +1214,9 @@ namespace COLLADAMaya
         {
             MFloatVector &normal = normals[i];
             normalSource.appendValues ( 
-                COLLADA::MathUtils::equalsZero ( normal.x ) ? 0 : normal.x, 
-                COLLADA::MathUtils::equalsZero ( normal.y ) ? 0 : normal.y, 
-                COLLADA::MathUtils::equalsZero ( normal.z ) ? 0 : normal.z );
+                COLLADASW::MathUtils::equalsZero ( normal.x ) ? 0 : normal.x, 
+                COLLADASW::MathUtils::equalsZero ( normal.y ) ? 0 : normal.y, 
+                COLLADASW::MathUtils::equalsZero ( normal.z ) ? 0 : normal.z );
         }
 
         normalSource.finish();
@@ -1235,8 +1235,8 @@ namespace COLLADAMaya
        if ( ExportOptions::exportTangents() )
         {
             // Geo-tangent and -binormal
-            COLLADA::FloatSource tangentSource ( mSW );
-            COLLADA::FloatSource binormalSource ( mSW );
+            COLLADASW::FloatSource tangentSource ( mSW );
+            COLLADASW::FloatSource binormalSource ( mSW );
 
             uint normalCount = fnMesh.numNormals();
             MVectorArray tangents ( normalCount ), binormals ( normalCount );
@@ -1247,10 +1247,10 @@ namespace COLLADAMaya
                 getPerVertexNormalsTangents(fnMesh, normals, tangents, binormals );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &tangentSource ) )
-                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADA::GEOTANGENT ) );
+                   mVertexSources.push_back ( SourceInput ( tangentSource, COLLADASW::GEOTANGENT ) );
 
                if ( !SourceInput::containsSourceBase ( &mVertexSources, &binormalSource ) )
-                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADA::GEOBINORMAL ) );
+                   mVertexSources.push_back ( SourceInput ( binormalSource, COLLADASW::GEOBINORMAL ) );
             }
             else
             {
@@ -1262,8 +1262,8 @@ namespace COLLADAMaya
                 SourceInput::eraseSourceBase ( &mVertexSources, &binormalSource );
 
                 // Push them in the polygon sources list.
-                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADA::GEOTANGENT ) );
-                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADA::GEOBINORMAL ) );
+                mPolygonSources.push_back ( SourceInput ( tangentSource, COLLADASW::GEOTANGENT ) );
+                mPolygonSources.push_back ( SourceInput ( binormalSource, COLLADASW::GEOBINORMAL ) );
             }
 
             // Geo-tangent
@@ -1282,9 +1282,9 @@ namespace COLLADAMaya
             {
                 MVector &tangent = tangents[i];
                 tangentSource.appendValues ( 
-                    COLLADA::MathUtils::equalsZero ( tangent.x ) ? 0 : tangent.x, 
-                    COLLADA::MathUtils::equalsZero ( tangent.y ) ? 0 : tangent.y, 
-                    COLLADA::MathUtils::equalsZero ( tangent.z ) ? 0 : tangent.z );
+                    COLLADASW::MathUtils::equalsZero ( tangent.x ) ? 0 : tangent.x, 
+                    COLLADASW::MathUtils::equalsZero ( tangent.y ) ? 0 : tangent.y, 
+                    COLLADASW::MathUtils::equalsZero ( tangent.z ) ? 0 : tangent.z );
             }
             tangentSource.finish();
 
@@ -1305,9 +1305,9 @@ namespace COLLADAMaya
             {
                 MVector &binormal = binormals[i];
                 binormalSource.appendValues ( 
-                    COLLADA::MathUtils::equalsZero ( binormal.x ) ? 0 : binormal.x, 
-                    COLLADA::MathUtils::equalsZero ( binormal.y ) ? 0 : binormal.y, 
-                    COLLADA::MathUtils::equalsZero ( binormal.z ) ? 0 : binormal.z );
+                    COLLADASW::MathUtils::equalsZero ( binormal.x ) ? 0 : binormal.x, 
+                    COLLADASW::MathUtils::equalsZero ( binormal.y ) ? 0 : binormal.y, 
+                    COLLADASW::MathUtils::equalsZero ( binormal.z ) ? 0 : binormal.z );
             }
             binormalSource.finish();
         }

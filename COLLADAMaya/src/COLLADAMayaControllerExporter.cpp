@@ -26,8 +26,8 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include <assert.h>
 
-#include "COLLADAMathUtils.h"
-#include "COLLADABaseInputElement.h"
+#include "COLLADASWMathUtils.h"
+#include "COLLADASWBaseInputElement.h"
 
 #include <maya/MItDependencyGraph.h>
 #include <maya/MFnDagNode.h>
@@ -50,9 +50,9 @@ namespace COLLADAMaya
     const String ControllerExporter::PARAM_TYPE_WEIGHT       = "WEIGHT";
 
     //------------------------------------------------------
-    ControllerExporter::ControllerExporter ( COLLADA::StreamWriter* streamWriter,
+    ControllerExporter::ControllerExporter ( COLLADASW::StreamWriter* streamWriter,
                                            DocumentExporter* documentExporter )
-    : COLLADA::LibraryControllers ( streamWriter )
+    : COLLADASW::LibraryControllers ( streamWriter )
     , mDocumentExporter ( documentExporter )
     , mExportedControllers ( NULL )
     {}
@@ -246,12 +246,12 @@ namespace COLLADAMaya
         if ( !sceneElement->getNodeId().empty() )
         {
             controllerId = sceneElement->getNodeId() +
-                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+                COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
         }
         else
         {
             controllerId = sceneElement->getNodeName() +
-                COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+                COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
         }
 
         // Check if the controller isn't already exported
@@ -418,7 +418,7 @@ namespace COLLADAMaya
 
 
 //         // Create the morph controller
-//         COLLADA::LibraryControllers
+//         COLLADASW::LibraryControllers
 //
 //         // Create a new FCollada geometry.
 //         FUStringBuilder name(MConvert::ToFChar( MFnDependencyNode(targetVertexListPlug.node()).name() ) );
@@ -476,9 +476,9 @@ namespace COLLADAMaya
         bool morphController =  hasMorphController( targetDagPath.node() );
         String controllerIdSuffix;
         if ( hasMorphController( targetDagPath.node() ) )
-            controllerIdSuffix = COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX +
-                COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
-        else controllerIdSuffix = COLLADA::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+            controllerIdSuffix = COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX +
+                COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
+        else controllerIdSuffix = COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         String controllerId;
         if ( !sceneElement->getNodeId().empty() )
@@ -516,7 +516,7 @@ namespace COLLADAMaya
         MFnDependencyNode fn ( outputShape.node() );
         String skinTarget =  fn.name().asChar();
         if ( hasMorphController( outputShape.node() ) )
-            skinTarget += COLLADA::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
+            skinTarget += COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
 
         // Create an skin controller to hold the data
         SkinController skinController( controllerId, controllerName );
@@ -623,7 +623,7 @@ namespace COLLADAMaya
             uint weightCount = weights.length();
             for (uint i = 0; i < weightCount; ++i)
             {
-                if (!COLLADA::MathUtils::equals(weights[i], Weight(0)))
+                if (!COLLADASW::MathUtils::equals(weights[i], Weight(0)))
                 {
                     vertex[i] = (float)weights[i];
                 }
@@ -669,7 +669,7 @@ namespace COLLADAMaya
             {
                 // append the weight at its correct position: i
                 float weight = weights[counter++];
-                if (COLLADA::MathUtils::equals(weight, 0.0f))
+                if (COLLADASW::MathUtils::equals(weight, 0.0f))
                 {
                     SkinControllerVertex& vertex = colladaInfluences[componentIt.index()];
                     vertex[i] = weight;
@@ -949,7 +949,7 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::writeSkinJointSource( const SkinController &skinController )
     {
-        COLLADA::NameSource jointSource( mDocumentExporter->getStreamWriter() );
+        COLLADASW::NameSource jointSource( mDocumentExporter->getStreamWriter() );
         String controllerId = skinController.getControllerId();
         jointSource.setId ( controllerId + JOINTS_SOURCE_ID_SUFFIX );
         jointSource.setNodeName ( controllerId + JOINTS_SOURCE_ID_SUFFIX );
@@ -977,7 +977,7 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::writeMorphTargetSource( const MorphController &morphController )
     {
-        COLLADA::IdRefSource targetSource( mDocumentExporter->getStreamWriter() );
+        COLLADASW::IdRefSource targetSource( mDocumentExporter->getStreamWriter() );
         String controllerId = morphController.getControllerId();
         targetSource.setId ( controllerId + TARGETS_SOURCE_ID_SUFFIX );
         targetSource.setNodeName ( controllerId + TARGETS_SOURCE_ID_SUFFIX );
@@ -997,7 +997,7 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::writeSkinBindPosesSource( const SkinController &skinController )
     {
-        COLLADA::Float4x4Source bindPosesSource( mDocumentExporter->getStreamWriter() );
+        COLLADASW::Float4x4Source bindPosesSource( mDocumentExporter->getStreamWriter() );
         String controllerId = skinController.getControllerId();
         bindPosesSource.setId ( controllerId + BIND_POSES_SOURCE_ID_SUFFIX );
         bindPosesSource.setNodeName ( controllerId + BIND_POSES_SOURCE_ID_SUFFIX );
@@ -1034,7 +1034,7 @@ namespace COLLADAMaya
     void ControllerExporter::writeSkinWeightSource( const SkinController &skinController )
     {
         String controllerId = skinController.getControllerId();
-        COLLADA::FloatSourceF weightSource( mDocumentExporter->getStreamWriter() );
+        COLLADASW::FloatSourceF weightSource( mDocumentExporter->getStreamWriter() );
         weightSource.setId ( controllerId + WEIGHTS_SOURCE_ID_SUFFIX );
         weightSource.setNodeName ( controllerId + WEIGHTS_SOURCE_ID_SUFFIX );
         weightSource.setArrayId ( controllerId + WEIGHTS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1058,8 +1058,8 @@ namespace COLLADAMaya
                 // influence. We don't write the one weights, cause we have written
                 // (see below) a one weight in front of the vertex_weights array and
                 // always reference to it from the vertex_weights array.
-                if ( !COLLADA::MathUtils::equalsZero( vertex[j] ) &&
-                     !COLLADA::MathUtils::equals( vertex[j], 1.0f ) )
+                if ( !COLLADASW::MathUtils::equalsZero( vertex[j] ) &&
+                     !COLLADASW::MathUtils::equals( vertex[j], 1.0f ) )
                 {
                     vertexVec.push_back(vertex[j]);
                     ++numVertexPoints;
@@ -1078,7 +1078,7 @@ namespace COLLADAMaya
     void ControllerExporter::writeMorphWeightSource( const MorphController &morphController )
     {
         String controllerId = morphController.getControllerId();
-        COLLADA::FloatSourceF weightSource( mDocumentExporter->getStreamWriter() );
+        COLLADASW::FloatSourceF weightSource( mDocumentExporter->getStreamWriter() );
         weightSource.setId ( controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX );
         weightSource.setNodeName ( controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX );
         weightSource.setArrayId ( controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1119,7 +1119,7 @@ namespace COLLADAMaya
         String controllerName = skinController.getControllerName();
 
         // Opens the skin tag in the collada document.
-        openSkin ( controllerId , controllerName, COLLADA::URI ( "", skinTarget ) );
+        openSkin ( controllerId , controllerName, COLLADASW::URI ( "", skinTarget ) );
 
         writeSkinBindShapeTransform( skinController );
         writeSkinJointSource( skinController );
@@ -1145,7 +1145,7 @@ namespace COLLADAMaya
         String controllerName = morphController.getControllerName();
 
         // Opens the skin tag in the collada document.
-        openMorph ( controllerId , controllerName, COLLADA::URI ( "", morphTarget ) );
+        openMorph ( controllerId , controllerName, COLLADASW::URI ( "", morphTarget ) );
 
         writeMorphTargetSource( morphController );
         writeMorphWeightSource ( morphController );
@@ -1167,10 +1167,10 @@ namespace COLLADAMaya
         String weightSourceId = controllerId + WEIGHTS_SOURCE_ID_SUFFIX;
 
         uint offset = 0;
-        COLLADA::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
-        COLLADA::InputList &inputList = vertexWeightsElement.getInputList();
-        inputList.push_back ( COLLADA::Input ( COLLADA::JOINT, COLLADA::URI ("", jointSourceId ), offset++ ) );
-        inputList.push_back ( COLLADA::Input ( COLLADA::WEIGHT, COLLADA::URI ("", weightSourceId ), offset++ ) );
+        COLLADASW::VertexWeightsElement vertexWeightsElement( mDocumentExporter->getStreamWriter() );
+        COLLADASW::InputList &inputList = vertexWeightsElement.getInputList();
+        inputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ("", jointSourceId ), offset++ ) );
+        inputList.push_back ( COLLADASW::Input ( COLLADASW::WEIGHT, COLLADASW::URI ("", weightSourceId ), offset++ ) );
 
         // The list for the vertex values.
         std::vector<unsigned long> vertexMatches;
@@ -1194,7 +1194,7 @@ namespace COLLADAMaya
             {
                 vertexMatches.push_back( (*it).first );
 
-                if ( !COLLADA::MathUtils::equals( (*it).second, 1.0f ) )
+                if ( !COLLADASW::MathUtils::equals( (*it).second, 1.0f ) )
                     vertexMatches.push_back( weightOffset++ );
                 else
                     // There is a one in the first position of the weight source array.
@@ -1217,10 +1217,10 @@ namespace COLLADAMaya
         String jointSourceId = controllerId + JOINTS_SOURCE_ID_SUFFIX;
         String jointBindSourceId = controllerId + BIND_POSES_SOURCE_ID_SUFFIX;
 
-        COLLADA::JointsElement jointsElement( mDocumentExporter->getStreamWriter() );
-        COLLADA::InputList &jointsInputList = jointsElement.getInputList();
-        jointsInputList.push_back ( COLLADA::Input ( COLLADA::JOINT, COLLADA::URI ( "", jointSourceId ) ) );
-        jointsInputList.push_back ( COLLADA::Input ( COLLADA::BINDMATRIX, COLLADA::URI ( "", jointBindSourceId ) ) );
+        COLLADASW::JointsElement jointsElement( mDocumentExporter->getStreamWriter() );
+        COLLADASW::InputList &jointsInputList = jointsElement.getInputList();
+        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::JOINT, COLLADASW::URI ( "", jointSourceId ) ) );
+        jointsInputList.push_back ( COLLADASW::Input ( COLLADASW::BINDMATRIX, COLLADASW::URI ( "", jointBindSourceId ) ) );
         jointsElement.add();
     }
 
@@ -1231,10 +1231,10 @@ namespace COLLADAMaya
         String targetSourceId = controllerId + TARGETS_SOURCE_ID_SUFFIX;
         String morphWeightsSourceId = controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
 
-        COLLADA::TargetsElement targetsElement( mDocumentExporter->getStreamWriter() );
-        COLLADA::InputList &targetsInputList = targetsElement.getInputList();
-        targetsInputList.push_back ( COLLADA::Input ( COLLADA::MORPH_TARGET, COLLADA::URI ( "", targetSourceId ) ) );
-        targetsInputList.push_back ( COLLADA::Input ( COLLADA::MORPH_WEIGHT, COLLADA::URI ( "", morphWeightsSourceId ) ) );
+        COLLADASW::TargetsElement targetsElement( mDocumentExporter->getStreamWriter() );
+        COLLADASW::InputList &targetsInputList = targetsElement.getInputList();
+        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_TARGET, COLLADASW::URI ( "", targetSourceId ) ) );
+        targetsInputList.push_back ( COLLADASW::Input ( COLLADASW::MORPH_WEIGHT, COLLADASW::URI ( "", morphWeightsSourceId ) ) );
         targetsElement.add();
     }
 

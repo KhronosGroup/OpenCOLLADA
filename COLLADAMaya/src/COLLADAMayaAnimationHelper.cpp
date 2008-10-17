@@ -236,7 +236,7 @@ namespace COLLADAMaya
                 {
                     if ( inputs->at ( i ) + FLT_TOLERANCE >= startTime && inputs->at ( i ) - FLT_TOLERANCE <= endTime ) ++count;
                 }
-                curve->setKeyCount ( count, COLLADA::LibraryAnimations::LINEAR );
+                curve->setKeyCount ( count, COLLADASW::LibraryAnimations::LINEAR );
 
                 // Copy over the keys belonging to the curve's timeframe
                 for ( uint i = 0; i < inputCount; ++i )
@@ -251,7 +251,7 @@ namespace COLLADAMaya
             else if ( status != MStatus::kSuccess )
             {
                 // No curve found, so use the sampled inputs/outputs directly
-                curve->setKeyCount ( inputs->size(), COLLADA::LibraryAnimations::LINEAR );
+                curve->setKeyCount ( inputs->size(), COLLADASW::LibraryAnimations::LINEAR );
                 for ( uint i = 0; i < inputCount; ++i )
                 {
                     curve->getKey ( i )->input = inputs->at ( i );
@@ -261,7 +261,7 @@ namespace COLLADAMaya
         }
         else
         {
-            curve->setKeyCount ( inputs->size(), COLLADA::LibraryAnimations::LINEAR );
+            curve->setKeyCount ( inputs->size(), COLLADASW::LibraryAnimations::LINEAR );
             for ( uint i = 0; i < inputCount; ++i )
             {
                 curve->getKey ( i )->input = inputs->at ( i );
@@ -293,7 +293,7 @@ namespace COLLADAMaya
         size_t keyCount = inputs->size();
         for ( size_t i = 0; i < 16; ++i )
         {
-            curves[i]->setKeyCount ( keyCount, COLLADA::LibraryAnimations::LINEAR );
+            curves[i]->setKeyCount ( keyCount, COLLADASW::LibraryAnimations::LINEAR );
             for ( size_t j = 0; j < keyCount; ++j )
             {
                 BaseAnimationKey* key = curves[i]->getKey ( j );
@@ -377,49 +377,49 @@ namespace COLLADAMaya
     // -------------------------------------------
     // Interpolation Type Handling
     //
-    COLLADA::LibraryAnimations::InterpolationType AnimationHelper::toInterpolation ( MFnAnimCurve::TangentType outType )
+    COLLADASW::LibraryAnimations::InterpolationType AnimationHelper::toInterpolation ( MFnAnimCurve::TangentType outType )
     {
         switch ( outType )
         {
         case MFnAnimCurve::kTangentGlobal:
-            return COLLADA::LibraryAnimations::BEZIER;
+            return COLLADASW::LibraryAnimations::BEZIER;
 
         case MFnAnimCurve::kTangentFixed:
-            return COLLADA::LibraryAnimations::BEZIER;
+            return COLLADASW::LibraryAnimations::BEZIER;
 
         case MFnAnimCurve::kTangentLinear:
-            return COLLADA::LibraryAnimations::LINEAR;
+            return COLLADASW::LibraryAnimations::LINEAR;
 
         case MFnAnimCurve::kTangentFlat:
-            return COLLADA::LibraryAnimations::BEZIER;
+            return COLLADASW::LibraryAnimations::BEZIER;
 
         case MFnAnimCurve::kTangentSmooth:
-            return COLLADA::LibraryAnimations::BEZIER;
+            return COLLADASW::LibraryAnimations::BEZIER;
 
         case MFnAnimCurve::kTangentStep:
-            return COLLADA::LibraryAnimations::STEP;
+            return COLLADASW::LibraryAnimations::STEP;
 
         case MFnAnimCurve::kTangentClamped:
-            return COLLADA::LibraryAnimations::BEZIER;
+            return COLLADASW::LibraryAnimations::BEZIER;
 
         default:
-            return COLLADA::LibraryAnimations::BEZIER;
+            return COLLADASW::LibraryAnimations::BEZIER;
         }
     }
 
     // -------------------------------------------
-    MFnAnimCurve::TangentType AnimationHelper::toTangentType ( COLLADA::LibraryAnimations::InterpolationType type )
+    MFnAnimCurve::TangentType AnimationHelper::toTangentType ( COLLADASW::LibraryAnimations::InterpolationType type )
     {
         switch ( type )
         {
 
-        case COLLADA::LibraryAnimations::STEP:
+        case COLLADASW::LibraryAnimations::STEP:
             return MFnAnimCurve::kTangentStep;
 
-        case COLLADA::LibraryAnimations::LINEAR:
+        case COLLADASW::LibraryAnimations::LINEAR:
             return MFnAnimCurve::kTangentLinear;
 
-        case COLLADA::LibraryAnimations::BEZIER:
+        case COLLADASW::LibraryAnimations::BEZIER:
             return MFnAnimCurve::kTangentFixed;
 
         default:

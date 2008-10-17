@@ -16,7 +16,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaAnimationCurves.h"
 
-#include "COLLADAMathUtils.h"
+#include "COLLADASWMathUtils.h"
 
 
 namespace COLLADAMaya
@@ -32,27 +32,27 @@ namespace COLLADAMaya
     {}
 
     // --------------------------------------------------
-    AnimationKey* AnimationCurve::addKey ( COLLADA::LibraryAnimations::InterpolationType interpolation )
+    AnimationKey* AnimationCurve::addKey ( COLLADASW::LibraryAnimations::InterpolationType interpolation )
     {
         AnimationKey* key;
 
         switch ( interpolation )
         {
 
-        case COLLADA::LibraryAnimations::STEP:
+        case COLLADASW::LibraryAnimations::STEP:
             key = new AnimationKey;
             break;
 
-        case COLLADA::LibraryAnimations::LINEAR:
+        case COLLADASW::LibraryAnimations::LINEAR:
             key = new AnimationKey;
             break;
 
-        case COLLADA::LibraryAnimations::BEZIER:
+        case COLLADASW::LibraryAnimations::BEZIER:
             key = new AnimationKeyBezier;
             this->setHasTangents ( true );
             break;
 
-        case COLLADA::LibraryAnimations::TCB:
+        case COLLADASW::LibraryAnimations::TCB:
             key = new AnimationKeyTCB;
             this->setHasTCB ( true );
             break;
@@ -221,21 +221,21 @@ namespace COLLADAMaya
                 float output;
                 switch ( startKey->interpolation )
                 {
-                case COLLADA::LibraryAnimations::LINEAR:
+                case COLLADASW::LibraryAnimations::LINEAR:
                 {
                     output = startKey->output + ( input - startKey->input ) / inputInterval * outputInterval;
                     break;
                 }
-                case COLLADA::LibraryAnimations::BEZIER:
+                case COLLADASW::LibraryAnimations::BEZIER:
                 {
-                    if ( endKey->interpolation == COLLADA::LibraryAnimations::LINEAR )
+                    if ( endKey->interpolation == COLLADASW::LibraryAnimations::LINEAR )
                     {
                         output = startKey->output + ( input - startKey->input ) / inputInterval * outputInterval;
                         break;
                     }
 
-                    if ( endKey->interpolation == COLLADA::LibraryAnimations::DEFAULT ||
-                            endKey->interpolation == COLLADA::LibraryAnimations::STEP )
+                    if ( endKey->interpolation == COLLADASW::LibraryAnimations::DEFAULT ||
+                            endKey->interpolation == COLLADASW::LibraryAnimations::STEP )
                     {
                         output = startKey->output;
                         break;
@@ -245,11 +245,11 @@ namespace COLLADAMaya
                     AnimationKeyBezier* bkey1 = ( AnimationKeyBezier* ) startKey;
 
                     TangentPoint inTangent;
-                    if ( endKey->interpolation == COLLADA::LibraryAnimations::BEZIER )
+                    if ( endKey->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                     {
                         inTangent = ( ( AnimationKeyBezier* ) endKey )->inTangent;
                     }
-                    else if ( endKey->interpolation == COLLADA::LibraryAnimations::TCB )
+                    else if ( endKey->interpolation == COLLADASW::LibraryAnimations::TCB )
                     {
                         AnimationKeyTCB* tkey2 = ( AnimationKeyTCB* ) endKey;
                         TangentPoint tempTangent;
@@ -274,24 +274,24 @@ namespace COLLADAMaya
                     {
                         br = inputInterval / ( bkey1->outTangent.x - startKey->input );
                         cr = inputInterval / ( endKey->input - inTangent.x );
-                        br = COLLADA::MathUtils::clamp ( br, 0.01f, 100.0f );
-                        cr = COLLADA::MathUtils::clamp ( cr, 0.01f, 100.0f );
+                        br = COLLADASW::MathUtils::clamp ( br, 0.01f, 100.0f );
+                        cr = COLLADASW::MathUtils::clamp ( cr, 0.01f, 100.0f );
                     }
 
                     output = startKey->output * ti * ti * ti + br * b * ti * ti * t + cr * c * ti * t * t + endKey->output * t * t * t;
 
                     break;
                 }
-                case COLLADA::LibraryAnimations::TCB:
+                case COLLADASW::LibraryAnimations::TCB:
                 {
-                    if ( endKey->interpolation == COLLADA::LibraryAnimations::LINEAR )
+                    if ( endKey->interpolation == COLLADASW::LibraryAnimations::LINEAR )
                     {
                         output = startKey->output + ( input - startKey->input ) / inputInterval * outputInterval;
                         break;
                     }
 
-                    if ( endKey->interpolation == COLLADA::LibraryAnimations::DEFAULT ||
-                            endKey->interpolation == COLLADA::LibraryAnimations::STEP )
+                    if ( endKey->interpolation == COLLADASW::LibraryAnimations::DEFAULT ||
+                            endKey->interpolation == COLLADASW::LibraryAnimations::STEP )
                     {
                         output = startKey->output;
                         break;
@@ -310,7 +310,7 @@ namespace COLLADAMaya
                     float by = 0.0f, cy= 0.0f; //will be used in the Bezier equation.
                     float bx = 0.0f, cx = 0.0f; //will be used in FindT.. x equivalent of the point at b and c
 
-                    if ( endKey->interpolation == COLLADA::LibraryAnimations::TCB )
+                    if ( endKey->interpolation == COLLADASW::LibraryAnimations::TCB )
                     {
                         AnimationKeyTCB* tkey2 = ( AnimationKeyTCB* ) endKey;
                         const AnimationKey* nextKey = ( it + 1 ) < mKeys.end() ? ( * ( it + 1 ) ) : NULL;
@@ -318,7 +318,7 @@ namespace COLLADAMaya
                         cy = endKey->output + endTangent.y; //Assuming the tangent is GOING from the point.
                         cx = endKey->output + endTangent.x;
                     }
-                    else if ( endKey->interpolation == COLLADA::LibraryAnimations::BEZIER )
+                    else if ( endKey->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                     {
                         AnimationKeyBezier* tkey2 = ( AnimationKeyBezier* ) endKey;
                         endTangent = tkey2->inTangent;
@@ -344,7 +344,7 @@ namespace COLLADAMaya
 
                     break;
                 }
-                case COLLADA::LibraryAnimations::STEP:
+                case COLLADASW::LibraryAnimations::STEP:
                 default:
                     output = startKey->output;
                     break;
@@ -374,7 +374,7 @@ namespace COLLADAMaya
         {
             for ( AnimationKeyList::iterator it = mKeys.begin(); it != mKeys.end(); ++it )
             {
-                if ( ( *it )->interpolation == COLLADA::LibraryAnimations::BEZIER )
+                if ( ( *it )->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                 {
                     AnimationKeyBezier* bkey = ( AnimationKeyBezier* ) ( *it );
                     bkey->inTangent.v = ( *tangentConversion ) ( bkey->inTangent.v );
@@ -394,23 +394,23 @@ namespace COLLADAMaya
     {}
 
     // ----------------------------------------------------
-    AnimationMKey* AnimationMultiCurve::addKey ( COLLADA::LibraryAnimations::InterpolationType interpolation )
+    AnimationMKey* AnimationMultiCurve::addKey ( COLLADASW::LibraryAnimations::InterpolationType interpolation )
     {
         AnimationMKey* key;
 
         switch ( interpolation )
         {
-        case COLLADA::LibraryAnimations::STEP:
+        case COLLADASW::LibraryAnimations::STEP:
             key = new AnimationMKey ( mDimension );
             break;
-        case COLLADA::LibraryAnimations::LINEAR:
+        case COLLADASW::LibraryAnimations::LINEAR:
             key = new AnimationMKey ( mDimension );
             break;
-        case COLLADA::LibraryAnimations::BEZIER:
+        case COLLADASW::LibraryAnimations::BEZIER:
             this->setHasTangents ( true );
             key = new AnimationMKeyBezier ( mDimension );
             break;
-        case COLLADA::LibraryAnimations::TCB:
+        case COLLADASW::LibraryAnimations::TCB:
             this->setHasTCB ( true );
             key = new AnimationMKeyTCB ( mDimension );
             break;
@@ -481,19 +481,19 @@ namespace COLLADAMaya
                 // Similar code is found in AnimationCurve.cpp. If you update this, update the other one too.
                 switch ( startKey->interpolation )
                 {
-                case COLLADA::LibraryAnimations::LINEAR:
+                case COLLADASW::LibraryAnimations::LINEAR:
                     for ( uint i=0; i<mDimension; ++i )
                     {
                         output[i] = startKey->output[i] + ( input - startKey->input ) / inputInterval * ( endKey->output[i] - startKey->output[i] );
                     }
                     break;
-                case COLLADA::LibraryAnimations::BEZIER:
+                case COLLADASW::LibraryAnimations::BEZIER:
                 {
                     AnimationMKeyBezier* bkey1 = ( AnimationMKeyBezier* ) startKey;
                     for ( uint i=0; i<mDimension; ++i )
                     {
                         TangentPoint inTangent;
-                        if ( endKey->interpolation == COLLADA::LibraryAnimations::BEZIER )
+                        if ( endKey->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                             inTangent = ( ( AnimationMKeyBezier* ) endKey )->inTangent[i];
                         else inTangent = TangentPoint ( endKey->input, 0.0f );
 
@@ -507,15 +507,15 @@ namespace COLLADAMaya
                         float br = inputInterval / ( bkey1->outTangent[i].u - startKey->input );
                         float cr = inputInterval / ( endKey->input - inTangent.u );
 
-                        br = COLLADA::MathUtils::clamp ( br, 0.01f, 100.0f );
-                        cr = COLLADA::MathUtils::clamp ( cr, 0.01f, 100.0f );
+                        br = COLLADASW::MathUtils::clamp ( br, 0.01f, 100.0f );
+                        cr = COLLADASW::MathUtils::clamp ( cr, 0.01f, 100.0f );
 
                         output[i] = startKey->output[i] * ti * ti * ti + br* b * ti * ti * t + cr * c * ti * t * t + endKey->output[i] * t * t * t;
                     }
                     break;
                 }
-                case COLLADA::LibraryAnimations::TCB: // Not implemented..
-                case COLLADA::LibraryAnimations::STEP:
+                case COLLADASW::LibraryAnimations::TCB: // Not implemented..
+                case COLLADASW::LibraryAnimations::STEP:
                 default:
                     for ( uint i=0; i<mDimension; ++i ) output[i] = startKey->output[i];
                     break;

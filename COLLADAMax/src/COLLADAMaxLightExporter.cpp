@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxLightExporter.h"
 
@@ -26,7 +26,7 @@
 #include "COLLADAMaxEffectExporter.h"
 #include "COLLADAMaxVisualSceneExporter.h"
 #include "COLLADAMaxExtra.h"
-#include "COLLADALight.h"
+#include "COLLADASWLight.h"
 //#include "COLLADAMaxConversionFunctor.h"
 
 #include <max.h>
@@ -107,8 +107,8 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    LightExporter::LightExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADA::LibraryLights ( streamWriter ),
+    LightExporter::LightExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryLights ( streamWriter ),
 			Extra(streamWriter, documentExporter),
 			mExportSceneGraph(exportSceneGraph),
 			mDocumentExporter(documentExporter),
@@ -192,42 +192,42 @@ namespace COLLADAMax
 		bool isPoint = false;
 		bool isSky = false;
 
-		COLLADA::Light::LightType lightType;
+		COLLADASW::Light::LightType lightType;
 
 		switch (ClassId)
 		{
 		case FSPOT_LIGHT_CLASS_ID:
 		case SPOT_LIGHT_CLASS_ID: 
-			lightType = COLLADA::Light::SPOT; 
+			lightType = COLLADASW::Light::SPOT; 
 			isSpot = true; 
 			break;
 		case DIR_LIGHT_CLASS_ID: 
 		case TDIR_LIGHT_CLASS_ID: 
-			lightType = COLLADA::Light::DIRECTIONAL; 
+			lightType = COLLADASW::Light::DIRECTIONAL; 
 			isDirectional = true; 
 			break;
 		case SKY_LIGHT_CLASS_ID_PART_A:
-			lightType = COLLADA::Light::POINT; 
+			lightType = COLLADASW::Light::POINT; 
 			isSky = true;
 			break;
 		case OMNI_LIGHT_CLASS_ID:
-			lightType = COLLADA::Light::POINT; 
+			lightType = COLLADASW::Light::POINT; 
 			isPoint = true;
 			break;
 		}
 
-		COLLADA::Light * colladaLight = 0;
+		COLLADASW::Light * colladaLight = 0;
 
 		switch ( lightType )
 		{
-		case COLLADA::Light::DIRECTIONAL:
-			colladaLight = new COLLADA::DirectionalLight(COLLADA::LibraryLights::mSW, lightId, 1.0, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));
+		case COLLADASW::Light::DIRECTIONAL:
+			colladaLight = new COLLADASW::DirectionalLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
 			break;
-		case COLLADA::Light::POINT:
-			colladaLight = new COLLADA::PointLight(COLLADA::LibraryLights::mSW, lightId, 1.0, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));
+		case COLLADASW::Light::POINT:
+			colladaLight = new COLLADASW::PointLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
 			break;
-		case COLLADA::Light::SPOT:
-			colladaLight = new COLLADA::SpotLight(COLLADA::LibraryLights::mSW, lightId, 1.0, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));
+		case COLLADASW::Light::SPOT:
+			colladaLight = new COLLADASW::SpotLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
 			break;
 		}
 
@@ -412,7 +412,7 @@ namespace COLLADAMax
 				{
 					// Non-animatable is all they get
 					Point3 shadowColor = light->GetShadColor(mDocumentExporter->getOptions().getAnimationStart());
-					String shadowColorString = COLLADA::Utils::toString(shadowColor.x) + COLLADA::Utils::toString(shadowColor.y) + COLLADA::Utils::toString(shadowColor.z);
+					String shadowColorString = COLLADASW::Utils::toString(shadowColor.x) + COLLADASW::Utils::toString(shadowColor.y) + COLLADASW::Utils::toString(shadowColor.z);
 					addExtraChildParameter(SHADOW_ATTRIBS, SHADOW_PROJ_COLOR, shadowColorString);
 					addExtraChildParameter(SHADOW_ATTRIBS, SHADOW_PROJ_COLOR_MULT, light->GetShadMult(0));
 				}

@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxCameraExporter.h"
 #include "COLLADAMaxExportSceneGraph.h"
@@ -81,8 +81,8 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    CameraExporter::CameraExporter ( COLLADA::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
-            : COLLADA::LibraryCameras ( streamWriter ),
+    CameraExporter::CameraExporter ( COLLADASW::StreamWriter * streamWriter, ExportSceneGraph * exportSceneGraph, DocumentExporter * documentExporter )
+            : COLLADASW::LibraryCameras ( streamWriter ),
 			Extra(streamWriter, documentExporter),
 			mExportSceneGraph(exportSceneGraph),
 			mDocumentExporter(documentExporter),
@@ -144,10 +144,10 @@ namespace COLLADAMax
 			// Retrieve the camera parameters block
 			IParamBlock* parameters = (IParamBlock*) camera->GetReference(MaxCamera::PBLOCK_REF);
 
-			COLLADA::BaseOptic * optics = 0; 
+			COLLADASW::BaseOptic * optics = 0; 
 			if ( camera->IsOrtho() )
 			{
-				optics = new COLLADA::OrthographicOptic(COLLADA::LibraryCameras::mSW);
+				optics = new COLLADASW::OrthographicOptic(COLLADASW::LibraryCameras::mSW);
 
 				// Calculate the target distance for FOV calculations
 				float targetDistance;
@@ -175,15 +175,15 @@ namespace COLLADAMax
 			}
 			else
 			{
-				optics = new COLLADA::PerspectiveOptic(COLLADA::LibraryCameras::mSW);
+				optics = new COLLADASW::PerspectiveOptic(COLLADASW::LibraryCameras::mSW);
 				if ( AnimationExporter::isAnimated(parameters, MaxCamera::FOV) )
 				{
-					optics->setXFov(COLLADA::MathUtils::radToDegF(parameters->GetFloat(MaxCamera::FOV)), XFOV_SID);
+					optics->setXFov(COLLADASW::MathUtils::radToDegF(parameters->GetFloat(MaxCamera::FOV)), XFOV_SID);
 					mAnimationExporter->addAnimatedParameter(parameters, MaxCamera::FOV, cameraId, XFOV_SID, 0, true, &ConversionFunctors::radToDeg);
 				}
 				else
 				{
-					optics->setXFov(COLLADA::MathUtils::radToDegF(parameters->GetFloat(MaxCamera::FOV)));	
+					optics->setXFov(COLLADASW::MathUtils::radToDegF(parameters->GetFloat(MaxCamera::FOV)));	
 				}
 			}
 
@@ -194,7 +194,7 @@ namespace COLLADAMax
 			optics->setZFar(parameters->GetFloat(MaxCamera::FAR_CLIP), hasAnimatedZFar);
 
 
-			COLLADA::Camera colladaCamera(COLLADA::LibraryCameras::mSW, optics, cameraId, COLLADA::Utils::checkNCName(exportNode->getINode()->GetName()));
+			COLLADASW::Camera colladaCamera(COLLADASW::LibraryCameras::mSW, optics, cameraId, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
 			addCamera(colladaCamera);
 
 

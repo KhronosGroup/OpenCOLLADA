@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -70,7 +70,7 @@ namespace COLLADAMax
 	private:
 		/** Resolves all the controllers of the node, represented by the exportNode and stores them in @a mControllers.
 		We iterate thru the modifier stack, starting with the last one that is applied, until we hit the first modifier
-		that is not support by COLLADA, i.e. is neither a skin nor a morph controller.*/
+		that is not support by COLLADASW, i.e. is neither a skin nor a morph controller.*/
 		void resolveControllers(const ExportNode& exportNode);
 
     protected:

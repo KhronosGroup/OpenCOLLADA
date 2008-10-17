@@ -16,7 +16,7 @@
 #define __COLLADA_MAYA_CONTROLLER_EXPORTER_H___
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADALibraryControllers.h"
+#include "COLLADASWLibraryControllers.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaBaseController.h"
@@ -72,7 +72,7 @@ namespace COLLADAMaya
     /**
      * Class to control the skins and morphs
      */
-    class ControllerExporter : public COLLADA::LibraryControllers
+    class ControllerExporter : public COLLADASW::LibraryControllers
     {
 
     private:
@@ -107,7 +107,7 @@ namespace COLLADAMaya
          * @param streamWriter
          * @param documentExporter
          */
-        ControllerExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        ControllerExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
         virtual ~ControllerExporter();
 
         /**

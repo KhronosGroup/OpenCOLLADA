@@ -9,7 +9,7 @@
 */
 
 
-#include "COLLADASWStreamWriterException.h"
+#include "COLLADASWException.h"
 
 
 namespace COLLADASW

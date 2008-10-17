@@ -22,10 +22,10 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaHwShaderExporter.h"
 
-#include "COLLADAUtils.h"
-#include "COLLADANode.h"
-#include "COLLADAEffectProfile.h"
-#include "COLLADAExtraTechnique.h"
+#include "COLLADASWUtils.h"
+#include "COLLADASWNode.h"
+#include "COLLADASWEffectProfile.h"
+#include "COLLADASWExtraTechnique.h"
 
 #include <assert.h>
 
@@ -48,8 +48,8 @@ namespace COLLADAMaya
 
 
     //------------------------------------------------------
-    EffectExporter::EffectExporter ( COLLADA::StreamWriter* _streamWriter, DocumentExporter* _documentExporter )
-            : COLLADA::LibraryEffects ( _streamWriter ),
+    EffectExporter::EffectExporter ( COLLADASW::StreamWriter* _streamWriter, DocumentExporter* _documentExporter )
+            : COLLADASW::LibraryEffects ( _streamWriter ),
             mDocumentExporter ( _documentExporter ),
             mTextureExporter ( _documentExporter ),
             mMaterialMap ( NULL )
@@ -187,7 +187,7 @@ namespace COLLADAMaya
         openEffect ( effectId );
 
         // Add the correct effect for the material
-        COLLADA::EffectProfile effectProfile ( mSW );
+        COLLADASW::EffectProfile effectProfile ( mSW );
 
         if ( shader.hasFn ( MFn::kLambert ) )
         {
@@ -228,7 +228,7 @@ namespace COLLADAMaya
     // ---------------------------------
     void EffectExporter::exportHwShaderNode (
         const String &effectId,
-        COLLADA::EffectProfile *effectProfile,
+        COLLADASW::EffectProfile *effectProfile,
         MObject shaderNode )
     {
         HwShaderExporter hwShaderExporter ( mDocumentExporter );
@@ -238,11 +238,11 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void EffectExporter::exportConstantShader (
         const String &effectId,
-        COLLADA::EffectProfile *effectProfile,
+        COLLADASW::EffectProfile *effectProfile,
         MObject shadingNetwork )
     {
         // Create the constant effect
-        effectProfile->setShaderType ( COLLADA::EffectProfile::CONSTANT );
+        effectProfile->setShaderType ( COLLADASW::EffectProfile::CONSTANT );
 
         // Set the constant color/texture
 
@@ -284,7 +284,7 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void EffectExporter::exportStandardShader (
         const String &effectId,
-        COLLADA::EffectProfile *effectProfile,
+        COLLADASW::EffectProfile *effectProfile,
         MObject shadingNetwork,
         bool initialized )
     {
@@ -295,10 +295,10 @@ namespace COLLADAMaya
 
         // Add the shader element: <constant> and the <extra><technique profile="MAYA"> elements
         if ( shadingNetwork.hasFn ( MFn::kPhong ) )
-            effectProfile->setShaderType ( COLLADA::EffectProfile::PHONG );
+            effectProfile->setShaderType ( COLLADASW::EffectProfile::PHONG );
         else if ( shadingNetwork.hasFn ( MFn::kBlinn ) )
-            effectProfile->setShaderType ( COLLADA::EffectProfile::BLINN );
-        else effectProfile->setShaderType ( COLLADA::EffectProfile::LAMBERT );
+            effectProfile->setShaderType ( COLLADASW::EffectProfile::BLINN );
+        else effectProfile->setShaderType ( COLLADASW::EffectProfile::LAMBERT );
 
         // Get the animation exporter and the animation target path
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
@@ -310,7 +310,7 @@ namespace COLLADAMaya
         bool animated = false;
 
         // Emission color / Incandescence
-        targetSid = targetPath + COLLADA::CSWC::COLLADA_ELEMENT_EMISSION;
+        targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_EMISSION;
         animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, ATTR_INCANDESCENCE, kColour );
         effectProfile->setEmission ( mayaColor2ColorOrTexture ( matFn.incandescence() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shadingNetwork,
@@ -347,7 +347,7 @@ namespace COLLADAMaya
             MFnReflectShader reflectFn ( shadingNetwork );
 
             // Specular color
-            if ( effectProfile->getShaderType() != COLLADA::EffectProfile::LAMBERT )
+            if ( effectProfile->getShaderType() != COLLADASW::EffectProfile::LAMBERT )
             {
                 targetSid = targetPath + ATTR_SPECULAR_COLOR;
                 animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, ATTR_SPECULAR_COLOR, kColour );
@@ -374,7 +374,7 @@ namespace COLLADAMaya
         DagHelper::getPlugValue ( shadingNetwork, ATTR_REFRACTIONS, refractive );
         if ( refractive )
         {
-            targetSid = targetPath + COLLADA::CSWC::COLLADA_ELEMENT_INDEX_OF_REFRACTION;
+            targetSid = targetPath + COLLADASW::CSWC::CSW_ELEMENT_INDEX_OF_REFRACTION;
             animated = animationExporter->addNodeAnimation ( shadingNetwork, targetSid, ATTR_REFRACTIVE_INDEX, kSingle );
             effectProfile->setIndexOfRefraction ( matFn.refractiveIndex(), animated );
         }
@@ -415,7 +415,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     MObject EffectExporter::exportTexturedParameter(
         const String& effectId,
-        COLLADA::EffectProfile* effectProfile,
+        COLLADASW::EffectProfile* effectProfile,
         const MObject& node,
         const char* attributeName,
         EffectExporter::Channel channel,
@@ -445,12 +445,12 @@ namespace COLLADAMaya
             // Create the texture linking object.
             MObject fileTexture = fileTextures[i];
             int blendMode = blendModes[i];
-            String channelSemantic = TEXCOORD_BASE + COLLADA::Utils::toString ( channel );
+            String channelSemantic = TEXCOORD_BASE + COLLADASW::Utils::toString ( channel );
 
             // Get the animation target path
             String targetPath = effectId + "/" + effectProfile->getTechniqueSid() + "/";
 
-            COLLADA::Texture colladaTexture;
+            COLLADASW::Texture colladaTexture;
             mTextureExporter.exportTexture ( &colladaTexture,
                                              channelSemantic,
                                              fileTextures[i],
@@ -488,36 +488,36 @@ namespace COLLADAMaya
             {
                 // TODO
             case AMBIENT:
-                effectProfile->setAmbient ( COLLADA::ColorOrTexture ( colladaTexture ), animated );
+                effectProfile->setAmbient ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
             case BUMP:
             {
                 // Set the profile name and the child element name to the texture.
                 // Then we can add it as the extra technique texture.
-                colladaTexture.setProfileName( COLLADA::CSWC::COLLADA_PROFILE_COLLADA );
+                colladaTexture.setProfileName( COLLADASW::CSWC::CSW_PROFILE_COLLADA );
                 colladaTexture.setChildElementName( MAYA_BUMP_PARAMETER );
-                effectProfile->setExtraTechniqueColorOrTexture( COLLADA::ColorOrTexture ( colladaTexture ), MAYA_BUMP_PARAMETER );
+                effectProfile->setExtraTechniqueColorOrTexture( COLLADASW::ColorOrTexture ( colladaTexture ), MAYA_BUMP_PARAMETER );
                 break;
             }
             case DIFFUSE:
-                effectProfile->setDiffuse ( COLLADA::ColorOrTexture ( colladaTexture ), animated );
+                effectProfile->setDiffuse ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-            //  case DISPLACEMENT: displacementTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
+            //  case DISPLACEMENT: displacementTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case EMISSION:
-                effectProfile->setEmission ( COLLADA::ColorOrTexture ( colladaTexture ), animated );
+                effectProfile->setEmission ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-                //  case FILTER: filterTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
+                //  case FILTER: filterTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case REFLECTION:
-                effectProfile->setReflective ( COLLADA::ColorOrTexture ( colladaTexture ), animated );
+                effectProfile->setReflective ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-                //  case REFRACTION: refractionTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
-                //  case SHININESS: shininessTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
+                //  case REFRACTION: refractionTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
+                //  case SHININESS: shininessTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case SPECULAR:
-                effectProfile->setSpecular ( COLLADA::ColorOrTexture ( colladaTexture ), animated );
+                effectProfile->setSpecular ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
-                //  case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADA::ColorOrTexture(colladaTexture)); break;
+                //  case SPECULAR_LEVEL: specularFactorTextures.push_back(COLLADASW::ColorOrTexture(colladaTexture)); break;
             case TRANSPARENt:
-                effectProfile->setTransparent ( COLLADA::ColorOrTexture ( colladaTexture ), animated );
+                effectProfile->setTransparent ( COLLADASW::ColorOrTexture ( colladaTexture ), animated );
                 break;
             default:
                 break;
@@ -569,13 +569,13 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    void EffectExporter::blendColor ( COLLADA::ColorOrTexture &colorOrTexture,
-                                      COLLADA::Color blendColor,
+    void EffectExporter::blendColor ( COLLADASW::ColorOrTexture &colorOrTexture,
+                                      COLLADASW::Color blendColor,
                                       double ammount )
     {
         assert ( colorOrTexture.isColor() );
 
-        COLLADA::Color& color = colorOrTexture.getColor();
+        COLLADASW::Color& color = colorOrTexture.getColor();
 
         color.set ( color.getRed() + ( blendColor.getRed()-color.getRed() ) * ammount,
                     color.getGreen() + ( blendColor.getGreen()-color.getGreen() ) * ammount,
@@ -584,15 +584,15 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-    COLLADA::ColorOrTexture EffectExporter::mayaColor2ColorOrTexture ( const MColor &color, double scale )
+    COLLADASW::ColorOrTexture EffectExporter::mayaColor2ColorOrTexture ( const MColor &color, double scale )
     {
-        return COLLADA::ColorOrTexture ( COLLADA::Color ( color.r * scale, color.g * scale, color.b * scale, color.a ) );
+        return COLLADASW::ColorOrTexture ( COLLADASW::Color ( color.r * scale, color.g * scale, color.b * scale, color.a ) );
     }
 
     //---------------------------------------------------------------
     void EffectExporter::exportTransparency(
         const String& effectId,
-        COLLADA::EffectProfile* effectProfile,
+        COLLADASW::EffectProfile* effectProfile,
         MObject shadingNetwork,
         const MColor& transparentColor,
         const char* attributeName,
@@ -632,13 +632,13 @@ namespace COLLADAMaya
             String partialName = connectedPlug.partialName().asChar();
 
             if ( connectedPlug.partialName() == ATTR_OUT_COLOR )
-                effectProfile->setOpaque ( COLLADA::EffectProfile::RGB_ZERO ); // should be RGB_ONE.
+                effectProfile->setOpaque ( COLLADASW::EffectProfile::RGB_ZERO ); // should be RGB_ONE.
             else if ( connectedPlug.partialName() == ATTR_OUT_TRANSPARENCY )
-                effectProfile->setOpaque ( COLLADA::EffectProfile::A_ONE );
+                effectProfile->setOpaque ( COLLADASW::EffectProfile::A_ONE );
             else if ( connectedPlug.partialName() == ATTR_OUT_ALPHA )
-                effectProfile->setOpaque ( COLLADA::EffectProfile::A_ONE ); // valid?
+                effectProfile->setOpaque ( COLLADASW::EffectProfile::A_ONE ); // valid?
 
-            if ( effectProfile->getOpaque() == COLLADA::EffectProfile::A_ONE )
+            if ( effectProfile->getOpaque() == COLLADASW::EffectProfile::A_ONE )
             {
                 // Get the animation cache
                 AnimationSampleCache* animationCache = mDocumentExporter->getAnimationCache();
@@ -660,7 +660,7 @@ namespace COLLADAMaya
         }
         else
         {
-            effectProfile->setOpaque ( COLLADA::EffectProfile::RGB_ZERO ); // correctly RGB_zero.
+            effectProfile->setOpaque ( COLLADASW::EffectProfile::RGB_ZERO ); // correctly RGB_zero.
         }
     }
 

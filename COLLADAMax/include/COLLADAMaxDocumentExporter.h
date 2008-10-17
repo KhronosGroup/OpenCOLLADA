@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,7 +21,7 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
+#include "COLLADASWStreamWriter.h"
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxOptions.h"
 
@@ -69,11 +69,11 @@ namespace COLLADAMax
 
         Interface* mMaxInterface;
 
-        /** The stream writer used to write the COLLADA file.*/
-        COLLADA::StreamWriter mStreamWriter;
+        /** The stream writer used to write the COLLADASW file.*/
+        COLLADASW::StreamWriter mStreamWriter;
 
 		/** The uri of the main output file.*/
-		COLLADA::URI mOutputFileUri;
+		COLLADASW::URI mOutputFileUri;
 
         /** The scene graph which nodes will be exported.*/
         ExportSceneGraph* mExportSceneGraph;
@@ -90,25 +90,25 @@ namespace COLLADAMax
     public:
         /** Constructor
         @param i the max interface
-        @param filepath The file path the COLLADA document should be written to*/
-        DocumentExporter ( Interface* i, const String &filepath, COLLADA::IDList& xRefExportFileNames  );
+        @param filepath The file path the COLLADASW document should be written to*/
+        DocumentExporter ( Interface* i, const String &filepath, COLLADASW::IDList& xRefExportFileNames  );
 
 
 		/** Constructor. 
 		@param i the max interface.
 		@param exportSceneGraph The scene graph to export.
-		@param filepath The file path the COLLADA document should be written to
+		@param filepath The file path the COLLADASW document should be written to
 		@param options The options to use during export.*/
 		DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const String &filepath, const Options& options );
 
 		~DocumentExporter();
 
-		/** Returns the path of the COLLADA file created for the max file with URi @a sourceFile.*/
+		/** Returns the path of the COLLADASW file created for the max file with URi @a sourceFile.*/
 		String getXRefOutputPath(const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph) const;
 
-		/** Returns the URI of the COLLADA file created for the max file with URi @a sourceFile relative
-		to the main COLLADA file.*/
-		COLLADA::URI DocumentExporter::getXRefOutputURI( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const;
+		/** Returns the URI of the COLLADASW file created for the max file with URi @a sourceFile relative
+		to the main COLLADASW file.*/
+		COLLADASW::URI DocumentExporter::getXRefOutputURI( const ExportSceneGraph::XRefSceneGraph& xRefSceneGraph ) const;
 
         /** Returns a pointer to the max interface.*/
         inline Interface* getMaxInterface()

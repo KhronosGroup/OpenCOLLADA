@@ -17,7 +17,7 @@
 #include "COLLADAMayaRotateHelper.h"
 #include "COLLADAMayaSyntax.h"
 
-#include "COLLADAMathUtils.h"
+#include "COLLADASWMathUtils.h"
 
 namespace COLLADAMaya
 {
@@ -63,31 +63,31 @@ namespace COLLADAMaya
     // --------------------------------------------
     void RotateHelper::createX ( uint pos ) 
     {
-        double axis[] = { 1, 0, 0, COLLADA::MathUtils::radToDeg ( rotation.x ) }; 
+        double axis[] = { 1, 0, 0, COLLADASW::MathUtils::radToDeg ( rotation.x ) }; 
         std::vector<double> axisVec (axis, axis + sizeof(axis) / sizeof(double) );
         rotationMatrix.push_back ( axisVec );
         rotationParameters.push_back ( *X_PARAMETER );
-//        rotationMatrix[pos] = { 0, 0, 1, COLLADA::MathUtils::radToDeg ( rotation.x ) }; 
+//        rotationMatrix[pos] = { 0, 0, 1, COLLADASW::MathUtils::radToDeg ( rotation.x ) }; 
     }
 
     // --------------------------------------------
     void RotateHelper::createY ( uint pos ) 
     {
-        double axis[] = { 0, 1, 0, COLLADA::MathUtils::radToDeg ( rotation.y ) }; 
+        double axis[] = { 0, 1, 0, COLLADASW::MathUtils::radToDeg ( rotation.y ) }; 
         std::vector<double> axisVec (axis, axis + sizeof(axis) / sizeof(double) );
         rotationMatrix.push_back ( axisVec );
         rotationParameters.push_back ( *Y_PARAMETER );
-//        rotationMatrix[pos] = { 0, 0, 1, COLLADA::MathUtils::radToDeg ( rotation.y ) }; 
+//        rotationMatrix[pos] = { 0, 0, 1, COLLADASW::MathUtils::radToDeg ( rotation.y ) }; 
     }
 
     // --------------------------------------------
     void RotateHelper::createZ ( uint pos ) 
     { 
-        double axis[] = { 0, 0, 1, COLLADA::MathUtils::radToDeg ( rotation.z ) }; 
+        double axis[] = { 0, 0, 1, COLLADASW::MathUtils::radToDeg ( rotation.z ) }; 
         std::vector<double> axisVec (axis, axis + sizeof(axis) / sizeof(double) );
         rotationMatrix.push_back ( axisVec );
         rotationParameters.push_back ( *Z_PARAMETER );
-//        rotationMatrix[pos] = { 0, 0, 1, COLLADA::MathUtils::radToDeg ( rotation.z ) }; 
+//        rotationMatrix[pos] = { 0, 0, 1, COLLADASW::MathUtils::radToDeg ( rotation.z ) }; 
     }
 
 }

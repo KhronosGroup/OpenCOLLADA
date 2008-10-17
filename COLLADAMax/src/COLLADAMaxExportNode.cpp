@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxExportNode.h"
 #include "COLLADAMaxControllerExporter.h"
@@ -233,7 +233,7 @@ namespace COLLADAMax
 	String ExportNode::getLastControllerId() const
 	{
 		if ( !hasControllers() )
-			return COLLADA::Utils::EMPTY_STRING;
+			return COLLADASW::Utils::EMPTY_STRING;
 
 		size_t controllerCount = mControllerList->getControllerCount();
 		return ControllerExporter::getControllerId(*this, controllerCount, mControllerList->getController(0)->getType());

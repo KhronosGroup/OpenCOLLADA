@@ -29,11 +29,11 @@
 #include <maya/MVector.h>
 #include <maya/MItMeshPolygon.h>
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADAElementWriter.h"
-#include "COLLADALibraryGeometries.h"
-#include "COLLADAInputList.h"
-#include "COLLADAPrimitves.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWElementWriter.h"
+#include "COLLADASWLibraryGeometries.h"
+#include "COLLADASWInputList.h"
+#include "COLLADASWPrimitves.h"
 
 class DocumentExporter;
 class ElementWriter;
@@ -47,7 +47,7 @@ namespace COLLADAMaya
     /* This class writes the <polylist> elements in the <library_geometries>.                                                                     */
     /************************************************************************/
 
-    class GeometryPolygonExporter : public COLLADA::LibraryGeometries
+    class GeometryPolygonExporter : public COLLADASW::LibraryGeometries
     {
 
     private:
@@ -114,7 +114,7 @@ namespace COLLADAMaya
     public:
 
         /* @param streamWriter The stream the output will be written to                                                                     */
-        GeometryPolygonExporter ( COLLADA::StreamWriter* _streamWriter,
+        GeometryPolygonExporter ( COLLADASW::StreamWriter* _streamWriter,
                                   DocumentExporter* _documentExporter );
         virtual ~GeometryPolygonExporter ( void );
 
@@ -150,9 +150,9 @@ namespace COLLADAMaya
          * @param fnMesh The current mesh object.
          * @param numPolygons Number of polygons.
          * @param currentShapeIsHoled True, if we have to implement a polygon instead of a polylist element.
-         * @return COLLADA::PrimitivesBase* Pointer to the created Template object.
+         * @return COLLADASW::PrimitivesBase* Pointer to the created Template object.
          */
-        COLLADA::PrimitivesBase* preparePrimitivesBase( 
+        COLLADASW::PrimitivesBase* preparePrimitivesBase( 
             const MFnMesh& fnMesh, 
             const uint numPolygons, 
             const uint currentShapeIsHoled );
@@ -163,7 +163,7 @@ namespace COLLADAMaya
          * @param exportType The type of the polygon source.
          */
         void writeShaderPolygons( 
-            COLLADA::PrimitivesBase* primitivesBasePoly,
+            COLLADASW::PrimitivesBase* primitivesBasePoly,
             const uint baseExportType,
             MFnMesh &fnMesh );
 
@@ -197,7 +197,7 @@ namespace COLLADAMaya
          * @param numVertices Number of vertices in the current mesh.
          */
         void writeElementVertexIndices( 
-            COLLADA::PrimitivesBase* primitivesBasePoly,
+            COLLADASW::PrimitivesBase* primitivesBasePoly,
             PolygonSource* polygon, 
             MFnMesh &fnMesh, 
             MItMeshPolygon &meshPolygonsIter,
@@ -224,12 +224,12 @@ namespace COLLADAMaya
         /**
         * Create the real Polylist/Polygons/Triangles element.
         */
-        COLLADA::PrimitivesBase* createPrimitivesBase ( const uint baseExportType );
+        COLLADASW::PrimitivesBase* createPrimitivesBase ( const uint baseExportType );
 
         /**
         * Check if the current face is a normal polygon or a hole and open the corresponding tag.
         */
-        void openPolygonOrHoleElement ( COLLADA::PrimitivesBase* polylist,
+        void openPolygonOrHoleElement ( COLLADASW::PrimitivesBase* polylist,
                                         PolygonSource* poly,
                                         const uint currentFaceIndex );
 
@@ -260,7 +260,7 @@ namespace COLLADAMaya
          * @param polyIndex The current polygon index.
          */
         void writeVertexIndices(
-            COLLADA::PrimitivesBase* primitivesBasePoly,
+            COLLADASW::PrimitivesBase* primitivesBasePoly,
             PolygonSource *polygon, 
             int vertexIndex, 
             MIntArray &normalIndices, 
@@ -287,7 +287,7 @@ namespace COLLADAMaya
         /*
         * Generate the list of the polygon set inputs.
         */
-        void getPolygonInputAttributes ( COLLADA::InputList& inputList );
+        void getPolygonInputAttributes ( COLLADASW::InputList& inputList );
 
         /** Retrieve the list of vertex attributes. 
             That's the input list of vertexes in the collada document. */
@@ -305,7 +305,7 @@ namespace COLLADAMaya
          * @param fnMesh The mesh object.
          */
         void writeVertexCountList( 
-            COLLADA::PrimitivesBase* primitivesBase, 
+            COLLADASW::PrimitivesBase* primitivesBase, 
             const MFnMesh &fnMesh );
         
         /**

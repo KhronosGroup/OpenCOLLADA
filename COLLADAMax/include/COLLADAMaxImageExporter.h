@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -21,8 +21,8 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryImages.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryImages.h"
 
 #include "COLLADAMaxEffectExporter.h"
 #include "COLLADAMaxDocumentExporter.h"
@@ -33,7 +33,7 @@ namespace COLLADAMax
 
     /** This class writes the @a \<library_images\>. It uses informations created by an effect exporter.*/
 
-    class ImageExporter : public COLLADA::LibraryImages
+    class ImageExporter : public COLLADASW::LibraryImages
     {
 
     private:
@@ -44,7 +44,7 @@ namespace COLLADAMax
         /**
         @param streamWriter The stream the output will be written to
         @param documentExporter The document exporter this material exporter is used in*/
-        ImageExporter ( COLLADA::StreamWriter * streamWriter, DocumentExporter * documentExporter );
+        ImageExporter ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter );
         virtual ~ImageExporter()
         {}
 

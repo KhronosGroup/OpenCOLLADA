@@ -7,7 +7,7 @@
    Copyright (c) 2005-2007 Feeling Software Inc.
    Copyright (c) 2005-2007 Sony Computer Entertainment America
    
-   Based on the 3dsMax COLLADA Tools:
+   Based on the 3dsMax COLLADASW Tools:
    Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
    Licensed under the MIT Open Source License, 
@@ -16,7 +16,7 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxOptions.h"
 
@@ -77,8 +77,8 @@ namespace COLLADAMax
 	}
 
 
-	const String Options::CONFIGURATION_FILE_NAME = "NewColladaMax.ini";
-	const String Options::CONFIGURATION_HEADER_NAME = "NewColladaMax";
+	const String Options::CONFIGURATION_FILE_NAME = "NewCOLLADAMax.ini";
+	const String Options::CONFIGURATION_HEADER_NAME = "NewCOLLADAMax";
 
 	Options::Options(Interface* maxInterface)
 		:
@@ -348,7 +348,7 @@ namespace COLLADAMax
 					while (*value != 0 && (*value == ' ' || *value == '\r' || *value == '\t')) ++value;
 					if (*value != 0) // skip empty lines.
 					{
-						// Look for/read in the ColladaMax options.
+						// Look for/read in the COLLADAMax options.
 						readOption<bool>(token, OPTION_NORMALS_NAME, value, mNormals) ||
 						readOption<bool>(token, OPTION_TRIANGULAT_NAME, value, mTriangulate) ||
 						readOption<bool>(token, OPTION_XREFS_NAME, value, mIncludeXrefs) ||

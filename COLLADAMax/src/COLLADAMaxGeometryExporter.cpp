@@ -7,7 +7,7 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     
-    Based on the 3dsMax COLLADA Tools:
+    Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
 	
     Licensed under the MIT Open Source License, 
@@ -16,13 +16,13 @@
 */
 
 
-#include "ColladaMaxStableHeaders.h"
+#include "COLLADAMaxStableHeaders.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADASource.h"
-#include "COLLADABaseInputElement.h"
-#include "COLLADAPrimitves.h"
-#include "COLLADAUtils.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWBaseInputElement.h"
+#include "COLLADASWPrimitves.h"
+#include "COLLADASWUtils.h"
 
 #include "COLLADAMaxGeometryExporter.h"
 #include "COLLADAMaxMaterialExporter.h"
@@ -107,7 +107,7 @@ namespace COLLADAMax
     String GeometryExporter::getTextureSourceIdSuffix ( int channel )
     {
         std::ostringstream idSuffix;
-        idSuffix << COLLADA::LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX << channel;
+        idSuffix << COLLADASW::LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX << channel;
         return idSuffix.str();
     }
 
@@ -329,7 +329,7 @@ namespace COLLADAMax
 			if ( !mMorphControllerHelperGeometry )
 				mDocumentExporter->insertExportedObject(ObjectIdentifier( object ), mExportNode);
 
-            mGeometriesExporter->openMesh ( mId, COLLADA::Utils::checkNCName ( iNode->GetName() ) );
+            mGeometriesExporter->openMesh ( mId, COLLADASW::Utils::checkNCName ( iNode->GetName() ) );
 
 			if ( mMorphControllerHelperGeometry )
 				exportMorphHelperPositions();
@@ -378,8 +378,8 @@ namespace COLLADAMax
 
             //map<Matid, number of faces>
             std::map<size_t, size_t> facesPerMaterialIdMap;
-            //map<Matid, COLLADA::Polylist>
-            typedef std::map<size_t, COLLADA::Polylist> PolylistListPerMaterialIdMap;
+            //map<Matid, COLLADASW::Polylist>
+            typedef std::map<size_t, COLLADASW::Polylist> PolylistListPerMaterialIdMap;
             PolylistListPerMaterialIdMap polylistListPerMaterialIdMap;
 
             if ( isEditablePoly() )
@@ -396,7 +396,7 @@ namespace COLLADAMax
                         PolylistListPerMaterialIdMap::iterator it = polylistListPerMaterialIdMap.find ( materialId );
 
                         if ( it == polylistListPerMaterialIdMap.end() )
-                            it = ( polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADA::Polylist> ( materialId, COLLADA::Polylist ( mGeometriesExporter->mSW ) ) ) ).first;
+                            it = ( polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADASW::Polylist> ( materialId, COLLADASW::Polylist ( mGeometriesExporter->mSW ) ) ) ).first;
 
                         it->second.getVCountList().push_back ( face->deg );
 
@@ -407,7 +407,7 @@ namespace COLLADAMax
 
                 else
                 {
-                    polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADA::Polylist> ( 0, COLLADA::Polylist ( mGeometriesExporter->mSW ) ) );
+                    polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADASW::Polylist> ( 0, COLLADASW::Polylist ( mGeometriesExporter->mSW ) ) );
                     MNMesh &mnMesh = mPolyObject->GetMesh();
                     int numberOfFaces = mnMesh.FNum();
 
@@ -449,7 +449,7 @@ namespace COLLADAMax
 
             exportVertices ( mId );
 
-            // Create one COLLADA polygon set for each material used in the mesh
+            // Create one COLLADASW polygon set for each material used in the mesh
             //   FCDMaterial* blackMtl = NULL;
 
 			for ( GeometriesExporter::MaterialIDList::iterator it = materialIDs.begin(); it != materialIDs.end(); ++it )
@@ -586,9 +586,9 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     void GeometryExporter::exportPositions()
     {
-        COLLADA::FloatSource source ( mGeometriesExporter->mSW );
-        source.setId ( mId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
-        source.setArrayId ( mId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADA::LibraryGeometries::ARRAY_ID_SUFFIX );
+        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+        source.setId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
+        source.setArrayId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
         source.setAccessorStride ( 3 );
         source.getParameterNameList().push_back ( "X" );
         source.getParameterNameList().push_back ( "Y" );
@@ -631,9 +631,9 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void GeometryExporter::exportMorphHelperPositions()
 	{
-		COLLADA::FloatSource source ( mGeometriesExporter->mSW );
-		source.setId ( mId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
-		source.setArrayId ( mId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADA::LibraryGeometries::ARRAY_ID_SUFFIX );
+		COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+		source.setId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
+		source.setArrayId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
 		source.setAccessorStride ( 3 );
 		source.getParameterNameList().push_back ( "X" );
 		source.getParameterNameList().push_back ( "Y" );
@@ -692,9 +692,9 @@ namespace COLLADAMax
 
         int normalCount = normalSpec->GetNumNormals();
 
-        COLLADA::FloatSource source ( mGeometriesExporter->mSW );
-        source.setId ( mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
-        source.setArrayId ( mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADA::LibraryGeometries::ARRAY_ID_SUFFIX );
+        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+        source.setId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
+        source.setArrayId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
         source.setAccessorStride ( 3 );
         source.setAccessorCount ( normalCount );
         source.getParameterNameList().push_back ( "X" );
@@ -740,11 +740,11 @@ namespace COLLADAMax
         if ( normalCount == 0 )
             return ;
 
-        COLLADA::FloatSource source ( mGeometriesExporter->mSW );
+        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
 
-        source.setId ( mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
+        source.setId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
 
-        source.setArrayId ( mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADA::LibraryGeometries::ARRAY_ID_SUFFIX );
+        source.setArrayId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
 
         source.setAccessorStride ( 3 );
 
@@ -795,10 +795,10 @@ namespace COLLADAMax
         /* if (channelIndex >= mesh.getNumMaps() || channelIndex < -NUM_HIDDENMAPS)
           return;*/
 
-        COLLADA::FloatSource source ( mGeometriesExporter->mSW );
+        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
         String sourceId = mId + getTextureSourceIdSuffix ( channelIndex );
         source.setId ( sourceId );
-        source.setArrayId ( sourceId + COLLADA::LibraryGeometries::ARRAY_ID_SUFFIX );
+        source.setArrayId ( sourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
         source.setAccessorStride ( 3 );
 
         if ( channelIndex <= 0 )
@@ -915,9 +915,9 @@ namespace COLLADAMax
 
     void GeometryExporter::exportVertices ( const String & meshId )
     {
-        COLLADA::VerticesElement vertices ( mGeometriesExporter->mSW );
-        vertices.setId ( meshId + COLLADA::LibraryGeometries::VERTICES_ID_SUFFIX );
-        vertices.getInputList().push_back ( COLLADA::Input ( COLLADA::POSITION, "#" + meshId + COLLADA::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
+        COLLADASW::VerticesElement vertices ( mGeometriesExporter->mSW );
+        vertices.setId ( meshId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX );
+        vertices.getInputList().push_back ( COLLADASW::Input ( COLLADASW::POSITION, "#" + meshId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
         vertices.add();
     }
 
@@ -932,15 +932,15 @@ namespace COLLADAMax
         MeshNormalSpec *norms = mesh.GetSpecifiedNormals();
 
         int offset = 0;
-        COLLADA::Triangles triangles ( mGeometriesExporter->mSW );
+        COLLADASW::Triangles triangles ( mGeometriesExporter->mSW );
         triangles.setCount ( numberOfFaces );
         triangles.setMaterial ( symbol );
-        triangles.getInputList().push_back ( COLLADA::Input ( COLLADA::VERTEX, "#" + mId + COLLADA::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
-        triangles.getInputList().push_back ( COLLADA::Input ( COLLADA::NORMAL, "#" + mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+        triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
+        triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
 
         for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
         {
-            triangles.getInputList().push_back ( COLLADA::Input ( ( *it <= 0 ) ? COLLADA::COLOR : COLLADA::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
+            triangles.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
         }
 
         triangles.prepareToAppendValues();
@@ -976,7 +976,7 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    void GeometryExporter::exportPolylist ( const String & symbol, COLLADA::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList )
+    void GeometryExporter::exportPolylist ( const String & symbol, COLLADASW::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList )
     {
         MNMesh & mnMesh = mPolyObject->GetMesh();
 
@@ -985,12 +985,12 @@ namespace COLLADAMax
         int offset = 0;
         polylist.setCount ( ( unsigned long ) polylist.getVCountList().size() );
         polylist.setMaterial ( symbol );
-        polylist.getInputList().push_back ( COLLADA::Input ( COLLADA::VERTEX, "#" + mId + COLLADA::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
-        polylist.getInputList().push_back ( COLLADA::Input ( COLLADA::NORMAL, "#" + mId + COLLADA::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+        polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
+        polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
 
         for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
         {
-            polylist.getInputList().push_back ( COLLADA::Input ( ( *it <= 0 ) ? COLLADA::COLOR : COLLADA::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
+            polylist.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
         }
 
         polylist.prepareToAppendValues();

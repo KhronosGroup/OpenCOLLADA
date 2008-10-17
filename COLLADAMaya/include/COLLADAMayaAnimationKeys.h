@@ -18,7 +18,7 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaTangentPoint.h"
-#include "COLLADALibraryAnimations.h"
+#include "COLLADASWLibraryAnimations.h"
 
 namespace COLLADAMaya
 {
@@ -42,7 +42,7 @@ namespace COLLADAMaya
         float input;
 
         /** The key interpolation type. */
-        COLLADA::LibraryAnimations::InterpolationType interpolation;
+        COLLADASW::LibraryAnimations::InterpolationType interpolation;
     };
 
     // ----------------------------------------------------------

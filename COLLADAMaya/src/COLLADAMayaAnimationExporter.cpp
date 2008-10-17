@@ -27,10 +27,10 @@
 #include <maya/MFnCharacter.h>
 #include <maya/MFnClip.h>
 
-#include "COLLADASource.h"
-#include "COLLADAMathUtils.h"
-#include "COLLADAExtraTechnique.h"
-#include "COLLADALibraryAnimationClips.h"
+#include "COLLADASWSource.h"
+#include "COLLADASWMathUtils.h"
+#include "COLLADASWExtraTechnique.h"
+#include "COLLADASWLibraryAnimationClips.h"
 
 namespace COLLADAMaya
 {
@@ -46,9 +46,9 @@ namespace COLLADAMaya
 
 
     //---------------------------------------------------------------
-    AnimationExporter::AnimationExporter ( COLLADA::StreamWriter* streamWriter,
+    AnimationExporter::AnimationExporter ( COLLADASW::StreamWriter* streamWriter,
                                            DocumentExporter* documentExporter )
-            : COLLADA::LibraryAnimations ( streamWriter )
+            : COLLADASW::LibraryAnimations ( streamWriter )
             , mDocumentExporter ( documentExporter )
             , isImport ( false )
     {
@@ -245,7 +245,7 @@ namespace COLLADAMaya
         uint dimension = animatedElement->getDimension();
 
         // Create the new multi curve
-        String baseId = COLLADA::Utils::checkID ( animatedElement->getTargetSid() );
+        String baseId = COLLADASW::Utils::checkID ( animatedElement->getTargetSid() );
         multiCurve = new AnimationMultiCurve ( animatedElement, baseId, dimension );
         multiCurve->setPreInfinity ( mergedCurve->getPreInfinity() );
         multiCurve->setPostInfinity ( mergedCurve->getPostInfinity() );
@@ -269,7 +269,7 @@ namespace COLLADAMaya
                 if ( mergedInputs[m] == curveKeys[c]->input )
                 {
                     if ( mergedInterpolations[m] != curveKeys[c]->interpolation )
-                        mergedInterpolations[m] = COLLADA::LibraryAnimations::BEZIER;
+                        mergedInterpolations[m] = COLLADASW::LibraryAnimations::BEZIER;
                     ++c;
                     ++m;
                 }
@@ -301,7 +301,7 @@ namespace COLLADAMaya
         size_t keyCount = mergedInputs.size();
         for ( size_t curvePosition=0; curvePosition<keyCount; ++curvePosition )
         {
-            AnimationMKey* key = multiCurve->addKey ( ( COLLADA::LibraryAnimations::InterpolationType ) mergedInterpolations[curvePosition] );
+            AnimationMKey* key = multiCurve->addKey ( ( COLLADASW::LibraryAnimations::InterpolationType ) mergedInterpolations[curvePosition] );
             key->input = mergedInputs[curvePosition];
         }
 
@@ -356,7 +356,7 @@ namespace COLLADAMaya
         {
             ( *keys ) [k]->output[curvePosition] = defaultValue;
 
-            if ( ( *keys ) [k]->interpolation == COLLADA::LibraryAnimations::BEZIER )
+            if ( ( *keys ) [k]->interpolation == COLLADASW::LibraryAnimations::BEZIER )
             {
                 float previousSpan = ( k > 0 ? mergedInputs[k] - mergedInputs[k - 1] : 1.0f ) / 3.0f;
                 float nextSpan = ( k < keyCount - 1 ? mergedInputs[k + 1] - mergedInputs[k] : 1.0f ) / 3.0f;
@@ -396,12 +396,12 @@ namespace COLLADAMaya
                 key->output[curvePosition] = curveKeys[keyPosition]->output;
 
                 // Check the wanted interpolation type to retrieve/calculate the extra necessary information.
-                if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
+                if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                 {
                     createBezierMKey ( key, curveKeys, curvePosition,
                                        previousSpan, nextSpan, keyPosition );
                 }
-                else if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
+                else if ( key->interpolation == COLLADASW::LibraryAnimations::TCB )
                 {
                     createTCBMKey ( key, curveKeys, curvePosition, keyPosition );
                 }
@@ -474,8 +474,8 @@ namespace COLLADAMaya
             doMergeCurves &= ( curveKey->interpolation == masterKey->interpolation );
 
             // Prevent curve having TCB interpolation from merging
-            doMergeCurves &= curveKey->interpolation != COLLADA::LibraryAnimations::TCB;
-            doMergeCurves &= masterKey->interpolation != COLLADA::LibraryAnimations::TCB;
+            doMergeCurves &= curveKey->interpolation != COLLADASW::LibraryAnimations::TCB;
+            doMergeCurves &= masterKey->interpolation != COLLADASW::LibraryAnimations::TCB;
         }
 
         if ( doMergeCurves )
@@ -677,12 +677,12 @@ namespace COLLADAMaya
             input.push_back ( key->input );
             output.push_back ( key->output );
 
-            interpolations.push_back ( COLLADA::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
+            interpolations.push_back ( COLLADASW::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
 
             // Handle Tangents
             if ( hasTangents )
             {
-                if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
+                if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                 {
                     // Export bezier tangents
                     AnimationKeyBezier* bezKey = ( AnimationKeyBezier* ) key;
@@ -704,7 +704,7 @@ namespace COLLADAMaya
             // Handle TCB
             if ( hasTCB )
             {
-                if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
+                if ( key->interpolation == COLLADASW::LibraryAnimations::TCB )
                 {
                     AnimationKeyTCB* tcbKey = ( AnimationKeyTCB* ) key;
 
@@ -812,7 +812,7 @@ namespace COLLADAMaya
             }
 
             // Set the interpolation
-            interpolations.push_back ( COLLADA::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
+            interpolations.push_back ( COLLADASW::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
 
             // Handle Tangents
             if ( hasTangents )
@@ -835,7 +835,7 @@ namespace COLLADAMaya
         std::vector<float> &tcbs,
         std::vector<float> &eases )
     {
-        if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
+        if ( key->interpolation == COLLADASW::LibraryAnimations::TCB )
         {
             AnimationMKeyTCB* tcbKey = ( AnimationMKeyTCB* ) key;
 
@@ -884,7 +884,7 @@ namespace COLLADAMaya
         std::vector<float> &outTangents,
         float* outputList )
     {
-        if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
+        if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
         {
             // Export bezier tangents
             AnimationMKeyBezier* bezKey = ( AnimationMKeyBezier* ) key;
@@ -932,7 +932,7 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSourceF source ( mSW );
+            COLLADASW::FloatSourceF source ( mSW );
             source.setId ( sourceId + INPUT_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + INPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -944,9 +944,9 @@ namespace COLLADAMaya
             source.finish ( false );
 
             // Export the infinity parameters
-            COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
-            COLLADA::Technique techniqueSource ( streamWriter );
-            techniqueSource.openTechnique ( COLLADA::CSWC::COLLADA_PROFILE_MAYA );
+            COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+            COLLADASW::Technique techniqueSource ( streamWriter );
+            techniqueSource.openTechnique ( COLLADASW::CSWC::CSW_PROFILE_MAYA );
             techniqueSource.addParameter ( MAYA_PREINFINITY_PARAMETER, preInfinityType );
             techniqueSource.addParameter ( MAYA_POSTINFINITY_PARAMETER, postInfinityType );
             techniqueSource.closeTechnique();
@@ -965,7 +965,7 @@ namespace COLLADAMaya
         size_t size = values.size();
         if ( values.size() > 0 && dimension > 0 )
         {
-            COLLADA::TypeIndependentSourceF source ( mSW );
+            COLLADASW::TypeIndependentSourceF source ( mSW );
             source.setId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + OUTPUT_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + OUTPUT_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -974,7 +974,7 @@ namespace COLLADAMaya
             if ( dimension != 16 && dimension != 32 )
             {
                 // It's a float source.
-                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_VALUE_TYPE_FLOAT );
+                source.setParameterTypeName ( &COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT );
                 for ( uint i=0; i<dimension; ++i )
                     source.getParameterNameList().push_back ( * ( parameters + i ) );
             }
@@ -982,14 +982,14 @@ namespace COLLADAMaya
             else if ( dimension == 16 )
             {
                 // It's a matrix source.
-                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_VALUE_TYPE_FLOAT4x4 );
+                source.setParameterTypeName ( &COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT4x4 );
                 source.getParameterNameList().push_back ( PARAM_TYPE_TRANSFORM ); // That's the "TRANSFORM" parameter
             }
 
             else if ( dimension == 32 )
             {
                 // It's a matrix source.
-                source.setParameterTypeName ( &COLLADA::CSWC::COLLADA_VALUE_TYPE_FLOAT4x4 );
+                source.setParameterTypeName ( &COLLADASW::CSWC::CSW_VALUE_TYPE_FLOAT4x4 );
                 source.getParameterNameList().push_back ( PARAM_TYPE_X_Y ); // That's the "X_Y" parameter
             }
 
@@ -1007,7 +1007,7 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( interpolations.size() > 0 )
         {
-            COLLADA::NameSource source ( mSW );
+            COLLADASW::NameSource source ( mSW );
             source.setId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + INTERPOLATION_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1045,7 +1045,7 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSourceF source ( mSW );
+            COLLADASW::FloatSourceF source ( mSW );
             source.setId ( sourceId + sourceIdSuffix );
             source.setNodeName ( sourceId + sourceIdSuffix );
             source.setArrayId ( sourceId + sourceIdSuffix + ARRAY_ID_SUFFIX );
@@ -1073,7 +1073,7 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSourceF source ( mSW );
+            COLLADASW::FloatSourceF source ( mSW );
             source.setId ( sourceId + TCBS_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + TCBS_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + TCBS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1093,7 +1093,7 @@ namespace COLLADAMaya
         // Just export if there are values
         if ( values.size() > 0 )
         {
-            COLLADA::FloatSourceF source ( mSW );
+            COLLADASW::FloatSourceF source ( mSW );
             source.setId ( sourceId + EASES_SOURCE_ID_SUFFIX );
             source.setNodeName ( sourceId + EASES_SOURCE_ID_SUFFIX );
             source.setArrayId ( sourceId + EASES_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX );
@@ -1114,14 +1114,14 @@ namespace COLLADAMaya
 
         LibraryAnimations::Sampler sampler ( sourceId + SAMPLER_ID_SUFFIX );
 
-        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADA::URI ( "", sourceId + INPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADA::URI ( "", sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
-        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADA::URI ( "", sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INPUT, COLLADASW::URI ( "", sourceId + INPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::OUTPUT, COLLADASW::URI ( "", sourceId + OUTPUT_SOURCE_ID_SUFFIX ) );
+        sampler.addInput ( LibraryAnimations::Sampler::INTERPOLATION, COLLADASW::URI ( "", sourceId + INTERPOLATION_SOURCE_ID_SUFFIX ) );
 
         if ( animationCurve.hasTangents() )
         {
-            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADA::URI ( "", sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
-            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADA::URI ( "", sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::IN_TANGENT, COLLADASW::URI ( "", sourceId + INTANGENT_SOURCE_ID_SUFFIX ) );
+            sampler.addInput ( LibraryAnimations::Sampler::OUT_TANGENT, COLLADASW::URI ( "", sourceId + OUTTANGENT_SOURCE_ID_SUFFIX ) );
         }
 
         addSampler ( sampler );
@@ -1134,7 +1134,7 @@ namespace COLLADAMaya
         String sourceId = animationCurve.getSourceId();
         String target = getTarget ( animationCurve );
 
-        addChannel ( COLLADA::URI ( "", sourceId + SAMPLER_ID_SUFFIX ), target );
+        addChannel ( COLLADASW::URI ( "", sourceId + SAMPLER_ID_SUFFIX ), target );
     }
 
     //---------------------------------------------------------------
@@ -1323,7 +1323,7 @@ namespace COLLADAMaya
         else if ( ( sampleType & kAngle ) == kAngle )
         {
             ConversionFunctor* conversion = new ConversionScaleFunctor (
-                isImport ? COLLADA::MathUtils::degToRadF ( 1.0f ) : COLLADA::MathUtils::radToDegF ( 1.0f ) );
+                isImport ? COLLADASW::MathUtils::degToRadF ( 1.0f ) : COLLADASW::MathUtils::radToDegF ( 1.0f ) );
             animatedElement->setConversion ( conversion );
         }
 
@@ -1532,7 +1532,7 @@ namespace COLLADAMaya
 
             // Create a new animated element
             String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
-            String subId = COLLADA::Utils::checkID ( animatedElement->getTargetSid() );
+            String subId = COLLADASW::Utils::checkID ( animatedElement->getTargetSid() );
             String nodeId = animatedElement->getNodeId();
             const String* parameters = animatedElement->getParameters();
             SampleType sampleType = animatedElement->getSampleType();
@@ -1607,7 +1607,7 @@ namespace COLLADAMaya
                 float endTime = startTime + ( float ) clipFn.getSourceDuration().as ( MTime::kSeconds );
 
                 AnimationClip* clip = new AnimationClip();
-                clip->colladaClip = new COLLADA::ColladaAnimationClip ( clipName, startTime, endTime );
+                clip->colladaClip = new COLLADASW::ColladaAnimationClip ( clipName, startTime, endTime );
                 clip->characterNode = characterNode;
                 clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
 
@@ -1755,14 +1755,14 @@ namespace COLLADAMaya
                     }
 
                     if ( ( animatedElement->getSampleType() & kAngle ) == kAngle )
-                        value = COLLADA::MathUtils::radToDegF ( value );
+                        value = COLLADASW::MathUtils::radToDegF ( value );
                 }
 
                 key->input = value;
                 key->output = ( float ) animCurveFn.value ( keyPosition );
             }
 
-            if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
+            if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
             {
                 createBezierKey ( key, animCurveFn, keyPosition, keyCount );
             }
@@ -1797,7 +1797,7 @@ namespace COLLADAMaya
         animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>0 );
 
         if ( slopeX < 0.01f && slopeX > -0.01f )
-            slopeX = COLLADA::MathUtils::sign ( slopeX ) * 0.01f;
+            slopeX = COLLADASW::MathUtils::sign ( slopeX ) * 0.01f;
 
         if ( !isWeightedCurve )
         {
@@ -1819,7 +1819,7 @@ namespace COLLADAMaya
         animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>=keyCount-1 );
 
         if ( slopeX < 0.01f && slopeX > -0.01f )
-            slopeX = COLLADA::MathUtils::sign ( slopeX ) * 0.01f;
+            slopeX = COLLADASW::MathUtils::sign ( slopeX ) * 0.01f;
 
         if ( !isWeightedCurve )
         {
@@ -1848,7 +1848,7 @@ namespace COLLADAMaya
         // Sample the curve
         float value = key->output[curvePosition] = curve->evaluate ( input );
 
-        if ( key->interpolation == COLLADA::LibraryAnimations::BEZIER )
+        if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
         {
             // Calculate the slope at the sampled point.
             // Since the curve should be smooth: the in/out tangents should be equal.
@@ -1857,7 +1857,7 @@ namespace COLLADAMaya
             bkey->inTangent[curvePosition] = TangentPoint ( input - previousSpan, value - slope * previousSpan );
             bkey->outTangent[curvePosition] = TangentPoint ( input + nextSpan, value + slope * nextSpan );
         }
-        else if ( key->interpolation == COLLADA::LibraryAnimations::TCB )
+        else if ( key->interpolation == COLLADASW::LibraryAnimations::TCB )
         {
             // Don't fool around: just set default values.
             AnimationMKeyTCB* tkey = ( AnimationMKeyTCB* ) key;
@@ -1874,7 +1874,7 @@ namespace COLLADAMaya
     {
         AnimationMKeyTCB* tkey = ( AnimationMKeyTCB* ) key;
 
-        if ( curveKeys[keyPosition]->interpolation == COLLADA::LibraryAnimations::TCB )
+        if ( curveKeys[keyPosition]->interpolation == COLLADASW::LibraryAnimations::TCB )
         {
             AnimationKeyTCB* tkey2 = ( AnimationKeyTCB* ) curveKeys[keyPosition];
             tkey->tension[curvePosition] = tkey2->tension;
@@ -1907,7 +1907,7 @@ namespace COLLADAMaya
         // Calculate the new tangent: keep the slope proportional
         AnimationMKeyBezier* bkey = ( AnimationMKeyBezier* ) key;
 
-        if ( curveKeys[keyPosition]->interpolation == COLLADA::LibraryAnimations::BEZIER )
+        if ( curveKeys[keyPosition]->interpolation == COLLADASW::LibraryAnimations::BEZIER )
         {
             AnimationKeyBezier* bkey2 = ( AnimationKeyBezier* ) curveKeys[keyPosition];
             TangentPoint absolute ( bkey->input, bkey->output[curvePosition] );

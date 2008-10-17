@@ -23,8 +23,8 @@ namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    ImageExporter::ImageExporter ( COLLADA::StreamWriter* streamWriter )
-            : COLLADA::LibraryImages ( streamWriter )
+    ImageExporter::ImageExporter ( COLLADASW::StreamWriter* streamWriter )
+            : COLLADASW::LibraryImages ( streamWriter )
     {}
 
 
@@ -37,7 +37,7 @@ namespace COLLADAMaya
         for ( ; it != imageMap->end(); ++it )
         {
             // Create a new image structure
-            COLLADA::Image* colladaImage = it->second;
+            COLLADASW::Image* colladaImage = it->second;
 
             // Add the image to the collada document.
             addImage ( *colladaImage );

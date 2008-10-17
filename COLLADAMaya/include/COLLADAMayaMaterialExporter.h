@@ -20,11 +20,11 @@
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaSceneElement.h"
 
-#include "COLLADAStreamWriter.h"
-#include "COLLADALibraryMaterials.h"
-#include "COLLADASurface.h"
-#include "COLLADASampler.h"
-#include "COLLADAValueType.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWLibraryMaterials.h"
+#include "COLLADASWSurface.h"
+#include "COLLADASWSampler.h"
+#include "COLLADASWValueType.h"
 
 #include "cgfxAttrDef.h"
 
@@ -41,7 +41,7 @@ namespace COLLADAMaya
 
     /** This class writes the <library_materials>. It uses informations created by the effect exporter*/
 
-    class MaterialExporter : public COLLADA::LibraryMaterials
+    class MaterialExporter : public COLLADASW::LibraryMaterials
     {
 
     private:
@@ -73,7 +73,7 @@ namespace COLLADAMaya
         std::vector<String> mExportedMaterials;
 
         /** The filename of the current shader to export. */
-        COLLADA::URI mShaderFxFileUri;
+        COLLADASW::URI mShaderFxFileUri;
 
 
     public:
@@ -81,7 +81,7 @@ namespace COLLADAMaya
         /**
         @param streamWriter The stream the output will be written to
         @paramdocumentExporter The document exporter this material exporter is used in*/
-        MaterialExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        MaterialExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
 
         /** Exports all Materials which are in the material list @mMaterialsMap for export */
         MaterialMap* exportMaterials ( bool writeMaterials=true );
@@ -92,10 +92,10 @@ namespace COLLADAMaya
     private:
 
         /** Set the filename of the current shader to export. */
-        void setShaderFxFileUri ( const COLLADA::URI& shaderFxFileName );
+        void setShaderFxFileUri ( const COLLADASW::URI& shaderFxFileName );
 
         /** Returns the filename of the current shader fx file. */
-        const COLLADA::URI& getShaderFxFileUri () const;
+        const COLLADASW::URI& getShaderFxFileUri () const;
 
         /**
         * Get all shaders, which are in the default shader list.
@@ -124,10 +124,10 @@ namespace COLLADAMaya
         void exportEffectInstance( String materialId, MObject &shader );
 
         /** Exports the data for a custom hardware shader node. */
-        void exportCustomHwShaderNode( COLLADA::InstanceEffect &effectInstance, MObject shader  );
+        void exportCustomHwShaderNode( COLLADASW::InstanceEffect &effectInstance, MObject shader  );
 
         /** Adds the technique hint and the effect attributes to the collada document. */
-        void exportCgfxShaderNode ( COLLADA::InstanceEffect &effectInstance, cgfxShaderNode *fnNode );
+        void exportCgfxShaderNode ( COLLADASW::InstanceEffect &effectInstance, cgfxShaderNode *fnNode );
 
         /** Adds a <setparam> of the given attribute to the collada document. */
         void setSetParam( const cgfxShaderNode* shaderNodeCgfx, const cgfxAttrDef* attribute );
@@ -136,9 +136,9 @@ namespace COLLADAMaya
         void setSetParamTexture (
             const cgfxAttrDef* attribute, 
             MObject textureNode, 
-            COLLADA::Surface::SurfaceType surfaceType, 
-            COLLADA::Sampler::SamplerType samplerType, 
-            COLLADA::ValueType::ColladaType samplerValueType );
+            COLLADASW::Surface::SurfaceType surfaceType, 
+            COLLADASW::Sampler::SamplerType samplerType, 
+            COLLADASW::ValueType::ColladaType samplerValueType );
 
     };
 }

@@ -27,8 +27,8 @@
 
 #include <maya/MFnAnimCurve.h>
 
-#include "COLLADALibraryAnimations.h"
-#include "COLLADASource.h"
+#include "COLLADASWLibraryAnimations.h"
+#include "COLLADASWSource.h"
 
 namespace COLLADAMaya
 {
@@ -36,7 +36,7 @@ namespace COLLADAMaya
     /**
      * Exports all animation data of the current scene.
      */
-    class AnimationExporter : public COLLADA::LibraryAnimations
+    class AnimationExporter : public COLLADASW::LibraryAnimations
     {
 
     private:
@@ -78,7 +78,7 @@ namespace COLLADAMaya
          * @param streamWriter Pointer to the collada stream writer.
          * @param documentExporter Pointer to the main document exporter.
          */
-        AnimationExporter ( COLLADA::StreamWriter* streamWriter, DocumentExporter* documentExporter );
+        AnimationExporter ( COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter );
 
         /**
          * Destructor.

@@ -31,9 +31,9 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     LightExporter::LightExporter ( 
-        COLLADA::StreamWriter* streamWriter,
+        COLLADASW::StreamWriter* streamWriter,
         DocumentExporter* documentExporter )
-    : COLLADA::LibraryLights ( streamWriter )
+    : COLLADASW::LibraryLights ( streamWriter )
     , mDocumentExporter ( documentExporter )
     {}
 
@@ -107,25 +107,25 @@ namespace COLLADAMaya
         String lightId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
         // Get a pointer to the stream writer.
-        COLLADA::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
+        COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
 
         // Figure out the type of light and create it
-        COLLADA::Light* light = NULL;
+        COLLADASW::Light* light = NULL;
         MFn::Type type = lightNode.apiType();
         switch (type)
         {
         case MFn::kAmbientLight: 
-            light = new COLLADA::AmbientLight( streamWriter, lightId ); 
+            light = new COLLADASW::AmbientLight( streamWriter, lightId ); 
             break; 
         case MFn::kDirectionalLight: 
-            light = new COLLADA::DirectionalLight( streamWriter, lightId ); 
+            light = new COLLADASW::DirectionalLight( streamWriter, lightId ); 
             break;
         case MFn::kSpotLight: 
-            light = new COLLADA::SpotLight( streamWriter, lightId ); 
+            light = new COLLADASW::SpotLight( streamWriter, lightId ); 
             break;
         case MFn::kPointLight: // Intentional pass-through
         default: 
-            light = new COLLADA::PointLight( streamWriter, lightId ); 
+            light = new COLLADASW::PointLight( streamWriter, lightId ); 
             break;
         }
 
@@ -139,7 +139,7 @@ namespace COLLADAMaya
         
         // Color/Intensity are the common attributes of all lights
         MColor mayaColor = lightFn.color ( &status ); CHECK_MSTATUS(status);
-        COLLADA::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
+        COLLADASW::Color lightColor ( mayaColor.r, mayaColor.g, mayaColor.b, mayaColor.a );
         animated = anim->addNodeAnimation ( lightNode, ATTR_COLOR, kColour );
         light->setColor( lightColor, animated );
 
@@ -169,7 +169,7 @@ namespace COLLADAMaya
             animated = anim->addNodeAnimation ( lightNode, ATTR_AMBIENT_SHADE, kSingle );
             if ( animated ) paramSid = ATTR_AMBIENT_SHADE;
             light->addExtraTechniqueParameter ( 
-                COLLADA::CSWC::COLLADA_PROFILE_MAYA, MAYA_AMBIENTSHADE_LIGHT_PARAMETER, ambientShade, paramSid );
+                COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_AMBIENTSHADE_LIGHT_PARAMETER, ambientShade, paramSid );
         }
 
         if (lightNode.hasFn(MFn::kSpotLight))
@@ -177,13 +177,13 @@ namespace COLLADAMaya
             // Put in the needed spot light type attributes : Falloff, Falloff_Scale and Angle
             MFnSpotLight spotFn(lightNode);
 
-            float fallOffAngle = COLLADA::MathUtils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_MSTATUS(status);
+            float fallOffAngle = COLLADASW::MathUtils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_MSTATUS(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_CONE_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             light->setFallOffAngle ( fallOffAngle, animated );
 
             light->setFallOffExponent ( 1.0f );
 
-            float penumbraValue = COLLADA::MathUtils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_MSTATUS(status);
+            float penumbraValue = COLLADASW::MathUtils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_MSTATUS(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             // TODO
 //            FCDLightTools::LoadPenumbra(light, penumbraValue, colladaLight->GetOuterAngle().GetAnimated());

@@ -17,7 +17,7 @@
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaReferenceManager.h"
 
-#include "COLLADAURI.h"
+#include "COLLADASWURI.h"
 
 namespace COLLADAMaya
 {
@@ -69,7 +69,7 @@ namespace COLLADAMaya
         createLibraries();
 
         DAE dae;
-        String fileUriString = COLLADA::URI::nativePathToUri( getFilename() );
+        String fileUriString = COLLADASW::URI::nativePathToUri( getFilename() );
         domCOLLADA* colladaDocument = dae.open ( fileUriString );
 
         domLibrary_visual_scenes_Array visualScenesArray = colladaDocument->getLibrary_visual_scenes_array();

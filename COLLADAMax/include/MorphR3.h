@@ -7,7 +7,7 @@ MIT License: http://www.opensource.org/licenses/mit-license.php
 */
 
 /*
-Based off the 3dsMax COLLADA Tools
+Based off the 3dsMax COLLADASW Tools
 Copyright (C) 2005-2007 Feeling Software Inc.
 Copyright (C) 2005-2006 Autodesk Media & Entertainment.
 */
