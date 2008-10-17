@@ -549,283 +549,223 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\COLLADAAsset.cpp"
+				RelativePath="..\src\COLLADASWAsset.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADABaseElement.cpp"
+				RelativePath="..\src\COLLADASWBaseElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADABaseInputElement.cpp"
+				RelativePath="..\src\COLLADASWBaseInputElement.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADABindMaterial.cpp"
+				RelativePath="..\src\COLLADASWBindMaterial.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADACamera.cpp"
+				RelativePath="..\src\COLLADASWCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADACameraOptic.cpp"
+				RelativePath="..\src\COLLADASWCameraOptic.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAColor.cpp"
+				RelativePath="..\src\COLLADASWColor.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAEffectProfile.cpp"
+				RelativePath="..\src\COLLADASWConstants.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAElementWriter.cpp"
+				RelativePath="..\src\COLLADASWEffectProfile.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAExtra.cpp"
+				RelativePath="..\src\COLLADASWElementWriter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAExtraTechnique.cpp"
+				RelativePath="..\src\COLLADASWExtra.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFormatHint.cpp"
+				RelativePath="..\src\COLLADASWExtraTechnique.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAIDList.cpp"
+				RelativePath="..\src\COLLADASWFormatHint.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAImage.cpp"
+				RelativePath="..\src\COLLADASWIDList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInputList.cpp"
+				RelativePath="..\src\COLLADASWImage.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceCamera.cpp"
+				RelativePath="..\src\COLLADASWInputList.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceController.cpp"
+				RelativePath="..\src\COLLADASWInstanceCamera.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceEffect.cpp"
+				RelativePath="..\src\COLLADASWInstanceController.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceGeometry.cpp"
+				RelativePath="..\src\COLLADASWInstanceEffect.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceLight.cpp"
+				RelativePath="..\src\COLLADASWInstanceGeometry.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceMaterial.cpp"
+				RelativePath="..\src\COLLADASWInstanceLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceNode.cpp"
+				RelativePath="..\src\COLLADASWInstanceMaterial.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibrary.cpp"
+				RelativePath="..\src\COLLADASWInstanceNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryAnimationClips.cpp"
+				RelativePath="..\src\COLLADASWLibrary.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryAnimations.cpp"
+				RelativePath="..\src\COLLADASWLibraryAnimationClips.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryCameras.cpp"
+				RelativePath="..\src\COLLADASWLibraryAnimations.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryControllers.cpp"
+				RelativePath="..\src\COLLADASWLibraryCameras.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryEffects.cpp"
+				RelativePath="..\src\COLLADASWLibraryControllers.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryGeometries.cpp"
+				RelativePath="..\src\COLLADASWLibraryEffects.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryImages.cpp"
+				RelativePath="..\src\COLLADASWLibraryGeometries.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryLights.cpp"
+				RelativePath="..\src\COLLADASWLibraryImages.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryMaterials.cpp"
+				RelativePath="..\src\COLLADASWLibraryLights.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALibraryVisualScenes.cpp"
+				RelativePath="..\src\COLLADASWLibraryMaterials.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALight.cpp"
+				RelativePath="..\src\COLLADASWLibraryVisualScenes.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAMathUtils.cpp"
+				RelativePath="..\src\COLLADASWLight.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADANode.cpp"
+				RelativePath="..\src\COLLADASWMathUtils.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAParamBase.cpp"
+				RelativePath="..\src\COLLADASWNode.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAPass.cpp"
+				RelativePath="..\src\COLLADASWParamBase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAPrimitves.cpp"
+				RelativePath="..\src\COLLADASWPass.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADARenderState.cpp"
+				RelativePath="..\src\COLLADASWPrimitves.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASampler.cpp"
+				RelativePath="..\src\COLLADASWRenderState.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAScene.cpp"
+				RelativePath="..\src\COLLADASWSampler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAShader.cpp"
+				RelativePath="..\src\COLLADASWScene.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASource.cpp"
+				RelativePath="..\src\COLLADASWShader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAStreamWriter.cpp"
+				RelativePath="..\src\COLLADASWSource.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAStreamWriterException.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release fprintf_s|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release fprintf_s|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug fprintf_s|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug fprintf_s|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\COLLADASurface.cpp"
+				RelativePath="..\src\COLLADASWStreamWriter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASurfaceInitOption.cpp"
+				RelativePath="..\src\COLLADASWStreamWriterException.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASWC.cpp"
+				RelativePath="..\src\COLLADASWSurface.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADATechnique.cpp"
+				RelativePath="..\src\COLLADASWSurfaceInitOption.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADATechniqueFX.cpp"
+				RelativePath="..\src\COLLADASWTechnique.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADATexture.cpp"
+				RelativePath="..\src\COLLADASWTechniqueFX.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAURI.cpp"
+				RelativePath="..\src\COLLADASWTexture.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAUtils.cpp"
+				RelativePath="..\src\COLLADASWURI.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWUtils.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASWVertices.cpp"
 				>
 			</File>
 		</Filter>
@@ -835,315 +775,263 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\COLLADAAnnotation.h"
+				RelativePath="..\include\COLLADASWAnnotation.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAAsset.h"
+				RelativePath="..\include\COLLADASWAsset.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADABaseElement.h"
+				RelativePath="..\include\COLLADASWBaseElement.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADABaseInputElement.h"
+				RelativePath="..\include\COLLADASWBaseInputElement.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADABindMaterial.h"
+				RelativePath="..\include\COLLADASWBindMaterial.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADACamera.h"
+				RelativePath="..\include\COLLADASWCamera.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADACameraOptic.h"
+				RelativePath="..\include\COLLADASWCameraOptic.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADACode.h"
+				RelativePath="..\include\COLLADASWCode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAColor.h"
+				RelativePath="..\include\COLLADASWColor.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAColorOrTexture.h"
+				RelativePath="..\include\COLLADASWColorOrTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAEffectProfile.h"
+				RelativePath="..\include\COLLADASWConstants.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAElementWriter.h"
+				RelativePath="..\include\COLLADASWEffectProfile.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAExtra.h"
+				RelativePath="..\include\COLLADASWElementWriter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAExtraTechnique.h"
+				RelativePath="..\include\COLLADASWExtra.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFormatHint.h"
+				RelativePath="..\include\COLLADASWExtraTechnique.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAIDList.h"
+				RelativePath="..\include\COLLADASWFormatHint.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAImage.h"
+				RelativePath="..\include\COLLADASWIDList.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInclude.h"
+				RelativePath="..\include\COLLADASWImage.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInputList.h"
+				RelativePath="..\include\COLLADASWInclude.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceCamera.h"
+				RelativePath="..\include\COLLADASWInputList.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceController.h"
+				RelativePath="..\include\COLLADASWInstanceCamera.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceEffect.h"
+				RelativePath="..\include\COLLADASWInstanceController.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceGeometry.h"
+				RelativePath="..\include\COLLADASWInstanceEffect.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceLight.h"
+				RelativePath="..\include\COLLADASWInstanceGeometry.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceMaterial.h"
+				RelativePath="..\include\COLLADASWInstanceLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceNode.h"
+				RelativePath="..\include\COLLADASWInstanceMaterial.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibrary.h"
+				RelativePath="..\include\COLLADASWInstanceNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryAnimationClips.h"
+				RelativePath="..\include\COLLADASWLibrary.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryAnimations.h"
+				RelativePath="..\include\COLLADASWLibraryAnimationClips.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryCameras.h"
+				RelativePath="..\include\COLLADASWLibraryAnimations.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryControllers.h"
+				RelativePath="..\include\COLLADASWLibraryCameras.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryEffects.h"
+				RelativePath="..\include\COLLADASWLibraryControllers.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryGeometries.h"
+				RelativePath="..\include\COLLADASWLibraryEffects.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryImages.h"
+				RelativePath="..\include\COLLADASWLibraryGeometries.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryLights.h"
+				RelativePath="..\include\COLLADASWLibraryImages.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryMaterials.h"
+				RelativePath="..\include\COLLADASWLibraryLights.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALibraryVisualScenes.h"
+				RelativePath="..\include\COLLADASWLibraryMaterials.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALight.h"
+				RelativePath="..\include\COLLADASWLibraryVisualScenes.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAMathUtils.h"
+				RelativePath="..\include\COLLADASWLight.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADANode.h"
+				RelativePath="..\include\COLLADASWMathUtils.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAOpenGLConstants.h"
+				RelativePath="..\include\COLLADASWNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAParamBase.h"
+				RelativePath="..\include\COLLADASWOpenGLConstants.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAParamTemplate.h"
+				RelativePath="..\include\COLLADASWParamBase.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAPass.h"
+				RelativePath="..\include\COLLADASWParamTemplate.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAPlatform.h"
+				RelativePath="..\include\COLLADASWPass.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAPrerequisites.h"
+				RelativePath="..\include\COLLADASWPlatform.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAPrimitves.h"
+				RelativePath="..\include\COLLADASWPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADARenderState.h"
+				RelativePath="..\include\COLLADASWPrimitves.h"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADARenderStateStatic.h"
+				RelativePath="..\include\COLLADASWRenderState.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASampler.h"
+				RelativePath="..\include\COLLADASWRenderStateStatic.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAScene.h"
+				RelativePath="..\include\COLLADASWSampler.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAShader.h"
+				RelativePath="..\include\COLLADASWScene.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASource.h"
+				RelativePath="..\include\COLLADASWShader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAStreamWriter.h"
+				RelativePath="..\include\COLLADASWSource.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAStreamWriterException.h"
+				RelativePath="..\include\COLLADASWStreamWriter.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASurface.h"
+				RelativePath="..\include\COLLADASWStreamWriterException.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASurfaceInitOption.h"
+				RelativePath="..\include\COLLADASWSurface.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASWC.h"
+				RelativePath="..\include\COLLADASWSurfaceInitOption.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADATechnique.h"
+				RelativePath="..\include\COLLADASWTechnique.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADATechniqueFX.h"
+				RelativePath="..\include\COLLADASWTechniqueFX.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADATexture.h"
+				RelativePath="..\include\COLLADASWTexture.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAURI.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release fprintf_s|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release fprintf_s|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug fprintf_s|Win32"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug fprintf_s|x64"
-					>
-					<Tool
-						Name="VCCustomBuildTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAUtils.h"
+				RelativePath="..\include\COLLADASWURI.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAValueType.h"
+				RelativePath="..\include\COLLADASWUtils.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWValueType.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASWVertices.h"
 				>
 			</File>
 		</Filter>

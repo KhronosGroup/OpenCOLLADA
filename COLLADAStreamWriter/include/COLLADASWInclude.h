@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-    This file is part of COLLADAStreamWriter.
+    This file is part of COLLADASWStreamWriter.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
@@ -11,11 +11,11 @@
 #ifndef __COLLADASTREAMWRITER_INCLUDE_H__
 #define __COLLADASTREAMWRITER_INCLUDE_H__
 
-#include "COLLADAPrerequisites.h"
-#include "COLLADAStreamWriter.h"
-#include "COLLADASWC.h"
+#include "COLLADASWPrerequisites.h"
+#include "COLLADASWStreamWriter.h"
+#include "COLLADASWConstants.h"
 
-namespace COLLADA
+namespace COLLADASW
 {
     
     /** Imports source code or precompiled binary shaders into the FX Runtime 
@@ -42,9 +42,9 @@ namespace COLLADA
          */
         void addInclude ( StreamWriter *sw, const String &sidNC, const URI &uri ) const
         {
-            sw->openElement ( CSWC::COLLADA_ELEMENT_INCLUDE );
-            sw->appendAttribute ( CSWC::COLLADA_ATTRIBUTE_SID, sidNC );
-            sw->appendURIAttribute ( CSWC::COLLADA_ATTRIBUTE_URL, uri );
+            sw->openElement ( CSWC::CSW_ELEMENT_INCLUDE );
+            sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_SID, sidNC );
+            sw->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, uri );
             sw->closeElement();
         }
 
