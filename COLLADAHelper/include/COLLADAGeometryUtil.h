@@ -1,0 +1,4 @@
+#ifndef __COLLADA_GEOMETRY_UTIL_H__
+#define __COLLADA_GEOMETRY_UTIL_H__
+
+#endif //__COLLADA_GEOMETRY_UTIL_H__
