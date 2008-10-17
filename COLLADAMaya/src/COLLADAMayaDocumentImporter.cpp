@@ -16,8 +16,18 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaReferenceManager.h"
+#include "COLLADAMayaImportOptions.h"
+#include "COLLADAMayaMaterialImporter.h"
+#include "COLLADAMayaGeometryImporter.h"
+#include "COLLADAMayaCameraImporter.h"
+#include "COLLADAMayaVisualSceneImporter.h"
 
 #include "COLLADASWURI.h"
+
+#include "COLLADADocumentUtil.h"
+
+#include "dom/domTypes.h"
+
 
 namespace COLLADAMaya
 {
@@ -25,7 +35,9 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
         : mFileName ( fileName )
+        , mMaterialImporter ( NULL )
         , mGeometryImporter ( NULL )
+        , mCameraImporter ( NULL )
         , mVisualSceneImporter ( NULL )
         , mSceneId ( "MayaScene" )
     {
@@ -51,14 +63,18 @@ namespace COLLADAMaya
         ReferenceManager::getInstance()->initialize ();
 
         // Create the basic elements
+        mMaterialImporter = new MaterialImporter ( this );
         mGeometryImporter = new GeometryImporter ();
+        mCameraImporter = new CameraImporter ();
         mVisualSceneImporter = new VisualSceneImporter ();
     }
 
     //---------------------------------------------------------------
     void DocumentImporter::releaseLibraries()
     {
+        delete mMaterialImporter;
         delete mGeometryImporter;
+        delete mCameraImporter;
         delete mVisualSceneImporter;
     }
 
@@ -70,20 +86,77 @@ namespace COLLADAMaya
 
         DAE dae;
         String fileUriString = COLLADASW::URI::nativePathToUri( getFilename() );
-        domCOLLADA* colladaDocument = dae.open ( fileUriString );
+        mColladaDocument = dae.open ( fileUriString );
 
-        domLibrary_visual_scenes_Array visualScenesArray = colladaDocument->getLibrary_visual_scenes_array();
+        mDaeDocument = mColladaDocument->getDocument();
 
-        size_t numOfScenes = visualScenesArray.getCount();
-        for ( size_t scenePos=0; scenePos<numOfScenes; ++scenePos )
+        // Import the asset information.
+        importAsset ();
+
+        // Import the DAG entity libraries
+        mMaterialImporter->importMaterials();
+
+//        mCameraImporter->Import();
+//        mLightImporter->Import();
+//        mGeometryImporter->Import();
+//        controllerLibrary->Import();
+//        mVisualSceneImporter->Import();
+
+    }
+
+    //---------------------------------
+    void DocumentImporter::importAsset()
+    {
+        // Up_axis
+        if ( MGlobal::mayaState() != MGlobal::kBatch )
         {
-            domLibrary_visual_scenesRef vsRef = visualScenesArray.get ( scenePos );
-            const domVisual_scene_Array vs = vsRef->getVisual_scene_array();
-            for ( size_t j=0; j<vs.getCount(); ++j )
+            if ( ImportOptions::isOpenMode() && ImportOptions::importUpAxis() )
             {
+                char upAxis = 'y';
+                
+                daeDocument* daeDoc = mColladaDocument->getDocument();
+                domUpAxisType upAxisType = COLLADA::DocumentUtil::getUpAxis ( daeDoc );
+                switch ( upAxisType )
+                {
+                case UPAXISTYPE_Z_UP: upAxis = 'z';
+                case UPAXISTYPE_Y_UP: upAxis = 'y';
+                case UPAXISTYPE_X_UP:
+                    MGlobal::displayWarning ( "An up_axis of 'X' is not supported by Maya." );
+                default:
+                    MGlobal::displayWarning ( "Unknown up_axis value." );
+                }
+
+                // Use the MEL commands to set the up_axis. Currently resets the view, if the axis must change..
+                MString command ( "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \"" );
+                command += upAxis; command += "\") { upAxis -ax \""; command += upAxis;
+                command += "\"; viewSet -home persp; }";
+                MGlobal::executeCommand ( command );
             }
         }
 
+        // Retrieve Maya's current up-axis.
+        MString result;
+//        FMVector3 mayaUpAxis = FMVector3::Zero;
+        if ( ImportOptions::importUpAxis() )
+        {
+            MGlobal::executeCommand ( "upAxis -q -ax;", result, false, false );
+            // TODO
+//             if ( result == "z" )
+// 
+//             mayaUpAxis = FMVector3::YAxis;
+//             if (IsEquivalent(MConvert::ToFChar(result), FC("z"))) mayaUpAxis = FMVector3::ZAxis;
+        }
+
+        float mayaUnit = 0.0f;
+        if ( ImportOptions::importUnits() ) mayaUnit = 0.01f;
+
+        // TODO 
+        // Standardize the COLLADA document on this up-axis and units (centimeters).
+//        FCDocumentTools::StandardizeUpAxisAndLength(colladaDocument, mayaUpAxis, mayaUnit);
+
+        // Get the UI unit factor, for parts of Maya that don't handle variable lengths correctly
+        MDistance testDistance ( 1.0f, MDistance::uiUnit() );
+        float uiUnitFactor = (float) testDistance.as ( MDistance::kCentimeters );
     }
 
     //---------------------------------

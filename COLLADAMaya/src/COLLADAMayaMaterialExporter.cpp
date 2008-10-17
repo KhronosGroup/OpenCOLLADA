@@ -40,9 +40,9 @@ namespace COLLADAMaya
 
     //---------------------------------------------------------------
     MaterialExporter::MaterialExporter ( COLLADASW::StreamWriter* streamWriter,
-                                         DocumentExporter* _documentExporter )
+                                         DocumentExporter* documentExporter )
             : COLLADASW::LibraryMaterials ( streamWriter ),
-            mDocumentExporter ( _documentExporter ),
+            mDocumentExporter ( documentExporter ),
             mExportedMaterials ( NULL ),
             mWriteMaterials ( false ),
             materialMapInitialized ( false )

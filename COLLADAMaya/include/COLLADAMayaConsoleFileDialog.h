@@ -29,7 +29,7 @@ namespace COLLADAMaya
     *	\param	Filename	-	this will hold the returned file name & path
     *	\return	1 if OK selected, zero otherwise
     */
-    int openFileDialog ( char fileName[], char* fileExtension );
+    int openFileDialog ( char fileName[], char* fileExtensions );
 
     /*!
     *	\brief	This function creates an save file dialog. This will either use WIN32
@@ -37,7 +37,7 @@ namespace COLLADAMaya
     *	\param	Filename	-	this will hold the returned file name & path
     *	\return	1 if OK selected, zero otherwise
     */
-    int saveFileDialog ( char FileName[], char* fileExtension );
+    int saveFileDialog ( char FileName[], char* fileExtensions, char* defaultExtension );
 }
 
 #endif

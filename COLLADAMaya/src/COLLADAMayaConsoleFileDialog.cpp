@@ -91,7 +91,7 @@ int SaveFileDialog(char FileName[]) {
 namespace COLLADAMaya
 {
 
-    int openFileDialog( char fileName[], char* fileExtension )
+    int openFileDialog ( char fileName[], char* fileExtensions )
     {
 	    char Dir[512];
 	    char fn[512] = {0};
@@ -101,7 +101,7 @@ namespace COLLADAMaya
 	    ofn.lpstrFile = fn;
 	    ofn.nMaxFile = 512;
 	    ofn.lpstrTitle = "Open File";
-        ofn.lpstrFilter = fileExtension;
+        ofn.lpstrFilter = fileExtensions;
 
 	    GetCurrentDirectory(512,Dir);
 	    if( GetOpenFileName(&ofn) )
@@ -121,7 +121,7 @@ namespace COLLADAMaya
 	    return 0;
     }
 
-    int saveFileDialog ( char fileName[], char* fileExtension )
+    int saveFileDialog ( char fileName[], char* fileExtensions, char* defaultExtension )
     {
 	    char Dir[512];
 	    char fn[512] = {0};
@@ -131,7 +131,8 @@ namespace COLLADAMaya
 	    ofn.lpstrFile = fn;
 	    ofn.nMaxFile = 512;
 	    ofn.lpstrTitle = "Save File";
-        ofn.lpstrFilter = fileExtension;
+        ofn.lpstrFilter = fileExtensions;
+        ofn.lpstrDefExt = defaultExtension;
 
 	    GetCurrentDirectory(512,Dir);
 	    if( GetSaveFileName(&ofn) )

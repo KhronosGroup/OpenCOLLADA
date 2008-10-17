@@ -64,6 +64,7 @@ int main(int argc,char** argv)
     int outFileArgPos = 0;
     char* inFileExtension;
     char* outFileExtension;
+    char* defaultExtension;
 
     // Check if we want to import...
     bool isImport = false;
@@ -76,18 +77,19 @@ int main(int argc,char** argv)
         if ( COLLADASW::Utils::equalsIgnoreCase ( message, "-i" ) )
         {
             isImport = true;
-            inFileExtension = "dae file\0*.dae\0\0";
-            outFileExtension = "mb file\0*.mb\0\0";
+            inFileExtension = "COLLADA dae file\0*.dae\0\0";
+            defaultExtension = "";
+            outFileExtension = "";
 
             // Check for an input and an output filename
             if ( argc > 2 ) inFileArgPos = 2;
-            if ( argc > 3 ) outFileArgPos = 3;
         }
         else
         {
             isImport = false;
-            inFileExtension = "mb file\0*.mb\0\0";
-            outFileExtension = "dae file\0*.dae\0\0";
+            inFileExtension = "Maya binary file\0*.mb\0\0";
+            outFileExtension = "COLLADA dae file\0*.dae\0\0";
+            defaultExtension = "dae";
 
             // Check for an input and an output filename
             if ( argc > 1 ) inFileArgPos = 1;
@@ -109,7 +111,7 @@ int main(int argc,char** argv)
 	    strcpy ( inFileName, argv[inFileArgPos] );
 
 	    // ask for an outfile
-        if ( !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension ) ) 
+        if ( !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension, defaultExtension ) ) 
         {
 		    return EXIT_FAILURE;
 	    }
@@ -125,15 +127,18 @@ int main(int argc,char** argv)
 	    }
 
 	    // get out file name
-        if ( !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension ) ) 
+        if ( !isImport )
         {
-		    return EXIT_FAILURE;
-	    }
+            if ( !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension, defaultExtension ) ) 
+            {
+                return EXIT_FAILURE;
+            }
+        }
     }
     else 
     {
         std::cerr << "[ERROR] Usage on export:\n\tCOLLADAMaya [infile.mb|infile.ma] [outfile.dae]\n";
-        std::cerr << "[ERROR] Usage on import:\n\tCOLLADAMaya -i [infile.dae] [outfile.mb|outfile.ma]\n";
+        std::cerr << "[ERROR] Usage on import:\n\tCOLLADAMaya -i [infile.dae]\n";
 	    return EXIT_FAILURE;
     }
 

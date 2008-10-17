@@ -18,8 +18,6 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
-#include "COLLADAMayaGeometryImporter.h"
-#include "COLLADAMayaVisualSceneImporter.h"
 
 #include <DAE.h>
 #include <dom/domCOLLADA.h>
@@ -30,7 +28,9 @@
 namespace COLLADAMaya
 {
 
+    class MaterialImporter;
     class GeometryImporter;
+    class CameraImporter;
     class VisualSceneImporter;
 
 
@@ -40,8 +40,14 @@ namespace COLLADAMaya
 
     private:
 
+        /** Imports the material. */
+        MaterialImporter* mMaterialImporter;
+
         /** Imports the geometry. */
         GeometryImporter* mGeometryImporter;
+
+        /** Imports the camera. */
+        CameraImporter* mCameraImporter;
 
         /** Imports the visual scene. */
         VisualSceneImporter* mVisualSceneImporter;
@@ -51,6 +57,12 @@ namespace COLLADAMaya
 
         /** The id of the current scene. */
         String mSceneId;
+
+        /** The currently parsed collada document. */
+        domCOLLADA* mColladaDocument;
+
+        /** The parsed dae document. */
+        daeDocument* mDaeDocument;
 
     public:
 
@@ -69,6 +81,15 @@ namespace COLLADAMaya
         */
         const String& getFilename() const;
 
+        /** The currently parsed collada document. */
+        const domCOLLADA* getColladaDocument () const { return mColladaDocument; }
+
+        /** The parsed dae document. */
+        const daeDocument* getDaeDocument () const { return mDaeDocument; }
+
+        /** The parsed dae document. */
+        daeDocument* getDaeDocument () { return mDaeDocument; }
+
         /**
         * Returns a pointer to the geometry exporter.
         * @return GeometryImporter* Pointer to the geometry exporter
@@ -83,10 +104,10 @@ namespace COLLADAMaya
 
     private:
 
-        /** Exports the asset. */
-        void exportAsset();
+        /** Imports the asset. */
+        void importAsset();
 
-        /** Exports the current scene. */
+        /** Imports the current scene. */
         void exportScene();
 
         /** Create the parsing libraries: we want access to the libraries during import/export time. */
