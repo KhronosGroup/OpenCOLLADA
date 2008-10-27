@@ -65,8 +65,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
+				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
@@ -223,8 +224,9 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
+				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				OptimizeReferences="1"
@@ -387,7 +389,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				GenerateDebugInformation="true"
@@ -546,7 +548,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -705,7 +707,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 			/>
 			<Tool
@@ -865,7 +867,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -1027,7 +1029,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -1192,7 +1194,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -1348,7 +1350,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 			/>
 			<Tool
@@ -1505,7 +1507,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -1671,7 +1673,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib libxml2.lib pcrecpp-d.lib pcre-d.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -1830,7 +1832,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_ROOT)\stage\lib&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
@@ -2236,7 +2238,23 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaGeometryImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaMaterialImporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaSceneNodeTraverser.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaSceneTraverserListener.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaVisualSceneImporter.cpp"
 					>
 				</File>
 			</Filter>
@@ -2461,6 +2479,10 @@
 				Name="Importers"
 				>
 				<File
+					RelativePath="..\include\COLLADAMayaBaseImporter.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMayaCameraImporter.h"
 					>
 				</File>
@@ -2474,6 +2496,14 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaMaterialImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaSceneNodeTraverser.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaSceneTraverserListener.h"
 					>
 				</File>
 				<File

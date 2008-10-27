@@ -30,15 +30,9 @@ namespace COLLADASW
         static const String CSW_VERSION;
 
         static const String CSW_PLATFORM_PC_OGL;
-        static const String CSW_PLATFORM_PS3;
-        static const String CSW_PLATFORM_OPENGL_ES;
-        static const String CSW_PLATFORM_GLES;
-        static const String CSW_PLATFORM_NOKIA_SW;
 
         static const String CSW_PROFILE_COLLADA;
         static const String CSW_PROFILE_MAYA;
-        static const String CSW_PROFILE_CG;
-        static const String CSW_PROFILE_GLES;
 
         static const String CSW_ELEMENT_ACCESSOR;
         static const String CSW_ELEMENT_AMBIENT;

@@ -17,19 +17,13 @@ namespace COLLADASW
     const String CSWC::CSW_ERR_UNKNOWN_INPUT = "UNKNOWN INPUT ERROR";
 
     const String CSWC::XML_START_ELEMENT = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-    const String CSWC::CSW_NAMESPACE = "http://www.collada.org/2005/11/COLLADASWSchema";
+    const String CSWC::CSW_NAMESPACE = "http://www.collada.org/2005/11/COLLADASchema";
     const String CSWC::CSW_VERSION = "1.4.1";
 
     const String CSWC::CSW_PLATFORM_PC_OGL               = "PC-OGL";
-    const String CSWC::CSW_PLATFORM_PS3                  = "PS3";
-    const String CSWC::CSW_PLATFORM_OPENGL_ES            = "OpenGL|ES";
-    const String CSWC::CSW_PLATFORM_GLES                 = "GLES";
-    const String CSWC::CSW_PLATFORM_NOKIA_SW             = "NOKIA_SW";
 
     const String CSWC::CSW_PROFILE_COLLADA               = "COLLADA";
     const String CSWC::CSW_PROFILE_MAYA                  = "MAYA";
-    const String CSWC::CSW_PROFILE_CG                    = "CG";
-    const String CSWC::CSW_PROFILE_GLES                  = "GLES";
 
     const String CSWC::CSW_ELEMENT_ACCESSOR = "accessor";
     const String CSWC::CSW_ELEMENT_ALL = "all";

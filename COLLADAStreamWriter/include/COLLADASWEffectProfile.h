@@ -203,7 +203,11 @@ namespace COLLADASW
         void setCode ( const String &code, const String &sid="" );
 
         /** Sets the emission to @a emission */
-        void setEmission( const ColorOrTexture& emission, const bool useDefaultSid = false, const String& sid = "" );
+        void setEmission( 
+            const ColorOrTexture& emission, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
+
 		/** Returns the default sid used for the emission element*/ 
 		static const String& getEmissionDefaultSid();
 
@@ -211,7 +215,11 @@ namespace COLLADASW
         ColorOrTexture& getEmission();
 
         /** Sets the ambient to @a ambient */
-        void  setAmbient( const ColorOrTexture& ambient, const bool useDefaultSid = false, const String& sid = "" );
+        void  setAmbient( 
+            const ColorOrTexture& ambient, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
+
 		/** Returns the default sid used for the ambient element*/ 
 		static const String& getAmbientDefaultSid();
 
@@ -219,7 +227,10 @@ namespace COLLADASW
         ColorOrTexture& getAmbient();
 
         /** Sets the diffuse to @a diffuse */
-        void  setDiffuse( const ColorOrTexture& diffuse, const bool useDefaultSid = false, const String& sid = "" );
+        void  setDiffuse( 
+            const ColorOrTexture& diffuse, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
 
 		/** Returns the default sid used for the diffuse element*/ 
 		static const String& getDiffuseDefaultSid();
@@ -228,7 +239,11 @@ namespace COLLADASW
         ColorOrTexture& getDiffuse();
 
         /** Sets the specular to @a specular */
-        void  setSpecular( const ColorOrTexture& specular, const bool useDefaultSid = false, const String& sid = "" );
+        void  setSpecular( 
+            const ColorOrTexture& specular, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
+
 		/** Returns the default sid used for the specular element*/ 
 		static const String& getSpecularDefaultSid();
 
@@ -237,6 +252,7 @@ namespace COLLADASW
 
         /** Sets the shininess to @a shininess */
         void  setShininess( double shininess, const bool useDefaultSid = false, const String& sid = "" );
+
 		/** Returns the default sid used for the shininess element*/ 
 		static const String& getShininessDefaultSid() { return CSWC::CSW_ELEMENT_SHININESS; }
 
@@ -244,7 +260,11 @@ namespace COLLADASW
         double getShininess() const;
 
         /** Sets the reflective to @a reflective */
-        void  setReflective( const ColorOrTexture& reflective, const bool useDefaultSid = false, const String& sid = "" );
+        void  setReflective( 
+            const ColorOrTexture& reflective, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
+
 		/** Returns the default sid used for the reflective element*/ 
 		static const String& getReflectiveDefaultSid();
 
@@ -253,11 +273,16 @@ namespace COLLADASW
 
         /** Sets the reflectivity to @a reflectivity */
         void  setReflectivity( double reflectivity, const bool useDefaultSid = false, const String& sid = "" );
+
 		/** Returns the default sid used for the reflectivity element*/ 
 		static const String& getReflectivityDefaultSid();
 
         /** Sets the transparent to @a transparent */
-        void setTransparent( const ColorOrTexture& transparent, const bool useDefaultSid = false, const String& sid = "" );
+        void setTransparent( 
+            const ColorOrTexture& transparent, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
+
 		/** Returns the default sid used for the transparent element*/ 
 		static const String& getTransparentDefaultSid();
 
@@ -272,11 +297,16 @@ namespace COLLADASW
 
         /** Sets the transparency to @a transparency */
         void  setTransparency( double transparency, const bool useDefaultSid = false, const String& sid = "" );
+
 		/** Returns the default sid used for the transparency element*/ 
 		static const String& getTransparencyDefaultSid() { return CSWC::CSW_ELEMENT_TRANSPARENCY; }
 
         /** Sets the indexOfRefrection to @a indexOfRefrection */
-        void  setIndexOfRefraction( double indexOfRefrection, const bool useDefaultSid = false, const String& sid = "" );
+        void  setIndexOfRefraction( 
+            double indexOfRefrection, 
+            const bool useDefaultSid = false, 
+            const String& sid = "" );
+
 		/** Returns the default sid used for the indexOfRefrection element*/ 
 		static const String& getIndexOfRefractionSid();
 
