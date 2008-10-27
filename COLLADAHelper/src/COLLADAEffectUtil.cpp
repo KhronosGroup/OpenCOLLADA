@@ -9,6 +9,7 @@ namespace COLLADA
 	static domFx_color_common DEFAULT_EMISSIVE_COLOR;
 	static domFx_color_common DEFAULT_REFLECTIVE_COLOR;
 	static domFx_color_common DEFAULT_AMBIENT_COLOR;
+    static domCommon_transparent_typeRef DEFAULT_TRANSPARENT_TYPE;
 	static const float DEFAULT_TRANSPARENCY = 1;
 	static const float DEFAULT_SHININESS = 0;
 
@@ -366,7 +367,8 @@ namespace COLLADA
 
 		return shininess->getFloat()->getValue();
 	}
-	//-----------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------
 	float EffectUtil::getTransparency( const domEffectRef& effect, const ShaderType shaderType /*= ALL*/ )
 	{
 		domProfile_COMMON::domTechnique::domPhongRef phong = 0;
@@ -432,6 +434,69 @@ namespace COLLADA
 		return transparency->getFloat()->getValue();
 	}
 	
+    //-----------------------------------------------------------------------
+    domCommon_transparent_typeRef EffectUtil::getTransparent( const domEffectRef& effect, const ShaderType shaderType /*= ALL*/ )
+    {
+        domProfile_COMMON::domTechnique::domPhongRef phong = 0;
+        domProfile_COMMON::domTechnique::domConstantRef constant = 0;
+        domProfile_COMMON::domTechnique::domBlinnRef blinn = 0;
+        domProfile_COMMON::domTechnique::domLambertRef lambert = 0;
+
+        switch (shaderType)
+        {
+        case PHONG:
+            phong = getPhong(effect);
+            break;
+
+        case CONSTANT:
+            constant = getConstant(effect);
+            break;
+
+        case BLINN:
+            blinn = getBlinn(effect);
+            break;
+
+        case LAMBERT:
+            lambert = getLambert(effect);
+            break;
+
+        default:
+            phong = getPhong(effect);
+            constant = getConstant(effect);
+            blinn = getBlinn(effect);
+            lambert = getLambert(effect);
+            break;
+        }
+
+        if(phong == 0 && shaderType == PHONG)
+            return DEFAULT_TRANSPARENT_TYPE;
+
+        if(lambert == 0 && shaderType == LAMBERT)
+            return DEFAULT_TRANSPARENT_TYPE;
+
+        if(blinn == 0 && shaderType == BLINN)
+            return DEFAULT_TRANSPARENT_TYPE;
+
+        if(constant == 0 && shaderType == CONSTANT)
+            return DEFAULT_TRANSPARENT_TYPE;
+
+        domCommon_transparent_typeRef transparent = NULL;
+
+        if (phong)
+            transparent = phong->getTransparent();
+        if (blinn)
+            transparent = blinn->getTransparent();
+        if (lambert)
+            transparent = lambert->getTransparent();
+        if (constant)
+            transparent = constant->getTransparent();
+
+        if (transparent == 0)
+            return DEFAULT_TRANSPARENT_TYPE;
+
+        return transparent;
+    }
+
 	//-----------------------------------------------------------------------
 	void EffectUtil::getTextureImages( const domEffectRef& effect, TextureImageList& list, const ColorType colorType /*= ALL*/, const ShaderType shaderType /*= ALL*/ )
 	{

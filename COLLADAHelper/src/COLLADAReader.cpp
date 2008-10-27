@@ -32,7 +32,7 @@ namespace COLLADA
 		return ElementIterator<domVisual_scene>(array);
 	}	
 
-	//-----------------------------------------------------------------------
+	//------------------------------
 	Reader::ElementIterator<domMaterial> Reader::getMaterials()
 	{
 		domCOLLADA *domRoot = daeSafeCast<domCOLLADA>( mDoc.getDomRoot() );
@@ -50,6 +50,7 @@ namespace COLLADA
 		return ElementIterator<domMaterial>(array);
 	}
 
+    //------------------------------
 	Reader::ElementIterator<domLibrary_nodes> Reader::getLibNodes()
 	{
 
@@ -63,4 +64,5 @@ namespace COLLADA
 		}
 		return ElementIterator<domLibrary_nodes>(array);
 	}
+
 }

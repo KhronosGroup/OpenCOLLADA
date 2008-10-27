@@ -53,7 +53,7 @@
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="HelperStableHeaders.h"
-				WarningLevel="3"
+				WarningLevel="2"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>

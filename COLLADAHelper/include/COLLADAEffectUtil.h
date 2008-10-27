@@ -123,7 +123,9 @@ namespace COLLADA
 		*/
 		static float getTransparency(const domEffectRef& effect, const ShaderType shaderType = UNKNOWN);
 		
-		/** Retrieves a list of domImages which are used by the given effect.
+        static domCommon_transparent_typeRef getTransparent(const domEffectRef& effect, const ShaderType shaderType = UNKNOWN);
+
+        /** Retrieves a list of domImages which are used by the given effect.
 			@param effect The effect to retrieve the list of domImages.
 			@param shaderType The shader type.
 			@param list The list where the pointers to the used domImages are stored.
