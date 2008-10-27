@@ -17,22 +17,34 @@
 #define __COLLADA_MAYA_GEOMETRY_IMPORTER_H__
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaBaseImporter.h"
+
 
 namespace COLLADAMaya
 {
 
-    /** Declares xy */
-    class GeometryImporter
+    /** Declares the importer implementation to import the geometries. */
+    class GeometryImporter : public BaseImporter
     {
 
     public:
 
         /** Constructor. */
-        GeometryImporter () {}
+        GeometryImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
         virtual ~GeometryImporter () {}
 
+        /** Imports all geometries of the current dae element. */
+        void importGeometries ( MObject& transformObject, domNode& node );
+
+    private:
+
+        /** Imports the data of the current geometry element. */
+        void importGeometry ( domInstance_geometryRef instanceGeometryRef );
+
+        /** Imports the data of the current mesh element. */
+        bool importMesh ( domMeshRef& meshRef );
     };
 }
 

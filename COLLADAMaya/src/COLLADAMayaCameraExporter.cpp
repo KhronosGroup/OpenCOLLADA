@@ -135,6 +135,8 @@ namespace COLLADAMaya
                 FocalLengthConverter* converter = new FocalLengthConverter ( (float) cameraFn.verticalFilmAperture() );
                 float verticalFilmAperture = (float) cameraFn.verticalFilmAperture();
                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
+//                 double verticalFieldOfViewRad = cameraFn.verticalFieldOfView ( &status );
+//                 double verticalFieldOfViewDeg = COLLADASW::MathUtils::radToDeg ( verticalFieldOfViewRad );
                 animated = anim->addNodeAnimation( cameraFn.object(), YFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter );
                 optics->setYFov ( focalLength, animated ); 
             }
@@ -142,6 +144,8 @@ namespace COLLADAMaya
             {
                 FocalLengthConverter* converter = new FocalLengthConverter( (float) (cameraFn.horizontalFilmAperture() * cameraFn.lensSqueezeRatio()));
                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
+//                 double horizontalFieldOfViewRad = cameraFn.horizontalFieldOfView ( &status );
+//                 double horizontalFieldOfViewDeg = COLLADASW::MathUtils::radToDeg ( horizontalFieldOfViewRad );
                 animated = anim->addNodeAnimation( cameraFn.object(), XFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter );
                 optics->setXFov ( focalLength, animated ); 
             }

@@ -17,19 +17,14 @@
 #define __COLLADA_MAYA_MATERIAL_IMPORTER_H__
 
 #include "COLLADAMayaStableHeaders.h"
-#include "COLLADAMayaDocumentImporter.h"
+#include "COLLADAMayaBaseImporter.h"
 
 namespace COLLADAMaya
 {
 
-    /** Declares xy */
-    class MaterialImporter
+    /** Declares the importer class for import materials. */
+    class MaterialImporter : public BaseImporter
     {
-
-    private:
-
-        /** Pointer to the current document importer. */
-        DocumentImporter* mDocumentImporter;
 
     public:
 

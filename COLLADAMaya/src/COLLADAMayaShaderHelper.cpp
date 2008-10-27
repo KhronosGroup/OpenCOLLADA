@@ -218,23 +218,18 @@ namespace COLLADAMaya
 
         switch ( type )
         {
-
         case MFn::kLambert:
             strType = "lambert";
             break;
-
         case MFn::kPhong:
             strType = "phong";
             break;
-
         case MFn::kBlinn:
             strType = "blinn";
             break;
-
         case MFn::kSurfaceShader:
             strType = "surfaceShader";
             break;
-
         default:
             MGlobal::displayError ( MString ( "Shader type not supported by ShaderHelper::createShader: " ) + type );
             return MObject::kNullObj;
@@ -248,7 +243,6 @@ namespace COLLADAMaya
 
         // If the name clashes with an existing default object,
         // the creation will fail
-
         if ( depNode == MObject::kNullObj )
         {
             MGlobal::displayError ( "Name clash when trying to create new shader." );

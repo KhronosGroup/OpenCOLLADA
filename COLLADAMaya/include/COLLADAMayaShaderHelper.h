@@ -38,7 +38,6 @@ namespace COLLADAMaya
     /**
      * Class which helps to extract the data of the shaders.
      */
-
     class ShaderHelper
     {
 

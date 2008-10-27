@@ -31,6 +31,9 @@ namespace COLLADAMaya
     /** The unique name for the visual scene node on export. */
     static const String VISUAL_SCENE_NODE_ID                        = "VisualSceneNode";
 
+    static const char* NODE_TYPE_NODE                               = "NODE";
+    static const char* NODE_TYPE_JOINT                              = "JOINT";
+
     // Mel-Scripts
     // Name of a MEL script that will be used to display the contents of the
     // options dialog during file open and save

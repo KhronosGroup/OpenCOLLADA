@@ -67,6 +67,13 @@
     {
         MStatus   status;
 
+        // Activate the error logging
+        MGlobal::startErrorLogging();
+
+        // The default name of this file is OpenMayaErrorLog located in the 
+        // current directory. This can be changed, however, by calling:
+        //MGlobal::setErrorLogPathName("...");
+  
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 
             COLLADAMaya::TRANSLATOR_VERSION, 
@@ -89,30 +96,30 @@
             return status;
         }
 
-        // Import plug-in
-        status = plugin.registerFileTranslator ( 
-            COLLADAMaya::COLLADA_IMPORTER,
-            "",
-            COLLADAMaya::FileTranslator::createImporter,
-            COLLADAMaya::MEL_IMPORT_OPTS,
-            NULL );
-        if ( !status )
-        {
-            status.perror ( "registerFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
-        }
-
-        // TODO
-        MString UserClassify("shader/surface/utility");
-
-        #if MAYA_API_VERSION >= 700
-        // Don't initialize swatches in batch mode
-        if (MGlobal::mayaState() != MGlobal::kBatch)
-        {
-         const MString& swatchName = MHWShaderSwatchGenerator::initialize();
-         UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
-        }
-        #endif // MAYA_API_VERSION >= 700
+//         // Import plug-in
+//         status = plugin.registerFileTranslator ( 
+//             COLLADAMaya::COLLADA_IMPORTER,
+//             "",
+//             COLLADAMaya::FileTranslator::createImporter,
+//             COLLADAMaya::MEL_IMPORT_OPTS,
+//             NULL );
+//         if ( !status )
+//         {
+//             status.perror ( "registerFileTranslator" );
+//             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
+//         }
+// 
+//         // TODO
+//         MString UserClassify("shader/surface/utility");
+// 
+//         #if MAYA_API_VERSION >= 700
+//         // Don't initialize swatches in batch mode
+//         if (MGlobal::mayaState() != MGlobal::kBatch)
+//         {
+//          const MString& swatchName = MHWShaderSwatchGenerator::initialize();
+//          UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
+//         }
+//         #endif // MAYA_API_VERSION >= 700
 
         return status;
     }
@@ -142,14 +149,14 @@
             return status;
         }
 
-        // Import plug-in
-        status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_IMPORTER );
-        if ( !status )
-        {
-            status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
-            return status;
-        }
+//         // Import plug-in
+//         status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_IMPORTER );
+//         if ( !status )
+//         {
+//             status.perror ( "deregisterFileTranslator" );
+//             MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
+//             return status;
+//         }
 
 #if MAYA_API_VERSION >= 800
         // Disable the shared-reference node options.
@@ -157,6 +164,9 @@
         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareDisplayLayers\" 0;" );
         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
 #endif // MAYA 8.0 and 8.5
+
+        // Stop the error logging
+        MGlobal::stopErrorLogging();
 
         return status;
     }

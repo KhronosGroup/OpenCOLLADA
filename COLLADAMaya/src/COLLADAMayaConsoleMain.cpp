@@ -56,6 +56,14 @@ int main(int argc,char** argv)
     g_argc=argc;
     g_argv=argv;
 #endif
+
+    // Activate the error logging
+    MGlobal::startErrorLogging();
+
+    // The default name of this file is OpenMayaErrorLog located in the 
+    // current directory. This can be changed, however, by calling:
+    MGlobal::setErrorLogPathName("$(MAYA_LOCATION)");
+
     char inFileName[MAX_FILENAME_LEN]={0};
     char outFileName[MAX_FILENAME_LEN]={0};
 
@@ -91,13 +99,13 @@ int main(int argc,char** argv)
             outFileExtension = "COLLADA dae file\0*.dae\0\0";
             defaultExtension = "dae";
 
-            // Check for an input and an output filename
+            // Check for an input and - on export - for an output filename
             if ( argc > 1 ) inFileArgPos = 1;
             if ( argc > 2 ) outFileArgPos = 2;
         }
     }
 
-    // both an infile and outfile specified as command line args
+    // both an inputfile and outputfile specified as command line args
     if ( inFileArgPos > 0 && outFileArgPos > 0 )
     {
 	    strcpy ( inFileName, argv[inFileArgPos] );
@@ -223,6 +231,10 @@ int main(int argc,char** argv)
 
     // close down maya
     MLibrary::cleanup(0);
+
+    // Stop the error logging
+    MGlobal::stopErrorLogging();
+
 
     return 0;
 }

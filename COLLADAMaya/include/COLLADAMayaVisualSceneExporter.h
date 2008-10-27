@@ -52,7 +52,9 @@ namespace COLLADAMaya
         /** Flag, if the current node is a joint. */
         bool mIsJoint;
 
-        /** Flag, if we handle the first rotation. */
+        /** Flag, if we handle the first rotation. 
+        Make sure to export the rotation order correctly by always enforcing
+        the elements of the first rotation. */
         bool mIsFirstRotation;
 
         /** The id of the current scene. */

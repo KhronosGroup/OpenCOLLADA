@@ -64,9 +64,9 @@ namespace COLLADAMaya
 
         // Create the basic elements
         mMaterialImporter = new MaterialImporter ( this );
-        mGeometryImporter = new GeometryImporter ();
+        mGeometryImporter = new GeometryImporter ( this );
         mCameraImporter = new CameraImporter ();
-        mVisualSceneImporter = new VisualSceneImporter ();
+        mVisualSceneImporter = new VisualSceneImporter ( this );
     }
 
     //---------------------------------------------------------------
@@ -94,13 +94,16 @@ namespace COLLADAMaya
         importAsset ();
 
         // Import the DAG entity libraries
-        mMaterialImporter->importMaterials();
+        mMaterialImporter->importMaterials ();
 
 //        mCameraImporter->Import();
 //        mLightImporter->Import();
-//        mGeometryImporter->Import();
+
+//        mGeometryImporter->importGeometries ();
+
 //        controllerLibrary->Import();
-//        mVisualSceneImporter->Import();
+
+        mVisualSceneImporter->importVisualScenes ();
 
     }
 

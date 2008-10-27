@@ -4,23 +4,28 @@ To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
 Autodesk Maya 8.5
+
 Autodesk Maya 2008
 Autodesk Maya 2009
 
 To run the binary you have to install the Microsoft Visual C++ 2005 
-Redistributable Package (x86). You can download and install it from:
+Redistributable Package (x86). You can download
+and install it from:
 http://www.microsoft.com/downloads/details.aspx?FamilyID=32bc1bee-a3f9-4c13-9c99-220b62a191ee&displaylang=en
 
-For help on build, please read the BUILD file.
+For help on build, please
+read the BUILD file.
 
 Install:
 --------
 On build with MS Visual Studio, the required plugin files will be copied into 
 your Autodesk Maya directories.
 
-NOTE: The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
+NOTE:
+The "YOUR_MAYA_PATH" used in the following section depends on your Maya 
 version. Following environment variables to your Maya location are supported:
-- MAYA_PATH2009
+-
+MAYA_PATH2009
 - MAYA_PATH2009_X64
 - MAYA_PATH2008
 - MAYA_PATH2008_X64
@@ -28,24 +33,27 @@ version. Following environment variables to your Maya location are supported:
 - MAYA_PATH85_X64
 
 If you install the binary, you have to copy following files:
-- "COLLADAMaya.mll" to $(YOUR_MAYA_PATH)/bin/plug-ins 
+- "COLLADAMaya.mll" to
+$(YOUR_MAYA_PATH)/bin/plug-ins 
 - "colladaNextGenExporterOpts.mel" to $(YOUR_MAYA_PATH)/scripts/others 
 
-You can also define a environment variable "MAYA_PLUG_IN_PATH" and put the 
+You can also define a environment variable
+"MAYA_PLUG_IN_PATH" and put the 
 mll-file into the refered directory. Autodesk Maya will load the plug-ins 
 from this directory too.
 
 Execute:
 --------
-When you start Autodesk Maya, go to the menu 
+When
+you start Autodesk Maya, go to the menu 
 	Window > Settings/Preferences > Plug-in Manager
 and load the plug-in "COLLADAMaya.mll" from the extended list.
+
 Now you can export your maya scene into a COLLADA file.
 
 Maya plugin loader bug:
 -----------------------
-Maya error: "Failed to find COLLADA exporter"
-It's a known bug that sometimes some versions maya don't recongnoize the last 
-converter on the list. To fix this, load a exra plugin after the fact and it 
-should work.
+Maya error: "Failed to find COLLADAMaya plug-in"
+Known maya bug: sometimes maya don't recognize the last converter on the list. 
+To fix this, load an extra plug-in after the COLLADAMaya plug-in.
 
