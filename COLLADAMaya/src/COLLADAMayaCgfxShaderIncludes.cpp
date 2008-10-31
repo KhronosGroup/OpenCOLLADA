@@ -5,9 +5,9 @@
 #endif
 
 #include "cgfxAttrDef.cpp"
-#if MAYA_API_VERSION > 700
+#if MAYA_API_VERSION > 800
 #include "cgfxEffectDef.cpp"
-#endif // MAYA_API_VERSION > 700
+#endif // MAYA_API_VERSION > 800
 #include "cgfxFindImage.cpp"
 #include "cgfxShaderCmd.cpp"
 #include "cgfxShaderNode.cpp"

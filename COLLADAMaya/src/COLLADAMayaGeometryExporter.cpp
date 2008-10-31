@@ -455,15 +455,15 @@ namespace COLLADAMaya
         const MFnMesh& fnMesh, 
         const String& meshId )
     {
-        if ( !ExportOptions::exportNormals() ) return false;
+        if ( !ExportOptions::exportNormals () ) return false;
 
         // Export the normals
-        uint normalCount = fnMesh.numNormals();
+        uint normalCount = fnMesh.numNormals ();
         MFloatVectorArray normals ( normalCount );
-        bool perVertexNormals = exportNormals( fnMesh, meshId, normals );
+        bool perVertexNormals = exportNormals ( fnMesh, meshId, normals );
 
         // Export the tangents
-        exportTangents( fnMesh, meshId, perVertexNormals, normals );
+        exportTangents ( fnMesh, meshId, perVertexNormals, normals );
 
         return !perVertexNormals;
     }
@@ -1233,7 +1233,7 @@ namespace COLLADAMaya
     {
         // Implement TangentSource and BinormalSource
        if ( ExportOptions::exportTangents() )
-        {
+       {
             // Geo-tangent and -binormal
             COLLADASW::FloatSource tangentSource ( mSW );
             COLLADASW::FloatSource binormalSource ( mSW );

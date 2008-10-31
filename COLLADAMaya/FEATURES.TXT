@@ -19,6 +19,7 @@
     - 	Sampled animation
     - 	Expressions
     - 	Animation clips
+    - 	Shapes ( Mesh, Cameras, Lights, ...)
     - 	Skin
     - 	Morph
     

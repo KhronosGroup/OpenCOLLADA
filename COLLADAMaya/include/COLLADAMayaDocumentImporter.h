@@ -40,29 +40,29 @@ namespace COLLADAMaya
 
     private:
 
-        /** Imports the material. */
-        MaterialImporter* mMaterialImporter;
-
-        /** Imports the geometry. */
-        GeometryImporter* mGeometryImporter;
-
-        /** Imports the camera. */
-        CameraImporter* mCameraImporter;
-
-        /** Imports the visual scene. */
-        VisualSceneImporter* mVisualSceneImporter;
-
         /** The name of the collada file. */
         String mFileName;
 
         /** The id of the current scene. */
         String mSceneId;
 
-        /** The currently parsed collada document. */
-        domCOLLADA* mColladaDocument;
+        /** The DAE class is the core interface via which you interact with the DOM. */
+        DAE mDae;
 
-        /** The parsed dae document. */
-        daeDocument* mDaeDocument;
+        /** The currently parsed collada document. */
+        domCOLLADA* mColladaDoc;
+
+        /** Imports the material. */
+        MaterialImporter* mMaterialImporter;
+
+        /** Imports the visual scene. */
+        VisualSceneImporter* mVisualSceneImporter;
+
+        /** Imports the geometry. */
+        GeometryImporter* mGeometryImporter;
+
+        /** Imports the camera. */
+        CameraImporter* mCameraImporter;
 
     public:
 
@@ -82,13 +82,8 @@ namespace COLLADAMaya
         const String& getFilename() const;
 
         /** The currently parsed collada document. */
-        const domCOLLADA* getColladaDocument () const { return mColladaDocument; }
-
-        /** The parsed dae document. */
-        const daeDocument* getDaeDocument () const { return mDaeDocument; }
-
-        /** The parsed dae document. */
-        daeDocument* getDaeDocument () { return mDaeDocument; }
+        const domCOLLADA* getColladaDocument () const { return mColladaDoc; }
+        domCOLLADA* getColladaDocument () { return mColladaDoc; }
 
         /**
         * Returns a pointer to the geometry exporter.
@@ -110,7 +105,8 @@ namespace COLLADAMaya
         /** Imports the current scene. */
         void exportScene();
 
-        /** Create the parsing libraries: we want access to the libraries during import/export time. */
+        /** Parse the current collada file and creates the parsing libraries: 
+        we want access to the libraries during import/export time. */
         void createLibraries();
 
         /** Releases the import/export libraries */

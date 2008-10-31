@@ -83,13 +83,6 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 
 					checkBoxGrp
 							-l " "
-							-ncb 1
-							-v1 false
-							-l1 "Export camera as lookat"
-							colladaExportCameraAsLookat;
-							
-					checkBoxGrp
-							-l " "
 							-l1 "Triangulate"
 							-v1 false
 							colladaExportTriangles;
@@ -252,6 +245,13 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 
 					checkBoxGrp
 							-l " "
+							-ncb 1
+							-v1 false
+							-l1 "Export camera as lookat"
+							colladaExportCameraAsLookat;
+							
+					checkBoxGrp
+							-l " "
 							-ncb 2
 							-va2 false true
 							-la2 "XFov" "YFov"
@@ -298,11 +298,6 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 				{
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaBakeLighting;
-				}
-				else if ( $optionBreakDown[0] == "exportCameraAsLookat" )
-				{
-					$intVal = $optionBreakDown[1];
-					checkBoxGrp -e -v1 $intVal colladaExportCameraAsLookat;
 				}
 				else if ( $optionBreakDown[0] == "exportTriangles" )
 				{
@@ -449,6 +444,11 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 				
 // Camera options
 //				
+				else if ( $optionBreakDown[0] == "exportCameraAsLookat" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaExportCameraAsLookat;
+				}
 				else if ($optionBreakDown[0] == "cameraXFov")
 				{
 					$intVal = $optionBreakDown[1];
@@ -475,7 +475,6 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "relativePaths=" + `checkBoxGrp -q -v1 colladaRelativePaths` + ";";
 		$currentOptions = $currentOptions + "copyTextures=" + `checkBoxGrp -q -v2 colladaRelativePaths` + ";";
 		$currentOptions = $currentOptions + "bakeLighting=" + `checkBoxGrp -q -v1 colladaBakeLighting` + ";";
-		$currentOptions = $currentOptions + "exportCameraAsLookat=" + `checkBoxGrp -q -v1 colladaExportCameraAsLookat` + ";";
 		$currentOptions = $currentOptions + "exportTriangles=" + `checkBoxGrp -q -v1 colladaExportTriangles` + ";";
  		$currentOptions = $currentOptions + "isSampling=" + `checkBoxGrp -q -v1 colladaIsSampling` + ";";
  		$currentOptions = $currentOptions + "curveConstrainSampling=" + `checkBoxGrp -q -v1 colladaAnimOpts2` + ";";
@@ -514,6 +513,7 @@ global proc int colladaNextGenExporterOpts ( string $parent,
 
 // Camera options
 //
+		$currentOptions = $currentOptions + "exportCameraAsLookat=" + `checkBoxGrp -q -v1 colladaExportCameraAsLookat` + ";";
 		$currentOptions = $currentOptions + "cameraXFov=" + `checkBoxGrp -q -v1 colladaCameraFov` + ";";
 		$currentOptions = $currentOptions + "cameraYFov=" + `checkBoxGrp -q -v2 colladaCameraFov` + ";";
 

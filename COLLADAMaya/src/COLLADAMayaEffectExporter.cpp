@@ -20,7 +20,9 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaShaderHelper.h"
 #include "COLLADAMayaSyntax.h"
+#if MAYA_API_VERSION > 700 
 #include "COLLADAMayaHwShaderExporter.h"
+#endif
 
 #include "COLLADASWUtils.h"
 #include "COLLADASWNode.h"
@@ -201,12 +203,16 @@ namespace COLLADAMaya
         {
             MGlobal::displayError("Export of ColladaFXPasses not implemented!");
         }
+
+#if MAYA_API_VERSION > 700 
         // Custom hardware shaders derived from MPxHardwareShader (the new stuff)
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) )
         {
             // Export a cgfx hardware shader node.
             exportHwShaderNode ( effectId, &effectProfile, shader );
         }
+#endif
+
 #if MAYA_API_VERSION < 700 || MAYA_API_VERSION == 200800
         // Custom hardware shaders derived from MPxHwShaderNode (the old stuff)
         else if ( shader.hasFn ( MFn::kPluginHardwareShader ) )
@@ -214,6 +220,7 @@ namespace COLLADAMaya
             MGlobal::displayError("Export HardwareShader not implemented!");
         }
 #endif
+
         else
         {
             // For the constant shader, you should use the "surface shader" node in Maya
@@ -231,8 +238,10 @@ namespace COLLADAMaya
         COLLADASW::EffectProfile *effectProfile,
         MObject shader )
     {
+#if MAYA_API_VERSION > 700 
         HwShaderExporter hwShaderExporter ( mDocumentExporter );
         hwShaderExporter.exportPluginHwShaderNode ( effectId, effectProfile, shader );
+#endif
     }
 
     //------------------------------------------------------

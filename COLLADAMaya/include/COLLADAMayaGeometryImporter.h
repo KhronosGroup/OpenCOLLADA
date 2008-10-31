@@ -19,6 +19,8 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
+#include "COLLADAFWMesh.h"
+
 
 namespace COLLADAMaya
 {
@@ -27,10 +29,21 @@ namespace COLLADAMaya
     class GeometryImporter : public BaseImporter
     {
 
+    private:
+
+        /** The current transform object, for which the geometries should be created. */
+        MObject mTransformObject;
+
+        /** A pointer to the current geometry instance to import. */
+        domGeometryRef mGeometryRef;
+
+        /** A pointer to the current mesh object to import. */
+        domMeshRef mMeshRef;
+
     public:
 
         /** Constructor. */
-        GeometryImporter ( DocumentImporter* documentImporter );
+        GeometryImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc );
 
         /** Destructor. */
         virtual ~GeometryImporter () {}
@@ -45,7 +58,126 @@ namespace COLLADAMaya
 
         /** Imports the data of the current mesh element. */
         bool importMesh ( domMeshRef& meshRef );
+
+        /** Imports the data of the current mesh element. */
+        bool importMesh ( const COLLADAFW::Mesh* mesh );
+
+        /** Get the vertices input array (there is only one per mesh) */
+        domInputLocal_Array getVerticesInputArray ();
+
+        /** One vertices input must specify semantic="POSITION" to establish the 
+        topological identity of each vertex in the mesh. */
+        domSourceRef getPositionsRef ();
+
+        /** Create the mesh from the current polylist. */
+        void createMeshFromPolylist ( domPolylist_Array& polylistArray );
+
+        /** Create the mesh from the current polygons array. */
+        void createMeshFromPolygons ( domPolygons_Array& polygonsArray );
+
+        /** Fill the array of vertex counts for each polygon. */
+        void getVertexArray ( const domSourceRef positionsRef, MFloatPointArray &vertexArray );
+
+        /**
+         * Fill the list with the count of vertices for every polygon and calculate 
+         * the number of polygons and the sum of vertices for all polygons.
+         * @param polylistRef Pointer to a polylist element in the collada document.
+         * @param vertexCountsPerPolygon List of vertex counts per polygon.
+         * @param numVertices Variable for the sum of all existing vertices in all polygons.
+         */
+        void getVertexCountsPerPolygon ( 
+            const domPolylistRef polylistRef, 
+            MIntArray& vertexCountsPerPolygon, 
+            size_t& numVertices );
+
+        /**
+         * Fill the list with the count of vertices for every polygon and calculate 
+         * the number of polygons and the sum of vertices for all polygons.
+         * @param polygonsRef Pointer to a polygons element in the collada document.
+         * @param numInputElements The number of input elements in the current polygon element.
+         * @param vertexCountsPerPolygon List of vertex counts per polygon.
+         * @param numVertices Variable for the sum of all existing vertices in all polygons.
+         */
+        void getVertexCountsPerPolygon ( 
+            const domPolygonsRef polygonsRef, 
+            const size_t numInputElements, 
+            MIntArray& vertexCountsPerPolygon, 
+            size_t& numVertices );
+
+        /**
+         * Get the vertex offset and the vertex set of the current polygons vertex input element.
+         * Also establish the the maximum offset value of the current polygons input elements.
+         * @param polylistRef Pointer to the current polylist element.
+         * @param vertexOffset Variable for the vertex offset.
+         * @param vertexSet Variable for the vertex set.
+         * @param maxOffset Variable for the maximum offset value of the polygons input elements.
+         */
+        void getPolygonsOffsetValues ( 
+            const domPolylistRef polylistRef, 
+            size_t &vertexOffset, 
+            size_t &vertexSet, 
+            size_t &maxOffset );
+
+        /**
+         * Get the vertex offset and the vertex set of the current polygons vertex input element.
+         * Also establish the the maximum offset value of the current polygons input elements.
+         * @param polygonsRef Pointer to the current polygons element.
+         * @param vertexOffset Variable for the vertex offset.
+         * @param vertexSet Variable for the vertex set.
+         * @param maxOffset Variable for the maximum offset value of the polygons input elements.
+         */
+        void getPolygonsOffsetValues ( 
+            domPolygonsRef polygonsRef, 
+            size_t& vertexOffset, 
+            size_t& vertexSet, 
+            size_t& maxOffset );
+
+        /**
+         * Go through the primitives, get the vertex connections for each 
+         * polygon and write them into the array of vertex connections. 
+         * @param polygonsRef Pointer to a polylist element in the collada document.
+         * @param numPolygons Number of all existing polygons.
+         * @param vertexCountsPerPolygon List of vertex counts per polygon.
+         * @param maxOffset Maximum offset value of the polygons input elements.
+         * @param vertexOffset The vertex offset.
+         * @param polygonConnects Vertex connections for each polygon.
+         */
+        void getVertexConnections ( 
+            const domPolylistRef polylistRef, 
+            const size_t numPolygons, 
+            const MIntArray vertexCountsPerPolygon, 
+            const size_t maxOffset, 
+            const size_t vertexOffset, 
+            MIntArray &polygonConnects );
+
+        /**
+         * Go through the primitives, get the vertex connections for each 
+         * polygon and write them into the array of vertex connections. 
+         * @param polygonsRef Pointer to a polygons element in the collada document.
+         * @param numPolygons Number of all existing polygons.
+         * @param vertexCountsPerPolygon List of vertex counts per polygon.
+         * @param maxOffset Maximum offset value of the polygons input elements.
+         * @param vertexOffset The vertex offset.
+         * @param polygonConnects Vertex connections for each polygon.
+         */
+        void getVertexConnections( 
+            const domPolygonsRef polygonsRef, 
+            const size_t numPolygons, 
+            const MIntArray vertexCountsPerPolygon, 
+            const size_t maxOffset, 
+            const size_t vertexOffset, 
+            MIntArray &polygonConnects );
+
+        /** Create a maya mesh element. */
+        void createMesh ( 
+            const size_t numVertices, 
+            const size_t numPolygons, 
+            const MFloatPointArray vertexArray, 
+            const MIntArray vertexCountsPerPolygon, 
+            const MIntArray polygonConnects );
+
     };
+
 }
 
 #endif // __COLLADA_MAYA_GEOMETRY_IMPORTER_H__

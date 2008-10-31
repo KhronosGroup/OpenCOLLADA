@@ -20,7 +20,7 @@ namespace COLLADAMaya
 {
 
     SceneNodeTraverser::SceneNodeTraverser( DocumentImporter* documentImporter, daeElement &nodeContainer ) 
-    : COLLADA::NodeTraverser ( nodeContainer )
+    : COLLADADomHelper::NodeTraverser ( nodeContainer )
     , mDocumentImporter ( documentImporter )
     {}
 

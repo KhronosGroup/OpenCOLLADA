@@ -29,7 +29,7 @@ namespace COLLADAMaya
     public:
 
         /** Constructor. */
-        MaterialImporter ( DocumentImporter* documentImporter );
+        MaterialImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc );
 
         /** Destructor. */
         virtual ~MaterialImporter () {}

@@ -2,7 +2,7 @@
     Copyright (c) 2008 NetAllied Systems GmbH
     Copyright 2006 Sony Computer Entertainment Inc.
 
-    This file is part of COLLADASWStreamWriter.
+    This file is part of COLLADAStreamWriter.
 
     Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
@@ -14,8 +14,6 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWUtils.h"
-//#include <boost/regex.hpp>
-
 
 
 namespace COLLADASW

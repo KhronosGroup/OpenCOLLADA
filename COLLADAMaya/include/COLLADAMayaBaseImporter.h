@@ -22,8 +22,8 @@
 namespace COLLADAMaya
 {
 
-    /** Declares the base import functionality. This is the base class for all
-    importers. */
+    /** Declares the base import functionality. 
+    This is the base class for all importers. */
     class BaseImporter
     {
 
@@ -32,11 +32,15 @@ namespace COLLADAMaya
         /** Pointer to the current document importer. */
         DocumentImporter* mDocumentImporter;
 
+        /** Pointer to the current dae document. */
+        daeDocument* mDaeDoc;
+
     public:
 
         /** Constructor. */
-        BaseImporter ( DocumentImporter* documentImporter )
+        BaseImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc )
         : mDocumentImporter ( documentImporter )
+        , mDaeDoc ( daeDoc )
         {}
 
         /** Destructor. */
@@ -46,6 +50,10 @@ namespace COLLADAMaya
 
         /** Returns a pointer to the current document importer. */
         DocumentImporter* getDocumentImporter () { return mDocumentImporter; }
+
+        /** Pointer to the current dae document. */
+        daeDocument* getDaeDocument () { return mDaeDoc; }
+        const daeDocument* getDaeDocument () const { return mDaeDoc; }
 
         /** Returns a pointer to the current document importer. */
         const DocumentImporter* getDocumentImporter () const { return mDocumentImporter; }

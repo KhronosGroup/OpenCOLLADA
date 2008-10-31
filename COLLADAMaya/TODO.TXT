@@ -1,28 +1,25 @@
 -   General
-    -   linux
-    - 	other maya versions
-    -   internationalisation (i18n)
-    -   reader
+    -   Linux
+    -   Internationalisation (i18n)
+    -   Reader (importer)
 
--   Multiple documents
-
--   VisualScene
+-   VisualSceneExport
     -   Reference to the effect texture
 	    
--   Effects:
-	- 	hlsl shader
+-   EffectsExport
+    -   hlsl shader
 
--   Animations
-	- 	Path animation
-    -   Constraints (point, orient, parent)
-    - 	Lights
-
--   PhysicalScene
+-   AnimationsExport
+    -   Path animation
     -   Constraints (point, orient, parent)
 
--   Subdivision surfaces
--   Nurbs
-- 	Splines
-- 	Object External References (XREFs)
+-   PhysicalSceneExport
+    -   Constraints (point, orient, parent)
+
+-   Subdivision surfaces export
+-   Nurbs export
+-   Splines export
+-   External references export (XREFs):
+    -   write mutiple dae documents
 
 

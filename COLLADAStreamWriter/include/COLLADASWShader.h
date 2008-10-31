@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADASWStreamWriter.
+    This file is part of COLLADAStreamWriter.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 #ifndef __COLLADASTREAMWRITER_SHADER_H__

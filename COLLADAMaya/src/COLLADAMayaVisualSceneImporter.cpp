@@ -34,19 +34,19 @@ namespace COLLADAMaya
 {
     
     // -----------------------------------
-    VisualSceneImporter::VisualSceneImporter( DocumentImporter* documentImporter ) 
-    : BaseImporter ( documentImporter )
+    VisualSceneImporter::VisualSceneImporter ( 
+        DocumentImporter* documentImporter, 
+        daeDocument* daeDoc ) 
+    : BaseImporter ( documentImporter, daeDoc )
     {}
 
     // -----------------------------------
     void VisualSceneImporter::importVisualScenes ()
     {
-        const domCOLLADA* colladaDoc = getDocumentImporter()->getColladaDocument();
-        daeDocument* daeDoc = getDocumentImporter()->getDaeDocument();
+        daeDocument* daeDoc = getDaeDocument();
+        COLLADADomHelper::Reader reader ( *daeDoc );
 
-        COLLADA::Reader reader ( *daeDoc );
-
-        COLLADA::Reader::ElementIterator<domVisual_scene> visualScenesIter = reader.getVisualScenes();
+        COLLADADomHelper::Reader::ElementIterator<domVisual_scene> visualScenesIter = reader.getVisualScenes();
         while ( visualScenesIter.more() )
         {
             domVisual_scene& visualScene = visualScenesIter.next();

@@ -74,7 +74,7 @@ namespace COLLADAMaya
     public:
 
         /** Constructor. */
-        VisualSceneImporter ( DocumentImporter* documentImporter );
+        VisualSceneImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc );
 
         /** Destructor. */
         virtual ~VisualSceneImporter () {}

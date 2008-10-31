@@ -32,7 +32,7 @@
 namespace COLLADAMaya
 {
     
-    //---------------------------------------------------------------
+    //---------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
         : mFileName ( fileName )
         , mMaterialImporter ( NULL )
@@ -43,15 +43,16 @@ namespace COLLADAMaya
     {
     }
 
-    //---------------------------------------------------------------
+    //---------------------------------
     DocumentImporter::~DocumentImporter()
     {
         releaseLibraries(); 
     }
 
-    //---------------------------------------------------------------
+    //---------------------------------
     void DocumentImporter::createLibraries()
     {
+        // First release the existing libraries.
         releaseLibraries();
 
         // Get the sceneID (assign a name to the scene)
@@ -62,14 +63,21 @@ namespace COLLADAMaya
         // Initialize the reference manager
         ReferenceManager::getInstance()->initialize ();
 
+        // Parse the dae document, then create the libraries
+        // (the importers want to have a reference to the document).
+        String fileUriString = COLLADASW::URI::nativePathToUri ( getFilename() );
+        mColladaDoc = mDae.open ( fileUriString );
+        daeDocument* daeDoc = mColladaDoc->getDocument();
+
         // Create the basic elements
-        mMaterialImporter = new MaterialImporter ( this );
-        mGeometryImporter = new GeometryImporter ( this );
+        mMaterialImporter = new MaterialImporter ( this, daeDoc );
+        mGeometryImporter = new GeometryImporter ( this, daeDoc );
         mCameraImporter = new CameraImporter ();
-        mVisualSceneImporter = new VisualSceneImporter ( this );
+        mVisualSceneImporter = new VisualSceneImporter ( this, daeDoc );
+
     }
 
-    //---------------------------------------------------------------
+    //---------------------------------
     void DocumentImporter::releaseLibraries()
     {
         delete mMaterialImporter;
@@ -82,13 +90,7 @@ namespace COLLADAMaya
     void DocumentImporter::importCurrentScene()
     {
         // Create the import/export library helpers.
-        createLibraries();
-
-        DAE dae;
-        String fileUriString = COLLADASW::URI::nativePathToUri( getFilename() );
-        mColladaDocument = dae.open ( fileUriString );
-
-        mDaeDocument = mColladaDocument->getDocument();
+        createLibraries ();
 
         // Import the asset information.
         importAsset ();
@@ -117,8 +119,8 @@ namespace COLLADAMaya
             {
                 char upAxis = 'y';
                 
-                daeDocument* daeDoc = mColladaDocument->getDocument();
-                domUpAxisType upAxisType = COLLADA::DocumentUtil::getUpAxis ( daeDoc );
+                daeDocument* daeDoc = mColladaDoc->getDocument();
+                domUpAxisType upAxisType = COLLADADomHelper::DocumentUtil::getUpAxis ( daeDoc );
                 switch ( upAxisType )
                 {
                 case UPAXISTYPE_Z_UP: upAxis = 'z';
@@ -179,6 +181,5 @@ namespace COLLADAMaya
     {
         return mVisualSceneImporter;
     }
-
 
 }
