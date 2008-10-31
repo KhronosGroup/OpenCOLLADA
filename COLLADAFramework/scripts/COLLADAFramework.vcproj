@@ -326,10 +326,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWINode.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWInput.h"
 				>
 			</File>
