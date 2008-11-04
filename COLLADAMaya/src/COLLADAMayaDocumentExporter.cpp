@@ -415,6 +415,11 @@ namespace COLLADAMaya
         return mSceneGraph;
     }
 
+    const SceneGraph* DocumentExporter::getSceneGraph() const
+    {
+        return mSceneGraph;
+    }
+
     const String& DocumentExporter::getFilename() const
     {
         return mFileName;
@@ -483,5 +488,10 @@ namespace COLLADAMaya
     const String& DocumentExporter::getSceneID()
     {
         return mSceneId;
+    }
+
+    const bool DocumentExporter::getExportSelectedOnly () const
+    {
+        return getSceneGraph ()->getExportSelectedOnly ();
     }
 }

@@ -110,34 +110,37 @@ namespace COLLADAMaya
         }
 
 #endif // windows-only.
-        static bool   setPlugValue ( MPlug& plug, bool value );
-        static bool   setPlugValue ( MPlug& plug, MStringArray& stringArray );
+        static bool setPlugValue ( MPlug& plug, bool value );
+        static bool setPlugValue ( MPlug& plug, MStringArray& stringArray );
 
         // Helper to avoid the findPlug.
         template <class ValueType>
-        static bool   setPlugValue ( const MObject& node, const char* attributeName, const ValueType& value )
+        static bool setPlugValue ( 
+            const MObject& node, 
+            const char* attributeName, 
+            const ValueType& value )
         {
             MPlug p = MFnDependencyNode ( node ).findPlug ( attributeName );
             return setPlugValue ( p, value );
         }
 
         // set an array plug size before creating the element plugs
-        static void   setArrayPlugSize ( MPlug& plug, uint size );
+        static void setArrayPlugSize ( MPlug& plug, uint size );
 
         // Attempt to translate a String path/name into a dag path or node
-        static MDagPath  getShortestDagPath ( const MObject& node );
-        static MObject  getNode ( const MString& name );
+        static MDagPath getShortestDagPath ( const MObject& node );
+        static MObject getNode ( const MString& name );
 
         // Create an animation curve for the given plug
-        static MObject  createAnimationCurve ( const MObject& node, const char* attributeName, const char* curveType );
-        static MObject  createAnimationCurve ( const MPlug& plug, const char* curveType );
-        static bool   plugHasAnimation ( const MPlug& plug );
-        static MObject  createExpression ( const MPlug& plug, const MString& expression );
+        static MObject createAnimationCurve ( const MObject& node, const char* attributeName, const char* curveType );
+        static MObject createAnimationCurve ( const MPlug& plug, const char* curveType );
+        static bool plugHasAnimation ( const MPlug& plug );
+        static MObject createExpression ( const MPlug& plug, const MString& expression );
 
         // Create a String-typed attribute on a given node
-        static MObject  createAttribute ( const MObject& node, const char* attributeName, const char* attributeShortName, MFnData::Type type, const char *value );
-        static MObject  createAttribute ( const MObject& node, const char* attributeName, const char* attributeShortName, MFnNumericData::Type type, const char *value );
-        static MPlug  addAttribute ( const MObject& node, const MObject& attribute );
+        static MObject createAttribute ( const MObject& node, const char* attributeName, const char* attributeShortName, MFnData::Type type, const char *value );
+        static MObject createAttribute ( const MObject& node, const char* attributeName, const char* attributeShortName, MFnNumericData::Type type, const char *value );
+        static MPlug addAttribute ( const MObject& node, const MObject& attribute );
 
         // get the first empty item in the named array plug
         static unsigned getFirstEmptyElementId ( const MPlug& parent );

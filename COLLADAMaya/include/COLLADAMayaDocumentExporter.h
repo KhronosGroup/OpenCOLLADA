@@ -135,6 +135,10 @@ namespace COLLADAMaya
          * @return SceneGraph* Pointer to the scene graph
          */
         SceneGraph* getSceneGraph();
+        const SceneGraph* getSceneGraph() const;
+
+        /** false if all data should be exported, true if export just the selected elements */
+        const bool getExportSelectedOnly () const;
 
         /**
          * Returns the name of the current collada file to export.

@@ -53,14 +53,21 @@ namespace COLLADAMaya
     {
         mWriteMaterials = writeMaterials;
 
-        // Get all shaders, which are in the default shader list.
-        // Unfortunately, you will not get the default initialShadingGroup elements, which are
-        // directly connected to an object, if no other material (shader) is connected to the object.
-        exportMaterialsByShaderPlug();
-
-        // Now go through scene graph and find all shaders, connected to the meshes.
-        // So you can find the default shaders of an object.
-        exportMaterialsBySceneGraph();
+        // Should we only export the selected elements?
+        bool exportSelectedOnly = mDocumentExporter->getExportSelectedOnly ();
+        if ( !exportSelectedOnly ) 
+        {
+            // Get all shaders, which are in the default shader list.
+            // Unfortunately, you will not get the default initialShadingGroup elements, which are
+            // directly connected to an object, if no other material (shader) is connected to the object.
+            exportMaterialsByShaderPlug ();
+        }
+        else
+        {
+            // Now go through scene graph and find all shaders, connected to the meshes.
+            // So you can find the default shaders of an object.
+            exportMaterialsBySceneGraph ();
+        }
 
         // Set the flag, that the material std::map is initialised
         materialMapInitialized = true;
@@ -108,15 +115,14 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    // Now go through scene graph and find all shaders, connected to the meshes.
-    // So you can find the default shaders of an object.
-    void MaterialExporter::exportMaterialsBySceneGraph()
+    void MaterialExporter::exportMaterialsBySceneGraph ()
     {
         // Get the list with the transform nodes.
         SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
         SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
-        // Export all/selected DAG nodes
+        // Now go through scene graph and find all shaders, connected to the meshes.
+        // So you can find the default shaders of an object.
         size_t length = exportNodesTree->size();
         for ( size_t i = 0; i < length; ++i )
         {

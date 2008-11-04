@@ -63,6 +63,7 @@ namespace COLLADAMaya
         MObjectArray mAnimationExpressions;
 
     public:
+
         /**
          * SceneGraph Constructor
          * @param documentExporter Pointer to the main document exporter.
@@ -73,6 +74,10 @@ namespace COLLADAMaya
          * ~SceneGraph Destructor
          */
         virtual ~SceneGraph();
+
+        /** false if all data should be exported, true if export just the selected elements */
+        const bool getExportSelectedOnly () const { return mExportSelectedOnly; }
+        void setExportSelectedOnly ( const bool ExportSelectedOnly ) { mExportSelectedOnly = ExportSelectedOnly; }
 
         /**
          * Returns list with the root nodes to export, which represents the scene graph.
