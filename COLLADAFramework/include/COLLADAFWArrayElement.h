@@ -26,29 +26,29 @@ namespace COLLADAFW
         /**
          * The number of values in the array. Required.
          */
-        unsigned int mArrayCount;
+        unsigned int mCount;
 
         /**
          * A text string containing the unique identifier of this element. 
          * This value must be unique within the instance document. Optional.
          */
-        String mArrayId; 
+        String mId; 
 
         /**
          * xs:NCName The text string name of this element. Optional.
          */
-        String mArrayName; 
+        String mName; 
 
         /**
          * The arrayValues element stores values of the templates data type 
          * that reference values within the instance document.
          */
-        Type* mArrayValues;
+        Type* mValues;
 
         /**
          * The size of the arrayValues array.
          */
-        size_t mArrayValuesSize;
+        size_t mValuesSize;
 
     public:
 
@@ -61,21 +61,21 @@ namespace COLLADAFW
         /**
         * The number of values in the array. Required.
         */
-        const unsigned int getArrayCount () const { return mArrayCount; }
-        void setArrayCount ( const unsigned int val ) { mArrayCount = val; }
+        const unsigned int getCount () const { return mCount; }
+        void setCount ( const unsigned int val ) { mCount = val; }
 
         /**
         * A text string containing the unique identifier of this element. 
         * This value must be unique within the instance document. Optional.
         */
-        const String getArrayId () const { return mArrayId; }
-        void setArrayId ( const String val ) { mArrayId = val; }
+        const String getId () const { return mId; }
+        void setId ( const String val ) { mId = val; }
 
         /**
         * xs:NCName The text string name of this element. Optional.
         */
-        const String getArrayName () const { return mArrayName; }
-        void setArrayName ( const String val ) { mArrayName = val; }
+        const String getName () const { return mName; }
+        void setName ( const String val ) { mName = val; }
 
         /**
          * The arrayValues element stores values of the templates data type 
@@ -83,10 +83,10 @@ namespace COLLADAFW
          * @param arrayValuesSize Parameter to get the size of the array.
          * @return const Type* Pointer to the array of the templates datatype.
          */
-        const Type* getArrayValues ( size_t& arrayValuesSize ) const 
+        const Type* getValues ( size_t& valuesSize ) const 
         { 
-            arrayValuesSize = mArrayValuesSize;
-            return mArrayValues; 
+            valuesSize = mValuesSize;
+            return mValues; 
         }
 
         /**
@@ -95,10 +95,10 @@ namespace COLLADAFW
          * @param arrayValues Pointer to the array of values.
          * @param arrayValuesSize Size of the array.
          */
-        void setArrayValues ( Type* arrayValues, const size_t arrayValuesSize ) 
+        void setValues ( Type* arrayValues, const size_t valuesSize ) 
         { 
-            mArrayValuesSize = arrayValuesSize;
-            mArrayValues = arrayValues; 
+            mValuesSize = valuesSize;
+            mValues = arrayValues; 
         }
 
     };

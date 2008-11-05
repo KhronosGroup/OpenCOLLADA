@@ -25,6 +25,8 @@
 #include "COLLADASWException.h"
 #include "COLLADASWURI.h"
 
+#include "COLLADAException.h"
+
 #include <time.h>
 
 #include <maya/MFnPlugin.h>
@@ -96,30 +98,30 @@
             return status;
         }
 
-        // Import plug-in
-        status = plugin.registerFileTranslator ( 
-            COLLADAMaya::COLLADA_IMPORTER,
-            "",
-            COLLADAMaya::FileTranslator::createImporter,
-            COLLADAMaya::MEL_IMPORT_OPTS,
-            NULL );
-        if ( !status )
-        {
-            status.perror ( "registerFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
-        }
-
-        // TODO
-        MString UserClassify("shader/surface/utility");
-
-        #if MAYA_API_VERSION >= 700
-        // Don't initialize swatches in batch mode
-        if (MGlobal::mayaState() != MGlobal::kBatch)
-        {
-         const MString& swatchName = MHWShaderSwatchGenerator::initialize();
-         UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
-        }
-        #endif // MAYA_API_VERSION >= 700
+//         // Import plug-in
+//         status = plugin.registerFileTranslator ( 
+//             COLLADAMaya::COLLADA_IMPORTER,
+//             "",
+//             COLLADAMaya::FileTranslator::createImporter,
+//             COLLADAMaya::MEL_IMPORT_OPTS,
+//             NULL );
+//         if ( !status )
+//         {
+//             status.perror ( "registerFileTranslator" );
+//             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
+//         }
+// 
+//         // TODO
+//         MString UserClassify("shader/surface/utility");
+// 
+//         #if MAYA_API_VERSION >= 700
+//         // Don't initialize swatches in batch mode
+//         if (MGlobal::mayaState() != MGlobal::kBatch)
+//         {
+//          const MString& swatchName = MHWShaderSwatchGenerator::initialize();
+//          UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
+//         }
+//         #endif // MAYA_API_VERSION >= 700
 
         return status;
     }
@@ -149,21 +151,21 @@
             return status;
         }
 
-        // Import plug-in
-        status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_IMPORTER );
-        if ( !status )
-        {
-            status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
-            return status;
-        }
-
-#if MAYA_API_VERSION >= 800
-        // Disable the shared-reference node options.
-        MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsSharedReference\" 0;" );
-        MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareDisplayLayers\" 0;" );
-        MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
-#endif // MAYA 8.0 and 8.5
+//         // Import plug-in
+//         status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_IMPORTER );
+//         if ( !status )
+//         {
+//             status.perror ( "deregisterFileTranslator" );
+//             MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
+//             return status;
+//         }
+// 
+// #if MAYA_API_VERSION >= 800
+//         // Disable the shared-reference node options.
+//         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsSharedReference\" 0;" );
+//         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareDisplayLayers\" 0;" );
+//         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
+// #endif // MAYA 8.0 and 8.5
 
         // Stop the error logging
         MGlobal::stopErrorLogging();
@@ -313,41 +315,52 @@ namespace COLLADAMaya
                                      const MString& options,
                                      MPxFileTranslator::FileAccessMode mode )
     {
+        MStatus status ( MS::kSuccess );
 
+        try
+        {
 #if MAYA_API_VERSION >= 800
 
-        if ( mode == MPxFileTranslator::kReferenceAccessMode )
-        {
-            int optionValue;
-            MGlobal::executeCommand ( "optionVar -q \"referenceOptionsSharedReference\";", optionValue );
-
-            if ( optionValue != 0 )
+            if ( mode == MPxFileTranslator::kReferenceAccessMode )
             {
+                int optionValue;
+                MGlobal::executeCommand ( "optionVar -q \"referenceOptionsSharedReference\";", optionValue );
+
+                if ( optionValue != 0 )
+                {
 #ifdef WIN32
-                MessageBox ( NULL, "Maya may now hang. Do disable the reference option named: \"Shared Reference Nodes\".", "POSSIBLE HANG", MB_OK );
+                    MessageBox ( NULL, "Maya may now hang. Do disable the reference option named: \"Shared Reference Nodes\".", "POSSIBLE HANG", MB_OK );
 #endif
+                }
             }
-        }
 
 #endif // Maya 8.0 and 8.5
 
 
 #if defined (OSMac_)
-        char nameBuffer[MAXPATHLEN];
-        strcpy ( nameBuffer, file.fullName().asChar() );
-        const MString filename ( nameBuffer );
+            char nameBuffer[MAXPATHLEN];
+            strcpy ( nameBuffer, file.fullName().asChar() );
+            const MString filename ( nameBuffer );
 #else
-        const MString filename = file.fullName();
+            const MString filename = file.fullName();
 #endif  // OSMac
 
-        MStatus status ( MS::kSuccess );
+            // Process the import options
+            ImportOptions::set ( options, mode );
+            if (ImportOptions::hasError()) status = MStatus::kFailure;
 
-        // Process the import options
-        ImportOptions::set ( options, mode );
-        if (ImportOptions::hasError()) status = MStatus::kFailure;
-
-        // Import the COLLADA DAE file
-        status = importFromFile ( filename.asChar() );
+            // Import the COLLADA DAE file
+            status = importFromFile ( filename.asChar() );
+        }
+        catch ( COLLADADomHelper::Exception* exception  )
+        {
+            String message = "Exception: " + exception->getDescription ();
+            MGlobal::displayError ( message.c_str() );
+        }
+        catch ( ... )
+        {
+            MGlobal::displayError ( "ColladaMaya has thrown an exception!" );
+        }
 
         return status;
     }
@@ -356,6 +369,7 @@ namespace COLLADAMaya
     MStatus FileTranslator::importFromFile ( const String& filename )
     {
         MStatus status = MS::kSuccess;
+
 
         // Get the time 
         clock_t startClock, endClock;

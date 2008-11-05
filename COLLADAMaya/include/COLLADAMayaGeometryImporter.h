@@ -57,36 +57,34 @@ namespace COLLADAMaya
         void importGeometry ( domInstance_geometryRef instanceGeometryRef );
 
         /** Imports the data of the current mesh element. */
-        bool importMesh ( domMeshRef& meshRef );
-
-        /** Imports the data of the current mesh element. */
         bool importMesh ( const COLLADAFW::Mesh* mesh );
 
-        /** Get the vertices input array (there is only one per mesh) */
-        domInputLocal_Array getVerticesInputArray ();
-
+        void createMeshFromPolylist ( const COLLADAFW::Mesh* mesh, const COLLADAFW::Source* positionsSource );
         /** One vertices input must specify semantic="POSITION" to establish the 
         topological identity of each vertex in the mesh. */
         domSourceRef getPositionsRef ();
 
-        /** Create the mesh from the current polylist. */
-        void createMeshFromPolylist ( domPolylist_Array& polylistArray );
-
         /** Create the mesh from the current polygons array. */
         void createMeshFromPolygons ( domPolygons_Array& polygonsArray );
 
-        /** Fill the array of vertex counts for each polygon. */
-        void getVertexArray ( const domSourceRef positionsRef, MFloatPointArray &vertexArray );
+        /**
+         * Fill the maya array of vertex counts for each polygon.
+         * @param positionsSource Pointer to the COLLADAFramework positions source element.
+         * @param vertexArray Maya array of vertex counts for each polygon.
+         */
+        void getVertexArray ( 
+            const COLLADAFW::Source* positionsSource, 
+            MFloatPointArray &vertexArray );
 
         /**
          * Fill the list with the count of vertices for every polygon and calculate 
          * the number of polygons and the sum of vertices for all polygons.
-         * @param polylistRef Pointer to a polylist element in the collada document.
+         * @param polylist Reference to a polylist element.
          * @param vertexCountsPerPolygon List of vertex counts per polygon.
          * @param numVertices Variable for the sum of all existing vertices in all polygons.
          */
         void getVertexCountsPerPolygon ( 
-            const domPolylistRef polylistRef, 
+            const COLLADAFW::Polylist& polylist, 
             MIntArray& vertexCountsPerPolygon, 
             size_t& numVertices );
 
@@ -107,13 +105,13 @@ namespace COLLADAMaya
         /**
          * Get the vertex offset and the vertex set of the current polygons vertex input element.
          * Also establish the the maximum offset value of the current polygons input elements.
-         * @param polylistRef Pointer to the current polylist element.
+         * @param polylist The current polylist element.
          * @param vertexOffset Variable for the vertex offset.
          * @param vertexSet Variable for the vertex set.
          * @param maxOffset Variable for the maximum offset value of the polygons input elements.
          */
         void getPolygonsOffsetValues ( 
-            const domPolylistRef polylistRef, 
+            const COLLADAFW::Polylist& polylist, 
             size_t &vertexOffset, 
             size_t &vertexSet, 
             size_t &maxOffset );
@@ -143,7 +141,7 @@ namespace COLLADAMaya
          * @param polygonConnects Vertex connections for each polygon.
          */
         void getVertexConnections ( 
-            const domPolylistRef polylistRef, 
+            const COLLADAFW::Polylist& polylist, 
             const size_t numPolygons, 
             const MIntArray vertexCountsPerPolygon, 
             const size_t maxOffset, 

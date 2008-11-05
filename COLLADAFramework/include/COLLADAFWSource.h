@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayElement.h"
+#include "COLLADAFWTechniqueCommon.h"
 
 
 namespace COLLADAFW
@@ -37,12 +38,12 @@ namespace COLLADAFW
          * A text string containing the unique identifier of the element. This value must be unique
          * within the instance document. Required.
          */
-        String mSourceId;
+        String mId;
 
         /** 
          * The text string name of this element. Optional.
          */
-        String mSourceName;
+        String mName;
 
         /**
          * Stores a homogenous array of values.
@@ -52,41 +53,38 @@ namespace COLLADAFW
         IntArrayElement mIntArrayElement;
 
         /**
-        * Stores a homogenous array of values.
-        * The class contains members for all valid array element types, 
-        * but there is always just one, which is initialised.
-        */
+         * Stores a homogenous array of values.
+         * The class contains members for all valid array element types, 
+         * but there is always just one, which is initialised.
+         */
         FloatArrayElement mFloatArrayElement;
 
         /**
-        * Stores a homogenous array of values.
-        * The class contains members for all valid array element types, 
-        * but there is always just one, which is initialised.
-        */
+         * Stores a homogenous array of values.
+         * The class contains members for all valid array element types, 
+         * but there is always just one, which is initialised.
+         */
         BoolArrayElement mBoolArrayElement;
 
         /**
-        * Stores a homogenous array of values.
-        * The class contains members for all valid array element types, 
-        * but there is always just one, which is initialised.
-        */
+         * Stores a homogenous array of values.
+         * The class contains members for all valid array element types, 
+         * but there is always just one, which is initialised.
+         */
         NameArrayElement mNameArrayElement;
 
         /**
-        * Stores a homogenous array of values.
-        * The class contains members for all valid array element types, 
-        * but there is always just one, which is initialised.
-        */
+         * Stores a homogenous array of values.
+         * The class contains members for all valid array element types, 
+         * but there is always just one, which is initialised.
+         */
         IDREFArrayElement mIDREFArrayElement;
 
-        /** The id of the array*/
-        String mArrayId;
-
-        /** The value of the count attribute of the accessor*/
-        unsigned long mAccessorCount;
-
-        /** The value of the stride attribute of the accessor*/
-        unsigned long mAccessorStride;
+        /**
+         * Specifies source information for the common profile that all COLLADA implementations 
+         * must support. 
+         */
+        TechniqueCommon mTechniqueCommon;
 
     public:
 
@@ -97,17 +95,30 @@ namespace COLLADAFW
         virtual ~Source () {}
 
         /** 
-        * A text string containing the unique identifier of the element. This value must be unique
-        * within the instance document. Required.
+        * A text string containing the unique identifier of the element. 
+        * This value must be unique within the instance document. Required.
+        * @return const String& The unique identifier of the element. 
         */
-        const String& getSourceId () const { return mSourceId; }
-        void setSourceId ( const String val ) { mSourceId = val; }
+        const String& getId () const { return mId; }
+
+        /**
+         * A text string containing the unique identifier of the element. 
+         * This value must be unique within the instance document. Required.
+         * @param val The unique identifier of the element. 
+         */
+        void setId ( const String& val ) { mId = val; }
 
         /** 
         * The text string name of this element. Optional.
+        * @return The text string name of this element. 
         */
-        const String& getSourceName () const { return mSourceName; }
-        void setSourceName ( const String val ) { mSourceName = val; }
+        const String& getName () const { return mName; }
+
+        /**
+         * The text string name of this element. Optional.
+         * @param val The text string name of this element.
+         */
+        void setName ( const String& val ) { mName = val; }
 
         /**
         * Stores a homogenous array of values.
@@ -115,7 +126,15 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @return const IntArrayElement The array element with the values array.
         */
-        const IntArrayElement getIntArrayElement () const { return mIntArrayElement; }
+        IntArrayElement& getIntArrayElement () { return mIntArrayElement; }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const IntArrayElement The array element with the values array.
+        */
+        const IntArrayElement& getIntArrayElement () const { return mIntArrayElement; }
 
         /**
         * Stores a homogenous array of values.
@@ -123,7 +142,7 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @param arrayElement The array element with the values array.
         */
-        void setIntArrayElement ( const IntArrayElement arrayElement ) { mIntArrayElement = arrayElement; }
+        void setIntArrayElement ( const IntArrayElement& arrayElement ) { mIntArrayElement = arrayElement; }
 
         /**
         * Stores a homogenous array of values.
@@ -131,7 +150,18 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @return const BoolArrayElement The array element with the values array.
         */
-        const BoolArrayElement getBoolArrayElement () const 
+        BoolArrayElement& getBoolArrayElement () 
+        { 
+            return mBoolArrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const BoolArrayElement The array element with the values array.
+        */
+        const BoolArrayElement& getBoolArrayElement () const 
         { 
             return mBoolArrayElement; 
         }
@@ -142,7 +172,7 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @param arrayElement The array element with the values array.
         */
-        void setBoolArrayElement ( const BoolArrayElement arrayElement ) 
+        void setBoolArrayElement ( const BoolArrayElement& arrayElement ) 
         { 
             mBoolArrayElement = arrayElement; 
         }
@@ -153,7 +183,18 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @return const FloatArrayElement The array element with the values array.
         */
-        const FloatArrayElement getFloatArrayElement () const 
+        const FloatArrayElement& getFloatArrayElement () const 
+        { 
+            return mFloatArrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const FloatArrayElement The array element with the values array.
+        */
+        FloatArrayElement& getFloatArrayElement () 
         { 
             return mFloatArrayElement; 
         }
@@ -164,7 +205,7 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @param arrayElement The array element with the values array.
         */
-        void setFloatArrayElement ( const FloatArrayElement arrayElement ) 
+        void setFloatArrayElement ( const FloatArrayElement& arrayElement ) 
         { 
             mFloatArrayElement = arrayElement; 
         }
@@ -175,7 +216,18 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @return const NameArrayElement The array element with the values array.
         */
-        const NameArrayElement getNameArrayElement () const 
+        NameArrayElement& getNameArrayElement () 
+        { 
+            return mNameArrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const NameArrayElement The array element with the values array.
+        */
+        const NameArrayElement& getNameArrayElement () const 
         { 
             return mNameArrayElement; 
         }
@@ -186,7 +238,7 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @param arrayElement The array element with the values array.
         */
-        void setNameArrayElement ( const NameArrayElement arrayElement ) 
+        void setNameArrayElement ( const NameArrayElement& arrayElement ) 
         { 
             mNameArrayElement = arrayElement; 
         }
@@ -197,7 +249,18 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @return const IDREFArrayElement The array element with the values array.
         */
-        const IDREFArrayElement getIDREFArrayElement () const 
+        IDREFArrayElement& getIDREFArrayElement () 
+        { 
+            return mIDREFArrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const IDREFArrayElement The array element with the values array.
+        */
+        const IDREFArrayElement& getIDREFArrayElement () const 
         { 
             return mIDREFArrayElement; 
         }
@@ -208,9 +271,33 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @param arrayElement The array element with the values array.
         */
-        void setIDREFArrayElement ( const IDREFArrayElement arrayElement ) 
+        void setIDREFArrayElement ( const IDREFArrayElement& arrayElement ) 
         { 
             mIDREFArrayElement = arrayElement; 
+        }
+
+        /**
+         * Specifies source information for the common profile that all COLLADA implementations 
+         * must support. 
+         * @return const COLLADAFW::TechniqueCommon&
+         */
+        const COLLADAFW::TechniqueCommon& getTechniqueCommon () const { return mTechniqueCommon; }
+
+        /**
+        * Specifies source information for the common profile that all COLLADA implementations 
+        * must support. 
+        * @return const COLLADAFW::TechniqueCommon&
+        */
+        COLLADAFW::TechniqueCommon& getTechniqueCommon () { return mTechniqueCommon; }
+
+        /**
+         * Specifies source information for the common profile that all COLLADA implementations 
+         * must support. 
+         * @param techniqueCommon The technique common element.
+         */
+        void setTechniqueCommon ( const COLLADAFW::TechniqueCommon techniqueCommon ) 
+        { 
+            mTechniqueCommon = techniqueCommon; 
         }
 
     };

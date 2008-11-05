@@ -119,7 +119,7 @@ int main(int argc,char** argv)
 	    strcpy ( inFileName, argv[inFileArgPos] );
 
 	    // ask for an outfile
-        if ( !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension, defaultExtension ) ) 
+        if ( !isImport && !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension, defaultExtension ) ) 
         {
 		    return EXIT_FAILURE;
 	    }

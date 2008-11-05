@@ -300,7 +300,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFWInput.cpp"
+				RelativePath="..\src\COLLADAFWInputUnshared.cpp"
 				>
 			</File>
 			<File
@@ -326,11 +326,31 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWInput.h"
+				RelativePath="..\include\COLLADAFWInputShared.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInputUnshared.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWMesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWNode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWParam.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPHElement.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPolyBase.h"
 				>
 			</File>
 			<File
@@ -346,7 +366,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWPrimitive.h"
+				RelativePath="..\include\COLLADAFWPrimitiveBase.h"
 				>
 			</File>
 			<File
@@ -363,6 +383,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWTypes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWValueType.h"
 				>
 			</File>
 			<File

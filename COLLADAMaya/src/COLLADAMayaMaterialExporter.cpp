@@ -62,12 +62,10 @@ namespace COLLADAMaya
             // directly connected to an object, if no other material (shader) is connected to the object.
             exportMaterialsByShaderPlug ();
         }
-        else
-        {
-            // Now go through scene graph and find all shaders, connected to the meshes.
-            // So you can find the default shaders of an object.
-            exportMaterialsBySceneGraph ();
-        }
+
+        // Now go through scene graph and find all shaders, connected to the meshes.
+        // So you can find the default shaders of an object.
+        exportMaterialsBySceneGraph ();
 
         // Set the flag, that the material std::map is initialised
         materialMapInitialized = true;

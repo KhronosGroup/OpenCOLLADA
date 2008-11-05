@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_INPUT_H__
-#define __COLLADAFW_INPUT_H__
+#ifndef __COLLADAFW_INPUT_UNSHARED_H__
+#define __COLLADAFW_INPUT_UNSHARED_H__
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWConstants.h"
@@ -52,28 +52,26 @@ namespace COLLADAFW
         };
     }
 
-    /** A class that holds information about an @a \<input\> element.
-    The <input> element declares the input connections to a data source that a consumer requires. A data
-    source is a container of raw data that lacks semantic meaning so that the data can be reused within the
-    document. To use the data, a consumer declares a connection to it with the desired semantic information.
-    The <source> and <input> elements are part of the COLLADA dataflow model. This model is also
-    known as stream processing, pipe, or producer-consumer. An input connection is the dataflow path from a
-    <source> to a sink (the dataflow consumers, which are <input>’s parents, such as <polylist>).
-    In COLLADA, all inputs are driven by index values. A consumer samples an input by supplying an index
-    value to an input. Some consumers have multiple inputs that can share the same index values. Inputs that
-    have the same offset attribute value are driven by the same index value from the consumer. This is an
-    optimization that reduces the total number of indexes that the consumer must store. These inputs are
-    described in this section as shared inputs but otherwise operate in the same manner as unshared inputs.*/
-    class Input
+    /** 
+     * Declares the input semantics of a data source and connects a consumer to that source.
+     * Note: There are two <input> variants; see also "<input> (shared)."
+     * The <input> element declares the input connections that a consumer requires. A data source 
+     * is a container of raw data that lacks semantic meaning so that the data can be reused within 
+     * the document. To use the data, a consumer declares a connection to it with the desired 
+     * semantic information.
+     * The <source> and <input> elements are part of the COLLADA dataflow model. This model is also
+     * known as stream processing, pipe, or producer-consumer. An input connection is the dataflow 
+     * path from a <source> to a sink (the dataflow consumers, which are <input>’s parents, such as 
+     * <vertices>).
+     * In COLLADA, all inputs are driven by index values. A consumer samples an input by supplying 
+     * an index value to an input. Some consumers have simple inputs that are driven by unique 
+     * index values. These inputs are described in this section as unshared inputs but otherwise 
+     * operate in the same manner as shared inputs.
+     */
+    class InputUnshared
     {
 
     private:
-
-        /** The offset into the list of indices defined by the parent element’s <p> or
-        <v> subelement. If two <input> elements share the same offset, they are
-        indexed the same. This is a simple form of compression for the list of
-        indices and also defines the order in which the inputs are used. Required. */
-        unsigned int mOffset;
 
         /** The user-defined meaning of the input connection. Required. See "Details"
         for the list of common <input> semantic attribute values enumerated in
@@ -83,59 +81,55 @@ namespace COLLADAFW
         /** The location of the data source. Required. */
         COLLADASW::URI mSource;
 
-        /** Which inputs to group as a single set. This is helpful when multiple inputs
-        share the same semantics. Optional. */
-        int mSet;
-
     public:
 
         /**
          * Default-Constructor.
          */
-        Input () 
-            : mSemantic ( InputSemantic::UNKNOWN )
-        , mSource ( "" )
-        , mOffset ( 0 )
-        , mSet ( 0 ) 
-        {}
+        InputUnshared () : mSemantic ( InputSemantic::UNKNOWN ) {}
 
         /** 
          * Constructor.
          * @param semantic The semantic of the @a \<input\> element.
          * @param source The source of the @a \<input\> element.
-         * @param offset The offset of the @a \<input\> element.
-         * @param set The set of the @a \<input\> element.
          */
-        Input ( InputSemantic::Semantic semantic, const COLLADASW::URI& source, int offset = 0, int set = 0 )
+        InputUnshared ( InputSemantic::Semantic semantic, const COLLADASW::URI& source )
             : mSemantic ( semantic )
             , mSource ( source )
-            , mOffset ( offset )
-            , mSet ( set ) 
         {}
 
-        virtual ~Input() {}
+        /**
+         * Destructor.
+         */
+        virtual ~InputUnshared() {}
 
-        /** The offset into the list of indices defined by the parent element’s <p> or
-        <v> subelement. If two <input> elements share the same offset, they are
-        indexed the same. This is a simple form of compression for the list of
-        indices and also defines the order in which the inputs are used. Required. */
-        const unsigned int getOffset () const { return mOffset; }
-        void setOffset ( const unsigned int val ) { mOffset = val; }
-
-        /** The user-defined meaning of the input connection. Required. See "Details"
-        for the list of common <input> semantic attribute values enumerated in
-        the COLLADA schema (type Common_profile_input). */
+        /** 
+         * The user-defined meaning of the input connection. Required. See InputSemantic::Semantic 
+         * for the list of common <input> semantic attribute values enumerated in the COLLADA 
+         * schema (type Common_profile_input). 
+         * @return const InputSemantic::Semantic The user-defined meaning of the input connection.
+         */
         const InputSemantic::Semantic getSemantic () const { return mSemantic; }
+
+        /**
+         * The user-defined meaning of the input connection. Required. See InputSemantic::Semantic 
+         * for the list of common <input> semantic attribute values enumerated in the COLLADA 
+         * schema (type Common_profile_input). 
+         * @param val The user-defined meaning of the input connection.
+         */
         void setSemantic ( const InputSemantic::Semantic val ) { mSemantic = val; }
 
-        /** The location of the data source. Required. */
+        /**
+         * The location of the data source. Required.
+         * @return const COLLADASW::URI The location of the data source.
+         */
         const COLLADASW::URI getSource () const { return mSource; }
-        void setSource ( const COLLADASW::URI val ) { mSource = val; }
 
-        /** Which inputs to group as a single set. This is helpful when multiple inputs
-        share the same semantics. Optional. */
-        const int getSet () const { return mSet; }
-        void setSet ( const int val ) { mSet = val; }
+        /**
+         * The location of the data source. Required.
+         * @param val The location of the data source.
+         */
+        void setSource ( const COLLADASW::URI val ) { mSource = val; }
 
         /**
          * Returns the string of the current semantic type.
@@ -154,8 +148,8 @@ namespace COLLADAFW
     };
 
     /** Pointer to an array of input elements. */
-    typedef Input* InputArray;
+    typedef InputUnshared* InputUnsharedArray;
 
 }
 
-#endif // __COLLADAFW_INPUT_H__
+#endif // __COLLADAFW_INPUT_UNSHARED_H__

@@ -48,6 +48,33 @@ namespace COLLADAFW
         static const String SEMANTIC_VERTEX;
         static const String SEMANTIC_WEIGHT;
 
+        static const String VALUE_TYPE_BOOL;
+        static const String VALUE_TYPE_BOOL2;
+        static const String VALUE_TYPE_BOOL3;
+        static const String VALUE_TYPE_BOOL4;
+        static const String VALUE_TYPE_INT;
+        static const String VALUE_TYPE_INT2;
+        static const String VALUE_TYPE_INT3;
+        static const String VALUE_TYPE_INT4;
+        static const String VALUE_TYPE_FLOAT;
+        static const String VALUE_TYPE_FLOAT2;
+        static const String VALUE_TYPE_FLOAT3;
+        static const String VALUE_TYPE_FLOAT4;
+        static const String VALUE_TYPE_FLOAT2x2;
+        static const String VALUE_TYPE_FLOAT3x3;
+        static const String VALUE_TYPE_FLOAT4x4;
+        static const String VALUE_TYPE_STRING;
+        static const String VALUE_TYPE_SURFACE;
+        static const String VALUE_TYPE_SAMPLER_1D;
+        static const String VALUE_TYPE_SAMPLER_2D;
+        static const String VALUE_TYPE_SAMPLER_3D;
+        static const String VALUE_TYPE_SAMPLER_CUBE;
+        static const String VALUE_TYPE_SAMPLER_RECT;
+        static const String VALUE_TYPE_SAMPLER_DEPTH;
+        static const String VALUE_TYPE_SAMPLER_STATE;
+        static const String VALUE_TYPE_NAME;
+        static const String VALUE_TYPE_IDREF;
+
     };
 }
 

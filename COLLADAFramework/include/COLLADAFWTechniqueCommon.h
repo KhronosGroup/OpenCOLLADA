@@ -12,13 +12,34 @@
 #define __COLLADAFW_TECHNIQUE_COMMON_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWAccessor.h"
+
 
 namespace COLLADAFW
 {
 
-    /** Declares the storage for the graphical representation of an object. */
+    /** 
+     * Specifies information for a specific element for the common profile that all COLLADA 
+     * implementations must support. 
+     * Specifies technique information that consuming applications can use if no technique specific 
+     * to the application is provided in the COLLADA document.
+     * In other words, if an element has <technique> child elements for one or more specific 
+     * profiles, applications reading the COLLADA document should use the technique most 
+     * appropriate for the application. If none of the specific <technique>s is appropriate, the 
+     * application must use the element’s <technique_common> instead, if one is specified.
+     * Each element’s <technique_common> attributes and children are unique. Refer to each parent 
+     * element for details.
+     */
     class TechniqueCommon
     {
+
+    private:
+
+        /**
+         * Declares an access pattern to one of the array elements <float_array>,
+         * <int_array>, <Name_array>, <bool_array>, and <IDREF_array>.
+         */
+        Accessor mAccessor;
 
     public:
 
@@ -27,6 +48,27 @@ namespace COLLADAFW
 
         /** Destructor. */
         virtual ~TechniqueCommon () {}
+
+        /**
+         * Declares an access pattern to one of the array elements <float_array>,
+         * <int_array>, <Name_array>, <bool_array>, and <IDREF_array>.
+         * @return const Accessor& Reference to the accessor.
+         */
+        const Accessor& getAccessor () const { return mAccessor; }
+
+        /**
+        * Declares an access pattern to one of the array elements <float_array>,
+        * <int_array>, <Name_array>, <bool_array>, and <IDREF_array>.
+        * @return const Accessor& Reference to the accessor.
+        */
+        Accessor& getAccessor () { return mAccessor; }
+
+        /**
+         * Declares an access pattern to one of the array elements <float_array>,
+         * <int_array>, <Name_array>, <bool_array>, and <IDREF_array>.
+         * @param accessor The accessor element to set.
+         */
+        void setAccessor ( const COLLADAFW::Accessor& accessor ) { mAccessor = accessor; }
 
     };
 }

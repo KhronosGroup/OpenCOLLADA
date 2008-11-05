@@ -11,7 +11,8 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAMeshReader.h"
 
-#include "COLLADASWConstants.h"
+#include "COLLADAFWParam.h"
+#include "COLLADAFWInputUnshared.h"
 
 #include "dom/domName_array.h"
 
@@ -29,48 +30,11 @@ namespace COLLADADomHelper
         // the dom from the collada document data.
         mMesh = new COLLADAFW::Mesh ();
 
-        // TODO Fill the mesh source elements
-        domSource_Array domSourceArray = mMeshRef->getSource_array ();
-        size_t sourceArraySize = domSourceArray.getCount ();
+        // Reads all collada dae source objects and writes it in the COLLADAFramework source object.
+        fillSourceElements();
 
-        // Create a new source array with the required size
-        COLLADAFW::SourceArray sourceArray;
-        sourceArray = new COLLADAFW::Source [ sourceArraySize ];
-
-        for ( size_t n=0; n<sourceArraySize; ++n )
-        {
-            // The dom source element
-            domSourceRef sourceRef = domSourceArray.get ( n );
-            xsNCName sourceName = sourceRef->getName ();
-            xsID sourceId = sourceRef->getId ();
-
-            // The current source array to fill in.
-            COLLADAFW::Source source = sourceArray [ n ];
-
-            // Fill the array element of the existing type.
-            fillNameArrayElement ( sourceRef, source );
-            fillIntArrayElement ( sourceRef, source );
-            fillFloatArrayElement ( sourceRef, source );
-            fillBoolArrayElement ( sourceRef, source );
-            fillIDREFArrayElement ( sourceRef, source );
-
-            domSource::domTechnique_commonRef techniqueCommonRef;
-            techniqueCommonRef = sourceRef->getTechnique_common ();
-
-            domAccessorRef accessorRef = techniqueCommonRef->getAccessor ();
-            accessorRef->getStride ();
-            accessorRef->getSource ();
-            accessorRef->getOffset ();
-            accessorRef->getCount ();
-
-            domTechnique_Array techniqueArray = sourceRef->getTechnique_array ();
-            size_t techniqueCount = techniqueArray.getCount ();
-
-        }
-
-
-        // TODO Fill the mesh vertex element.
-        mMeshRef->getVertices ();
+        // Fill the mesh vertex element.
+        fillVertexElement();
 
         // Get the array of polylists and write it in the COLLADAFW::Mesh object.
         domPolylist_Array polylistArray = mMeshRef->getPolylist_array ();
@@ -79,12 +43,12 @@ namespace COLLADADomHelper
             fillMeshPolylistArray ( polylistArray );
         }
 
-        // Get the array of polygons and write it in the COLLADAFW::Mesh object.
-        domPolygons_Array polygonsArray = mMeshRef->getPolygons_array ();
-        if ( polygonsArray.getCount () != 0 )
-        {
-            createMeshFromPolygons (  polygonsArray  );
-        }
+//         // Get the array of polygons and write it in the COLLADAFW::Mesh object.
+//         domPolygons_Array polygonsArray = mMeshRef->getPolygons_array ();
+//         if ( polygonsArray.getCount () != 0 )
+//         {
+//             createMeshFromPolygons (  polygonsArray  );
+//         }
 
         // TODO
         meshRef->getTriangles_array ();
@@ -97,8 +61,6 @@ namespace COLLADADomHelper
     // --------------------------------------------
     void MeshReader::fillMeshPolylistArray ( domPolylist_Array& polylistArray ) 
     {
-        // Fill the COLLADAFramework data
-
         // The number of vertices and polygons.
         size_t numVertices = 0, numPolygons = 0;
 
@@ -121,11 +83,8 @@ namespace COLLADADomHelper
 
         for ( size_t i=0; i<polylistCount; ++i )
         {
-            // Create the polylist element.
-            COLLADAFW::Polylist polylist;
-
-            // Push the polylist element in the list of polylists.
-            polylistList [ i ] = polylist;
+            // Get the polylist element.
+            COLLADAFW::Polylist& polylist = polylistList [ i ];
 
             // Get the current polylist element
             domPolylistRef polylistRef = polylistArray.get ( i );
@@ -139,8 +98,9 @@ namespace COLLADADomHelper
             // Fill the COLLADAFramework pList data
             domPRef pRef = polylistRef->getP ();
             domListOfUInts domPList = pRef->getValue ();
+
             size_t pListSize = domPList.getCount ();
-            COLLADAFW::Polylist::PArray pList = new int [ pListSize ];
+            COLLADAFW::Polylist::PArray pList = new unsigned int [ pListSize ];
             for ( size_t m=0; m<pListSize; ++m )
             {
                 pList [ m ] = ( int ) domPList.get ( m );
@@ -150,8 +110,9 @@ namespace COLLADADomHelper
             // Fill the COLLADAFramework vCountList data
             domPolylist::domVcountRef vCountRef = polylistRef->getVcount ();
             domListOfUInts domVCountList = vCountRef->getValue ();
+
             size_t vCountListSize = domVCountList.getCount ();
-            COLLADAFW::Polylist::VCountArray vCountList = new int [ vCountListSize ];
+            COLLADAFW::Polylist::VCountArray vCountList = new unsigned int [ vCountListSize ];
             for ( size_t m=0; m<vCountListSize; ++m )
             {
                 vCountList [ m ] = ( int ) domVCountList.get ( m );
@@ -163,43 +124,31 @@ namespace COLLADADomHelper
             polylistInputArray = polylistRef->getInput_array ();
             size_t polylistInputCount = polylistInputArray.getCount ();
 
-            COLLADAFW::InputArray inputArray = new COLLADAFW::Input [ polylistInputCount ];
+            COLLADAFW::InputSharedArray inputArray = new COLLADAFW::InputShared [ polylistInputCount ];
             polylist.setInputArray ( inputArray, polylistInputCount );
 
             for ( size_t n=0; n<polylistInputCount; ++n )
             {
                 // Get the current COLLADAFramework input element.
-                COLLADAFW::Input input = inputArray [ n ];
+                COLLADAFW::InputShared& input = inputArray [ n ];
 
                 // Get the current dom input element.
                 domInputLocalOffsetRef polylistInputRef;
                 polylistInputRef = polylistInputArray.get ( n );
 
                 xsNMTOKEN semantic = polylistInputRef->getSemantic ();
-                input.setSemantic ( COLLADAFW::Input::getSemanticFromString ( semantic ) );
+                input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( semantic ) );
+
                 domURIFragmentType domUri = polylistInputRef->getSource ();
                 input.setSource ( COLLADASW::URI::nativePathToUri ( domUri.originalStr () ) );
+
                 unsigned int offset = ( unsigned int ) polylistInputRef->getOffset ();
                 input.setOffset ( offset );
+
                 unsigned int set = ( unsigned int ) polylistInputRef->getSet ();
                 input.setSet ( set );
             }
         }
-    }
-
-    // --------------------------------------------
-    domInputLocal_Array MeshReader::fillVerticesInputArray ()
-    {
-        // Get the vertices (there is only one per mesh!)
-        domVerticesRef verticesRef = mMeshRef->getVertices ();
-
-        xsNCName verticesName = verticesRef->getName ();
-        //mMesh->set
-        xsID verticesId = verticesRef->getID ();
-
-        domInputLocal_Array verticesInputArray = verticesRef->getInput_array ();
-
-        return verticesRef->getInput_array ();
     }
 
     // --------------------------------------------
@@ -209,7 +158,8 @@ namespace COLLADADomHelper
         // topological identity of each vertex in the mesh.
 
         // Get the vertices input array (there is only one per mesh).
-        domInputLocal_Array verticesInputArray = fillVerticesInputArray ();
+        domVerticesRef verticesRef = mMeshRef->getVertices ();
+        domInputLocal_Array verticesInputArray = verticesRef->getInput_array ();
 
         // Get the point positions of the vertexes
         domURIFragmentType positionUri ( * ( mDoc.getDAE () ) );
@@ -218,7 +168,7 @@ namespace COLLADADomHelper
         {
             domInputLocalRef vertexInputRef = verticesInputArray.get ( j );
             xsNMTOKEN semantic = vertexInputRef->getSemantic ();
-            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADASW::CSWC::CSW_SEMANTIC_POSITION ) )
+            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADAFW::Constants::SEMANTIC_POSITION ) )
             {
                 positionUri = vertexInputRef->getSource ();
             }
@@ -349,7 +299,7 @@ namespace COLLADADomHelper
             polygonsInputRef = polygonsInputArray.get ( n );
             size_t currentOffset = ( size_t ) polygonsInputRef->getOffset ();
             xsNMTOKEN semantic = polygonsInputRef->getSemantic ();
-            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADASW::CSWC::CSW_SEMANTIC_VERTEX ) )
+            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADAFW::Constants::SEMANTIC_VERTEX ) )
             {
                 vertexOffset = currentOffset;
                 vertexSet = ( size_t ) polygonsInputRef->getSet ();
@@ -374,7 +324,7 @@ namespace COLLADADomHelper
             polylistInputRef = polylistInputArray.get ( n );
             size_t currentOffset = ( size_t ) polylistInputRef->getOffset ();
             xsNMTOKEN semantic = polylistInputRef->getSemantic ();
-            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADASW::CSWC::CSW_SEMANTIC_VERTEX ) )
+            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADAFW::Constants::SEMANTIC_VERTEX ) )
             {
                 vertexOffset = currentOffset;
                 vertexSet = ( size_t ) polylistInputRef->getSet ();
@@ -412,15 +362,15 @@ namespace COLLADADomHelper
     // --------------------------------------------
     void MeshReader::fillNameArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
     {
-        domName_arrayRef nameArrayRef = sourceRef->getName_array ();
-        if ( nameArrayRef != 0 )
+        domName_arrayRef arrayRef = sourceRef->getName_array ();
+        if ( arrayRef != 0 )
         {
-            COLLADAFW::NameArrayElement arrayElement;
-            arrayElement.setArrayCount ( nameArrayRef->getCount () );
-            arrayElement.setArrayId ( nameArrayRef->getId () );
-            arrayElement.setArrayName ( nameArrayRef->getName () );
+            COLLADAFW::NameArrayElement& arrayElement = source.getNameArrayElement ();
+            arrayElement.setCount ( arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
-            domListOfNames domNameValues = nameArrayRef->getValue ();
+            domListOfNames domNameValues = arrayRef->getValue ();
             size_t nameCount = domNameValues.getCount ();
             String* nameArray = new String [ nameCount ];
             for ( size_t m=0; m<nameCount; ++m )
@@ -428,7 +378,7 @@ namespace COLLADADomHelper
                 domName& name = domNameValues.get ( m );
                 nameArray [ m ] = name;
             }
-            arrayElement.setArrayValues ( nameArray, nameCount );
+            arrayElement.setValues ( nameArray, nameCount );
 
             source.setNameArrayElement ( arrayElement );
         }
@@ -440,10 +390,10 @@ namespace COLLADADomHelper
         domBool_arrayRef arrayRef = sourceRef->getBool_array ();
         if ( arrayRef != 0 )
         {
-            COLLADAFW::BoolArrayElement arrayElement;
-            arrayElement.setArrayCount ( arrayRef->getCount () );
-            arrayElement.setArrayId ( arrayRef->getId () );
-            arrayElement.setArrayName ( arrayRef->getName () );
+            COLLADAFW::BoolArrayElement& arrayElement = source.getBoolArrayElement ();
+            arrayElement.setCount ( arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
             domListOfBools domValues = arrayRef->getValue ();
             size_t valuesCount = domValues.getCount ();
@@ -453,7 +403,7 @@ namespace COLLADADomHelper
                 domBool& val = domValues.get ( m );
                 valuesArray [ m ] = val;
             }
-            arrayElement.setArrayValues ( valuesArray, valuesCount );
+            arrayElement.setValues ( valuesArray, valuesCount );
 
             source.setBoolArrayElement ( arrayElement );
         }
@@ -465,10 +415,10 @@ namespace COLLADADomHelper
         domInt_arrayRef arrayRef = sourceRef->getInt_array ();
         if ( arrayRef != 0 )
         {
-            COLLADAFW::IntArrayElement arrayElement;
-            arrayElement.setArrayCount ( arrayRef->getCount () );
-            arrayElement.setArrayId ( arrayRef->getId () );
-            arrayElement.setArrayName ( arrayRef->getName () );
+            COLLADAFW::IntArrayElement& arrayElement = source.getIntArrayElement ();
+            arrayElement.setCount ( arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
             domListOfInts domValues = arrayRef->getValue ();
             size_t valuesCount = domValues.getCount ();
@@ -478,9 +428,7 @@ namespace COLLADADomHelper
                 domInt& val = domValues.get ( m );
                 valuesArray [ m ] = val;
             }
-            arrayElement.setArrayValues ( valuesArray, valuesCount );
-
-            source.setIntArrayElement ( arrayElement );
+            arrayElement.setValues ( valuesArray, valuesCount );
         }
     }
 
@@ -490,10 +438,10 @@ namespace COLLADADomHelper
         domFloat_arrayRef arrayRef = sourceRef->getFloat_array ();
         if ( arrayRef != 0 )
         {
-            COLLADAFW::FloatArrayElement arrayElement;
-            arrayElement.setArrayCount ( arrayRef->getCount () );
-            arrayElement.setArrayId ( arrayRef->getId () );
-            arrayElement.setArrayName ( arrayRef->getName () );
+            COLLADAFW::FloatArrayElement& arrayElement = source.getFloatArrayElement ();
+            arrayElement.setCount ( arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
             domListOfFloats domValues = arrayRef->getValue ();
             size_t valuesCount = domValues.getCount ();
@@ -503,9 +451,7 @@ namespace COLLADADomHelper
                 domFloat& val = domValues.get ( m );
                 valuesArray [ m ] = val;
             }
-            arrayElement.setArrayValues ( valuesArray, valuesCount );
-
-            source.setFloatArrayElement ( arrayElement );
+            arrayElement.setValues ( valuesArray, valuesCount );
         }
     }
 
@@ -515,10 +461,10 @@ namespace COLLADADomHelper
         domIDREF_arrayRef arrayRef = sourceRef->getIDREF_array ();
         if ( arrayRef != 0 )
         {
-            COLLADAFW::IDREFArrayElement arrayElement;
-            arrayElement.setArrayCount ( arrayRef->getCount () );
-            arrayElement.setArrayId ( arrayRef->getId () );
-            arrayElement.setArrayName ( arrayRef->getName () );
+            COLLADAFW::IDREFArrayElement& arrayElement = source.getIDREFArrayElement ();
+            arrayElement.setCount ( arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
             xsIDREFS domValues = arrayRef->getValue ();
             size_t valuesCount = domValues.getCount ();
@@ -529,10 +475,123 @@ namespace COLLADADomHelper
                 // TODO Is this that i want to have???
                 valuesArray [ m ] = val.getID ();
             }
-            arrayElement.setArrayValues ( valuesArray, valuesCount );
+            arrayElement.setValues ( valuesArray, valuesCount );
 
             source.setIDREFArrayElement ( arrayElement );
         }
     }
 
+    // --------------------------------------------
+    void MeshReader::fillSourceElements ()
+    {
+        // Fill the mesh source elements
+        domSource_Array domSourceArray = mMeshRef->getSource_array ();
+        size_t sourceArraySize = domSourceArray.getCount ();
+
+        // Create a new source array with the required size
+        COLLADAFW::SourceArray sourceArray;
+        sourceArray = new COLLADAFW::Source [ sourceArraySize ];
+        mMesh->setSourceArray ( sourceArray, sourceArraySize );
+
+        for ( size_t n=0; n<sourceArraySize; ++n )
+        {
+            // The dom source element
+            domSourceRef sourceRef = domSourceArray.get ( n );
+
+            // The current source array to fill in.
+            COLLADAFW::Source& source = sourceArray [ n ];
+            source.setId ( sourceRef->getId () );
+            if ( sourceRef->getName () != 0 ) source.setName ( sourceRef->getName () );
+
+            // Fills the current dae source element into a COLLADAFramework source element.
+            fillSourceElement ( sourceRef, source );
+        }
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    {
+        // Fill the array element of the existing type.
+        fillNameArrayElement ( sourceRef, source );
+        fillIntArrayElement ( sourceRef, source );
+        fillFloatArrayElement ( sourceRef, source );
+        fillBoolArrayElement ( sourceRef, source );
+        fillIDREFArrayElement ( sourceRef, source );
+
+        // Fill the technique common elements.
+        fillTechniqueCommon(sourceRef, source);
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::Source &source )
+    {
+        domSource::domTechnique_commonRef techniqueCommonRef;
+        techniqueCommonRef = sourceRef->getTechnique_common ();
+        domAccessorRef accessorRef = techniqueCommonRef->getAccessor ();
+
+        COLLADAFW::TechniqueCommon& techniqueCommon = source.getTechniqueCommon ();
+        COLLADAFW::Accessor& accessor = techniqueCommon.getAccessor ();
+
+        unsigned int count = ( unsigned int ) accessorRef->getCount ();
+        accessor.setCount ( count );
+
+        unsigned int stride = ( unsigned int ) accessorRef->getStride ();
+        accessor.setStride ( stride );
+
+        accessor.setSource ( COLLADASW::URI::nativePathToUri (  accessorRef->getSource ().getOriginalURI () ) );
+
+        unsigned int offset = ( unsigned int ) accessorRef->getOffset ();
+        accessor.setOffset ( offset );
+
+        // Read the parameter array
+        domParam_Array paramArrayDom = accessorRef->getParam_array ();
+        size_t paramCount = paramArrayDom.getCount ();
+
+        COLLADAFW::ParamArray paramArray = new COLLADAFW::Param [ paramCount ];
+        accessor.setParamArray ( paramArray, paramCount );
+
+        for ( size_t i=0; i<paramCount; ++i )
+        {
+            domParamRef paramRef = paramArrayDom.get ( i );
+            COLLADAFW::Param& param = paramArray [ i ];
+
+            if ( paramRef->getName () != 0 ) param.setName ( paramRef->getName () );
+            if ( paramRef->getSemantic () != 0 ) param.setSemantic ( paramRef->getSemantic () );
+            if ( paramRef->getSid () != 0 ) param.setSid ( paramRef->getSid () );
+            param.setType ( COLLADAFW::ValueType::getValueTypeFromString ( paramRef->getType () ) );
+//             String paramValue = paramRef->getValue ();
+//             param.setValue ( paramValue );
+        }
+
+        // TODO
+//         domTechnique_Array techniqueArray = sourceRef->getTechnique_array ();
+//         size_t techniqueCount = techniqueArray.getCount ();
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillVertexElement ()
+    {
+        // Fill the mesh vertex element.
+        domVerticesRef verticesRef = mMeshRef->getVertices ();
+
+        COLLADAFW::Vertices& vertices = mMesh->getVertices ();
+        if ( verticesRef->getId () != 0 ) vertices.setId ( verticesRef->getId () );
+        if ( verticesRef->getName () != 0 ) vertices.setName ( verticesRef->getName () );
+
+        domInputLocal_Array inputArrayDom = verticesRef->getInput_array ();
+        size_t inputCount = inputArrayDom.getCount ();
+
+        COLLADAFW::InputUnsharedArray inputArray = new COLLADAFW::InputUnshared [ inputCount ];
+        vertices.setInputArray ( inputArray, inputCount );
+
+        for ( size_t i=0; i<inputCount; ++i )
+        {
+            domInputLocalRef inputRef = inputArrayDom.get ( i );
+            COLLADAFW::InputUnshared& input = inputArray [ i ];
+            if ( inputRef->getSemantic () != 0 )
+                input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( inputRef->getSemantic () ) );
+
+            input.setSource ( COLLADASW::URI::nativePathToUri ( inputRef->getSource ().originalStr () ) );
+        }
+    }
 }

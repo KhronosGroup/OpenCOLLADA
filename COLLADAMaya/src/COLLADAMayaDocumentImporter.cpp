@@ -65,7 +65,8 @@ namespace COLLADAMaya
 
         // Parse the dae document, then create the libraries
         // (the importers want to have a reference to the document).
-        String fileUriString = COLLADASW::URI::nativePathToUri ( getFilename() );
+        String filename = getFilename ();
+        String fileUriString = COLLADASW::URI::nativePathToUri ( filename );
         mColladaDoc = mDae.open ( fileUriString );
         daeDocument* daeDoc = mColladaDoc->getDocument();
 

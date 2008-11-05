@@ -59,9 +59,6 @@ namespace COLLADADomHelper
         void fillFloatArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
         void fillIDREFArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
 
-        /** Get the vertices input array (there is only one per mesh) */
-        domInputLocal_Array fillVerticesInputArray ();
-
         /** One vertices input must specify semantic="POSITION" to establish the 
         topological identity of each vertex in the mesh. */
         domSourceRef getPositionsRef ();
@@ -76,6 +73,11 @@ namespace COLLADADomHelper
         void getVertexArray ( const domSourceRef positionsRef/*, MFloatPointArray &vertexArray*/ );
 
         /**
+        * Fill the mesh vertex element.
+        */
+        void fillVertexElement ();
+
+        /**
         * Fill the list with the count of vertices for every polygon and calculate 
         * the number of polygons and the sum of vertices for all polygons.
         * @param polylistRef Pointer to a polylist element in the collada document.
@@ -84,7 +86,6 @@ namespace COLLADADomHelper
         */
         void getVertexCountsPerPolygon ( 
             const domPolylistRef polylistRef, 
-            //MIntArray& vertexCountsPerPolygon, 
             size_t& numVertices );
 
         /**
@@ -129,6 +130,25 @@ namespace COLLADADomHelper
             size_t& vertexSet, 
             size_t& maxOffset );
 
+        /**
+         * Reads all collada dae source objects and writes it in the COLLADAFramework source object.
+         */
+        void fillSourceElements ();
+
+        /**
+         * Fills the current COLLADAFramework source object with the data of the current source 
+         * object of the collada dae file.
+         * @param sourceRef The dom source element.
+         * @param source The COLLADAFramework source element.
+         */
+        void fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
+
+        /**
+         * Fills the current technique_common data.
+         * @param sourceRef The dom source element.
+         * @param source The COLLADAFramework source element.
+         */
+        void fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::Source &source );
     };
 }
 

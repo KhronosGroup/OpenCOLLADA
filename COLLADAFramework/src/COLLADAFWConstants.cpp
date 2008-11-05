@@ -40,4 +40,31 @@ namespace COLLADAFW
     const String Constants::SEMANTIC_VERTEX = "VERTEX";
     const String Constants::SEMANTIC_WEIGHT = "WEIGHT";
 
+    const String Constants::VALUE_TYPE_BOOL = "bool";
+    const String Constants::VALUE_TYPE_BOOL2 = "bool2";
+    const String Constants::VALUE_TYPE_BOOL3 = "bool3";
+    const String Constants::VALUE_TYPE_BOOL4 = "bool4";
+    const String Constants::VALUE_TYPE_INT = "int";
+    const String Constants::VALUE_TYPE_INT2 = "int2";
+    const String Constants::VALUE_TYPE_INT3 = "int3";
+    const String Constants::VALUE_TYPE_INT4 = "int4";
+    const String Constants::VALUE_TYPE_FLOAT = "float";
+    const String Constants::VALUE_TYPE_FLOAT2 = "float2";
+    const String Constants::VALUE_TYPE_FLOAT3 = "float3";
+    const String Constants::VALUE_TYPE_FLOAT4 = "float4";
+    const String Constants::VALUE_TYPE_FLOAT2x2 = "float2x2";
+    const String Constants::VALUE_TYPE_FLOAT3x3 = "float3x3";
+    const String Constants::VALUE_TYPE_FLOAT4x4 = "float4x4";
+    const String Constants::VALUE_TYPE_STRING = "string";
+    const String Constants::VALUE_TYPE_SURFACE = "surface";
+    const String Constants::VALUE_TYPE_SAMPLER_1D = "sampler1D";
+    const String Constants::VALUE_TYPE_SAMPLER_2D = "sampler2D";
+    const String Constants::VALUE_TYPE_SAMPLER_3D = "sampler3D";
+    const String Constants::VALUE_TYPE_SAMPLER_CUBE = "samplerCUBE";
+    const String Constants::VALUE_TYPE_SAMPLER_RECT = "samplerRECT";
+    const String Constants::VALUE_TYPE_SAMPLER_DEPTH = "samplerDEPTH";
+    const String Constants::VALUE_TYPE_SAMPLER_STATE = "sampler_state";
+    const String Constants::VALUE_TYPE_NAME = "name";
+    const String Constants::VALUE_TYPE_IDREF = "IDREF";
+
 }

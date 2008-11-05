@@ -1,0 +1,113 @@
+/*
+    Copyright (c) 2008 NetAllied Systems GmbH
+
+    This file is part of COLLADAFramework.
+
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
+#ifndef __COLLADAFW_PRIMITIVE_BASE_H__
+#define __COLLADAFW_PRIMITIVE_BASE_H__
+
+#include "COLLADAFWPrerequisites.h"
+
+namespace COLLADAFW
+{
+
+    /** 
+     * Base class for the primitives. This are the p and h elements.  
+     * The indices in a <p> (“primitive”) (or <h>) element refer to different inputs depending on 
+     * their order. The first index in a <p> element refers to all inputs with an offset of 0. The 
+     * second index refers to all inputs with an offset of 1. Each vertex of the polygon is made 
+     * up of one index into each input. After each input is used, the next index again refers to 
+     * the inputs with offset of 0 and begins a new vertex.
+     * The winding order of vertices produced is counter-clockwise and describes the front side of 
+     * each polygon. If the primitives are assembled without vertex normals then the application 
+     * may generate per-primitive normals to enable lighting.
+     */
+    class PrimitiveBase
+    {
+
+    public:
+
+        typedef unsigned int* ValuesArray;
+
+    private:
+
+        /**
+         * Contains a list of unsigned ints that specifies the vertex attributes (indices) for an 
+         * individual polygon or for a hole in a polygon.
+         */
+        ValuesArray mValuesArray;
+
+        /**
+         * The number of unsigned int values in the values array.
+         */
+        size_t mValuesArraySize;
+
+    public:
+
+        /** Constructor. */
+        PrimitiveBase () {}
+
+        /** Destructor. */
+        virtual ~PrimitiveBase () {}
+
+        /**
+         * Contains a list of unsigned ints that specifies the vertex attributes (indices) for an 
+         * individual polygon or for a hole in a polygon.
+         * @param valuesArraySize The size parameter of the returned array.
+         * @return const PrimitiveBase::ValuesArray& Reference to the values array.
+         */
+        const PrimitiveBase::ValuesArray& getValuesArray ( size_t& valuesArraySize ) const 
+        { 
+            valuesArraySize = mValuesArraySize;
+            return mValuesArray; 
+        }
+
+        /**
+         * Contains a list of unsigned ints that specifies the vertex attributes (indices) for an 
+         * individual polygon or for a hole in a polygon.
+         * @param valuesArraySize The size parameter of the returned array.
+         * @return const PrimitiveBase::ValuesArray& Reference to the values array.
+         */
+        PrimitiveBase::ValuesArray& getValuesArray ( size_t& valuesArraySize ) 
+        { 
+            valuesArraySize = mValuesArraySize;
+            return mValuesArray; 
+        }
+
+        /**
+         * Contains a list of unsigned ints that specifies the vertex attributes (indices) for an 
+         * individual polygon or for a hole in a polygon.
+         * @param valuesArray Reference to the values array.
+         * @param valuesArraySize The size parameter of the values array.
+         */
+        void setValuesArray ( 
+            const PrimitiveBase::ValuesArray& valuesArray, 
+            const size_t valuesArraySize ) 
+        {
+            mValuesArraySize = valuesArraySize;
+            mValuesArray = valuesArray; 
+        }
+
+    };
+
+
+    /**
+     * The p element for the polygon vertex attribute indices.
+     */
+    typedef PrimitiveBase PElement;
+    typedef PrimitiveBase* PArray;
+
+    /**
+    * The h element for the polygons hole vertex attribute indices.
+    */
+    typedef PrimitiveBase HElement;
+    typedef PrimitiveBase* HArray;
+
+}
+
+#endif // __COLLADAFW_PRIMITIVE_BASE_H__

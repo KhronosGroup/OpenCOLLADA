@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWPolylist.h"
+#include "COLLADAFWPolygons.h"
 #include "COLLADAFWVertices.h"
 #include "COLLADAFWSource.h"
 
@@ -66,15 +67,30 @@ namespace COLLADAFW
          */
         size_t mPolylistArraySize;
 
+        /**
+         * TODO
+         */
+        PolygonsArray mPolygonsArray;
+
+        /**
+         * The number of polygons elements in the polylist list.
+         */
+        size_t mPolygonsArraySize;
+
+
     public:
 
         /** Constructor. */
-        Mesh () : mPolylistArray ( 0 ) {}
+        Mesh () : 
+          mPolylistArray ( 0 ) 
+        , mSourceArray ( 0 )
+        {}
 
         /** Destructor. */
         virtual ~Mesh () 
         {
-            delete[] mPolylistArray;
+            delete mPolylistArray;
+            delete mSourceArray;
         }
 
         /**
@@ -82,7 +98,7 @@ namespace COLLADAFW
          * @param sourceArraySize Parameter to get the size of the source array.
          * @return const SourceArray The source array.
          */
-        const SourceArray getSourceArray ( size_t& sourceArraySize ) const 
+        const SourceArray& getSourceArray ( size_t& sourceArraySize ) const 
         { 
             sourceArraySize = mSourceArraySize;
             return mSourceArray; 
@@ -93,33 +109,93 @@ namespace COLLADAFW
          * @param sourceArray The source array.
          * @param sourceArraySize The size of the source array.
          */
-        void setSourceArray ( const SourceArray sourceArray, const size_t sourceArraySize ) 
+        void setSourceArray ( const SourceArray& sourceArray, const size_t sourceArraySize ) 
         { 
             mSourceArraySize = sourceArraySize;
             mSourceArray = sourceArray; 
         }
 
+        /**
+         * Returns the source element of the source array with the given id or 0 if it not exist.
+         * @param sourceId The source id of the searched source element.
+         * @return COLLADAFW::Source The source element with the given id or 0 if it not exist.
+         */
+        const Source* getSourceById ( const String& sourceId ) const
+        {
+            for ( size_t i=0; i<mSourceArraySize; ++i )
+            {
+                Source& source = mSourceArray [ i ];
+                if ( COLLADASW::Utils::equals ( source.getId (), sourceId ) )
+                    return &source;
+            }
 
-//         /**
-//         * Gets the polygons element array.
-//         * @return Returns a reference to the array of polygons elements.
-//         */
-//         domPolygons_Array &getPolygons_array() { return elemPolygons_array; }
-//         /**
-//         * Gets the polygons element array.
-//         * @return Returns a constant reference to the array of polygons elements.
-//         */
-//         const domPolygons_Array &getPolygons_array() const { return elemPolygons_array; }
+            return 0;
+        }
+
+        /**
+         * Returns a pointer to the searched source element of the given input semantic.
+         * @param semantic The input semantic, from which the source element is searched.
+         * @return Source* Pointer to the searched source element.
+         */
+        const Source* getSourceByInputSemantic ( COLLADAFW::InputSemantic::Semantic semantic ) const
+        {
+            const InputUnshared* positionsInput = getVertices().getInputBySemantic ( semantic );
+            if ( positionsInput == 0 ) return 0;
+
+            COLLADASW::URI positionsInputSource = positionsInput->getSource ();
+            String sourceId = positionsInputSource.getFragment ();
+            return getSourceById ( sourceId );
+        }
+
+        /**
+         * Describes the mesh-vertex attributes and establishes their topological identity.
+         * @return const Vertices The mesh-vertex attributes.
+         */
+        Vertices& getVertices () { return mVertices; }
+
+        /**
+        * Describes the mesh-vertex attributes and establishes their topological identity.
+        * @return const Vertices The mesh-vertex attributes.
+        */
+        const Vertices& getVertices () const { return mVertices; }
+
+        /**
+         * Describes the mesh-vertex attributes and establishes their topological identity.
+         * @param vertices The mesh-vertex attributes.
+         */
+        void setVertices ( const Vertices& vertices ) { mVertices = vertices; }
+
+        /**
+        * Gets the polygons element array.
+        * @param polygonsArraySize Parameter to store the size of the array.
+        * @return Returns a reference to the array of polygons elements.
+        */
+        PolygonsArray& getPolygonsArray ( size_t& polygonsArraySize ) 
+        { 
+            polygonsArraySize = mPolygonsArraySize; 
+            return mPolygonsArray; 
+        }
 
         /**
         * Gets the polylist element array.
-        * @param polylistSize Parameter to set the number of elements in the polylist list.
-        * @return Returns a pointer to the array of polylist elements.
+        * @param Pointer to the array of polylist elements.
+        * @param polylistArraySize The number of elements in the polylist array.
         */
-        PolylistArray getPolylistArray ( size_t& polylistArraySize ) 
-        {
-            polylistArraySize = mPolylistArraySize;
-            return mPolylistArray; 
+        void setPolygonsArray ( const PolygonsArray& polygonsArray, const size_t polygonsArraySize )  
+        { 
+            mPolygonsArraySize = polygonsArraySize;
+            mPolygonsArray = polygonsArray; 
+        }
+
+        /**
+        * Gets the polygons element array.
+        * @param polygonsArraySize Parameter to store the size of the array.
+        * @return Returns a constant reference to the array of polygons elements.
+        */
+        const PolygonsArray &getPolygonsArray ( size_t& polygonsArraySize ) const 
+        { 
+            polygonsArraySize = mPolygonsArraySize; 
+            return mPolygonsArray; 
         }
 
         /**
@@ -127,7 +203,7 @@ namespace COLLADAFW
         * @param polylistSize Parameter to set the number of elements in the polylist list.
         * @return Returns a constant pointer to the array of polylist elements.
         */
-        const PolylistArray getPolylistArray ( size_t& polylistArraySize ) const 
+        const PolylistArray& getPolylistArray ( size_t& polylistArraySize ) const 
         { 
             polylistArraySize = mPolylistArraySize;
             return mPolylistArray; 
@@ -138,7 +214,7 @@ namespace COLLADAFW
          * @param polylistList Pointer to the polylist list to set.
          * @param polylistSize The number of elements in the polylist list.
          */
-        void setPolylistArray ( Polylist polylistArray[], const size_t polylistArraySize ) 
+        void setPolylistArray ( const PolylistArray polylistArray, const size_t polylistArraySize ) 
         { 
             mPolylistArraySize = polylistArraySize;
             mPolylistArray = polylistArray; 

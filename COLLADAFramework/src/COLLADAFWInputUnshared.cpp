@@ -9,14 +9,14 @@
 */
 
 #include "COLLADAFWStableHeaders.h"
-#include "COLLADAFWInput.h"
+#include "COLLADAFWInputUnshared.h"
 
 
 namespace COLLADAFW
 {
 
     // ----------------------------
-    const String& Input::getSemanticAsString ( const InputSemantic::Semantic semantic )
+    const String& InputUnshared::getSemanticAsString ( const InputSemantic::Semantic semantic )
     {
         switch ( semantic )
         {
@@ -49,7 +49,7 @@ namespace COLLADAFW
     }
 
     // ----------------------------
-    const InputSemantic::Semantic Input::getSemanticFromString ( const String& semanticStr )
+    const InputSemantic::Semantic InputUnshared::getSemanticFromString ( const String& semanticStr )
     {
         if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_BINORMAL ) )
             return InputSemantic::BINORMAL;
