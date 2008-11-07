@@ -12,6 +12,7 @@
 #define __COLLADAFW_POLYGONS_H__
 
 #include "COLLADAFWPolyBase.h"
+#include "COLLADAFWPrimitiveBase.h"
 #include "COLLADAFWPHElement.h"
 
 
@@ -60,6 +61,18 @@ namespace COLLADAFW
         * (indices) for an individual Polylist ("p" stands for "primitive").
         * The p element may occur not or more. 
         */
+        PArray mPArray;
+
+        /** 
+        * Contains the number of primitives in the @mPHArray array. 
+        */
+        size_t mPArraySize;
+
+        /**
+        * Contains a array of integers that specify the vertex attributes
+        * (indices) for an individual Polylist ("p" stands for "primitive").
+        * The p element may occur not or more. 
+        */
         PHArray mPHArray;
         
         /** 
@@ -74,6 +87,8 @@ namespace COLLADAFW
         */
         Polygons () 
             : PolyBase ()
+            , mPArray ( 0 )
+            , mPHArray ( 0 )
         {}
 
         /**
@@ -81,7 +96,47 @@ namespace COLLADAFW
         */
         virtual ~Polygons() 
         {
+            delete[] mPArray;
             delete[] mPHArray;
+        }
+
+        /**
+        * Contains a array of integers that specify the vertex attributes
+        * (indices) for an individual Polylist ("p" stands for "primitive").
+        * The p element may occur not or more. 
+        * @param pArraySize The parameter to get the size of the returned array.
+        * @return PArray& Reference to the ph array.
+        */
+        PArray& getPArray ( size_t& pArraySize ) 
+        { 
+            pArraySize = mPArraySize;
+            return mPArray; 
+        }
+
+        /**
+        * Contains a array of integers that specify the vertex attributes
+        * (indices) for an individual Polylist ("p" stands for "primitive").
+        * The p element may occur not or more. 
+        * @param pArraySize The parameter to get the size of the returned array.
+        * @return PArray& Const reference to the ph array.
+        */
+        const PArray& getPArray ( size_t& pArraySize ) const 
+        { 
+            pArraySize = mPArraySize;
+            return mPArray; 
+        }
+
+        /**
+        * Contains a array of integers that specify the vertex attributes
+        * (indices) for an individual Polylist ("p" stands for "primitive").
+        * The p element may occur not or more. 
+        * @param pArray Reference to the ph array.
+        * @param pArraySize The parameter to get the size of the returned array.
+        */
+        void setPArray ( const PArray& pArray, const size_t pArraySize  ) 
+        { 
+            mPArraySize = pArraySize;
+            mPArray = pArray; 
         }
 
         /**

@@ -1,7 +1,7 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-    This file is part of COLLADAHelper.
+    This file is part of COLLADAFramework.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website

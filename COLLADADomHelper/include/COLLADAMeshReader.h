@@ -64,10 +64,25 @@ namespace COLLADADomHelper
         domSourceRef getPositionsRef ();
 
         /** Create the mesh from the current polylist. */
-        void fillMeshPolylistArray ( domPolylist_Array& polylistArray );
+        void fillMeshPolylistArray ( const domPolylist_Array& polylistArray );
 
         /** Create the mesh from the current polygons array. */
-        void createMeshFromPolygons ( domPolygons_Array& polygonsArray );
+        void fillMeshPolygonsArray ( const domPolygons_Array& polygonsArray );
+
+        /** Fills the input array of the polylist. */
+        void fillPolylistInputArray ( 
+            const domPolylistRef polylistRef, 
+            COLLADAFW::Polylist& polylist );
+
+        /** Fills the input array of the polygons. */
+        void fillPolygonsInputArray ( 
+            const domPolygonsRef polygonsRef, 
+            COLLADAFW::Polygons& polygons );
+
+        /** Fills the input array elements. */
+        void fillInputArray ( 
+            const domInputLocalOffset_Array& domInputArray, 
+            COLLADAFW::InputSharedArray& inputArray );
 
         /** Fill the array of vertex counts for each polygon. */
         void getVertexArray ( const domSourceRef positionsRef/*, MFloatPointArray &vertexArray*/ );

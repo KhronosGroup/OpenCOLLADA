@@ -12,6 +12,7 @@
 #define __COLLADAFW_POLYLIST_H__
 
 #include "COLLADAFWPolyBase.h"
+#include "COLLADAFWPrimitiveBase.h"
 
 
 namespace COLLADAFW
@@ -45,6 +46,14 @@ namespace COLLADAFW
          * Contains the number of vcount elements in the @mVCountArray array. 
          */
         size_t mVCountArraySize;
+
+        /**
+        * Contains a array of integers that specify the vertex attributes
+        * (indices) for an individual Polylist. (“p” stands for “primitive”.)
+        * The p element may occur not or once. 
+        */
+        PElement mPElement;
+
 
     public:	
 
@@ -89,6 +98,37 @@ namespace COLLADAFW
         { 
             mVCountArraySize = vCountArraySize;
             mVCountArray = vCountArray; 
+        }
+
+        /**
+        * Gets the p array array. The pArray contains a array of integers that specify the vertex 
+        * attributes (indices) for an individual Polylist ("p" stands for "primitive").
+        * @return A reference to the p element. See @mPElement
+        */
+        PElement& getPElement () 
+        {
+            return mPElement; 
+        }
+
+        /**
+        * Gets the p array array. The pArray contains a array of integers that specify the vertex 
+        * attributes (indices) for an individual Polylist ("p" stands for "primitive").
+        * @return A reference to the p element. See @mPElement
+        */
+        const PElement& getPElement () const 
+        {
+            return mPElement; 
+        }
+
+        /**
+        * Sets the p array. The pArray contains a array of integers that specify the vertex 
+        * attributes (indices) for an individual Polylist ("p" stands for "primitive").
+        * Occures not or just for one time.
+        * @param pElement A reference to the p element. See @mPElement.
+        */
+        void setPElement ( const PElement& pElement ) 
+        { 
+            mPElement = pElement; 
         }
 
     };

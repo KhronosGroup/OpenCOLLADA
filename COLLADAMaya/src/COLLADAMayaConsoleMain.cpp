@@ -1,14 +1,18 @@
-//--------------------------------------------------------------------------------------------
-/// \file	main.cpp
-/// \author	Rob Bateman
-/// \brief	Probably the simplest maya exporter code possible. This will work on both linux
-/// 		and win32, makes sure that your VisualC++ options has set the correct paths to
-/// 		the maya includes and libraries. When compiling on linux, make sure you have
-/// 		set the correct paths contained within the makefile that is included.
-///
-/// 		When compiling under linux, you will need to have gtk2 installed (the file dialog
-/// 		code uses it. It would be fairly trivial to strip that out however).
-//--------------------------------------------------------------------------------------------
+/*
+    Copyright (c) 2008 NetAllied Systems GmbH
+
+	This file is part of COLLADAMaya.
+
+    Portions of the code are:
+    Copyright (c) 2005-2007 Feeling Software Inc.
+    Copyright (c) 2005-2007 Sony Computer Entertainment America
+    Copyright (c) 2004-2005 Alias Systems Corp.
+
+    Licensed under the MIT Open Source License,
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
 #include "ColladaMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
@@ -23,30 +27,24 @@
 #include <fstream>
 #include <time.h>
 
-// generic linux(gtk2) & win32 file dialog code
-#include "COLLADAMayaConsoleFileDialog.h"
 #include "COLLADAMayaException.h"
 #include "COLLADASWUtils.h"
 
-// link to some fairly funky maya libs. NOTE: The Image library only became part of maya
-// from version 4.01 onwards. It is not available in version 4.0
-//
-#ifdef WIN32
-	#pragma comment(lib,"Foundation.lib")
-	#pragma comment(lib,"OpenMaya.lib")
-	#pragma comment(lib,"OpenMayaFx.lib")
-	#pragma comment(lib,"Image.lib")
-	#pragma comment(lib,"OpenMayaAnim.lib")
-#endif
 
-// defines
 #define MAX_FILENAME_LEN 512
 
+/**
+ * Usage on export:
+ * COLLADAMaya [infile.mb|infile.ma] [outfile.dae]
+ * 
+ * Usage on import:
+ * COLLADAMaya -i [infile.dae]
+ */
 #ifdef WIN32
 int main(int argc,char** argv)
 {
-#else // hack for linux & gtk
-
+#else 
+// hack for linux & gtk
 // gtk needs the command line args for initialisation
 int   g_argc=0;
 char** g_argv=0;
@@ -85,9 +83,6 @@ int main(int argc,char** argv)
         if ( COLLADASW::Utils::equalsIgnoreCase ( message, "-i" ) )
         {
             isImport = true;
-            inFileExtension = "COLLADA dae file\0*.dae\0\0";
-            defaultExtension = "";
-            outFileExtension = "";
 
             // Check for an input and an output filename
             if ( argc > 2 ) inFileArgPos = 2;
@@ -95,9 +90,6 @@ int main(int argc,char** argv)
         else
         {
             isImport = false;
-            inFileExtension = "Maya binary file\0*.mb\0\0";
-            outFileExtension = "COLLADA dae file\0*.dae\0\0";
-            defaultExtension = "dae";
 
             // Check for an input and - on export - for an output filename
             if ( argc > 1 ) inFileArgPos = 1;
@@ -113,36 +105,12 @@ int main(int argc,char** argv)
     }
 
     // Just a input file
-    else if ( inFileArgPos > 0 )
+    else if ( isImport && inFileArgPos > 0 )
     {
 	    // got infile from command line args
 	    strcpy ( inFileName, argv[inFileArgPos] );
-
-	    // ask for an outfile
-        if ( !isImport && !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension, defaultExtension ) ) 
-        {
-		    return EXIT_FAILURE;
-	    }
     }
     
-    // no args specified so pop up a couple fo file dialogs
-    else if ( ( !isImport && argc == 1 ) || ( isImport && argc == 2) )
-    {
-	    // get in file name
-        if ( !COLLADAMaya::openFileDialog ( inFileName, inFileExtension ) ) 
-        {
-		    return EXIT_FAILURE;
-	    }
-
-	    // get out file name
-        if ( !isImport )
-        {
-            if ( !COLLADAMaya::saveFileDialog ( outFileName, outFileExtension, defaultExtension ) ) 
-            {
-                return EXIT_FAILURE;
-            }
-        }
-    }
     else 
     {
         std::cerr << "[ERROR] Usage on export:\n\tCOLLADAMaya [infile.mb|infile.ma] [outfile.dae]\n";

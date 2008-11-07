@@ -12,6 +12,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #ifndef __COLLADA_MAYA_CONVERSION_H__
 #define __COLLADA_MAYA_CONVERSION_H__
 

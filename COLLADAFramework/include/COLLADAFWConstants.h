@@ -16,6 +16,10 @@
 namespace COLLADAFW
 {
 
+    /** An array of unsigned int values. */
+    typedef unsigned int* UIntValuesArray;
+
+
     /** Declares the storage for the graphical representation of an object. */
     class Constants
     {

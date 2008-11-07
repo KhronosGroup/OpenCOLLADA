@@ -7,8 +7,8 @@
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
     Copyright (c) 2004-2005 Alias Systems Corp.
-	
-    Licensed under the MIT Open Source License, 
+
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -110,18 +110,18 @@
 //             status.perror ( "registerFileTranslator" );
 //             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
 //         }
-// 
-//         // TODO
-//         MString UserClassify("shader/surface/utility");
-// 
-//         #if MAYA_API_VERSION >= 700
-//         // Don't initialize swatches in batch mode
-//         if (MGlobal::mayaState() != MGlobal::kBatch)
-//         {
-//          const MString& swatchName = MHWShaderSwatchGenerator::initialize();
-//          UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
-//         }
-//         #endif // MAYA_API_VERSION >= 700
+
+        // TODO
+        MString UserClassify("shader/surface/utility");
+
+        #if MAYA_API_VERSION >= 700
+        // Don't initialize swatches in batch mode
+        if (MGlobal::mayaState() != MGlobal::kBatch)
+        {
+         const MString& swatchName = MHWShaderSwatchGenerator::initialize();
+         UserClassify = MString("shader/surface/utility/:swatch/"+swatchName);
+        }
+        #endif // MAYA_API_VERSION >= 700
 
         return status;
     }
@@ -159,13 +159,13 @@
 //             MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
 //             return status;
 //         }
-// 
-// #if MAYA_API_VERSION >= 800
-//         // Disable the shared-reference node options.
-//         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsSharedReference\" 0;" );
-//         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareDisplayLayers\" 0;" );
-//         MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
-// #endif // MAYA 8.0 and 8.5
+
+#if MAYA_API_VERSION >= 800
+        // Disable the shared-reference node options.
+        MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsSharedReference\" 0;" );
+        MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareDisplayLayers\" 0;" );
+        MGlobal::executeCommand ( "optionVar -iv \"referenceOptionsShareShaders\" 0;" );
+#endif // MAYA 8.0 and 8.5
 
         // Stop the error logging
         MGlobal::stopErrorLogging();

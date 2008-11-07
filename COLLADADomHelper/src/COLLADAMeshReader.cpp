@@ -43,12 +43,12 @@ namespace COLLADADomHelper
             fillMeshPolylistArray ( polylistArray );
         }
 
-//         // Get the array of polygons and write it in the COLLADAFW::Mesh object.
-//         domPolygons_Array polygonsArray = mMeshRef->getPolygons_array ();
-//         if ( polygonsArray.getCount () != 0 )
-//         {
-//             createMeshFromPolygons (  polygonsArray  );
-//         }
+        // Get the array of polygons and write it in the COLLADAFW::Mesh object.
+        domPolygons_Array polygonsArray = mMeshRef->getPolygons_array ();
+        if ( polygonsArray.getCount () != 0 )
+        {
+            fillMeshPolygonsArray (  polygonsArray  );
+        }
 
         // TODO
         meshRef->getTriangles_array ();
@@ -59,7 +59,7 @@ namespace COLLADADomHelper
     }
 
     // --------------------------------------------
-    void MeshReader::fillMeshPolylistArray ( domPolylist_Array& polylistArray ) 
+    void MeshReader::fillMeshPolylistArray ( const domPolylist_Array& polylistArray ) 
     {
         // The number of vertices and polygons.
         size_t numVertices = 0, numPolygons = 0;
@@ -92,20 +92,11 @@ namespace COLLADADomHelper
             polylist.setCount ( numPolygons );
 
             // Assign the material.
-            xsNCName materialName = polylistRef->getMaterial ();
-            polylist.setMaterial ( materialName );
+            if ( polylistRef->getMaterial () != 0 ) 
+                polylist.setMaterial ( polylistRef->getMaterial () );
 
-            // Fill the COLLADAFramework pList data
-            domPRef pRef = polylistRef->getP ();
-            domListOfUInts domPList = pRef->getValue ();
-
-            size_t pListSize = domPList.getCount ();
-            COLLADAFW::Polylist::PArray pList = new unsigned int [ pListSize ];
-            for ( size_t m=0; m<pListSize; ++m )
-            {
-                pList [ m ] = ( int ) domPList.get ( m );
-            }
-            polylist.setPArray ( pList, pListSize );
+            // Fill the polylist's input elements.
+            fillPolylistInputArray ( polylistRef, polylist );
 
             // Fill the COLLADAFramework vCountList data
             domPolylist::domVcountRef vCountRef = polylistRef->getVcount ();
@@ -115,40 +106,77 @@ namespace COLLADADomHelper
             COLLADAFW::Polylist::VCountArray vCountList = new unsigned int [ vCountListSize ];
             for ( size_t m=0; m<vCountListSize; ++m )
             {
-                vCountList [ m ] = ( int ) domVCountList.get ( m );
+                vCountList [ m ] = ( unsigned int ) domVCountList.get ( m );
             }
             polylist.setVCountArray ( vCountList, vCountListSize );
 
-            // TODO Fill the COLLADAFramework input list elements.
-            domInputLocalOffset_Array polylistInputArray;
-            polylistInputArray = polylistRef->getInput_array ();
-            size_t polylistInputCount = polylistInputArray.getCount ();
+            // Fill the COLLADAFramework pList data
+            domPRef pRef = polylistRef->getP ();
+            domListOfUInts domPList = pRef->getValue ();
 
-            COLLADAFW::InputSharedArray inputArray = new COLLADAFW::InputShared [ polylistInputCount ];
-            polylist.setInputArray ( inputArray, polylistInputCount );
-
-            for ( size_t n=0; n<polylistInputCount; ++n )
+            size_t pListSize = domPList.getCount ();
+            COLLADAFW::UIntValuesArray pListValues = new unsigned int [ pListSize ];
+            for ( size_t m=0; m<pListSize; ++m )
             {
-                // Get the current COLLADAFramework input element.
-                COLLADAFW::InputShared& input = inputArray [ n ];
-
-                // Get the current dom input element.
-                domInputLocalOffsetRef polylistInputRef;
-                polylistInputRef = polylistInputArray.get ( n );
-
-                xsNMTOKEN semantic = polylistInputRef->getSemantic ();
-                input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( semantic ) );
-
-                domURIFragmentType domUri = polylistInputRef->getSource ();
-                input.setSource ( COLLADASW::URI::nativePathToUri ( domUri.originalStr () ) );
-
-                unsigned int offset = ( unsigned int ) polylistInputRef->getOffset ();
-                input.setOffset ( offset );
-
-                unsigned int set = ( unsigned int ) polylistInputRef->getSet ();
-                input.setSet ( set );
+                pListValues [ m ] = ( unsigned int ) domPList.get ( m );
             }
+            COLLADAFW::PElement& pElement = polylist.getPElement ();
+            pElement.setUIntValuesArray ( pListValues, pListSize );
+
         }
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillMeshPolygonsArray ( const domPolygons_Array& polygonsArray )
+    {
+        // Fill the required attributes to create the current mesh.
+
+        // The number of vertices and polygons.
+        size_t numVertices = 0, numPolygons = 0;
+
+        // One vertices input must specify semantic="POSITION" to establish the 
+        // topological identity of each vertex in the mesh.
+        domSourceRef positionsRef = getPositionsRef ();
+
+        // The number of polygon elements in the current mesh
+        size_t polygonsCount = polygonsArray.getCount ();
+
+        // Fill the COLLADAFramework polygons data
+        COLLADAFW::Polygons* polygonsList = new COLLADAFW::Polygons [ polygonsCount ]; 
+        mMesh->setPolygonsArray ( polygonsList, polygonsCount );
+
+        // Go through all poygons of the current mesh.
+        for ( size_t i=0; i<polygonsCount; ++i )
+        {
+            // Get the current COLLADAFramework polygons element
+            COLLADAFW::Polygons& polygons = polygonsList [ i ];
+
+            // Get a reference to the current polygons element.
+            domPolygonsRef polygonsRef = polygonsArray.get ( i );
+            numPolygons = ( size_t ) polygonsRef->getCount ();
+            polygons.setCount ( numPolygons );
+
+            // Assign the material.
+            if ( polygonsRef->getMaterial () != 0 ) 
+                polygons.setMaterial ( polygonsRef->getMaterial () );
+
+            // Fill the polylist's input elements.
+            fillPolygonsInputArray ( polygonsRef, polygons );
+
+
+            // Fill the array of vertex counts for each polygon.
+            getVertexArray ( positionsRef );
+
+            // Get the polylists offset of the vertices 
+            // and the maximum offset in the polygons list.
+            size_t vertexOffset, vertexSet, maxOffset = 0;
+            getPolygonsOffsetValues ( polygonsRef, vertexOffset, vertexSet, maxOffset );
+
+            // Fill the list with the count of vertices for every polygon and 
+            // calculate the number of polygons and the sum of vertices for all polygons.
+            getVertexCountsPerPolygon ( polygonsRef, maxOffset, numVertices );
+        }
+
     }
 
     // --------------------------------------------
@@ -180,46 +208,6 @@ namespace COLLADADomHelper
         }
 
         return daeSafeCast<domSource> ( positionUri.getElement() );
-    }
-
-    // --------------------------------------------
-    void MeshReader::createMeshFromPolygons ( domPolygons_Array& polygonsArray )
-    {
-        // Fill the required attributes to create the current mesh.
-
-        // The number of vertices and polygons.
-        size_t numVertices = 0, numPolygons = 0;
-
-        // One vertices input must specify semantic="POSITION" to establish the 
-        // topological identity of each vertex in the mesh.
-        domSourceRef positionsRef = getPositionsRef ();
-
-        // Go through all poygons of the current mesh.
-        size_t numPolygonsArrays = polygonsArray.getCount ();
-        for ( size_t i=0; i<numPolygonsArrays; ++i )
-        {
-            // Get a reference to the current polygons element.
-            domPolygonsRef polygonsRef = polygonsArray.get ( i );
-            numPolygons = ( size_t ) polygonsRef->getCount ();
-
-            // TODO Assign the material.
-            xsNCName materialName = polygonsRef->getMaterial ();
-
-            // Fill the array of vertex counts for each polygon.
-            getVertexArray ( positionsRef );
-
-            // Get the polylists offset of the vertices 
-            // and the maximum offset in the polygons list.
-            size_t vertexOffset, vertexSet, maxOffset = 0;
-            getPolygonsOffsetValues ( polygonsRef, vertexOffset, vertexSet, maxOffset );
-
-            // Fill the list with the count of vertices for every polygon and 
-            // calculate the number of polygons and the sum of vertices for all polygons.
-            getVertexCountsPerPolygon ( polygonsRef, maxOffset, 
-                numVertices );
-
-        }
-
     }
 
     // --------------------------------------------
@@ -592,6 +580,69 @@ namespace COLLADADomHelper
                 input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( inputRef->getSemantic () ) );
 
             input.setSource ( COLLADASW::URI::nativePathToUri ( inputRef->getSource ().originalStr () ) );
+        }
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillPolylistInputArray ( 
+        const domPolylistRef polylistRef, 
+        COLLADAFW::Polylist& polylist )
+    {
+        // Fill the COLLADAFramework input list elements.
+        domInputLocalOffset_Array domInputArray;
+        domInputArray = polylistRef->getInput_array ();
+        size_t polylistInputCount = domInputArray.getCount ();
+
+        COLLADAFW::InputSharedArray inputArray = new COLLADAFW::InputShared [ polylistInputCount ];
+        polylist.setInputArray ( inputArray, polylistInputCount );
+
+        // Fill the input array.
+        fillInputArray ( domInputArray, inputArray );
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillPolygonsInputArray ( 
+        const domPolygonsRef polygonsRef, 
+        COLLADAFW::Polygons& polygons )
+    {
+        // Fill the COLLADAFramework input list elements.
+        domInputLocalOffset_Array domInputArray;
+        domInputArray = polygonsRef->getInput_array ();
+        size_t polylistInputCount = domInputArray.getCount ();
+
+        COLLADAFW::InputSharedArray inputArray = new COLLADAFW::InputShared [ polylistInputCount ];
+        polygons.setInputArray ( inputArray, polylistInputCount );
+
+        // Fill the input array.
+        fillInputArray ( domInputArray, inputArray );
+    }
+
+    // --------------------------------------------
+    void MeshReader::fillInputArray ( 
+        const domInputLocalOffset_Array& domInputArray, 
+        COLLADAFW::InputSharedArray& inputArray )
+    {
+        size_t inputCount = domInputArray.getCount ();
+        for ( size_t n=0; n<inputCount; ++n )
+        {
+            // Get the current COLLADAFramework input element.
+            COLLADAFW::InputShared& input = inputArray [ n ];
+
+            // Get the current dom input element.
+            domInputLocalOffsetRef polylistInputRef;
+            polylistInputRef = domInputArray.get ( n );
+
+            xsNMTOKEN semantic = polylistInputRef->getSemantic ();
+            input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( semantic ) );
+
+            domURIFragmentType domUri = polylistInputRef->getSource ();
+            input.setSource ( COLLADASW::URI::nativePathToUri ( domUri.originalStr () ) );
+
+            unsigned int offset = ( unsigned int ) polylistInputRef->getOffset ();
+            input.setOffset ( offset );
+
+            unsigned int set = ( unsigned int ) polylistInputRef->getSet ();
+            input.setSet ( set );
         }
     }
 }

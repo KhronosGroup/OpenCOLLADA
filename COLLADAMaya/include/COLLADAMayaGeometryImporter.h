@@ -59,13 +59,20 @@ namespace COLLADAMaya
         /** Imports the data of the current mesh element. */
         bool importMesh ( const COLLADAFW::Mesh* mesh );
 
-        void createMeshFromPolylist ( const COLLADAFW::Mesh* mesh, const COLLADAFW::Source* positionsSource );
-        /** One vertices input must specify semantic="POSITION" to establish the 
-        topological identity of each vertex in the mesh. */
-        domSourceRef getPositionsRef ();
+        /**
+         * Creates a maya mesh object from the current polylist array.
+         * @param mesh A pointer to the COLLADAFramework mesh object, which holds all required 
+         *              data to create the mesh.
+         * @param positionsSource A pointer to the mesh's position source element.
+         */
+        void createMeshFromPolylist ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::Source* positionsSource );
 
         /** Create the mesh from the current polygons array. */
-        void createMeshFromPolygons ( domPolygons_Array& polygonsArray );
+        void createMeshFromPolygons ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::Source* positionsSource );
 
         /**
          * Fill the maya array of vertex counts for each polygon.
@@ -88,19 +95,19 @@ namespace COLLADAMaya
             MIntArray& vertexCountsPerPolygon, 
             size_t& numVertices );
 
-        /**
-         * Fill the list with the count of vertices for every polygon and calculate 
-         * the number of polygons and the sum of vertices for all polygons.
-         * @param polygonsRef Pointer to a polygons element in the collada document.
-         * @param numInputElements The number of input elements in the current polygon element.
-         * @param vertexCountsPerPolygon List of vertex counts per polygon.
-         * @param numVertices Variable for the sum of all existing vertices in all polygons.
-         */
-        void getVertexCountsPerPolygon ( 
-            const domPolygonsRef polygonsRef, 
-            const size_t numInputElements, 
-            MIntArray& vertexCountsPerPolygon, 
-            size_t& numVertices );
+//         /**
+//          * Fill the list with the count of vertices for every polygon and calculate 
+//          * the number of polygons and the sum of vertices for all polygons.
+//          * @param polygonsRef Pointer to a polygons element in the collada document.
+//          * @param numInputElements The number of input elements in the current polygon element.
+//          * @param vertexCountsPerPolygon List of vertex counts per polygon.
+//          * @param numVertices Variable for the sum of all existing vertices in all polygons.
+//          */
+//         void getVertexCountsPerPolygon ( 
+//             const COLLADAFW::Polygons& polygons, 
+//             const size_t numInputElements, 
+//             MIntArray& vertexCountsPerPolygon, 
+//             size_t& numVertices );
 
         /**
          * Get the vertex offset and the vertex set of the current polygons vertex input element.
@@ -125,7 +132,7 @@ namespace COLLADAMaya
          * @param maxOffset Variable for the maximum offset value of the polygons input elements.
          */
         void getPolygonsOffsetValues ( 
-            domPolygonsRef polygonsRef, 
+            const COLLADAFW::Polygons& polygons, 
             size_t& vertexOffset, 
             size_t& vertexSet, 
             size_t& maxOffset );
@@ -149,21 +156,24 @@ namespace COLLADAMaya
             MIntArray &polygonConnects );
 
         /**
-         * Go through the primitives, get the vertex connections for each 
-         * polygon and write them into the array of vertex connections. 
-         * @param polygonsRef Pointer to a polygons element in the collada document.
+         * Fills the list with the count of vertices for every polygon and calculates the number of
+         * polygons and the sum of vertices for all polygons. Goes through the primitives, get the 
+         * vertex connections for each polygon and write them into the array of vertex connections. 
+         * @param polygons COLLADAFramework polygons array.
          * @param numPolygons Number of all existing polygons.
-         * @param vertexCountsPerPolygon List of vertex counts per polygon.
-         * @param maxOffset Maximum offset value of the polygons input elements.
-         * @param vertexOffset The vertex offset.
-         * @param polygonConnects Vertex connections for each polygon.
+         * @param numInputElements The number of input elements in the current polygon element.
+         * @param vertexOffset The current vertex offset from the input list.
+         * @param numVertices Variable for the sum of all existing vertices in all polygons.
+         * @param vertexCountsPerPolygon List of vertex counts per polygon to fill.
+         * @param polygonConnects The vertex connections for each polygon to fill.
          */
-        void getVertexConnections( 
-            const domPolygonsRef polygonsRef, 
+        void getVertexInformations ( 
+            const COLLADAFW::Polygons& polygons, 
             const size_t numPolygons, 
-            const MIntArray vertexCountsPerPolygon, 
-            const size_t maxOffset, 
+            const size_t numInputElements, 
             const size_t vertexOffset, 
+            size_t& numVertices,
+            MIntArray& vertexCountsPerPolygon, 
             MIntArray &polygonConnects );
 
         /** Create a maya mesh element. */

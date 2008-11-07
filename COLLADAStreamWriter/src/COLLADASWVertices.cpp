@@ -7,6 +7,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
+
 #include "COLLADASWVertices.h"
 #include "COLLADASWConstants.h"
 #include "COLLADASWUtils.h"

@@ -82,8 +82,12 @@ namespace COLLADAFW
 
         /** Constructor. */
         Mesh () : 
-          mPolylistArray ( 0 ) 
-        , mSourceArray ( 0 )
+          mSourceArray ( 0 )
+        , mSourceArraySize ( 0 )
+        , mPolylistArray ( 0 ) 
+        , mPolylistArraySize ( 0 )
+        , mPolygonsArray ( 0 )
+        , mPolygonsArraySize ( 0 )
         {}
 
         /** Destructor. */
