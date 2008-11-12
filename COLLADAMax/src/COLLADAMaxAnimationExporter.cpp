@@ -890,7 +890,7 @@ namespace COLLADAMax
 
 			const Matrix3& constTransformationMatrix = transformationMatrix;
 
-			if ( time = startTime )
+			if ( time == startTime )
 			{
 				firstTransformationMatrix = transformationMatrix;
 			}

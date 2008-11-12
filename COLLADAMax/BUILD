@@ -11,6 +11,7 @@ Requirements:
 - boost C++ libraries
   Supported and tested versions:
   -	Boost 1.35 available at http://www.boost.org/users/download/
+  -	Boost 1.36 available at http://www.boost.org/users/download/
 
 - MS Visual Studio 2005.
 
@@ -30,7 +31,16 @@ depends on the version of 3ds Max as listed below:
 3ds Max 2008     |  MAX_PATH2008               |  MAX_SDK_PATH2008
 3ds Max 2009     |  MAX_PATH2009               |  MAX_SDK_PATH2009
 
-Further you need to set the "BOOST_ROOT" environment variable to your installation path of boost.
+
+The following environment variables need to be set for BOOST:
+
+"BOOST_ROOT":                     Set to your installation path of the boost headers, i.e. the path that contains 
+                                  the "include" directory.
+"BOOST_LIB_PATH" (win32 only):    Set to your installation path of the boost libraries, i.e. the path that contains 
+                                  all the *.lib files.
+"BOOST_LIB64_PATH" (win64 only):  Set to your installation path of the boost libraries, i.e. the path that contains 
+                                  all the *.lib files.
+
 
 To build the plug-in open "COLLADAMax.sln" with MS Visual Studio 2005, choose the configuration 
 you want to build und build the project.

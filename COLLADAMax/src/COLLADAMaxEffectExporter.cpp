@@ -423,14 +423,14 @@ namespace COLLADAMax
 
             case EMISSION:
 
-                if ( !material->GetSelfIllumColorOn() )     // Emission
+       /*         if ( !material->GetSelfIllumColorOn() )     // Emission
                 {
                     // emission factor
                     //    ANIM->ExportProperty(_T("self_illum_level"), shaderParameters, FSStandardMaterial::shdr_self_illum_amnt, 0, stdProfile->GetEmissionFactorParam()->GetValue(), NULL);
                     //TODO: check what this is good for
                     //stdProfile->SetIsEmissionFactor(true);
                     continue;
-                }
+                }*/
 
                 break;
 

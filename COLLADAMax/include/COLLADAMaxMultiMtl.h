@@ -99,7 +99,7 @@ namespace COLLADAMax
         const unsigned int EXTENDED_PB_REF = 4;
         const unsigned int SAMPLING_PB_REF = 5;
         const unsigned int MAPS_PB_REF = 6;
-        const unsigned int DYNAMICS_PB_REF = 7;  // [glaforte] typo corrected, so you won't find this #define in the MaxSDK!
+        const unsigned int DYNAMICS_PB_REF = 7;  
         const unsigned int SAMPLER_REF = 8;
 
         // shdr_params param IDs
