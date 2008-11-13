@@ -42,20 +42,22 @@ version. Following environment variables to your Maya location are supported:
 - MAYA_PATH85_X64
 
 win32:
--	"YOUR_MAYA_PATH" to your installation path of Autodesk Maya
-	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include"
-	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib"
--	"BOOST_ROOT" to your installation path of boost
-	The boost include directory has to be "$(BOOST_ROOT)"
-	The lib directory of boost has to be "$(BOOST_ROOT)\stage\lib"
+-	"YOUR_MAYA_PATH" to your installation path of Autodesk Maya.
+	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include".
+	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib".
+-	The "BOOST_ROOT" environment variable has to be the path to your 
+	installation path of boost.
+-	The "BOOST_LIB_PATH" environment variable has to be the path to your 
+	lib directory of boost.
 	
 x64:
--	"MAYA_PATH2008_X64" to your installation path of Autodesk Maya
-	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include"
-	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib"
--	"BOOST_ROOT" to your installation path of boost
-	The boost include directory has to be "$(BOOST_ROOT)"
-	The lib directory of boost has to be "$(BOOST_ROOT)\stage64\lib"
+-	"MAYA_PATH2008_X64" to your installation path of Autodesk Maya.
+	The include directory of maya has to be "$(YOUR_MAYA_PATH)\include".
+	The lib directory of maya has to be "$(YOUR_MAYA_PATH)\lib".
+-	The "BOOST_ROOT" environment variable has to be the path to your 
+	installation path of boost.
+-	The "BOOST_LIB64_PATH" environment variable has to be the path to your 
+	lib directory of boost.
 
 Download and compile the sources of COLLADAMaya from
 https://colladamaya.svn.sourceforge.net/svnroot/colladamaya/branches/nextgen.
