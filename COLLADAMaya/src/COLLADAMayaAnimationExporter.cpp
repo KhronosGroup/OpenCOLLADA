@@ -1779,6 +1779,57 @@ namespace COLLADAMaya
         // Get tangent control points and fill in the animation data structure
         AnimationKeyBezier* bkey = ( AnimationKeyBezier* ) key;
 
+        // 
+        // COLLADA Spec:
+        // -------------
+        // In COLLADA, the <input> semantics IN_TANGENT and OUT_TANGENT 
+        // for Bezier curves are used to store the control points.
+        // 
+        // In COLLADA, a geometry vector for Bézier segment[i] is defined by:
+        // • P0 is POSITION[i]
+        // • C0 is OUT_TANGENT[i]
+        // • C1 is IN_TANGENT[i+1]
+        // • P1 is POSITION[i+1]
+        // 
+        // A cubic Bézier spline equation is given by:
+        // B(s) = P0*(1-s)^3 + 3*C0*s*(1-s)^2 + 3*C1*s^2*(1-s) + P1*s^3
+        // 
+        // Now the way to the magic factor 3:
+        // ----------------------------------
+        // The first derivation of B(s):
+        // B'(s) = -3*P0*(1-s)^2 + 3*C0*(1-s)^2 - 2*s*(1-s) + 3*C1*(2s(1-s)-s^2) + 3*P1*s^2
+        // 
+        // This resolves for s=0 (out tangent):
+        // B'(0) = -3*P0 + 3*C0 = 3*(C0-P0) = To
+        // ==> C0 = ( To / 3 ) + P0
+        // 
+        // This resolves for s=1 (in tangent):
+        // B'(0) = -3*C1 + 3*P1 = Ti
+        // ==> C1 = P1 - ( Ti / 3 ) 
+        // 
+        // Maya documentation:
+        // -------------------
+        // Animation curves may have either weighted or non-weighted tangents. 
+        // With non-weighted tangents, tangents are implemented as vectors and P2 and P3 are 
+        // internally adjusted to account for the time difference between P1 and P4.
+        // 
+        // When evaluating a time within a segment, the following algortithms are used:
+        // 
+        // For weighted tangents:
+        //      where x is the start of the segment
+        //      given the bezier x parameters a', b', c', d', find the parameter t 
+        //      which satisfies the formula:
+        //          (time - x) = (t^3 * a') + (t^2 + b') + (t * c') + d'
+        //      with t (and the bezier y parameters a, b, c, d) compute the value as:
+        //          v = (t^3 * a) + (t^2 + b) + (t * c) + d
+        // 
+        // For non-weighted tangents:
+        //      where x is the start of the segment
+        //      compute the parameter t as time - x
+        //      with t (and the bezier y parameters a, b, c, d) compute the value as:
+        //          v = (t^3 * a) + (t^2 + b) + (t * c) + d
+        // 
+
         bool isWeightedCurve = animCurveFn.isWeighted();
         float prevTime =
             keyPosition > 0 ?
@@ -1796,18 +1847,15 @@ namespace COLLADAMaya
         float slopeX, slopeY;
         animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>0 );
 
-        if ( slopeX < 0.01f && slopeX > -0.01f )
-            slopeX = COLLADASW::MathUtils::sign ( slopeX ) * 0.01f;
-
         if ( !isWeightedCurve )
         {
             // Extend the slope to be one third of the time-line in the X-coordinate.
-            slopeY *= ( curTime - prevTime ) / 3.0f / slopeX;
+            slopeY = ( curTime - prevTime ) / slopeX / 3.0f;
             slopeX = ( curTime - prevTime ) / 3.0f;
         }
         else
         {
-            // Take out the strange 3.0 factor.
+            // Take out the magic 3.0 factor. See documentation above.
             slopeX /= 3.0f;
             slopeY /= 3.0f;
         }
@@ -1818,18 +1866,15 @@ namespace COLLADAMaya
 
         animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>=keyCount-1 );
 
-        if ( slopeX < 0.01f && slopeX > -0.01f )
-            slopeX = COLLADASW::MathUtils::sign ( slopeX ) * 0.01f;
-
         if ( !isWeightedCurve )
         {
             // Extend the slope to be one third of the time-line in the X-coordinate.
-            slopeY *= ( nextTime - curTime ) / 3.0f / slopeX;
+            slopeY = ( nextTime - curTime ) / slopeX / 3.0f;
             slopeX = ( nextTime - curTime ) / 3.0f;
         }
         else
         {
-            // Take out the strange 3.0 factor.
+            // Take out the magic 3.0 factor. See documentation above.
             slopeX /= 3.0f;
             slopeY /= 3.0f;
         }
