@@ -1850,7 +1850,7 @@ namespace COLLADAMaya
         if ( !isWeightedCurve )
         {
             // Extend the slope to be one third of the time-line in the X-coordinate.
-            slopeY = ( curTime - prevTime ) / slopeX / 3.0f;
+            slopeY *= ( curTime - prevTime ) / slopeX / 3.0f;
             slopeX = ( curTime - prevTime ) / 3.0f;
         }
         else
@@ -1869,7 +1869,7 @@ namespace COLLADAMaya
         if ( !isWeightedCurve )
         {
             // Extend the slope to be one third of the time-line in the X-coordinate.
-            slopeY = ( nextTime - curTime ) / slopeX / 3.0f;
+            slopeY *= ( nextTime - curTime ) / slopeX / 3.0f;
             slopeX = ( nextTime - curTime ) / 3.0f;
         }
         else
