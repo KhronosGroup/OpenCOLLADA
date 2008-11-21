@@ -28,6 +28,7 @@
 #include <dom/domPolylist.h>
 
 #include <maya/MFnMesh.h>
+#include <maya/MFnTransform.h>
 
 
 namespace COLLADAMaya
@@ -107,18 +108,27 @@ namespace COLLADAMaya
             "Positions source is null!", 
             "GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )" );
 
-        // Create the maya mesh object from the polylist array, if it exist
-        createMeshFromPolylist ( mesh, positionsSource );
+        // The maya mesh object 
+        MObject mayaMeshObject = MObject::kNullObj;
 
         // Create the maya mesh object from the polylist array, if it exist
+        if ( mayaMeshObject == MObject::kNullObj )
+            mayaMeshObject = createMeshFromPolylist ( mesh, positionsSource );
+
+        // Create the maya mesh object from the polylist array, if it exist
+        if ( mayaMeshObject == MObject::kNullObj )
+            mayaMeshObject = createMeshFromPolygons ( mesh, positionsSource );
+
+        // No mesh created??? Something went wrong!
+        if ( mayaMeshObject == MObject::kNullObj ) return false;
+        
         // TODO 
-        createMeshFromPolygons ( mesh, positionsSource );
 
         return true;
     }
 
     // --------------------------------------------
-    void GeometryImporter::createMeshFromPolylist ( 
+    MObject GeometryImporter::createMeshFromPolylist ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::Source* positionsSource )
     {
@@ -145,7 +155,7 @@ namespace COLLADAMaya
             String materialName = polylist.getMaterial ();
 
             // Fill the array of vertex counts for each polygon.
-            getVertexArray ( positionsSource, vertexArray );
+            getVertexArray ( positionsSource, vertexArray, numVertices );
 
             // Get the polylists offset of the vertices 
             // and the maximum offset in the polygons list.
@@ -154,25 +164,27 @@ namespace COLLADAMaya
 
             // Fill the list with the count of vertices for every polygon and 
             // calculate the number of polygons and the sum of vertices for all polygons.
-            getVertexCountsPerPolygon ( polylist, vertexCountsPerPolygon, numVertices );
+            getVertexCountsPerPolygon ( polylist, vertexCountsPerPolygon );
 
             // Go through the primitives, get the vertex connections for each 
             // polygon and write them into the array of vertex connections. 
-            getVertexConnections ( polylist, numPolygons, vertexCountsPerPolygon, 
-                maxOffset, vertexOffset, polygonConnects );
+            getVertexConnections ( polylist, vertexCountsPerPolygon, numPolygons, 
+                maxOffset+1, vertexOffset, polygonConnects );
         }
 
         // Just create a mesh object, if there exist one or more polylists.
         if ( polylistCount > 0 )
         {
-            cout << "Create mesh from Polylist: " << endl;
-            createMesh ( numVertices, numPolygons, vertexArray, 
+            cout << endl << endl << "Create mesh from Polylist: " << endl;
+            return createMesh ( numVertices, numPolygons, vertexArray, 
                 vertexCountsPerPolygon, polygonConnects );
         }
+
+        return MObject::kNullObj;
     }
 
     // --------------------------------------------
-    void GeometryImporter::createMeshFromPolygons ( 
+    MObject GeometryImporter::createMeshFromPolygons ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::Source* positionsSource )
     {
@@ -190,81 +202,111 @@ namespace COLLADAMaya
         size_t polygonsCount;
         const COLLADAFW::PolygonsArray& polygonsArray = mesh->getPolygonsArray ( polygonsCount );
 
+        // Fill the array of vertex counts and count the number of vertices.
+        getVertexArray ( positionsSource, vertexArray, numVertices );
+
         // Go through all poygons of the current mesh.
         for ( size_t i=0; i<polygonsCount; ++i )
         {
             // Get a reference to the current polygons element.
             const COLLADAFW::Polygons& polygons = polygonsArray [ i ];
-            numPolygons = polygons.getCount ();
 
             // TODO Assign the material.
             String materialName = polygons.getMaterial ();
-
-            // Fill the array of vertex counts for each polygon.
-            getVertexArray ( positionsSource, vertexArray );
 
             // Get the polylists offset of the vertices 
             // and the maximum offset in the polygons list.
             size_t vertexOffset, vertexSet, maxOffset = 0;
             getPolygonsOffsetValues ( polygons, vertexOffset, vertexSet, maxOffset );
 
-            // Fills the list with the count of vertices for every polygon and 
-            // calculate the number of polygons and the sum of vertices for all polygons.
-//             getVertexCountsPerPolygon ( polygons, maxOffset, 
-//                 vertexCountsPerPolygon, numVertices );
-
             // Goes through the primitives, get the vertex connections for each 
             // polygon and write them into the array of vertex connections. 
-            getVertexInformations ( polygons, numPolygons, maxOffset, vertexOffset, 
-                numVertices, vertexCountsPerPolygon, polygonConnects );
+            numPolygons += 
+                getVertexInformations ( polygons, maxOffset+1, vertexOffset,  
+                vertexCountsPerPolygon, polygonConnects );
         }
 
-        cout << "Create mesh from Polygons: " << endl;
-        createMesh ( numVertices, numPolygons, vertexArray, 
-            vertexCountsPerPolygon, polygonConnects );
-    }
+        // Just create a mesh object, if there exist one or more polylists.
+        if ( polygonsCount < 0 )
+        {
+            return MObject::kNullObj;
+        }
 
-//     // --------------------------------------------
-//     void GeometryImporter::getVertexCountsPerPolygon ( 
-//         const COLLADAFW::Polygons& polygons, 
-//         const size_t numInputElements, 
-//         MIntArray& vertexCountsPerPolygon, 
-//         size_t& numVertices )
-//     {
-//         // Get the number of polygons in the current polygons element.
-//         size_t numPolygons;
-// 
-//         // Contains a list of polygon lists. Each polygon list contains a list of UInts 
-//         // that specifies the vertex attributes (indices) for an individual polygon.
-//         const COLLADAFW::PArray& pArray = polygons.getPArray ( numPolygons );
-// 
-//         // Go through each polygon and count the vertices 
-//         // per polygon and the sum of all vertices.
-//         for ( size_t n=0; n<numPolygons; ++n )
-//         {
-//             // Get the list of vertices of the current polygon.
-//             const COLLADAFW::PElement& pElement = pArray [ n ];
-// 
-//             // Get the values from the element.
-//             size_t numAttributes;
-//             const COLLADAFW::UIntValuesArray& vertexAttributes = pElement.getUIntValuesArray ( numAttributes );
-// 
-//             // Get the number of vertices of the current polygon.
-//             size_t numPolygonVertices = numAttributes / numInputElements;
-// 
-//             // Count the number of all vertices.
-//             numVertices += numPolygonVertices;
-// 
-//             // Write the number of vertices of the current polygon in the list.
-//             vertexCountsPerPolygon.append ( ( int ) numPolygonVertices );
-//         }
-//     }
+        // Create the mesh object.
+        cout << endl << endl << "Create mesh from Polygons: " << endl;
+        MObject meshObject = createMesh ( numVertices, numPolygons, vertexArray, 
+            vertexCountsPerPolygon, polygonConnects );
+        if ( meshObject == MObject::kNullObj ) return MObject::kNullObj;
+
+        // Get the mesh function set.
+        MFnMesh meshFn ( meshObject );
+
+        // Create holes: assumes that the hole face index list is in increasing order.
+        for ( size_t i=0; i<polygonsCount; ++i )
+        {
+            // Get a reference to the current polygons element.
+            const COLLADAFW::Polygons& polygons = polygonsArray [ i ];
+
+            // Contains a list of polygon hole lists. Each polygon hole list contains a list of UInts 
+            // that specifies the vertex attributes (indices) for an individual polygon.
+            size_t numPhElements;
+            COLLADAFW::PHArray phArray = polygons.getPHArray ( numPhElements );
+
+            // Go through the ph elements
+            for ( size_t j=0; j<numPhElements; ++j )
+            {
+                // Get the current ph element.
+                const COLLADAFW::PHElement& phElement = phArray [ j ];
+
+                // Get the face index of the current p element.
+                const COLLADAFW::PElement& pElement = phElement.getPElement ();
+                size_t polygonFaceIndex = pElement.getFaceIndex ();
+
+                // Get the h array and create the holes.
+                size_t holeCount;
+                const COLLADAFW::HArray& hArray = phElement.getHArray ( holeCount  );
+                cout << endl << "holeCount = " << holeCount << endl;
+
+//                FCDGeometryPolygons* polygons = colladaMesh->GetPolygons(i);
+//                size_t holeCount = polygons->GetHoleFaceCount();
+//                const uint32* holeFaces = polygons->GetHoleFaces();
+//                size_t faceOffset = polygons->GetFaceOffset();
+
+                // Create the holes
+                for ( size_t h=0; h<holeCount; ++h )
+                {
+                    const COLLADAFW::HElement& hElement = hArray [ h ];
+                    size_t holeFaceIndex = hElement.getFaceIndex ();
+                    cout << "holeFaceIndex = " << holeFaceIndex << endl;
+
+                    // Get the index of the current face
+                    uint originalFaceIndex = (uint) ( holeFaceIndex /*+ faceOffset*/ - h - 1 );
+                    cout << "originalFaceIndex = " << originalFaceIndex << endl;
+
+                    // The second face becomes a hole in the first face.
+                    // The new holed face is located either on the first, last, 
+                    // or between both selected faces, depending on the mode. 
+                    // -constructionHistory(-ch) Turn the construction history on or off. 
+                    // -firstFacet(-ff) The number of the first (outer) face to merge. 
+                    // -secondFacet(-sf) The number of the second (hole) face to merge. 
+                    MString cmd = MString("polyMergeFacet -ch off -ff ") + originalFaceIndex 
+                                + " -sf " + (originalFaceIndex + 1) + " " + meshFn.fullPathName();
+                    MGlobal::executeCommand ( cmd );
+
+                    meshFn.updateSurface ();
+                    meshFn.syncObject ();
+                }
+            }
+
+        }
+        
+        return meshObject;
+    }
 
     // --------------------------------------------
     void GeometryImporter::getVertexCountsPerPolygon ( 
         const COLLADAFW::Polylist& polylist, 
-        MIntArray& vertexCountsPerPolygon, 
-        size_t& numVertices )
+        MIntArray& vertexCountsPerPolygon )
     {
         // Contains a list of integers, each specifying the number of
         // vertices for one polygon described by the <polylist> element.
@@ -278,9 +320,6 @@ namespace COLLADAMaya
         {
             // Get the number of vertices of the current polygon
             int numPolygonVertices = vCountArray [ n ];
-
-            // Count the number of all vertices.
-            numVertices += numPolygonVertices;
 
             // Write the number of vertices of the current polygon in the list.
             vertexCountsPerPolygon.append ( (int) numPolygonVertices );
@@ -339,7 +378,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::createMesh ( 
+    MObject GeometryImporter::createMesh ( 
         const size_t numVertices, 
         const size_t numPolygons, 
         const MFloatPointArray vertexArray, 
@@ -352,21 +391,40 @@ namespace COLLADAMaya
         cout << "vertexCountsPerPolygon = " << vertexCountsPerPolygon << endl;
         cout << "polygonConnects = " << polygonConnects << endl << endl;
 
+//         // Maya won't actually let you create a mesh node on it's own, it will always create a 
+//         // transform by default. This can mess you up if you are not aware of it, an example:
+//         MFnMesh fn;
+//         MObject obj = fn.create( /*some params missing */);
+// 
+//         // at this point, obj will actually hold a refernce to the transform node that got
+//         // created, rather than the mesh node. fn will also be invalid because maya attempts to
+//         // attach the function set to the transform node, which fails.... so, fix it like so:
+//         MFnTransform fnX( obj );
+//         fn.setObject( fnX.child(0) );
+
         // Create the Maya mesh node
         MFnMesh meshFn;
-        MObject mesh = meshFn.create ( 
+        MObject meshNode = meshFn.create ( 
             ( int ) numVertices, ( int ) numPolygons, 
             vertexArray, vertexCountsPerPolygon, 
             polygonConnects, mTransformObject );
 
         xsNCName geometryName = mGeometryRef->getName ();
         meshFn.setName ( geometryName );
+
+        // meshFn will also be invalid because maya attempts to attach the function set to the 
+        // transform node, which fails.... so, fix it like so:
+        MFnTransform fnTransform ( meshNode );
+        meshFn.setObject( fnTransform.child(0) );
+
+        return meshNode;
     }
 
     // --------------------------------------------
     void GeometryImporter::getVertexArray ( 
         const COLLADAFW::Source* positionsSource, 
-        MFloatPointArray &vertexArray )
+        MFloatPointArray &vertexArray, 
+        size_t& numVertices )
     {
         // Get informations about the current positions array.
         const COLLADAFW::FloatArrayElement& floatArray = positionsSource->getFloatArrayElement ();
@@ -377,6 +435,9 @@ namespace COLLADAMaya
         const COLLADAFW::Accessor& accessor = techniqueCommon.getAccessor ();
         unsigned int accessorCount = accessor.getCount ();
         unsigned int accessorStride = accessor.getStride ();
+
+        // Get the number of vertices 
+        numVertices = arrayCount / accessorStride;
 
         // This should include all the vertices in the mesh, and no extras.
         size_t index = 0;
@@ -393,13 +454,79 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::getVertexInformations ( 
+    size_t GeometryImporter::getVertexInformations ( 
         const COLLADAFW::Polygons& polygons, 
-        const size_t numPolygons, 
         const size_t numInputElements, 
         const size_t vertexOffset, 
-        size_t& numVertices,
         MIntArray& vertexCountsPerPolygon, 
+        MIntArray& polygonConnects )
+    {
+        // The number of handled polygons.
+        size_t numPolygons = 0;
+
+        // Get the polygons from the <p> elements.
+        numPolygons += 
+            getPVertexInfos ( polygons, numInputElements, vertexOffset, 
+            vertexCountsPerPolygon, polygonConnects);
+
+        // Get the polygons from the <h> elements.
+        numPolygons += 
+            getPHVertexInfos ( polygons, numInputElements, vertexOffset, 
+            vertexCountsPerPolygon, polygonConnects);
+
+        // Return the number of handled polygons.
+        return numPolygons;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::getVertexConnections ( 
+        const COLLADAFW::Polylist& polylist, 
+        const MIntArray vertexCountsPerPolygon, 
+        const size_t numPolygons, 
+        const size_t maxOffset, 
+        const size_t vertexOffset, 
+        MIntArray &polygonConnects )
+    {
+        // Contains a list of integers that specify the vertex attributes
+        // (indices) for an individual polylist. ("p" stands for "primitive".)
+        const COLLADAFW::PElement& pElement = polylist.getPElement ();
+
+        // Get the values of the current p element.
+        size_t numAttributes;
+        COLLADAFW::UIntValuesArray vertexAttributes = pElement.getUIntValuesArray ( numAttributes );
+
+        // The offset for the vertex index, used to calculate the current index.
+        size_t startIndex = 0;
+
+        // Go through all polygons
+        for ( size_t m=0; m<numPolygons; ++m )
+        { 
+            // The current additional vertex index.
+            size_t currentVertexIndex = 0;
+
+            // For every vertex in the current polygon, get the connection of 
+            // the current vertex polygon to the vertices array.
+            size_t vertexCount = vertexCountsPerPolygon [ ( unsigned int ) m ];
+            for ( size_t n=0; n<vertexCount; ++n )
+            { 
+                // TODO Be careful: offset and set is something different!
+                // The current index for the vertex connection.
+                currentVertexIndex = n * maxOffset + vertexOffset + startIndex;
+                int connection = ( int ) vertexAttributes [ currentVertexIndex ];
+                polygonConnects.append ( connection );
+            }
+
+            // Add the currently last vertex index to the vertex offset
+            startIndex = currentVertexIndex + maxOffset;
+        }
+    }
+
+    // --------------------------------------------
+    size_t GeometryImporter::getPVertexInfos ( 
+        const COLLADAFW::Polygons &polygons, 
+        const size_t numInputElements, 
+        const size_t vertexOffset, 
+        MIntArray &vertexCountsPerPolygon, 
         MIntArray &polygonConnects )
     {
         // Contains a list of polygon lists. Each polygon list contains a list of UInts 
@@ -417,16 +544,14 @@ namespace COLLADAMaya
             // Contains a list of integers that specify the vertex attributes
             // (indices) for an individual polygon. 
             size_t numAttributes;
-            const COLLADAFW::UIntValuesArray& vertexAttributes = pElement.getUIntValuesArray ( numAttributes );
+            const COLLADAFW::UIntValuesArray& vertexAttributes = 
+                pElement.getUIntValuesArray ( numAttributes );
 
             // Get the number of vertices of the current polygon.
             size_t numPolygonVertices = numAttributes / numInputElements;
 
             // Write the number of vertices of the current polygon in the list.
             vertexCountsPerPolygon.append ( ( int ) numPolygonVertices );
-
-            // Add the count to the sum of all vertices.
-            numVertices += numPolygonVertices;
 
             // For every vertex in the current polygon, get the connection of 
             // the current vertex polygon to the vertices array.
@@ -440,46 +565,124 @@ namespace COLLADAMaya
             }
         }
 
-        // Contains a list of polygon hole lists. Each polygon hole list contains a list of UInts 
-        // that specifies the vertex attributes (indices) for an individual polygon.
-        size_t numPh;
-        COLLADAFW::PHArray phArray = polygons.getPHArray ( numPh );
-
+        // Return the number of handled polygons.
+        return numPPolygons;
     }
 
     // --------------------------------------------
-    void GeometryImporter::getVertexConnections ( 
-        const COLLADAFW::Polylist& polylist, 
-        const size_t numPolygons, 
-        const MIntArray vertexCountsPerPolygon, 
-        const size_t maxOffset, 
+    size_t GeometryImporter::getPHVertexInfos ( 
+        const COLLADAFW::Polygons &polygons, 
+        const size_t numInputElements, 
         const size_t vertexOffset, 
+        MIntArray &vertexCountsPerPolygon, 
         MIntArray &polygonConnects )
     {
+        // The number of handled polygons.
+        size_t numPolygons = 0;
+
+        // Contains a list of polygon hole lists. Each polygon hole list contains a list of UInts 
+        // that specifies the vertex attributes (indices) for an individual polygon.
+        size_t numPhElements;
+        COLLADAFW::PHArray phArray = polygons.getPHArray ( numPhElements );
+
+        // Go through the ph elements
+        for ( size_t i=0; i<numPhElements; ++i )
+        {
+            // Get the current ph element.
+            const COLLADAFW::PHElement& phElement = phArray [ i ];
+
+            // Handle the p element polygons
+            numPolygons += getPVertexInfosFromPHElement ( phElement, numInputElements, 
+                vertexOffset, vertexCountsPerPolygon, polygonConnects);
+
+            // Handle the h element polygons
+            numPolygons += getHVertexInfosFromPHElement ( phElement, numInputElements, 
+                vertexOffset, vertexCountsPerPolygon, polygonConnects);
+        }
+
+        // Return the number of handled polygons.
+        return numPolygons;
+    }
+
+    // --------------------------------------------
+    size_t GeometryImporter::getPVertexInfosFromPHElement ( 
+        const COLLADAFW::PHElement& phElement, 
+        const size_t numInputElements, 
+        const size_t vertexOffset, 
+        MIntArray &vertexCountsPerPolygon, 
+        MIntArray &polygonConnects )
+    {
+        // Get the p element (only once)
+        const COLLADAFW::PElement& pElement = phElement.getPElement ();
+
         // Contains a list of integers that specify the vertex attributes
-        // (indices) for an individual polylist. ("p" stands for "primitive".)
-        const COLLADAFW::PElement& pElement = polylist.getPElement ();
-
-        // Get the values of the current p element.
+        // (indices) for an individual polygon. 
         size_t numAttributes;
-        COLLADAFW::UIntValuesArray vertexAttributes = pElement.getUIntValuesArray ( numAttributes );
+        const COLLADAFW::UIntValuesArray& vertexAttributes = 
+            pElement.getUIntValuesArray ( numAttributes );
 
-        // Go through all polygons
-        for ( size_t m=0; m<numPolygons; ++m )
+        // Get the number of vertices of the current polygon.
+        size_t numPolygonVertices = numAttributes / numInputElements;
+
+        // Write the number of vertices of the current polygon in the list.
+        vertexCountsPerPolygon.append ( ( int ) numPolygonVertices );
+
+        // For every vertex in the current polygon, get the connection of 
+        // the current vertex polygon to the vertices array.
+        for ( size_t n=0; n<numPolygonVertices; ++n )
         { 
+            // TODO Be careful: offset and set is something different!
+            // The current index for the vertex connection.
+            size_t vertexIndex = n * numInputElements + vertexOffset;
+            int connection = ( int ) vertexAttributes [ vertexIndex ];
+            polygonConnects.append ( connection );
+        }	
+
+        // Return the number of handled polygons.
+        return 1;
+    }
+
+    // --------------------------------------------
+    size_t GeometryImporter::getHVertexInfosFromPHElement ( 
+        const COLLADAFW::PHElement& phElement, 
+        const size_t numInputElements, 
+        const size_t vertexOffset, 
+        MIntArray &vertexCountsPerPolygon, 
+        MIntArray &polygonConnects )
+    {
+        // Get the h array.
+        size_t hArraySize;
+        const COLLADAFW::HArray& hArray = phElement.getHArray ( hArraySize );
+
+        for ( size_t j=0; j<hArraySize; ++j )
+        {
+            const COLLADAFW::HElement& hElement = hArray [ j ];
+
+            // Contains a list of integers that specify the vertex attributes
+            // (indices) for an individual polygon. 
+            size_t numAttributes;
+            const COLLADAFW::UIntValuesArray& vertexAttributes = 
+                hElement.getUIntValuesArray ( numAttributes );
+
+            // Get the number of vertices of the current polygon.
+            size_t numPolygonVertices = numAttributes / numInputElements;
+
+            // Write the number of vertices of the current polygon in the list.
+            vertexCountsPerPolygon.append ( ( int ) numPolygonVertices );
+
             // For every vertex in the current polygon, get the connection of 
             // the current vertex polygon to the vertices array.
-            size_t vertexCount = vertexCountsPerPolygon [ ( unsigned int ) m ];
-            for ( size_t n=0; n<vertexCount; ++n )
+            for ( size_t n=0; n<numPolygonVertices; ++n )
             { 
                 // TODO Be careful: offset and set is something different!
                 // The current index for the vertex connection.
-                size_t vertexIndex = n * ( maxOffset + 1 ) + vertexOffset;
+                size_t vertexIndex = n * numInputElements + vertexOffset;
                 int connection = ( int ) vertexAttributes [ vertexIndex ];
                 polygonConnects.append ( connection );
             }
-        }
+        }	
+        
+        // Return the number of handled polygons.
+        return hArraySize;
     }
-
-
 }

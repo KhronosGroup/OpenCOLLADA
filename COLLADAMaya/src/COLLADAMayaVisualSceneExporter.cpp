@@ -625,7 +625,7 @@ namespace COLLADAMaya
             if ( animation )
             {
                 AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-                animationExporter->addNodeAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, ( SampleType ) ( kVector | kLength ), XYZ_PARAMETERS );
+                animationExporter->addNodeAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, ( SampleType ) ( kVector | kLength ), XYZ_PARAMETERS, true );
             }
         }
     }

@@ -28,6 +28,7 @@ namespace COLLADAMaya
         const String& subId,
         const String& nodeId,
         const String parameters[],
+        const bool convertUnits,
         SampleType sampleType )
     : mBaseId ( baseId )
     , mNodeId ( nodeId )
@@ -41,6 +42,7 @@ namespace COLLADAMaya
     , mIsCompound ( false )
     , mIsRelativeAnimation ( false )
     , mArrayElement ( -1 )
+    , mConvertUnits ( convertUnits )
     {}
 
     // ----------------------------------------------------------

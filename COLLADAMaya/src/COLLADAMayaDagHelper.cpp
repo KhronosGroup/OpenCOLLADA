@@ -101,7 +101,6 @@ namespace COLLADAMaya
         if ( status == MS::kSuccess && plug.isConnected() )
         {
             // Get the connection - there can be at most one input to a plug
-            //
             MPlugArray connections;
             plug.connectedTo ( connections, true, true );
 
@@ -141,9 +140,7 @@ namespace COLLADAMaya
         MStatus status;
         MPlugArray connections;
         plug.connectedTo ( connections, true, true, &status );
-
         if ( status != MStatus::kSuccess ) return MObject::kNullObj;
-
         if ( connections.length() <= 0 ) return MObject::kNullObj;
 
         return connections[0].node();
@@ -570,6 +567,8 @@ namespace COLLADAMaya
     //---------------------------------------------------
     bool DagHelper::getPlugValue ( const MPlug& plug, int& value )
     {
+        MDGContext context = MDGContext::fsNormal;
+
         MStatus status;
         status = plug.getValue ( value );
         return status == MStatus::kSuccess;

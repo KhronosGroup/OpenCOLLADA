@@ -34,6 +34,13 @@ namespace COLLADAMaya
     typedef 0 NULL
 #endif
 
+#define CHECK_STAT(X) \
+    if ( (X) != MS::kSuccess) { \
+    std::cout << __FILE__ << ":" << __LINE__ << std::endl; \
+    MGlobal::displayError ( status.errorString() ); \
+    return (X); \
+    }
+
 //#ifndef max
 //#define max(a,b)            (((a) > (b)) ? (a) : (b))
 //#endif

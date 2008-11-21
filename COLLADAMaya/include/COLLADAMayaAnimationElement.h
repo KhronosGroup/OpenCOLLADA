@@ -85,16 +85,22 @@ namespace COLLADAMaya
         /** The array element of the animated value. */
         int mArrayElement;
 
+        /** True, if the internal units has to be converted into the UI units.  */
+        bool mConvertUnits;
+
     public:
 
-        /** Constructor */
+        /** Constructor. */
         AnimationElement (
             MPlug plug,
             const String& baseId,
             const String& targetSid,
             const String& nodeId,
             const String parameters[],
+            const bool convertUnits,
             SampleType sampleType = kSingle );
+
+        /** Destructor. */
         virtual ~AnimationElement();
 
         /** Returns the base id. */
@@ -130,12 +136,19 @@ namespace COLLADAMaya
             return mParameters;
         }
 
+        /** Returns, if the internal units has to be converted into the UI units. */
+        const bool getConvertUnits () const 
+        { 
+            return mConvertUnits; 
+        }
+
         /** Returns the sample type of the current plug. */
         SampleType getSampleType() const
         {
             return mSampleType;
         }
 
+        /** Set the sample type of the current plug. */
         void setSampleType ( SampleType sampleType )
         {
             mSampleType = sampleType;

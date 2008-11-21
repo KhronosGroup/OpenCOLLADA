@@ -165,6 +165,62 @@ namespace COLLADAMaya
                                  const char* plugName,
                                  MFnDependencyNode &placement2d );
 
+        /**
+         * Use the Blend Mode to control how successive layers of textures are combined together. 
+         * There are a number of blend modes which can specify exactly how to blend a texture with 
+         * the textures beneath it.
+         * Here we present two descriptions of the different blend modes. The first description is 
+         * a non-technical definition of each blend mode for the benefit of someone who wants to 
+         * know what each one does. The second is a technical definition of each blend mode for the 
+         * benefit of someone who is attempting to imitate their function in hardware. In both cases 
+         * we will refer to the texture whose blend mode is being specified as the "foreground" 
+         * texture, and the result of all of the underlying textures blended together (according to 
+         * their particular blend modes) as the "background" texture.
+         * 
+         * The non-technical definitions are as follows:
+         * 
+         * * None: The foreground texture covers up the background texture entirely.
+         * * Over: The foreground texture is applied like a decal to the background. The shape of 
+         *          the decal is determined by the foreground alpha.
+         * * In: The result is the background texture cut in the shape of the foreground alpha.
+         * * Out: The result is the opposite of In. It is as if the shape of the foreground alpha 
+         *          has been cut out of the background.
+         * * Add: The result color is the foreground color added to the background color as if being 
+         *          projected on the background through a slide projector. The result color is then 
+         *          applied over the background color using the foreground alpha to define the 
+         *          opacity of the result.
+         * * Subtract: The result color is the foreground color subtracted from the background 
+         *          color. The result color is then applied over the background color using the 
+         *          foreground alpha to define the opacity of the result.
+         * * Multiply: The result color is the foreground color multiplied by the background color. 
+         *          The result color is then applied over the background color using the foreground 
+         *          alpha to define the opacity of the result.
+         * * Difference: The result color is the difference between the foreground color and the 
+         *          background color. The result color is then applied over the background color 
+         *          using the foreground alpha to define the opacity of the result. Difference is 
+         *          not supported by hardware texturing.
+         * * Lighten: The result color of each pixel is the background color or foreground color, 
+         *          whichever is lighter. The result color is then applied over the background 
+         *          color using the foreground alpha to define the opacity of the result. Lighten 
+         *          is not supported by hardware texturing.
+         * * Darken: The result color of each pixel is the background color or foreground color, 
+         *          whichever is darker. The result color is then applied over the background color 
+         *          using the foreground alpha to define the opacity of the result. Darken is not 
+         *          supported by hardware texturing.
+         * * Saturate: The result color is the background color with saturation increased in 
+         *          proportion to the foreground color scaled by foreground alpha. If the 
+         *          foreground color is red, for example, the result color will be the background 
+         *          color with more saturated reds.
+         * * Desaturate: The result color is the background color with saturation decreased in 
+         *          proportion to the foreground color scaled by foreground alpha. If the foreground 
+         *          color is red, for example, the result color will be the background color with 
+         *          desaturated reds.
+         * * Illuminate: The result color is the background color mixed with the foreground color, 
+         *          brighter where the foreground is bright and darker where the foreground is dark. 
+         *          It is as if the foreground texture represents the light falling on the 
+         *          background. The result color is then applied over the background color using the 
+         *          foreground alpha to define the opacity of the result.
+         */
         String getBlendMode ( int blendMode );
 
     };

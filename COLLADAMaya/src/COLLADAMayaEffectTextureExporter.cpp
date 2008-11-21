@@ -147,33 +147,33 @@ namespace COLLADAMaya
         switch ( blendMode )
         {
         case NONE:
-            return MAYA_NONE_BLENDMODE;
+            return MAYA_BLENDMODE_NONE;
         case OVER:
-            return MAYA_OVER_BLENDMODE;
+            return MAYA_BLENDMODE_OVER;
         case In:
-            return MAYA_IN_BLENDMODE;
+            return MAYA_BLENDMODE_IN;
         case OUt:
-            return MAYA_OUT_BLENDMODE;
+            return MAYA_BLENDMODE_OUT;
         case ADD:
-            return MAYA_ADD_BLENDMODE;
+            return MAYA_BLENDMODE_ADD;
         case SUBTRACT:
-            return MAYA_SUBTRACT_BLENDMODE;
+            return MAYA_BLENDMODE_SUBTRACT;
         case MULTIPLY:
-            return MAYA_MULTIPLY_BLENDMODE;
+            return MAYA_BLENDMODE_MULTIPLY;
         case DIFFERENCe:
-            return MAYA_DIFFERENCE_BLENDMODE;
+            return MAYA_BLENDMODE_DIFFERENCE;
         case LIGHTEN:
-            return MAYA_LIGHTEN_BLENDMODE;
+            return MAYA_BLENDMODE_LIGHTEN;
         case DARKEN:
-            return MAYA_DARKEN_BLENDMODE;
+            return MAYA_BLENDMODE_DARKEN;
         case SATURATE:
-            return MAYA_SATURATE_BLENDMODE;
+            return MAYA_BLENDMODE_SATURATE;
         case DESATURATE:
-            return MAYA_DESATURATE_BLENDMODE;
+            return MAYA_BLENDMODE_DESATURATE;
         case ILLUMINATE:
-            return MAYA_ILLUMINATE_BLENDMODE;
+            return MAYA_BLENDMODE_ILLUMINATE;
         default:
-            return MAYA_NONE_BLENDMODE;
+            return MAYA_BLENDMODE_NONE;
         }
     }
 

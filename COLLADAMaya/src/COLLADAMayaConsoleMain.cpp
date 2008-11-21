@@ -68,9 +68,6 @@ int main(int argc,char** argv)
     // Save the number of arguments 
     int inFileArgPos = 0;
     int outFileArgPos = 0;
-    char* inFileExtension;
-    char* outFileExtension;
-    char* defaultExtension;
 
     // Check if we want to import...
     bool isImport = false;

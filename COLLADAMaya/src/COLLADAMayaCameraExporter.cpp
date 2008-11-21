@@ -137,7 +137,7 @@ namespace COLLADAMaya
                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
 //                 double verticalFieldOfViewRad = cameraFn.verticalFieldOfView ( &status );
 //                 double verticalFieldOfViewDeg = COLLADASW::MathUtils::radToDeg ( verticalFieldOfViewRad );
-                animated = anim->addNodeAnimation( cameraFn.object(), YFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter );
+                animated = anim->addNodeAnimation( cameraFn.object(), YFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, false, -1, false, converter );
                 optics->setYFov ( focalLength, animated ); 
             }
             if ( ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
@@ -146,7 +146,7 @@ namespace COLLADAMaya
                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
 //                 double horizontalFieldOfViewRad = cameraFn.horizontalFieldOfView ( &status );
 //                 double horizontalFieldOfViewDeg = COLLADASW::MathUtils::radToDeg ( horizontalFieldOfViewRad );
-                animated = anim->addNodeAnimation( cameraFn.object(), XFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, -1, false, converter );
+                animated = anim->addNodeAnimation( cameraFn.object(), XFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, false, -1, false, converter );
                 optics->setXFov ( focalLength, animated ); 
             }
             if ( !ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
@@ -158,12 +158,12 @@ namespace COLLADAMaya
         // Add the camera common parameters.
         // Convert the  maya internal unit type from centimeters into the working units of the current scene!
         double zNear = MDistance::internalToUI ( cameraFn.nearClippingPlane ( &status ) ); CHECK_MSTATUS ( status );
-        animated = anim->addNodeAnimation( cameraFn.object(), NEAR_CLIP_SID, ATTR_NEAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ) );
+        animated = anim->addNodeAnimation( cameraFn.object(), NEAR_CLIP_SID, ATTR_NEAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, true );
         optics->setZNear ( (float) zNear, animated ); 
 
         // Convert the  maya internal unit type from centimeters into the working units of the current scene!
         double zFar = MDistance::internalToUI ( cameraFn.farClippingPlane ( &status ) ); CHECK_MSTATUS ( status );
-        animated = anim->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ) );
+        animated = anim->addNodeAnimation( cameraFn.object(), FAR_CLIP_SID, ATTR_FAR_CLIP_PLANE, ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, true );
         optics->setZFar ( (float) zFar, animated ); 
 
         // Generate a COLLADA id for the new camera object
@@ -177,13 +177,13 @@ namespace COLLADAMaya
         // Add the Maya-specific parameters
         double vAperture = cameraFn.verticalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
         animated = anim->addNodeAnimation( cameraFn.object(), VERTICAL_APERTURE_SID, ATTR_VERTICAL_FILM_APERTURE, 
-            ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
+            ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, false, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = VERTICAL_APERTURE_SID;
         camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_VAPERTURE_PARAMETER, vAperture, paramSid );
 
         double hAperture = cameraFn.horizontalFilmAperture ( &status ) * 2.54f; CHECK_MSTATUS(status);
         animated = anim->addNodeAnimation( cameraFn.object(), HORIZONTAL_APERTURE_SID, ATTR_HORIZONTAL_FILM_APERTURE, 
-            ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, -1, false, new ConversionScaleFunctor(2.54f) );
+            ( SampleType ) ( kSingle | kLength ), EMPTY_PARAMETER, false, -1, false, new ConversionScaleFunctor(2.54f) );
         paramSid = ""; if ( animated ) paramSid = HORIZONTAL_APERTURE_SID;
         camera.addExtraTechniqueParameter( COLLADASW::CSWC::CSW_PROFILE_MAYA, MAYA_HAPERTURE_PARAMETER, hAperture, paramSid );
  

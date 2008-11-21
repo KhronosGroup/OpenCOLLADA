@@ -385,7 +385,7 @@ namespace COLLADAMaya
 
             String subId = controllerId + MORPH_WEIGHTS_SOURCE_ID_SUFFIX;
             AnimationExporter* animExport = mDocumentExporter->getAnimationExporter();
-            animExport->addPlugAnimation( weightPlug, subId, kSingle, XY_PARAMETERS, ( int ) j );
+            animExport->addPlugAnimation( weightPlug, subId, kSingle, XY_PARAMETERS, false, ( int ) j );
         }
 
         // Write the controller data into the COLLADA document
@@ -1094,7 +1094,7 @@ namespace COLLADAMaya
     }
 
     //------------------------------------------------------
-    void ControllerExporter::writeSkinBindShapeTransform( const SkinController &skinController )
+    void ControllerExporter::writeSkinBindShapeTransform ( const SkinController &skinController )
     {
         // Write the bind shape transform matrix in the collada document.
         const MMatrix& mayaBindShapeMatrix = skinController.getBindShapeTransform();
@@ -1106,7 +1106,7 @@ namespace COLLADAMaya
         for ( uint i=0; i<3; ++i)
             bindShapeMatrix [i][3] = MDistance::internalToUI ( bindShapeMatrix [i][3] );
 
-        addBindShapeTransform( bindShapeMatrix );
+        addBindShapeTransform ( bindShapeMatrix );
     }
 
     //------------------------------------------------------

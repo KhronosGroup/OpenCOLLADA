@@ -100,19 +100,19 @@ namespace COLLADAMaya
     static const char* MAYA_CYCLE_RELATIVE_INFINITY                 = "CYCLE_RELATIVE";
     static const char* MAYA_OSCILLATE_INFINITY                      = "OSCILLATE";
 
-    static const char* MAYA_NONE_BLENDMODE                          = "NONE";
-    static const char* MAYA_OVER_BLENDMODE                          = "OVER";
-    static const char* MAYA_IN_BLENDMODE                            = "IN";
-    static const char* MAYA_OUT_BLENDMODE                           = "OUT";
-    static const char* MAYA_ADD_BLENDMODE                           = "ADD";
-    static const char* MAYA_SUBTRACT_BLENDMODE                      = "SUBTRACT";
-    static const char* MAYA_MULTIPLY_BLENDMODE                      = "MULTIPLY";
-    static const char* MAYA_DIFFERENCE_BLENDMODE                    = "DIFFERENCE";
-    static const char* MAYA_LIGHTEN_BLENDMODE                       = "LIGHTEN";
-    static const char* MAYA_DARKEN_BLENDMODE                        = "DARKEN";
-    static const char* MAYA_SATURATE_BLENDMODE                      = "SATURATE";
-    static const char* MAYA_DESATURATE_BLENDMODE                    = "DESATURATE";
-    static const char* MAYA_ILLUMINATE_BLENDMODE                    = "ILLUMINATE";
+    static const char* MAYA_BLENDMODE_NONE                          = "NONE";
+    static const char* MAYA_BLENDMODE_OVER                          = "OVER";
+    static const char* MAYA_BLENDMODE_IN                            = "IN";
+    static const char* MAYA_BLENDMODE_OUT                           = "OUT";
+    static const char* MAYA_BLENDMODE_ADD                           = "ADD";
+    static const char* MAYA_BLENDMODE_SUBTRACT                      = "SUBTRACT";
+    static const char* MAYA_BLENDMODE_MULTIPLY                      = "MULTIPLY";
+    static const char* MAYA_BLENDMODE_DIFFERENCE                    = "DIFFERENCE";
+    static const char* MAYA_BLENDMODE_LIGHTEN                       = "LIGHTEN";
+    static const char* MAYA_BLENDMODE_DARKEN                        = "DARKEN";
+    static const char* MAYA_BLENDMODE_SATURATE                      = "SATURATE";
+    static const char* MAYA_BLENDMODE_DESATURATE                    = "DESATURATE";
+    static const char* MAYA_BLENDMODE_ILLUMINATE                    = "ILLUMINATE";
 
     static const char* MAYA_NOTE_PARAMETER                          = "note";
     static const char* MAYA_ENDTIME_PARAMETER                       = "end_time";

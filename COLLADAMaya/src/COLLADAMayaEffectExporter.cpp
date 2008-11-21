@@ -335,7 +335,7 @@ namespace COLLADAMaya
         // Diffuse color
         targetSid = targetPath + ATTR_COLOR;
         ConversionFunctor* conversion = new ConversionScaleFunctor ( lambertFn.diffuseCoeff() );
-        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_COLOR, kColour, EMPTY_PARAMETER, -1, false, conversion );
+        animated = animationExporter->addNodeAnimation ( shader, targetSid, ATTR_COLOR, kColour, EMPTY_PARAMETER, false, -1, false, conversion );
         effectProfile->setDiffuse ( mayaColor2ColorOrTexture ( lambertFn.color(), lambertFn.diffuseCoeff() ), animated );
         exportTexturedParameter ( effectId, effectProfile, shader,
             ATTR_COLOR, EffectExporter::DIFFUSE, nextTextureIndex, animated );
@@ -434,7 +434,7 @@ namespace COLLADAMaya
         // Find any textures connected to a material attribute and create the
         // associated texture elements.
 
-        // Retrieve all the file textures
+        // Retrieve all the file textures with the blend modes, if exist.
         MObjectArray fileTextures;
         MIntArray blendModes;
         getShaderTextures ( node, attributeName, fileTextures, blendModes );
@@ -663,7 +663,7 @@ namespace COLLADAMaya
                 {
                     // TODO Test
                     String targetSubId = targetPath + ATTR_ALPHA_OFFSET;
-                    animationExporter->addNodeAnimation ( transparentTextureNode, targetSubId, ATTR_ALPHA_OFFSET, kSingle, EMPTY_PARAMETER, -1, false, new ConversionOffsetFunctor ( 1.0f ) );
+                    animationExporter->addNodeAnimation ( transparentTextureNode, targetSubId, ATTR_ALPHA_OFFSET, kSingle, EMPTY_PARAMETER, false, -1, false, new ConversionOffsetFunctor ( 1.0f ) );
                 }
             }
         }

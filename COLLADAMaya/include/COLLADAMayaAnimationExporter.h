@@ -99,8 +99,9 @@ namespace COLLADAMaya
          * if it is a valid animation. Takes the attribute name as the sub id.
          * @param node The node, from which we want to export the attribute
          * @param attrname The name of the attribute, we want to export.
-         * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param convertUnits True, if the internal units has to be converted into the UI units.
+         * @param parameters The list of the parameters of the attribute.
          * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
@@ -111,6 +112,7 @@ namespace COLLADAMaya
             const String& attrname,
             const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
+            const bool convertUnits = false, 
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
@@ -122,8 +124,9 @@ namespace COLLADAMaya
          * @param node The node, from which we want to export the attribute.
          * @param targetSubId The id of the animated element.
          * @param attrname The name of the attribute, we want to export.
-         * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param parameters The list of the parameters of the attribute.
+         * @param convertUnits True, if the internal units has to be converted into the UI units.
          * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
@@ -135,6 +138,7 @@ namespace COLLADAMaya
             const String& attrname,
             const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
+            const bool convertUnits = false, 
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
@@ -144,8 +148,9 @@ namespace COLLADAMaya
          * if it is a valid animation.
          * @param plug The plug which is compound with the searched attribute.
          * @param targetSubId The id of the animated element.
-         * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param parameters The list of the parameters of the attribute.
+         * @param convertUnits True, if the internal units has to be converted into the UI units.
          * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
@@ -156,6 +161,7 @@ namespace COLLADAMaya
             const String& targetSubId,
             const SampleType& sampleType,
             const String* parameters = EMPTY_PARAMETER,
+            const bool convertUnits = false, 
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );
@@ -165,8 +171,9 @@ namespace COLLADAMaya
          * if it is a valid animation.
          * @param plug The plug which is compound with the searched attribute.
          * @param targetSubId The id of the animated element.
-         * @param parameters The list of the parameters of the attribute.
          * @param sampleType The sample type, which means the dimension of the attribute to export.
+         * @param parameters The list of the parameters of the attribute.
+         * @param convertUnits True, if the internal units has to be converted into the UI units.
          * @param arrayElement Used to address a target specific target attribute in the channel.
          * @param isRelativeAnimation Flag to indicate that the animation should be applied relative to the default value.
          * @param conversion The conversion functor, if we have to convert the values of the attribute.
@@ -177,6 +184,7 @@ namespace COLLADAMaya
             const String& targetSubId,
             const uint sampleType,
             const String* parameters = EMPTY_PARAMETER,
+            const bool convertUnits = false, 
             const int arrayElement = -1,
             const bool isRelativeAnimation = false,
             ConversionFunctor* conversion = NULL );

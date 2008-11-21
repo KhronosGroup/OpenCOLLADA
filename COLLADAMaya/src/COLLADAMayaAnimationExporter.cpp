@@ -587,6 +587,8 @@ namespace COLLADAMaya
 
         // Get the animation plug
         const MPlug& plug = animatedElement->getPlug();
+        MString partialName = plug.partialName ( false, false, false, false, false, true );
+        String plugName = partialName.asChar ();
         // FCDAnimated* animated = animation->animatedValue;
 
         // Get the sample type
@@ -682,22 +684,37 @@ namespace COLLADAMaya
             // Handle Tangents
             if ( hasTangents )
             {
+                // Convert the maya internal units to the UI units, if necessary
+                const AnimationElement* parent = animationCurve.getParent ();
+                bool convertUnits = parent->getConvertUnits ();
+
                 if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                 {
                     // Export bezier tangents
                     AnimationKeyBezier* bezKey = ( AnimationKeyBezier* ) key;
+
                     inTangents.push_back ( bezKey->inTangent.x );
-                    inTangents.push_back ( bezKey->inTangent.y );
+
+                    if ( !convertUnits ) inTangents.push_back ( bezKey->inTangent.y );
+                    else inTangents.push_back ( ( float ) MDistance::internalToUI ( bezKey->inTangent.y ) );
+
                     outTangents.push_back ( bezKey->outTangent.x );
-                    outTangents.push_back ( bezKey->outTangent.y );
+
+                    if ( !convertUnits ) outTangents.push_back ( bezKey->outTangent.y );
+                    else outTangents.push_back ( ( float ) MDistance::internalToUI ( bezKey->outTangent.y ) );
                 }
                 else
                 {
                     // Export flat tangents
                     inTangents.push_back ( key->input - 0.0001f );
-                    inTangents.push_back ( key->output );
+
+                    if ( !convertUnits ) inTangents.push_back ( key->output );
+                    else inTangents.push_back ( ( float ) MDistance::internalToUI ( key->output ) );
+
                     outTangents.push_back ( key->input + 0.0001f );
-                    outTangents.push_back ( key->output );
+
+                    if ( !convertUnits ) outTangents.push_back ( key->output );
+                    else outTangents.push_back ( ( float ) MDistance::internalToUI ( key->output ) );
                 }
             }
 
@@ -1212,6 +1229,7 @@ namespace COLLADAMaya
         const String& attrname,
         const SampleType& sampleType,
         const String* parameters /* = EMPTY_PARAMETER */,
+        const bool convertUnits /*= false*/, 
         const int arrayElement /*= -1*/,
         const bool isRelativeAnimation /*= false*/,
         ConversionFunctor* conversion /*= NULL */ )
@@ -1225,6 +1243,7 @@ namespace COLLADAMaya
             attrname,
             sampleType,
             parameters,
+            convertUnits, 
             arrayElement,
             isRelativeAnimation,
             conversion );
@@ -1237,6 +1256,7 @@ namespace COLLADAMaya
         const String& attrname,
         const SampleType& sampleType,
         const String* parameters /* = EMPTY_PARAMETER */,
+        const bool convertUnits /*= false*/, 
         const int arrayElement /*= -1*/,
         const bool isRelativeAnimation /*= false*/,
         ConversionFunctor* conversion /*= NULL */ )
@@ -1257,6 +1277,7 @@ namespace COLLADAMaya
             targetSid,
             sampleType,
             parameters,
+            convertUnits, 
             arrayElement,
             isRelativeAnimation,
             conversion );
@@ -1268,6 +1289,7 @@ namespace COLLADAMaya
         const String& targetSid,
         const uint sampleType,
         const String* parameters /* = EMPTY_PARAMETER */,
+        const bool convertUnits /*= false*/, 
         const int arrayElement /*= -1*/,
         const bool isRelativeAnimation /*= false*/,
         ConversionFunctor* conversion /*= NULL */ )
@@ -1277,6 +1299,7 @@ namespace COLLADAMaya
             targetSid,
             ( SampleType ) sampleType,
             parameters,
+            convertUnits, 
             arrayElement,
             isRelativeAnimation,
             conversion );
@@ -1288,6 +1311,7 @@ namespace COLLADAMaya
         const String& targetSid,
         const SampleType& sampleType,
         const String* parameters /* = EMPTY_PARAMETER */,
+        const bool convertUnits /*= false*/, 
         const int arrayElement /*= -1*/,
         const bool isRelativeAnimation /*= false*/,
         ConversionFunctor* conversion /*= NULL */ )
@@ -1308,7 +1332,7 @@ namespace COLLADAMaya
         String nodeId = getNodeId ( plug );
 
         AnimationElement* animatedElement;
-        animatedElement = new AnimationElement ( plug, baseId, targetSid, nodeId, parameters, sampleType );
+        animatedElement = new AnimationElement ( plug, baseId, targetSid, nodeId, parameters, convertUnits, sampleType );
         animatedElement->setIsRelativeAnimation( isRelativeAnimation );
         animatedElement->setArrayElement ( arrayElement );
 
@@ -1535,8 +1559,9 @@ namespace COLLADAMaya
             String subId = COLLADASW::Utils::checkID ( animatedElement->getTargetSid() );
             String nodeId = animatedElement->getNodeId();
             const String* parameters = animatedElement->getParameters();
+            bool convertUnits = animatedElement->getConvertUnits ();
             SampleType sampleType = animatedElement->getSampleType();
-            AnimationElement* animatedChild = new AnimationElement ( plug, baseId, subId, nodeId, parameters, sampleType );
+            AnimationElement* animatedChild = new AnimationElement ( plug, baseId, subId, nodeId, parameters, convertUnits, sampleType );
 
             // Push the animated child in the child list of the parent animated element
             animatedElement->addChildElement ( animatedChild );
@@ -1764,6 +1789,7 @@ namespace COLLADAMaya
 
             if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
             {
+                // Create the bezier keys
                 createBezierKey ( key, animCurveFn, keyPosition, keyCount );
             }
         }
@@ -1845,11 +1871,13 @@ namespace COLLADAMaya
         // In-tangent
 
         float slopeX, slopeY;
-        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>0 );
+        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, true /*keyPosition>0*/ );
 
         if ( !isWeightedCurve )
         {
             // Extend the slope to be one third of the time-line in the X-coordinate.
+            // We need to multiply the slopeY value with itself 
+            // to get the direction of the tangents slope.
             slopeY *= ( curTime - prevTime ) / slopeX / 3.0f;
             slopeX = ( curTime - prevTime ) / 3.0f;
         }
@@ -1857,18 +1885,20 @@ namespace COLLADAMaya
         {
             // Take out the magic 3.0 factor. See documentation above.
             slopeX /= 3.0f;
-            slopeY /= 3.0f;
+            slopeY /= 3.0f; 
         }
         bkey->inTangent = TangentPoint ( bkey->input - slopeX, bkey->output - slopeY );
 
         // --------------------------------
         // Out-tangent
 
-        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, keyPosition>=keyCount-1 );
+        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, false /*keyPosition>=keyCount-1*/ );
 
         if ( !isWeightedCurve )
         {
             // Extend the slope to be one third of the time-line in the X-coordinate.
+            // We need to multiply the slopeY value with itself 
+            // to get the direction of the tangents slope.
             slopeY *= ( nextTime - curTime ) / slopeX / 3.0f;
             slopeX = ( nextTime - curTime ) / 3.0f;
         }
