@@ -790,16 +790,17 @@ namespace COLLADAMaya
             if ( !COLLADASW::MathUtils::equals( scale[i], 1.0 ) ) isOneVector = false;
         }
 
-        if ( mTransformObject != MObject::kNullObj && !isOneVector )
+        // Check if the scale is animated.
+        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+        bool isAnimated = animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
+
+        if ( mTransformObject != MObject::kNullObj && ( !isOneVector || isAnimated ) )
         {
             mVisualSceneNode->addScale (
                 ATTR_SCALE,
                 COLLADASW::MathUtils::equalsZero(scale[0]) ? 0 : scale[0],
                 COLLADASW::MathUtils::equalsZero(scale[1]) ? 0 : scale[1],
                 COLLADASW::MathUtils::equalsZero(scale[2]) ? 0 : scale[2] );
-
-            AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-            animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
         }
     }
 

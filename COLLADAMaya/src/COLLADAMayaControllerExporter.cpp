@@ -122,7 +122,7 @@ namespace COLLADAMaya
         ControllerMeshStack meshStack;
 
         // Iterate upstream finding all the nodes which affect the mesh.
-        if ( !findAffectedNodes( meshNode, stack, meshStack ) )
+        if ( !findAffectedNodes ( meshNode, stack, meshStack ) )
         {
             return false;
         }
