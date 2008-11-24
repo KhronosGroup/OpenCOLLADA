@@ -63,11 +63,105 @@ namespace COLLADADomHelper
         topological identity of each vertex in the mesh. */
         domSourceRef getPositionsRef ();
 
-        /** Create the mesh from the current polylist. */
-        void fillMeshPolylistArray ( const domPolylist_Array& polylistArray );
+        /**
+         * Create the mesh from the current polylist.
+         * @param polylistArray The dom array with the polylists.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillMeshPolylistArray ( 
+            const domPolylist_Array& polylistArray, 
+            size_t& faceIndex );
+
+        /**
+         * Fills the primitives array of the polylist.
+         * @param polylistRef Reference to the current dom polylist element.
+         * @param polylist The COLLADAFramework polylist element.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillPolylistPrimitivesArray ( 
+            const domPolylistRef polylistRef, 
+            COLLADAFW::Polylist& polylist, 
+            size_t& faceIndex );
+
+        /**
+         * Fills the polylist polygons vertex count list.
+         */
+        void fillPolylistVCountArray ( 
+            const domPolylistRef polylistRef, 
+            COLLADAFW::Polylist& polylist );
 
         /** Create the mesh from the current polygons array. */
-        void fillMeshPolygonsArray ( const domPolygons_Array& polygonsArray );
+        /**
+         * Create the mesh from the current polygons array.
+         * @param polygonsArray Array with the dom polygons.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillMeshPolygonsArray ( 
+            const domPolygons_Array& polygonsArray, 
+            size_t& faceIndex );
+
+        /**
+         * Fills all the primitives arrays of the polygons element (p and ph elements).
+         * @param polygonsRef Reference to the dom polygons element.
+         * @param polygons Reference to the COLLADAFramwork polygons element.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillPolygonsPrimitivesElements ( 
+            const domPolygonsRef polygonsRef, 
+            COLLADAFW::Polygons& polygons, 
+            size_t& faceIndex );
+
+        /**
+         * Fills the p list element values.
+         * @param pRef Reference to the current dom element.
+         * @param pElement Reference to the COLLADAFramework element.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillPListValues ( 
+            const domPRef pRef, 
+            COLLADAFW::PElement &pElement, 
+            size_t& faceIndex );
+
+        /**
+         * Fills the h list element values.
+         * @param hRef Reference to the current dom element.
+         * @param hElement Reference to the COLLADAFramework element.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillHListValues ( 
+            const domPolygons::domPh::domHRef hRef, 
+            COLLADAFW::HElement &hElement, 
+            size_t& faceIndex );
+
+        /**
+         * Fills the p elements of the polygon element.
+         * @param polygonsRef Reference to the dom polygons element.
+         * @param polygons Reference to the COLLADAFramwork polygons element.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillPolygonsPArrays ( 
+            const domPolygonsRef polygonsRef, 
+            COLLADAFW::Polygons &polygons, 
+            size_t& faceIndex );
+
+        /**
+         * Fills the ph elements of the polygon element.
+         * @param polygonsRef Reference to the dom polygons element.
+         * @param polygons Reference to the COLLADAFramwork polygons element.
+         * @param faceIndex Reference to a size_t of the next face index to use. 
+         *                  Has to be count up for every added face.
+         */
+        void fillPolygonsPHArrays ( 
+            const domPolygonsRef polygonsRef, 
+            COLLADAFW::Polygons &polygons, 
+            size_t& faceIndex );
 
         /** Fills the input array of the polylist. */
         void fillPolylistInputArray ( 
@@ -84,66 +178,10 @@ namespace COLLADADomHelper
             const domInputLocalOffset_Array& domInputArray, 
             COLLADAFW::InputSharedArray& inputArray );
 
-        /** Fill the array of vertex counts for each polygon. */
-        void getVertexArray ( const domSourceRef positionsRef/*, MFloatPointArray &vertexArray*/ );
-
         /**
         * Fill the mesh vertex element.
         */
         void fillVertexElement ();
-
-        /**
-        * Fill the list with the count of vertices for every polygon and calculate 
-        * the number of polygons and the sum of vertices for all polygons.
-        * @param polylistRef Pointer to a polylist element in the collada document.
-        * @param vertexCountsPerPolygon List of vertex counts per polygon.
-        * @param numVertices Variable for the sum of all existing vertices in all polygons.
-        */
-        void getVertexCountsPerPolygon ( 
-            const domPolylistRef polylistRef, 
-            size_t& numVertices );
-
-        /**
-        * Fill the list with the count of vertices for every polygon and calculate 
-        * the number of polygons and the sum of vertices for all polygons.
-        * @param polygonsRef Pointer to a polygons element in the collada document.
-        * @param numInputElements The number of input elements in the current polygon element.
-        * @param vertexCountsPerPolygon List of vertex counts per polygon.
-        * @param numVertices Variable for the sum of all existing vertices in all polygons.
-        */
-        void getVertexCountsPerPolygon ( 
-            const domPolygonsRef polygonsRef, 
-            const size_t numInputElements, 
-            //MIntArray& vertexCountsPerPolygon, 
-            size_t& numVertices );
-
-        /**
-        * Get the vertex offset and the vertex set of the current polygons vertex input element.
-        * Also establish the the maximum offset value of the current polygons input elements.
-        * @param polylistRef Pointer to the current polylist element.
-        * @param vertexOffset Variable for the vertex offset.
-        * @param vertexSet Variable for the vertex set.
-        * @param maxOffset Variable for the maximum offset value of the polygons input elements.
-        */
-        void getPolygonsOffsetValues ( 
-            const domPolylistRef polylistRef, 
-            size_t &vertexOffset, 
-            size_t &vertexSet, 
-            size_t &maxOffset );
-
-        /**
-        * Get the vertex offset and the vertex set of the current polygons vertex input element.
-        * Also establish the the maximum offset value of the current polygons input elements.
-        * @param polygonsRef Pointer to the current polygons element.
-        * @param vertexOffset Variable for the vertex offset.
-        * @param vertexSet Variable for the vertex set.
-        * @param maxOffset Variable for the maximum offset value of the polygons input elements.
-        */
-        void getPolygonsOffsetValues ( 
-            domPolygonsRef polygonsRef, 
-            size_t& vertexOffset, 
-            size_t& vertexSet, 
-            size_t& maxOffset );
 
         /**
          * Reads all collada dae source objects and writes it in the COLLADAFramework source object.

@@ -18,7 +18,7 @@
 // #include "CPF.h"
 // #include "CPFMatrix4.h"
 
-//STL
+// STL
 #include <vector>
 #include <sstream>
 #include <algorithm>
@@ -26,6 +26,7 @@
 #include <String>
 #include <iostream>
 
+// DOM
 #include <dae.h>
 #include <dae/domAny.h>
 #include <dae/daeTypes.h>

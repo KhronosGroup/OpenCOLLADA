@@ -29,6 +29,7 @@
 
 #include <maya/MFnMesh.h>
 #include <maya/MFnTransform.h>
+#include <maya/MDagModifier.h>
 
 
 namespace COLLADAMaya
@@ -241,6 +242,32 @@ namespace COLLADAMaya
         // Get the mesh function set.
         MFnMesh meshFn ( meshObject );
 
+        // Create the polySphere node
+//         MStatus status;
+//         MDagModifier dagModifier;
+//         MObject oPolyCreateFace = dagModifier.createNode ( "polyCreateFace", 0, &status );
+//         CHECK_STAT(status);
+        
+        // TODO
+
+        // Connect polyCreateFace to mesh
+//         {
+//             MFnDependencyNode fnPS ( oPolyCreateFace, &status );
+//             CHECK_STAT(status);
+//             MFnDependencyNode fnPM ( meshObject, &status );
+//             CHECK_STAT(status);
+// 
+//             MPlug plugInMesh = fnPM.findPlug ( "inMesh", &status );
+//             CHECK_STAT(status);
+//             MPlug plugOutput = fnPS.findPlug ( "output", &status );
+//             CHECK_STAT(status);
+// 
+//             status = dagModifier.connect ( plugOutput, plugInMesh );
+//             CHECK_STAT(status);
+//         }
+
+        
+
         // Create holes: assumes that the hole face index list is in increasing order.
         for ( size_t i=0; i<polygonsCount; ++i )
         {
@@ -283,18 +310,19 @@ namespace COLLADAMaya
                     uint originalFaceIndex = (uint) ( holeFaceIndex /*+ faceOffset*/ - h - 1 );
                     cout << "originalFaceIndex = " << originalFaceIndex << endl;
 
-                    // The second face becomes a hole in the first face.
-                    // The new holed face is located either on the first, last, 
-                    // or between both selected faces, depending on the mode. 
-                    // -constructionHistory(-ch) Turn the construction history on or off. 
-                    // -firstFacet(-ff) The number of the first (outer) face to merge. 
-                    // -secondFacet(-sf) The number of the second (hole) face to merge. 
-                    MString cmd = MString("polyMergeFacet -ch off -ff ") + originalFaceIndex 
-                                + " -sf " + (originalFaceIndex + 1) + " " + meshFn.fullPathName();
-                    MGlobal::executeCommand ( cmd );
-
-                    meshFn.updateSurface ();
-                    meshFn.syncObject ();
+                    // TODO
+//                     // The second face becomes a hole in the first face.
+//                     // The new holed face is located either on the first, last, 
+//                     // or between both selected faces, depending on the mode. 
+//                     // -constructionHistory(-ch) Turn the construction history on or off. 
+//                     // -firstFacet(-ff) The number of the first (outer) face to merge. 
+//                     // -secondFacet(-sf) The number of the second (hole) face to merge. 
+//                     MString cmd = MString("polyMergeFacet -ch off -ff ") + originalFaceIndex 
+//                                 + " -sf " + (originalFaceIndex + 1) + " " + meshFn.fullPathName();
+//                     MGlobal::executeCommand ( cmd );
+// 
+//                     meshFn.updateSurface ();
+//                     meshFn.syncObject ();
                 }
             }
 

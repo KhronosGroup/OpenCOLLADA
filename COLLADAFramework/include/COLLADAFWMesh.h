@@ -68,7 +68,7 @@ namespace COLLADAFW
         size_t mPolylistArraySize;
 
         /**
-         * TODO
+        * Contains polygon primitives which may contain holes.
          */
         PolygonsArray mPolygonsArray;
 

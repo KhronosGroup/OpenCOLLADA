@@ -352,8 +352,10 @@ namespace COLLADAMaya
                                 DagHelper::getChildPlug( inputTargetInput, ATTR_INPUT_COMPONENT_TARGET ); // "inputComponentTarget"
                             if (inputTargetInput.attribute().isNull()) continue;
 
-//                             // We have a dangling geometry: create a FCDGeometry and fill it with the vertex positions.
-//                             blendShapeTarget = exportMorphTarget(targetVertexListPlug, targetComponentListPlug, currentIndex, baseMesh);
+                            MGlobal::displayError ( "'exportMorphTarget' not implemented!" );
+                            continue;
+                            // We have a dangling geometry: create a FCDGeometry and fill it with the vertex positions.
+//                            blendShapeTargetId = exportMorphTarget(targetVertexListPlug, targetComponentListPlug, currentIndex, baseMesh);
                         }
 
                         if ( !blendShapeTargetId.empty() )

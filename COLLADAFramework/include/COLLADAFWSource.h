@@ -60,6 +60,13 @@ namespace COLLADAFW
         FloatArrayElement mFloatArrayElement;
 
         /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        */
+        DoubleArrayElement mDoubleArrayElement;
+
+        /**
          * Stores a homogenous array of values.
          * The class contains members for all valid array element types, 
          * but there is always just one, which is initialised.
@@ -208,6 +215,39 @@ namespace COLLADAFW
         void setFloatArrayElement ( const FloatArrayElement& arrayElement ) 
         { 
             mFloatArrayElement = arrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const FloatArrayElement The array element with the values array.
+        */
+        const DoubleArrayElement& getDoubleArrayElement () const 
+        { 
+            return mDoubleArrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const FloatArrayElement The array element with the values array.
+        */
+        DoubleArrayElement& getDoubleArrayElement () 
+        { 
+            return mDoubleArrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @param arrayElement The array element with the values array.
+        */
+        void setDoubleArrayElement ( const DoubleArrayElement& arrayElement ) 
+        { 
+            mDoubleArrayElement = arrayElement; 
         }
 
         /**

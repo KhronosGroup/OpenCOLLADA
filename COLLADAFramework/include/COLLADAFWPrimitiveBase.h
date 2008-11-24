@@ -20,7 +20,7 @@ namespace COLLADAFW
 
     /** 
      * Base class for the primitives. This are the p and h elements.  
-     * The indices in a <p> (“primitive”) (or <h>) element refer to different inputs depending on 
+     * The indices in a <p> ("primitive") (or <h>) element refer to different inputs depending on 
      * their order. The first index in a <p> element refers to all inputs with an offset of 0. The 
      * second index refers to all inputs with an offset of 1. Each vertex of the polygon is made 
      * up of one index into each input. After each input is used, the next index again refers to 
@@ -44,6 +44,11 @@ namespace COLLADAFW
          * The number of unsigned int values in the values array.
          */
         size_t mUIntValuesArraySize;
+
+        /**
+         * The face index of the current primitive indices. 
+         */
+        size_t mFaceIndex;
 
     public:
 
@@ -87,14 +92,35 @@ namespace COLLADAFW
          * individual polygon or for a hole in a polygon.
          * @param valuesArray Reference to the values array.
          * @param valuesArraySize The size parameter of the values array.
+         * @param The current face index.
          */
         void setUIntValuesArray ( 
             const UIntValuesArray& valuesArray, 
-            const size_t valuesArraySize ) 
+            const size_t valuesArraySize, 
+            const size_t faceIndex ) 
         {
             mUIntValuesArraySize = valuesArraySize;
             mUIntValuesArray = valuesArray; 
+            mFaceIndex = faceIndex;
         }
+
+        /**
+         * Get the face index of the current primitive indices. 
+         * @return The const value of the current face index.
+         */
+        size_t getFaceIndex () { return mFaceIndex; }
+
+        /**
+         * Get the face index of the current primitive indices. 
+         * @return The current face index.
+         */
+        const size_t getFaceIndex () const { return mFaceIndex; }
+
+        /**
+         * Set the face index of the current primitive indices. 
+         * @param The current face index.
+         */
+        void setFaceIndex ( const size_t faceIndex ) { mFaceIndex = faceIndex; }
 
     };
 

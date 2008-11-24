@@ -155,6 +155,57 @@ namespace COLLADAFW
     };
 
     /**
+    * Declares the storage for a homogenous array of floating-point values.
+    * The <double_array> element stores the data values for generic use within 
+    * the COLLADA schema. The arrays themselves are strongly typed but without 
+    * semantics. They simply describe a sequence of floatingpoint values.
+    */
+    class DoubleArrayElement : public BaseArrayElement < double >
+    {
+
+    private:
+
+        /**
+        * xs:short The number of significant decimal digits of the float 
+        * values that can be contained in the array. The default is 6. Optional.
+        */
+        short digits;
+
+        /**
+        * xs:short The largest exponent of the float values that can be 
+        * contained in the array. The default is 38. Optional.
+        */
+        short magnitude;
+
+    public:
+
+        /**
+        * Constructor.
+        */
+        DoubleArrayElement () : BaseArrayElement () {};
+
+        /**
+        * Destructor.
+        */
+        virtual ~DoubleArrayElement () {};
+
+        /**
+        * xs:short The number of significant decimal digits of the float 
+        * values that can be contained in the array. The default is 6. Optional.
+        */
+        const short getDigits () const { return digits; }
+        void setDigits ( const short val ) { digits = val; }
+
+        /**
+        * xs:short The largest exponent of the float values that can be 
+        * contained in the array. The default is 38. Optional.
+        */
+        const short getMagnitude () const { return magnitude; }
+        void setMagnitude ( const short val ) { magnitude = val; }
+
+    };
+
+    /**
      * Stores a homogenous array of integer values.
      * The <int_array> element stores the data values for generic use within 
      * the COLLADA schema. The arrays themselves are strongly typed but without 

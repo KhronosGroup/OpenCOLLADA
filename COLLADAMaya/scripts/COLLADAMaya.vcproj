@@ -2266,10 +2266,6 @@
 				Name="Console"
 				>
 				<File
-					RelativePath="..\src\COLLADAMayaConsoleFileDialog.cpp"
-					>
-				</File>
-				<File
 					RelativePath="..\src\COLLADAMayaConsoleMain.cpp"
 					>
 				</File>
@@ -2508,14 +2504,6 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaImportOptions.h"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="Console"
-				>
-				<File
-					RelativePath="..\include\COLLADAMayaConsoleFileDialog.h"
 					>
 				</File>
 			</Filter>
