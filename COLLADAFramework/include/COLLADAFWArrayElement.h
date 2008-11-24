@@ -53,7 +53,11 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-        BaseArrayElement () {}
+        BaseArrayElement () 
+            : mCount (0) 
+            , mValues (0)
+            , mValuesSize (0)
+        {}
 
         /** Destructor. */
         virtual ~BaseArrayElement () {}

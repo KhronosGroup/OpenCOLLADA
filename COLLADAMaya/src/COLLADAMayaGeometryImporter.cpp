@@ -455,9 +455,13 @@ namespace COLLADAMaya
         size_t& numVertices )
     {
         // Get informations about the current positions array.
+        const COLLADAFW::DoubleArrayElement& doubleArray = positionsSource->getDoubleArrayElement ();
+        size_t arrayCount = doubleArray.getCount ();
+        const double* positions = doubleArray.getValues ( arrayCount );
+
         const COLLADAFW::FloatArrayElement& floatArray = positionsSource->getFloatArrayElement ();
-        size_t arrayCount = floatArray.getCount ();
-        const float* positions = floatArray.getValues ( arrayCount );
+        size_t arrayCount2 = floatArray.getCount ();
+        const float* positions2 = floatArray.getValues ( arrayCount2 );
 
         const COLLADAFW::TechniqueCommon& techniqueCommon = positionsSource->getTechniqueCommon ();
         const COLLADAFW::Accessor& accessor = techniqueCommon.getAccessor ();
@@ -476,7 +480,7 @@ namespace COLLADAMaya
                 throw new COLLADADomHelper::Exception ( COLLADADomHelper::Exception::ERR_INTERNAL_ERROR, 
                     "Accessor stride of position element not valid!", "GeometryImporter::getVertexArray(..)" );
             }
-            vertexArray.append ( positions [ index ], positions [ index+1 ], positions [ index+2 ], 0.0f );
+            vertexArray.append ( ( float ) positions [ index ], ( float ) positions [ index+1 ], ( float ) positions [ index+2 ], 0.0f );
             index += ( size_t ) accessorStride;
         }
     }

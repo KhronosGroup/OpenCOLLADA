@@ -266,7 +266,8 @@ namespace COLLADADomHelper
             if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
             if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
-            domListOfFloats domValues = arrayRef->getValue ();
+            domListOfFloats& domValues = arrayRef->getValue ();
+            daeMemoryRef memoryRef = domValues.getRawData ();
             arrayElement.setValues ( reinterpret_cast <double*> ( domValues.getRawData () ), domValues.getCount () );
         }
     }
