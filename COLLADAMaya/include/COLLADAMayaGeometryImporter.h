@@ -67,12 +67,12 @@ namespace COLLADAMaya
          */
         MObject createMeshFromPolylist ( 
             const COLLADAFW::Mesh* mesh, 
-            const COLLADAFW::Source* positionsSource );
+            const COLLADAFW::Source<COLLADAFW::Long64ArrayElement>* positionsSource );
 
         /** Create the mesh from the current polygons array. */
         MObject createMeshFromPolygons ( 
             const COLLADAFW::Mesh* mesh, 
-            const COLLADAFW::Source* positionsSource );
+            const COLLADAFW::Source<COLLADAFW::Long64ArrayElement>* positionsSource );
 
         /**
          * Fill the maya array of vertex counts for each polygon.
@@ -81,7 +81,7 @@ namespace COLLADAMaya
          * @param numVertices Variable for the sum of all existing vertices in all polygons.
          */
         void getVertexArray ( 
-            const COLLADAFW::Source* positionsSource, 
+            const COLLADAFW::Source<COLLADAFW::Long64ArrayElement>* positionsSource, 
             MFloatPointArray &vertexArray, 
             size_t& numVertices );
 
