@@ -33,25 +33,14 @@ namespace COLLADAMax
 
     // main exporter class
 
-    class COLLADASWExporter : public SceneExport
+    class COLLADAExporter : public SceneExport
     {
 
     public:
         static const Class_ID COLLADASWEXPORTER_CLASS_ID;
-
-        static const String EXTENSIONNAME;
-        static const String LONGDESCRIPTION;
-        static const String SHORTDESCRIPTION;
-        static const String AUTHORNAME;
-        static const String COPYRIGHTMESSAGE;
-        static const String OTHERMESSAGE1;
-        static const String OTHERMESSAGE2;
-
-        static const String PROGRESSSTART;
-        static const String FATALERROR;
+		static const String PROGRESSSTART;
 
 
-        static const unsigned int PLUGINVERSION;
 
 
 	private:
@@ -60,8 +49,8 @@ namespace COLLADAMax
 		COLLADASW::IDList mXRefExportFileNames;
 
     public:
-        COLLADASWExporter();
-        virtual ~COLLADASWExporter();
+        COLLADAExporter();
+        virtual ~COLLADAExporter();
 
         // from SceneExport
         int ExtCount();     // Returns the number of file name extensions supported by the plug-in.
@@ -80,14 +69,14 @@ namespace COLLADAMax
 
     private:
         /** Disable copy constructor*/
-        COLLADASWExporter ( const COLLADASWExporter & colladaExporter );
+        COLLADAExporter ( const COLLADAExporter & colladaExporter );
 
         /** Disable assignment operator*/
-        COLLADASWExporter & operator= ( const COLLADASWExporter & colladaExporter );
+        COLLADAExporter & operator= ( const COLLADAExporter & colladaExporter );
 
     };
 
-    ClassDesc2* getCOLLADASWExporterDesc();
+    ClassDesc2* getCOLLADAExporterDesc();
 
 
     //
@@ -106,7 +95,7 @@ namespace COLLADAMax
         void * Create ( BOOL isLoading = FALSE )
         {
             isLoading;
-            return new COLLADASWExporter();
+            return new COLLADAExporter();
         }
 
         const TCHAR * ClassName()
@@ -121,7 +110,7 @@ namespace COLLADAMax
 
         Class_ID ClassID()
         {
-            return COLLADASWExporter::COLLADASWEXPORTER_CLASS_ID;
+            return COLLADAExporter::COLLADASWEXPORTER_CLASS_ID;
         }
 
         const TCHAR* Category()
@@ -131,7 +120,7 @@ namespace COLLADAMax
 
         const TCHAR* InternalName()
         {
-            return _T ( "COLLADASWExporter" );
+            return _T ( "COLLADAExporter" );
         } // returns fixed parsable name (scripter-visible name)
 
         HINSTANCE HInstance()

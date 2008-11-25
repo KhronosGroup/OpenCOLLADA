@@ -18,6 +18,7 @@
 #include "COLLADASWURI.h"
 #include "COLLADASWException.h"
 #include "COLLADASWUtils.h"
+#include "COLLADASWNativeString.h"
 
 namespace COLLADASW
 {
@@ -86,10 +87,10 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    StreamWriter::StreamWriter ( const String & fileName )
+    StreamWriter::StreamWriter ( const NativeString & fileName )
             : mLevel ( 0 )
             ,mIndent ( 2 )
-            ,mBuffer ( NULL )
+            ,mBuffer ( 0 )
     {
 		mBuffer = new char[BUFFERSIZE];
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S

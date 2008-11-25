@@ -32,6 +32,7 @@
 namespace COLLADASW
 {
 
+	class NativeString;
     class StreamWriter;
 	class URI;
 
@@ -77,7 +78,7 @@ namespace COLLADASW
 
     public:
         /** Creates a stream writer that writes to file @a fileName*/
-        StreamWriter ( const String& fileName );
+        StreamWriter ( const NativeString& fileName );
 
         /** Closes all open tags and closes the stream*/
         ~StreamWriter();

@@ -70,7 +70,7 @@ namespace COLLADAMax
 		for ( int i = 0; i < xRefFileCount; ++i)
 		{
 			XRefSceneGraph xRefScene;
-			COLLADASW::URI uri(COLLADASW::URI::nativePathToUri(String(mRootNode->GetXRefFileName(i))));
+			COLLADASW::URI uri(COLLADASW::URI::nativePathToUri(NativeString(mRootNode->GetXRefFileName(i).data())));
 			xRefScene.exportFileBaseName = mXRefExportFileNames.addId(uri.getPathFileBase(), false);
 			xRefScene.exportSceneGraph = new ExportSceneGraph(mRootNode->GetXRefTree(i), uri, mXRefExportFileNames);
 			if ( xRefScene.exportSceneGraph->create(exportSelection) )
@@ -109,7 +109,7 @@ namespace COLLADAMax
                isInVisualScene = true;
         }
 
-		exportNode->setId ( mNodeIdList.addId ( iNode->GetName() ) );
+		exportNode->setId ( mNodeIdList.addId ( NativeString(iNode->GetName()) ) );
 		mINodeExportNodeMap[iNode] = exportNode;
 		exportNode->createControllerList();
 		exportNode->setIsInVisualScene(isInVisualScene);

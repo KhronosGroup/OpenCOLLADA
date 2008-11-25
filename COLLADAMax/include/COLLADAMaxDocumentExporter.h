@@ -36,11 +36,15 @@ namespace COLLADAMax
 
     class AnimationExporter;
 
-
+	/** Class that uniquely identifies object.*/
 	class ObjectIdentifier
 	{
 	private:
+		/** Pointer to the object.*/
 		void* mObject;
+
+		/** Additional number to identify multiple objects with same pointer, e.g. objects in a modifier stack.
+		The mIdentificationNumber can serve as the number in the stack.*/
 		int mIdentificationNumber;
 	public:
 		ObjectIdentifier(void* object) : mObject(object),mIdentificationNumber(0){}
@@ -91,7 +95,7 @@ namespace COLLADAMax
         /** Constructor
         @param i the max interface
         @param filepath The file path the COLLADASW document should be written to*/
-        DocumentExporter ( Interface* i, const String &filepath, COLLADASW::IDList& xRefExportFileNames  );
+        DocumentExporter ( Interface* i, const NativeString &filepath, COLLADASW::IDList& xRefExportFileNames  );
 
 
 		/** Constructor. 
@@ -99,7 +103,7 @@ namespace COLLADAMax
 		@param exportSceneGraph The scene graph to export.
 		@param filepath The file path the COLLADASW document should be written to
 		@param options The options to use during export.*/
-		DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const String &filepath, const Options& options );
+		DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const NativeString &filepath, const Options& options );
 
 		~DocumentExporter();
 

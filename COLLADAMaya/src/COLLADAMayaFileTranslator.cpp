@@ -290,7 +290,7 @@ namespace COLLADAMaya
         startClock = clock();
 
         // Actually export the document
-        DocumentExporter documentExporter ( filename.asChar() );
+        DocumentExporter documentExporter ( NativeString(filename.asChar()) );
         documentExporter.exportCurrentScene ( selectionOnly );
 
         // Display some closing information.

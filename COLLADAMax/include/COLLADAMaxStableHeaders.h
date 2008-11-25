@@ -51,6 +51,9 @@
 
 #include "MorphR3.h"		//for morph controller MorphR3 
 
+#include <surf_api.h>    //for shapes
+
+
 #include "COLLADAMaxXRefIncludes.h"
 
 

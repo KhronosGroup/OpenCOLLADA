@@ -329,7 +329,7 @@ namespace COLLADAMax
 			if ( !mMorphControllerHelperGeometry )
 				mDocumentExporter->insertExportedObject(ObjectIdentifier( object ), mExportNode);
 
-            mGeometriesExporter->openMesh ( mId, COLLADASW::Utils::checkNCName ( iNode->GetName() ) );
+            mGeometriesExporter->openMesh ( mId, COLLADASW::Utils::checkNCName ( NativeString(iNode->GetName()) ) );
 
 			if ( mMorphControllerHelperGeometry )
 				exportMorphHelperPositions();

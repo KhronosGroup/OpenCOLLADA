@@ -29,6 +29,7 @@
 
 #include "COLLADAMayaException.h"
 #include "COLLADASWUtils.h"
+#include "COLLADASWNativeString.h"
 
 
 #define MAX_FILENAME_LEN 512
@@ -45,7 +46,7 @@ int main(int argc,char** argv)
 {
 #else 
 // hack for linux & gtk
-// gtk needs the command line args for initialisation
+// gtk needs the command line args for initialization
 int   g_argc=0;
 char** g_argv=0;
 
@@ -115,7 +116,7 @@ int main(int argc,char** argv)
 	    return EXIT_FAILURE;
     }
 
-    // initialise the maya library - This basically starts up Maya
+    // initialize the maya library - This basically starts up Maya
     MLibrary::initialize(argv[0]);
 
     // Convert backward to forward slashes
@@ -168,7 +169,8 @@ int main(int argc,char** argv)
             startClock = clock();
 
             // Actually export the document
-            COLLADAMaya::DocumentExporter documentExporter ( outFileName );
+			COLLADASW::NativeString nativeOutFileName(outFileName);
+			COLLADAMaya::DocumentExporter documentExporter ( nativeOutFileName );
             try
             {
                 bool selectionOnly = false;

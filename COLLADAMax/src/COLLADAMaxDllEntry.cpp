@@ -20,6 +20,7 @@
 
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxColladaExporter.h"
+#include "COLLADAMaxColladaImporter.h"
 
 HINSTANCE hInstance;
 int controlsInit = FALSE;
@@ -54,7 +55,7 @@ extern "C" __declspec ( dllexport ) const TCHAR* LibDescription()
 
 extern "C" __declspec ( dllexport ) int LibNumberClasses()
 {
-    return 1;
+    return 2;
 }
 
 extern "C" __declspec ( dllexport ) ClassDesc* LibClassDesc ( int i )
@@ -62,8 +63,10 @@ extern "C" __declspec ( dllexport ) ClassDesc* LibClassDesc ( int i )
     switch ( i )
     {
 
-    case 0:
-        return COLLADAMax::getCOLLADASWExporterDesc();
+	case 0:
+		return COLLADAMax::getCOLLADAExporterDesc();
+	case 1:
+		return COLLADAMax::getCOLLADAImporterDesc();
 
     default:
         return 0;

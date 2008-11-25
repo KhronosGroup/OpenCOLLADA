@@ -10,6 +10,7 @@
 
 #include <algorithm>
 #include "COLLADASWURI.h"
+#include "COLLADASWStringUtils.h"
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
 
@@ -244,7 +245,6 @@ namespace COLLADASW
 			{	
 				setStringFromMatches(dir, dirMatches, 1);
 				setStringFromMatches(tmpFile, dirMatches, 2);
-				//findDir.PartialMatch(path, &dir, &tmpFile);
 
 				boost::smatch extMatches;
 				if(regex_match(tmpFile, extMatches, findExt)) 
@@ -253,8 +253,6 @@ namespace COLLADASW
 					setStringFromMatches(extension, extMatches, 3);
 				}
 			}
-			//findExt.PartialMatch(tmpFile, &baseName, &extension);
-
 	}
 
 	void URI::set(const String& uriStr_, const URI* baseURI) {
@@ -541,7 +539,7 @@ namespace COLLADASW
 
 			if(*cur != 0)
 			{
-				// Skip any occurrances of // at the end of the segment
+				// Skip any occurrences of // at the end of the segment
 
 				while ((*cur == '/') && (*(cur+1) == '/')) cur++;
 
@@ -677,19 +675,26 @@ namespace COLLADASW
 			return false;
 
 		// advance till we find a segment that doesn't match
-		const char *this_path        = getPath().c_str();
+		WideString thisPathWideSring = StringUtils::utf8String2WideString(getPath());
+		WideString relativeToPathWideSring = StringUtils::utf8String2WideString(relativeToURI.getPath());
+		const wchar_t *this_path        = thisPathWideSring.c_str();
+		const wchar_t *relativeTo_path  = relativeToPathWideSring.c_str();
+		const wchar_t *this_slash       = this_path;
+		const wchar_t *relativeTo_slash = relativeTo_path;
+/*		const char *this_path        = getPath().c_str();
 		const char *relativeTo_path  = relativeToURI.getPath().c_str();
 		const char *this_slash       = this_path;
 		const char *relativeTo_slash = relativeTo_path;
-
+*/
 		while( *this_path )
 		{
 
 			if  ( ignoreCase )
 			{
-				char characters[3];
+				wchar_t characters[3];
 				characters[0] = *this_path;
 				characters[1] = *relativeTo_path;
+				characters[2] = 0;
 
 				boost::to_lower(characters);
 
@@ -732,7 +737,8 @@ namespace COLLADASW
 			for (int i = 0; i < segment_count; i++)
 				newPath += "../";
 		}
-		newPath += this_slash;
+		WideString thisSlashWideString(this_slash);
+		newPath += StringUtils::wideString2utf8String(thisSlashWideString);
 
 		set("", "", newPath, mQuery, mFragment, 0/*relativeToURI*/);
 		return true;
@@ -841,7 +847,7 @@ namespace COLLADASW
 
 		if (type == Utils::WINDOWS) {
 			// Convert "c:\" to "/c:/"
-			if (uri.length() >= 2  &&  isalpha(uri[0])  &&  uri[1] == ':')
+			if (uri.length() >= 2  &&  StringUtils::isAsciiAlphaChar(uri[0])  &&  uri[1] == ':')
 				uri.insert(0, "/");
 			// Convert backslashes to forward slashes
 			Utils::stringFindAndReplace(uri, "\\", "/");

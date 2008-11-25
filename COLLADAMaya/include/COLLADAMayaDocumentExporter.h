@@ -121,7 +121,7 @@ namespace COLLADAMaya
          * Constructor.
          * @param _fileName Name of the collada file.
          */
-        DocumentExporter ( const String& fileName );
+        DocumentExporter ( const NativeString& fileName );
         virtual ~DocumentExporter();
 
         /**

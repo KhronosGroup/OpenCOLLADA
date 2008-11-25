@@ -17,6 +17,7 @@
 namespace COLLADASW
 {
     typedef std::string String;
+	typedef std::wstring WideString;
 }
 
 #endif //__COLLADASTREAMWRITER_PREREQUISITES_H__

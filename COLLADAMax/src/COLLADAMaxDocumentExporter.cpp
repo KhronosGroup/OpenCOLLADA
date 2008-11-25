@@ -32,6 +32,7 @@
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
 #include "COLLADASWConstants.h"
+#include "COLLADASWNativeString.h"
 
 #include <max.h>
 
@@ -41,20 +42,20 @@ namespace COLLADAMax
     const String DocumentExporter::SCENE_ID = "MaxScene";
 
     //---------------------------------------------------------------
-	DocumentExporter::DocumentExporter ( Interface * i, const String &filepath, COLLADASW::IDList& xRefExportFileNames  )
+	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADASW::IDList& xRefExportFileNames  )
             : 
 			mOptions(i),
 			mMaxInterface ( i ),
             mStreamWriter ( filepath ),
 			mOutputFileUri ( COLLADASW::URI::nativePathToUri(filepath) ),
-			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(String(i->GetCurFilePath())), xRefExportFileNames ) ),
+			mExportSceneGraph ( new ExportSceneGraph(mMaxInterface->GetRootNode(), COLLADASW::URI::nativePathToUri(NativeString(i->GetCurFilePath().data()).toUtf8String()), xRefExportFileNames ) ),
 			mDeleteExportSceneGraph(true)
     {
 	}
 
 
 	//---------------------------------------------------------------
-	DocumentExporter::DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const String &filepath, const Options& options )
+	DocumentExporter::DocumentExporter ( Interface * i, ExportSceneGraph* exportSceneGraph, const NativeString &filepath, const Options& options )
 		: 
 		mOptions( options ),
 		mMaxInterface ( i ),
@@ -108,7 +109,7 @@ namespace COLLADAMax
 
 		for ( ExportSceneGraph::XRefSceneGraphList::const_iterator it = sceneGraphList.begin(); it!=sceneGraphList.end(); ++it )
 		{
-			String outputFileName = getXRefOutputPath(*it);
+			NativeString outputFileName(NativeString(getXRefOutputPath(*it)));
 			DocumentExporter document(mMaxInterface, it->exportSceneGraph, outputFileName, mOptions);
 			document.exportMaxScene();
 		}
@@ -144,7 +145,9 @@ namespace COLLADAMax
         if ( !userName.empty() )
             asset.getContributor().mAuthor = String ( userName );
 
-		asset.getContributor().mSourceData = mExportSceneGraph->getMaxFileUri().getURIString();
+		const COLLADASW::URI maxFileUri = mExportSceneGraph->getMaxFileUri();
+		if ( !maxFileUri.getPathFile().empty() )
+			asset.getContributor().mSourceData = maxFileUri.getURIString();
 
         asset.getContributor().mAuthoringTool = "COLLADAMax";
 
@@ -350,14 +353,12 @@ namespace COLLADAMax
 		{
 			COLLADASW::URI uri(mOutputFileUri, xRefSceneGraph.exportFileBaseName + ".dae");
 			return uri.toNativePath();
-			//			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 		else
 		{
 			COLLADASW::URI xRefOutputFileDirURI(COLLADASW::URI::nativePathToUri(xRefOutputFileDir));
 			COLLADASW::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
 			return uri.toNativePath();
-//			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 	}
 
@@ -369,7 +370,6 @@ namespace COLLADAMax
 		{
 			COLLADASW::URI uri(xRefSceneGraph.exportFileBaseName + ".dae");
 			return uri;
-			//			return getOutputDir() + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 		else
 		{
@@ -377,7 +377,6 @@ namespace COLLADAMax
 			COLLADASW::URI uri(xRefOutputFileDirURI, xRefSceneGraph.exportFileBaseName + ".dae");
 			uri.makeRelativeTo(mOutputFileUri, true);
 			return uri;
-			//			return xRefOutputFileDir + "\\" + sourceFile.getPathFileBase() + ".dae"; 
 		}
 	}
 

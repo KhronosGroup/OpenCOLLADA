@@ -28,6 +28,7 @@
 #include "COLLADAMaxXRefFunctions.h"
 
 #include "COLLADASWNode.h"
+#include "COLLADASWStringUtils.h"
 //#include "COLLADASWTextureModifier.h"
 
 #include <algorithm>
@@ -224,7 +225,7 @@ namespace COLLADAMax
 
 
         // Add it to the exported materials list
-        String effectId = mEffectIdList.addId ( baseMaterial->GetName().data() );
+        String effectId = mEffectIdList.addId ( NativeString(baseMaterial->GetName().data()) );
 
         exportNode->addSymbol ( baseMaterial, effectId );
 
@@ -344,7 +345,7 @@ namespace COLLADAMax
         }
 
 #endif
-        exportNode->addSymbol ( material, material->GetName().data() );
+        exportNode->addSymbol ( material, NativeString(material->GetName().data()) );
 
         mEffectMap[ material ] = effectId;
 
@@ -758,7 +759,7 @@ namespace COLLADAMax
             // stdProfile->SetSpecularFactor(specularLevel);
         }
 
-        exportNode->addSymbol ( material, material->GetName().data() );
+        exportNode->addSymbol ( material, NativeString(material->GetName().data()) );
 
         mEffectMap[ material ] = effectId;
     }
@@ -860,7 +861,7 @@ namespace COLLADAMax
 
             if ( subName.Length() > 0 )
             {
-                String upperName = subName;
+                String upperName = NativeString(subName.data());
                 std::transform ( upperName.begin(), upperName.end(), upperName.begin(), toupper );
                 size_t firstSpace = upperName.find ( ' ' );
 
@@ -1058,13 +1059,18 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     String EffectExporter::exportImage ( BitmapInfo& bitmapInfo, String& fullFileName )
     {
-        const TCHAR * fileName = bitmapInfo.Name();
+		const TCHAR * fileNamePtr = bitmapInfo.Name();
 
-        if ( fileName && _tcslen ( fileName ) != 0 && _tcsicmp ( fileName, "none" ) != 0 )
+		String fileName;
+		if ( fileNamePtr )
+			fileName = NativeString(fileNamePtr);
+
+		static const String noneString("none"); 
+		if ( !fileName.empty() && !COLLADASW::StringUtils::equals(fileName, noneString) )
         {
 
             BMMGetFullFilename ( &bitmapInfo );
-            fullFileName  = bitmapInfo.Name();
+            fullFileName  = NativeString(bitmapInfo.Name());
             String fullFileNameURI = COLLADASW::Utils::FILE_PROTOCOL + COLLADASW::URI::uriEncode ( fullFileName );
             String imageId;
             // Export the equivalent <image> node in the image library and add

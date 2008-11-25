@@ -58,7 +58,9 @@ namespace COLLADAMax
             BONE,
 			HELPER,
 			MATERIAL,
-			XREF_OBJECT
+			XREF_OBJECT,
+			NURBS_CURVE,
+			SPLINE
         };
 
         struct Symbol

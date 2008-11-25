@@ -26,6 +26,7 @@
 #include "COLLADASWInstanceNode.h"
 #include "COLLADASWMathUtils.h"
 #include "COLLADASWURI.h"
+#include "COLLADASWNativeString.h"
 
 
 #include "COLLADAMaxVisualSceneExporter.h"
@@ -106,7 +107,7 @@ namespace COLLADAMax
 		if ( exportNode->hasSid() )
 			colladaNode.setNodeSid(exportNode->getSid());
 
-        colladaNode.setNodeName ( COLLADASW::Utils::checkNCName ( node->GetName() ) );
+        colladaNode.setNodeName ( COLLADASW::Utils::checkNCName ( NativeString(node->GetName()) ) );
 
 		if ( exportNode->getIsJoint() )
 		{

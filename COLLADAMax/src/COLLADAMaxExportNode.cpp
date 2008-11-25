@@ -26,6 +26,7 @@
 #include <max.h>
 #include <modstack.h>
 #include <cs/bipexp.h>
+#include <surf_api.h>
 
 namespace COLLADAMax
 {
@@ -134,17 +135,18 @@ namespace COLLADAMax
 
 		case LIGHT_CLASS_ID: 
 			return LIGHT;
-#if 0
+#if 1
 			//for surfaces
 		case SHAPE_CLASS_ID:
 			// Modifiers can act on a spline to produce a mesh
-			if (p != base)
+			return MESH;
+			if (animatable != base)
 			{
 				// BUG368: For some reason the CanConvertToType function stopped working.
 				// This is the best option anyway, evaluate the object actually created by
 				// the modifier stack.
-				ObjectState os = ((IDerivedObject*)p)->Eval(0);
-				return Get(node, os.obj, detectXRef);
+				ObjectState os = ((IDerivedObject*)animatable)->Eval(0);
+//				return Get(node, os.obj, detectXRef);
 			}
 			if (classId == EDITABLE_SURF_CLASS_ID || classId == EDITABLE_CVCURVE_CLASS_ID || classId == EDITABLE_FPCURVE_CLASS_ID)
 			{

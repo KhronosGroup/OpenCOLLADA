@@ -221,13 +221,13 @@ namespace COLLADAMax
 		switch ( lightType )
 		{
 		case COLLADASW::Light::DIRECTIONAL:
-			colladaLight = new COLLADASW::DirectionalLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
+			colladaLight = new COLLADASW::DirectionalLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
 			break;
 		case COLLADASW::Light::POINT:
-			colladaLight = new COLLADASW::PointLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
+			colladaLight = new COLLADASW::PointLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
 			break;
 		case COLLADASW::Light::SPOT:
-			colladaLight = new COLLADASW::SpotLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(exportNode->getINode()->GetName()));
+			colladaLight = new COLLADASW::SpotLight(COLLADASW::LibraryLights::mSW, lightId, 1.0, COLLADASW::Utils::checkNCName(NativeString(exportNode->getINode()->GetName())));
 			break;
 		}
 

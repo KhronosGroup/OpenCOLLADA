@@ -46,7 +46,7 @@ namespace COLLADAMaya
 {
 
     //---------------------------------------------------------------
-    DocumentExporter::DocumentExporter ( const String& fileName )
+    DocumentExporter::DocumentExporter ( const NativeString& fileName )
             : mStreamWriter ( fileName )
             , mFileName ( fileName )
             , mSceneGraph ( NULL )
