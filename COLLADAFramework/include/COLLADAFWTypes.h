@@ -16,12 +16,16 @@
 namespace COLLADAFW
 {
 
-    typedef xsNCName String;
+  //  typedef xsNCName String;
+
+	typedef int ClassId;
+
+	typedef unsigned long long ObjectId;
 
     // Element Type Enum
     namespace COLLADA_TYPE
     {
-        const int
+        const ClassId
             NO_TYPE = 0,
             ANY = 1,
             INPUTGLOBAL = 2,
