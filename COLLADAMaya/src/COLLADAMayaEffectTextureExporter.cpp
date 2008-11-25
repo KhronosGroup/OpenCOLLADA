@@ -26,8 +26,6 @@
 #include "COLLADASWLibraryImages.h"
 #include "COLLADASWSurface.h"
 
-#include <maya/MFileIO.h>
-
 #include <boost/filesystem.hpp>
 using namespace boost::filesystem;
 

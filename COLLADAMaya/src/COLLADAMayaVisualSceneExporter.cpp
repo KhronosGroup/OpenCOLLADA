@@ -35,7 +35,6 @@
 #include <maya/MEulerRotation.h>
 #include <maya/MDagPath.h>
 #include <maya/MFnCamera.h>
-#include <maya/MFileIO.h>
 
 #include "COLLADASWNode.h"
 #include "COLLADASWInstanceGeometry.h"

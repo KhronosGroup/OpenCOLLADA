@@ -188,22 +188,15 @@ namespace COLLADADomHelper
         domName_arrayRef arrayRef = sourceRef->getName_array ();
         if ( arrayRef != 0 )
         {
+            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_NAME );
             COLLADAFW::NameArrayElement& arrayElement = source.getNameArrayElement ();
             arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
             if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
             if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
-            domListOfNames domNameValues = arrayRef->getValue ();
-            size_t nameCount = domNameValues.getCount ();
-            String* nameArray = new String [ nameCount ];
-            for ( size_t m=0; m<nameCount; ++m )
-            {
-                domName& name = domNameValues.get ( m );
-                nameArray [ m ] = name;
-            }
-            arrayElement.setValues ( nameArray, nameCount );
-
-            source.setNameArrayElement ( arrayElement );
+            domListOfNames& domValues = arrayRef->getValue ();
+            daeMemoryRef memoryRef = domValues.getRawData ();
+            arrayElement.setValues ( reinterpret_cast <String*> ( domValues.getRawData () ), domValues.getCount () );
         }
     }
 
@@ -213,22 +206,15 @@ namespace COLLADADomHelper
         domBool_arrayRef arrayRef = sourceRef->getBool_array ();
         if ( arrayRef != 0 )
         {
+            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_BOOL );
             COLLADAFW::BoolArrayElement& arrayElement = source.getBoolArrayElement ();
             arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
             if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
             if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
-            domListOfBools domValues = arrayRef->getValue ();
-            size_t valuesCount = domValues.getCount ();
-            bool* valuesArray = new bool [ valuesCount ];
-            for ( size_t m=0; m<valuesCount; ++m )
-            {
-                domBool& val = domValues.get ( m );
-                valuesArray [ m ] = val;
-            }
-            arrayElement.setValues ( valuesArray, valuesCount );
-
-            source.setBoolArrayElement ( arrayElement );
+            domListOfBools& domValues = arrayRef->getValue ();
+            daeMemoryRef memoryRef = domValues.getRawData ();
+            arrayElement.setValues ( reinterpret_cast <bool*> ( domValues.getRawData () ), domValues.getCount () );
         }
     }
 
@@ -238,20 +224,16 @@ namespace COLLADADomHelper
         domInt_arrayRef arrayRef = sourceRef->getInt_array ();
         if ( arrayRef != 0 )
         {
-            COLLADAFW::IntArrayElement& arrayElement = source.getIntArrayElement ();
+            // The dom has internal a long long!
+            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_LONG64 );
+            COLLADAFW::Long64ArrayElement& arrayElement = source.getLong64ArrayElement ();
             arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
             if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
             if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
 
-            domListOfInts domValues = arrayRef->getValue ();
-            size_t valuesCount = domValues.getCount ();
-            int* valuesArray = new int [ valuesCount ];
-            for ( size_t m=0; m<valuesCount; ++m )
-            {
-                domInt& val = domValues.get ( m );
-                valuesArray [ m ] = ( int ) val;
-            }
-            arrayElement.setValues ( valuesArray, valuesCount );
+            domListOfInts& domValues = arrayRef->getValue ();
+            daeMemoryRef memoryRef = domValues.getRawData ();
+            arrayElement.setValues ( reinterpret_cast <long long*> ( domValues.getRawData () ), domValues.getCount () );
         }
     }
 
@@ -261,6 +243,8 @@ namespace COLLADADomHelper
         domFloat_arrayRef arrayRef = sourceRef->getFloat_array ();
         if ( arrayRef != 0 )
         {
+            // The dom has internal a double!
+            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_DOUBLE );
             COLLADAFW::DoubleArrayElement& arrayElement = source.getDoubleArrayElement ();
             arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
             if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
@@ -278,6 +262,7 @@ namespace COLLADADomHelper
         domIDREF_arrayRef arrayRef = sourceRef->getIDREF_array ();
         if ( arrayRef != 0 )
         {
+            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_IDREF );
             COLLADAFW::IDREFArrayElement& arrayElement = source.getIDREFArrayElement ();
             arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
             if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );

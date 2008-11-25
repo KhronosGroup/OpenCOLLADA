@@ -459,10 +459,6 @@ namespace COLLADAMaya
         size_t arrayCount = doubleArray.getCount ();
         const double* positions = doubleArray.getValues ( arrayCount );
 
-        const COLLADAFW::FloatArrayElement& floatArray = positionsSource->getFloatArrayElement ();
-        size_t arrayCount2 = floatArray.getCount ();
-        const float* positions2 = floatArray.getValues ( arrayCount2 );
-
         const COLLADAFW::TechniqueCommon& techniqueCommon = positionsSource->getTechniqueCommon ();
         const COLLADAFW::Accessor& accessor = techniqueCommon.getAccessor ();
         unsigned int accessorCount = accessor.getCount ();

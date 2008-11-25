@@ -90,7 +90,7 @@ namespace COLLADAMaya
             MGlobal::displayError ( "Not a valid node type!" );
         }
 
-        // TODO Import the tranformations
+        // Import the tranformations
         importTransforms ( transformObject, node );
 
         // Read the geometry instance

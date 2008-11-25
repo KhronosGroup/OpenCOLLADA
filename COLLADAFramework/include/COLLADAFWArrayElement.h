@@ -261,6 +261,57 @@ namespace COLLADAFW
     };
 
     /**
+    * Stores a homogenous array of integer values.
+    * The <int_array> element stores the data values for generic use within 
+    * the COLLADA schema. The arrays themselves are strongly typed but without 
+    * semantics. They simply describe a sequence of integer values.
+    */
+    class Long64ArrayElement : public BaseArrayElement < long long > 
+    {
+
+    private:
+
+        /**
+        * xs:integer The smallest integer value that can be contained in the 
+        * array. The default is -2147483648. Optional.
+        */
+        int minInclusive;
+
+        /**
+        * xs:integer The largest integer value that can be contained in the 
+        * array. The default is 2147483647. Optional.
+        */
+        int maxInclusive;
+
+    public:
+
+        /**
+        * Constructor.
+        */
+        Long64ArrayElement () : BaseArrayElement () {};
+
+        /**
+        * Destructor.
+        */
+        virtual ~Long64ArrayElement () {};
+
+        /**
+        * xs:integer The smallest integer value that can be contained in the 
+        * array. The default is -2147483648. Optional.
+        */
+        const int getMinInclusive () const { return minInclusive; }
+        void setMinInclusive ( const int val ) { minInclusive = val; }
+
+        /**
+        * xs:integer The largest integer value that can be contained in the 
+        * array. The default is 2147483647. Optional.
+        */
+        const int getMaxInclusive () const { return maxInclusive; }
+        void setMaxInclusive ( const int val ) { maxInclusive = val; }
+
+    };
+
+    /**
      * Declares the storage for a homogenous array of Boolean values.
      * The <bool_array> element stores data values for generic use within the 
      * COLLADA schema. The arrays themselves are strongly typed but without 

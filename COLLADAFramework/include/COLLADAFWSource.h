@@ -32,8 +32,27 @@ namespace COLLADAFW
     class Source
     {
 
+    public:
+
+        enum ValueType
+        {
+            VALUE_TYPE_INT, 
+            VALUE_TYPE_LONG64, 
+            VALUE_TYPE_FLOAT,
+            VALUE_TYPE_DOUBLE,
+            VALUE_TYPE_BOOL,
+            VALUE_TYPE_NAME,
+            VALUE_TYPE_IDREF,
+            VALUE_TYPE_UNKNOWN
+        };
+
     private:
-        
+
+        /**
+         * The value type of the current values. All other arrays are empty!
+         */
+        ValueType mValueType;
+
         /** 
          * A text string containing the unique identifier of the element. This value must be unique
          * within the instance document. Required.
@@ -51,6 +70,13 @@ namespace COLLADAFW
          * but there is always just one, which is initialised.
          */
         IntArrayElement mIntArrayElement;
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        */
+        Long64ArrayElement mLong64ArrayElement;
 
         /**
          * Stores a homogenous array of values.
@@ -96,10 +122,19 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-        Source () {}
+        Source ()
+            : mValueType ( VALUE_TYPE_UNKNOWN )
+        {}
 
         /** Destructor. */
         virtual ~Source () {}
+
+        /**
+        * The value type of the current values. All other arrays are empty!
+        */
+        Source::ValueType getValueType () { return mValueType; }
+        const Source::ValueType getValueType () const { return mValueType; }
+        void setValueType ( const COLLADAFW::Source::ValueType ValueType ) { mValueType = ValueType; }
 
         /** 
         * A text string containing the unique identifier of the element. 
@@ -149,7 +184,37 @@ namespace COLLADAFW
         * but there is always just one, which is initialised.
         * @param arrayElement The array element with the values array.
         */
-        void setIntArrayElement ( const IntArrayElement& arrayElement ) { mIntArrayElement = arrayElement; }
+        void setIntArrayElement ( const IntArrayElement& arrayElement ) 
+        { 
+            mIntArrayElement = arrayElement; 
+        }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const IntArrayElement The array element with the values array.
+        */
+        Long64ArrayElement& getLong64ArrayElement () { return mLong64ArrayElement; }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @return const IntArrayElement The array element with the values array.
+        */
+        const Long64ArrayElement& getLong64ArrayElement () const { return mLong64ArrayElement; }
+
+        /**
+        * Stores a homogenous array of values.
+        * The class contains members for all valid array element types, 
+        * but there is always just one, which is initialised.
+        * @param arrayElement The array element with the values array.
+        */
+        void setLong64ArrayElement ( const Long64ArrayElement& arrayElement ) 
+        { 
+            mLong64ArrayElement = arrayElement; 
+        }
 
         /**
         * Stores a homogenous array of values.
