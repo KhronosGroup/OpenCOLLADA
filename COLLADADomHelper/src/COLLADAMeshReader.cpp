@@ -79,8 +79,11 @@ namespace COLLADADomHelper
         size_t polylistCount = polylistArray.getCount ();
 
         // Fill the COLLADAFramework polylist data
-        COLLADAFW::Polylist* polylistList = new COLLADAFW::Polylist [ polylistCount ]; 
-        mMesh->setPolylistArray ( polylistList, polylistCount );
+        COLLADAFW::Polylist* polylistList = new COLLADAFW::Polylist [ polylistCount ];
+        COLLADAFW::PolylistArray arrayPolylist ( polylistList, polylistCount );
+//        COLLADAFW::Array <COLLADAFW::Polylist*> arrayPolylist ( polylistList, polylistCount );
+
+        mMesh->setPolylistArray ( arrayPolylist );
 
         for ( size_t i=0; i<polylistCount; ++i )
         {
@@ -125,7 +128,8 @@ namespace COLLADADomHelper
 
         // Fill the COLLADAFramework polygons data
         COLLADAFW::Polygons* polygonsList = new COLLADAFW::Polygons [ polygonsCount ]; 
-        mMesh->setPolygonsArray ( polygonsList, polygonsCount );
+        COLLADAFW::PolygonsArray arrayPolygons ( polygonsList, polygonsCount );
+        mMesh->setPolygonsArray ( arrayPolygons );
 
         // Go through all poygons of the current mesh.
         for ( size_t i=0; i<polygonsCount; ++i )
@@ -319,40 +323,53 @@ namespace COLLADADomHelper
         size_t sourceArraySize = domSourceArray.getCount ();
 
         // Create a new source array with the required size
-        COLLADAFW::SourceArray sourceArray;
-        sourceArray = new COLLADAFW::SourceBase* [ sourceArraySize ];
-        mMesh->setSourceArray ( sourceArray, sourceArraySize );
+        COLLADAFW::SourceBase** sources = new COLLADAFW::SourceBase* [ sourceArraySize ];
+        COLLADAFW::SourceArray sourceArray ( sources, sourceArraySize );
 
         for ( size_t n=0; n<sourceArraySize; ++n )
         {
             // The dom source element
             domSourceRef sourceRef = domSourceArray.get ( n );
 
-            // The current source array to fill in.
-            COLLADAFW::SourceBase* source = sourceArray [ n ];
-
             // Fills the current dae source element into a COLLADAFramework source element.
-            source = fillSourceElement ( sourceRef, source );
+            COLLADAFW::SourceBase* source = createSourceElement ( sourceRef );
             source->setId ( sourceRef->getId () );
             if ( sourceRef->getName () != 0 ) source->setName ( sourceRef->getName () );
+
+            // TODO Return source!
+            // Fill the technique common elements.
+            fillTechniqueCommon ( sourceRef, source );
+
+            // The current source array to fill in.
+            sourceArray [n] = source;
         }
+
+        // Set the source array into the mesh object.
+        mMesh->setSourceArray ( sourceArray );
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase* MeshReader::fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source )
+    COLLADAFW::SourceBase* MeshReader::createSourceElement ( const domSourceRef& sourceRef )
     {
+        COLLADAFW::SourceBase* source;
+
         // Fill the array element of the existing type.
         source = createNameArrayElementSource ( sourceRef );
+        if ( source != 0 ) return source;
+
         source = createIntArrayElementSource ( sourceRef );
+        if ( source != 0 ) return source;
+
         source = createFloatArrayElementSource ( sourceRef );
+        if ( source != 0 ) return source;
+
         source = createBoolArrayElementSource ( sourceRef );
+        if ( source != 0 ) return source;
+
         source = createIDREFArrayElementSource ( sourceRef );
+        if ( source != 0 ) return source;
 
-        // TODO Return source!
-        // Fill the technique common elements.
-        fillTechniqueCommon ( sourceRef, source );
-
-        return source;
+        return 0;
     }
 
     // --------------------------------------------
@@ -414,8 +431,10 @@ namespace COLLADADomHelper
         domInputLocal_Array inputArrayDom = verticesRef->getInput_array ();
         size_t inputCount = inputArrayDom.getCount ();
 
-        COLLADAFW::InputUnsharedArray inputArray = new COLLADAFW::InputUnshared [ inputCount ];
-        vertices.setInputArray ( inputArray, inputCount );
+        // Fill the COLLADAFramework data
+        COLLADAFW::InputUnshared* inputs = new COLLADAFW::InputUnshared [ inputCount ];
+        COLLADAFW::InputUnsharedArray inputArray ( inputs, inputCount );
+        vertices.setInputArray ( inputArray );
 
         for ( size_t i=0; i<inputCount; ++i )
         {
@@ -438,8 +457,10 @@ namespace COLLADADomHelper
         domInputArray = polylistRef->getInput_array ();
         size_t polylistInputCount = domInputArray.getCount ();
 
-        COLLADAFW::InputSharedArray inputArray = new COLLADAFW::InputShared [ polylistInputCount ];
-        polylist.setInputArray ( inputArray, polylistInputCount );
+        // Fill the COLLADAFramework data
+        COLLADAFW::InputShared* inputs = new COLLADAFW::InputShared [ polylistInputCount ];
+        COLLADAFW::InputSharedArray inputArray ( inputs, polylistInputCount );
+        polylist.setInputArray ( inputArray );
 
         // Fill the input array.
         fillInputArray ( domInputArray, inputArray );
@@ -455,8 +476,10 @@ namespace COLLADADomHelper
         domInputArray = polygonsRef->getInput_array ();
         size_t polylistInputCount = domInputArray.getCount ();
 
-        COLLADAFW::InputSharedArray inputArray = new COLLADAFW::InputShared [ polylistInputCount ];
-        polygons.setInputArray ( inputArray, polylistInputCount );
+        // Fill the COLLADAFramework data
+        COLLADAFW::InputShared* inputs = new COLLADAFW::InputShared [ polylistInputCount ];
+        COLLADAFW::InputSharedArray inputArray ( inputs, polylistInputCount );
+        polygons.setInputArray ( inputArray );
 
         // Fill the input array.
         fillInputArray ( domInputArray, inputArray );
@@ -499,13 +522,16 @@ namespace COLLADADomHelper
         domPolylist::domVcountRef vCountRef = polylistRef->getVcount ();
         domListOfUInts domVCountList = vCountRef->getValue ();
 
+        // Fill the COLLADAFramework data
         size_t vCountListSize = domVCountList.getCount ();
-        COLLADAFW::Polylist::VCountArray vCountList = new unsigned int [ vCountListSize ];
+        unsigned int* vCounts = new unsigned int [ vCountListSize ];
+        COLLADAFW::Polylist::VCountArray vCountList ( vCounts, vCountListSize );
+
         for ( size_t m=0; m<vCountListSize; ++m )
         {
             vCountList [ m ] = ( unsigned int ) domVCountList.get ( m );
         }
-        polylist.setVCountArray ( vCountList, vCountListSize );
+        polylist.setVCountArray ( vCountList );
     }
 
     // --------------------------------------------
@@ -545,8 +571,9 @@ namespace COLLADADomHelper
         size_t numPolygons = domPArray.getCount ();
 
         // Create a COLLADAFW:PArray and set it into the COLLADAFramework polygons object.
-        COLLADAFW::PArray pArray = new COLLADAFW::PElement [ numPolygons ];
-        polygons.setPArray ( pArray, numPolygons );
+        COLLADAFW::PElement* pElements = new COLLADAFW::PElement [ numPolygons ];
+        COLLADAFW::PArray pArray ( pElements, numPolygons );
+        polygons.setPArray ( pArray );
 
         // Go through each polygon and write the vertices per polygon.
         for ( size_t n=0; n<numPolygons; ++n )
@@ -572,8 +599,9 @@ namespace COLLADADomHelper
         size_t numPolygons = domPHArray.getCount ();
 
         // Create a COLLADAFW:PHArray and set it into the COLLADAFramework polygons object.
-        COLLADAFW::PHArray phArray = new COLLADAFW::PHElement [ numPolygons ];
-        polygons.setPHArray ( phArray, numPolygons );
+        COLLADAFW::PHElement* phElements = new COLLADAFW::PHElement [ numPolygons ];
+        COLLADAFW::PHArray phArray ( phElements, numPolygons );
+        polygons.setPHArray ( phArray );
 
         // Go through each polygon and write the vertices per polygon.
         for ( size_t n=0; n<numPolygons; ++n )
@@ -593,8 +621,9 @@ namespace COLLADADomHelper
 
             // Create a new h array and set it into the COLLADAFramework ph element.
             size_t hArraySize = domHArray.getCount ();
-            COLLADAFW::HArray hArray = new COLLADAFW::HElement [ hArraySize ];
-            phElement.setHArray ( hArray, hArraySize );
+            COLLADAFW::HElement* hElements = new COLLADAFW::HElement [ hArraySize ];
+            COLLADAFW::HArray hArray ( hElements, hArraySize );
+            phElement.setHArray ( hArray );
 
             // Go through the h elements
             for ( size_t m=0; m<hArraySize; ++m )
@@ -619,8 +648,9 @@ namespace COLLADADomHelper
         size_t pListSize = domPList.getCount ();
 
         // Create the COLLADAFramework polygons array list
-        COLLADAFW::UIntValuesArray pListValues = new unsigned int [ pListSize ];
-        pElement.setUIntValuesArray ( pListValues, pListSize, faceIndex );
+        unsigned int* pValues = new unsigned int [ pListSize ];
+        COLLADAFW::UIntValuesArray pArrayValues ( pValues, pListSize );
+        pElement.setUIntValuesArray ( pArrayValues, faceIndex );
 
         // Increment the face index for the currently used face.
         ++faceIndex;
@@ -628,7 +658,7 @@ namespace COLLADADomHelper
         // Fill the primitives list
         for ( size_t m=0; m<pListSize; ++m )
         {
-            pListValues [ m ] = ( unsigned int ) domPList.get ( m );
+            pArrayValues [ m ] = ( unsigned int ) domPList.get ( m );
         }
     }
 
@@ -643,8 +673,9 @@ namespace COLLADADomHelper
         size_t hListSize = domHList.getCount ();
 
         // Create the COLLADAFramework polygons array list
-        COLLADAFW::UIntValuesArray hListValues = new unsigned int [ hListSize ];
-        hElement.setUIntValuesArray ( hListValues, hListSize, faceIndex );
+        unsigned int* hValues = new unsigned int [ hListSize ];
+        COLLADAFW::UIntValuesArray hListValues ( hValues, hListSize );
+        hElement.setUIntValuesArray ( hListValues, faceIndex );
 
         // Increment the face index for the currently used face.
         ++faceIndex;

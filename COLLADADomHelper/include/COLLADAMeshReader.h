@@ -194,7 +194,7 @@ namespace COLLADADomHelper
          * @param sourceRef The dom source element.
          * @param source The COLLADAFramework source element.
          */
-        COLLADAFW::SourceBase* fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source );
+        COLLADAFW::SourceBase* createSourceElement ( const domSourceRef& sourceRef );
 
         /**
          * Fills the current technique_common data.
