@@ -124,13 +124,13 @@ namespace COLLADAFW
          * @param sourceId The source id of the searched source element.
          * @return COLLADAFW::Source The source element with the given id or 0 if it not exist.
          */
-        const Source* getSourceById ( const String& sourceId ) const
+        const SourceBase* getSourceById ( const String& sourceId ) const
         {
             for ( size_t i=0; i<mSourceArraySize; ++i )
             {
-                Source& source = mSourceArray [ i ];
-                if ( COLLADASW::Utils::equals ( source.getId (), sourceId ) )
-                    return &source;
+                SourceBase* source = mSourceArray [ i ];
+                if ( COLLADASW::Utils::equals ( source->getId (), sourceId ) )
+                    return source;
             }
 
             return 0;
@@ -141,7 +141,7 @@ namespace COLLADAFW
          * @param semantic The input semantic, from which the source element is searched.
          * @return Source* Pointer to the searched source element.
          */
-        const Source* getSourceByInputSemantic ( COLLADAFW::InputSemantic::Semantic semantic ) const
+        const SourceBase* getSourceByInputSemantic ( COLLADAFW::InputSemantic::Semantic semantic ) const
         {
             const InputUnshared* positionsInput = getVertices().getInputBySemantic ( semantic );
             if ( positionsInput == 0 ) return 0;
