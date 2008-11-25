@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWConstants.h"
+#include "COLLADAFWArray.h"
 
 #include <COLLADASWURI.h>
 
@@ -148,7 +149,7 @@ namespace COLLADAFW
     };
 
     /** Pointer to an array of input elements. */
-    typedef InputUnshared* InputUnsharedArray;
+    typedef Array<InputUnshared> InputUnsharedArray;
 
 }
 

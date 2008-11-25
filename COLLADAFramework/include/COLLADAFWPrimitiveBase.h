@@ -41,11 +41,6 @@ namespace COLLADAFW
         UIntValuesArray mUIntValuesArray;
 
         /**
-         * The number of unsigned int values in the values array.
-         */
-        size_t mUIntValuesArraySize;
-
-        /**
          * The face index of the current primitive indices. 
          */
         size_t mFaceIndex;
@@ -53,25 +48,18 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-        PrimitiveBase () 
-            : mUIntValuesArray ( 0 ) 
-        {}
+        PrimitiveBase () {}
 
         /** Destructor. */
-        virtual ~PrimitiveBase () 
-        {
-            delete[] mUIntValuesArray; 
-        }
+        virtual ~PrimitiveBase () {}
 
         /**
          * Contains a list of unsigned ints that specifies the vertex attributes (indices) for an 
          * individual polygon or for a hole in a polygon.
-         * @param valuesArraySize The size parameter of the returned array.
          * @return const PrimitiveBase::ValuesArray& Reference to the values array.
          */
-        const UIntValuesArray& getUIntValuesArray ( size_t& valuesArraySize ) const 
+        const UIntValuesArray& getUIntValuesArray () const 
         { 
-            valuesArraySize = mUIntValuesArraySize;
             return mUIntValuesArray; 
         }
 
@@ -81,9 +69,8 @@ namespace COLLADAFW
          * @param valuesArraySize The size parameter of the returned array.
          * @return const PrimitiveBase::ValuesArray& Reference to the values array.
          */
-        UIntValuesArray& getUIntValuesArray ( size_t& valuesArraySize ) 
+        UIntValuesArray& getUIntValuesArray () 
         { 
-            valuesArraySize = mUIntValuesArraySize;
             return mUIntValuesArray; 
         }
 
@@ -96,10 +83,8 @@ namespace COLLADAFW
          */
         void setUIntValuesArray ( 
             const UIntValuesArray& valuesArray, 
-            const size_t valuesArraySize, 
             const size_t faceIndex ) 
         {
-            mUIntValuesArraySize = valuesArraySize;
             mUIntValuesArray = valuesArray; 
             mFaceIndex = faceIndex;
         }
@@ -129,13 +114,13 @@ namespace COLLADAFW
      * The p element for the polygon vertex attribute indices.
      */
     typedef PrimitiveBase PElement;
-    typedef PElement* PArray;
+    typedef Array<PElement> PArray;
 
     /**
     * The h element for the polygons hole vertex attribute indices.
     */
     typedef PrimitiveBase HElement;
-    typedef HElement* HArray;
+    typedef Array<HElement> HArray;
 
 }
 

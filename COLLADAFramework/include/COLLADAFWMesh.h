@@ -46,11 +46,6 @@ namespace COLLADAFW
         SourceArray mSourceArray;
 
         /**
-         * The size of the current source array.
-         */
-        size_t mSourceArraySize;
-
-        /**
          * Describes the mesh-vertex attributes and establishes
          * their topological identity.
          */
@@ -63,38 +58,22 @@ namespace COLLADAFW
         PolylistArray mPolylistArray;
 
         /**
-         * The number of polylist elements in the polylist list.
-         */
-        size_t mPolylistArraySize;
-
-        /**
         * Contains polygon primitives which may contain holes.
          */
         PolygonsArray mPolygonsArray;
-
-        /**
-         * The number of polygons elements in the polylist list.
-         */
-        size_t mPolygonsArraySize;
 
 
     public:
 
         /** Constructor. */
-        Mesh () : 
-          mSourceArray ( 0 )
-        , mSourceArraySize ( 0 )
-        , mPolylistArray ( 0 ) 
-        , mPolylistArraySize ( 0 )
-        , mPolygonsArray ( 0 )
-        , mPolygonsArraySize ( 0 )
+        Mesh ()
         {}
 
         /** Destructor. */
         virtual ~Mesh () 
         {
-            delete mPolylistArray;
-            delete mSourceArray;
+//             delete mPolylistArray;
+//             delete mSourceArray;
         }
 
         /**
@@ -102,9 +81,8 @@ namespace COLLADAFW
          * @param sourceArraySize Parameter to get the size of the source array.
          * @return const SourceArray The source array.
          */
-        const SourceArray& getSourceArray ( size_t& sourceArraySize ) const 
+        const SourceArray& getSourceArray () const 
         { 
-            sourceArraySize = mSourceArraySize;
             return mSourceArray; 
         }
         
@@ -113,9 +91,8 @@ namespace COLLADAFW
          * @param sourceArray The source array.
          * @param sourceArraySize The size of the source array.
          */
-        void setSourceArray ( const SourceArray& sourceArray, const size_t sourceArraySize ) 
+        void setSourceArray ( const SourceArray& sourceArray ) 
         { 
-            mSourceArraySize = sourceArraySize;
             mSourceArray = sourceArray; 
         }
 
@@ -126,7 +103,7 @@ namespace COLLADAFW
          */
         const SourceBase* getSourceById ( const String& sourceId ) const
         {
-            for ( size_t i=0; i<mSourceArraySize; ++i )
+            for ( size_t i=0; i<mSourceArray.getCount (); ++i )
             {
                 SourceBase* source = mSourceArray [ i ];
                 if ( COLLADASW::Utils::equals ( source->getId (), sourceId ) )
@@ -141,7 +118,7 @@ namespace COLLADAFW
          * @param semantic The input semantic, from which the source element is searched.
          * @return Source* Pointer to the searched source element.
          */
-        const SourceBase* getSourceByInputSemantic ( COLLADAFW::InputSemantic::Semantic semantic ) const
+        const SourceBase* getSourceByInputSemantic ( InputSemantic::Semantic semantic ) const
         {
             const InputUnshared* positionsInput = getVertices().getInputBySemantic ( semantic );
             if ( positionsInput == 0 ) return 0;
@@ -171,56 +148,46 @@ namespace COLLADAFW
 
         /**
         * Gets the polygons element array.
-        * @param polygonsArraySize Parameter to store the size of the array.
         * @return Returns a reference to the array of polygons elements.
         */
-        PolygonsArray& getPolygonsArray ( size_t& polygonsArraySize ) 
+        PolygonsArray& getPolygonsArray () 
         { 
-            polygonsArraySize = mPolygonsArraySize; 
+            return mPolygonsArray; 
+        }
+
+        /**
+        * Gets the polygons element array.
+        * @return Returns a constant reference to the array of polygons elements.
+        */
+        const PolygonsArray &getPolygonsArray () const 
+        { 
             return mPolygonsArray; 
         }
 
         /**
         * Gets the polylist element array.
         * @param Pointer to the array of polylist elements.
-        * @param polylistArraySize The number of elements in the polylist array.
         */
-        void setPolygonsArray ( const PolygonsArray& polygonsArray, const size_t polygonsArraySize )  
+        void setPolygonsArray ( const PolygonsArray& polygonsArray )  
         { 
-            mPolygonsArraySize = polygonsArraySize;
             mPolygonsArray = polygonsArray; 
         }
 
         /**
-        * Gets the polygons element array.
-        * @param polygonsArraySize Parameter to store the size of the array.
-        * @return Returns a constant reference to the array of polygons elements.
-        */
-        const PolygonsArray &getPolygonsArray ( size_t& polygonsArraySize ) const 
-        { 
-            polygonsArraySize = mPolygonsArraySize; 
-            return mPolygonsArray; 
-        }
-
-        /**
         * Gets the polylist element array.
-        * @param polylistSize Parameter to set the number of elements in the polylist list.
         * @return Returns a constant pointer to the array of polylist elements.
         */
-        const PolylistArray& getPolylistArray ( size_t& polylistArraySize ) const 
+        const PolylistArray& getPolylistArray () const 
         { 
-            polylistArraySize = mPolylistArraySize;
             return mPolylistArray; 
         }
 
         /**
          * Sets the polylist element array.
          * @param polylistList Pointer to the polylist list to set.
-         * @param polylistSize The number of elements in the polylist list.
          */
-        void setPolylistArray ( const PolylistArray polylistArray, const size_t polylistArraySize ) 
+        void setPolylistArray ( const PolylistArray& polylistArray ) 
         { 
-            mPolylistArraySize = polylistArraySize;
             mPolylistArray = polylistArray; 
         }
 

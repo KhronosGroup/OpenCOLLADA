@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPolyBase.h"
 #include "COLLADAFWPrimitiveBase.h"
+#include "COLLADAFWArray.h"
 
 
 namespace COLLADAFW
@@ -31,7 +32,7 @@ namespace COLLADAFW
     public:
 
         /** The array of vertex counts per polygons. */
-        typedef unsigned int* VCountArray;
+        typedef Array<unsigned int> VCountArray;
 
     private:
 
@@ -42,11 +43,6 @@ namespace COLLADAFW
         */
         VCountArray mVCountArray;
 
-        /** 
-         * Contains the number of vcount elements in the @mVCountArray array. 
-         */
-        size_t mVCountArraySize;
-
         /**
         * Contains a array of integers that specify the vertex attributes
         * (indices) for an individual Polylist. (“p” stands for “primitive”.)
@@ -54,25 +50,17 @@ namespace COLLADAFW
         */
         PElement mPElement;
 
-
     public:	
 
         /**
         * Constructor
         */
-        Polylist () 
-            : PolyBase ()
-            , mVCountArray ( 0 )
-            , mVCountArraySize ( 0 )
-        {}
+        Polylist () : PolyBase () {}
 
         /**
         * Destructor
         */
-        virtual ~Polylist() 
-        {
-            delete[] mVCountArray;
-        }
+        virtual ~Polylist() {}
 
         /**
         * The vcount element contains a array of integers describing the number 
@@ -81,9 +69,8 @@ namespace COLLADAFW
         * @param vCountArraySize Parameter to set the size of the array.
         * @return An integer pointer to the vcount array.
         */
-        const VCountArray& getVCountArray ( size_t& vCountArraySize ) const 
+        const VCountArray& getVCountArray () const 
         {
-            vCountArraySize = mVCountArraySize;
             return mVCountArray; 
         }
 
@@ -94,9 +81,8 @@ namespace COLLADAFW
          * @param vCountArraySize The size of the array.
          * @param vCountArray A pointer to the array of vcounts.
          */
-        void setVCountArray ( const VCountArray& vCountArray, const size_t vCountArraySize ) 
+        void setVCountArray ( const VCountArray& vCountArray ) 
         { 
-            mVCountArraySize = vCountArraySize;
             mVCountArray = vCountArray; 
         }
 
@@ -133,7 +119,7 @@ namespace COLLADAFW
 
     };
 
-    typedef Polylist* PolylistArray;
+    typedef Array<Polylist> PolylistArray;
 
 }
 

@@ -55,11 +55,6 @@ namespace COLLADAFW
         */
         InputSharedArray mInputArray;
 
-        /**
-         * Contains the number of input elements in the @mInputArray array.
-         */
-        size_t mInputArraySize;
-
     public:	
 
         /**
@@ -67,17 +62,12 @@ namespace COLLADAFW
         */
         PolyBase () 
             : mCount ( 0 )
-            , mInputArray ( 0 )
-            , mInputArraySize ( 0 ) 
         {}
 
         /**
         * Destructor
         */
-        virtual ~PolyBase() 
-        {
-            delete[] mInputArray;
-        }
+        virtual ~PolyBase() {}
 
         /**
         * Gets the name attribute.
@@ -118,12 +108,10 @@ namespace COLLADAFW
         /**
          * The input element may occur any number of times. This input is a 
          * local input with the  offset and set attributes.
-         * @param inputArraySize Parameter to get the size of the array.
          * @return const InputArray The array with the input elements.
          */
-        const InputSharedArray& getInputArray ( size_t& inputArraySize ) const 
+        const InputSharedArray& getInputArray () const 
         {
-            inputArraySize = mInputArraySize;
             return mInputArray; 
         }
 
@@ -131,11 +119,9 @@ namespace COLLADAFW
          * The input element may occur any number of times. This input is a 
          * local input with the  offset and set attributes.
          * @param inputArray The array with the input elements.
-         * @param inputArraySize The size of the input array.
          */
-        void setInputArray ( const InputSharedArray& inputArray, const size_t inputArraySize ) 
+        void setInputArray ( const InputSharedArray& inputArray ) 
         { 
-            mInputArraySize = inputArraySize;
             mInputArray = inputArray; 
         }
 

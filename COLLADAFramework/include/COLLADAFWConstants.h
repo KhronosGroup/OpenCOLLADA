@@ -12,12 +12,13 @@
 #define __COLLADAFW_CONSTANTS_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWArray.h"
 
 namespace COLLADAFW
 {
 
     /** An array of unsigned int values. */
-    typedef unsigned int* UIntValuesArray;
+    typedef Array<unsigned int> UIntValuesArray;
 
 
     /** Declares the storage for the graphical representation of an object. */

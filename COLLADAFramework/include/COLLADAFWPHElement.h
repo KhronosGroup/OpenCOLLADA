@@ -37,27 +37,17 @@ namespace COLLADAFW
          */
         HArray mHArray;
 
-        /**
-         * Contains the number of primitives in the @mHArray array. 
-         */
-        size_t mHArraySize;
-
     public:
 
         /**
         * Constructor
         */
-        PHElement () 
-            : mHArray ( 0 )
-        {}
+        PHElement () {}
 
         /**
         * Destructor
         */
-        virtual ~PHElement() 
-        {
-            delete[] mHArray;
-        }
+        virtual ~PHElement() {}
 
         /**
         * Contains a list of UInts that specifies the vertex attributes (indices) for an 
@@ -70,24 +60,20 @@ namespace COLLADAFW
         /**
         * Contains a list of unsigned ints that specifies the indices of a hole inthe polygon 
         * specified by <p>. Occures once or more in a ph element.
-        * @param hArraySize The parameter to get the size of the returned array.
         * @return HArray& Reference to the ph array.
         */
-        HArray& getHArray ( size_t& hArraySize ) 
+        HArray& getHArray () 
         { 
-            hArraySize = mHArraySize;
             return mHArray; 
         }
 
         /**
         * Contains a list of unsigned ints that specifies the indices of a hole inthe polygon 
         * specified by <p>. Occures once or more in a ph element.
-        * @param hArraySize The parameter to get the size of the returned array.
         * @return HArray& Const reference to the ph array.
         */
-        const HArray& getHArray ( size_t& hArraySize ) const 
+        const HArray& getHArray () const 
         { 
-            hArraySize = mHArraySize;
             return mHArray; 
         }
 
@@ -95,11 +81,9 @@ namespace COLLADAFW
         * Contains a list of unsigned ints that specifies the indices of a hole inthe polygon 
         * specified by <p>. Occures once or more in a ph element.
         * @param hArray Reference to the ph array.
-        * @param hArraySize The parameter to get the size of the returned array.
         */
-        void setHArray ( const HArray& hArray, const size_t hArraySize  ) 
+        void setHArray ( const HArray& hArray ) 
         { 
-            mHArraySize = hArraySize;
             mHArray = hArray; 
         }
 
@@ -108,7 +92,7 @@ namespace COLLADAFW
     /**
      * Array of ph elements.
      */
-    typedef PHElement* PHArray;
+    typedef Array<PHElement> PHArray;
 }
 
 

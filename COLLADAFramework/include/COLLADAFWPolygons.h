@@ -87,29 +87,21 @@ namespace COLLADAFW
         */
         Polygons () 
             : PolyBase ()
-            , mPArray ( 0 )
-            , mPHArray ( 0 )
         {}
 
         /**
         * Destructor
         */
-        virtual ~Polygons() 
-        {
-            delete[] mPArray;
-            delete[] mPHArray;
-        }
+        virtual ~Polygons() {}
 
         /**
         * Contains a array of integers that specify the vertex attributes
         * (indices) for an individual Polylist ("p" stands for "primitive").
         * The p element may occur not or more. 
-        * @param pArraySize The parameter to get the size of the returned array.
         * @return PArray& Reference to the ph array.
         */
-        PArray& getPArray ( size_t& pArraySize ) 
+        PArray& getPArray () 
         { 
-            pArraySize = mPArraySize;
             return mPArray; 
         }
 
@@ -117,12 +109,10 @@ namespace COLLADAFW
         * Contains a array of integers that specify the vertex attributes
         * (indices) for an individual Polylist ("p" stands for "primitive").
         * The p element may occur not or more. 
-        * @param pArraySize The parameter to get the size of the returned array.
         * @return PArray& Const reference to the ph array.
         */
-        const PArray& getPArray ( size_t& pArraySize ) const 
+        const PArray& getPArray () const 
         { 
-            pArraySize = mPArraySize;
             return mPArray; 
         }
 
@@ -133,9 +123,8 @@ namespace COLLADAFW
         * @param pArray Reference to the ph array.
         * @param pArraySize The parameter to get the size of the returned array.
         */
-        void setPArray ( const PArray& pArray, const size_t pArraySize  ) 
+        void setPArray ( const PArray& pArray ) 
         { 
-            mPArraySize = pArraySize;
             mPArray = pArray; 
         }
 
@@ -143,12 +132,10 @@ namespace COLLADAFW
         * Contains a array of integers that specify the vertex attributes
         * (indices) for an individual Polylist ("p" stands for "primitive").
         * The p element may occur not or more. 
-        * @param phArraySize The parameter to get the size of the returned array.
         * @return PHArray& Reference to the ph array.
         */
-        PHArray& getPHArray ( size_t& phArraySize ) 
+        PHArray& getPHArray () 
         { 
-            phArraySize = mPHArraySize;
             return mPHArray; 
         }
 
@@ -156,12 +143,10 @@ namespace COLLADAFW
         * Contains a array of integers that specify the vertex attributes
         * (indices) for an individual Polylist ("p" stands for "primitive").
         * The p element may occur not or more. 
-        * @param phArraySize The parameter to get the size of the returned array.
         * @return PHArray& Const reference to the ph array.
         */
-        const PHArray& getPHArray ( size_t& phArraySize ) const 
+        const PHArray& getPHArray () const 
         { 
-            phArraySize = mPHArraySize;
             return mPHArray; 
         }
 
@@ -170,11 +155,9 @@ namespace COLLADAFW
         * (indices) for an individual Polylist ("p" stands for "primitive").
         * The p element may occur not or more. 
         * @param phArray Reference to the ph array.
-        * @param phArraySize The parameter to get the size of the returned array.
         */
-        void setPHArray ( const PHArray& phArray, const size_t phArraySize  ) 
+        void setPHArray ( const PHArray& phArray ) 
         { 
-            mPHArraySize = phArraySize;
             mPHArray = phArray; 
         }
 
@@ -183,7 +166,7 @@ namespace COLLADAFW
     /**
      * Array of polygons elements.
      */
-    typedef Polygons* PolygonsArray;
+    typedef Array<Polygons> PolygonsArray;
 }
 
 #endif // __COLLADAFW_POLYGONS_H__

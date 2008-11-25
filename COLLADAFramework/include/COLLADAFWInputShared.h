@@ -95,7 +95,7 @@ namespace COLLADAFW
     };
 
     /** Pointer to an array of input elements. */
-    typedef InputShared* InputSharedArray;
+    typedef Array<InputShared> InputSharedArray;
 
 }
 

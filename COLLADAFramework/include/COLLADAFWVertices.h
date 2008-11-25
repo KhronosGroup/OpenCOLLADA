@@ -45,11 +45,6 @@ namespace COLLADAFW
         */
         InputUnsharedArray mInputArray;
 
-        /**
-         * The size of the current input array. 
-         */
-        size_t mInputArraySize;
-
     public:
 
         /** Constructor. */
@@ -87,12 +82,10 @@ namespace COLLADAFW
         /**
          * One input must specify semantic="POSITION" to establish the 
          * topological identity of each vertex in the mesh.
-         * @param inputArraySize Parameter for the size of the array.
          * @return const COLLADAFW::InputArray The input array.
          */
-        const InputUnsharedArray getInputArray ( size_t& inputArraySize ) const 
+        const InputUnsharedArray getInputArray () const 
         { 
-            inputArraySize = mInputArraySize;
             return mInputArray; 
         }
 
@@ -100,11 +93,9 @@ namespace COLLADAFW
          * One input must specify semantic="POSITION" to establish the 
          * topological identity of each vertex in the mesh.
          * @param inputArray The input array to set.
-         * @param inputArraySize The size of the array.
          */
-        void setInputArray ( const InputUnsharedArray inputArray, size_t inputArraySize ) 
+        void setInputArray ( const InputUnsharedArray& inputArray ) 
         { 
-            mInputArraySize = inputArraySize;
             mInputArray = inputArray; 
         }
 
@@ -115,9 +106,9 @@ namespace COLLADAFW
          */
         const InputUnshared* getInputBySemantic ( const InputSemantic::Semantic& semantic ) const
         {
-            for ( size_t i=0; i<mInputArraySize; ++i )
+            for ( size_t i=0; i<mInputArray.getCount (); ++i )
             {
-                InputUnshared& input = mInputArray [ i ];
+                const InputUnshared& input = mInputArray [ i ];
                 if ( input.getSemantic () == semantic )
                     return &input;
             }

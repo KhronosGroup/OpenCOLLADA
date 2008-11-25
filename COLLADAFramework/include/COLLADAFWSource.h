@@ -515,8 +515,7 @@ namespace COLLADAFW
 
     };
 
-    
-    typedef SourceBase** SourceArray;
+    typedef Array<SourceBase*> SourceArray;
 
 }
 
