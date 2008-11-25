@@ -183,90 +183,116 @@ namespace COLLADADomHelper
     }
 
     // --------------------------------------------
-    void MeshReader::fillNameArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    COLLADAFW::SourceBase* MeshReader::createNameArrayElementSource ( const domSourceRef& sourceRef )
     {
         domName_arrayRef arrayRef = sourceRef->getName_array ();
         if ( arrayRef != 0 )
         {
-            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_NAME );
-            COLLADAFW::NameArrayElement& arrayElement = source.getNameArrayElement ();
-            arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
-            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
-            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
+            COLLADAFW::Source<COLLADAFW::NameArrayElement>* source;
+            source = new COLLADAFW::Source<COLLADAFW::NameArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_NAME ); 
+            
+            COLLADAFW::NameArrayElement* arrayElement = source->getNameArrayElement ();
+            arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement->setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement->setName ( arrayRef->getName () );
 
             domListOfNames& domValues = arrayRef->getValue ();
             daeMemoryRef memoryRef = domValues.getRawData ();
-            arrayElement.setValues ( reinterpret_cast <String*> ( domValues.getRawData () ), domValues.getCount () );
+            arrayElement->setValues ( reinterpret_cast <String*> ( domValues.getRawData () ), domValues.getCount () );
+
+            return source;
         }
+
+        return 0;
     }
 
     // --------------------------------------------
-    void MeshReader::fillBoolArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    COLLADAFW::SourceBase* MeshReader::createBoolArrayElementSource ( const domSourceRef& sourceRef )
     {
         domBool_arrayRef arrayRef = sourceRef->getBool_array ();
         if ( arrayRef != 0 )
         {
-            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_BOOL );
-            COLLADAFW::BoolArrayElement& arrayElement = source.getBoolArrayElement ();
-            arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
-            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
-            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
+            COLLADAFW::Source<COLLADAFW::BoolArrayElement>* source;
+            source = new COLLADAFW::Source<COLLADAFW::BoolArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_BOOL ); 
+
+            COLLADAFW::BoolArrayElement* arrayElement = source->getBoolArrayElement ();
+            arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement->setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement->setName ( arrayRef->getName () );
 
             domListOfBools& domValues = arrayRef->getValue ();
             daeMemoryRef memoryRef = domValues.getRawData ();
-            arrayElement.setValues ( reinterpret_cast <bool*> ( domValues.getRawData () ), domValues.getCount () );
+            arrayElement->setValues ( reinterpret_cast <bool*> ( domValues.getRawData () ), domValues.getCount () );
+
+            return source;
         }
+
+        return 0;
     }
 
     // --------------------------------------------
-    void MeshReader::fillIntArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    COLLADAFW::SourceBase* MeshReader::createIntArrayElementSource ( const domSourceRef& sourceRef )
     {
         domInt_arrayRef arrayRef = sourceRef->getInt_array ();
         if ( arrayRef != 0 )
         {
             // The dom has internal a long long!
-            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_LONG64 );
-            COLLADAFW::Long64ArrayElement& arrayElement = source.getLong64ArrayElement ();
-            arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
-            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
-            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
+            COLLADAFW::Source<COLLADAFW::Long64ArrayElement>* source;
+            source = new COLLADAFW::Source<COLLADAFW::Long64ArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_LONG64 ); 
+
+            COLLADAFW::Long64ArrayElement* arrayElement = source->getLong64ArrayElement ();
+            arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement->setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement->setName ( arrayRef->getName () );
 
             domListOfInts& domValues = arrayRef->getValue ();
             daeMemoryRef memoryRef = domValues.getRawData ();
-            arrayElement.setValues ( reinterpret_cast <long long*> ( domValues.getRawData () ), domValues.getCount () );
+            arrayElement->setValues ( reinterpret_cast <long long*> ( domValues.getRawData () ), domValues.getCount () );
+
+            return source;
         }
+
+        return 0;
     }
 
     // --------------------------------------------
-    void MeshReader::fillFloatArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    COLLADAFW::SourceBase* MeshReader::createFloatArrayElementSource ( const domSourceRef& sourceRef )
     {
         domFloat_arrayRef arrayRef = sourceRef->getFloat_array ();
         if ( arrayRef != 0 )
         {
             // The dom has internal a double!
-            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_DOUBLE );
-            COLLADAFW::DoubleArrayElement& arrayElement = source.getDoubleArrayElement ();
-            arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
-            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
-            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
+            COLLADAFW::Source<COLLADAFW::DoubleArrayElement>* source;
+            source = new COLLADAFW::Source<COLLADAFW::DoubleArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_DOUBLE ); 
+
+            COLLADAFW::DoubleArrayElement* arrayElement = source->getDoubleArrayElement ();
+            arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement->setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement->setName ( arrayRef->getName () );
 
             domListOfFloats& domValues = arrayRef->getValue ();
             daeMemoryRef memoryRef = domValues.getRawData ();
-            arrayElement.setValues ( reinterpret_cast <double*> ( domValues.getRawData () ), domValues.getCount () );
+            arrayElement->setValues ( reinterpret_cast <double*> ( domValues.getRawData () ), domValues.getCount () );
+
+            return source;
         }
+
+        return 0;
     }
 
     // --------------------------------------------
-    void MeshReader::fillIDREFArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    COLLADAFW::SourceBase*  MeshReader::createIDREFArrayElementSource ( const domSourceRef& sourceRef )
     {
         domIDREF_arrayRef arrayRef = sourceRef->getIDREF_array ();
         if ( arrayRef != 0 )
         {
-            source.setValueType ( COLLADAFW::Source::VALUE_TYPE_IDREF );
-            COLLADAFW::IDREFArrayElement& arrayElement = source.getIDREFArrayElement ();
-            arrayElement.setCount ( ( unsigned int ) arrayRef->getCount () );
-            if ( arrayRef->getId () != 0 ) arrayElement.setId ( arrayRef->getId () );
-            if ( arrayRef->getName () != 0 ) arrayElement.setName ( arrayRef->getName () );
+            COLLADAFW::Source<COLLADAFW::IDREFArrayElement>* source;
+            source = new COLLADAFW::Source<COLLADAFW::IDREFArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_IDREF ); 
+
+            COLLADAFW::IDREFArrayElement* arrayElement = source->getIDREFArrayElement ();
+            arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
+            if ( arrayRef->getId () != 0 ) arrayElement->setId ( arrayRef->getId () );
+            if ( arrayRef->getName () != 0 ) arrayElement->setName ( arrayRef->getName () );
 
             xsIDREFS domValues = arrayRef->getValue ();
             size_t valuesCount = domValues.getCount ();
@@ -277,10 +303,12 @@ namespace COLLADADomHelper
                 // TODO Is this that i want to have???
                 valuesArray [ m ] = val.getID ();
             }
-            arrayElement.setValues ( valuesArray, valuesCount );
+            arrayElement->setValues ( valuesArray, valuesCount );
 
-            source.setIDREFArrayElement ( arrayElement );
+            return source;
         }
+
+        return 0;
     }
 
     // --------------------------------------------
@@ -292,7 +320,7 @@ namespace COLLADADomHelper
 
         // Create a new source array with the required size
         COLLADAFW::SourceArray sourceArray;
-        sourceArray = new COLLADAFW::Source [ sourceArraySize ];
+        sourceArray = new COLLADAFW::SourceBase* [ sourceArraySize ];
         mMesh->setSourceArray ( sourceArray, sourceArraySize );
 
         for ( size_t n=0; n<sourceArraySize; ++n )
@@ -301,37 +329,40 @@ namespace COLLADADomHelper
             domSourceRef sourceRef = domSourceArray.get ( n );
 
             // The current source array to fill in.
-            COLLADAFW::Source& source = sourceArray [ n ];
-            source.setId ( sourceRef->getId () );
-            if ( sourceRef->getName () != 0 ) source.setName ( sourceRef->getName () );
+            COLLADAFW::SourceBase* source = sourceArray [ n ];
 
             // Fills the current dae source element into a COLLADAFramework source element.
-            fillSourceElement ( sourceRef, source );
+            source = fillSourceElement ( sourceRef, source );
+            source->setId ( sourceRef->getId () );
+            if ( sourceRef->getName () != 0 ) source->setName ( sourceRef->getName () );
         }
     }
 
     // --------------------------------------------
-    void MeshReader::fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source )
+    COLLADAFW::SourceBase* MeshReader::fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source )
     {
         // Fill the array element of the existing type.
-        fillNameArrayElement ( sourceRef, source );
-        fillIntArrayElement ( sourceRef, source );
-        fillFloatArrayElement ( sourceRef, source );
-        fillBoolArrayElement ( sourceRef, source );
-        fillIDREFArrayElement ( sourceRef, source );
+        source = createNameArrayElementSource ( sourceRef );
+        source = createIntArrayElementSource ( sourceRef );
+        source = createFloatArrayElementSource ( sourceRef );
+        source = createBoolArrayElementSource ( sourceRef );
+        source = createIDREFArrayElementSource ( sourceRef );
 
+        // TODO Return source!
         // Fill the technique common elements.
-        fillTechniqueCommon(sourceRef, source);
+        fillTechniqueCommon ( sourceRef, source );
+
+        return source;
     }
 
     // --------------------------------------------
-    void MeshReader::fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::Source &source )
+    void MeshReader::fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source )
     {
         domSource::domTechnique_commonRef techniqueCommonRef;
         techniqueCommonRef = sourceRef->getTechnique_common ();
         domAccessorRef accessorRef = techniqueCommonRef->getAccessor ();
 
-        COLLADAFW::TechniqueCommon& techniqueCommon = source.getTechniqueCommon ();
+        COLLADAFW::TechniqueCommon& techniqueCommon = source->getTechniqueCommon ();
         COLLADAFW::Accessor& accessor = techniqueCommon.getAccessor ();
 
         unsigned int count = ( unsigned int ) accessorRef->getCount ();

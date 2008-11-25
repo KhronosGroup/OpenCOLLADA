@@ -53,11 +53,11 @@ namespace COLLADADomHelper
         * @param sourceRef Pointer to the domSourceRef.
         * @param source The COLLADAFramework name array to fill.
         */
-        void fillNameArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
-        void fillBoolArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
-        void fillIntArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
-        void fillFloatArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
-        void fillIDREFArrayElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
+        COLLADAFW::SourceBase* createNameArrayElementSource ( const domSourceRef& sourceRef );
+        COLLADAFW::SourceBase* createBoolArrayElementSource ( const domSourceRef& sourceRef );
+        COLLADAFW::SourceBase* createIntArrayElementSource ( const domSourceRef& sourceRef );
+        COLLADAFW::SourceBase* createFloatArrayElementSource ( const domSourceRef& sourceRef );
+        COLLADAFW::SourceBase* createIDREFArrayElementSource ( const domSourceRef& sourceRef );
 
         /** One vertices input must specify semantic="POSITION" to establish the 
         topological identity of each vertex in the mesh. */
@@ -194,14 +194,14 @@ namespace COLLADADomHelper
          * @param sourceRef The dom source element.
          * @param source The COLLADAFramework source element.
          */
-        void fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::Source& source );
+        COLLADAFW::SourceBase* fillSourceElement ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source );
 
         /**
          * Fills the current technique_common data.
          * @param sourceRef The dom source element.
          * @param source The COLLADAFramework source element.
          */
-        void fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::Source &source );
+        void fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source );
     };
 }
 
