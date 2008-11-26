@@ -308,6 +308,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWLoaderUtils.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWMatrix.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWNode.cpp"
 				>
 			</File>
@@ -321,6 +329,14 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWRoot.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWRotate.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWScale.cpp"
 				>
 			</File>
 			<File
@@ -402,6 +418,26 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\src\Math\COLLADAFWMathVector3.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+						/>
+					</FileConfiguration>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -443,6 +479,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWIWriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWLoaderUtils.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMatrix.h"
 				>
 			</File>
 			<File
@@ -491,6 +535,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWRoot.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWRotate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWScale.h"
 				>
 			</File>
 			<File

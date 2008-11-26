@@ -13,22 +13,36 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTransformation.h"
+#include "COLLADAFWMathVector3.h"
 
 namespace COLLADAFW
 {
 	class Translate : public Transformation 
-		{
+	{
 	private:
+		/** The vector that represents the translation.*/
+		Math::Vector3 mTranslationVector;
 	
 	public:
+		/** Default constructor. Constructs identity translation.*/ 
 		Translate();
+
+		/** Sets translation to @a vector.*/ 
+		Translate(const Math::Vector3& translationVector);
+
+		/** Sets the components of the translation to @a x, @a y, @a z.*/
+		Translate(double x, double y, double z);
+
 		virtual ~Translate();
 
-	private:
-        /** Disable default copy ctor. */
-		Translate( const Translate& pre );
-        /** Disable default assignment operator. */
-		const Translate& operator= ( const Translate& pre );
+		/** Returns the translation vector.*/
+		const Math::Vector3& getTranslation() const { return mTranslationVector; }
+
+		/** Sets the translation vector.*/
+		void setTranslation(const Math::Vector3& translationVector) { mTranslationVector = translationVector; }
+
+		/**  Sets the components of the translation to @a x, @a y, @a z.*/
+		void setTranslation(double x, double y, double z) { mTranslationVector = Math::Vector3(x, y, z); }
 
 	};
 } // namespace COLLADAFW

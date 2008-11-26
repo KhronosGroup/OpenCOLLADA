@@ -13,11 +13,26 @@ http://www.opensource.org/licenses/mit-license.php
 
 namespace COLLADAFW
 {
+
 	//--------------------------------------------------------------------
-	Translate::Translate() : Transformation(Transformation::TRANSLATE)
-	{
-	}
-	
+	Translate::Translate() 
+		: Transformation(Transformation::TRANSLATE),
+		mTranslationVector(Math::Vector3::ZERO)
+	{	}
+
+	//--------------------------------------------------------------------
+	Translate::Translate( const Math::Vector3& translationVector )
+		: Transformation(Transformation::TRANSLATE),
+		mTranslationVector(translationVector)
+	{}
+
+	//--------------------------------------------------------------------
+	Translate::Translate( double x, double y, double z )
+		: Transformation(Transformation::TRANSLATE),
+		mTranslationVector(x, y, z)
+	{}
+
+
 	//--------------------------------------------------------------------
 	Translate::~Translate()
 	{

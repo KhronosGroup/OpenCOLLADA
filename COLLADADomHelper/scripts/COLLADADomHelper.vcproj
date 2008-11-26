@@ -328,6 +328,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADALoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAMaterialUtil.cpp"
 				>
 			</File>
@@ -401,6 +405,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAVerticesUtil.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAVisualSceneLoader.cpp"
 				>
 			</File>
 			<File
@@ -482,6 +490,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADALoader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAMaterialUtil.h"
 				>
 			</File>
@@ -531,6 +543,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAVerticesUtil.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAVisualSceneLoader.h"
 				>
 			</File>
 			<File
