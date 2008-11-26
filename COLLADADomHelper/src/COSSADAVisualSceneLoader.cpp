@@ -27,23 +27,23 @@ namespace COLLADADH
 
 	COLLADAFW::VisualScene* VisualSceneLoader::load()
 	{
-		mVisualScene = new COLLADAFW::VisualScene ();
-
-		const domNode_Array& nodeArray = mColladaVisualScene->getNode_array();
-
-		//COLLADAFW::NodeArray rootNodes(new );
-
-		mVisualScene->setRootNodes(rootNodes);
-
-
-		COLLADADH::NodeTraverser traverser(*mColladaVisualScene);
-		if ( !traverser.traverse(*this) )
-		{
-			delete mVisualScene;
-			return 0;
-		}
-
-		return mVisualScene;
+// 		mVisualScene = new COLLADAFW::VisualScene ();
+// 
+// 		const domNode_Array& nodeArray = mColladaVisualScene->getNode_array();
+// 
+// 		//COLLADAFW::NodeArray rootNodes(new );
+// 
+// 		mVisualScene->setRootNodes(rootNodes);
+// 
+// 
+// 		COLLADADH::NodeTraverser traverser(*mColladaVisualScene);
+// 		if ( !traverser.traverse(*this) )
+// 		{
+// 			delete mVisualScene;
+// 			return 0;
+// 		}
+// 
+// 		return mVisualScene;
 	}
 
 	bool VisualSceneLoader::detectedInstanceGeometry( domInstance_geometry& instance, int level )
