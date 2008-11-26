@@ -22,8 +22,9 @@ namespace COLLADAFW
 	private:
 	
 	public:
-		ILoader();
-		virtual ~ILoader();
+
+        ILoader() {};
+        virtual ~ILoader() {};
 
 		/** Starts loading the model and feeds the writer with data.
 		@param fileName The name of the fills that should be loaded.
@@ -32,8 +33,10 @@ namespace COLLADAFW
 		virtual bool loadDocument(const String& fileName, IWriter* writer)=0;
 
 	private:
+
         /** Disable default copy ctor. */
 		ILoader( const ILoader& pre );
+
         /** Disable default assignment operator. */
 		const ILoader& operator= ( const ILoader& pre );
 
