@@ -26,7 +26,6 @@ namespace [!output NAMESPACE]
     /** TODO Documentation */
 	class [!output CLASS_NAME] [!if BASE_CLASS_NAME != ""][!output ACCESS_STRING] [!output COMPLETE_BASE_CLASS] 
 	[!endif]	
-
 	{
 	private:
 	
