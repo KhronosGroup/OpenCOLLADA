@@ -25,12 +25,11 @@
 #include "COLLADASWException.h"
 #include "COLLADASWURI.h"
 
-#include "COLLADAException.h"
+#include "COLLADADHException.h"
 
 #include <time.h>
 
 #include <maya/MFnPlugin.h>
-#include <maya/MFileIO.h>
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnDependencyNode.h>
 #include <maya/MGlobal.h>
@@ -352,7 +351,7 @@ namespace COLLADAMaya
             // Import the COLLADA DAE file
             status = importFromFile ( filename.asChar() );
         }
-        catch ( COLLADADomHelper::Exception* exception  )
+        catch ( COLLADADH::Exception* exception  )
         {
             String message = "Exception: " + exception->getDescription ();
             MGlobal::displayError ( message.c_str() );
