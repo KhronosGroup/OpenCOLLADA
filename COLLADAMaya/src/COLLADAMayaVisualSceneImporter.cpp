@@ -21,7 +21,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaGeometryImporter.h"
 
-#include "COLLADAReader.h"
+#include "COLLADADHReader.h"
 
 #include <dom/domTypes.h>
 

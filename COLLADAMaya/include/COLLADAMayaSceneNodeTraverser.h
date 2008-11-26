@@ -19,7 +19,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
-#include "COLLADANodeTraverser.h"
+#include "COLLADADHNodeTraverser.h"
 
 namespace COLLADAMaya
 {

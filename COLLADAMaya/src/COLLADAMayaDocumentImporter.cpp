@@ -24,9 +24,11 @@
 
 #include "COLLADASWURI.h"
 
-#include "COLLADADocumentUtil.h"
+#include "COLLADADHDocumentUtil.h"
 
 #include "dom/domTypes.h"
+
+#include <maya/MFileIO.h>
 
 
 namespace COLLADAMaya
@@ -56,8 +58,7 @@ namespace COLLADAMaya
         releaseLibraries();
 
         // Get the sceneID (assign a name to the scene)
-        MString sceneName;
-        MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );
+        MString sceneName = MFileIO::currentFile ();
         if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
 
         // Initialize the reference manager

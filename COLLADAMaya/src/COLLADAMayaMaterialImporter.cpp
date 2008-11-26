@@ -19,9 +19,9 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
 
-#include "COLLADAReader.h"
-#include "COLLADAElementIterator.h"
-#include "COLLADAEffectUtil.h"
+#include "COLLADADHReader.h"
+#include "COLLADADHElementIterator.h"
+#include "COLLADADHEffectUtil.h"
 
 #include <dom/domMaterial.h>
 #include <dom/domTypes.h>

@@ -22,8 +22,8 @@
 #include "COLLADAFWPolylist.h"
 #include "COLLADAFWTypes.h"
 
-#include "COLLADAMeshReader.h"
-#include "COLLADAException.h"
+#include "COLLADADHMeshReader.h"
+#include "COLLADADHException.h"
 
 #include <dom/domPolylist.h>
 

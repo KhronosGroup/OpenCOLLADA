@@ -23,6 +23,7 @@
 #include <dom/domCOLLADA.h>
 #include <dom/domElements.h>
 
+#include "COLLADADHLoader.h"
 
 
 namespace COLLADAMaya
@@ -63,6 +64,8 @@ namespace COLLADAMaya
 
         /** Imports the camera. */
         CameraImporter* mCameraImporter;
+
+        COLLADADH::Loader mLoader;
 
     public:
 

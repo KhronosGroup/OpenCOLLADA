@@ -688,6 +688,22 @@ namespace COLLADAMaya
         double sceneMatrix[4][4] ;
         convertMMatrixToDouble4x4 ( sceneMatrix, mayaSceneMatrix );
 
+//         // TODO Export the animations
+//         MStatus status;
+//         mTransformMatrix.getTranslation ( MSpace::kTransform, &status );
+//         CHECK_MSTATUS (status);
+// 
+//         double rotation[3];
+//         MTransformationMatrix::RotationOrder rotationOrder = 
+//             ( MTransformationMatrix::RotationOrder ) ( ( int ) mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ );
+//         mTransformMatrix.getRotation ( rotation, rotationOrder );
+// 
+//         double scale[3];
+//         mTransformMatrix.getScale ( scale, MSpace );
+// 
+//         double shear[3]
+//         mTransformMatrix.getShear ( shear );
+
         // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!
         for ( uint i=0; i<3; ++i)
