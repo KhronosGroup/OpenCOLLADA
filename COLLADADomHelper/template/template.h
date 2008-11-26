@@ -11,7 +11,7 @@
 #ifndef __[!output NAMESPACE_UPPER]_[!output CLASS_NAME_UPPER]_H__
 #define __[!output NAMESPACE_UPPER]_[!output CLASS_NAME_UPPER]_H__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHPrerequisites.h"
 [!if USE_BASE_NAMESPACE && BASE_CLASS_NAME != ""]
 #include "[!output BASE_NAMESPACE][!output BASE_CLASS_NAME].h"
 [!endif]

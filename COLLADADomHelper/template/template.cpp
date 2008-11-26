@@ -8,7 +8,7 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
+#include "COLLADADHStableHeaders.h"
 #include "[!output NAMESPACE][!output CLASS_NAME].h"
 
 namespace [!output NAMESPACE]
