@@ -23,6 +23,7 @@
 #include <dom/domCOLLADA.h>
 #include <dom/domElements.h>
 
+#include "COLLADAMayaWriter.h"
 #include "COLLADADHLoader.h"
 
 
@@ -65,6 +66,10 @@ namespace COLLADAMaya
         /** Imports the camera. */
         CameraImporter* mCameraImporter;
 
+        /** The writer to create the maya file. */
+        Writer mWriter;
+
+        /** The loader to load the collada document with the collada dom. */
         COLLADADH::Loader mLoader;
 
     public:

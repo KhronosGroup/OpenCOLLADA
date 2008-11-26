@@ -12,8 +12,9 @@
 #define __COLLADA_MESH_READER_H__
 
 #include "COLLADADHStableHeaders.h"
+#include "COLLADADHBaseLoader.h"
+
 #include "COLLADAFWMesh.h"
-#include "COLLADADHReader.h"
 
 #include "dom/domMesh.h"
 
@@ -22,7 +23,7 @@ namespace COLLADADH
 {
 
     /** Reads the geometry of the dom and creates a COLLADAFW::Mesh object. */
-    class MeshReader : Reader
+    class MeshLoader : BaseLoader
     {
 
     private:
@@ -36,10 +37,10 @@ namespace COLLADADH
     public:
 
         /** Constructor. */
-        MeshReader ( daeDocument* daeDoc ) : Reader ( *daeDoc ) {}
+        MeshLoader ( daeDocument* daeDoc ) : BaseLoader ( daeDoc ) {}
 
         /** Destructor. */
-        virtual ~MeshReader () {}
+        virtual ~MeshLoader () {}
 
         /** 
          * Reads the data of the domMesh and creates and fills a new  COLLADAFramework mesh object. 

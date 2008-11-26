@@ -300,6 +300,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWGeometricElement.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWGeometry.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWInputUnshared.cpp"
 				>
 			</File>
@@ -459,6 +467,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWConstants.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWGeometricElement.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWGeometry.h"
 				>
 			</File>
 			<File

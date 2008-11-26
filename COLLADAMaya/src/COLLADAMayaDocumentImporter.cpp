@@ -71,6 +71,9 @@ namespace COLLADAMaya
         mColladaDoc = mDae.open ( fileUriString );
         daeDocument* daeDoc = mColladaDoc->getDocument();
 
+        // Load the collada document with the dom into the collada framework.
+        mLoader.loadDocument ( fileUriString, &mWriter );
+
         // Create the basic elements
         mMaterialImporter = new MaterialImporter ( this, daeDoc );
         mGeometryImporter = new GeometryImporter ( this, daeDoc );

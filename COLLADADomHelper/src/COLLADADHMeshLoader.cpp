@@ -9,7 +9,7 @@
 */
 
 #include "COLLADADHStableHeaders.h"
-#include "COLLADADHMeshReader.h"
+#include "COLLADADHMeshLoader.h"
 
 #include "COLLADAFWParam.h"
 #include "COLLADAFWInputUnshared.h"
@@ -23,7 +23,7 @@ namespace COLLADADH
 {
 
     // --------------------------------------------
-    COLLADAFW::Mesh* MeshReader::createMeshObject ( domMeshRef& meshRef )
+    COLLADAFW::Mesh* MeshLoader::createMeshObject ( domMeshRef& meshRef )
     {
         // Set the current domMesh.
         mMeshRef = meshRef;
@@ -64,7 +64,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillMeshPolylistArray ( 
+    void MeshLoader::fillMeshPolylistArray ( 
         const domPolylist_Array& polylistArray, 
         size_t& faceIndex ) 
     {
@@ -112,7 +112,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillMeshPolygonsArray ( 
+    void MeshLoader::fillMeshPolygonsArray ( 
         const domPolygons_Array& polygonsArray, 
         size_t& faceIndex )
     {
@@ -156,7 +156,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    domSourceRef MeshReader::getPositionsRef ()
+    domSourceRef MeshLoader::getPositionsRef ()
     {
         // One vertices input must specify semantic="POSITION" to establish the 
         // topological identity of each vertex in the mesh.
@@ -166,7 +166,7 @@ namespace COLLADADH
         domInputLocal_Array verticesInputArray = verticesRef->getInput_array ();
 
         // Get the point positions of the vertexes
-        domURIFragmentType positionUri ( * ( mDoc.getDAE () ) );
+        domURIFragmentType positionUri ( * ( getDaeDocument ()->getDAE () ) );
         size_t numOfInputs = verticesInputArray.getCount ();
         for ( size_t j=0; j<numOfInputs; ++j )
         {
@@ -179,7 +179,7 @@ namespace COLLADADH
         }
         if ( positionUri.getState() != daeURI::uri_success )
         {
-            positionUri.setContainer ( mDoc.getDomRoot() );
+            positionUri.setContainer ( getDaeDocument ()->getDomRoot() );
             positionUri.resolveElement ();
         }
 
@@ -187,7 +187,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase* MeshReader::createNameArrayElementSource ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase* MeshLoader::createNameArrayElementSource ( const domSourceRef& sourceRef )
     {
         domName_arrayRef arrayRef = sourceRef->getName_array ();
         if ( arrayRef != 0 )
@@ -211,7 +211,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase* MeshReader::createBoolArrayElementSource ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase* MeshLoader::createBoolArrayElementSource ( const domSourceRef& sourceRef )
     {
         domBool_arrayRef arrayRef = sourceRef->getBool_array ();
         if ( arrayRef != 0 )
@@ -235,7 +235,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase* MeshReader::createIntArrayElementSource ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase* MeshLoader::createIntArrayElementSource ( const domSourceRef& sourceRef )
     {
         domInt_arrayRef arrayRef = sourceRef->getInt_array ();
         if ( arrayRef != 0 )
@@ -260,7 +260,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase* MeshReader::createFloatArrayElementSource ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase* MeshLoader::createFloatArrayElementSource ( const domSourceRef& sourceRef )
     {
         domFloat_arrayRef arrayRef = sourceRef->getFloat_array ();
         if ( arrayRef != 0 )
@@ -285,7 +285,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase*  MeshReader::createIDREFArrayElementSource ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase*  MeshLoader::createIDREFArrayElementSource ( const domSourceRef& sourceRef )
     {
         domIDREF_arrayRef arrayRef = sourceRef->getIDREF_array ();
         if ( arrayRef != 0 )
@@ -316,7 +316,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillSourceElements ()
+    void MeshLoader::fillSourceElements ()
     {
         // Fill the mesh source elements
         domSource_Array domSourceArray = mMeshRef->getSource_array ();
@@ -349,7 +349,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase* MeshReader::createSourceElement ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase* MeshLoader::createSourceElement ( const domSourceRef& sourceRef )
     {
         COLLADAFW::SourceBase* source;
 
@@ -373,7 +373,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source )
+    void MeshLoader::fillTechniqueCommon ( const domSourceRef& sourceRef, COLLADAFW::SourceBase* source )
     {
         domSource::domTechnique_commonRef techniqueCommonRef;
         techniqueCommonRef = sourceRef->getTechnique_common ();
@@ -419,7 +419,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillVertexElement ()
+    void MeshLoader::fillVertexElement ()
     {
         // Fill the mesh vertex element.
         domVerticesRef verticesRef = mMeshRef->getVertices ();
@@ -448,7 +448,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolylistInputArray ( 
+    void MeshLoader::fillPolylistInputArray ( 
         const domPolylistRef polylistRef, 
         COLLADAFW::Polylist& polylist )
     {
@@ -467,7 +467,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolygonsInputArray ( 
+    void MeshLoader::fillPolygonsInputArray ( 
         const domPolygonsRef polygonsRef, 
         COLLADAFW::Polygons& polygons )
     {
@@ -486,7 +486,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillInputArray ( 
+    void MeshLoader::fillInputArray ( 
         const domInputLocalOffset_Array& domInputArray, 
         COLLADAFW::InputSharedArray& inputArray )
     {
@@ -515,7 +515,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolylistVCountArray ( 
+    void MeshLoader::fillPolylistVCountArray ( 
         const domPolylistRef polylistRef, 
         COLLADAFW::Polylist& polylist )
     {
@@ -535,7 +535,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolylistPrimitivesArray ( 
+    void MeshLoader::fillPolylistPrimitivesArray ( 
         const domPolylistRef polylistRef, 
         COLLADAFW::Polylist& polylist, 
         size_t& faceIndex )
@@ -548,7 +548,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolygonsPrimitivesElements ( 
+    void MeshLoader::fillPolygonsPrimitivesElements ( 
         const domPolygonsRef polygonsRef, 
         COLLADAFW::Polygons& polygons, 
         size_t& faceIndex )
@@ -558,7 +558,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolygonsPArrays ( 
+    void MeshLoader::fillPolygonsPArrays ( 
         const domPolygonsRef polygonsRef, 
         COLLADAFW::Polygons &polygons, 
         size_t& faceIndex )
@@ -587,7 +587,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPolygonsPHArrays ( 
+    void MeshLoader::fillPolygonsPHArrays ( 
         const domPolygonsRef polygonsRef, 
         COLLADAFW::Polygons &polygons, 
         size_t& faceIndex )
@@ -638,7 +638,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillPListValues ( 
+    void MeshLoader::fillPListValues ( 
         const domPRef pRef, 
         COLLADAFW::PElement &pElement, 
         size_t& faceIndex )
@@ -663,7 +663,7 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    void MeshReader::fillHListValues ( 
+    void MeshLoader::fillHListValues ( 
         const domPolygons::domPh::domHRef hRef, 
         COLLADAFW::HElement &hElement, 
         size_t& faceIndex )

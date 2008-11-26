@@ -26,21 +26,26 @@ namespace COLLADAFW
 	private:
 	
 	public:
-		IWriter();
-		virtual ~IWriter();
+
+        /** Constructor. */
+        IWriter() {};
+
+        /** Destructor. */
+        virtual ~IWriter() {};
 
 		/** When this method is called, the writer must write the entire visual scene.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
-		virtual bool writeVisualScene(const VisualScene* visualScene)=0;
+		virtual bool writeVisualScene ( const VisualScene* visualScene ) = 0;
 
 		/** When this method is called, the writer must write the geometry.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
-		virtual bool writeGeometry( const Geometry* geometry )=0;
-
+		virtual bool writeGeometry ( const Geometry* geometry ) = 0;
 
 	private:
+
         /** Disable default copy ctor. */
-		IWriter( const IWriter& pre );
+		IWriter ( const IWriter& pre );
+
         /** Disable default assignment operator. */
 		const IWriter& operator= ( const IWriter& pre );
 

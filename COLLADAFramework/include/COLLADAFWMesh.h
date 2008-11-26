@@ -12,6 +12,7 @@
 #define __COLLADAFW_MESH_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWGeometricElement.h"
 #include "COLLADAFWPolylist.h"
 #include "COLLADAFWPolygons.h"
 #include "COLLADAFWVertices.h"
@@ -35,15 +36,10 @@ namespace COLLADAFW
      * form the geometric shape of the mesh. The mesh vertices are collated into 
      * geometric primitives such as polygons, triangles, or lines.
      */
-    class Mesh
+    class Mesh : public GeometricElement
     {
 
     private:
-
-        /**
-         * Provides the bulk of the mesh’s vertex data. See main entry.
-         */
-        SourceArray mSourceArray;
 
         /**
          * Describes the mesh-vertex attributes and establishes
@@ -66,52 +62,10 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-        Mesh ()
-        {}
+        Mesh () : GeometricElement ( GeometricElement::GEO_TYPE_MESH ) {}
 
         /** Destructor. */
-        virtual ~Mesh () 
-        {
-//             delete mPolylistArray;
-//             delete mSourceArray;
-        }
-
-        /**
-         * Provides the bulk of the mesh’s vertex data. See main entry.
-         * @param sourceArraySize Parameter to get the size of the source array.
-         * @return const SourceArray The source array.
-         */
-        const SourceArray& getSourceArray () const 
-        { 
-            return mSourceArray; 
-        }
-        
-        /**
-         * Provides the bulk of the mesh’s vertex data. See main entry.
-         * @param sourceArray The source array.
-         * @param sourceArraySize The size of the source array.
-         */
-        void setSourceArray ( const SourceArray& sourceArray ) 
-        { 
-            mSourceArray = sourceArray; 
-        }
-
-        /**
-         * Returns the source element of the source array with the given id or 0 if it not exist.
-         * @param sourceId The source id of the searched source element.
-         * @return COLLADAFW::Source The source element with the given id or 0 if it not exist.
-         */
-        const SourceBase* getSourceById ( const String& sourceId ) const
-        {
-            for ( size_t i=0; i<mSourceArray.getCount (); ++i )
-            {
-                SourceBase* source = mSourceArray [ i ];
-                if ( COLLADASW::Utils::equals ( source->getId (), sourceId ) )
-                    return source;
-            }
-
-            return 0;
-        }
+        virtual ~Mesh () {}
 
         /**
          * Returns a pointer to the searched source element of the given input semantic.

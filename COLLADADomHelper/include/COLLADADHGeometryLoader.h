@@ -12,31 +12,30 @@
 #define __COLLADA_GEOMETRY_READER_H__
 
 #include "COLLADADHStableHeaders.h"
-#include "COLLADADHReader.h"
+#include "COLLADADHBaseLoader.h"
+
+#include "COLLADAFWGeometry.h"
 
 
 namespace COLLADADH
 {
 
     /** Reads the geometry of the dom and creates a COLLADAFW::Geometry object. */
-    class GeometryReader : Reader
+    class GeometryLoader : BaseLoader
     {
 
     private:
 
-        /** A pointer to the current geometry instance to import. */
-        domGeometryRef mGeometryRef;
-
     public:
 
         /** Constructor. */
-        GeometryReader ( daeDocument* daeDoc ) : Reader ( *daeDoc ) {}
+        GeometryLoader ( daeDocument* daeDoc ) : BaseLoader ( daeDoc ) {}
 
         /** Destructor. */
-        virtual ~GeometryReader () {}
+        virtual ~GeometryLoader () {}
 
         /** Imports the data of the current geometry element. */
-        void importGeometry ( domInstance_geometryRef instanceGeometryRef );
+        COLLADAFW::Geometry* loadGeometry ( const domGeometryRef domGeoRef );
 
     };
 }

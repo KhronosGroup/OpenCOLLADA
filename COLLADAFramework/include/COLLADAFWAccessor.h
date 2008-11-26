@@ -14,6 +14,8 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWParam.h"
 
+#include "COLLADASWURI.h"
+
 
 namespace COLLADAFW
 {

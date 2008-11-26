@@ -42,7 +42,11 @@ namespace COLLADADH
 		COLLADAFW::IWriter* mWriter;
 	
 	public:
+
+        /** Constructor. */
 		Loader();
+
+        /** Destructor. */
 		virtual ~Loader();
 
 		/** Starts loading the model and feeds the writer with data.
@@ -51,16 +55,21 @@ namespace COLLADADH
 		@return True, if loading succeeded, false otherwise.*/
 		virtual bool loadDocument(const String& fileName, COLLADAFW::IWriter* writer);
 
-
 	private:
+
         /** Disable default copy ctor. */
 		Loader( const Loader& pre );
+
         /** Disable default assignment operator. */
 		const Loader& operator= ( const Loader& pre );
 
 		/** Loads the visual scenes of the current document.
 		@return True on success, false otherwise.*/
-		bool loadVisualScenes();
+		bool loadVisualScenes ();
+
+        /** Loads the geometries of the current document.
+        @return True on success, false otherwise.*/
+        bool loadGeometries ();
 
 	};
 

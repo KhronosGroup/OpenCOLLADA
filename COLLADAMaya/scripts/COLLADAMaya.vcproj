@@ -2297,6 +2297,10 @@
 					RelativePath="..\src\COLLADAMayaVisualSceneImporter.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\src\COLLADAMayaWriter.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -2540,6 +2544,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaVisualSceneImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMayaWriter.h"
 					>
 				</File>
 			</Filter>

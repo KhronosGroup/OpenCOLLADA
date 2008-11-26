@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWConstants.h"
+#include "COLLADASWUtils.h"
 
 namespace COLLADAFW
 {

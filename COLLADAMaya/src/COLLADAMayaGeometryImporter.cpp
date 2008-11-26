@@ -22,7 +22,7 @@
 #include "COLLADAFWPolylist.h"
 #include "COLLADAFWTypes.h"
 
-#include "COLLADADHMeshReader.h"
+#include "COLLADADHMeshLoader.h"
 #include "COLLADADHException.h"
 
 #include <dom/domPolylist.h>
@@ -87,7 +87,7 @@ namespace COLLADAMaya
         if ( meshRef != NULL ) 
         {
             // Create a COLLADAFramework mesh object
-            COLLADADH::MeshReader meshReader ( getDaeDocument () );
+            COLLADADH::MeshLoader meshReader ( getDaeDocument () );
             COLLADAFW::Mesh* mesh = meshReader.createMeshObject ( meshRef );
             
             // Import the mesh object into maya
