@@ -17,7 +17,7 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 
-	class Node;
+//	class Node;
 
 	class VisualScene 	
 	{

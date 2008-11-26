@@ -24,7 +24,7 @@ namespace COLLADAFW
 	class IWriter;
 }
 
-namespace COLLADA
+namespace COLLADADH
 {
 	class Loader : public COLLADAFW::ILoader 
 	{

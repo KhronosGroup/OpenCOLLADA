@@ -12,7 +12,7 @@
 #include "COLLADAGeometryReader.h"
 #include "COLLADAMeshReader.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
     // --------------------------------------------

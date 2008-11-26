@@ -11,7 +11,7 @@
 #ifndef _COLLADA_SHAPEITERATOR_H
 #define _COLLADA_SHAPEITERATOR_H
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     /** The ShapeIterator is the base class of some iterator that helps traverse over the COLLADA
      BREP DB

@@ -13,7 +13,7 @@
 
 #include "COLLADAShapeIterator.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	/** Iterates over the vertices element in COLLADA an retrieves the corresponding point.
 	*/

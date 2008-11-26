@@ -19,7 +19,7 @@
 #include "dom/domPolygons.h"
 
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
     // --------------------------------------------

@@ -19,7 +19,7 @@
 #include <dom/domExtra.h>
 #include <dom/domCOLLADA.h>
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	/** This class traverses over a node hierarchy of the given Element. 
 	The detection of a node element is signaled through a listener interface.

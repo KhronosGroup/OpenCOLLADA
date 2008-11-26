@@ -13,7 +13,7 @@
 
 //#include "CPFLogManager.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     //-----------------------------------------------------------------------
     Exception::Exception( int num, const String& desc, const String& src ) :

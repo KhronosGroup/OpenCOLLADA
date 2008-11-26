@@ -19,7 +19,8 @@
 
 #include "COLLADASourceUtil.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     /** Utility class for domInputLocal and domInputLocalOffset handling. */
     class InputUtil

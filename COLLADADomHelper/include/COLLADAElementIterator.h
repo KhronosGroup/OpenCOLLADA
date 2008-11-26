@@ -13,7 +13,7 @@
 
 #include "HelperPrerequisites.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH {
 
     /** An COLLADA element iterator. Iterates over all elements that
     meet the specified search criteria.

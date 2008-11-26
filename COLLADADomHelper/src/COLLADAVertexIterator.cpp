@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAVertexIterator.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	//-----------------------------------------------------------------------
     VertexIterator::VertexIterator( const domVertices &vertexElement )

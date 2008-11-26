@@ -15,7 +15,7 @@
 #include "COLLADANodeTraverser.h"
 #include <dae/daeDocument.h>
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     class DocumentUtil
     {

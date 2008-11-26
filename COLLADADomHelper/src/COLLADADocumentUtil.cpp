@@ -11,7 +11,8 @@
 #include "HelperStableHeaders.h"
 #include "COLLADADocumentUtil.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     //-----------------------------------------------------------------------
     domFloat DocumentUtil::getUnitMeter( daeDocument* doc, domFloat defaultUnitMeter )
@@ -72,7 +73,7 @@ namespace COLLADADomHelper {
 	void ReferencedDocumentsLoader::load( daeDocument* doc )
 	{
 		domCOLLADA::domSceneRef scene = daeSafeCast<domCOLLADA>(doc->getDomRoot())->getScene();
-		COLLADADomHelper::NodeTraverser traverser(*scene);
+		COLLADADH::NodeTraverser traverser(*scene);
 		traverser.traverse(*this);
 	}
 
@@ -90,7 +91,7 @@ namespace COLLADADomHelper {
 	{
 		domNodeRef node = daeSafeCast<domNode>(instance.getUrl().getElement());
 
-		COLLADADomHelper::NodeTraverser traverser(*node);
+		COLLADADH::NodeTraverser traverser(*node);
 		traverser.traverse(*this, level);
 
 		return true;

@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAMeshUtil.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     //-----------------------------------------------------------------------
     void MeshUtil::getBounds( const domGeometryRef& geo, double min[3], double max[3] )

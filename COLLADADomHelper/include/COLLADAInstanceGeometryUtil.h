@@ -13,7 +13,8 @@
 
 #include "HelperPrerequisites.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
     /// A mapping between material symbol and a domMaterial pointer.
     typedef std::map<std::string, domMaterial*> SymbolMaterialMap;
     /// A mapping between a domMaterial pointer and multiple material symbols.

@@ -14,7 +14,7 @@
 #include "HelperPrerequisites.h"
 #include "COLLADAInputUtil.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     /** A utility to process COLLADA meshes. */
     class MeshUtil

@@ -11,7 +11,9 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAElementIterator.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
+
     //-----------------------------------------------------------------------
     ElementIterator::ElementIterator( daeDatabase* database, int type, daeDocument* file )
         :mDaeDatabase(database)

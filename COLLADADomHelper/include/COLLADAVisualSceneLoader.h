@@ -25,12 +25,12 @@ namespace COLLADAFW
 	class Node;
 }
 
-namespace COLLADA
+namespace COLLADADH
 {
 	class Loader;
 
 	/** This class takes a COLALDA dom visual scene and builds a frame work visual scene out of it.*/
-	class VisualSceneLoader : COLLADADomHelper::NodeTraverser::TraverserListener
+	class VisualSceneLoader : COLLADADH::NodeTraverser::TraverserListener
 	{
 	private:
 		/** Stack of nodes.*/

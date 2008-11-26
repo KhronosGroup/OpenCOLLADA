@@ -14,7 +14,8 @@
 #include "HelperPrerequisites.h"
 #include "COLLADAEffectUtil.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     class MaterialUtil
     {

@@ -25,7 +25,7 @@ namespace COLLADAMaya
 {
 
     /** Declares the implementation of the node traverser for the node traverser listener. */
-    class SceneNodeTraverser : public COLLADADomHelper::NodeTraverser
+    class SceneNodeTraverser : public COLLADADH::NodeTraverser
     {
 
     private:

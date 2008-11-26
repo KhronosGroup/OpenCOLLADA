@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAReader.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	//-----------------------------------------------------------------------
 	Reader::Reader(daeDocument &doc)

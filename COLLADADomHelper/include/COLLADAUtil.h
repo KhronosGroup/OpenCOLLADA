@@ -13,7 +13,7 @@
 
 #include "HelperPrerequisites.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     /** Retrieves the children of a specific type from the given daeElement.
     	@param element The element to retrieve the children from.

@@ -87,7 +87,7 @@ namespace COLLADAMaya
         if ( meshRef != NULL ) 
         {
             // Create a COLLADAFramework mesh object
-            COLLADADomHelper::MeshReader meshReader ( getDaeDocument () );
+            COLLADADH::MeshReader meshReader ( getDaeDocument () );
             COLLADAFW::Mesh* mesh = meshReader.createMeshObject ( meshRef );
             
             // Import the mesh object into maya
@@ -104,8 +104,8 @@ namespace COLLADAMaya
         const COLLADAFW::Source < COLLADAFW::Long64ArrayElement >* positionsSource = 
             ( COLLADAFW::Source < COLLADAFW::Long64ArrayElement >* ) mesh->getSourceByInputSemantic ( COLLADAFW::InputSemantic::POSITION );
         if ( positionsSource == 0 ) 
-            throw new COLLADADomHelper::Exception ( 
-            COLLADADomHelper::Exception::ERR_INTERNAL_ERROR, 
+            throw new COLLADADH::Exception ( 
+            COLLADADH::Exception::ERR_INTERNAL_ERROR, 
             "Positions source is null!", 
             "GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )" );
 
@@ -474,7 +474,7 @@ namespace COLLADAMaya
         {
             if ( accessorStride != 3 ) 
             {
-                throw new COLLADADomHelper::Exception ( COLLADADomHelper::Exception::ERR_INTERNAL_ERROR, 
+                throw new COLLADADH::Exception ( COLLADADH::Exception::ERR_INTERNAL_ERROR, 
                     "Accessor stride of position element not valid!", "GeometryImporter::getVertexArray(..)" );
             }
             vertexArray.append ( ( float ) positions [ index ], ( float ) positions [ index+1 ], ( float ) positions [ index+2 ], 0.0f );

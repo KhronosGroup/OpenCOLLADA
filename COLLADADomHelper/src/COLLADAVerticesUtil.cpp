@@ -13,7 +13,8 @@
 #include "COLLADAInputUtil.h"
 #include "COLLADASourceUtil.h"
 
-namespace COLLADADomHelper {    
+namespace COLLADADH 
+{    
     //-----------------------------------------------------------------------
     VerticesIterator::VerticesIterator( VerticesUtil* vertices )
         : mVertices(vertices)

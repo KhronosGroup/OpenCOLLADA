@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAUtil.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
 	//----------------------------------------------------------------

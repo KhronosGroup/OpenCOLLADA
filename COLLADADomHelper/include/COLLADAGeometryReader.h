@@ -15,7 +15,7 @@
 #include "COLLADAReader.h"
 
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
     /** Reads the geometry of the dom and creates a COLLADAFW::Geometry object. */

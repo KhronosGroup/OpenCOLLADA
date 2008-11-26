@@ -14,7 +14,7 @@
 #include <dom/domProfile_COMMON.h>
 #include <vector>
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	/** A vector of domImage pointers. */
 	typedef std::vector<domImage*> TextureImageList;

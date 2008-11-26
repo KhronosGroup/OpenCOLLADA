@@ -121,7 +121,7 @@ namespace COLLADAMaya
                 char upAxis = 'y';
                 
                 daeDocument* daeDoc = mColladaDoc->getDocument();
-                domUpAxisType upAxisType = COLLADADomHelper::DocumentUtil::getUpAxis ( daeDoc );
+                domUpAxisType upAxisType = COLLADADH::DocumentUtil::getUpAxis ( daeDoc );
                 switch ( upAxisType )
                 {
                 case UPAXISTYPE_Z_UP: upAxis = 'z';

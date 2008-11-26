@@ -12,7 +12,8 @@
 #include "COLLADAInputUtil.h"
 #include "COLLADASourceUtil.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
     //-----------------------------------------------------------------------
     domInputLocalRef InputUtil::getInputLocal( domVerticesRef vertices, const std::string& semantic )
     {

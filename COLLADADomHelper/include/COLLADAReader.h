@@ -11,7 +11,7 @@
 #ifndef __COLLADA_READER_H__
 #define __COLLADA_READER_H__
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	/** A helper class for reading COLLADA files.
 	*/

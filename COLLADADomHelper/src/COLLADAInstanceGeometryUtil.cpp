@@ -11,7 +11,8 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAInstanceGeometryUtil.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     //-----------------------------------------------------------------------
     void InstanceGeometryUtil::getSymbolMaterialMapping( const domInstance_geometryRef& instance, SymbolMaterialMap& map )

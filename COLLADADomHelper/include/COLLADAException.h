@@ -52,7 +52,7 @@
 
 #endif
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     /** When thrown, provides information about an error that has occurred inside the engine.
         @remarks
@@ -429,11 +429,11 @@ namespace COLLADADomHelper
 
 
 #ifdef COLLADA_DEBUG_MODE
-# define COLLADA_EXCEPT(num, desc, src) throw COLLADADomHelper::ExceptionFactory::create( \
-   COLLADADomHelper::ExceptionCodeType<num>(), desc, src, __FILE__, __LINE__ );
+# define COLLADA_EXCEPT(num, desc, src) throw COLLADADH::ExceptionFactory::create( \
+   COLLADADH::ExceptionCodeType<num>(), desc, src, __FILE__, __LINE__ );
 #else
-# define COLLADA_EXCEPT(num, desc, src) throw COLLADADomHelper::ExceptionFactory::create( \
-   COLLADADomHelper::ExceptionCodeType<num>(), desc, src, "", 0 );
+# define COLLADA_EXCEPT(num, desc, src) throw COLLADADH::ExceptionFactory::create( \
+   COLLADADH::ExceptionCodeType<num>(), desc, src, "", 0 );
 #endif
 
 } // Namespace COLLADA

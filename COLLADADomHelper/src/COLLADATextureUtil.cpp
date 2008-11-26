@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADATextureUtil.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
 	//-----------------------------------------------------------------------
@@ -71,7 +71,7 @@ namespace COLLADADomHelper
 	//-----------------------------------------------------------------------
 	std::string TextureUtil::findTexureImageFile( domCommon_color_or_texture_type::domTexture* texture )
 	{
-		domImage* img = COLLADADomHelper::TextureUtil::findTextureImage(texture);
+		domImage* img = COLLADADH::TextureUtil::findTextureImage(texture);
 		return getImagePath(img);
 
 

@@ -12,7 +12,7 @@
 #include "COLLADATriangleIterator.h"
 #include "COLLADAException.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     //-----------------------------------------------------------------------
     TriangleIterator::TriangleIterator( const domPRef& p )
@@ -79,7 +79,7 @@ namespace COLLADADomHelper
 		}
         else
         {
-            COLLADA_EXCEPT(COLLADADomHelper::Exception::ERR_INTERNAL_ERROR, "", "TriangleIterator::TriangleIterator");
+            COLLADA_EXCEPT(COLLADADH::Exception::ERR_INTERNAL_ERROR, "", "TriangleIterator::TriangleIterator");
         }
     }
 	//-----------------------------------------------------------------------

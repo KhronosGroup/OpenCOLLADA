@@ -14,7 +14,8 @@
 #include "HelperPrerequisites.h"
 #include <dom/domSource.h>
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     class SourceUtil
     {

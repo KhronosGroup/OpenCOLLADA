@@ -15,7 +15,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWIWriter.h"
 
-namespace COLLADA
+namespace COLLADADH
 {
 	//--------------------------------------------------------------------
 	Loader::Loader()

@@ -11,7 +11,7 @@
 #ifndef __COLLADA_TEXTURE_UTIL_H__
 #define __COLLADA_TEXTURE_UTIL_H__
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
 	class TextureUtil

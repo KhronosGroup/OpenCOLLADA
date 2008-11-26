@@ -17,7 +17,7 @@
 #include "COLLADAUtil.h"
 #include "COLLADAVerticesUtil.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
     /** An iterator over the indices of a primitives. E.g. triangles.
     */

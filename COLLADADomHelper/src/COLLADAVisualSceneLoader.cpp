@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAVisualSceneLoader.h"
 
-namespace COLLADA
+namespace COLLADADH
 {
 	//--------------------------------------------------------------------
 	VisualSceneLoader::VisualSceneLoader(Loader* colladaLoader, domVisual_scene* colladaVisualScene)
@@ -27,16 +27,16 @@ namespace COLLADA
 
 	COLLADAFW::VisualScene* VisualSceneLoader::load()
 	{
-		mVisualScene = new COLLADAFW::VisualScene;
+		mVisualScene = new COLLADAFW::VisualScene ();
 
 		const domNode_Array& nodeArray = mColladaVisualScene->getNode_array();
 
 		//COLLADAFW::NodeArray rootNodes(new );
 
-		COLLADAFW::NodeArray& mVisualScene->setRootNodes(rootNodes);
+		mVisualScene->setRootNodes(rootNodes);
 
 
-		COLLADADomHelper::NodeTraverser traverser(*mColladaVisualScene);
+		COLLADADH::NodeTraverser traverser(*mColladaVisualScene);
 		if ( !traverser.traverse(*this) )
 		{
 			delete mVisualScene;

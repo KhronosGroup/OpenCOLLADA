@@ -11,7 +11,8 @@
 #include "HelperStableHeaders.h"
 #include "COLLADASourceUtil.h"
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     //-----------------------------------------------------------------------
     domListOfFloats& SourceUtil::getFloatValues( const domSourceRef& source )

@@ -44,9 +44,9 @@ namespace COLLADAMaya
     void VisualSceneImporter::importVisualScenes ()
     {
         daeDocument* daeDoc = getDaeDocument();
-        COLLADADomHelper::Reader reader ( *daeDoc );
+        COLLADADH::Reader reader ( *daeDoc );
 
-        COLLADADomHelper::Reader::ElementIterator<domVisual_scene> visualScenesIter = reader.getVisualScenes();
+        COLLADADH::Reader::ElementIterator<domVisual_scene> visualScenesIter = reader.getVisualScenes();
         while ( visualScenesIter.more() )
         {
             domVisual_scene& visualScene = visualScenesIter.next();

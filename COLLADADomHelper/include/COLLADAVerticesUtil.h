@@ -15,7 +15,8 @@
 #include <set>
 
 
-namespace COLLADADomHelper {
+namespace COLLADADH 
+{
 
     class VerticesUtil;
 
@@ -36,7 +37,7 @@ namespace COLLADADomHelper {
     bool operator<(const Vertex& v1, const Vertex& v2);
 
 
-    typedef std::map<COLLADADomHelper::Vertex, size_t> VertexIndexMap;
+    typedef std::map<COLLADADH::Vertex, size_t> VertexIndexMap;
     typedef std::pair<VertexIndexMap::iterator, bool> VertexIndexMapResult;
 
     /** An iterator over vertices. */

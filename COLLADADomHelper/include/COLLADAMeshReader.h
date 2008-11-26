@@ -18,7 +18,7 @@
 #include "dom/domMesh.h"
 
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
     /** Reads the geometry of the dom and creates a COLLADAFW::Mesh object. */

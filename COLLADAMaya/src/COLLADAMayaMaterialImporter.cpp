@@ -43,9 +43,9 @@ namespace COLLADAMaya
     void MaterialImporter::importMaterials()
     {
         daeDocument* document = getDaeDocument();
-        COLLADADomHelper::Reader reader ( *( document ) );
+        COLLADADH::Reader reader ( *( document ) );
 
-        COLLADADomHelper::Reader::ElementIterator<domMaterial> materialsIter = reader.getMaterials();
+        COLLADADH::Reader::ElementIterator<domMaterial> materialsIter = reader.getMaterials();
         while ( materialsIter.more() )
         {
             domMaterial& material = materialsIter.next();
@@ -74,14 +74,14 @@ namespace COLLADAMaya
                 // Determine the Maya type for this standard material shader
                 MFn::Type mayaShaderType;
 
-                COLLADADomHelper::EffectUtil::ShaderType shaderType;
-                shaderType = COLLADADomHelper::EffectUtil::getShaderType ( effect );
+                COLLADADH::EffectUtil::ShaderType shaderType;
+                shaderType = COLLADADH::EffectUtil::getShaderType ( effect );
                 switch ( shaderType )
                 {
-                case COLLADADomHelper::EffectUtil::CONSTANT: mayaShaderType = MFn::kSurfaceShader; break;
-                case COLLADADomHelper::EffectUtil::PHONG: mayaShaderType = MFn::kPhong; break;
-                case COLLADADomHelper::EffectUtil::BLINN: mayaShaderType = MFn::kBlinn; break;
-                case COLLADADomHelper::EffectUtil::LAMBERT: mayaShaderType = MFn::kLambert; break;
+                case COLLADADH::EffectUtil::CONSTANT: mayaShaderType = MFn::kSurfaceShader; break;
+                case COLLADADH::EffectUtil::PHONG: mayaShaderType = MFn::kPhong; break;
+                case COLLADADH::EffectUtil::BLINN: mayaShaderType = MFn::kBlinn; break;
+                case COLLADADH::EffectUtil::LAMBERT: mayaShaderType = MFn::kLambert; break;
                 default: mayaShaderType = MFn::kLambert;
                 }
 
@@ -97,7 +97,7 @@ namespace COLLADAMaya
 //                    importConstantShader (...); 
 
                     // Emission color / Incandescence
-                    domFx_color_common emission = COLLADADomHelper::EffectUtil::getEmissiveColor ( effect, shaderType );
+                    domFx_color_common emission = COLLADADH::EffectUtil::getEmissiveColor ( effect, shaderType );
 
                     // CONSTANT material: has only one interesting color parameter, for emission.
                     MColor outColor ( (float)emission.get(0), (float)emission.get(1), (float)emission.get(2), (float)emission.get(3) );
@@ -106,7 +106,7 @@ namespace COLLADAMaya
 
                     // Transparency / Opaque
                     domCommon_transparent_typeRef transparentTypeRef = 
-                        COLLADADomHelper::EffectUtil::getTransparent ( effect, shaderType );
+                        COLLADADH::EffectUtil::getTransparent ( effect, shaderType );
                     
                     domCommon_color_or_texture_type_complexType::domColorRef domTransColorObj;
                     domTransColorObj = transparentTypeRef->getColor();
@@ -114,7 +114,7 @@ namespace COLLADAMaya
                     if ( domTransColor.getCount() < 4 ) domTransColor.set4 ( 0, 0, 0, 1 );
                     MColor transColor ( (float)domTransColor.get(0), (float)domTransColor.get(1), (float)domTransColor.get(2), (float)domTransColor.get(3) );
 
-                    float transparency = COLLADADomHelper::EffectUtil::getTransparency ( effect );
+                    float transparency = COLLADADH::EffectUtil::getTransparency ( effect );
                     domFx_opaque_enum opaque = transparentTypeRef->getOpaque();
                     const char* transparencyOutput;
                     switch ( opaque )
@@ -157,26 +157,26 @@ namespace COLLADAMaya
 //                     }
 
                     // Diffuse 
-                    domFx_color_common diffuse = COLLADADomHelper::EffectUtil::getDiffuseColor( effect, shaderType );
+                    domFx_color_common diffuse = COLLADADH::EffectUtil::getDiffuseColor( effect, shaderType );
                     MColor diffColor ( (float)diffuse.get(0), (float)diffuse.get(1), (float)diffuse.get(2), (float)diffuse.get(3) );
                     lambertFn.setColor ( diffColor );
                     //ANIM->AddPlugAnimation(shader, "color", *diffuseColor, kColour);
                     lambertFn.setDiffuseCoeff (1.0f);
 
                     // Emission color / Incandescence
-                    domFx_color_common emission = COLLADADomHelper::EffectUtil::getEmissiveColor ( effect, shaderType );
+                    domFx_color_common emission = COLLADADH::EffectUtil::getEmissiveColor ( effect, shaderType );
                     //mMaterialEmission.Set(emission.get(0), emission.get(1), emission.get(2), emission.get(3));
                     lambertFn.setIncandescence ( MColor ( (float)emission.get(0), (float)emission.get(1), (float)emission.get(2), (float)emission.get(3) ) );
 
                     // Ambient
-                    domFx_color_common ambient = COLLADADomHelper::EffectUtil::getAmbientColor ( effect, shaderType );
+                    domFx_color_common ambient = COLLADADH::EffectUtil::getAmbientColor ( effect, shaderType );
                     MColor ambientColor ( (float)ambient.get(0), (float)ambient.get(1), (float)ambient.get(2), (float)ambient.get(3) );
                     lambertFn.setAmbientColor ( ambientColor );
                     //ANIM->AddPlugAnimation(shader, "ambientColor", *ambientColor, kColour);
 
                     // Transparency / Opaque
                     domCommon_transparent_typeRef transparentTypeRef = 
-                        COLLADADomHelper::EffectUtil::getTransparent ( effect, shaderType );
+                        COLLADADH::EffectUtil::getTransparent ( effect, shaderType );
 
                     domCommon_color_or_texture_type_complexType::domColorRef domTransColorObj;
                     domTransColorObj = transparentTypeRef->getColor();
@@ -184,7 +184,7 @@ namespace COLLADAMaya
                     if ( domTransColor.getCount() < 4 ) domTransColor.set4 ( 0, 0, 0, 1 );
                     MColor transColor ( (float)domTransColor.get(0), (float)domTransColor.get(1), (float)domTransColor.get(2), (float)domTransColor.get(3) );
 
-                    float transparency = COLLADADomHelper::EffectUtil::getTransparency ( effect );
+                    float transparency = COLLADADH::EffectUtil::getTransparency ( effect );
                     domFx_opaque_enum opaque = transparentTypeRef->getOpaque();
                     const char* transparencyOutput;
                     switch ( opaque )
@@ -312,21 +312,21 @@ namespace COLLADAMaya
                 MFnPhongShader phongFn ( shader );
                 MFnBlinnShader blinnFn ( shader );
 
-                COLLADADomHelper::TextureImageList list;
-                COLLADADomHelper::EffectUtil::getTextureImages(effect, list, COLLADADomHelper::EffectUtil::DIFFUSE);
+                COLLADADH::TextureImageList list;
+                COLLADADH::EffectUtil::getTextureImages(effect, list, COLLADADH::EffectUtil::DIFFUSE);
                 if (list.size() == 0)
                 {
-                    domFx_color_common diffuse = COLLADADomHelper::EffectUtil::getDiffuseColor(effect);
+                    domFx_color_common diffuse = COLLADADH::EffectUtil::getDiffuseColor(effect);
                     lambertFn.setColor( MColor ( (float)diffuse.get(0), (float)diffuse.get(1), (float)diffuse.get(2), (float)diffuse.get(3) ) );
                     lambertFn.setDiffuseCoeff(1.0f);
                     //mMaterialDiffuse.Set(diffuse.get( 0 ), diffuse.get( 1 ), diffuse.get( 2 ), diffuse.get( 3 ));
                 }
 
 
-                domFx_color_common ambient = COLLADADomHelper::EffectUtil::getAmbientColor(effect);
+                domFx_color_common ambient = COLLADADH::EffectUtil::getAmbientColor(effect);
                 //mMaterialAmbient.Set(ambient.get( 0 ), ambient.get( 1 ), ambient.get( 2 ), ambient.get( 3 ));
 
-                domFx_color_common specular = COLLADADomHelper::EffectUtil::getSpecularColor(effect);
+                domFx_color_common specular = COLLADADH::EffectUtil::getSpecularColor(effect);
                 if ( mayaShaderType = MFn::kBlinn )
                 {
                     blinnFn.setSpecularColor ( MColor ( (float)specular.get(0), (float)specular.get(1), (float)specular.get(2), (float)specular.get(3) ));
@@ -337,7 +337,7 @@ namespace COLLADAMaya
                 }
                 //mMaterialSpecular.Set(specular.get( 0 ), specular.get( 1 ), specular.get( 2 ), specular.get( 3 ));
 
-                float shininess = COLLADADomHelper::EffectUtil::getShininess(effect);
+                float shininess = COLLADADH::EffectUtil::getShininess(effect);
                 //material->setShininess( shininess );
 
                 domFx_profile_abstract_Array& profileArray = effect->getFx_profile_abstract_array();

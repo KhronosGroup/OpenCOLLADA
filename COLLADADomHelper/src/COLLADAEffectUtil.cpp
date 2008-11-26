@@ -12,7 +12,7 @@
 #include "COLLADAEffectUtil.h"
 #include "COLLADATextureUtil.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	static domFx_color_common FALLBACK_COLOR;
 	static domFx_color_common DEFAULT_SPECULAR_COLOR;

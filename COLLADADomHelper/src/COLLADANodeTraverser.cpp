@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADANodeTraverser.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	//-----------------------------------------------------------------------
 	NodeTraverser::NodeTraverser(daeElement &nodeContainer)

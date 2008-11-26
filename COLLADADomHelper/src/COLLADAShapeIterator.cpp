@@ -11,7 +11,7 @@
 #include "HelperStableHeaders.h"
 #include "COLLADAShapeIterator.h"
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 	ShapeIterator::ShapeIterator()
 		: mValid(true)

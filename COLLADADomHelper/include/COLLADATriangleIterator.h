@@ -11,7 +11,7 @@
 #ifndef __COLLADA_TRIANGLEITERATOR_H__
 #define __COLLADA_TRIANGLEITERATOR_H__
 
-namespace COLLADADomHelper
+namespace COLLADADH
 {
 
     /** Iterates vertex wise over triangles.
