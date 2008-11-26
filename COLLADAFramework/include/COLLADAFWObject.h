@@ -18,6 +18,7 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	/** Base class of all classes that can be referenced in the model.*/
+	template<ClassId classId>
 	class Object 	
 	{
 	private:
@@ -25,14 +26,14 @@ namespace COLLADAFW
 		UniqueId mUniqueId;
 
 	public:
-		Object(ClassId classId, ObjectId objectId) : mUniqueId(classId, objectId){};
+		Object(ObjectId objectId) : mUniqueId(classId, objectId){};
 		virtual ~Object();
 
 		/** Returns the unique id of the object.*/
 		const UniqueId& getUniqueId() const { return mUniqueId; }
 
 		/** Returns the class id of the object.*/
-		ClassId getClassId() const { return mUniqueId.getClassId(); }
+		static ClassId getClassId() { return classId; }
 
 		/** Returns the object id of the object.*/
 		ObjectId getObjectId() const { return mUniqueId.getObjectId(); }

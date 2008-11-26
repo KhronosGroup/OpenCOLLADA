@@ -23,4 +23,5 @@ namespace COLLADAFW
 	{
 	}
 
+
 } // namespace COLLADAFW

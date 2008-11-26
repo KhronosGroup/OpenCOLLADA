@@ -52,10 +52,14 @@ namespace COLLADAFW
 		void getId(const String& id) { mId = id; }
 
 		/** Returns a reference to the root nodes of the visual scene.*/
+		NodeArray& getRootNodes() { return mRootNodes; }
+
+		/** Returns a reference to the root nodes of the visual scene.*/
 		const NodeArray& getRootNodes() const { return mRootNodes; }
 
 		/** Returns a reference to the root nodes of the visual scene.*/
 		void setRootNodes(const NodeArray& rootNodes) { mRootNodes = rootNodes; }
+
 
 	protected:
 	

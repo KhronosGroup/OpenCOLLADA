@@ -13,6 +13,8 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWGeometricElement.h"
+#include "COLLADAFWObject.h"
+#include "COLLADAFWTypes.h"
 
 
 namespace COLLADAFW
@@ -35,7 +37,7 @@ namespace COLLADAFW
      • Patch
      This is by no means an exhaustive list. Currently, COLLADA supports only polygonal meshes and splines.
     */
-    class Geometry
+	class Geometry : Object<COLLADA_TYPE::GEOMETRY>
     {
     private:
 	
@@ -52,7 +54,7 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Geometry();
+		Geometry(ObjectId objectId);
 
         /** Destructor. */
 		virtual ~Geometry();

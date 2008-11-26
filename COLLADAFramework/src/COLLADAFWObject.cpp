@@ -14,9 +14,5 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	
-	//--------------------------------------------------------------------
-	Object::~Object()
-	{
-	}
 
 } // namespace COLLADAFW

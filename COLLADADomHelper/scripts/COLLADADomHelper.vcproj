@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADAFramework\include;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_WINDOWS;REQUIRE_IOSTREAM"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -180,7 +180,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADAFramework\include;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;"
+				AdditionalIncludeDirectories="..\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
