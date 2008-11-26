@@ -20,9 +20,10 @@
 [!endif]
 
 
-
 namespace [!output NAMESPACE]
 {
+
+    /** TODO Documentation */
 	class [!output CLASS_NAME] [!if BASE_CLASS_NAME != ""][!output ACCESS_STRING] [!output COMPLETE_BASE_CLASS] 
 	[!endif]	
 
@@ -30,12 +31,18 @@ namespace [!output NAMESPACE]
 	private:
 	
 	public:
+
+        /** Constructor. */
 		[!output CLASS_NAME]();
-		virtual ~[!output CLASS_NAME]();
+
+        /** Destructor. */
+        virtual ~[!output CLASS_NAME]();
 
 	private:
+
         /** Disable default copy ctor. */
 		[!output CLASS_NAME]( const [!output CLASS_NAME]& pre );
+
         /** Disable default assignment operator. */
 		const [!output CLASS_NAME]& operator= ( const [!output CLASS_NAME]& pre );
 
