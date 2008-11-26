@@ -8,9 +8,9 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADATriangleIterator.h"
-#include "COLLADAException.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHTriangleIterator.h"
+#include "COLLADADHException.h"
 
 namespace COLLADADH
 {

@@ -11,13 +11,13 @@
 #ifndef __COLLADA_INPUT_UTIL__
 #define __COLLADA_INPUT_UTIL__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHStableHeaders.h"
 
 #include <set>
 #include <dae.h>
 #include <dom/domVertices.h>
 
-#include "COLLADASourceUtil.h"
+#include "COLLADADHSourceUtil.h"
 
 namespace COLLADADH 
 {

@@ -11,8 +11,8 @@
 #ifndef __COLLADA_GEOMETRY_READER_H__
 #define __COLLADA_GEOMETRY_READER_H__
 
-#include "HelperPrerequisites.h"
-#include "COLLADAReader.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHReader.h"
 
 
 namespace COLLADADH

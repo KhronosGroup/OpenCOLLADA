@@ -11,9 +11,9 @@
 #ifndef __COLLADA_MESH_READER_H__
 #define __COLLADA_MESH_READER_H__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHStableHeaders.h"
 #include "COLLADAFWMesh.h"
-#include "COLLADAReader.h"
+#include "COLLADADHReader.h"
 
 #include "dom/domMesh.h"
 

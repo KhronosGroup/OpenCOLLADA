@@ -8,9 +8,9 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADAGeometryReader.h"
-#include "COLLADAMeshReader.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHGeometryReader.h"
+#include "COLLADADHMeshReader.h"
 
 namespace COLLADADH
 {

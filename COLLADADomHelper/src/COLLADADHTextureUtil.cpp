@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADATextureUtil.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHTextureUtil.h"
 
 namespace COLLADADH
 {

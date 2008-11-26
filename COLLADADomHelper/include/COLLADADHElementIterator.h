@@ -11,7 +11,7 @@
 #ifndef __COLLADA_ELEMENT_ITERATOR_H__
 #define __COLLADA_ELEMENT_ITERATOR_H__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHStableHeaders.h"
 
 namespace COLLADADH {
 

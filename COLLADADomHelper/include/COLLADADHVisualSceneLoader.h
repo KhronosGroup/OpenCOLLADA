@@ -11,8 +11,8 @@
 #ifndef __COLLADA_VISUALSCENELOADER_H__
 #define __COLLADA_VISUALSCENELOADER_H__
 
-#include "HelperPrerequisites.h"
-#include "COLLADANodeTraverser.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHNodeTraverser.h"
 
 #include <stack>
 

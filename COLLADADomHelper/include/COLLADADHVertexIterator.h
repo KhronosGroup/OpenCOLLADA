@@ -11,7 +11,7 @@
 #ifndef _COLLADA_VERTEXITERATOR_H_
 #define _COLLADA_VERTEXITERATOR_H_
 
-#include "COLLADAShapeIterator.h"
+#include "COLLADADHShapeIterator.h"
 
 namespace COLLADADH
 {

@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADAMeshReader.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHMeshReader.h"
 
 #include "COLLADAFWParam.h"
 #include "COLLADAFWInputUnshared.h"

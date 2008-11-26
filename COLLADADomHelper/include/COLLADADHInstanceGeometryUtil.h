@@ -11,7 +11,7 @@
 #ifndef __COLLADA_INSTANCE_GEOMETRY_UTIL_H__
 #define __COLLADA_INSTANCE_GEOMETRY_UTIL_H__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHStableHeaders.h"
 
 namespace COLLADADH 
 {

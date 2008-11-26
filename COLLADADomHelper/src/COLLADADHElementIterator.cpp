@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADAElementIterator.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHElementIterator.h"
 
 namespace COLLADADH 
 {

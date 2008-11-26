@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADAException.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHException.h"
 
 //#include "CPFLogManager.h"
 

@@ -8,8 +8,8 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADAVisualSceneLoader.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHVisualSceneLoader.h"
 
 namespace COLLADADH
 {
@@ -44,6 +44,7 @@ namespace COLLADADH
 // 		}
 // 
 // 		return mVisualScene;
+        return 0;
 	}
 
 	bool VisualSceneLoader::detectedInstanceGeometry( domInstance_geometry& instance, int level )

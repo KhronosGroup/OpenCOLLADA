@@ -11,8 +11,8 @@
 #ifndef __COLLADA_MESH_UTIL_H__
 #define __COLLADA_MESH_UTIL_H__
 
-#include "HelperPrerequisites.h"
-#include "COLLADAInputUtil.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHInputUtil.h"
 
 namespace COLLADADH
 {

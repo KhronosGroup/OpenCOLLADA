@@ -11,7 +11,7 @@
 #ifndef __COLLADA_LOADER_H__
 #define __COLLADA_LOADER_H__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHStableHeaders.h"
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
 

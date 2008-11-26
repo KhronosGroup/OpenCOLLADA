@@ -11,8 +11,8 @@
 #ifndef __COLLADA_MATERIAL_UTIL_H__
 #define __COLLADA_MATERIAL_UTIL_H__
 
-#include "HelperPrerequisites.h"
-#include "COLLADAEffectUtil.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHEffectUtil.h"
 
 namespace COLLADADH 
 {

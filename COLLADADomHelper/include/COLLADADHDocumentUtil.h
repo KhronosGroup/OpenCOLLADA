@@ -11,8 +11,8 @@
 #ifndef __COLLADA_DOCUMENT_UTIL_H__
 #define __COLLADA_DOCUMENT_UTIL_H__
 
-#include "HelperPrerequisites.h"
-#include "COLLADANodeTraverser.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHNodeTraverser.h"
 #include <dae/daeDocument.h>
 
 namespace COLLADADH

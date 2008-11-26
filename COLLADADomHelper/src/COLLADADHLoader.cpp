@@ -8,9 +8,9 @@ for details please see LICENSE file or the website
 http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADALoader.h"
-#include "COLLADAVisualSceneLoader.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHLoader.h"
+#include "COLLADADHVisualSceneLoader.h"
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWIWriter.h"

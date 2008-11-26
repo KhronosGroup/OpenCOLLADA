@@ -12,8 +12,8 @@
 #define __COLLADA_EXCEPTION_H__
 
 // Precompiler options
-#include "HelperPrerequisites.h"
-//#include "CPFString.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHPrerequisites.h"
 
 #include <exception>
 

@@ -11,7 +11,7 @@
 #ifndef __COLLADA_SOURCE_UTIL_H__
 #define __COLLADA_SOURCE_UTIL_H__
 
-#include "HelperPrerequisites.h"
+#include "COLLADADHStableHeaders.h"
 #include <dom/domSource.h>
 
 namespace COLLADADH 

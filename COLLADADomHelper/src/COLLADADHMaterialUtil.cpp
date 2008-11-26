@@ -8,9 +8,9 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "HelperStableHeaders.h"
-#include "COLLADAMaterialUtil.h"
-#include "COLLADAEffectUtil.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHMaterialUtil.h"
+#include "COLLADADHEffectUtil.h"
 
 namespace COLLADADH 
 {

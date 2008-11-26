@@ -52,7 +52,7 @@
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="HelperStableHeaders.h"
+				PrecompiledHeaderThrough="COLLADADHStableHeaders.h"
 				WarningLevel="2"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
@@ -186,7 +186,7 @@
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
-				PrecompiledHeaderThrough="HelperStableHeaders.h"
+				PrecompiledHeaderThrough="COLLADADHStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="0"
@@ -296,160 +296,100 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\COLLADADocumentUtil.cpp"
+				RelativePath="..\src\COLLADADHDocumentUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAEffectUtil.cpp"
+				RelativePath="..\src\COLLADADHEffectUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAElementIterator.cpp"
+				RelativePath="..\src\COLLADADHElementIterator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAException.cpp"
+				RelativePath="..\src\COLLADADHException.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAGeometryReader.cpp"
+				RelativePath="..\src\COLLADADHGeometryReader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAGeometryUtil.cpp"
+				RelativePath="..\src\COLLADADHGeometryUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInputUtil.cpp"
+				RelativePath="..\src\COLLADADHInputUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAInstanceGeometryUtil.cpp"
+				RelativePath="..\src\COLLADADHInstanceGeometryUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADALoader.cpp"
+				RelativePath="..\src\COLLADADHLoader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAMaterialUtil.cpp"
+				RelativePath="..\src\COLLADADHMaterialUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAMeshReader.cpp"
+				RelativePath="..\src\COLLADADHMeshReader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAMeshUtil.cpp"
+				RelativePath="..\src\COLLADADHMeshUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADANodeTraverser.cpp"
+				RelativePath="..\src\COLLADADHNodeTraverser.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAPUtil.cpp"
-				>
-				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAReader.cpp"
+				RelativePath="..\src\COLLADADHPrecompiledHeaders.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAShapeIterator.cpp"
+				RelativePath="..\src\COLLADADHPUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASourceUtil.cpp"
+				RelativePath="..\src\COLLADADHReader.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADATextureUtil.cpp"
+				RelativePath="..\src\COLLADADHShapeIterator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADATriangleIterator.cpp"
+				RelativePath="..\src\COLLADADHSourceUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAUtil.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					ExcludedFromBuild="true"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAVertexIterator.cpp"
+				RelativePath="..\src\COLLADADHTextureUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAVerticesUtil.cpp"
+				RelativePath="..\src\COLLADADHTriangleIterator.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAVisualSceneLoader.cpp"
+				RelativePath="..\src\COLLADADHUtil.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\HelperPrecompiledHeaders.cpp"
+				RelativePath="..\src\COLLADADHVertexIterator.cpp"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="HelperStableHeaders.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="HelperStableHeaders.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="HelperStableHeaders.h"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"
-						PrecompiledHeaderThrough="HelperStableHeaders.h"
-					/>
-				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="..\src\COLLADADHVerticesUtil.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADADHVisualSceneLoader.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
@@ -458,103 +398,103 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\COLLADADocumentUtil.h"
+				RelativePath="..\include\COLLADADHDocumentUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAEffectUtil.h"
+				RelativePath="..\include\COLLADADHEffectUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAElementIterator.h"
+				RelativePath="..\include\COLLADADHElementIterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAException.h"
+				RelativePath="..\include\COLLADADHException.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAGeometryReader.h"
+				RelativePath="..\include\COLLADADHGeometryReader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAGeometryUtil.h"
+				RelativePath="..\include\COLLADADHGeometryUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInputUtil.h"
+				RelativePath="..\include\COLLADADHInputUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAInstanceGeometryUtil.h"
+				RelativePath="..\include\COLLADADHInstanceGeometryUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADALoader.h"
+				RelativePath="..\include\COLLADADHLoader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAMaterialUtil.h"
+				RelativePath="..\include\COLLADADHMaterialUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAMeshReader.h"
+				RelativePath="..\include\COLLADADHMeshReader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAMeshUtil.h"
+				RelativePath="..\include\COLLADADHMeshUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADANodeTraverser.h"
+				RelativePath="..\include\COLLADADHNodeTraverser.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAPUtil.h"
+				RelativePath="..\include\COLLADADHPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAReader.h"
+				RelativePath="..\include\COLLADADHPUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAShapeIterator.h"
+				RelativePath="..\include\COLLADADHReader.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASourceUtil.h"
+				RelativePath="..\include\COLLADADHShapeIterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADATextureUtil.h"
+				RelativePath="..\include\COLLADADHSourceUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADATriangleIterator.h"
+				RelativePath="..\include\COLLADADHStableHeaders.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAUtil.h"
+				RelativePath="..\include\COLLADADHTextureUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAVertexIterator.h"
+				RelativePath="..\include\COLLADADHTriangleIterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAVerticesUtil.h"
+				RelativePath="..\include\COLLADADHUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAVisualSceneLoader.h"
+				RelativePath="..\include\COLLADADHVertexIterator.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\HelperPrerequisites.h"
+				RelativePath="..\include\COLLADADHVerticesUtil.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\HelperStableHeaders.h"
+				RelativePath="..\include\COLLADADHVisualSceneLoader.h"
 				>
 			</File>
 		</Filter>

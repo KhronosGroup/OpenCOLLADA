@@ -12,10 +12,10 @@
 #define __COLLADA_P_UTIL_H__
 
 #include <dom/domConstants.h>
-#include "HelperPrerequisites.h"
-#include "COLLADAInputUtil.h"
-#include "COLLADAUtil.h"
-#include "COLLADAVerticesUtil.h"
+#include "COLLADADHStableHeaders.h"
+#include "COLLADADHInputUtil.h"
+#include "COLLADADHUtil.h"
+#include "COLLADADHVerticesUtil.h"
 
 namespace COLLADADH
 {
