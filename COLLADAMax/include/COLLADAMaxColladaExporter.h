@@ -67,6 +67,8 @@ namespace COLLADAMax
         BOOL SupportsOptions ( int ext, DWORD options );
         int DoExport ( const TCHAR* name, ExpInterface* ei, Interface* i, BOOL suppressPrompts = FALSE, DWORD options = 0 );
 
+		static DWORD WINAPI fn ( LPVOID );
+
     private:
         /** Disable copy constructor*/
         COLLADAExporter ( const COLLADAExporter & colladaExporter );

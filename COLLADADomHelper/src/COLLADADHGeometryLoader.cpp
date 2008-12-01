@@ -11,6 +11,7 @@
 #include "COLLADADHStableHeaders.h"
 #include "COLLADADHGeometryLoader.h"
 #include "COLLADADHMeshLoader.h"
+#include "COLLADADHLoader.h"
 
 namespace COLLADADH
 {
@@ -19,7 +20,8 @@ namespace COLLADADH
     COLLADAFW::Geometry* GeometryLoader::loadGeometry ( const domGeometryRef domGeometry )
     {
         // Create a new COLLADAFramework Geometry object 
-        COLLADAFW::Geometry* geometry = new COLLADAFW::Geometry ();
+		COLLADAFW::ObjectId geometryObjectId = getUniqueId(domGeometry, COLLADAFW::Geometry::getClassId()).getObjectId();
+		COLLADAFW::Geometry* geometry = new COLLADAFW::Geometry (geometryObjectId);
 
         // Set the id and the name
         daeString geometryId = domGeometry->getID ();
@@ -33,7 +35,7 @@ namespace COLLADADH
         if ( meshRef != NULL ) 
         {
             // Create a COLLADAFramework mesh object
-            COLLADADH::MeshLoader meshReader ( getDaeDocument () );
+            COLLADADH::MeshLoader meshReader ( getColladaLoader(), getDomCollada() );
 
             // The framework mesh object.
             COLLADAFW::Mesh* mesh = meshReader.createMeshObject ( meshRef );

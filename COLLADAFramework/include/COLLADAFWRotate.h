@@ -40,20 +40,20 @@ namespace COLLADAFW
 
 		virtual ~Rotate();
 
+		/** Returns the rotation angle in radians.*/
+		double getRotationAngle() const { return mRotationAngle; }
+
+		/** Sets the rotation angle to @a rotationAngle. The angle must be radians.*/
+		void setRotationAngle( double rotationAngle ) { mRotationAngle = rotationAngle; }
+
 		/** Returns the rotation axis.*/
 		const Math::Vector3& getRotationAxis() const { return mRotationAxis; }
-
-		/** Returns the rotation angle.*/
-		double getRotationAngle() const { return mRotationAngle; }
 
 		/** Sets rotation axis to @a rotationAxis.*/
 		void setRotationAxis(const Math::Vector3& rotationAxis) { mRotationAxis = rotationAxis; }
 
 		/** Sets the components of the rotation axis to @a x, @a y, @a z.*/
 		void setRotationAxis(double x, double y, double z) { mRotationAxis = Math::Vector3(x, y, z); }
-
-		/** Sets the rotation angle to @a rotationAngle.*/
-		void setRotationAngle( double rotationAngle ) { mRotationAngle = rotationAngle; }
 
 	};
 

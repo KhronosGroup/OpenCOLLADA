@@ -427,6 +427,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\src\Math\COLLADAFWMathUtils.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\Math\COLLADAFWMathVector3.cpp"
 					>
 					<FileConfiguration
@@ -507,10 +511,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWMesh.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWNode.h"
 				>
 			</File>
 			<File
@@ -618,6 +618,10 @@
 				</File>
 				<File
 					RelativePath="..\include\Math\COLLADAFWMathQuaternion.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\Math\COLLADAFWMathUtils.h"
 					>
 				</File>
 				<File

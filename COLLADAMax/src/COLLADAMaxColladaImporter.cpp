@@ -1,6 +1,7 @@
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxColladaImporter.h"
 #include "COLLADAMaxColladaPlugin.h"
+#include "COLLADAMaxDocumentImporter.h"
 
 namespace COLLADAMax
 {
@@ -90,9 +91,53 @@ namespace COLLADAMax
 		return TRUE;
 	}
 
-	int ColladaImporter::DoImport(const TCHAR *name,ImpInterface *ii,Interface *i, BOOL suppressPrompts/*=FALSE*/)
+	//---------------------------------------------------------------
+	DWORD WINAPI ColladaImporter::fn ( LPVOID )
 	{
-		return true;
+		return 0;
+	}
+
+
+	int ColladaImporter::DoImport(const TCHAR *fileName,ImpInterface *maxImportInterface,Interface *maxInterface, BOOL suppressPrompts/*=FALSE*/)
+	{
+		bool success = true;
+		maxInterface->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
+
+		try
+		{
+			NativeString nativeFileName(fileName);
+			DocumentImporter documentImporter ( maxInterface, maxImportInterface, nativeFileName );
+
+			documentImporter.import();
+
+/*			if (documentImporter.showExportOptions(suppressPrompts != false) )
+			{
+				/// @todo handle errors here
+				documentImporter.import();
+			}
+			else
+			{
+				// Set to TRUE although nothing happened in order to avoid the "generic failure" dialog.
+				success = true; 
+			}
+*/
+		}
+/**		catch ( COLLADASW::StreamWriterException& streamWriterException  )
+		{
+			// Add some check, here, for full UI-mode or batch-mode only.
+			MessageBox ( 0, streamWriterException.getMessage().c_str(), COLLADAPlugin::SHORTDESCRIPTION.c_str(), MB_OK );
+		}
+		*/
+
+		catch ( ... )
+		{
+			// Add some check, here, for full UI-mode or batch-mode only.
+			MessageBox ( 0, COLLADAPlugin::FATALERROR.c_str(), COLLADAPlugin::SHORTDESCRIPTION.c_str(), MB_OK );
+		}
+
+		maxInterface->ProgressEnd();
+
+		return success;
 	}
 
 	ClassDesc2* getCOLLADAImporterDesc()

@@ -14,6 +14,9 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	
+	const UniqueId UniqueId::INVALID = UniqueId();
+
+
 	//--------------------------------------------------------------------
 	UniqueId::~UniqueId()
 	{

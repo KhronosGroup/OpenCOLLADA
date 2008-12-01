@@ -398,7 +398,26 @@ namespace COLLADAFW
                     0.0, 0.0, 0.0, 1.0 );
             }
 
-            /** Gets a translation matrix.
+
+			/** Builds a scale matrix
+			*/
+			inline void makeScale( const Vector3& v )
+			{
+				makeScale( v.x, v.y, v.z );
+			}
+
+			/** Builds a scale matrix
+			*/
+			inline void makeScale( Real sx, Real sy, Real sz )
+			{
+				setAllElements(
+					 sx, 0.0, 0.0, 0.0,
+					0.0,  sy, 0.0, 0.0,
+					0.0, 0.0,  sz, 0.0,
+					0.0, 0.0, 0.0, 1.0 );
+			}
+
+			/** Gets a translation matrix.
             */
             inline static Matrix4 getTrans( const Vector3& v )
             {

@@ -37,7 +37,7 @@ namespace COLLADAFW
      • Patch
      This is by no means an exhaustive list. Currently, COLLADA supports only polygonal meshes and splines.
     */
-	class Geometry : Object<COLLADA_TYPE::GEOMETRY>
+	class Geometry : public Object<COLLADA_TYPE::GEOMETRY>
     {
     private:
 	

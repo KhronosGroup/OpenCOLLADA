@@ -36,7 +36,8 @@ namespace COLLADADH
 
 		mWriter = writer;
 
-		mDomCollada = mDae.open ( fileName );
+		DAE dae;
+		mDomCollada = dae.open ( fileName );
 
 		if ( !mDomCollada )
 			return false;
@@ -46,8 +47,10 @@ namespace COLLADADH
 		if ( !loadVisualScenes() )
 			return false;
 
-        if ( !loadGeometries() )
-            return false;
+  //      if ( !loadGeometries() )
+  //          return false;
+
+		dae.close(fileName);
 
 		return true;
 	}
@@ -55,19 +58,8 @@ namespace COLLADADH
     //---------------------------------
 	bool Loader::loadVisualScenes()
 	{
-		const domCOLLADA::domSceneRef colladaScene = mDomCollada->getScene();
-		if ( !colladaScene )
-			return true;
 
-		const domInstanceWithExtraRef colladaInstanceVisualScene = colladaScene->getInstance_visual_scene();
-		if ( !colladaInstanceVisualScene )
-			return true;
-
-		domVisual_sceneRef colladaVisualScene = daeSafeCast<domVisual_scene>(colladaInstanceVisualScene->getUrl().getElement());
-		if ( !colladaVisualScene )
-			return true;
-
-		VisualSceneLoader visualSceneLoader(this, colladaVisualScene);
+		VisualSceneLoader visualSceneLoader(this, mDomCollada);
 		COLLADAFW::VisualScene* visualScene = visualSceneLoader.load();
 		if ( visualScene )
 		{
@@ -96,7 +88,7 @@ namespace COLLADADH
                 domGeometryRef domGeoRef = domGeoArray.get ( k );
 
                 // Load the geometry into the COLLADAFramework geometry object.
-                GeometryLoader geometryLoader ( mDomCollada->getDocument () );
+                GeometryLoader geometryLoader ( this, mDomCollada );
                 COLLADAFW::Geometry* geometry = geometryLoader.loadGeometry ( domGeoRef );
 
                 // If we have found a geometry, write it into the destination file.
@@ -110,5 +102,18 @@ namespace COLLADADH
 
         return true;
     }
+
+	const COLLADAFW::UniqueId& Loader::getUniqueId( daeElement* element, COLLADAFW::ClassId classId )
+	{
+		DEAElementUniqueIdMap::const_iterator it = mDEAElementUniqueIdMap.find(element);
+		if ( it == mDEAElementUniqueIdMap.end() )
+		{
+			return mDEAElementUniqueIdMap[element] = COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId));
+		}
+		else
+		{
+			return it->second;
+		}
+	}
 
 } // namespace COLLADA

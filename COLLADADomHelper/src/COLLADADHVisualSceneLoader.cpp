@@ -16,13 +16,14 @@
 #include "COLLADAFWScale.h"
 #include "COLLADAFWMatrix.h"
 #include "COLLADAFWMathMatrix4.h"
+#include "COLLADAFWGeometry.h"
+#include "COLLADAFWMathUtils.h"
 
 namespace COLLADADH
 {
 	//--------------------------------------------------------------------
-	VisualSceneLoader::VisualSceneLoader(Loader* colladaLoader, domVisual_scene* colladaVisualScene)
-		 : mColladaVisualScene(colladaVisualScene),
-		 mColladaLoader(colladaLoader)
+	VisualSceneLoader::VisualSceneLoader(Loader* colladaLoader, domCOLLADA* colladaRoot)
+		 : 	BaseLoader(colladaLoader, colladaRoot)
 	{
 	}
 	
@@ -32,14 +33,35 @@ namespace COLLADADH
 	}
 
 	COLLADAFW::VisualScene* VisualSceneLoader::load()
-	{
+	{	
+		domCOLLADA* colladaRoot = getDomCollada();
+		if ( !colladaRoot )
+			return 0;
+
+		const domCOLLADA::domSceneRef colladaScene = colladaRoot->getScene();
+		if ( !colladaScene )
+			return 0;
+
+		const domInstanceWithExtraRef colladaInstanceVisualScene = colladaScene->getInstance_visual_scene();
+		if ( !colladaInstanceVisualScene )
+			return 0;
+
+		domVisual_sceneRef colladaVisualScene = daeSafeCast<domVisual_scene>(colladaInstanceVisualScene->getUrl().getElement());
+		if ( !colladaVisualScene )
+			return 0;
+
  		mVisualScene = new COLLADAFW::VisualScene();
+
+		xsNCName colladaVisualSceneName = colladaVisualScene->getName();
+		if ( colladaVisualSceneName )
+			mVisualScene->setName(colladaVisualSceneName);
+
  
- 		const domNode_Array& nodeArray = mColladaVisualScene->getNode_array();
+ 		const domNode_Array& nodeArray = colladaVisualScene->getNode_array();
  
  		mVisualScene->getRootNodes().allocateMemory( nodeArray.getCount() );
  
- 		COLLADADH::NodeTraverser traverser(*mColladaVisualScene);
+ 		COLLADADH::NodeTraverser traverser(*colladaVisualScene);
  		if ( !traverser.traverse(*this) )
  		{
  			delete mVisualScene;
@@ -51,6 +73,17 @@ namespace COLLADADH
 
 	bool VisualSceneLoader::detectedInstanceGeometry( domInstance_geometry& instance, int level )
 	{
+		COLLADAFW::Node* currentNode = mNodeStack.top();
+
+		domGeometry* colladaGeometry = daeSafeCast<domGeometry>(instance.getUrl().getElement());
+		if ( !colladaGeometry )
+			return true;
+
+		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueId(colladaGeometry, COLLADAFW::Geometry::getClassId());
+
+		COLLADAFW::InstanceGeometry* instanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
+
+		currentNode->getInstanceGeometries().append(instanceGeometry);
 
 		return true;
 	}
@@ -58,6 +91,10 @@ namespace COLLADADH
 	bool VisualSceneLoader::preDetectedNode( domNode& node, int level )
 	{
 		COLLADAFW::Node* newNode = new COLLADAFW::Node();
+
+		xsNCName nodeName = node.getName();
+		if ( nodeName )
+			newNode->setName(nodeName);
 
 		// Count the transform elements
 		daeElementRefArray& children = node.getChildren();
@@ -93,7 +130,7 @@ namespace COLLADADH
 			if ( colladaRotate )
 			{
 				const domFloat4& values = colladaRotate->getValue();
-				transformations.append( new COLLADAFW::Rotate(values.get(0), values.get(1), values.get(2), values.get(3)) );
+				transformations.append( new COLLADAFW::Rotate(values.get(0), values.get(1), values.get(2), COLLADAFW::Math::Utils::degToRad(values.get(3))) );
 			}
 			else if ( colladaTranslate )
 			{

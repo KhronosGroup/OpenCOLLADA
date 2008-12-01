@@ -20,32 +20,81 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include <max.h>
+#include "COLLADAFWIWriter.h"
 
+
+class Interface;
+class ImpInterface;
+
+namespace COLLADAFW
+{
+	class VisualScene;
+	class Geometry;
+	class UniqueId;
+}
 
 namespace COLLADAMax
 {
-	class DocumentImporter 	{
-		// member declarations
+	class DocumentImporter 	: COLLADAFW::IWriter
+	{
+	private:
+		/** Maps Unique id to INodes.*/
+		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMap;
+
 	private:
 		/** Max interface.*/
 		Interface* mMaxInterface;
 
+		/** Max import interface.*/
+		ImpInterface* mMaxImportInterface;
+
 		/** File path of the COLLADA document to import.*/
 		NativeString mImportFilePath;
+		
+		/** Maps .*/
+		UniqueIdINodeMap mUniqueIdINodeMap;
 	
-		// public function declarations
 	public:
-		DocumentImporter(Interface * i, const NativeString &filepath);
+		/** Constructor .
+		@param maxInterface The max interface.
+		@param the file name of the file to import.*/
+		DocumentImporter(Interface * maxInterface, ImpInterface* maxImportInterface, const NativeString &filepath);
+
 		virtual ~DocumentImporter();
 
-		// public static function declarations
-	public:
+		/** Start the import of the model.
+		@return True on success, false otherwise. */
+		bool import();
+
+		/** Returns the max interface.*/
+		Interface* getMaxInterface() { return mMaxInterface; }
+
+		/** Returns the max interface.*/
+		ImpInterface* getMaxImportInterface() { return mMaxImportInterface; }
+
+		/** Returns the UniqueId INode Mapping.*/
+		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdINodeMap; }
+
+		/** Deletes the entire scene.
+		@param errorMessage A message containing informations about the error that occurred.
+		*/
+		void cancel(const String& errorMessage){};
+
+		/** Prepare to receive data.*/
+		void start(){};
+
+		/** Remove all objects that don't have an object. Deletes unused visual scenes.*/
+		void finish(){};
+
+		/** Writes the entire visual scene.
+		@return True on succeeded, false otherwise.*/
+		bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
+
+		/** Writes the geometry.
+		@return True on succeeded, false otherwise.*/
+		bool writeGeometry ( const COLLADAFW::Geometry* geometry );
+
 	
-		// protected function declarations
-	protected:
-	
-		// private function declarations
 	private:
         /** Disable default copy ctor. */
 		DocumentImporter( const DocumentImporter& pre );
@@ -53,6 +102,7 @@ namespace COLLADAMax
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
 	};
+
 } // namespace COLLADAMAX
 
 #endif // __COLLADAMAX_DOCUMENTIMPORTER_H__

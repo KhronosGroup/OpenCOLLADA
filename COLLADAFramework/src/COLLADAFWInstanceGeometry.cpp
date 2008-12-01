@@ -14,6 +14,11 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	
+	InstanceGeometry::InstanceGeometry( UniqueId instanciatedGeometryId )
+		: mInstanciatedGeometryId(instanciatedGeometryId)
+	{
+	}
+
 	//--------------------------------------------------------------------
 	InstanceGeometry::~InstanceGeometry()
 	{

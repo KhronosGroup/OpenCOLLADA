@@ -38,7 +38,10 @@ namespace COLLADAFW
 
 	
 	public:
-		InstanceGeometry();
+		/** Constructor. Creates an instance geometry, that instantiates the geometry with UniqueId @a instanciatedGeometryId.
+		@param instanceGeometry The UniqueId of the geometry instantiated.*/ 
+		InstanceGeometry(UniqueId instanciatedGeometryId);
+
 		virtual ~InstanceGeometry();
 
 		/** Returns the name of the node*/
@@ -54,7 +57,7 @@ namespace COLLADAFW
 		void getSid(const String& sid) { mSid = sid; }
 
 		/** Returns the unique id of the instantiated geometry.*/
-		UniqueId getInstanciatedGeometryId() const { return mInstanciatedGeometryId; }
+		const UniqueId& getInstanciatedGeometryId() const { return mInstanciatedGeometryId; }
 
 	private:
         /** Disable default copy ctor. */

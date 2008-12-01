@@ -29,7 +29,7 @@ namespace COLLADADH
     public:
 
         /** Constructor. */
-        GeometryLoader ( daeDocument* daeDoc ) : BaseLoader ( daeDoc ) {}
+        GeometryLoader ( Loader* colladaLoader, domCOLLADA* colladaRoot ) : BaseLoader ( colladaLoader, colladaRoot ) {}
 
         /** Destructor. */
         virtual ~GeometryLoader () {}

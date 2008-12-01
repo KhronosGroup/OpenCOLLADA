@@ -11,13 +11,14 @@
 #ifndef __COLLADA_LOADER_H__
 #define __COLLADA_LOADER_H__
 
-#include "COLLADADHStableHeaders.h"
+#include "COLLADADHPrerequisites.h"
+
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
+#include "COLLADAFWUniqueId.h"
 
-#include <dae.h>
-#include <dom/domCOLLADA.h>
-
+class daeElement;
+class domCOLLADA;
 
 namespace COLLADAFW
 {
@@ -29,9 +30,9 @@ namespace COLLADADH
 	class Loader : public COLLADAFW::ILoader 
 	{
 	private:
-		/** The DAE class is the core interface via which you interact with the DOM. */
-		DAE mDae;
+		typedef std::map<daeElement*, COLLADAFW::UniqueId> DEAElementUniqueIdMap;
 
+	private:
 		/** The collada element of the parsed collada document. */
 		domCOLLADA* mDomCollada;
 
@@ -40,6 +41,9 @@ namespace COLLADADH
 
 		/** The writer that will be fed by this loader.*/
 		COLLADAFW::IWriter* mWriter;
+
+		/** Maps each already processed dae element to its COLLADAFW::UniqueId. */
+		DEAElementUniqueIdMap mDEAElementUniqueIdMap;
 	
 	public:
 
@@ -54,6 +58,14 @@ namespace COLLADADH
 		@param writer The writer that should be fed with data.
 		@return True, if loading succeeded, false otherwise.*/
 		virtual bool loadDocument(const String& fileName, COLLADAFW::IWriter* writer);
+
+		/** Returns the COLLADAFW::UniqueId of @a element. If it has been passed to this method before, the same 
+		COLLADAFW::UniqueId will be returned, if not, a new one is created.
+		@param element The element to get the COLLADAFW::UniqueId for
+		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+		@return The elements COLLADAFW::UniqueId */
+		const COLLADAFW::UniqueId& getUniqueId(daeElement* element, COLLADAFW::ClassId classId);
+
 
 	private:
 

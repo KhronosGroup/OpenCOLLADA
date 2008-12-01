@@ -166,7 +166,7 @@ namespace COLLADADH
         domInputLocal_Array verticesInputArray = verticesRef->getInput_array ();
 
         // Get the point positions of the vertexes
-        domURIFragmentType positionUri ( * ( getDaeDocument ()->getDAE () ) );
+		domSourceRef positionsSource = 0;
         size_t numOfInputs = verticesInputArray.getCount ();
         for ( size_t j=0; j<numOfInputs; ++j )
         {
@@ -174,16 +174,12 @@ namespace COLLADADH
             xsNMTOKEN semantic = vertexInputRef->getSemantic ();
             if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADAFW::Constants::SEMANTIC_POSITION ) )
             {
-                positionUri = vertexInputRef->getSource ();
+                positionsSource = daeSafeCast<domSource> (vertexInputRef->getSource().getElement());
+				break;
             }
         }
-        if ( positionUri.getState() != daeURI::uri_success )
-        {
-            positionUri.setContainer ( getDaeDocument ()->getDomRoot() );
-            positionUri.resolveElement ();
-        }
 
-        return daeSafeCast<domSource> ( positionUri.getElement() );
+        return positionsSource;
     }
 
     // --------------------------------------------

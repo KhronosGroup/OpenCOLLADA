@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -127,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -212,7 +212,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -299,7 +299,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH9)/include&quot;;..\res"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -383,7 +383,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -407,10 +407,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="COLLADAStreamWriter-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
+				AdditionalDependencies="libcollada14dom21-sd.lib libxml2_a.lib pcrecpp-d.lib pcre-d.lib zlib.lib wsock32.lib COLLADADomHelper-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\bin\win\$(PlatformName)&quot;;&quot;..\..\COLLADADomHelper\bin\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -468,7 +468,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;;$(NOINHERIT)"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -554,7 +554,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -641,7 +641,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2009)/include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -727,7 +727,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -814,7 +814,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="3"
 				FavorSizeOrSpeed="1"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL"
 				BasicRuntimeChecks="0"
 				RuntimeLibrary="2"
@@ -898,7 +898,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -982,7 +982,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
+				AdditionalIncludeDirectories="..\include;..\res;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;&quot;$(MAX_SDK_PATH2008)/include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL"
 				MinimalRebuild="false"
 				BasicRuntimeChecks="3"
@@ -1564,6 +1564,14 @@
 					RelativePath="..\src\COLLADAMaxDocumentImporter.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxImporterBase.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxVisualSceneImporter.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
@@ -1708,6 +1716,14 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxDocumentImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxImporterBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxVisualSceneImporter.h"
 					>
 				</File>
 			</Filter>

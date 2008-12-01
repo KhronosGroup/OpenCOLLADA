@@ -17,8 +17,6 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 
-//	class Node;
-
 	class VisualScene 	
 	{
 	private:
@@ -33,6 +31,7 @@ namespace COLLADAFW
 		*/
 		String mId;
 
+		/** All the root nodes of the visual scene.*/
 		NodeArray mRootNodes;
 	
 	public:
@@ -43,7 +42,7 @@ namespace COLLADAFW
 		const String& getName() const { return mName; }
 
 		/** Sets the name of the visual scene*/
-		void getName(const String& name) { mName = name; }
+		void setName(const String& name) { mName = name; }
 
 		/** Returns the id of the visual scene*/
 		const String& getId() const { return mId; }
@@ -51,7 +50,7 @@ namespace COLLADAFW
 		/** Sets the id of the visual scene*/
 		void getId(const String& id) { mId = id; }
 
-		/** Returns a reference to the root nodes of the visual scene.*/
+		/** Returns a reference to the root nodes of the visual scene. */
 		NodeArray& getRootNodes() { return mRootNodes; }
 
 		/** Returns a reference to the root nodes of the visual scene.*/

@@ -445,16 +445,6 @@ namespace COLLADAFW
             rkB = rkQ1 * kMinusArg.exp();
         }
 
-        //-----------------------------------------------------------------------
-        Quaternion Quaternion::squad ( Real fT,
-                                       const Quaternion& rkP, const Quaternion& rkA,
-                                       const Quaternion& rkB, const Quaternion& rkQ, bool shortestPath )
-        {
-            Real fSlerpT = 2.0 * fT * ( 1.0 - fT );
-            Quaternion kSlerpP = slerp( fT, rkP, rkQ, shortestPath );
-            Quaternion kSlerpQ = slerp( fT, rkA, rkB );
-            return slerp( fSlerpT, kSlerpP , kSlerpQ );
-        }
 
         //-----------------------------------------------------------------------
         Real Quaternion::normalise( void )

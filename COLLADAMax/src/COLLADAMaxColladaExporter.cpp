@@ -111,7 +111,7 @@ namespace COLLADAMax
 
 
     //---------------------------------------------------------------
-    DWORD WINAPI fn ( LPVOID )
+    DWORD WINAPI COLLADAExporter::fn ( LPVOID )
     {
         return 0;
     }

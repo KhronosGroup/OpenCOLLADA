@@ -10,14 +10,15 @@
 
 #include "COLLADADHStableHeaders.h"
 #include "COLLADADHBaseLoader.h"
-
+#include "COLLADADHLoader.h"
 
 namespace COLLADADH
 {
 
     //-----------------------------
-	BaseLoader::BaseLoader ( daeDocument* daeDoc )
-         : mDaeDocument ( daeDoc )
+	BaseLoader::BaseLoader ( Loader* colladaLoader, domCOLLADA* colladaRoot )
+         : mDomCollada ( colladaRoot ),
+		   mColladaLoader(colladaLoader)
 	{
 	}
 	
@@ -27,15 +28,22 @@ namespace COLLADADH
 	}
 
     //-----------------------------
-    const daeDocument* BaseLoader::getDaeDocument () const
+    const domCOLLADA* BaseLoader::getDomCollada () const
     {
-        return mDaeDocument;
+        return mDomCollada;
     }
 
     //-----------------------------
-    daeDocument* BaseLoader::getDaeDocument () 
+    domCOLLADA* BaseLoader::getDomCollada () 
     {
-        return mDaeDocument;
+        return mDomCollada;
     }
 
+	const COLLADAFW::UniqueId& BaseLoader::getUniqueId( daeElement* element, COLLADAFW::ClassId classId )
+	{
+		if ( !getColladaLoader() )
+			return COLLADAFW::UniqueId::INVALID;
+		
+		return getColladaLoader()->getUniqueId(element, classId);
+	}
 } // namespace COLLADADH

@@ -21,6 +21,9 @@ namespace COLLADAFW
 	//--------------------------------------------------------------------
 	VisualScene::~VisualScene()
 	{
+		//delete all root node
+		for ( size_t i = 0, count = mRootNodes.getCount(); i < count; ++i)
+			delete mRootNodes[i];
 	}
 
 

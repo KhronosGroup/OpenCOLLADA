@@ -13,6 +13,7 @@
 
 #include "COLLADADHStableHeaders.h"
 #include "COLLADADHNodeTraverser.h"
+#include "COLLADADHBaseLoader.h"
 
 #include <stack>
 
@@ -30,27 +31,24 @@ namespace COLLADADH
 	class Loader;
 
 	/** This class takes a COLALDA dom visual scene and builds a frame work visual scene out of it.*/
-	class VisualSceneLoader : COLLADADH::NodeTraverser::TraverserListener
+	class VisualSceneLoader : BaseLoader, COLLADADH::NodeTraverser::TraverserListener
 	{
 	private:
 		/** Stack of nodes.*/
 		typedef std::stack<COLLADAFW::Node*> NodeStack;
 
 	private:
-		/** The COLLADA visual scene the visual scene is created from.*/
-		domVisual_scene* mColladaVisualScene;
-
 		/** The collada loader */
 		Loader* mColladaLoader;
 
 		/** Pointer to the visual scene this loader creates.*/
 		COLLADAFW::VisualScene* mVisualScene;
 
-		/** Stack of nodes to traverse back in node hierarchy.*/
+		/** Stack of nodes to traverse back in node hierarchy. Array and contents will be delete in destructor.*/
 		NodeStack mNodeStack;
 	
 	public:
-		VisualSceneLoader(Loader* colladaLoader, domVisual_scene* colladaVisualScene);
+		VisualSceneLoader(Loader* colladaLoader, domCOLLADA* colladaRoot);
 		virtual ~VisualSceneLoader();
 
 		/** Loads the collada dom visual scene and creates a frame work visual scene.

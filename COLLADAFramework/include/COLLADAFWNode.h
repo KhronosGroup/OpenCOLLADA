@@ -18,6 +18,11 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 
+	namespace Math
+	{
+		class Matrix4;
+	}
+
 	class Node;
 
 	typedef Array<Node*> NodeArray;
@@ -35,20 +40,15 @@ namespace COLLADAFW
 		/** A text string containing the unique identifier of the element. This value must be
 		unique within the instance document. Optional.
 		*/
-		String mId;
-
-		/** A text string containing the unique identifier of the element. This value must be
-		unique within the instance document. Optional.
-		*/
 		String mSid;
 
-		/** List of all transformations of the node.*/
+		/** List of all transformations of the node. Array and contents will be delete in destructor.*/
 		TransformationArray mTransformations;
 
-		/** List of all instance geometries of this node.*/
+		/** List of all instance geometries of this node. Array and contents will be delete in destructor.*/
 		InstanceGeometryArray mInstanceGeometries;
 
-		/** List of all child nodes.*/
+		/** List of all child nodes. Array and contents will be delete in destructor.*/
 		NodeArray mChildNodes;
 
 	public:
@@ -59,19 +59,13 @@ namespace COLLADAFW
 		const String& getName() const { return mName; }
 
 		/** Sets the name of the node*/
-		void getName(const String& name) { mName = name; }
-
-		/** Returns the id of the node*/
-		const String& getId() const { return mId; }
-
-		/** Sets the id of the node*/
-		void getId(const String& id) { mId = id; }
+		void setName(const String& name) { mName = name; }
 
 		/** Returns the sid of the node*/
 		const String& getSid() const { return mSid; }
 
 		/** Sets the id of the node*/
-		void getSid(const String& sid) { mSid = sid; }
+		void setSid(const String& sid) { mSid = sid; }
 
 		/** Get list of all transformations of the node.*/
 		TransformationArray& getTransformations() { return mTransformations; }
@@ -90,6 +84,14 @@ namespace COLLADAFW
 
 		/** Get list of all child nodes.*/
 		const NodeArray& getChildNodes() const { return mChildNodes; }
+
+		/** Calculates a baked matrix, representing all the transformations of the node.
+		@param transformationMatrix Will be set to the calculated transformaton matrix.*/
+		void getTransformationMatrix(Math::Matrix4& transformationMatrix) const;
+
+		/** Returns a baked matrix, representing all the transformations of the node.
+		@return The transformation matrix*/
+		Math::Matrix4 getTransformationMatrix() const;
 
 	private:
         /** Disable default copy ctor. */

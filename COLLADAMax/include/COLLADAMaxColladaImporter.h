@@ -56,8 +56,9 @@ namespace COLLADAMax
 
 		BOOL SupportsOptions ( int ext, DWORD options );
 
-		int DoImport (const TCHAR *name,ImpInterface *ii,Interface *i, BOOL suppressPrompts=FALSE);
+		int DoImport (const TCHAR *name,ImpInterface *maxImportInterface,Interface *maxInterface, BOOL suppressPrompts=FALSE);
 
+		static DWORD WINAPI fn ( LPVOID );
 
 		// public static function declarations
 	public:

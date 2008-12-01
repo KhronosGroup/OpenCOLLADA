@@ -22,6 +22,10 @@ namespace COLLADAFW
 	of all objects of the same Type.*/
 	class UniqueId 	
 	{
+	public:
+		/** An invalid UniqueId.*/
+		static const UniqueId INVALID;
+
 	private:
 		/** The class id of the class the object is instantiated from.*/
 		ClassId mClassId;
@@ -31,6 +35,11 @@ namespace COLLADAFW
 
 
 	public:
+		/** Default constructor. Creates a UniqueId with ClassId COLALDA_TYPES::No_TYPE, which is an invalid ClassId.
+		Therefore the UniqueId is considered to be invalid.*/
+		UniqueId() : mClassId(COLLADA_TYPE::NO_TYPE), mObjectId(0){}
+
+		/** Constructor. Creates UniqueId with ClassId @a classId an ObjectId @a objectId.*/
 		UniqueId(ClassId classId, ObjectId objectId) : mClassId(classId), mObjectId(objectId){}
 		virtual ~UniqueId();
 

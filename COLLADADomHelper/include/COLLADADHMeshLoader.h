@@ -37,7 +37,7 @@ namespace COLLADADH
     public:
 
         /** Constructor. */
-        MeshLoader ( daeDocument* daeDoc ) : BaseLoader ( daeDoc ) {}
+        MeshLoader ( Loader* colladaLoader, domCOLLADA* colladaRoot ) : BaseLoader ( colladaLoader, colladaRoot ) {}
 
         /** Destructor. */
         virtual ~MeshLoader () {}

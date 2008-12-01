@@ -27,7 +27,7 @@ namespace COLLADAFW
 
 	public:
 		Object(ObjectId objectId) : mUniqueId(classId, objectId){};
-		virtual ~Object();
+		virtual ~Object(){};
 
 		/** Returns the unique id of the object.*/
 		const UniqueId& getUniqueId() const { return mUniqueId; }

@@ -14,6 +14,8 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include <math.h>
 
+#undef PI
+#undef HALF_PI
 namespace COLLADAFW
 {
     namespace Math
