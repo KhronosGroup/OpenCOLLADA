@@ -16,7 +16,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaAnimationCurves.h"
 
-#include "COLLADASWMathUtils.h"
+#include "Math/COLLADABUMathUtils.h"
 
 
 namespace COLLADAMaya
@@ -274,8 +274,8 @@ namespace COLLADAMaya
                     {
                         br = inputInterval / ( bkey1->outTangent.x - startKey->input );
                         cr = inputInterval / ( endKey->input - inTangent.x );
-                        br = COLLADASW::MathUtils::clamp ( br, 0.01f, 100.0f );
-                        cr = COLLADASW::MathUtils::clamp ( cr, 0.01f, 100.0f );
+                        br = COLLADABU::Math::Utils::clamp ( br, 0.01f, 100.0f );
+                        cr = COLLADABU::Math::Utils::clamp ( cr, 0.01f, 100.0f );
                     }
 
                     output = startKey->output * ti * ti * ti + br * b * ti * ti * t + cr * c * ti * t * t + endKey->output * t * t * t;
@@ -507,8 +507,8 @@ namespace COLLADAMaya
                         float br = inputInterval / ( bkey1->outTangent[i].u - startKey->input );
                         float cr = inputInterval / ( endKey->input - inTangent.u );
 
-                        br = COLLADASW::MathUtils::clamp ( br, 0.01f, 100.0f );
-                        cr = COLLADASW::MathUtils::clamp ( cr, 0.01f, 100.0f );
+                        br = COLLADABU::Math::Utils::clamp ( br, 0.01f, 100.0f );
+                        cr = COLLADABU::Math::Utils::clamp ( cr, 0.01f, 100.0f );
 
                         output[i] = startKey->output[i] * ti * ti * ti + br* b * ti * ti * t + cr * c * ti * t * t + endKey->output[i] * t * t * t;
                     }

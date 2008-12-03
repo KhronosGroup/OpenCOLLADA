@@ -15,7 +15,7 @@
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWArray.h"
 
-#include <COLLADASWURI.h>
+#include "COLLADABUURI.h"
 
 
 namespace COLLADAFW
@@ -80,7 +80,7 @@ namespace COLLADAFW
         InputSemantic::Semantic mSemantic;
 
         /** The location of the data source. Required. */
-        COLLADASW::URI mSource;
+        COLLADABU::URI mSource;
 
     public:
 
@@ -94,7 +94,7 @@ namespace COLLADAFW
          * @param semantic The semantic of the @a \<input\> element.
          * @param source The source of the @a \<input\> element.
          */
-        InputUnshared ( InputSemantic::Semantic semantic, const COLLADASW::URI& source )
+        InputUnshared ( InputSemantic::Semantic semantic, const COLLADABU::URI& source )
             : mSemantic ( semantic )
             , mSource ( source )
         {}
@@ -122,15 +122,15 @@ namespace COLLADAFW
 
         /**
          * The location of the data source. Required.
-         * @return const COLLADASW::URI The location of the data source.
+         * @return const COLLADABU::URI The location of the data source.
          */
-        const COLLADASW::URI getSource () const { return mSource; }
+        const COLLADABU::URI getSource () const { return mSource; }
 
         /**
          * The location of the data source. Required.
          * @param val The location of the data source.
          */
-        void setSource ( const COLLADASW::URI val ) { mSource = val; }
+        void setSource ( const COLLADABU::URI val ) { mSource = val; }
 
         /**
          * Returns the string of the current semantic type.

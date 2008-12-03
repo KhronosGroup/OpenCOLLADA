@@ -28,7 +28,6 @@
 #include "COLLADAMaxXRefFunctions.h"
 
 #include "COLLADASWNode.h"
-#include "COLLADASWStringUtils.h"
 //#include "COLLADASWTextureModifier.h"
 
 #include <algorithm>
@@ -1066,12 +1065,12 @@ namespace COLLADAMax
 			fileName = NativeString(fileNamePtr);
 
 		static const String noneString("none"); 
-		if ( !fileName.empty() && !COLLADASW::StringUtils::equals(fileName, noneString) )
+		if ( !fileName.empty() && !StringUtils::equals(fileName, noneString) )
         {
 
             BMMGetFullFilename ( &bitmapInfo );
             fullFileName  = NativeString(bitmapInfo.Name());
-            String fullFileNameURI = COLLADASW::Utils::FILE_PROTOCOL + COLLADASW::URI::uriEncode ( fullFileName );
+            String fullFileNameURI = Utils::FILE_PROTOCOL + URI::uriEncode ( fullFileName );
             String imageId;
             // Export the equivalent <image> node in the image library and add
             // the <init_from> element to the sampler's surface definition.

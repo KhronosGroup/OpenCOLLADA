@@ -19,6 +19,9 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
+#include "dom/domMaterial.h"
+
+
 namespace COLLADAMaya
 {
 
@@ -29,7 +32,7 @@ namespace COLLADAMaya
     public:
 
         /** Constructor. */
-        MaterialImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc );
+        MaterialImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
         virtual ~MaterialImporter () {}

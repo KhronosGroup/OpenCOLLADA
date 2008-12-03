@@ -47,8 +47,8 @@ namespace COLLADADH
 		if ( !loadVisualScenes() )
 			return false;
 
-  //      if ( !loadGeometries() )
-  //          return false;
+        if ( !loadGeometries() )
+            return false;
 
 		dae.close(fileName);
 
@@ -103,6 +103,7 @@ namespace COLLADADH
         return true;
     }
 
+    //---------------------------------
 	const COLLADAFW::UniqueId& Loader::getUniqueId( daeElement* element, COLLADAFW::ClassId classId )
 	{
 		DEAElementUniqueIdMap::const_iterator it = mDEAElementUniqueIdMap.find(element);
@@ -116,4 +117,15 @@ namespace COLLADADH
 		}
 	}
 
+    //---------------------------------
+    const daeDocument* Loader::getDaeDocument () const
+    {
+        return mDomCollada->getDocument ();
+    }
+
+    //---------------------------------
+    daeDocument* Loader::getDaeDocument ()
+    {
+        return mDomCollada->getDocument ();
+    }
 } // namespace COLLADA

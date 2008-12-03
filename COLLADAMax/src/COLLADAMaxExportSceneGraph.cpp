@@ -20,7 +20,6 @@
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxControllerExporter.h"
-#include "COLLADASWUtils.h"
 
 #include <sstream>
 #include <iostream>

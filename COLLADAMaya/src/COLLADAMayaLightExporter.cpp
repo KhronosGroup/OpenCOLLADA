@@ -177,13 +177,13 @@ namespace COLLADAMaya
             // Put in the needed spot light type attributes : Falloff, Falloff_Scale and Angle
             MFnSpotLight spotFn(lightNode);
 
-            float fallOffAngle = COLLADASW::MathUtils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_MSTATUS(status);
+            float fallOffAngle = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.coneAngle( &status ) ); CHECK_MSTATUS(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_CONE_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             light->setFallOffAngle ( fallOffAngle, animated );
 
             light->setFallOffExponent ( 1.0f );
 
-            float penumbraValue = COLLADASW::MathUtils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_MSTATUS(status);
+            float penumbraValue = COLLADABU::Math::Utils::radToDegF ( (float)spotFn.penumbraAngle( &status ) ); CHECK_MSTATUS(status);
             animated = anim->addNodeAnimation ( lightNode, ATTR_PENUMBRA_ANGLE, ( SampleType ) ( kSingle | kAngle ) );
             // TODO
 //            FCDLightTools::LoadPenumbra(light, penumbraValue, colladaLight->GetOuterAngle().GetAnimated());

@@ -51,51 +51,51 @@ namespace COLLADAFW
     // ----------------------------
     const InputSemantic::Semantic InputUnshared::getSemanticFromString ( const String& semanticStr )
     {
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_BINORMAL ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_BINORMAL ) )
             return InputSemantic::BINORMAL;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_COLOR ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_COLOR ) )
             return InputSemantic::COLOR;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_CONTINUITY ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_CONTINUITY ) )
             return InputSemantic::CONTINUITY;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_IMAGE ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_IMAGE ) )
             return InputSemantic::IMAGE;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INPUT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INPUT ) )
             return InputSemantic::INPUT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_IN_TANGENT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_IN_TANGENT ) )
             return InputSemantic::IN_TANGENT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INTERPOLATION ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INTERPOLATION ) )
             return InputSemantic::INTERPOLATION;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INV_BIND_MATRIX ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_INV_BIND_MATRIX ) )
             return InputSemantic::INV_BIND_MATRIX;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_JOINT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_JOINT ) )
             return InputSemantic::JOINT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_LINEAR_STEPS ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_LINEAR_STEPS ) )
             return InputSemantic::LINEAR_STEPS;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_MORPH_TARGET ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_MORPH_TARGET ) )
             return InputSemantic::MORPH_TARGET;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_MORPH_WEIGHT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_MORPH_WEIGHT ) )
             return InputSemantic::MORPH_WEIGHT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_NORMAL ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_NORMAL ) )
             return InputSemantic::NORMAL;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_OUTPUT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_OUTPUT ) )
             return InputSemantic::OUTPUT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_OUT_TANGENT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_OUT_TANGENT ) )
             return InputSemantic::OUT_TANGENT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_POSITION ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_POSITION ) )
             return InputSemantic::POSITION;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TANGENT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TANGENT ) )
             return InputSemantic::TANGENT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXBINORMAL ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXBINORMAL ) )
             return InputSemantic::TEXBINORMAL;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXCOORD ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXCOORD ) )
             return InputSemantic::TEXCOORD;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXTANGENT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_TEXTANGENT ) )
             return InputSemantic::TEXTANGENT;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_UV ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_UV ) )
             return InputSemantic::UV;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_VERTEX ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_VERTEX ) )
             return InputSemantic::VERTEX;
-        if ( COLLADASW::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_WEIGHT ) )
+        if ( COLLADABU::Utils::equalsIgnoreCase ( semanticStr, Constants::SEMANTIC_WEIGHT ) )
             return InputSemantic::WEIGHT;
 
         return InputSemantic::UNKNOWN;

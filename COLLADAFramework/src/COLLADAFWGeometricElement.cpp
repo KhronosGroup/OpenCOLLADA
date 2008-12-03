@@ -44,7 +44,7 @@ namespace COLLADAFW
         for ( size_t i=0; i<mSourceArray.getCount (); ++i )
         {
             SourceBase* source = mSourceArray [ i ];
-            if ( COLLADASW::Utils::equals ( source->getId (), sourceId ) )
+            if ( COLLADABU::Utils::equals ( source->getId (), sourceId ) )
                 return source;
         }
 

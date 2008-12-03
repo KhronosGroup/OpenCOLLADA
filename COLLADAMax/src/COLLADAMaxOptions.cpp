@@ -19,7 +19,6 @@
 #include "COLLADAMaxStableHeaders.h"
 
 #include "COLLADAMaxOptions.h"
-#include "COLLADASWURI.h"
 
 #include <max.h>
 #include <maxapi.h>
@@ -280,8 +279,8 @@ namespace COLLADAMax
 	void Options::SaveOptions()
 	{
 		NativeString configurationPath(NativeString(mMaxInterface->GetDir(APP_PLUGCFG_DIR)));
-		COLLADASW::URI configurationPathUri(COLLADASW::URI::nativePathToUri(configurationPath.toUtf8String()));
-		COLLADASW::URI optionsFileUri(configurationPathUri, CONFIGURATION_FILE_NAME);
+		URI configurationPathUri(URI::nativePathToUri(configurationPath.toUtf8String()));
+		URI optionsFileUri(configurationPathUri, CONFIGURATION_FILE_NAME);
 	//	NativeString filename = configurationPath + "\\" + CONFIGURATION_FILE_NAME;
 		FILE* file;
 		errno_t error = fopen_s(&file, optionsFileUri.toNativePath().c_str(), "wb");
@@ -317,8 +316,8 @@ namespace COLLADAMax
 	void Options::LoadOptions()
 	{
 		NativeString configurationPath(NativeString(mMaxInterface->GetDir(APP_PLUGCFG_DIR)));
-		COLLADASW::URI configurationPathUri(COLLADASW::URI::nativePathToUri(configurationPath.toUtf8String()));
-		COLLADASW::URI optionsFileUri(configurationPathUri, CONFIGURATION_FILE_NAME);
+		URI configurationPathUri(URI::nativePathToUri(configurationPath.toUtf8String()));
+		URI optionsFileUri(configurationPathUri, CONFIGURATION_FILE_NAME);
 
 		FILE* file;
 		errno_t error = fopen_s(&file, optionsFileUri.toNativePath().c_str(), "rb");

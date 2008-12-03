@@ -22,8 +22,6 @@
 #include "COLLADAMayaCameraImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
-#include "COLLADASWURI.h"
-
 #include "COLLADADHDocumentUtil.h"
 
 #include "dom/domTypes.h"
@@ -64,21 +62,18 @@ namespace COLLADAMaya
         // Initialize the reference manager
         ReferenceManager::getInstance()->initialize ();
 
-        // Parse the dae document, then create the libraries
-        // (the importers want to have a reference to the document).
-        String filename = getFilename ();
-        String fileUriString = COLLADASW::URI::nativePathToUri ( filename );
-        mColladaDoc = mDae.open ( fileUriString );
-        daeDocument* daeDoc = mColladaDoc->getDocument();
-
-        // Load the collada document with the dom into the collada framework.
-        mLoader.loadDocument ( fileUriString, &mWriter );
+//         // Parse the dae document, then create the libraries
+//         // (the importers want to have a reference to the document).
+//         String filename = getFilename ();
+//         String fileUriString = COLLADASW::URI::nativePathToUri ( filename );
+//         mColladaDoc = mDae.open ( fileUriString );
+//         daeDocument* daeDoc = mColladaDoc->getDocument();
 
         // Create the basic elements
-        mMaterialImporter = new MaterialImporter ( this, daeDoc );
-        mGeometryImporter = new GeometryImporter ( this, daeDoc );
+        mMaterialImporter = new MaterialImporter ( this );
+        mGeometryImporter = new GeometryImporter ( this );
         mCameraImporter = new CameraImporter ();
-        mVisualSceneImporter = new VisualSceneImporter ( this, daeDoc );
+        mVisualSceneImporter = new VisualSceneImporter ( this );
 
     }
 
@@ -100,6 +95,12 @@ namespace COLLADAMaya
         // Import the asset information.
         importAsset ();
 
+        // Load the collada document with the dom into the collada framework.
+        String filename = getFilename ();
+        String fileUriString = URI::nativePathToUri ( filename );
+        mDocumentLoader.loadDocument ( fileUriString, &mWriter );
+
+
         // Import the DAG entity libraries
         mMaterialImporter->importMaterials ();
 
@@ -110,7 +111,7 @@ namespace COLLADAMaya
 
 //        controllerLibrary->Import();
 
-        mVisualSceneImporter->importVisualScenes ();
+//        mVisualSceneImporter->importVisualScenes ();
 
     }
 
@@ -124,7 +125,7 @@ namespace COLLADAMaya
             {
                 char upAxis = 'y';
                 
-                daeDocument* daeDoc = mColladaDoc->getDocument();
+                daeDocument* daeDoc = mDocumentLoader.getDaeDocument ();
                 domUpAxisType upAxisType = COLLADADH::DocumentUtil::getUpAxis ( daeDoc );
                 switch ( upAxisType )
                 {

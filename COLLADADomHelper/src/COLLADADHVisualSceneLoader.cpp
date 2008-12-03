@@ -15,9 +15,11 @@
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWScale.h"
 #include "COLLADAFWMatrix.h"
-#include "COLLADAFWMathMatrix4.h"
 #include "COLLADAFWGeometry.h"
-#include "COLLADAFWMathUtils.h"
+
+#include "Math/COLLADABUMathMatrix4.h"
+#include "Math/COLLADABUMathUtils.h"
+
 
 namespace COLLADADH
 {
@@ -130,7 +132,7 @@ namespace COLLADADH
 			if ( colladaRotate )
 			{
 				const domFloat4& values = colladaRotate->getValue();
-				transformations.append( new COLLADAFW::Rotate(values.get(0), values.get(1), values.get(2), COLLADAFW::Math::Utils::degToRad(values.get(3))) );
+				transformations.append( new COLLADAFW::Rotate(values.get(0), values.get(1), values.get(2), COLLADABU::Math::Utils::degToRad(values.get(3))) );
 			}
 			else if ( colladaTranslate )
 			{
@@ -145,7 +147,7 @@ namespace COLLADADH
 			else if ( colladaMatrix )
 			{
 				const domFloat4x4& values = colladaMatrix->getValue();
-				transformations.append( new COLLADAFW::Matrix(COLLADAFW::Math::Matrix4((double*)(values.getRawData()))) );
+				transformations.append( new COLLADAFW::Matrix(COLLADABU::Math::Matrix4((double*)(values.getRawData()))) );
 			}
 		}
 

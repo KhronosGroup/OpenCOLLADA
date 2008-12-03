@@ -34,27 +34,21 @@ namespace COLLADAMaya
         /** The current transform object, for which the geometries should be created. */
         MObject mTransformObject;
 
-        /** A pointer to the current geometry instance to import. */
-        domGeometryRef mGeometryRef;
-
-        /** A pointer to the current mesh object to import. */
-        domMeshRef mMeshRef;
+        /** Pointer to the current framework geometry object. */
+        const COLLADAFW::Geometry* mGeometry;
 
     public:
 
         /** Constructor. */
-        GeometryImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc );
+        GeometryImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
         virtual ~GeometryImporter () {}
 
-        /** Imports all geometries of the current dae element. */
-        void importGeometries ( MObject& transformObject, domNode& node );
+        /** Imports the geometry element. */
+        bool importGeometry ( const COLLADAFW::Geometry* geometry );
 
     private:
-
-        /** Imports the data of the current geometry element. */
-        void importGeometry ( domInstance_geometryRef instanceGeometryRef );
 
         /** Imports the data of the current mesh element. */
         bool importMesh ( const COLLADAFW::Mesh* mesh );

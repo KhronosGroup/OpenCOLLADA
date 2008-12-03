@@ -19,6 +19,9 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
+#include "COLLADAFWVisualScene.h"
+
+
 namespace COLLADAMaya
 {
 
@@ -74,24 +77,18 @@ namespace COLLADAMaya
     public:
 
         /** Constructor. */
-        VisualSceneImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc );
+        VisualSceneImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
         virtual ~VisualSceneImporter () {}
 
-        /** Imports all visual scenes of the current dae element. */
-        void importVisualScenes ();
-
-        /** Imports the given dom node into maya. */
-        bool importVisualSceneNode ( domNode& node, int level );
-
-        /** Imports the current transformations. */
-        bool importTransforms ( MObject& transformObject, domNode& node );
+        /** Import the current visual scene with all scene nodes and transforms. */
+        bool importVisualScene ( const COLLADAFW::VisualScene* visualScene );
 
     private:
 
-        /** Imports the current visual scene dae element. */
-        void importVisualScene ( domVisual_scene& visualScene );
+        /** Imports the current transformations. */
+        bool importTransforms ( MObject& transformObject, const COLLADAFW::Node* rootNode );
 
         bool bucketTransforms ( MObject& transformObject );
 

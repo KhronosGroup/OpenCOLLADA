@@ -1,20 +1,21 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADABaseUtils.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW__MATH__MATRIX4_H__
-#define __COLLADAFW__MATH__MATRIX4_H__
+#ifndef __COLLADABU_MATH_MATRIX4_H__
+#define __COLLADABU_MATH_MATRIX4_H__
 
-#include "COLLADAFWMathVector3.h"
-#include "COLLADAFWMathMatrix3.h"
+#include "COLLADABUMathVector3.h"
+#include "COLLADABUMathMatrix3.h"
+#include "COLLADABUMathUtils.h"
 
-namespace COLLADAFW
+namespace COLLADABU
 {
 
     namespace Math
@@ -542,7 +543,40 @@ namespace COLLADAFW
             Matrix4 inverse() const;
             void makeTransform( const Vector3& position, const Vector3& scale, const Quaternion& orientation );
 
+            void convertToDouble4x4 ( double copy[][4] )
+            {
+                if (COLLADABU::Math::Utils::equalsZero((*this)[0][0])) copy[0][0] = 0.0;
+                else copy[0][0] = (*this)[0][0];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[0][1])) copy[1][0] = 0.0;
+                else copy[1][0] = (*this)[0][1];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[0][2])) copy[2][0] = 0.0;
+                else copy[2][0] = (*this)[0][2];
+                copy[3][0] = 0;
 
+                if (COLLADABU::Math::Utils::equalsZero((*this)[1][0])) copy[0][1] = 0.0;
+                else copy[0][1] = (*this)[1][0];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[1][1])) copy[1][1] = 0.0;
+                else copy[1][1] = (*this)[1][1];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[1][2])) copy[2][1] = 0.0;
+                else copy[2][1] = (*this)[1][2];
+                copy[3][1] = 0;
+
+                if (COLLADABU::Math::Utils::equalsZero((*this)[2][0])) copy[0][2] = 0.0;
+                else copy[0][2] = (*this)[2][0];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[2][1])) copy[1][2] = 0.0;
+                else copy[1][2] = (*this)[2][1];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[2][2])) copy[2][2] = 0.0;
+                else copy[2][2] = (*this)[2][2];
+                copy[3][2] = 0;
+
+                if (COLLADABU::Math::Utils::equalsZero((*this)[3][0])) copy[0][3] = 0.0;
+                else copy[0][3] = (*this)[3][0];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[3][1])) copy[1][3] = 0.0;
+                else copy[1][3] = (*this)[3][1];
+                if (COLLADABU::Math::Utils::equalsZero((*this)[3][2])) copy[2][3] = 0.0;
+                else copy[2][3] = (*this)[3][2];
+                copy[3][3] = 1;
+            }
 
         private:
             enum State
@@ -611,4 +645,4 @@ namespace COLLADAFW
     }
 }
 
-#endif //__COLLADAFW__MATH__MATRIX4_H__
+#endif //__COLLADABU_MATH_MATRIX4_H__

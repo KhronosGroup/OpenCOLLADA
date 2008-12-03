@@ -22,7 +22,6 @@
 #include "COLLADASWSource.h"
 #include "COLLADASWBaseInputElement.h"
 #include "COLLADASWPrimitves.h"
-#include "COLLADASWUtils.h"
 
 #include "COLLADAMaxGeometriesExporter.h"
 #include "COLLADAMaxGeometryExporter.h"

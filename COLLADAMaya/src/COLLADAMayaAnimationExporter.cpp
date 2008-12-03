@@ -28,9 +28,11 @@
 #include <maya/MFnClip.h>
 
 #include "COLLADASWSource.h"
-#include "COLLADASWMathUtils.h"
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWLibraryAnimationClips.h"
+
+#include "Math/COLLADABUMathUtils.h"
+
 
 namespace COLLADAMaya
 {
@@ -1347,7 +1349,7 @@ namespace COLLADAMaya
         else if ( ( sampleType & kAngle ) == kAngle )
         {
             ConversionFunctor* conversion = new ConversionScaleFunctor (
-                isImport ? COLLADASW::MathUtils::degToRadF ( 1.0f ) : COLLADASW::MathUtils::radToDegF ( 1.0f ) );
+                isImport ? COLLADABU::Math::Utils::degToRadF ( 1.0f ) : COLLADABU::Math::Utils::radToDegF ( 1.0f ) );
             animatedElement->setConversion ( conversion );
         }
 
@@ -1780,7 +1782,7 @@ namespace COLLADAMaya
                     }
 
                     if ( ( animatedElement->getSampleType() & kAngle ) == kAngle )
-                        value = COLLADASW::MathUtils::radToDegF ( value );
+                        value = COLLADABU::Math::Utils::radToDegF ( value );
                 }
 
                 key->input = value;

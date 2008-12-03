@@ -1,22 +1,25 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-    This file is part of COLLADAStreamWriter.
+    This file is part of COLLADABaseUtils.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
+#include "COLLADABUStableHeaders.h"
+#include "COLLADABUURI.h"
+#include "COLLADABUStringUtils.h"
+
 #include <algorithm>
-#include "COLLADASWURI.h"
-#include "COLLADASWStringUtils.h"
+
 #include <boost/regex.hpp>
 #include <boost/algorithm/string/case_conv.hpp>
 
 //#include <pcrecpp.h>
 
-namespace COLLADASW
+namespace COLLADABU
 {
 
 	const String URI::SCHEME_FILE = "file";
@@ -896,10 +899,6 @@ namespace COLLADASW
 
 		return filePath;
 	}
-
-
-
-
 
 }
 

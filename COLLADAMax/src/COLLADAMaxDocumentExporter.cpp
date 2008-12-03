@@ -32,7 +32,6 @@
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWNativeString.h"
 
 #include <max.h>
 

@@ -202,7 +202,7 @@ namespace COLLADASW
         mSW->appendValues ( mQuadraticAttenuation );
         mSW->closeElement();
 
-        if ( !COLLADASW::MathUtils::equals ( mFallOffAngle, 180.0f ) )
+        if ( !MathUtils::equals ( mFallOffAngle, 180.0f ) )
         {
             mSW->openElement ( CSWC::CSW_ELEMENT_FALLOFF_ANGLE );
             if ( !mFallOffAngleSid.empty() )
@@ -211,7 +211,7 @@ namespace COLLADASW
             mSW->closeElement();
         }
 
-        if ( !COLLADASW::MathUtils::equals ( mFallOffExponent, 0.0f ) )
+        if ( !MathUtils::equals ( mFallOffExponent, 0.0f ) )
         {
             mSW->openElement ( CSWC::CSW_ELEMENT_FALLOFF_EXPONENT );
             if ( !mFallOffExponentSid.empty() )

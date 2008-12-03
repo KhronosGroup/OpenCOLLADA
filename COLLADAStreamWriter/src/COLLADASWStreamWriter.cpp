@@ -15,10 +15,8 @@
 #include <assert.h>
 
 #include "COLLADASWConstants.h"
-#include "COLLADASWURI.h"
 #include "COLLADASWException.h"
-#include "COLLADASWUtils.h"
-#include "COLLADASWNativeString.h"
+
 
 namespace COLLADASW
 {
@@ -147,7 +145,7 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendURIAttribute ( const String &name, const URI &uri )
+    void StreamWriter::appendURIAttribute ( const String &name, const COLLADABU::URI &uri )
     {
         assert ( !mOpenTags.top().mHasContents );
 
@@ -795,7 +793,7 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void StreamWriter::appendURIElement ( const String& elementName, const URI& uri )
+    void StreamWriter::appendURIElement ( const String& elementName, const COLLADABU::URI& uri )
     {
         openElement ( elementName );
         appendText ( uri.getURIString() );

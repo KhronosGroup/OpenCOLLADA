@@ -8,10 +8,12 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "COLLADASWUtils.h"
+#include "COLLADABUStableHeaders.h"
+#include "COLLADABUUtils.h"
+#include "COLLADABUPlatform.h"
 
 
-namespace COLLADASW
+namespace COLLADABU
 {
 
     const String Utils::FILE_PROTOCOL = "file:///";
@@ -27,10 +29,10 @@ namespace COLLADASW
     // absolute filenames start with "X:\" so this value should be 3, in UNIX they start
     // with "\" so this value should be 1. A slash must set to '\\' for DOS or '/' for UNIX.
 
-#if defined( __WIN32__ ) || defined( _WIN32 )
+#if defined(COLLADABU_OS_WIN)
     #define ABSOLUTE_NAME_START 3
     #define SLASH '\\'
-#elif defined( __APPLE_CC__)
+#elif defined(COLLADABU_OS_MAC)
     #define ABSOLUTE_NAME_START 1 // TODO Ist das so?
     #define SLASH '/' // TODO Ist das so?
 #else
@@ -176,7 +178,7 @@ namespace COLLADASW
     //--------------------------------
 	Utils::SystemType Utils::getSystemType()
 	{
-#ifdef WIN32
+#ifdef COLLADABU_OS_WIN
 		return WINDOWS;
 #else
 		return POSIX;

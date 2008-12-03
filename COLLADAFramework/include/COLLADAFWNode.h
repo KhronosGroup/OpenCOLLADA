@@ -15,13 +15,18 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWInstanceGeometry.h"
 
+
+namespace COLLADABU
+{
+    namespace Math
+    {
+        class Matrix4;
+    }
+}
+
+
 namespace COLLADAFW
 {
-
-	namespace Math
-	{
-		class Matrix4;
-	}
 
 	class Node;
 
@@ -29,6 +34,14 @@ namespace COLLADAFW
 
 	class Node 	
 	{
+    public:
+        
+        enum NodeType
+        {
+            NODE,
+            JOINT
+        };
+
 	private:
 	
 		/**
@@ -41,6 +54,10 @@ namespace COLLADAFW
 		unique within the instance document. Optional.
 		*/
 		String mSid;
+
+        /** The type of the <node> element. Valid values are JOINT or NODE. The default is
+        NODE. Optional. */
+        NodeType mType;
 
 		/** List of all transformations of the node. Array and contents will be delete in destructor.*/
 		TransformationArray mTransformations;
@@ -67,6 +84,14 @@ namespace COLLADAFW
 		/** Sets the id of the node*/
 		void setSid(const String& sid) { mSid = sid; }
 
+        /** The type of the <node> element. Valid values are JOINT or NODE. The default is
+        NODE. Optional. */
+        const COLLADAFW::Node::NodeType getType () const { return mType; }
+
+        /** The type of the <node> element. Valid values are JOINT or NODE. The default is
+        NODE. Optional. */
+        void setType ( const COLLADAFW::Node::NodeType Type ) { mType = Type; }
+
 		/** Get list of all transformations of the node.*/
 		TransformationArray& getTransformations() { return mTransformations; }
 
@@ -87,11 +112,11 @@ namespace COLLADAFW
 
 		/** Calculates a baked matrix, representing all the transformations of the node.
 		@param transformationMatrix Will be set to the calculated transformaton matrix.*/
-		void getTransformationMatrix(Math::Matrix4& transformationMatrix) const;
+		void getTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const;
 
 		/** Returns a baked matrix, representing all the transformations of the node.
 		@return The transformation matrix*/
-		Math::Matrix4 getTransformationMatrix() const;
+		COLLADABU::Math::Matrix4 getTransformationMatrix() const;
 
 	private:
         /** Disable default copy ctor. */

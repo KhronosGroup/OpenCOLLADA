@@ -14,7 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWParam.h"
 
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 
 
 namespace COLLADAFW
@@ -48,7 +48,7 @@ namespace COLLADAFW
          * refer to a COLLADA array element or to an array data source outside the scope of the
          * instance document; the source does not need to be a COLLADA document.
          */
-        COLLADASW::URI mSource;
+        COLLADABU::URI mSource;
 
         /**
          * The number of values that are to be considered a unit during each access to the array.
@@ -88,8 +88,8 @@ namespace COLLADAFW
         * refer to a COLLADA array element or to an array data source outside the scope of the
         * instance document; the source does not need to be a COLLADA document.
         */
-        const COLLADASW::URI getSource () const { return mSource; }
-        void setSource ( const COLLADASW::URI source ) { mSource = source; }
+        const COLLADABU::URI getSource () const { return mSource; }
+        void setSource ( const COLLADABU::URI source ) { mSource = source; }
 
         /**
         * The number of values that are to be considered a unit during each access to the array.

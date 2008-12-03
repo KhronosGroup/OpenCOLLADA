@@ -440,9 +440,9 @@ namespace COLLADAMaya
             // into the working units of the current scene!
             MPoint &pointData = vertexArray[i];
             vertexSource.appendValues ( 
-                COLLADASW::MathUtils::equalsZero ( vertexArray[i].x ) ? 0 : MDistance::internalToUI ( vertexArray[i].x ), 
-                COLLADASW::MathUtils::equalsZero ( vertexArray[i].y ) ? 0 : MDistance::internalToUI ( vertexArray[i].y ), 
-                COLLADASW::MathUtils::equalsZero ( vertexArray[i].z ) ? 0 : MDistance::internalToUI ( vertexArray[i].z ) );
+                COLLADABU::Math::Utils::equalsZero ( vertexArray[i].x ) ? 0 : MDistance::internalToUI ( vertexArray[i].x ), 
+                COLLADABU::Math::Utils::equalsZero ( vertexArray[i].y ) ? 0 : MDistance::internalToUI ( vertexArray[i].y ), 
+                COLLADABU::Math::Utils::equalsZero ( vertexArray[i].z ) ? 0 : MDistance::internalToUI ( vertexArray[i].z ) );
         }
         vertexSource.finish();
 
@@ -694,8 +694,8 @@ namespace COLLADAMaya
             for ( uint j = 0; j < uvCount; ++j )
             {
                 texCoordSource.appendValues ( 
-                    COLLADASW::MathUtils::equalsZero ( uArray[j] ) ? 0 : uArray[j], 
-                    COLLADASW::MathUtils::equalsZero ( vArray[j] ) ? 0 : vArray[j] );
+                    COLLADABU::Math::Utils::equalsZero ( uArray[j] ) ? 0 : uArray[j], 
+                    COLLADABU::Math::Utils::equalsZero ( vArray[j] ) ? 0 : vArray[j] );
             }
 
             // Figure out the real index for this texture coordinate set
@@ -1214,9 +1214,9 @@ namespace COLLADAMaya
         {
             MFloatVector &normal = normals[i];
             normalSource.appendValues ( 
-                COLLADASW::MathUtils::equalsZero ( normal.x ) ? 0 : normal.x, 
-                COLLADASW::MathUtils::equalsZero ( normal.y ) ? 0 : normal.y, 
-                COLLADASW::MathUtils::equalsZero ( normal.z ) ? 0 : normal.z );
+                COLLADABU::Math::Utils::equalsZero ( normal.x ) ? 0 : normal.x, 
+                COLLADABU::Math::Utils::equalsZero ( normal.y ) ? 0 : normal.y, 
+                COLLADABU::Math::Utils::equalsZero ( normal.z ) ? 0 : normal.z );
         }
 
         normalSource.finish();
@@ -1282,9 +1282,9 @@ namespace COLLADAMaya
             {
                 MVector &tangent = tangents[i];
                 tangentSource.appendValues ( 
-                    COLLADASW::MathUtils::equalsZero ( tangent.x ) ? 0 : tangent.x, 
-                    COLLADASW::MathUtils::equalsZero ( tangent.y ) ? 0 : tangent.y, 
-                    COLLADASW::MathUtils::equalsZero ( tangent.z ) ? 0 : tangent.z );
+                    COLLADABU::Math::Utils::equalsZero ( tangent.x ) ? 0 : tangent.x, 
+                    COLLADABU::Math::Utils::equalsZero ( tangent.y ) ? 0 : tangent.y, 
+                    COLLADABU::Math::Utils::equalsZero ( tangent.z ) ? 0 : tangent.z );
             }
             tangentSource.finish();
 
@@ -1305,9 +1305,9 @@ namespace COLLADAMaya
             {
                 MVector &binormal = binormals[i];
                 binormalSource.appendValues ( 
-                    COLLADASW::MathUtils::equalsZero ( binormal.x ) ? 0 : binormal.x, 
-                    COLLADASW::MathUtils::equalsZero ( binormal.y ) ? 0 : binormal.y, 
-                    COLLADASW::MathUtils::equalsZero ( binormal.z ) ? 0 : binormal.z );
+                    COLLADABU::Math::Utils::equalsZero ( binormal.x ) ? 0 : binormal.x, 
+                    COLLADABU::Math::Utils::equalsZero ( binormal.y ) ? 0 : binormal.y, 
+                    COLLADABU::Math::Utils::equalsZero ( binormal.z ) ? 0 : binormal.z );
             }
             binormalSource.finish();
         }

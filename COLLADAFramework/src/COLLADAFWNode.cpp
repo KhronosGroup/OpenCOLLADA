@@ -1,26 +1,27 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADAFramework.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 #include "COLLADAFWStableHeaders.h"
 #include "COLLADAFWNode.h"
-
-#include "COLLADAFWMathMatrix4.h"
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWScale.h"
 #include "COLLADAFWMatrix.h"
 
+#include "Math/COLLADABUMathMatrix4.h"
+
+
 namespace COLLADAFW
 {
 	//--------------------------------------------------------------------
-	Node::Node()
+    Node::Node() : mType ( Node::NODE )
 	{
 	}
 	
@@ -41,9 +42,9 @@ namespace COLLADAFW
 	}
 
 	//--------------------------------------------------------------------
-	void Node::getTransformationMatrix(Math::Matrix4& transformationMatrix) const
+	void Node::getTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const
 	{
-		transformationMatrix = Math::Matrix4::IDENTITY;
+		transformationMatrix = COLLADABU::Math::Matrix4::IDENTITY;
 
 		for ( size_t i = 0, count = mTransformations.getCount(); i < count; ++i )
 		{
@@ -54,16 +55,16 @@ namespace COLLADAFW
 			case Transformation::ROTATE:
 				{
 					Rotate* rotate = (Rotate*)transform;
-					const Math::Vector3& axis = rotate->getRotationAxis();
+                    const COLLADABU::Math::Vector3& axis = rotate->getRotationAxis();
 					double angle = rotate->getRotationAngle();
-					transformationMatrix = transformationMatrix * Math::Matrix4(Math::Quaternion(angle, axis));
+					transformationMatrix = transformationMatrix * COLLADABU::Math::Matrix4(COLLADABU::Math::Quaternion(angle, axis));
 					break;
 				}
 			case Transformation::TRANSLATE:
 				{
 					Translate* translate = (Translate*)transform;
-					const Math::Vector3& translation = translate->getTranslation();
-					Math::Matrix4 translationMatrix;
+					const COLLADABU::Math::Vector3& translation = translate->getTranslation();
+					COLLADABU::Math::Matrix4 translationMatrix;
 					translationMatrix.makeTrans(translation);
 					transformationMatrix = transformationMatrix * translationMatrix;
 					break;
@@ -71,8 +72,8 @@ namespace COLLADAFW
 			case Transformation::SCALE:
 				{
 					Scale* scale = (Scale*)transform;
-					const Math::Vector3& scaleVector = scale->getScale();
-					Math::Matrix4 scaleMatrix;
+					const COLLADABU::Math::Vector3& scaleVector = scale->getScale();
+					COLLADABU::Math::Matrix4 scaleMatrix;
 					scaleMatrix.makeScale(scaleVector);
 					transformationMatrix = transformationMatrix * scaleMatrix;
 					break;
@@ -89,9 +90,9 @@ namespace COLLADAFW
 	}
 
 	//--------------------------------------------------------------------
-	Math::Matrix4 Node::getTransformationMatrix() const
+	COLLADABU::Math::Matrix4 Node::getTransformationMatrix() const
 	{
-		Math::Matrix4 matrix;
+		COLLADABU::Math::Matrix4 matrix;
 		getTransformationMatrix(matrix);
 		return matrix;
 	}

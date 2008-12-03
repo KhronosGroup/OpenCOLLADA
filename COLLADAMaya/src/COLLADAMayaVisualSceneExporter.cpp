@@ -39,13 +39,13 @@
 #include "COLLADASWNode.h"
 #include "COLLADASWInstanceGeometry.h"
 #include "COLLADASWInstanceController.h"
-#include "COLLADASWMathUtils.h"
 #include "COLLADASWLibraryControllers.h"
 #include "COLLADASWInstanceLight.h"
 #include "COLLADASWInstanceCamera.h"
 #include "COLLADASWInstanceNode.h"
-#include "COLLADASWURI.h"
 #include "COLLADASWConstants.h"
+
+#include "Math/COLLADABUMathUtils.h"
 
 #include "assert.h"
 
@@ -559,31 +559,31 @@ namespace COLLADAMaya
         float yAxis[] = {0.0f, 1.0f, 0.0f};
         float zAxis[] = {0.0f, 0.0f, 1.0f};
 
-        if ( !COLLADASW::MathUtils::equals( shear[0], 0.0 ) )
+        if ( !COLLADABU::Math::Utils::equals( shear[0], 0.0 ) )
         {
-            double angle = COLLADASW::MathUtils::radToDeg ( atan ( shear[0] ) );
-            angle = COLLADASW::MathUtils::equalsZero( angle ) ? 0 : angle;
+            double angle = COLLADABU::Math::Utils::radToDeg ( atan ( shear[0] ) );
+            angle = COLLADABU::Math::Utils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( xAxis );
             float* aroundAxis ( yAxis );
 
             mVisualSceneNode->addSkew ( SKEW_XY_SID, (float) angle, rotateAxis, aroundAxis );
         }
 
-        if ( !COLLADASW::MathUtils::equals( shear[1], 0.0 ) )
+        if ( !COLLADABU::Math::Utils::equals( shear[1], 0.0 ) )
         {
-            double angle = COLLADASW::MathUtils::radToDeg ( atan ( shear[1] ) );
-            angle = COLLADASW::MathUtils::equalsZero( angle ) ? 0 : angle;
+            double angle = COLLADABU::Math::Utils::radToDeg ( atan ( shear[1] ) );
+            angle = COLLADABU::Math::Utils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( xAxis );
             float* aroundAxis ( zAxis );
 
             mVisualSceneNode->addSkew ( SKEW_XZ_SID, (float) angle, rotateAxis, aroundAxis );
         }
 
-        if ( !COLLADASW::MathUtils::equals( shear[2], 0.0 ) )
+        if ( !COLLADABU::Math::Utils::equals( shear[2], 0.0 ) )
         {
-//            double angle = COLLADASW::MathUtils::radToDeg ( atan ( shear[2] ) );
+//            double angle = COLLADABU::Math::Utils::radToDeg ( atan ( shear[2] ) );
             double angle = MAngle::internalToUI ( atan ( shear[2] ) );
-            angle = COLLADASW::MathUtils::equalsZero( angle ) ? 0 : angle;
+            angle = COLLADABU::Math::Utils::equalsZero( angle ) ? 0 : angle;
             float* rotateAxis ( yAxis );
             float* aroundAxis ( zAxis );
 
@@ -617,9 +617,9 @@ namespace COLLADAMaya
             // into the working units of the current scene!
             mVisualSceneNode->addTranslate (
                 name,
-                COLLADASW::MathUtils::equalsZero( translation.x ) ? 0 : MDistance::internalToUI ( translation.x ),
-                COLLADASW::MathUtils::equalsZero( translation.y ) ? 0 : MDistance::internalToUI ( translation.y ),
-                COLLADASW::MathUtils::equalsZero( translation.z ) ? 0 : MDistance::internalToUI ( translation.z ) );
+                COLLADABU::Math::Utils::equalsZero( translation.x ) ? 0 : MDistance::internalToUI ( translation.x ),
+                COLLADABU::Math::Utils::equalsZero( translation.y ) ? 0 : MDistance::internalToUI ( translation.y ),
+                COLLADABU::Math::Utils::equalsZero( translation.z ) ? 0 : MDistance::internalToUI ( translation.z ) );
 
             if ( animation )
             {
@@ -640,9 +640,9 @@ namespace COLLADAMaya
         std::vector < String >& rotateParams = rotateHelper.getRotationParameters ();
 
         // Set zero flags, where the rotation is zero. The order of rotation is ZYX.
-        bool isZero[3] = {  COLLADASW::MathUtils::equals( matrixRotate[0][3], 0.0 ),
-                            COLLADASW::MathUtils::equals( matrixRotate[1][3], 0.0 ),
-                            COLLADASW::MathUtils::equals( matrixRotate[2][3], 0.0 ) };
+        bool isZero[3] = {  COLLADABU::Math::Utils::equals( matrixRotate[0][3], 0.0 ),
+                            COLLADABU::Math::Utils::equals( matrixRotate[1][3], 0.0 ),
+                            COLLADABU::Math::Utils::equals( matrixRotate[2][3], 0.0 ) };
 
         // Get a pointer to the animation exporter.
         AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
@@ -671,10 +671,10 @@ namespace COLLADAMaya
                 // Add the rotation in the order ZYX
                 mVisualSceneNode->addRotate (
                     name + rotateParams[i],
-                    COLLADASW::MathUtils::equalsZero( matrixRotate[i][0] ) ? 0 : matrixRotate[i][0],
-                    COLLADASW::MathUtils::equalsZero( matrixRotate[i][1] ) ? 0 : matrixRotate[i][1],
-                    COLLADASW::MathUtils::equalsZero( matrixRotate[i][2] ) ? 0 : matrixRotate[i][2],
-                    COLLADASW::MathUtils::equalsZero( matrixRotate[i][3] ) ? 0 : matrixRotate[i][3] );
+                    COLLADABU::Math::Utils::equalsZero( matrixRotate[i][0] ) ? 0 : matrixRotate[i][0],
+                    COLLADABU::Math::Utils::equalsZero( matrixRotate[i][1] ) ? 0 : matrixRotate[i][1],
+                    COLLADABU::Math::Utils::equalsZero( matrixRotate[i][2] ) ? 0 : matrixRotate[i][2],
+                    COLLADABU::Math::Utils::equalsZero( matrixRotate[i][3] ) ? 0 : matrixRotate[i][3] );
             }
         }
 
@@ -765,24 +765,24 @@ namespace COLLADAMaya
             // Get the position of the camera in local space.
             MVector eye(matrix[3][0], matrix[3][1], matrix[3][2]);
             float eyePosition[3] = {
-                COLLADASW::MathUtils::equalsZero( matrix[3][0] ) ? 0.0f : (float) matrix[3][0],
-                COLLADASW::MathUtils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][2],
-                COLLADASW::MathUtils::equalsZero( matrix[3][2] ) ? 0.0f : (float) matrix[3][2] };
+                COLLADABU::Math::Utils::equalsZero( matrix[3][0] ) ? 0.0f : (float) matrix[3][0],
+                COLLADABU::Math::Utils::equalsZero( matrix[3][1] ) ? 0.0f : (float) matrix[3][2],
+                COLLADABU::Math::Utils::equalsZero( matrix[3][2] ) ? 0.0f : (float) matrix[3][2] };
 
             // Compute center of interest.
             double centerOfInterestDistance = camera.centerOfInterestPoint ( MSpace::kObject ).z;
             MVector front ( matrix[2][0], matrix[2][2], matrix[2][2] );
             MVector centerOfInterest = eye + ( front * centerOfInterestDistance );
             float interestPosition[3] = {
-                COLLADASW::MathUtils::equalsZero( centerOfInterest.x ) ? 0.0f : (float) centerOfInterest.x,
-                COLLADASW::MathUtils::equalsZero( centerOfInterest.y ) ? 0.0f : (float) centerOfInterest.y,
-                COLLADASW::MathUtils::equalsZero( centerOfInterest.z ) ? 0.0f : (float) centerOfInterest.z };
+                COLLADABU::Math::Utils::equalsZero( centerOfInterest.x ) ? 0.0f : (float) centerOfInterest.x,
+                COLLADABU::Math::Utils::equalsZero( centerOfInterest.y ) ? 0.0f : (float) centerOfInterest.y,
+                COLLADABU::Math::Utils::equalsZero( centerOfInterest.z ) ? 0.0f : (float) centerOfInterest.z };
 
             // Extract the up direction, which corresponds to the second row.
             float upPosition[3] = {
-                COLLADASW::MathUtils::equalsZero( matrix[1][0] ) ? 0.0f : (float) matrix[1][0],
-                COLLADASW::MathUtils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][2],
-                COLLADASW::MathUtils::equalsZero( matrix[1][2] ) ? 0.0f : (float) matrix[1][2] };
+                COLLADABU::Math::Utils::equalsZero( matrix[1][0] ) ? 0.0f : (float) matrix[1][0],
+                COLLADABU::Math::Utils::equalsZero( matrix[1][1] ) ? 0.0f : (float) matrix[1][2],
+                COLLADABU::Math::Utils::equalsZero( matrix[1][2] ) ? 0.0f : (float) matrix[1][2] };
 
             // Add the camera lookat
             mVisualSceneNode->addLookat ( eyePosition, interestPosition, upPosition );
@@ -802,7 +802,7 @@ namespace COLLADAMaya
         bool isOneVector = true;
         for ( int i=0; i<3 && isOneVector; ++i )
         {
-            if ( !COLLADASW::MathUtils::equals( scale[i], 1.0 ) ) isOneVector = false;
+            if ( !COLLADABU::Math::Utils::equals( scale[i], 1.0 ) ) isOneVector = false;
         }
 
         // Check if the scale is animated.
@@ -813,9 +813,9 @@ namespace COLLADAMaya
         {
             mVisualSceneNode->addScale (
                 ATTR_SCALE,
-                COLLADASW::MathUtils::equalsZero(scale[0]) ? 0 : scale[0],
-                COLLADASW::MathUtils::equalsZero(scale[1]) ? 0 : scale[1],
-                COLLADASW::MathUtils::equalsZero(scale[2]) ? 0 : scale[2] );
+                COLLADABU::Math::Utils::equalsZero(scale[0]) ? 0 : scale[0],
+                COLLADABU::Math::Utils::equalsZero(scale[1]) ? 0 : scale[1],
+                COLLADABU::Math::Utils::equalsZero(scale[2]) ? 0 : scale[2] );
         }
     }
 

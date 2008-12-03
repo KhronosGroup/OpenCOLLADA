@@ -21,7 +21,8 @@
 #include "COLLADAMayaAnimationExporter.h"
 #include "COLLADAMayaExportOptions.h"
 
-#include "COLLADASWMathUtils.h"
+#include "Math/COLLADABUMathUtils.h"
+
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWLibraryImages.h"
 #include "COLLADASWSurface.h"

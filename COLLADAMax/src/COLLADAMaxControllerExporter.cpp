@@ -28,7 +28,6 @@
 #include "COLLADASWSource.h"
 #include "COLLADASWBaseInputElement.h"
 #include "COLLADASWPrimitves.h"
-#include "COLLADASWURI.h"
 
 #include <max.h>
 #include <iskin.h>

@@ -1,24 +1,24 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-	This file is part of COLLADAStreamWriter.
+	This file is part of COLLADABaseUtils.
 	
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADASTREAMWRITER_STRINGUTILS_H__
-#define __COLLADASTREAMWRITER_STRINGUTILS_H__
+#ifndef __COLLADABU_STRINGUTILS_H__
+#define __COLLADABU_STRINGUTILS_H__
 
-#include "COLLADASWPrerequisites.h"
-#include "COLLADASWNativeString.h"
+#include "COLLADABUPrerequisites.h"
+#include "COLLADABUNativeString.h"
 
 #include <sstream>
 #include <fstream>
 #include <map>
 
-namespace COLLADASW
+namespace COLLADABU
 {
 
 	/** A class that holds some static COLLADA utility functions*/
@@ -192,4 +192,4 @@ namespace COLLADASW
     };
 }
 
-#endif // __COLLADASTREAMWRITER_STRINGUTILS_H__
+#endif // __COLLADABU_STRINGUTILS_H__

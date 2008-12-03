@@ -21,7 +21,7 @@
 
 #include "COLLADAMaxPrerequisites.h"
 
-#include "COLLADASWMathUtils.h"
+#include "Math/COLLADABUMathUtils.h"
 
 
 namespace COLLADAMax

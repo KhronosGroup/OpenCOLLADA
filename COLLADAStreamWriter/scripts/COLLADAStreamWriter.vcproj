@@ -43,7 +43,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -176,7 +176,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="false"
@@ -303,7 +303,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;COLLADASTREAMWRITER_USE_FPRINTF_S"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -431,7 +431,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\UTF\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\Externals\UTF\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;COLLADASTREAMWRITER_USE_FPRINTF_S;_CRT_SECURE_NO_WARNINGS;_SCL_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -701,14 +701,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASWMathUtils.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADASWNativeString.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADASWNode.cpp"
 				>
 			</File>
@@ -749,10 +741,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASWStringUtils.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADASWSurface.cpp"
 				>
 			</File>
@@ -770,14 +758,6 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASWTexture.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADASWURI.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADASWUtils.cpp"
 				>
 			</File>
 			<File
@@ -959,14 +939,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASWMathUtils.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASWNativeString.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADASWNode.h"
 				>
 			</File>
@@ -1027,10 +999,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASWStringUtils.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADASWSurface.h"
 				>
 			</File>
@@ -1048,14 +1016,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWTexture.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASWURI.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASWUtils.h"
 				>
 			</File>
 			<File

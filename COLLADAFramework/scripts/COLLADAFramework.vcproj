@@ -20,7 +20,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\COLLADAStreamWriter\include"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -157,7 +157,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\bin\win\$(PlatformName)"
+			OutputDirectory="..\lib\win\$(PlatformName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -180,12 +180,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="..\include;..\include\Math;..\..\COLLADAStreamWriter\include"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;"
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="COLLADAFWStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -296,7 +296,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\src\COLLADAFWColor.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWConstants.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWEffect.cpp"
 				>
 			</File>
 			<File
@@ -312,11 +320,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWInstanceEffect.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWInstanceGeometry.cpp"
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWInstanceMaterial.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWLoaderUtils.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWMaterial.cpp"
 				>
 			</File>
 			<File
@@ -336,6 +356,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWRenderState.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWRoot.cpp"
 				>
 			</File>
@@ -345,6 +369,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWScale.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWTechnique.cpp"
 				>
 			</File>
 			<File
@@ -363,94 +391,6 @@
 				RelativePath="..\src\COLLADAFWVisualScene.cpp"
 				>
 			</File>
-			<Filter
-				Name="Math"
-				>
-				<File
-					RelativePath="..\src\Math\COLLADAFWMathMatrix3.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\src\Math\COLLADAFWMathMatrix4.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\src\Math\COLLADAFWMathQuaternion.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath="..\src\Math\COLLADAFWMathUtils.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\src\Math\COLLADAFWMathVector3.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="Release|Win32"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-							UsePrecompiledHeader="0"
-						/>
-					</FileConfiguration>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -462,6 +402,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWAnnotate.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWArray.h"
 				>
 			</File>
@@ -470,7 +414,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWCode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWColor.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWColorOrTexture.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWConstants.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWEffect.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWFloatOrParam.h"
 				>
 			</File>
 			<File
@@ -486,6 +450,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWImage.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWImageSource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInclude.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWInputShared.h"
 				>
 			</File>
@@ -494,7 +470,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWInstanceEffect.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWInstanceGeometry.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInstanceMaterial.h"
 				>
 			</File>
 			<File
@@ -506,11 +490,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWMaterial.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWMatrix.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWMesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWModifier.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWNewParam.h"
 				>
 			</File>
 			<File
@@ -523,6 +519,22 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWParam.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPassClear.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPassOutput.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPassTarget.h"
 				>
 			</File>
 			<File
@@ -550,6 +562,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWRenderDraw.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWRenderState.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWRenderStateStatic.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWRoot.h"
 				>
 			</File>
@@ -562,11 +586,47 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWSemantic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWSetParam.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShaderBlinn.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShaderConstantFX.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShaderElement.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShaderLambert.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShaderPhong.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWSource.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWStableHeaders.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWTechnique.h"
 				>
 			</File>
 			<File
@@ -601,34 +661,6 @@
 				RelativePath="..\include\COLLADAFWVisualScene.h"
 				>
 			</File>
-			<Filter
-				Name="Math"
-				>
-				<File
-					RelativePath="..\include\Math\COLLADAFWMathMatrix3.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Math\COLLADAFWMathMatrix4.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Math\COLLADAFWMathPrerequisites.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Math\COLLADAFWMathQuaternion.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Math\COLLADAFWMathUtils.h"
-					>
-				</File>
-				<File
-					RelativePath="..\include\Math\COLLADAFWMathVector3.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

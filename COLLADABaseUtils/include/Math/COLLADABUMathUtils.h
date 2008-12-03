@@ -1,21 +1,21 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADABaseUtils.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_MATH_UTILS_H__
-#define __COLLADAFW_MATH_UTILS_H__
+#ifndef __COLLADABU_MATH_UTILS_H__
+#define __COLLADABU_MATH_UTILS_H__
 
-#include "COLLADAFWPrerequisites.h"
+#include "COLLADABUPrerequisites.h"
 
 #define TOLERANCE 0.0001f
 
-namespace COLLADAFW
+namespace COLLADABU
 {
 	namespace Math
 	{
@@ -128,6 +128,6 @@ namespace COLLADAFW
 	}
 
 
-} // namespace COLLADAFW
+} // namespace COLLADABU
 
-#endif // __COLLADAFW_MATH_UTILS_H__
+#endif // __COLLADABU_MATH_UTILS_H__

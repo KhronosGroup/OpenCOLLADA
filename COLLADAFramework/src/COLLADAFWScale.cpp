@@ -16,11 +16,11 @@ namespace COLLADAFW
 	//--------------------------------------------------------------------
 	Scale::Scale()
 		: Transformation(Transformation::SCALE),
-		mScaleVector(Math::Vector3::UNIT_SCALE)
+		mScaleVector(COLLADABU::Math::Vector3::UNIT_SCALE)
 	{
 	}
 
-	Scale::Scale( const Math::Vector3& scaleVector )
+	Scale::Scale( const COLLADABU::Math::Vector3& scaleVector )
 		: Transformation(Transformation::SCALE),
 		mScaleVector(scaleVector)
 	{
@@ -28,7 +28,7 @@ namespace COLLADAFW
 
 	Scale::Scale( double x, double y, double z )
 		: Transformation(Transformation::SCALE),
-		mScaleVector(Math::Vector3(x, y, z))
+		mScaleVector(COLLADABU::Math::Vector3(x, y, z))
 	{
 	}
 

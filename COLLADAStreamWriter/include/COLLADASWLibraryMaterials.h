@@ -18,8 +18,6 @@
 namespace COLLADASW
 {
 
-	class URI;
-
     /** Class to simply the creation of @a \<library_materials\> and @a \<material\>'s*/
     class LibraryMaterials : public Library
     {

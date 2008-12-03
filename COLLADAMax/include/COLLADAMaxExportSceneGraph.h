@@ -23,7 +23,6 @@
 
 #include "COLLADAMaxExportNode.h"
 #include "COLLADASWIDList.h"
-#include "COLLADASWURI.h"
 
 #include <map>
 #include <vector>

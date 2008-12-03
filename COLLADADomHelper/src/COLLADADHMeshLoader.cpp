@@ -172,7 +172,7 @@ namespace COLLADADH
         {
             domInputLocalRef vertexInputRef = verticesInputArray.get ( j );
             xsNMTOKEN semantic = vertexInputRef->getSemantic ();
-            if ( COLLADASW::Utils::equalsIgnoreCase ( semantic, COLLADAFW::Constants::SEMANTIC_POSITION ) )
+            if ( COLLADABU::Utils::equalsIgnoreCase ( semantic, COLLADAFW::Constants::SEMANTIC_POSITION ) )
             {
                 positionsSource = daeSafeCast<domSource> (vertexInputRef->getSource().getElement());
 				break;
@@ -384,7 +384,7 @@ namespace COLLADADH
         unsigned int stride = ( unsigned int ) accessorRef->getStride ();
         accessor.setStride ( stride );
 
-        accessor.setSource ( COLLADASW::URI::nativePathToUri (  accessorRef->getSource ().getOriginalURI () ) );
+        accessor.setSource ( COLLADABU::URI::nativePathToUri (  accessorRef->getSource ().getOriginalURI () ) );
 
         unsigned int offset = ( unsigned int ) accessorRef->getOffset ();
         accessor.setOffset ( offset );
@@ -439,7 +439,7 @@ namespace COLLADADH
             if ( inputRef->getSemantic () != 0 )
                 input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( inputRef->getSemantic () ) );
 
-            input.setSource ( COLLADASW::URI::nativePathToUri ( inputRef->getSource ().originalStr () ) );
+            input.setSource ( COLLADABU::URI::nativePathToUri ( inputRef->getSource ().originalStr () ) );
         }
     }
 
@@ -500,7 +500,7 @@ namespace COLLADADH
             input.setSemantic ( COLLADAFW::InputUnshared::getSemanticFromString ( semantic ) );
 
             domURIFragmentType domUri = polylistInputRef->getSource ();
-            input.setSource ( COLLADASW::URI::nativePathToUri ( domUri.originalStr () ) );
+            input.setSource ( COLLADABU::URI::nativePathToUri ( domUri.originalStr () ) );
 
             unsigned int offset = ( unsigned int ) polylistInputRef->getOffset ();
             input.setOffset ( offset );

@@ -79,6 +79,9 @@ namespace COLLADAFW
         /** Returns the geometric element of the geometry. */
         GeometricElement* getGeometricElement ();
 
+        /** Returns the geometric element of the geometry. */
+        const GeometricElement* getGeometricElement () const;
+
     private:
 
         /** Disable default copy ctor. */

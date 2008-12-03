@@ -15,9 +15,11 @@
 //#define COLLADASTREAMWRITER_USE_FPRINTF_S
 
 #include "COLLADASWPrerequisites.h"
-#include "COLLADASWMathUtils.h"
-#include "COLLADASWUtils.h"
 #include "COLLADASWColor.h"
+
+//#include "Math/COLLADABUMathUtils.h"
+//#include "COLLADABUUtils.h"
+
 #include <fstream>
 #include <stack>
 #include <list>
@@ -29,12 +31,29 @@
 
 #define WHITESPACESTRINGLENGTH 1000
 
+namespace COLLADABU
+{
+    class NativeString;
+}
+
+// namespace COLLADABU
+// {
+//     namespace Math
+//     {
+//         class Utils;
+//     }
+// }
+// 
+// namespace COLLADABU
+// {
+//     class URI;
+// }
+
 namespace COLLADASW
 {
 
-	class NativeString;
     class StreamWriter;
-	class URI;
+
 
     /** Class that simplifies closes open elements*/
 
@@ -293,7 +312,7 @@ namespace COLLADASW
         /** Adds the double @a number to the stream*/
         inline void appendNumber ( const double number )
         {
-			if ( MathUtils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
+			if ( COLLADABU::Math::Utils::equals<double>(number, 0, std::numeric_limits<double>::epsilon()) )
 			{
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 				fprintf_s ( mStream, "0");
@@ -314,7 +333,7 @@ namespace COLLADASW
         /** Adds the float @a number to the stream*/
         inline void appendNumber ( const float number )
         {
-			if ( MathUtils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
+			if ( COLLADABU::Math::Utils::equals<float>(number, 0, std::numeric_limits<float>::epsilon()) )
 			{
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
 				fprintf_s ( mStream, "0");

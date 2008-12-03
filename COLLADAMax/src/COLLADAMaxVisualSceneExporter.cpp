@@ -24,10 +24,8 @@
 #include "COLLADASWInstanceCamera.h"
 #include "COLLADASWInstanceLight.h"
 #include "COLLADASWInstanceNode.h"
-#include "COLLADASWMathUtils.h"
-#include "COLLADASWURI.h"
-#include "COLLADASWNativeString.h"
 
+#include "Math/COLLADABUMathUtils.h"
 
 #include "COLLADAMaxVisualSceneExporter.h"
 #include "COLLADAMaxExportSceneGraph.h"

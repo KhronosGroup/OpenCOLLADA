@@ -13,7 +13,9 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWConstants.h"
-#include "COLLADASWUtils.h"
+
+#include "COLLADABUUtils.h"
+
 
 namespace COLLADAFW
 {
@@ -83,51 +85,51 @@ namespace COLLADAFW
 
         static const ColladaType getValueTypeFromString ( const String& valueType )
         {
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL ) ) 
                 return ValueType::BOOL;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL2 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL2 ) ) 
                 return ValueType::BOOL2;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL3 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL3 ) ) 
                 return ValueType::BOOL3;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL4 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_BOOL4 ) ) 
                 return ValueType::BOOL4;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT ) ) 
                 return ValueType::INT;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT2 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT2 ) ) 
                 return ValueType::INT2;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT3 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT3 ) ) 
                 return ValueType::INT3;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT4 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_INT4 ) ) 
                 return ValueType::INT4;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT ) ) 
                 return ValueType::FLOAT;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT2 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT2 ) ) 
                 return ValueType::FLOAT2;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT3 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT3 ) ) 
                 return ValueType::FLOAT3;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT4 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT4 ) ) 
                 return ValueType::FLOAT4;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT2x2 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT2x2 ) ) 
                 return ValueType::FLOAT2x2;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT3x3 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT3x3 ) ) 
                 return ValueType::FLOAT3x3;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT4x4 ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_FLOAT4x4 ) ) 
                 return ValueType::FLOAT4x4;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_STRING ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_STRING ) ) 
                 return ValueType::STRING;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SURFACE ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SURFACE ) ) 
                 return ValueType::SURFACE;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_1D ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_1D ) ) 
                 return ValueType::SAMPLER_1D;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_2D ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_2D ) ) 
                 return ValueType::SAMPLER_2D;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_3D ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_3D ) ) 
                 return ValueType::SAMPLER_3D;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_CUBE ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_CUBE ) ) 
                 return ValueType::SAMPLER_CUBE;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_RECT ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_RECT ) ) 
                 return ValueType::SAMPLER_RECT;
-            if ( COLLADASW::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_DEPTH ) ) 
+            if ( COLLADABU::Utils::equalsIgnoreCase ( valueType, Constants::VALUE_TYPE_SAMPLER_DEPTH ) ) 
                 return ValueType::SAMPLER_DEPTH;
             return ValueType::VALUE_TYPE_UNSPECIFIED;
         }

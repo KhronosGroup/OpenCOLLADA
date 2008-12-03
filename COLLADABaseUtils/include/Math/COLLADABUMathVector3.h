@@ -1,23 +1,24 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADABaseUtils.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
+#ifndef __COLLADABU_MATH_VECTOR3_H__
+#define __COLLADABU_MATH_VECTOR3_H__
 
-#ifndef __COLLADAFW__MATH__VECTOR3_H__
-#define __COLLADAFW__MATH__VECTOR3_H__
+#include "COLLADABUMathPrerequisites.h"
+#include "COLLADABUMathQuaternion.h"
 
-#include "COLLADAFWMathPrerequisites.h"
-#include "COLLADAFWMathQuaternion.h"
 #include <assert.h>
 #include <math.h>
 
-namespace COLLADAFW
+
+namespace COLLADABU
 {
     namespace Math
     {
@@ -527,4 +528,4 @@ namespace COLLADAFW
     }	        
 }
 
-#endif //__COLLADAFW__MATH__VECTOR3_H__
+#endif //__COLLADABU_MATH_VECTOR3_H__

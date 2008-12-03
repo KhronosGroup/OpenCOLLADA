@@ -24,7 +24,6 @@
 #include "COLLADAMayaHwShaderExporter.h"
 #endif
 
-#include "COLLADASWUtils.h"
 #include "COLLADASWNode.h"
 #include "COLLADASWEffectProfile.h"
 #include "COLLADASWExtraTechnique.h"

@@ -1,23 +1,23 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-	This file is part of COLLADAStreamWriter.
+	This file is part of COLLADABaseUtils.
 	
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADASTREAMWRITER_UTIL_H__
-#define __COLLADASTREAMWRITER_UTIL_H__
+#ifndef __COLLADABU_UTILS_H__
+#define __COLLADABU_UTILS_H__
 
-#include "COLLADASWPrerequisites.h"
+#include "COLLADABUPrerequisites.h"
 
 #include <sstream>
 #include <fstream>
 #include <map>
 
-namespace COLLADASW
+namespace COLLADABU
 {
 
 	/** A class that holds some static COLLADASW utility functions*/
@@ -27,7 +27,8 @@ namespace COLLADASW
 	public:
 
 		// System type info. We only need to distinguish between Posix and Winodws for now.
-		enum SystemType {
+		enum SystemType 
+        {
 			POSIX,
 			WINDOWS
 		};
@@ -158,4 +159,4 @@ namespace COLLADASW
     };
 }
 
-#endif // #define __COLLADASTREAMWRITER_UTIL_H__
+#endif // #define __COLLADABU_UTILS_H__

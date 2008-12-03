@@ -36,7 +36,6 @@
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
-#include "COLLADASWUtils.h"
 #include "COLLADASWConstants.h"
 
 #include <maya/MFileIO.h>

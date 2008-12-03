@@ -10,7 +10,8 @@
 
 #include "COLLADASWBaseInputElement.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWUtils.h"
+
+#include "COLLADABUUtils.h"
 
 
 namespace COLLADASW

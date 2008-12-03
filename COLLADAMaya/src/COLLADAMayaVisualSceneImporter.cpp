@@ -23,7 +23,7 @@
 
 #include "COLLADADHReader.h"
 
-#include <dom/domTypes.h>
+#include "Math/COLLADABUMathMatrix4.h"
 
 #include <maya/MFnDagNode.h>
 #include <maya/MFnTransform.h>
@@ -34,129 +34,105 @@ namespace COLLADAMaya
 {
     
     // -----------------------------------
-    VisualSceneImporter::VisualSceneImporter ( 
-        DocumentImporter* documentImporter, 
-        daeDocument* daeDoc ) 
-    : BaseImporter ( documentImporter, daeDoc )
+    VisualSceneImporter::VisualSceneImporter ( DocumentImporter* documentImporter ) 
+    : BaseImporter ( documentImporter )
     {}
 
     // -----------------------------------
-    void VisualSceneImporter::importVisualScenes ()
+    bool VisualSceneImporter::importVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
-        daeDocument* daeDoc = getDaeDocument();
-        COLLADADH::Reader reader ( *daeDoc );
+        String id = visualScene->getId ();
+        String visualSceneName = visualScene->getName ();
 
-        COLLADADH::Reader::ElementIterator<domVisual_scene> visualScenesIter = reader.getVisualScenes();
-        while ( visualScenesIter.more() )
+        const COLLADAFW::NodeArray& rootNodes = visualScene->getRootNodes ();
+        size_t count = rootNodes.getCount ();
+        for ( size_t i=0; i<count; ++i )
         {
-            domVisual_scene& visualScene = visualScenesIter.next();
-            importVisualScene ( visualScene );
-        }
-    }
+            MObject parent = MObject::kNullObj;
 
-    // -----------------------------------
-    void VisualSceneImporter::importVisualScene ( domVisual_scene& visualScene )
-    {
-        // Iterate recursively over nodes
-        SceneNodeTraverser nodeTraverser ( getDocumentImporter(), visualScene );
-        SceneTraverserListener nodeListener ( &nodeTraverser );
-        nodeTraverser.traverse ( nodeListener );
-    }
+            COLLADAFW::Node* rootNode = rootNodes [i];
+            String nodeName = rootNode->getName ();
+            String nodeSid = rootNode->getSid ();
+            COLLADAFW::Node::NodeType nodeType = rootNode->getType ();
 
-    // -----------------------------------
-    bool VisualSceneImporter::importVisualSceneNode ( domNode& node, int level )
-    {
-        xsID nodeId = node.getId ();
-        xsName nodeName = node.getName ();
-        domNodeType nodeType = node.getType ();
-
-        MObject transformObject = MObject::kNullObj;
-        switch ( nodeType )
-        {
-        case NODETYPE_JOINT:
+            MObject transformObject = MObject::kNullObj;
+            switch ( nodeType )
             {
-                MFnDagNode dagFn;
-                transformObject = dagFn.create ( NODE_TYPE_JOINT, nodeName );
-                break;
+            case NODETYPE_JOINT:
+                {
+                    MFnDagNode dagFn;
+                    transformObject = dagFn.create ( NODE_TYPE_JOINT, nodeName.c_str (), parent );
+                    break;
+                }
+            case NODETYPE_NODE:
+                {
+                    MFnTransform transformFn;
+                    transformObject = transformFn.create ( MObject::kNullObj );
+                    transformFn.setName ( nodeName.c_str () );
+                    break;
+                }
+            default:
+                MGlobal::displayError ( "Not a valid node type!" );
             }
-        case NODETYPE_NODE:
-            {
-                MFnTransform transformFn;
-                transformObject = transformFn.create ( MObject::kNullObj );
-                transformFn.setName ( nodeName );
-                break;
-            }
-        default:
-            MGlobal::displayError ( "Not a valid node type!" );
+
+            // Import the tranformations
+            importTransforms ( transformObject, rootNode );
+
+            // Set the node visible
+            DagHelper::setPlugValue( transformObject, ATTR_VISIBILITY, true );
         }
-
-        // Import the tranformations
-        importTransforms ( transformObject, node );
-
-        // Read the geometry instance
-        GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
-        geometryImporter->importGeometries ( transformObject, node );
-
-
-        DagHelper::setPlugValue( transformObject, ATTR_VISIBILITY, true );
-
 
         return true;
     }
 
     // -----------------------------------
-    bool VisualSceneImporter::importTransforms ( MObject& transformObject, domNode& node )
+    bool VisualSceneImporter::importTransforms ( MObject& transformObject, const COLLADAFW::Node* rootNode )
     {
         // Attempt to bucket the transformations, forcing them to match Maya's transform stack
         if ( bucketTransforms ( transformObject ) ) return true;
 
-        // The transforms for this node does not match Maya's transform stack, 
-        // so read them in as matrices: while sampling any animations
-        //         if (!ANIM->ImportAnimatedSceneNode(transform, colladaNode))
-        //         {
-        //             // Scene node transforms are not animated, so simply import as a matrix.
-        //             MTransformationMatrix tm(MConvert::ToMMatrix(colladaNode->ToMatrix()));
-        //             MFnTransform transformFn(transform);
-        //             transformFn.set(tm);
-        //         }
+        // Set the transform matrix to the transform object
+        COLLADABU::Math::Matrix4 transformMatrix;
+        rootNode->getTransformationMatrix ( transformMatrix );
+        double mtx[4][4];
+        transformMatrix.convertToDouble4x4 ( mtx );
+        MMatrix matrix ( mtx );
+        MTransformationMatrix tm ( matrix );
+        MFnTransform transformFn ( transformObject );
+        transformFn.set ( tm );
 
-        // Import transform 
-        domTranslate_Array translateArray = node.getTranslate_array ();
-        size_t count = translateArray.getCount ();
-        for ( size_t i=0; i<count; ++i )
+        // Look for more transformations
+        const COLLADAFW::TransformationArray& transformations = rootNode->getTransformations ();
+        size_t count = transformations.getCount ();
+        for ( size_t j=0; j<count; ++j )
         {
-            domTranslateRef translateRef = translateArray.get ( i );
-            xsID translateSid = translateRef->getSid ();
-            domFloat3 translateValues = translateRef->getValue ();
+            const COLLADAFW::Transformation* transformation = transformations [j];
+            String transformSid = transformation->getSid ();
+            COLLADAFW::Transformation::TransformationType transformType;
+            transformType = transformation->getTransformationType ();
 
-            // Scene node transforms are not animated, so simply import as a matrix.
-            MTransformationMatrix tm;
-            MVector translationVec ( translateValues.get(0), translateValues.get(1), translateValues.get(2) );
-            tm.setTranslation ( translationVec, MSpace::kTransform );
 
-            // Set the transform to the transform object
-            MFnTransform transformFn ( transformObject );
-            transformFn.set ( tm );
         }
 
-        // Import rotation
-        domRotate_Array rotateArray = node.getRotate_array ();
-        size_t rotationCount = rotateArray.getCount ();
-        for ( size_t i=0; i<rotationCount; ++i )
-        {
-            domRotateRef rotateRef = rotateArray.get ( i );
-            xsID rotateSid = rotateRef->getSid ();
-            domFloat4 rotateValues = rotateRef->getValue ();
 
-            // Scene node transforms are not animated, so simply import as a matrix.
-            MTransformationMatrix tm;
-            MVector rotationVec ( rotateValues.get(0), rotateValues.get(1), rotateValues.get(2) );
+//         // Import rotation
+//         domRotate_Array rotateArray = node.getRotate_array ();
+//         size_t rotationCount = rotateArray.getCount ();
+//         for ( size_t i=0; i<rotationCount; ++i )
+//         {
+//             domRotateRef rotateRef = rotateArray.get ( i );
+//             xsID rotateSid = rotateRef->getSid ();
+//             domFloat4 rotateValues = rotateRef->getValue ();
+// 
+//             // Scene node transforms are not animated, so simply import as a matrix.
+//             MTransformationMatrix tm;
+//             MVector rotationVec ( rotateValues.get(0), rotateValues.get(1), rotateValues.get(2) );
 //             tm.setRotation ( rotateValues, MTransformationMatrix::kXYZ, MSpace::kTransform );
 // 
 //             // Set the transform to the transform object
 //             MFnTransform transformFn ( transformObject );
 //             transformFn.set ( tm );
-        }
+//        }
 
         return true;
     }

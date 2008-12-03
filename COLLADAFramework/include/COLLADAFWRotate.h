@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADAFramework.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 #ifndef __COLLADAFW_ROTATE_H__
@@ -13,7 +13,8 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTransformation.h"
-#include "COLLADAFWMathVector3.h"
+
+#include "Math/COLLADABUMathVector3.h"
 
 
 namespace COLLADAFW
@@ -23,7 +24,7 @@ namespace COLLADAFW
 	{
 	private:
 		/** The rotation axis.*/
-		Math::Vector3 mRotationAxis;
+        COLLADABU::Math::Vector3 mRotationAxis;
 
 		/** Rotation angle.*/
 		double mRotationAngle;
@@ -33,7 +34,7 @@ namespace COLLADAFW
 		Rotate();
 
 		/** Sets rotation axis to @a rotationAxis and the angle to @a rotationAngle.*/ 
-		Rotate(const Math::Vector3& rotationAxis, double rotationAngle);
+		Rotate(const COLLADABU::Math::Vector3& rotationAxis, double rotationAngle);
 
 		/** Sets the components of the rotation axis to @a x, @a y, @a z and the angle to @a rotationAngle.*/
 		Rotate(double x, double y, double z, double rotationAngle);
@@ -47,13 +48,13 @@ namespace COLLADAFW
 		void setRotationAngle( double rotationAngle ) { mRotationAngle = rotationAngle; }
 
 		/** Returns the rotation axis.*/
-		const Math::Vector3& getRotationAxis() const { return mRotationAxis; }
+		const COLLADABU::Math::Vector3& getRotationAxis() const { return mRotationAxis; }
 
 		/** Sets rotation axis to @a rotationAxis.*/
-		void setRotationAxis(const Math::Vector3& rotationAxis) { mRotationAxis = rotationAxis; }
+		void setRotationAxis(const COLLADABU::Math::Vector3& rotationAxis) { mRotationAxis = rotationAxis; }
 
 		/** Sets the components of the rotation axis to @a x, @a y, @a z.*/
-		void setRotationAxis(double x, double y, double z) { mRotationAxis = Math::Vector3(x, y, z); }
+		void setRotationAxis(double x, double y, double z) { mRotationAxis = COLLADABU::Math::Vector3(x, y, z); }
 
 	};
 

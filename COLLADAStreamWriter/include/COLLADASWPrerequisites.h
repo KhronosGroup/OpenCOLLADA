@@ -13,9 +13,18 @@
 #define __COLLADASTREAMWRITER_PREREQUISITES_H__
 
 #include <string>
+#include "COLLADABUURI.h"
+#include "COLLADABUNativeString.h"
+#include "Math/COLLADABUMathUtils.h"
+
 
 namespace COLLADASW
 {
+    typedef COLLADABU::URI URI;
+    typedef COLLADABU::Utils Utils;
+    typedef COLLADABU::NativeString NativeString;
+    typedef COLLADABU::Math::Utils MathUtils;
+
     typedef std::string String;
 	typedef std::wstring WideString;
 }

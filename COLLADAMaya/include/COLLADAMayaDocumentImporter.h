@@ -19,10 +19,6 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
 
-#include <DAE.h>
-#include <dom/domCOLLADA.h>
-#include <dom/domElements.h>
-
 #include "COLLADAMayaWriter.h"
 #include "COLLADADHLoader.h"
 
@@ -48,11 +44,11 @@ namespace COLLADAMaya
         /** The id of the current scene. */
         String mSceneId;
 
-        /** The DAE class is the core interface via which you interact with the DOM. */
-        DAE mDae;
-
-        /** The currently parsed collada document. */
-        domCOLLADA* mColladaDoc;
+//         /** The DAE class is the core interface via which you interact with the DOM. */
+//         DAE mDae;
+// 
+//         /** The currently parsed collada document. */
+//         domCOLLADA* mColladaDoc;
 
         /** Imports the material. */
         MaterialImporter* mMaterialImporter;
@@ -70,7 +66,7 @@ namespace COLLADAMaya
         Writer mWriter;
 
         /** The loader to load the collada document with the collada dom. */
-        COLLADADH::Loader mLoader;
+        COLLADADH::Loader mDocumentLoader;
 
     public:
 
@@ -89,9 +85,23 @@ namespace COLLADAMaya
         */
         const String& getFilename() const;
 
-        /** The currently parsed collada document. */
-        const domCOLLADA* getColladaDocument () const { return mColladaDoc; }
-        domCOLLADA* getColladaDocument () { return mColladaDoc; }
+//         /** The currently parsed collada document. */
+//         const domCOLLADA* getColladaDocument () const { return mColladaDoc; }
+// 
+//         /** The currently parsed collada document. */
+//         domCOLLADA* getColladaDocument () { return mColladaDoc; }
+
+        /** Returns the current document loader. */
+        COLLADADH::Loader& getDocumentLoader ()
+        {
+            return mDocumentLoader;
+        }
+
+        /** Returns the current document loader. */
+        const COLLADADH::Loader& getDocumentLoader () const
+        {
+            return mDocumentLoader;
+        }
 
         /**
         * Returns a pointer to the geometry exporter.

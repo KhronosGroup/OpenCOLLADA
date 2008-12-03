@@ -14,7 +14,10 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWURI.h"
+
+#include "COLLADABUURI.h"
+using namespace COLLADABU;
+
 
 namespace COLLADASW
 {

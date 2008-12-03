@@ -14,7 +14,7 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 #include <string>
 
 namespace COLLADASW
@@ -29,11 +29,11 @@ namespace COLLADASW
     private:
 
         /** The url of the instance visual scene.*/
-        URI mInstanceVisualSceneUrl;
+        COLLADABU::URI mInstanceVisualSceneUrl;
 
     public:
         /** Constructor that sets the stream the scene should be written to*/
-        Scene ( StreamWriter * streamWriter, URI instanceURI ) 
+        Scene ( StreamWriter * streamWriter, COLLADABU::URI instanceURI ) 
         : ElementWriter ( streamWriter ) 
         , mInstanceVisualSceneUrl ( instanceURI )
         {}

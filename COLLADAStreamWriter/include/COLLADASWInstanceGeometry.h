@@ -15,7 +15,7 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWBindMaterial.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 
 #include <string>
 

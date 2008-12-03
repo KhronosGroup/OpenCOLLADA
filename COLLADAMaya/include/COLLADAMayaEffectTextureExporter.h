@@ -26,7 +26,6 @@
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWExtra.h"
 #include "COLLADASWEffectProfile.h"
-#include "COLLADASWUtils.h"
 #include "COLLADASWLibraryImages.h"
 
 #include <maya/MFnDependencyNode.h>

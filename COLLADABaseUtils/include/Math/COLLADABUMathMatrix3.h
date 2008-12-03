@@ -1,18 +1,18 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADABaseUtils.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COMMONFW_MATH_MATRIX3_H__
-#define __COMMONFW_MATH_MATRIX3_H__
+#ifndef __COMMONBU_MATH_MATRIX3_H__
+#define __COMMONBU_MATH_MATRIX3_H__
 
-#include "COLLADAFWMathPrerequisites.h"
-#include "COLLADAFWMathVector3.h"
+#include "COLLADABUMathPrerequisites.h"
+#include "COLLADABUMathVector3.h"
 #include <memory>
 
 // NB All code adapted from Wild Magic 0.2 Matrix math (free source code)
@@ -33,7 +33,7 @@ http://www.opensource.org/licenses/mit-license.php
 //           0       0       1
 // where t > 0 indicates a counterclockwise rotation in the xy-plane.
 
-namespace COLLADAFW
+namespace COLLADABU
 {
     namespace Math
     {
@@ -239,4 +239,4 @@ namespace COLLADAFW
     }
 }
 
-#endif //__COMMONFW_MATH_MATRIX3_H__
+#endif //__COMMONBU_MATH_MATRIX3_H__

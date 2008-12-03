@@ -11,14 +11,14 @@
 #ifndef __COLLADA_LOADER_H__
 #define __COLLADA_LOADER_H__
 
-#include "COLLADADHPrerequisites.h"
-
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
 #include "COLLADAFWUniqueId.h"
 
 class daeElement;
 class domCOLLADA;
+class daeDocument;
+
 
 namespace COLLADAFW
 {
@@ -53,7 +53,17 @@ namespace COLLADADH
         /** Destructor. */
 		virtual ~Loader();
 
-		/** Starts loading the model and feeds the writer with data.
+        /** The COLLADA element declares the root of the document that comprises some
+        of the content  in the COLLADA schema. */
+        const domCOLLADA* getDomCollada () const { return mDomCollada; }
+
+        /** Returns the database document associated with the domCOLLADA element. */
+        const daeDocument* getDaeDocument () const;
+
+        /** Returns the database document associated with the domCOLLADA element. */
+        daeDocument* getDaeDocument ();
+
+        /** Starts loading the model and feeds the writer with data.
 		@param fileName The name of the fills that should be loaded.
 		@param writer The writer that should be fed with data.
 		@return True, if loading succeeded, false otherwise.*/

@@ -28,8 +28,6 @@
 #include <time.h>
 
 #include "COLLADAMayaException.h"
-#include "COLLADASWUtils.h"
-#include "COLLADASWNativeString.h"
 
 
 #define MAX_FILENAME_LEN 512

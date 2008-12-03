@@ -1,22 +1,21 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
-    Copyright 2006 Sony Computer Entertainment Inc.
 
-    This file is part of COLLADAStreamWriter.
+    This file is part of COLLADABaseUtils.
 
     Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADASW_URI_H__
-#define __COLLADASW_URI_H__
+#ifndef __COLLADABU_URI_H__
+#define __COLLADABU_URI_H__
 
-#include "COLLADASWPrerequisites.h"
-#include "COLLADASWUtils.h"
+#include "COLLADABUPrerequisites.h"
+#include "COLLADABUUtils.h"
 
 
-namespace COLLADASW
+namespace COLLADABU
 {
 	/**
 	* The @c URI is a simple class designed to aid in the parsing and resolution
@@ -374,4 +373,4 @@ namespace COLLADASW
 }
 
 
-#endif //__COLLADASW_URI_H__
+#endif //__COLLADAFW_URI_H__

@@ -17,7 +17,7 @@
 #include "COLLADASWColor.h"
 #include "COLLADASWColorOrTexture.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 #include <vector>
 #include <map>
 

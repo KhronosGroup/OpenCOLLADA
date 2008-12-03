@@ -15,7 +15,8 @@
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWBaseElement.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWURI.h"
+
+#include "COLLADABUURI.h"
 
 namespace COLLADASW
 {
@@ -78,7 +79,7 @@ namespace COLLADASW
         }
 
         /** Returns the source of the Input*/
-        const URI& getSource() const
+        const COLLADABU::URI& getSource() const
         {
             return mSource;
         }
@@ -97,7 +98,7 @@ namespace COLLADASW
 
     private:
         Semantics mSemantic;
-        URI mSource;
+        COLLADABU::URI mSource;
         int mOffset;
         int mSet;
     };

@@ -15,7 +15,7 @@
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 
 namespace COLLADASW
 {

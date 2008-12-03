@@ -15,7 +15,7 @@
 #include "COLLADAFWInputUnshared.h"
 #include "COLLADAFWConstants.h"
 
-#include <COLLADASWURI.h>
+#include <COLLADABUURI.h>
 
 
 namespace COLLADAFW
@@ -72,7 +72,7 @@ namespace COLLADAFW
          * @param offset The offset of the @a \<input\> element.
          * @param set The set of the @a \<input\> element.
          */
-        InputShared ( InputSemantic::Semantic semantic, const COLLADASW::URI& source, int offset = 0, int set = 0 )
+        InputShared ( InputSemantic::Semantic semantic, const COLLADABU::URI& source, int offset = 0, int set = 0 )
             : InputUnshared ( semantic, source )
             , mOffset ( offset )
             , mSet ( set ) 

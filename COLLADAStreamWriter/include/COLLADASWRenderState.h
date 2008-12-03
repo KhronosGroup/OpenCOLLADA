@@ -14,7 +14,7 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWUtils.h"
+#include "COLLADABUUtils.h"
 
 namespace COLLADASW
 {

@@ -16,16 +16,14 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaGeometryImporter.h"
 
-#include "COLLADASWUtils.h"
 #include "COLLADASWConstants.h"
 
 #include "COLLADAFWPolylist.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWGeometricElement.h"
 
 #include "COLLADADHMeshLoader.h"
 #include "COLLADADHException.h"
-
-#include <dom/domPolylist.h>
 
 #include <maya/MFnMesh.h>
 #include <maya/MFnTransform.h>
@@ -36,63 +34,41 @@ namespace COLLADAMaya
 {
     
     // --------------------------------------------
-    GeometryImporter::GeometryImporter( DocumentImporter* documentImporter, daeDocument* daeDoc ) 
-    : BaseImporter ( documentImporter, daeDoc )
+    GeometryImporter::GeometryImporter( DocumentImporter* documentImporter ) 
+    : BaseImporter ( documentImporter )
     , mTransformObject ( MObject::kNullObj )
     {}
 
     // --------------------------------------------
-    void GeometryImporter::importGeometries ( MObject& transformObject, domNode& node )
+    bool GeometryImporter::importGeometry ( const COLLADAFW::Geometry* geometry )
     {
-        // Set the transformObject
-        mTransformObject = transformObject;
+        if ( geometry == 0 ) return false;
 
-        domInstance_geometry_Array geometryArray = node.getInstance_geometry_array ();
+        mGeometry = geometry;
 
-        size_t numGeometries = geometryArray.getCount ();
-        for ( size_t i=0; i<numGeometries; ++i )
+        String id = geometry->getId ();
+        String name = geometry->getName ();
+
+        const COLLADAFW::GeometricElement* geometricElement = geometry->getGeometricElement ();
+        COLLADAFW::GeometricElement::Type type = geometricElement->getType ();
+
+        switch ( type )
         {
-            domInstance_geometryRef instanceGeometryRef = geometryArray.get ( i );
-            importGeometry ( instanceGeometryRef );
+        case COLLADAFW::GeometricElement::GEO_TYPE_CONVEX_MESH:
+            return false;
+        case COLLADAFW::GeometricElement::GEO_TYPE_SPLINE:
+            return false;
+        case COLLADAFW::GeometricElement::GEO_TYPE_MESH:
+            {
+                COLLADAFW::Mesh* mesh = ( COLLADAFW::Mesh* ) geometricElement;
+                importMesh ( mesh );
+                break;
+            }
+        default:
+            return false;
         }
-    }
 
-    // --------------------------------------------
-    void GeometryImporter::importGeometry ( domInstance_geometryRef instanceGeometryRef )
-    {
-        //xsID geometryId = instanceGeometryRef->getId ();
-        //xsName geometryName = instanceGeometryRef->getName ();
-        daeString geometryId = instanceGeometryRef->getID ();
-        xsNCName geometrySid = instanceGeometryRef->getSid ();
-        xsAnyURI geometryURL = instanceGeometryRef->getUrl ();
-
-        domBind_materialRef bindMaterialRef = instanceGeometryRef->getBind_material ();
-
-        // Get the geometry.
-        if ( geometryURL.getState() != daeURI::uri_success )
-        {
-            daeDocument* daeDoc = getDaeDocument ();
-            geometryURL.setContainer( daeDoc->getDomRoot() );
-            geometryURL.resolveElement();
-        }
-        domGeometryRef geometry = daeSafeCast<domGeometry>( geometryURL.getElement() );
-
-        // Set the current geometry member.
-        mGeometryRef = geometry;
-
-        xsNCName geometryName = geometry->getName ();
-        daeString geometryId2 = geometry->getID ();
-
-        domMeshRef meshRef = geometry->getMesh ();
-        if ( meshRef != NULL ) 
-        {
-            // Create a COLLADAFramework mesh object
-            COLLADADH::MeshLoader meshReader ( getDaeDocument () );
-            COLLADAFW::Mesh* mesh = meshReader.createMeshObject ( meshRef );
-            
-            // Import the mesh object into maya
-            importMesh ( mesh );
-        }
+        return true;
     }
 
     // --------------------------------------------
@@ -436,10 +412,10 @@ namespace COLLADAMaya
         MObject meshNode = meshFn.create ( 
             ( int ) numVertices, ( int ) numPolygons, 
             vertexArray, vertexCountsPerPolygon, 
-            polygonConnects, mTransformObject );
+            polygonConnects, MObject::kNullObj ); // TODO mTransformObject Parent should be the transform node!
 
-        xsNCName geometryName = mGeometryRef->getName ();
-        meshFn.setName ( geometryName );
+        String geometryName = mGeometry->getName ();
+        meshFn.setName ( geometryName.c_str () );
 
         // meshFn will also be invalid because maya attempts to attach the function set to the 
         // transform node, which fails.... so, fix it like so:

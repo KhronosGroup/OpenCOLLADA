@@ -12,7 +12,7 @@
 #define __COLLADASTREAMWRITER_IDLIST_H__
 
 #include "COLLADASWPrerequisites.h"
-#include "COLLADASWUtils.h"
+#include "COLLADABUUtils.h"
 
 #include <set>
 

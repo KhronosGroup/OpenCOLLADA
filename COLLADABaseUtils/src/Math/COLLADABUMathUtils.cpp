@@ -1,18 +1,18 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-    This file is part of COLLADAFramework.
+    This file is part of COLLADABaseUtils.
 
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "COLLADAFWStableHeaders.h"
-#include "COLLADAFWMathUtils.h"
+#include "COLLADABUStableHeaders.h"
+#include "Math/COLLADABUMathUtils.h"
 
 
-namespace COLLADAFW
+namespace COLLADABU
 {
 	namespace Math
 	{

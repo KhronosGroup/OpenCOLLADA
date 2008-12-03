@@ -23,7 +23,6 @@
 
 #include <max.h>
 
-#include "COLLADASWUtils.h"
 #include "COLLADASWIDList.h"
 
 #include "COLLADAMaxControllerList.h"

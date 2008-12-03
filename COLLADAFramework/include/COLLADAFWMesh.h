@@ -77,7 +77,7 @@ namespace COLLADAFW
             const InputUnshared* positionsInput = getVertices().getInputBySemantic ( semantic );
             if ( positionsInput == 0 ) return 0;
 
-            COLLADASW::URI positionsInputSource = positionsInput->getSource ();
+            COLLADABU::URI positionsInputSource = positionsInput->getSource ();
             String sourceId = positionsInputSource.getFragment ();
             return getSourceById ( sourceId );
         }

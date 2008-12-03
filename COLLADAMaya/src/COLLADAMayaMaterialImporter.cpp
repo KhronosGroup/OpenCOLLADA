@@ -34,8 +34,8 @@ namespace COLLADAMaya
 {
 
     //------------------------------
-    MaterialImporter::MaterialImporter ( DocumentImporter* documentImporter, daeDocument* daeDoc )
-    : BaseImporter ( documentImporter, daeDoc )
+    MaterialImporter::MaterialImporter ( DocumentImporter* documentImporter )
+    : BaseImporter ( documentImporter )
     {}
 
     // --------------------------

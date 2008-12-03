@@ -13,7 +13,7 @@
 
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 
 namespace COLLADASW
 {

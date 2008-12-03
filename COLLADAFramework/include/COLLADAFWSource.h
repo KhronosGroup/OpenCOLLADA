@@ -14,6 +14,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayElement.h"
 #include "COLLADAFWTechniqueCommon.h"
+#include "COLLADAFWArray.h"
 
 
 namespace COLLADAFW

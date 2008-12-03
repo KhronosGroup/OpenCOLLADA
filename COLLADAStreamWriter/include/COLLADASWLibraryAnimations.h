@@ -14,7 +14,7 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWLibrary.h"
 #include "COLLADASWInputList.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 
 #include <vector>
 #include <list>
@@ -78,7 +78,7 @@ namespace COLLADASW
             struct Input
             {
                 Semantic semantic;
-                URI source;
+                COLLADABU::URI source;
             };
 
             /** A list of inputs*/
@@ -105,7 +105,7 @@ namespace COLLADASW
             }
 
             /** Adds an input element to the sampler*/
-            void addInput ( Semantic semantic, const URI& source );
+            void addInput ( Semantic semantic, const COLLADABU::URI& source );
 
             /** Returns a const reference of the Inputlist*/
             const InputList& getInputList() const

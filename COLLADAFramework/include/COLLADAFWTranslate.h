@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADAFramework.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 #ifndef __COLLADAFW_TRANSLATE_H__
@@ -13,7 +13,9 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTransformation.h"
-#include "COLLADAFWMathVector3.h"
+
+#include "Math/COLLADABUMathVector3.h"
+
 
 namespace COLLADAFW
 {
@@ -21,14 +23,14 @@ namespace COLLADAFW
 	{
 	private:
 		/** The vector that represents the translation.*/
-		Math::Vector3 mTranslationVector;
+		COLLADABU::Math::Vector3 mTranslationVector;
 	
 	public:
 		/** Default constructor. Constructs identity translation.*/ 
 		Translate();
 
 		/** Sets translation to @a vector.*/ 
-		Translate(const Math::Vector3& translationVector);
+		Translate(const COLLADABU::Math::Vector3& translationVector);
 
 		/** Sets the components of the translation to @a x, @a y, @a z.*/
 		Translate(double x, double y, double z);
@@ -36,13 +38,13 @@ namespace COLLADAFW
 		virtual ~Translate();
 
 		/** Returns the translation vector.*/
-		const Math::Vector3& getTranslation() const { return mTranslationVector; }
+		const COLLADABU::Math::Vector3& getTranslation() const { return mTranslationVector; }
 
 		/** Sets the translation vector.*/
-		void setTranslation(const Math::Vector3& translationVector) { mTranslationVector = translationVector; }
+		void setTranslation(const COLLADABU::Math::Vector3& translationVector) { mTranslationVector = translationVector; }
 
 		/**  Sets the components of the translation to @a x, @a y, @a z.*/
-		void setTranslation(double x, double y, double z) { mTranslationVector = Math::Vector3(x, y, z); }
+		void setTranslation(double x, double y, double z) { mTranslationVector = COLLADABU::Math::Vector3(x, y, z); }
 
 	};
 } // namespace COLLADAFW

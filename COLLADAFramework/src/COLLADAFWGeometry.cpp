@@ -38,4 +38,10 @@ namespace COLLADAFW
         return mGeometricElement;
     }
 
+    //------------------------------
+    const GeometricElement* Geometry::getGeometricElement () const
+    {
+        return mGeometricElement;
+    }
+
 } // namespace COLLADAFW

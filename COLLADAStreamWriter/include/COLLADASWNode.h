@@ -15,7 +15,7 @@
 #include "COLLADASWElementWriter.h"
 #include "COLLADASWExtraTechnique.h"
 #include "COLLADASWConstants.h"
-#include "COLLADASWURI.h"
+#include "COLLADABUURI.h"
 
 namespace COLLADASW
 {
@@ -50,7 +50,7 @@ namespace COLLADASW
         String mNodeSid;
 
         /** The URL of an instance node. */
-        URI mNodeURL;
+        COLLADABU::URI mNodeURL;
 
         /** The type of the node*/
         Type mType;
@@ -118,13 +118,13 @@ namespace COLLADASW
         }
 
         /** The URL of an instance node. */
-        const URI& getNodeURL() const 
+        const COLLADABU::URI& getNodeURL() const 
         { 
             return mNodeURL; 
         }
 
         /** The URL of an instance node. */
-        void setNodeURL( const URI& val ) 
+        void setNodeURL( const COLLADABU::URI& val ) 
         { 
             mNodeURL = val; 
         }

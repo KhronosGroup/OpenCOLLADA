@@ -72,15 +72,23 @@
 //#define TIME_EXPORT_START  0//OPTS->AnimStart()
 
 
-#include "COLLADASWPrerequisites.h"
-#include "COLLADASWNativeString.h"
+#include <string>
+#include "COLLADABUURI.h"
+#include "COLLADABUStringUtils.h"
+#include "COLLADABUNativeString.h"
+#include "Math/COLLADABUMathUtils.h"
+
 
 namespace COLLADAMax
 {
-	typedef COLLADASW::String String;
-	typedef COLLADASW::WideString WideString;
-	typedef COLLADASW::NativeString NativeString;
+    typedef COLLADABU::URI URI;
+    typedef COLLADABU::Utils Utils;
+    typedef COLLADABU::StringUtils StringUtils;
+    typedef COLLADABU::NativeString NativeString;
+    typedef COLLADABU::Math::Utils MathUtils;
 
+    typedef std::string String;
+    typedef std::wstring WideString;
 }
 
 

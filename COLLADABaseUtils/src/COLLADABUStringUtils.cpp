@@ -1,14 +1,16 @@
 /*
     Copyright (c) 2008 NetAllied Systems GmbH
 
-	This file is part of COLLADAStreamWriter.
+	This file is part of COLLADABaseUtils.
 	
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-#include "COLLADASWStringUtils.h"
-#include "COLLADASWException.h"
+
+#include "COLLADABUStableHeaders.h"
+#include "COLLADABUStringUtils.h"
+#include "COLLADABUException.h"
 #include "ConvertUTF.h"
 
 
@@ -16,7 +18,7 @@
 #define MAX_UTF8_CHAR_LENGTH 4
 
 
-namespace COLLADASW
+namespace COLLADABU
 {
 
 
@@ -248,7 +250,7 @@ namespace COLLADASW
 
 			if ( res != conversionOK )
 			{
-				throw StreamWriterException(StreamWriterException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+				throw BaseUtilsException(BaseUtilsException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
 			}
 
 			*targetstart = 0;
@@ -267,7 +269,7 @@ namespace COLLADASW
 
 			if ( res != conversionOK )
 			{
-				throw StreamWriterException(StreamWriterException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+				throw BaseUtilsException(BaseUtilsException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
 			}
 
 			*targetstart = 0;
@@ -275,7 +277,7 @@ namespace COLLADASW
 
 		else
 		{
-			throw StreamWriterException(StreamWriterException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+			throw BaseUtilsException(BaseUtilsException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
 		}
 		return returnWideString;
 	}
@@ -299,7 +301,7 @@ namespace COLLADASW
 
 			if ( res != conversionOK )
 			{
-				throw StreamWriterException(StreamWriterException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+				throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
 			}
 
 			returnString.resize(targetstart - thisFirstWChar);
@@ -318,7 +320,7 @@ namespace COLLADASW
 
 			if ( res != conversionOK )
 			{
-				throw StreamWriterException(StreamWriterException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+				throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
 			}
 
 			returnString.resize(targetstart - thisFirstWChar);
@@ -326,7 +328,7 @@ namespace COLLADASW
 
 		else
 		{
-			throw StreamWriterException(StreamWriterException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+			throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
 		}
 		return returnString;
 	}

@@ -20,8 +20,9 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWNode.h"
-#include "COLLADAFWMathMatrix4.h"
 #include "COLLADAFWInstanceGeometry.h"
+
+#include "Math/COLLADABUMathMatrix4.h"
 
 #include <max.h>
 
@@ -44,7 +45,7 @@ namespace COLLADAMax
 
 
 	//---------------------------------------------------------------
-	void VisualSceneImporter::Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADAFW::Math::Matrix4& original )
+	void VisualSceneImporter::Matrix4ToMaxMatrix3 ( Matrix3 & copy,  const COLLADABU::Math::Matrix4& original )
 	{
 		Point4 column;
 		column[ 0 ] = (float)original.getElement(0,0);
@@ -105,7 +106,7 @@ namespace COLLADAMax
 			newImportNode->SetName(newNodeName.c_str());
 
 		// set transform
-		COLLADAFW::Math::Matrix4 transformationMatrix;
+		COLLADABU::Math::Matrix4 transformationMatrix;
 		node->getTransformationMatrix(transformationMatrix);
 		Matrix3 maxTransformationMatrix;
 		Matrix4ToMaxMatrix3(maxTransformationMatrix, transformationMatrix);

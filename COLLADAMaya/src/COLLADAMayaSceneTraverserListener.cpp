@@ -23,15 +23,11 @@ namespace COLLADAMaya
 
     bool SceneTraverserListener::preDetectedNode( domNode& node, int level )
     {
-        DocumentImporter* documentImporter = mTraverser->getDocumentImporter ();
-        VisualSceneImporter* visualSceneImporter = documentImporter->getVisualSceneImporter ();
-        return visualSceneImporter->importVisualSceneNode ( node, level );
+        return true;
     }
 
     bool SceneTraverserListener::postDetectedNode( domNode& node, int level )
     {
-        xsID nodeId = node.getId();
-
         return true;
     }
 

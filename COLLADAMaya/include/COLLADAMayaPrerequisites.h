@@ -21,12 +21,15 @@ This macro is useful for these pesky unused variable warnings. */
 #define UNUSED(a)
 
 #include <string>
-#include "COLLADASWNativeString.h"
+
+#include "COLLADABUURI.h"
+#include "COLLADABUNativeString.h"
 
 namespace COLLADAMaya
 {
     typedef std::string String;
-	typedef COLLADASW::NativeString NativeString;
+    typedef COLLADABU::URI URI;
+	typedef COLLADABU::NativeString NativeString;
 
 #ifndef uint
     typedef unsigned int uint;

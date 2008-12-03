@@ -13,7 +13,8 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTransformation.h"
-#include "COLLADAFWMathVector3.h"
+
+#include "Math/COLLADABUMathVector3.h"
 
 
 namespace COLLADAFW
@@ -22,14 +23,14 @@ namespace COLLADAFW
 	{
 	private:
 		/** Vector representing the scales in three directions.*/
-		Math::Vector3 mScaleVector;
+		COLLADABU::Math::Vector3 mScaleVector;
 	
 	public:
 		/** Constructor. Creates identity scale.*/
 		Scale();
 
 		/** Constructor. Sets scale to @a scaleVector.*/ 
-		Scale(const Math::Vector3& scaleVector);
+		Scale(const COLLADABU::Math::Vector3& scaleVector);
 
 		/** Constructor. Sets the components of the scale to @a x, @a y, @a z.*/
 		Scale(double x, double y, double z);
@@ -37,13 +38,13 @@ namespace COLLADAFW
 		virtual ~Scale();
 
 		/** Returns the scale vector.*/
-		const Math::Vector3& getScale() const { return mScaleVector; }
+		const COLLADABU::Math::Vector3& getScale() const { return mScaleVector; }
 
 		/** Sets the scale vector.*/
-		void setScale(const Math::Vector3& scaleVector) { mScaleVector = scaleVector; }
+		void setScale(const COLLADABU::Math::Vector3& scaleVector) { mScaleVector = scaleVector; }
 
 		/**  Sets the components of the scale to @a x, @a y, @a z.*/
-		void setScale(double x, double y, double z) { mScaleVector = Math::Vector3(x, y, z); }
+		void setScale(double x, double y, double z) { mScaleVector = COLLADABU::Math::Vector3(x, y, z); }
 	};
 
 } // namespace COLLADAFW

@@ -24,9 +24,11 @@
 #include "COLLADAMayaConversion.h"
 #include "COLLADAMayaAnimationTools.h"
 #include "COLLADAMayaAnimationExporter.h"
+
 #include <assert.h>
 
-#include "COLLADASWMathUtils.h"
+#include "Math/COLLADABUMathUtils.h"
+
 #include "COLLADASWBaseInputElement.h"
 
 #include <maya/MItDependencyGraph.h>
@@ -625,7 +627,7 @@ namespace COLLADAMaya
             uint weightCount = weights.length();
             for (uint i = 0; i < weightCount; ++i)
             {
-                if (!COLLADASW::MathUtils::equals(weights[i], Weight(0)))
+                if (!COLLADABU::Math::Utils::equals(weights[i], Weight(0)))
                 {
                     vertex[i] = (float)weights[i];
                 }
@@ -671,7 +673,7 @@ namespace COLLADAMaya
             {
                 // append the weight at its correct position: i
                 float weight = weights[counter++];
-                if (COLLADASW::MathUtils::equals(weight, 0.0f))
+                if (COLLADABU::Math::Utils::equals(weight, 0.0f))
                 {
                     SkinControllerVertex& vertex = colladaInfluences[componentIt.index()];
                     vertex[i] = weight;
@@ -1060,8 +1062,8 @@ namespace COLLADAMaya
                 // influence. We don't write the one weights, cause we have written
                 // (see below) a one weight in front of the vertex_weights array and
                 // always reference to it from the vertex_weights array.
-                if ( !COLLADASW::MathUtils::equalsZero( vertex[j] ) &&
-                     !COLLADASW::MathUtils::equals( vertex[j], 1.0f ) )
+                if ( !COLLADABU::Math::Utils::equalsZero( vertex[j] ) &&
+                     !COLLADABU::Math::Utils::equals( vertex[j], 1.0f ) )
                 {
                     vertexVec.push_back(vertex[j]);
                     ++numVertexPoints;
@@ -1196,7 +1198,7 @@ namespace COLLADAMaya
             {
                 vertexMatches.push_back( (*it).first );
 
-                if ( !COLLADASW::MathUtils::equals( (*it).second, 1.0f ) )
+                if ( !COLLADABU::Math::Utils::equals( (*it).second, 1.0f ) )
                     vertexMatches.push_back( weightOffset++ );
                 else
                     // There is a one in the first position of the weight source array.

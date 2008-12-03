@@ -19,7 +19,7 @@
 
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWSource.h"
-#include "COLLADASWMathUtils.h"
+#include "Math/COLLADABUMathUtils.h"
 
 #include "COLLADAMaxAnimationExporter.h"
 #include "COLLADAMaxExportSceneGraph.h"
@@ -2240,10 +2240,10 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void AnimationExporter::angleApproach(float pval, float& val)
 	{
-		while (val - pval > COLLADASW::MathUtils::COLLADASW_PI_f) 
-			val -= COLLADASW::MathUtils::COLLADASW_PI_f * 2.0f;
-		while (val - pval < -COLLADASW::MathUtils::COLLADASW_PI_f) 
-			val += COLLADASW::MathUtils::COLLADASW_PI_f * 2.0f;
+		while (val - pval > MathUtils::PI_f) 
+			val -= MathUtils::PI_f * 2.0f;
+		while (val - pval < -MathUtils::PI_f) 
+			val += MathUtils::PI_f * 2.0f;
 	}
 
 
@@ -2259,7 +2259,7 @@ namespace COLLADAMax
 			distanceSq += (val[i] - pval[i]) * (val[i] - pval[i]);
 
 		// All quaternions can be expressed two ways. Check if the second way is better.
-		float alternative[3] = { val[0] + COLLADASW::MathUtils::COLLADASW_PI_f, COLLADASW::MathUtils::COLLADASW_PI_f - val[1], val[2] + COLLADASW::MathUtils::COLLADASW_PI_f };
+		float alternative[3] = { val[0] + MathUtils::PI_f, MathUtils::PI_f - val[1], val[2] + MathUtils::PI_f };
 		for (int i = 0; i < 3; ++i) 
 			angleApproach(pval[i], alternative[i]);
 		

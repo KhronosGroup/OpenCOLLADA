@@ -1,21 +1,19 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAFramework.
+    This file is part of COLLADABaseUtils.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
+#ifndef __COLLADABU_MATH_QUATERNION_H__
+#define __COLLADABU_MATH_QUATERNION_H__
 
+#include "COLLADABUMathPrerequisites.h"
 
-#ifndef __COLLADAFW__MATH__QUATERNION_H__
-#define __COLLADAFW__MATH__QUATERNION_H__
-
-#include "COLLADAFWMathPrerequisites.h"
-
-namespace COLLADAFW
+namespace COLLADABU
 {
     namespace Math
     {
@@ -182,4 +180,4 @@ namespace COLLADAFW
 
 }
 
-#endif // __COLLADAFW__MATH__QUATERNION_H__
+#endif // __COLLADABU__MATH__QUATERNION_H__

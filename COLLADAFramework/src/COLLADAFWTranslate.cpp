@@ -17,11 +17,11 @@ namespace COLLADAFW
 	//--------------------------------------------------------------------
 	Translate::Translate() 
 		: Transformation(Transformation::TRANSLATE),
-		mTranslationVector(Math::Vector3::ZERO)
+		mTranslationVector(COLLADABU::Math::Vector3::ZERO)
 	{	}
 
 	//--------------------------------------------------------------------
-	Translate::Translate( const Math::Vector3& translationVector )
+	Translate::Translate( const COLLADABU::Math::Vector3& translationVector )
 		: Transformation(Transformation::TRANSLATE),
 		mTranslationVector(translationVector)
 	{}

@@ -56,6 +56,12 @@ namespace COLLADAFW
         /** Destructor. */
 		virtual ~GeometricElement();
 
+        /** Type of the geometric element. */
+        const GeometricElement::Type getType () const { return mType; }
+
+        /** Type of the geometric element. */
+        void setType ( const GeometricElement::Type Type ) { mType = Type; }
+
         /**
         * Provides the bulk of the mesh’s vertex data. See main entry.
         * @param sourceArraySize Parameter to get the size of the source array.

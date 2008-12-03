@@ -16,13 +16,13 @@ namespace COLLADAFW
 	//--------------------------------------------------------------------
 	Rotate::Rotate()
 		: Transformation(Transformation::ROTATE),
-		mRotationAxis(Math::Vector3::ZERO),
+		mRotationAxis(COLLADABU::Math::Vector3::ZERO),
 		mRotationAngle(0.0)
 	{
 	}
 
 	//--------------------------------------------------------------------
-	Rotate::Rotate( const Math::Vector3& rotationAxis, double rotationAngle )
+	Rotate::Rotate( const COLLADABU::Math::Vector3& rotationAxis, double rotationAngle )
 		: Transformation(Transformation::ROTATE),
 		mRotationAxis(rotationAxis),
 		mRotationAngle(rotationAngle)
@@ -31,7 +31,7 @@ namespace COLLADAFW
 
 	Rotate::Rotate( double x, double y, double z, double rotationAngle )
 		: Transformation(Transformation::ROTATE),
-		mRotationAxis(Math::Vector3(x, y, z)),
+		mRotationAxis(COLLADABU::Math::Vector3(x, y, z)),
 		mRotationAngle(rotationAngle)
 	{
 	}

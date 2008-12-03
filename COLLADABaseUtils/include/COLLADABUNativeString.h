@@ -1,22 +1,20 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
-Copyright 2006 Sony Computer Entertainment Inc.
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADAStreamWriter.
+    This file is part of COLLADABaseUtils.
 
-Licensed under the MIT Open Source License, 
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADASTREAMWRITER_NATIVESTRING_H__
-#define __COLLADASTREAMWRITER_NATIVESTRING_H__
+#ifndef __COLLADABU_NATIVESTRING_H__
+#define __COLLADABU_NATIVESTRING_H__
 
-#include "COLLADASWPrerequisites.h"
+#include "COLLADABUPrerequisites.h"
 
-#include <string>
 
-namespace COLLADASW
+namespace COLLADABU
 {
 
 	/** A string class to store strings encoded in the systems native encoding.*/
@@ -86,4 +84,4 @@ namespace COLLADASW
 }
 
 
-#endif //__COLLADASTREAMWRITER_NATIVESTRING_H__
+#endif //__COLLADABU_NATIVESTRING_H__
