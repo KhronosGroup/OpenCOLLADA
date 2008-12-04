@@ -281,14 +281,15 @@ namespace COLLADAMaya
 
 
     // -------------------------------------------
-    void AnimationHelper::sampleAnimatedTransform ( AnimationSampleCache* cache,
+    bool AnimationHelper::sampleAnimatedTransform ( AnimationSampleCache* cache,
             const MPlug& plug,
             AnimationCurveList& curves )
     {
-        if ( curves.size() != 16 ) return;
+        if ( curves.size() != 16 ) return false;
 
         std::vector<float>* inputs = NULL,* outputs = NULL;
-        if ( !cache->findCachePlug ( plug, inputs, outputs ) || inputs == NULL || outputs == NULL ) return;
+        if ( !cache->findCachePlug ( plug, inputs, outputs ) || inputs == NULL || outputs == NULL ) 
+            return false;
 
         size_t keyCount = inputs->size();
         for ( size_t i = 0; i < 16; ++i )
@@ -296,11 +297,13 @@ namespace COLLADAMaya
             curves[i]->setKeyCount ( keyCount, COLLADASW::LibraryAnimations::LINEAR );
             for ( size_t j = 0; j < keyCount; ++j )
             {
-                BaseAnimationKey* key = curves[i]->getKey ( j );
-                ( ( AnimationKey* ) key )->input = inputs->at ( j );
-                ( ( AnimationKey* ) key )->output = outputs->at ( j*16 + i );
+                AnimationKey* key = ( AnimationKey* ) curves[i]->getKey ( j );
+                key->input = inputs->at ( j );
+                key->output = outputs->at ( j*16 + i );
             }
         }
+
+        return true;
     }
 
     // Since Maya 5.0 doesn't support MAnimControl::animation[Start/End]Time(), wrap it with the MEL command

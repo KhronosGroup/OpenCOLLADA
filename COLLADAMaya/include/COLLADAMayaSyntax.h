@@ -158,6 +158,7 @@ namespace COLLADAMaya
     static const String STPQ_PARAMETERS[4]                          = { "S", "T", "P", "Q" };
     static const String ANGLE_PARAMETER[1]                          = { "ANGLE" };
     static const String MATRIX_PARAMETER[1]                         = { "MATRIX" };
+    static const String TRANSFORM_PARAMETER[1]                      = { "TRANSFORM" };
 
     static const String DOUBLE_SIDED_PARAMETER                      = "double_sided";
 

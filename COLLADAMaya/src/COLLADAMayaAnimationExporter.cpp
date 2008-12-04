@@ -272,8 +272,7 @@ namespace COLLADAMaya
                 {
                     if ( mergedInterpolations[m] != curveKeys[c]->interpolation )
                         mergedInterpolations[m] = COLLADASW::LibraryAnimations::BEZIER;
-                    ++c;
-                    ++m;
+                    ++c; ++m;
                 }
                 else if ( mergedInputs[m] < curveKeys[c]->input )
                 {
@@ -285,8 +284,7 @@ namespace COLLADAMaya
                     mergedInputs.insert ( mergedInputs.begin() + m, curveKeys[c]->input );
                     mergedInterpolations.insert ( mergedInterpolations.begin() + m, curveKeys[c]->interpolation );
                     ++multiCurveKeyCount;
-                    ++m;
-                    ++c;
+                    ++m; ++c;
                 }
             }
 
@@ -396,6 +394,7 @@ namespace COLLADAMaya
             {
                 // Keys match, grab the value directly
                 key->output[curvePosition] = curveKeys[keyPosition]->output;
+                float output = curveKeys[keyPosition]->output;
 
                 // Check the wanted interpolation type to retrieve/calculate the extra necessary information.
                 if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
@@ -1389,15 +1388,15 @@ namespace COLLADAMaya
     }
 
     // ------------------------------------------------------------
-    // Export any animation associated with the specified plug
     bool AnimationExporter::createAnimationCurve (
         AnimationElement* animatedElement,
         const MPlug& plug,
         const SampleType sampleType,
         ConversionFunctor* conversion,
         AnimationCurveList& curves,
-        const uint curveIndex )
+        uint curveIndex )
     {
+        // Export any animation associated with the specified plug
         bool curveCreated = false;
 
         // Get the current sample type
@@ -1426,7 +1425,14 @@ namespace COLLADAMaya
                 curve = createAnimationCurveFromNode ( animatedElement, curveObject, baseId, curveIndex );
 
                 // Push the curve in the list of curves
-                if ( curve != NULL ) curves.push_back ( curve );
+                if ( curve != NULL ) 
+                {
+                    // Set the flag, that a curve exist.
+                    curveCreated = true;
+
+                    curves.push_back ( curve );
+                    ++curveIndex;
+                }
             }
             else if ( aresult == kISANIM_Character )
             {
@@ -1437,7 +1443,8 @@ namespace COLLADAMaya
                 MPlug plugIntermediate;
                 DagHelper::getPlugConnectedTo ( plug, plugIntermediate );
 
-                // clips will not have curves directly attached like this
+                // TODO Should I increment the curve index in this case???
+                // Clips will not have curves directly attached like this
                 createAnimationCurve ( animatedElement, plugIntermediate, sampleType, NULL, curves, curveIndex );
             }
 
@@ -1447,9 +1454,6 @@ namespace COLLADAMaya
             {
                 AnimationCurve* curve = ( *itC );
                 curve->convertValues ( conversion, conversion );
-
-                // Set the flag, that a curve exist.
-                curveCreated = true;
             }
         }
         else
@@ -1465,18 +1469,21 @@ namespace COLLADAMaya
                 {
                     AnimationCurve* curve = new AnimationCurve ( animatedElement, baseId );
                     curve->setCurveIndex ( curveIndex );
+                    ++curveIndex;
 
                     curves.push_back ( curve );
                 }
 
-                AnimationHelper::sampleAnimatedTransform ( animCache, plug, curves );
+                // Sample the curves
+                curveCreated = AnimationHelper::sampleAnimatedTransform ( animCache, plug, curves );
             }
             else
             {
                 AnimationCurve* curve = new AnimationCurve ( animatedElement, baseId );
                 curve->setCurveIndex ( curveIndex );
+                ++curveIndex;
 
-                AnimationHelper::sampleAnimatedPlug ( animCache, plug, curve, conversion );
+                curveCreated = AnimationHelper::sampleAnimatedPlug ( animCache, plug, curve, conversion );
                 curves.push_back ( curve );
             }
 

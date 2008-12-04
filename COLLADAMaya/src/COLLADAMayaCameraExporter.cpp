@@ -130,24 +130,30 @@ namespace COLLADAMaya
             // Create a perspective projection optic
             optics = new COLLADASW::PerspectiveOptic ( streamWriter );
 
+            bool setXFov = ExportOptions::cameraXFov();
+            bool setYFov = ExportOptions::cameraYFov();
+
             if ( ExportOptions::cameraYFov() )
             {
                 FocalLengthConverter* converter = new FocalLengthConverter ( (float) cameraFn.verticalFilmAperture() );
-                float verticalFilmAperture = (float) cameraFn.verticalFilmAperture();
-                float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
-//                 double verticalFieldOfViewRad = cameraFn.verticalFieldOfView ( &status );
-//                 double verticalFieldOfViewDeg = COLLADABU::Math::Utils::radToDeg ( verticalFieldOfViewRad );
+//                 float verticalFilmAperture = (float) cameraFn.verticalFilmAperture();
+//                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
+                float verticalFieldOfViewRad = ( float ) cameraFn.verticalFieldOfView ( &status );
+                float verticalFieldOfViewDeg = COLLADABU::Math::Utils::radToDegF ( verticalFieldOfViewRad );
                 animated = anim->addNodeAnimation( cameraFn.object(), YFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, false, -1, false, converter );
-                optics->setYFov ( focalLength, animated ); 
+                optics->setYFov ( verticalFieldOfViewDeg, animated ); 
+//                optics->setYFov ( focalLength, animated ); 
             }
             if ( ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
             {
                 FocalLengthConverter* converter = new FocalLengthConverter( (float) (cameraFn.horizontalFilmAperture() * cameraFn.lensSqueezeRatio()));
-                float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
-//                 double horizontalFieldOfViewRad = cameraFn.horizontalFieldOfView ( &status );
-//                 double horizontalFieldOfViewDeg = COLLADABU::Math::Utils::radToDeg ( horizontalFieldOfViewRad );
+//                 float fl = cameraFn.focalLength ( &status );
+//                 float focalLength = (*converter) ( ( float ) cameraFn.focalLength ( &status ) ); CHECK_MSTATUS(status);
+                float horizontalFieldOfViewRad = ( float ) cameraFn.horizontalFieldOfView ( &status );
+                float horizontalFieldOfViewDeg = COLLADABU::Math::Utils::radToDegF ( horizontalFieldOfViewRad );
                 animated = anim->addNodeAnimation( cameraFn.object(), XFOV_SID, ATTR_FOCAL_LENGTH, kSingle, EMPTY_PARAMETER, false, -1, false, converter );
-                optics->setXFov ( focalLength, animated ); 
+                optics->setXFov ( horizontalFieldOfViewDeg, animated ); 
+//                optics->setXFov ( focalLength, animated ); 
             }
             if ( !ExportOptions::cameraXFov() || !ExportOptions::cameraYFov() )
             {

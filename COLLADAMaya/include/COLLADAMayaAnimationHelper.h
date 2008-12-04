@@ -91,7 +91,7 @@ namespace COLLADAMaya
         static void generateSamplingFunction();
 
         static bool sampleAnimatedPlug ( AnimationSampleCache* cache, const MPlug& plug, AnimationCurve* curve, ConversionFunctor* converter );
-        static void sampleAnimatedTransform ( AnimationSampleCache* cache, const MPlug& plug, AnimationCurveList& curves );
+        static bool sampleAnimatedTransform ( AnimationSampleCache* cache, const MPlug& plug, AnimationCurveList& curves );
 
         // Since Maya 5.0 doesn't support MAnimControl::animation[Start/End]Time(), wrap it with the MEL command
         static MTime animationStartTime();

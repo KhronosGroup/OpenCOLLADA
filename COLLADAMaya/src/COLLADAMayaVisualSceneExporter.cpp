@@ -688,19 +688,24 @@ namespace COLLADAMaya
         double sceneMatrix[4][4] ;
         convertMMatrixToDouble4x4 ( sceneMatrix, mayaSceneMatrix );
 
-//         // TODO Export the animations
-//         MStatus status;
-//         mTransformMatrix.getTranslation ( MSpace::kTransform, &status );
-//         CHECK_MSTATUS (status);
+        // TODO Export the animations
+//        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
+
+//        animationExporter->addNodeAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, ( SampleType ) ( kVector | kLength ), XYZ_PARAMETERS, true );
 // 
 //         double rotation[3];
 //         MTransformationMatrix::RotationOrder rotationOrder = 
 //             ( MTransformationMatrix::RotationOrder ) ( ( int ) mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ );
 //         mTransformMatrix.getRotation ( rotation, rotationOrder );
-// 
-//         double scale[3];
-//         mTransformMatrix.getScale ( scale, MSpace );
-// 
+//         RotateHelper rotateHelper ( rotation );
+//         std::vector < std::vector < double > >& matrixRotate = rotateHelper.getRotationMatrix ();
+//         std::vector < String >& rotateParams = rotateHelper.getRotationParameters ();
+//         // Add the animation in the order XYZ
+//         isAnimated[i] = animationExporter->addNodeAnimation ( mTransformObject, name + rotateParams[i], ( SampleType ) ( kSingle | kQualifiedAngle ), ANGLE_PARAMETER );
+
+        // Check if the scale is animated.
+//        bool isAnimated = animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
+
 //         double shear[3]
 //         mTransformMatrix.getShear ( shear );
 
@@ -717,6 +722,8 @@ namespace COLLADAMaya
 
         MPlug plug = MFnDagNode ( mTransformObject ).findPlug ( ATTR_MATRIX );
         mDocumentExporter->getAnimationCache()->cachePlug ( plug, true );
+
+        animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, kMatrix, TRANSFORM_PARAMETER );
     }
 
     //---------------------------------------------------------------

@@ -357,7 +357,7 @@ namespace COLLADAMaya
                                     const SampleType sampleType,
                                     ConversionFunctor* conversion,
                                     AnimationCurveList& curves,
-                                    const uint curveIndex=0 );
+                                    uint curveIndex=0 );
 
         /**
          * Verify that there is, in fact, an animation in this curve.
