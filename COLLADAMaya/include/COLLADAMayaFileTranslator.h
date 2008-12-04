@@ -53,13 +53,13 @@ namespace COLLADAMaya
          */
         FileTranslator ( bool isImporter );
         virtual ~FileTranslator();
-
+        
         /**
          * Create a new instance of the translator
          * This method is registered to Maya's plugin module in the initializePlugin function.
          */
         static void* createImporter();
-
+        
         /**
          * Create a new instance of the translator
          * This method is registered to Maya's plugin module in the initializePlugin function.
@@ -81,7 +81,7 @@ namespace COLLADAMaya
                                  const MString &optionsString,
                                  MPxFileTranslator::FileAccessMode mode );
 #endif // CREATE_IMPORT_PLUGIN
-
+        
         /**
          * The writer() method provides a message through the script editor and
          * returns a status to indicate the results.

@@ -1242,7 +1242,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="false"
+				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
@@ -1274,8 +1274,8 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying plugin to Maya install"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH80%\bin\plug-ins&quot;&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH80%\scripts\others&quot;&#x0D;&#x0A;"
+				Description="Copy plug-in files:"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH80%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in mel scipts &#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;rem echo Create Microsoft.VC80.MFC directory&#x0D;&#x0A;rem mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC 2&gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC &gt; nul&#x0D;&#x0A;copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; %MAYA_PATH80%\bin\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo done"
 			/>
 		</Configuration>
 		<Configuration
