@@ -130,7 +130,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -153,10 +153,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -232,7 +232,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -297,7 +297,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -318,10 +318,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -462,7 +462,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -485,10 +485,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -565,7 +565,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -632,7 +632,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008_X64)\include&quot;;&quot;$(MAYA_PATH2008_X64)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -652,10 +652,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -795,7 +795,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH85_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH85_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -818,10 +818,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -963,7 +963,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -986,10 +986,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -1068,7 +1068,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -1136,7 +1136,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2009_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1157,10 +1157,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1238,7 +1238,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -1304,7 +1304,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH80)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH80)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH80)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH80)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1325,10 +1325,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1464,7 +1464,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1487,10 +1487,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -1567,7 +1567,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -1633,7 +1633,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85_X64)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH85_X64)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85_X64)\include&quot;;&quot;$(MAYA_PATH85_X64)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1654,10 +1654,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1799,7 +1799,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH80)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH80\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH80)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH80\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_SCL_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1822,10 +1822,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -1901,7 +1901,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
@@ -1967,7 +1967,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN64;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1988,10 +1988,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -2314,7 +2314,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2330,7 +2346,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2346,7 +2378,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2362,7 +2410,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2378,7 +2442,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2394,7 +2474,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2414,7 +2510,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2430,7 +2542,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2446,7 +2574,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2462,7 +2606,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2478,7 +2638,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2494,7 +2670,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2514,7 +2706,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2530,7 +2738,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2546,7 +2770,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2562,7 +2802,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2578,7 +2834,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2594,7 +2866,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2614,7 +2902,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2630,7 +2934,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2646,7 +2966,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2662,7 +2998,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2678,7 +3030,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2694,7 +3062,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2714,7 +3098,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2730,7 +3130,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2746,7 +3162,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2762,7 +3194,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2778,7 +3226,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2794,7 +3258,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2814,7 +3294,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2830,7 +3326,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2846,7 +3358,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2862,7 +3390,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2878,7 +3422,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2894,7 +3454,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2914,7 +3490,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2930,7 +3522,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2946,7 +3554,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2962,7 +3586,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2978,7 +3618,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2994,7 +3650,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3227,7 +3899,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3243,7 +3931,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3259,7 +3963,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3275,7 +3995,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3291,7 +4027,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3307,7 +4059,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3327,7 +4095,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3343,7 +4127,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3359,7 +4159,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3375,7 +4191,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3391,7 +4223,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3407,7 +4255,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3427,7 +4291,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3443,7 +4323,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3459,7 +4355,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3475,7 +4387,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3491,7 +4419,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3507,7 +4451,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3527,7 +4487,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3543,7 +4519,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3559,7 +4551,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3575,7 +4583,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3591,7 +4615,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3607,7 +4647,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3627,7 +4683,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3643,7 +4715,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3659,7 +4747,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3675,7 +4779,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3691,7 +4811,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3707,7 +4843,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3727,7 +4879,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3743,7 +4911,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3759,7 +4943,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3775,7 +4975,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3791,7 +5007,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3807,7 +5039,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3827,7 +5075,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3843,7 +5107,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3859,7 +5139,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3875,7 +5171,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3891,7 +5203,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3907,7 +5235,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3927,7 +5271,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3943,7 +5303,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3959,7 +5335,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3975,7 +5367,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3991,7 +5399,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4007,7 +5431,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4027,7 +5467,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4043,7 +5499,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugConsole2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4059,7 +5531,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin85|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4075,7 +5563,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2009|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4091,7 +5595,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin70|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -4107,7 +5627,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="DebugPlugin80|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|x64"
 						ExcludedFromBuild="true"
 						>
 						<Tool
