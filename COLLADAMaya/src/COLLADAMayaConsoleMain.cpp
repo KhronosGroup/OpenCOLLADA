@@ -13,11 +13,15 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#include "ColladaMayaStableHeaders.h"
+#include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
+#include "COLLADAMayaException.h"
+
+#ifdef CREATE_IMPORT_PLUGIN
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaImportOptions.h"
+#endif // CREATE_IMPORT_PLUGIN
 
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnDependencyNode.h>
@@ -26,8 +30,6 @@
 
 #include <fstream>
 #include <time.h>
-
-#include "COLLADAMayaException.h"
 
 
 #define MAX_FILENAME_LEN 512
@@ -126,6 +128,7 @@ int main(int argc,char** argv)
 
     if ( isImport )
     {
+#ifdef CREATE_IMPORT_PLUGIN
         // Set the import options
         MString importOptions = "";
         COLLADAMaya::ImportOptions::set ( importOptions, MPxFileTranslator::kImportAccessMode );
@@ -152,6 +155,10 @@ int main(int argc,char** argv)
         // Display some closing information.
         endClock = clock();
         cout << "Time to import file \"" << inFileName << "\": " << endClock - startClock << " ms" << endl;
+#endif
+#ifndef CREATE_IMPORT_PLUGIN
+        cout << "No import options available! Please define the \"CREATE_IMPORT_PLUGIN\" preprocessor flag!" << endl;
+#endif
     }
     else
     {

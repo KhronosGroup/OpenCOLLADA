@@ -18,13 +18,19 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
-#include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaExportOptions.h"
+
+#ifdef CREATE_IMPORT_PLUGIN
+#include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaImportOptions.h"
 
-#include "COLLADASWException.h"
-
 #include "COLLADADHException.h"
+
+#include <DAE.h>
+#include <dom/domElements.h>
+#endif
+
+#include "COLLADASWException.h"
 
 #include <time.h>
 
@@ -37,9 +43,6 @@
 #endif
 
 #include <fstream>
-
-#include <DAE.h>
-#include <dom/domElements.h>
 
 
     // This is a nasty bit of hackyness for compilation under Windows. Under Win32 you need
@@ -96,6 +99,7 @@
             return status;
         }
 
+#ifdef CREATE_IMPORT_PLUGIN
         // Import plug-in
         status = plugin.registerFileTranslator ( 
             COLLADAMaya::COLLADA_IMPORTER,
@@ -108,6 +112,7 @@
             status.perror ( "registerFileTranslator" );
             MGlobal::displayError ( MString ( "Unable to register COLLADA importer: " ) + status );
         }
+#endif
 
         // TODO
         MString UserClassify("shader/surface/utility");
@@ -149,6 +154,7 @@
             return status;
         }
 
+#ifdef CREATE_IMPORT_PLUGIN
         // Import plug-in
         status = plugin.deregisterFileTranslator ( COLLADAMaya::COLLADA_IMPORTER );
         if ( !status )
@@ -157,6 +163,7 @@
             MGlobal::displayError ( MString ( "Unable to unregister nextGen COLLADAMaya importer: " ) + status );
             return status;
         }
+#endif
 
 #if MAYA_API_VERSION >= 800
         // Disable the shared-reference node options.
@@ -302,6 +309,7 @@ namespace COLLADAMaya
     }
 
 
+#ifdef CREATE_IMPORT_PLUGIN
 
     /************************************************************************/
     /* The reader() method reads each line of the file and returns a
@@ -386,6 +394,8 @@ namespace COLLADAMaya
 
         return status;
     }
+
+#endif // CREATE_IMPORT_PLUGIN
 
 
     /************************************************************************/

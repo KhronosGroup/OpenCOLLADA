@@ -23,12 +23,15 @@
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			CharacterSet="0"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
+				CommandLine="&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -42,7 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\Externals\COLLADADom\include;..\..\Externals\COLLADADom\include\1.4;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -61,16 +64,19 @@
 			/>
 			<Tool
 				Name="VCPreLinkEventTool"
+				CommandLine=""
 			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADADomHelper-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADADomHelper\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -206,7 +212,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -226,14 +232,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="1"
+				LinkTimeCodeGeneration="0"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
 			/>
@@ -370,7 +378,7 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -392,13 +400,15 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
+				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -535,7 +545,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -555,15 +565,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
 				EnableCOMDATFolding="0"
-				LinkTimeCodeGeneration="1"
+				OptimizeForWindows98="1"
+				LinkTimeCodeGeneration="0"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
 			/>
@@ -703,7 +715,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85)\include&quot;;&quot;$(MAYA_PATH85)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -721,12 +733,14 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -864,7 +878,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -887,12 +901,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1031,7 +1047,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
@@ -1052,15 +1068,17 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="1"
+				LinkTimeCodeGeneration="0"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
 				TargetMachine="1"
@@ -1199,7 +1217,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				WholeProgramOptimization="false"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH80)\include&quot;;&quot;$(MAYA_PATH80)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1219,14 +1238,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="1"
+				LinkTimeCodeGeneration="0"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
 			/>
@@ -1364,7 +1385,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1382,11 +1403,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1524,7 +1547,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH85)\include&quot;;&quot;$(MAYA_PATH85)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1544,14 +1567,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="1"
+				LinkTimeCodeGeneration="0"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
 			/>
@@ -1689,7 +1714,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH80)\include&quot;;&quot;$(MAYA_PATH80)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
@@ -1712,12 +1737,14 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-sd.lib pcrecpp-d.lib pcre-d.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
+				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -1854,7 +1881,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADADomHelper\include;..\..\COLLADAFramework\include;..\..\COLLADABaseUtils\include"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH70)\include&quot;;&quot;$(MAYA_PATH70)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
@@ -1874,14 +1901,16 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib libcollada14dom21-s.lib pcrecpp.lib pcre.lib libxml2_a.lib zlib.lib wsock32.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\Externals\COLLADADom\lib\win\$(PlatformName)&quot;"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
+				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
 				EnableCOMDATFolding="1"
-				LinkTimeCodeGeneration="1"
+				LinkTimeCodeGeneration="0"
 				EntryPointSymbol=""
 				ResourceOnlyDLL="false"
 			/>
@@ -2276,30 +2305,702 @@
 				<File
 					RelativePath="..\src\COLLADAMayaDocumentImporter.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaGeometryImporter.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaMaterialImporter.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaSceneNodeTraverser.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaSceneTraverserListener.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaVisualSceneImporter.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\src\COLLADAMayaWriter.cpp"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
@@ -2517,38 +3218,902 @@
 				<File
 					RelativePath="..\include\COLLADAMayaBaseImporter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaCameraImporter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaDocumentImporter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaGeometryImporter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaMaterialImporter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaSceneNodeTraverser.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaSceneTraverserListener.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaVisualSceneImporter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMayaWriter.h"
 					>
+					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleaseConsole2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin2009|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin85|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugPlugin80|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="ReleasePlugin70|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+						/>
+					</FileConfiguration>
 				</File>
 			</Filter>
 		</Filter>
