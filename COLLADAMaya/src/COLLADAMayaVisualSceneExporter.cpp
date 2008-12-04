@@ -688,27 +688,6 @@ namespace COLLADAMaya
         double sceneMatrix[4][4] ;
         convertMMatrixToDouble4x4 ( sceneMatrix, mayaSceneMatrix );
 
-        // TODO Export the animations
-//        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-
-//        animationExporter->addNodeAnimation ( mDagPath.node(), ATTR_TRANSLATE, name, ( SampleType ) ( kVector | kLength ), XYZ_PARAMETERS, true );
-// 
-//         double rotation[3];
-//         MTransformationMatrix::RotationOrder rotationOrder = 
-//             ( MTransformationMatrix::RotationOrder ) ( ( int ) mTransformMatrix.rotationOrder() - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ );
-//         mTransformMatrix.getRotation ( rotation, rotationOrder );
-//         RotateHelper rotateHelper ( rotation );
-//         std::vector < std::vector < double > >& matrixRotate = rotateHelper.getRotationMatrix ();
-//         std::vector < String >& rotateParams = rotateHelper.getRotationParameters ();
-//         // Add the animation in the order XYZ
-//         isAnimated[i] = animationExporter->addNodeAnimation ( mTransformObject, name + rotateParams[i], ( SampleType ) ( kSingle | kQualifiedAngle ), ANGLE_PARAMETER );
-
-        // Check if the scale is animated.
-//        bool isAnimated = animationExporter->addNodeAnimation ( mTransformObject, ATTR_SCALE, kVector, XYZ_PARAMETERS );
-
-//         double shear[3]
-//         mTransformMatrix.getShear ( shear );
-
         // Convert the  maya internal unit type of the transform part of the
         // matrix from centimeters into the working units of the current scene!
         for ( uint i=0; i<3; ++i)
@@ -717,12 +696,11 @@ namespace COLLADAMaya
         mVisualSceneNode->addMatrix ( ATTR_TRANSFORM, sceneMatrix );
 
         // For animations, sampling is always enforced for baked transforms.
-        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
-        MVector translation = mTransformMatrix.translation ( MSpace::kTransform );
-
         MPlug plug = MFnDagNode ( mTransformObject ).findPlug ( ATTR_MATRIX );
         mDocumentExporter->getAnimationCache()->cachePlug ( plug, true );
 
+        // Export the animations
+        AnimationExporter* animationExporter = mDocumentExporter->getAnimationExporter();
         animationExporter->addPlugAnimation ( plug, ATTR_TRANSFORM, kMatrix, TRANSFORM_PARAMETER );
     }
 
