@@ -250,7 +250,7 @@ namespace COLLADABU
 
 			if ( res != conversionOK )
 			{
-				throw BaseUtilsException(BaseUtilsException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+				throw Exception(Exception::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
 			}
 
 			*targetstart = 0;
@@ -269,7 +269,7 @@ namespace COLLADABU
 
 			if ( res != conversionOK )
 			{
-				throw BaseUtilsException(BaseUtilsException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+				throw Exception(Exception::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
 			}
 
 			*targetstart = 0;
@@ -277,7 +277,7 @@ namespace COLLADABU
 
 		else
 		{
-			throw BaseUtilsException(BaseUtilsException::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
+			throw Exception(Exception::ERROR_UTF8_2_WIDE, String("Could not convert from UTF8 to wide string."));
 		}
 		return returnWideString;
 	}
@@ -301,7 +301,7 @@ namespace COLLADABU
 
 			if ( res != conversionOK )
 			{
-				throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+				throw Exception(Exception::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
 			}
 
 			returnString.resize(targetstart - thisFirstWChar);
@@ -320,7 +320,7 @@ namespace COLLADABU
 
 			if ( res != conversionOK )
 			{
-				throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+				throw Exception(Exception::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
 			}
 
 			returnString.resize(targetstart - thisFirstWChar);
@@ -328,7 +328,7 @@ namespace COLLADABU
 
 		else
 		{
-			throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
+			throw Exception(Exception::ERROR_WIDE_2_UTF8, String("Could not convert from wide string to UTF8."));
 		}
 		return returnString;
 	}

@@ -63,7 +63,7 @@ namespace COLLADABU
 
 		if ( bytes == -1 )
 		{
-			throw BaseUtilsException(BaseUtilsException::ERROR_WIDE_2_NATIVE, "Could not convert from wide string to native string.");
+			throw Exception(Exception::ERROR_WIDE_2_NATIVE, "Could not convert from wide string to native string.");
 		}
 
 
@@ -93,7 +93,7 @@ namespace COLLADABU
 
 		if ( bytes == -1 )
 		{
-			throw BaseUtilsException(BaseUtilsException::ERROR_NATIVE_2_WIDE, "Could not convert from native string to wide string.");
+			throw Exception(Exception::ERROR_NATIVE_2_WIDE, "Could not convert from native string to wide string.");
 		}
 
 		WideString returnValue( dest );
