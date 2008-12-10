@@ -12,42 +12,46 @@
 #define __COLLADASTREAMWRITEREXCEPTION_H__
 
 #include "COLLADASWPrerequisites.h"
+#include "COLLADABUException.h"
+
 
 namespace COLLADASW
 {
 
     /** Class that is throw by the stream writer classes if something goes wrong*/
-    class StreamWriterException
+    class StreamWriterException : public COLLADABU::Exception
     {
 
-	public:
-		enum Type
-		{
-			ERROR_FILE_OPEN,
-			ERROR_SET_BUFFER,
-			ERROR_UTF8_2_WIDE,
-			ERROR_WIDE_2_UTF8,
-			ERROR_NATIVE_2_WIDE,
-			ERROR_WIDE_2_NATIVE
-		};
-
-	private:
-		Type mExceptionType;
-		String mMessage;
-
     public:
-        /** Creates an exception of type @a type*/
-		StreamWriterException ( Type exceptionType, const String& message ) 
-        : mExceptionType(exceptionType)
-        , mMessage(message)
+
+        /** Constructor. Creates an exception of unknown type with the given message. */
+        StreamWriterException ( const String& message ) 
+            : COLLADABU::Exception ( message )
         {}
 
-		/** Returns the type of the exception*/
-		Type getType()const {return mExceptionType;}
+        /** Constructor. Creates an exception of type @a type with the given message. */
+        StreamWriterException ( Type exceptionType, const String& message ) 
+            : COLLADABU::Exception ( exceptionType, message )
+        {}
 
-		/** Returns the text, describing the exception.*/
-		String getMessage()const {return mMessage;};
-		
+        /** Constructor. */
+        StreamWriterException ( Type exceptionType, const String file, const long line, const String message )
+            : COLLADABU::Exception ( exceptionType, file, line, message )
+        {}
+
+        /** Constructor. */
+        StreamWriterException ( const String file, const long line, const String message )
+            : COLLADABU::Exception ( file, line, message )
+        {}
+
+        /** Destructor. */
+        virtual ~StreamWriterException () {}
+
+        /** Print the massage in the standard error output. */
+        void printMessage ()
+        {
+            std::cerr << "StreamWriterException: " << mMessage << std::endl;
+        }
 
 	};
 
