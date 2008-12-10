@@ -16,7 +16,7 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	GeometricElement::GeometricElement ( Type elementType )
+	GeometricElement::GeometricElement ( GeometricType elementType )
         : mType ( elementType )
 	{
 	}
@@ -26,29 +26,5 @@ namespace COLLADAFW
 	{
 	}
 
-    //------------------------------
-    const SourceArray& GeometricElement::getSourceArray () const
-    {
-        return mSourceArray;
-    }
-
-    //------------------------------
-    void GeometricElement::setSourceArray ( const SourceArray& sourceArray )
-    {
-        mSourceArray = sourceArray;
-    }
-
-    //------------------------------
-    const SourceBase* GeometricElement::getSourceById ( const String& sourceId ) const
-    {
-        for ( size_t i=0; i<mSourceArray.getCount (); ++i )
-        {
-            SourceBase* source = mSourceArray [ i ];
-            if ( COLLADABU::Utils::equals ( source->getId (), sourceId ) )
-                return source;
-        }
-
-        return 0;
-    }
 
 } // namespace COLLADAFW

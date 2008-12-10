@@ -12,7 +12,6 @@
 #define __COLLADAFW_GEOMETRICELEMENT_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWSource.h"
 
 
 namespace COLLADAFW
@@ -30,7 +29,7 @@ namespace COLLADAFW
 
     public:
 
-        enum Type
+        enum GeometricType
         {
             GEO_TYPE_MESH, 
             GEO_TYPE_SPLINE,
@@ -40,49 +39,22 @@ namespace COLLADAFW
 
 	private:
 	
-        /**
-        * Provides the bulk of the mesh’s vertex data. See main entry.
-        */
-        SourceArray mSourceArray;
-
         /** Type of the geometric element. */
-        Type mType;
+        GeometricType mType;
 
 	public:
 
         /** Constructor. */
-		GeometricElement ( Type elementType );
+		GeometricElement ( GeometricType elementType );
 
         /** Destructor. */
 		virtual ~GeometricElement();
 
         /** Type of the geometric element. */
-        const GeometricElement::Type getType () const { return mType; }
+        const GeometricElement::GeometricType getType () const { return mType; }
 
         /** Type of the geometric element. */
-        void setType ( const GeometricElement::Type Type ) { mType = Type; }
-
-        /**
-        * Provides the bulk of the mesh’s vertex data. See main entry.
-        * @param sourceArraySize Parameter to get the size of the source array.
-        * @return const SourceArray The source array.
-        */
-        const SourceArray& getSourceArray () const;
-
-        /**
-        * Provides the bulk of the mesh’s vertex data. See main entry.
-        * @param sourceArray The source array.
-        * @param sourceArraySize The size of the source array.
-        */
-        void setSourceArray ( const SourceArray& sourceArray );
-
-        /**
-        * Returns the source element of the source array with the given id or 0 if it not exist.
-        * @param sourceId The source id of the searched source element.
-        * @return COLLADAFW::Source The source element with the given id or 0 if it not exist.
-        */
-        const SourceBase* getSourceById ( const String& sourceId ) const;
-
+        void setType ( const GeometricElement::GeometricType Type ) { mType = Type; }
 
 	private:
 

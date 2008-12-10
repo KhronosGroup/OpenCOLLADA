@@ -11,6 +11,8 @@
 #ifndef __COLLADAFW_STABLE_HEADERS_H__
 #define __COLLADAFW_STABLE_HEADERS_H__
 
+#include "COLLADAFWException.h"
+
 //STL
 #include <vector>
 #include <sstream>

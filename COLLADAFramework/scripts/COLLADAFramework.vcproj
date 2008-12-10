@@ -185,7 +185,7 @@
 				RuntimeLibrary="2"
 				TreatWChar_tAsBuiltInType="true"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="COLLADAFWStableHeaders.h"
 				WarningLevel="3"
 				Detect64BitPortabilityProblems="true"
@@ -316,10 +316,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFWInputUnshared.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADAFWInstanceEffect.cpp"
 				>
 			</File>
@@ -348,10 +344,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFWObject.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADAFWPrecompiledHeaders.cpp"
 				>
 			</File>
@@ -369,10 +361,6 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWScale.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\COLLADAFWTechnique.cpp"
 				>
 			</File>
 			<File
@@ -398,10 +386,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\COLLADAFWAccessor.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWAnnotate.h"
 				>
 			</File>
@@ -410,7 +394,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWArrayElement.h"
+				RelativePath="..\include\COLLADAFWArrayPrimitiveType.h"
 				>
 			</File>
 			<File
@@ -431,6 +415,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWEffect.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWException.h"
 				>
 			</File>
 			<File
@@ -459,14 +447,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWInclude.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWInputShared.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWInputUnshared.h"
 				>
 			</File>
 			<File
@@ -499,6 +479,26 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWMesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMeshColors.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMeshFDInputs.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMeshNormals.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMeshPositions.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWMeshUVCoords.h"
 				>
 			</File>
 			<File
@@ -538,27 +538,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWPHElement.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWPolyBase.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWPolygons.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWPolylist.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWPrerequisites.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWPrimitiveBase.h"
+				RelativePath="..\include\COLLADAFWPrimitiveElement.h"
 				>
 			</File>
 			<File
@@ -618,19 +602,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWSource.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWStableHeaders.h"
 				>
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWTechnique.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWTechniqueCommon.h"
 				>
 			</File>
 			<File
@@ -651,10 +627,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWValueType.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWVertices.h"
 				>
 			</File>
 			<File

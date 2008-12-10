@@ -13,14 +13,17 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWGeometricElement.h"
-#include "COLLADAFWPolylist.h"
-#include "COLLADAFWPolygons.h"
-#include "COLLADAFWVertices.h"
-#include "COLLADAFWSource.h"
+#include "COLLADAFWMeshPositions.h"
+#include "COLLADAFWMeshNormals.h"
+#include "COLLADAFWMeshColors.h"
+#include "COLLADAFWMeshUVCoords.h"
+#include "COLLADAFWPrimitiveElement.h"
 
 
 namespace COLLADAFW
 {
+
+    class Geometry;
 
     /** 
      * Describes basic geometric meshes using vertex and primitive information.
@@ -38,112 +41,179 @@ namespace COLLADAFW
      */
     class Mesh : public GeometricElement
     {
+    public:
+
 
     private:
 
         /**
-         * Describes the mesh-vertex attributes and establishes
-         * their topological identity.
+         * The parent geometry element.
          */
-        Vertices mVertices;
+        Geometry* mGeometry;
 
-        /**
-        * The mesh element may contain any number of polylist elements.  
-        * A polylist list contains polygon primitives that cannot contain holes. 
+        /** 
+         * The positions array. 
+         * Positions can be stored as float or double values.
+         * Positions have always a stride of three (XYZ parameters). We don't need to store
+         * this information.
+         */
+        MeshPositions* mPositions;
+
+        /** 
+        * The normals array. 
+        * Normals can be stored as float or double values.
+        * Normals have always a stride of three (XYZ parameters). We don't need to store this 
+        * information.
         */
-        PolylistArray mPolylistArray;
+        MeshNormals* mNormals;
+
+        /** 
+        * The colors array. 
+        * Colors can be stored as float or double values.
+        * Colors can have different strides (RGB or RGBA parameters). We need to store this 
+        * information!
+        */
+        MeshColors* mColors;
+
+        /** 
+        * The uv coordinates array. 
+        * UV coordinates can be stored as float or double values.
+        * UV coordinates can have different strides (ST, STU, STUV parameters). We need to store 
+        * this information!
+        */
+        MeshUVCoords* mUVCoords;
 
         /**
-        * Contains polygon primitives which may contain holes.
-         */
-        PolygonsArray mPolygonsArray;
-
+        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
+        * Each primitive element holds the index arrays of the used input elements
+        * Can be any combination of the following in any order:
+        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
+        */
+        PrimitiveElementsArray mPrimitiveElements;
 
     public:
 
         /** Constructor. */
-        Mesh () : GeometricElement ( GeometricElement::GEO_TYPE_MESH ) {}
+        Mesh ( Geometry* geometry ) 
+            : GeometricElement ( GeometricElement::GEO_TYPE_MESH ) 
+            , mGeometry ( geometry )
+            , mPositions (0)
+            , mNormals (0)
+            , mColors (0)
+            , mUVCoords (0)
+        {}
 
         /** Destructor. */
-        virtual ~Mesh () {}
-
-        /**
-         * Returns a pointer to the searched source element of the given input semantic.
-         * @param semantic The input semantic, from which the source element is searched.
-         * @return Source* Pointer to the searched source element.
-         */
-        const SourceBase* getSourceByInputSemantic ( InputSemantic::Semantic semantic ) const
+        virtual ~Mesh () 
         {
-            const InputUnshared* positionsInput = getVertices().getInputBySemantic ( semantic );
-            if ( positionsInput == 0 ) return 0;
-
-            COLLADABU::URI positionsInputSource = positionsInput->getSource ();
-            String sourceId = positionsInputSource.getFragment ();
-            return getSourceById ( sourceId );
+            delete mPositions;
+            delete mNormals;
+            delete mColors;
+            delete mUVCoords;
         }
 
         /**
-         * Describes the mesh-vertex attributes and establishes their topological identity.
-         * @return const Vertices The mesh-vertex attributes.
-         */
-        Vertices& getVertices () { return mVertices; }
-
-        /**
-        * Describes the mesh-vertex attributes and establishes their topological identity.
-        * @return const Vertices The mesh-vertex attributes.
+        * The parent geometry element.
         */
-        const Vertices& getVertices () const { return mVertices; }
+        const Geometry* getGeometry () const { return mGeometry; }
 
         /**
-         * Describes the mesh-vertex attributes and establishes their topological identity.
-         * @param vertices The mesh-vertex attributes.
-         */
-        void setVertices ( const Vertices& vertices ) { mVertices = vertices; }
-
-        /**
-        * Gets the polygons element array.
-        * @return Returns a reference to the array of polygons elements.
+        * The parent geometry element.
         */
-        PolygonsArray& getPolygonsArray () 
-        { 
-            return mPolygonsArray; 
-        }
+        Geometry* getGeometry () { return mGeometry; }
 
-        /**
-        * Gets the polygons element array.
-        * @return Returns a constant reference to the array of polygons elements.
+        /** 
+        * The positions array. 
+        * Positions can be stored as float or double values.
+        * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
+        * store this information.
         */
-        const PolygonsArray &getPolygonsArray () const 
-        { 
-            return mPolygonsArray; 
-        }
+        const MeshPositions* getPositions () const { return mPositions; }
 
-        /**
-        * Gets the polylist element array.
-        * @param Pointer to the array of polylist elements.
+        /** 
+        * The positions array. 
+        * Positions can be stored as float or double values.
+        * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
+        * store this information.
         */
-        void setPolygonsArray ( const PolygonsArray& polygonsArray )  
-        { 
-            mPolygonsArray = polygonsArray; 
-        }
+        void setPositions ( MeshPositions* positions ) { mPositions = positions; }
 
-        /**
-        * Gets the polylist element array.
-        * @return Returns a constant pointer to the array of polylist elements.
+        /** 
+        * The normals array. 
+        * Normals can be stored as float or double values.
+        * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
         */
-        const PolylistArray& getPolylistArray () const 
-        { 
-            return mPolylistArray; 
-        }
+        const MeshNormals* getNormals () const { return mNormals; }
+
+        /** 
+        * The normals array. 
+        * Normals can be stored as float or double values.
+        * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        void setNormals ( MeshNormals* Normals ) { mNormals = Normals; }
+
+        /** 
+        * The colors array. 
+        * Colors can be stored as float or double values.
+        * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        const MeshColors* getColors () const { return mColors; }
+
+        /** 
+        * The colors array. 
+        * Colors can be stored as float or double values.
+        * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        void setColors ( MeshColors* Colors ) { mColors = Colors; }
+
+        /** 
+        * The uv coordinates array. 
+        * UV coordinates can be stored as float or double values.
+        * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        const MeshUVCoords* getUVCoords () const { return mUVCoords; }
+
+        /** 
+        * The uv coordinates array. 
+        * UV coordinates can be stored as float or double values.
+        * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        void setUVCoords ( MeshUVCoords* UVCoords ) { mUVCoords = UVCoords; }
 
         /**
-         * Sets the polylist element array.
-         * @param polylistList Pointer to the polylist list to set.
-         */
-        void setPolylistArray ( const PolylistArray& polylistArray ) 
-        { 
-            mPolylistArray = polylistArray; 
-        }
+        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
+        * Can be any combination of the following in any order:
+        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
+        */
+        PrimitiveElementsArray getPrimitiveElements () { return mPrimitiveElements; }
+
+        /**
+        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
+        * Can be any combination of the following in any order:
+        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
+        */
+        const PrimitiveElementsArray getPrimitiveElements () const { return mPrimitiveElements; }
+
+        /**
+        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
+        * Can be any combination of the following in any order:
+        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
+        */
+        void setPrimitiveElements ( const PrimitiveElementsArray primitiveElements ) { mPrimitiveElements = primitiveElements; }
+
+        /**
+        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
+        * Can be any combination of the following in any order:
+        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
+        */
+        PrimitiveElement* appendPrimitiveElement ( PrimitiveElement* primitiveElement ) 
+        { return mPrimitiveElements.append ( primitiveElement ); }
 
     };
 }

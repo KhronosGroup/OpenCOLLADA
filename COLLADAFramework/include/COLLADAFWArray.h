@@ -13,10 +13,11 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAFWPrerequisites.h"
 
+
 namespace COLLADAFW
 {
 	/** Array template that simplifies handling of C-arrays.*/
-	template<class DataType>
+	template<class Type>
 	class Array 	
 	{
 	public:
@@ -39,13 +40,16 @@ namespace COLLADAFW
 			DEFAULT_CONSTRUCTOR_FLAGS = NO_FLAGS
 		};
 
-	private:
+	protected:
 
-		/** The data C-array.*/
-		DataType* mData;
+		/** The data C-array. */
+		Type* mData;
 
-		/** The number of elements in the array.*/
+		/** The number of stored data elements in the array. */
 		size_t mCount;
+
+        /** The number of elements, for which is currently memory allocated. */
+        size_t mCapacity;
 
 		/** The arrays flags.*/
 		int mFlags;
@@ -53,68 +57,93 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		Array() : mData(0), mCount(0), mFlags(DEFAULT_CONSTRUCTOR_FLAGS) {}
+		Array() 
+            : mData (0)
+            , mCount (0)
+            , mCapacity (0)
+            , mFlags(DEFAULT_CONSTRUCTOR_FLAGS) 
+        {}
 
         /** Constructor. */
-        Array ( DataType* data, size_t count ) : mData(data), mCount(count), mFlags(DEFAULT_CONSTRUCTOR_FLAGS){}
+        Array ( Type* data, size_t count ) 
+            : mData ( data )
+            , mCapacity ( count )
+            , mCount ( count )
+            , mFlags(DEFAULT_CONSTRUCTOR_FLAGS)
+        {}
 
         /** Destructor. */
-        virtual ~Array();
+        virtual ~Array ()
+        {
+            if ( mFlags & RELEASE_MEMORY)
+                releaseMemory();
+        }
 
         /** Returns the C-style data array.*/
-        DataType* getData() { return mData; }
+        Type* getData () { return mData; }
 
         /** Returns the C-style data array.*/
-        const DataType* getData() const { return mData; }
+        const Type* getData () const { return mData; }
 
 		/** Set the C-style data array.*/
-		void setData( DataType* data, size_t count ) { mData = data; mCount = count; }
+		void setData ( Type* data, const size_t count )
+        { 
+            mData = data; 
+            mCount = count; 
+            mCapacity = count;
+        }
 
 		/** Set the C-style data array and count.*/
-		void setDataAndCount( DataType* data, size_t count ) { mData = data; mCount = count; }
+		void setData ( Type* data, const size_t count, const size_t capacity )
+        { 
+            mData = data; 
+            mCount = count; 
+            mCapacity = capacity;
+        }
 
         /** Returns the number of elements in the array.*/
-        size_t getCount() const { return mCount; }
+        const size_t getCount() const { return mCount; }
 
-		/** Allocates memory for @a size elements of type DataType. Must not be called more than once, without calling
-		releaseMemory() in between. 
+        /** Returns the number of elements in the array.*/
+        size_t getCount() { return mCount; }
+
+        /** The number of elements, for which is currently memory allocated. */
+        size_t getCapacity () { return mCapacity; }
+
+        /** The number of elements, for which is currently memory allocated. */
+        void setCapacity ( const size_t capacity ) { mCapacity = capacity; }
+
+		/** Allocates memory for @a size elements of type DataType. 
+        Must not be called more than once, without calling releaseMemory() in between. 
 		The memory must be released using releaseMemory().
 		@param size The size of the array
 		@param flags Flags that allow to control, how the memory should be released.*/
-		void allocateMemory(size_t size, int flags = DEFAULT_ALLOC_FLAGS);
+		void allocMemory ( size_t count, int flags = DEFAULT_ALLOC_FLAGS )
+        {
+            setData ( new Type[count], 0, count );
+            mFlags |= flags;
+        }
 
-		/** Releases the memory that has been allocated by allocateMemory(). Must not be called, if the memory has not been 
-		allocated by allocateMemory().*/
-		void releaseMemory() { delete mData; setDataAndCount(0,0); }
-
-		/** Appends @a newValue to the end of array. The programmer must ensure, that the memory allocated, 
-		was large enough to hold another element. No new memory is allocated.*/
-		DataType& append(const DataType& newValue) { return mData[mCount++] = newValue;	}
+		/** Releases the memory that has been allocated by allocateMemory(). 
+        Must not be called, if the memory has not been allocated by allocateMemory().*/
+		void releaseMemory ()
+        { 
+            delete mData; 
+            setData ( 0, 0, 0 ); 
+        }
 
 		/** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
-        DataType& operator[](size_t index) { return mData[index]; }
+        Type& operator[] ( size_t index ) { return mData[index]; }
 
         /** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
-        const DataType& operator[](size_t index) const { return mData[index]; }
+        const Type& operator[] ( size_t index ) const { return mData[index]; }
 
         /** Disable default copy ctor. */
 		Array( const Array& pre );
 
 	};
 
-	template<class DataType>
-	COLLADAFW::Array<DataType>::~Array()
-	{
-		if ( mFlags & RELEASE_MEMORY)
-			releaseMemory();
-	}
 
-	template<class DataType>
-	void COLLADAFW::Array<DataType>::allocateMemory( size_t size, int flags )
-	{
-		setDataAndCount(new DataType[size], 0);
-		mFlags |= flags;
-	}
 
 } // namespace COLLADAFW
 
