@@ -251,6 +251,8 @@ namespace COLLADAFW
                 unsigned int faceVertexCount = mFaceVertexCountArray [ faceIndex ];
                 
             }
+
+            return edgeIndices;
         }
 
     };
