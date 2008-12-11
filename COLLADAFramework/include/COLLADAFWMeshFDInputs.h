@@ -27,7 +27,8 @@ namespace COLLADAFW
         enum DataType
         {
             DATA_TYPE_FLOAT,
-            DATA_TYPE_DOUBLE
+            DATA_TYPE_DOUBLE, 
+            DATA_TYPE_UNKNOWN
         };
 
     protected:
@@ -36,43 +37,57 @@ namespace COLLADAFW
         DataType mType;
 
         /** The position values. */
-        ArrayPrimitiveType <float>* mValuesF;
-        ArrayPrimitiveType <double>* mValuesD;
+        ArrayPrimitiveType<float> mValuesF;
+        ArrayPrimitiveType<double> mValuesD;
 
 	public:
 
         /** Constructor. */
+        MeshFloatDoubleInputs ()
+            : mType ( DATA_TYPE_UNKNOWN ) 
+//             , mValuesF (0)
+//             , mValuesD (0)
+        {}
+
+        /** Constructor. */
 		MeshFloatDoubleInputs ( DataType type )
             : mType ( type ) 
-            , mValuesF (0)
-            , mValuesD (0)
+//             , mValuesF (0)
+//             , mValuesD (0)
         {}
 
         /** Destructor. */
-        virtual ~MeshFloatDoubleInputs() {}
+        virtual ~MeshFloatDoubleInputs() 
+        {
+//             if ( mValuesD ) delete mValuesD;
+//             if ( mValuesF ) delete mValuesF;
+        }
 
         /** The data type of the stored position values. */
         const COLLADAFW::MeshFloatDoubleInputs::DataType getType () const { return mType; }
 
+        /** The data type of the stored position values. */
+        void setType ( const COLLADAFW::MeshFloatDoubleInputs::DataType Type ) { mType = Type; }
+
         /** Returns the count of stored elements in the array. */
         size_t getElementsCount () 
         {
-            if ( mType == DATA_TYPE_FLOAT ) return mValuesF->getCount ();
-            if ( mType == DATA_TYPE_DOUBLE ) return mValuesD->getCount ();
+            if ( mType == DATA_TYPE_FLOAT ) return mValuesF.getCount ();
+            if ( mType == DATA_TYPE_DOUBLE ) return mValuesD.getCount ();
             return 0;
         }
 
         /** Returns the count of stored elements in the array. */
         const size_t getElementsCount () const
         {
-            if ( mType == DATA_TYPE_FLOAT ) return mValuesF->getCount ();
-            if ( mType == DATA_TYPE_DOUBLE ) return mValuesD->getCount ();
+            if ( mType == DATA_TYPE_FLOAT ) return mValuesF.getCount ();
+            if ( mType == DATA_TYPE_DOUBLE ) return mValuesD.getCount ();
             return 0;
         }
 
         /** Returns the position values array as a template array. */
         template <class T>
-        ArrayPrimitiveType<T>* getValues ()
+        ArrayPrimitiveType<T>& getValues ()
         {
             if ( mType == DATA_TYPE_FLOAT ) return mValuesF;
             if ( mType == DATA_TYPE_DOUBLE ) return mValuesD;
@@ -83,7 +98,7 @@ namespace COLLADAFW
         const ArrayPrimitiveType<float>* getFloatValues () const 
         {
             if ( mType == DATA_TYPE_FLOAT ) 
-                return ( ArrayPrimitiveType <float>* ) mValuesF;
+                return ( ArrayPrimitiveType<float>* ) &mValuesF;
             return 0;
         }
 
@@ -91,7 +106,7 @@ namespace COLLADAFW
         const ArrayPrimitiveType<double>* getDoubleValues () const 
         {
             if ( mType == DATA_TYPE_DOUBLE ) 
-                return ( ArrayPrimitiveType <double>* ) mValuesD;
+                return ( ArrayPrimitiveType<double>* ) &mValuesD;
             return 0;
         }
 
@@ -99,7 +114,7 @@ namespace COLLADAFW
         ArrayPrimitiveType<float>* getFloatValues ()
         {
             if ( mType == DATA_TYPE_FLOAT ) 
-                return ( ArrayPrimitiveType <float>* ) mValuesF;
+                return ( ArrayPrimitiveType<float>* ) &mValuesF;
             return 0;
         }
 
@@ -107,7 +122,7 @@ namespace COLLADAFW
         ArrayPrimitiveType<double>* getDoubleValues ()
         {
             if ( mType == DATA_TYPE_DOUBLE ) 
-                return ( ArrayPrimitiveType <double>* ) mValuesD;
+                return ( ArrayPrimitiveType<double>* ) &mValuesD;
             return 0;
         }
 
@@ -131,14 +146,26 @@ namespace COLLADAFW
 //             return false;
 //         }
 
+        /** Set the C-style data array.*/
+        void setData ( float* data, const size_t count )
+        { 
+            if ( mType == DATA_TYPE_FLOAT ) mValuesF.setData ( data, count );
+        }
+
+        /** Set the C-style data array.*/
+        void setData ( double* data, const size_t count )
+        { 
+            if ( mType == DATA_TYPE_DOUBLE ) mValuesD.setData ( data, count );
+        }
+
         /** Appends the values of the input array to the end of values array. 
         The programmer must ensure, that the memory allocated, 
         was large enough to hold another element. No new memory is allocated.*/
-        bool appendValues ( const ArrayPrimitiveType<float>& valuesArray ) const
+        bool appendValues ( const ArrayPrimitiveType<float>& valuesArray ) 
         {
             if ( mType == DATA_TYPE_FLOAT ) 
             {
-                mValuesF->appendValues ( valuesArray );
+                mValuesF.appendValues ( valuesArray );
                 return true;
             }
 
@@ -148,11 +175,11 @@ namespace COLLADAFW
         /** Appends the values of the input array to the end of values array. 
         The programmer must ensure, that the memory allocated, 
         was large enough to hold another element. No new memory is allocated.*/
-        bool appendValues ( const ArrayPrimitiveType<double>& valuesArray ) const
+        bool appendValues ( const ArrayPrimitiveType<double>& valuesArray ) 
         {
             if ( mType == DATA_TYPE_DOUBLE ) 
             {
-                mValuesD->appendValues ( valuesArray );
+                mValuesD.appendValues ( valuesArray );
                 return true;
             }
 

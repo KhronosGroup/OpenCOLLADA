@@ -60,10 +60,14 @@ namespace COLLADASaxFWL
         String mName;
 
         /**
-        * The count attribute indicates the number of polygon primitives. 
-        * Required attribute. 
+        * The attribute indicates the number of polygon faces in the current primitive element.
         */
-        size_t mCount;
+        size_t mFaceCount;
+
+        /**
+         * The number of all indices in all p elements in the current primitive element.
+         */
+        size_t mIndexCount;
 
         /**
         * The material attribute declares a symbol for a material. This symbol 
@@ -99,8 +103,9 @@ namespace COLLADASaxFWL
         PolyBase ( MeshLoader* parent ) 
             : mPrimitiveType ( COLLADAFW::PrimitiveElement::UNDEFINED_PRIMITIVE_TYPE )
             , mParent ( parent ) 
-            , mCount (0)
+            , mFaceCount (0)
             , mInputArrayMaxOffset (0)
+            , mIndexCount (0)
         {}
 
         /**
@@ -109,14 +114,25 @@ namespace COLLADASaxFWL
         PolyBase ( MeshLoader* parent, COLLADAFW::PrimitiveElement::PrimitiveType primitiveType ) 
             : mPrimitiveType ( primitiveType )
             , mParent ( parent ) 
-            , mCount (0)
+            , mFaceCount (0)
             , mInputArrayMaxOffset (0)
+            , mIndexCount (0)
         {}
 
         /**
         * Destructor
         */
         virtual ~PolyBase() {}
+
+        /**
+        * The number of all indices in all p elements in the current primitive element.
+        */
+        const size_t getIndexCount () const { return mIndexCount; }
+
+        /**
+        * The number of all indices in all p elements in the current primitive element.
+        */
+        void setIndexCount ( const size_t indexCount ) { mIndexCount = indexCount; }
 
         /** The type of the current primitive. Possible values are:
         <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. */
@@ -142,13 +158,13 @@ namespace COLLADASaxFWL
         * Gets the count attribute.
         * @return Returns a domUint of the count attribute.
         */
-        size_t getCount () const { return mCount; }
+        const size_t getFaceCount () const { return mFaceCount; }
 
         /**
         * Sets the count attribute.
         * @param atCount The new value for the count attribute.
         */
-        void setCount ( size_t count ) { mCount = count; }
+        void setFaceCount ( const size_t count ) { mFaceCount = count; }
 
         /**
         * Gets the material attribute.
@@ -176,16 +192,7 @@ namespace COLLADASaxFWL
          * Appends an input element in the list of input elements. 
          * Handle with care, new memory will be allocated!
          */
-        const InputShared* appendInputElement ( InputShared* inputShared )
-        {
-            if ( inputShared != 0 )
-            {
-                unsigned int offset = inputShared->getOffset ();
-                if ( offset > mInputArrayMaxOffset ) mInputArrayMaxOffset = offset;
-                return mInputArray.append ( inputShared );
-            }
-            return 0;
-        }
+        const InputShared* appendInputElement ( InputShared* inputShared );
 
         /**
         * The input element may occur any number of times. This input is a 
@@ -197,17 +204,17 @@ namespace COLLADASaxFWL
             return mInputArrayMaxOffset;
         }
 
-        /**
-         * The input element may occur any number of times. This input is a 
-         * local input with the  offset and set attributes.
-         * @param inputArray The array with the input elements.
-         * @param maxOffset The maximal offset in the current input array.
-         */
-        void setInputArray ( const InputSharedArray& inputArray, const unsigned int maxOffset ) 
-        { 
-            mInputArray = inputArray; 
-            mInputArrayMaxOffset = maxOffset;
-        }
+//         /**
+//          * The input element may occur any number of times. This input is a 
+//          * local input with the  offset and set attributes.
+//          * @param inputArray The array with the input elements.
+//          * @param maxOffset The maximal offset in the current input array.
+//          */
+//         void setInputArray ( const InputSharedArray& inputArray, const unsigned int maxOffset ) 
+//         { 
+//             mInputArray = inputArray; 
+//             mInputArrayMaxOffset = maxOffset;
+//         }
 
         /**
         * Returns the input element with the given semantic or 0 if it not exist.
@@ -215,18 +222,16 @@ namespace COLLADASaxFWL
         * @param parent True, if the vertex element of the parent mesh should also searched.
         * @return InputShared* Pointer to the searched input element or 0 if it not exist.
         */
-        const InputShared* getInputBySemantic ( 
-            const InputSemantic::Semantic& semantic, 
-            const bool parent = false ) const;
+        const InputShared* getInputBySemantic ( const InputSemantic::Semantic& semantic ) const;
 
         /**
         * Returns the positions input element or 0 if it not exist.
         * @param parent True, if the vertex element of the parent mesh should also searched.
         * @return InputShared* Pointer to the searched input element or 0 if it not exist.
         */
-        const InputShared* getPositionInput ( const bool parent = true ) const
+        const InputShared* getPositionInput () const
         {
-            return getInputBySemantic ( InputSemantic::POSITION, parent );
+            return getInputBySemantic ( InputSemantic::POSITION );
         }
 
         /**
@@ -234,9 +239,9 @@ namespace COLLADASaxFWL
         * @param parent True, if the vertex element of the parent mesh should also searched.
         * @return InputShared* Pointer to the searched input element or 0 if it not exist.
         */
-        const InputShared* getNormalInput ( const bool parent = true ) const
+        const InputShared* getNormalInput () const
         {
-            return getInputBySemantic ( InputSemantic::NORMAL, parent );
+            return getInputBySemantic ( InputSemantic::NORMAL );
         }
 
         /**
@@ -244,9 +249,9 @@ namespace COLLADASaxFWL
         * @param parent True, if the vertex element of the parent mesh should also searched.
         * @return InputShared* Pointer to the searched input element or 0 if it not exist.
         */
-        const InputShared* getColorInput ( const bool parent = true ) const
+        const InputShared* getColorInput () const
         {
-            return getInputBySemantic ( InputSemantic::COLOR, parent );
+            return getInputBySemantic ( InputSemantic::COLOR );
         }
 
         /**
@@ -254,9 +259,9 @@ namespace COLLADASaxFWL
         * @param parent True, if the vertex element of the parent mesh should also searched.
         * @return InputShared* Pointer to the searched input element or 0 if it not exist.
         */
-        const InputShared* getUVCoordInput ( const bool parent = true ) const
+        const InputShared* getUVCoordInput () const
         {
-            return getInputBySemantic ( InputSemantic::UV, parent );
+            return getInputBySemantic ( InputSemantic::UV );
         }
 
         /**

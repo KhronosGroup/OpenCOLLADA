@@ -88,6 +88,16 @@ namespace COLLADASaxFWL
         }
 
         /**
+        * The arrayValues element stores values of the templates data type 
+        * that reference values within the instance document.
+        * @return const ArrayPrimitiveType<Type> Array of the templates datatype.
+        */
+        COLLADAFW::ArrayPrimitiveType<Type>& getValues () 
+        { 
+            return mValuesArray; 
+        }
+
+        /**
          * The arrayValues element stores values of the templates data type 
          * that reference values within the instance document.
          * @param arrayValues Array of values.

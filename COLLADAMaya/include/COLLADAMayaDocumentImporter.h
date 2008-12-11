@@ -20,16 +20,17 @@
 #include "COLLADAMayaPrerequisites.h"
 
 #include "COLLADAMayaWriter.h"
-#include "COLLADADHLoader.h"
+
+//#include "COLLADADHLoader.h"
 
 
 namespace COLLADAMaya
 {
 
-    class MaterialImporter;
-    class GeometryImporter;
-    class CameraImporter;
-    class VisualSceneImporter;
+//     class MaterialImporter;
+//     class GeometryImporter;
+//     class CameraImporter;
+//     class VisualSceneImporter;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -50,23 +51,23 @@ namespace COLLADAMaya
 //         /** The currently parsed collada document. */
 //         domCOLLADA* mColladaDoc;
 
-        /** Imports the material. */
-        MaterialImporter* mMaterialImporter;
-
-        /** Imports the visual scene. */
-        VisualSceneImporter* mVisualSceneImporter;
-
-        /** Imports the geometry. */
-        GeometryImporter* mGeometryImporter;
-
-        /** Imports the camera. */
-        CameraImporter* mCameraImporter;
+//         /** Imports the material. */
+//         MaterialImporter* mMaterialImporter;
+// 
+//         /** Imports the visual scene. */
+//         VisualSceneImporter* mVisualSceneImporter;
+// 
+//         /** Imports the geometry. */
+//         GeometryImporter* mGeometryImporter;
+// 
+//         /** Imports the camera. */
+//         CameraImporter* mCameraImporter;
 
         /** The writer to create the maya file. */
         Writer mWriter;
 
         /** The loader to load the collada document with the collada dom. */
-        COLLADADH::Loader mDocumentLoader;
+//        COLLADADH::Loader mDocumentLoader;
 
     public:
 
@@ -85,35 +86,29 @@ namespace COLLADAMaya
         */
         const String& getFilename() const;
 
-//         /** The currently parsed collada document. */
-//         const domCOLLADA* getColladaDocument () const { return mColladaDoc; }
+//         /** Returns the current document loader. */
+//         COLLADADH::Loader& getDocumentLoader ()
+//         {
+//             return mDocumentLoader;
+//         }
 // 
-//         /** The currently parsed collada document. */
-//         domCOLLADA* getColladaDocument () { return mColladaDoc; }
+//         /** Returns the current document loader. */
+//         const COLLADADH::Loader& getDocumentLoader () const
+//         {
+//             return mDocumentLoader;
+//         }
 
-        /** Returns the current document loader. */
-        COLLADADH::Loader& getDocumentLoader ()
-        {
-            return mDocumentLoader;
-        }
-
-        /** Returns the current document loader. */
-        const COLLADADH::Loader& getDocumentLoader () const
-        {
-            return mDocumentLoader;
-        }
-
-        /**
-        * Returns a pointer to the geometry exporter.
-        * @return GeometryImporter* Pointer to the geometry exporter
-        */
-        GeometryImporter* getGeometryImporter();
-
-        /**
-        * Returns a pointer to the visual scene exporter.
-        * @return MaterialImporter* Pointer to the visual scene exporter
-        */
-        VisualSceneImporter* getVisualSceneImporter();
+//         /**
+//         * Returns a pointer to the geometry exporter.
+//         * @return GeometryImporter* Pointer to the geometry exporter
+//         */
+//         GeometryImporter* getGeometryImporter();
+// 
+//         /**
+//         * Returns a pointer to the visual scene exporter.
+//         * @return MaterialImporter* Pointer to the visual scene exporter
+//         */
+//         VisualSceneImporter* getVisualSceneImporter();
 
     private:
 

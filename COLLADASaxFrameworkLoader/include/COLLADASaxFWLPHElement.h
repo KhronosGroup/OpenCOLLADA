@@ -92,7 +92,7 @@ namespace COLLADASaxFWL
     /**
      * Array of ph elements.
      */
-    typedef COLLADAFW::Array<PHElement> PHArray;
+    typedef COLLADAFW::ArrayPrimitiveType<PHElement*> PHArray;
 }
 
 

@@ -98,7 +98,7 @@ namespace COLLADAFW
             size_t resizeCapacity = mCapacity - mCount + count;
             reallocMemory ( resizeCapacity );
 
-            memcpy ( mData, valuesArray.getData (), valuesArray.getCount () );
+            memcpy ( mData, valuesArray.getData (), count * sizeof (Type) );
             mCount += valuesArray.getCount ();
 
             return this;

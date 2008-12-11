@@ -112,7 +112,7 @@ namespace COLLADASaxFWL
          * schema (type Common_profile_input). 
          * @return const InputSemantic::Semantic The user-defined meaning of the input connection.
          */
-        const InputSemantic::Semantic getSemantic () const { return mSemantic; }
+        const InputSemantic::Semantic& getSemantic () const { return mSemantic; }
 
         /**
          * The user-defined meaning of the input connection. Required. See InputSemantic::Semantic 
@@ -126,7 +126,7 @@ namespace COLLADASaxFWL
          * The location of the data source. Required.
          * @return const COLLADABU::URI The location of the data source.
          */
-        const COLLADABU::URI getSource () const { return mSource; }
+        const COLLADABU::URI& getSource () const { return mSource; }
 
         /**
          * The location of the data source. Required.

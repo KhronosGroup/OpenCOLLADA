@@ -19,7 +19,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
-#include "COLLADADHLoader.h"
+//#include "COLLADADHLoader.h"
 
 
 namespace COLLADAMaya
@@ -50,32 +50,32 @@ namespace COLLADAMaya
         /** Returns a pointer to the current document importer. */
         DocumentImporter* getDocumentImporter () { return mDocumentImporter; }
 
-        /** Pointer to the current dae document. */
-        daeDocument* getDaeDocument () 
-        { 
-            return mDocumentImporter->getDocumentLoader ().getDaeDocument (); 
-        }
-
-        /** Pointer to the current dae document. */
-        const daeDocument* getDaeDocument () const 
-        { 
-            return mDocumentImporter->getDocumentLoader ().getDaeDocument (); 
-        }
-
         /** Returns a pointer to the current document importer. */
         const DocumentImporter* getDocumentImporter () const { return mDocumentImporter; }
 
-        /** Returns the current document loader. */
-        COLLADADH::Loader& getDocumentLoader ()
-        {
-            return mDocumentImporter->getDocumentLoader ();
-        }
-
-        /** Returns the current document loader. */
-        const COLLADADH::Loader& getDocumentLoader () const
-        {
-            return mDocumentImporter->getDocumentLoader ();
-        }
+//         /** Pointer to the current dae document. */
+//         daeDocument* getDaeDocument () 
+//         { 
+//             return mDocumentImporter->getDocumentLoader ().getDaeDocument (); 
+//         }
+// 
+//         /** Pointer to the current dae document. */
+//         const daeDocument* getDaeDocument () const 
+//         { 
+//             return mDocumentImporter->getDocumentLoader ().getDaeDocument (); 
+//         }
+// 
+//         /** Returns the current document loader. */
+//         COLLADADH::Loader& getDocumentLoader ()
+//         {
+//             return mDocumentImporter->getDocumentLoader ();
+//         }
+// 
+//         /** Returns the current document loader. */
+//         const COLLADADH::Loader& getDocumentLoader () const
+//         {
+//             return mDocumentImporter->getDocumentLoader ();
+//         }
 
     };
 }

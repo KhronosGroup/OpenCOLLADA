@@ -18,38 +18,46 @@
 
 #include "COLLADAMayaPrerequisites.h"
 
+#include "COLLADABUException.h"
+
+
 namespace COLLADAMaya
 {
 
     /** Class that is throw by the stream writer classes if something goes wrong*/
-    class ColladaMayaException
+    class ColladaMayaException : public COLLADABU::Exception
     {
 
 	public:
-		enum Type
-		{
-			ERROR_FILE_OPEN,
-			ERROR_SET_BUFFER
-		};
 
-	private:
-		Type mExceptionType;
-		String mMessage;
-
-    public:
-
-        /** Creates an exception of type @a type*/
-		ColladaMayaException ( Type exceptionType, const String& message ) 
-        : mExceptionType(exceptionType)
-        , mMessage(message)
+        /** Constructor. Creates an exception of unknown type with the given message. */
+        ColladaMayaException ( const String& message ) 
+            : COLLADABU::Exception ( message )
         {}
 
-		/** Returns the type of the exception*/
-		Type getType()const {return mExceptionType;}
+        /** Constructor. Creates an exception of type @a type with the given message. */
+        ColladaMayaException ( Type exceptionType, const String& message ) 
+            : COLLADABU::Exception ( exceptionType, message )
+        {}
 
-		/** Returns the text, describing the exception.*/
-		String getMessage()const {return mMessage;};
-		
+        /** Constructor. */
+        ColladaMayaException ( Type exceptionType, const String file, const long line, const String message )
+            : COLLADABU::Exception ( exceptionType, file, line, message )
+        {}
+
+        /** Constructor. */
+        ColladaMayaException ( const String file, const long line, const String message )
+            : COLLADABU::Exception ( file, line, message )
+        {}
+
+        /** Destructor. */
+        virtual ~ColladaMayaException () {}
+
+        /** Print the massage in the standard error output. */
+        void printMessage ()
+        {
+            std::cerr << "ColladaMayaException: " << mMessage << std::endl;
+        }
 
 	};
 

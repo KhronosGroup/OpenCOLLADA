@@ -22,7 +22,16 @@ namespace COLLADAFW
     {
 	private:
 	
+        /**
+        * The number of values that are to be considered a unit during each access to the array.
+        * The default is 1, indicating that a single value is accessed. Optional.
+        */
+        size_t mStride;
+
 	public:
+
+        /** Constructor. */
+        MeshColors () : MeshFloatDoubleInputs () {}
 
         /** Constructor. */
 		MeshColors ( DataType type ) : MeshFloatDoubleInputs ( type ) {}
@@ -35,6 +44,18 @@ namespace COLLADAFW
         {
             return getElementsCount ();
         }
+
+        /**
+        * The number of values that are to be considered a unit during each access to the array.
+        * The default is 1, indicating that a single value is accessed. Optional.
+        */
+        const unsigned int getStride () const { return mStride; }
+
+        /**
+        * The number of values that are to be considered a unit during each access to the array.
+        * The default is 1, indicating that a single value is accessed. Optional.
+        */
+        void setStride ( const unsigned int Stride ) { mStride = Stride; }
 
         /** Returns the position values array as a template array. */
         template <class T>

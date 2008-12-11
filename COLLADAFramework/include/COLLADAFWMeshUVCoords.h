@@ -28,10 +28,13 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-		MeshUVCoords();
+        MeshUVCoords() : MeshFloatDoubleInputs () {};
+
+        /** Constructor. */
+        MeshUVCoords ( DataType type ) : MeshFloatDoubleInputs ( type ) {}
 
         /** Destructor. */
-		virtual ~MeshUVCoords();
+        virtual ~MeshUVCoords() {};
 
         /** The stride can differ, so we have to set. */
         const size_t getStride () const { return mStride; }

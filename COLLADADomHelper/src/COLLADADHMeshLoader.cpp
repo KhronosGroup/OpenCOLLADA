@@ -189,7 +189,7 @@ namespace COLLADADH
         if ( arrayRef != 0 )
         {
             COLLADAFW::Source<COLLADAFW::NameArrayElement>* source;
-            source = new COLLADAFW::Source<COLLADAFW::NameArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_NAME ); 
+            source = new COLLADAFW::Source<COLLADAFW::NameArrayElement> ( COLLADAFW::SourceBase::DATA_TYPE_NAME ); 
             
             COLLADAFW::NameArrayElement* arrayElement = source->getNameArrayElement ();
             arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
@@ -213,7 +213,7 @@ namespace COLLADADH
         if ( arrayRef != 0 )
         {
             COLLADAFW::Source<COLLADAFW::BoolArrayElement>* source;
-            source = new COLLADAFW::Source<COLLADAFW::BoolArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_BOOL ); 
+            source = new COLLADAFW::Source<COLLADAFW::BoolArrayElement> ( COLLADAFW::SourceBase::DATA_TYPE_BOOL ); 
 
             COLLADAFW::BoolArrayElement* arrayElement = source->getBoolArrayElement ();
             arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
@@ -238,7 +238,7 @@ namespace COLLADADH
         {
             // The dom has internal a long long!
             COLLADAFW::Source<COLLADAFW::Long64ArrayElement>* source;
-            source = new COLLADAFW::Source<COLLADAFW::Long64ArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_LONG64 ); 
+            source = new COLLADAFW::Source<COLLADAFW::Long64ArrayElement> ( COLLADAFW::SourceBase::DATA_TYPE_LONG64 ); 
 
             COLLADAFW::Long64ArrayElement* arrayElement = source->getLong64ArrayElement ();
             arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
@@ -263,7 +263,7 @@ namespace COLLADADH
         {
             // The dom has internal a double!
             COLLADAFW::Source<COLLADAFW::DoubleArrayElement>* source;
-            source = new COLLADAFW::Source<COLLADAFW::DoubleArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_DOUBLE ); 
+            source = new COLLADAFW::Source<COLLADAFW::DoubleArrayElement> ( COLLADAFW::SourceBase::DATA_TYPE_DOUBLE ); 
 
             COLLADAFW::DoubleArrayElement* arrayElement = source->getDoubleArrayElement ();
             arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );
@@ -281,13 +281,13 @@ namespace COLLADADH
     }
 
     // --------------------------------------------
-    COLLADAFW::SourceBase*  MeshLoader::createIDREFArrayElementSource ( const domSourceRef& sourceRef )
+    COLLADAFW::SourceBase* MeshLoader::createIDREFArrayElementSource ( const domSourceRef& sourceRef )
     {
         domIDREF_arrayRef arrayRef = sourceRef->getIDREF_array ();
         if ( arrayRef != 0 )
         {
             COLLADAFW::Source<COLLADAFW::IDREFArrayElement>* source;
-            source = new COLLADAFW::Source<COLLADAFW::IDREFArrayElement> ( COLLADAFW::SourceBase::VALUE_TYPE_IDREF ); 
+            source = new COLLADAFW::Source<COLLADAFW::IDREFArrayElement> ( COLLADAFW::SourceBase::DATA_TYPE_IDREF ); 
 
             COLLADAFW::IDREFArrayElement* arrayElement = source->getIDREFArrayElement ();
             arrayElement->setCount ( ( unsigned int ) arrayRef->getCount () );

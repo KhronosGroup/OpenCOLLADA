@@ -10,7 +10,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaWriter.h"
-#include "COLLADAMayaVisualSceneImporter.h"
+//#include "COLLADAMayaVisualSceneImporter.h"
 #include "COLLADAMayaGeometryImporter.h"
 
 #include "Math/COLLADABUMathMatrix4.h"
@@ -40,9 +40,11 @@ namespace COLLADAMaya
     //-----------------------------
     bool Writer::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
-        VisualSceneImporter visualSceneImporter ( mDocumentImporter );
+//         VisualSceneImporter visualSceneImporter ( mDocumentImporter );
+// 
+//         return visualSceneImporter.importVisualScene ( visualScene );
 
-        return visualSceneImporter.importVisualScene ( visualScene );
+        return false;
     }
 
     //-----------------------------

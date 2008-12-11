@@ -57,7 +57,7 @@ namespace COLLADAFW
          * Positions have always a stride of three (XYZ parameters). We don't need to store
          * this information.
          */
-        MeshPositions* mPositions;
+        MeshPositions mPositions;
 
         /** 
         * The normals array. 
@@ -65,7 +65,7 @@ namespace COLLADAFW
         * Normals have always a stride of three (XYZ parameters). We don't need to store this 
         * information.
         */
-        MeshNormals* mNormals;
+        MeshNormals mNormals;
 
         /** 
         * The colors array. 
@@ -73,7 +73,7 @@ namespace COLLADAFW
         * Colors can have different strides (RGB or RGBA parameters). We need to store this 
         * information!
         */
-        MeshColors* mColors;
+        MeshColors mColors;
 
         /** 
         * The uv coordinates array. 
@@ -81,7 +81,7 @@ namespace COLLADAFW
         * UV coordinates can have different strides (ST, STU, STUV parameters). We need to store 
         * this information!
         */
-        MeshUVCoords* mUVCoords;
+        MeshUVCoords mUVCoords;
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
@@ -97,19 +97,19 @@ namespace COLLADAFW
         Mesh ( Geometry* geometry ) 
             : GeometricElement ( GeometricElement::GEO_TYPE_MESH ) 
             , mGeometry ( geometry )
-            , mPositions (0)
-            , mNormals (0)
-            , mColors (0)
-            , mUVCoords (0)
+//             , mPositions (0)
+//             , mNormals (0)
+//             , mColors (0)
+//             , mUVCoords (0)
         {}
 
         /** Destructor. */
         virtual ~Mesh () 
         {
-            delete mPositions;
-            delete mNormals;
-            delete mColors;
-            delete mUVCoords;
+//             delete mPositions;
+//             delete mNormals;
+//             delete mColors;
+//             delete mUVCoords;
         }
 
         /**
@@ -128,7 +128,7 @@ namespace COLLADAFW
         * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
         * store this information.
         */
-        const MeshPositions* getPositions () const { return mPositions; }
+        const MeshPositions& getPositions () const { return mPositions; }
 
         /** 
         * The positions array. 
@@ -136,7 +136,15 @@ namespace COLLADAFW
         * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
         * store this information.
         */
-        void setPositions ( MeshPositions* positions ) { mPositions = positions; }
+        MeshPositions& getPositions () { return mPositions; }
+
+        /** 
+        * The positions array. 
+        * Positions can be stored as float or double values.
+        * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
+        * store this information.
+        */
+        void setPositions ( MeshPositions& positions ) { mPositions = positions; }
 
         /** 
         * The normals array. 
@@ -144,7 +152,7 @@ namespace COLLADAFW
         * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        const MeshNormals* getNormals () const { return mNormals; }
+        const MeshNormals& getNormals () const { return mNormals; }
 
         /** 
         * The normals array. 
@@ -152,7 +160,15 @@ namespace COLLADAFW
         * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setNormals ( MeshNormals* Normals ) { mNormals = Normals; }
+        MeshNormals& getNormals () { return mNormals; }
+
+        /** 
+        * The normals array. 
+        * Normals can be stored as float or double values.
+        * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        void setNormals ( MeshNormals& Normals ) { mNormals = Normals; }
 
         /** 
         * The colors array. 
@@ -160,7 +176,7 @@ namespace COLLADAFW
         * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        const MeshColors* getColors () const { return mColors; }
+        const MeshColors& getColors () const { return mColors; }
 
         /** 
         * The colors array. 
@@ -168,7 +184,15 @@ namespace COLLADAFW
         * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setColors ( MeshColors* Colors ) { mColors = Colors; }
+        MeshColors& getColors () { return mColors; }
+
+        /** 
+        * The colors array. 
+        * Colors can be stored as float or double values.
+        * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        void setColors ( MeshColors& Colors ) { mColors = Colors; }
 
         /** 
         * The uv coordinates array. 
@@ -176,7 +200,7 @@ namespace COLLADAFW
         * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        const MeshUVCoords* getUVCoords () const { return mUVCoords; }
+        const MeshUVCoords& getUVCoords () const { return mUVCoords; }
 
         /** 
         * The uv coordinates array. 
@@ -184,28 +208,36 @@ namespace COLLADAFW
         * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setUVCoords ( MeshUVCoords* UVCoords ) { mUVCoords = UVCoords; }
+        MeshUVCoords& getUVCoords () { return mUVCoords; }
+
+        /** 
+        * The uv coordinates array. 
+        * UV coordinates can be stored as float or double values.
+        * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
+        * this information.
+        */
+        void setUVCoords ( MeshUVCoords& UVCoords ) { mUVCoords = UVCoords; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        PrimitiveElementsArray getPrimitiveElements () { return mPrimitiveElements; }
+        PrimitiveElementsArray& getPrimitiveElements () { return mPrimitiveElements; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        const PrimitiveElementsArray getPrimitiveElements () const { return mPrimitiveElements; }
+        const PrimitiveElementsArray& getPrimitiveElements () const { return mPrimitiveElements; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        void setPrimitiveElements ( const PrimitiveElementsArray primitiveElements ) { mPrimitiveElements = primitiveElements; }
+        void setPrimitiveElements ( const PrimitiveElementsArray& primitiveElements ) { mPrimitiveElements = primitiveElements; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 

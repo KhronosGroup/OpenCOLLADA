@@ -24,10 +24,10 @@
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaImportOptions.h"
 
-#include "COLLADADHException.h"
+//#include "COLLADADHException.h"
 
-#include <DAE.h>
-#include <dom/domElements.h>
+// #include <DAE.h>
+// #include <dom/domElements.h>
 #endif
 
 #include "COLLADASWException.h"
@@ -358,10 +358,9 @@ namespace COLLADAMaya
             // Import the COLLADA DAE file
             status = importFromFile ( filename.asChar() );
         }
-        catch ( COLLADADH::Exception* exception  )
+        catch ( COLLADABU::Exception* exception  )
         {
-            String message = "Exception: " + exception->getDescription ();
-            MGlobal::displayError ( message.c_str() );
+            MGlobal::displayError ( exception->getMessage().c_str() );
         }
         catch ( ... )
         {

@@ -76,18 +76,20 @@ namespace COLLADASaxFWL
 
     public:
 
-        /** Constructor. */
-        SourceBase ( COLLADAFW::ObjectId objectId )
-            : COLLADAFW::Object < COLLADAFW::COLLADA_TYPE::SOURCE > ( objectId )
-            , mDataType ( DATA_TYPE_UNKNOWN )
-            , mIsLoaded ( false )
-        {}
+//         /** Constructor. */
+//         SourceBase ( COLLADAFW::ObjectId objectId )
+//             : COLLADAFW::Object < COLLADAFW::COLLADA_TYPE::SOURCE > ( objectId )
+//             , mDataType ( DATA_TYPE_UNKNOWN )
+//             , mIsLoaded ( false )
+//             , mInitialIndex (0)
+//         {}
 
         /** Constructor. */
         SourceBase (  COLLADAFW::ObjectId objectId, DataType valueType )
             : COLLADAFW::Object < COLLADAFW::COLLADA_TYPE::SOURCE > ( objectId )
             , mDataType ( valueType )
             , mIsLoaded ( false )
+            , mInitialIndex (0)
         {}
 
         /** Destructor. */
@@ -186,12 +188,16 @@ namespace COLLADASaxFWL
     public:
 
         /** Constructor. */
-        Source ( SourceBase::DataType valueType ) 
-            : SourceBase ( valueType ) 
+        Source ( COLLADAFW::ObjectId objectId, SourceBase::DataType valueType ) 
+            : SourceBase ( objectId, valueType ) 
+            , mArrayElement (0)
         {}
 
         /** Destructor. */
-        virtual ~Source () {}
+        virtual ~Source () 
+        {
+            delete mArrayElement;
+        }
 
         /**
         * Stores a homogenous array of values.
@@ -202,7 +208,7 @@ namespace COLLADASaxFWL
         template < class Type >
         Type* getArrayElement () 
         {
-            return &mArrayElement;
+            return mArrayElement;
         }
 
         /**
@@ -214,7 +220,7 @@ namespace COLLADASaxFWL
         template < class Type >
         const Type* getIntArrayElement () const 
         { 
-            return &mArrayElement;
+            return mArrayElement;
         }
 
         /**
@@ -224,9 +230,9 @@ namespace COLLADASaxFWL
         * @param arrayElement The array element with the values array.
         */
         template < class Type >
-        void setArrayElement ( const Type* arrayElement ) 
+        void setArrayElement ( Type* arrayElement ) 
         { 
-            mArrayElement = &arrayElement; 
+            mArrayElement = arrayElement; 
         }
 
         /**
@@ -238,7 +244,7 @@ namespace COLLADASaxFWL
         IntArrayElement* getIntArrayElement () 
         {
             if ( getDataType () == SourceBase::DATA_TYPE_INT )
-                return ( IntArrayElement* ) &mArrayElement; 
+                return ( IntArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -251,7 +257,7 @@ namespace COLLADASaxFWL
         const IntArrayElement* getIntArrayElement () const 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_INT )
-                return ( IntArrayElement* ) &mArrayElement; 
+                return ( IntArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -275,7 +281,7 @@ namespace COLLADASaxFWL
         Long64ArrayElement* getLong64ArrayElement () 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_LONG64 )
-                return ( Long64ArrayElement* ) &mArrayElement; 
+                return ( Long64ArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -288,7 +294,7 @@ namespace COLLADASaxFWL
         const Long64ArrayElement* getLong64ArrayElement () const 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_LONG64 )
-                return ( Long64ArrayElement* ) &mArrayElement; 
+                return ( Long64ArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -312,7 +318,7 @@ namespace COLLADASaxFWL
         BoolArrayElement* getBoolArrayElement () 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_BOOL )
-                return ( BoolArrayElement* ) &mArrayElement; 
+                return ( BoolArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -325,7 +331,7 @@ namespace COLLADASaxFWL
         const BoolArrayElement* getBoolArrayElement () const 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_BOOL )
-                return ( BoolArrayElement* ) &mArrayElement; 
+                return ( BoolArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -386,7 +392,7 @@ namespace COLLADASaxFWL
         const DoubleArrayElement* getDoubleArrayElement () const 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_DOUBLE )
-                return ( DoubleArrayElement* ) &mArrayElement; 
+                return ( DoubleArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -399,7 +405,7 @@ namespace COLLADASaxFWL
         DoubleArrayElement* getDoubleArrayElement () 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_DOUBLE )
-                return ( DoubleArrayElement* ) &mArrayElement; 
+                return ( DoubleArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -423,7 +429,7 @@ namespace COLLADASaxFWL
         NameArrayElement* getNameArrayElement () 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_NAME )
-                return ( NameArrayElement* ) &mArrayElement; 
+                return ( NameArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -436,7 +442,7 @@ namespace COLLADASaxFWL
         const NameArrayElement* getNameArrayElement () const 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_NAME )
-                return ( NameArrayElement* ) &mArrayElement; 
+                return ( NameArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -460,7 +466,7 @@ namespace COLLADASaxFWL
         IDREFArrayElement* getIDREFArrayElement () 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_IDREF )
-                return ( IDREFArrayElement* ) &mArrayElement; 
+                return ( IDREFArrayElement* ) mArrayElement; 
             return 0;
         }
 
@@ -473,7 +479,7 @@ namespace COLLADASaxFWL
         const IDREFArrayElement* getIDREFArrayElement () const 
         { 
             if ( getDataType () == SourceBase::DATA_TYPE_IDREF )
-                return ( IDREFArrayElement* ) &mArrayElement; 
+                return ( IDREFArrayElement* ) mArrayElement; 
             return 0;
         }
 

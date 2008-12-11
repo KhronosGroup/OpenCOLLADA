@@ -26,6 +26,9 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
+        MeshNormals () : MeshFloatDoubleInputs () {}
+
+        /** Constructor. */
         MeshNormals ( DataType type ) : MeshFloatDoubleInputs ( type ) {}
 
         /** Destructor. */

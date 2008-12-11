@@ -32,6 +32,9 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
+        MeshPositions () : MeshFloatDoubleInputs () {}
+
+        /** Constructor. */
         MeshPositions ( DataType type ) : MeshFloatDoubleInputs ( type ) {}
 
         /** Destructor. */

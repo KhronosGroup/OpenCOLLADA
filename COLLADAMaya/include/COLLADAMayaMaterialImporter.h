@@ -19,7 +19,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
-#include "dom/domMaterial.h"
+//#include "dom/domMaterial.h"
 
 
 namespace COLLADAMaya
@@ -42,8 +42,8 @@ namespace COLLADAMaya
 
     private:
 
-        /** Imports the current material into the maya scene. */
-        void importMaterial ( domMaterial& material );
+//         /** Imports the current material into the maya scene. */
+//         void importMaterial ( domMaterial& material );
 
     };
 }

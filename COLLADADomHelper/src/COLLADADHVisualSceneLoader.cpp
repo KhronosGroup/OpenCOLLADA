@@ -61,7 +61,7 @@ namespace COLLADADH
  
  		const domNode_Array& nodeArray = colladaVisualScene->getNode_array();
  
- 		mVisualScene->getRootNodes().allocateMemory( nodeArray.getCount() );
+ 		mVisualScene->getRootNodes().allocMemory( nodeArray.getCount() );
  
  		COLLADADH::NodeTraverser traverser(*colladaVisualScene);
  		if ( !traverser.traverse(*this) )
@@ -117,7 +117,7 @@ namespace COLLADADH
 		}
 
 		// Fill in the transform elemenst
-		newNode->getTransformations().allocateMemory(transformationCount);
+		newNode->getTransformations().allocMemory(transformationCount);
 
 		for ( size_t i = 0; i < childrenCount; ++i )
 		{
@@ -153,10 +153,10 @@ namespace COLLADADH
 
 
 		/** Allocate memory for instance geometry.*/
-		newNode->getInstanceGeometries().allocateMemory(node.getInstance_geometry_array().getCount());
+		newNode->getInstanceGeometries().allocMemory(node.getInstance_geometry_array().getCount());
 
 		/** Allocate memory for children.*/
-		newNode->getChildNodes().allocateMemory(node.getNode_array().getCount());
+		newNode->getChildNodes().allocMemory(node.getNode_array().getCount());
 
 		if ( mNodeStack.empty() )
 		{
