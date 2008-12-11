@@ -72,9 +72,10 @@ namespace COLLADASaxFWL
         /**
         * Constructor
         */
-        Polygons () 
-            : PolyBase ()
+        Polygons ( MeshLoader* parent ) 
+            : PolyBase ( parent, COLLADAFW::PrimitiveElement::POLYGONS ) 
         {}
+
 
         /**
         * Destructor

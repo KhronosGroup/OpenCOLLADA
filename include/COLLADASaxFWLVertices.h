@@ -85,7 +85,17 @@ namespace COLLADASaxFWL
          * topological identity of each vertex in the mesh.
          * @return const COLLADAFW::InputArray The input array.
          */
-        const InputUnsharedArray getInputArray () const 
+        const InputUnsharedArray& getInputArray () const 
+        { 
+            return mInputArray; 
+        }
+
+        /**
+        * One input must specify semantic="POSITION" to establish the 
+        * topological identity of each vertex in the mesh.
+        * @return const COLLADAFW::InputArray The input array.
+        */
+        InputUnsharedArray& getInputArray () 
         { 
             return mInputArray; 
         }

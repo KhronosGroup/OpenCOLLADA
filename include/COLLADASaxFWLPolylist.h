@@ -21,19 +21,13 @@ namespace COLLADASaxFWL
 {
 
     /**
-    * The Polylist element provides the information needed to bind vertex attributes
-    * together and  then organize those vertices into individual polygons. The
-    * polygons described in Polylist can  contain arbitrary numbers of vertices.
-    * Unlike the polygons element, the Polylist element cannot  contain polygons
-    * with holes.
+    * The Polylist element provides the information needed to bind vertex attributes together and  
+    * then organize those vertices into individual polygons. The polygons described in Polylist can  
+    * contain arbitrary numbers of vertices.
+    * Unlike the polygons element, the Polylist element cannot contain polygons with holes.
     */
     class Polylist : public PolyBase
     {
-
-    public:
-
-        /** The array of vertex counts per polygons. */
-        typedef COLLADAFW::Array<unsigned int> VCountArray;
 
     private:
 
@@ -42,14 +36,16 @@ namespace COLLADASaxFWL
         * of sides for each polygon described by the Polylist element. 
         * The vcount element may occur once.
         */
-        VCountArray mVCountArray;
+        COLLADAFW::UIntValuesArray mVCountArray;
 
     public:	
 
         /**
         * Constructor
         */
-        Polylist ( MeshLoader* parent ) : PolyBase ( parent, COLLADAFW::PrimitiveElement::POLYGONS ) {}
+        Polylist ( MeshLoader* parent ) 
+            : PolyBase ( parent, COLLADAFW::PrimitiveElement::POLYLIST ) 
+        {}
 
         /**
         * Destructor
@@ -63,7 +59,19 @@ namespace COLLADASaxFWL
         * @param vCountArraySize Parameter to set the size of the array.
         * @return An integer pointer to the vcount array.
         */
-        const VCountArray& getVCountArray () const 
+        COLLADAFW::UIntValuesArray& getVCountArray () 
+        {
+            return mVCountArray; 
+        }
+
+        /**
+        * The vcount element contains a array of integers describing the number 
+        * of sides for each polygon  described by the Polylist element. 
+        * The vcount element may occur once.
+        * @param vCountArraySize Parameter to set the size of the array.
+        * @return An integer pointer to the vcount array.
+        */
+        const COLLADAFW::UIntValuesArray& getVCountArray () const 
         {
             return mVCountArray; 
         }
@@ -75,7 +83,7 @@ namespace COLLADASaxFWL
          * @param vCountArraySize The size of the array.
          * @param vCountArray A pointer to the array of vcounts.
          */
-        void setVCountArray ( const VCountArray& vCountArray ) 
+        void setVCountArray ( const COLLADAFW::UIntValuesArray& vCountArray ) 
         { 
             mVCountArray = vCountArray; 
         }

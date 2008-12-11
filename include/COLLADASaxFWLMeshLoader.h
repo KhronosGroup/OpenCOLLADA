@@ -39,15 +39,12 @@ namespace COLLADASaxFWL
      */
     class MeshLoader : public ColladaGeometricElement
     {
-    public:
-
-
     private:
 
         /**
          * The framework mesh element, to load the data.
          */
-        COLLADAFW::Mesh* mMesh;
+        COLLADAFW::Mesh mMesh;
 
         /**
          * Describes the mesh-vertex attributes and establishes
@@ -62,12 +59,31 @@ namespace COLLADASaxFWL
          */
         //PolyBaseArray mPolyBaseElements;
 
+
+        // Variables for the offsets of the index input elements.
+        size_t mPositionsOffset; 
+        bool mUsePositions;
+        size_t mNormalsOffset; 
+        bool mUseNormals;
+        size_t mColorsOffset; 
+        bool mUseColors;
+        size_t mUVCoordsOffset; 
+        bool mUseUVCoords;
+
     public:
 
         /** Constructor. */
-        MeshLoader ()
+        MeshLoader ( COLLADAFW::Geometry* geometry )
             : ColladaGeometricElement ( GeometricElement::GEO_TYPE_MESH )
-            , mMesh ( 0 )
+            , mMesh ( geometry )
+            , mPositionsOffset (0)
+            , mUsePositions ( true )
+            , mNormalsOffset (0)
+            , mUseNormals ( false )
+            , mColorsOffset (0)
+            , mUseColors (false)
+            , mUVCoordsOffset (0)
+            , mUseUVCoords ( false )
         {}
 
         /** Destructor. */
@@ -76,12 +92,12 @@ namespace COLLADASaxFWL
         /**
         * The framework mesh element, to load the data.
         */
-        const COLLADAFW::Mesh* getMesh () const { return mMesh; }
+        const COLLADAFW::Mesh* getMesh () const { return &mMesh; }
 
         /**
         * The framework mesh element, to load the data.
         */
-        COLLADAFW::Mesh* getMesh () { return mMesh; }
+        COLLADAFW::Mesh* getMesh () { return &mMesh; }
 
         /**
         * Returns the vertex input element with the given semantic or 0 if it not exist.
@@ -154,8 +170,50 @@ namespace COLLADASaxFWL
         /**
          * Append a poly base element into the mesh (convert the data from sax to framework data).
          */
-        void addPolyBaseElement ( const PolyBase& polyBaseElement );
-        
+        void addPolyBaseElement ( const COLLADASaxFWL::PolyBase* polyBaseElement );
+
+        /**
+         * Load the index lists.
+         * @param primitiveElement
+         * @param polyBaseElement
+         * @return void
+         */
+        void loadIndexLists ( 
+            COLLADAFW::PrimitiveElement* primitiveElement, 
+            const PolyBase* polyBaseElement );
+
+        /**
+         * Generate the face vertex count array if necessary and set it into the mesh.
+         * @param primitiveElement
+         * @param polyBaseElement
+         * @return void
+         */
+        void loadFaceVertexCountArray ( 
+            COLLADAFW::PrimitiveElement* primitiveElement, 
+            const PolyBase* polyBaseElement );
+
+        /**
+         * Initialize the size of the index lists, check for used source elements and get 
+         * the offset values of the index lists.
+         */
+        bool initializeIndexLists ( 
+            COLLADAFW::PrimitiveElement* primitiveElement, 
+            const PolyBase* polyBaseElement );
+
+        /**
+         * Push the index values of the current p element in the list of indexes of the current 
+         * input elements.
+         */
+        void writePElementIndices ( 
+            const PElement* pElement, 
+            COLLADAFW::PrimitiveElement* primitiveElement, 
+            const size_t maxOffset );
+
+        /**
+         * Get the number of all indices in all p elements in the current primitive element.
+         */
+        size_t getNumOfPrimitiveIndices ( const PolyBase* polyBaseElement );
+
         /**
          * Go through the list of input elements of the current poly base and get the 
          * source data of the input elements and write it into the source elements.
