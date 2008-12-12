@@ -1,4 +1,13 @@
-/** Copyright &copy; 2008, NetAllied Systems GmbH, Ravensburg, Germany. */
+/*
+    Copyright (c) 2008 NetAllied Systems GmbH
+
+    This file is part of COLLADASaxFrameworkLoader.
+
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
 
 
 #ifndef __COLLADASAXFWL_COLLADAPARSERAUTOGEN_H__
