@@ -18,8 +18,9 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxDocumentImporter.h"
 #include "COLLADAMaxVisualSceneImporter.h"
+#include "COLLADAMaxGeometryImporter.h"
 
-#include "COLLADADHLoader.h"
+#include "COLLADASaxFWLLoader.h"
 #include "COLLADAFWRoot.h"
 
 namespace COLLADAMax
@@ -41,7 +42,7 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::import()
 	{
-		COLLADADH::Loader loader;
+		COLLADASaxFWL::Loader loader;
 		COLLADAFW::Root root(&loader, this);
 
 		return root.loadDocument(mImportFilePath);
@@ -51,12 +52,19 @@ namespace COLLADAMax
 	bool DocumentImporter::writeVisualScene( const COLLADAFW::VisualScene* visualScene )
 	{
 		VisualSceneImporter visualSceneImporter(this, visualScene);
-		return visualSceneImporter.import();
+		/*return*/ visualSceneImporter.import();
+
+
+		GeometryImporter geometryImporter(this, 0);
+		return geometryImporter.import();
+
 	}
 
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeGeometry( const COLLADAFW::Geometry* geometry )
 	{
+		GeometryImporter geometryImporter(this, geometry);
+//		return geometryImporter.import();
 		return true;
 	}
 

@@ -17,7 +17,7 @@ namespace COLLADAFW
 
     //------------------------------
 	Geometry::Geometry ( ObjectId objectId )
-		: Object < COLLADA_TYPE::GEOMETRY > ( objectId )
+		: ObjectTemplate < COLLADA_TYPE::GEOMETRY > ( objectId )
 	{
 	}
 	

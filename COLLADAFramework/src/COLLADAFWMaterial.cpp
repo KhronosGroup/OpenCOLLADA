@@ -16,7 +16,7 @@ namespace COLLADAFW
 {
 
     //------------------------------
-    Material::Material ( ObjectId objectId ) : Object<COLLADA_TYPE::MATERIAL> ( objectId )
+    Material::Material ( ObjectId objectId ) : ObjectTemplate<COLLADA_TYPE::MATERIAL> ( objectId )
 	{
 	}
 	

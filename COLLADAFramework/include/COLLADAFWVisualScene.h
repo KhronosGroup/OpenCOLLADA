@@ -26,11 +26,6 @@ namespace COLLADAFW
 		*/
 		String mName;
 
-		/** A text string containing the unique identifier of the element. This value must be
-			unique within the instance document. Optional.
-		*/
-		String mId;
-
 		/** All the root nodes of the visual scene.*/
 		NodeArray mRootNodes;
 	
@@ -43,12 +38,6 @@ namespace COLLADAFW
 
 		/** Sets the name of the visual scene*/
 		void setName(const String& name) { mName = name; }
-
-		/** Returns the id of the visual scene*/
-		const String& getId() const { return mId; }
-
-		/** Sets the id of the visual scene*/
-		void getId(const String& id) { mId = id; }
 
 		/** Returns a reference to the root nodes of the visual scene. */
 		NodeArray& getRootNodes() { return mRootNodes; }

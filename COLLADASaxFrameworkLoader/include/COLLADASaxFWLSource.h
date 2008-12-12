@@ -25,7 +25,7 @@ namespace COLLADASaxFWL
     /**
      * Base source class for hold source element pointers in an array.
      */
-    class SourceBase : public COLLADAFW::Object<COLLADAFW::COLLADA_TYPE::SOURCE>
+    class SourceBase : public COLLADAFW::ObjectTemplate<COLLADAFW::COLLADA_TYPE::SOURCE>
     {
 
     public:
@@ -86,7 +86,7 @@ namespace COLLADASaxFWL
 
         /** Constructor. */
         SourceBase (  COLLADAFW::ObjectId objectId, DataType valueType )
-            : COLLADAFW::Object < COLLADAFW::COLLADA_TYPE::SOURCE > ( objectId )
+            : COLLADAFW::ObjectTemplate < COLLADAFW::COLLADA_TYPE::SOURCE > ( objectId )
             , mDataType ( valueType )
             , mIsLoaded ( false )
             , mInitialIndex (0)

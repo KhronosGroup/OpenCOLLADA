@@ -19,6 +19,7 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAMAX_IMPORTERBASE_H__
 
 #include "COLLADAMaxPrerequisites.h"
+#include "COLLADAMaxTypes.h"
 
 class Interface;
 class ImpInterface;
@@ -63,6 +64,19 @@ namespace COLLADAMax
 		/** Adds an UniqueId-INode pair to the UniqueIdINodeMap. For nodes that reference an object that has 
 		not already been loaded this method should be called.*/
 		void addUniqueIdINodePair(const COLLADAFW::UniqueId& uniqueId, INode* node);
+
+		/** Fills @a nodeList with all INodes that reference the object with UniqueId @a uniqueId.*/
+		void getINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
+
+		/** Adds an UniqueId-Object pair to the UniqueIdObjectMap. For every imported object this method should 
+		be called to ensure that elements that are imported later and instance this object can set the object 
+		as reference.*/
+		void addUniqueIdObjectPair(const COLLADAFW::UniqueId& uniqueId, Object* object);
+
+		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
+		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/
+		Object* getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId);
+
 
 	private:
 

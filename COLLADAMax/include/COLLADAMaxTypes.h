@@ -55,6 +55,7 @@ namespace COLLADAMax
 
 
 	typedef std::map<Object*, String> ObjectStringMap;
+
 }
 
 

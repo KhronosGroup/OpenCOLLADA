@@ -12,7 +12,7 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAFW_TRANSFORMATIONBASE_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWArray.h"
+#include "COLLADAFWArrayPrimitiveType.h"
 
 
 
@@ -63,7 +63,7 @@ namespace COLLADAFW
 		const Transformation& operator= ( const Transformation& pre );
 	};
 
-	typedef Array<Transformation*> TransformationArray;
+	typedef ArrayPrimitiveType<Transformation*> TransformationArray;
 
 } // namespace COLLADAFW
 

@@ -296,10 +296,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\COLLADADHBaseLoader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADADHDocumentUtil.cpp"
 				>
 			</File>
@@ -313,6 +309,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADADHException.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADADHFileLoader.cpp"
 				>
 			</File>
 			<File
@@ -426,10 +426,6 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\include\COLLADADHBaseLoader.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADADHDocumentUtil.h"
 				>
 			</File>
@@ -443,6 +439,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADADHException.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADADHFileLoader.h"
 				>
 			</File>
 			<File

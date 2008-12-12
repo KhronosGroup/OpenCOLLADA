@@ -19,7 +19,7 @@ namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class Material : public Object<COLLADA_TYPE::MATERIAL>
+	class Material : public ObjectTemplate<COLLADA_TYPE::MATERIAL>
 	{
 	private:
 	

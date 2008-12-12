@@ -55,7 +55,8 @@ extern "C" __declspec ( dllexport ) const TCHAR* LibDescription()
 
 extern "C" __declspec ( dllexport ) int LibNumberClasses()
 {
-    return 2;
+	//return 1;
+	return 2;
 }
 
 extern "C" __declspec ( dllexport ) ClassDesc* LibClassDesc ( int i )

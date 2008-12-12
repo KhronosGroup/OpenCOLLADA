@@ -12,6 +12,7 @@
 #define __COLLADASAXFWL_PREREQUISITES_H__
 
 #include <string>
+#include <cassert>
 
 namespace COLLADASaxFWL
 {

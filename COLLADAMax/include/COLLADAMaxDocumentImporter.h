@@ -37,9 +37,12 @@ namespace COLLADAMax
 {
 	class DocumentImporter 	: COLLADAFW::IWriter
 	{
-	private:
+	public:
 		/** Maps Unique id to INodes.*/
 		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMap;
+
+		/** Maps Unique id to Objects.*/
+		typedef std::map<COLLADAFW::UniqueId, Object*> UniqueIdObjectMap;
 
 	private:
 		/** Max interface.*/
@@ -51,9 +54,15 @@ namespace COLLADAMax
 		/** File path of the COLLADA document to import.*/
 		NativeString mImportFilePath;
 		
-		/** Maps .*/
+		/** Maps the unique ids of objects (geometries, controllers,...) that are referenced by INodes to 
+		these referencing INodes. This map is being filled while importing the visual scene. It is 
+		required for objects that are referenced before they are imported.*/
 		UniqueIdINodeMap mUniqueIdINodeMap;
-	
+
+		/** Maps the unique ids of objects (geometries, controllers,...) to the created max object. This map 
+		is being filled while importing geometries. */
+		UniqueIdObjectMap mUniqueIdObjectMap;
+
 	public:
 		/** Constructor .
 		@param maxInterface The max interface.
@@ -71,9 +80,6 @@ namespace COLLADAMax
 
 		/** Returns the max interface.*/
 		ImpInterface* getMaxImportInterface() { return mMaxImportInterface; }
-
-		/** Returns the UniqueId INode Mapping.*/
-		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdINodeMap; }
 
 		/** Deletes the entire scene.
 		@param errorMessage A message containing informations about the error that occurred.
@@ -100,6 +106,14 @@ namespace COLLADAMax
 		DocumentImporter( const DocumentImporter& pre );
         /** Disable default assignment operator. */
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
+
+		/** Returns the UniqueId INode Mapping.*/
+		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdINodeMap; }
+
+		/** Returns the UniqueId object Mapping.*/
+		UniqueIdObjectMap& getUniqueIdObjectMap(){ return mUniqueIdObjectMap; }
+
+		friend class ImporterBase;
 
 	};
 

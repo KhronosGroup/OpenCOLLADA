@@ -14,6 +14,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWInstanceGeometry.h"
+#include "COLLADAFWArrayPrimitiveType.h"
 
 
 namespace COLLADABU
@@ -30,7 +31,7 @@ namespace COLLADAFW
 
 	class Node;
 
-	typedef Array<Node*> NodeArray;
+	typedef ArrayPrimitiveType<Node*> NodeArray;
 
 	class Node 	
 	{

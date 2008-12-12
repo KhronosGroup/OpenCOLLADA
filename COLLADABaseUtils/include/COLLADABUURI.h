@@ -156,7 +156,7 @@ namespace COLLADABU
 		* Constructs a URI object based on a simple copy from an existing @c URI.
 		* @param constructFromURI  URI to copy into this one.
 		*/
-		URI(const URI& constructFromURI);
+		URI(const URI& constructFromURI, bool nofrag = false);
 
 		/**
 		* Constructs an invalid URI object
@@ -321,6 +321,8 @@ namespace COLLADABU
 		/** Encodes the current URI (replace the special characters with %hexadecimal value). */
 		static String uriEncode ( const String & sSrc );
 
+		/* Comparison operator for use in maps.*/
+		bool operator<(const URI& rhs)const;
 
     private:
 
@@ -369,6 +371,9 @@ namespace COLLADABU
 		void setURI(String _URIString, const URI* baseURI);
 
     };
+
+
+	
 
 }
 

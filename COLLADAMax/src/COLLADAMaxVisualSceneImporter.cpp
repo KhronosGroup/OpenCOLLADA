@@ -34,9 +34,7 @@ namespace COLLADAMax
 	VisualSceneImporter::VisualSceneImporter( DocumentImporter* documentImporter, const COLLADAFW::VisualScene* visualScene )
 		:	ImporterBase(documentImporter),
 			mVisualScene(visualScene)
-	{
-
-	}
+	{}
 
     //------------------------------
 	VisualSceneImporter::~VisualSceneImporter()
@@ -145,6 +143,7 @@ namespace COLLADAMax
 
 			ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 			INode* newNode = newImportNode->GetINode();
+
 
 			// TODO remove this if we
 			newImportNode->Reference(mDummyGeoObject);

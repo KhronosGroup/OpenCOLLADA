@@ -177,10 +177,18 @@ namespace COLLADABU
 		set(uriStr, &baseURI);
 	}
 
-	URI::URI(const URI& copyFrom_) 
+	URI::URI(const URI& copyFrom_, bool nofrag) 
 	{
 		initialize();
-		copyFrom(copyFrom_);
+		const String& uriStr = copyFrom_.getURIString();
+		if (nofrag) {
+			size_t pos = uriStr.find_last_of('#');
+			if (pos != String::npos) {
+				set(uriStr.substr(0, pos));
+				return;
+			}
+		}
+		set(uriStr);
 	}
 
 	void URI::copyFrom(const URI& copyFrom)
@@ -898,6 +906,13 @@ namespace COLLADABU
 		filePath = URI::uriDecode ( filePath );
 
 		return filePath;
+	}
+
+	bool URI::operator<( const URI& rhs ) const
+	{
+		if ( getURIString() < rhs.getURIString() )
+			return true;
+		return false;
 	}
 
 }

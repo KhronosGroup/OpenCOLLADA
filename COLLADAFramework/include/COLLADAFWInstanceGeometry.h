@@ -12,7 +12,7 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAFW_INSTANCEGEOMETRY_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWArray.h"
+#include "COLLADAFWArrayPrimitiveType.h"
 #include "COLLADAFWUniqueId.h"
 
 
@@ -67,7 +67,7 @@ namespace COLLADAFW
 
 	};
 
-	typedef Array<InstanceGeometry*> InstanceGeometryArray;
+	typedef ArrayPrimitiveType<InstanceGeometry*> InstanceGeometryArray;
 
 } // namespace COLLADAFW
 
