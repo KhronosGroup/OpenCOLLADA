@@ -357,7 +357,7 @@ namespace GeneratedSaxParser
 	template<class DerivedClass>
 	bool ParserTemplate<DerivedClass>::characterData2BoolData( const ParserChar* text, size_t textLength, BoolDataFunctionPtr boolDataFunction )
 	{
-		return characterData2Data<short, Utils::toBool, &ParserTemplateBase::toBoolPrefix>(text, textLength, boolDataFunction);
+		return characterData2Data<bool, Utils::toBool, &ParserTemplateBase::toBoolPrefix>(text, textLength, boolDataFunction);
 	}
 
 

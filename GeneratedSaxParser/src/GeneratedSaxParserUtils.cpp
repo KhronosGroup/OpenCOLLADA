@@ -669,13 +669,13 @@ namespace GeneratedSaxParser
 		if ( *s == '1' )
 		{
 			failed = false;
-			(*buffer)++;
+			*buffer = s;
 			return true;
 		}
 		else if ( *s == '0' )
 		{
 			failed = false;
-			(*buffer)++;
+			*buffer = s;
 			return false;
 		}
 			

@@ -208,7 +208,7 @@ namespace GeneratedSaxParser
 		character after the last interpreted. 
 		@param bufferEnd the first character after the last in the buffer
 		@param failed False if conversion succeeded, true on failure.*/
-		short toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+		bool toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
 		/** Creates a new object of type @a DataType and sets the member variables to the default ones, using 
