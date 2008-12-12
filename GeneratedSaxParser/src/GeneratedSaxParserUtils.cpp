@@ -643,4 +643,45 @@ namespace GeneratedSaxParser
 		return false;
 	}
 
+	//--------------------------------------------------------------------
+	bool Utils::toBool( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed  )
+	{	
+		const ParserChar* s = *buffer;
+		if ( s == bufferEnd )
+		{
+			failed = true;
+			return true;
+		}
+
+		// Skip leading white spaces
+		while ( isWhiteSpace(*s) ) 
+		{
+			++s; 
+			if ( s == bufferEnd )
+			{
+				failed = true;
+				*buffer = bufferEnd;
+				return 0;
+			}
+		}
+
+
+		if ( *s == '1' )
+		{
+			failed = false;
+			(*buffer)++;
+			return true;
+		}
+		else if ( *s == '0' )
+		{
+			failed = false;
+			(*buffer)++;
+			return false;
+		}
+			
+		failed = true;
+		return false;
+	}
+
+
 } // namespace GeneratedSaxParser

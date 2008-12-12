@@ -307,6 +307,19 @@ namespace GeneratedSaxParser
 		@param failed False if conversion succeeded, true on failure.*/
 		static bool toBool(const ParserChar* buffer, bool& failed);
 
+		/** Converts the first string representing a bool within a ParserChar buffer to 
+		a bool and advances the character pointer to the first position after the last interpreted 
+		character. If buffer is set to bufferEnd, the end of the buffer was reached during conversion. 
+		In this case failed is always set to true.
+		@param buffer Pointer to the first character in the buffer. Will be set to the first 
+		character after the last interpreted. 
+		@param bufferEnd the first character after the last in the buffer
+		@param failed False if conversion succeeded, true on failure.*/
+		static bool toBool(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+
+
+
+
 	private:
         /** Disable default copy ctor. */
 		Utils( const Utils& pre );
