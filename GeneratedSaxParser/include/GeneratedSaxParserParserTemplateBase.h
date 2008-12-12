@@ -200,6 +200,16 @@ namespace GeneratedSaxParser
 		@param failed False if conversion succeeded, true on failure.*/
 		unsigned long long toUnsignedLongLongPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
+		/** Converts the first string representing a bool within a ParserChar buffer with prefixedBuffer 
+		prefixed to a bool and advances the character interpreted to the first position after the last 
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		during conversion. In this case failed is always set to true.
+		@param buffer Pointer to the first character in the buffer. Will be set to the first 
+		character after the last interpreted. 
+		@param bufferEnd the first character after the last in the buffer
+		@param failed False if conversion succeeded, true on failure.*/
+		short toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+
 
 		/** Creates a new object of type @a DataType and sets the member variables to the default ones, using 
 		a static member of type @a DataType called DEFAULT. @a data is set to the created object and @a dataPtr

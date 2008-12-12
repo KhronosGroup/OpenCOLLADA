@@ -49,6 +49,8 @@ namespace GeneratedSaxParser
 		typedef bool ( DerivedClass::*LongLongDataFunctionPtr ) (const long long* text, size_t textLength );
 		typedef bool ( DerivedClass::*UnsignedLongLongDataFunctionPtr ) (const unsigned long long* text, size_t textLength );
 
+		typedef bool ( DerivedClass::*BoolDataFunctionPtr ) (const bool* text, size_t textLength );
+
 	protected:
 		typedef bool ( DerivedClass::*ElementBeginFunctionPtr ) (void* attributeData );
 		typedef bool ( DerivedClass::*TextDataFunctionPtr ) (const ParserChar* text, size_t textLength );
@@ -135,6 +137,8 @@ namespace GeneratedSaxParser
 
 		bool characterData2LongLongData( const ParserChar* text, size_t textLength, LongLongDataFunctionPtr longLongDataFunction );
 		bool characterData2UnsignedLongLongData( const ParserChar* text, size_t textLength, UnsignedLongLongDataFunctionPtr unsignedLongLongDataFunction );
+
+		bool characterData2BoolData( const ParserChar* text, size_t textLength, BoolDataFunctionPtr boolDataFunction );
 
 		template<class DataType, DataType (*toData)( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 		bool dataEnd(bool ( DerivedClass::*dataFunction ) (const DataType* data, size_t dataLength ));
@@ -347,6 +351,13 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass>::characterData2UnsignedLongLongData( const ParserChar* text, size_t textLength, UnsignedLongLongDataFunctionPtr unsignedLongLongDataFunction )
 	{
 		return characterData2Data<unsigned long long, Utils::toUnsignedLongLong, &ParserTemplateBase::toUnsignedLongLongPrefix>(text, textLength, unsignedLongLongDataFunction);
+	}
+
+	//--------------------------------------------------------------------
+	template<class DerivedClass>
+	bool ParserTemplate<DerivedClass>::characterData2BoolData( const ParserChar* text, size_t textLength, BoolDataFunctionPtr boolDataFunction )
+	{
+		return characterData2Data<short, Utils::toBool, &ParserTemplateBase::toBoolPrefix>(text, textLength, boolDataFunction);
 	}
 
 
