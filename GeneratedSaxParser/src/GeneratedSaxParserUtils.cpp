@@ -661,7 +661,7 @@ namespace GeneratedSaxParser
 			{
 				failed = true;
 				*buffer = bufferEnd;
-				return 0;
+				return true;
 			}
 		}
 
@@ -669,14 +669,78 @@ namespace GeneratedSaxParser
 		if ( *s == '1' )
 		{
 			failed = false;
-			*buffer = s;
+			*buffer = s + 1;
 			return true;
 		}
 		else if ( *s == '0' )
 		{
 			failed = false;
-			*buffer = s;
+			*buffer = s + 1;
 			return false;
+		}
+		else if ( *s == 't' )
+		{
+			s++;
+			static const char* trueString = "rue";
+			const ParserChar* c = (const ParserChar* )trueString;
+			while (true)
+			{
+				if ( *c == '\0' )
+				{
+					failed = false;
+					*buffer = s;
+					return true;
+				}
+				if ( s == bufferEnd )
+				{
+					failed = true;
+					*buffer = bufferEnd;
+					return true;
+				}
+				if ( *s == *c)
+				{
+					s++;
+					c++;
+				}
+				else
+				{
+					failed = true;
+					*buffer = s;
+					return true;
+				}
+			}
+		}
+		else if ( *s == 'f' )
+		{
+			s++;
+			static const char* trueString = "alse";
+			const ParserChar* c = (const ParserChar* )trueString;
+			while (true)
+			{
+				if ( *c == '\0' )
+				{
+					failed = false;
+					*buffer = s;
+					return false;
+				}
+				if ( s == bufferEnd )
+				{
+					failed = true;
+					*buffer = bufferEnd;
+					return true;
+				}
+				if ( *s == *c)
+				{
+					s++;
+					c++;
+				}
+				else
+				{
+					failed = true;
+					*buffer = s;
+					return true;
+				}
+			}
 		}
 			
 		failed = true;
