@@ -32,6 +32,7 @@ namespace GeneratedSaxParser
 	public:
 
 		typedef bool ( DerivedClass::*FloatDataFunctionPtr ) (const float* text, size_t textLength );
+		typedef bool ( DerivedClass::*DoubleDataFunctionPtr ) (const double* text, size_t textLength );
 
 		typedef bool ( DerivedClass::*CharDataFunctionPtr ) (const char* text, size_t textLength );
 		typedef bool ( DerivedClass::*UnsignedCharDataFunctionPtr ) (const unsigned char* text, size_t textLength );
@@ -118,6 +119,7 @@ namespace GeneratedSaxParser
 		bool characterData2Data(const ParserChar* text, size_t textLength, bool ( DerivedClass::*dataFunction ) (const DataType* data, size_t dataLength ) );
 
 		bool characterData2FloatData( const ParserChar* text, size_t textLength, FloatDataFunctionPtr floatDataFunction );
+		bool characterData2DoubleData( const ParserChar* text, size_t textLength, DoubleDataFunctionPtr doubleDataFunction );
 
 		bool characterData2CharData( const ParserChar* text, size_t textLength, CharDataFunctionPtr charDataFunction );
 		bool characterData2UnsignedCharData( const ParserChar* text, size_t textLength, UnsignedCharDataFunctionPtr unsignedCharDataFunction );
@@ -266,6 +268,14 @@ namespace GeneratedSaxParser
 	bool ParserTemplate<DerivedClass>::characterData2FloatData( const ParserChar* text, size_t textLength, FloatDataFunctionPtr floatDataFunction )
 	{
 		return characterData2Data<float, Utils::toFloat, &ParserTemplateBase::toFloatPrefix>(text, textLength, floatDataFunction);
+	}
+
+
+	//--------------------------------------------------------------------
+	template<class DerivedClass>
+	bool ParserTemplate<DerivedClass>::characterData2DoubleData( const ParserChar* text, size_t textLength, DoubleDataFunctionPtr doubleDataFunction )
+	{
+		return characterData2Data<double, Utils::toDouble, &ParserTemplateBase::toDoublePrefix>(text, textLength, doubleDataFunction);
 	}
 
 

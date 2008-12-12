@@ -87,6 +87,17 @@ namespace GeneratedSaxParser
 		float toFloatPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
+		/** Converts the first string representing a double within a ParserChar buffer with prefixedBuffer 
+		prefixed to a double and advances the character pointer to the first position after the last 
+		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 
+		during conversion. In this case failed is always set to true.
+		@param buffer Pointer to the first character in the buffer. Will be set to the first 
+		character after the last interpreted. 
+		@param bufferEnd the first character after the last in the buffer
+		@param failed False if conversion succeeded, true on failure.*/
+		double toDoublePrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
+
+
 		/** Converts the first string representing a char within a ParserChar buffer with prefixedBuffer 
 		prefixed to a char and advances the character interpreted to the first position after the last 
 		interpreted character in buffer. If buffer is set to bufferEnd, the end of the buffer was reached 

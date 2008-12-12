@@ -280,14 +280,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\GeneratedSaxParserColladaParser.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\src\GeneratedSaxParserColladaParserAutoGen.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\GeneratedSaxParserCoutErrorHandler.cpp"
 				>
 			</File>
@@ -327,24 +319,12 @@
 				RelativePath="..\src\GeneratedSaxParserUtils.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\src\main.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\include\GeneratedSaxParserColladaParser.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\GeneratedSaxParserColladaParserAutoGen.h"
-				>
-			</File>
 			<File
 				RelativePath="..\include\GeneratedSaxParserCoutErrorHandler.h"
 				>

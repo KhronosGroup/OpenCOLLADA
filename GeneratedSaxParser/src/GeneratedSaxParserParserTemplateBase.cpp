@@ -23,6 +23,14 @@ namespace GeneratedSaxParser
 
 
 	//--------------------------------------------------------------------
+	double ParserTemplateBase::toDoublePrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	{
+		return toDataPrefix<double, Utils::toDouble>(prefixedBuffer, buffer, bufferEnd, failed);
+	}
+
+
+
+	//--------------------------------------------------------------------
 	char ParserTemplateBase::toCharPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
 		return toDataPrefix<char, Utils::toChar>(prefixedBuffer, buffer, bufferEnd, failed);
