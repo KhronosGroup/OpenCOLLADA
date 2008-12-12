@@ -1,3 +1,13 @@
+/*
+    Copyright (c) 2008 NetAllied Systems GmbH
+
+    This file is part of GeneratedSaxParser.
+
+    Licensed under the MIT Open Source License, 
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
 #ifndef __GENERATEDSAXPARSER_COLLADAPARSERTEMPLATE_H__
 #define __GENERATEDSAXPARSER_COLLADAPARSERTEMPLATE_H__
 
