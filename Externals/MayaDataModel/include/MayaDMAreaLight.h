@@ -1,0 +1,590 @@
+/*
+    Copyright (c) 2008 NetAllied Systems GmbH
+
+    This file is part of MayaDataModel.
+
+    Licensed under the MIT Open Source License,
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+#ifndef __MayaDM_AREALIGHT_H__
+#define __MayaDM_AREALIGHT_H__
+#include "MayaDMTypes.h"
+#include "MayaDMConnectables.h"
+#include "MayaDMNonExtendedLightShapeNode.h"
+namespace MayaDM
+{
+/*
+<p><pre>
+        This class contains the "shape" information for area lights.
+
+</pre></p>
+*/
+class AreaLight : public NonExtendedLightShapeNode
+{
+public:
+	/*This is a root of following mental ray attributes.*/
+	struct MentalRayControls{
+		bool miExportMrLight;
+		bool emitPhotons;
+		float3 energy;
+		float photonIntensity;
+		float exponent;
+		int causticPhotons;
+		int causticPhotonsEmit;
+		int globIllPhotons;
+		int globIllPhotonsEmit;
+		bool shadowMap;
+		int smapResolution;
+		short smapSamples;
+		float smapSoftness;
+		float smapBias;
+		string smapFilename;
+		bool smapLightName;
+		bool smapSceneName;
+		bool smapFrameExt;
+		bool smapDetail;
+		short smapDetailSamples;
+		float smapDetailAccuracy;
+		bool smapDetailAlpha;
+		/*This is a root of following mental ray attributes.*/
+		struct SmapWindow{
+			short smapWindowXMin;
+			short smapWindowYMin;
+			short smapWindowXMax;
+			short smapWindowYMax;
+			void write(FILE* file) const
+			{
+				fprintf_s(file,"%i ", smapWindowXMin);
+				fprintf_s(file,"%i ", smapWindowYMin);
+				fprintf_s(file,"%i ", smapWindowXMax);
+				fprintf_s(file,"%i", smapWindowYMax);
+			}
+		} smapWindow;
+		bool smapMerge;
+		bool smapTrace;
+		bool areaLight;
+		unsigned int areaType;
+		float areaShapeIntensity;
+		short areaHiSamples;
+		short areaHiSampleLimit;
+		short areaLoSamples;
+		bool areaVisible;
+		void write(FILE* file) const
+		{
+			fprintf_s(file,"%i ", miExportMrLight);
+			fprintf_s(file,"%i ", emitPhotons);
+			energy.write(file);
+			fprintf_s(file, " ");
+			fprintf_s(file,"%f ", photonIntensity);
+			fprintf_s(file,"%f ", exponent);
+			fprintf_s(file,"%i ", causticPhotons);
+			fprintf_s(file,"%i ", causticPhotonsEmit);
+			fprintf_s(file,"%i ", globIllPhotons);
+			fprintf_s(file,"%i ", globIllPhotonsEmit);
+			fprintf_s(file,"%i ", shadowMap);
+			fprintf_s(file,"%i ", smapResolution);
+			fprintf_s(file,"%i ", smapSamples);
+			fprintf_s(file,"%f ", smapSoftness);
+			fprintf_s(file,"%f ", smapBias);
+			smapFilename.write(file);
+			fprintf_s(file, " ");
+			fprintf_s(file,"%i ", smapLightName);
+			fprintf_s(file,"%i ", smapSceneName);
+			fprintf_s(file,"%i ", smapFrameExt);
+			fprintf_s(file,"%i ", smapDetail);
+			fprintf_s(file,"%i ", smapDetailSamples);
+			fprintf_s(file,"%f ", smapDetailAccuracy);
+			fprintf_s(file,"%i ", smapDetailAlpha);
+			smapWindow.write(file);
+			fprintf_s(file, " ");
+			fprintf_s(file,"%i ", smapMerge);
+			fprintf_s(file,"%i ", smapTrace);
+			fprintf_s(file,"%i ", areaLight);
+			fprintf_s(file,"%i ", areaType);
+			fprintf_s(file,"%f ", areaShapeIntensity);
+			fprintf_s(file,"%i ", areaHiSamples);
+			fprintf_s(file,"%i ", areaHiSampleLimit);
+			fprintf_s(file,"%i ", areaLoSamples);
+			fprintf_s(file,"%i ", areaVisible);
+		}
+	};
+public:
+	AreaLight(FILE* file,const std::string& name,const std::string& parent=""):NonExtendedLightShapeNode(file, name, parent, "areaLight"){}
+	virtual ~AreaLight(){}
+	/*Connect this to the light glow.*/
+	void setLightGlow(const MessageID& lg){fprintf_s(mFile,"connectAttr \"");lg.write(mFile);fprintf_s(mFile,"\" \"%s.lg\";\n",mName.c_str());}
+	/*The point to light in world space (for shadow maps).*/
+	void setPointWorld(const float3& pw){if(pw == float3(1.0, 1.0, 1.0)) return; fprintf_s(mFile, "setAttr \".pw\" -type \"float3\" ");pw.write(mFile);fprintf_s(mFile,";\n");}
+	/*The x-component of the world position.*/
+	void setPointWorldX(float tx){if(tx == 0.0) return; fprintf_s(mFile, "setAttr \".pw.tx\" %f;\n", tx);}
+	/*The y-component of the world position.*/
+	void setPointWorldY(float ty){if(ty == 0.0) return; fprintf_s(mFile, "setAttr \".pw.ty\" %f;\n", ty);}
+	/*The z-component of the world position.*/
+	void setPointWorldZ(float tz){if(tz == 0.0) return; fprintf_s(mFile, "setAttr \".pw.tz\" %f;\n", tz);}
+	/*
+	<b>Normal Camera</b> represents the surface normals in the
+	camera's space. These are used to calculate lighting.
+	*/
+	void setNormalCamera(const Float3ID& n){fprintf_s(mFile,"connectAttr \"");n.write(mFile);fprintf_s(mFile,"\" \"%s.n\";\n",mName.c_str());}
+	/*normal camera x value*/
+	void setNormalCameraX(const FloatID& nx){fprintf_s(mFile,"connectAttr \"");nx.write(mFile);fprintf_s(mFile,"\" \"%s.n.nx\";\n",mName.c_str());}
+	/*normal camera Y value*/
+	void setNormalCameraY(const FloatID& ny){fprintf_s(mFile,"connectAttr \"");ny.write(mFile);fprintf_s(mFile,"\" \"%s.n.ny\";\n",mName.c_str());}
+	/*normal camera Z value*/
+	void setNormalCameraZ(const FloatID& nz){fprintf_s(mFile,"connectAttr \"");nz.write(mFile);fprintf_s(mFile,"\" \"%s.n.nz\";\n",mName.c_str());}
+	/*The type of object being lit (volume or surface).*/
+	void setObjectType(char ot){if(ot == 1) return; fprintf_s(mFile, "setAttr \".ot\" %;\n", ot);}
+	/*This is a root of following mental ray attributes.*/
+	void setMentalRayControls(const MentalRayControls& mrc){fprintf_s(mFile, "setAttr \".mrc\" ");mrc.write(mFile);fprintf_s(mFile,";\n");}
+	/*This is a root of following mental ray attributes.*/
+	void setMentalRayControls(const MentalRayControlsID& mrc){fprintf_s(mFile,"connectAttr \"");mrc.write(mFile);fprintf_s(mFile,"\" \"%s.mrc\";\n",mName.c_str());}
+	/*
+	Controls usage of default mayabase light shader, which is used
+	by default. If enabled, the mayabase light shader will not be applied
+	at all but any connected custom mental ray node will.
+	*/
+	void setMiExportMrLight(bool milt){if(milt == false) return; fprintf_s(mFile, "setAttr \".mrc.milt\" %i;\n", milt);}
+	/*
+	Controls usage of default mayabase light shader, which is used
+	by default. If enabled, the mayabase light shader will not be applied
+	at all but any connected custom mental ray node will.
+	*/
+	void setMiExportMrLight(const BoolID& milt){fprintf_s(mFile,"connectAttr \"");milt.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.milt\";\n",mName.c_str());}
+	/*Port to connect custom mental ray node of type light shader.*/
+	void setMiLightShader(const GenerictypeddataID& mils){fprintf_s(mFile,"connectAttr \"");mils.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.mils\";\n",mName.c_str());}
+	/*Port to connect custom mental ray node of type photon emitter shader.*/
+	void setMiPhotonEmitter(const GenerictypeddataID& mipe){fprintf_s(mFile,"connectAttr \"");mipe.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.mipe\";\n",mName.c_str());}
+	/*Enable photon emission for the light.*/
+	void setEmitPhotons(bool phot){if(phot == false) return; fprintf_s(mFile, "setAttr \".mrc.phot\" %i;\n", phot);}
+	/*Enable photon emission for the light.*/
+	void setEmitPhotons(const BoolID& phot){fprintf_s(mFile,"connectAttr \"");phot.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.phot\";\n",mName.c_str());}
+	/*
+	Determines photon energy for the light.
+	<b>energy</b> is a product of <b>Photon color</b> and <b>Photon intensity</b>
+	<b>Photon Color</b> is available in UI only, and is not a real attribute.
+	*/
+	void setEnergy(const float3& eng){fprintf_s(mFile, "setAttr \".mrc.eng\" -type \"float3\" ");eng.write(mFile);fprintf_s(mFile,";\n");}
+	/*
+	Determines photon energy for the light.
+	<b>energy</b> is a product of <b>Photon color</b> and <b>Photon intensity</b>
+	<b>Photon Color</b> is available in UI only, and is not a real attribute.
+	*/
+	void setEnergy(const Float3ID& eng){fprintf_s(mFile,"connectAttr \"");eng.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.eng\";\n",mName.c_str());}
+	/*The red component of the photon energy*/
+	void setEnergyR(float engr){if(engr == 8000) return; fprintf_s(mFile, "setAttr \".mrc.eng.engr\" %f;\n", engr);}
+	/*The red component of the photon energy*/
+	void setEnergyR(const FloatID& engr){fprintf_s(mFile,"connectAttr \"");engr.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.eng.engr\";\n",mName.c_str());}
+	/*The green component of the photon energy*/
+	void setEnergyG(float engg){if(engg == 8000) return; fprintf_s(mFile, "setAttr \".mrc.eng.engg\" %f;\n", engg);}
+	/*The green component of the photon energy*/
+	void setEnergyG(const FloatID& engg){fprintf_s(mFile,"connectAttr \"");engg.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.eng.engg\";\n",mName.c_str());}
+	/*The blue component of the photon energy*/
+	void setEnergyB(float engb){if(engb == 8000) return; fprintf_s(mFile, "setAttr \".mrc.eng.engb\" %f;\n", engb);}
+	/*The blue component of the photon energy*/
+	void setEnergyB(const FloatID& engb){fprintf_s(mFile,"connectAttr \"");engb.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.eng.engb\";\n",mName.c_str());}
+	/*
+	Photon intensity factor for the photon energy color
+	to determine photon energy for the light.
+	Should be changed through the UI only.
+	*/
+	void setPhotonIntensity(float phi){if(phi == 1) return; fprintf_s(mFile, "setAttr \".mrc.phi\" %f;\n", phi);}
+	/*
+	Photon intensity factor for the photon energy color
+	to determine photon energy for the light.
+	Should be changed through the UI only.
+	*/
+	void setPhotonIntensity(const FloatID& phi){fprintf_s(mFile,"connectAttr \"");phi.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.phi\";\n",mName.c_str());}
+	/*
+	Photon energy falloff.
+	Values other than 2 produce non-physically correct indirect illumination.
+	*/
+	void setExponent(float exp){if(exp == 2) return; fprintf_s(mFile, "setAttr \".mrc.exp\" %f;\n", exp);}
+	/*
+	Photon energy falloff.
+	Values other than 2 produce non-physically correct indirect illumination.
+	*/
+	void setExponent(const FloatID& exp){fprintf_s(mFile,"connectAttr \"");exp.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.exp\";\n",mName.c_str());}
+	/*Caustic photons to emit (actually store) from the light.*/
+	void setCausticPhotons(int cph){if(cph == 10000) return; fprintf_s(mFile, "setAttr \".mrc.cph\" %i;\n", cph);}
+	/*Caustic photons to emit (actually store) from the light.*/
+	void setCausticPhotons(const IntID& cph){fprintf_s(mFile,"connectAttr \"");cph.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.cph\";\n",mName.c_str());}
+	/*Caustic photon emission*/
+	void setCausticPhotonsEmit(int cphe){if(cphe == 0) return; fprintf_s(mFile, "setAttr \".mrc.cphe\" %i;\n", cphe);}
+	/*Caustic photon emission*/
+	void setCausticPhotonsEmit(const IntID& cphe){fprintf_s(mFile,"connectAttr \"");cphe.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.cphe\";\n",mName.c_str());}
+	/*Global illumination photons to emit (actually store) from the light.*/
+	void setGlobIllPhotons(int gph){if(gph == 10000) return; fprintf_s(mFile, "setAttr \".mrc.gph\" %i;\n", gph);}
+	/*Global illumination photons to emit (actually store) from the light.*/
+	void setGlobIllPhotons(const IntID& gph){fprintf_s(mFile,"connectAttr \"");gph.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.gph\";\n",mName.c_str());}
+	/*Global illumination photon emission*/
+	void setGlobIllPhotonsEmit(int gphe){if(gphe == 0) return; fprintf_s(mFile, "setAttr \".mrc.gphe\" %i;\n", gphe);}
+	/*Global illumination photon emission*/
+	void setGlobIllPhotonsEmit(const IntID& gphe){fprintf_s(mFile,"connectAttr \"");gphe.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.gphe\";\n",mName.c_str());}
+	/*Turn on mental ray shadowmap creation for the light.*/
+	void setShadowMap(bool usm){if(usm == false) return; fprintf_s(mFile, "setAttr \".mrc.usm\" %i;\n", usm);}
+	/*Turn on mental ray shadowmap creation for the light.*/
+	void setShadowMap(const BoolID& usm){fprintf_s(mFile,"connectAttr \"");usm.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.usm\";\n",mName.c_str());}
+	/*Resolution (both width and height) of the shadowmap for mental ray.*/
+	void setSmapResolution(int smr){if(smr == 256) return; fprintf_s(mFile, "setAttr \".mrc.smr\" %i;\n", smr);}
+	/*Resolution (both width and height) of the shadowmap for mental ray.*/
+	void setSmapResolution(const IntID& smr){fprintf_s(mFile,"connectAttr \"");smr.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smr\";\n",mName.c_str());}
+	/*
+	Number of shadowmap samples to be taken if <b>smapSoftness</b> is greater zero.
+	mental ray only.
+	*/
+	void setSmapSamples(short smsa){if(smsa == 1) return; fprintf_s(mFile, "setAttr \".mrc.smsa\" %i;\n", smsa);}
+	/*
+	Number of shadowmap samples to be taken if <b>smapSoftness</b> is greater zero.
+	mental ray only.
+	*/
+	void setSmapSamples(const ShortID& smsa){fprintf_s(mFile,"connectAttr \"");smsa.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smsa\";\n",mName.c_str());}
+	/*
+	The mental ray shadowmap softness for the light.
+	If greater zero, oversampling will be used to produce blurry shadows.
+	*/
+	void setSmapSoftness(float smso){if(smso == 0) return; fprintf_s(mFile, "setAttr \".mrc.smso\" %f;\n", smso);}
+	/*
+	The mental ray shadowmap softness for the light.
+	If greater zero, oversampling will be used to produce blurry shadows.
+	*/
+	void setSmapSoftness(const FloatID& smso){fprintf_s(mFile,"connectAttr \"");smso.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smso\";\n",mName.c_str());}
+	/*
+	Controls mental ray shadow map bias. It is a factor on the internal bias value.
+	If <b>smapBias</b> is 0, the Woo algorithm (mid dist shadowmap) is enabled,
+	and the bias is not used.
+	*/
+	void setSmapBias(float smb){if(smb == 0) return; fprintf_s(mFile, "setAttr \".mrc.smb\" %f;\n", smb);}
+	/*
+	Controls mental ray shadow map bias. It is a factor on the internal bias value.
+	If <b>smapBias</b> is 0, the Woo algorithm (mid dist shadowmap) is enabled,
+	and the bias is not used.
+	*/
+	void setSmapBias(const FloatID& smb){fprintf_s(mFile,"connectAttr \"");smb.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smb\";\n",mName.c_str());}
+	/*For internal use only.*/
+	void setSmapCamera(const MessageID& smc){fprintf_s(mFile,"connectAttr \"");smc.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smc\";\n",mName.c_str());}
+	/*If not empty, enable shadowmap file creation with that name for mental ray.*/
+	void setSmapFilename(const string& smf){if(smf == "NULL") return; fprintf_s(mFile, "setAttr \".mrc.smf\" -type \"string\" ");smf.write(mFile);fprintf_s(mFile,";\n");}
+	/*If not empty, enable shadowmap file creation with that name for mental ray.*/
+	void setSmapFilename(const StringID& smf){fprintf_s(mFile,"connectAttr \"");smf.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smf\";\n",mName.c_str());}
+	/*Include the light name in the shadow map name.*/
+	void setSmapLightName(bool smln){if(smln == 0) return; fprintf_s(mFile, "setAttr \".mrc.smln\" %i;\n", smln);}
+	/*Include the light name in the shadow map name.*/
+	void setSmapLightName(const BoolID& smln){fprintf_s(mFile,"connectAttr \"");smln.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smln\";\n",mName.c_str());}
+	/*Include the scene name in the shadow map name.*/
+	void setSmapSceneName(bool smsn){if(smsn == 0) return; fprintf_s(mFile, "setAttr \".mrc.smsn\" %i;\n", smsn);}
+	/*Include the scene name in the shadow map name.*/
+	void setSmapSceneName(const BoolID& smsn){fprintf_s(mFile,"connectAttr \"");smsn.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smsn\";\n",mName.c_str());}
+	/*Include the frame extention in the shadow map name.*/
+	void setSmapFrameExt(bool smfe){if(smfe == 0) return; fprintf_s(mFile, "setAttr \".mrc.smfe\" %i;\n", smfe);}
+	/*Include the frame extention in the shadow map name.*/
+	void setSmapFrameExt(const BoolID& smfe){fprintf_s(mFile,"connectAttr \"");smfe.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smfe\";\n",mName.c_str());}
+	/*
+	Use mental ray detail shadow map for this light.
+	<b>shadowMap</b> must be enabled.
+	This algorithm is a combination of standard shadowmaps and ray traced shadows.
+	Unlike standard shadowmaps, the detail shadowmap algorithm invokes shadow shaders
+	at intersection points with shadow-casting geometry
+	In general, detail shadowmaps need less resolution than standard shadowmaps,
+	since they may take more samples per pixel.
+	Still, detail shadowmaps tend to be more expensive to compute than standard shadowmaps
+	because of the shadow shader calls.
+	They may even be more expensive than raytraced shadows.
+	However, their cost may be offset by repeated reuse over several frames.
+	They may also be more efficient with time and memory resources than raytraced shadows for motion blurred shadows.
+	The file format used to store detail shadowmaps is incompatible with the file format used to store regular shadowmaps.
+	The entire file format is tile-based and only those tiles computed or used during a rendering will be stored in the file.
+	New tiles may be dynamically added during rendering of new frames.
+	Detail shadowmap files tend to be larger than regular shadowmap files since more information per pixel is stored.
+	*/
+	void setSmapDetail(bool smd){if(smd == 0) return; fprintf_s(mFile, "setAttr \".mrc.smd\" %i;\n", smd);}
+	/*
+	Use mental ray detail shadow map for this light.
+	<b>shadowMap</b> must be enabled.
+	This algorithm is a combination of standard shadowmaps and ray traced shadows.
+	Unlike standard shadowmaps, the detail shadowmap algorithm invokes shadow shaders
+	at intersection points with shadow-casting geometry
+	In general, detail shadowmaps need less resolution than standard shadowmaps,
+	since they may take more samples per pixel.
+	Still, detail shadowmaps tend to be more expensive to compute than standard shadowmaps
+	because of the shadow shader calls.
+	They may even be more expensive than raytraced shadows.
+	However, their cost may be offset by repeated reuse over several frames.
+	They may also be more efficient with time and memory resources than raytraced shadows for motion blurred shadows.
+	The file format used to store detail shadowmaps is incompatible with the file format used to store regular shadowmaps.
+	The entire file format is tile-based and only those tiles computed or used during a rendering will be stored in the file.
+	New tiles may be dynamically added during rendering of new frames.
+	Detail shadowmap files tend to be larger than regular shadowmap files since more information per pixel is stored.
+	*/
+	void setSmapDetail(const BoolID& smd){fprintf_s(mFile,"connectAttr \"");smd.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smd\";\n",mName.c_str());}
+	/*
+	Specify the number of samples per pixel taken when computing a mental ray detail shadowmap pixel.
+	A value of  <b>n</b> means that nxn samples are taken per pixel,
+	each involving a shadow intersection
+	including a shadow shader call at some varying subpixel coordinate inside the shadowmap pixel.
+	If <b>smapDetailSamples</b> is set to 0, mental ray default value is used.
+	*/
+	void setSmapDetailSamples(short sds){if(sds == 0) return; fprintf_s(mFile, "setAttr \".mrc.sds\" %i;\n", sds);}
+	/*
+	Specify the number of samples per pixel taken when computing a mental ray detail shadowmap pixel.
+	A value of  <b>n</b> means that nxn samples are taken per pixel,
+	each involving a shadow intersection
+	including a shadow shader call at some varying subpixel coordinate inside the shadowmap pixel.
+	If <b>smapDetailSamples</b> is set to 0, mental ray default value is used.
+	*/
+	void setSmapDetailSamples(const ShortID& sds){fprintf_s(mFile,"connectAttr \"");sds.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.sds\";\n",mName.c_str());}
+	/*
+	This parameter determines how far two depth values of a sample
+	have to be separated in order to be considered two distinct values.
+	Selecting this value too small will result in larger memory
+	and compute resource requirements for detail shadowmaps.
+	Selecting it too large will lead to visible artifacts.
+	mental ray tries to use a reasonable default value for the accuracy.
+	If <b>smapDetailAccuracy</b> is set to 0, mental ray default value is used.
+	*/
+	void setSmapDetailAccuracy(float sdac){if(sdac == 0) return; fprintf_s(mFile, "setAttr \".mrc.sdac\" %f;\n", sdac);}
+	/*
+	This parameter determines how far two depth values of a sample
+	have to be separated in order to be considered two distinct values.
+	Selecting this value too small will result in larger memory
+	and compute resource requirements for detail shadowmaps.
+	Selecting it too large will lead to visible artifacts.
+	mental ray tries to use a reasonable default value for the accuracy.
+	If <b>smapDetailAccuracy</b> is set to 0, mental ray default value is used.
+	*/
+	void setSmapDetailAccuracy(const FloatID& sdac){fprintf_s(mFile,"connectAttr \"");sdac.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.sdac\";\n",mName.c_str());}
+	/*
+	If <b>smapDetailAlpha</b> is set,
+	then only the intensity values of the color transmission coeffiencents are used.
+	*/
+	void setSmapDetailAlpha(bool sdal){if(sdal == 0) return; fprintf_s(mFile, "setAttr \".mrc.sdal\" %i;\n", sdal);}
+	/*
+	If <b>smapDetailAlpha</b> is set,
+	then only the intensity values of the color transmission coeffiencents are used.
+	*/
+	void setSmapDetailAlpha(const BoolID& sdal){fprintf_s(mFile,"connectAttr \"");sdal.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.sdal\";\n",mName.c_str());}
+	/*This is a root of following mental ray attributes.*/
+	void setSmapWindow(const MentalRayControls::SmapWindow& smw){fprintf_s(mFile, "setAttr \".mrc.smw\" ");smw.write(mFile);fprintf_s(mFile,";\n");}
+	/*This is a root of following mental ray attributes.*/
+	void setSmapWindow(const SmapWindowID& smw){fprintf_s(mFile,"connectAttr \"");smw.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smw\";\n",mName.c_str());}
+	/*Min x-value of the window*/
+	void setSmapWindowXMin(short smxl){if(smxl == 0) return; fprintf_s(mFile, "setAttr \".mrc.smw.smxl\" %i;\n", smxl);}
+	/*Min x-value of the window*/
+	void setSmapWindowXMin(const ShortID& smxl){fprintf_s(mFile,"connectAttr \"");smxl.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smw.smxl\";\n",mName.c_str());}
+	/*Min y-value of the window*/
+	void setSmapWindowYMin(short smyl){if(smyl == 0) return; fprintf_s(mFile, "setAttr \".mrc.smw.smyl\" %i;\n", smyl);}
+	/*Min y-value of the window*/
+	void setSmapWindowYMin(const ShortID& smyl){fprintf_s(mFile,"connectAttr \"");smyl.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smw.smyl\";\n",mName.c_str());}
+	/*Max x-value of the window*/
+	void setSmapWindowXMax(short smxh){if(smxh == 0) return; fprintf_s(mFile, "setAttr \".mrc.smw.smxh\" %i;\n", smxh);}
+	/*Max x-value of the window*/
+	void setSmapWindowXMax(const ShortID& smxh){fprintf_s(mFile,"connectAttr \"");smxh.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smw.smxh\";\n",mName.c_str());}
+	/*Max y-value of the window*/
+	void setSmapWindowYMax(short smyh){if(smyh == 0) return; fprintf_s(mFile, "setAttr \".mrc.smw.smyh\" %i;\n", smyh);}
+	/*Max y-value of the window*/
+	void setSmapWindowYMax(const ShortID& smyh){fprintf_s(mFile,"connectAttr \"");smyh.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smw.smyh\";\n",mName.c_str());}
+	/*Shadow map merge*/
+	void setSmapMerge(bool smm){if(smm == 0) return; fprintf_s(mFile, "setAttr \".mrc.smm\" %i;\n", smm);}
+	/*Shadow map merge*/
+	void setSmapMerge(const BoolID& smm){fprintf_s(mFile,"connectAttr \"");smm.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smm\";\n",mName.c_str());}
+	/*Shadow map trace*/
+	void setSmapTrace(bool smt){if(smt == 0) return; fprintf_s(mFile, "setAttr \".mrc.smt\" %i;\n", smt);}
+	/*Shadow map trace*/
+	void setSmapTrace(const BoolID& smt){fprintf_s(mFile,"connectAttr \"");smt.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.smt\";\n",mName.c_str());}
+	/*Enable mental ray area light attributes for the light.*/
+	void setAreaLight(bool algt){if(algt == false) return; fprintf_s(mFile, "setAttr \".mrc.algt\" %i;\n", algt);}
+	/*Enable mental ray area light attributes for the light.*/
+	void setAreaLight(const BoolID& algt){fprintf_s(mFile,"connectAttr \"");algt.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.algt\";\n",mName.c_str());}
+	/*Type to determine the shape of the area light.*/
+	void setAreaType(unsigned int atyp){if(atyp == 0) return; fprintf_s(mFile, "setAttr \".mrc.atyp\" %i;\n", atyp);}
+	/*Type to determine the shape of the area light.*/
+	void setAreaType(const UnsignedintID& atyp){fprintf_s(mFile,"connectAttr \"");atyp.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.atyp\";\n",mName.c_str());}
+	/*Area light shape intensity*/
+	void setAreaShapeIntensity(float alsi){if(alsi == 1.0) return; fprintf_s(mFile, "setAttr \".mrc.alsi\" %f;\n", alsi);}
+	/*Area light shape intensity*/
+	void setAreaShapeIntensity(const FloatID& alsi){fprintf_s(mFile,"connectAttr \"");alsi.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.alsi\";\n",mName.c_str());}
+	/*Area light high samples*/
+	void setAreaHiSamples(short ahs){if(ahs == 8) return; fprintf_s(mFile, "setAttr \".mrc.ahs\" %i;\n", ahs);}
+	/*Area light high samples*/
+	void setAreaHiSamples(const ShortID& ahs){fprintf_s(mFile,"connectAttr \"");ahs.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.ahs\";\n",mName.c_str());}
+	/*Area light high sample limit*/
+	void setAreaHiSampleLimit(short alev){if(alev == 1) return; fprintf_s(mFile, "setAttr \".mrc.alev\" %i;\n", alev);}
+	/*Area light high sample limit*/
+	void setAreaHiSampleLimit(const ShortID& alev){fprintf_s(mFile,"connectAttr \"");alev.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.alev\";\n",mName.c_str());}
+	/*Area light low samples*/
+	void setAreaLoSamples(short als){if(als == 1) return; fprintf_s(mFile, "setAttr \".mrc.als\" %i;\n", als);}
+	/*Area light low samples*/
+	void setAreaLoSamples(const ShortID& als){fprintf_s(mFile,"connectAttr \"");als.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.als\";\n",mName.c_str());}
+	/*Area light low sample limit*/
+	void setAreaVisible(bool avis){if(avis == 0) return; fprintf_s(mFile, "setAttr \".mrc.avis\" %i;\n", avis);}
+	/*Area light low sample limit*/
+	void setAreaVisible(const BoolID& avis){fprintf_s(mFile,"connectAttr \"");avis.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.avis\";\n",mName.c_str());}
+	/*Area light object*/
+	void setAreaObject(const MessageID& aobj){fprintf_s(mFile,"connectAttr \"");aobj.write(mFile);fprintf_s(mFile,"\" \"%s.mrc.aobj\";\n",mName.c_str());}
+	/*Connect this to the light glow.*/
+	MessageID getLightGlow(){char buffer[4096];sprintf_s (buffer, "%s.lg",mName.c_str());return (const char*)buffer;}
+	/*
+	<b>Normal Camera</b> represents the surface normals in the
+	camera's space. These are used to calculate lighting.
+	*/
+	Float3ID getNormalCamera(){char buffer[4096];sprintf_s (buffer, "%s.n",mName.c_str());return (const char*)buffer;}
+	/*normal camera x value*/
+	FloatID getNormalCameraX(){char buffer[4096];sprintf_s (buffer, "%s.n.nx",mName.c_str());return (const char*)buffer;}
+	/*normal camera Y value*/
+	FloatID getNormalCameraY(){char buffer[4096];sprintf_s (buffer, "%s.n.ny",mName.c_str());return (const char*)buffer;}
+	/*normal camera Z value*/
+	FloatID getNormalCameraZ(){char buffer[4096];sprintf_s (buffer, "%s.n.nz",mName.c_str());return (const char*)buffer;}
+	/*This is a root of following mental ray attributes.*/
+	MentalRayControlsID getMentalRayControls(){char buffer[4096];sprintf_s (buffer, "%s.mrc",mName.c_str());return (const char*)buffer;}
+	/*
+	Controls usage of default mayabase light shader, which is used
+	by default. If enabled, the mayabase light shader will not be applied
+	at all but any connected custom mental ray node will.
+	*/
+	BoolID getMiExportMrLight(){char buffer[4096];sprintf_s (buffer, "%s.mrc.milt",mName.c_str());return (const char*)buffer;}
+	/*Port to connect custom mental ray node of type light shader.*/
+	GenerictypeddataID getMiLightShader(){char buffer[4096];sprintf_s (buffer, "%s.mrc.mils",mName.c_str());return (const char*)buffer;}
+	/*Port to connect custom mental ray node of type photon emitter shader.*/
+	GenerictypeddataID getMiPhotonEmitter(){char buffer[4096];sprintf_s (buffer, "%s.mrc.mipe",mName.c_str());return (const char*)buffer;}
+	/*Enable photon emission for the light.*/
+	BoolID getEmitPhotons(){char buffer[4096];sprintf_s (buffer, "%s.mrc.phot",mName.c_str());return (const char*)buffer;}
+	/*
+	Determines photon energy for the light.
+	<b>energy</b> is a product of <b>Photon color</b> and <b>Photon intensity</b>
+	<b>Photon Color</b> is available in UI only, and is not a real attribute.
+	*/
+	Float3ID getEnergy(){char buffer[4096];sprintf_s (buffer, "%s.mrc.eng",mName.c_str());return (const char*)buffer;}
+	/*The red component of the photon energy*/
+	FloatID getEnergyR(){char buffer[4096];sprintf_s (buffer, "%s.mrc.eng.engr",mName.c_str());return (const char*)buffer;}
+	/*The green component of the photon energy*/
+	FloatID getEnergyG(){char buffer[4096];sprintf_s (buffer, "%s.mrc.eng.engg",mName.c_str());return (const char*)buffer;}
+	/*The blue component of the photon energy*/
+	FloatID getEnergyB(){char buffer[4096];sprintf_s (buffer, "%s.mrc.eng.engb",mName.c_str());return (const char*)buffer;}
+	/*
+	Photon intensity factor for the photon energy color
+	to determine photon energy for the light.
+	Should be changed through the UI only.
+	*/
+	FloatID getPhotonIntensity(){char buffer[4096];sprintf_s (buffer, "%s.mrc.phi",mName.c_str());return (const char*)buffer;}
+	/*
+	Photon energy falloff.
+	Values other than 2 produce non-physically correct indirect illumination.
+	*/
+	FloatID getExponent(){char buffer[4096];sprintf_s (buffer, "%s.mrc.exp",mName.c_str());return (const char*)buffer;}
+	/*Caustic photons to emit (actually store) from the light.*/
+	IntID getCausticPhotons(){char buffer[4096];sprintf_s (buffer, "%s.mrc.cph",mName.c_str());return (const char*)buffer;}
+	/*Caustic photon emission*/
+	IntID getCausticPhotonsEmit(){char buffer[4096];sprintf_s (buffer, "%s.mrc.cphe",mName.c_str());return (const char*)buffer;}
+	/*Global illumination photons to emit (actually store) from the light.*/
+	IntID getGlobIllPhotons(){char buffer[4096];sprintf_s (buffer, "%s.mrc.gph",mName.c_str());return (const char*)buffer;}
+	/*Global illumination photon emission*/
+	IntID getGlobIllPhotonsEmit(){char buffer[4096];sprintf_s (buffer, "%s.mrc.gphe",mName.c_str());return (const char*)buffer;}
+	/*Turn on mental ray shadowmap creation for the light.*/
+	BoolID getShadowMap(){char buffer[4096];sprintf_s (buffer, "%s.mrc.usm",mName.c_str());return (const char*)buffer;}
+	/*Resolution (both width and height) of the shadowmap for mental ray.*/
+	IntID getSmapResolution(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smr",mName.c_str());return (const char*)buffer;}
+	/*
+	Number of shadowmap samples to be taken if <b>smapSoftness</b> is greater zero.
+	mental ray only.
+	*/
+	ShortID getSmapSamples(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smsa",mName.c_str());return (const char*)buffer;}
+	/*
+	The mental ray shadowmap softness for the light.
+	If greater zero, oversampling will be used to produce blurry shadows.
+	*/
+	FloatID getSmapSoftness(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smso",mName.c_str());return (const char*)buffer;}
+	/*
+	Controls mental ray shadow map bias. It is a factor on the internal bias value.
+	If <b>smapBias</b> is 0, the Woo algorithm (mid dist shadowmap) is enabled,
+	and the bias is not used.
+	*/
+	FloatID getSmapBias(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smb",mName.c_str());return (const char*)buffer;}
+	/*For internal use only.*/
+	MessageID getSmapCamera(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smc",mName.c_str());return (const char*)buffer;}
+	/*If not empty, enable shadowmap file creation with that name for mental ray.*/
+	StringID getSmapFilename(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smf",mName.c_str());return (const char*)buffer;}
+	/*Include the light name in the shadow map name.*/
+	BoolID getSmapLightName(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smln",mName.c_str());return (const char*)buffer;}
+	/*Include the scene name in the shadow map name.*/
+	BoolID getSmapSceneName(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smsn",mName.c_str());return (const char*)buffer;}
+	/*Include the frame extention in the shadow map name.*/
+	BoolID getSmapFrameExt(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smfe",mName.c_str());return (const char*)buffer;}
+	/*
+	Use mental ray detail shadow map for this light.
+	<b>shadowMap</b> must be enabled.
+	This algorithm is a combination of standard shadowmaps and ray traced shadows.
+	Unlike standard shadowmaps, the detail shadowmap algorithm invokes shadow shaders
+	at intersection points with shadow-casting geometry
+	In general, detail shadowmaps need less resolution than standard shadowmaps,
+	since they may take more samples per pixel.
+	Still, detail shadowmaps tend to be more expensive to compute than standard shadowmaps
+	because of the shadow shader calls.
+	They may even be more expensive than raytraced shadows.
+	However, their cost may be offset by repeated reuse over several frames.
+	They may also be more efficient with time and memory resources than raytraced shadows for motion blurred shadows.
+	The file format used to store detail shadowmaps is incompatible with the file format used to store regular shadowmaps.
+	The entire file format is tile-based and only those tiles computed or used during a rendering will be stored in the file.
+	New tiles may be dynamically added during rendering of new frames.
+	Detail shadowmap files tend to be larger than regular shadowmap files since more information per pixel is stored.
+	*/
+	BoolID getSmapDetail(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smd",mName.c_str());return (const char*)buffer;}
+	/*
+	Specify the number of samples per pixel taken when computing a mental ray detail shadowmap pixel.
+	A value of  <b>n</b> means that nxn samples are taken per pixel,
+	each involving a shadow intersection
+	including a shadow shader call at some varying subpixel coordinate inside the shadowmap pixel.
+	If <b>smapDetailSamples</b> is set to 0, mental ray default value is used.
+	*/
+	ShortID getSmapDetailSamples(){char buffer[4096];sprintf_s (buffer, "%s.mrc.sds",mName.c_str());return (const char*)buffer;}
+	/*
+	This parameter determines how far two depth values of a sample
+	have to be separated in order to be considered two distinct values.
+	Selecting this value too small will result in larger memory
+	and compute resource requirements for detail shadowmaps.
+	Selecting it too large will lead to visible artifacts.
+	mental ray tries to use a reasonable default value for the accuracy.
+	If <b>smapDetailAccuracy</b> is set to 0, mental ray default value is used.
+	*/
+	FloatID getSmapDetailAccuracy(){char buffer[4096];sprintf_s (buffer, "%s.mrc.sdac",mName.c_str());return (const char*)buffer;}
+	/*
+	If <b>smapDetailAlpha</b> is set,
+	then only the intensity values of the color transmission coeffiencents are used.
+	*/
+	BoolID getSmapDetailAlpha(){char buffer[4096];sprintf_s (buffer, "%s.mrc.sdal",mName.c_str());return (const char*)buffer;}
+	/*This is a root of following mental ray attributes.*/
+	SmapWindowID getSmapWindow(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smw",mName.c_str());return (const char*)buffer;}
+	/*Min x-value of the window*/
+	ShortID getSmapWindowXMin(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smw.smxl",mName.c_str());return (const char*)buffer;}
+	/*Min y-value of the window*/
+	ShortID getSmapWindowYMin(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smw.smyl",mName.c_str());return (const char*)buffer;}
+	/*Max x-value of the window*/
+	ShortID getSmapWindowXMax(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smw.smxh",mName.c_str());return (const char*)buffer;}
+	/*Max y-value of the window*/
+	ShortID getSmapWindowYMax(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smw.smyh",mName.c_str());return (const char*)buffer;}
+	/*Shadow map merge*/
+	BoolID getSmapMerge(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smm",mName.c_str());return (const char*)buffer;}
+	/*Shadow map trace*/
+	BoolID getSmapTrace(){char buffer[4096];sprintf_s (buffer, "%s.mrc.smt",mName.c_str());return (const char*)buffer;}
+	/*Enable mental ray area light attributes for the light.*/
+	BoolID getAreaLight(){char buffer[4096];sprintf_s (buffer, "%s.mrc.algt",mName.c_str());return (const char*)buffer;}
+	/*Type to determine the shape of the area light.*/
+	UnsignedintID getAreaType(){char buffer[4096];sprintf_s (buffer, "%s.mrc.atyp",mName.c_str());return (const char*)buffer;}
+	/*Area light shape intensity*/
+	FloatID getAreaShapeIntensity(){char buffer[4096];sprintf_s (buffer, "%s.mrc.alsi",mName.c_str());return (const char*)buffer;}
+	/*Area light high samples*/
+	ShortID getAreaHiSamples(){char buffer[4096];sprintf_s (buffer, "%s.mrc.ahs",mName.c_str());return (const char*)buffer;}
+	/*Area light high sample limit*/
+	ShortID getAreaHiSampleLimit(){char buffer[4096];sprintf_s (buffer, "%s.mrc.alev",mName.c_str());return (const char*)buffer;}
+	/*Area light low samples*/
+	ShortID getAreaLoSamples(){char buffer[4096];sprintf_s (buffer, "%s.mrc.als",mName.c_str());return (const char*)buffer;}
+	/*Area light low sample limit*/
+	BoolID getAreaVisible(){char buffer[4096];sprintf_s (buffer, "%s.mrc.avis",mName.c_str());return (const char*)buffer;}
+	/*Area light object*/
+	MessageID getAreaObject(){char buffer[4096];sprintf_s (buffer, "%s.mrc.aobj",mName.c_str());return (const char*)buffer;}
+protected:
+	AreaLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NonExtendedLightShapeNode(file, name, parent, nodeType) {}
+private:
+
+};
+}//namespace MayaDM
+#endif//__MayaDM_AREALIGHT_H__
