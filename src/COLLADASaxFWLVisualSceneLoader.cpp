@@ -238,5 +238,23 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	bool VisualSceneLoader::begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData )
+	{
+		COLLADAFW::Node* currentNode = mNodeStack.top();
 
+/*		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueId(colladaGeometry, COLLADAFW::Geometry::getClassId());
+
+		COLLADAFW::InstanceGeometry* instanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
+
+		currentNode->getInstanceGeometries().append(instanceGeometry);
+
+		return true;
+*/
+		return true;
+	}
+
+	bool VisualSceneLoader::end__node__instance_geometry()
+	{
+		return true;
+	}
 } // namespace COLLADASaxFWL

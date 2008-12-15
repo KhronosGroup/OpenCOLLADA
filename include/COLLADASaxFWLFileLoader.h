@@ -63,7 +63,7 @@ namespace COLLADASaxFWL
         /** Constructor.
 		@param colladaLoader The collada loader this file loader is being used by. Used to retrieve document 
 		global properties.
-		@param fileName The name of the file to be loaded.*/
+		@param fileURI The name of the file to be loaded.*/
 		FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI );
 
         /** Destructor. */
@@ -74,6 +74,10 @@ namespace COLLADASaxFWL
 
 		/** Loads the data into the frame work data model.*/
 		bool load();
+
+		/** Returns the absolute uri of the currently parsed file*/
+		const COLLADABU::URI& getFileUri();
+
 
 
 	protected:
@@ -98,7 +102,7 @@ namespace COLLADASaxFWL
 
 		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method, 
 		when creating a new FilePartLoader and switching to it.*/
-		void deletePartLoader();
+		void deleteFilePartLoader();
 
 	};
 	

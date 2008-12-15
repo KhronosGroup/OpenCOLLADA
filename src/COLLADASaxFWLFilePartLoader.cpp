@@ -30,8 +30,13 @@ namespace COLLADASaxFWL
 
 	void FilePartLoader::finish()
 	{
-		mCallingFilePartLoader->changeParserToMe();
+		mCallingFilePartLoader->setMeAsParser();
 	}
-	
+
+	const COLLADABU::URI& FilePartLoader::getFileUri()
+	{
+		return mCallingFilePartLoader->getFileUri();
+	}
+
 
 } // namespace COLLADASaxFWL
