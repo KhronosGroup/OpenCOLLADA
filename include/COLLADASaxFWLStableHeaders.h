@@ -21,4 +21,6 @@
 #include <String>
 #include <iostream>
 
+#include "COLLADASaxFWLColladaParserAutoGen.h"
+
 #endif //__COLLADASAXFWL_STABLE_HEADERS_H__

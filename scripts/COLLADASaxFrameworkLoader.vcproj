@@ -304,6 +304,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenNameMap.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLFileLoader.cpp"
 				>
 			</File>
