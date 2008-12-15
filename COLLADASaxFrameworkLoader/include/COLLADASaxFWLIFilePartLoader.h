@@ -31,7 +31,7 @@ namespace COLLADASaxFWL
 {
 	class Loader;
 
-    /** Base class for all loaders that load parts of fiels or entire files */
+    /** Base class for all loaders that load parts of files or entire files */
 	class IFilePartLoader : protected ColladaParserAutoGen
 	{
 	public:
@@ -55,6 +55,9 @@ namespace COLLADASaxFWL
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
 		virtual void setMeAsParser()=0;
+
+		/** Returns the absolute uri of the currently parsed file*/
+		virtual const COLLADABU::URI& getFileUri()=0;
 
 
 	public:

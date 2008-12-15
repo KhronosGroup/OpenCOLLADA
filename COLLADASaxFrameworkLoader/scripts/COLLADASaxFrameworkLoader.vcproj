@@ -296,15 +296,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGen.cpp"
+				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivate.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenFunctionMap.cpp"
+				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivateFunctionMap.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenNameMap.cpp"
+				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivateNameMap.cpp"
 				>
 			</File>
 			<File
@@ -362,7 +362,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenData.h"
+				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenAttributes.h"
 				>
 			</File>
 			<File

@@ -47,6 +47,10 @@ namespace COLLADASaxFWL
 		the part of the model and cannot handle the next sax callback .*/
 		void finish();
 
+		/** Returns the absolute uri of the currently parsed file*/
+		const COLLADABU::URI& getFileUri();
+
+
 
 	private:
 

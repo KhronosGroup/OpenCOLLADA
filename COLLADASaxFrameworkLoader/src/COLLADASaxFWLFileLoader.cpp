@@ -33,7 +33,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	FileLoader::~FileLoader()
 	{
-		deletePartLoader();
+		deleteFilePartLoader();
 	}
 
 	//-----------------------------
@@ -46,7 +46,7 @@ namespace COLLADASaxFWL
 	//-----------------------------
 	bool FileLoader::begin__visual_scene( const visual_scene__AttributeData& attributeData )
 	{
-		deletePartLoader();
+		deleteFilePartLoader();
 		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this);
 		mPartLoader = visualSceneLoader;
 		setCallbackObject(visualSceneLoader);
@@ -60,7 +60,7 @@ namespace COLLADASaxFWL
 		setCallbackObject(this);
 	}
 
-	void FileLoader::deletePartLoader()
+	void FileLoader::deleteFilePartLoader()
 	{
 		if ( mDeletePartLoader )
 		{
@@ -68,5 +68,10 @@ namespace COLLADASaxFWL
 			mPartLoader = 0;
 			mDeletePartLoader = false;
 		}
+	}
+
+	const COLLADABU::URI& FileLoader::getFileUri()
+	{
+		return mFileURI;
 	}
 } // namespace COLLADASaxFWL
