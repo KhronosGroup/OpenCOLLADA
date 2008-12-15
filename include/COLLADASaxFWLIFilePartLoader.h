@@ -54,7 +54,7 @@ namespace COLLADASaxFWL
 		const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri, COLLADAFW::ClassId classId);
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
-		virtual void changeParserToMe()=0;
+		virtual void setMeAsParser()=0;
 
 
 	public:

@@ -21,43 +21,52 @@ namespace COLLADASaxFWL
 
     //-----------------------------
 	FileLoader::FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI)
-         : mColladaLoader(colladaLoader),
+         : ColladaParserAutoGenPrivate(this),
+		 mColladaLoader(colladaLoader),
 		 mFileURI(fileURI),
-		 mLibxmlSaxParse(0),
-		 mPartLoader(0)
+		 mLibxmlSaxParse(this),
+		 mPartLoader(0),
+		 mDeletePartLoader(false)
 	{
-		mLibxmlSaxParse.changeParser(this);
 	}
 	
 	//-----------------------------
 	FileLoader::~FileLoader()
 	{
+		deletePartLoader();
 	}
 
 	//-----------------------------
 	bool FileLoader::load()
 	{
-		//GeneratedSaxParser::LibxmlSaxParser libxmlSaxParse(this);
 		bool success = mLibxmlSaxParse.parseFile(mFileURI.toNativePath().c_str()); 
 		return success;
 	}
 
-
-
 	//-----------------------------
 	bool FileLoader::begin__visual_scene( const visual_scene__AttributeData& attributeData )
 	{
+		deletePartLoader();
 		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this);
 		mPartLoader = visualSceneLoader;
-		//mLibxmlSaxParse.changeParser(visualSceneLoader);
+		setCallbackObject(visualSceneLoader);
 		return true;
 	}
 
 	//-----------------------------
-	void FileLoader::changeParserToMe()
+	void FileLoader::setMeAsParser()
 	{
-		delete mPartLoader;
-		mLibxmlSaxParse.changeParser(this);
+		mDeletePartLoader = true;
+		setCallbackObject(this);
 	}
 
+	void FileLoader::deletePartLoader()
+	{
+		if ( mDeletePartLoader )
+		{
+			delete mPartLoader;
+			mPartLoader = 0;
+			mDeletePartLoader = false;
+		}
+	}
 } // namespace COLLADASaxFWL

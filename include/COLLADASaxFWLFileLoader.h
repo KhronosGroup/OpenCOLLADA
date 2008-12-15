@@ -17,6 +17,7 @@
 
 #include "COLLADASaxFWLIFilePartLoader.h"
 #include "GeneratedSaxParserLibxmlSaxParser.h"
+#include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
 
 namespace COLLADABU
 {
@@ -36,7 +37,7 @@ namespace COLLADASaxFWL
 	class FilePartLoader;
 
 	/** Loader to a COLLADA document. Referenced documents are not loaded.*/
-	class FileLoader : protected IFilePartLoader
+	class FileLoader : protected IFilePartLoader, protected ColladaParserAutoGenPrivate
     {
 	private:
 	
@@ -54,6 +55,9 @@ namespace COLLADASaxFWL
 		/** The currently working file part loader.*/
 		FilePartLoader* mPartLoader;
 
+		/** Indicates, if the part loader mPartLoader can be deleted..*/
+		bool mDeletePartLoader;
+
 	public:
 
         /** Constructor.
@@ -66,7 +70,7 @@ namespace COLLADASaxFWL
         virtual ~FileLoader();
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
-		void changeParserToMe();
+		void setMeAsParser();
 
 		/** Loads the data into the frame work data model.*/
 		bool load();
@@ -91,6 +95,10 @@ namespace COLLADASaxFWL
 
         /** Disable default assignment operator. */
 		const FileLoader& operator= ( const FileLoader& pre );
+
+		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method, 
+		when creating a new FilePartLoader and switching to it.*/
+		void deletePartLoader();
 
 	};
 	
