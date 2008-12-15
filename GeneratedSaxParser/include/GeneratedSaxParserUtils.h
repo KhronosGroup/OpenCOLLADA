@@ -307,7 +307,7 @@ namespace GeneratedSaxParser
 		@param failed False if conversion succeeded, true on failure.*/
 		static bool toBool(const ParserChar* buffer, bool& failed);
 
-		/** Converts the first string representing a bool within a ParserChar buffer to 
+		/** TODO Test this method. Converts the first string representing a bool within a ParserChar buffer to 
 		a bool and advances the character pointer to the first position after the last interpreted 
 		character. If buffer is set to bufferEnd, the end of the buffer was reached during conversion. 
 		In this case failed is always set to true.

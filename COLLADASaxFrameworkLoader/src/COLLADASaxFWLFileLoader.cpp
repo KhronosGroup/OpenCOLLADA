@@ -49,7 +49,7 @@ namespace COLLADASaxFWL
 	{
 		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this);
 		mPartLoader = visualSceneLoader;
-		mLibxmlSaxParse.changeParser(visualSceneLoader);
+		//mLibxmlSaxParse.changeParser(visualSceneLoader);
 		return true;
 	}
 

@@ -38,6 +38,9 @@ namespace COLLADAFW
 		virtual ~Scale();
 
 		/** Returns the scale vector.*/
+		COLLADABU::Math::Vector3& getScale(){ return mScaleVector; }
+
+		/** Returns the scale vector.*/
 		const COLLADABU::Math::Vector3& getScale() const { return mScaleVector; }
 
 		/** Sets the scale vector.*/

@@ -38,6 +38,9 @@ namespace COLLADAFW
 		virtual ~Translate();
 
 		/** Returns the translation vector.*/
+		COLLADABU::Math::Vector3& getTranslation() { return mTranslationVector; }
+
+		/** Returns the translation vector.*/
 		const COLLADABU::Math::Vector3& getTranslation() const { return mTranslationVector; }
 
 		/** Sets the translation vector.*/

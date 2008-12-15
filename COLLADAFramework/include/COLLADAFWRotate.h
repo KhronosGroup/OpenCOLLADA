@@ -48,6 +48,9 @@ namespace COLLADAFW
 		void setRotationAngle( double rotationAngle ) { mRotationAngle = rotationAngle; }
 
 		/** Returns the rotation axis.*/
+		COLLADABU::Math::Vector3& getRotationAxis() { return mRotationAxis; }
+
+		/** Returns the rotation axis.*/
 		const COLLADABU::Math::Vector3& getRotationAxis() const { return mRotationAxis; }
 
 		/** Sets rotation axis to @a rotationAxis.*/

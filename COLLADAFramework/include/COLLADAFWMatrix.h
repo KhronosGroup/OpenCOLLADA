@@ -33,6 +33,9 @@ namespace COLLADAFW
         Matrix(const COLLADABU::Math::Matrix4& matrix);
 
 		/** Returns the matrix.*/
+		COLLADABU::Math::Matrix4& getMatrix() { return mMatrix; }
+
+		/** Returns the matrix.*/
 		const COLLADABU::Math::Matrix4& getMatrix() const { return mMatrix; }
 
 		/** Sets the transformation to @a matrix.*/
