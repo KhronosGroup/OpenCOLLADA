@@ -34,9 +34,6 @@ namespace GeneratedSaxParser
 
 		Parser* getParser(){return mParser;}
 
-		/** Changes the parser that receives the sax parser callbacks.*/
-		void changeParser(Parser* parser);
-	
 	private:
         /** Disable default copy ctor. */
 		SaxParser( const SaxParser& pre );

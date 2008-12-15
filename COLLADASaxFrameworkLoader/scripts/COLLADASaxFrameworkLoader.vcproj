@@ -362,6 +362,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenData.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLColladaParserAutoGenPrivate.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLException.h"
 				>
 			</File>

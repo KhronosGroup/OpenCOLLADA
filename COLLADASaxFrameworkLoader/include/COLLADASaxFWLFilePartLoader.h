@@ -41,7 +41,7 @@ namespace COLLADASaxFWL
 		const Loader* getColladaLoader () const { return mCallingFilePartLoader->getColladaLoader(); }
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
-		void changeParserToMe(){assert(false);}
+		void setMeAsParser(){assert(false);}
 
 		/** Should be called by a FilePartLoader to indicate that it has finish loading
 		the part of the model and cannot handle the next sax callback .*/
