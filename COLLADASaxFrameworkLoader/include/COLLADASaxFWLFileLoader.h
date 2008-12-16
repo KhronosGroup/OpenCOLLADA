@@ -37,7 +37,7 @@ namespace COLLADASaxFWL
 	class FilePartLoader;
 
 	/** Loader to a COLLADA document. Referenced documents are not loaded.*/
-	class FileLoader : protected IFilePartLoader, protected ColladaParserAutoGenPrivate
+	class FileLoader : public IFilePartLoader, public ColladaParserAutoGenPrivate
     {
 	private:
 	

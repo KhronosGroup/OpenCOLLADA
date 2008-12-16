@@ -111,7 +111,7 @@ namespace GeneratedSaxParser
 			: 
 		  ParserTemplateBase(errorHandler),
 			  mIgnoreElements(0),
-			  mImpl(0)
+			  mImpl(impl)
 		  {};
 		virtual ~ParserTemplate(){};
 

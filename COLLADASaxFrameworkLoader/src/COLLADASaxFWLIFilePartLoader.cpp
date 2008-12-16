@@ -34,10 +34,12 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const COLLADABU::URI& uri, COLLADAFW::ClassId classId )
+	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueId( const String& uriString, COLLADAFW::ClassId classId )
 	{
 		if ( !getColladaLoader() )
 			return COLLADAFW::UniqueId::INVALID;
+		
+		COLLADABU::URI uri(getFileUri(), uriString);
 
 		return getColladaLoader()->getUniqueId(uri, classId);
 	}

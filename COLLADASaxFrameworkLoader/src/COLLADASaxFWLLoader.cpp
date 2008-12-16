@@ -50,7 +50,7 @@ namespace COLLADASaxFWL
 	{
 		if ( !writer )
 			return false;
-
+		mWriter = writer;
 		FileLoader fileLoader(this, COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)));
 		fileLoader.load();
 
