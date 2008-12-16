@@ -51,7 +51,7 @@ namespace COLLADASaxFWL
 		@param uri The uri of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri, COLLADAFW::ClassId classId);
+		const COLLADAFW::UniqueId& getUniqueId(const String& uriString, COLLADAFW::ClassId classId);
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
 		virtual void setMeAsParser()=0;

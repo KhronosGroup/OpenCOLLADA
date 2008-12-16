@@ -17,7 +17,7 @@
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWMatrix.h"
 #include "COLLADAFWScale.h"
-#include "COLLADAFWObject.h"
+#include "COLLADAFWGeometry.h"
 
 
 namespace COLLADASaxFWL
@@ -238,22 +238,20 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-	bool VisualSceneLoader::begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData )
+	bool VisualSceneLoader::begin__instance_geometry( const instance_geometry__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
-/*		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueId(colladaGeometry, COLLADAFW::Geometry::getClassId());
+		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueId((const char*)attributeData.url, COLLADAFW::Geometry::ID());
 
 		COLLADAFW::InstanceGeometry* instanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
 
 		currentNode->getInstanceGeometries().append(instanceGeometry);
 
 		return true;
-*/
-		return true;
 	}
 
-	bool VisualSceneLoader::end__node__instance_geometry()
+	bool VisualSceneLoader::end__instance_geometry()
 	{
 		return true;
 	}

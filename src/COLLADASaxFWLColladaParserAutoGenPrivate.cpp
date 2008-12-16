@@ -14,7 +14,8 @@ namespace COLLADASaxFWL
 
 	//---------------------------------------------------------------------
 	ColladaParserAutoGenPrivate::ColladaParserAutoGenPrivate( COLLADASaxFWL::ColladaParserAutoGen* impl, GeneratedSaxParser::IErrorHandler* errorHandler 
-		)    : ParserTemplate<ColladaParserAutoGenPrivate, ColladaParserAutoGen>(impl, errorHandler)
+		)    : 
+	ParserTemplate<ColladaParserAutoGenPrivate, ColladaParserAutoGen>(impl, errorHandler)
 	{
 		initFunctionMap();
 		initNameMap();
