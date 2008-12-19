@@ -32,7 +32,7 @@ namespace COLLADAFW
     texture coordinate of [0,0] maps to the lower-left texel of a texture image, when loaded in a 
     professional 2-D texture viewer/editor.
     */
-    class PrimitiveElement
+    class MeshPrimitive
     {
 
     public:
@@ -122,7 +122,7 @@ namespace COLLADAFW
         /**
         * Constructor.
         */
-        PrimitiveElement () 
+        MeshPrimitive () 
             : mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
             , mFaceCount ( 0 )
         {}
@@ -130,7 +130,7 @@ namespace COLLADAFW
         /**
         * Constructor.
         */
-        PrimitiveElement ( PrimitiveType primitiveType ) 
+        MeshPrimitive ( PrimitiveType primitiveType ) 
             : mPrimitiveType ( primitiveType )
             , mFaceCount ( 0 )
         {}
@@ -138,15 +138,15 @@ namespace COLLADAFW
         /**
         * Destructor.
         */
-        virtual ~PrimitiveElement() {}
+        virtual ~MeshPrimitive() {}
 
         /** The type of the current primitive. Possible values are:
         <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. */
-        const PrimitiveElement::PrimitiveType getPrimitiveType () const { return mPrimitiveType; }
+        const MeshPrimitive::PrimitiveType getPrimitiveType () const { return mPrimitiveType; }
 
         /** The type of the current primitive. Possible values are:
         <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. */
-        void setPrimitiveType ( const PrimitiveElement::PrimitiveType PrimitiveType ) { mPrimitiveType = PrimitiveType; }
+        void setPrimitiveType ( const MeshPrimitive::PrimitiveType PrimitiveType ) { mPrimitiveType = PrimitiveType; }
 
         /**
         * Gets the count attribute.
@@ -187,20 +187,30 @@ namespace COLLADAFW
         */
         void setMaterial ( const String& material ) { mMaterial = material; }
 
-        /** 
-        * The index list of the positions array. 
-        */
-        COLLADAFW::UIntValuesArray& getPositionIndices () { return mPositionIndices; }
+		/** 
+		* The index list of the positions array. 
+		*/
+		COLLADAFW::UIntValuesArray& getPositionIndices () { return mPositionIndices; }
+
+		/** 
+		* The index list of the positions array. 
+		*/
+		const COLLADAFW::UIntValuesArray& getPositionIndices () const { return mPositionIndices; }
 
         /** 
         * The index list of the positions array. 
         */
         void setPositionIndices ( const COLLADAFW::UIntValuesArray& PositionIndices ) { mPositionIndices = PositionIndices; }
 
-        /** 
-        * The index list of the normals array. 
-        */
-        COLLADAFW::UIntValuesArray& getNormalIndices () { return mNormalIndices; }
+		/** 
+		* The index list of the normals array. 
+		*/
+		COLLADAFW::UIntValuesArray& getNormalIndices () { return mNormalIndices; }
+
+		/** 
+		* The index list of the normals array. 
+		*/
+		const COLLADAFW::UIntValuesArray& getNormalIndices () const{ return mNormalIndices; }
 
         /** 
         * The index list of the normals array. 
@@ -258,7 +268,7 @@ namespace COLLADAFW
     };
 
     
-    typedef ArrayPrimitiveType<PrimitiveElement*> PrimitiveElementsArray;
+    typedef ArrayPrimitiveType<MeshPrimitive*> MeshPrimitiveArray;
 
 }
 

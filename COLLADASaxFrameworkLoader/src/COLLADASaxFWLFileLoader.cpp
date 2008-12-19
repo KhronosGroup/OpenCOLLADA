@@ -12,6 +12,8 @@
 #include "COLLADASaxFWLFileLoader.h"
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADASaxFWLVisualSceneLoader.h"
+#include "COLLADASaxFWLMeshLoader.h"
+#include "COLLADASaxFWLGeometryLoader.h"
 
 #include "COLLADAFWObject.h"
 
@@ -21,13 +23,12 @@ namespace COLLADASaxFWL
 
     //-----------------------------
 	FileLoader::FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI)
-         : ColladaParserAutoGenPrivate(this),
+         : ColladaParserAutoGenPrivate(0),
 		 mColladaLoader(colladaLoader),
 		 mFileURI(fileURI),
-		 mLibxmlSaxParse(this),
-		 mPartLoader(0),
-		 mDeletePartLoader(false)
+		 mLibxmlSaxParse(this)
 	{
+		setCallbackObject(this);
 	}
 	
 	//-----------------------------
@@ -48,30 +49,29 @@ namespace COLLADASaxFWL
 	{
 		deleteFilePartLoader();
 		VisualSceneLoader* visualSceneLoader = new VisualSceneLoader(this);
-		mPartLoader = visualSceneLoader;
-		setCallbackObject(visualSceneLoader);
+		setPartLoader(visualSceneLoader);
+		setParser(visualSceneLoader);
 		return true;
 	}
 
 	//-----------------------------
-	void FileLoader::setMeAsParser()
+	bool FileLoader::begin__geometry( const geometry__AttributeData& attributeData )
 	{
-		mDeletePartLoader = true;
-		setCallbackObject(this);
+		deleteFilePartLoader();
+		GeometryLoader* geometryLoader = new GeometryLoader(this, (const char *) attributeData.id, (const char *) attributeData.name);
+		setPartLoader(geometryLoader);
+		setParser(geometryLoader);
+		return true;
 	}
 
-	void FileLoader::deleteFilePartLoader()
-	{
-		if ( mDeletePartLoader )
-		{
-			delete mPartLoader;
-			mPartLoader = 0;
-			mDeletePartLoader = false;
-		}
-	}
 
 	const COLLADABU::URI& FileLoader::getFileUri()
 	{
 		return mFileURI;
+	}
+
+	void FileLoader::setParser( IFilePartLoader* parserToBeSet )
+	{
+		setCallbackObject(parserToBeSet);
 	}
 } // namespace COLLADASaxFWL

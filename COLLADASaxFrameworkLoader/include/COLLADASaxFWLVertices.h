@@ -33,7 +33,7 @@ namespace COLLADASaxFWL
         * A text string containing the unique identifier of the element. 
         * This value must be unique within the instance document. Required. 
         */
-        String mNodeId;
+        String mId;
 
         /** 
         * The text string name of this element. Optional. 
@@ -59,14 +59,14 @@ namespace COLLADASaxFWL
         * This value must be unique within the instance document. Required. 
         * @return String& Reference to the unique identifier of the element.
         */
-        const String& getId () const { return mNodeId; }
+        const String& getId () const { return mId; }
 
         /**
          * A text string containing the unique identifier of the element.
          * This value must be unique within the instance document. Required. 
          * @param val The unique identifier of the element.
          */
-        void setId ( const String& val ) { mNodeId = val; }
+        void setId ( const String& val ) { mId = val; }
 
         /**
          * The text string name of this element. Optional. 
@@ -123,7 +123,6 @@ namespace COLLADASaxFWL
                 if ( input->getSemantic () == semantic )
                     return input;
             }
-
             return 0;
         }
 

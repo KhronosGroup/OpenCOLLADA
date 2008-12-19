@@ -39,11 +39,17 @@ namespace COLLADAFW
     */
 	class Geometry : public ObjectTemplate < COLLADA_TYPE::GEOMETRY >
     {
+	public:
+		enum GeometryType
+		{
+			GEO_TYPE_MESH, 
+			GEO_TYPE_SPLINE,
+			GEO_TYPE_CONVEX_MESH,
+			GEO_TYPE_UNKNOWN
+		};
+
     private:
 	
-        /** Pointer to the geometric element. Could be a mesh, spline or convex_mesh. */
-        GeometricElement* mGeometricElement;
-
         /** A text string containing the unique identifier of the <geometry> element. This
         value must be unique within the instance document. Optional. */
         String mId;
@@ -51,10 +57,14 @@ namespace COLLADAFW
         /** A text string containing the name of the <geometry> element. Optional. */
         String mName; 
 
+		/** Geometry type. */
+		GeometryType mType;
+
+
 	public:
 
         /** Constructor. */
-		Geometry ( ObjectId objectId );
+		Geometry ( ObjectId objectId, GeometryType geometryType );
 
         /** Destructor. */
 		virtual ~Geometry();
@@ -73,14 +83,12 @@ namespace COLLADAFW
         /** A text string containing the name of the <geometry> element. Optional. */
         void setName ( const String name ) { mName = name; }
 
-        /** Set the geometric element of the geometry. */
-        void setGeometricElement ( GeometricElement* geometricElement );
+		/** Type of the geometric element. */
+		const GeometryType getType () const { return mType; }
 
-        /** Returns the geometric element of the geometry. */
-        GeometricElement* getGeometricElement ();
+		/** Type of the geometric element. */
+		void setType ( const GeometryType Type ) { mType = Type; }
 
-        /** Returns the geometric element of the geometry. */
-        const GeometricElement* getGeometricElement () const;
 
     private:
 

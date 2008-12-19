@@ -12,9 +12,13 @@
 #define __COLLADAFW_TYPES_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWArrayPrimitiveType.h"
 
 namespace COLLADAFW
 {
+
+	typedef ArrayPrimitiveType<float> FloatArray;
+	typedef ArrayPrimitiveType<double> DoubleArray;
 
   //  typedef xsNCName String;
 

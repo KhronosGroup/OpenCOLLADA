@@ -308,10 +308,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADAFWGeometricElement.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADAFWGeometry.cpp"
 				>
 			</File>
@@ -337,6 +333,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWMatrix.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWMesh.cpp"
 				>
 			</File>
 			<File
@@ -426,10 +426,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWGeometricElement.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWGeometry.h"
 				>
 			</File>
@@ -498,6 +494,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWMeshPrimitive.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWMeshUVCoords.h"
 				>
 			</File>
@@ -539,10 +539,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWPrerequisites.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWPrimitiveElement.h"
 				>
 			</File>
 			<File
@@ -615,6 +611,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWTranslate.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWTriangles.h"
 				>
 			</File>
 			<File

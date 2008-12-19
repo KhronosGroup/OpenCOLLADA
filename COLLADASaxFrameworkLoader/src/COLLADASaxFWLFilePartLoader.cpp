@@ -28,15 +28,23 @@ namespace COLLADASaxFWL
 	{
 	}
 
+	//------------------------------
 	void FilePartLoader::finish()
 	{
 		mCallingFilePartLoader->setMeAsParser();
 	}
 
+	//------------------------------
 	const COLLADABU::URI& FilePartLoader::getFileUri()
 	{
 		return mCallingFilePartLoader->getFileUri();
 	}
 
+
+	//------------------------------
+	void FilePartLoader::setParser(IFilePartLoader* parserToBeSet)
+	{
+		mCallingFilePartLoader->setParser(parserToBeSet);
+	}
 
 } // namespace COLLADASaxFWL

@@ -52,7 +52,10 @@ namespace COLLADAFW
 		@param flags Flags that allow to control, how the memory should be released.*/
 		void allocMemory ( size_t capacity, int flags = DEFAULT_ALLOC_FLAGS )
         {
-            setData ( ( Type* ) ( malloc ( capacity * sizeof (Type) ) ), 0, capacity );
+			if ( capacity == 0 )
+				setData ( 0, 0, 0 ); 
+			else
+				setData ( ( Type* ) ( malloc ( capacity * sizeof (Type) ) ), 0, capacity );
             mFlags |= flags;
         }
 
@@ -71,21 +74,31 @@ namespace COLLADAFW
         */
         void reallocMemory ( size_t minCapacity )
         {
+			if ( minCapacity <= mCapacity)
+				return;
             size_t newCapacity = ( mCapacity * 3 ) / 2 + 1;
             if (newCapacity < minCapacity)
                 newCapacity = minCapacity;
             mCapacity = newCapacity;
 
-            mData = ( Type* ) realloc ( mData, mCapacity * sizeof ( Type ) );
-
-            if ( mCount > mCapacity ) mCount = mCapacity;
+			if ( mData )
+			{
+				mData = ( Type* ) realloc ( mData, mCapacity * sizeof ( Type ) );
+				if ( mCount > mCapacity ) 
+					mCount = mCapacity;
+			}
+			else
+			{
+				allocMemory(newCapacity, mFlags);
+			}
         }
 
 		/** Appends @a newValue to the end of array. If not enough memory was allocated, a resize 
         of the array will be done! */
 		Type& append ( const Type& newValue )
         { 
-            if ( mCount >= mCapacity ) reallocMemory (1); 
+            if ( mCount >= mCapacity ) 
+				reallocMemory (mCount + 1); 
 
             return mData [ mCount++ ] = newValue;	
         }

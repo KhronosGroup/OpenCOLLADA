@@ -71,9 +71,9 @@ namespace COLLADAMax
 		if ( !mVisualScene )
 			return false;
 
-		mDummyGeoObject = (Object* ) getMaxImportInterface()->Create(GEOMOBJECT_CLASS_ID, Class_ID ( SPHERE_CLASS_ID, 0 ));
+//		mDummyGeoObject = (Object* ) getMaxImportInterface()->Create(GEOMOBJECT_CLASS_ID, Class_ID ( SPHERE_CLASS_ID, 0 ));
 
-		((GenSphere*)mDummyGeoObject)->SetParams(10,32);
+//		((GenSphere*)mDummyGeoObject)->SetParams(10,32);
 
 		mDummyObject = (DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0));
 
@@ -143,12 +143,19 @@ namespace COLLADAMax
 
 			ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 			INode* newNode = newImportNode->GetINode();
+			const COLLADAFW::UniqueId& uniqueId = instanceGeoemtry->getInstanciatedGeometryId();
 
+			Object* object = getObjectByUniqueId(uniqueId);
+			if ( object )
+			{
+				newImportNode->Reference(object);
+			}
+			else
+			{
+				newImportNode->Reference(mDummyObject);
+			}
 
-			// TODO remove this if we
-			newImportNode->Reference(mDummyGeoObject);
-
-			addUniqueIdINodePair(instanceGeoemtry->getInstanciatedGeometryId(), newNode);
+			addUniqueIdObjectINodePair(instanceGeoemtry->getInstanciatedGeometryId(), newNode);
 			INode* parentNode = parentImportNode->GetINode();
 			parentNode->AttachChild(newNode, FALSE);
 		}

@@ -48,13 +48,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	void ImporterBase::addUniqueIdINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )
+	void ImporterBase::addUniqueIdObjectINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )
 	{
 		mDocumentImporter->getUniqueIdINodeMap().insert(std::pair<COLLADAFW::UniqueId, INode*>(uniqueId, node) );
 	}
 
 	//------------------------------
-	void ImporterBase::getINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, COLLADAMax::INodeList& nodelist )
+	void ImporterBase::getObjectINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, COLLADAMax::INodeList& nodelist )
 	{
 		const DocumentImporter::UniqueIdINodeMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdINodeMap();
 

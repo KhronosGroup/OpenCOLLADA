@@ -61,12 +61,13 @@ namespace COLLADAMax
 		/** Returns collada importer the importer belongs to.*/
 		DocumentImporter* getColladaImporter() { return mDocumentImporter; }
 
-		/** Adds an UniqueId-INode pair to the UniqueIdINodeMap. For nodes that reference an object that has 
+		/** Adds an UniqueId-Object INode pair to the UniqueIdINodeMap.  An Object INode 
+		is an INode that references an object. For nodes that reference an object that has 
 		not already been loaded this method should be called.*/
-		void addUniqueIdINodePair(const COLLADAFW::UniqueId& uniqueId, INode* node);
+		void addUniqueIdObjectINodePair(const COLLADAFW::UniqueId& uniqueId, INode* node);
 
 		/** Fills @a nodeList with all INodes that reference the object with UniqueId @a uniqueId.*/
-		void getINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
+		void getObjectINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
 
 		/** Adds an UniqueId-Object pair to the UniqueIdObjectMap. For every imported object this method should 
 		be called to ensure that elements that are imported later and instance this object can set the object 

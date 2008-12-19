@@ -16,8 +16,9 @@ namespace COLLADAFW
 {
 
     //------------------------------
-	Geometry::Geometry ( ObjectId objectId )
-		: ObjectTemplate < COLLADA_TYPE::GEOMETRY > ( objectId )
+	Geometry::Geometry ( ObjectId objectId, GeometryType geometryType )
+		: ObjectTemplate < COLLADA_TYPE::GEOMETRY > ( objectId ),
+		  mType(geometryType)
 	{
 	}
 	
@@ -26,22 +27,5 @@ namespace COLLADAFW
 	{
 	}
 
-    //------------------------------
-    void Geometry::setGeometricElement ( GeometricElement* geometricElement )
-    {
-        mGeometricElement = geometricElement;
-    }
-
-    //------------------------------
-    GeometricElement* Geometry::getGeometricElement ()
-    {
-        return mGeometricElement;
-    }
-
-    //------------------------------
-    const GeometricElement* Geometry::getGeometricElement () const
-    {
-        return mGeometricElement;
-    }
 
 } // namespace COLLADAFW

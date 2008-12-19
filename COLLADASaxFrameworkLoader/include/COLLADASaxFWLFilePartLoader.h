@@ -40,8 +40,9 @@ namespace COLLADASaxFWL
 		/** Returns a const pointer to the collada document. */
 		const Loader* getColladaLoader () const { return mCallingFilePartLoader->getColladaLoader(); }
 
-		/** After this functions, the next sax callback should be caught by this the file part loader.*/
-		void setMeAsParser(){assert(false);}
+		/** Sets the parser to @a parserToBeSet.*/
+		void setParser(IFilePartLoader* parserToBeSet);
+
 
 		/** Should be called by a FilePartLoader to indicate that it has finish loading
 		the part of the model and cannot handle the next sax callback .*/

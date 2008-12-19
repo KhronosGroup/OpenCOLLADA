@@ -80,6 +80,20 @@ namespace COLLADASaxFWL
             , mSet ( set ) 
         {}
 
+		/** 
+		* Constructor.
+		* @param semantic The semantic of the @a \<input\> element.
+		* @param source The source of the @a \<input\> element.
+		* @param offset The offset of the @a \<input\> element.
+		* @param set The set of the @a \<input\> element.
+		*/
+		InputShared ( const String& semantic, const String& source, int offset = 0, int set = 0 )
+			: InputUnshared ( semantic, source )
+			, mOffset ( offset )
+			, mSet ( set ) 
+		{}
+
+
         /** Destructor. */
         virtual ~InputShared() {}
 
@@ -87,12 +101,12 @@ namespace COLLADASaxFWL
         <v> subelement. If two <input> elements share the same offset, they are
         indexed the same. This is a simple form of compression for the list of
         indices and also defines the order in which the inputs are used. Required. */
-        const unsigned int getOffset () const { return mOffset; }
+        unsigned int getOffset () const { return mOffset; }
         void setOffset ( const unsigned int val ) { mOffset = val; }
 
         /** Which inputs to group as a single set. This is helpful when multiple inputs
         share the same semantics. Optional. */
-        const int getSet () const { return mSet; }
+        int getSet () const { return mSet; }
         void setSet ( const int val ) { mSet = val; }
 
     };

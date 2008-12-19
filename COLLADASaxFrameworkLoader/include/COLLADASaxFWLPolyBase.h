@@ -14,13 +14,14 @@
 #include "COLLADASaxFWLPrimitiveBase.h"
 #include "COLLADASaxFWLInputShared.h"
 
-#include "COLLADAFWPrimitiveElement.h"
+#include "COLLADAFWMeshPrimitive.h"
 
 
 namespace COLLADASaxFWL
 {
 
     class MeshLoader;
+	class Vertices;
 
 
     /**
@@ -42,16 +43,11 @@ namespace COLLADASaxFWL
 
     private:
 
-        /**
-         * The parent element (TODO mesh, convex_mesh or spline).
-         */
-        MeshLoader* mParent;
-
         /** 
         * The type of the current primitive. Possible values are:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. 
         */
-        COLLADAFW::PrimitiveElement::PrimitiveType mPrimitiveType;
+        COLLADAFW::MeshPrimitive::PrimitiveType mPrimitiveType;
 
         /**
         * The name attribute is the text string name of this element. 
@@ -87,6 +83,9 @@ namespace COLLADASaxFWL
          * The maximal offset value in the input element.
          */
         unsigned int mInputArrayMaxOffset;
+	
+		Vertices& mVertices;
+
 
         /**
         * Contains a array of integers that specify the vertex attributes
@@ -100,25 +99,24 @@ namespace COLLADASaxFWL
         /**
         * Constructor
         */
-        PolyBase ( MeshLoader* parent ) 
-            : mPrimitiveType ( COLLADAFW::PrimitiveElement::UNDEFINED_PRIMITIVE_TYPE )
-            , mParent ( parent ) 
+        PolyBase ( Vertices& vertices ) 
+            : mPrimitiveType ( COLLADAFW::MeshPrimitive::UNDEFINED_PRIMITIVE_TYPE )
             , mFaceCount (0)
             , mInputArrayMaxOffset (0)
             , mIndexCount (0)
+			, mVertices(vertices)
         {}
 
         /**
         * Constructor
         */
-        PolyBase ( MeshLoader* parent, COLLADAFW::PrimitiveElement::PrimitiveType primitiveType ) 
+ /*       PolyBase ( MeshLoader* parent, COLLADAFW::MeshPrimitive::PrimitiveType primitiveType ) 
             : mPrimitiveType ( primitiveType )
-            , mParent ( parent ) 
             , mFaceCount (0)
             , mInputArrayMaxOffset (0)
             , mIndexCount (0)
         {}
-
+*/
         /**
         * Destructor
         */
@@ -136,11 +134,11 @@ namespace COLLADASaxFWL
 
         /** The type of the current primitive. Possible values are:
         <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. */
-        const COLLADAFW::PrimitiveElement::PrimitiveType getPrimitiveType () const { return mPrimitiveType; }
+        const COLLADAFW::MeshPrimitive::PrimitiveType getPrimitiveType () const { return mPrimitiveType; }
 
         /** The type of the current primitive. Possible values are:
         <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>. */
-        void setPrimitiveType ( const COLLADAFW::PrimitiveElement::PrimitiveType primitiveType ) { mPrimitiveType = primitiveType; }
+        void setPrimitiveType ( const COLLADAFW::MeshPrimitive::PrimitiveType primitiveType ) { mPrimitiveType = primitiveType; }
 
         /**
         * Gets the name attribute.

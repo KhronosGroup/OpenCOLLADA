@@ -104,8 +104,9 @@ namespace COLLADAFW
         /** Returns the number of elements in the array.*/
         const size_t getCount() const { return mCount; }
 
-        /** Returns the number of elements in the array.*/
-        size_t getCount() { return mCount; }
+		/** Returns the number of elements in the array.*/
+		void setCount(size_t count) {  mCount = count; }
+
 
         /** The number of elements, for which is currently memory allocated. */
         size_t getCapacity () { return mCapacity; }

@@ -18,6 +18,7 @@ namespace COLLADASaxFWL
 
     //------------------------------
 	IFilePartLoader::IFilePartLoader()
+		: mPartLoader(0)
 	{
 	}
 	
@@ -42,6 +43,22 @@ namespace COLLADASaxFWL
 		COLLADABU::URI uri(getFileUri(), uriString);
 
 		return getColladaLoader()->getUniqueId(uri, classId);
+	}
+
+	//-----------------------------
+	void IFilePartLoader::deleteFilePartLoader()
+	{
+		if ( mPartLoader )
+		{
+			delete mPartLoader;
+			mPartLoader = 0;
+		}
+	}
+
+	//------------------------------
+	void IFilePartLoader::setMeAsParser()
+	{
+		setParser(this);
 	}
 
 

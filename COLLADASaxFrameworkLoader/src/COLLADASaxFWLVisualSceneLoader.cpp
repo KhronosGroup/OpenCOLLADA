@@ -88,13 +88,13 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool VisualSceneLoader::begin__node( const node__AttributeData& attributeData )
+	bool VisualSceneLoader::begin__node__node( const node__node__AttributeData& attributeData )
 	{
 		return beginNode((const char *)attributeData.name);
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::end__node()
+	bool VisualSceneLoader::end__node__node()
 	{
 		return endNode();
 	}
@@ -121,19 +121,19 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::begin__translate( const translate__AttributeData& attributeData )
+	bool VisualSceneLoader::begin__node__translate( const node__translate__AttributeData& attributeData )
 	{
 		return beginTransformation<COLLADAFW::Translate>();
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::end__translate()
+	bool VisualSceneLoader::end__node__translate()
 	{
 		return endTransformation();
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::data__translate( const double* data, size_t length )
+	bool VisualSceneLoader::data__node__translate( const double* data, size_t length )
 	{
 		COLLADAFW::Translate* translate = 0;
 
@@ -238,7 +238,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-	bool VisualSceneLoader::begin__instance_geometry( const instance_geometry__AttributeData& attributeData )
+	bool VisualSceneLoader::begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
@@ -251,7 +251,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-	bool VisualSceneLoader::end__instance_geometry()
+	bool VisualSceneLoader::end__node__instance_geometry()
 	{
 		return true;
 	}

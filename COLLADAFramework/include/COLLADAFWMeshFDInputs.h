@@ -37,30 +37,24 @@ namespace COLLADAFW
         DataType mType;
 
         /** The position values. */
-        ArrayPrimitiveType<float> mValuesF;
-        ArrayPrimitiveType<double> mValuesD;
+        FloatArray mValuesF;
+        DoubleArray mValuesD;
 
 	public:
 
         /** Constructor. */
         MeshFloatDoubleInputs ()
             : mType ( DATA_TYPE_UNKNOWN ) 
-//             , mValuesF (0)
-//             , mValuesD (0)
         {}
 
         /** Constructor. */
 		MeshFloatDoubleInputs ( DataType type )
             : mType ( type ) 
-//             , mValuesF (0)
-//             , mValuesD (0)
         {}
 
         /** Destructor. */
         virtual ~MeshFloatDoubleInputs() 
         {
-//             if ( mValuesD ) delete mValuesD;
-//             if ( mValuesF ) delete mValuesF;
         }
 
         /** The data type of the stored position values. */
@@ -68,14 +62,6 @@ namespace COLLADAFW
 
         /** The data type of the stored position values. */
         void setType ( const COLLADAFW::MeshFloatDoubleInputs::DataType Type ) { mType = Type; }
-
-        /** Returns the count of stored elements in the array. */
-        size_t getElementsCount () 
-        {
-            if ( mType == DATA_TYPE_FLOAT ) return mValuesF.getCount ();
-            if ( mType == DATA_TYPE_DOUBLE ) return mValuesD.getCount ();
-            return 0;
-        }
 
         /** Returns the count of stored elements in the array. */
         const size_t getElementsCount () const
@@ -95,7 +81,7 @@ namespace COLLADAFW
         }
 
         /** Returns the position values array as a float array. */
-        const ArrayPrimitiveType<float>* getFloatValues () const 
+        const FloatArray* getFloatValues () const 
         {
             if ( mType == DATA_TYPE_FLOAT ) 
                 return ( ArrayPrimitiveType<float>* ) &mValuesF;
@@ -103,7 +89,7 @@ namespace COLLADAFW
         }
 
         /** Returns the position values array as a double array. */
-        const ArrayPrimitiveType<double>* getDoubleValues () const 
+        const DoubleArray* getDoubleValues () const 
         {
             if ( mType == DATA_TYPE_DOUBLE ) 
                 return ( ArrayPrimitiveType<double>* ) &mValuesD;
@@ -111,7 +97,7 @@ namespace COLLADAFW
         }
 
         /** Returns the position values array as a float array. */
-        ArrayPrimitiveType<float>* getFloatValues ()
+        FloatArray* getFloatValues ()
         {
             if ( mType == DATA_TYPE_FLOAT ) 
                 return ( ArrayPrimitiveType<float>* ) &mValuesF;
@@ -119,7 +105,7 @@ namespace COLLADAFW
         }
 
         /** Returns the position values array as a double array. */
-        ArrayPrimitiveType<double>* getDoubleValues ()
+        DoubleArray* getDoubleValues ()
         {
             if ( mType == DATA_TYPE_DOUBLE ) 
                 return ( ArrayPrimitiveType<double>* ) &mValuesD;
@@ -161,7 +147,7 @@ namespace COLLADAFW
         /** Appends the values of the input array to the end of values array. 
         The programmer must ensure, that the memory allocated, 
         was large enough to hold another element. No new memory is allocated.*/
-        bool appendValues ( const ArrayPrimitiveType<float>& valuesArray ) 
+        bool appendValues ( const FloatArray& valuesArray ) 
         {
             if ( mType == DATA_TYPE_FLOAT ) 
             {
@@ -175,7 +161,7 @@ namespace COLLADAFW
         /** Appends the values of the input array to the end of values array. 
         The programmer must ensure, that the memory allocated, 
         was large enough to hold another element. No new memory is allocated.*/
-        bool appendValues ( const ArrayPrimitiveType<double>& valuesArray ) 
+        bool appendValues ( const DoubleArray& valuesArray ) 
         {
             if ( mType == DATA_TYPE_DOUBLE ) 
             {

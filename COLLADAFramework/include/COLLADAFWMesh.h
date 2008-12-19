@@ -12,18 +12,17 @@
 #define __COLLADAFW_MESH_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWGeometricElement.h"
+#include "COLLADAFWGeometry.h"
 #include "COLLADAFWMeshPositions.h"
 #include "COLLADAFWMeshNormals.h"
 #include "COLLADAFWMeshColors.h"
 #include "COLLADAFWMeshUVCoords.h"
-#include "COLLADAFWPrimitiveElement.h"
+#include "COLLADAFWMeshPrimitive.h"
 
 
 namespace COLLADAFW
 {
 
-    class Geometry;
 
     /** 
      * Describes basic geometric meshes using vertex and primitive information.
@@ -39,17 +38,12 @@ namespace COLLADAFW
      * form the geometric shape of the mesh. The mesh vertices are collated into 
      * geometric primitives such as polygons, triangles, or lines.
      */
-    class Mesh : public GeometricElement
+    class Mesh : public Geometry
     {
     public:
 
 
     private:
-
-        /**
-         * The parent geometry element.
-         */
-        Geometry* mGeometry;
 
         /** 
          * The positions array. 
@@ -89,14 +83,13 @@ namespace COLLADAFW
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        PrimitiveElementsArray mPrimitiveElements;
+        MeshPrimitiveArray mMeshPrimitives;
 
     public:
 
         /** Constructor. */
-        Mesh ( Geometry* geometry ) 
-            : GeometricElement ( GeometricElement::GEO_TYPE_MESH ) 
-            , mGeometry ( geometry )
+        Mesh ( ObjectId objectId ) 
+            : Geometry ( objectId, Geometry::GEO_TYPE_MESH ) 
 //             , mPositions (0)
 //             , mNormals (0)
 //             , mColors (0)
@@ -112,15 +105,6 @@ namespace COLLADAFW
 //             delete mUVCoords;
         }
 
-        /**
-        * The parent geometry element.
-        */
-        const Geometry* getGeometry () const { return mGeometry; }
-
-        /**
-        * The parent geometry element.
-        */
-        Geometry* getGeometry () { return mGeometry; }
 
         /** 
         * The positions array. 
@@ -170,6 +154,9 @@ namespace COLLADAFW
         */
         void setNormals ( MeshNormals& Normals ) { mNormals = Normals; }
 
+		/**Checks, if the mesh has normals.*/
+		bool hasNormals ( )const;
+
         /** 
         * The colors array. 
         * Colors can be stored as float or double values.
@@ -194,7 +181,10 @@ namespace COLLADAFW
         */
         void setColors ( MeshColors& Colors ) { mColors = Colors; }
 
-        /** 
+		/**Checks, if the mesh has colors.*/
+		bool hasColors ( )const;
+
+		/** 
         * The uv coordinates array. 
         * UV coordinates can be stored as float or double values.
         * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
@@ -218,35 +208,41 @@ namespace COLLADAFW
         */
         void setUVCoords ( MeshUVCoords& UVCoords ) { mUVCoords = UVCoords; }
 
-        /**
-        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
-        * Can be any combination of the following in any order:
-        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
-        */
-        PrimitiveElementsArray& getPrimitiveElements () { return mPrimitiveElements; }
+		/**Checks, if the mesh has UVCoords.*/
+		bool hasUVCoords ( )const;
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        const PrimitiveElementsArray& getPrimitiveElements () const { return mPrimitiveElements; }
+        MeshPrimitiveArray& getMeshPrimitives () { return mMeshPrimitives; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        void setPrimitiveElements ( const PrimitiveElementsArray& primitiveElements ) { mPrimitiveElements = primitiveElements; }
+        const MeshPrimitiveArray& getMeshPrimitives () const { return mMeshPrimitives; }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
         */
-        PrimitiveElement* appendPrimitiveElement ( PrimitiveElement* primitiveElement ) 
-        { return mPrimitiveElements.append ( primitiveElement ); }
+        void setMeshPrimitives ( const MeshPrimitiveArray& primitiveElements ) { mMeshPrimitives = primitiveElements; }
 
+		/**
+        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
+        * Can be any combination of the following in any order:
+        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
+        */
+        MeshPrimitive* appendPrimitive ( MeshPrimitive* primitiveElement ) 
+        { return mMeshPrimitives.append ( primitiveElement ); }
+
+		/** Counts the number of all triangles in all Triangle primitives. It does not include the triangles in 
+		trifans tristrips or any of the polgons.*/
+		size_t getTrianglesCount();
     };
 }
 

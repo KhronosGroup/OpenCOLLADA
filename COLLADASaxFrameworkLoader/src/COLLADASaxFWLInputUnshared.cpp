@@ -17,6 +17,21 @@ using namespace COLLADAFW;
 namespace COLLADASaxFWL
 {
 
+	//------------------------------
+	InputUnshared::InputUnshared( InputSemantic::Semantic semantic, const COLLADABU::URI& source ) 
+		: mSemantic ( semantic )
+		, mSource ( source )
+	{
+	}
+
+	//------------------------------
+	InputUnshared::InputUnshared( const String& semantic, const String& source ) 
+		: mSemantic ( getSemanticFromString(semantic) )
+		, mSource ( source )
+	{
+	}
+
+
     // ----------------------------
     const String& InputUnshared::getSemanticAsString ( const InputSemantic::Semantic semantic )
     {
@@ -102,4 +117,5 @@ namespace COLLADASaxFWL
 
         return InputSemantic::UNKNOWN;
     }
+
 }

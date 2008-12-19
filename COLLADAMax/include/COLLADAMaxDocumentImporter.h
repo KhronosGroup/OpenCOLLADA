@@ -57,7 +57,7 @@ namespace COLLADAMax
 		/** Maps the unique ids of objects (geometries, controllers,...) that are referenced by INodes to 
 		these referencing INodes. This map is being filled while importing the visual scene. It is 
 		required for objects that are referenced before they are imported.*/
-		UniqueIdINodeMap mUniqueIdINodeMap;
+		UniqueIdINodeMap mUniqueIdObjectINodeMap;
 
 		/** Maps the unique ids of objects (geometries, controllers,...) to the created max object. This map 
 		is being filled while importing geometries. */
@@ -108,7 +108,7 @@ namespace COLLADAMax
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
 		/** Returns the UniqueId INode Mapping.*/
-		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdINodeMap; }
+		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdObjectINodeMap; }
 
 		/** Returns the UniqueId object Mapping.*/
 		UniqueIdObjectMap& getUniqueIdObjectMap(){ return mUniqueIdObjectMap; }

@@ -52,19 +52,14 @@ namespace COLLADAMax
 	bool DocumentImporter::writeVisualScene( const COLLADAFW::VisualScene* visualScene )
 	{
 		VisualSceneImporter visualSceneImporter(this, visualScene);
-		/*return*/ visualSceneImporter.import();
-
-
-		GeometryImporter geometryImporter(this, 0);
-		return geometryImporter.import();
-
+		return visualSceneImporter.import();
 	}
 
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeGeometry( const COLLADAFW::Geometry* geometry )
 	{
 		GeometryImporter geometryImporter(this, geometry);
-//		return geometryImporter.import();
+		return geometryImporter.importMesh();
 		return true;
 	}
 

@@ -8,13 +8,12 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADASAXFWL_GEOMETRICELEMENT_H__
-#define __COLLADASAXFWL_GEOMETRICELEMENT_H__
+#ifndef __COLLADASAXFWL_GEOMETRYOBJECTLOADER_H__
+#define __COLLADASAXFWL_GEOMETRYOBJECTLOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLSource.h"
-
-#include "COLLADAFWGeometricElement.h"
+#include "COLLADASaxFWLFilePartLoader.h"
 
 
 namespace COLLADASaxFWL
@@ -27,7 +26,7 @@ namespace COLLADASaxFWL
      • <spline> 
     More about, read the class Geometry documentation.
     */
-    class ColladaGeometricElement : public COLLADAFW::GeometricElement
+    class GeometryObjectLoader : public FilePartLoader
     {
 
 	private:
@@ -37,13 +36,19 @@ namespace COLLADASaxFWL
         */
         SourceArray mSourceArray;
 
-	public:
+		/** The source currently being parsed.*/
+		SourceBase* mCurrentSoure;
+
+		/** The id of the source being parsed.*/
+		String mCurrentSourceId;
+
+	protected:
 
         /** Constructor. */
-		ColladaGeometricElement ( GeometricType elementType );
+		GeometryObjectLoader ( IFilePartLoader* callingFilePartLoader );
 
         /** Destructor. */
-		virtual ~ColladaGeometricElement();
+		virtual ~GeometryObjectLoader();
 
         /**
         * Provides the bulk of the mesh’s vertex data. See main entry.
@@ -73,17 +78,19 @@ namespace COLLADASaxFWL
         */
         SourceBase* getSourceById ( const String& sourceId );
 
+		/** Handles the beginning of a source element.*/
+		bool beginSource(const mesh__source__AttributeData& attributes);
 
 	private:
 
         /** Disable default copy ctor. */
-		ColladaGeometricElement( const GeometricElement& pre );
+		GeometryObjectLoader( const GeometryObjectLoader& pre );
 
         /** Disable default assignment operator. */
-		const ColladaGeometricElement& operator= ( const GeometricElement& pre );
+		const GeometryObjectLoader& operator= ( const GeometryObjectLoader& pre );
 
 	};
 
 } // namespace COLLADAFW
 
-#endif // __COLLADASAXFWL_GEOMETRICELEMENT_H__
+#endif // __COLLADASAXFWL_GEOMETRYOBJECTLOADER_H__

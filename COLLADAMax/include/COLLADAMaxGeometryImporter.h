@@ -24,6 +24,7 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	class Geometry;
+	class Mesh;
 };
 
 
@@ -49,6 +50,19 @@ namespace COLLADAMax
 		@return True on success, false otherwise.*/
 		bool import();
 
+
+		/** Performs the import of the mesh.
+		@return True on success, false otherwise.*/
+		bool importMesh();
+
+
+		/** Performs the import of the mesh positions .
+		@return True on success, false otherwise.*/
+		bool importMeshPositions( TriObject* triangleObject );
+
+		/** Performs the import of the mesh normals .
+		@return True on success, false otherwise.*/
+		bool importMeshNormals( TriObject* triangleObject );
 
 	private:
 

@@ -41,7 +41,7 @@ namespace COLLADAMax
 		/** The visual scene that should be imported.*/
 		const COLLADAFW::VisualScene* mVisualScene;
 	
-		Object* mDummyGeoObject;
+//		Object* mDummyGeoObject;
 
 		DummyObject* mDummyObject;
 
