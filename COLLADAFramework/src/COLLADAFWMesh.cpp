@@ -15,6 +15,11 @@ namespace COLLADAFW
 {
 
 
+	Mesh::~Mesh()
+	{
+		for ( size_t i = 0, count = mMeshPrimitives.getCount(); i < count; ++i)
+			delete mMeshPrimitives[i];
+	}
 
 
 	//---------------------------------------------------------------

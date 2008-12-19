@@ -12,7 +12,6 @@
 #define __COLLADAFW_GEOMETRY_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWGeometricElement.h"
 #include "COLLADAFWObject.h"
 #include "COLLADAFWTypes.h"
 

@@ -90,20 +90,10 @@ namespace COLLADAFW
         /** Constructor. */
         Mesh ( ObjectId objectId ) 
             : Geometry ( objectId, Geometry::GEO_TYPE_MESH ) 
-//             , mPositions (0)
-//             , mNormals (0)
-//             , mColors (0)
-//             , mUVCoords (0)
         {}
 
         /** Destructor. */
-        virtual ~Mesh () 
-        {
-//             delete mPositions;
-//             delete mNormals;
-//             delete mColors;
-//             delete mUVCoords;
-        }
+        virtual ~Mesh ();
 
 
         /** 

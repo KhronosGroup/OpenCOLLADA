@@ -102,7 +102,7 @@ namespace COLLADAMax
 			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoublePositions();
 			for ( int i = 0; i < positionsCount; ++i)
 			{
-				triangleMesh.setVert(i, (*positionsArray)[3*i], (*positionsArray)[3*i + 1], (*positionsArray)[3*i + 2]);
+				triangleMesh.setVert(i, (float)(*positionsArray)[3*i], (float)(*positionsArray)[3*i + 1], (float)(*positionsArray)[3*i + 2]);
 			}
 		}
 		else
