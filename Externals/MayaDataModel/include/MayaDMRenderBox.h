@@ -14,21 +14,13 @@
 #include "MayaDMImplicitBox.h"
 namespace MayaDM
 {
-/*
-<p><pre>
- This contains the shape for the point light's fog volume.
-
-</pre></p>
-*/
 class RenderBox : public ImplicitBox
 {
-public:
 public:
 	RenderBox(FILE* file,const std::string& name,const std::string& parent=""):ImplicitBox(file, name, parent, "renderBox"){}
 	virtual ~RenderBox(){}
 protected:
 	RenderBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ImplicitBox(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

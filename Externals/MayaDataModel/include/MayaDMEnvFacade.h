@@ -14,19 +14,13 @@
 #include "MayaDMFacade.h"
 namespace MayaDM
 {
-/*
-<b>envFacade</b> is a node to which dynamic attributes
-        can be added to define the parameters of an environment.
-*/
 class EnvFacade : public Facade
 {
-public:
 public:
 	EnvFacade(FILE* file,const std::string& name,const std::string& parent=""):Facade(file, name, parent, "envFacade"){}
 	virtual ~EnvFacade(){}
 protected:
 	EnvFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Facade(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

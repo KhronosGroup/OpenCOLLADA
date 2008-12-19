@@ -14,25 +14,19 @@
 #include "MayaDMCurveFromMesh.h"
 namespace MayaDM
 {
-/*
-This node defines a NURBS curve that is derived from a curve
- on a PolyMesh.  This curve must be a 2-dimensional curve in the
- underworld of the surface.
- The curve is specified by the input attribute, "curveOnMesh".
-*/
 class CurveFromMeshCoM : public CurveFromMesh
 {
 public:
 public:
 	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent=""):CurveFromMesh(file, name, parent, "curveFromMeshCoM"){}
 	virtual ~CurveFromMeshCoM(){}
-	/*The input curve-on-mesh.  This curve is a 2D curve.*/
-	void setCurveOnMesh(const NurbsCurveID& com){fprintf_s(mFile,"connectAttr \"");com.write(mFile);fprintf_s(mFile,"\" \"%s.com\";\n",mName.c_str());}
-	/*The input curve-on-mesh.  This curve is a 2D curve.*/
-	NurbsCurveID getCurveOnMesh(){char buffer[4096];sprintf_s (buffer, "%s.com",mName.c_str());return (const char*)buffer;}
+	void getCurveOnMesh()
+	{
+		fprintf(mFile,"\"%s.com\"",mName.c_str());
+
+	}
 protected:
 	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromMesh(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

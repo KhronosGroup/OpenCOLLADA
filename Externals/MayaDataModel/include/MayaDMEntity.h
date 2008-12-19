@@ -14,19 +14,13 @@
 #include "MayaDMDependNode.h"
 namespace MayaDM
 {
-/*
-<p><pre>  This node has no attributes
-</pre></p>
-*/
 class Entity : public DependNode
 {
-public:
 public:
 	Entity(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "entity"){}
 	virtual ~Entity(){}
 protected:
 	Entity(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

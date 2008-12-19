@@ -14,43 +14,44 @@
 #include "MayaDMAnimCurve.h"
 namespace MayaDM
 {
-/*
-This node is an "animCurve" that takes an attribute of type
-        "time" as input and has an output attribute of type "double".
-        If the input attribute is not connected, it has an implicit
-        connection to the Dependency Graph time node.<p/>
-
-        For more information, see the documentation for the "animCurve" node.<p/>
-*/
 class AnimCurveTU : public AnimCurve
 {
 public:
-	/*Keyframe time/value pairs*/
 	struct KeyTimeValue{
 		double keyValue;
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"%f", keyValue);
+			fprintf(file,"%f", keyValue);
 		}
 	};
 public:
 	AnimCurveTU(FILE* file,const std::string& name,const std::string& parent=""):AnimCurve(file, name, parent, "animCurveTU"){}
 	virtual ~AnimCurveTU(){}
-	/*Time at which to evaluate the animation curve*/
-	void setInput(const TimeID& i){fprintf_s(mFile,"connectAttr \"");i.write(mFile);fprintf_s(mFile,"\" \"%s.i\";\n",mName.c_str());}
-	/*Evaluated double value of the animation curve at the input time.*/
-	void setOutput(const DoubleID& o){fprintf_s(mFile,"connectAttr \"");o.write(mFile);fprintf_s(mFile,"\" \"%s.o\";\n",mName.c_str());}
-	/*Keyframe time/value pairs*/
-	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv){fprintf_s(mFile, "setAttr \".ktv[%i]\" ",ktv_i);ktv.write(mFile);fprintf_s(mFile,";\n");}
-	/*Keyframe values*/
-	void setKeyValue(size_t ktv_i,double kv){if(kv == 0.0) return; fprintf_s(mFile, "setAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);}
-	/*Time at which to evaluate the animation curve*/
-	TimeID getInput(){char buffer[4096];sprintf_s (buffer, "%s.i",mName.c_str());return (const char*)buffer;}
-	/*Evaluated double value of the animation curve at the input time.*/
-	DoubleID getOutput(){char buffer[4096];sprintf_s (buffer, "%s.o",mName.c_str());return (const char*)buffer;}
+	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
+	{
+		fprintf(mFile,"setAttr \".ktv[%i]\" ",ktv_i);
+		ktv.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setKeyValue(size_t ktv_i,double kv)
+	{
+		if(kv == 0.0) return;
+		fprintf(mFile,"setAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);
+
+	}
+	void getInput()
+	{
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
+
+	}
+	void getOutput()
+	{
+		fprintf(mFile,"\"%s.o\"",mName.c_str());
+
+	}
 protected:
 	AnimCurveTU(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AnimCurve(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

@@ -14,33 +14,37 @@
 #include "MayaDMDependNode.h"
 namespace MayaDM
 {
-/*
-<p><pre> Node to delete individual sets of color (cpv layers).
-</pre></p>
-*/
 class DeleteColorSet : public DependNode
 {
 public:
 public:
 	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "deleteColorSet"){}
 	virtual ~DeleteColorSet(){}
-	/*The input geometry to be modified*/
-	void setInputGeometry(const GeometryID& ig){fprintf_s(mFile,"connectAttr \"");ig.write(mFile);fprintf_s(mFile,"\" \"%s.ig\";\n",mName.c_str());}
-	/*The output modified geometry*/
-	void setOutputGeometry(const GeometryID& og){fprintf_s(mFile,"connectAttr \"");og.write(mFile);fprintf_s(mFile,"\" \"%s.og\";\n",mName.c_str());}
-	/*Name of the uv set the node is operating on.*/
-	void setColorSetName(const string& cols){if(cols == "NULL") return; fprintf_s(mFile, "setAttr \".cols\" -type \"string\" ");cols.write(mFile);fprintf_s(mFile,";\n");}
-	/*Name of the uv set the node is operating on.*/
-	void setColorSetName(const StringID& cols){fprintf_s(mFile,"connectAttr \"");cols.write(mFile);fprintf_s(mFile,"\" \"%s.cols\";\n",mName.c_str());}
-	/*The input geometry to be modified*/
-	GeometryID getInputGeometry(){char buffer[4096];sprintf_s (buffer, "%s.ig",mName.c_str());return (const char*)buffer;}
-	/*The output modified geometry*/
-	GeometryID getOutputGeometry(){char buffer[4096];sprintf_s (buffer, "%s.og",mName.c_str());return (const char*)buffer;}
-	/*Name of the uv set the node is operating on.*/
-	StringID getColorSetName(){char buffer[4096];sprintf_s (buffer, "%s.cols",mName.c_str());return (const char*)buffer;}
+	void setColorSetName(const string& cols)
+	{
+		if(cols == "NULL") return;
+		fprintf(mFile,"setAttr \".cols\" -type \"string\" ");
+		cols.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void getInputGeometry()
+	{
+		fprintf(mFile,"\"%s.ig\"",mName.c_str());
+
+	}
+	void getOutputGeometry()
+	{
+		fprintf(mFile,"\"%s.og\"",mName.c_str());
+
+	}
+	void getColorSetName()
+	{
+		fprintf(mFile,"\"%s.cols\"",mName.c_str());
+
+	}
 protected:
 	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

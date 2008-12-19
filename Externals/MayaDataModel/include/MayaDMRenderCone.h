@@ -14,21 +14,13 @@
 #include "MayaDMImplicitCone.h"
 namespace MayaDM
 {
-/*
-<p><pre>
- This contains the shape for the spot light's fog volume.
-
-</pre></p>
-*/
 class RenderCone : public ImplicitCone
 {
-public:
 public:
 	RenderCone(FILE* file,const std::string& name,const std::string& parent=""):ImplicitCone(file, name, parent, "renderCone"){}
 	virtual ~RenderCone(){}
 protected:
 	RenderCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ImplicitCone(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

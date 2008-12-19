@@ -14,12 +14,6 @@
 #include "MayaDMLight.h"
 namespace MayaDM
 {
-/*
-<p><pre>
- This class contains the rendering information for all lights.
-
-</pre></p>
-*/
 class RenderLight : public Light
 {
 public:
@@ -28,7 +22,6 @@ public:
 	virtual ~RenderLight(){}
 protected:
 	RenderLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Light(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

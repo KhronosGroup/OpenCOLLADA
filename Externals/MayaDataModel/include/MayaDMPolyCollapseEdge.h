@@ -14,19 +14,13 @@
 #include "MayaDMPolyModifier.h"
 namespace MayaDM
 {
-/*
-<p><pre> Turns each selected edge into a point.
-</pre></p>
-*/
 class PolyCollapseEdge : public PolyModifier
 {
-public:
 public:
 	PolyCollapseEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyCollapseEdge"){}
 	virtual ~PolyCollapseEdge(){}
 protected:
 	PolyCollapseEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

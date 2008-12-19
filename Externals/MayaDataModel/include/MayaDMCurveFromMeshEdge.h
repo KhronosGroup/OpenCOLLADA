@@ -14,22 +14,25 @@
 #include "MayaDMCurveFromMesh.h"
 namespace MayaDM
 {
-/*This node defines a NURBS curve that is derived from a mesh edge.*/
 class CurveFromMeshEdge : public CurveFromMesh
 {
 public:
 public:
 	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent=""):CurveFromMesh(file, name, parent, "curveFromMeshEdge"){}
 	virtual ~CurveFromMeshEdge(){}
-	/*Index for the edge*/
-	void setEdgeIndex(size_t ei_i,int ei){if(ei == 0) return; fprintf_s(mFile, "setAttr \".ei[%i]\" %i;\n", ei_i,ei);}
-	/*Index for the edge*/
-	void setEdgeIndex(size_t ei_i,const IntID& ei){fprintf_s(mFile,"connectAttr \"");ei.write(mFile);fprintf_s(mFile,"\" \"%s.ei[%i]\";\n",mName.c_str(),ei_i);}
-	/*Index for the edge*/
-	const IntID& getEdgeIndex(size_t ei_i){char buffer[4096];sprintf_s (buffer, "%s.ei[%i]",mName.c_str(),ei_i);return (const char*)buffer;}
+	void setEdgeIndex(size_t ei_i,int ei)
+	{
+		if(ei == 0) return;
+		fprintf(mFile,"setAttr \".ei[%i]\" %i;\n", ei_i,ei);
+
+	}
+	void getEdgeIndex(size_t ei_i)
+	{
+		fprintf(mFile,"\"%s.ei[%i]\"",mName.c_str(),ei_i);
+
+	}
 protected:
 	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromMesh(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

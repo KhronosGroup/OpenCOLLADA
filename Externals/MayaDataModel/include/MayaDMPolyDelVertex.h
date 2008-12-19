@@ -14,19 +14,13 @@
 #include "MayaDMPolyModifier.h"
 namespace MayaDM
 {
-/*
-Deletes vertices. Only vertices which are connected to
- exactly two edges (so-called "winged vertices") can be deleted.<p/>
-*/
 class PolyDelVertex : public PolyModifier
 {
-public:
 public:
 	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDelVertex"){}
 	virtual ~PolyDelVertex(){}
 protected:
 	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

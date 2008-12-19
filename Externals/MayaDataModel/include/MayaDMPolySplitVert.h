@@ -14,24 +14,13 @@
 #include "MayaDMPolyModifierWorld.h"
 namespace MayaDM
 {
-/*
-<p><pre> Split one or more vertices so that each face that shared the vertex
- acquires its own copy of the vertex. This operation will affect all the
- edges and faces that shared the vertex. Also, this operation may create
- non-manifold geometry as a part of this operation. You can use
- Polygons->Cleanup afterwards to to clean up any non-manifold geometry.
-
-</pre></p>
-*/
 class PolySplitVert : public PolyModifierWorld
 {
-public:
 public:
 	PolySplitVert(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polySplitVert"){}
 	virtual ~PolySplitVert(){}
 protected:
 	PolySplitVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

@@ -14,19 +14,13 @@
 #include "MayaDMPolyBase.h"
 namespace MayaDM
 {
-/*
-<p><pre> A base node for the polygonal creation nodes : polyPrimitive, polyCreateFacet and polyUnite.
-</pre></p>
-*/
 class PolyCreator : public PolyBase
 {
-public:
 public:
 	PolyCreator(FILE* file,const std::string& name,const std::string& parent=""):PolyBase(file, name, parent, "polyCreator"){}
 	virtual ~PolyCreator(){}
 protected:
 	PolyCreator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyBase(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

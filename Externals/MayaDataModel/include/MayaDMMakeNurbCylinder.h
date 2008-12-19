@@ -14,32 +14,13 @@
 #include "MayaDMRevolvedPrimitive.h"
 namespace MayaDM
 {
-/*
-Compute a cylinder given the center point (pivot) and the radius (radius).
- A partial cylinder can be computed by using startSweep and endSweep.
- <br/>
- <br/>
- The resolution of the cylinder in the sweep direction can be controlled
- by specifying the useTolerance (useTolerance) attribute and the
- tolerance (tolerance). Otherwise the number of sections (sections) will
- be used. Use spans to control the cylinder's resolution in the opposite direction.
- <br/>
- <br/>
- Control the orientation of the cylinder by specifying the axis of the cylinder.
- <br/>
- <br/>
- The degree of the resulting surface can be linear or cubic.
- <p/>
-*/
 class MakeNurbCylinder : public RevolvedPrimitive
 {
-public:
 public:
 	MakeNurbCylinder(FILE* file,const std::string& name,const std::string& parent=""):RevolvedPrimitive(file, name, parent, "makeNurbCylinder"){}
 	virtual ~MakeNurbCylinder(){}
 protected:
 	MakeNurbCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):RevolvedPrimitive(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

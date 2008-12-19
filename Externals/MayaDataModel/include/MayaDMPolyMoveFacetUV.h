@@ -14,20 +14,13 @@
 #include "MayaDMPolyMoveUV.h"
 namespace MayaDM
 {
-/*
-Modifies UV coordinates belonging to input faces. The
- texture coordinates are transformed
- without changing the 3D geometry of the object.<p/>
-*/
 class PolyMoveFacetUV : public PolyMoveUV
 {
-public:
 public:
 	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveUV(file, name, parent, "polyMoveFacetUV"){}
 	virtual ~PolyMoveFacetUV(){}
 protected:
 	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyMoveUV(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

@@ -14,21 +14,13 @@
 #include "MayaDMGeometryShape.h"
 namespace MayaDM
 {
-/*
-<p><pre>
-        This class contains the "shape" information for renderRect.
-
-</pre></p>
-*/
 class RenderRect : public GeometryShape
 {
-public:
 public:
 	RenderRect(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "renderRect"){}
 	virtual ~RenderRect(){}
 protected:
 	RenderRect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryShape(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

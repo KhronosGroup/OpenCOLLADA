@@ -14,23 +14,13 @@
 #include "MayaDMPolyModifier.h"
 namespace MayaDM
 {
-/*
-Splits non-manifold edges so as to make them manifold edges. It creates
-  the minimum number of edges that need be created to make the edge
-  manifold.
-
-  <p/>Resulting geometry may have extra vertices or edges to ensure
-  geometry is valid.
-*/
 class PolySplitEdge : public PolyModifier
 {
-public:
 public:
 	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySplitEdge"){}
 	virtual ~PolySplitEdge(){}
 protected:
 	PolySplitEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

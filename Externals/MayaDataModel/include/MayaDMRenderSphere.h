@@ -14,21 +14,13 @@
 #include "MayaDMImplicitSphere.h"
 namespace MayaDM
 {
-/*
-<p><pre>
- This contains the shape for the point light's fog volume.
-
-</pre></p>
-*/
 class RenderSphere : public ImplicitSphere
 {
-public:
 public:
 	RenderSphere(FILE* file,const std::string& name,const std::string& parent=""):ImplicitSphere(file, name, parent, "renderSphere"){}
 	virtual ~RenderSphere(){}
 protected:
 	RenderSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ImplicitSphere(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

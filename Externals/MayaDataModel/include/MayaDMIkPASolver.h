@@ -14,21 +14,13 @@
 #include "MayaDMIkSolver.h"
 namespace MayaDM
 {
-/*
-ikPAsolver works the same as ikRPsolver does except that it may
- produce different solution (assignment of values to all the
- rotation attributes at its disposal).
- <p/>
-*/
 class IkPASolver : public IkSolver
 {
-public:
 public:
 	IkPASolver(FILE* file,const std::string& name,const std::string& parent=""):IkSolver(file, name, parent, "ikPASolver"){}
 	virtual ~IkPASolver(){}
 protected:
 	IkPASolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):IkSolver(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

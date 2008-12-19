@@ -14,21 +14,13 @@
 #include "MayaDMGeometryShape.h"
 namespace MayaDM
 {
-/*
-<p><pre>
- This contains the "shape" for the environment fog.
-
-</pre></p>
-*/
 class EnvironmentFog : public GeometryShape
 {
-public:
 public:
 	EnvironmentFog(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "environmentFog"){}
 	virtual ~EnvironmentFog(){}
 protected:
 	EnvironmentFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryShape(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

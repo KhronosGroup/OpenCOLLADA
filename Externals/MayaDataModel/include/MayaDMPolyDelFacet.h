@@ -14,20 +14,13 @@
 #include "MayaDMPolyModifier.h"
 namespace MayaDM
 {
-/*
-Deletes facets. If the resulting poly object is split into unconnected
- pieces, the separate pieces (so-called "shells") are still considered
- to be one object. This node will not delete the last face of an object.<p/>
-*/
 class PolyDelFacet : public PolyModifier
 {
-public:
 public:
 	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDelFacet"){}
 	virtual ~PolyDelFacet(){}
 protected:
 	PolyDelFacet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

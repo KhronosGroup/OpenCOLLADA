@@ -14,20 +14,13 @@
 #include "MayaDMPolyCrease.h"
 namespace MayaDM
 {
-/*
-<p><pre> Selectively assigns weights to edges.
-
-</pre></p>
-*/
 class PolyCreaseEdge : public PolyCrease
 {
-public:
 public:
 	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyCrease(file, name, parent, "polyCreaseEdge"){}
 	virtual ~PolyCreaseEdge(){}
 protected:
 	PolyCreaseEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyCrease(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

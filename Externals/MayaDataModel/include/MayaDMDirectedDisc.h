@@ -14,20 +14,13 @@
 #include "MayaDMGeometryShape.h"
 namespace MayaDM
 {
-/*
-<p><pre> This geometry is for light-glow visibility.  It represents
- the geometry for a spotLight.
-</pre></p>
-*/
 class DirectedDisc : public GeometryShape
 {
-public:
 public:
 	DirectedDisc(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "directedDisc"){}
 	virtual ~DirectedDisc(){}
 protected:
 	DirectedDisc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryShape(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

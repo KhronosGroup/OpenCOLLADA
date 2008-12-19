@@ -14,16 +14,13 @@
 #include "MayaDMSubdModifier.h"
 namespace MayaDM
 {
-/*Node to create finer level vertices, edges and faces on shape in history.<p/>*/
 class SubdAddTopology : public SubdModifier
 {
-public:
 public:
 	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdAddTopology"){}
 	virtual ~SubdAddTopology(){}
 protected:
 	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

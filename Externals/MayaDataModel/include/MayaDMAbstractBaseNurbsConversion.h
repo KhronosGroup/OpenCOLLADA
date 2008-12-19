@@ -14,16 +14,13 @@
 #include "MayaDMAbstractBaseCreate.h"
 namespace MayaDM
 {
-/*A base conversion node nurbs surfaces.*/
 class AbstractBaseNurbsConversion : public AbstractBaseCreate
 {
-public:
 public:
 	AbstractBaseNurbsConversion(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "abstractBaseNurbsConversion"){}
 	virtual ~AbstractBaseNurbsConversion(){}
 protected:
 	AbstractBaseNurbsConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

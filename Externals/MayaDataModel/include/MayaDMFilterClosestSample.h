@@ -14,22 +14,25 @@
 #include "MayaDMFilter.h"
 namespace MayaDM
 {
-/*<strong>Obsolete.</strong>  Use filterResample instead.*/
 class FilterClosestSample : public Filter
 {
 public:
 public:
 	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterClosestSample"){}
 	virtual ~FilterClosestSample(){}
-	/*Obsolete. Output sample frequency in Hz.*/
-	void setFrequency(double f){if(f == 30.) return; fprintf_s(mFile, "setAttr \".f\" %f;\n", f);}
-	/*Obsolete. Output sample frequency in Hz.*/
-	void setFrequency(const DoubleID& f){fprintf_s(mFile,"connectAttr \"");f.write(mFile);fprintf_s(mFile,"\" \"%s.f\";\n",mName.c_str());}
-	/*Obsolete. Output sample frequency in Hz.*/
-	DoubleID getFrequency(){char buffer[4096];sprintf_s (buffer, "%s.f",mName.c_str());return (const char*)buffer;}
+	void setFrequency(double f)
+	{
+		if(f == 30.) return;
+		fprintf(mFile,"setAttr \".f\" %f;\n", f);
+
+	}
+	void getFrequency()
+	{
+		fprintf(mFile,"\"%s.f\"",mName.c_str());
+
+	}
 protected:
 	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Filter(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

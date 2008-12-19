@@ -14,19 +14,13 @@
 #include "MayaDMSubdModifier.h"
 namespace MayaDM
 {
-/*
-Cut along edges of the texture mapping. The cut edges become
- texture borders.<p/>
-*/
 class SubdMapCut : public SubdModifier
 {
-public:
 public:
 	SubdMapCut(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdMapCut"){}
 	virtual ~SubdMapCut(){}
 protected:
 	SubdMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

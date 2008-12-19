@@ -14,17 +14,13 @@
 #include "MayaDMDagNode.h"
 namespace MayaDM
 {
-/*
-*/
 class Shape : public DagNode
 {
-public:
 public:
 	Shape(FILE* file,const std::string& name,const std::string& parent=""):DagNode(file, name, parent, "shape"){}
 	virtual ~Shape(){}
 protected:
 	Shape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DagNode(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

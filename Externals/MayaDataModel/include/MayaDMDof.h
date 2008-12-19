@@ -14,26 +14,13 @@
 #include "MayaDMDependNode.h"
 namespace MayaDM
 {
-/*
-<p><pre>
-        This node is for Depth Of Field (DOF) postprocess.
-        Note, its not a true dependency node, it has attributes
-        but no computePlug. DOF can be evaluated by
-        calling computeDOF.  Don't bother trying to hook
-        this up in a network, it only makes sense when it is
-        connected to the postProcesses node.
-
-</pre></p>
-*/
 class Dof : public DependNode
 {
-public:
 public:
 	Dof(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "dof"){}
 	virtual ~Dof(){}
 protected:
 	Dof(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

@@ -14,19 +14,13 @@
 #include "MayaDMAbstractBaseCreate.h"
 namespace MayaDM
 {
-/*
-<p><pre> Abstract class to parent nodes that produce curves (and could cut parts off)
-</pre></p>
-*/
 class CurveRange : public AbstractBaseCreate
 {
-public:
 public:
 	CurveRange(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "curveRange"){}
 	virtual ~CurveRange(){}
 protected:
 	CurveRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

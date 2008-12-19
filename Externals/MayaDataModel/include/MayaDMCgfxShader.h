@@ -22,7 +22,6 @@ public:
 	virtual ~CgfxShader(){}
 protected:
 	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):HwShader(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

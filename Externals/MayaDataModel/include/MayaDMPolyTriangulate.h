@@ -14,32 +14,20 @@
 #include "MayaDMPolyModifier.h"
 namespace MayaDM
 {
-/*
-Breaks non-triangular faces into triangles.<p/>
-
- Triangulation ensures that faces are planar and non-holed.
- If four or more sided faces are not required, triangulation will
- ensure model is topologically correct. Among other benefits, this will
- improve rendering results, particularly when models include
- non-planar faces.<p/>
-
- See the documentation for the parent node polyModifier for more
- details.<p/>
-*/
 class PolyTriangulate : public PolyModifier
 {
 public:
 public:
 	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTriangulate"){}
 	virtual ~PolyTriangulate(){}
-	/*
-	Enable Maya 8.0 behaviour.
-	This attribute is not meant to be modified through command line.
-	*/
-	void setMaya80(bool m80){if(m80 == true) return; fprintf_s(mFile, "setAttr \".m80\" %i;\n", m80);}
+	void setMaya80(bool m80)
+	{
+		if(m80 == true) return;
+		fprintf(mFile,"setAttr \".m80\" %i;\n", m80);
+
+	}
 protected:
 	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM

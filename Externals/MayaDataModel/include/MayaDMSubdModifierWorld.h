@@ -14,65 +14,49 @@
 #include "MayaDMSubdModifier.h"
 namespace MayaDM
 {
-/*
-A base node for subdivision surface modifier nodes which
- can be referenced in either local or world space.
- The worldSpace attribute specifies which reference to use.<p/>
-*/
 class SubdModifierWorld : public SubdModifier
 {
 public:
 public:
 	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdModifierWorld"){}
 	virtual ~SubdModifierWorld(){}
-	/*
-	Input transformation matrix for world space coords. Default NULL
-	value translates to the identity matrix in normal circumstances.
-	*/
-	void setInputMatrix(const matrix& ix){fprintf_s(mFile, "setAttr \".ix\" -type \"matrix\" ");ix.write(mFile);fprintf_s(mFile,";\n");}
-	/*
-	Input transformation matrix for world space coords. Default NULL
-	value translates to the identity matrix in normal circumstances.
-	*/
-	void setInputMatrix(const MatrixID& ix){fprintf_s(mFile,"connectAttr \"");ix.write(mFile);fprintf_s(mFile,"\" \"%s.ix\";\n",mName.c_str());}
-	/*
-	If true, the inputMatrix attribute is used (world space).
-	If false, the local transformation matrix is used (object space).
-	*/
-	void setWorldSpace(bool ws){if(ws == false) return; fprintf_s(mFile, "setAttr \".ws\" %i;\n", ws);}
-	/*
-	If true, the inputMatrix attribute is used (world space).
-	If false, the local transformation matrix is used (object space).
-	*/
-	void setWorldSpace(const BoolID& ws){fprintf_s(mFile,"connectAttr \"");ws.write(mFile);fprintf_s(mFile,"\" \"%s.ws\";\n",mName.c_str());}
-	/*
-	Input transformation matrix for manipulator position. Default NULL
-	value translates to the identity matrix in normal circumstances.
-	*/
-	void setManipMatrix(const matrix& mp){fprintf_s(mFile, "setAttr \".mp\" -type \"matrix\" ");mp.write(mFile);fprintf_s(mFile,";\n");}
-	/*
-	Input transformation matrix for manipulator position. Default NULL
-	value translates to the identity matrix in normal circumstances.
-	*/
-	void setManipMatrix(const MatrixID& mp){fprintf_s(mFile,"connectAttr \"");mp.write(mFile);fprintf_s(mFile,"\" \"%s.mp\";\n",mName.c_str());}
-	/*
-	Input transformation matrix for world space coords. Default NULL
-	value translates to the identity matrix in normal circumstances.
-	*/
-	MatrixID getInputMatrix(){char buffer[4096];sprintf_s (buffer, "%s.ix",mName.c_str());return (const char*)buffer;}
-	/*
-	If true, the inputMatrix attribute is used (world space).
-	If false, the local transformation matrix is used (object space).
-	*/
-	BoolID getWorldSpace(){char buffer[4096];sprintf_s (buffer, "%s.ws",mName.c_str());return (const char*)buffer;}
-	/*
-	Input transformation matrix for manipulator position. Default NULL
-	value translates to the identity matrix in normal circumstances.
-	*/
-	MatrixID getManipMatrix(){char buffer[4096];sprintf_s (buffer, "%s.mp",mName.c_str());return (const char*)buffer;}
+	void setInputMatrix(const matrix& ix)
+	{
+		fprintf(mFile,"setAttr \".ix\" -type \"matrix\" ");
+		ix.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setWorldSpace(bool ws)
+	{
+		if(ws == false) return;
+		fprintf(mFile,"setAttr \".ws\" %i;\n", ws);
+
+	}
+	void setManipMatrix(const matrix& mp)
+	{
+		fprintf(mFile,"setAttr \".mp\" -type \"matrix\" ");
+		mp.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void getInputMatrix()
+	{
+		fprintf(mFile,"\"%s.ix\"",mName.c_str());
+
+	}
+	void getWorldSpace()
+	{
+		fprintf(mFile,"\"%s.ws\"",mName.c_str());
+
+	}
+	void getManipMatrix()
+	{
+		fprintf(mFile,"\"%s.mp\"",mName.c_str());
+
+	}
 protected:
 	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifier(file, name, parent, nodeType) {}
-private:
 
 };
 }//namespace MayaDM
