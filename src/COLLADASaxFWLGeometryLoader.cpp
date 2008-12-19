@@ -9,37 +9,44 @@
 */
 
 #include "COLLADASaxFWLStableHeaders.h"
-#include "COLLADASaxFWLGeometricElement.h"
-
+#include "COLLADASaxFWLMeshLoader.h"
+#include "COLLADASaxFWLGeometryLoader.h"
 
 namespace COLLADASaxFWL
 {
 
-    //------------------------------
-	ColladaGeometricElement::ColladaGeometricElement ( GeometricType elementType )
-        : GeometricElement ( elementType )
+	GeometryLoader::GeometryLoader( IFilePartLoader* callingFilePartLoader, const char * geometryId, const char * geometryName )
+		: FilePartLoader(callingFilePartLoader),
+		  mGeometryId(geometryId),
+		  mGeometryName(geometryName)
 	{
-	}
-	
-    //------------------------------
-	ColladaGeometricElement::~ColladaGeometricElement()
-	{
+
 	}
 
     //------------------------------
-    const SourceArray& ColladaGeometricElement::getSourceArray () const
-    {
-        return mSourceArray;
-    }
+	GeometryLoader::~GeometryLoader()
+	{
+	}
 
-    //------------------------------
-    void ColladaGeometricElement::setSourceArray ( const SourceArray& sourceArray )
-    {
-        mSourceArray = sourceArray;
-    }
+	//------------------------------
+	bool GeometryLoader::begin__mesh()
+	{
+		MeshLoader* meshLoader = new MeshLoader(this, mGeometryId, mGeometryId);
+		setPartLoader(meshLoader);
+		setParser(meshLoader);
+		return true;
+	}
 
+	//------------------------------
+	bool GeometryLoader::end__geometry()
+	{
+		finish();
+		return true;
+	}
+
+/*
     //------------------------------
-    const SourceBase* ColladaGeometricElement::getSourceById ( const String& sourceId ) const
+    const SourceBase* GeometryLoader::getSourceById ( const String& sourceId ) const
     {
         for ( size_t i=0; i<mSourceArray.getCount (); ++i )
         {
@@ -52,7 +59,7 @@ namespace COLLADASaxFWL
     }
 
     //------------------------------
-    SourceBase* ColladaGeometricElement::getSourceById ( const String& sourceId ) 
+    SourceBase* GeometryLoader::getSourceById ( const String& sourceId ) 
     {
         for ( size_t i=0; i<mSourceArray.getCount (); ++i )
         {
@@ -63,5 +70,7 @@ namespace COLLADASaxFWL
 
         return 0;
     }
+
+	*/
 
 } // namespace COLLADAFW

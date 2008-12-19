@@ -316,7 +316,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASaxFWLGeometricElement.cpp"
+				RelativePath="..\src\COLLADASaxFWLGeometryLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLGeometryObjectLoader.cpp"
 				>
 			</File>
 			<File
@@ -337,6 +341,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLPolyBase.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLSourceArrayLoader.cpp"
 				>
 			</File>
 			<File
@@ -382,7 +390,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASaxFWLGeometricElement.h"
+				RelativePath="..\include\COLLADASaxFWLGeometryLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLGeometryObjectLoader.h"
 				>
 			</File>
 			<File
@@ -431,6 +443,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLSource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLSourceArrayLoader.h"
 				>
 			</File>
 			<File

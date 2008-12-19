@@ -96,10 +96,14 @@ namespace COLLADASaxFWL
          * @param semantic The semantic of the @a \<input\> element.
          * @param source The source of the @a \<input\> element.
          */
-        InputUnshared ( InputSemantic::Semantic semantic, const COLLADABU::URI& source )
-            : mSemantic ( semantic )
-            , mSource ( source )
-        {}
+        InputUnshared ( InputSemantic::Semantic semantic, const COLLADABU::URI& source );
+
+		/** 
+		* Constructor.
+		* @param semantic The semantic of the @a \<input\> element.
+		* @param source The source of the @a \<input\> element.
+		*/
+		InputUnshared ( const String& semantic, const String& source );
 
         /**
          * Destructor.

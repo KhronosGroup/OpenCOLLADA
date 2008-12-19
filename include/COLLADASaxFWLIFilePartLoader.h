@@ -34,6 +34,11 @@ namespace COLLADASaxFWL
     /** Base class for all loaders that load parts of files or entire files */
 	class IFilePartLoader : protected ColladaParserAutoGen
 	{
+	private:
+		/** The currently working file part loader.*/
+		IFilePartLoader* mPartLoader;
+
+
 	public:
 	
 		/** Returns a pointer to the collada loader. */
@@ -54,10 +59,21 @@ namespace COLLADASaxFWL
 		const COLLADAFW::UniqueId& getUniqueId(const String& uriString, COLLADAFW::ClassId classId);
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
-		virtual void setMeAsParser()=0;
+		void setMeAsParser();
+
+		/** Sets the parser to @a parserToBeSet.*/
+		virtual void setParser(IFilePartLoader* parserToBeSet)=0;
+
+		/** Sets the part loader.*/
+		void setPartLoader(IFilePartLoader* partLoader){mPartLoader=partLoader;}
 
 		/** Returns the absolute uri of the currently parsed file*/
 		virtual const COLLADABU::URI& getFileUri()=0;
+
+	protected:
+		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method, 
+		when creating a new FilePartLoader and switching to it.*/
+		void deleteFilePartLoader();
 
 
 	public:

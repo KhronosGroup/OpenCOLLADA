@@ -44,7 +44,7 @@ namespace COLLADASaxFWL
         * Constructor
         */
         Polylist ( MeshLoader* parent ) 
-            : PolyBase ( parent, COLLADAFW::PrimitiveElement::POLYLIST ) 
+            : PolyBase ( parent, COLLADAFW::MeshPrimitive::POLYLIST ) 
         {}
 
         /**
@@ -53,7 +53,7 @@ namespace COLLADASaxFWL
         virtual ~Polylist() {}
 
         /**
-        * The vcount element contains a array of integers describing the number 
+        * The vcount element contains an array of integers describing the number 
         * of sides for each polygon  described by the Polylist element. 
         * The vcount element may occur once.
         * @param vCountArraySize Parameter to set the size of the array.
@@ -65,7 +65,7 @@ namespace COLLADASaxFWL
         }
 
         /**
-        * The vcount element contains a array of integers describing the number 
+        * The vcount element contains an array of integers describing the number 
         * of sides for each polygon  described by the Polylist element. 
         * The vcount element may occur once.
         * @param vCountArraySize Parameter to set the size of the array.
@@ -77,7 +77,7 @@ namespace COLLADASaxFWL
         }
 
         /**
-         * The vcount element contains a array of integers describing the number 
+         * The vcount element contains an array of integers describing the number 
          * of sides for each polygon  described by the Polylist element. 
          * The vcount element may occur once.
          * @param vCountArraySize The size of the array.

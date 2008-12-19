@@ -12,10 +12,10 @@
 #define __COLLADASAXFWL_MESHLOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
-#include "COLLADASaxFWLGeometricElement.h"
 #include "COLLADASaxFWLVertices.h"
 #include "COLLADASaxFWLSource.h"
 #include "COLLADASaxFWLPolyBase.h"
+#include "COLLADASaxFWLSourceArrayLoader.h"
 
 #include "COLLADAFWMesh.h"
 
@@ -37,22 +37,46 @@ namespace COLLADASaxFWL
      * form the geometric shape of the mesh. The mesh vertices are collated into 
      * geometric primitives such as polygons, triangles, or lines.
      */
-    class MeshLoader : public ColladaGeometricElement
+    class MeshLoader : public SourceArrayLoader
     {
     private:
 
         /**
          * The framework mesh element, to load the data.
          */
-        COLLADAFW::Mesh mMesh;
+        COLLADAFW::Mesh* mMesh;
+
+		/** The mesh primitive being filled by the parser.*/
+		COLLADAFW::MeshPrimitive* mCurrentMeshPrimitive;
 
         /**
          * Describes the mesh-vertex attributes and establishes
          * their topological identity.
          */
-        Vertices mVertices;
+        Vertices mVerticesInputs;
 
-        /**
+		/** The vertex input being parse.*/
+		InputUnshared* mCurrentVertexInput;
+
+		/**
+		* Describes the mesh-vertex attributes and establishes
+		* their topological identity.
+		*/
+		PolyBase mMeshPrimitiveInputs;
+
+		/** The mesh primitive input being parse.*/
+		InputSharedArray* mCurrentMeshPrimitiveInput;
+
+		/** The offset of the next index received from the sax parser.*/
+		size_t mCurrentOffset;
+
+		/** The max offset of the current MeshPrimitive.*/
+		size_t mCurrentMaxOffset;
+
+		/** The face count of the current MeshPrimitive.*/
+		size_t mCurrentFaceVertexCount;
+
+		/**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Can be any combination of the following in any order:
         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
@@ -73,31 +97,63 @@ namespace COLLADASaxFWL
     public:
 
         /** Constructor. */
-        MeshLoader ( COLLADAFW::Geometry* geometry )
-            : ColladaGeometricElement ( GeometricElement::GEO_TYPE_MESH )
-            , mMesh ( geometry )
-            , mPositionsOffset (0)
-            , mUsePositions ( true )
-            , mNormalsOffset (0)
-            , mUseNormals ( false )
-            , mColorsOffset (0)
-            , mUseColors (false)
-            , mUVCoordsOffset (0)
-            , mUseUVCoords ( false )
-        {}
+		MeshLoader ( IFilePartLoader* callingFilePartLoader, const String& geometryId, const String& geometryName );
 
         /** Destructor. */
         virtual ~MeshLoader () {}
 
-        /**
-        * The framework mesh element, to load the data.
-        */
-        const COLLADAFW::Mesh* getMesh () const { return &mMesh; }
+		/** Sax callback function for the beginning of a source element.*/
+		virtual bool begin__mesh__source(const mesh__source__AttributeData& attributes);
 
-        /**
-        * The framework mesh element, to load the data.
-        */
-        COLLADAFW::Mesh* getMesh () { return &mMesh; }
+		/** Sax callback function for the ending of a source element.*/
+		virtual bool end__mesh__source();
+		
+		/** Cleans up everything and gives control to calling file part loader.*/
+		virtual bool end__mesh();
+
+
+		/** Sax callback function for the beginning of a vertices element.*/
+		virtual bool begin__mesh__vertices( const mesh__vertices__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a vertices element.*/
+		virtual bool end__mesh__vertices();
+
+
+		/** Sax callback function for the beginning of a input element.*/
+		virtual bool begin__vertices__input( const vertices__input__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a input element.*/
+		virtual bool end__vertices__input();
+
+
+		/** Sax callback function for the beginning of a mesh element.*/
+		virtual bool begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a mesh element.*/
+		virtual bool end__mesh__triangles();
+
+
+		/** Sax callback function for the beginning of a mesh element.*/
+		virtual bool begin__triangles__input( const triangles__input__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a mesh element.*/
+		virtual bool end__triangles__input();
+
+
+		/** Sax callback function for the beginning of a p within a triangles element element.*/
+		virtual bool begin__triangles__p();
+
+		/** Sax callback function for the ending of a p within a triangles element element.*/
+		virtual bool end__triangles__p();
+
+		/** Sax callback function for the data of a p within a triangles element element.*/
+		virtual bool data__triangles__p( const double* data, size_t length );
+
+
+
+		/** Stores the information provided by the attributes of an input element for all mesh primitives.*/
+		bool beginInput(const triangles__input__AttributeData& attributeData);
+
 
         /**
         * Returns the vertex input element with the given semantic or 0 if it not exist.
@@ -136,19 +192,19 @@ namespace COLLADASaxFWL
          * Describes the mesh-vertex attributes and establishes their topological identity.
          * @return const Vertices The mesh-vertex attributes.
          */
-        Vertices& getVertices () { return mVertices; }
+        Vertices& getVertices () { return mVerticesInputs; }
 
         /**
         * Describes the mesh-vertex attributes and establishes their topological identity.
         * @return const Vertices The mesh-vertex attributes.
         */
-        const Vertices& getVertices () const { return mVertices; }
+        const Vertices& getVertices () const { return mVerticesInputs; }
 
         /**
          * Describes the mesh-vertex attributes and establishes their topological identity.
          * @param vertices The mesh-vertex attributes.
          */
-        void setVertices ( const Vertices& vertices ) { mVertices = vertices; }
+        void setVertices ( const Vertices& vertices ) { mVerticesInputs = vertices; }
 
 //         /**
 //         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
@@ -179,7 +235,7 @@ namespace COLLADASaxFWL
          * @return void
          */
         void loadIndexLists ( 
-            COLLADAFW::PrimitiveElement* primitiveElement, 
+            COLLADAFW::MeshPrimitive* primitiveElement, 
             const PolyBase* polyBaseElement );
 
         /**
@@ -189,7 +245,7 @@ namespace COLLADASaxFWL
          * @return void
          */
         void loadFaceVertexCountArray ( 
-            COLLADAFW::PrimitiveElement* primitiveElement, 
+            COLLADAFW::MeshPrimitive* primitiveElement, 
             const PolyBase* polyBaseElement );
 
         /**
@@ -197,8 +253,11 @@ namespace COLLADASaxFWL
          * the offset values of the index lists.
          */
         bool initializeIndexLists ( 
-            COLLADAFW::PrimitiveElement* primitiveElement, 
+            COLLADAFW::MeshPrimitive* primitiveElement, 
             const PolyBase* polyBaseElement );
+
+		/** Sets the offsets for the different semantics (positions normals etc)*/
+		bool initializeOffsets();
 
         /**
          * Push the index values of the current p element in the list of indexes of the current 
@@ -206,8 +265,12 @@ namespace COLLADASaxFWL
          */
         void writePElementIndices ( 
             const PElement* pElement, 
-            COLLADAFW::PrimitiveElement* primitiveElement, 
+            COLLADAFW::MeshPrimitive* primitiveElement, 
             const size_t maxOffset );
+
+
+		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
+		void writePrimitiveIndices ( const double* data, size_t length );
 
         /**
          * Get the number of all indices in all p elements in the current primitive element.

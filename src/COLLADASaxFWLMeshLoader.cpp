@@ -10,14 +10,42 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLMeshLoader.h"
-#include "COLLADASaxFWLPolylist.h"
-#include "COLLADASaxFWLPolygons.h"
+
+//#include "COLLADASaxFWLPolylist.h"
+//#include "COLLADASaxFWLPolygons.h"
+
+#include "COLLADAFWTriangles.h"
+
+#include "COLLADAFWIWriter.h"
 
 #include <fstream>
 
 
 namespace COLLADASaxFWL
 {
+
+	MeshLoader::MeshLoader( IFilePartLoader* callingFilePartLoader, const String& geometryId, const String& geometryName )
+		: SourceArrayLoader (callingFilePartLoader )
+		, mMesh ( new COLLADAFW::Mesh(getUniqueId('#' + geometryId, COLLADAFW::Geometry::ID()).getObjectId()) )
+		, mCurrentMeshPrimitive(0)
+		, mCurrentVertexInput(0)
+		, mMeshPrimitiveInputs(mVerticesInputs)
+		, mCurrentMeshPrimitiveInput(0)
+		, mCurrentOffset(0)
+		, mCurrentMaxOffset(0)
+		, mCurrentFaceVertexCount(0)
+		, mPositionsOffset (0)
+		, mUsePositions ( true )
+		, mNormalsOffset (0)
+		, mUseNormals ( false )
+		, mColorsOffset (0)
+		, mUseColors (false)
+		, mUVCoordsOffset (0)
+		, mUseUVCoords ( false )
+	{
+		mMesh->setName(geometryName);
+	}
+
 
     //------------------------------
     const InputUnshared* MeshLoader::getVertexInputBySemantic ( const InputSemantic::Semantic& semantic ) const 
@@ -46,6 +74,7 @@ namespace COLLADASaxFWL
         return getSourceByInputSemanticFromVertices ( InputSemantic::POSITION );
     }
 
+	/*
     //------------------------------
     const FloatSource* MeshLoader::getPositionsFloatSource () const
     {
@@ -68,7 +97,7 @@ namespace COLLADASaxFWL
 
         return ( DoubleSource* ) positionsSource;
     }
-
+*/
     //------------------------------
     void MeshLoader::addPolyBaseElement ( const COLLADASaxFWL::PolyBase* polyBaseElement )
     {
@@ -83,23 +112,23 @@ namespace COLLADASaxFWL
 
         // After a PolyBaseElements was set, we are able to read the index lists and 
         // set them into the Framework mesh data.
-        COLLADAFW::PrimitiveElement::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
-        COLLADAFW::PrimitiveElement* primitiveElement = new COLLADAFW::PrimitiveElement ( primitiveType );
+        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
+        COLLADAFW::MeshPrimitive* meshPrimitive = new COLLADAFW::MeshPrimitive ( primitiveType );
 
         // TODO Set the material
-        primitiveElement->setMaterial ( polyBaseElement->getMaterial () );
+        meshPrimitive->setMaterial ( polyBaseElement->getMaterial () );
 
         // Set the number of faces
-        primitiveElement->setFaceCount ( polyBaseElement->getFaceCount () );
+        meshPrimitive->setFaceCount ( polyBaseElement->getFaceCount () );
 
         // Generate the face vertex count array if necessary and set it into the mesh.
-        loadFaceVertexCountArray ( primitiveElement, polyBaseElement );
+  //      loadFaceVertexCountArray ( meshPrimitive, polyBaseElement );
 
         // Load the index lists
-        loadIndexLists ( primitiveElement, polyBaseElement );
+  //      loadIndexLists ( meshPrimitive, polyBaseElement );
 
         // Append the element into the list of primitive elements.
-        mMesh.appendPrimitiveElement ( primitiveElement );
+ //       mMesh->appendPrimitive ( meshPrimitive );
     }
 
     //------------------------------
@@ -147,7 +176,7 @@ namespace COLLADASaxFWL
         return retValue;
     }
 
-    //------------------------------
+	//------------------------------
     bool MeshLoader::loadPositionsSourceElement ( const InputShared& input )
     {
         // Get the semantic of the current input element.
@@ -164,7 +193,8 @@ namespace COLLADASaxFWL
         SourceBase* sourceBase = getSourceById ( sourceId );
 
         // Check if the source element is already loaded.
-        if ( sourceBase->getIsLoaded () ) return false;
+        if ( sourceBase->getIsLoaded () ) 
+			return false;
 
         // Get the source input array
         const SourceBase::DataType& dataType = sourceBase->getDataType ();
@@ -174,19 +204,21 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 FloatSource* source = ( FloatSource* ) sourceBase;
-                FloatArrayElement* arrayElement = source->getFloatArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement->getValues ();
+                FloatArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshPositions& positions = mMesh.getPositions ();
+                COLLADAFW::MeshPositions& positions = mMesh->getPositions ();
                 const size_t initialIndex = positions.getPositionsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
                 positions.setType ( COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT );
-                if ( initialIndex != 0 ) positions.appendValues ( valuesArray );
-                else positions.setData ( valuesArray.getData (), valuesArray.getCount () );
+                if ( initialIndex != 0 ) 
+					positions.appendValues ( valuesArray );
+                else 
+					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
 
                 // Set the source base as loaded element.
                 sourceBase->setIsLoaded ( true );
@@ -197,12 +229,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 DoubleSource* source = ( DoubleSource* ) sourceBase;
-                DoubleArrayElement* arrayElement = source->getDoubleArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement->getValues ();
+                DoubleArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshPositions& positions = mMesh.getPositions ();
+                COLLADAFW::MeshPositions& positions = mMesh->getPositions ();
                 const size_t initialIndex = positions.getPositionsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -224,7 +256,7 @@ namespace COLLADASaxFWL
         return true;
     }
 
-    //------------------------------
+	//------------------------------
     bool MeshLoader::loadNormalsSourceElement ( const InputShared& input )
     {
         // Get the semantic of the current input element.
@@ -251,12 +283,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 FloatSource* source = ( FloatSource* ) sourceBase;
-                FloatArrayElement* arrayElement = source->getFloatArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement->getValues ();
+                FloatArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshNormals& normals = mMesh.getNormals ();
+                COLLADAFW::MeshNormals& normals = mMesh->getNormals ();
                 const size_t initialIndex = normals.getNormalsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -274,12 +306,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 DoubleSource* source = ( DoubleSource* ) sourceBase;
-                DoubleArrayElement* arrayElement = source->getDoubleArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement->getValues ();
+                DoubleArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshNormals& normals = mMesh.getNormals ();
+                COLLADAFW::MeshNormals& normals = mMesh->getNormals ();
                 const size_t initialIndex = normals.getNormalsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -300,7 +332,6 @@ namespace COLLADASaxFWL
 
         return true;
     }
-
     //------------------------------
     bool MeshLoader::loadColorsSourceElement ( const InputShared& input )
     {
@@ -328,12 +359,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 FloatSource* source = ( FloatSource* ) sourceBase;
-                FloatArrayElement* arrayElement = source->getFloatArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement->getValues ();
+                FloatArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshColors& colors = mMesh.getColors ();
+                COLLADAFW::MeshColors& colors = mMesh->getColors ();
                 const size_t initialIndex = colors.getColorsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -352,12 +383,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 DoubleSource* source = ( DoubleSource* ) sourceBase;
-                DoubleArrayElement* arrayElement = source->getDoubleArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement->getValues ();
+                DoubleArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshColors& colors = mMesh.getColors ();
+                COLLADAFW::MeshColors& colors = mMesh->getColors ();
                 const size_t initialIndex = colors.getColorsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -407,12 +438,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 FloatSource* source = ( FloatSource* ) sourceBase;
-                FloatArrayElement* arrayElement = source->getFloatArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement->getValues ();
+                FloatArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshUVCoords& uvCoords = mMesh.getUVCoords ();
+                COLLADAFW::MeshUVCoords& uvCoords = mMesh->getUVCoords ();
                 const size_t initialIndex = uvCoords.getUVCoordsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -431,12 +462,12 @@ namespace COLLADASaxFWL
             {
                 // Get the values array from the source
                 DoubleSource* source = ( DoubleSource* ) sourceBase;
-                DoubleArrayElement* arrayElement = source->getDoubleArrayElement ();
-                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement->getValues ();
+                DoubleArrayElement& arrayElement = source->getArrayElement ();
+                COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement.getValues ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
-                COLLADAFW::MeshUVCoords& uvCoords = mMesh.getUVCoords ();
+                COLLADAFW::MeshUVCoords& uvCoords = mMesh->getUVCoords ();
                 const size_t initialIndex = uvCoords.getUVCoordsCount ();
                 sourceBase->setInitialIndex ( initialIndex );
 
@@ -459,6 +490,8 @@ namespace COLLADASaxFWL
         return true;
     }
 
+#if 0
+
     //------------------------------
     size_t MeshLoader::getNumOfPrimitiveIndices ( const PolyBase* polyBaseElement )
     {
@@ -475,7 +508,7 @@ namespace COLLADASaxFWL
         }
 
         // Every ph element has exact one p element.
-        if ( polyBaseElement->getPrimitiveType () == COLLADAFW::PrimitiveElement::POLYGONS )
+        if ( polyBaseElement->getPrimitiveType () == COLLADAFW::MeshPrimitive::POLYGONS )
         {
             Polygons* polygonsElement = ( Polygons* ) polyBaseElement;
             const PHArray& phArray = polygonsElement->getPHArray ();
@@ -491,11 +524,11 @@ namespace COLLADASaxFWL
 
         return numPIndices;
     }
-
+#endif
     //------------------------------
     void MeshLoader::writePElementIndices ( 
         const PElement* pElement, 
-        COLLADAFW::PrimitiveElement* primitiveElement, 
+        COLLADAFW::MeshPrimitive* primitiveElement, 
         const size_t maxOffset )
     {
         // Write the index values in the index lists.
@@ -543,9 +576,56 @@ namespace COLLADASaxFWL
         }
     }
 
-    //------------------------------
+
+	void MeshLoader::writePrimitiveIndices ( const double* data, size_t length )
+	{
+		// Write the index values in the index lists.
+		for ( size_t i=0; i<length; ++i )
+		{
+			// Get the current index value.
+			unsigned int index = data [i];
+
+			// Write the indices
+			if ( mUsePositions && mCurrentOffset == mPositionsOffset )
+			{
+				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
+				positionIndices.append ( index );
+			}
+			if ( mUseNormals && mCurrentOffset == mNormalsOffset )
+			{
+				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
+				normalIndices.append ( index );
+			}
+			if ( mUseColors && mCurrentOffset == mColorsOffset )
+			{
+				COLLADAFW::UIntValuesArray& colorIndices = mCurrentMeshPrimitive->getColorIndices ();
+				colorIndices.append ( index );
+			}
+			if ( mUseUVCoords && mCurrentOffset == mUVCoordsOffset )
+			{
+				COLLADAFW::UIntValuesArray& uvCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ();
+				uvCoordIndices.append ( index );
+			}
+
+			// Reset the offset if we went through all offset values
+			if ( mCurrentOffset == mCurrentMaxOffset )
+			{
+				// Reset the current offset value
+				mCurrentOffset = 0;
+				++mCurrentFaceVertexCount;
+			}
+			else
+			{
+				// Increment the current offset value
+				++mCurrentOffset;
+			}
+
+		}
+	}
+
+	//------------------------------
     bool MeshLoader::initializeIndexLists ( 
-        COLLADAFW::PrimitiveElement* primitiveElement, 
+        COLLADAFW::MeshPrimitive* primitiveElement, 
         const PolyBase* polyBaseElement )
     {
         // Get the index lists.
@@ -560,7 +640,8 @@ namespace COLLADASaxFWL
 
         // Get the number of all indices in all p elements in the current primitive element.
         size_t numPIndices = polyBaseElement->getIndexCount ();
-        if ( numPIndices == 0 ) numPIndices = getNumOfPrimitiveIndices ( polyBaseElement );
+  //      if ( numPIndices == 0 ) numPIndices = getNumOfPrimitiveIndices ( polyBaseElement );
+		assert(false);
 
         // Get the number of index elements in the index list for each input element.
         size_t numElements = numPIndices / maxOffset;
@@ -618,17 +699,75 @@ namespace COLLADASaxFWL
         return true;
     }
 
+	//------------------------------
+	bool MeshLoader::initializeOffsets()
+	{
+		// We need the maximum offset value of the input elements to calculate the 
+		// number of indices for each index list.
+		mCurrentMaxOffset = mMeshPrimitiveInputs.getInputArrayMaxOffset ();
+
+
+		// TODO The offset values of the input elements.
+		const InputShared* positionInput = mMeshPrimitiveInputs.getPositionInput ();
+		if ( positionInput == 0 ) 
+		{
+			throw new ColladaSaxFrameworkLoaderException ( "No positions input element!" );
+			return false;
+		}
+		// Get the offset value, the initial index values and alloc the memory.
+		mPositionsOffset = positionInput->getOffset ();
+		COLLADABU::URI inputUrl = positionInput->getSource ();
+		String sourceId = inputUrl.getFragment ();
+		const SourceBase* sourceBase = getSourceById ( sourceId );
+		if ( sourceBase == 0 ) 
+		{   
+			// TODO error handling!
+			return false;
+		}
+
+		// Check for using normals
+		const InputShared* normalInput = mMeshPrimitiveInputs.getNormalInput ();
+		if ( normalInput != 0 ) 
+		{
+			// Get the offset value, the initial index values and alloc the memory.
+			mNormalsOffset = normalInput->getOffset ();
+			sourceBase = getSourceById ( normalInput->getSource ().getFragment () );
+			mUseNormals = true;
+		}
+
+		// Check for using colors
+		const InputShared* colorInput = mMeshPrimitiveInputs.getColorInput ();
+		if ( colorInput != 0 ) 
+		{
+			// Get the offset value and alloc the memory.
+			mColorsOffset = colorInput->getOffset ();
+			mUseColors = true;
+		}
+
+		// Check for using uv coordinates 
+		const InputShared* uVCoordInput = mMeshPrimitiveInputs.getUVCoordInput ();
+		if ( uVCoordInput != 0 ) 
+		{
+			// Get the offset value and alloc the memory.
+			mUVCoordsOffset = uVCoordInput->getOffset ();
+			mUseUVCoords = true;
+		}
+
+		return true;
+	}
+
+#if 0
     //------------------------------
     void MeshLoader::loadFaceVertexCountArray ( 
-        COLLADAFW::PrimitiveElement* primitiveElement, 
+        COLLADAFW::MeshPrimitive* primitiveElement, 
         const PolyBase* polyBaseElement )
     {
         // TODO Not all types implemented!
-        COLLADAFW::PrimitiveElement::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
+        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
 
         switch ( primitiveType )
         {
-        case COLLADAFW::PrimitiveElement::POLYGONS:
+        case COLLADAFW::MeshPrimitive::POLYGONS:
             {
                 // Calculate to get the polygonal face vertex counts 
                 // and push them in the face vertex count list.
@@ -666,7 +805,7 @@ namespace COLLADASaxFWL
 
                 break;
             }
-        case COLLADAFW::PrimitiveElement::POLYLIST:
+        case COLLADAFW::MeshPrimitive::POLYLIST:
             {
                 // A POLYLIST element should already has set the face vertex count array. 
                 Polylist* polylist = ( Polylist* ) polyBaseElement;
@@ -676,7 +815,7 @@ namespace COLLADASaxFWL
                 faceVertexCountArray.setData ( vCountArray.getData (), vCountArray.getCount (), vCountArray.getCapacity () );
                 break;
             }
-        case COLLADAFW::PrimitiveElement::TRIANGLES:
+        case COLLADAFW::MeshPrimitive::TRIANGLES:
             // TODO Always three, we don't need to store!?
             break;
         default:
@@ -684,20 +823,22 @@ namespace COLLADASaxFWL
             return;
         }
     }
+#endif 
 
+#if 0
     //------------------------------
     void MeshLoader::loadIndexLists ( 
-        COLLADAFW::PrimitiveElement* primitiveElement, 
+        COLLADAFW::MeshPrimitive* primitiveElement, 
         const PolyBase* polyBaseElement )
     {
         // TODO Not all types implemented!
-        COLLADAFW::PrimitiveElement::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
+        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
 
         switch ( primitiveType )
         {
-        case COLLADAFW::PrimitiveElement::POLYGONS:
-        case COLLADAFW::PrimitiveElement::POLYLIST:
-        case COLLADAFW::PrimitiveElement::TRIANGLES:
+        case COLLADAFW::MeshPrimitive::POLYGONS:
+        case COLLADAFW::MeshPrimitive::POLYLIST:
+        case COLLADAFW::MeshPrimitive::TRIANGLES:
             {
                 // Initialize the size of the index lists, check for used source elements and get 
                 // the offset values of the index lists.
@@ -718,7 +859,7 @@ namespace COLLADASaxFWL
                     writePElementIndices( pElement, primitiveElement, maxOffset );
                 }
 
-                if ( primitiveType == COLLADAFW::PrimitiveElement::POLYGONS )
+                if ( primitiveType == COLLADAFW::MeshPrimitive::POLYGONS )
                 {
                     // Write the indexes of the p elements of each ph element in the the ph array.
                     Polygons* polygonsElement = ( Polygons* ) polyBaseElement;
@@ -771,4 +912,127 @@ namespace COLLADASaxFWL
             return;
         }
     }
+#endif
+	//------------------------------
+	bool MeshLoader::end__mesh() 
+	{
+		bool success = writer()->writeGeometry(mMesh);
+		delete mMesh;
+		finish();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__mesh__source( const mesh__source__AttributeData& attributes )
+	{
+		return beginSource(attributes);
+	}
+
+	//------------------------------
+	bool MeshLoader::end__mesh__source(  )
+	{
+		return endSource();
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__mesh__vertices( const mesh__vertices__AttributeData& attributeData )
+	{
+		if ( attributeData.id )
+			mVerticesInputs.setId( (const char*)attributeData.id );
+		if ( attributeData.name )
+			mVerticesInputs.setName( (const char*)attributeData.name );
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__mesh__vertices()
+	{
+		//we don't need to do anything here
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__vertices__input( const vertices__input__AttributeData& attributeData )
+	{
+		mCurrentVertexInput = new InputUnshared((const char*)attributeData.semantic, (const char*)attributeData.source);
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__vertices__input()
+	{
+		mVerticesInputs.getInputArray().append(mCurrentVertexInput);
+		mCurrentVertexInput = 0;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData )
+	{
+		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__mesh__triangles()
+	{
+//		mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		mCurrentMeshPrimitive = 0;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__triangles__input( const triangles__input__AttributeData& attributeData )
+	{
+		return beginInput(attributeData);
+	}
+
+	//------------------------------
+	bool MeshLoader::end__triangles__input()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::beginInput( const triangles__input__AttributeData& attributeData )
+	{
+		// TODO use the first version
+/*		mMeshPrimitiveInputs.appendInputElement(new InputShared((const char*)attributeData.semantic, 
+			(const char*)attributeData.source, 
+			attributeData.offset,
+			attributeData.set));*/
+		mMeshPrimitiveInputs.appendInputElement(new InputShared((const char*)attributeData.semantic, 
+			(const char*)attributeData.source, 
+			attributeData.offset,
+			0));
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__triangles__p()
+	{
+		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
+		addPolyBaseElement(&mMeshPrimitiveInputs);
+		initializeOffsets();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__triangles__p()
+	{
+		mCurrentMeshPrimitive->setFaceCount(mCurrentFaceVertexCount/3);
+		mCurrentFaceVertexCount = 0;
+		mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		mCurrentMeshPrimitive = 0;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__triangles__p( const double* data, size_t length )
+	{
+		writePrimitiveIndices(data, length);
+		return true;
+	}
+
+
 } // namespace COLLADASaxFWL

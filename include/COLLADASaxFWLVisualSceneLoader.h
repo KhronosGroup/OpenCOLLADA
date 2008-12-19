@@ -78,10 +78,10 @@ namespace COLLADASaxFWL
 		bool endTransformation();
 
 		/** Sax callback function for the beginning of nodes, as child of a node.*/
-		virtual bool begin__node( const node__AttributeData& attributeData );
+		virtual bool begin__node__node( const node__node__AttributeData& attributeData );
 		
 		/** Sax callback function for the ending of nodes, as child of a node.*/
-		virtual bool end__node();
+		virtual bool end__node__node();
 
 
 		/** Sax callback function for the beginning of nodes, as child of a visual scene.*/
@@ -92,13 +92,13 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a translate element.*/
-		virtual bool begin__translate( const translate__AttributeData& attributeData );
+		virtual bool begin__node__translate( const node__translate__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a translate element.*/
-		virtual bool end__translate();
+		virtual bool end__node__translate();
 
 		/** Sax callback function for the float data of a translate element.*/
-		virtual bool data__translate( const double* data, size_t length );
+		virtual bool data__node__translate( const double* data, size_t length );
 
 
 		/** Sax callback function for the beginning of a rotate element.*/
@@ -130,17 +130,11 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the float data of a scale element.*/
 		virtual bool data__scale( const double* data, size_t length );
 
-		// will be removed
 		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool begin__instance_geometry( const instance_geometry__AttributeData& attributeData );
-		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool end__instance_geometry();
+		virtual bool begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData );
 
 		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData ){assert(false);}
-
-		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool end__node__instance_geometry(){assert(false);}
+		virtual bool end__node__instance_geometry();
 
 
 		/** Sax callback function for the ending of a visual scene.*/

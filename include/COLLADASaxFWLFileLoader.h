@@ -52,11 +52,6 @@ namespace COLLADASaxFWL
 
 		GeneratedSaxParser::LibxmlSaxParser mLibxmlSaxParse;
 
-		/** The currently working file part loader.*/
-		FilePartLoader* mPartLoader;
-
-		/** Indicates, if the part loader mPartLoader can be deleted..*/
-		bool mDeletePartLoader;
 
 	public:
 
@@ -69,8 +64,8 @@ namespace COLLADASaxFWL
         /** Destructor. */
         virtual ~FileLoader();
 
-		/** After this functions, the next sax callback should be caught by this the file part loader.*/
-		void setMeAsParser();
+		/** Sets the parser to @a parserToBeSet.*/
+		void setParser(IFilePartLoader* parserToBeSet);
 
 		/** Loads the data into the frame work data model.*/
 		bool load();
@@ -87,8 +82,11 @@ namespace COLLADASaxFWL
 		/** Returns a const pointer to the collada document. */
 		const Loader* getColladaLoader () const { return mColladaLoader; }
 
+		/** Starts loading a visual scene.*/
+		bool begin__geometry( const geometry__AttributeData& attributeData );
 
 
+		/** Starts loading a visual scene.*/
 		bool begin__visual_scene( const visual_scene__AttributeData& attributeData );
 
 
@@ -100,9 +98,6 @@ namespace COLLADASaxFWL
         /** Disable default assignment operator. */
 		const FileLoader& operator= ( const FileLoader& pre );
 
-		/** Deletes the part loader mPartLoader, if it is not needed anymore. Always call this method, 
-		when creating a new FilePartLoader and switching to it.*/
-		void deleteFilePartLoader();
 
 	};
 	

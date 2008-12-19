@@ -51,8 +51,7 @@ namespace COLLADASaxFWL
             // with the vertex attributes.
             if ( inputShared->getSemantic () == InputSemantic::VERTEX )
             {
-                const Vertices& vertices = mParent->getVertices ();
-                const InputUnsharedArray& inputArray = vertices.getInputArray ();
+                const InputUnsharedArray& inputArray = mVertices.getInputArray ();
                 size_t numInputElements = inputArray.getCount ();
                 // Resize the input array
                 mInputArray.reallocMemory ( numInputElements );
@@ -72,5 +71,4 @@ namespace COLLADASaxFWL
         }
         return 0;
     }
-
 } // namespace COLLADASaxFWL
