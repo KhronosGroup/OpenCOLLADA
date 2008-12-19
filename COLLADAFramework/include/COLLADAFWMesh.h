@@ -88,9 +88,7 @@ namespace COLLADAFW
     public:
 
         /** Constructor. */
-        Mesh ( ObjectId objectId ) 
-            : Geometry ( objectId, Geometry::GEO_TYPE_MESH ) 
-        {}
+        Mesh ( ObjectId objectId );
 
         /** Destructor. */
         virtual ~Mesh ();

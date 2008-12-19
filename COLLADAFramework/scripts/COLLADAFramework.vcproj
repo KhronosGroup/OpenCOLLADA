@@ -340,6 +340,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWMeshPrimitive.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWNode.cpp"
 				>
 			</File>

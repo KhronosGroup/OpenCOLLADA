@@ -44,12 +44,16 @@ namespace COLLADAFW
 
         /** Constructor. */
         MeshFloatDoubleInputs ()
-            : mType ( DATA_TYPE_UNKNOWN ) 
+            : mType ( DATA_TYPE_UNKNOWN ),
+			mValuesF(FloatArray::OWNER),
+			mValuesD(DoubleArray::OWNER)
         {}
 
         /** Constructor. */
 		MeshFloatDoubleInputs ( DataType type )
-            : mType ( type ) 
+            : mType ( type ),
+			mValuesF(FloatArray::OWNER),
+			mValuesD(DoubleArray::OWNER)
         {}
 
         /** Destructor. */

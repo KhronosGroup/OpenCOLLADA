@@ -18,6 +18,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	SourceArrayLoader::SourceArrayLoader(IFilePartLoader* callingFilePartLoader)
 		:FilePartLoader(callingFilePartLoader),
+		 mSourceArray( SourceArray::OWNER ),
 		 mCurrentSoure(0)
 	{
 	}
@@ -25,6 +26,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	SourceArrayLoader::~SourceArrayLoader()
 	{
+		for ( size_t i = 0, count = mSourceArray.getCount(); i < count; ++i)
+			delete mSourceArray[i];
 	}
 
     //------------------------------

@@ -20,7 +20,7 @@ namespace COLLADAFW
 	/** 
     Array template that simplifies handling of C-arrays.
     The memory will be allocated with malloc, freed with free and resized with realloc. 
-    Don't take this class for other datatypes then the primitve datatypes, because no 
+    Don't take this class for other data types then the primitives data types, because no 
     constructors and destructors will be called!
     */
 	template<class Type>
@@ -33,7 +33,13 @@ namespace COLLADAFW
             : Array ()
         {}
 
-        /** Constructor. */
+
+		/** Constructor. */
+		ArrayPrimitiveType(int flags) 
+			: Array (flags)
+		{}
+
+		/** Constructor. */
         ArrayPrimitiveType ( Type* data, size_t capacity ) 
             : Array ( data, capacity )
         {}
@@ -41,8 +47,6 @@ namespace COLLADAFW
         /** Destructor. */
         virtual ~ArrayPrimitiveType ()
         {
-            if ( mFlags & RELEASE_MEMORY)
-                releaseMemory();
         }
 
 		/** Allocates memory for @a size elements of type DataType. 

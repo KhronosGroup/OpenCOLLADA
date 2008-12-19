@@ -122,18 +122,12 @@ namespace COLLADAFW
         /**
         * Constructor.
         */
-        MeshPrimitive () 
-            : mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
-            , mFaceCount ( 0 )
-        {}
+        MeshPrimitive ();
 
         /**
         * Constructor.
         */
-        MeshPrimitive ( PrimitiveType primitiveType ) 
-            : mPrimitiveType ( primitiveType )
-            , mFaceCount ( 0 )
-        {}
+        MeshPrimitive ( PrimitiveType primitiveType );
 
         /**
         * Destructor.

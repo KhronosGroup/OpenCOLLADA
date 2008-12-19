@@ -54,4 +54,10 @@ namespace COLLADAFW
 		return getColors().getColorsCount() != 0;
 	}
 
+	Mesh::Mesh( ObjectId objectId ) 
+		: Geometry ( objectId, Geometry::GEO_TYPE_MESH ),
+		mMeshPrimitives(MeshPrimitiveArray::OWNER)
+	{
+
+	}
 } // namespace COLLADAFW

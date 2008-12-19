@@ -320,10 +320,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASaxFWLGeometryObjectLoader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADASaxFWLIFilePartLoader.cpp"
 				>
 			</File>
@@ -391,10 +387,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLGeometryLoader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASaxFWLGeometryObjectLoader.h"
 				>
 			</File>
 			<File

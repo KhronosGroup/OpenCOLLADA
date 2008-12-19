@@ -24,20 +24,26 @@ namespace COLLADAFW
 		/** Flags to control the behavior of the array.*/
 		enum Flags
 		{
-			NO_FLAGS        = 0x0000,
+			NO_FLAGS						= 0x0000,
 
 			/** The memory will be released in the destructor. The memory must be allocated using 
 			allocateMemory()*/
-			RELEASE_MEMORY   = 0x0001 
+			RELEASE_MEMORY					= 0x0001,
+			/** Keep the ownership of the data, when this array is assigned to another one, i.e.
+			it will release the memory on destruction, if the RELEASE_MEMORY flag is set.*/
+			KEEP_OWNERSHIP_ON_ASSIGNEMNT    = 0x0002
 		};
 
-		enum DefaultFlags
+		enum FlagCombinations
 		{
 			/** The Default flags used for allocateMemory().*/
 			DEFAULT_ALLOC_FLAGS = RELEASE_MEMORY,
 
 			/** The Default flags used for constructor.*/
-			DEFAULT_CONSTRUCTOR_FLAGS = NO_FLAGS
+			DEFAULT_CONSTRUCTOR_FLAGS = NO_FLAGS,
+
+			/** The array ons the data and keeps ownership on assignement.*/
+			OWNER = RELEASE_MEMORY | KEEP_OWNERSHIP_ON_ASSIGNEMNT
 		};
 
 	protected:
@@ -64,7 +70,15 @@ namespace COLLADAFW
             , mFlags(DEFAULT_CONSTRUCTOR_FLAGS) 
         {}
 
-        /** Constructor. */
+		/** Constructor. */
+		Array(int flags) 
+			: mData (0)
+			, mCount (0)
+			, mCapacity (0)
+			, mFlags(flags) 
+		{}
+
+		/** Constructor. */
         Array ( Type* data, size_t count ) 
             : mData ( data )
             , mCapacity ( count )
