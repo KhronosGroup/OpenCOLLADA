@@ -22,6 +22,7 @@
 			OutputDirectory="..\bin\win\$(PlatformName)\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\win\$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="2"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			CharacterSet="0"
 			>
 			<Tool
@@ -44,15 +45,15 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\Externals\MayaDataModel\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="ColladaMayaStableHeaders.h"
 				WarningLevel="3"
-				Detect64BitPortabilityProblems="false"
+				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -68,14 +69,13 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
-				IgnoreDefaultLibraryNames=""
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
+				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
-				SubSystem="2"
 				LinkTimeCodeGeneration="0"
 			/>
 			<Tool
@@ -157,7 +157,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -213,8 +212,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include;..\..\COLLADAFramework\include;..\..\COLLADASaxFrameworkLoader\include;..\..\Externals\MayaDataModel\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
@@ -233,11 +232,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib COLLADAFramework.lib COLLADASaxFrameworkLoader.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils.lib COLLADAStreamWriter.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
@@ -323,7 +322,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -380,8 +378,8 @@
 				Name="VCCLCompilerTool"
 				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;&quot;$(BOOST_ROOT)&quot;;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\Externals\MayaDataModel\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
+				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;$(NOINHERIT)"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				RuntimeTypeInfo="true"
@@ -402,11 +400,11 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/export:initializePlugin /export:uninitializePlugin"
-				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib COLLADAFramework-d.lib COLLADASaxFrameworkLoader-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
+				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -491,7 +489,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				SubSystem="1"
@@ -572,7 +569,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -659,7 +656,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2008_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="0"
@@ -740,7 +736,7 @@
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
@@ -826,7 +822,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -910,7 +905,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				LinkTimeCodeGeneration="0"
@@ -995,7 +990,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -1078,7 +1072,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				SubSystem="2"
@@ -1167,7 +1161,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH2009_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1282,7 +1275,7 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copy plug-in files:"
-				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH80%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in mel scipts&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;rem echo Create Microsoft.VC80.MFC directory&#x0D;&#x0A;rem mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC 2&gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC &gt; nul&#x0D;&#x0A;copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; %MAYA_PATH80%\bin\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo done&#x0D;&#x0A;"
+				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH80%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in mel scipts &#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;rem echo Create Microsoft.VC80.MFC directory&#x0D;&#x0A;rem mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC 2&gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC &gt; nul&#x0D;&#x0A;copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; %MAYA_PATH80%\bin\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo done"
 			/>
 		</Configuration>
 		<Configuration
@@ -1336,7 +1329,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1414,7 +1406,7 @@
 				AdditionalDependencies="Foundation.lib OpenMaya.lib OpenMayaAnim.lib OpenMayaRender.lib OpenMayaUI.lib COLLADABaseUtils-d.lib COLLADAStreamWriter-d.lib cg.lib cgGL.lib OpenGL32.lib winmm.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				LinkTimeCodeGeneration="0"
@@ -1499,7 +1491,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -1580,7 +1571,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
@@ -1667,7 +1658,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH85_X64)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -1751,7 +1741,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				LinkTimeCodeGeneration="0"
@@ -1836,7 +1826,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH80)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreDefaultLibraryNames="msvcrt"
 				GenerateDebugInformation="true"
 				TargetMachine="17"
@@ -1916,7 +1905,7 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
+				GenerateManifest="false"
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames=""
 				OptimizeReferences="1"
@@ -2003,7 +1992,6 @@
 				OutputFile="$(OutDir)\$(ProjectName).mll"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAYA_PATH70)\lib&quot;;&quot;$(BOOST_LIB64_PATH)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;"
-				GenerateManifest="true"
 				IgnoreAllDefaultLibraries="false"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
@@ -2318,6 +2306,14 @@
 					RelativePath="..\src\COLLADAMayaDocumentImporter.cpp"
 					>
 					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
@@ -2326,7 +2322,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -2490,6 +2502,14 @@
 					RelativePath="..\src\COLLADAMayaGeometryImporter.cpp"
 					>
 					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
@@ -2498,7 +2518,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3446,6 +3482,14 @@
 					RelativePath="..\src\COLLADAMayaWriter.cpp"
 					>
 					<FileConfiguration
+						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="DebugPlugin2008|x64"
 						ExcludedFromBuild="true"
 						>
@@ -3454,7 +3498,23 @@
 						/>
 					</FileConfiguration>
 					<FileConfiguration
+						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
 						Name="ReleasePlugin2008|x64"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="DebugConsole2008|Win32"
 						ExcludedFromBuild="true"
 						>
 						<Tool
@@ -3832,6 +3892,7 @@
 					>
 					<FileConfiguration
 						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -3847,6 +3908,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -3862,6 +3924,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4221,6 +4284,7 @@
 					>
 					<FileConfiguration
 						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4236,6 +4300,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4251,6 +4316,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4414,6 +4480,7 @@
 					>
 					<FileConfiguration
 						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4429,6 +4496,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -4444,6 +4512,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -5391,6 +5460,7 @@
 					>
 					<FileConfiguration
 						Name="DebugPlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -5406,6 +5476,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="ReleasePlugin2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
@@ -5421,6 +5492,7 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugConsole2008|Win32"
+						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"
