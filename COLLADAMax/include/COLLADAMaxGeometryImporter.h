@@ -64,6 +64,10 @@ namespace COLLADAMax
 		@return True on success, false otherwise.*/
 		bool importMeshNormals( TriObject* triangleObject );
 
+		/** Performs the import of the mesh uv coordinates .
+		@return True on success, false otherwise.*/
+		bool importMeshUVCoords( TriObject* triangleObject );
+
 	private:
 
         /** Disable default copy ctor. */

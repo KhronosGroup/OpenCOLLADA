@@ -48,8 +48,6 @@ namespace COLLADAMax
 		{
 			importMesh();
 		}
-
-
 		return true;
 	}
 
@@ -202,11 +200,18 @@ namespace COLLADAMax
 				normalFace.SetNormalID(2, normalIndices[3*j + 2]);
 				++faceIndex;
 			}
-
 		}
 
 		normalsSpecifier->CheckNormals();
 
 		return true;
 	}
+
+	//------------------------------
+	bool GeometryImporter::importMeshUVCoords( TriObject* triangleObject )
+	{
+
+		return true;
+	}
+
 } // namespace COLLADAMax
