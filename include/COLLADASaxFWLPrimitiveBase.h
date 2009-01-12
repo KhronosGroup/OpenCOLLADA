@@ -14,7 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 
 // TODO
-#include "COLLADAFWConstants.h"
+#include "COLLADAFWTypes.h"
 
 
 namespace COLLADASaxFWL

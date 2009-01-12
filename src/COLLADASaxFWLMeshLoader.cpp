@@ -11,10 +11,8 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLMeshLoader.h"
 
-//#include "COLLADASaxFWLPolylist.h"
-//#include "COLLADASaxFWLPolygons.h"
-
 #include "COLLADAFWTriangles.h"
+#include "COLLADAFWPolygons.h"
 
 #include "COLLADAFWIWriter.h"
 
@@ -101,7 +99,7 @@ namespace COLLADASaxFWL
     //------------------------------
     void MeshLoader::addPolyBaseElement ( const COLLADASaxFWL::PolyBase* polyBaseElement )
     {
-        // TODO Do we really need this? We can directly create a mesh primitve element!
+        // TODO Do we really need this? We can directly create a mesh primitive element!
 //      mPolyBaseElements.append ( polyBaseElement );
 
         // Go through the list of input elements of the current poly base and get the 
@@ -577,7 +575,7 @@ namespace COLLADASaxFWL
     }
 
 
-	void MeshLoader::writePrimitiveIndices ( const double* data, size_t length )
+	void MeshLoader::writePrimitiveIndices ( const unsigned long long* data, size_t length )
 	{
 		// Write the index values in the index lists.
 		for ( size_t i=0; i<length; ++i )
@@ -591,17 +589,17 @@ namespace COLLADASaxFWL
 				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
 				positionIndices.append ( index );
 			}
-			if ( mUseNormals && mCurrentOffset == mNormalsOffset )
+			else if ( mUseNormals && mCurrentOffset == mNormalsOffset )
 			{
 				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
 				normalIndices.append ( index );
 			}
-			if ( mUseColors && mCurrentOffset == mColorsOffset )
+			else if ( mUseColors && mCurrentOffset == mColorsOffset )
 			{
 				COLLADAFW::UIntValuesArray& colorIndices = mCurrentMeshPrimitive->getColorIndices ();
 				colorIndices.append ( index );
 			}
-			if ( mUseUVCoords && mCurrentOffset == mUVCoordsOffset )
+			else if ( mUseUVCoords && mCurrentOffset == mUVCoordsOffset )
 			{
 				COLLADAFW::UIntValuesArray& uvCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ();
 				uvCoordIndices.append ( index );
@@ -619,7 +617,6 @@ namespace COLLADASaxFWL
 				// Increment the current offset value
 				++mCurrentOffset;
 			}
-
 		}
 	}
 
@@ -969,17 +966,15 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData )
 	{
-		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__mesh__triangles()
 	{
-//		mMesh->appendPrimitive(mCurrentMeshPrimitive);
-		mCurrentMeshPrimitive = 0;
 		return true;
 	}
+
 
 	//------------------------------
 	bool MeshLoader::begin__triangles__input( const triangles__input__AttributeData& attributeData )
@@ -1020,19 +1015,69 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__triangles__p()
 	{
-		mCurrentMeshPrimitive->setFaceCount(mCurrentFaceVertexCount/3);
+		size_t trianglesCount = mCurrentFaceVertexCount/3;
+		// check if the triangles really contains triangles. If not, we will discard it
+		if ( trianglesCount > 0 )
+		{
+			mCurrentMeshPrimitive->setFaceCount(trianglesCount);
+			mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		}
+		else
+		{
+			delete mCurrentMeshPrimitive;
+		}
 		mCurrentFaceVertexCount = 0;
-		mMesh->appendPrimitive(mCurrentMeshPrimitive);
 		mCurrentMeshPrimitive = 0;
 		return true;
 	}
 
 	//------------------------------
-	bool MeshLoader::data__triangles__p( const double* data, size_t length )
+	bool MeshLoader::data__triangles__p( const unsigned long long* data, size_t length )
 	{
 		writePrimitiveIndices(data, length);
 		return true;
 	}
 
+	//------------------------------
+	bool MeshLoader::begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData )
+	{
+		mCurrentMeshPrimitive = new COLLADAFW::Polygons();
+		return true;
+	}
 
+	//------------------------------
+	bool MeshLoader::end__mesh__polylist()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__polylist__input( const polylist__input__AttributeData& attributeData )
+	{
+		return beginInput( *((triangles__input__AttributeData*)&attributeData) );
+	}
+
+	//------------------------------
+	bool MeshLoader::end__polylist__input()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__polylist__vcount()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__polylist__vcount()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__polylist__vcount( const unsigned long long*, size_t length )
+	{
+		return true;
+	}
 } // namespace COLLADASaxFWL

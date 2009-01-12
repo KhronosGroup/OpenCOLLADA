@@ -126,17 +126,17 @@ namespace COLLADASaxFWL
 		virtual bool end__vertices__input();
 
 
-		/** Sax callback function for the beginning of a mesh element.*/
+		/** Sax callback function for the beginning of a triangles element.*/
 		virtual bool begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData );
 
-		/** Sax callback function for the ending of a mesh element.*/
+		/** Sax callback function for the ending of a triangles element.*/
 		virtual bool end__mesh__triangles();
 
 
-		/** Sax callback function for the beginning of a mesh element.*/
+		/** Sax callback function for the beginning of a triangles input element.*/
 		virtual bool begin__triangles__input( const triangles__input__AttributeData& attributeData );
 
-		/** Sax callback function for the ending of a mesh element.*/
+		/** Sax callback function for the ending of a triangles input element.*/
 		virtual bool end__triangles__input();
 
 
@@ -147,7 +147,31 @@ namespace COLLADASaxFWL
 		virtual bool end__triangles__p();
 
 		/** Sax callback function for the data of a p within a triangles element element.*/
-		virtual bool data__triangles__p( const double* data, size_t length );
+		virtual bool data__triangles__p( const unsigned long long* data, size_t length );
+
+
+		/** Sax callback function for the beginning of a polylist element.*/
+		virtual bool begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a polylist element.*/
+		virtual bool end__mesh__polylist();
+
+
+		/** Sax callback function for the beginning of a polylist input element.*/
+		virtual bool begin__polylist__input( const polylist__input__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a polylist input element.*/
+		virtual bool end__polylist__input();
+
+
+		/** Sax callback function for the beginning of a polylist vcount element.*/
+		virtual bool begin__polylist__vcount();
+
+		/** Sax callback function for the beginning of a polylist vcount element.*/
+		virtual bool end__polylist__vcount();
+
+		/** Sax callback function for the beginning of a polylist vcount element.*/
+		virtual bool data__polylist__vcount( const unsigned long long*, size_t length );
 
 
 
@@ -180,13 +204,13 @@ namespace COLLADASaxFWL
         * Returns a pointer to the positions source element with float values.
         * @return Source* Pointer to the positions source element.
         */
-        const FloatSource* MeshLoader::getPositionsFloatSource () const;
+        const FloatSource* getPositionsFloatSource () const;
 
         /**
         * Returns a pointer to the positions source element with float values.
         * @return Source* Pointer to the positions source element.
         */
-        const DoubleSource* MeshLoader::getPositionsDoubleSource () const;
+        const DoubleSource* getPositionsDoubleSource () const;
 
         /**
          * Describes the mesh-vertex attributes and establishes their topological identity.
@@ -270,7 +294,7 @@ namespace COLLADASaxFWL
 
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
-		void writePrimitiveIndices ( const double* data, size_t length );
+		void writePrimitiveIndices ( const unsigned long long* data, size_t length );
 
         /**
          * Get the number of all indices in all p elements in the current primitive element.
