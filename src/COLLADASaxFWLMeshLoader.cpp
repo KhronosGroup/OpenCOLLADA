@@ -31,7 +31,8 @@ namespace COLLADASaxFWL
 		, mCurrentMeshPrimitiveInput(0)
 		, mCurrentOffset(0)
 		, mCurrentMaxOffset(0)
-		, mCurrentFaceVertexCount(0)
+		, mCurrentVertexCount(0)
+		, mCurrentExpectedVertexCount(0)
 		, mPositionsOffset (0)
 		, mUsePositions ( true )
 		, mNormalsOffset (0)
@@ -610,7 +611,7 @@ namespace COLLADASaxFWL
 			{
 				// Reset the current offset value
 				mCurrentOffset = 0;
-				++mCurrentFaceVertexCount;
+				++mCurrentVertexCount;
 			}
 			else
 			{
@@ -910,6 +911,17 @@ namespace COLLADASaxFWL
         }
     }
 #endif
+
+
+	//------------------------------
+	void MeshLoader::initCurrentValues()
+	{
+		mCurrentVertexCount = 0;
+		mCurrentExpectedVertexCount = 0;
+		mCurrentMeshPrimitive = 0;
+	}
+
+
 	//------------------------------
 	bool MeshLoader::end__mesh() 
 	{
@@ -985,6 +997,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__triangles__input()
 	{
+		addPolyBaseElement(&mMeshPrimitiveInputs);
+		initializeOffsets();
 		return true;
 	}
 
@@ -1007,15 +1021,13 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__triangles__p()
 	{
 		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
-		addPolyBaseElement(&mMeshPrimitiveInputs);
-		initializeOffsets();
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__triangles__p()
 	{
-		size_t trianglesCount = mCurrentFaceVertexCount/3;
+		size_t trianglesCount = mCurrentVertexCount/3;
 		// check if the triangles really contains triangles. If not, we will discard it
 		if ( trianglesCount > 0 )
 		{
@@ -1026,8 +1038,7 @@ namespace COLLADASaxFWL
 		{
 			delete mCurrentMeshPrimitive;
 		}
-		mCurrentFaceVertexCount = 0;
-		mCurrentMeshPrimitive = 0;
+		initCurrentValues();
 		return true;
 	}
 
@@ -1041,13 +1052,30 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData )
 	{
-		mCurrentMeshPrimitive = new COLLADAFW::Polygons();
+		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
+		polygons->getFaceVertexCountArray().allocMemory(attributeData.count);
+		mCurrentMeshPrimitive = polygons;
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::end__mesh__polylist()
 	{
+		// check if there are enough vertices as expected by the vcount and that there exist at least
+		// one polygon. If not, we will discard it
+		if ( mCurrentVertexCount >= mCurrentExpectedVertexCount && mCurrentVertexCount > 0 )
+		{
+			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+
+			mCurrentMeshPrimitive->setFaceCount(vertexCountArray.getCount());
+			mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		}
+		else
+		{
+			delete mCurrentMeshPrimitive;
+		}
+		initCurrentValues();
 		return true;
 	}
 
@@ -1060,6 +1088,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__polylist__input()
 	{
+		addPolyBaseElement(&mMeshPrimitiveInputs);
+		initializeOffsets();
 		return true;
 	}
 
@@ -1076,8 +1106,38 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::data__polylist__vcount( const unsigned long long*, size_t length )
+	bool MeshLoader::data__polylist__vcount( const unsigned long long* data, size_t length )
+	{
+		COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+		COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+		size_t count = vertexCountArray.getCount();
+		vertexCountArray.reallocMemory( count + length);
+		for ( size_t i = 0; i < length; ++i)
+		{
+			unsigned long long vcount = data[i];
+			vertexCountArray.append(vcount);
+			mCurrentExpectedVertexCount += vcount;
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__polylist__p()
 	{
 		return true;
 	}
+
+	//------------------------------
+	bool MeshLoader::end__polylist__p()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__polylist__p( const unsigned long long* data, size_t length )
+	{
+		writePrimitiveIndices(data, length);
+		return true;
+	}
+
 } // namespace COLLADASaxFWL
