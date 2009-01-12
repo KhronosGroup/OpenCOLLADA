@@ -8,39 +8,39 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_TRIANGLES_H__
-#define __COLLADAFW_TRIANGLES_H__
+#ifndef __COLLADAFW_POLYGONS_H__
+#define __COLLADAFW_POLYGONS_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWMeshPrimitive.h"
+#include "COLLADAFWMeshPrimitiveWithFaceVertexCount.h"
 
 
 namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class Triangles : public MeshPrimitive
-	{
+	class Polygons : public MeshPrimitiveWithFaceVertexCount 
+		{
 	private:
 	
 	public:
 
         /** Constructor. */
-		Triangles() : MeshPrimitive(TRIANGLES){}
+		Polygons() : MeshPrimitiveWithFaceVertexCount(POLYGONS){}
 
         /** Destructor. */
-		virtual ~Triangles(){}
+		virtual ~Polygons(){}
 
 	private:
 
         /** Disable default copy ctor. */
-		Triangles( const Triangles& pre );
+		Polygons( const Polygons& pre );
 
         /** Disable default assignment operator. */
-		const Triangles& operator= ( const Triangles& pre );
+		const Polygons& operator= ( const Polygons& pre );
 
 	};
 
 } // namespace COLLADAFW
 
-#endif // __COLLADAFW_TRIANGLES_H__
+#endif // __COLLADAFW_POLYGONS_H__

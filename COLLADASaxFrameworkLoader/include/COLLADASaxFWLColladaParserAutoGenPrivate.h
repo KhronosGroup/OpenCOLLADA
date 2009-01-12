@@ -18,9 +18,10 @@ http://www.opensource.org/licenses/mit-license.php
 #include "GeneratedSaxParserTypes.h"
 #include "GeneratedSaxParserParserTemplate.h"
 #include "COLLADASaxFWLColladaParserAutoGenAttributes.h"
+#include "COLLADASaxFWLColladaParserAutoGen.h"
 
 
-namespace COLLADASaxFWL
+namespace  COLLADASaxFWL
 {
 
 

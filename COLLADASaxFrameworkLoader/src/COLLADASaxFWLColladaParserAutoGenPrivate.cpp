@@ -4,7 +4,7 @@
 #include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
 
 
-namespace COLLADASaxFWL
+namespace  COLLADASaxFWL
 {
 
 
@@ -70,7 +70,7 @@ if ( attributeArray )
     case HASH_ATTRIBUTE_VERSION:
     {
 
-
+attributeData->version = attributeValue;
 
     break;
     }
@@ -83,7 +83,7 @@ attributeData->base = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLLADA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA, 0, attributeValue))
             {return false;}
     }
     }
@@ -156,7 +156,9 @@ const char* NAME_ELEMENT_CONTRIBUTOR__AUTHOR = "contributor__author";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__author( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__author(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -180,7 +182,9 @@ const char* NAME_ELEMENT_CONTRIBUTOR__AUTHORING_TOOL = "contributor__authoring_t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__authoring_tool( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__authoring_tool(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -204,7 +208,9 @@ const char* NAME_ELEMENT_CONTRIBUTOR__COMMENTS = "contributor__comments";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__comments( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__comments(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -228,7 +234,9 @@ const char* NAME_ELEMENT_CONTRIBUTOR__COPYRIGHT = "contributor__copyright";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__copyright( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__copyright(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -252,7 +260,9 @@ const char* NAME_ELEMENT_CONTRIBUTOR__SOURCE_DATA = "contributor__source_data";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__source_data( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__source_data(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -276,7 +286,9 @@ const char* NAME_ELEMENT_ASSET__CREATED = "asset__created";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__created( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__created(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -300,7 +312,9 @@ const char* NAME_ELEMENT_ASSET__KEYWORDS = "asset__keywords";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__keywords( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__keywords(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -324,7 +338,9 @@ const char* NAME_ELEMENT_ASSET__MODIFIED = "asset__modified";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__modified( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__modified(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -348,7 +364,9 @@ const char* NAME_ELEMENT_ASSET__REVISION = "asset__revision";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__revision( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__revision(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -372,7 +390,9 @@ const char* NAME_ELEMENT_ASSET__SUBJECT = "asset__subject";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__subject( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__subject(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -396,7 +416,9 @@ const char* NAME_ELEMENT_ASSET__TITLE = "asset__title";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__title( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__title(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -458,7 +480,7 @@ if ( attributeArray )
     case HASH_ATTRIBUTE_METER:
     {
 bool failed;
-attributeData->meter = GeneratedSaxParser::Utils::toFloat(attributeValue, failed);
+attributeData->meter = GeneratedSaxParser::Utils::toDouble(attributeValue, failed);
 if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_UNIT, HASH_ATTRIBUTE_METER, attributeValue))
 {return false;}
     break;
@@ -472,7 +494,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_UNIT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_UNIT, 0, attributeValue))
             {return false;}
     }
     }
@@ -497,7 +519,9 @@ const char* NAME_ELEMENT_ASSET__UP_AXIS = "asset__up_axis";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__up_axis( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__up_axis(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -569,7 +593,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_ANIMATIONS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS, 0, attributeValue))
             {return false;}
     }
     }
@@ -660,7 +684,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -751,7 +775,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION__SOURCE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -845,14 +869,15 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IDREF_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IDREF_ARRAY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IDREF_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -922,14 +947,15 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NAME_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NAME_ARRAY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NAME_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -999,14 +1025,15 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BOOL_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BOOL_ARRAY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BOOL_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -1019,7 +1046,7 @@ attributeData->name = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__bool_array()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__bool_array );
 }
 
 //---------------------------------------------------------------------
@@ -1082,10 +1109,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-		bool failed;
-		attributeData->count = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_DIGITS:
@@ -1106,7 +1133,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FLOAT_ARRAY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FLOAT_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -1119,7 +1146,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__float_array()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__float_array );
 }
 
 //---------------------------------------------------------------------
@@ -1140,7 +1167,7 @@ const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, -21
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__int_array( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__int_array);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__int_array);
 }
 
 //---------------------------------------------------------------------
@@ -1182,9 +1209,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MININCLUSIVE:
@@ -1205,7 +1233,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INT_ARRAY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INT_ARRAY, 0, attributeValue))
             {return false;}
     }
     }
@@ -1218,7 +1246,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__int_array()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__int_array );
 }
 
 //---------------------------------------------------------------------
@@ -1294,19 +1322,18 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_COUNT:
     {
-		bool failed;
-		attributeData->count = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_OFFSET:
     {
-		bool failed;
-		attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SOURCE:
@@ -1318,17 +1345,15 @@ attributeData->source = attributeValue;
     }
     case HASH_ATTRIBUTE_STRIDE:
     {
-
-		bool failed;
-		attributeData->stride = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-
-
-
+bool failed;
+attributeData->stride = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR, HASH_ATTRIBUTE_STRIDE, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ACCESSOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -1365,7 +1390,9 @@ const accessor__param__AttributeData accessor__param__AttributeData::DEFAULT = {
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__accessor__param( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__accessor__param(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -1421,7 +1448,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ACCESSOR__PARAM , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ACCESSOR__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -1487,7 +1514,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SOURCE__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SOURCE__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -1550,7 +1577,7 @@ attributeData->id = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLER , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER, 0, attributeValue))
             {return false;}
     }
     }
@@ -1614,13 +1641,13 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLER__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -1680,7 +1707,7 @@ if ( attributeArray )
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
@@ -1693,7 +1720,7 @@ attributeData->target = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CHANNEL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CHANNEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -1760,7 +1787,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION__ANIMATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__ANIMATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -1837,7 +1864,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -1918,7 +1945,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EXTRA__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EXTRA__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -1992,7 +2019,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_ANIMATIONS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATIONS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -2062,7 +2089,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -2175,7 +2202,7 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION_CLIP , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION_CLIP, 0, attributeValue))
             {return false;}
     }
     }
@@ -2276,7 +2303,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_ANIMATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_ANIMATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -2350,7 +2377,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_ANIMATION__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_ANIMATION__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -2424,7 +2451,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANIMATION_CLIP__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANIMATION_CLIP__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -2498,7 +2525,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -2568,7 +2595,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_CAMERAS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CAMERAS, 0, attributeValue))
             {return false;}
     }
     }
@@ -2659,7 +2686,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CAMERA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAMERA, 0, attributeValue))
             {return false;}
     }
     }
@@ -2777,7 +2804,13 @@ const xmag__AttributeData xmag__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__xmag( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__xmag);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__xmag(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XMAG, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -2812,7 +2845,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_XMAG , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_XMAG, 0, attributeValue))
             {return false;}
     }
     }
@@ -2840,7 +2873,13 @@ const ymag__AttributeData ymag__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__ymag( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__ymag);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__ymag(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YMAG, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -2875,7 +2914,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_YMAG , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_YMAG, 0, attributeValue))
             {return false;}
     }
     }
@@ -2903,7 +2942,13 @@ const orthographic__aspect_ratio__AttributeData orthographic__aspect_ratio__Attr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__orthographic__aspect_ratio( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__orthographic__aspect_ratio);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__orthographic__aspect_ratio(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -2938,7 +2983,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, attributeValue))
             {return false;}
     }
     }
@@ -2966,7 +3011,13 @@ const orthographic__znear__AttributeData orthographic__znear__AttributeData::DEF
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__orthographic__znear( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__orthographic__znear);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__orthographic__znear(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3001,7 +3052,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -3029,7 +3080,13 @@ const orthographic__zfar__AttributeData orthographic__zfar__AttributeData::DEFAU
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__orthographic__zfar( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__orthographic__zfar);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__orthographic__zfar(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3064,7 +3121,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ORTHOGRAPHIC__ZFAR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -3116,7 +3173,13 @@ const xfov__AttributeData xfov__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__xfov( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__xfov);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__xfov(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XFOV, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3151,7 +3214,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_XFOV , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_XFOV, 0, attributeValue))
             {return false;}
     }
     }
@@ -3179,7 +3242,13 @@ const yfov__AttributeData yfov__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__yfov( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__yfov);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__yfov(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YFOV, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3214,7 +3283,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_YFOV , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_YFOV, 0, attributeValue))
             {return false;}
     }
     }
@@ -3239,7 +3308,13 @@ const perspective__aspect_ratio__AttributeData perspective__aspect_ratio__Attrib
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__perspective__aspect_ratio( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__perspective__aspect_ratio);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__perspective__aspect_ratio(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3274,7 +3349,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, attributeValue))
             {return false;}
     }
     }
@@ -3299,7 +3374,13 @@ const perspective__znear__AttributeData perspective__znear__AttributeData::DEFAU
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__perspective__znear( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__perspective__znear);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__perspective__znear(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3334,7 +3415,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PERSPECTIVE__ZNEAR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -3359,7 +3440,13 @@ const perspective__zfar__AttributeData perspective__zfar__AttributeData::DEFAULT
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__perspective__zfar( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__perspective__zfar);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__perspective__zfar(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -3394,7 +3481,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PERSPECTIVE__ZFAR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, attributeValue))
             {return false;}
     }
     }
@@ -3454,7 +3541,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_OPTICS__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_OPTICS__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -3528,7 +3615,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_OPTICS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_OPTICS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -3612,7 +3699,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IMAGER__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGER__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -3686,7 +3773,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IMAGER__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -3760,7 +3847,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CAMERA__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAMERA__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -3834,7 +3921,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_CAMERAS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CAMERAS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -3904,7 +3991,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_CONTROLLERS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CONTROLLERS, 0, attributeValue))
             {return false;}
     }
     }
@@ -3995,7 +4082,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONTROLLER , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROLLER, 0, attributeValue))
             {return false;}
     }
     }
@@ -4079,7 +4166,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SKIN , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -4116,7 +4203,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__bind_shape_matrix( const Parse
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__bind_shape_matrix()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__bind_shape_matrix );
 }
 
 //---------------------------------------------------------------------
@@ -4170,7 +4257,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SKIN__SOURCE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -4255,13 +4342,13 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_JOINTS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_JOINTS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -4335,7 +4422,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_JOINTS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_JOINTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -4391,14 +4478,15 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS, 0, attributeValue))
             {return false;}
     }
     }
@@ -4454,9 +4542,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -4469,20 +4558,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -4507,7 +4597,7 @@ const char* NAME_ELEMENT_VERTEX_WEIGHTS__VCOUNT = "vertex_weights__vcount";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__vertex_weights__vcount( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__vertex_weights__vcount);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__vertex_weights__vcount);
 }
 
 //---------------------------------------------------------------------
@@ -4519,7 +4609,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__vertex_weights__vcount( const 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__vertex_weights__vcount()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__vertex_weights__vcount );
 }
 
 //---------------------------------------------------------------------
@@ -4531,7 +4621,7 @@ const char* NAME_ELEMENT_VERTEX_WEIGHTS__V = "vertex_weights__v";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__v( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__v);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__v);
 }
 
 //---------------------------------------------------------------------
@@ -4543,7 +4633,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__v( const ParserAttributes& att
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__v()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__v );
 }
 
 //---------------------------------------------------------------------
@@ -4604,7 +4694,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTEX_WEIGHTS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTEX_WEIGHTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -4678,7 +4768,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SKIN__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKIN__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -4738,7 +4828,7 @@ if ( attributeArray )
     case HASH_ATTRIBUTE_METHOD:
     {
 
-
+attributeData->method = attributeValue;
 
     break;
     }
@@ -4751,7 +4841,7 @@ attributeData->source = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MORPH , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH, 0, attributeValue))
             {return false;}
     }
     }
@@ -4818,7 +4908,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MORPH__SOURCE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -4903,13 +4993,13 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TARGETS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TARGETS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -4983,7 +5073,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TARGETS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TARGETS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5057,7 +5147,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MORPH__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MORPH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5131,7 +5221,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONTROLLER__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROLLER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5205,7 +5295,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_CONTROLLERS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_CONTROLLERS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5275,7 +5365,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_GEOMETRIES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_GEOMETRIES, 0, attributeValue))
             {return false;}
     }
     }
@@ -5366,7 +5456,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_GEOMETRY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GEOMETRY, 0, attributeValue))
             {return false;}
     }
     }
@@ -5453,7 +5543,7 @@ attributeData->convex_hull_of = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH, 0, attributeValue))
             {return false;}
     }
     }
@@ -5520,7 +5610,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__SOURCE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -5590,7 +5680,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__VERTICES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__VERTICES, 0, attributeValue))
             {return false;}
     }
     }
@@ -5651,14 +5741,13 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-		attributeData->source = attributeValue;
-
+attributeData->source = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTICES__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTICES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -5732,7 +5821,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VERTICES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VERTICES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -5798,9 +5887,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINES, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -5812,7 +5902,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__LINES, 0, attributeValue))
             {return false;}
     }
     }
@@ -5865,9 +5955,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -5880,20 +5971,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -5918,7 +6010,7 @@ const char* NAME_ELEMENT_LINES__P = "lines__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__lines__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__lines__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__lines__p);
 }
 
 //---------------------------------------------------------------------
@@ -5930,7 +6022,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__lines__p( const ParserAttribut
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__lines__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__lines__p );
 }
 
 //---------------------------------------------------------------------
@@ -5991,7 +6083,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -6054,9 +6146,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINESTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -6068,7 +6161,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__LINESTRIPS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__LINESTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -6121,9 +6214,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -6136,20 +6230,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINESTRIPS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -6171,7 +6266,7 @@ const char* NAME_ELEMENT_LINESTRIPS__P = "linestrips__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linestrips__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__linestrips__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__linestrips__p);
 }
 
 //---------------------------------------------------------------------
@@ -6183,7 +6278,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__linestrips__p( const ParserAtt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__linestrips__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__linestrips__p );
 }
 
 //---------------------------------------------------------------------
@@ -6244,7 +6339,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINESTRIPS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINESTRIPS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -6307,9 +6402,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYGONS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -6321,7 +6417,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYGONS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__POLYGONS, 0, attributeValue))
             {return false;}
     }
     }
@@ -6374,9 +6470,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -6389,20 +6486,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGONS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -6424,7 +6522,7 @@ const char* NAME_ELEMENT_POLYGONS__P = "polygons__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polygons__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__polygons__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__polygons__p);
 }
 
 //---------------------------------------------------------------------
@@ -6436,7 +6534,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__polygons__p( const ParserAttri
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__polygons__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__polygons__p );
 }
 
 //---------------------------------------------------------------------
@@ -6469,7 +6567,7 @@ const char* NAME_ELEMENT_PH__P = "ph__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__ph__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__ph__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__ph__p);
 }
 
 //---------------------------------------------------------------------
@@ -6481,7 +6579,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__ph__p( const ParserAttributes&
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__ph__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__ph__p );
 }
 
 //---------------------------------------------------------------------
@@ -6493,7 +6591,7 @@ const char* NAME_ELEMENT_PH__H = "ph__h";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__h( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__h);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__h);
 }
 
 //---------------------------------------------------------------------
@@ -6505,7 +6603,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__h( const ParserAttributes& att
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__h()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__h );
 }
 
 //---------------------------------------------------------------------
@@ -6566,7 +6664,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYGONS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYGONS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -6629,9 +6727,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYLIST, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -6643,7 +6742,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__POLYLIST , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__POLYLIST, 0, attributeValue))
             {return false;}
     }
     }
@@ -6696,9 +6795,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -6711,20 +6811,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYLIST__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -6746,7 +6847,7 @@ const char* NAME_ELEMENT_POLYLIST__VCOUNT = "polylist__vcount";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polylist__vcount( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__polylist__vcount);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__polylist__vcount);
 }
 
 //---------------------------------------------------------------------
@@ -6758,7 +6859,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__polylist__vcount( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__polylist__vcount()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__polylist__vcount );
 }
 
 //---------------------------------------------------------------------
@@ -6767,7 +6868,7 @@ const char* NAME_ELEMENT_POLYLIST__P = "polylist__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polylist__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__polylist__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__polylist__p);
 }
 
 //---------------------------------------------------------------------
@@ -6779,7 +6880,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__polylist__p( const ParserAttri
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__polylist__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__polylist__p );
 }
 
 //---------------------------------------------------------------------
@@ -6840,7 +6941,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POLYLIST__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POLYLIST__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -6903,9 +7004,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIANGLES, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -6917,7 +7019,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIANGLES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRIANGLES, 0, attributeValue))
             {return false;}
     }
     }
@@ -6970,10 +7072,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-		bool failed;
-		attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLong(attributeValue, failed);
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -6985,22 +7087,22 @@ attributeData->semantic = attributeValue;
     }
     case HASH_ATTRIBUTE_SOURCE:
     {
-		attributeData->source = attributeValue;
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIANGLES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -7022,7 +7124,7 @@ const char* NAME_ELEMENT_TRIANGLES__P = "triangles__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__triangles__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__triangles__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__triangles__p);
 }
 
 //---------------------------------------------------------------------
@@ -7034,7 +7136,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__triangles__p( const ParserAttr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__triangles__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__triangles__p );
 }
 
 //---------------------------------------------------------------------
@@ -7095,7 +7197,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIANGLES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIANGLES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -7158,9 +7260,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIFANS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -7172,7 +7275,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRIFANS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRIFANS, 0, attributeValue))
             {return false;}
     }
     }
@@ -7225,9 +7328,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -7240,20 +7344,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIFANS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -7275,7 +7380,7 @@ const char* NAME_ELEMENT_TRIFANS__P = "trifans__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__trifans__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__trifans__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__trifans__p);
 }
 
 //---------------------------------------------------------------------
@@ -7287,7 +7392,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__trifans__p( const ParserAttrib
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__trifans__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__trifans__p );
 }
 
 //---------------------------------------------------------------------
@@ -7348,7 +7453,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRIFANS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRIFANS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -7411,9 +7516,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRISTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -7425,7 +7531,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__TRISTRIPS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__TRISTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -7478,9 +7584,10 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_OFFSET:
     {
-
-
-
+bool failed;
+attributeData->offset = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT, HASH_ATTRIBUTE_OFFSET, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_SEMANTIC:
@@ -7493,20 +7600,21 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_SET:
     {
-
-
-
+bool failed;
+attributeData->set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT, HASH_ATTRIBUTE_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRISTRIPS__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -7528,7 +7636,7 @@ const char* NAME_ELEMENT_TRISTRIPS__P = "tristrips__p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tristrips__p( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__tristrips__p);
+return characterData2UnsignedLongLongData(text, textLength, &ColladaParserAutoGen::data__tristrips__p);
 }
 
 //---------------------------------------------------------------------
@@ -7540,7 +7648,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tristrips__p( const ParserAttr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tristrips__p()
 {
-    return true;
+return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__tristrips__p );
 }
 
 //---------------------------------------------------------------------
@@ -7601,7 +7709,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TRISTRIPS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TRISTRIPS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -7675,7 +7783,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONVEX_MESH__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONVEX_MESH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -7766,7 +7874,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__SOURCE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -7833,7 +7941,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__VERTICES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__VERTICES, 0, attributeValue))
             {return false;}
     }
     }
@@ -7893,9 +8001,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINES, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -7907,7 +8016,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__LINES, 0, attributeValue))
             {return false;}
     }
     }
@@ -7967,9 +8076,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINESTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -7981,7 +8091,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__LINESTRIPS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__LINESTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -8041,9 +8151,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYGONS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -8055,7 +8166,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYGONS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__POLYGONS, 0, attributeValue))
             {return false;}
     }
     }
@@ -8115,9 +8226,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYLIST, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -8129,7 +8241,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__POLYLIST , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__POLYLIST, 0, attributeValue))
             {return false;}
     }
     }
@@ -8189,9 +8301,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIANGLES, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -8203,7 +8316,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIANGLES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRIANGLES, 0, attributeValue))
             {return false;}
     }
     }
@@ -8263,9 +8376,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIFANS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -8277,7 +8391,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRIFANS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRIFANS, 0, attributeValue))
             {return false;}
     }
     }
@@ -8337,9 +8451,10 @@ attributeData->name = attributeValue;
     }
     case HASH_ATTRIBUTE_COUNT:
     {
-
-
-
+bool failed;
+attributeData->count = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRISTRIPS, HASH_ATTRIBUTE_COUNT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_MATERIAL:
@@ -8351,7 +8466,7 @@ attributeData->material = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__TRISTRIPS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__TRISTRIPS, 0, attributeValue))
             {return false;}
     }
     }
@@ -8425,7 +8540,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MESH__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MESH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -8451,7 +8566,7 @@ const char* NAME_ELEMENT_GEOMETRY__SPLINE = "geometry__spline";
 const char* NAME_ATTRIBUTE_CLOSED = "closed";
 
 //---------------------------------------------------------------------
-const spline__AttributeData spline__AttributeData::DEFAULT = {(const GeneratedSaxParser::ParserChar *)"false"};
+const spline__AttributeData spline__AttributeData::DEFAULT = {false};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spline( const ParserChar* text, size_t textLength )
@@ -8484,14 +8599,15 @@ if ( attributeArray )
     {
     case HASH_ATTRIBUTE_CLOSED:
     {
-
-
-
+bool failed;
+attributeData->closed = GeneratedSaxParser::Utils::toBool(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPLINE, HASH_ATTRIBUTE_CLOSED, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPLINE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE, 0, attributeValue))
             {return false;}
     }
     }
@@ -8558,7 +8674,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPLINE__SOURCE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE__SOURCE, 0, attributeValue))
             {return false;}
     }
     }
@@ -8643,13 +8759,13 @@ attributeData->semantic = attributeValue;
     case HASH_ATTRIBUTE_SOURCE:
     {
 
-
+attributeData->source = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONTROL_VERTICES__INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROL_VERTICES__INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -8723,7 +8839,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CONTROL_VERTICES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CONTROL_VERTICES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -8797,7 +8913,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPLINE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPLINE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -8871,7 +8987,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_GEOMETRY__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GEOMETRY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -8945,7 +9061,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_GEOMETRIES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_GEOMETRIES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -9015,7 +9131,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_EFFECTS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_EFFECTS, 0, attributeValue))
             {return false;}
     }
     }
@@ -9106,7 +9222,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT, 0, attributeValue))
             {return false;}
     }
     }
@@ -9190,7 +9306,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__ANNOTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9215,7 +9331,13 @@ const char* NAME_ELEMENT_ANNOTATE__BOOL = "annotate__bool";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__bool( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__annotate__bool);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__annotate__bool(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__BOOL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -9251,7 +9373,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__bool2( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__bool2()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__annotate__bool2 );
 }
 
 //---------------------------------------------------------------------
@@ -9275,7 +9397,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__bool3( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__bool3()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__annotate__bool3 );
 }
 
 //---------------------------------------------------------------------
@@ -9299,7 +9421,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__bool4( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__bool4()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__annotate__bool4 );
 }
 
 //---------------------------------------------------------------------
@@ -9311,7 +9433,13 @@ const char* NAME_ELEMENT_ANNOTATE__INT = "annotate__int";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__int( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__annotate__int);
+bool failed;
+long parameter = GeneratedSaxParser::Utils::toLong(text, failed);
+if (!failed)
+    return mImpl->data__annotate__int(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__INT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -9335,7 +9463,7 @@ const char* NAME_ELEMENT_ANNOTATE__INT2 = "annotate__int2";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__int2( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__annotate__int2);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__annotate__int2);
 }
 
 //---------------------------------------------------------------------
@@ -9347,7 +9475,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__int2( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__int2()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__annotate__int2 );
 }
 
 //---------------------------------------------------------------------
@@ -9359,7 +9487,7 @@ const char* NAME_ELEMENT_ANNOTATE__INT3 = "annotate__int3";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__int3( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__annotate__int3);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__annotate__int3);
 }
 
 //---------------------------------------------------------------------
@@ -9371,7 +9499,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__int3( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__int3()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__annotate__int3 );
 }
 
 //---------------------------------------------------------------------
@@ -9383,7 +9511,7 @@ const char* NAME_ELEMENT_ANNOTATE__INT4 = "annotate__int4";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__int4( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__annotate__int4);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__annotate__int4);
 }
 
 //---------------------------------------------------------------------
@@ -9395,7 +9523,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__int4( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__int4()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__annotate__int4 );
 }
 
 //---------------------------------------------------------------------
@@ -9407,7 +9535,13 @@ const char* NAME_ELEMENT_ANNOTATE__FLOAT = "annotate__float";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__float( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__annotate__float);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__annotate__float(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__FLOAT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -9443,7 +9577,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float2( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float2 );
 }
 
 //---------------------------------------------------------------------
@@ -9467,7 +9601,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float3( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float3 );
 }
 
 //---------------------------------------------------------------------
@@ -9491,7 +9625,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float4( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float4 );
 }
 
 //---------------------------------------------------------------------
@@ -9515,7 +9649,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float2x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float2x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float2x2 );
 }
 
 //---------------------------------------------------------------------
@@ -9539,7 +9673,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float3x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float3x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float3x3 );
 }
 
 //---------------------------------------------------------------------
@@ -9563,7 +9697,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float4x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float4x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float4x4 );
 }
 
 //---------------------------------------------------------------------
@@ -9575,7 +9709,9 @@ const char* NAME_ELEMENT_ANNOTATE__STRING = "annotate__string";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__string( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__annotate__string(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -9609,7 +9745,7 @@ const char* NAME_ATTRIBUTE_WIDTH = "width";
 const char* NAME_ATTRIBUTE_DEPTH = "depth";
 
 //---------------------------------------------------------------------
-const effect__image__AttributeData effect__image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, (const GeneratedSaxParser::ParserChar *)"1"};
+const effect__image__AttributeData effect__image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, 1};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__effect__image( const ParserChar* text, size_t textLength )
@@ -9663,28 +9799,31 @@ attributeData->format = attributeValue;
     }
     case HASH_ATTRIBUTE_HEIGHT:
     {
-
-
-
+bool failed;
+attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_WIDTH:
     {
-
-
-
+bool failed;
+attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_DEPTH:
     {
-
-
-
+bool failed;
+attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__IMAGE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9754,7 +9893,9 @@ const char* NAME_ELEMENT_IMAGE__INIT_FROM = "image__init_from";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__image__init_from( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__image__init_from(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -9827,7 +9968,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_IMAGE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_IMAGE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -9890,7 +10031,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__NEWPARAM , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__NEWPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -9950,7 +10091,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NEWPARAM__ANNOTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__ANNOTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -9975,7 +10116,9 @@ const char* NAME_ELEMENT_NEWPARAM__SEMANTIC = "newparam__semantic";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__semantic( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__semantic(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -9999,7 +10142,9 @@ const char* NAME_ELEMENT_NEWPARAM__MODIFIER = "newparam__modifier";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__modifier( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__modifier(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -10020,7 +10165,13 @@ const char* NAME_ELEMENT_NEWPARAM__BOOL = "newparam__bool";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__bool( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__newparam__bool);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__newparam__bool(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -10053,7 +10204,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__bool2( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__bool2()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__newparam__bool2 );
 }
 
 //---------------------------------------------------------------------
@@ -10074,7 +10225,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__bool3( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__bool3()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__newparam__bool3 );
 }
 
 //---------------------------------------------------------------------
@@ -10095,7 +10246,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__bool4( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__bool4()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__newparam__bool4 );
 }
 
 //---------------------------------------------------------------------
@@ -10104,7 +10255,13 @@ const char* NAME_ELEMENT_NEWPARAM__INT = "newparam__int";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__int( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__newparam__int);
+bool failed;
+long parameter = GeneratedSaxParser::Utils::toLong(text, failed);
+if (!failed)
+    return mImpl->data__newparam__int(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -10125,7 +10282,7 @@ const char* NAME_ELEMENT_NEWPARAM__INT2 = "newparam__int2";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__int2( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__newparam__int2);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__newparam__int2);
 }
 
 //---------------------------------------------------------------------
@@ -10137,7 +10294,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__int2( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__int2()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__newparam__int2 );
 }
 
 //---------------------------------------------------------------------
@@ -10146,7 +10303,7 @@ const char* NAME_ELEMENT_NEWPARAM__INT3 = "newparam__int3";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__int3( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__newparam__int3);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__newparam__int3);
 }
 
 //---------------------------------------------------------------------
@@ -10158,7 +10315,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__int3( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__int3()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__newparam__int3 );
 }
 
 //---------------------------------------------------------------------
@@ -10167,7 +10324,7 @@ const char* NAME_ELEMENT_NEWPARAM__INT4 = "newparam__int4";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__int4( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__newparam__int4);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__newparam__int4);
 }
 
 //---------------------------------------------------------------------
@@ -10179,7 +10336,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__int4( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__int4()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__newparam__int4 );
 }
 
 //---------------------------------------------------------------------
@@ -10188,7 +10345,13 @@ const char* NAME_ELEMENT_NEWPARAM__FLOAT = "newparam__float";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__float( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__newparam__float);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__newparam__float(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -10221,7 +10384,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2 );
 }
 
 //---------------------------------------------------------------------
@@ -10242,7 +10405,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3 );
 }
 
 //---------------------------------------------------------------------
@@ -10263,7 +10426,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4 );
 }
 
 //---------------------------------------------------------------------
@@ -10275,7 +10438,13 @@ const char* NAME_ELEMENT_NEWPARAM__FLOAT1X1 = "newparam__float1x1";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__float1x1( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__newparam__float1x1);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__newparam__float1x1(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1X1, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -10311,7 +10480,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float1x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float1x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float1x2 );
 }
 
 //---------------------------------------------------------------------
@@ -10335,7 +10504,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float1x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float1x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float1x3 );
 }
 
 //---------------------------------------------------------------------
@@ -10359,7 +10528,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float1x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float1x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float1x4 );
 }
 
 //---------------------------------------------------------------------
@@ -10383,7 +10552,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2x1( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2x1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x1 );
 }
 
 //---------------------------------------------------------------------
@@ -10404,7 +10573,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x2 );
 }
 
 //---------------------------------------------------------------------
@@ -10428,7 +10597,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x3 );
 }
 
 //---------------------------------------------------------------------
@@ -10452,7 +10621,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x4 );
 }
 
 //---------------------------------------------------------------------
@@ -10476,7 +10645,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3x1( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3x1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x1 );
 }
 
 //---------------------------------------------------------------------
@@ -10500,7 +10669,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x2 );
 }
 
 //---------------------------------------------------------------------
@@ -10521,7 +10690,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x3 );
 }
 
 //---------------------------------------------------------------------
@@ -10545,7 +10714,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x4 );
 }
 
 //---------------------------------------------------------------------
@@ -10569,7 +10738,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4x1( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4x1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x1 );
 }
 
 //---------------------------------------------------------------------
@@ -10593,7 +10762,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x2 );
 }
 
 //---------------------------------------------------------------------
@@ -10617,7 +10786,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x3 );
 }
 
 //---------------------------------------------------------------------
@@ -10638,7 +10807,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x4 );
 }
 
 //---------------------------------------------------------------------
@@ -10682,13 +10851,13 @@ if ( attributeArray )
     case HASH_ATTRIBUTE_TYPE:
     {
 
-
+attributeData->type = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NEWPARAM__SURFACE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NEWPARAM__SURFACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -10713,7 +10882,9 @@ const char* NAME_ELEMENT_SURFACE__INIT_AS_NULL = "surface__init_as_null";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__init_as_null( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__init_as_null(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -10737,7 +10908,9 @@ const char* NAME_ELEMENT_SURFACE__INIT_AS_TARGET = "surface__init_as_target";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__init_as_target( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__init_as_target(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -10826,7 +10999,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INIT_CUBE__ALL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__ALL, 0, attributeValue))
             {return false;}
     }
     }
@@ -10889,7 +11062,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INIT_CUBE__PRIMARY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__PRIMARY, 0, attributeValue))
             {return false;}
     }
     }
@@ -10914,7 +11087,9 @@ const char* NAME_ELEMENT_PRIMARY__ORDER = "primary__order";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__order( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__order(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -10976,7 +11151,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INIT_CUBE__FACE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_CUBE__FACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -11060,7 +11235,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INIT_VOLUME__ALL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_VOLUME__ALL, 0, attributeValue))
             {return false;}
     }
     }
@@ -11120,7 +11295,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INIT_VOLUME__PRIMARY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_VOLUME__PRIMARY, 0, attributeValue))
             {return false;}
     }
     }
@@ -11204,7 +11379,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INIT_PLANAR__ALL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INIT_PLANAR__ALL, 0, attributeValue))
             {return false;}
     }
     }
@@ -11238,7 +11413,9 @@ const surface__init_from__AttributeData surface__init_from__AttributeData::DEFAU
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__surface__init_from( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__surface__init_from(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11283,13 +11460,13 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
     case HASH_ATTRIBUTE_FACE:
     {
 
-
+attributeData->face = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__INIT_FROM , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SURFACE__INIT_FROM, 0, attributeValue))
             {return false;}
     }
     }
@@ -11314,7 +11491,9 @@ const char* NAME_ELEMENT_SURFACE__FORMAT = "surface__format";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__format( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__format(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11362,7 +11541,9 @@ const char* NAME_ELEMENT_FORMAT_HINT__CHANNELS = "format_hint__channels";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__channels( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__channels(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11386,7 +11567,9 @@ const char* NAME_ELEMENT_FORMAT_HINT__RANGE = "format_hint__range";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__range( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__range(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11410,7 +11593,9 @@ const char* NAME_ELEMENT_FORMAT_HINT__PRECISION = "format_hint__precision";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__precision( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__precision(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11434,7 +11619,9 @@ const char* NAME_ELEMENT_FORMAT_HINT__OPTION = "format_hint__option";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__option( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__option(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11507,7 +11694,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FORMAT_HINT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORMAT_HINT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -11532,7 +11719,7 @@ const char* NAME_ELEMENT_SURFACE__SIZE = "surface__size";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__surface__size( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__surface__size);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__surface__size);
 }
 
 //---------------------------------------------------------------------
@@ -11544,7 +11731,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__surface__size( const ParserAtt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__surface__size()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__surface__size );
 }
 
 //---------------------------------------------------------------------
@@ -11568,7 +11755,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__viewport_ratio( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__viewport_ratio()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__viewport_ratio );
 }
 
 //---------------------------------------------------------------------
@@ -11580,7 +11767,13 @@ const char* NAME_ELEMENT_SURFACE__MIP_LEVELS = "surface__mip_levels";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mip_levels( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__mip_levels);
+bool failed;
+unsigned long parameter = GeneratedSaxParser::Utils::toUnsignedLong(text, failed);
+if (!failed)
+    return mImpl->data__mip_levels(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIP_LEVELS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -11604,7 +11797,13 @@ const char* NAME_ELEMENT_SURFACE__MIPMAP_GENERATE = "surface__mipmap_generate";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mipmap_generate( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__mipmap_generate);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__mipmap_generate(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIPMAP_GENERATE, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -11677,7 +11876,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SURFACE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SURFACE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -11723,7 +11922,9 @@ const char* NAME_ELEMENT_SAMPLER1D__SOURCE = "sampler1D__source";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__source( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler1D__source(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11747,7 +11948,9 @@ const char* NAME_ELEMENT_SAMPLER1D__WRAP_S = "sampler1D__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__wrap_s( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler1D__wrap_s(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11771,7 +11974,9 @@ const char* NAME_ELEMENT_SAMPLER1D__MINFILTER = "sampler1D__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__minfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler1D__minfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11795,7 +12000,9 @@ const char* NAME_ELEMENT_SAMPLER1D__MAGFILTER = "sampler1D__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__magfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler1D__magfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11819,7 +12026,9 @@ const char* NAME_ELEMENT_SAMPLER1D__MIPFILTER = "sampler1D__mipfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__mipfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler1D__mipfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -11855,7 +12064,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler1D__border_color( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__border_color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__sampler1D__border_color );
 }
 
 //---------------------------------------------------------------------
@@ -11867,7 +12076,13 @@ const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL = "sampler1D__mipmap_maxleve
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__sampler1D__mipmap_maxlevel);
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
+if (!failed)
+    return mImpl->data__sampler1D__mipmap_maxlevel(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -11891,7 +12106,13 @@ const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_BIAS = "sampler1D__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-return characterData2FloatData(text, textLength, &ColladaParserAutoGen::data__sampler1D__mipmap_bias);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__sampler1D__mipmap_bias(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_BIAS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -11964,7 +12185,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLER1D__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER1D__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -12010,7 +12231,9 @@ const char* NAME_ELEMENT_SAMPLER2D__SOURCE = "sampler2D__source";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__source( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler2D__source(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12031,7 +12254,9 @@ const char* NAME_ELEMENT_SAMPLER2D__WRAP_S = "sampler2D__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__wrap_s( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler2D__wrap_s(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12055,7 +12280,9 @@ const char* NAME_ELEMENT_SAMPLER2D__WRAP_T = "sampler2D__wrap_t";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__wrap_t( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler2D__wrap_t(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12076,7 +12303,9 @@ const char* NAME_ELEMENT_SAMPLER2D__MINFILTER = "sampler2D__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__minfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler2D__minfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12097,7 +12326,9 @@ const char* NAME_ELEMENT_SAMPLER2D__MAGFILTER = "sampler2D__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__magfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler2D__magfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12118,7 +12349,9 @@ const char* NAME_ELEMENT_SAMPLER2D__MIPFILTER = "sampler2D__mipfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__mipfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler2D__mipfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12151,7 +12384,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler2D__border_color( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__border_color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__sampler2D__border_color );
 }
 
 //---------------------------------------------------------------------
@@ -12160,7 +12393,13 @@ const char* NAME_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL = "sampler2D__mipmap_maxleve
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__sampler2D__mipmap_maxlevel);
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
+if (!failed)
+    return mImpl->data__sampler2D__mipmap_maxlevel(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -12181,7 +12420,13 @@ const char* NAME_ELEMENT_SAMPLER2D__MIPMAP_BIAS = "sampler2D__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-return characterData2FloatData(text, textLength, &ColladaParserAutoGen::data__sampler2D__mipmap_bias);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__sampler2D__mipmap_bias(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_BIAS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -12254,7 +12499,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLER2D__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER2D__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -12300,7 +12545,9 @@ const char* NAME_ELEMENT_SAMPLER3D__SOURCE = "sampler3D__source";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__source( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__source(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12321,7 +12568,9 @@ const char* NAME_ELEMENT_SAMPLER3D__WRAP_S = "sampler3D__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__wrap_s( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__wrap_s(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12342,7 +12591,9 @@ const char* NAME_ELEMENT_SAMPLER3D__WRAP_T = "sampler3D__wrap_t";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__wrap_t( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__wrap_t(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12366,7 +12617,9 @@ const char* NAME_ELEMENT_SAMPLER3D__WRAP_P = "sampler3D__wrap_p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__wrap_p( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__wrap_p(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12387,7 +12640,9 @@ const char* NAME_ELEMENT_SAMPLER3D__MINFILTER = "sampler3D__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__minfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__minfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12408,7 +12663,9 @@ const char* NAME_ELEMENT_SAMPLER3D__MAGFILTER = "sampler3D__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__magfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__magfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12429,7 +12686,9 @@ const char* NAME_ELEMENT_SAMPLER3D__MIPFILTER = "sampler3D__mipfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__mipfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__sampler3D__mipfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12462,7 +12721,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler3D__border_color( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__border_color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__sampler3D__border_color );
 }
 
 //---------------------------------------------------------------------
@@ -12471,7 +12730,13 @@ const char* NAME_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL = "sampler3D__mipmap_maxleve
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__sampler3D__mipmap_maxlevel);
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
+if (!failed)
+    return mImpl->data__sampler3D__mipmap_maxlevel(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -12492,7 +12757,13 @@ const char* NAME_ELEMENT_SAMPLER3D__MIPMAP_BIAS = "sampler3D__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-return characterData2FloatData(text, textLength, &ColladaParserAutoGen::data__sampler3D__mipmap_bias);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__sampler3D__mipmap_bias(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_BIAS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -12565,7 +12836,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLER3D__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLER3D__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -12611,7 +12882,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__SOURCE = "samplerCUBE__source";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__source( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__source(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12632,7 +12905,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__WRAP_S = "samplerCUBE__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__wrap_s( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__wrap_s(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12653,7 +12928,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__WRAP_T = "samplerCUBE__wrap_t";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__wrap_t( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__wrap_t(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12674,7 +12951,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__WRAP_P = "samplerCUBE__wrap_p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__wrap_p( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__wrap_p(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12695,7 +12974,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__MINFILTER = "samplerCUBE__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__minfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__minfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12716,7 +12997,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__MAGFILTER = "samplerCUBE__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__magfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__magfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12737,7 +13020,9 @@ const char* NAME_ELEMENT_SAMPLERCUBE__MIPFILTER = "samplerCUBE__mipfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__mipfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerCUBE__mipfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12770,7 +13055,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerCUBE__border_color( con
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__border_color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__samplerCUBE__border_color );
 }
 
 //---------------------------------------------------------------------
@@ -12779,7 +13064,13 @@ const char* NAME_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL = "samplerCUBE__mipmap_max
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__samplerCUBE__mipmap_maxlevel);
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
+if (!failed)
+    return mImpl->data__samplerCUBE__mipmap_maxlevel(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -12800,7 +13091,13 @@ const char* NAME_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS = "samplerCUBE__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-return characterData2FloatData(text, textLength, &ColladaParserAutoGen::data__samplerCUBE__mipmap_bias);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__samplerCUBE__mipmap_bias(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -12873,7 +13170,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLERCUBE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERCUBE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -12919,7 +13216,9 @@ const char* NAME_ELEMENT_SAMPLERRECT__SOURCE = "samplerRECT__source";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__source( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerRECT__source(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12940,7 +13239,9 @@ const char* NAME_ELEMENT_SAMPLERRECT__WRAP_S = "samplerRECT__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__wrap_s( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerRECT__wrap_s(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12961,7 +13262,9 @@ const char* NAME_ELEMENT_SAMPLERRECT__WRAP_T = "samplerRECT__wrap_t";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__wrap_t( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerRECT__wrap_t(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -12982,7 +13285,9 @@ const char* NAME_ELEMENT_SAMPLERRECT__MINFILTER = "samplerRECT__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__minfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerRECT__minfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13003,7 +13308,9 @@ const char* NAME_ELEMENT_SAMPLERRECT__MAGFILTER = "samplerRECT__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__magfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerRECT__magfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13024,7 +13331,9 @@ const char* NAME_ELEMENT_SAMPLERRECT__MIPFILTER = "samplerRECT__mipfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__mipfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerRECT__mipfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13057,7 +13366,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerRECT__border_color( con
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__border_color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__samplerRECT__border_color );
 }
 
 //---------------------------------------------------------------------
@@ -13066,7 +13375,13 @@ const char* NAME_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL = "samplerRECT__mipmap_max
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__samplerRECT__mipmap_maxlevel);
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
+if (!failed)
+    return mImpl->data__samplerRECT__mipmap_maxlevel(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -13087,7 +13402,13 @@ const char* NAME_ELEMENT_SAMPLERRECT__MIPMAP_BIAS = "samplerRECT__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-return characterData2FloatData(text, textLength, &ColladaParserAutoGen::data__samplerRECT__mipmap_bias);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__samplerRECT__mipmap_bias(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_BIAS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -13160,7 +13481,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLERRECT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERRECT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -13206,7 +13527,9 @@ const char* NAME_ELEMENT_SAMPLERDEPTH__SOURCE = "samplerDEPTH__source";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__source( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerDEPTH__source(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13227,7 +13550,9 @@ const char* NAME_ELEMENT_SAMPLERDEPTH__WRAP_S = "samplerDEPTH__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__wrap_s( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerDEPTH__wrap_s(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13248,7 +13573,9 @@ const char* NAME_ELEMENT_SAMPLERDEPTH__WRAP_T = "samplerDEPTH__wrap_t";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__wrap_t( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerDEPTH__wrap_t(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13269,7 +13596,9 @@ const char* NAME_ELEMENT_SAMPLERDEPTH__MINFILTER = "samplerDEPTH__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__minfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerDEPTH__minfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13290,7 +13619,9 @@ const char* NAME_ELEMENT_SAMPLERDEPTH__MAGFILTER = "samplerDEPTH__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__magfilter( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__samplerDEPTH__magfilter(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13363,7 +13694,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SAMPLERDEPTH__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SAMPLERDEPTH__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -13388,7 +13719,9 @@ const char* NAME_ELEMENT_NEWPARAM__ENUM = "newparam__enum";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__enum( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__newparam__enum(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13412,7 +13745,9 @@ const char* NAME_ELEMENT_EFFECT__FX_PROFILE_ABSTRACT = "effect__fx_profile_abstr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__fx_profile_abstract( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__fx_profile_abstract(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -13485,7 +13820,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EFFECT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EFFECT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -13559,7 +13894,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_EFFECTS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_EFFECTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -13629,7 +13964,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_FORCE_FIELDS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_FORCE_FIELDS, 0, attributeValue))
             {return false;}
     }
     }
@@ -13720,7 +14055,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FORCE_FIELD , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD, 0, attributeValue))
             {return false;}
     }
     }
@@ -13801,7 +14136,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FORCE_FIELD__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -13875,7 +14210,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FORCE_FIELD__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FORCE_FIELD__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -13949,7 +14284,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -14019,7 +14354,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES, 0, attributeValue))
             {return false;}
     }
     }
@@ -14060,7 +14395,7 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_images__asset()
 const char* NAME_ELEMENT_LIBRARY_IMAGES__IMAGE = "library_images__image";
 
 //---------------------------------------------------------------------
-const library_images__image__AttributeData library_images__image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, (const GeneratedSaxParser::ParserChar *)"1"};
+const library_images__image__AttributeData library_images__image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, 1};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_images__image( const ParserChar* text, size_t textLength )
@@ -14114,28 +14449,31 @@ attributeData->format = attributeValue;
     }
     case HASH_ATTRIBUTE_HEIGHT:
     {
-
-
-
+bool failed;
+attributeData->height = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_HEIGHT, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_WIDTH:
     {
-
-
-
+bool failed;
+attributeData->width = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_WIDTH, attributeValue))
+{return false;}
     break;
     }
     case HASH_ATTRIBUTE_DEPTH:
     {
-
-
-
+bool failed;
+attributeData->depth = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, HASH_ATTRIBUTE_DEPTH, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__IMAGE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES__IMAGE, 0, attributeValue))
             {return false;}
     }
     }
@@ -14209,7 +14547,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_IMAGES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_IMAGES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -14279,7 +14617,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_LIGHTS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_LIGHTS, 0, attributeValue))
             {return false;}
     }
     }
@@ -14370,7 +14708,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT, 0, attributeValue))
             {return false;}
     }
     }
@@ -14499,7 +14837,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_AMBIENT__COLOR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_AMBIENT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -14512,7 +14850,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__ambient__color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__ambient__color );
 }
 
 //---------------------------------------------------------------------
@@ -14583,7 +14921,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DIRECTIONAL__COLOR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DIRECTIONAL__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -14596,7 +14934,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__directional__color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__directional__color );
 }
 
 //---------------------------------------------------------------------
@@ -14667,7 +15005,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT__COLOR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -14680,7 +15018,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__point__color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__point__color );
 }
 
 //---------------------------------------------------------------------
@@ -14695,7 +15033,13 @@ const point__constant_attenuation__AttributeData point__constant_attenuation__At
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__constant_attenuation( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__point__constant_attenuation);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__point__constant_attenuation(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -14730,7 +15074,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT__CONSTANT_ATTENUATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -14758,7 +15102,13 @@ const point__linear_attenuation__AttributeData point__linear_attenuation__Attrib
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__linear_attenuation( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__point__linear_attenuation);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__point__linear_attenuation(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -14793,7 +15143,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT__LINEAR_ATTENUATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -14821,7 +15171,13 @@ const point__quadratic_attenuation__AttributeData point__quadratic_attenuation__
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__quadratic_attenuation( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__point__quadratic_attenuation);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__point__quadratic_attenuation(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -14856,7 +15212,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -14940,7 +15296,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPOT__COLOR , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__COLOR, 0, attributeValue))
             {return false;}
     }
     }
@@ -14953,7 +15309,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__spot__color()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__spot__color );
 }
 
 //---------------------------------------------------------------------
@@ -14965,7 +15321,13 @@ const spot__constant_attenuation__AttributeData spot__constant_attenuation__Attr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__constant_attenuation( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__spot__constant_attenuation);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__spot__constant_attenuation(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15000,7 +15362,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -15025,7 +15387,13 @@ const spot__linear_attenuation__AttributeData spot__linear_attenuation__Attribut
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__linear_attenuation( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__spot__linear_attenuation);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__spot__linear_attenuation(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15060,7 +15428,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPOT__LINEAR_ATTENUATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -15085,7 +15453,13 @@ const spot__quadratic_attenuation__AttributeData spot__quadratic_attenuation__At
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__quadratic_attenuation( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__spot__quadratic_attenuation);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__spot__quadratic_attenuation(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15120,7 +15494,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, attributeValue))
             {return false;}
     }
     }
@@ -15148,7 +15522,13 @@ const falloff_angle__AttributeData falloff_angle__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__falloff_angle( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__falloff_angle);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__falloff_angle(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_ANGLE, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15183,7 +15563,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FALLOFF_ANGLE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FALLOFF_ANGLE, 0, attributeValue))
             {return false;}
     }
     }
@@ -15211,7 +15591,13 @@ const falloff_exponent__AttributeData falloff_exponent__AttributeData::DEFAULT =
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__falloff_exponent( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__falloff_exponent);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__falloff_exponent(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_EXPONENT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15246,7 +15632,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_FALLOFF_EXPONENT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_FALLOFF_EXPONENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -15306,7 +15692,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -15380,7 +15766,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIGHT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIGHT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -15454,7 +15840,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_LIGHTS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_LIGHTS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -15524,7 +15910,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_MATERIALS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_MATERIALS, 0, attributeValue))
             {return false;}
     }
     }
@@ -15615,7 +16001,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -15713,7 +16099,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL__INSTANCE_EFFECT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL__INSTANCE_EFFECT, 0, attributeValue))
             {return false;}
     }
     }
@@ -15793,7 +16179,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE_HINT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_HINT, 0, attributeValue))
             {return false;}
     }
     }
@@ -15856,7 +16242,7 @@ attributeData->ref = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_EFFECT__SETPARAM , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_EFFECT__SETPARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -15878,7 +16264,13 @@ const char* NAME_ELEMENT_SETPARAM__BOOL = "setparam__bool";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__bool( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__setparam__bool);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__setparam__bool(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15911,7 +16303,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__bool2( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__bool2()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__setparam__bool2 );
 }
 
 //---------------------------------------------------------------------
@@ -15932,7 +16324,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__bool3( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__bool3()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__setparam__bool3 );
 }
 
 //---------------------------------------------------------------------
@@ -15953,7 +16345,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__bool4( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__bool4()
 {
-    return true;
+return boolDataEnd( &ColladaParserAutoGen::data__setparam__bool4 );
 }
 
 //---------------------------------------------------------------------
@@ -15962,7 +16354,13 @@ const char* NAME_ELEMENT_SETPARAM__INT = "setparam__int";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__int( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__setparam__int);
+bool failed;
+long parameter = GeneratedSaxParser::Utils::toLong(text, failed);
+if (!failed)
+    return mImpl->data__setparam__int(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -15983,7 +16381,7 @@ const char* NAME_ELEMENT_SETPARAM__INT2 = "setparam__int2";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__int2( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__setparam__int2);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__setparam__int2);
 }
 
 //---------------------------------------------------------------------
@@ -15995,7 +16393,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__int2( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__int2()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__setparam__int2 );
 }
 
 //---------------------------------------------------------------------
@@ -16004,7 +16402,7 @@ const char* NAME_ELEMENT_SETPARAM__INT3 = "setparam__int3";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__int3( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__setparam__int3);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__setparam__int3);
 }
 
 //---------------------------------------------------------------------
@@ -16016,7 +16414,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__int3( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__int3()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__setparam__int3 );
 }
 
 //---------------------------------------------------------------------
@@ -16025,7 +16423,7 @@ const char* NAME_ELEMENT_SETPARAM__INT4 = "setparam__int4";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__int4( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__setparam__int4);
+return characterData2LongData(text, textLength, &ColladaParserAutoGen::data__setparam__int4);
 }
 
 //---------------------------------------------------------------------
@@ -16037,7 +16435,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__int4( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__int4()
 {
-    return true;
+return longDataEnd( &ColladaParserAutoGen::data__setparam__int4 );
 }
 
 //---------------------------------------------------------------------
@@ -16046,7 +16444,13 @@ const char* NAME_ELEMENT_SETPARAM__FLOAT = "setparam__float";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__float( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__setparam__float);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__setparam__float(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -16079,7 +16483,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2 );
 }
 
 //---------------------------------------------------------------------
@@ -16100,7 +16504,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3 );
 }
 
 //---------------------------------------------------------------------
@@ -16121,7 +16525,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4 );
 }
 
 //---------------------------------------------------------------------
@@ -16130,7 +16534,13 @@ const char* NAME_ELEMENT_SETPARAM__FLOAT1X1 = "setparam__float1x1";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__float1x1( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__setparam__float1x1);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__setparam__float1x1(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1X1, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -16163,7 +16573,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float1x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float1x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float1x2 );
 }
 
 //---------------------------------------------------------------------
@@ -16184,7 +16594,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float1x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float1x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float1x3 );
 }
 
 //---------------------------------------------------------------------
@@ -16205,7 +16615,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float1x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float1x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float1x4 );
 }
 
 //---------------------------------------------------------------------
@@ -16226,7 +16636,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2x1( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2x1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x1 );
 }
 
 //---------------------------------------------------------------------
@@ -16247,7 +16657,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x2 );
 }
 
 //---------------------------------------------------------------------
@@ -16268,7 +16678,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x3 );
 }
 
 //---------------------------------------------------------------------
@@ -16289,7 +16699,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x4 );
 }
 
 //---------------------------------------------------------------------
@@ -16310,7 +16720,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3x1( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3x1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x1 );
 }
 
 //---------------------------------------------------------------------
@@ -16331,7 +16741,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x2 );
 }
 
 //---------------------------------------------------------------------
@@ -16352,7 +16762,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x3 );
 }
 
 //---------------------------------------------------------------------
@@ -16373,7 +16783,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x4 );
 }
 
 //---------------------------------------------------------------------
@@ -16394,7 +16804,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4x1( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4x1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x1 );
 }
 
 //---------------------------------------------------------------------
@@ -16415,7 +16825,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4x2( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4x2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x2 );
 }
 
 //---------------------------------------------------------------------
@@ -16436,7 +16846,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4x3( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4x3()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x3 );
 }
 
 //---------------------------------------------------------------------
@@ -16457,7 +16867,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4x4( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4x4()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x4 );
 }
 
 //---------------------------------------------------------------------
@@ -16498,13 +16908,13 @@ if ( attributeArray )
     case HASH_ATTRIBUTE_TYPE:
     {
 
-
+attributeData->type = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SETPARAM__SURFACE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SETPARAM__SURFACE, 0, attributeValue))
             {return false;}
     }
     }
@@ -16652,7 +17062,9 @@ const char* NAME_ELEMENT_SETPARAM__ENUM = "setparam__enum";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__enum( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__setparam__enum(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -16725,7 +17137,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_EFFECT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_EFFECT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -16799,7 +17211,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATERIAL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -16873,7 +17285,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_MATERIALS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_MATERIALS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -16943,7 +17355,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_NODES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES, 0, attributeValue))
             {return false;}
     }
     }
@@ -17045,20 +17457,20 @@ attributeData->sid = attributeValue;
     case HASH_ATTRIBUTE_TYPE:
     {
 
-
+attributeData->type = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_LAYER:
     {
 
-
+attributeData->layer = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_NODES__NODE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES__NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -17142,7 +17554,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LOOKAT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LOOKAT, 0, attributeValue))
             {return false;}
     }
     }
@@ -17155,7 +17567,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__lookat()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__lookat );
 }
 
 //---------------------------------------------------------------------
@@ -17205,7 +17617,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MATRIX , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MATRIX, 0, attributeValue))
             {return false;}
     }
     }
@@ -17218,7 +17630,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__matrix()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__matrix );
 }
 
 //---------------------------------------------------------------------
@@ -17268,7 +17680,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__ROTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -17281,7 +17693,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__node__rotate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__node__rotate );
 }
 
 //---------------------------------------------------------------------
@@ -17331,7 +17743,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SCALE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCALE, 0, attributeValue))
             {return false;}
     }
     }
@@ -17344,7 +17756,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__scale()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__scale );
 }
 
 //---------------------------------------------------------------------
@@ -17394,7 +17806,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SKEW , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SKEW, 0, attributeValue))
             {return false;}
     }
     }
@@ -17407,7 +17819,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__skew()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__skew );
 }
 
 //---------------------------------------------------------------------
@@ -17457,7 +17869,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__TRANSLATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -17470,7 +17882,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__node__translate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__node__translate );
 }
 
 //---------------------------------------------------------------------
@@ -17534,7 +17946,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_CAMERA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CAMERA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17608,7 +18020,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_CAMERA__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CAMERA__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -17685,7 +18097,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_CONTROLLER , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CONTROLLER, 0, attributeValue))
             {return false;}
     }
     }
@@ -17710,7 +18122,9 @@ const char* NAME_ELEMENT_INSTANCE_CONTROLLER__SKELETON = "instance_controller__s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__skeleton( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__skeleton(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -17758,7 +18172,9 @@ const bind_material__param__AttributeData bind_material__param__AttributeData::D
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__bind_material__param( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__bind_material__param(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -17814,7 +18230,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_MATERIAL__PARAM , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__PARAM, 0, attributeValue))
             {return false;}
     }
     }
@@ -17922,7 +18338,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -17992,7 +18408,7 @@ attributeData->target = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_MATERIAL__BIND , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL__BIND, 0, attributeValue))
             {return false;}
     }
     }
@@ -18068,14 +18484,15 @@ attributeData->input_semantic = attributeValue;
     }
     case HASH_ATTRIBUTE_INPUT_SET:
     {
-
-
-
+bool failed;
+attributeData->input_set = GeneratedSaxParser::Utils::toUnsignedLongLong(attributeValue, failed);
+if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_VERTEX_INPUT, HASH_ATTRIBUTE_INPUT_SET, attributeValue))
+{return false;}
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_VERTEX_INPUT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_VERTEX_INPUT, 0, attributeValue))
             {return false;}
     }
     }
@@ -18149,7 +18566,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_MATERIAL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -18209,7 +18626,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -18283,7 +18700,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BIND_MATERIAL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BIND_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -18357,7 +18774,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_CONTROLLER__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_CONTROLLER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -18434,7 +18851,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__INSTANCE_GEOMETRY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__INSTANCE_GEOMETRY, 0, attributeValue))
             {return false;}
     }
     }
@@ -18529,7 +18946,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_GEOMETRY__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_GEOMETRY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -18606,7 +19023,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_LIGHT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_LIGHT, 0, attributeValue))
             {return false;}
     }
     }
@@ -18680,7 +19097,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_LIGHT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_LIGHT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -18757,7 +19174,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_NODE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -18831,7 +19248,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_NODE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_NODE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -18906,20 +19323,20 @@ attributeData->sid = attributeValue;
     case HASH_ATTRIBUTE_TYPE:
     {
 
-
+attributeData->type = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_LAYER:
     {
 
-
+attributeData->layer = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__NODE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -18993,7 +19410,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_NODE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_NODE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19067,7 +19484,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_NODES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_NODES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19137,7 +19554,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS, 0, attributeValue))
             {return false;}
     }
     }
@@ -19228,7 +19645,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -19298,7 +19715,13 @@ const dynamic_friction__AttributeData dynamic_friction__AttributeData::DEFAULT =
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__dynamic_friction( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__dynamic_friction);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__dynamic_friction(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC_FRICTION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -19333,7 +19756,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DYNAMIC_FRICTION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DYNAMIC_FRICTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -19361,7 +19784,13 @@ const restitution__AttributeData restitution__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__restitution( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__restitution);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__restitution(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RESTITUTION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -19396,7 +19825,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RESTITUTION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RESTITUTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -19424,7 +19853,13 @@ const static_friction__AttributeData static_friction__AttributeData::DEFAULT = {
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__static_friction( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__static_friction);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__static_friction(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STATIC_FRICTION, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -19459,7 +19894,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_STATIC_FRICTION , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_STATIC_FRICTION, 0, attributeValue))
             {return false;}
     }
     }
@@ -19519,7 +19954,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -19593,7 +20028,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_MATERIAL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19667,7 +20102,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -19737,7 +20172,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_MODELS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MODELS, 0, attributeValue))
             {return false;}
     }
     }
@@ -19828,7 +20263,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_MODEL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -19919,7 +20354,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RIGID_BODY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY, 0, attributeValue))
             {return false;}
     }
     }
@@ -19968,7 +20403,13 @@ const dynamic__AttributeData dynamic__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__dynamic( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__dynamic);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__dynamic(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -20003,7 +20444,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DYNAMIC , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DYNAMIC, 0, attributeValue))
             {return false;}
     }
     }
@@ -20031,7 +20472,13 @@ const technique_common__mass__AttributeData technique_common__mass__AttributeDat
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__technique_common__mass( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__technique_common__mass);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__technique_common__mass(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -20066,7 +20513,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE_COMMON__MASS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, attributeValue))
             {return false;}
     }
     }
@@ -20150,7 +20597,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MASS_FRAME__TRANSLATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MASS_FRAME__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -20163,7 +20610,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__mass_frame__translate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__mass_frame__translate );
 }
 
 //---------------------------------------------------------------------
@@ -20210,7 +20657,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_MASS_FRAME__ROTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_MASS_FRAME__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -20223,7 +20670,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__mass_frame__rotate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__mass_frame__rotate );
 }
 
 //---------------------------------------------------------------------
@@ -20273,7 +20720,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INERTIA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INERTIA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20286,7 +20733,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__inertia()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__inertia );
 }
 
 //---------------------------------------------------------------------
@@ -20350,7 +20797,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -20424,7 +20871,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -20491,7 +20938,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -20543,7 +20990,13 @@ const hollow__AttributeData hollow__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__hollow( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__hollow);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__hollow(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_HOLLOW, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -20578,7 +21031,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_HOLLOW , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_HOLLOW, 0, attributeValue))
             {return false;}
     }
     }
@@ -20603,7 +21056,13 @@ const shape__mass__AttributeData shape__mass__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__mass( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__shape__mass);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__shape__mass(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHAPE__MASS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -20638,7 +21097,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__MASS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__MASS, 0, attributeValue))
             {return false;}
     }
     }
@@ -20666,7 +21125,13 @@ const density__AttributeData density__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__density( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__density);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__density(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DENSITY, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -20701,7 +21166,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_DENSITY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_DENSITY, 0, attributeValue))
             {return false;}
     }
     }
@@ -20775,7 +21240,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -20842,7 +21307,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__PHYSICS_MATERIAL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__PHYSICS_MATERIAL, 0, attributeValue))
             {return false;}
     }
     }
@@ -20916,7 +21381,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__INSTANCE_GEOMETRY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__INSTANCE_GEOMETRY, 0, attributeValue))
             {return false;}
     }
     }
@@ -20977,7 +21442,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__equation( const ParserAttribut
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__equation()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__equation );
 }
 
 //---------------------------------------------------------------------
@@ -21038,7 +21503,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PLANE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PLANE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21099,7 +21564,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__half_extents( const ParserAttr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__half_extents()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__half_extents );
 }
 
 //---------------------------------------------------------------------
@@ -21160,7 +21625,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_BOX__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_BOX__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21209,7 +21674,13 @@ const char* NAME_ELEMENT_SPHERE__RADIUS = "sphere__radius";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sphere__radius( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__sphere__radius);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__sphere__radius(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPHERE__RADIUS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -21282,7 +21753,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SPHERE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SPHERE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21331,7 +21802,13 @@ const char* NAME_ELEMENT_CYLINDER__HEIGHT = "cylinder__height";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__cylinder__height( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__cylinder__height);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__cylinder__height(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CYLINDER__HEIGHT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -21364,7 +21841,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__cylinder__radius( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__cylinder__radius()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__cylinder__radius );
 }
 
 //---------------------------------------------------------------------
@@ -21425,7 +21902,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CYLINDER__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CYLINDER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21471,7 +21948,13 @@ const char* NAME_ELEMENT_TAPERED_CYLINDER__HEIGHT = "tapered_cylinder__height";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tapered_cylinder__height( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__tapered_cylinder__height);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__tapered_cylinder__height(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CYLINDER__HEIGHT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -21507,7 +21990,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tapered_cylinder__radius1( con
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tapered_cylinder__radius1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__tapered_cylinder__radius1 );
 }
 
 //---------------------------------------------------------------------
@@ -21531,7 +22014,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tapered_cylinder__radius2( con
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tapered_cylinder__radius2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__tapered_cylinder__radius2 );
 }
 
 //---------------------------------------------------------------------
@@ -21592,7 +22075,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TAPERED_CYLINDER__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TAPERED_CYLINDER__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21638,7 +22121,13 @@ const char* NAME_ELEMENT_CAPSULE__HEIGHT = "capsule__height";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__capsule__height( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__capsule__height);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__capsule__height(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CAPSULE__HEIGHT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -21671,7 +22160,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__capsule__radius( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__capsule__radius()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__capsule__radius );
 }
 
 //---------------------------------------------------------------------
@@ -21732,7 +22221,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_CAPSULE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_CAPSULE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21778,7 +22267,13 @@ const char* NAME_ELEMENT_TAPERED_CAPSULE__HEIGHT = "tapered_capsule__height";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tapered_capsule__height( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__tapered_capsule__height);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__tapered_capsule__height(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CAPSULE__HEIGHT, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -21811,7 +22306,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tapered_capsule__radius1( cons
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tapered_capsule__radius1()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__tapered_capsule__radius1 );
 }
 
 //---------------------------------------------------------------------
@@ -21832,7 +22327,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tapered_capsule__radius2( cons
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tapered_capsule__radius2()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__tapered_capsule__radius2 );
 }
 
 //---------------------------------------------------------------------
@@ -21893,7 +22388,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TAPERED_CAPSULE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TAPERED_CAPSULE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -21953,7 +22448,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__TRANSLATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -21966,7 +22461,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__shape__translate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__shape__translate );
 }
 
 //---------------------------------------------------------------------
@@ -22013,7 +22508,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__ROTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -22026,7 +22521,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__shape__rotate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__shape__rotate );
 }
 
 //---------------------------------------------------------------------
@@ -22087,7 +22582,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SHAPE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SHAPE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22147,7 +22642,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RIGID_BODY__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -22221,7 +22716,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RIGID_BODY__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_BODY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22291,7 +22786,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RIGID_CONSTRAINT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT, 0, attributeValue))
             {return false;}
     }
     }
@@ -22357,7 +22852,7 @@ attributeData->rigid_body = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_REF_ATTACHMENT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -22417,7 +22912,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_REF_ATTACHMENT__TRANSLATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -22430,7 +22925,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__ref_attachment__translate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__ref_attachment__translate );
 }
 
 //---------------------------------------------------------------------
@@ -22477,7 +22972,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_REF_ATTACHMENT__ROTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -22490,7 +22985,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__ref_attachment__rotate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__ref_attachment__rotate );
 }
 
 //---------------------------------------------------------------------
@@ -22551,7 +23046,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_REF_ATTACHMENT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_REF_ATTACHMENT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22614,7 +23109,7 @@ attributeData->rigid_body = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ATTACHMENT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT, 0, attributeValue))
             {return false;}
     }
     }
@@ -22674,7 +23169,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ATTACHMENT__TRANSLATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__TRANSLATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -22687,7 +23182,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__attachment__translate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__attachment__translate );
 }
 
 //---------------------------------------------------------------------
@@ -22734,7 +23229,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ATTACHMENT__ROTATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__ROTATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -22747,7 +23242,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__attachment__rotate()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__attachment__rotate );
 }
 
 //---------------------------------------------------------------------
@@ -22808,7 +23303,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ATTACHMENT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ATTACHMENT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -22857,7 +23352,13 @@ const enabled__AttributeData enabled__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__enabled( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__enabled);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__enabled(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ENABLED, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -22892,7 +23393,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ENABLED , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ENABLED, 0, attributeValue))
             {return false;}
     }
     }
@@ -22920,7 +23421,13 @@ const interpenetrate__AttributeData interpenetrate__AttributeData::DEFAULT = {0}
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__interpenetrate( const ParserChar* text, size_t textLength )
 {
-return characterData2BoolData(text, textLength, &ColladaParserAutoGen::data__interpenetrate);
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
+if (!failed)
+    return mImpl->data__interpenetrate(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INTERPENETRATE, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -22955,7 +23462,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INTERPENETRATE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INTERPENETRATE, 0, attributeValue))
             {return false;}
     }
     }
@@ -23066,7 +23573,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SWING_CONE_AND_TWIST__MIN , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SWING_CONE_AND_TWIST__MIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -23079,7 +23586,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__swing_cone_and_twist__min()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__swing_cone_and_twist__min );
 }
 
 //---------------------------------------------------------------------
@@ -23129,7 +23636,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SWING_CONE_AND_TWIST__MAX , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SWING_CONE_AND_TWIST__MAX, 0, attributeValue))
             {return false;}
     }
     }
@@ -23142,7 +23649,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__swing_cone_and_twist__max()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__swing_cone_and_twist__max );
 }
 
 //---------------------------------------------------------------------
@@ -23213,7 +23720,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINEAR__MIN , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__MIN, 0, attributeValue))
             {return false;}
     }
     }
@@ -23226,7 +23733,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__linear__min()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__linear__min );
 }
 
 //---------------------------------------------------------------------
@@ -23273,7 +23780,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINEAR__MAX , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__MAX, 0, attributeValue))
             {return false;}
     }
     }
@@ -23286,7 +23793,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__linear__max()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__linear__max );
 }
 
 //---------------------------------------------------------------------
@@ -23349,7 +23856,13 @@ const angular__stiffness__AttributeData angular__stiffness__AttributeData::DEFAU
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__angular__stiffness( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__angular__stiffness);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__angular__stiffness(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -23384,7 +23897,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANGULAR__STIFFNESS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, attributeValue))
             {return false;}
     }
     }
@@ -23412,7 +23925,13 @@ const angular__damping__AttributeData angular__damping__AttributeData::DEFAULT =
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__angular__damping( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__angular__damping);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__angular__damping(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__DAMPING, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -23447,7 +23966,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANGULAR__DAMPING , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__DAMPING, 0, attributeValue))
             {return false;}
     }
     }
@@ -23475,7 +23994,13 @@ const angular__target_value__AttributeData angular__target_value__AttributeData:
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__angular__target_value( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__angular__target_value);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__angular__target_value(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -23510,7 +24035,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_ANGULAR__TARGET_VALUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -23556,7 +24081,13 @@ const linear__stiffness__AttributeData linear__stiffness__AttributeData::DEFAULT
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__stiffness( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__linear__stiffness);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__linear__stiffness(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__STIFFNESS, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -23591,7 +24122,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINEAR__STIFFNESS , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__STIFFNESS, 0, attributeValue))
             {return false;}
     }
     }
@@ -23616,7 +24147,13 @@ const linear__damping__AttributeData linear__damping__AttributeData::DEFAULT = {
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__damping( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__linear__damping);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__linear__damping(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__DAMPING, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -23651,7 +24188,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINEAR__DAMPING , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__DAMPING, 0, attributeValue))
             {return false;}
     }
     }
@@ -23676,7 +24213,13 @@ const linear__target_value__AttributeData linear__target_value__AttributeData::D
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__target_value( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__linear__target_value);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__linear__target_value(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -23711,7 +24254,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LINEAR__TARGET_VALUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -23771,7 +24314,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -23845,7 +24388,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RIGID_CONSTRAINT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RIGID_CONSTRAINT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -23932,7 +24475,7 @@ attributeData->parent = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -24009,7 +24552,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD, 0, attributeValue))
             {return false;}
     }
     }
@@ -24083,7 +24626,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24170,7 +24713,7 @@ attributeData->target = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_RIGID_BODY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY, 0, attributeValue))
             {return false;}
     }
     }
@@ -24228,7 +24771,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__angular_velocity( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__angular_velocity()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__angular_velocity );
 }
 
 //---------------------------------------------------------------------
@@ -24252,7 +24795,7 @@ bool ColladaParserAutoGenPrivate::_validateBegin__velocity( const ParserAttribut
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__velocity()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__velocity );
 }
 
 //---------------------------------------------------------------------
@@ -24299,7 +24842,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -24373,7 +24916,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_RIGID_BODY__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_BODY__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24453,7 +24996,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT, 0, attributeValue))
             {return false;}
     }
     }
@@ -24527,7 +25070,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24601,7 +25144,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24675,7 +25218,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_MODEL__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_MODEL__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24749,7 +25292,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -24819,7 +25362,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_SCENES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_SCENES, 0, attributeValue))
             {return false;}
     }
     }
@@ -24910,7 +25453,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_SCENE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25005,7 +25548,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD, 0, attributeValue))
             {return false;}
     }
     }
@@ -25086,7 +25629,7 @@ attributeData->parent = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL, 0, attributeValue))
             {return false;}
     }
     }
@@ -25170,7 +25713,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_GRAVITY , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_GRAVITY, 0, attributeValue))
             {return false;}
     }
     }
@@ -25183,7 +25726,7 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__gravity()
 {
-    return true;
+return doubleDataEnd( &ColladaParserAutoGen::data__gravity );
 }
 
 //---------------------------------------------------------------------
@@ -25198,7 +25741,13 @@ const time_step__AttributeData time_step__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__time_step( const ParserChar* text, size_t textLength )
 {
-return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__time_step);
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
+if (!failed)
+    return mImpl->data__time_step(parameter);
+else
+    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TIME_STEP, 0, text);
+
 }
 
 //---------------------------------------------------------------------
@@ -25233,7 +25782,7 @@ attributeData->sid = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_TIME_STEP , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_TIME_STEP, 0, attributeValue))
             {return false;}
     }
     }
@@ -25293,7 +25842,7 @@ attributeData->profile = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25367,7 +25916,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_PHYSICS_SCENE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_PHYSICS_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -25441,7 +25990,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -25511,7 +26060,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_VISUAL_SCENES , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_VISUAL_SCENES, 0, attributeValue))
             {return false;}
     }
     }
@@ -25602,7 +26151,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VISUAL_SCENE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25698,20 +26247,20 @@ attributeData->sid = attributeValue;
     case HASH_ATTRIBUTE_TYPE:
     {
 
-
+attributeData->type = attributeValue;
 
     break;
     }
     case HASH_ATTRIBUTE_LAYER:
     {
 
-
+attributeData->layer = attributeValue;
 
     break;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VISUAL_SCENE__NODE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE__NODE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25774,7 +26323,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_EVALUATE_SCENE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_EVALUATE_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -25840,7 +26389,7 @@ attributeData->camera_node = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RENDER , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RENDER, 0, attributeValue))
             {return false;}
     }
     }
@@ -25865,7 +26414,9 @@ const char* NAME_ELEMENT_RENDER__LAYER = "render__layer";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__layer( const ParserChar* text, size_t textLength )
 {
+
 return mImpl->data__layer(text, textLength);
+
 }
 
 //---------------------------------------------------------------------
@@ -25938,7 +26489,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_RENDER__INSTANCE_EFFECT , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_RENDER__INSTANCE_EFFECT, 0, attributeValue))
             {return false;}
     }
     }
@@ -26012,7 +26563,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_VISUAL_SCENE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_VISUAL_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26086,7 +26637,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26187,7 +26738,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_PHYSICS_SCENE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -26261,7 +26812,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26338,7 +26889,7 @@ attributeData->name = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_VISUAL_SCENE , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_VISUAL_SCENE, 0, attributeValue))
             {return false;}
     }
     }
@@ -26412,7 +26963,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26486,7 +27037,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_SCENE__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_SCENE__EXTRA, 0, attributeValue))
             {return false;}
     }
     }
@@ -26560,7 +27111,7 @@ attributeData->type = attributeValue;
     }
     default:
     {
-        if ( handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,HASH_ELEMENT_COLLADA__EXTRA , 0, attributeValue))
+        if ( handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_UNKNOWN_ATTRIBUTE, HASH_ELEMENT_COLLADA__EXTRA, 0, attributeValue))
             {return false;}
     }
     }

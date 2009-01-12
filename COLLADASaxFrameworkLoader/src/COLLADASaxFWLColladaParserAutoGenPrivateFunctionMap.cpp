@@ -2,7 +2,7 @@
 #include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
 
 
-namespace COLLADASaxFWL
+namespace  COLLADASaxFWL
 {
 
 

@@ -18,8 +18,6 @@
 namespace COLLADAFW
 {
 
-    /** An array of unsigned int values. */
-    typedef ArrayPrimitiveType<unsigned int> UIntValuesArray;
 
 
     /** TODO Documentation */

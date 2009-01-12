@@ -17,7 +17,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "GeneratedSaxParserTypes.h"
 
 
-namespace COLLADASaxFWL
+namespace  COLLADASaxFWL
 {
 
 
@@ -117,7 +117,7 @@ struct unit__AttributeData
 {
     static const unit__AttributeData DEFAULT;
 
-    float meter;
+    double meter;
     const ParserChar* name;
 };
 
@@ -185,7 +185,7 @@ struct IDREF_array__AttributeData
 
     const ParserChar* id;
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
 };
 
 const StringHash HASH_ELEMENT_NAME_ARRAY = 95291433;
@@ -198,7 +198,7 @@ struct Name_array__AttributeData
 
     const ParserChar* id;
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
 };
 
 const StringHash HASH_ELEMENT_BOOL_ARRAY = 11257449;
@@ -211,7 +211,7 @@ struct bool_array__AttributeData
 
     const ParserChar* id;
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
 };
 
 const StringHash HASH_ELEMENT_FLOAT_ARRAY = 124331241;
@@ -228,7 +228,7 @@ struct float_array__AttributeData
 
     const ParserChar* id;
     const ParserChar* name;
-    unsigned int count;
+    unsigned long long count;
     int digits;
     int magnitude;
 };
@@ -247,7 +247,7 @@ struct int_array__AttributeData
 
     const ParserChar* id;
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     long minInclusive;
     long maxInclusive;
 };
@@ -271,10 +271,10 @@ struct accessor__AttributeData
 {
     static const accessor__AttributeData DEFAULT;
 
-    unsigned int count;
-    unsigned int offset;
+    unsigned long long count;
+    unsigned long long offset;
     const ParserChar* source;
-    unsigned int stride;
+    unsigned long long stride;
 };
 
 const StringHash HASH_ELEMENT_PARAM = 246253965;
@@ -786,7 +786,7 @@ struct vertex_weights__AttributeData
 {
     static const vertex_weights__AttributeData DEFAULT;
 
-    const ParserChar* count;
+    unsigned long long count;
 };
 
 const StringHash HASH_ELEMENT_VERTEX_WEIGHTS__INPUT = 118429284;
@@ -797,10 +797,10 @@ struct vertex_weights__input__AttributeData
 {
     static const vertex_weights__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_VCOUNT = 64909860;
@@ -1015,7 +1015,7 @@ struct convex_mesh__lines__AttributeData
     static const convex_mesh__lines__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1025,10 +1025,10 @@ struct lines__input__AttributeData
 {
     static const lines__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_P = 5018704;
@@ -1056,7 +1056,7 @@ struct convex_mesh__linestrips__AttributeData
     static const convex_mesh__linestrips__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1066,10 +1066,10 @@ struct linestrips__input__AttributeData
 {
     static const linestrips__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_LINESTRIPS__P = 201547680;
@@ -1095,7 +1095,7 @@ struct convex_mesh__polygons__AttributeData
     static const convex_mesh__polygons__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1105,10 +1105,10 @@ struct polygons__input__AttributeData
 {
     static const polygons__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_POLYGONS__P = 238221456;
@@ -1147,7 +1147,7 @@ struct convex_mesh__polylist__AttributeData
     static const convex_mesh__polylist__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1157,10 +1157,10 @@ struct polylist__input__AttributeData
 {
     static const polylist__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_POLYLIST__VCOUNT = 117410884;
@@ -1189,7 +1189,7 @@ struct convex_mesh__triangles__AttributeData
     static const convex_mesh__triangles__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1199,10 +1199,10 @@ struct triangles__input__AttributeData
 {
     static const triangles__input__AttributeData DEFAULT;
 
-    unsigned int offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_TRIANGLES__P = 194284832;
@@ -1228,7 +1228,7 @@ struct convex_mesh__trifans__AttributeData
     static const convex_mesh__trifans__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1238,10 +1238,10 @@ struct trifans__input__AttributeData
 {
     static const trifans__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_TRIFANS__P = 209866128;
@@ -1267,7 +1267,7 @@ struct convex_mesh__tristrips__AttributeData
     static const convex_mesh__tristrips__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1277,10 +1277,10 @@ struct tristrips__input__AttributeData
 {
     static const tristrips__input__AttributeData DEFAULT;
 
-    const ParserChar* offset;
+    unsigned long long offset;
     const ParserChar* semantic;
     const ParserChar* source;
-    const ParserChar* set;
+    unsigned long long set;
 };
 
 const StringHash HASH_ELEMENT_TRISTRIPS__P = 12492704;
@@ -1340,7 +1340,7 @@ struct mesh__lines__AttributeData
     static const mesh__lines__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1351,7 +1351,7 @@ struct mesh__linestrips__AttributeData
     static const mesh__linestrips__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1362,7 +1362,7 @@ struct mesh__polygons__AttributeData
     static const mesh__polygons__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1373,7 +1373,7 @@ struct mesh__polylist__AttributeData
     static const mesh__polylist__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1384,7 +1384,7 @@ struct mesh__triangles__AttributeData
     static const mesh__triangles__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1395,7 +1395,7 @@ struct mesh__trifans__AttributeData
     static const mesh__trifans__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1406,7 +1406,7 @@ struct mesh__tristrips__AttributeData
     static const mesh__tristrips__AttributeData DEFAULT;
 
     const ParserChar* name;
-    const ParserChar* count;
+    unsigned long long count;
     const ParserChar* material;
 };
 
@@ -1431,7 +1431,7 @@ struct spline__AttributeData
 {
     static const spline__AttributeData DEFAULT;
 
-    const ParserChar* closed;
+    bool closed;
 };
 
 const StringHash HASH_ELEMENT_SPLINE__SOURCE = 28739173;
@@ -1643,9 +1643,9 @@ struct effect__image__AttributeData
     const ParserChar* id;
     const ParserChar* name;
     const ParserChar* format;
-    const ParserChar* height;
-    const ParserChar* width;
-    const ParserChar* depth;
+    unsigned long long height;
+    unsigned long long width;
+    unsigned long long depth;
 };
 
 const StringHash HASH_ELEMENT_IMAGE__ASSET = 73127028;
@@ -2388,9 +2388,9 @@ struct library_images__image__AttributeData
     const ParserChar* id;
     const ParserChar* name;
     const ParserChar* format;
-    const ParserChar* height;
-    const ParserChar* width;
-    const ParserChar* depth;
+    unsigned long long height;
+    unsigned long long width;
+    unsigned long long depth;
 };
 
 const StringHash HASH_ELEMENT_LIBRARY_IMAGES__EXTRA = 82037425;
@@ -3029,7 +3029,7 @@ struct bind_vertex_input__AttributeData
 
     const ParserChar* semantic;
     const ParserChar* input_semantic;
-    const ParserChar* input_set;
+    unsigned long long input_set;
 };
 
 const StringHash HASH_ELEMENT_INSTANCE_MATERIAL__EXTRA = 238355617;

@@ -8,11 +8,12 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
-#ifndef __COLLADAFW_POLY_BASE_H__
-#define __COLLADAFW_POLY_BASE_H__
+#ifndef __COLLADAFW_MESHPRIMITIVE_H__
+#define __COLLADAFW_MESHPRIMITIVE_H__
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWConstants.h"
+#include "COLLADAFWTypes.h"
 
 
 namespace COLLADAFW
@@ -78,11 +79,6 @@ namespace COLLADAFW
         * The attribute indicates the number of polygon faces in the current primitive element.
         */
         size_t mFaceCount;
-
-        /**
-         * Contains a list of integers, each specifying the number of vertices for one polygon face.
-         */
-        UIntValuesArray mFaceVertexCountArray;
 
         /**
         * The material attribute declares a symbol for a material. This symbol 
@@ -153,21 +149,6 @@ namespace COLLADAFW
         * @param atCount The new value for the count attribute.
         */
         void setFaceCount ( const size_t count ) { mFaceCount = count; }
-
-        /**
-        * Contains a list of integers, each specifying the number of vertices for one polygon face.
-        */
-        COLLADAFW::UIntValuesArray& getFaceVertexCountArray () { return mFaceVertexCountArray; }
-
-        /**
-        * Contains a list of integers, each specifying the number of vertices for one polygon face.
-        */
-        const COLLADAFW::UIntValuesArray& getFaceVertexCountArray () const { return mFaceVertexCountArray; }
-
-        /**
-        * Contains a list of integers, each specifying the number of vertices for one polygon face.
-        */
-        void setFaceVertexCountArray ( const COLLADAFW::UIntValuesArray& FaceVertexCountArray ) { mFaceVertexCountArray = FaceVertexCountArray; }
 
         /**
         * Gets the material attribute.
@@ -241,23 +222,6 @@ namespace COLLADAFW
         */
         void setEdgeIndices ( const COLLADAFW::UIntValuesArray& EdgeIndices ) { mEdgeIndices = EdgeIndices; }
 
-        /**
-        * Initialize the index list of the edges ( the index list is referencing on the position indices )
-        */
-        COLLADAFW::UIntValuesArray& initializeEdgeIndices ( COLLADAFW::UIntValuesArray& edgeIndices )
-        {
-            // TODO Create the edges... Geht nicht mehr, bin platt, denken klappt heut nicht mehr, sorry!
-
-            // Go through the list of faces and write the edge indices for every face.
-            for ( size_t faceIndex=0; faceIndex<mFaceCount; ++faceIndex )
-            {
-                // The number of vertices of the current face.
-                unsigned int faceVertexCount = mFaceVertexCountArray [ faceIndex ];
-                
-            }
-
-            return edgeIndices;
-        }
 
     };
 
@@ -266,4 +230,4 @@ namespace COLLADAFW
 
 }
 
-#endif // __COLLADAFW_POLY_BASE_H__
+#endif // __COLLADAFW_MESHPRIMITIVE_H__

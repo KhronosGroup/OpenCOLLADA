@@ -101,10 +101,6 @@ namespace GeneratedSaxParser
 		/** Number of elements that have been opened and should be ignored. Use for unknown elements.*/
 		size_t mIgnoreElements;
 
-		/** */
-		
-//		friend class ColladaParserAutoGenPrivate;
-
 
 	public:
 		ParserTemplate(ImplClass* impl, IErrorHandler* errorHandler) 
@@ -156,7 +152,9 @@ namespace GeneratedSaxParser
 		template<class DataType, DataType (*toData)( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 		bool dataEnd(bool ( ImplClass::*dataFunction ) (const DataType* data, size_t dataLength ));
 
+        bool boolDataEnd( BoolDataFunctionPtr boolDataFunction );
 		bool floatDataEnd( FloatDataFunctionPtr floatDataFunction );
+        bool doubleDataEnd( DoubleDataFunctionPtr doubleDataFunction );
 
 		bool charDataEnd( CharDataFunctionPtr charDataFunction );
 		bool unsignedCharDataEnd( UnsignedCharDataFunctionPtr unsignedCharDataFunction );
@@ -218,10 +216,10 @@ namespace GeneratedSaxParser
 			dataBufferIndex = 1;
 		}
 
-		DataType* floatBuffer = (DataType*)mStackMemoryManager.newObject(FLOATBUFFERSIZE * sizeof(DataType));
+		DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(TYPED_VALUES_BUFFER_SIZE * sizeof(DataType));
 
 		if ( dataBufferIndex > 0)
-			floatBuffer[0] = fragmentData;
+			typedBuffer[0] = fragmentData;
 
 
 		bool failed = false;
@@ -231,11 +229,11 @@ namespace GeneratedSaxParser
 			DataType dataValue =toData(&dataBufferPos, bufferEnd, failed);
 			if ( !failed )
 			{
-				floatBuffer[dataBufferIndex] = dataValue;
+				typedBuffer[dataBufferIndex] = dataValue;
 				++dataBufferIndex;
-				if ( dataBufferIndex == FLOATBUFFERSIZE)
+				if ( dataBufferIndex == TYPED_VALUES_BUFFER_SIZE )
 				{
-					(mImpl->*dataFunction)(floatBuffer, dataBufferIndex);
+					(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
 					dataBufferIndex = 0;
 				}
 			}
@@ -244,10 +242,10 @@ namespace GeneratedSaxParser
 		if ( dataBufferPos == bufferEnd )
 		{
 			// we reached the end of the buffer while parsing.
-			// we pass the already parsed floats
+			// we pass the already parsed typed values
 			// we need to store the not parsed fraction
 			if ( dataBufferIndex > 0)
-				(mImpl->*dataFunction)(floatBuffer, dataBufferIndex);
+				(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
 			mStackMemoryManager.deleteObject();
 			size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
 			mLastIncompleteFragmentInChararterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
@@ -259,9 +257,9 @@ namespace GeneratedSaxParser
 		}
 		else
 		{
-			//something went wrong while paring
-			// we abort and don't pass the float array
-			mStackMemoryManager.deleteObject();  //floatBuffer
+			//something went wrong while parsing
+			// we abort and don't pass the typed array
+			mStackMemoryManager.deleteObject();  //typedBuffer
 			ParserChar dataBufferError[21];
 			size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
 			memcpy(dataBufferError, dataBufferPos, length);
@@ -272,7 +270,7 @@ namespace GeneratedSaxParser
 				             dataBufferError))
 			{
 				return false;
-			}
+            }
 			else
 			{
 				return true;
@@ -413,6 +411,13 @@ namespace GeneratedSaxParser
 	}
 
 
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::boolDataEnd( BoolDataFunctionPtr boolDataFunction )
+    {
+        return dataEnd<bool, Utils::toBool>(boolDataFunction);
+    }
+
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	bool ParserTemplate<DerivedClass, ImplClass>::floatDataEnd( FloatDataFunctionPtr floatDataFunction )
@@ -420,6 +425,12 @@ namespace GeneratedSaxParser
 		return dataEnd<float, Utils::toFloat>(floatDataFunction);
 	}
 
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::doubleDataEnd( DoubleDataFunctionPtr doubleDataFunction )
+    {
+        return dataEnd<double, Utils::toDouble>(doubleDataFunction);
+    }
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
@@ -592,7 +603,12 @@ namespace GeneratedSaxParser
 		void* attributeData = 0;
 		void* validationData = 0;
 		if ( !functions.validateBeginFunction || !(static_cast<DerivedClass*>(this)->*functions.validateBeginFunction)(attributes, &attributeData, &validationData) )
+        {
+            // avoid leak
+            if ( attributeData )
+                mStackMemoryManager.deleteObject(); // attribute data
 			return false;
+        }
 
 		bool success = (static_cast<DerivedClass*>(this)->*functions.beginFunction)(attributeData);
 		if ( attributeData )

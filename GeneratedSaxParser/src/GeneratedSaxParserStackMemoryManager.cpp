@@ -33,7 +33,9 @@ namespace GeneratedSaxParser
 		size_t newDataPos = mCurrentPosition;
 
 		size_t newDataSizePos = mCurrentPosition + objectSize;
-		mCurrentPosition = newDataSizePos + sizeof(mCurrentPosition);
+
+        // objectSize will be written at newDataSizePos
+		mCurrentPosition = newDataSizePos + sizeof(objectSize);
 
 		if (mCurrentPosition >= mMaxMemoryBlob)
 		{
@@ -41,16 +43,40 @@ namespace GeneratedSaxParser
 			//realloc();
 		}
 
-		*((size_t*)(mMemoryBlob + newDataSizePos)) = objectSize;
-		//(mMemoryBlob + newDataSizePos) = objectSize;
-		return mMemoryBlob + newDataPos;
+        writeNewObjectSize(newDataSizePos, objectSize);
+
+        return mMemoryBlob + newDataPos;
 	}
 
+    //--------------------------------------------------------------------
 	void StackMemoryManager::deleteObject()
 	{
 		//mCurrentPosition -=  ( (*((size_t*)mMemoryBlob[mCurrentPosition - 1])) + sizeof(mCurrentPosition));
-		mCurrentPosition -=  ( (*((size_t*)(mMemoryBlob + mCurrentPosition - sizeof(mCurrentPosition)) )) + sizeof(mCurrentPosition));
+		//mCurrentPosition -=  ( (*((size_t*)(mMemoryBlob + mCurrentPosition - sizeof(mCurrentPosition)) )) + sizeof(mCurrentPosition));
+        mCurrentPosition -= ( getTopObjectSize() + sizeof(mCurrentPosition) );
 	}
 
+    //-----------------------------------------------------------------
+    size_t StackMemoryManager::getTopObjectSize()
+    {
+        return *(size_t*)(mMemoryBlob + mCurrentPosition - sizeof(mCurrentPosition));
+    }
+
+    //-----------------------------------------------------------------
+    void StackMemoryManager::writeNewObjectSize( size_t position, size_t size )
+    {
+        *((size_t*)(mMemoryBlob + position)) = size;
+    }
+
+    //-----------------------------------------------------------------
+    void StackMemoryManager::growObject( size_t amount )
+    {
+        size_t currentSize = getTopObjectSize();
+        size_t newSize = currentSize + amount;
+        size_t newDataSizePos = mCurrentPosition + newSize;
+        mCurrentPosition = newDataSizePos + sizeof(newSize);
+        // TODO check if new size exceeds allocated memory !!!
+        writeNewObjectSize(newDataSizePos, newSize);
+    }
 
 } // namespace GeneratedSaxParser

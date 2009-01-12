@@ -502,6 +502,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWMeshPrimitiveWithFaceVertexCount.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWMeshUVCoords.h"
 				>
 			</File>
@@ -539,6 +543,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWPassTarget.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWPolygons.h"
 				>
 			</File>
 			<File

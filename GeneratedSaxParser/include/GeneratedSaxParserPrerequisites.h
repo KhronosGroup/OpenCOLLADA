@@ -19,13 +19,34 @@ namespace GeneratedSaxParser
 {
 //	typedef char xmlChar;
 
+    /** Make std::string conformant with camelcase coding style. */
 	typedef std::string String;
-	struct  ParserAttributes
+
+    /**
+     * Wraps libxml character pointers.
+     */
+    struct  ParserAttributes
 	{
 		ParserAttributes(const xmlChar** _attributes): attributes(_attributes){}
 		const xmlChar** attributes;
 	};
-	
+
+    /**
+     * Represents a xs:list when used as attribute.
+     * @tparam T C++ Type of xs:list items.
+     */
+    template<typename T>
+    struct XSList
+    {
+        /** Default ctor. */
+        XSList() : data(0), size(0){}
+
+        /** Points to buffer containing list items. */
+        T* data;
+
+        /** List length. */
+        size_t size;
+    };
 
 } // namespace GeneratedSaxParser
 

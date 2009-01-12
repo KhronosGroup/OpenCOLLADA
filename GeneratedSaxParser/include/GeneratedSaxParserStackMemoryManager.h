@@ -40,6 +40,11 @@ namespace GeneratedSaxParser
 
 		void deleteObject();
 
+        inline size_t getTopObjectSize();
+
+        inline void writeNewObjectSize(size_t position, size_t size);
+
+        void growObject(size_t amount);
 
 	private:
 		/** Disable default copy ctor. */

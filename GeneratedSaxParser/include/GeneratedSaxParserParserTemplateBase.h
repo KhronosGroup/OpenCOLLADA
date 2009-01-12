@@ -35,7 +35,7 @@ namespace GeneratedSaxParser
 		static const size_t STACKSIZE = 1024*1024;
 
 		/** Number of floats that fit into the buffer, used to convert text data to a float array.*/
-		static const size_t FLOATBUFFERSIZE = 1000;
+		static const size_t TYPED_VALUES_BUFFER_SIZE = 1000;
 
 		struct ElementData 
 		{
@@ -227,7 +227,9 @@ namespace GeneratedSaxParser
 		@param errorType The error type of the error.
 		@param elementHash The hash of the element the error occurred in.
 		@param attributeHash The hash of the element the error occurred in.
-		@param additionalText Additional text describing the error.*/
+		@param additionalText Additional text describing the error.
+        @return True when abort required, false when continue is possible.
+        */
 		bool handleError(ParserError::Severity severity, 
 						 ParserError::ErrorType errorType, 
 						 StringHash elementHash, 
@@ -240,7 +242,9 @@ namespace GeneratedSaxParser
 		@param severity The severity of the error.
 		@param errorType The error type of the error.
 		@param attributeHash The hash of the element the error occurred in.
-		@param additionalText Additional text describing the error.*/
+		@param additionalText Additional text describing the error.
+        @return True when abort required, false when continue is possible.
+        */
 		bool handleError(ParserError::Severity severity, 
         			     ParserError::ErrorType errorType, 
 			             StringHash attributeHash, 
@@ -248,7 +252,50 @@ namespace GeneratedSaxParser
 
 
 
-	protected:
+        /**
+         * Converts buffer representing a xs:list to a buffer containing the list as C++ item type.
+         * Input buffer must contain all data from XML file. This method does not support partial buffers.
+         * @tparam DataType C++ list item type.
+         * @tparam toData Function which does actual conversion.
+         * @param text Buffer containing xs:list as text.
+         * @param textLength Length of input buffer.
+         * @param list Output parameter. Must be freed by caller.
+         * @return True on success, false on failure.
+         */
+        template<typename DataType, 
+            DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
+        bool characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list);
+
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2BoolData(const ParserChar* text, size_t textLength, XSList<bool>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2FloatData(const ParserChar* text, size_t textLength, XSList<float>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2DoubleData(const ParserChar* text, size_t textLength, XSList<double>& list);
+
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2CharData(const ParserChar* text, size_t textLength, XSList<char>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2ShortData(const ParserChar* text, size_t textLength, XSList<short>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2IntData(const ParserChar* text, size_t textLength, XSList<int>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2LongData(const ParserChar* text, size_t textLength, XSList<long>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2LongLongData(const ParserChar* text, size_t textLength, XSList<long long>& list);
+
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2UnsignedCharData(const ParserChar* text, size_t textLength, XSList<unsigned char>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2UnsignedShortData(const ParserChar* text, size_t textLength, XSList<unsigned short>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2UnsignedIntData(const ParserChar* text, size_t textLength, XSList<unsigned int>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2UnsignedLongData(const ParserChar* text, size_t textLength, XSList<unsigned long>& list);
+        /** @see characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list). */
+        bool characterData2UnsignedLongLongData(const ParserChar* text, size_t textLength, XSList<unsigned long long>& list);
+
+    protected:
 	private:
 		/** Disable default copy ctor. */
 		ParserTemplateBase( const ParserTemplateBase& pre );
@@ -267,12 +314,70 @@ namespace GeneratedSaxParser
 	DataType* ParserTemplateBase::newData(void** dataPtr)
 	{
 		DataType* data = (DataType*)mStackMemoryManager.newObject(sizeof(DataType));
-		memcpy(data, &DataType::DEFAULT,  sizeof(DataType));
+		memcpy(data, &DataType::DEFAULT, sizeof(DataType));
 		*dataPtr = data;
 		return data;
 	}
 
 
+    template<class DataType, 
+        DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
+    bool ParserTemplateBase::characterData2Data(const ParserChar* text, size_t textLength, XSList<DataType>& list)
+    {
+        size_t bufferSize = textLength / 2;
+        DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(bufferSize * sizeof(DataType));
+
+        size_t dataBufferIndex = 0;
+        const ParserChar* dataBufferPos = text;
+        const ParserChar* bufferEnd = text + textLength;
+
+        bool failed = false;
+
+        while ( !failed )
+        {
+            DataType dataValue = toData(&dataBufferPos, bufferEnd, failed);
+            if ( !failed )
+            {
+                typedBuffer[dataBufferIndex] = dataValue;
+                ++dataBufferIndex;
+                if ( dataBufferIndex == bufferSize )
+                {
+                    mStackMemoryManager.growObject(bufferSize);
+                    bufferSize *= 2;
+                }
+            }
+        }
+
+        if ( dataBufferPos == bufferEnd )
+        {
+            list.data = typedBuffer;
+            list.size = dataBufferIndex;
+            // note: buffer on stack could be shrinked here.
+            return true;
+        }
+        else
+        {
+            list.data = 0;
+            list.size = 0;
+            mStackMemoryManager.deleteObject();
+
+            ParserChar dataBufferError[21];
+            size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
+            memcpy(dataBufferError, dataBufferPos, length);
+            dataBufferError[length] = '\0';
+            if ( handleError(ParserError::SEVERITY_ERROR, 
+                ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
+                0,
+                dataBufferError))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 
 } // namespace GeneratedSaxParser
 

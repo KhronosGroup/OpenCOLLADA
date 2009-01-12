@@ -111,17 +111,25 @@ namespace COLLADAFW
         a resize of the array will be done! */
         ArrayPrimitiveType<Type>* appendValues ( const ArrayPrimitiveType<Type>& valuesArray )
         { 
-            size_t count = valuesArray.getCount ();
-            size_t resizeCapacity = mCapacity - mCount + count;
-            reallocMemory ( resizeCapacity );
-
-            memcpy ( mData, valuesArray.getData (), count * sizeof (Type) );
-            mCount += valuesArray.getCount ();
-
-            return this;
+			return appendValues(valuesArray.getData(), valuesArray.getCount());
         }
 
-        /** Disable default copy ctor. */
+
+		/** Appends @a newValue to the end of array. If not enough memory was allocated, 
+		a resize of the array will be done! */
+		ArrayPrimitiveType<Type>* appendValues ( const Type* data, size_t length  )
+		{ 
+			reallocMemory ( mCount + length );
+
+			memcpy ( mData + mCount, data, length * sizeof (Type) );
+			mCount += length;
+
+			return this;
+		}
+
+		
+		
+		/** Disable default copy ctor. */
 		ArrayPrimitiveType ( const Array& pre );
 
 	};

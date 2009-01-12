@@ -185,4 +185,82 @@ namespace GeneratedSaxParser
 			return it->second;
 	}
 
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2BoolData(const ParserChar* text, size_t textLength, XSList<bool>& list)
+    {
+        return characterData2Data<bool, Utils::toBool>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2FloatData(const ParserChar* text, size_t textLength, XSList<float>& list)
+    {
+        return characterData2Data<float, Utils::toFloat>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2DoubleData(const ParserChar* text, size_t textLength, XSList<double>& list)
+    {
+        return characterData2Data<double, Utils::toDouble>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2CharData(const ParserChar* text, size_t textLength, XSList<char>& list)
+    {
+        return characterData2Data<char, Utils::toChar>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2ShortData(const ParserChar* text, size_t textLength, XSList<short>& list)
+    {
+        return characterData2Data<short, Utils::toShort>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2IntData(const ParserChar* text, size_t textLength, XSList<int>& list)
+    {
+        return characterData2Data<int, Utils::toInt>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2LongData(const ParserChar* text, size_t textLength, XSList<long>& list)
+    {
+        return characterData2Data<long, Utils::toLong>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2LongLongData(const ParserChar* text, size_t textLength, XSList<long long>& list)
+    {
+        return characterData2Data<long long, Utils::toLongLong>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2UnsignedCharData(const ParserChar* text, size_t textLength, XSList<unsigned char>& list)
+    {
+        return characterData2Data<unsigned char, Utils::toUnsignedChar>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2UnsignedShortData(const ParserChar* text, size_t textLength, XSList<unsigned short>& list)
+    {
+        return characterData2Data<unsigned short, Utils::toUnsignedShort>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2UnsignedIntData(const ParserChar* text, size_t textLength, XSList<unsigned int>& list)
+    {
+        return characterData2Data<unsigned int, Utils::toUnsignedInt>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2UnsignedLongData(const ParserChar* text, size_t textLength, XSList<unsigned long>& list)
+    {
+        return characterData2Data<unsigned long, Utils::toUnsignedLong>(text, textLength, list);
+    }
+
+    //--------------------------------------------------------------------
+    bool ParserTemplateBase::characterData2UnsignedLongLongData(const ParserChar* text, size_t textLength, XSList<unsigned long long>& list)
+    {
+        return characterData2Data<unsigned long long, Utils::toUnsignedLongLong>(text, textLength, list);
+    }
+
 } // namespace GeneratedSaxParser

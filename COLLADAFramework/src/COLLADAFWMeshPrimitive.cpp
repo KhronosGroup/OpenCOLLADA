@@ -19,7 +19,6 @@ namespace COLLADAFW
 	//---------------------------------------------------------------
 	MeshPrimitive::MeshPrimitive() 
 		: mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
-		, mFaceVertexCountArray(UIntValuesArray::OWNER)
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
 		, mColorIndices(UIntValuesArray::OWNER)
@@ -32,7 +31,6 @@ namespace COLLADAFW
 	//---------------------------------------------------------------
 	MeshPrimitive::MeshPrimitive( PrimitiveType primitiveType ) 
 		: mPrimitiveType ( primitiveType )
-		, mFaceVertexCountArray(UIntValuesArray::OWNER)
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
 		, mColorIndices(UIntValuesArray::OWNER)

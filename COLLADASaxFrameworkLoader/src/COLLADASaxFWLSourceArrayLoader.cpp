@@ -90,7 +90,6 @@ namespace COLLADASaxFWL
 	{
 		DoubleSource* newSource = new DoubleSource();
 		newSource->getArrayElement().getValues().allocMemory(attributeData.count);
-		newSource->getArrayElement().getValues().allocMemory(0);
 		newSource->setId(mCurrentSourceId);
 		mCurrentSoure = newSource;
 		if ( attributeData.id )
@@ -110,11 +109,7 @@ namespace COLLADASaxFWL
 	{
 		DoubleSource* source = (DoubleSource*)mCurrentSoure;
 		COLLADAFW::DoubleArray& array  = source->getArrayElement().getValues();
-		size_t arrayCount = array.getCount();
-		array.reallocMemory(arrayCount + length);
-		double* arrayData = array.getData();
-		memcpy(arrayData + arrayCount, data, length * sizeof(double) );
-		array.setCount(arrayCount + length);
+		array.appendValues(data, length);
 		return true;
 	}
 
