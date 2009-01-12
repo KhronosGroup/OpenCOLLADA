@@ -73,8 +73,12 @@ namespace COLLADASaxFWL
 		/** The max offset of the current MeshPrimitive.*/
 		size_t mCurrentMaxOffset;
 
-		/** The face count of the current MeshPrimitive.*/
-		size_t mCurrentFaceVertexCount;
+		/** The vertex count of the current MeshPrimitive.*/
+		size_t mCurrentVertexCount;
+
+		/** The expected vertex count of the current MeshPrimitive. Uses this, if the face vertex count can be
+		predicted or calculated, before reading the p elements.*/
+		size_t mCurrentExpectedVertexCount;
 
 		/**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
@@ -167,17 +171,31 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the beginning of a polylist vcount element.*/
 		virtual bool begin__polylist__vcount();
 
-		/** Sax callback function for the beginning of a polylist vcount element.*/
+		/** Sax callback function for the ending of a polylist vcount element.*/
 		virtual bool end__polylist__vcount();
 
-		/** Sax callback function for the beginning of a polylist vcount element.*/
+		/** Sax callback function for the data of a polylist vcount element.*/
 		virtual bool data__polylist__vcount( const unsigned long long*, size_t length );
 
+
+		/** Sax callback function for the beginning of a polylist p element.*/
+		virtual bool begin__polylist__p();
+
+		/** Sax callback function for the ending of a polylist p element.*/
+		virtual bool end__polylist__p();
+
+		/** Sax callback function for the data of a polylist p element.*/
+		virtual bool data__polylist__p( const unsigned long long* value, size_t length );
 
 
 		/** Stores the information provided by the attributes of an input element for all mesh primitives.*/
 		bool beginInput(const triangles__input__AttributeData& attributeData);
 
+
+	private:
+
+		/** Initializes all the current values, i.e. values used while parsing a mesh primitive.*/
+		void initCurrentValues();
 
         /**
         * Returns the vertex input element with the given semantic or 0 if it not exist.

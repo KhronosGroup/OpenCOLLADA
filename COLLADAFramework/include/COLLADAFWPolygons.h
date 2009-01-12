@@ -19,7 +19,7 @@ namespace COLLADAFW
 {
 
     /** TODO Documentation */
-	class Polygons : public MeshPrimitiveWithFaceVertexCount 
+	class Polygons : public MeshPrimitiveWithFaceVertexCount<long long>
 		{
 	private:
 	

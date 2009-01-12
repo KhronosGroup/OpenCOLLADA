@@ -31,16 +31,18 @@ namespace COLLADAFW
     texture coordinate of [0,0] maps to the lower-left texel of a texture image, when loaded in a 
     professional 2-D texture viewer/editor.
     */
+	template<class VertexCountType>
 	class MeshPrimitiveWithFaceVertexCount : public MeshPrimitive
     {
 
     public:
+		typedef COLLADAFW::ArrayPrimitiveType<VertexCountType> VertexCountArray;
 
     private:
         /**
          * Contains a list of integers, each specifying the number of vertices for one polygon face.
          */
-        UIntValuesArray mFaceVertexCountArray;
+        VertexCountArray mFaceVertexCountArray;
 
     protected:	
         /**
@@ -48,7 +50,7 @@ namespace COLLADAFW
         */
 		MeshPrimitiveWithFaceVertexCount ( PrimitiveType primitiveType ) : 
 			 MeshPrimitive(primitiveType)
-     		, mFaceVertexCountArray(UIntValuesArray::OWNER) {}
+     		, mFaceVertexCountArray(VertexCountArray::OWNER) {}
 
 	public:	
         /**
@@ -59,22 +61,22 @@ namespace COLLADAFW
         /**
         * Contains a list of integers, each specifying the number of vertices for one polygon face.
         */
-        COLLADAFW::UIntValuesArray& getFaceVertexCountArray () { return mFaceVertexCountArray; }
+        VertexCountArray& getFaceVertexCountArray () { return mFaceVertexCountArray; }
 
         /**
         * Contains a list of integers, each specifying the number of vertices for one polygon face.
         */
-        const COLLADAFW::UIntValuesArray& getFaceVertexCountArray () const { return mFaceVertexCountArray; }
+        const VertexCountArray& getFaceVertexCountArray () const { return mFaceVertexCountArray; }
 
         /**
         * Contains a list of integers, each specifying the number of vertices for one polygon face.
         */
-        void setFaceVertexCountArray ( const COLLADAFW::UIntValuesArray& FaceVertexCountArray ) { mFaceVertexCountArray = FaceVertexCountArray; }
+        void setFaceVertexCountArray ( const VertexCountArray& FaceVertexCountArray ) { mFaceVertexCountArray = FaceVertexCountArray; }
 
 		/**
 		* Initialize the index list of the edges ( the index list is referencing on the position indices )
 		*/
-		COLLADAFW::UIntValuesArray& initializeEdgeIndices ( COLLADAFW::UIntValuesArray& edgeIndices )
+		VertexCountArray& initializeEdgeIndices ( VertexCountArray& edgeIndices )
 		{
 			// TODO Create the edges... Geht nicht mehr, bin platt, denken klappt heut nicht mehr, sorry!
 
@@ -92,8 +94,6 @@ namespace COLLADAFW
 
     };
 
-    
-    typedef ArrayPrimitiveType<MeshPrimitiveWithFaceVertexCount*> MeshPrimitiveWithFaceVertexCountArray;
 
 }
 
