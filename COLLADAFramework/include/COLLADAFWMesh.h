@@ -231,7 +231,12 @@ namespace COLLADAFW
 		/** Counts the number of all triangles in all Triangle primitives. It does not include the triangles in 
 		trifans tristrips or any of the polgons.*/
 		size_t getTrianglesCount();
-    };
+
+		/** Counts the number of all polygons in all polygons primitives.*/
+		size_t getPolygonsCount();
+	
+
+};
 }
 
 #endif // __COLLADA_MESH_H__

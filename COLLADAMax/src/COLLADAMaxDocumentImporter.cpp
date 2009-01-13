@@ -59,8 +59,7 @@ namespace COLLADAMax
 	bool DocumentImporter::writeGeometry( const COLLADAFW::Geometry* geometry )
 	{
 		GeometryImporter geometryImporter(this, geometry);
-		return geometryImporter.importMesh();
-		return true;
+		return geometryImporter.import();
 	}
 
 } // namespace COLLADAMax

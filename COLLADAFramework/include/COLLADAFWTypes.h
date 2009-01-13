@@ -19,6 +19,7 @@ namespace COLLADAFW
 
 	/** An array of unsigned int values. */
 	typedef ArrayPrimitiveType<unsigned int> UIntValuesArray;
+	typedef ArrayPrimitiveType<int> IntValuesArray;
 
 	typedef ArrayPrimitiveType<unsigned long long> ULongLongValuesArray;
 	typedef ArrayPrimitiveType<long long> LongLongValuesArray;

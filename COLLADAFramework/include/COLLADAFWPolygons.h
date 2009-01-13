@@ -18,8 +18,15 @@
 namespace COLLADAFW
 {
 
-    /** TODO Documentation */
-	class Polygons : public MeshPrimitiveWithFaceVertexCount<long long>
+    /** The Polygons class holds an arbitrary number of polygons. They can be convex or concave 
+	and can have holes.
+	Data Format:
+	The IntValuesArray returned by getFaceVertexCountArray() contains the number of vertices of each polygon
+	or hole, respectively. Positive numbers indicate the number of vertices of a polygon, negative numbers the 
+	the number of vertices of holes. Each hole belongs to the last polygon found before itself. A polygon can 
+	have an arbitrary number of holes. The first value in the IntValuesArray must always be positive.
+	*/
+	class Polygons : public MeshPrimitiveWithFaceVertexCount<int>
 		{
 	private:
 	

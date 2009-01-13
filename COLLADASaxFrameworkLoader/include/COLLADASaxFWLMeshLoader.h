@@ -76,9 +76,21 @@ namespace COLLADASaxFWL
 		/** The vertex count of the current MeshPrimitive.*/
 		size_t mCurrentVertexCount;
 
+		/** The vertex count after the last face of the current MeshPrimitive was completed.*/
+		size_t mCurrentLastFaceVertexCount;
+
+		/** Used only when loading ph elements of polygons. Indicates, if the last found p element, 
+		which is a child of a ph element is empty, i.e. contains no indices. This memeber is set in 
+		end__ph__p and read in end__h and data__h*/
+		bool mCurrentPhHasEmptyP;
+
 		/** The expected vertex count of the current MeshPrimitive. Uses this, if the face vertex count can be
 		predicted or calculated, before reading the p elements.*/
 		size_t mCurrentExpectedVertexCount;
+
+		/** The number of faces of the current MeshPrimitive. Uses this, if the face count cannot be calculated
+		using the values above. (for collada polygons).*/
+		size_t mCurrentFaceCount;
 
 		/**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
@@ -186,6 +198,59 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the data of a polylist p element.*/
 		virtual bool data__polylist__p( const unsigned long long* value, size_t length );
+
+
+		/** Sax callback function for the beginning of a polygons element.*/
+		virtual bool begin__mesh__polygons( const mesh__polygons__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a polygons element.*/
+		virtual bool end__mesh__polygons();
+
+
+		/** Sax callback function for the beginning of a polygons input element.*/
+		virtual bool begin__polygons__input( const polygons__input__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a polygons input element.*/
+		virtual bool end__polygons__input();
+
+
+		/** Sax callback function for the beginning of a polygons p element.*/
+		virtual bool begin__polygons__p();
+
+		/** Sax callback function for the ending of a polygons p element.*/
+		virtual bool end__polygons__p();
+
+		/** Sax callback function for the data of a polygons p element.*/
+		virtual bool data__polygons__p( const unsigned long long* value, size_t length );
+
+
+		/** Sax callback function for the beginning of a polygons ph element.*/
+		virtual bool begin__ph();
+
+		/** Sax callback function for the ending of a polygons ph element.*/
+		virtual bool end__ph();
+
+
+		/** Sax callback function for the beginning of a polygons p element inside a ph element.*/
+		virtual bool begin__ph__p();
+
+		/** Sax callback function for the ending of a polygons p element inside a ph element.*/
+		virtual bool end__ph__p();
+
+		/** Sax callback function for the data of a polygons p element inside a ph element.*/
+		virtual bool data__ph__p( const unsigned long long* value, size_t length );
+
+
+		/** Sax callback function for the beginning of a polygons h element inside a ph element.*/
+		virtual bool begin__h();
+
+		/** Sax callback function for the ending of a polygons h element inside a ph element.*/
+		virtual bool end__h();
+
+		/** Sax callback function for the data of a polygons h element inside a ph element.*/
+		virtual bool data__h( const unsigned long long* value, size_t length );
+
+
 
 
 		/** Stores the information provided by the attributes of an input element for all mesh primitives.*/

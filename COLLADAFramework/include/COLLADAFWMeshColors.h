@@ -49,7 +49,7 @@ namespace COLLADAFW
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        const unsigned int getStride () const { return mStride; }
+        const size_t getStride () const { return mStride; }
 
         /**
         * The number of values that are to be considered a unit during each access to the array.

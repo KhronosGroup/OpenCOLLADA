@@ -39,10 +39,22 @@ namespace COLLADASaxFWL
 	public:
 
         /** Constructor. */
-		GeometryLoader ( IFilePartLoader* callingFilePartLoader, const char * geometryId, const char * geometryName);
+		GeometryLoader ( IFilePartLoader* callingFilePartLoader);
 
         /** Destructor. */
 		virtual ~GeometryLoader();
+
+		/** Sets the id of the geometry.*/
+		void setGeometryId( const String& geometryId ) { mGeometryId = geometryId; }
+
+		/** Returns the geometry id.*/
+		const String& getGeometryId() const { return mGeometryId; }
+
+		/** Sets the name of the geometry.*/
+		void setGeometryName( const String& geometryName ) { mGeometryName = geometryName; }
+
+		/** Returns the geometry name.*/
+		const String& getGeometryName() const { return mGeometryName; }
 
 		/** Sax callback function for the beginning of a mesh.*/
 		bool begin__mesh();

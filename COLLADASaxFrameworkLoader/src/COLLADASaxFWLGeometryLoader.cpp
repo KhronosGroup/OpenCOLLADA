@@ -15,12 +15,9 @@
 namespace COLLADASaxFWL
 {
 
-	GeometryLoader::GeometryLoader( IFilePartLoader* callingFilePartLoader, const char * geometryId, const char * geometryName )
-		: FilePartLoader(callingFilePartLoader),
-		  mGeometryId(geometryId),
-		  mGeometryName(geometryName)
+	GeometryLoader::GeometryLoader( IFilePartLoader* callingFilePartLoader)
+		: FilePartLoader(callingFilePartLoader)
 	{
-
 	}
 
     //------------------------------

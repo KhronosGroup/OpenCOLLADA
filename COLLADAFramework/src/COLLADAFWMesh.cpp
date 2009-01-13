@@ -29,12 +29,28 @@ namespace COLLADAFW
 		for ( size_t i = 0, count = mMeshPrimitives.getCount(); i < count; ++i)
 		{
 			MeshPrimitive* primitive = mMeshPrimitives[i];
-			if ( !primitive )
-				continue;
-			trianglesCount += primitive->getFaceCount();
+
+			if ( primitive && ( primitive->getPrimitiveType() == MeshPrimitive::TRIANGLES ) )
+				trianglesCount += primitive->getFaceCount();
 		}
 		return trianglesCount;
 	}
+
+
+	//---------------------------------------------------------------
+	size_t Mesh::getPolygonsCount()
+	{
+		size_t polygonsCount = 0;
+		for ( size_t i = 0, count = mMeshPrimitives.getCount(); i < count; ++i)
+		{
+			MeshPrimitive* primitive = mMeshPrimitives[i];
+
+			if ( primitive && ( primitive->getPrimitiveType() == MeshPrimitive::POLYGONS ) )
+				polygonsCount += primitive->getFaceCount();
+		}
+		return polygonsCount;
+	}
+
 
 	//---------------------------------------------------------------
 	bool Mesh::hasNormals( )const

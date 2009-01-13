@@ -55,18 +55,44 @@ namespace COLLADAMax
 		@return True on success, false otherwise.*/
 		bool importMesh();
 
-
-		/** Performs the import of the mesh positions .
+		/** Performs the import of a mesh that contains only triangles.
 		@return True on success, false otherwise.*/
-		bool importMeshPositions( TriObject* triangleObject );
+		bool importTriangleMesh();
 
-		/** Performs the import of the mesh normals .
+		/** Performs the import of the mesh positions of a mesh that contains only triangles.
 		@return True on success, false otherwise.*/
-		bool importMeshNormals( TriObject* triangleObject );
+		bool importTriangleMeshPositions( TriObject* triangleObject );
 
-		/** Performs the import of the mesh uv coordinates .
+		/** Performs the import of the mesh normals of a mesh that contains only triangles.
 		@return True on success, false otherwise.*/
-		bool importMeshUVCoords( TriObject* triangleObject );
+		bool importTriangleMeshNormals( TriObject* triangleObject );
+
+		/** Performs the import of the mesh uv coordinates of a mesh that contains only triangles.
+		@return True on success, false otherwise.*/
+		bool importTriangleMeshUVCoords( TriObject* triangleObject );
+
+
+		/** Performs the import of a mesh that contains polygons.
+		@return True on success, false otherwise.*/
+		bool importPolygonMesh();
+
+		/** Performs the import of the mesh positions of a mesh that contains polygons.
+		@return True on success, false otherwise.*/
+		bool importPolygonMeshPositions( PolyObject* polygonObject );
+
+		/** Performs the import of the mesh normals of a mesh that contains polygons.
+		@return True on success, false otherwise.*/
+		bool importPolygonMeshNormals( PolyObject* polygonObject );
+
+		/** Performs the import of the mesh uv coordinates of a mesh that contains polygons.
+		@return True on success, false otherwise.*/
+		bool importPolygonMeshUVCoords( PolyObject* polygonObject );
+
+
+
+		/** Performs all operations to ensure that the geometry is referenced by the all nodes
+		that need to reference it.*/
+		bool handleReferences(COLLADAFW::Geometry* geometry, Object* object);
 
 	private:
 
