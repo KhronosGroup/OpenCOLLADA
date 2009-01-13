@@ -58,7 +58,14 @@ namespace COLLADASaxFWL
 	bool FileLoader::begin__geometry( const geometry__AttributeData& attributeData )
 	{
 		deleteFilePartLoader();
-		GeometryLoader* geometryLoader = new GeometryLoader(this, (const char *) attributeData.id, (const char *) attributeData.name);
+		GeometryLoader* geometryLoader = new GeometryLoader(this);
+
+		if ( attributeData.id )
+			geometryLoader->setGeometryId((const char *) attributeData.id);
+
+		if ( attributeData.name )
+			geometryLoader->setGeometryName((const char *) attributeData.name);
+
 		setPartLoader(geometryLoader);
 		setParser(geometryLoader);
 		return true;

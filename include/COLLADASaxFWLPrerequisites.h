@@ -17,6 +17,7 @@
 namespace COLLADASaxFWL
 {
     typedef std::string String;
+
 }
 
 #endif //__COLLADASAXFWL_PREREQUISITES_H__

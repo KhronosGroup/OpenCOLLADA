@@ -32,7 +32,10 @@ namespace COLLADASaxFWL
 		, mCurrentOffset(0)
 		, mCurrentMaxOffset(0)
 		, mCurrentVertexCount(0)
+		, mCurrentLastFaceVertexCount(0)
+		, mCurrentPhHasEmptyP(true)
 		, mCurrentExpectedVertexCount(0)
+		, mCurrentFaceCount(0)
 		, mPositionsOffset (0)
 		, mUsePositions ( true )
 		, mNormalsOffset (0)
@@ -590,17 +593,17 @@ namespace COLLADASaxFWL
 				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
 				positionIndices.append ( index );
 			}
-			else if ( mUseNormals && mCurrentOffset == mNormalsOffset )
+			if ( mUseNormals && mCurrentOffset == mNormalsOffset )
 			{
 				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
 				normalIndices.append ( index );
 			}
-			else if ( mUseColors && mCurrentOffset == mColorsOffset )
+			if ( mUseColors && mCurrentOffset == mColorsOffset )
 			{
 				COLLADAFW::UIntValuesArray& colorIndices = mCurrentMeshPrimitive->getColorIndices ();
 				colorIndices.append ( index );
 			}
-			else if ( mUseUVCoords && mCurrentOffset == mUVCoordsOffset )
+			if ( mUseUVCoords && mCurrentOffset == mUVCoordsOffset )
 			{
 				COLLADAFW::UIntValuesArray& uvCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ();
 				uvCoordIndices.append ( index );
@@ -917,8 +920,11 @@ namespace COLLADASaxFWL
 	void MeshLoader::initCurrentValues()
 	{
 		mCurrentVertexCount = 0;
+		mCurrentLastFaceVertexCount = 0;
 		mCurrentExpectedVertexCount = 0;
 		mCurrentMeshPrimitive = 0;
+		mCurrentFaceCount = 0;
+		mCurrentPhHasEmptyP = true;
 	}
 
 
@@ -1136,6 +1142,152 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::data__polylist__p( const unsigned long long* data, size_t length )
 	{
+		writePrimitiveIndices(data, length);
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__mesh__polygons( const mesh__polygons__AttributeData& attributeData )
+	{
+		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
+		// The actual size might be bigger, but its a lower bound
+		polygons->getFaceVertexCountArray().allocMemory(attributeData.count);
+		mCurrentMeshPrimitive = polygons;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__mesh__polygons()
+	{
+		// check if there is at least one polygon. If not, we will discard it.
+		if ( mCurrentFaceCount > 0 )
+		{
+			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceCount);
+			mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		}
+		else
+		{
+			delete mCurrentMeshPrimitive;
+		}
+		initCurrentValues();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__polygons__input( const polygons__input__AttributeData& attributeData )
+	{
+		return beginInput( *((triangles__input__AttributeData*)&attributeData) );
+	}
+
+	//------------------------------
+	bool MeshLoader::end__polygons__input()
+	{
+		addPolyBaseElement(&mMeshPrimitiveInputs);
+		initializeOffsets();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__polygons__p()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__polygons__p()
+	{
+		int currentFaceVertexCount = mCurrentVertexCount - mCurrentLastFaceVertexCount;
+		if ( currentFaceVertexCount > 0 )
+		{
+			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			vertexCountArray.append(currentFaceVertexCount);
+			mCurrentLastFaceVertexCount = mCurrentVertexCount;
+			mCurrentFaceCount++;
+		}
+
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__polygons__p( const unsigned long long* data, size_t length )
+	{
+		writePrimitiveIndices(data, length);
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__ph()
+	{
+		mCurrentPhHasEmptyP = true;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__ph()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__ph__p()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__ph__p()
+	{
+		int currentFaceVertexCount = mCurrentVertexCount - mCurrentLastFaceVertexCount;
+		if ( currentFaceVertexCount > 0 )
+		{
+			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			vertexCountArray.append(currentFaceVertexCount);
+			mCurrentLastFaceVertexCount = mCurrentVertexCount;
+			mCurrentFaceCount++;
+			mCurrentPhHasEmptyP = false;
+		}
+		else
+		{
+			mCurrentPhHasEmptyP = true;
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__ph__p( const unsigned long long* data, size_t length )
+	{
+		writePrimitiveIndices(data, length);
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__h()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__h()
+	{
+		int currentFaceVertexCount = mCurrentVertexCount - mCurrentLastFaceVertexCount;
+		if ( currentFaceVertexCount > 0 )
+		{
+			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			vertexCountArray.append(-currentFaceVertexCount);
+			mCurrentLastFaceVertexCount = mCurrentVertexCount;
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__h( const unsigned long long* data, size_t length )
+	{
+		// If the p element of the parent ph is empty, we don't need to read the h element
+		if ( mCurrentPhHasEmptyP )
+			return true;
 		writePrimitiveIndices(data, length);
 		return true;
 	}
