@@ -429,7 +429,7 @@ namespace COLLADAMax
 					const COLLADAFW::Polygons* polygons = (const COLLADAFW::Polygons*) meshPrimitive;
 					assert(polygons);
 					const COLLADAFW::UIntValuesArray& positionIndices =  polygons->getPositionIndices();
-					const COLLADAFW::IntValuesArray& faceVertexCountArray = polygons->getFaceVertexCountArray();
+					const COLLADAFW::IntValuesArray& faceVertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 					size_t currentIndex = 0;
 					for ( size_t j = 0, count = faceVertexCountArray.getCount() ; j < count; ++j )
 					{
@@ -520,7 +520,7 @@ namespace COLLADAMax
 			{
 				COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) meshPrimitive;
 
-				COLLADAFW::IntValuesArray& faceVertexCountArray = polygons->getFaceVertexCountArray();
+				COLLADAFW::IntValuesArray& faceVertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 				for ( size_t j = 0, count = faceVertexCountArray.getCount(); j < count; ++j)
 				{
 					int faceVertexCount = faceVertexCountArray[j];
