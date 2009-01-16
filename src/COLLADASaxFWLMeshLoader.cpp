@@ -169,6 +169,7 @@ namespace COLLADASaxFWL
             retValue = loadColorsSourceElement ( input );
             break;
         case InputSemantic::UV:
+        case InputSemantic::TEXCOORD:
             retValue = loadUVCoordsSourceElement ( input );
             break;
         default:
@@ -420,9 +421,9 @@ namespace COLLADASaxFWL
     {
         // Get the semantic of the current input element.
         InputSemantic::Semantic semantic = input.getSemantic ();
-        if ( semantic != InputSemantic::UV )
+        if ( semantic != InputSemantic::UV && semantic != InputSemantic::TEXCOORD )
         {
-            std::cerr << "The current input element is not a COLOR element!" << std::endl;
+            std::cerr << "The current input element is not a UV / TEXCOORD element!" << std::endl;
             return false;
         }
 
@@ -1060,7 +1061,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData )
 	{
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
-		polygons->getFaceVertexCountArray().allocMemory(attributeData.count);
+		polygons->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		return true;
 	}
@@ -1073,7 +1074,7 @@ namespace COLLADASaxFWL
 		if ( mCurrentVertexCount >= mCurrentExpectedVertexCount && mCurrentVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
-			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 
 			mCurrentMeshPrimitive->setFaceCount(vertexCountArray.getCount());
 			mMesh->appendPrimitive(mCurrentMeshPrimitive);
@@ -1117,7 +1118,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::data__polylist__vcount( const unsigned long long* data, size_t length )
 	{
 		COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
-		COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+		COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 		size_t count = vertexCountArray.getCount();
 		vertexCountArray.reallocMemory( count + length);
 		for ( size_t i = 0; i < length; ++i)
@@ -1152,7 +1153,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		// The actual size might be bigger, but its a lower bound
-		polygons->getFaceVertexCountArray().allocMemory(attributeData.count);
+		polygons->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		return true;
 	}
@@ -1202,7 +1203,7 @@ namespace COLLADASaxFWL
 		if ( currentFaceVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
-			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 			vertexCountArray.append(currentFaceVertexCount);
 			mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
 			mCurrentFaceCount++;
@@ -1243,7 +1244,7 @@ namespace COLLADASaxFWL
 		if ( currentPolygonVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
-			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 			vertexCountArray.append(currentPolygonVertexCount);
 			mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
 			mCurrentFaceCount++;
@@ -1275,7 +1276,7 @@ namespace COLLADASaxFWL
 		if ( currentFaceVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
-			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getFaceVertexCountArray();
+			COLLADAFW::Polygons::VertexCountArray& vertexCountArray = polygons->getGroupedVerticesVertexCountArray();
 			vertexCountArray.append(-currentFaceVertexCount);
 			mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
 		}
@@ -1296,7 +1297,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
 		// The actual size might be bigger, but its a lower bound
-		tristrips->getFaceVertexCountArray().allocMemory(attributeData.count);
+		tristrips->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
 		mCurrentMeshPrimitive = tristrips;
 		return true;
 	}
@@ -1348,7 +1349,7 @@ namespace COLLADASaxFWL
 			COLLADAFW::Tristrips* tristrips = (COLLADAFW::Tristrips*) mCurrentMeshPrimitive;
 			if ( currentTristripVertexCount >= 3 )
 			{
-				COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = tristrips->getFaceVertexCountArray();
+				COLLADAFW::Tristrips::VertexCountArray& vertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
 				vertexCountArray.append(currentTristripVertexCount);
 				tristrips->setTristripCount(tristrips->getTristripCount() + 1);
 				mCurrentFaceCount += (currentTristripVertexCount - 2);
@@ -1378,7 +1379,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
 		// The actual size might be bigger, but its a lower bound
-		trifans->getFaceVertexCountArray().allocMemory(attributeData.count);
+		trifans->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
 		mCurrentMeshPrimitive = trifans;
 		return true;
 	}
@@ -1430,7 +1431,7 @@ namespace COLLADASaxFWL
 			COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) mCurrentMeshPrimitive;
 			if ( currentTrifanVertexCount >= 3 )
 			{
-				COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getFaceVertexCountArray();
+				COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 				vertexCountArray.append(currentTrifanVertexCount);
 				trifans->setTrifanCount(trifans->getTrifanCount() + 1);
 				mCurrentFaceCount += (currentTrifanVertexCount - 2);

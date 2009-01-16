@@ -44,7 +44,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include"
+				AdditionalIncludeDirectories="..\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADAFramework\include;..\..\Externals\LibXML\include;..\..\GeneratedSaxParser\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -419,10 +419,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLPolygons.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASaxFWLPolylist.h"
 				>
 			</File>
 			<File
