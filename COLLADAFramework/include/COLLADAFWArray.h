@@ -89,9 +89,15 @@ namespace COLLADAFW
         /** Destructor. */
         virtual ~Array ()
         {
-            if ( mFlags & RELEASE_MEMORY)
-                releaseMemory();
-        }
+			clear();
+		}
+
+		/** Clears the array, i.e. releasese memory if nescesary and reset all members.*/
+		virtual void clear()
+		{
+			if ( mFlags & RELEASE_MEMORY)
+				releaseMemory();
+		}
 
         /** Returns the C-style data array.*/
         Type* getData () { return mData; }

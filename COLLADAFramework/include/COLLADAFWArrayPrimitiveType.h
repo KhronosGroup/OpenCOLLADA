@@ -127,6 +127,11 @@ namespace COLLADAFW
 			return this;
 		}
 
+		/** Erases the last n elements of the array. It does nothing but changing the mCount member.*/
+		void erase(size_t n)
+		{
+			mCount =  n > mCount ? 0 : (mCount - n);
+		}
 		
 		
 		/** Disable default copy ctor. */

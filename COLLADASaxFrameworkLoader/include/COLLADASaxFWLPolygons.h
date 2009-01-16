@@ -50,7 +50,7 @@ namespace COLLADASaxFWL
      * • standard (geometric) tangents: specified with the TANGENT and BINORMAL semantics on the
      *   <input> (shared) elements
      */
-    class Polygons : public PolyBase
+    class Polygons : public MeshPrimitiveInputList
     {
 
     private:
@@ -73,7 +73,7 @@ namespace COLLADASaxFWL
         * Constructor
         */
         Polygons ( MeshLoader* parent ) 
-            : PolyBase ( parent, COLLADAFW::MeshPrimitive::POLYGONS ) 
+            : MeshPrimitiveInputList ( parent, COLLADAFW::MeshPrimitive::POLYGONS ) 
         {}
 
 

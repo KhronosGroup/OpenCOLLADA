@@ -37,6 +37,10 @@ namespace COLLADAMax
 	private:
 		/** The geometry that should be imported.*/
 		const COLLADAFW::Geometry* mGeometry;
+
+		/** The number of all triangles in all primitives that contain triangles (Triangles, 
+		Tristrips, Trisfans).*/
+		size_t mTotalTrianglesCount;
 	
 	public:
 

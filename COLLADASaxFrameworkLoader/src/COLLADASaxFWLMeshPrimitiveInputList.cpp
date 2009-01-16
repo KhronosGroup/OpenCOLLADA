@@ -9,7 +9,7 @@
 */
 
 #include "COLLADASaxFWLStableHeaders.h"
-#include "COLLADASaxFWLPolyBase.h"
+#include "COLLADASaxFWLMeshPrimitiveInputList.h"
 #include "COLLADASaxFWLMeshLoader.h"
 
 
@@ -17,7 +17,7 @@ namespace COLLADASaxFWL
 {
 
     //------------------------------
-    const InputShared* PolyBase::getInputBySemantic ( const InputSemantic::Semantic& semantic ) const
+    const InputShared* MeshPrimitiveInputList::getInputBySemantic ( const InputSemantic::Semantic& semantic ) const
     {
         // Look for the input element in the current poly base.
         for ( size_t i=0; i<mInputArray.getCount (); ++i )
@@ -39,7 +39,7 @@ namespace COLLADASaxFWL
     }
 
     //------------------------------
-    const InputShared* PolyBase::appendInputElement ( InputShared* inputShared )
+    const InputShared* MeshPrimitiveInputList::appendInputElement ( InputShared* inputShared )
     {
         if ( inputShared != 0 )
         {
@@ -71,4 +71,13 @@ namespace COLLADASaxFWL
         }
         return 0;
     }
+
+	//------------------------------
+	void MeshPrimitiveInputList::clearInputs()
+	{
+		for ( size_t i = 0, count = mInputArray.getCount(); i < count; ++i)
+			delete mInputArray[i];
+		mInputArray.clear();
+		mInputArrayMaxOffset = 0;
+	}
 } // namespace COLLADASaxFWL

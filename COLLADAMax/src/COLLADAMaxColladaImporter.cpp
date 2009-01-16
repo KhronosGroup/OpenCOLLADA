@@ -102,6 +102,7 @@ namespace COLLADAMax
 	{
 		bool success = true;
 		maxInterface->ProgressStart ( ( char * ) PROGRESSSTART.c_str(), true, fn, 0 );
+//	    maxInterface->DisableSceneRedraw();
 
 		try
 		{
@@ -137,6 +138,7 @@ namespace COLLADAMax
 
 		maxInterface->ProgressEnd();
 
+//		maxInterface->EnableSceneRedraw();
 		return success;
 	}
 

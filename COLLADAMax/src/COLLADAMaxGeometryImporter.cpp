@@ -22,6 +22,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWGeometry.h"
 #include "COLLADAFWMesh.h"
 #include "COLLADAFWTriangles.h"
+#include "COLLADAFWTristrips.h"
 #include "COLLADAFWPolygons.h"
 #include "COLLADAFWUniqueId.h"
 
@@ -30,8 +31,10 @@ namespace COLLADAMax
 {
 
 	GeometryImporter::GeometryImporter( DocumentImporter* documentImporter, const COLLADAFW::Geometry* geometry )
-		:	ImporterBase(documentImporter),
-		mGeometry(geometry)
+		:	ImporterBase(documentImporter)
+		, mGeometry(geometry)
+		, mTotalTrianglesCount(0)
+
 	{
 
 	}
@@ -57,11 +60,13 @@ namespace COLLADAMax
 		COLLADAFW::Mesh* mesh = (COLLADAFW::Mesh*) mGeometry;
 
 		bool success = true;
-    	if ( mesh->getPolygonsCount() > 0 )
+		mTotalTrianglesCount = mesh->getTrianglesTriangleCount() + mesh->getTristripsTriangleCount() + mesh->getTrifansTriangleCount();
+
+		if ( mesh->getPolygonsPolygonCount() > 0 )
 		{
-			importPolygonMesh();
+			success = importPolygonMesh();
 		}
-		else if ( mesh->getTrianglesCount() > 0 )
+		else if ( mTotalTrianglesCount > 0 )
 		{
 			success = importTriangleMesh();
 		}
@@ -87,6 +92,7 @@ namespace COLLADAMax
 			return false;
 
 		triangleMesh.InvalidateGeomCache();
+		triangleMesh.InvalidateTopologyCache();
 
 		handleReferences(mesh, triangleObject);
 
@@ -124,8 +130,7 @@ namespace COLLADAMax
 			}
 		}
 
-		size_t trianglesCount = mesh->getTrianglesCount();
-		triangleMesh.setNumFaces((int)trianglesCount);
+		triangleMesh.setNumFaces((int)mTotalTrianglesCount);
 		COLLADAFW::MeshPrimitiveArray& meshPrimitiveArray =  mesh->getMeshPrimitives();
 		size_t faceIndex = 0;
 		for ( size_t i = 0, count = meshPrimitiveArray.getCount(); i < count; ++i)
@@ -133,20 +138,46 @@ namespace COLLADAMax
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitiveArray[i];
 			if ( ! meshPrimitive )
 				continue;
-			// TODO: support fans and strips
-			// for now, we support only triangles
-			if ( meshPrimitive->getPrimitiveType() != COLLADAFW::MeshPrimitive::TRIANGLES )
-				continue;
-
-			const COLLADAFW::Triangles* triangles = (const COLLADAFW::Triangles*) meshPrimitive;
-			assert(triangles);
-			const COLLADAFW::UIntValuesArray& positionIndices =  triangles->getPositionIndices();
-			for ( size_t j = 0, count = positionIndices.getCount() ; j < count; j+=3 )
+			// TODO: fans
+			switch (meshPrimitive->getPrimitiveType())
 			{
-				Face& face = triangleMesh.faces[faceIndex];
-				face.setVerts(positionIndices[j], positionIndices[j + 1], positionIndices[j + 2]);
-				++faceIndex;
+			case COLLADAFW::MeshPrimitive::TRIANGLES:
+				{
+					const COLLADAFW::Triangles* triangles = (const COLLADAFW::Triangles*) meshPrimitive;
+					assert(triangles);
+					const COLLADAFW::UIntValuesArray& positionIndices =  triangles->getPositionIndices();
+					for ( size_t j = 0, count = positionIndices.getCount() ; j < count; j+=3 )
+					{
+						Face& face = triangleMesh.faces[faceIndex];
+						face.setVerts(positionIndices[j], positionIndices[j + 1], positionIndices[j + 2]);
+						++faceIndex;
+					}
+					break;
+				}
+			case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+				{
+					const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
+					assert(tristrips);
+					const COLLADAFW::UIntValuesArray& positionIndices =  tristrips->getPositionIndices();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getFaceVertexCountArray();
+					size_t nextTristripStartIndex = 0;
+					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
+					{
+						unsigned int faceVertexCount = faceVertexCountArray[k];
+						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
+						{
+							Face& face = triangleMesh.faces[faceIndex];
+							face.setVerts(positionIndices[j - 2], positionIndices[j - 1], positionIndices[j]);
+							++faceIndex;
+						}
+						nextTristripStartIndex += faceVertexCount;
+					}
+					break;
+				}
+			default:
+				continue;
 			}
+
 
 		}
 		return true;
@@ -203,9 +234,10 @@ namespace COLLADAMax
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives[i];
 			size_t trianglesCount = meshPrimitive->getFaceCount();
+			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
+
 			for ( size_t j = 0; j < trianglesCount; ++j)
 			{
-				const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 				MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 				normalFace.SpecifyAll();
 				normalFace.SetNormalID(0, normalIndices[3*j]);
@@ -283,7 +315,7 @@ namespace COLLADAMax
 			}
 		}
 
-		size_t polygonsCount = mesh->getPolygonsCount() + mesh->getTrianglesCount();
+		size_t polygonsCount = mesh->getPolygonsPolygonCount() + mesh->getTrianglesTriangleCount();
 		polgonMesh.setNumFaces((int)polygonsCount);
 		COLLADAFW::MeshPrimitiveArray& meshPrimitiveArray =  mesh->getMeshPrimitives();
 		size_t faceIndex = 0;
