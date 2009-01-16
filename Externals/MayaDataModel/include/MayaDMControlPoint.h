@@ -150,6 +150,18 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+    void startUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end)
+    {
+        fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i:%i]\" ", uvst_i,uvsp_start,uvsp_end);
+    }
+    void appendUvSetPoint(float pu, float pv)
+    {
+        fprintf(mFile,"%f %f ",pu,pv);
+    }
+    void endUvSetPoints()
+    {
+        fprintf(mFile,";\n");
+    }
 	void setUvSetPointsU(size_t uvst_i,size_t uvsp_i,float uvpu)
 	{
 		if(uvpu == 0.0) return;

@@ -376,6 +376,18 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+    void startVrts(size_t vt_start,size_t vt_end)
+    {
+        fprintf(mFile,"setAttr \".vt[%i:%i]\" ", vt_start,vt_end);
+    }
+    void appendVrtx(float vx, float vy, float vz)
+    {
+        fprintf(mFile,"%f %f %f ",vx,vy,vz);
+    }
+    void endVrts()
+    {
+        fprintf(mFile,";\n");
+    }
 	void setVrtx(size_t vt_i,float vx)
 	{
 		if(vx == 0.0) return;
@@ -413,6 +425,18 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+    void startEdges(size_t vt_start,size_t vt_end)
+    {
+        fprintf(mFile,"setAttr \".ed[%i:%i]\" ", vt_start,vt_end);
+    }
+    void appendEdge(int edg1, int edg2,  int edgh )
+    {
+        fprintf(mFile,"%i %i %i ",edg1,edg2,edgh);
+    }
+    void endEdges()
+    {
+        fprintf(mFile,";\n");
+    }
 	void setEdg1(size_t ed_i,int e1)
 	{
 		if(e1 == 0) return;
@@ -512,6 +536,18 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+    void startNormals(size_t n_start,size_t n_end)
+    {
+        fprintf(mFile,"setAttr \".n[%i:%i]\" ", n_start,n_end);
+    }
+    void appendNormal(float nx, float ny, float nz)
+    {
+        fprintf(mFile,"%f %f %f ",nx,ny,nz);
+    }
+    void endNormals()
+    {
+        fprintf(mFile,";\n");
+    }
 	void setNormalx(size_t n_i,float nx)
 	{
 		if(nx == 1e20) return;
@@ -537,6 +573,30 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+    void setFaces(size_t fc_start,size_t fc_end,const polyFaces* fc)
+    {
+        fprintf(mFile,"setAttr \".fc[%i:%i]\" -type \"polyFaces\"\n",fc_start,fc_end);
+        size_t size = fc_end-fc_start;
+        for(size_t i=0;i<size;++i)
+        {
+            fc[i].write(mFile);
+            if (i<size-1) fprintf(mFile,"\n");
+        }
+        fprintf(mFile,";\n");
+    }
+    void startFaces(size_t fc_start,size_t fc_end)
+    {
+        fprintf(mFile,"setAttr \".fc[%i:%i]\" -type \"polyFaces\"\n",fc_start,fc_end);
+    }
+    void appendFace(const polyFaces& fc)
+    {
+        fc.write(mFile);
+        fprintf(mFile,"\n");
+    }
+    void endFaces()
+    {
+        fprintf(mFile,";\n");
+    }
 	void setColorPerVertex(const ColorPerVertex& cpvx)
 	{
 		fprintf(mFile,"setAttr \".cpvx\" ");

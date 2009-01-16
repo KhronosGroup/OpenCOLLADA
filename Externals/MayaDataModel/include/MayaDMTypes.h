@@ -132,26 +132,26 @@ inline bool operator==(const long2& d1, const long2& d2)
 }
 
 /**
-Array of three long integers
-Value Syntax 	long long long
+Array of three integers
+Value Syntax 	int int int
 Value Meaning 	value1 value2 value3
 Example		 	setAttr node.long3Attr -type long3 1000000 2000000 3000000;
 */
 struct long3
 {
-	long values[3];
-	long3(long v1,long v2,long v3)
+	int values[3];
+	long3(int v1,int v2,int v3)
 	{
 		values[0]=v1;
 		values[1]=v2;
 		values[2]=v3;
 	}
-	long operator[](size_t i) const
+	int operator[](size_t i) const
 	{
 		assert( i < 3 );
 		return values[i];
 	}
-	long& operator[](size_t i)
+	int& operator[](size_t i)
 	{
 		assert( i < 3 );
 		return values[i];
