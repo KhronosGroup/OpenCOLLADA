@@ -55,7 +55,11 @@ namespace COLLADAFW
         • <profile_GLSL>
         • <profile_COMMON> 
         */
-//        Profile mProfile;
+        // TODO Fix members!!!
+//        Profile* mProfile;
+
+        // TODO Implementation of a minimized standard material!
+        //Color mStandardColor;
 
     public:
 

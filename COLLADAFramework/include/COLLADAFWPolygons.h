@@ -27,7 +27,7 @@ namespace COLLADAFW
 	have an arbitrary number of holes. The first value in the IntValuesArray must always be positive.
 	*/
 	class Polygons : public MeshPrimitiveWithFaceVertexCount<int>
-		{
+	{
 	private:
 	
 	public:

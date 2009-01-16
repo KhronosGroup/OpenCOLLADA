@@ -418,6 +418,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWEdge.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWEffect.h"
 				>
 			</File>

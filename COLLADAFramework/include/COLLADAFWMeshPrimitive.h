@@ -14,6 +14,10 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWTypes.h"
+#include "COLLADAFWEdge.h"
+
+#include <map>
+#include <vector>
 
 
 namespace COLLADAFW
@@ -108,11 +112,6 @@ namespace COLLADAFW
         */
         UIntValuesArray mUVCoordIndices;
 
-        /**
-         * The index list of the edges ( the index list is referencing on the position indices )
-         */
-        UIntValuesArray mEdgeIndices;
-
     public:	
 
         /**
@@ -140,7 +139,7 @@ namespace COLLADAFW
 
         /**
         * Gets the count attribute.
-        * @return Returns a domUint of the count attribute.
+        * @return Returns the count attribute.
         */
         const size_t getFaceCount () const { return mFaceCount; }
 
@@ -212,16 +211,39 @@ namespace COLLADAFW
         */
         void setUVCoordIndices ( const COLLADAFW::UIntValuesArray& UVCoordIndices ) { mUVCoordIndices = UVCoordIndices; }
 
-        /**
-        * The index list of the edges ( the index list is referencing on the position indices )
-        */
-        COLLADAFW::UIntValuesArray& getEdgeIndices () { return mEdgeIndices; }
+        /*
+         *	Fills the array with the index list of the edges 
+         *  (the index list referes on the position indices)
+         */
+        COLLADAFW::UIntValuesArray& getEdgeIndices ( COLLADAFW::UIntValuesArray& edgeIndices );
 
-        /**
-        * The index list of the edges ( the index list is referencing on the position indices )
+        /*
+        * Determine the edge indices (unique edges, also for multiple primitive elements)
+        * and write it into the lists (the indices referes on the position indices).
+        * @param edgeIndices 
+        *           A vector of edge indices. We use it to write the list of edges into the maya 
+        *           file. The vector is already sorted.
+        * @param edgeIndicesMap 
+        *           We store the edge indices also in a sorted map. The dublicate data holding 
+        *           is reasonable, because we need the index of a given edge. The search of  
+        *           values in a map is much faster than in a vector!
         */
-        void setEdgeIndices ( const COLLADAFW::UIntValuesArray& EdgeIndices ) { mEdgeIndices = EdgeIndices; }
+        void appendEdgeIndices ( 
+            std::vector<Edge>& edgeIndices, 
+            std::map<Edge,int>& edgeIndicesMap );
 
+        /*
+        * Appends the data of an edge, if it is not already in the list.
+        */
+        void appendEdge( 
+            const Edge& edge, 
+            std::vector<Edge>& edgeIndices, 
+            std::map<Edge,int>& edgeIndicesMap );
+
+        /*
+         *	Returns the vertex count of the face with the specified index.
+         */
+        const int getFaceVertexCount ( size_t faceIndex ) const;
 
     };
 

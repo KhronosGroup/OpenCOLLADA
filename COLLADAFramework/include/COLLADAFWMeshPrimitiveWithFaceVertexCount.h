@@ -40,9 +40,13 @@ namespace COLLADAFW
 
     private:
         /**
-         * Contains a list of integers, each specifying the number of vertices for one polygon face.
+         * Contains a list of integers, each specifying the number of vertices for one 
+         * - polygon face 
+         * - hole
+         * - tristrip or trifan
+         * element.
          */
-        VertexCountArray mFaceVertexCountArray;
+        VertexCountArray mGroupedVerticesVertexCountArray;
 
     protected:	
         /**
@@ -50,7 +54,7 @@ namespace COLLADAFW
         */
 		MeshPrimitiveWithFaceVertexCount ( PrimitiveType primitiveType ) : 
 			 MeshPrimitive(primitiveType)
-     		, mFaceVertexCountArray(VertexCountArray::OWNER) {}
+     		, mGroupedVerticesVertexCountArray(VertexCountArray::OWNER) {}
 
 	public:	
         /**
@@ -61,36 +65,31 @@ namespace COLLADAFW
         /**
         * Contains a list of integers, each specifying the number of vertices for one polygon face.
         */
-        VertexCountArray& getFaceVertexCountArray () { return mFaceVertexCountArray; }
+        VertexCountArray& getGroupedVerticesVertexCountArray () { return mGroupedVerticesVertexCountArray; }
 
         /**
         * Contains a list of integers, each specifying the number of vertices for one polygon face.
         */
-        const VertexCountArray& getFaceVertexCountArray () const { return mFaceVertexCountArray; }
+        const VertexCountArray& getGroupedVerticesVertexCountArray () const { return mGroupedVerticesVertexCountArray; }
 
         /**
         * Contains a list of integers, each specifying the number of vertices for one polygon face.
         */
-        void setFaceVertexCountArray ( const VertexCountArray& FaceVertexCountArray ) { mFaceVertexCountArray = FaceVertexCountArray; }
+        void setGroupedVerticesVertexCountArray ( const VertexCountArray& FaceVertexCountArray ) { mGroupedVerticesVertexCountArray = FaceVertexCountArray; }
 
-		/**
-		* Initialize the index list of the edges ( the index list is referencing on the position indices )
-		*/
-		VertexCountArray& initializeEdgeIndices ( VertexCountArray& edgeIndices )
-		{
-			// TODO Create the edges... Geht nicht mehr, bin platt, denken klappt heut nicht mehr, sorry!
+        /*
+        *	Returns the vertex count of the face on the specified index position.
+        */
+        const int getFaceVertexCount ( size_t faceIndex ) const 
+        {
+            if ( faceIndex >= mGroupedVerticesVertexCountArray.getCount () ) 
+            {
+                std::cerr << "Face index out of range: " << faceIndex << std::endl;
+                throw new FrameworkException ( "Face index out of range: " + faceIndex );
+            }
 
-			// Go through the list of faces and write the edge indices for every face.
-			for ( size_t faceIndex=0; faceIndex<getFaceCount(); ++faceIndex )
-			{
-				// The number of vertices of the current face.
-				unsigned int faceVertexCount = mFaceVertexCountArray [ faceIndex ];
-
-			}
-
-			return edgeIndices;
-		}
-
+            return mGroupedVerticesVertexCountArray [ faceIndex ];
+        }
 
     };
 

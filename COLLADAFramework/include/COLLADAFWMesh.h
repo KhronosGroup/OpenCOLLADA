@@ -142,8 +142,16 @@ namespace COLLADAFW
         */
         void setNormals ( MeshNormals& Normals ) { mNormals = Normals; }
 
-		/**Checks, if the mesh has normals.*/
+		/**
+         * Checks, if the mesh has normals.
+         */
 		bool hasNormals ( )const;
+
+        /*
+         * Counts the number of all normals in the current mesh. This is the sum of the number of
+         * normals of all primitive elements into the mesh object.
+         */
+        const size_t getNormalsCount () const;
 
         /** 
         * The colors array. 
@@ -283,7 +291,10 @@ namespace COLLADAFW
 		size_t getMeshPrimitiveCount(MeshPrimitive::PrimitiveType primitiveType);
 
 	
-
+        /*
+         * Counts the number of all faces in all primitive elements in the current mesh.
+         */
+        const size_t getFacesCount () const;
 };
 }
 
