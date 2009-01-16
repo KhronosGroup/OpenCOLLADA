@@ -21,6 +21,12 @@
 
 #include "COLLADAFWMesh.h"
 
+#include "MayaDMTypes.h"
+#include "MayaDMMesh.h"
+
+#include <map>
+#include <vector>
+
 
 namespace COLLADAMaya
 {
@@ -50,25 +56,66 @@ namespace COLLADAMaya
 
     private:
 
-        /** Imports the data of the current mesh element. */
+        /** 
+         * Imports the data of the current mesh element. 
+         */
         bool importMesh ( const COLLADAFW::Mesh* mesh );
 
-        void writeHeader(FILE* file)
-        {
-            fprintf_s(file,"//Maya ASCII 2008 scene\n");
-            fprintf_s(file,"//Name: inMeshTest.ma\n");
-            fprintf_s(file,"//Last modified: Mon, Dec 01, 2008 02:02:39 PM\n");
-            fprintf_s(file,"//Codeset: 1252\n");
-            fprintf_s(file,"requires maya \"2008\";\n");
-            fprintf_s(file,"currentUnit -l centimeter -a degree -t film;\n");
-            fprintf_s(file,"fileInfo \"application\" \"maya\";\n");
-            fprintf_s(file,"fileInfo \"product\" \"Maya Unlimited 2008\";\n");
-            fprintf_s(file,"fileInfo \"version\" \"2008\";\n");
-            fprintf_s(file,"fileInfo \"cutIdentifier\" \"200708022245-704165\";\n");
-            fprintf_s(file,"fileInfo \"osv\" \"Microsoft Windows XP Service Pack 3 (Build 2600)\\n\";\n");
-        }
+        /*
+         *	Write the face informations into the maya file.
+         */
+        bool writeFaces ( 
+            const COLLADAFW::Mesh* mesh, 
+            const std::map<COLLADAFW::Edge,int>& edgeIndicesMap, 
+            MayaDM::Mesh &meshNode );
 
+        /*
+         *	Write the face values of the given primitive element into the maya file.
+         */
+        bool appendPolyFaces ( 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            const std::map<COLLADAFW::Edge,int>& edgeIndicesMap, 
+            MayaDM::Mesh &meshNode );
 
+        /*
+         *	Write the edges into the maya file.
+         */
+        bool writeEdges ( 
+            const std::vector<COLLADAFW::Edge> &edgeIndices, 
+            MayaDM::Mesh &meshNode );
+
+        /*
+         *	Write the uv coordinates into the maya file.
+         */
+        bool writeUVCoords ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+
+        /*
+         *	Write the normals values into the maya file.
+         */
+        bool writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+
+        /*
+         *	Appends the normal values of all mesh primitive elements into the maya file.
+         */
+        bool appendNormalValues ( 
+            const COLLADAFW::Mesh* mesh, 
+            MayaDM::Mesh &meshNode );
+
+        /*
+         *	Write the vertex position values into the maya file.
+         */
+        bool writeVertexPositions ( 
+            const COLLADAFW::Mesh* mesh, 
+            MayaDM::Mesh &meshNode );
+
+        /*
+         * Gets the index value of the current edge. 
+         * Returns false, if the search for the index value was not sucessful.
+         */
+        bool getEdgeIndex ( 
+            const COLLADAFW::Edge& edge, 
+            const std::map<COLLADAFW::Edge,int>& edgeIndicesMap, 
+            int& edgeIndex );
     };
 
 }

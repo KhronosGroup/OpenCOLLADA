@@ -22,45 +22,22 @@
 #include "COLLADAMayaCameraImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
-//#include "COLLADADHDocumentUtil.h"
+#include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaGeometryImporter.h"
 
-//#include "dom/domTypes.h"
+#include "COLLADAFWRoot.h"
+
+#include "COLLADASaxFWLLoader.h"
 
 #include <maya/MFileIO.h>
 
-#include "COLLADASaxFWLMeshLoader.h"
-#include "COLLADASaxFWLSource.h"
-#include "COLLADASaxFWLPolylist.h"
-#include "COLLADASaxFWLPrimitiveBase.h"
-
-//#include "COLLADASaxFWLVCountArray.h"
-
-
 namespace COLLADAMaya
 {
-    static double positions[] = {-7.5, -2.5, 5, 7.5, -2.5, 5, -7.5, 2.5, 5, 7.5, 2.5, 5, -7.5, 2.5, -5, 7.5, 2.5, -5, -7.5, -2.5, -5, 7.5, -2.5, -5};
-    static size_t positionsCount = 24;
-
-    static double normals[] = {0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0};
-    static size_t normalsCount = 72;
-
-    static double uvCoords[] = {0.375, 0, 0.625, 0, 0.375, 0.25, 0.625, 0.25, 0.375, 0.5, 0.625, 0.5, 0.375, 0.75, 0.625, 0.75, 0.375, 1, 0.625, 1, 0.875, 0, 0.875, 0.25, 0.125, 0, 0.125, 0.25};
-    static size_t uvCoordsCount = 28;
-
-    static unsigned int pElementValues[] = {0, 0, 0, 1, 1, 1, 3, 2, 3, 2, 3, 2, 2, 4, 2, 3, 5, 3, 5, 6, 5, 4, 7, 4, 4, 8, 4, 5, 9, 5, 7, 10, 7, 6, 11, 6, 6, 12, 6, 7, 13, 7, 1, 14, 9, 0, 15, 8, 1, 16, 1, 7, 17, 10, 5, 18, 11, 3, 19, 3, 6, 20, 12, 0, 21, 0, 2, 22, 2, 4, 23, 13};
-    static size_t pElementValuesSize = 72;
-
-    static unsigned int faceVertexCounts[] = {4, 4, 4, 4, 4, 4};
-    static size_t faceCount = 6;
-
     //---------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
         : mFileName ( fileName )
-//         , mMaterialImporter ( NULL )
-//         , mGeometryImporter ( NULL )
-//         , mCameraImporter ( NULL )
-//         , mVisualSceneImporter ( NULL )
         , mSceneId ( "MayaScene" )
+        , mFile ( 0 )
     {
     }
 
@@ -82,29 +59,11 @@ namespace COLLADAMaya
 
         // Initialize the reference manager
         ReferenceManager::getInstance()->initialize ();
-
-//         // Parse the dae document, then create the libraries
-//         // (the importers want to have a reference to the document).
-//         String filename = getFilename ();
-//         String fileUriString = COLLADASW::URI::nativePathToUri ( filename );
-//         mColladaDoc = mDae.open ( fileUriString );
-//         daeDocument* daeDoc = mColladaDoc->getDocument();
-
-//         // Create the basic elements
-//         mMaterialImporter = new MaterialImporter ( this );
-//         mGeometryImporter = new GeometryImporter ( this );
-//         mCameraImporter = new CameraImporter ();
-//         mVisualSceneImporter = new VisualSceneImporter ( this );
-
     }
 
     //---------------------------------
     void DocumentImporter::releaseLibraries()
     {
-//         delete mMaterialImporter;
-//         delete mGeometryImporter;
-//         delete mCameraImporter;
-//         delete mVisualSceneImporter;
     }
 
     //-----------------------------
@@ -116,149 +75,43 @@ namespace COLLADAMaya
         // Import the asset information.
         importAsset ();
 
-//         // Load the collada document with the dom into the collada framework.
-//         String filename = getFilename ();
-//         String fileUriString = URI::nativePathToUri ( filename );
-//         mDocumentLoader.loadDocument ( fileUriString, &mWriter );
+        // Load the collada document into the collada framework.
+        COLLADASaxFWL::Loader loader;
+        COLLADAFW::Root root ( &loader, this );
+        String filename = getFilename ();
+        String fileUriString = URI::nativePathToUri ( filename );
+        root.loadDocument ( fileUriString );
+    }
 
-
-
-        COLLADAFW::ObjectId objectId = 1;
-        COLLADAFW::Geometry geometry ( objectId ); 
-        geometry.setId ( "pCubeShape1" );
-        geometry.setName ( "pCubeShape1" );
-
-        // The mesh loader class ( fill it with sax!)
-        COLLADASaxFWL::MeshLoader meshLoader ( &geometry );
-
-        // Fill the source array
+    //-----------------------------
+    bool DocumentImporter::createFile()
+    {
+        // TODO Create the maya ascii file (where with which name???)
+        errno_t err = fopen_s ( &mFile, "c:\\temp\\cube_test.ma", "w+" );
+        if ( err != 0 ) 
         {
-            COLLADASaxFWL::SourceArray sourceArray;
-
-            {
-                // Positions
-                COLLADASaxFWL::DoubleSource* positionsSource;
-                positionsSource = new COLLADASaxFWL::DoubleSource ( objectId++, COLLADASaxFWL::SourceBase::DATA_TYPE_DOUBLE );
-                positionsSource->setId ( "pCubeShape1-positions" );
-                positionsSource->setStride ( 3 );
-                COLLADASaxFWL::DoubleArrayElement* arrayElement = new COLLADASaxFWL::DoubleArrayElement ();
-                arrayElement->setId ( "pCubeShape1-positions-array" );
-                COLLADAFW::ArrayPrimitiveType<double>* valuesArray = new COLLADAFW::ArrayPrimitiveType<double>();
-                valuesArray->setData ( positions, positionsCount );
-                arrayElement->setValues ( *valuesArray );
-                positionsSource->setArrayElement ( arrayElement );
-                sourceArray.append ( positionsSource );
-            }
-            {
-                // Normals
-                COLLADASaxFWL::DoubleSource* normalsSource;
-                normalsSource = new COLLADASaxFWL::DoubleSource ( objectId++, COLLADASaxFWL::SourceBase::DATA_TYPE_DOUBLE );
-                normalsSource->setId ( "pCubeShape1-normals" );
-                normalsSource->setStride ( 3 );
-                COLLADASaxFWL::DoubleArrayElement* arrayElement = new COLLADASaxFWL::DoubleArrayElement ();
-                arrayElement->setId ( "pCubeShape1-normals-array" );
-                COLLADAFW::ArrayPrimitiveType<double>* valuesArray = new COLLADAFW::ArrayPrimitiveType<double>();
-                valuesArray->setData ( normals, normalsCount );
-                arrayElement->setValues ( *valuesArray );
-                normalsSource->setArrayElement ( arrayElement );
-                sourceArray.append ( normalsSource );
-            }
-            {
-                // UV Coordinates
-                COLLADASaxFWL::DoubleSource* uvCoordsSource;
-                uvCoordsSource = new COLLADASaxFWL::DoubleSource ( objectId++, COLLADASaxFWL::SourceBase::DATA_TYPE_DOUBLE );
-                uvCoordsSource->setId ( "pCubeShape1-map1" );
-                uvCoordsSource->setStride ( 2 );
-                COLLADASaxFWL::DoubleArrayElement* arrayElement = new COLLADASaxFWL::DoubleArrayElement ();
-                arrayElement->setId ( "pCubeShape1-map1-array" );
-                COLLADAFW::ArrayPrimitiveType<double>* valuesArray = new COLLADAFW::ArrayPrimitiveType<double>();
-                valuesArray->setData ( uvCoords, uvCoordsCount );
-                arrayElement->setValues ( *valuesArray );
-                uvCoordsSource->setArrayElement ( arrayElement );
-                sourceArray.append ( uvCoordsSource );
-            }
-
-            meshLoader.setSourceArray ( sourceArray );
+            std::cerr << "Can't open maya ascii file! " << endl; 
+            return false;
         }
 
-        // Fill the vertices
-        {
-            COLLADASaxFWL::Vertices vertices;
-            {
-                vertices.setId ( "pCubeShape1-vertices" );
+        return true;
+    }
 
-                COLLADASaxFWL::InputUnsharedArray& inputArray = vertices.getInputArray ();
-
-                COLLADABU::URI uri ( "#pCubeShape1-positions" );
-                COLLADASaxFWL::InputUnshared* input;
-                input = new COLLADASaxFWL::InputUnshared ( COLLADASaxFWL::InputSemantic::POSITION, uri  );
-                inputArray.append ( input );
-            }
-            meshLoader.setVertices ( vertices );
-        }
-
-        // Fill a polylist element
-        {
-            COLLADASaxFWL::Polylist polylist ( &meshLoader );
-            polylist.setFaceCount ( faceCount );
-
-            COLLADAFW::UIntValuesArray& vCountArray = polylist.getVCountArray ();
-            vCountArray.setData ( faceVertexCounts, faceCount );
-
-            {
-                // Vertices
-                COLLADASaxFWL::InputShared* input;
-                COLLADABU::URI uri ( "#pCubeShape1-vertices" );
-                input = new COLLADASaxFWL::InputShared ( COLLADASaxFWL::InputSemantic::VERTEX, uri, 1  );
-                polylist.appendInputElement ( input );
-            }
-            {
-                // Normals
-                COLLADASaxFWL::InputShared* input;
-                COLLADABU::URI uri ( "#pCubeShape1-normals" );
-                input = new COLLADASaxFWL::InputShared ( COLLADASaxFWL::InputSemantic::NORMAL, uri, 2  );
-                polylist.appendInputElement ( input );
-            }
-            {
-                // uv coordinates
-                COLLADASaxFWL::InputShared* input;
-                COLLADABU::URI uri ( "#pCubeShape1-map1" );
-                input = new COLLADASaxFWL::InputShared ( COLLADASaxFWL::InputSemantic::UV, uri, 3  );
-                polylist.appendInputElement ( input );
-            }
-
-            {
-                // p-element
-                COLLADASaxFWL::PElement* pElement;
-                pElement = new COLLADASaxFWL::PElement ( pElementValues, pElementValuesSize );
-                COLLADASaxFWL::PArray pArray;
-                pArray.append ( pElement );
-                polylist.setPArray ( pArray );
-            }
-
-            // Fill the mesh with the poly base element data.
-            meshLoader.addPolyBaseElement ( &polylist );
-        }
-
-        // Get the mesh 
-        COLLADAFW::Mesh* mesh = meshLoader.getMesh ();
-        geometry.setGeometricElement ( mesh );
-
-        mWriter.writeGeometry ( &geometry );
-
-
-//         // Import the DAG entity libraries
-//         mMaterialImporter->importMaterials ();
-
-//        mCameraImporter->Import();
-//        mLightImporter->Import();
-
-//        mGeometryImporter->importGeometries ();
-
-//        controllerLibrary->Import();
-
-//        mVisualSceneImporter->importVisualScenes ();
-
+    //-----------------------------
+    void DocumentImporter::writeHeader( FILE* file )
+    {
+        // TODO
+        fprintf_s ( file, "//Maya ASCII 2008 scene\n" );
+        fprintf_s ( file, "//Name: inMeshTest.ma\n" );
+        fprintf_s ( file, "//Last modified: Mon, Dec 01, 2008 02:02:39 PM\n" );
+        fprintf_s ( file, "//Codeset: 1252\n" );
+        fprintf_s ( file, "requires maya \"2008\";\n" );
+        fprintf_s ( file, "currentUnit -l centimeter -a degree -t film;\n" );
+        fprintf_s ( file, "fileInfo \"application\" \"maya\";\n" );
+        fprintf_s ( file, "fileInfo \"product\" \"Maya Unlimited 2008\";\n" );
+        fprintf_s ( file, "fileInfo \"version\" \"2008\";\n" );
+        fprintf_s ( file, "fileInfo \"cutIdentifier\" \"200708022245-704165\";\n" );
+        fprintf_s ( file, "fileInfo \"osv\" \"Microsoft Windows XP Service Pack 3 (Build 2600)\\n\";\n" );
     }
 
     //---------------------------------
@@ -322,16 +175,51 @@ namespace COLLADAMaya
         return mFileName;
     }
 
-//     //---------------------------------
-//     GeometryImporter* DocumentImporter::getGeometryImporter()
-//     {
-//         return mGeometryImporter;
-//     }
-// 
-//     //---------------------------------
-//     VisualSceneImporter* DocumentImporter::getVisualSceneImporter()
-//     {
-//         return mVisualSceneImporter;
-//     }
+    //-----------------------------
+    void DocumentImporter::cancel ( const String& errorMessage )
+    {
+
+    }
+
+    //-----------------------------
+    void DocumentImporter::start ()
+    {
+        // Create the maya file.
+        if ( !createFile() ) return;
+
+        // TODO Write the header informations and the asset into the file.
+        writeHeader ( mFile );
+    }
+
+    //-----------------------------
+    void DocumentImporter::finish ()
+    {
+        // Close the file.
+        if ( mFile != 0 ) fclose ( mFile );
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
+    {
+        // TODO
+        if ( mFile == 0 ) start();
+
+        VisualSceneImporter visualSceneImporter ( this );
+
+        return visualSceneImporter.importVisualScene ( visualScene );
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
+   {
+       // TODO
+        if ( mFile == 0 ) start();
+
+        GeometryImporter geometryImporter ( this );
+
+        return geometryImporter.importGeometry ( geometry );
+    }
 
 }

@@ -18,23 +18,17 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
-
-#include "COLLADAMayaWriter.h"
-
-//#include "COLLADADHLoader.h"
+#include "COLLADAFWIWriter.h"
+#include "COLLADAFWVisualScene.h"
+#include "COLLADAFWGeometry.h"
 
 
 namespace COLLADAMaya
 {
 
-//     class MaterialImporter;
-//     class GeometryImporter;
-//     class CameraImporter;
-//     class VisualSceneImporter;
-
 
     /** The main importer class. This class imports all data of the scene. */
-    class DocumentImporter
+    class DocumentImporter : public COLLADAFW::IWriter 
     {
 
     private:
@@ -45,29 +39,8 @@ namespace COLLADAMaya
         /** The id of the current scene. */
         String mSceneId;
 
-//         /** The DAE class is the core interface via which you interact with the DOM. */
-//         DAE mDae;
-// 
-//         /** The currently parsed collada document. */
-//         domCOLLADA* mColladaDoc;
-
-//         /** Imports the material. */
-//         MaterialImporter* mMaterialImporter;
-// 
-//         /** Imports the visual scene. */
-//         VisualSceneImporter* mVisualSceneImporter;
-// 
-//         /** Imports the geometry. */
-//         GeometryImporter* mGeometryImporter;
-// 
-//         /** Imports the camera. */
-//         CameraImporter* mCameraImporter;
-
-        /** The writer to create the maya file. */
-        Writer mWriter;
-
-        /** The loader to load the collada document with the collada dom. */
-//        COLLADADH::Loader mDocumentLoader;
+        /** The current maya ascii file to import the data. */
+        FILE* mFile;
 
     public:
 
@@ -77,8 +50,15 @@ namespace COLLADAMaya
         /** Destructor. */
         virtual ~DocumentImporter ();
 
+        /** The current maya ascii file to import the data. */
+        FILE* getFile() const { return mFile; }
+        void setFile ( FILE* val ) { mFile = val; }
+
         /** Imports the current scene. */
         void importCurrentScene();
+
+        /** Create the maya ascii file (where with which name???) */
+        bool createFile();
 
         /**
         * Returns the name of the current collada file to export.
@@ -86,29 +66,30 @@ namespace COLLADAMaya
         */
         const String& getFilename() const;
 
-//         /** Returns the current document loader. */
-//         COLLADADH::Loader& getDocumentLoader ()
-//         {
-//             return mDocumentLoader;
-//         }
-// 
-//         /** Returns the current document loader. */
-//         const COLLADADH::Loader& getDocumentLoader () const
-//         {
-//             return mDocumentLoader;
-//         }
+        /** This method will be called if an error in the loading process occurred and the loader 
+        cannot continue to to load. The writer should undo all operations that have been performed.
+        @param errorMessage A message containing informations about the error that occurred.
+        */
+        virtual void cancel ( const String& errorMessage );
 
-//         /**
-//         * Returns a pointer to the geometry exporter.
-//         * @return GeometryImporter* Pointer to the geometry exporter
-//         */
-//         GeometryImporter* getGeometryImporter();
-// 
-//         /**
-//         * Returns a pointer to the visual scene exporter.
-//         * @return MaterialImporter* Pointer to the visual scene exporter
-//         */
-//         VisualSceneImporter* getVisualSceneImporter();
+        /** This is the method called. The writer hast to prepare to receive data.*/
+        virtual void start ();
+
+        /** This method is called after the last write method. 
+        No other methods will be called after this.*/
+        virtual void finish ();
+
+        /** Start the import of the model.
+        @return True on success, false otherwise. */
+        bool import();
+
+        /** When this method is called, the writer must write the entire visual scene.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
+
+        /** When this method is called, the writer must write the geometry.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeGeometry ( const COLLADAFW::Geometry* geometry );
 
     private:
 
@@ -124,6 +105,9 @@ namespace COLLADAMaya
 
         /** Releases the import/export libraries */
         void releaseLibraries();
+
+        /** Write the header into the maya ascii file. */
+        void writeHeader ( FILE* file );
 
 
     };

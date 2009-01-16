@@ -15,13 +15,13 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaVisualSceneImporter.h"
-#include "COLLADAMayaSceneNodeTraverser.h"
-#include "COLLADAMayaSceneTraverserListener.h"
+// #include "COLLADAMayaSceneNodeTraverser.h"
+// #include "COLLADAMayaSceneTraverserListener.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaGeometryImporter.h"
 
-#include "COLLADADHReader.h"
+// #include "COLLADADHReader.h"
 
 #include "Math/COLLADABUMathMatrix4.h"
 
@@ -41,7 +41,7 @@ namespace COLLADAMaya
     // -----------------------------------
     bool VisualSceneImporter::importVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
-        String id = visualScene->getId ();
+//        String id = visualScene->getId ();
         String visualSceneName = visualScene->getName ();
 
         const COLLADAFW::NodeArray& rootNodes = visualScene->getRootNodes ();
@@ -58,13 +58,13 @@ namespace COLLADAMaya
             MObject transformObject = MObject::kNullObj;
             switch ( nodeType )
             {
-            case NODETYPE_JOINT:
+            case COLLADAFW::Node::JOINT:
                 {
                     MFnDagNode dagFn;
                     transformObject = dagFn.create ( NODE_TYPE_JOINT, nodeName.c_str (), parent );
                     break;
                 }
-            case NODETYPE_NODE:
+            case COLLADAFW::Node::NODE:
                 {
                     MFnTransform transformFn;
                     transformObject = transformFn.create ( MObject::kNullObj );
