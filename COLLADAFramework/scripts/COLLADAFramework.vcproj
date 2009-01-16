@@ -630,6 +630,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWTrifans.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWTristrips.h"
 				>
 			</File>

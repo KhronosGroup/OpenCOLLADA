@@ -23,6 +23,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWMesh.h"
 #include "COLLADAFWTriangles.h"
 #include "COLLADAFWTristrips.h"
+#include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
 #include "COLLADAFWUniqueId.h"
 
@@ -174,6 +175,27 @@ namespace COLLADAMax
 					}
 					break;
 				}
+			case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+				{
+					const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
+					assert(trifans);
+					const COLLADAFW::UIntValuesArray& positionIndices =  trifans->getPositionIndices();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getFaceVertexCountArray();
+					size_t nextTrifanStartIndex = 0;
+					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
+					{
+						unsigned int faceVertexCount = faceVertexCountArray[k];
+						unsigned int commonVertexIndex = positionIndices[nextTrifanStartIndex];
+						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
+						{
+							Face& face = triangleMesh.faces[faceIndex];
+							face.setVerts(commonVertexIndex, positionIndices[j - 1], positionIndices[j]);
+							++faceIndex;
+						}
+						nextTrifanStartIndex += faceVertexCount;
+					}
+					break;
+				}
 			default:
 				continue;
 			}
@@ -236,15 +258,75 @@ namespace COLLADAMax
 			size_t trianglesCount = meshPrimitive->getFaceCount();
 			const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 
-			for ( size_t j = 0; j < trianglesCount; ++j)
+
+			switch (meshPrimitive->getPrimitiveType())
 			{
-				MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
-				normalFace.SpecifyAll();
-				normalFace.SetNormalID(0, normalIndices[3*j]);
-				normalFace.SetNormalID(1, normalIndices[3*j + 1]);
-				normalFace.SetNormalID(2, normalIndices[3*j + 2]);
-				++faceIndex;
+			case COLLADAFW::MeshPrimitive::TRIANGLES:
+				{
+					for ( size_t j = 0; j < trianglesCount; ++j)
+					{
+						MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
+						normalFace.SpecifyAll();
+						normalFace.SetNormalID(0, normalIndices[3*j]);
+						normalFace.SetNormalID(1, normalIndices[3*j + 1]);
+						normalFace.SetNormalID(2, normalIndices[3*j + 2]);
+						++faceIndex;
+					}
+					break;
+				}
+			case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+				{
+					const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
+					assert(tristrips);
+					const COLLADAFW::UIntValuesArray& normalIndices =  tristrips->getNormalIndices();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getFaceVertexCountArray();
+					size_t nextTristripStartIndex = 0;
+					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
+					{
+						unsigned int faceVertexCount = faceVertexCountArray[k];
+						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
+						{
+							MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
+							normalFace.SpecifyAll();
+							normalFace.SetNormalID(0, normalIndices[j - 2]);
+							normalFace.SetNormalID(1, normalIndices[j - 1]);
+							normalFace.SetNormalID(2, normalIndices[j]);
+							++faceIndex;
+						}
+						nextTristripStartIndex += faceVertexCount;
+					}
+					break;
+				}
+			case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+				{
+					const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
+					assert(trifans);
+					const COLLADAFW::UIntValuesArray& normalIndices =  trifans->getNormalIndices();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getFaceVertexCountArray();
+					size_t nextTrifanStartIndex = 0;
+					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
+					{
+						unsigned int faceVertexCount = faceVertexCountArray[k];
+						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
+						{
+							unsigned int commonVertexIndex = normalIndices[nextTrifanStartIndex];
+							MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
+							normalFace.SpecifyAll();
+							normalFace.SetNormalID(0, normalIndices[nextTrifanStartIndex]);
+							normalFace.SetNormalID(1, normalIndices[j - 1]);
+							normalFace.SetNormalID(2, normalIndices[j]);
+							++faceIndex;
+						}
+						nextTrifanStartIndex += faceVertexCount;
+					}
+					break;
+				}
+			default:
+				continue;
 			}
+
+
+
 		}
 
 		normalsSpecifier->CheckNormals();

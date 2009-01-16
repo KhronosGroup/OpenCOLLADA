@@ -13,6 +13,7 @@
 
 #include "COLLADAFWTriangles.h"
 #include "COLLADAFWTristrips.h"
+#include "COLLADAFWTrifans.h"
 #include "COLLADAFWPolygons.h"
 
 #include "COLLADAFWIWriter.h"
@@ -1293,10 +1294,10 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__mesh__tristrips( const mesh__tristrips__AttributeData& attributeData )
 	{
-		COLLADAFW::Tristrips* tristripes = new COLLADAFW::Tristrips();
+		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
 		// The actual size might be bigger, but its a lower bound
-		tristripes->getFaceVertexCountArray().allocMemory(attributeData.count);
-		mCurrentMeshPrimitive = tristripes;
+		tristrips->getFaceVertexCountArray().allocMemory(attributeData.count);
+		mCurrentMeshPrimitive = tristrips;
 		return true;
 	}
 
@@ -1366,6 +1367,88 @@ namespace COLLADASaxFWL
 
 	//------------------------------
 	bool MeshLoader::data__tristrips__p( const unsigned long long* data, size_t length )
+	{
+		return writePrimitiveIndices(data, length);
+	}
+
+
+
+	//------------------------------
+	bool MeshLoader::begin__mesh__trifans( const mesh__trifans__AttributeData& attributeData )
+	{
+		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
+		// The actual size might be bigger, but its a lower bound
+		trifans->getFaceVertexCountArray().allocMemory(attributeData.count);
+		mCurrentMeshPrimitive = trifans;
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__mesh__trifans()
+	{
+		// check if there is at least one trifan. If not, we will discard it.
+		if ( mCurrentFaceCount > 0 )
+		{
+			mCurrentMeshPrimitive->setFaceCount(mCurrentFaceCount);
+			mMesh->appendPrimitive(mCurrentMeshPrimitive);
+		}
+		else
+		{
+			delete mCurrentMeshPrimitive;
+		}
+		initCurrentValues();
+		mMeshPrimitiveInputs.clearInputs();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__trifans__input( const trifans__input__AttributeData& attributeData )
+	{
+		return beginInput( *((triangles__input__AttributeData*)&attributeData) );
+	}
+
+	//------------------------------
+	bool MeshLoader::end__trifans__input()
+	{
+		addPolyBaseElement(&mMeshPrimitiveInputs);
+		initializeOffsets();
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::begin__trifans__p()
+	{
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::end__trifans__p()
+	{
+		int currentTrifanVertexCount = mCurrentVertexCount - mCurrentLastPrimitiveVertexCount;
+		if ( currentTrifanVertexCount > 0 )
+		{
+			COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) mCurrentMeshPrimitive;
+			if ( currentTrifanVertexCount >= 3 )
+			{
+				COLLADAFW::Trifans::VertexCountArray& vertexCountArray = trifans->getFaceVertexCountArray();
+				vertexCountArray.append(currentTrifanVertexCount);
+				trifans->setTrifanCount(trifans->getTrifanCount() + 1);
+				mCurrentFaceCount += (currentTrifanVertexCount - 2);
+			}
+			else
+			{
+				trifans->getPositionIndices().erase(currentTrifanVertexCount);
+				trifans->getNormalIndices().erase(currentTrifanVertexCount);
+				trifans->getColorIndices().erase(currentTrifanVertexCount);
+				trifans->getUVCoordIndices().erase(currentTrifanVertexCount);
+			}
+			mCurrentLastPrimitiveVertexCount = mCurrentVertexCount;
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool MeshLoader::data__trifans__p( const unsigned long long* data, size_t length )
 	{
 		return writePrimitiveIndices(data, length);
 	}

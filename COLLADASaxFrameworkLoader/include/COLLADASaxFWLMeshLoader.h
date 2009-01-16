@@ -275,6 +275,32 @@ namespace COLLADASaxFWL
 		virtual bool data__tristrips__p( const unsigned long long* value, size_t length );
 
 
+
+		/** Sax callback function for the beginning of a polygons element.*/
+		virtual bool begin__mesh__trifans( const mesh__trifans__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a polygons element.*/
+		virtual bool end__mesh__trifans();
+
+
+		/** Sax callback function for the beginning of a trifans input element.*/
+		virtual bool begin__trifans__input( const trifans__input__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a trifans input element.*/
+		virtual bool end__trifans__input();
+
+
+		/** Sax callback function for the beginning of a trifans p element.*/
+		virtual bool begin__trifans__p();
+
+		/** Sax callback function for the ending of a trifans p element.*/
+		virtual bool end__trifans__p();
+
+		/** Sax callback function for the data of a trifans p element.*/
+		virtual bool data__trifans__p( const unsigned long long* value, size_t length );
+
+
+
 		/** Stores the information provided by the attributes of an input element for all mesh primitives.*/
 		bool beginInput(const triangles__input__AttributeData& attributeData);
 
