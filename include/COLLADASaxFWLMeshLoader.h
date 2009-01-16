@@ -14,7 +14,7 @@
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLVertices.h"
 #include "COLLADASaxFWLSource.h"
-#include "COLLADASaxFWLPolyBase.h"
+#include "COLLADASaxFWLMeshPrimitiveInputList.h"
 #include "COLLADASaxFWLSourceArrayLoader.h"
 
 #include "COLLADAFWMesh.h"
@@ -62,7 +62,7 @@ namespace COLLADASaxFWL
 		* Describes the mesh-vertex attributes and establishes
 		* their topological identity.
 		*/
-		PolyBase mMeshPrimitiveInputs;
+		MeshPrimitiveInputList mMeshPrimitiveInputs;
 
 		/** The mesh primitive input being parse.*/
 		InputSharedArray* mCurrentMeshPrimitiveInput;
@@ -77,7 +77,7 @@ namespace COLLADASaxFWL
 		size_t mCurrentVertexCount;
 
 		/** The vertex count after the last face of the current MeshPrimitive was completed.*/
-		size_t mCurrentLastFaceVertexCount;
+		size_t mCurrentLastPrimitiveVertexCount;
 
 		/** Used only when loading ph elements of polygons. Indicates, if the last found p element, 
 		which is a child of a ph element is empty, i.e. contains no indices. This memeber is set in 
@@ -251,6 +251,28 @@ namespace COLLADASaxFWL
 		virtual bool data__h( const unsigned long long* value, size_t length );
 
 
+		/** Sax callback function for the beginning of a polygons element.*/
+		virtual bool begin__mesh__tristrips( const mesh__tristrips__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a polygons element.*/
+		virtual bool end__mesh__tristrips();
+
+
+		/** Sax callback function for the beginning of a tristrips input element.*/
+		virtual bool begin__tristrips__input( const tristrips__input__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of a tristrips input element.*/
+		virtual bool end__tristrips__input();
+
+
+		/** Sax callback function for the beginning of a tristrips p element.*/
+		virtual bool begin__tristrips__p();
+
+		/** Sax callback function for the ending of a tristrips p element.*/
+		virtual bool end__tristrips__p();
+
+		/** Sax callback function for the data of a tristrips p element.*/
+		virtual bool data__tristrips__p( const unsigned long long* value, size_t length );
 
 
 		/** Stores the information provided by the attributes of an input element for all mesh primitives.*/
@@ -333,7 +355,7 @@ namespace COLLADASaxFWL
         /**
          * Append a poly base element into the mesh (convert the data from sax to framework data).
          */
-        void addPolyBaseElement ( const COLLADASaxFWL::PolyBase* polyBaseElement );
+        void addPolyBaseElement ( const COLLADASaxFWL::MeshPrimitiveInputList* polyBaseElement );
 
         /**
          * Load the index lists.
@@ -343,7 +365,7 @@ namespace COLLADASaxFWL
          */
         void loadIndexLists ( 
             COLLADAFW::MeshPrimitive* primitiveElement, 
-            const PolyBase* polyBaseElement );
+            const MeshPrimitiveInputList* polyBaseElement );
 
         /**
          * Generate the face vertex count array if necessary and set it into the mesh.
@@ -353,7 +375,7 @@ namespace COLLADASaxFWL
          */
         void loadFaceVertexCountArray ( 
             COLLADAFW::MeshPrimitive* primitiveElement, 
-            const PolyBase* polyBaseElement );
+            const MeshPrimitiveInputList* polyBaseElement );
 
         /**
          * Initialize the size of the index lists, check for used source elements and get 
@@ -361,7 +383,7 @@ namespace COLLADASaxFWL
          */
         bool initializeIndexLists ( 
             COLLADAFW::MeshPrimitive* primitiveElement, 
-            const PolyBase* polyBaseElement );
+            const MeshPrimitiveInputList* polyBaseElement );
 
 		/** Sets the offsets for the different semantics (positions normals etc)*/
 		bool initializeOffsets();
@@ -377,12 +399,12 @@ namespace COLLADASaxFWL
 
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
-		void writePrimitiveIndices ( const unsigned long long* data, size_t length );
+		bool writePrimitiveIndices ( const unsigned long long* data, size_t length );
 
         /**
          * Get the number of all indices in all p elements in the current primitive element.
          */
-        size_t getNumOfPrimitiveIndices ( const PolyBase* polyBaseElement );
+        size_t getNumOfPrimitiveIndices ( const MeshPrimitiveInputList* polyBaseElement );
 
         /**
          * Go through the list of input elements of the current poly base and get the 
@@ -390,7 +412,7 @@ namespace COLLADASaxFWL
          * Attention: if there are multiple sources for the same semantic, we have to 
          * concat the source arrays and the indices!
          */
-        void loadSourceElements ( const PolyBase& polyBaseElement );
+        void loadSourceElements ( const MeshPrimitiveInputList& polyBaseElement );
 
         /**
          * Load the source element of the current input element into the framework mesh.

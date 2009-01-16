@@ -26,7 +26,7 @@ namespace COLLADASaxFWL
     * contain arbitrary numbers of vertices.
     * Unlike the polygons element, the Polylist element cannot contain polygons with holes.
     */
-    class Polylist : public PolyBase
+    class Polylist : public MeshPrimitiveInputList
     {
 
     private:
@@ -44,7 +44,7 @@ namespace COLLADASaxFWL
         * Constructor
         */
         Polylist ( MeshLoader* parent ) 
-            : PolyBase ( parent, COLLADAFW::MeshPrimitive::POLYLIST ) 
+            : MeshPrimitiveInputList ( parent, COLLADAFW::MeshPrimitive::POLYLIST ) 
         {}
 
         /**

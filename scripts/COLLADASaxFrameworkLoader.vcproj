@@ -336,7 +336,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASaxFWLPolyBase.cpp"
+				RelativePath="..\src\COLLADASaxFWLMeshPrimitiveInputList.cpp"
 				>
 			</File>
 			<File
@@ -410,11 +410,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASaxFWLPHElement.h"
+				RelativePath="..\include\COLLADASaxFWLMeshPrimitiveInputList.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADASaxFWLPolyBase.h"
+				RelativePath="..\include\COLLADASaxFWLPHElement.h"
 				>
 			</File>
 			<File
