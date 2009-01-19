@@ -1,4 +1,4 @@
-<?php require('../simplepie.inc'); ?>
+<?php require('../../simplepie.inc'); ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -25,7 +25,6 @@
 <meta name="keywords" content="COLLADA, Khronos, 3D, visualization, Max, Maya, graphics, rendering, download, bug, tracker, plugin, plug-in, sourceforge, version, current, documentation" />
 <meta name="robots" content="index, follow" />
 <meta http-equiv="Content-type" content="text/html;charset=iso-8859-1"/>
-<link href="./images/collada_favicon.ico" rel="SHORTCUT ICON" type="image/x-icon"/>
 <link rel="alternate" type="application/rss+xml" title="RSS" href="https://sourceforge.net/export/rss2_projnews.php?group_id=136478" />
 
 </head>
@@ -75,7 +74,7 @@
 								<li><a href="../index.php" title="Project Summary">Project Summary</a></li>
 								<li><a href="../news.php" title="News">News</a></li>
 								<li><a href="../file_releases.php" title="File Releases">File Releases</a></li>
-								<li><a href="../osx_installation_help/index.php" title="Mac OS X Installation Help">Mac OS X Installation Help</a></li>
+								<li><a href="../osx_installation_help/index.php" title="Mac OS X Installation">Mac OS X Installation</a></li>
 							</ul>
 						</div>
 						<div class="nav_foot"></div>
@@ -138,8 +137,8 @@
 							<h3>Links</h3>
 						</div>
 						<div class="nav_main">
-							<p><a href="http://sourceforge.net/projects/colladamaya"><img src="../images/sfnet.jpg" alt="SF-Logo"/></a></p>
-							<p><a href="http://collada.org/"><img src="../images/collada_small.jpg" alt="COLLADA-Logo"/></a></p>
+							<p><a href="http://sourceforge.net"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=136478&amp;type=1" width="88" height="31" border="0" alt="SourceForge.net Logo" /></a></p>
+							<p><a href="http://collada.org/"><img src="../images/collada_small.gif" alt="COLLADA-Logo"/></a></p>
 						</div>
 						<div class="nav_foot"></div>
 					</div>
