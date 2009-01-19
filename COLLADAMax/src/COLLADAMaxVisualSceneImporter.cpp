@@ -71,9 +71,6 @@ namespace COLLADAMax
 		if ( !mVisualScene )
 			return false;
 
-//		mDummyGeoObject = (Object* ) getMaxImportInterface()->Create(GEOMOBJECT_CLASS_ID, Class_ID ( SPHERE_CLASS_ID, 0 ));
-
-//		((GenSphere*)mDummyGeoObject)->SetParams(10,32);
 
 		mDummyObject = (DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0));
 
@@ -97,6 +94,8 @@ namespace COLLADAMax
 	//------------------------------
 	ImpNode* VisualSceneImporter::importNode( COLLADAFW::Node* node  )
 	{
+	//	bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
+
 		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 
 		String newNodeName = node->getName();
@@ -139,11 +138,11 @@ namespace COLLADAMax
 	{
 		for ( size_t i = 0, count = instanceGeometryArray.getCount(); i < count; ++i)
 		{
-			COLLADAFW::InstanceGeometry* instanceGeoemtry = instanceGeometryArray[i];
+			COLLADAFW::InstanceGeometry* instanceGeometry = instanceGeometryArray[i];
 
 			ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 			INode* newNode = newImportNode->GetINode();
-			const COLLADAFW::UniqueId& uniqueId = instanceGeoemtry->getInstanciatedGeometryId();
+			const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedGeometryId();
 
 			Object* object = getObjectByUniqueId(uniqueId);
 			if ( object )
@@ -155,7 +154,7 @@ namespace COLLADAMax
 				newImportNode->Reference(mDummyObject);
 			}
 
-			addUniqueIdObjectINodePair(instanceGeoemtry->getInstanciatedGeometryId(), newNode);
+			addUniqueIdObjectINodePair(instanceGeometry->getInstanciatedGeometryId(), newNode);
 			INode* parentNode = parentImportNode->GetINode();
 			parentNode->AttachChild(newNode, FALSE);
 		}
