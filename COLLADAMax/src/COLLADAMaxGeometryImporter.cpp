@@ -83,7 +83,7 @@ namespace COLLADAMax
 
 		TriObject* triangleObject = CreateNewTriObject();
 
-		Mesh& triangleMesh = triangleObject->GetMesh();
+		Mesh& triangleMesh = triangleObject->GetMesh(); 
 
 		
 		if ( !importTriangleMeshPositions(triangleObject) )
@@ -145,11 +145,11 @@ namespace COLLADAMax
 			case COLLADAFW::MeshPrimitive::TRIANGLES:
 				{
 					const COLLADAFW::Triangles* triangles = (const COLLADAFW::Triangles*) meshPrimitive;
-					assert(triangles);
 					const COLLADAFW::UIntValuesArray& positionIndices =  triangles->getPositionIndices();
 					for ( size_t j = 0, count = positionIndices.getCount() ; j < count; j+=3 )
 					{
 						Face& face = triangleMesh.faces[faceIndex];
+						face.setEdgeVisFlags(1, 1, 1);
 						face.setVerts(positionIndices[j], positionIndices[j + 1], positionIndices[j + 2]);
 						++faceIndex;
 					}
@@ -158,9 +158,8 @@ namespace COLLADAMax
 			case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
 				{
 					const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
-					assert(tristrips);
 					const COLLADAFW::UIntValuesArray& positionIndices =  tristrips->getPositionIndices();
-					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getFaceVertexCountArray();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
 					size_t nextTristripStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
@@ -168,6 +167,7 @@ namespace COLLADAMax
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							Face& face = triangleMesh.faces[faceIndex];
+							face.setEdgeVisFlags(1, 1, 1);
 							face.setVerts(positionIndices[j - 2], positionIndices[j - 1], positionIndices[j]);
 							++faceIndex;
 						}
@@ -178,9 +178,8 @@ namespace COLLADAMax
 			case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
 				{
 					const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
-					assert(trifans);
 					const COLLADAFW::UIntValuesArray& positionIndices =  trifans->getPositionIndices();
-					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getFaceVertexCountArray();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 					size_t nextTrifanStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
@@ -189,6 +188,7 @@ namespace COLLADAMax
 						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							Face& face = triangleMesh.faces[faceIndex];
+							face.setEdgeVisFlags(1, 1, 1);
 							face.setVerts(commonVertexIndex, positionIndices[j - 1], positionIndices[j]);
 							++faceIndex;
 						}
@@ -279,7 +279,7 @@ namespace COLLADAMax
 					const COLLADAFW::Tristrips* tristrips = (const COLLADAFW::Tristrips*) meshPrimitive;
 					assert(tristrips);
 					const COLLADAFW::UIntValuesArray& normalIndices =  tristrips->getNormalIndices();
-					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getFaceVertexCountArray();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = tristrips->getGroupedVerticesVertexCountArray();
 					size_t nextTristripStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
@@ -302,7 +302,7 @@ namespace COLLADAMax
 					const COLLADAFW::Trifans* trifans = (const COLLADAFW::Trifans*) meshPrimitive;
 					assert(trifans);
 					const COLLADAFW::UIntValuesArray& normalIndices =  trifans->getNormalIndices();
-					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getFaceVertexCountArray();
+					const COLLADAFW::UIntValuesArray& faceVertexCountArray = trifans->getGroupedVerticesVertexCountArray();
 					size_t nextTrifanStartIndex = 0;
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
@@ -358,7 +358,7 @@ namespace COLLADAMax
 		if ( !importPolygonMeshNormals(polygonObject) )
 			return false;
 
-		polygonMesh.InvalidateGeomCache();
+		//polygonMesh.InvalidateGeomCache();
 
 		handleReferences(mesh, polygonObject);
 

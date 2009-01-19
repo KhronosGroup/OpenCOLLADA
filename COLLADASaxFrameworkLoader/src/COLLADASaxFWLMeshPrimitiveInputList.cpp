@@ -44,7 +44,7 @@ namespace COLLADASaxFWL
         if ( inputShared != 0 )
         {
             // Check if we have the maximal offset value
-            unsigned int offset = inputShared->getOffset ();
+            unsigned long long offset = inputShared->getOffset();
             if ( offset > mInputArrayMaxOffset ) mInputArrayMaxOffset = offset;
 
             // If we append the "VERTEX" input element, we directly create shared input elements

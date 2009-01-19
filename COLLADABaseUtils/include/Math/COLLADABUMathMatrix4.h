@@ -119,7 +119,13 @@ namespace COLLADABU
                 m[ i ][ j ] = value;
             }
 
-            /** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling 3x3 matrix.
+			inline void setElement( size_t i, size_t j, Real value )
+			{
+				mState = UNKNOWN;
+				m[ i ][ j ] = value;
+			}
+
+			/** Creates a standard 4x4 transformation matrix with a zero translation part from a rotation/scaling 3x3 matrix.
             */
 
             inline Matrix4( const Matrix3& m3x3 )

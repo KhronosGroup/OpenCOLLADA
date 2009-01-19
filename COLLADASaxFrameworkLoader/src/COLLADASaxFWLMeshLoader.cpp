@@ -78,63 +78,7 @@ namespace COLLADASaxFWL
         return getSourceByInputSemanticFromVertices ( InputSemantic::POSITION );
     }
 
-	/*
-    //------------------------------
-    const FloatSource* MeshLoader::getPositionsFloatSource () const
-    {
-        const SourceBase* positionsSource = getPositionsSource ();
-
-        if ( positionsSource->getDataType () != SourceBase::DATA_TYPE_FLOAT )
-            return 0;
-
-        return ( FloatSource* ) positionsSource;
-    }
-
-    //------------------------------
-    const DoubleSource* MeshLoader::getPositionsDoubleSource () const
-    {
-        const SourceBase* positionsSource = getPositionsSource ();
-
-        if ( positionsSource->getDataType () != SourceBase::DATA_TYPE_DOUBLE )
-            //throw new  FrameworkException ( __FILE__, __LINE__, "Positions data type is not a double!" );
-            return 0;
-
-        return ( DoubleSource* ) positionsSource;
-    }
-*/
-    //------------------------------
-    void MeshLoader::addPolyBaseElement ( const COLLADASaxFWL::MeshPrimitiveInputList* polyBaseElement )
-    {
-        // TODO Do we really need this? We can directly create a mesh primitive element!
-//      mPolyBaseElements.append ( polyBaseElement );
-
-        // Go through the list of input elements of the current poly base and get the 
-        // source data of the input elements and write it into the source elements.
-        // Attention: if there are multiple sources for the same semantic, we have to 
-        // concat the source arrays and the indices!
-        loadSourceElements ( *polyBaseElement );
-
-        // After a PolyBaseElements was set, we are able to read the index lists and 
-        // set them into the Framework mesh data.
- //       COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = polyBaseElement->getPrimitiveType ();
- //       COLLADAFW::MeshPrimitive* meshPrimitive = new COLLADAFW::MeshPrimitive ( primitiveType );
-
-        // TODO Set the material
-//        meshPrimitive->setMaterial ( polyBaseElement->getMaterial () );
-
-        // Set the number of faces
-//        meshPrimitive->setFaceCount ( polyBaseElement->getFaceCount () );
-
-        // Generate the face vertex count array if necessary and set it into the mesh.
-  //      loadFaceVertexCountArray ( meshPrimitive, polyBaseElement );
-
-        // Load the index lists
-  //      loadIndexLists ( meshPrimitive, polyBaseElement );
-
-        // Append the element into the list of primitive elements.
- //       mMesh->appendPrimitive ( meshPrimitive );
-    }
-
+ 
     //------------------------------
     void MeshLoader::loadSourceElements ( const MeshPrimitiveInputList& polyBaseElement )
     {
@@ -495,92 +439,6 @@ namespace COLLADASaxFWL
         return true;
     }
 
-#if 0
-
-    //------------------------------
-    size_t MeshLoader::getNumOfPrimitiveIndices ( const PolyBase* polyBaseElement )
-    {
-        size_t numPIndices = 0;
-
-        // Go through the array of p elements.
-        const PArray& pArray = polyBaseElement->getPArray ();
-        size_t numPElements = pArray.getCount ();
-        for ( size_t j=0; j<numPElements; ++j )
-        {
-            // Count the number of p elements.
-            const PElement* pElement = pArray [j];
-            numPIndices += pElement->getCount();
-        }
-
-        // Every ph element has exact one p element.
-        if ( polyBaseElement->getPrimitiveType () == COLLADAFW::MeshPrimitive::POLYGONS )
-        {
-            Polygons* polygonsElement = ( Polygons* ) polyBaseElement;
-            const PHArray& phArray = polygonsElement->getPHArray ();
-            size_t numPHElements = phArray.getCount ();
-            for ( size_t j=0; j<numPHElements; ++j )
-            {
-                // Count the number of p elements.
-                const PHElement* phElement = phArray [j];
-                const PElement& pElement = phElement->getPElement ();
-                numPIndices += pElement.getCount();
-            }
-        }
-
-        return numPIndices;
-    }
-#endif
-    //------------------------------
-    void MeshLoader::writePElementIndices ( 
-        const PElement* pElement, 
-        COLLADAFW::MeshPrimitive* primitiveElement, 
-        const size_t maxOffset )
-    {
-        // Write the index values in the index lists.
-        size_t currentOffset = 1;
-        size_t numIndices = pElement->getCount ();
-        for ( size_t i=0; i<numIndices; ++i )
-        {
-            // Get the current index value.
-            unsigned int index = ( *pElement ) [i];
-
-            // Write the indices
-            if ( mUsePositions && currentOffset == mPositionsOffset )
-            {
-                COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
-                positionIndices.append ( index );
-            }
-            if ( mUseNormals && currentOffset == mNormalsOffset )
-            {
-                COLLADAFW::UIntValuesArray& normalIndices = primitiveElement->getNormalIndices ();
-                normalIndices.append ( index );
-            }
-            if ( mUseColors && currentOffset == mColorsOffset )
-            {
-                COLLADAFW::UIntValuesArray& colorIndices = primitiveElement->getColorIndices ();
-                colorIndices.append ( index );
-            }
-            if ( mUseUVCoords && currentOffset == mUVCoordsOffset )
-            {
-                COLLADAFW::UIntValuesArray& uvCoordIndices = primitiveElement->getUVCoordIndices ();
-                uvCoordIndices.append ( index );
-            }
-
-            // Reset the offset if we went through all offset values
-            if ( currentOffset == maxOffset )
-            {
-                // Reset the current offset value
-                currentOffset = 1;
-            }
-            else
-            {
-                // Increment the current offset value
-                ++currentOffset;
-            }
-
-        }
-    }
-
 
 	bool MeshLoader::writePrimitiveIndices ( const unsigned long long* data, size_t length )
 	{
@@ -588,7 +446,7 @@ namespace COLLADASaxFWL
 		for ( size_t i=0; i<length; ++i )
 		{
 			// Get the current index value.
-			unsigned int index = data [i];
+			unsigned int index = (unsigned int)data [i];
 
 			// Write the indices
 			if ( mUsePositions && mCurrentOffset == mPositionsOffset )
@@ -712,7 +570,7 @@ namespace COLLADASaxFWL
 	{
 		// We need the maximum offset value of the input elements to calculate the 
 		// number of indices for each index list.
-		mCurrentMaxOffset = mMeshPrimitiveInputs.getInputArrayMaxOffset ();
+		mCurrentMaxOffset = (size_t)mMeshPrimitiveInputs.getInputArrayMaxOffset ();
 
 
 		// The offset values of the input elements.
@@ -1027,7 +885,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__triangles__p()
 	{
-		addPolyBaseElement(&mMeshPrimitiveInputs);
+		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
 		return true;
@@ -1061,7 +919,7 @@ namespace COLLADASaxFWL
 	bool MeshLoader::begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData )
 	{
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
-		polygons->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
+		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		return true;
 	}
@@ -1097,7 +955,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__polylist__input()
 	{
-		addPolyBaseElement(&mMeshPrimitiveInputs);
+		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		return true;
 	}
@@ -1124,8 +982,8 @@ namespace COLLADASaxFWL
 		for ( size_t i = 0; i < length; ++i)
 		{
 			unsigned long long vcount = data[i];
-			vertexCountArray.append(vcount);
-			mCurrentExpectedVertexCount += vcount;
+			vertexCountArray.append((unsigned int)vcount);
+			mCurrentExpectedVertexCount += (size_t)vcount;
 		}
 		return true;
 	}
@@ -1153,7 +1011,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		// The actual size might be bigger, but its a lower bound
-		polygons->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
+		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
 		return true;
 	}
@@ -1185,7 +1043,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__polygons__input()
 	{
-		addPolyBaseElement(&mMeshPrimitiveInputs);
+		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		return true;
 	}
@@ -1199,7 +1057,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__polygons__p()
 	{
-		int currentFaceVertexCount = mCurrentVertexCount - mCurrentLastPrimitiveVertexCount;
+		int currentFaceVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentFaceVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
@@ -1240,7 +1098,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__ph__p()
 	{
-		int currentPolygonVertexCount = mCurrentVertexCount - mCurrentLastPrimitiveVertexCount;
+		int currentPolygonVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentPolygonVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
@@ -1272,7 +1130,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__h()
 	{
-		int currentFaceVertexCount = mCurrentVertexCount - mCurrentLastPrimitiveVertexCount;
+		int currentFaceVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentFaceVertexCount > 0 )
 		{
 			COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) mCurrentMeshPrimitive;
@@ -1297,7 +1155,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
 		// The actual size might be bigger, but its a lower bound
-		tristrips->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
+		tristrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = tristrips;
 		return true;
 	}
@@ -1329,7 +1187,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__tristrips__input()
 	{
-		addPolyBaseElement(&mMeshPrimitiveInputs);
+		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		return true;
 	}
@@ -1343,7 +1201,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__tristrips__p()
 	{
-		int currentTristripVertexCount = mCurrentVertexCount - mCurrentLastPrimitiveVertexCount;
+		int currentTristripVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentTristripVertexCount > 0 )
 		{
 			COLLADAFW::Tristrips* tristrips = (COLLADAFW::Tristrips*) mCurrentMeshPrimitive;
@@ -1379,7 +1237,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
 		// The actual size might be bigger, but its a lower bound
-		trifans->getGroupedVerticesVertexCountArray().allocMemory(attributeData.count);
+		trifans->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = trifans;
 		return true;
 	}
@@ -1411,7 +1269,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__trifans__input()
 	{
-		addPolyBaseElement(&mMeshPrimitiveInputs);
+		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		return true;
 	}
@@ -1425,7 +1283,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::end__trifans__p()
 	{
-		int currentTrifanVertexCount = mCurrentVertexCount - mCurrentLastPrimitiveVertexCount;
+		int currentTrifanVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 		if ( currentTrifanVertexCount > 0 )
 		{
 			COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) mCurrentMeshPrimitive;

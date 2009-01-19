@@ -89,7 +89,7 @@ namespace COLLADASaxFWL
 	bool SourceArrayLoader::begin__float_array( const float_array__AttributeData& attributeData )
 	{
 		DoubleSource* newSource = new DoubleSource();
-		newSource->getArrayElement().getValues().allocMemory(attributeData.count);
+		newSource->getArrayElement().getValues().allocMemory((size_t)attributeData.count);
 		newSource->setId(mCurrentSourceId);
 		mCurrentSoure = newSource;
 		if ( attributeData.id )

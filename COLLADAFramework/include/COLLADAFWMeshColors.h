@@ -26,7 +26,7 @@ namespace COLLADAFW
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        size_t mStride;
+        unsigned long long mStride;
 
 	public:
 
@@ -49,13 +49,13 @@ namespace COLLADAFW
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        const size_t getStride () const { return mStride; }
+        unsigned long long getStride () const { return mStride; }
 
         /**
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        void setStride ( const unsigned int Stride ) { mStride = Stride; }
+        void setStride ( unsigned long long Stride ) { mStride = Stride; }
 
         /** Returns the position values array as a template array. */
         template <class T>

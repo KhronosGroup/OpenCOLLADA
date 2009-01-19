@@ -55,6 +55,7 @@ namespace COLLADASaxFWL
 		if ( !writer )
 			return false;
 		mWriter = writer;
+#pragma warning(disable: 4996)
 		_timeb startTimeBuffer;
 		_ftime( &startTimeBuffer );
 		double startTime = (double)startTimeBuffer.time + (double)startTimeBuffer.millitm / 1000;
@@ -65,6 +66,7 @@ namespace COLLADASaxFWL
 
 		_timeb endTimeBuffer;
 		_ftime(&endTimeBuffer);
+#pragma warning(default: 4996)
 
 		std::ofstream s;
 		s.open("c:\\temp\\out");

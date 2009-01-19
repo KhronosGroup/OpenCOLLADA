@@ -101,13 +101,13 @@ namespace COLLADASaxFWL
 
 
         // Variables for the offsets of the index input elements.
-        size_t mPositionsOffset; 
+        unsigned long long mPositionsOffset; 
         bool mUsePositions;
-        size_t mNormalsOffset; 
+        unsigned long long mNormalsOffset; 
         bool mUseNormals;
-        size_t mColorsOffset; 
+        unsigned long long mColorsOffset; 
         bool mUseColors;
-        size_t mUVCoordsOffset; 
+        unsigned long long mUVCoordsOffset; 
         bool mUseUVCoords;
 
     public:
@@ -361,67 +361,9 @@ namespace COLLADASaxFWL
          */
         void setVertices ( const Vertices& vertices ) { mVerticesInputs = vertices; }
 
-//         /**
-//         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
-//         * Can be any combination of the following in any order:
-//         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
-//         */
-//         const COLLADASaxFWL::PolyBaseArray& getPolyBaseElements () const { return mPolyBaseElements; }
-// 
-//         /**
-//         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
-//         * Can be any combination of the following in any order:
-//         * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
-//         */
-//         void setPolyBaseElements ( const COLLADASaxFWL::PolyBaseArray& polyBaseElements ) 
-//         { 
-//             mPolyBaseElements = polyBaseElements; 
-//         }
-
-        /**
-         * Append a poly base element into the mesh (convert the data from sax to framework data).
-         */
-        void addPolyBaseElement ( const COLLADASaxFWL::MeshPrimitiveInputList* polyBaseElement );
-
-        /**
-         * Load the index lists.
-         * @param primitiveElement
-         * @param polyBaseElement
-         * @return void
-         */
-        void loadIndexLists ( 
-            COLLADAFW::MeshPrimitive* primitiveElement, 
-            const MeshPrimitiveInputList* polyBaseElement );
-
-        /**
-         * Generate the face vertex count array if necessary and set it into the mesh.
-         * @param primitiveElement
-         * @param polyBaseElement
-         * @return void
-         */
-        void loadFaceVertexCountArray ( 
-            COLLADAFW::MeshPrimitive* primitiveElement, 
-            const MeshPrimitiveInputList* polyBaseElement );
-
-        /**
-         * Initialize the size of the index lists, check for used source elements and get 
-         * the offset values of the index lists.
-         */
-        bool initializeIndexLists ( 
-            COLLADAFW::MeshPrimitive* primitiveElement, 
-            const MeshPrimitiveInputList* polyBaseElement );
 
 		/** Sets the offsets for the different semantics (positions normals etc)*/
 		bool initializeOffsets();
-
-        /**
-         * Push the index values of the current p element in the list of indexes of the current 
-         * input elements.
-         */
-        void writePElementIndices ( 
-            const PElement* pElement, 
-            COLLADAFW::MeshPrimitive* primitiveElement, 
-            const size_t maxOffset );
 
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/

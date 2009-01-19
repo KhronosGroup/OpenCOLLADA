@@ -54,7 +54,7 @@ namespace COLLADASaxFWL
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        unsigned int mStride; 
+        unsigned long long mStride; 
 
         /**
          * Flag, if the source element is already loaded into the framework.
@@ -123,13 +123,13 @@ namespace COLLADASaxFWL
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        unsigned int getStride () const { return mStride; }
+        unsigned long long getStride () const { return mStride; }
 
         /**
         * The number of values that are to be considered a unit during each access to the array.
         * The default is 1, indicating that a single value is accessed. Optional.
         */
-        void setStride ( unsigned int Stride ) { mStride = Stride; }
+        void setStride ( unsigned long long Stride ) { mStride = Stride; }
 
         /**
         * This member will be used, if multiple source elements with the same input semantic are

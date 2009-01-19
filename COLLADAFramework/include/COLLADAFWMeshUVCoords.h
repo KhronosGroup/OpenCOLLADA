@@ -23,7 +23,7 @@ namespace COLLADAFW
 	private:
 	
         /** The stride can differ, so we have to set. */
-        size_t mStride;
+        unsigned long long mStride;
 
 	public:
 
@@ -37,10 +37,10 @@ namespace COLLADAFW
         virtual ~MeshUVCoords() {};
 
         /** The stride can differ, so we have to set. */
-        const size_t getStride () const { return mStride; }
+        unsigned long long getStride () const { return mStride; }
 
         /** The stride can differ, so we have to set. */
-        void setStride ( const size_t Stride ) { mStride = Stride; }
+        void setStride ( unsigned long long Stride ) { mStride = Stride; }
 
         /** Returns the position values array as a template array. */
         template <class T>

@@ -51,7 +51,7 @@ namespace COLLADASaxFWL
         /**
          * The maximal offset value in the input element.
          */
-        unsigned int mInputArrayMaxOffset;
+        unsigned long long mInputArrayMaxOffset;
 	
 		Vertices& mVertices;
 
@@ -98,7 +98,7 @@ namespace COLLADASaxFWL
         * local input with the  offset and set attributes.
         * @return const InputArray The array with the input elements.
         */
-        const size_t getInputArrayMaxOffset () const 
+        const unsigned long long getInputArrayMaxOffset () const 
         {
             return mInputArrayMaxOffset;
         }
