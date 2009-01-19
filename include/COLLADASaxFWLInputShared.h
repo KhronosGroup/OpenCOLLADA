@@ -50,11 +50,11 @@ namespace COLLADASaxFWL
         <v> subelement. If two <input> elements share the same offset, they are
         indexed the same. This is a simple form of compression for the list of
         indices and also defines the order in which the inputs are used. Required. */
-        unsigned int mOffset;
+        unsigned long long mOffset;
 
         /** Which inputs to group as a single set. This is helpful when multiple inputs
         share the same semantics. Optional. */
-        int mSet;
+        unsigned long long mSet;
 
     public:
 
@@ -74,7 +74,7 @@ namespace COLLADASaxFWL
          * @param offset The offset of the @a \<input\> element.
          * @param set The set of the @a \<input\> element.
          */
-        InputShared ( InputSemantic::Semantic semantic, const COLLADABU::URI& source, int offset = 0, int set = 0 )
+        InputShared ( InputSemantic::Semantic semantic, const COLLADABU::URI& source, unsigned long long offset = 0, unsigned long long set = 0 )
             : InputUnshared ( semantic, source )
             , mOffset ( offset )
             , mSet ( set ) 
@@ -87,7 +87,7 @@ namespace COLLADASaxFWL
 		* @param offset The offset of the @a \<input\> element.
 		* @param set The set of the @a \<input\> element.
 		*/
-		InputShared ( const String& semantic, const String& source, int offset = 0, int set = 0 )
+		InputShared ( const String& semantic, const String& source, unsigned long long offset = 0, unsigned long long set = 0 )
 			: InputUnshared ( semantic, source )
 			, mOffset ( offset )
 			, mSet ( set ) 
@@ -101,13 +101,13 @@ namespace COLLADASaxFWL
         <v> subelement. If two <input> elements share the same offset, they are
         indexed the same. This is a simple form of compression for the list of
         indices and also defines the order in which the inputs are used. Required. */
-        unsigned int getOffset () const { return mOffset; }
-        void setOffset ( const unsigned int val ) { mOffset = val; }
+        unsigned long long getOffset () const { return mOffset; }
+        void setOffset ( unsigned long long val ) { mOffset = val; }
 
         /** Which inputs to group as a single set. This is helpful when multiple inputs
         share the same semantics. Optional. */
-        int getSet () const { return mSet; }
-        void setSet ( const int val ) { mSet = val; }
+        unsigned long long getSet () const { return mSet; }
+        void setSet ( unsigned long long val ) { mSet = val; }
 
     };
 
