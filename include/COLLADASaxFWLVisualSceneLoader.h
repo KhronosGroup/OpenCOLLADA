@@ -65,7 +65,7 @@ namespace COLLADASaxFWL
 		const VisualSceneLoader& operator= ( const VisualSceneLoader& pre );
 
 		/** This method handles the beginning of a node element, independent of its parent.*/
-		bool beginNode( const char* nodeName );
+		bool beginNode( const node__node__AttributeData& attributeData );
 
 		/** This method handles the ending of a node element, independent of its parent.*/
 		bool endNode();
@@ -130,11 +130,19 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the float data of a scale element.*/
 		virtual bool data__scale( const double* data, size_t length );
 
+
 		/** Sax callback function for the beginning of an instance geometry element.*/
 		virtual bool begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData );
 
-		/** Sax callback function for the beginning of an instance geometry element.*/
+		/** Sax callback function for the ending of an instance geometry element.*/
 		virtual bool end__node__instance_geometry();
+
+
+		/** Sax callback function for the beginning of an instance node element.*/
+		virtual bool begin__instance_node( const instance_node__AttributeData& attributeData );
+
+		/** Sax callback function for the ending of an instance node element.*/
+		virtual bool end__instance_node();
 
 
 		/** Sax callback function for the ending of a visual scene.*/

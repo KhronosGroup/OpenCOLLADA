@@ -37,12 +37,20 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::beginNode( const char* nodeName )
+	bool VisualSceneLoader::beginNode( const node__node__AttributeData& attributeData )
 	{
-		COLLADAFW::Node* newNode = new COLLADAFW::Node();
+		COLLADAFW::Node* newNode;
+		if ( attributeData.id )
+		{
+			newNode = new COLLADAFW::Node(getUniqueId(String("#") + (const char*)attributeData.id, COLLADAFW::Node::ID()).getObjectId());
+		}
+		else
+		{
+			newNode = new COLLADAFW::Node(getUniqueId(COLLADAFW::Node::ID()).getObjectId());
+		}
 
-		if ( nodeName )
-			newNode->setName(nodeName);
+		if ( attributeData.name )
+			newNode->setName((const char*)attributeData.name);
 
 		if ( mNodeStack.empty() )
 		{
@@ -90,7 +98,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool VisualSceneLoader::begin__node__node( const node__node__AttributeData& attributeData )
 	{
-		return beginNode((const char *)attributeData.name);
+		return beginNode(attributeData);
 	}
 
 	//------------------------------
@@ -103,7 +111,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool VisualSceneLoader::begin__visual_scene__node( const visual_scene__node__AttributeData& attributeData )
 	{
-		return beginNode((const char *)attributeData.name);
+		return beginNode(*(const node__node__AttributeData *)(&attributeData));
 	}
 
 	//------------------------------
@@ -238,6 +246,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
 	bool VisualSceneLoader::begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
@@ -251,8 +260,30 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
 	bool VisualSceneLoader::end__node__instance_geometry()
 	{
 		return true;
 	}
+
+	//------------------------------
+	bool VisualSceneLoader::begin__instance_node( const instance_node__AttributeData& attributeData )
+	{
+		COLLADAFW::Node* currentNode = mNodeStack.top();
+
+		COLLADAFW::UniqueId instantiatedNodeUniqueId = getUniqueId((const char*)attributeData.url, COLLADAFW::Node::ID());
+
+		COLLADAFW::InstanceNode* instanceNode = new COLLADAFW::InstanceNode(instantiatedNodeUniqueId);
+
+		currentNode->getInstanceNodes().append(instanceNode);
+
+		return true;
+	}
+
+	//------------------------------
+	bool VisualSceneLoader::end__instance_node()
+	{
+		return true;
+	}
+
 } // namespace COLLADASaxFWL

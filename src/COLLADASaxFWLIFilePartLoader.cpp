@@ -46,6 +46,15 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
+	COLLADAFW::UniqueId IFilePartLoader::getUniqueId( COLLADAFW::ClassId classId )
+	{
+		if ( !getColladaLoader() )
+			return COLLADAFW::UniqueId::INVALID;
+
+		return getColladaLoader()->getUniqueId(classId);
+	}
+
+	//-----------------------------
 	void IFilePartLoader::deleteFilePartLoader()
 	{
 		if ( mPartLoader )

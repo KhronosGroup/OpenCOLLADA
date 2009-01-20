@@ -69,6 +69,13 @@ namespace COLLADASaxFWL
 		@return The elements COLLADAFW::UniqueId */
 		const COLLADAFW::UniqueId& getUniqueId(const COLLADABU::URI& uri, COLLADAFW::ClassId classId);
 
+		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new 
+		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
+		do not have an id.
+		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+		@return The elements COLLADAFW::UniqueId */
+		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
+
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer(){ return mWriter; }
 

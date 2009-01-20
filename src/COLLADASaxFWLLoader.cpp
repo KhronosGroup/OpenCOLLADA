@@ -50,6 +50,13 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
+	COLLADAFW::UniqueId Loader::getUniqueId( COLLADAFW::ClassId classId )
+	{
+		return COLLADAFW::UniqueId(classId, mLoaderUtil.getLowestObjectIdFor(classId));
+	}
+
+
+	//---------------------------------
 	bool Loader::loadDocument( const String& fileName, COLLADAFW::IWriter* writer )
 	{
 		if ( !writer )
