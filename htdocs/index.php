@@ -148,7 +148,7 @@
 					
 						<div class="content_head">
 							<h2><a name="project">Project Summary</a></h2>
-							<div class="head_menu"><p><a href="#top"><img src="images/upArrow.png" alt="Top"/> Top</a> | <a href="https://sourceforge.net/export/rss2_projsummary.php?group_id=143864"><img src="images/rss.gif" title="Project Summary RSS Feed" alt="rssFeed"/></a></p></div>
+							<div class="head_menu"><p><a href="#top"><img src="images/upArrow.png" alt="Top"/> Top</a> | <a href="https://sourceforge.net/export/rss2_projsummary.php?group_id=136478"><img src="images/rss.gif" title="Project Summary RSS Feed" alt="rssFeed"/></a></p></div>
 						</div>
 						<div class="content_main">
 
