@@ -20,8 +20,11 @@
 
 namespace COLLADAFW
 {
+
 	//--------------------------------------------------------------------
-    Node::Node() : mType ( Node::NODE )
+    Node::Node(ObjectId objectId) 
+		:ObjectTemplate< COLLADA_TYPE::NODE >( objectId ) 
+		, mType( Node::NODE )
 	{
 	}
 	
@@ -39,6 +42,10 @@ namespace COLLADAFW
 		//delete all instance geometries
 		for ( size_t i = 0, count = mInstanceGeometries.getCount(); i < count; ++i)
 			delete mInstanceGeometries[i];
+
+		//delete all instance nodes
+		for ( size_t i = 0, count = mInstanceNodes.getCount(); i < count; ++i)
+			delete mInstanceNodes[i];
 	}
 
 	//--------------------------------------------------------------------

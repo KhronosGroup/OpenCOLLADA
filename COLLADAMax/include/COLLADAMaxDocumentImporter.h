@@ -39,10 +39,19 @@ namespace COLLADAMax
 	{
 	public:
 		/** Maps Unique id to INodes.*/
-		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMap;
+		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMultiMap;
+
+		/** Maps Unique id to INodes.*/
+		typedef std::map<COLLADAFW::UniqueId, INode*> UniqueIdINodeMap;
 
 		/** Maps Unique id to Objects.*/
 		typedef std::map<COLLADAFW::UniqueId, Object*> UniqueIdObjectMap;
+
+		/** Maps Unique id to Unique ids.*/
+		typedef std::multimap<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdUniqueIdMultiMap;
+
+		/** Maps objects to Unique id to.*/
+		typedef std::map< INode*, COLLADAFW::UniqueId> ObjectINodeUniqueIdMap;
 
 	private:
 		/** Max interface.*/
@@ -57,11 +66,23 @@ namespace COLLADAMax
 		/** Maps the unique ids of objects (geometries, controllers,...) that are referenced by INodes to 
 		these referencing INodes. This map is being filled while importing the visual scene. It is 
 		required for objects that are referenced before they are imported.*/
-		UniqueIdINodeMap mUniqueIdObjectINodeMap;
+		UniqueIdINodeMultiMap mUniqueIdObjectINodeMap;
 
 		/** Maps the unique ids of objects (geometries, controllers,...) to the created max object. This map 
 		is being filled while importing geometries. */
 		UniqueIdObjectMap mUniqueIdObjectMap;
+
+		/** Maps the unique ids of nodes to the created max INode. This map is being filled while importing 
+		the visual scene. It is required when ever nodes are referenced, after they have been imported.*/
+		UniqueIdINodeMap mUniqueIdINodeMap;
+
+		/** Maps the unique ids of nodes that are instantiated to the created max INode. This map is being filled while importing 
+		the visual scene. It is required when ever nodes are referenced, after they have been imported.*/
+//		UniqueIdUniqueIdMultiMap mUniqueIdINodeMap;
+
+		/** Maps each already imported object to its Unique id. When ever a new object is created it 
+		should be added to this map. .*/
+		ObjectINodeUniqueIdMap mObjectINodeUniqueIdMap;
 
 	public:
 		/** Constructor .
@@ -108,10 +129,18 @@ namespace COLLADAMax
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
 		/** Returns the UniqueId INode Mapping.*/
-		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdObjectINodeMap; }
+		UniqueIdINodeMultiMap& getUniqueIdObjectINodeMap(){ return mUniqueIdObjectINodeMap; }
 
 		/** Returns the UniqueId object Mapping.*/
 		UniqueIdObjectMap& getUniqueIdObjectMap(){ return mUniqueIdObjectMap; }
+
+
+		/** Returns the UniqueId INode Mapping.*/
+		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdINodeMap; }
+
+
+		/** Returns the object UniqueId Mapping.*/
+		ObjectINodeUniqueIdMap& getObjectINodeUniqueIdMap(){ return mObjectINodeUniqueIdMap; }
 
 		friend class ImporterBase;
 

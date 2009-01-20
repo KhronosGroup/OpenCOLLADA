@@ -74,10 +74,26 @@ namespace COLLADAMax
 		as reference.*/
 		void addUniqueIdObjectPair(const COLLADAFW::UniqueId& uniqueId, Object* object);
 
+		/** Adds an UniqueId-INode pair to the UniqueIdINodeMap. For every imported INode this method should 
+		be called to ensure that this node can be referenced later .*/
+		void addUniqueIdINodePair( const COLLADAFW::UniqueId& uniqueId, INode* iNode );
+
+		/** Adds an object INode (an INode that references an object) UniqueId pair to the ObjectUniqueIdMap. 
+		For every imported INode that references an object this method should be called to ensure that its 
+		unique id can be retrieved from the created INode. This is required for instance node handling.*/
+		void addObjectINodeUniqueIdPair( INode* object, const COLLADAFW::UniqueId& uniqueId );
+
 		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
 		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/
 		Object* getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId);
 
+		/** Returns the INode that was created from the imported node with UniqueId @a uniqueId. If 
+		@a uniqueId has not been added using addUniqueIdINodePair, null is returned.*/
+		INode* getINodeByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
+		/** Returns the unique id of the framework object that was  used to create @a object. If 
+		@a object  not been added using addObjectINodeUniqueIdPair, an invalid unique id is returned.*/
+		const COLLADAFW::UniqueId& getUniqueIdByObjectINode( INode* object );
 
 	private:
 

@@ -306,12 +306,12 @@ namespace COLLADAMax
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
 						unsigned int faceVertexCount = faceVertexCountArray[k];
+						unsigned int commonVertexIndex = normalIndices[nextTrifanStartIndex];
 						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
-							unsigned int commonVertexIndex = normalIndices[nextTrifanStartIndex];
 							MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 							normalFace.SpecifyAll();
-							normalFace.SetNormalID(0, normalIndices[commonVertexIndex]);
+							normalFace.SetNormalID(0, commonVertexIndex);
 							normalFace.SetNormalID(1, normalIndices[j - 1]);
 							normalFace.SetNormalID(2, normalIndices[j]);
 							++faceIndex;
@@ -323,9 +323,6 @@ namespace COLLADAMax
 			default:
 				continue;
 			}
-
-
-
 		}
 
 		normalsSpecifier->CheckNormals();
@@ -591,13 +588,13 @@ namespace COLLADAMax
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
 						unsigned int faceVertexCount = faceVertexCountArray[k];
+						unsigned int commonVertexIndex = normalIndices[nextTrifanStartIndex];
 						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
-							unsigned int commonVertexIndex = normalIndices[nextTrifanStartIndex];
 							MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 							normalFace.SpecifyAll();
 							normalFace.SetDegree(3);
-							normalFace.SetNormalID(0, normalIndices[commonVertexIndex]);
+							normalFace.SetNormalID(0, commonVertexIndex);
 							normalFace.SetNormalID(1, normalIndices[j - 1]);
 							normalFace.SetNormalID(2, normalIndices[j]);
 							++faceIndex;

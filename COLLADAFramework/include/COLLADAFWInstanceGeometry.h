@@ -14,57 +14,30 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWSceneGraphInstance.h"
 
 
 namespace COLLADAFW
 {
 	/** Instantiates a geometry within a scene graph*/
-	class InstanceGeometry 	
+	class InstanceGeometry 	: public SceneGraphInstance
 	{
-	private:
-		/**
-		* The name attribute is the text string name of this element. 
-		* Optional attribute.
-		*/
-		String mName;
-
-		/** A text string containing the unique identifier of the element. This value must be
-		unique within the instance document. Optional.
-		*/
-		String mSid;
-
-		/** The unique id of the instantiated geometry.*/
-		UniqueId mInstanciatedGeometryId;
-
-	
 	public:
-		/** Constructor. Creates an instance geometry, that instantiates the geometry with UniqueId @a instanciatedGeometryId.
+		/** Constructor. Creates an instance geometry, that does not instantiate a geometry.*/
+		InstanceGeometry();
+
+		/** Constructor. Creates an instance geometry, that instantiates the geometry with 
+		UniqueId @a instanciatedGeometryId.
 		@param instanceGeometry The UniqueId of the geometry instantiated.*/ 
 		InstanceGeometry(UniqueId instanciatedGeometryId);
 
 		virtual ~InstanceGeometry();
-
-		/** Returns the name of the node*/
-		const String& getName() const { return mName; }
-
-		/** Sets the name of the node*/
-		void getName(const String& name) { mName = name; }
-
-		/** Returns the sid of the node*/
-		const String& getSid() const { return mSid; }
-
-		/** Sets the id of the node*/
-		void getSid(const String& sid) { mSid = sid; }
-
-		/** Returns the unique id of the instantiated geometry.*/
-		const UniqueId& getInstanciatedGeometryId() const { return mInstanciatedGeometryId; }
 
 	private:
         /** Disable default copy ctor. */
 		InstanceGeometry( const InstanceGeometry& pre );
         /** Disable default assignment operator. */
 		const InstanceGeometry& operator= ( const InstanceGeometry& pre );
-
 	};
 
 	typedef ArrayPrimitiveType<InstanceGeometry*> InstanceGeometryArray;

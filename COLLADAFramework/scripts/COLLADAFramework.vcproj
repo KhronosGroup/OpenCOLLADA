@@ -368,6 +368,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWSceneGraphInstance.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWTransformation.cpp"
 				>
 			</File>
@@ -463,6 +467,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWInstanceMaterial.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWInstanceNode.h"
 				>
 			</File>
 			<File
@@ -579,6 +587,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWScale.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWSceneGraphInstance.h"
 				>
 			</File>
 			<File

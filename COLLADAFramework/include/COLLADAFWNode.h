@@ -12,8 +12,10 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAFW_NODE_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include "COLLADAFWObject.h"
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWInstanceGeometry.h"
+#include "COLLADAFWInstanceNode.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 
 
@@ -33,7 +35,7 @@ namespace COLLADAFW
 
 	typedef ArrayPrimitiveType<Node*> NodeArray;
 
-	class Node 	
+	class Node : public ObjectTemplate<COLLADA_TYPE::NODE>
 	{
     public:
         
@@ -66,11 +68,16 @@ namespace COLLADAFW
 		/** List of all instance geometries of this node. Array and contents will be delete in destructor.*/
 		InstanceGeometryArray mInstanceGeometries;
 
+		/** List of all instance nodes of this node. Array and contents will be delete in destructor.*/
+		InstanceNodeArray mInstanceNodes;
+
 		/** List of all child nodes. Array and contents will be delete in destructor.*/
 		NodeArray mChildNodes;
 
 	public:
-		Node();
+		/** Creates a node with object id @a objectId.*/
+		Node(ObjectId objectId);
+
 		virtual ~Node();
 
 		/** Returns the name of the node*/
@@ -104,6 +111,12 @@ namespace COLLADAFW
 
 		/** List of all instance geometries of this node.*/
 		const InstanceGeometryArray& getInstanceGeometries() const { return mInstanceGeometries; }
+
+		/** List of all instance nodes of this node.*/
+		InstanceNodeArray& getInstanceNodes() { return mInstanceNodes; }
+
+		/** List of all instance nodes of this node.*/
+		const InstanceNodeArray& getInstanceNodes() const { return mInstanceNodes; }
 
 		/** Get list of all child nodes.*/
 		NodeArray& getChildNodes() { return mChildNodes; }

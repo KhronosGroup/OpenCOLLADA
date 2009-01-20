@@ -15,7 +15,7 @@ namespace COLLADAFW
 {
 	
 	InstanceGeometry::InstanceGeometry( UniqueId instanciatedGeometryId )
-		: mInstanciatedGeometryId(instanciatedGeometryId)
+		: SceneGraphInstance(instanciatedGeometryId)
 	{
 	}
 

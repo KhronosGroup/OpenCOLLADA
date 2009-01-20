@@ -49,6 +49,9 @@ namespace COLLADAFW
 		/** Returns the object id that uniquely identifies the object in the set of all objects of the same Type.*/
 		ObjectId getObjectId() const { return mObjectId; }
 
+		/** Returns true if the unique id is valid, false otherwise.*/
+		bool isValid() const { return mClassId != COLLADA_TYPE::NO_TYPE; }
+
 		bool operator<(const UniqueId& rhs) const;
 
 	};

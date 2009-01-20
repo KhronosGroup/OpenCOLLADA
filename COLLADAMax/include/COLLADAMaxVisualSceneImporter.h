@@ -69,14 +69,30 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const VisualSceneImporter& operator= ( const VisualSceneImporter& pre );
 
+		void setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode);
+
+
 		/** Recursively imports @a node.*/
-		ImpNode* importNode(COLLADAFW::Node* node);
+		ImpNode* importNode(COLLADAFW::Node* node, ImpNode* parentImportNode );
 
 		/** Imports all nodes in  @a nodeArray and attaches them to @a parentImportNode.*/
 		bool importNodes(const COLLADAFW::NodeArray& nodeArray, ImpNode* parentImportNode);
 
 		/** Imports all the instance geometries in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
 		bool importInstanceGeometries( const COLLADAFW::InstanceGeometryArray& instanceGeometryArray, ImpNode* parentImportNode );
+
+		/** Imports the first instance geometry in @a node. It is assumed that @a node has at least one
+		instance geometry. A new INode is created, that references the instantiated geometry and has the
+		properties of @a node (name, transformation). Thje new INode is attached to @a parentImportNode. 
+		Use this member, if a node has exactly one instance geometry.*/
+		ImpNode* importInstanceGeometrie( const COLLADAFW::Node* node, ImpNode* parentImportNode );
+
+		/** Imports all the instance nodes in  @a instanceNodeArray and attaches them to @a parentImportNode.*/
+		bool importInstanceNodes( const COLLADAFW::InstanceNodeArray& instanceNodeArray, ImpNode* parentImportNode );
+
+		/** Recursively clones @a nodeToClone and attaches the cloned graph to @a parentImportNode. The cloned
+		nodes with reference the same object and transformation controller.*/
+		bool recursivlyCloneINode( ImpNode* parentImportNode, INode* nodeToClone );
 
 	};
 

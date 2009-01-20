@@ -92,29 +92,52 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	ImpNode* VisualSceneImporter::importNode( COLLADAFW::Node* node  )
+	void VisualSceneImporter::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode)
 	{
-	//	bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
-
-		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
-
 		String newNodeName = node->getName();
 		if ( !newNodeName.empty() )
-			newImportNode->SetName(newNodeName.c_str());
+			importNode->SetName(newNodeName.c_str());
 
 		// set transform
 		COLLADABU::Math::Matrix4 transformationMatrix;
 		node->getTransformationMatrix(transformationMatrix);
 		Matrix3 maxTransformationMatrix;
 		Matrix4ToMaxMatrix3(maxTransformationMatrix, transformationMatrix);
-		newImportNode->SetTransform(0, maxTransformationMatrix);
+		importNode->SetTransform(0, maxTransformationMatrix);
 
-		getMaxImportInterface()->AddNodeToScene(newImportNode);
+	}
 
-		RefResult res = newImportNode->Reference(mDummyObject);
+	//------------------------------
+	ImpNode* VisualSceneImporter::importNode( COLLADAFW::Node* node, ImpNode* parentImportNode )
+	{
+		bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
+		ImpNode* newImportNode = 0;
 
-		importInstanceGeometries(node->getInstanceGeometries(), newImportNode);
-		importNodes(node->getChildNodes(), newImportNode);
+		if ( !singleGeometryInstance )
+		{
+			newImportNode = getMaxImportInterface()->CreateNode();
+
+			setNodeProperties(node, newImportNode);
+			getMaxImportInterface()->AddNodeToScene(newImportNode);
+
+			RefResult res = newImportNode->Reference(mDummyObject);
+
+			importInstanceGeometries(node->getInstanceGeometries(), newImportNode);
+			importNodes(node->getChildNodes(), newImportNode);
+		}
+		else
+		{
+			newImportNode = importInstanceGeometrie( node, parentImportNode );
+			importNodes(node->getChildNodes(), parentImportNode);
+		}
+
+		importInstanceNodes(node->getInstanceNodes(), newImportNode);
+
+		addUniqueIdINodePair(node->getUniqueId(), newImportNode->GetINode());
+
+		INode* childNode = newImportNode->GetINode();
+		INode* parentNode = parentImportNode->GetINode();
+		parentNode->AttachChild(childNode, FALSE);
 
 		return newImportNode;
 	}
@@ -124,10 +147,7 @@ namespace COLLADAMax
 	{
 		for ( size_t i = 0, count = nodeArray.getCount(); i < count; ++i)
 		{
-			ImpNode* newNode = importNode(nodeArray[i]);
-			INode* childNode = newNode->GetINode();
-			INode* parentNode = parentImportNode->GetINode();
-			parentNode->AttachChild(childNode, FALSE);
+			ImpNode* newNode = importNode(nodeArray[i], parentImportNode);
 		}
 
 		return true;
@@ -142,7 +162,7 @@ namespace COLLADAMax
 
 			ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 			INode* newNode = newImportNode->GetINode();
-			const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedGeometryId();
+			const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedObjectId();
 
 			Object* object = getObjectByUniqueId(uniqueId);
 			if ( object )
@@ -153,14 +173,99 @@ namespace COLLADAMax
 			{
 				newImportNode->Reference(mDummyObject);
 			}
+			const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
+			addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
+			addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
 
-			addUniqueIdObjectINodePair(instanceGeometry->getInstanciatedGeometryId(), newNode);
 			INode* parentNode = parentImportNode->GetINode();
 			parentNode->AttachChild(newNode, FALSE);
 		}
 
 		return true;
 	}
+
+	//------------------------------
+	ImpNode* VisualSceneImporter::importInstanceGeometrie( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	{
+		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
+		setNodeProperties(node, newImportNode);
+		INode* newNode = newImportNode->GetINode();
+
+		COLLADAFW::InstanceGeometry* instanceGeometry = node->getInstanceGeometries()[0];
+		const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedObjectId();
+
+		Object* object = getObjectByUniqueId(uniqueId);
+		if ( object )
+		{
+			newImportNode->Reference(object);
+		}
+		else
+		{
+			newImportNode->Reference(mDummyObject);
+		}
+
+		const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
+		addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
+		addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
+		INode* parentNode = parentImportNode->GetINode();
+		parentNode->AttachChild(newNode, FALSE);
+		return newImportNode;
+	}
+
+
+	//------------------------------
+	bool VisualSceneImporter::importInstanceNodes( const COLLADAFW::InstanceNodeArray& instanceNodeArray, ImpNode* parentImportNode )
+	{
+		for ( size_t i = 0, count = instanceNodeArray.getCount(); i < count; ++i)
+		{
+			COLLADAFW::InstanceNode* instanceNode = instanceNodeArray[i];
+
+			const COLLADAFW::UniqueId& uniqueId = instanceNode->getInstanciatedObjectId();
+
+			INode* instanciatedINode = getINodeByUniqueId(uniqueId);
+			if ( instanciatedINode )
+			{
+				if ( !recursivlyCloneINode(parentImportNode, instanciatedINode) )
+					return false;;
+			}
+
+	//		addUniqueIdObjectINodePair(instanceNode->getInstanciatedObjectId(), newNode);
+	//		INode* parentNode = parentImportNode->GetINode();
+	//		parentNode->AttachChild(newNode, FALSE);
+		}
+
+		return true;
+	}
+
+	//------------------------------
+	bool VisualSceneImporter::recursivlyCloneINode( ImpNode* parentImportNode, INode* nodeToClone )
+	{
+		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
+		getMaxImportInterface()->AddNodeToScene(newImportNode);
+
+		INode* newNode = newImportNode->GetINode();
+		INode* parentNode = parentImportNode->GetINode();
+
+		Object* object = nodeToClone->GetObjectRef();
+		newImportNode->Reference(object);
+//		newImportNode->SetTransform(0, nodeToClone->GetObjectTM(0));
+//		newImportNode->SetTransform(0, nodeToClone->GetParentTM(0));
+		newNode->SetTMController(nodeToClone->GetTMController());
+		newImportNode->SetName(nodeToClone->GetName());
+
+		parentNode->AttachChild(newNode, TRUE);
+
+
+		COLLADAFW::UniqueId id = getUniqueIdByObjectINode(nodeToClone);
+		if ( id.isValid() )
+			addUniqueIdObjectINodePair(id, newNode);
+
+		for ( int i = 0, count = nodeToClone->NumberOfChildren(); i < count; ++i)
+			recursivlyCloneINode(newImportNode, nodeToClone->GetChildNode(i));
+
+		return true;
+	}
+
 
 
 } // namespace COLLADAMax
