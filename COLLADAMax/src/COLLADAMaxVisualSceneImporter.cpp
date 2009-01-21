@@ -139,6 +139,12 @@ namespace COLLADAMax
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(childNode, FALSE);
 
+		INodeList referencingNodeList;
+		getReferencingINodesByUniqueId(node->getUniqueId(), referencingNodeList);
+		for ( size_t i = 0, count = referencingNodeList.size(); i<count; ++i)
+			recursivlyCloneINode( referencingNodeList[i], newImportNode->GetINode() );
+
+
 		return newImportNode;
 	}
 
@@ -225,31 +231,28 @@ namespace COLLADAMax
 			INode* instanciatedINode = getINodeByUniqueId(uniqueId);
 			if ( instanciatedINode )
 			{
-				if ( !recursivlyCloneINode(parentImportNode, instanciatedINode) )
+				if ( !recursivlyCloneINode(parentImportNode->GetINode(), instanciatedINode) )
 					return false;;
 			}
-
-	//		addUniqueIdObjectINodePair(instanceNode->getInstanciatedObjectId(), newNode);
-	//		INode* parentNode = parentImportNode->GetINode();
-	//		parentNode->AttachChild(newNode, FALSE);
+			else
+			{
+				addUniqueIdReferencingINodePair(instanceNode->getInstanciatedObjectId(), parentImportNode->GetINode());
+			}
 		}
 
 		return true;
 	}
 
 	//------------------------------
-	bool VisualSceneImporter::recursivlyCloneINode( ImpNode* parentImportNode, INode* nodeToClone )
+	bool VisualSceneImporter::recursivlyCloneINode( INode* parentNode, INode* nodeToClone )
 	{
 		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 		getMaxImportInterface()->AddNodeToScene(newImportNode);
 
 		INode* newNode = newImportNode->GetINode();
-		INode* parentNode = parentImportNode->GetINode();
 
 		Object* object = nodeToClone->GetObjectRef();
 		newImportNode->Reference(object);
-//		newImportNode->SetTransform(0, nodeToClone->GetObjectTM(0));
-//		newImportNode->SetTransform(0, nodeToClone->GetParentTM(0));
 		newNode->SetTMController(nodeToClone->GetTMController());
 		newImportNode->SetName(nodeToClone->GetName());
 
@@ -261,7 +264,7 @@ namespace COLLADAMax
 			addUniqueIdObjectINodePair(id, newNode);
 
 		for ( int i = 0, count = nodeToClone->NumberOfChildren(); i < count; ++i)
-			recursivlyCloneINode(newImportNode, nodeToClone->GetChildNode(i));
+			recursivlyCloneINode(newImportNode->GetINode(), nodeToClone->GetChildNode(i));
 
 		return true;
 	}

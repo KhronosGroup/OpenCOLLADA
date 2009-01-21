@@ -47,9 +47,6 @@ namespace COLLADAMax
 		/** Maps Unique id to Objects.*/
 		typedef std::map<COLLADAFW::UniqueId, Object*> UniqueIdObjectMap;
 
-		/** Maps Unique id to Unique ids.*/
-		typedef std::multimap<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdUniqueIdMultiMap;
-
 		/** Maps objects to Unique id to.*/
 		typedef std::map< INode*, COLLADAFW::UniqueId> ObjectINodeUniqueIdMap;
 
@@ -76,9 +73,10 @@ namespace COLLADAMax
 		the visual scene. It is required when ever nodes are referenced, after they have been imported.*/
 		UniqueIdINodeMap mUniqueIdINodeMap;
 
-		/** Maps the unique ids of nodes that are instantiated to the created max INode. This map is being filled while importing 
-		the visual scene. It is required when ever nodes are referenced, after they have been imported.*/
-//		UniqueIdUniqueIdMultiMap mUniqueIdINodeMap;
+		/** Maps the unique ids of nodes that are instantiated to the created instantiating max INode. This 
+		map is being filled while importing the visual scene. It is required when ever nodes are referenced, 
+		before they have been imported.*/
+		UniqueIdINodeMultiMap mUniqueIdReferencingINodeMap;
 
 		/** Maps each already imported object to its Unique id. When ever a new object is created it 
 		should be added to this map. .*/
@@ -128,8 +126,11 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
-		/** Returns the UniqueId INode Mapping.*/
+		/** Returns the UniqueId Object INode Mapping.*/
 		UniqueIdINodeMultiMap& getUniqueIdObjectINodeMap(){ return mUniqueIdObjectINodeMap; }
+
+		/** Returns the UniqueId Referencing INode Mapping.*/
+		UniqueIdINodeMultiMap& getUniqueIdReferencingINodeMap(){ return mUniqueIdReferencingINodeMap; }
 
 		/** Returns the UniqueId object Mapping.*/
 		UniqueIdObjectMap& getUniqueIdObjectMap(){ return mUniqueIdObjectMap; }

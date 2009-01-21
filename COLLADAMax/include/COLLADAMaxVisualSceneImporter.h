@@ -92,7 +92,7 @@ namespace COLLADAMax
 
 		/** Recursively clones @a nodeToClone and attaches the cloned graph to @a parentImportNode. The cloned
 		nodes with reference the same object and transformation controller.*/
-		bool recursivlyCloneINode( ImpNode* parentImportNode, INode* nodeToClone );
+		bool recursivlyCloneINode( INode* parentNode, INode* nodeToClone );
 
 	};
 

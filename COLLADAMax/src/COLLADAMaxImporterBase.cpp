@@ -54,9 +54,28 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addUniqueIdReferencingINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )
+	{
+		mDocumentImporter->getUniqueIdReferencingINodeMap().insert(std::pair<COLLADAFW::UniqueId, INode*>(uniqueId, node) );
+	}
+
+	//------------------------------
 	void ImporterBase::getObjectINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, COLLADAMax::INodeList& nodelist )
 	{
 		const DocumentImporter::UniqueIdINodeMultiMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdObjectINodeMap();
+
+		DocumentImporter::UniqueIdINodeMultiMap::const_iterator rangeBegin = uniqueIdINodeMap.lower_bound(uniqueId);
+		DocumentImporter::UniqueIdINodeMultiMap::const_iterator rangeEnd = uniqueIdINodeMap.upper_bound(uniqueId);
+
+		for (DocumentImporter::UniqueIdINodeMultiMap::const_iterator it = rangeBegin; it != rangeEnd; ++it)
+			nodelist.push_back(it->second);
+	}
+
+
+	//------------------------------
+	void ImporterBase::getReferencingINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, COLLADAMax::INodeList& nodelist )
+	{
+		const DocumentImporter::UniqueIdINodeMultiMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdReferencingINodeMap();
 
 		DocumentImporter::UniqueIdINodeMultiMap::const_iterator rangeBegin = uniqueIdINodeMap.lower_bound(uniqueId);
 		DocumentImporter::UniqueIdINodeMultiMap::const_iterator rangeEnd = uniqueIdINodeMap.upper_bound(uniqueId);
