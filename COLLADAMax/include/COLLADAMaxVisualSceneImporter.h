@@ -41,8 +41,7 @@ namespace COLLADAMax
 		/** The visual scene that should be imported.*/
 		const COLLADAFW::VisualScene* mVisualScene;
 	
-//		Object* mDummyGeoObject;
-
+		/** A dummy helper, that is used for nodes that do not an object assigned to.*/
 		DummyObject* mDummyObject;
 
 	public:
@@ -83,7 +82,7 @@ namespace COLLADAMax
 
 		/** Imports the first instance geometry in @a node. It is assumed that @a node has at least one
 		instance geometry. A new INode is created, that references the instantiated geometry and has the
-		properties of @a node (name, transformation). Thje new INode is attached to @a parentImportNode. 
+		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
 		Use this member, if a node has exactly one instance geometry.*/
 		ImpNode* importInstanceGeometrie( const COLLADAFW::Node* node, ImpNode* parentImportNode );
 

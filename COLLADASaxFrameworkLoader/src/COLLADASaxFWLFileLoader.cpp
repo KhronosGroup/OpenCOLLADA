@@ -12,6 +12,7 @@
 #include "COLLADASaxFWLFileLoader.h"
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADASaxFWLVisualSceneLoader.h"
+#include "COLLADASaxFWLLibraryNodesLoader.h"
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 
@@ -71,14 +72,33 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//-----------------------------
+	bool FileLoader::begin__library_nodes( const library_nodes__AttributeData& attributeData )
+	{
+		deleteFilePartLoader();
+		LibraryNodesLoader* libraryNodesLoader = new LibraryNodesLoader(this);
 
+/*		if ( attributeData.id )
+			libraryNodesLoader->setGeometryId((const char *) attributeData.id);
+
+		if ( attributeData.name )
+			libraryNodesLoader->setGeometryName((const char *) attributeData.name);
+*/
+		setPartLoader(libraryNodesLoader);
+		setParser(libraryNodesLoader);
+		return true;
+	}
+
+	//-----------------------------
 	const COLLADABU::URI& FileLoader::getFileUri()
 	{
 		return mFileURI;
 	}
 
+	//-----------------------------
 	void FileLoader::setParser( IFilePartLoader* parserToBeSet )
 	{
 		setCallbackObject(parserToBeSet);
 	}
+
 } // namespace COLLADASaxFWL

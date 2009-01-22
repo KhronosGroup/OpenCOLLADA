@@ -115,6 +115,10 @@ namespace COLLADAMax
 		@return True on succeeded, false otherwise.*/
 		bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
 
+		/** Handles all nodes in the library nodes.
+		@return True on succeeded, false otherwise.*/
+		bool writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
+
 		/** Writes the geometry.
 		@return True on succeeded, false otherwise.*/
 		bool writeGeometry ( const COLLADAFW::Geometry* geometry );

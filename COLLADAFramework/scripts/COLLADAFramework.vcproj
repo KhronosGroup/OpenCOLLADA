@@ -478,6 +478,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWLibraryNodes.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWLoaderUtils.h"
 				>
 			</File>

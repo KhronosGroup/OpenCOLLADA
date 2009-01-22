@@ -131,14 +131,18 @@ namespace COLLADAMax
 			importNodes(node->getChildNodes(), parentImportNode);
 		}
 
+		// Append all nodes that are referenced by this node.
 		importInstanceNodes(node->getInstanceNodes(), newImportNode);
 
+		/** Store the unique id of the created node, to resolve references, when ever nescessary.*/ 
 		addUniqueIdINodePair(node->getUniqueId(), newImportNode->GetINode());
 
 		INode* childNode = newImportNode->GetINode();
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(childNode, FALSE);
 
+		/* if there are nodes that reference the just created node, clone this node
+		and append it to the referencing node.*/
 		INodeList referencingNodeList;
 		getReferencingINodesByUniqueId(node->getUniqueId(), referencingNodeList);
 		for ( size_t i = 0, count = referencingNodeList.size(); i<count; ++i)
@@ -180,7 +184,10 @@ namespace COLLADAMax
 				newImportNode->Reference(mDummyObject);
 			}
 			const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
+			// Store mapping between unique ids and nodes referencing the coresponing object.
+			// Used to clone nodes
 			addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
+			// Used to resolve instancing of objects
 			addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
 
 			INode* parentNode = parentImportNode->GetINode();
@@ -211,7 +218,10 @@ namespace COLLADAMax
 		}
 
 		const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
+		// Store mapping between unique ids and nodes referencing the coresponing object.
+		// Used to clone nodes
 		addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
+		// Used to resolve instancing of objects
 		addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(newNode, FALSE);
@@ -236,6 +246,8 @@ namespace COLLADAMax
 			}
 			else
 			{
+				// If the referenced node has not been imported, store which nodes is referenced
+				// to colne the nodes as the referenced nodes gets ipmorted
 				addUniqueIdReferencingINodePair(instanceNode->getInstanciatedObjectId(), parentImportNode->GetINode());
 			}
 		}
@@ -258,11 +270,12 @@ namespace COLLADAMax
 
 		parentNode->AttachChild(newNode, TRUE);
 
-
+		/* If the node to clone references an object, the cloned one must references the same object.*/
 		COLLADAFW::UniqueId id = getUniqueIdByObjectINode(nodeToClone);
 		if ( id.isValid() )
 			addUniqueIdObjectINodePair(id, newNode);
 
+		// Clone the children 
 		for ( int i = 0, count = nodeToClone->NumberOfChildren(); i < count; ++i)
 			recursivlyCloneINode(newImportNode->GetINode(), nodeToClone->GetChildNode(i));
 

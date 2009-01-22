@@ -125,7 +125,7 @@ namespace COLLADAFW
 		const NodeArray& getChildNodes() const { return mChildNodes; }
 
 		/** Calculates a baked matrix, representing all the transformations of the node.
-		@param transformationMatrix Will be set to the calculated transformaton matrix.*/
+		@param transformationMatrix Will be set to the calculated transformation matrix.*/
 		void getTransformationMatrix(COLLADABU::Math::Matrix4& transformationMatrix) const;
 
 		/** Returns a baked matrix, representing all the transformations of the node.
@@ -137,6 +137,7 @@ namespace COLLADAFW
 		Node( const Node& pre );
         /** Disable default assignment operator. */
 		const Node& operator= ( const Node& pre );
+
 
 	};
 

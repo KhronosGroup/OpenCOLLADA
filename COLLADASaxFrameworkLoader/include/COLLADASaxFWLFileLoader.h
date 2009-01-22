@@ -83,11 +83,14 @@ namespace COLLADASaxFWL
 		const Loader* getColladaLoader () const { return mColladaLoader; }
 
 		/** Starts loading a visual scene.*/
-		bool begin__geometry( const geometry__AttributeData& attributeData );
-
+		virtual bool begin__geometry( const geometry__AttributeData& attributeData );
 
 		/** Starts loading a visual scene.*/
-		bool begin__visual_scene( const visual_scene__AttributeData& attributeData );
+		virtual bool begin__visual_scene( const visual_scene__AttributeData& attributeData );
+
+		/** Starts loading a library nodes.*/
+		virtual bool begin__library_nodes( const library_nodes__AttributeData& attributeData );
+
 
 
     private:

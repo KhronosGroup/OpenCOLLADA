@@ -56,6 +56,12 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
+	bool DocumentImporter::writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
+	{
+		return true;
+	}
+
+	//---------------------------------------------------------------
 	bool DocumentImporter::writeGeometry( const COLLADAFW::Geometry* geometry )
 	{
 		GeometryImporter geometryImporter(this, geometry);

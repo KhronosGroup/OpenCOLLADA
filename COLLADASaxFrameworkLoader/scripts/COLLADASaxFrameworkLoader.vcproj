@@ -328,6 +328,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryNodesLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLLoader.cpp"
 				>
 			</File>
@@ -337,6 +341,10 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLMeshPrimitiveInputList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLNodeLoader.cpp"
 				>
 			</File>
 			<File
@@ -402,6 +410,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryNodesLoader.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLLoader.h"
 				>
 			</File>
@@ -411,6 +423,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLMeshPrimitiveInputList.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLNodeLoader.h"
 				>
 			</File>
 			<File

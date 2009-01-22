@@ -9,53 +9,51 @@
 */
 
 #include "COLLADASaxFWLStableHeaders.h"
-#include "COLLADASaxFWLVisualSceneLoader.h"
-
-#include "COLLADAFWVisualScene.h"
+#include "COLLADASaxFWLLibraryNodesLoader.h"
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWLibraryNodes.h"
 
 
 namespace COLLADASaxFWL
 {
 
-	VisualSceneLoader::VisualSceneLoader( IFilePartLoader* callingFilePartLoader )
-		: NodeLoader(callingFilePartLoader),
-		mVisualScene(new COLLADAFW::VisualScene())
-	{
-	}
-
     //------------------------------
-	VisualSceneLoader::~VisualSceneLoader()
+	LibraryNodesLoader::LibraryNodesLoader(IFilePartLoader* callingFilePartLoader)
+		: NodeLoader(callingFilePartLoader),
+		mLibraryNodes(new COLLADAFW::LibraryNodes())
+	{
+	}
+	
+    //------------------------------
+	LibraryNodesLoader::~LibraryNodesLoader()
 	{
 	}
 
-
 	//------------------------------
-	void VisualSceneLoader::handleRootNode( COLLADAFW::Node* rootNode )
+	void LibraryNodesLoader::handleRootNode( COLLADAFW::Node* rootNode )
 	{
-		mVisualScene->getRootNodes().append(rootNode);	
+		mLibraryNodes->getNodes().append(rootNode);
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::begin__visual_scene__node( const visual_scene__node__AttributeData& attributeData )
+	bool LibraryNodesLoader::begin__library_nodes__node( const library_nodes__node__AttributeData& attributeData )
 	{
 		return beginNode(*(const node__node__AttributeData *)(&attributeData));
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::end__visual_scene__node()
+	bool LibraryNodesLoader::end__library_nodes__node()
 	{
 		return endNode();
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::end__visual_scene()
+	bool LibraryNodesLoader::end__library_nodes()
 	{
-		bool success = writer()->writeVisualScene(mVisualScene);
-		delete mVisualScene;
+		bool success = writer()->writeLibraryNodes(mLibraryNodes);
+		delete mLibraryNodes;
 		finish();
 		return success;
 	}
-
 
 } // namespace COLLADASaxFWL

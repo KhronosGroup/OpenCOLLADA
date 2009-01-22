@@ -18,6 +18,7 @@ namespace COLLADAFW
 {
 	class VisualScene;
 	class Geometry;
+	class LibraryNodes;
 
 	/** Class that needs to be implemented by a writer. 
 	IMPORTANT: The write functions are called in arbitrary order.*/
@@ -48,6 +49,11 @@ namespace COLLADAFW
 		/** When this method is called, the writer must write the entire visual scene.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeVisualScene ( const VisualScene* visualScene ) = 0;
+
+		/** When this method is called, the writer must handle all nodes contained in the 
+		library nodes.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeLibraryNodes ( const LibraryNodes* libraryNodes ) = 0;
 
 		/** When this method is called, the writer must write the geometry.
 		@return The writer should return true, if writing succeeded, false otherwise.*/

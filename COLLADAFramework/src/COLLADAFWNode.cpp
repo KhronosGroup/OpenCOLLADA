@@ -27,7 +27,8 @@ namespace COLLADAFW
 		, mType( Node::NODE )
 	{
 	}
-	
+
+
 	//--------------------------------------------------------------------
 	Node::~Node()
 	{
@@ -103,5 +104,6 @@ namespace COLLADAFW
 		getTransformationMatrix(matrix);
 		return matrix;
 	}
+
 
 } // namespace COLLADAFW
