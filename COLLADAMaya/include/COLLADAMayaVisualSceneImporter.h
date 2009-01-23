@@ -22,6 +22,7 @@
 #include "MayaDMTransform.h"
 
 #include "COLLADAFWVisualScene.h"
+#include "COLLADAFWSkew.h"
 
 #include "Math/COLLADABUMathUtils.h"
 #include "Math/COLLADABUMathMatrix4.h"
@@ -62,10 +63,10 @@ namespace COLLADAMaya
         public:
             MayaTransformation () 
                 : phase (0)
-                , translate1 (3, 0) 
-                , translate2 (3, 0) 
-                , translate3 (3, 0) 
-                , scale (3, 1) 
+                , translate1 ( 0,0,0 ) 
+                , translate2 ( 0,0,0 ) 
+                , translate3 ( 0,0,0 ) 
+                , scale ( 1,1,1 ) 
             {}
             virtual ~MayaTransformation () {}
 
@@ -75,11 +76,12 @@ namespace COLLADAMaya
             static const size_t PHASE_SCALE = 4;
             static const size_t PHASE_TRANS3 = 5;
 
-            std::vector<double> translate1; // = 0,0,0
+            MVector translate1; // = 0,0,0
             MQuaternion rotation; // = 1,0,0,0
-            std::vector<double> translate2; // = 0,0,0
-            std::vector<double> scale; // = 1,1,1
-            std::vector<double> translate3; // = 0,0,0
+            MVector translate2; // = 0,0,0
+            MVector scale; // = 1,1,1
+            MVector translate3; // = 0,0,0
+            MVector skew;
 
             // 5 phases
             size_t phase;
@@ -145,6 +147,41 @@ namespace COLLADAMaya
         bool importTransformations ( 
             MayaDM::Transform* transformNode, 
             const COLLADAFW::Node* rootNode );
+
+        /**
+         * Returns true, if the transform values from the framework is conform to the maya 
+         * transformation and fills the maya transform values.
+         */
+        bool isValidMayaTransform ( 
+            const COLLADAFW::Node* rootNode, 
+            MayaTransformation& mayaTransform );
+
+        /**
+         * Set the transform values.
+         */
+        void importDecomposedTransform ( 
+            const MayaTransformation &mayaTransform, 
+            MayaDM::Transform* transformNode );
+
+        /**
+         * Imports the transform values from a transform matrix.
+         * Data loss: no animation possible!
+         */
+        void importMatrixTransform ( 
+            const COLLADAFW::Node* rootNode, 
+            MayaDM::Transform* transformNode );
+
+        /**
+        * Creates a node or joint object.
+        */
+        MayaDM::Transform* createNode ( 
+            const COLLADAFW::Node* node, 
+            const COLLADAFW::UniqueId* parentNodeId );
+
+        /**
+        * Converts the skew into a matrix.
+        */
+        void skewValuesToMayaMatrix ( const COLLADAFW::Skew* skew, MMatrix& matrix ) const;
 
     };
 }

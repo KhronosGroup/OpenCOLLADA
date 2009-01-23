@@ -26,6 +26,7 @@
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWScale.h"
 #include "COLLADAFWTranslate.h"
+#include "COLLADAFWLookat.h"
 
 #include "Math/COLLADABUMathMatrix4.h"
 
@@ -63,6 +64,38 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
+    void VisualSceneImporter::importNode ( 
+        const COLLADAFW::Node* node, 
+        const COLLADAFW::UniqueId* parentNodeId )
+    {
+        // Create the node object (joint or node)
+        MayaDM::Transform* transformNode = createNode ( node, parentNodeId );
+        String nodeName = node->getName ();
+        String nodeSid = node->getSid ();
+
+        // Set the node name in the list of names.
+        mNodeNamesMap [ node->getUniqueId () ] = nodeName;
+
+        // Import the tranformations
+        importTransformations ( transformNode, node );
+
+        // Import instance geometry
+        readGeometryInstances ( transformNode, node );
+
+        // TODO
+//        readNodeInstances ( )
+
+        // Recursive call for all child elements.
+        const COLLADAFW::NodeArray& childNodes = node->getChildNodes ();
+        size_t numChildNodes = childNodes.getCount ();
+        for ( size_t i=0; i<numChildNodes; ++i )
+        {
+            COLLADAFW::Node* childNode = childNodes [i];
+            importNode ( childNode, &node->getUniqueId () );
+        }
+    }
+
+    // -----------------------------------
     bool VisualSceneImporter::readGeometryInstances (
         MayaDM::Transform* transformNode, 
         const COLLADAFW::Node* node )
@@ -92,9 +125,6 @@ namespace COLLADAMaya
         MayaDM::Transform* transformNode, 
         const COLLADAFW::Node* rootNode )
     {
-        // Get the current maya ascii file to write the data.
-        FILE* file = getDocumentImporter ()->getFile ();
-
         // This is the order of the transforms:
         //
         // matrix = [SP-1 * S * SH * SP * ST] * [RP-1 * RA * R * JO * RP * RT] * T
@@ -113,177 +143,25 @@ namespace COLLADAMaya
         // T* R* T* S* T*, if the order differs from, we have to transform with a matrix (but 
         // with matrix transformation is no animation possible).
         MayaTransformation mayaTransform;
-        bool validMayaTransform = true;
 
-        const COLLADAFW::TransformationArray& transforms = rootNode->getTransformations ();
-        size_t numTransforms = transforms.getCount ();
-        for ( size_t i=0; i<numTransforms && validMayaTransform; ++i )
-        {
-            const COLLADAFW::Transformation* transform = transforms [i];
-            COLLADAFW::Transformation::TransformationType transformType; 
-            transformType = transform->getTransformationType ();
-
-            switch ( transformType )
-            {
-            case COLLADAFW::Transformation::LOOKAT:
-                break;
-            case COLLADAFW::Transformation::MATRIX:
-                break;
-            case COLLADAFW::Transformation::ROTATE:
-                {
-                    if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE )
-                    {
-                        // Set the actual phase to a rotate phase.
-                        mayaTransform.phase = MayaTransformation::PHASE_ROTATE;
-
-                        // Write the current rotation in a quaternion and 
-                        // multiplicate with the existing rotation.
-                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transform;
-                        double angle = rotation->getRotationAngle ();
-                        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
-                        MVector mayaAxis ( axis.x, axis.y, axis.z );
-                        MQuaternion quaternion ( COLLADABU::Math::Utils::degToRad(angle), mayaAxis );
-
-                        // The order of the multiplication is deciding!
-                        mayaTransform.rotation = quaternion * mayaTransform.rotation;
-                    }
-                    else validMayaTransform = false;
-                }
-                break;
-            case COLLADAFW::Transformation::SCALE:
-                if ( mayaTransform.phase <= MayaTransformation::PHASE_SCALE )
-                {
-                    // Set the actual phase to a scale phase.
-                    mayaTransform.phase = MayaTransformation::PHASE_SCALE;
-
-                    // Write the current rotation in a quaternion and 
-                    // multiplicate with the existing rotation.
-                    COLLADAFW::Scale* scale = ( COLLADAFW::Scale* )transform;
-                    COLLADABU::Math::Vector3& scaleVec = scale->getScale ();
-                    for ( size_t j=0; j<3; ++j )
-                        mayaTransform.scale[j] *= scaleVec[j];
-                }
-                else validMayaTransform = false;
-                break;
-            case COLLADAFW::Transformation::SKEW:
-                break;
-            case COLLADAFW::Transformation::TRANSLATE:
-                {
-                    // Set the actual phase to a scale phase.
-                    if ( ( mayaTransform.phase != MayaTransformation::PHASE_TRANS1 ) && 
-                         ( mayaTransform.phase != MayaTransformation::PHASE_TRANS2 ) && 
-                         ( mayaTransform.phase != MayaTransformation::PHASE_TRANS3 ) )
-                    {
-                        mayaTransform.phase += 1;
-                    }
-
-                    // Write the current rotation in a quaternion and 
-                    // multiplicate with the existing rotation.
-                    COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transform;
-                    COLLADABU::Math::Vector3 translation = translate->getTranslation ();
-                    if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
-                    {
-                        for ( size_t j=0; j<3; ++j )
-                            mayaTransform.translate1[j] += translation [j];
-                    }
-                    else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
-                    {
-                        for ( size_t j=0; j<3; ++j )
-                            mayaTransform.translate2[j] += translation [j];
-                    }
-                    else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
-                    {
-                        for ( size_t j=0; j<3; ++j )
-                            mayaTransform.translate3[j] += translation [j];
-                    }
-                }
-                break;
-            default:
-                break;
-            }
-        }
-        
+        bool validMayaTransform = isValidMayaTransform ( rootNode, mayaTransform );
         if ( validMayaTransform )
         {
-            // Write the transformations directly into the maya file.
-            std::vector<double> mayaTranslate3 = mayaTransform.translate3;
-            MVector translate3 ( mayaTranslate3 [0], mayaTranslate3 [1], mayaTranslate3 [2] );
-            MVector inverseScalePivot ( mayaTranslate3 [0], mayaTranslate3 [1], mayaTranslate3 [2] );
-            MVector scalePivot = inverseScalePivot * (-1);
-
-            std::vector<double> mayaTranslate2 = mayaTransform.translate2;
-            MVector translate2 ( mayaTranslate2 [0], mayaTranslate2 [1], mayaTranslate2 [2] );
-            MVector inverseRotatePivot = translate2 - translate3;
-            MVector rotatePivot = inverseRotatePivot * (-1);
-
-            std::vector<double> mayaTranslate1 = mayaTransform.translate1;
-            MVector translate1 ( mayaTranslate1 [0], mayaTranslate1 [1], mayaTranslate1 [2] );
-            MVector translate = translate1 - rotatePivot;
-            MVector tester = translate1 + translate2 + translate3;
-
-            MQuaternion mayaRotate = mayaTransform.rotation;
-            MEulerRotation eulerRotation = mayaRotate.asEulerRotation ();
-            MEulerRotation::RotationOrder order = eulerRotation.order;
-            MVector rotation = eulerRotation.asVector ();
-
-            std::vector<double> mayaScale = mayaTransform.scale;
-            MVector scale ( mayaScale[0], mayaScale[1], mayaScale[2] );
-
-            if ( translate != MVector (0, 0, 0) )
-                transformNode->setTranslate ( MayaDM::double3 ( translate.x, translate.y, translate.z ) );
-            if ( rotation != MVector (0, 0, 0) )
-                transformNode->setRotate ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation.x), COLLADABU::Math::Utils::radToDeg(rotation.y), COLLADABU::Math::Utils::radToDeg(rotation.z) ) );
-            if ( scale != MVector (1, 1, 1) )
-                transformNode->setScale ( MayaDM::double3 ( mayaScale[0], mayaScale[1], mayaScale[2] ) );
-
-            // TODO Maya only knows skews around the x, y or z axis as shears, no free axes.
-            // So we only import skews around the standard axes, others will be ignored.
-//             if (IsEquivalent(t->GetRotateAxis(), FMVector3::XAxis) && IsEquivalent(t->GetAroundAxis(), FMVector3::YAxis)) wantedBucket = SKEW_XY;
-//             else if (IsEquivalent(t->GetRotateAxis(), FMVector3::XAxis) && IsEquivalent(t->GetAroundAxis(), FMVector3::ZAxis)) wantedBucket = SKEW_XZ;
-//             else if (IsEquivalent(t->GetRotateAxis(), FMVector3::YAxis) && IsEquivalent(t->GetAroundAxis(), FMVector3::ZAxis)) wantedBucket = SKEW_YZ;
-//            transformNode->setShear ( MayaDM::double3 ( translate.x, translate.y, translate.z ) );
-
-            if ( rotatePivot != MVector (0, 0, 0) )
-                transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
-            if ( scalePivot != MVector (0, 0, 0) )
-                transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
-
-            if ( order != MEulerRotation::kXYZ )
-                transformNode->setRotateOrder ( order );
+            // Set the transform values.
+            importDecomposedTransform ( mayaTransform, transformNode );
         }
         else
         {
             // Set the transform matrix to the transform object
-            COLLADABU::Math::Matrix4 transformMatrix;
-            rootNode->getTransformationMatrix ( transformMatrix );
-            double mtx[4][4];
-            convertMatrix4ToTransposedDouble4x4 ( transformMatrix, mtx );
-            MMatrix matrix ( mtx );
-            MTransformationMatrix tm ( matrix );
-
-            MStatus status;
-            MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
-            transformNode->setTranslate ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ));
-
-            double rotation[3];
-            MTransformationMatrix::RotationOrder order;
-            tm.getRotation ( rotation, order, MSpace::kTransform );
-            transformNode->setRotate ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) );
-
-            double scale[3];
-            tm.getScale ( scale, MSpace::kTransform );
-            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
-
-            double shear[3];
-            tm.getShear ( shear, MSpace::kTransform );
-            transformNode->setShear ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) );
-
+            importMatrixTransform ( rootNode, transformNode );
         }
         return true;
     }
 
     // -----------------------------------
-    void VisualSceneImporter::convertMatrix4ToTransposedDouble4x4( const COLLADABU::Math::Matrix4& inputMatrix, double outputMatrix[][4] )
+    void VisualSceneImporter::convertMatrix4ToTransposedDouble4x4 ( 
+        const COLLADABU::Math::Matrix4& inputMatrix, 
+        double outputMatrix[][4] )
     {
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][0])) outputMatrix[0][0] = 0.0;
         else outputMatrix[0][0] = inputMatrix[0][0];
@@ -319,14 +197,42 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::importNode ( 
+    void VisualSceneImporter::importMatrixTransform ( 
+        const COLLADAFW::Node* rootNode, 
+        MayaDM::Transform* transformNode )
+    {
+        COLLADABU::Math::Matrix4 transformMatrix;
+        rootNode->getTransformationMatrix ( transformMatrix );
+        double mtx[4][4];
+        convertMatrix4ToTransposedDouble4x4 ( transformMatrix, mtx );
+        MMatrix matrix ( mtx );
+        MTransformationMatrix tm ( matrix );
+
+        MStatus status;
+        MVector transVec = tm.getTranslation ( MSpace::kTransform, &status );
+        transformNode->setTranslate ( MayaDM::double3 ( transVec.x, transVec.y, transVec.z ));
+
+        double rotation[3];
+        MTransformationMatrix::RotationOrder order;
+        tm.getRotation ( rotation, order, MSpace::kTransform );
+        transformNode->setRotate ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) );
+
+        double scale[3];
+        tm.getScale ( scale, MSpace::kTransform );
+        transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
+
+        double shear[3];
+        tm.getShear ( shear, MSpace::kTransform );
+        transformNode->setShear ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) );
+    }
+
+    // -----------------------------------
+    MayaDM::Transform* VisualSceneImporter::createNode ( 
         const COLLADAFW::Node* node, 
         const COLLADAFW::UniqueId* parentNodeId )
     {
         String nodeName = node->getName ();
         String nodeSid = node->getSid ();
-        
-        mNodeNamesMap [ node->getUniqueId () ] = nodeName;
 
         // Get the current maya ascii file to write the data.
         FILE* file = getDocumentImporter ()->getFile ();
@@ -365,19 +271,205 @@ namespace COLLADAMaya
             throw new ColladaMayaException ( message );
         }
 
-        // Import the tranformations
-        importTransformations ( transformNode, node );
-
-        // Import instance geometry
-        readGeometryInstances ( transformNode, node );
-
-        // Recursive call for all child elements.
-        const COLLADAFW::NodeArray& childNodes = node->getChildNodes ();
-        size_t numChildNodes = childNodes.getCount ();
-        for ( size_t i=0; i<numChildNodes; ++i )
-        {
-            COLLADAFW::Node* childNode = childNodes [i];
-            importNode ( childNode, &node->getUniqueId () );
-        }
+        return transformNode;
     }
+
+    // -----------------------------------
+    void VisualSceneImporter::importDecomposedTransform ( 
+        const MayaTransformation &mayaTransform, 
+        MayaDM::Transform* transformNode )
+    {
+        // Write the transformations directly into the maya file.
+        MVector translate3 = mayaTransform.translate3;
+        MVector inverseScalePivot ( translate3 [0], translate3 [1], translate3 [2] );
+        MVector scalePivot = inverseScalePivot * (-1);
+
+        MVector translate2 = mayaTransform.translate2;
+        MVector inverseRotatePivot = translate2 - translate3;
+        MVector rotatePivot = inverseRotatePivot * (-1);
+
+        MVector translate1 = mayaTransform.translate1;
+        MVector translate = translate1 - rotatePivot;
+        MVector tester = translate1 + translate2 + translate3;
+
+        MQuaternion mayaRotate = mayaTransform.rotation;
+        MEulerRotation eulerRotation = mayaRotate.asEulerRotation ();
+        MEulerRotation::RotationOrder order = eulerRotation.order;
+        MVector rotation = eulerRotation.asVector ();
+
+        MVector scale = mayaTransform.scale;
+        MVector skew = mayaTransform.skew;
+
+        if ( translate != MVector (0, 0, 0) )
+            transformNode->setTranslate ( MayaDM::double3 ( translate.x, translate.y, translate.z ) );
+        if ( rotation != MVector (0, 0, 0) )
+            transformNode->setRotate ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation.x), COLLADABU::Math::Utils::radToDeg(rotation.y), COLLADABU::Math::Utils::radToDeg(rotation.z) ) );
+        if ( scale != MVector (1, 1, 1) )
+            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
+
+        if ( skew != MVector (0, 0, 0))
+            transformNode->setShear ( MayaDM::double3 ( skew.x, skew.y, skew.z ) );
+
+        if ( rotatePivot != MVector (0, 0, 0) )
+            transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
+        if ( scalePivot != MVector (0, 0, 0) )
+            transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
+
+        if ( order != MEulerRotation::kXYZ )
+            transformNode->setRotateOrder ( order );
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::isValidMayaTransform ( 
+        const COLLADAFW::Node* rootNode, 
+        MayaTransformation& mayaTransform )
+    {
+        bool validMayaTransform = true;
+
+        const COLLADAFW::TransformationArray& transforms = rootNode->getTransformations ();
+        size_t numTransforms = transforms.getCount ();
+        for ( size_t i=0; i<numTransforms && validMayaTransform; ++i )
+        {
+            const COLLADAFW::Transformation* transform = transforms [i];
+            COLLADAFW::Transformation::TransformationType transformType; 
+            transformType = transform->getTransformationType ();
+
+            switch ( transformType )
+            {
+            case COLLADAFW::Transformation::LOOKAT:
+                // TODO
+                {
+                    /**
+                    * Positioning and orienting a camera or object in the scene is often 
+                    * complicated when using a matrix. A lookat transform is an intuitive 
+                    * way to specify an eye position, interest point, and orientation.
+                    */
+                    COLLADAFW::Lookat* lookat = ( COLLADAFW::Lookat* )transform;
+
+                    /** The position of the object. */
+                    COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition (); 
+                    /** The position of the interest point. */
+                    COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPosition (); 
+                    /** The direction that points up. */
+                    COLLADABU::Math::Vector3& upPosition = lookat->getUpPosition ();
+
+                    // TODO Do anything with this values!
+
+                    assert ("Lookat not implemented!");
+                    break;
+                }
+            case COLLADAFW::Transformation::MATRIX:
+                // Nothing to do, the matrix will be read automatically.
+                break;
+            case COLLADAFW::Transformation::ROTATE:
+                {
+                    if ( mayaTransform.phase <= MayaTransformation::PHASE_ROTATE )
+                    {
+                        // Set the actual phase to a rotate phase.
+                        mayaTransform.phase = MayaTransformation::PHASE_ROTATE;
+
+                        // Write the current rotation in a quaternion and 
+                        // multiplicate with the existing rotation.
+                        COLLADAFW::Rotate* rotation = ( COLLADAFW::Rotate* )transform;
+                        double angle = rotation->getRotationAngle ();
+                        COLLADABU::Math::Vector3& axis = rotation->getRotationAxis ();
+                        MVector mayaAxis ( axis.x, axis.y, axis.z );
+                        MQuaternion quaternion ( COLLADABU::Math::Utils::degToRad(angle), mayaAxis );
+
+                        // The order of the multiplication is deciding!
+                        mayaTransform.rotation = quaternion * mayaTransform.rotation;
+                    }
+                    else validMayaTransform = false;
+                }
+                break;
+            case COLLADAFW::Transformation::SCALE:
+                if ( mayaTransform.phase <= MayaTransformation::PHASE_SCALE )
+                {
+                    // Set the actual phase to a scale phase.
+                    mayaTransform.phase = MayaTransformation::PHASE_SCALE;
+
+                    COLLADAFW::Scale* scale = ( COLLADAFW::Scale* )transform;
+                    COLLADABU::Math::Vector3& scaleVec = scale->getScale ();
+                    for ( unsigned int k=0; k<3; ++k )
+                        mayaTransform.scale [k] = scaleVec [k];
+                }
+                else validMayaTransform = false;
+                break;
+            case COLLADAFW::Transformation::SKEW:
+                {
+                    COLLADAFW::Skew* skew = ( COLLADAFW::Skew* )transform;
+
+                    MMatrix matrix;
+                    skewValuesToMayaMatrix ( skew, matrix );
+                    MTransformationMatrix tm ( matrix );
+
+                    double shear[3];
+                    tm.getShear ( shear, MSpace::kTransform );
+
+                    for ( unsigned int k=0; k<3; ++k )
+                        mayaTransform.skew [k] = shear [k];
+                    break;
+                }
+            case COLLADAFW::Transformation::TRANSLATE:
+                {
+                    // Set the actual phase to a scale phase.
+                    if ( ( mayaTransform.phase != MayaTransformation::PHASE_TRANS1 ) && 
+                        ( mayaTransform.phase != MayaTransformation::PHASE_TRANS2 ) && 
+                        ( mayaTransform.phase != MayaTransformation::PHASE_TRANS3 ) )
+                    {
+                        mayaTransform.phase += 1;
+                    }
+
+                    COLLADAFW::Translate* translate = ( COLLADAFW::Translate* )transform;
+                    COLLADABU::Math::Vector3 translation = translate->getTranslation ();
+                    if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
+                    {
+                        for ( unsigned int j=0; j<3; ++j )
+                            mayaTransform.translate1[j] += translation [j];
+                    }
+                    else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
+                    {
+                        for ( unsigned int j=0; j<3; ++j )
+                            mayaTransform.translate2[j] += translation [j];
+                    }
+                    else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
+                    {
+                        for ( unsigned int j=0; j<3; ++j )
+                            mayaTransform.translate3[j] += translation [j];
+                    }
+                }
+                break;
+            default:
+                std::cerr << "Unknown transformation type!" << endl;
+                assert ( "Unknown transformation type!" );
+                break;
+            }
+        }
+
+        return validMayaTransform;
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::skewValuesToMayaMatrix ( 
+        const COLLADAFW::Skew* skew, MMatrix& matrix ) const
+    {
+        float s = tanf ( COLLADABU::Math::Utils::degToRadF ( skew->getAngle () ) );
+
+        COLLADABU::Math::Vector3& rotateAxis = skew->getRotateAxis();
+        COLLADABU::Math::Vector3& translateAxis = skew->getRotateAxis();
+
+        for ( int row = 0; row < 3; ++row )
+        {
+            for ( int col = 0; col < 3; ++col )
+            {
+                matrix[col][row] = ((row == col) ? 1.0f : 0.0f) + s * (float)rotateAxis [col] * (float)translateAxis [row];
+            }
+        }
+
+        matrix[0][3] = matrix[1][3] = matrix[2][3] = 0.0f;
+        matrix[3][0] = matrix[3][1] = matrix[3][2] = 0.0f;
+        matrix[3][3] = 1.0f;
+    }
+
+
 }

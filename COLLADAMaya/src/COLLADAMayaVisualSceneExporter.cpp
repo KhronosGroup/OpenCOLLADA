@@ -756,7 +756,7 @@ namespace COLLADAMaya
 
             // Compute center of interest.
             double centerOfInterestDistance = camera.centerOfInterestPoint ( MSpace::kObject ).z;
-            MVector front ( matrix[2][0], matrix[2][2], matrix[2][2] );
+            MVector front ( matrix[2][0], matrix[2][1], matrix[2][2] );
             MVector centerOfInterest = eye + ( front * centerOfInterestDistance );
             float interestPosition[3] = {
                 COLLADABU::Math::Utils::equalsZero( centerOfInterest.x ) ? 0.0f : (float) centerOfInterest.x,

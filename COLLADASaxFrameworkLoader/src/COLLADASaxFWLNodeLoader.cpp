@@ -14,6 +14,8 @@
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWScale.h"
+#include "COLLADAFWSkew.h"
+#include "COLLADAFWLookat.h"
 #include "COLLADAFWMatrix.h"
 #include "COLLADAFWGeometry.h"
 
@@ -223,7 +225,58 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-	//------------------------------
+    //------------------------------
+    bool NodeLoader::begin__skew ( const skew__AttributeData& attributeData )
+    {
+        return beginTransformation<COLLADAFW::Skew>();
+    }
+
+    //------------------------------
+    bool NodeLoader::end__skew ()
+    {
+        return endTransformation();
+    }
+
+    //------------------------------
+    bool NodeLoader::data__skew ( const double* data, size_t length )
+    {
+        COLLADAFW::Skew* skew = 0;
+
+        if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::SKEW)
+            skew = (COLLADAFW::Skew*)(mCurrentTransformation);
+
+        assert(skew);
+
+        double angle = skew->getAngle ();
+        COLLADABU::Math::Vector3& rotateAxis = skew->getRotateAxis ();
+        COLLADABU::Math::Vector3& aroundAxis = skew->getTranslateAxis ();
+
+        size_t i = 0;
+        if ( i < length && mTransformationNumbersReceived == 0 )
+        {
+            angle = data [mTransformationNumbersReceived++];
+            ++i;
+        }
+        if ( i < length && mTransformationNumbersReceived > 0 && mTransformationNumbersReceived < 4 )
+        {
+            for ( size_t j=0; j<3 && i<length; ++j, ++i )
+            {
+                rotateAxis[j] = data[i];
+                mTransformationNumbersReceived++;
+            }
+        }
+        if (  i < length && mTransformationNumbersReceived >= 4 )
+        {
+            for ( size_t j=0; j<3 && i<length; ++j, ++i )
+            {
+                aroundAxis[j] = data[i];
+                mTransformationNumbersReceived++;
+            }
+        }
+        return true;
+    }
+
+    //------------------------------
 	bool NodeLoader::begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
@@ -263,5 +316,57 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //------------------------------
+    bool NodeLoader::begin__lookat ( const lookat__AttributeData& attributeData )
+    {
+        return beginTransformation<COLLADAFW::Lookat>();
+    }
 
+    //------------------------------
+    bool NodeLoader::end__lookat ()
+    {
+        return endTransformation();
+    }
+
+    //------------------------------
+    bool NodeLoader::data__lookat ( const double* data, size_t length )
+    {
+        COLLADAFW::Lookat* lookat = 0;
+
+        if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::LOOKAT)
+            lookat = (COLLADAFW::Lookat*)(mCurrentTransformation);
+
+        assert(lookat);
+
+        COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition ();
+        COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPosition ();
+        COLLADABU::Math::Vector3& upPosition = lookat->getUpPosition ();
+
+        size_t i = 0;
+        if ( i < length && mTransformationNumbersReceived < 3 )
+        {
+            for ( size_t j=0; j<3 && i<length; ++j, ++i )
+            {
+                eyePosition[j] = data[i];
+                mTransformationNumbersReceived++;
+            }
+        }
+        if ( i < length && mTransformationNumbersReceived >= 3 && mTransformationNumbersReceived < 6 )
+        {
+            for ( size_t j=0; j<3 && i<length; ++j, ++i )
+            {
+                interestPosition[j] = data[i];
+                mTransformationNumbersReceived++;
+            }
+        }
+        if (  i < length && mTransformationNumbersReceived >= 6 )
+        {
+            for ( size_t j=0; j<3 && i<length; ++j, ++i )
+            {
+                upPosition[j] = data[i];
+                mTransformationNumbersReceived++;
+            }
+        }
+        return true;
+    }
 } // namespace COLLADASaxFWL
