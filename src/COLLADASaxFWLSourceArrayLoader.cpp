@@ -130,7 +130,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool SourceArrayLoader::begin__accessor( const accessor__AttributeData& attributeData )
 	{
-		mCurrentSoure->setStride(attributeData.stride);
+		mCurrentSoure->setStride((int)attributeData.stride);
 		return true;
 	}
 
