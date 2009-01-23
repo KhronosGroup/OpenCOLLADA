@@ -28,6 +28,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setMatrixIn(size_t i_start,size_t i_end,matrix* i)
+	{
+		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
+		size_t size = (i_end-i_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			i[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startMatrixIn(size_t i_start,size_t i_end)
+	{
+		fprintf(mFile,"setAttr \".i[%i:%i]\"",i_start,i_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendMatrixIn(const matrix& i)
+	{
+		fprintf(mFile,"\n");
+		i.write(mFile);
+
+	}
+	void endMatrixIn()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getMatrixIn(size_t i_i)
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);

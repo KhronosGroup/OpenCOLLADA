@@ -32,6 +32,33 @@ public:
 		fprintf(mFile,"setAttr \".dli[%i]\" %i;\n", dli_i,dli);
 
 	}
+	void setDisplayLayerId(size_t dli_start,size_t dli_end,short* dli)
+	{
+		fprintf(mFile,"setAttr \".dli[%i:%i]\" ", dli_start,dli_end);
+		size_t size = (dli_end-dli_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",dli[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDisplayLayerId(size_t dli_start,size_t dli_end)
+	{
+		fprintf(mFile,"setAttr \".dli[%i:%i]\"",dli_start,dli_end);
+
+	}
+	void appendDisplayLayerId(short dli)
+	{
+		fprintf(mFile," %i",dli);
+
+	}
+	void endDisplayLayerId()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getCurrentDisplayLayer()
 	{
 		fprintf(mFile,"\"%s.cdl\"",mName.c_str());

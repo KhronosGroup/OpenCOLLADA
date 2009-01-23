@@ -38,6 +38,33 @@ public:
 		fprintf(mFile,"setAttr \".ed[%i]\" %i;\n", ed_i,ed);
 
 	}
+	void setEdge(size_t ed_start,size_t ed_end,int* ed)
+	{
+		fprintf(mFile,"setAttr \".ed[%i:%i]\" ", ed_start,ed_end);
+		size_t size = (ed_end-ed_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ed[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEdge(size_t ed_start,size_t ed_end)
+	{
+		fprintf(mFile,"setAttr \".ed[%i:%i]\"",ed_start,ed_end);
+
+	}
+	void appendEdge(int ed)
+	{
+		fprintf(mFile," %i",ed);
+
+	}
+	void endEdge()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getWedgeAngle()
 	{
 		fprintf(mFile,"\"%s.wa\"",mName.c_str());

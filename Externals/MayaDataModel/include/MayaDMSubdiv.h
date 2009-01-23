@@ -158,6 +158,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startSingleVertexTweak(size_t vtw_i,size_t stw_start,size_t stw_end)
+	{
+		fprintf(mFile,"setAttr \".vtw[%i].stw[%i:%i]\"",vtw_i,stw_start,stw_end);
+
+	}
+	void appendSingleVertexTweak(double stw)
+	{
+		fprintf(mFile," %f",stw);
+
+	}
+	void endSingleVertexTweak()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setSingleVertexTweakX(size_t vtw_i,size_t stw_i,double stwx)
 	{
 		if(stwx == 0) return;

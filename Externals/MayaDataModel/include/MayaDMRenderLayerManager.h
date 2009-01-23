@@ -32,6 +32,33 @@ public:
 		fprintf(mFile,"setAttr \".rlmi[%i]\" %i;\n", rlmi_i,rlmi);
 
 	}
+	void setRenderLayerId(size_t rlmi_start,size_t rlmi_end,short* rlmi)
+	{
+		fprintf(mFile,"setAttr \".rlmi[%i:%i]\" ", rlmi_start,rlmi_end);
+		size_t size = (rlmi_end-rlmi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",rlmi[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startRenderLayerId(size_t rlmi_start,size_t rlmi_end)
+	{
+		fprintf(mFile,"setAttr \".rlmi[%i:%i]\"",rlmi_start,rlmi_end);
+
+	}
+	void appendRenderLayerId(short rlmi)
+	{
+		fprintf(mFile," %i",rlmi);
+
+	}
+	void endRenderLayerId()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getCurrentRenderLayer()
 	{
 		fprintf(mFile,"\"%s.crl\"",mName.c_str());

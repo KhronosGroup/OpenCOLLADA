@@ -76,7 +76,7 @@ namespace COLLADAMaya
     void DocumentExporter::createLibraries()
     {
         releaseLibraries();
-
+        
         // Get the sceneID (assign a name to the scene)
         MString sceneName;
         MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );

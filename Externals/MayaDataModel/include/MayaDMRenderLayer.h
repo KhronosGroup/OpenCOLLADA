@@ -108,6 +108,33 @@ public:
 		fprintf(mFile,"setAttr \".rlc[%i]\" %i;\n", rlc_i,rlc);
 
 	}
+	void setLayerChildren(size_t rlc_start,size_t rlc_end,short* rlc)
+	{
+		fprintf(mFile,"setAttr \".rlc[%i:%i]\" ", rlc_start,rlc_end);
+		size_t size = (rlc_end-rlc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",rlc[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLayerChildren(size_t rlc_start,size_t rlc_end)
+	{
+		fprintf(mFile,"setAttr \".rlc[%i:%i]\"",rlc_start,rlc_end);
+
+	}
+	void appendLayerChildren(short rlc)
+	{
+		fprintf(mFile," %i",rlc);
+
+	}
+	void endLayerChildren()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setRenderPassInfo(const RenderPassInfo& rp)
 	{
 		fprintf(mFile,"setAttr \".rp\" ");

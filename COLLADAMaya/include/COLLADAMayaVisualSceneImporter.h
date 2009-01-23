@@ -19,7 +19,16 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
+#include "MayaDMTransform.h"
+
 #include "COLLADAFWVisualScene.h"
+
+#include "Math/COLLADABUMathUtils.h"
+#include "Math/COLLADABUMathMatrix4.h"
+#include "Math/COLLADABUMathQuaternion.h"
+
+#include <map>
+#include <set>
 
 
 namespace COLLADAMaya
@@ -28,51 +37,53 @@ namespace COLLADAMaya
     /** Declares the importer implementation to import the visual scene nodes. */
     class VisualSceneImporter : public BaseImporter
     {
+    public:
+        
+        typedef std::map<const COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdUniqueIdsMap;
+
+        typedef std::map<const COLLADAFW::UniqueId, String> UniqueIdNamesMap;
 
     private:
 
-//         DaeDoc* doc;
-//         DaeEntity* element;
-//         FCDSceneNode* colladaNode;
+        /*
+         * The map holds for every unique id of a geometry a list of transform node unique ids.
+         * We need it for the creation of the geometry, to set the parent transform nodes.
+         */
+        UniqueIdUniqueIdsMap mGeometryNodesMap;
 
-        MObject transform;
-        MTransformationMatrix transformation;
-//        DaeTransformPresence presence;
+        /** The map holds the unique ids of the nodes to the names. */
+        UniqueIdNamesMap mNodeNamesMap;
 
-        // Import-specific: used when attempting to bucket the COLLADA transforms
-        int rotationOrder[9];
-        int rotationOrderCount;
-        bool noRotationOrder;
-        bool isJoint;
-
-        enum
+        /*
+         *	Helper class, to handle the transformations.
+         */
+        class MayaTransformation
         {
-            TRANSLATION = 0, 
-            ROTATE_PIVOT_TRANSLATION, 
-            ROTATE_PIVOT,
-            JOINT_ORIENT_1, 
-            JOINT_ORIENT_2, 
-            JOINT_ORIENT_3, 
-            ROTATE_1, 
-            ROTATE_2, 
-            ROTATE_3, 
-            ROTATE_A,
-            ROTATE_AXIS_1, 
-            ROTATE_AXIS_2, 
-            ROTATE_AXIS_3, 
-            ROTATE_PIVOT_R, 
-            SCALE_PIVOT_TRANSLATION, 
-            SCALE_PIVOT, 
-            SKEW_XY,
-            SKEW_XZ, 
-            SKEW_YZ, 
-            SCALE, 
-            SCALE_PIVOT_R,
-            BUCKET_COUNT
-        };
+        public:
+            MayaTransformation () 
+                : phase (0)
+                , translate1 (3, 0) 
+                , translate2 (3, 0) 
+                , translate3 (3, 0) 
+                , scale (3, 1) 
+            {}
+            virtual ~MayaTransformation () {}
 
-        //const FCDTransform* buckets[BUCKET_COUNT];
-        int bucketDepth;
+            static const size_t PHASE_TRANS1 = 1;
+            static const size_t PHASE_ROTATE = 2;
+            static const size_t PHASE_TRANS2 = 3;
+            static const size_t PHASE_SCALE = 4;
+            static const size_t PHASE_TRANS3 = 5;
+
+            std::vector<double> translate1; // = 0,0,0
+            MQuaternion rotation; // = 1,0,0,0
+            std::vector<double> translate2; // = 0,0,0
+            std::vector<double> scale; // = 1,1,1
+            std::vector<double> translate3; // = 0,0,0
+
+            // 5 phases
+            size_t phase;
+        };
 
     public:
 
@@ -82,15 +93,58 @@ namespace COLLADAMaya
         /** Destructor. */
         virtual ~VisualSceneImporter () {}
 
-        /** Import the current visual scene with all scene nodes and transforms. */
+        /** 
+         * Import the current visual scene with all scene nodes and transforms. 
+         */
         bool importVisualScene ( const COLLADAFW::VisualScene* visualScene );
+
+        /*
+         * Imports the data of the current node.
+         */
+        void importNode ( 
+            const COLLADAFW::Node* rootNode, 
+            const COLLADAFW::UniqueId* parentNodeId = 0 );
+
+        /*
+        * The map holdes for every geometry (identified by it's unique id ) a list of all 
+        * transform nodes (identified by their names, which are unique!).
+        * We need it for the creation of the geometry, to set the parent transform nodes.
+        */
+        const UniqueIdUniqueIdsMap& getGeometryNodesMap () const { return mGeometryNodesMap; }
+
+        /**
+         * The map with the node unique ids and the names for it.
+         */
+        const UniqueIdNamesMap& getNodeNamesMap () const { return mNodeNamesMap; }
 
     private:
 
-        /** Imports the current transformations. */
-        bool importTransforms ( MObject& transformObject, const COLLADAFW::Node* rootNode );
+        /*
+        * The map holdes for every unique id of a geometry a list of transform node unique ids.
+        * We need it for the creation of the geometry, to set the parent transform nodes.
+        */
+        UniqueIdUniqueIdsMap& getGeometryNodesMap() { return mGeometryNodesMap; }
 
-        bool bucketTransforms ( MObject& transformObject );
+        /*
+         *	Save the transformation ids to the geometry ids.
+         */
+        bool readGeometryInstances (
+            MayaDM::Transform* transformNode, 
+            const COLLADAFW::Node* node );
+
+        /*
+         *	Transform the input matrix and convert it in a double[4][4] matrix.
+         */
+        void convertMatrix4ToTransposedDouble4x4 ( 
+            const COLLADABU::Math::Matrix4& inputMatrix, 
+            double outputMatrix[][4] );
+
+        /** 
+         * Imports the current transformations. 
+         */
+        bool importTransformations ( 
+            MayaDM::Transform* transformNode, 
+            const COLLADAFW::Node* rootNode );
 
     };
 }

@@ -107,16 +107,97 @@ public:
 		fprintf(mFile,"setAttr \".uv[%i]\" %f;\n", uv_i,uv);
 
 	}
+	void setUnitlessValues(size_t uv_start,size_t uv_end,double* uv)
+	{
+		fprintf(mFile,"setAttr \".uv[%i:%i]\" ", uv_start,uv_end);
+		size_t size = (uv_end-uv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",uv[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startUnitlessValues(size_t uv_start,size_t uv_end)
+	{
+		fprintf(mFile,"setAttr \".uv[%i:%i]\"",uv_start,uv_end);
+
+	}
+	void appendUnitlessValues(double uv)
+	{
+		fprintf(mFile," %f",uv);
+
+	}
+	void endUnitlessValues()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setLinearValues(size_t lv_i,double lv)
 	{
 		if(lv == 0) return;
 		fprintf(mFile,"setAttr \".lv[%i]\" %f;\n", lv_i,lv);
 
 	}
+	void setLinearValues(size_t lv_start,size_t lv_end,double* lv)
+	{
+		fprintf(mFile,"setAttr \".lv[%i:%i]\" ", lv_start,lv_end);
+		size_t size = (lv_end-lv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",lv[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLinearValues(size_t lv_start,size_t lv_end)
+	{
+		fprintf(mFile,"setAttr \".lv[%i:%i]\"",lv_start,lv_end);
+
+	}
+	void appendLinearValues(double lv)
+	{
+		fprintf(mFile," %f",lv);
+
+	}
+	void endLinearValues()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setAngularValues(size_t av_i,double av)
 	{
 		if(av == 0) return;
 		fprintf(mFile,"setAttr \".av[%i]\" %f;\n", av_i,av);
+
+	}
+	void setAngularValues(size_t av_start,size_t av_end,double* av)
+	{
+		fprintf(mFile,"setAttr \".av[%i:%i]\" ", av_start,av_end);
+		size_t size = (av_end-av_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",av[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startAngularValues(size_t av_start,size_t av_end)
+	{
+		fprintf(mFile,"setAttr \".av[%i:%i]\"",av_start,av_end);
+
+	}
+	void appendAngularValues(double av)
+	{
+		fprintf(mFile," %f",av);
+
+	}
+	void endAngularValues()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setClipIndexMap(const intArray& cim)

@@ -19,8 +19,6 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
-//#include "COLLADADHLoader.h"
-
 
 namespace COLLADAMaya
 {

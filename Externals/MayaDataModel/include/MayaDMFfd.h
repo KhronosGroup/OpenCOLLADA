@@ -109,6 +109,33 @@ public:
 		fprintf(mFile,"setAttr \".scl[%i].stu[%i]\" %f;\n", scl_i,stu_i,stu);
 
 	}
+	void setStuCache(size_t scl_i,size_t stu_start,size_t stu_end,double* stu)
+	{
+		fprintf(mFile,"setAttr \".scl[%i].stu[%i:%i]\" ", scl_i,stu_start,stu_end);
+		size_t size = (stu_end-stu_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",stu[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startStuCache(size_t scl_i,size_t stu_start,size_t stu_end)
+	{
+		fprintf(mFile,"setAttr \".scl[%i].stu[%i:%i]\"",scl_i,stu_start,stu_end);
+
+	}
+	void appendStuCache(double stu)
+	{
+		fprintf(mFile," %f",stu);
+
+	}
+	void endStuCache()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setPartialResolution(double ptr)
 	{
 		if(ptr == 0.01) return;

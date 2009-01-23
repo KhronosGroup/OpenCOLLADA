@@ -26,10 +26,64 @@ public:
 		fprintf(mFile,"setAttr \".ia[%i]\" %f;\n", ia_i,ia);
 
 	}
+	void setInputAngle(size_t ia_start,size_t ia_end,double* ia)
+	{
+		fprintf(mFile,"setAttr \".ia[%i:%i]\" ", ia_start,ia_end);
+		size_t size = (ia_end-ia_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ia[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInputAngle(size_t ia_start,size_t ia_end)
+	{
+		fprintf(mFile,"setAttr \".ia[%i:%i]\"",ia_start,ia_end);
+
+	}
+	void appendInputAngle(double ia)
+	{
+		fprintf(mFile," %f",ia);
+
+	}
+	void endInputAngle()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInputLinear(size_t il_i,double il)
 	{
 		if(il == 0) return;
 		fprintf(mFile,"setAttr \".il[%i]\" %f;\n", il_i,il);
+
+	}
+	void setInputLinear(size_t il_start,size_t il_end,double* il)
+	{
+		fprintf(mFile,"setAttr \".il[%i:%i]\" ", il_start,il_end);
+		size_t size = (il_end-il_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",il[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInputLinear(size_t il_start,size_t il_end)
+	{
+		fprintf(mFile,"setAttr \".il[%i:%i]\"",il_start,il_end);
+
+	}
+	void appendInputLinear(double il)
+	{
+		fprintf(mFile," %f",il);
+
+	}
+	void endInputLinear()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void getTime()

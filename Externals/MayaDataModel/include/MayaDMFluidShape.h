@@ -398,6 +398,33 @@ public:
 		fprintf(mFile,"setAttr \".sd[%i]\" %i;\n", sd_i,sd);
 
 	}
+	void setSeed(size_t sd_start,size_t sd_end,int* sd)
+	{
+		fprintf(mFile,"setAttr \".sd[%i:%i]\" ", sd_start,sd_end);
+		size_t size = (sd_end-sd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",sd[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startSeed(size_t sd_start,size_t sd_end)
+	{
+		fprintf(mFile,"setAttr \".sd[%i:%i]\"",sd_start,sd_end);
+
+	}
+	void appendSeed(int sd)
+	{
+		fprintf(mFile," %i",sd);
+
+	}
+	void endSeed()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEmissionList(size_t eml_i,const EmissionList& eml)
 	{
 		fprintf(mFile,"setAttr \".eml[%i]\" ",eml_i);

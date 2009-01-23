@@ -34,10 +34,64 @@ public:
 		fprintf(mFile,"setAttr \".dr[%i]\" %f;\n", dr_i,dr);
 
 	}
+	void setDropoff(size_t dr_start,size_t dr_end,double* dr)
+	{
+		fprintf(mFile,"setAttr \".dr[%i:%i]\" ", dr_start,dr_end);
+		size_t size = (dr_end-dr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",dr[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDropoff(size_t dr_start,size_t dr_end)
+	{
+		fprintf(mFile,"setAttr \".dr[%i:%i]\"",dr_start,dr_end);
+
+	}
+	void appendDropoff(double dr)
+	{
+		fprintf(mFile," %f",dr);
+
+	}
+	void endDropoff()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setSmoothness(size_t smt_i,double smt)
 	{
 		if(smt == 0.0) return;
 		fprintf(mFile,"setAttr \".smt[%i]\" %f;\n", smt_i,smt);
+
+	}
+	void setSmoothness(size_t smt_start,size_t smt_end,double* smt)
+	{
+		fprintf(mFile,"setAttr \".smt[%i:%i]\" ", smt_start,smt_end);
+		size_t size = (smt_end-smt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",smt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startSmoothness(size_t smt_start,size_t smt_end)
+	{
+		fprintf(mFile,"setAttr \".smt[%i:%i]\"",smt_start,smt_end);
+
+	}
+	void appendSmoothness(double smt)
+	{
+		fprintf(mFile," %f",smt);
+
+	}
+	void endSmoothness()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setInflType(size_t it_i,short it)
@@ -46,10 +100,64 @@ public:
 		fprintf(mFile,"setAttr \".it[%i]\" %i;\n", it_i,it);
 
 	}
+	void setInflType(size_t it_start,size_t it_end,short* it)
+	{
+		fprintf(mFile,"setAttr \".it[%i:%i]\" ", it_start,it_end);
+		size_t size = (it_end-it_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",it[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInflType(size_t it_start,size_t it_end)
+	{
+		fprintf(mFile,"setAttr \".it[%i:%i]\"",it_start,it_end);
+
+	}
+	void appendInflType(short it)
+	{
+		fprintf(mFile," %i",it);
+
+	}
+	void endInflType()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setNurbsSamples(size_t ns_i,short ns)
 	{
 		if(ns == 10) return;
 		fprintf(mFile,"setAttr \".ns[%i]\" %i;\n", ns_i,ns);
+
+	}
+	void setNurbsSamples(size_t ns_start,size_t ns_end,short* ns)
+	{
+		fprintf(mFile,"setAttr \".ns[%i:%i]\" ", ns_start,ns_end);
+		size_t size = (ns_end-ns_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ns[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startNurbsSamples(size_t ns_start,size_t ns_end)
+	{
+		fprintf(mFile,"setAttr \".ns[%i:%i]\"",ns_start,ns_end);
+
+	}
+	void appendNurbsSamples(short ns)
+	{
+		fprintf(mFile," %i",ns);
+
+	}
+	void endNurbsSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setWeightThreshold(double wt)

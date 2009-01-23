@@ -39,6 +39,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startVertices(size_t v_start,size_t v_end)
+	{
+		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+
+	}
+	void appendVertices(float v)
+	{
+		fprintf(mFile," %f",v);
+
+	}
+	void endVertices()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setVtxx(size_t v_i,float vx)
 	{
 		if(vx == 0) return;
@@ -61,6 +76,33 @@ public:
 	{
 		if(l == 0) return;
 		fprintf(mFile,"setAttr \".l[%i]\" %i;\n", l_i,l);
+
+	}
+	void setLoop(size_t l_start,size_t l_end,int* l)
+	{
+		fprintf(mFile,"setAttr \".l[%i:%i]\" ", l_start,l_end);
+		size_t size = (l_end-l_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",l[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLoop(size_t l_start,size_t l_end)
+	{
+		fprintf(mFile,"setAttr \".l[%i:%i]\"",l_start,l_end);
+
+	}
+	void appendLoop(int l)
+	{
+		fprintf(mFile," %i",l);
+
+	}
+	void endLoop()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setSubdivision(int s)

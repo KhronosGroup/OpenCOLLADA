@@ -194,6 +194,33 @@ public:
 		fprintf(mFile,"setAttr \".ga[%i]\" %f;\n", ga_i,ga);
 
 	}
+	void setGain(size_t ga_start,size_t ga_end,float* ga)
+	{
+		fprintf(mFile,"setAttr \".ga[%i:%i]\" ", ga_start,ga_end);
+		size_t size = (ga_end-ga_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ga[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGain(size_t ga_start,size_t ga_end)
+	{
+		fprintf(mFile,"setAttr \".ga[%i:%i]\"",ga_start,ga_end);
+
+	}
+	void appendGain(float ga)
+	{
+		fprintf(mFile," %f",ga);
+
+	}
+	void endGain()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getTranslate()
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());

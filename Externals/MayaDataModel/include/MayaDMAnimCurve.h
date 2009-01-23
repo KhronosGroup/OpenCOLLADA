@@ -38,10 +38,64 @@ public:
 		fprintf(mFile,"setAttr \".ktl[%i]\" %i;\n", ktl_i,ktl);
 
 	}
+	void setKeyTanLocked(size_t ktl_start,size_t ktl_end,bool* ktl)
+	{
+		fprintf(mFile,"setAttr \".ktl[%i:%i]\" ", ktl_start,ktl_end);
+		size_t size = (ktl_end-ktl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ktl[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanLocked(size_t ktl_start,size_t ktl_end)
+	{
+		fprintf(mFile,"setAttr \".ktl[%i:%i]\"",ktl_start,ktl_end);
+
+	}
+	void appendKeyTanLocked(bool ktl)
+	{
+		fprintf(mFile," %i",ktl);
+
+	}
+	void endKeyTanLocked()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setKeyWeightLocked(size_t kwl_i,bool kwl)
 	{
 		if(kwl == true) return;
 		fprintf(mFile,"setAttr \".kwl[%i]\" %i;\n", kwl_i,kwl);
+
+	}
+	void setKeyWeightLocked(size_t kwl_start,size_t kwl_end,bool* kwl)
+	{
+		fprintf(mFile,"setAttr \".kwl[%i:%i]\" ", kwl_start,kwl_end);
+		size_t size = (kwl_end-kwl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",kwl[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyWeightLocked(size_t kwl_start,size_t kwl_end)
+	{
+		fprintf(mFile,"setAttr \".kwl[%i:%i]\"",kwl_start,kwl_end);
+
+	}
+	void appendKeyWeightLocked(bool kwl)
+	{
+		fprintf(mFile," %i",kwl);
+
+	}
+	void endKeyWeightLocked()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setKeyTanInX(size_t kix_i,double kix)
@@ -50,10 +104,64 @@ public:
 		fprintf(mFile,"setAttr \".kix[%i]\" %f;\n", kix_i,kix);
 
 	}
+	void setKeyTanInX(size_t kix_start,size_t kix_end,double* kix)
+	{
+		fprintf(mFile,"setAttr \".kix[%i:%i]\" ", kix_start,kix_end);
+		size_t size = (kix_end-kix_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",kix[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanInX(size_t kix_start,size_t kix_end)
+	{
+		fprintf(mFile,"setAttr \".kix[%i:%i]\"",kix_start,kix_end);
+
+	}
+	void appendKeyTanInX(double kix)
+	{
+		fprintf(mFile," %f",kix);
+
+	}
+	void endKeyTanInX()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setKeyTanInY(size_t kiy_i,double kiy)
 	{
 		if(kiy == 0.0) return;
 		fprintf(mFile,"setAttr \".kiy[%i]\" %f;\n", kiy_i,kiy);
+
+	}
+	void setKeyTanInY(size_t kiy_start,size_t kiy_end,double* kiy)
+	{
+		fprintf(mFile,"setAttr \".kiy[%i:%i]\" ", kiy_start,kiy_end);
+		size_t size = (kiy_end-kiy_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",kiy[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanInY(size_t kiy_start,size_t kiy_end)
+	{
+		fprintf(mFile,"setAttr \".kiy[%i:%i]\"",kiy_start,kiy_end);
+
+	}
+	void appendKeyTanInY(double kiy)
+	{
+		fprintf(mFile," %f",kiy);
+
+	}
+	void endKeyTanInY()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setKeyTanOutX(size_t kox_i,double kox)
@@ -62,10 +170,64 @@ public:
 		fprintf(mFile,"setAttr \".kox[%i]\" %f;\n", kox_i,kox);
 
 	}
+	void setKeyTanOutX(size_t kox_start,size_t kox_end,double* kox)
+	{
+		fprintf(mFile,"setAttr \".kox[%i:%i]\" ", kox_start,kox_end);
+		size_t size = (kox_end-kox_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",kox[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanOutX(size_t kox_start,size_t kox_end)
+	{
+		fprintf(mFile,"setAttr \".kox[%i:%i]\"",kox_start,kox_end);
+
+	}
+	void appendKeyTanOutX(double kox)
+	{
+		fprintf(mFile," %f",kox);
+
+	}
+	void endKeyTanOutX()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setKeyTanOutY(size_t koy_i,double koy)
 	{
 		if(koy == 0.0) return;
 		fprintf(mFile,"setAttr \".koy[%i]\" %f;\n", koy_i,koy);
+
+	}
+	void setKeyTanOutY(size_t koy_start,size_t koy_end,double* koy)
+	{
+		fprintf(mFile,"setAttr \".koy[%i:%i]\" ", koy_start,koy_end);
+		size_t size = (koy_end-koy_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",koy[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanOutY(size_t koy_start,size_t koy_end)
+	{
+		fprintf(mFile,"setAttr \".koy[%i:%i]\"",koy_start,koy_end);
+
+	}
+	void appendKeyTanOutY(double koy)
+	{
+		fprintf(mFile," %f",koy);
+
+	}
+	void endKeyTanOutY()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setKeyTanInType(size_t kit_i,unsigned int kit)
@@ -74,10 +236,64 @@ public:
 		fprintf(mFile,"setAttr \".kit[%i]\" %i;\n", kit_i,kit);
 
 	}
+	void setKeyTanInType(size_t kit_start,size_t kit_end,unsigned int* kit)
+	{
+		fprintf(mFile,"setAttr \".kit[%i:%i]\" ", kit_start,kit_end);
+		size_t size = (kit_end-kit_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",kit[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanInType(size_t kit_start,size_t kit_end)
+	{
+		fprintf(mFile,"setAttr \".kit[%i:%i]\"",kit_start,kit_end);
+
+	}
+	void appendKeyTanInType(unsigned int kit)
+	{
+		fprintf(mFile," %i",kit);
+
+	}
+	void endKeyTanInType()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setKeyTanOutType(size_t kot_i,unsigned int kot)
 	{
 		if(kot == 4) return;
 		fprintf(mFile,"setAttr \".kot[%i]\" %i;\n", kot_i,kot);
+
+	}
+	void setKeyTanOutType(size_t kot_start,size_t kot_end,unsigned int* kot)
+	{
+		fprintf(mFile,"setAttr \".kot[%i:%i]\" ", kot_start,kot_end);
+		size_t size = (kot_end-kot_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",kot[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTanOutType(size_t kot_start,size_t kot_end)
+	{
+		fprintf(mFile,"setAttr \".kot[%i:%i]\"",kot_start,kot_end);
+
+	}
+	void appendKeyTanOutType(unsigned int kot)
+	{
+		fprintf(mFile," %i",kot);
+
+	}
+	void endKeyTanOutType()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setKeyBreakdown(size_t kbd_i,bool kbd)
@@ -86,10 +302,64 @@ public:
 		fprintf(mFile,"setAttr \".kbd[%i]\" %i;\n", kbd_i,kbd);
 
 	}
+	void setKeyBreakdown(size_t kbd_start,size_t kbd_end,bool* kbd)
+	{
+		fprintf(mFile,"setAttr \".kbd[%i:%i]\" ", kbd_start,kbd_end);
+		size_t size = (kbd_end-kbd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",kbd[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyBreakdown(size_t kbd_start,size_t kbd_end)
+	{
+		fprintf(mFile,"setAttr \".kbd[%i:%i]\"",kbd_start,kbd_end);
+
+	}
+	void appendKeyBreakdown(bool kbd)
+	{
+		fprintf(mFile," %i",kbd);
+
+	}
+	void endKeyBreakdown()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setKeyTickDrawSpecial(size_t kyts_i,bool kyts)
 	{
 		if(kyts == false) return;
 		fprintf(mFile,"setAttr \".kyts[%i]\" %i;\n", kyts_i,kyts);
+
+	}
+	void setKeyTickDrawSpecial(size_t kyts_start,size_t kyts_end,bool* kyts)
+	{
+		fprintf(mFile,"setAttr \".kyts[%i:%i]\" ", kyts_start,kyts_end);
+		size_t size = (kyts_end-kyts_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",kyts[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startKeyTickDrawSpecial(size_t kyts_start,size_t kyts_end)
+	{
+		fprintf(mFile,"setAttr \".kyts[%i:%i]\"",kyts_start,kyts_end);
+
+	}
+	void appendKeyTickDrawSpecial(bool kyts)
+	{
+		fprintf(mFile," %i",kyts);
+
+	}
+	void endKeyTickDrawSpecial()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setRotationInterpolation(unsigned int roti)

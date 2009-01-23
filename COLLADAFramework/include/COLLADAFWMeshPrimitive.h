@@ -230,7 +230,7 @@ namespace COLLADAFW
         */
         void appendEdgeIndices ( 
             std::vector<Edge>& edgeIndices, 
-            std::map<Edge,int>& edgeIndicesMap );
+            std::map<Edge,size_t>& edgeIndicesMap );
 
         /*
         * Appends the data of an edge, if it is not already in the list.
@@ -238,12 +238,12 @@ namespace COLLADAFW
         void appendEdge( 
             const Edge& edge, 
             std::vector<Edge>& edgeIndices, 
-            std::map<Edge,int>& edgeIndicesMap );
+            std::map<Edge,size_t>& edgeIndicesMap );
 
         /*
          *	Returns the vertex count of the face with the specified index.
          */
-        const int getFaceVertexCount ( size_t faceIndex ) const;
+        const int getGroupedVerticesVertexCount ( const size_t faceIndex ) const;
 
     };
 

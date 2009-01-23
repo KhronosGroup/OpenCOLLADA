@@ -18,6 +18,8 @@
 
 #include "COLLADAFWObject.h"
 
+#pragma warning(disable:4355)
+
 
 namespace COLLADASaxFWL
 {

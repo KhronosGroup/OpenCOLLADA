@@ -18,6 +18,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
+
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWGeometry.h"
@@ -25,6 +26,8 @@
 
 namespace COLLADAMaya
 {
+    class VisualSceneImporter;
+    class GeometryImporter;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -42,6 +45,15 @@ namespace COLLADAMaya
         /** The current maya ascii file to import the data. */
         FILE* mFile;
 
+        bool mSceneGraphCreated;
+        bool mGeometryRead;
+
+        /** Pointer to the visual scene importer. */
+        VisualSceneImporter* mVisualSceneImporter;
+
+        /** Pointer to the geometry importer. */
+        GeometryImporter* mGeometryImporter;
+
     public:
 
         /** Constructor. */
@@ -57,6 +69,9 @@ namespace COLLADAMaya
         /** Imports the current scene. */
         void importCurrentScene();
 
+        /** Reads the collada document. */
+        void readColladaDocument();
+
         /** Create the maya ascii file (where with which name???) */
         bool createFile();
 
@@ -65,6 +80,14 @@ namespace COLLADAMaya
         * @return const String& Name of the current collada file
         */
         const String& getFilename() const;
+
+        /** Pointer to the visual scene importer. */
+        const VisualSceneImporter* getVisualSceneImporter () const { return mVisualSceneImporter; }
+        void setVisualSceneImporter ( VisualSceneImporter* val ) { mVisualSceneImporter = val; }
+
+        /** Pointer to the geometry importer. */
+        const GeometryImporter* getGeometryImporter () const { return mGeometryImporter; }
+        void setGeometryImporter ( GeometryImporter* val ) { mGeometryImporter = val; }
 
         /** This method will be called if an error in the loading process occurred and the loader 
         cannot continue to to load. The writer should undo all operations that have been performed.

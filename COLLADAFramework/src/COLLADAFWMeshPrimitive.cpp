@@ -42,7 +42,7 @@ namespace COLLADAFW
 	}
 
     //-----------------------------
-    const int MeshPrimitive::getFaceVertexCount( size_t faceIndex ) const
+    const int MeshPrimitive::getGroupedVerticesVertexCount( const size_t faceIndex ) const
     {
         switch ( mPrimitiveType )
         {
@@ -60,7 +60,7 @@ namespace COLLADAFW
             break;
         case POLYGONS:
         case POLYLIST:
-            return ((Polygons*)this)->getFaceVertexCount ( faceIndex );
+            return ((Polygons*)this)->getGroupedVerticesVertexCount ( faceIndex );
             break;
         default:
             std::cerr << "Unknown primitive type: " << mPrimitiveType << std::endl;
@@ -71,7 +71,7 @@ namespace COLLADAFW
     //-----------------------------
     void MeshPrimitive::appendEdgeIndices ( 
         std::vector<Edge>& edgeIndices, 
-        std::map<Edge,int>& edgeIndicesMap )
+        std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Get the number of grouped vertex elements (faces, holes, tristrips or trifans).
         int groupedVertexElementsCount = 0;
@@ -82,7 +82,7 @@ namespace COLLADAFW
         case COLLADAFW::MeshPrimitive::TRIANGLES:
         case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
         case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
-            groupedVertexElementsCount = this->getFaceCount ();
+            groupedVertexElementsCount = (int)this->getFaceCount ();
             break;
         case COLLADAFW::MeshPrimitive::POLYGONS:
         case COLLADAFW::MeshPrimitive::POLYLIST:
@@ -90,7 +90,7 @@ namespace COLLADAFW
                 COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*)this;
                 COLLADAFW::Polygons::VertexCountArray& vertexCountArray = 
                     polygons->getGroupedVerticesVertexCountArray ();
-                groupedVertexElementsCount = vertexCountArray.getCount ();
+                groupedVertexElementsCount = (int)vertexCountArray.getCount ();
             }
             break;
         default:
@@ -111,17 +111,17 @@ namespace COLLADAFW
         size_t positionIndex=0;
 
         // Iterate over the faces and get the edges.
-        for ( size_t faceIndex=0; faceIndex<groupedVertexElementsCount-1; ++faceIndex )
+        for ( int faceIndex=0; faceIndex<groupedVertexElementsCount; ++faceIndex )
         {
             // The number of edges is always the same 
             // than the number of vertices in the current face.
-            int numEdges = getFaceVertexCount ( faceIndex );
+            int numEdges = getGroupedVerticesVertexCount ( (size_t)faceIndex );
 
             // Reverse for holes.
             if ( numEdges < 0 ) numEdges *= -1;
 
             // Go through the edges of the current face and determine the edge values.
-            for ( size_t edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+            for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
             {
                 // Set the edge vertex index values into an edge object.
                 edgeStartVertexIndex = positionIndices[positionIndex];
@@ -144,10 +144,10 @@ namespace COLLADAFW
     void MeshPrimitive::appendEdge ( 
         const Edge& edge, 
         std::vector<Edge>& edgeIndices, 
-        std::map<Edge,int>& edgeIndicesMap )
+        std::map<Edge,size_t>& edgeIndicesMap )
     {
         // Check if the current edge already exists in the map of edges.
-        std::map<Edge,int>::iterator it = edgeIndicesMap.find ( edge );
+        std::map<Edge,size_t>::iterator it = edgeIndicesMap.find ( edge );
         if ( it != edgeIndicesMap.end () ) return;
 
         // Push the new edge into the map with it's index value.

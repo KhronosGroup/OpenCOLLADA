@@ -36,6 +36,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setDagObjectMatrix(size_t dom_start,size_t dom_end,matrix* dom)
+	{
+		fprintf(mFile,"setAttr \".dom[%i:%i]\" ", dom_start,dom_end);
+		size_t size = (dom_end-dom_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			dom[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDagObjectMatrix(size_t dom_start,size_t dom_end)
+	{
+		fprintf(mFile,"setAttr \".dom[%i:%i]\"",dom_start,dom_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendDagObjectMatrix(const matrix& dom)
+	{
+		fprintf(mFile,"\n");
+		dom.write(mFile);
+
+	}
+	void endDagObjectMatrix()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setDisplayArrow(bool daro)
 	{
 		if(daro == true) return;

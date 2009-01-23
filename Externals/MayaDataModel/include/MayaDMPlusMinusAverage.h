@@ -32,6 +32,33 @@ public:
 		fprintf(mFile,"setAttr \".i1[%i]\" %f;\n", i1_i,i1);
 
 	}
+	void setInput1D(size_t i1_start,size_t i1_end,float* i1)
+	{
+		fprintf(mFile,"setAttr \".i1[%i:%i]\" ", i1_start,i1_end);
+		size_t size = (i1_end-i1_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",i1[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInput1D(size_t i1_start,size_t i1_end)
+	{
+		fprintf(mFile,"setAttr \".i1[%i:%i]\"",i1_start,i1_end);
+
+	}
+	void appendInput1D(float i1)
+	{
+		fprintf(mFile," %f",i1);
+
+	}
+	void endInput1D()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInput2D(size_t i2_i,const float2& i2)
 	{
 		if(i2 == float2(0.0f,0.0f)) return;
@@ -49,6 +76,21 @@ public:
 			fprintf(mFile,"%f",i2[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInput2D(size_t i2_start,size_t i2_end)
+	{
+		fprintf(mFile,"setAttr \".i2[%i:%i]\"",i2_start,i2_end);
+
+	}
+	void appendInput2D(float i2)
+	{
+		fprintf(mFile," %f",i2);
+
+	}
+	void endInput2D()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -81,6 +123,21 @@ public:
 			fprintf(mFile,"%f",i3[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInput3D(size_t i3_start,size_t i3_end)
+	{
+		fprintf(mFile,"setAttr \".i3[%i:%i]\"",i3_start,i3_end);
+
+	}
+	void appendInput3D(float i3)
+	{
+		fprintf(mFile," %f",i3);
+
+	}
+	void endInput3D()
+	{
 		fprintf(mFile,";\n");
 
 	}

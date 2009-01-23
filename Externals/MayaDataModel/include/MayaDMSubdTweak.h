@@ -40,6 +40,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startTweak(size_t tk_start,size_t tk_end)
+	{
+		fprintf(mFile,"setAttr \".tk[%i:%i]\"",tk_start,tk_end);
+
+	}
+	void appendTweak(double tk)
+	{
+		fprintf(mFile," %f",tk);
+
+	}
+	void endTweak()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTweakX(size_t tk_i,double tx)
 	{
 		if(tx == 0.0) return;

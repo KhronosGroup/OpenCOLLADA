@@ -41,6 +41,33 @@ public:
 		fprintf(mFile,"setAttr \".che[%i]\" %i;\n", che_i,che);
 
 	}
+	void setChildEnabled(size_t che_start,size_t che_end,bool* che)
+	{
+		fprintf(mFile,"setAttr \".che[%i:%i]\" ", che_start,che_end);
+		size_t size = (che_end-che_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",che[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startChildEnabled(size_t che_start,size_t che_end)
+	{
+		fprintf(mFile,"setAttr \".che[%i:%i]\"",che_start,che_end);
+
+	}
+	void appendChildEnabled(bool che)
+	{
+		fprintf(mFile," %i",che);
+
+	}
+	void endChildEnabled()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setJointMidplaneAxis(const double3& jma)
 	{
 		fprintf(mFile,"setAttr \".jma\" -type \"double3\" ");
@@ -82,6 +109,21 @@ public:
 			fprintf(mFile,"%f",cjm[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startChildJointMidplaneAxis(size_t cjm_start,size_t cjm_end)
+	{
+		fprintf(mFile,"setAttr \".cjm[%i:%i]\"",cjm_start,cjm_end);
+
+	}
+	void appendChildJointMidplaneAxis(double cjm)
+	{
+		fprintf(mFile," %f",cjm);
+
+	}
+	void endChildJointMidplaneAxis()
+	{
 		fprintf(mFile,";\n");
 
 	}

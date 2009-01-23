@@ -56,6 +56,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setPerPtWeights(size_t ic_i,size_t ppw_start,size_t ppw_end,doubleArray* ppw)
+	{
+		fprintf(mFile,"setAttr \".ic[%i].ppw[%i:%i]\" ", ic_i,ppw_start,ppw_end);
+		size_t size = (ppw_end-ppw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ppw[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPerPtWeights(size_t ic_i,size_t ppw_start,size_t ppw_end)
+	{
+		fprintf(mFile,"setAttr \".ic[%i].ppw[%i:%i]\"",ic_i,ppw_start,ppw_end);
+		fprintf(mFile," -type \"doubleArray\" ");
+
+	}
+	void appendPerPtWeights(const doubleArray& ppw)
+	{
+		fprintf(mFile,"\n");
+		ppw.write(mFile);
+
+	}
+	void endPerPtWeights()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setDisableAll(bool da)
 	{
 		if(da == 0) return;

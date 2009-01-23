@@ -34,10 +34,64 @@ public:
 		fprintf(mFile,"setAttr \".th[%i]\" %f;\n", th_i,th);
 
 	}
+	void setThreshold(size_t th_start,size_t th_end,double* th)
+	{
+		fprintf(mFile,"setAttr \".th[%i:%i]\" ", th_start,th_end);
+		size_t size = (th_end-th_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",th[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startThreshold(size_t th_start,size_t th_end)
+	{
+		fprintf(mFile,"setAttr \".th[%i:%i]\"",th_start,th_end);
+
+	}
+	void appendThreshold(double th)
+	{
+		fprintf(mFile," %f",th);
+
+	}
+	void endThreshold()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setDisplayLevel(size_t dl_i,unsigned int dl)
 	{
 		if(dl == 0) return;
 		fprintf(mFile,"setAttr \".dl[%i]\" %i;\n", dl_i,dl);
+
+	}
+	void setDisplayLevel(size_t dl_start,size_t dl_end,unsigned int* dl)
+	{
+		fprintf(mFile,"setAttr \".dl[%i:%i]\" ", dl_start,dl_end);
+		size_t size = (dl_end-dl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",dl[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDisplayLevel(size_t dl_start,size_t dl_end)
+	{
+		fprintf(mFile,"setAttr \".dl[%i:%i]\"",dl_start,dl_end);
+
+	}
+	void appendDisplayLevel(unsigned int dl)
+	{
+		fprintf(mFile," %i",dl);
+
+	}
+	void endDisplayLevel()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setMinMaxDistance(bool mmd)

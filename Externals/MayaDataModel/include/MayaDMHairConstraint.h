@@ -26,6 +26,33 @@ public:
 		fprintf(mFile,"setAttr \".cin[%i]\" %i;\n", cin_i,cin);
 
 	}
+	void setCurveIndices(size_t cin_start,size_t cin_end,int* cin)
+	{
+		fprintf(mFile,"setAttr \".cin[%i:%i]\" ", cin_start,cin_end);
+		size_t size = (cin_end-cin_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",cin[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startCurveIndices(size_t cin_start,size_t cin_end)
+	{
+		fprintf(mFile,"setAttr \".cin[%i:%i]\"",cin_start,cin_end);
+
+	}
+	void appendCurveIndices(int cin)
+	{
+		fprintf(mFile," %i",cin);
+
+	}
+	void endCurveIndices()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setConstraintMethod(unsigned int cm)
 	{
 		if(cm == 1) return;

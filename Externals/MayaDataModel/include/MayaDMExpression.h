@@ -26,6 +26,33 @@ public:
 		fprintf(mFile,"setAttr \".in[%i]\" %f;\n", in_i,in);
 
 	}
+	void setInput(size_t in_start,size_t in_end,double* in)
+	{
+		fprintf(mFile,"setAttr \".in[%i:%i]\" ", in_start,in_end);
+		size_t size = (in_end-in_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",in[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInput(size_t in_start,size_t in_end)
+	{
+		fprintf(mFile,"setAttr \".in[%i:%i]\"",in_start,in_end);
+
+	}
+	void appendInput(double in)
+	{
+		fprintf(mFile," %f",in);
+
+	}
+	void endInput()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInternalExpression(const string& ixp)
 	{
 		if(ixp == "NULL") return;

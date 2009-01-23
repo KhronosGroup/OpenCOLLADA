@@ -28,6 +28,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setWorldMatrix(size_t wm_start,size_t wm_end,matrix* wm)
+	{
+		fprintf(mFile,"setAttr \".wm[%i:%i]\" ", wm_start,wm_end);
+		size_t size = (wm_end-wm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			wm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWorldMatrix(size_t wm_start,size_t wm_end)
+	{
+		fprintf(mFile,"setAttr \".wm[%i:%i]\"",wm_start,wm_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendWorldMatrix(const matrix& wm)
+	{
+		fprintf(mFile,"\n");
+		wm.write(mFile);
+
+	}
+	void endWorldMatrix()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setXformMatrix(size_t xm_i,const matrix& xm)
 	{
 		if(xm == identity) return;
@@ -36,10 +65,66 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setXformMatrix(size_t xm_start,size_t xm_end,matrix* xm)
+	{
+		fprintf(mFile,"setAttr \".xm[%i:%i]\" ", xm_start,xm_end);
+		size_t size = (xm_end-xm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			xm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startXformMatrix(size_t xm_start,size_t xm_end)
+	{
+		fprintf(mFile,"setAttr \".xm[%i:%i]\"",xm_start,xm_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendXformMatrix(const matrix& xm)
+	{
+		fprintf(mFile,"\n");
+		xm.write(mFile);
+
+	}
+	void endXformMatrix()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setGlobal(size_t g_i,bool g)
 	{
 		if(g == false) return;
 		fprintf(mFile,"setAttr \".g[%i]\" %i;\n", g_i,g);
+
+	}
+	void setGlobal(size_t g_start,size_t g_end,bool* g)
+	{
+		fprintf(mFile,"setAttr \".g[%i:%i]\" ", g_start,g_end);
+		size_t size = (g_end-g_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",g[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGlobal(size_t g_start,size_t g_end)
+	{
+		fprintf(mFile,"setAttr \".g[%i:%i]\"",g_start,g_end);
+
+	}
+	void appendGlobal(bool g)
+	{
+		fprintf(mFile," %i",g);
+
+	}
+	void endGlobal()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setBindPose(bool bp)

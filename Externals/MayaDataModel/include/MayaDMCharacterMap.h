@@ -28,6 +28,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setMemberIndex(size_t mi_start,size_t mi_end,intArray* mi)
+	{
+		fprintf(mFile,"setAttr \".mi[%i:%i]\" ", mi_start,mi_end);
+		size_t size = (mi_end-mi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			mi[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startMemberIndex(size_t mi_start,size_t mi_end)
+	{
+		fprintf(mFile,"setAttr \".mi[%i:%i]\"",mi_start,mi_end);
+		fprintf(mFile," -type \"intArray\" ");
+
+	}
+	void appendMemberIndex(const intArray& mi)
+	{
+		fprintf(mFile,"\n");
+		mi.write(mFile);
+
+	}
+	void endMemberIndex()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getMember(size_t m_i)
 	{
 		fprintf(mFile,"\"%s.m[%i]\"",mName.c_str(),m_i);

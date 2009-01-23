@@ -386,6 +386,33 @@ public:
 		fprintf(mFile,"setAttr \".ift[%i]\" %i;\n", ift_i,ift);
 
 	}
+	void setInputForceType(size_t ift_start,size_t ift_end,bool* ift)
+	{
+		fprintf(mFile,"setAttr \".ift[%i:%i]\" ", ift_start,ift_end);
+		size_t size = (ift_end-ift_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ift[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInputForceType(size_t ift_start,size_t ift_end)
+	{
+		fprintf(mFile,"setAttr \".ift[%i:%i]\"",ift_start,ift_end);
+
+	}
+	void appendInputForceType(bool ift)
+	{
+		fprintf(mFile," %i",ift);
+
+	}
+	void endInputForceType()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setSolverId(int sid)
 	{
 		if(sid == -1) return;

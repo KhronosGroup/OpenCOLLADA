@@ -21,11 +21,14 @@
 
 #include "COLLADAFWMesh.h"
 
+#include "Math/COLLADABUMathVector3.h"
+
 #include "MayaDMTypes.h"
 #include "MayaDMMesh.h"
 
 #include <map>
 #include <vector>
+#include <set>
 
 
 namespace COLLADAMaya
@@ -37,11 +40,17 @@ namespace COLLADAMaya
 
     private:
 
+        typedef std::map<const COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdToUniqueIdsMap;
+        typedef std::map<const COLLADAFW::UniqueId, String> UniqueIdNamesMap;
+
         /** The current transform object, for which the geometries should be created. */
         MObject mTransformObject;
 
         /** Pointer to the current framework geometry object. */
         const COLLADAFW::Geometry* mGeometry;
+
+        /** Pointer to the current framework mesh object. */ 
+        const COLLADAFW::Mesh* mMesh;
 
     public:
 
@@ -66,7 +75,7 @@ namespace COLLADAMaya
          */
         bool writeFaces ( 
             const COLLADAFW::Mesh* mesh, 
-            const std::map<COLLADAFW::Edge,int>& edgeIndicesMap, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             MayaDM::Mesh &meshNode );
 
         /*
@@ -74,8 +83,31 @@ namespace COLLADAMaya
          */
         bool appendPolyFaces ( 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
-            const std::map<COLLADAFW::Edge,int>& edgeIndicesMap, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             MayaDM::Mesh &meshNode );
+
+        /*
+         *	Changes the orientation of a polyFace hole element.
+         */
+        void changePolyFaceHoleOrientation( MayaDM::polyFaces &polyFace );
+
+        /*
+         *	Returns the number of grouped vertices (polygons, triangles, faces, holes, ...).
+         */
+        size_t getGroupedVerticesCount( const COLLADAFW::MeshPrimitive* primitiveElement );
+
+        /*
+         *	Returns true, if we have to change the orientation of the current hole.
+         */
+        bool changeHoleOrientation ( 
+            std::vector<COLLADABU::Math::Vector3*>& polygonPoints, 
+            std::vector<COLLADABU::Math::Vector3*>& holePoints );
+
+        /*
+         * Returns a class which stores the x, y and z values of the vertex point 
+         * at the given index position.
+         */
+        COLLADABU::Math::Vector3* getVertexPosition ( size_t vertexIndex );
 
         /*
          *	Write the edges into the maya file.
@@ -114,7 +146,7 @@ namespace COLLADAMaya
          */
         bool getEdgeIndex ( 
             const COLLADAFW::Edge& edge, 
-            const std::map<COLLADAFW::Edge,int>& edgeIndicesMap, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             int& edgeIndex );
     };
 

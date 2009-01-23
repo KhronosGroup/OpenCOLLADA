@@ -26,6 +26,33 @@ public:
 		fprintf(mFile,"setAttr \".i[%i]\" %f;\n", i_i,i);
 
 	}
+	void setInput(size_t i_start,size_t i_end,double* i)
+	{
+		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
+		size_t size = (i_end-i_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",i[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInput(size_t i_start,size_t i_end)
+	{
+		fprintf(mFile,"setAttr \".i[%i:%i]\"",i_start,i_end);
+
+	}
+	void appendInput(double i)
+	{
+		fprintf(mFile," %f",i);
+
+	}
+	void endInput()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setCurrent(int c)
 	{
 		if(c == 0) return;

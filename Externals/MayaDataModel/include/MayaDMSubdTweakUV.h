@@ -40,6 +40,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startUvTweak(size_t uvtk_start,size_t uvtk_end)
+	{
+		fprintf(mFile,"setAttr \".uvtk[%i:%i]\"",uvtk_start,uvtk_end);
+
+	}
+	void appendUvTweak(float uvtk)
+	{
+		fprintf(mFile," %f",uvtk);
+
+	}
+	void endUvTweak()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setUvTweakU(size_t uvtk_i,float tu)
 	{
 		if(tu == 0.0) return;

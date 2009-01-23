@@ -26,10 +26,64 @@ public:
 		fprintf(mFile,"setAttr \".il[%i]\" %i;\n", il_i,il);
 
 	}
+	void setInLevel(size_t il_start,size_t il_end,bool* il)
+	{
+		fprintf(mFile,"setAttr \".il[%i:%i]\" ", il_start,il_end);
+		size_t size = (il_end-il_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",il[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInLevel(size_t il_start,size_t il_end)
+	{
+		fprintf(mFile,"setAttr \".il[%i:%i]\"",il_start,il_end);
+
+	}
+	void appendInLevel(bool il)
+	{
+		fprintf(mFile," %i",il);
+
+	}
+	void endInLevel()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setDisplayLevel(size_t dl_i,unsigned int dl)
 	{
 		if(dl == 0) return;
 		fprintf(mFile,"setAttr \".dl[%i]\" %i;\n", dl_i,dl);
+
+	}
+	void setDisplayLevel(size_t dl_start,size_t dl_end,unsigned int* dl)
+	{
+		fprintf(mFile,"setAttr \".dl[%i:%i]\" ", dl_start,dl_end);
+		size_t size = (dl_end-dl_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",dl[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDisplayLevel(size_t dl_start,size_t dl_end)
+	{
+		fprintf(mFile,"setAttr \".dl[%i:%i]\"",dl_start,dl_end);
+
+	}
+	void appendDisplayLevel(unsigned int dl)
+	{
+		fprintf(mFile," %i",dl);
+
+	}
+	void endDisplayLevel()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void getInLevel(size_t il_i)

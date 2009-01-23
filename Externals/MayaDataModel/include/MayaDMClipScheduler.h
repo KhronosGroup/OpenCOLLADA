@@ -209,10 +209,64 @@ public:
 		fprintf(mFile,"setAttr \".sc[%i]\" %f;\n", sc_i,sc);
 
 	}
+	void setScale(size_t sc_start,size_t sc_end,double* sc)
+	{
+		fprintf(mFile,"setAttr \".sc[%i:%i]\" ", sc_start,sc_end);
+		size_t size = (sc_end-sc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",sc[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startScale(size_t sc_start,size_t sc_end)
+	{
+		fprintf(mFile,"setAttr \".sc[%i:%i]\"",sc_start,sc_end);
+
+	}
+	void appendScale(double sc)
+	{
+		fprintf(mFile," %f",sc);
+
+	}
+	void endScale()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setWeight(size_t w_i,double w)
 	{
 		if(w == 1.0) return;
 		fprintf(mFile,"setAttr \".w[%i]\" %f;\n", w_i,w);
+
+	}
+	void setWeight(size_t w_start,size_t w_end,double* w)
+	{
+		fprintf(mFile,"setAttr \".w[%i:%i]\" ", w_start,w_end);
+		size_t size = (w_end-w_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",w[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeight(size_t w_start,size_t w_end)
+	{
+		fprintf(mFile,"setAttr \".w[%i:%i]\"",w_start,w_end);
+
+	}
+	void appendWeight(double w)
+	{
+		fprintf(mFile," %f",w);
+
+	}
+	void endWeight()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setWeightStyle(size_t ws_i,unsigned int ws)
@@ -221,10 +275,64 @@ public:
 		fprintf(mFile,"setAttr \".ws[%i]\" %i;\n", ws_i,ws);
 
 	}
+	void setWeightStyle(size_t ws_start,size_t ws_end,unsigned int* ws)
+	{
+		fprintf(mFile,"setAttr \".ws[%i:%i]\" ", ws_start,ws_end);
+		size_t size = (ws_end-ws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ws[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeightStyle(size_t ws_start,size_t ws_end)
+	{
+		fprintf(mFile,"setAttr \".ws[%i:%i]\"",ws_start,ws_end);
+
+	}
+	void appendWeightStyle(unsigned int ws)
+	{
+		fprintf(mFile," %i",ws);
+
+	}
+	void endWeightStyle()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setPreCycle(size_t cb_i,double cb)
 	{
 		if(cb == 0.0) return;
 		fprintf(mFile,"setAttr \".cb[%i]\" %f;\n", cb_i,cb);
+
+	}
+	void setPreCycle(size_t cb_start,size_t cb_end,double* cb)
+	{
+		fprintf(mFile,"setAttr \".cb[%i:%i]\" ", cb_start,cb_end);
+		size_t size = (cb_end-cb_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",cb[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPreCycle(size_t cb_start,size_t cb_end)
+	{
+		fprintf(mFile,"setAttr \".cb[%i:%i]\"",cb_start,cb_end);
+
+	}
+	void appendPreCycle(double cb)
+	{
+		fprintf(mFile," %f",cb);
+
+	}
+	void endPreCycle()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setPostCycle(size_t ca_i,double ca)
@@ -233,10 +341,64 @@ public:
 		fprintf(mFile,"setAttr \".ca[%i]\" %f;\n", ca_i,ca);
 
 	}
+	void setPostCycle(size_t ca_start,size_t ca_end,double* ca)
+	{
+		fprintf(mFile,"setAttr \".ca[%i:%i]\" ", ca_start,ca_end);
+		size_t size = (ca_end-ca_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ca[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPostCycle(size_t ca_start,size_t ca_end)
+	{
+		fprintf(mFile,"setAttr \".ca[%i:%i]\"",ca_start,ca_end);
+
+	}
+	void appendPostCycle(double ca)
+	{
+		fprintf(mFile," %f",ca);
+
+	}
+	void endPostCycle()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEnable(size_t ea_i,bool ea)
 	{
 		if(ea == 1) return;
 		fprintf(mFile,"setAttr \".ea[%i]\" %i;\n", ea_i,ea);
+
+	}
+	void setEnable(size_t ea_start,size_t ea_end,bool* ea)
+	{
+		fprintf(mFile,"setAttr \".ea[%i:%i]\" ", ea_start,ea_end);
+		size_t size = (ea_end-ea_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ea[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEnable(size_t ea_start,size_t ea_end)
+	{
+		fprintf(mFile,"setAttr \".ea[%i:%i]\"",ea_start,ea_end);
+
+	}
+	void appendEnable(bool ea)
+	{
+		fprintf(mFile," %i",ea);
+
+	}
+	void endEnable()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setTrack(size_t tr_i,short tr)
@@ -245,10 +407,64 @@ public:
 		fprintf(mFile,"setAttr \".tr[%i]\" %i;\n", tr_i,tr);
 
 	}
+	void setTrack(size_t tr_start,size_t tr_end,short* tr)
+	{
+		fprintf(mFile,"setAttr \".tr[%i:%i]\" ", tr_start,tr_end);
+		size_t size = (tr_end-tr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",tr[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTrack(size_t tr_start,size_t tr_end)
+	{
+		fprintf(mFile,"setAttr \".tr[%i:%i]\"",tr_start,tr_end);
+
+	}
+	void appendTrack(short tr)
+	{
+		fprintf(mFile," %i",tr);
+
+	}
+	void endTrack()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTrackState(size_t ts_i,short ts)
 	{
 		if(ts == 0) return;
 		fprintf(mFile,"setAttr \".ts[%i]\" %i;\n", ts_i,ts);
+
+	}
+	void setTrackState(size_t ts_start,size_t ts_end,short* ts)
+	{
+		fprintf(mFile,"setAttr \".ts[%i:%i]\" ", ts_start,ts_end);
+		size_t size = (ts_end-ts_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ts[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTrackState(size_t ts_start,size_t ts_end)
+	{
+		fprintf(mFile,"setAttr \".ts[%i:%i]\"",ts_start,ts_end);
+
+	}
+	void appendTrackState(short ts)
+	{
+		fprintf(mFile," %i",ts);
+
+	}
+	void endTrackState()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setNumTracks(short nt)
@@ -261,6 +477,33 @@ public:
 	{
 		if(cy == 1.0) return;
 		fprintf(mFile,"setAttr \".cy[%i]\" %f;\n", cy_i,cy);
+
+	}
+	void setCycle(size_t cy_start,size_t cy_end,double* cy)
+	{
+		fprintf(mFile,"setAttr \".cy[%i:%i]\" ", cy_start,cy_end);
+		size_t size = (cy_end-cy_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",cy[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startCycle(size_t cy_start,size_t cy_end)
+	{
+		fprintf(mFile,"setAttr \".cy[%i:%i]\"",cy_start,cy_end);
+
+	}
+	void appendCycle(double cy)
+	{
+		fprintf(mFile," %f",cy);
+
+	}
+	void endCycle()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void getBlendList(size_t bl_i)

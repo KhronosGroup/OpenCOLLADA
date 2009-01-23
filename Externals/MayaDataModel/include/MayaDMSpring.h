@@ -105,6 +105,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setObjectPositions(size_t opos_start,size_t opos_end,vectorArray* opos)
+	{
+		fprintf(mFile,"setAttr \".opos[%i:%i]\" ", opos_start,opos_end);
+		size_t size = (opos_end-opos_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			opos[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startObjectPositions(size_t opos_start,size_t opos_end)
+	{
+		fprintf(mFile,"setAttr \".opos[%i:%i]\"",opos_start,opos_end);
+		fprintf(mFile," -type \"vectorArray\" ");
+
+	}
+	void appendObjectPositions(const vectorArray& opos)
+	{
+		fprintf(mFile,"\n");
+		opos.write(mFile);
+
+	}
+	void endObjectPositions()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setObjectVelocities(size_t ovel_i,const vectorArray& ovel)
 	{
 		if(ovel.size == 0) return;
@@ -113,11 +142,69 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setObjectVelocities(size_t ovel_start,size_t ovel_end,vectorArray* ovel)
+	{
+		fprintf(mFile,"setAttr \".ovel[%i:%i]\" ", ovel_start,ovel_end);
+		size_t size = (ovel_end-ovel_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ovel[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startObjectVelocities(size_t ovel_start,size_t ovel_end)
+	{
+		fprintf(mFile,"setAttr \".ovel[%i:%i]\"",ovel_start,ovel_end);
+		fprintf(mFile," -type \"vectorArray\" ");
+
+	}
+	void appendObjectVelocities(const vectorArray& ovel)
+	{
+		fprintf(mFile,"\n");
+		ovel.write(mFile);
+
+	}
+	void endObjectVelocities()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setObjectMass(size_t omas_i,const doubleArray& omas)
 	{
 		if(omas.size == 0) return;
 		fprintf(mFile,"setAttr \".omas[%i]\" -type \"doubleArray\" ",omas_i);
 		omas.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setObjectMass(size_t omas_start,size_t omas_end,doubleArray* omas)
+	{
+		fprintf(mFile,"setAttr \".omas[%i:%i]\" ", omas_start,omas_end);
+		size_t size = (omas_end-omas_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			omas[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startObjectMass(size_t omas_start,size_t omas_end)
+	{
+		fprintf(mFile,"setAttr \".omas[%i:%i]\"",omas_start,omas_end);
+		fprintf(mFile," -type \"doubleArray\" ");
+
+	}
+	void appendObjectMass(const doubleArray& omas)
+	{
+		fprintf(mFile,"\n");
+		omas.write(mFile);
+
+	}
+	void endObjectMass()
+	{
 		fprintf(mFile,";\n");
 
 	}

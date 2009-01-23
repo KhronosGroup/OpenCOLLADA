@@ -23,7 +23,6 @@
 namespace COLLADAFW
 {
 
-
     /** 
      * Describes basic geometric meshes using vertex and primitive information.
      * Meshes embody a general form of geometric description that primarily 

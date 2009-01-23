@@ -28,6 +28,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setUvSets(size_t uvs_start,size_t uvs_end,string* uvs)
+	{
+		fprintf(mFile,"setAttr \".uvs[%i:%i]\" ", uvs_start,uvs_end);
+		size_t size = (uvs_end-uvs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			uvs[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startUvSets(size_t uvs_start,size_t uvs_end)
+	{
+		fprintf(mFile,"setAttr \".uvs[%i:%i]\"",uvs_start,uvs_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendUvSets(const string& uvs)
+	{
+		fprintf(mFile,"\n");
+		uvs.write(mFile);
+
+	}
+	void endUvSets()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setVertexUvOne(const float2& vt1)
 	{
 		fprintf(mFile,"setAttr \".vt1\" -type \"float2\" ");

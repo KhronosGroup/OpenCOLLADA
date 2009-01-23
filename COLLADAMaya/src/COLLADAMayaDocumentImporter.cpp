@@ -38,6 +38,10 @@ namespace COLLADAMaya
         : mFileName ( fileName )
         , mSceneId ( "MayaScene" )
         , mFile ( 0 )
+        , mVisualSceneImporter (0)
+        , mGeometryImporter (0)
+        , mSceneGraphCreated ( false )
+        , mGeometryRead ( false )
     {
     }
 
@@ -53,6 +57,9 @@ namespace COLLADAMaya
         // First release the existing libraries.
         releaseLibraries();
 
+        mVisualSceneImporter = new VisualSceneImporter ( this );
+        mGeometryImporter = new GeometryImporter ( this );
+
         // Get the sceneID (assign a name to the scene)
         MString sceneName = MFileIO::currentFile ();
         if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
@@ -64,6 +71,8 @@ namespace COLLADAMaya
     //---------------------------------
     void DocumentImporter::releaseLibraries()
     {
+        delete mVisualSceneImporter;
+        delete mGeometryImporter;
     }
 
     //-----------------------------
@@ -76,11 +85,7 @@ namespace COLLADAMaya
         importAsset ();
 
         // Load the collada document into the collada framework.
-        COLLADASaxFWL::Loader loader;
-        COLLADAFW::Root root ( &loader, this );
-        String filename = getFilename ();
-        String fileUriString = URI::nativePathToUri ( filename );
-        root.loadDocument ( fileUriString );
+        readColladaDocument();
     }
 
     //-----------------------------
@@ -185,7 +190,7 @@ namespace COLLADAMaya
     void DocumentImporter::start ()
     {
         // Create the maya file.
-        if ( !createFile() ) return;
+        assert ( createFile() );
 
         // TODO Write the header informations and the asset into the file.
         writeHeader ( mFile );
@@ -201,25 +206,51 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
+        bool retValue = false;
+        if ( mSceneGraphCreated ) return retValue;
+
         // TODO
         if ( mFile == 0 ) start();
 
-        VisualSceneImporter visualSceneImporter ( this );
+        retValue = mVisualSceneImporter->importVisualScene ( visualScene );
+        mSceneGraphCreated = true;
 
-        return visualSceneImporter.importVisualScene ( visualScene );
+        // Nochmal lesen, zwecks Reihenfolge...
+        if ( mGeometryRead == true )
+        {
+            readColladaDocument ();
+        }
 
-        return true;
+        return retValue;
     }
 
     //-----------------------------
     bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
-   {
-       // TODO
+    {
+        bool retValue = false;
+
+        // First the scene graph!
+        if ( !mSceneGraphCreated )
+        {
+            mGeometryRead = true;
+            return retValue;
+        }
+
+        // TODO
         if ( mFile == 0 ) start();
 
-        GeometryImporter geometryImporter ( this );
+        retValue = mGeometryImporter->importGeometry ( geometry );
 
-        return geometryImporter.importGeometry ( geometry );
+        return retValue;
     }
 
+    //-----------------------------
+    void DocumentImporter::readColladaDocument ()
+    {
+        COLLADASaxFWL::Loader loader;
+        COLLADAFW::Root root ( &loader, this );
+        String filename = getFilename ();
+        String fileUriString = URI::nativePathToUri ( filename );
+        root.loadDocument ( fileUriString );
+    }
 }

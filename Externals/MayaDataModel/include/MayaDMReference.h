@@ -38,6 +38,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setFileNames(size_t fn_start,size_t fn_end,string* fn)
+	{
+		fprintf(mFile,"setAttr \".fn[%i:%i]\" ", fn_start,fn_end);
+		size_t size = (fn_end-fn_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fn[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startFileNames(size_t fn_start,size_t fn_end)
+	{
+		fprintf(mFile,"setAttr \".fn[%i:%i]\"",fn_start,fn_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendFileNames(const string& fn)
+	{
+		fprintf(mFile,"\n");
+		fn.write(mFile);
+
+	}
+	void endFileNames()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setMultiParentList(size_t mpl_i,const MultiParentList& mpl)
 	{
 		fprintf(mFile,"setAttr \".mpl[%i]\" ",mpl_i);

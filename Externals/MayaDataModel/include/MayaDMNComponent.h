@@ -110,6 +110,33 @@ public:
 		fprintf(mFile,"setAttr \".ci[%i]\" %i;\n", ci_i,ci);
 
 	}
+	void setComponentIndices(size_t ci_start,size_t ci_end,int* ci)
+	{
+		fprintf(mFile,"setAttr \".ci[%i:%i]\" ", ci_start,ci_end);
+		size_t size = (ci_end-ci_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ci[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startComponentIndices(size_t ci_start,size_t ci_end)
+	{
+		fprintf(mFile,"setAttr \".ci[%i:%i]\"",ci_start,ci_end);
+
+	}
+	void appendComponentIndices(int ci)
+	{
+		fprintf(mFile," %i",ci);
+
+	}
+	void endComponentIndices()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setStrengthMapType(unsigned int smt)
 	{
 		if(smt == 2) return;

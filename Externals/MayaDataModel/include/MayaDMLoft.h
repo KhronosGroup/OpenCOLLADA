@@ -50,6 +50,33 @@ public:
 		fprintf(mFile,"setAttr \".r[%i]\" %i;\n", r_i,r);
 
 	}
+	void setReverse(size_t r_start,size_t r_end,bool* r)
+	{
+		fprintf(mFile,"setAttr \".r[%i:%i]\" ", r_start,r_end);
+		size_t size = (r_end-r_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",r[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startReverse(size_t r_start,size_t r_end)
+	{
+		fprintf(mFile,"setAttr \".r[%i:%i]\"",r_start,r_end);
+
+	}
+	void appendReverse(bool r)
+	{
+		fprintf(mFile," %i",r);
+
+	}
+	void endReverse()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setReverseSurfaceNormals(bool rsn)
 	{
 		if(rsn == false) return;
@@ -66,6 +93,33 @@ public:
 	{
 		if(cc == false) return;
 		fprintf(mFile,"setAttr \".cc[%i]\" %i;\n", cc_i,cc);
+
+	}
+	void setCreateCusp(size_t cc_start,size_t cc_end,bool* cc)
+	{
+		fprintf(mFile,"setAttr \".cc[%i:%i]\" ", cc_start,cc_end);
+		size_t size = (cc_end-cc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",cc[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startCreateCusp(size_t cc_start,size_t cc_end)
+	{
+		fprintf(mFile,"setAttr \".cc[%i:%i]\"",cc_start,cc_end);
+
+	}
+	void appendCreateCusp(bool cc)
+	{
+		fprintf(mFile," %i",cc);
+
+	}
+	void endCreateCusp()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void getInputCurve(size_t ic_i)

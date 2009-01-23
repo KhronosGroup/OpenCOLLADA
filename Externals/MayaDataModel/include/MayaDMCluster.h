@@ -59,6 +59,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setGeomMatrix(size_t gm_start,size_t gm_end,matrix* gm)
+	{
+		fprintf(mFile,"setAttr \".gm[%i:%i]\" ", gm_start,gm_end);
+		size_t size = (gm_end-gm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			gm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGeomMatrix(size_t gm_start,size_t gm_end)
+	{
+		fprintf(mFile,"setAttr \".gm[%i:%i]\"",gm_start,gm_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendGeomMatrix(const matrix& gm)
+	{
+		fprintf(mFile,"\n");
+		gm.write(mFile);
+
+	}
+	void endGeomMatrix()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setMatrix(const matrix& ma)
 	{
 		if(ma == identity) return;

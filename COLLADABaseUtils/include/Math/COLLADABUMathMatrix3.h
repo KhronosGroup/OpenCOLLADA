@@ -15,9 +15,6 @@
 #include "COLLADABUMathVector3.h"
 #include <memory>
 
-// NB All code adapted from Wild Magic 0.2 Matrix math (free source code)
-// http://www.magic-software.com
-
 // NOTE.  The (x,y,z) coordinate system is assumed to be right-handed.
 // Coordinate axis rotation matrices are of the form
 //   RX =    1       0       0

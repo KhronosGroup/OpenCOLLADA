@@ -31,16 +31,97 @@ public:
 		fprintf(mFile,"setAttr \".wt[%i]\" %f;\n", wt_i,wt);
 
 	}
+	void setWeight(size_t wt_start,size_t wt_end,double* wt)
+	{
+		fprintf(mFile,"setAttr \".wt[%i:%i]\" ", wt_start,wt_end);
+		size_t size = (wt_end-wt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",wt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeight(size_t wt_start,size_t wt_end)
+	{
+		fprintf(mFile,"setAttr \".wt[%i:%i]\"",wt_start,wt_end);
+
+	}
+	void appendWeight(double wt)
+	{
+		fprintf(mFile," %f",wt);
+
+	}
+	void endWeight()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setParameterU(size_t u_i,double u)
 	{
 		if(u == 0.0) return;
 		fprintf(mFile,"setAttr \".u[%i]\" %f;\n", u_i,u);
 
 	}
+	void setParameterU(size_t u_start,size_t u_end,double* u)
+	{
+		fprintf(mFile,"setAttr \".u[%i:%i]\" ", u_start,u_end);
+		size_t size = (u_end-u_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",u[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startParameterU(size_t u_start,size_t u_end)
+	{
+		fprintf(mFile,"setAttr \".u[%i:%i]\"",u_start,u_end);
+
+	}
+	void appendParameterU(double u)
+	{
+		fprintf(mFile," %f",u);
+
+	}
+	void endParameterU()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setParameterV(size_t v_i,double v)
 	{
 		if(v == 0.0) return;
 		fprintf(mFile,"setAttr \".v[%i]\" %f;\n", v_i,v);
+
+	}
+	void setParameterV(size_t v_start,size_t v_end,double* v)
+	{
+		fprintf(mFile,"setAttr \".v[%i:%i]\" ", v_start,v_end);
+		size_t size = (v_end-v_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",v[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startParameterV(size_t v_start,size_t v_end)
+	{
+		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+
+	}
+	void appendParameterV(double v)
+	{
+		fprintf(mFile," %f",v);
+
+	}
+	void endParameterV()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setTurnOnPercentage(bool top)

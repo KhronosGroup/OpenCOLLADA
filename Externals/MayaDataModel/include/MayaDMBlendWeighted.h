@@ -26,6 +26,33 @@ public:
 		fprintf(mFile,"setAttr \".w[%i]\" %f;\n", w_i,w);
 
 	}
+	void setWeight(size_t w_start,size_t w_end,float* w)
+	{
+		fprintf(mFile,"setAttr \".w[%i:%i]\" ", w_start,w_end);
+		size_t size = (w_end-w_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",w[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeight(size_t w_start,size_t w_end)
+	{
+		fprintf(mFile,"setAttr \".w[%i:%i]\"",w_start,w_end);
+
+	}
+	void appendWeight(float w)
+	{
+		fprintf(mFile," %f",w);
+
+	}
+	void endWeight()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getWeight(size_t w_i)
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);

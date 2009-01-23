@@ -80,7 +80,7 @@ namespace COLLADAFW
         /*
         *	Returns the vertex count of the face on the specified index position.
         */
-        const int getFaceVertexCount ( size_t faceIndex ) const 
+        const int getGroupedVerticesVertexCount ( const size_t faceIndex ) const 
         {
             if ( faceIndex >= mGroupedVerticesVertexCountArray.getCount () ) 
             {

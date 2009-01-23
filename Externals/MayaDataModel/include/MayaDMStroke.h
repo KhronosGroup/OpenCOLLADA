@@ -139,6 +139,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startOutPoint(size_t opt_start,size_t opt_end)
+	{
+		fprintf(mFile,"setAttr \".opt[%i:%i]\"",opt_start,opt_end);
+
+	}
+	void appendOutPoint(double opt)
+	{
+		fprintf(mFile," %f",opt);
+
+	}
+	void endOutPoint()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setOutPointX(size_t opt_i,double ox)
 	{
 		if(ox == 0.0) return;
@@ -240,6 +255,33 @@ public:
 	{
 		if(psr == 0.0) return;
 		fprintf(mFile,"setAttr \".psr[%i]\" %f;\n", psr_i,psr);
+
+	}
+	void setPressure(size_t psr_start,size_t psr_end,double* psr)
+	{
+		fprintf(mFile,"setAttr \".psr[%i:%i]\" ", psr_start,psr_end);
+		size_t size = (psr_end-psr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",psr[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPressure(size_t psr_start,size_t psr_end)
+	{
+		fprintf(mFile,"setAttr \".psr[%i:%i]\"",psr_start,psr_end);
+
+	}
+	void appendPressure(double psr)
+	{
+		fprintf(mFile," %f",psr);
+
+	}
+	void endPressure()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void getSampleDensity()

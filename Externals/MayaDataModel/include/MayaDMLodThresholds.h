@@ -101,6 +101,33 @@ public:
 		fprintf(mFile,"setAttr \".th[%i]\" %f;\n", th_i,th);
 
 	}
+	void setThreshold(size_t th_start,size_t th_end,double* th)
+	{
+		fprintf(mFile,"setAttr \".th[%i:%i]\" ", th_start,th_end);
+		size_t size = (th_end-th_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",th[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startThreshold(size_t th_start,size_t th_end)
+	{
+		fprintf(mFile,"setAttr \".th[%i:%i]\"",th_start,th_end);
+
+	}
+	void appendThreshold(double th)
+	{
+		fprintf(mFile," %f",th);
+
+	}
+	void endThreshold()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getInBoxMin()
 	{
 		fprintf(mFile,"\"%s.bmn\"",mName.c_str());

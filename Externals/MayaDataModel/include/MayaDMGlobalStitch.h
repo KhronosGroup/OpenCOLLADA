@@ -68,6 +68,33 @@ public:
 		fprintf(mFile,"setAttr \".lk[%i]\" %i;\n", lk_i,lk);
 
 	}
+	void setLockSurface(size_t lk_start,size_t lk_end,bool* lk)
+	{
+		fprintf(mFile,"setAttr \".lk[%i:%i]\" ", lk_start,lk_end);
+		size_t size = (lk_end-lk_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",lk[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLockSurface(size_t lk_start,size_t lk_end)
+	{
+		fprintf(mFile,"setAttr \".lk[%i:%i]\"",lk_start,lk_end);
+
+	}
+	void appendLockSurface(bool lk)
+	{
+		fprintf(mFile," %i",lk);
+
+	}
+	void endLockSurface()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getInputSurface(size_t is_i)
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);

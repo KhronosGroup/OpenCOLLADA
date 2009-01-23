@@ -198,6 +198,33 @@ public:
 		fprintf(mFile,"setAttr \".ls[%i]\" %f;\n", ls_i,ls);
 
 	}
+	void setLengthSamples(size_t ls_start,size_t ls_end,double* ls)
+	{
+		fprintf(mFile,"setAttr \".ls[%i:%i]\" ", ls_start,ls_end);
+		size_t size = (ls_end-ls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ls[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLengthSamples(size_t ls_start,size_t ls_end)
+	{
+		fprintf(mFile,"setAttr \".ls[%i:%i]\"",ls_start,ls_end);
+
+	}
+	void appendLengthSamples(double ls)
+	{
+		fprintf(mFile," %f",ls);
+
+	}
+	void endLengthSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setLengthMap(const string& lm)
 	{
 		if(lm == "n/a") return;
@@ -252,6 +279,33 @@ public:
 	{
 		if(ins == 0.0) return;
 		fprintf(mFile,"setAttr \".ins[%i]\" %f;\n", ins_i,ins);
+
+	}
+	void setInclinationSamples(size_t ins_start,size_t ins_end,double* ins)
+	{
+		fprintf(mFile,"setAttr \".ins[%i:%i]\" ", ins_start,ins_end);
+		size_t size = (ins_end-ins_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ins[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInclinationSamples(size_t ins_start,size_t ins_end)
+	{
+		fprintf(mFile,"setAttr \".ins[%i:%i]\"",ins_start,ins_end);
+
+	}
+	void appendInclinationSamples(double ins)
+	{
+		fprintf(mFile," %f",ins);
+
+	}
+	void endInclinationSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setInclinationMap(const string& inm)
@@ -310,6 +364,33 @@ public:
 		fprintf(mFile,"setAttr \".rls[%i]\" %f;\n", rls_i,rls);
 
 	}
+	void setRollSamples(size_t rls_start,size_t rls_end,double* rls)
+	{
+		fprintf(mFile,"setAttr \".rls[%i:%i]\" ", rls_start,rls_end);
+		size_t size = (rls_end-rls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",rls[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startRollSamples(size_t rls_start,size_t rls_end)
+	{
+		fprintf(mFile,"setAttr \".rls[%i:%i]\"",rls_start,rls_end);
+
+	}
+	void appendRollSamples(double rls)
+	{
+		fprintf(mFile," %f",rls);
+
+	}
+	void endRollSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setRollMap(const string& rlm)
 	{
 		if(rlm == "n/a") return;
@@ -364,6 +445,33 @@ public:
 	{
 		if(pos == 0.0) return;
 		fprintf(mFile,"setAttr \".pos[%i]\" %f;\n", pos_i,pos);
+
+	}
+	void setPolarSamples(size_t pos_start,size_t pos_end,double* pos)
+	{
+		fprintf(mFile,"setAttr \".pos[%i:%i]\" ", pos_start,pos_end);
+		size_t size = (pos_end-pos_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",pos[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPolarSamples(size_t pos_start,size_t pos_end)
+	{
+		fprintf(mFile,"setAttr \".pos[%i:%i]\"",pos_start,pos_end);
+
+	}
+	void appendPolarSamples(double pos)
+	{
+		fprintf(mFile," %f",pos);
+
+	}
+	void endPolarSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setPolarMap(const string& pom)
@@ -422,6 +530,33 @@ public:
 		fprintf(mFile,"setAttr \".bs[%i]\" %f;\n", bs_i,bs);
 
 	}
+	void setBaldnessSamples(size_t bs_start,size_t bs_end,double* bs)
+	{
+		fprintf(mFile,"setAttr \".bs[%i:%i]\" ", bs_start,bs_end);
+		size_t size = (bs_end-bs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",bs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBaldnessSamples(size_t bs_start,size_t bs_end)
+	{
+		fprintf(mFile,"setAttr \".bs[%i:%i]\"",bs_start,bs_end);
+
+	}
+	void appendBaldnessSamples(double bs)
+	{
+		fprintf(mFile," %f",bs);
+
+	}
+	void endBaldnessSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setBaldnessMap(const string& bm)
 	{
 		if(bm == "n/a") return;
@@ -476,6 +611,33 @@ public:
 	{
 		if(bos == 0.0) return;
 		fprintf(mFile,"setAttr \".bos[%i]\" %f;\n", bos_i,bos);
+
+	}
+	void setBaseOpacitySamples(size_t bos_start,size_t bos_end,double* bos)
+	{
+		fprintf(mFile,"setAttr \".bos[%i:%i]\" ", bos_start,bos_end);
+		size_t size = (bos_end-bos_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",bos[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBaseOpacitySamples(size_t bos_start,size_t bos_end)
+	{
+		fprintf(mFile,"setAttr \".bos[%i:%i]\"",bos_start,bos_end);
+
+	}
+	void appendBaseOpacitySamples(double bos)
+	{
+		fprintf(mFile," %f",bos);
+
+	}
+	void endBaseOpacitySamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setBaseOpacityMap(const string& bom)
@@ -534,6 +696,33 @@ public:
 		fprintf(mFile,"setAttr \".tos[%i]\" %f;\n", tos_i,tos);
 
 	}
+	void setTipOpacitySamples(size_t tos_start,size_t tos_end,double* tos)
+	{
+		fprintf(mFile,"setAttr \".tos[%i:%i]\" ", tos_start,tos_end);
+		size_t size = (tos_end-tos_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",tos[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTipOpacitySamples(size_t tos_start,size_t tos_end)
+	{
+		fprintf(mFile,"setAttr \".tos[%i:%i]\"",tos_start,tos_end);
+
+	}
+	void appendTipOpacitySamples(double tos)
+	{
+		fprintf(mFile," %f",tos);
+
+	}
+	void endTipOpacitySamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTipOpacityMap(const string& tom)
 	{
 		if(tom == "n/a") return;
@@ -588,6 +777,33 @@ public:
 	{
 		if(bcls == 0.0) return;
 		fprintf(mFile,"setAttr \".bcls[%i]\" %f;\n", bcls_i,bcls);
+
+	}
+	void setBaseCurlSamples(size_t bcls_start,size_t bcls_end,double* bcls)
+	{
+		fprintf(mFile,"setAttr \".bcls[%i:%i]\" ", bcls_start,bcls_end);
+		size_t size = (bcls_end-bcls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",bcls[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBaseCurlSamples(size_t bcls_start,size_t bcls_end)
+	{
+		fprintf(mFile,"setAttr \".bcls[%i:%i]\"",bcls_start,bcls_end);
+
+	}
+	void appendBaseCurlSamples(double bcls)
+	{
+		fprintf(mFile," %f",bcls);
+
+	}
+	void endBaseCurlSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setBaseCurlMap(const string& bclm)
@@ -646,6 +862,33 @@ public:
 		fprintf(mFile,"setAttr \".tcls[%i]\" %f;\n", tcls_i,tcls);
 
 	}
+	void setTipCurlSamples(size_t tcls_start,size_t tcls_end,double* tcls)
+	{
+		fprintf(mFile,"setAttr \".tcls[%i:%i]\" ", tcls_start,tcls_end);
+		size_t size = (tcls_end-tcls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",tcls[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTipCurlSamples(size_t tcls_start,size_t tcls_end)
+	{
+		fprintf(mFile,"setAttr \".tcls[%i:%i]\"",tcls_start,tcls_end);
+
+	}
+	void appendTipCurlSamples(double tcls)
+	{
+		fprintf(mFile," %f",tcls);
+
+	}
+	void endTipCurlSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTipCurlMap(const string& tclm)
 	{
 		if(tclm == "n/a") return;
@@ -700,6 +943,33 @@ public:
 	{
 		if(bws == 0.0) return;
 		fprintf(mFile,"setAttr \".bws[%i]\" %f;\n", bws_i,bws);
+
+	}
+	void setBaseWidthSamples(size_t bws_start,size_t bws_end,double* bws)
+	{
+		fprintf(mFile,"setAttr \".bws[%i:%i]\" ", bws_start,bws_end);
+		size_t size = (bws_end-bws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",bws[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBaseWidthSamples(size_t bws_start,size_t bws_end)
+	{
+		fprintf(mFile,"setAttr \".bws[%i:%i]\"",bws_start,bws_end);
+
+	}
+	void appendBaseWidthSamples(double bws)
+	{
+		fprintf(mFile," %f",bws);
+
+	}
+	void endBaseWidthSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setBaseWidthMap(const string& bwm)
@@ -758,6 +1028,33 @@ public:
 		fprintf(mFile,"setAttr \".tws[%i]\" %f;\n", tws_i,tws);
 
 	}
+	void setTipWidthSamples(size_t tws_start,size_t tws_end,double* tws)
+	{
+		fprintf(mFile,"setAttr \".tws[%i:%i]\" ", tws_start,tws_end);
+		size_t size = (tws_end-tws_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",tws[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTipWidthSamples(size_t tws_start,size_t tws_end)
+	{
+		fprintf(mFile,"setAttr \".tws[%i:%i]\"",tws_start,tws_end);
+
+	}
+	void appendTipWidthSamples(double tws)
+	{
+		fprintf(mFile," %f",tws);
+
+	}
+	void endTipWidthSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTipWidthMap(const string& twm)
 	{
 		if(twm == "n/a") return;
@@ -812,6 +1109,33 @@ public:
 	{
 		if(ss == 0.0) return;
 		fprintf(mFile,"setAttr \".ss[%i]\" %f;\n", ss_i,ss);
+
+	}
+	void setScraggleSamples(size_t ss_start,size_t ss_end,double* ss)
+	{
+		fprintf(mFile,"setAttr \".ss[%i:%i]\" ", ss_start,ss_end);
+		size_t size = (ss_end-ss_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ss[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startScraggleSamples(size_t ss_start,size_t ss_end)
+	{
+		fprintf(mFile,"setAttr \".ss[%i:%i]\"",ss_start,ss_end);
+
+	}
+	void appendScraggleSamples(double ss)
+	{
+		fprintf(mFile," %f",ss);
+
+	}
+	void endScraggleSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setScraggleMap(const string& sm)
@@ -870,6 +1194,33 @@ public:
 		fprintf(mFile,"setAttr \".scos[%i]\" %f;\n", scos_i,scos);
 
 	}
+	void setScraggleCorrelationSamples(size_t scos_start,size_t scos_end,double* scos)
+	{
+		fprintf(mFile,"setAttr \".scos[%i:%i]\" ", scos_start,scos_end);
+		size_t size = (scos_end-scos_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",scos[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startScraggleCorrelationSamples(size_t scos_start,size_t scos_end)
+	{
+		fprintf(mFile,"setAttr \".scos[%i:%i]\"",scos_start,scos_end);
+
+	}
+	void appendScraggleCorrelationSamples(double scos)
+	{
+		fprintf(mFile," %f",scos);
+
+	}
+	void endScraggleCorrelationSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setScraggleCorrelationMap(const string& scom)
 	{
 		if(scom == "n/a") return;
@@ -924,6 +1275,33 @@ public:
 	{
 		if(scfs == 0.0) return;
 		fprintf(mFile,"setAttr \".scfs[%i]\" %f;\n", scfs_i,scfs);
+
+	}
+	void setScraggleFrequencySamples(size_t scfs_start,size_t scfs_end,double* scfs)
+	{
+		fprintf(mFile,"setAttr \".scfs[%i:%i]\" ", scfs_start,scfs_end);
+		size_t size = (scfs_end-scfs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",scfs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startScraggleFrequencySamples(size_t scfs_start,size_t scfs_end)
+	{
+		fprintf(mFile,"setAttr \".scfs[%i:%i]\"",scfs_start,scfs_end);
+
+	}
+	void appendScraggleFrequencySamples(double scfs)
+	{
+		fprintf(mFile," %f",scfs);
+
+	}
+	void endScraggleFrequencySamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setScraggleFrequencyMap(const string& scfm)
@@ -982,6 +1360,33 @@ public:
 		fprintf(mFile,"setAttr \".segs[%i]\" %f;\n", segs_i,segs);
 
 	}
+	void setSegmentsSamples(size_t segs_start,size_t segs_end,double* segs)
+	{
+		fprintf(mFile,"setAttr \".segs[%i:%i]\" ", segs_start,segs_end);
+		size_t size = (segs_end-segs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",segs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startSegmentsSamples(size_t segs_start,size_t segs_end)
+	{
+		fprintf(mFile,"setAttr \".segs[%i:%i]\"",segs_start,segs_end);
+
+	}
+	void appendSegmentsSamples(double segs)
+	{
+		fprintf(mFile," %f",segs);
+
+	}
+	void endSegmentsSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setSegmentsMap(const string& segm)
 	{
 		if(segm == "n/a") return;
@@ -1036,6 +1441,33 @@ public:
 	{
 		if(ats == 0.0) return;
 		fprintf(mFile,"setAttr \".ats[%i]\" %f;\n", ats_i,ats);
+
+	}
+	void setAttractionSamples(size_t ats_start,size_t ats_end,double* ats)
+	{
+		fprintf(mFile,"setAttr \".ats[%i:%i]\" ", ats_start,ats_end);
+		size_t size = (ats_end-ats_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ats[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startAttractionSamples(size_t ats_start,size_t ats_end)
+	{
+		fprintf(mFile,"setAttr \".ats[%i:%i]\"",ats_start,ats_end);
+
+	}
+	void appendAttractionSamples(double ats)
+	{
+		fprintf(mFile," %f",ats);
+
+	}
+	void endAttractionSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setAttractionMap(const string& atm)
@@ -1094,6 +1526,33 @@ public:
 		fprintf(mFile,"setAttr \".ofss[%i]\" %f;\n", ofss_i,ofss);
 
 	}
+	void setOffsetSamples(size_t ofss_start,size_t ofss_end,double* ofss)
+	{
+		fprintf(mFile,"setAttr \".ofss[%i:%i]\" ", ofss_start,ofss_end);
+		size_t size = (ofss_end-ofss_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ofss[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startOffsetSamples(size_t ofss_start,size_t ofss_end)
+	{
+		fprintf(mFile,"setAttr \".ofss[%i:%i]\"",ofss_start,ofss_end);
+
+	}
+	void appendOffsetSamples(double ofss)
+	{
+		fprintf(mFile," %f",ofss);
+
+	}
+	void endOffsetSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setOffsetMap(const string& ofsm)
 	{
 		if(ofsm == "n/a") return;
@@ -1148,6 +1607,33 @@ public:
 	{
 		if(cs == 0.0) return;
 		fprintf(mFile,"setAttr \".cs[%i]\" %f;\n", cs_i,cs);
+
+	}
+	void setClumpingSamples(size_t cs_start,size_t cs_end,double* cs)
+	{
+		fprintf(mFile,"setAttr \".cs[%i:%i]\" ", cs_start,cs_end);
+		size_t size = (cs_end-cs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",cs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startClumpingSamples(size_t cs_start,size_t cs_end)
+	{
+		fprintf(mFile,"setAttr \".cs[%i:%i]\"",cs_start,cs_end);
+
+	}
+	void appendClumpingSamples(double cs)
+	{
+		fprintf(mFile," %f",cs);
+
+	}
+	void endClumpingSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setClumpingMap(const string& cm)
@@ -1206,6 +1692,33 @@ public:
 		fprintf(mFile,"setAttr \".cfs[%i]\" %f;\n", cfs_i,cfs);
 
 	}
+	void setClumpingFrequencySamples(size_t cfs_start,size_t cfs_end,double* cfs)
+	{
+		fprintf(mFile,"setAttr \".cfs[%i:%i]\" ", cfs_start,cfs_end);
+		size_t size = (cfs_end-cfs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",cfs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startClumpingFrequencySamples(size_t cfs_start,size_t cfs_end)
+	{
+		fprintf(mFile,"setAttr \".cfs[%i:%i]\"",cfs_start,cfs_end);
+
+	}
+	void appendClumpingFrequencySamples(double cfs)
+	{
+		fprintf(mFile," %f",cfs);
+
+	}
+	void endClumpingFrequencySamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setClumpingFrequencyMap(const string& cfm)
 	{
 		if(cfm == "n/a") return;
@@ -1260,6 +1773,33 @@ public:
 	{
 		if(css == 0.0) return;
 		fprintf(mFile,"setAttr \".css[%i]\" %f;\n", css_i,css);
+
+	}
+	void setClumpingShapeSamples(size_t css_start,size_t css_end,double* css)
+	{
+		fprintf(mFile,"setAttr \".css[%i:%i]\" ", css_start,css_end);
+		size_t size = (css_end-css_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",css[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startClumpingShapeSamples(size_t css_start,size_t css_end)
+	{
+		fprintf(mFile,"setAttr \".css[%i:%i]\"",css_start,css_end);
+
+	}
+	void appendClumpingShapeSamples(double css)
+	{
+		fprintf(mFile," %f",css);
+
+	}
+	void endClumpingShapeSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setClumpingShapeMap(const string& csm)
@@ -1338,6 +1878,33 @@ public:
 		fprintf(mFile,"setAttr \".bcs[%i]\" %f;\n", bcs_i,bcs);
 
 	}
+	void setBaseColorSamples(size_t bcs_start,size_t bcs_end,double* bcs)
+	{
+		fprintf(mFile,"setAttr \".bcs[%i:%i]\" ", bcs_start,bcs_end);
+		size_t size = (bcs_end-bcs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",bcs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBaseColorSamples(size_t bcs_start,size_t bcs_end)
+	{
+		fprintf(mFile,"setAttr \".bcs[%i:%i]\"",bcs_start,bcs_end);
+
+	}
+	void appendBaseColorSamples(double bcs)
+	{
+		fprintf(mFile," %f",bcs);
+
+	}
+	void endBaseColorSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setBaseColorMap(const string& bcm)
 	{
 		if(bcm == "n/a") return;
@@ -1402,6 +1969,33 @@ public:
 		fprintf(mFile,"setAttr \".tcs[%i]\" %f;\n", tcs_i,tcs);
 
 	}
+	void setTipColorSamples(size_t tcs_start,size_t tcs_end,double* tcs)
+	{
+		fprintf(mFile,"setAttr \".tcs[%i:%i]\" ", tcs_start,tcs_end);
+		size_t size = (tcs_end-tcs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",tcs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTipColorSamples(size_t tcs_start,size_t tcs_end)
+	{
+		fprintf(mFile,"setAttr \".tcs[%i:%i]\"",tcs_start,tcs_end);
+
+	}
+	void appendTipColorSamples(double tcs)
+	{
+		fprintf(mFile," %f",tcs);
+
+	}
+	void endTipColorSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTipColorMap(const string& tcm)
 	{
 		if(tcm == "n/a") return;
@@ -1444,6 +2038,33 @@ public:
 	{
 		if(ars == 0.0) return;
 		fprintf(mFile,"setAttr \".ars[%i]\" %f;\n", ars_i,ars);
+
+	}
+	void setRadiusSamples(size_t ars_start,size_t ars_end,double* ars)
+	{
+		fprintf(mFile,"setAttr \".ars[%i:%i]\" ", ars_start,ars_end);
+		size_t size = (ars_end-ars_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ars[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startRadiusSamples(size_t ars_start,size_t ars_end)
+	{
+		fprintf(mFile,"setAttr \".ars[%i:%i]\"",ars_start,ars_end);
+
+	}
+	void appendRadiusSamples(double ars)
+	{
+		fprintf(mFile," %f",ars);
+
+	}
+	void endRadiusSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setRadiusMap(const string& arm)
@@ -1502,6 +2123,33 @@ public:
 		fprintf(mFile,"setAttr \".aps[%i]\" %f;\n", aps_i,aps);
 
 	}
+	void setPowerSamples(size_t aps_start,size_t aps_end,double* aps)
+	{
+		fprintf(mFile,"setAttr \".aps[%i:%i]\" ", aps_start,aps_end);
+		size_t size = (aps_end-aps_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",aps[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPowerSamples(size_t aps_start,size_t aps_end)
+	{
+		fprintf(mFile,"setAttr \".aps[%i:%i]\"",aps_start,aps_end);
+
+	}
+	void appendPowerSamples(double aps)
+	{
+		fprintf(mFile," %f",aps);
+
+	}
+	void endPowerSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setPowerMap(const string& apm)
 	{
 		if(apm == "n/a") return;
@@ -1556,6 +2204,33 @@ public:
 	{
 		if(ais == 0.0) return;
 		fprintf(mFile,"setAttr \".ais[%i]\" %f;\n", ais_i,ais);
+
+	}
+	void setInfluenceSamples(size_t ais_start,size_t ais_end,double* ais)
+	{
+		fprintf(mFile,"setAttr \".ais[%i:%i]\" ", ais_start,ais_end);
+		size_t size = (ais_end-ais_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ais[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInfluenceSamples(size_t ais_start,size_t ais_end)
+	{
+		fprintf(mFile,"setAttr \".ais[%i:%i]\"",ais_start,ais_end);
+
+	}
+	void appendInfluenceSamples(double ais)
+	{
+		fprintf(mFile," %f",ais);
+
+	}
+	void endInfluenceSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setInfluenceMap(const string& aim)
@@ -1614,6 +2289,33 @@ public:
 		fprintf(mFile,"setAttr \".asls[%i]\" %f;\n", asls_i,asls);
 
 	}
+	void setStartLengthSamples(size_t asls_start,size_t asls_end,double* asls)
+	{
+		fprintf(mFile,"setAttr \".asls[%i:%i]\" ", asls_start,asls_end);
+		size_t size = (asls_end-asls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",asls[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startStartLengthSamples(size_t asls_start,size_t asls_end)
+	{
+		fprintf(mFile,"setAttr \".asls[%i:%i]\"",asls_start,asls_end);
+
+	}
+	void appendStartLengthSamples(double asls)
+	{
+		fprintf(mFile," %f",asls);
+
+	}
+	void endStartLengthSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setStartLengthMap(const string& aslm)
 	{
 		if(aslm == "n/a") return;
@@ -1668,6 +2370,33 @@ public:
 	{
 		if(aels == 0.0) return;
 		fprintf(mFile,"setAttr \".aels[%i]\" %f;\n", aels_i,aels);
+
+	}
+	void setEndLengthSamples(size_t aels_start,size_t aels_end,double* aels)
+	{
+		fprintf(mFile,"setAttr \".aels[%i:%i]\" ", aels_start,aels_end);
+		size_t size = (aels_end-aels_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",aels[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEndLengthSamples(size_t aels_start,size_t aels_end)
+	{
+		fprintf(mFile,"setAttr \".aels[%i:%i]\"",aels_start,aels_end);
+
+	}
+	void appendEndLengthSamples(double aels)
+	{
+		fprintf(mFile," %f",aels);
+
+	}
+	void endEndLengthSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEndLengthMap(const string& aelm)
@@ -1726,6 +2455,33 @@ public:
 		fprintf(mFile,"setAttr \".atls[%i]\" %f;\n", atls_i,atls);
 
 	}
+	void setThresholdLengthSamples(size_t atls_start,size_t atls_end,double* atls)
+	{
+		fprintf(mFile,"setAttr \".atls[%i:%i]\" ", atls_start,atls_end);
+		size_t size = (atls_end-atls_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",atls[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startThresholdLengthSamples(size_t atls_start,size_t atls_end)
+	{
+		fprintf(mFile,"setAttr \".atls[%i:%i]\"",atls_start,atls_end);
+
+	}
+	void appendThresholdLengthSamples(double atls)
+	{
+		fprintf(mFile," %f",atls);
+
+	}
+	void endThresholdLengthSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setThresholdLengthMap(const string& atlm)
 	{
 		if(atlm == "n/a") return;
@@ -1782,6 +2538,33 @@ public:
 		fprintf(mFile,"setAttr \".uns[%i]\" %f;\n", uns_i,uns);
 
 	}
+	void setUnusedSamples(size_t uns_start,size_t uns_end,double* uns)
+	{
+		fprintf(mFile,"setAttr \".uns[%i:%i]\" ", uns_start,uns_end);
+		size_t size = (uns_end-uns_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",uns[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startUnusedSamples(size_t uns_start,size_t uns_end)
+	{
+		fprintf(mFile,"setAttr \".uns[%i:%i]\"",uns_start,uns_end);
+
+	}
+	void appendUnusedSamples(double uns)
+	{
+		fprintf(mFile," %f",uns);
+
+	}
+	void endUnusedSamples()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setUnusedMap(const string& unm)
 	{
 		if(unm == "n/a") return;
@@ -1836,6 +2619,33 @@ public:
 	{
 		if(ems == 0.0) return;
 		fprintf(mFile,"setAttr \".ems[%i]\" %f;\n", ems_i,ems);
+
+	}
+	void setEqualizerSamples(size_t ems_start,size_t ems_end,double* ems)
+	{
+		fprintf(mFile,"setAttr \".ems[%i:%i]\" ", ems_start,ems_end);
+		size_t size = (ems_end-ems_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",ems[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEqualizerSamples(size_t ems_start,size_t ems_end)
+	{
+		fprintf(mFile,"setAttr \".ems[%i:%i]\"",ems_start,ems_end);
+
+	}
+	void appendEqualizerSamples(double ems)
+	{
+		fprintf(mFile," %f",ems);
+
+	}
+	void endEqualizerSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEqualizerMap(const string& emm)

@@ -45,11 +45,67 @@ public:
 		fprintf(mFile,"setAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
 
 	}
+	void setWeights(size_t wl_i,size_t w_start,size_t w_end,double* w)
+	{
+		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\" ", wl_i,w_start,w_end);
+		size_t size = (w_end-w_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",w[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeights(size_t wl_i,size_t w_start,size_t w_end)
+	{
+		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
+
+	}
+	void appendWeights(double w)
+	{
+		fprintf(mFile," %f",w);
+
+	}
+	void endWeights()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setBindPreMatrix(size_t pm_i,const matrix& pm)
 	{
 		if(pm == identity) return;
 		fprintf(mFile,"setAttr \".pm[%i]\" -type \"matrix\" ",pm_i);
 		pm.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setBindPreMatrix(size_t pm_start,size_t pm_end,matrix* pm)
+	{
+		fprintf(mFile,"setAttr \".pm[%i:%i]\" ", pm_start,pm_end);
+		size_t size = (pm_end-pm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			pm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBindPreMatrix(size_t pm_start,size_t pm_end)
+	{
+		fprintf(mFile,"setAttr \".pm[%i:%i]\"",pm_start,pm_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendBindPreMatrix(const matrix& pm)
+	{
+		fprintf(mFile,"\n");
+		pm.write(mFile);
+
+	}
+	void endBindPreMatrix()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -69,10 +125,66 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setMatrix(size_t ma_start,size_t ma_end,matrix* ma)
+	{
+		fprintf(mFile,"setAttr \".ma[%i:%i]\" ", ma_start,ma_end);
+		size_t size = (ma_end-ma_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ma[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startMatrix(size_t ma_start,size_t ma_end)
+	{
+		fprintf(mFile,"setAttr \".ma[%i:%i]\"",ma_start,ma_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendMatrix(const matrix& ma)
+	{
+		fprintf(mFile,"\n");
+		ma.write(mFile);
+
+	}
+	void endMatrix()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setDropoff(size_t dpf_i,double dpf)
 	{
 		if(dpf == 4.0) return;
 		fprintf(mFile,"setAttr \".dpf[%i]\" %f;\n", dpf_i,dpf);
+
+	}
+	void setDropoff(size_t dpf_start,size_t dpf_end,double* dpf)
+	{
+		fprintf(mFile,"setAttr \".dpf[%i:%i]\" ", dpf_start,dpf_end);
+		size_t size = (dpf_end-dpf_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",dpf[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDropoff(size_t dpf_start,size_t dpf_end)
+	{
+		fprintf(mFile,"setAttr \".dpf[%i:%i]\"",dpf_start,dpf_end);
+
+	}
+	void appendDropoff(double dpf)
+	{
+		fprintf(mFile," %f",dpf);
+
+	}
+	void endDropoff()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setSmoothness(size_t smt_i,double smt)
@@ -81,10 +193,64 @@ public:
 		fprintf(mFile,"setAttr \".smt[%i]\" %f;\n", smt_i,smt);
 
 	}
+	void setSmoothness(size_t smt_start,size_t smt_end,double* smt)
+	{
+		fprintf(mFile,"setAttr \".smt[%i:%i]\" ", smt_start,smt_end);
+		size_t size = (smt_end-smt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",smt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startSmoothness(size_t smt_start,size_t smt_end)
+	{
+		fprintf(mFile,"setAttr \".smt[%i:%i]\"",smt_start,smt_end);
+
+	}
+	void appendSmoothness(double smt)
+	{
+		fprintf(mFile," %f",smt);
+
+	}
+	void endSmoothness()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setLockWeights(size_t lw_i,bool lw)
 	{
 		if(lw == false) return;
 		fprintf(mFile,"setAttr \".lw[%i]\" %i;\n", lw_i,lw);
+
+	}
+	void setLockWeights(size_t lw_start,size_t lw_end,bool* lw)
+	{
+		fprintf(mFile,"setAttr \".lw[%i:%i]\" ", lw_start,lw_end);
+		size_t size = (lw_end-lw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",lw[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLockWeights(size_t lw_start,size_t lw_end)
+	{
+		fprintf(mFile,"setAttr \".lw[%i:%i]\"",lw_start,lw_end);
+
+	}
+	void appendLockWeights(bool lw)
+	{
+		fprintf(mFile," %i",lw);
+
+	}
+	void endLockWeights()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setMaintainMaxInfluences(bool mmi)
@@ -123,6 +289,33 @@ public:
 	{
 		if(ns == 10) return;
 		fprintf(mFile,"setAttr \".ns[%i]\" %i;\n", ns_i,ns);
+
+	}
+	void setNurbsSamples(size_t ns_start,size_t ns_end,int* ns)
+	{
+		fprintf(mFile,"setAttr \".ns[%i:%i]\" ", ns_start,ns_end);
+		size_t size = (ns_end-ns_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ns[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startNurbsSamples(size_t ns_start,size_t ns_end)
+	{
+		fprintf(mFile,"setAttr \".ns[%i:%i]\"",ns_start,ns_end);
+
+	}
+	void appendNurbsSamples(int ns)
+	{
+		fprintf(mFile," %i",ns);
+
+	}
+	void endNurbsSamples()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setUseComponentsMatrix(bool ucm)

@@ -98,6 +98,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startControlPoints(size_t cp_start,size_t cp_end)
+	{
+		fprintf(mFile,"setAttr \".cp[%i:%i]\"",cp_start,cp_end);
+
+	}
+	void appendControlPoints(double cp)
+	{
+		fprintf(mFile," %f",cp);
+
+	}
+	void endControlPoints()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setXValue(size_t cp_i,double xv)
 	{
 		if(xv == 0) return;
@@ -150,18 +165,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-    void startUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end)
-    {
-        fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i:%i]\" ", uvst_i,uvsp_start,uvsp_end);
-    }
-    void appendUvSetPoint(float pu, float pv)
-    {
-        fprintf(mFile,"%f %f ",pu,pv);
-    }
-    void endUvSetPoints()
-    {
-        fprintf(mFile,";\n");
-    }
+	void startUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end)
+	{
+		fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i:%i]\"",uvst_i,uvsp_start,uvsp_end);
+
+	}
+	void appendUvSetPoints(float uvsp)
+	{
+		fprintf(mFile," %f",uvsp);
+
+	}
+	void endUvSetPoints()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setUvSetPointsU(size_t uvst_i,size_t uvsp_i,float uvpu)
 	{
 		if(uvpu == 0.0) return;

@@ -93,7 +93,7 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void setOutSubdCVId(size_t os_start,size_t os_end,long* os)
+	void setOutSubdCVId(size_t os_start,size_t os_end,int* os)
 	{
 		fprintf(mFile,"setAttr \".os[%i:%i]\" ", os_start,os_end);
 		size_t size = (os_end-os_start)*2+2;
@@ -102,6 +102,21 @@ public:
 			fprintf(mFile,"%i",os[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startOutSubdCVId(size_t os_start,size_t os_end)
+	{
+		fprintf(mFile,"setAttr \".os[%i:%i]\"",os_start,os_end);
+
+	}
+	void appendOutSubdCVId(int os)
+	{
+		fprintf(mFile," %i",os);
+
+	}
+	void endOutSubdCVId()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -124,7 +139,7 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void setInSubdCVId(size_t is_start,size_t is_end,long* is)
+	void setInSubdCVId(size_t is_start,size_t is_end,int* is)
 	{
 		fprintf(mFile,"setAttr \".is[%i:%i]\" ", is_start,is_end);
 		size_t size = (is_end-is_start)*2+2;
@@ -133,6 +148,21 @@ public:
 			fprintf(mFile,"%i",is[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInSubdCVId(size_t is_start,size_t is_end)
+	{
+		fprintf(mFile,"setAttr \".is[%i:%i]\"",is_start,is_end);
+
+	}
+	void appendInSubdCVId(int is)
+	{
+		fprintf(mFile," %i",is);
+
+	}
+	void endInSubdCVId()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -158,6 +188,33 @@ public:
 	{
 		if(ov == 0) return;
 		fprintf(mFile,"setAttr \".ov[%i]\" %i;\n", ov_i,ov);
+
+	}
+	void setOutv(size_t ov_start,size_t ov_end,int* ov)
+	{
+		fprintf(mFile,"setAttr \".ov[%i:%i]\" ", ov_start,ov_end);
+		size_t size = (ov_end-ov_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ov[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startOutv(size_t ov_start,size_t ov_end)
+	{
+		fprintf(mFile,"setAttr \".ov[%i:%i]\"",ov_start,ov_end);
+
+	}
+	void appendOutv(int ov)
+	{
+		fprintf(mFile," %i",ov);
+
+	}
+	void endOutv()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setApplyMatrixToResult(bool amr)

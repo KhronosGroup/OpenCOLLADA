@@ -135,10 +135,64 @@ public:
 		fprintf(mFile,"setAttr \".inh[%i]\" %f;\n", inh_i,inh);
 
 	}
+	void setInheritFactor(size_t inh_start,size_t inh_end,double* inh)
+	{
+		fprintf(mFile,"setAttr \".inh[%i:%i]\" ", inh_start,inh_end);
+		size_t size = (inh_end-inh_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",inh[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInheritFactor(size_t inh_start,size_t inh_end)
+	{
+		fprintf(mFile,"setAttr \".inh[%i:%i]\"",inh_start,inh_end);
+
+	}
+	void appendInheritFactor(double inh)
+	{
+		fprintf(mFile," %f",inh);
+
+	}
+	void endInheritFactor()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setIsFull(size_t full_i,bool full)
 	{
 		if(full == false) return;
 		fprintf(mFile,"setAttr \".full[%i]\" %i;\n", full_i,full);
+
+	}
+	void setIsFull(size_t full_start,size_t full_end,bool* full)
+	{
+		fprintf(mFile,"setAttr \".full[%i:%i]\" ", full_start,full_end);
+		size_t size = (full_end-full_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",full[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startIsFull(size_t full_start,size_t full_end)
+	{
+		fprintf(mFile,"setAttr \".full[%i:%i]\"",full_start,full_end);
+
+	}
+	void appendIsFull(bool full)
+	{
+		fprintf(mFile," %i",full);
+
+	}
+	void endIsFull()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setRatePP(const doubleArray& rpp)

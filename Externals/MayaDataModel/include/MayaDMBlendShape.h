@@ -72,11 +72,67 @@ public:
 		fprintf(mFile,"setAttr \".w[%i]\" %f;\n", w_i,w);
 
 	}
+	void setWeight(size_t w_start,size_t w_end,float* w)
+	{
+		fprintf(mFile,"setAttr \".w[%i:%i]\" ", w_start,w_end);
+		size_t size = (w_end-w_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",w[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeight(size_t w_start,size_t w_end)
+	{
+		fprintf(mFile,"setAttr \".w[%i:%i]\"",w_start,w_end);
+
+	}
+	void appendWeight(float w)
+	{
+		fprintf(mFile," %f",w);
+
+	}
+	void endWeight()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setIcon(size_t icn_i,const string& icn)
 	{
 		if(icn == "NULL") return;
 		fprintf(mFile,"setAttr \".icn[%i]\" -type \"string\" ",icn_i);
 		icn.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setIcon(size_t icn_start,size_t icn_end,string* icn)
+	{
+		fprintf(mFile,"setAttr \".icn[%i:%i]\" ", icn_start,icn_end);
+		size_t size = (icn_end-icn_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			icn[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startIcon(size_t icn_start,size_t icn_end)
+	{
+		fprintf(mFile,"setAttr \".icn[%i:%i]\"",icn_start,icn_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendIcon(const string& icn)
+	{
+		fprintf(mFile,"\n");
+		icn.write(mFile);
+
+	}
+	void endIcon()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -119,6 +175,33 @@ public:
 	{
 		if(tw == 1.0) return;
 		fprintf(mFile,"setAttr \".it[%i].itg[%i].tw[%i]\" %f;\n", it_i,itg_i,tw_i,tw);
+
+	}
+	void setTargetWeights(size_t it_i,size_t itg_i,size_t tw_start,size_t tw_end,float* tw)
+	{
+		fprintf(mFile,"setAttr \".it[%i].itg[%i].tw[%i:%i]\" ", it_i,itg_i,tw_start,tw_end);
+		size_t size = (tw_end-tw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",tw[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startTargetWeights(size_t it_i,size_t itg_i,size_t tw_start,size_t tw_end)
+	{
+		fprintf(mFile,"setAttr \".it[%i].itg[%i].tw[%i:%i]\"",it_i,itg_i,tw_start,tw_end);
+
+	}
+	void appendTargetWeights(float tw)
+	{
+		fprintf(mFile," %f",tw);
+
+	}
+	void endTargetWeights()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setOrigin(unsigned int or)

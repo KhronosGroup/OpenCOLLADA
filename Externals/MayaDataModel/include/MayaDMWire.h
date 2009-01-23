@@ -56,10 +56,64 @@ public:
 		fprintf(mFile,"setAttr \".dds[%i]\" %f;\n", dds_i,dds);
 
 	}
+	void setDropoffDistance(size_t dds_start,size_t dds_end,float* dds)
+	{
+		fprintf(mFile,"setAttr \".dds[%i:%i]\" ", dds_start,dds_end);
+		size_t size = (dds_end-dds_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",dds[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDropoffDistance(size_t dds_start,size_t dds_end)
+	{
+		fprintf(mFile,"setAttr \".dds[%i:%i]\"",dds_start,dds_end);
+
+	}
+	void appendDropoffDistance(float dds)
+	{
+		fprintf(mFile," %f",dds);
+
+	}
+	void endDropoffDistance()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setScale(size_t sc_i,float sc)
 	{
 		if(sc == 1) return;
 		fprintf(mFile,"setAttr \".sc[%i]\" %f;\n", sc_i,sc);
+
+	}
+	void setScale(size_t sc_start,size_t sc_end,float* sc)
+	{
+		fprintf(mFile,"setAttr \".sc[%i:%i]\" ", sc_start,sc_end);
+		size_t size = (sc_end-sc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",sc[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startScale(size_t sc_start,size_t sc_end)
+	{
+		fprintf(mFile,"setAttr \".sc[%i:%i]\"",sc_start,sc_end);
+
+	}
+	void appendScale(float sc)
+	{
+		fprintf(mFile," %f",sc);
+
+	}
+	void endScale()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setWireLocatorPercentage(size_t wlpc_i,float wlpc)
@@ -68,10 +122,64 @@ public:
 		fprintf(mFile,"setAttr \".wlpc[%i]\" %f;\n", wlpc_i,wlpc);
 
 	}
+	void setWireLocatorPercentage(size_t wlpc_start,size_t wlpc_end,float* wlpc)
+	{
+		fprintf(mFile,"setAttr \".wlpc[%i:%i]\" ", wlpc_start,wlpc_end);
+		size_t size = (wlpc_end-wlpc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",wlpc[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWireLocatorPercentage(size_t wlpc_start,size_t wlpc_end)
+	{
+		fprintf(mFile,"setAttr \".wlpc[%i:%i]\"",wlpc_start,wlpc_end);
+
+	}
+	void appendWireLocatorPercentage(float wlpc)
+	{
+		fprintf(mFile," %f",wlpc);
+
+	}
+	void endWireLocatorPercentage()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setWireLocatorParameter(size_t wlp_i,float wlp)
 	{
 		if(wlp == 0) return;
 		fprintf(mFile,"setAttr \".wlp[%i]\" %f;\n", wlp_i,wlp);
+
+	}
+	void setWireLocatorParameter(size_t wlp_start,size_t wlp_end,float* wlp)
+	{
+		fprintf(mFile,"setAttr \".wlp[%i:%i]\" ", wlp_start,wlp_end);
+		size_t size = (wlp_end-wlp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",wlp[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWireLocatorParameter(size_t wlp_start,size_t wlp_end)
+	{
+		fprintf(mFile,"setAttr \".wlp[%i:%i]\"",wlp_start,wlp_end);
+
+	}
+	void appendWireLocatorParameter(float wlp)
+	{
+		fprintf(mFile," %f",wlp);
+
+	}
+	void endWireLocatorParameter()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setWireLocatorEnvelope(size_t wle_i,float wle)
@@ -80,10 +188,64 @@ public:
 		fprintf(mFile,"setAttr \".wle[%i]\" %f;\n", wle_i,wle);
 
 	}
+	void setWireLocatorEnvelope(size_t wle_start,size_t wle_end,float* wle)
+	{
+		fprintf(mFile,"setAttr \".wle[%i:%i]\" ", wle_start,wle_end);
+		size_t size = (wle_end-wle_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",wle[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWireLocatorEnvelope(size_t wle_start,size_t wle_end)
+	{
+		fprintf(mFile,"setAttr \".wle[%i:%i]\"",wle_start,wle_end);
+
+	}
+	void appendWireLocatorEnvelope(float wle)
+	{
+		fprintf(mFile," %f",wle);
+
+	}
+	void endWireLocatorEnvelope()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setWireLocatorTwist(size_t wlt_i,float wlt)
 	{
 		if(wlt == 0) return;
 		fprintf(mFile,"setAttr \".wlt[%i]\" %f;\n", wlt_i,wlt);
+
+	}
+	void setWireLocatorTwist(size_t wlt_start,size_t wlt_end,float* wlt)
+	{
+		fprintf(mFile,"setAttr \".wlt[%i:%i]\" ", wlt_start,wlt_end);
+		size_t size = (wlt_end-wlt_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",wlt[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWireLocatorTwist(size_t wlt_start,size_t wlt_end)
+	{
+		fprintf(mFile,"setAttr \".wlt[%i:%i]\"",wlt_start,wlt_end);
+
+	}
+	void appendWireLocatorTwist(float wlt)
+	{
+		fprintf(mFile," %f",wlt);
+
+	}
+	void endWireLocatorTwist()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setDeformedWire(size_t dw_i,const nurbsCurve& dw)
@@ -93,10 +255,68 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setDeformedWire(size_t dw_start,size_t dw_end,nurbsCurve* dw)
+	{
+		fprintf(mFile,"setAttr \".dw[%i:%i]\" ", dw_start,dw_end);
+		size_t size = (dw_end-dw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			dw[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDeformedWire(size_t dw_start,size_t dw_end)
+	{
+		fprintf(mFile,"setAttr \".dw[%i:%i]\"",dw_start,dw_end);
+		fprintf(mFile," -type \"nurbsCurve\" ");
+
+	}
+	void appendDeformedWire(const nurbsCurve& dw)
+	{
+		fprintf(mFile,"\n");
+		dw.write(mFile);
+
+	}
+	void endDeformedWire()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setBaseWire(size_t bw_i,const nurbsCurve& bw)
 	{
 		fprintf(mFile,"setAttr \".bw[%i]\" -type \"nurbsCurve\" ",bw_i);
 		bw.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setBaseWire(size_t bw_start,size_t bw_end,nurbsCurve* bw)
+	{
+		fprintf(mFile,"setAttr \".bw[%i:%i]\" ", bw_start,bw_end);
+		size_t size = (bw_end-bw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			bw[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startBaseWire(size_t bw_start,size_t bw_end)
+	{
+		fprintf(mFile,"setAttr \".bw[%i:%i]\"",bw_start,bw_end);
+		fprintf(mFile," -type \"nurbsCurve\" ");
+
+	}
+	void appendBaseWire(const nurbsCurve& bw)
+	{
+		fprintf(mFile,"\n");
+		bw.write(mFile);
+
+	}
+	void endBaseWire()
+	{
 		fprintf(mFile,";\n");
 
 	}

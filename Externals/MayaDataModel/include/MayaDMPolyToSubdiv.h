@@ -95,6 +95,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startUvPoints(size_t cuv_i,size_t uvp_start,size_t uvp_end)
+	{
+		fprintf(mFile,"setAttr \".cuv[%i].uvp[%i:%i]\"",cuv_i,uvp_start,uvp_end);
+
+	}
+	void appendUvPoints(float uvp)
+	{
+		fprintf(mFile," %f",uvp);
+
+	}
+	void endUvPoints()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setUvPointsU(size_t cuv_i,size_t uvp_i,float uvu)
 	{
 		if(uvu == 0.0) return;

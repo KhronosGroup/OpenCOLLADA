@@ -76,6 +76,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startControlPoints(size_t pl_i,size_t cp_start,size_t cp_end)
+	{
+		fprintf(mFile,"setAttr \".pl[%i].cp[%i:%i]\"",pl_i,cp_start,cp_end);
+
+	}
+	void appendControlPoints(double cp)
+	{
+		fprintf(mFile," %f",cp);
+
+	}
+	void endControlPoints()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setXValue(size_t pl_i,size_t cp_i,double xv)
 	{
 		if(xv == 0) return;
@@ -117,6 +132,21 @@ public:
 			fprintf(mFile,"%f",vt[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startVertex(size_t vl_i,size_t vt_start,size_t vt_end)
+	{
+		fprintf(mFile,"setAttr \".vl[%i].vt[%i:%i]\"",vl_i,vt_start,vt_end);
+
+	}
+	void appendVertex(float vt)
+	{
+		fprintf(mFile," %f",vt);
+
+	}
+	void endVertex()
+	{
 		fprintf(mFile,";\n");
 
 	}

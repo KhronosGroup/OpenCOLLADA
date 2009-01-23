@@ -32,10 +32,64 @@ public:
 		fprintf(mFile,"setAttr \".ac[%i]\" %i;\n", ac_i,ac);
 
 	}
+	void setAbsoluteChannel(size_t ac_start,size_t ac_end,bool* ac)
+	{
+		fprintf(mFile,"setAttr \".ac[%i:%i]\" ", ac_start,ac_end);
+		size_t size = (ac_end-ac_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ac[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startAbsoluteChannel(size_t ac_start,size_t ac_end)
+	{
+		fprintf(mFile,"setAttr \".ac[%i:%i]\"",ac_start,ac_end);
+
+	}
+	void appendAbsoluteChannel(bool ac)
+	{
+		fprintf(mFile," %i",ac);
+
+	}
+	void endAbsoluteChannel()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setChannelOffset(size_t co_i,double co)
 	{
 		if(co == 0.0) return;
 		fprintf(mFile,"setAttr \".co[%i]\" %f;\n", co_i,co);
+
+	}
+	void setChannelOffset(size_t co_start,size_t co_end,double* co)
+	{
+		fprintf(mFile,"setAttr \".co[%i:%i]\" ", co_start,co_end);
+		size_t size = (co_end-co_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",co[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startChannelOffset(size_t co_start,size_t co_end)
+	{
+		fprintf(mFile,"setAttr \".co[%i:%i]\"",co_start,co_end);
+
+	}
+	void appendChannelOffset(double co)
+	{
+		fprintf(mFile," %f",co);
+
+	}
+	void endChannelOffset()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setScale(double sc)

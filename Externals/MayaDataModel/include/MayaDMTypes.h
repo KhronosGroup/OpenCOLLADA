@@ -100,18 +100,18 @@ Example 		setAttr node.long2Attr -type long2 1000000 2000000;
 */
 struct long2
 {
-	long values[2];
-	long2(long l1, long l2)
+	int values[2];
+	long2(int l1, int l2)
 	{
 		 values[0]=l1;
 		 values[1]=l2;
 	}
-	long operator[](size_t i) const
+	int operator[](size_t i) const
 	{
 		assert( i < 2 );
 		return values[i];
 	}
-	long& operator[](size_t i)
+	int& operator[](size_t i)
 	{
 		assert( i < 2 );
 		return values[i];
@@ -132,8 +132,8 @@ inline bool operator==(const long2& d1, const long2& d2)
 }
 
 /**
-Array of three integers
-Value Syntax 	int int int
+Array of three long integers
+Value Syntax 	long long long
 Value Meaning 	value1 value2 value3
 Example		 	setAttr node.long3Attr -type long3 1000000 2000000 3000000;
 */

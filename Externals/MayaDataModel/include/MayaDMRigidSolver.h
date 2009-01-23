@@ -72,6 +72,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startTranslate(size_t t_start,size_t t_end)
+	{
+		fprintf(mFile,"setAttr \".t[%i:%i]\"",t_start,t_end);
+
+	}
+	void appendTranslate(double t)
+	{
+		fprintf(mFile," %f",t);
+
+	}
+	void endTranslate()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTranslateX(size_t t_i,double tx)
 	{
 		if(tx == 0) return;
@@ -106,6 +121,21 @@ public:
 			fprintf(mFile,"%f",r[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startRotate(size_t r_start,size_t r_end)
+	{
+		fprintf(mFile,"setAttr \".r[%i:%i]\"",r_start,r_end);
+
+	}
+	void appendRotate(double r)
+	{
+		fprintf(mFile," %f",r);
+
+	}
+	void endRotate()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -146,6 +176,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startConstraintTranslate(size_t ctr_start,size_t ctr_end)
+	{
+		fprintf(mFile,"setAttr \".ctr[%i:%i]\"",ctr_start,ctr_end);
+
+	}
+	void appendConstraintTranslate(double ctr)
+	{
+		fprintf(mFile," %f",ctr);
+
+	}
+	void endConstraintTranslate()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setConstraintTranslateX(size_t ctr_i,double ctx)
 	{
 		if(ctx == 0) return;
@@ -180,6 +225,21 @@ public:
 			fprintf(mFile,"%f",cr[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startConstraintRotate(size_t cr_start,size_t cr_end)
+	{
+		fprintf(mFile,"setAttr \".cr[%i:%i]\"",cr_start,cr_end);
+
+	}
+	void appendConstraintRotate(double cr)
+	{
+		fprintf(mFile," %f",cr);
+
+	}
+	void endConstraintRotate()
+	{
 		fprintf(mFile,";\n");
 
 	}

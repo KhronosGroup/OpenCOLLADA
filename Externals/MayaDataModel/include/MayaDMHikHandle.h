@@ -359,11 +359,69 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setDefaultMatrix(size_t dm_start,size_t dm_end,matrix* dm)
+	{
+		fprintf(mFile,"setAttr \".dm[%i:%i]\" ", dm_start,dm_end);
+		size_t size = (dm_end-dm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			dm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDefaultMatrix(size_t dm_start,size_t dm_end)
+	{
+		fprintf(mFile,"setAttr \".dm[%i:%i]\"",dm_start,dm_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendDefaultMatrix(const matrix& dm)
+	{
+		fprintf(mFile,"\n");
+		dm.write(mFile);
+
+	}
+	void endDefaultMatrix()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setStancePoseMatrix(size_t sm_i,const matrix& sm)
 	{
 		if(sm == identity) return;
 		fprintf(mFile,"setAttr \".sm[%i]\" -type \"matrix\" ",sm_i);
 		sm.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setStancePoseMatrix(size_t sm_start,size_t sm_end,matrix* sm)
+	{
+		fprintf(mFile,"setAttr \".sm[%i:%i]\" ", sm_start,sm_end);
+		size_t size = (sm_end-sm_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			sm[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startStancePoseMatrix(size_t sm_start,size_t sm_end)
+	{
+		fprintf(mFile,"setAttr \".sm[%i:%i]\"",sm_start,sm_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendStancePoseMatrix(const matrix& sm)
+	{
+		fprintf(mFile,"\n");
+		sm.write(mFile);
+
+	}
+	void endStancePoseMatrix()
+	{
 		fprintf(mFile,";\n");
 
 	}

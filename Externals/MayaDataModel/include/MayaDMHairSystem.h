@@ -986,6 +986,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setOutputHair(size_t oh_start,size_t oh_end,vectorArray* oh)
+	{
+		fprintf(mFile,"setAttr \".oh[%i:%i]\" ", oh_start,oh_end);
+		size_t size = (oh_end-oh_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			oh[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startOutputHair(size_t oh_start,size_t oh_end)
+	{
+		fprintf(mFile,"setAttr \".oh[%i:%i]\"",oh_start,oh_end);
+		fprintf(mFile," -type \"vectorArray\" ");
+
+	}
+	void appendOutputHair(const vectorArray& oh)
+	{
+		fprintf(mFile,"\n");
+		oh.write(mFile);
+
+	}
+	void endOutputHair()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getSimulationMethod()
 	{
 		fprintf(mFile,"\"%s.sim\"",mName.c_str());

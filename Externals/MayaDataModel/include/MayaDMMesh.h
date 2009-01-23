@@ -339,6 +339,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startPnts(size_t pt_start,size_t pt_end)
+	{
+		fprintf(mFile,"setAttr \".pt[%i:%i]\"",pt_start,pt_end);
+
+	}
+	void appendPnts(float pt)
+	{
+		fprintf(mFile," %f",pt);
+
+	}
+	void endPnts()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setPntx(size_t pt_i,float px)
 	{
 		if(px == 0) return;
@@ -376,18 +391,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-    void startVrts(size_t vt_start,size_t vt_end)
-    {
-        fprintf(mFile,"setAttr \".vt[%i:%i]\" ", vt_start,vt_end);
-    }
-    void appendVrtx(float vx, float vy, float vz)
-    {
-        fprintf(mFile,"%f %f %f ",vx,vy,vz);
-    }
-    void endVrts()
-    {
-        fprintf(mFile,";\n");
-    }
+	void startVrts(size_t vt_start,size_t vt_end)
+	{
+		fprintf(mFile,"setAttr \".vt[%i:%i]\"",vt_start,vt_end);
+
+	}
+	void appendVrts(float vt)
+	{
+		fprintf(mFile," %f",vt);
+
+	}
+	void endVrts()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setVrtx(size_t vt_i,float vx)
 	{
 		if(vx == 0.0) return;
@@ -413,7 +431,7 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void setEdge(size_t ed_start,size_t ed_end,long* ed)
+	void setEdge(size_t ed_start,size_t ed_end,int* ed)
 	{
 		fprintf(mFile,"setAttr \".ed[%i:%i]\" ", ed_start,ed_end);
 		size_t size = (ed_end-ed_start)*3+3;
@@ -425,18 +443,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-    void startEdges(size_t vt_start,size_t vt_end)
-    {
-        fprintf(mFile,"setAttr \".ed[%i:%i]\" ", vt_start,vt_end);
-    }
-    void appendEdge(int edg1, int edg2,  int edgh )
-    {
-        fprintf(mFile,"%i %i %i ",edg1,edg2,edgh);
-    }
-    void endEdges()
-    {
-        fprintf(mFile,";\n");
-    }
+	void startEdge(size_t ed_start,size_t ed_end)
+	{
+		fprintf(mFile,"setAttr \".ed[%i:%i]\"",ed_start,ed_end);
+
+	}
+	void appendEdge(int ed)
+	{
+		fprintf(mFile," %i",ed);
+
+	}
+	void endEdge()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEdg1(size_t ed_i,int e1)
 	{
 		if(e1 == 0) return;
@@ -471,6 +492,21 @@ public:
 			fprintf(mFile,"%f",uv[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
+		fprintf(mFile,";\n");
+
+	}
+	void startUvpt(size_t uv_start,size_t uv_end)
+	{
+		fprintf(mFile,"setAttr \".uv[%i:%i]\"",uv_start,uv_end);
+
+	}
+	void appendUvpt(float uv)
+	{
+		fprintf(mFile," %f",uv);
+
+	}
+	void endUvpt()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -536,18 +572,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-    void startNormals(size_t n_start,size_t n_end)
-    {
-        fprintf(mFile,"setAttr \".n[%i:%i]\" ", n_start,n_end);
-    }
-    void appendNormal(float nx, float ny, float nz)
-    {
-        fprintf(mFile,"%f %f %f ",nx,ny,nz);
-    }
-    void endNormals()
-    {
-        fprintf(mFile,";\n");
-    }
+	void startNormals(size_t n_start,size_t n_end)
+	{
+		fprintf(mFile,"setAttr \".n[%i:%i]\"",n_start,n_end);
+
+	}
+	void appendNormals(float n)
+	{
+		fprintf(mFile," %f",n);
+
+	}
+	void endNormals()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setNormalx(size_t n_i,float nx)
 	{
 		if(nx == 1e20) return;
@@ -573,30 +612,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-    void setFaces(size_t fc_start,size_t fc_end,const polyFaces* fc)
-    {
-        fprintf(mFile,"setAttr \".fc[%i:%i]\" -type \"polyFaces\"\n",fc_start,fc_end);
-        size_t size = fc_end-fc_start;
-        for(size_t i=0;i<size;++i)
-        {
-            fc[i].write(mFile);
-            if (i<size-1) fprintf(mFile,"\n");
-        }
-        fprintf(mFile,";\n");
-    }
-    void startFaces(size_t fc_start,size_t fc_end)
-    {
-        fprintf(mFile,"setAttr \".fc[%i:%i]\" -type \"polyFaces\"\n",fc_start,fc_end);
-    }
-    void appendFace(const polyFaces& fc)
-    {
-        fc.write(mFile);
-        fprintf(mFile,"\n");
-    }
-    void endFaces()
-    {
-        fprintf(mFile,";\n");
-    }
+	void setFace(size_t fc_start,size_t fc_end,polyFaces* fc)
+	{
+		fprintf(mFile,"setAttr \".fc[%i:%i]\" ", fc_start,fc_end);
+		size_t size = (fc_end-fc_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fc[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startFace(size_t fc_start,size_t fc_end)
+	{
+		fprintf(mFile,"setAttr \".fc[%i:%i]\"",fc_start,fc_end);
+		fprintf(mFile," -type \"polyFaces\" ");
+
+	}
+	void appendFace(const polyFaces& fc)
+	{
+		fprintf(mFile,"\n");
+		fc.write(mFile);
+
+	}
+	void endFace()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setColorPerVertex(const ColorPerVertex& cpvx)
 	{
 		fprintf(mFile,"setAttr \".cpvx\" ");
@@ -927,10 +971,64 @@ public:
 		fprintf(mFile,"setAttr \".pii[%i]\" %i;\n", pii_i,pii);
 
 	}
+	void setPerInstanceIndex(size_t pii_start,size_t pii_end,int* pii)
+	{
+		fprintf(mFile,"setAttr \".pii[%i:%i]\" ", pii_start,pii_end);
+		size_t size = (pii_end-pii_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",pii[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPerInstanceIndex(size_t pii_start,size_t pii_end)
+	{
+		fprintf(mFile,"setAttr \".pii[%i:%i]\"",pii_start,pii_end);
+
+	}
+	void appendPerInstanceIndex(int pii)
+	{
+		fprintf(mFile," %i",pii);
+
+	}
+	void endPerInstanceIndex()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setPerInstanceTag(size_t pit_i,int pit)
 	{
 		if(pit == -1) return;
 		fprintf(mFile,"setAttr \".pit[%i]\" %i;\n", pit_i,pit);
+
+	}
+	void setPerInstanceTag(size_t pit_start,size_t pit_end,int* pit)
+	{
+		fprintf(mFile,"setAttr \".pit[%i:%i]\" ", pit_start,pit_end);
+		size_t size = (pit_end-pit_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",pit[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPerInstanceTag(size_t pit_start,size_t pit_end)
+	{
+		fprintf(mFile,"setAttr \".pit[%i:%i]\"",pit_start,pit_end);
+
+	}
+	void appendPerInstanceTag(int pit)
+	{
+		fprintf(mFile," %i",pit);
+
+	}
+	void endPerInstanceTag()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)

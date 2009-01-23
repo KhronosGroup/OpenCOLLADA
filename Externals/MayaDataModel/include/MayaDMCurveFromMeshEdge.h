@@ -26,6 +26,33 @@ public:
 		fprintf(mFile,"setAttr \".ei[%i]\" %i;\n", ei_i,ei);
 
 	}
+	void setEdgeIndex(size_t ei_start,size_t ei_end,int* ei)
+	{
+		fprintf(mFile,"setAttr \".ei[%i:%i]\" ", ei_start,ei_end);
+		size_t size = (ei_end-ei_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ei[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEdgeIndex(size_t ei_start,size_t ei_end)
+	{
+		fprintf(mFile,"setAttr \".ei[%i:%i]\"",ei_start,ei_end);
+
+	}
+	void appendEdgeIndex(int ei)
+	{
+		fprintf(mFile," %i",ei);
+
+	}
+	void endEdgeIndex()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getEdgeIndex(size_t ei_i)
 	{
 		fprintf(mFile,"\"%s.ei[%i]\"",mName.c_str(),ei_i);

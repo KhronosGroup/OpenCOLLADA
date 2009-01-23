@@ -350,6 +350,30 @@
 			<File
 				RelativePath="..\src\COLLADAFWPrecompiledHeaders.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWRenderState.cpp"
@@ -627,6 +651,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWShaderPhong.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWShear.h"
 				>
 			</File>
 			<File

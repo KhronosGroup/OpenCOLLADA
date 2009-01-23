@@ -273,6 +273,33 @@ public:
 		fprintf(mFile,"setAttr \".sd[%i]\" %i;\n", sd_i,sd);
 
 	}
+	void setSeed(size_t sd_start,size_t sd_end,int* sd)
+	{
+		fprintf(mFile,"setAttr \".sd[%i:%i]\" ", sd_start,sd_end);
+		size_t size = (sd_end-sd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",sd[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startSeed(size_t sd_start,size_t sd_end)
+	{
+		fprintf(mFile,"setAttr \".sd[%i:%i]\"",sd_start,sd_end);
+
+	}
+	void appendSeed(int sd)
+	{
+		fprintf(mFile," %i",sd);
+
+	}
+	void endSeed()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;
@@ -309,10 +336,64 @@ public:
 		fprintf(mFile,"setAttr \".gw[%i]\" %f;\n", gw_i,gw);
 
 	}
+	void setGoalWeight(size_t gw_start,size_t gw_end,double* gw)
+	{
+		fprintf(mFile,"setAttr \".gw[%i:%i]\" ", gw_start,gw_end);
+		size_t size = (gw_end-gw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",gw[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGoalWeight(size_t gw_start,size_t gw_end)
+	{
+		fprintf(mFile,"setAttr \".gw[%i:%i]\"",gw_start,gw_end);
+
+	}
+	void appendGoalWeight(double gw)
+	{
+		fprintf(mFile," %f",gw);
+
+	}
+	void endGoalWeight()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setGoalActive(size_t ga_i,bool ga)
 	{
 		if(ga == true) return;
 		fprintf(mFile,"setAttr \".ga[%i]\" %i;\n", ga_i,ga);
+
+	}
+	void setGoalActive(size_t ga_start,size_t ga_end,bool* ga)
+	{
+		fprintf(mFile,"setAttr \".ga[%i:%i]\" ", ga_start,ga_end);
+		size_t size = (ga_end-ga_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ga[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGoalActive(size_t ga_start,size_t ga_end)
+	{
+		fprintf(mFile,"setAttr \".ga[%i:%i]\"",ga_start,ga_end);
+
+	}
+	void appendGoalActive(bool ga)
+	{
+		fprintf(mFile," %i",ga);
+
+	}
+	void endGoalActive()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setGoalUvSetName(size_t guv_i,const string& guv)
@@ -320,6 +401,35 @@ public:
 		if(guv == "NULL") return;
 		fprintf(mFile,"setAttr \".guv[%i]\" -type \"string\" ",guv_i);
 		guv.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setGoalUvSetName(size_t guv_start,size_t guv_end,string* guv)
+	{
+		fprintf(mFile,"setAttr \".guv[%i:%i]\" ", guv_start,guv_end);
+		size_t size = (guv_end-guv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			guv[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGoalUvSetName(size_t guv_start,size_t guv_end)
+	{
+		fprintf(mFile,"setAttr \".guv[%i:%i]\"",guv_start,guv_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendGoalUvSetName(const string& guv)
+	{
+		fprintf(mFile,"\n");
+		guv.write(mFile);
+
+	}
+	void endGoalUvSetName()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -349,10 +459,66 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setEventName(size_t evn_start,size_t evn_end,string* evn)
+	{
+		fprintf(mFile,"setAttr \".evn[%i:%i]\" ", evn_start,evn_end);
+		size_t size = (evn_end-evn_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			evn[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventName(size_t evn_start,size_t evn_end)
+	{
+		fprintf(mFile,"setAttr \".evn[%i:%i]\"",evn_start,evn_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendEventName(const string& evn)
+	{
+		fprintf(mFile,"\n");
+		evn.write(mFile);
+
+	}
+	void endEventName()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEventValid(size_t evv_i,int evv)
 	{
 		if(evv == -1) return;
 		fprintf(mFile,"setAttr \".evv[%i]\" %i;\n", evv_i,evv);
+
+	}
+	void setEventValid(size_t evv_start,size_t evv_end,int* evv)
+	{
+		fprintf(mFile,"setAttr \".evv[%i:%i]\" ", evv_start,evv_end);
+		size_t size = (evv_end-evv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",evv[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventValid(size_t evv_start,size_t evv_end)
+	{
+		fprintf(mFile,"setAttr \".evv[%i:%i]\"",evv_start,evv_end);
+
+	}
+	void appendEventValid(int evv)
+	{
+		fprintf(mFile," %i",evv);
+
+	}
+	void endEventValid()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEventCount(size_t ecp_i,short ecp)
@@ -361,10 +527,64 @@ public:
 		fprintf(mFile,"setAttr \".ecp[%i]\" %i;\n", ecp_i,ecp);
 
 	}
+	void setEventCount(size_t ecp_start,size_t ecp_end,short* ecp)
+	{
+		fprintf(mFile,"setAttr \".ecp[%i:%i]\" ", ecp_start,ecp_end);
+		size_t size = (ecp_end-ecp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",ecp[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventCount(size_t ecp_start,size_t ecp_end)
+	{
+		fprintf(mFile,"setAttr \".ecp[%i:%i]\"",ecp_start,ecp_end);
+
+	}
+	void appendEventCount(short ecp)
+	{
+		fprintf(mFile," %i",ecp);
+
+	}
+	void endEventCount()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEventEmit(size_t eve_i,short eve)
 	{
 		if(eve == -1) return;
 		fprintf(mFile,"setAttr \".eve[%i]\" %i;\n", eve_i,eve);
+
+	}
+	void setEventEmit(size_t eve_start,size_t eve_end,short* eve)
+	{
+		fprintf(mFile,"setAttr \".eve[%i:%i]\" ", eve_start,eve_end);
+		size_t size = (eve_end-eve_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",eve[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventEmit(size_t eve_start,size_t eve_end)
+	{
+		fprintf(mFile,"setAttr \".eve[%i:%i]\"",eve_start,eve_end);
+
+	}
+	void appendEventEmit(short eve)
+	{
+		fprintf(mFile," %i",eve);
+
+	}
+	void endEventEmit()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEventSplit(size_t evs_i,short evs)
@@ -373,10 +593,64 @@ public:
 		fprintf(mFile,"setAttr \".evs[%i]\" %i;\n", evs_i,evs);
 
 	}
+	void setEventSplit(size_t evs_start,size_t evs_end,short* evs)
+	{
+		fprintf(mFile,"setAttr \".evs[%i:%i]\" ", evs_start,evs_end);
+		size_t size = (evs_end-evs_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",evs[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventSplit(size_t evs_start,size_t evs_end)
+	{
+		fprintf(mFile,"setAttr \".evs[%i:%i]\"",evs_start,evs_end);
+
+	}
+	void appendEventSplit(short evs)
+	{
+		fprintf(mFile," %i",evs);
+
+	}
+	void endEventSplit()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEventDie(size_t evd_i,short evd)
 	{
 		if(evd == -1) return;
 		fprintf(mFile,"setAttr \".evd[%i]\" %i;\n", evd_i,evd);
+
+	}
+	void setEventDie(size_t evd_start,size_t evd_end,short* evd)
+	{
+		fprintf(mFile,"setAttr \".evd[%i:%i]\" ", evd_start,evd_end);
+		size_t size = (evd_end-evd_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",evd[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventDie(size_t evd_start,size_t evd_end)
+	{
+		fprintf(mFile,"setAttr \".evd[%i:%i]\"",evd_start,evd_end);
+
+	}
+	void appendEventDie(short evd)
+	{
+		fprintf(mFile," %i",evd);
+
+	}
+	void endEventDie()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEventRandom(size_t evr_i,short evr)
@@ -385,10 +659,64 @@ public:
 		fprintf(mFile,"setAttr \".evr[%i]\" %i;\n", evr_i,evr);
 
 	}
+	void setEventRandom(size_t evr_start,size_t evr_end,short* evr)
+	{
+		fprintf(mFile,"setAttr \".evr[%i:%i]\" ", evr_start,evr_end);
+		size_t size = (evr_end-evr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",evr[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventRandom(size_t evr_start,size_t evr_end)
+	{
+		fprintf(mFile,"setAttr \".evr[%i:%i]\"",evr_start,evr_end);
+
+	}
+	void appendEventRandom(short evr)
+	{
+		fprintf(mFile," %i",evr);
+
+	}
+	void endEventRandom()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setEventSpread(size_t esp_i,double esp)
 	{
 		if(esp == -1.0) return;
 		fprintf(mFile,"setAttr \".esp[%i]\" %f;\n", esp_i,esp);
+
+	}
+	void setEventSpread(size_t esp_start,size_t esp_end,double* esp)
+	{
+		fprintf(mFile,"setAttr \".esp[%i:%i]\" ", esp_start,esp_end);
+		size_t size = (esp_end-esp_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",esp[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventSpread(size_t esp_start,size_t esp_end)
+	{
+		fprintf(mFile,"setAttr \".esp[%i:%i]\"",esp_start,esp_end);
+
+	}
+	void appendEventSpread(double esp)
+	{
+		fprintf(mFile," %f",esp);
+
+	}
+	void endEventSpread()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEventProc(size_t epr_i,const string& epr)
@@ -396,6 +724,35 @@ public:
 		if(epr == "NULL") return;
 		fprintf(mFile,"setAttr \".epr[%i]\" -type \"string\" ",epr_i);
 		epr.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setEventProc(size_t epr_start,size_t epr_end,string* epr)
+	{
+		fprintf(mFile,"setAttr \".epr[%i:%i]\" ", epr_start,epr_end);
+		size_t size = (epr_end-epr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			epr[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEventProc(size_t epr_start,size_t epr_end)
+	{
+		fprintf(mFile,"setAttr \".epr[%i:%i]\"",epr_start,epr_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendEventProc(const string& epr)
+	{
+		fprintf(mFile,"\n");
+		epr.write(mFile);
+
+	}
+	void endEventProc()
+	{
 		fprintf(mFile,";\n");
 
 	}

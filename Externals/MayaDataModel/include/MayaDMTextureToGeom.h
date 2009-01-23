@@ -31,6 +31,33 @@ public:
 		fprintf(mFile,"setAttr \".sgi[%i]\" %i;\n", sgi_i,sgi);
 
 	}
+	void setSegGroupIds(size_t sgi_start,size_t sgi_end,int* sgi)
+	{
+		fprintf(mFile,"setAttr \".sgi[%i:%i]\" ", sgi_start,sgi_end);
+		size_t size = (sgi_end-sgi_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",sgi[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startSegGroupIds(size_t sgi_start,size_t sgi_end)
+	{
+		fprintf(mFile,"setAttr \".sgi[%i:%i]\"",sgi_start,sgi_end);
+
+	}
+	void appendSegGroupIds(int sgi)
+	{
+		fprintf(mFile," %i",sgi);
+
+	}
+	void endSegGroupIds()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInputMesh(const mesh& im)
 	{
 		fprintf(mFile,"setAttr \".im\" -type \"mesh\" ");

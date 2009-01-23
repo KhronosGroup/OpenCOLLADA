@@ -132,6 +132,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startCenter(size_t ctr_start,size_t ctr_end)
+	{
+		fprintf(mFile,"setAttr \".ctr[%i:%i]\"",ctr_start,ctr_end);
+
+	}
+	void appendCenter(double ctr)
+	{
+		fprintf(mFile," %f",ctr);
+
+	}
+	void endCenter()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setCenterX(size_t ctr_i,double ctx)
 	{
 		if(ctx == 0) return;
@@ -155,6 +170,35 @@ public:
 		if(owmx == identity) return;
 		fprintf(mFile,"setAttr \".owmx[%i]\" -type \"matrix\" ",owmx_i);
 		owmx.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setObjectWorldMatrix(size_t owmx_start,size_t owmx_end,matrix* owmx)
+	{
+		fprintf(mFile,"setAttr \".owmx[%i:%i]\" ", owmx_start,owmx_end);
+		size_t size = (owmx_end-owmx_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			owmx[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startObjectWorldMatrix(size_t owmx_start,size_t owmx_end)
+	{
+		fprintf(mFile,"setAttr \".owmx[%i:%i]\"",owmx_start,owmx_end);
+		fprintf(mFile," -type \"matrix\" ");
+
+	}
+	void appendObjectWorldMatrix(const matrix& owmx)
+	{
+		fprintf(mFile,"\n");
+		owmx.write(mFile);
+
+	}
+	void endObjectWorldMatrix()
+	{
 		fprintf(mFile,";\n");
 
 	}

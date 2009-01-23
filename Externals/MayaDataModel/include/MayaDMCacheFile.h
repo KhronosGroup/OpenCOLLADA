@@ -44,11 +44,69 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setChannel(size_t ch_start,size_t ch_end,string* ch)
+	{
+		fprintf(mFile,"setAttr \".ch[%i:%i]\" ", ch_start,ch_end);
+		size_t size = (ch_end-ch_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ch[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startChannel(size_t ch_start,size_t ch_end)
+	{
+		fprintf(mFile,"setAttr \".ch[%i:%i]\"",ch_start,ch_end);
+		fprintf(mFile," -type \"string\" ");
+
+	}
+	void appendChannel(const string& ch)
+	{
+		fprintf(mFile,"\n");
+		ch.write(mFile);
+
+	}
+	void endChannel()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setPerPtWeights(size_t ppw_i,const doubleArray& ppw)
 	{
 		if(ppw.size == 0) return;
 		fprintf(mFile,"setAttr \".ppw[%i]\" -type \"doubleArray\" ",ppw_i);
 		ppw.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setPerPtWeights(size_t ppw_start,size_t ppw_end,doubleArray* ppw)
+	{
+		fprintf(mFile,"setAttr \".ppw[%i:%i]\" ", ppw_start,ppw_end);
+		size_t size = (ppw_end-ppw_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ppw[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startPerPtWeights(size_t ppw_start,size_t ppw_end)
+	{
+		fprintf(mFile,"setAttr \".ppw[%i:%i]\"",ppw_start,ppw_end);
+		fprintf(mFile," -type \"doubleArray\" ");
+
+	}
+	void appendPerPtWeights(const doubleArray& ppw)
+	{
+		fprintf(mFile,"\n");
+		ppw.write(mFile);
+
+	}
+	void endPerPtWeights()
+	{
 		fprintf(mFile,";\n");
 
 	}

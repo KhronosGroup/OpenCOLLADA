@@ -26,6 +26,33 @@ public:
 		fprintf(mFile,"setAttr \".cr[%i]\" %f;\n", cr_i,cr);
 
 	}
+	void setCrease(size_t cr_start,size_t cr_end,float* cr)
+	{
+		fprintf(mFile,"setAttr \".cr[%i:%i]\" ", cr_start,cr_end);
+		size_t size = (cr_end-cr_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",cr[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startCrease(size_t cr_start,size_t cr_end)
+	{
+		fprintf(mFile,"setAttr \".cr[%i:%i]\"",cr_start,cr_end);
+
+	}
+	void appendCrease(float cr)
+	{
+		fprintf(mFile," %f",cr);
+
+	}
+	void endCrease()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInputVertexComponents(const componentList& ivc)
 	{
 		fprintf(mFile,"setAttr \".ivc\" -type \"componentList\" ");
@@ -37,6 +64,33 @@ public:
 	{
 		if(crv == -1.0) return;
 		fprintf(mFile,"setAttr \".crv[%i]\" %f;\n", crv_i,crv);
+
+	}
+	void setCreaseVertex(size_t crv_start,size_t crv_end,float* crv)
+	{
+		fprintf(mFile,"setAttr \".crv[%i:%i]\" ", crv_start,crv_end);
+		size_t size = (crv_end-crv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",crv[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startCreaseVertex(size_t crv_start,size_t crv_end)
+	{
+		fprintf(mFile,"setAttr \".crv[%i:%i]\"",crv_start,crv_end);
+
+	}
+	void appendCreaseVertex(float crv)
+	{
+		fprintf(mFile," %f",crv);
+
+	}
+	void endCreaseVertex()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void getCrease(size_t cr_i)

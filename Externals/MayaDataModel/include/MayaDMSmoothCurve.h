@@ -32,6 +32,33 @@ public:
 		fprintf(mFile,"setAttr \".i[%i]\" %i;\n", i_i,i);
 
 	}
+	void setIndex(size_t i_start,size_t i_end,int* i)
+	{
+		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
+		size_t size = (i_end-i_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",i[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startIndex(size_t i_start,size_t i_end)
+	{
+		fprintf(mFile,"setAttr \".i[%i:%i]\"",i_start,i_end);
+
+	}
+	void appendIndex(int i)
+	{
+		fprintf(mFile," %i",i);
+
+	}
+	void endIndex()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getInputCurve()
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());

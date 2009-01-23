@@ -26,10 +26,64 @@ public:
 		fprintf(mFile,"setAttr \".p[%i]\" %f;\n", p_i,p);
 
 	}
+	void setParameter(size_t p_start,size_t p_end,double* p)
+	{
+		fprintf(mFile,"setAttr \".p[%i:%i]\" ", p_start,p_end);
+		size_t size = (p_end-p_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",p[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startParameter(size_t p_start,size_t p_end)
+	{
+		fprintf(mFile,"setAttr \".p[%i:%i]\"",p_start,p_end);
+
+	}
+	void appendParameter(double p)
+	{
+		fprintf(mFile," %f",p);
+
+	}
+	void endParameter()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setNumberOfKnots(size_t nk_i,int nk)
 	{
 		if(nk == 1) return;
 		fprintf(mFile,"setAttr \".nk[%i]\" %i;\n", nk_i,nk);
+
+	}
+	void setNumberOfKnots(size_t nk_start,size_t nk_end,int* nk)
+	{
+		fprintf(mFile,"setAttr \".nk[%i:%i]\" ", nk_start,nk_end);
+		size_t size = (nk_end-nk_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",nk[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startNumberOfKnots(size_t nk_start,size_t nk_end)
+	{
+		fprintf(mFile,"setAttr \".nk[%i:%i]\"",nk_start,nk_end);
+
+	}
+	void appendNumberOfKnots(int nk)
+	{
+		fprintf(mFile," %i",nk);
+
+	}
+	void endNumberOfKnots()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setAddKnots(bool add)

@@ -1162,7 +1162,7 @@ const char* NAME_ATTRIBUTE_MININCLUSIVE = "minInclusive";
 const char* NAME_ATTRIBUTE_MAXINCLUSIVE = "maxInclusive";
 
 //---------------------------------------------------------------------
-const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, -2147483648, 2147483647};
+const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, 2147483648, 2147483647};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__int_array( const ParserChar* text, size_t textLength )

@@ -64,10 +64,66 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setInputSurface(size_t is_start,size_t is_end,nurbsSurface* is)
+	{
+		fprintf(mFile,"setAttr \".is[%i:%i]\" ", is_start,is_end);
+		size_t size = (is_end-is_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			is[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInputSurface(size_t is_start,size_t is_end)
+	{
+		fprintf(mFile,"setAttr \".is[%i:%i]\"",is_start,is_end);
+		fprintf(mFile," -type \"nurbsSurface\" ");
+
+	}
+	void appendInputSurface(const nurbsSurface& is)
+	{
+		fprintf(mFile,"\n");
+		is.write(mFile);
+
+	}
+	void endInputSurface()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setRadius(size_t r_i,double r)
 	{
 		if(r == 1) return;
 		fprintf(mFile,"setAttr \".r[%i]\" %f;\n", r_i,r);
+
+	}
+	void setRadius(size_t r_start,size_t r_end,double* r)
+	{
+		fprintf(mFile,"setAttr \".r[%i:%i]\" ", r_start,r_end);
+		size_t size = (r_end-r_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",r[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startRadius(size_t r_start,size_t r_end)
+	{
+		fprintf(mFile,"setAttr \".r[%i:%i]\"",r_start,r_end);
+
+	}
+	void appendRadius(double r)
+	{
+		fprintf(mFile," %f",r);
+
+	}
+	void endRadius()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEdge(size_t e_i,const Edge& e)
@@ -84,10 +140,68 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void setInputCurveA(size_t e_i,size_t ica_start,size_t ica_end,nurbsCurve* ica)
+	{
+		fprintf(mFile,"setAttr \".e[%i].ica[%i:%i]\" ", e_i,ica_start,ica_end);
+		size_t size = (ica_end-ica_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			ica[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInputCurveA(size_t e_i,size_t ica_start,size_t ica_end)
+	{
+		fprintf(mFile,"setAttr \".e[%i].ica[%i:%i]\"",e_i,ica_start,ica_end);
+		fprintf(mFile," -type \"nurbsCurve\" ");
+
+	}
+	void appendInputCurveA(const nurbsCurve& ica)
+	{
+		fprintf(mFile,"\n");
+		ica.write(mFile);
+
+	}
+	void endInputCurveA()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInputCurveB(size_t e_i,size_t icb_i,const nurbsCurve& icb)
 	{
 		fprintf(mFile,"setAttr \".e[%i].icb[%i]\" -type \"nurbsCurve\" ",e_i,icb_i);
 		icb.write(mFile);
+		fprintf(mFile,";\n");
+
+	}
+	void setInputCurveB(size_t e_i,size_t icb_start,size_t icb_end,nurbsCurve* icb)
+	{
+		fprintf(mFile,"setAttr \".e[%i].icb[%i:%i]\" ", e_i,icb_start,icb_end);
+		size_t size = (icb_end-icb_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			icb[i].write(mFile);
+			fprintf(mFile,"\n");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInputCurveB(size_t e_i,size_t icb_start,size_t icb_end)
+	{
+		fprintf(mFile,"setAttr \".e[%i].icb[%i:%i]\"",e_i,icb_start,icb_end);
+		fprintf(mFile," -type \"nurbsCurve\" ");
+
+	}
+	void appendInputCurveB(const nurbsCurve& icb)
+	{
+		fprintf(mFile,"\n");
+		icb.write(mFile);
+
+	}
+	void endInputCurveB()
+	{
 		fprintf(mFile,";\n");
 
 	}
@@ -97,10 +211,64 @@ public:
 		fprintf(mFile,"setAttr \".e[%i].isa[%i]\" %i;\n", e_i,isa_i,isa);
 
 	}
+	void setInSurfIdxA(size_t e_i,size_t isa_start,size_t isa_end,int* isa)
+	{
+		fprintf(mFile,"setAttr \".e[%i].isa[%i:%i]\" ", e_i,isa_start,isa_end);
+		size_t size = (isa_end-isa_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",isa[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInSurfIdxA(size_t e_i,size_t isa_start,size_t isa_end)
+	{
+		fprintf(mFile,"setAttr \".e[%i].isa[%i:%i]\"",e_i,isa_start,isa_end);
+
+	}
+	void appendInSurfIdxA(int isa)
+	{
+		fprintf(mFile," %i",isa);
+
+	}
+	void endInSurfIdxA()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setInSurfIdxB(size_t e_i,size_t isb_i,int isb)
 	{
 		if(isb == 123456) return;
 		fprintf(mFile,"setAttr \".e[%i].isb[%i]\" %i;\n", e_i,isb_i,isb);
+
+	}
+	void setInSurfIdxB(size_t e_i,size_t isb_start,size_t isb_end,int* isb)
+	{
+		fprintf(mFile,"setAttr \".e[%i].isb[%i:%i]\" ", e_i,isb_start,isb_end);
+		size_t size = (isb_end-isb_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",isb[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startInSurfIdxB(size_t e_i,size_t isb_start,size_t isb_end)
+	{
+		fprintf(mFile,"setAttr \".e[%i].isb[%i:%i]\"",e_i,isb_start,isb_end);
+
+	}
+	void appendInSurfIdxB(int isb)
+	{
+		fprintf(mFile," %i",isb);
+
+	}
+	void endInSurfIdxB()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setEdgeValid(size_t e_i,bool ev)

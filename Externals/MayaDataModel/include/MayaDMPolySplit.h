@@ -39,6 +39,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+	void startVertices(size_t v_start,size_t v_end)
+	{
+		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+
+	}
+	void appendVertices(float v)
+	{
+		fprintf(mFile," %f",v);
+
+	}
+	void endVertices()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setVtxx(size_t v_i,float vx)
 	{
 		if(vx == 0) return;
@@ -63,10 +78,64 @@ public:
 		fprintf(mFile,"setAttr \".e[%i]\" %f;\n", e_i,e);
 
 	}
+	void setEdge(size_t e_start,size_t e_end,float* e)
+	{
+		fprintf(mFile,"setAttr \".e[%i:%i]\" ", e_start,e_end);
+		size_t size = (e_end-e_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",e[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startEdge(size_t e_start,size_t e_end)
+	{
+		fprintf(mFile,"setAttr \".e[%i:%i]\"",e_start,e_end);
+
+	}
+	void appendEdge(float e)
+	{
+		fprintf(mFile," %f",e);
+
+	}
+	void endEdge()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setDesc(size_t d_i,int d)
 	{
 		if(d == 0) return;
 		fprintf(mFile,"setAttr \".d[%i]\" %i;\n", d_i,d);
+
+	}
+	void setDesc(size_t d_start,size_t d_end,int* d)
+	{
+		fprintf(mFile,"setAttr \".d[%i:%i]\" ", d_start,d_end);
+		size_t size = (d_end-d_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",d[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startDesc(size_t d_start,size_t d_end)
+	{
+		fprintf(mFile,"setAttr \".d[%i:%i]\"",d_start,d_end);
+
+	}
+	void appendDesc(int d)
+	{
+		fprintf(mFile," %i",d);
+
+	}
+	void endDesc()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setSubdivision(int s)

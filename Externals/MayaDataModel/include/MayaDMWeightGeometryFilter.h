@@ -45,6 +45,33 @@ public:
 		fprintf(mFile,"setAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
 
 	}
+	void setWeights(size_t wl_i,size_t w_start,size_t w_end,float* w)
+	{
+		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\" ", wl_i,w_start,w_end);
+		size_t size = (w_end-w_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",w[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startWeights(size_t wl_i,size_t w_start,size_t w_end)
+	{
+		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
+
+	}
+	void appendWeights(float w)
+	{
+		fprintf(mFile," %f",w);
+
+	}
+	void endWeights()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void getWeightList(size_t wl_i)
 	{
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);

@@ -26,10 +26,64 @@ public:
 		fprintf(mFile,"setAttr \".lu[%i]\" %f;\n", lu_i,lu);
 
 	}
+	void setLocatorU(size_t lu_start,size_t lu_end,double* lu)
+	{
+		fprintf(mFile,"setAttr \".lu[%i:%i]\" ", lu_start,lu_end);
+		size_t size = (lu_end-lu_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",lu[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLocatorU(size_t lu_start,size_t lu_end)
+	{
+		fprintf(mFile,"setAttr \".lu[%i:%i]\"",lu_start,lu_end);
+
+	}
+	void appendLocatorU(double lu)
+	{
+		fprintf(mFile," %f",lu);
+
+	}
+	void endLocatorU()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setLocatorV(size_t lv_i,double lv)
 	{
 		if(lv == 0.5) return;
 		fprintf(mFile,"setAttr \".lv[%i]\" %f;\n", lv_i,lv);
+
+	}
+	void setLocatorV(size_t lv_start,size_t lv_end,double* lv)
+	{
+		fprintf(mFile,"setAttr \".lv[%i:%i]\" ", lv_start,lv_end);
+		size_t size = (lv_end-lv_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%f",lv[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startLocatorV(size_t lv_start,size_t lv_end)
+	{
+		fprintf(mFile,"setAttr \".lv[%i:%i]\"",lv_start,lv_end);
+
+	}
+	void appendLocatorV(double lv)
+	{
+		fprintf(mFile," %f",lv);
+
+	}
+	void endLocatorV()
+	{
+		fprintf(mFile,";\n");
 
 	}
 	void setSelected(unsigned int sl)

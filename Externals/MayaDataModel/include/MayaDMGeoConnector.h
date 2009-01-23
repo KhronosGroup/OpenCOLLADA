@@ -39,6 +39,33 @@ public:
 		fprintf(mFile,"setAttr \".gri[%i]\" %i;\n", gri_i,gri);
 
 	}
+	void setGroupId(size_t gri_start,size_t gri_end,int* gri)
+	{
+		fprintf(mFile,"setAttr \".gri[%i:%i]\" ", gri_start,gri_end);
+		size_t size = (gri_end-gri_start)*1+1;
+		for(size_t i=0;i<size;++i)
+		{
+			fprintf(mFile,"%i",gri[i]);
+			if(i+1<size) fprintf(mFile," ");
+		}
+		fprintf(mFile,";\n");
+
+	}
+	void startGroupId(size_t gri_start,size_t gri_end)
+	{
+		fprintf(mFile,"setAttr \".gri[%i:%i]\"",gri_start,gri_end);
+
+	}
+	void appendGroupId(int gri)
+	{
+		fprintf(mFile," %i",gri);
+
+	}
+	void endGroupId()
+	{
+		fprintf(mFile,";\n");
+
+	}
 	void setTessellationFactor(int tf)
 	{
 		if(tf == 200) return;
