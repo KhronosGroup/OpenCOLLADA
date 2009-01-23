@@ -125,6 +125,9 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the float data of a scale element.*/
 		virtual bool data__scale( const double* data, size_t length );
 
+        virtual bool begin__skew( const skew__AttributeData& attributeData );
+        virtual bool end__skew();
+        virtual bool data__skew( const double* value, size_t length );
 
 		/** Sax callback function for the beginning of an instance geometry element.*/
 		virtual bool begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData );
@@ -138,6 +141,11 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the ending of an instance node element.*/
 		virtual bool end__instance_node();
+
+        virtual bool begin__lookat( const lookat__AttributeData& attributeData );
+        virtual bool end__lookat();
+        virtual bool data__lookat( const double* value, size_t length );
+
 	};
 
 } // namespace COLLADASAXFWL
