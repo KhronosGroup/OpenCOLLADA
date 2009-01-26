@@ -77,6 +77,7 @@ namespace COLLADAMax
 	{
 		bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
 		ImpNode* newImportNode = 0;
+		const COLLADAFW::UniqueId& nodeUniqueId = node->getUniqueId();
 
 		if ( !singleGeometryInstance )
 		{
@@ -100,7 +101,7 @@ namespace COLLADAMax
 		importInstanceNodes(node->getInstanceNodes(), newImportNode);
 
 		/** Store the unique id of the created node, to resolve references, when ever necessary.*/ 
-		addUniqueIdINodePair(node->getUniqueId(), newImportNode->GetINode());
+		addUniqueIdINodePair( nodeUniqueId, newImportNode->GetINode());
 
 		INode* childNode = newImportNode->GetINode();
 		INode* parentNode = parentImportNode->GetINode();
@@ -108,11 +109,12 @@ namespace COLLADAMax
 
 		/* if there are nodes that reference the just created node, clone this node
 		and append it to the referencing node.*/
-		ImpNodeList referencingImpNodeList;
-		getReferencingImpNodesByUniqueId(node->getUniqueId(), referencingImpNodeList);
-		for ( size_t i = 0, count = referencingImpNodeList.size(); i<count; ++i)
-			recursivlyCloneINode( referencingImpNodeList[i], newImportNode->GetINode() );
-
+		ImpNode* referencingImpNode = 0;
+		while ( referencingImpNode = getReferencingImpNodesByUniqueId(nodeUniqueId) )
+		{
+			removeUniqueIdReferencingImpNodePair( nodeUniqueId, referencingImpNode);
+			recursivlyCloneINode( referencingImpNode, newImportNode->GetINode() );
+		}
 
 		return newImportNode;
 	}
@@ -183,13 +185,14 @@ namespace COLLADAMax
 		}
 
 		const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
-		// Store mapping between unique ids and nodes referencing the coresponing object.
+		// Store mapping between unique ids and nodes referencing the corresponding object.
 		// Used to clone nodes
 		addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
 		// Used to resolve instancing of objects
 		addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(newNode, FALSE);
+
 		return newImportNode;
 	}
 
@@ -204,6 +207,7 @@ namespace COLLADAMax
 			const COLLADAFW::UniqueId& uniqueId = instanceNode->getInstanciatedObjectId();
 
 			INode* instanciatedINode = getINodeByUniqueId(uniqueId);
+			// check if the referenced node is already in the max scene graph
 			if ( instanciatedINode )
 			{
 				if ( !recursivlyCloneINode(parentImportNode, instanciatedINode) )
@@ -211,9 +215,18 @@ namespace COLLADAMax
 			}
 			else
 			{
-				// If the referenced node has not been imported, store which node is referenced
-				// to clone the nodes as the referenced nodes gets imported
-				addUniqueIdReferencingImpNodePair(instanceNode->getInstanciatedObjectId(), parentImportNode );
+				const COLLADAFW::Node* instanciatedFWNode = getFWNodeByUniqueId( uniqueId );
+				// check if the referenced node is in one of the already received library nodes
+				if ( instanciatedFWNode )
+				{
+					importNode( instanciatedFWNode, parentImportNode );
+				}
+				else
+				{
+					// If the referenced node has not been imported, store which node is referenced
+					// to clone the nodes as the referenced nodes gets imported
+					addUniqueIdReferencingImpNodePair(instanceNode->getInstanciatedObjectId(), parentImportNode );
+				}
 			}
 		}
 

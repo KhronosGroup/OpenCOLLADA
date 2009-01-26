@@ -32,23 +32,6 @@ namespace COLLADAFW
 	//--------------------------------------------------------------------
 	Node::~Node()
 	{
-#if 0
-		//delete all child nodes
-		for ( size_t i = 0, count = mChildNodes.getCount(); i < count; ++i)
-			delete mChildNodes[i];
-
-		//delete all transformations
-		for ( size_t i = 0, count = mTransformations.getCount(); i < count; ++i)
-			delete mTransformations[i];
-
-		//delete all instance geometries
-		for ( size_t i = 0, count = mInstanceGeometries.getCount(); i < count; ++i)
-			delete mInstanceGeometries[i];
-
-		//delete all instance nodes
-		for ( size_t i = 0, count = mInstanceNodes.getCount(); i < count; ++i)
-			delete mInstanceNodes[i];
-#endif
 	}
 
 	//--------------------------------------------------------------------

@@ -36,6 +36,7 @@ namespace COLLADAFW
 	class Geometry;
 	class UniqueId;
 	class LibraryNodes;
+	class Node;
 }
 
 namespace COLLADAMax
@@ -60,6 +61,9 @@ namespace COLLADAMax
 
 		/** List of library nodes.*/
 		typedef std::list<const COLLADAFW::LibraryNodes*> LibraryNodesList;
+
+		/** Maps Unique id to framework nodes.*/
+		typedef std::map<COLLADAFW::UniqueId, const COLLADAFW::Node*> UniqueIdFWNodeMap;
 
 	private:
 		/** Max interface.*/
@@ -95,6 +99,12 @@ namespace COLLADAMax
 		/** Maps each already imported object to its Unique id. When ever a new object is created it 
 		should be added to this map. .*/
 		ObjectINodeUniqueIdMap mObjectINodeUniqueIdMap;
+
+		/** Maps Unique ids of nodes that are in a library nodes but not already in the max scene graph to
+		the frame word node itself. Each frame work node, that is in a library nodes but not immediately added 
+		to the max scene graph should be added to that map. When looking for referenced nodes check this map if
+		the referenced node is not already in the max scene graph.*/
+		UniqueIdFWNodeMap mUniqueIdFWNodeMap;
 
 		/** This vector contains all library nodes already received by the importer.*/
 		LibraryNodesList mLibraryNodesList;
@@ -164,6 +174,9 @@ namespace COLLADAMax
 
 		/** Returns the object UniqueId Mapping.*/
 		ObjectINodeUniqueIdMap& getObjectINodeUniqueIdMap(){ return mObjectINodeUniqueIdMap; }
+
+		/** Returns the Unique id framework node map.*/
+		UniqueIdFWNodeMap& getUniqueIdFWNodeMap() { return mUniqueIdFWNodeMap; }
 
 		/** Returns the list of library nodes.*/
 		LibraryNodesList& getLibraryNodesList(){ return mLibraryNodesList; }

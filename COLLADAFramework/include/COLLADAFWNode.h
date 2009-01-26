@@ -48,7 +48,9 @@ namespace COLLADAFW
         };
 
 	private:
-	
+		/** The parent node.*/
+		Node* mParent;
+
 		/**
 		* The name attribute is the text string name of this element. 
 		* Optional attribute.
@@ -134,16 +136,8 @@ namespace COLLADAFW
 		@return The transformation matrix*/
 		COLLADABU::Math::Matrix4 getTransformationMatrix() const;
 
-		/** Creates a clone of the node and returns a popinter to it.*/
-		Node* clone() const { return new Node(*this); }
-
-//	private:
-        /** Disable default copy ctor. */
-//		Node( const Node& pre );
-        /** Disable default assignment operator. */
-//		const Node& operator= ( const Node& pre );
-
-
+		/** Creates a clone of the node and returns a pointer to it.*/
+		Node* clone() const { return NEW Node(*this); }
 	};
 
 

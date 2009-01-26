@@ -18,4 +18,7 @@ namespace COLLADAFW
     typedef std::string String;
 }
 
+#define NEW new 
+
+
 #endif //__COLLADAFW_PREREQUISITES_H__

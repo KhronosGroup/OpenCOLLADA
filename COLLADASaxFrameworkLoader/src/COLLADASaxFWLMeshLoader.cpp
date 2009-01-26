@@ -39,12 +39,16 @@ namespace COLLADASaxFWL
 		, mCurrentExpectedVertexCount(0)
 		, mCurrentFaceCount(0)
 		, mPositionsOffset (0)
+		, mPositionsIndexOffset(0)
 		, mUsePositions ( true )
 		, mNormalsOffset (0)
+		, mNormalsIndexOffset(0)
 		, mUseNormals ( false )
 		, mColorsOffset (0)
+		, mColorsIndexOffset(0)
 		, mUseColors (false)
 		, mUVCoordsOffset (0)
+		, mUVCoordsIndexOffset(0)
 		, mUseUVCoords ( false )
 	{
 		mMesh->setName(geometryName);
@@ -452,22 +456,22 @@ namespace COLLADASaxFWL
 			if ( mUsePositions && mCurrentOffset == mPositionsOffset )
 			{
 				COLLADAFW::UIntValuesArray& positionIndices = mCurrentMeshPrimitive->getPositionIndices ();
-				positionIndices.append ( index );
+				positionIndices.append ( index + mPositionsIndexOffset );
 			}
 			if ( mUseNormals && mCurrentOffset == mNormalsOffset )
 			{
 				COLLADAFW::UIntValuesArray& normalIndices = mCurrentMeshPrimitive->getNormalIndices ();
-				normalIndices.append ( index );
+				normalIndices.append ( index + mNormalsIndexOffset );
 			}
 			if ( mUseColors && mCurrentOffset == mColorsOffset )
 			{
 				COLLADAFW::UIntValuesArray& colorIndices = mCurrentMeshPrimitive->getColorIndices ();
-				colorIndices.append ( index );
+				colorIndices.append ( index + mColorsIndexOffset );
 			}
 			if ( mUseUVCoords && mCurrentOffset == mUVCoordsOffset )
 			{
 				COLLADAFW::UIntValuesArray& uvCoordIndices = mCurrentMeshPrimitive->getUVCoordIndices ();
-				uvCoordIndices.append ( index );
+				uvCoordIndices.append ( index + mUVCoordsIndexOffset );
 			}
 
 			// Reset the offset if we went through all offset values
@@ -590,6 +594,7 @@ namespace COLLADASaxFWL
 			// TODO error handling!
 			return false;
 		}
+		mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
 
 		// Check for using normals
 		const InputShared* normalInput = mMeshPrimitiveInputs.getNormalInput ();
@@ -598,7 +603,23 @@ namespace COLLADASaxFWL
 			// Get the offset value, the initial index values and alloc the memory.
 			mNormalsOffset = normalInput->getOffset ();
 			sourceBase = getSourceById ( normalInput->getSource ().getFragment () );
-			mUseNormals = true;
+			unsigned long long stride = sourceBase->getStride();
+			// only stride 3 makes sense for normals
+			if ( stride == 3 )
+			{
+				mNormalsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
+				mUseNormals = true;
+			}
+			else
+			{
+				mNormalsIndexOffset = 0;
+				mUseNormals = false;
+			}
+		}
+		else
+		{
+			mNormalsIndexOffset = 0;
+			mUseNormals = false;
 		}
 
 		// Check for using colors
@@ -607,7 +628,25 @@ namespace COLLADASaxFWL
 		{
 			// Get the offset value and alloc the memory.
 			mColorsOffset = colorInput->getOffset ();
-			mUseColors = true;
+			sourceBase = getSourceById ( colorInput->getSource ().getFragment () );
+			unsigned long long stride = sourceBase->getStride();
+			// only stride 3 or 4 makes sense for colors
+			if ( (stride == 3) || (stride == 4) )
+			{
+				mColorsIndexOffset = (unsigned int)(sourceBase->getInitialIndex()/stride );
+				mUseColors = true;
+			}
+			else
+			{
+				mColorsIndexOffset = 0;
+				mUseColors = false;
+			}
+
+		}
+		else
+		{
+			mColorsIndexOffset = 0;
+			mUseColors = false;
 		}
 
 		// Check for using uv coordinates 
@@ -616,7 +655,24 @@ namespace COLLADASaxFWL
 		{
 			// Get the offset value and alloc the memory.
 			mUVCoordsOffset = uVCoordInput->getOffset ();
-			mUseUVCoords = true;
+			sourceBase = getSourceById ( uVCoordInput->getSource ().getFragment () );
+			unsigned long long stride = sourceBase->getStride();
+			// only stride 1, 2, 3 or 4 makes sense for uv coords
+			if ( (stride >= 1) || (stride <= 4) )
+			{
+				mUVCoordsIndexOffset = (unsigned int)(sourceBase->getInitialIndex()/stride);
+				mUseUVCoords = true;
+			}
+			else
+			{
+				mUVCoordsIndexOffset = 0;
+				mUseUVCoords = false;
+			}
+		}
+		else
+		{
+			mUVCoordsIndexOffset = 0;
+			mUseUVCoords = false;
 		}
 
 		return true;
@@ -956,13 +1012,13 @@ namespace COLLADASaxFWL
 	bool MeshLoader::end__polylist__input()
 	{
 		loadSourceElements(mMeshPrimitiveInputs);
-		initializeOffsets();
 		return true;
 	}
 
 	//------------------------------
 	bool MeshLoader::begin__polylist__vcount()
 	{
+		initializeOffsets();
 		return true;
 	}
 

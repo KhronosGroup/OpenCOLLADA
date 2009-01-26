@@ -30,6 +30,7 @@ namespace COLLADAFW
 {
 	class UniqueId;
 	class LibraryNodes;
+	class Node;
 }
 
 namespace COLLADAMax
@@ -76,11 +77,16 @@ namespace COLLADAMax
 		not already been loaded this method should be called.*/
 		void addUniqueIdReferencingImpNodePair(const COLLADAFW::UniqueId& uniqueId, ImpNode* node);
 
+		/** Removes the UniqueId-Referencing INode pair from the UniqueIdReferencingINodeMap. Remove pairs
+		before you start resolving the reference.*/
+		void removeUniqueIdReferencingImpNodePair( const COLLADAFW::UniqueId& uniqueId, ImpNode* node );
+
 		/** Fills @a nodeList with all INodes that reference the object with UniqueId @a uniqueId.*/
 		void getObjectINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
 
-		/** Fills @a nodeList with all INodes that reference the node with UniqueId @a uniqueId.*/
-		void getReferencingImpNodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, ImpNodeList& nodelist );
+		/** Returns an INodes that reference the node with UniqueId @a uniqueId or zero if no such node is 
+		in the map. */
+		ImpNode* getReferencingImpNodesByUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
 		/** Adds an UniqueId-Object pair to the UniqueIdObjectMap. For every imported object this method should 
 		be called to ensure that elements that are imported later and instance this object can set the object 
@@ -96,6 +102,11 @@ namespace COLLADAMax
 		unique id can be retrieved from the created INode. This is required for instance node handling.*/
 		void addObjectINodeUniqueIdPair( INode* object, const COLLADAFW::UniqueId& uniqueId );
 
+		/** Adds UniqueId frame work node pair to the UniqueIdFWNodeMap. 
+		For every received node that is in a library nodes and not immediately imported into th max scene graph
+		this method should be called. This is required for instance node handling of nodes in a library nodes.*/
+		void addUniqueIdFWNodePair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Node* node );
+
 		/** Adds @a libraryNodes to the list of library nodes.*/
 		void addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
@@ -110,6 +121,11 @@ namespace COLLADAMax
 		/** Returns the unique id of the framework object that was  used to create @a object. If 
 		@a object  not been added using addObjectINodeUniqueIdPair, an invalid unique id is returned.*/
 		const COLLADAFW::UniqueId& getUniqueIdByObjectINode( INode* object );
+
+		/** Returns the frame work node with unique id @a uniqueId, if this node is in an already 
+		received library nodes, null otherwise.*/
+		const COLLADAFW::Node* getFWNodeByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
 
 	private:
 

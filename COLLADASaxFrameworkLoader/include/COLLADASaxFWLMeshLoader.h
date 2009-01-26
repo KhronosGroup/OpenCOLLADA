@@ -92,22 +92,18 @@ namespace COLLADASaxFWL
 		using the values above. (for collada polygons).*/
 		size_t mCurrentFaceCount;
 
-		/**
-        * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
-        * Can be any combination of the following in any order:
-        * <lines>, <linestrips>, <polygons>, <polylist>, <triangles>, <trifans>, and <tristrips>
-         */
-        //PolyBaseArray mPolyBaseElements;
-
-
         // Variables for the offsets of the index input elements.
         unsigned long long mPositionsOffset; 
+		unsigned int mPositionsIndexOffset; 
         bool mUsePositions;
         unsigned long long mNormalsOffset; 
+		unsigned int mNormalsIndexOffset; 
         bool mUseNormals;
         unsigned long long mColorsOffset; 
+		unsigned int mColorsIndexOffset; 
         bool mUseColors;
         unsigned long long mUVCoordsOffset; 
+		unsigned int mUVCoordsIndexOffset; 
         bool mUseUVCoords;
 
     public:
