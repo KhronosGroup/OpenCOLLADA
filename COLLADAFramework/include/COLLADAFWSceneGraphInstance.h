@@ -60,11 +60,13 @@ namespace COLLADAFW
 		/** Returns the unique id of the instantiated object.*/
 		const UniqueId& getInstanciatedObjectId() const { return mInstanciatedObjectId; }
 
+		virtual SceneGraphInstance* clone() const { return new SceneGraphInstance(*this); }
+
 	private:
 		/** Disable default copy ctor. */
-		SceneGraphInstance( const SceneGraphInstance& pre );
+//		SceneGraphInstance( const SceneGraphInstance& pre );
 		/** Disable default assignment operator. */
-		const SceneGraphInstance& operator= ( const SceneGraphInstance& pre );
+//		const SceneGraphInstance& operator= ( const SceneGraphInstance& pre );
 
 	};
 

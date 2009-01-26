@@ -31,7 +31,9 @@ namespace COLLADAFW
 namespace COLLADAMax
 {
 
-    /** TODO Documentation */
+    /** Imports a geometry into the max scene.
+	If the geometry is referenced by a node that has already been imported, the geometry
+	is attached to that nodes, otherwise the geometry does not belong to a node.*/
 	class GeometryImporter 	: public ImporterBase
 	{
 	private:

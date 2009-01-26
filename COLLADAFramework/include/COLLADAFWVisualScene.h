@@ -27,7 +27,7 @@ namespace COLLADAFW
 		String mName;
 
 		/** All the root nodes of the visual scene.*/
-		NodeArray mRootNodes;
+		NodePointerArray mRootNodes;
 	
 	public:
 		VisualScene();
@@ -40,22 +40,22 @@ namespace COLLADAFW
 		void setName(const String& name) { mName = name; }
 
 		/** Returns a reference to the root nodes of the visual scene. */
-		NodeArray& getRootNodes() { return mRootNodes; }
+		NodePointerArray& getRootNodes() { return mRootNodes; }
 
 		/** Returns a reference to the root nodes of the visual scene.*/
-		const NodeArray& getRootNodes() const { return mRootNodes; }
+		const NodePointerArray& getRootNodes() const { return mRootNodes; }
 
 		/** Returns a reference to the root nodes of the visual scene.*/
-		void setRootNodes(const NodeArray& rootNodes) { mRootNodes = rootNodes; }
+//		void setRootNodes(const NodeArray& rootNodes) { mRootNodes = rootNodes; }
 
 
 	protected:
 	
 	private:
         /** Disable default copy ctor. */
-		VisualScene( const VisualScene& pre );
+//		VisualScene( const VisualScene& pre );
         /** Disable default assignment operator. */
-		const VisualScene& operator= ( const VisualScene& pre );
+//		const VisualScene& operator= ( const VisualScene& pre );
 
 	};
 } // namespace COLLADAFW

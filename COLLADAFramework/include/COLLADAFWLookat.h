@@ -53,21 +53,27 @@ namespace COLLADAFW
 
         /** The position of the viewer. Defines the translation. */
         COLLADABU::Math::Vector3& getEyePosition () { return mEyePosition; }
+		const COLLADABU::Math::Vector3& getEyePosition () const { return mEyePosition; }
         void setEyePosition ( COLLADABU::Math::Vector3& val ) { mEyePosition = val; }
 
         /** The target of the viewer. Defines the pitch and the yaw of the transform. */
-        COLLADABU::Math::Vector3& getInterestPosition () { return mInterestPosition; }
+		COLLADABU::Math::Vector3& getInterestPosition () { return mInterestPosition; }
+		const COLLADABU::Math::Vector3& getInterestPosition () const { return mInterestPosition; }
         void setInterestPosition ( COLLADABU::Math::Vector3& val ) { mInterestPosition = val; }
 
         /** The up-axis of the viewer. Defines the roll of the transform. */
         COLLADABU::Math::Vector3& getUpPosition () { return mUpPosition; }
+		const COLLADABU::Math::Vector3& getUpPosition () const { return mUpPosition; }
         void setUpPosition ( COLLADABU::Math::Vector3& val ) { mUpPosition = val; }
+
+		/** Clones the lookat.*/
+		virtual Lookat* clone() const { return new Lookat(*this); }
 
 
 	private:
 
         /** Disable default copy ctor. */
-		Lookat( const Lookat& pre );
+//		Lookat( const Lookat& pre );
 
         /** Disable default assignment operator. */
 		const Lookat& operator= ( const Lookat& pre );

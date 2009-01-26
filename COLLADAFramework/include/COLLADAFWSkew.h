@@ -60,21 +60,26 @@ namespace COLLADAFW
         virtual ~Skew() {}
 
         /** The axis which is rotated. */
-        COLLADABU::Math::Vector3 getRotateAxis() const { return mRotateAxis; }
+        COLLADABU::Math::Vector3& getRotateAxis() { return mRotateAxis; }
+		const COLLADABU::Math::Vector3& getRotateAxis() const { return mRotateAxis; }
         void setRotateAxis(COLLADABU::Math::Vector3 val) { mRotateAxis = val; }
 
         /** The axis around which to rotate. */
-        COLLADABU::Math::Vector3 getTranslateAxis() const { return mTranslateAxis; }
+		COLLADABU::Math::Vector3& getTranslateAxis() { return mTranslateAxis; }
+		const COLLADABU::Math::Vector3& getTranslateAxis() const { return mTranslateAxis; }
         void setTranslateAxis(COLLADABU::Math::Vector3 val) { mTranslateAxis = val; }
 
         /** The angle of rotation. */
         float getAngle() const { return mAngle; }
         void setAngle(float val) { mAngle = val; }
 
+		/** Clones the skew.*/
+		virtual Skew* clone() const { return new Skew(*this); }
+
 	private:
 
         /** Disable default copy ctor. */
-		Skew( const Skew& pre );
+		//Skew( const Skew& pre );
 
         /** Disable default assignment operator. */
 		const Skew& operator= ( const Skew& pre );

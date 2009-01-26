@@ -23,7 +23,7 @@ namespace COLLADAFW
 	{
 	private:
 		/** The nodes contained in the library.*/
-		NodeArray mNodes;
+		NodePointerArray mNodes;
 	
 	public:
 
@@ -34,18 +34,18 @@ namespace COLLADAFW
 		virtual ~LibraryNodes(){}
 
 		/** Returns the array containing all nodes of the library nodes.*/
-		const NodeArray& getNodes() const { return mNodes; }
+		const NodePointerArray& getNodes() const { return mNodes; }
 
 		/** Returns the array containing all nodes of the library nodes.*/
-		NodeArray& getNodes() { return mNodes; }
+		NodePointerArray& getNodes() { return mNodes; }
 
 	private:
 
         /** Disable default copy ctor. */
-		LibraryNodes( const LibraryNodes& pre );
+//		LibraryNodes( const LibraryNodes& pre );
 
         /** Disable default assignment operator. */
-		const LibraryNodes& operator= ( const LibraryNodes& pre );
+//		const LibraryNodes& operator= ( const LibraryNodes& pre );
 
 	};
 

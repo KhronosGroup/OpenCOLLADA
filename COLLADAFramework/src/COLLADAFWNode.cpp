@@ -32,6 +32,7 @@ namespace COLLADAFW
 	//--------------------------------------------------------------------
 	Node::~Node()
 	{
+#if 0
 		//delete all child nodes
 		for ( size_t i = 0, count = mChildNodes.getCount(); i < count; ++i)
 			delete mChildNodes[i];
@@ -47,6 +48,7 @@ namespace COLLADAFW
 		//delete all instance nodes
 		for ( size_t i = 0, count = mInstanceNodes.getCount(); i < count; ++i)
 			delete mInstanceNodes[i];
+#endif
 	}
 
 	//--------------------------------------------------------------------

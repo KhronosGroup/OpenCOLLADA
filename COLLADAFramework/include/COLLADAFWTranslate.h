@@ -49,6 +49,9 @@ namespace COLLADAFW
 		/**  Sets the components of the translation to @a x, @a y, @a z.*/
 		void setTranslation(double x, double y, double z) { mTranslationVector = COLLADABU::Math::Vector3(x, y, z); }
 
+		/** Clones the translation.*/
+		Translate* clone() const { return new Translate(*this); }
+
 	};
 } // namespace COLLADAFW
 

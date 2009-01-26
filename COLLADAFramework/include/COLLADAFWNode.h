@@ -17,6 +17,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWInstanceGeometry.h"
 #include "COLLADAFWInstanceNode.h"
 #include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWPointerArray.h"
 
 
 namespace COLLADABU
@@ -34,6 +35,7 @@ namespace COLLADAFW
 	class Node;
 
 	typedef ArrayPrimitiveType<Node*> NodeArray;
+	typedef PointerArray<Node> NodePointerArray;
 
 	class Node : public ObjectTemplate<COLLADA_TYPE::NODE>
 	{
@@ -63,16 +65,16 @@ namespace COLLADAFW
         NodeType mType;
 
 		/** List of all transformations of the node. Array and contents will be delete in destructor.*/
-		TransformationArray mTransformations;
+		TransformationPointerArray mTransformations;
 
 		/** List of all instance geometries of this node. Array and contents will be delete in destructor.*/
-		InstanceGeometryArray mInstanceGeometries;
+		InstanceGeometryPointerArray mInstanceGeometries;
 
 		/** List of all instance nodes of this node. Array and contents will be delete in destructor.*/
-		InstanceNodeArray mInstanceNodes;
+		InstanceNodePointerArray mInstanceNodes;
 
 		/** List of all child nodes. Array and contents will be delete in destructor.*/
-		NodeArray mChildNodes;
+		NodePointerArray mChildNodes;
 
 	public:
 		/** Creates a node with object id @a objectId.*/
@@ -101,28 +103,28 @@ namespace COLLADAFW
         void setType ( const COLLADAFW::Node::NodeType Type ) { mType = Type; }
 
 		/** Get list of all transformations of the node.*/
-		TransformationArray& getTransformations() { return mTransformations; }
+		TransformationPointerArray& getTransformations() { return mTransformations; }
 
 		/** Get list of all transformations of the node.*/
-		const TransformationArray& getTransformations() const { return mTransformations; }
+		const TransformationPointerArray& getTransformations() const { return mTransformations; }
 
 		/** List of all instance geometries of this node.*/
-		InstanceGeometryArray& getInstanceGeometries() { return mInstanceGeometries; }
+		InstanceGeometryPointerArray& getInstanceGeometries() { return mInstanceGeometries; }
 
 		/** List of all instance geometries of this node.*/
-		const InstanceGeometryArray& getInstanceGeometries() const { return mInstanceGeometries; }
+		const InstanceGeometryPointerArray& getInstanceGeometries() const { return mInstanceGeometries; }
 
 		/** List of all instance nodes of this node.*/
-		InstanceNodeArray& getInstanceNodes() { return mInstanceNodes; }
+		InstanceNodePointerArray& getInstanceNodes() { return mInstanceNodes; }
 
 		/** List of all instance nodes of this node.*/
-		const InstanceNodeArray& getInstanceNodes() const { return mInstanceNodes; }
+		const InstanceNodePointerArray& getInstanceNodes() const { return mInstanceNodes; }
 
 		/** Get list of all child nodes.*/
-		NodeArray& getChildNodes() { return mChildNodes; }
+		NodePointerArray& getChildNodes() { return mChildNodes; }
 
 		/** Get list of all child nodes.*/
-		const NodeArray& getChildNodes() const { return mChildNodes; }
+		const NodePointerArray& getChildNodes() const { return mChildNodes; }
 
 		/** Calculates a baked matrix, representing all the transformations of the node.
 		@param transformationMatrix Will be set to the calculated transformation matrix.*/
@@ -132,11 +134,14 @@ namespace COLLADAFW
 		@return The transformation matrix*/
 		COLLADABU::Math::Matrix4 getTransformationMatrix() const;
 
-	private:
+		/** Creates a clone of the node and returns a popinter to it.*/
+		Node* clone() const { return new Node(*this); }
+
+//	private:
         /** Disable default copy ctor. */
-		Node( const Node& pre );
+//		Node( const Node& pre );
         /** Disable default assignment operator. */
-		const Node& operator= ( const Node& pre );
+//		const Node& operator= ( const Node& pre );
 
 
 	};

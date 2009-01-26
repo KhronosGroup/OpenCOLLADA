@@ -590,6 +590,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWPointerArray.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWPolygons.h"
 				>
 			</File>

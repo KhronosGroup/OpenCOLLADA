@@ -12,7 +12,7 @@
 #define __COLLADAFW_TRANSFORMATIONBASE_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWPointerArray.h"
 
 
 
@@ -50,6 +50,8 @@ namespace COLLADAFW
 		/** Returns the sid of the transformation.*/
 		void setSid(const String& sid) { mSid = sid; }
 
+		virtual Transformation* clone() const = 0;
+
 	protected:
 		/** The only available constructor. Can only be used by the derived classes.
 		@param transformationType The type of the transformation.*/
@@ -58,12 +60,13 @@ namespace COLLADAFW
 	
 	private:
         /** Disable default copy ctor. */
-		Transformation( const Transformation& pre );
+//		Transformation( const Transformation& pre );
         /** Disable default assignment operator. */
 		const Transformation& operator= ( const Transformation& pre );
 	};
 
 	typedef ArrayPrimitiveType<Transformation*> TransformationArray;
+	typedef PointerArray<Transformation> TransformationPointerArray;
 
 } // namespace COLLADAFW
 

@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWSceneGraphInstance.h"
+#include "COLLADAFWPointerArray.h"
 
 
 namespace COLLADAFW
@@ -22,6 +23,7 @@ namespace COLLADAFW
 	typedef SceneGraphInstance InstanceNode;
 
 	typedef ArrayPrimitiveType<InstanceNode*> InstanceNodeArray;
+	typedef PointerArray<InstanceNode> InstanceNodePointerArray;
 
 } // namespace COLLADAFW
 

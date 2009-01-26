@@ -18,7 +18,11 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxDocumentImporter.h"
 #include "COLLADAMaxVisualSceneImporter.h"
+#include "COLLADAMaxLibraryNodesImporter.h"
 #include "COLLADAMaxGeometryImporter.h"
+#include "COLLADAFWLibraryNodes.h"
+
+#include "COLLADAFWLibraryNodes.h"
 
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADAFWRoot.h"
@@ -27,15 +31,19 @@ namespace COLLADAMax
 {
 	//--------------------------------------------------------------------
 	DocumentImporter::DocumentImporter(Interface * maxInterface, ImpInterface* maxImportInterface, const NativeString &filepath)
-		: mMaxInterface(maxInterface),
-		mMaxImportInterface(maxImportInterface),
-		mImportFilePath(filepath)
+		: mMaxInterface(maxInterface)
+		, mMaxImportInterface(maxImportInterface)
+		, mImportFilePath(filepath)
+		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
 	{
 	}
 	
 	//--------------------------------------------------------------------
 	DocumentImporter::~DocumentImporter()
 	{
+		// Delete all the stored library nodes
+		for ( LibraryNodesList::const_iterator it = mLibraryNodesList.begin(); it != mLibraryNodesList.end(); ++it)
+			delete *it;
 	}
 
 
@@ -58,7 +66,8 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
 	{
-		return true;
+		LibraryNodesImporter libraryNodesImporter(this, libraryNodes);
+		return libraryNodesImporter.import();
 	}
 
 	//---------------------------------------------------------------

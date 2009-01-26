@@ -48,6 +48,10 @@ namespace COLLADAFW
 
 		/**  Sets the components of the scale to @a x, @a y, @a z.*/
 		void setScale(double x, double y, double z) { mScaleVector = COLLADABU::Math::Vector3(x, y, z); }
+
+		/** Clones the scale.*/
+		Scale* clone() const { return new Scale(*this); }
+
 	};
 
 } // namespace COLLADAFW

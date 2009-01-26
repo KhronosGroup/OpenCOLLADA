@@ -23,24 +23,24 @@ namespace COLLADAFW
 	class Object 	
 	{
 	private:
-		Object* mParent;
+//		Object* mParent;
 	public:
 		virtual ~Object(){};
 
 		/** Returns the class id of the object.*/
 		virtual ClassId getClassId()=0;
 
-		Object* getParent() { return mParent; }
+//		Object* getParent() { return mParent; }
 
 	protected:
-		Object(Object* parent) : mParent(parent){};
+		Object(Object* parent) /*: mParent(parent)*/{}
 
-		void setParent(Object* parent) { mParent = parent; }
+//		void setParent(Object* parent) { mParent = parent; }
 
 
 	private:
 		/** Disable default copy ctor. */
-		Object( const Object& pre );
+//		Object( const Object& pre );
 		/** Disable default assignment operator. */
 		const Object& operator= ( const Object& pre );
 
@@ -73,7 +73,7 @@ namespace COLLADAFW
 
 	private:
         /** Disable default copy ctor. */
-		ObjectTemplate( const ObjectTemplate& pre );
+	//	ObjectTemplate( const ObjectTemplate& pre );
         /** Disable default assignment operator. */
 		const ObjectTemplate& operator= ( const ObjectTemplate& pre );
 

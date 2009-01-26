@@ -21,16 +21,21 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADAFWIWriter.h"
+#include <list>
+
+//#include "dummy.h"
 
 
 class Interface;
 class ImpInterface;
+class DummyObject;
 
 namespace COLLADAFW
 {
 	class VisualScene;
 	class Geometry;
 	class UniqueId;
+	class LibraryNodes;
 }
 
 namespace COLLADAMax
@@ -41,6 +46,9 @@ namespace COLLADAMax
 		/** Maps Unique id to INodes.*/
 		typedef std::multimap<COLLADAFW::UniqueId, INode*> UniqueIdINodeMultiMap;
 
+		/** Maps Unique id to ImpNodes.*/
+		typedef std::multimap<COLLADAFW::UniqueId, ImpNode*> UniqueIdImpNodeMultiMap;
+
 		/** Maps Unique id to INodes.*/
 		typedef std::map<COLLADAFW::UniqueId, INode*> UniqueIdINodeMap;
 
@@ -49,6 +57,9 @@ namespace COLLADAMax
 
 		/** Maps objects to Unique id to.*/
 		typedef std::map< INode*, COLLADAFW::UniqueId> ObjectINodeUniqueIdMap;
+
+		/** List of library nodes.*/
+		typedef std::list<const COLLADAFW::LibraryNodes*> LibraryNodesList;
 
 	private:
 		/** Max interface.*/
@@ -59,6 +70,9 @@ namespace COLLADAMax
 
 		/** File path of the COLLADA document to import.*/
 		NativeString mImportFilePath;
+
+		/** A dummy helper, that is used for nodes that do not have an object assigned to.*/
+		DummyObject* mDummyObject;
 		
 		/** Maps the unique ids of objects (geometries, controllers,...) that are referenced by INodes to 
 		these referencing INodes. This map is being filled while importing the visual scene. It is 
@@ -76,11 +90,14 @@ namespace COLLADAMax
 		/** Maps the unique ids of nodes that are instantiated to the created instantiating max INode. This 
 		map is being filled while importing the visual scene. It is required when ever nodes are referenced, 
 		before they have been imported.*/
-		UniqueIdINodeMultiMap mUniqueIdReferencingINodeMap;
+		UniqueIdImpNodeMultiMap mUniqueIdReferencingImpNodeMap;
 
 		/** Maps each already imported object to its Unique id. When ever a new object is created it 
 		should be added to this map. .*/
 		ObjectINodeUniqueIdMap mObjectINodeUniqueIdMap;
+
+		/** This vector contains all library nodes already received by the importer.*/
+		LibraryNodesList mLibraryNodesList;
 
 	public:
 		/** Constructor .
@@ -130,22 +147,26 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
+		/** Returns the dummy object used for nodes that do not have an object assigned to.*/
+		DummyObject* getDummyObject(){ return mDummyObject; }
+
 		/** Returns the UniqueId Object INode Mapping.*/
 		UniqueIdINodeMultiMap& getUniqueIdObjectINodeMap(){ return mUniqueIdObjectINodeMap; }
 
 		/** Returns the UniqueId Referencing INode Mapping.*/
-		UniqueIdINodeMultiMap& getUniqueIdReferencingINodeMap(){ return mUniqueIdReferencingINodeMap; }
+		UniqueIdImpNodeMultiMap& getUniqueIdReferencingImpNodeMap(){ return mUniqueIdReferencingImpNodeMap; }
 
 		/** Returns the UniqueId object Mapping.*/
 		UniqueIdObjectMap& getUniqueIdObjectMap(){ return mUniqueIdObjectMap; }
 
-
 		/** Returns the UniqueId INode Mapping.*/
 		UniqueIdINodeMap& getUniqueIdINodeMap(){ return mUniqueIdINodeMap; }
 
-
 		/** Returns the object UniqueId Mapping.*/
 		ObjectINodeUniqueIdMap& getObjectINodeUniqueIdMap(){ return mObjectINodeUniqueIdMap; }
+
+		/** Returns the list of library nodes.*/
+		LibraryNodesList& getLibraryNodesList(){ return mLibraryNodesList; }
 
 		friend class ImporterBase;
 

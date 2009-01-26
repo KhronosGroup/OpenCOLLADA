@@ -29,6 +29,8 @@ namespace COLLADAFW
 		/** Constructor. Creates identity transformation.*/
 		Matrix();
 
+		virtual ~Matrix();
+
 		/** Constructor. Sets transformation to @a matrix.*/
         Matrix(const COLLADABU::Math::Matrix4& matrix);
 
@@ -41,7 +43,8 @@ namespace COLLADAFW
 		/** Sets the transformation to @a matrix.*/
 		void setMatrix(const COLLADABU::Math::Matrix4& matrix) { mMatrix = matrix; }
 
-		virtual ~Matrix();
+		/** Clones the matrix.*/
+		Matrix* clone() const { return new Matrix(*this); }
 
 
 	};

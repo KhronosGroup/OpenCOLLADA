@@ -88,6 +88,8 @@ namespace COLLADAFW
 		/** Type of the geometric element. */
 		void setType ( const GeometryType Type ) { mType = Type; }
 
+		Geometry* clone() const { return new Geometry(*this); }
+
 
     private:
 

@@ -59,6 +59,9 @@ namespace COLLADAFW
 		/** Sets the components of the rotation axis to @a x, @a y, @a z.*/
 		void setRotationAxis(double x, double y, double z) { mRotationAxis = COLLADABU::Math::Vector3(x, y, z); }
 
+		/** Clones the rotation.*/
+		Rotate* clone() const { return new Rotate(*this); }
+
 	};
 
 } // namespace COLLADAFW

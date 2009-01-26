@@ -2059,6 +2059,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxLibraryNodesImporter.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\src\COLLADAMaxNodeImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxVisualSceneImporter.cpp"
 					>
 				</File>
@@ -2214,6 +2222,14 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxImporterBase.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxLibraryNodesImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxNodeImporter.h"
 					>
 				</File>
 				<File

@@ -48,15 +48,21 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	DummyObject* ImporterBase::getDummyObject()
+	{
+		return mDocumentImporter->getDummyObject();
+	}
+
+	//------------------------------
 	void ImporterBase::addUniqueIdObjectINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )
 	{
 		mDocumentImporter->getUniqueIdObjectINodeMap().insert(std::pair<COLLADAFW::UniqueId, INode*>(uniqueId, node) );
 	}
 
 	//------------------------------
-	void ImporterBase::addUniqueIdReferencingINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )
+	void ImporterBase::addUniqueIdReferencingImpNodePair( const COLLADAFW::UniqueId& uniqueId, ImpNode* node )
 	{
-		mDocumentImporter->getUniqueIdReferencingINodeMap().insert(std::pair<COLLADAFW::UniqueId, INode*>(uniqueId, node) );
+		mDocumentImporter->getUniqueIdReferencingImpNodeMap().insert(std::pair<COLLADAFW::UniqueId, ImpNode*>(uniqueId, node) );
 	}
 
 	//------------------------------
@@ -73,14 +79,14 @@ namespace COLLADAMax
 
 
 	//------------------------------
-	void ImporterBase::getReferencingINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, COLLADAMax::INodeList& nodelist )
+	void ImporterBase::getReferencingImpNodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, ImpNodeList& nodelist )
 	{
-		const DocumentImporter::UniqueIdINodeMultiMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdReferencingINodeMap();
+		const DocumentImporter::UniqueIdImpNodeMultiMap& uniqueIdINodeMap = mDocumentImporter->getUniqueIdReferencingImpNodeMap();
 
-		DocumentImporter::UniqueIdINodeMultiMap::const_iterator rangeBegin = uniqueIdINodeMap.lower_bound(uniqueId);
-		DocumentImporter::UniqueIdINodeMultiMap::const_iterator rangeEnd = uniqueIdINodeMap.upper_bound(uniqueId);
+		DocumentImporter::UniqueIdImpNodeMultiMap::const_iterator rangeBegin = uniqueIdINodeMap.lower_bound(uniqueId);
+		DocumentImporter::UniqueIdImpNodeMultiMap::const_iterator rangeEnd = uniqueIdINodeMap.upper_bound(uniqueId);
 
-		for (DocumentImporter::UniqueIdINodeMultiMap::const_iterator it = rangeBegin; it != rangeEnd; ++it)
+		for (DocumentImporter::UniqueIdImpNodeMultiMap::const_iterator it = rangeBegin; it != rangeEnd; ++it)
 			nodelist.push_back(it->second);
 	}
 
@@ -101,6 +107,12 @@ namespace COLLADAMax
 	void ImporterBase::addObjectINodeUniqueIdPair( INode* iNode, const COLLADAFW::UniqueId& uniqueId )
 	{
 		mDocumentImporter->getObjectINodeUniqueIdMap()[iNode] = uniqueId;
+	}
+
+	//------------------------------
+	void ImporterBase::addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
+	{
+		mDocumentImporter->getLibraryNodesList().push_back(libraryNodes);
 	}
 
 	//------------------------------

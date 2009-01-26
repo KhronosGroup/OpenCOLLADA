@@ -49,6 +49,9 @@ namespace COLLADAMax
 	/** List of INodes*/
 	typedef std::vector<INode*> INodeList;
 
+	/** List of ImpNodes*/
+	typedef std::vector<ImpNode*> ImpNodeList;
+
 	typedef std::set<ExportNode*> ExportNodeSet;
 
 	typedef std::vector<float> FloatList;

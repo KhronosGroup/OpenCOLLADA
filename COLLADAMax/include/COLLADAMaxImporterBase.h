@@ -24,10 +24,12 @@ http://www.opensource.org/licenses/mit-license.php
 class Interface;
 class ImpInterface;
 class INode;
+class DummyObject;
 
 namespace COLLADAFW
 {
 	class UniqueId;
+	class LibraryNodes;
 }
 
 namespace COLLADAMax
@@ -58,6 +60,9 @@ namespace COLLADAMax
 		/** Returns the max import interface.*/
 		ImpInterface* getMaxImportInterface();
 
+		/** Returns the dummy object used for nodes that do not have an object assigned to.*/
+		DummyObject* getDummyObject();
+
 		/** Returns collada importer the importer belongs to.*/
 		DocumentImporter* getColladaImporter() { return mDocumentImporter; }
 
@@ -69,13 +74,13 @@ namespace COLLADAMax
 		/** Adds an UniqueId-Referencing INode pair to the UniqueIdReferencingINodeMap. An Referencing INode 
 		is an INode that references an INode. For nodes that reference an INode that has 
 		not already been loaded this method should be called.*/
-		void addUniqueIdReferencingINodePair(const COLLADAFW::UniqueId& uniqueId, INode* node);
+		void addUniqueIdReferencingImpNodePair(const COLLADAFW::UniqueId& uniqueId, ImpNode* node);
 
 		/** Fills @a nodeList with all INodes that reference the object with UniqueId @a uniqueId.*/
 		void getObjectINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
 
 		/** Fills @a nodeList with all INodes that reference the node with UniqueId @a uniqueId.*/
-		void getReferencingINodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, INodeList& nodelist );
+		void getReferencingImpNodesByUniqueId( const COLLADAFW::UniqueId& uniqueId, ImpNodeList& nodelist );
 
 		/** Adds an UniqueId-Object pair to the UniqueIdObjectMap. For every imported object this method should 
 		be called to ensure that elements that are imported later and instance this object can set the object 
@@ -90,6 +95,9 @@ namespace COLLADAMax
 		For every imported INode that references an object this method should be called to ensure that its 
 		unique id can be retrieved from the created INode. This is required for instance node handling.*/
 		void addObjectINodeUniqueIdPair( INode* object, const COLLADAFW::UniqueId& uniqueId );
+
+		/** Adds @a libraryNodes to the list of library nodes.*/
+		void addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
 		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
 		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/

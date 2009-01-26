@@ -12,7 +12,7 @@ http://www.opensource.org/licenses/mit-license.php
 #define __COLLADAFW_INSTANCEGEOMETRY_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWPointerArray.h"
 #include "COLLADAFWUniqueId.h"
 #include "COLLADAFWSceneGraphInstance.h"
 
@@ -33,14 +33,18 @@ namespace COLLADAFW
 
 		virtual ~InstanceGeometry();
 
+		/** Clones the matrix.*/
+		InstanceGeometry* clone() const { return new InstanceGeometry(*this); }
+
 	private:
         /** Disable default copy ctor. */
-		InstanceGeometry( const InstanceGeometry& pre );
+//		InstanceGeometry( const InstanceGeometry& pre );
         /** Disable default assignment operator. */
-		const InstanceGeometry& operator= ( const InstanceGeometry& pre );
+//		const InstanceGeometry& operator= ( const InstanceGeometry& pre );
 	};
 
 	typedef ArrayPrimitiveType<InstanceGeometry*> InstanceGeometryArray;
+	typedef PointerArray<InstanceGeometry> InstanceGeometryPointerArray;
 
 } // namespace COLLADAFW
 
