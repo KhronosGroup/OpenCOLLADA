@@ -50,6 +50,8 @@ namespace COLLADASaxFWL
 
 		if ( attributeData.name )
 			newNode->setName((const char*)attributeData.name);
+		else if ( attributeData.id )
+			newNode->setName((const char*)attributeData.id);
 
 		if ( mNodeStack.empty() )
 		{
