@@ -80,11 +80,7 @@ namespace COLLADAMaya
         String id = mesh->getId ();
         String name = mesh->getName ();
 
-        // Get the current maya ascii file to write the data.
-        FILE* file = getDocumentImporter ()->getFile ();
-
         // Get the transform node of the current mesh.
-//        MayaDM::Transform transformNode ( file, "pCube1", "" );
         const DocumentImporter* documentImporter = getDocumentImporter ();
         const VisualSceneImporter* visualSceneImporter = documentImporter->getVisualSceneImporter ();
         const UniqueIdToUniqueIdsMap& geometryNodesMap = visualSceneImporter->getGeometryNodesMap ();
@@ -98,61 +94,40 @@ namespace COLLADAMaya
             return false;
         }
 
+        // Get all visual scene nodes, which use this geometry
         const std::set<const COLLADAFW::UniqueId>& nodesSet = ( *it ).second;
         size_t numNodes = nodesSet.size ();
-
-        std::set<const COLLADAFW::UniqueId>::const_iterator it2 = nodesSet.begin ();
-        const COLLADAFW::UniqueId& nodeId = *it2;
-
-        const UniqueIdNamesMap& nodeNamesMap = visualSceneImporter->getNodeNamesMap ();
-//        String nodeName = nodeNamesMap [ nodeId ];
-        UniqueIdNamesMap::const_iterator it3 = nodeNamesMap.find ( nodeId );
-        if ( it3 == nodeNamesMap.end () ) 
+        std::set<const COLLADAFW::UniqueId>::const_iterator nodesIter = nodesSet.begin ();
+        while ( nodesIter != nodesSet.end () )
         {
-            std::cerr << "No name for the transform node!" << endl;
-            assert ( "No name for the transform node!" );
-            return false;
+            const COLLADAFW::UniqueId& nodeId = *nodesIter;
+            
+            // Get the name of the current node.
+            const UniqueIdNamesMap& nodeNamesMap = visualSceneImporter->getNodeNamesMap ();
+//          String nodeName = nodeNamesMap [ nodeId ];
+            UniqueIdNamesMap::const_iterator it3 = nodeNamesMap.find ( nodeId );
+            if ( it3 == nodeNamesMap.end () ) 
+            {
+                std::cerr << "No name for the transform node!" << endl;
+                assert ( "No name for the transform node!" );
+                return false;
+            }
+            String parentNodeName = (*it3).second;
+
+            // The first reference is a direct one, the others are instances.
+            if ( nodesIter == nodesSet.begin() )
+            {
+                // Create the current mesh node.
+                createMesh ( mesh, parentNodeName );
+            }
+            else
+            {
+//              parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
+                // TODO
+//                MayaDM::Parent parent;
+
+            }
         }
-        String nodeName = (*it3).second;
-
-        // Create the current mesh node.
-        MayaDM::Mesh meshNode ( file, mesh->getName (), nodeName );
-        
-        // Write the vertex positions. 
-        // Just write the values, they will be referenced from the edges and the faces.
-        if ( !writeVertexPositions ( mesh, meshNode ) ) return false;
-
-        // Write the normals. 
-        if ( !writeNormals ( mesh, meshNode ) ) return false;
-
-        // Write the uv corrdinates.
-        writeUVCoords ( mesh, meshNode );
-
-        // The vector of edge indices. We use it to write the list of edges into 
-        // the maya file. The vector is already sorted.
-        std::vector<COLLADAFW::Edge> edgeIndices;
-
-        // We store the edge indices also in a sorted map. The dublicate data holding 
-        // is reasonable, because we need the index of a given edge. The search of  
-        // values in a map is much faster than in a vector!
-        std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
-
-        // Implementation for multiple primitive elements.
-        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
-        size_t count = primitiveElementsArray.getCount ();
-        for ( size_t i=0; i<count; ++i )
-        {
-            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
-
-            // Determine the edge indices (unique edges, also for multiple primitive elements).
-            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
-        }
-
-        // Write the edge indices of all primitive elements into the maya file.
-        writeEdges ( edgeIndices, meshNode );
-
-        // Write the face informations of all primitive elements into the maya file.
-        writeFaces ( mesh, edgeIndicesMap, meshNode );
 
         return true;
     }
@@ -397,7 +372,7 @@ namespace COLLADAMaya
             COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
 
             // Write the face informations into the maya file.
-            if ( !appendPolyFaces ( primitiveElement, edgeIndicesMap, meshNode ) ) return false;
+            if ( !appendPolyFaces ( mesh, primitiveElement, edgeIndicesMap, meshNode ) ) return false;
         }
 
         // End the face element.
@@ -408,6 +383,7 @@ namespace COLLADAMaya
 
     // --------------------------------------------
     bool GeometryImporter::appendPolyFaces ( 
+        const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::MeshPrimitive* primitiveElement, 
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
         MayaDM::Mesh &meshNode )
@@ -474,7 +450,7 @@ namespace COLLADAMaya
                             polygonPoints.clear ();
                         }
                         // Store the vertex positions of the current start point.
-                        polygonPoints.push_back ( getVertexPosition ( edgeStartVtxIndex ) );
+                        polygonPoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
                     }
 
                     // Variable for the current edge index.
@@ -531,7 +507,7 @@ namespace COLLADAMaya
                     if ( edgeIndex < 3 )
                     {
                         // Store the vertex positions of the current start point.
-                        holePoints.push_back ( getVertexPosition ( edgeStartVtxIndex ) );
+                        holePoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
                     }
 
                     // The current edge index.
@@ -581,10 +557,12 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    COLLADABU::Math::Vector3* GeometryImporter::getVertexPosition ( size_t vertexIndex )
+    COLLADABU::Math::Vector3* GeometryImporter::getVertexPosition ( 
+        const COLLADAFW::Mesh* mesh , 
+        const size_t vertexIndex )
     {
         // Get the points of the current edge.
-        const COLLADAFW::MeshPositions& meshPositions = mMesh->getPositions ();
+        const COLLADAFW::MeshPositions& meshPositions = mesh->getPositions ();
 
         // Get the vertex position values of the start position of the current edge.
         double dx, dy, dz; 
@@ -696,5 +674,56 @@ namespace COLLADAMaya
         {
             polyFace.h.edgeIdValue[edgeIndex] = valueVec[edgeIndex];
         }
+    }
+
+    // --------------------------------------------
+    bool GeometryImporter::createMesh ( 
+        const COLLADAFW::Mesh* mesh, 
+        const String& parentNodeName )
+    {
+        // Get the current maya ascii file to write the data.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // Create the current mesh node.
+        MayaDM::Mesh meshNode ( file, mesh->getName (), parentNodeName );
+        meshNode.getInMesh ();
+
+        // Write the vertex positions. 
+        // Just write the values, they will be referenced from the edges and the faces.
+        if ( !writeVertexPositions ( mesh, meshNode ) ) return false;
+
+        // Write the normals. 
+        if ( !writeNormals ( mesh, meshNode ) ) return false;
+
+        // Write the uv corrdinates.
+        writeUVCoords ( mesh, meshNode );
+
+        // The vector of edge indices. We use it to write the list of edges into 
+        // the maya file. The vector is already sorted.
+        std::vector<COLLADAFW::Edge> edgeIndices;
+
+        // We store the edge indices also in a sorted map. The dublicate data holding 
+        // is reasonable, because we need the index of a given edge. The search of  
+        // values in a map is much faster than in a vector!
+        std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
+
+        // Implementation for multiple primitive elements.
+        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
+        size_t count = primitiveElementsArray.getCount ();
+        for ( size_t i=0; i<count; ++i )
+        {
+            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
+
+            // Determine the edge indices (unique edges, also for multiple primitive elements).
+            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
+        }
+
+        // Write the edge indices of all primitive elements into the maya file.
+        writeEdges ( edgeIndices, meshNode );
+
+        // Write the face informations of all primitive elements into the maya file.
+        writeFaces ( mesh, edgeIndicesMap, meshNode );
+
+        return true;
     }
 }

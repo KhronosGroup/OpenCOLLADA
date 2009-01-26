@@ -114,6 +114,14 @@ namespace COLLADAMaya
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeGeometry ( const COLLADAFW::Geometry* geometry );
 
+        /** When this method is called, the writer must handle all nodes contained in the 
+        library nodes.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
+        {
+            return false;
+        }
+
     private:
 
         /** Imports the asset. */

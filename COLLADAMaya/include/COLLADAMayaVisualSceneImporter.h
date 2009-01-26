@@ -127,12 +127,17 @@ namespace COLLADAMaya
         */
         UniqueIdUniqueIdsMap& getGeometryNodesMap() { return mGeometryNodesMap; }
 
-        /*
+        /**
          *	Save the transformation ids to the geometry ids.
          */
         bool readGeometryInstances (
-            MayaDM::Transform* transformNode, 
-            const COLLADAFW::Node* node );
+            const COLLADAFW::Node* node, 
+            MayaDM::Transform* transformNode );
+
+        /**
+         * Handle the node instances. 
+         */
+        bool readNodeInstances ( const COLLADAFW::Node* node );
 
         /*
          *	Transform the input matrix and convert it in a double[4][4] matrix.
@@ -145,8 +150,8 @@ namespace COLLADAMaya
          * Imports the current transformations. 
          */
         bool importTransformations ( 
-            MayaDM::Transform* transformNode, 
-            const COLLADAFW::Node* rootNode );
+            const COLLADAFW::Node* rootNode, 
+            MayaDM::Transform* transformNode );
 
         /**
          * Returns true, if the transform values from the framework is conform to the maya 

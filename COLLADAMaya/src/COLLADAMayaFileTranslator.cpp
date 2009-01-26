@@ -23,11 +23,6 @@
 #ifdef CREATE_IMPORT_PLUGIN
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaImportOptions.h"
-
-//#include "COLLADADHException.h"
-
-// #include <DAE.h>
-// #include <dom/domElements.h>
 #endif
 
 #include "COLLADASWException.h"
@@ -77,10 +72,15 @@
         // current directory. This can be changed, however, by calling:
         //MGlobal::setErrorLogPathName("...");
   
+        int apiVersion = MGlobal::apiVersion ();
+        MString mayaVersion = MGlobal::mayaVersion ();
+        std::ostringstream stream; 
+        stream << apiVersion;
+
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 
             COLLADAMaya::TRANSLATOR_VERSION, 
-            COLLADAMaya::TRANSLATOR_MAYA_API_VERSION );
+            stream.str ().c_str () );
 
         // --------------------------------------------------------------
         // Register the import and the export file translator plug-ins.

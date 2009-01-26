@@ -220,7 +220,7 @@ namespace COLLADAMaya
         {
             readColladaDocument ();
         }
-
+        
         return retValue;
     }
 

@@ -70,6 +70,11 @@ namespace COLLADAMaya
          */
         bool importMesh ( const COLLADAFW::Mesh* mesh );
 
+        /**
+         * Writes the geometry of the current mesh.
+         */
+        bool createMesh ( const COLLADAFW::Mesh* mesh, const String& parentNodeName );
+
         /*
          *	Write the face informations into the maya file.
          */
@@ -82,6 +87,7 @@ namespace COLLADAMaya
          *	Write the face values of the given primitive element into the maya file.
          */
         bool appendPolyFaces ( 
+            const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             MayaDM::Mesh &meshNode );
@@ -107,7 +113,8 @@ namespace COLLADAMaya
          * Returns a class which stores the x, y and z values of the vertex point 
          * at the given index position.
          */
-        COLLADABU::Math::Vector3* getVertexPosition ( size_t vertexIndex );
+        COLLADABU::Math::Vector3* getVertexPosition ( 
+            const COLLADAFW::Mesh* mesh, const size_t vertexIndex );
 
         /*
          *	Write the edges into the maya file.
