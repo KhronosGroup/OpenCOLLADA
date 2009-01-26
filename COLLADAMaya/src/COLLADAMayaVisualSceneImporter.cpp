@@ -55,9 +55,6 @@ namespace COLLADAMaya
         {
             COLLADAFW::Node* rootNode = rootNodes [i];
             importNode ( rootNode );
-
-//             // Set the node visible
-//             DagHelper::setPlugValue( transformObject, ATTR_VISIBILITY, true );
         }
 
         return true;
@@ -77,13 +74,13 @@ namespace COLLADAMaya
         mNodeNamesMap [ node->getUniqueId () ] = nodeName;
 
         // Import the tranformations
-        importTransformations ( transformNode, node );
+        importTransformations ( node, transformNode );
 
         // Import instance geometry
-        readGeometryInstances ( transformNode, node );
+        readGeometryInstances ( node, transformNode );
 
         // TODO
-//        readNodeInstances ( )
+        readNodeInstances ( node );
 
         // Recursive call for all child elements.
         const COLLADAFW::NodeArray& childNodes = node->getChildNodes ();
@@ -96,9 +93,25 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
+    bool VisualSceneImporter::readNodeInstances ( const COLLADAFW::Node* node )
+    {
+        const COLLADAFW::InstanceNodeArray& nodeInstances = node->getInstanceNodes ();
+        size_t numInstances = nodeInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceNode* nodeInstance = nodeInstances [i];
+            const COLLADAFW::UniqueId& uniqueId = nodeInstance->getInstanciatedObjectId ();
+            String name = nodeInstance->getName ();
+
+        }
+
+        return true;
+    }
+
+    // -----------------------------------
     bool VisualSceneImporter::readGeometryInstances (
-        MayaDM::Transform* transformNode, 
-        const COLLADAFW::Node* node )
+        const COLLADAFW::Node* node, 
+        MayaDM::Transform* transformNode )
     {
         bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
 
@@ -122,8 +135,8 @@ namespace COLLADAMaya
 
     // -----------------------------------
     bool VisualSceneImporter::importTransformations ( 
-        MayaDM::Transform* transformNode, 
-        const COLLADAFW::Node* rootNode )
+        const COLLADAFW::Node* rootNode, 
+        MayaDM::Transform* transformNode )
     {
         // This is the order of the transforms:
         //
@@ -455,8 +468,8 @@ namespace COLLADAMaya
     {
         float s = tanf ( COLLADABU::Math::Utils::degToRadF ( skew->getAngle () ) );
 
-        COLLADABU::Math::Vector3& rotateAxis = skew->getRotateAxis();
-        COLLADABU::Math::Vector3& translateAxis = skew->getRotateAxis();
+        const COLLADABU::Math::Vector3& rotateAxis = skew->getRotateAxis();
+        const COLLADABU::Math::Vector3& translateAxis = skew->getRotateAxis();
 
         for ( int row = 0; row < 3; ++row )
         {
