@@ -320,8 +320,8 @@ namespace COLLADAMax
 			}
 
 			if ( mMorphControllerHelperGeometry )
-				assert(false); // solve id problem in mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mExportNode);
-				//mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
+				//assert(false); // solve id problem in mDocumentExporter->insertExportedObject(ObjectIdentifier(object), mExportNode);
+				mId = ExportSceneGraph::getMorphControllerHelperId(*mMorphControllerHelperGeometry);
 			else
 				mId = GeometriesExporter::getGeometryId(*mExportNode);
 
