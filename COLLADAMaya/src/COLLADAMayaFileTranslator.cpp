@@ -72,10 +72,8 @@
         // current directory. This can be changed, however, by calling:
         //MGlobal::setErrorLogPathName("...");
   
-        int apiVersion = MGlobal::apiVersion ();
-        MString mayaVersion = MGlobal::mayaVersion ();
         std::ostringstream stream; 
-        stream << apiVersion;
+        stream << MAYA_API_VERSION;
 
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 

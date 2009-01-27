@@ -214,7 +214,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2008)\include&quot;;&quot;$(MAYA_PATH2008)\devkit\plug-ins&quot;;&quot;$(BOOST_ROOT)&quot;;..\..\COLLADABaseUtils\include;..\..\COLLADAStreamWriter\include;..\..\Externals\Cg\include;..\..\COLLADASaxFrameworkLoader\include;..\..\COLLADAFramework\include;..\..\Externals\MayaDataModel\include;..\..\GeneratedSaxParser\include;..\..\Externals\LibXML\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="1"
@@ -1055,7 +1055,7 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="..\include;&quot;$(MAYA_PATH2009)\include&quot;;&quot;$(MAYA_PATH2009)\devkit\plug-ins&quot;;..\..\COLLADAStreamWriter\include;&quot;$(BOOST_ROOT)&quot;;..\..\Externals\Cg\include;..\..\COLLADABaseUtils\include"
-				PreprocessorDefinitions="CREATE_IMPORT_PLUGIN;WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_AFXDLL;_MBCS;NT_PLUGIN;REQUIRE_IOSTREAM;CM_EXPORTS;GLUT_NO_LIB_PRAGMA;GLUT_NO_WARNING_DISABLE;_CRT_NONSTDC_NO_DEPRECATE;_CRT_SECURE_NO_WARNINGS;$(NOINHERIT)"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="false"
 				RuntimeTypeInfo="true"
@@ -1282,7 +1282,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copy plug-in files:"
+				Description="Copy plug-in files"
 				CommandLine="mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName) 2&gt; nul&#x0D;&#x0A;copy $(TargetPath) ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in&#x0D;&#x0A;copy $(TargetPath) &quot;%MAYA_PATH80%\bin\plug-ins&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy COLLADAMaya plug-in mel scipts&#x0D;&#x0A;copy &quot;$(ProjectDir)*.mel&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;rem echo Create Microsoft.VC80.MFC directory&#x0D;&#x0A;rem mkdir ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC 2&gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.MFC &gt; nul&#x0D;&#x0A;copy &quot;$(VCInstallDir)redist\x86\Microsoft.VC80.MFC\Microsoft.VC80.MFC.manifest&quot; ..\bin\win\$(PlatformName)\$(ConfigurationName) &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo Copy Microsoft.VC80.MFC DLLs&#x0D;&#x0A;rem copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; %MAYA_PATH80%\bin\plug-ins &gt; nul&#x0D;&#x0A;copy &quot;..\bin\win\$(PlatformName)\$(ConfigurationName)\Microsoft.VC80.CRT.manifest&quot; &quot;%MAYA_PATH80%\scripts\others&quot; &gt; nul&#x0D;&#x0A;&#x0D;&#x0A;echo done&#x0D;&#x0A;"
 			/>
 		</Configuration>

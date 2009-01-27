@@ -684,7 +684,7 @@ namespace COLLADAMaya
             input.push_back ( key->input );
 
             if ( convertUnits ) 
-                output.push_back ( MDistance::internalToUI ( key->output ) );
+                output.push_back ( ( float ) MDistance::internalToUI ( key->output ) );
             else
                 output.push_back ( key->output );
 
