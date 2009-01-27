@@ -641,7 +641,6 @@ namespace COLLADASaxFWL
 				mColorsIndexOffset = 0;
 				mUseColors = false;
 			}
-
 		}
 		else
 		{
