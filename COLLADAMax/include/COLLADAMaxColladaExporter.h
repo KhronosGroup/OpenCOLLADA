@@ -20,7 +20,7 @@
 #define __COLLADAMAX_COLLADASWEXPORTER_H__
 
 #include "COLLADAMaxPrerequisites.h"
-#include "COLLADASWIDList.h"
+#include "COLLADABUIDList.h"
 
 #include <max.h>
 #include <iparamb2.h>
@@ -46,7 +46,7 @@ namespace COLLADAMax
 	private:
 		/** Holds the unique file names of the exported XRef files. This is necessary if all files
 		are exported into the same directory.*/
-		COLLADASW::IDList mXRefExportFileNames;
+		COLLADABU::IDList mXRefExportFileNames;
 
     public:
         COLLADAExporter();

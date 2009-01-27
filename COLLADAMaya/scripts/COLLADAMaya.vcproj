@@ -2384,6 +2384,14 @@
 			Name="Source Files"
 			Filter="cpp"
 			>
+			<File
+				RelativePath="..\src\COLLADAMayaNode.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAMayaTransformNodesHierarchy.cpp"
+				>
+			</File>
 			<Filter
 				Name="Utils"
 				>
@@ -3925,6 +3933,14 @@
 			Name="Header Files"
 			Filter="h"
 			>
+			<File
+				RelativePath="..\include\COLLADAMayaNode.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAMayaTransformNodesHierarchy.h"
+				>
+			</File>
 			<Filter
 				Name="Utils"
 				>

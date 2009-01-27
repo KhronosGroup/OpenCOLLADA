@@ -95,7 +95,7 @@ namespace COLLADAMax
         /** Constructor
         @param i the max interface
         @param filepath The file path the COLLADASW document should be written to*/
-        DocumentExporter ( Interface* i, const NativeString &filepath, COLLADASW::IDList& xRefExportFileNames  );
+        DocumentExporter ( Interface* i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames  );
 
 
 		/** Constructor. 

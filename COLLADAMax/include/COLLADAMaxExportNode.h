@@ -23,7 +23,7 @@
 
 #include <max.h>
 
-#include "COLLADASWIDList.h"
+#include "COLLADABUIDList.h"
 
 #include "COLLADAMaxControllerList.h"
 
@@ -123,7 +123,7 @@ namespace COLLADAMax
 		String mSid;
 
 		/** List of the unique symbols of the mesh. (Only used if the node is a mesh).*/
-        COLLADASW::IDList mSymbolList;
+        COLLADABU::IDList mSymbolList;
 
 		/** All the controllers that are applied to the represented node and that are supported by COLLADASW.*/
 		ControllerList * mControllerList;
@@ -289,7 +289,7 @@ namespace COLLADAMax
         It is ensured, that the id is a valid id according to the xml spec*/
         const String& setId ( const String& id )
         {
-            mId = COLLADASW::Utils::checkID ( id );
+            mId = COLLADABU::Utils::checkID ( id );
             return mId;
         }
 

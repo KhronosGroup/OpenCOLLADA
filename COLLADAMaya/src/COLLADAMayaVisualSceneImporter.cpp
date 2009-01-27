@@ -34,6 +34,8 @@
 #include <maya/MFnTransform.h>
 #include <maya/MVector.h>
 
+#include <vector>
+
 
 namespace COLLADAMaya
 {
@@ -63,15 +65,31 @@ namespace COLLADAMaya
     // -----------------------------------
     void VisualSceneImporter::importNode ( 
         const COLLADAFW::Node* node, 
-        const COLLADAFW::UniqueId* parentNodeId )
+        const COLLADAFW::Node* parentNode )
     {
+        
+        // Check for a parent node name
+        COLLADAFW::UniqueId parentNodeId;
+        String parentNodeName = "";
+        if ( parentNode != NULL ) 
+        {
+            parentNodeId = parentNode->getUniqueId ();
+            String parentNodePath = mNodePathesMap [ parentNodeId ];
+            std::vector<String> parts;
+            COLLADABU::Utils::split ( parentNodePath, String("|"), parts );
+            parentNodeName = parts [ parts.size () ];
+        }
+
         // Create the node object (joint or node)
-        MayaDM::Transform* transformNode = createNode ( node, parentNodeId );
+        MayaDM::Transform* transformNode = createNode ( node, parentNodeName );
         String nodeName = node->getName ();
         String nodeSid = node->getSid ();
 
         // Set the node name in the list of names.
-        mNodeNamesMap [ node->getUniqueId () ] = nodeName;
+        nodeName = mTransformNodeIdList.addId ( nodeName );
+        mNodePathesMap [ node->getUniqueId () ] = nodeName;
+
+        // TODO Write the node in the node hierarchy graph
 
         // Import the tranformations
         importTransformations ( node, transformNode );
@@ -88,21 +106,30 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numChildNodes; ++i )
         {
             COLLADAFW::Node* childNode = childNodes [i];
-            importNode ( childNode, &node->getUniqueId () );
+            importNode ( childNode, node );
         }
     }
 
     // -----------------------------------
     bool VisualSceneImporter::readNodeInstances ( const COLLADAFW::Node* node )
     {
+        // Get the current maya ascii file to write the data.
+        FILE* file = getDocumentImporter ()->getFile ();
+
         const COLLADAFW::InstanceNodeArray& nodeInstances = node->getInstanceNodes ();
         size_t numInstances = nodeInstances.getCount ();
         for ( size_t i=0; i<numInstances; ++i )
         {
             const COLLADAFW::InstanceNode* nodeInstance = nodeInstances [i];
             const COLLADAFW::UniqueId& uniqueId = nodeInstance->getInstanciatedObjectId ();
-            String name = nodeInstance->getName ();
 
+            // TODO Check if the original node is already generated!
+            String nodeName = mNodePathesMap [ uniqueId ];
+
+            // TODO Get the pathes!
+            String nodePath = "bla";
+            String parentNodePath = "blubber";
+            MayaDM::parent ( file, nodePath, parentNodePath );
         }
 
         return true;
@@ -242,7 +269,7 @@ namespace COLLADAMaya
     // -----------------------------------
     MayaDM::Transform* VisualSceneImporter::createNode ( 
         const COLLADAFW::Node* node, 
-        const COLLADAFW::UniqueId* parentNodeId )
+        const String& parentNodeName )
     {
         String nodeName = node->getName ();
         String nodeSid = node->getSid ();
@@ -252,13 +279,6 @@ namespace COLLADAMaya
 
         // Create a transform node of the specific type.
         MayaDM::Transform* transformNode;
-
-        // Check for a parent node name
-        String parentNodeName = "";
-        if ( parentNodeId != 0 )
-        {
-            parentNodeName = mNodeNamesMap [ *parentNodeId ];
-        }
 
         COLLADAFW::Node::NodeType nodeType = node->getType ();
         switch ( nodeType )

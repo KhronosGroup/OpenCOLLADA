@@ -330,9 +330,51 @@ enum ConnectableType
 /** Macro to connect compatible attributes.*/
     #define connectAttr(file, src, dst) {   \
     fprintf(file, "connectAttr ");      \
-    src;                                \
+    unsigned int t1 = src;             \
     fprintf(file, " ");                 \
-    dst;                                \
-    fprintf(file, ";\n"); }
+    unsigned int t2 = dst;             \
+    fprintf(file, ";\n");              \
+    assert(t1 == t2); }
+
+    static void parent ( FILE* file, std::string childName, std::string parentName = "", 
+        bool absolute = false, bool addObject = false, bool noConnections = false, 
+        bool relative = false, bool removeObject = false, bool shape = false, 
+        bool world = false ) 
+    {
+        fprintf ( file, "parent" );
+
+        if ( absolute ) fprintf ( file, " -a" );
+        if ( addObject ) fprintf ( file, " -add" );
+        if ( noConnections ) fprintf ( file, " -nc" );
+        if ( relative ) fprintf ( file, " -r" );
+        if ( removeObject ) fprintf ( file, " -rm" );
+        if ( shape ) fprintf ( file, " -s" );
+        if ( world ) fprintf ( file, " -w" );
+
+        fprintf ( file, " \"%s\"", childName );
+        if ( strcmp ( parentName.c_str (), "" ) != 0 ) fprintf ( file, " \"%s\"", parentName.c_str () );
+        fprintf ( file, ";\n" );
+    }
+
+    static void parentShape ( FILE* file, std::string childName, std::string parentName = "", 
+        bool absolute = false, bool addObject = false, bool noConnections = false, 
+        bool relative = false, bool removeObject = false, bool world = false ) 
+    {
+        // parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
+        fprintf ( file, "parent" );
+
+        if ( absolute ) fprintf ( file, " -a" );
+        if ( addObject ) fprintf ( file, " -add" );
+        if ( noConnections ) fprintf ( file, " -nc" );
+        if ( relative ) fprintf ( file, " -r" );
+        if ( removeObject ) fprintf ( file, " -rm" );
+        fprintf ( file, " -s" );
+        if ( world ) fprintf ( file, " -w" );
+
+        fprintf ( file, " \"%s\"", childName );
+        if ( strcmp ( parentName.c_str (), "" ) != 0 ) fprintf ( file, " \"%s\"", parentName.c_str () );
+        fprintf ( file, ";\n" );
+    }
+
 }//namespace MayaDM
 #endif//__MayaDM_CONNECTABLES_H__

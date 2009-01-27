@@ -289,12 +289,24 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADABUIDList.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADABUNativeString.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADABUPrecompiledHeaders.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\src\COLLADABUStringUtils.cpp"
@@ -348,6 +360,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADABUHashMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADABUIDList.h"
 				>
 			</File>
 			<File

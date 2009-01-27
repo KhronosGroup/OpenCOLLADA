@@ -614,10 +614,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\COLLADASWIDList.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\COLLADASWImage.cpp"
 				>
 			</File>
@@ -845,10 +841,6 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASWFormatHint.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADASWIDList.h"
 				>
 			</File>
 			<File

@@ -16,6 +16,8 @@
 #include <sstream>
 #include <fstream>
 #include <map>
+#include <vector>
+
 
 namespace COLLADABU
 {
@@ -156,6 +158,17 @@ namespace COLLADABU
          * @param replaceString The replace string.
          */
         static void stringFindAndReplace ( String& source, const String searchString, const String replaceString );
+
+        /**
+         * Splits a string by the given seperator string and push the 
+         * parts in a vector.
+         * @param String & text
+         * @param String & separators
+         * @param std::vector<String> & words
+         */
+        static void split ( String& text, String& separators, std::vector<String>& words );
+
+
     };
 }
 

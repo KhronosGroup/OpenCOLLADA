@@ -24,7 +24,7 @@
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWLibraryEffects.h"
-#include "COLLADASWIDList.h"
+#include "COLLADABUIDList.h"
 
 #include "COLLADAMaxExportSceneGraph.h"
 #include "COLLADAMaxMaterialExporter.h"
@@ -180,7 +180,7 @@ namespace COLLADAMax
         ExportedImageMap mExportedImageMap;
 
         /** List of unique base effect ids.*/
-        COLLADASW::IDList mEffectIdList;
+        COLLADABU::IDList mEffectIdList;
 
 		/** Maps material and channels to the IParamBlock of the corresponding StdUVGen*/
 		MaterialChannelPairParamBlockMap mMaterialChannelPairParamBlockMap;

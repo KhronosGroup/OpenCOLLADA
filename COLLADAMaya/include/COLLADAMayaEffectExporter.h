@@ -26,7 +26,7 @@
 #include "COLLADASWStreamWriter.h"
 #include "COLLADASWEffectProfile.h"
 #include "COLLADASWLibraryEffects.h"
-#include "COLLADASWIDList.h"
+#include "COLLADABUIDList.h"
 
 #include <maya/MObject.h>
 
@@ -102,7 +102,7 @@ namespace COLLADAMaya
         EffectMap mExportedEffectMap;
 
         /** List of unique base effect ids*/
-        COLLADASW::IDList mEffectIdList;
+        COLLADABU::IDList mEffectIdList;
 
         /** A texture channel.
         Used by standard effects to assign textures to channels.

@@ -30,7 +30,7 @@ namespace COLLADAMax
 	const String ExportSceneGraph::HELPER_GEOMETRY_ID_SUFFIX ="-helper_geometry";
 	const String ExportSceneGraph::JOINT_SID_BASE_NAME = "joint";
 
-	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, COLLADASW::IDList& xRefExportFileNames )
+	ExportSceneGraph::ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, COLLADABU::IDList& xRefExportFileNames )
             : mExportSelection ( false ),
             mRootNode ( iNode ),
 			mMaxFileUri(maxFileUri),

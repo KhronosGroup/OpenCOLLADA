@@ -124,7 +124,15 @@ namespace COLLADAMaya
             {
 //              parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
                 // TODO
-//                MayaDM::Parent parent;
+
+                // Get the current maya ascii file to write the data.
+                FILE* file = getDocumentImporter ()->getFile ();
+
+                // TODO We have to store the scene graph, otherwise we can't get the path to the node.
+
+                // TODO Get the path to the parent node
+                String childPath = "|" + parentNodeName + "|" + mesh->getName ();
+                MayaDM::parentShape ( file, childPath, parentNodeName );
 
             }
         }

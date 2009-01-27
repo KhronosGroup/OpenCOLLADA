@@ -676,19 +676,23 @@ namespace COLLADAMaya
         // Add the key values
         for ( uint i=0; i<keyCount; ++i )
         {
+            // Convert the maya internal units to the UI units, if necessary
+            const AnimationElement* parent = animationCurve.getParent ();
+            bool convertUnits = parent->getConvertUnits ();
+
             AnimationKey* key = ( ( AnimationKey* ) animationCurve.getKey ( i ) );
             input.push_back ( key->input );
-            output.push_back ( key->output );
+
+            if ( convertUnits ) 
+                output.push_back ( MDistance::internalToUI ( key->output ) );
+            else
+                output.push_back ( key->output );
 
             interpolations.push_back ( COLLADASW::LibraryAnimations::getNameOfInterpolation ( key->interpolation ) );
 
             // Handle Tangents
             if ( hasTangents )
             {
-                // Convert the maya internal units to the UI units, if necessary
-                const AnimationElement* parent = animationCurve.getParent ();
-                bool convertUnits = parent->getConvertUnits ();
-
                 if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
                 {
                     // Export bezier tangents
@@ -1799,6 +1803,7 @@ namespace COLLADAMaya
             if ( key->interpolation == COLLADASW::LibraryAnimations::BEZIER )
             {
                 // Create the bezier keys
+                MFnAnimCurve::AnimCurveType type = animCurveFn.animCurveType  ();
                 createBezierKey ( key, animCurveFn, keyPosition, keyCount );
             }
         }

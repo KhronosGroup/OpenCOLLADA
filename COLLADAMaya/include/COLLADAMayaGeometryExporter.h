@@ -33,7 +33,7 @@
 #include "COLLADASWLibraryGeometries.h"
 #include "COLLADASWInputList.h"
 #include "COLLADASWPrimitves.h"
-#include "COLLADASWIDList.h"
+#include "COLLADABUIDList.h"
 
 
 namespace COLLADAMaya
@@ -55,8 +55,7 @@ namespace COLLADAMaya
         DocumentExporter* mDocumentExporter;
 
         /** List of unique meshIds from the already exported geometries. */
-//         std::vector<String> mExportedGeometries;
-        COLLADASW::IDList mExportedGeometries;
+        COLLADABU::IDList mExportedGeometries;
 
         /**
         * Holds all the polygon sources of the geometry of the current mesh.

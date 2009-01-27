@@ -24,6 +24,7 @@
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWSkew.h"
 
+#include "COLLADABUIDList.h"
 #include "Math/COLLADABUMathUtils.h"
 #include "Math/COLLADABUMathMatrix4.h"
 #include "Math/COLLADABUMathQuaternion.h"
@@ -46,14 +47,24 @@ namespace COLLADAMaya
 
     private:
 
+        /**
+         * The list of the unique maya transform node names.
+         */
+        COLLADABU::IDList mTransformNodeIdList;
+
         /*
          * The map holds for every unique id of a geometry a list of transform node unique ids.
          * We need it for the creation of the geometry, to set the parent transform nodes.
          */
         UniqueIdUniqueIdsMap mGeometryNodesMap;
 
-        /** The map holds the unique ids of the nodes to the names. */
-        UniqueIdNamesMap mNodeNamesMap;
+        /** The map holds the unique ids of the nodes to the full node pathes (contains the name). */
+        UniqueIdNamesMap mNodePathesMap;
+
+        /**
+         * Save the structure of the scene graph.
+         */
+        // TODO
 
         /*
          *	Helper class, to handle the transformations.
@@ -105,7 +116,7 @@ namespace COLLADAMaya
          */
         void importNode ( 
             const COLLADAFW::Node* rootNode, 
-            const COLLADAFW::UniqueId* parentNodeId = 0 );
+            const COLLADAFW::Node* parentNode = 0 );
 
         /*
         * The map holdes for every geometry (identified by it's unique id ) a list of all 
@@ -117,7 +128,7 @@ namespace COLLADAMaya
         /**
          * The map with the node unique ids and the names for it.
          */
-        const UniqueIdNamesMap& getNodeNamesMap () const { return mNodeNamesMap; }
+        const UniqueIdNamesMap& getNodeNamesMap () const { return mNodePathesMap; }
 
     private:
 
@@ -181,7 +192,7 @@ namespace COLLADAMaya
         */
         MayaDM::Transform* createNode ( 
             const COLLADAFW::Node* node, 
-            const COLLADAFW::UniqueId* parentNodeId );
+            const String& parentNodeName );
 
         /**
         * Converts the skew into a matrix.

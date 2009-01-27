@@ -22,7 +22,7 @@
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADAMaxExportNode.h"
-#include "COLLADASWIDList.h"
+#include "COLLADABUIDList.h"
 
 #include <map>
 #include <vector>
@@ -72,17 +72,17 @@ namespace COLLADAMax
         INode * mRootNode;
 
 		/** The file name of the max file represented by this export scene graph.*/
-		COLLADASW::URI mMaxFileUri;
+		COLLADABU::URI mMaxFileUri;
 
 		/** List of all XRef scenes below the file represented by this export scene graph*/
 		XRefSceneGraphList mXRefSceneGraphList;
 
         /** Holds the unique ids of the nodes.*/
-        COLLADASW::IDList mNodeIdList;
+        COLLADABU::IDList mNodeIdList;
 
 		/** Holds the unique file names of the exported XRef files. This is necessary if all files
 		are exported into the same directory.*/
-		COLLADASW::IDList& mXRefExportFileNames;
+		COLLADABU::IDList& mXRefExportFileNames;
 
 		/** Mapping between INodes and ExportNodes.*/
 		INodeExportNodeMap mINodeExportNodeMap;
@@ -100,7 +100,7 @@ namespace COLLADAMax
 		MorphControllerHelperGeometryList mMorphControllerHelperGeometryList;
 
     public:
-		ExportSceneGraph ( INode * iNode, const COLLADASW::URI& maxFileUri, COLLADASW::IDList& xRefExportFileNames );
+		ExportSceneGraph ( INode * iNode, const COLLADABU::URI& maxFileUri, COLLADABU::IDList& xRefExportFileNames );
         ~ExportSceneGraph();
 
         /** Creates the export scene graph.
@@ -114,7 +114,7 @@ namespace COLLADAMax
         }
 
 		/** Returns the uri of the max file represented by this export scene graph.*/
-		const COLLADASW::URI& getMaxFileUri() const
+		const COLLADABU::URI& getMaxFileUri() const
 		{
 			return mMaxFileUri;
 		}

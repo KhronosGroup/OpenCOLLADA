@@ -41,7 +41,7 @@ namespace COLLADAMax
     const String DocumentExporter::SCENE_ID = "MaxScene";
 
     //---------------------------------------------------------------
-	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADASW::IDList& xRefExportFileNames  )
+	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames  )
             : 
 			mOptions(i),
 			mMaxInterface ( i ),

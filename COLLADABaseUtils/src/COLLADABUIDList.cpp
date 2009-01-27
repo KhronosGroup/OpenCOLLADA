@@ -1,23 +1,14 @@
-/*
-    Copyright (c) 2008 NetAllied Systems GmbH
+#include "COLLADABUStableHeaders.h"
+#include "COLLADABUIDList.h"
 
-	This file is part of COLLADAStreamWriter.
-	
-    Licensed under the MIT Open Source License, 
-    for details please see LICENSE file or the website
-    http://www.opensource.org/licenses/mit-license.php
-*/
-
-#include "COLLADASWIDList.h"
-
-namespace COLLADASW
+namespace COLLADABU
 {
+    //-------------------------------------
+    IDList::IDList(StringConversionFunction conversionFunction ) 
+        : mConversionFunction(conversionFunction)
+    {}
 
-	IDList::IDList(StringConversionFunction conversionFunction ) 
-		: mConversionFunction(conversionFunction)
-	{}
-
-
+    //-------------------------------------
     String IDList::addId ( const String & newId, bool returnConverted )
     {
         String newIdChecked = mConversionFunction( newId );
@@ -26,7 +17,7 @@ namespace COLLADASW
         if ( it == mIdSet.end() )
         {
             mIdSet.insert ( newIdChecked );
-			return returnConverted ? newIdChecked : newId;
+            return returnConverted ? newIdChecked : newId;
         }
 
         String idCandidate;
@@ -40,8 +31,7 @@ namespace COLLADASW
 
         mIdSet.insert ( idCandidate );
 
-		return returnConverted ? idCandidate : newId + "_" + Utils::toString ( numberSuffix );
+        return returnConverted ? idCandidate : newId + "_" + Utils::toString ( numberSuffix );
     }
 
-
-}
+} // namespace COLLADABU
