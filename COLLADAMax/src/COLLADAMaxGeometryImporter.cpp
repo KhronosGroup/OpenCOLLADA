@@ -477,7 +477,6 @@ namespace COLLADAMax
 						MNFace* face = polgonMesh.F((int)faceIndex);
 						face->MakePoly(faceVertexCount, (int*) (&positionIndices[currentIndex]));
 						currentIndex += faceVertexCount;
-
 						++faceIndex;
 					}
 					break;
@@ -547,8 +546,8 @@ namespace COLLADAMax
 					{
 						const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 						MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
-						normalFace.SpecifyAll();
 						normalFace.SetDegree(3);
+						normalFace.SpecifyAll();
 						normalFace.SetNormalID(0, normalIndices[3*j]);
 						normalFace.SetNormalID(1, normalIndices[3*j + 1]);
 						normalFace.SetNormalID(2, normalIndices[3*j + 2]);
@@ -568,8 +567,8 @@ namespace COLLADAMax
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
-							normalFace.SpecifyAll();
 							normalFace.SetDegree(3);
+							normalFace.SpecifyAll();
 							normalFace.SetNormalID(0, normalIndices[j - 2]);
 							normalFace.SetNormalID(1, normalIndices[j - 1]);
 							normalFace.SetNormalID(2, normalIndices[j]);
@@ -592,8 +591,8 @@ namespace COLLADAMax
 						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
-							normalFace.SpecifyAll();
 							normalFace.SetDegree(3);
+							normalFace.SpecifyAll();
 							normalFace.SetNormalID(0, commonVertexIndex);
 							normalFace.SetNormalID(1, normalIndices[j - 1]);
 							normalFace.SetNormalID(2, normalIndices[j]);
@@ -608,6 +607,7 @@ namespace COLLADAMax
 					COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*) meshPrimitive;
 
 					COLLADAFW::IntValuesArray& faceVertexCountArray = polygons->getGroupedVerticesVertexCountArray();
+					size_t currentIndex = 0;
 					for ( size_t j = 0, count = faceVertexCountArray.getCount(); j < count; ++j)
 					{
 						int faceVertexCount = faceVertexCountArray[j];
@@ -618,13 +618,14 @@ namespace COLLADAMax
 
 						const COLLADAFW::UIntValuesArray& normalIndices = meshPrimitive->getNormalIndices();
 						MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
-						normalFace.SpecifyAll();
-
 						normalFace.SetDegree((int)faceVertexCount);
+						normalFace.SpecifyAll();
 						for ( int k = 0; k < faceVertexCount; ++k)
 						{
-							normalFace.SetNormalID(k, normalIndices[3*j + k]);
+							int gg = normalIndices[currentIndex + k];
+							normalFace.SetNormalID(k, normalIndices[currentIndex + k]);
 						}
+						currentIndex += faceVertexCount;
 						++faceIndex;
 					}
 				}

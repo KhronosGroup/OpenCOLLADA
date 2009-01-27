@@ -94,7 +94,7 @@ namespace COLLADAMax
 		else
 		{
 			newImportNode = importInstanceGeometrie( node, parentImportNode );
-			importNodes(node->getChildNodes(), parentImportNode);
+			importNodes(node->getChildNodes(), newImportNode);
 		}
 
 		// Append all nodes that are referenced by this node.
