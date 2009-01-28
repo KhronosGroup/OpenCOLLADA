@@ -1,10 +1,20 @@
+/*
+    Copyright (c) 2008 NetAllied Systems GmbH
+
+    This file is part of COLLADASaxFrameworkLoader.
+
+    Licensed under the MIT Open Source License,
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
+*/
+
 #include "COLLADASaxFWLStableHeaders.h"
 #include "GeneratedSaxParserUtils.h"
 
 #include "COLLADASaxFWLColladaParserAutoGenPrivate.h"
 
 
-namespace  COLLADASaxFWL
+namespace COLLADASaxFWL
 {
 
 
@@ -100,6 +110,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__COLLADA()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__COLLADA( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ASSET = "asset";
 
 //---------------------------------------------------------------------
@@ -119,6 +135,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__COLLADA__asset( const ParserAt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__COLLADA__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__COLLADA__asset( void* attributeData )
 {
     return true;
 }
@@ -148,6 +170,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__contributor()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__contributor( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_AUTHOR = "author";
 
 //---------------------------------------------------------------------
@@ -156,9 +184,7 @@ const char* NAME_ELEMENT_CONTRIBUTOR__AUTHOR = "contributor__author";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__author( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__author(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -174,6 +200,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__author()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__author( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_AUTHORING_TOOL = "authoring_tool";
 
 //---------------------------------------------------------------------
@@ -182,9 +214,7 @@ const char* NAME_ELEMENT_CONTRIBUTOR__AUTHORING_TOOL = "contributor__authoring_t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__authoring_tool( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__authoring_tool(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -200,6 +230,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__authoring_tool()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__authoring_tool( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_COMMENTS = "comments";
 
 //---------------------------------------------------------------------
@@ -208,9 +244,7 @@ const char* NAME_ELEMENT_CONTRIBUTOR__COMMENTS = "contributor__comments";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__comments( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__comments(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -226,6 +260,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__comments()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__comments( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_COPYRIGHT = "copyright";
 
 //---------------------------------------------------------------------
@@ -234,9 +274,7 @@ const char* NAME_ELEMENT_CONTRIBUTOR__COPYRIGHT = "contributor__copyright";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__copyright( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__copyright(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -252,6 +290,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__copyright()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__copyright( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SOURCE_DATA = "source_data";
 
 //---------------------------------------------------------------------
@@ -260,9 +304,7 @@ const char* NAME_ELEMENT_CONTRIBUTOR__SOURCE_DATA = "contributor__source_data";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__source_data( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__source_data(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -278,6 +320,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__source_data()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__source_data( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CREATED = "created";
 
 //---------------------------------------------------------------------
@@ -286,9 +334,7 @@ const char* NAME_ELEMENT_ASSET__CREATED = "asset__created";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__created( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__created(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -304,6 +350,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__created()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__created( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_KEYWORDS = "keywords";
 
 //---------------------------------------------------------------------
@@ -312,9 +364,7 @@ const char* NAME_ELEMENT_ASSET__KEYWORDS = "asset__keywords";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__keywords( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__keywords(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -330,6 +380,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__keywords()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__keywords( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MODIFIED = "modified";
 
 //---------------------------------------------------------------------
@@ -338,9 +394,7 @@ const char* NAME_ELEMENT_ASSET__MODIFIED = "asset__modified";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__modified( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__modified(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -356,6 +410,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__modified()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__modified( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_REVISION = "revision";
 
 //---------------------------------------------------------------------
@@ -364,9 +424,7 @@ const char* NAME_ELEMENT_ASSET__REVISION = "asset__revision";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__revision( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__revision(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -382,6 +440,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__revision()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__revision( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SUBJECT = "subject";
 
 //---------------------------------------------------------------------
@@ -390,9 +454,7 @@ const char* NAME_ELEMENT_ASSET__SUBJECT = "asset__subject";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__subject( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__subject(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -408,6 +470,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__subject()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__subject( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TITLE = "title";
 
 //---------------------------------------------------------------------
@@ -416,9 +484,7 @@ const char* NAME_ELEMENT_ASSET__TITLE = "asset__title";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__title( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__title(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -429,6 +495,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__title( const ParserAttributes&
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__title()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__title( void* attributeData )
 {
     return true;
 }
@@ -511,6 +583,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__unit()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__unit( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_UP_AXIS = "up_axis";
 
 //---------------------------------------------------------------------
@@ -519,9 +597,7 @@ const char* NAME_ELEMENT_ASSET__UP_AXIS = "asset__up_axis";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__up_axis( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__up_axis(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -532,6 +608,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__up_axis( const ParserAttribute
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__up_axis()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__up_axis( void* attributeData )
 {
     return true;
 }
@@ -610,6 +692,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_animations()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animations( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__ASSET = "library_animations__asset";
 
 //---------------------------------------------------------------------
@@ -631,13 +719,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_animations__asset()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animations__asset( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ANIMATION = "animation";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION = "library_animations__animation";
 
 //---------------------------------------------------------------------
-const library_animations__animation__AttributeData library_animations__animation__AttributeData::DEFAULT = {0, 0};
+const animation__AttributeData animation__AttributeData::DEFAULT = {0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_animations__animation( const ParserChar* text, size_t textLength )
@@ -648,7 +742,7 @@ bool ColladaParserAutoGenPrivate::_data__library_animations__animation( const Pa
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_animations__animation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_animations__animation__AttributeData* attributeData = newData<library_animations__animation__AttributeData>(attributeDataPtr);
+animation__AttributeData* attributeData = newData<animation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -701,6 +795,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_animations__animation()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animations__animation( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ANIMATION__ASSET = "animation__asset";
 
 //---------------------------------------------------------------------
@@ -717,6 +817,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__animation__asset( const Parser
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__animation__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation__asset( void* attributeData )
 {
     return true;
 }
@@ -792,6 +898,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__animation__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SOURCE__ASSET = "source__asset";
 
 //---------------------------------------------------------------------
@@ -808,6 +920,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__source__asset( const ParserAtt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__source__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__source__asset( void* attributeData )
 {
     return true;
 }
@@ -894,6 +1012,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__IDREF_array()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__IDREF_array( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NAME_ARRAY = "Name_array";
 
 //---------------------------------------------------------------------
@@ -967,6 +1091,12 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__Name_array()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__Name_array( void* attributeData )
 {
     return true;
 }
@@ -1047,6 +1177,12 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
 bool ColladaParserAutoGenPrivate::_validateEnd__bool_array()
 {
 return boolDataEnd( &ColladaParserAutoGen::data__bool_array );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__bool_array( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -1150,6 +1286,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__float_array );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__float_array( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INT_ARRAY = "int_array";
 
 //---------------------------------------------------------------------
@@ -1162,7 +1304,7 @@ const char* NAME_ATTRIBUTE_MININCLUSIVE = "minInclusive";
 const char* NAME_ATTRIBUTE_MAXINCLUSIVE = "maxInclusive";
 
 //---------------------------------------------------------------------
-const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, 2147483648, 2147483647};
+const int_array__AttributeData int_array__AttributeData::DEFAULT = {0, 0, 0, -2147483648, 2147483647};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__int_array( const ParserChar* text, size_t textLength )
@@ -1250,6 +1392,12 @@ return longDataEnd( &ColladaParserAutoGen::data__int_array );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__int_array( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TECHNIQUE_COMMON = "technique_common";
 
 //---------------------------------------------------------------------
@@ -1269,6 +1417,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__source__technique_common( cons
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__source__technique_common()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__source__technique_common( void* attributeData )
 {
     return true;
 }
@@ -1370,6 +1524,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__accessor()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__accessor( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PARAM = "param";
 
 //---------------------------------------------------------------------
@@ -1390,9 +1550,7 @@ const accessor__param__AttributeData accessor__param__AttributeData::DEFAULT = {
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__accessor__param( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__accessor__param(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -1465,6 +1623,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__accessor__param()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__accessor__param( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TECHNIQUE = "technique";
 
 //---------------------------------------------------------------------
@@ -1531,6 +1695,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__source__technique()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__source__technique( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER = "sampler";
 
 //---------------------------------------------------------------------
@@ -1589,6 +1759,12 @@ attributeData->id = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler( void* attributeData )
 {
     return true;
 }
@@ -1659,6 +1835,12 @@ attributeData->source = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler__input()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler__input( void* attributeData )
 {
     return true;
 }
@@ -1737,10 +1919,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__channel()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_ANIMATION__ANIMATION = "animation__animation";
+bool ColladaParserAutoGenPrivate::_freeAttributes__channel( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const animation__animation__AttributeData animation__animation__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_ANIMATION__ANIMATION = "animation__animation";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__animation__animation( const ParserChar* text, size_t textLength )
@@ -1751,7 +1936,7 @@ bool ColladaParserAutoGenPrivate::_data__animation__animation( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__animation__animation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-animation__animation__AttributeData* attributeData = newData<animation__animation__AttributeData>(attributeDataPtr);
+animation__AttributeData* attributeData = newData<animation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -1804,13 +1989,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__animation__animation()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation__animation( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_EXTRA = "extra";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_ANIMATION__EXTRA = "animation__extra";
 
 //---------------------------------------------------------------------
-const animation__extra__AttributeData animation__extra__AttributeData::DEFAULT = {0, 0, 0};
+const extra__AttributeData extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__animation__extra( const ParserChar* text, size_t textLength )
@@ -1821,7 +2012,7 @@ bool ColladaParserAutoGenPrivate::_data__animation__extra( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__animation__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-animation__extra__AttributeData* attributeData = newData<animation__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -1881,6 +2072,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__animation__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_EXTRA__ASSET = "extra__asset";
 
 //---------------------------------------------------------------------
@@ -1902,10 +2099,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__extra__asset()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_EXTRA__TECHNIQUE = "extra__technique";
+bool ColladaParserAutoGenPrivate::_freeAttributes__extra__asset( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const extra__technique__AttributeData extra__technique__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_EXTRA__TECHNIQUE = "extra__technique";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__extra__technique( const ParserChar* text, size_t textLength )
@@ -1962,10 +2162,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__extra__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__EXTRA = "library_animations__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__extra__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_animations__extra__AttributeData library_animations__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__EXTRA = "library_animations__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_animations__extra( const ParserChar* text, size_t textLength )
@@ -1976,7 +2179,7 @@ bool ColladaParserAutoGenPrivate::_data__library_animations__extra( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_animations__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_animations__extra__AttributeData* attributeData = newData<library_animations__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -2031,6 +2234,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_animations__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animations__extra( void* attributeData )
 {
     return true;
 }
@@ -2106,6 +2315,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_animation_clips()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animation_clips( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_ANIMATION_CLIPS__ASSET = "library_animation_clips__asset";
 
 //---------------------------------------------------------------------
@@ -2122,6 +2337,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_animation_clips__asset
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_animation_clips__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animation_clips__asset( void* attributeData )
 {
     return true;
 }
@@ -2219,6 +2440,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__animation_clip()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation_clip( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ANIMATION_CLIP__ASSET = "animation_clip__asset";
 
 //---------------------------------------------------------------------
@@ -2235,6 +2462,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__animation_clip__asset( const P
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__animation_clip__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation_clip__asset( void* attributeData )
 {
     return true;
 }
@@ -2320,10 +2553,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_animation()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_ANIMATION__EXTRA = "instance_animation__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_animation( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_animation__extra__AttributeData instance_animation__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_ANIMATION__EXTRA = "instance_animation__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_animation__extra( const ParserChar* text, size_t textLength )
@@ -2334,7 +2570,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_animation__extra( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_animation__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_animation__extra__AttributeData* attributeData = newData<instance_animation__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -2394,10 +2630,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_animation__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_ANIMATION_CLIP__EXTRA = "animation_clip__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_animation__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const animation_clip__extra__AttributeData animation_clip__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_ANIMATION_CLIP__EXTRA = "animation_clip__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__animation_clip__extra( const ParserChar* text, size_t textLength )
@@ -2408,7 +2647,7 @@ bool ColladaParserAutoGenPrivate::_data__animation_clip__extra( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__animation_clip__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-animation_clip__extra__AttributeData* attributeData = newData<animation_clip__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -2468,10 +2707,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__animation_clip__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA = "library_animation_clips__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__animation_clip__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_animation_clips__extra__AttributeData library_animation_clips__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA = "library_animation_clips__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_animation_clips__extra( const ParserChar* text, size_t textLength )
@@ -2482,7 +2724,7 @@ bool ColladaParserAutoGenPrivate::_data__library_animation_clips__extra( const P
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_animation_clips__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_animation_clips__extra__AttributeData* attributeData = newData<library_animation_clips__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -2537,6 +2779,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_animation_clips__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_animation_clips__extra( void* attributeData )
 {
     return true;
 }
@@ -2612,6 +2860,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_cameras()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_cameras( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_CAMERAS__ASSET = "library_cameras__asset";
 
 //---------------------------------------------------------------------
@@ -2628,6 +2882,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_cameras__asset( const 
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_cameras__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_cameras__asset( void* attributeData )
 {
     return true;
 }
@@ -2703,6 +2963,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__camera()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__camera( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CAMERA__ASSET = "camera__asset";
 
 //---------------------------------------------------------------------
@@ -2719,6 +2985,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__camera__asset( const ParserAtt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__camera__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__camera__asset( void* attributeData )
 {
     return true;
 }
@@ -2748,6 +3020,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__optics()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__optics( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_OPTICS__TECHNIQUE_COMMON = "optics__technique_common";
 
 //---------------------------------------------------------------------
@@ -2764,6 +3042,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__optics__technique_common( cons
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__optics__technique_common()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__optics__technique_common( void* attributeData )
 {
     return true;
 }
@@ -2793,6 +3077,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__orthographic()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__orthographic( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_XMAG = "xmag";
 
 //---------------------------------------------------------------------
@@ -2804,13 +3094,19 @@ const xmag__AttributeData xmag__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__xmag( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__xmag(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XMAG, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -2858,6 +3154,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__xmag()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__xmag(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XMAG, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__xmag( void* attributeData )
+{
     return true;
 }
 
@@ -2873,13 +3185,19 @@ const ymag__AttributeData ymag__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__ymag( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__ymag(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YMAG, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -2927,6 +3245,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__ymag()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__ymag(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YMAG, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__ymag( void* attributeData )
+{
     return true;
 }
 
@@ -2937,24 +3271,30 @@ const char* NAME_ELEMENT_ASPECT_RATIO = "aspect_ratio";
 const char* NAME_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO = "orthographic__aspect_ratio";
 
 //---------------------------------------------------------------------
-const orthographic__aspect_ratio__AttributeData orthographic__aspect_ratio__AttributeData::DEFAULT = {0};
+const aspect_ratio__AttributeData aspect_ratio__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__orthographic__aspect_ratio( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__orthographic__aspect_ratio(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__orthographic__aspect_ratio( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-orthographic__aspect_ratio__AttributeData* attributeData = newData<orthographic__aspect_ratio__AttributeData>(attributeDataPtr);
+aspect_ratio__AttributeData* attributeData = newData<aspect_ratio__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -2996,6 +3336,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__orthographic__aspect_ratio()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__orthographic__aspect_ratio(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__orthographic__aspect_ratio( void* attributeData )
+{
     return true;
 }
 
@@ -3006,24 +3362,30 @@ const char* NAME_ELEMENT_ZNEAR = "znear";
 const char* NAME_ELEMENT_ORTHOGRAPHIC__ZNEAR = "orthographic__znear";
 
 //---------------------------------------------------------------------
-const orthographic__znear__AttributeData orthographic__znear__AttributeData::DEFAULT = {0};
+const znear__AttributeData znear__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__orthographic__znear( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__orthographic__znear(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__orthographic__znear( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-orthographic__znear__AttributeData* attributeData = newData<orthographic__znear__AttributeData>(attributeDataPtr);
+znear__AttributeData* attributeData = newData<znear__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3065,6 +3427,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__orthographic__znear()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__orthographic__znear(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__orthographic__znear( void* attributeData )
+{
     return true;
 }
 
@@ -3075,24 +3453,30 @@ const char* NAME_ELEMENT_ZFAR = "zfar";
 const char* NAME_ELEMENT_ORTHOGRAPHIC__ZFAR = "orthographic__zfar";
 
 //---------------------------------------------------------------------
-const orthographic__zfar__AttributeData orthographic__zfar__AttributeData::DEFAULT = {0};
+const zfar__AttributeData zfar__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__orthographic__zfar( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__orthographic__zfar(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__orthographic__zfar( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-orthographic__zfar__AttributeData* attributeData = newData<orthographic__zfar__AttributeData>(attributeDataPtr);
+zfar__AttributeData* attributeData = newData<zfar__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3134,6 +3518,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__orthographic__zfar()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__orthographic__zfar(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ORTHOGRAPHIC__ZFAR, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__orthographic__zfar( void* attributeData )
+{
     return true;
 }
 
@@ -3162,6 +3562,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__perspective()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__perspective( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_XFOV = "xfov";
 
 //---------------------------------------------------------------------
@@ -3173,13 +3579,19 @@ const xfov__AttributeData xfov__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__xfov( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__xfov(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XFOV, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -3227,6 +3639,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__xfov()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__xfov(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_XFOV, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__xfov( void* attributeData )
+{
     return true;
 }
 
@@ -3242,13 +3670,19 @@ const yfov__AttributeData yfov__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__yfov( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__yfov(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YFOV, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -3296,6 +3730,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__yfov()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__yfov(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_YFOV, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__yfov( void* attributeData )
+{
     return true;
 }
 
@@ -3303,24 +3753,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__yfov()
 const char* NAME_ELEMENT_PERSPECTIVE__ASPECT_RATIO = "perspective__aspect_ratio";
 
 //---------------------------------------------------------------------
-const perspective__aspect_ratio__AttributeData perspective__aspect_ratio__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__perspective__aspect_ratio( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__perspective__aspect_ratio(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__perspective__aspect_ratio( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-perspective__aspect_ratio__AttributeData* attributeData = newData<perspective__aspect_ratio__AttributeData>(attributeDataPtr);
+aspect_ratio__AttributeData* attributeData = newData<aspect_ratio__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3362,6 +3815,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__perspective__aspect_ratio()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__perspective__aspect_ratio(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__perspective__aspect_ratio( void* attributeData )
+{
     return true;
 }
 
@@ -3369,24 +3838,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__perspective__aspect_ratio()
 const char* NAME_ELEMENT_PERSPECTIVE__ZNEAR = "perspective__znear";
 
 //---------------------------------------------------------------------
-const perspective__znear__AttributeData perspective__znear__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__perspective__znear( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__perspective__znear(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__perspective__znear( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-perspective__znear__AttributeData* attributeData = newData<perspective__znear__AttributeData>(attributeDataPtr);
+znear__AttributeData* attributeData = newData<znear__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3428,6 +3900,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__perspective__znear()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__perspective__znear(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZNEAR, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__perspective__znear( void* attributeData )
+{
     return true;
 }
 
@@ -3435,24 +3923,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__perspective__znear()
 const char* NAME_ELEMENT_PERSPECTIVE__ZFAR = "perspective__zfar";
 
 //---------------------------------------------------------------------
-const perspective__zfar__AttributeData perspective__zfar__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__perspective__zfar( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__perspective__zfar(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__perspective__zfar( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-perspective__zfar__AttributeData* attributeData = newData<perspective__zfar__AttributeData>(attributeDataPtr);
+zfar__AttributeData* attributeData = newData<zfar__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3494,14 +3985,27 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__perspective__zfar()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__perspective__zfar(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_PERSPECTIVE__ZFAR, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__perspective__zfar( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_OPTICS__TECHNIQUE = "optics__technique";
-
-//---------------------------------------------------------------------
-const optics__technique__AttributeData optics__technique__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__optics__technique( const ParserChar* text, size_t textLength )
@@ -3558,10 +4062,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__optics__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_OPTICS__EXTRA = "optics__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__optics__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const optics__extra__AttributeData optics__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_OPTICS__EXTRA = "optics__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__optics__extra( const ParserChar* text, size_t textLength )
@@ -3572,7 +4079,7 @@ bool ColladaParserAutoGenPrivate::_data__optics__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__optics__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-optics__extra__AttributeData* attributeData = newData<optics__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3632,6 +4139,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__optics__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__optics__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_IMAGER = "imager";
 
 //---------------------------------------------------------------------
@@ -3656,10 +4169,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__imager()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_IMAGER__TECHNIQUE = "imager__technique";
+bool ColladaParserAutoGenPrivate::_freeAttributes__imager( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const imager__technique__AttributeData imager__technique__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_IMAGER__TECHNIQUE = "imager__technique";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__imager__technique( const ParserChar* text, size_t textLength )
@@ -3716,10 +4232,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__imager__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_IMAGER__EXTRA = "imager__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__imager__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const imager__extra__AttributeData imager__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_IMAGER__EXTRA = "imager__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__imager__extra( const ParserChar* text, size_t textLength )
@@ -3730,7 +4249,7 @@ bool ColladaParserAutoGenPrivate::_data__imager__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__imager__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-imager__extra__AttributeData* attributeData = newData<imager__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3790,10 +4309,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__imager__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CAMERA__EXTRA = "camera__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__imager__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const camera__extra__AttributeData camera__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_CAMERA__EXTRA = "camera__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__camera__extra( const ParserChar* text, size_t textLength )
@@ -3804,7 +4326,7 @@ bool ColladaParserAutoGenPrivate::_data__camera__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__camera__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-camera__extra__AttributeData* attributeData = newData<camera__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3864,10 +4386,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__camera__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_CAMERAS__EXTRA = "library_cameras__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__camera__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_cameras__extra__AttributeData library_cameras__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_CAMERAS__EXTRA = "library_cameras__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_cameras__extra( const ParserChar* text, size_t textLength )
@@ -3878,7 +4403,7 @@ bool ColladaParserAutoGenPrivate::_data__library_cameras__extra( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_cameras__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_cameras__extra__AttributeData* attributeData = newData<library_cameras__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -3933,6 +4458,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_cameras__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_cameras__extra( void* attributeData )
 {
     return true;
 }
@@ -4008,6 +4539,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_controllers()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_controllers( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_CONTROLLERS__ASSET = "library_controllers__asset";
 
 //---------------------------------------------------------------------
@@ -4024,6 +4561,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_controllers__asset( co
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_controllers__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_controllers__asset( void* attributeData )
 {
     return true;
 }
@@ -4099,6 +4642,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__controller()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__controller( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONTROLLER__ASSET = "controller__asset";
 
 //---------------------------------------------------------------------
@@ -4115,6 +4664,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__controller__asset( const Parse
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__controller__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__controller__asset( void* attributeData )
 {
     return true;
 }
@@ -4183,6 +4738,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__skin()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__skin( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_BIND_SHAPE_MATRIX = "bind_shape_matrix";
 
 //---------------------------------------------------------------------
@@ -4207,10 +4768,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__bind_shape_matrix );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SKIN__SOURCE = "skin__source";
+bool ColladaParserAutoGenPrivate::_freeAttributes__bind_shape_matrix( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const skin__source__AttributeData skin__source__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_SKIN__SOURCE = "skin__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__skin__source( const ParserChar* text, size_t textLength )
@@ -4274,6 +4838,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__skin__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__skin__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_JOINTS = "joints";
 
 //---------------------------------------------------------------------
@@ -4298,10 +4868,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__joints()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_JOINTS__INPUT = "joints__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__joints( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const joints__input__AttributeData joints__input__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_JOINTS__INPUT = "joints__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__joints__input( const ParserChar* text, size_t textLength )
@@ -4365,10 +4938,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__joints__input()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_JOINTS__EXTRA = "joints__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__joints__input( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const joints__extra__AttributeData joints__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_JOINTS__EXTRA = "joints__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__joints__extra( const ParserChar* text, size_t textLength )
@@ -4379,7 +4955,7 @@ bool ColladaParserAutoGenPrivate::_data__joints__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__joints__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-joints__extra__AttributeData* attributeData = newData<joints__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -4434,6 +5010,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__joints__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__joints__extra( void* attributeData )
 {
     return true;
 }
@@ -4498,6 +5080,12 @@ if ( failed && handleError(ParserError::SEVERITY_ERROR,ParserError::ERROR_ATTRIB
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__vertex_weights()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__vertex_weights( void* attributeData )
 {
     return true;
 }
@@ -4589,6 +5177,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__vertex_weights__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__vertex_weights__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_VCOUNT = "vcount";
 
 //---------------------------------------------------------------------
@@ -4610,6 +5204,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__vertex_weights__vcount( const 
 bool ColladaParserAutoGenPrivate::_validateEnd__vertex_weights__vcount()
 {
 return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__vertex_weights__vcount );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__vertex_weights__vcount( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -4637,10 +5237,13 @@ return longDataEnd( &ColladaParserAutoGen::data__v );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_VERTEX_WEIGHTS__EXTRA = "vertex_weights__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__v( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const vertex_weights__extra__AttributeData vertex_weights__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_VERTEX_WEIGHTS__EXTRA = "vertex_weights__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__vertex_weights__extra( const ParserChar* text, size_t textLength )
@@ -4651,7 +5254,7 @@ bool ColladaParserAutoGenPrivate::_data__vertex_weights__extra( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__vertex_weights__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-vertex_weights__extra__AttributeData* attributeData = newData<vertex_weights__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -4711,10 +5314,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__vertex_weights__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SKIN__EXTRA = "skin__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__vertex_weights__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const skin__extra__AttributeData skin__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_SKIN__EXTRA = "skin__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__skin__extra( const ParserChar* text, size_t textLength )
@@ -4725,7 +5331,7 @@ bool ColladaParserAutoGenPrivate::_data__skin__extra( const ParserChar* text, si
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__skin__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-skin__extra__AttributeData* attributeData = newData<skin__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -4780,6 +5386,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__skin__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__skin__extra( void* attributeData )
 {
     return true;
 }
@@ -4858,10 +5470,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__morph()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MORPH__SOURCE = "morph__source";
+bool ColladaParserAutoGenPrivate::_freeAttributes__morph( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const morph__source__AttributeData morph__source__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_MORPH__SOURCE = "morph__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__morph__source( const ParserChar* text, size_t textLength )
@@ -4925,6 +5540,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__morph__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__morph__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TARGETS = "targets";
 
 //---------------------------------------------------------------------
@@ -4949,10 +5570,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__targets()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TARGETS__INPUT = "targets__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__targets( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const targets__input__AttributeData targets__input__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_TARGETS__INPUT = "targets__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__targets__input( const ParserChar* text, size_t textLength )
@@ -5016,10 +5640,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__targets__input()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TARGETS__EXTRA = "targets__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__targets__input( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const targets__extra__AttributeData targets__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_TARGETS__EXTRA = "targets__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__targets__extra( const ParserChar* text, size_t textLength )
@@ -5030,7 +5657,7 @@ bool ColladaParserAutoGenPrivate::_data__targets__extra( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__targets__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-targets__extra__AttributeData* attributeData = newData<targets__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5090,10 +5717,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__targets__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MORPH__EXTRA = "morph__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__targets__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const morph__extra__AttributeData morph__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MORPH__EXTRA = "morph__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__morph__extra( const ParserChar* text, size_t textLength )
@@ -5104,7 +5734,7 @@ bool ColladaParserAutoGenPrivate::_data__morph__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__morph__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-morph__extra__AttributeData* attributeData = newData<morph__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5164,10 +5794,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__morph__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CONTROLLER__EXTRA = "controller__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__morph__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const controller__extra__AttributeData controller__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_CONTROLLER__EXTRA = "controller__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__controller__extra( const ParserChar* text, size_t textLength )
@@ -5178,7 +5811,7 @@ bool ColladaParserAutoGenPrivate::_data__controller__extra( const ParserChar* te
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__controller__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-controller__extra__AttributeData* attributeData = newData<controller__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5238,10 +5871,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__controller__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_CONTROLLERS__EXTRA = "library_controllers__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__controller__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_controllers__extra__AttributeData library_controllers__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_CONTROLLERS__EXTRA = "library_controllers__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_controllers__extra( const ParserChar* text, size_t textLength )
@@ -5252,7 +5888,7 @@ bool ColladaParserAutoGenPrivate::_data__library_controllers__extra( const Parse
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_controllers__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_controllers__extra__AttributeData* attributeData = newData<library_controllers__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5307,6 +5943,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_controllers__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_controllers__extra( void* attributeData )
 {
     return true;
 }
@@ -5382,6 +6024,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_geometries()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_geometries( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_GEOMETRIES__ASSET = "library_geometries__asset";
 
 //---------------------------------------------------------------------
@@ -5398,6 +6046,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_geometries__asset( con
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_geometries__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_geometries__asset( void* attributeData )
 {
     return true;
 }
@@ -5473,6 +6127,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__geometry()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__geometry( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_GEOMETRY__ASSET = "geometry__asset";
 
 //---------------------------------------------------------------------
@@ -5489,6 +6149,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__geometry__asset( const ParserA
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__geometry__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__geometry__asset( void* attributeData )
 {
     return true;
 }
@@ -5560,10 +6226,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CONVEX_MESH__SOURCE = "convex_mesh__source";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const convex_mesh__source__AttributeData convex_mesh__source__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_CONVEX_MESH__SOURCE = "convex_mesh__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__source( const ParserChar* text, size_t textLength )
@@ -5627,13 +6296,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_VERTICES = "vertices";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__VERTICES = "convex_mesh__vertices";
 
 //---------------------------------------------------------------------
-const convex_mesh__vertices__AttributeData convex_mesh__vertices__AttributeData::DEFAULT = {0, 0};
+const vertices__AttributeData vertices__AttributeData::DEFAULT = {0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__vertices( const ParserChar* text, size_t textLength )
@@ -5644,7 +6319,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__vertices( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__vertices( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__vertices__AttributeData* attributeData = newData<convex_mesh__vertices__AttributeData>(attributeDataPtr);
+vertices__AttributeData* attributeData = newData<vertices__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5697,10 +6372,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__vertices()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_VERTICES__INPUT = "vertices__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__vertices( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const vertices__input__AttributeData vertices__input__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_VERTICES__INPUT = "vertices__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__vertices__input( const ParserChar* text, size_t textLength )
@@ -5764,10 +6442,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__vertices__input()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_VERTICES__EXTRA = "vertices__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__vertices__input( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const vertices__extra__AttributeData vertices__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_VERTICES__EXTRA = "vertices__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__vertices__extra( const ParserChar* text, size_t textLength )
@@ -5778,7 +6459,7 @@ bool ColladaParserAutoGenPrivate::_data__vertices__extra( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__vertices__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-vertices__extra__AttributeData* attributeData = newData<vertices__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5838,6 +6519,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__vertices__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__vertices__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LINES = "lines";
 
 //---------------------------------------------------------------------
@@ -5847,7 +6534,7 @@ const char* NAME_ELEMENT_CONVEX_MESH__LINES = "convex_mesh__lines";
 const char* NAME_ATTRIBUTE_MATERIAL = "material";
 
 //---------------------------------------------------------------------
-const convex_mesh__lines__AttributeData convex_mesh__lines__AttributeData::DEFAULT = {0, 0, 0};
+const lines__AttributeData lines__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__lines( const ParserChar* text, size_t textLength )
@@ -5858,7 +6545,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__lines( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__lines( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__lines__AttributeData* attributeData = newData<convex_mesh__lines__AttributeData>(attributeDataPtr);
+lines__AttributeData* attributeData = newData<lines__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -5919,10 +6606,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__lines()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINES__INPUT = "lines__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__lines( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const lines__input__AttributeData lines__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_LINES__INPUT = "lines__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__lines__input( const ParserChar* text, size_t textLength )
@@ -6002,6 +6692,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__lines__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__lines__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_P = "p";
 
 //---------------------------------------------------------------------
@@ -6026,10 +6722,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__lines__p );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINES__EXTRA = "lines__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__lines__p( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const lines__extra__AttributeData lines__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LINES__EXTRA = "lines__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__lines__extra( const ParserChar* text, size_t textLength )
@@ -6040,7 +6739,7 @@ bool ColladaParserAutoGenPrivate::_data__lines__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__lines__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-lines__extra__AttributeData* attributeData = newData<lines__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6100,13 +6799,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__lines__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__lines__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LINESTRIPS = "linestrips";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__LINESTRIPS = "convex_mesh__linestrips";
 
 //---------------------------------------------------------------------
-const convex_mesh__linestrips__AttributeData convex_mesh__linestrips__AttributeData::DEFAULT = {0, 0, 0};
+const linestrips__AttributeData linestrips__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__linestrips( const ParserChar* text, size_t textLength )
@@ -6117,7 +6822,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__linestrips( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__linestrips( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__linestrips__AttributeData* attributeData = newData<convex_mesh__linestrips__AttributeData>(attributeDataPtr);
+linestrips__AttributeData* attributeData = newData<linestrips__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6178,10 +6883,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__linestrips()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINESTRIPS__INPUT = "linestrips__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__linestrips( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const linestrips__input__AttributeData linestrips__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_LINESTRIPS__INPUT = "linestrips__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linestrips__input( const ParserChar* text, size_t textLength )
@@ -6261,6 +6969,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__linestrips__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__linestrips__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LINESTRIPS__P = "linestrips__p";
 
 //---------------------------------------------------------------------
@@ -6282,10 +6996,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__linestrips__p );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINESTRIPS__EXTRA = "linestrips__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__linestrips__p( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const linestrips__extra__AttributeData linestrips__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LINESTRIPS__EXTRA = "linestrips__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linestrips__extra( const ParserChar* text, size_t textLength )
@@ -6296,7 +7013,7 @@ bool ColladaParserAutoGenPrivate::_data__linestrips__extra( const ParserChar* te
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__linestrips__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-linestrips__extra__AttributeData* attributeData = newData<linestrips__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6356,13 +7073,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__linestrips__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__linestrips__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_POLYGONS = "polygons";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__POLYGONS = "convex_mesh__polygons";
 
 //---------------------------------------------------------------------
-const convex_mesh__polygons__AttributeData convex_mesh__polygons__AttributeData::DEFAULT = {0, 0, 0};
+const polygons__AttributeData polygons__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__polygons( const ParserChar* text, size_t textLength )
@@ -6373,7 +7096,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__polygons( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__polygons( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__polygons__AttributeData* attributeData = newData<convex_mesh__polygons__AttributeData>(attributeDataPtr);
+polygons__AttributeData* attributeData = newData<polygons__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6434,10 +7157,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__polygons()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_POLYGONS__INPUT = "polygons__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__polygons( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const polygons__input__AttributeData polygons__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_POLYGONS__INPUT = "polygons__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polygons__input( const ParserChar* text, size_t textLength )
@@ -6517,6 +7243,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__polygons__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__polygons__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_POLYGONS__P = "polygons__p";
 
 //---------------------------------------------------------------------
@@ -6535,6 +7267,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__polygons__p( const ParserAttri
 bool ColladaParserAutoGenPrivate::_validateEnd__polygons__p()
 {
 return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__polygons__p );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__polygons__p( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -6562,6 +7300,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__ph()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__ph( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PH__P = "ph__p";
 
 //---------------------------------------------------------------------
@@ -6580,6 +7324,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__ph__p( const ParserAttributes&
 bool ColladaParserAutoGenPrivate::_validateEnd__ph__p()
 {
 return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__ph__p );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__ph__p( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -6607,10 +7357,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__h );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_POLYGONS__EXTRA = "polygons__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__h( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const polygons__extra__AttributeData polygons__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_POLYGONS__EXTRA = "polygons__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polygons__extra( const ParserChar* text, size_t textLength )
@@ -6621,7 +7374,7 @@ bool ColladaParserAutoGenPrivate::_data__polygons__extra( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__polygons__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-polygons__extra__AttributeData* attributeData = newData<polygons__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6681,13 +7434,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__polygons__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__polygons__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_POLYLIST = "polylist";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__POLYLIST = "convex_mesh__polylist";
 
 //---------------------------------------------------------------------
-const convex_mesh__polylist__AttributeData convex_mesh__polylist__AttributeData::DEFAULT = {0, 0, 0};
+const polylist__AttributeData polylist__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__polylist( const ParserChar* text, size_t textLength )
@@ -6698,7 +7457,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__polylist( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__polylist( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__polylist__AttributeData* attributeData = newData<convex_mesh__polylist__AttributeData>(attributeDataPtr);
+polylist__AttributeData* attributeData = newData<polylist__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6759,10 +7518,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__polylist()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_POLYLIST__INPUT = "polylist__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__polylist( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const polylist__input__AttributeData polylist__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_POLYLIST__INPUT = "polylist__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polylist__input( const ParserChar* text, size_t textLength )
@@ -6842,6 +7604,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__polylist__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__polylist__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_POLYLIST__VCOUNT = "polylist__vcount";
 
 //---------------------------------------------------------------------
@@ -6860,6 +7628,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__polylist__vcount( const Parser
 bool ColladaParserAutoGenPrivate::_validateEnd__polylist__vcount()
 {
 return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__polylist__vcount );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__polylist__vcount( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -6884,10 +7658,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__polylist__p );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_POLYLIST__EXTRA = "polylist__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__polylist__p( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const polylist__extra__AttributeData polylist__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_POLYLIST__EXTRA = "polylist__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__polylist__extra( const ParserChar* text, size_t textLength )
@@ -6898,7 +7675,7 @@ bool ColladaParserAutoGenPrivate::_data__polylist__extra( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__polylist__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-polylist__extra__AttributeData* attributeData = newData<polylist__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -6958,13 +7735,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__polylist__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__polylist__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRIANGLES = "triangles";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__TRIANGLES = "convex_mesh__triangles";
 
 //---------------------------------------------------------------------
-const convex_mesh__triangles__AttributeData convex_mesh__triangles__AttributeData::DEFAULT = {0, 0, 0};
+const triangles__AttributeData triangles__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__triangles( const ParserChar* text, size_t textLength )
@@ -6975,7 +7758,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__triangles( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__triangles( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__triangles__AttributeData* attributeData = newData<convex_mesh__triangles__AttributeData>(attributeDataPtr);
+triangles__AttributeData* attributeData = newData<triangles__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7036,10 +7819,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__triangles()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TRIANGLES__INPUT = "triangles__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__triangles( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const triangles__input__AttributeData triangles__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_TRIANGLES__INPUT = "triangles__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__triangles__input( const ParserChar* text, size_t textLength )
@@ -7119,6 +7905,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__triangles__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__triangles__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRIANGLES__P = "triangles__p";
 
 //---------------------------------------------------------------------
@@ -7140,10 +7932,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__triangles__p );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TRIANGLES__EXTRA = "triangles__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__triangles__p( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const triangles__extra__AttributeData triangles__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_TRIANGLES__EXTRA = "triangles__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__triangles__extra( const ParserChar* text, size_t textLength )
@@ -7154,7 +7949,7 @@ bool ColladaParserAutoGenPrivate::_data__triangles__extra( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__triangles__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-triangles__extra__AttributeData* attributeData = newData<triangles__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7214,13 +8009,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__triangles__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__triangles__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRIFANS = "trifans";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__TRIFANS = "convex_mesh__trifans";
 
 //---------------------------------------------------------------------
-const convex_mesh__trifans__AttributeData convex_mesh__trifans__AttributeData::DEFAULT = {0, 0, 0};
+const trifans__AttributeData trifans__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__trifans( const ParserChar* text, size_t textLength )
@@ -7231,7 +8032,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__trifans( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__trifans( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__trifans__AttributeData* attributeData = newData<convex_mesh__trifans__AttributeData>(attributeDataPtr);
+trifans__AttributeData* attributeData = newData<trifans__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7292,10 +8093,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__trifans()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TRIFANS__INPUT = "trifans__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__trifans( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const trifans__input__AttributeData trifans__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_TRIFANS__INPUT = "trifans__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__trifans__input( const ParserChar* text, size_t textLength )
@@ -7375,6 +8179,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__trifans__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__trifans__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRIFANS__P = "trifans__p";
 
 //---------------------------------------------------------------------
@@ -7396,10 +8206,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__trifans__p );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TRIFANS__EXTRA = "trifans__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__trifans__p( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const trifans__extra__AttributeData trifans__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_TRIFANS__EXTRA = "trifans__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__trifans__extra( const ParserChar* text, size_t textLength )
@@ -7410,7 +8223,7 @@ bool ColladaParserAutoGenPrivate::_data__trifans__extra( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__trifans__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-trifans__extra__AttributeData* attributeData = newData<trifans__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7470,13 +8283,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__trifans__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__trifans__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRISTRIPS = "tristrips";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONVEX_MESH__TRISTRIPS = "convex_mesh__tristrips";
 
 //---------------------------------------------------------------------
-const convex_mesh__tristrips__AttributeData convex_mesh__tristrips__AttributeData::DEFAULT = {0, 0, 0};
+const tristrips__AttributeData tristrips__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__tristrips( const ParserChar* text, size_t textLength )
@@ -7487,7 +8306,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__tristrips( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__tristrips( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__tristrips__AttributeData* attributeData = newData<convex_mesh__tristrips__AttributeData>(attributeDataPtr);
+tristrips__AttributeData* attributeData = newData<tristrips__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7548,10 +8367,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__tristrips()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TRISTRIPS__INPUT = "tristrips__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__tristrips( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const tristrips__input__AttributeData tristrips__input__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_TRISTRIPS__INPUT = "tristrips__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tristrips__input( const ParserChar* text, size_t textLength )
@@ -7631,6 +8453,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__tristrips__input()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tristrips__input( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRISTRIPS__P = "tristrips__p";
 
 //---------------------------------------------------------------------
@@ -7652,10 +8480,13 @@ return unsignedLongLongDataEnd( &ColladaParserAutoGen::data__tristrips__p );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TRISTRIPS__EXTRA = "tristrips__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__tristrips__p( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const tristrips__extra__AttributeData tristrips__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_TRISTRIPS__EXTRA = "tristrips__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tristrips__extra( const ParserChar* text, size_t textLength )
@@ -7666,7 +8497,7 @@ bool ColladaParserAutoGenPrivate::_data__tristrips__extra( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__tristrips__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-tristrips__extra__AttributeData* attributeData = newData<tristrips__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7726,10 +8557,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__tristrips__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CONVEX_MESH__EXTRA = "convex_mesh__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__tristrips__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const convex_mesh__extra__AttributeData convex_mesh__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_CONVEX_MESH__EXTRA = "convex_mesh__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__convex_mesh__extra( const ParserChar* text, size_t textLength )
@@ -7740,7 +8574,7 @@ bool ColladaParserAutoGenPrivate::_data__convex_mesh__extra( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__convex_mesh__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-convex_mesh__extra__AttributeData* attributeData = newData<convex_mesh__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7800,6 +8634,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__convex_mesh__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__convex_mesh__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MESH = "mesh";
 
 //---------------------------------------------------------------------
@@ -7824,10 +8664,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__SOURCE = "mesh__source";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__source__AttributeData mesh__source__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_MESH__SOURCE = "mesh__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__source( const ParserChar* text, size_t textLength )
@@ -7891,10 +8734,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__source()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__VERTICES = "mesh__vertices";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__source( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__vertices__AttributeData mesh__vertices__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_MESH__VERTICES = "mesh__vertices";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__vertices( const ParserChar* text, size_t textLength )
@@ -7905,7 +8751,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__vertices( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__vertices( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__vertices__AttributeData* attributeData = newData<mesh__vertices__AttributeData>(attributeDataPtr);
+vertices__AttributeData* attributeData = newData<vertices__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -7958,10 +8804,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__vertices()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__LINES = "mesh__lines";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__vertices( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__lines__AttributeData mesh__lines__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__LINES = "mesh__lines";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__lines( const ParserChar* text, size_t textLength )
@@ -7972,7 +8821,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__lines( const ParserChar* text, si
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__lines( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__lines__AttributeData* attributeData = newData<mesh__lines__AttributeData>(attributeDataPtr);
+lines__AttributeData* attributeData = newData<lines__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8033,10 +8882,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__lines()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__LINESTRIPS = "mesh__linestrips";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__lines( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__linestrips__AttributeData mesh__linestrips__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__LINESTRIPS = "mesh__linestrips";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__linestrips( const ParserChar* text, size_t textLength )
@@ -8047,7 +8899,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__linestrips( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__linestrips( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__linestrips__AttributeData* attributeData = newData<mesh__linestrips__AttributeData>(attributeDataPtr);
+linestrips__AttributeData* attributeData = newData<linestrips__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8108,10 +8960,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__linestrips()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__POLYGONS = "mesh__polygons";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__linestrips( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__polygons__AttributeData mesh__polygons__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__POLYGONS = "mesh__polygons";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__polygons( const ParserChar* text, size_t textLength )
@@ -8122,7 +8977,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__polygons( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__polygons( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__polygons__AttributeData* attributeData = newData<mesh__polygons__AttributeData>(attributeDataPtr);
+polygons__AttributeData* attributeData = newData<polygons__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8183,10 +9038,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__polygons()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__POLYLIST = "mesh__polylist";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__polygons( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__polylist__AttributeData mesh__polylist__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__POLYLIST = "mesh__polylist";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__polylist( const ParserChar* text, size_t textLength )
@@ -8197,7 +9055,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__polylist( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__polylist( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__polylist__AttributeData* attributeData = newData<mesh__polylist__AttributeData>(attributeDataPtr);
+polylist__AttributeData* attributeData = newData<polylist__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8258,10 +9116,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__polylist()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__TRIANGLES = "mesh__triangles";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__polylist( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__triangles__AttributeData mesh__triangles__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__TRIANGLES = "mesh__triangles";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__triangles( const ParserChar* text, size_t textLength )
@@ -8272,7 +9133,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__triangles( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__triangles( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__triangles__AttributeData* attributeData = newData<mesh__triangles__AttributeData>(attributeDataPtr);
+triangles__AttributeData* attributeData = newData<triangles__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8333,10 +9194,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__triangles()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__TRIFANS = "mesh__trifans";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__triangles( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__trifans__AttributeData mesh__trifans__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__TRIFANS = "mesh__trifans";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__trifans( const ParserChar* text, size_t textLength )
@@ -8347,7 +9211,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__trifans( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__trifans( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__trifans__AttributeData* attributeData = newData<mesh__trifans__AttributeData>(attributeDataPtr);
+trifans__AttributeData* attributeData = newData<trifans__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8408,10 +9272,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__trifans()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__TRISTRIPS = "mesh__tristrips";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__trifans( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__tristrips__AttributeData mesh__tristrips__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__TRISTRIPS = "mesh__tristrips";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__tristrips( const ParserChar* text, size_t textLength )
@@ -8422,7 +9289,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__tristrips( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__tristrips( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__tristrips__AttributeData* attributeData = newData<mesh__tristrips__AttributeData>(attributeDataPtr);
+tristrips__AttributeData* attributeData = newData<tristrips__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8483,10 +9350,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mesh__tristrips()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MESH__EXTRA = "mesh__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__tristrips( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mesh__extra__AttributeData mesh__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MESH__EXTRA = "mesh__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mesh__extra( const ParserChar* text, size_t textLength )
@@ -8497,7 +9367,7 @@ bool ColladaParserAutoGenPrivate::_data__mesh__extra( const ParserChar* text, si
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mesh__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mesh__extra__AttributeData* attributeData = newData<mesh__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8552,6 +9422,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__mesh__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__mesh__extra( void* attributeData )
 {
     return true;
 }
@@ -8624,10 +9500,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spline()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SPLINE__SOURCE = "spline__source";
+bool ColladaParserAutoGenPrivate::_freeAttributes__spline( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const spline__source__AttributeData spline__source__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_SPLINE__SOURCE = "spline__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spline__source( const ParserChar* text, size_t textLength )
@@ -8691,6 +9570,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spline__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__spline__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONTROL_VERTICES = "control_vertices";
 
 //---------------------------------------------------------------------
@@ -8715,10 +9600,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__control_vertices()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CONTROL_VERTICES__INPUT = "control_vertices__input";
+bool ColladaParserAutoGenPrivate::_freeAttributes__control_vertices( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const control_vertices__input__AttributeData control_vertices__input__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_CONTROL_VERTICES__INPUT = "control_vertices__input";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__control_vertices__input( const ParserChar* text, size_t textLength )
@@ -8782,10 +9670,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__control_vertices__input()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CONTROL_VERTICES__EXTRA = "control_vertices__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__control_vertices__input( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const control_vertices__extra__AttributeData control_vertices__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_CONTROL_VERTICES__EXTRA = "control_vertices__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__control_vertices__extra( const ParserChar* text, size_t textLength )
@@ -8796,7 +9687,7 @@ bool ColladaParserAutoGenPrivate::_data__control_vertices__extra( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__control_vertices__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-control_vertices__extra__AttributeData* attributeData = newData<control_vertices__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8856,10 +9747,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__control_vertices__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SPLINE__EXTRA = "spline__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__control_vertices__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const spline__extra__AttributeData spline__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_SPLINE__EXTRA = "spline__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spline__extra( const ParserChar* text, size_t textLength )
@@ -8870,7 +9764,7 @@ bool ColladaParserAutoGenPrivate::_data__spline__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__spline__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-spline__extra__AttributeData* attributeData = newData<spline__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -8930,10 +9824,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spline__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_GEOMETRY__EXTRA = "geometry__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__spline__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const geometry__extra__AttributeData geometry__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_GEOMETRY__EXTRA = "geometry__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__geometry__extra( const ParserChar* text, size_t textLength )
@@ -8944,7 +9841,7 @@ bool ColladaParserAutoGenPrivate::_data__geometry__extra( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__geometry__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-geometry__extra__AttributeData* attributeData = newData<geometry__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -9004,10 +9901,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__geometry__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_GEOMETRIES__EXTRA = "library_geometries__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__geometry__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_geometries__extra__AttributeData library_geometries__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_GEOMETRIES__EXTRA = "library_geometries__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_geometries__extra( const ParserChar* text, size_t textLength )
@@ -9018,7 +9918,7 @@ bool ColladaParserAutoGenPrivate::_data__library_geometries__extra( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_geometries__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_geometries__extra__AttributeData* attributeData = newData<library_geometries__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -9073,6 +9973,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_geometries__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_geometries__extra( void* attributeData )
 {
     return true;
 }
@@ -9148,6 +10054,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_effects()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_effects( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_EFFECTS__ASSET = "library_effects__asset";
 
 //---------------------------------------------------------------------
@@ -9164,6 +10076,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_effects__asset( const 
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_effects__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_effects__asset( void* attributeData )
 {
     return true;
 }
@@ -9239,6 +10157,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__effect()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__effect( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_EFFECT__ASSET = "effect__asset";
 
 //---------------------------------------------------------------------
@@ -9260,13 +10184,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__effect__asset()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__effect__asset( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ANNOTATE = "annotate";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_EFFECT__ANNOTATE = "effect__annotate";
 
 //---------------------------------------------------------------------
-const effect__annotate__AttributeData effect__annotate__AttributeData::DEFAULT = {0};
+const annotate__AttributeData annotate__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__effect__annotate( const ParserChar* text, size_t textLength )
@@ -9277,7 +10207,7 @@ bool ColladaParserAutoGenPrivate::_data__effect__annotate( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__effect__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-effect__annotate__AttributeData* attributeData = newData<effect__annotate__AttributeData>(attributeDataPtr);
+annotate__AttributeData* attributeData = newData<annotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -9323,6 +10253,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__effect__annotate()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__effect__annotate( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_BOOL = "bool";
 
 //---------------------------------------------------------------------
@@ -9331,13 +10267,19 @@ const char* NAME_ELEMENT_ANNOTATE__BOOL = "annotate__bool";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__bool( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__annotate__bool(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__BOOL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -9348,6 +10290,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__bool( const ParserAt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__bool()
+{
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__annotate__bool(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__bool( void* attributeData )
 {
     return true;
 }
@@ -9377,6 +10335,12 @@ return boolDataEnd( &ColladaParserAutoGen::data__annotate__bool2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__bool2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_BOOL3 = "bool3";
 
 //---------------------------------------------------------------------
@@ -9398,6 +10362,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__bool3( const ParserA
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__bool3()
 {
 return boolDataEnd( &ColladaParserAutoGen::data__annotate__bool3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__bool3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -9425,6 +10395,12 @@ return boolDataEnd( &ColladaParserAutoGen::data__annotate__bool4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__bool4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INT = "int";
 
 //---------------------------------------------------------------------
@@ -9433,13 +10409,19 @@ const char* NAME_ELEMENT_ANNOTATE__INT = "annotate__int";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__int( const ParserChar* text, size_t textLength )
 {
-bool failed;
-long parameter = GeneratedSaxParser::Utils::toLong(text, failed);
-if (!failed)
-    return mImpl->data__annotate__int(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__INT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -9450,6 +10432,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__int( const ParserAtt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__int()
+{
+bool failed;
+long parameter = GeneratedSaxParser::Utils::toLong((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__annotate__int(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__INT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__int( void* attributeData )
 {
     return true;
 }
@@ -9479,6 +10477,12 @@ return longDataEnd( &ColladaParserAutoGen::data__annotate__int2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__int2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INT3 = "int3";
 
 //---------------------------------------------------------------------
@@ -9500,6 +10504,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__int3( const ParserAt
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__int3()
 {
 return longDataEnd( &ColladaParserAutoGen::data__annotate__int3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__int3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -9527,6 +10537,12 @@ return longDataEnd( &ColladaParserAutoGen::data__annotate__int4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__int4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT = "float";
 
 //---------------------------------------------------------------------
@@ -9535,13 +10551,19 @@ const char* NAME_ELEMENT_ANNOTATE__FLOAT = "annotate__float";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__float( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__annotate__float(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__FLOAT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -9552,6 +10574,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float( const ParserA
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__annotate__float(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANNOTATE__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float( void* attributeData )
 {
     return true;
 }
@@ -9581,6 +10619,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT3 = "float3";
 
 //---------------------------------------------------------------------
@@ -9602,6 +10646,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float3( const Parser
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -9629,6 +10679,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT2X2 = "float2x2";
 
 //---------------------------------------------------------------------
@@ -9650,6 +10706,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__float2x2( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__float2x2()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float2x2 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float2x2( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -9677,6 +10739,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float3x3 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float3x3( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT4X4 = "float4x4";
 
 //---------------------------------------------------------------------
@@ -9701,6 +10769,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__annotate__float4x4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__float4x4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_STRING = "string";
 
 //---------------------------------------------------------------------
@@ -9709,9 +10783,7 @@ const char* NAME_ELEMENT_ANNOTATE__STRING = "annotate__string";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__annotate__string( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__annotate__string(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -9722,6 +10794,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__annotate__string( const Parser
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__annotate__string()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__annotate__string( void* attributeData )
 {
     return true;
 }
@@ -9745,7 +10823,7 @@ const char* NAME_ATTRIBUTE_WIDTH = "width";
 const char* NAME_ATTRIBUTE_DEPTH = "depth";
 
 //---------------------------------------------------------------------
-const effect__image__AttributeData effect__image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, 1};
+const image__AttributeData image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, 1};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__effect__image( const ParserChar* text, size_t textLength )
@@ -9756,7 +10834,7 @@ bool ColladaParserAutoGenPrivate::_data__effect__image( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__effect__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-effect__image__AttributeData* attributeData = newData<effect__image__AttributeData>(attributeDataPtr);
+image__AttributeData* attributeData = newData<image__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -9840,6 +10918,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__effect__image()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__effect__image( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_IMAGE__ASSET = "image__asset";
 
 //---------------------------------------------------------------------
@@ -9856,6 +10940,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__image__asset( const ParserAttr
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__image__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__image__asset( void* attributeData )
 {
     return true;
 }
@@ -9885,6 +10975,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__data()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__data( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INIT_FROM = "init_from";
 
 //---------------------------------------------------------------------
@@ -9893,9 +10989,7 @@ const char* NAME_ELEMENT_IMAGE__INIT_FROM = "image__init_from";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__image__init_from( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__image__init_from(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -9911,10 +11005,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__image__init_from()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_IMAGE__EXTRA = "image__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__image__init_from( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const image__extra__AttributeData image__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_IMAGE__EXTRA = "image__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__image__extra( const ParserChar* text, size_t textLength )
@@ -9925,7 +11022,7 @@ bool ColladaParserAutoGenPrivate::_data__image__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__image__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-image__extra__AttributeData* attributeData = newData<image__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -9980,6 +11077,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__image__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__image__extra( void* attributeData )
 {
     return true;
 }
@@ -10048,10 +11151,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__effect__newparam()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_NEWPARAM__ANNOTATE = "newparam__annotate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__effect__newparam( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const newparam__annotate__AttributeData newparam__annotate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_NEWPARAM__ANNOTATE = "newparam__annotate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__annotate( const ParserChar* text, size_t textLength )
@@ -10062,7 +11168,7 @@ bool ColladaParserAutoGenPrivate::_data__newparam__annotate( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__newparam__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-newparam__annotate__AttributeData* attributeData = newData<newparam__annotate__AttributeData>(attributeDataPtr);
+annotate__AttributeData* attributeData = newData<annotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -10108,6 +11214,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__annotate()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__annotate( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SEMANTIC = "semantic";
 
 //---------------------------------------------------------------------
@@ -10116,9 +11228,7 @@ const char* NAME_ELEMENT_NEWPARAM__SEMANTIC = "newparam__semantic";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__semantic( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__semantic(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10134,6 +11244,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__semantic()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__semantic( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MODIFIER = "modifier";
 
 //---------------------------------------------------------------------
@@ -10142,9 +11258,7 @@ const char* NAME_ELEMENT_NEWPARAM__MODIFIER = "newparam__modifier";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__modifier( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__modifier(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10160,18 +11274,30 @@ bool ColladaParserAutoGenPrivate::_validateEnd__modifier()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__modifier( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__BOOL = "newparam__bool";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__bool( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__newparam__bool(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -10182,6 +11308,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__bool( const ParserAt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__bool()
+{
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__newparam__bool(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__bool( void* attributeData )
 {
     return true;
 }
@@ -10208,6 +11350,12 @@ return boolDataEnd( &ColladaParserAutoGen::data__newparam__bool2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__bool2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__BOOL3 = "newparam__bool3";
 
 //---------------------------------------------------------------------
@@ -10226,6 +11374,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__bool3( const ParserA
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__bool3()
 {
 return boolDataEnd( &ColladaParserAutoGen::data__newparam__bool3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__bool3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10250,18 +11404,30 @@ return boolDataEnd( &ColladaParserAutoGen::data__newparam__bool4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__bool4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__INT = "newparam__int";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__int( const ParserChar* text, size_t textLength )
 {
-bool failed;
-long parameter = GeneratedSaxParser::Utils::toLong(text, failed);
-if (!failed)
-    return mImpl->data__newparam__int(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -10272,6 +11438,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__int( const ParserAtt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__int()
+{
+bool failed;
+long parameter = GeneratedSaxParser::Utils::toLong((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__newparam__int(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__INT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__int( void* attributeData )
 {
     return true;
 }
@@ -10298,6 +11480,12 @@ return longDataEnd( &ColladaParserAutoGen::data__newparam__int2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__int2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__INT3 = "newparam__int3";
 
 //---------------------------------------------------------------------
@@ -10316,6 +11504,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__int3( const ParserAt
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__int3()
 {
 return longDataEnd( &ColladaParserAutoGen::data__newparam__int3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__int3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10340,18 +11534,30 @@ return longDataEnd( &ColladaParserAutoGen::data__newparam__int4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__int4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__FLOAT = "newparam__float";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__float( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__newparam__float(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -10362,6 +11568,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float( const ParserA
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__newparam__float(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float( void* attributeData )
 {
     return true;
 }
@@ -10388,6 +11610,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__FLOAT3 = "newparam__float3";
 
 //---------------------------------------------------------------------
@@ -10406,6 +11634,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3( const Parser
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10430,6 +11664,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT1X1 = "float1x1";
 
 //---------------------------------------------------------------------
@@ -10438,13 +11678,19 @@ const char* NAME_ELEMENT_NEWPARAM__FLOAT1X1 = "newparam__float1x1";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__float1x1( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__newparam__float1x1(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1X1, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -10455,6 +11701,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float1x1( const Pars
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float1x1()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__newparam__float1x1(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_NEWPARAM__FLOAT1X1, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float1x1( void* attributeData )
 {
     return true;
 }
@@ -10484,6 +11746,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float1x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float1x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT1X3 = "float1x3";
 
 //---------------------------------------------------------------------
@@ -10505,6 +11773,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float1x3( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float1x3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float1x3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float1x3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10532,6 +11806,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float1x4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float1x4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT2X1 = "float2x1";
 
 //---------------------------------------------------------------------
@@ -10556,6 +11836,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x1 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float2x1( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__FLOAT2X2 = "newparam__float2x2";
 
 //---------------------------------------------------------------------
@@ -10574,6 +11860,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2x2( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2x2()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x2 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float2x2( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10601,6 +11893,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x3 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float2x3( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT2X4 = "float2x4";
 
 //---------------------------------------------------------------------
@@ -10622,6 +11920,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float2x4( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float2x4()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float2x4 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float2x4( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10649,6 +11953,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x1 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float3x1( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT3X2 = "float3x2";
 
 //---------------------------------------------------------------------
@@ -10673,6 +11983,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float3x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__FLOAT3X3 = "newparam__float3x3";
 
 //---------------------------------------------------------------------
@@ -10691,6 +12007,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float3x3( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float3x3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float3x3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10718,6 +12040,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float3x4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float3x4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT4X1 = "float4x1";
 
 //---------------------------------------------------------------------
@@ -10739,6 +12067,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4x1( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4x1()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x1 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float4x1( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10766,6 +12100,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float4x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FLOAT4X3 = "float4x3";
 
 //---------------------------------------------------------------------
@@ -10790,6 +12130,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x3 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float4x3( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NEWPARAM__FLOAT4X4 = "newparam__float4x4";
 
 //---------------------------------------------------------------------
@@ -10808,6 +12154,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__newparam__float4x4( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__newparam__float4x4()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__newparam__float4x4 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__float4x4( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10874,6 +12226,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__surface()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__surface( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INIT_AS_NULL = "init_as_null";
 
 //---------------------------------------------------------------------
@@ -10882,9 +12240,7 @@ const char* NAME_ELEMENT_SURFACE__INIT_AS_NULL = "surface__init_as_null";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__init_as_null( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__init_as_null(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10900,6 +12256,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_as_null()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_as_null( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INIT_AS_TARGET = "init_as_target";
 
 //---------------------------------------------------------------------
@@ -10908,9 +12270,7 @@ const char* NAME_ELEMENT_SURFACE__INIT_AS_TARGET = "surface__init_as_target";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__init_as_target( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__init_as_target(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -10921,6 +12281,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__init_as_target( const ParserAt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__init_as_target()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_as_target( void* attributeData )
 {
     return true;
 }
@@ -10945,6 +12311,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__init_cube( const ParserAttribu
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__init_cube()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_cube( void* attributeData )
 {
     return true;
 }
@@ -11016,6 +12388,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_cube__all()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_cube__all( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PRIMARY = "primary";
 
 //---------------------------------------------------------------------
@@ -11079,6 +12457,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_cube__primary()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_cube__primary( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ORDER = "order";
 
 //---------------------------------------------------------------------
@@ -11087,9 +12471,7 @@ const char* NAME_ELEMENT_PRIMARY__ORDER = "primary__order";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__order( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__order(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11100,6 +12482,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__order( const ParserAttributes&
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__order()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__order( void* attributeData )
 {
     return true;
 }
@@ -11168,6 +12556,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_cube__face()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_cube__face( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INIT_VOLUME = "init_volume";
 
 //---------------------------------------------------------------------
@@ -11187,6 +12581,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__init_volume( const ParserAttri
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__init_volume()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_volume( void* attributeData )
 {
     return true;
 }
@@ -11252,6 +12652,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_volume__all()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_volume__all( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INIT_VOLUME__PRIMARY = "init_volume__primary";
 
 //---------------------------------------------------------------------
@@ -11312,6 +12718,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_volume__primary()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_volume__primary( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INIT_PLANAR = "init_planar";
 
 //---------------------------------------------------------------------
@@ -11331,6 +12743,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__init_planar( const ParserAttri
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__init_planar()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_planar( void* attributeData )
 {
     return true;
 }
@@ -11396,6 +12814,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__init_planar__all()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__init_planar__all( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SURFACE__INIT_FROM = "surface__init_from";
 
 //---------------------------------------------------------------------
@@ -11413,9 +12837,7 @@ const surface__init_from__AttributeData surface__init_from__AttributeData::DEFAU
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__surface__init_from( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__surface__init_from(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11483,6 +12905,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__surface__init_from()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__surface__init_from( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FORMAT = "format";
 
 //---------------------------------------------------------------------
@@ -11491,9 +12919,7 @@ const char* NAME_ELEMENT_SURFACE__FORMAT = "surface__format";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__format( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__format(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11504,6 +12930,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__format( const ParserAttributes
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__format()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__format( void* attributeData )
 {
     return true;
 }
@@ -11533,6 +12965,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__format_hint()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__format_hint( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CHANNELS = "channels";
 
 //---------------------------------------------------------------------
@@ -11541,9 +12979,7 @@ const char* NAME_ELEMENT_FORMAT_HINT__CHANNELS = "format_hint__channels";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__channels( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__channels(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11559,6 +12995,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__channels()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__channels( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_RANGE = "range";
 
 //---------------------------------------------------------------------
@@ -11567,9 +13009,7 @@ const char* NAME_ELEMENT_FORMAT_HINT__RANGE = "format_hint__range";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__range( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__range(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11585,6 +13025,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__range()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__range( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PRECISION = "precision";
 
 //---------------------------------------------------------------------
@@ -11593,9 +13039,7 @@ const char* NAME_ELEMENT_FORMAT_HINT__PRECISION = "format_hint__precision";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__precision( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__precision(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11611,6 +13055,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__precision()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__precision( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_OPTION = "option";
 
 //---------------------------------------------------------------------
@@ -11619,9 +13069,7 @@ const char* NAME_ELEMENT_FORMAT_HINT__OPTION = "format_hint__option";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__option( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__option(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11637,10 +13085,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__option()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_FORMAT_HINT__EXTRA = "format_hint__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__option( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const format_hint__extra__AttributeData format_hint__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_FORMAT_HINT__EXTRA = "format_hint__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__format_hint__extra( const ParserChar* text, size_t textLength )
@@ -11651,7 +13102,7 @@ bool ColladaParserAutoGenPrivate::_data__format_hint__extra( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__format_hint__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-format_hint__extra__AttributeData* attributeData = newData<format_hint__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -11711,6 +13162,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__format_hint__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__format_hint__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SIZE = "size";
 
 //---------------------------------------------------------------------
@@ -11732,6 +13189,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__surface__size( const ParserAtt
 bool ColladaParserAutoGenPrivate::_validateEnd__surface__size()
 {
 return longDataEnd( &ColladaParserAutoGen::data__surface__size );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__surface__size( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11759,6 +13222,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__viewport_ratio );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__viewport_ratio( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MIP_LEVELS = "mip_levels";
 
 //---------------------------------------------------------------------
@@ -11767,13 +13236,19 @@ const char* NAME_ELEMENT_SURFACE__MIP_LEVELS = "surface__mip_levels";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mip_levels( const ParserChar* text, size_t textLength )
 {
-bool failed;
-unsigned long parameter = GeneratedSaxParser::Utils::toUnsignedLong(text, failed);
-if (!failed)
-    return mImpl->data__mip_levels(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIP_LEVELS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -11784,6 +13259,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__mip_levels( const ParserAttrib
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__mip_levels()
+{
+bool failed;
+unsigned long parameter = GeneratedSaxParser::Utils::toUnsignedLong((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__mip_levels(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIP_LEVELS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__mip_levels( void* attributeData )
 {
     return true;
 }
@@ -11797,13 +13288,19 @@ const char* NAME_ELEMENT_SURFACE__MIPMAP_GENERATE = "surface__mipmap_generate";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mipmap_generate( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__mipmap_generate(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIPMAP_GENERATE, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -11815,14 +13312,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__mipmap_generate( const ParserA
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__mipmap_generate()
 {
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__mipmap_generate(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_MIPMAP_GENERATE, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__mipmap_generate( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SURFACE__EXTRA = "surface__extra";
-
-//---------------------------------------------------------------------
-const surface__extra__AttributeData surface__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__surface__extra( const ParserChar* text, size_t textLength )
@@ -11833,7 +13343,7 @@ bool ColladaParserAutoGenPrivate::_data__surface__extra( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__surface__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-surface__extra__AttributeData* attributeData = newData<surface__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -11893,6 +13403,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__surface__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__surface__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER1D = "sampler1D";
 
 //---------------------------------------------------------------------
@@ -11917,14 +13433,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__sampler1D()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__sampler1D( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER1D__SOURCE = "sampler1D__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__source( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler1D__source(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11940,6 +13460,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_WRAP_S = "wrap_s";
 
 //---------------------------------------------------------------------
@@ -11948,9 +13474,7 @@ const char* NAME_ELEMENT_SAMPLER1D__WRAP_S = "sampler1D__wrap_s";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__wrap_s( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler1D__wrap_s(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11966,6 +13490,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__wrap_s()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__wrap_s( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MINFILTER = "minfilter";
 
 //---------------------------------------------------------------------
@@ -11974,9 +13504,7 @@ const char* NAME_ELEMENT_SAMPLER1D__MINFILTER = "sampler1D__minfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__minfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler1D__minfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -11992,6 +13520,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__minfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__minfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MAGFILTER = "magfilter";
 
 //---------------------------------------------------------------------
@@ -12000,9 +13534,7 @@ const char* NAME_ELEMENT_SAMPLER1D__MAGFILTER = "sampler1D__magfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__magfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler1D__magfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12018,6 +13550,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__magfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__magfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MIPFILTER = "mipfilter";
 
 //---------------------------------------------------------------------
@@ -12026,9 +13564,7 @@ const char* NAME_ELEMENT_SAMPLER1D__MIPFILTER = "sampler1D__mipfilter";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__mipfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler1D__mipfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12039,6 +13575,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler1D__mipfilter( const Pa
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__mipfilter()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__mipfilter( void* attributeData )
 {
     return true;
 }
@@ -12068,6 +13610,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__sampler1D__border_color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__border_color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MIPMAP_MAXLEVEL = "mipmap_maxlevel";
 
 //---------------------------------------------------------------------
@@ -12076,13 +13624,19 @@ const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL = "sampler1D__mipmap_maxleve
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-bool failed;
-unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
-if (!failed)
-    return mImpl->data__sampler1D__mipmap_maxlevel(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -12093,6 +13647,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler1D__mipmap_maxlevel( co
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__mipmap_maxlevel()
+{
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sampler1D__mipmap_maxlevel(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__mipmap_maxlevel( void* attributeData )
 {
     return true;
 }
@@ -12106,13 +13676,19 @@ const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_BIAS = "sampler1D__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__sampler1D__mipmap_bias(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_BIAS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -12124,14 +13700,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler1D__mipmap_bias( const 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__mipmap_bias()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sampler1D__mipmap_bias(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER1D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__mipmap_bias( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER1D__EXTRA = "sampler1D__extra";
-
-//---------------------------------------------------------------------
-const sampler1D__extra__AttributeData sampler1D__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler1D__extra( const ParserChar* text, size_t textLength )
@@ -12142,7 +13731,7 @@ bool ColladaParserAutoGenPrivate::_data__sampler1D__extra( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__sampler1D__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-sampler1D__extra__AttributeData* attributeData = newData<sampler1D__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -12202,6 +13791,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler1D__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler1D__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D = "sampler2D";
 
 //---------------------------------------------------------------------
@@ -12226,14 +13821,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__sampler2D()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__sampler2D( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__SOURCE = "sampler2D__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__source( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler2D__source(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12249,14 +13848,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__WRAP_S = "sampler2D__wrap_s";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__wrap_s( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler2D__wrap_s(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12272,6 +13875,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__wrap_s()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__wrap_s( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_WRAP_T = "wrap_t";
 
 //---------------------------------------------------------------------
@@ -12280,9 +13889,7 @@ const char* NAME_ELEMENT_SAMPLER2D__WRAP_T = "sampler2D__wrap_t";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__wrap_t( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler2D__wrap_t(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12298,14 +13905,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__wrap_t()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__wrap_t( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__MINFILTER = "sampler2D__minfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__minfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler2D__minfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12321,14 +13932,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__minfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__minfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__MAGFILTER = "sampler2D__magfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__magfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler2D__magfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12344,14 +13959,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__magfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__magfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__MIPFILTER = "sampler2D__mipfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__mipfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler2D__mipfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12362,6 +13981,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler2D__mipfilter( const Pa
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__mipfilter()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__mipfilter( void* attributeData )
 {
     return true;
 }
@@ -12388,18 +14013,30 @@ return doubleDataEnd( &ColladaParserAutoGen::data__sampler2D__border_color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__border_color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL = "sampler2D__mipmap_maxlevel";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-bool failed;
-unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
-if (!failed)
-    return mImpl->data__sampler2D__mipmap_maxlevel(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -12411,6 +14048,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler2D__mipmap_maxlevel( co
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__mipmap_maxlevel()
 {
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sampler2D__mipmap_maxlevel(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__mipmap_maxlevel( void* attributeData )
+{
     return true;
 }
 
@@ -12420,13 +14073,19 @@ const char* NAME_ELEMENT_SAMPLER2D__MIPMAP_BIAS = "sampler2D__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__sampler2D__mipmap_bias(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_BIAS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -12438,14 +14097,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler2D__mipmap_bias( const 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__mipmap_bias()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sampler2D__mipmap_bias(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER2D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__mipmap_bias( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER2D__EXTRA = "sampler2D__extra";
-
-//---------------------------------------------------------------------
-const sampler2D__extra__AttributeData sampler2D__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler2D__extra( const ParserChar* text, size_t textLength )
@@ -12456,7 +14128,7 @@ bool ColladaParserAutoGenPrivate::_data__sampler2D__extra( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__sampler2D__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-sampler2D__extra__AttributeData* attributeData = newData<sampler2D__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -12516,6 +14188,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler2D__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler2D__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D = "sampler3D";
 
 //---------------------------------------------------------------------
@@ -12540,14 +14218,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__sampler3D()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__sampler3D( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__SOURCE = "sampler3D__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__source( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__source(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12563,14 +14245,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__WRAP_S = "sampler3D__wrap_s";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__wrap_s( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__wrap_s(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12586,14 +14272,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__wrap_s()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__wrap_s( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__WRAP_T = "sampler3D__wrap_t";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__wrap_t( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__wrap_t(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12609,6 +14299,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__wrap_t()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__wrap_t( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_WRAP_P = "wrap_p";
 
 //---------------------------------------------------------------------
@@ -12617,9 +14313,7 @@ const char* NAME_ELEMENT_SAMPLER3D__WRAP_P = "sampler3D__wrap_p";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__wrap_p( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__wrap_p(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12635,14 +14329,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__wrap_p()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__wrap_p( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__MINFILTER = "sampler3D__minfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__minfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__minfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12658,14 +14356,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__minfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__minfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__MAGFILTER = "sampler3D__magfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__magfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__magfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12681,14 +14383,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__magfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__magfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__MIPFILTER = "sampler3D__mipfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__mipfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__sampler3D__mipfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12699,6 +14405,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler3D__mipfilter( const Pa
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__mipfilter()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__mipfilter( void* attributeData )
 {
     return true;
 }
@@ -12725,18 +14437,30 @@ return doubleDataEnd( &ColladaParserAutoGen::data__sampler3D__border_color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__border_color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL = "sampler3D__mipmap_maxlevel";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-bool failed;
-unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
-if (!failed)
-    return mImpl->data__sampler3D__mipmap_maxlevel(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -12748,6 +14472,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler3D__mipmap_maxlevel( co
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__mipmap_maxlevel()
 {
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sampler3D__mipmap_maxlevel(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__mipmap_maxlevel( void* attributeData )
+{
     return true;
 }
 
@@ -12757,13 +14497,19 @@ const char* NAME_ELEMENT_SAMPLER3D__MIPMAP_BIAS = "sampler3D__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__sampler3D__mipmap_bias(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_BIAS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -12775,14 +14521,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sampler3D__mipmap_bias( const 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__mipmap_bias()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sampler3D__mipmap_bias(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLER3D__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__mipmap_bias( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLER3D__EXTRA = "sampler3D__extra";
-
-//---------------------------------------------------------------------
-const sampler3D__extra__AttributeData sampler3D__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sampler3D__extra( const ParserChar* text, size_t textLength )
@@ -12793,7 +14552,7 @@ bool ColladaParserAutoGenPrivate::_data__sampler3D__extra( const ParserChar* tex
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__sampler3D__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-sampler3D__extra__AttributeData* attributeData = newData<sampler3D__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -12853,6 +14612,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sampler3D__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sampler3D__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE = "samplerCUBE";
 
 //---------------------------------------------------------------------
@@ -12877,14 +14642,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__samplerCUBE()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__samplerCUBE( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__SOURCE = "samplerCUBE__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__source( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__source(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12900,14 +14669,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__WRAP_S = "samplerCUBE__wrap_s";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__wrap_s( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__wrap_s(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12923,14 +14696,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__wrap_s()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__wrap_s( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__WRAP_T = "samplerCUBE__wrap_t";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__wrap_t( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__wrap_t(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12946,14 +14723,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__wrap_t()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__wrap_t( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__WRAP_P = "samplerCUBE__wrap_p";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__wrap_p( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__wrap_p(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12969,14 +14750,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__wrap_p()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__wrap_p( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__MINFILTER = "samplerCUBE__minfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__minfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__minfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -12992,14 +14777,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__minfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__minfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__MAGFILTER = "samplerCUBE__magfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__magfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__magfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13015,14 +14804,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__magfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__magfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__MIPFILTER = "samplerCUBE__mipfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__mipfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerCUBE__mipfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13033,6 +14826,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerCUBE__mipfilter( const 
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__mipfilter()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__mipfilter( void* attributeData )
 {
     return true;
 }
@@ -13059,18 +14858,30 @@ return doubleDataEnd( &ColladaParserAutoGen::data__samplerCUBE__border_color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__border_color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL = "samplerCUBE__mipmap_maxlevel";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-bool failed;
-unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
-if (!failed)
-    return mImpl->data__samplerCUBE__mipmap_maxlevel(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -13082,6 +14893,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerCUBE__mipmap_maxlevel( 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__mipmap_maxlevel()
 {
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__samplerCUBE__mipmap_maxlevel(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__mipmap_maxlevel( void* attributeData )
+{
     return true;
 }
 
@@ -13091,13 +14918,19 @@ const char* NAME_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS = "samplerCUBE__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__samplerCUBE__mipmap_bias(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -13109,14 +14942,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerCUBE__mipmap_bias( cons
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__mipmap_bias()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__samplerCUBE__mipmap_bias(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__mipmap_bias( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERCUBE__EXTRA = "samplerCUBE__extra";
-
-//---------------------------------------------------------------------
-const samplerCUBE__extra__AttributeData samplerCUBE__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerCUBE__extra( const ParserChar* text, size_t textLength )
@@ -13127,7 +14973,7 @@ bool ColladaParserAutoGenPrivate::_data__samplerCUBE__extra( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__samplerCUBE__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-samplerCUBE__extra__AttributeData* attributeData = newData<samplerCUBE__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -13187,6 +15033,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerCUBE__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerCUBE__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT = "samplerRECT";
 
 //---------------------------------------------------------------------
@@ -13211,14 +15063,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__samplerRECT()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__samplerRECT( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__SOURCE = "samplerRECT__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__source( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerRECT__source(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13234,14 +15090,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__WRAP_S = "samplerRECT__wrap_s";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__wrap_s( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerRECT__wrap_s(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13257,14 +15117,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__wrap_s()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__wrap_s( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__WRAP_T = "samplerRECT__wrap_t";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__wrap_t( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerRECT__wrap_t(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13280,14 +15144,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__wrap_t()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__wrap_t( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__MINFILTER = "samplerRECT__minfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__minfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerRECT__minfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13303,14 +15171,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__minfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__minfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__MAGFILTER = "samplerRECT__magfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__magfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerRECT__magfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13326,14 +15198,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__magfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__magfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__MIPFILTER = "samplerRECT__mipfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__mipfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerRECT__mipfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13344,6 +15220,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerRECT__mipfilter( const 
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__mipfilter()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__mipfilter( void* attributeData )
 {
     return true;
 }
@@ -13370,18 +15252,30 @@ return doubleDataEnd( &ColladaParserAutoGen::data__samplerRECT__border_color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__border_color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL = "samplerRECT__mipmap_maxlevel";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__mipmap_maxlevel( const ParserChar* text, size_t textLength )
 {
-bool failed;
-unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort(text, failed);
-if (!failed)
-    return mImpl->data__samplerRECT__mipmap_maxlevel(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -13393,6 +15287,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerRECT__mipmap_maxlevel( 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__mipmap_maxlevel()
 {
+bool failed;
+unsigned short parameter = GeneratedSaxParser::Utils::toUnsignedShort((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__samplerRECT__mipmap_maxlevel(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_MAXLEVEL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__mipmap_maxlevel( void* attributeData )
+{
     return true;
 }
 
@@ -13402,13 +15312,19 @@ const char* NAME_ELEMENT_SAMPLERRECT__MIPMAP_BIAS = "samplerRECT__mipmap_bias";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__mipmap_bias( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__samplerRECT__mipmap_bias(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_BIAS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -13420,14 +15336,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__samplerRECT__mipmap_bias( cons
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__mipmap_bias()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__samplerRECT__mipmap_bias(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SAMPLERRECT__MIPMAP_BIAS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__mipmap_bias( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERRECT__EXTRA = "samplerRECT__extra";
-
-//---------------------------------------------------------------------
-const samplerRECT__extra__AttributeData samplerRECT__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerRECT__extra( const ParserChar* text, size_t textLength )
@@ -13438,7 +15367,7 @@ bool ColladaParserAutoGenPrivate::_data__samplerRECT__extra( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__samplerRECT__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-samplerRECT__extra__AttributeData* attributeData = newData<samplerRECT__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -13498,6 +15427,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerRECT__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerRECT__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERDEPTH = "samplerDEPTH";
 
 //---------------------------------------------------------------------
@@ -13522,14 +15457,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__samplerDEPTH()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__samplerDEPTH( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERDEPTH__SOURCE = "samplerDEPTH__source";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__source( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerDEPTH__source(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13545,14 +15484,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerDEPTH__source()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerDEPTH__source( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERDEPTH__WRAP_S = "samplerDEPTH__wrap_s";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__wrap_s( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerDEPTH__wrap_s(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13568,14 +15511,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerDEPTH__wrap_s()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerDEPTH__wrap_s( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERDEPTH__WRAP_T = "samplerDEPTH__wrap_t";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__wrap_t( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerDEPTH__wrap_t(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13591,14 +15538,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerDEPTH__wrap_t()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerDEPTH__wrap_t( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERDEPTH__MINFILTER = "samplerDEPTH__minfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__minfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerDEPTH__minfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13614,14 +15565,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerDEPTH__minfilter()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerDEPTH__minfilter( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SAMPLERDEPTH__MAGFILTER = "samplerDEPTH__magfilter";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__magfilter( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__samplerDEPTH__magfilter(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13637,10 +15592,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerDEPTH__magfilter()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SAMPLERDEPTH__EXTRA = "samplerDEPTH__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerDEPTH__magfilter( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const samplerDEPTH__extra__AttributeData samplerDEPTH__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_SAMPLERDEPTH__EXTRA = "samplerDEPTH__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__extra( const ParserChar* text, size_t textLength )
@@ -13651,7 +15609,7 @@ bool ColladaParserAutoGenPrivate::_data__samplerDEPTH__extra( const ParserChar* 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__samplerDEPTH__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-samplerDEPTH__extra__AttributeData* attributeData = newData<samplerDEPTH__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -13711,6 +15669,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__samplerDEPTH__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__samplerDEPTH__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ENUM = "enum";
 
 //---------------------------------------------------------------------
@@ -13719,9 +15683,7 @@ const char* NAME_ELEMENT_NEWPARAM__ENUM = "newparam__enum";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__newparam__enum( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__newparam__enum(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13737,6 +15699,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__newparam__enum()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__newparam__enum( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FX_PROFILE_ABSTRACT = "fx_profile_abstract";
 
 //---------------------------------------------------------------------
@@ -13745,9 +15713,7 @@ const char* NAME_ELEMENT_EFFECT__FX_PROFILE_ABSTRACT = "effect__fx_profile_abstr
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__fx_profile_abstract( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__fx_profile_abstract(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -13763,10 +15729,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__fx_profile_abstract()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_EFFECT__EXTRA = "effect__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__fx_profile_abstract( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const effect__extra__AttributeData effect__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_EFFECT__EXTRA = "effect__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__effect__extra( const ParserChar* text, size_t textLength )
@@ -13777,7 +15746,7 @@ bool ColladaParserAutoGenPrivate::_data__effect__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__effect__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-effect__extra__AttributeData* attributeData = newData<effect__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -13837,10 +15806,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__effect__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_EFFECTS__EXTRA = "library_effects__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__effect__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_effects__extra__AttributeData library_effects__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_EFFECTS__EXTRA = "library_effects__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_effects__extra( const ParserChar* text, size_t textLength )
@@ -13851,7 +15823,7 @@ bool ColladaParserAutoGenPrivate::_data__library_effects__extra( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_effects__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_effects__extra__AttributeData* attributeData = newData<library_effects__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -13906,6 +15878,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_effects__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_effects__extra( void* attributeData )
 {
     return true;
 }
@@ -13981,6 +15959,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_force_fields()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_force_fields( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_FORCE_FIELDS__ASSET = "library_force_fields__asset";
 
 //---------------------------------------------------------------------
@@ -13997,6 +15981,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_force_fields__asset( c
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_force_fields__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_force_fields__asset( void* attributeData )
 {
     return true;
 }
@@ -14072,6 +16062,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__force_field()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__force_field( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_FORCE_FIELD__ASSET = "force_field__asset";
 
 //---------------------------------------------------------------------
@@ -14093,10 +16089,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__force_field__asset()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_FORCE_FIELD__TECHNIQUE = "force_field__technique";
+bool ColladaParserAutoGenPrivate::_freeAttributes__force_field__asset( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const force_field__technique__AttributeData force_field__technique__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_FORCE_FIELD__TECHNIQUE = "force_field__technique";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__force_field__technique( const ParserChar* text, size_t textLength )
@@ -14153,10 +16152,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__force_field__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_FORCE_FIELD__EXTRA = "force_field__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__force_field__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const force_field__extra__AttributeData force_field__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_FORCE_FIELD__EXTRA = "force_field__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__force_field__extra( const ParserChar* text, size_t textLength )
@@ -14167,7 +16169,7 @@ bool ColladaParserAutoGenPrivate::_data__force_field__extra( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__force_field__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-force_field__extra__AttributeData* attributeData = newData<force_field__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -14227,10 +16229,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__force_field__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA = "library_force_fields__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__force_field__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_force_fields__extra__AttributeData library_force_fields__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA = "library_force_fields__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_force_fields__extra( const ParserChar* text, size_t textLength )
@@ -14241,7 +16246,7 @@ bool ColladaParserAutoGenPrivate::_data__library_force_fields__extra( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_force_fields__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_force_fields__extra__AttributeData* attributeData = newData<library_force_fields__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -14296,6 +16301,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_force_fields__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_force_fields__extra( void* attributeData )
 {
     return true;
 }
@@ -14371,6 +16382,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_images()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_images( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_IMAGES__ASSET = "library_images__asset";
 
 //---------------------------------------------------------------------
@@ -14392,10 +16409,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_images__asset()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_IMAGES__IMAGE = "library_images__image";
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_images__asset( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_images__image__AttributeData library_images__image__AttributeData::DEFAULT = {0, 0, 0, 0, 0, 1};
+const char* NAME_ELEMENT_LIBRARY_IMAGES__IMAGE = "library_images__image";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_images__image( const ParserChar* text, size_t textLength )
@@ -14406,7 +16426,7 @@ bool ColladaParserAutoGenPrivate::_data__library_images__image( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_images__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_images__image__AttributeData* attributeData = newData<library_images__image__AttributeData>(attributeDataPtr);
+image__AttributeData* attributeData = newData<image__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -14490,10 +16510,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_images__image()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_IMAGES__EXTRA = "library_images__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_images__image( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_images__extra__AttributeData library_images__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_IMAGES__EXTRA = "library_images__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_images__extra( const ParserChar* text, size_t textLength )
@@ -14504,7 +16527,7 @@ bool ColladaParserAutoGenPrivate::_data__library_images__extra( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_images__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_images__extra__AttributeData* attributeData = newData<library_images__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -14559,6 +16582,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_images__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_images__extra( void* attributeData )
 {
     return true;
 }
@@ -14634,6 +16663,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_lights()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_lights( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_LIGHTS__ASSET = "library_lights__asset";
 
 //---------------------------------------------------------------------
@@ -14650,6 +16685,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_lights__asset( const P
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_lights__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_lights__asset( void* attributeData )
 {
     return true;
 }
@@ -14725,6 +16766,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__light()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__light( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIGHT__ASSET = "light__asset";
 
 //---------------------------------------------------------------------
@@ -14741,6 +16788,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__light__asset( const ParserAttr
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__light__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__light__asset( void* attributeData )
 {
     return true;
 }
@@ -14767,6 +16820,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__light__technique_common()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__light__technique_common( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_AMBIENT = "ambient";
 
 //---------------------------------------------------------------------
@@ -14786,6 +16845,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__technique_common__ambient( con
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__technique_common__ambient()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__technique_common__ambient( void* attributeData )
 {
     return true;
 }
@@ -14854,6 +16919,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__ambient__color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__ambient__color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_DIRECTIONAL = "directional";
 
 //---------------------------------------------------------------------
@@ -14878,10 +16949,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__directional()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_DIRECTIONAL__COLOR = "directional__color";
+bool ColladaParserAutoGenPrivate::_freeAttributes__directional( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const directional__color__AttributeData directional__color__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_DIRECTIONAL__COLOR = "directional__color";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__directional__color( const ParserChar* text, size_t textLength )
@@ -14938,6 +17012,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__directional__color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__directional__color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_POINT = "point";
 
 //---------------------------------------------------------------------
@@ -14962,10 +17042,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__point()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_POINT__COLOR = "point__color";
+bool ColladaParserAutoGenPrivate::_freeAttributes__point( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const point__color__AttributeData point__color__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_POINT__COLOR = "point__color";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__color( const ParserChar* text, size_t textLength )
@@ -15022,30 +17105,42 @@ return doubleDataEnd( &ColladaParserAutoGen::data__point__color );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__point__color( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CONSTANT_ATTENUATION = "constant_attenuation";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_POINT__CONSTANT_ATTENUATION = "point__constant_attenuation";
 
 //---------------------------------------------------------------------
-const point__constant_attenuation__AttributeData point__constant_attenuation__AttributeData::DEFAULT = {0};
+const constant_attenuation__AttributeData constant_attenuation__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__constant_attenuation( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__point__constant_attenuation(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__point__constant_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-point__constant_attenuation__AttributeData* attributeData = newData<point__constant_attenuation__AttributeData>(attributeDataPtr);
+constant_attenuation__AttributeData* attributeData = newData<constant_attenuation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15087,6 +17182,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__point__constant_attenuation()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__point__constant_attenuation(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__CONSTANT_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__point__constant_attenuation( void* attributeData )
+{
     return true;
 }
 
@@ -15097,24 +17208,30 @@ const char* NAME_ELEMENT_LINEAR_ATTENUATION = "linear_attenuation";
 const char* NAME_ELEMENT_POINT__LINEAR_ATTENUATION = "point__linear_attenuation";
 
 //---------------------------------------------------------------------
-const point__linear_attenuation__AttributeData point__linear_attenuation__AttributeData::DEFAULT = {0};
+const linear_attenuation__AttributeData linear_attenuation__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__linear_attenuation( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__point__linear_attenuation(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__point__linear_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-point__linear_attenuation__AttributeData* attributeData = newData<point__linear_attenuation__AttributeData>(attributeDataPtr);
+linear_attenuation__AttributeData* attributeData = newData<linear_attenuation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15156,6 +17273,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__point__linear_attenuation()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__point__linear_attenuation(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__LINEAR_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__point__linear_attenuation( void* attributeData )
+{
     return true;
 }
 
@@ -15166,24 +17299,30 @@ const char* NAME_ELEMENT_QUADRATIC_ATTENUATION = "quadratic_attenuation";
 const char* NAME_ELEMENT_POINT__QUADRATIC_ATTENUATION = "point__quadratic_attenuation";
 
 //---------------------------------------------------------------------
-const point__quadratic_attenuation__AttributeData point__quadratic_attenuation__AttributeData::DEFAULT = {0};
+const quadratic_attenuation__AttributeData quadratic_attenuation__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__point__quadratic_attenuation( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__point__quadratic_attenuation(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__point__quadratic_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-point__quadratic_attenuation__AttributeData* attributeData = newData<point__quadratic_attenuation__AttributeData>(attributeDataPtr);
+quadratic_attenuation__AttributeData* attributeData = newData<quadratic_attenuation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15225,6 +17364,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__point__quadratic_attenuation()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__point__quadratic_attenuation(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__point__quadratic_attenuation( void* attributeData )
+{
     return true;
 }
 
@@ -15253,10 +17408,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spot()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SPOT__COLOR = "spot__color";
+bool ColladaParserAutoGenPrivate::_freeAttributes__spot( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const spot__color__AttributeData spot__color__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_SPOT__COLOR = "spot__color";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__color( const ParserChar* text, size_t textLength )
@@ -15313,27 +17471,36 @@ return doubleDataEnd( &ColladaParserAutoGen::data__spot__color );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SPOT__CONSTANT_ATTENUATION = "spot__constant_attenuation";
+bool ColladaParserAutoGenPrivate::_freeAttributes__spot__color( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const spot__constant_attenuation__AttributeData spot__constant_attenuation__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_SPOT__CONSTANT_ATTENUATION = "spot__constant_attenuation";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__constant_attenuation( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__spot__constant_attenuation(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__spot__constant_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-spot__constant_attenuation__AttributeData* attributeData = newData<spot__constant_attenuation__AttributeData>(attributeDataPtr);
+constant_attenuation__AttributeData* attributeData = newData<constant_attenuation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15375,6 +17542,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__spot__constant_attenuation()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__spot__constant_attenuation(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__spot__constant_attenuation( void* attributeData )
+{
     return true;
 }
 
@@ -15382,24 +17565,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spot__constant_attenuation()
 const char* NAME_ELEMENT_SPOT__LINEAR_ATTENUATION = "spot__linear_attenuation";
 
 //---------------------------------------------------------------------
-const spot__linear_attenuation__AttributeData spot__linear_attenuation__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__linear_attenuation( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__spot__linear_attenuation(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__spot__linear_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-spot__linear_attenuation__AttributeData* attributeData = newData<spot__linear_attenuation__AttributeData>(attributeDataPtr);
+linear_attenuation__AttributeData* attributeData = newData<linear_attenuation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15441,6 +17627,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__spot__linear_attenuation()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__spot__linear_attenuation(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__LINEAR_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__spot__linear_attenuation( void* attributeData )
+{
     return true;
 }
 
@@ -15448,24 +17650,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spot__linear_attenuation()
 const char* NAME_ELEMENT_SPOT__QUADRATIC_ATTENUATION = "spot__quadratic_attenuation";
 
 //---------------------------------------------------------------------
-const spot__quadratic_attenuation__AttributeData spot__quadratic_attenuation__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__spot__quadratic_attenuation( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__spot__quadratic_attenuation(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__spot__quadratic_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-spot__quadratic_attenuation__AttributeData* attributeData = newData<spot__quadratic_attenuation__AttributeData>(attributeDataPtr);
+quadratic_attenuation__AttributeData* attributeData = newData<quadratic_attenuation__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15507,6 +17712,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__spot__quadratic_attenuation()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__spot__quadratic_attenuation(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__spot__quadratic_attenuation( void* attributeData )
+{
     return true;
 }
 
@@ -15522,13 +17743,19 @@ const falloff_angle__AttributeData falloff_angle__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__falloff_angle( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__falloff_angle(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_ANGLE, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -15576,6 +17803,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__falloff_angle()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__falloff_angle(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_ANGLE, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__falloff_angle( void* attributeData )
+{
     return true;
 }
 
@@ -15591,13 +17834,19 @@ const falloff_exponent__AttributeData falloff_exponent__AttributeData::DEFAULT =
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__falloff_exponent( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__falloff_exponent(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_EXPONENT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -15645,14 +17894,27 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__falloff_exponent()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__falloff_exponent(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_FALLOFF_EXPONENT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__falloff_exponent( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIGHT__TECHNIQUE = "light__technique";
-
-//---------------------------------------------------------------------
-const light__technique__AttributeData light__technique__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__light__technique( const ParserChar* text, size_t textLength )
@@ -15709,10 +17971,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__light__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIGHT__EXTRA = "light__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__light__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const light__extra__AttributeData light__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIGHT__EXTRA = "light__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__light__extra( const ParserChar* text, size_t textLength )
@@ -15723,7 +17988,7 @@ bool ColladaParserAutoGenPrivate::_data__light__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__light__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-light__extra__AttributeData* attributeData = newData<light__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15783,10 +18048,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__light__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_LIGHTS__EXTRA = "library_lights__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__light__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_lights__extra__AttributeData library_lights__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_LIGHTS__EXTRA = "library_lights__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_lights__extra( const ParserChar* text, size_t textLength )
@@ -15797,7 +18065,7 @@ bool ColladaParserAutoGenPrivate::_data__library_lights__extra( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_lights__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_lights__extra__AttributeData* attributeData = newData<library_lights__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -15852,6 +18120,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_lights__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_lights__extra( void* attributeData )
 {
     return true;
 }
@@ -15927,6 +18201,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_materials()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_materials( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_MATERIALS__ASSET = "library_materials__asset";
 
 //---------------------------------------------------------------------
@@ -15943,6 +18223,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_materials__asset( cons
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_materials__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_materials__asset( void* attributeData )
 {
     return true;
 }
@@ -16018,6 +18304,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__material()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__material( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MATERIAL__ASSET = "material__asset";
 
 //---------------------------------------------------------------------
@@ -16039,13 +18331,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__material__asset()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__material__asset( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_EFFECT = "instance_effect";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_MATERIAL__INSTANCE_EFFECT = "material__instance_effect";
 
 //---------------------------------------------------------------------
-const material__instance_effect__AttributeData material__instance_effect__AttributeData::DEFAULT = {0, 0, 0};
+const instance_effect__AttributeData instance_effect__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__material__instance_effect( const ParserChar* text, size_t textLength )
@@ -16056,7 +18354,7 @@ bool ColladaParserAutoGenPrivate::_data__material__instance_effect( const Parser
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__material__instance_effect( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-material__instance_effect__AttributeData* attributeData = newData<material__instance_effect__AttributeData>(attributeDataPtr);
+instance_effect__AttributeData* attributeData = newData<instance_effect__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -16111,6 +18409,12 @@ attributeData->name = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__material__instance_effect()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__material__instance_effect( void* attributeData )
 {
     return true;
 }
@@ -16196,6 +18500,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__technique_hint()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__technique_hint( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM = "setparam";
 
 //---------------------------------------------------------------------
@@ -16259,18 +18569,30 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_effect__setparam()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_effect__setparam( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__BOOL = "setparam__bool";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__bool( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__setparam__bool(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -16281,6 +18603,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__bool( const ParserAt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__bool()
+{
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__setparam__bool(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__BOOL, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__bool( void* attributeData )
 {
     return true;
 }
@@ -16307,6 +18645,12 @@ return boolDataEnd( &ColladaParserAutoGen::data__setparam__bool2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__bool2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__BOOL3 = "setparam__bool3";
 
 //---------------------------------------------------------------------
@@ -16325,6 +18669,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__bool3( const ParserA
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__bool3()
 {
 return boolDataEnd( &ColladaParserAutoGen::data__setparam__bool3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__bool3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16349,18 +18699,30 @@ return boolDataEnd( &ColladaParserAutoGen::data__setparam__bool4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__bool4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__INT = "setparam__int";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__int( const ParserChar* text, size_t textLength )
 {
-bool failed;
-long parameter = GeneratedSaxParser::Utils::toLong(text, failed);
-if (!failed)
-    return mImpl->data__setparam__int(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -16371,6 +18733,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__int( const ParserAtt
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__int()
+{
+bool failed;
+long parameter = GeneratedSaxParser::Utils::toLong((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__setparam__int(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__INT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__int( void* attributeData )
 {
     return true;
 }
@@ -16397,6 +18775,12 @@ return longDataEnd( &ColladaParserAutoGen::data__setparam__int2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__int2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__INT3 = "setparam__int3";
 
 //---------------------------------------------------------------------
@@ -16415,6 +18799,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__int3( const ParserAt
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__int3()
 {
 return longDataEnd( &ColladaParserAutoGen::data__setparam__int3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__int3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16439,18 +18829,30 @@ return longDataEnd( &ColladaParserAutoGen::data__setparam__int4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__int4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT = "setparam__float";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__float( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__setparam__float(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -16461,6 +18863,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float( const ParserA
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__setparam__float(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float( void* attributeData )
 {
     return true;
 }
@@ -16487,6 +18905,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT3 = "setparam__float3";
 
 //---------------------------------------------------------------------
@@ -16505,6 +18929,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3( const Parser
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16529,18 +18959,30 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT1X1 = "setparam__float1x1";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__float1x1( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__setparam__float1x1(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1X1, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -16551,6 +18993,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float1x1( const Pars
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float1x1()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__setparam__float1x1(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SETPARAM__FLOAT1X1, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float1x1( void* attributeData )
 {
     return true;
 }
@@ -16577,6 +19035,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float1x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float1x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT1X3 = "setparam__float1x3";
 
 //---------------------------------------------------------------------
@@ -16595,6 +19059,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float1x3( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float1x3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float1x3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float1x3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16619,6 +19089,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float1x4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float1x4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT2X1 = "setparam__float2x1";
 
 //---------------------------------------------------------------------
@@ -16637,6 +19113,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2x1( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2x1()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x1 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float2x1( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16661,6 +19143,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float2x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT2X3 = "setparam__float2x3";
 
 //---------------------------------------------------------------------
@@ -16679,6 +19167,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float2x3( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float2x3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float2x3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16703,6 +19197,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float2x4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float2x4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT3X1 = "setparam__float3x1";
 
 //---------------------------------------------------------------------
@@ -16721,6 +19221,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3x1( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3x1()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x1 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float3x1( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16745,6 +19251,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float3x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT3X3 = "setparam__float3x3";
 
 //---------------------------------------------------------------------
@@ -16763,6 +19275,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float3x3( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float3x3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float3x3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16787,6 +19305,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float3x4 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float3x4( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT4X1 = "setparam__float4x1";
 
 //---------------------------------------------------------------------
@@ -16805,6 +19329,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4x1( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4x1()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x1 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float4x1( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16829,6 +19359,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x2 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float4x2( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__FLOAT4X3 = "setparam__float4x3";
 
 //---------------------------------------------------------------------
@@ -16847,6 +19383,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__float4x3( const Pars
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__float4x3()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x3 );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float4x3( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -16871,10 +19413,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__setparam__float4x4 );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SETPARAM__SURFACE = "setparam__surface";
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__float4x4( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const setparam__surface__AttributeData setparam__surface__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_SETPARAM__SURFACE = "setparam__surface";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__surface( const ParserChar* text, size_t textLength )
@@ -16931,6 +19476,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__setparam__surface()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__surface( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__SAMPLER1D = "setparam__sampler1D";
 
 //---------------------------------------------------------------------
@@ -16947,6 +19498,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__sampler1D( const Par
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__sampler1D()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__sampler1D( void* attributeData )
 {
     return true;
 }
@@ -16973,6 +19530,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__setparam__sampler2D()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__sampler2D( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__SAMPLER3D = "setparam__sampler3D";
 
 //---------------------------------------------------------------------
@@ -16989,6 +19552,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__sampler3D( const Par
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__sampler3D()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__sampler3D( void* attributeData )
 {
     return true;
 }
@@ -17015,6 +19584,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__setparam__samplerCUBE()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__samplerCUBE( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__SAMPLERRECT = "setparam__samplerRECT";
 
 //---------------------------------------------------------------------
@@ -17031,6 +19606,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__setparam__samplerRECT( const P
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__setparam__samplerRECT()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__samplerRECT( void* attributeData )
 {
     return true;
 }
@@ -17057,14 +19638,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__setparam__samplerDEPTH()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__samplerDEPTH( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SETPARAM__ENUM = "setparam__enum";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__setparam__enum( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__setparam__enum(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -17080,10 +19665,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__setparam__enum()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_EFFECT__EXTRA = "instance_effect__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__setparam__enum( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_effect__extra__AttributeData instance_effect__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_EFFECT__EXTRA = "instance_effect__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_effect__extra( const ParserChar* text, size_t textLength )
@@ -17094,7 +19682,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_effect__extra( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_effect__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_effect__extra__AttributeData* attributeData = newData<instance_effect__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -17154,10 +19742,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_effect__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MATERIAL__EXTRA = "material__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_effect__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const material__extra__AttributeData material__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_MATERIAL__EXTRA = "material__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__material__extra( const ParserChar* text, size_t textLength )
@@ -17168,7 +19759,7 @@ bool ColladaParserAutoGenPrivate::_data__material__extra( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__material__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-material__extra__AttributeData* attributeData = newData<material__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -17228,10 +19819,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__material__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_MATERIALS__EXTRA = "library_materials__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__material__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_materials__extra__AttributeData library_materials__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_MATERIALS__EXTRA = "library_materials__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_materials__extra( const ParserChar* text, size_t textLength )
@@ -17242,7 +19836,7 @@ bool ColladaParserAutoGenPrivate::_data__library_materials__extra( const ParserC
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_materials__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_materials__extra__AttributeData* attributeData = newData<library_materials__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -17297,6 +19891,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_materials__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_materials__extra( void* attributeData )
 {
     return true;
 }
@@ -17372,6 +19972,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_nodes()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_nodes( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_NODES__ASSET = "library_nodes__asset";
 
 //---------------------------------------------------------------------
@@ -17393,6 +19999,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_nodes__asset()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_nodes__asset( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NODE = "node";
 
 //---------------------------------------------------------------------
@@ -17402,7 +20014,7 @@ const char* NAME_ELEMENT_LIBRARY_NODES__NODE = "library_nodes__node";
 const char* NAME_ATTRIBUTE_LAYER = "layer";
 
 //---------------------------------------------------------------------
-const library_nodes__node__AttributeData library_nodes__node__AttributeData::DEFAULT = {0, 0, 0, (const GeneratedSaxParser::ParserChar *)"NODE", 0};
+const node__AttributeData node__AttributeData::DEFAULT = {0, 0, 0, (const GeneratedSaxParser::ParserChar *)"NODE", (const GeneratedSaxParser::ParserChar *)""};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_nodes__node( const ParserChar* text, size_t textLength )
@@ -17413,7 +20025,7 @@ bool ColladaParserAutoGenPrivate::_data__library_nodes__node( const ParserChar* 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_nodes__node( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_nodes__node__AttributeData* attributeData = newData<library_nodes__node__AttributeData>(attributeDataPtr);
+node__AttributeData* attributeData = newData<node__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -17487,6 +20099,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_nodes__node()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_nodes__node( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_NODE__ASSET = "node__asset";
 
 //---------------------------------------------------------------------
@@ -17503,6 +20121,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__node__asset( const ParserAttri
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__node__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__node__asset( void* attributeData )
 {
     return true;
 }
@@ -17571,6 +20195,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__lookat );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__lookat( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MATRIX = "matrix";
 
 //---------------------------------------------------------------------
@@ -17634,13 +20264,19 @@ return doubleDataEnd( &ColladaParserAutoGen::data__matrix );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__matrix( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ROTATE = "rotate";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_NODE__ROTATE = "node__rotate";
 
 //---------------------------------------------------------------------
-const node__rotate__AttributeData node__rotate__AttributeData::DEFAULT = {0};
+const rotate__AttributeData rotate__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__node__rotate( const ParserChar* text, size_t textLength )
@@ -17651,7 +20287,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__n
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__node__rotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-node__rotate__AttributeData* attributeData = newData<node__rotate__AttributeData>(attributeDataPtr);
+rotate__AttributeData* attributeData = newData<rotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -17694,6 +20330,12 @@ attributeData->sid = attributeValue;
 bool ColladaParserAutoGenPrivate::_validateEnd__node__rotate()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__node__rotate );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__node__rotate( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -17760,6 +20402,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__scale );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__scale( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SKEW = "skew";
 
 //---------------------------------------------------------------------
@@ -17823,13 +20471,19 @@ return doubleDataEnd( &ColladaParserAutoGen::data__skew );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__skew( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TRANSLATE = "translate";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_NODE__TRANSLATE = "node__translate";
 
 //---------------------------------------------------------------------
-const node__translate__AttributeData node__translate__AttributeData::DEFAULT = {0};
+const translate__AttributeData translate__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__node__translate( const ParserChar* text, size_t textLength )
@@ -17840,7 +20494,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__n
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__node__translate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-node__translate__AttributeData* attributeData = newData<node__translate__AttributeData>(attributeDataPtr);
+translate__AttributeData* attributeData = newData<translate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -17883,6 +20537,12 @@ attributeData->sid = attributeValue;
 bool ColladaParserAutoGenPrivate::_validateEnd__node__translate()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__node__translate );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__node__translate( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -17963,10 +20623,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_camera()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_CAMERA__EXTRA = "instance_camera__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_camera( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_camera__extra__AttributeData instance_camera__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_CAMERA__EXTRA = "instance_camera__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_camera__extra( const ParserChar* text, size_t textLength )
@@ -17977,7 +20640,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_camera__extra( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_camera__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_camera__extra__AttributeData* attributeData = newData<instance_camera__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -18032,6 +20695,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_camera__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_camera__extra( void* attributeData )
 {
     return true;
 }
@@ -18114,6 +20783,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_controller()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_controller( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SKELETON = "skeleton";
 
 //---------------------------------------------------------------------
@@ -18122,9 +20797,7 @@ const char* NAME_ELEMENT_INSTANCE_CONTROLLER__SKELETON = "instance_controller__s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__skeleton( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__skeleton(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -18135,6 +20808,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__skeleton( const ParserAttribut
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__skeleton()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__skeleton( void* attributeData )
 {
     return true;
 }
@@ -18164,17 +20843,18 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_controller__bind_materi
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_BIND_MATERIAL__PARAM = "bind_material__param";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_controller__bind_material( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const bind_material__param__AttributeData bind_material__param__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_BIND_MATERIAL__PARAM = "bind_material__param";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__bind_material__param( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__bind_material__param(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -18247,6 +20927,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__bind_material__param()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__bind_material__param( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_BIND_MATERIAL__TECHNIQUE_COMMON = "bind_material__technique_common";
 
 //---------------------------------------------------------------------
@@ -18263,6 +20949,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__bind_material__technique_commo
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__bind_material__technique_common()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__bind_material__technique_common( void* attributeData )
 {
     return true;
 }
@@ -18355,6 +21047,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_material()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_material( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_BIND = "bind";
 
 //---------------------------------------------------------------------
@@ -18420,6 +21118,12 @@ attributeData->target = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_material__bind()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_material__bind( void* attributeData )
 {
     return true;
 }
@@ -18509,10 +21213,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__bind_vertex_input()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_MATERIAL__EXTRA = "instance_material__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__bind_vertex_input( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_material__extra__AttributeData instance_material__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_MATERIAL__EXTRA = "instance_material__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_material__extra( const ParserChar* text, size_t textLength )
@@ -18523,7 +21230,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_material__extra( const ParserC
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_material__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_material__extra__AttributeData* attributeData = newData<instance_material__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -18583,10 +21290,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_material__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_BIND_MATERIAL__TECHNIQUE = "bind_material__technique";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_material__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const bind_material__technique__AttributeData bind_material__technique__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_BIND_MATERIAL__TECHNIQUE = "bind_material__technique";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__bind_material__technique( const ParserChar* text, size_t textLength )
@@ -18643,10 +21353,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__bind_material__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_BIND_MATERIAL__EXTRA = "bind_material__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__bind_material__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const bind_material__extra__AttributeData bind_material__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_BIND_MATERIAL__EXTRA = "bind_material__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__bind_material__extra( const ParserChar* text, size_t textLength )
@@ -18657,7 +21370,7 @@ bool ColladaParserAutoGenPrivate::_data__bind_material__extra( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__bind_material__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-bind_material__extra__AttributeData* attributeData = newData<bind_material__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -18717,10 +21430,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__bind_material__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_CONTROLLER__EXTRA = "instance_controller__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__bind_material__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_controller__extra__AttributeData instance_controller__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_CONTROLLER__EXTRA = "instance_controller__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_controller__extra( const ParserChar* text, size_t textLength )
@@ -18731,7 +21447,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_controller__extra( const Parse
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_controller__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_controller__extra__AttributeData* attributeData = newData<instance_controller__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -18791,13 +21507,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_controller__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_controller__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_NODE__INSTANCE_GEOMETRY = "node__instance_geometry";
 
 //---------------------------------------------------------------------
-const node__instance_geometry__AttributeData node__instance_geometry__AttributeData::DEFAULT = {0, 0, 0};
+const instance_geometry__AttributeData instance_geometry__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__node__instance_geometry( const ParserChar* text, size_t textLength )
@@ -18808,7 +21530,7 @@ bool ColladaParserAutoGenPrivate::_data__node__instance_geometry( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__node__instance_geometry( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-node__instance_geometry__AttributeData* attributeData = newData<node__instance_geometry__AttributeData>(attributeDataPtr);
+instance_geometry__AttributeData* attributeData = newData<instance_geometry__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -18868,6 +21590,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__node__instance_geometry()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__node__instance_geometry( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_GEOMETRY__BIND_MATERIAL = "instance_geometry__bind_material";
 
 //---------------------------------------------------------------------
@@ -18889,10 +21617,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_geometry__bind_material
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_GEOMETRY__EXTRA = "instance_geometry__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_geometry__bind_material( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_geometry__extra__AttributeData instance_geometry__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_GEOMETRY__EXTRA = "instance_geometry__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_geometry__extra( const ParserChar* text, size_t textLength )
@@ -18903,7 +21634,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_geometry__extra( const ParserC
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_geometry__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_geometry__extra__AttributeData* attributeData = newData<instance_geometry__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -18958,6 +21689,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_geometry__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_geometry__extra( void* attributeData )
 {
     return true;
 }
@@ -19040,10 +21777,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_light()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_LIGHT__EXTRA = "instance_light__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_light( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_light__extra__AttributeData instance_light__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_LIGHT__EXTRA = "instance_light__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_light__extra( const ParserChar* text, size_t textLength )
@@ -19054,7 +21794,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_light__extra( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_light__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_light__extra__AttributeData* attributeData = newData<instance_light__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -19109,6 +21849,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_light__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_light__extra( void* attributeData )
 {
     return true;
 }
@@ -19191,10 +21937,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_node()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_NODE__EXTRA = "instance_node__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_node( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_node__extra__AttributeData instance_node__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_NODE__EXTRA = "instance_node__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_node__extra( const ParserChar* text, size_t textLength )
@@ -19205,7 +21954,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_node__extra( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_node__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_node__extra__AttributeData* attributeData = newData<instance_node__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -19265,10 +22014,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_node__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_NODE__NODE = "node__node";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_node__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const node__node__AttributeData node__node__AttributeData::DEFAULT = {0, 0, 0, (const GeneratedSaxParser::ParserChar *)"NODE", 0};
+const char* NAME_ELEMENT_NODE__NODE = "node__node";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__node__node( const ParserChar* text, size_t textLength )
@@ -19279,7 +22031,7 @@ bool ColladaParserAutoGenPrivate::_data__node__node( const ParserChar* text, siz
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__node__node( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-node__node__AttributeData* attributeData = newData<node__node__AttributeData>(attributeDataPtr);
+node__AttributeData* attributeData = newData<node__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -19353,10 +22105,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__node__node()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_NODE__EXTRA = "node__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__node__node( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const node__extra__AttributeData node__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_NODE__EXTRA = "node__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__node__extra( const ParserChar* text, size_t textLength )
@@ -19367,7 +22122,7 @@ bool ColladaParserAutoGenPrivate::_data__node__extra( const ParserChar* text, si
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__node__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-node__extra__AttributeData* attributeData = newData<node__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -19427,10 +22182,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__node__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_NODES__EXTRA = "library_nodes__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__node__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_nodes__extra__AttributeData library_nodes__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_NODES__EXTRA = "library_nodes__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_nodes__extra( const ParserChar* text, size_t textLength )
@@ -19441,7 +22199,7 @@ bool ColladaParserAutoGenPrivate::_data__library_nodes__extra( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_nodes__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_nodes__extra__AttributeData* attributeData = newData<library_nodes__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -19496,6 +22254,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_nodes__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_nodes__extra( void* attributeData )
 {
     return true;
 }
@@ -19571,6 +22335,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_materials()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_materials( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS__ASSET = "library_physics_materials__asset";
 
 //---------------------------------------------------------------------
@@ -19592,13 +22362,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_materials__asset
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_materials__asset( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_MATERIAL = "physics_material";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL = "library_physics_materials__physics_material";
 
 //---------------------------------------------------------------------
-const library_physics_materials__physics_material__AttributeData library_physics_materials__physics_material__AttributeData::DEFAULT = {0, 0};
+const physics_material__AttributeData physics_material__AttributeData::DEFAULT = {0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_physics_materials__physics_material( const ParserChar* text, size_t textLength )
@@ -19609,7 +22385,7 @@ bool ColladaParserAutoGenPrivate::_data__library_physics_materials__physics_mate
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_physics_materials__physics_material( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_physics_materials__physics_material__AttributeData* attributeData = newData<library_physics_materials__physics_material__AttributeData>(attributeDataPtr);
+physics_material__AttributeData* attributeData = newData<physics_material__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -19662,6 +22438,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_materials__physi
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_materials__physics_material( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_MATERIAL__ASSET = "physics_material__asset";
 
 //---------------------------------------------------------------------
@@ -19678,6 +22460,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__physics_material__asset( const
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__physics_material__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_material__asset( void* attributeData )
 {
     return true;
 }
@@ -19704,6 +22492,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_material__technique_comm
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_material__technique_common( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_DYNAMIC_FRICTION = "dynamic_friction";
 
 //---------------------------------------------------------------------
@@ -19715,13 +22509,19 @@ const dynamic_friction__AttributeData dynamic_friction__AttributeData::DEFAULT =
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__dynamic_friction( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__dynamic_friction(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC_FRICTION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -19769,6 +22569,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__dynamic_friction()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__dynamic_friction(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC_FRICTION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__dynamic_friction( void* attributeData )
+{
     return true;
 }
 
@@ -19784,13 +22600,19 @@ const restitution__AttributeData restitution__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__restitution( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__restitution(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RESTITUTION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -19838,6 +22660,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__restitution()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__restitution(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_RESTITUTION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__restitution( void* attributeData )
+{
     return true;
 }
 
@@ -19853,13 +22691,19 @@ const static_friction__AttributeData static_friction__AttributeData::DEFAULT = {
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__static_friction( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__static_friction(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STATIC_FRICTION, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -19907,14 +22751,27 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__static_friction()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__static_friction(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_STATIC_FRICTION, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__static_friction( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE = "physics_material__technique";
-
-//---------------------------------------------------------------------
-const physics_material__technique__AttributeData physics_material__technique__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_material__technique( const ParserChar* text, size_t textLength )
@@ -19971,10 +22828,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_material__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_PHYSICS_MATERIAL__EXTRA = "physics_material__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_material__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const physics_material__extra__AttributeData physics_material__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_PHYSICS_MATERIAL__EXTRA = "physics_material__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_material__extra( const ParserChar* text, size_t textLength )
@@ -19985,7 +22845,7 @@ bool ColladaParserAutoGenPrivate::_data__physics_material__extra( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__physics_material__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-physics_material__extra__AttributeData* attributeData = newData<physics_material__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20045,10 +22905,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_material__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA = "library_physics_materials__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_material__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_physics_materials__extra__AttributeData library_physics_materials__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA = "library_physics_materials__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_physics_materials__extra( const ParserChar* text, size_t textLength )
@@ -20059,7 +22922,7 @@ bool ColladaParserAutoGenPrivate::_data__library_physics_materials__extra( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_physics_materials__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_physics_materials__extra__AttributeData* attributeData = newData<library_physics_materials__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20114,6 +22977,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_materials__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_materials__extra( void* attributeData )
 {
     return true;
 }
@@ -20189,6 +23058,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_models()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_models( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_PHYSICS_MODELS__ASSET = "library_physics_models__asset";
 
 //---------------------------------------------------------------------
@@ -20205,6 +23080,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_physics_models__asset(
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_models__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_models__asset( void* attributeData )
 {
     return true;
 }
@@ -20280,6 +23161,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_model()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_model( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_MODEL__ASSET = "physics_model__asset";
 
 //---------------------------------------------------------------------
@@ -20296,6 +23183,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__physics_model__asset( const Pa
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__physics_model__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_model__asset( void* attributeData )
 {
     return true;
 }
@@ -20371,6 +23264,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_body()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_body( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_RIGID_BODY__TECHNIQUE_COMMON = "rigid_body__technique_common";
 
 //---------------------------------------------------------------------
@@ -20392,6 +23291,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_body__technique_common()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_body__technique_common( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_DYNAMIC = "dynamic";
 
 //---------------------------------------------------------------------
@@ -20403,13 +23308,19 @@ const dynamic__AttributeData dynamic__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__dynamic( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__dynamic(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -20457,6 +23368,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__dynamic()
 {
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__dynamic(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DYNAMIC, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__dynamic( void* attributeData )
+{
     return true;
 }
 
@@ -20467,24 +23394,30 @@ const char* NAME_ELEMENT_MASS = "mass";
 const char* NAME_ELEMENT_TECHNIQUE_COMMON__MASS = "technique_common__mass";
 
 //---------------------------------------------------------------------
-const technique_common__mass__AttributeData technique_common__mass__AttributeData::DEFAULT = {0};
+const mass__AttributeData mass__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__technique_common__mass( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__technique_common__mass(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__technique_common__mass( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-technique_common__mass__AttributeData* attributeData = newData<technique_common__mass__AttributeData>(attributeDataPtr);
+mass__AttributeData* attributeData = newData<mass__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20526,6 +23459,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__technique_common__mass()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__technique_common__mass(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TECHNIQUE_COMMON__MASS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__technique_common__mass( void* attributeData )
+{
     return true;
 }
 
@@ -20554,10 +23503,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__mass_frame()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MASS_FRAME__TRANSLATE = "mass_frame__translate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mass_frame( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mass_frame__translate__AttributeData mass_frame__translate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_MASS_FRAME__TRANSLATE = "mass_frame__translate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mass_frame__translate( const ParserChar* text, size_t textLength )
@@ -20568,7 +23520,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__m
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mass_frame__translate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mass_frame__translate__AttributeData* attributeData = newData<mass_frame__translate__AttributeData>(attributeDataPtr);
+translate__AttributeData* attributeData = newData<translate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20614,10 +23566,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__mass_frame__translate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_MASS_FRAME__ROTATE = "mass_frame__rotate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__mass_frame__translate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const mass_frame__rotate__AttributeData mass_frame__rotate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_MASS_FRAME__ROTATE = "mass_frame__rotate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__mass_frame__rotate( const ParserChar* text, size_t textLength )
@@ -20628,7 +23583,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__m
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__mass_frame__rotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-mass_frame__rotate__AttributeData* attributeData = newData<mass_frame__rotate__AttributeData>(attributeDataPtr);
+rotate__AttributeData* attributeData = newData<rotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20671,6 +23626,12 @@ attributeData->sid = attributeValue;
 bool ColladaParserAutoGenPrivate::_validateEnd__mass_frame__rotate()
 {
 return doubleDataEnd( &ColladaParserAutoGen::data__mass_frame__rotate );
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__mass_frame__rotate( void* attributeData )
+{
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -20737,13 +23698,19 @@ return doubleDataEnd( &ColladaParserAutoGen::data__inertia );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__inertia( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_PHYSICS_MATERIAL = "instance_physics_material";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL = "technique_common__instance_physics_material";
 
 //---------------------------------------------------------------------
-const technique_common__instance_physics_material__AttributeData technique_common__instance_physics_material__AttributeData::DEFAULT = {0, 0, 0};
+const instance_physics_material__AttributeData instance_physics_material__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__technique_common__instance_physics_material( const ParserChar* text, size_t textLength )
@@ -20754,7 +23721,7 @@ bool ColladaParserAutoGenPrivate::_data__technique_common__instance_physics_mate
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__technique_common__instance_physics_material( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-technique_common__instance_physics_material__AttributeData* attributeData = newData<technique_common__instance_physics_material__AttributeData>(attributeDataPtr);
+instance_physics_material__AttributeData* attributeData = newData<instance_physics_material__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20814,10 +23781,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__technique_common__instance_physi
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA = "instance_physics_material__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__technique_common__instance_physics_material( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_physics_material__extra__AttributeData instance_physics_material__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA = "instance_physics_material__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_physics_material__extra( const ParserChar* text, size_t textLength )
@@ -20828,7 +23798,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_physics_material__extra( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_physics_material__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_physics_material__extra__AttributeData* attributeData = newData<instance_physics_material__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20888,10 +23858,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_physics_material__extra
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL = "technique_common__physics_material";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_physics_material__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const technique_common__physics_material__AttributeData technique_common__physics_material__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL = "technique_common__physics_material";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__technique_common__physics_material( const ParserChar* text, size_t textLength )
@@ -20902,7 +23875,7 @@ bool ColladaParserAutoGenPrivate::_data__technique_common__physics_material( con
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__technique_common__physics_material( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-technique_common__physics_material__AttributeData* attributeData = newData<technique_common__physics_material__AttributeData>(attributeDataPtr);
+physics_material__AttributeData* attributeData = newData<physics_material__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -20955,6 +23928,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__technique_common__physics_materi
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__technique_common__physics_material( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SHAPE = "shape";
 
 //---------------------------------------------------------------------
@@ -20979,6 +23958,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__shape()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_HOLLOW = "hollow";
 
 //---------------------------------------------------------------------
@@ -20990,13 +23975,19 @@ const hollow__AttributeData hollow__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__hollow( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__hollow(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_HOLLOW, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -21044,6 +24035,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__hollow()
 {
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__hollow(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_HOLLOW, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__hollow( void* attributeData )
+{
     return true;
 }
 
@@ -21051,24 +24058,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__hollow()
 const char* NAME_ELEMENT_SHAPE__MASS = "shape__mass";
 
 //---------------------------------------------------------------------
-const shape__mass__AttributeData shape__mass__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__mass( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__shape__mass(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHAPE__MASS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__mass( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__mass__AttributeData* attributeData = newData<shape__mass__AttributeData>(attributeDataPtr);
+mass__AttributeData* attributeData = newData<mass__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21110,6 +24120,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__shape__mass()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__shape__mass(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SHAPE__MASS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__mass( void* attributeData )
+{
     return true;
 }
 
@@ -21125,13 +24151,19 @@ const density__AttributeData density__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__density( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__density(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DENSITY, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -21179,14 +24211,27 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__density()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__density(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_DENSITY, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__density( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL = "shape__instance_physics_material";
-
-//---------------------------------------------------------------------
-const shape__instance_physics_material__AttributeData shape__instance_physics_material__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__instance_physics_material( const ParserChar* text, size_t textLength )
@@ -21197,7 +24242,7 @@ bool ColladaParserAutoGenPrivate::_data__shape__instance_physics_material( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__instance_physics_material( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__instance_physics_material__AttributeData* attributeData = newData<shape__instance_physics_material__AttributeData>(attributeDataPtr);
+instance_physics_material__AttributeData* attributeData = newData<instance_physics_material__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21257,10 +24302,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__shape__instance_physics_material
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SHAPE__PHYSICS_MATERIAL = "shape__physics_material";
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__instance_physics_material( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const shape__physics_material__AttributeData shape__physics_material__AttributeData::DEFAULT = {0, 0};
+const char* NAME_ELEMENT_SHAPE__PHYSICS_MATERIAL = "shape__physics_material";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__physics_material( const ParserChar* text, size_t textLength )
@@ -21271,7 +24319,7 @@ bool ColladaParserAutoGenPrivate::_data__shape__physics_material( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__physics_material( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__physics_material__AttributeData* attributeData = newData<shape__physics_material__AttributeData>(attributeDataPtr);
+physics_material__AttributeData* attributeData = newData<physics_material__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21324,10 +24372,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__shape__physics_material()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SHAPE__INSTANCE_GEOMETRY = "shape__instance_geometry";
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__physics_material( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const shape__instance_geometry__AttributeData shape__instance_geometry__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_SHAPE__INSTANCE_GEOMETRY = "shape__instance_geometry";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__instance_geometry( const ParserChar* text, size_t textLength )
@@ -21338,7 +24389,7 @@ bool ColladaParserAutoGenPrivate::_data__shape__instance_geometry( const ParserC
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__instance_geometry( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__instance_geometry__AttributeData* attributeData = newData<shape__instance_geometry__AttributeData>(attributeDataPtr);
+instance_geometry__AttributeData* attributeData = newData<instance_geometry__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21398,6 +24449,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__shape__instance_geometry()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__instance_geometry( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PLANE = "plane";
 
 //---------------------------------------------------------------------
@@ -21417,6 +24474,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__plane( const ParserAttributes&
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__plane()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__plane( void* attributeData )
 {
     return true;
 }
@@ -21446,10 +24509,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__equation );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_PLANE__EXTRA = "plane__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__equation( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const plane__extra__AttributeData plane__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_PLANE__EXTRA = "plane__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__plane__extra( const ParserChar* text, size_t textLength )
@@ -21460,7 +24526,7 @@ bool ColladaParserAutoGenPrivate::_data__plane__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__plane__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-plane__extra__AttributeData* attributeData = newData<plane__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21520,6 +24586,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__plane__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__plane__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_BOX = "box";
 
 //---------------------------------------------------------------------
@@ -21539,6 +24611,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__box( const ParserAttributes& a
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__box()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__box( void* attributeData )
 {
     return true;
 }
@@ -21568,10 +24646,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__half_extents );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_BOX__EXTRA = "box__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__half_extents( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const box__extra__AttributeData box__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_BOX__EXTRA = "box__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__box__extra( const ParserChar* text, size_t textLength )
@@ -21582,7 +24663,7 @@ bool ColladaParserAutoGenPrivate::_data__box__extra( const ParserChar* text, siz
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__box__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-box__extra__AttributeData* attributeData = newData<box__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21642,6 +24723,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__box__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__box__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SPHERE = "sphere";
 
 //---------------------------------------------------------------------
@@ -21666,6 +24753,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sphere()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sphere( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_RADIUS = "radius";
 
 //---------------------------------------------------------------------
@@ -21674,13 +24767,19 @@ const char* NAME_ELEMENT_SPHERE__RADIUS = "sphere__radius";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sphere__radius( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__sphere__radius(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPHERE__RADIUS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -21692,14 +24791,27 @@ bool ColladaParserAutoGenPrivate::_validateBegin__sphere__radius( const ParserAt
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__sphere__radius()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__sphere__radius(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_SPHERE__RADIUS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sphere__radius( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SPHERE__EXTRA = "sphere__extra";
-
-//---------------------------------------------------------------------
-const sphere__extra__AttributeData sphere__extra__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__sphere__extra( const ParserChar* text, size_t textLength )
@@ -21710,7 +24822,7 @@ bool ColladaParserAutoGenPrivate::_data__sphere__extra( const ParserChar* text, 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__sphere__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-sphere__extra__AttributeData* attributeData = newData<sphere__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21770,6 +24882,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__sphere__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__sphere__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CYLINDER = "cylinder";
 
 //---------------------------------------------------------------------
@@ -21794,6 +24912,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__cylinder()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__cylinder( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_HEIGHT = "height";
 
 //---------------------------------------------------------------------
@@ -21802,13 +24926,19 @@ const char* NAME_ELEMENT_CYLINDER__HEIGHT = "cylinder__height";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__cylinder__height( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__cylinder__height(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CYLINDER__HEIGHT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -21819,6 +24949,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__cylinder__height( const Parser
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__cylinder__height()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__cylinder__height(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CYLINDER__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__cylinder__height( void* attributeData )
 {
     return true;
 }
@@ -21845,10 +24991,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__cylinder__radius );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CYLINDER__EXTRA = "cylinder__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__cylinder__radius( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const cylinder__extra__AttributeData cylinder__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_CYLINDER__EXTRA = "cylinder__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__cylinder__extra( const ParserChar* text, size_t textLength )
@@ -21859,7 +25008,7 @@ bool ColladaParserAutoGenPrivate::_data__cylinder__extra( const ParserChar* text
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__cylinder__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-cylinder__extra__AttributeData* attributeData = newData<cylinder__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -21919,6 +25068,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__cylinder__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__cylinder__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TAPERED_CYLINDER = "tapered_cylinder";
 
 //---------------------------------------------------------------------
@@ -21943,18 +25098,30 @@ bool ColladaParserAutoGenPrivate::_validateEnd__tapered_cylinder()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_cylinder( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TAPERED_CYLINDER__HEIGHT = "tapered_cylinder__height";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tapered_cylinder__height( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__tapered_cylinder__height(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CYLINDER__HEIGHT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -21965,6 +25132,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tapered_cylinder__height( cons
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tapered_cylinder__height()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__tapered_cylinder__height(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CYLINDER__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_cylinder__height( void* attributeData )
 {
     return true;
 }
@@ -21994,6 +25177,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__tapered_cylinder__radius1 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_cylinder__radius1( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_RADIUS2 = "radius2";
 
 //---------------------------------------------------------------------
@@ -22018,10 +25207,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__tapered_cylinder__radius2 );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TAPERED_CYLINDER__EXTRA = "tapered_cylinder__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_cylinder__radius2( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const tapered_cylinder__extra__AttributeData tapered_cylinder__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_TAPERED_CYLINDER__EXTRA = "tapered_cylinder__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tapered_cylinder__extra( const ParserChar* text, size_t textLength )
@@ -22032,7 +25224,7 @@ bool ColladaParserAutoGenPrivate::_data__tapered_cylinder__extra( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__tapered_cylinder__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-tapered_cylinder__extra__AttributeData* attributeData = newData<tapered_cylinder__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22092,6 +25284,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__tapered_cylinder__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_cylinder__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CAPSULE = "capsule";
 
 //---------------------------------------------------------------------
@@ -22116,18 +25314,30 @@ bool ColladaParserAutoGenPrivate::_validateEnd__capsule()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__capsule( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_CAPSULE__HEIGHT = "capsule__height";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__capsule__height( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__capsule__height(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CAPSULE__HEIGHT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -22138,6 +25348,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__capsule__height( const ParserA
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__capsule__height()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__capsule__height(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_CAPSULE__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__capsule__height( void* attributeData )
 {
     return true;
 }
@@ -22164,10 +25390,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__capsule__radius );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_CAPSULE__EXTRA = "capsule__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__capsule__radius( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const capsule__extra__AttributeData capsule__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_CAPSULE__EXTRA = "capsule__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__capsule__extra( const ParserChar* text, size_t textLength )
@@ -22178,7 +25407,7 @@ bool ColladaParserAutoGenPrivate::_data__capsule__extra( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__capsule__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-capsule__extra__AttributeData* attributeData = newData<capsule__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22238,6 +25467,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__capsule__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__capsule__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TAPERED_CAPSULE = "tapered_capsule";
 
 //---------------------------------------------------------------------
@@ -22262,18 +25497,30 @@ bool ColladaParserAutoGenPrivate::_validateEnd__tapered_capsule()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_capsule( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TAPERED_CAPSULE__HEIGHT = "tapered_capsule__height";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tapered_capsule__height( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__tapered_capsule__height(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CAPSULE__HEIGHT, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -22284,6 +25531,22 @@ bool ColladaParserAutoGenPrivate::_validateBegin__tapered_capsule__height( const
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__tapered_capsule__height()
+{
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__tapered_capsule__height(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TAPERED_CAPSULE__HEIGHT, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_capsule__height( void* attributeData )
 {
     return true;
 }
@@ -22310,6 +25573,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__tapered_capsule__radius1 );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_capsule__radius1( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TAPERED_CAPSULE__RADIUS2 = "tapered_capsule__radius2";
 
 //---------------------------------------------------------------------
@@ -22331,10 +25600,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__tapered_capsule__radius2 );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_TAPERED_CAPSULE__EXTRA = "tapered_capsule__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_capsule__radius2( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const tapered_capsule__extra__AttributeData tapered_capsule__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_TAPERED_CAPSULE__EXTRA = "tapered_capsule__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__tapered_capsule__extra( const ParserChar* text, size_t textLength )
@@ -22345,7 +25617,7 @@ bool ColladaParserAutoGenPrivate::_data__tapered_capsule__extra( const ParserCha
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__tapered_capsule__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-tapered_capsule__extra__AttributeData* attributeData = newData<tapered_capsule__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22405,10 +25677,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__tapered_capsule__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SHAPE__TRANSLATE = "shape__translate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__tapered_capsule__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const shape__translate__AttributeData shape__translate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_SHAPE__TRANSLATE = "shape__translate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__translate( const ParserChar* text, size_t textLength )
@@ -22419,7 +25694,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__translate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__translate__AttributeData* attributeData = newData<shape__translate__AttributeData>(attributeDataPtr);
+translate__AttributeData* attributeData = newData<translate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22465,10 +25740,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__shape__translate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SHAPE__ROTATE = "shape__rotate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__translate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const shape__rotate__AttributeData shape__rotate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_SHAPE__ROTATE = "shape__rotate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__rotate( const ParserChar* text, size_t textLength )
@@ -22479,7 +25757,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__rotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__rotate__AttributeData* attributeData = newData<shape__rotate__AttributeData>(attributeDataPtr);
+rotate__AttributeData* attributeData = newData<rotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22525,10 +25803,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__shape__rotate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SHAPE__EXTRA = "shape__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__rotate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const shape__extra__AttributeData shape__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_SHAPE__EXTRA = "shape__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__shape__extra( const ParserChar* text, size_t textLength )
@@ -22539,7 +25820,7 @@ bool ColladaParserAutoGenPrivate::_data__shape__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__shape__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-shape__extra__AttributeData* attributeData = newData<shape__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22599,10 +25880,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__shape__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_RIGID_BODY__TECHNIQUE = "rigid_body__technique";
+bool ColladaParserAutoGenPrivate::_freeAttributes__shape__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const rigid_body__technique__AttributeData rigid_body__technique__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_RIGID_BODY__TECHNIQUE = "rigid_body__technique";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__rigid_body__technique( const ParserChar* text, size_t textLength )
@@ -22659,10 +25943,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_body__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_RIGID_BODY__EXTRA = "rigid_body__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_body__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const rigid_body__extra__AttributeData rigid_body__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_RIGID_BODY__EXTRA = "rigid_body__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__rigid_body__extra( const ParserChar* text, size_t textLength )
@@ -22673,7 +25960,7 @@ bool ColladaParserAutoGenPrivate::_data__rigid_body__extra( const ParserChar* te
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__rigid_body__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-rigid_body__extra__AttributeData* attributeData = newData<rigid_body__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22728,6 +26015,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__rigid_body__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_body__extra( void* attributeData )
 {
     return true;
 }
@@ -22803,6 +26096,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_constraint()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_constraint( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_REF_ATTACHMENT = "ref_attachment";
 
 //---------------------------------------------------------------------
@@ -22869,10 +26168,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__ref_attachment()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_REF_ATTACHMENT__TRANSLATE = "ref_attachment__translate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__ref_attachment( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const ref_attachment__translate__AttributeData ref_attachment__translate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_REF_ATTACHMENT__TRANSLATE = "ref_attachment__translate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__ref_attachment__translate( const ParserChar* text, size_t textLength )
@@ -22883,7 +26185,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__r
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__ref_attachment__translate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-ref_attachment__translate__AttributeData* attributeData = newData<ref_attachment__translate__AttributeData>(attributeDataPtr);
+translate__AttributeData* attributeData = newData<translate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22929,10 +26231,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__ref_attachment__translate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_REF_ATTACHMENT__ROTATE = "ref_attachment__rotate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__ref_attachment__translate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const ref_attachment__rotate__AttributeData ref_attachment__rotate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_REF_ATTACHMENT__ROTATE = "ref_attachment__rotate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__ref_attachment__rotate( const ParserChar* text, size_t textLength )
@@ -22943,7 +26248,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__r
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__ref_attachment__rotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-ref_attachment__rotate__AttributeData* attributeData = newData<ref_attachment__rotate__AttributeData>(attributeDataPtr);
+rotate__AttributeData* attributeData = newData<rotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -22989,10 +26294,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__ref_attachment__rotate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_REF_ATTACHMENT__EXTRA = "ref_attachment__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__ref_attachment__rotate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const ref_attachment__extra__AttributeData ref_attachment__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_REF_ATTACHMENT__EXTRA = "ref_attachment__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__ref_attachment__extra( const ParserChar* text, size_t textLength )
@@ -23003,7 +26311,7 @@ bool ColladaParserAutoGenPrivate::_data__ref_attachment__extra( const ParserChar
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__ref_attachment__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-ref_attachment__extra__AttributeData* attributeData = newData<ref_attachment__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23058,6 +26366,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__ref_attachment__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__ref_attachment__extra( void* attributeData )
 {
     return true;
 }
@@ -23126,10 +26440,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__attachment()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_ATTACHMENT__TRANSLATE = "attachment__translate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__attachment( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const attachment__translate__AttributeData attachment__translate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_ATTACHMENT__TRANSLATE = "attachment__translate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__attachment__translate( const ParserChar* text, size_t textLength )
@@ -23140,7 +26457,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__a
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__attachment__translate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-attachment__translate__AttributeData* attributeData = newData<attachment__translate__AttributeData>(attributeDataPtr);
+translate__AttributeData* attributeData = newData<translate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23186,10 +26503,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__attachment__translate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_ATTACHMENT__ROTATE = "attachment__rotate";
+bool ColladaParserAutoGenPrivate::_freeAttributes__attachment__translate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const attachment__rotate__AttributeData attachment__rotate__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_ATTACHMENT__ROTATE = "attachment__rotate";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__attachment__rotate( const ParserChar* text, size_t textLength )
@@ -23200,7 +26520,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__a
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__attachment__rotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-attachment__rotate__AttributeData* attributeData = newData<attachment__rotate__AttributeData>(attributeDataPtr);
+rotate__AttributeData* attributeData = newData<rotate__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23246,10 +26566,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__attachment__rotate );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_ATTACHMENT__EXTRA = "attachment__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__attachment__rotate( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const attachment__extra__AttributeData attachment__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_ATTACHMENT__EXTRA = "attachment__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__attachment__extra( const ParserChar* text, size_t textLength )
@@ -23260,7 +26583,7 @@ bool ColladaParserAutoGenPrivate::_data__attachment__extra( const ParserChar* te
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__attachment__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-attachment__extra__AttributeData* attributeData = newData<attachment__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23320,6 +26643,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__attachment__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__attachment__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE_COMMON = "rigid_constraint__technique_common";
 
 //---------------------------------------------------------------------
@@ -23341,6 +26670,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_constraint__technique_comm
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_constraint__technique_common( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_ENABLED = "enabled";
 
 //---------------------------------------------------------------------
@@ -23352,13 +26687,19 @@ const enabled__AttributeData enabled__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__enabled( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__enabled(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ENABLED, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -23406,6 +26747,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__enabled()
 {
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__enabled(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ENABLED, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__enabled( void* attributeData )
+{
     return true;
 }
 
@@ -23421,13 +26778,19 @@ const interpenetrate__AttributeData interpenetrate__AttributeData::DEFAULT = {0}
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__interpenetrate( const ParserChar* text, size_t textLength )
 {
-bool failed;
-bool parameter = GeneratedSaxParser::Utils::toBool(text, failed);
-if (!failed)
-    return mImpl->data__interpenetrate(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INTERPENETRATE, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -23475,6 +26838,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__interpenetrate()
 {
+bool failed;
+bool parameter = GeneratedSaxParser::Utils::toBool((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__interpenetrate(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_INTERPENETRATE, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__interpenetrate( void* attributeData )
+{
     return true;
 }
 
@@ -23498,6 +26877,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__limits( const ParserAttributes
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__limits()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__limits( void* attributeData )
 {
     return true;
 }
@@ -23527,13 +26912,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__swing_cone_and_twist()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__swing_cone_and_twist( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MIN = "min";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SWING_CONE_AND_TWIST__MIN = "swing_cone_and_twist__min";
 
 //---------------------------------------------------------------------
-const swing_cone_and_twist__min__AttributeData swing_cone_and_twist__min__AttributeData::DEFAULT = {0};
+const min__AttributeData min__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__swing_cone_and_twist__min( const ParserChar* text, size_t textLength )
@@ -23544,7 +26935,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__swing_cone_and_twist__min( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-swing_cone_and_twist__min__AttributeData* attributeData = newData<swing_cone_and_twist__min__AttributeData>(attributeDataPtr);
+min__AttributeData* attributeData = newData<min__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23590,13 +26981,19 @@ return doubleDataEnd( &ColladaParserAutoGen::data__swing_cone_and_twist__min );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__swing_cone_and_twist__min( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_MAX = "max";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_SWING_CONE_AND_TWIST__MAX = "swing_cone_and_twist__max";
 
 //---------------------------------------------------------------------
-const swing_cone_and_twist__max__AttributeData swing_cone_and_twist__max__AttributeData::DEFAULT = {0};
+const max__AttributeData max__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__swing_cone_and_twist__max( const ParserChar* text, size_t textLength )
@@ -23607,7 +27004,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__swing_cone_and_twist__max( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-swing_cone_and_twist__max__AttributeData* attributeData = newData<swing_cone_and_twist__max__AttributeData>(attributeDataPtr);
+max__AttributeData* attributeData = newData<max__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23653,6 +27050,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__swing_cone_and_twist__max );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__swing_cone_and_twist__max( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LINEAR = "linear";
 
 //---------------------------------------------------------------------
@@ -23677,10 +27080,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__limits__linear()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINEAR__MIN = "linear__min";
+bool ColladaParserAutoGenPrivate::_freeAttributes__limits__linear( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const linear__min__AttributeData linear__min__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_LINEAR__MIN = "linear__min";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__min( const ParserChar* text, size_t textLength )
@@ -23691,7 +27097,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__l
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__linear__min( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-linear__min__AttributeData* attributeData = newData<linear__min__AttributeData>(attributeDataPtr);
+min__AttributeData* attributeData = newData<min__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23737,10 +27143,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__linear__min );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINEAR__MAX = "linear__max";
+bool ColladaParserAutoGenPrivate::_freeAttributes__linear__min( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const linear__max__AttributeData linear__max__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_LINEAR__MAX = "linear__max";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__max( const ParserChar* text, size_t textLength )
@@ -23751,7 +27160,7 @@ return characterData2DoubleData(text, textLength, &ColladaParserAutoGen::data__l
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__linear__max( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-linear__max__AttributeData* attributeData = newData<linear__max__AttributeData>(attributeDataPtr);
+max__AttributeData* attributeData = newData<max__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23797,6 +27206,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__linear__max );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__linear__max( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SPRING = "spring";
 
 //---------------------------------------------------------------------
@@ -23816,6 +27231,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__spring( const ParserAttributes
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__spring()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__spring( void* attributeData )
 {
     return true;
 }
@@ -23845,30 +27266,42 @@ bool ColladaParserAutoGenPrivate::_validateEnd__angular()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__angular( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_STIFFNESS = "stiffness";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_ANGULAR__STIFFNESS = "angular__stiffness";
 
 //---------------------------------------------------------------------
-const angular__stiffness__AttributeData angular__stiffness__AttributeData::DEFAULT = {0};
+const stiffness__AttributeData stiffness__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__angular__stiffness( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__angular__stiffness(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__angular__stiffness( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-angular__stiffness__AttributeData* attributeData = newData<angular__stiffness__AttributeData>(attributeDataPtr);
+stiffness__AttributeData* attributeData = newData<stiffness__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23910,6 +27343,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__angular__stiffness()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__angular__stiffness(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__STIFFNESS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__angular__stiffness( void* attributeData )
+{
     return true;
 }
 
@@ -23920,24 +27369,30 @@ const char* NAME_ELEMENT_DAMPING = "damping";
 const char* NAME_ELEMENT_ANGULAR__DAMPING = "angular__damping";
 
 //---------------------------------------------------------------------
-const angular__damping__AttributeData angular__damping__AttributeData::DEFAULT = {0};
+const damping__AttributeData damping__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__angular__damping( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__angular__damping(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__DAMPING, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__angular__damping( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-angular__damping__AttributeData* attributeData = newData<angular__damping__AttributeData>(attributeDataPtr);
+damping__AttributeData* attributeData = newData<damping__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -23979,6 +27434,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__angular__damping()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__angular__damping(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__DAMPING, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__angular__damping( void* attributeData )
+{
     return true;
 }
 
@@ -23989,24 +27460,30 @@ const char* NAME_ELEMENT_TARGET_VALUE = "target_value";
 const char* NAME_ELEMENT_ANGULAR__TARGET_VALUE = "angular__target_value";
 
 //---------------------------------------------------------------------
-const angular__target_value__AttributeData angular__target_value__AttributeData::DEFAULT = {0};
+const target_value__AttributeData target_value__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__angular__target_value( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__angular__target_value(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__angular__target_value( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-angular__target_value__AttributeData* attributeData = newData<angular__target_value__AttributeData>(attributeDataPtr);
+target_value__AttributeData* attributeData = newData<target_value__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24048,6 +27525,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__angular__target_value()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__angular__target_value(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_ANGULAR__TARGET_VALUE, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__angular__target_value( void* attributeData )
+{
     return true;
 }
 
@@ -24073,27 +27566,36 @@ bool ColladaParserAutoGenPrivate::_validateEnd__spring__linear()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LINEAR__STIFFNESS = "linear__stiffness";
+bool ColladaParserAutoGenPrivate::_freeAttributes__spring__linear( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const linear__stiffness__AttributeData linear__stiffness__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_LINEAR__STIFFNESS = "linear__stiffness";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__stiffness( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__linear__stiffness(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__STIFFNESS, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__linear__stiffness( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-linear__stiffness__AttributeData* attributeData = newData<linear__stiffness__AttributeData>(attributeDataPtr);
+stiffness__AttributeData* attributeData = newData<stiffness__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24135,6 +27637,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__linear__stiffness()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__linear__stiffness(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__STIFFNESS, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__linear__stiffness( void* attributeData )
+{
     return true;
 }
 
@@ -24142,24 +27660,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__linear__stiffness()
 const char* NAME_ELEMENT_LINEAR__DAMPING = "linear__damping";
 
 //---------------------------------------------------------------------
-const linear__damping__AttributeData linear__damping__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__damping( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__linear__damping(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__DAMPING, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__linear__damping( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-linear__damping__AttributeData* attributeData = newData<linear__damping__AttributeData>(attributeDataPtr);
+damping__AttributeData* attributeData = newData<damping__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24201,6 +27722,22 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__linear__damping()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__linear__damping(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__DAMPING, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__linear__damping( void* attributeData )
+{
     return true;
 }
 
@@ -24208,24 +27745,27 @@ bool ColladaParserAutoGenPrivate::_validateEnd__linear__damping()
 const char* NAME_ELEMENT_LINEAR__TARGET_VALUE = "linear__target_value";
 
 //---------------------------------------------------------------------
-const linear__target_value__AttributeData linear__target_value__AttributeData::DEFAULT = {0};
-
-//---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__linear__target_value( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__linear__target_value(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__linear__target_value( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-linear__target_value__AttributeData* attributeData = newData<linear__target_value__AttributeData>(attributeDataPtr);
+target_value__AttributeData* attributeData = newData<target_value__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24267,14 +27807,27 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__linear__target_value()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__linear__target_value(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_LINEAR__TARGET_VALUE, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__linear__target_value( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE = "rigid_constraint__technique";
-
-//---------------------------------------------------------------------
-const rigid_constraint__technique__AttributeData rigid_constraint__technique__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__rigid_constraint__technique( const ParserChar* text, size_t textLength )
@@ -24331,10 +27884,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_constraint__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_RIGID_CONSTRAINT__EXTRA = "rigid_constraint__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_constraint__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const rigid_constraint__extra__AttributeData rigid_constraint__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_RIGID_CONSTRAINT__EXTRA = "rigid_constraint__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__rigid_constraint__extra( const ParserChar* text, size_t textLength )
@@ -24345,7 +27901,7 @@ bool ColladaParserAutoGenPrivate::_data__rigid_constraint__extra( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__rigid_constraint__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-rigid_constraint__extra__AttributeData* attributeData = newData<rigid_constraint__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24405,6 +27961,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__rigid_constraint__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__rigid_constraint__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL = "instance_physics_model";
 
 //---------------------------------------------------------------------
@@ -24414,7 +27976,7 @@ const char* NAME_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL = "physics_model_
 const char* NAME_ATTRIBUTE_PARENT = "parent";
 
 //---------------------------------------------------------------------
-const physics_model__instance_physics_model__AttributeData physics_model__instance_physics_model__AttributeData::DEFAULT = {0, 0, 0, 0};
+const instance_physics_model__AttributeData instance_physics_model__AttributeData::DEFAULT = {0, 0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_model__instance_physics_model( const ParserChar* text, size_t textLength )
@@ -24425,7 +27987,7 @@ bool ColladaParserAutoGenPrivate::_data__physics_model__instance_physics_model( 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__physics_model__instance_physics_model( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-physics_model__instance_physics_model__AttributeData* attributeData = newData<physics_model__instance_physics_model__AttributeData>(attributeDataPtr);
+instance_physics_model__AttributeData* attributeData = newData<instance_physics_model__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24492,13 +28054,19 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_model__instance_physics_
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_model__instance_physics_model( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_FORCE_FIELD = "instance_force_field";
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD = "instance_physics_model__instance_force_field";
 
 //---------------------------------------------------------------------
-const instance_physics_model__instance_force_field__AttributeData instance_physics_model__instance_force_field__AttributeData::DEFAULT = {0, 0, 0};
+const instance_force_field__AttributeData instance_force_field__AttributeData::DEFAULT = {0, 0, 0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_physics_model__instance_force_field( const ParserChar* text, size_t textLength )
@@ -24509,7 +28077,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_physics_model__instance_force_
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_physics_model__instance_force_field( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_physics_model__instance_force_field__AttributeData* attributeData = newData<instance_physics_model__instance_force_field__AttributeData>(attributeDataPtr);
+instance_force_field__AttributeData* attributeData = newData<instance_force_field__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24569,10 +28137,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_physics_model__instance
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA = "instance_force_field__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_physics_model__instance_force_field( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_force_field__extra__AttributeData instance_force_field__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA = "instance_force_field__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_force_field__extra( const ParserChar* text, size_t textLength )
@@ -24583,7 +28154,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_force_field__extra( const Pars
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_force_field__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_force_field__extra__AttributeData* attributeData = newData<instance_force_field__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24638,6 +28209,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_force_field__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_force_field__extra( void* attributeData )
 {
     return true;
 }
@@ -24730,6 +28307,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_rigid_body()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_rigid_body( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE_COMMON = "instance_rigid_body__technique_common";
 
 //---------------------------------------------------------------------
@@ -24746,6 +28329,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__instance_rigid_body__technique
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_rigid_body__technique_common()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_rigid_body__technique_common( void* attributeData )
 {
     return true;
 }
@@ -24775,6 +28364,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__angular_velocity );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__angular_velocity( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_VELOCITY = "velocity";
 
 //---------------------------------------------------------------------
@@ -24799,10 +28394,13 @@ return doubleDataEnd( &ColladaParserAutoGen::data__velocity );
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE = "instance_rigid_body__technique";
+bool ColladaParserAutoGenPrivate::_freeAttributes__velocity( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_rigid_body__technique__AttributeData instance_rigid_body__technique__AttributeData::DEFAULT = {0};
+const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE = "instance_rigid_body__technique";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_rigid_body__technique( const ParserChar* text, size_t textLength )
@@ -24859,10 +28457,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_rigid_body__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__EXTRA = "instance_rigid_body__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_rigid_body__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_rigid_body__extra__AttributeData instance_rigid_body__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__EXTRA = "instance_rigid_body__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_rigid_body__extra( const ParserChar* text, size_t textLength )
@@ -24873,7 +28474,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_rigid_body__extra( const Parse
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_rigid_body__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_rigid_body__extra__AttributeData* attributeData = newData<instance_rigid_body__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -24928,6 +28529,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_rigid_body__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_rigid_body__extra( void* attributeData )
 {
     return true;
 }
@@ -25013,10 +28620,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_rigid_constraint()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA = "instance_rigid_constraint__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_rigid_constraint( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_rigid_constraint__extra__AttributeData instance_rigid_constraint__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA = "instance_rigid_constraint__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_rigid_constraint__extra( const ParserChar* text, size_t textLength )
@@ -25027,7 +28637,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_rigid_constraint__extra( const
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_rigid_constraint__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_rigid_constraint__extra__AttributeData* attributeData = newData<instance_rigid_constraint__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25087,10 +28697,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_rigid_constraint__extra
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA = "instance_physics_model__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_rigid_constraint__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_physics_model__extra__AttributeData instance_physics_model__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA = "instance_physics_model__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_physics_model__extra( const ParserChar* text, size_t textLength )
@@ -25101,7 +28714,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_physics_model__extra( const Pa
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_physics_model__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_physics_model__extra__AttributeData* attributeData = newData<instance_physics_model__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25161,10 +28774,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_physics_model__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_PHYSICS_MODEL__EXTRA = "physics_model__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_physics_model__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const physics_model__extra__AttributeData physics_model__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_PHYSICS_MODEL__EXTRA = "physics_model__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_model__extra( const ParserChar* text, size_t textLength )
@@ -25175,7 +28791,7 @@ bool ColladaParserAutoGenPrivate::_data__physics_model__extra( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__physics_model__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-physics_model__extra__AttributeData* attributeData = newData<physics_model__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25235,10 +28851,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_model__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA = "library_physics_models__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_model__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_physics_models__extra__AttributeData library_physics_models__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA = "library_physics_models__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_physics_models__extra( const ParserChar* text, size_t textLength )
@@ -25249,7 +28868,7 @@ bool ColladaParserAutoGenPrivate::_data__library_physics_models__extra( const Pa
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_physics_models__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_physics_models__extra__AttributeData* attributeData = newData<library_physics_models__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25304,6 +28923,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_models__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_models__extra( void* attributeData )
 {
     return true;
 }
@@ -25379,6 +29004,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_scenes()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_scenes( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_PHYSICS_SCENES__ASSET = "library_physics_scenes__asset";
 
 //---------------------------------------------------------------------
@@ -25395,6 +29026,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_physics_scenes__asset(
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_scenes__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_scenes__asset( void* attributeData )
 {
     return true;
 }
@@ -25470,6 +29107,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_SCENE__ASSET = "physics_scene__asset";
 
 //---------------------------------------------------------------------
@@ -25491,10 +29134,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene__asset()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD = "physics_scene__instance_force_field";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene__asset( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const physics_scene__instance_force_field__AttributeData physics_scene__instance_force_field__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD = "physics_scene__instance_force_field";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_scene__instance_force_field( const ParserChar* text, size_t textLength )
@@ -25505,7 +29151,7 @@ bool ColladaParserAutoGenPrivate::_data__physics_scene__instance_force_field( co
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__physics_scene__instance_force_field( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-physics_scene__instance_force_field__AttributeData* attributeData = newData<physics_scene__instance_force_field__AttributeData>(attributeDataPtr);
+instance_force_field__AttributeData* attributeData = newData<instance_force_field__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25565,10 +29211,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene__instance_force_fi
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL = "physics_scene__instance_physics_model";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene__instance_force_field( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const physics_scene__instance_physics_model__AttributeData physics_scene__instance_physics_model__AttributeData::DEFAULT = {0, 0, 0, 0};
+const char* NAME_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL = "physics_scene__instance_physics_model";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_scene__instance_physics_model( const ParserChar* text, size_t textLength )
@@ -25579,7 +29228,7 @@ bool ColladaParserAutoGenPrivate::_data__physics_scene__instance_physics_model( 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__physics_scene__instance_physics_model( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-physics_scene__instance_physics_model__AttributeData* attributeData = newData<physics_scene__instance_physics_model__AttributeData>(attributeDataPtr);
+instance_physics_model__AttributeData* attributeData = newData<instance_physics_model__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25646,6 +29295,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene__instance_physics_
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene__instance_physics_model( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_SCENE__TECHNIQUE_COMMON = "physics_scene__technique_common";
 
 //---------------------------------------------------------------------
@@ -25662,6 +29317,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__physics_scene__technique_commo
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene__technique_common()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene__technique_common( void* attributeData )
 {
     return true;
 }
@@ -25730,6 +29391,12 @@ return doubleDataEnd( &ColladaParserAutoGen::data__gravity );
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__gravity( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_TIME_STEP = "time_step";
 
 //---------------------------------------------------------------------
@@ -25741,13 +29408,19 @@ const time_step__AttributeData time_step__AttributeData::DEFAULT = {0};
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__time_step( const ParserChar* text, size_t textLength )
 {
-bool failed;
-double parameter = GeneratedSaxParser::Utils::toDouble(text, failed);
-if (!failed)
-    return mImpl->data__time_step(parameter);
+if (!mLastIncompleteFragmentInCharacterData)
+{
+    mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(textLength);
+    memcpy(mLastIncompleteFragmentInCharacterData, text, textLength);
+    mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + textLength;
+}
 else
-    return !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TIME_STEP, 0, text);
-
+{
+    mStackMemoryManager.growObject(textLength);
+    memcpy(mEndOfDataInCurrentObjectOnStack, text, textLength);
+    mEndOfDataInCurrentObjectOnStack += textLength;
+}
+return true;
 }
 
 //---------------------------------------------------------------------
@@ -25795,14 +29468,27 @@ attributeData->sid = attributeValue;
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__time_step()
 {
+bool failed;
+double parameter = GeneratedSaxParser::Utils::toDouble((const ParserChar**)&mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, failed);
+bool returnValue;
+if (!failed)
+    returnValue = mImpl->data__time_step(parameter);
+else
+    returnValue = !handleError(ParserError::SEVERITY_ERROR, ParserError::ERROR_TEXTDATA_PARSING_FAILED, HASH_ELEMENT_TIME_STEP, 0, mLastIncompleteFragmentInCharacterData);
+mStackMemoryManager.deleteObject();
+mLastIncompleteFragmentInCharacterData = 0;
+mEndOfDataInCurrentObjectOnStack = 0;
+return returnValue;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__time_step( void* attributeData )
+{
     return true;
 }
 
 //---------------------------------------------------------------------
 const char* NAME_ELEMENT_PHYSICS_SCENE__TECHNIQUE = "physics_scene__technique";
-
-//---------------------------------------------------------------------
-const physics_scene__technique__AttributeData physics_scene__technique__AttributeData::DEFAULT = {0};
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_scene__technique( const ParserChar* text, size_t textLength )
@@ -25859,10 +29545,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene__technique()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_PHYSICS_SCENE__EXTRA = "physics_scene__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene__technique( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const physics_scene__extra__AttributeData physics_scene__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_PHYSICS_SCENE__EXTRA = "physics_scene__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__physics_scene__extra( const ParserChar* text, size_t textLength )
@@ -25873,7 +29562,7 @@ bool ColladaParserAutoGenPrivate::_data__physics_scene__extra( const ParserChar*
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__physics_scene__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-physics_scene__extra__AttributeData* attributeData = newData<physics_scene__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -25933,10 +29622,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__physics_scene__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA = "library_physics_scenes__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__physics_scene__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_physics_scenes__extra__AttributeData library_physics_scenes__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA = "library_physics_scenes__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_physics_scenes__extra( const ParserChar* text, size_t textLength )
@@ -25947,7 +29639,7 @@ bool ColladaParserAutoGenPrivate::_data__library_physics_scenes__extra( const Pa
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_physics_scenes__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_physics_scenes__extra__AttributeData* attributeData = newData<library_physics_scenes__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26002,6 +29694,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_physics_scenes__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_physics_scenes__extra( void* attributeData )
 {
     return true;
 }
@@ -26077,6 +29775,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_visual_scenes()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_visual_scenes( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LIBRARY_VISUAL_SCENES__ASSET = "library_visual_scenes__asset";
 
 //---------------------------------------------------------------------
@@ -26093,6 +29797,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__library_visual_scenes__asset( 
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__library_visual_scenes__asset()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_visual_scenes__asset( void* attributeData )
 {
     return true;
 }
@@ -26168,6 +29878,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__visual_scene()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__visual_scene( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_VISUAL_SCENE__ASSET = "visual_scene__asset";
 
 //---------------------------------------------------------------------
@@ -26189,10 +29905,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__visual_scene__asset()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_VISUAL_SCENE__NODE = "visual_scene__node";
+bool ColladaParserAutoGenPrivate::_freeAttributes__visual_scene__asset( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const visual_scene__node__AttributeData visual_scene__node__AttributeData::DEFAULT = {0, 0, 0, (const GeneratedSaxParser::ParserChar *)"NODE", 0};
+const char* NAME_ELEMENT_VISUAL_SCENE__NODE = "visual_scene__node";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__visual_scene__node( const ParserChar* text, size_t textLength )
@@ -26203,7 +29922,7 @@ bool ColladaParserAutoGenPrivate::_data__visual_scene__node( const ParserChar* t
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__visual_scene__node( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-visual_scene__node__AttributeData* attributeData = newData<visual_scene__node__AttributeData>(attributeDataPtr);
+node__AttributeData* attributeData = newData<node__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26277,6 +29996,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__visual_scene__node()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__visual_scene__node( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_EVALUATE_SCENE = "evaluate_scene";
 
 //---------------------------------------------------------------------
@@ -26335,6 +30060,12 @@ attributeData->name = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__evaluate_scene()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__evaluate_scene( void* attributeData )
 {
     return true;
 }
@@ -26406,6 +30137,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__render()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__render( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_LAYER = "layer";
 
 //---------------------------------------------------------------------
@@ -26414,9 +30151,7 @@ const char* NAME_ELEMENT_RENDER__LAYER = "render__layer";
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__layer( const ParserChar* text, size_t textLength )
 {
-
-return mImpl->data__layer(text, textLength);
-
+    return true;
 }
 
 //---------------------------------------------------------------------
@@ -26432,10 +30167,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__layer()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_RENDER__INSTANCE_EFFECT = "render__instance_effect";
+bool ColladaParserAutoGenPrivate::_freeAttributes__layer( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const render__instance_effect__AttributeData render__instance_effect__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_RENDER__INSTANCE_EFFECT = "render__instance_effect";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__render__instance_effect( const ParserChar* text, size_t textLength )
@@ -26446,7 +30184,7 @@ bool ColladaParserAutoGenPrivate::_data__render__instance_effect( const ParserCh
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__render__instance_effect( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-render__instance_effect__AttributeData* attributeData = newData<render__instance_effect__AttributeData>(attributeDataPtr);
+instance_effect__AttributeData* attributeData = newData<instance_effect__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26506,10 +30244,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__render__instance_effect()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_VISUAL_SCENE__EXTRA = "visual_scene__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__render__instance_effect( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const visual_scene__extra__AttributeData visual_scene__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_VISUAL_SCENE__EXTRA = "visual_scene__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__visual_scene__extra( const ParserChar* text, size_t textLength )
@@ -26520,7 +30261,7 @@ bool ColladaParserAutoGenPrivate::_data__visual_scene__extra( const ParserChar* 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__visual_scene__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-visual_scene__extra__AttributeData* attributeData = newData<visual_scene__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26580,10 +30321,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__visual_scene__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA = "library_visual_scenes__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__visual_scene__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const library_visual_scenes__extra__AttributeData library_visual_scenes__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA = "library_visual_scenes__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__library_visual_scenes__extra( const ParserChar* text, size_t textLength )
@@ -26594,7 +30338,7 @@ bool ColladaParserAutoGenPrivate::_data__library_visual_scenes__extra( const Par
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__library_visual_scenes__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-library_visual_scenes__extra__AttributeData* attributeData = newData<library_visual_scenes__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26654,6 +30398,12 @@ bool ColladaParserAutoGenPrivate::_validateEnd__library_visual_scenes__extra()
 }
 
 //---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__library_visual_scenes__extra( void* attributeData )
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
 const char* NAME_ELEMENT_SCENE = "scene";
 
 //---------------------------------------------------------------------
@@ -26673,6 +30423,12 @@ bool ColladaParserAutoGenPrivate::_validateBegin__scene( const ParserAttributes&
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__scene()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__scene( void* attributeData )
 {
     return true;
 }
@@ -26755,10 +30511,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_physics_scene()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA = "instance_physics_scene__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_physics_scene( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_physics_scene__extra__AttributeData instance_physics_scene__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA = "instance_physics_scene__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_physics_scene__extra( const ParserChar* text, size_t textLength )
@@ -26769,7 +30528,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_physics_scene__extra( const Pa
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_physics_scene__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_physics_scene__extra__AttributeData* attributeData = newData<instance_physics_scene__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26824,6 +30583,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__instance_physics_scene__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_physics_scene__extra( void* attributeData )
 {
     return true;
 }
@@ -26906,10 +30671,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_visual_scene()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA = "instance_visual_scene__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_visual_scene( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const instance_visual_scene__extra__AttributeData instance_visual_scene__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA = "instance_visual_scene__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__instance_visual_scene__extra( const ParserChar* text, size_t textLength )
@@ -26920,7 +30688,7 @@ bool ColladaParserAutoGenPrivate::_data__instance_visual_scene__extra( const Par
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__instance_visual_scene__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-instance_visual_scene__extra__AttributeData* attributeData = newData<instance_visual_scene__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -26980,10 +30748,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__instance_visual_scene__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_SCENE__EXTRA = "scene__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__instance_visual_scene__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const scene__extra__AttributeData scene__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_SCENE__EXTRA = "scene__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__scene__extra( const ParserChar* text, size_t textLength )
@@ -26994,7 +30765,7 @@ bool ColladaParserAutoGenPrivate::_data__scene__extra( const ParserChar* text, s
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__scene__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-scene__extra__AttributeData* attributeData = newData<scene__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -27054,10 +30825,13 @@ bool ColladaParserAutoGenPrivate::_validateEnd__scene__extra()
 }
 
 //---------------------------------------------------------------------
-const char* NAME_ELEMENT_COLLADA__EXTRA = "COLLADA__extra";
+bool ColladaParserAutoGenPrivate::_freeAttributes__scene__extra( void* attributeData )
+{
+    return true;
+}
 
 //---------------------------------------------------------------------
-const COLLADA__extra__AttributeData COLLADA__extra__AttributeData::DEFAULT = {0, 0, 0};
+const char* NAME_ELEMENT_COLLADA__EXTRA = "COLLADA__extra";
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_data__COLLADA__extra( const ParserChar* text, size_t textLength )
@@ -27068,7 +30842,7 @@ bool ColladaParserAutoGenPrivate::_data__COLLADA__extra( const ParserChar* text,
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateBegin__COLLADA__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr )
 {
-COLLADA__extra__AttributeData* attributeData = newData<COLLADA__extra__AttributeData>(attributeDataPtr);
+extra__AttributeData* attributeData = newData<extra__AttributeData>(attributeDataPtr);
 
 const ParserChar** attributeArray = attributes.attributes;
 if ( attributeArray )
@@ -27123,6 +30897,12 @@ attributeData->type = attributeValue;
 
 //---------------------------------------------------------------------
 bool ColladaParserAutoGenPrivate::_validateEnd__COLLADA__extra()
+{
+    return true;
+}
+
+//---------------------------------------------------------------------
+bool ColladaParserAutoGenPrivate::_freeAttributes__COLLADA__extra( void* attributeData )
 {
     return true;
 }

@@ -36,9 +36,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool LibraryNodesLoader::begin__library_nodes__node( const library_nodes__node__AttributeData& attributeData )
+	bool LibraryNodesLoader::begin__library_nodes__node( const node__AttributeData& attributeData )
 	{
-		return beginNode(*(const node__node__AttributeData *)(&attributeData));
+		return beginNode(attributeData);
 	}
 
 	//------------------------------

@@ -125,7 +125,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a vertices element.*/
-		virtual bool begin__mesh__vertices( const mesh__vertices__AttributeData& attributeData );
+		virtual bool begin__mesh__vertices( const vertices__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a vertices element.*/
 		virtual bool end__mesh__vertices();
@@ -139,7 +139,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a triangles element.*/
-		virtual bool begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData );
+		virtual bool begin__mesh__triangles( const triangles__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a triangles element.*/
 		virtual bool end__mesh__triangles();
@@ -163,7 +163,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a polylist element.*/
-		virtual bool begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData );
+		virtual bool begin__mesh__polylist( const polylist__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polylist element.*/
 		virtual bool end__mesh__polylist();
@@ -197,7 +197,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a polygons element.*/
-		virtual bool begin__mesh__polygons( const mesh__polygons__AttributeData& attributeData );
+		virtual bool begin__mesh__polygons( const polygons__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons element.*/
 		virtual bool end__mesh__polygons();
@@ -248,7 +248,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a polygons element.*/
-		virtual bool begin__mesh__tristrips( const mesh__tristrips__AttributeData& attributeData );
+		virtual bool begin__mesh__tristrips( const tristrips__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons element.*/
 		virtual bool end__mesh__tristrips();
@@ -273,7 +273,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a polygons element.*/
-		virtual bool begin__mesh__trifans( const mesh__trifans__AttributeData& attributeData );
+		virtual bool begin__mesh__trifans( const trifans__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a polygons element.*/
 		virtual bool end__mesh__trifans();

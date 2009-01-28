@@ -49,7 +49,7 @@ namespace COLLADASaxFWL
 		void handleRootNode( COLLADAFW::Node* rootNode );
 
 		/** Sax callback function for the beginning of nodes, as child of a library nodes.*/
-		virtual bool begin__library_nodes__node( const library_nodes__node__AttributeData& attributeData );
+		virtual bool begin__library_nodes__node( const node__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of nodes, as child of a library nodes.*/
 		virtual bool end__library_nodes__node();

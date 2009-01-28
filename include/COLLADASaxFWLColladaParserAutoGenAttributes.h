@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADASaxFrameworkLoader.
+    This file is part of COLLADASaxFrameworkLoader.
 
-Licensed under the MIT Open Source License,
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License,
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 
@@ -17,7 +17,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "GeneratedSaxParserTypes.h"
 
 
-namespace  COLLADASaxFWL
+namespace COLLADASaxFWL
 {
 
 
@@ -147,9 +147,9 @@ const StringHash HASH_ELEMENT_ANIMATION = 56293822;
 extern const char* NAME_ELEMENT_ANIMATION;
 const StringHash HASH_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION = 56293822;
 extern const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__ANIMATION;
-struct library_animations__animation__AttributeData
+struct animation__AttributeData
 {
-    static const library_animations__animation__AttributeData DEFAULT;
+    static const animation__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -349,21 +349,14 @@ struct channel__AttributeData
 
 const StringHash HASH_ELEMENT_ANIMATION__ANIMATION = 259028126;
 extern const char* NAME_ELEMENT_ANIMATION__ANIMATION;
-struct animation__animation__AttributeData
-{
-    static const animation__animation__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_EXTRA = 147880641;
 extern const char* NAME_ELEMENT_EXTRA;
 const StringHash HASH_ELEMENT_ANIMATION__EXTRA = 147880641;
 extern const char* NAME_ELEMENT_ANIMATION__EXTRA;
-struct animation__extra__AttributeData
+struct extra__AttributeData
 {
-    static const animation__extra__AttributeData DEFAULT;
+    static const extra__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -375,23 +368,10 @@ extern const char* NAME_ELEMENT_EXTRA__ASSET;
 
 const StringHash HASH_ELEMENT_EXTRA__TECHNIQUE = 27831733;
 extern const char* NAME_ELEMENT_EXTRA__TECHNIQUE;
-struct extra__technique__AttributeData
-{
-    static const extra__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData extra__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_LIBRARY_ANIMATIONS__EXTRA = 39671521;
 extern const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__EXTRA;
-struct library_animations__extra__AttributeData
-{
-    static const library_animations__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS = 95259907;
 extern const char* NAME_ELEMENT_LIBRARY_ANIMATION_CLIPS;
@@ -446,36 +426,12 @@ struct instance_animation__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_ANIMATION__EXTRA = 249155953;
 extern const char* NAME_ELEMENT_INSTANCE_ANIMATION__EXTRA;
-struct instance_animation__extra__AttributeData
-{
-    static const instance_animation__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_ANIMATION_CLIP__EXTRA = 20841425;
 extern const char* NAME_ELEMENT_ANIMATION_CLIP__EXTRA;
-struct animation_clip__extra__AttributeData
-{
-    static const animation_clip__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA = 227534545;
 extern const char* NAME_ELEMENT_LIBRARY_ANIMATION_CLIPS__EXTRA;
-struct library_animation_clips__extra__AttributeData
-{
-    static const library_animation_clips__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_CAMERAS = 203031923;
 extern const char* NAME_ELEMENT_LIBRARY_CAMERAS;
@@ -546,9 +502,9 @@ const StringHash HASH_ELEMENT_ASPECT_RATIO = 237192175;
 extern const char* NAME_ELEMENT_ASPECT_RATIO;
 const StringHash HASH_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO = 237192175;
 extern const char* NAME_ELEMENT_ORTHOGRAPHIC__ASPECT_RATIO;
-struct orthographic__aspect_ratio__AttributeData
+struct aspect_ratio__AttributeData
 {
-    static const orthographic__aspect_ratio__AttributeData DEFAULT;
+    static const aspect_ratio__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -557,9 +513,9 @@ const StringHash HASH_ELEMENT_ZNEAR = 193810850;
 extern const char* NAME_ELEMENT_ZNEAR;
 const StringHash HASH_ELEMENT_ORTHOGRAPHIC__ZNEAR = 193810850;
 extern const char* NAME_ELEMENT_ORTHOGRAPHIC__ZNEAR;
-struct orthographic__znear__AttributeData
+struct znear__AttributeData
 {
-    static const orthographic__znear__AttributeData DEFAULT;
+    static const znear__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -568,9 +524,9 @@ const StringHash HASH_ELEMENT_ZFAR = 45665570;
 extern const char* NAME_ELEMENT_ZFAR;
 const StringHash HASH_ELEMENT_ORTHOGRAPHIC__ZFAR = 45665570;
 extern const char* NAME_ELEMENT_ORTHOGRAPHIC__ZFAR;
-struct orthographic__zfar__AttributeData
+struct zfar__AttributeData
 {
-    static const orthographic__zfar__AttributeData DEFAULT;
+    static const zfar__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -604,50 +560,19 @@ struct yfov__AttributeData
 
 const StringHash HASH_ELEMENT_PERSPECTIVE__ASPECT_RATIO = 26971343;
 extern const char* NAME_ELEMENT_PERSPECTIVE__ASPECT_RATIO;
-struct perspective__aspect_ratio__AttributeData
-{
-    static const perspective__aspect_ratio__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_PERSPECTIVE__ZNEAR = 163110226;
 extern const char* NAME_ELEMENT_PERSPECTIVE__ZNEAR;
-struct perspective__znear__AttributeData
-{
-    static const perspective__znear__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_PERSPECTIVE__ZFAR = 228292066;
 extern const char* NAME_ELEMENT_PERSPECTIVE__ZFAR;
-struct perspective__zfar__AttributeData
-{
-    static const perspective__zfar__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_OPTICS__TECHNIQUE = 49813749;
 extern const char* NAME_ELEMENT_OPTICS__TECHNIQUE;
-struct optics__technique__AttributeData
-{
-    static const optics__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData optics__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_OPTICS__EXTRA = 52822145;
 extern const char* NAME_ELEMENT_OPTICS__EXTRA;
-struct optics__extra__AttributeData
-{
-    static const optics__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_IMAGER = 232782882;
 extern const char* NAME_ELEMENT_IMAGER;
@@ -656,45 +581,16 @@ extern const char* NAME_ELEMENT_CAMERA__IMAGER;
 
 const StringHash HASH_ELEMENT_IMAGER__TECHNIQUE = 100816341;
 extern const char* NAME_ELEMENT_IMAGER__TECHNIQUE;
-struct imager__technique__AttributeData
-{
-    static const imager__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData imager__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_IMAGER__EXTRA = 90908561;
 extern const char* NAME_ELEMENT_IMAGER__EXTRA;
-struct imager__extra__AttributeData
-{
-    static const imager__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_CAMERA__EXTRA = 249508753;
 extern const char* NAME_ELEMENT_CAMERA__EXTRA;
-struct camera__extra__AttributeData
-{
-    static const camera__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_CAMERAS__EXTRA = 99526945;
 extern const char* NAME_ELEMENT_LIBRARY_CAMERAS__EXTRA;
-struct library_cameras__extra__AttributeData
-{
-    static const library_cameras__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_CONTROLLERS = 113250531;
 extern const char* NAME_ELEMENT_LIBRARY_CONTROLLERS;
@@ -744,13 +640,7 @@ extern const char* NAME_ELEMENT_SKIN__BIND_SHAPE_MATRIX;
 
 const StringHash HASH_ELEMENT_SKIN__SOURCE = 21286085;
 extern const char* NAME_ELEMENT_SKIN__SOURCE;
-struct skin__source__AttributeData
-{
-    static const skin__source__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
+typedef animation__source__AttributeData skin__source__AttributeData;
 
 const StringHash HASH_ELEMENT_JOINTS = 62390755;
 extern const char* NAME_ELEMENT_JOINTS;
@@ -759,24 +649,10 @@ extern const char* NAME_ELEMENT_SKIN__JOINTS;
 
 const StringHash HASH_ELEMENT_JOINTS__INPUT = 104860612;
 extern const char* NAME_ELEMENT_JOINTS__INPUT;
-struct joints__input__AttributeData
-{
-    static const joints__input__AttributeData DEFAULT;
-
-    const ParserChar* semantic;
-    const ParserChar* source;
-};
+typedef sampler__input__AttributeData joints__input__AttributeData;
 
 const StringHash HASH_ELEMENT_JOINTS__EXTRA = 104638337;
 extern const char* NAME_ELEMENT_JOINTS__EXTRA;
-struct joints__extra__AttributeData
-{
-    static const joints__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_VERTEX_WEIGHTS = 52511411;
 extern const char* NAME_ELEMENT_VERTEX_WEIGHTS;
@@ -815,25 +691,9 @@ extern const char* NAME_ELEMENT_VERTEX_WEIGHTS__V;
 
 const StringHash HASH_ELEMENT_VERTEX_WEIGHTS__EXTRA = 118340129;
 extern const char* NAME_ELEMENT_VERTEX_WEIGHTS__EXTRA;
-struct vertex_weights__extra__AttributeData
-{
-    static const vertex_weights__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SKIN__EXTRA = 86432705;
 extern const char* NAME_ELEMENT_SKIN__EXTRA;
-struct skin__extra__AttributeData
-{
-    static const skin__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_MORPH = 237707448;
 extern const char* NAME_ELEMENT_MORPH;
@@ -851,13 +711,7 @@ struct morph__AttributeData
 
 const StringHash HASH_ELEMENT_MORPH__SOURCE = 51357397;
 extern const char* NAME_ELEMENT_MORPH__SOURCE;
-struct morph__source__AttributeData
-{
-    static const morph__source__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
+typedef animation__source__AttributeData morph__source__AttributeData;
 
 const StringHash HASH_ELEMENT_TARGETS = 203307155;
 extern const char* NAME_ELEMENT_TARGETS;
@@ -866,57 +720,19 @@ extern const char* NAME_ELEMENT_MORPH__TARGETS;
 
 const StringHash HASH_ELEMENT_TARGETS__INPUT = 231971828;
 extern const char* NAME_ELEMENT_TARGETS__INPUT;
-struct targets__input__AttributeData
-{
-    static const targets__input__AttributeData DEFAULT;
-
-    const ParserChar* semantic;
-    const ParserChar* source;
-};
+typedef sampler__input__AttributeData targets__input__AttributeData;
 
 const StringHash HASH_ELEMENT_TARGETS__EXTRA = 231815089;
 extern const char* NAME_ELEMENT_TARGETS__EXTRA;
-struct targets__extra__AttributeData
-{
-    static const targets__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_MORPH__EXTRA = 68840801;
 extern const char* NAME_ELEMENT_MORPH__EXTRA;
-struct morph__extra__AttributeData
-{
-    static const morph__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_CONTROLLER__EXTRA = 236302929;
 extern const char* NAME_ELEMENT_CONTROLLER__EXTRA;
-struct controller__extra__AttributeData
-{
-    static const controller__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_CONTROLLERS__EXTRA = 84993665;
 extern const char* NAME_ELEMENT_LIBRARY_CONTROLLERS__EXTRA;
-struct library_controllers__extra__AttributeData
-{
-    static const library_controllers__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_GEOMETRIES = 252969491;
 extern const char* NAME_ELEMENT_LIBRARY_GEOMETRIES;
@@ -963,21 +779,15 @@ struct convex_mesh__AttributeData
 
 const StringHash HASH_ELEMENT_CONVEX_MESH__SOURCE = 115317301;
 extern const char* NAME_ELEMENT_CONVEX_MESH__SOURCE;
-struct convex_mesh__source__AttributeData
-{
-    static const convex_mesh__source__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
+typedef animation__source__AttributeData convex_mesh__source__AttributeData;
 
 const StringHash HASH_ELEMENT_VERTICES = 97017683;
 extern const char* NAME_ELEMENT_VERTICES;
 const StringHash HASH_ELEMENT_CONVEX_MESH__VERTICES = 97017683;
 extern const char* NAME_ELEMENT_CONVEX_MESH__VERTICES;
-struct convex_mesh__vertices__AttributeData
+struct vertices__AttributeData
 {
-    static const convex_mesh__vertices__AttributeData DEFAULT;
+    static const vertices__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -985,24 +795,10 @@ struct convex_mesh__vertices__AttributeData
 
 const StringHash HASH_ELEMENT_VERTICES__INPUT = 250722196;
 extern const char* NAME_ELEMENT_VERTICES__INPUT;
-struct vertices__input__AttributeData
-{
-    static const vertices__input__AttributeData DEFAULT;
-
-    const ParserChar* semantic;
-    const ParserChar* source;
-};
+typedef sampler__input__AttributeData vertices__input__AttributeData;
 
 const StringHash HASH_ELEMENT_VERTICES__EXTRA = 250813393;
 extern const char* NAME_ELEMENT_VERTICES__EXTRA;
-struct vertices__extra__AttributeData
-{
-    static const vertices__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LINES = 174551523;
 extern const char* NAME_ELEMENT_LINES;
@@ -1010,9 +806,9 @@ const StringHash HASH_ELEMENT_CONVEX_MESH__LINES = 174551523;
 extern const char* NAME_ELEMENT_CONVEX_MESH__LINES;
 const StringHash HASH_ATTRIBUTE_MATERIAL = 145524812;
 extern const char* NAME_ATTRIBUTE_MATERIAL;
-struct convex_mesh__lines__AttributeData
+struct lines__AttributeData
 {
-    static const convex_mesh__lines__AttributeData DEFAULT;
+    static const lines__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1021,15 +817,7 @@ struct convex_mesh__lines__AttributeData
 
 const StringHash HASH_ELEMENT_LINES__INPUT = 74455892;
 extern const char* NAME_ELEMENT_LINES__INPUT;
-struct lines__input__AttributeData
-{
-    static const lines__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData lines__input__AttributeData;
 
 const StringHash HASH_ELEMENT_P = 5018704;
 extern const char* NAME_ELEMENT_P;
@@ -1038,22 +826,14 @@ extern const char* NAME_ELEMENT_LINES__P;
 
 const StringHash HASH_ELEMENT_LINES__EXTRA = 74233617;
 extern const char* NAME_ELEMENT_LINES__EXTRA;
-struct lines__extra__AttributeData
-{
-    static const lines__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LINESTRIPS = 235800419;
 extern const char* NAME_ELEMENT_LINESTRIPS;
 const StringHash HASH_ELEMENT_CONVEX_MESH__LINESTRIPS = 235800419;
 extern const char* NAME_ELEMENT_CONVEX_MESH__LINESTRIPS;
-struct convex_mesh__linestrips__AttributeData
+struct linestrips__AttributeData
 {
-    static const convex_mesh__linestrips__AttributeData DEFAULT;
+    static const linestrips__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1062,37 +842,21 @@ struct convex_mesh__linestrips__AttributeData
 
 const StringHash HASH_ELEMENT_LINESTRIPS__INPUT = 261379220;
 extern const char* NAME_ELEMENT_LINESTRIPS__INPUT;
-struct linestrips__input__AttributeData
-{
-    static const linestrips__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData linestrips__input__AttributeData;
 
 const StringHash HASH_ELEMENT_LINESTRIPS__P = 201547680;
 extern const char* NAME_ELEMENT_LINESTRIPS__P;
 
 const StringHash HASH_ELEMENT_LINESTRIPS__EXTRA = 261159121;
 extern const char* NAME_ELEMENT_LINESTRIPS__EXTRA;
-struct linestrips__extra__AttributeData
-{
-    static const linestrips__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_POLYGONS = 225281043;
 extern const char* NAME_ELEMENT_POLYGONS;
 const StringHash HASH_ELEMENT_CONVEX_MESH__POLYGONS = 225281043;
 extern const char* NAME_ELEMENT_CONVEX_MESH__POLYGONS;
-struct convex_mesh__polygons__AttributeData
+struct polygons__AttributeData
 {
-    static const convex_mesh__polygons__AttributeData DEFAULT;
+    static const polygons__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1101,15 +865,7 @@ struct convex_mesh__polygons__AttributeData
 
 const StringHash HASH_ELEMENT_POLYGONS__INPUT = 144860468;
 extern const char* NAME_ELEMENT_POLYGONS__INPUT;
-struct polygons__input__AttributeData
-{
-    static const polygons__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData polygons__input__AttributeData;
 
 const StringHash HASH_ELEMENT_POLYGONS__P = 238221456;
 extern const char* NAME_ELEMENT_POLYGONS__P;
@@ -1129,22 +885,14 @@ extern const char* NAME_ELEMENT_PH__H;
 
 const StringHash HASH_ELEMENT_POLYGONS__EXTRA = 144886129;
 extern const char* NAME_ELEMENT_POLYGONS__EXTRA;
-struct polygons__extra__AttributeData
-{
-    static const polygons__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_POLYLIST = 225351396;
 extern const char* NAME_ELEMENT_POLYLIST;
 const StringHash HASH_ELEMENT_CONVEX_MESH__POLYLIST = 225351396;
 extern const char* NAME_ELEMENT_CONVEX_MESH__POLYLIST;
-struct convex_mesh__polylist__AttributeData
+struct polylist__AttributeData
 {
-    static const convex_mesh__polylist__AttributeData DEFAULT;
+    static const polylist__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1153,15 +901,7 @@ struct convex_mesh__polylist__AttributeData
 
 const StringHash HASH_ELEMENT_POLYLIST__INPUT = 22882756;
 extern const char* NAME_ELEMENT_POLYLIST__INPUT;
-struct polylist__input__AttributeData
-{
-    static const polylist__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData polylist__input__AttributeData;
 
 const StringHash HASH_ELEMENT_POLYLIST__VCOUNT = 117410884;
 extern const char* NAME_ELEMENT_POLYLIST__VCOUNT;
@@ -1171,22 +911,14 @@ extern const char* NAME_ELEMENT_POLYLIST__P;
 
 const StringHash HASH_ELEMENT_POLYLIST__EXTRA = 23037313;
 extern const char* NAME_ELEMENT_POLYLIST__EXTRA;
-struct polylist__extra__AttributeData
-{
-    static const polylist__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_TRIANGLES = 175033555;
 extern const char* NAME_ELEMENT_TRIANGLES;
 const StringHash HASH_ELEMENT_CONVEX_MESH__TRIANGLES = 175033555;
 extern const char* NAME_ELEMENT_CONVEX_MESH__TRIANGLES;
-struct convex_mesh__triangles__AttributeData
+struct triangles__AttributeData
 {
-    static const convex_mesh__triangles__AttributeData DEFAULT;
+    static const triangles__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1195,37 +927,21 @@ struct convex_mesh__triangles__AttributeData
 
 const StringHash HASH_ELEMENT_TRIANGLES__INPUT = 219530052;
 extern const char* NAME_ELEMENT_TRIANGLES__INPUT;
-struct triangles__input__AttributeData
-{
-    static const triangles__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData triangles__input__AttributeData;
 
 const StringHash HASH_ELEMENT_TRIANGLES__P = 194284832;
 extern const char* NAME_ELEMENT_TRIANGLES__P;
 
 const StringHash HASH_ELEMENT_TRIANGLES__EXTRA = 219639553;
 extern const char* NAME_ELEMENT_TRIANGLES__EXTRA;
-struct triangles__extra__AttributeData
-{
-    static const triangles__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_TRIFANS = 236645939;
 extern const char* NAME_ELEMENT_TRIFANS;
 const StringHash HASH_ELEMENT_CONVEX_MESH__TRIFANS = 236645939;
 extern const char* NAME_ELEMENT_CONVEX_MESH__TRIFANS;
-struct convex_mesh__trifans__AttributeData
+struct trifans__AttributeData
 {
-    static const convex_mesh__trifans__AttributeData DEFAULT;
+    static const trifans__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1234,37 +950,21 @@ struct convex_mesh__trifans__AttributeData
 
 const StringHash HASH_ELEMENT_TRIFANS__INPUT = 228906372;
 extern const char* NAME_ELEMENT_TRIFANS__INPUT;
-struct trifans__input__AttributeData
-{
-    static const trifans__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData trifans__input__AttributeData;
 
 const StringHash HASH_ELEMENT_TRIFANS__P = 209866128;
 extern const char* NAME_ELEMENT_TRIFANS__P;
 
 const StringHash HASH_ELEMENT_TRIFANS__EXTRA = 228620737;
 extern const char* NAME_ELEMENT_TRIFANS__EXTRA;
-struct trifans__extra__AttributeData
-{
-    static const trifans__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_TRISTRIPS = 92405331;
 extern const char* NAME_ELEMENT_TRISTRIPS;
 const StringHash HASH_ELEMENT_CONVEX_MESH__TRISTRIPS = 92405331;
 extern const char* NAME_ELEMENT_CONVEX_MESH__TRISTRIPS;
-struct convex_mesh__tristrips__AttributeData
+struct tristrips__AttributeData
 {
-    static const convex_mesh__tristrips__AttributeData DEFAULT;
+    static const tristrips__AttributeData DEFAULT;
 
     const ParserChar* name;
     unsigned long long count;
@@ -1273,40 +973,16 @@ struct convex_mesh__tristrips__AttributeData
 
 const StringHash HASH_ELEMENT_TRISTRIPS__INPUT = 262203732;
 extern const char* NAME_ELEMENT_TRISTRIPS__INPUT;
-struct tristrips__input__AttributeData
-{
-    static const tristrips__input__AttributeData DEFAULT;
-
-    unsigned long long offset;
-    const ParserChar* semantic;
-    const ParserChar* source;
-    unsigned long long set;
-};
+typedef vertex_weights__input__AttributeData tristrips__input__AttributeData;
 
 const StringHash HASH_ELEMENT_TRISTRIPS__P = 12492704;
 extern const char* NAME_ELEMENT_TRISTRIPS__P;
 
 const StringHash HASH_ELEMENT_TRISTRIPS__EXTRA = 261899537;
 extern const char* NAME_ELEMENT_TRISTRIPS__EXTRA;
-struct tristrips__extra__AttributeData
-{
-    static const tristrips__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_CONVEX_MESH__EXTRA = 173633185;
 extern const char* NAME_ELEMENT_CONVEX_MESH__EXTRA;
-struct convex_mesh__extra__AttributeData
-{
-    static const convex_mesh__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_MESH = 53998040;
 extern const char* NAME_ELEMENT_MESH;
@@ -1315,111 +991,34 @@ extern const char* NAME_ELEMENT_GEOMETRY__MESH;
 
 const StringHash HASH_ELEMENT_MESH__SOURCE = 28989125;
 extern const char* NAME_ELEMENT_MESH__SOURCE;
-struct mesh__source__AttributeData
-{
-    static const mesh__source__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
+typedef animation__source__AttributeData mesh__source__AttributeData;
 
 const StringHash HASH_ELEMENT_MESH__VERTICES = 305203;
 extern const char* NAME_ELEMENT_MESH__VERTICES;
-struct mesh__vertices__AttributeData
-{
-    static const mesh__vertices__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_MESH__LINES = 87117091;
 extern const char* NAME_ELEMENT_MESH__LINES;
-struct mesh__lines__AttributeData
-{
-    static const mesh__lines__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__LINESTRIPS = 49849507;
 extern const char* NAME_ELEMENT_MESH__LINESTRIPS;
-struct mesh__linestrips__AttributeData
-{
-    static const mesh__linestrips__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__POLYGONS = 178361651;
 extern const char* NAME_ELEMENT_MESH__POLYGONS;
-struct mesh__polygons__AttributeData
-{
-    static const mesh__polygons__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__POLYLIST = 178422212;
 extern const char* NAME_ELEMENT_MESH__POLYLIST;
-struct mesh__polylist__AttributeData
-{
-    static const mesh__polylist__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__TRIANGLES = 111270531;
 extern const char* NAME_ELEMENT_MESH__TRIANGLES;
-struct mesh__triangles__AttributeData
-{
-    static const mesh__triangles__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__TRIFANS = 138814275;
 extern const char* NAME_ELEMENT_MESH__TRIFANS;
-struct mesh__trifans__AttributeData
-{
-    static const mesh__trifans__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__TRISTRIPS = 156149795;
 extern const char* NAME_ELEMENT_MESH__TRISTRIPS;
-struct mesh__tristrips__AttributeData
-{
-    static const mesh__tristrips__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    unsigned long long count;
-    const ParserChar* material;
-};
 
 const StringHash HASH_ELEMENT_MESH__EXTRA = 86979169;
 extern const char* NAME_ELEMENT_MESH__EXTRA;
-struct mesh__extra__AttributeData
-{
-    static const mesh__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SPLINE = 90991989;
 extern const char* NAME_ELEMENT_SPLINE;
@@ -1436,13 +1035,7 @@ struct spline__AttributeData
 
 const StringHash HASH_ELEMENT_SPLINE__SOURCE = 28739173;
 extern const char* NAME_ELEMENT_SPLINE__SOURCE;
-struct spline__source__AttributeData
-{
-    static const spline__source__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
+typedef animation__source__AttributeData spline__source__AttributeData;
 
 const StringHash HASH_ELEMENT_CONTROL_VERTICES = 152193299;
 extern const char* NAME_ELEMENT_CONTROL_VERTICES;
@@ -1451,57 +1044,19 @@ extern const char* NAME_ELEMENT_SPLINE__CONTROL_VERTICES;
 
 const StringHash HASH_ELEMENT_CONTROL_VERTICES__INPUT = 96321988;
 extern const char* NAME_ELEMENT_CONTROL_VERTICES__INPUT;
-struct control_vertices__input__AttributeData
-{
-    static const control_vertices__input__AttributeData DEFAULT;
-
-    const ParserChar* semantic;
-    const ParserChar* source;
-};
+typedef sampler__input__AttributeData control_vertices__input__AttributeData;
 
 const StringHash HASH_ELEMENT_CONTROL_VERTICES__EXTRA = 96431489;
 extern const char* NAME_ELEMENT_CONTROL_VERTICES__EXTRA;
-struct control_vertices__extra__AttributeData
-{
-    static const control_vertices__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SPLINE__EXTRA = 254803809;
 extern const char* NAME_ELEMENT_SPLINE__EXTRA;
-struct spline__extra__AttributeData
-{
-    static const spline__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_GEOMETRY__EXTRA = 56635313;
 extern const char* NAME_ELEMENT_GEOMETRY__EXTRA;
-struct geometry__extra__AttributeData
-{
-    static const geometry__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_GEOMETRIES__EXTRA = 104876513;
 extern const char* NAME_ELEMENT_LIBRARY_GEOMETRIES__EXTRA;
-struct library_geometries__extra__AttributeData
-{
-    static const library_geometries__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_EFFECTS = 246773571;
 extern const char* NAME_ELEMENT_LIBRARY_EFFECTS;
@@ -1537,9 +1092,9 @@ const StringHash HASH_ELEMENT_ANNOTATE = 17277301;
 extern const char* NAME_ELEMENT_ANNOTATE;
 const StringHash HASH_ELEMENT_EFFECT__ANNOTATE = 17277301;
 extern const char* NAME_ELEMENT_EFFECT__ANNOTATE;
-struct effect__annotate__AttributeData
+struct annotate__AttributeData
 {
-    static const effect__annotate__AttributeData DEFAULT;
+    static const annotate__AttributeData DEFAULT;
 
     const ParserChar* name;
 };
@@ -1636,9 +1191,9 @@ const StringHash HASH_ATTRIBUTE_WIDTH = 8256424;
 extern const char* NAME_ATTRIBUTE_WIDTH;
 const StringHash HASH_ATTRIBUTE_DEPTH = 6997928;
 extern const char* NAME_ATTRIBUTE_DEPTH;
-struct effect__image__AttributeData
+struct image__AttributeData
 {
-    static const effect__image__AttributeData DEFAULT;
+    static const image__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -1663,14 +1218,6 @@ extern const char* NAME_ELEMENT_IMAGE__INIT_FROM;
 
 const StringHash HASH_ELEMENT_IMAGE__EXTRA = 73369137;
 extern const char* NAME_ELEMENT_IMAGE__EXTRA;
-struct image__extra__AttributeData
-{
-    static const image__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_NEWPARAM = 123175677;
 extern const char* NAME_ELEMENT_NEWPARAM;
@@ -1685,12 +1232,6 @@ struct effect__newparam__AttributeData
 
 const StringHash HASH_ELEMENT_NEWPARAM__ANNOTATE = 202972325;
 extern const char* NAME_ELEMENT_NEWPARAM__ANNOTATE;
-struct newparam__annotate__AttributeData
-{
-    static const newparam__annotate__AttributeData DEFAULT;
-
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_SEMANTIC = 91876067;
 extern const char* NAME_ELEMENT_SEMANTIC;
@@ -1964,14 +1505,6 @@ extern const char* NAME_ELEMENT_FORMAT_HINT__OPTION;
 
 const StringHash HASH_ELEMENT_FORMAT_HINT__EXTRA = 97815953;
 extern const char* NAME_ELEMENT_FORMAT_HINT__EXTRA;
-struct format_hint__extra__AttributeData
-{
-    static const format_hint__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SIZE = 27158757;
 extern const char* NAME_ELEMENT_SIZE;
@@ -1995,14 +1528,6 @@ extern const char* NAME_ELEMENT_SURFACE__MIPMAP_GENERATE;
 
 const StringHash HASH_ELEMENT_SURFACE__EXTRA = 164660625;
 extern const char* NAME_ELEMENT_SURFACE__EXTRA;
-struct surface__extra__AttributeData
-{
-    static const surface__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SAMPLER1D = 11125956;
 extern const char* NAME_ELEMENT_SAMPLER1D;
@@ -2049,14 +1574,6 @@ extern const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_BIAS;
 
 const StringHash HASH_ELEMENT_SAMPLER1D__EXTRA = 74921569;
 extern const char* NAME_ELEMENT_SAMPLER1D__EXTRA;
-struct sampler1D__extra__AttributeData
-{
-    static const sampler1D__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SAMPLER2D = 11126004;
 extern const char* NAME_ELEMENT_SAMPLER2D;
@@ -2094,14 +1611,6 @@ extern const char* NAME_ELEMENT_SAMPLER2D__MIPMAP_BIAS;
 
 const StringHash HASH_ELEMENT_SAMPLER2D__EXTRA = 74921313;
 extern const char* NAME_ELEMENT_SAMPLER2D__EXTRA;
-struct sampler2D__extra__AttributeData
-{
-    static const sampler2D__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SAMPLER3D = 11125988;
 extern const char* NAME_ELEMENT_SAMPLER3D;
@@ -2142,14 +1651,6 @@ extern const char* NAME_ELEMENT_SAMPLER3D__MIPMAP_BIAS;
 
 const StringHash HASH_ELEMENT_SAMPLER3D__EXTRA = 74921057;
 extern const char* NAME_ELEMENT_SAMPLER3D__EXTRA;
-struct sampler3D__extra__AttributeData
-{
-    static const sampler3D__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SAMPLERCUBE = 164043205;
 extern const char* NAME_ELEMENT_SAMPLERCUBE;
@@ -2188,14 +1689,6 @@ extern const char* NAME_ELEMENT_SAMPLERCUBE__MIPMAP_BIAS;
 
 const StringHash HASH_ELEMENT_SAMPLERCUBE__EXTRA = 11282977;
 extern const char* NAME_ELEMENT_SAMPLERCUBE__EXTRA;
-struct samplerCUBE__extra__AttributeData
-{
-    static const samplerCUBE__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SAMPLERRECT = 164034852;
 extern const char* NAME_ELEMENT_SAMPLERRECT;
@@ -2231,14 +1724,6 @@ extern const char* NAME_ELEMENT_SAMPLERRECT__MIPMAP_BIAS;
 
 const StringHash HASH_ELEMENT_SAMPLERRECT__EXTRA = 11674705;
 extern const char* NAME_ELEMENT_SAMPLERRECT__EXTRA;
-struct samplerRECT__extra__AttributeData
-{
-    static const samplerRECT__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SAMPLERDEPTH = 208776984;
 extern const char* NAME_ELEMENT_SAMPLERDEPTH;
@@ -2262,14 +1747,6 @@ extern const char* NAME_ELEMENT_SAMPLERDEPTH__MAGFILTER;
 
 const StringHash HASH_ELEMENT_SAMPLERDEPTH__EXTRA = 206754289;
 extern const char* NAME_ELEMENT_SAMPLERDEPTH__EXTRA;
-struct samplerDEPTH__extra__AttributeData
-{
-    static const samplerDEPTH__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_ENUM = 263408381;
 extern const char* NAME_ELEMENT_ENUM;
@@ -2283,25 +1760,9 @@ extern const char* NAME_ELEMENT_EFFECT__FX_PROFILE_ABSTRACT;
 
 const StringHash HASH_ELEMENT_EFFECT__EXTRA = 9453713;
 extern const char* NAME_ELEMENT_EFFECT__EXTRA;
-struct effect__extra__AttributeData
-{
-    static const effect__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_EFFECTS__EXTRA = 18450993;
 extern const char* NAME_ELEMENT_LIBRARY_EFFECTS__EXTRA;
-struct library_effects__extra__AttributeData
-{
-    static const library_effects__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_FORCE_FIELDS = 175028019;
 extern const char* NAME_ELEMENT_LIBRARY_FORCE_FIELDS;
@@ -2335,34 +1796,13 @@ extern const char* NAME_ELEMENT_FORCE_FIELD__ASSET;
 
 const StringHash HASH_ELEMENT_FORCE_FIELD__TECHNIQUE = 49118021;
 extern const char* NAME_ELEMENT_FORCE_FIELD__TECHNIQUE;
-struct force_field__technique__AttributeData
-{
-    static const force_field__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData force_field__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_FORCE_FIELD__EXTRA = 138784945;
 extern const char* NAME_ELEMENT_FORCE_FIELD__EXTRA;
-struct force_field__extra__AttributeData
-{
-    static const force_field__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA = 255895553;
 extern const char* NAME_ELEMENT_LIBRARY_FORCE_FIELDS__EXTRA;
-struct library_force_fields__extra__AttributeData
-{
-    static const library_force_fields__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_IMAGES = 263512339;
 extern const char* NAME_ELEMENT_LIBRARY_IMAGES;
@@ -2381,28 +1821,9 @@ extern const char* NAME_ELEMENT_LIBRARY_IMAGES__ASSET;
 
 const StringHash HASH_ELEMENT_LIBRARY_IMAGES__IMAGE = 81856229;
 extern const char* NAME_ELEMENT_LIBRARY_IMAGES__IMAGE;
-struct library_images__image__AttributeData
-{
-    static const library_images__image__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* format;
-    unsigned long long height;
-    unsigned long long width;
-    unsigned long long depth;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_IMAGES__EXTRA = 82037425;
 extern const char* NAME_ELEMENT_LIBRARY_IMAGES__EXTRA;
-struct library_images__extra__AttributeData
-{
-    static const library_images__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_LIGHTS = 7881555;
 extern const char* NAME_ELEMENT_LIBRARY_LIGHTS;
@@ -2460,12 +1881,7 @@ extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__DIRECTIONAL;
 
 const StringHash HASH_ELEMENT_DIRECTIONAL__COLOR = 152088738;
 extern const char* NAME_ELEMENT_DIRECTIONAL__COLOR;
-struct directional__color__AttributeData
-{
-    static const directional__color__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
+typedef ambient__color__AttributeData directional__color__AttributeData;
 
 const StringHash HASH_ELEMENT_POINT = 173350644;
 extern const char* NAME_ELEMENT_POINT;
@@ -2474,20 +1890,15 @@ extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__POINT;
 
 const StringHash HASH_ELEMENT_POINT__COLOR = 70281410;
 extern const char* NAME_ELEMENT_POINT__COLOR;
-struct point__color__AttributeData
-{
-    static const point__color__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
+typedef ambient__color__AttributeData point__color__AttributeData;
 
 const StringHash HASH_ELEMENT_CONSTANT_ATTENUATION = 98628030;
 extern const char* NAME_ELEMENT_CONSTANT_ATTENUATION;
 const StringHash HASH_ELEMENT_POINT__CONSTANT_ATTENUATION = 98628030;
 extern const char* NAME_ELEMENT_POINT__CONSTANT_ATTENUATION;
-struct point__constant_attenuation__AttributeData
+struct constant_attenuation__AttributeData
 {
-    static const point__constant_attenuation__AttributeData DEFAULT;
+    static const constant_attenuation__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -2496,9 +1907,9 @@ const StringHash HASH_ELEMENT_LINEAR_ATTENUATION = 11535838;
 extern const char* NAME_ELEMENT_LINEAR_ATTENUATION;
 const StringHash HASH_ELEMENT_POINT__LINEAR_ATTENUATION = 11535838;
 extern const char* NAME_ELEMENT_POINT__LINEAR_ATTENUATION;
-struct point__linear_attenuation__AttributeData
+struct linear_attenuation__AttributeData
 {
-    static const point__linear_attenuation__AttributeData DEFAULT;
+    static const linear_attenuation__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -2507,9 +1918,9 @@ const StringHash HASH_ELEMENT_QUADRATIC_ATTENUATION = 251429214;
 extern const char* NAME_ELEMENT_QUADRATIC_ATTENUATION;
 const StringHash HASH_ELEMENT_POINT__QUADRATIC_ATTENUATION = 251429214;
 extern const char* NAME_ELEMENT_POINT__QUADRATIC_ATTENUATION;
-struct point__quadratic_attenuation__AttributeData
+struct quadratic_attenuation__AttributeData
 {
-    static const point__quadratic_attenuation__AttributeData DEFAULT;
+    static const quadratic_attenuation__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -2521,39 +1932,16 @@ extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__SPOT;
 
 const StringHash HASH_ELEMENT_SPOT__COLOR = 86259138;
 extern const char* NAME_ELEMENT_SPOT__COLOR;
-struct spot__color__AttributeData
-{
-    static const spot__color__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
+typedef ambient__color__AttributeData spot__color__AttributeData;
 
 const StringHash HASH_ELEMENT_SPOT__CONSTANT_ATTENUATION = 248571118;
 extern const char* NAME_ELEMENT_SPOT__CONSTANT_ATTENUATION;
-struct spot__constant_attenuation__AttributeData
-{
-    static const spot__constant_attenuation__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_SPOT__LINEAR_ATTENUATION = 6894894;
 extern const char* NAME_ELEMENT_SPOT__LINEAR_ATTENUATION;
-struct spot__linear_attenuation__AttributeData
-{
-    static const spot__linear_attenuation__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_SPOT__QUADRATIC_ATTENUATION = 268275406;
 extern const char* NAME_ELEMENT_SPOT__QUADRATIC_ATTENUATION;
-struct spot__quadratic_attenuation__AttributeData
-{
-    static const spot__quadratic_attenuation__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_FALLOFF_ANGLE = 239328965;
 extern const char* NAME_ELEMENT_FALLOFF_ANGLE;
@@ -2579,34 +1967,13 @@ struct falloff_exponent__AttributeData
 
 const StringHash HASH_ELEMENT_LIGHT__TECHNIQUE = 105991637;
 extern const char* NAME_ELEMENT_LIGHT__TECHNIQUE;
-struct light__technique__AttributeData
-{
-    static const light__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData light__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_LIGHT__EXTRA = 74654753;
 extern const char* NAME_ELEMENT_LIGHT__EXTRA;
-struct light__extra__AttributeData
-{
-    static const light__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_LIGHTS__EXTRA = 2747857;
 extern const char* NAME_ELEMENT_LIBRARY_LIGHTS__EXTRA;
-struct library_lights__extra__AttributeData
-{
-    static const library_lights__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_MATERIALS = 50787011;
 extern const char* NAME_ELEMENT_LIBRARY_MATERIALS;
@@ -2642,9 +2009,9 @@ const StringHash HASH_ELEMENT_INSTANCE_EFFECT = 179640868;
 extern const char* NAME_ELEMENT_INSTANCE_EFFECT;
 const StringHash HASH_ELEMENT_MATERIAL__INSTANCE_EFFECT = 179640868;
 extern const char* NAME_ELEMENT_MATERIAL__INSTANCE_EFFECT;
-struct material__instance_effect__AttributeData
+struct instance_effect__AttributeData
 {
-    static const material__instance_effect__AttributeData DEFAULT;
+    static const instance_effect__AttributeData DEFAULT;
 
     const ParserChar* url;
     const ParserChar* sid;
@@ -2763,12 +2130,7 @@ extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X4;
 
 const StringHash HASH_ELEMENT_SETPARAM__SURFACE = 63489941;
 extern const char* NAME_ELEMENT_SETPARAM__SURFACE;
-struct setparam__surface__AttributeData
-{
-    static const setparam__surface__AttributeData DEFAULT;
-
-    const ParserChar* type;
-};
+typedef newparam__surface__AttributeData setparam__surface__AttributeData;
 
 const StringHash HASH_ELEMENT_SETPARAM__SAMPLER1D = 74630612;
 extern const char* NAME_ELEMENT_SETPARAM__SAMPLER1D;
@@ -2793,36 +2155,12 @@ extern const char* NAME_ELEMENT_SETPARAM__ENUM;
 
 const StringHash HASH_ELEMENT_INSTANCE_EFFECT__EXTRA = 101966321;
 extern const char* NAME_ELEMENT_INSTANCE_EFFECT__EXTRA;
-struct instance_effect__extra__AttributeData
-{
-    static const instance_effect__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_MATERIAL__EXTRA = 261389857;
 extern const char* NAME_ELEMENT_MATERIAL__EXTRA;
-struct material__extra__AttributeData
-{
-    static const material__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_MATERIALS__EXTRA = 117970993;
 extern const char* NAME_ELEMENT_LIBRARY_MATERIALS__EXTRA;
-struct library_materials__extra__AttributeData
-{
-    static const library_materials__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_NODES = 235021059;
 extern const char* NAME_ELEMENT_LIBRARY_NODES;
@@ -2845,9 +2183,9 @@ const StringHash HASH_ELEMENT_LIBRARY_NODES__NODE = 118269829;
 extern const char* NAME_ELEMENT_LIBRARY_NODES__NODE;
 const StringHash HASH_ATTRIBUTE_LAYER = 7507906;
 extern const char* NAME_ATTRIBUTE_LAYER;
-struct library_nodes__node__AttributeData
+struct node__AttributeData
 {
-    static const library_nodes__node__AttributeData DEFAULT;
+    static const node__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -2885,9 +2223,9 @@ const StringHash HASH_ELEMENT_ROTATE = 31654901;
 extern const char* NAME_ELEMENT_ROTATE;
 const StringHash HASH_ELEMENT_NODE__ROTATE = 31654901;
 extern const char* NAME_ELEMENT_NODE__ROTATE;
-struct node__rotate__AttributeData
+struct rotate__AttributeData
 {
-    static const node__rotate__AttributeData DEFAULT;
+    static const rotate__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -2918,9 +2256,9 @@ const StringHash HASH_ELEMENT_TRANSLATE = 250426997;
 extern const char* NAME_ELEMENT_TRANSLATE;
 const StringHash HASH_ELEMENT_NODE__TRANSLATE = 250426997;
 extern const char* NAME_ELEMENT_NODE__TRANSLATE;
-struct node__translate__AttributeData
+struct translate__AttributeData
 {
-    static const node__translate__AttributeData DEFAULT;
+    static const translate__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -2940,14 +2278,6 @@ struct instance_camera__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_CAMERA__EXTRA = 22844193;
 extern const char* NAME_ELEMENT_INSTANCE_CAMERA__EXTRA;
-struct instance_camera__extra__AttributeData
-{
-    static const instance_camera__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_CONTROLLER = 155305458;
 extern const char* NAME_ELEMENT_INSTANCE_CONTROLLER;
@@ -2974,15 +2304,7 @@ extern const char* NAME_ELEMENT_INSTANCE_CONTROLLER__BIND_MATERIAL;
 
 const StringHash HASH_ELEMENT_BIND_MATERIAL__PARAM = 266607469;
 extern const char* NAME_ELEMENT_BIND_MATERIAL__PARAM;
-struct bind_material__param__AttributeData
-{
-    static const bind_material__param__AttributeData DEFAULT;
-
-    const ParserChar* name;
-    const ParserChar* sid;
-    const ParserChar* semantic;
-    const ParserChar* type;
-};
+typedef accessor__param__AttributeData bind_material__param__AttributeData;
 
 const StringHash HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE_COMMON = 90983294;
 extern const char* NAME_ELEMENT_BIND_MATERIAL__TECHNIQUE_COMMON;
@@ -3034,53 +2356,24 @@ struct bind_vertex_input__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_MATERIAL__EXTRA = 238355617;
 extern const char* NAME_ELEMENT_INSTANCE_MATERIAL__EXTRA;
-struct instance_material__extra__AttributeData
-{
-    static const instance_material__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE = 185393301;
 extern const char* NAME_ELEMENT_BIND_MATERIAL__TECHNIQUE;
-struct bind_material__technique__AttributeData
-{
-    static const bind_material__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData bind_material__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_BIND_MATERIAL__EXTRA = 266234001;
 extern const char* NAME_ELEMENT_BIND_MATERIAL__EXTRA;
-struct bind_material__extra__AttributeData
-{
-    static const bind_material__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_CONTROLLER__EXTRA = 250294769;
 extern const char* NAME_ELEMENT_INSTANCE_CONTROLLER__EXTRA;
-struct instance_controller__extra__AttributeData
-{
-    static const instance_controller__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_GEOMETRY = 155287129;
 extern const char* NAME_ELEMENT_INSTANCE_GEOMETRY;
 const StringHash HASH_ELEMENT_NODE__INSTANCE_GEOMETRY = 155287129;
 extern const char* NAME_ELEMENT_NODE__INSTANCE_GEOMETRY;
-struct node__instance_geometry__AttributeData
+struct instance_geometry__AttributeData
 {
-    static const node__instance_geometry__AttributeData DEFAULT;
+    static const instance_geometry__AttributeData DEFAULT;
 
     const ParserChar* url;
     const ParserChar* sid;
@@ -3092,14 +2385,6 @@ extern const char* NAME_ELEMENT_INSTANCE_GEOMETRY__BIND_MATERIAL;
 
 const StringHash HASH_ELEMENT_INSTANCE_GEOMETRY__EXTRA = 79738161;
 extern const char* NAME_ELEMENT_INSTANCE_GEOMETRY__EXTRA;
-struct instance_geometry__extra__AttributeData
-{
-    static const instance_geometry__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_LIGHT = 191089620;
 extern const char* NAME_ELEMENT_INSTANCE_LIGHT;
@@ -3116,14 +2401,6 @@ struct instance_light__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_LIGHT__EXTRA = 98246161;
 extern const char* NAME_ELEMENT_INSTANCE_LIGHT__EXTRA;
-struct instance_light__extra__AttributeData
-{
-    static const instance_light__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_NODE = 45508293;
 extern const char* NAME_ELEMENT_INSTANCE_NODE;
@@ -3140,49 +2417,15 @@ struct instance_node__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_NODE__EXTRA = 106111633;
 extern const char* NAME_ELEMENT_INSTANCE_NODE__EXTRA;
-struct instance_node__extra__AttributeData
-{
-    static const instance_node__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_NODE__NODE = 189997061;
 extern const char* NAME_ELEMENT_NODE__NODE;
-struct node__node__AttributeData
-{
-    static const node__node__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* sid;
-    const ParserChar* type;
-    const ParserChar* layer;
-};
 
 const StringHash HASH_ELEMENT_NODE__EXTRA = 86614321;
 extern const char* NAME_ELEMENT_NODE__EXTRA;
-struct node__extra__AttributeData
-{
-    static const node__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_NODES__EXTRA = 11655665;
 extern const char* NAME_ELEMENT_LIBRARY_NODES__EXTRA;
-struct library_nodes__extra__AttributeData
-{
-    static const library_nodes__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS = 144977635;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS;
@@ -3203,9 +2446,9 @@ const StringHash HASH_ELEMENT_PHYSICS_MATERIAL = 9537676;
 extern const char* NAME_ELEMENT_PHYSICS_MATERIAL;
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL = 9537676;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS__PHYSICS_MATERIAL;
-struct library_physics_materials__physics_material__AttributeData
+struct physics_material__AttributeData
 {
-    static const library_physics_materials__physics_material__AttributeData DEFAULT;
+    static const physics_material__AttributeData DEFAULT;
 
     const ParserChar* id;
     const ParserChar* name;
@@ -3252,34 +2495,13 @@ struct static_friction__AttributeData
 
 const StringHash HASH_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE = 218581653;
 extern const char* NAME_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE;
-struct physics_material__technique__AttributeData
-{
-    static const physics_material__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData physics_material__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_PHYSICS_MATERIAL__EXTRA = 41184913;
 extern const char* NAME_ELEMENT_PHYSICS_MATERIAL__EXTRA;
-struct physics_material__extra__AttributeData
-{
-    static const physics_material__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA = 207431569;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_MATERIALS__EXTRA;
-struct library_physics_materials__extra__AttributeData
-{
-    static const library_physics_materials__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_MODELS = 229674739;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_MODELS;
@@ -3341,9 +2563,9 @@ const StringHash HASH_ELEMENT_MASS = 178723971;
 extern const char* NAME_ELEMENT_MASS;
 const StringHash HASH_ELEMENT_TECHNIQUE_COMMON__MASS = 178723971;
 extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__MASS;
-struct technique_common__mass__AttributeData
+struct mass__AttributeData
 {
-    static const technique_common__mass__AttributeData DEFAULT;
+    static const mass__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -3355,21 +2577,9 @@ extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__MASS_FRAME;
 
 const StringHash HASH_ELEMENT_MASS_FRAME__TRANSLATE = 253554469;
 extern const char* NAME_ELEMENT_MASS_FRAME__TRANSLATE;
-struct mass_frame__translate__AttributeData
-{
-    static const mass_frame__translate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_MASS_FRAME__ROTATE = 206978181;
 extern const char* NAME_ELEMENT_MASS_FRAME__ROTATE;
-struct mass_frame__rotate__AttributeData
-{
-    static const mass_frame__rotate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_INERTIA = 235810961;
 extern const char* NAME_ELEMENT_INERTIA;
@@ -3386,9 +2596,9 @@ const StringHash HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL = 110655340;
 extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_MATERIAL;
 const StringHash HASH_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL = 110655340;
 extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__INSTANCE_PHYSICS_MATERIAL;
-struct technique_common__instance_physics_material__AttributeData
+struct instance_physics_material__AttributeData
 {
-    static const technique_common__instance_physics_material__AttributeData DEFAULT;
+    static const instance_physics_material__AttributeData DEFAULT;
 
     const ParserChar* url;
     const ParserChar* sid;
@@ -3397,24 +2607,9 @@ struct technique_common__instance_physics_material__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA = 49406769;
 extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_MATERIAL__EXTRA;
-struct instance_physics_material__extra__AttributeData
-{
-    static const instance_physics_material__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL = 200496492;
 extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__PHYSICS_MATERIAL;
-struct technique_common__physics_material__AttributeData
-{
-    static const technique_common__physics_material__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_SHAPE = 173779653;
 extern const char* NAME_ELEMENT_SHAPE;
@@ -3434,12 +2629,6 @@ struct hollow__AttributeData
 
 const StringHash HASH_ELEMENT_SHAPE__MASS = 189649091;
 extern const char* NAME_ELEMENT_SHAPE__MASS;
-struct shape__mass__AttributeData
-{
-    static const shape__mass__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_DENSITY = 71513209;
 extern const char* NAME_ELEMENT_DENSITY;
@@ -3454,35 +2643,12 @@ struct density__AttributeData
 
 const StringHash HASH_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL = 182289868;
 extern const char* NAME_ELEMENT_SHAPE__INSTANCE_PHYSICS_MATERIAL;
-struct shape__instance_physics_material__AttributeData
-{
-    static const shape__instance_physics_material__AttributeData DEFAULT;
-
-    const ParserChar* url;
-    const ParserChar* sid;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_SHAPE__PHYSICS_MATERIAL = 169447724;
 extern const char* NAME_ELEMENT_SHAPE__PHYSICS_MATERIAL;
-struct shape__physics_material__AttributeData
-{
-    static const shape__physics_material__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_SHAPE__INSTANCE_GEOMETRY = 15221321;
 extern const char* NAME_ELEMENT_SHAPE__INSTANCE_GEOMETRY;
-struct shape__instance_geometry__AttributeData
-{
-    static const shape__instance_geometry__AttributeData DEFAULT;
-
-    const ParserChar* url;
-    const ParserChar* sid;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_PLANE = 83469045;
 extern const char* NAME_ELEMENT_PLANE;
@@ -3496,14 +2662,6 @@ extern const char* NAME_ELEMENT_PLANE__EQUATION;
 
 const StringHash HASH_ELEMENT_PLANE__EXTRA = 70156081;
 extern const char* NAME_ELEMENT_PLANE__EXTRA;
-struct plane__extra__AttributeData
-{
-    static const plane__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_BOX = 112510952;
 extern const char* NAME_ELEMENT_BOX;
@@ -3517,14 +2675,6 @@ extern const char* NAME_ELEMENT_BOX__HALF_EXTENTS;
 
 const StringHash HASH_ELEMENT_BOX__EXTRA = 89812321;
 extern const char* NAME_ELEMENT_BOX__EXTRA;
-struct box__extra__AttributeData
-{
-    static const box__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SPHERE = 256804805;
 extern const char* NAME_ELEMENT_SPHERE;
@@ -3538,14 +2688,6 @@ extern const char* NAME_ELEMENT_SPHERE__RADIUS;
 
 const StringHash HASH_ELEMENT_SPHERE__EXTRA = 254948193;
 extern const char* NAME_ELEMENT_SPHERE__EXTRA;
-struct sphere__extra__AttributeData
-{
-    static const sphere__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_CYLINDER = 138741378;
 extern const char* NAME_ELEMENT_CYLINDER;
@@ -3562,14 +2704,6 @@ extern const char* NAME_ELEMENT_CYLINDER__RADIUS;
 
 const StringHash HASH_ELEMENT_CYLINDER__EXTRA = 140000257;
 extern const char* NAME_ELEMENT_CYLINDER__EXTRA;
-struct cylinder__extra__AttributeData
-{
-    static const cylinder__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_TAPERED_CYLINDER = 166506338;
 extern const char* NAME_ELEMENT_TAPERED_CYLINDER;
@@ -3591,14 +2725,6 @@ extern const char* NAME_ELEMENT_TAPERED_CYLINDER__RADIUS2;
 
 const StringHash HASH_ELEMENT_TAPERED_CYLINDER__EXTRA = 253529025;
 extern const char* NAME_ELEMENT_TAPERED_CYLINDER__EXTRA;
-struct tapered_cylinder__extra__AttributeData
-{
-    static const tapered_cylinder__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_CAPSULE = 117514469;
 extern const char* NAME_ELEMENT_CAPSULE;
@@ -3613,14 +2739,6 @@ extern const char* NAME_ELEMENT_CAPSULE__RADIUS;
 
 const StringHash HASH_ELEMENT_CAPSULE__EXTRA = 220610497;
 extern const char* NAME_ELEMENT_CAPSULE__EXTRA;
-struct capsule__extra__AttributeData
-{
-    static const capsule__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_TAPERED_CAPSULE = 167503477;
 extern const char* NAME_ELEMENT_TAPERED_CAPSULE;
@@ -3638,63 +2756,22 @@ extern const char* NAME_ELEMENT_TAPERED_CAPSULE__RADIUS2;
 
 const StringHash HASH_ELEMENT_TAPERED_CAPSULE__EXTRA = 28046561;
 extern const char* NAME_ELEMENT_TAPERED_CAPSULE__EXTRA;
-struct tapered_capsule__extra__AttributeData
-{
-    static const tapered_capsule__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SHAPE__TRANSLATE = 49208741;
 extern const char* NAME_ELEMENT_SHAPE__TRANSLATE;
-struct shape__translate__AttributeData
-{
-    static const shape__translate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_SHAPE__ROTATE = 259965925;
 extern const char* NAME_ELEMENT_SHAPE__ROTATE;
-struct shape__rotate__AttributeData
-{
-    static const shape__rotate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_SHAPE__EXTRA = 79854897;
 extern const char* NAME_ELEMENT_SHAPE__EXTRA;
-struct shape__extra__AttributeData
-{
-    static const shape__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_RIGID_BODY__TECHNIQUE = 266093477;
 extern const char* NAME_ELEMENT_RIGID_BODY__TECHNIQUE;
-struct rigid_body__technique__AttributeData
-{
-    static const rigid_body__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData rigid_body__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_RIGID_BODY__EXTRA = 259874209;
 extern const char* NAME_ELEMENT_RIGID_BODY__EXTRA;
-struct rigid_body__extra__AttributeData
-{
-    static const rigid_body__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT = 118460596;
 extern const char* NAME_ELEMENT_RIGID_CONSTRAINT;
@@ -3723,32 +2800,12 @@ struct ref_attachment__AttributeData
 
 const StringHash HASH_ELEMENT_REF_ATTACHMENT__TRANSLATE = 20744357;
 extern const char* NAME_ELEMENT_REF_ATTACHMENT__TRANSLATE;
-struct ref_attachment__translate__AttributeData
-{
-    static const ref_attachment__translate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_REF_ATTACHMENT__ROTATE = 172940933;
 extern const char* NAME_ELEMENT_REF_ATTACHMENT__ROTATE;
-struct ref_attachment__rotate__AttributeData
-{
-    static const ref_attachment__rotate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_REF_ATTACHMENT__EXTRA = 43482337;
 extern const char* NAME_ELEMENT_REF_ATTACHMENT__EXTRA;
-struct ref_attachment__extra__AttributeData
-{
-    static const ref_attachment__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_ATTACHMENT = 183690788;
 extern const char* NAME_ELEMENT_ATTACHMENT;
@@ -3763,32 +2820,12 @@ struct attachment__AttributeData
 
 const StringHash HASH_ELEMENT_ATTACHMENT__TRANSLATE = 162060341;
 extern const char* NAME_ELEMENT_ATTACHMENT__TRANSLATE;
-struct attachment__translate__AttributeData
-{
-    static const attachment__translate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_ATTACHMENT__ROTATE = 256333637;
 extern const char* NAME_ELEMENT_ATTACHMENT__ROTATE;
-struct attachment__rotate__AttributeData
-{
-    static const attachment__rotate__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_ATTACHMENT__EXTRA = 247981169;
 extern const char* NAME_ELEMENT_ATTACHMENT__EXTRA;
-struct attachment__extra__AttributeData
-{
-    static const attachment__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE_COMMON = 28989358;
 extern const char* NAME_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE_COMMON;
@@ -3829,9 +2866,9 @@ const StringHash HASH_ELEMENT_MIN = 185017758;
 extern const char* NAME_ELEMENT_MIN;
 const StringHash HASH_ELEMENT_SWING_CONE_AND_TWIST__MIN = 185017758;
 extern const char* NAME_ELEMENT_SWING_CONE_AND_TWIST__MIN;
-struct swing_cone_and_twist__min__AttributeData
+struct min__AttributeData
 {
-    static const swing_cone_and_twist__min__AttributeData DEFAULT;
+    static const min__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -3840,9 +2877,9 @@ const StringHash HASH_ELEMENT_MAX = 185017832;
 extern const char* NAME_ELEMENT_MAX;
 const StringHash HASH_ELEMENT_SWING_CONE_AND_TWIST__MAX = 185017832;
 extern const char* NAME_ELEMENT_SWING_CONE_AND_TWIST__MAX;
-struct swing_cone_and_twist__max__AttributeData
+struct max__AttributeData
 {
-    static const swing_cone_and_twist__max__AttributeData DEFAULT;
+    static const max__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -3854,21 +2891,9 @@ extern const char* NAME_ELEMENT_LIMITS__LINEAR;
 
 const StringHash HASH_ELEMENT_LINEAR__MIN = 135817038;
 extern const char* NAME_ELEMENT_LINEAR__MIN;
-struct linear__min__AttributeData
-{
-    static const linear__min__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_LINEAR__MAX = 135817016;
 extern const char* NAME_ELEMENT_LINEAR__MAX;
-struct linear__max__AttributeData
-{
-    static const linear__max__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_SPRING = 92514023;
 extern const char* NAME_ELEMENT_SPRING;
@@ -3884,9 +2909,9 @@ const StringHash HASH_ELEMENT_STIFFNESS = 13552163;
 extern const char* NAME_ELEMENT_STIFFNESS;
 const StringHash HASH_ELEMENT_ANGULAR__STIFFNESS = 13552163;
 extern const char* NAME_ELEMENT_ANGULAR__STIFFNESS;
-struct angular__stiffness__AttributeData
+struct stiffness__AttributeData
 {
-    static const angular__stiffness__AttributeData DEFAULT;
+    static const stiffness__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -3895,9 +2920,9 @@ const StringHash HASH_ELEMENT_DAMPING = 107704311;
 extern const char* NAME_ELEMENT_DAMPING;
 const StringHash HASH_ELEMENT_ANGULAR__DAMPING = 107704311;
 extern const char* NAME_ELEMENT_ANGULAR__DAMPING;
-struct angular__damping__AttributeData
+struct damping__AttributeData
 {
-    static const angular__damping__AttributeData DEFAULT;
+    static const damping__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -3906,9 +2931,9 @@ const StringHash HASH_ELEMENT_TARGET_VALUE = 33955429;
 extern const char* NAME_ELEMENT_TARGET_VALUE;
 const StringHash HASH_ELEMENT_ANGULAR__TARGET_VALUE = 33955429;
 extern const char* NAME_ELEMENT_ANGULAR__TARGET_VALUE;
-struct angular__target_value__AttributeData
+struct target_value__AttributeData
 {
-    static const angular__target_value__AttributeData DEFAULT;
+    static const target_value__AttributeData DEFAULT;
 
     const ParserChar* sid;
 };
@@ -3918,50 +2943,19 @@ extern const char* NAME_ELEMENT_SPRING__LINEAR;
 
 const StringHash HASH_ELEMENT_LINEAR__STIFFNESS = 131408563;
 extern const char* NAME_ELEMENT_LINEAR__STIFFNESS;
-struct linear__stiffness__AttributeData
-{
-    static const linear__stiffness__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_LINEAR__DAMPING = 249329687;
 extern const char* NAME_ELEMENT_LINEAR__DAMPING;
-struct linear__damping__AttributeData
-{
-    static const linear__damping__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_LINEAR__TARGET_VALUE = 9408485;
 extern const char* NAME_ELEMENT_LINEAR__TARGET_VALUE;
-struct linear__target_value__AttributeData
-{
-    static const linear__target_value__AttributeData DEFAULT;
-
-    const ParserChar* sid;
-};
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE = 71550805;
 extern const char* NAME_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE;
-struct rigid_constraint__technique__AttributeData
-{
-    static const rigid_constraint__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData rigid_constraint__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT__EXTRA = 117024337;
 extern const char* NAME_ELEMENT_RIGID_CONSTRAINT__EXTRA;
-struct rigid_constraint__extra__AttributeData
-{
-    static const rigid_constraint__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_PHYSICS_MODEL = 133635772;
 extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL;
@@ -3969,9 +2963,9 @@ const StringHash HASH_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL = 133635772;
 extern const char* NAME_ELEMENT_PHYSICS_MODEL__INSTANCE_PHYSICS_MODEL;
 const StringHash HASH_ATTRIBUTE_PARENT = 124292180;
 extern const char* NAME_ATTRIBUTE_PARENT;
-struct physics_model__instance_physics_model__AttributeData
+struct instance_physics_model__AttributeData
 {
-    static const physics_model__instance_physics_model__AttributeData DEFAULT;
+    static const instance_physics_model__AttributeData DEFAULT;
 
     const ParserChar* url;
     const ParserChar* sid;
@@ -3983,9 +2977,9 @@ const StringHash HASH_ELEMENT_INSTANCE_FORCE_FIELD = 38290564;
 extern const char* NAME_ELEMENT_INSTANCE_FORCE_FIELD;
 const StringHash HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD = 38290564;
 extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL__INSTANCE_FORCE_FIELD;
-struct instance_physics_model__instance_force_field__AttributeData
+struct instance_force_field__AttributeData
 {
-    static const instance_physics_model__instance_force_field__AttributeData DEFAULT;
+    static const instance_force_field__AttributeData DEFAULT;
 
     const ParserChar* url;
     const ParserChar* sid;
@@ -3994,14 +2988,6 @@ struct instance_physics_model__instance_force_field__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA = 267250353;
 extern const char* NAME_ELEMENT_INSTANCE_FORCE_FIELD__EXTRA;
-struct instance_force_field__extra__AttributeData
-{
-    static const instance_force_field__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_BODY = 204998505;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_BODY;
@@ -4034,23 +3020,10 @@ extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__VELOCITY;
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE = 205322533;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE;
-struct instance_rigid_body__technique__AttributeData
-{
-    static const instance_rigid_body__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData instance_rigid_body__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_BODY__EXTRA = 264756801;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__EXTRA;
-struct instance_rigid_body__extra__AttributeData
-{
-    static const instance_rigid_body__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT = 110069972;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_CONSTRAINT;
@@ -4069,47 +3042,15 @@ struct instance_rigid_constraint__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA = 105326065;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_CONSTRAINT__EXTRA;
-struct instance_rigid_constraint__extra__AttributeData
-{
-    static const instance_rigid_constraint__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA = 189441489;
 extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_MODEL__EXTRA;
-struct instance_physics_model__extra__AttributeData
-{
-    static const instance_physics_model__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_PHYSICS_MODEL__EXTRA = 51424673;
 extern const char* NAME_ELEMENT_PHYSICS_MODEL__EXTRA;
-struct physics_model__extra__AttributeData
-{
-    static const physics_model__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA = 158621937;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_MODELS__EXTRA;
-struct library_physics_models__extra__AttributeData
-{
-    static const library_physics_models__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_SCENES = 252486147;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_SCENES;
@@ -4143,26 +3084,9 @@ extern const char* NAME_ELEMENT_PHYSICS_SCENE__ASSET;
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD = 33737508;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__INSTANCE_FORCE_FIELD;
-struct physics_scene__instance_force_field__AttributeData
-{
-    static const physics_scene__instance_force_field__AttributeData DEFAULT;
-
-    const ParserChar* url;
-    const ParserChar* sid;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL = 16473708;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__INSTANCE_PHYSICS_MODEL;
-struct physics_scene__instance_physics_model__AttributeData
-{
-    static const physics_scene__instance_physics_model__AttributeData DEFAULT;
-
-    const ParserChar* url;
-    const ParserChar* sid;
-    const ParserChar* name;
-    const ParserChar* parent;
-};
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE_COMMON = 53159934;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__TECHNIQUE_COMMON;
@@ -4191,34 +3115,13 @@ struct time_step__AttributeData
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE = 57209429;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__TECHNIQUE;
-struct physics_scene__technique__AttributeData
-{
-    static const physics_scene__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef source__technique__AttributeData physics_scene__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__EXTRA = 63742257;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__EXTRA;
-struct physics_scene__extra__AttributeData
-{
-    static const physics_scene__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA = 112627697;
 extern const char* NAME_ELEMENT_LIBRARY_PHYSICS_SCENES__EXTRA;
-struct library_physics_scenes__extra__AttributeData
-{
-    static const library_physics_scenes__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_VISUAL_SCENES = 216719139;
 extern const char* NAME_ELEMENT_LIBRARY_VISUAL_SCENES;
@@ -4252,16 +3155,6 @@ extern const char* NAME_ELEMENT_VISUAL_SCENE__ASSET;
 
 const StringHash HASH_ELEMENT_VISUAL_SCENE__NODE = 252544101;
 extern const char* NAME_ELEMENT_VISUAL_SCENE__NODE;
-struct visual_scene__node__AttributeData
-{
-    static const visual_scene__node__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* sid;
-    const ParserChar* type;
-    const ParserChar* layer;
-};
 
 const StringHash HASH_ELEMENT_EVALUATE_SCENE = 145043477;
 extern const char* NAME_ELEMENT_EVALUATE_SCENE;
@@ -4294,36 +3187,12 @@ extern const char* NAME_ELEMENT_RENDER__LAYER;
 
 const StringHash HASH_ELEMENT_RENDER__INSTANCE_EFFECT = 50798276;
 extern const char* NAME_ELEMENT_RENDER__INSTANCE_EFFECT;
-struct render__instance_effect__AttributeData
-{
-    static const render__instance_effect__AttributeData DEFAULT;
-
-    const ParserChar* url;
-    const ParserChar* sid;
-    const ParserChar* name;
-};
 
 const StringHash HASH_ELEMENT_VISUAL_SCENE__EXTRA = 13625201;
 extern const char* NAME_ELEMENT_VISUAL_SCENE__EXTRA;
-struct visual_scene__extra__AttributeData
-{
-    static const visual_scene__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA = 115543569;
 extern const char* NAME_ELEMENT_LIBRARY_VISUAL_SCENES__EXTRA;
-struct library_visual_scenes__extra__AttributeData
-{
-    static const library_visual_scenes__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SCENE = 24758453;
 extern const char* NAME_ELEMENT_SCENE;
@@ -4345,14 +3214,6 @@ struct instance_physics_scene__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA = 200714369;
 extern const char* NAME_ELEMENT_INSTANCE_PHYSICS_SCENE__EXTRA;
-struct instance_physics_scene__extra__AttributeData
-{
-    static const instance_physics_scene__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_INSTANCE_VISUAL_SCENE = 177061637;
 extern const char* NAME_ELEMENT_INSTANCE_VISUAL_SCENE;
@@ -4369,36 +3230,12 @@ struct instance_visual_scene__AttributeData
 
 const StringHash HASH_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA = 105662417;
 extern const char* NAME_ELEMENT_INSTANCE_VISUAL_SCENE__EXTRA;
-struct instance_visual_scene__extra__AttributeData
-{
-    static const instance_visual_scene__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_SCENE__EXTRA = 80035633;
 extern const char* NAME_ELEMENT_SCENE__EXTRA;
-struct scene__extra__AttributeData
-{
-    static const scene__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 const StringHash HASH_ELEMENT_COLLADA__EXTRA = 21800817;
 extern const char* NAME_ELEMENT_COLLADA__EXTRA;
-struct COLLADA__extra__AttributeData
-{
-    static const COLLADA__extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
 
 
 

@@ -54,7 +54,7 @@ namespace COLLADASaxFWL
 
 	protected:
 		/** This method handles the beginning of a node element, independent of its parent.*/
-		bool beginNode( const node__node__AttributeData& attributeData );
+		bool beginNode( const node__AttributeData& attributeData );
 
 		/** This method handles the ending of a node element, independent of its parent.*/
 		bool endNode();
@@ -80,14 +80,14 @@ namespace COLLADASaxFWL
 		bool endTransformation();
 
 		/** Sax callback function for the beginning of nodes, as child of a node.*/
-		virtual bool begin__node__node( const node__node__AttributeData& attributeData );
+		virtual bool begin__node__node( const node__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of nodes, as child of a node.*/
 		virtual bool end__node__node();
 
 
 		/** Sax callback function for the beginning of a translate element.*/
-		virtual bool begin__node__translate( const node__translate__AttributeData& attributeData );
+		virtual bool begin__node__translate( const translate__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a translate element.*/
 		virtual bool end__node__translate();
@@ -97,7 +97,7 @@ namespace COLLADASaxFWL
 
 
 		/** Sax callback function for the beginning of a rotate element.*/
-		virtual bool begin__node__rotate( const node__rotate__AttributeData& attributeData );
+		virtual bool begin__node__rotate( const rotate__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of a rotate element.*/
 		virtual bool end__node__rotate();
@@ -130,7 +130,7 @@ namespace COLLADASaxFWL
         virtual bool data__skew( const double* value, size_t length );
 
 		/** Sax callback function for the beginning of an instance geometry element.*/
-		virtual bool begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData );
+		virtual bool begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of an instance geometry element.*/
 		virtual bool end__node__instance_geometry();
