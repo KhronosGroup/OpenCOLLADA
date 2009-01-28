@@ -36,7 +36,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool NodeLoader::beginNode( const node__node__AttributeData& attributeData )
+	bool NodeLoader::beginNode( const node__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* newNode;
 		if ( attributeData.id )
@@ -97,7 +97,7 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool NodeLoader::begin__node__node( const node__node__AttributeData& attributeData )
+	bool NodeLoader::begin__node__node( const node__AttributeData& attributeData )
 	{
 		return beginNode(attributeData);
 	}
@@ -110,7 +110,7 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool NodeLoader::begin__node__translate( const node__translate__AttributeData& attributeData )
+	bool NodeLoader::begin__node__translate( const translate__AttributeData& attributeData )
 	{
 		return beginTransformation<COLLADAFW::Translate>();
 	}
@@ -137,7 +137,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool NodeLoader::begin__node__rotate( const node__rotate__AttributeData& attributeData )
+	bool NodeLoader::begin__node__rotate( const rotate__AttributeData& attributeData )
 	{
 		return beginTransformation<COLLADAFW::Rotate>();
 	}
@@ -279,7 +279,7 @@ namespace COLLADASaxFWL
     }
 
     //------------------------------
-	bool NodeLoader::begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData )
+	bool NodeLoader::begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 

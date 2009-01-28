@@ -52,7 +52,7 @@ namespace COLLADASaxFWL
 		void handleRootNode( COLLADAFW::Node* rootNode );
 
 		/** Sax callback function for the beginning of nodes, as child of a visual scene.*/
-		virtual bool begin__visual_scene__node( const visual_scene__node__AttributeData& attributeData );
+		virtual bool begin__visual_scene__node( const node__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of nodes, as child of a visual scene.*/
 		virtual bool end__visual_scene__node();

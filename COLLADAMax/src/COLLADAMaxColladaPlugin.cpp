@@ -7,8 +7,8 @@ namespace COLLADAMax
 	const String COLLADAPlugin::EXTENSIONNAME = "dae";
 	const String COLLADAPlugin::LONGDESCRIPTION = "New COLLADA Document";
 	const String COLLADAPlugin::SHORTDESCRIPTION = "NEWCOLLADA";
-	const String COLLADAPlugin::AUTHORNAME = "netAllied";
-	const String COLLADAPlugin::COPYRIGHTMESSAGE = "Copyright 2008-2009 netAllied. Copyright 2006 Feeling Software. Based on Autodesk' 3dsMax COLLADASW Tools.";
+	const String COLLADAPlugin::AUTHORNAME = "NetAllied Systems GmbH";
+	const String COLLADAPlugin::COPYRIGHTMESSAGE = "Copyright 2008-2009 NetAllied Systems GmbH. Copyright 2006 Feeling Software. Based on Autodesk' 3dsMax COLLADASW Tools.";
 	const String COLLADAPlugin::OTHERMESSAGE1 = "";
 	const String COLLADAPlugin::OTHERMESSAGE2 = "";
 

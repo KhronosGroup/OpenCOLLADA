@@ -56,31 +56,37 @@ namespace GeneratedSaxParser
 		typedef bool ( ImplClass::*BoolDataFunctionPtr ) (const bool* text, size_t textLength );
 
 	protected:
-		typedef bool ( DerivedClass::*ElementBeginFunctionPtr ) (void* attributeData );
-		typedef bool ( DerivedClass::*TextDataFunctionPtr ) (const ParserChar* text, size_t textLength );
+		typedef bool ( DerivedClass::*ElementBeginFunctionPtr ) ( void* attributeData );
+		typedef bool ( DerivedClass::*TextDataFunctionPtr ) ( const ParserChar* text, size_t textLength );
 		typedef bool ( DerivedClass::*ElementEndFunctionPtr ) ();
-		typedef bool ( DerivedClass::*ElementValidateBeginFunctionPtr ) (const ParserAttributes& attributes, void ** attributeDataPtr,  void ** validationDataPtr  );
+		typedef bool ( DerivedClass::*ElementValidateBeginFunctionPtr ) ( const ParserAttributes& attributes, void ** attributeDataPtr,  void ** validationDataPtr );
 		typedef bool ( DerivedClass::*ElementValidateEndFunctionPtr ) ( );
+        typedef bool ( DerivedClass::*FreeAttributesFunctionPtr ) ( void* attributeData );
 
 
 		struct FunctionStruct 
 		{
 			FunctionStruct()
 				: beginFunction(0),
+				textDataFunction(0),
 				endFunction(0),
-				validateBeginFunction(0)
+				validateBeginFunction(0),
+				validateEndFunction(0),
+				freeAttributesFunction(0)
 			{}
 
 			FunctionStruct( ElementBeginFunctionPtr _beginFunction, 
 				TextDataFunctionPtr _textDataFunction, 
 				ElementEndFunctionPtr _endFunction, 
 				ElementValidateBeginFunctionPtr _validateBeginFunction, 
-				ElementValidateEndFunctionPtr _validateEndFunction)
+				ElementValidateEndFunctionPtr _validateEndFunction,
+                FreeAttributesFunctionPtr _freeAttributesFunction)
 				: beginFunction(_beginFunction),
 				textDataFunction(_textDataFunction),
 				endFunction(_endFunction),
 				validateBeginFunction(_validateBeginFunction),
-				validateEndFunction(_validateEndFunction)
+				validateEndFunction(_validateEndFunction),
+                freeAttributesFunction(_freeAttributesFunction)
 			{}
 
 			ElementBeginFunctionPtr beginFunction;
@@ -88,6 +94,7 @@ namespace GeneratedSaxParser
 			ElementEndFunctionPtr endFunction;
 			ElementValidateBeginFunctionPtr validateBeginFunction;
 			ElementValidateEndFunctionPtr validateEndFunction;
+            FreeAttributesFunctionPtr freeAttributesFunction;
 		};
 
 		typedef std::map<StringHash, FunctionStruct> ElementFunctionMap;
@@ -126,7 +133,7 @@ namespace GeneratedSaxParser
 	protected:
 		template<class DataType, 
 				 DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
-				 DataType (ParserTemplateBase::*toDataWithPrefix)(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
+				 DataType (ParserTemplateBase::*toDataWithPrefix)(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 		bool characterData2Data(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const DataType* data, size_t dataLength ) );
 
 		bool characterData2FloatData( const ParserChar* text, size_t textLength, FloatDataFunctionPtr floatDataFunction );
@@ -171,7 +178,53 @@ namespace GeneratedSaxParser
 		bool longLongDataEnd( LongLongDataFunctionPtr longLongDataFunction );
 		bool unsignedLongLongDataEnd( UnsignedLongLongDataFunctionPtr unsignedLongLongDataFunction );
 
-	private:
+
+
+        /**
+        * Converts buffer representing a xs:list to a buffer containing the list as C++ item type.
+        * Input buffer must contain all data from XML file. This method does not support partial buffers.
+        * @tparam DataType C++ list item type.
+        * @tparam toData Function which does actual conversion.
+        * @param text Buffer containing xs:list as text.
+        * @param textLength Length of input buffer.
+        * @param list Output parameter. Must be freed by caller.
+        * @return True on success, false on failure.
+        */
+        template<typename DataType, 
+            DataType (*toData)(const ParserChar** buffer, bool& failed)>
+            bool characterData2List(const ParserChar* text, XSList<DataType>& list);
+
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2BoolList(const ParserChar* text, XSList<bool>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2FloatList(const ParserChar* text, XSList<float>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2DoubleList(const ParserChar* text, XSList<double>& list);
+
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2CharList(const ParserChar* text, XSList<char>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2ShortList(const ParserChar* text, XSList<short>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2IntList(const ParserChar* text, XSList<int>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2LongList(const ParserChar* text, XSList<long>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2LongLongList(const ParserChar* text, XSList<long long>& list);
+
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2UnsignedCharList(const ParserChar* text, XSList<unsigned char>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2UnsignedShortList(const ParserChar* text, XSList<unsigned short>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2UnsignedIntList(const ParserChar* text, XSList<unsigned int>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2UnsignedLongList(const ParserChar* text, XSList<unsigned long>& list);
+        /** @see characterData2List(const ParserChar* text, XSList<DataType>& list). */
+        bool characterData2UnsignedLongLongList(const ParserChar* text, XSList<unsigned long long>& list);
+
+
+    private:
 		/** Disable default copy ctor. */
 		ParserTemplate( const ParserTemplate& pre );
 		/** Disable default assignment operator. */
@@ -179,10 +232,11 @@ namespace GeneratedSaxParser
 
 	};
 
+    //--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
 	template<class DataType, 
 		     DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
-			 DataType (ParserTemplateBase::*toDataWithPrefix)(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
+			 DataType (ParserTemplateBase::*toDataWithPrefix)(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 	bool ParserTemplate<DerivedClass, ImplClass>::characterData2Data(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const DataType* data, size_t dataLength ) )
 	{
 		size_t dataBufferIndex = 0;
@@ -192,19 +246,20 @@ namespace GeneratedSaxParser
 
 		// handle incomplete fragment from last call to textData
 		DataType fragmentData = 0;
-		if ( mLastIncompleteFragmentInChararterData )
+		if ( mLastIncompleteFragmentInCharacterData )
 		{
 			bool failed = false;
 
-			fragmentData = (this->*toDataWithPrefix)(mLastIncompleteFragmentInChararterData, &dataBufferPos, bufferEnd, failed);
-			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInChararterData
-			mLastIncompleteFragmentInChararterData = 0;
+			fragmentData = (this->*toDataWithPrefix)(mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, &dataBufferPos, bufferEnd, failed);
+			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+			mLastIncompleteFragmentInCharacterData = 0;
+            mEndOfDataInCurrentObjectOnStack;
 			if ( failed )
 			{
 				if ( handleError(ParserError::SEVERITY_ERROR, 
 					             ParserError::ERROR_TEXTDATA_PARSING_FAILED,
 					             0,
-					             mLastIncompleteFragmentInChararterData))
+					             mLastIncompleteFragmentInCharacterData))
 				{
 					return false;
 				}
@@ -227,6 +282,7 @@ namespace GeneratedSaxParser
 		{
 			lastDataBufferIndex = dataBufferPos;
 			DataType dataValue =toData(&dataBufferPos, bufferEnd, failed);
+			failed = failed | (dataBufferPos == bufferEnd);
 			if ( !failed )
 			{
 				typedBuffer[dataBufferIndex] = dataValue;
@@ -248,9 +304,9 @@ namespace GeneratedSaxParser
 				(mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
 			mStackMemoryManager.deleteObject();
 			size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
-			mLastIncompleteFragmentInChararterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
-			memcpy(mLastIncompleteFragmentInChararterData, lastDataBufferIndex, fragmentSize);
-			mLastIncompleteFragmentInChararterData[fragmentSize] = '\0';
+			mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
+			memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
+            mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize;
 
 			return true;
 
@@ -277,6 +333,69 @@ namespace GeneratedSaxParser
 			}
 		}
 	}
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    template<class DataType, 
+        DataType (*toData)(const ParserChar** buffer, bool& failed)>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2List(const ParserChar* text, XSList<DataType>& list)
+    {
+        size_t bufferSize = 1; // TODO find a sane start buffer size and make it a constant
+        DataType* typedBuffer = (DataType*)mStackMemoryManager.newObject(bufferSize * sizeof(DataType));
+
+        size_t dataBufferIndex = 0;
+        const ParserChar* dataBufferPos = text;
+
+        bool failed = false;
+
+        while ( !failed )
+        {
+            DataType dataValue = toData(&dataBufferPos, failed);
+            if ( !failed )
+            {
+                typedBuffer[dataBufferIndex] = dataValue;
+                ++dataBufferIndex;
+                if ( dataBufferIndex == bufferSize )
+                {
+                    bufferSize *= 2;
+                    mStackMemoryManager.growObject(bufferSize * sizeof(DataType));
+                }
+            }
+        }
+
+        if ( *dataBufferPos == '\0' )
+        {
+            list.data = typedBuffer;
+            list.size = dataBufferIndex;
+            // note: buffer on stack could be shrinked here.
+            return true;
+        }
+        else
+        {
+            list.data = 0;
+            list.size = 0;
+            mStackMemoryManager.deleteObject();
+
+            int bufferLength = 0;
+            while (dataBufferPos[bufferLength])
+                ++bufferLength;
+            ParserChar dataBufferError[21];
+            size_t length = std::min(20, bufferLength);
+            memcpy(dataBufferError, dataBufferPos, length);
+            dataBufferError[length] = '\0';
+            if ( handleError(ParserError::SEVERITY_ERROR, 
+                ParserError::ERROR_ATTRIBUTE_PARSING_FAILED,
+                0,
+                dataBufferError))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 
 	//--------------------------------------------------------------------
 	template<class DerivedClass, class ImplClass>
@@ -377,28 +496,28 @@ namespace GeneratedSaxParser
 	template<class DataType, DataType (*toData)( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
 	bool ParserTemplate<DerivedClass, ImplClass>::dataEnd(bool ( ImplClass::*dataFunction ) (const DataType* data, size_t dataLength ))
 	{
-		if ( mLastIncompleteFragmentInChararterData )
+		if ( mLastIncompleteFragmentInCharacterData )
 		{
 			bool failed = false;
-			const ParserChar* bufferBegin = mLastIncompleteFragmentInChararterData;
-			ParserChar* bufferEnde = mLastIncompleteFragmentInChararterData;
-			while ( *bufferEnde )
-				++bufferEnde;
-			*(bufferEnde++) = ' ';
-			DataType floatValue = toData(&bufferBegin, bufferEnde, failed);
-			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInChararterData
-			mLastIncompleteFragmentInChararterData = 0;
+			const ParserChar* bufferBegin = mLastIncompleteFragmentInCharacterData;
+            ParserChar* bufferEnd = mEndOfDataInCurrentObjectOnStack;
+			DataType floatValue = toData(&bufferBegin, bufferEnd, failed);
+			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+			mLastIncompleteFragmentInCharacterData = 0;
+            mEndOfDataInCurrentObjectOnStack = 0;
 			if ( failed )
 			{
-				if ( bufferBegin != bufferEnde )
+				int bufferLength = (int)(mEndOfDataInCurrentObjectOnStack - bufferBegin);
+				ParserChar dataBufferError[21];
+				size_t length = std::min(20, bufferLength);
+				memcpy(dataBufferError, bufferBegin, length);
+				dataBufferError[length] = '\0';
+				if ( handleError(ParserError::SEVERITY_ERROR, 
+							     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
+							     0,
+							     dataBufferError))
 				{
-					if ( handleError(ParserError::SEVERITY_ERROR, 
-								     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
-								     0,
-								     bufferBegin))
-					{
-						return false;
-					}
+					return false;
 				}
 			}
 			else
@@ -606,13 +725,23 @@ namespace GeneratedSaxParser
         {
             // avoid leak
             if ( attributeData )
+            {
+                (static_cast<DerivedClass*>(this)->*functions.freeAttributesFunction)(attributeData);
                 mStackMemoryManager.deleteObject(); // attribute data
+            }
 			return false;
         }
 
 		bool success = (static_cast<DerivedClass*>(this)->*functions.beginFunction)(attributeData);
 		if ( attributeData )
+        {
+            bool attrFreeSuccess = (static_cast<DerivedClass*>(this)->*functions.freeAttributesFunction)(attributeData);
 			mStackMemoryManager.deleteObject(); // attribute data
+            if ( !attrFreeSuccess )
+            {
+                return false;
+            }
+        }
 
 		if ( success )
 		{
@@ -626,6 +755,97 @@ namespace GeneratedSaxParser
 	}
 
 
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2BoolList(const ParserChar* text, XSList<bool>& list)
+    {
+        return characterData2List<bool, Utils::toBool>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2FloatList(const ParserChar* text, XSList<float>& list)
+    {
+        return characterData2List<float, Utils::toFloat>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2DoubleList(const ParserChar* text, XSList<double>& list)
+    {
+        return characterData2List<double, Utils::toDouble>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2CharList(const ParserChar* text, XSList<char>& list)
+    {
+        return characterData2List<char, Utils::toChar>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2ShortList(const ParserChar* text, XSList<short>& list)
+    {
+        return characterData2List<short, Utils::toShort>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2IntList(const ParserChar* text, XSList<int>& list)
+    {
+        return characterData2List<int, Utils::toInt>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2LongList(const ParserChar* text, XSList<long>& list)
+    {
+        return characterData2List<long, Utils::toLong>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2LongLongList(const ParserChar* text, XSList<long long>& list)
+    {
+        return characterData2List<long long, Utils::toLongLong>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2UnsignedCharList(const ParserChar* text, XSList<unsigned char>& list)
+    {
+        return characterData2List<unsigned char, Utils::toUnsignedChar>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2UnsignedShortList(const ParserChar* text, XSList<unsigned short>& list)
+    {
+        return characterData2List<unsigned short, Utils::toUnsignedShort>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2UnsignedIntList(const ParserChar* text, XSList<unsigned int>& list)
+    {
+        return characterData2List<unsigned int, Utils::toUnsignedInt>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2UnsignedLongList(const ParserChar* text, XSList<unsigned long>& list)
+    {
+        return characterData2List<unsigned long, Utils::toUnsignedLong>(text, list);
+    }
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2UnsignedLongLongList(const ParserChar* text, XSList<unsigned long long>& list)
+    {
+        return characterData2List<unsigned long long, Utils::toUnsignedLongLong>(text, list);
+    }
 
 
 

@@ -870,7 +870,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__vertices( const mesh__vertices__AttributeData& attributeData )
+	bool MeshLoader::begin__mesh__vertices( const vertices__AttributeData& attributeData )
 	{
 		if ( attributeData.id )
 			mVerticesInputs.setId( (const char*)attributeData.id );
@@ -902,7 +902,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData )
+	bool MeshLoader::begin__mesh__triangles( const triangles__AttributeData& attributeData )
 	{
 		return true;
 	}
@@ -971,7 +971,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData )
+	bool MeshLoader::begin__mesh__polylist( const polylist__AttributeData& attributeData )
 	{
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
@@ -1062,7 +1062,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__polygons( const mesh__polygons__AttributeData& attributeData )
+	bool MeshLoader::begin__mesh__polygons( const polygons__AttributeData& attributeData )
 	{
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		// The actual size might be bigger, but its a lower bound
@@ -1206,7 +1206,7 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__tristrips( const mesh__tristrips__AttributeData& attributeData )
+	bool MeshLoader::begin__mesh__tristrips( const tristrips__AttributeData& attributeData )
 	{
 		COLLADAFW::Tristrips* tristrips = new COLLADAFW::Tristrips();
 		// The actual size might be bigger, but its a lower bound
@@ -1288,7 +1288,7 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	bool MeshLoader::begin__mesh__trifans( const mesh__trifans__AttributeData& attributeData )
+	bool MeshLoader::begin__mesh__trifans( const trifans__AttributeData& attributeData )
 	{
 		COLLADAFW::Trifans* trifans = new COLLADAFW::Trifans();
 		// The actual size might be bigger, but its a lower bound

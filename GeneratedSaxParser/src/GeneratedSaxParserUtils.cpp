@@ -128,9 +128,18 @@ namespace GeneratedSaxParser
 		{
 			if ( s == bufferEnd )
 			{
-				failed = true;
-				*buffer = bufferEnd;
-				return 0.0f;
+				if (charBeforeDecimalPoint)
+				{
+					failed = false;
+					*buffer = s;
+					return sign * (FloatingPointType)value;
+				}
+				else
+				{
+					failed = true;
+					*buffer = s;
+					return 0.0f;
+				}
 			}
 
 			if ( isdigit(*s) ) 
@@ -152,9 +161,18 @@ namespace GeneratedSaxParser
 		{
 			if ( s == bufferEnd )
 			{
-				failed = true;
-				*buffer = bufferEnd;
-				return 0.0f;
+				if ( charBeforeDecimalPoint || charAfterDecimalPoint )
+				{
+					failed = false;
+					*buffer = s;
+					return (FloatingPointType)value * pow((FloatingPointType)10, (FloatingPointType)power) * sign;
+				}
+				else
+				{
+					failed = true;
+					*buffer = s;
+					return 0.0f;
+				}
 			}
 
 			if ( isdigit(*s) ) 
@@ -314,6 +332,140 @@ namespace GeneratedSaxParser
 	}
 
 
+    //--------------------------------------------------------------------
+    template<class FloatingPointType>
+    FloatingPointType Utils::toFloatingPoint(const ParserChar** buffer, bool& failed)
+    {
+        const ParserChar* s = *buffer;
+        if ( !s ) 
+        {
+            failed = true;
+            return 0.0f;
+        }
+
+        if ( *s == '\0' )
+        {
+            failed = true;
+            *buffer = s;
+            return 0.0f;
+        }
+
+        // Skip leading white spaces
+        while ( isWhiteSpace(*s) ) 
+        {
+            ++s; 
+            if ( *s == '\0' )
+            {
+                failed = true;
+                *buffer = s;
+                return 0.0f;
+            }
+        }
+
+        double value = 0.0;
+        FloatingPointType sign = 1.0;
+        if (*s == '-') 
+        { 
+            ++s; 
+            sign = -1.0; 
+        } 
+        else if (*s == '+')
+        {
+            ++s;
+        }
+
+        FloatingPointType decimals = 0.0;
+        int exponent = 0;
+        bool infinity = false;
+        bool charBeforeDecimalPoint = false;
+        while ( true )
+        {
+            if ( *s == '\0' )
+            {
+                if (charBeforeDecimalPoint)
+                {
+                    failed = false;
+                    *buffer = s;
+                    return sign * (FloatingPointType)value;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    return 0.0f;
+                }
+            }
+
+            if ( isdigit(*s) ) 
+            {
+                value = value * 10 + (*s - '0');
+                charBeforeDecimalPoint = true;
+            }
+            else 
+                break;
+            ++s;
+        }
+
+        if ( (*s=='.') )
+            ++s;
+
+        int power = 0;
+        bool charAfterDecimalPoint = false;
+        while ( true )
+        {
+            if ( *s == '\0' )
+            {
+                if ( charBeforeDecimalPoint || charAfterDecimalPoint )
+                {
+                    failed = false;
+                    *buffer = s;
+                    return (FloatingPointType)value * pow((FloatingPointType)10, (FloatingPointType)power) * sign;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    return 0.0f;
+                }
+            }
+
+            if ( isdigit(*s) ) 
+            {
+                value = value * 10 + (*s - '0');
+                --power;
+                charAfterDecimalPoint = true;
+            }
+            else 
+                break;
+            ++s;
+        }
+
+        if ( !charBeforeDecimalPoint && !charAfterDecimalPoint )
+        {
+            failed = true;
+            *buffer = s;
+            return 0.0f;
+        }
+
+        if ( (*s == 'e') || (*s == 'E') )
+        {
+            ++s;
+            bool intFailed = false;
+            int exponent = toInt(&s, intFailed);
+            if ( intFailed )
+            {
+                failed = true;
+                *buffer = s;
+                return 0.0f;
+            }
+            power += exponent;
+        }
+
+        failed = false;
+        *buffer = s;
+        return (FloatingPointType)value * pow((FloatingPointType)10, (FloatingPointType)power) * sign;
+    }
+
 
 	//--------------------------------------------------------------------
 	float Utils::toFloat( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
@@ -327,6 +479,13 @@ namespace GeneratedSaxParser
 	{
 		return toFloatingPoint<float>(buffer, failed);
 	}
+
+
+    //--------------------------------------------------------------------
+    float Utils::toFloat( const ParserChar** buffer, bool& failed )
+    {
+        return toFloatingPoint<float>(buffer, failed);
+    }
 
 
 	//--------------------------------------------------------------------
@@ -343,7 +502,14 @@ namespace GeneratedSaxParser
 	}
 
 
-	//--------------------------------------------------------------------
+    //--------------------------------------------------------------------
+    double Utils::toDouble( const ParserChar** buffer, bool& failed )
+    {
+        return toFloatingPoint<double>(buffer, failed);
+    }
+
+
+    //--------------------------------------------------------------------
 	template<class IntegerType, bool signedInteger>
 	IntegerType Utils::toInteger(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
 	{
@@ -393,9 +559,21 @@ namespace GeneratedSaxParser
 		{
 			if ( s == bufferEnd )
 			{
-				failed = true;
-				*buffer = bufferEnd;
-				return 0;
+				if (digitFound)
+				{
+					failed = false;
+					*buffer = s;
+					if ( signedInteger )
+						return value * sign;
+					else
+						return value;
+				}
+				else
+				{
+					failed = true;
+					*buffer = s;
+					return 0;
+				}
 			}
 
 			if ( isdigit(*s) ) 
@@ -503,6 +681,99 @@ namespace GeneratedSaxParser
 		}
 	}
 
+    //--------------------------------------------------------------------
+    template<class IntegerType, bool signedInteger>
+    IntegerType Utils::toInteger(const ParserChar** buffer, bool& failed)
+    {
+        const ParserChar* s = *buffer;
+        if ( !s ) 
+        {
+            failed = true;
+            return 0;
+        }
+
+        if ( *s == '\0' )
+        {
+            failed = true;
+            *buffer = s;
+            return 0;
+        }
+
+        // Skip leading white spaces
+        while ( isWhiteSpace(*s) ) 
+        {
+            ++s; 
+            if ( *s == '\0' )
+            {
+                failed = true;
+                *buffer = s;
+                return 0;
+            }
+        }
+
+        IntegerType value = 0;
+        IntegerType sign = 1;
+        if ( signedInteger )
+        {
+            if (*s == '-') 
+            { 
+                ++s; 
+                sign = -1; 
+            } 
+            else if (*s == '+')
+            {
+                ++s;
+            }
+        }
+
+        bool digitFound = false;
+        while (true)
+        {
+            if ( *s == '\0' )
+            {
+                if (digitFound)
+                {
+                    failed = false;
+                    *buffer = s;
+                    if ( signedInteger )
+                        return value * sign;
+                    else
+                        return value;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    return 0;
+                }
+            }
+
+            if ( isdigit(*s) ) 
+            {
+                value = value * 10 + (*s - '0');
+                digitFound = true;
+            }
+            else 
+                break;
+            ++s;
+        }
+        if ( digitFound )
+        {
+            *buffer = s;
+            failed = false;
+            if ( signedInteger )
+                return value * sign;
+            else
+                return value;
+        }
+        else
+        {
+            failed = true;
+            *buffer = s;
+            return 0;
+        }
+    }
+
 	//--------------------------------------------------------------------
 	char Utils::toChar( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
@@ -514,6 +785,12 @@ namespace GeneratedSaxParser
 	{
 		return toInteger<char, true>(buffer, failed);
 	}
+
+    //--------------------------------------------------------------------
+    char Utils::toChar( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<char, true>(buffer, failed);
+    }
 
 	//--------------------------------------------------------------------
 	unsigned char Utils::toUnsignedChar( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
@@ -527,6 +804,12 @@ namespace GeneratedSaxParser
 		return toInteger<unsigned char, false>(buffer, failed);
 	}
 
+    //--------------------------------------------------------------------
+    unsigned char Utils::toUnsignedChar( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<unsigned char, false>(buffer, failed);
+    }
+
 	//--------------------------------------------------------------------
 	short Utils::toShort( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
@@ -538,6 +821,12 @@ namespace GeneratedSaxParser
 	{
 		return toInteger<short, true>(buffer, failed);
 	}
+
+    //--------------------------------------------------------------------
+    short Utils::toShort( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<short, true>(buffer, failed);
+    }
 
 	//--------------------------------------------------------------------
 	unsigned short Utils::toUnsignedShort( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
@@ -551,6 +840,12 @@ namespace GeneratedSaxParser
 		return toInteger<unsigned short, false>(buffer, failed);
 	}
 
+    //--------------------------------------------------------------------
+    unsigned short Utils::toUnsignedShort( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<unsigned short, false>(buffer, failed);
+    }
+
 	//--------------------------------------------------------------------
 	int Utils::toInt( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
@@ -562,6 +857,12 @@ namespace GeneratedSaxParser
 	{
 		return toInteger<int, true>(buffer, failed);
 	}
+
+    //--------------------------------------------------------------------
+    int Utils::toInt( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<int, true>(buffer, failed);
+    }
 
 	//--------------------------------------------------------------------
 	unsigned int Utils::toUnsignedInt( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
@@ -575,6 +876,12 @@ namespace GeneratedSaxParser
 		return toInteger<unsigned int, false>(buffer, failed);
 	}
 
+    //--------------------------------------------------------------------
+    unsigned int Utils::toUnsignedInt( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<unsigned int, false>(buffer, failed);
+    }
+
 	//--------------------------------------------------------------------
 	long Utils::toLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
@@ -586,6 +893,12 @@ namespace GeneratedSaxParser
 	{
 		return toInteger<long, true>(buffer, failed);
 	}
+
+    //--------------------------------------------------------------------
+    long Utils::toLong( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<long, true>(buffer, failed);
+    }
 
 	//--------------------------------------------------------------------
 	unsigned long Utils::toUnsignedLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
@@ -599,6 +912,12 @@ namespace GeneratedSaxParser
 		return toInteger<unsigned long, false>(buffer, failed);
 	}
 
+    //--------------------------------------------------------------------
+    unsigned long Utils::toUnsignedLong( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<unsigned long, false>(buffer, failed);
+    }
+
 	//--------------------------------------------------------------------
 	long long Utils::toLongLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
@@ -611,6 +930,12 @@ namespace GeneratedSaxParser
 		return toInteger<long long, true>(buffer, failed);
 	}
 
+    //--------------------------------------------------------------------
+    long long Utils::toLongLong( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<long long, true>(buffer, failed);
+    }
+
 	//--------------------------------------------------------------------
 	unsigned long long Utils::toUnsignedLongLong( const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
@@ -622,6 +947,12 @@ namespace GeneratedSaxParser
 	{
 		return toInteger<unsigned long long, false>(buffer, failed);
 	}
+
+    //--------------------------------------------------------------------
+    unsigned long long Utils::toUnsignedLongLong( const ParserChar** buffer, bool& failed )
+    {
+        return toInteger<unsigned long long, false>(buffer, failed);
+    }
 
 
 	//--------------------------------------------------------------------
@@ -746,6 +1077,110 @@ namespace GeneratedSaxParser
 		failed = true;
 		return false;
 	}
+
+    //--------------------------------------------------------------------
+    bool Utils::toBool( const ParserChar** buffer, bool& failed  )
+    {	
+        const ParserChar* s = *buffer;
+        if ( *s == '\0' )
+        {
+            failed = true;
+            return true;
+        }
+
+        // Skip leading white spaces
+        while ( isWhiteSpace(*s) ) 
+        {
+            ++s; 
+            if ( *s == '\0' )
+            {
+                failed = true;
+                *buffer = s;
+                return true;
+            }
+        }
+
+
+        if ( *s == '1' )
+        {
+            failed = false;
+            *buffer = s + 1;
+            return true;
+        }
+        else if ( *s == '0' )
+        {
+            failed = false;
+            *buffer = s + 1;
+            return false;
+        }
+        else if ( *s == 't' )
+        {
+            s++;
+            static const char* trueString = "rue";
+            const ParserChar* c = (const ParserChar* )trueString;
+            while (true)
+            {
+                if ( *c == '\0' )
+                {
+                    failed = false;
+                    *buffer = s;
+                    return true;
+                }
+                if ( *s == '\0' )
+                {
+                    failed = true;
+                    *buffer = s;
+                    return true;
+                }
+                if ( *s == *c)
+                {
+                    s++;
+                    c++;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    return true;
+                }
+            }
+        }
+        else if ( *s == 'f' )
+        {
+            s++;
+            static const char* trueString = "alse";
+            const ParserChar* c = (const ParserChar* )trueString;
+            while (true)
+            {
+                if ( *c == '\0' )
+                {
+                    failed = false;
+                    *buffer = s;
+                    return false;
+                }
+                if ( *s == '\0' )
+                {
+                    failed = true;
+                    *buffer = s;
+                    return true;
+                }
+                if ( *s == *c)
+                {
+                    s++;
+                    c++;
+                }
+                else
+                {
+                    failed = true;
+                    *buffer = s;
+                    return true;
+                }
+            }
+        }
+
+        failed = true;
+        return false;
+    }
 
 
 } // namespace GeneratedSaxParser

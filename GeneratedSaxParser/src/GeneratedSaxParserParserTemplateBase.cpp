@@ -16,98 +16,98 @@ namespace GeneratedSaxParser
 
 
 	//--------------------------------------------------------------------
-	float ParserTemplateBase::toFloatPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	float ParserTemplateBase::toFloatPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<float, Utils::toFloat>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<float, Utils::toFloat>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 
 	//--------------------------------------------------------------------
-	double ParserTemplateBase::toDoublePrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	double ParserTemplateBase::toDoublePrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<double, Utils::toDouble>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<double, Utils::toDouble>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 
 
 	//--------------------------------------------------------------------
-	char ParserTemplateBase::toCharPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	char ParserTemplateBase::toCharPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<char, Utils::toChar>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<char, Utils::toChar>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned char ParserTemplateBase::toUnsignedCharPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	unsigned char ParserTemplateBase::toUnsignedCharPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned char, Utils::toUnsignedChar>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<unsigned char, Utils::toUnsignedChar>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	short ParserTemplateBase::toShortPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	short ParserTemplateBase::toShortPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<short, Utils::toShort>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<short, Utils::toShort>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned short ParserTemplateBase::toUnsignedShortPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	unsigned short ParserTemplateBase::toUnsignedShortPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned short, Utils::toUnsignedShort>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<unsigned short, Utils::toUnsignedShort>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	int ParserTemplateBase::toIntPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	int ParserTemplateBase::toIntPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<int, Utils::toInt>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<int, Utils::toInt>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned int ParserTemplateBase::toUnsignedIntPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	unsigned int ParserTemplateBase::toUnsignedIntPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned int, Utils::toUnsignedInt>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<unsigned int, Utils::toUnsignedInt>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	long ParserTemplateBase::toLongPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	long ParserTemplateBase::toLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<long, Utils::toLong>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<long, Utils::toLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 	//--------------------------------------------------------------------
-	unsigned long ParserTemplateBase::toUnsignedLongPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	unsigned long ParserTemplateBase::toUnsignedLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<unsigned long, Utils::toUnsignedLong>(prefixedBuffer, buffer, bufferEnd, failed);
-	}
-
-
-	//--------------------------------------------------------------------
-	long long ParserTemplateBase::toLongLongPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toDataPrefix<long long, Utils::toLongLong>(prefixedBuffer, buffer, bufferEnd, failed);
-	}
-
-	//--------------------------------------------------------------------
-	unsigned long long ParserTemplateBase::toUnsignedLongLongPrefix( const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
-	{
-		return toDataPrefix<unsigned long long, Utils::toUnsignedLongLong>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<unsigned long, Utils::toUnsignedLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 
 	//--------------------------------------------------------------------
-	bool ParserTemplateBase::toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+	long long ParserTemplateBase::toLongLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
 	{
-		return toDataPrefix<bool, Utils::toBool>(prefixedBuffer, buffer, bufferEnd, failed);
+		return toDataPrefix<long long, Utils::toLongLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+	}
+
+	//--------------------------------------------------------------------
+	unsigned long long ParserTemplateBase::toUnsignedLongLongPrefix( const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed )
+	{
+		return toDataPrefix<unsigned long long, Utils::toUnsignedLongLong>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
+	}
+
+
+	//--------------------------------------------------------------------
+	bool ParserTemplateBase::toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+	{
+		return toDataPrefix<bool, Utils::toBool>(prefixedBuffer, prefixedBufferEnd, buffer, bufferEnd, failed);
 	}
 
 
 	//--------------------------------------------------------------------
 	template<class DataType,
 			 DataType (*toData)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)>
-	DataType ParserTemplateBase::toDataPrefix(const ParserChar* prefixedBuffer, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+	DataType ParserTemplateBase::toDataPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
 	{
 		const ParserChar* prefixBufferPos = prefixedBuffer;
 		const ParserChar* prefixBufferStartPos = 0;
 		bool onlyWhiteSpaceFound = true;
-		while ( *prefixBufferPos )
+        while ( prefixBufferPos != prefixedBufferEnd )
 		{
 			if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)
 				prefixBufferStartPos = prefixBufferPos;
@@ -184,83 +184,5 @@ namespace GeneratedSaxParser
 		else 
 			return it->second;
 	}
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2BoolData(const ParserChar* text, size_t textLength, XSList<bool>& list)
-    {
-        return characterData2Data<bool, Utils::toBool>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2FloatData(const ParserChar* text, size_t textLength, XSList<float>& list)
-    {
-        return characterData2Data<float, Utils::toFloat>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2DoubleData(const ParserChar* text, size_t textLength, XSList<double>& list)
-    {
-        return characterData2Data<double, Utils::toDouble>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2CharData(const ParserChar* text, size_t textLength, XSList<char>& list)
-    {
-        return characterData2Data<char, Utils::toChar>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2ShortData(const ParserChar* text, size_t textLength, XSList<short>& list)
-    {
-        return characterData2Data<short, Utils::toShort>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2IntData(const ParserChar* text, size_t textLength, XSList<int>& list)
-    {
-        return characterData2Data<int, Utils::toInt>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2LongData(const ParserChar* text, size_t textLength, XSList<long>& list)
-    {
-        return characterData2Data<long, Utils::toLong>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2LongLongData(const ParserChar* text, size_t textLength, XSList<long long>& list)
-    {
-        return characterData2Data<long long, Utils::toLongLong>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2UnsignedCharData(const ParserChar* text, size_t textLength, XSList<unsigned char>& list)
-    {
-        return characterData2Data<unsigned char, Utils::toUnsignedChar>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2UnsignedShortData(const ParserChar* text, size_t textLength, XSList<unsigned short>& list)
-    {
-        return characterData2Data<unsigned short, Utils::toUnsignedShort>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2UnsignedIntData(const ParserChar* text, size_t textLength, XSList<unsigned int>& list)
-    {
-        return characterData2Data<unsigned int, Utils::toUnsignedInt>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2UnsignedLongData(const ParserChar* text, size_t textLength, XSList<unsigned long>& list)
-    {
-        return characterData2Data<unsigned long, Utils::toUnsignedLong>(text, textLength, list);
-    }
-
-    //--------------------------------------------------------------------
-    bool ParserTemplateBase::characterData2UnsignedLongLongData(const ParserChar* text, size_t textLength, XSList<unsigned long long>& list)
-    {
-        return characterData2Data<unsigned long long, Utils::toUnsignedLongLong>(text, textLength, list);
-    }
 
 } // namespace GeneratedSaxParser

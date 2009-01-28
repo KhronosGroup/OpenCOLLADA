@@ -1,11 +1,11 @@
 /*
-Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008 NetAllied Systems GmbH
 
-This file is part of COLLADASaxFrameworkLoader.
+    This file is part of COLLADASaxFrameworkLoader.
 
-Licensed under the MIT Open Source License,
-for details please see LICENSE file or the website
-http://www.opensource.org/licenses/mit-license.php
+    Licensed under the MIT Open Source License,
+    for details please see LICENSE file or the website
+    http://www.opensource.org/licenses/mit-license.php
 */
 
 
@@ -17,7 +17,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASaxFWLColladaParserAutoGenAttributes.h"
 
 
-namespace  COLLADASaxFWL
+namespace COLLADASaxFWL
 {
 
 
@@ -94,7 +94,7 @@ virtual bool end__library_animations(){return true;}
 virtual bool begin__library_animations__asset(){return true;}
 virtual bool end__library_animations__asset(){return true;}
 
-virtual bool begin__library_animations__animation( const library_animations__animation__AttributeData& attributeData ){return true;}
+virtual bool begin__library_animations__animation( const animation__AttributeData& attributeData ){return true;}
 virtual bool end__library_animations__animation(){return true;}
 
 virtual bool begin__animation__asset(){return true;}
@@ -148,10 +148,10 @@ virtual bool end__sampler__input(){return true;}
 virtual bool begin__channel( const channel__AttributeData& attributeData ){return true;}
 virtual bool end__channel(){return true;}
 
-virtual bool begin__animation__animation( const animation__animation__AttributeData& attributeData ){return true;}
+virtual bool begin__animation__animation( const animation__AttributeData& attributeData ){return true;}
 virtual bool end__animation__animation(){return true;}
 
-virtual bool begin__animation__extra( const animation__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__animation__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__animation__extra(){return true;}
 
 virtual bool begin__extra__asset(){return true;}
@@ -160,7 +160,7 @@ virtual bool end__extra__asset(){return true;}
 virtual bool begin__extra__technique( const extra__technique__AttributeData& attributeData ){return true;}
 virtual bool end__extra__technique(){return true;}
 
-virtual bool begin__library_animations__extra( const library_animations__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_animations__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_animations__extra(){return true;}
 
 virtual bool begin__library_animation_clips( const library_animation_clips__AttributeData& attributeData ){return true;}
@@ -178,13 +178,13 @@ virtual bool end__animation_clip__asset(){return true;}
 virtual bool begin__instance_animation( const instance_animation__AttributeData& attributeData ){return true;}
 virtual bool end__instance_animation(){return true;}
 
-virtual bool begin__instance_animation__extra( const instance_animation__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_animation__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_animation__extra(){return true;}
 
-virtual bool begin__animation_clip__extra( const animation_clip__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__animation_clip__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__animation_clip__extra(){return true;}
 
-virtual bool begin__library_animation_clips__extra( const library_animation_clips__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_animation_clips__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_animation_clips__extra(){return true;}
 
 virtual bool begin__library_cameras( const library_cameras__AttributeData& attributeData ){return true;}
@@ -216,15 +216,15 @@ virtual bool begin__ymag( const ymag__AttributeData& attributeData ){return true
 virtual bool end__ymag(){return true;}
 virtual bool data__ymag( double value ){return true;}
 
-virtual bool begin__orthographic__aspect_ratio( const orthographic__aspect_ratio__AttributeData& attributeData ){return true;}
+virtual bool begin__orthographic__aspect_ratio( const aspect_ratio__AttributeData& attributeData ){return true;}
 virtual bool end__orthographic__aspect_ratio(){return true;}
 virtual bool data__orthographic__aspect_ratio( double value ){return true;}
 
-virtual bool begin__orthographic__znear( const orthographic__znear__AttributeData& attributeData ){return true;}
+virtual bool begin__orthographic__znear( const znear__AttributeData& attributeData ){return true;}
 virtual bool end__orthographic__znear(){return true;}
 virtual bool data__orthographic__znear( double value ){return true;}
 
-virtual bool begin__orthographic__zfar( const orthographic__zfar__AttributeData& attributeData ){return true;}
+virtual bool begin__orthographic__zfar( const zfar__AttributeData& attributeData ){return true;}
 virtual bool end__orthographic__zfar(){return true;}
 virtual bool data__orthographic__zfar( double value ){return true;}
 
@@ -239,22 +239,22 @@ virtual bool begin__yfov( const yfov__AttributeData& attributeData ){return true
 virtual bool end__yfov(){return true;}
 virtual bool data__yfov( double value ){return true;}
 
-virtual bool begin__perspective__aspect_ratio( const perspective__aspect_ratio__AttributeData& attributeData ){return true;}
+virtual bool begin__perspective__aspect_ratio( const aspect_ratio__AttributeData& attributeData ){return true;}
 virtual bool end__perspective__aspect_ratio(){return true;}
 virtual bool data__perspective__aspect_ratio( double value ){return true;}
 
-virtual bool begin__perspective__znear( const perspective__znear__AttributeData& attributeData ){return true;}
+virtual bool begin__perspective__znear( const znear__AttributeData& attributeData ){return true;}
 virtual bool end__perspective__znear(){return true;}
 virtual bool data__perspective__znear( double value ){return true;}
 
-virtual bool begin__perspective__zfar( const perspective__zfar__AttributeData& attributeData ){return true;}
+virtual bool begin__perspective__zfar( const zfar__AttributeData& attributeData ){return true;}
 virtual bool end__perspective__zfar(){return true;}
 virtual bool data__perspective__zfar( double value ){return true;}
 
 virtual bool begin__optics__technique( const optics__technique__AttributeData& attributeData ){return true;}
 virtual bool end__optics__technique(){return true;}
 
-virtual bool begin__optics__extra( const optics__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__optics__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__optics__extra(){return true;}
 
 virtual bool begin__imager(){return true;}
@@ -263,13 +263,13 @@ virtual bool end__imager(){return true;}
 virtual bool begin__imager__technique( const imager__technique__AttributeData& attributeData ){return true;}
 virtual bool end__imager__technique(){return true;}
 
-virtual bool begin__imager__extra( const imager__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__imager__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__imager__extra(){return true;}
 
-virtual bool begin__camera__extra( const camera__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__camera__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__camera__extra(){return true;}
 
-virtual bool begin__library_cameras__extra( const library_cameras__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_cameras__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_cameras__extra(){return true;}
 
 virtual bool begin__library_controllers( const library_controllers__AttributeData& attributeData ){return true;}
@@ -300,7 +300,7 @@ virtual bool end__joints(){return true;}
 virtual bool begin__joints__input( const joints__input__AttributeData& attributeData ){return true;}
 virtual bool end__joints__input(){return true;}
 
-virtual bool begin__joints__extra( const joints__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__joints__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__joints__extra(){return true;}
 
 virtual bool begin__vertex_weights( const vertex_weights__AttributeData& attributeData ){return true;}
@@ -317,10 +317,10 @@ virtual bool begin__v(){return true;}
 virtual bool end__v(){return true;}
 virtual bool data__v( const long* value, size_t length ){return true;}
 
-virtual bool begin__vertex_weights__extra( const vertex_weights__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__vertex_weights__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__vertex_weights__extra(){return true;}
 
-virtual bool begin__skin__extra( const skin__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__skin__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__skin__extra(){return true;}
 
 virtual bool begin__morph( const morph__AttributeData& attributeData ){return true;}
@@ -335,16 +335,16 @@ virtual bool end__targets(){return true;}
 virtual bool begin__targets__input( const targets__input__AttributeData& attributeData ){return true;}
 virtual bool end__targets__input(){return true;}
 
-virtual bool begin__targets__extra( const targets__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__targets__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__targets__extra(){return true;}
 
-virtual bool begin__morph__extra( const morph__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__morph__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__morph__extra(){return true;}
 
-virtual bool begin__controller__extra( const controller__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__controller__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__controller__extra(){return true;}
 
-virtual bool begin__library_controllers__extra( const library_controllers__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_controllers__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_controllers__extra(){return true;}
 
 virtual bool begin__library_geometries( const library_geometries__AttributeData& attributeData ){return true;}
@@ -365,16 +365,16 @@ virtual bool end__convex_mesh(){return true;}
 virtual bool begin__convex_mesh__source( const convex_mesh__source__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__source(){return true;}
 
-virtual bool begin__convex_mesh__vertices( const convex_mesh__vertices__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__vertices( const vertices__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__vertices(){return true;}
 
 virtual bool begin__vertices__input( const vertices__input__AttributeData& attributeData ){return true;}
 virtual bool end__vertices__input(){return true;}
 
-virtual bool begin__vertices__extra( const vertices__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__vertices__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__vertices__extra(){return true;}
 
-virtual bool begin__convex_mesh__lines( const convex_mesh__lines__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__lines( const lines__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__lines(){return true;}
 
 virtual bool begin__lines__input( const lines__input__AttributeData& attributeData ){return true;}
@@ -384,10 +384,10 @@ virtual bool begin__lines__p(){return true;}
 virtual bool end__lines__p(){return true;}
 virtual bool data__lines__p( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__lines__extra( const lines__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__lines__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__lines__extra(){return true;}
 
-virtual bool begin__convex_mesh__linestrips( const convex_mesh__linestrips__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__linestrips( const linestrips__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__linestrips(){return true;}
 
 virtual bool begin__linestrips__input( const linestrips__input__AttributeData& attributeData ){return true;}
@@ -397,10 +397,10 @@ virtual bool begin__linestrips__p(){return true;}
 virtual bool end__linestrips__p(){return true;}
 virtual bool data__linestrips__p( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__linestrips__extra( const linestrips__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__linestrips__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__linestrips__extra(){return true;}
 
-virtual bool begin__convex_mesh__polygons( const convex_mesh__polygons__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__polygons( const polygons__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__polygons(){return true;}
 
 virtual bool begin__polygons__input( const polygons__input__AttributeData& attributeData ){return true;}
@@ -421,10 +421,10 @@ virtual bool begin__h(){return true;}
 virtual bool end__h(){return true;}
 virtual bool data__h( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__polygons__extra( const polygons__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__polygons__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__polygons__extra(){return true;}
 
-virtual bool begin__convex_mesh__polylist( const convex_mesh__polylist__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__polylist( const polylist__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__polylist(){return true;}
 
 virtual bool begin__polylist__input( const polylist__input__AttributeData& attributeData ){return true;}
@@ -438,10 +438,10 @@ virtual bool begin__polylist__p(){return true;}
 virtual bool end__polylist__p(){return true;}
 virtual bool data__polylist__p( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__polylist__extra( const polylist__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__polylist__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__polylist__extra(){return true;}
 
-virtual bool begin__convex_mesh__triangles( const convex_mesh__triangles__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__triangles( const triangles__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__triangles(){return true;}
 
 virtual bool begin__triangles__input( const triangles__input__AttributeData& attributeData ){return true;}
@@ -451,10 +451,10 @@ virtual bool begin__triangles__p(){return true;}
 virtual bool end__triangles__p(){return true;}
 virtual bool data__triangles__p( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__triangles__extra( const triangles__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__triangles__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__triangles__extra(){return true;}
 
-virtual bool begin__convex_mesh__trifans( const convex_mesh__trifans__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__trifans( const trifans__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__trifans(){return true;}
 
 virtual bool begin__trifans__input( const trifans__input__AttributeData& attributeData ){return true;}
@@ -464,10 +464,10 @@ virtual bool begin__trifans__p(){return true;}
 virtual bool end__trifans__p(){return true;}
 virtual bool data__trifans__p( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__trifans__extra( const trifans__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__trifans__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__trifans__extra(){return true;}
 
-virtual bool begin__convex_mesh__tristrips( const convex_mesh__tristrips__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__tristrips( const tristrips__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__tristrips(){return true;}
 
 virtual bool begin__tristrips__input( const tristrips__input__AttributeData& attributeData ){return true;}
@@ -477,10 +477,10 @@ virtual bool begin__tristrips__p(){return true;}
 virtual bool end__tristrips__p(){return true;}
 virtual bool data__tristrips__p( const unsigned long long* value, size_t length ){return true;}
 
-virtual bool begin__tristrips__extra( const tristrips__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__tristrips__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__tristrips__extra(){return true;}
 
-virtual bool begin__convex_mesh__extra( const convex_mesh__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__convex_mesh__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__convex_mesh__extra(){return true;}
 
 virtual bool begin__mesh(){return true;}
@@ -489,31 +489,31 @@ virtual bool end__mesh(){return true;}
 virtual bool begin__mesh__source( const mesh__source__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__source(){return true;}
 
-virtual bool begin__mesh__vertices( const mesh__vertices__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__vertices( const vertices__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__vertices(){return true;}
 
-virtual bool begin__mesh__lines( const mesh__lines__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__lines( const lines__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__lines(){return true;}
 
-virtual bool begin__mesh__linestrips( const mesh__linestrips__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__linestrips( const linestrips__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__linestrips(){return true;}
 
-virtual bool begin__mesh__polygons( const mesh__polygons__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__polygons( const polygons__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__polygons(){return true;}
 
-virtual bool begin__mesh__polylist( const mesh__polylist__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__polylist( const polylist__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__polylist(){return true;}
 
-virtual bool begin__mesh__triangles( const mesh__triangles__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__triangles( const triangles__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__triangles(){return true;}
 
-virtual bool begin__mesh__trifans( const mesh__trifans__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__trifans( const trifans__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__trifans(){return true;}
 
-virtual bool begin__mesh__tristrips( const mesh__tristrips__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__tristrips( const tristrips__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__tristrips(){return true;}
 
-virtual bool begin__mesh__extra( const mesh__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__mesh__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__mesh__extra(){return true;}
 
 virtual bool begin__spline( const spline__AttributeData& attributeData ){return true;}
@@ -528,16 +528,16 @@ virtual bool end__control_vertices(){return true;}
 virtual bool begin__control_vertices__input( const control_vertices__input__AttributeData& attributeData ){return true;}
 virtual bool end__control_vertices__input(){return true;}
 
-virtual bool begin__control_vertices__extra( const control_vertices__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__control_vertices__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__control_vertices__extra(){return true;}
 
-virtual bool begin__spline__extra( const spline__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__spline__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__spline__extra(){return true;}
 
-virtual bool begin__geometry__extra( const geometry__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__geometry__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__geometry__extra(){return true;}
 
-virtual bool begin__library_geometries__extra( const library_geometries__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_geometries__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_geometries__extra(){return true;}
 
 virtual bool begin__library_effects( const library_effects__AttributeData& attributeData ){return true;}
@@ -552,7 +552,7 @@ virtual bool end__effect(){return true;}
 virtual bool begin__effect__asset(){return true;}
 virtual bool end__effect__asset(){return true;}
 
-virtual bool begin__effect__annotate( const effect__annotate__AttributeData& attributeData ){return true;}
+virtual bool begin__effect__annotate( const annotate__AttributeData& attributeData ){return true;}
 virtual bool end__effect__annotate(){return true;}
 
 virtual bool begin__annotate__bool(){return true;}
@@ -619,7 +619,7 @@ virtual bool begin__annotate__string(){return true;}
 virtual bool end__annotate__string(){return true;}
 virtual bool data__annotate__string( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__effect__image( const effect__image__AttributeData& attributeData ){return true;}
+virtual bool begin__effect__image( const image__AttributeData& attributeData ){return true;}
 virtual bool end__effect__image(){return true;}
 
 virtual bool begin__image__asset(){return true;}
@@ -633,13 +633,13 @@ virtual bool begin__image__init_from(){return true;}
 virtual bool end__image__init_from(){return true;}
 virtual bool data__image__init_from( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__image__extra( const image__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__image__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__image__extra(){return true;}
 
 virtual bool begin__effect__newparam( const effect__newparam__AttributeData& attributeData ){return true;}
 virtual bool end__effect__newparam(){return true;}
 
-virtual bool begin__newparam__annotate( const newparam__annotate__AttributeData& attributeData ){return true;}
+virtual bool begin__newparam__annotate( const annotate__AttributeData& attributeData ){return true;}
 virtual bool end__newparam__annotate(){return true;}
 
 virtual bool begin__semantic(){return true;}
@@ -831,7 +831,7 @@ virtual bool begin__option(){return true;}
 virtual bool end__option(){return true;}
 virtual bool data__option( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__format_hint__extra( const format_hint__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__format_hint__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__format_hint__extra(){return true;}
 
 virtual bool begin__surface__size(){return true;}
@@ -850,7 +850,7 @@ virtual bool begin__mipmap_generate(){return true;}
 virtual bool end__mipmap_generate(){return true;}
 virtual bool data__mipmap_generate( bool value ){return true;}
 
-virtual bool begin__surface__extra( const surface__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__surface__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__surface__extra(){return true;}
 
 virtual bool begin__newparam__sampler1D(){return true;}
@@ -888,7 +888,7 @@ virtual bool begin__sampler1D__mipmap_bias(){return true;}
 virtual bool end__sampler1D__mipmap_bias(){return true;}
 virtual bool data__sampler1D__mipmap_bias( double value ){return true;}
 
-virtual bool begin__sampler1D__extra( const sampler1D__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__sampler1D__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__sampler1D__extra(){return true;}
 
 virtual bool begin__newparam__sampler2D(){return true;}
@@ -930,7 +930,7 @@ virtual bool begin__sampler2D__mipmap_bias(){return true;}
 virtual bool end__sampler2D__mipmap_bias(){return true;}
 virtual bool data__sampler2D__mipmap_bias( double value ){return true;}
 
-virtual bool begin__sampler2D__extra( const sampler2D__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__sampler2D__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__sampler2D__extra(){return true;}
 
 virtual bool begin__newparam__sampler3D(){return true;}
@@ -976,7 +976,7 @@ virtual bool begin__sampler3D__mipmap_bias(){return true;}
 virtual bool end__sampler3D__mipmap_bias(){return true;}
 virtual bool data__sampler3D__mipmap_bias( double value ){return true;}
 
-virtual bool begin__sampler3D__extra( const sampler3D__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__sampler3D__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__sampler3D__extra(){return true;}
 
 virtual bool begin__newparam__samplerCUBE(){return true;}
@@ -1022,7 +1022,7 @@ virtual bool begin__samplerCUBE__mipmap_bias(){return true;}
 virtual bool end__samplerCUBE__mipmap_bias(){return true;}
 virtual bool data__samplerCUBE__mipmap_bias( double value ){return true;}
 
-virtual bool begin__samplerCUBE__extra( const samplerCUBE__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__samplerCUBE__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__samplerCUBE__extra(){return true;}
 
 virtual bool begin__newparam__samplerRECT(){return true;}
@@ -1064,7 +1064,7 @@ virtual bool begin__samplerRECT__mipmap_bias(){return true;}
 virtual bool end__samplerRECT__mipmap_bias(){return true;}
 virtual bool data__samplerRECT__mipmap_bias( double value ){return true;}
 
-virtual bool begin__samplerRECT__extra( const samplerRECT__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__samplerRECT__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__samplerRECT__extra(){return true;}
 
 virtual bool begin__newparam__samplerDEPTH(){return true;}
@@ -1090,7 +1090,7 @@ virtual bool begin__samplerDEPTH__magfilter(){return true;}
 virtual bool end__samplerDEPTH__magfilter(){return true;}
 virtual bool data__samplerDEPTH__magfilter( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__samplerDEPTH__extra( const samplerDEPTH__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__samplerDEPTH__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__samplerDEPTH__extra(){return true;}
 
 virtual bool begin__newparam__enum(){return true;}
@@ -1101,10 +1101,10 @@ virtual bool begin__fx_profile_abstract(){return true;}
 virtual bool end__fx_profile_abstract(){return true;}
 virtual bool data__fx_profile_abstract( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__effect__extra( const effect__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__effect__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__effect__extra(){return true;}
 
-virtual bool begin__library_effects__extra( const library_effects__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_effects__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_effects__extra(){return true;}
 
 virtual bool begin__library_force_fields( const library_force_fields__AttributeData& attributeData ){return true;}
@@ -1122,10 +1122,10 @@ virtual bool end__force_field__asset(){return true;}
 virtual bool begin__force_field__technique( const force_field__technique__AttributeData& attributeData ){return true;}
 virtual bool end__force_field__technique(){return true;}
 
-virtual bool begin__force_field__extra( const force_field__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__force_field__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__force_field__extra(){return true;}
 
-virtual bool begin__library_force_fields__extra( const library_force_fields__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_force_fields__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_force_fields__extra(){return true;}
 
 virtual bool begin__library_images( const library_images__AttributeData& attributeData ){return true;}
@@ -1134,10 +1134,10 @@ virtual bool end__library_images(){return true;}
 virtual bool begin__library_images__asset(){return true;}
 virtual bool end__library_images__asset(){return true;}
 
-virtual bool begin__library_images__image( const library_images__image__AttributeData& attributeData ){return true;}
+virtual bool begin__library_images__image( const image__AttributeData& attributeData ){return true;}
 virtual bool end__library_images__image(){return true;}
 
-virtual bool begin__library_images__extra( const library_images__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_images__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_images__extra(){return true;}
 
 virtual bool begin__library_lights( const library_lights__AttributeData& attributeData ){return true;}
@@ -1176,15 +1176,15 @@ virtual bool begin__point__color( const point__color__AttributeData& attributeDa
 virtual bool end__point__color(){return true;}
 virtual bool data__point__color( const double* value, size_t length ){return true;}
 
-virtual bool begin__point__constant_attenuation( const point__constant_attenuation__AttributeData& attributeData ){return true;}
+virtual bool begin__point__constant_attenuation( const constant_attenuation__AttributeData& attributeData ){return true;}
 virtual bool end__point__constant_attenuation(){return true;}
 virtual bool data__point__constant_attenuation( double value ){return true;}
 
-virtual bool begin__point__linear_attenuation( const point__linear_attenuation__AttributeData& attributeData ){return true;}
+virtual bool begin__point__linear_attenuation( const linear_attenuation__AttributeData& attributeData ){return true;}
 virtual bool end__point__linear_attenuation(){return true;}
 virtual bool data__point__linear_attenuation( double value ){return true;}
 
-virtual bool begin__point__quadratic_attenuation( const point__quadratic_attenuation__AttributeData& attributeData ){return true;}
+virtual bool begin__point__quadratic_attenuation( const quadratic_attenuation__AttributeData& attributeData ){return true;}
 virtual bool end__point__quadratic_attenuation(){return true;}
 virtual bool data__point__quadratic_attenuation( double value ){return true;}
 
@@ -1195,15 +1195,15 @@ virtual bool begin__spot__color( const spot__color__AttributeData& attributeData
 virtual bool end__spot__color(){return true;}
 virtual bool data__spot__color( const double* value, size_t length ){return true;}
 
-virtual bool begin__spot__constant_attenuation( const spot__constant_attenuation__AttributeData& attributeData ){return true;}
+virtual bool begin__spot__constant_attenuation( const constant_attenuation__AttributeData& attributeData ){return true;}
 virtual bool end__spot__constant_attenuation(){return true;}
 virtual bool data__spot__constant_attenuation( double value ){return true;}
 
-virtual bool begin__spot__linear_attenuation( const spot__linear_attenuation__AttributeData& attributeData ){return true;}
+virtual bool begin__spot__linear_attenuation( const linear_attenuation__AttributeData& attributeData ){return true;}
 virtual bool end__spot__linear_attenuation(){return true;}
 virtual bool data__spot__linear_attenuation( double value ){return true;}
 
-virtual bool begin__spot__quadratic_attenuation( const spot__quadratic_attenuation__AttributeData& attributeData ){return true;}
+virtual bool begin__spot__quadratic_attenuation( const quadratic_attenuation__AttributeData& attributeData ){return true;}
 virtual bool end__spot__quadratic_attenuation(){return true;}
 virtual bool data__spot__quadratic_attenuation( double value ){return true;}
 
@@ -1218,10 +1218,10 @@ virtual bool data__falloff_exponent( double value ){return true;}
 virtual bool begin__light__technique( const light__technique__AttributeData& attributeData ){return true;}
 virtual bool end__light__technique(){return true;}
 
-virtual bool begin__light__extra( const light__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__light__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__light__extra(){return true;}
 
-virtual bool begin__library_lights__extra( const library_lights__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_lights__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_lights__extra(){return true;}
 
 virtual bool begin__library_materials( const library_materials__AttributeData& attributeData ){return true;}
@@ -1236,7 +1236,7 @@ virtual bool end__material(){return true;}
 virtual bool begin__material__asset(){return true;}
 virtual bool end__material__asset(){return true;}
 
-virtual bool begin__material__instance_effect( const material__instance_effect__AttributeData& attributeData ){return true;}
+virtual bool begin__material__instance_effect( const instance_effect__AttributeData& attributeData ){return true;}
 virtual bool end__material__instance_effect(){return true;}
 
 virtual bool begin__technique_hint( const technique_hint__AttributeData& attributeData ){return true;}
@@ -1382,13 +1382,13 @@ virtual bool begin__setparam__enum(){return true;}
 virtual bool end__setparam__enum(){return true;}
 virtual bool data__setparam__enum( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__instance_effect__extra( const instance_effect__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_effect__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_effect__extra(){return true;}
 
-virtual bool begin__material__extra( const material__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__material__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__material__extra(){return true;}
 
-virtual bool begin__library_materials__extra( const library_materials__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_materials__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_materials__extra(){return true;}
 
 virtual bool begin__library_nodes( const library_nodes__AttributeData& attributeData ){return true;}
@@ -1397,7 +1397,7 @@ virtual bool end__library_nodes(){return true;}
 virtual bool begin__library_nodes__asset(){return true;}
 virtual bool end__library_nodes__asset(){return true;}
 
-virtual bool begin__library_nodes__node( const library_nodes__node__AttributeData& attributeData ){return true;}
+virtual bool begin__library_nodes__node( const node__AttributeData& attributeData ){return true;}
 virtual bool end__library_nodes__node(){return true;}
 
 virtual bool begin__node__asset(){return true;}
@@ -1411,7 +1411,7 @@ virtual bool begin__matrix( const matrix__AttributeData& attributeData ){return 
 virtual bool end__matrix(){return true;}
 virtual bool data__matrix( const double* value, size_t length ){return true;}
 
-virtual bool begin__node__rotate( const node__rotate__AttributeData& attributeData ){return true;}
+virtual bool begin__node__rotate( const rotate__AttributeData& attributeData ){return true;}
 virtual bool end__node__rotate(){return true;}
 virtual bool data__node__rotate( const double* value, size_t length ){return true;}
 
@@ -1423,14 +1423,14 @@ virtual bool begin__skew( const skew__AttributeData& attributeData ){return true
 virtual bool end__skew(){return true;}
 virtual bool data__skew( const double* value, size_t length ){return true;}
 
-virtual bool begin__node__translate( const node__translate__AttributeData& attributeData ){return true;}
+virtual bool begin__node__translate( const translate__AttributeData& attributeData ){return true;}
 virtual bool end__node__translate(){return true;}
 virtual bool data__node__translate( const double* value, size_t length ){return true;}
 
 virtual bool begin__instance_camera( const instance_camera__AttributeData& attributeData ){return true;}
 virtual bool end__instance_camera(){return true;}
 
-virtual bool begin__instance_camera__extra( const instance_camera__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_camera__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_camera__extra(){return true;}
 
 virtual bool begin__instance_controller( const instance_controller__AttributeData& attributeData ){return true;}
@@ -1459,46 +1459,46 @@ virtual bool end__instance_material__bind(){return true;}
 virtual bool begin__bind_vertex_input( const bind_vertex_input__AttributeData& attributeData ){return true;}
 virtual bool end__bind_vertex_input(){return true;}
 
-virtual bool begin__instance_material__extra( const instance_material__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_material__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_material__extra(){return true;}
 
 virtual bool begin__bind_material__technique( const bind_material__technique__AttributeData& attributeData ){return true;}
 virtual bool end__bind_material__technique(){return true;}
 
-virtual bool begin__bind_material__extra( const bind_material__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__bind_material__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__bind_material__extra(){return true;}
 
-virtual bool begin__instance_controller__extra( const instance_controller__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_controller__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_controller__extra(){return true;}
 
-virtual bool begin__node__instance_geometry( const node__instance_geometry__AttributeData& attributeData ){return true;}
+virtual bool begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData ){return true;}
 virtual bool end__node__instance_geometry(){return true;}
 
 virtual bool begin__instance_geometry__bind_material(){return true;}
 virtual bool end__instance_geometry__bind_material(){return true;}
 
-virtual bool begin__instance_geometry__extra( const instance_geometry__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_geometry__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_geometry__extra(){return true;}
 
 virtual bool begin__instance_light( const instance_light__AttributeData& attributeData ){return true;}
 virtual bool end__instance_light(){return true;}
 
-virtual bool begin__instance_light__extra( const instance_light__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_light__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_light__extra(){return true;}
 
 virtual bool begin__instance_node( const instance_node__AttributeData& attributeData ){return true;}
 virtual bool end__instance_node(){return true;}
 
-virtual bool begin__instance_node__extra( const instance_node__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_node__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_node__extra(){return true;}
 
-virtual bool begin__node__node( const node__node__AttributeData& attributeData ){return true;}
+virtual bool begin__node__node( const node__AttributeData& attributeData ){return true;}
 virtual bool end__node__node(){return true;}
 
-virtual bool begin__node__extra( const node__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__node__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__node__extra(){return true;}
 
-virtual bool begin__library_nodes__extra( const library_nodes__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_nodes__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_nodes__extra(){return true;}
 
 virtual bool begin__library_physics_materials( const library_physics_materials__AttributeData& attributeData ){return true;}
@@ -1507,7 +1507,7 @@ virtual bool end__library_physics_materials(){return true;}
 virtual bool begin__library_physics_materials__asset(){return true;}
 virtual bool end__library_physics_materials__asset(){return true;}
 
-virtual bool begin__library_physics_materials__physics_material( const library_physics_materials__physics_material__AttributeData& attributeData ){return true;}
+virtual bool begin__library_physics_materials__physics_material( const physics_material__AttributeData& attributeData ){return true;}
 virtual bool end__library_physics_materials__physics_material(){return true;}
 
 virtual bool begin__physics_material__asset(){return true;}
@@ -1531,10 +1531,10 @@ virtual bool data__static_friction( double value ){return true;}
 virtual bool begin__physics_material__technique( const physics_material__technique__AttributeData& attributeData ){return true;}
 virtual bool end__physics_material__technique(){return true;}
 
-virtual bool begin__physics_material__extra( const physics_material__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__physics_material__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__physics_material__extra(){return true;}
 
-virtual bool begin__library_physics_materials__extra( const library_physics_materials__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_physics_materials__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_physics_materials__extra(){return true;}
 
 virtual bool begin__library_physics_models( const library_physics_models__AttributeData& attributeData ){return true;}
@@ -1559,18 +1559,18 @@ virtual bool begin__dynamic( const dynamic__AttributeData& attributeData ){retur
 virtual bool end__dynamic(){return true;}
 virtual bool data__dynamic( bool value ){return true;}
 
-virtual bool begin__technique_common__mass( const technique_common__mass__AttributeData& attributeData ){return true;}
+virtual bool begin__technique_common__mass( const mass__AttributeData& attributeData ){return true;}
 virtual bool end__technique_common__mass(){return true;}
 virtual bool data__technique_common__mass( double value ){return true;}
 
 virtual bool begin__mass_frame(){return true;}
 virtual bool end__mass_frame(){return true;}
 
-virtual bool begin__mass_frame__translate( const mass_frame__translate__AttributeData& attributeData ){return true;}
+virtual bool begin__mass_frame__translate( const translate__AttributeData& attributeData ){return true;}
 virtual bool end__mass_frame__translate(){return true;}
 virtual bool data__mass_frame__translate( const double* value, size_t length ){return true;}
 
-virtual bool begin__mass_frame__rotate( const mass_frame__rotate__AttributeData& attributeData ){return true;}
+virtual bool begin__mass_frame__rotate( const rotate__AttributeData& attributeData ){return true;}
 virtual bool end__mass_frame__rotate(){return true;}
 virtual bool data__mass_frame__rotate( const double* value, size_t length ){return true;}
 
@@ -1578,13 +1578,13 @@ virtual bool begin__inertia( const inertia__AttributeData& attributeData ){retur
 virtual bool end__inertia(){return true;}
 virtual bool data__inertia( const double* value, size_t length ){return true;}
 
-virtual bool begin__technique_common__instance_physics_material( const technique_common__instance_physics_material__AttributeData& attributeData ){return true;}
+virtual bool begin__technique_common__instance_physics_material( const instance_physics_material__AttributeData& attributeData ){return true;}
 virtual bool end__technique_common__instance_physics_material(){return true;}
 
-virtual bool begin__instance_physics_material__extra( const instance_physics_material__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_physics_material__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_physics_material__extra(){return true;}
 
-virtual bool begin__technique_common__physics_material( const technique_common__physics_material__AttributeData& attributeData ){return true;}
+virtual bool begin__technique_common__physics_material( const physics_material__AttributeData& attributeData ){return true;}
 virtual bool end__technique_common__physics_material(){return true;}
 
 virtual bool begin__shape(){return true;}
@@ -1594,7 +1594,7 @@ virtual bool begin__hollow( const hollow__AttributeData& attributeData ){return 
 virtual bool end__hollow(){return true;}
 virtual bool data__hollow( bool value ){return true;}
 
-virtual bool begin__shape__mass( const shape__mass__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__mass( const mass__AttributeData& attributeData ){return true;}
 virtual bool end__shape__mass(){return true;}
 virtual bool data__shape__mass( double value ){return true;}
 
@@ -1602,13 +1602,13 @@ virtual bool begin__density( const density__AttributeData& attributeData ){retur
 virtual bool end__density(){return true;}
 virtual bool data__density( double value ){return true;}
 
-virtual bool begin__shape__instance_physics_material( const shape__instance_physics_material__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__instance_physics_material( const instance_physics_material__AttributeData& attributeData ){return true;}
 virtual bool end__shape__instance_physics_material(){return true;}
 
-virtual bool begin__shape__physics_material( const shape__physics_material__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__physics_material( const physics_material__AttributeData& attributeData ){return true;}
 virtual bool end__shape__physics_material(){return true;}
 
-virtual bool begin__shape__instance_geometry( const shape__instance_geometry__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__instance_geometry( const instance_geometry__AttributeData& attributeData ){return true;}
 virtual bool end__shape__instance_geometry(){return true;}
 
 virtual bool begin__plane(){return true;}
@@ -1618,7 +1618,7 @@ virtual bool begin__equation(){return true;}
 virtual bool end__equation(){return true;}
 virtual bool data__equation( const double* value, size_t length ){return true;}
 
-virtual bool begin__plane__extra( const plane__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__plane__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__plane__extra(){return true;}
 
 virtual bool begin__box(){return true;}
@@ -1628,7 +1628,7 @@ virtual bool begin__half_extents(){return true;}
 virtual bool end__half_extents(){return true;}
 virtual bool data__half_extents( const double* value, size_t length ){return true;}
 
-virtual bool begin__box__extra( const box__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__box__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__box__extra(){return true;}
 
 virtual bool begin__sphere(){return true;}
@@ -1638,7 +1638,7 @@ virtual bool begin__sphere__radius(){return true;}
 virtual bool end__sphere__radius(){return true;}
 virtual bool data__sphere__radius( double value ){return true;}
 
-virtual bool begin__sphere__extra( const sphere__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__sphere__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__sphere__extra(){return true;}
 
 virtual bool begin__cylinder(){return true;}
@@ -1652,7 +1652,7 @@ virtual bool begin__cylinder__radius(){return true;}
 virtual bool end__cylinder__radius(){return true;}
 virtual bool data__cylinder__radius( const double* value, size_t length ){return true;}
 
-virtual bool begin__cylinder__extra( const cylinder__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__cylinder__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__cylinder__extra(){return true;}
 
 virtual bool begin__tapered_cylinder(){return true;}
@@ -1670,7 +1670,7 @@ virtual bool begin__tapered_cylinder__radius2(){return true;}
 virtual bool end__tapered_cylinder__radius2(){return true;}
 virtual bool data__tapered_cylinder__radius2( const double* value, size_t length ){return true;}
 
-virtual bool begin__tapered_cylinder__extra( const tapered_cylinder__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__tapered_cylinder__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__tapered_cylinder__extra(){return true;}
 
 virtual bool begin__capsule(){return true;}
@@ -1684,7 +1684,7 @@ virtual bool begin__capsule__radius(){return true;}
 virtual bool end__capsule__radius(){return true;}
 virtual bool data__capsule__radius( const double* value, size_t length ){return true;}
 
-virtual bool begin__capsule__extra( const capsule__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__capsule__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__capsule__extra(){return true;}
 
 virtual bool begin__tapered_capsule(){return true;}
@@ -1702,24 +1702,24 @@ virtual bool begin__tapered_capsule__radius2(){return true;}
 virtual bool end__tapered_capsule__radius2(){return true;}
 virtual bool data__tapered_capsule__radius2( const double* value, size_t length ){return true;}
 
-virtual bool begin__tapered_capsule__extra( const tapered_capsule__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__tapered_capsule__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__tapered_capsule__extra(){return true;}
 
-virtual bool begin__shape__translate( const shape__translate__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__translate( const translate__AttributeData& attributeData ){return true;}
 virtual bool end__shape__translate(){return true;}
 virtual bool data__shape__translate( const double* value, size_t length ){return true;}
 
-virtual bool begin__shape__rotate( const shape__rotate__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__rotate( const rotate__AttributeData& attributeData ){return true;}
 virtual bool end__shape__rotate(){return true;}
 virtual bool data__shape__rotate( const double* value, size_t length ){return true;}
 
-virtual bool begin__shape__extra( const shape__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__shape__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__shape__extra(){return true;}
 
 virtual bool begin__rigid_body__technique( const rigid_body__technique__AttributeData& attributeData ){return true;}
 virtual bool end__rigid_body__technique(){return true;}
 
-virtual bool begin__rigid_body__extra( const rigid_body__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__rigid_body__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__rigid_body__extra(){return true;}
 
 virtual bool begin__rigid_constraint( const rigid_constraint__AttributeData& attributeData ){return true;}
@@ -1728,29 +1728,29 @@ virtual bool end__rigid_constraint(){return true;}
 virtual bool begin__ref_attachment( const ref_attachment__AttributeData& attributeData ){return true;}
 virtual bool end__ref_attachment(){return true;}
 
-virtual bool begin__ref_attachment__translate( const ref_attachment__translate__AttributeData& attributeData ){return true;}
+virtual bool begin__ref_attachment__translate( const translate__AttributeData& attributeData ){return true;}
 virtual bool end__ref_attachment__translate(){return true;}
 virtual bool data__ref_attachment__translate( const double* value, size_t length ){return true;}
 
-virtual bool begin__ref_attachment__rotate( const ref_attachment__rotate__AttributeData& attributeData ){return true;}
+virtual bool begin__ref_attachment__rotate( const rotate__AttributeData& attributeData ){return true;}
 virtual bool end__ref_attachment__rotate(){return true;}
 virtual bool data__ref_attachment__rotate( const double* value, size_t length ){return true;}
 
-virtual bool begin__ref_attachment__extra( const ref_attachment__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__ref_attachment__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__ref_attachment__extra(){return true;}
 
 virtual bool begin__attachment( const attachment__AttributeData& attributeData ){return true;}
 virtual bool end__attachment(){return true;}
 
-virtual bool begin__attachment__translate( const attachment__translate__AttributeData& attributeData ){return true;}
+virtual bool begin__attachment__translate( const translate__AttributeData& attributeData ){return true;}
 virtual bool end__attachment__translate(){return true;}
 virtual bool data__attachment__translate( const double* value, size_t length ){return true;}
 
-virtual bool begin__attachment__rotate( const attachment__rotate__AttributeData& attributeData ){return true;}
+virtual bool begin__attachment__rotate( const rotate__AttributeData& attributeData ){return true;}
 virtual bool end__attachment__rotate(){return true;}
 virtual bool data__attachment__rotate( const double* value, size_t length ){return true;}
 
-virtual bool begin__attachment__extra( const attachment__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__attachment__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__attachment__extra(){return true;}
 
 virtual bool begin__rigid_constraint__technique_common(){return true;}
@@ -1770,22 +1770,22 @@ virtual bool end__limits(){return true;}
 virtual bool begin__swing_cone_and_twist(){return true;}
 virtual bool end__swing_cone_and_twist(){return true;}
 
-virtual bool begin__swing_cone_and_twist__min( const swing_cone_and_twist__min__AttributeData& attributeData ){return true;}
+virtual bool begin__swing_cone_and_twist__min( const min__AttributeData& attributeData ){return true;}
 virtual bool end__swing_cone_and_twist__min(){return true;}
 virtual bool data__swing_cone_and_twist__min( const double* value, size_t length ){return true;}
 
-virtual bool begin__swing_cone_and_twist__max( const swing_cone_and_twist__max__AttributeData& attributeData ){return true;}
+virtual bool begin__swing_cone_and_twist__max( const max__AttributeData& attributeData ){return true;}
 virtual bool end__swing_cone_and_twist__max(){return true;}
 virtual bool data__swing_cone_and_twist__max( const double* value, size_t length ){return true;}
 
 virtual bool begin__limits__linear(){return true;}
 virtual bool end__limits__linear(){return true;}
 
-virtual bool begin__linear__min( const linear__min__AttributeData& attributeData ){return true;}
+virtual bool begin__linear__min( const min__AttributeData& attributeData ){return true;}
 virtual bool end__linear__min(){return true;}
 virtual bool data__linear__min( const double* value, size_t length ){return true;}
 
-virtual bool begin__linear__max( const linear__max__AttributeData& attributeData ){return true;}
+virtual bool begin__linear__max( const max__AttributeData& attributeData ){return true;}
 virtual bool end__linear__max(){return true;}
 virtual bool data__linear__max( const double* value, size_t length ){return true;}
 
@@ -1795,46 +1795,46 @@ virtual bool end__spring(){return true;}
 virtual bool begin__angular(){return true;}
 virtual bool end__angular(){return true;}
 
-virtual bool begin__angular__stiffness( const angular__stiffness__AttributeData& attributeData ){return true;}
+virtual bool begin__angular__stiffness( const stiffness__AttributeData& attributeData ){return true;}
 virtual bool end__angular__stiffness(){return true;}
 virtual bool data__angular__stiffness( double value ){return true;}
 
-virtual bool begin__angular__damping( const angular__damping__AttributeData& attributeData ){return true;}
+virtual bool begin__angular__damping( const damping__AttributeData& attributeData ){return true;}
 virtual bool end__angular__damping(){return true;}
 virtual bool data__angular__damping( double value ){return true;}
 
-virtual bool begin__angular__target_value( const angular__target_value__AttributeData& attributeData ){return true;}
+virtual bool begin__angular__target_value( const target_value__AttributeData& attributeData ){return true;}
 virtual bool end__angular__target_value(){return true;}
 virtual bool data__angular__target_value( double value ){return true;}
 
 virtual bool begin__spring__linear(){return true;}
 virtual bool end__spring__linear(){return true;}
 
-virtual bool begin__linear__stiffness( const linear__stiffness__AttributeData& attributeData ){return true;}
+virtual bool begin__linear__stiffness( const stiffness__AttributeData& attributeData ){return true;}
 virtual bool end__linear__stiffness(){return true;}
 virtual bool data__linear__stiffness( double value ){return true;}
 
-virtual bool begin__linear__damping( const linear__damping__AttributeData& attributeData ){return true;}
+virtual bool begin__linear__damping( const damping__AttributeData& attributeData ){return true;}
 virtual bool end__linear__damping(){return true;}
 virtual bool data__linear__damping( double value ){return true;}
 
-virtual bool begin__linear__target_value( const linear__target_value__AttributeData& attributeData ){return true;}
+virtual bool begin__linear__target_value( const target_value__AttributeData& attributeData ){return true;}
 virtual bool end__linear__target_value(){return true;}
 virtual bool data__linear__target_value( double value ){return true;}
 
 virtual bool begin__rigid_constraint__technique( const rigid_constraint__technique__AttributeData& attributeData ){return true;}
 virtual bool end__rigid_constraint__technique(){return true;}
 
-virtual bool begin__rigid_constraint__extra( const rigid_constraint__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__rigid_constraint__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__rigid_constraint__extra(){return true;}
 
-virtual bool begin__physics_model__instance_physics_model( const physics_model__instance_physics_model__AttributeData& attributeData ){return true;}
+virtual bool begin__physics_model__instance_physics_model( const instance_physics_model__AttributeData& attributeData ){return true;}
 virtual bool end__physics_model__instance_physics_model(){return true;}
 
-virtual bool begin__instance_physics_model__instance_force_field( const instance_physics_model__instance_force_field__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_physics_model__instance_force_field( const instance_force_field__AttributeData& attributeData ){return true;}
 virtual bool end__instance_physics_model__instance_force_field(){return true;}
 
-virtual bool begin__instance_force_field__extra( const instance_force_field__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_force_field__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_force_field__extra(){return true;}
 
 virtual bool begin__instance_rigid_body( const instance_rigid_body__AttributeData& attributeData ){return true;}
@@ -1854,22 +1854,22 @@ virtual bool data__velocity( const double* value, size_t length ){return true;}
 virtual bool begin__instance_rigid_body__technique( const instance_rigid_body__technique__AttributeData& attributeData ){return true;}
 virtual bool end__instance_rigid_body__technique(){return true;}
 
-virtual bool begin__instance_rigid_body__extra( const instance_rigid_body__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_rigid_body__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_rigid_body__extra(){return true;}
 
 virtual bool begin__instance_rigid_constraint( const instance_rigid_constraint__AttributeData& attributeData ){return true;}
 virtual bool end__instance_rigid_constraint(){return true;}
 
-virtual bool begin__instance_rigid_constraint__extra( const instance_rigid_constraint__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_rigid_constraint__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_rigid_constraint__extra(){return true;}
 
-virtual bool begin__instance_physics_model__extra( const instance_physics_model__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_physics_model__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_physics_model__extra(){return true;}
 
-virtual bool begin__physics_model__extra( const physics_model__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__physics_model__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__physics_model__extra(){return true;}
 
-virtual bool begin__library_physics_models__extra( const library_physics_models__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_physics_models__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_physics_models__extra(){return true;}
 
 virtual bool begin__library_physics_scenes( const library_physics_scenes__AttributeData& attributeData ){return true;}
@@ -1884,10 +1884,10 @@ virtual bool end__physics_scene(){return true;}
 virtual bool begin__physics_scene__asset(){return true;}
 virtual bool end__physics_scene__asset(){return true;}
 
-virtual bool begin__physics_scene__instance_force_field( const physics_scene__instance_force_field__AttributeData& attributeData ){return true;}
+virtual bool begin__physics_scene__instance_force_field( const instance_force_field__AttributeData& attributeData ){return true;}
 virtual bool end__physics_scene__instance_force_field(){return true;}
 
-virtual bool begin__physics_scene__instance_physics_model( const physics_scene__instance_physics_model__AttributeData& attributeData ){return true;}
+virtual bool begin__physics_scene__instance_physics_model( const instance_physics_model__AttributeData& attributeData ){return true;}
 virtual bool end__physics_scene__instance_physics_model(){return true;}
 
 virtual bool begin__physics_scene__technique_common(){return true;}
@@ -1904,10 +1904,10 @@ virtual bool data__time_step( double value ){return true;}
 virtual bool begin__physics_scene__technique( const physics_scene__technique__AttributeData& attributeData ){return true;}
 virtual bool end__physics_scene__technique(){return true;}
 
-virtual bool begin__physics_scene__extra( const physics_scene__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__physics_scene__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__physics_scene__extra(){return true;}
 
-virtual bool begin__library_physics_scenes__extra( const library_physics_scenes__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_physics_scenes__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_physics_scenes__extra(){return true;}
 
 virtual bool begin__library_visual_scenes( const library_visual_scenes__AttributeData& attributeData ){return true;}
@@ -1922,7 +1922,7 @@ virtual bool end__visual_scene(){return true;}
 virtual bool begin__visual_scene__asset(){return true;}
 virtual bool end__visual_scene__asset(){return true;}
 
-virtual bool begin__visual_scene__node( const visual_scene__node__AttributeData& attributeData ){return true;}
+virtual bool begin__visual_scene__node( const node__AttributeData& attributeData ){return true;}
 virtual bool end__visual_scene__node(){return true;}
 
 virtual bool begin__evaluate_scene( const evaluate_scene__AttributeData& attributeData ){return true;}
@@ -1935,13 +1935,13 @@ virtual bool begin__layer(){return true;}
 virtual bool end__layer(){return true;}
 virtual bool data__layer( const ParserChar* value, size_t length ){return true;}
 
-virtual bool begin__render__instance_effect( const render__instance_effect__AttributeData& attributeData ){return true;}
+virtual bool begin__render__instance_effect( const instance_effect__AttributeData& attributeData ){return true;}
 virtual bool end__render__instance_effect(){return true;}
 
-virtual bool begin__visual_scene__extra( const visual_scene__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__visual_scene__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__visual_scene__extra(){return true;}
 
-virtual bool begin__library_visual_scenes__extra( const library_visual_scenes__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__library_visual_scenes__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__library_visual_scenes__extra(){return true;}
 
 virtual bool begin__scene(){return true;}
@@ -1950,19 +1950,19 @@ virtual bool end__scene(){return true;}
 virtual bool begin__instance_physics_scene( const instance_physics_scene__AttributeData& attributeData ){return true;}
 virtual bool end__instance_physics_scene(){return true;}
 
-virtual bool begin__instance_physics_scene__extra( const instance_physics_scene__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_physics_scene__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_physics_scene__extra(){return true;}
 
 virtual bool begin__instance_visual_scene( const instance_visual_scene__AttributeData& attributeData ){return true;}
 virtual bool end__instance_visual_scene(){return true;}
 
-virtual bool begin__instance_visual_scene__extra( const instance_visual_scene__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__instance_visual_scene__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__instance_visual_scene__extra(){return true;}
 
-virtual bool begin__scene__extra( const scene__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__scene__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__scene__extra(){return true;}
 
-virtual bool begin__COLLADA__extra( const COLLADA__extra__AttributeData& attributeData ){return true;}
+virtual bool begin__COLLADA__extra( const extra__AttributeData& attributeData ){return true;}
 virtual bool end__COLLADA__extra(){return true;}
 
 

@@ -37,9 +37,9 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
-	bool VisualSceneLoader::begin__visual_scene__node( const visual_scene__node__AttributeData& attributeData )
+	bool VisualSceneLoader::begin__visual_scene__node( const node__AttributeData& attributeData )
 	{
-		return beginNode(*(const node__node__AttributeData *)(&attributeData));
+		return beginNode(attributeData);
 	}
 
 	//------------------------------
