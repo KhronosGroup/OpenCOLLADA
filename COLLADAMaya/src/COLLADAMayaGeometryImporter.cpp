@@ -36,9 +36,6 @@ namespace COLLADAMaya
     // --------------------------------------------
     GeometryImporter::GeometryImporter( DocumentImporter* documentImporter ) 
     : BaseImporter ( documentImporter )
-    , mGeometry ( 0 )
-    , mMesh ( 0 )
-    , mTransformObject ( MObject::kNullObj )
     {}
 
     // --------------------------------------------
@@ -46,9 +43,6 @@ namespace COLLADAMaya
     {
         if ( geometry == 0 ) return false;
 
-        mGeometry = geometry;
-
-//        const COLLADAFW::GeometricElement* geometricElement = geometry->getGeometricElement ();
         COLLADAFW::Geometry::GeometryType type = geometry->getType ();
         switch ( type )
         {
@@ -74,67 +68,47 @@ namespace COLLADAMaya
     // --------------------------------------------
     bool GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
     {
-        // Set the current mesh member variable
-        mMesh = mesh;
-
-        String id = mesh->getId ();
-        String name = mesh->getName ();
+        // Get the unique framework mesh id 
+        const COLLADAFW::UniqueId& meshUniqueId = mesh->getUniqueId ();
 
         // Get the transform node of the current mesh.
-        const DocumentImporter* documentImporter = getDocumentImporter ();
-        const VisualSceneImporter* visualSceneImporter = documentImporter->getVisualSceneImporter ();
-        const UniqueIdToUniqueIdsMap& geometryNodesMap = visualSceneImporter->getGeometryNodesMap ();
+        DocumentImporter* documentImporter = getDocumentImporter ();
+        VisualSceneImporter* visualSceneImporter = documentImporter->getVisualSceneImporter ();
 
-        const COLLADAFW::UniqueId& geometryID = mesh->getUniqueId ();
-        //geometryNodesMap [ geometryID ];
-        UniqueIdToUniqueIdsMap::const_iterator it = geometryNodesMap.find ( geometryID );
-        if ( it == geometryNodesMap.end () ) 
+        // Get all visual scene nodes, which use this geometry an make the parent connection
+       const std::set<const COLLADAFW::UniqueId>* transformNodesSet = 
+            visualSceneImporter->getGeometryTransformIds ( meshUniqueId );
+        size_t numNodes = transformNodesSet->size ();
+        std::set<const COLLADAFW::UniqueId>::const_iterator nodesIter = transformNodesSet->begin ();
+        while ( nodesIter != transformNodesSet->end () )
         {
-            std::cerr << "No transform node for the current geometry!" << endl;
-            return false;
-        }
-
-        // Get all visual scene nodes, which use this geometry
-        const std::set<const COLLADAFW::UniqueId>& nodesSet = ( *it ).second;
-        size_t numNodes = nodesSet.size ();
-        std::set<const COLLADAFW::UniqueId>::const_iterator nodesIter = nodesSet.begin ();
-        while ( nodesIter != nodesSet.end () )
-        {
-            const COLLADAFW::UniqueId& nodeId = *nodesIter;
-            
-            // Get the name of the current node.
-            const UniqueIdNamesMap& nodeNamesMap = visualSceneImporter->getNodeNamesMap ();
-//          String nodeName = nodeNamesMap [ nodeId ];
-            UniqueIdNamesMap::const_iterator it3 = nodeNamesMap.find ( nodeId );
-            if ( it3 == nodeNamesMap.end () ) 
-            {
-                std::cerr << "No name for the transform node!" << endl;
-                assert ( "No name for the transform node!" );
-                return false;
-            }
-            String parentNodeName = (*it3).second;
+            // Get the maya node of the current transform node.
+            const COLLADAFW::UniqueId& transformNodeUniqueId = *nodesIter;
+            MayaNode* mayaTransformNode = visualSceneImporter->getMayaTransformNode ( transformNodeUniqueId );
+            String transformNodeName = mayaTransformNode->getName ();
 
             // The first reference is a direct one, the others are instances.
-            if ( nodesIter == nodesSet.begin() )
+            if ( nodesIter == transformNodesSet->begin() )
             {
                 // Create the current mesh node.
-                createMesh ( mesh, parentNodeName );
+                createMesh ( mesh, mayaTransformNode );
             }
             else
             {
-//              parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
-                // TODO
+                // Get the path to the mesh and the parent transform node
+                String transformNodePath = mayaTransformNode->getNodePath ();
 
-                // Get the current maya ascii file to write the data.
+                // We need the path of the mesh.
+                const COLLADAFW::UniqueId& uniqueId = mesh->getUniqueId ();
+                MayaNode* mayaMeshNode = getMayaMeshNode ( uniqueId );
+                String meshNodePath = mayaMeshNode->getNodePath ();
+
+                // parent -shape -noConnections -relative -addObject "|pCube1|pCubeShape1" "pCube2";
                 FILE* file = getDocumentImporter ()->getFile ();
-
-                // TODO We have to store the scene graph, otherwise we can't get the path to the node.
-
-                // TODO Get the path to the parent node
-                String childPath = "|" + parentNodeName + "|" + mesh->getName ();
-                MayaDM::parentShape ( file, childPath, parentNodeName );
-
+                MayaDM::parentShape ( file, meshNodePath, transformNodePath, false, true, true, true );
             }
+
+            ++nodesIter;
         }
 
         return true;
@@ -687,14 +661,23 @@ namespace COLLADAMaya
     // --------------------------------------------
     bool GeometryImporter::createMesh ( 
         const COLLADAFW::Mesh* mesh, 
-        const String& parentNodeName )
+        MayaNode* mayaTransformNode )
     {
-        // Get the current maya ascii file to write the data.
-        FILE* file = getDocumentImporter ()->getFile ();
+        // Create a unique name.
+        String meshName = mMeshNodeIdList.addId ( mesh->getName () );
+
+        // Create a maya node object of the current node and push it into the map.
+        const COLLADAFW::UniqueId& uniqueId = mesh->getUniqueId ();
+        MayaNode mayaMeshNode ( uniqueId, meshName, mayaTransformNode );
+        mMayaMeshNodesMap [ uniqueId ] = mayaMeshNode;
+
+        // Get the parent node name.
+        assert ( mayaTransformNode != NULL );
+        String transformNodeName = mayaTransformNode->getName ();
 
         // Create the current mesh node.
-        MayaDM::Mesh meshNode ( file, mesh->getName (), parentNodeName );
-        meshNode.getInMesh ();
+        FILE* file = getDocumentImporter ()->getFile ();
+        MayaDM::Mesh meshNode ( file, mesh->getName (), transformNodeName );
 
         // Write the vertex positions. 
         // Just write the values, they will be referenced from the edges and the faces.
@@ -734,4 +717,25 @@ namespace COLLADAMaya
 
         return true;
     }
+
+    // --------------------------------------------
+    const MayaNode* GeometryImporter::getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const
+    {
+        UniqueIdMayaNodesMap::const_iterator it = mMayaMeshNodesMap.find ( uniqueId );
+        if ( it != mMayaMeshNodesMap.end () )
+            return &(*it).second;
+
+        return NULL;
+    }
+
+    // --------------------------------------------
+    MayaNode* GeometryImporter::getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId )
+    {
+        UniqueIdMayaNodesMap::iterator it = mMayaMeshNodesMap.find ( uniqueId );
+        if ( it != mMayaMeshNodesMap.end () )
+            return &(*it).second;
+
+        return NULL;
+    }
+
 }

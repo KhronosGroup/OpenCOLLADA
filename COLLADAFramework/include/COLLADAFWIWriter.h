@@ -16,9 +16,11 @@ http://www.opensource.org/licenses/mit-license.php
 
 namespace COLLADAFW
 {
+    class FileInfo;
 	class VisualScene;
 	class Geometry;
 	class LibraryNodes;
+
 
 	/** Class that needs to be implemented by a writer. 
 	IMPORTANT: The write functions are called in arbitrary order.*/
@@ -45,6 +47,10 @@ namespace COLLADAFW
 
 		/** This method is called after the last write* method. No other methods will be called after this.*/
 		virtual void finish()=0;
+
+        /** When this method is called, the writer must write the global document asset.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeGlobalAsset ( const FileInfo* asset ) = 0;
 
 		/** When this method is called, the writer must write the entire visual scene.
 		@return The writer should return true, if writing succeeded, false otherwise.*/

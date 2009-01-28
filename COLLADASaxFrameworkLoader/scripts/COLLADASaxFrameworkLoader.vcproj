@@ -296,6 +296,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\src\COLLADASaxFWLAssetLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLColladaParserAutoGenPrivate.cpp"
 				>
 			</File>
@@ -367,6 +371,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLArrayElement.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLAssetLoader.h"
 				>
 			</File>
 			<File

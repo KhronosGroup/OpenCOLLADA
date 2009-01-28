@@ -31,16 +31,23 @@
 
 #include <maya/MFileIO.h>
 
+#include <fstream>
+#include <time.h>
+
+
 namespace COLLADAMaya
 {
     //---------------------------------
     DocumentImporter::DocumentImporter ( const String& fileName )
-        : mFileName ( fileName )
+        : mColladaFileName ( fileName )
         , mSceneId ( "MayaScene" )
         , mFile ( 0 )
         , mVisualSceneImporter (0)
         , mGeometryImporter (0)
-        , mSceneGraphCreated ( false )
+        , mSceneGraphWritten ( false )
+        , mGeometryWritten ( false )
+        , mAssetWritten ( false )
+        , mSceneGraphRead ( false )
         , mGeometryRead ( false )
     {
     }
@@ -81,9 +88,6 @@ namespace COLLADAMaya
         // Create the import/export library helpers.
         createLibraries ();
 
-        // Import the asset information.
-        importAsset ();
-
         // Load the collada document into the collada framework.
         readColladaDocument();
     }
@@ -91,8 +95,19 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::createFile()
     {
-        // TODO Create the maya ascii file (where with which name???)
-        errno_t err = fopen_s ( &mFile, "c:\\temp\\cube_test.ma", "w+" );
+        // TODO
+        mMayaAsciiFileURI.set ( mColladaFileName );
+        mMayaAsciiFileURI.setPathExtension ( ".netallied.ma" );
+        String mayaFileName = mMayaAsciiFileURI.getURIString ();
+
+        // Check if the file already exist.
+        if ( std::ifstream ( mayaFileName.c_str () ) )
+        {
+            // TODO Open a dialog and ask the user to save the file under an other name.
+            std::cerr << "File already exists!";
+        }
+
+        errno_t err = fopen_s ( &mFile, mayaFileName.c_str (), "w+" );
         if ( err != 0 ) 
         {
             std::cerr << "Can't open maya ascii file! " << endl; 
@@ -102,82 +117,10 @@ namespace COLLADAMaya
         return true;
     }
 
-    //-----------------------------
-    void DocumentImporter::writeHeader( FILE* file )
-    {
-        // TODO
-        fprintf_s ( file, "//Maya ASCII 2008 scene\n" );
-        fprintf_s ( file, "//Name: inMeshTest.ma\n" );
-        fprintf_s ( file, "//Last modified: Mon, Dec 01, 2008 02:02:39 PM\n" );
-        fprintf_s ( file, "//Codeset: 1252\n" );
-        fprintf_s ( file, "requires maya \"2008\";\n" );
-        fprintf_s ( file, "currentUnit -l centimeter -a degree -t film;\n" );
-        fprintf_s ( file, "fileInfo \"application\" \"maya\";\n" );
-        fprintf_s ( file, "fileInfo \"product\" \"Maya Unlimited 2008\";\n" );
-        fprintf_s ( file, "fileInfo \"version\" \"2008\";\n" );
-        fprintf_s ( file, "fileInfo \"cutIdentifier\" \"200708022245-704165\";\n" );
-        fprintf_s ( file, "fileInfo \"osv\" \"Microsoft Windows XP Service Pack 3 (Build 2600)\\n\";\n" );
-    }
-
     //---------------------------------
-    void DocumentImporter::importAsset()
+    const String& DocumentImporter::getColladaFilename() const
     {
-        // Up_axis
-        if ( MGlobal::mayaState() != MGlobal::kBatch )
-        {
-            if ( ImportOptions::isOpenMode() && ImportOptions::importUpAxis() )
-            {
-                char upAxis = 'y';
-                
-//                 daeDocument* daeDoc = mDocumentLoader.getDaeDocument ();
-//                 domUpAxisType upAxisType = COLLADADH::DocumentUtil::getUpAxis ( daeDoc );
-//                 switch ( upAxisType )
-//                 {
-//                 case UPAXISTYPE_Z_UP: upAxis = 'z';
-//                 case UPAXISTYPE_Y_UP: upAxis = 'y';
-//                 case UPAXISTYPE_X_UP:
-//                     MGlobal::displayWarning ( "An up_axis of 'X' is not supported by Maya." );
-//                 default:
-//                     MGlobal::displayWarning ( "Unknown up_axis value." );
-//                 }
-// 
-//                 // Use the MEL commands to set the up_axis. Currently resets the view, if the axis must change..
-//                 MString command ( "string $currentAxis = `upAxis -q -ax`; if ($currentAxis != \"" );
-//                 command += upAxis; command += "\") { upAxis -ax \""; command += upAxis;
-//                 command += "\"; viewSet -home persp; }";
-//                 MGlobal::executeCommand ( command );
-            }
-        }
-
-        // Retrieve Maya's current up-axis.
-        MString result;
-//        FMVector3 mayaUpAxis = FMVector3::Zero;
-        if ( ImportOptions::importUpAxis() )
-        {
-            MGlobal::executeCommand ( "upAxis -q -ax;", result, false, false );
-            // TODO
-//             if ( result == "z" )
-// 
-//             mayaUpAxis = FMVector3::YAxis;
-//             if (IsEquivalent(MConvert::ToFChar(result), FC("z"))) mayaUpAxis = FMVector3::ZAxis;
-        }
-
-        float mayaUnit = 0.0f;
-        if ( ImportOptions::importUnits() ) mayaUnit = 0.01f;
-
-        // TODO 
-        // Standardize the COLLADA document on this up-axis and units (centimeters).
-//        FCDocumentTools::StandardizeUpAxisAndLength(colladaDocument, mayaUpAxis, mayaUnit);
-
-        // Get the UI unit factor, for parts of Maya that don't handle variable lengths correctly
-        MDistance testDistance ( 1.0f, MDistance::uiUnit() );
-        float uiUnitFactor = (float) testDistance.as ( MDistance::kCentimeters );
-    }
-
-    //---------------------------------
-    const String& DocumentImporter::getFilename() const
-    {
-        return mFileName;
+        return mColladaFileName;
     }
 
     //-----------------------------
@@ -191,9 +134,6 @@ namespace COLLADAMaya
     {
         // Create the maya file.
         assert ( createFile() );
-
-        // TODO Write the header informations and the asset into the file.
-        writeHeader ( mFile );
     }
 
     //-----------------------------
@@ -204,23 +144,77 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
+    bool DocumentImporter::writeGlobalAsset ( const COLLADAFW::FileInfo* asset )
+    {
+        if ( mAssetWritten ) return true;
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // TODO
+        String mayaVersion ( MGlobal::mayaVersion ().asChar () );
+//         fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
+//         fprintf_s ( mFile, "//Name: %s\n", mMayaAsciiFileURI.getPathFile ().c_str () );
+
+//         std::stringstream curDate;
+//         getCurrentDate ( curDate );
+//         fprintf_s ( mFile, "//Last modified: %s\n", curDate.str () );
+//         String codeset ( MGlobal::executeCommandStringResult ( "about -codeset" ).asChar () );
+//         fprintf_s ( mFile, "//Codeset: %s\n", codeset.c_str() );
+
+        fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
+
+        // TODO Default values for the units!
+        const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
+        fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", unit.mLinearUnit.c_str (), unit.mAngularUnit.c_str (), unit.mTimeUnit.c_str () );
+
+//         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
+//         String product ( MGlobal::executeCommandStringResult ( "about -product" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
+//         fprintf_s ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
+//         String cutIdentifier ( MGlobal::executeCommandStringResult ( "product -cutIdentifier" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
+//         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
+//         fprintf_s ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
+
+        mAssetWritten = true;
+
+        if ( mSceneGraphRead || mGeometryRead )
+        {
+            mSceneGraphRead = false;
+            mGeometryRead = false;
+            readColladaDocument ();
+        }
+
+        return true;
+    }
+
+    //-----------------------------
     bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
         bool retValue = false;
-        if ( mSceneGraphCreated ) return retValue;
 
-        // TODO
+        // Order: asset, scene graph, geometry
+        if ( !mAssetWritten ) 
+        {
+            mSceneGraphRead = true;
+        }
+
+        if ( mSceneGraphWritten ) return true;
+
+        // Create the file, if not already done.
         if ( mFile == 0 ) start();
 
         retValue = mVisualSceneImporter->importVisualScene ( visualScene );
-        mSceneGraphCreated = true;
+        mSceneGraphWritten = true;
 
-        // Nochmal lesen, zwecks Reihenfolge...
-        if ( mGeometryRead == true )
+        if ( mGeometryRead )
         {
+            mGeometryRead = false;
             readColladaDocument ();
         }
-        
+
         return retValue;
     }
 
@@ -229,17 +223,18 @@ namespace COLLADAMaya
     {
         bool retValue = false;
 
-        // First the scene graph!
-        if ( !mSceneGraphCreated )
+        // Order: asset, scene graph, geometry
+        if ( !mAssetWritten || !mSceneGraphWritten ) 
         {
             mGeometryRead = true;
-            return retValue;
+            return false;
         }
 
-        // TODO
+        // Create the file, if not already done.
         if ( mFile == 0 ) start();
 
         retValue = mGeometryImporter->importGeometry ( geometry );
+        mGeometryWritten = true;
 
         return retValue;
     }
@@ -249,8 +244,76 @@ namespace COLLADAMaya
     {
         COLLADASaxFWL::Loader loader;
         COLLADAFW::Root root ( &loader, this );
-        String filename = getFilename ();
+        String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );
         root.loadDocument ( fileUriString );
+    }
+
+    //-----------------------------
+    const COLLADABU::URI& DocumentImporter::getMayaAsciiFileURI () const
+    {
+        return mMayaAsciiFileURI;
+    }
+
+    //-----------------------------
+    void DocumentImporter::setMayaAsciiFileURI ( const COLLADABU::URI& fileURI )
+    {
+        mMayaAsciiFileURI.set ( fileURI.getURIString () );
+    }
+
+    //-----------------------------
+    void DocumentImporter::getCurrentDate ( std::stringstream& curDate )
+    {
+        // create a stringstream containing the current date and time in ISO 8601 format
+        time_t _t;
+        time ( &_t );
+        struct tm *t = localtime ( &_t );
+
+        int weekDay = t->tm_wday; // days since Sunday - [0,6]
+        switch ( weekDay )
+        {
+        case 0: curDate << "Sun, "; break;
+        case 1: curDate << "Mon, "; break;
+        case 2: curDate << "Tue, "; break;
+        case 3: curDate << "Wed, "; break;
+        case 4: curDate << "Thu, "; break;
+        case 5: curDate << "Fri, "; break;
+        case 6: curDate << "Sat, "; break;
+        default: assert ( weekDay < 7 );
+        }
+
+        int month = t->tm_mon; // months since January - [0,11]
+        switch ( month )
+        {
+        case 0: curDate << "Jan "; break;
+        case 1: curDate << "Feb "; break;
+        case 2: curDate << "Mar "; break;
+        case 3: curDate << "Apr "; break;
+        case 4: curDate << "Mai "; break;
+        case 5: curDate << "Jun "; break;
+        case 6: curDate << "Jul "; break;
+        case 7: curDate << "Aug "; break;
+        case 8: curDate << "Sep "; break;
+        case 9: curDate << "Oct "; break;
+        case 10: curDate << "Nov "; break;
+        case 11: curDate << "Dec "; break;
+        default: assert ( month < 12 );
+        }
+
+        // Mon, Dec 01, 2008 02:02:39 PM
+        curDate << t->tm_mday << " "; // day of the month - [1,31]
+        if ( t->tm_hour < 12 )
+            curDate << t->tm_hour << ":" << t->tm_min << ":" << t->tm_sec << " AM\n";
+        else if ( t->tm_hour == 12 )
+            curDate << t->tm_hour << ":" << t->tm_min << ":" << t->tm_sec << " PM\n";
+        else 
+            curDate << t->tm_hour-12 << ":" << t->tm_min << ":" << t->tm_sec << " AM\n";
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
+    {
+        // TODO
+        return false;
     }
 }

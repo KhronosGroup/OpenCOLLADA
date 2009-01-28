@@ -18,16 +18,23 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
+#include "COLLADAMayaNode.h"
 
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWFileInfo.h"
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWGeometry.h"
+
+#include <set>
 
 
 namespace COLLADAMaya
 {
     class VisualSceneImporter;
     class GeometryImporter;
+
+    typedef std::map<COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdUniqueIdsMap;
+    typedef std::map<COLLADAFW::UniqueId, MayaNode> UniqueIdMayaNodesMap;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -37,7 +44,10 @@ namespace COLLADAMaya
     private:
 
         /** The name of the collada file. */
-        String mFileName;
+        String mColladaFileName;
+
+        /** The name of the current maya ascii file. */
+        COLLADABU::URI mMayaAsciiFileURI;
 
         /** The id of the current scene. */
         String mSceneId;
@@ -45,7 +55,11 @@ namespace COLLADAMaya
         /** The current maya ascii file to import the data. */
         FILE* mFile;
 
-        bool mSceneGraphCreated;
+        bool mAssetWritten;
+        bool mSceneGraphWritten;
+        bool mGeometryWritten;
+
+        bool mSceneGraphRead;
         bool mGeometryRead;
 
         /** Pointer to the visual scene importer. */
@@ -63,25 +77,38 @@ namespace COLLADAMaya
         virtual ~DocumentImporter ();
 
         /** The current maya ascii file to import the data. */
-        FILE* getFile() const { return mFile; }
+        FILE* getFile () const { return mFile; }
         void setFile ( FILE* val ) { mFile = val; }
 
         /** Imports the current scene. */
-        void importCurrentScene();
+        void importCurrentScene ();
 
         /** Reads the collada document. */
-        void readColladaDocument();
+        void readColladaDocument ();
 
         /** Create the maya ascii file (where with which name???) */
-        bool createFile();
+        bool createFile ();
 
         /**
         * Returns the name of the current collada file to export.
         * @return const String& Name of the current collada file
         */
-        const String& getFilename() const;
+        const String& getColladaFilename () const;
+
+        /**
+        * Returns the name of the current maya ascii file to export.
+        * @return const String& The current maya ascii file
+        */
+        const COLLADABU::URI& getMayaAsciiFileURI () const;
+
+        /**
+        * Set the name of the current maya ascii file to export.
+        * @param const COLLADABU::URI& The current maya ascii file.
+        */
+        void setMayaAsciiFileURI ( const COLLADABU::URI& fileURI );
 
         /** Pointer to the visual scene importer. */
+        VisualSceneImporter* getVisualSceneImporter () { return mVisualSceneImporter; }
         const VisualSceneImporter* getVisualSceneImporter () const { return mVisualSceneImporter; }
         void setVisualSceneImporter ( VisualSceneImporter* val ) { mVisualSceneImporter = val; }
 
@@ -106,6 +133,12 @@ namespace COLLADAMaya
         @return True on success, false otherwise. */
         bool import();
 
+        /** When this method is called, the writer must write the global document asset.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );
+
+        void getCurrentDate ( std::stringstream& curDate );
+
         /** When this method is called, the writer must write the entire visual scene.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
@@ -117,15 +150,9 @@ namespace COLLADAMaya
         /** When this method is called, the writer must handle all nodes contained in the 
         library nodes.
         @return The writer should return true, if writing succeeded, false otherwise.*/
-        virtual bool writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
-        {
-            return false;
-        }
+        virtual bool writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
 
     private:
-
-        /** Imports the asset. */
-        void importAsset();
 
         /** Imports the current scene. */
         void exportScene();
@@ -136,10 +163,6 @@ namespace COLLADAMaya
 
         /** Releases the import/export libraries */
         void releaseLibraries();
-
-        /** Write the header into the maya ascii file. */
-        void writeHeader ( FILE* file );
-
 
     };
 }

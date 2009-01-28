@@ -371,4 +371,5 @@ namespace COLLADASaxFWL
         }
         return true;
     }
+
 } // namespace COLLADASaxFWL

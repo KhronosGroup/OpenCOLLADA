@@ -351,7 +351,7 @@ enum ConnectableType
         if ( shape ) fprintf ( file, " -s" );
         if ( world ) fprintf ( file, " -w" );
 
-        fprintf ( file, " \"%s\"", childName );
+        fprintf ( file, " \"%s\"", childName.c_str () );
         if ( strcmp ( parentName.c_str (), "" ) != 0 ) fprintf ( file, " \"%s\"", parentName.c_str () );
         fprintf ( file, ";\n" );
     }
@@ -371,8 +371,9 @@ enum ConnectableType
         fprintf ( file, " -s" );
         if ( world ) fprintf ( file, " -w" );
 
-        fprintf ( file, " \"%s\"", childName );
-        if ( strcmp ( parentName.c_str (), "" ) != 0 ) fprintf ( file, " \"%s\"", parentName.c_str () );
+        fprintf ( file, " \"%s\"", childName.c_str() );
+        if ( strcmp ( parentName.c_str (), "" ) != 0 ) 
+            fprintf ( file, " \"%s\"", parentName.c_str () );
         fprintf ( file, ";\n" );
     }
 

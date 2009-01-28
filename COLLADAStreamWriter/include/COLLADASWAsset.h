@@ -25,7 +25,6 @@ namespace COLLADASW
 
     public:
         /** Data related to a contributor that worked on the parent element.*/
-
         struct Contributor
         {
             String mAuthor;
@@ -36,7 +35,6 @@ namespace COLLADASW
         };
 
         /** Descriptive information about unit of measure. Its optional attributes are:*/
-
         struct Unit
         {
             /** 
@@ -70,6 +68,8 @@ namespace COLLADASW
 
 
     private:
+
+        /** Data related to a contributor that worked on the parent element.*/
         Contributor mContributor;
 
         /** A list of words used as search criteria for the parent element.*/
@@ -84,10 +84,14 @@ namespace COLLADASW
         /** Title information for the parent element.*/
         String mTitle;
 
+        /** Descriptive information about unit of measure. Its optional attributes are:*/
         Unit mUnit;
 
+        /* Descriptive information about the coordinate system of the geometric data. 
+        All coordinates are right handed by definition. Valid values are X_UP, Y_UP,
+        or Z_UP. This element specifies which axis is considered upward, which is considered 
+        to the right, and which is considered inward. */
         UpAxisType mUpAxisType;
-
 
     public:
         /** Constructor that sets the stream the asset should be written to*/
@@ -97,56 +101,56 @@ namespace COLLADASW
         void add();
 
         /** Returns a reference to the contributor of th asset*/
-        Contributor & getContributor()
+        Contributor& getContributor()
         {
             return mContributor;
         }
 
         /** Sets the list of words used as search criteria for the parent element.*/
-        void setKeywords ( const String & keywords )
+        void setKeywords ( const String& keywords )
         {
             mKeywords = keywords;
         }
 
         /** Returns a reference to the list of words used as search criteria for the parent element.*/
-        const String & getKeywords() const
+        const String& getKeywords() const
         {
             return mKeywords;
         }
 
 
         /** Sets the revision information for the parent element.*/
-        void setRevision ( const String & revision )
+        void setRevision ( const String& revision )
         {
             mRevision = revision;
         }
 
         /** Returns a reference to the revision information for the parent element.*/
-        const String & getRevision() const
+        const String& getRevision() const
         {
             return mRevision;
         }
 
         /** Sets the description of the topical subject of the parent element.*/
-        void setSubject ( const String & subject )
+        void setSubject ( const String& subject )
         {
             mSubject = subject;
         }
 
         /** Returns a reference to the description of the topical subject of the parent element.*/
-        const String & getSubject() const
+        const String& getSubject() const
         {
             return mSubject;
         }
 
         /** Sets the title information for the parent element.*/
-        void setTitle ( const String & title )
+        void setTitle ( const String& title )
         {
             mTitle = title;
         }
 
         /** Returns a reference to the title information for the parent element.*/
-        const String & getTitle() const
+        const String& getTitle() const
         {
             return mTitle;
         }
@@ -154,7 +158,7 @@ namespace COLLADASW
         /** Sets the unit used by the document
         @param unit The unit to use.
         */
-        void setUnit ( Unit unit )
+        void setUnit ( const Unit& unit )
         {
             mUnit = unit;
         }
@@ -176,19 +180,19 @@ namespace COLLADASW
         }
 
         /** Returns the unit*/
-        Unit getUnit()
+        const Unit& getUnit()
         {
             return mUnit;
         }
 
         /** Sets the up axis of the document*/
-        void setUpAxisType ( UpAxisType upAxisType )
+        void setUpAxisType ( const UpAxisType& upAxisType )
         {
             mUpAxisType = upAxisType;
         }
 
         /** Returns the up axis*/
-        UpAxisType getUpAxisType()
+        const UpAxisType& getUpAxisType()
         {
             return mUpAxisType;
         }

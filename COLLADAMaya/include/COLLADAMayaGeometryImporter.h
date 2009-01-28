@@ -18,17 +18,17 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaNode.h"
 
 #include "COLLADAFWMesh.h"
 
+#include "COLLADABUIDList.h"
 #include "Math/COLLADABUMathVector3.h"
 
 #include "MayaDMTypes.h"
 #include "MayaDMMesh.h"
 
-#include <map>
 #include <vector>
-#include <set>
 
 
 namespace COLLADAMaya
@@ -40,17 +40,15 @@ namespace COLLADAMaya
 
     private:
 
-        typedef std::map<const COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdToUniqueIdsMap;
-        typedef std::map<const COLLADAFW::UniqueId, String> UniqueIdNamesMap;
+        /**
+        * The list of the unique maya mesh node names.
+        */
+        COLLADABU::IDList mMeshNodeIdList;
 
-        /** The current transform object, for which the geometries should be created. */
-        MObject mTransformObject;
-
-        /** Pointer to the current framework geometry object. */
-        const COLLADAFW::Geometry* mGeometry;
-
-        /** Pointer to the current framework mesh object. */ 
-        const COLLADAFW::Mesh* mMesh;
+        /** 
+         * The map holds the unique ids of the nodes to the maya specific nodes. 
+         */
+        UniqueIdMayaNodesMap mMayaMeshNodesMap;
 
     public:
 
@@ -66,6 +64,16 @@ namespace COLLADAMaya
     private:
 
         /** 
+        * The map holds the unique ids of the nodes to the maya specific nodes. 
+        */
+        const MayaNode* getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+        /** 
+        * The map holds the unique ids of the nodes to the maya specific nodes. 
+        */
+        MayaNode* getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId );
+
+        /** 
          * Imports the data of the current mesh element. 
          */
         bool importMesh ( const COLLADAFW::Mesh* mesh );
@@ -73,7 +81,9 @@ namespace COLLADAMaya
         /**
          * Writes the geometry of the current mesh.
          */
-        bool createMesh ( const COLLADAFW::Mesh* mesh, const String& parentNodeName );
+        bool createMesh ( 
+            const COLLADAFW::Mesh* mesh, 
+            MayaNode* parentMayaNode );
 
         /*
          *	Write the face informations into the maya file.

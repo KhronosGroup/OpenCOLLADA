@@ -11,6 +11,7 @@
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLFileLoader.h"
 #include "COLLADASaxFWLLoader.h"
+#include "COLLADASaxFWLAssetLoader.h"
 #include "COLLADASaxFWLVisualSceneLoader.h"
 #include "COLLADASaxFWLLibraryNodesLoader.h"
 #include "COLLADASaxFWLMeshLoader.h"
@@ -47,7 +48,17 @@ namespace COLLADASaxFWL
 		return success;
 	}
 
-	//-----------------------------
+    //-----------------------------
+    bool FileLoader::begin__COLLADA__asset ()
+    {
+        deleteFilePartLoader();
+        AssetLoader* assetLoader = new AssetLoader(this);
+        setPartLoader(assetLoader);
+        setParser(assetLoader);
+        return true;
+    }
+
+    //-----------------------------
 	bool FileLoader::begin__visual_scene( const visual_scene__AttributeData& attributeData )
 	{
 		deleteFilePartLoader();

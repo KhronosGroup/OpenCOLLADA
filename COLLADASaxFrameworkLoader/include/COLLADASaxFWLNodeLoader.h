@@ -44,6 +44,7 @@ namespace COLLADASaxFWL
 		by the transformation data* methods. This is used to know where the next received number must 
 		be placed in the transformation.*/
 		size_t mTransformationNumbersReceived;
+
 	public:
 
 		/** Constructor. */
@@ -53,13 +54,12 @@ namespace COLLADASaxFWL
 		virtual ~NodeLoader();
 
 	protected:
+
 		/** This method handles the beginning of a node element, independent of its parent.*/
 		bool beginNode( const node__AttributeData& attributeData );
 
 		/** This method handles the ending of a node element, independent of its parent.*/
 		bool endNode();
-
-
 
 	private:
 

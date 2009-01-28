@@ -308,6 +308,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWFileInfo.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWGeometry.cpp"
 				>
 			</File>
@@ -455,6 +459,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWException.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWFileInfo.h"
 				>
 			</File>
 			<File

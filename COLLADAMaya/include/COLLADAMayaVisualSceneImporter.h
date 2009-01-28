@@ -18,6 +18,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
+#include "COLLADAMayaNode.h"
 
 #include "MayaDMTransform.h"
 
@@ -39,11 +40,6 @@ namespace COLLADAMaya
     /** Declares the importer implementation to import the visual scene nodes. */
     class VisualSceneImporter : public BaseImporter
     {
-    public:
-        
-        typedef std::map<const COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdUniqueIdsMap;
-
-        typedef std::map<const COLLADAFW::UniqueId, String> UniqueIdNamesMap;
 
     private:
 
@@ -56,15 +52,12 @@ namespace COLLADAMaya
          * The map holds for every unique id of a geometry a list of transform node unique ids.
          * We need it for the creation of the geometry, to set the parent transform nodes.
          */
-        UniqueIdUniqueIdsMap mGeometryNodesMap;
+        UniqueIdUniqueIdsMap mGeometryTransformIdsMap;
 
-        /** The map holds the unique ids of the nodes to the full node pathes (contains the name). */
-        UniqueIdNamesMap mNodePathesMap;
-
-        /**
-         * Save the structure of the scene graph.
-         */
-        // TODO
+        /** 
+        * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
+        */
+        UniqueIdMayaNodesMap mMayaTransformNodesMap;
 
         /*
          *	Helper class, to handle the transformations.
@@ -116,27 +109,27 @@ namespace COLLADAMaya
          */
         void importNode ( 
             const COLLADAFW::Node* rootNode, 
-            const COLLADAFW::Node* parentNode = 0 );
+            const COLLADAFW::UniqueId* parentNodeId = NULL );
+
+        /** 
+        * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
+        */
+        const MayaNode* getMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+        /** 
+        * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
+        */
+        MayaNode* getMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId );
 
         /*
         * The map holdes for every geometry (identified by it's unique id ) a list of all 
         * transform nodes (identified by their names, which are unique!).
         * We need it for the creation of the geometry, to set the parent transform nodes.
         */
-        const UniqueIdUniqueIdsMap& getGeometryNodesMap () const { return mGeometryNodesMap; }
-
-        /**
-         * The map with the node unique ids and the names for it.
-         */
-        const UniqueIdNamesMap& getNodeNamesMap () const { return mNodePathesMap; }
+        const std::set<const COLLADAFW::UniqueId>* getGeometryTransformIds ( 
+            const COLLADAFW::UniqueId& geometryId ) const;
 
     private:
-
-        /*
-        * The map holdes for every unique id of a geometry a list of transform node unique ids.
-        * We need it for the creation of the geometry, to set the parent transform nodes.
-        */
-        UniqueIdUniqueIdsMap& getGeometryNodesMap() { return mGeometryNodesMap; }
 
         /**
          *	Save the transformation ids to the geometry ids.
