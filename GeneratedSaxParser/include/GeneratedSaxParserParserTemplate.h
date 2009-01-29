@@ -507,17 +507,20 @@ namespace GeneratedSaxParser
             mEndOfDataInCurrentObjectOnStack = 0;
 			if ( failed )
 			{
-				int bufferLength = (int)(mEndOfDataInCurrentObjectOnStack - bufferBegin);
-				ParserChar dataBufferError[21];
-				size_t length = std::min(20, bufferLength);
-				memcpy(dataBufferError, bufferBegin, length);
-				dataBufferError[length] = '\0';
-				if ( handleError(ParserError::SEVERITY_ERROR, 
-							     ParserError::ERROR_TEXTDATA_PARSING_FAILED,
-							     0,
-							     dataBufferError))
+				int bufferLength = (int)(bufferEnd - bufferBegin);
+				if ( bufferLength != 0)
 				{
-					return false;
+					ParserChar dataBufferError[21];
+					size_t length = std::min(20, bufferLength);
+					memcpy(dataBufferError, bufferBegin, length);
+					dataBufferError[length] = '\0';
+					if ( handleError(ParserError::SEVERITY_ERROR, 
+						ParserError::ERROR_TEXTDATA_PARSING_FAILED,
+						0,
+						dataBufferError))
+					{
+						return false;
+					}
 				}
 			}
 			else

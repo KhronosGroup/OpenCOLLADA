@@ -138,17 +138,21 @@ namespace COLLADAMax
 		/** Remove all objects that don't have an object. Deletes unused visual scenes.*/
 		void finish(){};
 
+		/** When this method is called, the writer must write the global document asset.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset ) { return true; };
+
 		/** Writes the entire visual scene.
 		@return True on succeeded, false otherwise.*/
-		bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
+		virtual bool writeVisualScene ( const COLLADAFW::VisualScene* visualScene );
 
 		/** Handles all nodes in the library nodes.
 		@return True on succeeded, false otherwise.*/
-		bool writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
+		virtual bool writeLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
 		/** Writes the geometry.
 		@return True on succeeded, false otherwise.*/
-		bool writeGeometry ( const COLLADAFW::Geometry* geometry );
+		virtual bool writeGeometry ( const COLLADAFW::Geometry* geometry );
 
 	
 	private:

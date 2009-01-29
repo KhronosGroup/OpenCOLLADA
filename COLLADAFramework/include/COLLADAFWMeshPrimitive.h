@@ -92,7 +92,11 @@ namespace COLLADAFW
         */
         String mMaterial;
 
-        /** 
+		/** The material id of the sub mesh. This material id is used to assign material 
+		to submeshes when the mesh gets instantiated.*/
+		MaterialId mMaterialId;
+
+		/** 
         * The index list of the positions array. 
         */
         UIntValuesArray mPositionIndices;
@@ -211,7 +215,16 @@ namespace COLLADAFW
         */
         void setUVCoordIndices ( const COLLADAFW::UIntValuesArray& UVCoordIndices ) { mUVCoordIndices = UVCoordIndices; }
 
-        /*
+
+		/** @return The material id of the sub mesh. This material id is used to assign material 
+		to submeshes when the mesh gets instantiated.*/
+		COLLADAFW::MaterialId getMaterialId() const { return mMaterialId; }
+
+		/** Sets the material id of the sub mesh. This material id is used to assign material 
+		to submeshes when the mesh gets instantiated.*/
+		void setMaterialId(COLLADAFW::MaterialId val) { mMaterialId = val; }
+		
+		/*
          *	Fills the array with the index list of the edges 
          *  (the index list referes on the position indices)
          */

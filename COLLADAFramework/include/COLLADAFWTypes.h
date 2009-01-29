@@ -33,6 +33,8 @@ namespace COLLADAFW
 
 	typedef unsigned long long ObjectId;
 
+	typedef unsigned long MaterialId;
+
     // Element Type Enum
     namespace COLLADA_TYPE
     {

@@ -47,10 +47,10 @@ namespace COLLADAFW
         void setId ( const String Id ) { mId = Id; }
 
         /** The text string name of this element. Optional. */
-        const String getName () const { return mName; }
+        const String& getName () const { return mName; }
 
         /** The text string name of this element. Optional. */
-        void setName ( const String Name ) { mName = Name; }
+        void setName ( const String& Name ) { mName = Name; }
 
 	private:
 
