@@ -64,20 +64,10 @@ namespace COLLADASaxFWL
         /**
          * This member will be used, if multiple source elements with the same input semantic are
          * referenced in the current mesh. 
-         * The sources of semantic "POSITION" and "NORMAL" will be concatenated to one source and 
-         * and one indices array.
          */
         size_t mInitialIndex;
 
     public:
-
-//         /** Constructor. */
-//         SourceBase ( COLLADAFW::ObjectId objectId )
-//             : COLLADAFW::Object < COLLADAFW::COLLADA_TYPE::SOURCE > ( objectId )
-//             , mDataType ( DATA_TYPE_UNKNOWN )
-//             , mIsLoaded ( false )
-//             , mInitialIndex (0)
-//         {}
 
         /** Constructor. */
         SourceBase (  )
@@ -117,7 +107,6 @@ namespace COLLADASaxFWL
         * @param val The unique identifier of the element. 
         */
         void setId ( const String& val ) { mId = val; }
-
 
         /**
         * The number of values that are to be considered a unit during each access to the array.
@@ -162,8 +151,6 @@ namespace COLLADASaxFWL
     template < class ArrayType, SourceBase::DataType dataType >
     class Source : public SourceBase
     {
-	public:
-
     private:
 
         /**
@@ -174,21 +161,15 @@ namespace COLLADASaxFWL
     public:
 
         /** Constructor. */
-        Source ( ) 
-            : SourceBase (  ) 
-        {}
+        Source () : SourceBase () {}
 
         /** Destructor. */
-        virtual ~Source () 
-        {
-            //delete mArrayElement;
-        }
+        virtual ~Source () {}
 
 		/**
 		* The value type of the current values. All other arrays are empty!
 		*/
 		DataType getDataType () const { return dataType; }
-
 
 		/**
 		* Stores a homogeneous array of values.
@@ -212,17 +193,6 @@ namespace COLLADASaxFWL
 			return mArrayElement;
 		}
 
-        /**
-        * Stores a homogeneous array of values.
-        * The class contains members for all valid array element types, 
-        * but there is always just one, which is initialized.
-        * @param arrayElement The array element with the values array.
-        */
-/*        void setArrayElement ( const ArrayType& arrayElement ) 
-        { 
-            mArrayElement = arrayElement; 
-        }
-*/
     };
 
 

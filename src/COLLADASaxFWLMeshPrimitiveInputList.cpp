@@ -27,14 +27,6 @@ namespace COLLADASaxFWL
                 return input;
         }
 
-//         // Look in the parent vertex element for the input element.
-//         if ( parent )
-//         {
-//             if ( mParent->getVertexInputBySemantic ( semantic ) != 0 )
-//                 return getInputBySemantic ( InputSemantic::VERTEX );
-// //            return mParent->getVertexInputBySemantic ( semantic );
-//         }
-
         return 0;
     }
 

@@ -53,6 +53,9 @@ namespace COLLADASaxFWL
          */
         unsigned long long mInputArrayMaxOffset;
 	
+        /**
+         * To convert the vertex input elements.
+         */
 		Vertices& mVertices;
 
     public:	
@@ -139,20 +142,9 @@ namespace COLLADASaxFWL
         */
         const InputShared* getColorInput () const
         {
+            // TODO Multiple values!
             return getInputBySemantic ( InputSemantic::COLOR );
         }
-
-        /**
-        * Returns the uv coordinates input element or 0 if it not exist.
-        * @param parent True, if the vertex element of the parent mesh should also searched.
-        * @return InputShared* Pointer to the searched input element or 0 if it not exist.
-        */
-        const InputShared* getUVCoordInput () const
-        {
-            return getInputBySemantic ( InputSemantic::UV );
-        }
-
-
 
     };
 
