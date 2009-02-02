@@ -20,10 +20,10 @@ public:
 public:
 	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyOptUvs"){}
 	virtual ~PolyOptUvs(){}
-	void setIterations(int i)
+	void setIterations(int i_)
 	{
-		if(i == 100) return;
-		fprintf(mFile,"setAttr \".i\" %i;\n", i);
+		if(i_ == 100) return;
+		fprintf(mFile,"setAttr \".i\" %i;\n", i_);
 
 	}
 	void setStoppingThreshold(float ss)

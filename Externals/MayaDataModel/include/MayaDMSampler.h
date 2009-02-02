@@ -77,10 +77,10 @@ public:
 		fprintf(mFile,"setAttr \".s\" %f;\n", s);
 
 	}
-	void setInvert(bool i)
+	void setInvert(bool i_)
 	{
-		if(i == false) return;
-		fprintf(mFile,"setAttr \".i\" %i;\n", i);
+		if(i_ == false) return;
+		fprintf(mFile,"setAttr \".i\" %i;\n", i_);
 
 	}
 	void setFunction(const Function& f)

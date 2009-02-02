@@ -20,21 +20,21 @@ public:
 public:
 	AddMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "addMatrix"){}
 	virtual ~AddMatrix(){}
-	void setMatrixIn(size_t i_i,const matrix& i)
+	void setMatrixIn(size_t i_i,const matrix& i_)
 	{
-		if(i == identity) return;
+		if(i_ == identity) return;
 		fprintf(mFile,"setAttr \".i[%i]\" -type \"matrix\" ",i_i);
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
-	void setMatrixIn(size_t i_start,size_t i_end,matrix* i)
+	void setMatrixIn(size_t i_start,size_t i_end,matrix* i_)
 	{
 		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
 		size_t size = (i_end-i_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
-			i[i].write(mFile);
+			i_[i].write(mFile);
 			fprintf(mFile,"\n");
 		}
 		fprintf(mFile,";\n");

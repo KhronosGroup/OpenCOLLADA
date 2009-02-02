@@ -20,11 +20,11 @@ public:
 public:
 	HoldMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "holdMatrix"){}
 	virtual ~HoldMatrix(){}
-	void setInMatrix(const matrix& i)
+	void setInMatrix(const matrix& i_)
 	{
-		if(i == identity) return;
+		if(i_ == identity) return;
 		fprintf(mFile,"setAttr \".i\" -type \"matrix\" ");
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}

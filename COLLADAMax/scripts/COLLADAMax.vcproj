@@ -2254,10 +2254,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\res\error.fx"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>

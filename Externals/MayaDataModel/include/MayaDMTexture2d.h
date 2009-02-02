@@ -32,10 +32,10 @@ public:
 		fprintf(mFile,"setAttr \".fo\" %f;\n", fo);
 
 	}
-	void setInvert(bool i)
+	void setInvert(bool i_)
 	{
-		if(i == false) return;
-		fprintf(mFile,"setAttr \".i\" %i;\n", i);
+		if(i_ == false) return;
+		fprintf(mFile,"setAttr \".i\" %i;\n", i_);
 
 	}
 	void setAlphaIsLuminance(bool ail)

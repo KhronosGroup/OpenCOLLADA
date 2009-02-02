@@ -26,6 +26,7 @@
 
 #include "MayaDMTransform.h"
 #include "MayaDMPolyCube.h"
+#include "MayaDMCommands.h"
 
 #include "COLLADAFWPolygons.h"
 
@@ -115,6 +116,66 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
+    bool GeometryImporter::createMesh ( 
+        const COLLADAFW::Mesh* mesh, 
+        MayaNode* mayaTransformNode )
+    {
+        // Create a unique name.
+        String meshName = mMeshNodeIdList.addId ( mesh->getName () );
+
+        // Create a maya node object of the current node and push it into the map.
+        const COLLADAFW::UniqueId& uniqueId = mesh->getUniqueId ();
+        MayaNode mayaMeshNode ( uniqueId, meshName, mayaTransformNode );
+        mMayaMeshNodesMap [ uniqueId ] = mayaMeshNode;
+
+        // Get the parent node name.
+        assert ( mayaTransformNode != NULL );
+        String transformNodePath = mayaTransformNode->getNodePath ();
+
+        // Create the current mesh node.
+        FILE* file = getDocumentImporter ()->getFile ();
+        MayaDM::Mesh meshNode ( file, mesh->getName (), transformNodePath );
+
+        // Write the vertex positions. 
+        // Just write the values, they will be referenced from the edges and the faces.
+        if ( !writeVertexPositions ( mesh, meshNode ) ) return false;
+
+        // Write the normals. 
+        if ( !writeNormals ( mesh, meshNode ) ) return false;
+
+        // Write the uv corrdinates.
+        writeUVCoords ( mesh, meshNode );
+
+        // The vector of edge indices. We use it to write the list of edges into 
+        // the maya file. The vector is already sorted.
+        std::vector<COLLADAFW::Edge> edgeIndices;
+
+        // We store the edge indices also in a sorted map. The dublicate data holding 
+        // is reasonable, because we need the index of a given edge. The search of  
+        // values in a map is much faster than in a vector!
+        std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
+
+        // Implementation for multiple primitive elements.
+        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
+        size_t count = primitiveElementsArray.getCount ();
+        for ( size_t i=0; i<count; ++i )
+        {
+            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
+
+            // Determine the edge indices (unique edges, also for multiple primitive elements).
+            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
+        }
+
+        // Write the edge indices of all primitive elements into the maya file.
+        writeEdges ( edgeIndices, meshNode );
+
+        // Write the face informations of all primitive elements into the maya file.
+        writeFaces ( mesh, edgeIndicesMap, meshNode );
+
+        return true;
+    }
+
+    // --------------------------------------------
     bool GeometryImporter::getEdgeIndex ( 
         const COLLADAFW::Edge& edge, 
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -128,7 +189,7 @@ namespace COLLADAMaya
             MString message ( "Edge not found: " ); message += edge[0] + ", " + edge[1];
             MGlobal::displayError ( message );
             std::cerr << message.asChar () << std::endl;
-            return false;
+            assert ( it != edgeIndicesMap.end() );
         }
         edgeIndex = (int)it->second; 
         if ( edge.isReverse() ) edgeIndex = -( edgeIndex + 1 );
@@ -265,41 +326,158 @@ namespace COLLADAMaya
     // --------------------------------------------
     bool GeometryImporter::writeUVCoords ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
     {
+        // Set the number of uv sets.
         const COLLADAFW::MeshUVCoords& uvCoords = mesh->getUVCoords ();
-        size_t stride = (size_t)uvCoords.getStride ();
+        size_t sumUVSetPoints = uvCoords.getNumUVSets ();
+        if ( sumUVSetPoints == 0 ) return false;
+        meshNode.setUvSize ( sumUVSetPoints );
+
+        // Write the values 
+        size_t initialIndex = 0;
         const COLLADAFW::MeshFloatDoubleInputs::DataType type = uvCoords.getType ();
         switch ( type )
         {
         case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT:
             {
                 const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatUVCoords ();
-                size_t count = uvCoords.getUVCoordsCount ();
-                meshNode.startUvSetPoints ( 0, 0, (count/2)-1 ); 
-                for ( size_t i=0, index=0; i<count; i+=stride, ++index )
+                for ( size_t i=0; i<sumUVSetPoints; ++i )
                 {
-                    meshNode.appendUvSetPoints ( (*values)[i] );
-                    meshNode.appendUvSetPoints ( (*values)[i+1] );
+                    meshNode.setUvSetName ( i, uvCoords.getUVSetName ( i ) );
+                    
+                    size_t stride = uvCoords.getStride ( i );
+                    assert ( stride > 1 && stride <= 4 );
+                    if ( stride != 2 ) MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
+
+                    size_t indicesCount = uvCoords.getLength ( i );
+                    meshNode.startUvSetPoints ( i, 0, (indicesCount/stride)-1 ); 
+
+                    unsigned int index = 0;
+                    for ( size_t i=0; i<indicesCount; i+=stride )
+                    {
+                        meshNode.appendUvSetPoints ( (*values)[initialIndex+i] );
+                        meshNode.appendUvSetPoints ( (*values)[initialIndex+i+1] );
+                    }
+                    meshNode.endUvSetPoints (); 
+
+                    initialIndex += indicesCount;
                 }
-                meshNode.endUvSetPoints (); 
+                break;
             }
-            break;
         case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE:
             {
                 const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleUVCoords ();
-                size_t count = uvCoords.getUVCoordsCount ();
-                meshNode.startUvSetPoints ( 0, 0, (count/2)-1 ); 
-                for ( size_t i=0, index=0; i<count; i+=stride, ++index )
+                for ( size_t i=0; i<sumUVSetPoints; ++i )
                 {
-                    meshNode.appendUvSetPoints ( (float)(*values)[i] );
-                    meshNode.appendUvSetPoints ( (float)(*values)[i+1] );
+                    meshNode.setUvSetName ( i, uvCoords.getUVSetName ( i ) );
+
+                    size_t stride = uvCoords.getStride ( i );
+                    assert ( stride > 1 && stride <= 4 );
+                    if ( stride != 2 ) MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
+
+                    size_t indicesCount = uvCoords.getLength ( i );
+                    meshNode.startUvSetPoints ( i, 0, (indicesCount/stride)-1 ); 
+
+                    unsigned int index = 0;
+                    for ( size_t i=0; i<indicesCount; i+=stride )
+                    {
+                        meshNode.appendUvSetPoints ( (*values)[initialIndex+i] );
+                        meshNode.appendUvSetPoints ( (*values)[initialIndex+i+1] );
+                    }
+                    meshNode.endUvSetPoints (); 
+
+                    initialIndex += indicesCount;
                 }
-                meshNode.endUvSetPoints (); 
             }
             break;
         default:
             std::cerr << "No valid data type for uv coordinates: " << type << std::endl;
             return false;
         }
+
+
+//         // The current uv set points list index
+//         size_t currentUVSetPoint = 0;
+// 
+//         // We have to go through every mesh primitive and write the list of uv values
+//         // for the index list in the maya document. 
+//         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
+//         for ( size_t i=0; i<count; ++i )
+//         {
+//             // Get the current primitive element.
+//             const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
+// 
+//             // Write the index values for every tex coord index list of the current primitive.
+//             const COLLADAFW::IndexListArray& uvCoordIndicesArray = meshPrimitive->getUVCoordIndicesArray ();
+//             size_t numPrimitiveUVCoords = uvCoordIndicesArray.getCount ();
+//             for ( size_t j=0; j<numPrimitiveUVCoords; ++j, ++currentUVSetPoint )
+//             {
+//                 COLLADAFW::IndexList* uvCoordIndexList = uvCoordIndicesArray [j];
+//                 size_t indicesCount = uvCoordIndexList->getIndicesCount ();
+//                 size_t stride = uvCoordIndexList->getStride ();
+//                 size_t uvSetIndex = uvCoordIndexList->getInputSetIndex ();
+//                 String uvSetName = uvCoordIndexList->getInputSetName ();
+//                 meshNode.setUvSetName ( currentUVSetPoint, uvSetName );
+// 
+//                 // Get the values depend on the dimension.
+//                 const COLLADAFW::MeshUVCoords* uvCoords;
+//                 switch ( stride )
+//                 {
+//                 case 2: uvCoords = &mesh->getUVCoords2d (); break;
+//                 case 3: 
+//                     {
+//                         uvCoords = &mesh->getUVCoords3d (); 
+//                         MGlobal::displayWarning ( "3d uv coordinates not supported! Just 2d data will be imported! ");
+//                         break;
+//                     }
+//                 case 4: 
+//                     {
+//                         uvCoords = &mesh->getUVCoords4d (); 
+//                         MGlobal::displayWarning ( "4d uv coordinates not supported! Just 2d data will be imported! ");
+//                         break;
+//                     }
+//                 default: assert ( stride < 2 || stride > 4 );
+//                 }
+// 
+//                 // Write the values list.
+//                 const COLLADAFW::MeshFloatDoubleInputs::DataType type = uvCoords->getType ();
+//                 switch ( type )
+//                 {
+//                 case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT:
+//                     {
+//                         const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords->getFloatUVCoords ();
+//                         meshNode.startUvSetPoints ( currentUVSetPoint, 0, (indicesCount/2)-1 ); 
+//                         unsigned int index = 0;
+//                         for ( size_t i=0; i<indicesCount; i+=stride )
+//                         {
+//                             index = uvCoordIndexList->getIndex ( i );
+//                             meshNode.appendUvSetPoints ( (*values)[index] );
+//                             index = uvCoordIndexList->getIndex ( i+1 );
+//                             meshNode.appendUvSetPoints ( (*values)[index] );
+//                         }
+//                         meshNode.endUvSetPoints (); 
+//                     }
+//                     break;
+//                 case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE:
+//                     {
+//                         const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords->getDoubleUVCoords ();
+//                         meshNode.startUvSetPoints ( currentUVSetPoint, 0, (indicesCount/2)-1 ); 
+//                         unsigned int index = 0;
+//                         for ( size_t i=0; i<indicesCount; i+=stride )
+//                         {
+//                             index = uvCoordIndexList->getIndex ( i );
+//                             meshNode.appendUvSetPoints ( (*values)[index] );
+//                             index = uvCoordIndexList->getIndex ( i+1 );
+//                             meshNode.appendUvSetPoints ( (*values)[index] );
+//                         }
+//                         meshNode.endUvSetPoints (); 
+//                     }
+//                     break;
+//                 default:
+//                     std::cerr << "No valid data type for uv coordinates: " << type << std::endl;
+//                     return false;
+//                 }
+//             }
+//         }
 
         return true;
     }
@@ -370,14 +548,8 @@ namespace COLLADAMaya
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
         MayaDM::Mesh &meshNode )
     {
-        // Triangles: every face has 3 vertices.
         size_t positionIndex=0;
-
-        // Get the position indices
-        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
-
-        // The vertex index values of an edge.
-        int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
+        size_t uvSetIndicesIndex = 0;
 
         // The number of grouped vertex elements (faces, holes, tristrips or trifans).
         size_t groupedVerticesCount = getGroupedVerticesCount ( primitiveElement );
@@ -399,134 +571,17 @@ namespace COLLADAMaya
             // grouped vertices object. If the number is negative, the grouped object is a hole.
             int numEdges = primitiveElement->getGroupedVerticesVertexCount ( groupedVtxIndex );
 
-            // Handle faces
-            if ( numEdges >= 0 )
-            {
-                // Create the poly face
-                MayaDM::polyFaces polyFace;
-                polyFace.f.faceEdgeCount = numEdges;
-                polyFace.f.edgeIdValue = new int[numEdges];
+            // Create the poly face
+            MayaDM::polyFaces polyFace;
 
-                // Go through the edges and determine the face values.
-                for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
-                {
-                    // Set the edge vertex index values into an edge object.
-                    edgeStartVtxIndex = positionIndices[positionIndex];
-                    if ( edgeIndex<(numEdges-1) )
-                        edgeEndVtxIndex = positionIndices[++positionIndex];
-                    else edgeEndVtxIndex = positionIndices[positionIndex-numEdges+1];
-                    COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+            // Handle the face infos.
+            setFaceInfos ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
 
-                    // Polygons with holes: Get the first three polygon vertices to determine 
-                    // the polygon's orientation.
-                    COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = primitiveElement->getPrimitiveType ();
-                    if ( primitiveType == COLLADAFW::MeshPrimitive::POLYGONS && edgeIndex < 3 )
-                    {
-                        // Delete the old points, if they still exist.
-                        if ( edgeIndex == 0 && polygonPoints.size () > 0 )
-                        {
-                            // Delete the points.
-                            size_t pSize = polygonPoints.size ();
-                            for ( size_t i=0; i<pSize; ++i) 
-                                delete polygonPoints [i];
-                            polygonPoints.clear ();
-                        }
-                        // Store the vertex positions of the current start point.
-                        polygonPoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
-                    }
+            // Handle the uv set infos.
+            setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, numEdges );
 
-                    // Variable for the current edge index.
-                    int edgeIndexValue;
-
-                    // Get the edge index value from the edge list.
-                    if ( !getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue ) ) return false;
-
-                    // Set the edge list index into the poly face
-                    polyFace.f.edgeIdValue[edgeIndex] = edgeIndexValue;
-                }
-
-                // Increment the positions index for the next face
-                ++positionIndex;
-
-//             //mu 0 4 0 1 3 2
-//             polyFace.mu.uvSet = 0;
-//             polyFace.mu.faceUVCount = 4;
-//             polyFace.mu.uvIdValue = new int[4];
-//             polyFace.mu.uvIdValue[0] = 0;
-//             polyFace.mu.uvIdValue[1] = 1;
-//             polyFace.mu.uvIdValue[2] = 3;
-//             polyFace.mu.uvIdValue[3] = 2;
-
-                meshNode.appendFace ( polyFace );
-            }
-            else
-            {
-                // Handle a hole element.
-                numEdges *= -1;
-
-                // The orientation of a hole has always to be the opposite direction of his
-                // parenting polygon. About this, we have to determine the hole's orientation.
-                // We just need the first three vectors to determine the polygon's orientation.
-                std::vector<COLLADABU::Math::Vector3*> holePoints;
-
-                // Create the poly face
-                MayaDM::polyFaces polyFace;
-                polyFace.h.holeEdgeCount = numEdges;
-                polyFace.h.edgeIdValue = new int[numEdges];
-
-                // Go through the edges and determine the face values.
-                for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
-                {
-                    // Set the edge vertex index values into an edge object.
-                    edgeStartVtxIndex = positionIndices[positionIndex];
-                    if ( edgeIndex<(numEdges-1) )
-                        edgeEndVtxIndex = positionIndices[++positionIndex];
-                    else edgeEndVtxIndex = positionIndices[positionIndex-numEdges+1];
-                    COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
-
-                    // Polygons with holes: Get the first three polygon vertices to determine 
-                    // the polygon's orientation.
-                    if ( edgeIndex < 3 )
-                    {
-                        // Store the vertex positions of the current start point.
-                        holePoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
-                    }
-
-                    // The current edge index.
-                    int edgeIndexValue;
-
-                    // Get the edge index value from the edge list.
-                    if ( !getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue ) ) return false;
-
-                    // Set the edge list index into the poly face
-                    polyFace.h.edgeIdValue[edgeIndex] = edgeIndexValue;
-                }
-
-                // Check if we have to change the orientation of the current hole.
-                if ( changeHoleOrientation ( polygonPoints, holePoints ) )
-                {
-                    changePolyFaceHoleOrientation ( polyFace );
-                }
-                // Delete the points.
-                size_t hSize = holePoints.size ();
-                for ( size_t i=0; i<holePoints.size (); ++i) 
-                    delete holePoints [i];
-                holePoints.clear ();
-                
-                // Increment the positions index for the next face
-                ++positionIndex;
-
-//             //mu 0 4 0 1 3 2
-//             polyFace.mu.uvSet = 0;
-//             polyFace.mu.faceUVCount = 4;
-//             polyFace.mu.uvIdValue = new int[4];
-//             polyFace.mu.uvIdValue[0] = 0;
-//             polyFace.mu.uvIdValue[1] = 1;
-//             polyFace.mu.uvIdValue[2] = 3;
-//             polyFace.mu.uvIdValue[3] = 2;
-
-                meshNode.appendFace ( polyFace );
-            }
+            // Write the polyFace data in the maya file.
+            meshNode.appendFace ( polyFace );
         }
 
         // Delete the points.
@@ -536,6 +591,189 @@ namespace COLLADAMaya
         polygonPoints.clear ();
 
         return true;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setFaceInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        MayaDM::polyFaces &polyFace, 
+        int &numEdges, 
+        size_t &positionIndex, 
+        std::vector<COLLADABU::Math::Vector3*> &polygonPoints )
+    {
+        // Handle faces
+        if ( numEdges >= 0 )
+            setFaceInfo ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
+        else
+            setHoleInfo ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setFaceInfo ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        MayaDM::polyFaces &polyFace, 
+        int& numEdges, 
+        size_t& positionIndex, 
+        std::vector<COLLADABU::Math::Vector3*> &polygonPoints )
+    {
+        // Handle the edge informations.
+        polyFace.f.faceEdgeCount = numEdges;
+        polyFace.f.edgeIdValue = new int[numEdges];
+
+        // Get the position indices
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // Go through the edges and determine the face values.
+        for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+        {
+            // Set the edge vertex index values into an edge object.
+            int edgeStartVtxIndex = positionIndices[positionIndex];
+            int edgeEndVtxIndex = 0;
+            if ( edgeIndex<(numEdges-1) )
+                edgeEndVtxIndex = positionIndices[++positionIndex];
+            else edgeEndVtxIndex = positionIndices[positionIndex-numEdges+1];
+            COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+
+            // Polygons with holes: Get the first three polygon vertices to determine 
+            // the polygon's orientation.
+            COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = primitiveElement->getPrimitiveType ();
+            if ( primitiveType == COLLADAFW::MeshPrimitive::POLYGONS && edgeIndex < 3 )
+            {
+                // Delete the old points, if they still exist.
+                if ( edgeIndex == 0 && polygonPoints.size () > 0 )
+                {
+                    // Delete the points.
+                    size_t pSize = polygonPoints.size ();
+                    for ( size_t i=0; i<pSize; ++i) 
+                        delete polygonPoints [i];
+                    polygonPoints.clear ();
+                }
+                // Store the vertex positions of the current start point.
+                polygonPoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
+            }
+
+            // Variable for the current edge index.
+            int edgeIndexValue;
+
+            // Get the edge index value from the edge list.
+            getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue );
+
+            // Set the edge list index into the poly face
+            polyFace.f.edgeIdValue[edgeIndex] = edgeIndexValue;
+        }
+
+        // Increment the positions index for the next face
+        ++positionIndex;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setHoleInfo ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        MayaDM::polyFaces &polyFace, 
+        int &numEdges, 
+        size_t &positionIndex, 
+        std::vector<COLLADABU::Math::Vector3*> & polygonPoints )
+    {
+        // Get the position indices
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // Handle a hole element.
+        numEdges *= -1;
+
+        // The orientation of a hole has always to be the opposite direction of his
+        // parenting polygon. About this, we have to determine the hole's orientation.
+        // We just need the first three vectors to determine the polygon's orientation.
+        std::vector<COLLADABU::Math::Vector3*> holePoints;
+
+        polyFace.h.holeEdgeCount = numEdges;
+        polyFace.h.edgeIdValue = new int[numEdges];
+
+        // Go through the edges and determine the face values.
+        for ( int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+        {
+            // Set the edge vertex index values into an edge object.
+            int edgeStartVtxIndex = positionIndices[positionIndex];
+            int edgeEndVtxIndex = 0;
+            if ( edgeIndex<(numEdges-1) )
+                edgeEndVtxIndex = positionIndices[++positionIndex];
+            else edgeEndVtxIndex = positionIndices[positionIndex-numEdges+1];
+            COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+
+            // Polygons with holes: Get the first three polygon vertices to determine 
+            // the polygon's orientation.
+            if ( edgeIndex < 3 )
+            {
+                // Store the vertex positions of the current start point.
+                holePoints.push_back ( getVertexPosition ( mesh, edgeStartVtxIndex ) );
+            }
+
+            // The current edge index.
+            int edgeIndexValue;
+
+            // Get the edge index value from the edge list.
+            getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue );
+
+            // Set the edge list index into the poly face
+            polyFace.h.edgeIdValue[edgeIndex] = edgeIndexValue;
+        }
+
+        // Check if we have to change the orientation of the current hole.
+        if ( changeHoleOrientation ( polygonPoints, holePoints ) )
+        {
+            changePolyFaceHoleOrientation ( polyFace );
+        }
+
+        // Delete the points.
+        size_t hSize = holePoints.size ();
+        for ( size_t i=0; i<holePoints.size (); ++i) 
+            delete holePoints [i];
+        holePoints.clear ();
+
+        // Increment the positions index for the next face
+        ++positionIndex;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::setUVSetInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        MayaDM::polyFaces &polyFace, 
+        size_t& uvSetIndicesIndex, 
+        const int numEdges )
+    {
+        const COLLADAFW::IndexListArray& uvSetIndicesArray = primitiveElement->getUVCoordIndicesArray ();
+        size_t numUVSets = uvSetIndicesArray.getCount ();
+        polyFace.mu = new MayaDM::polyFaces::MU [ numUVSets ];
+        polyFace.muCount = numUVSets;
+        for ( size_t i=0; i<numUVSets; ++i )
+        {
+            // Get the index of the uv set
+            const COLLADAFW::IndexList* indexList = primitiveElement->getUVCoordIndices ( i );
+            String uvSetName = indexList->getInputSetName ();
+            size_t index = mesh->getUVSetIndexByName ( uvSetName );
+
+            const COLLADAFW::MeshUVCoords& meshUVCoords = mesh->getUVCoords ();
+            polyFace.mu[i].uvSet = index;
+            polyFace.mu[i].faceUVCount = numEdges;
+            polyFace.mu[i].uvIdValue = new int [numEdges];
+
+            for ( size_t j=0; j<numEdges; ++j )
+            {
+                size_t currentIndexPosition = j + uvSetIndicesIndex;
+                unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );
+                // Decrement the index values
+                size_t initialIndex = indexList->getInitialIndex ();
+                polyFace.mu[i].uvIdValue [j] = currentIndex - initialIndex;
+            }
+        }
+        // Increment the current uv set index for the number of edges.
+        uvSetIndicesIndex += numEdges;
     }
 
     // --------------------------------------------
@@ -656,66 +894,6 @@ namespace COLLADAMaya
         {
             polyFace.h.edgeIdValue[edgeIndex] = valueVec[edgeIndex];
         }
-    }
-
-    // --------------------------------------------
-    bool GeometryImporter::createMesh ( 
-        const COLLADAFW::Mesh* mesh, 
-        MayaNode* mayaTransformNode )
-    {
-        // Create a unique name.
-        String meshName = mMeshNodeIdList.addId ( mesh->getName () );
-
-        // Create a maya node object of the current node and push it into the map.
-        const COLLADAFW::UniqueId& uniqueId = mesh->getUniqueId ();
-        MayaNode mayaMeshNode ( uniqueId, meshName, mayaTransformNode );
-        mMayaMeshNodesMap [ uniqueId ] = mayaMeshNode;
-
-        // Get the parent node name.
-        assert ( mayaTransformNode != NULL );
-        String transformNodeName = mayaTransformNode->getName ();
-
-        // Create the current mesh node.
-        FILE* file = getDocumentImporter ()->getFile ();
-        MayaDM::Mesh meshNode ( file, mesh->getName (), transformNodeName );
-
-        // Write the vertex positions. 
-        // Just write the values, they will be referenced from the edges and the faces.
-        if ( !writeVertexPositions ( mesh, meshNode ) ) return false;
-
-        // Write the normals. 
-        if ( !writeNormals ( mesh, meshNode ) ) return false;
-
-        // Write the uv corrdinates.
-        writeUVCoords ( mesh, meshNode );
-
-        // The vector of edge indices. We use it to write the list of edges into 
-        // the maya file. The vector is already sorted.
-        std::vector<COLLADAFW::Edge> edgeIndices;
-
-        // We store the edge indices also in a sorted map. The dublicate data holding 
-        // is reasonable, because we need the index of a given edge. The search of  
-        // values in a map is much faster than in a vector!
-        std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
-
-        // Implementation for multiple primitive elements.
-        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
-        size_t count = primitiveElementsArray.getCount ();
-        for ( size_t i=0; i<count; ++i )
-        {
-            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
-
-            // Determine the edge indices (unique edges, also for multiple primitive elements).
-            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
-        }
-
-        // Write the edge indices of all primitive elements into the maya file.
-        writeEdges ( edgeIndices, meshNode );
-
-        // Write the face informations of all primitive elements into the maya file.
-        writeFaces ( mesh, edgeIndicesMap, meshNode );
-
-        return true;
     }
 
     // --------------------------------------------

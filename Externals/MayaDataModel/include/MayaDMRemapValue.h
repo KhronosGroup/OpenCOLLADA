@@ -43,10 +43,10 @@ public:
 public:
 	RemapValue(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "remapValue"){}
 	virtual ~RemapValue(){}
-	void setInputValue(float i)
+	void setInputValue(float i_)
 	{
-		if(i == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i);
+		if(i_ == 0.0) return;
+		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
 
 	}
 	void setInputMin(float imn)

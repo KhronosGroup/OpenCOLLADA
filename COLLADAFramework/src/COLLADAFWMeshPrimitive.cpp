@@ -25,7 +25,7 @@ namespace COLLADAFW
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
 		, mColorIndices(UIntValuesArray::OWNER)
-		, mUVCoordIndices(UIntValuesArray::OWNER)
+		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
 		, mFaceCount ( 0 )
 	{
 	}
@@ -36,7 +36,7 @@ namespace COLLADAFW
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
 		, mColorIndices(UIntValuesArray::OWNER)
-		, mUVCoordIndices(UIntValuesArray::OWNER)
+		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
 		, mFaceCount ( 0 )
 	{
 	}

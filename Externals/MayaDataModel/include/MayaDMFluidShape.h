@@ -1147,10 +1147,10 @@ public:
 		fprintf(mFile,"setAttr \".shp\" %f;\n", shp);
 
 	}
-	void setIncandescence(size_t i_i,const Incandescence& i)
+	void setIncandescence(size_t i_i,const Incandescence& i_)
 	{
 		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}

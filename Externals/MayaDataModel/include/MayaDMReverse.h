@@ -20,11 +20,11 @@ public:
 public:
 	Reverse(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "reverse"){}
 	virtual ~Reverse(){}
-	void setInput(const float3& i)
+	void setInput(const float3& i_)
 	{
-		if(i == float3(0.0f,0.0f,0.0f)) return;
+		if(i_ == float3(0.0f,0.0f,0.0f)) return;
 		fprintf(mFile,"setAttr \".i\" -type \"float3\" ");
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}

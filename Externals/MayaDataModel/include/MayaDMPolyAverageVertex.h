@@ -32,10 +32,10 @@ public:
 		fprintf(mFile,"setAttr \".b\" %f;\n", b);
 
 	}
-	void setIterations(int i)
+	void setIterations(int i_)
 	{
-		if(i == 10) return;
-		fprintf(mFile,"setAttr \".i\" %i;\n", i);
+		if(i_ == 10) return;
+		fprintf(mFile,"setAttr \".i\" %i;\n", i_);
 
 	}
 	void getAlpha()

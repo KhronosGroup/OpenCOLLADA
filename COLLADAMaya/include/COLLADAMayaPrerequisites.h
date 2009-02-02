@@ -41,7 +41,7 @@ namespace COLLADAMaya
 
 #define CHECK_STAT(X) \
     if ( (X) != MS::kSuccess) { \
-    std::cout << __FILE__ << ":" << __LINE__ << std::endl; \
+    std::cerr << __FILE__ << ":" << __LINE__ << std::endl; \
     MGlobal::displayError ( status.errorString() ); \
     return (X); \
     }

@@ -22,6 +22,7 @@
 #include "ColladaMayaException.h"
 
 #include "MayaDMJoint.h"
+#include "MayaDMCommands.h"
 
 #include "COLLADAFWRotate.h"
 #include "COLLADAFWScale.h"

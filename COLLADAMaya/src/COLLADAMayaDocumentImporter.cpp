@@ -153,7 +153,7 @@ namespace COLLADAMaya
 
         // TODO
         String mayaVersion ( MGlobal::mayaVersion ().asChar () );
-//         fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
+        fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
 //         fprintf_s ( mFile, "//Name: %s\n", mMayaAsciiFileURI.getPathFile ().c_str () );
 
 //         std::stringstream curDate;

@@ -14,10 +14,10 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 
+
 namespace COLLADAFW
 {
-
-	/** An array of unsigned int values. */
+    /** An array of unsigned int values. */
 	typedef ArrayPrimitiveType<unsigned int> UIntValuesArray;
 	typedef ArrayPrimitiveType<int> IntValuesArray;
 

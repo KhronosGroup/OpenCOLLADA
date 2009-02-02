@@ -70,10 +70,10 @@ public:
 		fprintf(mFile,"setAttr \".t.tb\" %f;\n", tb);
 
 	}
-	void setIncandescence(const float3& i)
+	void setIncandescence(const float3& i_)
 	{
 		fprintf(mFile,"setAttr \".i\" -type \"float3\" ");
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}

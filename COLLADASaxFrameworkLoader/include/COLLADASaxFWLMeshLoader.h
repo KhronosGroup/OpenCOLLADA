@@ -96,15 +96,26 @@ namespace COLLADASaxFWL
         unsigned long long mPositionsOffset; 
 		unsigned int mPositionsIndexOffset; 
         bool mUsePositions;
+
         unsigned long long mNormalsOffset; 
 		unsigned int mNormalsIndexOffset; 
         bool mUseNormals;
+
+        // TODO Multiple colors!
         unsigned long long mColorsOffset; 
 		unsigned int mColorsIndexOffset; 
         bool mUseColors;
-        unsigned long long mUVCoordsOffset; 
-		unsigned int mUVCoordsIndexOffset; 
-        bool mUseUVCoords;
+
+        // Multiple texcoordinates.
+        struct TexCoord 
+        {
+            size_t mOffset;
+            size_t mInitialIndex;
+            size_t mStride;
+            size_t mInsputSetIndex;
+            String mInputSetName;
+        };
+        std::vector<TexCoord> mTexCoordList;
 
     public:
 
@@ -359,8 +370,11 @@ namespace COLLADASaxFWL
 
 
 		/** Sets the offsets for the different semantics (positions normals etc)*/
-		bool initializeOffsets();
-
+		void initializeOffsets();
+        void initializeTexCoordsOffset ();
+        void initializeColorsOffset ();
+        void initializeNormalsOffset ();
+        void initializePositionsOffset ();
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
 		bool writePrimitiveIndices ( const unsigned long long* data, size_t length );
@@ -401,8 +415,14 @@ namespace COLLADASaxFWL
         /**
         * Load the uv coordinates source element of the current input element into the framework mesh.
         */
-        bool loadUVCoordsSourceElement ( const InputShared& input );
+        bool loadTexCoordsSourceElement ( const InputShared& input );
 
+        /**
+         * Appends the values of the source in the uv list with the dimension of source's stride.
+         */
+        bool appendUVValues ( 
+            SourceBase* sourceBase, 
+            COLLADAFW::MeshUVCoords &uvCoords );
     };
 }
 

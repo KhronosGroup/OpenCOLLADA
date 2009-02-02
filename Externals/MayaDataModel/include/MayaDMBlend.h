@@ -20,19 +20,19 @@ public:
 public:
 	Blend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "blend"){}
 	virtual ~Blend(){}
-	void setInput(size_t i_i,double i)
+	void setInput(size_t i_i,double i_)
 	{
-		if(i == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i]\" %f;\n", i_i,i);
+		if(i_ == 0.0) return;
+		fprintf(mFile,"setAttr \".i[%i]\" %f;\n", i_i,i_);
 
 	}
-	void setInput(size_t i_start,size_t i_end,double* i)
+	void setInput(size_t i_start,size_t i_end,double* i_)
 	{
 		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
 		size_t size = (i_end-i_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
-			fprintf(mFile,"%f",i[i]);
+			fprintf(mFile,"%f",i_[i]);
 			if(i+1<size) fprintf(mFile," ");
 		}
 		fprintf(mFile,";\n");

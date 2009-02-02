@@ -7,8 +7,8 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-#ifndef __MAYA_DM_TYPES_H__
-#define __MAYA_DM_TYPES_H__
+#ifndef __MayaDM_TYPES_H__
+#define __MayaDM_TYPES_H__
 
 #include <assert.h>
 #include <string>
@@ -845,6 +845,24 @@ struct nurbsCurve
 	*/
 	double* cvValues;
 	
+	nurbsCurve()
+	{
+		degree=0;
+		spans=0;
+		form=0;
+		isRational=false;
+		dimension=0;
+		knotCount=0;
+		knotValues=0;
+		cvCount=0;
+		cvValues=0;
+	}
+	~nurbsCurve()
+	{
+		delete [] knotValues;
+		delete [] cvValues;
+	}
+
 	void write(FILE* file) const
 	{
 		fprintf_s(file,"%i %i %i %i %i %i ", degree, spans, form, isRational, dimension, knotCount);
@@ -918,6 +936,19 @@ struct nurbsSurface
 	wCVValue is only present when isRational is true
 	*/
 	double* cvValues;
+
+	nurbsSurface()
+	{
+		uKnotValues = 0;
+		vKnotValues = 0;
+		cvValues = 0;
+	}
+	~nurbsSurface()
+	{
+		delete [] uKnotValues;
+		delete [] vKnotValues;
+		delete [] cvValues;
+	}
 
 	void write(FILE* file) const
 	{
@@ -1000,6 +1031,17 @@ struct nurbsTrimface
 				}
 			} *splinesOnPedge;
 
+			edge()
+			{
+				splinesOnEdge = 0;
+				splinesOnPedge = 0;
+			}
+			~edge()
+			{
+				delete [] splinesOnEdge;
+				delete [] splinesOnPedge;
+			}
+
 			void write(FILE* file) const
 			{
 				fprintf_s(file,"%i ", splineCountOnEdge);
@@ -1017,6 +1059,15 @@ struct nurbsTrimface
 			}
 		} *edges;
 
+		boundary()
+		{
+			edges = 0;
+		}
+		~boundary()
+		{
+			delete [] edges;
+		}
+
 		void write(FILE* file) const
 		{
 			fprintf_s(file,"%i %i ", boundaryType, tedgeCountOnBoundary);
@@ -1027,6 +1078,15 @@ struct nurbsTrimface
 			}
 		}
 	} *boundaries;
+
+	nurbsTrimface()
+	{		
+		boundaries = 0;
+	}
+	~nurbsTrimface()
+	{		
+		delete [] boundaries;
+	}
 
 	void write(FILE* file) const
 	{
@@ -1055,18 +1115,20 @@ Value Syntax
 	{"mf" int {int}}
 	{"mh" int {int}}
 	{"mu" int int {int}}
+    {"mc" int int {int}}
 	{"fc" int {int}}
 
 Value Meaning
-	{"f" faceEdgeCount {edgeIdValue}}
-	{"h" holeEdgeCount {edgeIdValue}}
-	{"mf" faceUVCount {uvIdValue}}
-	{"mh" holeUVCount {uvIdValue}}
-	{"mu" uvSet faceUVCount {uvIdValue}}
-	{"fc" faceColorCount {colorIndexValue}}
+	{f faceEdgeCount {edgeIdValue}}
+	{h holeEdgeCount {edgeIdValue}}
+	{mf faceUVCount {uvIdValue}}
+	{mh holeUVCount {uvIdValue}}
+	{mu uvSet faceUVCount {uvIdValue}}
+    {mc color faceUVCount {colorIdValue}}
+	{fc faceColorCount {colorIndexValue}}
 
 Example:
-	setAttr node.polyFaceAttr -type polyFaces "f" 3 1 2 3 "fc" 3 4 4 6;
+	setAttr node.polyFaceAttr -type polyFaces f 3 1 2 3 fc 3 4 4 6;
 */
 struct polyFaces
 {
@@ -1074,15 +1136,26 @@ struct polyFaces
 	"f" specifies the ids of the edges making up a face -
 	negative value if the edge is reversed in the face
 
-	Format: {"f" faceEdgeCount {edgeIdValue}}
+	Format: {f faceEdgeCount {edgeIdValue}}
 	*/
 	struct F{
 		int faceEdgeCount;
 		int* edgeIdValue;
 
+		F()
+		{
+			faceEdgeCount = 0;;
+			edgeIdValue= 0;
+		}
+		~F()
+		{
+			faceEdgeCount = 0;;
+			delete [] edgeIdValue;
+		}
+
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"f\" %i ", faceEdgeCount);
+			fprintf_s(file,"    f %i ", faceEdgeCount);
 			for(int i=0; i<faceEdgeCount; ++i)
 			{
 				fprintf_s(file,"%i", edgeIdValue[i]);
@@ -1095,15 +1168,26 @@ struct polyFaces
 	"h" specifies the ids of the edges making up a hole -
 	negative value if the edge is reversed in the face
 
-	Format: {"h" holeEdgeCount {edgeIdValue}}
+	Format: {h holeEdgeCount {edgeIdValue}}
 	*/
 	struct H{
 		int holeEdgeCount;
 		int* edgeIdValue;
 
+		H()
+		{
+			holeEdgeCount=0;
+			edgeIdValue=0;
+		}
+		~H()
+		{
+			holeEdgeCount=0;
+			delete [] edgeIdValue;
+		}
+
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"h\" %i ", holeEdgeCount);
+			fprintf_s(file,"    h %i ", holeEdgeCount);
 			for(int i=0; i<holeEdgeCount; ++i)
 			{
 				fprintf_s(file,"%i", edgeIdValue[i]);
@@ -1116,15 +1200,26 @@ struct polyFaces
 	"mf" specifies the ids of texture coordinates (uvs) for a face. 
 	This data type is obsolete as of version 3.0. It is replaced by "mu".
 
-	Format: {"mf" faceUVCount {uvIdValue}}
+	Format: {mf faceUVCount {uvIdValue}}
 	*/
 	struct MF{
 		int faceUVCount;
 		int* uvIdValue;
 
+		MF()
+		{
+			faceUVCount=0;
+			uvIdValue=0;
+		}
+		~MF()
+		{
+			faceUVCount=0;
+			delete [] uvIdValue;
+		}
+
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"mf\" %i ", faceUVCount);
+			fprintf_s(file,"    mf %i ", faceUVCount);
 			for(int i=0; i<faceUVCount; ++i)
 			{
 				fprintf_s(file,"%i", uvIdValue[i]);
@@ -1138,15 +1233,25 @@ struct polyFaces
 	"mh" specifies the ids of texture coordinates (uvs) for a hole
 	This data type is obsolete as of version 3.0. It is replaced by "mu".
 
-	Format: {"mh" holeUVCount {uvIdValue}}
+	Format: {mh holeUVCount {uvIdValue}}
 	*/
 	struct MH{
 		int holeUVCount;
 		int* uvIdValue;
 
+		MH()
+		{
+			holeUVCount=0;
+			uvIdValue=0;
+		}
+		~MH()
+		{
+			holeUVCount=0;
+			delete [] uvIdValue;
+		}
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"mh\" %i ", holeUVCount);
+			fprintf_s(file,"    mh %i ", holeUVCount);
 			for(int i=0; i<holeUVCount; ++i)
 			{
 				fprintf_s(file,"%i", uvIdValue[i]);
@@ -1163,16 +1268,30 @@ struct polyFaces
 	are what used to be represented by the "mf" and "mh" specification.
 	There may be more than one "mu" specification, one for each unique uv set.
 
-	Format: {"mu" uvSet faceUVCount {uvIdValue}}
+	Format: {mu uvSet faceUVCount {uvIdValue}}
 	*/
 	struct MU{
 		int uvSet;
 		int faceUVCount;
 		int* uvIdValue;
 
+		MU()
+		{
+			uvSet=0;
+			faceUVCount=0;
+			uvIdValue=0;
+		}
+		
+		~MU()
+		{
+			uvSet=0;
+			faceUVCount=0;
+			delete [] uvIdValue;
+		}
+
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"mu\" %i ", uvSet);
+			fprintf_s(file,"    mu %i ", uvSet);
 			fprintf_s(file,"%i ", faceUVCount);
 			for(int i=0; i<faceUVCount; ++i)
 			{
@@ -1180,20 +1299,77 @@ struct polyFaces
 				if(i+1<faceUVCount) fprintf_s(file, " ");
 			}
 		}
-	}mu;
+	};
 
-	/**
+    MU* mu;
+    size_t muCount;
+
+    /**
+    "mc" The first argument refers to the color set. This is a zero-based
+    integer number. The second argument refers to the number of vertices (n)
+    on the face which have valid color values. The last n values are the color
+    ids of the colors for the face. 
+    There may be more than one "mc" specification, one for each unique color set.
+
+    Format: {mc colorSet faceColorCount {colorIdValue}}
+    */
+    struct MC{
+        int colorSet;
+        int faceColorCount;
+        int* colorIdValue;
+
+        MC()
+        {
+            colorSet=0;
+            faceColorCount=0;
+            colorIdValue=0;
+        }
+
+        ~MC()
+        {
+            colorSet=0;
+            faceColorCount=0;
+            delete [] colorIdValue;
+        }
+
+        void write(FILE* file) const
+        {
+            fprintf_s(file,"    mc %i ", colorSet);
+            fprintf_s(file,"%i ", faceColorCount);
+            for(int i=0; i<faceColorCount; ++i)
+            {
+                fprintf_s(file,"%i", colorIdValue[i]);
+                if(i+1<faceColorCount) fprintf_s(file, " ");
+            }
+        }
+    };
+
+    MC* mc;
+    size_t mcCount;
+
+    /**
 	"fc" specifies the color index values for a face
 
-	Format: {"fc" faceColorCount {colorIndexValue}}
+	Format: {fc faceColorCount {colorIndexValue}}
 	*/
 	struct FC{
 		int faceColorCount;
 		int* colorIndexValue;
+
+		FC()
+		{
+			faceColorCount=0;
+			colorIndexValue=0;
+		}
+		~FC()
+		{
+			faceColorCount=0;
+			delete [] colorIndexValue;
+		}
 		
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"\"fc\" %i ", faceColorCount);
+			fprintf_s(file,"    fc %i ", faceColorCount);
 			for(int i=0; i<faceColorCount; ++i)
 			{
 				fprintf_s(file,"%i", colorIndexValue[i]);
@@ -1202,31 +1378,21 @@ struct polyFaces
 		}
 	}fc;
 
-	polyFaces()
-	{
-		f.faceEdgeCount = 0;
-		f.edgeIdValue = 0;
-		h.holeEdgeCount = 0;
-		h.edgeIdValue = 0;
-		mf.faceUVCount = 0;
-		mf.uvIdValue = 0;
-		mh.holeUVCount = 0;
-		mh.uvIdValue = 0;
-		mu.faceUVCount = 0;
-		mu.uvSet = 0;
-		mu.uvIdValue = 0;
-		fc.faceColorCount = 0;
-		fc.colorIndexValue = 0;
-	}
-	~polyFaces()
-	{
-		
-		delete [] f.edgeIdValue;
-		delete [] h.edgeIdValue;
-		delete [] mf.uvIdValue;
-		delete [] mh.uvIdValue;
-		delete [] mu.uvIdValue;
-	}
+    polyFaces ()  
+    {
+        mcCount = 0;
+        mc = 0;
+        muCount = 0;
+        mu = 0;
+    }
+
+    ~polyFaces ()
+    {
+        muCount = 0;
+        delete[] mu;
+        mcCount = 0;
+        delete[] mc;
+    }
 
 	void write(FILE* file) const
 	{
@@ -1236,28 +1402,45 @@ struct polyFaces
 		}
 		if(h.holeEdgeCount)
 		{
-			fprintf_s(file, " ");
+			fprintf_s(file, "\n");
 			h.write(file);
 			
 		}
 		if(mf.faceUVCount)
 		{
-			fprintf_s(file, " ");
+			fprintf_s(file, "\n");
 			mf.write(file);			
 		}
 		if(mh.holeUVCount)
 		{
-			fprintf_s(file, " ");
+			fprintf_s(file, "\n");
 			mh.write(file);			
 		}
-		if(mu.faceUVCount)
-		{
-			fprintf_s(file, " ");
-			mu.write(file);			
-		}
+        if ( muCount > 0 )
+        {
+            for ( size_t i=0; i<muCount; ++i )
+            {
+                if(mu[i].faceUVCount)
+                {
+                    fprintf_s(file, "\n");
+                    mu[i].write(file);			
+                }
+            }
+        }
+        if ( mcCount > 0 )
+        {
+            for ( size_t i=0; i<mcCount; ++i )
+            {
+                if(mc[i].faceColorCount)
+                {
+                    fprintf_s(file, "\n");
+                    mc[i].write(file);			
+                }
+            }
+        }
 		if(fc.faceColorCount)
 		{
-			fprintf_s(file, " ");
+			fprintf_s(file, "\n");
 			fc.write(file);
 		}		
 	}
@@ -1287,10 +1470,22 @@ Example
 struct mesh 
 {
 	/** "v" specifies the vertices of the polygonal mesh*/
-	struct 
+	struct V
 	{
 		int vertexCount;
 		double* vertices;
+
+		V()
+		{
+			vertexCount = 0;
+			vertices = 0;
+		}
+		
+		~V()
+		{
+			vertexCount = 0;
+			delete [] vertices;
+		}
 
 		void write(FILE* file) const
 		{
@@ -1305,10 +1500,22 @@ struct mesh
 	}v;
 
 	/** "vn" specifies the normal of each vertex*/
-	struct  
+	struct VN
 	{
 		int normalCount;
 		double* normals;
+
+		VN()
+		{
+			normalCount = 0;
+			normals = 0;
+		}
+		
+		~VN()
+		{	
+			normalCount = 0;
+			delete [] normals;
+		}
 
 		void write(FILE* file) const
 		{
@@ -1323,10 +1530,22 @@ struct mesh
 	}vn;
 
 	/** "vt" is optional and specifies a U,V texture coordinate for each vertex*/
-	struct  
+	struct VT
 	{
 		int uvCount;
 		double* uvValues;
+
+		VT()
+		{
+			uvCount = 0;
+			uvValues = 0;
+		}
+		
+		~VT()
+		{
+			uvCount = 0;
+			delete [] uvValues;
+		}
 
 		void write(FILE* file) const
 		{
@@ -1341,7 +1560,7 @@ struct mesh
 	}vt;
 
 	/** "e" specifies the edge connectivity information between vertices*/
-	struct 
+	struct E
 	{
 		int edgeCount;
 		struct edge
@@ -1367,6 +1586,18 @@ struct mesh
 			}
 		}*edges;
 		
+		E()
+		{
+			edgeCount = 0;
+			edges = 0;
+		}
+		
+		~E()
+		{
+			edgeCount = 0;
+			delete [] edges;
+		}
+
 		void write(FILE* file) const
 		{
 			fprintf_s(file,"\"e\" %i ", edgeCount);
@@ -1436,7 +1667,24 @@ struct lattice
 	first two entries are (S=0,T=0,U=0) (s=1,T=0,U=0)
 	*/
 	double* points;
-
+	
+	lattice()
+	{
+		sDivisionCount=0;
+		tDivisionCount=0;
+		uDivisionCount=0;
+		pointCount=0;
+		points = 0;
+	}
+	~lattice()
+	{
+		sDivisionCount=0;
+		tDivisionCount=0;
+		uDivisionCount=0;
+		pointCount=0;
+		delete [] points;
+	}
+	
 	void write(FILE* file) const
 	{
 		fprintf_s(file,"%i %i %i %i ", sDivisionCount, tDivisionCount, uDivisionCount, pointCount);
@@ -1456,4 +1704,4 @@ const bool yes=true;
 const bool no=false;
 
 }//namespace MayaDM
-#endif // __MAYA_DM_TYPES_H__
+#endif // __MayaDM_TYPES_H__

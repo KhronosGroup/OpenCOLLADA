@@ -102,6 +102,47 @@ namespace COLLADAMaya
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             MayaDM::Mesh &meshNode );
 
+        /**
+         * Set the face infos into the maya poly face element.
+         */
+        void setFaceInfos ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+            MayaDM::polyFaces &polyFace, 
+            int &numEdges, 
+            size_t &positionIndex, 
+            std::vector<COLLADABU::Math::Vector3*> &polygonPoints );
+
+        void setFaceInfo ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+            MayaDM::polyFaces &polyFace, 
+            int & numEdges, 
+            size_t & positionIndex, 
+            std::vector<COLLADABU::Math::Vector3*> &polygonPoints );
+
+        void setHoleInfo ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+            MayaDM::polyFaces &polyFace, 
+            int &numEdges, 
+            size_t &positionIndex, 
+            std::vector<COLLADABU::Math::Vector3*> & polygonPoints );
+
+        /**
+         * Set the uv set infos into the maya poly face element.
+         * Increments the initial value for the uv set indices index.
+         */
+        void setUVSetInfos ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            MayaDM::polyFaces &polyFace, 
+            size_t& uvSetIndicesIndex,
+            const int numEdges );
+
         /*
          *	Changes the orientation of a polyFace hole element.
          */

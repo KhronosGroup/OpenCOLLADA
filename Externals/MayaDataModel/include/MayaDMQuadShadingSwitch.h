@@ -52,10 +52,10 @@ public:
 public:
 	QuadShadingSwitch(FILE* file,const std::string& name,const std::string& parent=""):BaseShadingSwitch(file, name, parent, "quadShadingSwitch"){}
 	virtual ~QuadShadingSwitch(){}
-	void setInput(size_t i_i,const Input& i)
+	void setInput(size_t i_i,const Input& i_)
 	{
 		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}

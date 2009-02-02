@@ -12,6 +12,7 @@
 #define __COLLADAFW_MESHUVCOORDS_H__
 
 #include "COLLADAFWPrerequisites.h"
+#include <assert.h>
 
 
 namespace COLLADAFW
@@ -20,27 +21,103 @@ namespace COLLADAFW
     /** TODO Documentation */
 	class MeshUVCoords : public MeshFloatDoubleInputs
     {
-	private:
+    public:
+
+        struct UVSetInfo
+        {
+            String mName;
+            size_t mStride;
+            size_t mLength;
+        };
+
+    private:
 	
-        /** The stride can differ, so we have to set. */
-        unsigned long long mStride;
+        /** Array with the UVSetInfos. */
+        ArrayPrimitiveType<UVSetInfo*> mUVSetInfos;
 
 	public:
 
         /** Constructor. */
-        MeshUVCoords() : MeshFloatDoubleInputs () {};
+        MeshUVCoords () 
+            : MeshFloatDoubleInputs ()
+            , mUVSetInfos (0) 
+        {}
 
         /** Constructor. */
-        MeshUVCoords ( DataType type ) : MeshFloatDoubleInputs ( type ) {}
+        MeshUVCoords ( DataType type ) 
+            : MeshFloatDoubleInputs ( type )
+            , mUVSetInfos (0) 
+        {}
 
         /** Destructor. */
-        virtual ~MeshUVCoords() {};
+        virtual ~MeshUVCoords() {}
+
+        /**
+         * Returns the number of uv sets.
+         */
+        size_t getNumUVSets () const { return mUVSetInfos.getCount (); }
+
+        /**
+         * Appends the values in the array on the list of values and stores the information
+         * of the current input.
+         * @param const FloatArray& valuesArray The list of values.
+         * @param const String& name The name of the current element.
+         * @param const size_t stride The data stride.
+         */
+        void appendUVSet ( const FloatArray& valuesArray, const String& name, const size_t stride )
+        {
+            setType ( DATA_TYPE_FLOAT );
+            appendValues ( valuesArray );
+
+            UVSetInfo* uvSetInfo = new UVSetInfo();
+            uvSetInfo->mLength = valuesArray.getCount ();
+            uvSetInfo->mName = name;
+            uvSetInfo->mStride = stride;
+
+            mUVSetInfos.append ( uvSetInfo );
+        }
+
+        /**
+        * Appends the values in the array on the list of values and stores the information
+        * of the current input.
+        * @param const FloatArray& valuesArray The list of values.
+        * @param const String& name The name of the current element.
+        * @param const size_t stride The data stride.
+        */
+        void appendUVSet ( const DoubleArray& valuesArray, const String& name, const size_t stride )
+        {
+            setType ( DATA_TYPE_DOUBLE );
+            appendValues ( valuesArray );
+
+            UVSetInfo* uvSetInfo = new UVSetInfo();
+            uvSetInfo->mLength = valuesArray.getCount ();
+            uvSetInfo->mName = name;
+            uvSetInfo->mStride = stride;
+
+//            if ( mUVSetInfos.getCount() <= 0 ) mUVSetInfos.setData ( uvSetInfo,  );
+            mUVSetInfos.append ( uvSetInfo );
+        }
+
+        /** The stride at the specified index. */
+        String getUVSetName ( size_t index ) const 
+        { 
+            assert ( index <= mUVSetInfos.getCount() ); 
+            return mUVSetInfos[index]->mName; 
+        }
+
+        /** The stride at the specified index. */
+        size_t getStride ( size_t index ) const 
+        { 
+            assert ( index <= mUVSetInfos.getCount() ); 
+            return mUVSetInfos[index]->mStride; 
+        }
 
         /** The stride can differ, so we have to set. */
-        unsigned long long getStride () const { return mStride; }
-
-        /** The stride can differ, so we have to set. */
-        void setStride ( unsigned long long Stride ) { mStride = Stride; }
+        size_t getLength ( size_t index ) const 
+        { 
+            assert ( index <= mUVSetInfos.getCount() ); 
+            return mUVSetInfos[index]->mLength; 
+        }
 
         /** Returns the position values array as a template array. */
         template <class T>

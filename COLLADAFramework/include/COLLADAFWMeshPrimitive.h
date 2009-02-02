@@ -15,6 +15,7 @@
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWEdge.h"
+#include "COLLADAFWIndexList.h"
 
 #include <map>
 #include <vector>
@@ -106,16 +107,16 @@ namespace COLLADAFW
         */
         UIntValuesArray mNormalIndices;
 
-        /** 
+        /** TODO support multiple color sets
         * The index list of the colors array. 
         */
         UIntValuesArray mColorIndices;
 
         /** 
-        * The index list of the uv coordinates array. 
+        * The index list of the uv coordinates array (support of multiple uv sets). 
         */
-        UIntValuesArray mUVCoordIndices;
-
+        IndexListArray mUVCoordIndicesArray;
+        
     public:	
 
         /**
@@ -208,13 +209,33 @@ namespace COLLADAFW
         /** 
         * The index list of the uv coordinates array. 
         */
-        COLLADAFW::UIntValuesArray& getUVCoordIndices () { return mUVCoordIndices; }
+        IndexListArray& getUVCoordIndicesArray () { return mUVCoordIndicesArray; }
 
         /** 
         * The index list of the uv coordinates array. 
         */
-        void setUVCoordIndices ( const COLLADAFW::UIntValuesArray& UVCoordIndices ) { mUVCoordIndices = UVCoordIndices; }
+        const IndexListArray& getUVCoordIndicesArray () const { return mUVCoordIndicesArray; }
 
+        /** 
+        * The index list of the uv coordinates array. 
+        */
+        IndexList* getUVCoordIndices ( size_t index )
+        {
+            return mUVCoordIndicesArray [ index ]; 
+        }
+
+        /** 
+        * The index list of the uv coordinates array. 
+        */
+        const IndexList* getUVCoordIndices ( size_t index ) const 
+        {
+            return mUVCoordIndicesArray [ index ]; 
+        }
+
+        /** 
+        * The index list of the uv coordinates array. 
+        */
+        void appendUVCoordIndices ( IndexList* uvCoordIndices ) { mUVCoordIndicesArray.append ( uvCoordIndices ); }
 
 		/** @return The material id of the sub mesh. This material id is used to assign material 
 		to submeshes when the mesh gets instantiated.*/

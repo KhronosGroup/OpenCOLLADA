@@ -19,6 +19,8 @@
 #include "COLLADAFWMeshUVCoords.h"
 #include "COLLADAFWMeshPrimitive.h"
 
+#include "COLLADABUUtils.h"
+
 
 namespace COLLADAFW
 {
@@ -60,7 +62,7 @@ namespace COLLADAFW
         */
         MeshNormals mNormals;
 
-        /** TODO support multiple color sets
+        /** 
         * The colors array. 
         * Colors can be stored as float or double values.
         * Colors can have different strides (RGB or RGBA parameters). We need to store this 
@@ -68,11 +70,9 @@ namespace COLLADAFW
         */
         MeshColors mColors;
 
-        /** TODO support multiple uv sets
-        * The uv coordinates array. 
+        /** 
+        * The 2 dimensional uv coordinates array. 
         * UV coordinates can be stored as float or double values.
-        * UV coordinates can have different strides (ST, STU, STUV parameters). We need to store 
-        * this information!
         */
         MeshUVCoords mUVCoords;
 
@@ -91,7 +91,6 @@ namespace COLLADAFW
 
         /** Destructor. */
         virtual ~Mesh ();
-
 
         /** 
         * The positions array. 
@@ -176,35 +175,33 @@ namespace COLLADAFW
         */
         void setColors ( MeshColors& Colors ) { mColors = Colors; }
 
-		/**Checks, if the mesh has colors.*/
-		bool hasColors ( )const;
-
 		/** 
-        * The uv coordinates array. 
+        * The 2 dimensional uv coordinates array. 
         * UV coordinates can be stored as float or double values.
-        * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
-        * this information.
         */
         const MeshUVCoords& getUVCoords () const { return mUVCoords; }
 
         /** 
-        * The uv coordinates array. 
+        * The 2 dimensional uv coordinates array. 
         * UV coordinates can be stored as float or double values.
-        * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
-        * this information.
         */
         MeshUVCoords& getUVCoords () { return mUVCoords; }
 
-        /** 
-        * The uv coordinates array. 
-        * UV coordinates can be stored as float or double values.
-        * UV coordinates have always a stride of three (X, Y and Z parameter). We don't need to store 
-        * this information.
-        */
-        void setUVCoords ( MeshUVCoords& UVCoords ) { mUVCoords = UVCoords; }
+        /**
+         * Returns the uv set with the name.
+         */
+        size_t getUVSetIndexByName ( const String& name ) const
+        {
+            for ( size_t index=0; index<mUVCoords.getUVCoordsCount (); ++index )
+            {
+                if ( COLLADABU::Utils::equals ( name, mUVCoords.getUVSetName ( index ) ) )
+                    return index;
+            }
+            std::cerr << "No uv set with name \"" << name << "\"!" << std::endl; 
+            assert ( true );
 
-		/**Checks, if the mesh has UVCoords.*/
-		bool hasUVCoords ( )const;
+            return 0;
+        }
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 

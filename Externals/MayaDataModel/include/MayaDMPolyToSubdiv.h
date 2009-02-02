@@ -32,10 +32,10 @@ public:
 public:
 	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "polyToSubdiv"){}
 	virtual ~PolyToSubdiv(){}
-	void setInMesh(const mesh& i)
+	void setInMesh(const mesh& i_)
 	{
 		fprintf(mFile,"setAttr \".i\" -type \"mesh\" ");
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}

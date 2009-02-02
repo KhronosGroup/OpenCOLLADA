@@ -20,10 +20,10 @@ public:
 public:
 	UnitToTimeConversion(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "unitToTimeConversion"){}
 	virtual ~UnitToTimeConversion(){}
-	void setInput(double i)
+	void setInput(double i_)
 	{
-		if(i == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i);
+		if(i_ == 0.0) return;
+		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
 
 	}
 	void setConversionFactor(double cf)

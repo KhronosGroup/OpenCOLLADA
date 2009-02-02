@@ -46,10 +46,10 @@ public:
 		fprintf(mFile,"setAttr \".so.sob\" %f;\n", sob);
 
 	}
-	void setInclination(float i)
+	void setInclination(float i_)
 	{
-		if(i == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i);
+		if(i_ == 0.0) return;
+		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
 
 	}
 	void setElevation(float e)

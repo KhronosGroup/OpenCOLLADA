@@ -30,10 +30,10 @@ public:
 public:
 	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "wtAddMatrix"){}
 	virtual ~WtAddMatrix(){}
-	void setWtMatrix(size_t i_i,const WtMatrix& i)
+	void setWtMatrix(size_t i_i,const WtMatrix& i_)
 	{
 		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
-		i.write(mFile);
+		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
