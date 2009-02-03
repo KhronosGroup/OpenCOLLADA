@@ -98,7 +98,7 @@ namespace COLLADAMaya
         virtual ~VisualSceneExporter() {};
 
         /** Exports the visual scene with the transforms of all included elements */
-        void exportVisualScenes();
+        bool exportVisualScenes();
 
     private:
 

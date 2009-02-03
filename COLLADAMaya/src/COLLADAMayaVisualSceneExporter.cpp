@@ -70,7 +70,7 @@ namespace COLLADAMaya
 
 
     // ------------------------------------------------------------
-    void VisualSceneExporter::exportVisualScenes()
+    bool VisualSceneExporter::exportVisualScenes()
     {
         // Get the sceneID
         String sceneID = SceneGraph::SCENE_ID;
@@ -107,6 +107,7 @@ namespace COLLADAMaya
         // Setup the reference information
         // GetReferenceManager()->Synchronize();
 
+        return nodeExported;
     }
 
     // ---------------------------------------------------------------
