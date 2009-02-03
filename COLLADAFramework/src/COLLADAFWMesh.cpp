@@ -79,7 +79,7 @@ namespace COLLADAFW
 				case MeshPrimitive::TRIANGLE_FANS:
 					{
 						
-						//TODO not implemented
+						// TODO not implemented
 						//Tristrips* tristrips = (Tristrips*)primitive;
 						//primitiveCount += tristrips->getTristripCount();
 					}
@@ -147,7 +147,7 @@ namespace COLLADAFW
     //----------------------------------
 	bool Mesh::hasNormals( )const
 	{
-		return getNormals().getNormalsCount() != 0;
+		return getNormals().getValuesCount() != 0;
 	}
 
     //----------------------------------

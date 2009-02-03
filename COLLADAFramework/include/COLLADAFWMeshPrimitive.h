@@ -107,10 +107,10 @@ namespace COLLADAFW
         */
         UIntValuesArray mNormalIndices;
 
-        /** TODO support multiple color sets
-        * The index list of the colors array. 
+        /** 
+        * The index list of the colors array  (support of multiple colors). 
         */
-        UIntValuesArray mColorIndices;
+        IndexListArray mColorIndicesArray;
 
         /** 
         * The index list of the uv coordinates array (support of multiple uv sets). 
@@ -199,12 +199,35 @@ namespace COLLADAFW
         /** 
         * The index list of the colors array. 
         */
-        COLLADAFW::UIntValuesArray& getColorIndices () { return mColorIndices; }
+        IndexList* getColorIndices ( size_t index ) 
+        { 
+            assert ( mColorIndicesArray.getCount () > index );
+            return mColorIndicesArray [ index ]; 
+        }
 
         /** 
         * The index list of the colors array. 
         */
-        void setColorIndices ( const COLLADAFW::UIntValuesArray& ColorIndices ) { mColorIndices = ColorIndices; }
+        const IndexList* getColorIndices ( size_t index ) const 
+        { 
+            assert ( mColorIndicesArray.getCount () > index );
+            return mColorIndicesArray [ index ]; 
+        }
+
+        /** 
+        * The index list of the colors array. 
+        */
+        IndexListArray& getColorIndicesArray () { return mColorIndicesArray; }
+
+        /** 
+        * The index list of the colors array. 
+        */
+        const IndexListArray& getColorIndicesArray () const { return mColorIndicesArray; }
+
+        /** 
+        * The index list of the colors array. 
+        */
+        void appendColorIndices ( IndexList* colorIndices ) { mColorIndicesArray.append ( colorIndices ); }
 
         /** 
         * The index list of the uv coordinates array. 
@@ -221,6 +244,7 @@ namespace COLLADAFW
         */
         IndexList* getUVCoordIndices ( size_t index )
         {
+            assert ( mUVCoordIndicesArray.getCount () > index );
             return mUVCoordIndicesArray [ index ]; 
         }
 
@@ -229,6 +253,7 @@ namespace COLLADAFW
         */
         const IndexList* getUVCoordIndices ( size_t index ) const 
         {
+            assert ( mUVCoordIndicesArray.getCount () > index );
             return mUVCoordIndicesArray [ index ]; 
         }
 

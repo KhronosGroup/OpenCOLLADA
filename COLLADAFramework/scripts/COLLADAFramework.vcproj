@@ -538,22 +538,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWMeshColors.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWMeshFDInputs.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWMeshNormals.h"
-				>
-			</File>
-			<File
-				RelativePath="..\include\COLLADAFWMeshPositions.h"
-				>
-			</File>
-			<File
 				RelativePath="..\include\COLLADAFWMeshPrimitive.h"
 				>
 			</File>
@@ -562,7 +546,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\COLLADAFWMeshUVCoords.h"
+				RelativePath="..\include\COLLADAFWMeshVertexData.h"
 				>
 			</File>
 			<File

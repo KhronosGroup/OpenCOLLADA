@@ -14,22 +14,40 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 
+#include <assert.h>
+
 
 namespace COLLADAFW
 {
 
     /** Base class for mesh input elements, like positions, normals, colors, texcoord, ... */
-	class MeshFloatDoubleInputs
+	class MeshVertexData
     {
     public:
 
-        /** Positions can be stored as float or double values. */
+        /** Values can be stored as float or double values. */
         enum DataType
         {
             DATA_TYPE_FLOAT,
             DATA_TYPE_DOUBLE, 
             DATA_TYPE_UNKNOWN
         };
+
+        /**
+        * Additional informations about multiple inputs.
+        */
+        struct InputInfos
+        {
+            String mName;
+            size_t mStride;
+            size_t mLength;
+        };
+        typedef ArrayPrimitiveType<InputInfos*> InputInfosArray;
+
+    private:
+
+        /** Array with additional informations about multiple input elements. */
+        InputInfosArray mInputInfosArray;
 
     protected:
 
@@ -43,36 +61,109 @@ namespace COLLADAFW
 	public:
 
         /** Constructor. */
-        MeshFloatDoubleInputs ()
-            : mType ( DATA_TYPE_UNKNOWN ),
-			mValuesF(FloatArray::OWNER),
-			mValuesD(DoubleArray::OWNER)
+        MeshVertexData ()
+            : mType ( DATA_TYPE_UNKNOWN )
+            , mValuesF(FloatArray::OWNER)
+            , mValuesD(DoubleArray::OWNER)
+            , mInputInfosArray (0)
         {}
 
         /** Constructor. */
-		MeshFloatDoubleInputs ( DataType type )
-            : mType ( type ),
-			mValuesF(FloatArray::OWNER),
-			mValuesD(DoubleArray::OWNER)
+		MeshVertexData ( DataType type )
+            : mType ( type )
+            , mValuesF(FloatArray::OWNER)
+            , mValuesD(DoubleArray::OWNER)
+            , mInputInfosArray (0)
         {}
 
         /** Destructor. */
-        virtual ~MeshFloatDoubleInputs() 
+        virtual ~MeshVertexData() 
         {
+            for ( size_t i=0; i<mInputInfosArray.getCount(); ++i )
+            {
+                delete mInputInfosArray [i];
+            }
+            mInputInfosArray.releaseMemory ();
         }
 
         /** The data type of the stored position values. */
-        const COLLADAFW::MeshFloatDoubleInputs::DataType getType () const { return mType; }
+        const COLLADAFW::MeshVertexData::DataType getType () const { return mType; }
 
         /** The data type of the stored position values. */
-        void setType ( const COLLADAFW::MeshFloatDoubleInputs::DataType Type ) { mType = Type; }
+        void setType ( const COLLADAFW::MeshVertexData::DataType Type ) { mType = Type; }
 
         /** Returns the count of stored elements in the array. */
-        const size_t getElementsCount () const
+        const size_t getValuesCount () const
         {
             if ( mType == DATA_TYPE_FLOAT ) return mValuesF.getCount ();
             if ( mType == DATA_TYPE_DOUBLE ) return mValuesD.getCount ();
             return 0;
+        }
+
+        /**
+        * Returns the number of uv sets.
+        */
+        size_t getNumInputInfos () const { return mInputInfosArray.getCount (); }
+
+        /**
+        * Appends the values in the array on the list of values and stores the information
+        * of the current input.
+        * @param const FloatArray& valuesArray The list of values.
+        * @param const String& name The name of the current element.
+        * @param const size_t stride The data stride.
+        */
+        void appendValues ( const FloatArray& valuesArray, const String& name, const size_t stride )
+        {
+            setType ( DATA_TYPE_FLOAT );
+            appendValues ( valuesArray );
+
+            InputInfos* info = new InputInfos();
+            info->mLength = valuesArray.getCount ();
+            info->mName = name;
+            info->mStride = stride;
+
+            mInputInfosArray.append ( info );
+        }
+
+        /**
+        * Appends the values in the array on the list of values and stores the information
+        * of the current input.
+        * @param const FloatArray& valuesArray The list of values.
+        * @param const String& name The name of the current element.
+        * @param const size_t stride The data stride.
+        */
+        void appendValues ( const DoubleArray& valuesArray, const String& name, const size_t stride )
+        {
+            setType ( DATA_TYPE_DOUBLE );
+            appendValues ( valuesArray );
+
+            InputInfos* info = new InputInfos();
+            info->mLength = valuesArray.getCount ();
+            info->mName = name;
+            info->mStride = stride;
+
+            mInputInfosArray.append ( info );
+        }
+
+        /** The stride at the specified index. */
+        String getName ( size_t index ) const 
+        { 
+            assert ( index <= mInputInfosArray.getCount() ); 
+            return mInputInfosArray[index]->mName; 
+        }
+
+        /** The stride at the specified index. */
+        size_t getStride ( size_t index ) const 
+        { 
+            assert ( index <= mInputInfosArray.getCount() ); 
+            return mInputInfosArray[index]->mStride; 
+        }
+
+        /** The stride can differ, so we have to set. */
+        size_t getLength ( size_t index ) const 
+        { 
+            assert ( index <= mInputInfosArray.getCount() ); 
+            return mInputInfosArray[index]->mLength; 
         }
 
         /** Returns the position values array as a template array. */

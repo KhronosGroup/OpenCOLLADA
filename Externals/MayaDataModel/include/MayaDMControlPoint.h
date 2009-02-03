@@ -253,15 +253,28 @@ public:
 	{
 		if(rprt == 3) return;
 		fprintf(mFile,"setAttr \".clst[%i].rprt\" %i;\n", clst_i,rprt);
-
 	}
 	void setColorSetPoints(size_t clst_i,size_t clsp_i,const ColorSet::ColorSetPoints& clsp)
 	{
 		fprintf(mFile,"setAttr \".clst[%i].clsp[%i]\" ",clst_i,clsp_i);
 		clsp.write(mFile);
 		fprintf(mFile,";\n");
-
 	}
+    void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)
+    {
+        fprintf(mFile,"setAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
+
+    }
+    void appendColorSetPoints(float clsp)
+    {
+        fprintf(mFile," %f",clsp);
+
+    }
+    void endColorSetPoints()
+    {
+        fprintf(mFile,";\n");
+
+    }
 	void setColorSetPointsR(size_t clst_i,size_t clsp_i,float clpr)
 	{
 		if(clpr == 0.0) return;

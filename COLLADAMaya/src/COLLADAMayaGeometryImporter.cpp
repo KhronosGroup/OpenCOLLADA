@@ -144,7 +144,13 @@ namespace COLLADAMaya
         if ( !writeNormals ( mesh, meshNode ) ) return false;
 
         // Write the uv corrdinates.
-        writeUVCoords ( mesh, meshNode );
+        writeUVSets ( mesh, meshNode );
+
+        // TODO Implementation: set current uv set
+//        writeCurrentUVSet ( mesh, meshNode );
+
+        // Write the uv corrdinates.
+        writeColorSets ( mesh, meshNode );
 
         // The vector of edge indices. We use it to write the list of edges into 
         // the maya file. The vector is already sorted.
@@ -205,14 +211,14 @@ namespace COLLADAMaya
         // We have always a stride of three (x, y and z values)
         size_t stride = 3;
 
-        const COLLADAFW::MeshPositions& positions = mesh->getPositions ();
-        const COLLADAFW::MeshFloatDoubleInputs::DataType type = positions.getType ();
+        const COLLADAFW::MeshVertexData& positions = mesh->getPositions ();
+        const COLLADAFW::MeshVertexData::DataType type = positions.getType ();
         switch ( type )
         {
-        case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT:
+        case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
             {
-                const COLLADAFW::ArrayPrimitiveType<float>* values = positions.getFloatPositions ();
-                size_t count = positions.getPositionsCount ();
+                const COLLADAFW::ArrayPrimitiveType<float>* values = positions.getFloatValues ();
+                size_t count = positions.getValuesCount ();
                 meshNode.startVrts ( 0, (count/stride)-1 ); 
                 for ( size_t i=0, index=0; i<count; i+=stride, ++index )
                 {
@@ -223,10 +229,10 @@ namespace COLLADAMaya
                 meshNode.endVrts (); 
             }
             break;
-        case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE:
+        case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
             {
-                const COLLADAFW::ArrayPrimitiveType<double>* values = positions.getDoublePositions ();
-                size_t count = positions.getPositionsCount ();
+                const COLLADAFW::ArrayPrimitiveType<double>* values = positions.getDoubleValues ();
+                size_t count = positions.getValuesCount ();
                 meshNode.startVrts ( 0, (count/stride)-1 ); 
                 for ( size_t i=0, index=0; i<count; i+=stride, ++index )
                 {
@@ -268,7 +274,7 @@ namespace COLLADAMaya
         MayaDM::Mesh &meshNode )
     {
         // Get the mesh normals values.
-        const COLLADAFW::MeshNormals& normals = mesh->getNormals ();
+        const COLLADAFW::MeshVertexData& normals = mesh->getNormals ();
 
         size_t stride = 3; // x, y, z
 
@@ -294,20 +300,20 @@ namespace COLLADAMaya
                 unsigned int pos = normalIndex * stride;
 
                 // Write the normal values on the index values.
-                const COLLADAFW::MeshFloatDoubleInputs::DataType type = normals.getType ();
+                const COLLADAFW::MeshVertexData::DataType type = normals.getType ();
                 switch ( type )
                 {
-                case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT:
+                case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
                     {
-                        const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatNormals ();
+                        const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
                         meshNode.appendNormals ( (*values)[pos] );
                         meshNode.appendNormals ( (*values)[pos+1] );
                         meshNode.appendNormals ( (*values)[pos+2] );
                     }
                     break;
-                case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE:
+                case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
                     {
-                        const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleNormals ();
+                        const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
                         meshNode.appendNormals ( (float)(*values)[pos] );
                         meshNode.appendNormals ( (float)(*values)[pos+1] );
                         meshNode.appendNormals ( (float)(*values)[pos+2] );
@@ -324,29 +330,30 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    bool GeometryImporter::writeUVCoords ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    bool GeometryImporter::writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
     {
         // Set the number of uv sets.
-        const COLLADAFW::MeshUVCoords& uvCoords = mesh->getUVCoords ();
-        size_t sumUVSetPoints = uvCoords.getNumUVSets ();
+        const COLLADAFW::MeshVertexData& uvCoords = mesh->getUVCoords ();
+        size_t sumUVSetPoints = uvCoords.getNumInputInfos ();
         if ( sumUVSetPoints == 0 ) return false;
         meshNode.setUvSize ( sumUVSetPoints );
 
         // Write the values 
         size_t initialIndex = 0;
-        const COLLADAFW::MeshFloatDoubleInputs::DataType type = uvCoords.getType ();
+        const COLLADAFW::MeshVertexData::DataType type = uvCoords.getType ();
         switch ( type )
         {
-        case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT:
+        case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
             {
-                const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatUVCoords ();
+                const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatValues ();
                 for ( size_t i=0; i<sumUVSetPoints; ++i )
                 {
-                    meshNode.setUvSetName ( i, uvCoords.getUVSetName ( i ) );
+                    meshNode.setUvSetName ( i, uvCoords.getName ( i ) );
                     
                     size_t stride = uvCoords.getStride ( i );
                     assert ( stride > 1 && stride <= 4 );
-                    if ( stride != 2 ) MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
+                    if ( stride != 2 ) 
+                        MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
 
                     size_t indicesCount = uvCoords.getLength ( i );
                     meshNode.startUvSetPoints ( i, 0, (indicesCount/stride)-1 ); 
@@ -363,16 +370,17 @@ namespace COLLADAMaya
                 }
                 break;
             }
-        case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE:
+        case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
             {
-                const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleUVCoords ();
+                const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleValues ();
                 for ( size_t i=0; i<sumUVSetPoints; ++i )
                 {
-                    meshNode.setUvSetName ( i, uvCoords.getUVSetName ( i ) );
+                    meshNode.setUvSetName ( i, uvCoords.getName ( i ) );
 
                     size_t stride = uvCoords.getStride ( i );
                     assert ( stride > 1 && stride <= 4 );
-                    if ( stride != 2 ) MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
+                    if ( stride != 2 ) 
+                        MGlobal::displayWarning ( "Just 2d uv set data will be imported! ");
 
                     size_t indicesCount = uvCoords.getLength ( i );
                     meshNode.startUvSetPoints ( i, 0, (indicesCount/stride)-1 ); 
@@ -394,90 +402,91 @@ namespace COLLADAMaya
             return false;
         }
 
+        return true;
+    }
 
-//         // The current uv set points list index
-//         size_t currentUVSetPoint = 0;
-// 
-//         // We have to go through every mesh primitive and write the list of uv values
-//         // for the index list in the maya document. 
-//         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
-//         for ( size_t i=0; i<count; ++i )
-//         {
-//             // Get the current primitive element.
-//             const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
-// 
-//             // Write the index values for every tex coord index list of the current primitive.
-//             const COLLADAFW::IndexListArray& uvCoordIndicesArray = meshPrimitive->getUVCoordIndicesArray ();
-//             size_t numPrimitiveUVCoords = uvCoordIndicesArray.getCount ();
-//             for ( size_t j=0; j<numPrimitiveUVCoords; ++j, ++currentUVSetPoint )
-//             {
-//                 COLLADAFW::IndexList* uvCoordIndexList = uvCoordIndicesArray [j];
-//                 size_t indicesCount = uvCoordIndexList->getIndicesCount ();
-//                 size_t stride = uvCoordIndexList->getStride ();
-//                 size_t uvSetIndex = uvCoordIndexList->getInputSetIndex ();
-//                 String uvSetName = uvCoordIndexList->getInputSetName ();
-//                 meshNode.setUvSetName ( currentUVSetPoint, uvSetName );
-// 
-//                 // Get the values depend on the dimension.
-//                 const COLLADAFW::MeshUVCoords* uvCoords;
-//                 switch ( stride )
-//                 {
-//                 case 2: uvCoords = &mesh->getUVCoords2d (); break;
-//                 case 3: 
-//                     {
-//                         uvCoords = &mesh->getUVCoords3d (); 
-//                         MGlobal::displayWarning ( "3d uv coordinates not supported! Just 2d data will be imported! ");
-//                         break;
-//                     }
-//                 case 4: 
-//                     {
-//                         uvCoords = &mesh->getUVCoords4d (); 
-//                         MGlobal::displayWarning ( "4d uv coordinates not supported! Just 2d data will be imported! ");
-//                         break;
-//                     }
-//                 default: assert ( stride < 2 || stride > 4 );
-//                 }
-// 
-//                 // Write the values list.
-//                 const COLLADAFW::MeshFloatDoubleInputs::DataType type = uvCoords->getType ();
-//                 switch ( type )
-//                 {
-//                 case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT:
-//                     {
-//                         const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords->getFloatUVCoords ();
-//                         meshNode.startUvSetPoints ( currentUVSetPoint, 0, (indicesCount/2)-1 ); 
-//                         unsigned int index = 0;
-//                         for ( size_t i=0; i<indicesCount; i+=stride )
-//                         {
-//                             index = uvCoordIndexList->getIndex ( i );
-//                             meshNode.appendUvSetPoints ( (*values)[index] );
-//                             index = uvCoordIndexList->getIndex ( i+1 );
-//                             meshNode.appendUvSetPoints ( (*values)[index] );
-//                         }
-//                         meshNode.endUvSetPoints (); 
-//                     }
-//                     break;
-//                 case COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE:
-//                     {
-//                         const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords->getDoubleUVCoords ();
-//                         meshNode.startUvSetPoints ( currentUVSetPoint, 0, (indicesCount/2)-1 ); 
-//                         unsigned int index = 0;
-//                         for ( size_t i=0; i<indicesCount; i+=stride )
-//                         {
-//                             index = uvCoordIndexList->getIndex ( i );
-//                             meshNode.appendUvSetPoints ( (*values)[index] );
-//                             index = uvCoordIndexList->getIndex ( i+1 );
-//                             meshNode.appendUvSetPoints ( (*values)[index] );
-//                         }
-//                         meshNode.endUvSetPoints (); 
-//                     }
-//                     break;
-//                 default:
-//                     std::cerr << "No valid data type for uv coordinates: " << type << std::endl;
-//                     return false;
-//                 }
-//             }
-//         }
+    // --------------------------------------------
+    bool GeometryImporter::writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    {
+        // Set the number of uv sets.
+        const COLLADAFW::MeshVertexData& colors = mesh->getColors ();
+        size_t sumUVSetPoints = colors.getNumInputInfos ();
+        if ( sumUVSetPoints == 0 ) return false;
+//        meshNode.setColorSetSize ( sumUVSetPoints );
+
+        // Write the values 
+        size_t initialIndex = 0;
+        const COLLADAFW::MeshVertexData::DataType type = colors.getType ();
+        switch ( type )
+        {
+        case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
+            {
+                const COLLADAFW::ArrayPrimitiveType<float>* values = colors.getFloatValues ();
+                for ( size_t i=0; i<sumUVSetPoints; ++i )
+                {
+                    meshNode.setColorName ( i, colors.getName ( i ) );
+
+                    size_t stride = colors.getStride ( i );
+                    assert ( stride == 1 || stride == 3 || stride <= 4 );
+
+                    unsigned int representation = 2; // RGBA = 2 DEFAULT
+                    if ( stride == 1 ) representation = 1; // A = 1
+                    else if ( stride == 3 ) representation = 3; // RGB = 3
+                    meshNode.setRepresentation ( i, representation );
+
+                    size_t indicesCount = colors.getLength ( i );
+                    meshNode.startColorSetPoints ( i, 0, (indicesCount/stride)-1 ); 
+
+                    unsigned int index = 0;
+                    for ( size_t i=0; i<indicesCount; i+=stride )
+                    {
+                        for ( size_t j=0; j<stride; ++j ) 
+                        {
+                            meshNode.appendColorSetPoints ( (*values)[initialIndex+i+j] );
+                        }
+                    }
+                    meshNode.endColorSetPoints (); 
+
+                    initialIndex += indicesCount;
+                }
+                break;
+            }
+        case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
+            {
+                const COLLADAFW::ArrayPrimitiveType<double>* values = colors.getDoubleValues ();
+                for ( size_t i=0; i<sumUVSetPoints; ++i )
+                {
+                    meshNode.setColorName ( i, colors.getName ( i ) );
+
+                    size_t stride = colors.getStride ( i );
+                    assert ( stride == 1 || stride == 3 || stride <= 4 );
+
+                    unsigned int representation = 2; // RGBA = 2 DEFAULT
+                    if ( stride == 1 ) representation = 1; // A = 1
+                    else if ( stride == 3 ) representation = 3; // RGB = 3
+                    meshNode.setRepresentation ( i, representation );
+
+                    size_t indicesCount = colors.getLength ( i );
+                    meshNode.startColorSetPoints ( i, 0, (indicesCount/stride)-1 ); 
+
+                    unsigned int index = 0;
+                    for ( size_t i=0; i<indicesCount; i+=stride )
+                    {
+                        for ( size_t j=0; j<stride; ++j ) 
+                        {
+                            meshNode.appendColorSetPoints ( (*values)[initialIndex+i+j] );
+                        }
+                    }
+                    meshNode.endColorSetPoints (); 
+
+                    initialIndex += indicesCount;
+                }
+            }
+            break;
+        default:
+            std::cerr << "No valid data type for colors: " << type << std::endl;
+            return false;
+        }
 
         return true;
     }
@@ -550,6 +559,7 @@ namespace COLLADAMaya
     {
         size_t positionIndex=0;
         size_t uvSetIndicesIndex = 0;
+        size_t colorIndicesIndex = 0;
 
         // The number of grouped vertex elements (faces, holes, tristrips or trifans).
         size_t groupedVerticesCount = getGroupedVerticesCount ( primitiveElement );
@@ -579,6 +589,9 @@ namespace COLLADAMaya
 
             // Handle the uv set infos.
             setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, numEdges );
+
+            // Handle the uv set infos.
+            setColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, numEdges );
 
             // Write the polyFace data in the maya file.
             meshNode.appendFace ( polyFace );
@@ -755,10 +768,10 @@ namespace COLLADAMaya
         {
             // Get the index of the uv set
             const COLLADAFW::IndexList* indexList = primitiveElement->getUVCoordIndices ( i );
-            String uvSetName = indexList->getInputSetName ();
+            String uvSetName = indexList->getName ();
             size_t index = mesh->getUVSetIndexByName ( uvSetName );
 
-            const COLLADAFW::MeshUVCoords& meshUVCoords = mesh->getUVCoords ();
+            const COLLADAFW::MeshVertexData& meshUVCoords = mesh->getUVCoords ();
             polyFace.mu[i].uvSet = (int) index;
             polyFace.mu[i].faceUVCount = numEdges;
             polyFace.mu[i].uvIdValue = new int [numEdges];
@@ -777,22 +790,59 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
+    void GeometryImporter::setColorInfos ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        MayaDM::polyFaces &polyFace, 
+        size_t& colorIndicesIndex, 
+        const int numEdges )
+    {
+        const COLLADAFW::IndexListArray& colorIndicesArray = primitiveElement->getColorIndicesArray ();
+        size_t numColorInputs = colorIndicesArray.getCount ();
+        polyFace.mc = new MayaDM::polyFaces::MC [ numColorInputs ];
+        polyFace.mcCount = numColorInputs;
+        for ( size_t i=0; i<numColorInputs; ++i )
+        {
+            // Get the index of the uv set
+            const COLLADAFW::IndexList* indexList = primitiveElement->getColorIndices ( i );
+            String colorInputName = indexList->getName ();
+            size_t index = mesh->getColorIndexByName ( colorInputName );
+
+            const COLLADAFW::MeshVertexData& meshColors = mesh->getColors ();
+            polyFace.mc[i].colorSet = (int) index;
+            polyFace.mc[i].faceColorCount = numEdges;
+            polyFace.mc[i].colorIdValue = new int [numEdges];
+
+            for ( int j=0; j<numEdges; ++j )
+            {
+                size_t currentIndexPosition = j + colorIndicesIndex;
+                unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );
+                // Decrement the index values
+                size_t initialIndex = indexList->getInitialIndex ();
+                polyFace.mc[i].colorIdValue [j] = currentIndex - initialIndex;
+            }
+        }
+        // Increment the current uv set index for the number of edges.
+        colorIndicesIndex += numEdges;
+    }
+
+    // --------------------------------------------
     COLLADABU::Math::Vector3* GeometryImporter::getVertexPosition ( 
         const COLLADAFW::Mesh* mesh , 
         const size_t vertexIndex )
     {
         // Get the points of the current edge.
-        const COLLADAFW::MeshPositions& meshPositions = mesh->getPositions ();
+        const COLLADAFW::MeshVertexData& meshPositions = mesh->getPositions ();
 
         // Get the vertex position values of the start position of the current edge.
         double dx, dy, dz; 
-        if ( meshPositions.getType () == COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_FLOAT )
+        if ( meshPositions.getType () == COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT )
         {
             dx = (double)((*(meshPositions.getFloatValues ()))[(vertexIndex*3)]);
             dy = (double)((*(meshPositions.getFloatValues ()))[(vertexIndex*3)+1]);
             dz = (double)((*(meshPositions.getFloatValues ()))[(vertexIndex*3)+2]);
         }
-        else if ( meshPositions.getType () == COLLADAFW::MeshFloatDoubleInputs::DATA_TYPE_DOUBLE )
+        else if ( meshPositions.getType () == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
         {
             dx = (*(meshPositions.getDoubleValues ()))[(vertexIndex*3)];
             dy = (*(meshPositions.getDoubleValues ()))[(vertexIndex*3)+1];

@@ -24,7 +24,7 @@ namespace COLLADAFW
 		: mPrimitiveType ( UNDEFINED_PRIMITIVE_TYPE )
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
-		, mColorIndices(UIntValuesArray::OWNER)
+		, mColorIndicesArray(UIntValuesArray::OWNER)
 		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
 		, mFaceCount ( 0 )
 	{
@@ -35,7 +35,7 @@ namespace COLLADAFW
 		: mPrimitiveType ( primitiveType )
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
-		, mColorIndices(UIntValuesArray::OWNER)
+		, mColorIndicesArray(UIntValuesArray::OWNER)
 		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
 		, mFaceCount ( 0 )
 	{

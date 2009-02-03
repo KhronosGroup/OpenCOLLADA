@@ -39,6 +39,17 @@ namespace COLLADASaxFWL
      */
     class MeshLoader : public SourceArrayLoader
     {
+    public:
+
+        struct PrimitiveInput 
+        {
+            String mName;
+            size_t mOffset;
+            size_t mStride;
+            size_t mSetIndex;
+            size_t mInitialIndex;
+        };
+
     private:
 
         /**
@@ -101,21 +112,11 @@ namespace COLLADASaxFWL
 		unsigned int mNormalsIndexOffset; 
         bool mUseNormals;
 
-        // TODO Multiple colors!
-        unsigned long long mColorsOffset; 
-		unsigned int mColorsIndexOffset; 
-        bool mUseColors;
+        // Multiple colors.
+        std::vector<PrimitiveInput> mColorList;
 
         // Multiple texcoordinates.
-        struct TexCoord 
-        {
-            size_t mOffset;
-            size_t mInitialIndex;
-            size_t mStride;
-            size_t mInsputSetIndex;
-            String mInputSetName;
-        };
-        std::vector<TexCoord> mTexCoordList;
+        std::vector<PrimitiveInput> mTexCoordList;
 
     public:
 
@@ -418,11 +419,11 @@ namespace COLLADASaxFWL
         bool loadTexCoordsSourceElement ( const InputShared& input );
 
         /**
-         * Appends the values of the source in the uv list with the dimension of source's stride.
-         */
-        bool appendUVValues ( 
+        * Appends the values of the source in the list with the dimension of source's stride.
+        */
+        bool appendVertexValues ( 
             SourceBase* sourceBase, 
-            COLLADAFW::MeshUVCoords &uvCoords );
+            COLLADAFW::MeshVertexData& vertexData );
     };
 }
 

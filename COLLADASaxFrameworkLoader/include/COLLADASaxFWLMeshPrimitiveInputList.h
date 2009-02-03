@@ -135,17 +135,6 @@ namespace COLLADASaxFWL
             return getInputBySemantic ( InputSemantic::NORMAL );
         }
 
-        /**
-        * Returns the colors input element or 0 if it not exist.
-        * @param parent True, if the vertex element of the parent mesh should also searched.
-        * @return InputShared* Pointer to the searched input element or 0 if it not exist.
-        */
-        const InputShared* getColorInput () const
-        {
-            // TODO Multiple values!
-            return getInputBySemantic ( InputSemantic::COLOR );
-        }
-
     };
 
     

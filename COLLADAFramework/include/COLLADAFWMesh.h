@@ -13,10 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWGeometry.h"
-#include "COLLADAFWMeshPositions.h"
-#include "COLLADAFWMeshNormals.h"
-#include "COLLADAFWMeshColors.h"
-#include "COLLADAFWMeshUVCoords.h"
+#include "COLLADAFWMeshVertexData.h"
 #include "COLLADAFWMeshPrimitive.h"
 
 #include "COLLADABUUtils.h"
@@ -47,34 +44,32 @@ namespace COLLADAFW
     private:
 
         /** 
-         * The positions array. 
-         * Positions can be stored as float or double values.
+         * The positions array. Positions can be stored as float or double values.
          * Positions have always a stride of three (XYZ parameters). We don't need to store
          * this information.
          */
-        MeshPositions mPositions;
+        MeshVertexData mPositions;
 
         /** 
-        * The normals array. 
-        * Normals can be stored as float or double values.
+        * The normals array. Normals can be stored as float or double values.
         * Normals have always a stride of three (XYZ parameters). We don't need to store this 
         * information.
         */
-        MeshNormals mNormals;
+        MeshVertexData mNormals;
 
         /** 
-        * The colors array. 
-        * Colors can be stored as float or double values.
-        * Colors can have different strides (RGB or RGBA parameters). We need to store this 
-        * information!
+        * The colors array. Colors can be stored as float or double values.
+        * Colors can have different strides (RGB or RGBA parameters). We have to store this 
+        * information.
         */
-        MeshColors mColors;
+        MeshVertexData mColors;
 
         /** 
-        * The 2 dimensional uv coordinates array. 
-        * UV coordinates can be stored as float or double values.
+        * The uv coordinates array. UV coordinates can be stored as float or double values.
+        * UV corrdinates can have different strides (2d, 3d, 4d). We have to store this 
+        * information.
         */
-        MeshUVCoords mUVCoords;
+        MeshVertexData mUVCoords;
 
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
@@ -98,7 +93,7 @@ namespace COLLADAFW
         * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
         * store this information.
         */
-        const MeshPositions& getPositions () const { return mPositions; }
+        const MeshVertexData& getPositions () const { return mPositions; }
 
         /** 
         * The positions array. 
@@ -106,7 +101,7 @@ namespace COLLADAFW
         * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
         * store this information.
         */
-        MeshPositions& getPositions () { return mPositions; }
+        MeshVertexData& getPositions () { return mPositions; }
 
         /** 
         * The positions array. 
@@ -114,7 +109,7 @@ namespace COLLADAFW
         * Positions have always a stride of three (X, Y and Z parameter). So we don't need to 
         * store this information.
         */
-        void setPositions ( MeshPositions& positions ) { mPositions = positions; }
+        void setPositions ( MeshVertexData& positions ) { mPositions = positions; }
 
         /** 
         * The normals array. 
@@ -122,7 +117,7 @@ namespace COLLADAFW
         * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        const MeshNormals& getNormals () const { return mNormals; }
+        const MeshVertexData& getNormals () const { return mNormals; }
 
         /** 
         * The normals array. 
@@ -130,7 +125,7 @@ namespace COLLADAFW
         * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        MeshNormals& getNormals () { return mNormals; }
+        MeshVertexData& getNormals () { return mNormals; }
 
         /** 
         * The normals array. 
@@ -138,7 +133,7 @@ namespace COLLADAFW
         * Normals have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setNormals ( MeshNormals& Normals ) { mNormals = Normals; }
+        void setNormals ( MeshVertexData& Normals ) { mNormals = Normals; }
 
 		/**
          * Checks, if the mesh has normals.
@@ -157,7 +152,7 @@ namespace COLLADAFW
         * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        const MeshColors& getColors () const { return mColors; }
+        const MeshVertexData& getColors () const { return mColors; }
 
         /** 
         * The colors array. 
@@ -165,7 +160,24 @@ namespace COLLADAFW
         * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        MeshColors& getColors () { return mColors; }
+        MeshVertexData& getColors () { return mColors; }
+
+        /**
+        * Returns the color with the name.
+        */
+        size_t getColorIndexByName ( const String& name ) const
+        {
+            String currentName;
+            for ( size_t index=0; index<mColors.getValuesCount (); ++index )
+            {
+                if ( COLLADABU::Utils::equals ( name, mColors.getName ( index ) ) )
+                    return index;
+            }
+            std::cerr << "No color with name \"" << name << "\"!" << std::endl; 
+            assert ( COLLADABU::Utils::equals ( name, name ) );
+
+            return 0;
+        }
 
         /** 
         * The colors array. 
@@ -173,28 +185,28 @@ namespace COLLADAFW
         * Colors have always a stride of three (X, Y and Z parameter). We don't need to store 
         * this information.
         */
-        void setColors ( MeshColors& Colors ) { mColors = Colors; }
+        void setColors ( MeshVertexData& Colors ) { mColors = Colors; }
 
 		/** 
         * The 2 dimensional uv coordinates array. 
         * UV coordinates can be stored as float or double values.
         */
-        const MeshUVCoords& getUVCoords () const { return mUVCoords; }
+        const MeshVertexData& getUVCoords () const { return mUVCoords; }
 
         /** 
         * The 2 dimensional uv coordinates array. 
         * UV coordinates can be stored as float or double values.
         */
-        MeshUVCoords& getUVCoords () { return mUVCoords; }
+        MeshVertexData& getUVCoords () { return mUVCoords; }
 
         /**
          * Returns the uv set with the name.
          */
         size_t getUVSetIndexByName ( const String& name ) const
         {
-            for ( size_t index=0; index<mUVCoords.getUVCoordsCount (); ++index )
+            for ( size_t index=0; index<mUVCoords.getValuesCount (); ++index )
             {
-                if ( COLLADABU::Utils::equals ( name, mUVCoords.getUVSetName ( index ) ) )
+                if ( COLLADABU::Utils::equals ( name, mUVCoords.getName ( index ) ) )
                     return index;
             }
             std::cerr << "No uv set with name \"" << name << "\"!" << std::endl; 

@@ -143,6 +143,17 @@ namespace COLLADAMaya
             size_t& uvSetIndicesIndex,
             const int numEdges );
 
+        /**
+        * Set the color infos into the maya poly face element.
+        * Increments the initial value for the color indices index.
+        */
+        void setColorInfos ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            MayaDM::polyFaces &polyFace, 
+            size_t& colorIndicesIndex, 
+            const int numEdges );
+
         /*
          *	Changes the orientation of a polyFace hole element.
          */
@@ -177,7 +188,12 @@ namespace COLLADAMaya
         /*
          *	Write the uv coordinates into the maya file.
          */
-        bool writeUVCoords ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+        bool writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+
+        /*
+        *	Write the uv coordinates into the maya file.
+        */
+        bool writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
 
         /*
          *	Write the normals values into the maya file.

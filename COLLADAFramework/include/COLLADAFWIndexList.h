@@ -21,43 +21,43 @@ namespace COLLADAFW
     class IndexList
     {
     private:
-        size_t mInputSetIndex;
-        String mInputSetName;
-        UIntValuesArray mUVCoordIndices;
+        String mName;
+        UIntValuesArray mIndices;
         size_t mStride;
+        size_t mSetIndex;
         size_t mInitialIndex;
 
     public:
         IndexList () 
-            : mInputSetIndex (0)
-            , mInputSetName ("")
-            , mUVCoordIndices (0)
+            : mSetIndex (0)
+            , mName ("")
+            , mIndices (0)
             , mStride (0) 
             , mInitialIndex (0)
         {}
-        IndexList ( size_t inputSet, size_t stride, UIntValuesArray& uvCoordIndices ) 
-            : mInputSetIndex (inputSet)
-            , mInputSetName ("")
-            , mUVCoordIndices (uvCoordIndices)
+        IndexList ( size_t setIndex, size_t stride, UIntValuesArray& indices )
+            : mSetIndex (setIndex)
+            , mName ("")
+            , mIndices (indices)
             , mStride (stride) 
             , mInitialIndex (0)
         {}
         virtual ~IndexList () {}
 
-        UIntValuesArray& getIndices () { return mUVCoordIndices; }
-        unsigned int getIndex ( size_t index ) const { return mUVCoordIndices [index]; }
-        unsigned int getIndex ( size_t index ) { return mUVCoordIndices [index]; }
-        size_t getIndicesCount () const { return mUVCoordIndices.getCount (); }
-        size_t getIndicesCount () { return mUVCoordIndices.getCount (); }
+        UIntValuesArray& getIndices () { return mIndices; }
+        unsigned int getIndex ( size_t index ) const { return mIndices [index]; }
+        unsigned int getIndex ( size_t index ) { return mIndices [index]; }
+        size_t getIndicesCount () const { return mIndices.getCount (); }
+        size_t getIndicesCount () { return mIndices.getCount (); }
 
-        void setInputSetIndex ( size_t inputSet ) { mInputSetIndex = inputSet; }
-        size_t getInputSetIndex () { return mInputSetIndex; }
+        void setSetIndex ( size_t inputSet ) { mSetIndex = inputSet; }
+        size_t getSetIndex () { return mSetIndex; }
         
         void setStride ( size_t stride ) { mStride = stride; }
         size_t getStride () { return mStride; }
 
-        const COLLADAFW::String& getInputSetName () const { return mInputSetName; }
-        void setInputSetName ( const COLLADAFW::String& val ) { mInputSetName = val; }
+        const COLLADAFW::String& getName () const { return mName; }
+        void setName ( const COLLADAFW::String& val ) { mName = val; }
 
         const size_t getInitialIndex () const { return mInitialIndex; }
         void setInitialIndex ( const size_t val ) { mInitialIndex = val; }
