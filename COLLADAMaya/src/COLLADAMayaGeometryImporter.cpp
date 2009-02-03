@@ -380,8 +380,8 @@ namespace COLLADAMaya
                     unsigned int index = 0;
                     for ( size_t i=0; i<indicesCount; i+=stride )
                     {
-                        meshNode.appendUvSetPoints ( (*values)[initialIndex+i] );
-                        meshNode.appendUvSetPoints ( (*values)[initialIndex+i+1] );
+                        meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+i] );
+                        meshNode.appendUvSetPoints ( (float) (*values)[initialIndex+i+1] );
                     }
                     meshNode.endUvSetPoints (); 
 
@@ -759,11 +759,11 @@ namespace COLLADAMaya
             size_t index = mesh->getUVSetIndexByName ( uvSetName );
 
             const COLLADAFW::MeshUVCoords& meshUVCoords = mesh->getUVCoords ();
-            polyFace.mu[i].uvSet = index;
+            polyFace.mu[i].uvSet = (int) index;
             polyFace.mu[i].faceUVCount = numEdges;
             polyFace.mu[i].uvIdValue = new int [numEdges];
 
-            for ( size_t j=0; j<numEdges; ++j )
+            for ( int j=0; j<numEdges; ++j )
             {
                 size_t currentIndexPosition = j + uvSetIndicesIndex;
                 unsigned int currentIndex = indexList->getIndex ( currentIndexPosition );

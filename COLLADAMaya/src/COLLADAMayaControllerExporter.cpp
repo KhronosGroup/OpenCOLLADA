@@ -479,7 +479,7 @@ namespace COLLADAMaya
 //                                 LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
         bool morphController =  hasMorphController( targetDagPath.node() );
         String controllerIdSuffix;
-        if ( hasMorphController( targetDagPath.node() ) )
+        if ( morphController )
             controllerIdSuffix = COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX +
                 COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
         else controllerIdSuffix = COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
@@ -488,7 +488,7 @@ namespace COLLADAMaya
         if ( !sceneElement->getNodeId().empty() )
             controllerId = sceneElement->getNodeId() + controllerIdSuffix;
         else controllerId = sceneElement->getNodeName() + controllerIdSuffix;
-
+        
         // Check if the controller isn't already exported
         std::vector<String>::iterator controllerIter;
         controllerIter = find ( mExportedControllers.begin(), mExportedControllers.end(), controllerId );
@@ -518,7 +518,7 @@ namespace COLLADAMaya
         // If the output shape has a morph controller, the target
         // is not the shape's geometry, but the morph controller.
         MFnDependencyNode fn ( outputShape.node() );
-        String skinTarget =  fn.name().asChar();
+        String skinTarget = DocumentExporter::mayaNameToColladaName ( fn.name() );
         if ( hasMorphController( outputShape.node() ) )
             skinTarget += COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
 
@@ -534,13 +534,14 @@ namespace COLLADAMaya
         // Gather the list of joints
         gatherJoints( &skinController, controllerNode, weightFilters, clusterIndex );
 
-        // Set the joint entry into the other scene element, shich use this joints.
+        // Set the joint entry into the other scene element, which use this joints.
         MDagPathArray influences = skinController.getInfluences();
-        if ( influences.length() > 0 )
+        unsigned int numInfluences = influences.length();
+        for ( unsigned int i=0; i<numInfluences; ++i )
         {
-            MDagPath skeletonPath = influences[0];
+            MDagPath skeletonPath = influences [i];
             String skeletonId = mDocumentExporter->dagPathToColladaId( skeletonPath );
-            sceneElement->setSkeletonId( skeletonId );
+            sceneElement->addSkeletonId ( skeletonId );
 
             // Set the id on the other instanced nodes.
             bool isInstanced = targetDagPath.isInstanced ();
@@ -551,14 +552,13 @@ namespace COLLADAMaya
             {
                 SceneElement* foundElement = mDocumentExporter->getSceneGraph()->findElement( pathes[i] );
                 if ( foundElement != NULL )
-                    foundElement->setSkeletonId( skeletonId );
+                    foundElement->addSkeletonId ( skeletonId );
             }
         }
 
         gatherBindMatrices( &skinController, controllerNode );
 
         // Collect the vertex weights into the collada skin controller.
-        uint numInfluences = skinController.getInfluences().length();
         collectVertexWeights(
             &skinController,
             controllerNode,

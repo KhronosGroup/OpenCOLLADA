@@ -185,7 +185,7 @@ namespace COLLADAMaya
         MPlug filenamePlug = dgFn.findPlug ( ATTR_FILE_TEXTURE_NAME );
 
         // Convert the image name
-        String colladaImageId = mDocumentExporter->mayaNameToColladaName ( mayaName );
+        String colladaImageId = DocumentExporter::mayaNameToColladaName ( mayaName );
 
         // Get the maya filename with the path to the file.
         filenamePlug.getValue ( mayaFileName );

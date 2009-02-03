@@ -202,8 +202,8 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return false;
 
         // Create the unique ID
-        String meshId1 = mDocumentExporter->dagPathToColladaId( dagPath );
-        String meshId = mDocumentExporter->mayaNameToColladaName ( fnMesh.name() );
+//        String meshId1 = mDocumentExporter->dagPathToColladaId( dagPath );
+        String meshId = DocumentExporter::mayaNameToColladaName ( fnMesh.name() );
         
         bool isInstanced = dagPath.isInstanced();
         uint instanceNumber = dagPath.instanceNumber();

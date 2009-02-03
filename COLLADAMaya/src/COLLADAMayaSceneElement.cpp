@@ -17,6 +17,7 @@
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaDagHelper.h"
+#include "COLLADAMayaDocumentExporter.h"
 
 #include <maya/MFnDependencyNode.h>
 #include <maya/MFnDagNode.h>
@@ -34,7 +35,6 @@ namespace COLLADAMaya
             , mIsForced ( false )
             , mIsVisible ( false )
             , mInstantiatedSceneElement ( NULL )
-            , mSkeletonId ( "" )
     {}
 
     //---------------------------------------------------------------
@@ -76,7 +76,7 @@ namespace COLLADAMaya
 
             // Attach a function set
             MFnDependencyNode fn ( _node );
-            mNodeName = fn.name().asChar();
+            mNodeName = DocumentExporter::mayaNameToColladaName ( fn.name() );
         }
 
         return mNodeName;

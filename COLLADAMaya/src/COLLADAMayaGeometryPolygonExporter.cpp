@@ -967,7 +967,7 @@ namespace COLLADAMaya
             // Add symbolic name for the material used on this polygon set.
             MFnDependencyNode shaderFn ( mShaders[mShaderPosition] );
             String shaderName = shaderFn.name().asChar();
-            String materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name() );
+            String materialName = DocumentExporter::mayaNameToColladaName ( shaderFn.name() );
             primitivesBasePoly->appendMaterial ( materialName );
         }
 

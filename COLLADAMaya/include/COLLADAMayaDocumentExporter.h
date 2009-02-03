@@ -224,7 +224,7 @@ namespace COLLADAMaya
          * @param removeNamespace True, if the namespace should be removed.
          * @return MString Maya string with the converted string.
          */
-        String mayaNameToColladaName ( const MString& str, bool removeNamespace=true );
+        static String mayaNameToColladaName ( const MString& str, bool removeNamespace=true );
 
         /**
          * Make an unique COLLADA Id from a dagPath.
@@ -263,7 +263,7 @@ namespace COLLADAMaya
          * @param ncName Any string.
          * @return COLLADAMaya::String A valid NCName.
          */
-        String checkNCName(const String &ncName);
+        static String checkNCName(const String &ncName);
 
     private:
 

@@ -163,7 +163,7 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return;
 
         // Get the name of the current material
-        String materialName = mDocumentExporter->mayaNameToColladaName ( shaderFn.name(), true );
+        String materialName = DocumentExporter::mayaNameToColladaName ( shaderFn.name(), true );
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;

@@ -197,7 +197,7 @@ namespace COLLADAMaya
         if ( status != MStatus::kSuccess ) return;
 
         // Get the name of the current material
-        String materialId = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true );
+        String materialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
 
         // Have we seen this shader before?
         MaterialMap::iterator materialMapIter;

@@ -19,6 +19,9 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaPrerequisites.h"
 
+#include <set>
+
+
 namespace COLLADAMaya
 {
 
@@ -94,25 +97,25 @@ namespace COLLADAMaya
         /** True, if the transform element has joints. */
         bool mHasJoint;
 
-        /** Set the skeletonId. It indicates where a skin
+        /** Set the list of skeleton-Ids. It indicates where a skin
             controller is to start to search for the joint nodes
             it needs. This element is meaningless for morph controllers. */
-        String mSkeletonId;
+        std::set<String> mSkeletonIds;
 
     public:
 
         /** Constructor. */
         SceneElement ( const MDagPath _nodePath, Type _type=UNDETERMINED );
-        virtual ~SceneElement();
+        virtual ~SceneElement ();
 
         /** Returns the node path */
-        const MDagPath getPath() const;
+        const MDagPath getPath () const;
 
         /** Returns the node */
-        const MObject& getNode();
+        const MObject& getNode ();
 
         /** Returns the type of the node*/
-        const Type& getType() const;
+        const Type& getType () const;
         void setType ( const Type& _type )
         {
             mType = _type;
@@ -125,7 +128,7 @@ namespace COLLADAMaya
         }
 
         /** Set the unique id of the export node to @a id*/
-        const String& getNodeId ( ) const
+        const String& getNodeId () const
         {
             return mNodeId;
         }
@@ -136,7 +139,7 @@ namespace COLLADAMaya
             mNodeName = name;
         }
 
-        const String& getNodeName();
+        const String& getNodeName ();
 
         /** Adds @a exportNode to its children*/
         void addParentElement ( SceneElement* exportElement )
@@ -145,7 +148,7 @@ namespace COLLADAMaya
         }
 
         /** Returns the number of child nodes*/
-        const size_t getParentCount() const
+        const size_t getParentCount () const
         {
             return mParentElements.size();
         }
@@ -169,7 +172,7 @@ namespace COLLADAMaya
         }
 
         /** Returns the number of child nodes*/
-        const size_t getChildCount() const
+        const size_t getChildCount () const
         {
             return mChildElements.size();
         }
@@ -193,7 +196,7 @@ namespace COLLADAMaya
         }
 
         /** Pointer to the instantiated scene element, if it exist. */
-        void setInstantiatedSceneElement( SceneElement* val )
+        void setInstantiatedSceneElement ( SceneElement* val )
         {
             mInstantiatedSceneElement = val;
         }
@@ -205,13 +208,13 @@ namespace COLLADAMaya
         }
 
         /** Set the export flag on the current scene element. */
-        const bool getIsExportNode() const
+        const bool getIsExportNode () const
         {
             return mIsExportNode;
         }
 
         /** false, if the node has a file reference */
-        const bool getIsLocal() const { return mIsLocal; }
+        const bool getIsLocal () const { return mIsLocal; }
 
         /** false, if the node has a file reference */
         void setIsLocal ( const bool val ) { mIsLocal = val; }
@@ -235,7 +238,7 @@ namespace COLLADAMaya
         }
 
         /** Set the visible flag on the current scene element. */
-        const bool getIsVisible() const
+        const bool getIsVisible () const
         {
             return mIsVisible;
         }
@@ -244,23 +247,28 @@ namespace COLLADAMaya
          * True, if the transform element has joints.
          * @param hasJoint True, if the transform element has joints.
          */
-        void setHasJoint( bool hasJoint ) { mHasJoint = hasJoint; }
+        void setHasJoint ( bool hasJoint ) { mHasJoint = hasJoint; }
 
         /**
          * True, if the transform element has joints.
          * @return bool True, if the transform element has joints.
          */
-        bool getHasJoint() { return mHasJoint; }
+        bool getHasJoint () { return mHasJoint; }
 
         /** Set the skeletonId. It indicates where a skin
         controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
-        const String getSkeletonId() const { return mSkeletonId; }
+        const std::set<String>& getSkeletonIds () const { return mSkeletonIds; }
 
         /** Set the skeletonId. It indicates where a skin
         controller is to start to search for the joint nodes
         it needs. This element is meaningless for morph controllers. */
-        void setSkeletonId( String& val ) { mSkeletonId = val; }
+        void setSkeletonIds ( const std::set<String>& val ) { mSkeletonIds = val; }
+
+        /** Set the skeletonId. It indicates where a skin
+        controller is to start to search for the joint nodes
+        it needs. This element is meaningless for morph controllers. */
+        void addSkeletonId ( const String& val ) { mSkeletonIds.insert ( val ); }
 
     private:
 

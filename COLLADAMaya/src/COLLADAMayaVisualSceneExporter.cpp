@@ -389,7 +389,7 @@ namespace COLLADAMaya
                 MObject shadingEngine = shaders[shaderPosition];
                 MFnDependencyNode shadingEngineFn ( shadingEngine );
                 String shadingEngineName = shadingEngineFn.name().asChar();
-                String materialName = mDocumentExporter->mayaNameToColladaName ( shadingEngineFn.name() );
+                String materialName = DocumentExporter::mayaNameToColladaName ( shadingEngineFn.name() );
 
                 MStatus status;
                 uint instanceNumber = dagPath.instanceNumber( &status ); CHECK_MSTATUS( status );
@@ -407,7 +407,7 @@ namespace COLLADAMaya
                 // our own function to write that material to our own data structure for later export.
                 MObject shader = DagHelper::getSourceNodeConnectedTo ( shadingEngine, ATTR_SURFACE_SHADER );
                 MFnDependencyNode shaderNode ( shader );
-                String materialId = mDocumentExporter->mayaNameToColladaName ( shaderNode.name(), true );
+                String materialId = DocumentExporter::mayaNameToColladaName ( shaderNode.name(), true );
 
                 COLLADASW::InstanceMaterial materialInstance ( materialName, COLLADASW::URI ( "", materialId ) );
                 instanceMaterialList.push_back ( materialInstance );
@@ -868,10 +868,15 @@ namespace COLLADAMaya
         // it needs. This element is meaningless for morph controllers.
 
         // Get the skeleton id from the element
-        String skeletonId = sceneElement->getSkeletonId();
-        if ( !skeletonId.empty() )
+        const std::set<String>& skeletonIds = sceneElement->getSkeletonIds ();
+        if ( skeletonIds.size () > 0 )
         {
-            instanceController.addSkeleton( COLLADASW::URI ( "", skeletonId ) );
+            std::set<String>::const_iterator it = skeletonIds.begin ();
+            while ( it != skeletonIds.end () )
+            {
+                instanceController.addSkeleton ( COLLADASW::URI ( "", *it ) );
+                ++it;
+            }
         }
 
         // Write all materials

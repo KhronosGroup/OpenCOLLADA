@@ -1202,9 +1202,9 @@ namespace COLLADAMaya
         String nodeId = getNodeId ( plug );
         if ( nodeId.empty() )
         {
-            return mDocumentExporter->mayaNameToColladaName ( plug.name() );
+            return DocumentExporter::mayaNameToColladaName ( plug.name() );
         }
-        return mDocumentExporter->mayaNameToColladaName ( plug.name() ) + "_" + nodeId;
+        return DocumentExporter::mayaNameToColladaName ( plug.name() ) + "_" + nodeId;
 //        return mDocumentExporter->mayaNameToColladaName ( plug.name() );
 
         /*
@@ -1225,7 +1225,7 @@ namespace COLLADAMaya
         {
             return partialPathName;
         }
-        return mDocumentExporter->mayaNameToColladaName ( fnDagNode.partialPathName(), false );
+        return DocumentExporter::mayaNameToColladaName ( fnDagNode.partialPathName(), false );
     }
 
     //---------------------------------------------------------------
@@ -1640,7 +1640,7 @@ namespace COLLADAMaya
                 if ( status != MStatus::kSuccess ) continue;
 
                 // Create the corresponding COLLADA animation clip
-                String clipName = mDocumentExporter->mayaNameToColladaName ( clipFn.name() );
+                String clipName = DocumentExporter::mayaNameToColladaName ( clipFn.name() );
                 float startTime = ( float ) clipFn.getSourceStart().as ( MTime::kSeconds );
                 float endTime = startTime + ( float ) clipFn.getSourceDuration().as ( MTime::kSeconds );
 

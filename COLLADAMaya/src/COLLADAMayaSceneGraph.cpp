@@ -248,8 +248,8 @@ namespace COLLADAMaya
         MFnDependencyNode fn ( dagPath.node() );
 
         // Get the node name
-        String nodeName = fn.name().asChar();
-        sceneElement->setNodeName ( fn.name().asChar() );
+        String nodeName = DocumentExporter::mayaNameToColladaName ( fn.name() );
+        sceneElement->setNodeName ( nodeName );
 
         // Check if it's a node to export and
         // tell the scene node to be transformed or not.
