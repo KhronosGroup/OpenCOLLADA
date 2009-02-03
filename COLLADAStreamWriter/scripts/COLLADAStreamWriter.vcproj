@@ -761,14 +761,6 @@
 				RelativePath="..\src\COLLADASWVertices.cpp"
 				>
 			</File>
-			<Filter
-				Name="UTF"
-				>
-				<File
-					RelativePath="..\..\Externals\UTF\src\ConvertUTF.c"
-					>
-				</File>
-			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -1019,14 +1011,6 @@
 				RelativePath="..\include\COLLADASWVertices.h"
 				>
 			</File>
-			<Filter
-				Name="UTF"
-				>
-				<File
-					RelativePath="..\..\Externals\UTF\include\ConvertUTF.h"
-					>
-				</File>
-			</Filter>
 		</Filter>
 	</Files>
 	<Globals>

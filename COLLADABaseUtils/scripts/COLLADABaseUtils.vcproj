@@ -344,6 +344,32 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="UTF"
+				>
+				<File
+					RelativePath="..\..\Externals\UTF\src\ConvertUTF.c"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+							PrecompiledHeaderThrough=""
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+							UsePrecompiledHeader="0"
+							PrecompiledHeaderThrough=""
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -419,6 +445,14 @@
 				</File>
 				<File
 					RelativePath="..\include\Math\COLLADABUMathVector3.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="UTF"
+				>
+				<File
+					RelativePath="..\..\Externals\UTF\include\ConvertUTF.h"
 					>
 				</File>
 			</Filter>

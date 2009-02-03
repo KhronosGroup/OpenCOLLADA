@@ -173,7 +173,7 @@ namespace COLLADAFW
                 if ( COLLADABU::Utils::equals ( name, mColors.getName ( index ) ) )
                     return index;
             }
-            std::cerr << "No color with name \"" << name << "\"!" << std::endl; 
+//            std::cerr << "No color with name \"" << name << "\"!" << std::endl; 
             assert ( COLLADABU::Utils::equals ( name, name ) );
 
             return 0;
@@ -209,7 +209,7 @@ namespace COLLADAFW
                 if ( COLLADABU::Utils::equals ( name, mUVCoords.getName ( index ) ) )
                     return index;
             }
-            std::cerr << "No uv set with name \"" << name << "\"!" << std::endl; 
+ //           std::cerr << "No uv set with name \"" << name << "\"!" << std::endl; 
             assert ( true );
 
             return 0;

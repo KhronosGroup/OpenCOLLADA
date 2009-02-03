@@ -10,6 +10,7 @@
 
 #include "GeneratedSaxParserLibxmlSaxParser.h"
 #include "GeneratedSaxParserParser.h"
+#include "GeneratedSaxParserIErrorHandler.h"
 
 #include <libxml/parserInternals.h> // for xmlCreateFileParserCtxt
 
@@ -41,8 +42,8 @@ namespace GeneratedSaxParser
 		0,                 		           //processingInstructionSAXFunc processingInstruction;
 		0,                 		           //commentSAXFunc comment;
 		0,                 		           //warningSAXFunc warning;
-		0,                 		           //errorSAXFunc error;
-		0                 		           //fatalErrorSAXFunc fatalError;
+		&LibxmlSaxParser::errorFunction,   //errorSAXFunc error;
+		&LibxmlSaxParser::errorFunction    //fatalErrorSAXFunc fatalError;
 
 	};
 
@@ -66,7 +67,16 @@ namespace GeneratedSaxParser
 			mParserContext = xmlCreateFileParserCtxt(fileName);
 
 			if ( !mParserContext )
+			{
+				getParser()->getErrorHandler()->handleError(ParserError(ParserError::SEVERITY_CRITICAL, 
+					                                                    ParserError::ERROR_COULD_NOT_OPEN_FILE, 
+					                                                    0,
+					                                                    0,
+					                                                    0,
+					                                                    0,
+					                                                    fileName));
 				return false;
+			}
 
 			xmlSAXHandlerPtr oldSaxContext = mParserContext->sax;
 			mParserContext->sax = &SAXHANDLER;
@@ -128,4 +138,16 @@ namespace GeneratedSaxParser
 		return (size_t)xmlSAX2GetColumnNumber(mParserContext);
 	}
 
+	void LibxmlSaxParser::errorFunction( void *ctx, const char *msg, ... )
+	{
+		xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
+		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(context->userData);
+		thisObject->getParser()->getErrorHandler()->handleError(ParserError(ParserError::SEVERITY_CRITICAL, 
+			                                                    ParserError::ERROR_XML_PERSER_ERROR, 
+																0,
+																0,
+																0,
+																0,
+																msg));
+	}
 } // namespace GeneratedSaxParser

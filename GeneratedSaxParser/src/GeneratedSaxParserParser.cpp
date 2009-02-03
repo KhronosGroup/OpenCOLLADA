@@ -19,8 +19,9 @@ namespace GeneratedSaxParser
 
 
 	//--------------------------------------------------------------------
-	Parser::Parser()
+	Parser::Parser(IErrorHandler* errorHandler)
 		:mSaxParser(0)
+		, mErrorHandler(errorHandler)
 	{
 	}
 	

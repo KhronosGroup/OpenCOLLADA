@@ -18,13 +18,16 @@ namespace GeneratedSaxParser
 {
 
 	class SaxParser;
+	class IErrorHandler;
 
 	class Parser 	
 	{
 	private:
 		SaxParser* mSaxParser;
+		IErrorHandler* mErrorHandler;
+
 	public:
-		Parser();
+		Parser(IErrorHandler* errorHandler);
 		virtual ~Parser();
 
 		virtual bool elementBegin(const ParserChar* elementName, const ParserAttributes& attributes )=0;
@@ -33,9 +36,13 @@ namespace GeneratedSaxParser
 
 		virtual bool textData(const ParserChar* text, size_t textLength)=0;
 
+		IErrorHandler* getErrorHandler() { return mErrorHandler; }
+
+
 	protected:
 		size_t getLineNumber()const;
 		size_t getColumnNumber()const;
+
 
 	private:
         /** Disable default copy ctor. */

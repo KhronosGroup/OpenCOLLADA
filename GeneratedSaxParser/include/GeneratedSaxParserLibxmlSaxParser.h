@@ -48,6 +48,8 @@ namespace GeneratedSaxParser
 
 		static void characters( void* user_data, const xmlChar* name, int length );
 
+		static void errorFunction (void *ctx,	const char *msg, ...);
+
 		void initializeParserContext();
 
 		void abortParsing();

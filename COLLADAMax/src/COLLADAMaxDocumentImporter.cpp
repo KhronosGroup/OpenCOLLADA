@@ -20,6 +20,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxVisualSceneImporter.h"
 #include "COLLADAMaxLibraryNodesImporter.h"
 #include "COLLADAMaxGeometryImporter.h"
+#include "COLLADAMaxFWLErrorHandler.h"
+
 #include "COLLADAFWLibraryNodes.h"
 
 #include "COLLADAFWLibraryNodes.h"
@@ -50,9 +52,11 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::import()
 	{
-		COLLADASaxFWL::Loader loader;
+		FWLErrorHandler errorHandler;
+		COLLADASaxFWL::Loader loader(&errorHandler);
 		COLLADAFW::Root root(&loader, this);
 
+//		return root.loadDocument("dsfsdf.dae");
 		return root.loadDocument(mImportFilePath);
 	}
 

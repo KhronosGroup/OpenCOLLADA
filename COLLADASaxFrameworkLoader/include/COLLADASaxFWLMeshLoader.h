@@ -52,10 +52,16 @@ namespace COLLADASaxFWL
 
     private:
 
+		/** The unique id of the mesh.*/
+		COLLADAFW::UniqueId mMeshUniqueId;
+
         /**
          * The framework mesh element, to load the data.
          */
         COLLADAFW::Mesh* mMesh;
+
+		/** The mapping of collada symbols to material ids.*/
+//		GeometryMaterialIdInfo& mMaterialIdInfo;
 
 		/** The mesh primitive being filled by the parser.*/
 		COLLADAFW::MeshPrimitive* mCurrentMeshPrimitive;

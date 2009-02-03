@@ -71,14 +71,12 @@ namespace GeneratedSaxParser
 
         ElementNameMap mHashNameMap;
 
-	private:
-		IErrorHandler* mErrorHandler;
 
 	public:
 		ParserTemplateBase(IErrorHandler* errorHandler)
-			: mStackMemoryManager(STACKSIZE),
-			mLastIncompleteFragmentInCharacterData(0),
-			mErrorHandler(errorHandler){}
+			: Parser(errorHandler), 
+		    mStackMemoryManager(STACKSIZE),
+			mLastIncompleteFragmentInCharacterData(0){}
 		virtual ~ParserTemplateBase(){};
 
 		/** Returns the element or attribute name that corresponds to @a hash. Null is returned,

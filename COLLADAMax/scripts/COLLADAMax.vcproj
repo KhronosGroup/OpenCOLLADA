@@ -2051,6 +2051,10 @@
 					>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMaxFWLErrorHandler.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxGeometryImporter.cpp"
 					>
 				</File>
@@ -2214,6 +2218,10 @@
 				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxDocumentImporter.h"
+					>
+				</File>
+				<File
+					RelativePath="..\include\COLLADAMaxFWLErrorHandler.h"
 					>
 				</File>
 				<File

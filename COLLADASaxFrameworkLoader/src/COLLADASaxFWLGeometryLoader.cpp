@@ -28,7 +28,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool GeometryLoader::begin__mesh()
 	{
-		MeshLoader* meshLoader = new MeshLoader(this, mGeometryId, mGeometryId);
+		MeshLoader* meshLoader = new MeshLoader(this, mGeometryId, mGeometryName);
 		setPartLoader(meshLoader);
 		setParser(meshLoader);
 		return true;

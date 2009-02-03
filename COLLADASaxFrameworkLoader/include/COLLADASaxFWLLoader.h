@@ -12,14 +12,15 @@
 #define __COLLADA_LOADER_H__
 
 #include "COLLADASaxFWLPrerequisites.h"
+#include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 
 #include "COLLADAFWILoader.h"
 #include "COLLADAFWLoaderUtils.h"
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWTypes.h"
 
 #include "COLLADABUHashMap.h"
 #include "COLLADABUHashFunctions.h"
-
 #include "COLLADABUURI.h"
 
 
@@ -30,9 +31,17 @@ namespace COLLADAFW
 
 namespace COLLADASaxFWL
 {
+
+	class IErrorHandler;
+
+
 	/** Loader to a COLLADA document and all the documents that are referenced it.*/
 	class Loader : public COLLADAFW::ILoader 
 	{
+	public:
+		/** Maps the unique id of each geometry to the corresponding ColladaSymbolMaterialIdMap.*/
+		typedef std::map<COLLADAFW::UniqueId, GeometryMaterialIdInfo> UniqueIdMeshMaterialIdInfoMap;
+
 	private:
 		typedef COLLADABU::HashMap<COLLADABU::URI, COLLADAFW::UniqueId, unsigned long, COLLADABU::calculateHash> URIUniqueIdMap;
 
@@ -45,11 +54,17 @@ namespace COLLADASaxFWL
 
 		/** Maps each already processed dae element to its COLLADAFW::UniqueId. */
 		URIUniqueIdMap mURIUniqueIdMap;
+
+		/** Maps the unique id of each geometry to the corresponding GeometryMaterialIdInfo.*/
+		UniqueIdMeshMaterialIdInfoMap mGeometryMeshMaterialIdInfoMapMap;
+
+		/** The error handler to pass the errors to.*/
+		IErrorHandler* mErrorHandler;
 	
 	public:
 
         /** Constructor. */
-		Loader();
+		Loader(IErrorHandler* errorHandler = 0);
 
         /** Destructor. */
 		virtual ~Loader();
@@ -75,6 +90,11 @@ namespace COLLADASaxFWL
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
+
+		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has 
+		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
+		the map and returned.*/
+		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
 
 		/** Returns the writer the data will be written to.*/
 		COLLADAFW::IWriter* writer(){ return mWriter; }

@@ -108,15 +108,15 @@ namespace COLLADAMax
 
 		Mesh& triangleMesh = triangleObject->GetMesh();
 
-		const COLLADAFW::MeshPositions& meshPositions = mesh->getPositions();
+		const COLLADAFW::MeshVertexData& meshPositions = mesh->getPositions();
 
-		int positionsCount = (int)meshPositions.getPositionsCount() / 3;
+		int positionsCount = (int)meshPositions.getValuesCount() / 3;
 
 		triangleMesh.setNumVerts(positionsCount);
 
-		if ( meshPositions.getType() == COLLADAFW::MeshPositions::DATA_TYPE_DOUBLE )
+		if ( meshPositions.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
 		{
-			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoublePositions();
+			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoubleValues();
 			for ( int i = 0; i < positionsCount; ++i)
 			{
 				triangleMesh.setVert(i, (float)(*positionsArray)[3*i], (float)(*positionsArray)[3*i + 1], (float)(*positionsArray)[3*i + 2]);
@@ -124,7 +124,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			const COLLADAFW::FloatArray* positionsArray = meshPositions.getFloatPositions();
+			const COLLADAFW::FloatArray* positionsArray = meshPositions.getFloatValues();
 			for ( int i = 0; i < positionsCount; i+=3)
 			{
 				triangleMesh.setVert(i, (*positionsArray)[i], (*positionsArray)[i + 1], (*positionsArray)[i + 2]);
@@ -222,14 +222,14 @@ namespace COLLADAMax
 		normalsSpecifier->SetNumFaces((int)numFaces);
 
 		// fill in the normals
-		const COLLADAFW::MeshNormals& meshNormals = mesh->getNormals();
-		int normalCount = (int)meshNormals.getNormalsCount()/3;
+		const COLLADAFW::MeshVertexData& meshNormals = mesh->getNormals();
+		int normalCount = (int)meshNormals.getValuesCount()/3;
 
 		normalsSpecifier->SetNumNormals(normalCount);
 
-		if ( meshNormals.getType() == COLLADAFW::MeshNormals::DATA_TYPE_DOUBLE )
+		if ( meshNormals.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
 		{
-			const COLLADAFW::DoubleArray* normalsArray = meshNormals.getDoubleNormals();
+			const COLLADAFW::DoubleArray* normalsArray = meshNormals.getDoubleValues();
 			for ( int i = 0; i < normalCount; ++i)
 			{
 				Point3 normal((*normalsArray)[i*3], (*normalsArray)[i*3 + 1], (*normalsArray)[i*3 + 2]);
@@ -239,7 +239,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			const COLLADAFW::FloatArray* normalsArray = meshNormals.getFloatNormals();
+			const COLLADAFW::FloatArray* normalsArray = meshNormals.getFloatValues();
 			for ( int i = 0; i < normalCount; ++i)
 			{
 				Point3 normal((*normalsArray)[i*3], (*normalsArray)[i*3 + 1], (*normalsArray)[i*3 + 2]);
@@ -368,15 +368,15 @@ namespace COLLADAMax
 
 		MNMesh& polgonMesh = polygonObject->GetMesh();
 
-		const COLLADAFW::MeshPositions& meshPositions = mesh->getPositions();
+		const COLLADAFW::MeshVertexData& meshPositions = mesh->getPositions();
 
-		int positionsCount = (int)meshPositions.getPositionsCount() / 3;
+		int positionsCount = (int)meshPositions.getValuesCount() / 3;
 
 		polgonMesh.setNumVerts(positionsCount);
 
-		if ( meshPositions.getType() == COLLADAFW::MeshPositions::DATA_TYPE_DOUBLE )
+		if ( meshPositions.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
 		{
-			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoublePositions();
+			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoubleValues();
 			for ( int i = 0; i < positionsCount; ++i)
 			{
 				MNVert* vertex = polgonMesh.V(i);
@@ -385,7 +385,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			const COLLADAFW::FloatArray* positionsArray = meshPositions.getFloatPositions();
+			const COLLADAFW::FloatArray* positionsArray = meshPositions.getFloatValues();
 			for ( int i = 0; i < positionsCount; i+=3)
 			{
 				MNVert* vertex = polgonMesh.V(i);
@@ -505,14 +505,14 @@ namespace COLLADAMax
 		normalsSpecifier->SetNumFaces((int)numFaces);
 
 		// fill in the normals
-		const COLLADAFW::MeshNormals& meshNormals = mesh->getNormals();
-		int normalCount = (int)meshNormals.getNormalsCount()/3;
+		const COLLADAFW::MeshVertexData& meshNormals = mesh->getNormals();
+		int normalCount = (int)meshNormals.getValuesCount()/3;
 
 		normalsSpecifier->SetNumNormals(normalCount);
 
-		if ( meshNormals.getType() == COLLADAFW::MeshNormals::DATA_TYPE_DOUBLE )
+		if ( meshNormals.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
 		{
-			const COLLADAFW::DoubleArray* normalsArray = meshNormals.getDoubleNormals();
+			const COLLADAFW::DoubleArray* normalsArray = meshNormals.getDoubleValues();
 			for ( int i = 0; i < normalCount; ++i)
 			{
 				Point3 normal((*normalsArray)[i*3], (*normalsArray)[i*3 + 1], (*normalsArray)[i*3 + 2]);
@@ -522,7 +522,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			const COLLADAFW::FloatArray* normalsArray = meshNormals.getFloatNormals();
+			const COLLADAFW::FloatArray* normalsArray = meshNormals.getFloatValues();
 			for ( int i = 0; i < normalCount; ++i)
 			{
 				Point3 normal((*normalsArray)[i*3], (*normalsArray)[i*3 + 1], (*normalsArray)[i*3 + 2]);

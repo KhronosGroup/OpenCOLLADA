@@ -35,6 +35,7 @@ namespace COLLADASaxFWL
 {
 	class Loader;
 	class FilePartLoader;
+	class SaxParserErrorHandler;
 
 	/** Loader to a COLLADA document. Referenced documents are not loaded.*/
 	class FileLoader : public IFilePartLoader, public ColladaParserAutoGenPrivate
@@ -59,7 +60,7 @@ namespace COLLADASaxFWL
 		@param colladaLoader The collada loader this file loader is being used by. Used to retrieve document 
 		global properties.
 		@param fileURI The name of the file to be loaded.*/
-		FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI );
+		FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI, SaxParserErrorHandler* saxParserErrorHandler = 0 );
 
         /** Destructor. */
         virtual ~FileLoader();

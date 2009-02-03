@@ -144,10 +144,11 @@ namespace GeneratedSaxParser
 												 StringHash attributeHash, 
 												 const ParserChar* additionalText /*= ""*/ )
 	{
-		if ( !mErrorHandler )
+		IErrorHandler* errorHandler = getErrorHandler();
+		if ( !errorHandler )
 			return (severity == ParserError::SEVERITY_CRITICAL) ? true : false;
 		
-		bool handlerWantsToAbort = mErrorHandler->handleError(ParserError(severity, 
+		bool handlerWantsToAbort = errorHandler->handleError(ParserError(severity, 
 																		  errorType, 
 																		  getNameByStringHash(elementHash), 
 																		  getNameByStringHash(attributeHash), 

@@ -24,4 +24,10 @@ namespace COLLADAFW
 	{
 	}
 
+
+	InstanceGeometry::MaterialBinding::MaterialBinding( MaterialId materialId, UniqueId referencedMaterial )
+		: mMaterialId(materialId)
+		, mReferencedMaterial(referencedMaterial)
+	{
+	}
 } // namespace COLLADAFW
