@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLLibraryNodesLoader.h"
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryLoader.h"
+#include "COLLADASaxFWLSaxParserErrorHandler.h"
 
 #include "COLLADAFWObject.h"
 
@@ -26,8 +27,8 @@ namespace COLLADASaxFWL
 {
 
     //-----------------------------
-	FileLoader::FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI)
-         : ColladaParserAutoGenPrivate(0),
+	FileLoader::FileLoader ( Loader* colladaLoader, const COLLADABU::URI& fileURI, SaxParserErrorHandler* saxParserErrorHandler)
+         : ColladaParserAutoGenPrivate(0, saxParserErrorHandler),
 		 mColladaLoader(colladaLoader),
 		 mFileURI(fileURI),
 		 mLibxmlSaxParse(this)
@@ -51,7 +52,7 @@ namespace COLLADASaxFWL
     //-----------------------------
     bool FileLoader::begin__COLLADA__asset ()
     {
-        deleteFilePartLoader();
+		deleteFilePartLoader();
         AssetLoader* assetLoader = new AssetLoader(this);
         setPartLoader(assetLoader);
         setParser(assetLoader);

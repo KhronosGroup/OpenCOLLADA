@@ -26,7 +26,9 @@ namespace COLLADASaxFWL
 
 	MeshLoader::MeshLoader( IFilePartLoader* callingFilePartLoader, const String& geometryId, const String& geometryName )
 		: SourceArrayLoader (callingFilePartLoader )
-		, mMesh ( new COLLADAFW::Mesh(getUniqueId('#' + geometryId, COLLADAFW::Geometry::ID()).getObjectId()) )
+		, mMeshUniqueId(getUniqueId('#' + geometryId, COLLADAFW::Geometry::ID()))
+		, mMesh ( new COLLADAFW::Mesh(mMeshUniqueId.getObjectId()) )
+//		, mMaterialIdInfo(get)
 		, mCurrentMeshPrimitive(0)
 		, mCurrentVertexInput(0)
 		, mMeshPrimitiveInputs(mVerticesInputs)

@@ -11,6 +11,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLLoader.h"
 #include "COLLADASaxFWLFileLoader.h"
+#include "COLLADASaxFWLSaxParserErrorHandler.h"
 
 #include "COLLADABUURI.h"
 
@@ -23,12 +24,13 @@ http://www.opensource.org/licenses/mit-license.php
 
 namespace COLLADASaxFWL
 {
-	//---------------------------------
-	Loader::Loader()
+
+	Loader::Loader( IErrorHandler* errorHandler )
+		: mErrorHandler(errorHandler)
 	{
 	}
 
-    //---------------------------------
+	//---------------------------------
 	Loader::~Loader()
 	{
 	}
@@ -62,13 +64,16 @@ namespace COLLADASaxFWL
 		if ( !writer )
 			return false;
 		mWriter = writer;
+		
+		SaxParserErrorHandler saxParserErrorHandler(mErrorHandler);
+
 #pragma warning(disable: 4996)
 		_timeb startTimeBuffer;
 		_ftime( &startTimeBuffer );
 		double startTime = (double)startTimeBuffer.time + (double)startTimeBuffer.millitm / 1000;
 
 
-		FileLoader fileLoader(this, COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)));
+		FileLoader fileLoader(this, COLLADABU::URI::URI(COLLADABU::URI::nativePathToUri(fileName)), &saxParserErrorHandler);
 		fileLoader.load();
 
 		_timeb endTimeBuffer;
@@ -82,6 +87,12 @@ namespace COLLADASaxFWL
 		s << endTime - startTime;
 
 		return true;
+	}
+
+	//---------------------------------
+	GeometryMaterialIdInfo& Loader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
+	{
+		return mGeometryMeshMaterialIdInfoMapMap[uniqueId];
 	}
 
 } // namespace COLLADA

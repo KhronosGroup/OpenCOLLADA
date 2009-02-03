@@ -324,6 +324,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLGeometryMaterialIdInfo.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLIError.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLIErrorHandler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLIFilePartLoader.cpp"
 				>
 			</File>
@@ -349,6 +361,14 @@
 			</File>
 			<File
 				RelativePath="..\src\COLLADASaxFWLNodeLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLSaxParserError.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLSaxParserErrorHandler.cpp"
 				>
 			</File>
 			<File
@@ -406,6 +426,18 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADASaxFWLGeometryMaterialIdInfo.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLIError.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLIErrorHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADASaxFWLIFilePartLoader.h"
 				>
 			</File>
@@ -451,6 +483,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLPrimitiveBase.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLSaxParserError.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLSaxParserErrorHandler.h"
 				>
 			</File>
 			<File

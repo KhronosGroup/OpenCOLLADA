@@ -65,6 +65,12 @@ namespace COLLADASaxFWL
 		@return The elements COLLADAFW::UniqueId */
 		COLLADAFW::UniqueId getUniqueId(COLLADAFW::ClassId classId);
 
+		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has 
+		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
+		the map and returned.*/
+//		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
+
+
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/
 		void setMeAsParser();
 
