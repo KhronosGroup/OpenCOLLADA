@@ -10,6 +10,8 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLNodeLoader.h"
+#include "COLLADASaxFWLGeometryMaterialIdInfo.h"
+
 #include "COLLADAFWNode.h"
 #include "COLLADAFWTranslate.h"
 #include "COLLADAFWRotate.h"
@@ -18,6 +20,7 @@
 #include "COLLADAFWLookat.h"
 #include "COLLADAFWMatrix.h"
 #include "COLLADAFWGeometry.h"
+#include "COLLADAFWMaterial.h"
 
 
 namespace COLLADASaxFWL
@@ -26,7 +29,9 @@ namespace COLLADASaxFWL
 	NodeLoader::NodeLoader( IFilePartLoader* callingFilePartLoader )
 		: FilePartLoader(callingFilePartLoader),
 		mCurrentTransformation(0),
-		mTransformationNumbersReceived(0)
+		mTransformationNumbersReceived(0),
+		mCurrentInstanceGeometry(0),
+		mCurrentMaterialInfo(0)
 	{
 	}
 
@@ -278,6 +283,60 @@ namespace COLLADASaxFWL
         return true;
     }
 
+	//------------------------------
+	bool NodeLoader::begin__lookat ( const lookat__AttributeData& attributeData )
+	{
+		return beginTransformation<COLLADAFW::Lookat>();
+	}
+
+	//------------------------------
+	bool NodeLoader::end__lookat ()
+	{
+		return endTransformation();
+	}
+
+	//------------------------------
+	bool NodeLoader::data__lookat ( const double* data, size_t length )
+	{
+		COLLADAFW::Lookat* lookat = 0;
+
+		if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::LOOKAT)
+			lookat = (COLLADAFW::Lookat*)(mCurrentTransformation);
+
+		assert(lookat);
+
+		COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition ();
+		COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPosition ();
+		COLLADABU::Math::Vector3& upPosition = lookat->getUpPosition ();
+
+		size_t i = 0;
+		if ( i < length && mTransformationNumbersReceived < 3 )
+		{
+			for ( size_t j=0; j<3 && i<length; ++j, ++i )
+			{
+				eyePosition[j] = data[i];
+				mTransformationNumbersReceived++;
+			}
+		}
+		if ( i < length && mTransformationNumbersReceived >= 3 && mTransformationNumbersReceived < 6 )
+		{
+			for ( size_t j=0; j<3 && i<length; ++j, ++i )
+			{
+				interestPosition[j] = data[i];
+				mTransformationNumbersReceived++;
+			}
+		}
+		if (  i < length && mTransformationNumbersReceived >= 6 )
+		{
+			for ( size_t j=0; j<3 && i<length; ++j, ++i )
+			{
+				upPosition[j] = data[i];
+				mTransformationNumbersReceived++;
+			}
+		}
+		return true;
+	}	
+
     //------------------------------
 	bool NodeLoader::begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData )
 	{
@@ -285,9 +344,11 @@ namespace COLLADASaxFWL
 
 		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueId((const char*)attributeData.url, COLLADAFW::Geometry::ID());
 
-		COLLADAFW::InstanceGeometry* instanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
+		mCurrentMaterialInfo = &getMeshMaterialIdInfo(instantiatedGeometryUniqueId);
 
-		currentNode->getInstanceGeometries().append(instanceGeometry);
+		mCurrentInstanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
+
+		currentNode->getInstanceGeometries().append(mCurrentInstanceGeometry);
 
 		return true;
 	}
@@ -295,8 +356,37 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::end__node__instance_geometry()
 	{
+		size_t materialBindingsCount = mCurrentMaterialBindings.size();
+		if ( materialBindingsCount > 0 )
+		{
+			COLLADAFW::InstanceGeometry::MaterialBindings& materialBindings = mCurrentInstanceGeometry->getMaterialBindings();
+			materialBindings.allocMemory( materialBindingsCount);
+			MaterialBindingsSet::const_iterator it = mCurrentMaterialBindings.begin();
+			size_t index = 0;
+			for (; it != mCurrentMaterialBindings.end(); ++it, ++index)
+			{
+				materialBindings[index] = *it;
+			}
+			materialBindings.setCount(materialBindingsCount);
+		}
+		
+		mCurrentInstanceGeometry = 0;
+		mCurrentMaterialInfo = 0;
+		mCurrentMaterialBindings.clear();
 		return true;
 	}
+
+
+	//------------------------------
+	bool NodeLoader::begin__instance_material( const instance_material__AttributeData& attributeData )
+	{
+		COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
+		COLLADAFW::InstanceGeometry::MaterialBinding materialBinding(materialId, getUniqueId((const char*)attributeData.target, COLLADAFW::Material::ID()));
+		mCurrentMaterialBindings.insert(materialBinding);
+		return true;
+	}
+
+
 
 	//------------------------------
 	bool NodeLoader::begin__instance_node( const instance_node__AttributeData& attributeData )
@@ -318,58 +408,5 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
-    //------------------------------
-    bool NodeLoader::begin__lookat ( const lookat__AttributeData& attributeData )
-    {
-        return beginTransformation<COLLADAFW::Lookat>();
-    }
-
-    //------------------------------
-    bool NodeLoader::end__lookat ()
-    {
-        return endTransformation();
-    }
-
-    //------------------------------
-    bool NodeLoader::data__lookat ( const double* data, size_t length )
-    {
-        COLLADAFW::Lookat* lookat = 0;
-
-        if (mCurrentTransformation->getTransformationType() == COLLADAFW::Transformation::LOOKAT)
-            lookat = (COLLADAFW::Lookat*)(mCurrentTransformation);
-
-        assert(lookat);
-
-        COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition ();
-        COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPosition ();
-        COLLADABU::Math::Vector3& upPosition = lookat->getUpPosition ();
-
-        size_t i = 0;
-        if ( i < length && mTransformationNumbersReceived < 3 )
-        {
-            for ( size_t j=0; j<3 && i<length; ++j, ++i )
-            {
-                eyePosition[j] = data[i];
-                mTransformationNumbersReceived++;
-            }
-        }
-        if ( i < length && mTransformationNumbersReceived >= 3 && mTransformationNumbersReceived < 6 )
-        {
-            for ( size_t j=0; j<3 && i<length; ++j, ++i )
-            {
-                interestPosition[j] = data[i];
-                mTransformationNumbersReceived++;
-            }
-        }
-        if (  i < length && mTransformationNumbersReceived >= 6 )
-        {
-            for ( size_t j=0; j<3 && i<length; ++j, ++i )
-            {
-                upPosition[j] = data[i];
-                mTransformationNumbersReceived++;
-            }
-        }
-        return true;
-    }
 
 } // namespace COLLADASaxFWL
