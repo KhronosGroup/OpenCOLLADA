@@ -14,8 +14,10 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLFilePartLoader.h"
 
+#include "COLLADAFWInstanceGeometry.h"
 
 #include <stack>
+#include <set>
 
 namespace COLLADAFW
 { 
@@ -34,16 +36,28 @@ namespace COLLADASaxFWL
 		/** Stack of nodes.*/
 		typedef std::stack<COLLADAFW::Node*> NodeStack;
 
+		/** Set of MaterialBindings*/
+		typedef std::set<COLLADAFW::InstanceGeometry::MaterialBinding> MaterialBindingsSet;
+
 		/** Stack of nodes to traverse back in node hierarchy. Array and contents will be delete in destructor.*/
 		NodeStack mNodeStack;
 
-		/** The transformation, that is currently being pared. Null if none is being parsed.*/
+		/** The transformation, that is currently being parsed. Null if none is being parsed.*/
 		COLLADAFW::Transformation* mCurrentTransformation;
 
-		/** The number of floats that have been received since the last begin* method 
+		/** The number of floats that have been received since the last begin__* method 
 		by the transformation data* methods. This is used to know where the next received number must 
 		be placed in the transformation.*/
 		size_t mTransformationNumbersReceived;
+
+		/** Instance geometry currently being filled.*/
+		COLLADAFW::InstanceGeometry* mCurrentInstanceGeometry;
+
+		/** Set of all material bindings of the current instance geometry.*/
+		MaterialBindingsSet mCurrentMaterialBindings;
+
+		/** The material info of the geometry instantiated in the current instance geometry.*/
+		GeometryMaterialIdInfo* mCurrentMaterialInfo;
 
 	public:
 
@@ -129,11 +143,34 @@ namespace COLLADASaxFWL
         virtual bool end__skew();
         virtual bool data__skew( const double* value, size_t length );
 
+		virtual bool begin__lookat( const lookat__AttributeData& attributeData );
+		virtual bool end__lookat();
+		virtual bool data__lookat( const double* value, size_t length );
+
 		/** Sax callback function for the beginning of an instance geometry element.*/
 		virtual bool begin__node__instance_geometry( const instance_geometry__AttributeData& attributeData );
 
 		/** Sax callback function for the ending of an instance geometry element.*/
 		virtual bool end__node__instance_geometry();
+
+
+		/** We do not need to do anything here.*/
+		virtual bool begin__instance_geometry__bind_material(){return true;}
+
+		/** We do not need to do anything here.*/
+		virtual bool end__instance_geometry__bind_material(){return true;}
+
+		/** We do not need to do anything here.*/
+		virtual bool begin__bind_material__technique_common(){return true;}
+
+		/** We do not need to do anything here.*/
+		virtual bool end__bind_material__technique_common(){return true;}
+
+		/** We store all instance_material informations in a set.*/
+		virtual bool begin__instance_material( const instance_material__AttributeData& attributeData );
+		
+		/** We do not need to do anything here.*/
+		virtual bool end__instance_material(){return true;}
 
 
 		/** Sax callback function for the beginning of an instance node element.*/
@@ -142,9 +179,6 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the ending of an instance node element.*/
 		virtual bool end__instance_node();
 
-        virtual bool begin__lookat( const lookat__AttributeData& attributeData );
-        virtual bool end__lookat();
-        virtual bool data__lookat( const double* value, size_t length );
 
 	};
 

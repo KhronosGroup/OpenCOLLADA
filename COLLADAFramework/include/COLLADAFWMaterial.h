@@ -23,10 +23,6 @@ namespace COLLADAFW
 	{
 	private:
 	
-        /** A text string containing the unique identifier of the element. This value must be
-        unique within the instance document. Optional. */
-        String mId;
-
         /** The text string name of this element. Optional. */
         String mName; 
 
@@ -37,14 +33,6 @@ namespace COLLADAFW
 
         /** Destructor. */
 		virtual ~Material ();
-
-        /** A text string containing the unique identifier of the element. This value must be
-        unique within the instance document. Optional. */
-        const String getId () const { return mId; }
-
-        /** A text string containing the unique identifier of the element. This value must be
-        unique within the instance document. Optional. */
-        void setId ( const String Id ) { mId = Id; }
 
         /** The text string name of this element. Optional. */
         const String& getName () const { return mName; }

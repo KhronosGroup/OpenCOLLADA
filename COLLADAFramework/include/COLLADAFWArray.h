@@ -129,7 +129,7 @@ namespace COLLADAFW
 
 
         /** The number of elements, for which is currently memory allocated. */
-        size_t getCapacity () { return mCapacity; }
+        size_t getCapacity () const { return mCapacity; }
 
         /** The number of elements, for which is currently memory allocated. */
         void setCapacity ( const size_t capacity ) { mCapacity = capacity; }
@@ -149,7 +149,7 @@ namespace COLLADAFW
         Must not be called, if the memory has not been allocated by allocateMemory().*/
 		void releaseMemory ()
         { 
-            delete mData; 
+            delete[] mData; 
             setData ( 0, 0, 0 ); 
         }
 

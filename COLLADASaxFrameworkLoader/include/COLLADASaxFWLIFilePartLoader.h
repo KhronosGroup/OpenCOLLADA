@@ -30,6 +30,7 @@ namespace COLLADABU
 namespace COLLADASaxFWL
 {
 	class Loader;
+	class GeometryMaterialIdInfo;
 
     /** Base class for all loaders that load parts of files or entire files */
 	class IFilePartLoader : protected ColladaParserAutoGen
@@ -68,7 +69,7 @@ namespace COLLADASaxFWL
 		/** Returns the GeometryMaterialIdInfo object of the geometry with @a uniqueId. If this method has 
 		not been called before with the same uniqueId, an empty GeometryMaterialIdInfo is created, added to
 		the map and returned.*/
-//		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
+		GeometryMaterialIdInfo& getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId);
 
 
 		/** After this functions, the next sax callback should be caught by this the file part loader.*/

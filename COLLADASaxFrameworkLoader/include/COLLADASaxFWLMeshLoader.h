@@ -61,7 +61,11 @@ namespace COLLADASaxFWL
         COLLADAFW::Mesh* mMesh;
 
 		/** The mapping of collada symbols to material ids.*/
-//		GeometryMaterialIdInfo& mMaterialIdInfo;
+		GeometryMaterialIdInfo& mMaterialIdInfo;
+
+		/** The material symbol of the current mesh. Is only used for primitives, for which the 
+		the framework object is not created in the begin__* method.*/
+		String mCurrentMeshMaterial;
 
 		/** The mesh primitive being filled by the parser.*/
 		COLLADAFW::MeshPrimitive* mCurrentMeshPrimitive;

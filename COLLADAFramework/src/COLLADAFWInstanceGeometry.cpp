@@ -19,11 +19,21 @@ namespace COLLADAFW
 	{
 	}
 
+	InstanceGeometry::InstanceGeometry( const InstanceGeometry& pre )
+		: SceneGraphInstance(pre)
+		, mMaterialBindings()
+	{
+		mMaterialBindings.allocMemory(pre.mMaterialBindings.getCapacity());
+		size_t count = pre.mMaterialBindings.getCount();
+		mMaterialBindings.setCount(count);
+		for ( size_t i = 0; i < count; ++i)
+			mMaterialBindings[i] = pre.mMaterialBindings[i];
+	}
+
 	//--------------------------------------------------------------------
 	InstanceGeometry::~InstanceGeometry()
 	{
 	}
-
 
 	InstanceGeometry::MaterialBinding::MaterialBinding( MaterialId materialId, UniqueId referencedMaterial )
 		: mMaterialId(materialId)

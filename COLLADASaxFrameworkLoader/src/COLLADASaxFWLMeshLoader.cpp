@@ -10,6 +10,7 @@
 
 #include "COLLADASaxFWLStableHeaders.h"
 #include "COLLADASaxFWLMeshLoader.h"
+#include "COLLADASaxFWLGeometryMaterialIdInfo.h"
 
 #include "COLLADAFWTriangles.h"
 #include "COLLADAFWTristrips.h"
@@ -28,7 +29,7 @@ namespace COLLADASaxFWL
 		: SourceArrayLoader (callingFilePartLoader )
 		, mMeshUniqueId(getUniqueId('#' + geometryId, COLLADAFW::Geometry::ID()))
 		, mMesh ( new COLLADAFW::Mesh(mMeshUniqueId.getObjectId()) )
-//		, mMaterialIdInfo(get)
+		, mMaterialIdInfo(getMeshMaterialIdInfo(mMeshUniqueId))
 		, mCurrentMeshPrimitive(0)
 		, mCurrentVertexInput(0)
 		, mMeshPrimitiveInputs(mVerticesInputs)
@@ -920,6 +921,7 @@ namespace COLLADASaxFWL
 		mCurrentMeshPrimitive = 0;
 		mCurrentFaceCount = 0;
 		mCurrentPhHasEmptyP = true;
+		mCurrentMeshMaterial.clear();
 	}
 
 
@@ -979,6 +981,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool MeshLoader::begin__mesh__triangles( const triangles__AttributeData& attributeData )
 	{
+		if ( attributeData.material )
+			mCurrentMeshMaterial = (const char *)attributeData.material;
 		return true;
 	}
 
@@ -1018,6 +1022,7 @@ namespace COLLADASaxFWL
 		loadSourceElements(mMeshPrimitiveInputs);
 		initializeOffsets();
 		mCurrentMeshPrimitive = new COLLADAFW::Triangles();
+		mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId(mCurrentMeshMaterial));
 		return true;
 	}
 
@@ -1051,6 +1056,8 @@ namespace COLLADASaxFWL
 		COLLADAFW::Polygons* polygons = new COLLADAFW::Polygons();
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
+		if ( attributeData.material )
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
 		return true;
 	}
 
@@ -1143,6 +1150,8 @@ namespace COLLADASaxFWL
 		// The actual size might be bigger, but its a lower bound
 		polygons->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = polygons;
+		if ( attributeData.material )
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
 		return true;
 	}
 
@@ -1287,6 +1296,8 @@ namespace COLLADASaxFWL
 		// The actual size might be bigger, but its a lower bound
 		tristrips->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = tristrips;
+		if ( attributeData.material )
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
 		return true;
 	}
 
@@ -1375,6 +1386,8 @@ namespace COLLADASaxFWL
 		// The actual size might be bigger, but its a lower bound
 		trifans->getGroupedVerticesVertexCountArray().allocMemory((size_t)attributeData.count);
 		mCurrentMeshPrimitive = trifans;
+		if ( attributeData.material )
+			mCurrentMeshPrimitive->setMaterialId(mMaterialIdInfo.getMaterialId( (const char*)attributeData.material ));
 		return true;
 	}
 

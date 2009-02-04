@@ -47,9 +47,23 @@ namespace COLLADAFW
 
 			/** Sets the Unique id of the material that should get bind to the mesh primitives.*/
 			void setReferencedMaterial(const COLLADAFW::UniqueId& val) { mReferencedMaterial = val; }
+
+			/** The comparison operator that only compares the material ids.*/
+			bool operator<( const MaterialBinding& rhs) const { return mMaterialId < rhs.mMaterialId; }
+
+		private:
+			friend class Array<MaterialBinding>;
+			MaterialBinding(){} 
+
 		};
 
+		typedef Array<MaterialBinding> MaterialBindings;
+
 	private:
+
+		/** The list of all material bindings of this instance geometry. The Material bindings must be 
+		order according to MaterialBinding::operator<.*/
+		MaterialBindings mMaterialBindings;
 
 	public:
 		/** Constructor. Creates an instance geometry, that does not instantiate a geometry.*/
@@ -65,11 +79,17 @@ namespace COLLADAFW
 		/** Clones the matrix.*/
 		InstanceGeometry* clone() const { return new InstanceGeometry(*this); }
 
+		/** Returns the list of all material bindings.*/
+		MaterialBindings& getMaterialBindings() { return mMaterialBindings; }
+
+		/** Returns the list of all material bindings.*/
+		const MaterialBindings& getMaterialBindings() const { return mMaterialBindings; }
+
 	private:
         /** Disable default copy ctor. */
-//		InstanceGeometry( const InstanceGeometry& pre );
+		InstanceGeometry( const InstanceGeometry& pre );
         /** Disable default assignment operator. */
-//		const InstanceGeometry& operator= ( const InstanceGeometry& pre );
+		//const InstanceGeometry& operator= ( const InstanceGeometry& pre );
 	};
 
 	typedef ArrayPrimitiveType<InstanceGeometry*> InstanceGeometryArray;

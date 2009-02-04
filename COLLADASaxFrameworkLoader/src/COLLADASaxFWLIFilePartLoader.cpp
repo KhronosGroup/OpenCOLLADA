@@ -70,6 +70,11 @@ namespace COLLADASaxFWL
 		setParser(this);
 	}
 
+	GeometryMaterialIdInfo& IFilePartLoader::getMeshMaterialIdInfo( const COLLADAFW::UniqueId& uniqueId )
+	{
+		assert(getColladaLoader());
+		return getColladaLoader()->getMeshMaterialIdInfo(uniqueId);
+	}
 
 
 } // namespace COLLADASaxFWL
