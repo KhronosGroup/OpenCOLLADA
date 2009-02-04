@@ -68,9 +68,16 @@ namespace COLLADAMaya
             MayaTransformation () 
                 : phase (0)
                 , translate1 ( 0,0,0 ) 
+                , translate1Vec (0)
+                , numTranslate1 (0)
                 , translate2 ( 0,0,0 ) 
+                , translate2Vec (0)
+                , numTranslate2 (0)
                 , translate3 ( 0,0,0 ) 
+                , translate3Vec (0)
+                , numTranslate3 (0)
                 , scale ( 1,1,1 ) 
+                , skew ( 0,0,0 )
             {}
             virtual ~MayaTransformation () {}
 
@@ -81,11 +88,22 @@ namespace COLLADAMaya
             static const size_t PHASE_TRANS3 = 5;
 
             MVector translate1; // = 0,0,0
+            std::vector<MVector> translate1Vec;
+            size_t numTranslate1;
+
             MQuaternion rotation; // = 1,0,0,0
+
             MVector translate2; // = 0,0,0
+            std::vector<MVector> translate2Vec;
+            size_t numTranslate2;
+
+            MVector skew; // = 0,0,0
             MVector scale; // = 1,1,1
+
             MVector translate3; // = 0,0,0
-            MVector skew;
+            std::vector<MVector> translate3Vec;
+            size_t numTranslate3;
+            
 
             // 5 phases
             size_t phase;
@@ -163,14 +181,18 @@ namespace COLLADAMaya
          */
         bool isValidMayaTransform ( 
             const COLLADAFW::Node* rootNode, 
-            MayaTransformation& mayaTransform );
+            MayaTransformation& mayaTransform, 
+            bool& hasRotatePivot,
+            bool& hasScalePivot );
 
         /**
          * Set the transform values.
          */
         void importDecomposedTransform ( 
             const MayaTransformation &mayaTransform, 
-            MayaDM::Transform* transformNode );
+            MayaDM::Transform* transformNode, 
+            const bool hasRotatePivot,
+            const bool hasScalePivot );
 
         /**
          * Imports the transform values from a transform matrix.

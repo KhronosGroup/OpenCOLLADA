@@ -33,6 +33,7 @@
 #include <maya/MItDependencyNodes.h>
 #include <maya/MFnDependencyNode.h>
 #include <maya/MGlobal.h>
+#include <maya/MFileIO.h>
 #if MAYA_API_VERSION >= 700
 #include <maya/MHWShaderSwatchGenerator.h>
 #endif
@@ -373,7 +374,6 @@ namespace COLLADAMaya
     {
         MStatus status = MS::kSuccess;
 
-
         // Get the time 
         clock_t startClock, endClock;
         startClock = clock();
@@ -388,6 +388,21 @@ namespace COLLADAMaya
         stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
         MString message( stream.str().c_str() );
         MGlobal::displayInfo ( message );
+
+        // Open the maya ascii file in the maya instance
+        COLLADABU::URI mayaAsciiFileURI = documentImporter.getMayaAsciiFileURI ();
+        
+        String mayaFileName = mayaAsciiFileURI.getURIString ();
+        MFileIO::importFile ( mayaFileName.c_str () );
+        // MFileIO::open ( mayaFileName.c_str () );
+        // MFileIO::setCurrentFile ( mayaFileName.c_str () );
+        MGlobal::displayInfo ( "Maya ascii file opened.");
+
+//         mayaAsciiFileURI.setPathExtension ( ".netallied.import.mb" );
+//         mayaFileName = mayaAsciiFileURI.getURIString ();
+//         MFileIO::saveAs ( mayaFileName.c_str () );
+//         MGlobal::displayInfo ( "File saved as maya binary: " );
+//         MGlobal::displayInfo ( mayaFileName.c_str () 
 
         return status;
     }

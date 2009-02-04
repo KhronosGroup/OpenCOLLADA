@@ -55,6 +55,9 @@ namespace COLLADAMaya
         /** The current maya ascii file to import the data. */
         FILE* mFile;
 
+        /** The LC_NUMERIC locale that was set before the Streamwriter was instantiated. */
+        String mLocale;			
+
         bool mAssetWritten;
         bool mSceneGraphWritten;
         bool mGeometryWritten;
@@ -87,7 +90,8 @@ namespace COLLADAMaya
         void readColladaDocument ();
 
         /** Create the maya ascii file (where with which name???) */
-        bool createFile ();
+        bool createMayaAsciiFile ();
+        void closeMayaAsciiFile ();
 
         /**
         * Returns the name of the current collada file to export.

@@ -474,7 +474,7 @@ namespace COLLADAMaya
                     {
                         for ( size_t j=0; j<stride; ++j ) 
                         {
-                            meshNode.appendColorSetPoints ( (*values)[initialIndex+i+j] );
+                            meshNode.appendColorSetPoints ( ( float ) (*values)[initialIndex+i+j] );
                         }
                     }
                     meshNode.endColorSetPoints (); 

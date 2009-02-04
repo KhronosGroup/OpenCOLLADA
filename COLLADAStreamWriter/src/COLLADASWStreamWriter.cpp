@@ -92,7 +92,7 @@ namespace COLLADASW
     {
 		mBuffer = new char[BUFFERSIZE];
 #ifdef COLLADASTREAMWRITER_USE_FPRINTF_S
-		String mLocale = setlocale(LC_NUMERIC, 0);
+		mLocale = setlocale(LC_NUMERIC, 0);
 		setlocale(LC_NUMERIC, "C");
         errno_t error = fopen_s ( &mStream, fileName.c_str(), "w" );
         if ( error != 0 )

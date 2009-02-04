@@ -188,11 +188,15 @@ namespace COLLADAMaya
         // with matrix transformation is no animation possible).
         MayaTransformation mayaTransform;
 
-        bool validMayaTransform = isValidMayaTransform ( rootNode, mayaTransform );
+        bool hasRotatePivot = false;
+        bool hasScalePivot = false;
+
+        bool validMayaTransform = 
+            isValidMayaTransform ( rootNode, mayaTransform, hasRotatePivot, hasScalePivot );
         if ( validMayaTransform )
         {
             // Set the transform values.
-            importDecomposedTransform ( mayaTransform, transformNode );
+            importDecomposedTransform ( mayaTransform, transformNode, hasRotatePivot, hasScalePivot );
         }
         else
         {
@@ -213,7 +217,9 @@ namespace COLLADAMaya
         else outputMatrix[1][0] = inputMatrix[0][1];
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][2])) outputMatrix[2][0] = 0.0;
         else outputMatrix[2][0] = inputMatrix[0][2];
-        outputMatrix[3][0] = 0;
+        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[0][3])) outputMatrix[3][0] = 0.0;
+        else outputMatrix[3][0] = inputMatrix[0][3];
+//        outputMatrix[3][0] = 0;
 
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][0])) outputMatrix[0][1] = 0.0;
         else outputMatrix[0][1] = inputMatrix[1][0];
@@ -221,7 +227,9 @@ namespace COLLADAMaya
         else outputMatrix[1][1] = inputMatrix[1][1];
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][2])) outputMatrix[2][1] = 0.0;
         else outputMatrix[2][1] = inputMatrix[1][2];
-        outputMatrix[3][1] = 0;
+        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[1][3])) outputMatrix[3][1] = 0.0;
+        else outputMatrix[3][1] = inputMatrix[1][3];
+//        outputMatrix[3][1] = 0;
 
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][0])) outputMatrix[0][2] = 0.0;
         else outputMatrix[0][2] = inputMatrix[2][0];
@@ -229,7 +237,9 @@ namespace COLLADAMaya
         else outputMatrix[1][2] = inputMatrix[2][1];
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][2])) outputMatrix[2][2] = 0.0;
         else outputMatrix[2][2] = inputMatrix[2][2];
-        outputMatrix[3][2] = 0;
+        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[2][3])) outputMatrix[3][2] = 0.0;
+        else outputMatrix[3][2] = inputMatrix[2][3];
+//        outputMatrix[3][2] = 0;
 
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][0])) outputMatrix[0][3] = 0.0;
         else outputMatrix[0][3] = inputMatrix[3][0];
@@ -237,7 +247,9 @@ namespace COLLADAMaya
         else outputMatrix[1][3] = inputMatrix[3][1];
         if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][2])) outputMatrix[2][3] = 0.0;
         else outputMatrix[2][3] = inputMatrix[3][2];
-        outputMatrix[3][3] = 1;
+        if (COLLADABU::Math::Utils::equalsZero(inputMatrix[3][3])) outputMatrix[3][3] = 0.0;
+        else outputMatrix[3][3] = inputMatrix[3][3];
+//        outputMatrix[3][3] = 1;
     }
 
     // -----------------------------------
@@ -259,15 +271,18 @@ namespace COLLADAMaya
         double rotation[3];
         MTransformationMatrix::RotationOrder order;
         tm.getRotation ( rotation, order, MSpace::kTransform );
-        transformNode->setRotate ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) );
+        if ( ! ( MVector (0,0,0) == MVector ( rotation ) ) )
+            transformNode->setRotate ( MayaDM::double3 ( rotation[0], rotation[1], rotation[2] ) );
 
         double scale[3];
         tm.getScale ( scale, MSpace::kTransform );
-        transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
+        if ( ! ( MVector (1,1,1) == MVector ( scale ) ) )
+            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
 
         double shear[3];
         tm.getShear ( shear, MSpace::kTransform );
-        transformNode->setShear ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) );
+        if ( ! ( MVector (0,0,0) == MVector ( shear ) ) )
+            transformNode->setShear ( MayaDM::double3 ( shear[0], shear[1], shear[2] ) );
     }
 
     // -----------------------------------
@@ -312,54 +327,11 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::importDecomposedTransform ( 
-        const MayaTransformation &mayaTransform, 
-        MayaDM::Transform* transformNode )
-    {
-        // Write the transformations directly into the maya file.
-        MVector translate3 = mayaTransform.translate3;
-        MVector inverseScalePivot ( translate3 [0], translate3 [1], translate3 [2] );
-        MVector scalePivot = inverseScalePivot * (-1);
-
-        MVector translate2 = mayaTransform.translate2;
-        MVector inverseRotatePivot = translate2 - translate3;
-        MVector rotatePivot = inverseRotatePivot * (-1);
-
-        MVector translate1 = mayaTransform.translate1;
-        MVector translate = translate1 - rotatePivot;
-        MVector tester = translate1 + translate2 + translate3;
-
-        MQuaternion mayaRotate = mayaTransform.rotation;
-        MEulerRotation eulerRotation = mayaRotate.asEulerRotation ();
-        MEulerRotation::RotationOrder order = eulerRotation.order;
-        MVector rotation = eulerRotation.asVector ();
-
-        MVector scale = mayaTransform.scale;
-        MVector skew = mayaTransform.skew;
-
-        if ( translate != MVector (0, 0, 0) )
-            transformNode->setTranslate ( MayaDM::double3 ( translate.x, translate.y, translate.z ) );
-        if ( rotation != MVector (0, 0, 0) )
-            transformNode->setRotate ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation.x), COLLADABU::Math::Utils::radToDeg(rotation.y), COLLADABU::Math::Utils::radToDeg(rotation.z) ) );
-        if ( scale != MVector (1, 1, 1) )
-            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
-
-        if ( skew != MVector (0, 0, 0))
-            transformNode->setShear ( MayaDM::double3 ( skew.x, skew.y, skew.z ) );
-
-        if ( rotatePivot != MVector (0, 0, 0) )
-            transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
-        if ( scalePivot != MVector (0, 0, 0) )
-            transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
-
-        if ( order != MEulerRotation::kXYZ )
-            transformNode->setRotateOrder ( order );
-    }
-
-    // -----------------------------------
     bool VisualSceneImporter::isValidMayaTransform ( 
         const COLLADAFW::Node* rootNode, 
-        MayaTransformation& mayaTransform )
+        MayaTransformation& mayaTransform, 
+        bool& hasRotatePivot,
+        bool& hasScalePivot )
     {
         bool validMayaTransform = true;
 
@@ -393,10 +365,13 @@ namespace COLLADAMaya
                     // TODO Do anything with this values!
 
                     assert ("Lookat not implemented!");
+
+                    validMayaTransform = false;
                     break;
                 }
             case COLLADAFW::Transformation::MATRIX:
                 // Nothing to do, the matrix will be read automatically.
+                validMayaTransform = false;
                 break;
             case COLLADAFW::Transformation::ROTATE:
                 {
@@ -461,16 +436,22 @@ namespace COLLADAMaya
                     COLLADABU::Math::Vector3 translation = translate->getTranslation ();
                     if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS1 )
                     {
+                        mayaTransform.translate1Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
+                        ++mayaTransform.numTranslate1;
                         for ( unsigned int j=0; j<3; ++j )
                             mayaTransform.translate1[j] += translation [j];
                     }
                     else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS2 )
                     {
+                        mayaTransform.translate2Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
+                        ++mayaTransform.numTranslate2;
                         for ( unsigned int j=0; j<3; ++j )
                             mayaTransform.translate2[j] += translation [j];
                     }
                     else if ( mayaTransform.phase == MayaTransformation::PHASE_TRANS3 )
                     {
+                        mayaTransform.translate3Vec.push_back ( MVector (translation[0],translation[1],translation[2] ) );
+                        ++mayaTransform.numTranslate3;
                         for ( unsigned int j=0; j<3; ++j )
                             mayaTransform.translate3[j] += translation [j];
                     }
@@ -483,7 +464,215 @@ namespace COLLADAMaya
             }
         }
 
+        if ( validMayaTransform )
+        {
+            // Get the number of vectors
+            size_t numTranslate1Vec = mayaTransform.translate1Vec.size ();
+            size_t numTranslate2Vec = mayaTransform.translate2Vec.size ();
+            size_t numTranslate3Vec = mayaTransform.translate3Vec.size ();
+
+            // Just one translate3Vec is allowed.
+            if (  numTranslate3Vec > 1 )
+            {
+                validMayaTransform = false;
+                return validMayaTransform;
+            }
+
+            // If we have one translate3, which is the scalePivotInverse, 
+            // the last Vector of the translate2 has to be the scalePivot.
+            if ( numTranslate3Vec == 1 )
+            {
+                // The first translate3 vector has to be the scalePivotInverse.
+                MVector scalePivotInverse = mayaTransform.translate3Vec[0];
+
+                // If we have a scalePivotInverse, we need minimum one translate2 vector. 
+                // The last translate2 vector has to be the scalePivot. 
+                MVector scalePivot (0,0,0);
+                if ( numTranslate2Vec > 0 )
+                {
+                    // The last translate2 vector has to be the scalePivot. 
+                    scalePivot = mayaTransform.translate2Vec[numTranslate2Vec-1];
+                }
+                else
+                {
+                    // Except we don't have a rotation... 
+                    // Then the scalePivot is the last translate1 vector.
+                    // The last translate2 vector has to be the scalePivot. 
+                    scalePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+                }
+
+                // Check, if the vectors are inverse.
+                if ( ( scalePivot * (-1) ) != scalePivotInverse )
+                {
+                    validMayaTransform = false;
+                    return validMayaTransform;
+                }
+
+                // We have a valid scalePivot.
+                hasScalePivot = true;
+            }
+
+
+            // Without a translate1 vector, we can't have a rotatePivot
+            if ( numTranslate1Vec > 0 )
+            {
+                // We also need minimum one translate2 vector, 
+                // respectively minimum two translate2 vectors, if we have a scalePivot.
+                if ( numTranslate2Vec > 0 || ( hasScalePivot && numTranslate2Vec > 1 ) )
+                {
+                    // Check if we have a rotatePivotInverse at the beginning of the translate2 vectors
+                    // and the rotatePivot at the end of the translate1 vectors.
+
+                    // The first translate2 vector has to be the rotatePivotInverse.
+                    MVector rotatePivotInverse = mayaTransform.translate2Vec[0];
+
+                    // The last translate1 vector has to be the rotatePivot. 
+                    MVector rotatePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+
+                    // Check, if the vectors are inverse.
+                    if ( ( rotatePivot * (-1) ) != rotatePivotInverse )
+                    {
+                        validMayaTransform = false;
+                        return validMayaTransform;
+                    }
+                    hasRotatePivot = true;
+                }
+            }
+        }
+
         return validMayaTransform;
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::importDecomposedTransform ( 
+        const MayaTransformation &mayaTransform, 
+        MayaDM::Transform* transformNode,
+        const bool hasRotatePivot,
+        const bool hasScalePivot )
+    {
+        // This is the order of the transforms:
+        //
+        // matrix = [SP-1 * S * SH * SP * ST] * [RP-1 * RA * R * JO * RP * RT] * T
+        //          [        scale          ] * [          rotation          ] * translation
+        //
+        // Where SP is scale pivot translation, S is scale, SH is shear, ST is scale pivot translation
+        // RP is rotation pivot, RA is rotation axis, R is rotation, RP is rotation pivot,
+        // RT is rotation pivot translation, T is translation, JO is joint orientation
+
+        // T1 = T + RP + RPT
+        // R  = R
+        // T2 = RP-1 + SPT + SP
+        // S  = S
+        // T3 = SP-1
+        // ==> T = T1 + T2 + T3 - SPT - RPT
+
+        // In the following calculation the RPT and SPT values are absent, 
+        // so the calculation is wrong!
+        {
+//             MVector translate3 = mayaTransform.translate3;
+//             MVector inverseScalePivot ( translate3 [0], translate3 [1], translate3 [2] );
+//             MVector scalePivot = inverseScalePivot * (-1);
+// 
+//             MVector translate2 = mayaTransform.translate2;
+//             MVector inverseRotatePivot = scalePivot - translate2;
+//             MVector rotatePivot = inverseRotatePivot * (-1);
+// 
+//             MVector translate1 = mayaTransform.translate1;
+//             MVector translate = translate1 - rotatePivot;
+//             MVector tester = translate1 + translate2 + translate3;
+// 
+//             MQuaternion mayaRotate = mayaTransform.rotation;
+//             MEulerRotation eulerRotation = mayaRotate.asEulerRotation ();
+//             MEulerRotation::RotationOrder order = eulerRotation.order;
+//             MVector rotation = eulerRotation.asVector ();
+        }
+
+        // Get the number of vectors
+        size_t numTranslate1Vec = mayaTransform.translate1Vec.size ();
+        size_t numTranslate2Vec = mayaTransform.translate2Vec.size ();
+        size_t numTranslate3Vec = mayaTransform.translate3Vec.size ();
+
+        MVector scalePivot (0,0,0);
+        MVector scalePivotTranslate (0,0,0);
+
+        MVector rotatePivot (0,0,0);
+        MVector rotatePivotTranslate (0,0,0);
+
+        bool hasScalePivotTranslate = false;
+
+        if ( hasScalePivot )
+        {
+            // Get the scalePivot
+            scalePivot = mayaTransform.translate3Vec[0] * (-1);
+
+            // Check for a scalePivotTranslate
+            if ( hasRotatePivot )
+            {
+                if ( numTranslate2Vec == 3 )
+                {
+                    scalePivotTranslate = mayaTransform.translate2Vec[numTranslate2Vec-2];
+                    hasScalePivotTranslate = true;
+                }
+            }
+            else
+            {
+                if ( numTranslate2Vec == 2 )
+                {
+                    scalePivotTranslate = mayaTransform.translate2Vec[0];
+                    hasScalePivotTranslate = true;
+                }
+            }
+        }
+
+        if ( hasRotatePivot )
+        {
+            // The last translate1 vector has to be the rotatePivot. 
+            rotatePivot = mayaTransform.translate1Vec[numTranslate1Vec-1];
+
+            if ( hasScalePivot )
+            {
+                if ( numTranslate2Vec == 3 )
+                    rotatePivotTranslate = mayaTransform.translate1Vec[1];
+            }
+        }
+
+        // T = T1 + T2 + T3 - SPT - RPT
+        MVector translate1 = mayaTransform.translate1;
+        MVector translate2 = mayaTransform.translate2;
+        MVector translate3 = mayaTransform.translate3;
+        MVector translate = translate1 + translate2 + translate3 - scalePivotTranslate - rotatePivotTranslate;
+
+        MQuaternion mayaRotate = mayaTransform.rotation;
+        MEulerRotation eulerRotation = mayaRotate.asEulerRotation ();
+        MEulerRotation::RotationOrder order = eulerRotation.order;
+        MVector rotation = eulerRotation.asVector ();
+
+        MVector scale = mayaTransform.scale;
+        MVector skew = mayaTransform.skew;
+
+        // Write the transformations directly into the maya file.
+        if ( translate != MVector (0, 0, 0) )
+            transformNode->setTranslate ( MayaDM::double3 ( translate.x, translate.y, translate.z ) );
+        if ( rotation != MVector (0, 0, 0) )
+            transformNode->setRotate ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation.x), COLLADABU::Math::Utils::radToDeg(rotation.y), COLLADABU::Math::Utils::radToDeg(rotation.z) ) );
+        if ( scale != MVector (1, 1, 1) )
+            transformNode->setScale ( MayaDM::double3 ( scale[0], scale[1], scale[2] ) );
+
+        if ( skew != MVector (0, 0, 0))
+            transformNode->setShear ( MayaDM::double3 ( skew.x, skew.y, skew.z ) );
+
+        if ( rotatePivot != MVector (0, 0, 0) )
+            transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
+        if ( rotatePivotTranslate != MVector (0, 0, 0) )
+            transformNode->setRotatePivotTranslate ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) );
+
+        if ( scalePivot != MVector (0, 0, 0) )
+            transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
+        if ( scalePivotTranslate != MVector (0, 0, 0) )
+            transformNode->setScalePivotTranslate ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) );
+        
+        if ( order != MEulerRotation::kXYZ )
+            transformNode->setRotateOrder ( order );
     }
 
     // -----------------------------------

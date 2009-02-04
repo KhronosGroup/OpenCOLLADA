@@ -56,6 +56,9 @@ namespace COLLADAMaya
     DocumentImporter::~DocumentImporter()
     {
         releaseLibraries(); 
+
+        // Close the maya ascii file
+        closeMayaAsciiFile ();
     }
 
     //---------------------------------
@@ -90,14 +93,17 @@ namespace COLLADAMaya
 
         // Load the collada document into the collada framework.
         readColladaDocument();
+
+        // Close the maya file.
+        closeMayaAsciiFile ();
     }
 
     //-----------------------------
-    bool DocumentImporter::createFile()
+    bool DocumentImporter::createMayaAsciiFile ()
     {
         // TODO
         mMayaAsciiFileURI.set ( mColladaFileName );
-        mMayaAsciiFileURI.setPathExtension ( ".netallied.ma" );
+        mMayaAsciiFileURI.setPathExtension ( ".netallied.import.ma" );
         String mayaFileName = mMayaAsciiFileURI.getURIString ();
 
         // Check if the file already exist.
@@ -107,6 +113,10 @@ namespace COLLADAMaya
             std::cerr << "File already exists!";
         }
 
+        // Get the current locale value
+        mLocale = setlocale ( LC_NUMERIC, 0 );
+        setlocale ( LC_NUMERIC, "C" );
+
         errno_t err = fopen_s ( &mFile, mayaFileName.c_str (), "w+" );
         if ( err != 0 ) 
         {
@@ -115,6 +125,18 @@ namespace COLLADAMaya
         }
 
         return true;
+    }
+
+    //-----------------------------
+    void DocumentImporter::closeMayaAsciiFile ()
+    {
+        if ( mFile ) 
+        {
+            fclose ( mFile );
+            mFile = 0;
+
+            setlocale ( LC_NUMERIC, mLocale.c_str() );
+        }
     }
 
     //---------------------------------
@@ -133,7 +155,7 @@ namespace COLLADAMaya
     void DocumentImporter::start ()
     {
         // Create the maya file.
-        assert ( createFile() );
+        assert ( createMayaAsciiFile() );
     }
 
     //-----------------------------
