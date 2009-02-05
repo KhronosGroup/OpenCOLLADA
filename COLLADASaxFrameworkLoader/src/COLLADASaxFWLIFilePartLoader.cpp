@@ -46,10 +46,13 @@ namespace COLLADASaxFWL
 	}
 
 	//-----------------------------
-	const COLLADAFW::UniqueId& IFilePartLoader::getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId )
+	COLLADAFW::UniqueId IFilePartLoader::getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId )
 	{
-		if ( !getColladaLoader() || !colladaId || !(*colladaId) )
+		if ( !getColladaLoader() ) 
 			return COLLADAFW::UniqueId::INVALID;
+
+		if ( !colladaId || !(*colladaId) )
+			return getUniqueId(classId);
 
 		COLLADABU::URI uri(getFileUri(), String("#") + String((const char *)colladaId));
 
