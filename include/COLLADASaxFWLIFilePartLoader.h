@@ -65,7 +65,7 @@ namespace COLLADASaxFWL
 		@param id The collada id of the element to get the COLLADAFW::UniqueId for
 		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
 		@return The elements COLLADAFW::UniqueId */
-		const COLLADAFW::UniqueId& getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
+		COLLADAFW::UniqueId getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
 
 		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has 
 		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not, 
