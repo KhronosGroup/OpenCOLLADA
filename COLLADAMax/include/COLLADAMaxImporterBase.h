@@ -31,6 +31,8 @@ namespace COLLADAFW
 	class UniqueId;
 	class LibraryNodes;
 	class Node;
+	class Material;
+	class Effect;
 }
 
 namespace COLLADAMax
@@ -107,6 +109,14 @@ namespace COLLADAMax
 		this method should be called. This is required for instance node handling of nodes in a library nodes.*/
 		void addUniqueIdFWNodePair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Node* node );
 
+		/** Adds UniqueId frame work material pair to the UniqueIdFWMaterialMap. 
+		For every received material that is in a library materials this method should be called. */
+		void addUniqueIdFWMaterialPair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Material& material );
+
+		/** Adds UniqueId frame work effect pair to the UniqueIdFWEffectMap. 
+		For every received effect that is in a library effect this method should be called. */
+		void addUniqueIdFWEffectPair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Effect& effect );
+
 		/** Adds @a libraryNodes to the list of library nodes.*/
 		void addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
@@ -125,6 +135,14 @@ namespace COLLADAMax
 		/** Returns the frame work node with unique id @a uniqueId, if this node is in an already 
 		received library nodes, null otherwise.*/
 		const COLLADAFW::Node* getFWNodeByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
+		/** Returns the frame work material with unique id @a uniqueId, if this node is in an already 
+		received material, null otherwise.*/
+		const COLLADAFW::Material* getFWMaterialByUniqueId( const COLLADAFW::UniqueId& uniqueId );
+
+		/** Returns the frame work effect with unique id @a uniqueId, if this node is in an already 
+		received effect, null otherwise.*/
+		const COLLADAFW::Effect* getFWEffectByUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
 
 	private:

@@ -134,6 +134,19 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addUniqueIdFWMaterialPair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Material& material )
+	{
+		mDocumentImporter->getUniqueIdFWMaterialMap().insert(std::pair<COLLADAFW::UniqueId, COLLADAFW::Material>(uniqueId, material));
+	}
+
+	//------------------------------
+	void ImporterBase::addUniqueIdFWEffectPair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Effect& effect )
+	{
+		mDocumentImporter->getUniqueIdFWEffectMap().insert(std::pair<COLLADAFW::UniqueId, COLLADAFW::Effect>(uniqueId, effect));;
+	}
+
+
+	//------------------------------
 	void ImporterBase::addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
 	{
 		mDocumentImporter->getLibraryNodesList().push_back(libraryNodes);
@@ -184,5 +197,26 @@ namespace COLLADAMax
 			return it->second;
 	}
 
+	//------------------------------
+	const COLLADAFW::Material* ImporterBase::getFWMaterialByUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		const DocumentImporter::UniqueIdFWMaterialMap& uniqueIdFWMaterialMap = mDocumentImporter->getUniqueIdFWMaterialMap();
+		DocumentImporter::UniqueIdFWMaterialMap::const_iterator it = uniqueIdFWMaterialMap.find(uniqueId);
+		if ( it == uniqueIdFWMaterialMap.end() )
+			return 0;
+		else
+			return &it->second;
+	}
+
+	//------------------------------
+	const COLLADAFW::Effect* ImporterBase::getFWEffectByUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		const DocumentImporter::UniqueIdFWEffectMap& uniqueIdFWEffectMap = mDocumentImporter->getUniqueIdFWEffectMap();
+		DocumentImporter::UniqueIdFWEffectMap::const_iterator it = uniqueIdFWEffectMap.find(uniqueId);
+		if ( it == uniqueIdFWEffectMap.end() )
+			return 0;
+		else
+			return &it->second;
+	}
 
 } // namespace COLLADAMax

@@ -13,6 +13,9 @@
 
 #include "COLLADAFWPrerequisites.h"
 
+#include "COLLADAFWObject.h"
+#include "COLLADAFWColor.h"
+
 
 namespace COLLADAFW
 {
@@ -37,13 +40,10 @@ namespace COLLADAFW
     <effect> scope provides a handy way to parameterize many profiles and techniques with a single
     parameter.
     */
-	class Effect 	
+	class Effect : public ObjectTemplate<COLLADA_TYPE::EFFECT>
     {
 	private:
 	
-        /** Global identifier for this object. Required. */
-        String mId;
-
         /** Pretty-print name for this effect. Optional. */
         String mName; 
 
@@ -59,21 +59,15 @@ namespace COLLADAFW
 //        Profile* mProfile;
 
         // TODO Implementation of a minimized standard material!
-        //Color mStandardColor;
+        Color mStandardColor;
 
     public:
 
         /** Constructor. */
-		Effect();
+		Effect( ObjectId objectId );
 
         /** Destructor. */
 		virtual ~Effect();
-
-        /** Global identifier for this object. Required. */
-        const String getId () const { return mId; }
-
-        /** Global identifier for this object. Required. */
-        void setId ( const String Id ) { mId = Id; }
 
         /** Pretty-print name for this effect. Optional. */
         const String getName () const { return mName; }
@@ -83,11 +77,11 @@ namespace COLLADAFW
 
 	private:
 
-        /** Disable default copy ctor. */
-		Effect( const Effect& pre );
+        /** TODO Implement copy constructor if necessary. */
+//		Effect( const Effect& pre );
 
-        /** Disable default assignment operator. */
-		const Effect& operator= ( const Effect& pre );
+        /** TODO Implement assignment operator if necessary */
+//		const Effect& operator= ( const Effect& pre );
 
 	};
 

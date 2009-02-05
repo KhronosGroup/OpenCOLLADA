@@ -15,11 +15,11 @@
 namespace COLLADAFW
 {
 
-    //------------------------------
-	Effect::Effect()
+	Effect::Effect( ObjectId objectId )
+		: ObjectTemplate<COLLADA_TYPE::EFFECT> ( objectId )
 	{
 	}
-	
+
     //------------------------------
 	Effect::~Effect()
 	{

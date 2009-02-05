@@ -14,6 +14,8 @@
 #include "COLLADASaxFWLAssetLoader.h"
 #include "COLLADASaxFWLVisualSceneLoader.h"
 #include "COLLADASaxFWLLibraryNodesLoader.h"
+#include "COLLADASaxFWLLibraryMaterialsLoader.h"
+#include "COLLADASaxFWLLibraryEffectsLoader.h"
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
@@ -92,12 +94,6 @@ namespace COLLADASaxFWL
 		deleteFilePartLoader();
 		LibraryNodesLoader* libraryNodesLoader = new LibraryNodesLoader(this);
 
-/*		if ( attributeData.id )
-			libraryNodesLoader->setGeometryId((const char *) attributeData.id);
-
-		if ( attributeData.name )
-			libraryNodesLoader->setGeometryName((const char *) attributeData.name);
-*/
 		setPartLoader(libraryNodesLoader);
 		setParser(libraryNodesLoader);
 		return true;
@@ -115,4 +111,24 @@ namespace COLLADASaxFWL
 		setCallbackObject(parserToBeSet);
 	}
 
+	//-----------------------------
+	bool FileLoader::begin__library_materials( const library_materials__AttributeData& attributeData )
+	{
+		deleteFilePartLoader();
+		LibraryMaterialsLoader* libraryMaterialsLoader = new LibraryMaterialsLoader(this);
+
+		setPartLoader(libraryMaterialsLoader);
+		setParser(libraryMaterialsLoader);
+		return true;
+	}
+
+	bool FileLoader::begin__library_effects( const library_effects__AttributeData& attributeData )
+	{
+		deleteFilePartLoader();
+		LibraryEffectsLoader* libraryEffectsLoader = new LibraryEffectsLoader(this);
+
+		setPartLoader(libraryEffectsLoader);
+		setParser(libraryEffectsLoader);
+		return true;
+	}
 } // namespace COLLADASaxFWL

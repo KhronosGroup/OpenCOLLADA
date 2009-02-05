@@ -21,6 +21,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxPrerequisites.h"
 
 #include "COLLADAFWIWriter.h"
+#include "COLLADAFWMaterial.h"
+#include "COLLADAFWEffect.h"
 #include <list>
 
 //#include "dummy.h"
@@ -65,6 +67,12 @@ namespace COLLADAMax
 		/** Maps Unique id to framework nodes.*/
 		typedef std::map<COLLADAFW::UniqueId, const COLLADAFW::Node*> UniqueIdFWNodeMap;
 
+		/** Maps unique ids of framework materials to the corresponding framework material.*/
+		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Material> UniqueIdFWMaterialMap;
+
+		/** Maps unique ids of framework effects to the corresponding framework material.*/
+		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Effect> UniqueIdFWEffectMap;
+
 	private:
 		/** Max interface.*/
 		Interface* mMaxInterface;
@@ -108,6 +116,12 @@ namespace COLLADAMax
 
 		/** This vector contains all library nodes already received by the importer.*/
 		LibraryNodesList mLibraryNodesList;
+
+		/** Maps unique ids of framework materials to the corresponding framework material.*/
+		UniqueIdFWMaterialMap mUniqueIdFWMaterialMap;
+
+		/** Maps unique ids of framework effects to the corresponding framework material.*/
+		UniqueIdFWEffectMap mUniqueIdFWEffectMap;
 
 	public:
 		/** Constructor .
@@ -154,6 +168,14 @@ namespace COLLADAMax
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeGeometry ( const COLLADAFW::Geometry* geometry );
 
+		/** Writes the material.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeMaterial( const COLLADAFW::Material* material );
+
+		/** Writes the effect.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeEffect( const COLLADAFW::Effect* effect );
+
 	
 	private:
         /** Disable default copy ctor. */
@@ -184,6 +206,13 @@ namespace COLLADAMax
 
 		/** Returns the list of library nodes.*/
 		LibraryNodesList& getLibraryNodesList(){ return mLibraryNodesList; }
+
+		/** Returns the UniqueIdFWMaterialMap.*/
+		UniqueIdFWMaterialMap& getUniqueIdFWMaterialMap() { return mUniqueIdFWMaterialMap; }
+
+		/** Returns the UniqueIdFWEffectMap.*/
+		UniqueIdFWEffectMap& getUniqueIdFWEffectMap() { return mUniqueIdFWEffectMap; }
+
 
 		friend class ImporterBase;
 

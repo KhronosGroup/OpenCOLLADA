@@ -42,7 +42,7 @@ namespace COLLADAFW
 		/** Disable default copy ctor. */
 //		Object( const Object& pre );
 		/** Disable default assignment operator. */
-		const Object& operator= ( const Object& pre );
+//		const Object& operator= ( const Object& pre );
 
 	};
 
@@ -75,7 +75,7 @@ namespace COLLADAFW
         /** Disable default copy ctor. */
 	//	ObjectTemplate( const ObjectTemplate& pre );
         /** Disable default assignment operator. */
-		const ObjectTemplate& operator= ( const ObjectTemplate& pre );
+	//	const ObjectTemplate& operator= ( const ObjectTemplate& pre );
 
 	};
 

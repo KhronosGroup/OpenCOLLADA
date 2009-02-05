@@ -20,6 +20,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxVisualSceneImporter.h"
 #include "COLLADAMaxLibraryNodesImporter.h"
 #include "COLLADAMaxGeometryImporter.h"
+#include "COLLADAMaxMaterialImporter.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
 #include "COLLADAFWLibraryNodes.h"
@@ -81,4 +82,16 @@ namespace COLLADAMax
 		return geometryImporter.import();
 	}
 
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeMaterial( const COLLADAFW::Material* material )
+	{
+		MaterialImporter materialImporter(this, material);
+		return materialImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeEffect( const COLLADAFW::Effect* effect )
+	{
+		return true;
+	}
 } // namespace COLLADAMax

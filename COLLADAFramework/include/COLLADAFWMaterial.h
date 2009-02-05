@@ -13,16 +13,21 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWObject.h"
+#include "COLLADAFWUniqueId.h"
 
 
 namespace COLLADAFW
 {
 
-    /** TODO Documentation */
+    /** Represents a material. Material instantiate effects and have the ability to overwrite certain 
+	parameters of the instantiated effect.*/
 	class Material : public ObjectTemplate<COLLADA_TYPE::MATERIAL>
 	{
 	private:
 	
+		/** The unique id of the effect instantiated in this material.*/
+		UniqueId mInstantiatedEffect;
+
         /** The text string name of this element. Optional. */
         String mName; 
 
@@ -40,13 +45,19 @@ namespace COLLADAFW
         /** The text string name of this element. Optional. */
         void setName ( const String& Name ) { mName = Name; }
 
+		/** Return the unique id of the referenced effect.*/
+		const UniqueId& getInstantiatedEffect() const { return mInstantiatedEffect; }
+
+		/** Sets the unique id of the referenced effect.*/
+		void setInstantiatedEffect( const UniqueId& val) { mInstantiatedEffect = val; }
+
 	private:
 
         /** Disable default copy ctor. */
-		Material( const Material& pre );
+//		Material( const Material& pre );
 
         /** Disable default assignment operator. */
-		const Material& operator= ( const Material& pre );
+//		const Material& operator= ( const Material& pre );
 
 	};
 

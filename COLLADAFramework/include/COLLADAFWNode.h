@@ -137,7 +137,7 @@ namespace COLLADAFW
 		COLLADABU::Math::Matrix4 getTransformationMatrix() const;
 
 		/** Creates a clone of the node and returns a pointer to it.*/
-		Node* clone() const { return NEW Node(*this); }
+		Node* clone() const { return FW_NEW Node(*this); }
 	};
 
 

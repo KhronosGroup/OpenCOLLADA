@@ -18,7 +18,8 @@ namespace COLLADAFW
     typedef std::string String;
 }
 
-#define NEW new 
+#define FW_NEW new 
+#define FW_DELETE delete 
 
 
 #endif //__COLLADAFW_PREREQUISITES_H__

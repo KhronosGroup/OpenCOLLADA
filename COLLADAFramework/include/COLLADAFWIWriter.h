@@ -20,6 +20,8 @@ namespace COLLADAFW
 	class VisualScene;
 	class Geometry;
 	class LibraryNodes;
+	class Material;
+	class Effect;
 
 
 	/** Class that needs to be implemented by a writer. 
@@ -65,6 +67,13 @@ namespace COLLADAFW
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeGeometry ( const Geometry* geometry ) = 0;
 
+		/** When this method is called, the writer must write the material.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeMaterial( const Material* material ) = 0;
+
+		/** When this method is called, the writer must write the effect.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeEffect( const Effect* effect ) = 0;
 
 	private:
 
