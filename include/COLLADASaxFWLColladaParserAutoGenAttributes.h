@@ -14,36 +14,31 @@
 #define __COLLADASAXFWL_COLLADAPARSERAUTOGENATTRIBUTES_H__
 
 
-#include "GeneratedSaxParserTypes.h"
+#include "COLLADASaxFWLColladaParserAutoGenEnums.h"
 
 
 namespace COLLADASaxFWL
 {
 
 
-typedef GeneratedSaxParser::StringHash StringHash;
-typedef GeneratedSaxParser::ParserChar ParserChar;
-typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
-
-
-const StringHash HASH_ELEMENT_COLLADA = 138479041;
-extern const char* NAME_ELEMENT_COLLADA;
-const StringHash HASH_ATTRIBUTE_VERSION = 214540334;
-extern const char* NAME_ATTRIBUTE_VERSION;
-const StringHash HASH_ATTRIBUTE_BASE = 428181;
-extern const char* NAME_ATTRIBUTE_BASE;
-struct COLLADA__AttributeData
+const StringHash HASH_ELEMENT_PROFILE_GLES = 99286435;
+extern const char* NAME_ELEMENT_PROFILE_GLES;
+const StringHash HASH_ATTRIBUTE_ID = 1780;
+extern const char* NAME_ATTRIBUTE_ID;
+const StringHash HASH_ATTRIBUTE_PLATFORM = 42652157;
+extern const char* NAME_ATTRIBUTE_PLATFORM;
+struct profile_GLES__AttributeData
 {
-    static const COLLADA__AttributeData DEFAULT;
+    static const profile_GLES__AttributeData DEFAULT;
 
-    const ParserChar* version;
-    const ParserChar* base;
+    const ParserChar* id;
+    const ParserChar* platform;
 };
 
-const StringHash HASH_ELEMENT_ASSET = 21558580;
+const StringHash HASH_ELEMENT_ASSET = 200766244;
 extern const char* NAME_ELEMENT_ASSET;
-const StringHash HASH_ELEMENT_COLLADA__ASSET = 21558580;
-extern const char* NAME_ELEMENT_COLLADA__ASSET;
+const StringHash HASH_ELEMENT_PROFILE_GLES__ASSET = 200766244;
+extern const char* NAME_ELEMENT_PROFILE_GLES__ASSET;
 
 const StringHash HASH_ELEMENT_CONTRIBUTOR = 187503730;
 extern const char* NAME_ELEMENT_CONTRIBUTOR;
@@ -126,12 +121,1879 @@ extern const char* NAME_ELEMENT_UP_AXIS;
 const StringHash HASH_ELEMENT_ASSET__UP_AXIS = 114896611;
 extern const char* NAME_ELEMENT_ASSET__UP_AXIS;
 
+const StringHash HASH_ELEMENT_IMAGE = 200404277;
+extern const char* NAME_ELEMENT_IMAGE;
+const StringHash HASH_ELEMENT_PROFILE_GLES__IMAGE = 200404277;
+extern const char* NAME_ELEMENT_PROFILE_GLES__IMAGE;
+const StringHash HASH_ATTRIBUTE_FORMAT = 114725764;
+extern const char* NAME_ATTRIBUTE_FORMAT;
+const StringHash HASH_ATTRIBUTE_HEIGHT = 116129268;
+extern const char* NAME_ATTRIBUTE_HEIGHT;
+const StringHash HASH_ATTRIBUTE_WIDTH = 8256424;
+extern const char* NAME_ATTRIBUTE_WIDTH;
+const StringHash HASH_ATTRIBUTE_DEPTH = 6997928;
+extern const char* NAME_ATTRIBUTE_DEPTH;
+struct image__AttributeData
+{
+    static const image__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* name;
+    const ParserChar* format;
+    unsigned long long height;
+    unsigned long long width;
+    unsigned long long depth;
+};
+
+const StringHash HASH_ELEMENT_IMAGE__ASSET = 73127028;
+extern const char* NAME_ELEMENT_IMAGE__ASSET;
+
+const StringHash HASH_ELEMENT_DATA = 189112177;
+extern const char* NAME_ELEMENT_DATA;
+const StringHash HASH_ELEMENT_IMAGE__DATA = 189112177;
+extern const char* NAME_ELEMENT_IMAGE__DATA;
+
+const StringHash HASH_ELEMENT_INIT_FROM = 221349405;
+extern const char* NAME_ELEMENT_INIT_FROM;
+const StringHash HASH_ELEMENT_IMAGE__INIT_FROM = 221349405;
+extern const char* NAME_ELEMENT_IMAGE__INIT_FROM;
+
+const StringHash HASH_ELEMENT_EXTRA = 73369137;
+extern const char* NAME_ELEMENT_EXTRA;
+const StringHash HASH_ELEMENT_IMAGE__EXTRA = 73369137;
+extern const char* NAME_ELEMENT_IMAGE__EXTRA;
+const StringHash HASH_ATTRIBUTE_TYPE = 508005;
+extern const char* NAME_ATTRIBUTE_TYPE;
+struct extra__AttributeData
+{
+    static const extra__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* name;
+    const ParserChar* type;
+};
+
+const StringHash HASH_ELEMENT_EXTRA__ASSET = 60232116;
+extern const char* NAME_ELEMENT_EXTRA__ASSET;
+
+const StringHash HASH_ELEMENT_TECHNIQUE = 27831733;
+extern const char* NAME_ELEMENT_TECHNIQUE;
+const StringHash HASH_ELEMENT_EXTRA__TECHNIQUE = 27831733;
+extern const char* NAME_ELEMENT_EXTRA__TECHNIQUE;
+const StringHash HASH_ATTRIBUTE_PROFILE = 127258709;
+extern const char* NAME_ATTRIBUTE_PROFILE;
+struct extra__technique__AttributeData
+{
+    static const extra__technique__AttributeData DEFAULT;
+
+    const ParserChar* profile;
+};
+
+const StringHash HASH_ELEMENT_NEWPARAM = 21514445;
+extern const char* NAME_ELEMENT_NEWPARAM;
+const StringHash HASH_ELEMENT_PROFILE_GLES__NEWPARAM = 21514445;
+extern const char* NAME_ELEMENT_PROFILE_GLES__NEWPARAM;
+const StringHash HASH_ATTRIBUTE_SID = 31220;
+extern const char* NAME_ATTRIBUTE_SID;
+struct profile_GLES__newparam__AttributeData
+{
+    static const profile_GLES__newparam__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_ANNOTATE = 202972325;
+extern const char* NAME_ELEMENT_ANNOTATE;
+const StringHash HASH_ELEMENT_NEWPARAM__ANNOTATE = 202972325;
+extern const char* NAME_ELEMENT_NEWPARAM__ANNOTATE;
+struct annotate__AttributeData
+{
+    static const annotate__AttributeData DEFAULT;
+
+    const ParserChar* name;
+};
+
+const StringHash HASH_ELEMENT_BOOL = 2309228;
+extern const char* NAME_ELEMENT_BOOL;
+const StringHash HASH_ELEMENT_ANNOTATE__BOOL = 2309228;
+extern const char* NAME_ELEMENT_ANNOTATE__BOOL;
+
+const StringHash HASH_ELEMENT_BOOL2 = 36947698;
+extern const char* NAME_ELEMENT_BOOL2;
+const StringHash HASH_ELEMENT_ANNOTATE__BOOL2 = 36947698;
+extern const char* NAME_ELEMENT_ANNOTATE__BOOL2;
+
+const StringHash HASH_ELEMENT_BOOL3 = 36947699;
+extern const char* NAME_ELEMENT_BOOL3;
+const StringHash HASH_ELEMENT_ANNOTATE__BOOL3 = 36947699;
+extern const char* NAME_ELEMENT_ANNOTATE__BOOL3;
+
+const StringHash HASH_ELEMENT_BOOL4 = 36947700;
+extern const char* NAME_ELEMENT_BOOL4;
+const StringHash HASH_ELEMENT_ANNOTATE__BOOL4 = 36947700;
+extern const char* NAME_ELEMENT_ANNOTATE__BOOL4;
+
+const StringHash HASH_ELEMENT_INT = 50476724;
+extern const char* NAME_ELEMENT_INT;
+const StringHash HASH_ELEMENT_ANNOTATE__INT = 50476724;
+extern const char* NAME_ELEMENT_ANNOTATE__INT;
+
+const StringHash HASH_ELEMENT_INT2 = 2321218;
+extern const char* NAME_ELEMENT_INT2;
+const StringHash HASH_ELEMENT_ANNOTATE__INT2 = 2321218;
+extern const char* NAME_ELEMENT_ANNOTATE__INT2;
+
+const StringHash HASH_ELEMENT_INT3 = 2321219;
+extern const char* NAME_ELEMENT_INT3;
+const StringHash HASH_ELEMENT_ANNOTATE__INT3 = 2321219;
+extern const char* NAME_ELEMENT_ANNOTATE__INT3;
+
+const StringHash HASH_ELEMENT_INT4 = 2321220;
+extern const char* NAME_ELEMENT_INT4;
+const StringHash HASH_ELEMENT_ANNOTATE__INT4 = 2321220;
+extern const char* NAME_ELEMENT_ANNOTATE__INT4;
+
+const StringHash HASH_ELEMENT_FLOAT = 37213828;
+extern const char* NAME_ELEMENT_FLOAT;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT = 37213828;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT;
+
+const StringHash HASH_ELEMENT_FLOAT2 = 58550354;
+extern const char* NAME_ELEMENT_FLOAT2;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT2 = 58550354;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT2;
+
+const StringHash HASH_ELEMENT_FLOAT3 = 58550355;
+extern const char* NAME_ELEMENT_FLOAT3;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT3 = 58550355;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT3;
+
+const StringHash HASH_ELEMENT_FLOAT4 = 58550356;
+extern const char* NAME_ELEMENT_FLOAT4;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT4 = 58550356;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT4;
+
+const StringHash HASH_ELEMENT_FLOAT2X2 = 224942786;
+extern const char* NAME_ELEMENT_FLOAT2X2;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT2X2 = 224942786;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT2X2;
+
+const StringHash HASH_ELEMENT_FLOAT3X3 = 224942531;
+extern const char* NAME_ELEMENT_FLOAT3X3;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT3X3 = 224942531;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT3X3;
+
+const StringHash HASH_ELEMENT_FLOAT4X4 = 224942276;
+extern const char* NAME_ELEMENT_FLOAT4X4;
+const StringHash HASH_ELEMENT_ANNOTATE__FLOAT4X4 = 224942276;
+extern const char* NAME_ELEMENT_ANNOTATE__FLOAT4X4;
+
+const StringHash HASH_ELEMENT_STRING = 376935;
+extern const char* NAME_ELEMENT_STRING;
+const StringHash HASH_ELEMENT_ANNOTATE__STRING = 376935;
+extern const char* NAME_ELEMENT_ANNOTATE__STRING;
+
+const StringHash HASH_ELEMENT_SEMANTIC = 91876067;
+extern const char* NAME_ELEMENT_SEMANTIC;
+const StringHash HASH_ELEMENT_NEWPARAM__SEMANTIC = 91876067;
+extern const char* NAME_ELEMENT_NEWPARAM__SEMANTIC;
+
+const StringHash HASH_ELEMENT_MODIFIER = 182483714;
+extern const char* NAME_ELEMENT_MODIFIER;
+const StringHash HASH_ELEMENT_NEWPARAM__MODIFIER = 182483714;
+extern const char* NAME_ELEMENT_NEWPARAM__MODIFIER;
+
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL = 263396124;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL;
+
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL2 = 187805954;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL2;
+
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL3 = 187805955;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL3;
+
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL4 = 187805956;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL4;
+
+const StringHash HASH_ELEMENT_NEWPARAM__INT = 83572900;
+extern const char* NAME_ELEMENT_NEWPARAM__INT;
+
+const StringHash HASH_ELEMENT_NEWPARAM__INT2 = 263424562;
+extern const char* NAME_ELEMENT_NEWPARAM__INT2;
+
+const StringHash HASH_ELEMENT_NEWPARAM__INT3 = 263424563;
+extern const char* NAME_ELEMENT_NEWPARAM__INT3;
+
+const StringHash HASH_ELEMENT_NEWPARAM__INT4 = 263424564;
+extern const char* NAME_ELEMENT_NEWPARAM__INT4;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT = 188080500;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2 = 56498114;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3 = 56498115;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4 = 56498116;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4;
+
+const StringHash HASH_ELEMENT_FLOAT1X1 = 236440545;
+extern const char* NAME_ELEMENT_FLOAT1X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X1 = 236440545;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X1;
+
+const StringHash HASH_ELEMENT_FLOAT1X2 = 236440546;
+extern const char* NAME_ELEMENT_FLOAT1X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X2 = 236440546;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X2;
+
+const StringHash HASH_ELEMENT_FLOAT1X3 = 236440547;
+extern const char* NAME_ELEMENT_FLOAT1X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X3 = 236440547;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X3;
+
+const StringHash HASH_ELEMENT_FLOAT1X4 = 236440548;
+extern const char* NAME_ELEMENT_FLOAT1X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X4 = 236440548;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X4;
+
+const StringHash HASH_ELEMENT_FLOAT2X1 = 236440289;
+extern const char* NAME_ELEMENT_FLOAT2X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X1 = 236440289;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X1;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X2 = 236440290;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X2;
+
+const StringHash HASH_ELEMENT_FLOAT2X3 = 236440291;
+extern const char* NAME_ELEMENT_FLOAT2X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X3 = 236440291;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X3;
+
+const StringHash HASH_ELEMENT_FLOAT2X4 = 236440292;
+extern const char* NAME_ELEMENT_FLOAT2X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X4 = 236440292;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X4;
+
+const StringHash HASH_ELEMENT_FLOAT3X1 = 236440033;
+extern const char* NAME_ELEMENT_FLOAT3X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X1 = 236440033;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X1;
+
+const StringHash HASH_ELEMENT_FLOAT3X2 = 236440034;
+extern const char* NAME_ELEMENT_FLOAT3X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X2 = 236440034;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X2;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X3 = 236440035;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X3;
+
+const StringHash HASH_ELEMENT_FLOAT3X4 = 236440036;
+extern const char* NAME_ELEMENT_FLOAT3X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X4 = 236440036;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X4;
+
+const StringHash HASH_ELEMENT_FLOAT4X1 = 236439777;
+extern const char* NAME_ELEMENT_FLOAT4X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X1 = 236439777;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X1;
+
+const StringHash HASH_ELEMENT_FLOAT4X2 = 236439778;
+extern const char* NAME_ELEMENT_FLOAT4X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X2 = 236439778;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X2;
+
+const StringHash HASH_ELEMENT_FLOAT4X3 = 236439779;
+extern const char* NAME_ELEMENT_FLOAT4X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X3 = 236439779;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X3;
+
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X4 = 236439780;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X4;
+
+const StringHash HASH_ELEMENT_SURFACE = 37502101;
+extern const char* NAME_ELEMENT_SURFACE;
+const StringHash HASH_ELEMENT_NEWPARAM__SURFACE = 37502101;
+extern const char* NAME_ELEMENT_NEWPARAM__SURFACE;
+struct newparam__surface__AttributeData
+{
+    static const newparam__surface__AttributeData DEFAULT;
+
+    fx_surface_type_enum type;
+};
+
+const StringHash HASH_ELEMENT_INIT_AS_NULL = 97694700;
+extern const char* NAME_ELEMENT_INIT_AS_NULL;
+const StringHash HASH_ELEMENT_SURFACE__INIT_AS_NULL = 97694700;
+extern const char* NAME_ELEMENT_SURFACE__INIT_AS_NULL;
+
+const StringHash HASH_ELEMENT_INIT_AS_TARGET = 37832724;
+extern const char* NAME_ELEMENT_INIT_AS_TARGET;
+const StringHash HASH_ELEMENT_SURFACE__INIT_AS_TARGET = 37832724;
+extern const char* NAME_ELEMENT_SURFACE__INIT_AS_TARGET;
+
+const StringHash HASH_ELEMENT_INIT_CUBE = 245137349;
+extern const char* NAME_ELEMENT_INIT_CUBE;
+const StringHash HASH_ELEMENT_SURFACE__INIT_CUBE = 245137349;
+extern const char* NAME_ELEMENT_SURFACE__INIT_CUBE;
+
+const StringHash HASH_ELEMENT_ALL = 230624156;
+extern const char* NAME_ELEMENT_ALL;
+const StringHash HASH_ELEMENT_INIT_CUBE__ALL = 230624156;
+extern const char* NAME_ELEMENT_INIT_CUBE__ALL;
+const StringHash HASH_ATTRIBUTE_REF = 30902;
+extern const char* NAME_ATTRIBUTE_REF;
+struct init_cube__all__AttributeData
+{
+    static const init_cube__all__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_PRIMARY = 171149225;
+extern const char* NAME_ELEMENT_PRIMARY;
+const StringHash HASH_ELEMENT_INIT_CUBE__PRIMARY = 171149225;
+extern const char* NAME_ELEMENT_INIT_CUBE__PRIMARY;
+struct init_cube__primary__AttributeData
+{
+    static const init_cube__primary__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_ORDER = 241501282;
+extern const char* NAME_ELEMENT_ORDER;
+const StringHash HASH_ELEMENT_PRIMARY__ORDER = 241501282;
+extern const char* NAME_ELEMENT_PRIMARY__ORDER;
+
+const StringHash HASH_ELEMENT_FACE = 200285253;
+extern const char* NAME_ELEMENT_FACE;
+const StringHash HASH_ELEMENT_INIT_CUBE__FACE = 200285253;
+extern const char* NAME_ELEMENT_INIT_CUBE__FACE;
+struct init_cube__face__AttributeData
+{
+    static const init_cube__face__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_INIT_VOLUME = 253916837;
+extern const char* NAME_ELEMENT_INIT_VOLUME;
+const StringHash HASH_ELEMENT_SURFACE__INIT_VOLUME = 253916837;
+extern const char* NAME_ELEMENT_SURFACE__INIT_VOLUME;
+
+const StringHash HASH_ELEMENT_INIT_VOLUME__ALL = 165229292;
+extern const char* NAME_ELEMENT_INIT_VOLUME__ALL;
+struct init_volume__all__AttributeData
+{
+    static const init_volume__all__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_INIT_VOLUME__PRIMARY = 21488025;
+extern const char* NAME_ELEMENT_INIT_VOLUME__PRIMARY;
+struct init_volume__primary__AttributeData
+{
+    static const init_volume__primary__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_INIT_PLANAR = 264653330;
+extern const char* NAME_ELEMENT_INIT_PLANAR;
+const StringHash HASH_ELEMENT_SURFACE__INIT_PLANAR = 264653330;
+extern const char* NAME_ELEMENT_SURFACE__INIT_PLANAR;
+
+const StringHash HASH_ELEMENT_INIT_PLANAR__ALL = 36140396;
+extern const char* NAME_ELEMENT_INIT_PLANAR__ALL;
+struct init_planar__all__AttributeData
+{
+    static const init_planar__all__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_SURFACE__INIT_FROM = 245107997;
+extern const char* NAME_ELEMENT_SURFACE__INIT_FROM;
+const StringHash HASH_ATTRIBUTE_MIP = 29696;
+extern const char* NAME_ATTRIBUTE_MIP;
+const StringHash HASH_ATTRIBUTE_SLICE = 8007573;
+extern const char* NAME_ATTRIBUTE_SLICE;
+const StringHash HASH_ATTRIBUTE_FACE = 444309;
+extern const char* NAME_ATTRIBUTE_FACE;
+struct surface__init_from__AttributeData
+{
+    static const surface__init_from__AttributeData DEFAULT;
+
+    unsigned long mip;
+    unsigned long slice;
+    fx_surface_face_enum face;
+};
+
+const StringHash HASH_ELEMENT_FORMAT = 219247124;
+extern const char* NAME_ELEMENT_FORMAT;
+const StringHash HASH_ELEMENT_SURFACE__FORMAT = 219247124;
+extern const char* NAME_ELEMENT_SURFACE__FORMAT;
+
+const StringHash HASH_ELEMENT_FORMAT_HINT = 22346100;
+extern const char* NAME_ELEMENT_FORMAT_HINT;
+const StringHash HASH_ELEMENT_SURFACE__FORMAT_HINT = 22346100;
+extern const char* NAME_ELEMENT_SURFACE__FORMAT_HINT;
+
+const StringHash HASH_ELEMENT_CHANNELS = 153491235;
+extern const char* NAME_ELEMENT_CHANNELS;
+const StringHash HASH_ELEMENT_FORMAT_HINT__CHANNELS = 153491235;
+extern const char* NAME_ELEMENT_FORMAT_HINT__CHANNELS;
+
+const StringHash HASH_ELEMENT_RANGE = 98570949;
+extern const char* NAME_ELEMENT_RANGE;
+const StringHash HASH_ELEMENT_FORMAT_HINT__RANGE = 98570949;
+extern const char* NAME_ELEMENT_FORMAT_HINT__RANGE;
+
+const StringHash HASH_ELEMENT_PRECISION = 227897774;
+extern const char* NAME_ELEMENT_PRECISION;
+const StringHash HASH_ELEMENT_FORMAT_HINT__PRECISION = 227897774;
+extern const char* NAME_ELEMENT_FORMAT_HINT__PRECISION;
+
+const StringHash HASH_ELEMENT_OPTION = 249614094;
+extern const char* NAME_ELEMENT_OPTION;
+const StringHash HASH_ELEMENT_FORMAT_HINT__OPTION = 249614094;
+extern const char* NAME_ELEMENT_FORMAT_HINT__OPTION;
+
+const StringHash HASH_ELEMENT_FORMAT_HINT__EXTRA = 97815953;
+extern const char* NAME_ELEMENT_FORMAT_HINT__EXTRA;
+
+const StringHash HASH_ELEMENT_SIZE = 27158757;
+extern const char* NAME_ELEMENT_SIZE;
+const StringHash HASH_ELEMENT_SURFACE__SIZE = 27158757;
+extern const char* NAME_ELEMENT_SURFACE__SIZE;
+
+const StringHash HASH_ELEMENT_VIEWPORT_RATIO = 39354991;
+extern const char* NAME_ELEMENT_VIEWPORT_RATIO;
+const StringHash HASH_ELEMENT_SURFACE__VIEWPORT_RATIO = 39354991;
+extern const char* NAME_ELEMENT_SURFACE__VIEWPORT_RATIO;
+
+const StringHash HASH_ELEMENT_MIP_LEVELS = 95669747;
+extern const char* NAME_ELEMENT_MIP_LEVELS;
+const StringHash HASH_ELEMENT_SURFACE__MIP_LEVELS = 95669747;
+extern const char* NAME_ELEMENT_SURFACE__MIP_LEVELS;
+
+const StringHash HASH_ELEMENT_MIPMAP_GENERATE = 57490693;
+extern const char* NAME_ELEMENT_MIPMAP_GENERATE;
+const StringHash HASH_ELEMENT_SURFACE__MIPMAP_GENERATE = 57490693;
+extern const char* NAME_ELEMENT_SURFACE__MIPMAP_GENERATE;
+
+const StringHash HASH_ELEMENT_SURFACE__EXTRA = 164660625;
+extern const char* NAME_ELEMENT_SURFACE__EXTRA;
+
+const StringHash HASH_ELEMENT_TEXTURE_PIPELINE = 68467621;
+extern const char* NAME_ELEMENT_TEXTURE_PIPELINE;
+const StringHash HASH_ELEMENT_NEWPARAM__TEXTURE_PIPELINE = 68467621;
+extern const char* NAME_ELEMENT_NEWPARAM__TEXTURE_PIPELINE;
+struct newparam__texture_pipeline__AttributeData
+{
+    static const newparam__texture_pipeline__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_TEXCOMBINER = 184640514;
+extern const char* NAME_ELEMENT_TEXCOMBINER;
+const StringHash HASH_ELEMENT_TEXTURE_PIPELINE__TEXCOMBINER = 184640514;
+extern const char* NAME_ELEMENT_TEXTURE_PIPELINE__TEXCOMBINER;
+
+const StringHash HASH_ELEMENT_CONSTANT = 3715492;
+extern const char* NAME_ELEMENT_CONSTANT;
+const StringHash HASH_ELEMENT_TEXCOMBINER__CONSTANT = 3715492;
+extern const char* NAME_ELEMENT_TEXCOMBINER__CONSTANT;
+const StringHash HASH_ATTRIBUTE_VALUE = 8160181;
+extern const char* NAME_ATTRIBUTE_VALUE;
+const StringHash HASH_ATTRIBUTE_PARAM = 7768189;
+extern const char* NAME_ATTRIBUTE_PARAM;
+struct texcombiner__constant__AttributeData
+{
+    static const texcombiner__constant__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_RGB = 102851090;
+extern const char* NAME_ELEMENT_RGB;
+const StringHash HASH_ELEMENT_TEXCOMBINER__RGB = 102851090;
+extern const char* NAME_ELEMENT_TEXCOMBINER__RGB;
+const StringHash HASH_ATTRIBUTE__OPERATOR = 113831170;
+extern const char* NAME_ATTRIBUTE__OPERATOR;
+const StringHash HASH_ATTRIBUTE_SCALE = 7968805;
+extern const char* NAME_ATTRIBUTE_SCALE;
+struct RGB__AttributeData
+{
+    static const RGB__AttributeData DEFAULT;
+
+    gles_texcombiner_operatorRGB_enums _operator;
+    double scale;
+};
+
+const StringHash HASH_ELEMENT_ARGUMENT = 240414596;
+extern const char* NAME_ELEMENT_ARGUMENT;
+const StringHash HASH_ELEMENT_RGB__ARGUMENT = 240414596;
+extern const char* NAME_ELEMENT_RGB__ARGUMENT;
+const StringHash HASH_ATTRIBUTE_SOURCE = 128370837;
+extern const char* NAME_ATTRIBUTE_SOURCE;
+const StringHash HASH_ATTRIBUTE_OPERAND = 107776052;
+extern const char* NAME_ATTRIBUTE_OPERAND;
+const StringHash HASH_ATTRIBUTE_UNIT = 509188;
+extern const char* NAME_ATTRIBUTE_UNIT;
+struct RGB__argument__AttributeData
+{
+    static const RGB__argument__AttributeData DEFAULT;
+
+    gles_texcombiner_source_enums source;
+    gles_texcombiner_operandRGB_enums operand;
+    const ParserChar* unit;
+};
+
+const StringHash HASH_ELEMENT_ALPHA = 24416449;
+extern const char* NAME_ELEMENT_ALPHA;
+const StringHash HASH_ELEMENT_TEXCOMBINER__ALPHA = 24416449;
+extern const char* NAME_ELEMENT_TEXCOMBINER__ALPHA;
+struct texcombiner__alpha__AttributeData
+{
+    static const texcombiner__alpha__AttributeData DEFAULT;
+
+    gles_texcombiner_operatorAlpha_enums _operator;
+    double scale;
+};
+
+const StringHash HASH_ELEMENT_ALPHA__ARGUMENT = 235735012;
+extern const char* NAME_ELEMENT_ALPHA__ARGUMENT;
+struct alpha__argument__AttributeData
+{
+    static const alpha__argument__AttributeData DEFAULT;
+
+    gles_texcombiner_source_enums source;
+    gles_texcombiner_operandAlpha_enums operand;
+    const ParserChar* unit;
+};
+
+const StringHash HASH_ELEMENT_TEXENV = 60426918;
+extern const char* NAME_ELEMENT_TEXENV;
+const StringHash HASH_ELEMENT_TEXTURE_PIPELINE__TEXENV = 60426918;
+extern const char* NAME_ELEMENT_TEXTURE_PIPELINE__TEXENV;
+struct texenv__AttributeData
+{
+    static const texenv__AttributeData DEFAULT;
+
+    gles_texenv_mode_enums _operator;
+    const ParserChar* unit;
+};
+
+const StringHash HASH_ELEMENT_TEXENV__CONSTANT = 168255444;
+extern const char* NAME_ELEMENT_TEXENV__CONSTANT;
+typedef texcombiner__constant__AttributeData texenv__constant__AttributeData;
+
+const StringHash HASH_ELEMENT_TEXTURE_PIPELINE__EXTRA = 252679585;
+extern const char* NAME_ELEMENT_TEXTURE_PIPELINE__EXTRA;
+
+const StringHash HASH_ELEMENT_SAMPLER_STATE = 133824869;
+extern const char* NAME_ELEMENT_SAMPLER_STATE;
+const StringHash HASH_ELEMENT_NEWPARAM__SAMPLER_STATE = 133824869;
+extern const char* NAME_ELEMENT_NEWPARAM__SAMPLER_STATE;
+struct newparam__sampler_state__AttributeData
+{
+    static const newparam__sampler_state__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_WRAP_S = 137532627;
+extern const char* NAME_ELEMENT_WRAP_S;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__WRAP_S = 137532627;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__WRAP_S;
+
+const StringHash HASH_ELEMENT_WRAP_T = 137532628;
+extern const char* NAME_ELEMENT_WRAP_T;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__WRAP_T = 137532628;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__WRAP_T;
+
+const StringHash HASH_ELEMENT_MINFILTER = 94762146;
+extern const char* NAME_ELEMENT_MINFILTER;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__MINFILTER = 94762146;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__MINFILTER;
+
+const StringHash HASH_ELEMENT_MAGFILTER = 212202514;
+extern const char* NAME_ELEMENT_MAGFILTER;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__MAGFILTER = 212202514;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__MAGFILTER;
+
+const StringHash HASH_ELEMENT_MIPFILTER = 128316770;
+extern const char* NAME_ELEMENT_MIPFILTER;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__MIPFILTER = 128316770;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__MIPFILTER;
+
+const StringHash HASH_ELEMENT_MIPMAP_MAXLEVEL = 12674860;
+extern const char* NAME_ELEMENT_MIPMAP_MAXLEVEL;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__MIPMAP_MAXLEVEL = 12674860;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__MIPMAP_MAXLEVEL;
+
+const StringHash HASH_ELEMENT_MIPMAP_BIAS = 61482963;
+extern const char* NAME_ELEMENT_MIPMAP_BIAS;
+const StringHash HASH_ELEMENT_SAMPLER_STATE__MIPMAP_BIAS = 61482963;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__MIPMAP_BIAS;
+
+const StringHash HASH_ELEMENT_SAMPLER_STATE__EXTRA = 196172513;
+extern const char* NAME_ELEMENT_SAMPLER_STATE__EXTRA;
+
+const StringHash HASH_ELEMENT_TEXTURE_UNIT = 143987060;
+extern const char* NAME_ELEMENT_TEXTURE_UNIT;
+const StringHash HASH_ELEMENT_NEWPARAM__TEXTURE_UNIT = 143987060;
+extern const char* NAME_ELEMENT_NEWPARAM__TEXTURE_UNIT;
+struct texture_unit__AttributeData
+{
+    static const texture_unit__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_TEXTURE_UNIT__SURFACE = 214217045;
+extern const char* NAME_ELEMENT_TEXTURE_UNIT__SURFACE;
+
+const StringHash HASH_ELEMENT_TEXTURE_UNIT__SAMPLER_STATE = 165842085;
+extern const char* NAME_ELEMENT_TEXTURE_UNIT__SAMPLER_STATE;
+
+const StringHash HASH_ELEMENT_TEXCOORD = 204425796;
+extern const char* NAME_ELEMENT_TEXCOORD;
+const StringHash HASH_ELEMENT_TEXTURE_UNIT__TEXCOORD = 204425796;
+extern const char* NAME_ELEMENT_TEXTURE_UNIT__TEXCOORD;
+const StringHash HASH_ATTRIBUTE_SEMANTIC = 205020515;
+extern const char* NAME_ATTRIBUTE_SEMANTIC;
+struct texcoord__AttributeData
+{
+    static const texcoord__AttributeData DEFAULT;
+
+    const ParserChar* semantic;
+};
+
+const StringHash HASH_ELEMENT_TEXTURE_UNIT__EXTRA = 117110769;
+extern const char* NAME_ELEMENT_TEXTURE_UNIT__EXTRA;
+
+const StringHash HASH_ELEMENT_ENUM = 263408381;
+extern const char* NAME_ELEMENT_ENUM;
+const StringHash HASH_ELEMENT_NEWPARAM__ENUM = 263408381;
+extern const char* NAME_ELEMENT_NEWPARAM__ENUM;
+
+const StringHash HASH_ELEMENT_PROFILE_GLES__TECHNIQUE = 52481493;
+extern const char* NAME_ELEMENT_PROFILE_GLES__TECHNIQUE;
+struct profile_GLES__technique__AttributeData
+{
+    static const profile_GLES__technique__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_TECHNIQUE__ASSET = 202344836;
+extern const char* NAME_ELEMENT_TECHNIQUE__ASSET;
+
+const StringHash HASH_ELEMENT_TECHNIQUE__ANNOTATE = 122841269;
+extern const char* NAME_ELEMENT_TECHNIQUE__ANNOTATE;
+
+const StringHash HASH_ELEMENT_TECHNIQUE__IMAGE = 201922453;
+extern const char* NAME_ELEMENT_TECHNIQUE__IMAGE;
+
+const StringHash HASH_ELEMENT_TECHNIQUE__NEWPARAM = 249710925;
+extern const char* NAME_ELEMENT_TECHNIQUE__NEWPARAM;
+typedef profile_GLES__newparam__AttributeData technique__newparam__AttributeData;
+
+const StringHash HASH_ELEMENT_SETPARAM = 246565789;
+extern const char* NAME_ELEMENT_SETPARAM;
+const StringHash HASH_ELEMENT_TECHNIQUE__SETPARAM = 246565789;
+extern const char* NAME_ELEMENT_TECHNIQUE__SETPARAM;
+struct technique__setparam__AttributeData
+{
+    static const technique__setparam__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_SETPARAM__ANNOTATE = 89566037;
+extern const char* NAME_ELEMENT_SETPARAM__ANNOTATE;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL = 206428;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL2 = 3302898;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL2;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL3 = 3302899;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL3;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL4 = 3302900;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL4;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT = 14164;
+extern const char* NAME_ELEMENT_SETPARAM__INT;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT2 = 226674;
+extern const char* NAME_ELEMENT_SETPARAM__INT2;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT3 = 226675;
+extern const char* NAME_ELEMENT_SETPARAM__INT3;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT4 = 226676;
+extern const char* NAME_ELEMENT_SETPARAM__INT4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT = 3552644;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT2 = 56842354;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT3 = 56842355;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT4 = 56842356;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X1 = 56130513;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X2 = 56130514;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X3 = 56130515;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X4 = 56130516;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X1 = 56130257;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X2 = 56130258;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X3 = 56130259;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X4 = 56130260;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X1 = 56130001;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X2 = 56130002;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X3 = 56130003;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X4 = 56130004;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X1 = 56129745;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X2 = 56129746;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X3 = 56129747;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X4 = 56129748;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__SURFACE = 63489941;
+extern const char* NAME_ELEMENT_SETPARAM__SURFACE;
+typedef newparam__surface__AttributeData setparam__surface__AttributeData;
+
+const StringHash HASH_ELEMENT_SETPARAM__TEXTURE_PIPELINE = 195331813;
+extern const char* NAME_ELEMENT_SETPARAM__TEXTURE_PIPELINE;
+typedef newparam__texture_pipeline__AttributeData setparam__texture_pipeline__AttributeData;
+
+const StringHash HASH_ELEMENT_SETPARAM__SAMPLER_STATE = 149871205;
+extern const char* NAME_ELEMENT_SETPARAM__SAMPLER_STATE;
+typedef newparam__sampler_state__AttributeData setparam__sampler_state__AttributeData;
+
+const StringHash HASH_ELEMENT_SETPARAM__TEXTURE_UNIT = 145383620;
+extern const char* NAME_ELEMENT_SETPARAM__TEXTURE_UNIT;
+
+const StringHash HASH_ELEMENT_SETPARAM__ENUM = 210365;
+extern const char* NAME_ELEMENT_SETPARAM__ENUM;
+
+const StringHash HASH_ELEMENT_PASS = 79895203;
+extern const char* NAME_ELEMENT_PASS;
+const StringHash HASH_ELEMENT_TECHNIQUE__PASS = 79895203;
+extern const char* NAME_ELEMENT_TECHNIQUE__PASS;
+struct pass__AttributeData
+{
+    static const pass__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_PASS__ANNOTATE = 234879621;
+extern const char* NAME_ELEMENT_PASS__ANNOTATE;
+
+const StringHash HASH_ELEMENT_COLOR_TARGET = 94769908;
+extern const char* NAME_ELEMENT_COLOR_TARGET;
+const StringHash HASH_ELEMENT_PASS__COLOR_TARGET = 94769908;
+extern const char* NAME_ELEMENT_PASS__COLOR_TARGET;
+
+const StringHash HASH_ELEMENT_DEPTH_TARGET = 74210900;
+extern const char* NAME_ELEMENT_DEPTH_TARGET;
+const StringHash HASH_ELEMENT_PASS__DEPTH_TARGET = 74210900;
+extern const char* NAME_ELEMENT_PASS__DEPTH_TARGET;
+
+const StringHash HASH_ELEMENT_STENCIL_TARGET = 75842084;
+extern const char* NAME_ELEMENT_STENCIL_TARGET;
+const StringHash HASH_ELEMENT_PASS__STENCIL_TARGET = 75842084;
+extern const char* NAME_ELEMENT_PASS__STENCIL_TARGET;
+
+const StringHash HASH_ELEMENT_COLOR_CLEAR = 57328242;
+extern const char* NAME_ELEMENT_COLOR_CLEAR;
+const StringHash HASH_ELEMENT_PASS__COLOR_CLEAR = 57328242;
+extern const char* NAME_ELEMENT_PASS__COLOR_CLEAR;
+
+const StringHash HASH_ELEMENT_DEPTH_CLEAR = 158754482;
+extern const char* NAME_ELEMENT_DEPTH_CLEAR;
+const StringHash HASH_ELEMENT_PASS__DEPTH_CLEAR = 158754482;
+extern const char* NAME_ELEMENT_PASS__DEPTH_CLEAR;
+
+const StringHash HASH_ELEMENT_STENCIL_CLEAR = 243070834;
+extern const char* NAME_ELEMENT_STENCIL_CLEAR;
+const StringHash HASH_ELEMENT_PASS__STENCIL_CLEAR = 243070834;
+extern const char* NAME_ELEMENT_PASS__STENCIL_CLEAR;
+
+const StringHash HASH_ELEMENT_DRAW = 156422183;
+extern const char* NAME_ELEMENT_DRAW;
+const StringHash HASH_ELEMENT_PASS__DRAW = 156422183;
+extern const char* NAME_ELEMENT_PASS__DRAW;
+
+const StringHash HASH_ELEMENT_ALPHA_FUNC = 122155395;
+extern const char* NAME_ELEMENT_ALPHA_FUNC;
+const StringHash HASH_ELEMENT_PASS__ALPHA_FUNC = 122155395;
+extern const char* NAME_ELEMENT_PASS__ALPHA_FUNC;
+
+const StringHash HASH_ELEMENT_FUNC = 122061667;
+extern const char* NAME_ELEMENT_FUNC;
+const StringHash HASH_ELEMENT_ALPHA_FUNC__FUNC = 122061667;
+extern const char* NAME_ELEMENT_ALPHA_FUNC__FUNC;
+struct alpha_func__func__AttributeData
+{
+    static const alpha_func__func__AttributeData DEFAULT;
+
+    gl_func_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_VALUE = 73003461;
+extern const char* NAME_ELEMENT_VALUE;
+const StringHash HASH_ELEMENT_ALPHA_FUNC__VALUE = 73003461;
+extern const char* NAME_ELEMENT_ALPHA_FUNC__VALUE;
+struct alpha_func__value__AttributeData
+{
+    static const alpha_func__value__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_BLEND_FUNC = 232202851;
+extern const char* NAME_ELEMENT_BLEND_FUNC;
+const StringHash HASH_ELEMENT_PASS__BLEND_FUNC = 232202851;
+extern const char* NAME_ELEMENT_PASS__BLEND_FUNC;
+
+const StringHash HASH_ELEMENT_SRC = 148856355;
+extern const char* NAME_ELEMENT_SRC;
+const StringHash HASH_ELEMENT_BLEND_FUNC__SRC = 148856355;
+extern const char* NAME_ELEMENT_BLEND_FUNC__SRC;
+struct src__AttributeData
+{
+    static const src__AttributeData DEFAULT;
+
+    gl_blend_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_DEST = 234284580;
+extern const char* NAME_ELEMENT_DEST;
+const StringHash HASH_ELEMENT_BLEND_FUNC__DEST = 234284580;
+extern const char* NAME_ELEMENT_BLEND_FUNC__DEST;
+struct dest__AttributeData
+{
+    static const dest__AttributeData DEFAULT;
+
+    gl_blend_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CLEAR_COLOR = 57345138;
+extern const char* NAME_ELEMENT_CLEAR_COLOR;
+const StringHash HASH_ELEMENT_PASS__CLEAR_COLOR = 57345138;
+extern const char* NAME_ELEMENT_PASS__CLEAR_COLOR;
+struct clear_color__AttributeData
+{
+    static const clear_color__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CLEAR_STENCIL = 168516268;
+extern const char* NAME_ELEMENT_CLEAR_STENCIL;
+const StringHash HASH_ELEMENT_PASS__CLEAR_STENCIL = 168516268;
+extern const char* NAME_ELEMENT_PASS__CLEAR_STENCIL;
+struct clear_stencil__AttributeData
+{
+    static const clear_stencil__AttributeData DEFAULT;
+
+    long value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CLEAR_DEPTH = 57304760;
+extern const char* NAME_ELEMENT_CLEAR_DEPTH;
+const StringHash HASH_ELEMENT_PASS__CLEAR_DEPTH = 57304760;
+extern const char* NAME_ELEMENT_PASS__CLEAR_DEPTH;
+struct clear_depth__AttributeData
+{
+    static const clear_depth__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CLIP_PLANE = 221654501;
+extern const char* NAME_ELEMENT_CLIP_PLANE;
+const StringHash HASH_ELEMENT_PASS__CLIP_PLANE = 221654501;
+extern const char* NAME_ELEMENT_PASS__CLIP_PLANE;
+const StringHash HASH_ATTRIBUTE_INDEX = 7359176;
+extern const char* NAME_ATTRIBUTE_INDEX;
+struct clip_plane__AttributeData
+{
+    static const clip_plane__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<bool> value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_COLOR_MASK = 255276555;
+extern const char* NAME_ELEMENT_COLOR_MASK;
+const StringHash HASH_ELEMENT_PASS__COLOR_MASK = 255276555;
+extern const char* NAME_ELEMENT_PASS__COLOR_MASK;
+struct color_mask__AttributeData
+{
+    static const color_mask__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<bool> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CULL_FACE = 160492501;
+extern const char* NAME_ELEMENT_CULL_FACE;
+const StringHash HASH_ELEMENT_PASS__CULL_FACE = 160492501;
+extern const char* NAME_ELEMENT_PASS__CULL_FACE;
+struct cull_face__AttributeData
+{
+    static const cull_face__AttributeData DEFAULT;
+
+    gl_face_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_DEPTH_FUNC = 60235923;
+extern const char* NAME_ELEMENT_DEPTH_FUNC;
+const StringHash HASH_ELEMENT_PASS__DEPTH_FUNC = 60235923;
+extern const char* NAME_ELEMENT_PASS__DEPTH_FUNC;
+struct depth_func__AttributeData
+{
+    static const depth_func__AttributeData DEFAULT;
+
+    gl_func_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_DEPTH_MASK = 60357707;
+extern const char* NAME_ELEMENT_DEPTH_MASK;
+const StringHash HASH_ELEMENT_PASS__DEPTH_MASK = 60357707;
+extern const char* NAME_ELEMENT_PASS__DEPTH_MASK;
+struct depth_mask__AttributeData
+{
+    static const depth_mask__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_DEPTH_RANGE = 155470309;
+extern const char* NAME_ELEMENT_DEPTH_RANGE;
+const StringHash HASH_ELEMENT_PASS__DEPTH_RANGE = 155470309;
+extern const char* NAME_ELEMENT_PASS__DEPTH_RANGE;
+struct depth_range__AttributeData
+{
+    static const depth_range__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FOG_COLOR = 130910898;
+extern const char* NAME_ELEMENT_FOG_COLOR;
+const StringHash HASH_ELEMENT_PASS__FOG_COLOR = 130910898;
+extern const char* NAME_ELEMENT_PASS__FOG_COLOR;
+struct fog_color__AttributeData
+{
+    static const fog_color__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FOG_DENSITY = 263083897;
+extern const char* NAME_ELEMENT_FOG_DENSITY;
+const StringHash HASH_ELEMENT_PASS__FOG_DENSITY = 263083897;
+extern const char* NAME_ELEMENT_PASS__FOG_DENSITY;
+struct fog_density__AttributeData
+{
+    static const fog_density__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FOG_MODE = 226326293;
+extern const char* NAME_ELEMENT_FOG_MODE;
+const StringHash HASH_ELEMENT_PASS__FOG_MODE = 226326293;
+extern const char* NAME_ELEMENT_PASS__FOG_MODE;
+struct fog_mode__AttributeData
+{
+    static const fog_mode__AttributeData DEFAULT;
+
+    gl_fog_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FOG_START = 134185796;
+extern const char* NAME_ELEMENT_FOG_START;
+const StringHash HASH_ELEMENT_PASS__FOG_START = 134185796;
+extern const char* NAME_ELEMENT_PASS__FOG_START;
+struct fog_start__AttributeData
+{
+    static const fog_start__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FOG_END = 198692708;
+extern const char* NAME_ELEMENT_FOG_END;
+const StringHash HASH_ELEMENT_PASS__FOG_END = 198692708;
+extern const char* NAME_ELEMENT_PASS__FOG_END;
+struct fog_end__AttributeData
+{
+    static const fog_end__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FRONT_FACE = 215446933;
+extern const char* NAME_ELEMENT_FRONT_FACE;
+const StringHash HASH_ELEMENT_PASS__FRONT_FACE = 215446933;
+extern const char* NAME_ELEMENT_PASS__FRONT_FACE;
+struct front_face__AttributeData
+{
+    static const front_face__AttributeData DEFAULT;
+
+    gl_front_face_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_PASS__TEXTURE_PIPELINE = 49503749;
+extern const char* NAME_ELEMENT_PASS__TEXTURE_PIPELINE;
+struct pass__texture_pipeline__AttributeData
+{
+    static const pass__texture_pipeline__AttributeData DEFAULT;
+
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_TEXTURE_PIPELINE__VALUE = 255798677;
+extern const char* NAME_ELEMENT_TEXTURE_PIPELINE__VALUE;
+typedef newparam__texture_pipeline__AttributeData texture_pipeline__value__AttributeData;
+
+const StringHash HASH_ELEMENT_VALUE__TEXCOMBINER = 43651570;
+extern const char* NAME_ELEMENT_VALUE__TEXCOMBINER;
+
+const StringHash HASH_ELEMENT_VALUE__TEXENV = 170873110;
+extern const char* NAME_ELEMENT_VALUE__TEXENV;
+
+const StringHash HASH_ELEMENT_VALUE__EXTRA = 76857393;
+extern const char* NAME_ELEMENT_VALUE__EXTRA;
+
+const StringHash HASH_ELEMENT_LOGIC_OP = 225896240;
+extern const char* NAME_ELEMENT_LOGIC_OP;
+const StringHash HASH_ELEMENT_PASS__LOGIC_OP = 225896240;
+extern const char* NAME_ELEMENT_PASS__LOGIC_OP;
+struct logic_op__AttributeData
+{
+    static const logic_op__AttributeData DEFAULT;
+
+    gl_logic_op_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_AMBIENT = 72324916;
+extern const char* NAME_ELEMENT_LIGHT_AMBIENT;
+const StringHash HASH_ELEMENT_PASS__LIGHT_AMBIENT = 72324916;
+extern const char* NAME_ELEMENT_PASS__LIGHT_AMBIENT;
+struct light_ambient__AttributeData
+{
+    static const light_ambient__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_DIFFUSE = 244036085;
+extern const char* NAME_ELEMENT_LIGHT_DIFFUSE;
+const StringHash HASH_ELEMENT_PASS__LIGHT_DIFFUSE = 244036085;
+extern const char* NAME_ELEMENT_PASS__LIGHT_DIFFUSE;
+struct light_diffuse__AttributeData
+{
+    static const light_diffuse__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_SPECULAR = 30177122;
+extern const char* NAME_ELEMENT_LIGHT_SPECULAR;
+const StringHash HASH_ELEMENT_PASS__LIGHT_SPECULAR = 30177122;
+extern const char* NAME_ELEMENT_PASS__LIGHT_SPECULAR;
+struct light_specular__AttributeData
+{
+    static const light_specular__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_POSITION = 32930670;
+extern const char* NAME_ELEMENT_LIGHT_POSITION;
+const StringHash HASH_ELEMENT_PASS__LIGHT_POSITION = 32930670;
+extern const char* NAME_ELEMENT_PASS__LIGHT_POSITION;
+struct light_position__AttributeData
+{
+    static const light_position__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_CONSTANT_ATTENUATION = 248277070;
+extern const char* NAME_ELEMENT_LIGHT_CONSTANT_ATTENUATION;
+const StringHash HASH_ELEMENT_PASS__LIGHT_CONSTANT_ATTENUATION = 248277070;
+extern const char* NAME_ELEMENT_PASS__LIGHT_CONSTANT_ATTENUATION;
+struct light_constant_attenuation__AttributeData
+{
+    static const light_constant_attenuation__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_LINEAR_ATTENUTATION = 263246110;
+extern const char* NAME_ELEMENT_LIGHT_LINEAR_ATTENUTATION;
+const StringHash HASH_ELEMENT_PASS__LIGHT_LINEAR_ATTENUTATION = 263246110;
+extern const char* NAME_ELEMENT_PASS__LIGHT_LINEAR_ATTENUTATION;
+struct light_linear_attenutation__AttributeData
+{
+    static const light_linear_attenutation__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_QUADRATIC_ATTENUATION = 204850382;
+extern const char* NAME_ELEMENT_LIGHT_QUADRATIC_ATTENUATION;
+const StringHash HASH_ELEMENT_PASS__LIGHT_QUADRATIC_ATTENUATION = 204850382;
+extern const char* NAME_ELEMENT_PASS__LIGHT_QUADRATIC_ATTENUATION;
+struct light_quadratic_attenuation__AttributeData
+{
+    static const light_quadratic_attenuation__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_SPOT_CUTOFF = 150116294;
+extern const char* NAME_ELEMENT_LIGHT_SPOT_CUTOFF;
+const StringHash HASH_ELEMENT_PASS__LIGHT_SPOT_CUTOFF = 150116294;
+extern const char* NAME_ELEMENT_PASS__LIGHT_SPOT_CUTOFF;
+struct light_spot_cutoff__AttributeData
+{
+    static const light_spot_cutoff__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_SPOT_DIRECTION = 177881278;
+extern const char* NAME_ELEMENT_LIGHT_SPOT_DIRECTION;
+const StringHash HASH_ELEMENT_PASS__LIGHT_SPOT_DIRECTION = 177881278;
+extern const char* NAME_ELEMENT_PASS__LIGHT_SPOT_DIRECTION;
+struct light_spot_direction__AttributeData
+{
+    static const light_spot_direction__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_SPOT_EXPONENT = 22561988;
+extern const char* NAME_ELEMENT_LIGHT_SPOT_EXPONENT;
+const StringHash HASH_ELEMENT_PASS__LIGHT_SPOT_EXPONENT = 22561988;
+extern const char* NAME_ELEMENT_PASS__LIGHT_SPOT_EXPONENT;
+struct light_spot_exponent__AttributeData
+{
+    static const light_spot_exponent__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_MODEL_AMBIENT = 1382244;
+extern const char* NAME_ELEMENT_LIGHT_MODEL_AMBIENT;
+const StringHash HASH_ELEMENT_PASS__LIGHT_MODEL_AMBIENT = 1382244;
+extern const char* NAME_ELEMENT_PASS__LIGHT_MODEL_AMBIENT;
+struct light_model_ambient__AttributeData
+{
+    static const light_model_ambient__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_LINE_WIDTH = 71217992;
+extern const char* NAME_ELEMENT_LINE_WIDTH;
+const StringHash HASH_ELEMENT_PASS__LINE_WIDTH = 71217992;
+extern const char* NAME_ELEMENT_PASS__LINE_WIDTH;
+struct line_width__AttributeData
+{
+    static const line_width__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MATERIAL_AMBIENT = 65325572;
+extern const char* NAME_ELEMENT_MATERIAL_AMBIENT;
+const StringHash HASH_ELEMENT_PASS__MATERIAL_AMBIENT = 65325572;
+extern const char* NAME_ELEMENT_PASS__MATERIAL_AMBIENT;
+struct material_ambient__AttributeData
+{
+    static const material_ambient__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MATERIAL_DIFFUSE = 253816517;
+extern const char* NAME_ELEMENT_MATERIAL_DIFFUSE;
+const StringHash HASH_ELEMENT_PASS__MATERIAL_DIFFUSE = 253816517;
+extern const char* NAME_ELEMENT_PASS__MATERIAL_DIFFUSE;
+struct material_diffuse__AttributeData
+{
+    static const material_diffuse__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MATERIAL_EMISSION = 264879022;
+extern const char* NAME_ELEMENT_MATERIAL_EMISSION;
+const StringHash HASH_ELEMENT_PASS__MATERIAL_EMISSION = 264879022;
+extern const char* NAME_ELEMENT_PASS__MATERIAL_EMISSION;
+struct material_emission__AttributeData
+{
+    static const material_emission__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MATERIAL_SHININESS = 75374739;
+extern const char* NAME_ELEMENT_MATERIAL_SHININESS;
+const StringHash HASH_ELEMENT_PASS__MATERIAL_SHININESS = 75374739;
+extern const char* NAME_ELEMENT_PASS__MATERIAL_SHININESS;
+struct material_shininess__AttributeData
+{
+    static const material_shininess__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MATERIAL_SPECULAR = 192521330;
+extern const char* NAME_ELEMENT_MATERIAL_SPECULAR;
+const StringHash HASH_ELEMENT_PASS__MATERIAL_SPECULAR = 192521330;
+extern const char* NAME_ELEMENT_PASS__MATERIAL_SPECULAR;
+struct material_specular__AttributeData
+{
+    static const material_specular__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MODEL_VIEW_MATRIX = 23238152;
+extern const char* NAME_ELEMENT_MODEL_VIEW_MATRIX;
+const StringHash HASH_ELEMENT_PASS__MODEL_VIEW_MATRIX = 23238152;
+extern const char* NAME_ELEMENT_PASS__MODEL_VIEW_MATRIX;
+struct model_view_matrix__AttributeData
+{
+    static const model_view_matrix__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POINT_DISTANCE_ATTENUATION = 220636846;
+extern const char* NAME_ELEMENT_POINT_DISTANCE_ATTENUATION;
+const StringHash HASH_ELEMENT_PASS__POINT_DISTANCE_ATTENUATION = 220636846;
+extern const char* NAME_ELEMENT_PASS__POINT_DISTANCE_ATTENUATION;
+struct point_distance_attenuation__AttributeData
+{
+    static const point_distance_attenuation__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POINT_FADE_THRESHOLD_SIZE = 13010885;
+extern const char* NAME_ELEMENT_POINT_FADE_THRESHOLD_SIZE;
+const StringHash HASH_ELEMENT_PASS__POINT_FADE_THRESHOLD_SIZE = 13010885;
+extern const char* NAME_ELEMENT_PASS__POINT_FADE_THRESHOLD_SIZE;
+struct point_fade_threshold_size__AttributeData
+{
+    static const point_fade_threshold_size__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POINT_SIZE = 215457381;
+extern const char* NAME_ELEMENT_POINT_SIZE;
+const StringHash HASH_ELEMENT_PASS__POINT_SIZE = 215457381;
+extern const char* NAME_ELEMENT_PASS__POINT_SIZE;
+struct point_size__AttributeData
+{
+    static const point_size__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POINT_SIZE_MIN = 241669230;
+extern const char* NAME_ELEMENT_POINT_SIZE_MIN;
+const StringHash HASH_ELEMENT_PASS__POINT_SIZE_MIN = 241669230;
+extern const char* NAME_ELEMENT_PASS__POINT_SIZE_MIN;
+struct point_size_min__AttributeData
+{
+    static const point_size_min__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POINT_SIZE_MAX = 241669144;
+extern const char* NAME_ELEMENT_POINT_SIZE_MAX;
+const StringHash HASH_ELEMENT_PASS__POINT_SIZE_MAX = 241669144;
+extern const char* NAME_ELEMENT_PASS__POINT_SIZE_MAX;
+struct point_size_max__AttributeData
+{
+    static const point_size_max__AttributeData DEFAULT;
+
+    double value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POLYGON_OFFSET = 214584564;
+extern const char* NAME_ELEMENT_POLYGON_OFFSET;
+const StringHash HASH_ELEMENT_PASS__POLYGON_OFFSET = 214584564;
+extern const char* NAME_ELEMENT_PASS__POLYGON_OFFSET;
+struct polygon_offset__AttributeData
+{
+    static const polygon_offset__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_PROJECTION_MATRIX = 209936312;
+extern const char* NAME_ELEMENT_PROJECTION_MATRIX;
+const StringHash HASH_ELEMENT_PASS__PROJECTION_MATRIX = 209936312;
+extern const char* NAME_ELEMENT_PASS__PROJECTION_MATRIX;
+struct projection_matrix__AttributeData
+{
+    static const projection_matrix__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<double> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_SCISSOR = 254426482;
+extern const char* NAME_ELEMENT_SCISSOR;
+const StringHash HASH_ELEMENT_PASS__SCISSOR = 254426482;
+extern const char* NAME_ELEMENT_PASS__SCISSOR;
+struct scissor__AttributeData
+{
+    static const scissor__AttributeData DEFAULT;
+
+    GeneratedSaxParser::XSList<long> value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_SHADE_MODEL = 6109180;
+extern const char* NAME_ELEMENT_SHADE_MODEL;
+const StringHash HASH_ELEMENT_PASS__SHADE_MODEL = 6109180;
+extern const char* NAME_ELEMENT_PASS__SHADE_MODEL;
+struct shade_model__AttributeData
+{
+    static const shade_model__AttributeData DEFAULT;
+
+    gl_shade_model_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_STENCIL_FUNC = 266860419;
+extern const char* NAME_ELEMENT_STENCIL_FUNC;
+const StringHash HASH_ELEMENT_PASS__STENCIL_FUNC = 266860419;
+extern const char* NAME_ELEMENT_PASS__STENCIL_FUNC;
+
+const StringHash HASH_ELEMENT_STENCIL_FUNC__FUNC = 43711635;
+extern const char* NAME_ELEMENT_STENCIL_FUNC__FUNC;
+struct stencil_func__func__AttributeData
+{
+    static const stencil_func__func__AttributeData DEFAULT;
+
+    gl_func_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_REF = 220830390;
+extern const char* NAME_ELEMENT_REF;
+const StringHash HASH_ELEMENT_STENCIL_FUNC__REF = 220830390;
+extern const char* NAME_ELEMENT_STENCIL_FUNC__REF;
+struct stencil_func__ref__AttributeData
+{
+    static const stencil_func__ref__AttributeData DEFAULT;
+
+    unsigned short value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MASK = 43718731;
+extern const char* NAME_ELEMENT_MASK;
+const StringHash HASH_ELEMENT_STENCIL_FUNC__MASK = 43718731;
+extern const char* NAME_ELEMENT_STENCIL_FUNC__MASK;
+struct stencil_func__mask__AttributeData
+{
+    static const stencil_func__mask__AttributeData DEFAULT;
+
+    unsigned short value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_STENCIL_MASK = 266868059;
+extern const char* NAME_ELEMENT_STENCIL_MASK;
+const StringHash HASH_ELEMENT_PASS__STENCIL_MASK = 266868059;
+extern const char* NAME_ELEMENT_PASS__STENCIL_MASK;
+struct stencil_mask__AttributeData
+{
+    static const stencil_mask__AttributeData DEFAULT;
+
+    long value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_STENCIL_OP = 231729216;
+extern const char* NAME_ELEMENT_STENCIL_OP;
+const StringHash HASH_ELEMENT_PASS__STENCIL_OP = 231729216;
+extern const char* NAME_ELEMENT_PASS__STENCIL_OP;
+
+const StringHash HASH_ELEMENT_FAIL = 49026908;
+extern const char* NAME_ELEMENT_FAIL;
+const StringHash HASH_ELEMENT_STENCIL_OP__FAIL = 49026908;
+extern const char* NAME_ELEMENT_STENCIL_OP__FAIL;
+struct stencil_op__fail__AttributeData
+{
+    static const stencil_op__fail__AttributeData DEFAULT;
+
+    gles_stencil_op_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_ZFAIL = 252562908;
+extern const char* NAME_ELEMENT_ZFAIL;
+const StringHash HASH_ELEMENT_STENCIL_OP__ZFAIL = 252562908;
+extern const char* NAME_ELEMENT_STENCIL_OP__ZFAIL;
+struct stencil_op__zfail__AttributeData
+{
+    static const stencil_op__zfail__AttributeData DEFAULT;
+
+    gles_stencil_op_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_ZPASS = 252469891;
+extern const char* NAME_ELEMENT_ZPASS;
+const StringHash HASH_ELEMENT_STENCIL_OP__ZPASS = 252469891;
+extern const char* NAME_ELEMENT_STENCIL_OP__ZPASS;
+struct stencil_op__zpass__AttributeData
+{
+    static const stencil_op__zpass__AttributeData DEFAULT;
+
+    gles_stencil_op_type value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_ALPHA_TEST_ENABLE = 34344917;
+extern const char* NAME_ELEMENT_ALPHA_TEST_ENABLE;
+const StringHash HASH_ELEMENT_PASS__ALPHA_TEST_ENABLE = 34344917;
+extern const char* NAME_ELEMENT_PASS__ALPHA_TEST_ENABLE;
+struct alpha_test_enable__AttributeData
+{
+    static const alpha_test_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_BLEND_ENABLE = 123623157;
+extern const char* NAME_ELEMENT_BLEND_ENABLE;
+const StringHash HASH_ELEMENT_PASS__BLEND_ENABLE = 123623157;
+extern const char* NAME_ELEMENT_PASS__BLEND_ENABLE;
+struct blend_enable__AttributeData
+{
+    static const blend_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CLIP_PLANE_ENABLE = 115779493;
+extern const char* NAME_ELEMENT_CLIP_PLANE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__CLIP_PLANE_ENABLE = 115779493;
+extern const char* NAME_ELEMENT_PASS__CLIP_PLANE_ENABLE;
+struct clip_plane_enable__AttributeData
+{
+    static const clip_plane_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_COLOR_LOGIC_OP_ENABLE = 29904597;
+extern const char* NAME_ELEMENT_COLOR_LOGIC_OP_ENABLE;
+const StringHash HASH_ELEMENT_PASS__COLOR_LOGIC_OP_ENABLE = 29904597;
+extern const char* NAME_ELEMENT_PASS__COLOR_LOGIC_OP_ENABLE;
+struct color_logic_op_enable__AttributeData
+{
+    static const color_logic_op_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_COLOR_MATERIAL_ENABLE = 111148709;
+extern const char* NAME_ELEMENT_COLOR_MATERIAL_ENABLE;
+const StringHash HASH_ELEMENT_PASS__COLOR_MATERIAL_ENABLE = 111148709;
+extern const char* NAME_ELEMENT_PASS__COLOR_MATERIAL_ENABLE;
+struct color_material_enable__AttributeData
+{
+    static const color_material_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_CULL_FACE_ENABLE = 214615653;
+extern const char* NAME_ELEMENT_CULL_FACE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__CULL_FACE_ENABLE = 214615653;
+extern const char* NAME_ELEMENT_PASS__CULL_FACE_ENABLE;
+struct cull_face_enable__AttributeData
+{
+    static const cull_face_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_DEPTH_TEST_ENABLE = 218300565;
+extern const char* NAME_ELEMENT_DEPTH_TEST_ENABLE;
+const StringHash HASH_ELEMENT_PASS__DEPTH_TEST_ENABLE = 218300565;
+extern const char* NAME_ELEMENT_PASS__DEPTH_TEST_ENABLE;
+struct depth_test_enable__AttributeData
+{
+    static const depth_test_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_DITHER_ENABLE = 138674757;
+extern const char* NAME_ELEMENT_DITHER_ENABLE;
+const StringHash HASH_ELEMENT_PASS__DITHER_ENABLE = 138674757;
+extern const char* NAME_ELEMENT_PASS__DITHER_ENABLE;
+struct dither_enable__AttributeData
+{
+    static const dither_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_FOG_ENABLE = 217499221;
+extern const char* NAME_ELEMENT_FOG_ENABLE;
+const StringHash HASH_ELEMENT_PASS__FOG_ENABLE = 217499221;
+extern const char* NAME_ELEMENT_PASS__FOG_ENABLE;
+struct fog_enable__AttributeData
+{
+    static const fog_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_TEXTURE_PIPELINE_ENABLE = 177314229;
+extern const char* NAME_ELEMENT_TEXTURE_PIPELINE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__TEXTURE_PIPELINE_ENABLE = 177314229;
+extern const char* NAME_ELEMENT_PASS__TEXTURE_PIPELINE_ENABLE;
+struct texture_pipeline_enable__AttributeData
+{
+    static const texture_pipeline_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_ENABLE = 117641205;
+extern const char* NAME_ELEMENT_LIGHT_ENABLE;
+const StringHash HASH_ELEMENT_PASS__LIGHT_ENABLE = 117641205;
+extern const char* NAME_ELEMENT_PASS__LIGHT_ENABLE;
+struct light_enable__AttributeData
+{
+    static const light_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+    long index;
+};
+
+const StringHash HASH_ELEMENT_LIGHTING_ENABLE = 48998885;
+extern const char* NAME_ELEMENT_LIGHTING_ENABLE;
+const StringHash HASH_ELEMENT_PASS__LIGHTING_ENABLE = 48998885;
+extern const char* NAME_ELEMENT_PASS__LIGHTING_ENABLE;
+struct lighting_enable__AttributeData
+{
+    static const lighting_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE = 255891349;
+extern const char* NAME_ELEMENT_LIGHT_MODEL_TWO_SIDE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__LIGHT_MODEL_TWO_SIDE_ENABLE = 255891349;
+extern const char* NAME_ELEMENT_PASS__LIGHT_MODEL_TWO_SIDE_ENABLE;
+struct light_model_two_side_enable__AttributeData
+{
+    static const light_model_two_side_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_LINE_SMOOTH_ENABLE = 239794133;
+extern const char* NAME_ELEMENT_LINE_SMOOTH_ENABLE;
+const StringHash HASH_ELEMENT_PASS__LINE_SMOOTH_ENABLE = 239794133;
+extern const char* NAME_ELEMENT_PASS__LINE_SMOOTH_ENABLE;
+struct line_smooth_enable__AttributeData
+{
+    static const line_smooth_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_MULTISAMPLE_ENABLE = 266698789;
+extern const char* NAME_ELEMENT_MULTISAMPLE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__MULTISAMPLE_ENABLE = 266698789;
+extern const char* NAME_ELEMENT_PASS__MULTISAMPLE_ENABLE;
+struct multisample_enable__AttributeData
+{
+    static const multisample_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_NORMALIZE_ENABLE = 261502853;
+extern const char* NAME_ELEMENT_NORMALIZE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__NORMALIZE_ENABLE = 261502853;
+extern const char* NAME_ELEMENT_PASS__NORMALIZE_ENABLE;
+struct normalize_enable__AttributeData
+{
+    static const normalize_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POINT_SMOOTH_ENABLE = 206626965;
+extern const char* NAME_ELEMENT_POINT_SMOOTH_ENABLE;
+const StringHash HASH_ELEMENT_PASS__POINT_SMOOTH_ENABLE = 206626965;
+extern const char* NAME_ELEMENT_PASS__POINT_SMOOTH_ENABLE;
+struct point_smooth_enable__AttributeData
+{
+    static const point_smooth_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_POLYGON_OFFSET_FILL_ENABLE = 53655765;
+extern const char* NAME_ELEMENT_POLYGON_OFFSET_FILL_ENABLE;
+const StringHash HASH_ELEMENT_PASS__POLYGON_OFFSET_FILL_ENABLE = 53655765;
+extern const char* NAME_ELEMENT_PASS__POLYGON_OFFSET_FILL_ENABLE;
+struct polygon_offset_fill_enable__AttributeData
+{
+    static const polygon_offset_fill_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_RESCALE_NORMAL_ENABLE = 233340005;
+extern const char* NAME_ELEMENT_RESCALE_NORMAL_ENABLE;
+const StringHash HASH_ELEMENT_PASS__RESCALE_NORMAL_ENABLE = 233340005;
+extern const char* NAME_ELEMENT_PASS__RESCALE_NORMAL_ENABLE;
+struct rescale_normal_enable__AttributeData
+{
+    static const rescale_normal_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE = 173355765;
+extern const char* NAME_ELEMENT_SAMPLE_ALPHA_TO_COVERAGE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__SAMPLE_ALPHA_TO_COVERAGE_ENABLE = 173355765;
+extern const char* NAME_ELEMENT_PASS__SAMPLE_ALPHA_TO_COVERAGE_ENABLE;
+struct sample_alpha_to_coverage_enable__AttributeData
+{
+    static const sample_alpha_to_coverage_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE = 103906693;
+extern const char* NAME_ELEMENT_SAMPLE_ALPHA_TO_ONE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__SAMPLE_ALPHA_TO_ONE_ENABLE = 103906693;
+extern const char* NAME_ELEMENT_PASS__SAMPLE_ALPHA_TO_ONE_ENABLE;
+struct sample_alpha_to_one_enable__AttributeData
+{
+    static const sample_alpha_to_one_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_SAMPLE_COVERAGE_ENABLE = 152395877;
+extern const char* NAME_ELEMENT_SAMPLE_COVERAGE_ENABLE;
+const StringHash HASH_ELEMENT_PASS__SAMPLE_COVERAGE_ENABLE = 152395877;
+extern const char* NAME_ELEMENT_PASS__SAMPLE_COVERAGE_ENABLE;
+struct sample_coverage_enable__AttributeData
+{
+    static const sample_coverage_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_SCISSOR_TEST_ENABLE = 218403029;
+extern const char* NAME_ELEMENT_SCISSOR_TEST_ENABLE;
+const StringHash HASH_ELEMENT_PASS__SCISSOR_TEST_ENABLE = 218403029;
+extern const char* NAME_ELEMENT_PASS__SCISSOR_TEST_ENABLE;
+struct scissor_test_enable__AttributeData
+{
+    static const scissor_test_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_STENCIL_TEST_ENABLE = 202141525;
+extern const char* NAME_ELEMENT_STENCIL_TEST_ENABLE;
+const StringHash HASH_ELEMENT_PASS__STENCIL_TEST_ENABLE = 202141525;
+extern const char* NAME_ELEMENT_PASS__STENCIL_TEST_ENABLE;
+struct stencil_test_enable__AttributeData
+{
+    static const stencil_test_enable__AttributeData DEFAULT;
+
+    bool value;
+    const ParserChar* param;
+};
+
+const StringHash HASH_ELEMENT_PASS__EXTRA = 86667537;
+extern const char* NAME_ELEMENT_PASS__EXTRA;
+
+const StringHash HASH_ELEMENT_TECHNIQUE__EXTRA = 202103745;
+extern const char* NAME_ELEMENT_TECHNIQUE__EXTRA;
+
+const StringHash HASH_ELEMENT_PROFILE_GLES__EXTRA = 200483169;
+extern const char* NAME_ELEMENT_PROFILE_GLES__EXTRA;
+
+const StringHash HASH_ELEMENT_COLLADA = 138479041;
+extern const char* NAME_ELEMENT_COLLADA;
+const StringHash HASH_ATTRIBUTE_VERSION = 214540334;
+extern const char* NAME_ATTRIBUTE_VERSION;
+const StringHash HASH_ATTRIBUTE_BASE = 428181;
+extern const char* NAME_ATTRIBUTE_BASE;
+struct COLLADA__AttributeData
+{
+    static const COLLADA__AttributeData DEFAULT;
+
+    VersionType version;
+    const ParserChar* base;
+};
+
+const StringHash HASH_ELEMENT_COLLADA__ASSET = 21558580;
+extern const char* NAME_ELEMENT_COLLADA__ASSET;
+
 const StringHash HASH_ELEMENT_LIBRARY_ANIMATIONS = 257283875;
 extern const char* NAME_ELEMENT_LIBRARY_ANIMATIONS;
 const StringHash HASH_ELEMENT_COLLADA__LIBRARY_ANIMATIONS = 257283875;
 extern const char* NAME_ELEMENT_COLLADA__LIBRARY_ANIMATIONS;
-const StringHash HASH_ATTRIBUTE_ID = 1780;
-extern const char* NAME_ATTRIBUTE_ID;
 struct library_animations__AttributeData
 {
     static const library_animations__AttributeData DEFAULT;
@@ -263,8 +2125,6 @@ const StringHash HASH_ELEMENT_TECHNIQUE_COMMON__ACCESSOR = 230035506;
 extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__ACCESSOR;
 const StringHash HASH_ATTRIBUTE_OFFSET = 123525572;
 extern const char* NAME_ATTRIBUTE_OFFSET;
-const StringHash HASH_ATTRIBUTE_SOURCE = 128370837;
-extern const char* NAME_ATTRIBUTE_SOURCE;
 const StringHash HASH_ATTRIBUTE_STRIDE = 128683941;
 extern const char* NAME_ATTRIBUTE_STRIDE;
 struct accessor__AttributeData
@@ -281,12 +2141,6 @@ const StringHash HASH_ELEMENT_PARAM = 246253965;
 extern const char* NAME_ELEMENT_PARAM;
 const StringHash HASH_ELEMENT_ACCESSOR__PARAM = 246253965;
 extern const char* NAME_ELEMENT_ACCESSOR__PARAM;
-const StringHash HASH_ATTRIBUTE_SID = 31220;
-extern const char* NAME_ATTRIBUTE_SID;
-const StringHash HASH_ATTRIBUTE_SEMANTIC = 205020515;
-extern const char* NAME_ATTRIBUTE_SEMANTIC;
-const StringHash HASH_ATTRIBUTE_TYPE = 508005;
-extern const char* NAME_ATTRIBUTE_TYPE;
 struct accessor__param__AttributeData
 {
     static const accessor__param__AttributeData DEFAULT;
@@ -297,18 +2151,9 @@ struct accessor__param__AttributeData
     const ParserChar* type;
 };
 
-const StringHash HASH_ELEMENT_TECHNIQUE = 1838725;
-extern const char* NAME_ELEMENT_TECHNIQUE;
 const StringHash HASH_ELEMENT_SOURCE__TECHNIQUE = 1838725;
 extern const char* NAME_ELEMENT_SOURCE__TECHNIQUE;
-const StringHash HASH_ATTRIBUTE_PROFILE = 127258709;
-extern const char* NAME_ATTRIBUTE_PROFILE;
-struct source__technique__AttributeData
-{
-    static const source__technique__AttributeData DEFAULT;
-
-    const ParserChar* profile;
-};
+typedef extra__technique__AttributeData source__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_SAMPLER = 101005858;
 extern const char* NAME_ELEMENT_SAMPLER;
@@ -350,25 +2195,8 @@ struct channel__AttributeData
 const StringHash HASH_ELEMENT_ANIMATION__ANIMATION = 259028126;
 extern const char* NAME_ELEMENT_ANIMATION__ANIMATION;
 
-const StringHash HASH_ELEMENT_EXTRA = 147880641;
-extern const char* NAME_ELEMENT_EXTRA;
 const StringHash HASH_ELEMENT_ANIMATION__EXTRA = 147880641;
 extern const char* NAME_ELEMENT_ANIMATION__EXTRA;
-struct extra__AttributeData
-{
-    static const extra__AttributeData DEFAULT;
-
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* type;
-};
-
-const StringHash HASH_ELEMENT_EXTRA__ASSET = 60232116;
-extern const char* NAME_ELEMENT_EXTRA__ASSET;
-
-const StringHash HASH_ELEMENT_EXTRA__TECHNIQUE = 27831733;
-extern const char* NAME_ELEMENT_EXTRA__TECHNIQUE;
-typedef source__technique__AttributeData extra__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_LIBRARY_ANIMATIONS__EXTRA = 39671521;
 extern const char* NAME_ELEMENT_LIBRARY_ANIMATIONS__EXTRA;
@@ -569,7 +2397,7 @@ extern const char* NAME_ELEMENT_PERSPECTIVE__ZFAR;
 
 const StringHash HASH_ELEMENT_OPTICS__TECHNIQUE = 49813749;
 extern const char* NAME_ELEMENT_OPTICS__TECHNIQUE;
-typedef source__technique__AttributeData optics__technique__AttributeData;
+typedef extra__technique__AttributeData optics__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_OPTICS__EXTRA = 52822145;
 extern const char* NAME_ELEMENT_OPTICS__EXTRA;
@@ -581,7 +2409,7 @@ extern const char* NAME_ELEMENT_CAMERA__IMAGER;
 
 const StringHash HASH_ELEMENT_IMAGER__TECHNIQUE = 100816341;
 extern const char* NAME_ELEMENT_IMAGER__TECHNIQUE;
-typedef source__technique__AttributeData imager__technique__AttributeData;
+typedef extra__technique__AttributeData imager__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_IMAGER__EXTRA = 90908561;
 extern const char* NAME_ELEMENT_IMAGER__EXTRA;
@@ -705,7 +2533,7 @@ struct morph__AttributeData
 {
     static const morph__AttributeData DEFAULT;
 
-    const ParserChar* method;
+    MorphMethodType method;
     const ParserChar* source;
 };
 
@@ -1088,139 +2916,12 @@ struct effect__AttributeData
 const StringHash HASH_ELEMENT_EFFECT__ASSET = 9704148;
 extern const char* NAME_ELEMENT_EFFECT__ASSET;
 
-const StringHash HASH_ELEMENT_ANNOTATE = 17277301;
-extern const char* NAME_ELEMENT_ANNOTATE;
 const StringHash HASH_ELEMENT_EFFECT__ANNOTATE = 17277301;
 extern const char* NAME_ELEMENT_EFFECT__ANNOTATE;
-struct annotate__AttributeData
-{
-    static const annotate__AttributeData DEFAULT;
 
-    const ParserChar* name;
-};
-
-const StringHash HASH_ELEMENT_BOOL = 2309228;
-extern const char* NAME_ELEMENT_BOOL;
-const StringHash HASH_ELEMENT_ANNOTATE__BOOL = 2309228;
-extern const char* NAME_ELEMENT_ANNOTATE__BOOL;
-
-const StringHash HASH_ELEMENT_BOOL2 = 36947698;
-extern const char* NAME_ELEMENT_BOOL2;
-const StringHash HASH_ELEMENT_ANNOTATE__BOOL2 = 36947698;
-extern const char* NAME_ELEMENT_ANNOTATE__BOOL2;
-
-const StringHash HASH_ELEMENT_BOOL3 = 36947699;
-extern const char* NAME_ELEMENT_BOOL3;
-const StringHash HASH_ELEMENT_ANNOTATE__BOOL3 = 36947699;
-extern const char* NAME_ELEMENT_ANNOTATE__BOOL3;
-
-const StringHash HASH_ELEMENT_BOOL4 = 36947700;
-extern const char* NAME_ELEMENT_BOOL4;
-const StringHash HASH_ELEMENT_ANNOTATE__BOOL4 = 36947700;
-extern const char* NAME_ELEMENT_ANNOTATE__BOOL4;
-
-const StringHash HASH_ELEMENT_INT = 50476724;
-extern const char* NAME_ELEMENT_INT;
-const StringHash HASH_ELEMENT_ANNOTATE__INT = 50476724;
-extern const char* NAME_ELEMENT_ANNOTATE__INT;
-
-const StringHash HASH_ELEMENT_INT2 = 2321218;
-extern const char* NAME_ELEMENT_INT2;
-const StringHash HASH_ELEMENT_ANNOTATE__INT2 = 2321218;
-extern const char* NAME_ELEMENT_ANNOTATE__INT2;
-
-const StringHash HASH_ELEMENT_INT3 = 2321219;
-extern const char* NAME_ELEMENT_INT3;
-const StringHash HASH_ELEMENT_ANNOTATE__INT3 = 2321219;
-extern const char* NAME_ELEMENT_ANNOTATE__INT3;
-
-const StringHash HASH_ELEMENT_INT4 = 2321220;
-extern const char* NAME_ELEMENT_INT4;
-const StringHash HASH_ELEMENT_ANNOTATE__INT4 = 2321220;
-extern const char* NAME_ELEMENT_ANNOTATE__INT4;
-
-const StringHash HASH_ELEMENT_FLOAT = 37213828;
-extern const char* NAME_ELEMENT_FLOAT;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT = 37213828;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT;
-
-const StringHash HASH_ELEMENT_FLOAT2 = 58550354;
-extern const char* NAME_ELEMENT_FLOAT2;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT2 = 58550354;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT2;
-
-const StringHash HASH_ELEMENT_FLOAT3 = 58550355;
-extern const char* NAME_ELEMENT_FLOAT3;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT3 = 58550355;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT3;
-
-const StringHash HASH_ELEMENT_FLOAT4 = 58550356;
-extern const char* NAME_ELEMENT_FLOAT4;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT4 = 58550356;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT4;
-
-const StringHash HASH_ELEMENT_FLOAT2X2 = 224942786;
-extern const char* NAME_ELEMENT_FLOAT2X2;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT2X2 = 224942786;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT2X2;
-
-const StringHash HASH_ELEMENT_FLOAT3X3 = 224942531;
-extern const char* NAME_ELEMENT_FLOAT3X3;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT3X3 = 224942531;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT3X3;
-
-const StringHash HASH_ELEMENT_FLOAT4X4 = 224942276;
-extern const char* NAME_ELEMENT_FLOAT4X4;
-const StringHash HASH_ELEMENT_ANNOTATE__FLOAT4X4 = 224942276;
-extern const char* NAME_ELEMENT_ANNOTATE__FLOAT4X4;
-
-const StringHash HASH_ELEMENT_STRING = 376935;
-extern const char* NAME_ELEMENT_STRING;
-const StringHash HASH_ELEMENT_ANNOTATE__STRING = 376935;
-extern const char* NAME_ELEMENT_ANNOTATE__STRING;
-
-const StringHash HASH_ELEMENT_IMAGE = 9735365;
-extern const char* NAME_ELEMENT_IMAGE;
 const StringHash HASH_ELEMENT_EFFECT__IMAGE = 9735365;
 extern const char* NAME_ELEMENT_EFFECT__IMAGE;
-const StringHash HASH_ATTRIBUTE_FORMAT = 114725764;
-extern const char* NAME_ATTRIBUTE_FORMAT;
-const StringHash HASH_ATTRIBUTE_HEIGHT = 116129268;
-extern const char* NAME_ATTRIBUTE_HEIGHT;
-const StringHash HASH_ATTRIBUTE_WIDTH = 8256424;
-extern const char* NAME_ATTRIBUTE_WIDTH;
-const StringHash HASH_ATTRIBUTE_DEPTH = 6997928;
-extern const char* NAME_ATTRIBUTE_DEPTH;
-struct image__AttributeData
-{
-    static const image__AttributeData DEFAULT;
 
-    const ParserChar* id;
-    const ParserChar* name;
-    const ParserChar* format;
-    unsigned long long height;
-    unsigned long long width;
-    unsigned long long depth;
-};
-
-const StringHash HASH_ELEMENT_IMAGE__ASSET = 73127028;
-extern const char* NAME_ELEMENT_IMAGE__ASSET;
-
-const StringHash HASH_ELEMENT_DATA = 189112177;
-extern const char* NAME_ELEMENT_DATA;
-const StringHash HASH_ELEMENT_IMAGE__DATA = 189112177;
-extern const char* NAME_ELEMENT_IMAGE__DATA;
-
-const StringHash HASH_ELEMENT_INIT_FROM = 221349405;
-extern const char* NAME_ELEMENT_INIT_FROM;
-const StringHash HASH_ELEMENT_IMAGE__INIT_FROM = 221349405;
-extern const char* NAME_ELEMENT_IMAGE__INIT_FROM;
-
-const StringHash HASH_ELEMENT_IMAGE__EXTRA = 73369137;
-extern const char* NAME_ELEMENT_IMAGE__EXTRA;
-
-const StringHash HASH_ELEMENT_NEWPARAM = 123175677;
-extern const char* NAME_ELEMENT_NEWPARAM;
 const StringHash HASH_ELEMENT_EFFECT__NEWPARAM = 123175677;
 extern const char* NAME_ELEMENT_EFFECT__NEWPARAM;
 struct effect__newparam__AttributeData
@@ -1230,305 +2931,6 @@ struct effect__newparam__AttributeData
     const ParserChar* sid;
 };
 
-const StringHash HASH_ELEMENT_NEWPARAM__ANNOTATE = 202972325;
-extern const char* NAME_ELEMENT_NEWPARAM__ANNOTATE;
-
-const StringHash HASH_ELEMENT_SEMANTIC = 91876067;
-extern const char* NAME_ELEMENT_SEMANTIC;
-const StringHash HASH_ELEMENT_NEWPARAM__SEMANTIC = 91876067;
-extern const char* NAME_ELEMENT_NEWPARAM__SEMANTIC;
-
-const StringHash HASH_ELEMENT_MODIFIER = 182483714;
-extern const char* NAME_ELEMENT_MODIFIER;
-const StringHash HASH_ELEMENT_NEWPARAM__MODIFIER = 182483714;
-extern const char* NAME_ELEMENT_NEWPARAM__MODIFIER;
-
-const StringHash HASH_ELEMENT_NEWPARAM__BOOL = 263396124;
-extern const char* NAME_ELEMENT_NEWPARAM__BOOL;
-
-const StringHash HASH_ELEMENT_NEWPARAM__BOOL2 = 187805954;
-extern const char* NAME_ELEMENT_NEWPARAM__BOOL2;
-
-const StringHash HASH_ELEMENT_NEWPARAM__BOOL3 = 187805955;
-extern const char* NAME_ELEMENT_NEWPARAM__BOOL3;
-
-const StringHash HASH_ELEMENT_NEWPARAM__BOOL4 = 187805956;
-extern const char* NAME_ELEMENT_NEWPARAM__BOOL4;
-
-const StringHash HASH_ELEMENT_NEWPARAM__INT = 83572900;
-extern const char* NAME_ELEMENT_NEWPARAM__INT;
-
-const StringHash HASH_ELEMENT_NEWPARAM__INT2 = 263424562;
-extern const char* NAME_ELEMENT_NEWPARAM__INT2;
-
-const StringHash HASH_ELEMENT_NEWPARAM__INT3 = 263424563;
-extern const char* NAME_ELEMENT_NEWPARAM__INT3;
-
-const StringHash HASH_ELEMENT_NEWPARAM__INT4 = 263424564;
-extern const char* NAME_ELEMENT_NEWPARAM__INT4;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT = 188080500;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2 = 56498114;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3 = 56498115;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4 = 56498116;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4;
-
-const StringHash HASH_ELEMENT_FLOAT1X1 = 236440545;
-extern const char* NAME_ELEMENT_FLOAT1X1;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X1 = 236440545;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X1;
-
-const StringHash HASH_ELEMENT_FLOAT1X2 = 236440546;
-extern const char* NAME_ELEMENT_FLOAT1X2;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X2 = 236440546;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X2;
-
-const StringHash HASH_ELEMENT_FLOAT1X3 = 236440547;
-extern const char* NAME_ELEMENT_FLOAT1X3;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X3 = 236440547;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X3;
-
-const StringHash HASH_ELEMENT_FLOAT1X4 = 236440548;
-extern const char* NAME_ELEMENT_FLOAT1X4;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1X4 = 236440548;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1X4;
-
-const StringHash HASH_ELEMENT_FLOAT2X1 = 236440289;
-extern const char* NAME_ELEMENT_FLOAT2X1;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X1 = 236440289;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X1;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X2 = 236440290;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X2;
-
-const StringHash HASH_ELEMENT_FLOAT2X3 = 236440291;
-extern const char* NAME_ELEMENT_FLOAT2X3;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X3 = 236440291;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X3;
-
-const StringHash HASH_ELEMENT_FLOAT2X4 = 236440292;
-extern const char* NAME_ELEMENT_FLOAT2X4;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT2X4 = 236440292;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT2X4;
-
-const StringHash HASH_ELEMENT_FLOAT3X1 = 236440033;
-extern const char* NAME_ELEMENT_FLOAT3X1;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X1 = 236440033;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X1;
-
-const StringHash HASH_ELEMENT_FLOAT3X2 = 236440034;
-extern const char* NAME_ELEMENT_FLOAT3X2;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X2 = 236440034;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X2;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X3 = 236440035;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X3;
-
-const StringHash HASH_ELEMENT_FLOAT3X4 = 236440036;
-extern const char* NAME_ELEMENT_FLOAT3X4;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT3X4 = 236440036;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT3X4;
-
-const StringHash HASH_ELEMENT_FLOAT4X1 = 236439777;
-extern const char* NAME_ELEMENT_FLOAT4X1;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X1 = 236439777;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X1;
-
-const StringHash HASH_ELEMENT_FLOAT4X2 = 236439778;
-extern const char* NAME_ELEMENT_FLOAT4X2;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X2 = 236439778;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X2;
-
-const StringHash HASH_ELEMENT_FLOAT4X3 = 236439779;
-extern const char* NAME_ELEMENT_FLOAT4X3;
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X3 = 236439779;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X3;
-
-const StringHash HASH_ELEMENT_NEWPARAM__FLOAT4X4 = 236439780;
-extern const char* NAME_ELEMENT_NEWPARAM__FLOAT4X4;
-
-const StringHash HASH_ELEMENT_SURFACE = 37502101;
-extern const char* NAME_ELEMENT_SURFACE;
-const StringHash HASH_ELEMENT_NEWPARAM__SURFACE = 37502101;
-extern const char* NAME_ELEMENT_NEWPARAM__SURFACE;
-struct newparam__surface__AttributeData
-{
-    static const newparam__surface__AttributeData DEFAULT;
-
-    const ParserChar* type;
-};
-
-const StringHash HASH_ELEMENT_INIT_AS_NULL = 97694700;
-extern const char* NAME_ELEMENT_INIT_AS_NULL;
-const StringHash HASH_ELEMENT_SURFACE__INIT_AS_NULL = 97694700;
-extern const char* NAME_ELEMENT_SURFACE__INIT_AS_NULL;
-
-const StringHash HASH_ELEMENT_INIT_AS_TARGET = 37832724;
-extern const char* NAME_ELEMENT_INIT_AS_TARGET;
-const StringHash HASH_ELEMENT_SURFACE__INIT_AS_TARGET = 37832724;
-extern const char* NAME_ELEMENT_SURFACE__INIT_AS_TARGET;
-
-const StringHash HASH_ELEMENT_INIT_CUBE = 245137349;
-extern const char* NAME_ELEMENT_INIT_CUBE;
-const StringHash HASH_ELEMENT_SURFACE__INIT_CUBE = 245137349;
-extern const char* NAME_ELEMENT_SURFACE__INIT_CUBE;
-
-const StringHash HASH_ELEMENT_ALL = 230624156;
-extern const char* NAME_ELEMENT_ALL;
-const StringHash HASH_ELEMENT_INIT_CUBE__ALL = 230624156;
-extern const char* NAME_ELEMENT_INIT_CUBE__ALL;
-const StringHash HASH_ATTRIBUTE_REF = 30902;
-extern const char* NAME_ATTRIBUTE_REF;
-struct init_cube__all__AttributeData
-{
-    static const init_cube__all__AttributeData DEFAULT;
-
-    const ParserChar* ref;
-};
-
-const StringHash HASH_ELEMENT_PRIMARY = 171149225;
-extern const char* NAME_ELEMENT_PRIMARY;
-const StringHash HASH_ELEMENT_INIT_CUBE__PRIMARY = 171149225;
-extern const char* NAME_ELEMENT_INIT_CUBE__PRIMARY;
-struct init_cube__primary__AttributeData
-{
-    static const init_cube__primary__AttributeData DEFAULT;
-
-    const ParserChar* ref;
-};
-
-const StringHash HASH_ELEMENT_ORDER = 241501282;
-extern const char* NAME_ELEMENT_ORDER;
-const StringHash HASH_ELEMENT_PRIMARY__ORDER = 241501282;
-extern const char* NAME_ELEMENT_PRIMARY__ORDER;
-
-const StringHash HASH_ELEMENT_FACE = 200285253;
-extern const char* NAME_ELEMENT_FACE;
-const StringHash HASH_ELEMENT_INIT_CUBE__FACE = 200285253;
-extern const char* NAME_ELEMENT_INIT_CUBE__FACE;
-struct init_cube__face__AttributeData
-{
-    static const init_cube__face__AttributeData DEFAULT;
-
-    const ParserChar* ref;
-};
-
-const StringHash HASH_ELEMENT_INIT_VOLUME = 253916837;
-extern const char* NAME_ELEMENT_INIT_VOLUME;
-const StringHash HASH_ELEMENT_SURFACE__INIT_VOLUME = 253916837;
-extern const char* NAME_ELEMENT_SURFACE__INIT_VOLUME;
-
-const StringHash HASH_ELEMENT_INIT_VOLUME__ALL = 165229292;
-extern const char* NAME_ELEMENT_INIT_VOLUME__ALL;
-struct init_volume__all__AttributeData
-{
-    static const init_volume__all__AttributeData DEFAULT;
-
-    const ParserChar* ref;
-};
-
-const StringHash HASH_ELEMENT_INIT_VOLUME__PRIMARY = 21488025;
-extern const char* NAME_ELEMENT_INIT_VOLUME__PRIMARY;
-struct init_volume__primary__AttributeData
-{
-    static const init_volume__primary__AttributeData DEFAULT;
-
-    const ParserChar* ref;
-};
-
-const StringHash HASH_ELEMENT_INIT_PLANAR = 264653330;
-extern const char* NAME_ELEMENT_INIT_PLANAR;
-const StringHash HASH_ELEMENT_SURFACE__INIT_PLANAR = 264653330;
-extern const char* NAME_ELEMENT_SURFACE__INIT_PLANAR;
-
-const StringHash HASH_ELEMENT_INIT_PLANAR__ALL = 36140396;
-extern const char* NAME_ELEMENT_INIT_PLANAR__ALL;
-struct init_planar__all__AttributeData
-{
-    static const init_planar__all__AttributeData DEFAULT;
-
-    const ParserChar* ref;
-};
-
-const StringHash HASH_ELEMENT_SURFACE__INIT_FROM = 245107997;
-extern const char* NAME_ELEMENT_SURFACE__INIT_FROM;
-const StringHash HASH_ATTRIBUTE_MIP = 29696;
-extern const char* NAME_ATTRIBUTE_MIP;
-const StringHash HASH_ATTRIBUTE_SLICE = 8007573;
-extern const char* NAME_ATTRIBUTE_SLICE;
-const StringHash HASH_ATTRIBUTE_FACE = 444309;
-extern const char* NAME_ATTRIBUTE_FACE;
-struct surface__init_from__AttributeData
-{
-    static const surface__init_from__AttributeData DEFAULT;
-
-    unsigned long mip;
-    unsigned long slice;
-    const ParserChar* face;
-};
-
-const StringHash HASH_ELEMENT_FORMAT = 219247124;
-extern const char* NAME_ELEMENT_FORMAT;
-const StringHash HASH_ELEMENT_SURFACE__FORMAT = 219247124;
-extern const char* NAME_ELEMENT_SURFACE__FORMAT;
-
-const StringHash HASH_ELEMENT_FORMAT_HINT = 22346100;
-extern const char* NAME_ELEMENT_FORMAT_HINT;
-const StringHash HASH_ELEMENT_SURFACE__FORMAT_HINT = 22346100;
-extern const char* NAME_ELEMENT_SURFACE__FORMAT_HINT;
-
-const StringHash HASH_ELEMENT_CHANNELS = 153491235;
-extern const char* NAME_ELEMENT_CHANNELS;
-const StringHash HASH_ELEMENT_FORMAT_HINT__CHANNELS = 153491235;
-extern const char* NAME_ELEMENT_FORMAT_HINT__CHANNELS;
-
-const StringHash HASH_ELEMENT_RANGE = 98570949;
-extern const char* NAME_ELEMENT_RANGE;
-const StringHash HASH_ELEMENT_FORMAT_HINT__RANGE = 98570949;
-extern const char* NAME_ELEMENT_FORMAT_HINT__RANGE;
-
-const StringHash HASH_ELEMENT_PRECISION = 227897774;
-extern const char* NAME_ELEMENT_PRECISION;
-const StringHash HASH_ELEMENT_FORMAT_HINT__PRECISION = 227897774;
-extern const char* NAME_ELEMENT_FORMAT_HINT__PRECISION;
-
-const StringHash HASH_ELEMENT_OPTION = 249614094;
-extern const char* NAME_ELEMENT_OPTION;
-const StringHash HASH_ELEMENT_FORMAT_HINT__OPTION = 249614094;
-extern const char* NAME_ELEMENT_FORMAT_HINT__OPTION;
-
-const StringHash HASH_ELEMENT_FORMAT_HINT__EXTRA = 97815953;
-extern const char* NAME_ELEMENT_FORMAT_HINT__EXTRA;
-
-const StringHash HASH_ELEMENT_SIZE = 27158757;
-extern const char* NAME_ELEMENT_SIZE;
-const StringHash HASH_ELEMENT_SURFACE__SIZE = 27158757;
-extern const char* NAME_ELEMENT_SURFACE__SIZE;
-
-const StringHash HASH_ELEMENT_VIEWPORT_RATIO = 39354991;
-extern const char* NAME_ELEMENT_VIEWPORT_RATIO;
-const StringHash HASH_ELEMENT_SURFACE__VIEWPORT_RATIO = 39354991;
-extern const char* NAME_ELEMENT_SURFACE__VIEWPORT_RATIO;
-
-const StringHash HASH_ELEMENT_MIP_LEVELS = 95669747;
-extern const char* NAME_ELEMENT_MIP_LEVELS;
-const StringHash HASH_ELEMENT_SURFACE__MIP_LEVELS = 95669747;
-extern const char* NAME_ELEMENT_SURFACE__MIP_LEVELS;
-
-const StringHash HASH_ELEMENT_MIPMAP_GENERATE = 57490693;
-extern const char* NAME_ELEMENT_MIPMAP_GENERATE;
-const StringHash HASH_ELEMENT_SURFACE__MIPMAP_GENERATE = 57490693;
-extern const char* NAME_ELEMENT_SURFACE__MIPMAP_GENERATE;
-
-const StringHash HASH_ELEMENT_SURFACE__EXTRA = 164660625;
-extern const char* NAME_ELEMENT_SURFACE__EXTRA;
-
 const StringHash HASH_ELEMENT_SAMPLER1D = 11125956;
 extern const char* NAME_ELEMENT_SAMPLER1D;
 const StringHash HASH_ELEMENT_NEWPARAM__SAMPLER1D = 11125956;
@@ -1537,23 +2939,15 @@ extern const char* NAME_ELEMENT_NEWPARAM__SAMPLER1D;
 const StringHash HASH_ELEMENT_SAMPLER1D__SOURCE = 70915797;
 extern const char* NAME_ELEMENT_SAMPLER1D__SOURCE;
 
-const StringHash HASH_ELEMENT_WRAP_S = 72637475;
-extern const char* NAME_ELEMENT_WRAP_S;
 const StringHash HASH_ELEMENT_SAMPLER1D__WRAP_S = 72637475;
 extern const char* NAME_ELEMENT_SAMPLER1D__WRAP_S;
 
-const StringHash HASH_ELEMENT_MINFILTER = 153924226;
-extern const char* NAME_ELEMENT_MINFILTER;
 const StringHash HASH_ELEMENT_SAMPLER1D__MINFILTER = 153924226;
 extern const char* NAME_ELEMENT_SAMPLER1D__MINFILTER;
 
-const StringHash HASH_ELEMENT_MAGFILTER = 2929266;
-extern const char* NAME_ELEMENT_MAGFILTER;
 const StringHash HASH_ELEMENT_SAMPLER1D__MAGFILTER = 2929266;
 extern const char* NAME_ELEMENT_SAMPLER1D__MAGFILTER;
 
-const StringHash HASH_ELEMENT_MIPFILTER = 187478786;
-extern const char* NAME_ELEMENT_MIPFILTER;
 const StringHash HASH_ELEMENT_SAMPLER1D__MIPFILTER = 187478786;
 extern const char* NAME_ELEMENT_SAMPLER1D__MIPFILTER;
 
@@ -1562,13 +2956,9 @@ extern const char* NAME_ELEMENT_BORDER_COLOR;
 const StringHash HASH_ELEMENT_SAMPLER1D__BORDER_COLOR = 18094050;
 extern const char* NAME_ELEMENT_SAMPLER1D__BORDER_COLOR;
 
-const StringHash HASH_ELEMENT_MIPMAP_MAXLEVEL = 72229196;
-extern const char* NAME_ELEMENT_MIPMAP_MAXLEVEL;
 const StringHash HASH_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL = 72229196;
 extern const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_MAXLEVEL;
 
-const StringHash HASH_ELEMENT_MIPMAP_BIAS = 216810323;
-extern const char* NAME_ELEMENT_MIPMAP_BIAS;
 const StringHash HASH_ELEMENT_SAMPLER1D__MIPMAP_BIAS = 216810323;
 extern const char* NAME_ELEMENT_SAMPLER1D__MIPMAP_BIAS;
 
@@ -1586,8 +2976,6 @@ extern const char* NAME_ELEMENT_SAMPLER2D__SOURCE;
 const StringHash HASH_ELEMENT_SAMPLER2D__WRAP_S = 72641571;
 extern const char* NAME_ELEMENT_SAMPLER2D__WRAP_S;
 
-const StringHash HASH_ELEMENT_WRAP_T = 72641572;
-extern const char* NAME_ELEMENT_WRAP_T;
 const StringHash HASH_ELEMENT_SAMPLER2D__WRAP_T = 72641572;
 extern const char* NAME_ELEMENT_SAMPLER2D__WRAP_T;
 
@@ -1748,11 +3136,6 @@ extern const char* NAME_ELEMENT_SAMPLERDEPTH__MAGFILTER;
 const StringHash HASH_ELEMENT_SAMPLERDEPTH__EXTRA = 206754289;
 extern const char* NAME_ELEMENT_SAMPLERDEPTH__EXTRA;
 
-const StringHash HASH_ELEMENT_ENUM = 263408381;
-extern const char* NAME_ELEMENT_ENUM;
-const StringHash HASH_ELEMENT_NEWPARAM__ENUM = 263408381;
-extern const char* NAME_ELEMENT_NEWPARAM__ENUM;
-
 const StringHash HASH_ELEMENT_FX_PROFILE_ABSTRACT = 70540052;
 extern const char* NAME_ELEMENT_FX_PROFILE_ABSTRACT;
 const StringHash HASH_ELEMENT_EFFECT__FX_PROFILE_ABSTRACT = 70540052;
@@ -1796,7 +3179,7 @@ extern const char* NAME_ELEMENT_FORCE_FIELD__ASSET;
 
 const StringHash HASH_ELEMENT_FORCE_FIELD__TECHNIQUE = 49118021;
 extern const char* NAME_ELEMENT_FORCE_FIELD__TECHNIQUE;
-typedef source__technique__AttributeData force_field__technique__AttributeData;
+typedef extra__technique__AttributeData force_field__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_FORCE_FIELD__EXTRA = 138784945;
 extern const char* NAME_ELEMENT_FORCE_FIELD__EXTRA;
@@ -1967,7 +3350,7 @@ struct falloff_exponent__AttributeData
 
 const StringHash HASH_ELEMENT_LIGHT__TECHNIQUE = 105991637;
 extern const char* NAME_ELEMENT_LIGHT__TECHNIQUE;
-typedef source__technique__AttributeData light__technique__AttributeData;
+typedef extra__technique__AttributeData light__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_LIGHT__EXTRA = 74654753;
 extern const char* NAME_ELEMENT_LIGHT__EXTRA;
@@ -2022,8 +3405,6 @@ const StringHash HASH_ELEMENT_TECHNIQUE_HINT = 28302980;
 extern const char* NAME_ELEMENT_TECHNIQUE_HINT;
 const StringHash HASH_ELEMENT_INSTANCE_EFFECT__TECHNIQUE_HINT = 28302980;
 extern const char* NAME_ELEMENT_INSTANCE_EFFECT__TECHNIQUE_HINT;
-const StringHash HASH_ATTRIBUTE_PLATFORM = 42652157;
-extern const char* NAME_ATTRIBUTE_PLATFORM;
 struct technique_hint__AttributeData
 {
     static const technique_hint__AttributeData DEFAULT;
@@ -2033,8 +3414,6 @@ struct technique_hint__AttributeData
     const ParserChar* ref;
 };
 
-const StringHash HASH_ELEMENT_SETPARAM = 219277853;
-extern const char* NAME_ELEMENT_SETPARAM;
 const StringHash HASH_ELEMENT_INSTANCE_EFFECT__SETPARAM = 219277853;
 extern const char* NAME_ELEMENT_INSTANCE_EFFECT__SETPARAM;
 struct instance_effect__setparam__AttributeData
@@ -2043,94 +3422,6 @@ struct instance_effect__setparam__AttributeData
 
     const ParserChar* ref;
 };
-
-const StringHash HASH_ELEMENT_SETPARAM__BOOL = 206428;
-extern const char* NAME_ELEMENT_SETPARAM__BOOL;
-
-const StringHash HASH_ELEMENT_SETPARAM__BOOL2 = 3302898;
-extern const char* NAME_ELEMENT_SETPARAM__BOOL2;
-
-const StringHash HASH_ELEMENT_SETPARAM__BOOL3 = 3302899;
-extern const char* NAME_ELEMENT_SETPARAM__BOOL3;
-
-const StringHash HASH_ELEMENT_SETPARAM__BOOL4 = 3302900;
-extern const char* NAME_ELEMENT_SETPARAM__BOOL4;
-
-const StringHash HASH_ELEMENT_SETPARAM__INT = 14164;
-extern const char* NAME_ELEMENT_SETPARAM__INT;
-
-const StringHash HASH_ELEMENT_SETPARAM__INT2 = 226674;
-extern const char* NAME_ELEMENT_SETPARAM__INT2;
-
-const StringHash HASH_ELEMENT_SETPARAM__INT3 = 226675;
-extern const char* NAME_ELEMENT_SETPARAM__INT3;
-
-const StringHash HASH_ELEMENT_SETPARAM__INT4 = 226676;
-extern const char* NAME_ELEMENT_SETPARAM__INT4;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT = 3552644;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT2 = 56842354;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT2;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT3 = 56842355;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT3;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT4 = 56842356;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT4;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X1 = 56130513;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X1;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X2 = 56130514;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X2;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X3 = 56130515;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X3;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT1X4 = 56130516;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT1X4;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X1 = 56130257;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X1;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X2 = 56130258;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X2;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X3 = 56130259;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X3;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT2X4 = 56130260;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT2X4;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X1 = 56130001;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X1;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X2 = 56130002;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X2;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X3 = 56130003;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X3;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT3X4 = 56130004;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT3X4;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X1 = 56129745;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X1;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X2 = 56129746;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X2;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X3 = 56129747;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X3;
-
-const StringHash HASH_ELEMENT_SETPARAM__FLOAT4X4 = 56129748;
-extern const char* NAME_ELEMENT_SETPARAM__FLOAT4X4;
-
-const StringHash HASH_ELEMENT_SETPARAM__SURFACE = 63489941;
-extern const char* NAME_ELEMENT_SETPARAM__SURFACE;
-typedef newparam__surface__AttributeData setparam__surface__AttributeData;
 
 const StringHash HASH_ELEMENT_SETPARAM__SAMPLER1D = 74630612;
 extern const char* NAME_ELEMENT_SETPARAM__SAMPLER1D;
@@ -2149,9 +3440,6 @@ extern const char* NAME_ELEMENT_SETPARAM__SAMPLERRECT;
 
 const StringHash HASH_ELEMENT_SETPARAM__SAMPLERDEPTH = 207676072;
 extern const char* NAME_ELEMENT_SETPARAM__SAMPLERDEPTH;
-
-const StringHash HASH_ELEMENT_SETPARAM__ENUM = 210365;
-extern const char* NAME_ELEMENT_SETPARAM__ENUM;
 
 const StringHash HASH_ELEMENT_INSTANCE_EFFECT__EXTRA = 101966321;
 extern const char* NAME_ELEMENT_INSTANCE_EFFECT__EXTRA;
@@ -2190,7 +3478,7 @@ struct node__AttributeData
     const ParserChar* id;
     const ParserChar* name;
     const ParserChar* sid;
-    const ParserChar* type;
+    NodeType type;
     const ParserChar* layer;
 };
 
@@ -2359,7 +3647,7 @@ extern const char* NAME_ELEMENT_INSTANCE_MATERIAL__EXTRA;
 
 const StringHash HASH_ELEMENT_BIND_MATERIAL__TECHNIQUE = 185393301;
 extern const char* NAME_ELEMENT_BIND_MATERIAL__TECHNIQUE;
-typedef source__technique__AttributeData bind_material__technique__AttributeData;
+typedef extra__technique__AttributeData bind_material__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_BIND_MATERIAL__EXTRA = 266234001;
 extern const char* NAME_ELEMENT_BIND_MATERIAL__EXTRA;
@@ -2495,7 +3783,7 @@ struct static_friction__AttributeData
 
 const StringHash HASH_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE = 218581653;
 extern const char* NAME_ELEMENT_PHYSICS_MATERIAL__TECHNIQUE;
-typedef source__technique__AttributeData physics_material__technique__AttributeData;
+typedef extra__technique__AttributeData physics_material__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_PHYSICS_MATERIAL__EXTRA = 41184913;
 extern const char* NAME_ELEMENT_PHYSICS_MATERIAL__EXTRA;
@@ -2768,7 +4056,7 @@ extern const char* NAME_ELEMENT_SHAPE__EXTRA;
 
 const StringHash HASH_ELEMENT_RIGID_BODY__TECHNIQUE = 266093477;
 extern const char* NAME_ELEMENT_RIGID_BODY__TECHNIQUE;
-typedef source__technique__AttributeData rigid_body__technique__AttributeData;
+typedef extra__technique__AttributeData rigid_body__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_RIGID_BODY__EXTRA = 259874209;
 extern const char* NAME_ELEMENT_RIGID_BODY__EXTRA;
@@ -2952,7 +4240,7 @@ extern const char* NAME_ELEMENT_LINEAR__TARGET_VALUE;
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE = 71550805;
 extern const char* NAME_ELEMENT_RIGID_CONSTRAINT__TECHNIQUE;
-typedef source__technique__AttributeData rigid_constraint__technique__AttributeData;
+typedef extra__technique__AttributeData rigid_constraint__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_RIGID_CONSTRAINT__EXTRA = 117024337;
 extern const char* NAME_ELEMENT_RIGID_CONSTRAINT__EXTRA;
@@ -3020,7 +4308,7 @@ extern const char* NAME_ELEMENT_TECHNIQUE_COMMON__VELOCITY;
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE = 205322533;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__TECHNIQUE;
-typedef source__technique__AttributeData instance_rigid_body__technique__AttributeData;
+typedef extra__technique__AttributeData instance_rigid_body__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_INSTANCE_RIGID_BODY__EXTRA = 264756801;
 extern const char* NAME_ELEMENT_INSTANCE_RIGID_BODY__EXTRA;
@@ -3115,7 +4403,7 @@ struct time_step__AttributeData
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__TECHNIQUE = 57209429;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__TECHNIQUE;
-typedef source__technique__AttributeData physics_scene__technique__AttributeData;
+typedef extra__technique__AttributeData physics_scene__technique__AttributeData;
 
 const StringHash HASH_ELEMENT_PHYSICS_SCENE__EXTRA = 63742257;
 extern const char* NAME_ELEMENT_PHYSICS_SCENE__EXTRA;
@@ -3236,6 +4524,1858 @@ extern const char* NAME_ELEMENT_SCENE__EXTRA;
 
 const StringHash HASH_ELEMENT_COLLADA__EXTRA = 21800817;
 extern const char* NAME_ELEMENT_COLLADA__EXTRA;
+
+const StringHash HASH_ELEMENT_PROFILE_GLSL = 99286140;
+extern const char* NAME_ELEMENT_PROFILE_GLSL;
+struct profile_GLSL__AttributeData
+{
+    static const profile_GLSL__AttributeData DEFAULT;
+
+    const ParserChar* id;
+};
+
+const StringHash HASH_ELEMENT_PROFILE_GLSL__ASSET = 200761748;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__ASSET;
+
+const StringHash HASH_ELEMENT_CODE = 96434469;
+extern const char* NAME_ELEMENT_CODE;
+const StringHash HASH_ELEMENT_PROFILE_GLSL__CODE = 96434469;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__CODE;
+struct code__AttributeData
+{
+    static const code__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_INCLUDE = 25321557;
+extern const char* NAME_ELEMENT_INCLUDE;
+const StringHash HASH_ELEMENT_PROFILE_GLSL__INCLUDE = 25321557;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__INCLUDE;
+struct include__AttributeData
+{
+    static const include__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+    const ParserChar* url;
+};
+
+const StringHash HASH_ELEMENT_PROFILE_GLSL__IMAGE = 200408965;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__IMAGE;
+
+const StringHash HASH_ELEMENT_PROFILE_GLSL__NEWPARAM = 6506701;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__NEWPARAM;
+struct profile_GLSL__newparam__AttributeData
+{
+    static const profile_GLSL__newparam__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_ARRAY = 187722873;
+extern const char* NAME_ELEMENT_ARRAY;
+const StringHash HASH_ELEMENT_NEWPARAM__ARRAY = 187722873;
+extern const char* NAME_ELEMENT_NEWPARAM__ARRAY;
+const StringHash HASH_ATTRIBUTE_LENGTH = 120344232;
+extern const char* NAME_ATTRIBUTE_LENGTH;
+struct newparam__array__AttributeData
+{
+    static const newparam__array__AttributeData DEFAULT;
+
+    long length;
+};
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL = 255667932;
+extern const char* NAME_ELEMENT_ARRAY__BOOL;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL2 = 64154882;
+extern const char* NAME_ELEMENT_ARRAY__BOOL2;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL3 = 64154883;
+extern const char* NAME_ELEMENT_ARRAY__BOOL3;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL4 = 64154884;
+extern const char* NAME_ELEMENT_ARRAY__BOOL4;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT = 64404852;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT2 = 225171266;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT2;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT3 = 225171267;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT3;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT4 = 225171268;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT4;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT2X2 = 198657234;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT2X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT3X3 = 198658003;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT3X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT4X4 = 198657748;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT4X4;
+
+const StringHash HASH_ELEMENT_ARRAY__INT = 150198228;
+extern const char* NAME_ELEMENT_ARRAY__INT;
+
+const StringHash HASH_ELEMENT_ARRAY__INT2 = 255688178;
+extern const char* NAME_ELEMENT_ARRAY__INT2;
+
+const StringHash HASH_ELEMENT_ARRAY__INT3 = 255688179;
+extern const char* NAME_ELEMENT_ARRAY__INT3;
+
+const StringHash HASH_ELEMENT_ARRAY__INT4 = 255688180;
+extern const char* NAME_ELEMENT_ARRAY__INT4;
+
+const StringHash HASH_ELEMENT_ARRAY__SURFACE = 54539381;
+extern const char* NAME_ELEMENT_ARRAY__SURFACE;
+struct array__surface__AttributeData
+{
+    static const array__surface__AttributeData DEFAULT;
+
+    fx_surface_type_enum type;
+};
+
+const StringHash HASH_ELEMENT_GENERATOR = 181492914;
+extern const char* NAME_ELEMENT_GENERATOR;
+const StringHash HASH_ELEMENT_SURFACE__GENERATOR = 181492914;
+extern const char* NAME_ELEMENT_SURFACE__GENERATOR;
+
+const StringHash HASH_ELEMENT_GENERATOR__ANNOTATE = 233977093;
+extern const char* NAME_ELEMENT_GENERATOR__ANNOTATE;
+
+const StringHash HASH_ELEMENT_GENERATOR__CODE = 77434117;
+extern const char* NAME_ELEMENT_GENERATOR__CODE;
+
+const StringHash HASH_ELEMENT_GENERATOR__INCLUDE = 46428789;
+extern const char* NAME_ELEMENT_GENERATOR__INCLUDE;
+
+const StringHash HASH_ELEMENT_NAME = 77508757;
+extern const char* NAME_ELEMENT_NAME;
+const StringHash HASH_ELEMENT_GENERATOR__NAME = 77508757;
+extern const char* NAME_ELEMENT_GENERATOR__NAME;
+struct generator__name__AttributeData
+{
+    static const generator__name__AttributeData DEFAULT;
+
+    const ParserChar* source;
+};
+
+const StringHash HASH_ELEMENT_GENERATOR__SETPARAM = 68294157;
+extern const char* NAME_ELEMENT_GENERATOR__SETPARAM;
+struct generator__setparam__AttributeData
+{
+    static const generator__setparam__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_ARRAY__SAMPLER1D = 211887188;
+extern const char* NAME_ELEMENT_ARRAY__SAMPLER1D;
+
+const StringHash HASH_ELEMENT_ARRAY__SAMPLER2D = 211887204;
+extern const char* NAME_ELEMENT_ARRAY__SAMPLER2D;
+
+const StringHash HASH_ELEMENT_ARRAY__SAMPLER3D = 211887220;
+extern const char* NAME_ELEMENT_ARRAY__SAMPLER3D;
+
+const StringHash HASH_ELEMENT_ARRAY__SAMPLERCUBE = 19367365;
+extern const char* NAME_ELEMENT_ARRAY__SAMPLERCUBE;
+
+const StringHash HASH_ELEMENT_ARRAY__SAMPLERRECT = 19293476;
+extern const char* NAME_ELEMENT_ARRAY__SAMPLERRECT;
+
+const StringHash HASH_ELEMENT_ARRAY__SAMPLERDEPTH = 41447320;
+extern const char* NAME_ELEMENT_ARRAY__SAMPLERDEPTH;
+
+const StringHash HASH_ELEMENT_ARRAY__ENUM = 255671613;
+extern const char* NAME_ELEMENT_ARRAY__ENUM;
+
+const StringHash HASH_ELEMENT_ARRAY__ARRAY = 64032889;
+extern const char* NAME_ELEMENT_ARRAY__ARRAY;
+typedef newparam__array__AttributeData array__array__AttributeData;
+
+const StringHash HASH_ELEMENT_PROFILE_GLSL__TECHNIQUE = 30461381;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__TECHNIQUE;
+struct profile_GLSL__technique__AttributeData
+{
+    static const profile_GLSL__technique__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_TECHNIQUE__CODE = 79755173;
+extern const char* NAME_ELEMENT_TECHNIQUE__CODE;
+
+const StringHash HASH_ELEMENT_TECHNIQUE__INCLUDE = 157972389;
+extern const char* NAME_ELEMENT_TECHNIQUE__INCLUDE;
+
+const StringHash HASH_ELEMENT_PROFILE_GLSL__EXTRA = 200487889;
+extern const char* NAME_ELEMENT_PROFILE_GLSL__EXTRA;
+
+const StringHash HASH_ELEMENT_PROFILE_CG = 218491431;
+extern const char* NAME_ELEMENT_PROFILE_CG;
+struct profile_CG__AttributeData
+{
+    static const profile_CG__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* platform;
+};
+
+const StringHash HASH_ELEMENT_PROFILE_CG__ASSET = 84282340;
+extern const char* NAME_ELEMENT_PROFILE_CG__ASSET;
+
+const StringHash HASH_ELEMENT_PROFILE_CG__CODE = 38834053;
+extern const char* NAME_ELEMENT_PROFILE_CG__CODE;
+
+const StringHash HASH_ELEMENT_PROFILE_CG__INCLUDE = 49028773;
+extern const char* NAME_ELEMENT_PROFILE_CG__INCLUDE;
+
+const StringHash HASH_ELEMENT_PROFILE_CG__IMAGE = 84055541;
+extern const char* NAME_ELEMENT_PROFILE_CG__IMAGE;
+
+const StringHash HASH_ELEMENT_PROFILE_CG__NEWPARAM = 113564125;
+extern const char* NAME_ELEMENT_PROFILE_CG__NEWPARAM;
+struct profile_CG__newparam__AttributeData
+{
+    static const profile_CG__newparam__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_BOOL1 = 187805953;
+extern const char* NAME_ELEMENT_BOOL1;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL1 = 187805953;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL1;
+
+const StringHash HASH_ELEMENT_BOOL1X1 = 28377985;
+extern const char* NAME_ELEMENT_BOOL1X1;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL1X1 = 28377985;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL1X1;
+
+const StringHash HASH_ELEMENT_BOOL1X2 = 28377986;
+extern const char* NAME_ELEMENT_BOOL1X2;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL1X2 = 28377986;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL1X2;
+
+const StringHash HASH_ELEMENT_BOOL1X3 = 28377987;
+extern const char* NAME_ELEMENT_BOOL1X3;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL1X3 = 28377987;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL1X3;
+
+const StringHash HASH_ELEMENT_BOOL1X4 = 28377988;
+extern const char* NAME_ELEMENT_BOOL1X4;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL1X4 = 28377988;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL1X4;
+
+const StringHash HASH_ELEMENT_BOOL2X1 = 28377729;
+extern const char* NAME_ELEMENT_BOOL2X1;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL2X1 = 28377729;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL2X1;
+
+const StringHash HASH_ELEMENT_BOOL2X2 = 28377730;
+extern const char* NAME_ELEMENT_BOOL2X2;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL2X2 = 28377730;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL2X2;
+
+const StringHash HASH_ELEMENT_BOOL2X3 = 28377731;
+extern const char* NAME_ELEMENT_BOOL2X3;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL2X3 = 28377731;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL2X3;
+
+const StringHash HASH_ELEMENT_BOOL2X4 = 28377732;
+extern const char* NAME_ELEMENT_BOOL2X4;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL2X4 = 28377732;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL2X4;
+
+const StringHash HASH_ELEMENT_BOOL3X1 = 28377473;
+extern const char* NAME_ELEMENT_BOOL3X1;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL3X1 = 28377473;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL3X1;
+
+const StringHash HASH_ELEMENT_BOOL3X2 = 28377474;
+extern const char* NAME_ELEMENT_BOOL3X2;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL3X2 = 28377474;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL3X2;
+
+const StringHash HASH_ELEMENT_BOOL3X3 = 28377475;
+extern const char* NAME_ELEMENT_BOOL3X3;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL3X3 = 28377475;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL3X3;
+
+const StringHash HASH_ELEMENT_BOOL3X4 = 28377476;
+extern const char* NAME_ELEMENT_BOOL3X4;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL3X4 = 28377476;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL3X4;
+
+const StringHash HASH_ELEMENT_BOOL4X1 = 28377217;
+extern const char* NAME_ELEMENT_BOOL4X1;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL4X1 = 28377217;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL4X1;
+
+const StringHash HASH_ELEMENT_BOOL4X2 = 28377218;
+extern const char* NAME_ELEMENT_BOOL4X2;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL4X2 = 28377218;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL4X2;
+
+const StringHash HASH_ELEMENT_BOOL4X3 = 28377219;
+extern const char* NAME_ELEMENT_BOOL4X3;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL4X3 = 28377219;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL4X3;
+
+const StringHash HASH_ELEMENT_BOOL4X4 = 28377220;
+extern const char* NAME_ELEMENT_BOOL4X4;
+const StringHash HASH_ELEMENT_NEWPARAM__BOOL4X4 = 28377220;
+extern const char* NAME_ELEMENT_NEWPARAM__BOOL4X4;
+
+const StringHash HASH_ELEMENT_FLOAT1 = 56498113;
+extern const char* NAME_ELEMENT_FLOAT1;
+const StringHash HASH_ELEMENT_NEWPARAM__FLOAT1 = 56498113;
+extern const char* NAME_ELEMENT_NEWPARAM__FLOAT1;
+
+const StringHash HASH_ELEMENT_INT1 = 263424561;
+extern const char* NAME_ELEMENT_INT1;
+const StringHash HASH_ELEMENT_NEWPARAM__INT1 = 263424561;
+extern const char* NAME_ELEMENT_NEWPARAM__INT1;
+
+const StringHash HASH_ELEMENT_INT1X1 = 59389697;
+extern const char* NAME_ELEMENT_INT1X1;
+const StringHash HASH_ELEMENT_NEWPARAM__INT1X1 = 59389697;
+extern const char* NAME_ELEMENT_NEWPARAM__INT1X1;
+
+const StringHash HASH_ELEMENT_INT1X2 = 59389698;
+extern const char* NAME_ELEMENT_INT1X2;
+const StringHash HASH_ELEMENT_NEWPARAM__INT1X2 = 59389698;
+extern const char* NAME_ELEMENT_NEWPARAM__INT1X2;
+
+const StringHash HASH_ELEMENT_INT1X3 = 59389699;
+extern const char* NAME_ELEMENT_INT1X3;
+const StringHash HASH_ELEMENT_NEWPARAM__INT1X3 = 59389699;
+extern const char* NAME_ELEMENT_NEWPARAM__INT1X3;
+
+const StringHash HASH_ELEMENT_INT1X4 = 59389700;
+extern const char* NAME_ELEMENT_INT1X4;
+const StringHash HASH_ELEMENT_NEWPARAM__INT1X4 = 59389700;
+extern const char* NAME_ELEMENT_NEWPARAM__INT1X4;
+
+const StringHash HASH_ELEMENT_INT2X1 = 59389441;
+extern const char* NAME_ELEMENT_INT2X1;
+const StringHash HASH_ELEMENT_NEWPARAM__INT2X1 = 59389441;
+extern const char* NAME_ELEMENT_NEWPARAM__INT2X1;
+
+const StringHash HASH_ELEMENT_INT2X2 = 59389442;
+extern const char* NAME_ELEMENT_INT2X2;
+const StringHash HASH_ELEMENT_NEWPARAM__INT2X2 = 59389442;
+extern const char* NAME_ELEMENT_NEWPARAM__INT2X2;
+
+const StringHash HASH_ELEMENT_INT2X3 = 59389443;
+extern const char* NAME_ELEMENT_INT2X3;
+const StringHash HASH_ELEMENT_NEWPARAM__INT2X3 = 59389443;
+extern const char* NAME_ELEMENT_NEWPARAM__INT2X3;
+
+const StringHash HASH_ELEMENT_INT2X4 = 59389444;
+extern const char* NAME_ELEMENT_INT2X4;
+const StringHash HASH_ELEMENT_NEWPARAM__INT2X4 = 59389444;
+extern const char* NAME_ELEMENT_NEWPARAM__INT2X4;
+
+const StringHash HASH_ELEMENT_INT3X1 = 59389185;
+extern const char* NAME_ELEMENT_INT3X1;
+const StringHash HASH_ELEMENT_NEWPARAM__INT3X1 = 59389185;
+extern const char* NAME_ELEMENT_NEWPARAM__INT3X1;
+
+const StringHash HASH_ELEMENT_INT3X2 = 59389186;
+extern const char* NAME_ELEMENT_INT3X2;
+const StringHash HASH_ELEMENT_NEWPARAM__INT3X2 = 59389186;
+extern const char* NAME_ELEMENT_NEWPARAM__INT3X2;
+
+const StringHash HASH_ELEMENT_INT3X3 = 59389187;
+extern const char* NAME_ELEMENT_INT3X3;
+const StringHash HASH_ELEMENT_NEWPARAM__INT3X3 = 59389187;
+extern const char* NAME_ELEMENT_NEWPARAM__INT3X3;
+
+const StringHash HASH_ELEMENT_INT3X4 = 59389188;
+extern const char* NAME_ELEMENT_INT3X4;
+const StringHash HASH_ELEMENT_NEWPARAM__INT3X4 = 59389188;
+extern const char* NAME_ELEMENT_NEWPARAM__INT3X4;
+
+const StringHash HASH_ELEMENT_INT4X1 = 59388929;
+extern const char* NAME_ELEMENT_INT4X1;
+const StringHash HASH_ELEMENT_NEWPARAM__INT4X1 = 59388929;
+extern const char* NAME_ELEMENT_NEWPARAM__INT4X1;
+
+const StringHash HASH_ELEMENT_INT4X2 = 59388930;
+extern const char* NAME_ELEMENT_INT4X2;
+const StringHash HASH_ELEMENT_NEWPARAM__INT4X2 = 59388930;
+extern const char* NAME_ELEMENT_NEWPARAM__INT4X2;
+
+const StringHash HASH_ELEMENT_INT4X3 = 59388931;
+extern const char* NAME_ELEMENT_INT4X3;
+const StringHash HASH_ELEMENT_NEWPARAM__INT4X3 = 59388931;
+extern const char* NAME_ELEMENT_NEWPARAM__INT4X3;
+
+const StringHash HASH_ELEMENT_INT4X4 = 59388932;
+extern const char* NAME_ELEMENT_INT4X4;
+const StringHash HASH_ELEMENT_NEWPARAM__INT4X4 = 59388932;
+extern const char* NAME_ELEMENT_NEWPARAM__INT4X4;
+
+const StringHash HASH_ELEMENT_HALF = 263416166;
+extern const char* NAME_ELEMENT_HALF;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF = 263416166;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF;
+
+const StringHash HASH_ELEMENT_HALF1 = 188126817;
+extern const char* NAME_ELEMENT_HALF1;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF1 = 188126817;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF1;
+
+const StringHash HASH_ELEMENT_HALF2 = 188126818;
+extern const char* NAME_ELEMENT_HALF2;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF2 = 188126818;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF2;
+
+const StringHash HASH_ELEMENT_HALF3 = 188126819;
+extern const char* NAME_ELEMENT_HALF3;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF3 = 188126819;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF3;
+
+const StringHash HASH_ELEMENT_HALF4 = 188126820;
+extern const char* NAME_ELEMENT_HALF4;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF4 = 188126820;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF4;
+
+const StringHash HASH_ELEMENT_HALF1X1 = 110519169;
+extern const char* NAME_ELEMENT_HALF1X1;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF1X1 = 110519169;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF1X1;
+
+const StringHash HASH_ELEMENT_HALF1X2 = 110519170;
+extern const char* NAME_ELEMENT_HALF1X2;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF1X2 = 110519170;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF1X2;
+
+const StringHash HASH_ELEMENT_HALF1X3 = 110519171;
+extern const char* NAME_ELEMENT_HALF1X3;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF1X3 = 110519171;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF1X3;
+
+const StringHash HASH_ELEMENT_HALF1X4 = 110519172;
+extern const char* NAME_ELEMENT_HALF1X4;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF1X4 = 110519172;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF1X4;
+
+const StringHash HASH_ELEMENT_HALF2X1 = 110518913;
+extern const char* NAME_ELEMENT_HALF2X1;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF2X1 = 110518913;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF2X1;
+
+const StringHash HASH_ELEMENT_HALF2X2 = 110518914;
+extern const char* NAME_ELEMENT_HALF2X2;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF2X2 = 110518914;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF2X2;
+
+const StringHash HASH_ELEMENT_HALF2X3 = 110518915;
+extern const char* NAME_ELEMENT_HALF2X3;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF2X3 = 110518915;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF2X3;
+
+const StringHash HASH_ELEMENT_HALF2X4 = 110518916;
+extern const char* NAME_ELEMENT_HALF2X4;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF2X4 = 110518916;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF2X4;
+
+const StringHash HASH_ELEMENT_HALF3X1 = 110518657;
+extern const char* NAME_ELEMENT_HALF3X1;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF3X1 = 110518657;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF3X1;
+
+const StringHash HASH_ELEMENT_HALF3X2 = 110518658;
+extern const char* NAME_ELEMENT_HALF3X2;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF3X2 = 110518658;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF3X2;
+
+const StringHash HASH_ELEMENT_HALF3X3 = 110518659;
+extern const char* NAME_ELEMENT_HALF3X3;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF3X3 = 110518659;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF3X3;
+
+const StringHash HASH_ELEMENT_HALF3X4 = 110518660;
+extern const char* NAME_ELEMENT_HALF3X4;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF3X4 = 110518660;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF3X4;
+
+const StringHash HASH_ELEMENT_HALF4X1 = 110518401;
+extern const char* NAME_ELEMENT_HALF4X1;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF4X1 = 110518401;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF4X1;
+
+const StringHash HASH_ELEMENT_HALF4X2 = 110518402;
+extern const char* NAME_ELEMENT_HALF4X2;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF4X2 = 110518402;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF4X2;
+
+const StringHash HASH_ELEMENT_HALF4X3 = 110518403;
+extern const char* NAME_ELEMENT_HALF4X3;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF4X3 = 110518403;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF4X3;
+
+const StringHash HASH_ELEMENT_HALF4X4 = 110518404;
+extern const char* NAME_ELEMENT_HALF4X4;
+const StringHash HASH_ELEMENT_NEWPARAM__HALF4X4 = 110518404;
+extern const char* NAME_ELEMENT_NEWPARAM__HALF4X4;
+
+const StringHash HASH_ELEMENT_FIXED = 188086852;
+extern const char* NAME_ELEMENT_FIXED;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED = 188086852;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED;
+
+const StringHash HASH_ELEMENT_FIXED1 = 56599745;
+extern const char* NAME_ELEMENT_FIXED1;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED1 = 56599745;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED1;
+
+const StringHash HASH_ELEMENT_FIXED2 = 56599746;
+extern const char* NAME_ELEMENT_FIXED2;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED2 = 56599746;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED2;
+
+const StringHash HASH_ELEMENT_FIXED3 = 56599747;
+extern const char* NAME_ELEMENT_FIXED3;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED3 = 56599747;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED3;
+
+const StringHash HASH_ELEMENT_FIXED4 = 56599748;
+extern const char* NAME_ELEMENT_FIXED4;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED4 = 56599748;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED4;
+
+const StringHash HASH_ELEMENT_FIXED1X1 = 262458337;
+extern const char* NAME_ELEMENT_FIXED1X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED1X1 = 262458337;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED1X1;
+
+const StringHash HASH_ELEMENT_FIXED1X2 = 262458338;
+extern const char* NAME_ELEMENT_FIXED1X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED1X2 = 262458338;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED1X2;
+
+const StringHash HASH_ELEMENT_FIXED1X3 = 262458339;
+extern const char* NAME_ELEMENT_FIXED1X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED1X3 = 262458339;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED1X3;
+
+const StringHash HASH_ELEMENT_FIXED1X4 = 262458340;
+extern const char* NAME_ELEMENT_FIXED1X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED1X4 = 262458340;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED1X4;
+
+const StringHash HASH_ELEMENT_FIXED2X1 = 262458081;
+extern const char* NAME_ELEMENT_FIXED2X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED2X1 = 262458081;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED2X1;
+
+const StringHash HASH_ELEMENT_FIXED2X2 = 262458082;
+extern const char* NAME_ELEMENT_FIXED2X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED2X2 = 262458082;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED2X2;
+
+const StringHash HASH_ELEMENT_FIXED2X3 = 262458083;
+extern const char* NAME_ELEMENT_FIXED2X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED2X3 = 262458083;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED2X3;
+
+const StringHash HASH_ELEMENT_FIXED2X4 = 262458084;
+extern const char* NAME_ELEMENT_FIXED2X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED2X4 = 262458084;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED2X4;
+
+const StringHash HASH_ELEMENT_FIXED3X1 = 262457825;
+extern const char* NAME_ELEMENT_FIXED3X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED3X1 = 262457825;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED3X1;
+
+const StringHash HASH_ELEMENT_FIXED3X2 = 262457826;
+extern const char* NAME_ELEMENT_FIXED3X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED3X2 = 262457826;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED3X2;
+
+const StringHash HASH_ELEMENT_FIXED3X3 = 262457827;
+extern const char* NAME_ELEMENT_FIXED3X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED3X3 = 262457827;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED3X3;
+
+const StringHash HASH_ELEMENT_FIXED3X4 = 262457828;
+extern const char* NAME_ELEMENT_FIXED3X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED3X4 = 262457828;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED3X4;
+
+const StringHash HASH_ELEMENT_FIXED4X1 = 262457569;
+extern const char* NAME_ELEMENT_FIXED4X1;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED4X1 = 262457569;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED4X1;
+
+const StringHash HASH_ELEMENT_FIXED4X2 = 262457570;
+extern const char* NAME_ELEMENT_FIXED4X2;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED4X2 = 262457570;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED4X2;
+
+const StringHash HASH_ELEMENT_FIXED4X3 = 262457571;
+extern const char* NAME_ELEMENT_FIXED4X3;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED4X3 = 262457571;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED4X3;
+
+const StringHash HASH_ELEMENT_FIXED4X4 = 262457572;
+extern const char* NAME_ELEMENT_FIXED4X4;
+const StringHash HASH_ELEMENT_NEWPARAM__FIXED4X4 = 262457572;
+extern const char* NAME_ELEMENT_NEWPARAM__FIXED4X4;
+
+const StringHash HASH_ELEMENT_NEWPARAM__STRING = 2408951;
+extern const char* NAME_ELEMENT_NEWPARAM__STRING;
+
+const StringHash HASH_ELEMENT_USERTYPE = 109449253;
+extern const char* NAME_ELEMENT_USERTYPE;
+const StringHash HASH_ELEMENT_NEWPARAM__USERTYPE = 109449253;
+extern const char* NAME_ELEMENT_NEWPARAM__USERTYPE;
+struct usertype__AttributeData
+{
+    static const usertype__AttributeData DEFAULT;
+
+    const ParserChar* name;
+    const ParserChar* source;
+};
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL = 77353980;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL1 = 163921841;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL1;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL2 = 163921842;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL2;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL3 = 163921843;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL3;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL4 = 163921844;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL4;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL1X1 = 88060273;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL1X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL1X2 = 88060274;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL1X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL1X3 = 88060275;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL1X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL1X4 = 88060276;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL1X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL2X1 = 88060017;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL2X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL2X2 = 88060018;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL2X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL2X3 = 88060019;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL2X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL2X4 = 88060020;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL2X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL3X1 = 88060785;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL3X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL3X2 = 88060786;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL3X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL3X3 = 88060787;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL3X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL3X4 = 88060788;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL3X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL4X1 = 88060529;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL4X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL4X2 = 88060530;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL4X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL4X3 = 88060531;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL4X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__BOOL4X4 = 88060532;
+extern const char* NAME_ELEMENT_USERTYPE__BOOL4X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT = 163672004;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT1 = 202833121;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT2 = 202833122;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT3 = 202833123;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT4 = 202833124;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT1X1 = 117236897;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT1X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT1X2 = 117236898;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT1X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT1X3 = 117236899;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT1X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT1X4 = 117236900;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT1X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT2X1 = 117237153;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT2X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT2X2 = 117237154;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT2X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT2X3 = 117237155;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT2X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT2X4 = 117237156;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT2X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT3X1 = 117237409;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT3X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT3X2 = 117237410;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT3X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT3X3 = 117237411;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT3X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT3X4 = 117237412;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT3X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT4X1 = 117237665;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT4X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT4X2 = 117237666;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT4X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT4X3 = 117237667;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT4X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FLOAT4X4 = 117237668;
+extern const char* NAME_ELEMENT_USERTYPE__FLOAT4X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT = 172606500;
+extern const char* NAME_ELEMENT_USERTYPE__INT;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT1 = 77349585;
+extern const char* NAME_ELEMENT_USERTYPE__INT1;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT2 = 77349586;
+extern const char* NAME_ELEMENT_USERTYPE__INT2;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT3 = 77349587;
+extern const char* NAME_ELEMENT_USERTYPE__INT3;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT4 = 77349588;
+extern const char* NAME_ELEMENT_USERTYPE__INT4;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT1X1 = 205708321;
+extern const char* NAME_ELEMENT_USERTYPE__INT1X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT1X2 = 205708322;
+extern const char* NAME_ELEMENT_USERTYPE__INT1X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT1X3 = 205708323;
+extern const char* NAME_ELEMENT_USERTYPE__INT1X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT1X4 = 205708324;
+extern const char* NAME_ELEMENT_USERTYPE__INT1X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT2X1 = 205708577;
+extern const char* NAME_ELEMENT_USERTYPE__INT2X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT2X2 = 205708578;
+extern const char* NAME_ELEMENT_USERTYPE__INT2X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT2X3 = 205708579;
+extern const char* NAME_ELEMENT_USERTYPE__INT2X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT2X4 = 205708580;
+extern const char* NAME_ELEMENT_USERTYPE__INT2X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT3X1 = 205708833;
+extern const char* NAME_ELEMENT_USERTYPE__INT3X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT3X2 = 205708834;
+extern const char* NAME_ELEMENT_USERTYPE__INT3X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT3X3 = 205708835;
+extern const char* NAME_ELEMENT_USERTYPE__INT3X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT3X4 = 205708836;
+extern const char* NAME_ELEMENT_USERTYPE__INT3X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT4X1 = 205709089;
+extern const char* NAME_ELEMENT_USERTYPE__INT4X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT4X2 = 205709090;
+extern const char* NAME_ELEMENT_USERTYPE__INT4X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT4X3 = 205709091;
+extern const char* NAME_ELEMENT_USERTYPE__INT4X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__INT4X4 = 205709092;
+extern const char* NAME_ELEMENT_USERTYPE__INT4X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF = 77341062;
+extern const char* NAME_ELEMENT_USERTYPE__HALF;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF1 = 163715281;
+extern const char* NAME_ELEMENT_USERTYPE__HALF1;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF2 = 163715282;
+extern const char* NAME_ELEMENT_USERTYPE__HALF2;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF3 = 163715283;
+extern const char* NAME_ELEMENT_USERTYPE__HALF3;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF4 = 163715284;
+extern const char* NAME_ELEMENT_USERTYPE__HALF4;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF1X1 = 35180913;
+extern const char* NAME_ELEMENT_USERTYPE__HALF1X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF1X2 = 35180914;
+extern const char* NAME_ELEMENT_USERTYPE__HALF1X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF1X3 = 35180915;
+extern const char* NAME_ELEMENT_USERTYPE__HALF1X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF1X4 = 35180916;
+extern const char* NAME_ELEMENT_USERTYPE__HALF1X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF2X1 = 35180657;
+extern const char* NAME_ELEMENT_USERTYPE__HALF2X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF2X2 = 35180658;
+extern const char* NAME_ELEMENT_USERTYPE__HALF2X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF2X3 = 35180659;
+extern const char* NAME_ELEMENT_USERTYPE__HALF2X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF2X4 = 35180660;
+extern const char* NAME_ELEMENT_USERTYPE__HALF2X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF3X1 = 35181425;
+extern const char* NAME_ELEMENT_USERTYPE__HALF3X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF3X2 = 35181426;
+extern const char* NAME_ELEMENT_USERTYPE__HALF3X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF3X3 = 35181427;
+extern const char* NAME_ELEMENT_USERTYPE__HALF3X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF3X4 = 35181428;
+extern const char* NAME_ELEMENT_USERTYPE__HALF3X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF4X1 = 35181169;
+extern const char* NAME_ELEMENT_USERTYPE__HALF4X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF4X2 = 35181170;
+extern const char* NAME_ELEMENT_USERTYPE__HALF4X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF4X3 = 35181171;
+extern const char* NAME_ELEMENT_USERTYPE__HALF4X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__HALF4X4 = 35181172;
+extern const char* NAME_ELEMENT_USERTYPE__HALF4X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED = 163673332;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED1 = 202854369;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED2 = 202854370;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED3 = 202854371;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED4 = 202854372;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED1X1 = 122676385;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED1X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED1X2 = 122676386;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED1X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED1X3 = 122676387;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED1X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED1X4 = 122676388;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED1X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED2X1 = 122676641;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED2X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED2X2 = 122676642;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED2X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED2X3 = 122676643;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED2X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED2X4 = 122676644;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED2X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED3X1 = 122676897;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED3X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED3X2 = 122676898;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED3X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED3X3 = 122676899;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED3X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED3X4 = 122676900;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED3X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED4X1 = 122677153;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED4X1;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED4X2 = 122677154;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED4X2;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED4X3 = 122677155;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED4X3;
+
+const StringHash HASH_ELEMENT_USERTYPE__FIXED4X4 = 122677156;
+extern const char* NAME_ELEMENT_USERTYPE__FIXED4X4;
+
+const StringHash HASH_ELEMENT_USERTYPE__SURFACE = 112365157;
+extern const char* NAME_ELEMENT_USERTYPE__SURFACE;
+struct usertype__surface__AttributeData
+{
+    static const usertype__surface__AttributeData DEFAULT;
+
+    fx_surface_type_enum type;
+};
+
+const StringHash HASH_ELEMENT_USERTYPE__SAMPLER1D = 238760004;
+extern const char* NAME_ELEMENT_USERTYPE__SAMPLER1D;
+
+const StringHash HASH_ELEMENT_USERTYPE__SAMPLER2D = 238760052;
+extern const char* NAME_ELEMENT_USERTYPE__SAMPLER2D;
+
+const StringHash HASH_ELEMENT_USERTYPE__SAMPLER3D = 238760036;
+extern const char* NAME_ELEMENT_USERTYPE__SAMPLER3D;
+
+const StringHash HASH_ELEMENT_USERTYPE__SAMPLERRECT = 187856820;
+extern const char* NAME_ELEMENT_USERTYPE__SAMPLERRECT;
+
+const StringHash HASH_ELEMENT_USERTYPE__SAMPLERCUBE = 187930453;
+extern const char* NAME_ELEMENT_USERTYPE__SAMPLERCUBE;
+
+const StringHash HASH_ELEMENT_USERTYPE__SAMPLERDEPTH = 54085176;
+extern const char* NAME_ELEMENT_USERTYPE__SAMPLERDEPTH;
+
+const StringHash HASH_ELEMENT_USERTYPE__STRING = 258747607;
+extern const char* NAME_ELEMENT_USERTYPE__STRING;
+
+const StringHash HASH_ELEMENT_USERTYPE__ENUM = 77365789;
+extern const char* NAME_ELEMENT_USERTYPE__ENUM;
+
+const StringHash HASH_ELEMENT_USERTYPE__ARRAY = 163898057;
+extern const char* NAME_ELEMENT_USERTYPE__ARRAY;
+struct usertype__array__AttributeData
+{
+    static const usertype__array__AttributeData DEFAULT;
+
+    long length;
+};
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL1 = 64154881;
+extern const char* NAME_ELEMENT_ARRAY__BOOL1;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL1X1 = 49089377;
+extern const char* NAME_ELEMENT_ARRAY__BOOL1X1;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL1X2 = 49089378;
+extern const char* NAME_ELEMENT_ARRAY__BOOL1X2;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL1X3 = 49089379;
+extern const char* NAME_ELEMENT_ARRAY__BOOL1X3;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL1X4 = 49089380;
+extern const char* NAME_ELEMENT_ARRAY__BOOL1X4;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL2X1 = 49089121;
+extern const char* NAME_ELEMENT_ARRAY__BOOL2X1;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL2X2 = 49089122;
+extern const char* NAME_ELEMENT_ARRAY__BOOL2X2;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL2X3 = 49089123;
+extern const char* NAME_ELEMENT_ARRAY__BOOL2X3;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL2X4 = 49089124;
+extern const char* NAME_ELEMENT_ARRAY__BOOL2X4;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL3X1 = 49088865;
+extern const char* NAME_ELEMENT_ARRAY__BOOL3X1;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL3X2 = 49088866;
+extern const char* NAME_ELEMENT_ARRAY__BOOL3X2;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL3X3 = 49088867;
+extern const char* NAME_ELEMENT_ARRAY__BOOL3X3;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL3X4 = 49088868;
+extern const char* NAME_ELEMENT_ARRAY__BOOL3X4;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL4X1 = 49088609;
+extern const char* NAME_ELEMENT_ARRAY__BOOL4X1;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL4X2 = 49088610;
+extern const char* NAME_ELEMENT_ARRAY__BOOL4X2;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL4X3 = 49088611;
+extern const char* NAME_ELEMENT_ARRAY__BOOL4X3;
+
+const StringHash HASH_ELEMENT_ARRAY__BOOL4X4 = 49088612;
+extern const char* NAME_ELEMENT_ARRAY__BOOL4X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT1 = 225171265;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT1;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT1X1 = 198657489;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT1X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT1X2 = 198657490;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT1X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT1X3 = 198657491;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT1X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT1X4 = 198657492;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT1X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT2X1 = 198657233;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT2X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT2X3 = 198657235;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT2X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT2X4 = 198657236;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT2X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT3X1 = 198658001;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT3X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT3X2 = 198658002;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT3X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT3X4 = 198658004;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT3X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT4X1 = 198657745;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT4X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT4X2 = 198657746;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT4X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FLOAT4X3 = 198657747;
+extern const char* NAME_ELEMENT_ARRAY__FLOAT4X3;
+
+const StringHash HASH_ELEMENT_ARRAY__INT1 = 255688177;
+extern const char* NAME_ELEMENT_ARRAY__INT1;
+
+const StringHash HASH_ELEMENT_ARRAY__INT1X1 = 226359169;
+extern const char* NAME_ELEMENT_ARRAY__INT1X1;
+
+const StringHash HASH_ELEMENT_ARRAY__INT1X2 = 226359170;
+extern const char* NAME_ELEMENT_ARRAY__INT1X2;
+
+const StringHash HASH_ELEMENT_ARRAY__INT1X3 = 226359171;
+extern const char* NAME_ELEMENT_ARRAY__INT1X3;
+
+const StringHash HASH_ELEMENT_ARRAY__INT1X4 = 226359172;
+extern const char* NAME_ELEMENT_ARRAY__INT1X4;
+
+const StringHash HASH_ELEMENT_ARRAY__INT2X1 = 226358913;
+extern const char* NAME_ELEMENT_ARRAY__INT2X1;
+
+const StringHash HASH_ELEMENT_ARRAY__INT2X2 = 226358914;
+extern const char* NAME_ELEMENT_ARRAY__INT2X2;
+
+const StringHash HASH_ELEMENT_ARRAY__INT2X3 = 226358915;
+extern const char* NAME_ELEMENT_ARRAY__INT2X3;
+
+const StringHash HASH_ELEMENT_ARRAY__INT2X4 = 226358916;
+extern const char* NAME_ELEMENT_ARRAY__INT2X4;
+
+const StringHash HASH_ELEMENT_ARRAY__INT3X1 = 226358657;
+extern const char* NAME_ELEMENT_ARRAY__INT3X1;
+
+const StringHash HASH_ELEMENT_ARRAY__INT3X2 = 226358658;
+extern const char* NAME_ELEMENT_ARRAY__INT3X2;
+
+const StringHash HASH_ELEMENT_ARRAY__INT3X3 = 226358659;
+extern const char* NAME_ELEMENT_ARRAY__INT3X3;
+
+const StringHash HASH_ELEMENT_ARRAY__INT3X4 = 226358660;
+extern const char* NAME_ELEMENT_ARRAY__INT3X4;
+
+const StringHash HASH_ELEMENT_ARRAY__INT4X1 = 226358401;
+extern const char* NAME_ELEMENT_ARRAY__INT4X1;
+
+const StringHash HASH_ELEMENT_ARRAY__INT4X2 = 226358402;
+extern const char* NAME_ELEMENT_ARRAY__INT4X2;
+
+const StringHash HASH_ELEMENT_ARRAY__INT4X3 = 226358403;
+extern const char* NAME_ELEMENT_ARRAY__INT4X3;
+
+const StringHash HASH_ELEMENT_ARRAY__INT4X4 = 226358404;
+extern const char* NAME_ELEMENT_ARRAY__INT4X4;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF = 255688870;
+extern const char* NAME_ELEMENT_ARRAY__HALF;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF1 = 64490081;
+extern const char* NAME_ELEMENT_ARRAY__HALF1;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF2 = 64490082;
+extern const char* NAME_ELEMENT_ARRAY__HALF2;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF3 = 64490083;
+extern const char* NAME_ELEMENT_ARRAY__HALF3;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF4 = 64490084;
+extern const char* NAME_ELEMENT_ARRAY__HALF4;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF1X1 = 134900577;
+extern const char* NAME_ELEMENT_ARRAY__HALF1X1;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF1X2 = 134900578;
+extern const char* NAME_ELEMENT_ARRAY__HALF1X2;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF1X3 = 134900579;
+extern const char* NAME_ELEMENT_ARRAY__HALF1X3;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF1X4 = 134900580;
+extern const char* NAME_ELEMENT_ARRAY__HALF1X4;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF2X1 = 134900321;
+extern const char* NAME_ELEMENT_ARRAY__HALF2X1;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF2X2 = 134900322;
+extern const char* NAME_ELEMENT_ARRAY__HALF2X2;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF2X3 = 134900323;
+extern const char* NAME_ELEMENT_ARRAY__HALF2X3;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF2X4 = 134900324;
+extern const char* NAME_ELEMENT_ARRAY__HALF2X4;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF3X1 = 134900065;
+extern const char* NAME_ELEMENT_ARRAY__HALF3X1;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF3X2 = 134900066;
+extern const char* NAME_ELEMENT_ARRAY__HALF3X2;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF3X3 = 134900067;
+extern const char* NAME_ELEMENT_ARRAY__HALF3X3;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF3X4 = 134900068;
+extern const char* NAME_ELEMENT_ARRAY__HALF3X4;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF4X1 = 134899809;
+extern const char* NAME_ELEMENT_ARRAY__HALF4X1;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF4X2 = 134899810;
+extern const char* NAME_ELEMENT_ARRAY__HALF4X2;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF4X3 = 134899811;
+extern const char* NAME_ELEMENT_ARRAY__HALF4X3;
+
+const StringHash HASH_ELEMENT_ARRAY__HALF4X4 = 134899812;
+extern const char* NAME_ELEMENT_ARRAY__HALF4X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED = 64390724;
+extern const char* NAME_ELEMENT_ARRAY__FIXED;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED1 = 224945217;
+extern const char* NAME_ELEMENT_ARRAY__FIXED1;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED2 = 224945218;
+extern const char* NAME_ELEMENT_ARRAY__FIXED2;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED3 = 224945219;
+extern const char* NAME_ELEMENT_ARRAY__FIXED3;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED4 = 224945220;
+extern const char* NAME_ELEMENT_ARRAY__FIXED4;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED1X1 = 140789201;
+extern const char* NAME_ELEMENT_ARRAY__FIXED1X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED1X2 = 140789202;
+extern const char* NAME_ELEMENT_ARRAY__FIXED1X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED1X3 = 140789203;
+extern const char* NAME_ELEMENT_ARRAY__FIXED1X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED1X4 = 140789204;
+extern const char* NAME_ELEMENT_ARRAY__FIXED1X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED2X1 = 140788945;
+extern const char* NAME_ELEMENT_ARRAY__FIXED2X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED2X2 = 140788946;
+extern const char* NAME_ELEMENT_ARRAY__FIXED2X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED2X3 = 140788947;
+extern const char* NAME_ELEMENT_ARRAY__FIXED2X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED2X4 = 140788948;
+extern const char* NAME_ELEMENT_ARRAY__FIXED2X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED3X1 = 140789713;
+extern const char* NAME_ELEMENT_ARRAY__FIXED3X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED3X2 = 140789714;
+extern const char* NAME_ELEMENT_ARRAY__FIXED3X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED3X3 = 140789715;
+extern const char* NAME_ELEMENT_ARRAY__FIXED3X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED3X4 = 140789716;
+extern const char* NAME_ELEMENT_ARRAY__FIXED3X4;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED4X1 = 140789457;
+extern const char* NAME_ELEMENT_ARRAY__FIXED4X1;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED4X2 = 140789458;
+extern const char* NAME_ELEMENT_ARRAY__FIXED4X2;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED4X3 = 140789459;
+extern const char* NAME_ELEMENT_ARRAY__FIXED4X3;
+
+const StringHash HASH_ELEMENT_ARRAY__FIXED4X4 = 140789460;
+extern const char* NAME_ELEMENT_ARRAY__FIXED4X4;
+
+const StringHash HASH_ELEMENT_ARRAY__STRING = 238223735;
+extern const char* NAME_ELEMENT_ARRAY__STRING;
+
+const StringHash HASH_ELEMENT_ARRAY__USERTYPE = 21405237;
+extern const char* NAME_ELEMENT_ARRAY__USERTYPE;
+
+const StringHash HASH_ELEMENT_USERTYPE__USERTYPE = 242040677;
+extern const char* NAME_ELEMENT_USERTYPE__USERTYPE;
+
+const StringHash HASH_ELEMENT_CONNECT_PARAM = 5868045;
+extern const char* NAME_ELEMENT_CONNECT_PARAM;
+const StringHash HASH_ELEMENT_USERTYPE__CONNECT_PARAM = 5868045;
+extern const char* NAME_ELEMENT_USERTYPE__CONNECT_PARAM;
+struct connect_param__AttributeData
+{
+    static const connect_param__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_USERTYPE__SETPARAM = 185734957;
+extern const char* NAME_ELEMENT_USERTYPE__SETPARAM;
+const StringHash HASH_ATTRIBUTE_PROGRAM = 127264781;
+extern const char* NAME_ATTRIBUTE_PROGRAM;
+struct usertype__setparam__AttributeData
+{
+    static const usertype__setparam__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+    const ParserChar* program;
+};
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL1 = 3302897;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL1;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL1X1 = 40237185;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL1X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL1X2 = 40237186;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL1X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL1X3 = 40237187;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL1X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL1X4 = 40237188;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL1X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL2X1 = 40237441;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL2X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL2X2 = 40237442;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL2X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL2X3 = 40237443;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL2X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL2X4 = 40237444;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL2X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL3X1 = 40237697;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL3X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL3X2 = 40237698;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL3X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL3X3 = 40237699;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL3X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL3X4 = 40237700;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL3X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL4X1 = 40237953;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL4X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL4X2 = 40237954;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL4X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL4X3 = 40237955;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL4X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__BOOL4X4 = 40237956;
+extern const char* NAME_ELEMENT_SETPARAM__BOOL4X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FLOAT1 = 56842353;
+extern const char* NAME_ELEMENT_SETPARAM__FLOAT1;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT1 = 226673;
+extern const char* NAME_ELEMENT_SETPARAM__INT1;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT1X1 = 58030257;
+extern const char* NAME_ELEMENT_SETPARAM__INT1X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT1X2 = 58030258;
+extern const char* NAME_ELEMENT_SETPARAM__INT1X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT1X3 = 58030259;
+extern const char* NAME_ELEMENT_SETPARAM__INT1X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT1X4 = 58030260;
+extern const char* NAME_ELEMENT_SETPARAM__INT1X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT2X1 = 58030513;
+extern const char* NAME_ELEMENT_SETPARAM__INT2X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT2X2 = 58030514;
+extern const char* NAME_ELEMENT_SETPARAM__INT2X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT2X3 = 58030515;
+extern const char* NAME_ELEMENT_SETPARAM__INT2X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT2X4 = 58030516;
+extern const char* NAME_ELEMENT_SETPARAM__INT2X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT3X1 = 58030769;
+extern const char* NAME_ELEMENT_SETPARAM__INT3X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT3X2 = 58030770;
+extern const char* NAME_ELEMENT_SETPARAM__INT3X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT3X3 = 58030771;
+extern const char* NAME_ELEMENT_SETPARAM__INT3X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT3X4 = 58030772;
+extern const char* NAME_ELEMENT_SETPARAM__INT3X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT4X1 = 58031025;
+extern const char* NAME_ELEMENT_SETPARAM__INT4X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT4X2 = 58031026;
+extern const char* NAME_ELEMENT_SETPARAM__INT4X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT4X3 = 58031027;
+extern const char* NAME_ELEMENT_SETPARAM__INT4X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__INT4X4 = 58031028;
+extern const char* NAME_ELEMENT_SETPARAM__INT4X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF = 227366;
+extern const char* NAME_ELEMENT_SETPARAM__HALF;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF1 = 3637905;
+extern const char* NAME_ELEMENT_SETPARAM__HALF1;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF2 = 3637906;
+extern const char* NAME_ELEMENT_SETPARAM__HALF2;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF3 = 3637907;
+extern const char* NAME_ELEMENT_SETPARAM__HALF3;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF4 = 3637908;
+extern const char* NAME_ELEMENT_SETPARAM__HALF4;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF1X1 = 125999233;
+extern const char* NAME_ELEMENT_SETPARAM__HALF1X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF1X2 = 125999234;
+extern const char* NAME_ELEMENT_SETPARAM__HALF1X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF1X3 = 125999235;
+extern const char* NAME_ELEMENT_SETPARAM__HALF1X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF1X4 = 125999236;
+extern const char* NAME_ELEMENT_SETPARAM__HALF1X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF2X1 = 125999489;
+extern const char* NAME_ELEMENT_SETPARAM__HALF2X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF2X2 = 125999490;
+extern const char* NAME_ELEMENT_SETPARAM__HALF2X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF2X3 = 125999491;
+extern const char* NAME_ELEMENT_SETPARAM__HALF2X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF2X4 = 125999492;
+extern const char* NAME_ELEMENT_SETPARAM__HALF2X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF3X1 = 125999745;
+extern const char* NAME_ELEMENT_SETPARAM__HALF3X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF3X2 = 125999746;
+extern const char* NAME_ELEMENT_SETPARAM__HALF3X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF3X3 = 125999747;
+extern const char* NAME_ELEMENT_SETPARAM__HALF3X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF3X4 = 125999748;
+extern const char* NAME_ELEMENT_SETPARAM__HALF3X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF4X1 = 126000001;
+extern const char* NAME_ELEMENT_SETPARAM__HALF4X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF4X2 = 126000002;
+extern const char* NAME_ELEMENT_SETPARAM__HALF4X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF4X3 = 126000003;
+extern const char* NAME_ELEMENT_SETPARAM__HALF4X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__HALF4X4 = 126000004;
+extern const char* NAME_ELEMENT_SETPARAM__HALF4X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED = 3542708;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED1 = 56683377;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED2 = 56683378;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED3 = 56683379;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED4 = 56683380;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED1X1 = 15432657;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED1X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED1X2 = 15432658;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED1X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED1X3 = 15432659;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED1X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED1X4 = 15432660;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED1X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED2X1 = 15432401;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED2X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED2X2 = 15432402;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED2X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED2X3 = 15432403;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED2X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED2X4 = 15432404;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED2X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED3X1 = 15432145;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED3X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED3X2 = 15432146;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED3X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED3X3 = 15432147;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED3X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED3X4 = 15432148;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED3X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED4X1 = 15431889;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED4X1;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED4X2 = 15431890;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED4X2;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED4X3 = 15431891;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED4X3;
+
+const StringHash HASH_ELEMENT_SETPARAM__FIXED4X4 = 15431892;
+extern const char* NAME_ELEMENT_SETPARAM__FIXED4X4;
+
+const StringHash HASH_ELEMENT_SETPARAM__STRING = 3903559;
+extern const char* NAME_ELEMENT_SETPARAM__STRING;
+
+const StringHash HASH_ELEMENT_SETPARAM__USERTYPE = 164216885;
+extern const char* NAME_ELEMENT_SETPARAM__USERTYPE;
+
+const StringHash HASH_ELEMENT_SETPARAM__ARRAY = 3250313;
+extern const char* NAME_ELEMENT_SETPARAM__ARRAY;
+typedef usertype__array__AttributeData setparam__array__AttributeData;
+
+const StringHash HASH_ELEMENT_SETPARAM__CONNECT_PARAM = 151241709;
+extern const char* NAME_ELEMENT_SETPARAM__CONNECT_PARAM;
+
+const StringHash HASH_ELEMENT_PROFILE_CG__TECHNIQUE = 198327461;
+extern const char* NAME_ELEMENT_PROFILE_CG__TECHNIQUE;
+struct profile_CG__technique__AttributeData
+{
+    static const profile_CG__technique__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_PROFILE_CG__EXTRA = 84040097;
+extern const char* NAME_ELEMENT_PROFILE_CG__EXTRA;
+
+const StringHash HASH_ELEMENT_PROFILE_COMMON = 171910622;
+extern const char* NAME_ELEMENT_PROFILE_COMMON;
+struct profile_COMMON__AttributeData
+{
+    static const profile_COMMON__AttributeData DEFAULT;
+
+    const ParserChar* id;
+};
+
+const StringHash HASH_ELEMENT_PROFILE_COMMON__ASSET = 145422180;
+extern const char* NAME_ELEMENT_PROFILE_COMMON__ASSET;
+
+const StringHash HASH_ELEMENT_PROFILE_COMMON__IMAGE = 145647989;
+extern const char* NAME_ELEMENT_PROFILE_COMMON__IMAGE;
+
+const StringHash HASH_ELEMENT_PROFILE_COMMON__NEWPARAM = 151782173;
+extern const char* NAME_ELEMENT_PROFILE_COMMON__NEWPARAM;
+struct profile_COMMON__newparam__AttributeData
+{
+    static const profile_COMMON__newparam__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_PROFILE_COMMON__TECHNIQUE = 123572309;
+extern const char* NAME_ELEMENT_PROFILE_COMMON__TECHNIQUE;
+struct profile_COMMON__technique__AttributeData
+{
+    static const profile_COMMON__technique__AttributeData DEFAULT;
+
+    const ParserChar* id;
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_TECHNIQUE__CONSTANT = 140404900;
+extern const char* NAME_ELEMENT_TECHNIQUE__CONSTANT;
+
+const StringHash HASH_ELEMENT_EMISSION = 17478014;
+extern const char* NAME_ELEMENT_EMISSION;
+const StringHash HASH_ELEMENT_CONSTANT__EMISSION = 17478014;
+extern const char* NAME_ELEMENT_CONSTANT__EMISSION;
+
+const StringHash HASH_ELEMENT_EMISSION__COLOR = 99748322;
+extern const char* NAME_ELEMENT_EMISSION__COLOR;
+struct emission__color__AttributeData
+{
+    static const emission__color__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_EMISSION__PARAM = 97460989;
+extern const char* NAME_ELEMENT_EMISSION__PARAM;
+struct emission__param__AttributeData
+{
+    static const emission__param__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_TEXTURE = 56965445;
+extern const char* NAME_ELEMENT_TEXTURE;
+const StringHash HASH_ELEMENT_EMISSION__TEXTURE = 56965445;
+extern const char* NAME_ELEMENT_EMISSION__TEXTURE;
+const StringHash HASH_ATTRIBUTE_TEXTURE = 181386485;
+extern const char* NAME_ATTRIBUTE_TEXTURE;
+const StringHash HASH_ATTRIBUTE_TEXCOORD = 216686884;
+extern const char* NAME_ATTRIBUTE_TEXCOORD;
+struct texture__AttributeData
+{
+    static const texture__AttributeData DEFAULT;
+
+    const ParserChar* texture;
+    const ParserChar* texcoord;
+};
+
+const StringHash HASH_ELEMENT_TEXTURE__EXTRA = 161952913;
+extern const char* NAME_ELEMENT_TEXTURE__EXTRA;
+
+const StringHash HASH_ELEMENT_REFLECTIVE = 43423765;
+extern const char* NAME_ELEMENT_REFLECTIVE;
+const StringHash HASH_ELEMENT_CONSTANT__REFLECTIVE = 43423765;
+extern const char* NAME_ELEMENT_CONSTANT__REFLECTIVE;
+
+const StringHash HASH_ELEMENT_REFLECTIVE__COLOR = 9172162;
+extern const char* NAME_ELEMENT_REFLECTIVE__COLOR;
+typedef emission__color__AttributeData reflective__color__AttributeData;
+
+const StringHash HASH_ELEMENT_REFLECTIVE__PARAM = 11876829;
+extern const char* NAME_ELEMENT_REFLECTIVE__PARAM;
+typedef emission__param__AttributeData reflective__param__AttributeData;
+
+const StringHash HASH_ELEMENT_REFLECTIVE__TEXTURE = 159259701;
+extern const char* NAME_ELEMENT_REFLECTIVE__TEXTURE;
+
+const StringHash HASH_ELEMENT_REFLECTIVITY = 110633513;
+extern const char* NAME_ELEMENT_REFLECTIVITY;
+const StringHash HASH_ELEMENT_CONSTANT__REFLECTIVITY = 110633513;
+extern const char* NAME_ELEMENT_CONSTANT__REFLECTIVITY;
+
+const StringHash HASH_ELEMENT_REFLECTIVITY__FLOAT = 149886404;
+extern const char* NAME_ELEMENT_REFLECTIVITY__FLOAT;
+struct reflectivity__float__AttributeData
+{
+    static const reflectivity__float__AttributeData DEFAULT;
+
+    const ParserChar* sid;
+};
+
+const StringHash HASH_ELEMENT_REFLECTIVITY__PARAM = 148154429;
+extern const char* NAME_ELEMENT_REFLECTIVITY__PARAM;
+struct reflectivity__param__AttributeData
+{
+    static const reflectivity__param__AttributeData DEFAULT;
+
+    const ParserChar* ref;
+};
+
+const StringHash HASH_ELEMENT_TRANSPARENT = 145306628;
+extern const char* NAME_ELEMENT_TRANSPARENT;
+const StringHash HASH_ELEMENT_CONSTANT__TRANSPARENT = 145306628;
+extern const char* NAME_ELEMENT_CONSTANT__TRANSPARENT;
+const StringHash HASH_ATTRIBUTE_OPAQUE = 124160181;
+extern const char* NAME_ATTRIBUTE_OPAQUE;
+struct transparent__AttributeData
+{
+    static const transparent__AttributeData DEFAULT;
+
+    fx_opaque_enum opaque;
+};
+
+const StringHash HASH_ELEMENT_TRANSPARENT__COLOR = 107619106;
+extern const char* NAME_ELEMENT_TRANSPARENT__COLOR;
+typedef emission__color__AttributeData transparent__color__AttributeData;
+
+const StringHash HASH_ELEMENT_TRANSPARENT__PARAM = 106350653;
+extern const char* NAME_ELEMENT_TRANSPARENT__PARAM;
+typedef emission__param__AttributeData transparent__param__AttributeData;
+
+const StringHash HASH_ELEMENT_TRANSPARENT__TEXTURE = 177208021;
+extern const char* NAME_ELEMENT_TRANSPARENT__TEXTURE;
+
+const StringHash HASH_ELEMENT_TRANSPARENCY = 177422633;
+extern const char* NAME_ELEMENT_TRANSPARENCY;
+const StringHash HASH_ELEMENT_CONSTANT__TRANSPARENCY = 177422633;
+extern const char* NAME_ELEMENT_CONSTANT__TRANSPARENCY;
+
+const StringHash HASH_ELEMENT_TRANSPARENCY__FLOAT = 140067972;
+extern const char* NAME_ELEMENT_TRANSPARENCY__FLOAT;
+typedef reflectivity__float__AttributeData transparency__float__AttributeData;
+
+const StringHash HASH_ELEMENT_TRANSPARENCY__PARAM = 140679549;
+extern const char* NAME_ELEMENT_TRANSPARENCY__PARAM;
+typedef reflectivity__param__AttributeData transparency__param__AttributeData;
+
+const StringHash HASH_ELEMENT_INDEX_OF_REFRACTION = 195491134;
+extern const char* NAME_ELEMENT_INDEX_OF_REFRACTION;
+const StringHash HASH_ELEMENT_CONSTANT__INDEX_OF_REFRACTION = 195491134;
+extern const char* NAME_ELEMENT_CONSTANT__INDEX_OF_REFRACTION;
+
+const StringHash HASH_ELEMENT_INDEX_OF_REFRACTION__FLOAT = 70494564;
+extern const char* NAME_ELEMENT_INDEX_OF_REFRACTION__FLOAT;
+typedef reflectivity__float__AttributeData index_of_refraction__float__AttributeData;
+
+const StringHash HASH_ELEMENT_INDEX_OF_REFRACTION__PARAM = 67646621;
+extern const char* NAME_ELEMENT_INDEX_OF_REFRACTION__PARAM;
+typedef reflectivity__param__AttributeData index_of_refraction__param__AttributeData;
+
+const StringHash HASH_ELEMENT_LAMBERT = 90423428;
+extern const char* NAME_ELEMENT_LAMBERT;
+const StringHash HASH_ELEMENT_TECHNIQUE__LAMBERT = 90423428;
+extern const char* NAME_ELEMENT_TECHNIQUE__LAMBERT;
+
+const StringHash HASH_ELEMENT_LAMBERT__EMISSION = 15092238;
+extern const char* NAME_ELEMENT_LAMBERT__EMISSION;
+
+const StringHash HASH_ELEMENT_LAMBERT__AMBIENT = 16135972;
+extern const char* NAME_ELEMENT_LAMBERT__AMBIENT;
+
+const StringHash HASH_ELEMENT_AMBIENT__PARAM = 149506909;
+extern const char* NAME_ELEMENT_AMBIENT__PARAM;
+typedef emission__param__AttributeData ambient__param__AttributeData;
+
+const StringHash HASH_ELEMENT_AMBIENT__TEXTURE = 84710501;
+extern const char* NAME_ELEMENT_AMBIENT__TEXTURE;
+
+const StringHash HASH_ELEMENT_DIFFUSE = 36835829;
+extern const char* NAME_ELEMENT_DIFFUSE;
+const StringHash HASH_ELEMENT_LAMBERT__DIFFUSE = 36835829;
+extern const char* NAME_ELEMENT_LAMBERT__DIFFUSE;
+
+const StringHash HASH_ELEMENT_DIFFUSE__COLOR = 211136114;
+extern const char* NAME_ELEMENT_DIFFUSE__COLOR;
+typedef emission__color__AttributeData diffuse__color__AttributeData;
+
+const StringHash HASH_ELEMENT_DIFFUSE__PARAM = 212551533;
+extern const char* NAME_ELEMENT_DIFFUSE__PARAM;
+typedef emission__param__AttributeData diffuse__param__AttributeData;
+
+const StringHash HASH_ELEMENT_DIFFUSE__TEXTURE = 117481509;
+extern const char* NAME_ELEMENT_DIFFUSE__TEXTURE;
+
+const StringHash HASH_ELEMENT_LAMBERT__REFLECTIVE = 242202613;
+extern const char* NAME_ELEMENT_LAMBERT__REFLECTIVE;
+
+const StringHash HASH_ELEMENT_LAMBERT__REFLECTIVITY = 263720665;
+extern const char* NAME_ELEMENT_LAMBERT__REFLECTIVITY;
+
+const StringHash HASH_ELEMENT_LAMBERT__TRANSPARENT = 121356996;
+extern const char* NAME_ELEMENT_LAMBERT__TRANSPARENT;
+
+const StringHash HASH_ELEMENT_LAMBERT__TRANSPARENCY = 62664153;
+extern const char* NAME_ELEMENT_LAMBERT__TRANSPARENCY;
+
+const StringHash HASH_ELEMENT_LAMBERT__INDEX_OF_REFRACTION = 87566030;
+extern const char* NAME_ELEMENT_LAMBERT__INDEX_OF_REFRACTION;
+
+const StringHash HASH_ELEMENT_PHONG = 204592647;
+extern const char* NAME_ELEMENT_PHONG;
+const StringHash HASH_ELEMENT_TECHNIQUE__PHONG = 204592647;
+extern const char* NAME_ELEMENT_TECHNIQUE__PHONG;
+
+const StringHash HASH_ELEMENT_PHONG__EMISSION = 105372942;
+extern const char* NAME_ELEMENT_PHONG__EMISSION;
+
+const StringHash HASH_ELEMENT_PHONG__AMBIENT = 157036644;
+extern const char* NAME_ELEMENT_PHONG__AMBIENT;
+
+const StringHash HASH_ELEMENT_PHONG__DIFFUSE = 93849765;
+extern const char* NAME_ELEMENT_PHONG__DIFFUSE;
+
+const StringHash HASH_ELEMENT_SPECULAR = 16253650;
+extern const char* NAME_ELEMENT_SPECULAR;
+const StringHash HASH_ELEMENT_PHONG__SPECULAR = 16253650;
+extern const char* NAME_ELEMENT_PHONG__SPECULAR;
+
+const StringHash HASH_ELEMENT_SPECULAR__COLOR = 16126290;
+extern const char* NAME_ELEMENT_SPECULAR__COLOR;
+typedef emission__color__AttributeData specular__color__AttributeData;
+
+const StringHash HASH_ELEMENT_SPECULAR__PARAM = 13294157;
+extern const char* NAME_ELEMENT_SPECULAR__PARAM;
+typedef emission__param__AttributeData specular__param__AttributeData;
+
+const StringHash HASH_ELEMENT_SPECULAR__TEXTURE = 110988357;
+extern const char* NAME_ELEMENT_SPECULAR__TEXTURE;
+
+const StringHash HASH_ELEMENT_SHININESS = 211569187;
+extern const char* NAME_ELEMENT_SHININESS;
+const StringHash HASH_ELEMENT_PHONG__SHININESS = 211569187;
+extern const char* NAME_ELEMENT_PHONG__SHININESS;
+
+const StringHash HASH_ELEMENT_SHININESS__FLOAT = 39878676;
+extern const char* NAME_ELEMENT_SHININESS__FLOAT;
+typedef reflectivity__float__AttributeData shininess__float__AttributeData;
+
+const StringHash HASH_ELEMENT_SHININESS__PARAM = 40230381;
+extern const char* NAME_ELEMENT_SHININESS__PARAM;
+typedef reflectivity__param__AttributeData shininess__param__AttributeData;
+
+const StringHash HASH_ELEMENT_PHONG__REFLECTIVE = 268102997;
+extern const char* NAME_ELEMENT_PHONG__REFLECTIVE;
+
+const StringHash HASH_ELEMENT_PHONG__REFLECTIVITY = 183332681;
+extern const char* NAME_ELEMENT_PHONG__REFLECTIVITY;
+
+const StringHash HASH_ELEMENT_PHONG__TRANSPARENT = 241987796;
+extern const char* NAME_ELEMENT_PHONG__TRANSPARENT;
+
+const StringHash HASH_ELEMENT_PHONG__TRANSPARENCY = 113708105;
+extern const char* NAME_ELEMENT_PHONG__TRANSPARENCY;
+
+const StringHash HASH_ELEMENT_PHONG__INDEX_OF_REFRACTION = 215105534;
+extern const char* NAME_ELEMENT_PHONG__INDEX_OF_REFRACTION;
+
+const StringHash HASH_ELEMENT_BLINN = 202379278;
+extern const char* NAME_ELEMENT_BLINN;
+const StringHash HASH_ELEMENT_TECHNIQUE__BLINN = 202379278;
+extern const char* NAME_ELEMENT_TECHNIQUE__BLINN;
+
+const StringHash HASH_ELEMENT_BLINN__EMISSION = 73311438;
+extern const char* NAME_ELEMENT_BLINN__EMISSION;
+
+const StringHash HASH_ELEMENT_BLINN__AMBIENT = 87931284;
+extern const char* NAME_ELEMENT_BLINN__AMBIENT;
+
+const StringHash HASH_ELEMENT_BLINN__DIFFUSE = 167354197;
+extern const char* NAME_ELEMENT_BLINN__DIFFUSE;
+
+const StringHash HASH_ELEMENT_BLINN__SPECULAR = 116301074;
+extern const char* NAME_ELEMENT_BLINN__SPECULAR;
+
+const StringHash HASH_ELEMENT_BLINN__SHININESS = 185448003;
+extern const char* NAME_ELEMENT_BLINN__SHININESS;
+
+const StringHash HASH_ELEMENT_BLINN__REFLECTIVE = 109390693;
+extern const char* NAME_ELEMENT_BLINN__REFLECTIVE;
+
+const StringHash HASH_ELEMENT_BLINN__REFLECTIVITY = 86734393;
+extern const char* NAME_ELEMENT_BLINN__REFLECTIVITY;
+
+const StringHash HASH_ELEMENT_BLINN__TRANSPARENT = 160434500;
+extern const char* NAME_ELEMENT_BLINN__TRANSPARENT;
+
+const StringHash HASH_ELEMENT_BLINN__TRANSPARENCY = 151033145;
+extern const char* NAME_ELEMENT_BLINN__TRANSPARENCY;
+
+const StringHash HASH_ELEMENT_BLINN__INDEX_OF_REFRACTION = 24357934;
+extern const char* NAME_ELEMENT_BLINN__INDEX_OF_REFRACTION;
+
+const StringHash HASH_ELEMENT_PROFILE_COMMON__EXTRA = 145663265;
+extern const char* NAME_ELEMENT_PROFILE_COMMON__EXTRA;
 
 
 

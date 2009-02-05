@@ -28,6 +28,7 @@ namespace COLLADASaxFWL
 typedef GeneratedSaxParser::StringHash StringHash;
 typedef GeneratedSaxParser::ParserChar ParserChar;
 typedef GeneratedSaxParser::ParserAttributes ParserAttributes;
+typedef GeneratedSaxParser::Utils Utils;
 typedef GeneratedSaxParser::ParserError ParserError;
 
 
@@ -43,19 +44,19 @@ virtual ~ColladaParserAutoGenPrivate();
 private:
 
 
-bool _begin__COLLADA( void* attributeData ){return mImpl->begin__COLLADA(*static_cast<COLLADA__AttributeData*>(attributeData));}
-bool _data__COLLADA( const ParserChar* text, size_t textLength );
-bool _end__COLLADA(){return mImpl->end__COLLADA();}
-bool _validateBegin__COLLADA( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__COLLADA();
-bool _freeAttributes__COLLADA( void* attributeData );
+bool _begin__profile_GLES( void* attributeData ){return mImpl->begin__profile_GLES(*static_cast<profile_GLES__AttributeData*>(attributeData));}
+bool _data__profile_GLES( const ParserChar* text, size_t textLength );
+bool _end__profile_GLES(){return mImpl->end__profile_GLES();}
+bool _validateBegin__profile_GLES( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLES();
+bool _freeAttributes__profile_GLES( void* attributeData );
 
-bool _begin__COLLADA__asset( void* attributeData ){return mImpl->begin__COLLADA__asset();}
-bool _data__COLLADA__asset( const ParserChar* text, size_t textLength );
-bool _end__COLLADA__asset(){return mImpl->end__COLLADA__asset();}
-bool _validateBegin__COLLADA__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__COLLADA__asset();
-bool _freeAttributes__COLLADA__asset( void* attributeData );
+bool _begin__profile_GLES__asset( void* attributeData ){return mImpl->begin__profile_GLES__asset();}
+bool _data__profile_GLES__asset( const ParserChar* text, size_t textLength );
+bool _end__profile_GLES__asset(){return mImpl->end__profile_GLES__asset();}
+bool _validateBegin__profile_GLES__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLES__asset();
+bool _freeAttributes__profile_GLES__asset( void* attributeData );
 
 bool _begin__contributor( void* attributeData ){return mImpl->begin__contributor();}
 bool _data__contributor( const ParserChar* text, size_t textLength );
@@ -154,6 +155,2460 @@ bool _end__up_axis(){return mImpl->end__up_axis();}
 bool _validateBegin__up_axis( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__up_axis();
 bool _freeAttributes__up_axis( void* attributeData );
+
+
+UpAxisType toEnumDataPrefix_UpAxisType (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, UpAxisType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_UpAxisType (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const UpAxisType*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_UpAxisType (
+    bool ( ColladaParserAutoGen::*dataFunction )(const UpAxisType*, size_t ),
+    const std::pair<StringHash, UpAxisType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    UpAxisType (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, UpAxisType>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__profile_GLES__image( void* attributeData ){return mImpl->begin__profile_GLES__image(*static_cast<image__AttributeData*>(attributeData));}
+bool _data__profile_GLES__image( const ParserChar* text, size_t textLength );
+bool _end__profile_GLES__image(){return mImpl->end__profile_GLES__image();}
+bool _validateBegin__profile_GLES__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLES__image();
+bool _freeAttributes__profile_GLES__image( void* attributeData );
+
+bool _begin__image__asset( void* attributeData ){return mImpl->begin__image__asset();}
+bool _data__image__asset( const ParserChar* text, size_t textLength );
+bool _end__image__asset(){return mImpl->end__image__asset();}
+bool _validateBegin__image__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__image__asset();
+bool _freeAttributes__image__asset( void* attributeData );
+
+bool _begin__data( void* attributeData ){return mImpl->begin__data();}
+bool _data__data( const ParserChar* text, size_t textLength );
+bool _end__data(){return mImpl->end__data();}
+bool _validateBegin__data( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__data();
+bool _freeAttributes__data( void* attributeData );
+
+bool _begin__image__init_from( void* attributeData ){return mImpl->begin__image__init_from();}
+bool _data__image__init_from( const ParserChar* text, size_t textLength );
+bool _end__image__init_from(){return mImpl->end__image__init_from();}
+bool _validateBegin__image__init_from( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__image__init_from();
+bool _freeAttributes__image__init_from( void* attributeData );
+
+bool _begin__image__extra( void* attributeData ){return mImpl->begin__image__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__image__extra( const ParserChar* text, size_t textLength );
+bool _end__image__extra(){return mImpl->end__image__extra();}
+bool _validateBegin__image__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__image__extra();
+bool _freeAttributes__image__extra( void* attributeData );
+
+bool _begin__extra__asset( void* attributeData ){return mImpl->begin__extra__asset();}
+bool _data__extra__asset( const ParserChar* text, size_t textLength );
+bool _end__extra__asset(){return mImpl->end__extra__asset();}
+bool _validateBegin__extra__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__extra__asset();
+bool _freeAttributes__extra__asset( void* attributeData );
+
+bool _begin__extra__technique( void* attributeData ){return mImpl->begin__extra__technique(*static_cast<extra__technique__AttributeData*>(attributeData));}
+bool _data__extra__technique( const ParserChar* text, size_t textLength );
+bool _end__extra__technique(){return mImpl->end__extra__technique();}
+bool _validateBegin__extra__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__extra__technique();
+bool _freeAttributes__extra__technique( void* attributeData );
+
+bool _begin__profile_GLES__newparam( void* attributeData ){return mImpl->begin__profile_GLES__newparam(*static_cast<profile_GLES__newparam__AttributeData*>(attributeData));}
+bool _data__profile_GLES__newparam( const ParserChar* text, size_t textLength );
+bool _end__profile_GLES__newparam(){return mImpl->end__profile_GLES__newparam();}
+bool _validateBegin__profile_GLES__newparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLES__newparam();
+bool _freeAttributes__profile_GLES__newparam( void* attributeData );
+
+bool _begin__newparam__annotate( void* attributeData ){return mImpl->begin__newparam__annotate(*static_cast<annotate__AttributeData*>(attributeData));}
+bool _data__newparam__annotate( const ParserChar* text, size_t textLength );
+bool _end__newparam__annotate(){return mImpl->end__newparam__annotate();}
+bool _validateBegin__newparam__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__annotate();
+bool _freeAttributes__newparam__annotate( void* attributeData );
+
+bool _begin__annotate__bool( void* attributeData ){return mImpl->begin__annotate__bool();}
+bool _data__annotate__bool( const ParserChar* text, size_t textLength );
+bool _end__annotate__bool(){return mImpl->end__annotate__bool();}
+bool _validateBegin__annotate__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__bool();
+bool _freeAttributes__annotate__bool( void* attributeData );
+
+bool _begin__annotate__bool2( void* attributeData ){return mImpl->begin__annotate__bool2();}
+bool _data__annotate__bool2( const ParserChar* text, size_t textLength );
+bool _end__annotate__bool2(){return mImpl->end__annotate__bool2();}
+bool _validateBegin__annotate__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__bool2();
+bool _freeAttributes__annotate__bool2( void* attributeData );
+
+bool _begin__annotate__bool3( void* attributeData ){return mImpl->begin__annotate__bool3();}
+bool _data__annotate__bool3( const ParserChar* text, size_t textLength );
+bool _end__annotate__bool3(){return mImpl->end__annotate__bool3();}
+bool _validateBegin__annotate__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__bool3();
+bool _freeAttributes__annotate__bool3( void* attributeData );
+
+bool _begin__annotate__bool4( void* attributeData ){return mImpl->begin__annotate__bool4();}
+bool _data__annotate__bool4( const ParserChar* text, size_t textLength );
+bool _end__annotate__bool4(){return mImpl->end__annotate__bool4();}
+bool _validateBegin__annotate__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__bool4();
+bool _freeAttributes__annotate__bool4( void* attributeData );
+
+bool _begin__annotate__int( void* attributeData ){return mImpl->begin__annotate__int();}
+bool _data__annotate__int( const ParserChar* text, size_t textLength );
+bool _end__annotate__int(){return mImpl->end__annotate__int();}
+bool _validateBegin__annotate__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__int();
+bool _freeAttributes__annotate__int( void* attributeData );
+
+bool _begin__annotate__int2( void* attributeData ){return mImpl->begin__annotate__int2();}
+bool _data__annotate__int2( const ParserChar* text, size_t textLength );
+bool _end__annotate__int2(){return mImpl->end__annotate__int2();}
+bool _validateBegin__annotate__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__int2();
+bool _freeAttributes__annotate__int2( void* attributeData );
+
+bool _begin__annotate__int3( void* attributeData ){return mImpl->begin__annotate__int3();}
+bool _data__annotate__int3( const ParserChar* text, size_t textLength );
+bool _end__annotate__int3(){return mImpl->end__annotate__int3();}
+bool _validateBegin__annotate__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__int3();
+bool _freeAttributes__annotate__int3( void* attributeData );
+
+bool _begin__annotate__int4( void* attributeData ){return mImpl->begin__annotate__int4();}
+bool _data__annotate__int4( const ParserChar* text, size_t textLength );
+bool _end__annotate__int4(){return mImpl->end__annotate__int4();}
+bool _validateBegin__annotate__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__int4();
+bool _freeAttributes__annotate__int4( void* attributeData );
+
+bool _begin__annotate__float( void* attributeData ){return mImpl->begin__annotate__float();}
+bool _data__annotate__float( const ParserChar* text, size_t textLength );
+bool _end__annotate__float(){return mImpl->end__annotate__float();}
+bool _validateBegin__annotate__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float();
+bool _freeAttributes__annotate__float( void* attributeData );
+
+bool _begin__annotate__float2( void* attributeData ){return mImpl->begin__annotate__float2();}
+bool _data__annotate__float2( const ParserChar* text, size_t textLength );
+bool _end__annotate__float2(){return mImpl->end__annotate__float2();}
+bool _validateBegin__annotate__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float2();
+bool _freeAttributes__annotate__float2( void* attributeData );
+
+bool _begin__annotate__float3( void* attributeData ){return mImpl->begin__annotate__float3();}
+bool _data__annotate__float3( const ParserChar* text, size_t textLength );
+bool _end__annotate__float3(){return mImpl->end__annotate__float3();}
+bool _validateBegin__annotate__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float3();
+bool _freeAttributes__annotate__float3( void* attributeData );
+
+bool _begin__annotate__float4( void* attributeData ){return mImpl->begin__annotate__float4();}
+bool _data__annotate__float4( const ParserChar* text, size_t textLength );
+bool _end__annotate__float4(){return mImpl->end__annotate__float4();}
+bool _validateBegin__annotate__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float4();
+bool _freeAttributes__annotate__float4( void* attributeData );
+
+bool _begin__annotate__float2x2( void* attributeData ){return mImpl->begin__annotate__float2x2();}
+bool _data__annotate__float2x2( const ParserChar* text, size_t textLength );
+bool _end__annotate__float2x2(){return mImpl->end__annotate__float2x2();}
+bool _validateBegin__annotate__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float2x2();
+bool _freeAttributes__annotate__float2x2( void* attributeData );
+
+bool _begin__annotate__float3x3( void* attributeData ){return mImpl->begin__annotate__float3x3();}
+bool _data__annotate__float3x3( const ParserChar* text, size_t textLength );
+bool _end__annotate__float3x3(){return mImpl->end__annotate__float3x3();}
+bool _validateBegin__annotate__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float3x3();
+bool _freeAttributes__annotate__float3x3( void* attributeData );
+
+bool _begin__annotate__float4x4( void* attributeData ){return mImpl->begin__annotate__float4x4();}
+bool _data__annotate__float4x4( const ParserChar* text, size_t textLength );
+bool _end__annotate__float4x4(){return mImpl->end__annotate__float4x4();}
+bool _validateBegin__annotate__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__float4x4();
+bool _freeAttributes__annotate__float4x4( void* attributeData );
+
+bool _begin__annotate__string( void* attributeData ){return mImpl->begin__annotate__string();}
+bool _data__annotate__string( const ParserChar* text, size_t textLength );
+bool _end__annotate__string(){return mImpl->end__annotate__string();}
+bool _validateBegin__annotate__string( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__annotate__string();
+bool _freeAttributes__annotate__string( void* attributeData );
+
+bool _begin__semantic( void* attributeData ){return mImpl->begin__semantic();}
+bool _data__semantic( const ParserChar* text, size_t textLength );
+bool _end__semantic(){return mImpl->end__semantic();}
+bool _validateBegin__semantic( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__semantic();
+bool _freeAttributes__semantic( void* attributeData );
+
+bool _begin__modifier( void* attributeData ){return mImpl->begin__modifier();}
+bool _data__modifier( const ParserChar* text, size_t textLength );
+bool _end__modifier(){return mImpl->end__modifier();}
+bool _validateBegin__modifier( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__modifier();
+bool _freeAttributes__modifier( void* attributeData );
+
+
+fx_modifier_enum_common toEnumDataPrefix_fx_modifier_enum_common (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_modifier_enum_common>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_modifier_enum_common (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_modifier_enum_common*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_modifier_enum_common (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_modifier_enum_common*, size_t ),
+    const std::pair<StringHash, fx_modifier_enum_common>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_modifier_enum_common (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_modifier_enum_common>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__newparam__bool( void* attributeData ){return mImpl->begin__newparam__bool();}
+bool _data__newparam__bool( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool(){return mImpl->end__newparam__bool();}
+bool _validateBegin__newparam__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool();
+bool _freeAttributes__newparam__bool( void* attributeData );
+
+bool _begin__newparam__bool2( void* attributeData ){return mImpl->begin__newparam__bool2();}
+bool _data__newparam__bool2( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool2(){return mImpl->end__newparam__bool2();}
+bool _validateBegin__newparam__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool2();
+bool _freeAttributes__newparam__bool2( void* attributeData );
+
+bool _begin__newparam__bool3( void* attributeData ){return mImpl->begin__newparam__bool3();}
+bool _data__newparam__bool3( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool3(){return mImpl->end__newparam__bool3();}
+bool _validateBegin__newparam__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool3();
+bool _freeAttributes__newparam__bool3( void* attributeData );
+
+bool _begin__newparam__bool4( void* attributeData ){return mImpl->begin__newparam__bool4();}
+bool _data__newparam__bool4( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool4(){return mImpl->end__newparam__bool4();}
+bool _validateBegin__newparam__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool4();
+bool _freeAttributes__newparam__bool4( void* attributeData );
+
+bool _begin__newparam__int( void* attributeData ){return mImpl->begin__newparam__int();}
+bool _data__newparam__int( const ParserChar* text, size_t textLength );
+bool _end__newparam__int(){return mImpl->end__newparam__int();}
+bool _validateBegin__newparam__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int();
+bool _freeAttributes__newparam__int( void* attributeData );
+
+bool _begin__newparam__int2( void* attributeData ){return mImpl->begin__newparam__int2();}
+bool _data__newparam__int2( const ParserChar* text, size_t textLength );
+bool _end__newparam__int2(){return mImpl->end__newparam__int2();}
+bool _validateBegin__newparam__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int2();
+bool _freeAttributes__newparam__int2( void* attributeData );
+
+bool _begin__newparam__int3( void* attributeData ){return mImpl->begin__newparam__int3();}
+bool _data__newparam__int3( const ParserChar* text, size_t textLength );
+bool _end__newparam__int3(){return mImpl->end__newparam__int3();}
+bool _validateBegin__newparam__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int3();
+bool _freeAttributes__newparam__int3( void* attributeData );
+
+bool _begin__newparam__int4( void* attributeData ){return mImpl->begin__newparam__int4();}
+bool _data__newparam__int4( const ParserChar* text, size_t textLength );
+bool _end__newparam__int4(){return mImpl->end__newparam__int4();}
+bool _validateBegin__newparam__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int4();
+bool _freeAttributes__newparam__int4( void* attributeData );
+
+bool _begin__newparam__float( void* attributeData ){return mImpl->begin__newparam__float();}
+bool _data__newparam__float( const ParserChar* text, size_t textLength );
+bool _end__newparam__float(){return mImpl->end__newparam__float();}
+bool _validateBegin__newparam__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float();
+bool _freeAttributes__newparam__float( void* attributeData );
+
+bool _begin__newparam__float2( void* attributeData ){return mImpl->begin__newparam__float2();}
+bool _data__newparam__float2( const ParserChar* text, size_t textLength );
+bool _end__newparam__float2(){return mImpl->end__newparam__float2();}
+bool _validateBegin__newparam__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float2();
+bool _freeAttributes__newparam__float2( void* attributeData );
+
+bool _begin__newparam__float3( void* attributeData ){return mImpl->begin__newparam__float3();}
+bool _data__newparam__float3( const ParserChar* text, size_t textLength );
+bool _end__newparam__float3(){return mImpl->end__newparam__float3();}
+bool _validateBegin__newparam__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float3();
+bool _freeAttributes__newparam__float3( void* attributeData );
+
+bool _begin__newparam__float4( void* attributeData ){return mImpl->begin__newparam__float4();}
+bool _data__newparam__float4( const ParserChar* text, size_t textLength );
+bool _end__newparam__float4(){return mImpl->end__newparam__float4();}
+bool _validateBegin__newparam__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float4();
+bool _freeAttributes__newparam__float4( void* attributeData );
+
+bool _begin__newparam__float1x1( void* attributeData ){return mImpl->begin__newparam__float1x1();}
+bool _data__newparam__float1x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__float1x1(){return mImpl->end__newparam__float1x1();}
+bool _validateBegin__newparam__float1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float1x1();
+bool _freeAttributes__newparam__float1x1( void* attributeData );
+
+bool _begin__newparam__float1x2( void* attributeData ){return mImpl->begin__newparam__float1x2();}
+bool _data__newparam__float1x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__float1x2(){return mImpl->end__newparam__float1x2();}
+bool _validateBegin__newparam__float1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float1x2();
+bool _freeAttributes__newparam__float1x2( void* attributeData );
+
+bool _begin__newparam__float1x3( void* attributeData ){return mImpl->begin__newparam__float1x3();}
+bool _data__newparam__float1x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__float1x3(){return mImpl->end__newparam__float1x3();}
+bool _validateBegin__newparam__float1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float1x3();
+bool _freeAttributes__newparam__float1x3( void* attributeData );
+
+bool _begin__newparam__float1x4( void* attributeData ){return mImpl->begin__newparam__float1x4();}
+bool _data__newparam__float1x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__float1x4(){return mImpl->end__newparam__float1x4();}
+bool _validateBegin__newparam__float1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float1x4();
+bool _freeAttributes__newparam__float1x4( void* attributeData );
+
+bool _begin__newparam__float2x1( void* attributeData ){return mImpl->begin__newparam__float2x1();}
+bool _data__newparam__float2x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__float2x1(){return mImpl->end__newparam__float2x1();}
+bool _validateBegin__newparam__float2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float2x1();
+bool _freeAttributes__newparam__float2x1( void* attributeData );
+
+bool _begin__newparam__float2x2( void* attributeData ){return mImpl->begin__newparam__float2x2();}
+bool _data__newparam__float2x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__float2x2(){return mImpl->end__newparam__float2x2();}
+bool _validateBegin__newparam__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float2x2();
+bool _freeAttributes__newparam__float2x2( void* attributeData );
+
+bool _begin__newparam__float2x3( void* attributeData ){return mImpl->begin__newparam__float2x3();}
+bool _data__newparam__float2x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__float2x3(){return mImpl->end__newparam__float2x3();}
+bool _validateBegin__newparam__float2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float2x3();
+bool _freeAttributes__newparam__float2x3( void* attributeData );
+
+bool _begin__newparam__float2x4( void* attributeData ){return mImpl->begin__newparam__float2x4();}
+bool _data__newparam__float2x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__float2x4(){return mImpl->end__newparam__float2x4();}
+bool _validateBegin__newparam__float2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float2x4();
+bool _freeAttributes__newparam__float2x4( void* attributeData );
+
+bool _begin__newparam__float3x1( void* attributeData ){return mImpl->begin__newparam__float3x1();}
+bool _data__newparam__float3x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__float3x1(){return mImpl->end__newparam__float3x1();}
+bool _validateBegin__newparam__float3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float3x1();
+bool _freeAttributes__newparam__float3x1( void* attributeData );
+
+bool _begin__newparam__float3x2( void* attributeData ){return mImpl->begin__newparam__float3x2();}
+bool _data__newparam__float3x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__float3x2(){return mImpl->end__newparam__float3x2();}
+bool _validateBegin__newparam__float3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float3x2();
+bool _freeAttributes__newparam__float3x2( void* attributeData );
+
+bool _begin__newparam__float3x3( void* attributeData ){return mImpl->begin__newparam__float3x3();}
+bool _data__newparam__float3x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__float3x3(){return mImpl->end__newparam__float3x3();}
+bool _validateBegin__newparam__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float3x3();
+bool _freeAttributes__newparam__float3x3( void* attributeData );
+
+bool _begin__newparam__float3x4( void* attributeData ){return mImpl->begin__newparam__float3x4();}
+bool _data__newparam__float3x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__float3x4(){return mImpl->end__newparam__float3x4();}
+bool _validateBegin__newparam__float3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float3x4();
+bool _freeAttributes__newparam__float3x4( void* attributeData );
+
+bool _begin__newparam__float4x1( void* attributeData ){return mImpl->begin__newparam__float4x1();}
+bool _data__newparam__float4x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__float4x1(){return mImpl->end__newparam__float4x1();}
+bool _validateBegin__newparam__float4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float4x1();
+bool _freeAttributes__newparam__float4x1( void* attributeData );
+
+bool _begin__newparam__float4x2( void* attributeData ){return mImpl->begin__newparam__float4x2();}
+bool _data__newparam__float4x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__float4x2(){return mImpl->end__newparam__float4x2();}
+bool _validateBegin__newparam__float4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float4x2();
+bool _freeAttributes__newparam__float4x2( void* attributeData );
+
+bool _begin__newparam__float4x3( void* attributeData ){return mImpl->begin__newparam__float4x3();}
+bool _data__newparam__float4x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__float4x3(){return mImpl->end__newparam__float4x3();}
+bool _validateBegin__newparam__float4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float4x3();
+bool _freeAttributes__newparam__float4x3( void* attributeData );
+
+bool _begin__newparam__float4x4( void* attributeData ){return mImpl->begin__newparam__float4x4();}
+bool _data__newparam__float4x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__float4x4(){return mImpl->end__newparam__float4x4();}
+bool _validateBegin__newparam__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float4x4();
+bool _freeAttributes__newparam__float4x4( void* attributeData );
+
+bool _begin__newparam__surface( void* attributeData ){return mImpl->begin__newparam__surface(*static_cast<newparam__surface__AttributeData*>(attributeData));}
+bool _data__newparam__surface( const ParserChar* text, size_t textLength );
+bool _end__newparam__surface(){return mImpl->end__newparam__surface();}
+bool _validateBegin__newparam__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__surface();
+bool _freeAttributes__newparam__surface( void* attributeData );
+
+
+fx_surface_type_enum toEnumDataPrefix_fx_surface_type_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_surface_type_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_surface_type_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_type_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_surface_type_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_type_enum*, size_t ),
+    const std::pair<StringHash, fx_surface_type_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_surface_type_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_surface_type_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__init_as_null( void* attributeData ){return mImpl->begin__init_as_null();}
+bool _data__init_as_null( const ParserChar* text, size_t textLength );
+bool _end__init_as_null(){return mImpl->end__init_as_null();}
+bool _validateBegin__init_as_null( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_as_null();
+bool _freeAttributes__init_as_null( void* attributeData );
+
+bool _begin__init_as_target( void* attributeData ){return mImpl->begin__init_as_target();}
+bool _data__init_as_target( const ParserChar* text, size_t textLength );
+bool _end__init_as_target(){return mImpl->end__init_as_target();}
+bool _validateBegin__init_as_target( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_as_target();
+bool _freeAttributes__init_as_target( void* attributeData );
+
+bool _begin__init_cube( void* attributeData ){return mImpl->begin__init_cube();}
+bool _data__init_cube( const ParserChar* text, size_t textLength );
+bool _end__init_cube(){return mImpl->end__init_cube();}
+bool _validateBegin__init_cube( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_cube();
+bool _freeAttributes__init_cube( void* attributeData );
+
+bool _begin__init_cube__all( void* attributeData ){return mImpl->begin__init_cube__all(*static_cast<init_cube__all__AttributeData*>(attributeData));}
+bool _data__init_cube__all( const ParserChar* text, size_t textLength );
+bool _end__init_cube__all(){return mImpl->end__init_cube__all();}
+bool _validateBegin__init_cube__all( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_cube__all();
+bool _freeAttributes__init_cube__all( void* attributeData );
+
+bool _begin__init_cube__primary( void* attributeData ){return mImpl->begin__init_cube__primary(*static_cast<init_cube__primary__AttributeData*>(attributeData));}
+bool _data__init_cube__primary( const ParserChar* text, size_t textLength );
+bool _end__init_cube__primary(){return mImpl->end__init_cube__primary();}
+bool _validateBegin__init_cube__primary( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_cube__primary();
+bool _freeAttributes__init_cube__primary( void* attributeData );
+
+bool _begin__order( void* attributeData ){return mImpl->begin__order();}
+bool _data__order( const ParserChar* text, size_t textLength );
+bool _end__order(){return mImpl->end__order();}
+bool _validateBegin__order( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__order();
+bool _freeAttributes__order( void* attributeData );
+
+
+fx_surface_face_enum toEnumDataPrefix_fx_surface_face_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_surface_face_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_surface_face_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_face_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_surface_face_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_face_enum*, size_t ),
+    const std::pair<StringHash, fx_surface_face_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_surface_face_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_surface_face_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__init_cube__face( void* attributeData ){return mImpl->begin__init_cube__face(*static_cast<init_cube__face__AttributeData*>(attributeData));}
+bool _data__init_cube__face( const ParserChar* text, size_t textLength );
+bool _end__init_cube__face(){return mImpl->end__init_cube__face();}
+bool _validateBegin__init_cube__face( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_cube__face();
+bool _freeAttributes__init_cube__face( void* attributeData );
+
+bool _begin__init_volume( void* attributeData ){return mImpl->begin__init_volume();}
+bool _data__init_volume( const ParserChar* text, size_t textLength );
+bool _end__init_volume(){return mImpl->end__init_volume();}
+bool _validateBegin__init_volume( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_volume();
+bool _freeAttributes__init_volume( void* attributeData );
+
+bool _begin__init_volume__all( void* attributeData ){return mImpl->begin__init_volume__all(*static_cast<init_volume__all__AttributeData*>(attributeData));}
+bool _data__init_volume__all( const ParserChar* text, size_t textLength );
+bool _end__init_volume__all(){return mImpl->end__init_volume__all();}
+bool _validateBegin__init_volume__all( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_volume__all();
+bool _freeAttributes__init_volume__all( void* attributeData );
+
+bool _begin__init_volume__primary( void* attributeData ){return mImpl->begin__init_volume__primary(*static_cast<init_volume__primary__AttributeData*>(attributeData));}
+bool _data__init_volume__primary( const ParserChar* text, size_t textLength );
+bool _end__init_volume__primary(){return mImpl->end__init_volume__primary();}
+bool _validateBegin__init_volume__primary( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_volume__primary();
+bool _freeAttributes__init_volume__primary( void* attributeData );
+
+bool _begin__init_planar( void* attributeData ){return mImpl->begin__init_planar();}
+bool _data__init_planar( const ParserChar* text, size_t textLength );
+bool _end__init_planar(){return mImpl->end__init_planar();}
+bool _validateBegin__init_planar( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_planar();
+bool _freeAttributes__init_planar( void* attributeData );
+
+bool _begin__init_planar__all( void* attributeData ){return mImpl->begin__init_planar__all(*static_cast<init_planar__all__AttributeData*>(attributeData));}
+bool _data__init_planar__all( const ParserChar* text, size_t textLength );
+bool _end__init_planar__all(){return mImpl->end__init_planar__all();}
+bool _validateBegin__init_planar__all( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__init_planar__all();
+bool _freeAttributes__init_planar__all( void* attributeData );
+
+bool _begin__surface__init_from( void* attributeData ){return mImpl->begin__surface__init_from(*static_cast<surface__init_from__AttributeData*>(attributeData));}
+bool _data__surface__init_from( const ParserChar* text, size_t textLength );
+bool _end__surface__init_from(){return mImpl->end__surface__init_from();}
+bool _validateBegin__surface__init_from( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__surface__init_from();
+bool _freeAttributes__surface__init_from( void* attributeData );
+
+bool _begin__format( void* attributeData ){return mImpl->begin__format();}
+bool _data__format( const ParserChar* text, size_t textLength );
+bool _end__format(){return mImpl->end__format();}
+bool _validateBegin__format( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__format();
+bool _freeAttributes__format( void* attributeData );
+
+bool _begin__format_hint( void* attributeData ){return mImpl->begin__format_hint();}
+bool _data__format_hint( const ParserChar* text, size_t textLength );
+bool _end__format_hint(){return mImpl->end__format_hint();}
+bool _validateBegin__format_hint( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__format_hint();
+bool _freeAttributes__format_hint( void* attributeData );
+
+bool _begin__channels( void* attributeData ){return mImpl->begin__channels();}
+bool _data__channels( const ParserChar* text, size_t textLength );
+bool _end__channels(){return mImpl->end__channels();}
+bool _validateBegin__channels( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__channels();
+bool _freeAttributes__channels( void* attributeData );
+
+
+fx_surface_format_hint_channels_enum toEnumDataPrefix_fx_surface_format_hint_channels_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_surface_format_hint_channels_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_surface_format_hint_channels_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_channels_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_surface_format_hint_channels_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_channels_enum*, size_t ),
+    const std::pair<StringHash, fx_surface_format_hint_channels_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_surface_format_hint_channels_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_surface_format_hint_channels_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__range( void* attributeData ){return mImpl->begin__range();}
+bool _data__range( const ParserChar* text, size_t textLength );
+bool _end__range(){return mImpl->end__range();}
+bool _validateBegin__range( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__range();
+bool _freeAttributes__range( void* attributeData );
+
+
+fx_surface_format_hint_range_enum toEnumDataPrefix_fx_surface_format_hint_range_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_surface_format_hint_range_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_surface_format_hint_range_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_range_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_surface_format_hint_range_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_range_enum*, size_t ),
+    const std::pair<StringHash, fx_surface_format_hint_range_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_surface_format_hint_range_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_surface_format_hint_range_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__precision( void* attributeData ){return mImpl->begin__precision();}
+bool _data__precision( const ParserChar* text, size_t textLength );
+bool _end__precision(){return mImpl->end__precision();}
+bool _validateBegin__precision( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__precision();
+bool _freeAttributes__precision( void* attributeData );
+
+
+fx_surface_format_hint_precision_enum toEnumDataPrefix_fx_surface_format_hint_precision_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_surface_format_hint_precision_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_surface_format_hint_precision_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_precision_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_surface_format_hint_precision_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_precision_enum*, size_t ),
+    const std::pair<StringHash, fx_surface_format_hint_precision_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_surface_format_hint_precision_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_surface_format_hint_precision_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__option( void* attributeData ){return mImpl->begin__option();}
+bool _data__option( const ParserChar* text, size_t textLength );
+bool _end__option(){return mImpl->end__option();}
+bool _validateBegin__option( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__option();
+bool _freeAttributes__option( void* attributeData );
+
+
+fx_surface_format_hint_option_enum toEnumDataPrefix_fx_surface_format_hint_option_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_surface_format_hint_option_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_surface_format_hint_option_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_option_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_surface_format_hint_option_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_surface_format_hint_option_enum*, size_t ),
+    const std::pair<StringHash, fx_surface_format_hint_option_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_surface_format_hint_option_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_surface_format_hint_option_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__format_hint__extra( void* attributeData ){return mImpl->begin__format_hint__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__format_hint__extra( const ParserChar* text, size_t textLength );
+bool _end__format_hint__extra(){return mImpl->end__format_hint__extra();}
+bool _validateBegin__format_hint__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__format_hint__extra();
+bool _freeAttributes__format_hint__extra( void* attributeData );
+
+bool _begin__surface__size( void* attributeData ){return mImpl->begin__surface__size();}
+bool _data__surface__size( const ParserChar* text, size_t textLength );
+bool _end__surface__size(){return mImpl->end__surface__size();}
+bool _validateBegin__surface__size( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__surface__size();
+bool _freeAttributes__surface__size( void* attributeData );
+
+bool _begin__viewport_ratio( void* attributeData ){return mImpl->begin__viewport_ratio();}
+bool _data__viewport_ratio( const ParserChar* text, size_t textLength );
+bool _end__viewport_ratio(){return mImpl->end__viewport_ratio();}
+bool _validateBegin__viewport_ratio( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__viewport_ratio();
+bool _freeAttributes__viewport_ratio( void* attributeData );
+
+bool _begin__mip_levels( void* attributeData ){return mImpl->begin__mip_levels();}
+bool _data__mip_levels( const ParserChar* text, size_t textLength );
+bool _end__mip_levels(){return mImpl->end__mip_levels();}
+bool _validateBegin__mip_levels( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__mip_levels();
+bool _freeAttributes__mip_levels( void* attributeData );
+
+bool _begin__mipmap_generate( void* attributeData ){return mImpl->begin__mipmap_generate();}
+bool _data__mipmap_generate( const ParserChar* text, size_t textLength );
+bool _end__mipmap_generate(){return mImpl->end__mipmap_generate();}
+bool _validateBegin__mipmap_generate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__mipmap_generate();
+bool _freeAttributes__mipmap_generate( void* attributeData );
+
+bool _begin__surface__extra( void* attributeData ){return mImpl->begin__surface__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__surface__extra( const ParserChar* text, size_t textLength );
+bool _end__surface__extra(){return mImpl->end__surface__extra();}
+bool _validateBegin__surface__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__surface__extra();
+bool _freeAttributes__surface__extra( void* attributeData );
+
+bool _begin__newparam__texture_pipeline( void* attributeData ){return mImpl->begin__newparam__texture_pipeline(*static_cast<newparam__texture_pipeline__AttributeData*>(attributeData));}
+bool _data__newparam__texture_pipeline( const ParserChar* text, size_t textLength );
+bool _end__newparam__texture_pipeline(){return mImpl->end__newparam__texture_pipeline();}
+bool _validateBegin__newparam__texture_pipeline( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__texture_pipeline();
+bool _freeAttributes__newparam__texture_pipeline( void* attributeData );
+
+bool _begin__texture_pipeline__texcombiner( void* attributeData ){return mImpl->begin__texture_pipeline__texcombiner();}
+bool _data__texture_pipeline__texcombiner( const ParserChar* text, size_t textLength );
+bool _end__texture_pipeline__texcombiner(){return mImpl->end__texture_pipeline__texcombiner();}
+bool _validateBegin__texture_pipeline__texcombiner( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_pipeline__texcombiner();
+bool _freeAttributes__texture_pipeline__texcombiner( void* attributeData );
+
+bool _begin__texcombiner__constant( void* attributeData ){return mImpl->begin__texcombiner__constant(*static_cast<texcombiner__constant__AttributeData*>(attributeData));}
+bool _data__texcombiner__constant( const ParserChar* text, size_t textLength );
+bool _end__texcombiner__constant(){return mImpl->end__texcombiner__constant();}
+bool _validateBegin__texcombiner__constant( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texcombiner__constant();
+bool _freeAttributes__texcombiner__constant( void* attributeData );
+
+bool _begin__RGB( void* attributeData ){return mImpl->begin__RGB(*static_cast<RGB__AttributeData*>(attributeData));}
+bool _data__RGB( const ParserChar* text, size_t textLength );
+bool _end__RGB(){return mImpl->end__RGB();}
+bool _validateBegin__RGB( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__RGB();
+bool _freeAttributes__RGB( void* attributeData );
+
+
+gles_texcombiner_operatorRGB_enums toEnumDataPrefix_gles_texcombiner_operatorRGB_enums (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_texcombiner_operatorRGB_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_texcombiner_operatorRGB_enums (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operatorRGB_enums*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_texcombiner_operatorRGB_enums (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operatorRGB_enums*, size_t ),
+    const std::pair<StringHash, gles_texcombiner_operatorRGB_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_texcombiner_operatorRGB_enums (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_texcombiner_operatorRGB_enums>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__RGB__argument( void* attributeData ){return mImpl->begin__RGB__argument(*static_cast<RGB__argument__AttributeData*>(attributeData));}
+bool _data__RGB__argument( const ParserChar* text, size_t textLength );
+bool _end__RGB__argument(){return mImpl->end__RGB__argument();}
+bool _validateBegin__RGB__argument( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__RGB__argument();
+bool _freeAttributes__RGB__argument( void* attributeData );
+
+
+gles_texcombiner_source_enums toEnumDataPrefix_gles_texcombiner_source_enums (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_texcombiner_source_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_texcombiner_source_enums (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_source_enums*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_texcombiner_source_enums (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_source_enums*, size_t ),
+    const std::pair<StringHash, gles_texcombiner_source_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_texcombiner_source_enums (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_texcombiner_source_enums>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+
+gles_texcombiner_operandRGB_enums toEnumDataPrefix_gles_texcombiner_operandRGB_enums (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_texcombiner_operandRGB_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_texcombiner_operandRGB_enums (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operandRGB_enums*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_texcombiner_operandRGB_enums (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operandRGB_enums*, size_t ),
+    const std::pair<StringHash, gles_texcombiner_operandRGB_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_texcombiner_operandRGB_enums (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_texcombiner_operandRGB_enums>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__texcombiner__alpha( void* attributeData ){return mImpl->begin__texcombiner__alpha(*static_cast<texcombiner__alpha__AttributeData*>(attributeData));}
+bool _data__texcombiner__alpha( const ParserChar* text, size_t textLength );
+bool _end__texcombiner__alpha(){return mImpl->end__texcombiner__alpha();}
+bool _validateBegin__texcombiner__alpha( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texcombiner__alpha();
+bool _freeAttributes__texcombiner__alpha( void* attributeData );
+
+
+gles_texcombiner_operatorAlpha_enums toEnumDataPrefix_gles_texcombiner_operatorAlpha_enums (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_texcombiner_operatorAlpha_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_texcombiner_operatorAlpha_enums (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operatorAlpha_enums*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_texcombiner_operatorAlpha_enums (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operatorAlpha_enums*, size_t ),
+    const std::pair<StringHash, gles_texcombiner_operatorAlpha_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_texcombiner_operatorAlpha_enums (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_texcombiner_operatorAlpha_enums>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__alpha__argument( void* attributeData ){return mImpl->begin__alpha__argument(*static_cast<alpha__argument__AttributeData*>(attributeData));}
+bool _data__alpha__argument( const ParserChar* text, size_t textLength );
+bool _end__alpha__argument(){return mImpl->end__alpha__argument();}
+bool _validateBegin__alpha__argument( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__alpha__argument();
+bool _freeAttributes__alpha__argument( void* attributeData );
+
+
+gles_texcombiner_operandAlpha_enums toEnumDataPrefix_gles_texcombiner_operandAlpha_enums (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_texcombiner_operandAlpha_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_texcombiner_operandAlpha_enums (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operandAlpha_enums*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_texcombiner_operandAlpha_enums (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texcombiner_operandAlpha_enums*, size_t ),
+    const std::pair<StringHash, gles_texcombiner_operandAlpha_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_texcombiner_operandAlpha_enums (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_texcombiner_operandAlpha_enums>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__texture_pipeline__texenv( void* attributeData ){return mImpl->begin__texture_pipeline__texenv(*static_cast<texenv__AttributeData*>(attributeData));}
+bool _data__texture_pipeline__texenv( const ParserChar* text, size_t textLength );
+bool _end__texture_pipeline__texenv(){return mImpl->end__texture_pipeline__texenv();}
+bool _validateBegin__texture_pipeline__texenv( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_pipeline__texenv();
+bool _freeAttributes__texture_pipeline__texenv( void* attributeData );
+
+
+gles_texenv_mode_enums toEnumDataPrefix_gles_texenv_mode_enums (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_texenv_mode_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_texenv_mode_enums (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texenv_mode_enums*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_texenv_mode_enums (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_texenv_mode_enums*, size_t ),
+    const std::pair<StringHash, gles_texenv_mode_enums>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_texenv_mode_enums (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_texenv_mode_enums>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__texenv__constant( void* attributeData ){return mImpl->begin__texenv__constant(*static_cast<texenv__constant__AttributeData*>(attributeData));}
+bool _data__texenv__constant( const ParserChar* text, size_t textLength );
+bool _end__texenv__constant(){return mImpl->end__texenv__constant();}
+bool _validateBegin__texenv__constant( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texenv__constant();
+bool _freeAttributes__texenv__constant( void* attributeData );
+
+bool _begin__texture_pipeline__extra( void* attributeData ){return mImpl->begin__texture_pipeline__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__texture_pipeline__extra( const ParserChar* text, size_t textLength );
+bool _end__texture_pipeline__extra(){return mImpl->end__texture_pipeline__extra();}
+bool _validateBegin__texture_pipeline__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_pipeline__extra();
+bool _freeAttributes__texture_pipeline__extra( void* attributeData );
+
+bool _begin__newparam__sampler_state( void* attributeData ){return mImpl->begin__newparam__sampler_state(*static_cast<newparam__sampler_state__AttributeData*>(attributeData));}
+bool _data__newparam__sampler_state( const ParserChar* text, size_t textLength );
+bool _end__newparam__sampler_state(){return mImpl->end__newparam__sampler_state();}
+bool _validateBegin__newparam__sampler_state( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__sampler_state();
+bool _freeAttributes__newparam__sampler_state( void* attributeData );
+
+bool _begin__sampler_state__wrap_s( void* attributeData ){return mImpl->begin__sampler_state__wrap_s();}
+bool _data__sampler_state__wrap_s( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__wrap_s(){return mImpl->end__sampler_state__wrap_s();}
+bool _validateBegin__sampler_state__wrap_s( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__wrap_s();
+bool _freeAttributes__sampler_state__wrap_s( void* attributeData );
+
+
+gles_sampler_wrap toEnumDataPrefix_gles_sampler_wrap (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_sampler_wrap>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_sampler_wrap (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_sampler_wrap*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_sampler_wrap (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_sampler_wrap*, size_t ),
+    const std::pair<StringHash, gles_sampler_wrap>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_sampler_wrap (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_sampler_wrap>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__sampler_state__wrap_t( void* attributeData ){return mImpl->begin__sampler_state__wrap_t();}
+bool _data__sampler_state__wrap_t( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__wrap_t(){return mImpl->end__sampler_state__wrap_t();}
+bool _validateBegin__sampler_state__wrap_t( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__wrap_t();
+bool _freeAttributes__sampler_state__wrap_t( void* attributeData );
+
+bool _begin__sampler_state__minfilter( void* attributeData ){return mImpl->begin__sampler_state__minfilter();}
+bool _data__sampler_state__minfilter( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__minfilter(){return mImpl->end__sampler_state__minfilter();}
+bool _validateBegin__sampler_state__minfilter( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__minfilter();
+bool _freeAttributes__sampler_state__minfilter( void* attributeData );
+
+
+fx_sampler_filter_common toEnumDataPrefix_fx_sampler_filter_common (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_sampler_filter_common>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_sampler_filter_common (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_sampler_filter_common*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_sampler_filter_common (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_sampler_filter_common*, size_t ),
+    const std::pair<StringHash, fx_sampler_filter_common>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_sampler_filter_common (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_sampler_filter_common>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__sampler_state__magfilter( void* attributeData ){return mImpl->begin__sampler_state__magfilter();}
+bool _data__sampler_state__magfilter( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__magfilter(){return mImpl->end__sampler_state__magfilter();}
+bool _validateBegin__sampler_state__magfilter( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__magfilter();
+bool _freeAttributes__sampler_state__magfilter( void* attributeData );
+
+bool _begin__sampler_state__mipfilter( void* attributeData ){return mImpl->begin__sampler_state__mipfilter();}
+bool _data__sampler_state__mipfilter( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__mipfilter(){return mImpl->end__sampler_state__mipfilter();}
+bool _validateBegin__sampler_state__mipfilter( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__mipfilter();
+bool _freeAttributes__sampler_state__mipfilter( void* attributeData );
+
+bool _begin__sampler_state__mipmap_maxlevel( void* attributeData ){return mImpl->begin__sampler_state__mipmap_maxlevel();}
+bool _data__sampler_state__mipmap_maxlevel( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__mipmap_maxlevel(){return mImpl->end__sampler_state__mipmap_maxlevel();}
+bool _validateBegin__sampler_state__mipmap_maxlevel( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__mipmap_maxlevel();
+bool _freeAttributes__sampler_state__mipmap_maxlevel( void* attributeData );
+
+bool _begin__sampler_state__mipmap_bias( void* attributeData ){return mImpl->begin__sampler_state__mipmap_bias();}
+bool _data__sampler_state__mipmap_bias( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__mipmap_bias(){return mImpl->end__sampler_state__mipmap_bias();}
+bool _validateBegin__sampler_state__mipmap_bias( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__mipmap_bias();
+bool _freeAttributes__sampler_state__mipmap_bias( void* attributeData );
+
+bool _begin__sampler_state__extra( void* attributeData ){return mImpl->begin__sampler_state__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__sampler_state__extra( const ParserChar* text, size_t textLength );
+bool _end__sampler_state__extra(){return mImpl->end__sampler_state__extra();}
+bool _validateBegin__sampler_state__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sampler_state__extra();
+bool _freeAttributes__sampler_state__extra( void* attributeData );
+
+bool _begin__newparam__texture_unit( void* attributeData ){return mImpl->begin__newparam__texture_unit(*static_cast<texture_unit__AttributeData*>(attributeData));}
+bool _data__newparam__texture_unit( const ParserChar* text, size_t textLength );
+bool _end__newparam__texture_unit(){return mImpl->end__newparam__texture_unit();}
+bool _validateBegin__newparam__texture_unit( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__texture_unit();
+bool _freeAttributes__newparam__texture_unit( void* attributeData );
+
+bool _begin__texture_unit__surface( void* attributeData ){return mImpl->begin__texture_unit__surface();}
+bool _data__texture_unit__surface( const ParserChar* text, size_t textLength );
+bool _end__texture_unit__surface(){return mImpl->end__texture_unit__surface();}
+bool _validateBegin__texture_unit__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_unit__surface();
+bool _freeAttributes__texture_unit__surface( void* attributeData );
+
+bool _begin__texture_unit__sampler_state( void* attributeData ){return mImpl->begin__texture_unit__sampler_state();}
+bool _data__texture_unit__sampler_state( const ParserChar* text, size_t textLength );
+bool _end__texture_unit__sampler_state(){return mImpl->end__texture_unit__sampler_state();}
+bool _validateBegin__texture_unit__sampler_state( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_unit__sampler_state();
+bool _freeAttributes__texture_unit__sampler_state( void* attributeData );
+
+bool _begin__texcoord( void* attributeData ){return mImpl->begin__texcoord(*static_cast<texcoord__AttributeData*>(attributeData));}
+bool _data__texcoord( const ParserChar* text, size_t textLength );
+bool _end__texcoord(){return mImpl->end__texcoord();}
+bool _validateBegin__texcoord( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texcoord();
+bool _freeAttributes__texcoord( void* attributeData );
+
+bool _begin__texture_unit__extra( void* attributeData ){return mImpl->begin__texture_unit__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__texture_unit__extra( const ParserChar* text, size_t textLength );
+bool _end__texture_unit__extra(){return mImpl->end__texture_unit__extra();}
+bool _validateBegin__texture_unit__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_unit__extra();
+bool _freeAttributes__texture_unit__extra( void* attributeData );
+
+bool _begin__newparam__enum( void* attributeData ){return mImpl->begin__newparam__enum();}
+bool _data__newparam__enum( const ParserChar* text, size_t textLength );
+bool _end__newparam__enum(){return mImpl->end__newparam__enum();}
+bool _validateBegin__newparam__enum( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__enum();
+bool _freeAttributes__newparam__enum( void* attributeData );
+
+bool _begin__profile_GLES__technique( void* attributeData ){return mImpl->begin__profile_GLES__technique(*static_cast<profile_GLES__technique__AttributeData*>(attributeData));}
+bool _data__profile_GLES__technique( const ParserChar* text, size_t textLength );
+bool _end__profile_GLES__technique(){return mImpl->end__profile_GLES__technique();}
+bool _validateBegin__profile_GLES__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLES__technique();
+bool _freeAttributes__profile_GLES__technique( void* attributeData );
+
+bool _begin__technique__asset( void* attributeData ){return mImpl->begin__technique__asset();}
+bool _data__technique__asset( const ParserChar* text, size_t textLength );
+bool _end__technique__asset(){return mImpl->end__technique__asset();}
+bool _validateBegin__technique__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__asset();
+bool _freeAttributes__technique__asset( void* attributeData );
+
+bool _begin__technique__annotate( void* attributeData ){return mImpl->begin__technique__annotate(*static_cast<annotate__AttributeData*>(attributeData));}
+bool _data__technique__annotate( const ParserChar* text, size_t textLength );
+bool _end__technique__annotate(){return mImpl->end__technique__annotate();}
+bool _validateBegin__technique__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__annotate();
+bool _freeAttributes__technique__annotate( void* attributeData );
+
+bool _begin__technique__image( void* attributeData ){return mImpl->begin__technique__image(*static_cast<image__AttributeData*>(attributeData));}
+bool _data__technique__image( const ParserChar* text, size_t textLength );
+bool _end__technique__image(){return mImpl->end__technique__image();}
+bool _validateBegin__technique__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__image();
+bool _freeAttributes__technique__image( void* attributeData );
+
+bool _begin__technique__newparam( void* attributeData ){return mImpl->begin__technique__newparam(*static_cast<technique__newparam__AttributeData*>(attributeData));}
+bool _data__technique__newparam( const ParserChar* text, size_t textLength );
+bool _end__technique__newparam(){return mImpl->end__technique__newparam();}
+bool _validateBegin__technique__newparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__newparam();
+bool _freeAttributes__technique__newparam( void* attributeData );
+
+bool _begin__technique__setparam( void* attributeData ){return mImpl->begin__technique__setparam(*static_cast<technique__setparam__AttributeData*>(attributeData));}
+bool _data__technique__setparam( const ParserChar* text, size_t textLength );
+bool _end__technique__setparam(){return mImpl->end__technique__setparam();}
+bool _validateBegin__technique__setparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__setparam();
+bool _freeAttributes__technique__setparam( void* attributeData );
+
+bool _begin__setparam__annotate( void* attributeData ){return mImpl->begin__setparam__annotate(*static_cast<annotate__AttributeData*>(attributeData));}
+bool _data__setparam__annotate( const ParserChar* text, size_t textLength );
+bool _end__setparam__annotate(){return mImpl->end__setparam__annotate();}
+bool _validateBegin__setparam__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__annotate();
+bool _freeAttributes__setparam__annotate( void* attributeData );
+
+bool _begin__setparam__bool( void* attributeData ){return mImpl->begin__setparam__bool();}
+bool _data__setparam__bool( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool(){return mImpl->end__setparam__bool();}
+bool _validateBegin__setparam__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool();
+bool _freeAttributes__setparam__bool( void* attributeData );
+
+bool _begin__setparam__bool2( void* attributeData ){return mImpl->begin__setparam__bool2();}
+bool _data__setparam__bool2( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool2(){return mImpl->end__setparam__bool2();}
+bool _validateBegin__setparam__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool2();
+bool _freeAttributes__setparam__bool2( void* attributeData );
+
+bool _begin__setparam__bool3( void* attributeData ){return mImpl->begin__setparam__bool3();}
+bool _data__setparam__bool3( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool3(){return mImpl->end__setparam__bool3();}
+bool _validateBegin__setparam__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool3();
+bool _freeAttributes__setparam__bool3( void* attributeData );
+
+bool _begin__setparam__bool4( void* attributeData ){return mImpl->begin__setparam__bool4();}
+bool _data__setparam__bool4( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool4(){return mImpl->end__setparam__bool4();}
+bool _validateBegin__setparam__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool4();
+bool _freeAttributes__setparam__bool4( void* attributeData );
+
+bool _begin__setparam__int( void* attributeData ){return mImpl->begin__setparam__int();}
+bool _data__setparam__int( const ParserChar* text, size_t textLength );
+bool _end__setparam__int(){return mImpl->end__setparam__int();}
+bool _validateBegin__setparam__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int();
+bool _freeAttributes__setparam__int( void* attributeData );
+
+bool _begin__setparam__int2( void* attributeData ){return mImpl->begin__setparam__int2();}
+bool _data__setparam__int2( const ParserChar* text, size_t textLength );
+bool _end__setparam__int2(){return mImpl->end__setparam__int2();}
+bool _validateBegin__setparam__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int2();
+bool _freeAttributes__setparam__int2( void* attributeData );
+
+bool _begin__setparam__int3( void* attributeData ){return mImpl->begin__setparam__int3();}
+bool _data__setparam__int3( const ParserChar* text, size_t textLength );
+bool _end__setparam__int3(){return mImpl->end__setparam__int3();}
+bool _validateBegin__setparam__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int3();
+bool _freeAttributes__setparam__int3( void* attributeData );
+
+bool _begin__setparam__int4( void* attributeData ){return mImpl->begin__setparam__int4();}
+bool _data__setparam__int4( const ParserChar* text, size_t textLength );
+bool _end__setparam__int4(){return mImpl->end__setparam__int4();}
+bool _validateBegin__setparam__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int4();
+bool _freeAttributes__setparam__int4( void* attributeData );
+
+bool _begin__setparam__float( void* attributeData ){return mImpl->begin__setparam__float();}
+bool _data__setparam__float( const ParserChar* text, size_t textLength );
+bool _end__setparam__float(){return mImpl->end__setparam__float();}
+bool _validateBegin__setparam__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float();
+bool _freeAttributes__setparam__float( void* attributeData );
+
+bool _begin__setparam__float2( void* attributeData ){return mImpl->begin__setparam__float2();}
+bool _data__setparam__float2( const ParserChar* text, size_t textLength );
+bool _end__setparam__float2(){return mImpl->end__setparam__float2();}
+bool _validateBegin__setparam__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float2();
+bool _freeAttributes__setparam__float2( void* attributeData );
+
+bool _begin__setparam__float3( void* attributeData ){return mImpl->begin__setparam__float3();}
+bool _data__setparam__float3( const ParserChar* text, size_t textLength );
+bool _end__setparam__float3(){return mImpl->end__setparam__float3();}
+bool _validateBegin__setparam__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float3();
+bool _freeAttributes__setparam__float3( void* attributeData );
+
+bool _begin__setparam__float4( void* attributeData ){return mImpl->begin__setparam__float4();}
+bool _data__setparam__float4( const ParserChar* text, size_t textLength );
+bool _end__setparam__float4(){return mImpl->end__setparam__float4();}
+bool _validateBegin__setparam__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float4();
+bool _freeAttributes__setparam__float4( void* attributeData );
+
+bool _begin__setparam__float1x1( void* attributeData ){return mImpl->begin__setparam__float1x1();}
+bool _data__setparam__float1x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__float1x1(){return mImpl->end__setparam__float1x1();}
+bool _validateBegin__setparam__float1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float1x1();
+bool _freeAttributes__setparam__float1x1( void* attributeData );
+
+bool _begin__setparam__float1x2( void* attributeData ){return mImpl->begin__setparam__float1x2();}
+bool _data__setparam__float1x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__float1x2(){return mImpl->end__setparam__float1x2();}
+bool _validateBegin__setparam__float1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float1x2();
+bool _freeAttributes__setparam__float1x2( void* attributeData );
+
+bool _begin__setparam__float1x3( void* attributeData ){return mImpl->begin__setparam__float1x3();}
+bool _data__setparam__float1x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__float1x3(){return mImpl->end__setparam__float1x3();}
+bool _validateBegin__setparam__float1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float1x3();
+bool _freeAttributes__setparam__float1x3( void* attributeData );
+
+bool _begin__setparam__float1x4( void* attributeData ){return mImpl->begin__setparam__float1x4();}
+bool _data__setparam__float1x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__float1x4(){return mImpl->end__setparam__float1x4();}
+bool _validateBegin__setparam__float1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float1x4();
+bool _freeAttributes__setparam__float1x4( void* attributeData );
+
+bool _begin__setparam__float2x1( void* attributeData ){return mImpl->begin__setparam__float2x1();}
+bool _data__setparam__float2x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__float2x1(){return mImpl->end__setparam__float2x1();}
+bool _validateBegin__setparam__float2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float2x1();
+bool _freeAttributes__setparam__float2x1( void* attributeData );
+
+bool _begin__setparam__float2x2( void* attributeData ){return mImpl->begin__setparam__float2x2();}
+bool _data__setparam__float2x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__float2x2(){return mImpl->end__setparam__float2x2();}
+bool _validateBegin__setparam__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float2x2();
+bool _freeAttributes__setparam__float2x2( void* attributeData );
+
+bool _begin__setparam__float2x3( void* attributeData ){return mImpl->begin__setparam__float2x3();}
+bool _data__setparam__float2x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__float2x3(){return mImpl->end__setparam__float2x3();}
+bool _validateBegin__setparam__float2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float2x3();
+bool _freeAttributes__setparam__float2x3( void* attributeData );
+
+bool _begin__setparam__float2x4( void* attributeData ){return mImpl->begin__setparam__float2x4();}
+bool _data__setparam__float2x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__float2x4(){return mImpl->end__setparam__float2x4();}
+bool _validateBegin__setparam__float2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float2x4();
+bool _freeAttributes__setparam__float2x4( void* attributeData );
+
+bool _begin__setparam__float3x1( void* attributeData ){return mImpl->begin__setparam__float3x1();}
+bool _data__setparam__float3x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__float3x1(){return mImpl->end__setparam__float3x1();}
+bool _validateBegin__setparam__float3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float3x1();
+bool _freeAttributes__setparam__float3x1( void* attributeData );
+
+bool _begin__setparam__float3x2( void* attributeData ){return mImpl->begin__setparam__float3x2();}
+bool _data__setparam__float3x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__float3x2(){return mImpl->end__setparam__float3x2();}
+bool _validateBegin__setparam__float3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float3x2();
+bool _freeAttributes__setparam__float3x2( void* attributeData );
+
+bool _begin__setparam__float3x3( void* attributeData ){return mImpl->begin__setparam__float3x3();}
+bool _data__setparam__float3x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__float3x3(){return mImpl->end__setparam__float3x3();}
+bool _validateBegin__setparam__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float3x3();
+bool _freeAttributes__setparam__float3x3( void* attributeData );
+
+bool _begin__setparam__float3x4( void* attributeData ){return mImpl->begin__setparam__float3x4();}
+bool _data__setparam__float3x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__float3x4(){return mImpl->end__setparam__float3x4();}
+bool _validateBegin__setparam__float3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float3x4();
+bool _freeAttributes__setparam__float3x4( void* attributeData );
+
+bool _begin__setparam__float4x1( void* attributeData ){return mImpl->begin__setparam__float4x1();}
+bool _data__setparam__float4x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__float4x1(){return mImpl->end__setparam__float4x1();}
+bool _validateBegin__setparam__float4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float4x1();
+bool _freeAttributes__setparam__float4x1( void* attributeData );
+
+bool _begin__setparam__float4x2( void* attributeData ){return mImpl->begin__setparam__float4x2();}
+bool _data__setparam__float4x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__float4x2(){return mImpl->end__setparam__float4x2();}
+bool _validateBegin__setparam__float4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float4x2();
+bool _freeAttributes__setparam__float4x2( void* attributeData );
+
+bool _begin__setparam__float4x3( void* attributeData ){return mImpl->begin__setparam__float4x3();}
+bool _data__setparam__float4x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__float4x3(){return mImpl->end__setparam__float4x3();}
+bool _validateBegin__setparam__float4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float4x3();
+bool _freeAttributes__setparam__float4x3( void* attributeData );
+
+bool _begin__setparam__float4x4( void* attributeData ){return mImpl->begin__setparam__float4x4();}
+bool _data__setparam__float4x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__float4x4(){return mImpl->end__setparam__float4x4();}
+bool _validateBegin__setparam__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float4x4();
+bool _freeAttributes__setparam__float4x4( void* attributeData );
+
+bool _begin__setparam__surface( void* attributeData ){return mImpl->begin__setparam__surface(*static_cast<setparam__surface__AttributeData*>(attributeData));}
+bool _data__setparam__surface( const ParserChar* text, size_t textLength );
+bool _end__setparam__surface(){return mImpl->end__setparam__surface();}
+bool _validateBegin__setparam__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__surface();
+bool _freeAttributes__setparam__surface( void* attributeData );
+
+bool _begin__setparam__texture_pipeline( void* attributeData ){return mImpl->begin__setparam__texture_pipeline(*static_cast<setparam__texture_pipeline__AttributeData*>(attributeData));}
+bool _data__setparam__texture_pipeline( const ParserChar* text, size_t textLength );
+bool _end__setparam__texture_pipeline(){return mImpl->end__setparam__texture_pipeline();}
+bool _validateBegin__setparam__texture_pipeline( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__texture_pipeline();
+bool _freeAttributes__setparam__texture_pipeline( void* attributeData );
+
+bool _begin__setparam__sampler_state( void* attributeData ){return mImpl->begin__setparam__sampler_state(*static_cast<setparam__sampler_state__AttributeData*>(attributeData));}
+bool _data__setparam__sampler_state( const ParserChar* text, size_t textLength );
+bool _end__setparam__sampler_state(){return mImpl->end__setparam__sampler_state();}
+bool _validateBegin__setparam__sampler_state( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__sampler_state();
+bool _freeAttributes__setparam__sampler_state( void* attributeData );
+
+bool _begin__setparam__texture_unit( void* attributeData ){return mImpl->begin__setparam__texture_unit(*static_cast<texture_unit__AttributeData*>(attributeData));}
+bool _data__setparam__texture_unit( const ParserChar* text, size_t textLength );
+bool _end__setparam__texture_unit(){return mImpl->end__setparam__texture_unit();}
+bool _validateBegin__setparam__texture_unit( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__texture_unit();
+bool _freeAttributes__setparam__texture_unit( void* attributeData );
+
+bool _begin__setparam__enum( void* attributeData ){return mImpl->begin__setparam__enum();}
+bool _data__setparam__enum( const ParserChar* text, size_t textLength );
+bool _end__setparam__enum(){return mImpl->end__setparam__enum();}
+bool _validateBegin__setparam__enum( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__enum();
+bool _freeAttributes__setparam__enum( void* attributeData );
+
+bool _begin__pass( void* attributeData ){return mImpl->begin__pass(*static_cast<pass__AttributeData*>(attributeData));}
+bool _data__pass( const ParserChar* text, size_t textLength );
+bool _end__pass(){return mImpl->end__pass();}
+bool _validateBegin__pass( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__pass();
+bool _freeAttributes__pass( void* attributeData );
+
+bool _begin__pass__annotate( void* attributeData ){return mImpl->begin__pass__annotate(*static_cast<annotate__AttributeData*>(attributeData));}
+bool _data__pass__annotate( const ParserChar* text, size_t textLength );
+bool _end__pass__annotate(){return mImpl->end__pass__annotate();}
+bool _validateBegin__pass__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__pass__annotate();
+bool _freeAttributes__pass__annotate( void* attributeData );
+
+bool _begin__color_target( void* attributeData ){return mImpl->begin__color_target();}
+bool _data__color_target( const ParserChar* text, size_t textLength );
+bool _end__color_target(){return mImpl->end__color_target();}
+bool _validateBegin__color_target( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__color_target();
+bool _freeAttributes__color_target( void* attributeData );
+
+bool _begin__depth_target( void* attributeData ){return mImpl->begin__depth_target();}
+bool _data__depth_target( const ParserChar* text, size_t textLength );
+bool _end__depth_target(){return mImpl->end__depth_target();}
+bool _validateBegin__depth_target( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__depth_target();
+bool _freeAttributes__depth_target( void* attributeData );
+
+bool _begin__stencil_target( void* attributeData ){return mImpl->begin__stencil_target();}
+bool _data__stencil_target( const ParserChar* text, size_t textLength );
+bool _end__stencil_target(){return mImpl->end__stencil_target();}
+bool _validateBegin__stencil_target( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_target();
+bool _freeAttributes__stencil_target( void* attributeData );
+
+bool _begin__color_clear( void* attributeData ){return mImpl->begin__color_clear();}
+bool _data__color_clear( const ParserChar* text, size_t textLength );
+bool _end__color_clear(){return mImpl->end__color_clear();}
+bool _validateBegin__color_clear( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__color_clear();
+bool _freeAttributes__color_clear( void* attributeData );
+
+bool _begin__depth_clear( void* attributeData ){return mImpl->begin__depth_clear();}
+bool _data__depth_clear( const ParserChar* text, size_t textLength );
+bool _end__depth_clear(){return mImpl->end__depth_clear();}
+bool _validateBegin__depth_clear( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__depth_clear();
+bool _freeAttributes__depth_clear( void* attributeData );
+
+bool _begin__stencil_clear( void* attributeData ){return mImpl->begin__stencil_clear();}
+bool _data__stencil_clear( const ParserChar* text, size_t textLength );
+bool _end__stencil_clear(){return mImpl->end__stencil_clear();}
+bool _validateBegin__stencil_clear( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_clear();
+bool _freeAttributes__stencil_clear( void* attributeData );
+
+bool _begin__draw( void* attributeData ){return mImpl->begin__draw();}
+bool _data__draw( const ParserChar* text, size_t textLength );
+bool _end__draw(){return mImpl->end__draw();}
+bool _validateBegin__draw( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__draw();
+bool _freeAttributes__draw( void* attributeData );
+
+bool _begin__alpha_func( void* attributeData ){return mImpl->begin__alpha_func();}
+bool _data__alpha_func( const ParserChar* text, size_t textLength );
+bool _end__alpha_func(){return mImpl->end__alpha_func();}
+bool _validateBegin__alpha_func( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__alpha_func();
+bool _freeAttributes__alpha_func( void* attributeData );
+
+bool _begin__alpha_func__func( void* attributeData ){return mImpl->begin__alpha_func__func(*static_cast<alpha_func__func__AttributeData*>(attributeData));}
+bool _data__alpha_func__func( const ParserChar* text, size_t textLength );
+bool _end__alpha_func__func(){return mImpl->end__alpha_func__func();}
+bool _validateBegin__alpha_func__func( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__alpha_func__func();
+bool _freeAttributes__alpha_func__func( void* attributeData );
+
+
+gl_func_type toEnumDataPrefix_gl_func_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_func_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_func_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_func_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_func_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_func_type*, size_t ),
+    const std::pair<StringHash, gl_func_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_func_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_func_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__alpha_func__value( void* attributeData ){return mImpl->begin__alpha_func__value(*static_cast<alpha_func__value__AttributeData*>(attributeData));}
+bool _data__alpha_func__value( const ParserChar* text, size_t textLength );
+bool _end__alpha_func__value(){return mImpl->end__alpha_func__value();}
+bool _validateBegin__alpha_func__value( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__alpha_func__value();
+bool _freeAttributes__alpha_func__value( void* attributeData );
+
+bool _begin__blend_func( void* attributeData ){return mImpl->begin__blend_func();}
+bool _data__blend_func( const ParserChar* text, size_t textLength );
+bool _end__blend_func(){return mImpl->end__blend_func();}
+bool _validateBegin__blend_func( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blend_func();
+bool _freeAttributes__blend_func( void* attributeData );
+
+bool _begin__src( void* attributeData ){return mImpl->begin__src(*static_cast<src__AttributeData*>(attributeData));}
+bool _data__src( const ParserChar* text, size_t textLength );
+bool _end__src(){return mImpl->end__src();}
+bool _validateBegin__src( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__src();
+bool _freeAttributes__src( void* attributeData );
+
+
+gl_blend_type toEnumDataPrefix_gl_blend_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_blend_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_blend_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_blend_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_blend_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_blend_type*, size_t ),
+    const std::pair<StringHash, gl_blend_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_blend_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_blend_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__dest( void* attributeData ){return mImpl->begin__dest(*static_cast<dest__AttributeData*>(attributeData));}
+bool _data__dest( const ParserChar* text, size_t textLength );
+bool _end__dest(){return mImpl->end__dest();}
+bool _validateBegin__dest( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__dest();
+bool _freeAttributes__dest( void* attributeData );
+
+bool _begin__clear_color( void* attributeData ){return mImpl->begin__clear_color(*static_cast<clear_color__AttributeData*>(attributeData));}
+bool _data__clear_color( const ParserChar* text, size_t textLength );
+bool _end__clear_color(){return mImpl->end__clear_color();}
+bool _validateBegin__clear_color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__clear_color();
+bool _freeAttributes__clear_color( void* attributeData );
+
+bool _begin__clear_stencil( void* attributeData ){return mImpl->begin__clear_stencil(*static_cast<clear_stencil__AttributeData*>(attributeData));}
+bool _data__clear_stencil( const ParserChar* text, size_t textLength );
+bool _end__clear_stencil(){return mImpl->end__clear_stencil();}
+bool _validateBegin__clear_stencil( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__clear_stencil();
+bool _freeAttributes__clear_stencil( void* attributeData );
+
+bool _begin__clear_depth( void* attributeData ){return mImpl->begin__clear_depth(*static_cast<clear_depth__AttributeData*>(attributeData));}
+bool _data__clear_depth( const ParserChar* text, size_t textLength );
+bool _end__clear_depth(){return mImpl->end__clear_depth();}
+bool _validateBegin__clear_depth( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__clear_depth();
+bool _freeAttributes__clear_depth( void* attributeData );
+
+bool _begin__clip_plane( void* attributeData ){return mImpl->begin__clip_plane(*static_cast<clip_plane__AttributeData*>(attributeData));}
+bool _data__clip_plane( const ParserChar* text, size_t textLength );
+bool _end__clip_plane(){return mImpl->end__clip_plane();}
+bool _validateBegin__clip_plane( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__clip_plane();
+bool _freeAttributes__clip_plane( void* attributeData );
+
+bool _begin__color_mask( void* attributeData ){return mImpl->begin__color_mask(*static_cast<color_mask__AttributeData*>(attributeData));}
+bool _data__color_mask( const ParserChar* text, size_t textLength );
+bool _end__color_mask(){return mImpl->end__color_mask();}
+bool _validateBegin__color_mask( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__color_mask();
+bool _freeAttributes__color_mask( void* attributeData );
+
+bool _begin__cull_face( void* attributeData ){return mImpl->begin__cull_face(*static_cast<cull_face__AttributeData*>(attributeData));}
+bool _data__cull_face( const ParserChar* text, size_t textLength );
+bool _end__cull_face(){return mImpl->end__cull_face();}
+bool _validateBegin__cull_face( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__cull_face();
+bool _freeAttributes__cull_face( void* attributeData );
+
+
+gl_face_type toEnumDataPrefix_gl_face_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_face_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_face_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_face_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_face_type*, size_t ),
+    const std::pair<StringHash, gl_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_face_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_face_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__depth_func( void* attributeData ){return mImpl->begin__depth_func(*static_cast<depth_func__AttributeData*>(attributeData));}
+bool _data__depth_func( const ParserChar* text, size_t textLength );
+bool _end__depth_func(){return mImpl->end__depth_func();}
+bool _validateBegin__depth_func( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__depth_func();
+bool _freeAttributes__depth_func( void* attributeData );
+
+bool _begin__depth_mask( void* attributeData ){return mImpl->begin__depth_mask(*static_cast<depth_mask__AttributeData*>(attributeData));}
+bool _data__depth_mask( const ParserChar* text, size_t textLength );
+bool _end__depth_mask(){return mImpl->end__depth_mask();}
+bool _validateBegin__depth_mask( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__depth_mask();
+bool _freeAttributes__depth_mask( void* attributeData );
+
+bool _begin__depth_range( void* attributeData ){return mImpl->begin__depth_range(*static_cast<depth_range__AttributeData*>(attributeData));}
+bool _data__depth_range( const ParserChar* text, size_t textLength );
+bool _end__depth_range(){return mImpl->end__depth_range();}
+bool _validateBegin__depth_range( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__depth_range();
+bool _freeAttributes__depth_range( void* attributeData );
+
+bool _begin__fog_color( void* attributeData ){return mImpl->begin__fog_color(*static_cast<fog_color__AttributeData*>(attributeData));}
+bool _data__fog_color( const ParserChar* text, size_t textLength );
+bool _end__fog_color(){return mImpl->end__fog_color();}
+bool _validateBegin__fog_color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__fog_color();
+bool _freeAttributes__fog_color( void* attributeData );
+
+bool _begin__fog_density( void* attributeData ){return mImpl->begin__fog_density(*static_cast<fog_density__AttributeData*>(attributeData));}
+bool _data__fog_density( const ParserChar* text, size_t textLength );
+bool _end__fog_density(){return mImpl->end__fog_density();}
+bool _validateBegin__fog_density( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__fog_density();
+bool _freeAttributes__fog_density( void* attributeData );
+
+bool _begin__fog_mode( void* attributeData ){return mImpl->begin__fog_mode(*static_cast<fog_mode__AttributeData*>(attributeData));}
+bool _data__fog_mode( const ParserChar* text, size_t textLength );
+bool _end__fog_mode(){return mImpl->end__fog_mode();}
+bool _validateBegin__fog_mode( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__fog_mode();
+bool _freeAttributes__fog_mode( void* attributeData );
+
+
+gl_fog_type toEnumDataPrefix_gl_fog_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_fog_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_fog_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_fog_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_fog_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_fog_type*, size_t ),
+    const std::pair<StringHash, gl_fog_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_fog_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_fog_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__fog_start( void* attributeData ){return mImpl->begin__fog_start(*static_cast<fog_start__AttributeData*>(attributeData));}
+bool _data__fog_start( const ParserChar* text, size_t textLength );
+bool _end__fog_start(){return mImpl->end__fog_start();}
+bool _validateBegin__fog_start( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__fog_start();
+bool _freeAttributes__fog_start( void* attributeData );
+
+bool _begin__fog_end( void* attributeData ){return mImpl->begin__fog_end(*static_cast<fog_end__AttributeData*>(attributeData));}
+bool _data__fog_end( const ParserChar* text, size_t textLength );
+bool _end__fog_end(){return mImpl->end__fog_end();}
+bool _validateBegin__fog_end( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__fog_end();
+bool _freeAttributes__fog_end( void* attributeData );
+
+bool _begin__front_face( void* attributeData ){return mImpl->begin__front_face(*static_cast<front_face__AttributeData*>(attributeData));}
+bool _data__front_face( const ParserChar* text, size_t textLength );
+bool _end__front_face(){return mImpl->end__front_face();}
+bool _validateBegin__front_face( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__front_face();
+bool _freeAttributes__front_face( void* attributeData );
+
+
+gl_front_face_type toEnumDataPrefix_gl_front_face_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_front_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_front_face_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_front_face_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_front_face_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_front_face_type*, size_t ),
+    const std::pair<StringHash, gl_front_face_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_front_face_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_front_face_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__pass__texture_pipeline( void* attributeData ){return mImpl->begin__pass__texture_pipeline(*static_cast<pass__texture_pipeline__AttributeData*>(attributeData));}
+bool _data__pass__texture_pipeline( const ParserChar* text, size_t textLength );
+bool _end__pass__texture_pipeline(){return mImpl->end__pass__texture_pipeline();}
+bool _validateBegin__pass__texture_pipeline( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__pass__texture_pipeline();
+bool _freeAttributes__pass__texture_pipeline( void* attributeData );
+
+bool _begin__texture_pipeline__value( void* attributeData ){return mImpl->begin__texture_pipeline__value(*static_cast<texture_pipeline__value__AttributeData*>(attributeData));}
+bool _data__texture_pipeline__value( const ParserChar* text, size_t textLength );
+bool _end__texture_pipeline__value(){return mImpl->end__texture_pipeline__value();}
+bool _validateBegin__texture_pipeline__value( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_pipeline__value();
+bool _freeAttributes__texture_pipeline__value( void* attributeData );
+
+bool _begin__value__texcombiner( void* attributeData ){return mImpl->begin__value__texcombiner();}
+bool _data__value__texcombiner( const ParserChar* text, size_t textLength );
+bool _end__value__texcombiner(){return mImpl->end__value__texcombiner();}
+bool _validateBegin__value__texcombiner( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__value__texcombiner();
+bool _freeAttributes__value__texcombiner( void* attributeData );
+
+bool _begin__value__texenv( void* attributeData ){return mImpl->begin__value__texenv(*static_cast<texenv__AttributeData*>(attributeData));}
+bool _data__value__texenv( const ParserChar* text, size_t textLength );
+bool _end__value__texenv(){return mImpl->end__value__texenv();}
+bool _validateBegin__value__texenv( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__value__texenv();
+bool _freeAttributes__value__texenv( void* attributeData );
+
+bool _begin__value__extra( void* attributeData ){return mImpl->begin__value__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__value__extra( const ParserChar* text, size_t textLength );
+bool _end__value__extra(){return mImpl->end__value__extra();}
+bool _validateBegin__value__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__value__extra();
+bool _freeAttributes__value__extra( void* attributeData );
+
+bool _begin__logic_op( void* attributeData ){return mImpl->begin__logic_op(*static_cast<logic_op__AttributeData*>(attributeData));}
+bool _data__logic_op( const ParserChar* text, size_t textLength );
+bool _end__logic_op(){return mImpl->end__logic_op();}
+bool _validateBegin__logic_op( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__logic_op();
+bool _freeAttributes__logic_op( void* attributeData );
+
+
+gl_logic_op_type toEnumDataPrefix_gl_logic_op_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_logic_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_logic_op_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_logic_op_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_logic_op_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_logic_op_type*, size_t ),
+    const std::pair<StringHash, gl_logic_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_logic_op_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_logic_op_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__light_ambient( void* attributeData ){return mImpl->begin__light_ambient(*static_cast<light_ambient__AttributeData*>(attributeData));}
+bool _data__light_ambient( const ParserChar* text, size_t textLength );
+bool _end__light_ambient(){return mImpl->end__light_ambient();}
+bool _validateBegin__light_ambient( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_ambient();
+bool _freeAttributes__light_ambient( void* attributeData );
+
+bool _begin__light_diffuse( void* attributeData ){return mImpl->begin__light_diffuse(*static_cast<light_diffuse__AttributeData*>(attributeData));}
+bool _data__light_diffuse( const ParserChar* text, size_t textLength );
+bool _end__light_diffuse(){return mImpl->end__light_diffuse();}
+bool _validateBegin__light_diffuse( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_diffuse();
+bool _freeAttributes__light_diffuse( void* attributeData );
+
+bool _begin__light_specular( void* attributeData ){return mImpl->begin__light_specular(*static_cast<light_specular__AttributeData*>(attributeData));}
+bool _data__light_specular( const ParserChar* text, size_t textLength );
+bool _end__light_specular(){return mImpl->end__light_specular();}
+bool _validateBegin__light_specular( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_specular();
+bool _freeAttributes__light_specular( void* attributeData );
+
+bool _begin__light_position( void* attributeData ){return mImpl->begin__light_position(*static_cast<light_position__AttributeData*>(attributeData));}
+bool _data__light_position( const ParserChar* text, size_t textLength );
+bool _end__light_position(){return mImpl->end__light_position();}
+bool _validateBegin__light_position( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_position();
+bool _freeAttributes__light_position( void* attributeData );
+
+bool _begin__light_constant_attenuation( void* attributeData ){return mImpl->begin__light_constant_attenuation(*static_cast<light_constant_attenuation__AttributeData*>(attributeData));}
+bool _data__light_constant_attenuation( const ParserChar* text, size_t textLength );
+bool _end__light_constant_attenuation(){return mImpl->end__light_constant_attenuation();}
+bool _validateBegin__light_constant_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_constant_attenuation();
+bool _freeAttributes__light_constant_attenuation( void* attributeData );
+
+bool _begin__light_linear_attenutation( void* attributeData ){return mImpl->begin__light_linear_attenutation(*static_cast<light_linear_attenutation__AttributeData*>(attributeData));}
+bool _data__light_linear_attenutation( const ParserChar* text, size_t textLength );
+bool _end__light_linear_attenutation(){return mImpl->end__light_linear_attenutation();}
+bool _validateBegin__light_linear_attenutation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_linear_attenutation();
+bool _freeAttributes__light_linear_attenutation( void* attributeData );
+
+bool _begin__light_quadratic_attenuation( void* attributeData ){return mImpl->begin__light_quadratic_attenuation(*static_cast<light_quadratic_attenuation__AttributeData*>(attributeData));}
+bool _data__light_quadratic_attenuation( const ParserChar* text, size_t textLength );
+bool _end__light_quadratic_attenuation(){return mImpl->end__light_quadratic_attenuation();}
+bool _validateBegin__light_quadratic_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_quadratic_attenuation();
+bool _freeAttributes__light_quadratic_attenuation( void* attributeData );
+
+bool _begin__light_spot_cutoff( void* attributeData ){return mImpl->begin__light_spot_cutoff(*static_cast<light_spot_cutoff__AttributeData*>(attributeData));}
+bool _data__light_spot_cutoff( const ParserChar* text, size_t textLength );
+bool _end__light_spot_cutoff(){return mImpl->end__light_spot_cutoff();}
+bool _validateBegin__light_spot_cutoff( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_spot_cutoff();
+bool _freeAttributes__light_spot_cutoff( void* attributeData );
+
+bool _begin__light_spot_direction( void* attributeData ){return mImpl->begin__light_spot_direction(*static_cast<light_spot_direction__AttributeData*>(attributeData));}
+bool _data__light_spot_direction( const ParserChar* text, size_t textLength );
+bool _end__light_spot_direction(){return mImpl->end__light_spot_direction();}
+bool _validateBegin__light_spot_direction( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_spot_direction();
+bool _freeAttributes__light_spot_direction( void* attributeData );
+
+bool _begin__light_spot_exponent( void* attributeData ){return mImpl->begin__light_spot_exponent(*static_cast<light_spot_exponent__AttributeData*>(attributeData));}
+bool _data__light_spot_exponent( const ParserChar* text, size_t textLength );
+bool _end__light_spot_exponent(){return mImpl->end__light_spot_exponent();}
+bool _validateBegin__light_spot_exponent( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_spot_exponent();
+bool _freeAttributes__light_spot_exponent( void* attributeData );
+
+bool _begin__light_model_ambient( void* attributeData ){return mImpl->begin__light_model_ambient(*static_cast<light_model_ambient__AttributeData*>(attributeData));}
+bool _data__light_model_ambient( const ParserChar* text, size_t textLength );
+bool _end__light_model_ambient(){return mImpl->end__light_model_ambient();}
+bool _validateBegin__light_model_ambient( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_model_ambient();
+bool _freeAttributes__light_model_ambient( void* attributeData );
+
+bool _begin__line_width( void* attributeData ){return mImpl->begin__line_width(*static_cast<line_width__AttributeData*>(attributeData));}
+bool _data__line_width( const ParserChar* text, size_t textLength );
+bool _end__line_width(){return mImpl->end__line_width();}
+bool _validateBegin__line_width( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__line_width();
+bool _freeAttributes__line_width( void* attributeData );
+
+bool _begin__material_ambient( void* attributeData ){return mImpl->begin__material_ambient(*static_cast<material_ambient__AttributeData*>(attributeData));}
+bool _data__material_ambient( const ParserChar* text, size_t textLength );
+bool _end__material_ambient(){return mImpl->end__material_ambient();}
+bool _validateBegin__material_ambient( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__material_ambient();
+bool _freeAttributes__material_ambient( void* attributeData );
+
+bool _begin__material_diffuse( void* attributeData ){return mImpl->begin__material_diffuse(*static_cast<material_diffuse__AttributeData*>(attributeData));}
+bool _data__material_diffuse( const ParserChar* text, size_t textLength );
+bool _end__material_diffuse(){return mImpl->end__material_diffuse();}
+bool _validateBegin__material_diffuse( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__material_diffuse();
+bool _freeAttributes__material_diffuse( void* attributeData );
+
+bool _begin__material_emission( void* attributeData ){return mImpl->begin__material_emission(*static_cast<material_emission__AttributeData*>(attributeData));}
+bool _data__material_emission( const ParserChar* text, size_t textLength );
+bool _end__material_emission(){return mImpl->end__material_emission();}
+bool _validateBegin__material_emission( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__material_emission();
+bool _freeAttributes__material_emission( void* attributeData );
+
+bool _begin__material_shininess( void* attributeData ){return mImpl->begin__material_shininess(*static_cast<material_shininess__AttributeData*>(attributeData));}
+bool _data__material_shininess( const ParserChar* text, size_t textLength );
+bool _end__material_shininess(){return mImpl->end__material_shininess();}
+bool _validateBegin__material_shininess( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__material_shininess();
+bool _freeAttributes__material_shininess( void* attributeData );
+
+bool _begin__material_specular( void* attributeData ){return mImpl->begin__material_specular(*static_cast<material_specular__AttributeData*>(attributeData));}
+bool _data__material_specular( const ParserChar* text, size_t textLength );
+bool _end__material_specular(){return mImpl->end__material_specular();}
+bool _validateBegin__material_specular( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__material_specular();
+bool _freeAttributes__material_specular( void* attributeData );
+
+bool _begin__model_view_matrix( void* attributeData ){return mImpl->begin__model_view_matrix(*static_cast<model_view_matrix__AttributeData*>(attributeData));}
+bool _data__model_view_matrix( const ParserChar* text, size_t textLength );
+bool _end__model_view_matrix(){return mImpl->end__model_view_matrix();}
+bool _validateBegin__model_view_matrix( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__model_view_matrix();
+bool _freeAttributes__model_view_matrix( void* attributeData );
+
+bool _begin__point_distance_attenuation( void* attributeData ){return mImpl->begin__point_distance_attenuation(*static_cast<point_distance_attenuation__AttributeData*>(attributeData));}
+bool _data__point_distance_attenuation( const ParserChar* text, size_t textLength );
+bool _end__point_distance_attenuation(){return mImpl->end__point_distance_attenuation();}
+bool _validateBegin__point_distance_attenuation( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__point_distance_attenuation();
+bool _freeAttributes__point_distance_attenuation( void* attributeData );
+
+bool _begin__point_fade_threshold_size( void* attributeData ){return mImpl->begin__point_fade_threshold_size(*static_cast<point_fade_threshold_size__AttributeData*>(attributeData));}
+bool _data__point_fade_threshold_size( const ParserChar* text, size_t textLength );
+bool _end__point_fade_threshold_size(){return mImpl->end__point_fade_threshold_size();}
+bool _validateBegin__point_fade_threshold_size( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__point_fade_threshold_size();
+bool _freeAttributes__point_fade_threshold_size( void* attributeData );
+
+bool _begin__point_size( void* attributeData ){return mImpl->begin__point_size(*static_cast<point_size__AttributeData*>(attributeData));}
+bool _data__point_size( const ParserChar* text, size_t textLength );
+bool _end__point_size(){return mImpl->end__point_size();}
+bool _validateBegin__point_size( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__point_size();
+bool _freeAttributes__point_size( void* attributeData );
+
+bool _begin__point_size_min( void* attributeData ){return mImpl->begin__point_size_min(*static_cast<point_size_min__AttributeData*>(attributeData));}
+bool _data__point_size_min( const ParserChar* text, size_t textLength );
+bool _end__point_size_min(){return mImpl->end__point_size_min();}
+bool _validateBegin__point_size_min( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__point_size_min();
+bool _freeAttributes__point_size_min( void* attributeData );
+
+bool _begin__point_size_max( void* attributeData ){return mImpl->begin__point_size_max(*static_cast<point_size_max__AttributeData*>(attributeData));}
+bool _data__point_size_max( const ParserChar* text, size_t textLength );
+bool _end__point_size_max(){return mImpl->end__point_size_max();}
+bool _validateBegin__point_size_max( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__point_size_max();
+bool _freeAttributes__point_size_max( void* attributeData );
+
+bool _begin__polygon_offset( void* attributeData ){return mImpl->begin__polygon_offset(*static_cast<polygon_offset__AttributeData*>(attributeData));}
+bool _data__polygon_offset( const ParserChar* text, size_t textLength );
+bool _end__polygon_offset(){return mImpl->end__polygon_offset();}
+bool _validateBegin__polygon_offset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__polygon_offset();
+bool _freeAttributes__polygon_offset( void* attributeData );
+
+bool _begin__projection_matrix( void* attributeData ){return mImpl->begin__projection_matrix(*static_cast<projection_matrix__AttributeData*>(attributeData));}
+bool _data__projection_matrix( const ParserChar* text, size_t textLength );
+bool _end__projection_matrix(){return mImpl->end__projection_matrix();}
+bool _validateBegin__projection_matrix( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__projection_matrix();
+bool _freeAttributes__projection_matrix( void* attributeData );
+
+bool _begin__scissor( void* attributeData ){return mImpl->begin__scissor(*static_cast<scissor__AttributeData*>(attributeData));}
+bool _data__scissor( const ParserChar* text, size_t textLength );
+bool _end__scissor(){return mImpl->end__scissor();}
+bool _validateBegin__scissor( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__scissor();
+bool _freeAttributes__scissor( void* attributeData );
+
+bool _begin__shade_model( void* attributeData ){return mImpl->begin__shade_model(*static_cast<shade_model__AttributeData*>(attributeData));}
+bool _data__shade_model( const ParserChar* text, size_t textLength );
+bool _end__shade_model(){return mImpl->end__shade_model();}
+bool _validateBegin__shade_model( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__shade_model();
+bool _freeAttributes__shade_model( void* attributeData );
+
+
+gl_shade_model_type toEnumDataPrefix_gl_shade_model_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gl_shade_model_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gl_shade_model_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_shade_model_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gl_shade_model_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gl_shade_model_type*, size_t ),
+    const std::pair<StringHash, gl_shade_model_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gl_shade_model_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gl_shade_model_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__stencil_func( void* attributeData ){return mImpl->begin__stencil_func();}
+bool _data__stencil_func( const ParserChar* text, size_t textLength );
+bool _end__stencil_func(){return mImpl->end__stencil_func();}
+bool _validateBegin__stencil_func( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_func();
+bool _freeAttributes__stencil_func( void* attributeData );
+
+bool _begin__stencil_func__func( void* attributeData ){return mImpl->begin__stencil_func__func(*static_cast<stencil_func__func__AttributeData*>(attributeData));}
+bool _data__stencil_func__func( const ParserChar* text, size_t textLength );
+bool _end__stencil_func__func(){return mImpl->end__stencil_func__func();}
+bool _validateBegin__stencil_func__func( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_func__func();
+bool _freeAttributes__stencil_func__func( void* attributeData );
+
+bool _begin__stencil_func__ref( void* attributeData ){return mImpl->begin__stencil_func__ref(*static_cast<stencil_func__ref__AttributeData*>(attributeData));}
+bool _data__stencil_func__ref( const ParserChar* text, size_t textLength );
+bool _end__stencil_func__ref(){return mImpl->end__stencil_func__ref();}
+bool _validateBegin__stencil_func__ref( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_func__ref();
+bool _freeAttributes__stencil_func__ref( void* attributeData );
+
+bool _begin__stencil_func__mask( void* attributeData ){return mImpl->begin__stencil_func__mask(*static_cast<stencil_func__mask__AttributeData*>(attributeData));}
+bool _data__stencil_func__mask( const ParserChar* text, size_t textLength );
+bool _end__stencil_func__mask(){return mImpl->end__stencil_func__mask();}
+bool _validateBegin__stencil_func__mask( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_func__mask();
+bool _freeAttributes__stencil_func__mask( void* attributeData );
+
+bool _begin__stencil_mask( void* attributeData ){return mImpl->begin__stencil_mask(*static_cast<stencil_mask__AttributeData*>(attributeData));}
+bool _data__stencil_mask( const ParserChar* text, size_t textLength );
+bool _end__stencil_mask(){return mImpl->end__stencil_mask();}
+bool _validateBegin__stencil_mask( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_mask();
+bool _freeAttributes__stencil_mask( void* attributeData );
+
+bool _begin__stencil_op( void* attributeData ){return mImpl->begin__stencil_op();}
+bool _data__stencil_op( const ParserChar* text, size_t textLength );
+bool _end__stencil_op(){return mImpl->end__stencil_op();}
+bool _validateBegin__stencil_op( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_op();
+bool _freeAttributes__stencil_op( void* attributeData );
+
+bool _begin__stencil_op__fail( void* attributeData ){return mImpl->begin__stencil_op__fail(*static_cast<stencil_op__fail__AttributeData*>(attributeData));}
+bool _data__stencil_op__fail( const ParserChar* text, size_t textLength );
+bool _end__stencil_op__fail(){return mImpl->end__stencil_op__fail();}
+bool _validateBegin__stencil_op__fail( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_op__fail();
+bool _freeAttributes__stencil_op__fail( void* attributeData );
+
+
+gles_stencil_op_type toEnumDataPrefix_gles_stencil_op_type (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, gles_stencil_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_gles_stencil_op_type (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_stencil_op_type*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_gles_stencil_op_type (
+    bool ( ColladaParserAutoGen::*dataFunction )(const gles_stencil_op_type*, size_t ),
+    const std::pair<StringHash, gles_stencil_op_type>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    gles_stencil_op_type (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, gles_stencil_op_type>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__stencil_op__zfail( void* attributeData ){return mImpl->begin__stencil_op__zfail(*static_cast<stencil_op__zfail__AttributeData*>(attributeData));}
+bool _data__stencil_op__zfail( const ParserChar* text, size_t textLength );
+bool _end__stencil_op__zfail(){return mImpl->end__stencil_op__zfail();}
+bool _validateBegin__stencil_op__zfail( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_op__zfail();
+bool _freeAttributes__stencil_op__zfail( void* attributeData );
+
+bool _begin__stencil_op__zpass( void* attributeData ){return mImpl->begin__stencil_op__zpass(*static_cast<stencil_op__zpass__AttributeData*>(attributeData));}
+bool _data__stencil_op__zpass( const ParserChar* text, size_t textLength );
+bool _end__stencil_op__zpass(){return mImpl->end__stencil_op__zpass();}
+bool _validateBegin__stencil_op__zpass( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_op__zpass();
+bool _freeAttributes__stencil_op__zpass( void* attributeData );
+
+bool _begin__alpha_test_enable( void* attributeData ){return mImpl->begin__alpha_test_enable(*static_cast<alpha_test_enable__AttributeData*>(attributeData));}
+bool _data__alpha_test_enable( const ParserChar* text, size_t textLength );
+bool _end__alpha_test_enable(){return mImpl->end__alpha_test_enable();}
+bool _validateBegin__alpha_test_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__alpha_test_enable();
+bool _freeAttributes__alpha_test_enable( void* attributeData );
+
+bool _begin__blend_enable( void* attributeData ){return mImpl->begin__blend_enable(*static_cast<blend_enable__AttributeData*>(attributeData));}
+bool _data__blend_enable( const ParserChar* text, size_t textLength );
+bool _end__blend_enable(){return mImpl->end__blend_enable();}
+bool _validateBegin__blend_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blend_enable();
+bool _freeAttributes__blend_enable( void* attributeData );
+
+bool _begin__clip_plane_enable( void* attributeData ){return mImpl->begin__clip_plane_enable(*static_cast<clip_plane_enable__AttributeData*>(attributeData));}
+bool _data__clip_plane_enable( const ParserChar* text, size_t textLength );
+bool _end__clip_plane_enable(){return mImpl->end__clip_plane_enable();}
+bool _validateBegin__clip_plane_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__clip_plane_enable();
+bool _freeAttributes__clip_plane_enable( void* attributeData );
+
+bool _begin__color_logic_op_enable( void* attributeData ){return mImpl->begin__color_logic_op_enable(*static_cast<color_logic_op_enable__AttributeData*>(attributeData));}
+bool _data__color_logic_op_enable( const ParserChar* text, size_t textLength );
+bool _end__color_logic_op_enable(){return mImpl->end__color_logic_op_enable();}
+bool _validateBegin__color_logic_op_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__color_logic_op_enable();
+bool _freeAttributes__color_logic_op_enable( void* attributeData );
+
+bool _begin__color_material_enable( void* attributeData ){return mImpl->begin__color_material_enable(*static_cast<color_material_enable__AttributeData*>(attributeData));}
+bool _data__color_material_enable( const ParserChar* text, size_t textLength );
+bool _end__color_material_enable(){return mImpl->end__color_material_enable();}
+bool _validateBegin__color_material_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__color_material_enable();
+bool _freeAttributes__color_material_enable( void* attributeData );
+
+bool _begin__cull_face_enable( void* attributeData ){return mImpl->begin__cull_face_enable(*static_cast<cull_face_enable__AttributeData*>(attributeData));}
+bool _data__cull_face_enable( const ParserChar* text, size_t textLength );
+bool _end__cull_face_enable(){return mImpl->end__cull_face_enable();}
+bool _validateBegin__cull_face_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__cull_face_enable();
+bool _freeAttributes__cull_face_enable( void* attributeData );
+
+bool _begin__depth_test_enable( void* attributeData ){return mImpl->begin__depth_test_enable(*static_cast<depth_test_enable__AttributeData*>(attributeData));}
+bool _data__depth_test_enable( const ParserChar* text, size_t textLength );
+bool _end__depth_test_enable(){return mImpl->end__depth_test_enable();}
+bool _validateBegin__depth_test_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__depth_test_enable();
+bool _freeAttributes__depth_test_enable( void* attributeData );
+
+bool _begin__dither_enable( void* attributeData ){return mImpl->begin__dither_enable(*static_cast<dither_enable__AttributeData*>(attributeData));}
+bool _data__dither_enable( const ParserChar* text, size_t textLength );
+bool _end__dither_enable(){return mImpl->end__dither_enable();}
+bool _validateBegin__dither_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__dither_enable();
+bool _freeAttributes__dither_enable( void* attributeData );
+
+bool _begin__fog_enable( void* attributeData ){return mImpl->begin__fog_enable(*static_cast<fog_enable__AttributeData*>(attributeData));}
+bool _data__fog_enable( const ParserChar* text, size_t textLength );
+bool _end__fog_enable(){return mImpl->end__fog_enable();}
+bool _validateBegin__fog_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__fog_enable();
+bool _freeAttributes__fog_enable( void* attributeData );
+
+bool _begin__texture_pipeline_enable( void* attributeData ){return mImpl->begin__texture_pipeline_enable(*static_cast<texture_pipeline_enable__AttributeData*>(attributeData));}
+bool _data__texture_pipeline_enable( const ParserChar* text, size_t textLength );
+bool _end__texture_pipeline_enable(){return mImpl->end__texture_pipeline_enable();}
+bool _validateBegin__texture_pipeline_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture_pipeline_enable();
+bool _freeAttributes__texture_pipeline_enable( void* attributeData );
+
+bool _begin__light_enable( void* attributeData ){return mImpl->begin__light_enable(*static_cast<light_enable__AttributeData*>(attributeData));}
+bool _data__light_enable( const ParserChar* text, size_t textLength );
+bool _end__light_enable(){return mImpl->end__light_enable();}
+bool _validateBegin__light_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_enable();
+bool _freeAttributes__light_enable( void* attributeData );
+
+bool _begin__lighting_enable( void* attributeData ){return mImpl->begin__lighting_enable(*static_cast<lighting_enable__AttributeData*>(attributeData));}
+bool _data__lighting_enable( const ParserChar* text, size_t textLength );
+bool _end__lighting_enable(){return mImpl->end__lighting_enable();}
+bool _validateBegin__lighting_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lighting_enable();
+bool _freeAttributes__lighting_enable( void* attributeData );
+
+bool _begin__light_model_two_side_enable( void* attributeData ){return mImpl->begin__light_model_two_side_enable(*static_cast<light_model_two_side_enable__AttributeData*>(attributeData));}
+bool _data__light_model_two_side_enable( const ParserChar* text, size_t textLength );
+bool _end__light_model_two_side_enable(){return mImpl->end__light_model_two_side_enable();}
+bool _validateBegin__light_model_two_side_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__light_model_two_side_enable();
+bool _freeAttributes__light_model_two_side_enable( void* attributeData );
+
+bool _begin__line_smooth_enable( void* attributeData ){return mImpl->begin__line_smooth_enable(*static_cast<line_smooth_enable__AttributeData*>(attributeData));}
+bool _data__line_smooth_enable( const ParserChar* text, size_t textLength );
+bool _end__line_smooth_enable(){return mImpl->end__line_smooth_enable();}
+bool _validateBegin__line_smooth_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__line_smooth_enable();
+bool _freeAttributes__line_smooth_enable( void* attributeData );
+
+bool _begin__multisample_enable( void* attributeData ){return mImpl->begin__multisample_enable(*static_cast<multisample_enable__AttributeData*>(attributeData));}
+bool _data__multisample_enable( const ParserChar* text, size_t textLength );
+bool _end__multisample_enable(){return mImpl->end__multisample_enable();}
+bool _validateBegin__multisample_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__multisample_enable();
+bool _freeAttributes__multisample_enable( void* attributeData );
+
+bool _begin__normalize_enable( void* attributeData ){return mImpl->begin__normalize_enable(*static_cast<normalize_enable__AttributeData*>(attributeData));}
+bool _data__normalize_enable( const ParserChar* text, size_t textLength );
+bool _end__normalize_enable(){return mImpl->end__normalize_enable();}
+bool _validateBegin__normalize_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__normalize_enable();
+bool _freeAttributes__normalize_enable( void* attributeData );
+
+bool _begin__point_smooth_enable( void* attributeData ){return mImpl->begin__point_smooth_enable(*static_cast<point_smooth_enable__AttributeData*>(attributeData));}
+bool _data__point_smooth_enable( const ParserChar* text, size_t textLength );
+bool _end__point_smooth_enable(){return mImpl->end__point_smooth_enable();}
+bool _validateBegin__point_smooth_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__point_smooth_enable();
+bool _freeAttributes__point_smooth_enable( void* attributeData );
+
+bool _begin__polygon_offset_fill_enable( void* attributeData ){return mImpl->begin__polygon_offset_fill_enable(*static_cast<polygon_offset_fill_enable__AttributeData*>(attributeData));}
+bool _data__polygon_offset_fill_enable( const ParserChar* text, size_t textLength );
+bool _end__polygon_offset_fill_enable(){return mImpl->end__polygon_offset_fill_enable();}
+bool _validateBegin__polygon_offset_fill_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__polygon_offset_fill_enable();
+bool _freeAttributes__polygon_offset_fill_enable( void* attributeData );
+
+bool _begin__rescale_normal_enable( void* attributeData ){return mImpl->begin__rescale_normal_enable(*static_cast<rescale_normal_enable__AttributeData*>(attributeData));}
+bool _data__rescale_normal_enable( const ParserChar* text, size_t textLength );
+bool _end__rescale_normal_enable(){return mImpl->end__rescale_normal_enable();}
+bool _validateBegin__rescale_normal_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__rescale_normal_enable();
+bool _freeAttributes__rescale_normal_enable( void* attributeData );
+
+bool _begin__sample_alpha_to_coverage_enable( void* attributeData ){return mImpl->begin__sample_alpha_to_coverage_enable(*static_cast<sample_alpha_to_coverage_enable__AttributeData*>(attributeData));}
+bool _data__sample_alpha_to_coverage_enable( const ParserChar* text, size_t textLength );
+bool _end__sample_alpha_to_coverage_enable(){return mImpl->end__sample_alpha_to_coverage_enable();}
+bool _validateBegin__sample_alpha_to_coverage_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sample_alpha_to_coverage_enable();
+bool _freeAttributes__sample_alpha_to_coverage_enable( void* attributeData );
+
+bool _begin__sample_alpha_to_one_enable( void* attributeData ){return mImpl->begin__sample_alpha_to_one_enable(*static_cast<sample_alpha_to_one_enable__AttributeData*>(attributeData));}
+bool _data__sample_alpha_to_one_enable( const ParserChar* text, size_t textLength );
+bool _end__sample_alpha_to_one_enable(){return mImpl->end__sample_alpha_to_one_enable();}
+bool _validateBegin__sample_alpha_to_one_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sample_alpha_to_one_enable();
+bool _freeAttributes__sample_alpha_to_one_enable( void* attributeData );
+
+bool _begin__sample_coverage_enable( void* attributeData ){return mImpl->begin__sample_coverage_enable(*static_cast<sample_coverage_enable__AttributeData*>(attributeData));}
+bool _data__sample_coverage_enable( const ParserChar* text, size_t textLength );
+bool _end__sample_coverage_enable(){return mImpl->end__sample_coverage_enable();}
+bool _validateBegin__sample_coverage_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__sample_coverage_enable();
+bool _freeAttributes__sample_coverage_enable( void* attributeData );
+
+bool _begin__scissor_test_enable( void* attributeData ){return mImpl->begin__scissor_test_enable(*static_cast<scissor_test_enable__AttributeData*>(attributeData));}
+bool _data__scissor_test_enable( const ParserChar* text, size_t textLength );
+bool _end__scissor_test_enable(){return mImpl->end__scissor_test_enable();}
+bool _validateBegin__scissor_test_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__scissor_test_enable();
+bool _freeAttributes__scissor_test_enable( void* attributeData );
+
+bool _begin__stencil_test_enable( void* attributeData ){return mImpl->begin__stencil_test_enable(*static_cast<stencil_test_enable__AttributeData*>(attributeData));}
+bool _data__stencil_test_enable( const ParserChar* text, size_t textLength );
+bool _end__stencil_test_enable(){return mImpl->end__stencil_test_enable();}
+bool _validateBegin__stencil_test_enable( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__stencil_test_enable();
+bool _freeAttributes__stencil_test_enable( void* attributeData );
+
+bool _begin__pass__extra( void* attributeData ){return mImpl->begin__pass__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__pass__extra( const ParserChar* text, size_t textLength );
+bool _end__pass__extra(){return mImpl->end__pass__extra();}
+bool _validateBegin__pass__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__pass__extra();
+bool _freeAttributes__pass__extra( void* attributeData );
+
+bool _begin__technique__extra( void* attributeData ){return mImpl->begin__technique__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__technique__extra( const ParserChar* text, size_t textLength );
+bool _end__technique__extra(){return mImpl->end__technique__extra();}
+bool _validateBegin__technique__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__extra();
+bool _freeAttributes__technique__extra( void* attributeData );
+
+bool _begin__profile_GLES__extra( void* attributeData ){return mImpl->begin__profile_GLES__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__profile_GLES__extra( const ParserChar* text, size_t textLength );
+bool _end__profile_GLES__extra(){return mImpl->end__profile_GLES__extra();}
+bool _validateBegin__profile_GLES__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLES__extra();
+bool _freeAttributes__profile_GLES__extra( void* attributeData );
+
+bool _begin__COLLADA( void* attributeData ){return mImpl->begin__COLLADA(*static_cast<COLLADA__AttributeData*>(attributeData));}
+bool _data__COLLADA( const ParserChar* text, size_t textLength );
+bool _end__COLLADA(){return mImpl->end__COLLADA();}
+bool _validateBegin__COLLADA( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__COLLADA();
+bool _freeAttributes__COLLADA( void* attributeData );
+
+
+VersionType toEnumDataPrefix_VersionType (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, VersionType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_VersionType (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const VersionType*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_VersionType (
+    bool ( ColladaParserAutoGen::*dataFunction )(const VersionType*, size_t ),
+    const std::pair<StringHash, VersionType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    VersionType (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, VersionType>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__COLLADA__asset( void* attributeData ){return mImpl->begin__COLLADA__asset();}
+bool _data__COLLADA__asset( const ParserChar* text, size_t textLength );
+bool _end__COLLADA__asset(){return mImpl->end__COLLADA__asset();}
+bool _validateBegin__COLLADA__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__COLLADA__asset();
+bool _freeAttributes__COLLADA__asset( void* attributeData );
 
 bool _begin__library_animations( void* attributeData ){return mImpl->begin__library_animations(*static_cast<library_animations__AttributeData*>(attributeData));}
 bool _data__library_animations( const ParserChar* text, size_t textLength );
@@ -294,20 +2749,6 @@ bool _end__animation__extra(){return mImpl->end__animation__extra();}
 bool _validateBegin__animation__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__animation__extra();
 bool _freeAttributes__animation__extra( void* attributeData );
-
-bool _begin__extra__asset( void* attributeData ){return mImpl->begin__extra__asset();}
-bool _data__extra__asset( const ParserChar* text, size_t textLength );
-bool _end__extra__asset(){return mImpl->end__extra__asset();}
-bool _validateBegin__extra__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__extra__asset();
-bool _freeAttributes__extra__asset( void* attributeData );
-
-bool _begin__extra__technique( void* attributeData ){return mImpl->begin__extra__technique(*static_cast<extra__technique__AttributeData*>(attributeData));}
-bool _data__extra__technique( const ParserChar* text, size_t textLength );
-bool _end__extra__technique(){return mImpl->end__extra__technique();}
-bool _validateBegin__extra__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__extra__technique();
-bool _freeAttributes__extra__technique( void* attributeData );
 
 bool _begin__library_animations__extra( void* attributeData ){return mImpl->begin__library_animations__extra(*static_cast<extra__AttributeData*>(attributeData));}
 bool _data__library_animations__extra( const ParserChar* text, size_t textLength );
@@ -665,6 +3106,35 @@ bool _end__morph(){return mImpl->end__morph();}
 bool _validateBegin__morph( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__morph();
 bool _freeAttributes__morph( void* attributeData );
+
+
+MorphMethodType toEnumDataPrefix_MorphMethodType (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, MorphMethodType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_MorphMethodType (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const MorphMethodType*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_MorphMethodType (
+    bool ( ColladaParserAutoGen::*dataFunction )(const MorphMethodType*, size_t ),
+    const std::pair<StringHash, MorphMethodType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    MorphMethodType (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, MorphMethodType>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
 
 bool _begin__morph__source( void* attributeData ){return mImpl->begin__morph__source(*static_cast<morph__source__AttributeData*>(attributeData));}
 bool _data__morph__source( const ParserChar* text, size_t textLength );
@@ -1177,118 +3647,6 @@ bool _validateBegin__effect__annotate( const ParserAttributes& attributes, void 
 bool _validateEnd__effect__annotate();
 bool _freeAttributes__effect__annotate( void* attributeData );
 
-bool _begin__annotate__bool( void* attributeData ){return mImpl->begin__annotate__bool();}
-bool _data__annotate__bool( const ParserChar* text, size_t textLength );
-bool _end__annotate__bool(){return mImpl->end__annotate__bool();}
-bool _validateBegin__annotate__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__bool();
-bool _freeAttributes__annotate__bool( void* attributeData );
-
-bool _begin__annotate__bool2( void* attributeData ){return mImpl->begin__annotate__bool2();}
-bool _data__annotate__bool2( const ParserChar* text, size_t textLength );
-bool _end__annotate__bool2(){return mImpl->end__annotate__bool2();}
-bool _validateBegin__annotate__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__bool2();
-bool _freeAttributes__annotate__bool2( void* attributeData );
-
-bool _begin__annotate__bool3( void* attributeData ){return mImpl->begin__annotate__bool3();}
-bool _data__annotate__bool3( const ParserChar* text, size_t textLength );
-bool _end__annotate__bool3(){return mImpl->end__annotate__bool3();}
-bool _validateBegin__annotate__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__bool3();
-bool _freeAttributes__annotate__bool3( void* attributeData );
-
-bool _begin__annotate__bool4( void* attributeData ){return mImpl->begin__annotate__bool4();}
-bool _data__annotate__bool4( const ParserChar* text, size_t textLength );
-bool _end__annotate__bool4(){return mImpl->end__annotate__bool4();}
-bool _validateBegin__annotate__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__bool4();
-bool _freeAttributes__annotate__bool4( void* attributeData );
-
-bool _begin__annotate__int( void* attributeData ){return mImpl->begin__annotate__int();}
-bool _data__annotate__int( const ParserChar* text, size_t textLength );
-bool _end__annotate__int(){return mImpl->end__annotate__int();}
-bool _validateBegin__annotate__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__int();
-bool _freeAttributes__annotate__int( void* attributeData );
-
-bool _begin__annotate__int2( void* attributeData ){return mImpl->begin__annotate__int2();}
-bool _data__annotate__int2( const ParserChar* text, size_t textLength );
-bool _end__annotate__int2(){return mImpl->end__annotate__int2();}
-bool _validateBegin__annotate__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__int2();
-bool _freeAttributes__annotate__int2( void* attributeData );
-
-bool _begin__annotate__int3( void* attributeData ){return mImpl->begin__annotate__int3();}
-bool _data__annotate__int3( const ParserChar* text, size_t textLength );
-bool _end__annotate__int3(){return mImpl->end__annotate__int3();}
-bool _validateBegin__annotate__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__int3();
-bool _freeAttributes__annotate__int3( void* attributeData );
-
-bool _begin__annotate__int4( void* attributeData ){return mImpl->begin__annotate__int4();}
-bool _data__annotate__int4( const ParserChar* text, size_t textLength );
-bool _end__annotate__int4(){return mImpl->end__annotate__int4();}
-bool _validateBegin__annotate__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__int4();
-bool _freeAttributes__annotate__int4( void* attributeData );
-
-bool _begin__annotate__float( void* attributeData ){return mImpl->begin__annotate__float();}
-bool _data__annotate__float( const ParserChar* text, size_t textLength );
-bool _end__annotate__float(){return mImpl->end__annotate__float();}
-bool _validateBegin__annotate__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float();
-bool _freeAttributes__annotate__float( void* attributeData );
-
-bool _begin__annotate__float2( void* attributeData ){return mImpl->begin__annotate__float2();}
-bool _data__annotate__float2( const ParserChar* text, size_t textLength );
-bool _end__annotate__float2(){return mImpl->end__annotate__float2();}
-bool _validateBegin__annotate__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float2();
-bool _freeAttributes__annotate__float2( void* attributeData );
-
-bool _begin__annotate__float3( void* attributeData ){return mImpl->begin__annotate__float3();}
-bool _data__annotate__float3( const ParserChar* text, size_t textLength );
-bool _end__annotate__float3(){return mImpl->end__annotate__float3();}
-bool _validateBegin__annotate__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float3();
-bool _freeAttributes__annotate__float3( void* attributeData );
-
-bool _begin__annotate__float4( void* attributeData ){return mImpl->begin__annotate__float4();}
-bool _data__annotate__float4( const ParserChar* text, size_t textLength );
-bool _end__annotate__float4(){return mImpl->end__annotate__float4();}
-bool _validateBegin__annotate__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float4();
-bool _freeAttributes__annotate__float4( void* attributeData );
-
-bool _begin__annotate__float2x2( void* attributeData ){return mImpl->begin__annotate__float2x2();}
-bool _data__annotate__float2x2( const ParserChar* text, size_t textLength );
-bool _end__annotate__float2x2(){return mImpl->end__annotate__float2x2();}
-bool _validateBegin__annotate__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float2x2();
-bool _freeAttributes__annotate__float2x2( void* attributeData );
-
-bool _begin__annotate__float3x3( void* attributeData ){return mImpl->begin__annotate__float3x3();}
-bool _data__annotate__float3x3( const ParserChar* text, size_t textLength );
-bool _end__annotate__float3x3(){return mImpl->end__annotate__float3x3();}
-bool _validateBegin__annotate__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float3x3();
-bool _freeAttributes__annotate__float3x3( void* attributeData );
-
-bool _begin__annotate__float4x4( void* attributeData ){return mImpl->begin__annotate__float4x4();}
-bool _data__annotate__float4x4( const ParserChar* text, size_t textLength );
-bool _end__annotate__float4x4(){return mImpl->end__annotate__float4x4();}
-bool _validateBegin__annotate__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__float4x4();
-bool _freeAttributes__annotate__float4x4( void* attributeData );
-
-bool _begin__annotate__string( void* attributeData ){return mImpl->begin__annotate__string();}
-bool _data__annotate__string( const ParserChar* text, size_t textLength );
-bool _end__annotate__string(){return mImpl->end__annotate__string();}
-bool _validateBegin__annotate__string( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__annotate__string();
-bool _freeAttributes__annotate__string( void* attributeData );
-
 bool _begin__effect__image( void* attributeData ){return mImpl->begin__effect__image(*static_cast<image__AttributeData*>(attributeData));}
 bool _data__effect__image( const ParserChar* text, size_t textLength );
 bool _end__effect__image(){return mImpl->end__effect__image();}
@@ -1296,439 +3654,12 @@ bool _validateBegin__effect__image( const ParserAttributes& attributes, void ** 
 bool _validateEnd__effect__image();
 bool _freeAttributes__effect__image( void* attributeData );
 
-bool _begin__image__asset( void* attributeData ){return mImpl->begin__image__asset();}
-bool _data__image__asset( const ParserChar* text, size_t textLength );
-bool _end__image__asset(){return mImpl->end__image__asset();}
-bool _validateBegin__image__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__image__asset();
-bool _freeAttributes__image__asset( void* attributeData );
-
-bool _begin__data( void* attributeData ){return mImpl->begin__data();}
-bool _data__data( const ParserChar* text, size_t textLength );
-bool _end__data(){return mImpl->end__data();}
-bool _validateBegin__data( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__data();
-bool _freeAttributes__data( void* attributeData );
-
-bool _begin__image__init_from( void* attributeData ){return mImpl->begin__image__init_from();}
-bool _data__image__init_from( const ParserChar* text, size_t textLength );
-bool _end__image__init_from(){return mImpl->end__image__init_from();}
-bool _validateBegin__image__init_from( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__image__init_from();
-bool _freeAttributes__image__init_from( void* attributeData );
-
-bool _begin__image__extra( void* attributeData ){return mImpl->begin__image__extra(*static_cast<extra__AttributeData*>(attributeData));}
-bool _data__image__extra( const ParserChar* text, size_t textLength );
-bool _end__image__extra(){return mImpl->end__image__extra();}
-bool _validateBegin__image__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__image__extra();
-bool _freeAttributes__image__extra( void* attributeData );
-
 bool _begin__effect__newparam( void* attributeData ){return mImpl->begin__effect__newparam(*static_cast<effect__newparam__AttributeData*>(attributeData));}
 bool _data__effect__newparam( const ParserChar* text, size_t textLength );
 bool _end__effect__newparam(){return mImpl->end__effect__newparam();}
 bool _validateBegin__effect__newparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__effect__newparam();
 bool _freeAttributes__effect__newparam( void* attributeData );
-
-bool _begin__newparam__annotate( void* attributeData ){return mImpl->begin__newparam__annotate(*static_cast<annotate__AttributeData*>(attributeData));}
-bool _data__newparam__annotate( const ParserChar* text, size_t textLength );
-bool _end__newparam__annotate(){return mImpl->end__newparam__annotate();}
-bool _validateBegin__newparam__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__annotate();
-bool _freeAttributes__newparam__annotate( void* attributeData );
-
-bool _begin__semantic( void* attributeData ){return mImpl->begin__semantic();}
-bool _data__semantic( const ParserChar* text, size_t textLength );
-bool _end__semantic(){return mImpl->end__semantic();}
-bool _validateBegin__semantic( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__semantic();
-bool _freeAttributes__semantic( void* attributeData );
-
-bool _begin__modifier( void* attributeData ){return mImpl->begin__modifier();}
-bool _data__modifier( const ParserChar* text, size_t textLength );
-bool _end__modifier(){return mImpl->end__modifier();}
-bool _validateBegin__modifier( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__modifier();
-bool _freeAttributes__modifier( void* attributeData );
-
-bool _begin__newparam__bool( void* attributeData ){return mImpl->begin__newparam__bool();}
-bool _data__newparam__bool( const ParserChar* text, size_t textLength );
-bool _end__newparam__bool(){return mImpl->end__newparam__bool();}
-bool _validateBegin__newparam__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__bool();
-bool _freeAttributes__newparam__bool( void* attributeData );
-
-bool _begin__newparam__bool2( void* attributeData ){return mImpl->begin__newparam__bool2();}
-bool _data__newparam__bool2( const ParserChar* text, size_t textLength );
-bool _end__newparam__bool2(){return mImpl->end__newparam__bool2();}
-bool _validateBegin__newparam__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__bool2();
-bool _freeAttributes__newparam__bool2( void* attributeData );
-
-bool _begin__newparam__bool3( void* attributeData ){return mImpl->begin__newparam__bool3();}
-bool _data__newparam__bool3( const ParserChar* text, size_t textLength );
-bool _end__newparam__bool3(){return mImpl->end__newparam__bool3();}
-bool _validateBegin__newparam__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__bool3();
-bool _freeAttributes__newparam__bool3( void* attributeData );
-
-bool _begin__newparam__bool4( void* attributeData ){return mImpl->begin__newparam__bool4();}
-bool _data__newparam__bool4( const ParserChar* text, size_t textLength );
-bool _end__newparam__bool4(){return mImpl->end__newparam__bool4();}
-bool _validateBegin__newparam__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__bool4();
-bool _freeAttributes__newparam__bool4( void* attributeData );
-
-bool _begin__newparam__int( void* attributeData ){return mImpl->begin__newparam__int();}
-bool _data__newparam__int( const ParserChar* text, size_t textLength );
-bool _end__newparam__int(){return mImpl->end__newparam__int();}
-bool _validateBegin__newparam__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__int();
-bool _freeAttributes__newparam__int( void* attributeData );
-
-bool _begin__newparam__int2( void* attributeData ){return mImpl->begin__newparam__int2();}
-bool _data__newparam__int2( const ParserChar* text, size_t textLength );
-bool _end__newparam__int2(){return mImpl->end__newparam__int2();}
-bool _validateBegin__newparam__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__int2();
-bool _freeAttributes__newparam__int2( void* attributeData );
-
-bool _begin__newparam__int3( void* attributeData ){return mImpl->begin__newparam__int3();}
-bool _data__newparam__int3( const ParserChar* text, size_t textLength );
-bool _end__newparam__int3(){return mImpl->end__newparam__int3();}
-bool _validateBegin__newparam__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__int3();
-bool _freeAttributes__newparam__int3( void* attributeData );
-
-bool _begin__newparam__int4( void* attributeData ){return mImpl->begin__newparam__int4();}
-bool _data__newparam__int4( const ParserChar* text, size_t textLength );
-bool _end__newparam__int4(){return mImpl->end__newparam__int4();}
-bool _validateBegin__newparam__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__int4();
-bool _freeAttributes__newparam__int4( void* attributeData );
-
-bool _begin__newparam__float( void* attributeData ){return mImpl->begin__newparam__float();}
-bool _data__newparam__float( const ParserChar* text, size_t textLength );
-bool _end__newparam__float(){return mImpl->end__newparam__float();}
-bool _validateBegin__newparam__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float();
-bool _freeAttributes__newparam__float( void* attributeData );
-
-bool _begin__newparam__float2( void* attributeData ){return mImpl->begin__newparam__float2();}
-bool _data__newparam__float2( const ParserChar* text, size_t textLength );
-bool _end__newparam__float2(){return mImpl->end__newparam__float2();}
-bool _validateBegin__newparam__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float2();
-bool _freeAttributes__newparam__float2( void* attributeData );
-
-bool _begin__newparam__float3( void* attributeData ){return mImpl->begin__newparam__float3();}
-bool _data__newparam__float3( const ParserChar* text, size_t textLength );
-bool _end__newparam__float3(){return mImpl->end__newparam__float3();}
-bool _validateBegin__newparam__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float3();
-bool _freeAttributes__newparam__float3( void* attributeData );
-
-bool _begin__newparam__float4( void* attributeData ){return mImpl->begin__newparam__float4();}
-bool _data__newparam__float4( const ParserChar* text, size_t textLength );
-bool _end__newparam__float4(){return mImpl->end__newparam__float4();}
-bool _validateBegin__newparam__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float4();
-bool _freeAttributes__newparam__float4( void* attributeData );
-
-bool _begin__newparam__float1x1( void* attributeData ){return mImpl->begin__newparam__float1x1();}
-bool _data__newparam__float1x1( const ParserChar* text, size_t textLength );
-bool _end__newparam__float1x1(){return mImpl->end__newparam__float1x1();}
-bool _validateBegin__newparam__float1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float1x1();
-bool _freeAttributes__newparam__float1x1( void* attributeData );
-
-bool _begin__newparam__float1x2( void* attributeData ){return mImpl->begin__newparam__float1x2();}
-bool _data__newparam__float1x2( const ParserChar* text, size_t textLength );
-bool _end__newparam__float1x2(){return mImpl->end__newparam__float1x2();}
-bool _validateBegin__newparam__float1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float1x2();
-bool _freeAttributes__newparam__float1x2( void* attributeData );
-
-bool _begin__newparam__float1x3( void* attributeData ){return mImpl->begin__newparam__float1x3();}
-bool _data__newparam__float1x3( const ParserChar* text, size_t textLength );
-bool _end__newparam__float1x3(){return mImpl->end__newparam__float1x3();}
-bool _validateBegin__newparam__float1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float1x3();
-bool _freeAttributes__newparam__float1x3( void* attributeData );
-
-bool _begin__newparam__float1x4( void* attributeData ){return mImpl->begin__newparam__float1x4();}
-bool _data__newparam__float1x4( const ParserChar* text, size_t textLength );
-bool _end__newparam__float1x4(){return mImpl->end__newparam__float1x4();}
-bool _validateBegin__newparam__float1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float1x4();
-bool _freeAttributes__newparam__float1x4( void* attributeData );
-
-bool _begin__newparam__float2x1( void* attributeData ){return mImpl->begin__newparam__float2x1();}
-bool _data__newparam__float2x1( const ParserChar* text, size_t textLength );
-bool _end__newparam__float2x1(){return mImpl->end__newparam__float2x1();}
-bool _validateBegin__newparam__float2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float2x1();
-bool _freeAttributes__newparam__float2x1( void* attributeData );
-
-bool _begin__newparam__float2x2( void* attributeData ){return mImpl->begin__newparam__float2x2();}
-bool _data__newparam__float2x2( const ParserChar* text, size_t textLength );
-bool _end__newparam__float2x2(){return mImpl->end__newparam__float2x2();}
-bool _validateBegin__newparam__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float2x2();
-bool _freeAttributes__newparam__float2x2( void* attributeData );
-
-bool _begin__newparam__float2x3( void* attributeData ){return mImpl->begin__newparam__float2x3();}
-bool _data__newparam__float2x3( const ParserChar* text, size_t textLength );
-bool _end__newparam__float2x3(){return mImpl->end__newparam__float2x3();}
-bool _validateBegin__newparam__float2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float2x3();
-bool _freeAttributes__newparam__float2x3( void* attributeData );
-
-bool _begin__newparam__float2x4( void* attributeData ){return mImpl->begin__newparam__float2x4();}
-bool _data__newparam__float2x4( const ParserChar* text, size_t textLength );
-bool _end__newparam__float2x4(){return mImpl->end__newparam__float2x4();}
-bool _validateBegin__newparam__float2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float2x4();
-bool _freeAttributes__newparam__float2x4( void* attributeData );
-
-bool _begin__newparam__float3x1( void* attributeData ){return mImpl->begin__newparam__float3x1();}
-bool _data__newparam__float3x1( const ParserChar* text, size_t textLength );
-bool _end__newparam__float3x1(){return mImpl->end__newparam__float3x1();}
-bool _validateBegin__newparam__float3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float3x1();
-bool _freeAttributes__newparam__float3x1( void* attributeData );
-
-bool _begin__newparam__float3x2( void* attributeData ){return mImpl->begin__newparam__float3x2();}
-bool _data__newparam__float3x2( const ParserChar* text, size_t textLength );
-bool _end__newparam__float3x2(){return mImpl->end__newparam__float3x2();}
-bool _validateBegin__newparam__float3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float3x2();
-bool _freeAttributes__newparam__float3x2( void* attributeData );
-
-bool _begin__newparam__float3x3( void* attributeData ){return mImpl->begin__newparam__float3x3();}
-bool _data__newparam__float3x3( const ParserChar* text, size_t textLength );
-bool _end__newparam__float3x3(){return mImpl->end__newparam__float3x3();}
-bool _validateBegin__newparam__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float3x3();
-bool _freeAttributes__newparam__float3x3( void* attributeData );
-
-bool _begin__newparam__float3x4( void* attributeData ){return mImpl->begin__newparam__float3x4();}
-bool _data__newparam__float3x4( const ParserChar* text, size_t textLength );
-bool _end__newparam__float3x4(){return mImpl->end__newparam__float3x4();}
-bool _validateBegin__newparam__float3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float3x4();
-bool _freeAttributes__newparam__float3x4( void* attributeData );
-
-bool _begin__newparam__float4x1( void* attributeData ){return mImpl->begin__newparam__float4x1();}
-bool _data__newparam__float4x1( const ParserChar* text, size_t textLength );
-bool _end__newparam__float4x1(){return mImpl->end__newparam__float4x1();}
-bool _validateBegin__newparam__float4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float4x1();
-bool _freeAttributes__newparam__float4x1( void* attributeData );
-
-bool _begin__newparam__float4x2( void* attributeData ){return mImpl->begin__newparam__float4x2();}
-bool _data__newparam__float4x2( const ParserChar* text, size_t textLength );
-bool _end__newparam__float4x2(){return mImpl->end__newparam__float4x2();}
-bool _validateBegin__newparam__float4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float4x2();
-bool _freeAttributes__newparam__float4x2( void* attributeData );
-
-bool _begin__newparam__float4x3( void* attributeData ){return mImpl->begin__newparam__float4x3();}
-bool _data__newparam__float4x3( const ParserChar* text, size_t textLength );
-bool _end__newparam__float4x3(){return mImpl->end__newparam__float4x3();}
-bool _validateBegin__newparam__float4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float4x3();
-bool _freeAttributes__newparam__float4x3( void* attributeData );
-
-bool _begin__newparam__float4x4( void* attributeData ){return mImpl->begin__newparam__float4x4();}
-bool _data__newparam__float4x4( const ParserChar* text, size_t textLength );
-bool _end__newparam__float4x4(){return mImpl->end__newparam__float4x4();}
-bool _validateBegin__newparam__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__float4x4();
-bool _freeAttributes__newparam__float4x4( void* attributeData );
-
-bool _begin__newparam__surface( void* attributeData ){return mImpl->begin__newparam__surface(*static_cast<newparam__surface__AttributeData*>(attributeData));}
-bool _data__newparam__surface( const ParserChar* text, size_t textLength );
-bool _end__newparam__surface(){return mImpl->end__newparam__surface();}
-bool _validateBegin__newparam__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__surface();
-bool _freeAttributes__newparam__surface( void* attributeData );
-
-bool _begin__init_as_null( void* attributeData ){return mImpl->begin__init_as_null();}
-bool _data__init_as_null( const ParserChar* text, size_t textLength );
-bool _end__init_as_null(){return mImpl->end__init_as_null();}
-bool _validateBegin__init_as_null( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_as_null();
-bool _freeAttributes__init_as_null( void* attributeData );
-
-bool _begin__init_as_target( void* attributeData ){return mImpl->begin__init_as_target();}
-bool _data__init_as_target( const ParserChar* text, size_t textLength );
-bool _end__init_as_target(){return mImpl->end__init_as_target();}
-bool _validateBegin__init_as_target( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_as_target();
-bool _freeAttributes__init_as_target( void* attributeData );
-
-bool _begin__init_cube( void* attributeData ){return mImpl->begin__init_cube();}
-bool _data__init_cube( const ParserChar* text, size_t textLength );
-bool _end__init_cube(){return mImpl->end__init_cube();}
-bool _validateBegin__init_cube( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_cube();
-bool _freeAttributes__init_cube( void* attributeData );
-
-bool _begin__init_cube__all( void* attributeData ){return mImpl->begin__init_cube__all(*static_cast<init_cube__all__AttributeData*>(attributeData));}
-bool _data__init_cube__all( const ParserChar* text, size_t textLength );
-bool _end__init_cube__all(){return mImpl->end__init_cube__all();}
-bool _validateBegin__init_cube__all( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_cube__all();
-bool _freeAttributes__init_cube__all( void* attributeData );
-
-bool _begin__init_cube__primary( void* attributeData ){return mImpl->begin__init_cube__primary(*static_cast<init_cube__primary__AttributeData*>(attributeData));}
-bool _data__init_cube__primary( const ParserChar* text, size_t textLength );
-bool _end__init_cube__primary(){return mImpl->end__init_cube__primary();}
-bool _validateBegin__init_cube__primary( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_cube__primary();
-bool _freeAttributes__init_cube__primary( void* attributeData );
-
-bool _begin__order( void* attributeData ){return mImpl->begin__order();}
-bool _data__order( const ParserChar* text, size_t textLength );
-bool _end__order(){return mImpl->end__order();}
-bool _validateBegin__order( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__order();
-bool _freeAttributes__order( void* attributeData );
-
-bool _begin__init_cube__face( void* attributeData ){return mImpl->begin__init_cube__face(*static_cast<init_cube__face__AttributeData*>(attributeData));}
-bool _data__init_cube__face( const ParserChar* text, size_t textLength );
-bool _end__init_cube__face(){return mImpl->end__init_cube__face();}
-bool _validateBegin__init_cube__face( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_cube__face();
-bool _freeAttributes__init_cube__face( void* attributeData );
-
-bool _begin__init_volume( void* attributeData ){return mImpl->begin__init_volume();}
-bool _data__init_volume( const ParserChar* text, size_t textLength );
-bool _end__init_volume(){return mImpl->end__init_volume();}
-bool _validateBegin__init_volume( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_volume();
-bool _freeAttributes__init_volume( void* attributeData );
-
-bool _begin__init_volume__all( void* attributeData ){return mImpl->begin__init_volume__all(*static_cast<init_volume__all__AttributeData*>(attributeData));}
-bool _data__init_volume__all( const ParserChar* text, size_t textLength );
-bool _end__init_volume__all(){return mImpl->end__init_volume__all();}
-bool _validateBegin__init_volume__all( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_volume__all();
-bool _freeAttributes__init_volume__all( void* attributeData );
-
-bool _begin__init_volume__primary( void* attributeData ){return mImpl->begin__init_volume__primary(*static_cast<init_volume__primary__AttributeData*>(attributeData));}
-bool _data__init_volume__primary( const ParserChar* text, size_t textLength );
-bool _end__init_volume__primary(){return mImpl->end__init_volume__primary();}
-bool _validateBegin__init_volume__primary( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_volume__primary();
-bool _freeAttributes__init_volume__primary( void* attributeData );
-
-bool _begin__init_planar( void* attributeData ){return mImpl->begin__init_planar();}
-bool _data__init_planar( const ParserChar* text, size_t textLength );
-bool _end__init_planar(){return mImpl->end__init_planar();}
-bool _validateBegin__init_planar( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_planar();
-bool _freeAttributes__init_planar( void* attributeData );
-
-bool _begin__init_planar__all( void* attributeData ){return mImpl->begin__init_planar__all(*static_cast<init_planar__all__AttributeData*>(attributeData));}
-bool _data__init_planar__all( const ParserChar* text, size_t textLength );
-bool _end__init_planar__all(){return mImpl->end__init_planar__all();}
-bool _validateBegin__init_planar__all( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__init_planar__all();
-bool _freeAttributes__init_planar__all( void* attributeData );
-
-bool _begin__surface__init_from( void* attributeData ){return mImpl->begin__surface__init_from(*static_cast<surface__init_from__AttributeData*>(attributeData));}
-bool _data__surface__init_from( const ParserChar* text, size_t textLength );
-bool _end__surface__init_from(){return mImpl->end__surface__init_from();}
-bool _validateBegin__surface__init_from( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__surface__init_from();
-bool _freeAttributes__surface__init_from( void* attributeData );
-
-bool _begin__format( void* attributeData ){return mImpl->begin__format();}
-bool _data__format( const ParserChar* text, size_t textLength );
-bool _end__format(){return mImpl->end__format();}
-bool _validateBegin__format( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__format();
-bool _freeAttributes__format( void* attributeData );
-
-bool _begin__format_hint( void* attributeData ){return mImpl->begin__format_hint();}
-bool _data__format_hint( const ParserChar* text, size_t textLength );
-bool _end__format_hint(){return mImpl->end__format_hint();}
-bool _validateBegin__format_hint( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__format_hint();
-bool _freeAttributes__format_hint( void* attributeData );
-
-bool _begin__channels( void* attributeData ){return mImpl->begin__channels();}
-bool _data__channels( const ParserChar* text, size_t textLength );
-bool _end__channels(){return mImpl->end__channels();}
-bool _validateBegin__channels( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__channels();
-bool _freeAttributes__channels( void* attributeData );
-
-bool _begin__range( void* attributeData ){return mImpl->begin__range();}
-bool _data__range( const ParserChar* text, size_t textLength );
-bool _end__range(){return mImpl->end__range();}
-bool _validateBegin__range( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__range();
-bool _freeAttributes__range( void* attributeData );
-
-bool _begin__precision( void* attributeData ){return mImpl->begin__precision();}
-bool _data__precision( const ParserChar* text, size_t textLength );
-bool _end__precision(){return mImpl->end__precision();}
-bool _validateBegin__precision( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__precision();
-bool _freeAttributes__precision( void* attributeData );
-
-bool _begin__option( void* attributeData ){return mImpl->begin__option();}
-bool _data__option( const ParserChar* text, size_t textLength );
-bool _end__option(){return mImpl->end__option();}
-bool _validateBegin__option( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__option();
-bool _freeAttributes__option( void* attributeData );
-
-bool _begin__format_hint__extra( void* attributeData ){return mImpl->begin__format_hint__extra(*static_cast<extra__AttributeData*>(attributeData));}
-bool _data__format_hint__extra( const ParserChar* text, size_t textLength );
-bool _end__format_hint__extra(){return mImpl->end__format_hint__extra();}
-bool _validateBegin__format_hint__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__format_hint__extra();
-bool _freeAttributes__format_hint__extra( void* attributeData );
-
-bool _begin__surface__size( void* attributeData ){return mImpl->begin__surface__size();}
-bool _data__surface__size( const ParserChar* text, size_t textLength );
-bool _end__surface__size(){return mImpl->end__surface__size();}
-bool _validateBegin__surface__size( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__surface__size();
-bool _freeAttributes__surface__size( void* attributeData );
-
-bool _begin__viewport_ratio( void* attributeData ){return mImpl->begin__viewport_ratio();}
-bool _data__viewport_ratio( const ParserChar* text, size_t textLength );
-bool _end__viewport_ratio(){return mImpl->end__viewport_ratio();}
-bool _validateBegin__viewport_ratio( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__viewport_ratio();
-bool _freeAttributes__viewport_ratio( void* attributeData );
-
-bool _begin__mip_levels( void* attributeData ){return mImpl->begin__mip_levels();}
-bool _data__mip_levels( const ParserChar* text, size_t textLength );
-bool _end__mip_levels(){return mImpl->end__mip_levels();}
-bool _validateBegin__mip_levels( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__mip_levels();
-bool _freeAttributes__mip_levels( void* attributeData );
-
-bool _begin__mipmap_generate( void* attributeData ){return mImpl->begin__mipmap_generate();}
-bool _data__mipmap_generate( const ParserChar* text, size_t textLength );
-bool _end__mipmap_generate(){return mImpl->end__mipmap_generate();}
-bool _validateBegin__mipmap_generate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__mipmap_generate();
-bool _freeAttributes__mipmap_generate( void* attributeData );
-
-bool _begin__surface__extra( void* attributeData ){return mImpl->begin__surface__extra(*static_cast<extra__AttributeData*>(attributeData));}
-bool _data__surface__extra( const ParserChar* text, size_t textLength );
-bool _end__surface__extra(){return mImpl->end__surface__extra();}
-bool _validateBegin__surface__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__surface__extra();
-bool _freeAttributes__surface__extra( void* attributeData );
 
 bool _begin__newparam__sampler1D( void* attributeData ){return mImpl->begin__newparam__sampler1D();}
 bool _data__newparam__sampler1D( const ParserChar* text, size_t textLength );
@@ -1750,6 +3681,35 @@ bool _end__sampler1D__wrap_s(){return mImpl->end__sampler1D__wrap_s();}
 bool _validateBegin__sampler1D__wrap_s( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__sampler1D__wrap_s();
 bool _freeAttributes__sampler1D__wrap_s( void* attributeData );
+
+
+fx_sampler_wrap_common toEnumDataPrefix_fx_sampler_wrap_common (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_sampler_wrap_common>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_sampler_wrap_common (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_sampler_wrap_common*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_sampler_wrap_common (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_sampler_wrap_common*, size_t ),
+    const std::pair<StringHash, fx_sampler_wrap_common>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_sampler_wrap_common (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_sampler_wrap_common>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
 
 bool _begin__sampler1D__minfilter( void* attributeData ){return mImpl->begin__sampler1D__minfilter();}
 bool _data__sampler1D__minfilter( const ParserChar* text, size_t textLength );
@@ -2171,13 +4131,6 @@ bool _validateBegin__samplerDEPTH__extra( const ParserAttributes& attributes, vo
 bool _validateEnd__samplerDEPTH__extra();
 bool _freeAttributes__samplerDEPTH__extra( void* attributeData );
 
-bool _begin__newparam__enum( void* attributeData ){return mImpl->begin__newparam__enum();}
-bool _data__newparam__enum( const ParserChar* text, size_t textLength );
-bool _end__newparam__enum(){return mImpl->end__newparam__enum();}
-bool _validateBegin__newparam__enum( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__newparam__enum();
-bool _freeAttributes__newparam__enum( void* attributeData );
-
 bool _begin__fx_profile_abstract( void* attributeData ){return mImpl->begin__fx_profile_abstract();}
 bool _data__fx_profile_abstract( const ParserChar* text, size_t textLength );
 bool _end__fx_profile_abstract(){return mImpl->end__fx_profile_abstract();}
@@ -2493,209 +4446,6 @@ bool _validateBegin__instance_effect__setparam( const ParserAttributes& attribut
 bool _validateEnd__instance_effect__setparam();
 bool _freeAttributes__instance_effect__setparam( void* attributeData );
 
-bool _begin__setparam__bool( void* attributeData ){return mImpl->begin__setparam__bool();}
-bool _data__setparam__bool( const ParserChar* text, size_t textLength );
-bool _end__setparam__bool(){return mImpl->end__setparam__bool();}
-bool _validateBegin__setparam__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__bool();
-bool _freeAttributes__setparam__bool( void* attributeData );
-
-bool _begin__setparam__bool2( void* attributeData ){return mImpl->begin__setparam__bool2();}
-bool _data__setparam__bool2( const ParserChar* text, size_t textLength );
-bool _end__setparam__bool2(){return mImpl->end__setparam__bool2();}
-bool _validateBegin__setparam__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__bool2();
-bool _freeAttributes__setparam__bool2( void* attributeData );
-
-bool _begin__setparam__bool3( void* attributeData ){return mImpl->begin__setparam__bool3();}
-bool _data__setparam__bool3( const ParserChar* text, size_t textLength );
-bool _end__setparam__bool3(){return mImpl->end__setparam__bool3();}
-bool _validateBegin__setparam__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__bool3();
-bool _freeAttributes__setparam__bool3( void* attributeData );
-
-bool _begin__setparam__bool4( void* attributeData ){return mImpl->begin__setparam__bool4();}
-bool _data__setparam__bool4( const ParserChar* text, size_t textLength );
-bool _end__setparam__bool4(){return mImpl->end__setparam__bool4();}
-bool _validateBegin__setparam__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__bool4();
-bool _freeAttributes__setparam__bool4( void* attributeData );
-
-bool _begin__setparam__int( void* attributeData ){return mImpl->begin__setparam__int();}
-bool _data__setparam__int( const ParserChar* text, size_t textLength );
-bool _end__setparam__int(){return mImpl->end__setparam__int();}
-bool _validateBegin__setparam__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__int();
-bool _freeAttributes__setparam__int( void* attributeData );
-
-bool _begin__setparam__int2( void* attributeData ){return mImpl->begin__setparam__int2();}
-bool _data__setparam__int2( const ParserChar* text, size_t textLength );
-bool _end__setparam__int2(){return mImpl->end__setparam__int2();}
-bool _validateBegin__setparam__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__int2();
-bool _freeAttributes__setparam__int2( void* attributeData );
-
-bool _begin__setparam__int3( void* attributeData ){return mImpl->begin__setparam__int3();}
-bool _data__setparam__int3( const ParserChar* text, size_t textLength );
-bool _end__setparam__int3(){return mImpl->end__setparam__int3();}
-bool _validateBegin__setparam__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__int3();
-bool _freeAttributes__setparam__int3( void* attributeData );
-
-bool _begin__setparam__int4( void* attributeData ){return mImpl->begin__setparam__int4();}
-bool _data__setparam__int4( const ParserChar* text, size_t textLength );
-bool _end__setparam__int4(){return mImpl->end__setparam__int4();}
-bool _validateBegin__setparam__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__int4();
-bool _freeAttributes__setparam__int4( void* attributeData );
-
-bool _begin__setparam__float( void* attributeData ){return mImpl->begin__setparam__float();}
-bool _data__setparam__float( const ParserChar* text, size_t textLength );
-bool _end__setparam__float(){return mImpl->end__setparam__float();}
-bool _validateBegin__setparam__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float();
-bool _freeAttributes__setparam__float( void* attributeData );
-
-bool _begin__setparam__float2( void* attributeData ){return mImpl->begin__setparam__float2();}
-bool _data__setparam__float2( const ParserChar* text, size_t textLength );
-bool _end__setparam__float2(){return mImpl->end__setparam__float2();}
-bool _validateBegin__setparam__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float2();
-bool _freeAttributes__setparam__float2( void* attributeData );
-
-bool _begin__setparam__float3( void* attributeData ){return mImpl->begin__setparam__float3();}
-bool _data__setparam__float3( const ParserChar* text, size_t textLength );
-bool _end__setparam__float3(){return mImpl->end__setparam__float3();}
-bool _validateBegin__setparam__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float3();
-bool _freeAttributes__setparam__float3( void* attributeData );
-
-bool _begin__setparam__float4( void* attributeData ){return mImpl->begin__setparam__float4();}
-bool _data__setparam__float4( const ParserChar* text, size_t textLength );
-bool _end__setparam__float4(){return mImpl->end__setparam__float4();}
-bool _validateBegin__setparam__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float4();
-bool _freeAttributes__setparam__float4( void* attributeData );
-
-bool _begin__setparam__float1x1( void* attributeData ){return mImpl->begin__setparam__float1x1();}
-bool _data__setparam__float1x1( const ParserChar* text, size_t textLength );
-bool _end__setparam__float1x1(){return mImpl->end__setparam__float1x1();}
-bool _validateBegin__setparam__float1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float1x1();
-bool _freeAttributes__setparam__float1x1( void* attributeData );
-
-bool _begin__setparam__float1x2( void* attributeData ){return mImpl->begin__setparam__float1x2();}
-bool _data__setparam__float1x2( const ParserChar* text, size_t textLength );
-bool _end__setparam__float1x2(){return mImpl->end__setparam__float1x2();}
-bool _validateBegin__setparam__float1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float1x2();
-bool _freeAttributes__setparam__float1x2( void* attributeData );
-
-bool _begin__setparam__float1x3( void* attributeData ){return mImpl->begin__setparam__float1x3();}
-bool _data__setparam__float1x3( const ParserChar* text, size_t textLength );
-bool _end__setparam__float1x3(){return mImpl->end__setparam__float1x3();}
-bool _validateBegin__setparam__float1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float1x3();
-bool _freeAttributes__setparam__float1x3( void* attributeData );
-
-bool _begin__setparam__float1x4( void* attributeData ){return mImpl->begin__setparam__float1x4();}
-bool _data__setparam__float1x4( const ParserChar* text, size_t textLength );
-bool _end__setparam__float1x4(){return mImpl->end__setparam__float1x4();}
-bool _validateBegin__setparam__float1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float1x4();
-bool _freeAttributes__setparam__float1x4( void* attributeData );
-
-bool _begin__setparam__float2x1( void* attributeData ){return mImpl->begin__setparam__float2x1();}
-bool _data__setparam__float2x1( const ParserChar* text, size_t textLength );
-bool _end__setparam__float2x1(){return mImpl->end__setparam__float2x1();}
-bool _validateBegin__setparam__float2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float2x1();
-bool _freeAttributes__setparam__float2x1( void* attributeData );
-
-bool _begin__setparam__float2x2( void* attributeData ){return mImpl->begin__setparam__float2x2();}
-bool _data__setparam__float2x2( const ParserChar* text, size_t textLength );
-bool _end__setparam__float2x2(){return mImpl->end__setparam__float2x2();}
-bool _validateBegin__setparam__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float2x2();
-bool _freeAttributes__setparam__float2x2( void* attributeData );
-
-bool _begin__setparam__float2x3( void* attributeData ){return mImpl->begin__setparam__float2x3();}
-bool _data__setparam__float2x3( const ParserChar* text, size_t textLength );
-bool _end__setparam__float2x3(){return mImpl->end__setparam__float2x3();}
-bool _validateBegin__setparam__float2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float2x3();
-bool _freeAttributes__setparam__float2x3( void* attributeData );
-
-bool _begin__setparam__float2x4( void* attributeData ){return mImpl->begin__setparam__float2x4();}
-bool _data__setparam__float2x4( const ParserChar* text, size_t textLength );
-bool _end__setparam__float2x4(){return mImpl->end__setparam__float2x4();}
-bool _validateBegin__setparam__float2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float2x4();
-bool _freeAttributes__setparam__float2x4( void* attributeData );
-
-bool _begin__setparam__float3x1( void* attributeData ){return mImpl->begin__setparam__float3x1();}
-bool _data__setparam__float3x1( const ParserChar* text, size_t textLength );
-bool _end__setparam__float3x1(){return mImpl->end__setparam__float3x1();}
-bool _validateBegin__setparam__float3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float3x1();
-bool _freeAttributes__setparam__float3x1( void* attributeData );
-
-bool _begin__setparam__float3x2( void* attributeData ){return mImpl->begin__setparam__float3x2();}
-bool _data__setparam__float3x2( const ParserChar* text, size_t textLength );
-bool _end__setparam__float3x2(){return mImpl->end__setparam__float3x2();}
-bool _validateBegin__setparam__float3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float3x2();
-bool _freeAttributes__setparam__float3x2( void* attributeData );
-
-bool _begin__setparam__float3x3( void* attributeData ){return mImpl->begin__setparam__float3x3();}
-bool _data__setparam__float3x3( const ParserChar* text, size_t textLength );
-bool _end__setparam__float3x3(){return mImpl->end__setparam__float3x3();}
-bool _validateBegin__setparam__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float3x3();
-bool _freeAttributes__setparam__float3x3( void* attributeData );
-
-bool _begin__setparam__float3x4( void* attributeData ){return mImpl->begin__setparam__float3x4();}
-bool _data__setparam__float3x4( const ParserChar* text, size_t textLength );
-bool _end__setparam__float3x4(){return mImpl->end__setparam__float3x4();}
-bool _validateBegin__setparam__float3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float3x4();
-bool _freeAttributes__setparam__float3x4( void* attributeData );
-
-bool _begin__setparam__float4x1( void* attributeData ){return mImpl->begin__setparam__float4x1();}
-bool _data__setparam__float4x1( const ParserChar* text, size_t textLength );
-bool _end__setparam__float4x1(){return mImpl->end__setparam__float4x1();}
-bool _validateBegin__setparam__float4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float4x1();
-bool _freeAttributes__setparam__float4x1( void* attributeData );
-
-bool _begin__setparam__float4x2( void* attributeData ){return mImpl->begin__setparam__float4x2();}
-bool _data__setparam__float4x2( const ParserChar* text, size_t textLength );
-bool _end__setparam__float4x2(){return mImpl->end__setparam__float4x2();}
-bool _validateBegin__setparam__float4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float4x2();
-bool _freeAttributes__setparam__float4x2( void* attributeData );
-
-bool _begin__setparam__float4x3( void* attributeData ){return mImpl->begin__setparam__float4x3();}
-bool _data__setparam__float4x3( const ParserChar* text, size_t textLength );
-bool _end__setparam__float4x3(){return mImpl->end__setparam__float4x3();}
-bool _validateBegin__setparam__float4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float4x3();
-bool _freeAttributes__setparam__float4x3( void* attributeData );
-
-bool _begin__setparam__float4x4( void* attributeData ){return mImpl->begin__setparam__float4x4();}
-bool _data__setparam__float4x4( const ParserChar* text, size_t textLength );
-bool _end__setparam__float4x4(){return mImpl->end__setparam__float4x4();}
-bool _validateBegin__setparam__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__float4x4();
-bool _freeAttributes__setparam__float4x4( void* attributeData );
-
-bool _begin__setparam__surface( void* attributeData ){return mImpl->begin__setparam__surface(*static_cast<setparam__surface__AttributeData*>(attributeData));}
-bool _data__setparam__surface( const ParserChar* text, size_t textLength );
-bool _end__setparam__surface(){return mImpl->end__setparam__surface();}
-bool _validateBegin__setparam__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__surface();
-bool _freeAttributes__setparam__surface( void* attributeData );
-
 bool _begin__setparam__sampler1D( void* attributeData ){return mImpl->begin__setparam__sampler1D();}
 bool _data__setparam__sampler1D( const ParserChar* text, size_t textLength );
 bool _end__setparam__sampler1D(){return mImpl->end__setparam__sampler1D();}
@@ -2738,13 +4488,6 @@ bool _validateBegin__setparam__samplerDEPTH( const ParserAttributes& attributes,
 bool _validateEnd__setparam__samplerDEPTH();
 bool _freeAttributes__setparam__samplerDEPTH( void* attributeData );
 
-bool _begin__setparam__enum( void* attributeData ){return mImpl->begin__setparam__enum();}
-bool _data__setparam__enum( const ParserChar* text, size_t textLength );
-bool _end__setparam__enum(){return mImpl->end__setparam__enum();}
-bool _validateBegin__setparam__enum( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
-bool _validateEnd__setparam__enum();
-bool _freeAttributes__setparam__enum( void* attributeData );
-
 bool _begin__instance_effect__extra( void* attributeData ){return mImpl->begin__instance_effect__extra(*static_cast<extra__AttributeData*>(attributeData));}
 bool _data__instance_effect__extra( const ParserChar* text, size_t textLength );
 bool _end__instance_effect__extra(){return mImpl->end__instance_effect__extra();}
@@ -2786,6 +4529,35 @@ bool _end__library_nodes__node(){return mImpl->end__library_nodes__node();}
 bool _validateBegin__library_nodes__node( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__library_nodes__node();
 bool _freeAttributes__library_nodes__node( void* attributeData );
+
+
+NodeType toEnumDataPrefix_NodeType (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, NodeType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_NodeType (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const NodeType*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_NodeType (
+    bool ( ColladaParserAutoGen::*dataFunction )(const NodeType*, size_t ),
+    const std::pair<StringHash, NodeType>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    NodeType (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, NodeType>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
 
 bool _begin__node__asset( void* attributeData ){return mImpl->begin__node__asset();}
 bool _data__node__asset( const ParserChar* text, size_t textLength );
@@ -3976,6 +5748,3458 @@ bool _end__COLLADA__extra(){return mImpl->end__COLLADA__extra();}
 bool _validateBegin__COLLADA__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
 bool _validateEnd__COLLADA__extra();
 bool _freeAttributes__COLLADA__extra( void* attributeData );
+
+bool _begin__profile_GLSL( void* attributeData ){return mImpl->begin__profile_GLSL(*static_cast<profile_GLSL__AttributeData*>(attributeData));}
+bool _data__profile_GLSL( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL(){return mImpl->end__profile_GLSL();}
+bool _validateBegin__profile_GLSL( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL();
+bool _freeAttributes__profile_GLSL( void* attributeData );
+
+bool _begin__profile_GLSL__asset( void* attributeData ){return mImpl->begin__profile_GLSL__asset();}
+bool _data__profile_GLSL__asset( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__asset(){return mImpl->end__profile_GLSL__asset();}
+bool _validateBegin__profile_GLSL__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__asset();
+bool _freeAttributes__profile_GLSL__asset( void* attributeData );
+
+bool _begin__profile_GLSL__code( void* attributeData ){return mImpl->begin__profile_GLSL__code(*static_cast<code__AttributeData*>(attributeData));}
+bool _data__profile_GLSL__code( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__code(){return mImpl->end__profile_GLSL__code();}
+bool _validateBegin__profile_GLSL__code( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__code();
+bool _freeAttributes__profile_GLSL__code( void* attributeData );
+
+bool _begin__profile_GLSL__include( void* attributeData ){return mImpl->begin__profile_GLSL__include(*static_cast<include__AttributeData*>(attributeData));}
+bool _data__profile_GLSL__include( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__include(){return mImpl->end__profile_GLSL__include();}
+bool _validateBegin__profile_GLSL__include( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__include();
+bool _freeAttributes__profile_GLSL__include( void* attributeData );
+
+bool _begin__profile_GLSL__image( void* attributeData ){return mImpl->begin__profile_GLSL__image(*static_cast<image__AttributeData*>(attributeData));}
+bool _data__profile_GLSL__image( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__image(){return mImpl->end__profile_GLSL__image();}
+bool _validateBegin__profile_GLSL__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__image();
+bool _freeAttributes__profile_GLSL__image( void* attributeData );
+
+bool _begin__profile_GLSL__newparam( void* attributeData ){return mImpl->begin__profile_GLSL__newparam(*static_cast<profile_GLSL__newparam__AttributeData*>(attributeData));}
+bool _data__profile_GLSL__newparam( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__newparam(){return mImpl->end__profile_GLSL__newparam();}
+bool _validateBegin__profile_GLSL__newparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__newparam();
+bool _freeAttributes__profile_GLSL__newparam( void* attributeData );
+
+bool _begin__newparam__array( void* attributeData ){return mImpl->begin__newparam__array(*static_cast<newparam__array__AttributeData*>(attributeData));}
+bool _data__newparam__array( const ParserChar* text, size_t textLength );
+bool _end__newparam__array(){return mImpl->end__newparam__array();}
+bool _validateBegin__newparam__array( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__array();
+bool _freeAttributes__newparam__array( void* attributeData );
+
+bool _begin__array__bool( void* attributeData ){return mImpl->begin__array__bool();}
+bool _data__array__bool( const ParserChar* text, size_t textLength );
+bool _end__array__bool(){return mImpl->end__array__bool();}
+bool _validateBegin__array__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool();
+bool _freeAttributes__array__bool( void* attributeData );
+
+bool _begin__array__bool2( void* attributeData ){return mImpl->begin__array__bool2();}
+bool _data__array__bool2( const ParserChar* text, size_t textLength );
+bool _end__array__bool2(){return mImpl->end__array__bool2();}
+bool _validateBegin__array__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool2();
+bool _freeAttributes__array__bool2( void* attributeData );
+
+bool _begin__array__bool3( void* attributeData ){return mImpl->begin__array__bool3();}
+bool _data__array__bool3( const ParserChar* text, size_t textLength );
+bool _end__array__bool3(){return mImpl->end__array__bool3();}
+bool _validateBegin__array__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool3();
+bool _freeAttributes__array__bool3( void* attributeData );
+
+bool _begin__array__bool4( void* attributeData ){return mImpl->begin__array__bool4();}
+bool _data__array__bool4( const ParserChar* text, size_t textLength );
+bool _end__array__bool4(){return mImpl->end__array__bool4();}
+bool _validateBegin__array__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool4();
+bool _freeAttributes__array__bool4( void* attributeData );
+
+bool _begin__array__float( void* attributeData ){return mImpl->begin__array__float();}
+bool _data__array__float( const ParserChar* text, size_t textLength );
+bool _end__array__float(){return mImpl->end__array__float();}
+bool _validateBegin__array__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float();
+bool _freeAttributes__array__float( void* attributeData );
+
+bool _begin__array__float2( void* attributeData ){return mImpl->begin__array__float2();}
+bool _data__array__float2( const ParserChar* text, size_t textLength );
+bool _end__array__float2(){return mImpl->end__array__float2();}
+bool _validateBegin__array__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float2();
+bool _freeAttributes__array__float2( void* attributeData );
+
+bool _begin__array__float3( void* attributeData ){return mImpl->begin__array__float3();}
+bool _data__array__float3( const ParserChar* text, size_t textLength );
+bool _end__array__float3(){return mImpl->end__array__float3();}
+bool _validateBegin__array__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float3();
+bool _freeAttributes__array__float3( void* attributeData );
+
+bool _begin__array__float4( void* attributeData ){return mImpl->begin__array__float4();}
+bool _data__array__float4( const ParserChar* text, size_t textLength );
+bool _end__array__float4(){return mImpl->end__array__float4();}
+bool _validateBegin__array__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float4();
+bool _freeAttributes__array__float4( void* attributeData );
+
+bool _begin__array__float2x2( void* attributeData ){return mImpl->begin__array__float2x2();}
+bool _data__array__float2x2( const ParserChar* text, size_t textLength );
+bool _end__array__float2x2(){return mImpl->end__array__float2x2();}
+bool _validateBegin__array__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float2x2();
+bool _freeAttributes__array__float2x2( void* attributeData );
+
+bool _begin__array__float3x3( void* attributeData ){return mImpl->begin__array__float3x3();}
+bool _data__array__float3x3( const ParserChar* text, size_t textLength );
+bool _end__array__float3x3(){return mImpl->end__array__float3x3();}
+bool _validateBegin__array__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float3x3();
+bool _freeAttributes__array__float3x3( void* attributeData );
+
+bool _begin__array__float4x4( void* attributeData ){return mImpl->begin__array__float4x4();}
+bool _data__array__float4x4( const ParserChar* text, size_t textLength );
+bool _end__array__float4x4(){return mImpl->end__array__float4x4();}
+bool _validateBegin__array__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float4x4();
+bool _freeAttributes__array__float4x4( void* attributeData );
+
+bool _begin__array__int( void* attributeData ){return mImpl->begin__array__int();}
+bool _data__array__int( const ParserChar* text, size_t textLength );
+bool _end__array__int(){return mImpl->end__array__int();}
+bool _validateBegin__array__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int();
+bool _freeAttributes__array__int( void* attributeData );
+
+bool _begin__array__int2( void* attributeData ){return mImpl->begin__array__int2();}
+bool _data__array__int2( const ParserChar* text, size_t textLength );
+bool _end__array__int2(){return mImpl->end__array__int2();}
+bool _validateBegin__array__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int2();
+bool _freeAttributes__array__int2( void* attributeData );
+
+bool _begin__array__int3( void* attributeData ){return mImpl->begin__array__int3();}
+bool _data__array__int3( const ParserChar* text, size_t textLength );
+bool _end__array__int3(){return mImpl->end__array__int3();}
+bool _validateBegin__array__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int3();
+bool _freeAttributes__array__int3( void* attributeData );
+
+bool _begin__array__int4( void* attributeData ){return mImpl->begin__array__int4();}
+bool _data__array__int4( const ParserChar* text, size_t textLength );
+bool _end__array__int4(){return mImpl->end__array__int4();}
+bool _validateBegin__array__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int4();
+bool _freeAttributes__array__int4( void* attributeData );
+
+bool _begin__array__surface( void* attributeData ){return mImpl->begin__array__surface(*static_cast<array__surface__AttributeData*>(attributeData));}
+bool _data__array__surface( const ParserChar* text, size_t textLength );
+bool _end__array__surface(){return mImpl->end__array__surface();}
+bool _validateBegin__array__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__surface();
+bool _freeAttributes__array__surface( void* attributeData );
+
+bool _begin__generator( void* attributeData ){return mImpl->begin__generator();}
+bool _data__generator( const ParserChar* text, size_t textLength );
+bool _end__generator(){return mImpl->end__generator();}
+bool _validateBegin__generator( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__generator();
+bool _freeAttributes__generator( void* attributeData );
+
+bool _begin__generator__annotate( void* attributeData ){return mImpl->begin__generator__annotate(*static_cast<annotate__AttributeData*>(attributeData));}
+bool _data__generator__annotate( const ParserChar* text, size_t textLength );
+bool _end__generator__annotate(){return mImpl->end__generator__annotate();}
+bool _validateBegin__generator__annotate( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__generator__annotate();
+bool _freeAttributes__generator__annotate( void* attributeData );
+
+bool _begin__generator__code( void* attributeData ){return mImpl->begin__generator__code(*static_cast<code__AttributeData*>(attributeData));}
+bool _data__generator__code( const ParserChar* text, size_t textLength );
+bool _end__generator__code(){return mImpl->end__generator__code();}
+bool _validateBegin__generator__code( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__generator__code();
+bool _freeAttributes__generator__code( void* attributeData );
+
+bool _begin__generator__include( void* attributeData ){return mImpl->begin__generator__include(*static_cast<include__AttributeData*>(attributeData));}
+bool _data__generator__include( const ParserChar* text, size_t textLength );
+bool _end__generator__include(){return mImpl->end__generator__include();}
+bool _validateBegin__generator__include( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__generator__include();
+bool _freeAttributes__generator__include( void* attributeData );
+
+bool _begin__generator__name( void* attributeData ){return mImpl->begin__generator__name(*static_cast<generator__name__AttributeData*>(attributeData));}
+bool _data__generator__name( const ParserChar* text, size_t textLength );
+bool _end__generator__name(){return mImpl->end__generator__name();}
+bool _validateBegin__generator__name( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__generator__name();
+bool _freeAttributes__generator__name( void* attributeData );
+
+bool _begin__generator__setparam( void* attributeData ){return mImpl->begin__generator__setparam(*static_cast<generator__setparam__AttributeData*>(attributeData));}
+bool _data__generator__setparam( const ParserChar* text, size_t textLength );
+bool _end__generator__setparam(){return mImpl->end__generator__setparam();}
+bool _validateBegin__generator__setparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__generator__setparam();
+bool _freeAttributes__generator__setparam( void* attributeData );
+
+bool _begin__array__sampler1D( void* attributeData ){return mImpl->begin__array__sampler1D();}
+bool _data__array__sampler1D( const ParserChar* text, size_t textLength );
+bool _end__array__sampler1D(){return mImpl->end__array__sampler1D();}
+bool _validateBegin__array__sampler1D( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__sampler1D();
+bool _freeAttributes__array__sampler1D( void* attributeData );
+
+bool _begin__array__sampler2D( void* attributeData ){return mImpl->begin__array__sampler2D();}
+bool _data__array__sampler2D( const ParserChar* text, size_t textLength );
+bool _end__array__sampler2D(){return mImpl->end__array__sampler2D();}
+bool _validateBegin__array__sampler2D( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__sampler2D();
+bool _freeAttributes__array__sampler2D( void* attributeData );
+
+bool _begin__array__sampler3D( void* attributeData ){return mImpl->begin__array__sampler3D();}
+bool _data__array__sampler3D( const ParserChar* text, size_t textLength );
+bool _end__array__sampler3D(){return mImpl->end__array__sampler3D();}
+bool _validateBegin__array__sampler3D( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__sampler3D();
+bool _freeAttributes__array__sampler3D( void* attributeData );
+
+bool _begin__array__samplerCUBE( void* attributeData ){return mImpl->begin__array__samplerCUBE();}
+bool _data__array__samplerCUBE( const ParserChar* text, size_t textLength );
+bool _end__array__samplerCUBE(){return mImpl->end__array__samplerCUBE();}
+bool _validateBegin__array__samplerCUBE( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__samplerCUBE();
+bool _freeAttributes__array__samplerCUBE( void* attributeData );
+
+bool _begin__array__samplerRECT( void* attributeData ){return mImpl->begin__array__samplerRECT();}
+bool _data__array__samplerRECT( const ParserChar* text, size_t textLength );
+bool _end__array__samplerRECT(){return mImpl->end__array__samplerRECT();}
+bool _validateBegin__array__samplerRECT( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__samplerRECT();
+bool _freeAttributes__array__samplerRECT( void* attributeData );
+
+bool _begin__array__samplerDEPTH( void* attributeData ){return mImpl->begin__array__samplerDEPTH();}
+bool _data__array__samplerDEPTH( const ParserChar* text, size_t textLength );
+bool _end__array__samplerDEPTH(){return mImpl->end__array__samplerDEPTH();}
+bool _validateBegin__array__samplerDEPTH( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__samplerDEPTH();
+bool _freeAttributes__array__samplerDEPTH( void* attributeData );
+
+bool _begin__array__enum( void* attributeData ){return mImpl->begin__array__enum();}
+bool _data__array__enum( const ParserChar* text, size_t textLength );
+bool _end__array__enum(){return mImpl->end__array__enum();}
+bool _validateBegin__array__enum( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__enum();
+bool _freeAttributes__array__enum( void* attributeData );
+
+bool _begin__array__array( void* attributeData ){return mImpl->begin__array__array(*static_cast<array__array__AttributeData*>(attributeData));}
+bool _data__array__array( const ParserChar* text, size_t textLength );
+bool _end__array__array(){return mImpl->end__array__array();}
+bool _validateBegin__array__array( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__array();
+bool _freeAttributes__array__array( void* attributeData );
+
+bool _begin__profile_GLSL__technique( void* attributeData ){return mImpl->begin__profile_GLSL__technique(*static_cast<profile_GLSL__technique__AttributeData*>(attributeData));}
+bool _data__profile_GLSL__technique( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__technique(){return mImpl->end__profile_GLSL__technique();}
+bool _validateBegin__profile_GLSL__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__technique();
+bool _freeAttributes__profile_GLSL__technique( void* attributeData );
+
+bool _begin__technique__code( void* attributeData ){return mImpl->begin__technique__code(*static_cast<code__AttributeData*>(attributeData));}
+bool _data__technique__code( const ParserChar* text, size_t textLength );
+bool _end__technique__code(){return mImpl->end__technique__code();}
+bool _validateBegin__technique__code( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__code();
+bool _freeAttributes__technique__code( void* attributeData );
+
+bool _begin__technique__include( void* attributeData ){return mImpl->begin__technique__include(*static_cast<include__AttributeData*>(attributeData));}
+bool _data__technique__include( const ParserChar* text, size_t textLength );
+bool _end__technique__include(){return mImpl->end__technique__include();}
+bool _validateBegin__technique__include( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__include();
+bool _freeAttributes__technique__include( void* attributeData );
+
+bool _begin__profile_GLSL__extra( void* attributeData ){return mImpl->begin__profile_GLSL__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__profile_GLSL__extra( const ParserChar* text, size_t textLength );
+bool _end__profile_GLSL__extra(){return mImpl->end__profile_GLSL__extra();}
+bool _validateBegin__profile_GLSL__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_GLSL__extra();
+bool _freeAttributes__profile_GLSL__extra( void* attributeData );
+
+bool _begin__profile_CG( void* attributeData ){return mImpl->begin__profile_CG(*static_cast<profile_CG__AttributeData*>(attributeData));}
+bool _data__profile_CG( const ParserChar* text, size_t textLength );
+bool _end__profile_CG(){return mImpl->end__profile_CG();}
+bool _validateBegin__profile_CG( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG();
+bool _freeAttributes__profile_CG( void* attributeData );
+
+bool _begin__profile_CG__asset( void* attributeData ){return mImpl->begin__profile_CG__asset();}
+bool _data__profile_CG__asset( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__asset(){return mImpl->end__profile_CG__asset();}
+bool _validateBegin__profile_CG__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__asset();
+bool _freeAttributes__profile_CG__asset( void* attributeData );
+
+bool _begin__profile_CG__code( void* attributeData ){return mImpl->begin__profile_CG__code(*static_cast<code__AttributeData*>(attributeData));}
+bool _data__profile_CG__code( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__code(){return mImpl->end__profile_CG__code();}
+bool _validateBegin__profile_CG__code( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__code();
+bool _freeAttributes__profile_CG__code( void* attributeData );
+
+bool _begin__profile_CG__include( void* attributeData ){return mImpl->begin__profile_CG__include(*static_cast<include__AttributeData*>(attributeData));}
+bool _data__profile_CG__include( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__include(){return mImpl->end__profile_CG__include();}
+bool _validateBegin__profile_CG__include( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__include();
+bool _freeAttributes__profile_CG__include( void* attributeData );
+
+bool _begin__profile_CG__image( void* attributeData ){return mImpl->begin__profile_CG__image(*static_cast<image__AttributeData*>(attributeData));}
+bool _data__profile_CG__image( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__image(){return mImpl->end__profile_CG__image();}
+bool _validateBegin__profile_CG__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__image();
+bool _freeAttributes__profile_CG__image( void* attributeData );
+
+bool _begin__profile_CG__newparam( void* attributeData ){return mImpl->begin__profile_CG__newparam(*static_cast<profile_CG__newparam__AttributeData*>(attributeData));}
+bool _data__profile_CG__newparam( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__newparam(){return mImpl->end__profile_CG__newparam();}
+bool _validateBegin__profile_CG__newparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__newparam();
+bool _freeAttributes__profile_CG__newparam( void* attributeData );
+
+bool _begin__newparam__bool1( void* attributeData ){return mImpl->begin__newparam__bool1();}
+bool _data__newparam__bool1( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool1(){return mImpl->end__newparam__bool1();}
+bool _validateBegin__newparam__bool1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool1();
+bool _freeAttributes__newparam__bool1( void* attributeData );
+
+bool _begin__newparam__bool1x1( void* attributeData ){return mImpl->begin__newparam__bool1x1();}
+bool _data__newparam__bool1x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool1x1(){return mImpl->end__newparam__bool1x1();}
+bool _validateBegin__newparam__bool1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool1x1();
+bool _freeAttributes__newparam__bool1x1( void* attributeData );
+
+bool _begin__newparam__bool1x2( void* attributeData ){return mImpl->begin__newparam__bool1x2();}
+bool _data__newparam__bool1x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool1x2(){return mImpl->end__newparam__bool1x2();}
+bool _validateBegin__newparam__bool1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool1x2();
+bool _freeAttributes__newparam__bool1x2( void* attributeData );
+
+bool _begin__newparam__bool1x3( void* attributeData ){return mImpl->begin__newparam__bool1x3();}
+bool _data__newparam__bool1x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool1x3(){return mImpl->end__newparam__bool1x3();}
+bool _validateBegin__newparam__bool1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool1x3();
+bool _freeAttributes__newparam__bool1x3( void* attributeData );
+
+bool _begin__newparam__bool1x4( void* attributeData ){return mImpl->begin__newparam__bool1x4();}
+bool _data__newparam__bool1x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool1x4(){return mImpl->end__newparam__bool1x4();}
+bool _validateBegin__newparam__bool1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool1x4();
+bool _freeAttributes__newparam__bool1x4( void* attributeData );
+
+bool _begin__newparam__bool2x1( void* attributeData ){return mImpl->begin__newparam__bool2x1();}
+bool _data__newparam__bool2x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool2x1(){return mImpl->end__newparam__bool2x1();}
+bool _validateBegin__newparam__bool2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool2x1();
+bool _freeAttributes__newparam__bool2x1( void* attributeData );
+
+bool _begin__newparam__bool2x2( void* attributeData ){return mImpl->begin__newparam__bool2x2();}
+bool _data__newparam__bool2x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool2x2(){return mImpl->end__newparam__bool2x2();}
+bool _validateBegin__newparam__bool2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool2x2();
+bool _freeAttributes__newparam__bool2x2( void* attributeData );
+
+bool _begin__newparam__bool2x3( void* attributeData ){return mImpl->begin__newparam__bool2x3();}
+bool _data__newparam__bool2x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool2x3(){return mImpl->end__newparam__bool2x3();}
+bool _validateBegin__newparam__bool2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool2x3();
+bool _freeAttributes__newparam__bool2x3( void* attributeData );
+
+bool _begin__newparam__bool2x4( void* attributeData ){return mImpl->begin__newparam__bool2x4();}
+bool _data__newparam__bool2x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool2x4(){return mImpl->end__newparam__bool2x4();}
+bool _validateBegin__newparam__bool2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool2x4();
+bool _freeAttributes__newparam__bool2x4( void* attributeData );
+
+bool _begin__newparam__bool3x1( void* attributeData ){return mImpl->begin__newparam__bool3x1();}
+bool _data__newparam__bool3x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool3x1(){return mImpl->end__newparam__bool3x1();}
+bool _validateBegin__newparam__bool3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool3x1();
+bool _freeAttributes__newparam__bool3x1( void* attributeData );
+
+bool _begin__newparam__bool3x2( void* attributeData ){return mImpl->begin__newparam__bool3x2();}
+bool _data__newparam__bool3x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool3x2(){return mImpl->end__newparam__bool3x2();}
+bool _validateBegin__newparam__bool3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool3x2();
+bool _freeAttributes__newparam__bool3x2( void* attributeData );
+
+bool _begin__newparam__bool3x3( void* attributeData ){return mImpl->begin__newparam__bool3x3();}
+bool _data__newparam__bool3x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool3x3(){return mImpl->end__newparam__bool3x3();}
+bool _validateBegin__newparam__bool3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool3x3();
+bool _freeAttributes__newparam__bool3x3( void* attributeData );
+
+bool _begin__newparam__bool3x4( void* attributeData ){return mImpl->begin__newparam__bool3x4();}
+bool _data__newparam__bool3x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool3x4(){return mImpl->end__newparam__bool3x4();}
+bool _validateBegin__newparam__bool3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool3x4();
+bool _freeAttributes__newparam__bool3x4( void* attributeData );
+
+bool _begin__newparam__bool4x1( void* attributeData ){return mImpl->begin__newparam__bool4x1();}
+bool _data__newparam__bool4x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool4x1(){return mImpl->end__newparam__bool4x1();}
+bool _validateBegin__newparam__bool4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool4x1();
+bool _freeAttributes__newparam__bool4x1( void* attributeData );
+
+bool _begin__newparam__bool4x2( void* attributeData ){return mImpl->begin__newparam__bool4x2();}
+bool _data__newparam__bool4x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool4x2(){return mImpl->end__newparam__bool4x2();}
+bool _validateBegin__newparam__bool4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool4x2();
+bool _freeAttributes__newparam__bool4x2( void* attributeData );
+
+bool _begin__newparam__bool4x3( void* attributeData ){return mImpl->begin__newparam__bool4x3();}
+bool _data__newparam__bool4x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool4x3(){return mImpl->end__newparam__bool4x3();}
+bool _validateBegin__newparam__bool4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool4x3();
+bool _freeAttributes__newparam__bool4x3( void* attributeData );
+
+bool _begin__newparam__bool4x4( void* attributeData ){return mImpl->begin__newparam__bool4x4();}
+bool _data__newparam__bool4x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__bool4x4(){return mImpl->end__newparam__bool4x4();}
+bool _validateBegin__newparam__bool4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__bool4x4();
+bool _freeAttributes__newparam__bool4x4( void* attributeData );
+
+bool _begin__newparam__float1( void* attributeData ){return mImpl->begin__newparam__float1();}
+bool _data__newparam__float1( const ParserChar* text, size_t textLength );
+bool _end__newparam__float1(){return mImpl->end__newparam__float1();}
+bool _validateBegin__newparam__float1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__float1();
+bool _freeAttributes__newparam__float1( void* attributeData );
+
+bool _begin__newparam__int1( void* attributeData ){return mImpl->begin__newparam__int1();}
+bool _data__newparam__int1( const ParserChar* text, size_t textLength );
+bool _end__newparam__int1(){return mImpl->end__newparam__int1();}
+bool _validateBegin__newparam__int1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int1();
+bool _freeAttributes__newparam__int1( void* attributeData );
+
+bool _begin__newparam__int1x1( void* attributeData ){return mImpl->begin__newparam__int1x1();}
+bool _data__newparam__int1x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__int1x1(){return mImpl->end__newparam__int1x1();}
+bool _validateBegin__newparam__int1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int1x1();
+bool _freeAttributes__newparam__int1x1( void* attributeData );
+
+bool _begin__newparam__int1x2( void* attributeData ){return mImpl->begin__newparam__int1x2();}
+bool _data__newparam__int1x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__int1x2(){return mImpl->end__newparam__int1x2();}
+bool _validateBegin__newparam__int1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int1x2();
+bool _freeAttributes__newparam__int1x2( void* attributeData );
+
+bool _begin__newparam__int1x3( void* attributeData ){return mImpl->begin__newparam__int1x3();}
+bool _data__newparam__int1x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__int1x3(){return mImpl->end__newparam__int1x3();}
+bool _validateBegin__newparam__int1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int1x3();
+bool _freeAttributes__newparam__int1x3( void* attributeData );
+
+bool _begin__newparam__int1x4( void* attributeData ){return mImpl->begin__newparam__int1x4();}
+bool _data__newparam__int1x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__int1x4(){return mImpl->end__newparam__int1x4();}
+bool _validateBegin__newparam__int1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int1x4();
+bool _freeAttributes__newparam__int1x4( void* attributeData );
+
+bool _begin__newparam__int2x1( void* attributeData ){return mImpl->begin__newparam__int2x1();}
+bool _data__newparam__int2x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__int2x1(){return mImpl->end__newparam__int2x1();}
+bool _validateBegin__newparam__int2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int2x1();
+bool _freeAttributes__newparam__int2x1( void* attributeData );
+
+bool _begin__newparam__int2x2( void* attributeData ){return mImpl->begin__newparam__int2x2();}
+bool _data__newparam__int2x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__int2x2(){return mImpl->end__newparam__int2x2();}
+bool _validateBegin__newparam__int2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int2x2();
+bool _freeAttributes__newparam__int2x2( void* attributeData );
+
+bool _begin__newparam__int2x3( void* attributeData ){return mImpl->begin__newparam__int2x3();}
+bool _data__newparam__int2x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__int2x3(){return mImpl->end__newparam__int2x3();}
+bool _validateBegin__newparam__int2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int2x3();
+bool _freeAttributes__newparam__int2x3( void* attributeData );
+
+bool _begin__newparam__int2x4( void* attributeData ){return mImpl->begin__newparam__int2x4();}
+bool _data__newparam__int2x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__int2x4(){return mImpl->end__newparam__int2x4();}
+bool _validateBegin__newparam__int2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int2x4();
+bool _freeAttributes__newparam__int2x4( void* attributeData );
+
+bool _begin__newparam__int3x1( void* attributeData ){return mImpl->begin__newparam__int3x1();}
+bool _data__newparam__int3x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__int3x1(){return mImpl->end__newparam__int3x1();}
+bool _validateBegin__newparam__int3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int3x1();
+bool _freeAttributes__newparam__int3x1( void* attributeData );
+
+bool _begin__newparam__int3x2( void* attributeData ){return mImpl->begin__newparam__int3x2();}
+bool _data__newparam__int3x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__int3x2(){return mImpl->end__newparam__int3x2();}
+bool _validateBegin__newparam__int3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int3x2();
+bool _freeAttributes__newparam__int3x2( void* attributeData );
+
+bool _begin__newparam__int3x3( void* attributeData ){return mImpl->begin__newparam__int3x3();}
+bool _data__newparam__int3x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__int3x3(){return mImpl->end__newparam__int3x3();}
+bool _validateBegin__newparam__int3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int3x3();
+bool _freeAttributes__newparam__int3x3( void* attributeData );
+
+bool _begin__newparam__int3x4( void* attributeData ){return mImpl->begin__newparam__int3x4();}
+bool _data__newparam__int3x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__int3x4(){return mImpl->end__newparam__int3x4();}
+bool _validateBegin__newparam__int3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int3x4();
+bool _freeAttributes__newparam__int3x4( void* attributeData );
+
+bool _begin__newparam__int4x1( void* attributeData ){return mImpl->begin__newparam__int4x1();}
+bool _data__newparam__int4x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__int4x1(){return mImpl->end__newparam__int4x1();}
+bool _validateBegin__newparam__int4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int4x1();
+bool _freeAttributes__newparam__int4x1( void* attributeData );
+
+bool _begin__newparam__int4x2( void* attributeData ){return mImpl->begin__newparam__int4x2();}
+bool _data__newparam__int4x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__int4x2(){return mImpl->end__newparam__int4x2();}
+bool _validateBegin__newparam__int4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int4x2();
+bool _freeAttributes__newparam__int4x2( void* attributeData );
+
+bool _begin__newparam__int4x3( void* attributeData ){return mImpl->begin__newparam__int4x3();}
+bool _data__newparam__int4x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__int4x3(){return mImpl->end__newparam__int4x3();}
+bool _validateBegin__newparam__int4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int4x3();
+bool _freeAttributes__newparam__int4x3( void* attributeData );
+
+bool _begin__newparam__int4x4( void* attributeData ){return mImpl->begin__newparam__int4x4();}
+bool _data__newparam__int4x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__int4x4(){return mImpl->end__newparam__int4x4();}
+bool _validateBegin__newparam__int4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__int4x4();
+bool _freeAttributes__newparam__int4x4( void* attributeData );
+
+bool _begin__newparam__half( void* attributeData ){return mImpl->begin__newparam__half();}
+bool _data__newparam__half( const ParserChar* text, size_t textLength );
+bool _end__newparam__half(){return mImpl->end__newparam__half();}
+bool _validateBegin__newparam__half( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half();
+bool _freeAttributes__newparam__half( void* attributeData );
+
+bool _begin__newparam__half1( void* attributeData ){return mImpl->begin__newparam__half1();}
+bool _data__newparam__half1( const ParserChar* text, size_t textLength );
+bool _end__newparam__half1(){return mImpl->end__newparam__half1();}
+bool _validateBegin__newparam__half1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half1();
+bool _freeAttributes__newparam__half1( void* attributeData );
+
+bool _begin__newparam__half2( void* attributeData ){return mImpl->begin__newparam__half2();}
+bool _data__newparam__half2( const ParserChar* text, size_t textLength );
+bool _end__newparam__half2(){return mImpl->end__newparam__half2();}
+bool _validateBegin__newparam__half2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half2();
+bool _freeAttributes__newparam__half2( void* attributeData );
+
+bool _begin__newparam__half3( void* attributeData ){return mImpl->begin__newparam__half3();}
+bool _data__newparam__half3( const ParserChar* text, size_t textLength );
+bool _end__newparam__half3(){return mImpl->end__newparam__half3();}
+bool _validateBegin__newparam__half3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half3();
+bool _freeAttributes__newparam__half3( void* attributeData );
+
+bool _begin__newparam__half4( void* attributeData ){return mImpl->begin__newparam__half4();}
+bool _data__newparam__half4( const ParserChar* text, size_t textLength );
+bool _end__newparam__half4(){return mImpl->end__newparam__half4();}
+bool _validateBegin__newparam__half4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half4();
+bool _freeAttributes__newparam__half4( void* attributeData );
+
+bool _begin__newparam__half1x1( void* attributeData ){return mImpl->begin__newparam__half1x1();}
+bool _data__newparam__half1x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__half1x1(){return mImpl->end__newparam__half1x1();}
+bool _validateBegin__newparam__half1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half1x1();
+bool _freeAttributes__newparam__half1x1( void* attributeData );
+
+bool _begin__newparam__half1x2( void* attributeData ){return mImpl->begin__newparam__half1x2();}
+bool _data__newparam__half1x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__half1x2(){return mImpl->end__newparam__half1x2();}
+bool _validateBegin__newparam__half1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half1x2();
+bool _freeAttributes__newparam__half1x2( void* attributeData );
+
+bool _begin__newparam__half1x3( void* attributeData ){return mImpl->begin__newparam__half1x3();}
+bool _data__newparam__half1x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__half1x3(){return mImpl->end__newparam__half1x3();}
+bool _validateBegin__newparam__half1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half1x3();
+bool _freeAttributes__newparam__half1x3( void* attributeData );
+
+bool _begin__newparam__half1x4( void* attributeData ){return mImpl->begin__newparam__half1x4();}
+bool _data__newparam__half1x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__half1x4(){return mImpl->end__newparam__half1x4();}
+bool _validateBegin__newparam__half1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half1x4();
+bool _freeAttributes__newparam__half1x4( void* attributeData );
+
+bool _begin__newparam__half2x1( void* attributeData ){return mImpl->begin__newparam__half2x1();}
+bool _data__newparam__half2x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__half2x1(){return mImpl->end__newparam__half2x1();}
+bool _validateBegin__newparam__half2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half2x1();
+bool _freeAttributes__newparam__half2x1( void* attributeData );
+
+bool _begin__newparam__half2x2( void* attributeData ){return mImpl->begin__newparam__half2x2();}
+bool _data__newparam__half2x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__half2x2(){return mImpl->end__newparam__half2x2();}
+bool _validateBegin__newparam__half2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half2x2();
+bool _freeAttributes__newparam__half2x2( void* attributeData );
+
+bool _begin__newparam__half2x3( void* attributeData ){return mImpl->begin__newparam__half2x3();}
+bool _data__newparam__half2x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__half2x3(){return mImpl->end__newparam__half2x3();}
+bool _validateBegin__newparam__half2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half2x3();
+bool _freeAttributes__newparam__half2x3( void* attributeData );
+
+bool _begin__newparam__half2x4( void* attributeData ){return mImpl->begin__newparam__half2x4();}
+bool _data__newparam__half2x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__half2x4(){return mImpl->end__newparam__half2x4();}
+bool _validateBegin__newparam__half2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half2x4();
+bool _freeAttributes__newparam__half2x4( void* attributeData );
+
+bool _begin__newparam__half3x1( void* attributeData ){return mImpl->begin__newparam__half3x1();}
+bool _data__newparam__half3x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__half3x1(){return mImpl->end__newparam__half3x1();}
+bool _validateBegin__newparam__half3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half3x1();
+bool _freeAttributes__newparam__half3x1( void* attributeData );
+
+bool _begin__newparam__half3x2( void* attributeData ){return mImpl->begin__newparam__half3x2();}
+bool _data__newparam__half3x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__half3x2(){return mImpl->end__newparam__half3x2();}
+bool _validateBegin__newparam__half3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half3x2();
+bool _freeAttributes__newparam__half3x2( void* attributeData );
+
+bool _begin__newparam__half3x3( void* attributeData ){return mImpl->begin__newparam__half3x3();}
+bool _data__newparam__half3x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__half3x3(){return mImpl->end__newparam__half3x3();}
+bool _validateBegin__newparam__half3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half3x3();
+bool _freeAttributes__newparam__half3x3( void* attributeData );
+
+bool _begin__newparam__half3x4( void* attributeData ){return mImpl->begin__newparam__half3x4();}
+bool _data__newparam__half3x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__half3x4(){return mImpl->end__newparam__half3x4();}
+bool _validateBegin__newparam__half3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half3x4();
+bool _freeAttributes__newparam__half3x4( void* attributeData );
+
+bool _begin__newparam__half4x1( void* attributeData ){return mImpl->begin__newparam__half4x1();}
+bool _data__newparam__half4x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__half4x1(){return mImpl->end__newparam__half4x1();}
+bool _validateBegin__newparam__half4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half4x1();
+bool _freeAttributes__newparam__half4x1( void* attributeData );
+
+bool _begin__newparam__half4x2( void* attributeData ){return mImpl->begin__newparam__half4x2();}
+bool _data__newparam__half4x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__half4x2(){return mImpl->end__newparam__half4x2();}
+bool _validateBegin__newparam__half4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half4x2();
+bool _freeAttributes__newparam__half4x2( void* attributeData );
+
+bool _begin__newparam__half4x3( void* attributeData ){return mImpl->begin__newparam__half4x3();}
+bool _data__newparam__half4x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__half4x3(){return mImpl->end__newparam__half4x3();}
+bool _validateBegin__newparam__half4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half4x3();
+bool _freeAttributes__newparam__half4x3( void* attributeData );
+
+bool _begin__newparam__half4x4( void* attributeData ){return mImpl->begin__newparam__half4x4();}
+bool _data__newparam__half4x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__half4x4(){return mImpl->end__newparam__half4x4();}
+bool _validateBegin__newparam__half4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__half4x4();
+bool _freeAttributes__newparam__half4x4( void* attributeData );
+
+bool _begin__newparam__fixed( void* attributeData ){return mImpl->begin__newparam__fixed();}
+bool _data__newparam__fixed( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed(){return mImpl->end__newparam__fixed();}
+bool _validateBegin__newparam__fixed( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed();
+bool _freeAttributes__newparam__fixed( void* attributeData );
+
+bool _begin__newparam__fixed1( void* attributeData ){return mImpl->begin__newparam__fixed1();}
+bool _data__newparam__fixed1( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed1(){return mImpl->end__newparam__fixed1();}
+bool _validateBegin__newparam__fixed1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed1();
+bool _freeAttributes__newparam__fixed1( void* attributeData );
+
+bool _begin__newparam__fixed2( void* attributeData ){return mImpl->begin__newparam__fixed2();}
+bool _data__newparam__fixed2( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed2(){return mImpl->end__newparam__fixed2();}
+bool _validateBegin__newparam__fixed2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed2();
+bool _freeAttributes__newparam__fixed2( void* attributeData );
+
+bool _begin__newparam__fixed3( void* attributeData ){return mImpl->begin__newparam__fixed3();}
+bool _data__newparam__fixed3( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed3(){return mImpl->end__newparam__fixed3();}
+bool _validateBegin__newparam__fixed3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed3();
+bool _freeAttributes__newparam__fixed3( void* attributeData );
+
+bool _begin__newparam__fixed4( void* attributeData ){return mImpl->begin__newparam__fixed4();}
+bool _data__newparam__fixed4( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed4(){return mImpl->end__newparam__fixed4();}
+bool _validateBegin__newparam__fixed4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed4();
+bool _freeAttributes__newparam__fixed4( void* attributeData );
+
+bool _begin__newparam__fixed1x1( void* attributeData ){return mImpl->begin__newparam__fixed1x1();}
+bool _data__newparam__fixed1x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed1x1(){return mImpl->end__newparam__fixed1x1();}
+bool _validateBegin__newparam__fixed1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed1x1();
+bool _freeAttributes__newparam__fixed1x1( void* attributeData );
+
+bool _begin__newparam__fixed1x2( void* attributeData ){return mImpl->begin__newparam__fixed1x2();}
+bool _data__newparam__fixed1x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed1x2(){return mImpl->end__newparam__fixed1x2();}
+bool _validateBegin__newparam__fixed1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed1x2();
+bool _freeAttributes__newparam__fixed1x2( void* attributeData );
+
+bool _begin__newparam__fixed1x3( void* attributeData ){return mImpl->begin__newparam__fixed1x3();}
+bool _data__newparam__fixed1x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed1x3(){return mImpl->end__newparam__fixed1x3();}
+bool _validateBegin__newparam__fixed1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed1x3();
+bool _freeAttributes__newparam__fixed1x3( void* attributeData );
+
+bool _begin__newparam__fixed1x4( void* attributeData ){return mImpl->begin__newparam__fixed1x4();}
+bool _data__newparam__fixed1x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed1x4(){return mImpl->end__newparam__fixed1x4();}
+bool _validateBegin__newparam__fixed1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed1x4();
+bool _freeAttributes__newparam__fixed1x4( void* attributeData );
+
+bool _begin__newparam__fixed2x1( void* attributeData ){return mImpl->begin__newparam__fixed2x1();}
+bool _data__newparam__fixed2x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed2x1(){return mImpl->end__newparam__fixed2x1();}
+bool _validateBegin__newparam__fixed2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed2x1();
+bool _freeAttributes__newparam__fixed2x1( void* attributeData );
+
+bool _begin__newparam__fixed2x2( void* attributeData ){return mImpl->begin__newparam__fixed2x2();}
+bool _data__newparam__fixed2x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed2x2(){return mImpl->end__newparam__fixed2x2();}
+bool _validateBegin__newparam__fixed2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed2x2();
+bool _freeAttributes__newparam__fixed2x2( void* attributeData );
+
+bool _begin__newparam__fixed2x3( void* attributeData ){return mImpl->begin__newparam__fixed2x3();}
+bool _data__newparam__fixed2x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed2x3(){return mImpl->end__newparam__fixed2x3();}
+bool _validateBegin__newparam__fixed2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed2x3();
+bool _freeAttributes__newparam__fixed2x3( void* attributeData );
+
+bool _begin__newparam__fixed2x4( void* attributeData ){return mImpl->begin__newparam__fixed2x4();}
+bool _data__newparam__fixed2x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed2x4(){return mImpl->end__newparam__fixed2x4();}
+bool _validateBegin__newparam__fixed2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed2x4();
+bool _freeAttributes__newparam__fixed2x4( void* attributeData );
+
+bool _begin__newparam__fixed3x1( void* attributeData ){return mImpl->begin__newparam__fixed3x1();}
+bool _data__newparam__fixed3x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed3x1(){return mImpl->end__newparam__fixed3x1();}
+bool _validateBegin__newparam__fixed3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed3x1();
+bool _freeAttributes__newparam__fixed3x1( void* attributeData );
+
+bool _begin__newparam__fixed3x2( void* attributeData ){return mImpl->begin__newparam__fixed3x2();}
+bool _data__newparam__fixed3x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed3x2(){return mImpl->end__newparam__fixed3x2();}
+bool _validateBegin__newparam__fixed3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed3x2();
+bool _freeAttributes__newparam__fixed3x2( void* attributeData );
+
+bool _begin__newparam__fixed3x3( void* attributeData ){return mImpl->begin__newparam__fixed3x3();}
+bool _data__newparam__fixed3x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed3x3(){return mImpl->end__newparam__fixed3x3();}
+bool _validateBegin__newparam__fixed3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed3x3();
+bool _freeAttributes__newparam__fixed3x3( void* attributeData );
+
+bool _begin__newparam__fixed3x4( void* attributeData ){return mImpl->begin__newparam__fixed3x4();}
+bool _data__newparam__fixed3x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed3x4(){return mImpl->end__newparam__fixed3x4();}
+bool _validateBegin__newparam__fixed3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed3x4();
+bool _freeAttributes__newparam__fixed3x4( void* attributeData );
+
+bool _begin__newparam__fixed4x1( void* attributeData ){return mImpl->begin__newparam__fixed4x1();}
+bool _data__newparam__fixed4x1( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed4x1(){return mImpl->end__newparam__fixed4x1();}
+bool _validateBegin__newparam__fixed4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed4x1();
+bool _freeAttributes__newparam__fixed4x1( void* attributeData );
+
+bool _begin__newparam__fixed4x2( void* attributeData ){return mImpl->begin__newparam__fixed4x2();}
+bool _data__newparam__fixed4x2( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed4x2(){return mImpl->end__newparam__fixed4x2();}
+bool _validateBegin__newparam__fixed4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed4x2();
+bool _freeAttributes__newparam__fixed4x2( void* attributeData );
+
+bool _begin__newparam__fixed4x3( void* attributeData ){return mImpl->begin__newparam__fixed4x3();}
+bool _data__newparam__fixed4x3( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed4x3(){return mImpl->end__newparam__fixed4x3();}
+bool _validateBegin__newparam__fixed4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed4x3();
+bool _freeAttributes__newparam__fixed4x3( void* attributeData );
+
+bool _begin__newparam__fixed4x4( void* attributeData ){return mImpl->begin__newparam__fixed4x4();}
+bool _data__newparam__fixed4x4( const ParserChar* text, size_t textLength );
+bool _end__newparam__fixed4x4(){return mImpl->end__newparam__fixed4x4();}
+bool _validateBegin__newparam__fixed4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__fixed4x4();
+bool _freeAttributes__newparam__fixed4x4( void* attributeData );
+
+bool _begin__newparam__string( void* attributeData ){return mImpl->begin__newparam__string();}
+bool _data__newparam__string( const ParserChar* text, size_t textLength );
+bool _end__newparam__string(){return mImpl->end__newparam__string();}
+bool _validateBegin__newparam__string( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__string();
+bool _freeAttributes__newparam__string( void* attributeData );
+
+bool _begin__newparam__usertype( void* attributeData ){return mImpl->begin__newparam__usertype(*static_cast<usertype__AttributeData*>(attributeData));}
+bool _data__newparam__usertype( const ParserChar* text, size_t textLength );
+bool _end__newparam__usertype(){return mImpl->end__newparam__usertype();}
+bool _validateBegin__newparam__usertype( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__newparam__usertype();
+bool _freeAttributes__newparam__usertype( void* attributeData );
+
+bool _begin__usertype__bool( void* attributeData ){return mImpl->begin__usertype__bool();}
+bool _data__usertype__bool( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool(){return mImpl->end__usertype__bool();}
+bool _validateBegin__usertype__bool( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool();
+bool _freeAttributes__usertype__bool( void* attributeData );
+
+bool _begin__usertype__bool1( void* attributeData ){return mImpl->begin__usertype__bool1();}
+bool _data__usertype__bool1( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool1(){return mImpl->end__usertype__bool1();}
+bool _validateBegin__usertype__bool1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool1();
+bool _freeAttributes__usertype__bool1( void* attributeData );
+
+bool _begin__usertype__bool2( void* attributeData ){return mImpl->begin__usertype__bool2();}
+bool _data__usertype__bool2( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool2(){return mImpl->end__usertype__bool2();}
+bool _validateBegin__usertype__bool2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool2();
+bool _freeAttributes__usertype__bool2( void* attributeData );
+
+bool _begin__usertype__bool3( void* attributeData ){return mImpl->begin__usertype__bool3();}
+bool _data__usertype__bool3( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool3(){return mImpl->end__usertype__bool3();}
+bool _validateBegin__usertype__bool3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool3();
+bool _freeAttributes__usertype__bool3( void* attributeData );
+
+bool _begin__usertype__bool4( void* attributeData ){return mImpl->begin__usertype__bool4();}
+bool _data__usertype__bool4( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool4(){return mImpl->end__usertype__bool4();}
+bool _validateBegin__usertype__bool4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool4();
+bool _freeAttributes__usertype__bool4( void* attributeData );
+
+bool _begin__usertype__bool1x1( void* attributeData ){return mImpl->begin__usertype__bool1x1();}
+bool _data__usertype__bool1x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool1x1(){return mImpl->end__usertype__bool1x1();}
+bool _validateBegin__usertype__bool1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool1x1();
+bool _freeAttributes__usertype__bool1x1( void* attributeData );
+
+bool _begin__usertype__bool1x2( void* attributeData ){return mImpl->begin__usertype__bool1x2();}
+bool _data__usertype__bool1x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool1x2(){return mImpl->end__usertype__bool1x2();}
+bool _validateBegin__usertype__bool1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool1x2();
+bool _freeAttributes__usertype__bool1x2( void* attributeData );
+
+bool _begin__usertype__bool1x3( void* attributeData ){return mImpl->begin__usertype__bool1x3();}
+bool _data__usertype__bool1x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool1x3(){return mImpl->end__usertype__bool1x3();}
+bool _validateBegin__usertype__bool1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool1x3();
+bool _freeAttributes__usertype__bool1x3( void* attributeData );
+
+bool _begin__usertype__bool1x4( void* attributeData ){return mImpl->begin__usertype__bool1x4();}
+bool _data__usertype__bool1x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool1x4(){return mImpl->end__usertype__bool1x4();}
+bool _validateBegin__usertype__bool1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool1x4();
+bool _freeAttributes__usertype__bool1x4( void* attributeData );
+
+bool _begin__usertype__bool2x1( void* attributeData ){return mImpl->begin__usertype__bool2x1();}
+bool _data__usertype__bool2x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool2x1(){return mImpl->end__usertype__bool2x1();}
+bool _validateBegin__usertype__bool2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool2x1();
+bool _freeAttributes__usertype__bool2x1( void* attributeData );
+
+bool _begin__usertype__bool2x2( void* attributeData ){return mImpl->begin__usertype__bool2x2();}
+bool _data__usertype__bool2x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool2x2(){return mImpl->end__usertype__bool2x2();}
+bool _validateBegin__usertype__bool2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool2x2();
+bool _freeAttributes__usertype__bool2x2( void* attributeData );
+
+bool _begin__usertype__bool2x3( void* attributeData ){return mImpl->begin__usertype__bool2x3();}
+bool _data__usertype__bool2x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool2x3(){return mImpl->end__usertype__bool2x3();}
+bool _validateBegin__usertype__bool2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool2x3();
+bool _freeAttributes__usertype__bool2x3( void* attributeData );
+
+bool _begin__usertype__bool2x4( void* attributeData ){return mImpl->begin__usertype__bool2x4();}
+bool _data__usertype__bool2x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool2x4(){return mImpl->end__usertype__bool2x4();}
+bool _validateBegin__usertype__bool2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool2x4();
+bool _freeAttributes__usertype__bool2x4( void* attributeData );
+
+bool _begin__usertype__bool3x1( void* attributeData ){return mImpl->begin__usertype__bool3x1();}
+bool _data__usertype__bool3x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool3x1(){return mImpl->end__usertype__bool3x1();}
+bool _validateBegin__usertype__bool3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool3x1();
+bool _freeAttributes__usertype__bool3x1( void* attributeData );
+
+bool _begin__usertype__bool3x2( void* attributeData ){return mImpl->begin__usertype__bool3x2();}
+bool _data__usertype__bool3x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool3x2(){return mImpl->end__usertype__bool3x2();}
+bool _validateBegin__usertype__bool3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool3x2();
+bool _freeAttributes__usertype__bool3x2( void* attributeData );
+
+bool _begin__usertype__bool3x3( void* attributeData ){return mImpl->begin__usertype__bool3x3();}
+bool _data__usertype__bool3x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool3x3(){return mImpl->end__usertype__bool3x3();}
+bool _validateBegin__usertype__bool3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool3x3();
+bool _freeAttributes__usertype__bool3x3( void* attributeData );
+
+bool _begin__usertype__bool3x4( void* attributeData ){return mImpl->begin__usertype__bool3x4();}
+bool _data__usertype__bool3x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool3x4(){return mImpl->end__usertype__bool3x4();}
+bool _validateBegin__usertype__bool3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool3x4();
+bool _freeAttributes__usertype__bool3x4( void* attributeData );
+
+bool _begin__usertype__bool4x1( void* attributeData ){return mImpl->begin__usertype__bool4x1();}
+bool _data__usertype__bool4x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool4x1(){return mImpl->end__usertype__bool4x1();}
+bool _validateBegin__usertype__bool4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool4x1();
+bool _freeAttributes__usertype__bool4x1( void* attributeData );
+
+bool _begin__usertype__bool4x2( void* attributeData ){return mImpl->begin__usertype__bool4x2();}
+bool _data__usertype__bool4x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool4x2(){return mImpl->end__usertype__bool4x2();}
+bool _validateBegin__usertype__bool4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool4x2();
+bool _freeAttributes__usertype__bool4x2( void* attributeData );
+
+bool _begin__usertype__bool4x3( void* attributeData ){return mImpl->begin__usertype__bool4x3();}
+bool _data__usertype__bool4x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool4x3(){return mImpl->end__usertype__bool4x3();}
+bool _validateBegin__usertype__bool4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool4x3();
+bool _freeAttributes__usertype__bool4x3( void* attributeData );
+
+bool _begin__usertype__bool4x4( void* attributeData ){return mImpl->begin__usertype__bool4x4();}
+bool _data__usertype__bool4x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__bool4x4(){return mImpl->end__usertype__bool4x4();}
+bool _validateBegin__usertype__bool4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__bool4x4();
+bool _freeAttributes__usertype__bool4x4( void* attributeData );
+
+bool _begin__usertype__float( void* attributeData ){return mImpl->begin__usertype__float();}
+bool _data__usertype__float( const ParserChar* text, size_t textLength );
+bool _end__usertype__float(){return mImpl->end__usertype__float();}
+bool _validateBegin__usertype__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float();
+bool _freeAttributes__usertype__float( void* attributeData );
+
+bool _begin__usertype__float1( void* attributeData ){return mImpl->begin__usertype__float1();}
+bool _data__usertype__float1( const ParserChar* text, size_t textLength );
+bool _end__usertype__float1(){return mImpl->end__usertype__float1();}
+bool _validateBegin__usertype__float1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float1();
+bool _freeAttributes__usertype__float1( void* attributeData );
+
+bool _begin__usertype__float2( void* attributeData ){return mImpl->begin__usertype__float2();}
+bool _data__usertype__float2( const ParserChar* text, size_t textLength );
+bool _end__usertype__float2(){return mImpl->end__usertype__float2();}
+bool _validateBegin__usertype__float2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float2();
+bool _freeAttributes__usertype__float2( void* attributeData );
+
+bool _begin__usertype__float3( void* attributeData ){return mImpl->begin__usertype__float3();}
+bool _data__usertype__float3( const ParserChar* text, size_t textLength );
+bool _end__usertype__float3(){return mImpl->end__usertype__float3();}
+bool _validateBegin__usertype__float3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float3();
+bool _freeAttributes__usertype__float3( void* attributeData );
+
+bool _begin__usertype__float4( void* attributeData ){return mImpl->begin__usertype__float4();}
+bool _data__usertype__float4( const ParserChar* text, size_t textLength );
+bool _end__usertype__float4(){return mImpl->end__usertype__float4();}
+bool _validateBegin__usertype__float4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float4();
+bool _freeAttributes__usertype__float4( void* attributeData );
+
+bool _begin__usertype__float1x1( void* attributeData ){return mImpl->begin__usertype__float1x1();}
+bool _data__usertype__float1x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__float1x1(){return mImpl->end__usertype__float1x1();}
+bool _validateBegin__usertype__float1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float1x1();
+bool _freeAttributes__usertype__float1x1( void* attributeData );
+
+bool _begin__usertype__float1x2( void* attributeData ){return mImpl->begin__usertype__float1x2();}
+bool _data__usertype__float1x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__float1x2(){return mImpl->end__usertype__float1x2();}
+bool _validateBegin__usertype__float1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float1x2();
+bool _freeAttributes__usertype__float1x2( void* attributeData );
+
+bool _begin__usertype__float1x3( void* attributeData ){return mImpl->begin__usertype__float1x3();}
+bool _data__usertype__float1x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__float1x3(){return mImpl->end__usertype__float1x3();}
+bool _validateBegin__usertype__float1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float1x3();
+bool _freeAttributes__usertype__float1x3( void* attributeData );
+
+bool _begin__usertype__float1x4( void* attributeData ){return mImpl->begin__usertype__float1x4();}
+bool _data__usertype__float1x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__float1x4(){return mImpl->end__usertype__float1x4();}
+bool _validateBegin__usertype__float1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float1x4();
+bool _freeAttributes__usertype__float1x4( void* attributeData );
+
+bool _begin__usertype__float2x1( void* attributeData ){return mImpl->begin__usertype__float2x1();}
+bool _data__usertype__float2x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__float2x1(){return mImpl->end__usertype__float2x1();}
+bool _validateBegin__usertype__float2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float2x1();
+bool _freeAttributes__usertype__float2x1( void* attributeData );
+
+bool _begin__usertype__float2x2( void* attributeData ){return mImpl->begin__usertype__float2x2();}
+bool _data__usertype__float2x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__float2x2(){return mImpl->end__usertype__float2x2();}
+bool _validateBegin__usertype__float2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float2x2();
+bool _freeAttributes__usertype__float2x2( void* attributeData );
+
+bool _begin__usertype__float2x3( void* attributeData ){return mImpl->begin__usertype__float2x3();}
+bool _data__usertype__float2x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__float2x3(){return mImpl->end__usertype__float2x3();}
+bool _validateBegin__usertype__float2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float2x3();
+bool _freeAttributes__usertype__float2x3( void* attributeData );
+
+bool _begin__usertype__float2x4( void* attributeData ){return mImpl->begin__usertype__float2x4();}
+bool _data__usertype__float2x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__float2x4(){return mImpl->end__usertype__float2x4();}
+bool _validateBegin__usertype__float2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float2x4();
+bool _freeAttributes__usertype__float2x4( void* attributeData );
+
+bool _begin__usertype__float3x1( void* attributeData ){return mImpl->begin__usertype__float3x1();}
+bool _data__usertype__float3x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__float3x1(){return mImpl->end__usertype__float3x1();}
+bool _validateBegin__usertype__float3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float3x1();
+bool _freeAttributes__usertype__float3x1( void* attributeData );
+
+bool _begin__usertype__float3x2( void* attributeData ){return mImpl->begin__usertype__float3x2();}
+bool _data__usertype__float3x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__float3x2(){return mImpl->end__usertype__float3x2();}
+bool _validateBegin__usertype__float3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float3x2();
+bool _freeAttributes__usertype__float3x2( void* attributeData );
+
+bool _begin__usertype__float3x3( void* attributeData ){return mImpl->begin__usertype__float3x3();}
+bool _data__usertype__float3x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__float3x3(){return mImpl->end__usertype__float3x3();}
+bool _validateBegin__usertype__float3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float3x3();
+bool _freeAttributes__usertype__float3x3( void* attributeData );
+
+bool _begin__usertype__float3x4( void* attributeData ){return mImpl->begin__usertype__float3x4();}
+bool _data__usertype__float3x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__float3x4(){return mImpl->end__usertype__float3x4();}
+bool _validateBegin__usertype__float3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float3x4();
+bool _freeAttributes__usertype__float3x4( void* attributeData );
+
+bool _begin__usertype__float4x1( void* attributeData ){return mImpl->begin__usertype__float4x1();}
+bool _data__usertype__float4x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__float4x1(){return mImpl->end__usertype__float4x1();}
+bool _validateBegin__usertype__float4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float4x1();
+bool _freeAttributes__usertype__float4x1( void* attributeData );
+
+bool _begin__usertype__float4x2( void* attributeData ){return mImpl->begin__usertype__float4x2();}
+bool _data__usertype__float4x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__float4x2(){return mImpl->end__usertype__float4x2();}
+bool _validateBegin__usertype__float4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float4x2();
+bool _freeAttributes__usertype__float4x2( void* attributeData );
+
+bool _begin__usertype__float4x3( void* attributeData ){return mImpl->begin__usertype__float4x3();}
+bool _data__usertype__float4x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__float4x3(){return mImpl->end__usertype__float4x3();}
+bool _validateBegin__usertype__float4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float4x3();
+bool _freeAttributes__usertype__float4x3( void* attributeData );
+
+bool _begin__usertype__float4x4( void* attributeData ){return mImpl->begin__usertype__float4x4();}
+bool _data__usertype__float4x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__float4x4(){return mImpl->end__usertype__float4x4();}
+bool _validateBegin__usertype__float4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__float4x4();
+bool _freeAttributes__usertype__float4x4( void* attributeData );
+
+bool _begin__usertype__int( void* attributeData ){return mImpl->begin__usertype__int();}
+bool _data__usertype__int( const ParserChar* text, size_t textLength );
+bool _end__usertype__int(){return mImpl->end__usertype__int();}
+bool _validateBegin__usertype__int( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int();
+bool _freeAttributes__usertype__int( void* attributeData );
+
+bool _begin__usertype__int1( void* attributeData ){return mImpl->begin__usertype__int1();}
+bool _data__usertype__int1( const ParserChar* text, size_t textLength );
+bool _end__usertype__int1(){return mImpl->end__usertype__int1();}
+bool _validateBegin__usertype__int1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int1();
+bool _freeAttributes__usertype__int1( void* attributeData );
+
+bool _begin__usertype__int2( void* attributeData ){return mImpl->begin__usertype__int2();}
+bool _data__usertype__int2( const ParserChar* text, size_t textLength );
+bool _end__usertype__int2(){return mImpl->end__usertype__int2();}
+bool _validateBegin__usertype__int2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int2();
+bool _freeAttributes__usertype__int2( void* attributeData );
+
+bool _begin__usertype__int3( void* attributeData ){return mImpl->begin__usertype__int3();}
+bool _data__usertype__int3( const ParserChar* text, size_t textLength );
+bool _end__usertype__int3(){return mImpl->end__usertype__int3();}
+bool _validateBegin__usertype__int3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int3();
+bool _freeAttributes__usertype__int3( void* attributeData );
+
+bool _begin__usertype__int4( void* attributeData ){return mImpl->begin__usertype__int4();}
+bool _data__usertype__int4( const ParserChar* text, size_t textLength );
+bool _end__usertype__int4(){return mImpl->end__usertype__int4();}
+bool _validateBegin__usertype__int4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int4();
+bool _freeAttributes__usertype__int4( void* attributeData );
+
+bool _begin__usertype__int1x1( void* attributeData ){return mImpl->begin__usertype__int1x1();}
+bool _data__usertype__int1x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__int1x1(){return mImpl->end__usertype__int1x1();}
+bool _validateBegin__usertype__int1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int1x1();
+bool _freeAttributes__usertype__int1x1( void* attributeData );
+
+bool _begin__usertype__int1x2( void* attributeData ){return mImpl->begin__usertype__int1x2();}
+bool _data__usertype__int1x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__int1x2(){return mImpl->end__usertype__int1x2();}
+bool _validateBegin__usertype__int1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int1x2();
+bool _freeAttributes__usertype__int1x2( void* attributeData );
+
+bool _begin__usertype__int1x3( void* attributeData ){return mImpl->begin__usertype__int1x3();}
+bool _data__usertype__int1x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__int1x3(){return mImpl->end__usertype__int1x3();}
+bool _validateBegin__usertype__int1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int1x3();
+bool _freeAttributes__usertype__int1x3( void* attributeData );
+
+bool _begin__usertype__int1x4( void* attributeData ){return mImpl->begin__usertype__int1x4();}
+bool _data__usertype__int1x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__int1x4(){return mImpl->end__usertype__int1x4();}
+bool _validateBegin__usertype__int1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int1x4();
+bool _freeAttributes__usertype__int1x4( void* attributeData );
+
+bool _begin__usertype__int2x1( void* attributeData ){return mImpl->begin__usertype__int2x1();}
+bool _data__usertype__int2x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__int2x1(){return mImpl->end__usertype__int2x1();}
+bool _validateBegin__usertype__int2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int2x1();
+bool _freeAttributes__usertype__int2x1( void* attributeData );
+
+bool _begin__usertype__int2x2( void* attributeData ){return mImpl->begin__usertype__int2x2();}
+bool _data__usertype__int2x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__int2x2(){return mImpl->end__usertype__int2x2();}
+bool _validateBegin__usertype__int2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int2x2();
+bool _freeAttributes__usertype__int2x2( void* attributeData );
+
+bool _begin__usertype__int2x3( void* attributeData ){return mImpl->begin__usertype__int2x3();}
+bool _data__usertype__int2x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__int2x3(){return mImpl->end__usertype__int2x3();}
+bool _validateBegin__usertype__int2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int2x3();
+bool _freeAttributes__usertype__int2x3( void* attributeData );
+
+bool _begin__usertype__int2x4( void* attributeData ){return mImpl->begin__usertype__int2x4();}
+bool _data__usertype__int2x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__int2x4(){return mImpl->end__usertype__int2x4();}
+bool _validateBegin__usertype__int2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int2x4();
+bool _freeAttributes__usertype__int2x4( void* attributeData );
+
+bool _begin__usertype__int3x1( void* attributeData ){return mImpl->begin__usertype__int3x1();}
+bool _data__usertype__int3x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__int3x1(){return mImpl->end__usertype__int3x1();}
+bool _validateBegin__usertype__int3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int3x1();
+bool _freeAttributes__usertype__int3x1( void* attributeData );
+
+bool _begin__usertype__int3x2( void* attributeData ){return mImpl->begin__usertype__int3x2();}
+bool _data__usertype__int3x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__int3x2(){return mImpl->end__usertype__int3x2();}
+bool _validateBegin__usertype__int3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int3x2();
+bool _freeAttributes__usertype__int3x2( void* attributeData );
+
+bool _begin__usertype__int3x3( void* attributeData ){return mImpl->begin__usertype__int3x3();}
+bool _data__usertype__int3x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__int3x3(){return mImpl->end__usertype__int3x3();}
+bool _validateBegin__usertype__int3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int3x3();
+bool _freeAttributes__usertype__int3x3( void* attributeData );
+
+bool _begin__usertype__int3x4( void* attributeData ){return mImpl->begin__usertype__int3x4();}
+bool _data__usertype__int3x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__int3x4(){return mImpl->end__usertype__int3x4();}
+bool _validateBegin__usertype__int3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int3x4();
+bool _freeAttributes__usertype__int3x4( void* attributeData );
+
+bool _begin__usertype__int4x1( void* attributeData ){return mImpl->begin__usertype__int4x1();}
+bool _data__usertype__int4x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__int4x1(){return mImpl->end__usertype__int4x1();}
+bool _validateBegin__usertype__int4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int4x1();
+bool _freeAttributes__usertype__int4x1( void* attributeData );
+
+bool _begin__usertype__int4x2( void* attributeData ){return mImpl->begin__usertype__int4x2();}
+bool _data__usertype__int4x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__int4x2(){return mImpl->end__usertype__int4x2();}
+bool _validateBegin__usertype__int4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int4x2();
+bool _freeAttributes__usertype__int4x2( void* attributeData );
+
+bool _begin__usertype__int4x3( void* attributeData ){return mImpl->begin__usertype__int4x3();}
+bool _data__usertype__int4x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__int4x3(){return mImpl->end__usertype__int4x3();}
+bool _validateBegin__usertype__int4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int4x3();
+bool _freeAttributes__usertype__int4x3( void* attributeData );
+
+bool _begin__usertype__int4x4( void* attributeData ){return mImpl->begin__usertype__int4x4();}
+bool _data__usertype__int4x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__int4x4(){return mImpl->end__usertype__int4x4();}
+bool _validateBegin__usertype__int4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__int4x4();
+bool _freeAttributes__usertype__int4x4( void* attributeData );
+
+bool _begin__usertype__half( void* attributeData ){return mImpl->begin__usertype__half();}
+bool _data__usertype__half( const ParserChar* text, size_t textLength );
+bool _end__usertype__half(){return mImpl->end__usertype__half();}
+bool _validateBegin__usertype__half( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half();
+bool _freeAttributes__usertype__half( void* attributeData );
+
+bool _begin__usertype__half1( void* attributeData ){return mImpl->begin__usertype__half1();}
+bool _data__usertype__half1( const ParserChar* text, size_t textLength );
+bool _end__usertype__half1(){return mImpl->end__usertype__half1();}
+bool _validateBegin__usertype__half1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half1();
+bool _freeAttributes__usertype__half1( void* attributeData );
+
+bool _begin__usertype__half2( void* attributeData ){return mImpl->begin__usertype__half2();}
+bool _data__usertype__half2( const ParserChar* text, size_t textLength );
+bool _end__usertype__half2(){return mImpl->end__usertype__half2();}
+bool _validateBegin__usertype__half2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half2();
+bool _freeAttributes__usertype__half2( void* attributeData );
+
+bool _begin__usertype__half3( void* attributeData ){return mImpl->begin__usertype__half3();}
+bool _data__usertype__half3( const ParserChar* text, size_t textLength );
+bool _end__usertype__half3(){return mImpl->end__usertype__half3();}
+bool _validateBegin__usertype__half3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half3();
+bool _freeAttributes__usertype__half3( void* attributeData );
+
+bool _begin__usertype__half4( void* attributeData ){return mImpl->begin__usertype__half4();}
+bool _data__usertype__half4( const ParserChar* text, size_t textLength );
+bool _end__usertype__half4(){return mImpl->end__usertype__half4();}
+bool _validateBegin__usertype__half4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half4();
+bool _freeAttributes__usertype__half4( void* attributeData );
+
+bool _begin__usertype__half1x1( void* attributeData ){return mImpl->begin__usertype__half1x1();}
+bool _data__usertype__half1x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__half1x1(){return mImpl->end__usertype__half1x1();}
+bool _validateBegin__usertype__half1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half1x1();
+bool _freeAttributes__usertype__half1x1( void* attributeData );
+
+bool _begin__usertype__half1x2( void* attributeData ){return mImpl->begin__usertype__half1x2();}
+bool _data__usertype__half1x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__half1x2(){return mImpl->end__usertype__half1x2();}
+bool _validateBegin__usertype__half1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half1x2();
+bool _freeAttributes__usertype__half1x2( void* attributeData );
+
+bool _begin__usertype__half1x3( void* attributeData ){return mImpl->begin__usertype__half1x3();}
+bool _data__usertype__half1x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__half1x3(){return mImpl->end__usertype__half1x3();}
+bool _validateBegin__usertype__half1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half1x3();
+bool _freeAttributes__usertype__half1x3( void* attributeData );
+
+bool _begin__usertype__half1x4( void* attributeData ){return mImpl->begin__usertype__half1x4();}
+bool _data__usertype__half1x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__half1x4(){return mImpl->end__usertype__half1x4();}
+bool _validateBegin__usertype__half1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half1x4();
+bool _freeAttributes__usertype__half1x4( void* attributeData );
+
+bool _begin__usertype__half2x1( void* attributeData ){return mImpl->begin__usertype__half2x1();}
+bool _data__usertype__half2x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__half2x1(){return mImpl->end__usertype__half2x1();}
+bool _validateBegin__usertype__half2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half2x1();
+bool _freeAttributes__usertype__half2x1( void* attributeData );
+
+bool _begin__usertype__half2x2( void* attributeData ){return mImpl->begin__usertype__half2x2();}
+bool _data__usertype__half2x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__half2x2(){return mImpl->end__usertype__half2x2();}
+bool _validateBegin__usertype__half2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half2x2();
+bool _freeAttributes__usertype__half2x2( void* attributeData );
+
+bool _begin__usertype__half2x3( void* attributeData ){return mImpl->begin__usertype__half2x3();}
+bool _data__usertype__half2x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__half2x3(){return mImpl->end__usertype__half2x3();}
+bool _validateBegin__usertype__half2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half2x3();
+bool _freeAttributes__usertype__half2x3( void* attributeData );
+
+bool _begin__usertype__half2x4( void* attributeData ){return mImpl->begin__usertype__half2x4();}
+bool _data__usertype__half2x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__half2x4(){return mImpl->end__usertype__half2x4();}
+bool _validateBegin__usertype__half2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half2x4();
+bool _freeAttributes__usertype__half2x4( void* attributeData );
+
+bool _begin__usertype__half3x1( void* attributeData ){return mImpl->begin__usertype__half3x1();}
+bool _data__usertype__half3x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__half3x1(){return mImpl->end__usertype__half3x1();}
+bool _validateBegin__usertype__half3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half3x1();
+bool _freeAttributes__usertype__half3x1( void* attributeData );
+
+bool _begin__usertype__half3x2( void* attributeData ){return mImpl->begin__usertype__half3x2();}
+bool _data__usertype__half3x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__half3x2(){return mImpl->end__usertype__half3x2();}
+bool _validateBegin__usertype__half3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half3x2();
+bool _freeAttributes__usertype__half3x2( void* attributeData );
+
+bool _begin__usertype__half3x3( void* attributeData ){return mImpl->begin__usertype__half3x3();}
+bool _data__usertype__half3x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__half3x3(){return mImpl->end__usertype__half3x3();}
+bool _validateBegin__usertype__half3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half3x3();
+bool _freeAttributes__usertype__half3x3( void* attributeData );
+
+bool _begin__usertype__half3x4( void* attributeData ){return mImpl->begin__usertype__half3x4();}
+bool _data__usertype__half3x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__half3x4(){return mImpl->end__usertype__half3x4();}
+bool _validateBegin__usertype__half3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half3x4();
+bool _freeAttributes__usertype__half3x4( void* attributeData );
+
+bool _begin__usertype__half4x1( void* attributeData ){return mImpl->begin__usertype__half4x1();}
+bool _data__usertype__half4x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__half4x1(){return mImpl->end__usertype__half4x1();}
+bool _validateBegin__usertype__half4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half4x1();
+bool _freeAttributes__usertype__half4x1( void* attributeData );
+
+bool _begin__usertype__half4x2( void* attributeData ){return mImpl->begin__usertype__half4x2();}
+bool _data__usertype__half4x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__half4x2(){return mImpl->end__usertype__half4x2();}
+bool _validateBegin__usertype__half4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half4x2();
+bool _freeAttributes__usertype__half4x2( void* attributeData );
+
+bool _begin__usertype__half4x3( void* attributeData ){return mImpl->begin__usertype__half4x3();}
+bool _data__usertype__half4x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__half4x3(){return mImpl->end__usertype__half4x3();}
+bool _validateBegin__usertype__half4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half4x3();
+bool _freeAttributes__usertype__half4x3( void* attributeData );
+
+bool _begin__usertype__half4x4( void* attributeData ){return mImpl->begin__usertype__half4x4();}
+bool _data__usertype__half4x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__half4x4(){return mImpl->end__usertype__half4x4();}
+bool _validateBegin__usertype__half4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__half4x4();
+bool _freeAttributes__usertype__half4x4( void* attributeData );
+
+bool _begin__usertype__fixed( void* attributeData ){return mImpl->begin__usertype__fixed();}
+bool _data__usertype__fixed( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed(){return mImpl->end__usertype__fixed();}
+bool _validateBegin__usertype__fixed( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed();
+bool _freeAttributes__usertype__fixed( void* attributeData );
+
+bool _begin__usertype__fixed1( void* attributeData ){return mImpl->begin__usertype__fixed1();}
+bool _data__usertype__fixed1( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed1(){return mImpl->end__usertype__fixed1();}
+bool _validateBegin__usertype__fixed1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed1();
+bool _freeAttributes__usertype__fixed1( void* attributeData );
+
+bool _begin__usertype__fixed2( void* attributeData ){return mImpl->begin__usertype__fixed2();}
+bool _data__usertype__fixed2( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed2(){return mImpl->end__usertype__fixed2();}
+bool _validateBegin__usertype__fixed2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed2();
+bool _freeAttributes__usertype__fixed2( void* attributeData );
+
+bool _begin__usertype__fixed3( void* attributeData ){return mImpl->begin__usertype__fixed3();}
+bool _data__usertype__fixed3( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed3(){return mImpl->end__usertype__fixed3();}
+bool _validateBegin__usertype__fixed3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed3();
+bool _freeAttributes__usertype__fixed3( void* attributeData );
+
+bool _begin__usertype__fixed4( void* attributeData ){return mImpl->begin__usertype__fixed4();}
+bool _data__usertype__fixed4( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed4(){return mImpl->end__usertype__fixed4();}
+bool _validateBegin__usertype__fixed4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed4();
+bool _freeAttributes__usertype__fixed4( void* attributeData );
+
+bool _begin__usertype__fixed1x1( void* attributeData ){return mImpl->begin__usertype__fixed1x1();}
+bool _data__usertype__fixed1x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed1x1(){return mImpl->end__usertype__fixed1x1();}
+bool _validateBegin__usertype__fixed1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed1x1();
+bool _freeAttributes__usertype__fixed1x1( void* attributeData );
+
+bool _begin__usertype__fixed1x2( void* attributeData ){return mImpl->begin__usertype__fixed1x2();}
+bool _data__usertype__fixed1x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed1x2(){return mImpl->end__usertype__fixed1x2();}
+bool _validateBegin__usertype__fixed1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed1x2();
+bool _freeAttributes__usertype__fixed1x2( void* attributeData );
+
+bool _begin__usertype__fixed1x3( void* attributeData ){return mImpl->begin__usertype__fixed1x3();}
+bool _data__usertype__fixed1x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed1x3(){return mImpl->end__usertype__fixed1x3();}
+bool _validateBegin__usertype__fixed1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed1x3();
+bool _freeAttributes__usertype__fixed1x3( void* attributeData );
+
+bool _begin__usertype__fixed1x4( void* attributeData ){return mImpl->begin__usertype__fixed1x4();}
+bool _data__usertype__fixed1x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed1x4(){return mImpl->end__usertype__fixed1x4();}
+bool _validateBegin__usertype__fixed1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed1x4();
+bool _freeAttributes__usertype__fixed1x4( void* attributeData );
+
+bool _begin__usertype__fixed2x1( void* attributeData ){return mImpl->begin__usertype__fixed2x1();}
+bool _data__usertype__fixed2x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed2x1(){return mImpl->end__usertype__fixed2x1();}
+bool _validateBegin__usertype__fixed2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed2x1();
+bool _freeAttributes__usertype__fixed2x1( void* attributeData );
+
+bool _begin__usertype__fixed2x2( void* attributeData ){return mImpl->begin__usertype__fixed2x2();}
+bool _data__usertype__fixed2x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed2x2(){return mImpl->end__usertype__fixed2x2();}
+bool _validateBegin__usertype__fixed2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed2x2();
+bool _freeAttributes__usertype__fixed2x2( void* attributeData );
+
+bool _begin__usertype__fixed2x3( void* attributeData ){return mImpl->begin__usertype__fixed2x3();}
+bool _data__usertype__fixed2x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed2x3(){return mImpl->end__usertype__fixed2x3();}
+bool _validateBegin__usertype__fixed2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed2x3();
+bool _freeAttributes__usertype__fixed2x3( void* attributeData );
+
+bool _begin__usertype__fixed2x4( void* attributeData ){return mImpl->begin__usertype__fixed2x4();}
+bool _data__usertype__fixed2x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed2x4(){return mImpl->end__usertype__fixed2x4();}
+bool _validateBegin__usertype__fixed2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed2x4();
+bool _freeAttributes__usertype__fixed2x4( void* attributeData );
+
+bool _begin__usertype__fixed3x1( void* attributeData ){return mImpl->begin__usertype__fixed3x1();}
+bool _data__usertype__fixed3x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed3x1(){return mImpl->end__usertype__fixed3x1();}
+bool _validateBegin__usertype__fixed3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed3x1();
+bool _freeAttributes__usertype__fixed3x1( void* attributeData );
+
+bool _begin__usertype__fixed3x2( void* attributeData ){return mImpl->begin__usertype__fixed3x2();}
+bool _data__usertype__fixed3x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed3x2(){return mImpl->end__usertype__fixed3x2();}
+bool _validateBegin__usertype__fixed3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed3x2();
+bool _freeAttributes__usertype__fixed3x2( void* attributeData );
+
+bool _begin__usertype__fixed3x3( void* attributeData ){return mImpl->begin__usertype__fixed3x3();}
+bool _data__usertype__fixed3x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed3x3(){return mImpl->end__usertype__fixed3x3();}
+bool _validateBegin__usertype__fixed3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed3x3();
+bool _freeAttributes__usertype__fixed3x3( void* attributeData );
+
+bool _begin__usertype__fixed3x4( void* attributeData ){return mImpl->begin__usertype__fixed3x4();}
+bool _data__usertype__fixed3x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed3x4(){return mImpl->end__usertype__fixed3x4();}
+bool _validateBegin__usertype__fixed3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed3x4();
+bool _freeAttributes__usertype__fixed3x4( void* attributeData );
+
+bool _begin__usertype__fixed4x1( void* attributeData ){return mImpl->begin__usertype__fixed4x1();}
+bool _data__usertype__fixed4x1( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed4x1(){return mImpl->end__usertype__fixed4x1();}
+bool _validateBegin__usertype__fixed4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed4x1();
+bool _freeAttributes__usertype__fixed4x1( void* attributeData );
+
+bool _begin__usertype__fixed4x2( void* attributeData ){return mImpl->begin__usertype__fixed4x2();}
+bool _data__usertype__fixed4x2( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed4x2(){return mImpl->end__usertype__fixed4x2();}
+bool _validateBegin__usertype__fixed4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed4x2();
+bool _freeAttributes__usertype__fixed4x2( void* attributeData );
+
+bool _begin__usertype__fixed4x3( void* attributeData ){return mImpl->begin__usertype__fixed4x3();}
+bool _data__usertype__fixed4x3( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed4x3(){return mImpl->end__usertype__fixed4x3();}
+bool _validateBegin__usertype__fixed4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed4x3();
+bool _freeAttributes__usertype__fixed4x3( void* attributeData );
+
+bool _begin__usertype__fixed4x4( void* attributeData ){return mImpl->begin__usertype__fixed4x4();}
+bool _data__usertype__fixed4x4( const ParserChar* text, size_t textLength );
+bool _end__usertype__fixed4x4(){return mImpl->end__usertype__fixed4x4();}
+bool _validateBegin__usertype__fixed4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__fixed4x4();
+bool _freeAttributes__usertype__fixed4x4( void* attributeData );
+
+bool _begin__usertype__surface( void* attributeData ){return mImpl->begin__usertype__surface(*static_cast<usertype__surface__AttributeData*>(attributeData));}
+bool _data__usertype__surface( const ParserChar* text, size_t textLength );
+bool _end__usertype__surface(){return mImpl->end__usertype__surface();}
+bool _validateBegin__usertype__surface( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__surface();
+bool _freeAttributes__usertype__surface( void* attributeData );
+
+bool _begin__usertype__sampler1D( void* attributeData ){return mImpl->begin__usertype__sampler1D();}
+bool _data__usertype__sampler1D( const ParserChar* text, size_t textLength );
+bool _end__usertype__sampler1D(){return mImpl->end__usertype__sampler1D();}
+bool _validateBegin__usertype__sampler1D( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__sampler1D();
+bool _freeAttributes__usertype__sampler1D( void* attributeData );
+
+bool _begin__usertype__sampler2D( void* attributeData ){return mImpl->begin__usertype__sampler2D();}
+bool _data__usertype__sampler2D( const ParserChar* text, size_t textLength );
+bool _end__usertype__sampler2D(){return mImpl->end__usertype__sampler2D();}
+bool _validateBegin__usertype__sampler2D( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__sampler2D();
+bool _freeAttributes__usertype__sampler2D( void* attributeData );
+
+bool _begin__usertype__sampler3D( void* attributeData ){return mImpl->begin__usertype__sampler3D();}
+bool _data__usertype__sampler3D( const ParserChar* text, size_t textLength );
+bool _end__usertype__sampler3D(){return mImpl->end__usertype__sampler3D();}
+bool _validateBegin__usertype__sampler3D( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__sampler3D();
+bool _freeAttributes__usertype__sampler3D( void* attributeData );
+
+bool _begin__usertype__samplerRECT( void* attributeData ){return mImpl->begin__usertype__samplerRECT();}
+bool _data__usertype__samplerRECT( const ParserChar* text, size_t textLength );
+bool _end__usertype__samplerRECT(){return mImpl->end__usertype__samplerRECT();}
+bool _validateBegin__usertype__samplerRECT( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__samplerRECT();
+bool _freeAttributes__usertype__samplerRECT( void* attributeData );
+
+bool _begin__usertype__samplerCUBE( void* attributeData ){return mImpl->begin__usertype__samplerCUBE();}
+bool _data__usertype__samplerCUBE( const ParserChar* text, size_t textLength );
+bool _end__usertype__samplerCUBE(){return mImpl->end__usertype__samplerCUBE();}
+bool _validateBegin__usertype__samplerCUBE( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__samplerCUBE();
+bool _freeAttributes__usertype__samplerCUBE( void* attributeData );
+
+bool _begin__usertype__samplerDEPTH( void* attributeData ){return mImpl->begin__usertype__samplerDEPTH();}
+bool _data__usertype__samplerDEPTH( const ParserChar* text, size_t textLength );
+bool _end__usertype__samplerDEPTH(){return mImpl->end__usertype__samplerDEPTH();}
+bool _validateBegin__usertype__samplerDEPTH( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__samplerDEPTH();
+bool _freeAttributes__usertype__samplerDEPTH( void* attributeData );
+
+bool _begin__usertype__string( void* attributeData ){return mImpl->begin__usertype__string();}
+bool _data__usertype__string( const ParserChar* text, size_t textLength );
+bool _end__usertype__string(){return mImpl->end__usertype__string();}
+bool _validateBegin__usertype__string( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__string();
+bool _freeAttributes__usertype__string( void* attributeData );
+
+bool _begin__usertype__enum( void* attributeData ){return mImpl->begin__usertype__enum();}
+bool _data__usertype__enum( const ParserChar* text, size_t textLength );
+bool _end__usertype__enum(){return mImpl->end__usertype__enum();}
+bool _validateBegin__usertype__enum( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__enum();
+bool _freeAttributes__usertype__enum( void* attributeData );
+
+bool _begin__usertype__array( void* attributeData ){return mImpl->begin__usertype__array(*static_cast<usertype__array__AttributeData*>(attributeData));}
+bool _data__usertype__array( const ParserChar* text, size_t textLength );
+bool _end__usertype__array(){return mImpl->end__usertype__array();}
+bool _validateBegin__usertype__array( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__array();
+bool _freeAttributes__usertype__array( void* attributeData );
+
+bool _begin__array__bool1( void* attributeData ){return mImpl->begin__array__bool1();}
+bool _data__array__bool1( const ParserChar* text, size_t textLength );
+bool _end__array__bool1(){return mImpl->end__array__bool1();}
+bool _validateBegin__array__bool1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool1();
+bool _freeAttributes__array__bool1( void* attributeData );
+
+bool _begin__array__bool1x1( void* attributeData ){return mImpl->begin__array__bool1x1();}
+bool _data__array__bool1x1( const ParserChar* text, size_t textLength );
+bool _end__array__bool1x1(){return mImpl->end__array__bool1x1();}
+bool _validateBegin__array__bool1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool1x1();
+bool _freeAttributes__array__bool1x1( void* attributeData );
+
+bool _begin__array__bool1x2( void* attributeData ){return mImpl->begin__array__bool1x2();}
+bool _data__array__bool1x2( const ParserChar* text, size_t textLength );
+bool _end__array__bool1x2(){return mImpl->end__array__bool1x2();}
+bool _validateBegin__array__bool1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool1x2();
+bool _freeAttributes__array__bool1x2( void* attributeData );
+
+bool _begin__array__bool1x3( void* attributeData ){return mImpl->begin__array__bool1x3();}
+bool _data__array__bool1x3( const ParserChar* text, size_t textLength );
+bool _end__array__bool1x3(){return mImpl->end__array__bool1x3();}
+bool _validateBegin__array__bool1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool1x3();
+bool _freeAttributes__array__bool1x3( void* attributeData );
+
+bool _begin__array__bool1x4( void* attributeData ){return mImpl->begin__array__bool1x4();}
+bool _data__array__bool1x4( const ParserChar* text, size_t textLength );
+bool _end__array__bool1x4(){return mImpl->end__array__bool1x4();}
+bool _validateBegin__array__bool1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool1x4();
+bool _freeAttributes__array__bool1x4( void* attributeData );
+
+bool _begin__array__bool2x1( void* attributeData ){return mImpl->begin__array__bool2x1();}
+bool _data__array__bool2x1( const ParserChar* text, size_t textLength );
+bool _end__array__bool2x1(){return mImpl->end__array__bool2x1();}
+bool _validateBegin__array__bool2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool2x1();
+bool _freeAttributes__array__bool2x1( void* attributeData );
+
+bool _begin__array__bool2x2( void* attributeData ){return mImpl->begin__array__bool2x2();}
+bool _data__array__bool2x2( const ParserChar* text, size_t textLength );
+bool _end__array__bool2x2(){return mImpl->end__array__bool2x2();}
+bool _validateBegin__array__bool2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool2x2();
+bool _freeAttributes__array__bool2x2( void* attributeData );
+
+bool _begin__array__bool2x3( void* attributeData ){return mImpl->begin__array__bool2x3();}
+bool _data__array__bool2x3( const ParserChar* text, size_t textLength );
+bool _end__array__bool2x3(){return mImpl->end__array__bool2x3();}
+bool _validateBegin__array__bool2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool2x3();
+bool _freeAttributes__array__bool2x3( void* attributeData );
+
+bool _begin__array__bool2x4( void* attributeData ){return mImpl->begin__array__bool2x4();}
+bool _data__array__bool2x4( const ParserChar* text, size_t textLength );
+bool _end__array__bool2x4(){return mImpl->end__array__bool2x4();}
+bool _validateBegin__array__bool2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool2x4();
+bool _freeAttributes__array__bool2x4( void* attributeData );
+
+bool _begin__array__bool3x1( void* attributeData ){return mImpl->begin__array__bool3x1();}
+bool _data__array__bool3x1( const ParserChar* text, size_t textLength );
+bool _end__array__bool3x1(){return mImpl->end__array__bool3x1();}
+bool _validateBegin__array__bool3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool3x1();
+bool _freeAttributes__array__bool3x1( void* attributeData );
+
+bool _begin__array__bool3x2( void* attributeData ){return mImpl->begin__array__bool3x2();}
+bool _data__array__bool3x2( const ParserChar* text, size_t textLength );
+bool _end__array__bool3x2(){return mImpl->end__array__bool3x2();}
+bool _validateBegin__array__bool3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool3x2();
+bool _freeAttributes__array__bool3x2( void* attributeData );
+
+bool _begin__array__bool3x3( void* attributeData ){return mImpl->begin__array__bool3x3();}
+bool _data__array__bool3x3( const ParserChar* text, size_t textLength );
+bool _end__array__bool3x3(){return mImpl->end__array__bool3x3();}
+bool _validateBegin__array__bool3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool3x3();
+bool _freeAttributes__array__bool3x3( void* attributeData );
+
+bool _begin__array__bool3x4( void* attributeData ){return mImpl->begin__array__bool3x4();}
+bool _data__array__bool3x4( const ParserChar* text, size_t textLength );
+bool _end__array__bool3x4(){return mImpl->end__array__bool3x4();}
+bool _validateBegin__array__bool3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool3x4();
+bool _freeAttributes__array__bool3x4( void* attributeData );
+
+bool _begin__array__bool4x1( void* attributeData ){return mImpl->begin__array__bool4x1();}
+bool _data__array__bool4x1( const ParserChar* text, size_t textLength );
+bool _end__array__bool4x1(){return mImpl->end__array__bool4x1();}
+bool _validateBegin__array__bool4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool4x1();
+bool _freeAttributes__array__bool4x1( void* attributeData );
+
+bool _begin__array__bool4x2( void* attributeData ){return mImpl->begin__array__bool4x2();}
+bool _data__array__bool4x2( const ParserChar* text, size_t textLength );
+bool _end__array__bool4x2(){return mImpl->end__array__bool4x2();}
+bool _validateBegin__array__bool4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool4x2();
+bool _freeAttributes__array__bool4x2( void* attributeData );
+
+bool _begin__array__bool4x3( void* attributeData ){return mImpl->begin__array__bool4x3();}
+bool _data__array__bool4x3( const ParserChar* text, size_t textLength );
+bool _end__array__bool4x3(){return mImpl->end__array__bool4x3();}
+bool _validateBegin__array__bool4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool4x3();
+bool _freeAttributes__array__bool4x3( void* attributeData );
+
+bool _begin__array__bool4x4( void* attributeData ){return mImpl->begin__array__bool4x4();}
+bool _data__array__bool4x4( const ParserChar* text, size_t textLength );
+bool _end__array__bool4x4(){return mImpl->end__array__bool4x4();}
+bool _validateBegin__array__bool4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__bool4x4();
+bool _freeAttributes__array__bool4x4( void* attributeData );
+
+bool _begin__array__float1( void* attributeData ){return mImpl->begin__array__float1();}
+bool _data__array__float1( const ParserChar* text, size_t textLength );
+bool _end__array__float1(){return mImpl->end__array__float1();}
+bool _validateBegin__array__float1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float1();
+bool _freeAttributes__array__float1( void* attributeData );
+
+bool _begin__array__float1x1( void* attributeData ){return mImpl->begin__array__float1x1();}
+bool _data__array__float1x1( const ParserChar* text, size_t textLength );
+bool _end__array__float1x1(){return mImpl->end__array__float1x1();}
+bool _validateBegin__array__float1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float1x1();
+bool _freeAttributes__array__float1x1( void* attributeData );
+
+bool _begin__array__float1x2( void* attributeData ){return mImpl->begin__array__float1x2();}
+bool _data__array__float1x2( const ParserChar* text, size_t textLength );
+bool _end__array__float1x2(){return mImpl->end__array__float1x2();}
+bool _validateBegin__array__float1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float1x2();
+bool _freeAttributes__array__float1x2( void* attributeData );
+
+bool _begin__array__float1x3( void* attributeData ){return mImpl->begin__array__float1x3();}
+bool _data__array__float1x3( const ParserChar* text, size_t textLength );
+bool _end__array__float1x3(){return mImpl->end__array__float1x3();}
+bool _validateBegin__array__float1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float1x3();
+bool _freeAttributes__array__float1x3( void* attributeData );
+
+bool _begin__array__float1x4( void* attributeData ){return mImpl->begin__array__float1x4();}
+bool _data__array__float1x4( const ParserChar* text, size_t textLength );
+bool _end__array__float1x4(){return mImpl->end__array__float1x4();}
+bool _validateBegin__array__float1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float1x4();
+bool _freeAttributes__array__float1x4( void* attributeData );
+
+bool _begin__array__float2x1( void* attributeData ){return mImpl->begin__array__float2x1();}
+bool _data__array__float2x1( const ParserChar* text, size_t textLength );
+bool _end__array__float2x1(){return mImpl->end__array__float2x1();}
+bool _validateBegin__array__float2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float2x1();
+bool _freeAttributes__array__float2x1( void* attributeData );
+
+bool _begin__array__float2x3( void* attributeData ){return mImpl->begin__array__float2x3();}
+bool _data__array__float2x3( const ParserChar* text, size_t textLength );
+bool _end__array__float2x3(){return mImpl->end__array__float2x3();}
+bool _validateBegin__array__float2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float2x3();
+bool _freeAttributes__array__float2x3( void* attributeData );
+
+bool _begin__array__float2x4( void* attributeData ){return mImpl->begin__array__float2x4();}
+bool _data__array__float2x4( const ParserChar* text, size_t textLength );
+bool _end__array__float2x4(){return mImpl->end__array__float2x4();}
+bool _validateBegin__array__float2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float2x4();
+bool _freeAttributes__array__float2x4( void* attributeData );
+
+bool _begin__array__float3x1( void* attributeData ){return mImpl->begin__array__float3x1();}
+bool _data__array__float3x1( const ParserChar* text, size_t textLength );
+bool _end__array__float3x1(){return mImpl->end__array__float3x1();}
+bool _validateBegin__array__float3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float3x1();
+bool _freeAttributes__array__float3x1( void* attributeData );
+
+bool _begin__array__float3x2( void* attributeData ){return mImpl->begin__array__float3x2();}
+bool _data__array__float3x2( const ParserChar* text, size_t textLength );
+bool _end__array__float3x2(){return mImpl->end__array__float3x2();}
+bool _validateBegin__array__float3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float3x2();
+bool _freeAttributes__array__float3x2( void* attributeData );
+
+bool _begin__array__float3x4( void* attributeData ){return mImpl->begin__array__float3x4();}
+bool _data__array__float3x4( const ParserChar* text, size_t textLength );
+bool _end__array__float3x4(){return mImpl->end__array__float3x4();}
+bool _validateBegin__array__float3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float3x4();
+bool _freeAttributes__array__float3x4( void* attributeData );
+
+bool _begin__array__float4x1( void* attributeData ){return mImpl->begin__array__float4x1();}
+bool _data__array__float4x1( const ParserChar* text, size_t textLength );
+bool _end__array__float4x1(){return mImpl->end__array__float4x1();}
+bool _validateBegin__array__float4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float4x1();
+bool _freeAttributes__array__float4x1( void* attributeData );
+
+bool _begin__array__float4x2( void* attributeData ){return mImpl->begin__array__float4x2();}
+bool _data__array__float4x2( const ParserChar* text, size_t textLength );
+bool _end__array__float4x2(){return mImpl->end__array__float4x2();}
+bool _validateBegin__array__float4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float4x2();
+bool _freeAttributes__array__float4x2( void* attributeData );
+
+bool _begin__array__float4x3( void* attributeData ){return mImpl->begin__array__float4x3();}
+bool _data__array__float4x3( const ParserChar* text, size_t textLength );
+bool _end__array__float4x3(){return mImpl->end__array__float4x3();}
+bool _validateBegin__array__float4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__float4x3();
+bool _freeAttributes__array__float4x3( void* attributeData );
+
+bool _begin__array__int1( void* attributeData ){return mImpl->begin__array__int1();}
+bool _data__array__int1( const ParserChar* text, size_t textLength );
+bool _end__array__int1(){return mImpl->end__array__int1();}
+bool _validateBegin__array__int1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int1();
+bool _freeAttributes__array__int1( void* attributeData );
+
+bool _begin__array__int1x1( void* attributeData ){return mImpl->begin__array__int1x1();}
+bool _data__array__int1x1( const ParserChar* text, size_t textLength );
+bool _end__array__int1x1(){return mImpl->end__array__int1x1();}
+bool _validateBegin__array__int1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int1x1();
+bool _freeAttributes__array__int1x1( void* attributeData );
+
+bool _begin__array__int1x2( void* attributeData ){return mImpl->begin__array__int1x2();}
+bool _data__array__int1x2( const ParserChar* text, size_t textLength );
+bool _end__array__int1x2(){return mImpl->end__array__int1x2();}
+bool _validateBegin__array__int1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int1x2();
+bool _freeAttributes__array__int1x2( void* attributeData );
+
+bool _begin__array__int1x3( void* attributeData ){return mImpl->begin__array__int1x3();}
+bool _data__array__int1x3( const ParserChar* text, size_t textLength );
+bool _end__array__int1x3(){return mImpl->end__array__int1x3();}
+bool _validateBegin__array__int1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int1x3();
+bool _freeAttributes__array__int1x3( void* attributeData );
+
+bool _begin__array__int1x4( void* attributeData ){return mImpl->begin__array__int1x4();}
+bool _data__array__int1x4( const ParserChar* text, size_t textLength );
+bool _end__array__int1x4(){return mImpl->end__array__int1x4();}
+bool _validateBegin__array__int1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int1x4();
+bool _freeAttributes__array__int1x4( void* attributeData );
+
+bool _begin__array__int2x1( void* attributeData ){return mImpl->begin__array__int2x1();}
+bool _data__array__int2x1( const ParserChar* text, size_t textLength );
+bool _end__array__int2x1(){return mImpl->end__array__int2x1();}
+bool _validateBegin__array__int2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int2x1();
+bool _freeAttributes__array__int2x1( void* attributeData );
+
+bool _begin__array__int2x2( void* attributeData ){return mImpl->begin__array__int2x2();}
+bool _data__array__int2x2( const ParserChar* text, size_t textLength );
+bool _end__array__int2x2(){return mImpl->end__array__int2x2();}
+bool _validateBegin__array__int2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int2x2();
+bool _freeAttributes__array__int2x2( void* attributeData );
+
+bool _begin__array__int2x3( void* attributeData ){return mImpl->begin__array__int2x3();}
+bool _data__array__int2x3( const ParserChar* text, size_t textLength );
+bool _end__array__int2x3(){return mImpl->end__array__int2x3();}
+bool _validateBegin__array__int2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int2x3();
+bool _freeAttributes__array__int2x3( void* attributeData );
+
+bool _begin__array__int2x4( void* attributeData ){return mImpl->begin__array__int2x4();}
+bool _data__array__int2x4( const ParserChar* text, size_t textLength );
+bool _end__array__int2x4(){return mImpl->end__array__int2x4();}
+bool _validateBegin__array__int2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int2x4();
+bool _freeAttributes__array__int2x4( void* attributeData );
+
+bool _begin__array__int3x1( void* attributeData ){return mImpl->begin__array__int3x1();}
+bool _data__array__int3x1( const ParserChar* text, size_t textLength );
+bool _end__array__int3x1(){return mImpl->end__array__int3x1();}
+bool _validateBegin__array__int3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int3x1();
+bool _freeAttributes__array__int3x1( void* attributeData );
+
+bool _begin__array__int3x2( void* attributeData ){return mImpl->begin__array__int3x2();}
+bool _data__array__int3x2( const ParserChar* text, size_t textLength );
+bool _end__array__int3x2(){return mImpl->end__array__int3x2();}
+bool _validateBegin__array__int3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int3x2();
+bool _freeAttributes__array__int3x2( void* attributeData );
+
+bool _begin__array__int3x3( void* attributeData ){return mImpl->begin__array__int3x3();}
+bool _data__array__int3x3( const ParserChar* text, size_t textLength );
+bool _end__array__int3x3(){return mImpl->end__array__int3x3();}
+bool _validateBegin__array__int3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int3x3();
+bool _freeAttributes__array__int3x3( void* attributeData );
+
+bool _begin__array__int3x4( void* attributeData ){return mImpl->begin__array__int3x4();}
+bool _data__array__int3x4( const ParserChar* text, size_t textLength );
+bool _end__array__int3x4(){return mImpl->end__array__int3x4();}
+bool _validateBegin__array__int3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int3x4();
+bool _freeAttributes__array__int3x4( void* attributeData );
+
+bool _begin__array__int4x1( void* attributeData ){return mImpl->begin__array__int4x1();}
+bool _data__array__int4x1( const ParserChar* text, size_t textLength );
+bool _end__array__int4x1(){return mImpl->end__array__int4x1();}
+bool _validateBegin__array__int4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int4x1();
+bool _freeAttributes__array__int4x1( void* attributeData );
+
+bool _begin__array__int4x2( void* attributeData ){return mImpl->begin__array__int4x2();}
+bool _data__array__int4x2( const ParserChar* text, size_t textLength );
+bool _end__array__int4x2(){return mImpl->end__array__int4x2();}
+bool _validateBegin__array__int4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int4x2();
+bool _freeAttributes__array__int4x2( void* attributeData );
+
+bool _begin__array__int4x3( void* attributeData ){return mImpl->begin__array__int4x3();}
+bool _data__array__int4x3( const ParserChar* text, size_t textLength );
+bool _end__array__int4x3(){return mImpl->end__array__int4x3();}
+bool _validateBegin__array__int4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int4x3();
+bool _freeAttributes__array__int4x3( void* attributeData );
+
+bool _begin__array__int4x4( void* attributeData ){return mImpl->begin__array__int4x4();}
+bool _data__array__int4x4( const ParserChar* text, size_t textLength );
+bool _end__array__int4x4(){return mImpl->end__array__int4x4();}
+bool _validateBegin__array__int4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__int4x4();
+bool _freeAttributes__array__int4x4( void* attributeData );
+
+bool _begin__array__half( void* attributeData ){return mImpl->begin__array__half();}
+bool _data__array__half( const ParserChar* text, size_t textLength );
+bool _end__array__half(){return mImpl->end__array__half();}
+bool _validateBegin__array__half( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half();
+bool _freeAttributes__array__half( void* attributeData );
+
+bool _begin__array__half1( void* attributeData ){return mImpl->begin__array__half1();}
+bool _data__array__half1( const ParserChar* text, size_t textLength );
+bool _end__array__half1(){return mImpl->end__array__half1();}
+bool _validateBegin__array__half1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half1();
+bool _freeAttributes__array__half1( void* attributeData );
+
+bool _begin__array__half2( void* attributeData ){return mImpl->begin__array__half2();}
+bool _data__array__half2( const ParserChar* text, size_t textLength );
+bool _end__array__half2(){return mImpl->end__array__half2();}
+bool _validateBegin__array__half2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half2();
+bool _freeAttributes__array__half2( void* attributeData );
+
+bool _begin__array__half3( void* attributeData ){return mImpl->begin__array__half3();}
+bool _data__array__half3( const ParserChar* text, size_t textLength );
+bool _end__array__half3(){return mImpl->end__array__half3();}
+bool _validateBegin__array__half3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half3();
+bool _freeAttributes__array__half3( void* attributeData );
+
+bool _begin__array__half4( void* attributeData ){return mImpl->begin__array__half4();}
+bool _data__array__half4( const ParserChar* text, size_t textLength );
+bool _end__array__half4(){return mImpl->end__array__half4();}
+bool _validateBegin__array__half4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half4();
+bool _freeAttributes__array__half4( void* attributeData );
+
+bool _begin__array__half1x1( void* attributeData ){return mImpl->begin__array__half1x1();}
+bool _data__array__half1x1( const ParserChar* text, size_t textLength );
+bool _end__array__half1x1(){return mImpl->end__array__half1x1();}
+bool _validateBegin__array__half1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half1x1();
+bool _freeAttributes__array__half1x1( void* attributeData );
+
+bool _begin__array__half1x2( void* attributeData ){return mImpl->begin__array__half1x2();}
+bool _data__array__half1x2( const ParserChar* text, size_t textLength );
+bool _end__array__half1x2(){return mImpl->end__array__half1x2();}
+bool _validateBegin__array__half1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half1x2();
+bool _freeAttributes__array__half1x2( void* attributeData );
+
+bool _begin__array__half1x3( void* attributeData ){return mImpl->begin__array__half1x3();}
+bool _data__array__half1x3( const ParserChar* text, size_t textLength );
+bool _end__array__half1x3(){return mImpl->end__array__half1x3();}
+bool _validateBegin__array__half1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half1x3();
+bool _freeAttributes__array__half1x3( void* attributeData );
+
+bool _begin__array__half1x4( void* attributeData ){return mImpl->begin__array__half1x4();}
+bool _data__array__half1x4( const ParserChar* text, size_t textLength );
+bool _end__array__half1x4(){return mImpl->end__array__half1x4();}
+bool _validateBegin__array__half1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half1x4();
+bool _freeAttributes__array__half1x4( void* attributeData );
+
+bool _begin__array__half2x1( void* attributeData ){return mImpl->begin__array__half2x1();}
+bool _data__array__half2x1( const ParserChar* text, size_t textLength );
+bool _end__array__half2x1(){return mImpl->end__array__half2x1();}
+bool _validateBegin__array__half2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half2x1();
+bool _freeAttributes__array__half2x1( void* attributeData );
+
+bool _begin__array__half2x2( void* attributeData ){return mImpl->begin__array__half2x2();}
+bool _data__array__half2x2( const ParserChar* text, size_t textLength );
+bool _end__array__half2x2(){return mImpl->end__array__half2x2();}
+bool _validateBegin__array__half2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half2x2();
+bool _freeAttributes__array__half2x2( void* attributeData );
+
+bool _begin__array__half2x3( void* attributeData ){return mImpl->begin__array__half2x3();}
+bool _data__array__half2x3( const ParserChar* text, size_t textLength );
+bool _end__array__half2x3(){return mImpl->end__array__half2x3();}
+bool _validateBegin__array__half2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half2x3();
+bool _freeAttributes__array__half2x3( void* attributeData );
+
+bool _begin__array__half2x4( void* attributeData ){return mImpl->begin__array__half2x4();}
+bool _data__array__half2x4( const ParserChar* text, size_t textLength );
+bool _end__array__half2x4(){return mImpl->end__array__half2x4();}
+bool _validateBegin__array__half2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half2x4();
+bool _freeAttributes__array__half2x4( void* attributeData );
+
+bool _begin__array__half3x1( void* attributeData ){return mImpl->begin__array__half3x1();}
+bool _data__array__half3x1( const ParserChar* text, size_t textLength );
+bool _end__array__half3x1(){return mImpl->end__array__half3x1();}
+bool _validateBegin__array__half3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half3x1();
+bool _freeAttributes__array__half3x1( void* attributeData );
+
+bool _begin__array__half3x2( void* attributeData ){return mImpl->begin__array__half3x2();}
+bool _data__array__half3x2( const ParserChar* text, size_t textLength );
+bool _end__array__half3x2(){return mImpl->end__array__half3x2();}
+bool _validateBegin__array__half3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half3x2();
+bool _freeAttributes__array__half3x2( void* attributeData );
+
+bool _begin__array__half3x3( void* attributeData ){return mImpl->begin__array__half3x3();}
+bool _data__array__half3x3( const ParserChar* text, size_t textLength );
+bool _end__array__half3x3(){return mImpl->end__array__half3x3();}
+bool _validateBegin__array__half3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half3x3();
+bool _freeAttributes__array__half3x3( void* attributeData );
+
+bool _begin__array__half3x4( void* attributeData ){return mImpl->begin__array__half3x4();}
+bool _data__array__half3x4( const ParserChar* text, size_t textLength );
+bool _end__array__half3x4(){return mImpl->end__array__half3x4();}
+bool _validateBegin__array__half3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half3x4();
+bool _freeAttributes__array__half3x4( void* attributeData );
+
+bool _begin__array__half4x1( void* attributeData ){return mImpl->begin__array__half4x1();}
+bool _data__array__half4x1( const ParserChar* text, size_t textLength );
+bool _end__array__half4x1(){return mImpl->end__array__half4x1();}
+bool _validateBegin__array__half4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half4x1();
+bool _freeAttributes__array__half4x1( void* attributeData );
+
+bool _begin__array__half4x2( void* attributeData ){return mImpl->begin__array__half4x2();}
+bool _data__array__half4x2( const ParserChar* text, size_t textLength );
+bool _end__array__half4x2(){return mImpl->end__array__half4x2();}
+bool _validateBegin__array__half4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half4x2();
+bool _freeAttributes__array__half4x2( void* attributeData );
+
+bool _begin__array__half4x3( void* attributeData ){return mImpl->begin__array__half4x3();}
+bool _data__array__half4x3( const ParserChar* text, size_t textLength );
+bool _end__array__half4x3(){return mImpl->end__array__half4x3();}
+bool _validateBegin__array__half4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half4x3();
+bool _freeAttributes__array__half4x3( void* attributeData );
+
+bool _begin__array__half4x4( void* attributeData ){return mImpl->begin__array__half4x4();}
+bool _data__array__half4x4( const ParserChar* text, size_t textLength );
+bool _end__array__half4x4(){return mImpl->end__array__half4x4();}
+bool _validateBegin__array__half4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__half4x4();
+bool _freeAttributes__array__half4x4( void* attributeData );
+
+bool _begin__array__fixed( void* attributeData ){return mImpl->begin__array__fixed();}
+bool _data__array__fixed( const ParserChar* text, size_t textLength );
+bool _end__array__fixed(){return mImpl->end__array__fixed();}
+bool _validateBegin__array__fixed( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed();
+bool _freeAttributes__array__fixed( void* attributeData );
+
+bool _begin__array__fixed1( void* attributeData ){return mImpl->begin__array__fixed1();}
+bool _data__array__fixed1( const ParserChar* text, size_t textLength );
+bool _end__array__fixed1(){return mImpl->end__array__fixed1();}
+bool _validateBegin__array__fixed1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed1();
+bool _freeAttributes__array__fixed1( void* attributeData );
+
+bool _begin__array__fixed2( void* attributeData ){return mImpl->begin__array__fixed2();}
+bool _data__array__fixed2( const ParserChar* text, size_t textLength );
+bool _end__array__fixed2(){return mImpl->end__array__fixed2();}
+bool _validateBegin__array__fixed2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed2();
+bool _freeAttributes__array__fixed2( void* attributeData );
+
+bool _begin__array__fixed3( void* attributeData ){return mImpl->begin__array__fixed3();}
+bool _data__array__fixed3( const ParserChar* text, size_t textLength );
+bool _end__array__fixed3(){return mImpl->end__array__fixed3();}
+bool _validateBegin__array__fixed3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed3();
+bool _freeAttributes__array__fixed3( void* attributeData );
+
+bool _begin__array__fixed4( void* attributeData ){return mImpl->begin__array__fixed4();}
+bool _data__array__fixed4( const ParserChar* text, size_t textLength );
+bool _end__array__fixed4(){return mImpl->end__array__fixed4();}
+bool _validateBegin__array__fixed4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed4();
+bool _freeAttributes__array__fixed4( void* attributeData );
+
+bool _begin__array__fixed1x1( void* attributeData ){return mImpl->begin__array__fixed1x1();}
+bool _data__array__fixed1x1( const ParserChar* text, size_t textLength );
+bool _end__array__fixed1x1(){return mImpl->end__array__fixed1x1();}
+bool _validateBegin__array__fixed1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed1x1();
+bool _freeAttributes__array__fixed1x1( void* attributeData );
+
+bool _begin__array__fixed1x2( void* attributeData ){return mImpl->begin__array__fixed1x2();}
+bool _data__array__fixed1x2( const ParserChar* text, size_t textLength );
+bool _end__array__fixed1x2(){return mImpl->end__array__fixed1x2();}
+bool _validateBegin__array__fixed1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed1x2();
+bool _freeAttributes__array__fixed1x2( void* attributeData );
+
+bool _begin__array__fixed1x3( void* attributeData ){return mImpl->begin__array__fixed1x3();}
+bool _data__array__fixed1x3( const ParserChar* text, size_t textLength );
+bool _end__array__fixed1x3(){return mImpl->end__array__fixed1x3();}
+bool _validateBegin__array__fixed1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed1x3();
+bool _freeAttributes__array__fixed1x3( void* attributeData );
+
+bool _begin__array__fixed1x4( void* attributeData ){return mImpl->begin__array__fixed1x4();}
+bool _data__array__fixed1x4( const ParserChar* text, size_t textLength );
+bool _end__array__fixed1x4(){return mImpl->end__array__fixed1x4();}
+bool _validateBegin__array__fixed1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed1x4();
+bool _freeAttributes__array__fixed1x4( void* attributeData );
+
+bool _begin__array__fixed2x1( void* attributeData ){return mImpl->begin__array__fixed2x1();}
+bool _data__array__fixed2x1( const ParserChar* text, size_t textLength );
+bool _end__array__fixed2x1(){return mImpl->end__array__fixed2x1();}
+bool _validateBegin__array__fixed2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed2x1();
+bool _freeAttributes__array__fixed2x1( void* attributeData );
+
+bool _begin__array__fixed2x2( void* attributeData ){return mImpl->begin__array__fixed2x2();}
+bool _data__array__fixed2x2( const ParserChar* text, size_t textLength );
+bool _end__array__fixed2x2(){return mImpl->end__array__fixed2x2();}
+bool _validateBegin__array__fixed2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed2x2();
+bool _freeAttributes__array__fixed2x2( void* attributeData );
+
+bool _begin__array__fixed2x3( void* attributeData ){return mImpl->begin__array__fixed2x3();}
+bool _data__array__fixed2x3( const ParserChar* text, size_t textLength );
+bool _end__array__fixed2x3(){return mImpl->end__array__fixed2x3();}
+bool _validateBegin__array__fixed2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed2x3();
+bool _freeAttributes__array__fixed2x3( void* attributeData );
+
+bool _begin__array__fixed2x4( void* attributeData ){return mImpl->begin__array__fixed2x4();}
+bool _data__array__fixed2x4( const ParserChar* text, size_t textLength );
+bool _end__array__fixed2x4(){return mImpl->end__array__fixed2x4();}
+bool _validateBegin__array__fixed2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed2x4();
+bool _freeAttributes__array__fixed2x4( void* attributeData );
+
+bool _begin__array__fixed3x1( void* attributeData ){return mImpl->begin__array__fixed3x1();}
+bool _data__array__fixed3x1( const ParserChar* text, size_t textLength );
+bool _end__array__fixed3x1(){return mImpl->end__array__fixed3x1();}
+bool _validateBegin__array__fixed3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed3x1();
+bool _freeAttributes__array__fixed3x1( void* attributeData );
+
+bool _begin__array__fixed3x2( void* attributeData ){return mImpl->begin__array__fixed3x2();}
+bool _data__array__fixed3x2( const ParserChar* text, size_t textLength );
+bool _end__array__fixed3x2(){return mImpl->end__array__fixed3x2();}
+bool _validateBegin__array__fixed3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed3x2();
+bool _freeAttributes__array__fixed3x2( void* attributeData );
+
+bool _begin__array__fixed3x3( void* attributeData ){return mImpl->begin__array__fixed3x3();}
+bool _data__array__fixed3x3( const ParserChar* text, size_t textLength );
+bool _end__array__fixed3x3(){return mImpl->end__array__fixed3x3();}
+bool _validateBegin__array__fixed3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed3x3();
+bool _freeAttributes__array__fixed3x3( void* attributeData );
+
+bool _begin__array__fixed3x4( void* attributeData ){return mImpl->begin__array__fixed3x4();}
+bool _data__array__fixed3x4( const ParserChar* text, size_t textLength );
+bool _end__array__fixed3x4(){return mImpl->end__array__fixed3x4();}
+bool _validateBegin__array__fixed3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed3x4();
+bool _freeAttributes__array__fixed3x4( void* attributeData );
+
+bool _begin__array__fixed4x1( void* attributeData ){return mImpl->begin__array__fixed4x1();}
+bool _data__array__fixed4x1( const ParserChar* text, size_t textLength );
+bool _end__array__fixed4x1(){return mImpl->end__array__fixed4x1();}
+bool _validateBegin__array__fixed4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed4x1();
+bool _freeAttributes__array__fixed4x1( void* attributeData );
+
+bool _begin__array__fixed4x2( void* attributeData ){return mImpl->begin__array__fixed4x2();}
+bool _data__array__fixed4x2( const ParserChar* text, size_t textLength );
+bool _end__array__fixed4x2(){return mImpl->end__array__fixed4x2();}
+bool _validateBegin__array__fixed4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed4x2();
+bool _freeAttributes__array__fixed4x2( void* attributeData );
+
+bool _begin__array__fixed4x3( void* attributeData ){return mImpl->begin__array__fixed4x3();}
+bool _data__array__fixed4x3( const ParserChar* text, size_t textLength );
+bool _end__array__fixed4x3(){return mImpl->end__array__fixed4x3();}
+bool _validateBegin__array__fixed4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed4x3();
+bool _freeAttributes__array__fixed4x3( void* attributeData );
+
+bool _begin__array__fixed4x4( void* attributeData ){return mImpl->begin__array__fixed4x4();}
+bool _data__array__fixed4x4( const ParserChar* text, size_t textLength );
+bool _end__array__fixed4x4(){return mImpl->end__array__fixed4x4();}
+bool _validateBegin__array__fixed4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__fixed4x4();
+bool _freeAttributes__array__fixed4x4( void* attributeData );
+
+bool _begin__array__string( void* attributeData ){return mImpl->begin__array__string();}
+bool _data__array__string( const ParserChar* text, size_t textLength );
+bool _end__array__string(){return mImpl->end__array__string();}
+bool _validateBegin__array__string( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__string();
+bool _freeAttributes__array__string( void* attributeData );
+
+bool _begin__array__usertype( void* attributeData ){return mImpl->begin__array__usertype(*static_cast<usertype__AttributeData*>(attributeData));}
+bool _data__array__usertype( const ParserChar* text, size_t textLength );
+bool _end__array__usertype(){return mImpl->end__array__usertype();}
+bool _validateBegin__array__usertype( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__array__usertype();
+bool _freeAttributes__array__usertype( void* attributeData );
+
+bool _begin__usertype__usertype( void* attributeData ){return mImpl->begin__usertype__usertype(*static_cast<usertype__AttributeData*>(attributeData));}
+bool _data__usertype__usertype( const ParserChar* text, size_t textLength );
+bool _end__usertype__usertype(){return mImpl->end__usertype__usertype();}
+bool _validateBegin__usertype__usertype( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__usertype();
+bool _freeAttributes__usertype__usertype( void* attributeData );
+
+bool _begin__usertype__connect_param( void* attributeData ){return mImpl->begin__usertype__connect_param(*static_cast<connect_param__AttributeData*>(attributeData));}
+bool _data__usertype__connect_param( const ParserChar* text, size_t textLength );
+bool _end__usertype__connect_param(){return mImpl->end__usertype__connect_param();}
+bool _validateBegin__usertype__connect_param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__connect_param();
+bool _freeAttributes__usertype__connect_param( void* attributeData );
+
+bool _begin__usertype__setparam( void* attributeData ){return mImpl->begin__usertype__setparam(*static_cast<usertype__setparam__AttributeData*>(attributeData));}
+bool _data__usertype__setparam( const ParserChar* text, size_t textLength );
+bool _end__usertype__setparam(){return mImpl->end__usertype__setparam();}
+bool _validateBegin__usertype__setparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__usertype__setparam();
+bool _freeAttributes__usertype__setparam( void* attributeData );
+
+bool _begin__setparam__bool1( void* attributeData ){return mImpl->begin__setparam__bool1();}
+bool _data__setparam__bool1( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool1(){return mImpl->end__setparam__bool1();}
+bool _validateBegin__setparam__bool1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool1();
+bool _freeAttributes__setparam__bool1( void* attributeData );
+
+bool _begin__setparam__bool1x1( void* attributeData ){return mImpl->begin__setparam__bool1x1();}
+bool _data__setparam__bool1x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool1x1(){return mImpl->end__setparam__bool1x1();}
+bool _validateBegin__setparam__bool1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool1x1();
+bool _freeAttributes__setparam__bool1x1( void* attributeData );
+
+bool _begin__setparam__bool1x2( void* attributeData ){return mImpl->begin__setparam__bool1x2();}
+bool _data__setparam__bool1x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool1x2(){return mImpl->end__setparam__bool1x2();}
+bool _validateBegin__setparam__bool1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool1x2();
+bool _freeAttributes__setparam__bool1x2( void* attributeData );
+
+bool _begin__setparam__bool1x3( void* attributeData ){return mImpl->begin__setparam__bool1x3();}
+bool _data__setparam__bool1x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool1x3(){return mImpl->end__setparam__bool1x3();}
+bool _validateBegin__setparam__bool1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool1x3();
+bool _freeAttributes__setparam__bool1x3( void* attributeData );
+
+bool _begin__setparam__bool1x4( void* attributeData ){return mImpl->begin__setparam__bool1x4();}
+bool _data__setparam__bool1x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool1x4(){return mImpl->end__setparam__bool1x4();}
+bool _validateBegin__setparam__bool1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool1x4();
+bool _freeAttributes__setparam__bool1x4( void* attributeData );
+
+bool _begin__setparam__bool2x1( void* attributeData ){return mImpl->begin__setparam__bool2x1();}
+bool _data__setparam__bool2x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool2x1(){return mImpl->end__setparam__bool2x1();}
+bool _validateBegin__setparam__bool2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool2x1();
+bool _freeAttributes__setparam__bool2x1( void* attributeData );
+
+bool _begin__setparam__bool2x2( void* attributeData ){return mImpl->begin__setparam__bool2x2();}
+bool _data__setparam__bool2x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool2x2(){return mImpl->end__setparam__bool2x2();}
+bool _validateBegin__setparam__bool2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool2x2();
+bool _freeAttributes__setparam__bool2x2( void* attributeData );
+
+bool _begin__setparam__bool2x3( void* attributeData ){return mImpl->begin__setparam__bool2x3();}
+bool _data__setparam__bool2x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool2x3(){return mImpl->end__setparam__bool2x3();}
+bool _validateBegin__setparam__bool2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool2x3();
+bool _freeAttributes__setparam__bool2x3( void* attributeData );
+
+bool _begin__setparam__bool2x4( void* attributeData ){return mImpl->begin__setparam__bool2x4();}
+bool _data__setparam__bool2x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool2x4(){return mImpl->end__setparam__bool2x4();}
+bool _validateBegin__setparam__bool2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool2x4();
+bool _freeAttributes__setparam__bool2x4( void* attributeData );
+
+bool _begin__setparam__bool3x1( void* attributeData ){return mImpl->begin__setparam__bool3x1();}
+bool _data__setparam__bool3x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool3x1(){return mImpl->end__setparam__bool3x1();}
+bool _validateBegin__setparam__bool3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool3x1();
+bool _freeAttributes__setparam__bool3x1( void* attributeData );
+
+bool _begin__setparam__bool3x2( void* attributeData ){return mImpl->begin__setparam__bool3x2();}
+bool _data__setparam__bool3x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool3x2(){return mImpl->end__setparam__bool3x2();}
+bool _validateBegin__setparam__bool3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool3x2();
+bool _freeAttributes__setparam__bool3x2( void* attributeData );
+
+bool _begin__setparam__bool3x3( void* attributeData ){return mImpl->begin__setparam__bool3x3();}
+bool _data__setparam__bool3x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool3x3(){return mImpl->end__setparam__bool3x3();}
+bool _validateBegin__setparam__bool3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool3x3();
+bool _freeAttributes__setparam__bool3x3( void* attributeData );
+
+bool _begin__setparam__bool3x4( void* attributeData ){return mImpl->begin__setparam__bool3x4();}
+bool _data__setparam__bool3x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool3x4(){return mImpl->end__setparam__bool3x4();}
+bool _validateBegin__setparam__bool3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool3x4();
+bool _freeAttributes__setparam__bool3x4( void* attributeData );
+
+bool _begin__setparam__bool4x1( void* attributeData ){return mImpl->begin__setparam__bool4x1();}
+bool _data__setparam__bool4x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool4x1(){return mImpl->end__setparam__bool4x1();}
+bool _validateBegin__setparam__bool4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool4x1();
+bool _freeAttributes__setparam__bool4x1( void* attributeData );
+
+bool _begin__setparam__bool4x2( void* attributeData ){return mImpl->begin__setparam__bool4x2();}
+bool _data__setparam__bool4x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool4x2(){return mImpl->end__setparam__bool4x2();}
+bool _validateBegin__setparam__bool4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool4x2();
+bool _freeAttributes__setparam__bool4x2( void* attributeData );
+
+bool _begin__setparam__bool4x3( void* attributeData ){return mImpl->begin__setparam__bool4x3();}
+bool _data__setparam__bool4x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool4x3(){return mImpl->end__setparam__bool4x3();}
+bool _validateBegin__setparam__bool4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool4x3();
+bool _freeAttributes__setparam__bool4x3( void* attributeData );
+
+bool _begin__setparam__bool4x4( void* attributeData ){return mImpl->begin__setparam__bool4x4();}
+bool _data__setparam__bool4x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__bool4x4(){return mImpl->end__setparam__bool4x4();}
+bool _validateBegin__setparam__bool4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__bool4x4();
+bool _freeAttributes__setparam__bool4x4( void* attributeData );
+
+bool _begin__setparam__float1( void* attributeData ){return mImpl->begin__setparam__float1();}
+bool _data__setparam__float1( const ParserChar* text, size_t textLength );
+bool _end__setparam__float1(){return mImpl->end__setparam__float1();}
+bool _validateBegin__setparam__float1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__float1();
+bool _freeAttributes__setparam__float1( void* attributeData );
+
+bool _begin__setparam__int1( void* attributeData ){return mImpl->begin__setparam__int1();}
+bool _data__setparam__int1( const ParserChar* text, size_t textLength );
+bool _end__setparam__int1(){return mImpl->end__setparam__int1();}
+bool _validateBegin__setparam__int1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int1();
+bool _freeAttributes__setparam__int1( void* attributeData );
+
+bool _begin__setparam__int1x1( void* attributeData ){return mImpl->begin__setparam__int1x1();}
+bool _data__setparam__int1x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__int1x1(){return mImpl->end__setparam__int1x1();}
+bool _validateBegin__setparam__int1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int1x1();
+bool _freeAttributes__setparam__int1x1( void* attributeData );
+
+bool _begin__setparam__int1x2( void* attributeData ){return mImpl->begin__setparam__int1x2();}
+bool _data__setparam__int1x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__int1x2(){return mImpl->end__setparam__int1x2();}
+bool _validateBegin__setparam__int1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int1x2();
+bool _freeAttributes__setparam__int1x2( void* attributeData );
+
+bool _begin__setparam__int1x3( void* attributeData ){return mImpl->begin__setparam__int1x3();}
+bool _data__setparam__int1x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__int1x3(){return mImpl->end__setparam__int1x3();}
+bool _validateBegin__setparam__int1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int1x3();
+bool _freeAttributes__setparam__int1x3( void* attributeData );
+
+bool _begin__setparam__int1x4( void* attributeData ){return mImpl->begin__setparam__int1x4();}
+bool _data__setparam__int1x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__int1x4(){return mImpl->end__setparam__int1x4();}
+bool _validateBegin__setparam__int1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int1x4();
+bool _freeAttributes__setparam__int1x4( void* attributeData );
+
+bool _begin__setparam__int2x1( void* attributeData ){return mImpl->begin__setparam__int2x1();}
+bool _data__setparam__int2x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__int2x1(){return mImpl->end__setparam__int2x1();}
+bool _validateBegin__setparam__int2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int2x1();
+bool _freeAttributes__setparam__int2x1( void* attributeData );
+
+bool _begin__setparam__int2x2( void* attributeData ){return mImpl->begin__setparam__int2x2();}
+bool _data__setparam__int2x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__int2x2(){return mImpl->end__setparam__int2x2();}
+bool _validateBegin__setparam__int2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int2x2();
+bool _freeAttributes__setparam__int2x2( void* attributeData );
+
+bool _begin__setparam__int2x3( void* attributeData ){return mImpl->begin__setparam__int2x3();}
+bool _data__setparam__int2x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__int2x3(){return mImpl->end__setparam__int2x3();}
+bool _validateBegin__setparam__int2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int2x3();
+bool _freeAttributes__setparam__int2x3( void* attributeData );
+
+bool _begin__setparam__int2x4( void* attributeData ){return mImpl->begin__setparam__int2x4();}
+bool _data__setparam__int2x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__int2x4(){return mImpl->end__setparam__int2x4();}
+bool _validateBegin__setparam__int2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int2x4();
+bool _freeAttributes__setparam__int2x4( void* attributeData );
+
+bool _begin__setparam__int3x1( void* attributeData ){return mImpl->begin__setparam__int3x1();}
+bool _data__setparam__int3x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__int3x1(){return mImpl->end__setparam__int3x1();}
+bool _validateBegin__setparam__int3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int3x1();
+bool _freeAttributes__setparam__int3x1( void* attributeData );
+
+bool _begin__setparam__int3x2( void* attributeData ){return mImpl->begin__setparam__int3x2();}
+bool _data__setparam__int3x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__int3x2(){return mImpl->end__setparam__int3x2();}
+bool _validateBegin__setparam__int3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int3x2();
+bool _freeAttributes__setparam__int3x2( void* attributeData );
+
+bool _begin__setparam__int3x3( void* attributeData ){return mImpl->begin__setparam__int3x3();}
+bool _data__setparam__int3x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__int3x3(){return mImpl->end__setparam__int3x3();}
+bool _validateBegin__setparam__int3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int3x3();
+bool _freeAttributes__setparam__int3x3( void* attributeData );
+
+bool _begin__setparam__int3x4( void* attributeData ){return mImpl->begin__setparam__int3x4();}
+bool _data__setparam__int3x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__int3x4(){return mImpl->end__setparam__int3x4();}
+bool _validateBegin__setparam__int3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int3x4();
+bool _freeAttributes__setparam__int3x4( void* attributeData );
+
+bool _begin__setparam__int4x1( void* attributeData ){return mImpl->begin__setparam__int4x1();}
+bool _data__setparam__int4x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__int4x1(){return mImpl->end__setparam__int4x1();}
+bool _validateBegin__setparam__int4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int4x1();
+bool _freeAttributes__setparam__int4x1( void* attributeData );
+
+bool _begin__setparam__int4x2( void* attributeData ){return mImpl->begin__setparam__int4x2();}
+bool _data__setparam__int4x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__int4x2(){return mImpl->end__setparam__int4x2();}
+bool _validateBegin__setparam__int4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int4x2();
+bool _freeAttributes__setparam__int4x2( void* attributeData );
+
+bool _begin__setparam__int4x3( void* attributeData ){return mImpl->begin__setparam__int4x3();}
+bool _data__setparam__int4x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__int4x3(){return mImpl->end__setparam__int4x3();}
+bool _validateBegin__setparam__int4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int4x3();
+bool _freeAttributes__setparam__int4x3( void* attributeData );
+
+bool _begin__setparam__int4x4( void* attributeData ){return mImpl->begin__setparam__int4x4();}
+bool _data__setparam__int4x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__int4x4(){return mImpl->end__setparam__int4x4();}
+bool _validateBegin__setparam__int4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__int4x4();
+bool _freeAttributes__setparam__int4x4( void* attributeData );
+
+bool _begin__setparam__half( void* attributeData ){return mImpl->begin__setparam__half();}
+bool _data__setparam__half( const ParserChar* text, size_t textLength );
+bool _end__setparam__half(){return mImpl->end__setparam__half();}
+bool _validateBegin__setparam__half( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half();
+bool _freeAttributes__setparam__half( void* attributeData );
+
+bool _begin__setparam__half1( void* attributeData ){return mImpl->begin__setparam__half1();}
+bool _data__setparam__half1( const ParserChar* text, size_t textLength );
+bool _end__setparam__half1(){return mImpl->end__setparam__half1();}
+bool _validateBegin__setparam__half1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half1();
+bool _freeAttributes__setparam__half1( void* attributeData );
+
+bool _begin__setparam__half2( void* attributeData ){return mImpl->begin__setparam__half2();}
+bool _data__setparam__half2( const ParserChar* text, size_t textLength );
+bool _end__setparam__half2(){return mImpl->end__setparam__half2();}
+bool _validateBegin__setparam__half2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half2();
+bool _freeAttributes__setparam__half2( void* attributeData );
+
+bool _begin__setparam__half3( void* attributeData ){return mImpl->begin__setparam__half3();}
+bool _data__setparam__half3( const ParserChar* text, size_t textLength );
+bool _end__setparam__half3(){return mImpl->end__setparam__half3();}
+bool _validateBegin__setparam__half3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half3();
+bool _freeAttributes__setparam__half3( void* attributeData );
+
+bool _begin__setparam__half4( void* attributeData ){return mImpl->begin__setparam__half4();}
+bool _data__setparam__half4( const ParserChar* text, size_t textLength );
+bool _end__setparam__half4(){return mImpl->end__setparam__half4();}
+bool _validateBegin__setparam__half4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half4();
+bool _freeAttributes__setparam__half4( void* attributeData );
+
+bool _begin__setparam__half1x1( void* attributeData ){return mImpl->begin__setparam__half1x1();}
+bool _data__setparam__half1x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__half1x1(){return mImpl->end__setparam__half1x1();}
+bool _validateBegin__setparam__half1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half1x1();
+bool _freeAttributes__setparam__half1x1( void* attributeData );
+
+bool _begin__setparam__half1x2( void* attributeData ){return mImpl->begin__setparam__half1x2();}
+bool _data__setparam__half1x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__half1x2(){return mImpl->end__setparam__half1x2();}
+bool _validateBegin__setparam__half1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half1x2();
+bool _freeAttributes__setparam__half1x2( void* attributeData );
+
+bool _begin__setparam__half1x3( void* attributeData ){return mImpl->begin__setparam__half1x3();}
+bool _data__setparam__half1x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__half1x3(){return mImpl->end__setparam__half1x3();}
+bool _validateBegin__setparam__half1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half1x3();
+bool _freeAttributes__setparam__half1x3( void* attributeData );
+
+bool _begin__setparam__half1x4( void* attributeData ){return mImpl->begin__setparam__half1x4();}
+bool _data__setparam__half1x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__half1x4(){return mImpl->end__setparam__half1x4();}
+bool _validateBegin__setparam__half1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half1x4();
+bool _freeAttributes__setparam__half1x4( void* attributeData );
+
+bool _begin__setparam__half2x1( void* attributeData ){return mImpl->begin__setparam__half2x1();}
+bool _data__setparam__half2x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__half2x1(){return mImpl->end__setparam__half2x1();}
+bool _validateBegin__setparam__half2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half2x1();
+bool _freeAttributes__setparam__half2x1( void* attributeData );
+
+bool _begin__setparam__half2x2( void* attributeData ){return mImpl->begin__setparam__half2x2();}
+bool _data__setparam__half2x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__half2x2(){return mImpl->end__setparam__half2x2();}
+bool _validateBegin__setparam__half2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half2x2();
+bool _freeAttributes__setparam__half2x2( void* attributeData );
+
+bool _begin__setparam__half2x3( void* attributeData ){return mImpl->begin__setparam__half2x3();}
+bool _data__setparam__half2x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__half2x3(){return mImpl->end__setparam__half2x3();}
+bool _validateBegin__setparam__half2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half2x3();
+bool _freeAttributes__setparam__half2x3( void* attributeData );
+
+bool _begin__setparam__half2x4( void* attributeData ){return mImpl->begin__setparam__half2x4();}
+bool _data__setparam__half2x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__half2x4(){return mImpl->end__setparam__half2x4();}
+bool _validateBegin__setparam__half2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half2x4();
+bool _freeAttributes__setparam__half2x4( void* attributeData );
+
+bool _begin__setparam__half3x1( void* attributeData ){return mImpl->begin__setparam__half3x1();}
+bool _data__setparam__half3x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__half3x1(){return mImpl->end__setparam__half3x1();}
+bool _validateBegin__setparam__half3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half3x1();
+bool _freeAttributes__setparam__half3x1( void* attributeData );
+
+bool _begin__setparam__half3x2( void* attributeData ){return mImpl->begin__setparam__half3x2();}
+bool _data__setparam__half3x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__half3x2(){return mImpl->end__setparam__half3x2();}
+bool _validateBegin__setparam__half3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half3x2();
+bool _freeAttributes__setparam__half3x2( void* attributeData );
+
+bool _begin__setparam__half3x3( void* attributeData ){return mImpl->begin__setparam__half3x3();}
+bool _data__setparam__half3x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__half3x3(){return mImpl->end__setparam__half3x3();}
+bool _validateBegin__setparam__half3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half3x3();
+bool _freeAttributes__setparam__half3x3( void* attributeData );
+
+bool _begin__setparam__half3x4( void* attributeData ){return mImpl->begin__setparam__half3x4();}
+bool _data__setparam__half3x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__half3x4(){return mImpl->end__setparam__half3x4();}
+bool _validateBegin__setparam__half3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half3x4();
+bool _freeAttributes__setparam__half3x4( void* attributeData );
+
+bool _begin__setparam__half4x1( void* attributeData ){return mImpl->begin__setparam__half4x1();}
+bool _data__setparam__half4x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__half4x1(){return mImpl->end__setparam__half4x1();}
+bool _validateBegin__setparam__half4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half4x1();
+bool _freeAttributes__setparam__half4x1( void* attributeData );
+
+bool _begin__setparam__half4x2( void* attributeData ){return mImpl->begin__setparam__half4x2();}
+bool _data__setparam__half4x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__half4x2(){return mImpl->end__setparam__half4x2();}
+bool _validateBegin__setparam__half4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half4x2();
+bool _freeAttributes__setparam__half4x2( void* attributeData );
+
+bool _begin__setparam__half4x3( void* attributeData ){return mImpl->begin__setparam__half4x3();}
+bool _data__setparam__half4x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__half4x3(){return mImpl->end__setparam__half4x3();}
+bool _validateBegin__setparam__half4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half4x3();
+bool _freeAttributes__setparam__half4x3( void* attributeData );
+
+bool _begin__setparam__half4x4( void* attributeData ){return mImpl->begin__setparam__half4x4();}
+bool _data__setparam__half4x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__half4x4(){return mImpl->end__setparam__half4x4();}
+bool _validateBegin__setparam__half4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__half4x4();
+bool _freeAttributes__setparam__half4x4( void* attributeData );
+
+bool _begin__setparam__fixed( void* attributeData ){return mImpl->begin__setparam__fixed();}
+bool _data__setparam__fixed( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed(){return mImpl->end__setparam__fixed();}
+bool _validateBegin__setparam__fixed( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed();
+bool _freeAttributes__setparam__fixed( void* attributeData );
+
+bool _begin__setparam__fixed1( void* attributeData ){return mImpl->begin__setparam__fixed1();}
+bool _data__setparam__fixed1( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed1(){return mImpl->end__setparam__fixed1();}
+bool _validateBegin__setparam__fixed1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed1();
+bool _freeAttributes__setparam__fixed1( void* attributeData );
+
+bool _begin__setparam__fixed2( void* attributeData ){return mImpl->begin__setparam__fixed2();}
+bool _data__setparam__fixed2( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed2(){return mImpl->end__setparam__fixed2();}
+bool _validateBegin__setparam__fixed2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed2();
+bool _freeAttributes__setparam__fixed2( void* attributeData );
+
+bool _begin__setparam__fixed3( void* attributeData ){return mImpl->begin__setparam__fixed3();}
+bool _data__setparam__fixed3( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed3(){return mImpl->end__setparam__fixed3();}
+bool _validateBegin__setparam__fixed3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed3();
+bool _freeAttributes__setparam__fixed3( void* attributeData );
+
+bool _begin__setparam__fixed4( void* attributeData ){return mImpl->begin__setparam__fixed4();}
+bool _data__setparam__fixed4( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed4(){return mImpl->end__setparam__fixed4();}
+bool _validateBegin__setparam__fixed4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed4();
+bool _freeAttributes__setparam__fixed4( void* attributeData );
+
+bool _begin__setparam__fixed1x1( void* attributeData ){return mImpl->begin__setparam__fixed1x1();}
+bool _data__setparam__fixed1x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed1x1(){return mImpl->end__setparam__fixed1x1();}
+bool _validateBegin__setparam__fixed1x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed1x1();
+bool _freeAttributes__setparam__fixed1x1( void* attributeData );
+
+bool _begin__setparam__fixed1x2( void* attributeData ){return mImpl->begin__setparam__fixed1x2();}
+bool _data__setparam__fixed1x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed1x2(){return mImpl->end__setparam__fixed1x2();}
+bool _validateBegin__setparam__fixed1x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed1x2();
+bool _freeAttributes__setparam__fixed1x2( void* attributeData );
+
+bool _begin__setparam__fixed1x3( void* attributeData ){return mImpl->begin__setparam__fixed1x3();}
+bool _data__setparam__fixed1x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed1x3(){return mImpl->end__setparam__fixed1x3();}
+bool _validateBegin__setparam__fixed1x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed1x3();
+bool _freeAttributes__setparam__fixed1x3( void* attributeData );
+
+bool _begin__setparam__fixed1x4( void* attributeData ){return mImpl->begin__setparam__fixed1x4();}
+bool _data__setparam__fixed1x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed1x4(){return mImpl->end__setparam__fixed1x4();}
+bool _validateBegin__setparam__fixed1x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed1x4();
+bool _freeAttributes__setparam__fixed1x4( void* attributeData );
+
+bool _begin__setparam__fixed2x1( void* attributeData ){return mImpl->begin__setparam__fixed2x1();}
+bool _data__setparam__fixed2x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed2x1(){return mImpl->end__setparam__fixed2x1();}
+bool _validateBegin__setparam__fixed2x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed2x1();
+bool _freeAttributes__setparam__fixed2x1( void* attributeData );
+
+bool _begin__setparam__fixed2x2( void* attributeData ){return mImpl->begin__setparam__fixed2x2();}
+bool _data__setparam__fixed2x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed2x2(){return mImpl->end__setparam__fixed2x2();}
+bool _validateBegin__setparam__fixed2x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed2x2();
+bool _freeAttributes__setparam__fixed2x2( void* attributeData );
+
+bool _begin__setparam__fixed2x3( void* attributeData ){return mImpl->begin__setparam__fixed2x3();}
+bool _data__setparam__fixed2x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed2x3(){return mImpl->end__setparam__fixed2x3();}
+bool _validateBegin__setparam__fixed2x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed2x3();
+bool _freeAttributes__setparam__fixed2x3( void* attributeData );
+
+bool _begin__setparam__fixed2x4( void* attributeData ){return mImpl->begin__setparam__fixed2x4();}
+bool _data__setparam__fixed2x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed2x4(){return mImpl->end__setparam__fixed2x4();}
+bool _validateBegin__setparam__fixed2x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed2x4();
+bool _freeAttributes__setparam__fixed2x4( void* attributeData );
+
+bool _begin__setparam__fixed3x1( void* attributeData ){return mImpl->begin__setparam__fixed3x1();}
+bool _data__setparam__fixed3x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed3x1(){return mImpl->end__setparam__fixed3x1();}
+bool _validateBegin__setparam__fixed3x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed3x1();
+bool _freeAttributes__setparam__fixed3x1( void* attributeData );
+
+bool _begin__setparam__fixed3x2( void* attributeData ){return mImpl->begin__setparam__fixed3x2();}
+bool _data__setparam__fixed3x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed3x2(){return mImpl->end__setparam__fixed3x2();}
+bool _validateBegin__setparam__fixed3x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed3x2();
+bool _freeAttributes__setparam__fixed3x2( void* attributeData );
+
+bool _begin__setparam__fixed3x3( void* attributeData ){return mImpl->begin__setparam__fixed3x3();}
+bool _data__setparam__fixed3x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed3x3(){return mImpl->end__setparam__fixed3x3();}
+bool _validateBegin__setparam__fixed3x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed3x3();
+bool _freeAttributes__setparam__fixed3x3( void* attributeData );
+
+bool _begin__setparam__fixed3x4( void* attributeData ){return mImpl->begin__setparam__fixed3x4();}
+bool _data__setparam__fixed3x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed3x4(){return mImpl->end__setparam__fixed3x4();}
+bool _validateBegin__setparam__fixed3x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed3x4();
+bool _freeAttributes__setparam__fixed3x4( void* attributeData );
+
+bool _begin__setparam__fixed4x1( void* attributeData ){return mImpl->begin__setparam__fixed4x1();}
+bool _data__setparam__fixed4x1( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed4x1(){return mImpl->end__setparam__fixed4x1();}
+bool _validateBegin__setparam__fixed4x1( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed4x1();
+bool _freeAttributes__setparam__fixed4x1( void* attributeData );
+
+bool _begin__setparam__fixed4x2( void* attributeData ){return mImpl->begin__setparam__fixed4x2();}
+bool _data__setparam__fixed4x2( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed4x2(){return mImpl->end__setparam__fixed4x2();}
+bool _validateBegin__setparam__fixed4x2( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed4x2();
+bool _freeAttributes__setparam__fixed4x2( void* attributeData );
+
+bool _begin__setparam__fixed4x3( void* attributeData ){return mImpl->begin__setparam__fixed4x3();}
+bool _data__setparam__fixed4x3( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed4x3(){return mImpl->end__setparam__fixed4x3();}
+bool _validateBegin__setparam__fixed4x3( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed4x3();
+bool _freeAttributes__setparam__fixed4x3( void* attributeData );
+
+bool _begin__setparam__fixed4x4( void* attributeData ){return mImpl->begin__setparam__fixed4x4();}
+bool _data__setparam__fixed4x4( const ParserChar* text, size_t textLength );
+bool _end__setparam__fixed4x4(){return mImpl->end__setparam__fixed4x4();}
+bool _validateBegin__setparam__fixed4x4( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__fixed4x4();
+bool _freeAttributes__setparam__fixed4x4( void* attributeData );
+
+bool _begin__setparam__string( void* attributeData ){return mImpl->begin__setparam__string();}
+bool _data__setparam__string( const ParserChar* text, size_t textLength );
+bool _end__setparam__string(){return mImpl->end__setparam__string();}
+bool _validateBegin__setparam__string( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__string();
+bool _freeAttributes__setparam__string( void* attributeData );
+
+bool _begin__setparam__usertype( void* attributeData ){return mImpl->begin__setparam__usertype(*static_cast<usertype__AttributeData*>(attributeData));}
+bool _data__setparam__usertype( const ParserChar* text, size_t textLength );
+bool _end__setparam__usertype(){return mImpl->end__setparam__usertype();}
+bool _validateBegin__setparam__usertype( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__usertype();
+bool _freeAttributes__setparam__usertype( void* attributeData );
+
+bool _begin__setparam__array( void* attributeData ){return mImpl->begin__setparam__array(*static_cast<setparam__array__AttributeData*>(attributeData));}
+bool _data__setparam__array( const ParserChar* text, size_t textLength );
+bool _end__setparam__array(){return mImpl->end__setparam__array();}
+bool _validateBegin__setparam__array( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__array();
+bool _freeAttributes__setparam__array( void* attributeData );
+
+bool _begin__setparam__connect_param( void* attributeData ){return mImpl->begin__setparam__connect_param(*static_cast<connect_param__AttributeData*>(attributeData));}
+bool _data__setparam__connect_param( const ParserChar* text, size_t textLength );
+bool _end__setparam__connect_param(){return mImpl->end__setparam__connect_param();}
+bool _validateBegin__setparam__connect_param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__setparam__connect_param();
+bool _freeAttributes__setparam__connect_param( void* attributeData );
+
+bool _begin__profile_CG__technique( void* attributeData ){return mImpl->begin__profile_CG__technique(*static_cast<profile_CG__technique__AttributeData*>(attributeData));}
+bool _data__profile_CG__technique( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__technique(){return mImpl->end__profile_CG__technique();}
+bool _validateBegin__profile_CG__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__technique();
+bool _freeAttributes__profile_CG__technique( void* attributeData );
+
+bool _begin__profile_CG__extra( void* attributeData ){return mImpl->begin__profile_CG__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__profile_CG__extra( const ParserChar* text, size_t textLength );
+bool _end__profile_CG__extra(){return mImpl->end__profile_CG__extra();}
+bool _validateBegin__profile_CG__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_CG__extra();
+bool _freeAttributes__profile_CG__extra( void* attributeData );
+
+bool _begin__profile_COMMON( void* attributeData ){return mImpl->begin__profile_COMMON(*static_cast<profile_COMMON__AttributeData*>(attributeData));}
+bool _data__profile_COMMON( const ParserChar* text, size_t textLength );
+bool _end__profile_COMMON(){return mImpl->end__profile_COMMON();}
+bool _validateBegin__profile_COMMON( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_COMMON();
+bool _freeAttributes__profile_COMMON( void* attributeData );
+
+bool _begin__profile_COMMON__asset( void* attributeData ){return mImpl->begin__profile_COMMON__asset();}
+bool _data__profile_COMMON__asset( const ParserChar* text, size_t textLength );
+bool _end__profile_COMMON__asset(){return mImpl->end__profile_COMMON__asset();}
+bool _validateBegin__profile_COMMON__asset( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_COMMON__asset();
+bool _freeAttributes__profile_COMMON__asset( void* attributeData );
+
+bool _begin__profile_COMMON__image( void* attributeData ){return mImpl->begin__profile_COMMON__image(*static_cast<image__AttributeData*>(attributeData));}
+bool _data__profile_COMMON__image( const ParserChar* text, size_t textLength );
+bool _end__profile_COMMON__image(){return mImpl->end__profile_COMMON__image();}
+bool _validateBegin__profile_COMMON__image( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_COMMON__image();
+bool _freeAttributes__profile_COMMON__image( void* attributeData );
+
+bool _begin__profile_COMMON__newparam( void* attributeData ){return mImpl->begin__profile_COMMON__newparam(*static_cast<profile_COMMON__newparam__AttributeData*>(attributeData));}
+bool _data__profile_COMMON__newparam( const ParserChar* text, size_t textLength );
+bool _end__profile_COMMON__newparam(){return mImpl->end__profile_COMMON__newparam();}
+bool _validateBegin__profile_COMMON__newparam( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_COMMON__newparam();
+bool _freeAttributes__profile_COMMON__newparam( void* attributeData );
+
+bool _begin__profile_COMMON__technique( void* attributeData ){return mImpl->begin__profile_COMMON__technique(*static_cast<profile_COMMON__technique__AttributeData*>(attributeData));}
+bool _data__profile_COMMON__technique( const ParserChar* text, size_t textLength );
+bool _end__profile_COMMON__technique(){return mImpl->end__profile_COMMON__technique();}
+bool _validateBegin__profile_COMMON__technique( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_COMMON__technique();
+bool _freeAttributes__profile_COMMON__technique( void* attributeData );
+
+bool _begin__technique__constant( void* attributeData ){return mImpl->begin__technique__constant();}
+bool _data__technique__constant( const ParserChar* text, size_t textLength );
+bool _end__technique__constant(){return mImpl->end__technique__constant();}
+bool _validateBegin__technique__constant( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__technique__constant();
+bool _freeAttributes__technique__constant( void* attributeData );
+
+bool _begin__constant__emission( void* attributeData ){return mImpl->begin__constant__emission();}
+bool _data__constant__emission( const ParserChar* text, size_t textLength );
+bool _end__constant__emission(){return mImpl->end__constant__emission();}
+bool _validateBegin__constant__emission( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__constant__emission();
+bool _freeAttributes__constant__emission( void* attributeData );
+
+bool _begin__emission__color( void* attributeData ){return mImpl->begin__emission__color(*static_cast<emission__color__AttributeData*>(attributeData));}
+bool _data__emission__color( const ParserChar* text, size_t textLength );
+bool _end__emission__color(){return mImpl->end__emission__color();}
+bool _validateBegin__emission__color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__emission__color();
+bool _freeAttributes__emission__color( void* attributeData );
+
+bool _begin__emission__param( void* attributeData ){return mImpl->begin__emission__param(*static_cast<emission__param__AttributeData*>(attributeData));}
+bool _data__emission__param( const ParserChar* text, size_t textLength );
+bool _end__emission__param(){return mImpl->end__emission__param();}
+bool _validateBegin__emission__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__emission__param();
+bool _freeAttributes__emission__param( void* attributeData );
+
+bool _begin__emission__texture( void* attributeData ){return mImpl->begin__emission__texture(*static_cast<texture__AttributeData*>(attributeData));}
+bool _data__emission__texture( const ParserChar* text, size_t textLength );
+bool _end__emission__texture(){return mImpl->end__emission__texture();}
+bool _validateBegin__emission__texture( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__emission__texture();
+bool _freeAttributes__emission__texture( void* attributeData );
+
+bool _begin__texture__extra( void* attributeData ){return mImpl->begin__texture__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__texture__extra( const ParserChar* text, size_t textLength );
+bool _end__texture__extra(){return mImpl->end__texture__extra();}
+bool _validateBegin__texture__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__texture__extra();
+bool _freeAttributes__texture__extra( void* attributeData );
+
+bool _begin__constant__reflective( void* attributeData ){return mImpl->begin__constant__reflective();}
+bool _data__constant__reflective( const ParserChar* text, size_t textLength );
+bool _end__constant__reflective(){return mImpl->end__constant__reflective();}
+bool _validateBegin__constant__reflective( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__constant__reflective();
+bool _freeAttributes__constant__reflective( void* attributeData );
+
+bool _begin__reflective__color( void* attributeData ){return mImpl->begin__reflective__color(*static_cast<reflective__color__AttributeData*>(attributeData));}
+bool _data__reflective__color( const ParserChar* text, size_t textLength );
+bool _end__reflective__color(){return mImpl->end__reflective__color();}
+bool _validateBegin__reflective__color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__reflective__color();
+bool _freeAttributes__reflective__color( void* attributeData );
+
+bool _begin__reflective__param( void* attributeData ){return mImpl->begin__reflective__param(*static_cast<reflective__param__AttributeData*>(attributeData));}
+bool _data__reflective__param( const ParserChar* text, size_t textLength );
+bool _end__reflective__param(){return mImpl->end__reflective__param();}
+bool _validateBegin__reflective__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__reflective__param();
+bool _freeAttributes__reflective__param( void* attributeData );
+
+bool _begin__reflective__texture( void* attributeData ){return mImpl->begin__reflective__texture(*static_cast<texture__AttributeData*>(attributeData));}
+bool _data__reflective__texture( const ParserChar* text, size_t textLength );
+bool _end__reflective__texture(){return mImpl->end__reflective__texture();}
+bool _validateBegin__reflective__texture( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__reflective__texture();
+bool _freeAttributes__reflective__texture( void* attributeData );
+
+bool _begin__constant__reflectivity( void* attributeData ){return mImpl->begin__constant__reflectivity();}
+bool _data__constant__reflectivity( const ParserChar* text, size_t textLength );
+bool _end__constant__reflectivity(){return mImpl->end__constant__reflectivity();}
+bool _validateBegin__constant__reflectivity( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__constant__reflectivity();
+bool _freeAttributes__constant__reflectivity( void* attributeData );
+
+bool _begin__reflectivity__float( void* attributeData ){return mImpl->begin__reflectivity__float(*static_cast<reflectivity__float__AttributeData*>(attributeData));}
+bool _data__reflectivity__float( const ParserChar* text, size_t textLength );
+bool _end__reflectivity__float(){return mImpl->end__reflectivity__float();}
+bool _validateBegin__reflectivity__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__reflectivity__float();
+bool _freeAttributes__reflectivity__float( void* attributeData );
+
+bool _begin__reflectivity__param( void* attributeData ){return mImpl->begin__reflectivity__param(*static_cast<reflectivity__param__AttributeData*>(attributeData));}
+bool _data__reflectivity__param( const ParserChar* text, size_t textLength );
+bool _end__reflectivity__param(){return mImpl->end__reflectivity__param();}
+bool _validateBegin__reflectivity__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__reflectivity__param();
+bool _freeAttributes__reflectivity__param( void* attributeData );
+
+bool _begin__constant__transparent( void* attributeData ){return mImpl->begin__constant__transparent(*static_cast<transparent__AttributeData*>(attributeData));}
+bool _data__constant__transparent( const ParserChar* text, size_t textLength );
+bool _end__constant__transparent(){return mImpl->end__constant__transparent();}
+bool _validateBegin__constant__transparent( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__constant__transparent();
+bool _freeAttributes__constant__transparent( void* attributeData );
+
+
+fx_opaque_enum toEnumDataPrefix_fx_opaque_enum (
+    const ParserChar* prefixedBuffer,
+    const ParserChar* prefixedBufferEnd,
+    const ParserChar** buffer,
+    const ParserChar* bufferEnd,
+    bool& failed,
+    const std::pair<StringHash, fx_opaque_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool characterData2EnumData_fx_opaque_enum (
+    const ParserChar* text,
+    size_t textLength,
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_opaque_enum*, size_t ),
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& )
+);
+
+
+bool dataEnumEnd_fx_opaque_enum (
+    bool ( ColladaParserAutoGen::*dataFunction )(const fx_opaque_enum*, size_t ),
+    const std::pair<StringHash, fx_opaque_enum>* enumMap,
+    StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ),
+    fx_opaque_enum (*toEnumFunc)( const ParserChar**, const ParserChar*, bool&, const std::pair<StringHash, fx_opaque_enum>* enumMap, StringHash (*baseConversionFunc)( const ParserChar**, const ParserChar*, bool& ))
+);
+
+
+
+bool _begin__transparent__color( void* attributeData ){return mImpl->begin__transparent__color(*static_cast<transparent__color__AttributeData*>(attributeData));}
+bool _data__transparent__color( const ParserChar* text, size_t textLength );
+bool _end__transparent__color(){return mImpl->end__transparent__color();}
+bool _validateBegin__transparent__color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__transparent__color();
+bool _freeAttributes__transparent__color( void* attributeData );
+
+bool _begin__transparent__param( void* attributeData ){return mImpl->begin__transparent__param(*static_cast<transparent__param__AttributeData*>(attributeData));}
+bool _data__transparent__param( const ParserChar* text, size_t textLength );
+bool _end__transparent__param(){return mImpl->end__transparent__param();}
+bool _validateBegin__transparent__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__transparent__param();
+bool _freeAttributes__transparent__param( void* attributeData );
+
+bool _begin__transparent__texture( void* attributeData ){return mImpl->begin__transparent__texture(*static_cast<texture__AttributeData*>(attributeData));}
+bool _data__transparent__texture( const ParserChar* text, size_t textLength );
+bool _end__transparent__texture(){return mImpl->end__transparent__texture();}
+bool _validateBegin__transparent__texture( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__transparent__texture();
+bool _freeAttributes__transparent__texture( void* attributeData );
+
+bool _begin__constant__transparency( void* attributeData ){return mImpl->begin__constant__transparency();}
+bool _data__constant__transparency( const ParserChar* text, size_t textLength );
+bool _end__constant__transparency(){return mImpl->end__constant__transparency();}
+bool _validateBegin__constant__transparency( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__constant__transparency();
+bool _freeAttributes__constant__transparency( void* attributeData );
+
+bool _begin__transparency__float( void* attributeData ){return mImpl->begin__transparency__float(*static_cast<transparency__float__AttributeData*>(attributeData));}
+bool _data__transparency__float( const ParserChar* text, size_t textLength );
+bool _end__transparency__float(){return mImpl->end__transparency__float();}
+bool _validateBegin__transparency__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__transparency__float();
+bool _freeAttributes__transparency__float( void* attributeData );
+
+bool _begin__transparency__param( void* attributeData ){return mImpl->begin__transparency__param(*static_cast<transparency__param__AttributeData*>(attributeData));}
+bool _data__transparency__param( const ParserChar* text, size_t textLength );
+bool _end__transparency__param(){return mImpl->end__transparency__param();}
+bool _validateBegin__transparency__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__transparency__param();
+bool _freeAttributes__transparency__param( void* attributeData );
+
+bool _begin__constant__index_of_refraction( void* attributeData ){return mImpl->begin__constant__index_of_refraction();}
+bool _data__constant__index_of_refraction( const ParserChar* text, size_t textLength );
+bool _end__constant__index_of_refraction(){return mImpl->end__constant__index_of_refraction();}
+bool _validateBegin__constant__index_of_refraction( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__constant__index_of_refraction();
+bool _freeAttributes__constant__index_of_refraction( void* attributeData );
+
+bool _begin__index_of_refraction__float( void* attributeData ){return mImpl->begin__index_of_refraction__float(*static_cast<index_of_refraction__float__AttributeData*>(attributeData));}
+bool _data__index_of_refraction__float( const ParserChar* text, size_t textLength );
+bool _end__index_of_refraction__float(){return mImpl->end__index_of_refraction__float();}
+bool _validateBegin__index_of_refraction__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__index_of_refraction__float();
+bool _freeAttributes__index_of_refraction__float( void* attributeData );
+
+bool _begin__index_of_refraction__param( void* attributeData ){return mImpl->begin__index_of_refraction__param(*static_cast<index_of_refraction__param__AttributeData*>(attributeData));}
+bool _data__index_of_refraction__param( const ParserChar* text, size_t textLength );
+bool _end__index_of_refraction__param(){return mImpl->end__index_of_refraction__param();}
+bool _validateBegin__index_of_refraction__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__index_of_refraction__param();
+bool _freeAttributes__index_of_refraction__param( void* attributeData );
+
+bool _begin__lambert( void* attributeData ){return mImpl->begin__lambert();}
+bool _data__lambert( const ParserChar* text, size_t textLength );
+bool _end__lambert(){return mImpl->end__lambert();}
+bool _validateBegin__lambert( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert();
+bool _freeAttributes__lambert( void* attributeData );
+
+bool _begin__lambert__emission( void* attributeData ){return mImpl->begin__lambert__emission();}
+bool _data__lambert__emission( const ParserChar* text, size_t textLength );
+bool _end__lambert__emission(){return mImpl->end__lambert__emission();}
+bool _validateBegin__lambert__emission( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__emission();
+bool _freeAttributes__lambert__emission( void* attributeData );
+
+bool _begin__lambert__ambient( void* attributeData ){return mImpl->begin__lambert__ambient();}
+bool _data__lambert__ambient( const ParserChar* text, size_t textLength );
+bool _end__lambert__ambient(){return mImpl->end__lambert__ambient();}
+bool _validateBegin__lambert__ambient( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__ambient();
+bool _freeAttributes__lambert__ambient( void* attributeData );
+
+bool _begin__ambient__param( void* attributeData ){return mImpl->begin__ambient__param(*static_cast<ambient__param__AttributeData*>(attributeData));}
+bool _data__ambient__param( const ParserChar* text, size_t textLength );
+bool _end__ambient__param(){return mImpl->end__ambient__param();}
+bool _validateBegin__ambient__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__ambient__param();
+bool _freeAttributes__ambient__param( void* attributeData );
+
+bool _begin__ambient__texture( void* attributeData ){return mImpl->begin__ambient__texture(*static_cast<texture__AttributeData*>(attributeData));}
+bool _data__ambient__texture( const ParserChar* text, size_t textLength );
+bool _end__ambient__texture(){return mImpl->end__ambient__texture();}
+bool _validateBegin__ambient__texture( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__ambient__texture();
+bool _freeAttributes__ambient__texture( void* attributeData );
+
+bool _begin__lambert__diffuse( void* attributeData ){return mImpl->begin__lambert__diffuse();}
+bool _data__lambert__diffuse( const ParserChar* text, size_t textLength );
+bool _end__lambert__diffuse(){return mImpl->end__lambert__diffuse();}
+bool _validateBegin__lambert__diffuse( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__diffuse();
+bool _freeAttributes__lambert__diffuse( void* attributeData );
+
+bool _begin__diffuse__color( void* attributeData ){return mImpl->begin__diffuse__color(*static_cast<diffuse__color__AttributeData*>(attributeData));}
+bool _data__diffuse__color( const ParserChar* text, size_t textLength );
+bool _end__diffuse__color(){return mImpl->end__diffuse__color();}
+bool _validateBegin__diffuse__color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__diffuse__color();
+bool _freeAttributes__diffuse__color( void* attributeData );
+
+bool _begin__diffuse__param( void* attributeData ){return mImpl->begin__diffuse__param(*static_cast<diffuse__param__AttributeData*>(attributeData));}
+bool _data__diffuse__param( const ParserChar* text, size_t textLength );
+bool _end__diffuse__param(){return mImpl->end__diffuse__param();}
+bool _validateBegin__diffuse__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__diffuse__param();
+bool _freeAttributes__diffuse__param( void* attributeData );
+
+bool _begin__diffuse__texture( void* attributeData ){return mImpl->begin__diffuse__texture(*static_cast<texture__AttributeData*>(attributeData));}
+bool _data__diffuse__texture( const ParserChar* text, size_t textLength );
+bool _end__diffuse__texture(){return mImpl->end__diffuse__texture();}
+bool _validateBegin__diffuse__texture( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__diffuse__texture();
+bool _freeAttributes__diffuse__texture( void* attributeData );
+
+bool _begin__lambert__reflective( void* attributeData ){return mImpl->begin__lambert__reflective();}
+bool _data__lambert__reflective( const ParserChar* text, size_t textLength );
+bool _end__lambert__reflective(){return mImpl->end__lambert__reflective();}
+bool _validateBegin__lambert__reflective( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__reflective();
+bool _freeAttributes__lambert__reflective( void* attributeData );
+
+bool _begin__lambert__reflectivity( void* attributeData ){return mImpl->begin__lambert__reflectivity();}
+bool _data__lambert__reflectivity( const ParserChar* text, size_t textLength );
+bool _end__lambert__reflectivity(){return mImpl->end__lambert__reflectivity();}
+bool _validateBegin__lambert__reflectivity( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__reflectivity();
+bool _freeAttributes__lambert__reflectivity( void* attributeData );
+
+bool _begin__lambert__transparent( void* attributeData ){return mImpl->begin__lambert__transparent(*static_cast<transparent__AttributeData*>(attributeData));}
+bool _data__lambert__transparent( const ParserChar* text, size_t textLength );
+bool _end__lambert__transparent(){return mImpl->end__lambert__transparent();}
+bool _validateBegin__lambert__transparent( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__transparent();
+bool _freeAttributes__lambert__transparent( void* attributeData );
+
+bool _begin__lambert__transparency( void* attributeData ){return mImpl->begin__lambert__transparency();}
+bool _data__lambert__transparency( const ParserChar* text, size_t textLength );
+bool _end__lambert__transparency(){return mImpl->end__lambert__transparency();}
+bool _validateBegin__lambert__transparency( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__transparency();
+bool _freeAttributes__lambert__transparency( void* attributeData );
+
+bool _begin__lambert__index_of_refraction( void* attributeData ){return mImpl->begin__lambert__index_of_refraction();}
+bool _data__lambert__index_of_refraction( const ParserChar* text, size_t textLength );
+bool _end__lambert__index_of_refraction(){return mImpl->end__lambert__index_of_refraction();}
+bool _validateBegin__lambert__index_of_refraction( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__lambert__index_of_refraction();
+bool _freeAttributes__lambert__index_of_refraction( void* attributeData );
+
+bool _begin__phong( void* attributeData ){return mImpl->begin__phong();}
+bool _data__phong( const ParserChar* text, size_t textLength );
+bool _end__phong(){return mImpl->end__phong();}
+bool _validateBegin__phong( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong();
+bool _freeAttributes__phong( void* attributeData );
+
+bool _begin__phong__emission( void* attributeData ){return mImpl->begin__phong__emission();}
+bool _data__phong__emission( const ParserChar* text, size_t textLength );
+bool _end__phong__emission(){return mImpl->end__phong__emission();}
+bool _validateBegin__phong__emission( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__emission();
+bool _freeAttributes__phong__emission( void* attributeData );
+
+bool _begin__phong__ambient( void* attributeData ){return mImpl->begin__phong__ambient();}
+bool _data__phong__ambient( const ParserChar* text, size_t textLength );
+bool _end__phong__ambient(){return mImpl->end__phong__ambient();}
+bool _validateBegin__phong__ambient( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__ambient();
+bool _freeAttributes__phong__ambient( void* attributeData );
+
+bool _begin__phong__diffuse( void* attributeData ){return mImpl->begin__phong__diffuse();}
+bool _data__phong__diffuse( const ParserChar* text, size_t textLength );
+bool _end__phong__diffuse(){return mImpl->end__phong__diffuse();}
+bool _validateBegin__phong__diffuse( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__diffuse();
+bool _freeAttributes__phong__diffuse( void* attributeData );
+
+bool _begin__phong__specular( void* attributeData ){return mImpl->begin__phong__specular();}
+bool _data__phong__specular( const ParserChar* text, size_t textLength );
+bool _end__phong__specular(){return mImpl->end__phong__specular();}
+bool _validateBegin__phong__specular( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__specular();
+bool _freeAttributes__phong__specular( void* attributeData );
+
+bool _begin__specular__color( void* attributeData ){return mImpl->begin__specular__color(*static_cast<specular__color__AttributeData*>(attributeData));}
+bool _data__specular__color( const ParserChar* text, size_t textLength );
+bool _end__specular__color(){return mImpl->end__specular__color();}
+bool _validateBegin__specular__color( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__specular__color();
+bool _freeAttributes__specular__color( void* attributeData );
+
+bool _begin__specular__param( void* attributeData ){return mImpl->begin__specular__param(*static_cast<specular__param__AttributeData*>(attributeData));}
+bool _data__specular__param( const ParserChar* text, size_t textLength );
+bool _end__specular__param(){return mImpl->end__specular__param();}
+bool _validateBegin__specular__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__specular__param();
+bool _freeAttributes__specular__param( void* attributeData );
+
+bool _begin__specular__texture( void* attributeData ){return mImpl->begin__specular__texture(*static_cast<texture__AttributeData*>(attributeData));}
+bool _data__specular__texture( const ParserChar* text, size_t textLength );
+bool _end__specular__texture(){return mImpl->end__specular__texture();}
+bool _validateBegin__specular__texture( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__specular__texture();
+bool _freeAttributes__specular__texture( void* attributeData );
+
+bool _begin__phong__shininess( void* attributeData ){return mImpl->begin__phong__shininess();}
+bool _data__phong__shininess( const ParserChar* text, size_t textLength );
+bool _end__phong__shininess(){return mImpl->end__phong__shininess();}
+bool _validateBegin__phong__shininess( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__shininess();
+bool _freeAttributes__phong__shininess( void* attributeData );
+
+bool _begin__shininess__float( void* attributeData ){return mImpl->begin__shininess__float(*static_cast<shininess__float__AttributeData*>(attributeData));}
+bool _data__shininess__float( const ParserChar* text, size_t textLength );
+bool _end__shininess__float(){return mImpl->end__shininess__float();}
+bool _validateBegin__shininess__float( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__shininess__float();
+bool _freeAttributes__shininess__float( void* attributeData );
+
+bool _begin__shininess__param( void* attributeData ){return mImpl->begin__shininess__param(*static_cast<shininess__param__AttributeData*>(attributeData));}
+bool _data__shininess__param( const ParserChar* text, size_t textLength );
+bool _end__shininess__param(){return mImpl->end__shininess__param();}
+bool _validateBegin__shininess__param( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__shininess__param();
+bool _freeAttributes__shininess__param( void* attributeData );
+
+bool _begin__phong__reflective( void* attributeData ){return mImpl->begin__phong__reflective();}
+bool _data__phong__reflective( const ParserChar* text, size_t textLength );
+bool _end__phong__reflective(){return mImpl->end__phong__reflective();}
+bool _validateBegin__phong__reflective( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__reflective();
+bool _freeAttributes__phong__reflective( void* attributeData );
+
+bool _begin__phong__reflectivity( void* attributeData ){return mImpl->begin__phong__reflectivity();}
+bool _data__phong__reflectivity( const ParserChar* text, size_t textLength );
+bool _end__phong__reflectivity(){return mImpl->end__phong__reflectivity();}
+bool _validateBegin__phong__reflectivity( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__reflectivity();
+bool _freeAttributes__phong__reflectivity( void* attributeData );
+
+bool _begin__phong__transparent( void* attributeData ){return mImpl->begin__phong__transparent(*static_cast<transparent__AttributeData*>(attributeData));}
+bool _data__phong__transparent( const ParserChar* text, size_t textLength );
+bool _end__phong__transparent(){return mImpl->end__phong__transparent();}
+bool _validateBegin__phong__transparent( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__transparent();
+bool _freeAttributes__phong__transparent( void* attributeData );
+
+bool _begin__phong__transparency( void* attributeData ){return mImpl->begin__phong__transparency();}
+bool _data__phong__transparency( const ParserChar* text, size_t textLength );
+bool _end__phong__transparency(){return mImpl->end__phong__transparency();}
+bool _validateBegin__phong__transparency( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__transparency();
+bool _freeAttributes__phong__transparency( void* attributeData );
+
+bool _begin__phong__index_of_refraction( void* attributeData ){return mImpl->begin__phong__index_of_refraction();}
+bool _data__phong__index_of_refraction( const ParserChar* text, size_t textLength );
+bool _end__phong__index_of_refraction(){return mImpl->end__phong__index_of_refraction();}
+bool _validateBegin__phong__index_of_refraction( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__phong__index_of_refraction();
+bool _freeAttributes__phong__index_of_refraction( void* attributeData );
+
+bool _begin__blinn( void* attributeData ){return mImpl->begin__blinn();}
+bool _data__blinn( const ParserChar* text, size_t textLength );
+bool _end__blinn(){return mImpl->end__blinn();}
+bool _validateBegin__blinn( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn();
+bool _freeAttributes__blinn( void* attributeData );
+
+bool _begin__blinn__emission( void* attributeData ){return mImpl->begin__blinn__emission();}
+bool _data__blinn__emission( const ParserChar* text, size_t textLength );
+bool _end__blinn__emission(){return mImpl->end__blinn__emission();}
+bool _validateBegin__blinn__emission( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__emission();
+bool _freeAttributes__blinn__emission( void* attributeData );
+
+bool _begin__blinn__ambient( void* attributeData ){return mImpl->begin__blinn__ambient();}
+bool _data__blinn__ambient( const ParserChar* text, size_t textLength );
+bool _end__blinn__ambient(){return mImpl->end__blinn__ambient();}
+bool _validateBegin__blinn__ambient( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__ambient();
+bool _freeAttributes__blinn__ambient( void* attributeData );
+
+bool _begin__blinn__diffuse( void* attributeData ){return mImpl->begin__blinn__diffuse();}
+bool _data__blinn__diffuse( const ParserChar* text, size_t textLength );
+bool _end__blinn__diffuse(){return mImpl->end__blinn__diffuse();}
+bool _validateBegin__blinn__diffuse( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__diffuse();
+bool _freeAttributes__blinn__diffuse( void* attributeData );
+
+bool _begin__blinn__specular( void* attributeData ){return mImpl->begin__blinn__specular();}
+bool _data__blinn__specular( const ParserChar* text, size_t textLength );
+bool _end__blinn__specular(){return mImpl->end__blinn__specular();}
+bool _validateBegin__blinn__specular( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__specular();
+bool _freeAttributes__blinn__specular( void* attributeData );
+
+bool _begin__blinn__shininess( void* attributeData ){return mImpl->begin__blinn__shininess();}
+bool _data__blinn__shininess( const ParserChar* text, size_t textLength );
+bool _end__blinn__shininess(){return mImpl->end__blinn__shininess();}
+bool _validateBegin__blinn__shininess( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__shininess();
+bool _freeAttributes__blinn__shininess( void* attributeData );
+
+bool _begin__blinn__reflective( void* attributeData ){return mImpl->begin__blinn__reflective();}
+bool _data__blinn__reflective( const ParserChar* text, size_t textLength );
+bool _end__blinn__reflective(){return mImpl->end__blinn__reflective();}
+bool _validateBegin__blinn__reflective( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__reflective();
+bool _freeAttributes__blinn__reflective( void* attributeData );
+
+bool _begin__blinn__reflectivity( void* attributeData ){return mImpl->begin__blinn__reflectivity();}
+bool _data__blinn__reflectivity( const ParserChar* text, size_t textLength );
+bool _end__blinn__reflectivity(){return mImpl->end__blinn__reflectivity();}
+bool _validateBegin__blinn__reflectivity( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__reflectivity();
+bool _freeAttributes__blinn__reflectivity( void* attributeData );
+
+bool _begin__blinn__transparent( void* attributeData ){return mImpl->begin__blinn__transparent(*static_cast<transparent__AttributeData*>(attributeData));}
+bool _data__blinn__transparent( const ParserChar* text, size_t textLength );
+bool _end__blinn__transparent(){return mImpl->end__blinn__transparent();}
+bool _validateBegin__blinn__transparent( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__transparent();
+bool _freeAttributes__blinn__transparent( void* attributeData );
+
+bool _begin__blinn__transparency( void* attributeData ){return mImpl->begin__blinn__transparency();}
+bool _data__blinn__transparency( const ParserChar* text, size_t textLength );
+bool _end__blinn__transparency(){return mImpl->end__blinn__transparency();}
+bool _validateBegin__blinn__transparency( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__transparency();
+bool _freeAttributes__blinn__transparency( void* attributeData );
+
+bool _begin__blinn__index_of_refraction( void* attributeData ){return mImpl->begin__blinn__index_of_refraction();}
+bool _data__blinn__index_of_refraction( const ParserChar* text, size_t textLength );
+bool _end__blinn__index_of_refraction(){return mImpl->end__blinn__index_of_refraction();}
+bool _validateBegin__blinn__index_of_refraction( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__blinn__index_of_refraction();
+bool _freeAttributes__blinn__index_of_refraction( void* attributeData );
+
+bool _begin__profile_COMMON__extra( void* attributeData ){return mImpl->begin__profile_COMMON__extra(*static_cast<extra__AttributeData*>(attributeData));}
+bool _data__profile_COMMON__extra( const ParserChar* text, size_t textLength );
+bool _end__profile_COMMON__extra(){return mImpl->end__profile_COMMON__extra();}
+bool _validateBegin__profile_COMMON__extra( const ParserAttributes& attributes, void ** attributeDataPtr, void ** validationDataPtr );
+bool _validateEnd__profile_COMMON__extra();
+bool _freeAttributes__profile_COMMON__extra( void* attributeData );
 
 
 
