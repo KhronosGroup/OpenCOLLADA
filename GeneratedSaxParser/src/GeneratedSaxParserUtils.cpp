@@ -30,6 +30,54 @@ namespace GeneratedSaxParser
 		return h;
 	}
 
+    //--------------------------------------------------------------------
+    StringHash Utils::calculateStringHash( const ParserChar** text, const ParserChar* bufferEnd, bool& failed )
+    {
+        failed = false;
+        StringHash h = 0;
+        StringHash g;
+        const ParserChar* bufferPos = *text;
+
+        if ( !bufferPos ) 
+        {
+            failed = true;
+            *text = bufferPos;
+            return 0;
+        }
+
+        if ( bufferPos == bufferEnd )
+        {
+            failed = true;
+            *text = bufferPos;
+            return 0;
+        }
+        // Skip leading white spaces
+        while ( isWhiteSpace(*bufferPos) ) 
+        {
+            ++bufferPos; 
+            if ( bufferPos == bufferEnd )
+            {
+                failed = true;
+                *text = bufferPos;
+                return 0;
+            }
+        }
+
+        while ( bufferPos != bufferEnd ) {
+            if ( isWhiteSpace(*bufferPos) )
+            {
+                *text = bufferPos;
+                return h;
+            }
+            h = (h << 4) + *bufferPos++;
+            if ((g = (h & 0xf0000000)) != 0)
+                h ^= g >> 24;
+            h &= ~g;
+        }
+        *text = bufferPos;
+        return h;
+    }
+
 	//--------------------------------------------------------------------
 	StringHash Utils::calculateStringHash( StringHash prefixHash, const char* separator, const ParserChar* text )
 	{

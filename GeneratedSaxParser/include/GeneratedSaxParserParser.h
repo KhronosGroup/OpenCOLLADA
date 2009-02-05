@@ -25,7 +25,6 @@ namespace GeneratedSaxParser
 	private:
 		SaxParser* mSaxParser;
 		IErrorHandler* mErrorHandler;
-
 	public:
 		Parser(IErrorHandler* errorHandler);
 		virtual ~Parser();
@@ -38,11 +37,9 @@ namespace GeneratedSaxParser
 
 		IErrorHandler* getErrorHandler() { return mErrorHandler; }
 
-
 	protected:
 		size_t getLineNumber()const;
 		size_t getColumnNumber()const;
-
 
 	private:
         /** Disable default copy ctor. */

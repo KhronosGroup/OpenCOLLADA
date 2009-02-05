@@ -43,10 +43,10 @@ namespace GeneratedSaxParser
         /** Disable default assignment operator. */
 		const LibxmlSaxParser& operator= ( const LibxmlSaxParser& pre );
 
-		static void startElement( void* user_data,	const xmlChar* name, const xmlChar** attrs);
-		static void endElement( void* user_data, const xmlChar* name);
+		static void startElement( void* user_data,	const ::xmlChar* name, const ::xmlChar** attrs);
+		static void endElement( void* user_data, const ::xmlChar* name);
 
-		static void characters( void* user_data, const xmlChar* name, int length );
+		static void characters( void* user_data, const ::xmlChar* name, int length );
 
 		static void errorFunction (void *ctx,	const char *msg, ...);
 

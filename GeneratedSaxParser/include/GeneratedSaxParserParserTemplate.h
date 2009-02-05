@@ -224,6 +224,45 @@ namespace GeneratedSaxParser
         bool characterData2UnsignedLongLongList(const ParserChar* text, XSList<unsigned long long>& list);
 
 
+        /**
+         * Converts a string into a list of enums.
+         * @see characterData2Data
+         */
+        template<class EnumType, class BaseType, EnumType EnumMapCount>
+        bool characterData2EnumData(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+            , 
+            EnumType (*toEnum)(const ParserChar** buffer, 
+                const ParserChar* bufferEnd,
+                bool& failed, 
+                const std::pair<BaseType, EnumType>* enumMap,
+                BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+            ),
+            EnumType (DerivedClass::*toEnumDataWithPrefix)(
+                const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed,
+                const std::pair<BaseType, EnumType>* enumMap,
+                BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+            )
+        );
+
+        /**
+         * Converts last part of a buffer into a list of enums.
+         * @see dataEnd
+         */
+        template<class EnumType, class BaseType, EnumType EnumMapCount
+        >
+        bool dataEnumEnd(bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
+            EnumType (*toEnum)( const ParserChar** buffer, 
+            const ParserChar* bufferEnd,
+            bool& failed, 
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed))
+        );
+
+
     private:
 		/** Disable default copy ctor. */
 		ParserTemplate( const ParserTemplate& pre );
@@ -333,6 +372,122 @@ namespace GeneratedSaxParser
 			}
 		}
 	}
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    template<class EnumType, class BaseType, EnumType EnumMapCount
+    >
+    bool ParserTemplate<DerivedClass, ImplClass>::characterData2EnumData(const ParserChar* text, size_t textLength, bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+        , 
+        EnumType (*toEnum)(const ParserChar** buffer, 
+        const ParserChar* bufferEnd,
+        bool& failed, 
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+        ),
+        EnumType (DerivedClass::*toEnumDataWithPrefix)(
+        const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed,
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+        )
+    )
+    {
+        size_t dataBufferIndex = 0;
+        const ParserChar* dataBufferPos = text;
+        const ParserChar* bufferEnd = text + textLength;
+        const ParserChar* lastDataBufferIndex = dataBufferPos;
+
+        // handle incomplete fragment from last call to textData
+        EnumType fragmentData = EnumMapCount;
+        if ( mLastIncompleteFragmentInCharacterData )
+        {
+            bool failed = false;
+
+            fragmentData = (static_cast<DerivedClass*>(this)->*toEnumDataWithPrefix)(mLastIncompleteFragmentInCharacterData, mEndOfDataInCurrentObjectOnStack, &dataBufferPos, bufferEnd, failed, enumMap, baseConversionFunctionPtr);
+            mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+            mLastIncompleteFragmentInCharacterData = 0;
+            mEndOfDataInCurrentObjectOnStack;
+            if ( failed )
+            {
+                if ( handleError(ParserError::SEVERITY_ERROR, 
+                    ParserError::ERROR_TEXTDATA_PARSING_FAILED,
+                    0,
+                    mLastIncompleteFragmentInCharacterData))
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            dataBufferIndex = 1;
+        }
+
+        EnumType* typedBuffer = (EnumType*)mStackMemoryManager.newObject(TYPED_VALUES_BUFFER_SIZE * sizeof(EnumType));
+
+        if ( dataBufferIndex > 0)
+            typedBuffer[0] = fragmentData;
+
+
+        bool failed = false;
+        while ( !failed )
+        {
+            lastDataBufferIndex = dataBufferPos;
+            EnumType dataValue = (*toEnum)(&dataBufferPos, bufferEnd, failed, enumMap, baseConversionFunctionPtr);
+            failed = failed | (dataBufferPos == bufferEnd);
+            if ( !failed )
+            {
+                typedBuffer[dataBufferIndex] = dataValue;
+                ++dataBufferIndex;
+                if ( dataBufferIndex == TYPED_VALUES_BUFFER_SIZE )
+                {
+                    (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+                    dataBufferIndex = 0;
+                }
+            }
+        }
+
+        if ( dataBufferPos == bufferEnd )
+        {
+            // we reached the end of the buffer while parsing.
+            // we pass the already parsed typed values
+            // we need to store the not parsed fraction
+            if ( dataBufferIndex > 0)
+                (mImpl->*dataFunction)(typedBuffer, dataBufferIndex);
+            mStackMemoryManager.deleteObject();
+            size_t fragmentSize = (dataBufferPos - lastDataBufferIndex)*sizeof(ParserChar);
+            mLastIncompleteFragmentInCharacterData = (ParserChar*)mStackMemoryManager.newObject(fragmentSize + 1);
+            memcpy(mLastIncompleteFragmentInCharacterData, lastDataBufferIndex, fragmentSize);
+            mEndOfDataInCurrentObjectOnStack = mLastIncompleteFragmentInCharacterData + fragmentSize;
+
+            return true;
+
+        }
+        else
+        {
+            //something went wrong while parsing
+            // we abort and don't pass the typed array
+            mStackMemoryManager.deleteObject();  //typedBuffer
+            ParserChar dataBufferError[21];
+            size_t length = std::min(20, (int)(bufferEnd-dataBufferPos));
+            memcpy(dataBufferError, dataBufferPos, length);
+            dataBufferError[length] = '\0';
+            if ( handleError(ParserError::SEVERITY_ERROR, 
+                ParserError::ERROR_TEXTDATA_PARSING_FAILED,
+                0,
+                dataBufferError))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 
     //--------------------------------------------------------------------
     template<class DerivedClass, class ImplClass>
@@ -501,7 +656,7 @@ namespace GeneratedSaxParser
 			bool failed = false;
 			const ParserChar* bufferBegin = mLastIncompleteFragmentInCharacterData;
             ParserChar* bufferEnd = mEndOfDataInCurrentObjectOnStack;
-			DataType floatValue = toData(&bufferBegin, bufferEnd, failed);
+			DataType typedValue = toData(&bufferBegin, bufferEnd, failed);
 			mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
 			mLastIncompleteFragmentInCharacterData = 0;
             mEndOfDataInCurrentObjectOnStack = 0;
@@ -525,12 +680,63 @@ namespace GeneratedSaxParser
 			}
 			else
 			{
-				(mImpl->*dataFunction)(&floatValue, 1);
+				(mImpl->*dataFunction)(&typedValue, 1);
 			}
 
 		}
 		return true;
 	}
+
+
+    //--------------------------------------------------------------------
+    template<class DerivedClass, class ImplClass>
+    template<class EnumType, class BaseType, EnumType EnumMapCount
+    >
+    bool ParserTemplate<DerivedClass, ImplClass>::dataEnumEnd(bool ( ImplClass::*dataFunction ) (const EnumType* data, size_t dataLength ),
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed),
+        EnumType (*toEnum)( const ParserChar** buffer, 
+            const ParserChar* bufferEnd,
+            bool& failed, 
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed))
+    )
+    {
+        if ( mLastIncompleteFragmentInCharacterData )
+        {
+            bool failed = false;
+            const ParserChar* bufferBegin = mLastIncompleteFragmentInCharacterData;
+            ParserChar* bufferEnd = mEndOfDataInCurrentObjectOnStack;
+            EnumType typedValue = (*toEnum)(&bufferBegin, bufferEnd, failed, enumMap, baseConversionFunctionPtr);
+            mStackMemoryManager.deleteObject(); //mLastIncompleteFragmentInCharacterData
+            mLastIncompleteFragmentInCharacterData = 0;
+            mEndOfDataInCurrentObjectOnStack = 0;
+            if ( failed )
+            {
+                int bufferLength = (int)(bufferEnd - bufferBegin);
+                if ( bufferLength != 0)
+                {
+                    ParserChar dataBufferError[21];
+                    size_t length = std::min(20, bufferLength);
+                    memcpy(dataBufferError, bufferBegin, length);
+                    dataBufferError[length] = '\0';
+                    if ( handleError(ParserError::SEVERITY_ERROR, 
+                        ParserError::ERROR_TEXTDATA_PARSING_FAILED,
+                        0,
+                        dataBufferError))
+                    {
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                (mImpl->*dataFunction)(&typedValue, 1);
+            }
+
+        }
+        return true;
+    }
 
 
     //--------------------------------------------------------------------

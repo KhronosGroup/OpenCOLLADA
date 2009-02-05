@@ -13,11 +13,10 @@
 
 #include <string>
 
-#include <libxml/parser.h>
 
 namespace GeneratedSaxParser
 {
-//	typedef char xmlChar;
+	typedef char xmlChar;
 
     /** Make std::string conformant with camelcase coding style. */
 	typedef std::string String;

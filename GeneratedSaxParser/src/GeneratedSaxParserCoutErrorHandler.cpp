@@ -31,7 +31,7 @@ namespace GeneratedSaxParser
 			mHasErrors = true;
 		else
 			mHasCriticalError = true;
-		std::cerr << error.getErrorMessage() << std::endl;
+		std::cout << error.getErrorMessage() << std::endl;
 
 		return false;
 	}

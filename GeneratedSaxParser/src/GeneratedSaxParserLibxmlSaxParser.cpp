@@ -69,12 +69,12 @@ namespace GeneratedSaxParser
 			if ( !mParserContext )
 			{
 				getParser()->getErrorHandler()->handleError(ParserError(ParserError::SEVERITY_CRITICAL, 
-					                                                    ParserError::ERROR_COULD_NOT_OPEN_FILE, 
-					                                                    0,
-					                                                    0,
-					                                                    0,
-					                                                    0,
-					                                                    fileName));
+					ParserError::ERROR_COULD_NOT_OPEN_FILE, 
+					0,
+					0,
+					0,
+					0,
+					fileName));
 				return false;
 			}
 
@@ -98,28 +98,28 @@ namespace GeneratedSaxParser
 	}
 
 
-	void LibxmlSaxParser::startElement( void* user_data, const xmlChar* name, const xmlChar** attrs )
+	void LibxmlSaxParser::startElement( void* user_data, const ::xmlChar* name, const ::xmlChar** attrs )
 	{
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)user_data;
 		Parser* parser = thisObject->getParser();
-		if ( !parser->elementBegin(name, attrs) )
+		if ( !parser->elementBegin((const ParserChar*)name, (const ParserChar**)attrs) )
 			thisObject->abortParsing();
 	}
 
-	void LibxmlSaxParser::endElement( void* user_data, const xmlChar* name)
+	void LibxmlSaxParser::endElement( void* user_data, const ::xmlChar* name)
 	{
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)user_data;
 		Parser* parser = thisObject->getParser();
-		if ( !parser->elementEnd(name) )
+		if ( !parser->elementEnd((const ParserChar*)name) )
 			thisObject->abortParsing();
 	}
 
 
-	void LibxmlSaxParser::characters( void* user_data, const xmlChar* name, int length )
+	void LibxmlSaxParser::characters( void* user_data, const ::xmlChar* name, int length )
 	{
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)user_data;
 		Parser* parser = thisObject->getParser();
-		if ( !parser->textData(name, (size_t)length) )
+		if ( !parser->textData((const ParserChar*)name, (size_t)length) )
 			thisObject->abortParsing();
 	}
 
@@ -143,11 +143,12 @@ namespace GeneratedSaxParser
 		xmlParserCtxtPtr context = (xmlParserCtxtPtr)ctx;
 		LibxmlSaxParser* thisObject = (LibxmlSaxParser*)(context->userData);
 		thisObject->getParser()->getErrorHandler()->handleError(ParserError(ParserError::SEVERITY_CRITICAL, 
-			                                                    ParserError::ERROR_XML_PERSER_ERROR, 
-																0,
-																0,
-																0,
-																0,
-																msg));
+			ParserError::ERROR_XML_PERSER_ERROR, 
+			0,
+			0,
+			0,
+			0,
+			msg));
 	}
+
 } // namespace GeneratedSaxParser

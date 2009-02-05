@@ -71,11 +71,10 @@ namespace GeneratedSaxParser
 
         ElementNameMap mHashNameMap;
 
-
 	public:
 		ParserTemplateBase(IErrorHandler* errorHandler)
 			: Parser(errorHandler), 
-		    mStackMemoryManager(STACKSIZE),
+			mStackMemoryManager(STACKSIZE),
 			mLastIncompleteFragmentInCharacterData(0){}
 		virtual ~ParserTemplateBase(){};
 
@@ -220,6 +219,25 @@ namespace GeneratedSaxParser
 		bool toBoolPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed);
 
 
+        /**
+         * Handles remaining stuff from last data-call and converts it to a list of enums.
+         * @see toDataPrefix
+         */
+        template<class EnumType, class BaseType, EnumType EnumMapCount,
+            EnumType (*toEnum)(const ParserChar** buffer, 
+            const ParserChar* bufferEnd,
+            bool& failed, 
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+            )
+        >
+        EnumType toEnumDataPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed,
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+            );
+
+
+
 		/** Creates a new object of type @a DataType and sets the member variables to the default ones, using 
 		a static member of type @a DataType called DEFAULT. @a data is set to the created object and @a dataPtr
 		to the address of the created object.
@@ -284,6 +302,52 @@ namespace GeneratedSaxParser
 		*dataPtr = data;
 		return data;
 	}
+
+    //--------------------------------------------------------------------
+    template<class EnumType, class BaseType, EnumType EnumMapCount,
+        EnumType (*toEnum)(const ParserChar** buffer, 
+        const ParserChar* bufferEnd,
+        bool& failed, 
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed)
+        )
+    >
+    EnumType ParserTemplateBase::toEnumDataPrefix(const ParserChar* prefixedBuffer, const ParserChar* prefixedBufferEnd, const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed,
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed))
+    {
+        const ParserChar* prefixBufferPos = prefixedBuffer;
+        const ParserChar* prefixBufferStartPos = 0;
+        bool onlyWhiteSpaceFound = true;
+        while ( prefixBufferPos != prefixedBufferEnd )
+        {
+            if (!Utils::isWhiteSpace(*prefixBufferPos ) && !prefixBufferStartPos)
+                prefixBufferStartPos = prefixBufferPos;
+            ++prefixBufferPos;
+        }
+
+        //if prefixedBuffer contains only white spaces, we can ignore it.
+        if ( !prefixBufferStartPos )
+            return toEnum(buffer, bufferEnd, failed, enumMap, baseConversionFunctionPtr);
+
+        //find first whitespace in buffer 
+        const ParserChar* bufferPos = *buffer;
+        while ( !Utils::isWhiteSpace(*bufferPos) )
+            ++bufferPos;
+
+        size_t prefixBufferSize = prefixBufferPos - prefixBufferStartPos;
+        size_t bufferSize = bufferPos - *buffer;
+        size_t newBufferSize = prefixBufferSize + bufferSize;
+        ParserChar* newBuffer =  (ParserChar*)mStackMemoryManager.newObject((newBufferSize + 1)*sizeof(ParserChar));
+        memcpy(newBuffer, prefixBufferStartPos, prefixBufferSize*sizeof(ParserChar));
+        memcpy(newBuffer + prefixBufferSize, *buffer, bufferSize*sizeof(ParserChar));
+        newBuffer[newBufferSize] = ' ';
+        ParserChar* newBufferPostParse = newBuffer;
+        EnumType value = toEnum( (const ParserChar**)&newBufferPostParse, newBuffer + newBufferSize + 1, failed, enumMap, baseConversionFunctionPtr);
+        *buffer += (newBufferPostParse - newBuffer - prefixBufferSize);
+        mStackMemoryManager.deleteObject();
+        return value;
+    }
 
 } // namespace GeneratedSaxParser
 

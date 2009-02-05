@@ -26,7 +26,9 @@ namespace GeneratedSaxParser
 
 		static StringHash calculateStringHash(const ParserChar* text, size_t textLength);
 
-		static StringHash calculateStringHash( StringHash prefixHash, const char* separator, const ParserChar* text);
+        static StringHash calculateStringHash( const ParserChar** text, const ParserChar* bufferEnd, bool& );
+
+        static StringHash calculateStringHash( StringHash prefixHash, const char* separator, const ParserChar* text);
 
 		static StringHash calculateStringHash(const ParserChar* text);
 
@@ -342,7 +344,8 @@ namespace GeneratedSaxParser
 		enum. 
 		@param EnumType The type of the enumeration
 		@param BaseType The base type the enumeration was derived from as a restriction
-		@param EnumMapCount The count of @a EnumType. Must be the las member in the enumeration. 
+		@param EnumMapCount The count of @a EnumType. Must follow last C++ enum value
+        representing last value in XSD enumeration (__COUNT in generated code with default config).
 		The first member must be set to 0.
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.
@@ -354,7 +357,19 @@ namespace GeneratedSaxParser
 								const std::pair<BaseType, EnumType>* enumMap,
 								BaseType (*baseConversionFunctionPtr)(const ParserChar* buffer, bool& failed) );
 
-		/** Converts the first string representing a boolean within a ParserChar buffer to a bool. 
+        /** 
+         * Converts a string representing one value to an enum. Recognizes end of 
+         * string by a pointer. To be used to convert character data with variety atomic.
+         */
+        template<class EnumType, class BaseType, EnumType EnumMapCount>
+        static EnumType toEnum( const ParserChar** buffer, 
+            const ParserChar* bufferEnd,
+            bool& failed, 
+            const std::pair<BaseType, EnumType>* enumMap,
+            BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed) );
+
+
+        /** Converts the first string representing a boolean within a ParserChar buffer to a bool. 
 		@param buffer Pointer to the first character in the buffer. 
 		@param failed False if conversion succeeded, true on failure.*/
 		static bool toBool(const ParserChar* buffer, bool& failed);
@@ -411,6 +426,38 @@ namespace GeneratedSaxParser
 		failed = true;
 		return EnumMapCount;
 	}
+
+    template<class EnumType, class BaseType, EnumType EnumMapCount>
+    EnumType GeneratedSaxParser::Utils::toEnum( const ParserChar** buffer, 
+        const ParserChar* bufferEnd,
+        bool& failed, 
+        const std::pair<BaseType, EnumType>* enumMap,
+        BaseType (*baseConversionFunctionPtr)(const ParserChar** buffer, const ParserChar* bufferEnd, bool& failed) )
+    {
+        // convert string to base type
+        bool baseConversionFailed = false;
+        BaseType baseValue = baseConversionFunctionPtr(buffer, bufferEnd, failed);
+        if ( baseConversionFailed )
+        {
+            failed = true;
+            return EnumMapCount;
+        }
+
+        // convert base type to enum
+        for ( size_t i = 0; i < EnumMapCount; ++i )
+        {
+            const std::pair<BaseType, EnumType>& enumPair = enumMap[i];
+            if ( enumPair.first ==  baseValue )
+            {
+                failed = false;
+                return enumPair.second;
+            }
+        }
+
+        // no matching enum found
+        failed = true;
+        return EnumMapCount;
+    }
 
 
 } // namespace COLLADASAXPARSER

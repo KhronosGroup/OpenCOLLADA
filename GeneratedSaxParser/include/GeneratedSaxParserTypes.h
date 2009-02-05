@@ -18,7 +18,7 @@
 namespace GeneratedSaxParser
 {
 
-	typedef xmlChar ParserChar;
+	typedef char ParserChar;
 
 	typedef unsigned long StringHash;
 
