@@ -95,6 +95,11 @@ namespace COLLADASaxFWL
 		/** Starts loading a library nodes.*/
 		virtual bool begin__library_nodes( const library_nodes__AttributeData& attributeData );
 
+		/** Starts loading a library materials.*/
+		virtual bool begin__library_materials( const library_materials__AttributeData& attributeData );
+
+		/** Starts loading a library effects.*/
+		virtual bool begin__library_effects( const library_effects__AttributeData& attributeData );
 
 
     private:

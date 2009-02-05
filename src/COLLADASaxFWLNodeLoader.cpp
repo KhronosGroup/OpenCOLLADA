@@ -43,15 +43,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool NodeLoader::beginNode( const node__AttributeData& attributeData )
 	{
-		COLLADAFW::Node* newNode;
-		if ( attributeData.id )
-		{
-			newNode = new COLLADAFW::Node(getUniqueId(String("#") + (const char*)attributeData.id, COLLADAFW::Node::ID()).getObjectId());
-		}
-		else
-		{
-			newNode = new COLLADAFW::Node(getUniqueId(COLLADAFW::Node::ID()).getObjectId());
-		}
+		COLLADAFW::Node* newNode = new COLLADAFW::Node(getUniqueIdFromId(attributeData.id, COLLADAFW::Node::ID()).getObjectId());
 
 		if ( attributeData.name )
 			newNode->setName((const char*)attributeData.name);
@@ -342,7 +334,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
-		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueId((const char*)attributeData.url, COLLADAFW::Geometry::ID());
+		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Geometry::ID());
 
 		mCurrentMaterialInfo = &getMeshMaterialIdInfo(instantiatedGeometryUniqueId);
 
@@ -381,7 +373,7 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__instance_material( const instance_material__AttributeData& attributeData )
 	{
 		COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
-		COLLADAFW::InstanceGeometry::MaterialBinding materialBinding(materialId, getUniqueId((const char*)attributeData.target, COLLADAFW::Material::ID()));
+		COLLADAFW::InstanceGeometry::MaterialBinding materialBinding(materialId, getUniqueIdFromUrl(attributeData.target, COLLADAFW::Material::ID()));
 		mCurrentMaterialBindings.insert(materialBinding);
 		return true;
 	}
@@ -393,7 +385,7 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
-		COLLADAFW::UniqueId instantiatedNodeUniqueId = getUniqueId((const char*)attributeData.url, COLLADAFW::Node::ID());
+		COLLADAFW::UniqueId instantiatedNodeUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Node::ID() );
 
 		COLLADAFW::InstanceNode* instanceNode = new COLLADAFW::InstanceNode(instantiatedNodeUniqueId);
 

@@ -344,6 +344,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryEffectsLoader.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADASaxFWLLibraryMaterialsLoader.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADASaxFWLLibraryNodesLoader.cpp"
 				>
 			</File>
@@ -447,6 +455,14 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADASaxFWLInputUnshared.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryEffectsLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADASaxFWLLibraryMaterialsLoader.h"
 				>
 			</File>
 			<File

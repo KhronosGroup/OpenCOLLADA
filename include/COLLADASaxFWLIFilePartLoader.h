@@ -59,6 +59,22 @@ namespace COLLADASaxFWL
 		@return The elements COLLADAFW::UniqueId */
 		const COLLADAFW::UniqueId& getUniqueId(const String& uriString, COLLADAFW::ClassId classId);
 
+		/** Returns the COLLADAFW::UniqueId of the element with id  @a colladaId in the current file. 
+		If the id within this file has been passed to this method before, the same 	COLLADAFW::UniqueId 
+		will be returned, if not, a new one is created.
+		@param id The collada id of the element to get the COLLADAFW::UniqueId for
+		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+		@return The elements COLLADAFW::UniqueId */
+		const COLLADAFW::UniqueId& getUniqueIdFromId( const ParserChar* colladaId, COLLADAFW::ClassId classId );
+
+		/** Returns the COLLADAFW::UniqueId of the element referenced by the url  @a url. If the has 
+		been passed to this method before, the same COLLADAFW::UniqueId will be returned, if not, 
+		a new one is created.
+		@param url The url of the element to get the COLLADAFW::UniqueId for
+		@param classId The COLLADAFW::ClassId of the object that will be created for @a element.
+		@return The elements COLLADAFW::UniqueId */
+		const COLLADAFW::UniqueId& getUniqueIdFromUrl( const ParserChar* url, COLLADAFW::ClassId classId );
+
 		/** Returns the COLLADAFW::UniqueId of an element with no uri.  At each call a new 
 		COLLADAFW::UniqueId will be created and returned. Use this member for collada elements that
 		do not have an id.
