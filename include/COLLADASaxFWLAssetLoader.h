@@ -147,9 +147,22 @@ namespace COLLADASaxFWL
 
         virtual bool begin__up_axis(){return true;}
         virtual bool end__up_axis(){return true;}
-        virtual bool data__up_axis( const ParserChar* data, size_t length )
+        virtual bool data__up_axis( const COLLADASaxFWL::UpAxisType val )
         {
-            mAsset->setUpAxisType ( String ( (char*) data, length ) );
+            switch ( val )
+            {
+            case COLLADASaxFWL::UpAxisType__X_UP:
+                mAsset->setUpAxisType ( COLLADAFW::FileInfo::X_UP_STRING );
+                break;
+            case COLLADASaxFWL::UpAxisType__Y_UP:
+                mAsset->setUpAxisType ( COLLADAFW::FileInfo::Y_UP_STRING );
+                break;
+            case COLLADASaxFWL::UpAxisType__Z_UP:
+                mAsset->setUpAxisType ( COLLADAFW::FileInfo::Z_UP_STRING );
+                break;
+            default:
+                mAsset->setUpAxisType ( COLLADAFW::FileInfo::Y_UP_STRING );
+            }
             return true;
         }
 

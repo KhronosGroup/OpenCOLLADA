@@ -54,12 +54,10 @@ namespace COLLADASaxFWL
     //-----------------------------
     bool FileLoader::begin__COLLADA__asset ()
     {
-		/*
 		deleteFilePartLoader();
         AssetLoader* assetLoader = new AssetLoader(this);
         setPartLoader(assetLoader);
         setParser(assetLoader);
-		*/
         return true;
     }
 
