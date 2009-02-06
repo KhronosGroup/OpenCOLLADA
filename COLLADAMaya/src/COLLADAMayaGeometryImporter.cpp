@@ -199,9 +199,9 @@ namespace COLLADAMaya
                 meshNode.startVrts ( 0, (count/stride)-1 ); 
                 for ( size_t i=0, index=0; i<count; i+=stride, ++index )
                 {
-                    meshNode.appendVrts ( (*values)[i] );
-                    meshNode.appendVrts ( (*values)[i+1] );
-                    meshNode.appendVrts ( (*values)[i+2] );
+                    meshNode.appendVrts ( toLinearUnit ( (*values)[i] ) );
+                    meshNode.appendVrts ( toLinearUnit ( (*values)[i+1] ) );
+                    meshNode.appendVrts ( toLinearUnit ( (*values)[i+2] ) );
                 }
                 meshNode.endVrts (); 
             }
@@ -213,9 +213,9 @@ namespace COLLADAMaya
                 meshNode.startVrts ( 0, (count/stride)-1 ); 
                 for ( size_t i=0, index=0; i<count; i+=stride, ++index )
                 {
-                    meshNode.appendVrts ( (float)(*values)[i] );
-                    meshNode.appendVrts ( (float)(*values)[i+1] );
-                    meshNode.appendVrts ( (float)(*values)[i+2] );
+                    meshNode.appendVrts ( toLinearUnit ( (float)(*values)[i] ) );
+                    meshNode.appendVrts ( toLinearUnit ( (float)(*values)[i+1] ) );
+                    meshNode.appendVrts ( toLinearUnit ( (float)(*values)[i+2] ) );
                 }
                 meshNode.endVrts (); 
             }

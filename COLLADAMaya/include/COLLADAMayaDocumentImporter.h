@@ -60,6 +60,13 @@ namespace COLLADAMaya
         /** The LC_NUMERIC locale that was set before the Streamwriter was instantiated. */
         String mLocale;			
 
+        /**
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+         */
+        double mLinearUnitMeter;
+
         bool mAssetWritten;
         bool mSceneGraphWritten;
         bool mGeometryWritten;
@@ -138,6 +145,13 @@ namespace COLLADAMaya
         virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );
 
         void getCurrentDate ( std::stringstream& curDate );
+
+        /**
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        const double getLinearUnitMeter () const { return mLinearUnitMeter; }
 
         /** When this method is called, the writer must write the entire visual scene.
         @return The writer should return true, if writing succeeded, false otherwise.*/

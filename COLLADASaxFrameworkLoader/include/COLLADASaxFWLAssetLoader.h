@@ -140,6 +140,7 @@ namespace COLLADASaxFWL
         virtual bool begin__unit( const unit__AttributeData& attributeData )
         {
             mAsset->getUnit().mLinearUnit = String ( (char*) attributeData.name );
+            mAsset->getUnit().mLinearUnitMeter = attributeData.meter;
             return true;
         }
         virtual bool end__unit(){return true;}

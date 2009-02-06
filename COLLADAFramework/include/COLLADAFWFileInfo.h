@@ -45,6 +45,13 @@ namespace COLLADAFW
             String mLinearUnit;
 
             /**
+            * How many real-world meters in one distance unit as a floating-point number.
+            * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+            * 0.3048 for the name "foot".
+             */
+            double mLinearUnitMeter;
+
+            /**
              * The angular unit;
              */
             String mAngularUnit;
@@ -120,6 +127,14 @@ namespace COLLADAFW
         void setLinearUnit ( const String& linearUnit )
         {
             mUnit.mLinearUnit = linearUnit;
+        }
+
+        /** 
+        * Sets the linear unit meter.
+        */
+        void setLinearUnitMeter ( const double linearUnitMeter )
+        {
+            mUnit.mLinearUnitMeter = linearUnitMeter;
         }
 
         /** Returns the unit. */

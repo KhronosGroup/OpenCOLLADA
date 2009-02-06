@@ -19,6 +19,8 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
+#include "MayaDMTypes.h"
+
 
 namespace COLLADAMaya
 {
@@ -42,6 +44,50 @@ namespace COLLADAMaya
 
         /** Destructor. */
         virtual ~BaseImporter () {}
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        double toLinearUnit ( const double val )
+        {
+            return ( val * mDocumentImporter->getLinearUnitMeter () );
+        }
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        float toLinearUnit ( const float val )
+        {
+            return ( val * (float) mDocumentImporter->getLinearUnitMeter () );
+        }
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        MVector toLinearUnit ( const MVector& val )
+        {
+            return ( val * mDocumentImporter->getLinearUnitMeter () );
+        }
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        MayaDM::double3 toLinearUnit ( const MayaDM::double3& val )
+        {
+            return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[1] ), toLinearUnit ( val[2] ) ) );
+        }
 
     protected:
 

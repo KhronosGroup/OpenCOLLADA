@@ -656,7 +656,7 @@ namespace COLLADAMaya
 
         // Write the transformations directly into the maya file.
         if ( translate != MVector (0, 0, 0) )
-            transformNode->setTranslate ( MayaDM::double3 ( translate.x, translate.y, translate.z ) );
+            transformNode->setTranslate ( toLinearUnit ( MayaDM::double3 ( translate.x , translate.y, translate.z ) ) );
         if ( rotation != MVector (0, 0, 0) )
             transformNode->setRotate ( MayaDM::double3 ( COLLADABU::Math::Utils::radToDeg(rotation.x), COLLADABU::Math::Utils::radToDeg(rotation.y), COLLADABU::Math::Utils::radToDeg(rotation.z) ) );
         if ( scale != MVector (1, 1, 1) )
@@ -666,14 +666,14 @@ namespace COLLADAMaya
             transformNode->setShear ( MayaDM::double3 ( skew.x, skew.y, skew.z ) );
 
         if ( rotatePivot != MVector (0, 0, 0) )
-            transformNode->setRotatePivot ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) );
+            transformNode->setRotatePivot ( toLinearUnit ( MayaDM::double3 ( rotatePivot.x, rotatePivot.y, rotatePivot.z ) ) );
         if ( rotatePivotTranslate != MVector (0, 0, 0) )
-            transformNode->setRotatePivotTranslate ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) );
+            transformNode->setRotatePivotTranslate ( toLinearUnit ( MayaDM::double3 ( rotatePivotTranslate.x, rotatePivotTranslate.y, rotatePivotTranslate.z ) ) );
 
         if ( scalePivot != MVector (0, 0, 0) )
-            transformNode->setScalePivot ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) );
+            transformNode->setScalePivot ( toLinearUnit ( MayaDM::double3 ( scalePivot.x, scalePivot.y, scalePivot.z ) ) );
         if ( scalePivotTranslate != MVector (0, 0, 0) )
-            transformNode->setScalePivotTranslate ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) );
+            transformNode->setScalePivotTranslate ( toLinearUnit ( MayaDM::double3 ( scalePivotTranslate.x, scalePivotTranslate.y, scalePivotTranslate.z ) ) );
         
         if ( order != MEulerRotation::kXYZ )
             transformNode->setRotateOrder ( order );

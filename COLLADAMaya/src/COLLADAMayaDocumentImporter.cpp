@@ -49,6 +49,7 @@ namespace COLLADAMaya
         , mAssetWritten ( false )
         , mSceneGraphRead ( false )
         , mGeometryRead ( false )
+        , mLinearUnitMeter (1)
     {
     }
 
@@ -190,6 +191,9 @@ namespace COLLADAMaya
         // TODO Default values for the units!
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
         fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", unit.mLinearUnit.c_str (), unit.mAngularUnit.c_str (), unit.mTimeUnit.c_str () );
+
+        // Set the linear unit in meters
+        mLinearUnitMeter = unit.mLinearUnitMeter;
 
 //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
 //         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
