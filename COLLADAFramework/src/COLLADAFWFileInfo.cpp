@@ -24,6 +24,7 @@ namespace COLLADAFW
     //------------------------------
     FileInfo::FileInfo() 
         : mUpAxisType ( Y_UP )
+        , mValuePairArray ( ValuePairArray::OWNER )
 	{
         mUnit.mLinearUnit = "centimeter";
         mUnit.mAngularUnit = "degree";
@@ -46,5 +47,17 @@ namespace COLLADAFW
             mUpAxisType = Z_UP;
         else
             mUpAxisType = NONE;
+    }
+
+    //------------------------------
+    void FileInfo::appendValuePair ( ValuePair* valuePair )
+    {
+        mValuePairArray.append ( valuePair );
+    }
+
+    //------------------------------
+    void FileInfo::appendValuePair ( const String& value1, const String& value2 )
+    {
+        mValuePairArray.append ( new ValuePair ( value1, value2 ) );
     }
 } // namespace COLLADAFW

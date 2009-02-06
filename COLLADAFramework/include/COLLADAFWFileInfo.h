@@ -29,8 +29,10 @@ namespace COLLADAFW
     {
     public:
 
-        /** A pair where you can hold file informations. */
-        ArrayPrimitiveType<std::pair<String, String>> mValuePairArray;
+        typedef std::pair<String, String> ValuePair;
+        typedef ArrayPrimitiveType<ValuePair*> ValuePairArray;
+
+    public:
 
         /** Descriptive information about unit of measure. Its optional attributes are:*/
         struct Unit
@@ -83,6 +85,9 @@ namespace COLLADAFW
         to the right, and which is considered inward. */
         UpAxisType mUpAxisType;
 
+        /** A pair where you can hold file informations. */
+        ValuePairArray mValuePairArray;
+
 	public:
 
         /** Constructor. */
@@ -92,19 +97,13 @@ namespace COLLADAFW
         virtual ~FileInfo();
 
         /** A pair where you can hold file informations. */
-        void appendValuePair ( const std::pair<String, String>& valuePair )
-        {
-            mValuePairArray.append ( valuePair );
-        }
+        void appendValuePair ( ValuePair* valuePair );
         
         /** A pair where you can hold file informations. */
-        void appendValuePair ( const String& value1, String& value2 )
-        {
-            mValuePairArray.append ( std::pair<String, String> ( value1, value2 ) );
-        }
+        void appendValuePair ( const String& value1, const String& value2 );
 
         /** A pair where you can hold file informations. */
-        const ArrayPrimitiveType<std::pair<String, String>> getValuePairArray () const { return mValuePairArray; }
+        const ValuePairArray& getValuePairArray () const { return mValuePairArray; }
 
 
         /** Sets the unit used by the document.

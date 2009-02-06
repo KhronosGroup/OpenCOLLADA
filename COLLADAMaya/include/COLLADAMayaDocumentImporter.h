@@ -24,6 +24,8 @@
 #include "COLLADAFWFileInfo.h"
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWGeometry.h"
+#include "COLLADAFWMaterial.h"
+#include "COLLADAFWEffect.h"
 
 #include <set>
 
@@ -105,12 +107,6 @@ namespace COLLADAMaya
         */
         const COLLADABU::URI& getMayaAsciiFileURI () const;
 
-        /**
-        * Set the name of the current maya ascii file to export.
-        * @param const COLLADABU::URI& The current maya ascii file.
-        */
-        void setMayaAsciiFileURI ( const COLLADABU::URI& fileURI );
-
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* getVisualSceneImporter () { return mVisualSceneImporter; }
         const VisualSceneImporter* getVisualSceneImporter () const { return mVisualSceneImporter; }
@@ -155,6 +151,14 @@ namespace COLLADAMaya
         library nodes.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes );
+
+        /** When this method is called, the writer must write the material.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeMaterial( const COLLADAFW::Material* material ) { return true; }
+
+        /** When this method is called, the writer must write the effect.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeEffect( const COLLADAFW::Effect* effect ) { return true; }
 
     private:
 

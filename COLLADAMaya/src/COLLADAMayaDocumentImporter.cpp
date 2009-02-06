@@ -104,10 +104,10 @@ namespace COLLADAMaya
         // TODO
         mMayaAsciiFileURI.set ( mColladaFileName );
         mMayaAsciiFileURI.setPathExtension ( ".netallied.import.ma" );
-        String mayaFileName = mMayaAsciiFileURI.getURIString ();
+        String mayaAsciiFileName = mMayaAsciiFileURI.getURIString ();
 
         // Check if the file already exist.
-        if ( std::ifstream ( mayaFileName.c_str () ) )
+        if ( std::ifstream ( mayaAsciiFileName.c_str () ) )
         {
             // TODO Open a dialog and ask the user to save the file under an other name.
             std::cerr << "File already exists!";
@@ -117,7 +117,7 @@ namespace COLLADAMaya
         mLocale = setlocale ( LC_NUMERIC, 0 );
         setlocale ( LC_NUMERIC, "C" );
 
-        errno_t err = fopen_s ( &mFile, mayaFileName.c_str (), "w+" );
+        errno_t err = fopen_s ( &mFile, mayaAsciiFileName.c_str (), "w+" );
         if ( err != 0 ) 
         {
             std::cerr << "Can't open maya ascii file! " << endl; 
@@ -155,7 +155,8 @@ namespace COLLADAMaya
     void DocumentImporter::start ()
     {
         // Create the maya file.
-        assert ( createMayaAsciiFile() );
+        bool retValue = createMayaAsciiFile();
+        assert ( retValue );
     }
 
     //-----------------------------
@@ -278,12 +279,6 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
-    void DocumentImporter::setMayaAsciiFileURI ( const COLLADABU::URI& fileURI )
-    {
-        mMayaAsciiFileURI.set ( fileURI.getURIString () );
-    }
-
-    //-----------------------------
     void DocumentImporter::getCurrentDate ( std::stringstream& curDate )
     {
         // create a stringstream containing the current date and time in ISO 8601 format
@@ -335,7 +330,7 @@ namespace COLLADAMaya
     //-----------------------------
     bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
     {
-        // TODO
+        // TODO 
         return false;
     }
 }

@@ -85,7 +85,7 @@ namespace COLLADAFW
             if ( faceIndex >= mGroupedVerticesVertexCountArray.getCount () ) 
             {
                 std::cerr << "Face index out of range: " << faceIndex << std::endl;
-                throw new FrameworkException ( "Face index out of range: " + faceIndex );
+                assert ( "Face index out of range: " + faceIndex );
             }
 
             return mGroupedVerticesVertexCountArray [ faceIndex ];

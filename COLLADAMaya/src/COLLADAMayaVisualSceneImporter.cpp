@@ -79,13 +79,18 @@ namespace COLLADAMaya
             parentNodeName = parentMayaNode->getName ();
         }
 
-        // Create the node object (joint or node)
-        MayaDM::Transform* transformNode = createNode ( node, parentNodeName );
+        // Get the unique node name
         String nodeName = node->getName ();
-        String nodeSid = node->getSid ();
+        if ( COLLADABU::Utils::equals ( nodeName, "" ) )
+            nodeName = node->getSid ();
+        if ( COLLADABU::Utils::equals ( nodeName, "" ) )
+            nodeName = "Transform";
 
         // Create a unique name.
         nodeName = mTransformNodeIdList.addId ( nodeName );
+
+        // Create the node object (joint or node)
+        MayaDM::Transform* transformNode = createNode ( node, nodeName, parentNodeName );
 
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
@@ -288,11 +293,9 @@ namespace COLLADAMaya
     // -----------------------------------
     MayaDM::Transform* VisualSceneImporter::createNode ( 
         const COLLADAFW::Node* node, 
+        const String& nodeName, 
         const String& parentNodeName )
     {
-        String nodeName = node->getName ();
-        String nodeSid = node->getSid ();
-
         // Get the current maya ascii file to write the data.
         FILE* file = getDocumentImporter ()->getFile ();
 
@@ -307,7 +310,8 @@ namespace COLLADAMaya
                 transformNode = new MayaDM::Joint ( file, nodeName.c_str (), parentNodeName );
                 String message = "VisualSceneImporter::importVisualScene :: Transform type JOINT not implemented!";
                 std::cerr << message << std::endl;
-                throw new ColladaMayaException ( message );
+                MGlobal::displayError ( message.c_str () );
+                assert ( "Transform type JOINT not implemented!" );
                 break;
             }
         case COLLADAFW::Node::NODE:
@@ -317,10 +321,9 @@ namespace COLLADAMaya
                 break;
             }
         default:
-            String message = "Not a valid node type!";
-            MGlobal::displayError ( message.c_str () );
-            std::cerr << message << std::endl;
-            throw new ColladaMayaException ( message );
+            std::cerr << "Not a valid node type!" << std::endl;
+            MGlobal::displayError ("Not a valid node type!" );
+            assert ( "Not a valid node type!" );
         }
 
         return transformNode;
@@ -459,6 +462,7 @@ namespace COLLADAMaya
                 break;
             default:
                 std::cerr << "Unknown transformation type!" << endl;
+                MGlobal::displayError ( "Unknown transformation type!" );
                 assert ( "Unknown transformation type!" );
                 break;
             }

@@ -50,7 +50,8 @@ namespace COLLADASaxFWL
         , mTexCoordList (0)
         , mColorList (0)
 	{
-		mMesh->setName(geometryName);
+		mMesh->setId ( geometryId );
+        mMesh->setName ( geometryName );
 	}
 
 
@@ -911,7 +912,6 @@ namespace COLLADASaxFWL
     }
 #endif
 
-
 	//------------------------------
 	void MeshLoader::initCurrentValues()
 	{
@@ -923,7 +923,6 @@ namespace COLLADASaxFWL
 		mCurrentPhHasEmptyP = true;
 		mCurrentMeshMaterial.clear();
 	}
-
 
 	//------------------------------
 	bool MeshLoader::end__mesh() 

@@ -29,6 +29,9 @@
 #include "MayaDMCommands.h"
 
 #include "COLLADAFWPolygons.h"
+#include "COLLADAFWTrifans.h"
+#include "COLLADAFWTristrips.h"
+#include "COLLADAFWEdge.h"
 
 
 namespace COLLADAMaya
@@ -49,9 +52,11 @@ namespace COLLADAMaya
         {
         case COLLADAFW::Geometry::GEO_TYPE_CONVEX_MESH:
             std::cerr << "Import of convex_mesh not supported!" << std::endl;
+            MGlobal::displayError ( "Import of convex_mesh not supported!" );
             return false;
         case COLLADAFW::Geometry::GEO_TYPE_SPLINE:
             std::cerr << "Import of spline not supported!" << std::endl;
+            MGlobal::displayError ( "Import of spline not supported!" );
             return false;
         case COLLADAFW::Geometry::GEO_TYPE_MESH:
             {
@@ -67,7 +72,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    bool GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
+    void GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
     {
         // Get the unique framework mesh id 
         const COLLADAFW::UniqueId& meshUniqueId = mesh->getUniqueId ();
@@ -80,6 +85,7 @@ namespace COLLADAMaya
        const std::set<const COLLADAFW::UniqueId>* transformNodesSet = 
             visualSceneImporter->getGeometryTransformIds ( meshUniqueId );
         size_t numNodes = transformNodesSet->size ();
+
         std::set<const COLLADAFW::UniqueId>::const_iterator nodesIter = transformNodesSet->begin ();
         while ( nodesIter != transformNodesSet->end () )
         {
@@ -111,17 +117,20 @@ namespace COLLADAMaya
 
             ++nodesIter;
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::createMesh ( 
+    void GeometryImporter::createMesh ( 
         const COLLADAFW::Mesh* mesh, 
         MayaNode* mayaTransformNode )
     {
         // Create a unique name.
-        String meshName = mMeshNodeIdList.addId ( mesh->getName () );
+        String meshName = mesh->getName ();
+        if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
+            meshName = mesh->getId ();
+        if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
+            meshName = "Mesh";
+        meshName = mMeshNodeIdList.addId ( meshName );
 
         // Create a maya node object of the current node and push it into the map.
         const COLLADAFW::UniqueId& uniqueId = mesh->getUniqueId ();
@@ -134,14 +143,14 @@ namespace COLLADAMaya
 
         // Create the current mesh node.
         FILE* file = getDocumentImporter ()->getFile ();
-        MayaDM::Mesh meshNode ( file, mesh->getName (), transformNodePath );
+        MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
 
         // Write the vertex positions. 
         // Just write the values, they will be referenced from the edges and the faces.
-        if ( !writeVertexPositions ( mesh, meshNode ) ) return false;
+        writeVertexPositions ( mesh, meshNode );
 
         // Write the normals. 
-        if ( !writeNormals ( mesh, meshNode ) ) return false;
+        writeNormals ( mesh, meshNode );
 
         // Write the uv corrdinates.
         writeUVSets ( mesh, meshNode );
@@ -161,50 +170,18 @@ namespace COLLADAMaya
         // values in a map is much faster than in a vector!
         std::map<COLLADAFW::Edge,size_t> edgeIndicesMap;
 
-        // Implementation for multiple primitive elements.
-        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
-        size_t count = primitiveElementsArray.getCount ();
-        for ( size_t i=0; i<count; ++i )
-        {
-            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
-
-            // Determine the edge indices (unique edges, also for multiple primitive elements).
-            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
-        }
+        // Iterates over the mesh primitives and reads the edge indices.
+        getEdgeIndices ( mesh, edgeIndices, edgeIndicesMap );
 
         // Write the edge indices of all primitive elements into the maya file.
         writeEdges ( edgeIndices, meshNode );
 
         // Write the face informations of all primitive elements into the maya file.
         writeFaces ( mesh, edgeIndicesMap, meshNode );
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::getEdgeIndex ( 
-        const COLLADAFW::Edge& edge, 
-        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-        int& edgeIndex )
-    {
-        // Find the index of the edge in the map of edges to get the index in the list.
-        std::map<COLLADAFW::Edge,size_t>::const_iterator it = edgeIndicesMap.find ( edge );
-        if ( it == edgeIndicesMap.end() ) 
-        {
-            // The edge has to be in the map!!!
-            MString message ( "Edge not found: " ); message += edge[0] + ", " + edge[1];
-            MGlobal::displayError ( message );
-            std::cerr << message.asChar () << std::endl;
-            assert ( it != edgeIndicesMap.end() );
-        }
-        edgeIndex = (int)it->second; 
-        if ( edge.isReverse() ) edgeIndex = -( edgeIndex + 1 );
-
-        return true;
-    }
-
-    // --------------------------------------------
-    bool GeometryImporter::writeVertexPositions ( 
+    void GeometryImporter::writeVertexPositions ( 
         const COLLADAFW::Mesh* mesh, 
         MayaDM::Mesh &meshNode )
     {
@@ -245,14 +222,13 @@ namespace COLLADAMaya
             break;
         default:
             std::cerr << "No valid data type for positions: " << type << std::endl;
-            return false;
+            MGlobal::displayError ( "No valid data type for positions: " + type );
+            assert ( "No valid data type for positions: " + type );
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    void GeometryImporter::writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
     {
         // Count the number of normals to write into the maya file.
         size_t numNormals = mesh->getNormalsCount ();
@@ -261,15 +237,13 @@ namespace COLLADAMaya
         if ( numNormals > 0 )
         {
             meshNode.startNormals ( 0, numNormals-1 ); 
-            if ( !appendNormalValues ( mesh, meshNode ) ) return false;
+            appendNormalValues ( mesh, meshNode );
             meshNode.endNormals (); 
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::appendNormalValues ( 
+    void GeometryImporter::appendNormalValues ( 
         const COLLADAFW::Mesh* mesh, 
         MayaDM::Mesh &meshNode )
     {
@@ -321,21 +295,20 @@ namespace COLLADAMaya
                     break;
                 default:
                     std::cerr << "No valid data type for normals: " << type << std::endl;
-                    return false;
+                    MGlobal::displayError ( "No valid data type for normals: " + type );
+                    assert ( "No valid data type for normals: " + type );
                 }
             }
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    void GeometryImporter::writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
     {
         // Set the number of uv sets.
         const COLLADAFW::MeshVertexData& uvCoords = mesh->getUVCoords ();
         size_t sumUVSetPoints = uvCoords.getNumInputInfos ();
-        if ( sumUVSetPoints == 0 ) return false;
+        if ( sumUVSetPoints == 0 ) return;
         meshNode.setUvSize ( sumUVSetPoints );
 
         // Write the values 
@@ -399,19 +372,18 @@ namespace COLLADAMaya
             break;
         default:
             std::cerr << "No valid data type for uv coordinates: " << type << std::endl;
-            return false;
+            MGlobal::displayError ( "No valid data type for uv coordinates: " + type );
+            assert ( "No valid data type for uv coordinates: " + type );
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
+    void GeometryImporter::writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode )
     {
         // Set the number of uv sets.
         const COLLADAFW::MeshVertexData& colors = mesh->getColors ();
-        size_t sumUVSetPoints = colors.getNumInputInfos ();
-        if ( sumUVSetPoints == 0 ) return false;
+        size_t sumColorSetPoints = colors.getNumInputInfos ();
+        if ( sumColorSetPoints == 0 ) return;
 //        meshNode.setColorSetSize ( sumUVSetPoints );
 
         // Write the values 
@@ -422,7 +394,7 @@ namespace COLLADAMaya
         case COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT:
             {
                 const COLLADAFW::ArrayPrimitiveType<float>* values = colors.getFloatValues ();
-                for ( size_t i=0; i<sumUVSetPoints; ++i )
+                for ( size_t i=0; i<sumColorSetPoints; ++i )
                 {
                     meshNode.setColorName ( i, colors.getName ( i ) );
 
@@ -454,7 +426,7 @@ namespace COLLADAMaya
         case COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE:
             {
                 const COLLADAFW::ArrayPrimitiveType<double>* values = colors.getDoubleValues ();
-                for ( size_t i=0; i<sumUVSetPoints; ++i )
+                for ( size_t i=0; i<sumColorSetPoints; ++i )
                 {
                     meshNode.setColorName ( i, colors.getName ( i ) );
 
@@ -485,14 +457,13 @@ namespace COLLADAMaya
             break;
         default:
             std::cerr << "No valid data type for colors: " << type << std::endl;
-            return false;
+            MGlobal::displayError ( "No valid data type for colors: " + type );
+            assert ( "No valid data type for colors: " + type );
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::writeEdges (  
+    void GeometryImporter::writeEdges (  
         const std::vector<COLLADAFW::Edge> &edgeIndices, 
         MayaDM::Mesh &meshNode )
     {
@@ -513,19 +484,17 @@ namespace COLLADAMaya
             }
             meshNode.endEdge ();
         }
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::writeFaces ( 
+    void GeometryImporter::writeFaces ( 
         const COLLADAFW::Mesh* mesh, 
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
         MayaDM::Mesh &meshNode )
     {
         // Get the number of faces in the current mesh.
         size_t numFaces = mesh->getFacesCount ();
-        if ( numFaces <= 0 ) return true;
+        if ( numFaces <= 0 ) return;
 
         // Start to write the faces into the maya file
         meshNode.startFace ( 0, numFaces-1 );
@@ -541,17 +510,232 @@ namespace COLLADAMaya
             COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
 
             // Write the face informations into the maya file.
-            if ( !appendPolyFaces ( mesh, primitiveElement, edgeIndicesMap, meshNode ) ) return false;
+            COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = primitiveElement->getPrimitiveType ();
+            switch ( primitiveType )
+            {
+            case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
+                appendTrifansPolyFaces ( mesh, primitiveElement, edgeIndicesMap, meshNode );
+                break;
+            case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
+                appendTristripsPolyFaces ( mesh, primitiveElement, edgeIndicesMap, meshNode );
+                break;
+            case COLLADAFW::MeshPrimitive::POLYGONS:
+            case COLLADAFW::MeshPrimitive::POLYLIST:
+            case COLLADAFW::MeshPrimitive::TRIANGLES:
+                appendPolygonPolyFaces ( mesh, primitiveElement, edgeIndicesMap, meshNode );
+                break;
+            default:
+                std::cerr << "Primitive type not implemented!" << std::endl;
+                MGlobal::displayError ( "Primitive type not implemented!" );
+                assert ( "Primitive type not implemented!");
+            }
         }
 
         // End the face element.
         meshNode.endFace ();
-
-        return true;
     }
 
     // --------------------------------------------
-    bool GeometryImporter::appendPolyFaces ( 
+    void GeometryImporter::appendTrifansPolyFaces ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        MayaDM::Mesh &meshNode )
+    {
+        // Get the position indices.
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // The points of an edge
+        int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
+
+        // The current index in the positions list.
+        size_t initialPositionIndex=0;
+        size_t positionIndex=0;
+
+        size_t uvSetIndicesIndex = 0;
+        size_t colorIndicesIndex = 0;
+
+        // Iterate over the grouped vertices and get the edges for every group.
+        COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
+        COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
+            trifans->getGroupedVerticesVertexCountArray ();
+        size_t groupedVertexElementsCount = vertexCountArray.getCount ();
+        for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
+        {
+            // Create the poly face
+            MayaDM::polyFaces polyFace;
+
+            // A trifan has always triangles, which have 3 edges
+            size_t triangleEdgeCounter = 0;
+
+            // The number of vertices in the current vertex group.
+            unsigned int vertexCount = vertexCountArray [groupedVerticesIndex];
+
+            // Determine the number of edges and iterate over it.
+            unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
+            for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+            {
+                if ( triangleEdgeCounter == 0 )
+                {
+                    // Handle the edge informations.
+                    polyFace.f.faceEdgeCount = 3;
+                    polyFace.f.edgeIdValue = new int[3];
+                }
+
+                // Increment the current triangle edge counter, so we know if we have the full triangle.
+                ++triangleEdgeCounter;
+
+                // Get the start edge index
+                if ( triangleEdgeCounter > 1 )
+                    edgeStartVtxIndex = positionIndices[positionIndex];
+                else edgeStartVtxIndex = positionIndices[initialPositionIndex];
+
+                // With the third edge of a triangle, we have to go back to the trifans root.
+                if ( triangleEdgeCounter < 3 )
+                    edgeEndVtxIndex = positionIndices[++positionIndex];
+                else edgeEndVtxIndex = positionIndices[initialPositionIndex];
+
+                // Set the edge vertex index values into an edge object.
+                COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+
+                // Variable for the current edge index.
+                int edgeIndexValue;
+
+                // Get the edge index value from the edge list.
+                getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue );
+
+                // Set the edge list index into the poly face
+                polyFace.f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
+
+                // Reset the edge counter, if we have all three edges of a triangle.
+                if ( triangleEdgeCounter == 3 ) 
+                {
+                    triangleEdgeCounter = 0;
+                    --positionIndex;
+
+                    // Handle the uv set infos.
+                    setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, 3 );
+                    uvSetIndicesIndex -= 2;
+
+                    // Handle the uv set infos.
+                    setColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, 3 );
+                    colorIndicesIndex -= 2;
+
+                    // Write the polyFace data in the maya file.
+                    meshNode.appendFace ( polyFace );
+                }
+            }
+
+            // Increment the initial trifan position index for the next trifan object.
+            positionIndex += 2;
+            initialPositionIndex += vertexCount;
+
+            uvSetIndicesIndex += 2;
+            colorIndicesIndex += 2;
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::appendTristripsPolyFaces ( 
+        const COLLADAFW::Mesh* mesh, 
+        const COLLADAFW::MeshPrimitive* primitiveElement, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        MayaDM::Mesh &meshNode )
+    {
+        // Get the position indices.
+        const COLLADAFW::UIntValuesArray& positionIndices = primitiveElement->getPositionIndices ();
+
+        // The points of an edge
+        int edgeStartVtxIndex=0, edgeEndVtxIndex=0;
+
+        // The current index in the positions list.
+        size_t initialPositionIndex=0;
+        size_t positionIndex=0;
+
+        size_t uvSetIndicesIndex = 0;
+        size_t colorIndicesIndex = 0;
+
+        // Iterate over the grouped vertices and get the edges for every group.
+        COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
+        COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
+            trifans->getGroupedVerticesVertexCountArray ();
+        size_t groupedVertexElementsCount = vertexCountArray.getCount ();
+        for ( size_t groupedVerticesIndex=0; groupedVerticesIndex<groupedVertexElementsCount; ++groupedVerticesIndex )
+        {
+            // Create the poly face
+            MayaDM::polyFaces polyFace;
+
+            // A trifan has always triangles, which have 3 edges
+            size_t triangleEdgeCounter = 0;
+
+            // The number of vertices in the current vertex group.
+            unsigned int vertexCount = vertexCountArray [groupedVerticesIndex];
+
+            // Determine the number of edges and iterate over it.
+            unsigned int numEdges = ( vertexCount - 3 ) * 3 + 3;
+            for ( unsigned int edgeIndex=0; edgeIndex<numEdges; ++edgeIndex )
+            {
+                if ( triangleEdgeCounter == 0 )
+                {
+                    // Handle the edge informations.
+                    polyFace.f.faceEdgeCount = 3;
+                    polyFace.f.edgeIdValue = new int[3];
+                }
+
+                // Increment the current triangle edge counter, so we know if we have the full triangle.
+                ++triangleEdgeCounter;
+
+                // Get the start edge index
+                edgeStartVtxIndex = positionIndices[positionIndex];
+
+                // With the third edge of a triangle, we have to go back to the trifans root.
+                if ( triangleEdgeCounter < 3 )
+                    edgeEndVtxIndex = positionIndices[++positionIndex];
+                else edgeEndVtxIndex = positionIndices[initialPositionIndex];
+
+                // Set the edge vertex index values into an edge object.
+                COLLADAFW::Edge edge ( edgeStartVtxIndex, edgeEndVtxIndex );
+
+                // Variable for the current edge index.
+                int edgeIndexValue;
+
+                // Get the edge index value from the edge list.
+                getEdgeIndex ( edge, edgeIndicesMap, edgeIndexValue );
+
+                // Set the edge list index into the poly face
+                polyFace.f.edgeIdValue[triangleEdgeCounter-1] = edgeIndexValue;
+
+                // Reset the edge counter, if we have all three edges of a triangle.
+                if ( triangleEdgeCounter == 3 ) 
+                {
+                    triangleEdgeCounter = 0;
+                    --positionIndex;
+                    initialPositionIndex = positionIndex;
+
+                    // Handle the uv set infos.
+                    setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, 3 );
+                    uvSetIndicesIndex -= 2;
+
+                    // Handle the uv set infos.
+                    setColorInfos ( mesh, primitiveElement, polyFace, colorIndicesIndex, 3 );
+                    colorIndicesIndex -= 2;
+
+                    // Write the polyFace data in the maya file.
+                    meshNode.appendFace ( polyFace );
+                }
+            }
+
+            // Increment the initial trifan position index for the next trifan object.
+            positionIndex += 2;
+            initialPositionIndex = positionIndex;
+
+            uvSetIndicesIndex -= 2;
+            colorIndicesIndex -= 2;
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::appendPolygonPolyFaces ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::MeshPrimitive* primitiveElement, 
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -562,7 +746,8 @@ namespace COLLADAMaya
         size_t colorIndicesIndex = 0;
 
         // The number of grouped vertex elements (faces, holes, tristrips or trifans).
-        size_t groupedVerticesCount = getGroupedVerticesCount ( primitiveElement );
+        int groupedVerticesCount = primitiveElement->getGroupedVertexElementsCount ();
+        if ( groupedVerticesCount < 0 ) groupedVerticesCount *= (-1);
 
         // To handle polygons with holes:
         // Flag, if the actual face is clockwise orientated. We need this information to handle
@@ -572,20 +757,26 @@ namespace COLLADAMaya
         // Polygons with holes: we have always first one polygon for any number of holes.
         // We need the first three vertexes to determine the orientation of any polygon.
         std::vector<COLLADABU::Math::Vector3*> polygonPoints;
-
+        
         // Iterate over all grouped vertex elements (faces, holes, tristrips or trifans)
         // and determine the values for the maya polyFace object.
-        for ( size_t groupedVtxIndex=0; groupedVtxIndex<groupedVerticesCount; ++groupedVtxIndex )
+        for ( int groupedVtxIndex=0; groupedVtxIndex<groupedVerticesCount; ++groupedVtxIndex )
         {
             // The number of edges is always the same than the number of vertices in the current 
             // grouped vertices object. If the number is negative, the grouped object is a hole.
-            int numEdges = primitiveElement->getGroupedVerticesVertexCount ( groupedVtxIndex );
+            int numVertices = primitiveElement->getGroupedVerticesVertexCount ( (size_t)groupedVtxIndex );
+
+            // Determine the number of edges 
+            int numEdges = numVertices;
 
             // Create the poly face
             MayaDM::polyFaces polyFace;
 
             // Handle the face infos.
-            setFaceInfos ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
+            if ( numEdges >= 0 )
+                setPolygonFaceInfos ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
+            else
+                setPolygonHoleInfos ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
 
             // Handle the uv set infos.
             setUVSetInfos ( mesh, primitiveElement, polyFace, uvSetIndicesIndex, numEdges );
@@ -602,29 +793,10 @@ namespace COLLADAMaya
         for ( size_t i=0; i<pSize; ++i) 
             delete polygonPoints [i];
         polygonPoints.clear ();
-
-        return true;
     }
 
     // --------------------------------------------
-    void GeometryImporter::setFaceInfos ( 
-        const COLLADAFW::Mesh* mesh, 
-        const COLLADAFW::MeshPrimitive* primitiveElement, 
-        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-        MayaDM::polyFaces &polyFace, 
-        int &numEdges, 
-        size_t &positionIndex, 
-        std::vector<COLLADABU::Math::Vector3*> &polygonPoints )
-    {
-        // Handle faces
-        if ( numEdges >= 0 )
-            setFaceInfo ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
-        else
-            setHoleInfo ( mesh, primitiveElement, edgeIndicesMap, polyFace, numEdges, positionIndex, polygonPoints );
-    }
-
-    // --------------------------------------------
-    void GeometryImporter::setFaceInfo ( 
+    void GeometryImporter::setPolygonFaceInfos ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::MeshPrimitive* primitiveElement, 
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -684,7 +856,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void GeometryImporter::setHoleInfo ( 
+    void GeometryImporter::setPolygonHoleInfos ( 
         const COLLADAFW::Mesh* mesh, 
         const COLLADAFW::MeshPrimitive* primitiveElement, 
         const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -850,8 +1022,9 @@ namespace COLLADAMaya
         }
         else
         {
-            throw new ColladaMayaException ("GeometryImporter::appendPolyFaces:: Unknown data type!");
             std::cerr << "GeometryImporter::appendPolyFaces:: Unknown data type!" << std::endl;
+            MGlobal::displayError ( "GeometryImporter::appendPolyFaces:: Unknown data type!" );
+            assert ( "GeometryImporter::appendPolyFaces:: Unknown data type!" );
         }
 
         // Store the vertex positions of the current start point.
@@ -884,43 +1057,6 @@ namespace COLLADAMaya
         }	
         
         return changeOrientation;
-    }
-
-    // --------------------------------------------
-    size_t GeometryImporter::getGroupedVerticesCount ( 
-        const COLLADAFW::MeshPrimitive* primitiveElement )
-    {
-        size_t groupedVerticesCount = 0;
-
-        COLLADAFW::MeshPrimitive::PrimitiveType primitiveType = primitiveElement->getPrimitiveType ();
-        switch ( primitiveType )
-        {
-        case COLLADAFW::MeshPrimitive::TRIANGLES:
-        case COLLADAFW::MeshPrimitive::TRIANGLE_FANS:
-        case COLLADAFW::MeshPrimitive::TRIANGLE_STRIPS:
-            {
-                groupedVerticesCount = primitiveElement->getFaceCount ();
-                break;
-            }
-        case COLLADAFW::MeshPrimitive::POLYGONS:
-        case COLLADAFW::MeshPrimitive::POLYLIST:
-            {
-                COLLADAFW::Polygons* polygons = (COLLADAFW::Polygons*)primitiveElement;
-                COLLADAFW::Polygons::VertexCountArray& vertexCountArray = 
-                    polygons->getGroupedVerticesVertexCountArray ();
-                groupedVerticesCount = vertexCountArray.getCount ();
-                break;
-            }
-        default:
-            {
-                String message = "GeometryImporter::getGroupedVerticesCount:: Primitive type not supported: " + primitiveType;
-                std::cerr << message << std::endl;
-                throw new ColladaMayaException ( message );
-                break;
-            }
-        }
-
-        return groupedVerticesCount;
     }
 
     // --------------------------------------------
@@ -964,6 +1100,46 @@ namespace COLLADAMaya
             return &(*it).second;
 
         return NULL;
+    }
+
+    // --------------------------------------------
+    bool GeometryImporter::getEdgeIndex ( 
+        const COLLADAFW::Edge& edge, 
+        const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+        int& edgeIndex )
+    {
+        // Find the index of the edge in the map of edges to get the index in the list.
+        std::map<COLLADAFW::Edge,size_t>::const_iterator it = edgeIndicesMap.find ( edge );
+        if ( it == edgeIndicesMap.end() ) 
+        {
+            // The edge has to be in the map!!!
+            MString message ( "Edge not found: " ); message += edge[0] + ", " + edge[1];
+            MGlobal::displayError ( message );
+            std::cerr << message.asChar () << std::endl;
+            assert ( it != edgeIndicesMap.end() );
+        }
+        edgeIndex = (int)it->second; 
+        if ( edge.isReverse() ) edgeIndex = -( edgeIndex + 1 );
+
+        return true;
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::getEdgeIndices ( 
+        const COLLADAFW::Mesh* mesh, 
+        std::vector<COLLADAFW::Edge>& edgeIndices, 
+        std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap )
+    {
+        // Implementation for multiple primitive elements.
+        const COLLADAFW::MeshPrimitiveArray& primitiveElementsArray = mesh->getMeshPrimitives ();
+        size_t count = primitiveElementsArray.getCount ();
+        for ( size_t i=0; i<count; ++i )
+        {
+            COLLADAFW::MeshPrimitive* primitiveElement = primitiveElementsArray [ i ];
+
+            // Determine the edge indices (unique edges, also for multiple primitive elements).
+            primitiveElement->appendEdgeIndices ( edgeIndices, edgeIndicesMap );
+        }
     }
 
 }

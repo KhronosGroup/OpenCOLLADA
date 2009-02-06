@@ -384,18 +384,17 @@ namespace COLLADAMaya
 
         // Display some closing information.
         endClock = clock();
+
+        COLLADABU::URI mayaAsciiFileURI = documentImporter.getMayaAsciiFileURI ();
+        String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
+
         std::ostringstream stream; 
-        stream << "Time to export into file \"" << filename << "\": " << endClock - startClock << endl;
-        MString message( stream.str().c_str() );
-        MGlobal::displayInfo ( message );
+        stream << "Time to import into file \"" << mayaAsciiFileName << "\": " << endClock - startClock << endl;
+        String message( stream.str() );
+        MGlobal::displayInfo ( message.c_str() );
 
         // Open the maya ascii file in the maya instance
-        COLLADABU::URI mayaAsciiFileURI = documentImporter.getMayaAsciiFileURI ();
-        
-        String mayaFileName = mayaAsciiFileURI.getURIString ();
-        MFileIO::importFile ( mayaFileName.c_str () );
-        // MFileIO::open ( mayaFileName.c_str () );
-        // MFileIO::setCurrentFile ( mayaFileName.c_str () );
+        MFileIO::importFile ( mayaAsciiFileName.c_str () );
         MGlobal::displayInfo ( "Maya ascii file opened.");
 
 //         mayaAsciiFileURI.setPathExtension ( ".netallied.import.mb" );

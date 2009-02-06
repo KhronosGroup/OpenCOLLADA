@@ -207,6 +207,7 @@ namespace COLLADAMaya
         */
         MayaDM::Transform* createNode ( 
             const COLLADAFW::Node* node, 
+            const String& nodeName, 
             const String& parentNodeName );
 
         /**

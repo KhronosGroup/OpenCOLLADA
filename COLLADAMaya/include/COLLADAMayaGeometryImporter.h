@@ -76,19 +76,27 @@ namespace COLLADAMaya
         /** 
          * Imports the data of the current mesh element. 
          */
-        bool importMesh ( const COLLADAFW::Mesh* mesh );
+        void importMesh ( const COLLADAFW::Mesh* mesh );
 
         /**
          * Writes the geometry of the current mesh.
          */
-        bool createMesh ( 
+        void createMesh ( 
             const COLLADAFW::Mesh* mesh, 
             MayaNode* parentMayaNode );
+
+        /**
+         * Iterates over the mesh primitives and reads the edge indices.
+         */
+        void getEdgeIndices ( 
+            const COLLADAFW::Mesh* mesh, 
+            std::vector<COLLADAFW::Edge>& edgeIndices, 
+            std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap );
 
         /*
          *	Write the face informations into the maya file.
          */
-        bool writeFaces ( 
+        void writeFaces ( 
             const COLLADAFW::Mesh* mesh, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             MayaDM::Mesh &meshNode );
@@ -96,7 +104,25 @@ namespace COLLADAMaya
         /*
          *	Write the face values of the given primitive element into the maya file.
          */
-        bool appendPolyFaces ( 
+        void appendPolygonPolyFaces ( 
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+            MayaDM::Mesh &meshNode );
+
+        /*
+        *	Write the face values of the given primitive element into the maya file.
+        */
+        void appendTrifansPolyFaces (
+            const COLLADAFW::Mesh* mesh, 
+            const COLLADAFW::MeshPrimitive* primitiveElement, 
+            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
+            MayaDM::Mesh &meshNode );
+
+        /*
+        *	Write the face values of the given primitive element into the maya file.
+        */
+        void appendTristripsPolyFaces (
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -105,7 +131,7 @@ namespace COLLADAMaya
         /**
          * Set the face infos into the maya poly face element.
          */
-        void setFaceInfos ( 
+        void setPolygonFaceInfos ( 
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -114,16 +140,7 @@ namespace COLLADAMaya
             size_t &positionIndex, 
             std::vector<COLLADABU::Math::Vector3*> &polygonPoints );
 
-        void setFaceInfo ( 
-            const COLLADAFW::Mesh* mesh, 
-            const COLLADAFW::MeshPrimitive* primitiveElement, 
-            const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
-            MayaDM::polyFaces &polyFace, 
-            int & numEdges, 
-            size_t & positionIndex, 
-            std::vector<COLLADABU::Math::Vector3*> &polygonPoints );
-
-        void setHoleInfo ( 
+        void setPolygonHoleInfos ( 
             const COLLADAFW::Mesh* mesh, 
             const COLLADAFW::MeshPrimitive* primitiveElement, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
@@ -160,11 +177,6 @@ namespace COLLADAMaya
         void changePolyFaceHoleOrientation( MayaDM::polyFaces &polyFace );
 
         /*
-         *	Returns the number of grouped vertices (polygons, triangles, faces, holes, ...).
-         */
-        size_t getGroupedVerticesCount( const COLLADAFW::MeshPrimitive* primitiveElement );
-
-        /*
          *	Returns true, if we have to change the orientation of the current hole.
          */
         bool changeHoleOrientation ( 
@@ -181,36 +193,36 @@ namespace COLLADAMaya
         /*
          *	Write the edges into the maya file.
          */
-        bool writeEdges ( 
+        void writeEdges ( 
             const std::vector<COLLADAFW::Edge> &edgeIndices, 
             MayaDM::Mesh &meshNode );
 
         /*
          *	Write the uv coordinates into the maya file.
          */
-        bool writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+        void writeUVSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
 
         /*
         *	Write the uv coordinates into the maya file.
         */
-        bool writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+        void writeColorSets ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
 
         /*
          *	Write the normals values into the maya file.
          */
-        bool writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
+        void writeNormals ( const COLLADAFW::Mesh* mesh, MayaDM::Mesh &meshNode );
 
         /*
          *	Appends the normal values of all mesh primitive elements into the maya file.
          */
-        bool appendNormalValues ( 
+        void appendNormalValues ( 
             const COLLADAFW::Mesh* mesh, 
             MayaDM::Mesh &meshNode );
 
         /*
          *	Write the vertex position values into the maya file.
          */
-        bool writeVertexPositions ( 
+        void writeVertexPositions ( 
             const COLLADAFW::Mesh* mesh, 
             MayaDM::Mesh &meshNode );
 
