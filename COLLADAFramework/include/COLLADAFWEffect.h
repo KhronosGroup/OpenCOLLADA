@@ -16,6 +16,8 @@
 #include "COLLADAFWObject.h"
 #include "COLLADAFWColor.h"
 
+#include "COLLADAFWEffectCommon.h"
+
 
 namespace COLLADAFW
 {
@@ -58,9 +60,12 @@ namespace COLLADAFW
         // TODO Fix members!!!
 //        Profile* mProfile;
 
-        // TODO Implementation of a minimized standard material!
-        Color mStandardColor;
+		/** All the COLLADA common effects .*/
+		CommonEffectPointerArray mCommonEffects;
 
+		/** The standard color, i.e. the color to by used by systems that support only
+		one color, like most of the CAD-systems.*/
+        Color mStandardColor;
     public:
 
         /** Constructor. */
@@ -74,6 +79,21 @@ namespace COLLADAFW
 
         /** Pretty-print name for this effect. Optional. */
         void setName ( const String Name ) { mName = Name; }
+
+		/** Returns the standard color, i.e. the color to by used by systems that support only
+		one color, like most of the CAD-systems.*/
+		const Color& getStandardColor() const { return mStandardColor; }
+
+		/** Sets the standard color, i.e. the color to by used by systems that support only
+		one color, like most of the CAD-systems.*/
+		void setStandardColor(Color val) { mStandardColor = val; }
+
+		/** Returns the common effects.*/
+		CommonEffectPointerArray& getCommonEffects() { return mCommonEffects; }
+
+		/** Returns the common effects.*/
+		const CommonEffectPointerArray& getCommonEffects()const { return mCommonEffects; }
+
 
 	private:
 

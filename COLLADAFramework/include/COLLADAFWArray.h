@@ -159,6 +159,12 @@ namespace COLLADAFW
         /** Return s the index'th element in the array. No check is performed, if the index is out of bounds.*/
         const Type& operator[] ( size_t index ) const { return mData[index]; }
 
+		/** Returns a reference to the last element in the array. The array must not be empty.*/
+		Type& back() { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
+
+		/** Returns a reference to the last element in the array. The array must not be empty.*/
+		const Type& back() const { assert(mData && (mCount > 0)); return mData[mCount - 1]; }
+
         /** Disable default copy ctor. */
 		Array( const Array& pre );
 

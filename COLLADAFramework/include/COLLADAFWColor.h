@@ -49,28 +49,28 @@ namespace COLLADAFW
         bool isValid() const;
 
         /** Returns the red component*/
-        double getRed() const
-        {
-            return mR;
-        }
+        double getRed() const {return mR; }
+
+		/** Sets the red component*/
+		void setRed( double r ) {mR = r; }
 
         /** Returns the green component*/
-        double getGreen() const
-        {
-            return mG;
-        }
+        double getGreen() const { return mG; }
+
+		/** Sets the green component*/
+		void setGreen( double g ) {mG = g; }
 
         /** Returns the blue component*/
-        double getBlue() const
-        {
-            return mB;
-        }
+        double getBlue() const { return mB; }
+
+		/** Sets the red component*/
+		void setBlue( double b ) {mB = b; }
 
         /** Returns the alpha component*/
-        double getAlpha() const
-        {
-            return mA;
-        }
+        double getAlpha() const { return mA; }
+
+		/** Sets the red component*/
+		void setAlpha( double a ) {mA = a; }
 
         /** A white color object*/
         static const Color WHITE;

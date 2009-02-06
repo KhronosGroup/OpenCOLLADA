@@ -13,7 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWColor.h"
-#include "COLLADAFWTexture.h"
+//#include "COLLADAFWTexture.h"
 #include <vector>
 #include <map>
 
@@ -35,7 +35,7 @@ namespace COLLADAFW
         };
         Type mType;
         Color mColor;
-        Texture mTexture;
+        //Texture mTexture;
         String mSid;
 
     public:
@@ -51,12 +51,12 @@ namespace COLLADAFW
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param texture The color that should be represented.
         */
-        ColorOrTexture ( Texture texture, const String& sid = "" )
+/*        ColorOrTexture ( Texture texture, const String& sid = "" )
         : mTexture ( texture )
         , mType ( TEXTURE )
         , mSid ( sid )
         {};
-
+*/
         /** Creates an invalid CommonColorOrTextureType*/
         ColorOrTexture() : mType ( UNSPECIFIED ) {};
 
@@ -64,7 +64,7 @@ namespace COLLADAFW
         ColorOrTexture ( const ColorOrTexture& cot )
         {
             mColor = cot.mColor;
-            mTexture = cot.mTexture;
+//            mTexture = cot.mTexture;
             mType = cot.mType;
             mSid = cot.mSid;
         }
@@ -82,15 +82,15 @@ namespace COLLADAFW
         }
 
         /** Return true if the CommonColorOrTextureType is a valid Texture, false otherwise.*/
-        bool isTexture() const
+ /*       bool isTexture() const
         {
             return ( mType == TEXTURE ) && ( mTexture.isValid() );
         }
-
+*/
         /** Return true if the CommonColorOrTextureType is a valid Texture, false otherwise.*/
         bool isValid() const
         {
-            return ( mType != UNSPECIFIED ) && ( isTexture() || isColor() );
+            return ( mType != UNSPECIFIED ) /*&& ( isTexture() || isColor() ) */;
         }
 
 
@@ -107,16 +107,17 @@ namespace COLLADAFW
         }
 
         /** Returns the texture */
-        const Texture& getTexture() const
+/*        const Texture& getTexture() const
         {
             return mTexture;
-        }
+        }*/
 
         /** Returns the texture */
-        Texture& getTexture()
+/*        Texture& getTexture()
         {
             return mTexture;
         }
+		*/
 
     };
 

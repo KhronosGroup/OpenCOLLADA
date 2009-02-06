@@ -6064,7 +6064,7 @@ struct profile_CG__technique__AttributeData
 const StringHash HASH_ELEMENT_PROFILE_CG__EXTRA = 84040097;
 extern const char* NAME_ELEMENT_PROFILE_CG__EXTRA;
 
-const StringHash HASH_ELEMENT_PROFILE_COMMON = 171910622;
+const StringHash HASH_ELEMENT_PROFILE_COMMON = 128854558;
 extern const char* NAME_ELEMENT_PROFILE_COMMON;
 struct profile_COMMON__AttributeData
 {
