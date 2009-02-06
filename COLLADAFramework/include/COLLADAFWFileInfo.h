@@ -159,7 +159,7 @@ namespace COLLADAFW
         void setUpAxisType ( const String& upAxis );
 
         /** Returns the up axis. */
-        UpAxisType& getUpAxisType()
+        const UpAxisType& getUpAxisType() const
         {
             return mUpAxisType;
         }

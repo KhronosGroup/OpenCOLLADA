@@ -194,6 +194,7 @@ namespace COLLADAMaya
 
         // Set the linear unit in meters
         mLinearUnitMeter = unit.mLinearUnitMeter;
+        mUpAxisType = asset->getUpAxisType ();
 
 //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
 //         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
@@ -226,6 +227,7 @@ namespace COLLADAMaya
         if ( !mAssetWritten ) 
         {
             mSceneGraphRead = true;
+            return true;
         }
 
         if ( mSceneGraphWritten ) return true;
@@ -254,7 +256,7 @@ namespace COLLADAMaya
         if ( !mAssetWritten || !mSceneGraphWritten ) 
         {
             mGeometryRead = true;
-            return false;
+            return true;
         }
 
         // Create the file, if not already done.

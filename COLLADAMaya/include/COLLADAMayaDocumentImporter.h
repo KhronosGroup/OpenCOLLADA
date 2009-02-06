@@ -66,6 +66,7 @@ namespace COLLADAMaya
         * 0.3048 for the name "foot".
          */
         double mLinearUnitMeter;
+        COLLADAFW::FileInfo::UpAxisType mUpAxisType;
 
         bool mAssetWritten;
         bool mSceneGraphWritten;
@@ -145,6 +146,8 @@ namespace COLLADAMaya
         virtual bool writeGlobalAsset ( const COLLADAFW::FileInfo* asset );
 
         void getCurrentDate ( std::stringstream& curDate );
+
+        const COLLADAFW::FileInfo::UpAxisType& getUpAxisType () const { return mUpAxisType; }
 
         /**
         * How many real-world meters in one distance unit as a floating-point number.

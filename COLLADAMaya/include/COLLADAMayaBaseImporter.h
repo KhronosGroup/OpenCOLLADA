@@ -19,6 +19,8 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaDocumentImporter.h"
 
+#include "math/COLLADABUMathVector3.h"
+
 #include "MayaDMTypes.h"
 
 
@@ -51,20 +53,13 @@ namespace COLLADAMaya
         * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
         * 0.3048 for the name "foot".
         */
-        double toLinearUnit ( const double val )
+        MayaDM::double3 toLinearUnit ( const MayaDM::double3& val )
         {
-            return ( val * mDocumentImporter->getLinearUnitMeter () );
-        }
-
-        /**
-        * Converts the given value to the linear unit in meters.
-        * How many real-world meters in one distance unit as a floating-point number.
-        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
-        * 0.3048 for the name "foot".
-        */
-        float toLinearUnit ( const float val )
-        {
-            return ( val * (float) mDocumentImporter->getLinearUnitMeter () );
+            if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )
+                return ( MayaDM::double3 ( toLinearUnit ( val[1] ), toLinearUnit ( val[0]*(-1) ), toLinearUnit ( val[2] ) ) );
+            else if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
+                return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[2] ), toLinearUnit ( val[1]*(-1) ) ) );
+            else return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[1] ), toLinearUnit ( val[2] ) ) );
         }
 
         /**
@@ -75,7 +70,11 @@ namespace COLLADAMaya
         */
         MVector toLinearUnit ( const MVector& val )
         {
-            return ( val * mDocumentImporter->getLinearUnitMeter () );
+            if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )
+                return ( MVector ( toLinearUnit ( val[1] ), toLinearUnit ( val[0]*(-1) ), toLinearUnit ( val[2] ) ) );
+            else if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
+                return ( MVector ( toLinearUnit ( val[0] ), toLinearUnit ( val[2] ), toLinearUnit ( val[1]*(-1) ) ) );
+            else return ( MVector ( toLinearUnit ( val[0] ), toLinearUnit ( val[1] ), toLinearUnit ( val[2] ) ) );
         }
 
         /**
@@ -84,9 +83,26 @@ namespace COLLADAMaya
         * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
         * 0.3048 for the name "foot".
         */
-        MayaDM::double3 toLinearUnit ( const MayaDM::double3& val )
+        void toLinearUnit ( const double val0, const double val1, const double val2, COLLADABU::Math::Vector3& retVal )
         {
-            return ( MayaDM::double3 ( toLinearUnit ( val[0] ), toLinearUnit ( val[1] ), toLinearUnit ( val[2] ) ) );
+            if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )
+            {
+                retVal [0] = toLinearUnit ( val1 );
+                retVal [1] = toLinearUnit ( val0*(-1) );
+                retVal [2] = toLinearUnit ( val2 );
+            }
+            else if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::Z_UP )
+            {
+                retVal [0] = toLinearUnit ( val0 );
+                retVal [1] = toLinearUnit ( val2 );
+                retVal [2] = toLinearUnit ( val1*(-1) );
+            }
+            else 
+            {
+                retVal [0] = toLinearUnit ( val0 );
+                retVal [1] = toLinearUnit ( val1 );
+                retVal [2] = toLinearUnit ( val2 );
+            }
         }
 
     protected:
@@ -120,6 +136,30 @@ namespace COLLADAMaya
 //         {
 //             return mDocumentImporter->getDocumentLoader ();
 //         }
+
+    private:
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        double toLinearUnit ( const double val )
+        {
+            return ( val * mDocumentImporter->getLinearUnitMeter () );
+        }
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        float toLinearUnit ( const float val )
+        {
+            return ( val * (float) mDocumentImporter->getLinearUnitMeter () );
+        }
 
     };
 }
