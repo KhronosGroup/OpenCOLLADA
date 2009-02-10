@@ -57,13 +57,13 @@ namespace COLLADAFW
 
 		};
 
-		typedef Array<MaterialBinding> MaterialBindings;
+		typedef Array<MaterialBinding> MaterialBindingArray;
 
 	private:
 
 		/** The list of all material bindings of this instance geometry. The Material bindings must be 
 		order according to MaterialBinding::operator<.*/
-		MaterialBindings mMaterialBindings;
+		MaterialBindingArray mMaterialBindings;
 
 	public:
 		/** Constructor. Creates an instance geometry, that does not instantiate a geometry.*/
@@ -80,10 +80,10 @@ namespace COLLADAFW
 		InstanceGeometry* clone() const { return new InstanceGeometry(*this); }
 
 		/** Returns the list of all material bindings.*/
-		MaterialBindings& getMaterialBindings() { return mMaterialBindings; }
+		MaterialBindingArray& getMaterialBindings() { return mMaterialBindings; }
 
 		/** Returns the list of all material bindings.*/
-		const MaterialBindings& getMaterialBindings() const { return mMaterialBindings; }
+		const MaterialBindingArray& getMaterialBindings() const { return mMaterialBindings; }
 
 	private:
         /** Disable default copy ctor. */

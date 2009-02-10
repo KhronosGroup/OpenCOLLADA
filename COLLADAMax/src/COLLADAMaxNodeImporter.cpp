@@ -159,6 +159,9 @@ namespace COLLADAMax
 
 			INode* parentNode = parentImportNode->GetINode();
 			parentNode->AttachChild(newNode, FALSE);
+
+			// Store the information about material bindings
+			storeMaterialBindings(newNode, instanceGeometry);
 		}
 
 		return true;
@@ -192,6 +195,9 @@ namespace COLLADAMax
 		addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(newNode, FALSE);
+
+		// Store the information about material bindings
+		storeMaterialBindings(newNode, instanceGeometry);
 
 		return newImportNode;
 	}
@@ -245,6 +251,7 @@ namespace COLLADAMax
 		newImportNode->Reference(object);
 		newNode->SetTMController(nodeToClone->GetTMController());
 		newImportNode->SetName(nodeToClone->GetName());
+		newNode->SetMtl(nodeToClone->GetMtl());
 
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(newNode, TRUE);
@@ -261,6 +268,19 @@ namespace COLLADAMax
 		return true;
 	}
 
+	//------------------------------
+	void NodeImporter::storeMaterialBindings( INode* node, COLLADAFW::InstanceGeometry* instanceGeometry )
+	{
+		COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = instanceGeometry->getMaterialBindings();
+		if ( !materialBindings.empty() )
+		{
+			DocumentImporter::NodeMaterialBindingsPair& materialBindingsPair = createAndAddNodeMaterialBindingsPair(node);
+			size_t bindingsCount = materialBindings.getCount();
+			materialBindingsPair.materialBindings.reserve(bindingsCount);
+			for ( size_t i = 0; i < bindingsCount; ++i)
+				materialBindingsPair.materialBindings.push_back(materialBindings[i]);
+		}
+	}
 
 
 } // namespace COLLADAMax

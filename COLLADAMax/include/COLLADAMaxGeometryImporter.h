@@ -20,6 +20,7 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAMaxPrerequisites.h"
 #include "COLLADAMaxImporterBase.h"
+#include "COLLADAFWMeshPrimitive.h"
 
 namespace COLLADAFW
 {
@@ -36,6 +37,8 @@ namespace COLLADAMax
 	is attached to that nodes, otherwise the geometry does not belong to a node.*/
 	class GeometryImporter 	: public ImporterBase
 	{
+	private:
+
 	private:
 		/** The geometry that should be imported.*/
 		const COLLADAFW::Geometry* mGeometry;
@@ -100,6 +103,10 @@ namespace COLLADAMax
 		that need to reference it.*/
 		bool handleReferences(COLLADAFW::Geometry* geometry, Object* object);
 
+		/** Fills the map with pair of frame work material ids of the used by primitives in @a primitiveArray
+		and material ids used in Max. The max material ids start with 1 and are increased for each new
+		framework material id.*/
+		void createFWMaterialIdMaxMtlIdMap( const COLLADAFW::MeshPrimitiveArray& primitiveArray, DocumentImporter::FWMaterialIdMaxMtlIdMap& materialMap);
 	private:
 
         /** Disable default copy ctor. */

@@ -23,6 +23,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWEffect.h"
+#include "COLLADAFWInstanceGeometry.h"
 #include <list>
 
 //#include "dummy.h"
@@ -73,6 +74,26 @@ namespace COLLADAMax
 		/** Maps unique ids of framework effects to the corresponding framework material.*/
 		typedef std::map<COLLADAFW::UniqueId, COLLADAFW::Effect> UniqueIdFWEffectMap;
 
+		/** Vector of material bindings.*/
+		typedef std::vector<COLLADAFW::InstanceGeometry::MaterialBinding> MaterialBindingVector;
+
+		/** Pair of nodes an the instantiated materials.*/
+		struct NodeMaterialBindingsPair
+		{
+			INode* maxNode;
+			MaterialBindingVector materialBindings;
+		};
+
+		/** List of all max nodes that reference a material and their material bindings.*/
+		typedef std::list<NodeMaterialBindingsPair> NodeMaterialBindingsList;
+
+		/** Maps frame work material ids to max material ids.*/
+		typedef std::map<COLLADAFW::MaterialId,	MtlID > FWMaterialIdMaxMtlIdMap;
+
+		/** Maps the unique id of a geometry to the material id mapping.*/
+		typedef std::map<COLLADAFW::UniqueId, FWMaterialIdMaxMtlIdMap > GeometryMaterialIdMapMap;
+
+
 	private:
 		/** Max interface.*/
 		Interface* mMaxInterface;
@@ -122,6 +143,12 @@ namespace COLLADAMax
 
 		/** Maps unique ids of framework effects to the corresponding framework material.*/
 		UniqueIdFWEffectMap mUniqueIdFWEffectMap;
+
+		/** of all max nodes that reference a material and their material bindings.*/
+		NodeMaterialBindingsList mNodeMaterialBindingsList;
+
+		/** Maps the unique id of a geometry to the material id mapping.*/
+		GeometryMaterialIdMapMap mGeometryMaterialIdMapMap;
 
 	public:
 		/** Constructor .
@@ -183,6 +210,9 @@ namespace COLLADAMax
         /** Disable default assignment operator. */
 		const DocumentImporter& operator= ( const DocumentImporter& pre );
 
+		/** Creates all the materials that are instantiated/referenced in the scene.*/
+		bool createAndAssignMaterials();
+
 		/** Returns the dummy object used for nodes that do not have an object assigned to.*/
 		DummyObject* getDummyObject(){ return mDummyObject; }
 
@@ -213,6 +243,11 @@ namespace COLLADAMax
 		/** Returns the UniqueIdFWEffectMap.*/
 		UniqueIdFWEffectMap& getUniqueIdFWEffectMap() { return mUniqueIdFWEffectMap; }
 
+		/** Returns the NodeMaterialBindingsList.*/
+		NodeMaterialBindingsList& getNodeMaterialBindingsList() { return mNodeMaterialBindingsList; }
+
+		/** Return the GeometryMaterialIdMapMap.*/
+		GeometryMaterialIdMapMap& getGeometryMaterialIdMapMap() { return  mGeometryMaterialIdMapMap; }
 
 		friend class ImporterBase;
 

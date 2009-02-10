@@ -25,7 +25,7 @@ namespace COLLADAFW
     class ColorOrTexture
     {
 
-    private:
+    public:
 
         enum Type
         {
@@ -33,8 +33,10 @@ namespace COLLADAFW
             COLOR,
             TEXTURE
         };
+
+	private:
         Type mType;
-        Color mColor;
+		Color mColor;
         //Texture mTexture;
         String mSid;
 
@@ -68,6 +70,12 @@ namespace COLLADAFW
             mType = cot.mType;
             mSid = cot.mSid;
         }
+
+		/** Returns the type of the color or texture.*/
+		Type getType() const { return mType; }
+
+		/** Returns the type of the color or texture.*/
+		void setType(Type type) { mType = type; }
 
         /** Returns the sid. */
         const String& getSid () const

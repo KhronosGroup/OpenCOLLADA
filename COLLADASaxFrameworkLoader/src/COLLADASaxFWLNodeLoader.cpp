@@ -351,7 +351,7 @@ namespace COLLADASaxFWL
 		size_t materialBindingsCount = mCurrentMaterialBindings.size();
 		if ( materialBindingsCount > 0 )
 		{
-			COLLADAFW::InstanceGeometry::MaterialBindings& materialBindings = mCurrentInstanceGeometry->getMaterialBindings();
+			COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindings = mCurrentInstanceGeometry->getMaterialBindings();
 			materialBindings.allocMemory( materialBindingsCount);
 			MaterialBindingsSet::const_iterator it = mCurrentMaterialBindings.begin();
 			size_t index = 0;

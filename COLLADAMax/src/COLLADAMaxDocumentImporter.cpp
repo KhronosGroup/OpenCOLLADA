@@ -21,6 +21,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxLibraryNodesImporter.h"
 #include "COLLADAMaxGeometryImporter.h"
 #include "COLLADAMaxMaterialImporter.h"
+#include "COLLADAMaxMaterialCreator.h"
+#include "COLLADAMaxEffectImporter.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
 #include "COLLADAFWLibraryNodes.h"
@@ -58,7 +60,17 @@ namespace COLLADAMax
 		COLLADAFW::Root root(&loader, this);
 
 //		return root.loadDocument("dsfsdf.dae");
-		return root.loadDocument(mImportFilePath);
+		if ( !root.loadDocument(mImportFilePath) )
+			return false;
+
+		return createAndAssignMaterials();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::createAndAssignMaterials()
+	{
+		MaterialCreator materialCreator(this);
+		return materialCreator.create();
 	}
 
 	//---------------------------------------------------------------
@@ -92,6 +104,8 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeEffect( const COLLADAFW::Effect* effect )
 	{
-		return true;
+		EffectImporter effectImporter(this, effect);
+		return effectImporter.import();
 	}
+
 } // namespace COLLADAMax

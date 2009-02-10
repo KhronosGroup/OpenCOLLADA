@@ -21,6 +21,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxPrerequisites.h"
 #include "COLLADAMaxTypes.h"
 
+#include "COLLADAMaxDocumentImporter.h"
+
 class Interface;
 class ImpInterface;
 class INode;
@@ -117,6 +119,11 @@ namespace COLLADAMax
 		For every received effect that is in a library effect this method should be called. */
 		void addUniqueIdFWEffectPair( const COLLADAFW::UniqueId& uniqueId, const COLLADAFW::Effect& effect );
 
+		/** Creates a new NodeMaterialBindingsPair with maxNode set to @a node and an empty material bindings 
+		vector and adds it to the NodeMaterialBindingsList. 
+		For every max node that references a geometry with set material this method should be called. */
+		DocumentImporter::NodeMaterialBindingsPair& createAndAddNodeMaterialBindingsPair( INode* node );
+
 		/** Adds @a libraryNodes to the list of library nodes.*/
 		void addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
@@ -144,6 +151,12 @@ namespace COLLADAMax
 		received effect, null otherwise.*/
 		const COLLADAFW::Effect* getFWEffectByUniqueId( const COLLADAFW::UniqueId& uniqueId );
 
+		/** Returns the list of all nodes that have a material and their material bindings.*/ 
+		const DocumentImporter::NodeMaterialBindingsList& getNodeMaterialBindings();
+
+		/** Returns the material id of geometry with @a uniqueId. If it is not already in the map, a new
+		one is created.*/ 
+		DocumentImporter::FWMaterialIdMaxMtlIdMap& getMaterialIdMapByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId);
 
 	private:
 

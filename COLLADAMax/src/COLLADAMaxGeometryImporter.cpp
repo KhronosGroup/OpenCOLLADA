@@ -134,11 +134,15 @@ namespace COLLADAMax
 		triangleMesh.setNumFaces((int)mTotalTrianglesCount);
 		COLLADAFW::MeshPrimitiveArray& meshPrimitiveArray =  mesh->getMeshPrimitives();
 		size_t faceIndex = 0;
+		DocumentImporter::FWMaterialIdMaxMtlIdMap& fWMaterialIdMaxMtlIdMap = getMaterialIdMapByGeometryUniqueId(mGeometry->getUniqueId());
+		createFWMaterialIdMaxMtlIdMap( meshPrimitiveArray, fWMaterialIdMaxMtlIdMap);
 		for ( size_t i = 0, count = meshPrimitiveArray.getCount(); i < count; ++i)
 		{
 			const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitiveArray[i];
 			if ( ! meshPrimitive )
 				continue;
+			// We use the frame work material id as max material id
+			MtlID maxMaterialId = meshPrimitive->getMaterialId();
 			switch (meshPrimitive->getPrimitiveType())
 			{
 			case COLLADAFW::MeshPrimitive::TRIANGLES:
@@ -148,6 +152,9 @@ namespace COLLADAMax
 					for ( size_t j = 0, count = positionIndices.getCount() ; j < count; j+=3 )
 					{
 						Face& face = triangleMesh.faces[faceIndex];
+//						face.setMatID(fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()]);
+						if ( maxMaterialId != 0 )
+							face.setMatID(maxMaterialId);
 						face.setEdgeVisFlags(1, 1, 1);
 						face.setVerts(positionIndices[j], positionIndices[j + 1], positionIndices[j + 2]);
 						++faceIndex;
@@ -166,7 +173,9 @@ namespace COLLADAMax
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							Face& face = triangleMesh.faces[faceIndex];
-							face.setEdgeVisFlags(1, 1, 1);
+//   						face.setMatID(fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()]);
+							if ( maxMaterialId != 0 )
+								face.setMatID(maxMaterialId);
 							face.setVerts(positionIndices[j - 2], positionIndices[j - 1], positionIndices[j]);
 							++faceIndex;
 						}
@@ -187,6 +196,11 @@ namespace COLLADAMax
 						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							Face& face = triangleMesh.faces[faceIndex];
+							MtlID gg1 =fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()];
+//   						face.setMatID(fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()]);
+							if ( maxMaterialId != 0 )
+								face.setMatID(maxMaterialId);
+							MtlID gg = face.getMatID();
 							face.setEdgeVisFlags(1, 1, 1);
 							face.setVerts(commonVertexIndex, positionIndices[j - 1], positionIndices[j]);
 							++faceIndex;
@@ -660,6 +674,21 @@ namespace COLLADAMax
 			objectNodeList[i]->SetObjectRef(object);
 		
 		return true;
+	}
+
+	//------------------------------
+	void GeometryImporter::createFWMaterialIdMaxMtlIdMap( const COLLADAFW::MeshPrimitiveArray& primitiveArray, DocumentImporter::FWMaterialIdMaxMtlIdMap& materialMap )
+	{
+		MtlID nextMaxMaterialId = 1;
+		for ( size_t i = 0, count = primitiveArray.getCount(); i < count; ++i )
+		{
+			const COLLADAFW::MeshPrimitive* primitive = primitiveArray[i];
+			COLLADAFW::MaterialId fWMaterialId = primitive->getMaterialId();
+			if ( materialMap.count(fWMaterialId) == 0 )
+			{
+				materialMap[fWMaterialId] = nextMaxMaterialId++;
+			}
+		}
 	}
 
 } // namespace COLLADAMax

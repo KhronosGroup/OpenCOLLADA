@@ -17,7 +17,6 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxImporterBase.h"
-#include "COLLADAMaxDocumentImporter.h"
 
 #include "COLLADAFWUniqueId.h"
 
@@ -145,6 +144,15 @@ namespace COLLADAMax
 		mDocumentImporter->getUniqueIdFWEffectMap().insert(std::pair<COLLADAFW::UniqueId, COLLADAFW::Effect>(uniqueId, effect));;
 	}
 
+	//------------------------------
+	DocumentImporter::NodeMaterialBindingsPair& ImporterBase::createAndAddNodeMaterialBindingsPair( INode* node )
+	{
+		DocumentImporter::NodeMaterialBindingsPair newPair;
+		newPair.maxNode = node;
+		DocumentImporter::NodeMaterialBindingsList& list = mDocumentImporter->getNodeMaterialBindingsList();
+		list.push_back(newPair);
+		return *list.rbegin();
+	}
 
 	//------------------------------
 	void ImporterBase::addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes )
@@ -219,4 +227,15 @@ namespace COLLADAMax
 			return &it->second;
 	}
 
+	//------------------------------
+	const DocumentImporter::NodeMaterialBindingsList& ImporterBase::getNodeMaterialBindings()
+	{
+		return mDocumentImporter->getNodeMaterialBindingsList();
+	}
+
+	//------------------------------
+	DocumentImporter::FWMaterialIdMaxMtlIdMap& ImporterBase::getMaterialIdMapByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId )
+	{
+		return mDocumentImporter->getGeometryMaterialIdMapMap()[uniqueId];
+	}
 } // namespace COLLADAMax
