@@ -63,6 +63,16 @@ namespace COLLADAMax
 			if ( !createAndAssingMaxMaterial(materialBinding) )
 				return false;
 		}
+
+		// assign materials to cloned nodes
+		const DocumentImporter::INodeINodePairList& clonedInodeOriginalInodeList = getClonedINodeOriginalINodePairList();
+		DocumentImporter::INodeINodePairList::const_iterator itClone = clonedInodeOriginalInodeList.begin();
+		for ( ; itClone != clonedInodeOriginalInodeList.end(); ++itClone)
+		{
+			itClone->first->SetMtl(itClone->second->GetMtl());
+		}
+		
+
 		return true;
 	}
 

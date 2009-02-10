@@ -170,13 +170,23 @@ namespace COLLADAMax
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
 						unsigned int faceVertexCount = faceVertexCountArray[k];
+						bool switchOrientation = false;
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							Face& face = triangleMesh.faces[faceIndex];
 //   						face.setMatID(fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()]);
 							if ( maxMaterialId != 0 )
 								face.setMatID(maxMaterialId);
-							face.setVerts(positionIndices[j - 2], positionIndices[j - 1], positionIndices[j]);
+							if ( switchOrientation )
+							{
+								face.setVerts(positionIndices[j - 1], positionIndices[j - 2], positionIndices[j]);
+								switchOrientation = false;
+							}
+							else
+							{
+								face.setVerts(positionIndices[j - 2], positionIndices[j - 1], positionIndices[j]);
+								switchOrientation = true;
+							}
 							++faceIndex;
 						}
 						nextTristripStartIndex += faceVertexCount;
@@ -440,10 +450,24 @@ namespace COLLADAMax
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
 						unsigned int faceVertexCount = faceVertexCountArray[k];
+						bool switchOrientation = false;
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							MNFace* face = polgonMesh.F((int)faceIndex);
-							face->MakePoly(3, (int*) (&positionIndices[j - 2]));
+							if ( switchOrientation )
+							{
+								int indices[3];
+								indices[0] = (int)positionIndices[j - 1];
+								indices[1] = (int)positionIndices[j - 2];
+								indices[2] = (int)positionIndices[j ];
+								face->MakePoly(3, indices);
+								switchOrientation = false;
+							}
+							else
+							{
+								face->MakePoly(3, (int*) (&positionIndices[j - 2]));
+								switchOrientation = true;
+							}
 
 							++faceIndex;
 						}

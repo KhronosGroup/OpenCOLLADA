@@ -113,7 +113,7 @@ namespace COLLADAMax
 		while ( referencingImpNode = getReferencingImpNodesByUniqueId(nodeUniqueId) )
 		{
 			removeUniqueIdReferencingImpNodePair( nodeUniqueId, referencingImpNode);
-			recursivlyCloneINode( referencingImpNode, newImportNode->GetINode() );
+			recursivelyCloneINode( referencingImpNode, newImportNode->GetINode() );
 		}
 
 		return newImportNode;
@@ -216,7 +216,7 @@ namespace COLLADAMax
 			// check if the referenced node is already in the max scene graph
 			if ( instanciatedINode )
 			{
-				if ( !recursivlyCloneINode(parentImportNode, instanciatedINode) )
+				if ( !recursivelyCloneINode(parentImportNode, instanciatedINode) )
 					return false;;
 			}
 			else
@@ -240,7 +240,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	bool NodeImporter::recursivlyCloneINode( ImpNode* parentImportNode, INode* nodeToClone )
+	bool NodeImporter::recursivelyCloneINode( ImpNode* parentImportNode, INode* nodeToClone )
 	{
 		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 		getMaxImportInterface()->AddNodeToScene(newImportNode);
@@ -251,7 +251,7 @@ namespace COLLADAMax
 		newImportNode->Reference(object);
 		newNode->SetTMController(nodeToClone->GetTMController());
 		newImportNode->SetName(nodeToClone->GetName());
-		newNode->SetMtl(nodeToClone->GetMtl());
+		addClonedINodeOriginalINodePair(newNode, nodeToClone);
 
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(newNode, TRUE);
@@ -259,11 +259,14 @@ namespace COLLADAMax
 		/* If the node to clone references an object, the cloned one must references the same object.*/
 		COLLADAFW::UniqueId id = getUniqueIdByObjectINode(nodeToClone);
 		if ( id.isValid() )
+		{
 			addUniqueIdObjectINodePair(id, newNode);
+			addObjectINodeUniqueIdPair(newNode, id);
+		}
 
 		// Clone the children 
 		for ( int i = 0, count = nodeToClone->NumberOfChildren(); i < count; ++i)
-			recursivlyCloneINode(newImportNode, nodeToClone->GetChildNode(i));
+			recursivelyCloneINode(newImportNode, nodeToClone->GetChildNode(i));
 
 		return true;
 	}

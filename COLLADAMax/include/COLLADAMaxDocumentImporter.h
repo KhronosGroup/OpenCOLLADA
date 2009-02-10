@@ -93,6 +93,9 @@ namespace COLLADAMax
 		/** Maps the unique id of a geometry to the material id mapping.*/
 		typedef std::map<COLLADAFW::UniqueId, FWMaterialIdMaxMtlIdMap > GeometryMaterialIdMapMap;
 
+		/** List of inode inode pairs.*/
+		typedef std::vector<std::pair<INode*, INode*>> INodeINodePairList;
+
 
 	private:
 		/** Max interface.*/
@@ -149,6 +152,10 @@ namespace COLLADAMax
 
 		/** Maps the unique id of a geometry to the material id mapping.*/
 		GeometryMaterialIdMapMap mGeometryMaterialIdMapMap;
+
+		/** List of pairs of cloned nodes and their originals. This is used to assign materials. When ever
+		an inode is cloned, the cloned one and itself should be added to that list.*/
+		INodeINodePairList mClonedINodeOriginalINodePairList;
 
 	public:
 		/** Constructor .
@@ -248,6 +255,10 @@ namespace COLLADAMax
 
 		/** Return the GeometryMaterialIdMapMap.*/
 		GeometryMaterialIdMapMap& getGeometryMaterialIdMapMap() { return  mGeometryMaterialIdMapMap; }
+
+		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
+		When ever an inode is cloned, the cloned one and itself should be added to that list.*/
+		INodeINodePairList& getClonedINodeOriginalINodePairList() { return mClonedINodeOriginalINodePairList; }
 
 		friend class ImporterBase;
 

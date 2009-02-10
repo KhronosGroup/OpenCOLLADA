@@ -70,7 +70,7 @@ namespace COLLADAMax
 
 		/** Recursively clones @a nodeToClone and attaches the cloned graph to @a parentImportNode. The cloned
 		nodes with reference the same object and transformation controller.*/
-		bool recursivlyCloneINode( ImpNode* parentImportNode, INode* nodeToClone );
+		bool recursivelyCloneINode( ImpNode* parentImportNode, INode* nodeToClone );
 
 		/** Store the information about material bindings of @a instanceGeometry attached to max node @a node*/
 		void storeMaterialBindings( INode* node, COLLADAFW::InstanceGeometry* instanceGeometry);

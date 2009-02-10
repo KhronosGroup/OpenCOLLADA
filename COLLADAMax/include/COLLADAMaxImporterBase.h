@@ -127,6 +127,9 @@ namespace COLLADAMax
 		/** Adds @a libraryNodes to the list of library nodes.*/
 		void addLibraryNodes( const COLLADAFW::LibraryNodes* libraryNodes );
 
+		/** Adds the @pair clonedNode and @a originalNode to the list of cloned and original inodes.*/
+		void addClonedINodeOriginalINodePair(INode* clonedNode, INode* originalNode);
+
 		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
 		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/
 		Object* getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId);
@@ -157,6 +160,10 @@ namespace COLLADAMax
 		/** Returns the material id of geometry with @a uniqueId. If it is not already in the map, a new
 		one is created.*/ 
 		DocumentImporter::FWMaterialIdMaxMtlIdMap& getMaterialIdMapByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId);
+
+		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
+		When ever an inode is cloned, the cloned one and itself should be added to that list.*/ 
+		const DocumentImporter::INodeINodePairList& getClonedINodeOriginalINodePairList();
 
 	private:
 

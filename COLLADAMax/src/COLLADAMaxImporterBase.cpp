@@ -161,6 +161,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addClonedINodeOriginalINodePair( INode* clonedNode, INode* originalNode )
+	{
+		DocumentImporter::INodeINodePairList& inodeInodePairList = mDocumentImporter->getClonedINodeOriginalINodePairList();
+		inodeInodePairList.push_back(std::pair<INode*, INode*>(clonedNode, originalNode));
+	}
+
+	//------------------------------
 	Object* ImporterBase::getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		const DocumentImporter::UniqueIdObjectMap& uniqueIdObjectMap = mDocumentImporter->getUniqueIdObjectMap();
@@ -237,5 +244,10 @@ namespace COLLADAMax
 	DocumentImporter::FWMaterialIdMaxMtlIdMap& ImporterBase::getMaterialIdMapByGeometryUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		return mDocumentImporter->getGeometryMaterialIdMapMap()[uniqueId];
+	}
+
+	const DocumentImporter::INodeINodePairList& ImporterBase::getClonedINodeOriginalINodePairList()
+	{
+		return mDocumentImporter->getClonedINodeOriginalINodePairList();
 	}
 } // namespace COLLADAMax
