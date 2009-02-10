@@ -53,45 +53,42 @@ namespace COLLADASaxFWL
 		{
 		case PROFILE_COMMON:
 			{
+				COLLADAFW::ColorOrTexture* colorOrTexture = 0;
 				switch ( mCurrentShaderParameterType )
 				{
 				case SHADER_PARAMETER_EMISSION:
 					{
-						COLLADAFW::Color& color = mCurrentEffect->getCommonEffects().back()->getEmission().getColor();
-						handleColorData(data, length, color);
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getEmission();
 						break;
 					}
 				case SHADER_PARAMETER_AMBIENT:
 					{
-						COLLADAFW::Color& color = mCurrentEffect->getCommonEffects().back()->getAmbient().getColor();
-						handleColorData(data, length, color);
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getAmbient();
 						break;
 					}
 				case SHADER_PARAMETER_DIFFUSE:
 					{
-						COLLADAFW::Color& color = mCurrentEffect->getCommonEffects().back()->getDiffuse().getColor();
-						handleColorData(data, length, color);
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getDiffuse();
 						break;
 					}
 				case SHADER_PARAMETER_SPECULAR:
 					{
-						COLLADAFW::Color& color = mCurrentEffect->getCommonEffects().back()->getSpecular().getColor();
-						handleColorData(data, length, color);
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getSpecular();
 						break;
 					}
 				case SHADER_PARAMETER_REFLECTIVE:
 					{
-						COLLADAFW::Color& color = mCurrentEffect->getCommonEffects().back()->getReflective().getColor();
-						handleColorData(data, length, color);
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getReflective();
 						break;
 					}
 				case SHADER_PARAMETER_TRANSPARANT:
 					{
-						COLLADAFW::Color& color = mCurrentEffect->getCommonEffects().back()->getTransparent().getColor();
-						handleColorData(data, length, color);
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getTransparent();
 						break;
 					}
 				}
+				colorOrTexture->setType(COLLADAFW::ColorOrTexture::COLOR);
+				handleColorData(data, length, colorOrTexture->getColor());
 				break;
 			}
 		}
@@ -130,7 +127,13 @@ namespace COLLADASaxFWL
 	{
 		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()).getObjectId());
 		if ( attributeData.name )
+		{
 			mCurrentEffect->setName((const char*)attributeData.name);
+		}
+		else if ( attributeData.id)
+		{
+			mCurrentEffect->setName((const char*)attributeData.id);
+		} 
 		return true;
 	}
 
