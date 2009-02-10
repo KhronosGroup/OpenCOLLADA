@@ -142,7 +142,7 @@ namespace COLLADAMax
 			if ( ! meshPrimitive )
 				continue;
 			// We use the frame work material id as max material id
-			MtlID maxMaterialId = meshPrimitive->getMaterialId();
+			MtlID maxMaterialId = (MtlID)meshPrimitive->getMaterialId();
 			switch (meshPrimitive->getPrimitiveType())
 			{
 			case COLLADAFW::MeshPrimitive::TRIANGLES:
@@ -206,11 +206,9 @@ namespace COLLADAMax
 						for ( size_t j = nextTrifanStartIndex + 2, lastVertex = nextTrifanStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							Face& face = triangleMesh.faces[faceIndex];
-							MtlID gg1 =fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()];
 //   						face.setMatID(fWMaterialIdMaxMtlIdMap[meshPrimitive->getMaterialId()]);
-							if ( maxMaterialId != 0 )
+							if ( maxMaterialId != 0 ) 
 								face.setMatID(maxMaterialId);
-							MtlID gg = face.getMatID();
 							face.setEdgeVisFlags(1, 1, 1);
 							face.setVerts(commonVertexIndex, positionIndices[j - 1], positionIndices[j]);
 							++faceIndex;
@@ -307,13 +305,25 @@ namespace COLLADAMax
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
 						unsigned int faceVertexCount = faceVertexCountArray[k];
+						bool switchOrientation = false;
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							MeshNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 							normalFace.SpecifyAll();
-							normalFace.SetNormalID(0, normalIndices[j - 2]);
-							normalFace.SetNormalID(1, normalIndices[j - 1]);
-							normalFace.SetNormalID(2, normalIndices[j]);
+							if ( switchOrientation )
+							{
+								normalFace.SetNormalID(0, normalIndices[j - 1]);
+								normalFace.SetNormalID(1, normalIndices[j - 2]);
+								normalFace.SetNormalID(2, normalIndices[j]);
+								switchOrientation = false;
+							}
+							else
+							{
+								normalFace.SetNormalID(0, normalIndices[j - 2]);
+								normalFace.SetNormalID(1, normalIndices[j - 1]);
+								normalFace.SetNormalID(2, normalIndices[j]);
+								switchOrientation = true;
+							}
 							++faceIndex;
 						}
 						nextTristripStartIndex += faceVertexCount;
@@ -602,14 +612,26 @@ namespace COLLADAMax
 					for ( size_t k = 0, count = faceVertexCountArray.getCount(); k < count; ++k)
 					{
 						unsigned int faceVertexCount = faceVertexCountArray[k];
+						bool switchOrientation = false;
 						for ( size_t j = nextTristripStartIndex + 2, lastVertex = nextTristripStartIndex +  faceVertexCount; j < lastVertex; ++j )
 						{
 							MNNormalFace& normalFace = normalsSpecifier->Face((int) faceIndex);
 							normalFace.SetDegree(3);
 							normalFace.SpecifyAll();
-							normalFace.SetNormalID(0, normalIndices[j - 2]);
-							normalFace.SetNormalID(1, normalIndices[j - 1]);
-							normalFace.SetNormalID(2, normalIndices[j]);
+							if ( switchOrientation )
+							{
+								normalFace.SetNormalID(0, normalIndices[j - 1]);
+								normalFace.SetNormalID(1, normalIndices[j - 2]);
+								normalFace.SetNormalID(2, normalIndices[j]);
+								switchOrientation = false;
+							}
+							else
+							{
+								normalFace.SetNormalID(0, normalIndices[j - 2]);
+								normalFace.SetNormalID(1, normalIndices[j - 1]);
+								normalFace.SetNormalID(2, normalIndices[j]);
+								switchOrientation = true;
+							}
 							++faceIndex;
 						}
 						nextTristripStartIndex += faceVertexCount;

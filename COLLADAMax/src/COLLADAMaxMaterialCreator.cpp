@@ -101,7 +101,7 @@ namespace COLLADAMax
 			const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindings[0];
 			const COLLADAFW::Effect* effect = getEffect(materialBinding);
 			if ( !effect )
-				return false;
+				return true;
 			Mtl* newMaterial = getMaxMaterial(*effect);
 			maxNode->SetMtl( newMaterial );
 			return true;
@@ -117,16 +117,11 @@ namespace COLLADAMax
 			const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = *it;
 			const COLLADAFW::Effect* effect = getEffect(materialBinding);
 			if ( !effect )
-				return false;
+				continue;
 			Mtl* newMaterial = getMaxMaterial(*effect);
-			//newMaterial->SetName("Material");
 			multiMaterial->SetSubMtl( materialBinding.getMaterialId(), newMaterial);
 		}
 		maxNode->SetMtl( multiMaterial );
-		return true;
-
-
-//		StandardMaterial*h;
 		return true;
 	}
 
