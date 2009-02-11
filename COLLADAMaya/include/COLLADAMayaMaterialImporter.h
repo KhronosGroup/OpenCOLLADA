@@ -19,6 +19,10 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
+#include "COLLADABUIDList.h"
+
+#include "MayaDMDependNode.h"
+
 
 namespace COLLADAMaya
 {
@@ -26,6 +30,31 @@ namespace COLLADAMaya
     /** Declares the importer class for import materials. */
     class MaterialImporter : public BaseImporter
     {
+    public:
+
+        typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdMayaMaterialMap;
+
+    private:
+
+        /** The standard name for a material without name. */
+        static const String MATERIAL_NAME;
+
+    private:
+
+        /**
+        * The list of the unique maya material names.
+        */
+        COLLADABU::IDList mMaterialIdList;
+
+        /** 
+        * The map holds the unique ids of the nodes to the maya material name. 
+        */
+        UniqueIdNamesMap mMayaMaterialNamesMap;
+
+        /**
+         * The map holds the maya material objects.
+         */
+        UniqueIdMayaMaterialMap mMayaMaterialMap;
 
     public:
 
@@ -35,13 +64,24 @@ namespace COLLADAMaya
         /** Destructor. */
         virtual ~MaterialImporter () {}
 
-        /** Imports all materials from the current collada document. */
-        void importMaterials();
+        /** Imports the given material. */
+        bool importMaterial ( const COLLADAFW::Material* material );
 
-    private:
+        /**
+        * The map holds the maya material objects.
+        */
+        const UniqueIdMayaMaterialMap& getMayaMaterialMap () const { return mMayaMaterialMap; }
 
-//         /** Imports the current material into the maya scene. */
-//         void importMaterial ( domMaterial& material );
+        /**
+        * The map holds the maya material objects.
+        */
+        MayaDM::DependNode* findMayaMaterial ( const COLLADAFW::UniqueId& val ) const;
+
+        /**
+        * The map holds the maya material objects.
+        */
+        void appendMaterial ( const COLLADAFW::UniqueId& id, MayaDM::DependNode* materialNode );
+
 
     };
 }

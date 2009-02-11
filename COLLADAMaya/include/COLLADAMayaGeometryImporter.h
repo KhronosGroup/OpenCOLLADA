@@ -40,6 +40,9 @@ namespace COLLADAMaya
 
     private:
 
+        /** The standard name for geometry without name. */
+        static const String GEOMETRY_NAME;
+
         /**
         * The list of the unique maya mesh node names.
         */
@@ -49,6 +52,11 @@ namespace COLLADAMaya
          * The map holds the unique ids of the nodes to the maya specific nodes. 
          */
         UniqueIdMayaNodesMap mMayaMeshNodesMap;
+
+        /** 
+        * The map holds the unique ids of the nodes to the  specific nodes. 
+        */
+        UniqueIdMayaDMMeshMap mMayaDMMeshNodesMap;
 
     public:
 
@@ -61,8 +69,6 @@ namespace COLLADAMaya
         /** Imports the geometry element. */
         bool importGeometry ( const COLLADAFW::Geometry* geometry );
 
-    private:
-
         /** 
         * The map holds the unique ids of the nodes to the maya specific nodes. 
         */
@@ -72,6 +78,11 @@ namespace COLLADAMaya
         * The map holds the unique ids of the nodes to the maya specific nodes. 
         */
         MayaNode* getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId );
+
+        MayaDM::Mesh* getMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId );
+        const MayaDM::Mesh* getMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+    private:
 
         /** 
          * Imports the data of the current mesh element. 
@@ -83,7 +94,16 @@ namespace COLLADAMaya
          */
         void createMesh ( 
             const COLLADAFW::Mesh* mesh, 
-            MayaNode* parentMayaNode );
+            MayaNode* parentMayaNode, 
+            size_t numNodeInstances );
+
+        /**
+         * Create the object group instances and the object groups and write it into the maya file.
+         */
+        void writeObjectGroups ( 
+            const COLLADAFW::Mesh* mesh, 
+            MayaDM::Mesh &meshNode, 
+            size_t numNodeInstances );
 
         /**
          * Iterates over the mesh primitives and reads the edge indices.
@@ -234,6 +254,7 @@ namespace COLLADAMaya
             const COLLADAFW::Edge& edge, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             int& edgeIndex );
+
     };
 
 }

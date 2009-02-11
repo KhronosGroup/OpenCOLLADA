@@ -21,11 +21,14 @@
 #include "COLLADAMayaNode.h"
 
 #include "MayaDMTransform.h"
+#include "MayaDMShadingEngine.h"
+#include "MayaDMMaterialInfo.h"
 
 #include "COLLADAFWVisualScene.h"
 #include "COLLADAFWSkew.h"
 
 #include "COLLADABUIDList.h"
+
 #include "Math/COLLADABUMathUtils.h"
 #include "Math/COLLADABUMathMatrix4.h"
 #include "Math/COLLADABUMathQuaternion.h"
@@ -40,6 +43,48 @@ namespace COLLADAMaya
     /** Declares the importer implementation to import the visual scene nodes. */
     class VisualSceneImporter : public BaseImporter
     {
+
+    private:
+
+        class ShaderData
+        {
+        private:
+            MayaDM::ShadingEngine* mShadingEngine; 
+            MayaDM::MaterialInfo* mMaterialInfo;
+
+        public:
+            ShaderData () : mShadingEngine (0), mMaterialInfo (0) {}
+            ShaderData ( 
+                MayaDM::ShadingEngine* shadingEngine, 
+                MayaDM::MaterialInfo* materialInfo ) 
+                : mShadingEngine ( shadingEngine )
+                , mMaterialInfo ( materialInfo )
+            {}
+            virtual ~ShaderData() {}
+
+            MayaDM::ShadingEngine* getShadingEngine () const { return mShadingEngine; }
+            MayaDM::MaterialInfo* getMaterialInfo () const { return mMaterialInfo; }
+
+        private:
+            /** Disable default copy ctor. */
+            ShaderData( const ShaderData& pre );
+            /** Disable default assignment operator. */
+            const ShaderData& operator= ( const ShaderData& pre );
+
+        };
+
+        typedef std::map<COLLADAFW::MaterialId, ShaderData*> ShaderDataMap;
+
+    private:
+
+        /** The standard name for a transform node without name. */
+        static const String TRANSFORM_NODE_NAME;
+
+        /** The standard name for a shading engine. */
+        static const String SHADING_ENGINE_NAME;
+
+        /** The standard name for a material info. */
+        static const String MATERIAL_INFO_NAME;
 
     private:
 
@@ -58,6 +103,17 @@ namespace COLLADAMaya
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
         UniqueIdMayaNodesMap mMayaTransformNodesMap;
+
+        /**
+        * The list of the unique maya shading engine names.
+        */
+        COLLADABU::IDList mShadingEngineIdList;
+        COLLADABU::IDList mMaterialInfoIdList;
+
+        /**
+         * The map with the unique ids of the shading engine to the shading engines itself. 
+         */
+        ShaderDataMap mShaderDataMap;
 
         /*
          *	Helper class, to handle the transformations.
@@ -122,13 +178,6 @@ namespace COLLADAMaya
          */
         bool importVisualScene ( const COLLADAFW::VisualScene* visualScene );
 
-        /*
-         * Imports the data of the current node.
-         */
-        void importNode ( 
-            const COLLADAFW::Node* rootNode, 
-            const COLLADAFW::UniqueId* parentNodeId = NULL );
-
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
@@ -149,12 +198,24 @@ namespace COLLADAMaya
 
     private:
 
+        /*
+        * Imports the data of the current node.
+        */
+        void importNode ( 
+            const COLLADAFW::Node* rootNode, 
+            const COLLADAFW::UniqueId* parentNodeId = NULL );
+
         /**
          *	Save the transformation ids to the geometry ids.
          */
         bool readGeometryInstances (
             const COLLADAFW::Node* node, 
             MayaDM::Transform* transformNode );
+
+        /**
+         * Read the shading engines.
+         */
+        void readMaterialInstances ( const COLLADAFW::InstanceGeometry* instanceGeometry );
 
         /**
          * Handle the node instances. 
@@ -214,6 +275,29 @@ namespace COLLADAMaya
         * Converts the skew into a matrix.
         */
         void skewValuesToMayaMatrix ( const COLLADAFW::Skew* skew, MMatrix& matrix ) const;
+
+        /**
+        * The list of the unique maya shading engine names.
+        */
+        const COLLADABU::IDList& getShadingEngineIdList () const { return mShadingEngineIdList; }
+
+        /**
+        * The map with the unique ids of the shading engine to the shading engines itself. 
+        */
+        const ShaderDataMap& getShadingEnginesMap () const { return mShaderDataMap; }
+
+        /**
+        * The map with the unique ids of the shading engine to the shading engines itself. 
+        */
+        ShaderData* findShaderData ( const COLLADAFW::MaterialId& val );
+
+        /**
+        * The map with the unique ids of the shading engine to the shading engines itself. 
+        */
+        void appendShaderData ( 
+            const COLLADAFW::MaterialId& val, 
+            MayaDM::ShadingEngine* shadingEngine, 
+            MayaDM::MaterialInfo* materialInfo );
 
     };
 }

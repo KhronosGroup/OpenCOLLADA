@@ -335,11 +335,9 @@ namespace COLLADASaxFWL
 		COLLADAFW::Node* currentNode = mNodeStack.top();
 
 		COLLADAFW::UniqueId instantiatedGeometryUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Geometry::ID());
-
 		mCurrentMaterialInfo = &getMeshMaterialIdInfo(instantiatedGeometryUniqueId);
 
 		mCurrentInstanceGeometry = new COLLADAFW::InstanceGeometry(instantiatedGeometryUniqueId);
-
 		currentNode->getInstanceGeometries().append(mCurrentInstanceGeometry);
 
 		return true;
@@ -374,7 +372,11 @@ namespace COLLADASaxFWL
 	{
 		COLLADAFW::MaterialId materialId = attributeData.symbol ? mCurrentMaterialInfo->getMaterialId((const char*)attributeData.symbol) : 0;
 		COLLADAFW::InstanceGeometry::MaterialBinding materialBinding(materialId, getUniqueIdFromUrl(attributeData.target, COLLADAFW::Material::ID()));
-		mCurrentMaterialBindings.insert(materialBinding);
+
+        if ( attributeData.symbol )
+            materialBinding.setName((const char*)attributeData.symbol);
+
+        mCurrentMaterialBindings.insert(materialBinding);
 		return true;
 	}
 
@@ -384,11 +386,9 @@ namespace COLLADASaxFWL
 	bool NodeLoader::begin__instance_node( const instance_node__AttributeData& attributeData )
 	{
 		COLLADAFW::Node* currentNode = mNodeStack.top();
-
 		COLLADAFW::UniqueId instantiatedNodeUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Node::ID() );
 
 		COLLADAFW::InstanceNode* instanceNode = new COLLADAFW::InstanceNode(instantiatedNodeUniqueId);
-
 		currentNode->getInstanceNodes().append(instanceNode);
 
 		return true;

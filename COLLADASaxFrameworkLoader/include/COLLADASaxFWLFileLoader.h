@@ -74,6 +74,8 @@ namespace COLLADASaxFWL
 		/** Returns the absolute uri of the currently parsed file*/
 		const COLLADABU::URI& getFileUri();
 
+        /** Informs about the end of reading the collada file. */
+        virtual bool end__COLLADA();
 
 
 	protected:

@@ -57,11 +57,6 @@ namespace COLLADAFW
 		*/
 		String mName;
 
-		/** A text string containing the unique identifier of the element. This value must be
-		unique within the instance document. Optional.
-		*/
-		String mSid;
-
         /** The type of the <node> element. Valid values are JOINT or NODE. The default is
         NODE. Optional. */
         NodeType mType;
@@ -89,12 +84,6 @@ namespace COLLADAFW
 
 		/** Sets the name of the node*/
 		void setName(const String& name) { mName = name; }
-
-		/** Returns the sid of the node*/
-		const String& getSid() const { return mSid; }
-
-		/** Sets the id of the node*/
-		void setSid(const String& sid) { mSid = sid; }
 
         /** The type of the <node> element. Valid values are JOINT or NODE. The default is
         NODE. Optional. */

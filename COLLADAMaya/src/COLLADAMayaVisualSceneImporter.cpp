@@ -19,9 +19,11 @@
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaGeometryImporter.h"
-#include "ColladaMayaException.h"
+#include "COLLADAMayaMaterialImporter.h"
 
 #include "MayaDMJoint.h"
+#include "MayaDMLambert.h"
+#include "MayaDMDependNode.h"
 #include "MayaDMCommands.h"
 
 #include "COLLADAFWRotate.h"
@@ -41,6 +43,11 @@
 namespace COLLADAMaya
 {
     
+    const String VisualSceneImporter::TRANSFORM_NODE_NAME = "Transform";
+    const String VisualSceneImporter::SHADING_ENGINE_NAME = "ShadingEngine";
+    const String VisualSceneImporter::MATERIAL_INFO_NAME = "MaterialInfo";
+
+
     // -----------------------------------
     VisualSceneImporter::VisualSceneImporter ( DocumentImporter* documentImporter ) 
     : BaseImporter ( documentImporter )
@@ -49,8 +56,6 @@ namespace COLLADAMaya
     // -----------------------------------
     bool VisualSceneImporter::importVisualScene ( const COLLADAFW::VisualScene* visualScene )
     {
-        String visualSceneName = visualScene->getName ();
-
         // Iterate over the root nodes of the current visual scene
         const COLLADAFW::NodeArray& rootNodes = visualScene->getRootNodes ();
         size_t count = rootNodes.getCount ();
@@ -82,11 +87,7 @@ namespace COLLADAMaya
         // Get the unique node name
         String nodeName = node->getName ();
         if ( COLLADABU::Utils::equals ( nodeName, "" ) )
-            nodeName = node->getSid ();
-        if ( COLLADABU::Utils::equals ( nodeName, "" ) )
-            nodeName = "Transform";
-
-        // Create a unique name.
+            nodeName = TRANSFORM_NODE_NAME;
         nodeName = mTransformNodeIdList.addId ( nodeName );
 
         // Create the node object (joint or node)
@@ -164,6 +165,9 @@ namespace COLLADAMaya
 
             // Save for every geometry a list of transform nodes, which refer to it.
             mGeometryTransformIdsMap [ geometryId ].insert ( nodeId );
+
+            // Read the shading engines.
+            readMaterialInstances ( instanceGeometry );
         }
 
         return true;
@@ -733,4 +737,126 @@ namespace COLLADAMaya
 
         return NULL;
     }
+
+    // -----------------------------------
+    void VisualSceneImporter::readMaterialInstances ( const COLLADAFW::InstanceGeometry* instanceGeometry )
+    {
+        // Go through the bound materials
+        const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
+        size_t numOfBindings = materialBindingsArray.getCount ();
+        for ( size_t i=0; i<numOfBindings; ++i )
+        {
+            const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
+            const COLLADAFW::UniqueId& referencedMaterialId = materialBinding.getReferencedMaterial ();
+
+            // Get the material id and the shading engine name.
+            COLLADAFW::MaterialId materialId = materialBinding.getMaterialId ();
+
+            // Check if already a shading engine with the materialId exist.
+            MayaDM::ShadingEngine* shadingEngine;
+            MayaDM::MaterialInfo* materialInfo;
+            String shadingEngineName;
+            ShaderData* shaderData = findShaderData ( materialId );
+            if ( shaderData == 0 )
+            {
+                // Get the unique shading engine name.
+                shadingEngineName = materialBinding.getName ();
+                if ( COLLADABU::Utils::equals ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ))
+                    shadingEngineName = SHADING_ENGINE_NAME;
+                shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
+
+                // Create a shading engine, if we not already have one.
+                FILE* file = getDocumentImporter ()->getFile ();
+                shadingEngine = new MayaDM::ShadingEngine ( file, shadingEngineName.c_str () );
+
+                // Create the material info node for the shading engine.
+                // createNode materialInfo -name "materialInfo2";
+                String materialInfoName = MATERIAL_INFO_NAME;
+                materialInfoName = mMaterialInfoIdList.addId ( materialInfoName ); 
+                MayaDM::MaterialInfo* materialInfo = new MayaDM::MaterialInfo ( file, materialInfoName.c_str () );
+
+                // Push it in the map of shading engines
+                appendShaderData ( materialId, shadingEngine, materialInfo );
+
+                // Connect the message attribute of the shading engine 
+                // with the shading group of the material info.
+                // connectAttr "blinn1SG.message" "materialInfo2.shadingGroup";
+                connectAttr ( file, shadingEngine->getMessage (), materialInfo->getShadingGroup () );
+
+                MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
+                MayaDM::DependNode* materialNode = materialImporter->findMayaMaterial ( referencedMaterialId );
+
+                // If the materials are already imported, we make the 
+                // connection between the shading engine and the material.
+                // TODO Do this also in the material importer!!!
+                if ( materialNode != 0 )
+                {
+                    String nodeType = materialNode->getType ();
+                    if ( COLLADABU::Utils::equalsIgnoreCase ( nodeType, "kLambert" ) )
+                    {
+                        MayaDM::Lambert* lambertNode = ( MayaDM::Lambert* ) materialNode;
+
+                        // connectAttr "blinn1.outColor" "blinn1SG.surfaceShader";
+                        connectAttr ( file, lambertNode->getOutColor (), shadingEngine->getSurfaceShader () );
+
+                        // connectAttr "blinn1.message" "materialInfo2.material";
+                        connectAttr ( file, lambertNode->getMessage (), materialInfo->getMaterial () );
+                    }
+                }
+
+            }
+            else
+            {
+                shadingEngine = shaderData->getShadingEngine ();
+                materialInfo = shaderData->getMaterialInfo ();
+                shadingEngineName = shadingEngine->getName ();
+            }
+
+            // Get the geometry id of the object, we want to connect the 
+            // current geometry's "instObjGroups" attribute with the  shading
+            // engine's "dagSetMembers" attribute.
+            const COLLADAFW::UniqueId& geometryId = instanceGeometry->getInstanciatedObjectId ();
+            GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
+
+            MayaNode* mayaMeshNode = geometryImporter->getMayaMeshNode ( geometryId );
+            if ( mayaMeshNode != 0 )
+               String meshNodePath = mayaMeshNode->getNodePath ();
+
+            MayaDM::Mesh* mesh = geometryImporter->getMayaDMMeshNode ( geometryId );
+            if ( mesh != 0 )
+            {
+                // TODO connectAttr...
+                // connectAttr "blinn1SG.message" "materialInfo2.shadingGroup";
+                // connectAttr "blinn1.outColor" "blinn1SG.surfaceShader";
+                // connectAttr "blinn1.message" "materialInfo2.material";
+                // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
+                FILE* file = getDocumentImporter ()->getFile ();
+                connectAttr ( file, mesh->getInstObjGroups (0), shadingEngine->getDagSetMembers (0) );
+            }
+        }
+    }
+
+    // -----------------------------------
+    VisualSceneImporter::ShaderData* VisualSceneImporter::findShaderData ( 
+        const COLLADAFW::MaterialId& val )
+    {
+        ShaderDataMap::const_iterator it = mShaderDataMap.find ( val );
+        ShaderDataMap::const_iterator itEnd = mShaderDataMap.end ();
+        if ( it == mShaderDataMap.end () )
+        {
+            return 0;
+        }
+
+        return it->second;
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::appendShaderData ( 
+        const COLLADAFW::MaterialId& val, 
+        MayaDM::ShadingEngine* shadingEngine, 
+        MayaDM::MaterialInfo* materialInfo )
+    {
+        mShaderDataMap [val] = new VisualSceneImporter::ShaderData ( shadingEngine, materialInfo );
+    }
+
 }

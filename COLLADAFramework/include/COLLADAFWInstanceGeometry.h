@@ -29,12 +29,19 @@ namespace COLLADAFW
 		class MaterialBinding
 		{
 		private:
+
 			/** The MaterialId of the mesh primitives that should get bind to a material.*/
 			MaterialId mMaterialId;
+
 			/** Unique id of the material that should get bind to the mesh primitives.*/
 			UniqueId mReferencedMaterial;
+
+            /** The name of the shading engine. */
+            String mName;
+
 		public:
-			MaterialBinding(MaterialId materialId, UniqueId referencedMaterial); 
+
+			MaterialBinding ( const MaterialId& materialId, const UniqueId& referencedMaterial ); 
 
 			/** @return MaterialId of the mesh primitives that should get bind to a material.*/
 			COLLADAFW::MaterialId getMaterialId() const { return mMaterialId; }
@@ -50,6 +57,10 @@ namespace COLLADAFW
 
 			/** The comparison operator that only compares the material ids.*/
 			bool operator<( const MaterialBinding& rhs) const { return mMaterialId < rhs.mMaterialId; }
+
+            /** The name of the shading engine. */
+            const String& getName () const { return mName; }
+            void setName ( const String& val ) { mName = val; }
 
 		private:
 			friend class Array<MaterialBinding>;

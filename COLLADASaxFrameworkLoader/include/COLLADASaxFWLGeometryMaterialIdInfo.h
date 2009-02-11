@@ -25,13 +25,15 @@ namespace COLLADASaxFWL
 	class GeometryMaterialIdInfo
 	{
 	public:
+
 		/** Maps the collada symbol (used to bind materials) to the MaterialId used in the framework.*/
 		typedef std::map<String, COLLADAFW::MaterialId> ColladaSymbolMaterialIdMap;
 
-
 	private:
+
 		/** The highest material id already used for the mesh.*/
 		COLLADAFW::MaterialId mHighestMaterialId;
+
 		/** The map that maps collada symbols to material ids for the mesh.*/
 		ColladaSymbolMaterialIdMap mColladaSymbolMaterialIdMap;
 

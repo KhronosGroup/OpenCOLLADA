@@ -8,6 +8,9 @@
 
 namespace COLLADAMaya
 {
+    /**
+     * This class exist to have the node path for a node.
+     */
 	class MayaNode 	
     {
 	private:

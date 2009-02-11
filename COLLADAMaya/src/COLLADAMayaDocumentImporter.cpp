@@ -18,6 +18,7 @@
 #include "COLLADAMayaReferenceManager.h"
 #include "COLLADAMayaImportOptions.h"
 #include "COLLADAMayaMaterialImporter.h"
+#include "COLLADAMayaEffectImporter.h"
 #include "COLLADAMayaGeometryImporter.h"
 #include "COLLADAMayaCameraImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
@@ -44,12 +45,15 @@ namespace COLLADAMaya
         , mFile ( 0 )
         , mVisualSceneImporter (0)
         , mGeometryImporter (0)
+        , mMaterialImporter (0)
+        , mEffectImporter (0)
         , mSceneGraphWritten ( false )
         , mGeometryWritten ( false )
         , mAssetWritten ( false )
         , mSceneGraphRead ( false )
         , mGeometryRead ( false )
         , mLinearUnitMeter (1)
+        , mDocumentReads (0)
     {
     }
 
@@ -70,6 +74,8 @@ namespace COLLADAMaya
 
         mVisualSceneImporter = new VisualSceneImporter ( this );
         mGeometryImporter = new GeometryImporter ( this );
+        mMaterialImporter = new MaterialImporter ( this );
+        mEffectImporter = new EffectImporter ( this );
 
         // Get the sceneID (assign a name to the scene)
         MString sceneName = MFileIO::currentFile ();
@@ -84,6 +90,8 @@ namespace COLLADAMaya
     {
         delete mVisualSceneImporter;
         delete mGeometryImporter;
+        delete mMaterialImporter;
+        delete mEffectImporter;
     }
 
     //-----------------------------
@@ -163,8 +171,17 @@ namespace COLLADAMaya
     //-----------------------------
     void DocumentImporter::finish ()
     {
-        // Close the file.
-        if ( mFile != 0 ) fclose ( mFile );
+        // If the last read is ready, we can write the connections and close the file.
+        --mDocumentReads;
+        if ( mDocumentReads == 0 ) 
+        {
+            // TODO After the read of the collada document, 
+            // the connections can be written into the maya file.
+
+
+            // Close the file
+            if ( mFile != 0 ) fclose ( mFile );
+        }
     }
 
     //-----------------------------
@@ -275,6 +292,8 @@ namespace COLLADAMaya
         COLLADAFW::Root root ( &loader, this );
         String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );
+
+        ++mDocumentReads;
         root.loadDocument ( fileUriString );
     }
 
@@ -339,4 +358,33 @@ namespace COLLADAMaya
         // TODO 
         return false;
     }
+
+    //-----------------------------
+    bool DocumentImporter::writeMaterial ( const COLLADAFW::Material* material )
+    {
+        bool retValue = false;
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        retValue = mMaterialImporter->importMaterial ( material );
+        mGeometryWritten = true;
+
+        return retValue;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeEffect ( const COLLADAFW::Effect* effect )
+    {
+        bool retValue = false;
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        retValue = mEffectImporter->importEffect ( effect );
+        mGeometryWritten = true;
+
+        return retValue;
+    }
+
 }

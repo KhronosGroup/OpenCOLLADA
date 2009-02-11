@@ -30,6 +30,7 @@ namespace COLLADAFW
 		NodePointerArray mRootNodes;
 	
 	public:
+
 		VisualScene();
 		virtual ~VisualScene();
 

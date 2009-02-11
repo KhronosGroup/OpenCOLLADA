@@ -15,23 +15,13 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaMaterialImporter.h"
-#include "COLLADAMayaShaderHelper.h"
-#include "COLLADAMayaDagHelper.h"
-#include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaEffectImporter.h"
 
-// #include "COLLADADHReader.h"
-// #include "COLLADADHElementIterator.h"
-// #include "COLLADADHEffectUtil.h"
-// 
-// #include <dom/domMaterial.h>
-// #include <dom/domTypes.h>
-
-#include <maya/MFnLambertShader.h>
-#include <maya/MFnPhongShader.h>
-#include <maya/MFnBlinnShader.h>
 
 namespace COLLADAMaya
 {
+
+    const String MaterialImporter::MATERIAL_NAME = "Material";
 
     //------------------------------
     MaterialImporter::MaterialImporter ( DocumentImporter* documentImporter )
@@ -39,22 +29,26 @@ namespace COLLADAMaya
     {}
 
     // --------------------------
-    void MaterialImporter::importMaterials()
+    bool MaterialImporter::importMaterial ( const COLLADAFW::Material* material )
     {
-//         daeDocument* document = getDaeDocument();
-//         COLLADADH::Reader reader ( *( document ) );
-// 
-//         COLLADADH::Reader::ElementIterator<domMaterial> materialsIter = reader.getMaterials();
-//         while ( materialsIter.more() )
-//         {
-//             domMaterial& material = materialsIter.next();
-//             importMaterial ( material );
-//         }
-    }
+        // Get the material name.
+        String materialName ( material->getName () );
+        if ( COLLADABU::Utils::equals ( materialName, COLLADABU::Utils::EMPTY_STRING ) )
+            materialName = MATERIAL_NAME;
+        materialName = mMaterialIdList.addId ( materialName );
+        
+        const COLLADAFW::UniqueId& materialId = material->getUniqueId ();
+        mMayaMaterialNamesMap [materialId] = materialName;
 
-//     // --------------------------
-//     void MaterialImporter::importMaterial ( domMaterial& material )
-//     {
+        // Get the effect
+        const COLLADAFW::UniqueId& effectId = material->getInstantiatedEffect ();
+        EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
+
+        effectImporter->findMayaEffect ( effectId );
+
+        // 
+
+
 //         daeString elementName = material.getElementName();
 //         xsNCName materialName = material.getName();
 //         daeString materialTypeName = material.getTypeName();
@@ -374,8 +368,10 @@ namespace COLLADAMaya
 // 
 //             }
 //         }
-//     }
-// 
+
+        return true;
+     }
+
 //     // --------------------------
 // //     MObject	MaterialImporter::importStandardShader ( 
 // //         FCDGeometryInstance* colladaInstance, 
@@ -432,5 +428,22 @@ namespace COLLADAMaya
 // //         DaeMaterial* material = (DaeMaterial*) colladaMaterial->GetUserHandle(); // slightly-round-about.
 // //         DaeTextureList textures;
 // //     }
+
+     // --------------------------
+     MayaDM::DependNode* MaterialImporter::findMayaMaterial ( const COLLADAFW::UniqueId& val ) const
+     {
+         UniqueIdMayaMaterialMap::const_iterator it = mMayaMaterialMap.find ( val );
+         if ( it != mMayaMaterialMap.end () )
+         {
+             return it->second;
+         }
+         return 0;
+     }
+
+     // --------------------------
+     void MaterialImporter::appendMaterial ( const COLLADAFW::UniqueId& id, MayaDM::DependNode* materialNode )
+     {
+         mMayaMaterialMap [id] = materialNode;
+     }
 
 }

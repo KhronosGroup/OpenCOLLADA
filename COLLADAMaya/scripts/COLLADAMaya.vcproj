@@ -2671,6 +2671,10 @@
 				Name="Importers"
 				>
 				<File
+					RelativePath="..\src\COLLADAMayaBaseImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaDocumentImporter.cpp"
 					>
 					<FileConfiguration
@@ -2732,13 +2736,6 @@
 					<FileConfiguration
 						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin2009|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -2858,6 +2855,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\src\COLLADAMayaEffectImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMayaGeometryImporter.cpp"
 					>
 					<FileConfiguration
@@ -2919,13 +2920,6 @@
 					<FileConfiguration
 						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin2009|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -3241,7 +3235,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugConsole2009|Win32"
-						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -3338,13 +3331,6 @@
 					<FileConfiguration
 						Name="DebugPlugin2009|x64"
 						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-					<FileConfiguration
-						Name="ReleasePlugin2009|Win32"
 						>
 						<Tool
 							Name="VCCLCompilerTool"
@@ -4349,6 +4335,10 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath="..\include\COLLADAMayaEffectImporter.h"
+					>
+				</File>
+				<File
 					RelativePath="..\include\COLLADAMayaGeometryImporter.h"
 					>
 					<FileConfiguration
@@ -4767,7 +4757,6 @@
 					</FileConfiguration>
 					<FileConfiguration
 						Name="DebugConsole2009|Win32"
-						ExcludedFromBuild="true"
 						>
 						<Tool
 							Name="VCCustomBuildTool"

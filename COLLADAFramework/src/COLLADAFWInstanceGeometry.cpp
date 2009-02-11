@@ -14,11 +14,13 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAFW
 {
 	
+    // ----------------------------------
 	InstanceGeometry::InstanceGeometry( UniqueId instanciatedGeometryId )
 		: SceneGraphInstance(instanciatedGeometryId)
 	{
 	}
 
+    // ----------------------------------
 	InstanceGeometry::InstanceGeometry( const InstanceGeometry& pre )
 		: SceneGraphInstance(pre)
 		, mMaterialBindings()
@@ -30,12 +32,13 @@ namespace COLLADAFW
 			mMaterialBindings[i] = pre.mMaterialBindings[i];
 	}
 
-	//--------------------------------------------------------------------
+	// ----------------------------------
 	InstanceGeometry::~InstanceGeometry()
 	{
 	}
 
-	InstanceGeometry::MaterialBinding::MaterialBinding( MaterialId materialId, UniqueId referencedMaterial )
+    // ----------------------------------
+	InstanceGeometry::MaterialBinding::MaterialBinding ( const MaterialId& materialId, const UniqueId& referencedMaterial )
 		: mMaterialId(materialId)
 		, mReferencedMaterial(referencedMaterial)
 	{

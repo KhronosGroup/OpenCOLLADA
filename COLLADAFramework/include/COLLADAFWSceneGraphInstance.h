@@ -28,14 +28,8 @@ namespace COLLADAFW
 		*/
 		String mName;
 
-		/** A text string containing the unique identifier of the element. This value must be
-		unique within the instance document. Optional.
-		*/
-		String mSid;
-
 		/** The unique id of the instantiated object.*/
 		UniqueId mInstanciatedObjectId;
-
 
 	public:
 
@@ -50,12 +44,6 @@ namespace COLLADAFW
 
 		/** Sets the name of the node*/
 		void getName(const String& name) { mName = name; }
-
-		/** Returns the sid of the node*/
-		const String& getSid() const { return mSid; }
-
-		/** Sets the id of the node*/
-		void getSid(const String& sid) { mSid = sid; }
 
 		/** Returns the unique id of the instantiated object.*/
 		const UniqueId& getInstanciatedObjectId() const { return mInstanciatedObjectId; }

@@ -27,6 +27,8 @@
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWEffect.h"
 
+#include "MayaDMMesh.h"
+
 #include <set>
 
 
@@ -34,9 +36,13 @@ namespace COLLADAMaya
 {
     class VisualSceneImporter;
     class GeometryImporter;
+    class MaterialImporter;
+    class EffectImporter;
+
 
     typedef std::map<COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdUniqueIdsMap;
     typedef std::map<COLLADAFW::UniqueId, MayaNode> UniqueIdMayaNodesMap;
+    typedef std::map<COLLADAFW::UniqueId, MayaDM::Mesh> UniqueIdMayaDMMeshMap;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -81,6 +87,15 @@ namespace COLLADAMaya
         /** Pointer to the geometry importer. */
         GeometryImporter* mGeometryImporter;
 
+        /** Pointer to the geometry importer. */
+        MaterialImporter* mMaterialImporter;
+
+        /** Pointer to the geometry importer. */
+        EffectImporter* mEffectImporter;
+
+        /** The variable tells, how many times the document is read. */
+        size_t mDocumentReads;
+
     public:
 
         /** Constructor. */
@@ -118,11 +133,18 @@ namespace COLLADAMaya
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* getVisualSceneImporter () { return mVisualSceneImporter; }
         const VisualSceneImporter* getVisualSceneImporter () const { return mVisualSceneImporter; }
-        void setVisualSceneImporter ( VisualSceneImporter* val ) { mVisualSceneImporter = val; }
 
         /** Pointer to the geometry importer. */
+        GeometryImporter* getGeometryImporter () { return mGeometryImporter; }
         const GeometryImporter* getGeometryImporter () const { return mGeometryImporter; }
-        void setGeometryImporter ( GeometryImporter* val ) { mGeometryImporter = val; }
+
+        /** Pointer to the geometry importer. */
+        MaterialImporter* getMaterialImporter () { return mMaterialImporter; }
+        const MaterialImporter* getMaterialImporter () const { return mMaterialImporter; }
+
+        /** Pointer to the geometry importer. */
+        EffectImporter* getEffectImporter () { return mEffectImporter; }
+        const EffectImporter* getEffectImporter () const { return mEffectImporter; }
 
         /** This method will be called if an error in the loading process occurred and the loader 
         cannot continue to to load. The writer should undo all operations that have been performed.
@@ -133,8 +155,10 @@ namespace COLLADAMaya
         /** This is the method called. The writer hast to prepare to receive data.*/
         virtual void start ();
 
-        /** This method is called after the last write method. 
-        No other methods will be called after this.*/
+        /** 
+        * This method is called after the last write method. No other methods will be called after this.
+        * After the read of the collada document, the connections can be written into the maya file.
+        */
         virtual void finish ();
 
         /** Start the import of the model.
@@ -147,6 +171,7 @@ namespace COLLADAMaya
 
         void getCurrentDate ( std::stringstream& curDate );
 
+        /** Returns the type of the current up axis. */
         const COLLADAFW::FileInfo::UpAxisType& getUpAxisType () const { return mUpAxisType; }
 
         /**
@@ -171,11 +196,11 @@ namespace COLLADAMaya
 
         /** When this method is called, the writer must write the material.
         @return The writer should return true, if writing succeeded, false otherwise.*/
-        virtual bool writeMaterial( const COLLADAFW::Material* material ) { return true; }
+        virtual bool writeMaterial ( const COLLADAFW::Material* material );
 
         /** When this method is called, the writer must write the effect.
         @return The writer should return true, if writing succeeded, false otherwise.*/
-        virtual bool writeEffect( const COLLADAFW::Effect* effect ) { return true; }
+        virtual bool writeEffect ( const COLLADAFW::Effect* effect );
 
     private:
 

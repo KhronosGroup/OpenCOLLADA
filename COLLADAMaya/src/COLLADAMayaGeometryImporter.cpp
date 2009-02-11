@@ -25,7 +25,6 @@
 #pragma warning(disable:4172)
 
 #include "MayaDMTransform.h"
-#include "MayaDMPolyCube.h"
 #include "MayaDMCommands.h"
 
 #include "COLLADAFWPolygons.h"
@@ -37,6 +36,9 @@
 namespace COLLADAMaya
 {
     
+    const String GeometryImporter::GEOMETRY_NAME = "Geometry";
+
+
     // --------------------------------------------
     GeometryImporter::GeometryImporter( DocumentImporter* documentImporter ) 
     : BaseImporter ( documentImporter )
@@ -75,17 +77,17 @@ namespace COLLADAMaya
     void GeometryImporter::importMesh ( const COLLADAFW::Mesh* mesh )
     {
         // Get the unique framework mesh id 
-        const COLLADAFW::UniqueId& meshUniqueId = mesh->getUniqueId ();
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
 
         // Get the transform node of the current mesh.
         DocumentImporter* documentImporter = getDocumentImporter ();
         VisualSceneImporter* visualSceneImporter = documentImporter->getVisualSceneImporter ();
 
-        // Get all visual scene nodes, which use this geometry an make the parent connection
+        // Get all visual scene nodes, which use this geometry and make the parent connections.
        const std::set<const COLLADAFW::UniqueId>* transformNodesSet = 
-            visualSceneImporter->getGeometryTransformIds ( meshUniqueId );
-        size_t numNodes = transformNodesSet->size ();
+            visualSceneImporter->getGeometryTransformIds ( geometryId );
 
+        size_t numNodeInstances = transformNodesSet->size ();
         std::set<const COLLADAFW::UniqueId>::const_iterator nodesIter = transformNodesSet->begin ();
         while ( nodesIter != transformNodesSet->end () )
         {
@@ -98,7 +100,7 @@ namespace COLLADAMaya
             if ( nodesIter == transformNodesSet->begin() )
             {
                 // Create the current mesh node.
-                createMesh ( mesh, mayaTransformNode );
+                createMesh ( mesh, mayaTransformNode, numNodeInstances );
             }
             else
             {
@@ -122,14 +124,13 @@ namespace COLLADAMaya
     // --------------------------------------------
     void GeometryImporter::createMesh ( 
         const COLLADAFW::Mesh* mesh, 
-        MayaNode* mayaTransformNode )
+        MayaNode* mayaTransformNode, 
+        size_t numNodeInstances )
     {
         // Create a unique name.
         String meshName = mesh->getName ();
         if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
-            meshName = mesh->getId ();
-        if ( COLLADABU::Utils::equals ( meshName, "" ) ) 
-            meshName = "Mesh";
+            meshName = GEOMETRY_NAME;
         meshName = mMeshNodeIdList.addId ( meshName );
 
         // Create a maya node object of the current node and push it into the map.
@@ -144,6 +145,11 @@ namespace COLLADAMaya
         // Create the current mesh node.
         FILE* file = getDocumentImporter ()->getFile ();
         MayaDM::Mesh meshNode ( file, meshName, transformNodePath );
+        mMayaDMMeshNodesMap [uniqueId] = meshNode;
+
+        // TODO Writes the object groups for every mesh primitive and
+        // gets all shader engines, which are used by the primitive elements of the mesh.
+        writeObjectGroups ( mesh, meshNode, numNodeInstances );
 
         // Write the vertex positions. 
         // Just write the values, they will be referenced from the edges and the faces.
@@ -178,6 +184,72 @@ namespace COLLADAMaya
 
         // Write the face informations of all primitive elements into the maya file.
         writeFaces ( mesh, edgeIndicesMap, meshNode );
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::writeObjectGroups ( 
+        const COLLADAFW::Mesh* mesh, 
+        MayaDM::Mesh &meshNode, 
+        size_t numNodeInstances )
+    {
+        // Create the object group instances and the object groups and write it into the maya file.
+
+        // setAttr -size 2 ".instObjGroups"; // for every instance
+        // setAttr -size 2 ".instObjGroups[0].objectGroups"; // for every mesh primitive
+        // setAttr ".instObjGroups[0].objectGroups[0].objectGrpCompList" -type "componentList" 1 "f[0:5]";
+        // setAttr ".instObjGroups[0].objectGroups[1].objectGrpCompList" -type "componentList" 1 "f[6:11]";
+
+        // We have to go through every mesh primitive.
+        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
+        size_t meshPrimitivesCount = meshPrimitives.getCount ();
+
+        // Iterate over the object instances.
+        for ( size_t j=0; j<numNodeInstances; ++j )
+        {
+            size_t initialFaceIndex = 0;
+
+            // Iterate over the mesh primitives
+            for ( size_t i=0; i<meshPrimitivesCount; ++i )
+            {
+                // Get the number of faces of the current primitive element.
+                const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
+                // TODO Is this also with trifans, etc. the right number???
+                size_t numFaces = meshPrimitive->getGroupedVertexElementsCount ();
+//                 COLLADAFW::Trifans* trifans = (COLLADAFW::Trifans*) primitiveElement;
+//                 COLLADAFW::Trifans::VertexCountArray& vertexCountArray = 
+//                     trifans->getGroupedVerticesVertexCountArray ();
+//                 meshPrimitive->getFaceCount ();
+//                 meshPrimitive->getGroupedVerticesVertexCount ();
+
+                // Create the string with the face informations for the component list.
+                String val = "f[" + COLLADABU::Utils::toString ( initialFaceIndex ) 
+                    + ":" + COLLADABU::Utils::toString ( numFaces-1 + initialFaceIndex ) + "]";
+
+                // Create the component list.
+                MayaDM::componentList componentList;
+                componentList.push_back ( val );
+
+                // Increment the initial face index.
+                initialFaceIndex += numFaces;
+
+                // Write instance object group component list data into the file.
+                meshNode.setObjectGrpCompList ( j, i, componentList );
+            }
+        }
+
+        for ( size_t i=0; i<meshPrimitivesCount; ++i )
+        {
+            // Get the current primitive element.
+            const COLLADAFW::MeshPrimitive* meshPrimitive = meshPrimitives [ i ];
+
+            // Get the shader engine id.
+            String shaderEngineName = meshPrimitive->getMaterial ();
+            COLLADAFW::MaterialId shaderEngineId = meshPrimitive->getMaterialId ();
+
+
+            // Look for the 
+
+        }
     }
 
     // --------------------------------------------
@@ -1101,6 +1173,26 @@ namespace COLLADAMaya
     {
         UniqueIdMayaNodesMap::iterator it = mMayaMeshNodesMap.find ( uniqueId );
         if ( it != mMayaMeshNodesMap.end () )
+            return &(*it).second;
+
+        return NULL;
+    }
+
+    // --------------------------------------------
+    const MayaDM::Mesh* GeometryImporter::getMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const
+    {
+        UniqueIdMayaDMMeshMap::const_iterator it = mMayaDMMeshNodesMap.find ( uniqueId );
+        if ( it != mMayaDMMeshNodesMap.end () )
+            return &(*it).second;
+
+        return NULL;
+    }
+
+    // --------------------------------------------
+    MayaDM::Mesh* GeometryImporter::getMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId )
+    {
+        UniqueIdMayaDMMeshMap::iterator it = mMayaDMMeshNodesMap.find ( uniqueId );
+        if ( it != mMayaDMMeshNodesMap.end () )
             return &(*it).second;
 
         return NULL;

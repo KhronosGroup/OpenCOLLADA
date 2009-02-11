@@ -68,14 +68,6 @@ namespace COLLADAFW
         /** Destructor. */
 		virtual ~Geometry();
 
-        /** A text string containing the unique identifier of the <geometry> element. This
-        value must be unique within the instance document. Optional. */
-        const String getId () const { return mId; }
-
-        /** A text string containing the unique identifier of the <geometry> element. This
-        value must be unique within the instance document. Optional. */
-        void setId ( const String id ) { mId = id; }
-
         /** A text string containing the name of the <geometry> element. Optional. */
         const String getName () const { return mName; }
 

@@ -35,6 +35,8 @@ namespace COLLADASaxFWL
 		mCurrentMaterial = FW_NEW COLLADAFW::Material(getUniqueIdFromId(attributeData.id, COLLADAFW::Material::ID()).getObjectId());
 		if ( attributeData.name )
 			mCurrentMaterial->setName((const char*)attributeData.name);
+        else if ( attributeData.id )
+            mCurrentMaterial->setName((const char*)attributeData.id);
 		return true;
 	}
 
