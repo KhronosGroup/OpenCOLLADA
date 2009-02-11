@@ -27,8 +27,9 @@ namespace COLLADASaxFWL
 
     /** Imports the entire visual scene and sends it to the writer. */
 	class VisualSceneLoader : public NodeLoader 
-		{
+	{
 	private:
+
 		/** Pointer to the visual scene this loader creates.*/
 		COLLADAFW::VisualScene* mVisualScene;
 

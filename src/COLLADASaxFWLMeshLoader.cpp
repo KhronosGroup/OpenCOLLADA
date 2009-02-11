@@ -50,7 +50,6 @@ namespace COLLADASaxFWL
         , mTexCoordList (0)
         , mColorList (0)
 	{
-		mMesh->setId ( geometryId );
         mMesh->setName ( geometryName );
 	}
 

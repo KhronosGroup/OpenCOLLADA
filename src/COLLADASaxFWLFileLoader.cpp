@@ -77,11 +77,10 @@ namespace COLLADASaxFWL
 		deleteFilePartLoader();
 		GeometryLoader* geometryLoader = new GeometryLoader(this);
 
-		if ( attributeData.id )
-			geometryLoader->setGeometryId((const char *) attributeData.id);
-
 		if ( attributeData.name )
-			geometryLoader->setGeometryName((const char *) attributeData.name);
+			geometryLoader->setGeometryName ((const char *) attributeData.name);
+        if ( attributeData.id )
+            geometryLoader->setGeometryId ((const char *) attributeData.id);
 
 		setPartLoader(geometryLoader);
 		setParser(geometryLoader);
@@ -122,6 +121,7 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+    //-----------------------------
 	bool FileLoader::begin__library_effects( const library_effects__AttributeData& attributeData )
 	{
 		deleteFilePartLoader();
@@ -131,4 +131,12 @@ namespace COLLADASaxFWL
 		setParser(libraryEffectsLoader);
 		return true;
 	}
+
+    //-----------------------------
+    bool FileLoader::end__COLLADA ()
+    {
+        writer ()->finish ();
+        return true;
+    }
+
 } // namespace COLLADASaxFWL
