@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class BirailSrf : public AbstractBaseCreate
 {
 public:
 public:
+	BirailSrf():AbstractBaseCreate(){}
 	BirailSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "birailSrf"){}
 	virtual ~BirailSrf(){}
 	void setTransformMode(unsigned int tm)
 	{
 		if(tm == 0) return;
-		fprintf(mFile,"setAttr \".tm\" %i;\n", tm);
+		fprintf(mFile,"\tsetAttr \".tm\" %i;\n", tm);
 
 	}
 	void getInputRail1()
@@ -52,7 +53,8 @@ public:
 
 	}
 protected:
-	BirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	BirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -55,25 +55,26 @@ public:
 		}
 	};
 public:
+	PolyColorPerVertex():PolyModifier(){}
 	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyColorPerVertex"){}
 	virtual ~PolyColorPerVertex(){}
 	void setColorPerVertex(const ColorPerVertex& cpvx)
 	{
-		fprintf(mFile,"setAttr \".cpvx\" ");
+		fprintf(mFile,"\tsetAttr \".cpvx\" ");
 		cpvx.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexColor(size_t vclr_i,const ColorPerVertex::VertexColor& vclr)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i]\" ",vclr_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i]\" ",vclr_i);
 		vclr.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexColorRGB(size_t vclr_i,const float3& vrgb)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb\" -type \"float3\" ",vclr_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb\" -type \"float3\" ",vclr_i);
 		vrgb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,37 +82,37 @@ public:
 	void setVertexColorR(size_t vclr_i,float vxcr)
 	{
 		if(vxcr == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb.vxcr\" %f;\n", vclr_i,vxcr);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb.vxcr\" %f;\n", vclr_i,vxcr);
 
 	}
 	void setVertexColorG(size_t vclr_i,float vxcg)
 	{
 		if(vxcg == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb.vxcg\" %f;\n", vclr_i,vxcg);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb.vxcg\" %f;\n", vclr_i,vxcg);
 
 	}
 	void setVertexColorB(size_t vclr_i,float vxcb)
 	{
 		if(vxcb == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb.vxcb\" %f;\n", vclr_i,vxcb);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb.vxcb\" %f;\n", vclr_i,vxcb);
 
 	}
 	void setVertexAlpha(size_t vclr_i,float vxal)
 	{
 		if(vxal == 1) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vxal\" %f;\n", vclr_i,vxal);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vxal\" %f;\n", vclr_i,vxal);
 
 	}
 	void setVertexFaceColor(size_t vclr_i,size_t vfcl_i,const ColorPerVertex::VertexColor::VertexFaceColor& vfcl)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i]\" ",vclr_i,vfcl_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i]\" ",vclr_i,vfcl_i);
 		vfcl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i,const float3& frgb)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb\" -type \"float3\" ",vclr_i,vfcl_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb\" -type \"float3\" ",vclr_i,vfcl_i);
 		frgb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -119,31 +120,31 @@ public:
 	void setVertexFaceColorR(size_t vclr_i,size_t vfcl_i,float vfcr)
 	{
 		if(vfcr == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcr\" %f;\n", vclr_i,vfcl_i,vfcr);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcr\" %f;\n", vclr_i,vfcl_i,vfcr);
 
 	}
 	void setVertexFaceColorG(size_t vclr_i,size_t vfcl_i,float vfcg)
 	{
 		if(vfcg == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcg\" %f;\n", vclr_i,vfcl_i,vfcg);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcg\" %f;\n", vclr_i,vfcl_i,vfcg);
 
 	}
 	void setVertexFaceColorB(size_t vclr_i,size_t vfcl_i,float vfcb)
 	{
 		if(vfcb == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcb\" %f;\n", vclr_i,vfcl_i,vfcb);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcb\" %f;\n", vclr_i,vfcl_i,vfcb);
 
 	}
 	void setVertexFaceAlpha(size_t vclr_i,size_t vfcl_i,float vfal)
 	{
 		if(vfal == 1) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].vfal\" %f;\n", vclr_i,vfcl_i,vfal);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].vfal\" %f;\n", vclr_i,vfcl_i,vfal);
 
 	}
 	void setColorSetName(const string& cn)
 	{
 		if(cn == "NULL") return;
-		fprintf(mFile,"setAttr \".cn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cn\" -type \"string\" ");
 		cn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -151,13 +152,13 @@ public:
 	void setClamped(bool clam)
 	{
 		if(clam == true) return;
-		fprintf(mFile,"setAttr \".clam\" %i;\n", clam);
+		fprintf(mFile,"\tsetAttr \".clam\" %i;\n", clam);
 
 	}
 	void setRepresentation(unsigned int rprt)
 	{
 		if(rprt == 3) return;
-		fprintf(mFile,"setAttr \".rprt\" %i;\n", rprt);
+		fprintf(mFile,"\tsetAttr \".rprt\" %i;\n", rprt);
 
 	}
 	void getColorPerVertex()
@@ -241,7 +242,8 @@ public:
 
 	}
 protected:
-	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

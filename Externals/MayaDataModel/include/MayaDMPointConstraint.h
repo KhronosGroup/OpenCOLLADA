@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -37,18 +37,19 @@ public:
 		}
 	};
 public:
+	PointConstraint():Constraint(){}
 	PointConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "pointConstraint"){}
 	virtual ~PointConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
-		fprintf(mFile,"setAttr \".tg[%i]\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i]\" ",tg_i);
 		tg.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setTargetTranslate(size_t tg_i,const double3& tt)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].tt\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tt\" -type \"double3\" ",tg_i);
 		tt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -56,24 +57,24 @@ public:
 	void setTargetTranslateX(size_t tg_i,double ttx)
 	{
 		if(ttx == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tt.ttx\" %f;\n", tg_i,ttx);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tt.ttx\" %f;\n", tg_i,ttx);
 
 	}
 	void setTargetTranslateY(size_t tg_i,double tty)
 	{
 		if(tty == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tt.tty\" %f;\n", tg_i,tty);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tt.tty\" %f;\n", tg_i,tty);
 
 	}
 	void setTargetTranslateZ(size_t tg_i,double ttz)
 	{
 		if(ttz == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tt.ttz\" %f;\n", tg_i,ttz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tt.ttz\" %f;\n", tg_i,ttz);
 
 	}
 	void setTargetRotatePivot(size_t tg_i,const double3& trp)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].trp\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trp\" -type \"double3\" ",tg_i);
 		trp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,24 +82,24 @@ public:
 	void setTargetRotatePivotX(size_t tg_i,double trpx)
 	{
 		if(trpx == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].trp.trpx\" %f;\n", tg_i,trpx);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trp.trpx\" %f;\n", tg_i,trpx);
 
 	}
 	void setTargetRotatePivotY(size_t tg_i,double trpy)
 	{
 		if(trpy == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].trp.trpy\" %f;\n", tg_i,trpy);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trp.trpy\" %f;\n", tg_i,trpy);
 
 	}
 	void setTargetRotatePivotZ(size_t tg_i,double trpz)
 	{
 		if(trpz == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].trp.trpz\" %f;\n", tg_i,trpz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trp.trpz\" %f;\n", tg_i,trpz);
 
 	}
 	void setTargetRotateTranslate(size_t tg_i,const double3& trt)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].trt\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trt\" -type \"double3\" ",tg_i);
 		trt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -106,25 +107,25 @@ public:
 	void setTargetRotateTranslateX(size_t tg_i,double trtx)
 	{
 		if(trtx == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].trt.trtx\" %f;\n", tg_i,trtx);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trt.trtx\" %f;\n", tg_i,trtx);
 
 	}
 	void setTargetRotateTranslateY(size_t tg_i,double trty)
 	{
 		if(trty == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].trt.trty\" %f;\n", tg_i,trty);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trt.trty\" %f;\n", tg_i,trty);
 
 	}
 	void setTargetRotateTranslateZ(size_t tg_i,double trtz)
 	{
 		if(trtz == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].trt.trtz\" %f;\n", tg_i,trtz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].trt.trtz\" %f;\n", tg_i,trtz);
 
 	}
 	void setTargetParentMatrix(size_t tg_i,const matrix& tpm)
 	{
 		if(tpm == identity) return;
-		fprintf(mFile,"setAttr \".tg[%i].tpm\" -type \"matrix\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tpm\" -type \"matrix\" ",tg_i);
 		tpm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -132,20 +133,20 @@ public:
 	void setTargetWeight(size_t tg_i,double tw)
 	{
 		if(tw == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
 
 	}
 	void setConstraintParentInverseMatrix(const matrix& cpim)
 	{
 		if(cpim == identity) return;
-		fprintf(mFile,"setAttr \".cpim\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".cpim\" -type \"matrix\" ");
 		cpim.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setConstraintRotatePivot(const double3& crp)
 	{
-		fprintf(mFile,"setAttr \".crp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".crp\" -type \"double3\" ");
 		crp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -153,24 +154,24 @@ public:
 	void setConstraintRotatePivotX(double crpx)
 	{
 		if(crpx == 0) return;
-		fprintf(mFile,"setAttr \".crp.crpx\" %f;\n", crpx);
+		fprintf(mFile,"\tsetAttr \".crp.crpx\" %f;\n", crpx);
 
 	}
 	void setConstraintRotatePivotY(double crpy)
 	{
 		if(crpy == 0) return;
-		fprintf(mFile,"setAttr \".crp.crpy\" %f;\n", crpy);
+		fprintf(mFile,"\tsetAttr \".crp.crpy\" %f;\n", crpy);
 
 	}
 	void setConstraintRotatePivotZ(double crpz)
 	{
 		if(crpz == 0) return;
-		fprintf(mFile,"setAttr \".crp.crpz\" %f;\n", crpz);
+		fprintf(mFile,"\tsetAttr \".crp.crpz\" %f;\n", crpz);
 
 	}
 	void setConstraintRotateTranslate(const double3& crt)
 	{
-		fprintf(mFile,"setAttr \".crt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".crt\" -type \"double3\" ");
 		crt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -178,24 +179,24 @@ public:
 	void setConstraintRotateTranslateX(double crtx)
 	{
 		if(crtx == 0) return;
-		fprintf(mFile,"setAttr \".crt.crtx\" %f;\n", crtx);
+		fprintf(mFile,"\tsetAttr \".crt.crtx\" %f;\n", crtx);
 
 	}
 	void setConstraintRotateTranslateY(double crty)
 	{
 		if(crty == 0) return;
-		fprintf(mFile,"setAttr \".crt.crty\" %f;\n", crty);
+		fprintf(mFile,"\tsetAttr \".crt.crty\" %f;\n", crty);
 
 	}
 	void setConstraintRotateTranslateZ(double crtz)
 	{
 		if(crtz == 0) return;
-		fprintf(mFile,"setAttr \".crt.crtz\" %f;\n", crtz);
+		fprintf(mFile,"\tsetAttr \".crt.crtz\" %f;\n", crtz);
 
 	}
 	void setOffset(const double3& o)
 	{
-		fprintf(mFile,"setAttr \".o\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".o\" -type \"double3\" ");
 		o.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -203,31 +204,31 @@ public:
 	void setOffsetX(double ox)
 	{
 		if(ox == 0) return;
-		fprintf(mFile,"setAttr \".o.ox\" %f;\n", ox);
+		fprintf(mFile,"\tsetAttr \".o.ox\" %f;\n", ox);
 
 	}
 	void setOffsetY(double oy)
 	{
 		if(oy == 0) return;
-		fprintf(mFile,"setAttr \".o.oy\" %f;\n", oy);
+		fprintf(mFile,"\tsetAttr \".o.oy\" %f;\n", oy);
 
 	}
 	void setOffsetZ(double oz)
 	{
 		if(oz == 0) return;
-		fprintf(mFile,"setAttr \".o.oz\" %f;\n", oz);
+		fprintf(mFile,"\tsetAttr \".o.oz\" %f;\n", oz);
 
 	}
 	void setConstraintOffsetPolarity(double cop)
 	{
 		if(cop == 1) return;
-		fprintf(mFile,"setAttr \".cop\" %f;\n", cop);
+		fprintf(mFile,"\tsetAttr \".cop\" %f;\n", cop);
 
 	}
 	void setRestTranslate(const double3& rst)
 	{
 		if(rst == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".rst\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rst\" -type \"double3\" ");
 		rst.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -235,19 +236,19 @@ public:
 	void setRestTranslateX(double rtx)
 	{
 		if(rtx == 0) return;
-		fprintf(mFile,"setAttr \".rst.rtx\" %f;\n", rtx);
+		fprintf(mFile,"\tsetAttr \".rst.rtx\" %f;\n", rtx);
 
 	}
 	void setRestTranslateY(double rty)
 	{
 		if(rty == 0) return;
-		fprintf(mFile,"setAttr \".rst.rty\" %f;\n", rty);
+		fprintf(mFile,"\tsetAttr \".rst.rty\" %f;\n", rty);
 
 	}
 	void setRestTranslateZ(double rtz)
 	{
 		if(rtz == 0) return;
-		fprintf(mFile,"setAttr \".rst.rtz\" %f;\n", rtz);
+		fprintf(mFile,"\tsetAttr \".rst.rtz\" %f;\n", rtz);
 
 	}
 	void getTarget(size_t tg_i)
@@ -436,7 +437,8 @@ public:
 
 	}
 protected:
-	PointConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Constraint(file, name, parent, nodeType) {}
+	PointConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Constraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

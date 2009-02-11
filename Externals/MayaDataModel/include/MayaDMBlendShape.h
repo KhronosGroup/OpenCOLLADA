@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -58,23 +58,24 @@ public:
 		}
 	};
 public:
+	BlendShape():GeometryFilter(){}
 	BlendShape(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "blendShape"){}
 	virtual ~BlendShape(){}
 	void setTopologyCheck(bool tc)
 	{
 		if(tc == true) return;
-		fprintf(mFile,"setAttr \".tc\" %i;\n", tc);
+		fprintf(mFile,"\tsetAttr \".tc\" %i;\n", tc);
 
 	}
 	void setWeight(size_t w_i,float w)
 	{
 		if(w == 0) return;
-		fprintf(mFile,"setAttr \".w[%i]\" %f;\n", w_i,w);
+		fprintf(mFile,"\tsetAttr \".w[%i]\" %f;\n", w_i,w);
 
 	}
 	void setWeight(size_t w_start,size_t w_end,float* w)
 	{
-		fprintf(mFile,"setAttr \".w[%i:%i]\" ", w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".w[%i:%i]\" ", w_start,w_end);
 		size_t size = (w_end-w_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -86,7 +87,7 @@ public:
 	}
 	void startWeight(size_t w_start,size_t w_end)
 	{
-		fprintf(mFile,"setAttr \".w[%i:%i]\"",w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
 
 	}
 	void appendWeight(float w)
@@ -102,14 +103,14 @@ public:
 	void setIcon(size_t icn_i,const string& icn)
 	{
 		if(icn == "NULL") return;
-		fprintf(mFile,"setAttr \".icn[%i]\" -type \"string\" ",icn_i);
+		fprintf(mFile,"\tsetAttr \".icn[%i]\" -type \"string\" ",icn_i);
 		icn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setIcon(size_t icn_start,size_t icn_end,string* icn)
 	{
-		fprintf(mFile,"setAttr \".icn[%i:%i]\" ", icn_start,icn_end);
+		fprintf(mFile,"\tsetAttr \".icn[%i:%i]\" ", icn_start,icn_end);
 		size_t size = (icn_end-icn_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -121,7 +122,7 @@ public:
 	}
 	void startIcon(size_t icn_start,size_t icn_end)
 	{
-		fprintf(mFile,"setAttr \".icn[%i:%i]\"",icn_start,icn_end);
+		fprintf(mFile,"\tsetAttr \".icn[%i:%i]\"",icn_start,icn_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
@@ -138,35 +139,35 @@ public:
 	}
 	void setInputTarget(size_t it_i,const InputTarget& it)
 	{
-		fprintf(mFile,"setAttr \".it[%i]\" ",it_i);
+		fprintf(mFile,"\tsetAttr \".it[%i]\" ",it_i);
 		it.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputTargetGroup(size_t it_i,size_t itg_i,const InputTarget::InputTargetGroup& itg)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itg[%i]\" ",it_i,itg_i);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i]\" ",it_i,itg_i);
 		itg.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputTargetItem(size_t it_i,size_t itg_i,size_t iti_i,const InputTarget::InputTargetGroup::InputTargetItem& iti)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itg[%i].iti[%i]\" ",it_i,itg_i,iti_i);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].iti[%i]\" ",it_i,itg_i,iti_i);
 		iti.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputPointsTarget(size_t it_i,size_t itg_i,size_t iti_i,const pointArray& ipt)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itg[%i].iti[%i].ipt\" -type \"pointArray\" ",it_i,itg_i,iti_i);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].iti[%i].ipt\" -type \"pointArray\" ",it_i,itg_i,iti_i);
 		ipt.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputComponentsTarget(size_t it_i,size_t itg_i,size_t iti_i,const componentList& ict)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itg[%i].iti[%i].ict\" -type \"componentList\" ",it_i,itg_i,iti_i);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].iti[%i].ict\" -type \"componentList\" ",it_i,itg_i,iti_i);
 		ict.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -174,12 +175,12 @@ public:
 	void setTargetWeights(size_t it_i,size_t itg_i,size_t tw_i,float tw)
 	{
 		if(tw == 1.0) return;
-		fprintf(mFile,"setAttr \".it[%i].itg[%i].tw[%i]\" %f;\n", it_i,itg_i,tw_i,tw);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].tw[%i]\" %f;\n", it_i,itg_i,tw_i,tw);
 
 	}
 	void setTargetWeights(size_t it_i,size_t itg_i,size_t tw_start,size_t tw_end,float* tw)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itg[%i].tw[%i:%i]\" ", it_i,itg_i,tw_start,tw_end);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].tw[%i:%i]\" ", it_i,itg_i,tw_start,tw_end);
 		size_t size = (tw_end-tw_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -191,7 +192,7 @@ public:
 	}
 	void startTargetWeights(size_t it_i,size_t itg_i,size_t tw_start,size_t tw_end)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itg[%i].tw[%i:%i]\"",it_i,itg_i,tw_start,tw_end);
+		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].tw[%i:%i]\"",it_i,itg_i,tw_start,tw_end);
 
 	}
 	void appendTargetWeights(float tw)
@@ -207,12 +208,12 @@ public:
 	void setOrigin(unsigned int or)
 	{
 		if(or == 1) return;
-		fprintf(mFile,"setAttr \".or\" %i;\n", or);
+		fprintf(mFile,"\tsetAttr \".or\" %i;\n", or);
 
 	}
 	void setBaseOrigin(const double3& bo)
 	{
-		fprintf(mFile,"setAttr \".bo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".bo\" -type \"double3\" ");
 		bo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -220,24 +221,24 @@ public:
 	void setBaseOriginX(double bx)
 	{
 		if(bx == 0) return;
-		fprintf(mFile,"setAttr \".bo.bx\" %f;\n", bx);
+		fprintf(mFile,"\tsetAttr \".bo.bx\" %f;\n", bx);
 
 	}
 	void setBaseOriginY(double by)
 	{
 		if(by == 0) return;
-		fprintf(mFile,"setAttr \".bo.by\" %f;\n", by);
+		fprintf(mFile,"\tsetAttr \".bo.by\" %f;\n", by);
 
 	}
 	void setBaseOriginZ(double bz)
 	{
 		if(bz == 0) return;
-		fprintf(mFile,"setAttr \".bo.bz\" %f;\n", bz);
+		fprintf(mFile,"\tsetAttr \".bo.bz\" %f;\n", bz);
 
 	}
 	void setTargetOrigin(const double3& to)
 	{
-		fprintf(mFile,"setAttr \".to\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".to\" -type \"double3\" ");
 		to.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -245,25 +246,25 @@ public:
 	void setTargetOriginX(double tx)
 	{
 		if(tx == 0) return;
-		fprintf(mFile,"setAttr \".to.tx\" %f;\n", tx);
+		fprintf(mFile,"\tsetAttr \".to.tx\" %f;\n", tx);
 
 	}
 	void setTargetOriginY(double ty)
 	{
 		if(ty == 0) return;
-		fprintf(mFile,"setAttr \".to.ty\" %f;\n", ty);
+		fprintf(mFile,"\tsetAttr \".to.ty\" %f;\n", ty);
 
 	}
 	void setTargetOriginZ(double tz)
 	{
 		if(tz == 0) return;
-		fprintf(mFile,"setAttr \".to.tz\" %f;\n", tz);
+		fprintf(mFile,"\tsetAttr \".to.tz\" %f;\n", tz);
 
 	}
 	void setParallelBlender(bool pb)
 	{
 		if(pb == 0) return;
-		fprintf(mFile,"setAttr \".pb\" %i;\n", pb);
+		fprintf(mFile,"\tsetAttr \".pb\" %i;\n", pb);
 
 	}
 	void getTopologyCheck()
@@ -274,6 +275,11 @@ public:
 	void getWeight(size_t w_i)
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
+
+	}
+	void getIcon(size_t icn_i)
+	{
+		fprintf(mFile,"\"%s.icn[%i]\"",mName.c_str(),icn_i);
 
 	}
 	void getInputTarget(size_t it_i)
@@ -357,7 +363,8 @@ public:
 
 	}
 protected:
-	BlendShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	BlendShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class HwReflectionMap : public DependNode
 {
 public:
 public:
+	HwReflectionMap():DependNode(){}
 	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hwReflectionMap"){}
 	virtual ~HwReflectionMap(){}
 	void setDecalMode(bool dm)
 	{
 		if(dm == true) return;
-		fprintf(mFile,"setAttr \".dm\" %i;\n", dm);
+		fprintf(mFile,"\tsetAttr \".dm\" %i;\n", dm);
 
 	}
 	void setCubeMap(bool cm)
 	{
 		if(cm == false) return;
-		fprintf(mFile,"setAttr \".cm\" %i;\n", cm);
+		fprintf(mFile,"\tsetAttr \".cm\" %i;\n", cm);
 
 	}
 	void setTextureHasChanged(bool thc)
 	{
 		if(thc == false) return;
-		fprintf(mFile,"setAttr \".thc\" %i;\n", thc);
+		fprintf(mFile,"\tsetAttr \".thc\" %i;\n", thc);
 
 	}
 	void setSphereMapTextureName(const string& smtn)
 	{
 		if(smtn == "NULL") return;
-		fprintf(mFile,"setAttr \".smtn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".smtn\" -type \"string\" ");
 		smtn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,7 +50,7 @@ public:
 	void setCubeFrontTextureName(const string& cftn)
 	{
 		if(cftn == "NULL") return;
-		fprintf(mFile,"setAttr \".cftn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cftn\" -type \"string\" ");
 		cftn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,7 +58,7 @@ public:
 	void setCubeBackTextureName(const string& cbkn)
 	{
 		if(cbkn == "NULL") return;
-		fprintf(mFile,"setAttr \".cbkn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cbkn\" -type \"string\" ");
 		cbkn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -65,7 +66,7 @@ public:
 	void setCubeTopTextureName(const string& ctpn)
 	{
 		if(ctpn == "NULL") return;
-		fprintf(mFile,"setAttr \".ctpn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ctpn\" -type \"string\" ");
 		ctpn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -73,7 +74,7 @@ public:
 	void setCubeBottomTextureName(const string& cbmn)
 	{
 		if(cbmn == "NULL") return;
-		fprintf(mFile,"setAttr \".cbmn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cbmn\" -type \"string\" ");
 		cbmn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,7 +82,7 @@ public:
 	void setCubeLeftTextureName(const string& cltn)
 	{
 		if(cltn == "NULL") return;
-		fprintf(mFile,"setAttr \".cltn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cltn\" -type \"string\" ");
 		cltn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -89,7 +90,7 @@ public:
 	void setCubeRightTextureName(const string& crtn)
 	{
 		if(crtn == "NULL") return;
-		fprintf(mFile,"setAttr \".crtn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".crtn\" -type \"string\" ");
 		crtn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -145,7 +146,8 @@ public:
 
 	}
 protected:
-	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

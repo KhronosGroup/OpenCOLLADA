@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyPoke : public PolyModifierWorld
 {
 public:
 public:
+	PolyPoke():PolyModifierWorld(){}
 	PolyPoke(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyPoke"){}
 	virtual ~PolyPoke(){}
 	void setTranslate(const double3& t)
 	{
 		if(t == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".t\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"double3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setTranslateX(double tx)
 	{
 		if(tx == 0) return;
-		fprintf(mFile,"setAttr \".t.tx\" %f;\n", tx);
+		fprintf(mFile,"\tsetAttr \".t.tx\" %f;\n", tx);
 
 	}
 	void setTranslateY(double ty)
 	{
 		if(ty == 0) return;
-		fprintf(mFile,"setAttr \".t.ty\" %f;\n", ty);
+		fprintf(mFile,"\tsetAttr \".t.ty\" %f;\n", ty);
 
 	}
 	void setTranslateZ(double tz)
 	{
 		if(tz == 0) return;
-		fprintf(mFile,"setAttr \".t.tz\" %f;\n", tz);
+		fprintf(mFile,"\tsetAttr \".t.tz\" %f;\n", tz);
 
 	}
 	void setLocalTranslate(const double3& lt)
 	{
 		if(lt == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".lt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".lt\" -type \"double3\" ");
 		lt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setLocalTranslateX(double ltx)
 	{
 		if(ltx == 0) return;
-		fprintf(mFile,"setAttr \".lt.ltx\" %f;\n", ltx);
+		fprintf(mFile,"\tsetAttr \".lt.ltx\" %f;\n", ltx);
 
 	}
 	void setLocalTranslateY(double lty)
 	{
 		if(lty == 0) return;
-		fprintf(mFile,"setAttr \".lt.lty\" %f;\n", lty);
+		fprintf(mFile,"\tsetAttr \".lt.lty\" %f;\n", lty);
 
 	}
 	void setLocalTranslateZ(double ltz)
 	{
 		if(ltz == 0) return;
-		fprintf(mFile,"setAttr \".lt.ltz\" %f;\n", ltz);
+		fprintf(mFile,"\tsetAttr \".lt.ltz\" %f;\n", ltz);
 
 	}
 	void setMaya70(bool m70)
 	{
 		if(m70 == true) return;
-		fprintf(mFile,"setAttr \".m70\" %i;\n", m70);
+		fprintf(mFile,"\tsetAttr \".m70\" %i;\n", m70);
 
 	}
 	void getTranslate()
@@ -124,7 +125,8 @@ public:
 
 	}
 protected:
-	PolyPoke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyPoke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

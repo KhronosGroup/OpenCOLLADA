@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyMergeUV : public PolyModifierUV
 {
 public:
 public:
+	PolyMergeUV():PolyModifierUV(){}
 	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyMergeUV"){}
 	virtual ~PolyMergeUV(){}
 	void setDistance(float d)
 	{
 		if(d == 10000) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void getDistance()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

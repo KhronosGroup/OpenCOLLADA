@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class TrimWithBoundaries : public AbstractBaseCreate
 {
 public:
 public:
+	TrimWithBoundaries():AbstractBaseCreate(){}
 	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "trimWithBoundaries"){}
 	virtual ~TrimWithBoundaries(){}
 	void setFlipNormal(bool fn)
 	{
 		if(fn == false) return;
-		fprintf(mFile,"setAttr \".fn\" %i;\n", fn);
+		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
 
 	}
 	void setTolerancePE(double tpe)
 	{
 		if(tpe == 0) return;
-		fprintf(mFile,"setAttr \".tpe\" %f;\n", tpe);
+		fprintf(mFile,"\tsetAttr \".tpe\" %f;\n", tpe);
 
 	}
 	void setToleranceE(double te)
 	{
 		if(te == 0) return;
-		fprintf(mFile,"setAttr \".te\" %f;\n", te);
+		fprintf(mFile,"\tsetAttr \".te\" %f;\n", te);
 
 	}
 	void getInputBoundaries(size_t ib_i)
@@ -69,7 +70,8 @@ public:
 
 	}
 protected:
-	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

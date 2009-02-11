@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class SubdPlanarProj : public SubdModifierWorld
 {
 public:
 public:
+	SubdPlanarProj():SubdModifierWorld(){}
 	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierWorld(file, name, parent, "subdPlanarProj"){}
 	virtual ~SubdPlanarProj(){}
 	void setProjectionCenter(const double3& pc)
 	{
 		if(pc == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".pc\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".pc\" -type \"double3\" ");
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setProjectionCenterX(double pcx)
 	{
 		if(pcx == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcx\" %f;\n", pcx);
+		fprintf(mFile,"\tsetAttr \".pc.pcx\" %f;\n", pcx);
 
 	}
 	void setProjectionCenterY(double pcy)
 	{
 		if(pcy == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcy\" %f;\n", pcy);
+		fprintf(mFile,"\tsetAttr \".pc.pcy\" %f;\n", pcy);
 
 	}
 	void setProjectionCenterZ(double pcz)
 	{
 		if(pcz == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcz\" %f;\n", pcz);
+		fprintf(mFile,"\tsetAttr \".pc.pcz\" %f;\n", pcz);
 
 	}
 	void setImageCenter(const double2& ic2)
 	{
 		if(ic2 == double2(0.5, 0.5)) return;
-		fprintf(mFile,"setAttr \".ic2\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ic2\" -type \"double2\" ");
 		ic2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,19 +58,19 @@ public:
 	void setImageCenterX(double icx)
 	{
 		if(icx == 0.0) return;
-		fprintf(mFile,"setAttr \".ic2.icx\" %f;\n", icx);
+		fprintf(mFile,"\tsetAttr \".ic2.icx\" %f;\n", icx);
 
 	}
 	void setImageCenterY(double icy)
 	{
 		if(icy == 0.0) return;
-		fprintf(mFile,"setAttr \".ic2.icy\" %f;\n", icy);
+		fprintf(mFile,"\tsetAttr \".ic2.icy\" %f;\n", icy);
 
 	}
 	void setRotate(const double3& ro)
 	{
 		if(ro == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ro\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ro\" -type \"double3\" ");
 		ro.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -77,25 +78,25 @@ public:
 	void setRotateX(double rx)
 	{
 		if(rx == 0) return;
-		fprintf(mFile,"setAttr \".ro.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".ro.rx\" %f;\n", rx);
 
 	}
 	void setRotateY(double ry)
 	{
 		if(ry == 0) return;
-		fprintf(mFile,"setAttr \".ro.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".ro.ry\" %f;\n", ry);
 
 	}
 	void setRotateZ(double rz)
 	{
 		if(rz == 0) return;
-		fprintf(mFile,"setAttr \".ro.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".ro.rz\" %f;\n", rz);
 
 	}
 	void setProjectionScale(const double2& ps)
 	{
 		if(ps == double2(1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".ps\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ps\" -type \"double2\" ");
 		ps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -103,19 +104,19 @@ public:
 	void setProjectionWidth(double pw)
 	{
 		if(pw == 0) return;
-		fprintf(mFile,"setAttr \".ps.pw\" %f;\n", pw);
+		fprintf(mFile,"\tsetAttr \".ps.pw\" %f;\n", pw);
 
 	}
 	void setProjectionHeight(double ph)
 	{
 		if(ph == 0) return;
-		fprintf(mFile,"setAttr \".ps.ph\" %f;\n", ph);
+		fprintf(mFile,"\tsetAttr \".ps.ph\" %f;\n", ph);
 
 	}
 	void setImageScale(const double2& is2)
 	{
 		if(is2 == double2(1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".is2\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".is2\" -type \"double2\" ");
 		is2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -123,25 +124,25 @@ public:
 	void setImageScaleU(double isu)
 	{
 		if(isu == 0.0) return;
-		fprintf(mFile,"setAttr \".is2.isu\" %f;\n", isu);
+		fprintf(mFile,"\tsetAttr \".is2.isu\" %f;\n", isu);
 
 	}
 	void setImageScaleV(double isv)
 	{
 		if(isv == 0.0) return;
-		fprintf(mFile,"setAttr \".is2.isv\" %f;\n", isv);
+		fprintf(mFile,"\tsetAttr \".is2.isv\" %f;\n", isv);
 
 	}
 	void setRotationAngle(double ra)
 	{
 		if(ra == 0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void getProjectionCenter()
@@ -245,7 +246,8 @@ public:
 
 	}
 protected:
-	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifierWorld(file, name, parent, nodeType) {}
+	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

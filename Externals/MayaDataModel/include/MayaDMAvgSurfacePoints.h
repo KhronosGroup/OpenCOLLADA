@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,17 +23,18 @@ public:
 		}
 	};
 public:
+	AvgSurfacePoints():AbstractBaseCreate(){}
 	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "avgSurfacePoints"){}
 	virtual ~AvgSurfacePoints(){}
 	void setWeight(size_t wt_i,double wt)
 	{
 		if(wt == 0.5) return;
-		fprintf(mFile,"setAttr \".wt[%i]\" %f;\n", wt_i,wt);
+		fprintf(mFile,"\tsetAttr \".wt[%i]\" %f;\n", wt_i,wt);
 
 	}
 	void setWeight(size_t wt_start,size_t wt_end,double* wt)
 	{
-		fprintf(mFile,"setAttr \".wt[%i:%i]\" ", wt_start,wt_end);
+		fprintf(mFile,"\tsetAttr \".wt[%i:%i]\" ", wt_start,wt_end);
 		size_t size = (wt_end-wt_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -45,7 +46,7 @@ public:
 	}
 	void startWeight(size_t wt_start,size_t wt_end)
 	{
-		fprintf(mFile,"setAttr \".wt[%i:%i]\"",wt_start,wt_end);
+		fprintf(mFile,"\tsetAttr \".wt[%i:%i]\"",wt_start,wt_end);
 
 	}
 	void appendWeight(double wt)
@@ -61,12 +62,12 @@ public:
 	void setParameterU(size_t u_i,double u)
 	{
 		if(u == 0.0) return;
-		fprintf(mFile,"setAttr \".u[%i]\" %f;\n", u_i,u);
+		fprintf(mFile,"\tsetAttr \".u[%i]\" %f;\n", u_i,u);
 
 	}
 	void setParameterU(size_t u_start,size_t u_end,double* u)
 	{
-		fprintf(mFile,"setAttr \".u[%i:%i]\" ", u_start,u_end);
+		fprintf(mFile,"\tsetAttr \".u[%i:%i]\" ", u_start,u_end);
 		size_t size = (u_end-u_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -78,7 +79,7 @@ public:
 	}
 	void startParameterU(size_t u_start,size_t u_end)
 	{
-		fprintf(mFile,"setAttr \".u[%i:%i]\"",u_start,u_end);
+		fprintf(mFile,"\tsetAttr \".u[%i:%i]\"",u_start,u_end);
 
 	}
 	void appendParameterU(double u)
@@ -94,12 +95,12 @@ public:
 	void setParameterV(size_t v_i,double v)
 	{
 		if(v == 0.0) return;
-		fprintf(mFile,"setAttr \".v[%i]\" %f;\n", v_i,v);
+		fprintf(mFile,"\tsetAttr \".v[%i]\" %f;\n", v_i,v);
 
 	}
 	void setParameterV(size_t v_start,size_t v_end,double* v)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\" ", v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\" ", v_start,v_end);
 		size_t size = (v_end-v_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -111,7 +112,7 @@ public:
 	}
 	void startParameterV(size_t v_start,size_t v_end)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
 	void appendParameterV(double v)
@@ -127,7 +128,7 @@ public:
 	void setTurnOnPercentage(bool top)
 	{
 		if(top == false) return;
-		fprintf(mFile,"setAttr \".top\" %i;\n", top);
+		fprintf(mFile,"\tsetAttr \".top\" %i;\n", top);
 
 	}
 	void getInputSurfaces(size_t is_i)
@@ -201,7 +202,8 @@ public:
 
 	}
 protected:
-	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	AvgSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class ParticleCloud : public DependNode
 {
 public:
 public:
+	ParticleCloud():DependNode(){}
 	ParticleCloud(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleCloud"){}
 	virtual ~ParticleCloud(){}
 	void setColor(const float3& c)
 	{
-		fprintf(mFile,"setAttr \".c\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c\" -type \"float3\" ");
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,24 +31,24 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".c.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.58824) return;
-		fprintf(mFile,"setAttr \".c.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".c.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.644) return;
-		fprintf(mFile,"setAttr \".c.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".c.cb\" %f;\n", cb);
 
 	}
 	void setTransparency(const float3& t)
 	{
-		fprintf(mFile,"setAttr \".t\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"float3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,24 +56,24 @@ public:
 	void setTransparencyR(float tr)
 	{
 		if(tr == 0.5) return;
-		fprintf(mFile,"setAttr \".t.tr\" %f;\n", tr);
+		fprintf(mFile,"\tsetAttr \".t.tr\" %f;\n", tr);
 
 	}
 	void setTransparencyG(float tg)
 	{
 		if(tg == 0.5) return;
-		fprintf(mFile,"setAttr \".t.tg\" %f;\n", tg);
+		fprintf(mFile,"\tsetAttr \".t.tg\" %f;\n", tg);
 
 	}
 	void setTransparencyB(float tb)
 	{
 		if(tb == 0.5) return;
-		fprintf(mFile,"setAttr \".t.tb\" %f;\n", tb);
+		fprintf(mFile,"\tsetAttr \".t.tb\" %f;\n", tb);
 
 	}
 	void setIncandescence(const float3& i_)
 	{
-		fprintf(mFile,"setAttr \".i\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".i\" -type \"float3\" ");
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -80,54 +81,54 @@ public:
 	void setIncandescenceR(float ir)
 	{
 		if(ir == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ir\" %f;\n", ir);
+		fprintf(mFile,"\tsetAttr \".i.ir\" %f;\n", ir);
 
 	}
 	void setIncandescenceG(float ig)
 	{
 		if(ig == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ig\" %f;\n", ig);
+		fprintf(mFile,"\tsetAttr \".i.ig\" %f;\n", ig);
 
 	}
 	void setIncandescenceB(float ib)
 	{
 		if(ib == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ib\" %f;\n", ib);
+		fprintf(mFile,"\tsetAttr \".i.ib\" %f;\n", ib);
 
 	}
 	void setDensity(float d)
 	{
 		if(d == 1.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 0.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setNoise(float n)
 	{
 		if(n == 0.75) return;
-		fprintf(mFile,"setAttr \".n\" %f;\n", n);
+		fprintf(mFile,"\tsetAttr \".n\" %f;\n", n);
 
 	}
 	void setNoiseFreq(float nf)
 	{
 		if(nf == 0.15) return;
-		fprintf(mFile,"setAttr \".nf\" %f;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
 	void setNoiseAspect(float na)
 	{
 		if(na == 0.0) return;
-		fprintf(mFile,"setAttr \".na\" %f;\n", na);
+		fprintf(mFile,"\tsetAttr \".na\" %f;\n", na);
 
 	}
 	void setBlobMap(const float3& m)
 	{
-		fprintf(mFile,"setAttr \".m\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".m\" -type \"float3\" ");
 		m.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -135,42 +136,42 @@ public:
 	void setBlobMapR(float mr)
 	{
 		if(mr == 1.0) return;
-		fprintf(mFile,"setAttr \".m.mr\" %f;\n", mr);
+		fprintf(mFile,"\tsetAttr \".m.mr\" %f;\n", mr);
 
 	}
 	void setBlobMapG(float mg)
 	{
 		if(mg == 1.0) return;
-		fprintf(mFile,"setAttr \".m.mg\" %f;\n", mg);
+		fprintf(mFile,"\tsetAttr \".m.mg\" %f;\n", mg);
 
 	}
 	void setBlobMapB(float mb)
 	{
 		if(mb == 1.0) return;
-		fprintf(mFile,"setAttr \".m.mb\" %f;\n", mb);
+		fprintf(mFile,"\tsetAttr \".m.mb\" %f;\n", mb);
 
 	}
 	void setTranslucenceCoeff(float tc)
 	{
 		if(tc == 0.0) return;
-		fprintf(mFile,"setAttr \".tc\" %f;\n", tc);
+		fprintf(mFile,"\tsetAttr \".tc\" %f;\n", tc);
 
 	}
 	void setDiffuseCoeff(float dc)
 	{
 		if(dc == 0.0) return;
-		fprintf(mFile,"setAttr \".dc\" %f;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %f;\n", dc);
 
 	}
 	void setSurfaceShadingShadow(bool sss)
 	{
 		if(sss == false) return;
-		fprintf(mFile,"setAttr \".sss\" %i;\n", sss);
+		fprintf(mFile,"\tsetAttr \".sss\" %i;\n", sss);
 
 	}
 	void setSurfaceColor(const float3& sc)
 	{
-		fprintf(mFile,"setAttr \".sc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sc\" -type \"float3\" ");
 		sc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -178,55 +179,55 @@ public:
 	void setSurfaceColorR(float scr)
 	{
 		if(scr == 0.4) return;
-		fprintf(mFile,"setAttr \".sc.scr\" %f;\n", scr);
+		fprintf(mFile,"\tsetAttr \".sc.scr\" %f;\n", scr);
 
 	}
 	void setSurfaceColorG(float scg)
 	{
 		if(scg == 0.4) return;
-		fprintf(mFile,"setAttr \".sc.scg\" %f;\n", scg);
+		fprintf(mFile,"\tsetAttr \".sc.scg\" %f;\n", scg);
 
 	}
 	void setSurfaceColorB(float scb)
 	{
 		if(scb == 0.4) return;
-		fprintf(mFile,"setAttr \".sc.scb\" %f;\n", scb);
+		fprintf(mFile,"\tsetAttr \".sc.scb\" %f;\n", scb);
 
 	}
 	void setSolidCoreSize(float scs)
 	{
 		if(scs == 0.0) return;
-		fprintf(mFile,"setAttr \".scs\" %f;\n", scs);
+		fprintf(mFile,"\tsetAttr \".scs\" %f;\n", scs);
 
 	}
 	void setTranslucence(float trsl)
 	{
 		if(trsl == 0.5) return;
-		fprintf(mFile,"setAttr \".trsl\" %f;\n", trsl);
+		fprintf(mFile,"\tsetAttr \".trsl\" %f;\n", trsl);
 
 	}
 	void setNoiseAnimRate(float nanr)
 	{
 		if(nanr == 0.0) return;
-		fprintf(mFile,"setAttr \".nanr\" %f;\n", nanr);
+		fprintf(mFile,"\tsetAttr \".nanr\" %f;\n", nanr);
 
 	}
 	void setRoundness(float rdns)
 	{
 		if(rdns == 1.0) return;
-		fprintf(mFile,"setAttr \".rdns\" %f;\n", rdns);
+		fprintf(mFile,"\tsetAttr \".rdns\" %f;\n", rdns);
 
 	}
 	void setFilterRadius(float flrs)
 	{
 		if(flrs == 0.0) return;
-		fprintf(mFile,"setAttr \".flrs\" %f;\n", flrs);
+		fprintf(mFile,"\tsetAttr \".flrs\" %f;\n", flrs);
 
 	}
 	void setRenderState(int rdst)
 	{
 		if(rdst == 0) return;
-		fprintf(mFile,"setAttr \".rdst\" %i;\n", rdst);
+		fprintf(mFile,"\tsetAttr \".rdst\" %i;\n", rdst);
 
 	}
 	void getOutParticleEmission()
@@ -624,8 +625,14 @@ public:
 		fprintf(mFile,"\"%s.flrs\"",mName.c_str());
 
 	}
+	void getRenderState()
+	{
+		fprintf(mFile,"\"%s.rdst\"",mName.c_str());
+
+	}
 protected:
-	ParticleCloud(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ParticleCloud(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

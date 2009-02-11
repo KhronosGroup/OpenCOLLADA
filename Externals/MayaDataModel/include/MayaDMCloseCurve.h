@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class CloseCurve : public AbstractBaseCreate
 {
 public:
 public:
+	CloseCurve():AbstractBaseCreate(){}
 	CloseCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "closeCurve"){}
 	virtual ~CloseCurve(){}
 	void setPreserveShape(unsigned int ps)
 	{
 		if(ps == 1) return;
-		fprintf(mFile,"setAttr \".ps\" %i;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %i;\n", ps);
 
 	}
 	void setBlendBias(double bb)
 	{
 		if(bb == 0.5) return;
-		fprintf(mFile,"setAttr \".bb\" %f;\n", bb);
+		fprintf(mFile,"\tsetAttr \".bb\" %f;\n", bb);
 
 	}
 	void setBlendKnotInsertion(bool bki)
 	{
 		if(bki == false) return;
-		fprintf(mFile,"setAttr \".bki\" %i;\n", bki);
+		fprintf(mFile,"\tsetAttr \".bki\" %i;\n", bki);
 
 	}
 	void setParameter(double p)
 	{
 		if(p == 0.1) return;
-		fprintf(mFile,"setAttr \".p\" %f;\n", p);
+		fprintf(mFile,"\tsetAttr \".p\" %f;\n", p);
 
 	}
 	void getInputCurve()
@@ -75,7 +76,8 @@ public:
 
 	}
 protected:
-	CloseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	CloseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class NurbsDimShape : public DimensionShape
 {
 public:
 public:
+	NurbsDimShape():DimensionShape(){}
 	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent=""):DimensionShape(file, name, parent, "nurbsDimShape"){}
 	virtual ~NurbsDimShape(){}
 	void setUParamValue(double upv)
 	{
 		if(upv == 0.0) return;
-		fprintf(mFile,"setAttr \".upv\" %f;\n", upv);
+		fprintf(mFile,"\tsetAttr \".upv\" %f;\n", upv);
 
 	}
 	void setVParamValue(double vpv)
 	{
 		if(vpv == 0.0) return;
-		fprintf(mFile,"setAttr \".vpv\" %f;\n", vpv);
+		fprintf(mFile,"\tsetAttr \".vpv\" %f;\n", vpv);
 
 	}
 	void getUParamValue()
@@ -48,7 +49,8 @@ public:
 
 	}
 protected:
-	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DimensionShape(file, name, parent, nodeType) {}
+	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DimensionShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class TurbulenceField : public Field
 {
 public:
 public:
+	TurbulenceField():Field(){}
 	TurbulenceField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "turbulenceField"){}
 	virtual ~TurbulenceField(){}
 	void setFrequency(double frq)
 	{
 		if(frq == 1.0) return;
-		fprintf(mFile,"setAttr \".frq\" %f;\n", frq);
+		fprintf(mFile,"\tsetAttr \".frq\" %f;\n", frq);
 
 	}
 	void setPhaseX(double phx)
 	{
 		if(phx == 0.0) return;
-		fprintf(mFile,"setAttr \".phx\" %f;\n", phx);
+		fprintf(mFile,"\tsetAttr \".phx\" %f;\n", phx);
 
 	}
 	void setPhaseY(double phy)
 	{
 		if(phy == 0.0) return;
-		fprintf(mFile,"setAttr \".phy\" %f;\n", phy);
+		fprintf(mFile,"\tsetAttr \".phy\" %f;\n", phy);
 
 	}
 	void setPhaseZ(double phz)
 	{
 		if(phz == 0.0) return;
-		fprintf(mFile,"setAttr \".phz\" %f;\n", phz);
+		fprintf(mFile,"\tsetAttr \".phz\" %f;\n", phz);
 
 	}
 	void setNoiseLevel(int nslv)
 	{
 		if(nslv == 0) return;
-		fprintf(mFile,"setAttr \".nslv\" %i;\n", nslv);
+		fprintf(mFile,"\tsetAttr \".nslv\" %i;\n", nslv);
 
 	}
 	void setNoiseRatio(double nsrt)
 	{
 		if(nsrt == 0.707) return;
-		fprintf(mFile,"setAttr \".nsrt\" %f;\n", nsrt);
+		fprintf(mFile,"\tsetAttr \".nsrt\" %f;\n", nsrt);
 
 	}
 	void setInterpolationType(unsigned int intr)
 	{
 		if(intr == 0) return;
-		fprintf(mFile,"setAttr \".intr\" %i;\n", intr);
+		fprintf(mFile,"\tsetAttr \".intr\" %i;\n", intr);
 
 	}
 	void getFrequency()
@@ -98,7 +99,8 @@ public:
 
 	}
 protected:
-	TurbulenceField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	TurbulenceField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

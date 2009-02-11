@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class RadialField : public Field
 {
 public:
 public:
+	RadialField():Field(){}
 	RadialField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "radialField"){}
 	virtual ~RadialField(){}
 	void setRadialType(double typ)
 	{
 		if(typ == 0.0) return;
-		fprintf(mFile,"setAttr \".typ\" %f;\n", typ);
+		fprintf(mFile,"\tsetAttr \".typ\" %f;\n", typ);
 
 	}
 	void getRadialType()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	RadialField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	RadialField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

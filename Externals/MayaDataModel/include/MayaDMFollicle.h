@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -51,89 +51,90 @@ public:
 		}
 	};
 public:
+	Follicle():Shape(){}
 	Follicle(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "follicle"){}
 	virtual ~Follicle(){}
 	void setParameterU(double pu)
 	{
 		if(pu == 0.0) return;
-		fprintf(mFile,"setAttr \".pu\" %f;\n", pu);
+		fprintf(mFile,"\tsetAttr \".pu\" %f;\n", pu);
 
 	}
 	void setParameterV(double pv)
 	{
 		if(pv == 0.0) return;
-		fprintf(mFile,"setAttr \".pv\" %f;\n", pv);
+		fprintf(mFile,"\tsetAttr \".pv\" %f;\n", pv);
 
 	}
 	void setRestPose(unsigned int rsp)
 	{
 		if(rsp == 0) return;
-		fprintf(mFile,"setAttr \".rsp\" %i;\n", rsp);
+		fprintf(mFile,"\tsetAttr \".rsp\" %i;\n", rsp);
 
 	}
 	void setPointLock(unsigned int ptl)
 	{
 		if(ptl == 1) return;
-		fprintf(mFile,"setAttr \".ptl\" %i;\n", ptl);
+		fprintf(mFile,"\tsetAttr \".ptl\" %i;\n", ptl);
 
 	}
 	void setSimulationMethod(unsigned int sim)
 	{
 		if(sim == 2) return;
-		fprintf(mFile,"setAttr \".sim\" %i;\n", sim);
+		fprintf(mFile,"\tsetAttr \".sim\" %i;\n", sim);
 
 	}
 	void setStartDirection(unsigned int sdr)
 	{
 		if(sdr == 0) return;
-		fprintf(mFile,"setAttr \".sdr\" %i;\n", sdr);
+		fprintf(mFile,"\tsetAttr \".sdr\" %i;\n", sdr);
 
 	}
 	void setFlipDirection(bool fld)
 	{
 		if(fld == false) return;
-		fprintf(mFile,"setAttr \".fld\" %i;\n", fld);
+		fprintf(mFile,"\tsetAttr \".fld\" %i;\n", fld);
 
 	}
 	void setHairSysGravity(double hsg)
 	{
 		if(hsg == 1.0) return;
-		fprintf(mFile,"setAttr \".hsg\" %f;\n", hsg);
+		fprintf(mFile,"\tsetAttr \".hsg\" %f;\n", hsg);
 
 	}
 	void setHairSysStiffness(double hss)
 	{
 		if(hss == 0.5) return;
-		fprintf(mFile,"setAttr \".hss\" %f;\n", hss);
+		fprintf(mFile,"\tsetAttr \".hss\" %f;\n", hss);
 
 	}
 	void setOverrideDynamics(bool ovd)
 	{
 		if(ovd == false) return;
-		fprintf(mFile,"setAttr \".ovd\" %i;\n", ovd);
+		fprintf(mFile,"\tsetAttr \".ovd\" %i;\n", ovd);
 
 	}
 	void setCollide(bool cld)
 	{
 		if(cld == true) return;
-		fprintf(mFile,"setAttr \".cld\" %i;\n", cld);
+		fprintf(mFile,"\tsetAttr \".cld\" %i;\n", cld);
 
 	}
 	void setDamp(double dmp)
 	{
 		if(dmp == 0.0) return;
-		fprintf(mFile,"setAttr \".dmp\" %f;\n", dmp);
+		fprintf(mFile,"\tsetAttr \".dmp\" %f;\n", dmp);
 
 	}
 	void setStiffness(double stf)
 	{
 		if(stf == 0.15) return;
-		fprintf(mFile,"setAttr \".stf\" %f;\n", stf);
+		fprintf(mFile,"\tsetAttr \".stf\" %f;\n", stf);
 
 	}
 	void setStiffnessScale(size_t sts_i,const StiffnessScale& sts)
 	{
-		fprintf(mFile,"setAttr \".sts[%i]\" ",sts_i);
+		fprintf(mFile,"\tsetAttr \".sts[%i]\" ",sts_i);
 		sts.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -141,36 +142,36 @@ public:
 	void setStiffnessScale_Position(size_t sts_i,float stsp)
 	{
 		if(stsp == 0.0) return;
-		fprintf(mFile,"setAttr \".sts[%i].stsp\" %f;\n", sts_i,stsp);
+		fprintf(mFile,"\tsetAttr \".sts[%i].stsp\" %f;\n", sts_i,stsp);
 
 	}
 	void setStiffnessScale_FloatValue(size_t sts_i,float stsfv)
 	{
 		if(stsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".sts[%i].stsfv\" %f;\n", sts_i,stsfv);
+		fprintf(mFile,"\tsetAttr \".sts[%i].stsfv\" %f;\n", sts_i,stsfv);
 
 	}
 	void setStiffnessScale_Interp(size_t sts_i,unsigned int stsi)
 	{
 		if(stsi == 0) return;
-		fprintf(mFile,"setAttr \".sts[%i].stsi\" %i;\n", sts_i,stsi);
+		fprintf(mFile,"\tsetAttr \".sts[%i].stsi\" %i;\n", sts_i,stsi);
 
 	}
 	void setLengthFlex(double lfl)
 	{
 		if(lfl == 0.0) return;
-		fprintf(mFile,"setAttr \".lfl\" %f;\n", lfl);
+		fprintf(mFile,"\tsetAttr \".lfl\" %f;\n", lfl);
 
 	}
 	void setClumpWidthMult(double cwm)
 	{
 		if(cwm == 1.0) return;
-		fprintf(mFile,"setAttr \".cwm\" %f;\n", cwm);
+		fprintf(mFile,"\tsetAttr \".cwm\" %f;\n", cwm);
 
 	}
 	void setClumpWidthScale(size_t cws_i,const ClumpWidthScale& cws)
 	{
-		fprintf(mFile,"setAttr \".cws[%i]\" ",cws_i);
+		fprintf(mFile,"\tsetAttr \".cws[%i]\" ",cws_i);
 		cws.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -178,30 +179,30 @@ public:
 	void setClumpWidthScale_Position(size_t cws_i,float cwsp)
 	{
 		if(cwsp == 0.0) return;
-		fprintf(mFile,"setAttr \".cws[%i].cwsp\" %f;\n", cws_i,cwsp);
+		fprintf(mFile,"\tsetAttr \".cws[%i].cwsp\" %f;\n", cws_i,cwsp);
 
 	}
 	void setClumpWidthScale_FloatValue(size_t cws_i,float cwsfv)
 	{
 		if(cwsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".cws[%i].cwsfv\" %f;\n", cws_i,cwsfv);
+		fprintf(mFile,"\tsetAttr \".cws[%i].cwsfv\" %f;\n", cws_i,cwsfv);
 
 	}
 	void setClumpWidthScale_Interp(size_t cws_i,unsigned int cwsi)
 	{
 		if(cwsi == 0) return;
-		fprintf(mFile,"setAttr \".cws[%i].cwsi\" %i;\n", cws_i,cwsi);
+		fprintf(mFile,"\tsetAttr \".cws[%i].cwsi\" %i;\n", cws_i,cwsi);
 
 	}
 	void setStartCurveAttract(double sct)
 	{
 		if(sct == 0.0) return;
-		fprintf(mFile,"setAttr \".sct\" %f;\n", sct);
+		fprintf(mFile,"\tsetAttr \".sct\" %f;\n", sct);
 
 	}
 	void setAttractionScale(size_t ats_i,const AttractionScale& ats)
 	{
-		fprintf(mFile,"setAttr \".ats[%i]\" ",ats_i);
+		fprintf(mFile,"\tsetAttr \".ats[%i]\" ",ats_i);
 		ats.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -209,60 +210,60 @@ public:
 	void setAttractionScale_Position(size_t ats_i,float atsp)
 	{
 		if(atsp == 0.0) return;
-		fprintf(mFile,"setAttr \".ats[%i].atsp\" %f;\n", ats_i,atsp);
+		fprintf(mFile,"\tsetAttr \".ats[%i].atsp\" %f;\n", ats_i,atsp);
 
 	}
 	void setAttractionScale_FloatValue(size_t ats_i,float atsfv)
 	{
 		if(atsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".ats[%i].atsfv\" %f;\n", ats_i,atsfv);
+		fprintf(mFile,"\tsetAttr \".ats[%i].atsfv\" %f;\n", ats_i,atsfv);
 
 	}
 	void setAttractionScale_Interp(size_t ats_i,unsigned int atsi)
 	{
 		if(atsi == 0) return;
-		fprintf(mFile,"setAttr \".ats[%i].atsi\" %i;\n", ats_i,atsi);
+		fprintf(mFile,"\tsetAttr \".ats[%i].atsi\" %i;\n", ats_i,atsi);
 
 	}
 	void setAttractionDamp(double ad)
 	{
 		if(ad == 0.0) return;
-		fprintf(mFile,"setAttr \".ad\" %f;\n", ad);
+		fprintf(mFile,"\tsetAttr \".ad\" %f;\n", ad);
 
 	}
 	void setDensityMult(double dml)
 	{
 		if(dml == 1.0) return;
-		fprintf(mFile,"setAttr \".dml\" %f;\n", dml);
+		fprintf(mFile,"\tsetAttr \".dml\" %f;\n", dml);
 
 	}
 	void setCurlMult(double cml)
 	{
 		if(cml == 1.0) return;
-		fprintf(mFile,"setAttr \".cml\" %f;\n", cml);
+		fprintf(mFile,"\tsetAttr \".cml\" %f;\n", cml);
 
 	}
 	void setClumpTwistOffset(double ctf)
 	{
 		if(ctf == 0.0) return;
-		fprintf(mFile,"setAttr \".ctf\" %f;\n", ctf);
+		fprintf(mFile,"\tsetAttr \".ctf\" %f;\n", ctf);
 
 	}
 	void setBraid(bool brd)
 	{
 		if(brd == false) return;
-		fprintf(mFile,"setAttr \".brd\" %i;\n", brd);
+		fprintf(mFile,"\tsetAttr \".brd\" %i;\n", brd);
 
 	}
 	void setColorBlend(double cbl)
 	{
 		if(cbl == 0.0) return;
-		fprintf(mFile,"setAttr \".cbl\" %f;\n", cbl);
+		fprintf(mFile,"\tsetAttr \".cbl\" %f;\n", cbl);
 
 	}
 	void setColor(const float3& cl)
 	{
-		fprintf(mFile,"setAttr \".cl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cl\" -type \"float3\" ");
 		cl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -270,55 +271,55 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.0) return;
-		fprintf(mFile,"setAttr \".cl.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cl.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.0) return;
-		fprintf(mFile,"setAttr \".cl.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".cl.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.0) return;
-		fprintf(mFile,"setAttr \".cl.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cl.cb\" %f;\n", cb);
 
 	}
 	void setFixedSegmentLength(bool fsl)
 	{
 		if(fsl == 0) return;
-		fprintf(mFile,"setAttr \".fsl\" %i;\n", fsl);
+		fprintf(mFile,"\tsetAttr \".fsl\" %i;\n", fsl);
 
 	}
 	void setSegmentLength(double sgl)
 	{
 		if(sgl == 1) return;
-		fprintf(mFile,"setAttr \".sgl\" %f;\n", sgl);
+		fprintf(mFile,"\tsetAttr \".sgl\" %f;\n", sgl);
 
 	}
 	void setSampleDensity(double sdn)
 	{
 		if(sdn == 1.0) return;
-		fprintf(mFile,"setAttr \".sdn\" %f;\n", sdn);
+		fprintf(mFile,"\tsetAttr \".sdn\" %f;\n", sdn);
 
 	}
 	void setDegree(int dgr)
 	{
 		if(dgr == 2) return;
-		fprintf(mFile,"setAttr \".dgr\" %i;\n", dgr);
+		fprintf(mFile,"\tsetAttr \".dgr\" %i;\n", dgr);
 
 	}
 	void setClumpWidth(float cw)
 	{
 		if(cw == 0.3) return;
-		fprintf(mFile,"setAttr \".cw\" %f;\n", cw);
+		fprintf(mFile,"\tsetAttr \".cw\" %f;\n", cw);
 
 	}
 	void setMapSetName(const string& msn)
 	{
 		if(msn == "NULL") return;
-		fprintf(mFile,"setAttr \".msn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".msn\" -type \"string\" ");
 		msn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -669,7 +670,8 @@ public:
 
 	}
 protected:
-	Follicle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	Follicle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

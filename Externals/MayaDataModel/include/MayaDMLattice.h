@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,29 +18,30 @@ class Lattice : public ControlPoint
 {
 public:
 public:
+	Lattice():ControlPoint(){}
 	Lattice(FILE* file,const std::string& name,const std::string& parent=""):ControlPoint(file, name, parent, "lattice"){}
 	virtual ~Lattice(){}
 	void setSDivisions(short sd)
 	{
 		if(sd == 2) return;
-		fprintf(mFile,"setAttr \".sd\" %i;\n", sd);
+		fprintf(mFile,"\tsetAttr \".sd\" %i;\n", sd);
 
 	}
 	void setTDivisions(short td)
 	{
 		if(td == 5) return;
-		fprintf(mFile,"setAttr \".td\" %i;\n", td);
+		fprintf(mFile,"\tsetAttr \".td\" %i;\n", td);
 
 	}
 	void setUDivisions(short ud)
 	{
 		if(ud == 2) return;
-		fprintf(mFile,"setAttr \".ud\" %i;\n", ud);
+		fprintf(mFile,"\tsetAttr \".ud\" %i;\n", ud);
 
 	}
 	void setCached(const lattice& cc)
 	{
-		fprintf(mFile,"setAttr \".cc\" -type \"lattice\" ");
+		fprintf(mFile,"\tsetAttr \".cc\" -type \"lattice\" ");
 		cc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -48,18 +49,18 @@ public:
 	void setDispPoints(bool dcv)
 	{
 		if(dcv == off) return;
-		fprintf(mFile,"setAttr \".dcv\" %i;\n", dcv);
+		fprintf(mFile,"\tsetAttr \".dcv\" %i;\n", dcv);
 
 	}
 	void setDispLattice(bool dep)
 	{
 		if(dep == on) return;
-		fprintf(mFile,"setAttr \".dep\" %i;\n", dep);
+		fprintf(mFile,"\tsetAttr \".dep\" %i;\n", dep);
 
 	}
 	void setOrigin(const double3& or)
 	{
-		fprintf(mFile,"setAttr \".or\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".or\" -type \"double3\" ");
 		or.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -67,19 +68,19 @@ public:
 	void setOriginX(double ox)
 	{
 		if(ox == 0) return;
-		fprintf(mFile,"setAttr \".or.ox\" %f;\n", ox);
+		fprintf(mFile,"\tsetAttr \".or.ox\" %f;\n", ox);
 
 	}
 	void setOriginY(double oy)
 	{
 		if(oy == 0) return;
-		fprintf(mFile,"setAttr \".or.oy\" %f;\n", oy);
+		fprintf(mFile,"\tsetAttr \".or.oy\" %f;\n", oy);
 
 	}
 	void setOriginZ(double oz)
 	{
 		if(oz == 0) return;
-		fprintf(mFile,"setAttr \".or.oz\" %f;\n", oz);
+		fprintf(mFile,"\tsetAttr \".or.oz\" %f;\n", oz);
 
 	}
 	void getLatticeOutput()
@@ -143,7 +144,8 @@ public:
 
 	}
 protected:
-	Lattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ControlPoint(file, name, parent, nodeType) {}
+	Lattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ControlPoint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

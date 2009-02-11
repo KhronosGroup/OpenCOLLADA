@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class SubdivComponentId : public DependNode
 {
 public:
 public:
+	SubdivComponentId():DependNode(){}
 	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivComponentId"){}
 	virtual ~SubdivComponentId(){}
 	void setInBase(int ib)
 	{
 		if(ib == 0) return;
-		fprintf(mFile,"setAttr \".ib\" %i;\n", ib);
+		fprintf(mFile,"\tsetAttr \".ib\" %i;\n", ib);
 
 	}
 	void setInEdge(int ie)
 	{
 		if(ie == 0) return;
-		fprintf(mFile,"setAttr \".ie\" %i;\n", ie);
+		fprintf(mFile,"\tsetAttr \".ie\" %i;\n", ie);
 
 	}
 	void setInLevel(unsigned int il)
 	{
 		if(il == 0) return;
-		fprintf(mFile,"setAttr \".il\" %i;\n", il);
+		fprintf(mFile,"\tsetAttr \".il\" %i;\n", il);
 
 	}
 	void setInPath(int ip)
 	{
 		if(ip == 0) return;
-		fprintf(mFile,"setAttr \".ip\" %i;\n", ip);
+		fprintf(mFile,"\tsetAttr \".ip\" %i;\n", ip);
 
 	}
 	void setInFinal(unsigned int if_)
 	{
 		if(if_ == 0) return;
-		fprintf(mFile,"setAttr \".if\" %i;\n", if_);
+		fprintf(mFile,"\tsetAttr \".if\" %i;\n", if_);
 
 	}
 	void setInLeft(int ilt)
 	{
 		if(ilt == 0) return;
-		fprintf(mFile,"setAttr \".ilt\" %i;\n", ilt);
+		fprintf(mFile,"\tsetAttr \".ilt\" %i;\n", ilt);
 
 	}
 	void setInRight(int ir)
 	{
 		if(ir == 0) return;
-		fprintf(mFile,"setAttr \".ir\" %i;\n", ir);
+		fprintf(mFile,"\tsetAttr \".ir\" %i;\n", ir);
 
 	}
 	void getInBase()
@@ -133,7 +134,8 @@ public:
 
 	}
 protected:
-	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

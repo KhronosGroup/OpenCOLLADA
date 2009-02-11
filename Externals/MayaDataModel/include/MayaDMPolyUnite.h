@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyUnite : public PolyCreator
 {
 public:
 public:
+	PolyUnite():PolyCreator(){}
 	PolyUnite(FILE* file,const std::string& name,const std::string& parent=""):PolyCreator(file, name, parent, "polyUnite"){}
 	virtual ~PolyUnite(){}
 	void setUseOldPolyArchitecture(bool uopa)
 	{
 		if(uopa == false) return;
-		fprintf(mFile,"setAttr \".uopa\" %i;\n", uopa);
+		fprintf(mFile,"\tsetAttr \".uopa\" %i;\n", uopa);
 
 	}
 	void getInputPoly(size_t ip_i)
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	PolyUnite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyCreator(file, name, parent, nodeType) {}
+	PolyUnite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyCreator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

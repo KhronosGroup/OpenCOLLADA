@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyColorDel : public PolyModifier
 {
 public:
 public:
+	PolyColorDel():PolyModifier(){}
 	PolyColorDel(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyColorDel"){}
 	virtual ~PolyColorDel(){}
 	void setColorSetName(const string& cls)
 	{
 		if(cls == "NULL") return;
-		fprintf(mFile,"setAttr \".cls\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cls\" -type \"string\" ");
 		cls.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -34,7 +35,8 @@ public:
 
 	}
 protected:
-	PolyColorDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyColorDel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class StitchSrf : public AbstractBaseCreate
 {
 public:
 public:
+	StitchSrf():AbstractBaseCreate(){}
 	StitchSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "stitchSrf"){}
 	virtual ~StitchSrf(){}
 	void setPositionalContinuity(size_t pc_i,bool pc)
 	{
 		if(pc == true) return;
-		fprintf(mFile,"setAttr \".pc[%i]\" %i;\n", pc_i,pc);
+		fprintf(mFile,"\tsetAttr \".pc[%i]\" %i;\n", pc_i,pc);
 
 	}
 	void setPositionalContinuity(size_t pc_start,size_t pc_end,bool* pc)
 	{
-		fprintf(mFile,"setAttr \".pc[%i:%i]\" ", pc_start,pc_end);
+		fprintf(mFile,"\tsetAttr \".pc[%i:%i]\" ", pc_start,pc_end);
 		size_t size = (pc_end-pc_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startPositionalContinuity(size_t pc_start,size_t pc_end)
 	{
-		fprintf(mFile,"setAttr \".pc[%i:%i]\"",pc_start,pc_end);
+		fprintf(mFile,"\tsetAttr \".pc[%i:%i]\"",pc_start,pc_end);
 
 	}
 	void appendPositionalContinuity(bool pc)
@@ -56,12 +57,12 @@ public:
 	void setTangentialContinuity(size_t tc_i,bool tc)
 	{
 		if(tc == false) return;
-		fprintf(mFile,"setAttr \".tc[%i]\" %i;\n", tc_i,tc);
+		fprintf(mFile,"\tsetAttr \".tc[%i]\" %i;\n", tc_i,tc);
 
 	}
 	void setTangentialContinuity(size_t tc_start,size_t tc_end,bool* tc)
 	{
-		fprintf(mFile,"setAttr \".tc[%i:%i]\" ", tc_start,tc_end);
+		fprintf(mFile,"\tsetAttr \".tc[%i:%i]\" ", tc_start,tc_end);
 		size_t size = (tc_end-tc_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -73,7 +74,7 @@ public:
 	}
 	void startTangentialContinuity(size_t tc_start,size_t tc_end)
 	{
-		fprintf(mFile,"setAttr \".tc[%i:%i]\"",tc_start,tc_end);
+		fprintf(mFile,"\tsetAttr \".tc[%i:%i]\"",tc_start,tc_end);
 
 	}
 	void appendTangentialContinuity(bool tc)
@@ -89,12 +90,12 @@ public:
 	void setToggleTolerance(size_t tt_i,bool tt)
 	{
 		if(tt == false) return;
-		fprintf(mFile,"setAttr \".tt[%i]\" %i;\n", tt_i,tt);
+		fprintf(mFile,"\tsetAttr \".tt[%i]\" %i;\n", tt_i,tt);
 
 	}
 	void setToggleTolerance(size_t tt_start,size_t tt_end,bool* tt)
 	{
-		fprintf(mFile,"setAttr \".tt[%i:%i]\" ", tt_start,tt_end);
+		fprintf(mFile,"\tsetAttr \".tt[%i:%i]\" ", tt_start,tt_end);
 		size_t size = (tt_end-tt_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -106,7 +107,7 @@ public:
 	}
 	void startToggleTolerance(size_t tt_start,size_t tt_end)
 	{
-		fprintf(mFile,"setAttr \".tt[%i:%i]\"",tt_start,tt_end);
+		fprintf(mFile,"\tsetAttr \".tt[%i:%i]\"",tt_start,tt_end);
 
 	}
 	void appendToggleTolerance(bool tt)
@@ -122,12 +123,12 @@ public:
 	void setTolerance(size_t tol_i,double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol[%i]\" %f;\n", tol_i,tol);
+		fprintf(mFile,"\tsetAttr \".tol[%i]\" %f;\n", tol_i,tol);
 
 	}
 	void setTolerance(size_t tol_start,size_t tol_end,double* tol)
 	{
-		fprintf(mFile,"setAttr \".tol[%i:%i]\" ", tol_start,tol_end);
+		fprintf(mFile,"\tsetAttr \".tol[%i:%i]\" ", tol_start,tol_end);
 		size_t size = (tol_end-tol_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -139,7 +140,7 @@ public:
 	}
 	void startTolerance(size_t tol_start,size_t tol_end)
 	{
-		fprintf(mFile,"setAttr \".tol[%i:%i]\"",tol_start,tol_end);
+		fprintf(mFile,"\tsetAttr \".tol[%i:%i]\"",tol_start,tol_end);
 
 	}
 	void appendTolerance(double tol)
@@ -155,12 +156,12 @@ public:
 	void setStepCount(size_t sc_i,int sc)
 	{
 		if(sc == 20) return;
-		fprintf(mFile,"setAttr \".sc[%i]\" %i;\n", sc_i,sc);
+		fprintf(mFile,"\tsetAttr \".sc[%i]\" %i;\n", sc_i,sc);
 
 	}
 	void setStepCount(size_t sc_start,size_t sc_end,int* sc)
 	{
-		fprintf(mFile,"setAttr \".sc[%i:%i]\" ", sc_start,sc_end);
+		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\" ", sc_start,sc_end);
 		size_t size = (sc_end-sc_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -172,7 +173,7 @@ public:
 	}
 	void startStepCount(size_t sc_start,size_t sc_end)
 	{
-		fprintf(mFile,"setAttr \".sc[%i:%i]\"",sc_start,sc_end);
+		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\"",sc_start,sc_end);
 
 	}
 	void appendStepCount(int sc)
@@ -188,12 +189,12 @@ public:
 	void setParameterU(size_t u_i,double u)
 	{
 		if(u == -10000) return;
-		fprintf(mFile,"setAttr \".u[%i]\" %f;\n", u_i,u);
+		fprintf(mFile,"\tsetAttr \".u[%i]\" %f;\n", u_i,u);
 
 	}
 	void setParameterU(size_t u_start,size_t u_end,double* u)
 	{
-		fprintf(mFile,"setAttr \".u[%i:%i]\" ", u_start,u_end);
+		fprintf(mFile,"\tsetAttr \".u[%i:%i]\" ", u_start,u_end);
 		size_t size = (u_end-u_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -205,7 +206,7 @@ public:
 	}
 	void startParameterU(size_t u_start,size_t u_end)
 	{
-		fprintf(mFile,"setAttr \".u[%i:%i]\"",u_start,u_end);
+		fprintf(mFile,"\tsetAttr \".u[%i:%i]\"",u_start,u_end);
 
 	}
 	void appendParameterU(double u)
@@ -221,12 +222,12 @@ public:
 	void setParameterV(size_t v_i,double v)
 	{
 		if(v == -10000) return;
-		fprintf(mFile,"setAttr \".v[%i]\" %f;\n", v_i,v);
+		fprintf(mFile,"\tsetAttr \".v[%i]\" %f;\n", v_i,v);
 
 	}
 	void setParameterV(size_t v_start,size_t v_end,double* v)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\" ", v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\" ", v_start,v_end);
 		size_t size = (v_end-v_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -238,7 +239,7 @@ public:
 	}
 	void startParameterV(size_t v_start,size_t v_end)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
 	void appendParameterV(double v)
@@ -254,24 +255,24 @@ public:
 	void setTogglePointNormals(bool tpn)
 	{
 		if(tpn == false) return;
-		fprintf(mFile,"setAttr \".tpn\" %i;\n", tpn);
+		fprintf(mFile,"\tsetAttr \".tpn\" %i;\n", tpn);
 
 	}
 	void setTogglePointPosition(bool tpp)
 	{
 		if(tpp == true) return;
-		fprintf(mFile,"setAttr \".tpp\" %i;\n", tpp);
+		fprintf(mFile,"\tsetAttr \".tpp\" %i;\n", tpp);
 
 	}
 	void setCvIthIndex(size_t ci_i,int ci)
 	{
 		if(ci == -1) return;
-		fprintf(mFile,"setAttr \".ci[%i]\" %i;\n", ci_i,ci);
+		fprintf(mFile,"\tsetAttr \".ci[%i]\" %i;\n", ci_i,ci);
 
 	}
 	void setCvIthIndex(size_t ci_start,size_t ci_end,int* ci)
 	{
-		fprintf(mFile,"setAttr \".ci[%i:%i]\" ", ci_start,ci_end);
+		fprintf(mFile,"\tsetAttr \".ci[%i:%i]\" ", ci_start,ci_end);
 		size_t size = (ci_end-ci_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -283,7 +284,7 @@ public:
 	}
 	void startCvIthIndex(size_t ci_start,size_t ci_end)
 	{
-		fprintf(mFile,"setAttr \".ci[%i:%i]\"",ci_start,ci_end);
+		fprintf(mFile,"\tsetAttr \".ci[%i:%i]\"",ci_start,ci_end);
 
 	}
 	void appendCvIthIndex(int ci)
@@ -299,12 +300,12 @@ public:
 	void setCvJthIndex(size_t cj_i,int cj)
 	{
 		if(cj == -1) return;
-		fprintf(mFile,"setAttr \".cj[%i]\" %i;\n", cj_i,cj);
+		fprintf(mFile,"\tsetAttr \".cj[%i]\" %i;\n", cj_i,cj);
 
 	}
 	void setCvJthIndex(size_t cj_start,size_t cj_end,int* cj)
 	{
-		fprintf(mFile,"setAttr \".cj[%i:%i]\" ", cj_start,cj_end);
+		fprintf(mFile,"\tsetAttr \".cj[%i:%i]\" ", cj_start,cj_end);
 		size_t size = (cj_end-cj_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -316,7 +317,7 @@ public:
 	}
 	void startCvJthIndex(size_t cj_start,size_t cj_end)
 	{
-		fprintf(mFile,"setAttr \".cj[%i:%i]\"",cj_start,cj_end);
+		fprintf(mFile,"\tsetAttr \".cj[%i:%i]\"",cj_start,cj_end);
 
 	}
 	void appendCvJthIndex(int cj)
@@ -332,13 +333,13 @@ public:
 	void setBias(double b)
 	{
 		if(b == 1.0) return;
-		fprintf(mFile,"setAttr \".b\" %f;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
 	void setFixBoundary(bool fb)
 	{
 		if(fb == false) return;
-		fprintf(mFile,"setAttr \".fb\" %i;\n", fb);
+		fprintf(mFile,"\tsetAttr \".fb\" %i;\n", fb);
 
 	}
 	void getInputSurface()
@@ -497,7 +498,8 @@ public:
 
 	}
 protected:
-	StitchSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	StitchSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

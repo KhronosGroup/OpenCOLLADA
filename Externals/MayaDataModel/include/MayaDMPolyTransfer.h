@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class PolyTransfer : public PolyModifier
 {
 public:
 public:
+	PolyTransfer():PolyModifier(){}
 	PolyTransfer(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTransfer"){}
 	virtual ~PolyTransfer(){}
 	void setOtherPoly(const mesh& op)
 	{
-		fprintf(mFile,"setAttr \".op\" -type \"mesh\" ");
+		fprintf(mFile,"\tsetAttr \".op\" -type \"mesh\" ");
 		op.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,19 +31,19 @@ public:
 	void setVertices(bool v)
 	{
 		if(v == false) return;
-		fprintf(mFile,"setAttr \".v\" %i;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %i;\n", v);
 
 	}
 	void setUvSets(bool uv)
 	{
 		if(uv == true) return;
-		fprintf(mFile,"setAttr \".uv\" %i;\n", uv);
+		fprintf(mFile,"\tsetAttr \".uv\" %i;\n", uv);
 
 	}
 	void setVertexColor(bool vc)
 	{
 		if(vc == false) return;
-		fprintf(mFile,"setAttr \".vc\" %i;\n", vc);
+		fprintf(mFile,"\tsetAttr \".vc\" %i;\n", vc);
 
 	}
 	void getOtherPoly()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	PolyTransfer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyTransfer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

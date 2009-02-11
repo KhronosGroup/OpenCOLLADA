@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,108 +18,109 @@ class Noise : public Texture2d
 {
 public:
 public:
+	Noise():Texture2d(){}
 	Noise(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "noise"){}
 	virtual ~Noise(){}
 	void setAmplitude(float a)
 	{
 		if(a == 1.0) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.707) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.0) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setDepthMax(short dm)
 	{
 		if(dm == 3) return;
-		fprintf(mFile,"setAttr \".dm\" %i;\n", dm);
+		fprintf(mFile,"\tsetAttr \".dm\" %i;\n", dm);
 
 	}
 	void setFrequency(float fq)
 	{
 		if(fq == 8.0) return;
-		fprintf(mFile,"setAttr \".fq\" %f;\n", fq);
+		fprintf(mFile,"\tsetAttr \".fq\" %f;\n", fq);
 
 	}
 	void setFrequencyRatio(float fr)
 	{
 		if(fr == 2.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setInflection(bool in)
 	{
 		if(in == false) return;
-		fprintf(mFile,"setAttr \".in\" %i;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %i;\n", in);
 
 	}
 	void setTime(float ti)
 	{
 		if(ti == 0.0) return;
-		fprintf(mFile,"setAttr \".ti\" %f;\n", ti);
+		fprintf(mFile,"\tsetAttr \".ti\" %f;\n", ti);
 
 	}
 	void setNoiseType(unsigned int nty)
 	{
 		if(nty == 1) return;
-		fprintf(mFile,"setAttr \".nty\" %i;\n", nty);
+		fprintf(mFile,"\tsetAttr \".nty\" %i;\n", nty);
 
 	}
 	void setDensity(float d)
 	{
 		if(d == 1.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setSpottyness(float sp)
 	{
 		if(sp == 0.1) return;
-		fprintf(mFile,"setAttr \".sp\" %f;\n", sp);
+		fprintf(mFile,"\tsetAttr \".sp\" %f;\n", sp);
 
 	}
 	void setSizeRand(float sr)
 	{
 		if(sr == 0.0) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setRandomness(float rn)
 	{
 		if(rn == 1.0) return;
-		fprintf(mFile,"setAttr \".rn\" %f;\n", rn);
+		fprintf(mFile,"\tsetAttr \".rn\" %f;\n", rn);
 
 	}
 	void setFalloff(unsigned int fof)
 	{
 		if(fof == 2) return;
-		fprintf(mFile,"setAttr \".fof\" %i;\n", fof);
+		fprintf(mFile,"\tsetAttr \".fof\" %i;\n", fof);
 
 	}
 	void setNumWaves(short nw)
 	{
 		if(nw == 5) return;
-		fprintf(mFile,"setAttr \".nw\" %i;\n", nw);
+		fprintf(mFile,"\tsetAttr \".nw\" %i;\n", nw);
 
 	}
 	void setImplode(float imp)
 	{
 		if(imp == 0.0) return;
-		fprintf(mFile,"setAttr \".imp\" %f;\n", imp);
+		fprintf(mFile,"\tsetAttr \".imp\" %f;\n", imp);
 
 	}
 	void setImplodeCenter(const float2& imc)
 	{
 		if(imc == float2(0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".imc\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".imc\" -type \"float2\" ");
 		imc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -127,13 +128,13 @@ public:
 	void setImplodeCenterU(float imu)
 	{
 		if(imu == 0.0) return;
-		fprintf(mFile,"setAttr \".imc.imu\" %f;\n", imu);
+		fprintf(mFile,"\tsetAttr \".imc.imu\" %f;\n", imu);
 
 	}
 	void setImplodeCenterV(float imv)
 	{
 		if(imv == 0.0) return;
-		fprintf(mFile,"setAttr \".imc.imv\" %f;\n", imv);
+		fprintf(mFile,"\tsetAttr \".imc.imv\" %f;\n", imv);
 
 	}
 	void getAmplitude()
@@ -232,7 +233,8 @@ public:
 
 	}
 protected:
-	Noise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Noise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class IkEffector : public Transform
 {
 public:
 public:
+	IkEffector():Transform(){}
 	IkEffector(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "ikEffector"){}
 	virtual ~IkEffector(){}
 	void setHideDisplay(bool hd)
 	{
 		if(hd == false) return;
-		fprintf(mFile,"setAttr \".hd\" %i;\n", hd);
+		fprintf(mFile,"\tsetAttr \".hd\" %i;\n", hd);
 
 	}
 	void getHideDisplay()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	IkEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	IkEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -52,17 +52,18 @@ public:
 		}
 	};
 public:
+	BlindDataTemplate():DependNode(){}
 	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "blindDataTemplate"){}
 	virtual ~BlindDataTemplate(){}
 	void setTypeId(int tid)
 	{
 		if(tid == 0) return;
-		fprintf(mFile,"setAttr \".tid\" %i;\n", tid);
+		fprintf(mFile,"\tsetAttr \".tid\" %i;\n", tid);
 
 	}
 	void setBlindDataPresets(size_t bdps_i,const BlindDataPresets& bdps)
 	{
-		fprintf(mFile,"setAttr \".bdps[%i]\" ",bdps_i);
+		fprintf(mFile,"\tsetAttr \".bdps[%i]\" ",bdps_i);
 		bdps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -70,14 +71,14 @@ public:
 	void setBdPresetName(size_t bdps_i,const string& bdpn)
 	{
 		if(bdpn == "NULL") return;
-		fprintf(mFile,"setAttr \".bdps[%i].bdpn\" -type \"string\" ",bdps_i);
+		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpn\" -type \"string\" ",bdps_i);
 		bdpn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBdPresetElements(size_t bdps_i,size_t bdpe_i,const BlindDataPresets::BdPresetElements& bdpe)
 	{
-		fprintf(mFile,"setAttr \".bdps[%i].bdpe[%i]\" ",bdps_i,bdpe_i);
+		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpe[%i]\" ",bdps_i,bdpe_i);
 		bdpe.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,7 +86,7 @@ public:
 	void setBdPresetAttr(size_t bdps_i,size_t bdpe_i,const string& bdpa)
 	{
 		if(bdpa == "NULL") return;
-		fprintf(mFile,"setAttr \".bdps[%i].bdpe[%i].bdpa\" -type \"string\" ",bdps_i,bdpe_i);
+		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpe[%i].bdpa\" -type \"string\" ",bdps_i,bdpe_i);
 		bdpa.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -93,14 +94,14 @@ public:
 	void setBdPresetValue(size_t bdps_i,size_t bdpe_i,const string& bdpv)
 	{
 		if(bdpv == "NULL") return;
-		fprintf(mFile,"setAttr \".bdps[%i].bdpe[%i].bdpv\" -type \"string\" ",bdps_i,bdpe_i);
+		fprintf(mFile,"\tsetAttr \".bdps[%i].bdpe[%i].bdpv\" -type \"string\" ",bdps_i,bdpe_i);
 		bdpv.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBdUserInfo(size_t bdui_i,const BdUserInfo& bdui)
 	{
-		fprintf(mFile,"setAttr \".bdui[%i]\" ",bdui_i);
+		fprintf(mFile,"\tsetAttr \".bdui[%i]\" ",bdui_i);
 		bdui.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -108,7 +109,7 @@ public:
 	void setBdUserInfoName(size_t bdui_i,const string& bdun)
 	{
 		if(bdun == "NULL") return;
-		fprintf(mFile,"setAttr \".bdui[%i].bdun\" -type \"string\" ",bdui_i);
+		fprintf(mFile,"\tsetAttr \".bdui[%i].bdun\" -type \"string\" ",bdui_i);
 		bdun.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -116,13 +117,14 @@ public:
 	void setBdUserInfoValue(size_t bdui_i,const string& bduv)
 	{
 		if(bduv == "NULL") return;
-		fprintf(mFile,"setAttr \".bdui[%i].bduv\" -type \"string\" ",bdui_i);
+		fprintf(mFile,"\tsetAttr \".bdui[%i].bduv\" -type \"string\" ",bdui_i);
 		bduv.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 protected:
-	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	BlindDataTemplate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

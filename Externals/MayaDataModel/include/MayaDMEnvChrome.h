@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class EnvChrome : public TextureEnv
 {
 public:
 public:
+	EnvChrome():TextureEnv(){}
 	EnvChrome(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envChrome"){}
 	virtual ~EnvChrome(){}
 	void setSkyColor(const float3& sc)
 	{
 		if(sc == float3(0.784f,0.784f,1.0f)) return;
-		fprintf(mFile,"setAttr \".sc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sc\" -type \"float3\" ");
 		sc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setSkyColorR(float scr)
 	{
 		if(scr == 0.0) return;
-		fprintf(mFile,"setAttr \".sc.scr\" %f;\n", scr);
+		fprintf(mFile,"\tsetAttr \".sc.scr\" %f;\n", scr);
 
 	}
 	void setSkyColorG(float scg)
 	{
 		if(scg == 0.0) return;
-		fprintf(mFile,"setAttr \".sc.scg\" %f;\n", scg);
+		fprintf(mFile,"\tsetAttr \".sc.scg\" %f;\n", scg);
 
 	}
 	void setSkyColorB(float scb)
 	{
 		if(scb == 0.0) return;
-		fprintf(mFile,"setAttr \".sc.scb\" %f;\n", scb);
+		fprintf(mFile,"\tsetAttr \".sc.scb\" %f;\n", scb);
 
 	}
 	void setZenithColor(const float3& zc)
 	{
 		if(zc == float3(0.392f,0.392f,1.0f)) return;
-		fprintf(mFile,"setAttr \".zc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".zc\" -type \"float3\" ");
 		zc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setZenithColorR(float zcr)
 	{
 		if(zcr == 0.0) return;
-		fprintf(mFile,"setAttr \".zc.zcr\" %f;\n", zcr);
+		fprintf(mFile,"\tsetAttr \".zc.zcr\" %f;\n", zcr);
 
 	}
 	void setZenithColorG(float zcg)
 	{
 		if(zcg == 0.0) return;
-		fprintf(mFile,"setAttr \".zc.zcg\" %f;\n", zcg);
+		fprintf(mFile,"\tsetAttr \".zc.zcg\" %f;\n", zcg);
 
 	}
 	void setZenithColorB(float zcb)
 	{
 		if(zcb == 0.0) return;
-		fprintf(mFile,"setAttr \".zc.zcb\" %f;\n", zcb);
+		fprintf(mFile,"\tsetAttr \".zc.zcb\" %f;\n", zcb);
 
 	}
 	void setLightColor(const float3& lc)
 	{
 		if(lc == float3(0.784f,0.784f,1.0f)) return;
-		fprintf(mFile,"setAttr \".lc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".lc\" -type \"float3\" ");
 		lc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,67 +84,67 @@ public:
 	void setLightColorR(float lcr)
 	{
 		if(lcr == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lcr\" %f;\n", lcr);
+		fprintf(mFile,"\tsetAttr \".lc.lcr\" %f;\n", lcr);
 
 	}
 	void setLightColorG(float lcg)
 	{
 		if(lcg == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lcg\" %f;\n", lcg);
+		fprintf(mFile,"\tsetAttr \".lc.lcg\" %f;\n", lcg);
 
 	}
 	void setLightColorB(float lcb)
 	{
 		if(lcb == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lcb\" %f;\n", lcb);
+		fprintf(mFile,"\tsetAttr \".lc.lcb\" %f;\n", lcb);
 
 	}
 	void setLightWidth(float lw)
 	{
 		if(lw == 0.5) return;
-		fprintf(mFile,"setAttr \".lw\" %f;\n", lw);
+		fprintf(mFile,"\tsetAttr \".lw\" %f;\n", lw);
 
 	}
 	void setLightWidthGain(float lwg)
 	{
 		if(lwg == 1.0) return;
-		fprintf(mFile,"setAttr \".lwg\" %f;\n", lwg);
+		fprintf(mFile,"\tsetAttr \".lwg\" %f;\n", lwg);
 
 	}
 	void setLightWidthOffset(float lwo)
 	{
 		if(lwo == 0.0) return;
-		fprintf(mFile,"setAttr \".lwo\" %f;\n", lwo);
+		fprintf(mFile,"\tsetAttr \".lwo\" %f;\n", lwo);
 
 	}
 	void setLightDepth(float ld)
 	{
 		if(ld == 0.1) return;
-		fprintf(mFile,"setAttr \".ld\" %f;\n", ld);
+		fprintf(mFile,"\tsetAttr \".ld\" %f;\n", ld);
 
 	}
 	void setLightDepthGain(float ldg)
 	{
 		if(ldg == 1.0) return;
-		fprintf(mFile,"setAttr \".ldg\" %f;\n", ldg);
+		fprintf(mFile,"\tsetAttr \".ldg\" %f;\n", ldg);
 
 	}
 	void setLightDepthOffset(float ldo)
 	{
 		if(ldo == 0.0) return;
-		fprintf(mFile,"setAttr \".ldo\" %f;\n", ldo);
+		fprintf(mFile,"\tsetAttr \".ldo\" %f;\n", ldo);
 
 	}
 	void setRealFloor(bool rf)
 	{
 		if(rf == true) return;
-		fprintf(mFile,"setAttr \".rf\" %i;\n", rf);
+		fprintf(mFile,"\tsetAttr \".rf\" %i;\n", rf);
 
 	}
 	void setFloorColor(const float3& fc)
 	{
 		if(fc == float3(0.588f,0.588f,0.784f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -151,31 +152,31 @@ public:
 	void setFloorColorR(float fcr)
 	{
 		if(fcr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFloorColorG(float fcg)
 	{
 		if(fcg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFloorColorB(float fcb)
 	{
 		if(fcb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setFloorAltitude(float fa)
 	{
 		if(fa == -1.0) return;
-		fprintf(mFile,"setAttr \".fa\" %f;\n", fa);
+		fprintf(mFile,"\tsetAttr \".fa\" %f;\n", fa);
 
 	}
 	void setHorizonColor(const float3& hc)
 	{
 		if(hc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".hc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".hc\" -type \"float3\" ");
 		hc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -183,25 +184,25 @@ public:
 	void setHorizonColorR(float hcr)
 	{
 		if(hcr == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hcr\" %f;\n", hcr);
+		fprintf(mFile,"\tsetAttr \".hc.hcr\" %f;\n", hcr);
 
 	}
 	void setHorizonColorG(float hcg)
 	{
 		if(hcg == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hcg\" %f;\n", hcg);
+		fprintf(mFile,"\tsetAttr \".hc.hcg\" %f;\n", hcg);
 
 	}
 	void setHorizonColorB(float hcb)
 	{
 		if(hcb == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hcb\" %f;\n", hcb);
+		fprintf(mFile,"\tsetAttr \".hc.hcb\" %f;\n", hcb);
 
 	}
 	void setGridColor(const float3& gc)
 	{
 		if(gc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".gc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".gc\" -type \"float3\" ");
 		gc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -209,55 +210,55 @@ public:
 	void setGridColorR(float gcr)
 	{
 		if(gcr == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcr\" %f;\n", gcr);
+		fprintf(mFile,"\tsetAttr \".gc.gcr\" %f;\n", gcr);
 
 	}
 	void setGridColorG(float gcg)
 	{
 		if(gcg == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcg\" %f;\n", gcg);
+		fprintf(mFile,"\tsetAttr \".gc.gcg\" %f;\n", gcg);
 
 	}
 	void setGridColorB(float gcb)
 	{
 		if(gcb == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcb\" %f;\n", gcb);
+		fprintf(mFile,"\tsetAttr \".gc.gcb\" %f;\n", gcb);
 
 	}
 	void setGridWidth(float gw)
 	{
 		if(gw == 0.1) return;
-		fprintf(mFile,"setAttr \".gw\" %f;\n", gw);
+		fprintf(mFile,"\tsetAttr \".gw\" %f;\n", gw);
 
 	}
 	void setGridWidthGain(float gwg)
 	{
 		if(gwg == 1.0) return;
-		fprintf(mFile,"setAttr \".gwg\" %f;\n", gwg);
+		fprintf(mFile,"\tsetAttr \".gwg\" %f;\n", gwg);
 
 	}
 	void setGridWidthOffset(float gwo)
 	{
 		if(gwo == 0.0) return;
-		fprintf(mFile,"setAttr \".gwo\" %f;\n", gwo);
+		fprintf(mFile,"\tsetAttr \".gwo\" %f;\n", gwo);
 
 	}
 	void setGridDepth(float gd)
 	{
 		if(gd == 0.1) return;
-		fprintf(mFile,"setAttr \".gd\" %f;\n", gd);
+		fprintf(mFile,"\tsetAttr \".gd\" %f;\n", gd);
 
 	}
 	void setGridDepthGain(float gdg)
 	{
 		if(gdg == 1.0) return;
-		fprintf(mFile,"setAttr \".gdg\" %f;\n", gdg);
+		fprintf(mFile,"\tsetAttr \".gdg\" %f;\n", gdg);
 
 	}
 	void setGridDepthOffset(float gdo)
 	{
 		if(gdo == 0.0) return;
-		fprintf(mFile,"setAttr \".gdo\" %f;\n", gdo);
+		fprintf(mFile,"\tsetAttr \".gdo\" %f;\n", gdo);
 
 	}
 	void getPointCamera()
@@ -471,7 +472,8 @@ public:
 
 	}
 protected:
-	EnvChrome(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):TextureEnv(file, name, parent, nodeType) {}
+	EnvChrome(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:TextureEnv(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

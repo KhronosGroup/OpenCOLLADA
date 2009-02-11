@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class MakeTextCurves : public AbstractBaseCreate
 {
 public:
 public:
+	MakeTextCurves():AbstractBaseCreate(){}
 	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeTextCurves"){}
 	virtual ~MakeTextCurves(){}
 	void setText(const string& t)
 	{
 		if(t == "Maya") return;
-		fprintf(mFile,"setAttr \".t\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"string\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setFont(const string& f)
 	{
 		if(f == "Times-Roman") return;
-		fprintf(mFile,"setAttr \".f\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".f\" -type \"string\" ");
 		f.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -77,7 +78,8 @@ public:
 
 	}
 protected:
-	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeTextCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class TextureBakeSet : public BakeSet
 {
 public:
 public:
+	TextureBakeSet():BakeSet(){}
 	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent=""):BakeSet(file, name, parent, "textureBakeSet"){}
 	virtual ~TextureBakeSet(){}
 	void setSeparation(unsigned int sep)
 	{
 		if(sep == 0) return;
-		fprintf(mFile,"setAttr \".sep\" %i;\n", sep);
+		fprintf(mFile,"\tsetAttr \".sep\" %i;\n", sep);
 
 	}
 	void setXResolution(int xres)
 	{
 		if(xres == 512) return;
-		fprintf(mFile,"setAttr \".xres\" %i;\n", xres);
+		fprintf(mFile,"\tsetAttr \".xres\" %i;\n", xres);
 
 	}
 	void setYResolution(int yres)
 	{
 		if(yres == 512) return;
-		fprintf(mFile,"setAttr \".yres\" %i;\n", yres);
+		fprintf(mFile,"\tsetAttr \".yres\" %i;\n", yres);
 
 	}
 	void setFileFormat(unsigned int format)
 	{
 		if(format == 0) return;
-		fprintf(mFile,"setAttr \".format\" %i;\n", format);
+		fprintf(mFile,"\tsetAttr \".format\" %i;\n", format);
 
 	}
 	void setBitsPerChannel(unsigned int bits)
 	{
 		if(bits == 0) return;
-		fprintf(mFile,"setAttr \".bits\" %i;\n", bits);
+		fprintf(mFile,"\tsetAttr \".bits\" %i;\n", bits);
 
 	}
 	void setOverrideUvSet(bool overrideuv)
 	{
 		if(overrideuv == 0) return;
-		fprintf(mFile,"setAttr \".overrideuv\" %i;\n", overrideuv);
+		fprintf(mFile,"\tsetAttr \".overrideuv\" %i;\n", overrideuv);
 
 	}
 	void setUvSetName(const string& set)
 	{
 		if(set == "uvSet1") return;
-		fprintf(mFile,"setAttr \".set\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".set\" -type \"string\" ");
 		set.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -67,43 +68,43 @@ public:
 	void setUvRange(unsigned int range)
 	{
 		if(range == 0) return;
-		fprintf(mFile,"setAttr \".range\" %i;\n", range);
+		fprintf(mFile,"\tsetAttr \".range\" %i;\n", range);
 
 	}
 	void setUMin(float ul)
 	{
 		if(ul == 1.0) return;
-		fprintf(mFile,"setAttr \".ul\" %f;\n", ul);
+		fprintf(mFile,"\tsetAttr \".ul\" %f;\n", ul);
 
 	}
 	void setUMax(float uh)
 	{
 		if(uh == 1.0) return;
-		fprintf(mFile,"setAttr \".uh\" %f;\n", uh);
+		fprintf(mFile,"\tsetAttr \".uh\" %f;\n", uh);
 
 	}
 	void setVMin(float vl)
 	{
 		if(vl == 1.0) return;
-		fprintf(mFile,"setAttr \".vl\" %f;\n", vl);
+		fprintf(mFile,"\tsetAttr \".vl\" %f;\n", vl);
 
 	}
 	void setVMax(float vh)
 	{
 		if(vh == 1.0) return;
-		fprintf(mFile,"setAttr \".vh\" %f;\n", vh);
+		fprintf(mFile,"\tsetAttr \".vh\" %f;\n", vh);
 
 	}
 	void setBackgroundMode(unsigned int bmode)
 	{
 		if(bmode == 0) return;
-		fprintf(mFile,"setAttr \".bmode\" %i;\n", bmode);
+		fprintf(mFile,"\tsetAttr \".bmode\" %i;\n", bmode);
 
 	}
 	void setBackgroundColor(const float3& bgc)
 	{
 		if(bgc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".bgc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".bgc\" -type \"float3\" ");
 		bgc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -111,49 +112,49 @@ public:
 	void setBackgroundColorR(float bgr)
 	{
 		if(bgr == 0.0) return;
-		fprintf(mFile,"setAttr \".bgc.bgr\" %f;\n", bgr);
+		fprintf(mFile,"\tsetAttr \".bgc.bgr\" %f;\n", bgr);
 
 	}
 	void setBackgroundColorG(float bgg)
 	{
 		if(bgg == 0.0) return;
-		fprintf(mFile,"setAttr \".bgc.bgg\" %f;\n", bgg);
+		fprintf(mFile,"\tsetAttr \".bgc.bgg\" %f;\n", bgg);
 
 	}
 	void setBackgroundColorB(float bgb)
 	{
 		if(bgb == 0.0) return;
-		fprintf(mFile,"setAttr \".bgc.bgb\" %f;\n", bgb);
+		fprintf(mFile,"\tsetAttr \".bgc.bgb\" %f;\n", bgb);
 
 	}
 	void setFillTextureSeams(float fillseams)
 	{
 		if(fillseams == 1.0) return;
-		fprintf(mFile,"setAttr \".fillseams\" %f;\n", fillseams);
+		fprintf(mFile,"\tsetAttr \".fillseams\" %f;\n", fillseams);
 
 	}
 	void setFinalGatherQuality(float fgq)
 	{
 		if(fgq == 1) return;
-		fprintf(mFile,"setAttr \".fgq\" %f;\n", fgq);
+		fprintf(mFile,"\tsetAttr \".fgq\" %f;\n", fgq);
 
 	}
 	void setFinalGatherReflect(float fgr)
 	{
 		if(fgr == 0) return;
-		fprintf(mFile,"setAttr \".fgr\" %f;\n", fgr);
+		fprintf(mFile,"\tsetAttr \".fgr\" %f;\n", fgr);
 
 	}
 	void setBakeToOneMap(bool one)
 	{
 		if(one == 0) return;
-		fprintf(mFile,"setAttr \".one\" %i;\n", one);
+		fprintf(mFile,"\tsetAttr \".one\" %i;\n", one);
 
 	}
 	void setSamples(int nsp)
 	{
 		if(nsp == 1) return;
-		fprintf(mFile,"setAttr \".nsp\" %i;\n", nsp);
+		fprintf(mFile,"\tsetAttr \".nsp\" %i;\n", nsp);
 
 	}
 	void getSeparation()
@@ -277,7 +278,8 @@ public:
 
 	}
 protected:
-	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BakeSet(file, name, parent, nodeType) {}
+	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BakeSet(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

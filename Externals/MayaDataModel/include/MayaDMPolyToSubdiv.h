@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -30,11 +30,12 @@ public:
 		}
 	};
 public:
+	PolyToSubdiv():DependNode(){}
 	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "polyToSubdiv"){}
 	virtual ~PolyToSubdiv(){}
 	void setInMesh(const mesh& i_)
 	{
-		fprintf(mFile,"setAttr \".i\" -type \"mesh\" ");
+		fprintf(mFile,"\tsetAttr \".i\" -type \"mesh\" ");
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -42,50 +43,50 @@ public:
 	void setMaxPolyCount(int mpc)
 	{
 		if(mpc == 1000) return;
-		fprintf(mFile,"setAttr \".mpc\" %i;\n", mpc);
+		fprintf(mFile,"\tsetAttr \".mpc\" %i;\n", mpc);
 
 	}
 	void setMaxEdgesPerVert(int me)
 	{
 		if(me == 32) return;
-		fprintf(mFile,"setAttr \".me\" %i;\n", me);
+		fprintf(mFile,"\tsetAttr \".me\" %i;\n", me);
 
 	}
 	void setApplyMatrixToResult(bool amr)
 	{
 		if(amr == true) return;
-		fprintf(mFile,"setAttr \".amr\" %i;\n", amr);
+		fprintf(mFile,"\tsetAttr \".amr\" %i;\n", amr);
 
 	}
 	void setAbsolutePosition(bool ap)
 	{
 		if(ap == false) return;
-		fprintf(mFile,"setAttr \".ap\" %i;\n", ap);
+		fprintf(mFile,"\tsetAttr \".ap\" %i;\n", ap);
 
 	}
 	void setUvTreatment(unsigned int uvt)
 	{
 		if(uvt == 0) return;
-		fprintf(mFile,"setAttr \".uvt\" %i;\n", uvt);
+		fprintf(mFile,"\tsetAttr \".uvt\" %i;\n", uvt);
 
 	}
 	void setCachedUVs(size_t cuv_i,const CachedUVs& cuv)
 	{
-		fprintf(mFile,"setAttr \".cuv[%i]\" ",cuv_i);
+		fprintf(mFile,"\tsetAttr \".cuv[%i]\" ",cuv_i);
 		cuv.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setUvPoints(size_t cuv_i,size_t uvp_i,const float2& uvp)
 	{
-		fprintf(mFile,"setAttr \".cuv[%i].uvp[%i]\" -type \"float2\" ",cuv_i,uvp_i);
+		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i]\" -type \"float2\" ",cuv_i,uvp_i);
 		uvp.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setUvPoints(size_t cuv_i,size_t uvp_start,size_t uvp_end,float* uvp)
 	{
-		fprintf(mFile,"setAttr \".cuv[%i].uvp[%i:%i]\" ", cuv_i,uvp_start,uvp_end);
+		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i:%i]\" ", cuv_i,uvp_start,uvp_end);
 		size_t size = (uvp_end-uvp_start)*2+2;
 		for(size_t i=0;i<size;++i)
 		{
@@ -97,7 +98,7 @@ public:
 	}
 	void startUvPoints(size_t cuv_i,size_t uvp_start,size_t uvp_end)
 	{
-		fprintf(mFile,"setAttr \".cuv[%i].uvp[%i:%i]\"",cuv_i,uvp_start,uvp_end);
+		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i:%i]\"",cuv_i,uvp_start,uvp_end);
 
 	}
 	void appendUvPoints(float uvp)
@@ -113,25 +114,30 @@ public:
 	void setUvPointsU(size_t cuv_i,size_t uvp_i,float uvu)
 	{
 		if(uvu == 0.0) return;
-		fprintf(mFile,"setAttr \".cuv[%i].uvp[%i].uvu\" %f;\n", cuv_i,uvp_i,uvu);
+		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i].uvu\" %f;\n", cuv_i,uvp_i,uvu);
 
 	}
 	void setUvPointsV(size_t cuv_i,size_t uvp_i,float uvv)
 	{
 		if(uvv == 0.0) return;
-		fprintf(mFile,"setAttr \".cuv[%i].uvp[%i].uvv\" %f;\n", cuv_i,uvp_i,uvv);
+		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i].uvv\" %f;\n", cuv_i,uvp_i,uvv);
 
 	}
 	void setPreserveVertexOrdering(bool pvo)
 	{
 		if(pvo == true) return;
-		fprintf(mFile,"setAttr \".pvo\" %i;\n", pvo);
+		fprintf(mFile,"\tsetAttr \".pvo\" %i;\n", pvo);
 
 	}
 	void setQuickConvert(bool qc)
 	{
 		if(qc == true) return;
-		fprintf(mFile,"setAttr \".qc\" %i;\n", qc);
+		fprintf(mFile,"\tsetAttr \".qc\" %i;\n", qc);
+
+	}
+	void getInMesh()
+	{
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
 	void getOutSubdiv()
@@ -195,7 +201,8 @@ public:
 
 	}
 protected:
-	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

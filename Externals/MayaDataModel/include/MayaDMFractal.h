@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,72 +18,73 @@ class Fractal : public Texture2d
 {
 public:
 public:
+	Fractal():Texture2d(){}
 	Fractal(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "fractal"){}
 	virtual ~Fractal(){}
 	void setAmplitude(float a)
 	{
 		if(a == 1.0) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.707) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.0) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setLevelMin(float lmn)
 	{
 		if(lmn == 0.0) return;
-		fprintf(mFile,"setAttr \".lmn\" %f;\n", lmn);
+		fprintf(mFile,"\tsetAttr \".lmn\" %f;\n", lmn);
 
 	}
 	void setLevelMax(float lmx)
 	{
 		if(lmx == 9.0) return;
-		fprintf(mFile,"setAttr \".lmx\" %f;\n", lmx);
+		fprintf(mFile,"\tsetAttr \".lmx\" %f;\n", lmx);
 
 	}
 	void setFrequencyRatio(float fr)
 	{
 		if(fr == 2.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setBias(float bs)
 	{
 		if(bs == 0.0) return;
-		fprintf(mFile,"setAttr \".bs\" %f;\n", bs);
+		fprintf(mFile,"\tsetAttr \".bs\" %f;\n", bs);
 
 	}
 	void setInflection(bool in)
 	{
 		if(in == false) return;
-		fprintf(mFile,"setAttr \".in\" %i;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %i;\n", in);
 
 	}
 	void setAnimated(bool an)
 	{
 		if(an == false) return;
-		fprintf(mFile,"setAttr \".an\" %i;\n", an);
+		fprintf(mFile,"\tsetAttr \".an\" %i;\n", an);
 
 	}
 	void setTimeRatio(float tr)
 	{
 		if(tr == 2.0) return;
-		fprintf(mFile,"setAttr \".tr\" %f;\n", tr);
+		fprintf(mFile,"\tsetAttr \".tr\" %f;\n", tr);
 
 	}
 	void setTime(float ti)
 	{
 		if(ti == 0.0) return;
-		fprintf(mFile,"setAttr \".ti\" %f;\n", ti);
+		fprintf(mFile,"\tsetAttr \".ti\" %f;\n", ti);
 
 	}
 	void getAmplitude()
@@ -142,7 +143,8 @@ public:
 
 	}
 protected:
-	Fractal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Fractal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

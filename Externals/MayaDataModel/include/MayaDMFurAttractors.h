@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -54,204 +54,205 @@ public:
 	struct ThresholdLengthMapVSamples{
 	};
 public:
+	FurAttractors():DependNode(){}
 	FurAttractors(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurAttractors"){}
 	virtual ~FurAttractors(){}
 	void setAttractorModel(unsigned int amd)
 	{
 		if(amd == 0) return;
-		fprintf(mFile,"setAttr \".amd\" %i;\n", amd);
+		fprintf(mFile,"\tsetAttr \".amd\" %i;\n", amd);
 
 	}
 	void setAttractorsPerHair(int aph)
 	{
 		if(aph == 1) return;
-		fprintf(mFile,"setAttr \".aph\" %i;\n", aph);
+		fprintf(mFile,"\tsetAttr \".aph\" %i;\n", aph);
 
 	}
 	void setGlobalScale(float gs)
 	{
 		if(gs == 1.0) return;
-		fprintf(mFile,"setAttr \".gs\" %f;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %f;\n", gs);
 
 	}
 	void setRadius(double rd)
 	{
 		if(rd == 1) return;
-		fprintf(mFile,"setAttr \".rd\" %f;\n", rd);
+		fprintf(mFile,"\tsetAttr \".rd\" %f;\n", rd);
 
 	}
 	void setRadiusMapOffset(double rmo)
 	{
 		if(rmo == 0) return;
-		fprintf(mFile,"setAttr \".rmo\" %f;\n", rmo);
+		fprintf(mFile,"\tsetAttr \".rmo\" %f;\n", rmo);
 
 	}
 	void setRadiusMapMult(double rmm)
 	{
 		if(rmm == 1) return;
-		fprintf(mFile,"setAttr \".rmm\" %f;\n", rmm);
+		fprintf(mFile,"\tsetAttr \".rmm\" %f;\n", rmm);
 
 	}
 	void setRadiusNoise(double rn)
 	{
 		if(rn == 0) return;
-		fprintf(mFile,"setAttr \".rn\" %f;\n", rn);
+		fprintf(mFile,"\tsetAttr \".rn\" %f;\n", rn);
 
 	}
 	void setRadiusNoiseFreq(float rnf)
 	{
 		if(rnf == 10.0) return;
-		fprintf(mFile,"setAttr \".rnf\" %f;\n", rnf);
+		fprintf(mFile,"\tsetAttr \".rnf\" %f;\n", rnf);
 
 	}
 	void setPower(float dp)
 	{
 		if(dp == 1.0) return;
-		fprintf(mFile,"setAttr \".dp\" %f;\n", dp);
+		fprintf(mFile,"\tsetAttr \".dp\" %f;\n", dp);
 
 	}
 	void setPowerMapOffset(float pmo)
 	{
 		if(pmo == 0.0) return;
-		fprintf(mFile,"setAttr \".pmo\" %f;\n", pmo);
+		fprintf(mFile,"\tsetAttr \".pmo\" %f;\n", pmo);
 
 	}
 	void setPowerMapMult(float pmm)
 	{
 		if(pmm == 1.0) return;
-		fprintf(mFile,"setAttr \".pmm\" %f;\n", pmm);
+		fprintf(mFile,"\tsetAttr \".pmm\" %f;\n", pmm);
 
 	}
 	void setPowerNoise(float pn)
 	{
 		if(pn == 0.0) return;
-		fprintf(mFile,"setAttr \".pn\" %f;\n", pn);
+		fprintf(mFile,"\tsetAttr \".pn\" %f;\n", pn);
 
 	}
 	void setPowerNoiseFreq(float pnf)
 	{
 		if(pnf == 10.0) return;
-		fprintf(mFile,"setAttr \".pnf\" %f;\n", pnf);
+		fprintf(mFile,"\tsetAttr \".pnf\" %f;\n", pnf);
 
 	}
 	void setInfluence(float di)
 	{
 		if(di == 1.0) return;
-		fprintf(mFile,"setAttr \".di\" %f;\n", di);
+		fprintf(mFile,"\tsetAttr \".di\" %f;\n", di);
 
 	}
 	void setInfluenceMapOffset(float imo)
 	{
 		if(imo == 0.0) return;
-		fprintf(mFile,"setAttr \".imo\" %f;\n", imo);
+		fprintf(mFile,"\tsetAttr \".imo\" %f;\n", imo);
 
 	}
 	void setInfluenceMapMult(float imm)
 	{
 		if(imm == 1.0) return;
-		fprintf(mFile,"setAttr \".imm\" %f;\n", imm);
+		fprintf(mFile,"\tsetAttr \".imm\" %f;\n", imm);
 
 	}
 	void setInfluenceNoise(float in)
 	{
 		if(in == 0.0) return;
-		fprintf(mFile,"setAttr \".in\" %f;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %f;\n", in);
 
 	}
 	void setInfluenceNoiseFreq(float inf)
 	{
 		if(inf == 10.0) return;
-		fprintf(mFile,"setAttr \".inf\" %f;\n", inf);
+		fprintf(mFile,"\tsetAttr \".inf\" %f;\n", inf);
 
 	}
 	void setStartLength(float dsl)
 	{
 		if(dsl == 0.0) return;
-		fprintf(mFile,"setAttr \".dsl\" %f;\n", dsl);
+		fprintf(mFile,"\tsetAttr \".dsl\" %f;\n", dsl);
 
 	}
 	void setStartLengthMapOffset(double slmo)
 	{
 		if(slmo == 0) return;
-		fprintf(mFile,"setAttr \".slmo\" %f;\n", slmo);
+		fprintf(mFile,"\tsetAttr \".slmo\" %f;\n", slmo);
 
 	}
 	void setStartLengthMapMult(double slmm)
 	{
 		if(slmm == 1) return;
-		fprintf(mFile,"setAttr \".slmm\" %f;\n", slmm);
+		fprintf(mFile,"\tsetAttr \".slmm\" %f;\n", slmm);
 
 	}
 	void setStartLengthNoise(double sln)
 	{
 		if(sln == 0) return;
-		fprintf(mFile,"setAttr \".sln\" %f;\n", sln);
+		fprintf(mFile,"\tsetAttr \".sln\" %f;\n", sln);
 
 	}
 	void setStartLengthNoiseFreq(float slnf)
 	{
 		if(slnf == 10.0) return;
-		fprintf(mFile,"setAttr \".slnf\" %f;\n", slnf);
+		fprintf(mFile,"\tsetAttr \".slnf\" %f;\n", slnf);
 
 	}
 	void setEndLength(float del)
 	{
 		if(del == 5.0) return;
-		fprintf(mFile,"setAttr \".del\" %f;\n", del);
+		fprintf(mFile,"\tsetAttr \".del\" %f;\n", del);
 
 	}
 	void setEndLengthMapOffset(double elmo)
 	{
 		if(elmo == 0) return;
-		fprintf(mFile,"setAttr \".elmo\" %f;\n", elmo);
+		fprintf(mFile,"\tsetAttr \".elmo\" %f;\n", elmo);
 
 	}
 	void setEndLengthMapMult(double elmm)
 	{
 		if(elmm == 1) return;
-		fprintf(mFile,"setAttr \".elmm\" %f;\n", elmm);
+		fprintf(mFile,"\tsetAttr \".elmm\" %f;\n", elmm);
 
 	}
 	void setEndLengthNoise(double eln)
 	{
 		if(eln == 0) return;
-		fprintf(mFile,"setAttr \".eln\" %f;\n", eln);
+		fprintf(mFile,"\tsetAttr \".eln\" %f;\n", eln);
 
 	}
 	void setEndLengthNoiseFreq(float elnf)
 	{
 		if(elnf == 10.0) return;
-		fprintf(mFile,"setAttr \".elnf\" %f;\n", elnf);
+		fprintf(mFile,"\tsetAttr \".elnf\" %f;\n", elnf);
 
 	}
 	void setThresholdLength(float dtl)
 	{
 		if(dtl == 0.33) return;
-		fprintf(mFile,"setAttr \".dtl\" %f;\n", dtl);
+		fprintf(mFile,"\tsetAttr \".dtl\" %f;\n", dtl);
 
 	}
 	void setThresholdLengthMapOffset(double tlmo)
 	{
 		if(tlmo == 0) return;
-		fprintf(mFile,"setAttr \".tlmo\" %f;\n", tlmo);
+		fprintf(mFile,"\tsetAttr \".tlmo\" %f;\n", tlmo);
 
 	}
 	void setThresholdLengthMapMult(double tlmm)
 	{
 		if(tlmm == 1) return;
-		fprintf(mFile,"setAttr \".tlmm\" %f;\n", tlmm);
+		fprintf(mFile,"\tsetAttr \".tlmm\" %f;\n", tlmm);
 
 	}
 	void setThresholdLengthNoise(double tln)
 	{
 		if(tln == 0) return;
-		fprintf(mFile,"setAttr \".tln\" %f;\n", tln);
+		fprintf(mFile,"\tsetAttr \".tln\" %f;\n", tln);
 
 	}
 	void setThresholdLengthNoiseFreq(float tlnf)
 	{
 		if(tlnf == 10.0) return;
-		fprintf(mFile,"setAttr \".tlnf\" %f;\n", tlnf);
+		fprintf(mFile,"\tsetAttr \".tlnf\" %f;\n", tlnf);
 
 	}
 	void getAttractorModel()
@@ -259,9 +260,29 @@ public:
 		fprintf(mFile,"\"%s.amd\"",mName.c_str());
 
 	}
+	void getDagSetMembers()
+	{
+		fprintf(mFile,"\"%s.dsm\"",mName.c_str());
+
+	}
+	void getAttractors()
+	{
+		fprintf(mFile,"\"%s.att\"",mName.c_str());
+
+	}
+	void getFurGlobals()
+	{
+		fprintf(mFile,"\"%s.fgc\"",mName.c_str());
+
+	}
 	void getRadius()
 	{
 		fprintf(mFile,"\"%s.rd\"",mName.c_str());
+
+	}
+	void getRadiusMap()
+	{
+		fprintf(mFile,"\"%s.rm\"",mName.c_str());
 
 	}
 	void getRadiusMapUSamples()
@@ -294,6 +315,11 @@ public:
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
+	void getPowerMap()
+	{
+		fprintf(mFile,"\"%s.pm\"",mName.c_str());
+
+	}
 	void getPowerMapUSamples()
 	{
 		fprintf(mFile,"\"%s.pmus\"",mName.c_str());
@@ -322,6 +348,11 @@ public:
 	void getInfluence()
 	{
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
+
+	}
+	void getInfluenceMap()
+	{
+		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
 	void getInfluenceMapUSamples()
@@ -354,6 +385,11 @@ public:
 		fprintf(mFile,"\"%s.dsl\"",mName.c_str());
 
 	}
+	void getStartLengthMap()
+	{
+		fprintf(mFile,"\"%s.slm\"",mName.c_str());
+
+	}
 	void getStartLengthMapUSamples()
 	{
 		fprintf(mFile,"\"%s.slmus\"",mName.c_str());
@@ -382,6 +418,11 @@ public:
 	void getEndLength()
 	{
 		fprintf(mFile,"\"%s.del\"",mName.c_str());
+
+	}
+	void getEndLengthMap()
+	{
+		fprintf(mFile,"\"%s.elm\"",mName.c_str());
 
 	}
 	void getEndLengthMapUSamples()
@@ -414,6 +455,11 @@ public:
 		fprintf(mFile,"\"%s.dtl\"",mName.c_str());
 
 	}
+	void getThresholdLengthMap()
+	{
+		fprintf(mFile,"\"%s.tlm\"",mName.c_str());
+
+	}
 	void getThresholdLengthMapUSamples()
 	{
 		fprintf(mFile,"\"%s.tlmus\"",mName.c_str());
@@ -440,7 +486,8 @@ public:
 
 	}
 protected:
-	FurAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	FurAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

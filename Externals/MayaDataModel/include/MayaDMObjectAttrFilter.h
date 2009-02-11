@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class ObjectAttrFilter : public ObjectFilter
 {
 public:
 public:
+	ObjectAttrFilter():ObjectFilter(){}
 	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectAttrFilter"){}
 	virtual ~ObjectAttrFilter(){}
 	void setAttrType(unsigned int atyp)
 	{
 		if(atyp == 1) return;
-		fprintf(mFile,"setAttr \".atyp\" %i;\n", atyp);
+		fprintf(mFile,"\tsetAttr \".atyp\" %i;\n", atyp);
 
 	}
 	void getAttrType()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectFilter(file, name, parent, nodeType) {}
+	ObjectAttrFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

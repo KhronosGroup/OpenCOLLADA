@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolySewEdge : public PolyModifierWorld
 {
 public:
 public:
+	PolySewEdge():PolyModifierWorld(){}
 	PolySewEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polySewEdge"){}
 	virtual ~PolySewEdge(){}
 	void setTolerance(double t)
 	{
 		if(t == 0) return;
-		fprintf(mFile,"setAttr \".t\" %f;\n", t);
+		fprintf(mFile,"\tsetAttr \".t\" %f;\n", t);
 
 	}
 	void setTexture(bool tx)
 	{
 		if(tx == true) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void getTolerance()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	PolySewEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolySewEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

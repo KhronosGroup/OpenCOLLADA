@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -37,6 +37,9 @@ public:
 		}* objectGroups;
 		void write(FILE* file) const
 		{
+            size_t size1 = sizeof(objectGroups);
+            size_t size2 = sizeof(ObjectGroups);
+
 			size_t size = sizeof(objectGroups)/sizeof(ObjectGroups);
 			for(size_t i=0; i<size; ++i)
 			{
@@ -100,49 +103,50 @@ public:
 		}
 	};
 public:
+	DagNode():Entity(){}
 	DagNode(FILE* file,const std::string& name,const std::string& parent=""):Entity(file, name, parent, "dagNode"){}
 	virtual ~DagNode(){}
 	void setVisibility(bool v)
 	{
 		if(v == true) return;
-		fprintf(mFile,"setAttr \".v\" %i;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %i;\n", v);
 
 	}
 	void setIntermediateObject(bool io)
 	{
 		if(io == false) return;
-		fprintf(mFile,"setAttr \".io\" %i;\n", io);
+		fprintf(mFile,"\tsetAttr \".io\" %i;\n", io);
 
 	}
 	void setTemplate(bool tmp)
 	{
 		if(tmp == false) return;
-		fprintf(mFile,"setAttr \".tmp\" %i;\n", tmp);
+		fprintf(mFile,"\tsetAttr \".tmp\" %i;\n", tmp);
 
 	}
 	void setGhosting(bool gh)
 	{
 		if(gh == false) return;
-		fprintf(mFile,"setAttr \".gh\" %i;\n", gh);
+		fprintf(mFile,"\tsetAttr \".gh\" %i;\n", gh);
 
 	}
 	void setInstObjGroups(size_t iog_i,const InstObjGroups& iog)
 	{
-		fprintf(mFile,"setAttr \".iog[%i]\" ",iog_i);
+		fprintf(mFile,"\tsetAttr \".iog[%i]\" ",iog_i);
 		iog.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setObjectGroups(size_t iog_i,size_t og_i,const InstObjGroups::ObjectGroups& og)
 	{
-		fprintf(mFile,"setAttr \".iog[%i].og[%i]\" ",iog_i,og_i);
+		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i]\" ",iog_i,og_i);
 		og.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setObjectGrpCompList(size_t iog_i,size_t og_i,const componentList& gcl)
 	{
-		fprintf(mFile,"setAttr \".iog[%i].og[%i].gcl\" -type \"componentList\" ",iog_i,og_i);
+		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i].gcl\" -type \"componentList\" ",iog_i,og_i);
 		gcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -150,30 +154,30 @@ public:
 	void setObjectGroupId(size_t iog_i,size_t og_i,int gid)
 	{
 		if(gid == 0) return;
-		fprintf(mFile,"setAttr \".iog[%i].og[%i].gid\" %i;\n", iog_i,og_i,gid);
+		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i].gid\" %i;\n", iog_i,og_i,gid);
 
 	}
 	void setObjectGrpColor(size_t iog_i,size_t og_i,short gco)
 	{
 		if(gco == -1) return;
-		fprintf(mFile,"setAttr \".iog[%i].og[%i].gco\" %i;\n", iog_i,og_i,gco);
+		fprintf(mFile,"\tsetAttr \".iog[%i].og[%i].gco\" %i;\n", iog_i,og_i,gco);
 
 	}
 	void setUseObjectColor(bool uoc)
 	{
 		if(uoc == false) return;
-		fprintf(mFile,"setAttr \".uoc\" %i;\n", uoc);
+		fprintf(mFile,"\tsetAttr \".uoc\" %i;\n", uoc);
 
 	}
 	void setObjectColor(short oc)
 	{
 		if(oc == 0) return;
-		fprintf(mFile,"setAttr \".oc\" %i;\n", oc);
+		fprintf(mFile,"\tsetAttr \".oc\" %i;\n", oc);
 
 	}
 	void setDrawOverride(const DrawOverride& do_)
 	{
-		fprintf(mFile,"setAttr \".do\" ");
+		fprintf(mFile,"\tsetAttr \".do\" ");
 		do_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -181,60 +185,60 @@ public:
 	void setOverrideDisplayType(unsigned int ovdt)
 	{
 		if(ovdt == 0) return;
-		fprintf(mFile,"setAttr \".do.ovdt\" %i;\n", ovdt);
+		fprintf(mFile,"\tsetAttr \".do.ovdt\" %i;\n", ovdt);
 
 	}
 	void setOverrideLevelOfDetail(unsigned int ovlod)
 	{
 		if(ovlod == 0) return;
-		fprintf(mFile,"setAttr \".do.ovlod\" %i;\n", ovlod);
+		fprintf(mFile,"\tsetAttr \".do.ovlod\" %i;\n", ovlod);
 
 	}
 	void setOverrideShading(bool ovs)
 	{
 		if(ovs == true) return;
-		fprintf(mFile,"setAttr \".do.ovs\" %i;\n", ovs);
+		fprintf(mFile,"\tsetAttr \".do.ovs\" %i;\n", ovs);
 
 	}
 	void setOverrideTexturing(bool ovt)
 	{
 		if(ovt == true) return;
-		fprintf(mFile,"setAttr \".do.ovt\" %i;\n", ovt);
+		fprintf(mFile,"\tsetAttr \".do.ovt\" %i;\n", ovt);
 
 	}
 	void setOverridePlayback(bool ovp)
 	{
 		if(ovp == true) return;
-		fprintf(mFile,"setAttr \".do.ovp\" %i;\n", ovp);
+		fprintf(mFile,"\tsetAttr \".do.ovp\" %i;\n", ovp);
 
 	}
 	void setOverrideEnabled(bool ove)
 	{
 		if(ove == false) return;
-		fprintf(mFile,"setAttr \".do.ove\" %i;\n", ove);
+		fprintf(mFile,"\tsetAttr \".do.ove\" %i;\n", ove);
 
 	}
 	void setOverrideVisibility(bool ovv)
 	{
 		if(ovv == true) return;
-		fprintf(mFile,"setAttr \".do.ovv\" %i;\n", ovv);
+		fprintf(mFile,"\tsetAttr \".do.ovv\" %i;\n", ovv);
 
 	}
 	void setOverrideColor(unsigned char ovc)
 	{
 		if(ovc == 0) return;
-		fprintf(mFile,"setAttr \".do.ovc\" %i;\n", ovc);
+		fprintf(mFile,"\tsetAttr \".do.ovc\" %i;\n", ovc);
 
 	}
 	void setLodVisibility(bool lodv)
 	{
 		if(lodv == true) return;
-		fprintf(mFile,"setAttr \".lodv\" %i;\n", lodv);
+		fprintf(mFile,"\tsetAttr \".lodv\" %i;\n", lodv);
 
 	}
 	void setRenderInfo(const RenderInfo& ri)
 	{
-		fprintf(mFile,"setAttr \".ri\" ");
+		fprintf(mFile,"\tsetAttr \".ri\" ");
 		ri.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -242,24 +246,24 @@ public:
 	void setIdentification(short rlid)
 	{
 		if(rlid == 0) return;
-		fprintf(mFile,"setAttr \".ri.rlid\" %i;\n", rlid);
+		fprintf(mFile,"\tsetAttr \".ri.rlid\" %i;\n", rlid);
 
 	}
 	void setLayerRenderable(bool rndr)
 	{
 		if(rndr == true) return;
-		fprintf(mFile,"setAttr \".ri.rndr\" %i;\n", rndr);
+		fprintf(mFile,"\tsetAttr \".ri.rndr\" %i;\n", rndr);
 
 	}
 	void setLayerOverrideColor(unsigned char lovc)
 	{
 		if(lovc == 0) return;
-		fprintf(mFile,"setAttr \".ri.lovc\" %i;\n", lovc);
+		fprintf(mFile,"\tsetAttr \".ri.lovc\" %i;\n", lovc);
 
 	}
 	void setRenderLayerInfo(size_t rlio_i,const RenderLayerInfo& rlio)
 	{
-		fprintf(mFile,"setAttr \".rlio[%i]\" ",rlio_i);
+		fprintf(mFile,"\tsetAttr \".rlio[%i]\" ",rlio_i);
 		rlio.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -267,30 +271,30 @@ public:
 	void setRenderLayerId(size_t rlio_i,short rli)
 	{
 		if(rli == 0) return;
-		fprintf(mFile,"setAttr \".rlio[%i].rli\" %i;\n", rlio_i,rli);
+		fprintf(mFile,"\tsetAttr \".rlio[%i].rli\" %i;\n", rlio_i,rli);
 
 	}
 	void setRenderLayerRenderable(size_t rlio_i,bool rlr)
 	{
 		if(rlr == true) return;
-		fprintf(mFile,"setAttr \".rlio[%i].rlr\" %i;\n", rlio_i,rlr);
+		fprintf(mFile,"\tsetAttr \".rlio[%i].rlr\" %i;\n", rlio_i,rlr);
 
 	}
 	void setRenderLayerColor(size_t rlio_i,unsigned char rlc)
 	{
 		if(rlc == 0) return;
-		fprintf(mFile,"setAttr \".rlio[%i].rlc\" %i;\n", rlio_i,rlc);
+		fprintf(mFile,"\tsetAttr \".rlio[%i].rlc\" %i;\n", rlio_i,rlc);
 
 	}
 	void setGhostingControl(unsigned int gc)
 	{
 		if(gc == 0) return;
-		fprintf(mFile,"setAttr \".gc\" %i;\n", gc);
+		fprintf(mFile,"\tsetAttr \".gc\" %i;\n", gc);
 
 	}
 	void setGhostCustomSteps(const GhostCustomSteps& gcs)
 	{
-		fprintf(mFile,"setAttr \".gcs\" ");
+		fprintf(mFile,"\tsetAttr \".gcs\" ");
 		gcs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -298,25 +302,25 @@ public:
 	void setGhostPreSteps(int gpr)
 	{
 		if(gpr == 3) return;
-		fprintf(mFile,"setAttr \".gcs.gpr\" %i;\n", gpr);
+		fprintf(mFile,"\tsetAttr \".gcs.gpr\" %i;\n", gpr);
 
 	}
 	void setGhostPostSteps(int gps)
 	{
 		if(gps == 3) return;
-		fprintf(mFile,"setAttr \".gcs.gps\" %i;\n", gps);
+		fprintf(mFile,"\tsetAttr \".gcs.gps\" %i;\n", gps);
 
 	}
 	void setGhostStepSize(int gss)
 	{
 		if(gss == 1) return;
-		fprintf(mFile,"setAttr \".gcs.gss\" %i;\n", gss);
+		fprintf(mFile,"\tsetAttr \".gcs.gss\" %i;\n", gss);
 
 	}
 	void setGhostFrames(const intArray& gf)
 	{
 		if(gf.size == 0) return;
-		fprintf(mFile,"setAttr \".gf\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".gf\" -type \"intArray\" ");
 		gf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -622,7 +626,8 @@ public:
 
 	}
 protected:
-	DagNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Entity(file, name, parent, nodeType) {}
+	DagNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Entity(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

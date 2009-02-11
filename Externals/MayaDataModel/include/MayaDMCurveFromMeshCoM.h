@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class CurveFromMeshCoM : public CurveFromMesh
 {
 public:
 public:
+	CurveFromMeshCoM():CurveFromMesh(){}
 	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent=""):CurveFromMesh(file, name, parent, "curveFromMeshCoM"){}
 	virtual ~CurveFromMeshCoM(){}
 	void getCurveOnMesh()
@@ -26,7 +27,8 @@ public:
 
 	}
 protected:
-	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromMesh(file, name, parent, nodeType) {}
+	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveFromMesh(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

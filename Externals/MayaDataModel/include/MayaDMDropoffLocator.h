@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class DropoffLocator : public Locator
 {
 public:
 public:
+	DropoffLocator():Locator(){}
 	DropoffLocator(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "dropoffLocator"){}
 	virtual ~DropoffLocator(){}
 	void setPercent(float pc)
 	{
 		if(pc == 1) return;
-		fprintf(mFile,"setAttr \".pc\" %f;\n", pc);
+		fprintf(mFile,"\tsetAttr \".pc\" %f;\n", pc);
 
 	}
 	void setParam(float pr)
 	{
 		if(pr == 0.0) return;
-		fprintf(mFile,"setAttr \".pr\" %f;\n", pr);
+		fprintf(mFile,"\tsetAttr \".pr\" %f;\n", pr);
 
 	}
 	void getPercent()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	DropoffLocator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Locator(file, name, parent, nodeType) {}
+	DropoffLocator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Locator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

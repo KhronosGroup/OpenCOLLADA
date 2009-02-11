@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -27,23 +27,24 @@ public:
 		}
 	};
 public:
+	Ramp():Texture2d(){}
 	Ramp(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "ramp"){}
 	virtual ~Ramp(){}
 	void setType(unsigned int t)
 	{
 		if(t == 0) return;
-		fprintf(mFile,"setAttr \".t\" %i;\n", t);
+		fprintf(mFile,"\tsetAttr \".t\" %i;\n", t);
 
 	}
 	void setInterpolation(unsigned int in)
 	{
 		if(in == 1) return;
-		fprintf(mFile,"setAttr \".in\" %i;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %i;\n", in);
 
 	}
 	void setColorEntryList(size_t cel_i,const ColorEntryList& cel)
 	{
-		fprintf(mFile,"setAttr \".cel[%i]\" ",cel_i);
+		fprintf(mFile,"\tsetAttr \".cel[%i]\" ",cel_i);
 		cel.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -51,13 +52,13 @@ public:
 	void setPosition(size_t cel_i,float ep)
 	{
 		if(ep == 0.0) return;
-		fprintf(mFile,"setAttr \".cel[%i].ep\" %f;\n", cel_i,ep);
+		fprintf(mFile,"\tsetAttr \".cel[%i].ep\" %f;\n", cel_i,ep);
 
 	}
 	void setColor(size_t cel_i,const float3& ec)
 	{
 		if(ec == float3(1.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".cel[%i].ec\" -type \"float3\" ",cel_i);
+		fprintf(mFile,"\tsetAttr \".cel[%i].ec\" -type \"float3\" ",cel_i);
 		ec.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -65,79 +66,79 @@ public:
 	void setColorR(size_t cel_i,float ecr)
 	{
 		if(ecr == 0.0) return;
-		fprintf(mFile,"setAttr \".cel[%i].ec.ecr\" %f;\n", cel_i,ecr);
+		fprintf(mFile,"\tsetAttr \".cel[%i].ec.ecr\" %f;\n", cel_i,ecr);
 
 	}
 	void setColorG(size_t cel_i,float ecg)
 	{
 		if(ecg == 0.0) return;
-		fprintf(mFile,"setAttr \".cel[%i].ec.ecg\" %f;\n", cel_i,ecg);
+		fprintf(mFile,"\tsetAttr \".cel[%i].ec.ecg\" %f;\n", cel_i,ecg);
 
 	}
 	void setColorB(size_t cel_i,float ecb)
 	{
 		if(ecb == 0.0) return;
-		fprintf(mFile,"setAttr \".cel[%i].ec.ecb\" %f;\n", cel_i,ecb);
+		fprintf(mFile,"\tsetAttr \".cel[%i].ec.ecb\" %f;\n", cel_i,ecb);
 
 	}
 	void setUWave(float uw)
 	{
 		if(uw == 0.0) return;
-		fprintf(mFile,"setAttr \".uw\" %f;\n", uw);
+		fprintf(mFile,"\tsetAttr \".uw\" %f;\n", uw);
 
 	}
 	void setVWave(float vw)
 	{
 		if(vw == 0.0) return;
-		fprintf(mFile,"setAttr \".vw\" %f;\n", vw);
+		fprintf(mFile,"\tsetAttr \".vw\" %f;\n", vw);
 
 	}
 	void setNoise(float n)
 	{
 		if(n == 0.0) return;
-		fprintf(mFile,"setAttr \".n\" %f;\n", n);
+		fprintf(mFile,"\tsetAttr \".n\" %f;\n", n);
 
 	}
 	void setNoiseFreq(float nf)
 	{
 		if(nf == 0.5) return;
-		fprintf(mFile,"setAttr \".nf\" %f;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
 	void setHueNoise(float hn)
 	{
 		if(hn == 0.0) return;
-		fprintf(mFile,"setAttr \".hn\" %f;\n", hn);
+		fprintf(mFile,"\tsetAttr \".hn\" %f;\n", hn);
 
 	}
 	void setSatNoise(float sn)
 	{
 		if(sn == 0.0) return;
-		fprintf(mFile,"setAttr \".sn\" %f;\n", sn);
+		fprintf(mFile,"\tsetAttr \".sn\" %f;\n", sn);
 
 	}
 	void setValNoise(float vn)
 	{
 		if(vn == 0.0) return;
-		fprintf(mFile,"setAttr \".vn\" %f;\n", vn);
+		fprintf(mFile,"\tsetAttr \".vn\" %f;\n", vn);
 
 	}
 	void setHueNoiseFreq(float hnf)
 	{
 		if(hnf == 0.5) return;
-		fprintf(mFile,"setAttr \".hnf\" %f;\n", hnf);
+		fprintf(mFile,"\tsetAttr \".hnf\" %f;\n", hnf);
 
 	}
 	void setSatNoiseFreq(float snf)
 	{
 		if(snf == 0.5) return;
-		fprintf(mFile,"setAttr \".snf\" %f;\n", snf);
+		fprintf(mFile,"\tsetAttr \".snf\" %f;\n", snf);
 
 	}
 	void setValNoiseFreq(float vnf)
 	{
 		if(vnf == 0.5) return;
-		fprintf(mFile,"setAttr \".vnf\" %f;\n", vnf);
+		fprintf(mFile,"\tsetAttr \".vnf\" %f;\n", vnf);
 
 	}
 	void getType()
@@ -231,7 +232,8 @@ public:
 
 	}
 protected:
-	Ramp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Ramp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class CurveVarGroup : public BaseGeometryVarGroup
 {
 public:
 public:
+	CurveVarGroup():BaseGeometryVarGroup(){}
 	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent=""):BaseGeometryVarGroup(file, name, parent, "curveVarGroup"){}
 	virtual ~CurveVarGroup(){}
 	void setDisplaySmoothness(int ds)
 	{
 		if(ds == -1) return;
-		fprintf(mFile,"setAttr \".ds\" %i;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %i;\n", ds);
 
 	}
 	void getCreate(size_t cr_i)
@@ -42,7 +43,8 @@ public:
 
 	}
 protected:
-	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BaseGeometryVarGroup(file, name, parent, nodeType) {}
+	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BaseGeometryVarGroup(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

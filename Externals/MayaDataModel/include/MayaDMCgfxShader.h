@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,10 +18,12 @@ class CgfxShader : public HwShader
 {
 public:
 public:
+	CgfxShader():HwShader(){}
 	CgfxShader(FILE* file,const std::string& name,const std::string& parent=""):HwShader(file, name, parent, "cgfxShader"){}
 	virtual ~CgfxShader(){}
 protected:
-	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):HwShader(file, name, parent, nodeType) {}
+	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:HwShader(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

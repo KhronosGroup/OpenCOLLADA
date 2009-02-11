@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class DeformFunc : public Shape
 {
 public:
 public:
+	DeformFunc():Shape(){}
 	DeformFunc(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "deformFunc"){}
 	virtual ~DeformFunc(){}
 	void setDeformerData(const doubleArray& dd)
 	{
 		if(dd.size == 0) return;
-		fprintf(mFile,"setAttr \".dd\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".dd\" -type \"doubleArray\" ");
 		dd.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setHandleWidth(double hw)
 	{
 		if(hw == 1.0) return;
-		fprintf(mFile,"setAttr \".hw\" %f;\n", hw);
+		fprintf(mFile,"\tsetAttr \".hw\" %f;\n", hw);
 
 	}
 	void getDeformerData()
@@ -45,7 +46,8 @@ public:
 
 	}
 protected:
-	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

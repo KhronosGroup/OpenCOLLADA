@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class ShellTessellate : public ParentTessellate
 {
 public:
 public:
+	ShellTessellate():ParentTessellate(){}
 	ShellTessellate(FILE* file,const std::string& name,const std::string& parent=""):ParentTessellate(file, name, parent, "shellTessellate"){}
 	virtual ~ShellTessellate(){}
 	void getInputShell()
@@ -26,7 +27,8 @@ public:
 
 	}
 protected:
-	ShellTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ParentTessellate(file, name, parent, nodeType) {}
+	ShellTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ParentTessellate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

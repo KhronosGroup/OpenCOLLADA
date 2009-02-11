@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolyFlipUV : public PolyModifierUV
 {
 public:
 public:
+	PolyFlipUV():PolyModifierUV(){}
 	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyFlipUV"){}
 	virtual ~PolyFlipUV(){}
 	void setFlipType(unsigned int ft)
 	{
 		if(ft == 0) return;
-		fprintf(mFile,"setAttr \".ft\" %i;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %i;\n", ft);
 
 	}
 	void setLocal(bool l)
 	{
 		if(l == true) return;
-		fprintf(mFile,"setAttr \".l\" %i;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
 	void getFlipType()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

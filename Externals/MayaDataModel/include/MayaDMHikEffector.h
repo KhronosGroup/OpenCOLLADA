@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,23 +18,24 @@ class HikEffector : public Transform
 {
 public:
 public:
+	HikEffector():Transform(){}
 	HikEffector(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "hikEffector"){}
 	virtual ~HikEffector(){}
 	void setPinning(unsigned int pin)
 	{
 		if(pin == 0) return;
-		fprintf(mFile,"setAttr \".pin\" %i;\n", pin);
+		fprintf(mFile,"\tsetAttr \".pin\" %i;\n", pin);
 
 	}
 	void setEffectorID(int ei)
 	{
 		if(ei == 0) return;
-		fprintf(mFile,"setAttr \".ei\" %i;\n", ei);
+		fprintf(mFile,"\tsetAttr \".ei\" %i;\n", ei);
 
 	}
 	void setPivotOffset(const double3& po)
 	{
-		fprintf(mFile,"setAttr \".po\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".po\" -type \"double3\" ");
 		po.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -42,48 +43,48 @@ public:
 	void setPivotOffsetX(double px)
 	{
 		if(px == 0) return;
-		fprintf(mFile,"setAttr \".po.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".po.px\" %f;\n", px);
 
 	}
 	void setPivotOffsetY(double py)
 	{
 		if(py == 0) return;
-		fprintf(mFile,"setAttr \".po.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".po.py\" %f;\n", py);
 
 	}
 	void setPivotOffsetZ(double pz)
 	{
 		if(pz == 0) return;
-		fprintf(mFile,"setAttr \".po.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".po.pz\" %f;\n", pz);
 
 	}
 	void setReachTranslation(double rt)
 	{
 		if(rt == 0.0) return;
-		fprintf(mFile,"setAttr \".rt\" %f;\n", rt);
+		fprintf(mFile,"\tsetAttr \".rt\" %f;\n", rt);
 
 	}
 	void setReachRotation(double rr)
 	{
 		if(rr == 0.0) return;
-		fprintf(mFile,"setAttr \".rr\" %f;\n", rr);
+		fprintf(mFile,"\tsetAttr \".rr\" %f;\n", rr);
 
 	}
 	void setRadius(double radi)
 	{
 		if(radi == 1.0) return;
-		fprintf(mFile,"setAttr \".radi\" %f;\n", radi);
+		fprintf(mFile,"\tsetAttr \".radi\" %f;\n", radi);
 
 	}
 	void setAuxEffector(bool aeff)
 	{
 		if(aeff == false) return;
-		fprintf(mFile,"setAttr \".aeff\" %i;\n", aeff);
+		fprintf(mFile,"\tsetAttr \".aeff\" %i;\n", aeff);
 
 	}
 	void setPreRotation(const double3& pr)
 	{
-		fprintf(mFile,"setAttr \".pr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".pr\" -type \"double3\" ");
 		pr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -91,24 +92,24 @@ public:
 	void setPreRotationX(double prx)
 	{
 		if(prx == 0) return;
-		fprintf(mFile,"setAttr \".pr.prx\" %f;\n", prx);
+		fprintf(mFile,"\tsetAttr \".pr.prx\" %f;\n", prx);
 
 	}
 	void setPreRotationY(double pry)
 	{
 		if(pry == 0) return;
-		fprintf(mFile,"setAttr \".pr.pry\" %f;\n", pry);
+		fprintf(mFile,"\tsetAttr \".pr.pry\" %f;\n", pry);
 
 	}
 	void setPreRotationZ(double prz)
 	{
 		if(prz == 0) return;
-		fprintf(mFile,"setAttr \".pr.prz\" %f;\n", prz);
+		fprintf(mFile,"\tsetAttr \".pr.prz\" %f;\n", prz);
 
 	}
 	void setColor(const float3& col)
 	{
-		fprintf(mFile,"setAttr \".col\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".col\" -type \"float3\" ");
 		col.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -116,31 +117,31 @@ public:
 	void setColorR(float clr)
 	{
 		if(clr == 1.0) return;
-		fprintf(mFile,"setAttr \".col.clr\" %f;\n", clr);
+		fprintf(mFile,"\tsetAttr \".col.clr\" %f;\n", clr);
 
 	}
 	void setColorG(float clg)
 	{
 		if(clg == 0.0) return;
-		fprintf(mFile,"setAttr \".col.clg\" %f;\n", clg);
+		fprintf(mFile,"\tsetAttr \".col.clg\" %f;\n", clg);
 
 	}
 	void setColorB(float clb)
 	{
 		if(clb == 0.0) return;
-		fprintf(mFile,"setAttr \".col.clb\" %f;\n", clb);
+		fprintf(mFile,"\tsetAttr \".col.clb\" %f;\n", clb);
 
 	}
 	void setAlpha(float alp)
 	{
 		if(alp == 1.0) return;
-		fprintf(mFile,"setAttr \".alp\" %f;\n", alp);
+		fprintf(mFile,"\tsetAttr \".alp\" %f;\n", alp);
 
 	}
 	void setMarkerLook(unsigned int mkl)
 	{
 		if(mkl == 3) return;
-		fprintf(mFile,"setAttr \".mkl\" %i;\n", mkl);
+		fprintf(mFile,"\tsetAttr \".mkl\" %i;\n", mkl);
 
 	}
 	void getJoint()
@@ -264,7 +265,8 @@ public:
 
 	}
 protected:
-	HikEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	HikEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class CacheBase : public DependNode
 {
 public:
 public:
+	CacheBase():DependNode(){}
 	CacheBase(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "cacheBase"){}
 	virtual ~CacheBase(){}
 	void getOutCacheData(size_t ocd_i)
@@ -31,7 +32,8 @@ public:
 
 	}
 protected:
-	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

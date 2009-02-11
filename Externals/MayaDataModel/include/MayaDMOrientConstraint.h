@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -38,18 +38,19 @@ public:
 		}
 	};
 public:
+	OrientConstraint():Constraint(){}
 	OrientConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "orientConstraint"){}
 	virtual ~OrientConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
-		fprintf(mFile,"setAttr \".tg[%i]\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i]\" ",tg_i);
 		tg.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setTargetRotate(size_t tg_i,const double3& tr)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].tr\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tr\" -type \"double3\" ",tg_i);
 		tr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,30 +58,30 @@ public:
 	void setTargetRotateX(size_t tg_i,double trx)
 	{
 		if(trx == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tr.trx\" %f;\n", tg_i,trx);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tr.trx\" %f;\n", tg_i,trx);
 
 	}
 	void setTargetRotateY(size_t tg_i,double try_)
 	{
 		if(try_ == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tr.try\" %f;\n", tg_i,try_);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tr.try\" %f;\n", tg_i,try_);
 
 	}
 	void setTargetRotateZ(size_t tg_i,double trz)
 	{
 		if(trz == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tr.trz\" %f;\n", tg_i,trz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tr.trz\" %f;\n", tg_i,trz);
 
 	}
 	void setTargetRotateOrder(size_t tg_i,unsigned int tro)
 	{
 		if(tro == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tro\" %i;\n", tg_i,tro);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tro\" %i;\n", tg_i,tro);
 
 	}
 	void setTargetJointOrient(size_t tg_i,const double3& tjo)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].tjo\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tjo\" -type \"double3\" ",tg_i);
 		tjo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -88,25 +89,25 @@ public:
 	void setTargetJointOrientX(size_t tg_i,double tjox)
 	{
 		if(tjox == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tjo.tjox\" %f;\n", tg_i,tjox);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tjo.tjox\" %f;\n", tg_i,tjox);
 
 	}
 	void setTargetJointOrientY(size_t tg_i,double tjoy)
 	{
 		if(tjoy == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tjo.tjoy\" %f;\n", tg_i,tjoy);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tjo.tjoy\" %f;\n", tg_i,tjoy);
 
 	}
 	void setTargetJointOrientZ(size_t tg_i,double tjoz)
 	{
 		if(tjoz == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tjo.tjoz\" %f;\n", tg_i,tjoz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tjo.tjoz\" %f;\n", tg_i,tjoz);
 
 	}
 	void setTargetParentMatrix(size_t tg_i,const matrix& tpm)
 	{
 		if(tpm == identity) return;
-		fprintf(mFile,"setAttr \".tg[%i].tpm\" -type \"matrix\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tpm\" -type \"matrix\" ",tg_i);
 		tpm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -114,12 +115,12 @@ public:
 	void setTargetWeight(size_t tg_i,double tw)
 	{
 		if(tw == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
 
 	}
 	void setTargetRotateCached(size_t tg_i,const double3& ctr)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].ctr\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ctr\" -type \"double3\" ",tg_i);
 		ctr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -127,24 +128,24 @@ public:
 	void setTargetRotateCachedX(size_t tg_i,double ctrx)
 	{
 		if(ctrx == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].ctr.ctrx\" %f;\n", tg_i,ctrx);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ctr.ctrx\" %f;\n", tg_i,ctrx);
 
 	}
 	void setTargetRotateCachedY(size_t tg_i,double ctry)
 	{
 		if(ctry == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].ctr.ctry\" %f;\n", tg_i,ctry);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ctr.ctry\" %f;\n", tg_i,ctry);
 
 	}
 	void setTargetRotateCachedZ(size_t tg_i,double ctrz)
 	{
 		if(ctrz == 0) return;
-		fprintf(mFile,"setAttr \".tg[%i].ctr.ctrz\" %f;\n", tg_i,ctrz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ctr.ctrz\" %f;\n", tg_i,ctrz);
 
 	}
 	void setLastTargetRotate(const double3& lr)
 	{
-		fprintf(mFile,"setAttr \".lr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".lr\" -type \"double3\" ");
 		lr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -152,25 +153,25 @@ public:
 	void setLastTargetRotateX(double lrx)
 	{
 		if(lrx == 0) return;
-		fprintf(mFile,"setAttr \".lr.lrx\" %f;\n", lrx);
+		fprintf(mFile,"\tsetAttr \".lr.lrx\" %f;\n", lrx);
 
 	}
 	void setLastTargetRotateY(double lry)
 	{
 		if(lry == 0) return;
-		fprintf(mFile,"setAttr \".lr.lry\" %f;\n", lry);
+		fprintf(mFile,"\tsetAttr \".lr.lry\" %f;\n", lry);
 
 	}
 	void setLastTargetRotateZ(double lrz)
 	{
 		if(lrz == 0) return;
-		fprintf(mFile,"setAttr \".lr.lrz\" %f;\n", lrz);
+		fprintf(mFile,"\tsetAttr \".lr.lrz\" %f;\n", lrz);
 
 	}
 	void setConstraintParentInverseMatrix(const matrix& cpim)
 	{
 		if(cpim == identity) return;
-		fprintf(mFile,"setAttr \".cpim\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".cpim\" -type \"matrix\" ");
 		cpim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -178,12 +179,12 @@ public:
 	void setConstraintRotateOrder(unsigned int cro)
 	{
 		if(cro == 0) return;
-		fprintf(mFile,"setAttr \".cro\" %i;\n", cro);
+		fprintf(mFile,"\tsetAttr \".cro\" %i;\n", cro);
 
 	}
 	void setConstraintJointOrient(const double3& cjo)
 	{
-		fprintf(mFile,"setAttr \".cjo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".cjo\" -type \"double3\" ");
 		cjo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -191,24 +192,24 @@ public:
 	void setConstraintJointOrientX(double cjox)
 	{
 		if(cjox == 0) return;
-		fprintf(mFile,"setAttr \".cjo.cjox\" %f;\n", cjox);
+		fprintf(mFile,"\tsetAttr \".cjo.cjox\" %f;\n", cjox);
 
 	}
 	void setConstraintJointOrientY(double cjoy)
 	{
 		if(cjoy == 0) return;
-		fprintf(mFile,"setAttr \".cjo.cjoy\" %f;\n", cjoy);
+		fprintf(mFile,"\tsetAttr \".cjo.cjoy\" %f;\n", cjoy);
 
 	}
 	void setConstraintJointOrientZ(double cjoz)
 	{
 		if(cjoz == 0) return;
-		fprintf(mFile,"setAttr \".cjo.cjoz\" %f;\n", cjoz);
+		fprintf(mFile,"\tsetAttr \".cjo.cjoz\" %f;\n", cjoz);
 
 	}
 	void setOffset(const double3& o)
 	{
-		fprintf(mFile,"setAttr \".o\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".o\" -type \"double3\" ");
 		o.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -216,24 +217,24 @@ public:
 	void setOffsetX(double ox)
 	{
 		if(ox == 0) return;
-		fprintf(mFile,"setAttr \".o.ox\" %f;\n", ox);
+		fprintf(mFile,"\tsetAttr \".o.ox\" %f;\n", ox);
 
 	}
 	void setOffsetY(double oy)
 	{
 		if(oy == 0) return;
-		fprintf(mFile,"setAttr \".o.oy\" %f;\n", oy);
+		fprintf(mFile,"\tsetAttr \".o.oy\" %f;\n", oy);
 
 	}
 	void setOffsetZ(double oz)
 	{
 		if(oz == 0) return;
-		fprintf(mFile,"setAttr \".o.oz\" %f;\n", oz);
+		fprintf(mFile,"\tsetAttr \".o.oz\" %f;\n", oz);
 
 	}
 	void setRestRotate(const double3& rsrr)
 	{
-		fprintf(mFile,"setAttr \".rsrr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rsrr\" -type \"double3\" ");
 		rsrr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -241,37 +242,37 @@ public:
 	void setRestRotateX(double rrx)
 	{
 		if(rrx == 0) return;
-		fprintf(mFile,"setAttr \".rsrr.rrx\" %f;\n", rrx);
+		fprintf(mFile,"\tsetAttr \".rsrr.rrx\" %f;\n", rrx);
 
 	}
 	void setRestRotateY(double rry)
 	{
 		if(rry == 0) return;
-		fprintf(mFile,"setAttr \".rsrr.rry\" %f;\n", rry);
+		fprintf(mFile,"\tsetAttr \".rsrr.rry\" %f;\n", rry);
 
 	}
 	void setRestRotateZ(double rrz)
 	{
 		if(rrz == 0) return;
-		fprintf(mFile,"setAttr \".rsrr.rrz\" %f;\n", rrz);
+		fprintf(mFile,"\tsetAttr \".rsrr.rrz\" %f;\n", rrz);
 
 	}
 	void setInterpType(unsigned int int_)
 	{
 		if(int_ == 1) return;
-		fprintf(mFile,"setAttr \".int\" %i;\n", int_);
+		fprintf(mFile,"\tsetAttr \".int\" %i;\n", int_);
 
 	}
 	void setInterpCache(int inc)
 	{
 		if(inc == 0) return;
-		fprintf(mFile,"setAttr \".inc\" %i;\n", inc);
+		fprintf(mFile,"\tsetAttr \".inc\" %i;\n", inc);
 
 	}
 	void setUseOldOffsetCalculation(bool uooc)
 	{
 		if(uooc == false) return;
-		fprintf(mFile,"setAttr \".uooc\" %i;\n", uooc);
+		fprintf(mFile,"\tsetAttr \".uooc\" %i;\n", uooc);
 
 	}
 	void getTarget(size_t tg_i)
@@ -480,7 +481,8 @@ public:
 
 	}
 protected:
-	OrientConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Constraint(file, name, parent, nodeType) {}
+	OrientConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Constraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,84 +18,85 @@ class RebuildSurface : public AbstractBaseNurbsConversion
 {
 public:
 public:
+	RebuildSurface():AbstractBaseNurbsConversion(){}
 	RebuildSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseNurbsConversion(file, name, parent, "rebuildSurface"){}
 	virtual ~RebuildSurface(){}
 	void setRebuildType(unsigned int rt)
 	{
 		if(rt == 0) return;
-		fprintf(mFile,"setAttr \".rt\" %i;\n", rt);
+		fprintf(mFile,"\tsetAttr \".rt\" %i;\n", rt);
 
 	}
 	void setDirection(unsigned int dir)
 	{
 		if(dir == 2) return;
-		fprintf(mFile,"setAttr \".dir\" %i;\n", dir);
+		fprintf(mFile,"\tsetAttr \".dir\" %i;\n", dir);
 
 	}
 	void setSpansU(int su)
 	{
 		if(su == 4) return;
-		fprintf(mFile,"setAttr \".su\" %i;\n", su);
+		fprintf(mFile,"\tsetAttr \".su\" %i;\n", su);
 
 	}
 	void setSpansV(int sv)
 	{
 		if(sv == 4) return;
-		fprintf(mFile,"setAttr \".sv\" %i;\n", sv);
+		fprintf(mFile,"\tsetAttr \".sv\" %i;\n", sv);
 
 	}
 	void setDegreeU(unsigned int du)
 	{
 		if(du == 3) return;
-		fprintf(mFile,"setAttr \".du\" %i;\n", du);
+		fprintf(mFile,"\tsetAttr \".du\" %i;\n", du);
 
 	}
 	void setDegreeV(unsigned int dv)
 	{
 		if(dv == 3) return;
-		fprintf(mFile,"setAttr \".dv\" %i;\n", dv);
+		fprintf(mFile,"\tsetAttr \".dv\" %i;\n", dv);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setEndKnots(unsigned int end)
 	{
 		if(end == 0) return;
-		fprintf(mFile,"setAttr \".end\" %i;\n", end);
+		fprintf(mFile,"\tsetAttr \".end\" %i;\n", end);
 
 	}
 	void setKeepCorners(bool kc)
 	{
 		if(kc == true) return;
-		fprintf(mFile,"setAttr \".kc\" %i;\n", kc);
+		fprintf(mFile,"\tsetAttr \".kc\" %i;\n", kc);
 
 	}
 	void setKeepRange(unsigned int kr)
 	{
 		if(kr == 1) return;
-		fprintf(mFile,"setAttr \".kr\" %i;\n", kr);
+		fprintf(mFile,"\tsetAttr \".kr\" %i;\n", kr);
 
 	}
 	void setKeepControlPoints(bool kcp)
 	{
 		if(kcp == false) return;
-		fprintf(mFile,"setAttr \".kcp\" %i;\n", kcp);
+		fprintf(mFile,"\tsetAttr \".kcp\" %i;\n", kcp);
 
 	}
 	void setFitRebuild(unsigned int fr)
 	{
 		if(fr == 0) return;
-		fprintf(mFile,"setAttr \".fr\" %i;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %i;\n", fr);
 
 	}
 	void setOldRebuildRational(bool orr)
 	{
 		if(orr == false) return;
-		fprintf(mFile,"setAttr \".orr\" %i;\n", orr);
+		fprintf(mFile,"\tsetAttr \".orr\" %i;\n", orr);
 
 	}
 	void getInputSurface()
@@ -179,7 +180,8 @@ public:
 
 	}
 protected:
-	RebuildSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
+	RebuildSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

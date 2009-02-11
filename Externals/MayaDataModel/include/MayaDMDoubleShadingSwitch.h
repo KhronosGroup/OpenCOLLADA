@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -26,18 +26,19 @@ public:
 		}
 	};
 public:
+	DoubleShadingSwitch():BaseShadingSwitch(){}
 	DoubleShadingSwitch(FILE* file,const std::string& name,const std::string& parent=""):BaseShadingSwitch(file, name, parent, "doubleShadingSwitch"){}
 	virtual ~DoubleShadingSwitch(){}
 	void setInput(size_t i_i,const Input& i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" ",i_i);
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInDouble(size_t i_i,const float2& idl)
 	{
-		fprintf(mFile,"setAttr \".i[%i].idl\" -type \"float2\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i].idl\" -type \"float2\" ",i_i);
 		idl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -45,19 +46,19 @@ public:
 	void setInComp1(size_t i_i,float ic1)
 	{
 		if(ic1 == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].idl.ic1\" %f;\n", i_i,ic1);
+		fprintf(mFile,"\tsetAttr \".i[%i].idl.ic1\" %f;\n", i_i,ic1);
 
 	}
 	void setInComp2(size_t i_i,float ic2)
 	{
 		if(ic2 == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].idl.ic2\" %f;\n", i_i,ic2);
+		fprintf(mFile,"\tsetAttr \".i[%i].idl.ic2\" %f;\n", i_i,ic2);
 
 	}
 	void setDefault(const float2& def)
 	{
 		if(def == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".def\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".def\" -type \"float2\" ");
 		def.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -65,13 +66,13 @@ public:
 	void setDefComp1(float dc1)
 	{
 		if(dc1 == 0.0) return;
-		fprintf(mFile,"setAttr \".def.dc1\" %f;\n", dc1);
+		fprintf(mFile,"\tsetAttr \".def.dc1\" %f;\n", dc1);
 
 	}
 	void setDefComp2(float dc2)
 	{
 		if(dc2 == 0.0) return;
-		fprintf(mFile,"setAttr \".def.dc2\" %f;\n", dc2);
+		fprintf(mFile,"\tsetAttr \".def.dc2\" %f;\n", dc2);
 
 	}
 	void getInput(size_t i_i)
@@ -130,7 +131,8 @@ public:
 
 	}
 protected:
-	DoubleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BaseShadingSwitch(file, name, parent, nodeType) {}
+	DoubleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BaseShadingSwitch(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

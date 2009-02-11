@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class SelectionListOperator : public DependNode
 {
 public:
 public:
+	SelectionListOperator():DependNode(){}
 	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "selectionListOperator"){}
 	virtual ~SelectionListOperator(){}
 	void setOperation(unsigned int op)
 	{
 		if(op == 0) return;
-		fprintf(mFile,"setAttr \".op\" %i;\n", op);
+		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
 
 	}
 	void setOperatorClass(unsigned int ocls)
 	{
 		if(ocls == 0) return;
-		fprintf(mFile,"setAttr \".ocls\" %i;\n", ocls);
+		fprintf(mFile,"\tsetAttr \".ocls\" %i;\n", ocls);
 
 	}
 	void getOperation()
@@ -58,7 +59,8 @@ public:
 
 	}
 protected:
-	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	SelectionListOperator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

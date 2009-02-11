@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,102 +18,103 @@ class PolySmoothProxy : public PolyModifier
 {
 public:
 public:
+	PolySmoothProxy():PolyModifier(){}
 	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySmoothProxy"){}
 	virtual ~PolySmoothProxy(){}
 	void setMethod(unsigned int mth)
 	{
 		if(mth == 0) return;
-		fprintf(mFile,"setAttr \".mth\" %i;\n", mth);
+		fprintf(mFile,"\tsetAttr \".mth\" %i;\n", mth);
 
 	}
 	void setExponentialLevel(short el)
 	{
 		if(el == 1) return;
-		fprintf(mFile,"setAttr \".el\" %i;\n", el);
+		fprintf(mFile,"\tsetAttr \".el\" %i;\n", el);
 
 	}
 	void setContinuity(float c)
 	{
 		if(c == 1) return;
-		fprintf(mFile,"setAttr \".c\" %f;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %f;\n", c);
 
 	}
 	void setSmoothUVs(bool suv)
 	{
 		if(suv == false) return;
-		fprintf(mFile,"setAttr \".suv\" %i;\n", suv);
+		fprintf(mFile,"\tsetAttr \".suv\" %i;\n", suv);
 
 	}
 	void setKeepBorder(bool kb)
 	{
 		if(kb == true) return;
-		fprintf(mFile,"setAttr \".kb\" %i;\n", kb);
+		fprintf(mFile,"\tsetAttr \".kb\" %i;\n", kb);
 
 	}
 	void setKeepHardEdge(bool khe)
 	{
 		if(khe == false) return;
-		fprintf(mFile,"setAttr \".khe\" %i;\n", khe);
+		fprintf(mFile,"\tsetAttr \".khe\" %i;\n", khe);
 
 	}
 	void setPropagateEdgeHardness(bool peh)
 	{
 		if(peh == false) return;
-		fprintf(mFile,"setAttr \".peh\" %i;\n", peh);
+		fprintf(mFile,"\tsetAttr \".peh\" %i;\n", peh);
 
 	}
 	void setKeepMapBorders(unsigned int kmb)
 	{
 		if(kmb == 1) return;
-		fprintf(mFile,"setAttr \".kmb\" %i;\n", kmb);
+		fprintf(mFile,"\tsetAttr \".kmb\" %i;\n", kmb);
 
 	}
 	void setLinearLevel(short ll)
 	{
 		if(ll == 1) return;
-		fprintf(mFile,"setAttr \".ll\" %i;\n", ll);
+		fprintf(mFile,"\tsetAttr \".ll\" %i;\n", ll);
 
 	}
 	void setDivisionsPerEdge(int dpe)
 	{
 		if(dpe == 1) return;
-		fprintf(mFile,"setAttr \".dpe\" %i;\n", dpe);
+		fprintf(mFile,"\tsetAttr \".dpe\" %i;\n", dpe);
 
 	}
 	void setDegree(int deg)
 	{
 		if(deg == 3) return;
-		fprintf(mFile,"setAttr \".deg\" %i;\n", deg);
+		fprintf(mFile,"\tsetAttr \".deg\" %i;\n", deg);
 
 	}
 	void setPushStrength(float ps)
 	{
 		if(ps == 0.0) return;
-		fprintf(mFile,"setAttr \".ps\" %f;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %f;\n", ps);
 
 	}
 	void setRoundness(float ro)
 	{
 		if(ro == 0) return;
-		fprintf(mFile,"setAttr \".ro\" %f;\n", ro);
+		fprintf(mFile,"\tsetAttr \".ro\" %f;\n", ro);
 
 	}
 	void setMultiEdgeCrease(bool mec)
 	{
 		if(mec == true) return;
-		fprintf(mFile,"setAttr \".mec\" %i;\n", mec);
+		fprintf(mFile,"\tsetAttr \".mec\" %i;\n", mec);
 
 	}
 	void setMaya65Above(bool ma)
 	{
 		if(ma == false) return;
-		fprintf(mFile,"setAttr \".ma\" %i;\n", ma);
+		fprintf(mFile,"\tsetAttr \".ma\" %i;\n", ma);
 
 	}
 	void setMaya2008Above(bool mn)
 	{
 		if(mn == false) return;
-		fprintf(mFile,"setAttr \".mn\" %i;\n", mn);
+		fprintf(mFile,"\tsetAttr \".mn\" %i;\n", mn);
 
 	}
 	void getCachedSmoothMesh()
@@ -202,7 +203,8 @@ public:
 
 	}
 protected:
-	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

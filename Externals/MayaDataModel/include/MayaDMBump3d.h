@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class Bump3d : public DependNode
 {
 public:
 public:
+	Bump3d():DependNode(){}
 	Bump3d(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "bump3d"){}
 	virtual ~Bump3d(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setBumpDepth(float bd)
 	{
 		if(bd == 1.0) return;
-		fprintf(mFile,"setAttr \".bd\" %f;\n", bd);
+		fprintf(mFile,"\tsetAttr \".bd\" %f;\n", bd);
 
 	}
 	void setBumpFilter(float bf)
 	{
 		if(bf == 1.0) return;
-		fprintf(mFile,"setAttr \".bf\" %f;\n", bf);
+		fprintf(mFile,"\tsetAttr \".bf\" %f;\n", bf);
 
 	}
 	void setBumpFilterOffset(float bfo)
 	{
 		if(bfo == 0.0) return;
-		fprintf(mFile,"setAttr \".bfo\" %f;\n", bfo);
+		fprintf(mFile,"\tsetAttr \".bfo\" %f;\n", bfo);
 
 	}
 	void setBumpValue(float bv)
 	{
 		if(bv == 0.0) return;
-		fprintf(mFile,"setAttr \".bv\" %f;\n", bv);
+		fprintf(mFile,"\tsetAttr \".bv\" %f;\n", bv);
 
 	}
 	void getPointCamera()
@@ -148,6 +149,11 @@ public:
 	void getRayOriginZ()
 	{
 		fprintf(mFile,"\"%s.ro.roz\"",mName.c_str());
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getInfoBits()
@@ -256,7 +262,8 @@ public:
 
 	}
 protected:
-	Bump3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Bump3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

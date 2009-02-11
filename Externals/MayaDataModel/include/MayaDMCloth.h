@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Cloth : public Texture2d
 {
 public:
 public:
+	Cloth():Texture2d(){}
 	Cloth(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "cloth"){}
 	virtual ~Cloth(){}
 	void setGapColor(const float3& gc)
 	{
 		if(gc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".gc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".gc\" -type \"float3\" ");
 		gc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setGapColorR(float gcr)
 	{
 		if(gcr == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcr\" %f;\n", gcr);
+		fprintf(mFile,"\tsetAttr \".gc.gcr\" %f;\n", gcr);
 
 	}
 	void setGapColorG(float gcg)
 	{
 		if(gcg == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcg\" %f;\n", gcg);
+		fprintf(mFile,"\tsetAttr \".gc.gcg\" %f;\n", gcg);
 
 	}
 	void setGapColorB(float gcb)
 	{
 		if(gcb == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcb\" %f;\n", gcb);
+		fprintf(mFile,"\tsetAttr \".gc.gcb\" %f;\n", gcb);
 
 	}
 	void setUColor(const float3& uc)
 	{
 		if(uc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".uc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".uc\" -type \"float3\" ");
 		uc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setUColorR(float ucr)
 	{
 		if(ucr == 0.0) return;
-		fprintf(mFile,"setAttr \".uc.ucr\" %f;\n", ucr);
+		fprintf(mFile,"\tsetAttr \".uc.ucr\" %f;\n", ucr);
 
 	}
 	void setUColorG(float ucg)
 	{
 		if(ucg == 0.0) return;
-		fprintf(mFile,"setAttr \".uc.ucg\" %f;\n", ucg);
+		fprintf(mFile,"\tsetAttr \".uc.ucg\" %f;\n", ucg);
 
 	}
 	void setUColorB(float ucb)
 	{
 		if(ucb == 0.0) return;
-		fprintf(mFile,"setAttr \".uc.ucb\" %f;\n", ucb);
+		fprintf(mFile,"\tsetAttr \".uc.ucb\" %f;\n", ucb);
 
 	}
 	void setVColor(const float3& vc)
 	{
 		if(vc == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".vc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc\" -type \"float3\" ");
 		vc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,61 +84,61 @@ public:
 	void setVColorR(float vcr)
 	{
 		if(vcr == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcr\" %f;\n", vcr);
+		fprintf(mFile,"\tsetAttr \".vc.vcr\" %f;\n", vcr);
 
 	}
 	void setVColorG(float vcg)
 	{
 		if(vcg == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcg\" %f;\n", vcg);
+		fprintf(mFile,"\tsetAttr \".vc.vcg\" %f;\n", vcg);
 
 	}
 	void setVColorB(float vcb)
 	{
 		if(vcb == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcb\" %f;\n", vcb);
+		fprintf(mFile,"\tsetAttr \".vc.vcb\" %f;\n", vcb);
 
 	}
 	void setUWidth(float uwi)
 	{
 		if(uwi == 0.75) return;
-		fprintf(mFile,"setAttr \".uwi\" %f;\n", uwi);
+		fprintf(mFile,"\tsetAttr \".uwi\" %f;\n", uwi);
 
 	}
 	void setVWidth(float vwi)
 	{
 		if(vwi == 0.75) return;
-		fprintf(mFile,"setAttr \".vwi\" %f;\n", vwi);
+		fprintf(mFile,"\tsetAttr \".vwi\" %f;\n", vwi);
 
 	}
 	void setUWave(float uwa)
 	{
 		if(uwa == 0.0) return;
-		fprintf(mFile,"setAttr \".uwa\" %f;\n", uwa);
+		fprintf(mFile,"\tsetAttr \".uwa\" %f;\n", uwa);
 
 	}
 	void setVWave(float vwa)
 	{
 		if(vwa == 0.0) return;
-		fprintf(mFile,"setAttr \".vwa\" %f;\n", vwa);
+		fprintf(mFile,"\tsetAttr \".vwa\" %f;\n", vwa);
 
 	}
 	void setRandomness(float r)
 	{
 		if(r == 0.0) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setWidthSpread(float ws)
 	{
 		if(ws == 0.0) return;
-		fprintf(mFile,"setAttr \".ws\" %f;\n", ws);
+		fprintf(mFile,"\tsetAttr \".ws\" %f;\n", ws);
 
 	}
 	void setBrightSpread(float bs)
 	{
 		if(bs == 0.0) return;
-		fprintf(mFile,"setAttr \".bs\" %f;\n", bs);
+		fprintf(mFile,"\tsetAttr \".bs\" %f;\n", bs);
 
 	}
 	void getGapColor()
@@ -236,7 +237,8 @@ public:
 
 	}
 protected:
-	Cloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Cloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

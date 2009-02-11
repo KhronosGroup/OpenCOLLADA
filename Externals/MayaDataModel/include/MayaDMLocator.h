@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Locator : public GeometryShape
 {
 public:
 public:
+	Locator():GeometryShape(){}
 	Locator(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "locator"){}
 	virtual ~Locator(){}
 	void setUnderWorldObject(bool uwo)
 	{
 		if(uwo == false) return;
-		fprintf(mFile,"setAttr \".uwo\" %i;\n", uwo);
+		fprintf(mFile,"\tsetAttr \".uwo\" %i;\n", uwo);
 
 	}
 	void setLocalPosition(const double3& lp)
 	{
 		if(lp == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".lp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".lp\" -type \"double3\" ");
 		lp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,25 +38,25 @@ public:
 	void setLocalPositionX(double lpx)
 	{
 		if(lpx == 0) return;
-		fprintf(mFile,"setAttr \".lp.lpx\" %f;\n", lpx);
+		fprintf(mFile,"\tsetAttr \".lp.lpx\" %f;\n", lpx);
 
 	}
 	void setLocalPositionY(double lpy)
 	{
 		if(lpy == 0) return;
-		fprintf(mFile,"setAttr \".lp.lpy\" %f;\n", lpy);
+		fprintf(mFile,"\tsetAttr \".lp.lpy\" %f;\n", lpy);
 
 	}
 	void setLocalPositionZ(double lpz)
 	{
 		if(lpz == 0) return;
-		fprintf(mFile,"setAttr \".lp.lpz\" %f;\n", lpz);
+		fprintf(mFile,"\tsetAttr \".lp.lpz\" %f;\n", lpz);
 
 	}
 	void setLocalScale(const double3& los)
 	{
 		if(los == double3(1.0, 1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".los\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".los\" -type \"double3\" ");
 		los.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,19 +64,19 @@ public:
 	void setLocalScaleX(double lsx)
 	{
 		if(lsx == 1) return;
-		fprintf(mFile,"setAttr \".los.lsx\" %f;\n", lsx);
+		fprintf(mFile,"\tsetAttr \".los.lsx\" %f;\n", lsx);
 
 	}
 	void setLocalScaleY(double lsy)
 	{
 		if(lsy == 1) return;
-		fprintf(mFile,"setAttr \".los.lsy\" %f;\n", lsy);
+		fprintf(mFile,"\tsetAttr \".los.lsy\" %f;\n", lsy);
 
 	}
 	void setLocalScaleZ(double lsz)
 	{
 		if(lsz == 1) return;
-		fprintf(mFile,"setAttr \".los.lsz\" %f;\n", lsz);
+		fprintf(mFile,"\tsetAttr \".los.lsz\" %f;\n", lsz);
 
 	}
 	void getLocalPosition()
@@ -139,7 +140,8 @@ public:
 
 	}
 protected:
-	Locator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryShape(file, name, parent, nodeType) {}
+	Locator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

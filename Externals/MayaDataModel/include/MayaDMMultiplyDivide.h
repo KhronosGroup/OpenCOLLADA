@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class MultiplyDivide : public DependNode
 {
 public:
 public:
+	MultiplyDivide():DependNode(){}
 	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "multiplyDivide"){}
 	virtual ~MultiplyDivide(){}
 	void setOperation(unsigned int op)
 	{
 		if(op == 1) return;
-		fprintf(mFile,"setAttr \".op\" %i;\n", op);
+		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
 
 	}
 	void setInput1(const float3& i1)
 	{
 		if(i1 == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".i1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".i1\" -type \"float3\" ");
 		i1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,25 +38,25 @@ public:
 	void setInput1X(float i1x)
 	{
 		if(i1x == 0.0) return;
-		fprintf(mFile,"setAttr \".i1.i1x\" %f;\n", i1x);
+		fprintf(mFile,"\tsetAttr \".i1.i1x\" %f;\n", i1x);
 
 	}
 	void setInput1Y(float i1y)
 	{
 		if(i1y == 0.0) return;
-		fprintf(mFile,"setAttr \".i1.i1y\" %f;\n", i1y);
+		fprintf(mFile,"\tsetAttr \".i1.i1y\" %f;\n", i1y);
 
 	}
 	void setInput1Z(float i1z)
 	{
 		if(i1z == 0.0) return;
-		fprintf(mFile,"setAttr \".i1.i1z\" %f;\n", i1z);
+		fprintf(mFile,"\tsetAttr \".i1.i1z\" %f;\n", i1z);
 
 	}
 	void setInput2(const float3& i2)
 	{
 		if(i2 == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".i2\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".i2\" -type \"float3\" ");
 		i2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,19 +64,19 @@ public:
 	void setInput2X(float i2x)
 	{
 		if(i2x == 0.0) return;
-		fprintf(mFile,"setAttr \".i2.i2x\" %f;\n", i2x);
+		fprintf(mFile,"\tsetAttr \".i2.i2x\" %f;\n", i2x);
 
 	}
 	void setInput2Y(float i2y)
 	{
 		if(i2y == 0.0) return;
-		fprintf(mFile,"setAttr \".i2.i2y\" %f;\n", i2y);
+		fprintf(mFile,"\tsetAttr \".i2.i2y\" %f;\n", i2y);
 
 	}
 	void setInput2Z(float i2z)
 	{
 		if(i2z == 0.0) return;
-		fprintf(mFile,"setAttr \".i2.i2z\" %f;\n", i2z);
+		fprintf(mFile,"\tsetAttr \".i2.i2z\" %f;\n", i2z);
 
 	}
 	void getOperation()
@@ -144,7 +145,8 @@ public:
 
 	}
 protected:
-	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class InsertKnotSurface : public AbstractBaseCreate
 {
 public:
 public:
+	InsertKnotSurface():AbstractBaseCreate(){}
 	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "insertKnotSurface"){}
 	virtual ~InsertKnotSurface(){}
 	void setParameter(size_t p_i,double p)
 	{
 		if(p == 0.0) return;
-		fprintf(mFile,"setAttr \".p[%i]\" %f;\n", p_i,p);
+		fprintf(mFile,"\tsetAttr \".p[%i]\" %f;\n", p_i,p);
 
 	}
 	void setParameter(size_t p_start,size_t p_end,double* p)
 	{
-		fprintf(mFile,"setAttr \".p[%i:%i]\" ", p_start,p_end);
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\" ", p_start,p_end);
 		size_t size = (p_end-p_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startParameter(size_t p_start,size_t p_end)
 	{
-		fprintf(mFile,"setAttr \".p[%i:%i]\"",p_start,p_end);
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\"",p_start,p_end);
 
 	}
 	void appendParameter(double p)
@@ -56,12 +57,12 @@ public:
 	void setNumberOfKnots(size_t nk_i,int nk)
 	{
 		if(nk == 1) return;
-		fprintf(mFile,"setAttr \".nk[%i]\" %i;\n", nk_i,nk);
+		fprintf(mFile,"\tsetAttr \".nk[%i]\" %i;\n", nk_i,nk);
 
 	}
 	void setNumberOfKnots(size_t nk_start,size_t nk_end,int* nk)
 	{
-		fprintf(mFile,"setAttr \".nk[%i:%i]\" ", nk_start,nk_end);
+		fprintf(mFile,"\tsetAttr \".nk[%i:%i]\" ", nk_start,nk_end);
 		size_t size = (nk_end-nk_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -73,7 +74,7 @@ public:
 	}
 	void startNumberOfKnots(size_t nk_start,size_t nk_end)
 	{
-		fprintf(mFile,"setAttr \".nk[%i:%i]\"",nk_start,nk_end);
+		fprintf(mFile,"\tsetAttr \".nk[%i:%i]\"",nk_start,nk_end);
 
 	}
 	void appendNumberOfKnots(int nk)
@@ -89,19 +90,19 @@ public:
 	void setAddKnots(bool add)
 	{
 		if(add == true) return;
-		fprintf(mFile,"setAttr \".add\" %i;\n", add);
+		fprintf(mFile,"\tsetAttr \".add\" %i;\n", add);
 
 	}
 	void setInsertBetween(bool ib)
 	{
 		if(ib == false) return;
-		fprintf(mFile,"setAttr \".ib\" %i;\n", ib);
+		fprintf(mFile,"\tsetAttr \".ib\" %i;\n", ib);
 
 	}
 	void setDirection(unsigned int d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void getInputSurface()
@@ -140,7 +141,8 @@ public:
 
 	}
 protected:
-	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	InsertKnotSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class PolySplitVert : public PolyModifierWorld
 {
 public:
+	PolySplitVert():PolyModifierWorld(){}
 	PolySplitVert(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polySplitVert"){}
 	virtual ~PolySplitVert(){}
 protected:
-	PolySplitVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolySplitVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

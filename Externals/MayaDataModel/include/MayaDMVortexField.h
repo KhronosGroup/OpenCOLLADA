@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,11 +29,12 @@ public:
 		}
 	};
 public:
+	VortexField():Field(){}
 	VortexField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "vortexField"){}
 	virtual ~VortexField(){}
 	void setAxis(const Axis& ax)
 	{
-		fprintf(mFile,"setAttr \".ax\" ");
+		fprintf(mFile,"\tsetAttr \".ax\" ");
 		ax.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -41,19 +42,19 @@ public:
 	void setAxisX(double axx)
 	{
 		if(axx == 0.0) return;
-		fprintf(mFile,"setAttr \".ax.axx\" %f;\n", axx);
+		fprintf(mFile,"\tsetAttr \".ax.axx\" %f;\n", axx);
 
 	}
 	void setAxisY(double axy)
 	{
 		if(axy == 0.0) return;
-		fprintf(mFile,"setAttr \".ax.axy\" %f;\n", axy);
+		fprintf(mFile,"\tsetAttr \".ax.axy\" %f;\n", axy);
 
 	}
 	void setAxisZ(double axz)
 	{
 		if(axz == 0.0) return;
-		fprintf(mFile,"setAttr \".ax.axz\" %f;\n", axz);
+		fprintf(mFile,"\tsetAttr \".ax.axz\" %f;\n", axz);
 
 	}
 	void getAxis()
@@ -77,7 +78,8 @@ public:
 
 	}
 protected:
-	VortexField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	VortexField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

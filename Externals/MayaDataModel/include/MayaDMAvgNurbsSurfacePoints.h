@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -41,18 +41,19 @@ public:
 		}
 	};
 public:
+	AvgNurbsSurfacePoints():AbstractBaseCreate(){}
 	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "avgNurbsSurfacePoints"){}
 	virtual ~AvgNurbsSurfacePoints(){}
 	void setSurfacePoint(size_t sp_i,const SurfacePoint& sp)
 	{
-		fprintf(mFile,"setAttr \".sp[%i]\" ",sp_i);
+		fprintf(mFile,"\tsetAttr \".sp[%i]\" ",sp_i);
 		sp.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputSurface(size_t sp_i,const nurbsSurface& is)
 	{
-		fprintf(mFile,"setAttr \".sp[%i].is\" -type \"nurbsSurface\" ",sp_i);
+		fprintf(mFile,"\tsetAttr \".sp[%i].is\" -type \"nurbsSurface\" ",sp_i);
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -60,31 +61,31 @@ public:
 	void setWeight(size_t sp_i,double wt)
 	{
 		if(wt == 0.5) return;
-		fprintf(mFile,"setAttr \".sp[%i].wt\" %f;\n", sp_i,wt);
+		fprintf(mFile,"\tsetAttr \".sp[%i].wt\" %f;\n", sp_i,wt);
 
 	}
 	void setParameterU(size_t sp_i,double u)
 	{
 		if(u == -1000.0) return;
-		fprintf(mFile,"setAttr \".sp[%i].u\" %f;\n", sp_i,u);
+		fprintf(mFile,"\tsetAttr \".sp[%i].u\" %f;\n", sp_i,u);
 
 	}
 	void setParameterV(size_t sp_i,double v)
 	{
 		if(v == -1000.0) return;
-		fprintf(mFile,"setAttr \".sp[%i].v\" %f;\n", sp_i,v);
+		fprintf(mFile,"\tsetAttr \".sp[%i].v\" %f;\n", sp_i,v);
 
 	}
 	void setCvIthIndex(size_t sp_i,int ci)
 	{
 		if(ci == -1) return;
-		fprintf(mFile,"setAttr \".sp[%i].ci\" %i;\n", sp_i,ci);
+		fprintf(mFile,"\tsetAttr \".sp[%i].ci\" %i;\n", sp_i,ci);
 
 	}
 	void setCvJthIndex(size_t sp_i,int cj)
 	{
 		if(cj == -1) return;
-		fprintf(mFile,"setAttr \".sp[%i].cj\" %i;\n", sp_i,cj);
+		fprintf(mFile,"\tsetAttr \".sp[%i].cj\" %i;\n", sp_i,cj);
 
 	}
 	void getInputSurface(size_t sp_i)
@@ -163,7 +164,8 @@ public:
 
 	}
 protected:
-	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

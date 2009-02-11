@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class OrientationMarker : public PositionMarker
 {
 public:
 public:
+	OrientationMarker():PositionMarker(){}
 	OrientationMarker(FILE* file,const std::string& name,const std::string& parent=""):PositionMarker(file, name, parent, "orientationMarker"){}
 	virtual ~OrientationMarker(){}
 	void setFrontTwist(double ft)
 	{
 		if(ft == 0) return;
-		fprintf(mFile,"setAttr \".ft\" %f;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %f;\n", ft);
 
 	}
 	void setUpTwist(double ut)
 	{
 		if(ut == 0) return;
-		fprintf(mFile,"setAttr \".ut\" %f;\n", ut);
+		fprintf(mFile,"\tsetAttr \".ut\" %f;\n", ut);
 
 	}
 	void setSideTwist(double st)
 	{
 		if(st == 0) return;
-		fprintf(mFile,"setAttr \".st\" %f;\n", st);
+		fprintf(mFile,"\tsetAttr \".st\" %f;\n", st);
 
 	}
 	void getFrontTwist()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	OrientationMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PositionMarker(file, name, parent, nodeType) {}
+	OrientationMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PositionMarker(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

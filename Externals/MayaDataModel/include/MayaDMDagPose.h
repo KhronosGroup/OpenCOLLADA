@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,19 +18,20 @@ class DagPose : public DependNode
 {
 public:
 public:
+	DagPose():DependNode(){}
 	DagPose(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "dagPose"){}
 	virtual ~DagPose(){}
 	void setWorldMatrix(size_t wm_i,const matrix& wm)
 	{
 		if(wm == identity) return;
-		fprintf(mFile,"setAttr \".wm[%i]\" -type \"matrix\" ",wm_i);
+		fprintf(mFile,"\tsetAttr \".wm[%i]\" -type \"matrix\" ",wm_i);
 		wm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setWorldMatrix(size_t wm_start,size_t wm_end,matrix* wm)
 	{
-		fprintf(mFile,"setAttr \".wm[%i:%i]\" ", wm_start,wm_end);
+		fprintf(mFile,"\tsetAttr \".wm[%i:%i]\" ", wm_start,wm_end);
 		size_t size = (wm_end-wm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -42,7 +43,7 @@ public:
 	}
 	void startWorldMatrix(size_t wm_start,size_t wm_end)
 	{
-		fprintf(mFile,"setAttr \".wm[%i:%i]\"",wm_start,wm_end);
+		fprintf(mFile,"\tsetAttr \".wm[%i:%i]\"",wm_start,wm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -60,14 +61,14 @@ public:
 	void setXformMatrix(size_t xm_i,const matrix& xm)
 	{
 		if(xm == identity) return;
-		fprintf(mFile,"setAttr \".xm[%i]\" -type \"matrix\" ",xm_i);
+		fprintf(mFile,"\tsetAttr \".xm[%i]\" -type \"matrix\" ",xm_i);
 		xm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setXformMatrix(size_t xm_start,size_t xm_end,matrix* xm)
 	{
-		fprintf(mFile,"setAttr \".xm[%i:%i]\" ", xm_start,xm_end);
+		fprintf(mFile,"\tsetAttr \".xm[%i:%i]\" ", xm_start,xm_end);
 		size_t size = (xm_end-xm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -79,7 +80,7 @@ public:
 	}
 	void startXformMatrix(size_t xm_start,size_t xm_end)
 	{
-		fprintf(mFile,"setAttr \".xm[%i:%i]\"",xm_start,xm_end);
+		fprintf(mFile,"\tsetAttr \".xm[%i:%i]\"",xm_start,xm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -97,12 +98,12 @@ public:
 	void setGlobal(size_t g_i,bool g)
 	{
 		if(g == false) return;
-		fprintf(mFile,"setAttr \".g[%i]\" %i;\n", g_i,g);
+		fprintf(mFile,"\tsetAttr \".g[%i]\" %i;\n", g_i,g);
 
 	}
 	void setGlobal(size_t g_start,size_t g_end,bool* g)
 	{
-		fprintf(mFile,"setAttr \".g[%i:%i]\" ", g_start,g_end);
+		fprintf(mFile,"\tsetAttr \".g[%i:%i]\" ", g_start,g_end);
 		size_t size = (g_end-g_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -114,7 +115,7 @@ public:
 	}
 	void startGlobal(size_t g_start,size_t g_end)
 	{
-		fprintf(mFile,"setAttr \".g[%i:%i]\"",g_start,g_end);
+		fprintf(mFile,"\tsetAttr \".g[%i:%i]\"",g_start,g_end);
 
 	}
 	void appendGlobal(bool g)
@@ -130,7 +131,7 @@ public:
 	void setBindPose(bool bp)
 	{
 		if(bp == false) return;
-		fprintf(mFile,"setAttr \".bp\" %i;\n", bp);
+		fprintf(mFile,"\tsetAttr \".bp\" %i;\n", bp);
 
 	}
 	void getWorldMatrix(size_t wm_i)
@@ -154,7 +155,8 @@ public:
 
 	}
 protected:
-	DagPose(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DagPose(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolyNormalizeUV : public PolyModifierUV
 {
 public:
 public:
+	PolyNormalizeUV():PolyModifierUV(){}
 	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyNormalizeUV"){}
 	virtual ~PolyNormalizeUV(){}
 	void setNormalizeType(unsigned int nt)
 	{
 		if(nt == 1) return;
-		fprintf(mFile,"setAttr \".nt\" %i;\n", nt);
+		fprintf(mFile,"\tsetAttr \".nt\" %i;\n", nt);
 
 	}
 	void setPreserveAspectRatio(bool pa)
 	{
 		if(pa == true) return;
-		fprintf(mFile,"setAttr \".pa\" %i;\n", pa);
+		fprintf(mFile,"\tsetAttr \".pa\" %i;\n", pa);
 
 	}
 	void getNormalizeType()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyNormalizeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

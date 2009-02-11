@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolyCollapseF : public PolyModifier
 {
 public:
 public:
+	PolyCollapseF():PolyModifier(){}
 	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyCollapseF"){}
 	virtual ~PolyCollapseF(){}
 	void setUseAreaThreshold(bool uat)
 	{
 		if(uat == false) return;
-		fprintf(mFile,"setAttr \".uat\" %i;\n", uat);
+		fprintf(mFile,"\tsetAttr \".uat\" %i;\n", uat);
 
 	}
 	void setAreaThreshold(double at)
 	{
 		if(at == 0.1) return;
-		fprintf(mFile,"setAttr \".at\" %f;\n", at);
+		fprintf(mFile,"\tsetAttr \".at\" %f;\n", at);
 
 	}
 	void getUseAreaThreshold()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

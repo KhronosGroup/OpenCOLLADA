@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,60 +18,61 @@ class RevolvedPrimitive : public Primitive
 {
 public:
 public:
+	RevolvedPrimitive():Primitive(){}
 	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent=""):Primitive(file, name, parent, "revolvedPrimitive"){}
 	virtual ~RevolvedPrimitive(){}
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setStartSweep(double ssw)
 	{
 		if(ssw == 0) return;
-		fprintf(mFile,"setAttr \".ssw\" %f;\n", ssw);
+		fprintf(mFile,"\tsetAttr \".ssw\" %f;\n", ssw);
 
 	}
 	void setEndSweep(double esw)
 	{
 		if(esw == 6.2831853) return;
-		fprintf(mFile,"setAttr \".esw\" %f;\n", esw);
+		fprintf(mFile,"\tsetAttr \".esw\" %f;\n", esw);
 
 	}
 	void setUseTolerance(bool ut)
 	{
 		if(ut == false) return;
-		fprintf(mFile,"setAttr \".ut\" %i;\n", ut);
+		fprintf(mFile,"\tsetAttr \".ut\" %i;\n", ut);
 
 	}
 	void setDegree(unsigned int d)
 	{
 		if(d == 3) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setSections(int s)
 	{
 		if(s == 8) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void setSpans(int nsp)
 	{
 		if(nsp == 1) return;
-		fprintf(mFile,"setAttr \".nsp\" %i;\n", nsp);
+		fprintf(mFile,"\tsetAttr \".nsp\" %i;\n", nsp);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setHeightRatio(double hr)
 	{
 		if(hr == 2.0) return;
-		fprintf(mFile,"setAttr \".hr\" %f;\n", hr);
+		fprintf(mFile,"\tsetAttr \".hr\" %f;\n", hr);
 
 	}
 	void getRadius()
@@ -135,7 +136,8 @@ public:
 
 	}
 protected:
-	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Primitive(file, name, parent, nodeType) {}
+	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Primitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

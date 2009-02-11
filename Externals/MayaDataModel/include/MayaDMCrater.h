@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Crater : public Texture3d
 {
 public:
 public:
+	Crater():Texture3d(){}
 	Crater(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "crater"){}
 	virtual ~Crater(){}
 	void setShaker(float sh)
 	{
 		if(sh == 1.5) return;
-		fprintf(mFile,"setAttr \".sh\" %f;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %f;\n", sh);
 
 	}
 	void setChannel1(const float3& c1)
 	{
 		if(c1 == float3(1.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".c1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c1\" -type \"float3\" ");
 		c1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,25 +38,25 @@ public:
 	void setChannel1R(float c1r)
 	{
 		if(c1r == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1r\" %f;\n", c1r);
+		fprintf(mFile,"\tsetAttr \".c1.c1r\" %f;\n", c1r);
 
 	}
 	void setChannel1G(float c1g)
 	{
 		if(c1g == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1g\" %f;\n", c1g);
+		fprintf(mFile,"\tsetAttr \".c1.c1g\" %f;\n", c1g);
 
 	}
 	void setChannel1B(float c1b)
 	{
 		if(c1b == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1b\" %f;\n", c1b);
+		fprintf(mFile,"\tsetAttr \".c1.c1b\" %f;\n", c1b);
 
 	}
 	void setChannel2(const float3& c2)
 	{
 		if(c2 == float3(0.0f,1.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".c2\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c2\" -type \"float3\" ");
 		c2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,25 +64,25 @@ public:
 	void setChannel2R(float c2r)
 	{
 		if(c2r == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2r\" %f;\n", c2r);
+		fprintf(mFile,"\tsetAttr \".c2.c2r\" %f;\n", c2r);
 
 	}
 	void setChannel2G(float c2g)
 	{
 		if(c2g == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2g\" %f;\n", c2g);
+		fprintf(mFile,"\tsetAttr \".c2.c2g\" %f;\n", c2g);
 
 	}
 	void setChannel2B(float c2b)
 	{
 		if(c2b == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2b\" %f;\n", c2b);
+		fprintf(mFile,"\tsetAttr \".c2.c2b\" %f;\n", c2b);
 
 	}
 	void setChannel3(const float3& c3)
 	{
 		if(c3 == float3(0.0f,0.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".c3\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c3\" -type \"float3\" ");
 		c3.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -89,61 +90,61 @@ public:
 	void setChannel3R(float c3r)
 	{
 		if(c3r == 0.0) return;
-		fprintf(mFile,"setAttr \".c3.c3r\" %f;\n", c3r);
+		fprintf(mFile,"\tsetAttr \".c3.c3r\" %f;\n", c3r);
 
 	}
 	void setChannel3G(float c3g)
 	{
 		if(c3g == 0.0) return;
-		fprintf(mFile,"setAttr \".c3.c3g\" %f;\n", c3g);
+		fprintf(mFile,"\tsetAttr \".c3.c3g\" %f;\n", c3g);
 
 	}
 	void setChannel3B(float c3b)
 	{
 		if(c3b == 0.0) return;
-		fprintf(mFile,"setAttr \".c3.c3b\" %f;\n", c3b);
+		fprintf(mFile,"\tsetAttr \".c3.c3b\" %f;\n", c3b);
 
 	}
 	void setMelt(float m)
 	{
 		if(m == 0.0) return;
-		fprintf(mFile,"setAttr \".m\" %f;\n", m);
+		fprintf(mFile,"\tsetAttr \".m\" %f;\n", m);
 
 	}
 	void setBalance(float ba)
 	{
 		if(ba == 0.0) return;
-		fprintf(mFile,"setAttr \".ba\" %f;\n", ba);
+		fprintf(mFile,"\tsetAttr \".ba\" %f;\n", ba);
 
 	}
 	void setFrequency(float fr)
 	{
 		if(fr == 2.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setNormDepth(float nd)
 	{
 		if(nd == 5.0) return;
-		fprintf(mFile,"setAttr \".nd\" %f;\n", nd);
+		fprintf(mFile,"\tsetAttr \".nd\" %f;\n", nd);
 
 	}
 	void setNormMelt(float nm)
 	{
 		if(nm == 0.0) return;
-		fprintf(mFile,"setAttr \".nm\" %f;\n", nm);
+		fprintf(mFile,"\tsetAttr \".nm\" %f;\n", nm);
 
 	}
 	void setNormBalance(float nb)
 	{
 		if(nb == 1.0) return;
-		fprintf(mFile,"setAttr \".nb\" %f;\n", nb);
+		fprintf(mFile,"\tsetAttr \".nb\" %f;\n", nb);
 
 	}
 	void setNormFrequency(float nf)
 	{
 		if(nf == 1.0) return;
-		fprintf(mFile,"setAttr \".nf\" %f;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
 	void getNormalCamera()
@@ -327,7 +328,8 @@ public:
 
 	}
 protected:
-	Crater(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Crater(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

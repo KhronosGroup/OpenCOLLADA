@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class PolyMergeEdge : public PolyModifier
 {
 public:
 public:
+	PolyMergeEdge():PolyModifier(){}
 	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMergeEdge"){}
 	virtual ~PolyMergeEdge(){}
 	void setMergeMode(unsigned int mm)
 	{
 		if(mm == 1) return;
-		fprintf(mFile,"setAttr \".mm\" %i;\n", mm);
+		fprintf(mFile,"\tsetAttr \".mm\" %i;\n", mm);
 
 	}
 	void setFirstEdge(int fe)
 	{
 		if(fe == -1) return;
-		fprintf(mFile,"setAttr \".fe\" %i;\n", fe);
+		fprintf(mFile,"\tsetAttr \".fe\" %i;\n", fe);
 
 	}
 	void setSecondEdge(int se)
 	{
 		if(se == -1) return;
-		fprintf(mFile,"setAttr \".se\" %i;\n", se);
+		fprintf(mFile,"\tsetAttr \".se\" %i;\n", se);
 
 	}
 	void setMergeTexture(bool mt)
 	{
 		if(mt == false) return;
-		fprintf(mFile,"setAttr \".mt\" %i;\n", mt);
+		fprintf(mFile,"\tsetAttr \".mt\" %i;\n", mt);
 
 	}
 	void getMergeMode()
@@ -65,7 +66,8 @@ public:
 
 	}
 protected:
-	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

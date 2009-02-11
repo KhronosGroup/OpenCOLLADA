@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class ParticleAgeMapper : public DependNode
 {
 public:
 public:
+	ParticleAgeMapper():DependNode(){}
 	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleAgeMapper"){}
 	virtual ~ParticleAgeMapper(){}
 	void setRelativeAge(bool rea)
 	{
 		if(rea == false) return;
-		fprintf(mFile,"setAttr \".rea\" %i;\n", rea);
+		fprintf(mFile,"\tsetAttr \".rea\" %i;\n", rea);
 
 	}
 	void setTimeScale(float ts)
 	{
 		if(ts == 1) return;
-		fprintf(mFile,"setAttr \".ts\" %f;\n", ts);
+		fprintf(mFile,"\tsetAttr \".ts\" %f;\n", ts);
 
 	}
 	void setFoldAtEnd(bool fae)
 	{
 		if(fae == false) return;
-		fprintf(mFile,"setAttr \".fae\" %i;\n", fae);
+		fprintf(mFile,"\tsetAttr \".fae\" %i;\n", fae);
 
 	}
 	void getOutUvCoord()
@@ -79,7 +80,8 @@ public:
 
 	}
 protected:
-	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ParticleAgeMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

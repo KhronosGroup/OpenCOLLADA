@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class RenderBox : public ImplicitBox
 {
 public:
+	RenderBox():ImplicitBox(){}
 	RenderBox(FILE* file,const std::string& name,const std::string& parent=""):ImplicitBox(file, name, parent, "renderBox"){}
 	virtual ~RenderBox(){}
 protected:
-	RenderBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ImplicitBox(file, name, parent, nodeType) {}
+	RenderBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ImplicitBox(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

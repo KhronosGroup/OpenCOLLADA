@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class PairBlend : public DependNode
 {
 public:
 public:
+	PairBlend():DependNode(){}
 	PairBlend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "pairBlend"){}
 	virtual ~PairBlend(){}
 	void setCurrentDriver(unsigned int c)
 	{
 		if(c == 0) return;
-		fprintf(mFile,"setAttr \".c\" %i;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
 	void setInTranslate1(const double3& it1)
 	{
-		fprintf(mFile,"setAttr \".it1\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".it1\" -type \"double3\" ");
 		it1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -36,24 +37,24 @@ public:
 	void setInTranslateX1(double itx1)
 	{
 		if(itx1 == 0) return;
-		fprintf(mFile,"setAttr \".it1.itx1\" %f;\n", itx1);
+		fprintf(mFile,"\tsetAttr \".it1.itx1\" %f;\n", itx1);
 
 	}
 	void setInTranslateY1(double ity1)
 	{
 		if(ity1 == 0) return;
-		fprintf(mFile,"setAttr \".it1.ity1\" %f;\n", ity1);
+		fprintf(mFile,"\tsetAttr \".it1.ity1\" %f;\n", ity1);
 
 	}
 	void setInTranslateZ1(double itz1)
 	{
 		if(itz1 == 0) return;
-		fprintf(mFile,"setAttr \".it1.itz1\" %f;\n", itz1);
+		fprintf(mFile,"\tsetAttr \".it1.itz1\" %f;\n", itz1);
 
 	}
 	void setInRotate1(const double3& ir1)
 	{
-		fprintf(mFile,"setAttr \".ir1\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ir1\" -type \"double3\" ");
 		ir1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -61,24 +62,24 @@ public:
 	void setInRotateX1(double irx1)
 	{
 		if(irx1 == 0) return;
-		fprintf(mFile,"setAttr \".ir1.irx1\" %f;\n", irx1);
+		fprintf(mFile,"\tsetAttr \".ir1.irx1\" %f;\n", irx1);
 
 	}
 	void setInRotateY1(double iry1)
 	{
 		if(iry1 == 0) return;
-		fprintf(mFile,"setAttr \".ir1.iry1\" %f;\n", iry1);
+		fprintf(mFile,"\tsetAttr \".ir1.iry1\" %f;\n", iry1);
 
 	}
 	void setInRotateZ1(double irz1)
 	{
 		if(irz1 == 0) return;
-		fprintf(mFile,"setAttr \".ir1.irz1\" %f;\n", irz1);
+		fprintf(mFile,"\tsetAttr \".ir1.irz1\" %f;\n", irz1);
 
 	}
 	void setInTranslate2(const double3& it2)
 	{
-		fprintf(mFile,"setAttr \".it2\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".it2\" -type \"double3\" ");
 		it2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -86,24 +87,24 @@ public:
 	void setInTranslateX2(double itx2)
 	{
 		if(itx2 == 0) return;
-		fprintf(mFile,"setAttr \".it2.itx2\" %f;\n", itx2);
+		fprintf(mFile,"\tsetAttr \".it2.itx2\" %f;\n", itx2);
 
 	}
 	void setInTranslateY2(double ity2)
 	{
 		if(ity2 == 0) return;
-		fprintf(mFile,"setAttr \".it2.ity2\" %f;\n", ity2);
+		fprintf(mFile,"\tsetAttr \".it2.ity2\" %f;\n", ity2);
 
 	}
 	void setInTranslateZ2(double itz2)
 	{
 		if(itz2 == 0) return;
-		fprintf(mFile,"setAttr \".it2.itz2\" %f;\n", itz2);
+		fprintf(mFile,"\tsetAttr \".it2.itz2\" %f;\n", itz2);
 
 	}
 	void setInRotate2(const double3& ir2)
 	{
-		fprintf(mFile,"setAttr \".ir2\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ir2\" -type \"double3\" ");
 		ir2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -111,61 +112,61 @@ public:
 	void setInRotateX2(double irx2)
 	{
 		if(irx2 == 0) return;
-		fprintf(mFile,"setAttr \".ir2.irx2\" %f;\n", irx2);
+		fprintf(mFile,"\tsetAttr \".ir2.irx2\" %f;\n", irx2);
 
 	}
 	void setInRotateY2(double iry2)
 	{
 		if(iry2 == 0) return;
-		fprintf(mFile,"setAttr \".ir2.iry2\" %f;\n", iry2);
+		fprintf(mFile,"\tsetAttr \".ir2.iry2\" %f;\n", iry2);
 
 	}
 	void setInRotateZ2(double irz2)
 	{
 		if(irz2 == 0) return;
-		fprintf(mFile,"setAttr \".ir2.irz2\" %f;\n", irz2);
+		fprintf(mFile,"\tsetAttr \".ir2.irz2\" %f;\n", irz2);
 
 	}
 	void setWeight(double w)
 	{
 		if(w == 1.0) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setRotateOrder(unsigned int ro)
 	{
 		if(ro == 0) return;
-		fprintf(mFile,"setAttr \".ro\" %i;\n", ro);
+		fprintf(mFile,"\tsetAttr \".ro\" %i;\n", ro);
 
 	}
 	void setTranslateXMode(unsigned int txm)
 	{
 		if(txm == 0) return;
-		fprintf(mFile,"setAttr \".txm\" %i;\n", txm);
+		fprintf(mFile,"\tsetAttr \".txm\" %i;\n", txm);
 
 	}
 	void setTranslateYMode(unsigned int tym)
 	{
 		if(tym == 0) return;
-		fprintf(mFile,"setAttr \".tym\" %i;\n", tym);
+		fprintf(mFile,"\tsetAttr \".tym\" %i;\n", tym);
 
 	}
 	void setTranslateZMode(unsigned int tzm)
 	{
 		if(tzm == 0) return;
-		fprintf(mFile,"setAttr \".tzm\" %i;\n", tzm);
+		fprintf(mFile,"\tsetAttr \".tzm\" %i;\n", tzm);
 
 	}
 	void setRotateMode(unsigned int rm)
 	{
 		if(rm == 0) return;
-		fprintf(mFile,"setAttr \".rm\" %i;\n", rm);
+		fprintf(mFile,"\tsetAttr \".rm\" %i;\n", rm);
 
 	}
 	void setRotInterpolation(unsigned int ri)
 	{
 		if(ri == 0) return;
-		fprintf(mFile,"setAttr \".ri\" %i;\n", ri);
+		fprintf(mFile,"\tsetAttr \".ri\" %i;\n", ri);
 
 	}
 	void getInTranslate1()
@@ -299,7 +300,8 @@ public:
 
 	}
 protected:
-	PairBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	PairBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class PolyModifierWorld : public PolyModifier
 {
 public:
 public:
+	PolyModifierWorld():PolyModifier(){}
 	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyModifierWorld"){}
 	virtual ~PolyModifierWorld(){}
 	void setInputMatrix(const matrix& ix)
 	{
-		fprintf(mFile,"setAttr \".ix\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".ix\" -type \"matrix\" ");
 		ix.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,12 +31,12 @@ public:
 	void setWorldSpace(bool ws)
 	{
 		if(ws == false) return;
-		fprintf(mFile,"setAttr \".ws\" %i;\n", ws);
+		fprintf(mFile,"\tsetAttr \".ws\" %i;\n", ws);
 
 	}
 	void setManipMatrix(const matrix& mp)
 	{
-		fprintf(mFile,"setAttr \".mp\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".mp\" -type \"matrix\" ");
 		mp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -56,7 +57,8 @@ public:
 
 	}
 protected:
-	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

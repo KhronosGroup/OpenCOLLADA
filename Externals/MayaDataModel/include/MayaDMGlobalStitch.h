@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,59 +18,60 @@ class GlobalStitch : public AbstractBaseCreate
 {
 public:
 public:
+	GlobalStitch():AbstractBaseCreate(){}
 	GlobalStitch(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "globalStitch"){}
 	virtual ~GlobalStitch(){}
 	void setStitchCorners(unsigned int sc)
 	{
 		if(sc == 1) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setStitchEdges(unsigned int se)
 	{
 		if(se == 1) return;
-		fprintf(mFile,"setAttr \".se\" %i;\n", se);
+		fprintf(mFile,"\tsetAttr \".se\" %i;\n", se);
 
 	}
 	void setStitchSmoothness(unsigned int ss)
 	{
 		if(ss == 0) return;
-		fprintf(mFile,"setAttr \".ss\" %i;\n", ss);
+		fprintf(mFile,"\tsetAttr \".ss\" %i;\n", ss);
 
 	}
 	void setStitchPartialEdges(bool spe)
 	{
 		if(spe == false) return;
-		fprintf(mFile,"setAttr \".spe\" %i;\n", spe);
+		fprintf(mFile,"\tsetAttr \".spe\" %i;\n", spe);
 
 	}
 	void setMaxSeparation(double ms)
 	{
 		if(ms == 0) return;
-		fprintf(mFile,"setAttr \".ms\" %f;\n", ms);
+		fprintf(mFile,"\tsetAttr \".ms\" %f;\n", ms);
 
 	}
 	void setSampling(int sam)
 	{
 		if(sam == 1) return;
-		fprintf(mFile,"setAttr \".sam\" %i;\n", sam);
+		fprintf(mFile,"\tsetAttr \".sam\" %i;\n", sam);
 
 	}
 	void setModificationResistance(double mr)
 	{
 		if(mr == 1e-1) return;
-		fprintf(mFile,"setAttr \".mr\" %f;\n", mr);
+		fprintf(mFile,"\tsetAttr \".mr\" %f;\n", mr);
 
 	}
 	void setLockSurface(size_t lk_i,bool lk)
 	{
 		if(lk == false) return;
-		fprintf(mFile,"setAttr \".lk[%i]\" %i;\n", lk_i,lk);
+		fprintf(mFile,"\tsetAttr \".lk[%i]\" %i;\n", lk_i,lk);
 
 	}
 	void setLockSurface(size_t lk_start,size_t lk_end,bool* lk)
 	{
-		fprintf(mFile,"setAttr \".lk[%i:%i]\" ", lk_start,lk_end);
+		fprintf(mFile,"\tsetAttr \".lk[%i:%i]\" ", lk_start,lk_end);
 		size_t size = (lk_end-lk_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -82,7 +83,7 @@ public:
 	}
 	void startLockSurface(size_t lk_start,size_t lk_end)
 	{
-		fprintf(mFile,"setAttr \".lk[%i:%i]\"",lk_start,lk_end);
+		fprintf(mFile,"\tsetAttr \".lk[%i:%i]\"",lk_start,lk_end);
 
 	}
 	void appendLockSurface(bool lk)
@@ -161,7 +162,8 @@ public:
 
 	}
 protected:
-	GlobalStitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	GlobalStitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

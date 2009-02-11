@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Audio : public DependNode
 {
 public:
 public:
+	Audio():DependNode(){}
 	Audio(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "audio"){}
 	virtual ~Audio(){}
 	void setFilename(const string& f)
 	{
 		if(f == "NULL") return;
-		fprintf(mFile,"setAttr \".f\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".f\" -type \"string\" ");
 		f.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setOrder(int r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %i;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %i;\n", r);
 
 	}
 	void getOffset()
@@ -50,7 +51,8 @@ public:
 
 	}
 protected:
-	Audio(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Audio(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

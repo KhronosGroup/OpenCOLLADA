@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,35 +18,36 @@ class Extrude : public AbstractBaseCreate
 {
 public:
 public:
+	Extrude():AbstractBaseCreate(){}
 	Extrude(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "extrude"){}
 	virtual ~Extrude(){}
 	void setExtrudeType(unsigned int et)
 	{
 		if(et == 2) return;
-		fprintf(mFile,"setAttr \".et\" %i;\n", et);
+		fprintf(mFile,"\tsetAttr \".et\" %i;\n", et);
 
 	}
 	void setFixedPath(bool fpt)
 	{
 		if(fpt == false) return;
-		fprintf(mFile,"setAttr \".fpt\" %i;\n", fpt);
+		fprintf(mFile,"\tsetAttr \".fpt\" %i;\n", fpt);
 
 	}
 	void setUseComponentPivot(unsigned int ucp)
 	{
 		if(ucp == 0) return;
-		fprintf(mFile,"setAttr \".ucp\" %i;\n", ucp);
+		fprintf(mFile,"\tsetAttr \".ucp\" %i;\n", ucp);
 
 	}
 	void setUseProfileNormal(bool upn)
 	{
 		if(upn == false) return;
-		fprintf(mFile,"setAttr \".upn\" %i;\n", upn);
+		fprintf(mFile,"\tsetAttr \".upn\" %i;\n", upn);
 
 	}
 	void setDirection(const double3& d)
 	{
-		fprintf(mFile,"setAttr \".d\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"double3\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -54,30 +55,30 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 1) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void setLength(double l)
 	{
 		if(l == 1) return;
-		fprintf(mFile,"setAttr \".l\" %f;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
 
 	}
 	void setPivot(const double3& p)
 	{
-		fprintf(mFile,"setAttr \".p\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"double3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,49 +86,49 @@ public:
 	void setPivotX(double px)
 	{
 		if(px == 0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPivotY(double py)
 	{
 		if(py == 0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setPivotZ(double pz)
 	{
 		if(pz == 0) return;
-		fprintf(mFile,"setAttr \".p.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
 
 	}
 	void setRotation(double ro)
 	{
 		if(ro == 0) return;
-		fprintf(mFile,"setAttr \".ro\" %f;\n", ro);
+		fprintf(mFile,"\tsetAttr \".ro\" %f;\n", ro);
 
 	}
 	void setScale(double sc)
 	{
 		if(sc == 1.0) return;
-		fprintf(mFile,"setAttr \".sc\" %f;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
 
 	}
 	void setReverseSurfaceIfPathReversed(bool rsp)
 	{
 		if(rsp == false) return;
-		fprintf(mFile,"setAttr \".rsp\" %i;\n", rsp);
+		fprintf(mFile,"\tsetAttr \".rsp\" %i;\n", rsp);
 
 	}
 	void setDegreeAlongLength(short dl)
 	{
 		if(dl == 1) return;
-		fprintf(mFile,"setAttr \".dl\" %i;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
 	void setSubCurveSubSurface(bool scs)
 	{
 		if(scs == false) return;
-		fprintf(mFile,"setAttr \".scs\" %i;\n", scs);
+		fprintf(mFile,"\tsetAttr \".scs\" %i;\n", scs);
 
 	}
 	void getProfile()
@@ -236,7 +237,8 @@ public:
 
 	}
 protected:
-	Extrude(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	Extrude(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

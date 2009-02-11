@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class CharacterOffset : public DependNode
 {
 public:
 public:
+	CharacterOffset():DependNode(){}
 	CharacterOffset(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "characterOffset"){}
 	virtual ~CharacterOffset(){}
 	void setInRootTranslate(const double3& rti)
 	{
-		fprintf(mFile,"setAttr \".rti\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rti\" -type \"double3\" ");
 		rti.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,24 +31,24 @@ public:
 	void setInRootTranslateX(double rtix)
 	{
 		if(rtix == 0) return;
-		fprintf(mFile,"setAttr \".rti.rtix\" %f;\n", rtix);
+		fprintf(mFile,"\tsetAttr \".rti.rtix\" %f;\n", rtix);
 
 	}
 	void setInRootTranslateY(double rtiy)
 	{
 		if(rtiy == 0) return;
-		fprintf(mFile,"setAttr \".rti.rtiy\" %f;\n", rtiy);
+		fprintf(mFile,"\tsetAttr \".rti.rtiy\" %f;\n", rtiy);
 
 	}
 	void setInRootTranslateZ(double rtiz)
 	{
 		if(rtiz == 0) return;
-		fprintf(mFile,"setAttr \".rti.rtiz\" %f;\n", rtiz);
+		fprintf(mFile,"\tsetAttr \".rti.rtiz\" %f;\n", rtiz);
 
 	}
 	void setInRootRotate(const double3& rri)
 	{
-		fprintf(mFile,"setAttr \".rri\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rri\" -type \"double3\" ");
 		rri.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,30 +56,30 @@ public:
 	void setInRootRotateX(double rrix)
 	{
 		if(rrix == 0) return;
-		fprintf(mFile,"setAttr \".rri.rrix\" %f;\n", rrix);
+		fprintf(mFile,"\tsetAttr \".rri.rrix\" %f;\n", rrix);
 
 	}
 	void setInRootRotateY(double rriy)
 	{
 		if(rriy == 0) return;
-		fprintf(mFile,"setAttr \".rri.rriy\" %f;\n", rriy);
+		fprintf(mFile,"\tsetAttr \".rri.rriy\" %f;\n", rriy);
 
 	}
 	void setInRootRotateZ(double rriz)
 	{
 		if(rriz == 0) return;
-		fprintf(mFile,"setAttr \".rri.rriz\" %f;\n", rriz);
+		fprintf(mFile,"\tsetAttr \".rri.rriz\" %f;\n", rriz);
 
 	}
 	void setRootRotateOrder(unsigned int rror)
 	{
 		if(rror == 0) return;
-		fprintf(mFile,"setAttr \".rror\" %i;\n", rror);
+		fprintf(mFile,"\tsetAttr \".rror\" %i;\n", rror);
 
 	}
 	void setRootJointOrient(const double3& rjo)
 	{
-		fprintf(mFile,"setAttr \".rjo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rjo\" -type \"double3\" ");
 		rjo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -86,25 +87,25 @@ public:
 	void setRootJointOrientX(double rjox)
 	{
 		if(rjox == 0) return;
-		fprintf(mFile,"setAttr \".rjo.rjox\" %f;\n", rjox);
+		fprintf(mFile,"\tsetAttr \".rjo.rjox\" %f;\n", rjox);
 
 	}
 	void setRootJointOrientY(double rjoy)
 	{
 		if(rjoy == 0) return;
-		fprintf(mFile,"setAttr \".rjo.rjoy\" %f;\n", rjoy);
+		fprintf(mFile,"\tsetAttr \".rjo.rjoy\" %f;\n", rjoy);
 
 	}
 	void setRootJointOrientZ(double rjoz)
 	{
 		if(rjoz == 0) return;
-		fprintf(mFile,"setAttr \".rjo.rjoz\" %f;\n", rjoz);
+		fprintf(mFile,"\tsetAttr \".rjo.rjoz\" %f;\n", rjoz);
 
 	}
 	void setRootParentMatrix(const matrix& rpm)
 	{
 		if(rpm == identity) return;
-		fprintf(mFile,"setAttr \".rpm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".rpm\" -type \"matrix\" ");
 		rpm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -112,7 +113,7 @@ public:
 	void setRootParentInverseMatrix(const matrix& rpim)
 	{
 		if(rpim == identity) return;
-		fprintf(mFile,"setAttr \".rpim\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".rpim\" -type \"matrix\" ");
 		rpim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -120,18 +121,18 @@ public:
 	void setApplyControlParentTransform(bool acpx)
 	{
 		if(acpx == false) return;
-		fprintf(mFile,"setAttr \".acpx\" %i;\n", acpx);
+		fprintf(mFile,"\tsetAttr \".acpx\" %i;\n", acpx);
 
 	}
 	void setEnable(bool nabl)
 	{
 		if(nabl == true) return;
-		fprintf(mFile,"setAttr \".nabl\" %i;\n", nabl);
+		fprintf(mFile,"\tsetAttr \".nabl\" %i;\n", nabl);
 
 	}
 	void setOffsetRootTranslate(const double3& rtf)
 	{
-		fprintf(mFile,"setAttr \".rtf\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rtf\" -type \"double3\" ");
 		rtf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -139,24 +140,24 @@ public:
 	void setOffsetRootTranslateX(double rtfx)
 	{
 		if(rtfx == 0) return;
-		fprintf(mFile,"setAttr \".rtf.rtfx\" %f;\n", rtfx);
+		fprintf(mFile,"\tsetAttr \".rtf.rtfx\" %f;\n", rtfx);
 
 	}
 	void setOffsetRootTranslateY(double rtfy)
 	{
 		if(rtfy == 0) return;
-		fprintf(mFile,"setAttr \".rtf.rtfy\" %f;\n", rtfy);
+		fprintf(mFile,"\tsetAttr \".rtf.rtfy\" %f;\n", rtfy);
 
 	}
 	void setOffsetRootTranslateZ(double rtfz)
 	{
 		if(rtfz == 0) return;
-		fprintf(mFile,"setAttr \".rtf.rtfz\" %f;\n", rtfz);
+		fprintf(mFile,"\tsetAttr \".rtf.rtfz\" %f;\n", rtfz);
 
 	}
 	void setInitialOffsetRootTranslate(const double3& itf)
 	{
-		fprintf(mFile,"setAttr \".itf\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".itf\" -type \"double3\" ");
 		itf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -164,24 +165,24 @@ public:
 	void setInitialOffsetRootTranslateX(double itfx)
 	{
 		if(itfx == 0) return;
-		fprintf(mFile,"setAttr \".itf.itfx\" %f;\n", itfx);
+		fprintf(mFile,"\tsetAttr \".itf.itfx\" %f;\n", itfx);
 
 	}
 	void setInitialOffsetRootTranslateY(double itfy)
 	{
 		if(itfy == 0) return;
-		fprintf(mFile,"setAttr \".itf.itfy\" %f;\n", itfy);
+		fprintf(mFile,"\tsetAttr \".itf.itfy\" %f;\n", itfy);
 
 	}
 	void setInitialOffsetRootTranslateZ(double itfz)
 	{
 		if(itfz == 0) return;
-		fprintf(mFile,"setAttr \".itf.itfz\" %f;\n", itfz);
+		fprintf(mFile,"\tsetAttr \".itf.itfz\" %f;\n", itfz);
 
 	}
 	void setRotateControlScale(const double3& rcs)
 	{
-		fprintf(mFile,"setAttr \".rcs\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rcs\" -type \"double3\" ");
 		rcs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -189,32 +190,32 @@ public:
 	void setRotateControlScaleX(double rcsx)
 	{
 		if(rcsx == 1.0) return;
-		fprintf(mFile,"setAttr \".rcs.rcsx\" %f;\n", rcsx);
+		fprintf(mFile,"\tsetAttr \".rcs.rcsx\" %f;\n", rcsx);
 
 	}
 	void setRotateControlScaleY(double rcsy)
 	{
 		if(rcsy == 1.0) return;
-		fprintf(mFile,"setAttr \".rcs.rcsy\" %f;\n", rcsy);
+		fprintf(mFile,"\tsetAttr \".rcs.rcsy\" %f;\n", rcsy);
 
 	}
 	void setRotateControlScaleZ(double rcsz)
 	{
 		if(rcsz == 1.0) return;
-		fprintf(mFile,"setAttr \".rcs.rcsz\" %f;\n", rcsz);
+		fprintf(mFile,"\tsetAttr \".rcs.rcsz\" %f;\n", rcsz);
 
 	}
 	void setRotateControlParentMatrix(const matrix& rcpm)
 	{
 		if(rcpm == identity) return;
-		fprintf(mFile,"setAttr \".rcpm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".rcpm\" -type \"matrix\" ");
 		rcpm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setOffsetRootRotate(const double3& rrf)
 	{
-		fprintf(mFile,"setAttr \".rrf\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rrf\" -type \"double3\" ");
 		rrf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -222,30 +223,30 @@ public:
 	void setOffsetRootRotateX(double rrfx)
 	{
 		if(rrfx == 0) return;
-		fprintf(mFile,"setAttr \".rrf.rrfx\" %f;\n", rrfx);
+		fprintf(mFile,"\tsetAttr \".rrf.rrfx\" %f;\n", rrfx);
 
 	}
 	void setOffsetRootRotateY(double rrfy)
 	{
 		if(rrfy == 0) return;
-		fprintf(mFile,"setAttr \".rrf.rrfy\" %f;\n", rrfy);
+		fprintf(mFile,"\tsetAttr \".rrf.rrfy\" %f;\n", rrfy);
 
 	}
 	void setOffsetRootRotateZ(double rrfz)
 	{
 		if(rrfz == 0) return;
-		fprintf(mFile,"setAttr \".rrf.rrfz\" %f;\n", rrfz);
+		fprintf(mFile,"\tsetAttr \".rrf.rrfz\" %f;\n", rrfz);
 
 	}
 	void setOffsetRootRotateOrder(unsigned int rfor)
 	{
 		if(rfor == 0) return;
-		fprintf(mFile,"setAttr \".rfor\" %i;\n", rfor);
+		fprintf(mFile,"\tsetAttr \".rfor\" %i;\n", rfor);
 
 	}
 	void setOffsetRootRotatePivot(const double3& rpf)
 	{
-		fprintf(mFile,"setAttr \".rpf\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rpf\" -type \"double3\" ");
 		rpf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -253,19 +254,19 @@ public:
 	void setOffsetRootRotatePivotX(double rppfx)
 	{
 		if(rppfx == 0) return;
-		fprintf(mFile,"setAttr \".rpf.rppfx\" %f;\n", rppfx);
+		fprintf(mFile,"\tsetAttr \".rpf.rppfx\" %f;\n", rppfx);
 
 	}
 	void setOffsetRootRotatePivotY(double rppfy)
 	{
 		if(rppfy == 0) return;
-		fprintf(mFile,"setAttr \".rpf.rppfy\" %f;\n", rppfy);
+		fprintf(mFile,"\tsetAttr \".rpf.rppfy\" %f;\n", rppfy);
 
 	}
 	void setOffsetRootRotatePivotZ(double rppfz)
 	{
 		if(rppfz == 0) return;
-		fprintf(mFile,"setAttr \".rpf.rppfz\" %f;\n", rppfz);
+		fprintf(mFile,"\tsetAttr \".rpf.rppfz\" %f;\n", rppfz);
 
 	}
 	void getInRootTranslate()
@@ -504,7 +505,8 @@ public:
 
 	}
 protected:
-	CharacterOffset(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	CharacterOffset(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

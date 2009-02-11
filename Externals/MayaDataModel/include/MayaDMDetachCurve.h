@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class DetachCurve : public AbstractBaseCreate
 {
 public:
 public:
+	DetachCurve():AbstractBaseCreate(){}
 	DetachCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "detachCurve"){}
 	virtual ~DetachCurve(){}
 	void setParameter(size_t p_i,double p)
 	{
 		if(p == 0.0) return;
-		fprintf(mFile,"setAttr \".p[%i]\" %f;\n", p_i,p);
+		fprintf(mFile,"\tsetAttr \".p[%i]\" %f;\n", p_i,p);
 
 	}
 	void setParameter(size_t p_start,size_t p_end,double* p)
 	{
-		fprintf(mFile,"setAttr \".p[%i:%i]\" ", p_start,p_end);
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\" ", p_start,p_end);
 		size_t size = (p_end-p_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startParameter(size_t p_start,size_t p_end)
 	{
-		fprintf(mFile,"setAttr \".p[%i:%i]\"",p_start,p_end);
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\"",p_start,p_end);
 
 	}
 	void appendParameter(double p)
@@ -56,12 +57,12 @@ public:
 	void setKeep(size_t k_i,bool k)
 	{
 		if(k == true) return;
-		fprintf(mFile,"setAttr \".k[%i]\" %i;\n", k_i,k);
+		fprintf(mFile,"\tsetAttr \".k[%i]\" %i;\n", k_i,k);
 
 	}
 	void setKeep(size_t k_start,size_t k_end,bool* k)
 	{
-		fprintf(mFile,"setAttr \".k[%i:%i]\" ", k_start,k_end);
+		fprintf(mFile,"\tsetAttr \".k[%i:%i]\" ", k_start,k_end);
 		size_t size = (k_end-k_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -73,7 +74,7 @@ public:
 	}
 	void startKeep(size_t k_start,size_t k_end)
 	{
-		fprintf(mFile,"setAttr \".k[%i:%i]\"",k_start,k_end);
+		fprintf(mFile,"\tsetAttr \".k[%i:%i]\"",k_start,k_end);
 
 	}
 	void appendKeep(bool k)
@@ -107,7 +108,8 @@ public:
 
 	}
 protected:
-	DetachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	DetachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class DeformTwist : public DeformFunc
 {
 public:
 public:
+	DeformTwist():DeformFunc(){}
 	DeformTwist(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformTwist"){}
 	virtual ~DeformTwist(){}
 	void setLowBound(double lb)
 	{
 		if(lb == -1.0) return;
-		fprintf(mFile,"setAttr \".lb\" %f;\n", lb);
+		fprintf(mFile,"\tsetAttr \".lb\" %f;\n", lb);
 
 	}
 	void setHighBound(double hb)
 	{
 		if(hb == 1.0) return;
-		fprintf(mFile,"setAttr \".hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hb\" %f;\n", hb);
 
 	}
 	void setStartAngle(double sa)
 	{
 		if(sa == 0) return;
-		fprintf(mFile,"setAttr \".sa\" %f;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %f;\n", sa);
 
 	}
 	void setEndAngle(double ea)
 	{
 		if(ea == 0) return;
-		fprintf(mFile,"setAttr \".ea\" %f;\n", ea);
+		fprintf(mFile,"\tsetAttr \".ea\" %f;\n", ea);
 
 	}
 	void getLowBound()
@@ -65,7 +66,8 @@ public:
 
 	}
 protected:
-	DeformTwist(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformFunc(file, name, parent, nodeType) {}
+	DeformTwist(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformFunc(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

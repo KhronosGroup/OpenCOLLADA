@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class Brownian : public Texture3d
 {
 public:
 public:
+	Brownian():Texture3d(){}
 	Brownian(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "brownian"){}
 	virtual ~Brownian(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setLacunarity(float l)
 	{
 		if(l == 4.0) return;
-		fprintf(mFile,"setAttr \".l\" %f;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
 
 	}
 	void setIncrement(float ic)
 	{
 		if(ic == 0.1) return;
-		fprintf(mFile,"setAttr \".ic\" %f;\n", ic);
+		fprintf(mFile,"\tsetAttr \".ic\" %f;\n", ic);
 
 	}
 	void setOctaves(float oct)
 	{
 		if(oct == 3.0) return;
-		fprintf(mFile,"setAttr \".oct\" %f;\n", oct);
+		fprintf(mFile,"\tsetAttr \".oct\" %f;\n", oct);
 
 	}
 	void setWeight3d(const float3& w3)
 	{
 		if(w3 == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".w3\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".w3\" -type \"float3\" ");
 		w3.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,19 +56,24 @@ public:
 	void setWeight3dX(float w3x)
 	{
 		if(w3x == 0.0) return;
-		fprintf(mFile,"setAttr \".w3.w3x\" %f;\n", w3x);
+		fprintf(mFile,"\tsetAttr \".w3.w3x\" %f;\n", w3x);
 
 	}
 	void setWeight3dY(float w3y)
 	{
 		if(w3y == 0.0) return;
-		fprintf(mFile,"setAttr \".w3.w3y\" %f;\n", w3y);
+		fprintf(mFile,"\tsetAttr \".w3.w3y\" %f;\n", w3y);
 
 	}
 	void setWeight3dZ(float w3z)
 	{
 		if(w3z == 0.0) return;
-		fprintf(mFile,"setAttr \".w3.w3z\" %f;\n", w3z);
+		fprintf(mFile,"\tsetAttr \".w3.w3z\" %f;\n", w3z);
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getNormalCamera()
@@ -166,7 +172,8 @@ public:
 
 	}
 protected:
-	Brownian(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Brownian(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

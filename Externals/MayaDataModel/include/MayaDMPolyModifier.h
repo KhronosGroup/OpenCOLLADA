@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class PolyModifier : public PolyBase
 {
 public:
 public:
+	PolyModifier():PolyBase(){}
 	PolyModifier(FILE* file,const std::string& name,const std::string& parent=""):PolyBase(file, name, parent, "polyModifier"){}
 	virtual ~PolyModifier(){}
 	void setUseOldPolyArchitecture(bool uopa)
 	{
 		if(uopa == false) return;
-		fprintf(mFile,"setAttr \".uopa\" %i;\n", uopa);
+		fprintf(mFile,"\tsetAttr \".uopa\" %i;\n", uopa);
 
 	}
 	void setInputComponents(const componentList& ics)
 	{
-		fprintf(mFile,"setAttr \".ics\" -type \"componentList\" ");
+		fprintf(mFile,"\tsetAttr \".ics\" -type \"componentList\" ");
 		ics.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -44,7 +45,8 @@ public:
 
 	}
 protected:
-	PolyModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyBase(file, name, parent, nodeType) {}
+	PolyModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

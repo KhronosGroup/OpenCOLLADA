@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolySoftEdge : public PolyModifierWorld
 {
 public:
 public:
+	PolySoftEdge():PolyModifierWorld(){}
 	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polySoftEdge"){}
 	virtual ~PolySoftEdge(){}
 	void setAngle(double a)
 	{
 		if(a == 3) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void getAngle()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolySoftEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

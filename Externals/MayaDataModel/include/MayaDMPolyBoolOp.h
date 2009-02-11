@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class PolyBoolOp : public PolyUnite
 {
 public:
 public:
+	PolyBoolOp():PolyUnite(){}
 	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent=""):PolyUnite(file, name, parent, "polyBoolOp"){}
 	virtual ~PolyBoolOp(){}
 	void setOperation(unsigned int op)
 	{
 		if(op == 0) return;
-		fprintf(mFile,"setAttr \".op\" %i;\n", op);
+		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
 
 	}
 	void setUseThresholds(bool uth)
 	{
 		if(uth == false) return;
-		fprintf(mFile,"setAttr \".uth\" %i;\n", uth);
+		fprintf(mFile,"\tsetAttr \".uth\" %i;\n", uth);
 
 	}
 	void setVertexDistanceThreshold(double vdt)
 	{
 		if(vdt == 0) return;
-		fprintf(mFile,"setAttr \".vdt\" %f;\n", vdt);
+		fprintf(mFile,"\tsetAttr \".vdt\" %f;\n", vdt);
 
 	}
 	void setFaceAreaThreshold(double fat)
 	{
 		if(fat == 0) return;
-		fprintf(mFile,"setAttr \".fat\" %f;\n", fat);
+		fprintf(mFile,"\tsetAttr \".fat\" %f;\n", fat);
 
 	}
 	void getOperation()
@@ -65,7 +66,8 @@ public:
 
 	}
 protected:
-	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyUnite(file, name, parent, nodeType) {}
+	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyUnite(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

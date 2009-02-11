@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,23 +18,24 @@ class SmoothCurve : public AbstractBaseCreate
 {
 public:
 public:
+	SmoothCurve():AbstractBaseCreate(){}
 	SmoothCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "smoothCurve"){}
 	virtual ~SmoothCurve(){}
 	void setSmoothness(double s)
 	{
 		if(s == 10.0) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setIndex(size_t i_i,int i_)
 	{
 		if(i_ == 0) return;
-		fprintf(mFile,"setAttr \".i[%i]\" %i;\n", i_i,i_);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" %i;\n", i_i,i_);
 
 	}
 	void setIndex(size_t i_start,size_t i_end,int* i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\" ", i_start,i_end);
 		size_t size = (i_end-i_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -46,7 +47,7 @@ public:
 	}
 	void startIndex(size_t i_start,size_t i_end)
 	{
-		fprintf(mFile,"setAttr \".i[%i:%i]\"",i_start,i_end);
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
 
 	}
 	void appendIndex(int i)
@@ -80,7 +81,8 @@ public:
 
 	}
 protected:
-	SmoothCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	SmoothCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

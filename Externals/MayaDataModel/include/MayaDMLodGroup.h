@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class LodGroup : public Transform
 {
 public:
 public:
+	LodGroup():Transform(){}
 	LodGroup(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "lodGroup"){}
 	virtual ~LodGroup(){}
 	void setCameraMatrix(const matrix& cm)
 	{
 		if(cm == identity) return;
-		fprintf(mFile,"setAttr \".cm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".cm\" -type \"matrix\" ");
 		cm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,12 +32,12 @@ public:
 	void setThreshold(size_t th_i,double th)
 	{
 		if(th == 0) return;
-		fprintf(mFile,"setAttr \".th[%i]\" %f;\n", th_i,th);
+		fprintf(mFile,"\tsetAttr \".th[%i]\" %f;\n", th_i,th);
 
 	}
 	void setThreshold(size_t th_start,size_t th_end,double* th)
 	{
-		fprintf(mFile,"setAttr \".th[%i:%i]\" ", th_start,th_end);
+		fprintf(mFile,"\tsetAttr \".th[%i:%i]\" ", th_start,th_end);
 		size_t size = (th_end-th_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -48,7 +49,7 @@ public:
 	}
 	void startThreshold(size_t th_start,size_t th_end)
 	{
-		fprintf(mFile,"setAttr \".th[%i:%i]\"",th_start,th_end);
+		fprintf(mFile,"\tsetAttr \".th[%i:%i]\"",th_start,th_end);
 
 	}
 	void appendThreshold(double th)
@@ -64,12 +65,12 @@ public:
 	void setDisplayLevel(size_t dl_i,unsigned int dl)
 	{
 		if(dl == 0) return;
-		fprintf(mFile,"setAttr \".dl[%i]\" %i;\n", dl_i,dl);
+		fprintf(mFile,"\tsetAttr \".dl[%i]\" %i;\n", dl_i,dl);
 
 	}
 	void setDisplayLevel(size_t dl_start,size_t dl_end,unsigned int* dl)
 	{
-		fprintf(mFile,"setAttr \".dl[%i:%i]\" ", dl_start,dl_end);
+		fprintf(mFile,"\tsetAttr \".dl[%i:%i]\" ", dl_start,dl_end);
 		size_t size = (dl_end-dl_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -81,7 +82,7 @@ public:
 	}
 	void startDisplayLevel(size_t dl_start,size_t dl_end)
 	{
-		fprintf(mFile,"setAttr \".dl[%i:%i]\"",dl_start,dl_end);
+		fprintf(mFile,"\tsetAttr \".dl[%i:%i]\"",dl_start,dl_end);
 
 	}
 	void appendDisplayLevel(unsigned int dl)
@@ -97,19 +98,19 @@ public:
 	void setMinMaxDistance(bool mmd)
 	{
 		if(mmd == 0) return;
-		fprintf(mFile,"setAttr \".mmd\" %i;\n", mmd);
+		fprintf(mFile,"\tsetAttr \".mmd\" %i;\n", mmd);
 
 	}
 	void setMinDistance(double mid)
 	{
 		if(mid == -100.0) return;
-		fprintf(mFile,"setAttr \".mid\" %f;\n", mid);
+		fprintf(mFile,"\tsetAttr \".mid\" %f;\n", mid);
 
 	}
 	void setMaxDistance(double mxd)
 	{
 		if(mxd == 100.0) return;
-		fprintf(mFile,"setAttr \".mxd\" %f;\n", mxd);
+		fprintf(mFile,"\tsetAttr \".mxd\" %f;\n", mxd);
 
 	}
 	void getCameraMatrix()
@@ -158,7 +159,8 @@ public:
 
 	}
 protected:
-	LodGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	LodGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

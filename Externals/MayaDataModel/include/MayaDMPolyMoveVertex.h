@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyMoveVertex : public PolyModifierWorld
 {
 public:
 public:
+	PolyMoveVertex():PolyModifierWorld(){}
 	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyMoveVertex"){}
 	virtual ~PolyMoveVertex(){}
 	void setTranslate(const double3& t)
 	{
 		if(t == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".t\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"double3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setTranslateX(double tx)
 	{
 		if(tx == 0) return;
-		fprintf(mFile,"setAttr \".t.tx\" %f;\n", tx);
+		fprintf(mFile,"\tsetAttr \".t.tx\" %f;\n", tx);
 
 	}
 	void setTranslateY(double ty)
 	{
 		if(ty == 0) return;
-		fprintf(mFile,"setAttr \".t.ty\" %f;\n", ty);
+		fprintf(mFile,"\tsetAttr \".t.ty\" %f;\n", ty);
 
 	}
 	void setTranslateZ(double tz)
 	{
 		if(tz == 0) return;
-		fprintf(mFile,"setAttr \".t.tz\" %f;\n", tz);
+		fprintf(mFile,"\tsetAttr \".t.tz\" %f;\n", tz);
 
 	}
 	void setRotate(const double3& ro)
 	{
 		if(ro == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ro\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ro\" -type \"double3\" ");
 		ro.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setRotateX(double rx)
 	{
 		if(rx == 0) return;
-		fprintf(mFile,"setAttr \".ro.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".ro.rx\" %f;\n", rx);
 
 	}
 	void setRotateY(double ry)
 	{
 		if(ry == 0) return;
-		fprintf(mFile,"setAttr \".ro.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".ro.ry\" %f;\n", ry);
 
 	}
 	void setRotateZ(double rz)
 	{
 		if(rz == 0) return;
-		fprintf(mFile,"setAttr \".ro.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".ro.rz\" %f;\n", rz);
 
 	}
 	void setScale(const double3& s)
 	{
 		if(s == double3(1.0, 1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".s\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".s\" -type \"double3\" ");
 		s.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,25 +84,25 @@ public:
 	void setScaleX(double sx)
 	{
 		if(sx == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sx\" %f;\n", sx);
+		fprintf(mFile,"\tsetAttr \".s.sx\" %f;\n", sx);
 
 	}
 	void setScaleY(double sy)
 	{
 		if(sy == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sy\" %f;\n", sy);
+		fprintf(mFile,"\tsetAttr \".s.sy\" %f;\n", sy);
 
 	}
 	void setScaleZ(double sz)
 	{
 		if(sz == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sz\" %f;\n", sz);
+		fprintf(mFile,"\tsetAttr \".s.sz\" %f;\n", sz);
 
 	}
 	void setPivot(const float3& pvt)
 	{
 		if(pvt == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".pvt\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pvt\" -type \"float3\" ");
 		pvt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,37 +110,37 @@ public:
 	void setPivotX(float pvx)
 	{
 		if(pvx == 0) return;
-		fprintf(mFile,"setAttr \".pvt.pvx\" %f;\n", pvx);
+		fprintf(mFile,"\tsetAttr \".pvt.pvx\" %f;\n", pvx);
 
 	}
 	void setPivotY(float pvy)
 	{
 		if(pvy == 0) return;
-		fprintf(mFile,"setAttr \".pvt.pvy\" %f;\n", pvy);
+		fprintf(mFile,"\tsetAttr \".pvt.pvy\" %f;\n", pvy);
 
 	}
 	void setPivotZ(float pvz)
 	{
 		if(pvz == 0) return;
-		fprintf(mFile,"setAttr \".pvt.pvz\" %f;\n", pvz);
+		fprintf(mFile,"\tsetAttr \".pvt.pvz\" %f;\n", pvz);
 
 	}
 	void setRandom(float ran)
 	{
 		if(ran == 0.0) return;
-		fprintf(mFile,"setAttr \".ran\" %f;\n", ran);
+		fprintf(mFile,"\tsetAttr \".ran\" %f;\n", ran);
 
 	}
 	void setRandomSeed(int rs)
 	{
 		if(rs == 0) return;
-		fprintf(mFile,"setAttr \".rs\" %i;\n", rs);
+		fprintf(mFile,"\tsetAttr \".rs\" %i;\n", rs);
 
 	}
 	void setLocalTranslate(const double3& lt)
 	{
 		if(lt == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".lt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".lt\" -type \"double3\" ");
 		lt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -147,25 +148,25 @@ public:
 	void setLocalTranslateX(double ltx)
 	{
 		if(ltx == 0) return;
-		fprintf(mFile,"setAttr \".lt.ltx\" %f;\n", ltx);
+		fprintf(mFile,"\tsetAttr \".lt.ltx\" %f;\n", ltx);
 
 	}
 	void setLocalTranslateY(double lty)
 	{
 		if(lty == 0) return;
-		fprintf(mFile,"setAttr \".lt.lty\" %f;\n", lty);
+		fprintf(mFile,"\tsetAttr \".lt.lty\" %f;\n", lty);
 
 	}
 	void setLocalTranslateZ(double ltz)
 	{
 		if(ltz == 0) return;
-		fprintf(mFile,"setAttr \".lt.ltz\" %f;\n", ltz);
+		fprintf(mFile,"\tsetAttr \".lt.ltz\" %f;\n", ltz);
 
 	}
 	void setLocalDirection(const double3& ld)
 	{
 		if(ld == double3(1.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ld\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ld\" -type \"double3\" ");
 		ld.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -173,30 +174,30 @@ public:
 	void setLocalDirectionX(double ldx)
 	{
 		if(ldx == 0) return;
-		fprintf(mFile,"setAttr \".ld.ldx\" %f;\n", ldx);
+		fprintf(mFile,"\tsetAttr \".ld.ldx\" %f;\n", ldx);
 
 	}
 	void setLocalDirectionY(double ldy)
 	{
 		if(ldy == 0) return;
-		fprintf(mFile,"setAttr \".ld.ldy\" %f;\n", ldy);
+		fprintf(mFile,"\tsetAttr \".ld.ldy\" %f;\n", ldy);
 
 	}
 	void setLocalDirectionZ(double ldz)
 	{
 		if(ldz == 0) return;
-		fprintf(mFile,"setAttr \".ld.ldz\" %f;\n", ldz);
+		fprintf(mFile,"\tsetAttr \".ld.ldz\" %f;\n", ldz);
 
 	}
 	void setGain(size_t ga_i,float ga)
 	{
 		if(ga == 1.0) return;
-		fprintf(mFile,"setAttr \".ga[%i]\" %f;\n", ga_i,ga);
+		fprintf(mFile,"\tsetAttr \".ga[%i]\" %f;\n", ga_i,ga);
 
 	}
 	void setGain(size_t ga_start,size_t ga_end,float* ga)
 	{
-		fprintf(mFile,"setAttr \".ga[%i:%i]\" ", ga_start,ga_end);
+		fprintf(mFile,"\tsetAttr \".ga[%i:%i]\" ", ga_start,ga_end);
 		size_t size = (ga_end-ga_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -208,7 +209,7 @@ public:
 	}
 	void startGain(size_t ga_start,size_t ga_end)
 	{
-		fprintf(mFile,"setAttr \".ga[%i:%i]\"",ga_start,ga_end);
+		fprintf(mFile,"\tsetAttr \".ga[%i:%i]\"",ga_start,ga_end);
 
 	}
 	void appendGain(float ga)
@@ -367,7 +368,8 @@ public:
 
 	}
 protected:
-	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyMoveVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

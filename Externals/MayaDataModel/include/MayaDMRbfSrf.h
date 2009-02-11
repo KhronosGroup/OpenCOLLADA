@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class RbfSrf : public AbstractBaseCreate
 {
 public:
 public:
+	RbfSrf():AbstractBaseCreate(){}
 	RbfSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "rbfSrf"){}
 	virtual ~RbfSrf(){}
 	void setPrimaryRadius(double pr)
 	{
 		if(pr == 1) return;
-		fprintf(mFile,"setAttr \".pr\" %f;\n", pr);
+		fprintf(mFile,"\tsetAttr \".pr\" %f;\n", pr);
 
 	}
 	void setSecondaryRadius(double sr)
 	{
 		if(sr == 1) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setPositionTolerance(double pt)
 	{
 		if(pt == 0.01) return;
-		fprintf(mFile,"setAttr \".pt\" %f;\n", pt);
+		fprintf(mFile,"\tsetAttr \".pt\" %f;\n", pt);
 
 	}
 	void setTangentTolerance(double tt)
 	{
 		if(tt == 0.01) return;
-		fprintf(mFile,"setAttr \".tt\" %f;\n", tt);
+		fprintf(mFile,"\tsetAttr \".tt\" %f;\n", tt);
 
 	}
 	void getPrimarySurface()
@@ -90,7 +91,8 @@ public:
 
 	}
 protected:
-	RbfSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	RbfSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

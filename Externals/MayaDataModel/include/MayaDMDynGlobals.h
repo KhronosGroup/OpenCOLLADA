@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class DynGlobals : public DependNode
 {
 public:
 public:
+	DynGlobals():DependNode(){}
 	DynGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "dynGlobals"){}
 	virtual ~DynGlobals(){}
 	void setOverSamples(int os)
 	{
 		if(os == 1) return;
-		fprintf(mFile,"setAttr \".os\" %i;\n", os);
+		fprintf(mFile,"\tsetAttr \".os\" %i;\n", os);
 
 	}
 	void setUseParticleDiskCache(bool upd)
 	{
 		if(upd == 0) return;
-		fprintf(mFile,"setAttr \".upd\" %i;\n", upd);
+		fprintf(mFile,"\tsetAttr \".upd\" %i;\n", upd);
 
 	}
 	void setCacheDirectory(const string& cd)
 	{
 		if(cd == "NULL") return;
-		fprintf(mFile,"setAttr \".cd\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cd\" -type \"string\" ");
 		cd.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,19 +44,19 @@ public:
 	void setMinFrameCached(int mnf)
 	{
 		if(mnf == 0) return;
-		fprintf(mFile,"setAttr \".mnf\" %i;\n", mnf);
+		fprintf(mFile,"\tsetAttr \".mnf\" %i;\n", mnf);
 
 	}
 	void setMaxFrameCached(int mxf)
 	{
 		if(mxf == 0) return;
-		fprintf(mFile,"setAttr \".mxf\" %i;\n", mxf);
+		fprintf(mFile,"\tsetAttr \".mxf\" %i;\n", mxf);
 
 	}
 	void setConfirmedPath(const string& cnp)
 	{
 		if(cnp == "NULL") return;
-		fprintf(mFile,"setAttr \".cnp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cnp\" -type \"string\" ");
 		cnp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,7 +64,7 @@ public:
 	void setConfirmSceneName(const string& csn)
 	{
 		if(csn == "NULL") return;
-		fprintf(mFile,"setAttr \".csn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".csn\" -type \"string\" ");
 		csn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -99,7 +100,8 @@ public:
 
 	}
 protected:
-	DynGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DynGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

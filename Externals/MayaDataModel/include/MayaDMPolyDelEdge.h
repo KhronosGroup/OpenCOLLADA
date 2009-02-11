@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyDelEdge : public PolyModifier
 {
 public:
 public:
+	PolyDelEdge():PolyModifier(){}
 	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDelEdge"){}
 	virtual ~PolyDelEdge(){}
 	void setCleanVertices(bool cv)
 	{
 		if(cv == false) return;
-		fprintf(mFile,"setAttr \".cv\" %i;\n", cv);
+		fprintf(mFile,"\tsetAttr \".cv\" %i;\n", cv);
 
 	}
 	void getCleanVertices()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyDelEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

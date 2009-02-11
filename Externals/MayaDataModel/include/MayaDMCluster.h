@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,30 +23,31 @@ public:
 		}
 	};
 public:
+	Cluster():WeightGeometryFilter(){}
 	Cluster(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "cluster"){}
 	virtual ~Cluster(){}
 	void setPercentResolution(float ptr)
 	{
 		if(ptr == 5) return;
-		fprintf(mFile,"setAttr \".ptr\" %f;\n", ptr);
+		fprintf(mFile,"\tsetAttr \".ptr\" %f;\n", ptr);
 
 	}
 	void setUsePartialResolution(unsigned int upr)
 	{
 		if(upr == 0) return;
-		fprintf(mFile,"setAttr \".upr\" %i;\n", upr);
+		fprintf(mFile,"\tsetAttr \".upr\" %i;\n", upr);
 
 	}
 	void setRelative(bool rel)
 	{
 		if(rel == false) return;
-		fprintf(mFile,"setAttr \".rel\" %i;\n", rel);
+		fprintf(mFile,"\tsetAttr \".rel\" %i;\n", rel);
 
 	}
 	void setWeightedCompensationMatrix(const matrix& wcm)
 	{
 		if(wcm == identity) return;
-		fprintf(mFile,"setAttr \".wcm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".wcm\" -type \"matrix\" ");
 		wcm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -54,14 +55,14 @@ public:
 	void setGeomMatrix(size_t gm_i,const matrix& gm)
 	{
 		if(gm == identity) return;
-		fprintf(mFile,"setAttr \".gm[%i]\" -type \"matrix\" ",gm_i);
+		fprintf(mFile,"\tsetAttr \".gm[%i]\" -type \"matrix\" ",gm_i);
 		gm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setGeomMatrix(size_t gm_start,size_t gm_end,matrix* gm)
 	{
-		fprintf(mFile,"setAttr \".gm[%i:%i]\" ", gm_start,gm_end);
+		fprintf(mFile,"\tsetAttr \".gm[%i:%i]\" ", gm_start,gm_end);
 		size_t size = (gm_end-gm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -73,7 +74,7 @@ public:
 	}
 	void startGeomMatrix(size_t gm_start,size_t gm_end)
 	{
-		fprintf(mFile,"setAttr \".gm[%i:%i]\"",gm_start,gm_end);
+		fprintf(mFile,"\tsetAttr \".gm[%i:%i]\"",gm_start,gm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -91,7 +92,7 @@ public:
 	void setMatrix(const matrix& ma)
 	{
 		if(ma == identity) return;
-		fprintf(mFile,"setAttr \".ma\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".ma\" -type \"matrix\" ");
 		ma.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -99,7 +100,7 @@ public:
 	void setBindPreMatrix(const matrix& pm)
 	{
 		if(pm == identity) return;
-		fprintf(mFile,"setAttr \".pm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".pm\" -type \"matrix\" ");
 		pm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -107,7 +108,7 @@ public:
 	void setAngleInterpolation(unsigned int ait)
 	{
 		if(ait == 0) return;
-		fprintf(mFile,"setAttr \".ait\" %i;\n", ait);
+		fprintf(mFile,"\tsetAttr \".ait\" %i;\n", ait);
 
 	}
 	void getUsePartialResolution()
@@ -181,7 +182,8 @@ public:
 
 	}
 protected:
-	Cluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):WeightGeometryFilter(file, name, parent, nodeType) {}
+	Cluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:WeightGeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

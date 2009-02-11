@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class PolyStraightenUVBorder : public PolyModifierUV
 {
 public:
 public:
+	PolyStraightenUVBorder():PolyModifierUV(){}
 	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyStraightenUVBorder"){}
 	virtual ~PolyStraightenUVBorder(){}
 	void setCurvature(float c)
 	{
 		if(c == 0.) return;
-		fprintf(mFile,"setAttr \".c\" %f;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %f;\n", c);
 
 	}
 	void setPreserveLength(float pl)
 	{
 		if(pl == 1.) return;
-		fprintf(mFile,"setAttr \".pl\" %f;\n", pl);
+		fprintf(mFile,"\tsetAttr \".pl\" %f;\n", pl);
 
 	}
 	void setBlendOriginal(float bo)
 	{
 		if(bo == 0.) return;
-		fprintf(mFile,"setAttr \".bo\" %f;\n", bo);
+		fprintf(mFile,"\tsetAttr \".bo\" %f;\n", bo);
 
 	}
 	void setGapTolerance(int gt)
 	{
 		if(gt == 5) return;
-		fprintf(mFile,"setAttr \".gt\" %i;\n", gt);
+		fprintf(mFile,"\tsetAttr \".gt\" %i;\n", gt);
 
 	}
 	void getCurvature()
@@ -65,7 +66,8 @@ public:
 
 	}
 protected:
-	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

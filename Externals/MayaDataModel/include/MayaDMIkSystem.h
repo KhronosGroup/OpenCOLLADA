@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class IkSystem : public DependNode
 {
 public:
 public:
+	IkSystem():DependNode(){}
 	IkSystem(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "ikSystem"){}
 	virtual ~IkSystem(){}
 	void setGlobalSnap(bool gsn)
 	{
 		if(gsn == true) return;
-		fprintf(mFile,"setAttr \".gsn\" %i;\n", gsn);
+		fprintf(mFile,"\tsetAttr \".gsn\" %i;\n", gsn);
 
 	}
 	void setGlobalSolve(bool gsv)
 	{
 		if(gsv == true) return;
-		fprintf(mFile,"setAttr \".gsv\" %i;\n", gsv);
+		fprintf(mFile,"\tsetAttr \".gsv\" %i;\n", gsv);
 
 	}
 	void getGlobalSnap()
@@ -42,8 +43,14 @@ public:
 		fprintf(mFile,"\"%s.gsv\"",mName.c_str());
 
 	}
+	void getIkSolver(size_t sol_i)
+	{
+		fprintf(mFile,"\"%s.sol[%i]\"",mName.c_str(),sol_i);
+
+	}
 protected:
-	IkSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	IkSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

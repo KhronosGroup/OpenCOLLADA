@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -65,30 +65,31 @@ public:
 		}
 	};
 public:
+	ControlPoint():DeformableShape(){}
 	ControlPoint(FILE* file,const std::string& name,const std::string& parent=""):DeformableShape(file, name, parent, "controlPoint"){}
 	virtual ~ControlPoint(){}
 	void setTweak(bool tw)
 	{
 		if(tw == false) return;
-		fprintf(mFile,"setAttr \".tw\" %i;\n", tw);
+		fprintf(mFile,"\tsetAttr \".tw\" %i;\n", tw);
 
 	}
 	void setRelativeTweak(bool rtw)
 	{
 		if(rtw == true) return;
-		fprintf(mFile,"setAttr \".rtw\" %i;\n", rtw);
+		fprintf(mFile,"\tsetAttr \".rtw\" %i;\n", rtw);
 
 	}
 	void setControlPoints(size_t cp_i,const double3& cp)
 	{
-		fprintf(mFile,"setAttr \".cp[%i]\" -type \"double3\" ",cp_i);
+		fprintf(mFile,"\tsetAttr \".cp[%i]\" -type \"double3\" ",cp_i);
 		cp.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setControlPoints(size_t cp_start,size_t cp_end,double* cp)
 	{
-		fprintf(mFile,"setAttr \".cp[%i:%i]\" ", cp_start,cp_end);
+		fprintf(mFile,"\tsetAttr \".cp[%i:%i]\" ", cp_start,cp_end);
 		size_t size = (cp_end-cp_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -100,7 +101,7 @@ public:
 	}
 	void startControlPoints(size_t cp_start,size_t cp_end)
 	{
-		fprintf(mFile,"setAttr \".cp[%i:%i]\"",cp_start,cp_end);
+		fprintf(mFile,"\tsetAttr \".cp[%i:%i]\"",cp_start,cp_end);
 
 	}
 	void appendControlPoints(double cp)
@@ -116,24 +117,24 @@ public:
 	void setXValue(size_t cp_i,double xv)
 	{
 		if(xv == 0) return;
-		fprintf(mFile,"setAttr \".cp[%i].xv\" %f;\n", cp_i,xv);
+		fprintf(mFile,"\tsetAttr \".cp[%i].xv\" %f;\n", cp_i,xv);
 
 	}
 	void setYValue(size_t cp_i,double yv)
 	{
 		if(yv == 0) return;
-		fprintf(mFile,"setAttr \".cp[%i].yv\" %f;\n", cp_i,yv);
+		fprintf(mFile,"\tsetAttr \".cp[%i].yv\" %f;\n", cp_i,yv);
 
 	}
 	void setZValue(size_t cp_i,double zv)
 	{
 		if(zv == 0) return;
-		fprintf(mFile,"setAttr \".cp[%i].zv\" %f;\n", cp_i,zv);
+		fprintf(mFile,"\tsetAttr \".cp[%i].zv\" %f;\n", cp_i,zv);
 
 	}
 	void setUvSet(size_t uvst_i,const UvSet& uvst)
 	{
-		fprintf(mFile,"setAttr \".uvst[%i]\" ",uvst_i);
+		fprintf(mFile,"\tsetAttr \".uvst[%i]\" ",uvst_i);
 		uvst.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -141,21 +142,21 @@ public:
 	void setUvSetName(size_t uvst_i,const string& uvsn)
 	{
 		if(uvsn == "NULL") return;
-		fprintf(mFile,"setAttr \".uvst[%i].uvsn\" -type \"string\" ",uvst_i);
+		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsn\" -type \"string\" ",uvst_i);
 		uvsn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setUvSetPoints(size_t uvst_i,size_t uvsp_i,const float2& uvsp)
 	{
-		fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i]\" -type \"float2\" ",uvst_i,uvsp_i);
+		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsp[%i]\" -type \"float2\" ",uvst_i,uvsp_i);
 		uvsp.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end,float* uvsp)
 	{
-		fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i:%i]\" ", uvst_i,uvsp_start,uvsp_end);
+		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsp[%i:%i]\" ", uvst_i,uvsp_start,uvsp_end);
 		size_t size = (uvsp_end-uvsp_start)*2+2;
 		for(size_t i=0;i<size;++i)
 		{
@@ -165,9 +166,21 @@ public:
 		fprintf(mFile,";\n");
 
 	}
+    void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)
+    {
+        fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
+    }
+    void appendColorSetPoints(float clsp)
+    {
+        fprintf(mFile," %f",clsp);
+    }
+    void endColorSetPoints()
+    {
+        fprintf(mFile,";\n");
+    }
 	void startUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end)
 	{
-		fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i:%i]\"",uvst_i,uvsp_start,uvsp_end);
+		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsp[%i:%i]\"",uvst_i,uvsp_start,uvsp_end);
 
 	}
 	void appendUvSetPoints(float uvsp)
@@ -183,19 +196,19 @@ public:
 	void setUvSetPointsU(size_t uvst_i,size_t uvsp_i,float uvpu)
 	{
 		if(uvpu == 0.0) return;
-		fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i].uvpu\" %f;\n", uvst_i,uvsp_i,uvpu);
+		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsp[%i].uvpu\" %f;\n", uvst_i,uvsp_i,uvpu);
 
 	}
 	void setUvSetPointsV(size_t uvst_i,size_t uvsp_i,float uvpv)
 	{
 		if(uvpv == 0.0) return;
-		fprintf(mFile,"setAttr \".uvst[%i].uvsp[%i].uvpv\" %f;\n", uvst_i,uvsp_i,uvpv);
+		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsp[%i].uvpv\" %f;\n", uvst_i,uvsp_i,uvpv);
 
 	}
 	void setCurrentUVSet(const string& cuvs)
 	{
 		if(cuvs == "NULL") return;
-		fprintf(mFile,"setAttr \".cuvs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cuvs\" -type \"string\" ");
 		cuvs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -203,19 +216,19 @@ public:
 	void setDisplayImmediate(bool di)
 	{
 		if(di == false) return;
-		fprintf(mFile,"setAttr \".di\" %i;\n", di);
+		fprintf(mFile,"\tsetAttr \".di\" %i;\n", di);
 
 	}
 	void setDisplayColors(bool dcol)
 	{
 		if(dcol == false) return;
-		fprintf(mFile,"setAttr \".dcol\" %i;\n", dcol);
+		fprintf(mFile,"\tsetAttr \".dcol\" %i;\n", dcol);
 
 	}
 	void setDisplayColorChannel(const string& dcc)
 	{
 		if(dcc == "color") return;
-		fprintf(mFile,"setAttr \".dcc\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".dcc\" -type \"string\" ");
 		dcc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -223,14 +236,14 @@ public:
 	void setCurrentColorSet(const string& ccls)
 	{
 		if(ccls == "NULL") return;
-		fprintf(mFile,"setAttr \".ccls\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ccls\" -type \"string\" ");
 		ccls.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setColorSet(size_t clst_i,const ColorSet& clst)
 	{
-		fprintf(mFile,"setAttr \".clst[%i]\" ",clst_i);
+		fprintf(mFile,"\tsetAttr \".clst[%i]\" ",clst_i);
 		clst.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -238,7 +251,7 @@ public:
 	void setColorName(size_t clst_i,const string& clsn)
 	{
 		if(clsn == "NULL") return;
-		fprintf(mFile,"setAttr \".clst[%i].clsn\" -type \"string\" ",clst_i);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsn\" -type \"string\" ",clst_i);
 		clsn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -246,57 +259,44 @@ public:
 	void setClamped(size_t clst_i,bool clam)
 	{
 		if(clam == false) return;
-		fprintf(mFile,"setAttr \".clst[%i].clam\" %i;\n", clst_i,clam);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clam\" %i;\n", clst_i,clam);
 
 	}
 	void setRepresentation(size_t clst_i,unsigned int rprt)
 	{
 		if(rprt == 3) return;
-		fprintf(mFile,"setAttr \".clst[%i].rprt\" %i;\n", clst_i,rprt);
+		fprintf(mFile,"\tsetAttr \".clst[%i].rprt\" %i;\n", clst_i,rprt);
+
 	}
 	void setColorSetPoints(size_t clst_i,size_t clsp_i,const ColorSet::ColorSetPoints& clsp)
 	{
-		fprintf(mFile,"setAttr \".clst[%i].clsp[%i]\" ",clst_i,clsp_i);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i]\" ",clst_i,clsp_i);
 		clsp.write(mFile);
 		fprintf(mFile,";\n");
+
 	}
-    void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)
-    {
-        fprintf(mFile,"setAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
-
-    }
-    void appendColorSetPoints(float clsp)
-    {
-        fprintf(mFile," %f",clsp);
-
-    }
-    void endColorSetPoints()
-    {
-        fprintf(mFile,";\n");
-
-    }
 	void setColorSetPointsR(size_t clst_i,size_t clsp_i,float clpr)
 	{
 		if(clpr == 0.0) return;
-		fprintf(mFile,"setAttr \".clst[%i].clsp[%i].clpr\" %f;\n", clst_i,clsp_i,clpr);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i].clpr\" %f;\n", clst_i,clsp_i,clpr);
 
 	}
 	void setColorSetPointsG(size_t clst_i,size_t clsp_i,float clpg)
 	{
 		if(clpg == 0.0) return;
-		fprintf(mFile,"setAttr \".clst[%i].clsp[%i].clpg\" %f;\n", clst_i,clsp_i,clpg);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i].clpg\" %f;\n", clst_i,clsp_i,clpg);
 
 	}
 	void setColorSetPointsB(size_t clst_i,size_t clsp_i,float clpb)
 	{
 		if(clpb == 0.0) return;
-		fprintf(mFile,"setAttr \".clst[%i].clsp[%i].clpb\" %f;\n", clst_i,clsp_i,clpb);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i].clpb\" %f;\n", clst_i,clsp_i,clpb);
 
 	}
 	void setColorSetPointsA(size_t clst_i,size_t clsp_i,float clpa)
 	{
 		if(clpa == 0.0) return;
-		fprintf(mFile,"setAttr \".clst[%i].clsp[%i].clpa\" %f;\n", clst_i,clsp_i,clpa);
+		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i].clpa\" %f;\n", clst_i,clsp_i,clpa);
 
 	}
 	void getTweak()
@@ -334,6 +334,16 @@ public:
 		fprintf(mFile,"\"%s.wt[%i]\"",mName.c_str(),wt_i);
 
 	}
+	void getTweakLocation()
+	{
+		fprintf(mFile,"\"%s.twl\"",mName.c_str());
+
+	}
+	void getBlindDataNodes(size_t bn_i)
+	{
+		fprintf(mFile,"\"%s.bn[%i]\"",mName.c_str(),bn_i);
+
+	}
 	void getUvSet(size_t uvst_i)
 	{
 		fprintf(mFile,"\"%s.uvst[%i]\"",mName.c_str(),uvst_i);
@@ -357,6 +367,11 @@ public:
 	void getUvSetPointsV(size_t uvst_i,size_t uvsp_i)
 	{
 		fprintf(mFile,"\"%s.uvst[%i].uvsp[%i].uvpv\"",mName.c_str(),uvst_i,uvsp_i);
+
+	}
+	void getUvSetTweakLocation(size_t uvst_i)
+	{
+		fprintf(mFile,"\"%s.uvst[%i].uvtw\"",mName.c_str(),uvst_i);
 
 	}
 	void getCurrentUVSet()
@@ -430,7 +445,8 @@ public:
 
 	}
 protected:
-	ControlPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformableShape(file, name, parent, nodeType) {}
+	ControlPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformableShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

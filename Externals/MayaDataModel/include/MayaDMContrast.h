@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Contrast : public DependNode
 {
 public:
 public:
+	Contrast():DependNode(){}
 	Contrast(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "contrast"){}
 	virtual ~Contrast(){}
 	void setValue(const float3& v)
 	{
 		if(v == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".v\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".v\" -type \"float3\" ");
 		v.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setValueX(float vx)
 	{
 		if(vx == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vx\" %f;\n", vx);
+		fprintf(mFile,"\tsetAttr \".v.vx\" %f;\n", vx);
 
 	}
 	void setValueY(float vy)
 	{
 		if(vy == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vy\" %f;\n", vy);
+		fprintf(mFile,"\tsetAttr \".v.vy\" %f;\n", vy);
 
 	}
 	void setValueZ(float vz)
 	{
 		if(vz == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vz\" %f;\n", vz);
+		fprintf(mFile,"\tsetAttr \".v.vz\" %f;\n", vz);
 
 	}
 	void setContrast(const float3& c)
 	{
 		if(c == float3(2.0f,2.0f,2.0f)) return;
-		fprintf(mFile,"setAttr \".c\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c\" -type \"float3\" ");
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setContrastX(float cx)
 	{
 		if(cx == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cx\" %f;\n", cx);
+		fprintf(mFile,"\tsetAttr \".c.cx\" %f;\n", cx);
 
 	}
 	void setContrastY(float cy)
 	{
 		if(cy == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cy\" %f;\n", cy);
+		fprintf(mFile,"\tsetAttr \".c.cy\" %f;\n", cy);
 
 	}
 	void setContrastZ(float cz)
 	{
 		if(cz == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cz\" %f;\n", cz);
+		fprintf(mFile,"\tsetAttr \".c.cz\" %f;\n", cz);
 
 	}
 	void setBias(const float3& b)
 	{
 		if(b == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".b\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".b\" -type \"float3\" ");
 		b.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,19 +84,19 @@ public:
 	void setBiasX(float bx)
 	{
 		if(bx == 0.0) return;
-		fprintf(mFile,"setAttr \".b.bx\" %f;\n", bx);
+		fprintf(mFile,"\tsetAttr \".b.bx\" %f;\n", bx);
 
 	}
 	void setBiasY(float by)
 	{
 		if(by == 0.0) return;
-		fprintf(mFile,"setAttr \".b.by\" %f;\n", by);
+		fprintf(mFile,"\tsetAttr \".b.by\" %f;\n", by);
 
 	}
 	void setBiasZ(float bz)
 	{
 		if(bz == 0.0) return;
-		fprintf(mFile,"setAttr \".b.bz\" %f;\n", bz);
+		fprintf(mFile,"\tsetAttr \".b.bz\" %f;\n", bz);
 
 	}
 	void getValue()
@@ -179,7 +180,8 @@ public:
 
 	}
 protected:
-	Contrast(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Contrast(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

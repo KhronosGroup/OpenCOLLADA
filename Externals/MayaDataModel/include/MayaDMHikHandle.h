@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -349,19 +349,20 @@ public:
 		}
 	};
 public:
+	HikHandle():IkHandle(){}
 	HikHandle(FILE* file,const std::string& name,const std::string& parent=""):IkHandle(file, name, parent, "hikHandle"){}
 	virtual ~HikHandle(){}
 	void setDefaultMatrix(size_t dm_i,const matrix& dm)
 	{
 		if(dm == identity) return;
-		fprintf(mFile,"setAttr \".dm[%i]\" -type \"matrix\" ",dm_i);
+		fprintf(mFile,"\tsetAttr \".dm[%i]\" -type \"matrix\" ",dm_i);
 		dm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setDefaultMatrix(size_t dm_start,size_t dm_end,matrix* dm)
 	{
-		fprintf(mFile,"setAttr \".dm[%i:%i]\" ", dm_start,dm_end);
+		fprintf(mFile,"\tsetAttr \".dm[%i:%i]\" ", dm_start,dm_end);
 		size_t size = (dm_end-dm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -373,7 +374,7 @@ public:
 	}
 	void startDefaultMatrix(size_t dm_start,size_t dm_end)
 	{
-		fprintf(mFile,"setAttr \".dm[%i:%i]\"",dm_start,dm_end);
+		fprintf(mFile,"\tsetAttr \".dm[%i:%i]\"",dm_start,dm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -391,14 +392,14 @@ public:
 	void setStancePoseMatrix(size_t sm_i,const matrix& sm)
 	{
 		if(sm == identity) return;
-		fprintf(mFile,"setAttr \".sm[%i]\" -type \"matrix\" ",sm_i);
+		fprintf(mFile,"\tsetAttr \".sm[%i]\" -type \"matrix\" ",sm_i);
 		sm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setStancePoseMatrix(size_t sm_start,size_t sm_end,matrix* sm)
 	{
-		fprintf(mFile,"setAttr \".sm[%i:%i]\" ", sm_start,sm_end);
+		fprintf(mFile,"\tsetAttr \".sm[%i:%i]\" ", sm_start,sm_end);
 		size_t size = (sm_end-sm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -410,7 +411,7 @@ public:
 	}
 	void startStancePoseMatrix(size_t sm_start,size_t sm_end)
 	{
-		fprintf(mFile,"setAttr \".sm[%i:%i]\"",sm_start,sm_end);
+		fprintf(mFile,"\tsetAttr \".sm[%i:%i]\"",sm_start,sm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -428,24 +429,24 @@ public:
 	void setUsingMB55Rig(bool m55)
 	{
 		if(m55 == false) return;
-		fprintf(mFile,"setAttr \".m55\" %i;\n", m55);
+		fprintf(mFile,"\tsetAttr \".m55\" %i;\n", m55);
 
 	}
 	void setActivate(bool act)
 	{
 		if(act == true) return;
-		fprintf(mFile,"setAttr \".act\" %i;\n", act);
+		fprintf(mFile,"\tsetAttr \".act\" %i;\n", act);
 
 	}
 	void setConvertScale(bool cs)
 	{
 		if(cs == true) return;
-		fprintf(mFile,"setAttr \".cs\" %i;\n", cs);
+		fprintf(mFile,"\tsetAttr \".cs\" %i;\n", cs);
 
 	}
 	void setSolving(const Solving& sol)
 	{
-		fprintf(mFile,"setAttr \".sol\" ");
+		fprintf(mFile,"\tsetAttr \".sol\" ");
 		sol.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -453,36 +454,36 @@ public:
 	void setPostureType(unsigned int pt)
 	{
 		if(pt == 0) return;
-		fprintf(mFile,"setAttr \".sol.pt\" %i;\n", pt);
+		fprintf(mFile,"\tsetAttr \".sol.pt\" %i;\n", pt);
 
 	}
 	void setExpertMode(bool exp)
 	{
 		if(exp == 0) return;
-		fprintf(mFile,"setAttr \".sol.exp\" %i;\n", exp);
+		fprintf(mFile,"\tsetAttr \".sol.exp\" %i;\n", exp);
 
 	}
 	void setRealisticShoulderSolving(float rss)
 	{
 		if(rss == 0.00) return;
-		fprintf(mFile,"setAttr \".sol.rss\" %f;\n", rss);
+		fprintf(mFile,"\tsetAttr \".sol.rss\" %f;\n", rss);
 
 	}
 	void setSolveFingers(bool sf)
 	{
 		if(sf == 1) return;
-		fprintf(mFile,"setAttr \".sol.sf\" %i;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sol.sf\" %i;\n", sf);
 
 	}
 	void setHipTranslationMode(unsigned int htm)
 	{
 		if(htm == 0) return;
-		fprintf(mFile,"setAttr \".sol.htm\" %i;\n", htm);
+		fprintf(mFile,"\tsetAttr \".sol.htm\" %i;\n", htm);
 
 	}
 	void setFloorContacts(const FloorContacts& fc)
 	{
-		fprintf(mFile,"setAttr \".fc\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -490,30 +491,30 @@ public:
 	void setHandsFloorContact(bool hfc)
 	{
 		if(hfc == 0) return;
-		fprintf(mFile,"setAttr \".fc.hfc\" %i;\n", hfc);
+		fprintf(mFile,"\tsetAttr \".fc.hfc\" %i;\n", hfc);
 
 	}
 	void setFeetFloorContact(bool fec)
 	{
 		if(fec == 0) return;
-		fprintf(mFile,"setAttr \".fc.fec\" %i;\n", fec);
+		fprintf(mFile,"\tsetAttr \".fc.fec\" %i;\n", fec);
 
 	}
 	void setFingersFloorContact(bool fic)
 	{
 		if(fic == 0) return;
-		fprintf(mFile,"setAttr \".fc.fic\" %i;\n", fic);
+		fprintf(mFile,"\tsetAttr \".fc.fic\" %i;\n", fic);
 
 	}
 	void setToesFloorContact(bool tfc)
 	{
 		if(tfc == 0) return;
-		fprintf(mFile,"setAttr \".fc.tfc\" %i;\n", tfc);
+		fprintf(mFile,"\tsetAttr \".fc.tfc\" %i;\n", tfc);
 
 	}
 	void setHandsFloorContactSetup(const HandsFloorContactSetup& flc)
 	{
-		fprintf(mFile,"setAttr \".flc\" ");
+		fprintf(mFile,"\tsetAttr \".flc\" ");
 		flc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -521,24 +522,24 @@ public:
 	void setHandsFloorPivot(unsigned int hfp)
 	{
 		if(hfp == 0) return;
-		fprintf(mFile,"setAttr \".flc.hfp\" %i;\n", hfp);
+		fprintf(mFile,"\tsetAttr \".flc.hfp\" %i;\n", hfp);
 
 	}
 	void setHandsContactType(unsigned int hct)
 	{
 		if(hct == 0) return;
-		fprintf(mFile,"setAttr \".flc.hct\" %i;\n", hct);
+		fprintf(mFile,"\tsetAttr \".flc.hct\" %i;\n", hct);
 
 	}
 	void setHandsContactStiffness(float hcs)
 	{
 		if(hcs == 0.00) return;
-		fprintf(mFile,"setAttr \".flc.hcs\" %f;\n", hcs);
+		fprintf(mFile,"\tsetAttr \".flc.hcs\" %f;\n", hcs);
 
 	}
 	void setContactsPosition(const ContactsPosition& cp)
 	{
-		fprintf(mFile,"setAttr \".cp\" ");
+		fprintf(mFile,"\tsetAttr \".cp\" ");
 		cp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -546,42 +547,42 @@ public:
 	void setHandHeight(float hh)
 	{
 		if(hh == 7.50) return;
-		fprintf(mFile,"setAttr \".cp.hh\" %f;\n", hh);
+		fprintf(mFile,"\tsetAttr \".cp.hh\" %f;\n", hh);
 
 	}
 	void setHandBack(float hb)
 	{
 		if(hb == 4.50) return;
-		fprintf(mFile,"setAttr \".cp.hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".cp.hb\" %f;\n", hb);
 
 	}
 	void setHandMiddle(float hm)
 	{
 		if(hm == 13.00) return;
-		fprintf(mFile,"setAttr \".cp.hm\" %f;\n", hm);
+		fprintf(mFile,"\tsetAttr \".cp.hm\" %f;\n", hm);
 
 	}
 	void setHandFront(float hf)
 	{
 		if(hf == 7.00) return;
-		fprintf(mFile,"setAttr \".cp.hf\" %f;\n", hf);
+		fprintf(mFile,"\tsetAttr \".cp.hf\" %f;\n", hf);
 
 	}
 	void setHandInSide(float his)
 	{
 		if(his == 5.00) return;
-		fprintf(mFile,"setAttr \".cp.his\" %f;\n", his);
+		fprintf(mFile,"\tsetAttr \".cp.his\" %f;\n", his);
 
 	}
 	void setHandOutSide(float hos)
 	{
 		if(hos == 5.00) return;
-		fprintf(mFile,"setAttr \".cp.hos\" %f;\n", hos);
+		fprintf(mFile,"\tsetAttr \".cp.hos\" %f;\n", hos);
 
 	}
 	void setFeetFloorContactSetup(const FeetFloorContactSetup& fle)
 	{
-		fprintf(mFile,"setAttr \".fle\" ");
+		fprintf(mFile,"\tsetAttr \".fle\" ");
 		fle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -589,24 +590,24 @@ public:
 	void setFeetFloorPivot(unsigned int fpv)
 	{
 		if(fpv == 0) return;
-		fprintf(mFile,"setAttr \".fle.fpv\" %i;\n", fpv);
+		fprintf(mFile,"\tsetAttr \".fle.fpv\" %i;\n", fpv);
 
 	}
 	void setFeetContactType(unsigned int fct)
 	{
 		if(fct == 0) return;
-		fprintf(mFile,"setAttr \".fle.fct\" %i;\n", fct);
+		fprintf(mFile,"\tsetAttr \".fle.fct\" %i;\n", fct);
 
 	}
 	void setFeetContactStiffness(float fcs)
 	{
 		if(fcs == 0.00) return;
-		fprintf(mFile,"setAttr \".fle.fcs\" %f;\n", fcs);
+		fprintf(mFile,"\tsetAttr \".fle.fcs\" %f;\n", fcs);
 
 	}
 	void setFeetContactPosition(const FeetContactPosition& flf)
 	{
-		fprintf(mFile,"setAttr \".flf\" ");
+		fprintf(mFile,"\tsetAttr \".flf\" ");
 		flf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -614,42 +615,42 @@ public:
 	void setFootHeight(float fh)
 	{
 		if(fh == 7.50) return;
-		fprintf(mFile,"setAttr \".flf.fh\" %f;\n", fh);
+		fprintf(mFile,"\tsetAttr \".flf.fh\" %f;\n", fh);
 
 	}
 	void setFootBack(float fra)
 	{
 		if(fra == 4.50) return;
-		fprintf(mFile,"setAttr \".flf.fra\" %f;\n", fra);
+		fprintf(mFile,"\tsetAttr \".flf.fra\" %f;\n", fra);
 
 	}
 	void setFootMiddle(float fma)
 	{
 		if(fma == 13.00) return;
-		fprintf(mFile,"setAttr \".flf.fma\" %f;\n", fma);
+		fprintf(mFile,"\tsetAttr \".flf.fma\" %f;\n", fma);
 
 	}
 	void setFootFront(float ffm)
 	{
 		if(ffm == 7.00) return;
-		fprintf(mFile,"setAttr \".flf.ffm\" %f;\n", ffm);
+		fprintf(mFile,"\tsetAttr \".flf.ffm\" %f;\n", ffm);
 
 	}
 	void setFootInSide(float fia)
 	{
 		if(fia == 5.00) return;
-		fprintf(mFile,"setAttr \".flf.fia\" %f;\n", fia);
+		fprintf(mFile,"\tsetAttr \".flf.fia\" %f;\n", fia);
 
 	}
 	void setFootOutSide(float foa)
 	{
 		if(foa == 5.00) return;
-		fprintf(mFile,"setAttr \".flf.foa\" %f;\n", foa);
+		fprintf(mFile,"\tsetAttr \".flf.foa\" %f;\n", foa);
 
 	}
 	void setFingersFloorContactSetup(const FingersFloorContactSetup& flg)
 	{
-		fprintf(mFile,"setAttr \".flg\" ");
+		fprintf(mFile,"\tsetAttr \".flg\" ");
 		flg.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -657,18 +658,18 @@ public:
 	void setFingersContactType(unsigned int fcm)
 	{
 		if(fcm == 1) return;
-		fprintf(mFile,"setAttr \".flg.fcm\" %i;\n", fcm);
+		fprintf(mFile,"\tsetAttr \".flg.fcm\" %i;\n", fcm);
 
 	}
 	void setFingersContactRollStiffness(float hcr)
 	{
 		if(hcr == 0.00) return;
-		fprintf(mFile,"setAttr \".flg.hcr\" %f;\n", hcr);
+		fprintf(mFile,"\tsetAttr \".flg.hcr\" %f;\n", hcr);
 
 	}
 	void setFingerTipsSizes(const FingerTipsSizes& fts)
 	{
-		fprintf(mFile,"setAttr \".fts\" ");
+		fprintf(mFile,"\tsetAttr \".fts\" ");
 		fts.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -676,78 +677,78 @@ public:
 	void setLeftHandThumbTip(float ltt)
 	{
 		if(ltt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.ltt\" %f;\n", ltt);
+		fprintf(mFile,"\tsetAttr \".fts.ltt\" %f;\n", ltt);
 
 	}
 	void setLeftHandIndexTip(float lit)
 	{
 		if(lit == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.lit\" %f;\n", lit);
+		fprintf(mFile,"\tsetAttr \".fts.lit\" %f;\n", lit);
 
 	}
 	void setLeftHandMiddleTip(float lmt)
 	{
 		if(lmt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.lmt\" %f;\n", lmt);
+		fprintf(mFile,"\tsetAttr \".fts.lmt\" %f;\n", lmt);
 
 	}
 	void setLeftHandRingTip(float lrt)
 	{
 		if(lrt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.lrt\" %f;\n", lrt);
+		fprintf(mFile,"\tsetAttr \".fts.lrt\" %f;\n", lrt);
 
 	}
 	void setLeftHandPinkyTip(float lpt)
 	{
 		if(lpt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.lpt\" %f;\n", lpt);
+		fprintf(mFile,"\tsetAttr \".fts.lpt\" %f;\n", lpt);
 
 	}
 	void setLeftHandExtraFingerTip(float lxt)
 	{
 		if(lxt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.lxt\" %f;\n", lxt);
+		fprintf(mFile,"\tsetAttr \".fts.lxt\" %f;\n", lxt);
 
 	}
 	void setRightHandThumbTip(float rtt)
 	{
 		if(rtt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.rtt\" %f;\n", rtt);
+		fprintf(mFile,"\tsetAttr \".fts.rtt\" %f;\n", rtt);
 
 	}
 	void setRightHandIndexTip(float rit)
 	{
 		if(rit == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.rit\" %f;\n", rit);
+		fprintf(mFile,"\tsetAttr \".fts.rit\" %f;\n", rit);
 
 	}
 	void setRightHandMiddleTip(float rmt)
 	{
 		if(rmt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.rmt\" %f;\n", rmt);
+		fprintf(mFile,"\tsetAttr \".fts.rmt\" %f;\n", rmt);
 
 	}
 	void setRightHandRingTip(float rrt)
 	{
 		if(rrt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.rrt\" %f;\n", rrt);
+		fprintf(mFile,"\tsetAttr \".fts.rrt\" %f;\n", rrt);
 
 	}
 	void setRightHandPinkyTip(float rpp)
 	{
 		if(rpp == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.rpp\" %f;\n", rpp);
+		fprintf(mFile,"\tsetAttr \".fts.rpp\" %f;\n", rpp);
 
 	}
 	void setRightHandExtraFingerTip(float rxt)
 	{
 		if(rxt == 0.50) return;
-		fprintf(mFile,"setAttr \".fts.rxt\" %f;\n", rxt);
+		fprintf(mFile,"\tsetAttr \".fts.rxt\" %f;\n", rxt);
 
 	}
 	void setToesFloorContactSetup(const ToesFloorContactSetup& fli)
 	{
-		fprintf(mFile,"setAttr \".fli\" ");
+		fprintf(mFile,"\tsetAttr \".fli\" ");
 		fli.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -755,18 +756,18 @@ public:
 	void setToesContactType(unsigned int tct)
 	{
 		if(tct == 1) return;
-		fprintf(mFile,"setAttr \".fli.tct\" %i;\n", tct);
+		fprintf(mFile,"\tsetAttr \".fli.tct\" %i;\n", tct);
 
 	}
 	void setToesContactRollStiffness(float fcr)
 	{
 		if(fcr == 0.00) return;
-		fprintf(mFile,"setAttr \".fli.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fli.fcr\" %f;\n", fcr);
 
 	}
 	void setToeTipsSizes(const ToeTipsSizes& flj)
 	{
-		fprintf(mFile,"setAttr \".flj\" ");
+		fprintf(mFile,"\tsetAttr \".flj\" ");
 		flj.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -774,78 +775,78 @@ public:
 	void setLeftFootThumbTip(float ttl)
 	{
 		if(ttl == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.ttl\" %f;\n", ttl);
+		fprintf(mFile,"\tsetAttr \".flj.ttl\" %f;\n", ttl);
 
 	}
 	void setLeftFootIndexTip(float til)
 	{
 		if(til == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.til\" %f;\n", til);
+		fprintf(mFile,"\tsetAttr \".flj.til\" %f;\n", til);
 
 	}
 	void setLeftFootMiddleTip(float tml)
 	{
 		if(tml == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.tml\" %f;\n", tml);
+		fprintf(mFile,"\tsetAttr \".flj.tml\" %f;\n", tml);
 
 	}
 	void setLeftFootRingTip(float trl)
 	{
 		if(trl == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.trl\" %f;\n", trl);
+		fprintf(mFile,"\tsetAttr \".flj.trl\" %f;\n", trl);
 
 	}
 	void setLeftFootPinkyTip(float tpl)
 	{
 		if(tpl == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.tpl\" %f;\n", tpl);
+		fprintf(mFile,"\tsetAttr \".flj.tpl\" %f;\n", tpl);
 
 	}
 	void setLeftFootExtraFingerTip(float txl)
 	{
 		if(txl == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.txl\" %f;\n", txl);
+		fprintf(mFile,"\tsetAttr \".flj.txl\" %f;\n", txl);
 
 	}
 	void setRightFootThumbTip(float ttr)
 	{
 		if(ttr == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.ttr\" %f;\n", ttr);
+		fprintf(mFile,"\tsetAttr \".flj.ttr\" %f;\n", ttr);
 
 	}
 	void setRightFootIndexTip(float tir)
 	{
 		if(tir == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.tir\" %f;\n", tir);
+		fprintf(mFile,"\tsetAttr \".flj.tir\" %f;\n", tir);
 
 	}
 	void setRightFootMiddleTip(float tmr)
 	{
 		if(tmr == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.tmr\" %f;\n", tmr);
+		fprintf(mFile,"\tsetAttr \".flj.tmr\" %f;\n", tmr);
 
 	}
 	void setRightFootRingTip(float trr)
 	{
 		if(trr == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.trr\" %f;\n", trr);
+		fprintf(mFile,"\tsetAttr \".flj.trr\" %f;\n", trr);
 
 	}
 	void setRightFootPinkyTip(float tpr)
 	{
 		if(tpr == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.tpr\" %f;\n", tpr);
+		fprintf(mFile,"\tsetAttr \".flj.tpr\" %f;\n", tpr);
 
 	}
 	void setRightFootExtraFingerTip(float txr)
 	{
 		if(txr == 0.50) return;
-		fprintf(mFile,"setAttr \".flj.txr\" %f;\n", txr);
+		fprintf(mFile,"\tsetAttr \".flj.txr\" %f;\n", txr);
 
 	}
 	void setHead(const Head& fll)
 	{
-		fprintf(mFile,"setAttr \".fll\" ");
+		fprintf(mFile,"\tsetAttr \".fll\" ");
 		fll.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -853,12 +854,12 @@ public:
 	void setHeadPull(float phd)
 	{
 		if(phd == 0.00) return;
-		fprintf(mFile,"setAttr \".fll.phd\" %f;\n", phd);
+		fprintf(mFile,"\tsetAttr \".fll.phd\" %f;\n", phd);
 
 	}
 	void setLeftArm(const LeftArm& flm)
 	{
-		fprintf(mFile,"setAttr \".flm\" ");
+		fprintf(mFile,"\tsetAttr \".flm\" ");
 		flm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -866,30 +867,30 @@ public:
 	void setLeftElbowPull(float ple)
 	{
 		if(ple == 0.00) return;
-		fprintf(mFile,"setAttr \".flm.ple\" %f;\n", ple);
+		fprintf(mFile,"\tsetAttr \".flm.ple\" %f;\n", ple);
 
 	}
 	void setLeftHandPullChest(float cpl)
 	{
 		if(cpl == 1.00) return;
-		fprintf(mFile,"setAttr \".flm.cpl\" %f;\n", cpl);
+		fprintf(mFile,"\tsetAttr \".flm.cpl\" %f;\n", cpl);
 
 	}
 	void setLeftHandPullHips(float plh)
 	{
 		if(plh == 1.00) return;
-		fprintf(mFile,"setAttr \".flm.plh\" %f;\n", plh);
+		fprintf(mFile,"\tsetAttr \".flm.plh\" %f;\n", plh);
 
 	}
 	void setLeftFingerBasePull(float plb)
 	{
 		if(plb == 0.00) return;
-		fprintf(mFile,"setAttr \".flm.plb\" %f;\n", plb);
+		fprintf(mFile,"\tsetAttr \".flm.plb\" %f;\n", plb);
 
 	}
 	void setRightArm(const RightArm& fln)
 	{
-		fprintf(mFile,"setAttr \".fln\" ");
+		fprintf(mFile,"\tsetAttr \".fln\" ");
 		fln.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -897,30 +898,30 @@ public:
 	void setRightElbowPull(float pre)
 	{
 		if(pre == 0.00) return;
-		fprintf(mFile,"setAttr \".fln.pre\" %f;\n", pre);
+		fprintf(mFile,"\tsetAttr \".fln.pre\" %f;\n", pre);
 
 	}
 	void setRightHandPullChest(float cpr)
 	{
 		if(cpr == 1.00) return;
-		fprintf(mFile,"setAttr \".fln.cpr\" %f;\n", cpr);
+		fprintf(mFile,"\tsetAttr \".fln.cpr\" %f;\n", cpr);
 
 	}
 	void setRightHandPullHips(float prh)
 	{
 		if(prh == 1.00) return;
-		fprintf(mFile,"setAttr \".fln.prh\" %f;\n", prh);
+		fprintf(mFile,"\tsetAttr \".fln.prh\" %f;\n", prh);
 
 	}
 	void setRightFingerBasePull(float prb)
 	{
 		if(prb == 0.00) return;
-		fprintf(mFile,"setAttr \".fln.prb\" %f;\n", prb);
+		fprintf(mFile,"\tsetAttr \".fln.prb\" %f;\n", prb);
 
 	}
 	void setChest(const Chest& flo)
 	{
-		fprintf(mFile,"setAttr \".flo\" ");
+		fprintf(mFile,"\tsetAttr \".flo\" ");
 		flo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -928,12 +929,12 @@ public:
 	void setChestPull(float rcp)
 	{
 		if(rcp == 0.00) return;
-		fprintf(mFile,"setAttr \".flo.rcp\" %f;\n", rcp);
+		fprintf(mFile,"\tsetAttr \".flo.rcp\" %f;\n", rcp);
 
 	}
 	void setHips(const Hips& flp)
 	{
-		fprintf(mFile,"setAttr \".flp\" ");
+		fprintf(mFile,"\tsetAttr \".flp\" ");
 		flp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -941,12 +942,12 @@ public:
 	void setHipsPull(float chp)
 	{
 		if(chp == 0.00) return;
-		fprintf(mFile,"setAttr \".flp.chp\" %f;\n", chp);
+		fprintf(mFile,"\tsetAttr \".flp.chp\" %f;\n", chp);
 
 	}
 	void setLeftLeg(const LeftLeg& flq)
 	{
-		fprintf(mFile,"setAttr \".flq\" ");
+		fprintf(mFile,"\tsetAttr \".flq\" ");
 		flq.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -954,24 +955,24 @@ public:
 	void setLeftKneePull(float plk)
 	{
 		if(plk == 0.00) return;
-		fprintf(mFile,"setAttr \".flq.plk\" %f;\n", plk);
+		fprintf(mFile,"\tsetAttr \".flq.plk\" %f;\n", plk);
 
 	}
 	void setLeftFootPull(float plf)
 	{
 		if(plf == 1.00) return;
-		fprintf(mFile,"setAttr \".flq.plf\" %f;\n", plf);
+		fprintf(mFile,"\tsetAttr \".flq.plf\" %f;\n", plf);
 
 	}
 	void setLeftToeBasePull(float plt)
 	{
 		if(plt == 0.00) return;
-		fprintf(mFile,"setAttr \".flq.plt\" %f;\n", plt);
+		fprintf(mFile,"\tsetAttr \".flq.plt\" %f;\n", plt);
 
 	}
 	void setRightLeg(const RightLeg& flr)
 	{
-		fprintf(mFile,"setAttr \".flr\" ");
+		fprintf(mFile,"\tsetAttr \".flr\" ");
 		flr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -979,24 +980,24 @@ public:
 	void setRightKneePull(float prk)
 	{
 		if(prk == 0.00) return;
-		fprintf(mFile,"setAttr \".flr.prk\" %f;\n", prk);
+		fprintf(mFile,"\tsetAttr \".flr.prk\" %f;\n", prk);
 
 	}
 	void setRightFootPull(float prf)
 	{
 		if(prf == 1.00) return;
-		fprintf(mFile,"setAttr \".flr.prf\" %f;\n", prf);
+		fprintf(mFile,"\tsetAttr \".flr.prf\" %f;\n", prf);
 
 	}
 	void setRightToeBasePull(float prt)
 	{
 		if(prt == 0.00) return;
-		fprintf(mFile,"setAttr \".flr.prt\" %f;\n", prt);
+		fprintf(mFile,"\tsetAttr \".flr.prt\" %f;\n", prt);
 
 	}
 	void setExtra(const Extra& ex)
 	{
-		fprintf(mFile,"setAttr \".ex\" ");
+		fprintf(mFile,"\tsetAttr \".ex\" ");
 		ex.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1004,12 +1005,12 @@ public:
 	void setPullIterationCount(float pic)
 	{
 		if(pic == 10.00) return;
-		fprintf(mFile,"setAttr \".ex.pic\" %f;\n", pic);
+		fprintf(mFile,"\tsetAttr \".ex.pic\" %f;\n", pic);
 
 	}
 	void setStiffness(const Stiffness& st)
 	{
-		fprintf(mFile,"setAttr \".st\" ");
+		fprintf(mFile,"\tsetAttr \".st\" ");
 		st.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1017,120 +1018,120 @@ public:
 	void setNeckStiffness(float nst)
 	{
 		if(nst == 0.00) return;
-		fprintf(mFile,"setAttr \".st.nst\" %f;\n", nst);
+		fprintf(mFile,"\tsetAttr \".st.nst\" %f;\n", nst);
 
 	}
 	void setLeftShoulderStiffness(float rlco)
 	{
 		if(rlco == 0.50) return;
-		fprintf(mFile,"setAttr \".st.rlco\" %f;\n", rlco);
+		fprintf(mFile,"\tsetAttr \".st.rlco\" %f;\n", rlco);
 
 	}
 	void setLeftArmStiffness(float rle)
 	{
 		if(rle == 0.50) return;
-		fprintf(mFile,"setAttr \".st.rle\" %f;\n", rle);
+		fprintf(mFile,"\tsetAttr \".st.rle\" %f;\n", rle);
 
 	}
 	void setLeftElbowMaxExtension(float mle)
 	{
 		if(mle == 0.50) return;
-		fprintf(mFile,"setAttr \".st.mle\" %f;\n", mle);
+		fprintf(mFile,"\tsetAttr \".st.mle\" %f;\n", mle);
 
 	}
 	void setLeftElbowCompressionFactor(float cle)
 	{
 		if(cle == 0.50) return;
-		fprintf(mFile,"setAttr \".st.cle\" %f;\n", cle);
+		fprintf(mFile,"\tsetAttr \".st.cle\" %f;\n", cle);
 
 	}
 	void setRightShoulderStiffness(float rrc)
 	{
 		if(rrc == 0.50) return;
-		fprintf(mFile,"setAttr \".st.rrc\" %f;\n", rrc);
+		fprintf(mFile,"\tsetAttr \".st.rrc\" %f;\n", rrc);
 
 	}
 	void setRightArmStiffness(float rre)
 	{
 		if(rre == 0.50) return;
-		fprintf(mFile,"setAttr \".st.rre\" %f;\n", rre);
+		fprintf(mFile,"\tsetAttr \".st.rre\" %f;\n", rre);
 
 	}
 	void setRightElbowMaxExtension(float mre)
 	{
 		if(mre == 0.50) return;
-		fprintf(mFile,"setAttr \".st.mre\" %f;\n", mre);
+		fprintf(mFile,"\tsetAttr \".st.mre\" %f;\n", mre);
 
 	}
 	void setRightElbowCompressionFactor(float cre)
 	{
 		if(cre == 0.50) return;
-		fprintf(mFile,"setAttr \".st.cre\" %f;\n", cre);
+		fprintf(mFile,"\tsetAttr \".st.cre\" %f;\n", cre);
 
 	}
 	void setHipsEnforceGravity(float egr)
 	{
 		if(egr == 0.60) return;
-		fprintf(mFile,"setAttr \".st.egr\" %f;\n", egr);
+		fprintf(mFile,"\tsetAttr \".st.egr\" %f;\n", egr);
 
 	}
 	void setChestStiffness(float rco)
 	{
 		if(rco == 0.00) return;
-		fprintf(mFile,"setAttr \".st.rco\" %f;\n", rco);
+		fprintf(mFile,"\tsetAttr \".st.rco\" %f;\n", rco);
 
 	}
 	void setSpineStiffness(float sst)
 	{
 		if(sst == 0.00) return;
-		fprintf(mFile,"setAttr \".st.sst\" %f;\n", sst);
+		fprintf(mFile,"\tsetAttr \".st.sst\" %f;\n", sst);
 
 	}
 	void setHipsStiffness(float rho)
 	{
 		if(rho == 0.00) return;
-		fprintf(mFile,"setAttr \".st.rho\" %f;\n", rho);
+		fprintf(mFile,"\tsetAttr \".st.rho\" %f;\n", rho);
 
 	}
 	void setLeftKneeMaxExtension(float mlk)
 	{
 		if(mlk == 0.50) return;
-		fprintf(mFile,"setAttr \".st.mlk\" %f;\n", mlk);
+		fprintf(mFile,"\tsetAttr \".st.mlk\" %f;\n", mlk);
 
 	}
 	void setLeftLegStiffness(float rlk)
 	{
 		if(rlk == 0.50) return;
-		fprintf(mFile,"setAttr \".st.rlk\" %f;\n", rlk);
+		fprintf(mFile,"\tsetAttr \".st.rlk\" %f;\n", rlk);
 
 	}
 	void setLeftKneeCompressionFactor(float clk)
 	{
 		if(clk == 0.50) return;
-		fprintf(mFile,"setAttr \".st.clk\" %f;\n", clk);
+		fprintf(mFile,"\tsetAttr \".st.clk\" %f;\n", clk);
 
 	}
 	void setRightLegStiffness(float rrk)
 	{
 		if(rrk == 0.50) return;
-		fprintf(mFile,"setAttr \".st.rrk\" %f;\n", rrk);
+		fprintf(mFile,"\tsetAttr \".st.rrk\" %f;\n", rrk);
 
 	}
 	void setRightKneeMaxExtension(float mrk)
 	{
 		if(mrk == 0.50) return;
-		fprintf(mFile,"setAttr \".st.mrk\" %f;\n", mrk);
+		fprintf(mFile,"\tsetAttr \".st.mrk\" %f;\n", mrk);
 
 	}
 	void setRightKneeCompressionFactor(float crk)
 	{
 		if(crk == 0.50) return;
-		fprintf(mFile,"setAttr \".st.crk\" %f;\n", crk);
+		fprintf(mFile,"\tsetAttr \".st.crk\" %f;\n", crk);
 
 	}
 	void setKillPitch(const KillPitch& kp)
 	{
-		fprintf(mFile,"setAttr \".kp\" ");
+		fprintf(mFile,"\tsetAttr \".kp\" ");
 		kp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1138,30 +1139,30 @@ public:
 	void setLeftElbowKillPitch(bool lek)
 	{
 		if(lek == 0) return;
-		fprintf(mFile,"setAttr \".kp.lek\" %i;\n", lek);
+		fprintf(mFile,"\tsetAttr \".kp.lek\" %i;\n", lek);
 
 	}
 	void setRightElbowKillPitch(bool rek)
 	{
 		if(rek == 0) return;
-		fprintf(mFile,"setAttr \".kp.rek\" %i;\n", rek);
+		fprintf(mFile,"\tsetAttr \".kp.rek\" %i;\n", rek);
 
 	}
 	void setLeftKneeKillPitch(bool lkk)
 	{
 		if(lkk == 0) return;
-		fprintf(mFile,"setAttr \".kp.lkk\" %i;\n", lkk);
+		fprintf(mFile,"\tsetAttr \".kp.lkk\" %i;\n", lkk);
 
 	}
 	void setRightKneeKillPitch(bool rkk)
 	{
 		if(rkk == 0) return;
-		fprintf(mFile,"setAttr \".kp.rkk\" %i;\n", rkk);
+		fprintf(mFile,"\tsetAttr \".kp.rkk\" %i;\n", rkk);
 
 	}
 	void setRollExtraction(const RollExtraction& re)
 	{
-		fprintf(mFile,"setAttr \".re\" ");
+		fprintf(mFile,"\tsetAttr \".re\" ");
 		re.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1169,103 +1170,103 @@ public:
 	void setRollExtractionMode(unsigned int rem)
 	{
 		if(rem == 0) return;
-		fprintf(mFile,"setAttr \".re.rem\" %i;\n", rem);
+		fprintf(mFile,"\tsetAttr \".re.rem\" %i;\n", rem);
 
 	}
 	void setLeftArmRollMode(bool larm)
 	{
 		if(larm == 0) return;
-		fprintf(mFile,"setAttr \".re.larm\" %i;\n", larm);
+		fprintf(mFile,"\tsetAttr \".re.larm\" %i;\n", larm);
 
 	}
 	void setLeftArmRoll(float lar)
 	{
 		if(lar == 0.60) return;
-		fprintf(mFile,"setAttr \".re.lar\" %f;\n", lar);
+		fprintf(mFile,"\tsetAttr \".re.lar\" %f;\n", lar);
 
 	}
 	void setLeftForeArmRollMode(bool lfrm)
 	{
 		if(lfrm == 0) return;
-		fprintf(mFile,"setAttr \".re.lfrm\" %i;\n", lfrm);
+		fprintf(mFile,"\tsetAttr \".re.lfrm\" %i;\n", lfrm);
 
 	}
 	void setLeftForeArmRoll(float lfr)
 	{
 		if(lfr == 0.60) return;
-		fprintf(mFile,"setAttr \".re.lfr\" %f;\n", lfr);
+		fprintf(mFile,"\tsetAttr \".re.lfr\" %f;\n", lfr);
 
 	}
 	void setRightArmRollMode(bool rarm)
 	{
 		if(rarm == 0) return;
-		fprintf(mFile,"setAttr \".re.rarm\" %i;\n", rarm);
+		fprintf(mFile,"\tsetAttr \".re.rarm\" %i;\n", rarm);
 
 	}
 	void setRightArmRoll(float rar)
 	{
 		if(rar == 0.60) return;
-		fprintf(mFile,"setAttr \".re.rar\" %f;\n", rar);
+		fprintf(mFile,"\tsetAttr \".re.rar\" %f;\n", rar);
 
 	}
 	void setRightForeArmRollMode(bool rfrm)
 	{
 		if(rfrm == 0) return;
-		fprintf(mFile,"setAttr \".re.rfrm\" %i;\n", rfrm);
+		fprintf(mFile,"\tsetAttr \".re.rfrm\" %i;\n", rfrm);
 
 	}
 	void setRightForeArmRoll(float rfr)
 	{
 		if(rfr == 0.60) return;
-		fprintf(mFile,"setAttr \".re.rfr\" %f;\n", rfr);
+		fprintf(mFile,"\tsetAttr \".re.rfr\" %f;\n", rfr);
 
 	}
 	void setLeftUpLegRollMode(bool lurm)
 	{
 		if(lurm == 0) return;
-		fprintf(mFile,"setAttr \".re.lurm\" %i;\n", lurm);
+		fprintf(mFile,"\tsetAttr \".re.lurm\" %i;\n", lurm);
 
 	}
 	void setLeftUpLegRoll(float lur)
 	{
 		if(lur == 0.60) return;
-		fprintf(mFile,"setAttr \".re.lur\" %f;\n", lur);
+		fprintf(mFile,"\tsetAttr \".re.lur\" %f;\n", lur);
 
 	}
 	void setLeftLegRollMode(bool llrm)
 	{
 		if(llrm == 0) return;
-		fprintf(mFile,"setAttr \".re.llrm\" %i;\n", llrm);
+		fprintf(mFile,"\tsetAttr \".re.llrm\" %i;\n", llrm);
 
 	}
 	void setLeftLegRoll(float llr)
 	{
 		if(llr == 0.60) return;
-		fprintf(mFile,"setAttr \".re.llr\" %f;\n", llr);
+		fprintf(mFile,"\tsetAttr \".re.llr\" %f;\n", llr);
 
 	}
 	void setRightUpLegRollMode(bool rurm)
 	{
 		if(rurm == 0) return;
-		fprintf(mFile,"setAttr \".re.rurm\" %i;\n", rurm);
+		fprintf(mFile,"\tsetAttr \".re.rurm\" %i;\n", rurm);
 
 	}
 	void setRightUpLegRoll(float rur)
 	{
 		if(rur == 0.60) return;
-		fprintf(mFile,"setAttr \".re.rur\" %f;\n", rur);
+		fprintf(mFile,"\tsetAttr \".re.rur\" %f;\n", rur);
 
 	}
 	void setRightLegRollMode(bool rlrm)
 	{
 		if(rlrm == 0) return;
-		fprintf(mFile,"setAttr \".re.rlrm\" %i;\n", rlrm);
+		fprintf(mFile,"\tsetAttr \".re.rlrm\" %i;\n", rlrm);
 
 	}
 	void setRightLegRoll(float rlro)
 	{
 		if(rlro == 0.60) return;
-		fprintf(mFile,"setAttr \".re.rlro\" %f;\n", rlro);
+		fprintf(mFile,"\tsetAttr \".re.rlro\" %f;\n", rlro);
 
 	}
 	void getEffectors(size_t eff_i)
@@ -2029,7 +2030,8 @@ public:
 
 	}
 protected:
-	HikHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):IkHandle(file, name, parent, nodeType) {}
+	HikHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:IkHandle(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

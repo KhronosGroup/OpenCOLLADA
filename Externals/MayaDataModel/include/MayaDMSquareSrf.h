@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,60 +18,61 @@ class SquareSrf : public BoundaryBase
 {
 public:
 public:
+	SquareSrf():BoundaryBase(){}
 	SquareSrf(FILE* file,const std::string& name,const std::string& parent=""):BoundaryBase(file, name, parent, "squareSrf"){}
 	virtual ~SquareSrf(){}
 	void setCurveFitCheckpoints(int cfc)
 	{
 		if(cfc == 5) return;
-		fprintf(mFile,"setAttr \".cfc\" %i;\n", cfc);
+		fprintf(mFile,"\tsetAttr \".cfc\" %i;\n", cfc);
 
 	}
 	void setContinuityType1(unsigned int ct1)
 	{
 		if(ct1 == 2) return;
-		fprintf(mFile,"setAttr \".ct1\" %i;\n", ct1);
+		fprintf(mFile,"\tsetAttr \".ct1\" %i;\n", ct1);
 
 	}
 	void setContinuityType2(unsigned int ct2)
 	{
 		if(ct2 == 2) return;
-		fprintf(mFile,"setAttr \".ct2\" %i;\n", ct2);
+		fprintf(mFile,"\tsetAttr \".ct2\" %i;\n", ct2);
 
 	}
 	void setContinuityType3(unsigned int ct3)
 	{
 		if(ct3 == 2) return;
-		fprintf(mFile,"setAttr \".ct3\" %i;\n", ct3);
+		fprintf(mFile,"\tsetAttr \".ct3\" %i;\n", ct3);
 
 	}
 	void setContinuityType4(unsigned int ct4)
 	{
 		if(ct4 == 2) return;
-		fprintf(mFile,"setAttr \".ct4\" %i;\n", ct4);
+		fprintf(mFile,"\tsetAttr \".ct4\" %i;\n", ct4);
 
 	}
 	void setRebuildCurve1(bool rc1)
 	{
 		if(rc1 == false) return;
-		fprintf(mFile,"setAttr \".rc1\" %i;\n", rc1);
+		fprintf(mFile,"\tsetAttr \".rc1\" %i;\n", rc1);
 
 	}
 	void setRebuildCurve2(bool rc2)
 	{
 		if(rc2 == false) return;
-		fprintf(mFile,"setAttr \".rc2\" %i;\n", rc2);
+		fprintf(mFile,"\tsetAttr \".rc2\" %i;\n", rc2);
 
 	}
 	void setRebuildCurve3(bool rc3)
 	{
 		if(rc3 == false) return;
-		fprintf(mFile,"setAttr \".rc3\" %i;\n", rc3);
+		fprintf(mFile,"\tsetAttr \".rc3\" %i;\n", rc3);
 
 	}
 	void setRebuildCurve4(bool rc4)
 	{
 		if(rc4 == false) return;
-		fprintf(mFile,"setAttr \".rc4\" %i;\n", rc4);
+		fprintf(mFile,"\tsetAttr \".rc4\" %i;\n", rc4);
 
 	}
 	void getCurveFitCheckpoints()
@@ -140,7 +141,8 @@ public:
 
 	}
 protected:
-	SquareSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BoundaryBase(file, name, parent, nodeType) {}
+	SquareSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BoundaryBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,23 +18,24 @@ class DisplayLayerManager : public DependNode
 {
 public:
 public:
+	DisplayLayerManager():DependNode(){}
 	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "displayLayerManager"){}
 	virtual ~DisplayLayerManager(){}
 	void setCurrentDisplayLayer(short cdl)
 	{
 		if(cdl == 0) return;
-		fprintf(mFile,"setAttr \".cdl\" %i;\n", cdl);
+		fprintf(mFile,"\tsetAttr \".cdl\" %i;\n", cdl);
 
 	}
 	void setDisplayLayerId(size_t dli_i,short dli)
 	{
 		if(dli == 0) return;
-		fprintf(mFile,"setAttr \".dli[%i]\" %i;\n", dli_i,dli);
+		fprintf(mFile,"\tsetAttr \".dli[%i]\" %i;\n", dli_i,dli);
 
 	}
 	void setDisplayLayerId(size_t dli_start,size_t dli_end,short* dli)
 	{
-		fprintf(mFile,"setAttr \".dli[%i:%i]\" ", dli_start,dli_end);
+		fprintf(mFile,"\tsetAttr \".dli[%i:%i]\" ", dli_start,dli_end);
 		size_t size = (dli_end-dli_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -46,7 +47,7 @@ public:
 	}
 	void startDisplayLayerId(size_t dli_start,size_t dli_end)
 	{
-		fprintf(mFile,"setAttr \".dli[%i:%i]\"",dli_start,dli_end);
+		fprintf(mFile,"\tsetAttr \".dli[%i:%i]\"",dli_start,dli_end);
 
 	}
 	void appendDisplayLayerId(short dli)
@@ -70,7 +71,8 @@ public:
 
 	}
 protected:
-	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

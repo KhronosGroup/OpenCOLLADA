@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class EnvCube : public TextureEnv
 {
 public:
 public:
+	EnvCube():TextureEnv(){}
 	EnvCube(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envCube"){}
 	virtual ~EnvCube(){}
 	void setPointWorld(const float3& pw)
 	{
-		fprintf(mFile,"setAttr \".pw\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pw\" -type \"float3\" ");
 		pw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,37 +31,37 @@ public:
 	void setPointWorldX(float pwx)
 	{
 		if(pwx == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.pwx\" %f;\n", pwx);
+		fprintf(mFile,"\tsetAttr \".pw.pwx\" %f;\n", pwx);
 
 	}
 	void setPointWorldY(float pwy)
 	{
 		if(pwy == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.pwy\" %f;\n", pwy);
+		fprintf(mFile,"\tsetAttr \".pw.pwy\" %f;\n", pwy);
 
 	}
 	void setPointWorldZ(float pwz)
 	{
 		if(pwz == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.pwz\" %f;\n", pwz);
+		fprintf(mFile,"\tsetAttr \".pw.pwz\" %f;\n", pwz);
 
 	}
 	void setInfiniteSize(bool ie)
 	{
 		if(ie == 0) return;
-		fprintf(mFile,"setAttr \".ie\" %i;\n", ie);
+		fprintf(mFile,"\tsetAttr \".ie\" %i;\n", ie);
 
 	}
 	void setLookupType(unsigned int lt)
 	{
 		if(lt == 0) return;
-		fprintf(mFile,"setAttr \".lt\" %i;\n", lt);
+		fprintf(mFile,"\tsetAttr \".lt\" %i;\n", lt);
 
 	}
 	void setLeft(const float3& le)
 	{
 		if(le == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".le\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".le\" -type \"float3\" ");
 		le.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -68,25 +69,25 @@ public:
 	void setLeftR(float ler)
 	{
 		if(ler == 0.0) return;
-		fprintf(mFile,"setAttr \".le.ler\" %f;\n", ler);
+		fprintf(mFile,"\tsetAttr \".le.ler\" %f;\n", ler);
 
 	}
 	void setLeftG(float leg)
 	{
 		if(leg == 0.0) return;
-		fprintf(mFile,"setAttr \".le.leg\" %f;\n", leg);
+		fprintf(mFile,"\tsetAttr \".le.leg\" %f;\n", leg);
 
 	}
 	void setLeftB(float leb)
 	{
 		if(leb == 0.0) return;
-		fprintf(mFile,"setAttr \".le.leb\" %f;\n", leb);
+		fprintf(mFile,"\tsetAttr \".le.leb\" %f;\n", leb);
 
 	}
 	void setRight(const float3& ri)
 	{
 		if(ri == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".ri\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ri\" -type \"float3\" ");
 		ri.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -94,25 +95,25 @@ public:
 	void setRightR(float rir)
 	{
 		if(rir == 0.0) return;
-		fprintf(mFile,"setAttr \".ri.rir\" %f;\n", rir);
+		fprintf(mFile,"\tsetAttr \".ri.rir\" %f;\n", rir);
 
 	}
 	void setRightG(float rig)
 	{
 		if(rig == 0.0) return;
-		fprintf(mFile,"setAttr \".ri.rig\" %f;\n", rig);
+		fprintf(mFile,"\tsetAttr \".ri.rig\" %f;\n", rig);
 
 	}
 	void setRightB(float rib)
 	{
 		if(rib == 0.0) return;
-		fprintf(mFile,"setAttr \".ri.rib\" %f;\n", rib);
+		fprintf(mFile,"\tsetAttr \".ri.rib\" %f;\n", rib);
 
 	}
 	void setTop(const float3& to)
 	{
 		if(to == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".to\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".to\" -type \"float3\" ");
 		to.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -120,25 +121,25 @@ public:
 	void setTopR(float tor)
 	{
 		if(tor == 0.0) return;
-		fprintf(mFile,"setAttr \".to.tor\" %f;\n", tor);
+		fprintf(mFile,"\tsetAttr \".to.tor\" %f;\n", tor);
 
 	}
 	void setTopG(float tog)
 	{
 		if(tog == 0.0) return;
-		fprintf(mFile,"setAttr \".to.tog\" %f;\n", tog);
+		fprintf(mFile,"\tsetAttr \".to.tog\" %f;\n", tog);
 
 	}
 	void setTopB(float tob)
 	{
 		if(tob == 0.0) return;
-		fprintf(mFile,"setAttr \".to.tob\" %f;\n", tob);
+		fprintf(mFile,"\tsetAttr \".to.tob\" %f;\n", tob);
 
 	}
 	void setBottom(const float3& bo)
 	{
 		if(bo == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".bo\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".bo\" -type \"float3\" ");
 		bo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -146,25 +147,25 @@ public:
 	void setBottomR(float bor)
 	{
 		if(bor == 0.0) return;
-		fprintf(mFile,"setAttr \".bo.bor\" %f;\n", bor);
+		fprintf(mFile,"\tsetAttr \".bo.bor\" %f;\n", bor);
 
 	}
 	void setBottomG(float bog)
 	{
 		if(bog == 0.0) return;
-		fprintf(mFile,"setAttr \".bo.bog\" %f;\n", bog);
+		fprintf(mFile,"\tsetAttr \".bo.bog\" %f;\n", bog);
 
 	}
 	void setBottomB(float bob)
 	{
 		if(bob == 0.0) return;
-		fprintf(mFile,"setAttr \".bo.bob\" %f;\n", bob);
+		fprintf(mFile,"\tsetAttr \".bo.bob\" %f;\n", bob);
 
 	}
 	void setFront(const float3& fr)
 	{
 		if(fr == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".fr\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fr\" -type \"float3\" ");
 		fr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -172,25 +173,25 @@ public:
 	void setFrontR(float frr)
 	{
 		if(frr == 0.0) return;
-		fprintf(mFile,"setAttr \".fr.frr\" %f;\n", frr);
+		fprintf(mFile,"\tsetAttr \".fr.frr\" %f;\n", frr);
 
 	}
 	void setFrontG(float frg)
 	{
 		if(frg == 0.0) return;
-		fprintf(mFile,"setAttr \".fr.frg\" %f;\n", frg);
+		fprintf(mFile,"\tsetAttr \".fr.frg\" %f;\n", frg);
 
 	}
 	void setFrontB(float frb)
 	{
 		if(frb == 0.0) return;
-		fprintf(mFile,"setAttr \".fr.frb\" %f;\n", frb);
+		fprintf(mFile,"\tsetAttr \".fr.frb\" %f;\n", frb);
 
 	}
 	void setBack(const float3& ba)
 	{
 		if(ba == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".ba\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ba\" -type \"float3\" ");
 		ba.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -198,19 +199,19 @@ public:
 	void setBackR(float bar)
 	{
 		if(bar == 0.0) return;
-		fprintf(mFile,"setAttr \".ba.bar\" %f;\n", bar);
+		fprintf(mFile,"\tsetAttr \".ba.bar\" %f;\n", bar);
 
 	}
 	void setBackG(float bag)
 	{
 		if(bag == 0.0) return;
-		fprintf(mFile,"setAttr \".ba.bag\" %f;\n", bag);
+		fprintf(mFile,"\tsetAttr \".ba.bag\" %f;\n", bag);
 
 	}
 	void setBackB(float bab)
 	{
 		if(bab == 0.0) return;
-		fprintf(mFile,"setAttr \".ba.bab\" %f;\n", bab);
+		fprintf(mFile,"\tsetAttr \".ba.bab\" %f;\n", bab);
 
 	}
 	void getPointWorld()
@@ -359,7 +360,8 @@ public:
 
 	}
 protected:
-	EnvCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):TextureEnv(file, name, parent, nodeType) {}
+	EnvCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:TextureEnv(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

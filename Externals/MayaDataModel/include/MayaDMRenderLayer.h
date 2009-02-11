@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -63,17 +63,18 @@ public:
 		}
 	};
 public:
+	RenderLayer():DependNode(){}
 	RenderLayer(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderLayer"){}
 	virtual ~RenderLayer(){}
 	void setGlobal(bool g)
 	{
 		if(g == false) return;
-		fprintf(mFile,"setAttr \".g\" %i;\n", g);
+		fprintf(mFile,"\tsetAttr \".g\" %i;\n", g);
 
 	}
 	void setRenderInfo(const RenderInfo& ri)
 	{
-		fprintf(mFile,"setAttr \".ri\" ");
+		fprintf(mFile,"\tsetAttr \".ri\" ");
 		ri.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,36 +82,36 @@ public:
 	void setIdentification(short rlid)
 	{
 		if(rlid == 0) return;
-		fprintf(mFile,"setAttr \".ri.rlid\" %i;\n", rlid);
+		fprintf(mFile,"\tsetAttr \".ri.rlid\" %i;\n", rlid);
 
 	}
 	void setRenderable(bool rndr)
 	{
 		if(rndr == true) return;
-		fprintf(mFile,"setAttr \".ri.rndr\" %i;\n", rndr);
+		fprintf(mFile,"\tsetAttr \".ri.rndr\" %i;\n", rndr);
 
 	}
 	void setDrawColor(unsigned char c)
 	{
 		if(c == 0) return;
-		fprintf(mFile,"setAttr \".ri.c\" %i;\n", c);
+		fprintf(mFile,"\tsetAttr \".ri.c\" %i;\n", c);
 
 	}
 	void setLayerParent(short rlp)
 	{
 		if(rlp == 0) return;
-		fprintf(mFile,"setAttr \".rlp\" %i;\n", rlp);
+		fprintf(mFile,"\tsetAttr \".rlp\" %i;\n", rlp);
 
 	}
 	void setLayerChildren(size_t rlc_i,short rlc)
 	{
 		if(rlc == 0) return;
-		fprintf(mFile,"setAttr \".rlc[%i]\" %i;\n", rlc_i,rlc);
+		fprintf(mFile,"\tsetAttr \".rlc[%i]\" %i;\n", rlc_i,rlc);
 
 	}
 	void setLayerChildren(size_t rlc_start,size_t rlc_end,short* rlc)
 	{
-		fprintf(mFile,"setAttr \".rlc[%i:%i]\" ", rlc_start,rlc_end);
+		fprintf(mFile,"\tsetAttr \".rlc[%i:%i]\" ", rlc_start,rlc_end);
 		size_t size = (rlc_end-rlc_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -122,7 +123,7 @@ public:
 	}
 	void startLayerChildren(size_t rlc_start,size_t rlc_end)
 	{
-		fprintf(mFile,"setAttr \".rlc[%i:%i]\"",rlc_start,rlc_end);
+		fprintf(mFile,"\tsetAttr \".rlc[%i:%i]\"",rlc_start,rlc_end);
 
 	}
 	void appendLayerChildren(short rlc)
@@ -137,7 +138,7 @@ public:
 	}
 	void setRenderPassInfo(const RenderPassInfo& rp)
 	{
-		fprintf(mFile,"setAttr \".rp\" ");
+		fprintf(mFile,"\tsetAttr \".rp\" ");
 		rp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -145,42 +146,42 @@ public:
 	void setBeauty(bool b)
 	{
 		if(b == true) return;
-		fprintf(mFile,"setAttr \".rp.b\" %i;\n", b);
+		fprintf(mFile,"\tsetAttr \".rp.b\" %i;\n", b);
 
 	}
 	void setColor(bool cp)
 	{
 		if(cp == false) return;
-		fprintf(mFile,"setAttr \".rp.cp\" %i;\n", cp);
+		fprintf(mFile,"\tsetAttr \".rp.cp\" %i;\n", cp);
 
 	}
 	void setAmbient(bool am)
 	{
 		if(am == false) return;
-		fprintf(mFile,"setAttr \".rp.am\" %i;\n", am);
+		fprintf(mFile,"\tsetAttr \".rp.am\" %i;\n", am);
 
 	}
 	void setDiffuse(bool di)
 	{
 		if(di == false) return;
-		fprintf(mFile,"setAttr \".rp.di\" %i;\n", di);
+		fprintf(mFile,"\tsetAttr \".rp.di\" %i;\n", di);
 
 	}
 	void setSpecular(bool sp)
 	{
 		if(sp == false) return;
-		fprintf(mFile,"setAttr \".rp.sp\" %i;\n", sp);
+		fprintf(mFile,"\tsetAttr \".rp.sp\" %i;\n", sp);
 
 	}
 	void setShadow(bool s)
 	{
 		if(s == false) return;
-		fprintf(mFile,"setAttr \".rp.s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".rp.s\" %i;\n", s);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -188,19 +189,19 @@ public:
 	void setGlobalIllum(bool gp)
 	{
 		if(gp == false) return;
-		fprintf(mFile,"setAttr \".mrc.gp\" %i;\n", gp);
+		fprintf(mFile,"\tsetAttr \".mrc.gp\" %i;\n", gp);
 
 	}
 	void setAdjustments(size_t adjs_i,const Adjustments& adjs)
 	{
-		fprintf(mFile,"setAttr \".adjs[%i]\" ",adjs_i);
+		fprintf(mFile,"\tsetAttr \".adjs[%i]\" ",adjs_i);
 		adjs.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setOutAdjustments(size_t oajs_i,const OutAdjustments& oajs)
 	{
-		fprintf(mFile,"setAttr \".oajs[%i]\" ",oajs_i);
+		fprintf(mFile,"\tsetAttr \".oajs[%i]\" ",oajs_i);
 		oajs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -208,7 +209,7 @@ public:
 	void setAttributeOverrideScript(const string& aos)
 	{
 		if(aos == "NULL") return;
-		fprintf(mFile,"setAttr \".aos\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".aos\" -type \"string\" ");
 		aos.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -216,19 +217,19 @@ public:
 	void setDisplayOrder(short do_)
 	{
 		if(do_ == 0) return;
-		fprintf(mFile,"setAttr \".do\" %i;\n", do_);
+		fprintf(mFile,"\tsetAttr \".do\" %i;\n", do_);
 
 	}
 	void setPsdBlendMode(short bm)
 	{
 		if(bm == 0) return;
-		fprintf(mFile,"setAttr \".bm\" %i;\n", bm);
+		fprintf(mFile,"\tsetAttr \".bm\" %i;\n", bm);
 
 	}
 	void setPsdAlphaChannel(short ac)
 	{
 		if(ac == 0) return;
-		fprintf(mFile,"setAttr \".ac\" %i;\n", ac);
+		fprintf(mFile,"\tsetAttr \".ac\" %i;\n", ac);
 
 	}
 	void getGlobal()
@@ -259,6 +260,11 @@ public:
 	void getLayerParent()
 	{
 		fprintf(mFile,"\"%s.rlp\"",mName.c_str());
+
+	}
+	void getLayerChildren(size_t rlc_i)
+	{
+		fprintf(mFile,"\"%s.rlc[%i]\"",mName.c_str(),rlc_i);
 
 	}
 	void getRenderPassInfo()
@@ -311,6 +317,11 @@ public:
 		fprintf(mFile,"\"%s.adjs[%i]\"",mName.c_str(),adjs_i);
 
 	}
+	void getPlug(size_t adjs_i)
+	{
+		fprintf(mFile,"\"%s.adjs[%i].plg\"",mName.c_str(),adjs_i);
+
+	}
 	void getValue(size_t adjs_i)
 	{
 		fprintf(mFile,"\"%s.adjs[%i].val\"",mName.c_str(),adjs_i);
@@ -319,6 +330,11 @@ public:
 	void getOutAdjustments(size_t oajs_i)
 	{
 		fprintf(mFile,"\"%s.oajs[%i]\"",mName.c_str(),oajs_i);
+
+	}
+	void getOutPlug(size_t oajs_i)
+	{
+		fprintf(mFile,"\"%s.oajs[%i].opg\"",mName.c_str(),oajs_i);
 
 	}
 	void getOutValue(size_t oajs_i)
@@ -367,7 +383,8 @@ public:
 
 	}
 protected:
-	RenderLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	RenderLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

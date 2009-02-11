@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -28,12 +28,13 @@ public:
 		}
 	};
 public:
+	RigidBody():Shape(){}
 	RigidBody(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "rigidBody"){}
 	virtual ~RigidBody(){}
 	void setRunUpCache(const doubleArray& rc)
 	{
 		if(rc.size == 0) return;
-		fprintf(mFile,"setAttr \".rc\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".rc\" -type \"doubleArray\" ");
 		rc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -41,7 +42,7 @@ public:
 	void setDataCache(const doubleArray& dc)
 	{
 		if(dc.size == 0) return;
-		fprintf(mFile,"setAttr \".dc\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".dc\" -type \"doubleArray\" ");
 		dc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,25 +50,25 @@ public:
 	void setFirstCachedFrame(int fcf)
 	{
 		if(fcf == 0) return;
-		fprintf(mFile,"setAttr \".fcf\" %i;\n", fcf);
+		fprintf(mFile,"\tsetAttr \".fcf\" %i;\n", fcf);
 
 	}
 	void setLastCachedFrame(int lcf)
 	{
 		if(lcf == 0) return;
-		fprintf(mFile,"setAttr \".lcf\" %i;\n", lcf);
+		fprintf(mFile,"\tsetAttr \".lcf\" %i;\n", lcf);
 
 	}
 	void setCachedFrameCount(int cfc)
 	{
 		if(cfc == 0) return;
-		fprintf(mFile,"setAttr \".cfc\" %i;\n", cfc);
+		fprintf(mFile,"\tsetAttr \".cfc\" %i;\n", cfc);
 
 	}
 	void setInitialPosition(const double3& ip)
 	{
 		if(ip == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".ip\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ip\" -type \"double3\" ");
 		ip.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,25 +76,25 @@ public:
 	void setInitialPositionX(double ipx)
 	{
 		if(ipx == 0.0) return;
-		fprintf(mFile,"setAttr \".ip.ipx\" %f;\n", ipx);
+		fprintf(mFile,"\tsetAttr \".ip.ipx\" %f;\n", ipx);
 
 	}
 	void setInitialPositionY(double ipy)
 	{
 		if(ipy == 0.0) return;
-		fprintf(mFile,"setAttr \".ip.ipy\" %f;\n", ipy);
+		fprintf(mFile,"\tsetAttr \".ip.ipy\" %f;\n", ipy);
 
 	}
 	void setInitialPositionZ(double ipz)
 	{
 		if(ipz == 0.0) return;
-		fprintf(mFile,"setAttr \".ip.ipz\" %f;\n", ipz);
+		fprintf(mFile,"\tsetAttr \".ip.ipz\" %f;\n", ipz);
 
 	}
 	void setInitialOrientation(const double3& ior)
 	{
 		if(ior == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".ior\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ior\" -type \"double3\" ");
 		ior.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -101,25 +102,25 @@ public:
 	void setInitialOrientationX(double iox)
 	{
 		if(iox == 0) return;
-		fprintf(mFile,"setAttr \".ior.iox\" %f;\n", iox);
+		fprintf(mFile,"\tsetAttr \".ior.iox\" %f;\n", iox);
 
 	}
 	void setInitialOrientationY(double ioy)
 	{
 		if(ioy == 0) return;
-		fprintf(mFile,"setAttr \".ior.ioy\" %f;\n", ioy);
+		fprintf(mFile,"\tsetAttr \".ior.ioy\" %f;\n", ioy);
 
 	}
 	void setInitialOrientationZ(double ioz)
 	{
 		if(ioz == 0) return;
-		fprintf(mFile,"setAttr \".ior.ioz\" %f;\n", ioz);
+		fprintf(mFile,"\tsetAttr \".ior.ioz\" %f;\n", ioz);
 
 	}
 	void setInitialVelocity(const double3& iv)
 	{
 		if(iv == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".iv\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".iv\" -type \"double3\" ");
 		iv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -127,25 +128,25 @@ public:
 	void setInitialVelocityX(double ivx)
 	{
 		if(ivx == 0.0) return;
-		fprintf(mFile,"setAttr \".iv.ivx\" %f;\n", ivx);
+		fprintf(mFile,"\tsetAttr \".iv.ivx\" %f;\n", ivx);
 
 	}
 	void setInitialVelocityY(double ivy)
 	{
 		if(ivy == 0.0) return;
-		fprintf(mFile,"setAttr \".iv.ivy\" %f;\n", ivy);
+		fprintf(mFile,"\tsetAttr \".iv.ivy\" %f;\n", ivy);
 
 	}
 	void setInitialVelocityZ(double ivz)
 	{
 		if(ivz == 0.0) return;
-		fprintf(mFile,"setAttr \".iv.ivz\" %f;\n", ivz);
+		fprintf(mFile,"\tsetAttr \".iv.ivz\" %f;\n", ivz);
 
 	}
 	void setInitialSpin(const double3& is)
 	{
 		if(is == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".is\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".is\" -type \"double3\" ");
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -153,25 +154,25 @@ public:
 	void setInitialSpinX(double isx)
 	{
 		if(isx == 0) return;
-		fprintf(mFile,"setAttr \".is.isx\" %f;\n", isx);
+		fprintf(mFile,"\tsetAttr \".is.isx\" %f;\n", isx);
 
 	}
 	void setInitialSpinY(double isy)
 	{
 		if(isy == 0) return;
-		fprintf(mFile,"setAttr \".is.isy\" %f;\n", isy);
+		fprintf(mFile,"\tsetAttr \".is.isy\" %f;\n", isy);
 
 	}
 	void setInitialSpinZ(double isz)
 	{
 		if(isz == 0) return;
-		fprintf(mFile,"setAttr \".is.isz\" %f;\n", isz);
+		fprintf(mFile,"\tsetAttr \".is.isz\" %f;\n", isz);
 
 	}
 	void setCenterOfMass(const double3& com)
 	{
 		if(com == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".com\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".com\" -type \"double3\" ");
 		com.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -179,25 +180,25 @@ public:
 	void setCenterOfMassX(double cmx)
 	{
 		if(cmx == 0.0) return;
-		fprintf(mFile,"setAttr \".com.cmx\" %f;\n", cmx);
+		fprintf(mFile,"\tsetAttr \".com.cmx\" %f;\n", cmx);
 
 	}
 	void setCenterOfMassY(double cmy)
 	{
 		if(cmy == 0.0) return;
-		fprintf(mFile,"setAttr \".com.cmy\" %f;\n", cmy);
+		fprintf(mFile,"\tsetAttr \".com.cmy\" %f;\n", cmy);
 
 	}
 	void setCenterOfMassZ(double cmz)
 	{
 		if(cmz == 0.0) return;
-		fprintf(mFile,"setAttr \".com.cmz\" %f;\n", cmz);
+		fprintf(mFile,"\tsetAttr \".com.cmz\" %f;\n", cmz);
 
 	}
 	void setImpulse(const double3& imp)
 	{
 		if(imp == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".imp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".imp\" -type \"double3\" ");
 		imp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -205,25 +206,25 @@ public:
 	void setImpulseX(double imx)
 	{
 		if(imx == 0.0) return;
-		fprintf(mFile,"setAttr \".imp.imx\" %f;\n", imx);
+		fprintf(mFile,"\tsetAttr \".imp.imx\" %f;\n", imx);
 
 	}
 	void setImpulseY(double imy)
 	{
 		if(imy == 0.0) return;
-		fprintf(mFile,"setAttr \".imp.imy\" %f;\n", imy);
+		fprintf(mFile,"\tsetAttr \".imp.imy\" %f;\n", imy);
 
 	}
 	void setImpulseZ(double imz)
 	{
 		if(imz == 0.0) return;
-		fprintf(mFile,"setAttr \".imp.imz\" %f;\n", imz);
+		fprintf(mFile,"\tsetAttr \".imp.imz\" %f;\n", imz);
 
 	}
 	void setImpulsePosition(const double3& ipo)
 	{
 		if(ipo == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".ipo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ipo\" -type \"double3\" ");
 		ipo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -231,25 +232,25 @@ public:
 	void setImpulsePositionX(double pix)
 	{
 		if(pix == 0.0) return;
-		fprintf(mFile,"setAttr \".ipo.pix\" %f;\n", pix);
+		fprintf(mFile,"\tsetAttr \".ipo.pix\" %f;\n", pix);
 
 	}
 	void setImpulsePositionY(double piy)
 	{
 		if(piy == 0.0) return;
-		fprintf(mFile,"setAttr \".ipo.piy\" %f;\n", piy);
+		fprintf(mFile,"\tsetAttr \".ipo.piy\" %f;\n", piy);
 
 	}
 	void setImpulsePositionZ(double piz)
 	{
 		if(piz == 0.0) return;
-		fprintf(mFile,"setAttr \".ipo.piz\" %f;\n", piz);
+		fprintf(mFile,"\tsetAttr \".ipo.piz\" %f;\n", piz);
 
 	}
 	void setSpinImpulse(const double3& sim)
 	{
 		if(sim == double3(0, 0, 0)) return;
-		fprintf(mFile,"setAttr \".sim\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".sim\" -type \"double3\" ");
 		sim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -257,138 +258,138 @@ public:
 	void setSpinImpulseX(double six)
 	{
 		if(six == 0.0) return;
-		fprintf(mFile,"setAttr \".sim.six\" %f;\n", six);
+		fprintf(mFile,"\tsetAttr \".sim.six\" %f;\n", six);
 
 	}
 	void setSpinImpulseY(double siy)
 	{
 		if(siy == 0.0) return;
-		fprintf(mFile,"setAttr \".sim.siy\" %f;\n", siy);
+		fprintf(mFile,"\tsetAttr \".sim.siy\" %f;\n", siy);
 
 	}
 	void setSpinImpulseZ(double siz)
 	{
 		if(siz == 0.0) return;
-		fprintf(mFile,"setAttr \".sim.siz\" %f;\n", siz);
+		fprintf(mFile,"\tsetAttr \".sim.siz\" %f;\n", siz);
 
 	}
 	void setMass(double mas)
 	{
 		if(mas == 1.0) return;
-		fprintf(mFile,"setAttr \".mas\" %f;\n", mas);
+		fprintf(mFile,"\tsetAttr \".mas\" %f;\n", mas);
 
 	}
 	void setBounciness(double b)
 	{
 		if(b == 0.6) return;
-		fprintf(mFile,"setAttr \".b\" %f;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
 	void setDamping(double dp)
 	{
 		if(dp == 0.0) return;
-		fprintf(mFile,"setAttr \".dp\" %f;\n", dp);
+		fprintf(mFile,"\tsetAttr \".dp\" %f;\n", dp);
 
 	}
 	void setStaticFriction(double sf)
 	{
 		if(sf == 0.2) return;
-		fprintf(mFile,"setAttr \".sf\" %f;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sf\" %f;\n", sf);
 
 	}
 	void setDynamicFriction(double df)
 	{
 		if(df == 0.2) return;
-		fprintf(mFile,"setAttr \".df\" %f;\n", df);
+		fprintf(mFile,"\tsetAttr \".df\" %f;\n", df);
 
 	}
 	void setCollisionLayer(int cl)
 	{
 		if(cl == 0) return;
-		fprintf(mFile,"setAttr \".cl\" %i;\n", cl);
+		fprintf(mFile,"\tsetAttr \".cl\" %i;\n", cl);
 
 	}
 	void setStandIn(unsigned int si)
 	{
 		if(si == 0) return;
-		fprintf(mFile,"setAttr \".si\" %i;\n", si);
+		fprintf(mFile,"\tsetAttr \".si\" %i;\n", si);
 
 	}
 	void setInputGeometryCnt(int igc)
 	{
 		if(igc == 0) return;
-		fprintf(mFile,"setAttr \".igc\" %i;\n", igc);
+		fprintf(mFile,"\tsetAttr \".igc\" %i;\n", igc);
 
 	}
 	void setActive(bool act)
 	{
 		if(act == true) return;
-		fprintf(mFile,"setAttr \".act\" %i;\n", act);
+		fprintf(mFile,"\tsetAttr \".act\" %i;\n", act);
 
 	}
 	void setChoice(int chc)
 	{
 		if(chc == 0) return;
-		fprintf(mFile,"setAttr \".chc\" %i;\n", chc);
+		fprintf(mFile,"\tsetAttr \".chc\" %i;\n", chc);
 
 	}
 	void setIsKinematic(bool kin)
 	{
 		if(kin == false) return;
-		fprintf(mFile,"setAttr \".kin\" %i;\n", kin);
+		fprintf(mFile,"\tsetAttr \".kin\" %i;\n", kin);
 
 	}
 	void setIsKeyframed(bool key)
 	{
 		if(key == false) return;
-		fprintf(mFile,"setAttr \".key\" %i;\n", key);
+		fprintf(mFile,"\tsetAttr \".key\" %i;\n", key);
 
 	}
 	void setIsParented(bool par)
 	{
 		if(par == false) return;
-		fprintf(mFile,"setAttr \".par\" %i;\n", par);
+		fprintf(mFile,"\tsetAttr \".par\" %i;\n", par);
 
 	}
 	void setParticleCollision(bool pc)
 	{
 		if(pc == false) return;
-		fprintf(mFile,"setAttr \".pc\" %i;\n", pc);
+		fprintf(mFile,"\tsetAttr \".pc\" %i;\n", pc);
 
 	}
 	void setAutoInit(bool ai)
 	{
 		if(ai == true) return;
-		fprintf(mFile,"setAttr \".ai\" %i;\n", ai);
+		fprintf(mFile,"\tsetAttr \".ai\" %i;\n", ai);
 
 	}
 	void setAllowDisconnection(bool ad)
 	{
 		if(ad == false) return;
-		fprintf(mFile,"setAttr \".ad\" %i;\n", ad);
+		fprintf(mFile,"\tsetAttr \".ad\" %i;\n", ad);
 
 	}
 	void setCacheData(bool idc)
 	{
 		if(idc == false) return;
-		fprintf(mFile,"setAttr \".idc\" %i;\n", idc);
+		fprintf(mFile,"\tsetAttr \".idc\" %i;\n", idc);
 
 	}
 	void setTessellationFactor(int tes)
 	{
 		if(tes == 200) return;
-		fprintf(mFile,"setAttr \".tes\" %i;\n", tes);
+		fprintf(mFile,"\tsetAttr \".tes\" %i;\n", tes);
 
 	}
 	void setInputForceType(size_t ift_i,bool ift)
 	{
 		if(ift == false) return;
-		fprintf(mFile,"setAttr \".ift[%i]\" %i;\n", ift_i,ift);
+		fprintf(mFile,"\tsetAttr \".ift[%i]\" %i;\n", ift_i,ift);
 
 	}
 	void setInputForceType(size_t ift_start,size_t ift_end,bool* ift)
 	{
-		fprintf(mFile,"setAttr \".ift[%i:%i]\" ", ift_start,ift_end);
+		fprintf(mFile,"\tsetAttr \".ift[%i:%i]\" ", ift_start,ift_end);
 		size_t size = (ift_end-ift_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -400,7 +401,7 @@ public:
 	}
 	void startInputForceType(size_t ift_start,size_t ift_end)
 	{
-		fprintf(mFile,"setAttr \".ift[%i:%i]\"",ift_start,ift_end);
+		fprintf(mFile,"\tsetAttr \".ift[%i:%i]\"",ift_start,ift_end);
 
 	}
 	void appendInputForceType(bool ift)
@@ -416,43 +417,43 @@ public:
 	void setSolverId(int sid)
 	{
 		if(sid == -1) return;
-		fprintf(mFile,"setAttr \".sid\" %i;\n", sid);
+		fprintf(mFile,"\tsetAttr \".sid\" %i;\n", sid);
 
 	}
 	void setBakeSimulationIndex(int bsi)
 	{
 		if(bsi == -1) return;
-		fprintf(mFile,"setAttr \".bsi\" %i;\n", bsi);
+		fprintf(mFile,"\tsetAttr \".bsi\" %i;\n", bsi);
 
 	}
 	void setLockCenterOfMass(bool lcm)
 	{
 		if(lcm == false) return;
-		fprintf(mFile,"setAttr \".lcm\" %i;\n", lcm);
+		fprintf(mFile,"\tsetAttr \".lcm\" %i;\n", lcm);
 
 	}
 	void setIgnore(bool ign)
 	{
 		if(ign == false) return;
-		fprintf(mFile,"setAttr \".ign\" %i;\n", ign);
+		fprintf(mFile,"\tsetAttr \".ign\" %i;\n", ign);
 
 	}
 	void setCollisions(bool col)
 	{
 		if(col == true) return;
-		fprintf(mFile,"setAttr \".col\" %i;\n", col);
+		fprintf(mFile,"\tsetAttr \".col\" %i;\n", col);
 
 	}
 	void setApplyForceAt(unsigned int afa)
 	{
 		if(afa == 1) return;
-		fprintf(mFile,"setAttr \".afa\" %i;\n", afa);
+		fprintf(mFile,"\tsetAttr \".afa\" %i;\n", afa);
 
 	}
 	void setDebugDraw(bool dd)
 	{
 		if(dd == false) return;
-		fprintf(mFile,"setAttr \".dd\" %i;\n", dd);
+		fprintf(mFile,"\tsetAttr \".dd\" %i;\n", dd);
 
 	}
 	void getCurrentTime()
@@ -463,6 +464,11 @@ public:
 	void getRigidWorldMatrix()
 	{
 		fprintf(mFile,"\"%s.rmx\"",mName.c_str());
+
+	}
+	void getInputGeometryMsg(size_t igm_i)
+	{
+		fprintf(mFile,"\"%s.igm[%i]\"",mName.c_str(),igm_i);
 
 	}
 	void getFieldConnections(size_t fc_i)
@@ -981,7 +987,8 @@ public:
 
 	}
 protected:
-	RigidBody(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	RigidBody(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

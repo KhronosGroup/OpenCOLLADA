@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,204 +18,205 @@ class HardwareRenderGlobals : public DependNode
 {
 public:
 public:
+	HardwareRenderGlobals():DependNode(){}
 	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hardwareRenderGlobals"){}
 	virtual ~HardwareRenderGlobals(){}
 	void setColorTextureResolution(int ctrs)
 	{
 		if(ctrs == 128) return;
-		fprintf(mFile,"setAttr \".ctrs\" %i;\n", ctrs);
+		fprintf(mFile,"\tsetAttr \".ctrs\" %i;\n", ctrs);
 
 	}
 	void setBumpTextureResolution(int btrs)
 	{
 		if(btrs == 256) return;
-		fprintf(mFile,"setAttr \".btrs\" %i;\n", btrs);
+		fprintf(mFile,"\tsetAttr \".btrs\" %i;\n", btrs);
 
 	}
 	void setFrameBufferFormat(unsigned int fbfm)
 	{
 		if(fbfm == 0) return;
-		fprintf(mFile,"setAttr \".fbfm\" %i;\n", fbfm);
+		fprintf(mFile,"\tsetAttr \".fbfm\" %i;\n", fbfm);
 
 	}
 	void setEnableHighQualityLighting(bool ehql)
 	{
 		if(ehql == true) return;
-		fprintf(mFile,"setAttr \".ehql\" %i;\n", ehql);
+		fprintf(mFile,"\tsetAttr \".ehql\" %i;\n", ehql);
 
 	}
 	void setEnableAcceleratedMultiSampling(bool eams)
 	{
 		if(eams == true) return;
-		fprintf(mFile,"setAttr \".eams\" %i;\n", eams);
+		fprintf(mFile,"\tsetAttr \".eams\" %i;\n", eams);
 
 	}
 	void setEnableEdgeAntiAliasing(bool eeaa)
 	{
 		if(eeaa == false) return;
-		fprintf(mFile,"setAttr \".eeaa\" %i;\n", eeaa);
+		fprintf(mFile,"\tsetAttr \".eeaa\" %i;\n", eeaa);
 
 	}
 	void setEnableGeometryMask(bool engm)
 	{
 		if(engm == false) return;
-		fprintf(mFile,"setAttr \".engm\" %i;\n", engm);
+		fprintf(mFile,"\tsetAttr \".engm\" %i;\n", engm);
 
 	}
 	void setNumberOfSamples(unsigned int mes)
 	{
 		if(mes == 0) return;
-		fprintf(mFile,"setAttr \".mes\" %i;\n", mes);
+		fprintf(mFile,"\tsetAttr \".mes\" %i;\n", mes);
 
 	}
 	void setEnableMotionBlur(bool emb)
 	{
 		if(emb == false) return;
-		fprintf(mFile,"setAttr \".emb\" %i;\n", emb);
+		fprintf(mFile,"\tsetAttr \".emb\" %i;\n", emb);
 
 	}
 	void setMotionBlurByFrame(float mbbf)
 	{
 		if(mbbf == 1.000) return;
-		fprintf(mFile,"setAttr \".mbbf\" %f;\n", mbbf);
+		fprintf(mFile,"\tsetAttr \".mbbf\" %f;\n", mbbf);
 
 	}
 	void setNumberOfExposures(int mbs)
 	{
 		if(mbs == 3) return;
-		fprintf(mFile,"setAttr \".mbs\" %i;\n", mbs);
+		fprintf(mFile,"\tsetAttr \".mbs\" %i;\n", mbs);
 
 	}
 	void setTransparencySorting(unsigned int trm)
 	{
 		if(trm == 0) return;
-		fprintf(mFile,"setAttr \".trm\" %i;\n", trm);
+		fprintf(mFile,"\tsetAttr \".trm\" %i;\n", trm);
 
 	}
 	void setTransparentShadowCasting(bool tshc)
 	{
 		if(tshc == true) return;
-		fprintf(mFile,"setAttr \".tshc\" %i;\n", tshc);
+		fprintf(mFile,"\tsetAttr \".tshc\" %i;\n", tshc);
 
 	}
 	void setEnableNonPowerOfTwoTexture(bool enpt)
 	{
 		if(enpt == true) return;
-		fprintf(mFile,"setAttr \".enpt\" %i;\n", enpt);
+		fprintf(mFile,"\tsetAttr \".enpt\" %i;\n", enpt);
 
 	}
 	void setCulling(unsigned int clmt)
 	{
 		if(clmt == 0) return;
-		fprintf(mFile,"setAttr \".clmt\" %i;\n", clmt);
+		fprintf(mFile,"\tsetAttr \".clmt\" %i;\n", clmt);
 
 	}
 	void setTextureCompression(unsigned int tcov)
 	{
 		if(tcov == 0) return;
-		fprintf(mFile,"setAttr \".tcov\" %i;\n", tcov);
+		fprintf(mFile,"\tsetAttr \".tcov\" %i;\n", tcov);
 
 	}
 	void setLightIntensityThreshold(float lith)
 	{
 		if(lith == 0.001) return;
-		fprintf(mFile,"setAttr \".lith\" %f;\n", lith);
+		fprintf(mFile,"\tsetAttr \".lith\" %f;\n", lith);
 
 	}
 	void setSmallObjectCulling(bool sobc)
 	{
 		if(sobc == true) return;
-		fprintf(mFile,"setAttr \".sobc\" %i;\n", sobc);
+		fprintf(mFile,"\tsetAttr \".sobc\" %i;\n", sobc);
 
 	}
 	void setCullingThreshold(float cuth)
 	{
 		if(cuth == 0.0) return;
-		fprintf(mFile,"setAttr \".cuth\" %f;\n", cuth);
+		fprintf(mFile,"\tsetAttr \".cuth\" %f;\n", cuth);
 
 	}
 	void setGraphicsHardwareGeometryCachingData(bool hgcd)
 	{
 		if(hgcd == true) return;
-		fprintf(mFile,"setAttr \".hgcd\" %i;\n", hgcd);
+		fprintf(mFile,"\tsetAttr \".hgcd\" %i;\n", hgcd);
 
 	}
 	void setGraphicsHardwareGeometryCachingIndexing(bool hgci)
 	{
 		if(hgci == true) return;
-		fprintf(mFile,"setAttr \".hgci\" %i;\n", hgci);
+		fprintf(mFile,"\tsetAttr \".hgci\" %i;\n", hgci);
 
 	}
 	void setMaximumGeometryCacheSize(int mgcs)
 	{
 		if(mgcs == 64) return;
-		fprintf(mFile,"setAttr \".mgcs\" %i;\n", mgcs);
+		fprintf(mFile,"\tsetAttr \".mgcs\" %i;\n", mgcs);
 
 	}
 	void setWriteAlphaAsColor(bool twa)
 	{
 		if(twa == false) return;
-		fprintf(mFile,"setAttr \".twa\" %i;\n", twa);
+		fprintf(mFile,"\tsetAttr \".twa\" %i;\n", twa);
 
 	}
 	void setWriteZDepthAsColor(bool twz)
 	{
 		if(twz == false) return;
-		fprintf(mFile,"setAttr \".twz\" %i;\n", twz);
+		fprintf(mFile,"\tsetAttr \".twz\" %i;\n", twz);
 
 	}
 	void setHardwareCodec(int hwcc)
 	{
 		if(hwcc == 1919706400) return;
-		fprintf(mFile,"setAttr \".hwcc\" %i;\n", hwcc);
+		fprintf(mFile,"\tsetAttr \".hwcc\" %i;\n", hwcc);
 
 	}
 	void setHardwareDepth(int hwdp)
 	{
 		if(hwdp == 32) return;
-		fprintf(mFile,"setAttr \".hwdp\" %i;\n", hwdp);
+		fprintf(mFile,"\tsetAttr \".hwdp\" %i;\n", hwdp);
 
 	}
 	void setHardwareQual(int hwql)
 	{
 		if(hwql == 1024) return;
-		fprintf(mFile,"setAttr \".hwql\" %i;\n", hwql);
+		fprintf(mFile,"\tsetAttr \".hwql\" %i;\n", hwql);
 
 	}
 	void setHardwareFrameRate(int hwfr)
 	{
 		if(hwfr == 24) return;
-		fprintf(mFile,"setAttr \".hwfr\" %i;\n", hwfr);
+		fprintf(mFile,"\tsetAttr \".hwfr\" %i;\n", hwfr);
 
 	}
 	void setShadowsObeyLightLinking(bool soll)
 	{
 		if(soll == true) return;
-		fprintf(mFile,"setAttr \".soll\" %i;\n", soll);
+		fprintf(mFile,"\tsetAttr \".soll\" %i;\n", soll);
 
 	}
 	void setShadowsObeyShadowLinking(bool sosl)
 	{
 		if(sosl == false) return;
-		fprintf(mFile,"setAttr \".sosl\" %i;\n", sosl);
+		fprintf(mFile,"\tsetAttr \".sosl\" %i;\n", sosl);
 
 	}
 	void setBlendSpecularWithAlpha(bool bswa)
 	{
 		if(bswa == false) return;
-		fprintf(mFile,"setAttr \".bswa\" %i;\n", bswa);
+		fprintf(mFile,"\tsetAttr \".bswa\" %i;\n", bswa);
 
 	}
 	void setShadingModel(unsigned int shml)
 	{
 		if(shml == 0) return;
-		fprintf(mFile,"setAttr \".shml\" %i;\n", shml);
+		fprintf(mFile,"\tsetAttr \".shml\" %i;\n", shml);
 
 	}
 	void setHardwareEnvironmentLookup(bool hwel)
 	{
 		if(hwel == false) return;
-		fprintf(mFile,"setAttr \".hwel\" %i;\n", hwel);
+		fprintf(mFile,"\tsetAttr \".hwel\" %i;\n", hwel);
 
 	}
 	void getColorTextureResolution()
@@ -384,7 +385,8 @@ public:
 
 	}
 protected:
-	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

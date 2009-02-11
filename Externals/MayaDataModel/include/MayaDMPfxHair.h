@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class PfxHair : public PfxGeometry
 {
 public:
 public:
+	PfxHair():PfxGeometry(){}
 	PfxHair(FILE* file,const std::string& name,const std::string& parent=""):PfxGeometry(file, name, parent, "pfxHair"){}
 	virtual ~PfxHair(){}
 	void getRenderHairs()
@@ -26,7 +27,8 @@ public:
 
 	}
 protected:
-	PfxHair(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PfxGeometry(file, name, parent, nodeType) {}
+	PfxHair(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PfxGeometry(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

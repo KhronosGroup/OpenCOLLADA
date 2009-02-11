@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -25,11 +25,12 @@ public:
 		}
 	};
 public:
+	SingleShadingSwitch():BaseShadingSwitch(){}
 	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent=""):BaseShadingSwitch(file, name, parent, "singleShadingSwitch"){}
 	virtual ~SingleShadingSwitch(){}
 	void setInput(size_t i_i,const Input& i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" ",i_i);
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,13 +38,13 @@ public:
 	void setInSingle(size_t i_i,float it)
 	{
 		if(it == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].it\" %f;\n", i_i,it);
+		fprintf(mFile,"\tsetAttr \".i[%i].it\" %f;\n", i_i,it);
 
 	}
 	void setDefault(float def)
 	{
 		if(def == 0.0) return;
-		fprintf(mFile,"setAttr \".def\" %f;\n", def);
+		fprintf(mFile,"\tsetAttr \".def\" %f;\n", def);
 
 	}
 	void getInput(size_t i_i)
@@ -72,7 +73,8 @@ public:
 
 	}
 protected:
-	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BaseShadingSwitch(file, name, parent, nodeType) {}
+	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BaseShadingSwitch(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

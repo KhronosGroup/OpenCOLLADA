@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,95 +18,96 @@ class PfxGeometry : public Shape
 {
 public:
 public:
+	PfxGeometry():Shape(){}
 	PfxGeometry(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "pfxGeometry"){}
 	virtual ~PfxGeometry(){}
 	void setDisplayPercent(double dpc)
 	{
 		if(dpc == 0.0) return;
-		fprintf(mFile,"setAttr \".dpc\" %f;\n", dpc);
+		fprintf(mFile,"\tsetAttr \".dpc\" %f;\n", dpc);
 
 	}
 	void setDrawAsMesh(bool dam)
 	{
 		if(dam == 1) return;
-		fprintf(mFile,"setAttr \".dam\" %i;\n", dam);
+		fprintf(mFile,"\tsetAttr \".dam\" %i;\n", dam);
 
 	}
 	void setSeed(int sed)
 	{
 		if(sed == 0) return;
-		fprintf(mFile,"setAttr \".sed\" %i;\n", sed);
+		fprintf(mFile,"\tsetAttr \".sed\" %i;\n", sed);
 
 	}
 	void setDrawOrder(int dro)
 	{
 		if(dro == 0) return;
-		fprintf(mFile,"setAttr \".dro\" %i;\n", dro);
+		fprintf(mFile,"\tsetAttr \".dro\" %i;\n", dro);
 
 	}
 	void setSurfaceOffset(double sof)
 	{
 		if(sof == 0.0) return;
-		fprintf(mFile,"setAttr \".sof\" %f;\n", sof);
+		fprintf(mFile,"\tsetAttr \".sof\" %f;\n", sof);
 
 	}
 	void setMotionBlurred(bool mblr)
 	{
 		if(mblr == 1) return;
-		fprintf(mFile,"setAttr \".mblr\" %i;\n", mblr);
+		fprintf(mFile,"\tsetAttr \".mblr\" %i;\n", mblr);
 
 	}
 	void setPrimaryVisibility(bool pvs)
 	{
 		if(pvs == 1) return;
-		fprintf(mFile,"setAttr \".pvs\" %i;\n", pvs);
+		fprintf(mFile,"\tsetAttr \".pvs\" %i;\n", pvs);
 
 	}
 	void setMainVertBufSize(int mvbs)
 	{
 		if(mvbs == 0) return;
-		fprintf(mFile,"setAttr \".mvbs\" %i;\n", mvbs);
+		fprintf(mFile,"\tsetAttr \".mvbs\" %i;\n", mvbs);
 
 	}
 	void setFlowerVertBufSize(int fvbs)
 	{
 		if(fvbs == 0) return;
-		fprintf(mFile,"setAttr \".fvbs\" %i;\n", fvbs);
+		fprintf(mFile,"\tsetAttr \".fvbs\" %i;\n", fvbs);
 
 	}
 	void setLeafVertBufSize(int lvbs)
 	{
 		if(lvbs == 0) return;
-		fprintf(mFile,"setAttr \".lvbs\" %i;\n", lvbs);
+		fprintf(mFile,"\tsetAttr \".lvbs\" %i;\n", lvbs);
 
 	}
 	void setMeshPolyLimit(int mpl)
 	{
 		if(mpl == 0) return;
-		fprintf(mFile,"setAttr \".mpl\" %i;\n", mpl);
+		fprintf(mFile,"\tsetAttr \".mpl\" %i;\n", mpl);
 
 	}
 	void setMeshVertexColorMode(unsigned int mvc)
 	{
 		if(mvc == 0) return;
-		fprintf(mFile,"setAttr \".mvc\" %i;\n", mvc);
+		fprintf(mFile,"\tsetAttr \".mvc\" %i;\n", mvc);
 
 	}
 	void setMeshHardEdges(bool mhe)
 	{
 		if(mhe == false) return;
-		fprintf(mFile,"setAttr \".mhe\" %i;\n", mhe);
+		fprintf(mFile,"\tsetAttr \".mhe\" %i;\n", mhe);
 
 	}
 	void setMeshQuadOutput(bool mqo)
 	{
 		if(mqo == false) return;
-		fprintf(mFile,"setAttr \".mqo\" %i;\n", mqo);
+		fprintf(mFile,"\tsetAttr \".mqo\" %i;\n", mqo);
 
 	}
 	void setCameraPoint(const double3& cpt)
 	{
-		fprintf(mFile,"setAttr \".cpt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".cpt\" -type \"double3\" ");
 		cpt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -114,55 +115,55 @@ public:
 	void setCameraPointX(double cpx)
 	{
 		if(cpx == 0.0) return;
-		fprintf(mFile,"setAttr \".cpt.cpx\" %f;\n", cpx);
+		fprintf(mFile,"\tsetAttr \".cpt.cpx\" %f;\n", cpx);
 
 	}
 	void setCameraPointY(double cpy)
 	{
 		if(cpy == 0.0) return;
-		fprintf(mFile,"setAttr \".cpt.cpy\" %f;\n", cpy);
+		fprintf(mFile,"\tsetAttr \".cpt.cpy\" %f;\n", cpy);
 
 	}
 	void setCameraPointZ(double cpz)
 	{
 		if(cpz == 0.0) return;
-		fprintf(mFile,"setAttr \".cpt.cpz\" %f;\n", cpz);
+		fprintf(mFile,"\tsetAttr \".cpt.cpz\" %f;\n", cpz);
 
 	}
 	void setMaxDrawSegments(int mdsg)
 	{
 		if(mdsg == 1000000) return;
-		fprintf(mFile,"setAttr \".mdsg\" %i;\n", mdsg);
+		fprintf(mFile,"\tsetAttr \".mdsg\" %i;\n", mdsg);
 
 	}
 	void setCurveMode(int cmd)
 	{
 		if(cmd == 0) return;
-		fprintf(mFile,"setAttr \".cmd\" %i;\n", cmd);
+		fprintf(mFile,"\tsetAttr \".cmd\" %i;\n", cmd);
 
 	}
 	void setLeafCurveMode(int lcm)
 	{
 		if(lcm == 0) return;
-		fprintf(mFile,"setAttr \".lcm\" %i;\n", lcm);
+		fprintf(mFile,"\tsetAttr \".lcm\" %i;\n", lcm);
 
 	}
 	void setFlowerCurveMode(int fcm)
 	{
 		if(fcm == 0) return;
-		fprintf(mFile,"setAttr \".fcm\" %i;\n", fcm);
+		fprintf(mFile,"\tsetAttr \".fcm\" %i;\n", fcm);
 
 	}
 	void setDegree(int dgr)
 	{
 		if(dgr == 2) return;
-		fprintf(mFile,"setAttr \".dgr\" %i;\n", dgr);
+		fprintf(mFile,"\tsetAttr \".dgr\" %i;\n", dgr);
 
 	}
 	void setCurveAlign(bool cva)
 	{
 		if(cva == false) return;
-		fprintf(mFile,"setAttr \".cva\" %i;\n", cva);
+		fprintf(mFile,"\tsetAttr \".cva\" %i;\n", cva);
 
 	}
 	void getDisplayPercent()
@@ -361,7 +362,8 @@ public:
 
 	}
 protected:
-	PfxGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	PfxGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

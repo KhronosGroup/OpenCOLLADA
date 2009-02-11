@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class StudioClearCoat : public DependNode
 {
 public:
 public:
+	StudioClearCoat():DependNode(){}
 	StudioClearCoat(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "studioClearCoat"){}
 	virtual ~StudioClearCoat(){}
 	void setIndex(float ix)
 	{
 		if(ix == 1.8) return;
-		fprintf(mFile,"setAttr \".ix\" %f;\n", ix);
+		fprintf(mFile,"\tsetAttr \".ix\" %f;\n", ix);
 
 	}
 	void setScale(float s)
 	{
 		if(s == 1.55) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setBias(float b)
 	{
 		if(b == -0.1) return;
-		fprintf(mFile,"setAttr \".b\" %f;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
 	void getIndex()
@@ -99,7 +100,8 @@ public:
 
 	}
 protected:
-	StudioClearCoat(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	StudioClearCoat(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

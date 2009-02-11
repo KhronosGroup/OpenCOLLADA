@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,23 +29,24 @@ public:
 		}
 	};
 public:
+	PolyBridgeEdge():PolyModifierWorld(){}
 	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyBridgeEdge"){}
 	virtual ~PolyBridgeEdge(){}
 	void setTwist(double twt)
 	{
 		if(twt == 0) return;
-		fprintf(mFile,"setAttr \".twt\" %f;\n", twt);
+		fprintf(mFile,"\tsetAttr \".twt\" %f;\n", twt);
 
 	}
 	void setTaper(double tp)
 	{
 		if(tp == 1.0) return;
-		fprintf(mFile,"setAttr \".tp\" %f;\n", tp);
+		fprintf(mFile,"\tsetAttr \".tp\" %f;\n", tp);
 
 	}
 	void setTaperCurve(size_t c_i,const TaperCurve& c)
 	{
-		fprintf(mFile,"setAttr \".c[%i]\" ",c_i);
+		fprintf(mFile,"\tsetAttr \".c[%i]\" ",c_i);
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -53,55 +54,55 @@ public:
 	void setTaperCurve_Position(size_t c_i,float cp)
 	{
 		if(cp == 0.0) return;
-		fprintf(mFile,"setAttr \".c[%i].cp\" %f;\n", c_i,cp);
+		fprintf(mFile,"\tsetAttr \".c[%i].cp\" %f;\n", c_i,cp);
 
 	}
 	void setTaperCurve_FloatValue(size_t c_i,float cfv)
 	{
 		if(cfv == 0.0) return;
-		fprintf(mFile,"setAttr \".c[%i].cfv\" %f;\n", c_i,cfv);
+		fprintf(mFile,"\tsetAttr \".c[%i].cfv\" %f;\n", c_i,cfv);
 
 	}
 	void setTaperCurve_Interp(size_t c_i,unsigned int ci)
 	{
 		if(ci == 0) return;
-		fprintf(mFile,"setAttr \".c[%i].ci\" %i;\n", c_i,ci);
+		fprintf(mFile,"\tsetAttr \".c[%i].ci\" %i;\n", c_i,ci);
 
 	}
 	void setDivisions(int dv)
 	{
 		if(dv == 1) return;
-		fprintf(mFile,"setAttr \".dv\" %i;\n", dv);
+		fprintf(mFile,"\tsetAttr \".dv\" %i;\n", dv);
 
 	}
 	void setStartVert1(int sv1)
 	{
 		if(sv1 == -1) return;
-		fprintf(mFile,"setAttr \".sv1\" %i;\n", sv1);
+		fprintf(mFile,"\tsetAttr \".sv1\" %i;\n", sv1);
 
 	}
 	void setStartVert2(int sv2)
 	{
 		if(sv2 == -1) return;
-		fprintf(mFile,"setAttr \".sv2\" %i;\n", sv2);
+		fprintf(mFile,"\tsetAttr \".sv2\" %i;\n", sv2);
 
 	}
 	void setBridgeOffset(int bo)
 	{
 		if(bo == 0) return;
-		fprintf(mFile,"setAttr \".bo\" %i;\n", bo);
+		fprintf(mFile,"\tsetAttr \".bo\" %i;\n", bo);
 
 	}
 	void setCurveType(unsigned int ctp)
 	{
 		if(ctp == 0) return;
-		fprintf(mFile,"setAttr \".ctp\" %i;\n", ctp);
+		fprintf(mFile,"\tsetAttr \".ctp\" %i;\n", ctp);
 
 	}
 	void setSmoothingAngle(double sma)
 	{
 		if(sma == 3) return;
-		fprintf(mFile,"setAttr \".sma\" %f;\n", sma);
+		fprintf(mFile,"\tsetAttr \".sma\" %f;\n", sma);
 
 	}
 	void getInputProfile()
@@ -170,7 +171,8 @@ public:
 
 	}
 protected:
-	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

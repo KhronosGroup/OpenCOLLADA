@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class CurveFromSurfaceCoS : public CurveFromSurface
 {
 public:
 public:
+	CurveFromSurfaceCoS():CurveFromSurface(){}
 	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent=""):CurveFromSurface(file, name, parent, "curveFromSurfaceCoS"){}
 	virtual ~CurveFromSurfaceCoS(){}
 	void getCurveOnSurface()
@@ -26,7 +27,8 @@ public:
 
 	}
 protected:
-	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromSurface(file, name, parent, nodeType) {}
+	CurveFromSurfaceCoS(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveFromSurface(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class CreateColorSet : public DependNode
 {
 public:
 public:
+	CreateColorSet():DependNode(){}
 	CreateColorSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "createColorSet"){}
 	virtual ~CreateColorSet(){}
 	void setColorSetName(const string& colos)
 	{
 		if(colos == "NULL") return;
-		fprintf(mFile,"setAttr \".colos\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".colos\" -type \"string\" ");
 		colos.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,13 +32,13 @@ public:
 	void setClamped(bool clam)
 	{
 		if(clam == true) return;
-		fprintf(mFile,"setAttr \".clam\" %i;\n", clam);
+		fprintf(mFile,"\tsetAttr \".clam\" %i;\n", clam);
 
 	}
 	void setRepresentation(unsigned int rprt)
 	{
 		if(rprt == 3) return;
-		fprintf(mFile,"setAttr \".rprt\" %i;\n", rprt);
+		fprintf(mFile,"\tsetAttr \".rprt\" %i;\n", rprt);
 
 	}
 	void getInputGeometry()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

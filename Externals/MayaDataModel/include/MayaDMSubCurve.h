@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class SubCurve : public CurveRange
 {
 public:
 public:
+	SubCurve():CurveRange(){}
 	SubCurve(FILE* file,const std::string& name,const std::string& parent=""):CurveRange(file, name, parent, "subCurve"){}
 	virtual ~SubCurve(){}
 	void setMinValue(double min)
 	{
 		if(min == 0.0) return;
-		fprintf(mFile,"setAttr \".min\" %f;\n", min);
+		fprintf(mFile,"\tsetAttr \".min\" %f;\n", min);
 
 	}
 	void setMaxValue(double max)
 	{
 		if(max == -1.0) return;
-		fprintf(mFile,"setAttr \".max\" %f;\n", max);
+		fprintf(mFile,"\tsetAttr \".max\" %f;\n", max);
 
 	}
 	void setRelative(bool r)
 	{
 		if(r == false) return;
-		fprintf(mFile,"setAttr \".r\" %i;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %i;\n", r);
 
 	}
 	void getInputCurve()
@@ -64,7 +65,8 @@ public:
 
 	}
 protected:
-	SubCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveRange(file, name, parent, nodeType) {}
+	SubCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveRange(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

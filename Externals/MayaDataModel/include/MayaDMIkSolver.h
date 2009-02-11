@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,22 +18,24 @@ class IkSolver : public DependNode
 {
 public:
 public:
+	IkSolver():DependNode(){}
 	IkSolver(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "ikSolver"){}
 	virtual ~IkSolver(){}
 	void setMaxIterations(int mxi)
 	{
 		if(mxi == 2147483647) return;
-		fprintf(mFile,"setAttr \".mxi\" %i;\n", mxi);
+		fprintf(mFile,"\tsetAttr \".mxi\" %i;\n", mxi);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0.00001) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 protected:
-	IkSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	IkSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

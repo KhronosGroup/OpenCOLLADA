@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class DiskCache : public DependNode
 {
 public:
 public:
+	DiskCache():DependNode(){}
 	DiskCache(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "diskCache"){}
 	virtual ~DiskCache(){}
 	void setEnable(bool ebl)
 	{
 		if(ebl == true) return;
-		fprintf(mFile,"setAttr \".ebl\" %i;\n", ebl);
+		fprintf(mFile,"\tsetAttr \".ebl\" %i;\n", ebl);
 
 	}
 	void setCacheName(const string& cn)
 	{
 		if(cn == "NULL") return;
-		fprintf(mFile,"setAttr \".cn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cn\" -type \"string\" ");
 		cn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,7 +38,7 @@ public:
 	void setCacheType(const string& ct)
 	{
 		if(ct == "NULL") return;
-		fprintf(mFile,"setAttr \".ct\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ct\" -type \"string\" ");
 		ct.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -45,7 +46,7 @@ public:
 	void setHiddenCacheName(const string& hcn)
 	{
 		if(hcn == "NULL") return;
-		fprintf(mFile,"setAttr \".hcn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".hcn\" -type \"string\" ");
 		hcn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -53,7 +54,7 @@ public:
 	void setCopyLocally(bool cpl)
 	{
 		if(cpl == true) return;
-		fprintf(mFile,"setAttr \".cpl\" %i;\n", cpl);
+		fprintf(mFile,"\tsetAttr \".cpl\" %i;\n", cpl);
 
 	}
 	void getDiskCache()
@@ -107,7 +108,8 @@ public:
 
 	}
 protected:
-	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

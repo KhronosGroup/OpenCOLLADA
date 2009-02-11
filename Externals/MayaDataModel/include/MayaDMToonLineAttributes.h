@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class ToonLineAttributes : public DependNode
 {
 public:
 public:
+	ToonLineAttributes():DependNode(){}
 	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "toonLineAttributes"){}
 	virtual ~ToonLineAttributes(){}
 	void setLineWidth(float lwd)
 	{
 		if(lwd == 1) return;
-		fprintf(mFile,"setAttr \".lwd\" %f;\n", lwd);
+		fprintf(mFile,"\tsetAttr \".lwd\" %f;\n", lwd);
 
 	}
 	void setLineVisibility(bool lv)
 	{
 		if(lv == true) return;
-		fprintf(mFile,"setAttr \".lv\" %i;\n", lv);
+		fprintf(mFile,"\tsetAttr \".lv\" %i;\n", lv);
 
 	}
 	void setViewUpdate(unsigned int vu)
 	{
 		if(vu == 1) return;
-		fprintf(mFile,"setAttr \".vu\" %i;\n", vu);
+		fprintf(mFile,"\tsetAttr \".vu\" %i;\n", vu);
 
 	}
 	void getLineWidth()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,11 +29,12 @@ public:
 		}
 	};
 public:
+	AirField():Field(){}
 	AirField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "airField"){}
 	virtual ~AirField(){}
 	void setDirection(const Direction& d)
 	{
-		fprintf(mFile,"setAttr \".d\" ");
+		fprintf(mFile,"\tsetAttr \".d\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -41,55 +42,55 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void setSpeed(double spd)
 	{
 		if(spd == 0) return;
-		fprintf(mFile,"setAttr \".spd\" %f;\n", spd);
+		fprintf(mFile,"\tsetAttr \".spd\" %f;\n", spd);
 
 	}
 	void setInheritVelocity(double iv)
 	{
 		if(iv == 0) return;
-		fprintf(mFile,"setAttr \".iv\" %f;\n", iv);
+		fprintf(mFile,"\tsetAttr \".iv\" %f;\n", iv);
 
 	}
 	void setComponentOnly(bool co)
 	{
 		if(co == false) return;
-		fprintf(mFile,"setAttr \".co\" %i;\n", co);
+		fprintf(mFile,"\tsetAttr \".co\" %i;\n", co);
 
 	}
 	void setSpread(double spr)
 	{
 		if(spr == 0) return;
-		fprintf(mFile,"setAttr \".spr\" %f;\n", spr);
+		fprintf(mFile,"\tsetAttr \".spr\" %f;\n", spr);
 
 	}
 	void setEnableSpread(bool es)
 	{
 		if(es == false) return;
-		fprintf(mFile,"setAttr \".es\" %i;\n", es);
+		fprintf(mFile,"\tsetAttr \".es\" %i;\n", es);
 
 	}
 	void setInheritRotation(bool ir)
 	{
 		if(ir == false) return;
-		fprintf(mFile,"setAttr \".ir\" %i;\n", ir);
+		fprintf(mFile,"\tsetAttr \".ir\" %i;\n", ir);
 
 	}
 	void getDirection()
@@ -143,7 +144,8 @@ public:
 
 	}
 protected:
-	AirField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	AirField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

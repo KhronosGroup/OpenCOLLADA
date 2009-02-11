@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class LookAt : public AimConstraint
 {
 public:
 public:
+	LookAt():AimConstraint(){}
 	LookAt(FILE* file,const std::string& name,const std::string& parent=""):AimConstraint(file, name, parent, "lookAt"){}
 	virtual ~LookAt(){}
 	void setDistanceBetween(double db)
 	{
 		if(db == 0.0) return;
-		fprintf(mFile,"setAttr \".db\" %f;\n", db);
+		fprintf(mFile,"\tsetAttr \".db\" %f;\n", db);
 
 	}
 	void setTwist(double tws)
 	{
 		if(tws == 0) return;
-		fprintf(mFile,"setAttr \".tws\" %f;\n", tws);
+		fprintf(mFile,"\tsetAttr \".tws\" %f;\n", tws);
 
 	}
 	void setDisplayConnector(bool dc)
 	{
 		if(dc == true) return;
-		fprintf(mFile,"setAttr \".dc\" %i;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %i;\n", dc);
 
 	}
 	void getDistanceBetween()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	LookAt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AimConstraint(file, name, parent, nodeType) {}
+	LookAt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AimConstraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

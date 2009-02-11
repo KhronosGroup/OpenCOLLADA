@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class EnvBall : public TextureEnv
 {
 public:
 public:
+	EnvBall():TextureEnv(){}
 	EnvBall(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envBall"){}
 	virtual ~EnvBall(){}
 	void setImage(const float3& so)
 	{
 		if(so == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".so\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".so\" -type \"float3\" ");
 		so.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,85 +32,85 @@ public:
 	void setImageR(float sor)
 	{
 		if(sor == 0.0) return;
-		fprintf(mFile,"setAttr \".so.sor\" %f;\n", sor);
+		fprintf(mFile,"\tsetAttr \".so.sor\" %f;\n", sor);
 
 	}
 	void setImageG(float sog)
 	{
 		if(sog == 0.0) return;
-		fprintf(mFile,"setAttr \".so.sog\" %f;\n", sog);
+		fprintf(mFile,"\tsetAttr \".so.sog\" %f;\n", sog);
 
 	}
 	void setImageB(float sob)
 	{
 		if(sob == 0.0) return;
-		fprintf(mFile,"setAttr \".so.sob\" %f;\n", sob);
+		fprintf(mFile,"\tsetAttr \".so.sob\" %f;\n", sob);
 
 	}
 	void setInclination(float i_)
 	{
 		if(i_ == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
+		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
 
 	}
 	void setElevation(float e)
 	{
 		if(e == 0.0) return;
-		fprintf(mFile,"setAttr \".e\" %f;\n", e);
+		fprintf(mFile,"\tsetAttr \".e\" %f;\n", e);
 
 	}
 	void setSkyRadius(float sr)
 	{
 		if(sr == 0.0) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setBottom(float bo)
 	{
 		if(bo == 0.0) return;
-		fprintf(mFile,"setAttr \".bo\" %f;\n", bo);
+		fprintf(mFile,"\tsetAttr \".bo\" %f;\n", bo);
 
 	}
 	void setTop(float to)
 	{
 		if(to == 0.0) return;
-		fprintf(mFile,"setAttr \".to\" %f;\n", to);
+		fprintf(mFile,"\tsetAttr \".to\" %f;\n", to);
 
 	}
 	void setLeft(float le)
 	{
 		if(le == 0.0) return;
-		fprintf(mFile,"setAttr \".le\" %f;\n", le);
+		fprintf(mFile,"\tsetAttr \".le\" %f;\n", le);
 
 	}
 	void setRight(float ri)
 	{
 		if(ri == 0.0) return;
-		fprintf(mFile,"setAttr \".ri\" %f;\n", ri);
+		fprintf(mFile,"\tsetAttr \".ri\" %f;\n", ri);
 
 	}
 	void setFront(float fr)
 	{
 		if(fr == 0.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setBack(float ba)
 	{
 		if(ba == 0.0) return;
-		fprintf(mFile,"setAttr \".ba\" %f;\n", ba);
+		fprintf(mFile,"\tsetAttr \".ba\" %f;\n", ba);
 
 	}
 	void setReflect(bool ref)
 	{
 		if(ref == true) return;
-		fprintf(mFile,"setAttr \".ref\" %i;\n", ref);
+		fprintf(mFile,"\tsetAttr \".ref\" %i;\n", ref);
 
 	}
 	void setEyeSpace(bool eye)
 	{
 		if(eye == false) return;
-		fprintf(mFile,"setAttr \".eye\" %i;\n", eye);
+		fprintf(mFile,"\tsetAttr \".eye\" %i;\n", eye);
 
 	}
 	void getPointCamera()
@@ -213,7 +214,8 @@ public:
 
 	}
 protected:
-	EnvBall(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):TextureEnv(file, name, parent, nodeType) {}
+	EnvBall(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:TextureEnv(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

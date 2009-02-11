@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,29 +18,30 @@ class Nucleus : public DependNode
 {
 public:
 public:
+	Nucleus():DependNode(){}
 	Nucleus(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "nucleus"){}
 	virtual ~Nucleus(){}
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;
-		fprintf(mFile,"setAttr \".stf\" %f;\n", stf);
+		fprintf(mFile,"\tsetAttr \".stf\" %f;\n", stf);
 
 	}
 	void setEnable(bool ena)
 	{
 		if(ena == true) return;
-		fprintf(mFile,"setAttr \".ena\" %i;\n", ena);
+		fprintf(mFile,"\tsetAttr \".ena\" %i;\n", ena);
 
 	}
 	void setGravity(float grty)
 	{
 		if(grty == 9.8) return;
-		fprintf(mFile,"setAttr \".grty\" %f;\n", grty);
+		fprintf(mFile,"\tsetAttr \".grty\" %f;\n", grty);
 
 	}
 	void setGravityDirection(const float3& grdi)
 	{
-		fprintf(mFile,"setAttr \".grdi\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".grdi\" -type \"float3\" ");
 		grdi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -48,36 +49,36 @@ public:
 	void setGravityDirectionX(float grdx)
 	{
 		if(grdx == 0.0) return;
-		fprintf(mFile,"setAttr \".grdi.grdx\" %f;\n", grdx);
+		fprintf(mFile,"\tsetAttr \".grdi.grdx\" %f;\n", grdx);
 
 	}
 	void setGravityDirectionY(float grdy)
 	{
 		if(grdy == -1.0) return;
-		fprintf(mFile,"setAttr \".grdi.grdy\" %f;\n", grdy);
+		fprintf(mFile,"\tsetAttr \".grdi.grdy\" %f;\n", grdy);
 
 	}
 	void setGravityDirectionZ(float grdz)
 	{
 		if(grdz == 0.0) return;
-		fprintf(mFile,"setAttr \".grdi.grdz\" %f;\n", grdz);
+		fprintf(mFile,"\tsetAttr \".grdi.grdz\" %f;\n", grdz);
 
 	}
 	void setAirDensity(float ady)
 	{
 		if(ady == 1.0) return;
-		fprintf(mFile,"setAttr \".ady\" %f;\n", ady);
+		fprintf(mFile,"\tsetAttr \".ady\" %f;\n", ady);
 
 	}
 	void setWindSpeed(float wisp)
 	{
 		if(wisp == 0.0) return;
-		fprintf(mFile,"setAttr \".wisp\" %f;\n", wisp);
+		fprintf(mFile,"\tsetAttr \".wisp\" %f;\n", wisp);
 
 	}
 	void setWindDirection(const float3& widi)
 	{
-		fprintf(mFile,"setAttr \".widi\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".widi\" -type \"float3\" ");
 		widi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,48 +86,48 @@ public:
 	void setWindDirectionX(float widx)
 	{
 		if(widx == 1.0) return;
-		fprintf(mFile,"setAttr \".widi.widx\" %f;\n", widx);
+		fprintf(mFile,"\tsetAttr \".widi.widx\" %f;\n", widx);
 
 	}
 	void setWindDirectionY(float widy)
 	{
 		if(widy == 0.0) return;
-		fprintf(mFile,"setAttr \".widi.widy\" %f;\n", widy);
+		fprintf(mFile,"\tsetAttr \".widi.widy\" %f;\n", widy);
 
 	}
 	void setWindDirectionZ(float widz)
 	{
 		if(widz == 0.0) return;
-		fprintf(mFile,"setAttr \".widi.widz\" %f;\n", widz);
+		fprintf(mFile,"\tsetAttr \".widi.widz\" %f;\n", widz);
 
 	}
 	void setWindNoise(float wnoi)
 	{
 		if(wnoi == 0.0) return;
-		fprintf(mFile,"setAttr \".wnoi\" %f;\n", wnoi);
+		fprintf(mFile,"\tsetAttr \".wnoi\" %f;\n", wnoi);
 
 	}
 	void setCollisionLayerRange(float clra)
 	{
 		if(clra == 4.0) return;
-		fprintf(mFile,"setAttr \".clra\" %f;\n", clra);
+		fprintf(mFile,"\tsetAttr \".clra\" %f;\n", clra);
 
 	}
 	void setCollisionSoftness(float clso)
 	{
 		if(clso == 0.0) return;
-		fprintf(mFile,"setAttr \".clso\" %f;\n", clso);
+		fprintf(mFile,"\tsetAttr \".clso\" %f;\n", clso);
 
 	}
 	void setUsePlane(bool nupl)
 	{
 		if(nupl == false) return;
-		fprintf(mFile,"setAttr \".nupl\" %i;\n", nupl);
+		fprintf(mFile,"\tsetAttr \".nupl\" %i;\n", nupl);
 
 	}
 	void setPlaneOrigin(const float3& npor)
 	{
-		fprintf(mFile,"setAttr \".npor\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".npor\" -type \"float3\" ");
 		npor.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -134,24 +135,24 @@ public:
 	void setPlaneOriginX(float npox)
 	{
 		if(npox == 0.0) return;
-		fprintf(mFile,"setAttr \".npor.npox\" %f;\n", npox);
+		fprintf(mFile,"\tsetAttr \".npor.npox\" %f;\n", npox);
 
 	}
 	void setPlaneOriginY(float npoy)
 	{
 		if(npoy == 0.0) return;
-		fprintf(mFile,"setAttr \".npor.npoy\" %f;\n", npoy);
+		fprintf(mFile,"\tsetAttr \".npor.npoy\" %f;\n", npoy);
 
 	}
 	void setPlaneOriginZ(float npoz)
 	{
 		if(npoz == 0.0) return;
-		fprintf(mFile,"setAttr \".npor.npoz\" %f;\n", npoz);
+		fprintf(mFile,"\tsetAttr \".npor.npoz\" %f;\n", npoz);
 
 	}
 	void setPlaneNormal(const float3& npun)
 	{
-		fprintf(mFile,"setAttr \".npun\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".npun\" -type \"float3\" ");
 		npun.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -159,67 +160,67 @@ public:
 	void setPlaneNormalX(float npnx)
 	{
 		if(npnx == 0.0) return;
-		fprintf(mFile,"setAttr \".npun.npnx\" %f;\n", npnx);
+		fprintf(mFile,"\tsetAttr \".npun.npnx\" %f;\n", npnx);
 
 	}
 	void setPlaneNormalY(float npny)
 	{
 		if(npny == 1.0) return;
-		fprintf(mFile,"setAttr \".npun.npny\" %f;\n", npny);
+		fprintf(mFile,"\tsetAttr \".npun.npny\" %f;\n", npny);
 
 	}
 	void setPlaneNormalZ(float npnz)
 	{
 		if(npnz == 0.0) return;
-		fprintf(mFile,"setAttr \".npun.npnz\" %f;\n", npnz);
+		fprintf(mFile,"\tsetAttr \".npun.npnz\" %f;\n", npnz);
 
 	}
 	void setPlaneBounce(float npbc)
 	{
 		if(npbc == 0.0) return;
-		fprintf(mFile,"setAttr \".npbc\" %f;\n", npbc);
+		fprintf(mFile,"\tsetAttr \".npbc\" %f;\n", npbc);
 
 	}
 	void setPlaneFriction(float npfr)
 	{
 		if(npfr == 0.1) return;
-		fprintf(mFile,"setAttr \".npfr\" %f;\n", npfr);
+		fprintf(mFile,"\tsetAttr \".npfr\" %f;\n", npfr);
 
 	}
 	void setSubSteps(int sstp)
 	{
 		if(sstp == 3) return;
-		fprintf(mFile,"setAttr \".sstp\" %i;\n", sstp);
+		fprintf(mFile,"\tsetAttr \".sstp\" %i;\n", sstp);
 
 	}
 	void setMaxCollisionIterations(int mcit)
 	{
 		if(mcit == 4) return;
-		fprintf(mFile,"setAttr \".mcit\" %i;\n", mcit);
+		fprintf(mFile,"\tsetAttr \".mcit\" %i;\n", mcit);
 
 	}
 	void setCollisionFlag(unsigned int cofl)
 	{
 		if(cofl == 4) return;
-		fprintf(mFile,"setAttr \".cofl\" %i;\n", cofl);
+		fprintf(mFile,"\tsetAttr \".cofl\" %i;\n", cofl);
 
 	}
 	void setSelfCollisionFlag(unsigned int scfl)
 	{
 		if(scfl == 1) return;
-		fprintf(mFile,"setAttr \".scfl\" %i;\n", scfl);
+		fprintf(mFile,"\tsetAttr \".scfl\" %i;\n", scfl);
 
 	}
 	void setTimeScale(float tisc)
 	{
 		if(tisc == 1.0) return;
-		fprintf(mFile,"setAttr \".tisc\" %f;\n", tisc);
+		fprintf(mFile,"\tsetAttr \".tisc\" %f;\n", tisc);
 
 	}
 	void setSpaceScale(float spsc)
 	{
 		if(spsc == 1.0) return;
-		fprintf(mFile,"setAttr \".spsc\" %f;\n", spsc);
+		fprintf(mFile,"\tsetAttr \".spsc\" %f;\n", spsc);
 
 	}
 	void getInputStart(size_t is_i)
@@ -433,7 +434,8 @@ public:
 
 	}
 protected:
-	Nucleus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Nucleus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

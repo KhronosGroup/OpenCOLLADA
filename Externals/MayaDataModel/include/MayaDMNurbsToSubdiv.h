@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class NurbsToSubdiv : public AbstractBaseNurbsConversion
 {
 public:
 public:
+	NurbsToSubdiv():AbstractBaseNurbsConversion(){}
 	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseNurbsConversion(file, name, parent, "nurbsToSubdiv"){}
 	virtual ~NurbsToSubdiv(){}
 	void setMaxPolyCount(int mpc)
 	{
 		if(mpc == 1000) return;
-		fprintf(mFile,"setAttr \".mpc\" %i;\n", mpc);
+		fprintf(mFile,"\tsetAttr \".mpc\" %i;\n", mpc);
 
 	}
 	void setReverseNormal(bool rn)
 	{
 		if(rn == true) return;
-		fprintf(mFile,"setAttr \".rn\" %i;\n", rn);
+		fprintf(mFile,"\tsetAttr \".rn\" %i;\n", rn);
 
 	}
 	void setMatchPeriodic(bool mp)
 	{
 		if(mp == false) return;
-		fprintf(mFile,"setAttr \".mp\" %i;\n", mp);
+		fprintf(mFile,"\tsetAttr \".mp\" %i;\n", mp);
 
 	}
 	void setCollapsePoles(bool cp)
 	{
 		if(cp == false) return;
-		fprintf(mFile,"setAttr \".cp\" %i;\n", cp);
+		fprintf(mFile,"\tsetAttr \".cp\" %i;\n", cp);
 
 	}
 	void getInputSurface()
@@ -75,7 +76,8 @@ public:
 
 	}
 protected:
-	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
+	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

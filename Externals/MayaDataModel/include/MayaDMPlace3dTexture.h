@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class Place3dTexture : public Transform
 {
 public:
+	Place3dTexture():Transform(){}
 	Place3dTexture(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "place3dTexture"){}
 	virtual ~Place3dTexture(){}
 protected:
-	Place3dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	Place3dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

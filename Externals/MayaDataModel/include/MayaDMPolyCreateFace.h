@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolyCreateFace : public PolyCreator
 {
 public:
 public:
+	PolyCreateFace():PolyCreator(){}
 	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent=""):PolyCreator(file, name, parent, "polyCreateFace"){}
 	virtual ~PolyCreateFace(){}
 	void setVertices(size_t v_i,const float3& v)
 	{
-		fprintf(mFile,"setAttr \".v[%i]\" -type \"float3\" ",v_i);
+		fprintf(mFile,"\tsetAttr \".v[%i]\" -type \"float3\" ",v_i);
 		v.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertices(size_t v_start,size_t v_end,float* v)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\" ", v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\" ", v_start,v_end);
 		size_t size = (v_end-v_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -41,7 +42,7 @@ public:
 	}
 	void startVertices(size_t v_start,size_t v_end)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
 	void appendVertices(float v)
@@ -57,30 +58,30 @@ public:
 	void setVtxx(size_t v_i,float vx)
 	{
 		if(vx == 0) return;
-		fprintf(mFile,"setAttr \".v[%i].vx\" %f;\n", v_i,vx);
+		fprintf(mFile,"\tsetAttr \".v[%i].vx\" %f;\n", v_i,vx);
 
 	}
 	void setVtxy(size_t v_i,float vy)
 	{
 		if(vy == 0) return;
-		fprintf(mFile,"setAttr \".v[%i].vy\" %f;\n", v_i,vy);
+		fprintf(mFile,"\tsetAttr \".v[%i].vy\" %f;\n", v_i,vy);
 
 	}
 	void setVtxz(size_t v_i,float vz)
 	{
 		if(vz == 0) return;
-		fprintf(mFile,"setAttr \".v[%i].vz\" %f;\n", v_i,vz);
+		fprintf(mFile,"\tsetAttr \".v[%i].vz\" %f;\n", v_i,vz);
 
 	}
 	void setLoop(size_t l_i,int l)
 	{
 		if(l == 0) return;
-		fprintf(mFile,"setAttr \".l[%i]\" %i;\n", l_i,l);
+		fprintf(mFile,"\tsetAttr \".l[%i]\" %i;\n", l_i,l);
 
 	}
 	void setLoop(size_t l_start,size_t l_end,int* l)
 	{
-		fprintf(mFile,"setAttr \".l[%i:%i]\" ", l_start,l_end);
+		fprintf(mFile,"\tsetAttr \".l[%i:%i]\" ", l_start,l_end);
 		size_t size = (l_end-l_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -92,7 +93,7 @@ public:
 	}
 	void startLoop(size_t l_start,size_t l_end)
 	{
-		fprintf(mFile,"setAttr \".l[%i:%i]\"",l_start,l_end);
+		fprintf(mFile,"\tsetAttr \".l[%i:%i]\"",l_start,l_end);
 
 	}
 	void appendLoop(int l)
@@ -108,19 +109,19 @@ public:
 	void setSubdivision(int s)
 	{
 		if(s == 1) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 0) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
-		fprintf(mFile,"setAttr \".uvs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -166,7 +167,8 @@ public:
 
 	}
 protected:
-	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyCreator(file, name, parent, nodeType) {}
+	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyCreator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

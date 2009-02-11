@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class HwShader : public DependNode
 {
 public:
 public:
+	HwShader():DependNode(){}
 	HwShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hwShader"){}
 	virtual ~HwShader(){}
 	void setEnableHwShading(int ehs)
 	{
 		if(ehs == 1) return;
-		fprintf(mFile,"setAttr \".ehs\" %i;\n", ehs);
+		fprintf(mFile,"\tsetAttr \".ehs\" %i;\n", ehs);
 
 	}
 	void setVaryingParameters(const stringArray& vpar)
 	{
 		if(vpar.size == 0) return;
-		fprintf(mFile,"setAttr \".vpar\" -type \"stringArray\" ");
+		fprintf(mFile,"\tsetAttr \".vpar\" -type \"stringArray\" ");
 		vpar.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,7 +38,7 @@ public:
 	void setUniformParameters(const stringArray& upar)
 	{
 		if(upar.size == 0) return;
-		fprintf(mFile,"setAttr \".upar\" -type \"stringArray\" ");
+		fprintf(mFile,"\tsetAttr \".upar\" -type \"stringArray\" ");
 		upar.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -138,7 +139,8 @@ public:
 
 	}
 protected:
-	HwShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	HwShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

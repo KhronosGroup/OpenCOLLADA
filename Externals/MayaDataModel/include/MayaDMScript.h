@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Script : public DependNode
 {
 public:
 public:
+	Script():DependNode(){}
 	Script(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "script"){}
 	virtual ~Script(){}
 	void setBefore(const string& b)
 	{
 		if(b == "NULL") return;
-		fprintf(mFile,"setAttr \".b\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".b\" -type \"string\" ");
 		b.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setAfter(const string& a)
 	{
 		if(a == "NULL") return;
-		fprintf(mFile,"setAttr \".a\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".a\" -type \"string\" ");
 		a.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,7 +40,7 @@ public:
 	void setScriptType(unsigned int st)
 	{
 		if(st == 0) return;
-		fprintf(mFile,"setAttr \".st\" %i;\n", st);
+		fprintf(mFile,"\tsetAttr \".st\" %i;\n", st);
 
 	}
 	void getBefore()
@@ -58,7 +59,8 @@ public:
 
 	}
 protected:
-	Script(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Script(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

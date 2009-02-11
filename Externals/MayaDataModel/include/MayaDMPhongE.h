@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class PhongE : public Reflect
 {
 public:
 public:
+	PhongE():Reflect(){}
 	PhongE(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "phongE"){}
 	virtual ~PhongE(){}
 	void setRoughness(float rn)
 	{
 		if(rn == 0.5) return;
-		fprintf(mFile,"setAttr \".rn\" %f;\n", rn);
+		fprintf(mFile,"\tsetAttr \".rn\" %f;\n", rn);
 
 	}
 	void setHighlightSize(float hls)
 	{
 		if(hls == 0.5) return;
-		fprintf(mFile,"setAttr \".hls\" %f;\n", hls);
+		fprintf(mFile,"\tsetAttr \".hls\" %f;\n", hls);
 
 	}
 	void setWhiteness(const float3& wn)
 	{
 		if(wn == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".wn\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".wn\" -type \"float3\" ");
 		wn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,42 +44,42 @@ public:
 	void setWhitenessR(float wnr)
 	{
 		if(wnr == 0.0) return;
-		fprintf(mFile,"setAttr \".wn.wnr\" %f;\n", wnr);
+		fprintf(mFile,"\tsetAttr \".wn.wnr\" %f;\n", wnr);
 
 	}
 	void setWhitenessG(float wng)
 	{
 		if(wng == 0.0) return;
-		fprintf(mFile,"setAttr \".wn.wng\" %f;\n", wng);
+		fprintf(mFile,"\tsetAttr \".wn.wng\" %f;\n", wng);
 
 	}
 	void setWhitenessB(float wnb)
 	{
 		if(wnb == 0.0) return;
-		fprintf(mFile,"setAttr \".wn.wnb\" %f;\n", wnb);
+		fprintf(mFile,"\tsetAttr \".wn.wnb\" %f;\n", wnb);
 
 	}
 	void setMiReflectionBlur(float mircb)
 	{
 		if(mircb == 0) return;
-		fprintf(mFile,"setAttr \".mircb\" %f;\n", mircb);
+		fprintf(mFile,"\tsetAttr \".mircb\" %f;\n", mircb);
 
 	}
 	void setMiReflectionRays(short mircr)
 	{
 		if(mircr == 1) return;
-		fprintf(mFile,"setAttr \".mircr\" %i;\n", mircr);
+		fprintf(mFile,"\tsetAttr \".mircr\" %i;\n", mircr);
 
 	}
 	void setMiShinyness(float mis)
 	{
 		if(mis == 10) return;
-		fprintf(mFile,"setAttr \".mis\" %f;\n", mis);
+		fprintf(mFile,"\tsetAttr \".mis\" %f;\n", mis);
 
 	}
 	void setMiWhiteness(const float3& miwn)
 	{
-		fprintf(mFile,"setAttr \".miwn\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".miwn\" -type \"float3\" ");
 		miwn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -86,24 +87,24 @@ public:
 	void setMiWhitenessR(float miwnr)
 	{
 		if(miwnr == 0.5) return;
-		fprintf(mFile,"setAttr \".miwn.miwnr\" %f;\n", miwnr);
+		fprintf(mFile,"\tsetAttr \".miwn.miwnr\" %f;\n", miwnr);
 
 	}
 	void setMiWhitenessG(float miwng)
 	{
 		if(miwng == 0.5) return;
-		fprintf(mFile,"setAttr \".miwn.miwng\" %f;\n", miwng);
+		fprintf(mFile,"\tsetAttr \".miwn.miwng\" %f;\n", miwng);
 
 	}
 	void setMiWhitenessB(float miwnb)
 	{
 		if(miwnb == 0.5) return;
-		fprintf(mFile,"setAttr \".miwn.miwnb\" %f;\n", miwnb);
+		fprintf(mFile,"\tsetAttr \".miwn.miwnb\" %f;\n", miwnb);
 
 	}
 	void setMiSpecularColor(const float3& misc)
 	{
-		fprintf(mFile,"setAttr \".misc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".misc\" -type \"float3\" ");
 		misc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -111,25 +112,25 @@ public:
 	void setMiSpecularColorR(float miscr)
 	{
 		if(miscr == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscr\" %f;\n", miscr);
+		fprintf(mFile,"\tsetAttr \".misc.miscr\" %f;\n", miscr);
 
 	}
 	void setMiSpecularColorG(float miscg)
 	{
 		if(miscg == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscg\" %f;\n", miscg);
+		fprintf(mFile,"\tsetAttr \".misc.miscg\" %f;\n", miscg);
 
 	}
 	void setMiSpecularColorB(float miscb)
 	{
 		if(miscb == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscb\" %f;\n", miscb);
+		fprintf(mFile,"\tsetAttr \".misc.miscb\" %f;\n", miscb);
 
 	}
 	void setMiReflectivity(float mirf)
 	{
 		if(mirf == 0.5) return;
-		fprintf(mFile,"setAttr \".mirf\" %f;\n", mirf);
+		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
 	void getRoughness()
@@ -223,7 +224,8 @@ public:
 
 	}
 protected:
-	PhongE(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Reflect(file, name, parent, nodeType) {}
+	PhongE(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Reflect(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyDelVertex : public PolyModifier
 {
 public:
+	PolyDelVertex():PolyModifier(){}
 	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDelVertex"){}
 	virtual ~PolyDelVertex(){}
 protected:
-	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Snow : public Texture3d
 {
 public:
 public:
+	Snow():Texture3d(){}
 	Snow(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "snow"){}
 	virtual ~Snow(){}
 	void setSnowColor(const float3& sn)
 	{
 		if(sn == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".sn\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sn\" -type \"float3\" ");
 		sn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setSnowColorR(float snr)
 	{
 		if(snr == 0.0) return;
-		fprintf(mFile,"setAttr \".sn.snr\" %f;\n", snr);
+		fprintf(mFile,"\tsetAttr \".sn.snr\" %f;\n", snr);
 
 	}
 	void setSnowColorG(float sng)
 	{
 		if(sng == 0.0) return;
-		fprintf(mFile,"setAttr \".sn.sng\" %f;\n", sng);
+		fprintf(mFile,"\tsetAttr \".sn.sng\" %f;\n", sng);
 
 	}
 	void setSnowColorB(float snb)
 	{
 		if(snb == 0.0) return;
-		fprintf(mFile,"setAttr \".sn.snb\" %f;\n", snb);
+		fprintf(mFile,"\tsetAttr \".sn.snb\" %f;\n", snb);
 
 	}
 	void setSurfaceColor(const float3& su)
 	{
 		if(su == float3(0.5f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".su\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".su\" -type \"float3\" ");
 		su.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,37 +58,37 @@ public:
 	void setSurfaceColorR(float sur)
 	{
 		if(sur == 0.0) return;
-		fprintf(mFile,"setAttr \".su.sur\" %f;\n", sur);
+		fprintf(mFile,"\tsetAttr \".su.sur\" %f;\n", sur);
 
 	}
 	void setSurfaceColorG(float sug)
 	{
 		if(sug == 0.0) return;
-		fprintf(mFile,"setAttr \".su.sug\" %f;\n", sug);
+		fprintf(mFile,"\tsetAttr \".su.sug\" %f;\n", sug);
 
 	}
 	void setSurfaceColorB(float sub)
 	{
 		if(sub == 0.0) return;
-		fprintf(mFile,"setAttr \".su.sub\" %f;\n", sub);
+		fprintf(mFile,"\tsetAttr \".su.sub\" %f;\n", sub);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.5) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setDepthDecay(float dd)
 	{
 		if(dd == 5.0) return;
-		fprintf(mFile,"setAttr \".dd\" %f;\n", dd);
+		fprintf(mFile,"\tsetAttr \".dd\" %f;\n", dd);
 
 	}
 	void setThickness(float tn)
 	{
 		if(tn == 1.0) return;
-		fprintf(mFile,"setAttr \".tn\" %f;\n", tn);
+		fprintf(mFile,"\tsetAttr \".tn\" %f;\n", tn);
 
 	}
 	void getNormalCamera()
@@ -211,7 +212,8 @@ public:
 
 	}
 protected:
-	Snow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Snow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

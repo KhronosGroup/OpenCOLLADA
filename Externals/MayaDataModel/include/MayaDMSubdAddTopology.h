@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class SubdAddTopology : public SubdModifier
 {
 public:
+	SubdAddTopology():SubdModifier(){}
 	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdAddTopology"){}
 	virtual ~SubdAddTopology(){}
 protected:
-	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifier(file, name, parent, nodeType) {}
+	SubdAddTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

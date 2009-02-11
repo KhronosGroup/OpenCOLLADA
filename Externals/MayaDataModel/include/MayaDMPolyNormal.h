@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolyNormal : public PolyModifier
 {
 public:
 public:
+	PolyNormal():PolyModifier(){}
 	PolyNormal(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyNormal"){}
 	virtual ~PolyNormal(){}
 	void setNormalMode(unsigned int nm)
 	{
 		if(nm == 0) return;
-		fprintf(mFile,"setAttr \".nm\" %i;\n", nm);
+		fprintf(mFile,"\tsetAttr \".nm\" %i;\n", nm);
 
 	}
 	void setUserNormalMode(bool unm)
 	{
 		if(unm == true) return;
-		fprintf(mFile,"setAttr \".unm\" %i;\n", unm);
+		fprintf(mFile,"\tsetAttr \".unm\" %i;\n", unm);
 
 	}
 	void getNormalMode()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	PolyNormal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyNormal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

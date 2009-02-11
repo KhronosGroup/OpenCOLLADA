@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Grid : public Texture2d
 {
 public:
 public:
+	Grid():Texture2d(){}
 	Grid(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "grid"){}
 	virtual ~Grid(){}
 	void setFillerColor(const float3& fc)
 	{
 		if(fc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setFillerColorR(float fcr)
 	{
 		if(fcr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFillerColorG(float fcg)
 	{
 		if(fcg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFillerColorB(float fcb)
 	{
 		if(fcb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setLineColor(const float3& lc)
 	{
 		if(lc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".lc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".lc\" -type \"float3\" ");
 		lc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,37 +58,37 @@ public:
 	void setLineColorR(float lcr)
 	{
 		if(lcr == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lcr\" %f;\n", lcr);
+		fprintf(mFile,"\tsetAttr \".lc.lcr\" %f;\n", lcr);
 
 	}
 	void setLineColorG(float lcg)
 	{
 		if(lcg == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lcg\" %f;\n", lcg);
+		fprintf(mFile,"\tsetAttr \".lc.lcg\" %f;\n", lcg);
 
 	}
 	void setLineColorB(float lcb)
 	{
 		if(lcb == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lcb\" %f;\n", lcb);
+		fprintf(mFile,"\tsetAttr \".lc.lcb\" %f;\n", lcb);
 
 	}
 	void setContrast(float c)
 	{
 		if(c == 1.0) return;
-		fprintf(mFile,"setAttr \".c\" %f;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %f;\n", c);
 
 	}
 	void setUWidth(float uw)
 	{
 		if(uw == 0.1) return;
-		fprintf(mFile,"setAttr \".uw\" %f;\n", uw);
+		fprintf(mFile,"\tsetAttr \".uw\" %f;\n", uw);
 
 	}
 	void setVWidth(float vw)
 	{
 		if(vw == 0.1) return;
-		fprintf(mFile,"setAttr \".vw\" %f;\n", vw);
+		fprintf(mFile,"\tsetAttr \".vw\" %f;\n", vw);
 
 	}
 	void getFillerColor()
@@ -146,7 +147,8 @@ public:
 
 	}
 protected:
-	Grid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Grid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

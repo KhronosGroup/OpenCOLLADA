@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class ReverseCurve : public AbstractBaseCreate
 {
 public:
 public:
+	ReverseCurve():AbstractBaseCreate(){}
 	ReverseCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "reverseCurve"){}
 	virtual ~ReverseCurve(){}
 	void getInputCurve()
@@ -31,7 +32,8 @@ public:
 
 	}
 protected:
-	ReverseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ReverseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

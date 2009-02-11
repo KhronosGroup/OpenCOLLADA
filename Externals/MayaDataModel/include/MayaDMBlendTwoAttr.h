@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class BlendTwoAttr : public Blend
 {
 public:
 public:
+	BlendTwoAttr():Blend(){}
 	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent=""):Blend(file, name, parent, "blendTwoAttr"){}
 	virtual ~BlendTwoAttr(){}
 	void setAttributesBlender(float ab)
 	{
 		if(ab == 0.0) return;
-		fprintf(mFile,"setAttr \".ab\" %f;\n", ab);
+		fprintf(mFile,"\tsetAttr \".ab\" %f;\n", ab);
 
 	}
 	void getAttributesBlender()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Blend(file, name, parent, nodeType) {}
+	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Blend(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

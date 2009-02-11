@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class UnitToTimeConversion : public DependNode
 {
 public:
 public:
+	UnitToTimeConversion():DependNode(){}
 	UnitToTimeConversion(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "unitToTimeConversion"){}
 	virtual ~UnitToTimeConversion(){}
 	void setInput(double i_)
 	{
 		if(i_ == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
+		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
 
 	}
 	void setConversionFactor(double cf)
 	{
 		if(cf == 1.0) return;
-		fprintf(mFile,"setAttr \".cf\" %f;\n", cf);
+		fprintf(mFile,"\tsetAttr \".cf\" %f;\n", cf);
 
 	}
 	void getInput()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	UnitToTimeConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	UnitToTimeConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

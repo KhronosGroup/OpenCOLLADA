@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -50,25 +50,26 @@ public:
 		}
 	};
 public:
+	PolyNormalPerVertex():PolyModifier(){}
 	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyNormalPerVertex"){}
 	virtual ~PolyNormalPerVertex(){}
 	void setNormalPerVertex(const NormalPerVertex& npvx)
 	{
-		fprintf(mFile,"setAttr \".npvx\" ");
+		fprintf(mFile,"\tsetAttr \".npvx\" ");
 		npvx.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexNormal(size_t vn_i,const NormalPerVertex::VertexNormal& vn)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i]\" ",vn_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i]\" ",vn_i);
 		vn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexNormalXYZ(size_t vn_i,const float3& nxyz)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz\" -type \"float3\" ",vn_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz\" -type \"float3\" ",vn_i);
 		nxyz.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -76,31 +77,31 @@ public:
 	void setVertexNormalX(size_t vn_i,float vxnx)
 	{
 		if(vxnx == -999) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz.vxnx\" %f;\n", vn_i,vxnx);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz.vxnx\" %f;\n", vn_i,vxnx);
 
 	}
 	void setVertexNormalY(size_t vn_i,float vxny)
 	{
 		if(vxny == -999) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz.vxny\" %f;\n", vn_i,vxny);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz.vxny\" %f;\n", vn_i,vxny);
 
 	}
 	void setVertexNormalZ(size_t vn_i,float vxnz)
 	{
 		if(vxnz == -999) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz.vxnz\" %f;\n", vn_i,vxnz);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz.vxnz\" %f;\n", vn_i,vxnz);
 
 	}
 	void setVertexFaceNormal(size_t vn_i,size_t vfnl_i,const NormalPerVertex::VertexNormal::VertexFaceNormal& vfnl)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i]\" ",vn_i,vfnl_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i]\" ",vn_i,vfnl_i);
 		vfnl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexFaceNormalXYZ(size_t vn_i,size_t vfnl_i,const float3& fnxy)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy\" -type \"float3\" ",vn_i,vfnl_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy\" -type \"float3\" ",vn_i,vfnl_i);
 		fnxy.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -108,31 +109,31 @@ public:
 	void setVertexFaceNormalX(size_t vn_i,size_t vfnl_i,float vfnx)
 	{
 		if(vfnx == -999) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnx\" %f;\n", vn_i,vfnl_i,vfnx);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnx\" %f;\n", vn_i,vfnl_i,vfnx);
 
 	}
 	void setVertexFaceNormalY(size_t vn_i,size_t vfnl_i,float vfny)
 	{
 		if(vfny == -999) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfny\" %f;\n", vn_i,vfnl_i,vfny);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfny\" %f;\n", vn_i,vfnl_i,vfny);
 
 	}
 	void setVertexFaceNormalZ(size_t vn_i,size_t vfnl_i,float vfnz)
 	{
 		if(vfnz == -999) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnz\" %f;\n", vn_i,vfnl_i,vfnz);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnz\" %f;\n", vn_i,vfnl_i,vfnz);
 
 	}
 	void setNormalDeform(bool npvd)
 	{
 		if(npvd == true) return;
-		fprintf(mFile,"setAttr \".npvd\" %i;\n", npvd);
+		fprintf(mFile,"\tsetAttr \".npvd\" %i;\n", npvd);
 
 	}
 	void setNormalAdd(bool npva)
 	{
 		if(npva == false) return;
-		fprintf(mFile,"setAttr \".npva\" %i;\n", npva);
+		fprintf(mFile,"\tsetAttr \".npva\" %i;\n", npva);
 
 	}
 	void getNormalDeform()
@@ -146,7 +147,8 @@ public:
 
 	}
 protected:
-	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

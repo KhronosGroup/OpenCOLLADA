@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class PositionMarker : public Locator
 {
 public:
 public:
+	PositionMarker():Locator(){}
 	PositionMarker(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "positionMarker"){}
 	virtual ~PositionMarker(){}
 	void getTime()
@@ -26,7 +27,8 @@ public:
 
 	}
 protected:
-	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Locator(file, name, parent, nodeType) {}
+	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Locator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

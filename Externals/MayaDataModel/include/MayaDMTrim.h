@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class Trim : public AbstractBaseCreate
 {
 public:
 public:
+	Trim():AbstractBaseCreate(){}
 	Trim(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "trim"){}
 	virtual ~Trim(){}
 	void setLocatorU(size_t lu_i,double lu)
 	{
 		if(lu == 0.5) return;
-		fprintf(mFile,"setAttr \".lu[%i]\" %f;\n", lu_i,lu);
+		fprintf(mFile,"\tsetAttr \".lu[%i]\" %f;\n", lu_i,lu);
 
 	}
 	void setLocatorU(size_t lu_start,size_t lu_end,double* lu)
 	{
-		fprintf(mFile,"setAttr \".lu[%i:%i]\" ", lu_start,lu_end);
+		fprintf(mFile,"\tsetAttr \".lu[%i:%i]\" ", lu_start,lu_end);
 		size_t size = (lu_end-lu_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startLocatorU(size_t lu_start,size_t lu_end)
 	{
-		fprintf(mFile,"setAttr \".lu[%i:%i]\"",lu_start,lu_end);
+		fprintf(mFile,"\tsetAttr \".lu[%i:%i]\"",lu_start,lu_end);
 
 	}
 	void appendLocatorU(double lu)
@@ -56,12 +57,12 @@ public:
 	void setLocatorV(size_t lv_i,double lv)
 	{
 		if(lv == 0.5) return;
-		fprintf(mFile,"setAttr \".lv[%i]\" %f;\n", lv_i,lv);
+		fprintf(mFile,"\tsetAttr \".lv[%i]\" %f;\n", lv_i,lv);
 
 	}
 	void setLocatorV(size_t lv_start,size_t lv_end,double* lv)
 	{
-		fprintf(mFile,"setAttr \".lv[%i:%i]\" ", lv_start,lv_end);
+		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\" ", lv_start,lv_end);
 		size_t size = (lv_end-lv_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -73,7 +74,7 @@ public:
 	}
 	void startLocatorV(size_t lv_start,size_t lv_end)
 	{
-		fprintf(mFile,"setAttr \".lv[%i:%i]\"",lv_start,lv_end);
+		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\"",lv_start,lv_end);
 
 	}
 	void appendLocatorV(double lv)
@@ -89,19 +90,19 @@ public:
 	void setSelected(unsigned int sl)
 	{
 		if(sl == 0) return;
-		fprintf(mFile,"setAttr \".sl\" %i;\n", sl);
+		fprintf(mFile,"\tsetAttr \".sl\" %i;\n", sl);
 
 	}
 	void setShrink(bool sh)
 	{
 		if(sh == false) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void getInputCurve(size_t ic_i)
@@ -160,7 +161,8 @@ public:
 
 	}
 protected:
-	Trim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	Trim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

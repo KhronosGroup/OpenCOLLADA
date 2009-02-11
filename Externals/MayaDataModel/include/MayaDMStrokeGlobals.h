@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,71 +18,72 @@ class StrokeGlobals : public DependNode
 {
 public:
 public:
+	StrokeGlobals():DependNode(){}
 	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "strokeGlobals"){}
 	virtual ~StrokeGlobals(){}
 	void setSceneScale(double pss)
 	{
 		if(pss == 5.0) return;
-		fprintf(mFile,"setAttr \".pss\" %f;\n", pss);
+		fprintf(mFile,"\tsetAttr \".pss\" %f;\n", pss);
 
 	}
 	void setCanvasScale(double pcs)
 	{
 		if(pcs == 1.0) return;
-		fprintf(mFile,"setAttr \".pcs\" %f;\n", pcs);
+		fprintf(mFile,"\tsetAttr \".pcs\" %f;\n", pcs);
 
 	}
 	void setWrapH(bool wrh)
 	{
 		if(wrh == false) return;
-		fprintf(mFile,"setAttr \".wrh\" %i;\n", wrh);
+		fprintf(mFile,"\tsetAttr \".wrh\" %i;\n", wrh);
 
 	}
 	void setWrapV(bool wrv)
 	{
 		if(wrv == false) return;
-		fprintf(mFile,"setAttr \".wrv\" %i;\n", wrv);
+		fprintf(mFile,"\tsetAttr \".wrv\" %i;\n", wrv);
 
 	}
 	void setSceneWrapH(bool swh)
 	{
 		if(swh == false) return;
-		fprintf(mFile,"setAttr \".swh\" %i;\n", swh);
+		fprintf(mFile,"\tsetAttr \".swh\" %i;\n", swh);
 
 	}
 	void setSceneWrapV(bool swv)
 	{
 		if(swv == false) return;
-		fprintf(mFile,"setAttr \".swv\" %i;\n", swv);
+		fprintf(mFile,"\tsetAttr \".swv\" %i;\n", swv);
 
 	}
 	void setForceRealLights(bool frl)
 	{
 		if(frl == true) return;
-		fprintf(mFile,"setAttr \".frl\" %i;\n", frl);
+		fprintf(mFile,"\tsetAttr \".frl\" %i;\n", frl);
 
 	}
 	void setForceDepth(bool fdp)
 	{
 		if(fdp == true) return;
-		fprintf(mFile,"setAttr \".fdp\" %i;\n", fdp);
+		fprintf(mFile,"\tsetAttr \".fdp\" %i;\n", fdp);
 
 	}
 	void setUseCanvasLight(bool ucl)
 	{
 		if(ucl == true) return;
-		fprintf(mFile,"setAttr \".ucl\" %i;\n", ucl);
+		fprintf(mFile,"\tsetAttr \".ucl\" %i;\n", ucl);
 
 	}
 	void setForceTubeDirAlongPath(bool ftd)
 	{
 		if(ftd == true) return;
-		fprintf(mFile,"setAttr \".ftd\" %i;\n", ftd);
+		fprintf(mFile,"\tsetAttr \".ftd\" %i;\n", ftd);
 
 	}
 	void setLightDirection(const double3& ldr)
 	{
-		fprintf(mFile,"setAttr \".ldr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ldr\" -type \"double3\" ");
 		ldr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -90,19 +91,19 @@ public:
 	void setLightDirectionX(double ldx)
 	{
 		if(ldx == 0.2) return;
-		fprintf(mFile,"setAttr \".ldr.ldx\" %f;\n", ldx);
+		fprintf(mFile,"\tsetAttr \".ldr.ldx\" %f;\n", ldx);
 
 	}
 	void setLightDirectionY(double ldy)
 	{
 		if(ldy == -.9) return;
-		fprintf(mFile,"setAttr \".ldr.ldy\" %f;\n", ldy);
+		fprintf(mFile,"\tsetAttr \".ldr.ldy\" %f;\n", ldy);
 
 	}
 	void setLightDirectionZ(double ldz)
 	{
 		if(ldz == -0.5) return;
-		fprintf(mFile,"setAttr \".ldr.ldz\" %f;\n", ldz);
+		fprintf(mFile,"\tsetAttr \".ldr.ldz\" %f;\n", ldz);
 
 	}
 	void getSceneScale()
@@ -176,7 +177,8 @@ public:
 
 	}
 protected:
-	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

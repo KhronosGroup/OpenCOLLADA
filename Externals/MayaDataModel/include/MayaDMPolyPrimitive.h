@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class PolyPrimitive : public PolyCreator
 {
 public:
 public:
+	PolyPrimitive():PolyCreator(){}
 	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent=""):PolyCreator(file, name, parent, "polyPrimitive"){}
 	virtual ~PolyPrimitive(){}
 	void setAxis(const double3& ax)
 	{
-		fprintf(mFile,"setAttr \".ax\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ax\" -type \"double3\" ");
 		ax.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,31 +31,31 @@ public:
 	void setAxisX(double axx)
 	{
 		if(axx == 0) return;
-		fprintf(mFile,"setAttr \".ax.axx\" %f;\n", axx);
+		fprintf(mFile,"\tsetAttr \".ax.axx\" %f;\n", axx);
 
 	}
 	void setAxisY(double axy)
 	{
 		if(axy == 1) return;
-		fprintf(mFile,"setAttr \".ax.axy\" %f;\n", axy);
+		fprintf(mFile,"\tsetAttr \".ax.axy\" %f;\n", axy);
 
 	}
 	void setAxisZ(double axz)
 	{
 		if(axz == 0) return;
-		fprintf(mFile,"setAttr \".ax.axz\" %f;\n", axz);
+		fprintf(mFile,"\tsetAttr \".ax.axz\" %f;\n", axz);
 
 	}
 	void setParamWarn(bool pw)
 	{
 		if(pw == true) return;
-		fprintf(mFile,"setAttr \".pw\" %i;\n", pw);
+		fprintf(mFile,"\tsetAttr \".pw\" %i;\n", pw);
 
 	}
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
-		fprintf(mFile,"setAttr \".uvs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -90,7 +91,8 @@ public:
 
 	}
 protected:
-	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyCreator(file, name, parent, nodeType) {}
+	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyCreator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

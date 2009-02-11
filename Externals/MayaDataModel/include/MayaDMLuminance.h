@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Luminance : public DependNode
 {
 public:
 public:
+	Luminance():DependNode(){}
 	Luminance(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "luminance"){}
 	virtual ~Luminance(){}
 	void setValue(const float3& v)
 	{
 		if(v == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".v\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".v\" -type \"float3\" ");
 		v.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,19 +32,19 @@ public:
 	void setValueR(float vr)
 	{
 		if(vr == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vr\" %f;\n", vr);
+		fprintf(mFile,"\tsetAttr \".v.vr\" %f;\n", vr);
 
 	}
 	void setValueG(float vg)
 	{
 		if(vg == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vg\" %f;\n", vg);
+		fprintf(mFile,"\tsetAttr \".v.vg\" %f;\n", vg);
 
 	}
 	void setValueB(float vb)
 	{
 		if(vb == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vb\" %f;\n", vb);
+		fprintf(mFile,"\tsetAttr \".v.vb\" %f;\n", vb);
 
 	}
 	void getValue()
@@ -72,7 +73,8 @@ public:
 
 	}
 protected:
-	Luminance(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Luminance(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,8 +18,84 @@ class DefaultLightList : public DependNode
 {
 public:
 public:
+	DefaultLightList():DependNode(){}
 	DefaultLightList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "defaultLightList"){}
 	virtual ~DefaultLightList(){}
+	void getLightDataArray(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i]\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDirection(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].ld\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDirectionX(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].ld.ldx\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDirectionY(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].ld.ldy\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDirectionZ(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].ld.ldz\"",mName.c_str(),lda_i);
+
+	}
+	void getLightIntensity(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].li\"",mName.c_str(),lda_i);
+
+	}
+	void getLightIntensityR(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].li.lir\"",mName.c_str(),lda_i);
+
+	}
+	void getLightIntensityG(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].li.lig\"",mName.c_str(),lda_i);
+
+	}
+	void getLightIntensityB(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].li.lib\"",mName.c_str(),lda_i);
+
+	}
+	void getLightAmbient(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].la\"",mName.c_str(),lda_i);
+
+	}
+	void getLightDiffuse(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].ldf\"",mName.c_str(),lda_i);
+
+	}
+	void getLightSpecular(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].ls\"",mName.c_str(),lda_i);
+
+	}
+	void getLightShadowFraction(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].lsf\"",mName.c_str(),lda_i);
+
+	}
+	void getPreShadowIntensity(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].psi\"",mName.c_str(),lda_i);
+
+	}
+	void getLightBlindData(size_t lda_i)
+	{
+		fprintf(mFile,"\"%s.lda[%i].lbd\"",mName.c_str(),lda_i);
+
+	}
 	void getLightData()
 	{
 		fprintf(mFile,"\"%s.ltd\"",mName.c_str());
@@ -96,7 +172,8 @@ public:
 
 	}
 protected:
-	DefaultLightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DefaultLightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class RenderGlobalsList : public DependNode
 {
 public:
 public:
+	RenderGlobalsList():DependNode(){}
 	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderGlobalsList"){}
 	virtual ~RenderGlobalsList(){}
 	void getRenderGlobals(size_t rg_i)
@@ -36,7 +37,8 @@ public:
 
 	}
 protected:
-	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

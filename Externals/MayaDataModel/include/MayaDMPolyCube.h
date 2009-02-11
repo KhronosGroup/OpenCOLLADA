@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,54 +18,55 @@ class PolyCube : public PolyPrimitive
 {
 public:
 public:
+	PolyCube():PolyPrimitive(){}
 	PolyCube(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyCube"){}
 	virtual ~PolyCube(){}
 	void setWidth(double w)
 	{
 		if(w == 1) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setHeight(double h)
 	{
 		if(h == 1) return;
-		fprintf(mFile,"setAttr \".h\" %f;\n", h);
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 
 	}
 	void setDepth(double d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setSubdivisionsWidth(int sw)
 	{
 		if(sw == 1) return;
-		fprintf(mFile,"setAttr \".sw\" %i;\n", sw);
+		fprintf(mFile,"\tsetAttr \".sw\" %i;\n", sw);
 
 	}
 	void setSubdivisionsHeight(int sh)
 	{
 		if(sh == 1) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setSubdivisionsDepth(int sd)
 	{
 		if(sd == 1) return;
-		fprintf(mFile,"setAttr \".sd\" %i;\n", sd);
+		fprintf(mFile,"\tsetAttr \".sd\" %i;\n", sd);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 1) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(unsigned int cuv)
 	{
 		if(cuv == 3) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void getWidth()
@@ -109,7 +110,8 @@ public:
 
 	}
 protected:
-	PolyCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolyCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

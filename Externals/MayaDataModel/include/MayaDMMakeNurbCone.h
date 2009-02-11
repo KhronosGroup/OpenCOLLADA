@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class MakeNurbCone : public RevolvedPrimitive
 {
 public:
 public:
+	MakeNurbCone():RevolvedPrimitive(){}
 	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent=""):RevolvedPrimitive(file, name, parent, "makeNurbCone"){}
 	virtual ~MakeNurbCone(){}
 	void setUseOldInitBehaviour(bool oib)
 	{
 		if(oib == false) return;
-		fprintf(mFile,"setAttr \".oib\" %i;\n", oib);
+		fprintf(mFile,"\tsetAttr \".oib\" %i;\n", oib);
 
 	}
 	void getUseOldInitBehaviour()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):RevolvedPrimitive(file, name, parent, nodeType) {}
+	MakeNurbCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:RevolvedPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

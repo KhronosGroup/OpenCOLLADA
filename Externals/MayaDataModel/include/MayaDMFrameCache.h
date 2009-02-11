@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class FrameCache : public DependNode
 {
 public:
 public:
+	FrameCache():DependNode(){}
 	FrameCache(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "frameCache"){}
 	virtual ~FrameCache(){}
 	void setVaryTime(double vt)
 	{
 		if(vt == 0.0) return;
-		fprintf(mFile,"setAttr \".vt\" %f;\n", vt);
+		fprintf(mFile,"\tsetAttr \".vt\" %f;\n", vt);
 
 	}
 	void setStream(double s)
 	{
 		if(s == 0.0) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void getFuture(size_t f_i)
@@ -58,7 +59,8 @@ public:
 
 	}
 protected:
-	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

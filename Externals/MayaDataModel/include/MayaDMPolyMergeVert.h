@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class PolyMergeVert : public PolyModifierWorld
 {
 public:
 public:
+	PolyMergeVert():PolyModifierWorld(){}
 	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyMergeVert"){}
 	virtual ~PolyMergeVert(){}
 	void setDistance(double d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setAlwaysMergeTwoVertices(bool am)
 	{
 		if(am == false) return;
-		fprintf(mFile,"setAttr \".am\" %i;\n", am);
+		fprintf(mFile,"\tsetAttr \".am\" %i;\n", am);
 
 	}
 	void setTexture(bool tx)
 	{
 		if(tx == true) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void getDistance()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyMergeVert(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

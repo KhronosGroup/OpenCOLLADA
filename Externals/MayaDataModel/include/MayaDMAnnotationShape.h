@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class AnnotationShape : public DimensionShape
 {
 public:
 public:
+	AnnotationShape():DimensionShape(){}
 	AnnotationShape(FILE* file,const std::string& name,const std::string& parent=""):DimensionShape(file, name, parent, "annotationShape"){}
 	virtual ~AnnotationShape(){}
 	void setText(const string& txt)
 	{
 		if(txt == "NULL") return;
-		fprintf(mFile,"setAttr \".txt\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".txt\" -type \"string\" ");
 		txt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,14 +32,14 @@ public:
 	void setDagObjectMatrix(size_t dom_i,const matrix& dom)
 	{
 		if(dom == identity) return;
-		fprintf(mFile,"setAttr \".dom[%i]\" -type \"matrix\" ",dom_i);
+		fprintf(mFile,"\tsetAttr \".dom[%i]\" -type \"matrix\" ",dom_i);
 		dom.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setDagObjectMatrix(size_t dom_start,size_t dom_end,matrix* dom)
 	{
-		fprintf(mFile,"setAttr \".dom[%i:%i]\" ", dom_start,dom_end);
+		fprintf(mFile,"\tsetAttr \".dom[%i:%i]\" ", dom_start,dom_end);
 		size_t size = (dom_end-dom_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -50,7 +51,7 @@ public:
 	}
 	void startDagObjectMatrix(size_t dom_start,size_t dom_end)
 	{
-		fprintf(mFile,"setAttr \".dom[%i:%i]\"",dom_start,dom_end);
+		fprintf(mFile,"\tsetAttr \".dom[%i:%i]\"",dom_start,dom_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -68,7 +69,7 @@ public:
 	void setDisplayArrow(bool daro)
 	{
 		if(daro == true) return;
-		fprintf(mFile,"setAttr \".daro\" %i;\n", daro);
+		fprintf(mFile,"\tsetAttr \".daro\" %i;\n", daro);
 
 	}
 	void getText()
@@ -96,13 +97,19 @@ public:
 		fprintf(mFile,"\"%s.tp.tpz\"",mName.c_str());
 
 	}
+	void getDagObjectMatrix(size_t dom_i)
+	{
+		fprintf(mFile,"\"%s.dom[%i]\"",mName.c_str(),dom_i);
+
+	}
 	void getDisplayArrow()
 	{
 		fprintf(mFile,"\"%s.daro\"",mName.c_str());
 
 	}
 protected:
-	AnnotationShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DimensionShape(file, name, parent, nodeType) {}
+	AnnotationShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DimensionShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

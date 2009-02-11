@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class BakeSet : public ObjectSet
 {
 public:
 public:
+	BakeSet():ObjectSet(){}
 	BakeSet(FILE* file,const std::string& name,const std::string& parent=""):ObjectSet(file, name, parent, "bakeSet"){}
 	virtual ~BakeSet(){}
 	void setBakeAlpha(bool alpha)
 	{
 		if(alpha == 0) return;
-		fprintf(mFile,"setAttr \".alpha\" %i;\n", alpha);
+		fprintf(mFile,"\tsetAttr \".alpha\" %i;\n", alpha);
 
 	}
 	void setAlphaMode(unsigned int mode)
 	{
 		if(mode == 1) return;
-		fprintf(mFile,"setAttr \".mode\" %i;\n", mode);
+		fprintf(mFile,"\tsetAttr \".mode\" %i;\n", mode);
 
 	}
 	void setOcclusionRays(int mor)
 	{
 		if(mor == 64) return;
-		fprintf(mFile,"setAttr \".mor\" %i;\n", mor);
+		fprintf(mFile,"\tsetAttr \".mor\" %i;\n", mor);
 
 	}
 	void setOcclusionFalloff(float mof)
 	{
 		if(mof == 0) return;
-		fprintf(mFile,"setAttr \".mof\" %f;\n", mof);
+		fprintf(mFile,"\tsetAttr \".mof\" %f;\n", mof);
 
 	}
 	void setColorMode(unsigned int clm)
 	{
 		if(clm == 0) return;
-		fprintf(mFile,"setAttr \".clm\" %i;\n", clm);
+		fprintf(mFile,"\tsetAttr \".clm\" %i;\n", clm);
 
 	}
 	void setOrthogonalReflection(bool orf)
 	{
 		if(orf == 0) return;
-		fprintf(mFile,"setAttr \".orf\" %i;\n", orf);
+		fprintf(mFile,"\tsetAttr \".orf\" %i;\n", orf);
 
 	}
 	void setNormalDirection(unsigned int ndr)
 	{
 		if(ndr == 1) return;
-		fprintf(mFile,"setAttr \".ndr\" %i;\n", ndr);
+		fprintf(mFile,"\tsetAttr \".ndr\" %i;\n", ndr);
 
 	}
 	void getBakeAlpha()
@@ -103,7 +104,8 @@ public:
 
 	}
 protected:
-	BakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectSet(file, name, parent, nodeType) {}
+	BakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectSet(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

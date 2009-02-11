@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -105,11 +105,12 @@ public:
 		}
 	};
 public:
+	Transform():DagNode(){}
 	Transform(FILE* file,const std::string& name,const std::string& parent=""):DagNode(file, name, parent, "transform"){}
 	virtual ~Transform(){}
 	void setTranslate(const double3& t)
 	{
-		fprintf(mFile,"setAttr \".t\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"double3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -117,24 +118,24 @@ public:
 	void setTranslateX(double tx)
 	{
 		if(tx == 0) return;
-		fprintf(mFile,"setAttr \".t.tx\" %f;\n", tx);
+		fprintf(mFile,"\tsetAttr \".t.tx\" %f;\n", tx);
 
 	}
 	void setTranslateY(double ty)
 	{
 		if(ty == 0) return;
-		fprintf(mFile,"setAttr \".t.ty\" %f;\n", ty);
+		fprintf(mFile,"\tsetAttr \".t.ty\" %f;\n", ty);
 
 	}
 	void setTranslateZ(double tz)
 	{
 		if(tz == 0) return;
-		fprintf(mFile,"setAttr \".t.tz\" %f;\n", tz);
+		fprintf(mFile,"\tsetAttr \".t.tz\" %f;\n", tz);
 
 	}
 	void setRotate(const double3& r)
 	{
-		fprintf(mFile,"setAttr \".r\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".r\" -type \"double3\" ");
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -142,30 +143,30 @@ public:
 	void setRotateX(double rx)
 	{
 		if(rx == 0) return;
-		fprintf(mFile,"setAttr \".r.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".r.rx\" %f;\n", rx);
 
 	}
 	void setRotateY(double ry)
 	{
 		if(ry == 0) return;
-		fprintf(mFile,"setAttr \".r.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".r.ry\" %f;\n", ry);
 
 	}
 	void setRotateZ(double rz)
 	{
 		if(rz == 0) return;
-		fprintf(mFile,"setAttr \".r.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".r.rz\" %f;\n", rz);
 
 	}
 	void setRotateOrder(unsigned int ro)
 	{
 		if(ro == 0) return;
-		fprintf(mFile,"setAttr \".ro\" %i;\n", ro);
+		fprintf(mFile,"\tsetAttr \".ro\" %i;\n", ro);
 
 	}
 	void setScale(const double3& s)
 	{
-		fprintf(mFile,"setAttr \".s\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".s\" -type \"double3\" ");
 		s.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -173,24 +174,24 @@ public:
 	void setScaleX(double sx)
 	{
 		if(sx == 1.0) return;
-		fprintf(mFile,"setAttr \".s.sx\" %f;\n", sx);
+		fprintf(mFile,"\tsetAttr \".s.sx\" %f;\n", sx);
 
 	}
 	void setScaleY(double sy)
 	{
 		if(sy == 1.0) return;
-		fprintf(mFile,"setAttr \".s.sy\" %f;\n", sy);
+		fprintf(mFile,"\tsetAttr \".s.sy\" %f;\n", sy);
 
 	}
 	void setScaleZ(double sz)
 	{
 		if(sz == 1.0) return;
-		fprintf(mFile,"setAttr \".s.sz\" %f;\n", sz);
+		fprintf(mFile,"\tsetAttr \".s.sz\" %f;\n", sz);
 
 	}
 	void setShear(const double3& sh)
 	{
-		fprintf(mFile,"setAttr \".sh\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".sh\" -type \"double3\" ");
 		sh.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -198,24 +199,24 @@ public:
 	void setShearXY(double shxy)
 	{
 		if(shxy == 0.0) return;
-		fprintf(mFile,"setAttr \".sh.shxy\" %f;\n", shxy);
+		fprintf(mFile,"\tsetAttr \".sh.shxy\" %f;\n", shxy);
 
 	}
 	void setShearXZ(double shxz)
 	{
 		if(shxz == 0.0) return;
-		fprintf(mFile,"setAttr \".sh.shxz\" %f;\n", shxz);
+		fprintf(mFile,"\tsetAttr \".sh.shxz\" %f;\n", shxz);
 
 	}
 	void setShearYZ(double shyz)
 	{
 		if(shyz == 0.0) return;
-		fprintf(mFile,"setAttr \".sh.shyz\" %f;\n", shyz);
+		fprintf(mFile,"\tsetAttr \".sh.shyz\" %f;\n", shyz);
 
 	}
 	void setRotatePivot(const double3& rp)
 	{
-		fprintf(mFile,"setAttr \".rp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rp\" -type \"double3\" ");
 		rp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -223,24 +224,24 @@ public:
 	void setRotatePivotX(double rpx)
 	{
 		if(rpx == 0) return;
-		fprintf(mFile,"setAttr \".rp.rpx\" %f;\n", rpx);
+		fprintf(mFile,"\tsetAttr \".rp.rpx\" %f;\n", rpx);
 
 	}
 	void setRotatePivotY(double rpy)
 	{
 		if(rpy == 0) return;
-		fprintf(mFile,"setAttr \".rp.rpy\" %f;\n", rpy);
+		fprintf(mFile,"\tsetAttr \".rp.rpy\" %f;\n", rpy);
 
 	}
 	void setRotatePivotZ(double rpz)
 	{
 		if(rpz == 0) return;
-		fprintf(mFile,"setAttr \".rp.rpz\" %f;\n", rpz);
+		fprintf(mFile,"\tsetAttr \".rp.rpz\" %f;\n", rpz);
 
 	}
 	void setRotatePivotTranslate(const double3& rpt)
 	{
-		fprintf(mFile,"setAttr \".rpt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rpt\" -type \"double3\" ");
 		rpt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -248,24 +249,24 @@ public:
 	void setRotatePivotTranslateX(double rptx)
 	{
 		if(rptx == 0) return;
-		fprintf(mFile,"setAttr \".rpt.rptx\" %f;\n", rptx);
+		fprintf(mFile,"\tsetAttr \".rpt.rptx\" %f;\n", rptx);
 
 	}
 	void setRotatePivotTranslateY(double rpty)
 	{
 		if(rpty == 0) return;
-		fprintf(mFile,"setAttr \".rpt.rpty\" %f;\n", rpty);
+		fprintf(mFile,"\tsetAttr \".rpt.rpty\" %f;\n", rpty);
 
 	}
 	void setRotatePivotTranslateZ(double rptz)
 	{
 		if(rptz == 0) return;
-		fprintf(mFile,"setAttr \".rpt.rptz\" %f;\n", rptz);
+		fprintf(mFile,"\tsetAttr \".rpt.rptz\" %f;\n", rptz);
 
 	}
 	void setScalePivot(const double3& sp)
 	{
-		fprintf(mFile,"setAttr \".sp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".sp\" -type \"double3\" ");
 		sp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -273,24 +274,24 @@ public:
 	void setScalePivotX(double spx)
 	{
 		if(spx == 0) return;
-		fprintf(mFile,"setAttr \".sp.spx\" %f;\n", spx);
+		fprintf(mFile,"\tsetAttr \".sp.spx\" %f;\n", spx);
 
 	}
 	void setScalePivotY(double spy)
 	{
 		if(spy == 0) return;
-		fprintf(mFile,"setAttr \".sp.spy\" %f;\n", spy);
+		fprintf(mFile,"\tsetAttr \".sp.spy\" %f;\n", spy);
 
 	}
 	void setScalePivotZ(double spz)
 	{
 		if(spz == 0) return;
-		fprintf(mFile,"setAttr \".sp.spz\" %f;\n", spz);
+		fprintf(mFile,"\tsetAttr \".sp.spz\" %f;\n", spz);
 
 	}
 	void setScalePivotTranslate(const double3& spt)
 	{
-		fprintf(mFile,"setAttr \".spt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".spt\" -type \"double3\" ");
 		spt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -298,24 +299,24 @@ public:
 	void setScalePivotTranslateX(double sptx)
 	{
 		if(sptx == 0) return;
-		fprintf(mFile,"setAttr \".spt.sptx\" %f;\n", sptx);
+		fprintf(mFile,"\tsetAttr \".spt.sptx\" %f;\n", sptx);
 
 	}
 	void setScalePivotTranslateY(double spty)
 	{
 		if(spty == 0) return;
-		fprintf(mFile,"setAttr \".spt.spty\" %f;\n", spty);
+		fprintf(mFile,"\tsetAttr \".spt.spty\" %f;\n", spty);
 
 	}
 	void setScalePivotTranslateZ(double sptz)
 	{
 		if(sptz == 0) return;
-		fprintf(mFile,"setAttr \".spt.sptz\" %f;\n", sptz);
+		fprintf(mFile,"\tsetAttr \".spt.sptz\" %f;\n", sptz);
 
 	}
 	void setRotateAxis(const double3& ra)
 	{
-		fprintf(mFile,"setAttr \".ra\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ra\" -type \"double3\" ");
 		ra.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -323,24 +324,24 @@ public:
 	void setRotateAxisX(double rax)
 	{
 		if(rax == 0) return;
-		fprintf(mFile,"setAttr \".ra.rax\" %f;\n", rax);
+		fprintf(mFile,"\tsetAttr \".ra.rax\" %f;\n", rax);
 
 	}
 	void setRotateAxisY(double ray)
 	{
 		if(ray == 0) return;
-		fprintf(mFile,"setAttr \".ra.ray\" %f;\n", ray);
+		fprintf(mFile,"\tsetAttr \".ra.ray\" %f;\n", ray);
 
 	}
 	void setRotateAxisZ(double raz)
 	{
 		if(raz == 0) return;
-		fprintf(mFile,"setAttr \".ra.raz\" %f;\n", raz);
+		fprintf(mFile,"\tsetAttr \".ra.raz\" %f;\n", raz);
 
 	}
 	void setMinTransLimit(const double3& mntl)
 	{
-		fprintf(mFile,"setAttr \".mntl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".mntl\" -type \"double3\" ");
 		mntl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -348,24 +349,24 @@ public:
 	void setMinTransXLimit(double mtxl)
 	{
 		if(mtxl == 1) return;
-		fprintf(mFile,"setAttr \".mntl.mtxl\" %f;\n", mtxl);
+		fprintf(mFile,"\tsetAttr \".mntl.mtxl\" %f;\n", mtxl);
 
 	}
 	void setMinTransYLimit(double mtyl)
 	{
 		if(mtyl == 1) return;
-		fprintf(mFile,"setAttr \".mntl.mtyl\" %f;\n", mtyl);
+		fprintf(mFile,"\tsetAttr \".mntl.mtyl\" %f;\n", mtyl);
 
 	}
 	void setMinTransZLimit(double mtzl)
 	{
 		if(mtzl == 1) return;
-		fprintf(mFile,"setAttr \".mntl.mtzl\" %f;\n", mtzl);
+		fprintf(mFile,"\tsetAttr \".mntl.mtzl\" %f;\n", mtzl);
 
 	}
 	void setMaxTransLimit(const double3& mxtl)
 	{
-		fprintf(mFile,"setAttr \".mxtl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".mxtl\" -type \"double3\" ");
 		mxtl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -373,24 +374,24 @@ public:
 	void setMaxTransXLimit(double xtxl)
 	{
 		if(xtxl == 1) return;
-		fprintf(mFile,"setAttr \".mxtl.xtxl\" %f;\n", xtxl);
+		fprintf(mFile,"\tsetAttr \".mxtl.xtxl\" %f;\n", xtxl);
 
 	}
 	void setMaxTransYLimit(double xtyl)
 	{
 		if(xtyl == 1) return;
-		fprintf(mFile,"setAttr \".mxtl.xtyl\" %f;\n", xtyl);
+		fprintf(mFile,"\tsetAttr \".mxtl.xtyl\" %f;\n", xtyl);
 
 	}
 	void setMaxTransZLimit(double xtzl)
 	{
 		if(xtzl == 1) return;
-		fprintf(mFile,"setAttr \".mxtl.xtzl\" %f;\n", xtzl);
+		fprintf(mFile,"\tsetAttr \".mxtl.xtzl\" %f;\n", xtzl);
 
 	}
 	void setMinTransLimitEnable(const MinTransLimitEnable& mtle)
 	{
-		fprintf(mFile,"setAttr \".mtle\" ");
+		fprintf(mFile,"\tsetAttr \".mtle\" ");
 		mtle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -398,24 +399,24 @@ public:
 	void setMinTransXLimitEnable(bool mtxe)
 	{
 		if(mtxe == false) return;
-		fprintf(mFile,"setAttr \".mtle.mtxe\" %i;\n", mtxe);
+		fprintf(mFile,"\tsetAttr \".mtle.mtxe\" %i;\n", mtxe);
 
 	}
 	void setMinTransYLimitEnable(bool mtye)
 	{
 		if(mtye == false) return;
-		fprintf(mFile,"setAttr \".mtle.mtye\" %i;\n", mtye);
+		fprintf(mFile,"\tsetAttr \".mtle.mtye\" %i;\n", mtye);
 
 	}
 	void setMinTransZLimitEnable(bool mtze)
 	{
 		if(mtze == false) return;
-		fprintf(mFile,"setAttr \".mtle.mtze\" %i;\n", mtze);
+		fprintf(mFile,"\tsetAttr \".mtle.mtze\" %i;\n", mtze);
 
 	}
 	void setMaxTransLimitEnable(const MaxTransLimitEnable& xtle)
 	{
-		fprintf(mFile,"setAttr \".xtle\" ");
+		fprintf(mFile,"\tsetAttr \".xtle\" ");
 		xtle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -423,24 +424,24 @@ public:
 	void setMaxTransXLimitEnable(bool xtxe)
 	{
 		if(xtxe == false) return;
-		fprintf(mFile,"setAttr \".xtle.xtxe\" %i;\n", xtxe);
+		fprintf(mFile,"\tsetAttr \".xtle.xtxe\" %i;\n", xtxe);
 
 	}
 	void setMaxTransYLimitEnable(bool xtye)
 	{
 		if(xtye == false) return;
-		fprintf(mFile,"setAttr \".xtle.xtye\" %i;\n", xtye);
+		fprintf(mFile,"\tsetAttr \".xtle.xtye\" %i;\n", xtye);
 
 	}
 	void setMaxTransZLimitEnable(bool xtze)
 	{
 		if(xtze == false) return;
-		fprintf(mFile,"setAttr \".xtle.xtze\" %i;\n", xtze);
+		fprintf(mFile,"\tsetAttr \".xtle.xtze\" %i;\n", xtze);
 
 	}
 	void setMinRotLimit(const double3& mnrl)
 	{
-		fprintf(mFile,"setAttr \".mnrl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".mnrl\" -type \"double3\" ");
 		mnrl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -448,24 +449,24 @@ public:
 	void setMinRotXLimit(double mrxl)
 	{
 		if(mrxl == 4) return;
-		fprintf(mFile,"setAttr \".mnrl.mrxl\" %f;\n", mrxl);
+		fprintf(mFile,"\tsetAttr \".mnrl.mrxl\" %f;\n", mrxl);
 
 	}
 	void setMinRotYLimit(double mryl)
 	{
 		if(mryl == 4) return;
-		fprintf(mFile,"setAttr \".mnrl.mryl\" %f;\n", mryl);
+		fprintf(mFile,"\tsetAttr \".mnrl.mryl\" %f;\n", mryl);
 
 	}
 	void setMinRotZLimit(double mrzl)
 	{
 		if(mrzl == 4) return;
-		fprintf(mFile,"setAttr \".mnrl.mrzl\" %f;\n", mrzl);
+		fprintf(mFile,"\tsetAttr \".mnrl.mrzl\" %f;\n", mrzl);
 
 	}
 	void setMaxRotLimit(const double3& mxrl)
 	{
-		fprintf(mFile,"setAttr \".mxrl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".mxrl\" -type \"double3\" ");
 		mxrl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -473,24 +474,24 @@ public:
 	void setMaxRotXLimit(double xrxl)
 	{
 		if(xrxl == 4) return;
-		fprintf(mFile,"setAttr \".mxrl.xrxl\" %f;\n", xrxl);
+		fprintf(mFile,"\tsetAttr \".mxrl.xrxl\" %f;\n", xrxl);
 
 	}
 	void setMaxRotYLimit(double xryl)
 	{
 		if(xryl == 4) return;
-		fprintf(mFile,"setAttr \".mxrl.xryl\" %f;\n", xryl);
+		fprintf(mFile,"\tsetAttr \".mxrl.xryl\" %f;\n", xryl);
 
 	}
 	void setMaxRotZLimit(double xrzl)
 	{
 		if(xrzl == 4) return;
-		fprintf(mFile,"setAttr \".mxrl.xrzl\" %f;\n", xrzl);
+		fprintf(mFile,"\tsetAttr \".mxrl.xrzl\" %f;\n", xrzl);
 
 	}
 	void setMinRotLimitEnable(const MinRotLimitEnable& mrle)
 	{
-		fprintf(mFile,"setAttr \".mrle\" ");
+		fprintf(mFile,"\tsetAttr \".mrle\" ");
 		mrle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -498,24 +499,24 @@ public:
 	void setMinRotXLimitEnable(bool mrxe)
 	{
 		if(mrxe == false) return;
-		fprintf(mFile,"setAttr \".mrle.mrxe\" %i;\n", mrxe);
+		fprintf(mFile,"\tsetAttr \".mrle.mrxe\" %i;\n", mrxe);
 
 	}
 	void setMinRotYLimitEnable(bool mrye)
 	{
 		if(mrye == false) return;
-		fprintf(mFile,"setAttr \".mrle.mrye\" %i;\n", mrye);
+		fprintf(mFile,"\tsetAttr \".mrle.mrye\" %i;\n", mrye);
 
 	}
 	void setMinRotZLimitEnable(bool mrze)
 	{
 		if(mrze == false) return;
-		fprintf(mFile,"setAttr \".mrle.mrze\" %i;\n", mrze);
+		fprintf(mFile,"\tsetAttr \".mrle.mrze\" %i;\n", mrze);
 
 	}
 	void setMaxRotLimitEnable(const MaxRotLimitEnable& xrle)
 	{
-		fprintf(mFile,"setAttr \".xrle\" ");
+		fprintf(mFile,"\tsetAttr \".xrle\" ");
 		xrle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -523,24 +524,24 @@ public:
 	void setMaxRotXLimitEnable(bool xrxe)
 	{
 		if(xrxe == false) return;
-		fprintf(mFile,"setAttr \".xrle.xrxe\" %i;\n", xrxe);
+		fprintf(mFile,"\tsetAttr \".xrle.xrxe\" %i;\n", xrxe);
 
 	}
 	void setMaxRotYLimitEnable(bool xrye)
 	{
 		if(xrye == false) return;
-		fprintf(mFile,"setAttr \".xrle.xrye\" %i;\n", xrye);
+		fprintf(mFile,"\tsetAttr \".xrle.xrye\" %i;\n", xrye);
 
 	}
 	void setMaxRotZLimitEnable(bool xrze)
 	{
 		if(xrze == false) return;
-		fprintf(mFile,"setAttr \".xrle.xrze\" %i;\n", xrze);
+		fprintf(mFile,"\tsetAttr \".xrle.xrze\" %i;\n", xrze);
 
 	}
 	void setMinScaleLimit(const double3& mnsl)
 	{
-		fprintf(mFile,"setAttr \".mnsl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".mnsl\" -type \"double3\" ");
 		mnsl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -548,24 +549,24 @@ public:
 	void setMinScaleXLimit(double msxl)
 	{
 		if(msxl == -1) return;
-		fprintf(mFile,"setAttr \".mnsl.msxl\" %f;\n", msxl);
+		fprintf(mFile,"\tsetAttr \".mnsl.msxl\" %f;\n", msxl);
 
 	}
 	void setMinScaleYLimit(double msyl)
 	{
 		if(msyl == -1) return;
-		fprintf(mFile,"setAttr \".mnsl.msyl\" %f;\n", msyl);
+		fprintf(mFile,"\tsetAttr \".mnsl.msyl\" %f;\n", msyl);
 
 	}
 	void setMinScaleZLimit(double mszl)
 	{
 		if(mszl == -1) return;
-		fprintf(mFile,"setAttr \".mnsl.mszl\" %f;\n", mszl);
+		fprintf(mFile,"\tsetAttr \".mnsl.mszl\" %f;\n", mszl);
 
 	}
 	void setMaxScaleLimit(const double3& mxsl)
 	{
-		fprintf(mFile,"setAttr \".mxsl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".mxsl\" -type \"double3\" ");
 		mxsl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -573,24 +574,24 @@ public:
 	void setMaxScaleXLimit(double xsxl)
 	{
 		if(xsxl == 1) return;
-		fprintf(mFile,"setAttr \".mxsl.xsxl\" %f;\n", xsxl);
+		fprintf(mFile,"\tsetAttr \".mxsl.xsxl\" %f;\n", xsxl);
 
 	}
 	void setMaxScaleYLimit(double xsyl)
 	{
 		if(xsyl == 1) return;
-		fprintf(mFile,"setAttr \".mxsl.xsyl\" %f;\n", xsyl);
+		fprintf(mFile,"\tsetAttr \".mxsl.xsyl\" %f;\n", xsyl);
 
 	}
 	void setMaxScaleZLimit(double xszl)
 	{
 		if(xszl == 1) return;
-		fprintf(mFile,"setAttr \".mxsl.xszl\" %f;\n", xszl);
+		fprintf(mFile,"\tsetAttr \".mxsl.xszl\" %f;\n", xszl);
 
 	}
 	void setMinScaleLimitEnable(const MinScaleLimitEnable& msle)
 	{
-		fprintf(mFile,"setAttr \".msle\" ");
+		fprintf(mFile,"\tsetAttr \".msle\" ");
 		msle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -598,24 +599,24 @@ public:
 	void setMinScaleXLimitEnable(bool msxe)
 	{
 		if(msxe == false) return;
-		fprintf(mFile,"setAttr \".msle.msxe\" %i;\n", msxe);
+		fprintf(mFile,"\tsetAttr \".msle.msxe\" %i;\n", msxe);
 
 	}
 	void setMinScaleYLimitEnable(bool msye)
 	{
 		if(msye == false) return;
-		fprintf(mFile,"setAttr \".msle.msye\" %i;\n", msye);
+		fprintf(mFile,"\tsetAttr \".msle.msye\" %i;\n", msye);
 
 	}
 	void setMinScaleZLimitEnable(bool msze)
 	{
 		if(msze == false) return;
-		fprintf(mFile,"setAttr \".msle.msze\" %i;\n", msze);
+		fprintf(mFile,"\tsetAttr \".msle.msze\" %i;\n", msze);
 
 	}
 	void setMaxScaleLimitEnable(const MaxScaleLimitEnable& xsle)
 	{
-		fprintf(mFile,"setAttr \".xsle\" ");
+		fprintf(mFile,"\tsetAttr \".xsle\" ");
 		xsle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -623,24 +624,24 @@ public:
 	void setMaxScaleXLimitEnable(bool xsxe)
 	{
 		if(xsxe == false) return;
-		fprintf(mFile,"setAttr \".xsle.xsxe\" %i;\n", xsxe);
+		fprintf(mFile,"\tsetAttr \".xsle.xsxe\" %i;\n", xsxe);
 
 	}
 	void setMaxScaleYLimitEnable(bool xsye)
 	{
 		if(xsye == false) return;
-		fprintf(mFile,"setAttr \".xsle.xsye\" %i;\n", xsye);
+		fprintf(mFile,"\tsetAttr \".xsle.xsye\" %i;\n", xsye);
 
 	}
 	void setMaxScaleZLimitEnable(bool xsze)
 	{
 		if(xsze == false) return;
-		fprintf(mFile,"setAttr \".xsle.xsze\" %i;\n", xsze);
+		fprintf(mFile,"\tsetAttr \".xsle.xsze\" %i;\n", xsze);
 
 	}
 	void setSelectHandle(const double3& hdl)
 	{
-		fprintf(mFile,"setAttr \".hdl\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".hdl\" -type \"double3\" ");
 		hdl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -648,60 +649,60 @@ public:
 	void setSelectHandleX(double hdlx)
 	{
 		if(hdlx == 0) return;
-		fprintf(mFile,"setAttr \".hdl.hdlx\" %f;\n", hdlx);
+		fprintf(mFile,"\tsetAttr \".hdl.hdlx\" %f;\n", hdlx);
 
 	}
 	void setSelectHandleY(double hdly)
 	{
 		if(hdly == 0) return;
-		fprintf(mFile,"setAttr \".hdl.hdly\" %f;\n", hdly);
+		fprintf(mFile,"\tsetAttr \".hdl.hdly\" %f;\n", hdly);
 
 	}
 	void setSelectHandleZ(double hdlz)
 	{
 		if(hdlz == 0) return;
-		fprintf(mFile,"setAttr \".hdl.hdlz\" %f;\n", hdlz);
+		fprintf(mFile,"\tsetAttr \".hdl.hdlz\" %f;\n", hdlz);
 
 	}
 	void setInheritsTransform(bool it)
 	{
 		if(it == true) return;
-		fprintf(mFile,"setAttr \".it\" %i;\n", it);
+		fprintf(mFile,"\tsetAttr \".it\" %i;\n", it);
 
 	}
 	void setDisplayHandle(bool dh)
 	{
 		if(dh == false) return;
-		fprintf(mFile,"setAttr \".dh\" %i;\n", dh);
+		fprintf(mFile,"\tsetAttr \".dh\" %i;\n", dh);
 
 	}
 	void setDisplayScalePivot(bool dsp)
 	{
 		if(dsp == false) return;
-		fprintf(mFile,"setAttr \".dsp\" %i;\n", dsp);
+		fprintf(mFile,"\tsetAttr \".dsp\" %i;\n", dsp);
 
 	}
 	void setDisplayRotatePivot(bool drp)
 	{
 		if(drp == false) return;
-		fprintf(mFile,"setAttr \".drp\" %i;\n", drp);
+		fprintf(mFile,"\tsetAttr \".drp\" %i;\n", drp);
 
 	}
 	void setDisplayLocalAxis(bool dla)
 	{
 		if(dla == false) return;
-		fprintf(mFile,"setAttr \".dla\" %i;\n", dla);
+		fprintf(mFile,"\tsetAttr \".dla\" %i;\n", dla);
 
 	}
 	void setShowManipDefault(unsigned int smd)
 	{
 		if(smd == 0) return;
-		fprintf(mFile,"setAttr \".smd\" %i;\n", smd);
+		fprintf(mFile,"\tsetAttr \".smd\" %i;\n", smd);
 
 	}
 	void setRotateQuaternion(const double4& rq)
 	{
-		fprintf(mFile,"setAttr \".rq\" -type \"double4\" ");
+		fprintf(mFile,"\tsetAttr \".rq\" -type \"double4\" ");
 		rq.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -709,30 +710,30 @@ public:
 	void setRotateQuaternionX(double rqx)
 	{
 		if(rqx == 0.0) return;
-		fprintf(mFile,"setAttr \".rq.rqx\" %f;\n", rqx);
+		fprintf(mFile,"\tsetAttr \".rq.rqx\" %f;\n", rqx);
 
 	}
 	void setRotateQuaternionY(double rqy)
 	{
 		if(rqy == 0.0) return;
-		fprintf(mFile,"setAttr \".rq.rqy\" %f;\n", rqy);
+		fprintf(mFile,"\tsetAttr \".rq.rqy\" %f;\n", rqy);
 
 	}
 	void setRotateQuaternionZ(double rqz)
 	{
 		if(rqz == 0.0) return;
-		fprintf(mFile,"setAttr \".rq.rqz\" %f;\n", rqz);
+		fprintf(mFile,"\tsetAttr \".rq.rqz\" %f;\n", rqz);
 
 	}
 	void setRotateQuaternionW(double rqw)
 	{
 		if(rqw == 0.0) return;
-		fprintf(mFile,"setAttr \".rq.rqw\" %f;\n", rqw);
+		fprintf(mFile,"\tsetAttr \".rq.rqw\" %f;\n", rqw);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -740,49 +741,49 @@ public:
 	void setMiDeriveFromMaya(bool dfm)
 	{
 		if(dfm == true) return;
-		fprintf(mFile,"setAttr \".mrc.dfm\" %i;\n", dfm);
+		fprintf(mFile,"\tsetAttr \".mrc.dfm\" %i;\n", dfm);
 
 	}
 	void setMiHide(bool hde)
 	{
 		if(hde == false) return;
-		fprintf(mFile,"setAttr \".mrc.hde\" %i;\n", hde);
+		fprintf(mFile,"\tsetAttr \".mrc.hde\" %i;\n", hde);
 
 	}
 	void setMiVisible(unsigned int vsb)
 	{
 		if(vsb == 2) return;
-		fprintf(mFile,"setAttr \".mrc.vsb\" %i;\n", vsb);
+		fprintf(mFile,"\tsetAttr \".mrc.vsb\" %i;\n", vsb);
 
 	}
 	void setMiTrace(unsigned int trc)
 	{
 		if(trc == 2) return;
-		fprintf(mFile,"setAttr \".mrc.trc\" %i;\n", trc);
+		fprintf(mFile,"\tsetAttr \".mrc.trc\" %i;\n", trc);
 
 	}
 	void setMiShadow(unsigned int shd)
 	{
 		if(shd == 2) return;
-		fprintf(mFile,"setAttr \".mrc.shd\" %i;\n", shd);
+		fprintf(mFile,"\tsetAttr \".mrc.shd\" %i;\n", shd);
 
 	}
 	void setMiCaustic(unsigned int cst)
 	{
 		if(cst == 5) return;
-		fprintf(mFile,"setAttr \".mrc.cst\" %i;\n", cst);
+		fprintf(mFile,"\tsetAttr \".mrc.cst\" %i;\n", cst);
 
 	}
 	void setMiGlobillum(unsigned int glb)
 	{
 		if(glb == 5) return;
-		fprintf(mFile,"setAttr \".mrc.glb\" %i;\n", glb);
+		fprintf(mFile,"\tsetAttr \".mrc.glb\" %i;\n", glb);
 
 	}
 	void setMiExportGeoShader(bool mieg)
 	{
 		if(mieg == false) return;
-		fprintf(mFile,"setAttr \".mrc.mieg\" %i;\n", mieg);
+		fprintf(mFile,"\tsetAttr \".mrc.mieg\" %i;\n", mieg);
 
 	}
 	void getTranslate()
@@ -990,6 +991,11 @@ public:
 		fprintf(mFile,"\"%s.tmrp.tmrz\"",mName.c_str());
 
 	}
+	void getGeometry()
+	{
+		fprintf(mFile,"\"%s.g\"",mName.c_str());
+
+	}
 	void getXformMatrix()
 	{
 		fprintf(mFile,"\"%s.xm\"",mName.c_str());
@@ -1040,9 +1046,19 @@ public:
 		fprintf(mFile,"\"%s.dla\"",mName.c_str());
 
 	}
+	void getDynamics()
+	{
+		fprintf(mFile,"\"%s.dyn\"",mName.c_str());
+
+	}
 	void getShowManipDefault()
 	{
 		fprintf(mFile,"\"%s.smd\"",mName.c_str());
+
+	}
+	void getSpecifiedManipLocation()
+	{
+		fprintf(mFile,"\"%s.sml\"",mName.c_str());
 
 	}
 	void getRotateQuaternion()
@@ -1126,7 +1142,8 @@ public:
 
 	}
 protected:
-	Transform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DagNode(file, name, parent, nodeType) {}
+	Transform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DagNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class BlendColorSets : public PolyModifier
 {
 public:
 public:
+	BlendColorSets():PolyModifier(){}
 	BlendColorSets(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "blendColorSets"){}
 	virtual ~BlendColorSets(){}
 	void setBaseColorName(const string& bcn)
 	{
 		if(bcn == "NULL") return;
-		fprintf(mFile,"setAttr \".bcn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bcn\" -type \"string\" ");
 		bcn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setSrcColorName(const string& src)
 	{
 		if(src == "NULL") return;
-		fprintf(mFile,"setAttr \".src\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".src\" -type \"string\" ");
 		src.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,7 +40,7 @@ public:
 	void setDstColorName(const string& dst)
 	{
 		if(dst == "NULL") return;
-		fprintf(mFile,"setAttr \".dst\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".dst\" -type \"string\" ");
 		dst.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -47,31 +48,31 @@ public:
 	void setBlendFunc(unsigned int bfn)
 	{
 		if(bfn == 0) return;
-		fprintf(mFile,"setAttr \".bfn\" %i;\n", bfn);
+		fprintf(mFile,"\tsetAttr \".bfn\" %i;\n", bfn);
 
 	}
 	void setBlendWeightA(float bwa)
 	{
 		if(bwa == 0.0) return;
-		fprintf(mFile,"setAttr \".bwa\" %f;\n", bwa);
+		fprintf(mFile,"\tsetAttr \".bwa\" %f;\n", bwa);
 
 	}
 	void setBlendWeightB(float bwb)
 	{
 		if(bwb == 0.0) return;
-		fprintf(mFile,"setAttr \".bwb\" %f;\n", bwb);
+		fprintf(mFile,"\tsetAttr \".bwb\" %f;\n", bwb);
 
 	}
 	void setBlendWeightC(float bwc)
 	{
 		if(bwc == 0.5) return;
-		fprintf(mFile,"setAttr \".bwc\" %f;\n", bwc);
+		fprintf(mFile,"\tsetAttr \".bwc\" %f;\n", bwc);
 
 	}
 	void setBlendWeightD(float bwd)
 	{
 		if(bwd == 0.5) return;
-		fprintf(mFile,"setAttr \".bwd\" %f;\n", bwd);
+		fprintf(mFile,"\tsetAttr \".bwd\" %f;\n", bwd);
 
 	}
 	void getBaseColorName()
@@ -115,7 +116,8 @@ public:
 
 	}
 protected:
-	BlendColorSets(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	BlendColorSets(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class PolyExtrudeVertex : public PolyModifierWorld
 {
 public:
 public:
+	PolyExtrudeVertex():PolyModifierWorld(){}
 	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyExtrudeVertex"){}
 	virtual ~PolyExtrudeVertex(){}
 	void setLength(float l)
 	{
 		if(l == 0.0) return;
-		fprintf(mFile,"setAttr \".l\" %f;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
 
 	}
 	void setWidth(float w)
 	{
 		if(w == 0.0) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setDivisions(int d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void getLength()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyExtrudeVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,78 +18,79 @@ class PolyBevel : public PolyModifierWorld
 {
 public:
 public:
+	PolyBevel():PolyModifierWorld(){}
 	PolyBevel(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyBevel"){}
 	virtual ~PolyBevel(){}
 	void setOffsetAsFraction(bool oaf)
 	{
 		if(oaf == false) return;
-		fprintf(mFile,"setAttr \".oaf\" %i;\n", oaf);
+		fprintf(mFile,"\tsetAttr \".oaf\" %i;\n", oaf);
 
 	}
 	void setOffset(double o)
 	{
 		if(o == 0) return;
-		fprintf(mFile,"setAttr \".o\" %f;\n", o);
+		fprintf(mFile,"\tsetAttr \".o\" %f;\n", o);
 
 	}
 	void setRoundness(double r)
 	{
 		if(r == 0.5) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setSegments(int sg)
 	{
 		if(sg == 1) return;
-		fprintf(mFile,"setAttr \".sg\" %i;\n", sg);
+		fprintf(mFile,"\tsetAttr \".sg\" %i;\n", sg);
 
 	}
 	void setAutoFit(bool af)
 	{
 		if(af == true) return;
-		fprintf(mFile,"setAttr \".af\" %i;\n", af);
+		fprintf(mFile,"\tsetAttr \".af\" %i;\n", af);
 
 	}
 	void setAngleTolerance(double at)
 	{
 		if(at == 20.0) return;
-		fprintf(mFile,"setAttr \".at\" %f;\n", at);
+		fprintf(mFile,"\tsetAttr \".at\" %f;\n", at);
 
 	}
 	void setFillNgons(bool fn)
 	{
 		if(fn == false) return;
-		fprintf(mFile,"setAttr \".fn\" %i;\n", fn);
+		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
 
 	}
 	void setUvAssignment(unsigned int ua)
 	{
 		if(ua == 0) return;
-		fprintf(mFile,"setAttr \".ua\" %i;\n", ua);
+		fprintf(mFile,"\tsetAttr \".ua\" %i;\n", ua);
 
 	}
 	void setMergeVertices(bool mv)
 	{
 		if(mv == false) return;
-		fprintf(mFile,"setAttr \".mv\" %i;\n", mv);
+		fprintf(mFile,"\tsetAttr \".mv\" %i;\n", mv);
 
 	}
 	void setMergeVertexTolerance(double mvt)
 	{
 		if(mvt == 0) return;
-		fprintf(mFile,"setAttr \".mvt\" %f;\n", mvt);
+		fprintf(mFile,"\tsetAttr \".mvt\" %f;\n", mvt);
 
 	}
 	void setSmoothingAngle(double sa)
 	{
 		if(sa == 0.0) return;
-		fprintf(mFile,"setAttr \".sa\" %f;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %f;\n", sa);
 
 	}
 	void setMiteringAngle(double ma)
 	{
 		if(ma == 0.0) return;
-		fprintf(mFile,"setAttr \".ma\" %f;\n", ma);
+		fprintf(mFile,"\tsetAttr \".ma\" %f;\n", ma);
 
 	}
 	void getOffsetAsFraction()
@@ -153,7 +154,8 @@ public:
 
 	}
 protected:
-	PolyBevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyBevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class AddDoubleLinear : public DependNode
 {
 public:
 public:
+	AddDoubleLinear():DependNode(){}
 	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "addDoubleLinear"){}
 	virtual ~AddDoubleLinear(){}
 	void setInput1(double i1)
 	{
 		if(i1 == 0) return;
-		fprintf(mFile,"setAttr \".i1\" %f;\n", i1);
+		fprintf(mFile,"\tsetAttr \".i1\" %f;\n", i1);
 
 	}
 	void setInput2(double i2)
 	{
 		if(i2 == 0) return;
-		fprintf(mFile,"setAttr \".i2\" %f;\n", i2);
+		fprintf(mFile,"\tsetAttr \".i2\" %f;\n", i2);
 
 	}
 	void getInput1()
@@ -48,7 +49,8 @@ public:
 
 	}
 protected:
-	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	AddDoubleLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

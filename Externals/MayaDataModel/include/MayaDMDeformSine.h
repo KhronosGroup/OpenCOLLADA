@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class DeformSine : public DeformFunc
 {
 public:
 public:
+	DeformSine():DeformFunc(){}
 	DeformSine(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformSine"){}
 	virtual ~DeformSine(){}
 	void setLowBound(double lb)
 	{
 		if(lb == -1.0) return;
-		fprintf(mFile,"setAttr \".lb\" %f;\n", lb);
+		fprintf(mFile,"\tsetAttr \".lb\" %f;\n", lb);
 
 	}
 	void setHighBound(double hb)
 	{
 		if(hb == 1.0) return;
-		fprintf(mFile,"setAttr \".hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hb\" %f;\n", hb);
 
 	}
 	void setAmplitude(double amp)
 	{
 		if(amp == 0.0) return;
-		fprintf(mFile,"setAttr \".amp\" %f;\n", amp);
+		fprintf(mFile,"\tsetAttr \".amp\" %f;\n", amp);
 
 	}
 	void setWavelength(double wav)
 	{
 		if(wav == 2.0) return;
-		fprintf(mFile,"setAttr \".wav\" %f;\n", wav);
+		fprintf(mFile,"\tsetAttr \".wav\" %f;\n", wav);
 
 	}
 	void setDropoff(double dr)
 	{
 		if(dr == 0.0) return;
-		fprintf(mFile,"setAttr \".dr\" %f;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %f;\n", dr);
 
 	}
 	void setOffset(double off)
 	{
 		if(off == 0.0) return;
-		fprintf(mFile,"setAttr \".off\" %f;\n", off);
+		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
 	void getLowBound()
@@ -87,7 +88,8 @@ public:
 
 	}
 protected:
-	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformFunc(file, name, parent, nodeType) {}
+	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformFunc(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

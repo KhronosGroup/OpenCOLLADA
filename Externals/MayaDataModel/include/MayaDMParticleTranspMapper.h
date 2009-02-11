@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class ParticleTranspMapper : public DependNode
 {
 public:
 public:
+	ParticleTranspMapper():DependNode(){}
 	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleTranspMapper"){}
 	virtual ~ParticleTranspMapper(){}
 	void setParticleTransparency(const float3& pt)
 	{
-		fprintf(mFile,"setAttr \".pt\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pt\" -type \"float3\" ");
 		pt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,19 +31,19 @@ public:
 	void setParticleTransparencyR(float ptr)
 	{
 		if(ptr == 0.0) return;
-		fprintf(mFile,"setAttr \".pt.ptr\" %f;\n", ptr);
+		fprintf(mFile,"\tsetAttr \".pt.ptr\" %f;\n", ptr);
 
 	}
 	void setParticleTransparencyG(float ptg)
 	{
 		if(ptg == 0.0) return;
-		fprintf(mFile,"setAttr \".pt.ptg\" %f;\n", ptg);
+		fprintf(mFile,"\tsetAttr \".pt.ptg\" %f;\n", ptg);
 
 	}
 	void setParticleTransparencyB(float ptb)
 	{
 		if(ptb == 0.0) return;
-		fprintf(mFile,"setAttr \".pt.ptb\" %f;\n", ptb);
+		fprintf(mFile,"\tsetAttr \".pt.ptb\" %f;\n", ptb);
 
 	}
 	void getParticleTransparency()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -55,18 +55,19 @@ public:
 		}
 	};
 public:
+	RoundConstantRadius():AbstractBaseCreate(){}
 	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "roundConstantRadius"){}
 	virtual ~RoundConstantRadius(){}
 	void setInputSurface(size_t is_i,const nurbsSurface& is)
 	{
-		fprintf(mFile,"setAttr \".is[%i]\" -type \"nurbsSurface\" ",is_i);
+		fprintf(mFile,"\tsetAttr \".is[%i]\" -type \"nurbsSurface\" ",is_i);
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputSurface(size_t is_start,size_t is_end,nurbsSurface* is)
 	{
-		fprintf(mFile,"setAttr \".is[%i:%i]\" ", is_start,is_end);
+		fprintf(mFile,"\tsetAttr \".is[%i:%i]\" ", is_start,is_end);
 		size_t size = (is_end-is_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -78,7 +79,7 @@ public:
 	}
 	void startInputSurface(size_t is_start,size_t is_end)
 	{
-		fprintf(mFile,"setAttr \".is[%i:%i]\"",is_start,is_end);
+		fprintf(mFile,"\tsetAttr \".is[%i:%i]\"",is_start,is_end);
 		fprintf(mFile," -type \"nurbsSurface\" ");
 
 	}
@@ -96,12 +97,12 @@ public:
 	void setRadius(size_t r_i,double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r[%i]\" %f;\n", r_i,r);
+		fprintf(mFile,"\tsetAttr \".r[%i]\" %f;\n", r_i,r);
 
 	}
 	void setRadius(size_t r_start,size_t r_end,double* r)
 	{
-		fprintf(mFile,"setAttr \".r[%i:%i]\" ", r_start,r_end);
+		fprintf(mFile,"\tsetAttr \".r[%i:%i]\" ", r_start,r_end);
 		size_t size = (r_end-r_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -113,7 +114,7 @@ public:
 	}
 	void startRadius(size_t r_start,size_t r_end)
 	{
-		fprintf(mFile,"setAttr \".r[%i:%i]\"",r_start,r_end);
+		fprintf(mFile,"\tsetAttr \".r[%i:%i]\"",r_start,r_end);
 
 	}
 	void appendRadius(double r)
@@ -128,21 +129,21 @@ public:
 	}
 	void setEdge(size_t e_i,const Edge& e)
 	{
-		fprintf(mFile,"setAttr \".e[%i]\" ",e_i);
+		fprintf(mFile,"\tsetAttr \".e[%i]\" ",e_i);
 		e.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputCurveA(size_t e_i,size_t ica_i,const nurbsCurve& ica)
 	{
-		fprintf(mFile,"setAttr \".e[%i].ica[%i]\" -type \"nurbsCurve\" ",e_i,ica_i);
+		fprintf(mFile,"\tsetAttr \".e[%i].ica[%i]\" -type \"nurbsCurve\" ",e_i,ica_i);
 		ica.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputCurveA(size_t e_i,size_t ica_start,size_t ica_end,nurbsCurve* ica)
 	{
-		fprintf(mFile,"setAttr \".e[%i].ica[%i:%i]\" ", e_i,ica_start,ica_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].ica[%i:%i]\" ", e_i,ica_start,ica_end);
 		size_t size = (ica_end-ica_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -154,7 +155,7 @@ public:
 	}
 	void startInputCurveA(size_t e_i,size_t ica_start,size_t ica_end)
 	{
-		fprintf(mFile,"setAttr \".e[%i].ica[%i:%i]\"",e_i,ica_start,ica_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].ica[%i:%i]\"",e_i,ica_start,ica_end);
 		fprintf(mFile," -type \"nurbsCurve\" ");
 
 	}
@@ -171,14 +172,14 @@ public:
 	}
 	void setInputCurveB(size_t e_i,size_t icb_i,const nurbsCurve& icb)
 	{
-		fprintf(mFile,"setAttr \".e[%i].icb[%i]\" -type \"nurbsCurve\" ",e_i,icb_i);
+		fprintf(mFile,"\tsetAttr \".e[%i].icb[%i]\" -type \"nurbsCurve\" ",e_i,icb_i);
 		icb.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputCurveB(size_t e_i,size_t icb_start,size_t icb_end,nurbsCurve* icb)
 	{
-		fprintf(mFile,"setAttr \".e[%i].icb[%i:%i]\" ", e_i,icb_start,icb_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].icb[%i:%i]\" ", e_i,icb_start,icb_end);
 		size_t size = (icb_end-icb_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -190,7 +191,7 @@ public:
 	}
 	void startInputCurveB(size_t e_i,size_t icb_start,size_t icb_end)
 	{
-		fprintf(mFile,"setAttr \".e[%i].icb[%i:%i]\"",e_i,icb_start,icb_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].icb[%i:%i]\"",e_i,icb_start,icb_end);
 		fprintf(mFile," -type \"nurbsCurve\" ");
 
 	}
@@ -208,12 +209,12 @@ public:
 	void setInSurfIdxA(size_t e_i,size_t isa_i,int isa)
 	{
 		if(isa == 123456) return;
-		fprintf(mFile,"setAttr \".e[%i].isa[%i]\" %i;\n", e_i,isa_i,isa);
+		fprintf(mFile,"\tsetAttr \".e[%i].isa[%i]\" %i;\n", e_i,isa_i,isa);
 
 	}
 	void setInSurfIdxA(size_t e_i,size_t isa_start,size_t isa_end,int* isa)
 	{
-		fprintf(mFile,"setAttr \".e[%i].isa[%i:%i]\" ", e_i,isa_start,isa_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].isa[%i:%i]\" ", e_i,isa_start,isa_end);
 		size_t size = (isa_end-isa_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -225,7 +226,7 @@ public:
 	}
 	void startInSurfIdxA(size_t e_i,size_t isa_start,size_t isa_end)
 	{
-		fprintf(mFile,"setAttr \".e[%i].isa[%i:%i]\"",e_i,isa_start,isa_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].isa[%i:%i]\"",e_i,isa_start,isa_end);
 
 	}
 	void appendInSurfIdxA(int isa)
@@ -241,12 +242,12 @@ public:
 	void setInSurfIdxB(size_t e_i,size_t isb_i,int isb)
 	{
 		if(isb == 123456) return;
-		fprintf(mFile,"setAttr \".e[%i].isb[%i]\" %i;\n", e_i,isb_i,isb);
+		fprintf(mFile,"\tsetAttr \".e[%i].isb[%i]\" %i;\n", e_i,isb_i,isb);
 
 	}
 	void setInSurfIdxB(size_t e_i,size_t isb_start,size_t isb_end,int* isb)
 	{
-		fprintf(mFile,"setAttr \".e[%i].isb[%i:%i]\" ", e_i,isb_start,isb_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].isb[%i:%i]\" ", e_i,isb_start,isb_end);
 		size_t size = (isb_end-isb_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -258,7 +259,7 @@ public:
 	}
 	void startInSurfIdxB(size_t e_i,size_t isb_start,size_t isb_end)
 	{
-		fprintf(mFile,"setAttr \".e[%i].isb[%i:%i]\"",e_i,isb_start,isb_end);
+		fprintf(mFile,"\tsetAttr \".e[%i].isb[%i:%i]\"",e_i,isb_start,isb_end);
 
 	}
 	void appendInSurfIdxB(int isb)
@@ -274,13 +275,13 @@ public:
 	void setEdgeValid(size_t e_i,bool ev)
 	{
 		if(ev == 1) return;
-		fprintf(mFile,"setAttr \".e[%i].ev\" %i;\n", e_i,ev);
+		fprintf(mFile,"\tsetAttr \".e[%i].ev\" %i;\n", e_i,ev);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void getInputSurface(size_t is_i)
@@ -329,7 +330,8 @@ public:
 
 	}
 protected:
-	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

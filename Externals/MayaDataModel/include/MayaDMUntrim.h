@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class Untrim : public AbstractBaseCreate
 {
 public:
 public:
+	Untrim():AbstractBaseCreate(){}
 	Untrim(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "untrim"){}
 	virtual ~Untrim(){}
 	void getInputSurface()
@@ -36,7 +37,8 @@ public:
 
 	}
 protected:
-	Untrim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	Untrim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

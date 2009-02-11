@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class NComponent : public DependNode
 {
 public:
 public:
+	NComponent():DependNode(){}
 	NComponent(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "nComponent"){}
 	virtual ~NComponent(){}
 	void setComponentGroupId(int cid)
 	{
 		if(cid == 0) return;
-		fprintf(mFile,"setAttr \".cid\" %i;\n", cid);
+		fprintf(mFile,"\tsetAttr \".cid\" %i;\n", cid);
 
 	}
 	void setComponentType(unsigned int ct)
 	{
 		if(ct == 0) return;
-		fprintf(mFile,"setAttr \".ct\" %i;\n", ct);
+		fprintf(mFile,"\tsetAttr \".ct\" %i;\n", ct);
 
 	}
 	void setElements(unsigned int el)
 	{
 		if(el == 0) return;
-		fprintf(mFile,"setAttr \".el\" %i;\n", el);
+		fprintf(mFile,"\tsetAttr \".el\" %i;\n", el);
 
 	}
 	void setStrength(double stn)
 	{
 		if(stn == 1.0) return;
-		fprintf(mFile,"setAttr \".stn\" %f;\n", stn);
+		fprintf(mFile,"\tsetAttr \".stn\" %f;\n", stn);
 
 	}
 	void setStrengthMap(float stnm)
 	{
 		if(stnm == 1.0) return;
-		fprintf(mFile,"setAttr \".stnm\" %f;\n", stnm);
+		fprintf(mFile,"\tsetAttr \".stnm\" %f;\n", stnm);
 
 	}
 	void setStrengthPerVertex(const doubleArray& spv)
 	{
 		if(spv.size == 0) return;
-		fprintf(mFile,"setAttr \".spv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".spv\" -type \"doubleArray\" ");
 		spv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -61,19 +62,19 @@ public:
 	void setGlueStrength(double gst)
 	{
 		if(gst == 1.0) return;
-		fprintf(mFile,"setAttr \".gst\" %f;\n", gst);
+		fprintf(mFile,"\tsetAttr \".gst\" %f;\n", gst);
 
 	}
 	void setGlueStrengthMap(float gstm)
 	{
 		if(gstm == 1.0) return;
-		fprintf(mFile,"setAttr \".gstm\" %f;\n", gstm);
+		fprintf(mFile,"\tsetAttr \".gstm\" %f;\n", gstm);
 
 	}
 	void setGlueStrengthPerVertex(const doubleArray& gspv)
 	{
 		if(gspv.size == 0) return;
-		fprintf(mFile,"setAttr \".gspv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".gspv\" -type \"doubleArray\" ");
 		gspv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,19 +82,19 @@ public:
 	void setWeight(double wgh)
 	{
 		if(wgh == 1.0) return;
-		fprintf(mFile,"setAttr \".wgh\" %f;\n", wgh);
+		fprintf(mFile,"\tsetAttr \".wgh\" %f;\n", wgh);
 
 	}
 	void setWeightMap(float wemp)
 	{
 		if(wemp == 1.0) return;
-		fprintf(mFile,"setAttr \".wemp\" %f;\n", wemp);
+		fprintf(mFile,"\tsetAttr \".wemp\" %f;\n", wemp);
 
 	}
 	void setWeightPerVertex(const doubleArray& wpv)
 	{
 		if(wpv.size == 0) return;
-		fprintf(mFile,"setAttr \".wpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".wpv\" -type \"doubleArray\" ");
 		wpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -101,18 +102,18 @@ public:
 	void setTangentStrength(double tst)
 	{
 		if(tst == 0.5) return;
-		fprintf(mFile,"setAttr \".tst\" %f;\n", tst);
+		fprintf(mFile,"\tsetAttr \".tst\" %f;\n", tst);
 
 	}
 	void setComponentIndices(size_t ci_i,int ci)
 	{
 		if(ci == 0) return;
-		fprintf(mFile,"setAttr \".ci[%i]\" %i;\n", ci_i,ci);
+		fprintf(mFile,"\tsetAttr \".ci[%i]\" %i;\n", ci_i,ci);
 
 	}
 	void setComponentIndices(size_t ci_start,size_t ci_end,int* ci)
 	{
-		fprintf(mFile,"setAttr \".ci[%i:%i]\" ", ci_start,ci_end);
+		fprintf(mFile,"\tsetAttr \".ci[%i:%i]\" ", ci_start,ci_end);
 		size_t size = (ci_end-ci_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -124,7 +125,7 @@ public:
 	}
 	void startComponentIndices(size_t ci_start,size_t ci_end)
 	{
-		fprintf(mFile,"setAttr \".ci[%i:%i]\"",ci_start,ci_end);
+		fprintf(mFile,"\tsetAttr \".ci[%i:%i]\"",ci_start,ci_end);
 
 	}
 	void appendComponentIndices(int ci)
@@ -140,19 +141,19 @@ public:
 	void setStrengthMapType(unsigned int smt)
 	{
 		if(smt == 2) return;
-		fprintf(mFile,"setAttr \".smt\" %i;\n", smt);
+		fprintf(mFile,"\tsetAttr \".smt\" %i;\n", smt);
 
 	}
 	void setGlueStrengthMapType(unsigned int gsmt)
 	{
 		if(gsmt == 2) return;
-		fprintf(mFile,"setAttr \".gsmt\" %i;\n", gsmt);
+		fprintf(mFile,"\tsetAttr \".gsmt\" %i;\n", gsmt);
 
 	}
 	void setWeightMapType(unsigned int wmt)
 	{
 		if(wmt == 2) return;
-		fprintf(mFile,"setAttr \".wmt\" %i;\n", wmt);
+		fprintf(mFile,"\tsetAttr \".wmt\" %i;\n", wmt);
 
 	}
 	void getSurface()
@@ -256,7 +257,8 @@ public:
 
 	}
 protected:
-	NComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	NComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,19 +18,20 @@ class SubdTweak : public SubdModifier
 {
 public:
 public:
+	SubdTweak():SubdModifier(){}
 	SubdTweak(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdTweak"){}
 	virtual ~SubdTweak(){}
 	void setTweak(size_t tk_i,const double3& tk)
 	{
 		if(tk == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".tk[%i]\" -type \"double3\" ",tk_i);
+		fprintf(mFile,"\tsetAttr \".tk[%i]\" -type \"double3\" ",tk_i);
 		tk.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setTweak(size_t tk_start,size_t tk_end,double* tk)
 	{
-		fprintf(mFile,"setAttr \".tk[%i:%i]\" ", tk_start,tk_end);
+		fprintf(mFile,"\tsetAttr \".tk[%i:%i]\" ", tk_start,tk_end);
 		size_t size = (tk_end-tk_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -42,7 +43,7 @@ public:
 	}
 	void startTweak(size_t tk_start,size_t tk_end)
 	{
-		fprintf(mFile,"setAttr \".tk[%i:%i]\"",tk_start,tk_end);
+		fprintf(mFile,"\tsetAttr \".tk[%i:%i]\"",tk_start,tk_end);
 
 	}
 	void appendTweak(double tk)
@@ -58,19 +59,19 @@ public:
 	void setTweakX(size_t tk_i,double tx)
 	{
 		if(tx == 0.0) return;
-		fprintf(mFile,"setAttr \".tk[%i].tx\" %f;\n", tk_i,tx);
+		fprintf(mFile,"\tsetAttr \".tk[%i].tx\" %f;\n", tk_i,tx);
 
 	}
 	void setTweakY(size_t tk_i,double ty)
 	{
 		if(ty == 0.0) return;
-		fprintf(mFile,"setAttr \".tk[%i].ty\" %f;\n", tk_i,ty);
+		fprintf(mFile,"\tsetAttr \".tk[%i].ty\" %f;\n", tk_i,ty);
 
 	}
 	void setTweakZ(size_t tk_i,double tz)
 	{
 		if(tz == 0.0) return;
-		fprintf(mFile,"setAttr \".tk[%i].tz\" %f;\n", tk_i,tz);
+		fprintf(mFile,"\tsetAttr \".tk[%i].tz\" %f;\n", tk_i,tz);
 
 	}
 	void getTweak(size_t tk_i)
@@ -99,7 +100,8 @@ public:
 
 	}
 protected:
-	SubdTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifier(file, name, parent, nodeType) {}
+	SubdTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

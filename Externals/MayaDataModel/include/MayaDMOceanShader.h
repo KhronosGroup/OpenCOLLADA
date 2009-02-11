@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -63,35 +63,36 @@ public:
 		}
 	};
 public:
+	OceanShader():DependNode(){}
 	OceanShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "oceanShader"){}
 	virtual ~OceanShader(){}
 	void setRefractionLimit(short rdl)
 	{
 		if(rdl == 6) return;
-		fprintf(mFile,"setAttr \".rdl\" %i;\n", rdl);
+		fprintf(mFile,"\tsetAttr \".rdl\" %i;\n", rdl);
 
 	}
 	void setRefractiveIndex(float rfi)
 	{
 		if(rfi == 1.3) return;
-		fprintf(mFile,"setAttr \".rfi\" %f;\n", rfi);
+		fprintf(mFile,"\tsetAttr \".rfi\" %f;\n", rfi);
 
 	}
 	void setRefractions(bool rfc)
 	{
 		if(rfc == false) return;
-		fprintf(mFile,"setAttr \".rfc\" %i;\n", rfc);
+		fprintf(mFile,"\tsetAttr \".rfc\" %i;\n", rfc);
 
 	}
 	void setDiffuse(float dc)
 	{
 		if(dc == 0.3) return;
-		fprintf(mFile,"setAttr \".dc\" %f;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %f;\n", dc);
 
 	}
 	void setWaterColor(const float3& wc)
 	{
-		fprintf(mFile,"setAttr \".wc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".wc\" -type \"float3\" ");
 		wc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -99,24 +100,24 @@ public:
 	void setWaterColorR(float wcr)
 	{
 		if(wcr == 0.0) return;
-		fprintf(mFile,"setAttr \".wc.wcr\" %f;\n", wcr);
+		fprintf(mFile,"\tsetAttr \".wc.wcr\" %f;\n", wcr);
 
 	}
 	void setWaterColorG(float wcg)
 	{
 		if(wcg == 0.36) return;
-		fprintf(mFile,"setAttr \".wc.wcg\" %f;\n", wcg);
+		fprintf(mFile,"\tsetAttr \".wc.wcg\" %f;\n", wcg);
 
 	}
 	void setWaterColorB(float wcb)
 	{
 		if(wcb == 0.4) return;
-		fprintf(mFile,"setAttr \".wc.wcb\" %f;\n", wcb);
+		fprintf(mFile,"\tsetAttr \".wc.wcb\" %f;\n", wcb);
 
 	}
 	void setTransparency(const float3& it)
 	{
-		fprintf(mFile,"setAttr \".it\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".it\" -type \"float3\" ");
 		it.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -124,24 +125,24 @@ public:
 	void setTransparencyR(float itr)
 	{
 		if(itr == 0.0) return;
-		fprintf(mFile,"setAttr \".it.itr\" %f;\n", itr);
+		fprintf(mFile,"\tsetAttr \".it.itr\" %f;\n", itr);
 
 	}
 	void setTransparencyG(float itg)
 	{
 		if(itg == 0.0) return;
-		fprintf(mFile,"setAttr \".it.itg\" %f;\n", itg);
+		fprintf(mFile,"\tsetAttr \".it.itg\" %f;\n", itg);
 
 	}
 	void setTransparencyB(float itb)
 	{
 		if(itb == 0.0) return;
-		fprintf(mFile,"setAttr \".it.itb\" %f;\n", itb);
+		fprintf(mFile,"\tsetAttr \".it.itb\" %f;\n", itb);
 
 	}
 	void setAmbientColor(const float3& ambc)
 	{
-		fprintf(mFile,"setAttr \".ambc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ambc\" -type \"float3\" ");
 		ambc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -149,24 +150,24 @@ public:
 	void setAmbientColorR(float acr)
 	{
 		if(acr == 0.0) return;
-		fprintf(mFile,"setAttr \".ambc.acr\" %f;\n", acr);
+		fprintf(mFile,"\tsetAttr \".ambc.acr\" %f;\n", acr);
 
 	}
 	void setAmbientColorG(float acg)
 	{
 		if(acg == 0.0) return;
-		fprintf(mFile,"setAttr \".ambc.acg\" %f;\n", acg);
+		fprintf(mFile,"\tsetAttr \".ambc.acg\" %f;\n", acg);
 
 	}
 	void setAmbientColorB(float acb)
 	{
 		if(acb == 0.0) return;
-		fprintf(mFile,"setAttr \".ambc.acb\" %f;\n", acb);
+		fprintf(mFile,"\tsetAttr \".ambc.acb\" %f;\n", acb);
 
 	}
 	void setIncandescence(const float3& ic)
 	{
-		fprintf(mFile,"setAttr \".ic\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ic\" -type \"float3\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -174,84 +175,84 @@ public:
 	void setIncandescenceR(float ir)
 	{
 		if(ir == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.ir\" %f;\n", ir);
+		fprintf(mFile,"\tsetAttr \".ic.ir\" %f;\n", ir);
 
 	}
 	void setIncandescenceG(float ig)
 	{
 		if(ig == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.ig\" %f;\n", ig);
+		fprintf(mFile,"\tsetAttr \".ic.ig\" %f;\n", ig);
 
 	}
 	void setIncandescenceB(float ib)
 	{
 		if(ib == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.ib\" %f;\n", ib);
+		fprintf(mFile,"\tsetAttr \".ic.ib\" %f;\n", ib);
 
 	}
 	void setTranslucence(float tc)
 	{
 		if(tc == 0.3) return;
-		fprintf(mFile,"setAttr \".tc\" %f;\n", tc);
+		fprintf(mFile,"\tsetAttr \".tc\" %f;\n", tc);
 
 	}
 	void setTranslucenceFocus(float tcf)
 	{
 		if(tcf == 0.0) return;
-		fprintf(mFile,"setAttr \".tcf\" %f;\n", tcf);
+		fprintf(mFile,"\tsetAttr \".tcf\" %f;\n", tcf);
 
 	}
 	void setTranslucenceDepth(float trsd)
 	{
 		if(trsd == 10.0) return;
-		fprintf(mFile,"setAttr \".trsd\" %f;\n", trsd);
+		fprintf(mFile,"\tsetAttr \".trsd\" %f;\n", trsd);
 
 	}
 	void setOpacityDepth(float opad)
 	{
 		if(opad == 0.0) return;
-		fprintf(mFile,"setAttr \".opad\" %f;\n", opad);
+		fprintf(mFile,"\tsetAttr \".opad\" %f;\n", opad);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 0.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setSpecularGlow(float spg)
 	{
 		if(spg == 0.0) return;
-		fprintf(mFile,"setAttr \".spg\" %f;\n", spg);
+		fprintf(mFile,"\tsetAttr \".spg\" %f;\n", spg);
 
 	}
 	void setShadowAttenuation(float fakc)
 	{
 		if(fakc == 0.5) return;
-		fprintf(mFile,"setAttr \".fakc\" %f;\n", fakc);
+		fprintf(mFile,"\tsetAttr \".fakc\" %f;\n", fakc);
 
 	}
 	void setEccentricity(float ec)
 	{
 		if(ec == 0.03) return;
-		fprintf(mFile,"setAttr \".ec\" %f;\n", ec);
+		fprintf(mFile,"\tsetAttr \".ec\" %f;\n", ec);
 
 	}
 	void setSpecularity(float spl)
 	{
 		if(spl == 0.7) return;
-		fprintf(mFile,"setAttr \".spl\" %f;\n", spl);
+		fprintf(mFile,"\tsetAttr \".spl\" %f;\n", spl);
 
 	}
 	void setReflectionLimit(short fll)
 	{
 		if(fll == 1) return;
-		fprintf(mFile,"setAttr \".fll\" %i;\n", fll);
+		fprintf(mFile,"\tsetAttr \".fll\" %i;\n", fll);
 
 	}
 	void setSpecularColor(const float3& sc)
 	{
-		fprintf(mFile,"setAttr \".sc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sc\" -type \"float3\" ");
 		sc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -259,30 +260,30 @@ public:
 	void setSpecularColorR(float sr)
 	{
 		if(sr == 1.0) return;
-		fprintf(mFile,"setAttr \".sc.sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sc.sr\" %f;\n", sr);
 
 	}
 	void setSpecularColorG(float sg)
 	{
 		if(sg == 1.0) return;
-		fprintf(mFile,"setAttr \".sc.sg\" %f;\n", sg);
+		fprintf(mFile,"\tsetAttr \".sc.sg\" %f;\n", sg);
 
 	}
 	void setSpecularColorB(float sb)
 	{
 		if(sb == 1.0) return;
-		fprintf(mFile,"setAttr \".sc.sb\" %f;\n", sb);
+		fprintf(mFile,"\tsetAttr \".sc.sb\" %f;\n", sb);
 
 	}
 	void setReflectivity(float rfl)
 	{
 		if(rfl == 0.7) return;
-		fprintf(mFile,"setAttr \".rfl\" %f;\n", rfl);
+		fprintf(mFile,"\tsetAttr \".rfl\" %f;\n", rfl);
 
 	}
 	void setEnvironment(size_t env_i,const Environment& env)
 	{
-		fprintf(mFile,"setAttr \".env[%i]\" ",env_i);
+		fprintf(mFile,"\tsetAttr \".env[%i]\" ",env_i);
 		env.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -290,12 +291,12 @@ public:
 	void setEnvironment_Position(size_t env_i,float envp)
 	{
 		if(envp == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envp\" %f;\n", env_i,envp);
+		fprintf(mFile,"\tsetAttr \".env[%i].envp\" %f;\n", env_i,envp);
 
 	}
 	void setEnvironment_Color(size_t env_i,const float3& envc)
 	{
-		fprintf(mFile,"setAttr \".env[%i].envc\" -type \"float3\" ",env_i);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc\" -type \"float3\" ",env_i);
 		envc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -303,30 +304,30 @@ public:
 	void setEnvironment_ColorR(size_t env_i,float envcr)
 	{
 		if(envcr == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcr\" %f;\n", env_i,envcr);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcr\" %f;\n", env_i,envcr);
 
 	}
 	void setEnvironment_ColorG(size_t env_i,float envcg)
 	{
 		if(envcg == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcg\" %f;\n", env_i,envcg);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcg\" %f;\n", env_i,envcg);
 
 	}
 	void setEnvironment_ColorB(size_t env_i,float envcb)
 	{
 		if(envcb == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcb\" %f;\n", env_i,envcb);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcb\" %f;\n", env_i,envcb);
 
 	}
 	void setEnvironment_Interp(size_t env_i,unsigned int envi)
 	{
 		if(envi == 0) return;
-		fprintf(mFile,"setAttr \".env[%i].envi\" %i;\n", env_i,envi);
+		fprintf(mFile,"\tsetAttr \".env[%i].envi\" %i;\n", env_i,envi);
 
 	}
 	void setReflectedColor(const float3& rc)
 	{
-		fprintf(mFile,"setAttr \".rc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".rc\" -type \"float3\" ");
 		rc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -334,49 +335,49 @@ public:
 	void setReflectedColorR(float rr)
 	{
 		if(rr == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rr\" %f;\n", rr);
+		fprintf(mFile,"\tsetAttr \".rc.rr\" %f;\n", rr);
 
 	}
 	void setReflectedColorG(float rg)
 	{
 		if(rg == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rg\" %f;\n", rg);
+		fprintf(mFile,"\tsetAttr \".rc.rg\" %f;\n", rg);
 
 	}
 	void setReflectedColorB(float rb)
 	{
 		if(rb == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rb\" %f;\n", rb);
+		fprintf(mFile,"\tsetAttr \".rc.rb\" %f;\n", rb);
 
 	}
 	void setReflectionSpecularity(float rsp)
 	{
 		if(rsp == 1.0) return;
-		fprintf(mFile,"setAttr \".rsp\" %f;\n", rsp);
+		fprintf(mFile,"\tsetAttr \".rsp\" %f;\n", rsp);
 
 	}
 	void setMatteOpacityMode(unsigned int mom)
 	{
 		if(mom == 2) return;
-		fprintf(mFile,"setAttr \".mom\" %i;\n", mom);
+		fprintf(mFile,"\tsetAttr \".mom\" %i;\n", mom);
 
 	}
 	void setMatteOpacity(float mog)
 	{
 		if(mog == 1.0) return;
-		fprintf(mFile,"setAttr \".mog\" %f;\n", mog);
+		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
 
 	}
 	void setScale(float scl)
 	{
 		if(scl == 1.0) return;
-		fprintf(mFile,"setAttr \".scl\" %f;\n", scl);
+		fprintf(mFile,"\tsetAttr \".scl\" %f;\n", scl);
 
 	}
 	void setWindUV(const float2& wi)
 	{
 		if(wi == float2(1.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".wi\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".wi\" -type \"float2\" ");
 		wi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -384,48 +385,48 @@ public:
 	void setWindU(float wiu)
 	{
 		if(wiu == 0.0) return;
-		fprintf(mFile,"setAttr \".wi.wiu\" %f;\n", wiu);
+		fprintf(mFile,"\tsetAttr \".wi.wiu\" %f;\n", wiu);
 
 	}
 	void setWindV(float wiv)
 	{
 		if(wiv == 0.0) return;
-		fprintf(mFile,"setAttr \".wi.wiv\" %f;\n", wiv);
+		fprintf(mFile,"\tsetAttr \".wi.wiv\" %f;\n", wiv);
 
 	}
 	void setObserverSpeed(float os)
 	{
 		if(os == 0.0) return;
-		fprintf(mFile,"setAttr \".os\" %f;\n", os);
+		fprintf(mFile,"\tsetAttr \".os\" %f;\n", os);
 
 	}
 	void setWaveDirSpread(float wd)
 	{
 		if(wd == 0.2) return;
-		fprintf(mFile,"setAttr \".wd\" %f;\n", wd);
+		fprintf(mFile,"\tsetAttr \".wd\" %f;\n", wd);
 
 	}
 	void setNumFrequencies(float nf)
 	{
 		if(nf == 3.0) return;
-		fprintf(mFile,"setAttr \".nf\" %f;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
 	void setWaveLengthMin(float wlm)
 	{
 		if(wlm == 0.3) return;
-		fprintf(mFile,"setAttr \".wlm\" %f;\n", wlm);
+		fprintf(mFile,"\tsetAttr \".wlm\" %f;\n", wlm);
 
 	}
 	void setWaveLengthMax(float wlx)
 	{
 		if(wlx == 4.0) return;
-		fprintf(mFile,"setAttr \".wlx\" %f;\n", wlx);
+		fprintf(mFile,"\tsetAttr \".wlx\" %f;\n", wlx);
 
 	}
 	void setWaveHeight(size_t wh_i,const WaveHeight& wh)
 	{
-		fprintf(mFile,"setAttr \".wh[%i]\" ",wh_i);
+		fprintf(mFile,"\tsetAttr \".wh[%i]\" ",wh_i);
 		wh.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -433,24 +434,24 @@ public:
 	void setWaveHeight_Position(size_t wh_i,float whp)
 	{
 		if(whp == 0.0) return;
-		fprintf(mFile,"setAttr \".wh[%i].whp\" %f;\n", wh_i,whp);
+		fprintf(mFile,"\tsetAttr \".wh[%i].whp\" %f;\n", wh_i,whp);
 
 	}
 	void setWaveHeight_FloatValue(size_t wh_i,float whfv)
 	{
 		if(whfv == 0.0) return;
-		fprintf(mFile,"setAttr \".wh[%i].whfv\" %f;\n", wh_i,whfv);
+		fprintf(mFile,"\tsetAttr \".wh[%i].whfv\" %f;\n", wh_i,whfv);
 
 	}
 	void setWaveHeight_Interp(size_t wh_i,unsigned int whi)
 	{
 		if(whi == 0) return;
-		fprintf(mFile,"setAttr \".wh[%i].whi\" %i;\n", wh_i,whi);
+		fprintf(mFile,"\tsetAttr \".wh[%i].whi\" %i;\n", wh_i,whi);
 
 	}
 	void setWaveTurbulence(size_t wtb_i,const WaveTurbulence& wtb)
 	{
-		fprintf(mFile,"setAttr \".wtb[%i]\" ",wtb_i);
+		fprintf(mFile,"\tsetAttr \".wtb[%i]\" ",wtb_i);
 		wtb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -458,24 +459,24 @@ public:
 	void setWaveTurbulence_Position(size_t wtb_i,float wtbp)
 	{
 		if(wtbp == 0.0) return;
-		fprintf(mFile,"setAttr \".wtb[%i].wtbp\" %f;\n", wtb_i,wtbp);
+		fprintf(mFile,"\tsetAttr \".wtb[%i].wtbp\" %f;\n", wtb_i,wtbp);
 
 	}
 	void setWaveTurbulence_FloatValue(size_t wtb_i,float wtbfv)
 	{
 		if(wtbfv == 0.0) return;
-		fprintf(mFile,"setAttr \".wtb[%i].wtbfv\" %f;\n", wtb_i,wtbfv);
+		fprintf(mFile,"\tsetAttr \".wtb[%i].wtbfv\" %f;\n", wtb_i,wtbfv);
 
 	}
 	void setWaveTurbulence_Interp(size_t wtb_i,unsigned int wtbi)
 	{
 		if(wtbi == 0) return;
-		fprintf(mFile,"setAttr \".wtb[%i].wtbi\" %i;\n", wtb_i,wtbi);
+		fprintf(mFile,"\tsetAttr \".wtb[%i].wtbi\" %i;\n", wtb_i,wtbi);
 
 	}
 	void setWavePeaking(size_t wp_i,const WavePeaking& wp)
 	{
-		fprintf(mFile,"setAttr \".wp[%i]\" ",wp_i);
+		fprintf(mFile,"\tsetAttr \".wp[%i]\" ",wp_i);
 		wp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -483,36 +484,36 @@ public:
 	void setWavePeaking_Position(size_t wp_i,float wpp)
 	{
 		if(wpp == 0.0) return;
-		fprintf(mFile,"setAttr \".wp[%i].wpp\" %f;\n", wp_i,wpp);
+		fprintf(mFile,"\tsetAttr \".wp[%i].wpp\" %f;\n", wp_i,wpp);
 
 	}
 	void setWavePeaking_FloatValue(size_t wp_i,float wpfv)
 	{
 		if(wpfv == 0.0) return;
-		fprintf(mFile,"setAttr \".wp[%i].wpfv\" %f;\n", wp_i,wpfv);
+		fprintf(mFile,"\tsetAttr \".wp[%i].wpfv\" %f;\n", wp_i,wpfv);
 
 	}
 	void setWavePeaking_Interp(size_t wp_i,unsigned int wpi)
 	{
 		if(wpi == 0) return;
-		fprintf(mFile,"setAttr \".wp[%i].wpi\" %i;\n", wp_i,wpi);
+		fprintf(mFile,"\tsetAttr \".wp[%i].wpi\" %i;\n", wp_i,wpi);
 
 	}
 	void setWaveHeightOffset(float who)
 	{
 		if(who == 0.0) return;
-		fprintf(mFile,"setAttr \".who\" %f;\n", who);
+		fprintf(mFile,"\tsetAttr \".who\" %f;\n", who);
 
 	}
 	void setTroughShadowing(float tsh)
 	{
 		if(tsh == 0.5) return;
-		fprintf(mFile,"setAttr \".tsh\" %f;\n", tsh);
+		fprintf(mFile,"\tsetAttr \".tsh\" %f;\n", tsh);
 
 	}
 	void setFoamColor(const float3& fc)
 	{
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -520,90 +521,90 @@ public:
 	void setFoamColorR(float fcr)
 	{
 		if(fcr == 1.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFoamColorG(float fcg)
 	{
 		if(fcg == 1.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFoamColorB(float fcb)
 	{
 		if(fcb == 1.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setFoamEmission(float fme)
 	{
 		if(fme == 0.0) return;
-		fprintf(mFile,"setAttr \".fme\" %f;\n", fme);
+		fprintf(mFile,"\tsetAttr \".fme\" %f;\n", fme);
 
 	}
 	void setFoamThreshold(float fmt)
 	{
 		if(fmt == 0.51) return;
-		fprintf(mFile,"setAttr \".fmt\" %f;\n", fmt);
+		fprintf(mFile,"\tsetAttr \".fmt\" %f;\n", fmt);
 
 	}
 	void setFoamOffset(float fmo)
 	{
 		if(fmo == 0.0) return;
-		fprintf(mFile,"setAttr \".fmo\" %f;\n", fmo);
+		fprintf(mFile,"\tsetAttr \".fmo\" %f;\n", fmo);
 
 	}
 	void setDisplacement(float d)
 	{
 		if(d == 0.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setBumpBlur(float bbl)
 	{
 		if(bbl == 0.1) return;
-		fprintf(mFile,"setAttr \".bbl\" %f;\n", bbl);
+		fprintf(mFile,"\tsetAttr \".bbl\" %f;\n", bbl);
 
 	}
 	void setHorizonFilter(float hft)
 	{
 		if(hft == 1.0) return;
-		fprintf(mFile,"setAttr \".hft\" %f;\n", hft);
+		fprintf(mFile,"\tsetAttr \".hft\" %f;\n", hft);
 
 	}
 	void setWaveSpeed(float wvs)
 	{
 		if(wvs == 1.0) return;
-		fprintf(mFile,"setAttr \".wvs\" %f;\n", wvs);
+		fprintf(mFile,"\tsetAttr \".wvs\" %f;\n", wvs);
 
 	}
 	void setMiRefractionBlur(float mirfb)
 	{
 		if(mirfb == 0) return;
-		fprintf(mFile,"setAttr \".mirfb\" %f;\n", mirfb);
+		fprintf(mFile,"\tsetAttr \".mirfb\" %f;\n", mirfb);
 
 	}
 	void setMiRefractionRays(short mirfr)
 	{
 		if(mirfr == 1) return;
-		fprintf(mFile,"setAttr \".mirfr\" %i;\n", mirfr);
+		fprintf(mFile,"\tsetAttr \".mirfr\" %i;\n", mirfr);
 
 	}
 	void setMiReflectionBlur(float mircb)
 	{
 		if(mircb == 0) return;
-		fprintf(mFile,"setAttr \".mircb\" %f;\n", mircb);
+		fprintf(mFile,"\tsetAttr \".mircb\" %f;\n", mircb);
 
 	}
 	void setMiReflectionRays(short mircr)
 	{
 		if(mircr == 1) return;
-		fprintf(mFile,"setAttr \".mircr\" %i;\n", mircr);
+		fprintf(mFile,"\tsetAttr \".mircr\" %i;\n", mircr);
 
 	}
 	void setMiIrradiance(const float3& mii)
 	{
-		fprintf(mFile,"setAttr \".mii\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mii\" -type \"float3\" ");
 		mii.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -611,24 +612,24 @@ public:
 	void setMiIrradianceR(float miir)
 	{
 		if(miir == 0) return;
-		fprintf(mFile,"setAttr \".mii.miir\" %f;\n", miir);
+		fprintf(mFile,"\tsetAttr \".mii.miir\" %f;\n", miir);
 
 	}
 	void setMiIrradianceG(float miig)
 	{
 		if(miig == 0) return;
-		fprintf(mFile,"setAttr \".mii.miig\" %f;\n", miig);
+		fprintf(mFile,"\tsetAttr \".mii.miig\" %f;\n", miig);
 
 	}
 	void setMiIrradianceB(float miib)
 	{
 		if(miib == 0) return;
-		fprintf(mFile,"setAttr \".mii.miib\" %f;\n", miib);
+		fprintf(mFile,"\tsetAttr \".mii.miib\" %f;\n", miib);
 
 	}
 	void setMiIrradianceColor(const float3& miic)
 	{
-		fprintf(mFile,"setAttr \".miic\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".miic\" -type \"float3\" ");
 		miic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -636,36 +637,36 @@ public:
 	void setMiIrradianceColorR(float miicr)
 	{
 		if(miicr == 1) return;
-		fprintf(mFile,"setAttr \".miic.miicr\" %f;\n", miicr);
+		fprintf(mFile,"\tsetAttr \".miic.miicr\" %f;\n", miicr);
 
 	}
 	void setMiIrradianceColorG(float miicg)
 	{
 		if(miicg == 1) return;
-		fprintf(mFile,"setAttr \".miic.miicg\" %f;\n", miicg);
+		fprintf(mFile,"\tsetAttr \".miic.miicg\" %f;\n", miicg);
 
 	}
 	void setMiIrradianceColorB(float miicb)
 	{
 		if(miicb == 1) return;
-		fprintf(mFile,"setAttr \".miic.miicb\" %f;\n", miicb);
+		fprintf(mFile,"\tsetAttr \".miic.miicb\" %f;\n", miicb);
 
 	}
 	void setMiDeriveFromMaya(bool mifm)
 	{
 		if(mifm == true) return;
-		fprintf(mFile,"setAttr \".mifm\" %i;\n", mifm);
+		fprintf(mFile,"\tsetAttr \".mifm\" %i;\n", mifm);
 
 	}
 	void setMiShinyness(float mis)
 	{
 		if(mis == 10) return;
-		fprintf(mFile,"setAttr \".mis\" %f;\n", mis);
+		fprintf(mFile,"\tsetAttr \".mis\" %f;\n", mis);
 
 	}
 	void setMiSpecularColor(const float3& misc)
 	{
-		fprintf(mFile,"setAttr \".misc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".misc\" -type \"float3\" ");
 		misc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -673,54 +674,54 @@ public:
 	void setMiSpecularColorR(float miscr)
 	{
 		if(miscr == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscr\" %f;\n", miscr);
+		fprintf(mFile,"\tsetAttr \".misc.miscr\" %f;\n", miscr);
 
 	}
 	void setMiSpecularColorG(float miscg)
 	{
 		if(miscg == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscg\" %f;\n", miscg);
+		fprintf(mFile,"\tsetAttr \".misc.miscg\" %f;\n", miscg);
 
 	}
 	void setMiSpecularColorB(float miscb)
 	{
 		if(miscb == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscb\" %f;\n", miscb);
+		fprintf(mFile,"\tsetAttr \".misc.miscb\" %f;\n", miscb);
 
 	}
 	void setMiReflectivity(float mirf)
 	{
 		if(mirf == 0.5) return;
-		fprintf(mFile,"setAttr \".mirf\" %f;\n", mirf);
+		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
 	void setMiRefractiveIndex(float miri)
 	{
 		if(miri == 1) return;
-		fprintf(mFile,"setAttr \".miri\" %f;\n", miri);
+		fprintf(mFile,"\tsetAttr \".miri\" %f;\n", miri);
 
 	}
 	void setMiRefractions(bool mirc)
 	{
 		if(mirc == true) return;
-		fprintf(mFile,"setAttr \".mirc\" %i;\n", mirc);
+		fprintf(mFile,"\tsetAttr \".mirc\" %i;\n", mirc);
 
 	}
 	void setMiAbsorbs(bool miab)
 	{
 		if(miab == true) return;
-		fprintf(mFile,"setAttr \".miab\" %i;\n", miab);
+		fprintf(mFile,"\tsetAttr \".miab\" %i;\n", miab);
 
 	}
 	void setMiDiffuse(float midc)
 	{
 		if(midc == 0.8) return;
-		fprintf(mFile,"setAttr \".midc\" %f;\n", midc);
+		fprintf(mFile,"\tsetAttr \".midc\" %f;\n", midc);
 
 	}
 	void setMiColor(const float3& mic)
 	{
-		fprintf(mFile,"setAttr \".mic\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mic\" -type \"float3\" ");
 		mic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -728,24 +729,24 @@ public:
 	void setMiColorR(float micr)
 	{
 		if(micr == 0.5) return;
-		fprintf(mFile,"setAttr \".mic.micr\" %f;\n", micr);
+		fprintf(mFile,"\tsetAttr \".mic.micr\" %f;\n", micr);
 
 	}
 	void setMiColorG(float micg)
 	{
 		if(micg == 0.5) return;
-		fprintf(mFile,"setAttr \".mic.micg\" %f;\n", micg);
+		fprintf(mFile,"\tsetAttr \".mic.micg\" %f;\n", micg);
 
 	}
 	void setMiColorB(float micb)
 	{
 		if(micb == 0.5) return;
-		fprintf(mFile,"setAttr \".mic.micb\" %f;\n", micb);
+		fprintf(mFile,"\tsetAttr \".mic.micb\" %f;\n", micb);
 
 	}
 	void setMiTransparency(const float3& mit)
 	{
-		fprintf(mFile,"setAttr \".mit\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mit\" -type \"float3\" ");
 		mit.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -753,36 +754,36 @@ public:
 	void setMiTransparencyR(float mitr)
 	{
 		if(mitr == 0) return;
-		fprintf(mFile,"setAttr \".mit.mitr\" %f;\n", mitr);
+		fprintf(mFile,"\tsetAttr \".mit.mitr\" %f;\n", mitr);
 
 	}
 	void setMiTransparencyG(float mitg)
 	{
 		if(mitg == 0) return;
-		fprintf(mFile,"setAttr \".mit.mitg\" %f;\n", mitg);
+		fprintf(mFile,"\tsetAttr \".mit.mitg\" %f;\n", mitg);
 
 	}
 	void setMiTransparencyB(float mitb)
 	{
 		if(mitb == 0) return;
-		fprintf(mFile,"setAttr \".mit.mitb\" %f;\n", mitb);
+		fprintf(mFile,"\tsetAttr \".mit.mitb\" %f;\n", mitb);
 
 	}
 	void setMiTranslucence(float mitc)
 	{
 		if(mitc == 0) return;
-		fprintf(mFile,"setAttr \".mitc\" %f;\n", mitc);
+		fprintf(mFile,"\tsetAttr \".mitc\" %f;\n", mitc);
 
 	}
 	void setMiTranslucenceFocus(float mitf)
 	{
 		if(mitf == 0.5) return;
-		fprintf(mFile,"setAttr \".mitf\" %f;\n", mitf);
+		fprintf(mFile,"\tsetAttr \".mitf\" %f;\n", mitf);
 
 	}
 	void setMiNormalCamera(const float3& minc)
 	{
-		fprintf(mFile,"setAttr \".minc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".minc\" -type \"float3\" ");
 		minc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -790,19 +791,44 @@ public:
 	void setMiNormalCameraX(float mincx)
 	{
 		if(mincx == 0) return;
-		fprintf(mFile,"setAttr \".minc.mincx\" %f;\n", mincx);
+		fprintf(mFile,"\tsetAttr \".minc.mincx\" %f;\n", mincx);
 
 	}
 	void setMiNormalCameraY(float mincy)
 	{
 		if(mincy == 0) return;
-		fprintf(mFile,"setAttr \".minc.mincy\" %f;\n", mincy);
+		fprintf(mFile,"\tsetAttr \".minc.mincy\" %f;\n", mincy);
 
 	}
 	void setMiNormalCameraZ(float mincz)
 	{
 		if(mincz == 0) return;
-		fprintf(mFile,"setAttr \".minc.mincz\" %f;\n", mincz);
+		fprintf(mFile,"\tsetAttr \".minc.mincz\" %f;\n", mincz);
+
+	}
+	void getObjectId()
+	{
+		fprintf(mFile,"\"%s.oi\"",mName.c_str());
+
+	}
+	void getPrimitiveId()
+	{
+		fprintf(mFile,"\"%s.pi\"",mName.c_str());
+
+	}
+	void getRaySampler()
+	{
+		fprintf(mFile,"\"%s.rtr\"",mName.c_str());
+
+	}
+	void getRayDepth()
+	{
+		fprintf(mFile,"\"%s.rd\"",mName.c_str());
+
+	}
+	void getRayInstance()
+	{
+		fprintf(mFile,"\"%s.ryi\"",mName.c_str());
 
 	}
 	void getRefractionLimit()
@@ -815,6 +841,11 @@ public:
 		fprintf(mFile,"\"%s.rfi\"",mName.c_str());
 
 	}
+	void getMediumRefractiveIndex()
+	{
+		fprintf(mFile,"\"%s.mrfi\"",mName.c_str());
+
+	}
 	void getRefractions()
 	{
 		fprintf(mFile,"\"%s.rfc\"",mName.c_str());
@@ -823,6 +854,26 @@ public:
 	void getDiffuse()
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
+
+	}
+	void getRayDirection()
+	{
+		fprintf(mFile,"\"%s.rad\"",mName.c_str());
+
+	}
+	void getRayDirectionX()
+	{
+		fprintf(mFile,"\"%s.rad.rdx\"",mName.c_str());
+
+	}
+	void getRayDirectionY()
+	{
+		fprintf(mFile,"\"%s.rad.rdy\"",mName.c_str());
+
+	}
+	void getRayDirectionZ()
+	{
+		fprintf(mFile,"\"%s.rad.rdz\"",mName.c_str());
 
 	}
 	void getWaterColor()
@@ -1188,6 +1239,81 @@ public:
 	void getMatrixEyeToWorld()
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
+
+	}
+	void getLightDataArray(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirection(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionX(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionY(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionZ(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityR(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityG(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityB(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightAmbient(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDiffuse(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightSpecular(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightShadowFraction(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
+
+	}
+	void getPreShadowIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightBlindData(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
 
 	}
 	void getMatteOpacityMode()
@@ -1606,7 +1732,8 @@ public:
 
 	}
 protected:
-	OceanShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	OceanShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

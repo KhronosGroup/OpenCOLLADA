@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -30,17 +30,18 @@ public:
 		}
 	};
 public:
+	HairTubeShader():Reflect(){}
 	HairTubeShader(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "hairTubeShader"){}
 	virtual ~HairTubeShader(){}
 	void setTubeDirection(unsigned int tdr)
 	{
 		if(tdr == 0) return;
-		fprintf(mFile,"setAttr \".tdr\" %i;\n", tdr);
+		fprintf(mFile,"\tsetAttr \".tdr\" %i;\n", tdr);
 
 	}
 	void setColorScale(size_t cls_i,const ColorScale& cls)
 	{
-		fprintf(mFile,"setAttr \".cls[%i]\" ",cls_i);
+		fprintf(mFile,"\tsetAttr \".cls[%i]\" ",cls_i);
 		cls.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -48,12 +49,12 @@ public:
 	void setColorScale_Position(size_t cls_i,float clsp)
 	{
 		if(clsp == 0.0) return;
-		fprintf(mFile,"setAttr \".cls[%i].clsp\" %f;\n", cls_i,clsp);
+		fprintf(mFile,"\tsetAttr \".cls[%i].clsp\" %f;\n", cls_i,clsp);
 
 	}
 	void setColorScale_Color(size_t cls_i,const float3& clsc)
 	{
-		fprintf(mFile,"setAttr \".cls[%i].clsc\" -type \"float3\" ",cls_i);
+		fprintf(mFile,"\tsetAttr \".cls[%i].clsc\" -type \"float3\" ",cls_i);
 		clsc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -61,84 +62,84 @@ public:
 	void setColorScale_ColorR(size_t cls_i,float clscr)
 	{
 		if(clscr == 0.0) return;
-		fprintf(mFile,"setAttr \".cls[%i].clsc.clscr\" %f;\n", cls_i,clscr);
+		fprintf(mFile,"\tsetAttr \".cls[%i].clsc.clscr\" %f;\n", cls_i,clscr);
 
 	}
 	void setColorScale_ColorG(size_t cls_i,float clscg)
 	{
 		if(clscg == 0.0) return;
-		fprintf(mFile,"setAttr \".cls[%i].clsc.clscg\" %f;\n", cls_i,clscg);
+		fprintf(mFile,"\tsetAttr \".cls[%i].clsc.clscg\" %f;\n", cls_i,clscg);
 
 	}
 	void setColorScale_ColorB(size_t cls_i,float clscb)
 	{
 		if(clscb == 0.0) return;
-		fprintf(mFile,"setAttr \".cls[%i].clsc.clscb\" %f;\n", cls_i,clscb);
+		fprintf(mFile,"\tsetAttr \".cls[%i].clsc.clscb\" %f;\n", cls_i,clscb);
 
 	}
 	void setColorScale_Interp(size_t cls_i,unsigned int clsi)
 	{
 		if(clsi == 0) return;
-		fprintf(mFile,"setAttr \".cls[%i].clsi\" %i;\n", cls_i,clsi);
+		fprintf(mFile,"\tsetAttr \".cls[%i].clsi\" %i;\n", cls_i,clsi);
 
 	}
 	void setSpecularPower(float sp)
 	{
 		if(sp == 20.0) return;
-		fprintf(mFile,"setAttr \".sp\" %f;\n", sp);
+		fprintf(mFile,"\tsetAttr \".sp\" %f;\n", sp);
 
 	}
 	void setSpecularShift(float ssh)
 	{
 		if(ssh == 5.0) return;
-		fprintf(mFile,"setAttr \".ssh\" %f;\n", ssh);
+		fprintf(mFile,"\tsetAttr \".ssh\" %f;\n", ssh);
 
 	}
 	void setScatterPower(float scp)
 	{
 		if(scp == 5.0) return;
-		fprintf(mFile,"setAttr \".scp\" %f;\n", scp);
+		fprintf(mFile,"\tsetAttr \".scp\" %f;\n", scp);
 
 	}
 	void setScatter(float sct)
 	{
 		if(sct == 0.2) return;
-		fprintf(mFile,"setAttr \".sct\" %f;\n", sct);
+		fprintf(mFile,"\tsetAttr \".sct\" %f;\n", sct);
 
 	}
 	void setMiReflectionBlur(float mircb)
 	{
 		if(mircb == 0) return;
-		fprintf(mFile,"setAttr \".mircb\" %f;\n", mircb);
+		fprintf(mFile,"\tsetAttr \".mircb\" %f;\n", mircb);
 
 	}
 	void setMiReflectionRays(short mircr)
 	{
 		if(mircr == 1) return;
-		fprintf(mFile,"setAttr \".mircr\" %i;\n", mircr);
+		fprintf(mFile,"\tsetAttr \".mircr\" %i;\n", mircr);
 
 	}
 	void setMiAngle(float mia)
 	{
 		if(mia == 0) return;
-		fprintf(mFile,"setAttr \".mia\" %f;\n", mia);
+		fprintf(mFile,"\tsetAttr \".mia\" %f;\n", mia);
 
 	}
 	void setMiSpreadX(float misx)
 	{
 		if(misx == 10) return;
-		fprintf(mFile,"setAttr \".misx\" %f;\n", misx);
+		fprintf(mFile,"\tsetAttr \".misx\" %f;\n", misx);
 
 	}
 	void setMiSpreadY(float misy)
 	{
 		if(misy == 5) return;
-		fprintf(mFile,"setAttr \".misy\" %f;\n", misy);
+		fprintf(mFile,"\tsetAttr \".misy\" %f;\n", misy);
 
 	}
 	void setMiSpecularColor(const float3& misc)
 	{
-		fprintf(mFile,"setAttr \".misc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".misc\" -type \"float3\" ");
 		misc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -146,25 +147,25 @@ public:
 	void setMiSpecularColorR(float miscr)
 	{
 		if(miscr == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscr\" %f;\n", miscr);
+		fprintf(mFile,"\tsetAttr \".misc.miscr\" %f;\n", miscr);
 
 	}
 	void setMiSpecularColorG(float miscg)
 	{
 		if(miscg == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscg\" %f;\n", miscg);
+		fprintf(mFile,"\tsetAttr \".misc.miscg\" %f;\n", miscg);
 
 	}
 	void setMiSpecularColorB(float miscb)
 	{
 		if(miscb == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscb\" %f;\n", miscb);
+		fprintf(mFile,"\tsetAttr \".misc.miscb\" %f;\n", miscb);
 
 	}
 	void setMiReflectivity(float mirf)
 	{
 		if(mirf == 0.5) return;
-		fprintf(mFile,"setAttr \".mirf\" %f;\n", mirf);
+		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
 	void getTangentUCamera()
@@ -333,7 +334,8 @@ public:
 
 	}
 protected:
-	HairTubeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Reflect(file, name, parent, nodeType) {}
+	HairTubeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Reflect(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

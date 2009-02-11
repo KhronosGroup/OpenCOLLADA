@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class PolyAverageVertex : public PolyModifierWorld
 {
 public:
 public:
+	PolyAverageVertex():PolyModifierWorld(){}
 	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyAverageVertex"){}
 	virtual ~PolyAverageVertex(){}
 	void setAlpha(float a)
 	{
 		if(a == 0.5) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setBeta(float b)
 	{
 		if(b == 0.7) return;
-		fprintf(mFile,"setAttr \".b\" %f;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
 	void setIterations(int i_)
 	{
 		if(i_ == 10) return;
-		fprintf(mFile,"setAttr \".i\" %i;\n", i_);
+		fprintf(mFile,"\tsetAttr \".i\" %i;\n", i_);
 
 	}
 	void getAlpha()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

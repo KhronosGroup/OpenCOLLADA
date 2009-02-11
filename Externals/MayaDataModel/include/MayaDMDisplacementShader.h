@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class DisplacementShader : public DependNode
 {
 public:
 public:
+	DisplacementShader():DependNode(){}
 	DisplacementShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "displacementShader"){}
 	virtual ~DisplacementShader(){}
 	void setDisplacement(float d)
 	{
 		if(d == 0.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void getDisplacement()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	DisplacementShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DisplacementShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

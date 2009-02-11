@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,17 +23,18 @@ public:
 		}
 	};
 public:
+	TextureToGeom():DependNode(){}
 	TextureToGeom(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "textureToGeom"){}
 	virtual ~TextureToGeom(){}
 	void setSegGroupIds(size_t sgi_i,int sgi)
 	{
 		if(sgi == -1) return;
-		fprintf(mFile,"setAttr \".sgi[%i]\" %i;\n", sgi_i,sgi);
+		fprintf(mFile,"\tsetAttr \".sgi[%i]\" %i;\n", sgi_i,sgi);
 
 	}
 	void setSegGroupIds(size_t sgi_start,size_t sgi_end,int* sgi)
 	{
-		fprintf(mFile,"setAttr \".sgi[%i:%i]\" ", sgi_start,sgi_end);
+		fprintf(mFile,"\tsetAttr \".sgi[%i:%i]\" ", sgi_start,sgi_end);
 		size_t size = (sgi_end-sgi_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -45,7 +46,7 @@ public:
 	}
 	void startSegGroupIds(size_t sgi_start,size_t sgi_end)
 	{
-		fprintf(mFile,"setAttr \".sgi[%i:%i]\"",sgi_start,sgi_end);
+		fprintf(mFile,"\tsetAttr \".sgi[%i:%i]\"",sgi_start,sgi_end);
 
 	}
 	void appendSegGroupIds(int sgi)
@@ -60,7 +61,7 @@ public:
 	}
 	void setInputMesh(const mesh& im)
 	{
-		fprintf(mFile,"setAttr \".im\" -type \"mesh\" ");
+		fprintf(mFile,"\tsetAttr \".im\" -type \"mesh\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -68,7 +69,7 @@ public:
 	void setInputMeshUVSet(const string& iuv)
 	{
 		if(iuv == "NULL") return;
-		fprintf(mFile,"setAttr \".iuv\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".iuv\" -type \"string\" ");
 		iuv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -76,43 +77,43 @@ public:
 	void setQuantize(bool qut)
 	{
 		if(qut == 0) return;
-		fprintf(mFile,"setAttr \".qut\" %i;\n", qut);
+		fprintf(mFile,"\tsetAttr \".qut\" %i;\n", qut);
 
 	}
 	void setQuantizeLevels(unsigned char qutl)
 	{
 		if(qutl == 10) return;
-		fprintf(mFile,"setAttr \".qutl\" %i;\n", qutl);
+		fprintf(mFile,"\tsetAttr \".qutl\" %i;\n", qutl);
 
 	}
 	void setMaxColorDiff(float mcd)
 	{
 		if(mcd == 0.125) return;
-		fprintf(mFile,"setAttr \".mcd\" %f;\n", mcd);
+		fprintf(mFile,"\tsetAttr \".mcd\" %f;\n", mcd);
 
 	}
 	void setMinSegmentSize(float msz)
 	{
 		if(msz == 0.005) return;
-		fprintf(mFile,"setAttr \".msz\" %f;\n", msz);
+		fprintf(mFile,"\tsetAttr \".msz\" %f;\n", msz);
 
 	}
 	void setSpatialRadius(int spr)
 	{
 		if(spr == 7) return;
-		fprintf(mFile,"setAttr \".spr\" %i;\n", spr);
+		fprintf(mFile,"\tsetAttr \".spr\" %i;\n", spr);
 
 	}
 	void setColorRange(float crng)
 	{
 		if(crng == 4.5) return;
-		fprintf(mFile,"setAttr \".crng\" %f;\n", crng);
+		fprintf(mFile,"\tsetAttr \".crng\" %f;\n", crng);
 
 	}
 	void setImageFile(const string& if_)
 	{
 		if(if_ == "NULL") return;
-		fprintf(mFile,"setAttr \".if\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".if\" -type \"string\" ");
 		if_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -120,73 +121,73 @@ public:
 	void setMeshQuality(double mq)
 	{
 		if(mq == 0.1) return;
-		fprintf(mFile,"setAttr \".mq\" %f;\n", mq);
+		fprintf(mFile,"\tsetAttr \".mq\" %f;\n", mq);
 
 	}
 	void setSurfaceOffset(float so)
 	{
 		if(so == 0.01) return;
-		fprintf(mFile,"setAttr \".so\" %f;\n", so);
+		fprintf(mFile,"\tsetAttr \".so\" %f;\n", so);
 
 	}
 	void setSmoothBoundary(bool smbd)
 	{
 		if(smbd == 1) return;
-		fprintf(mFile,"setAttr \".smbd\" %i;\n", smbd);
+		fprintf(mFile,"\tsetAttr \".smbd\" %i;\n", smbd);
 
 	}
 	void setSmoothFactor(float smf)
 	{
 		if(smf == 0.5) return;
-		fprintf(mFile,"setAttr \".smf\" %f;\n", smf);
+		fprintf(mFile,"\tsetAttr \".smf\" %f;\n", smf);
 
 	}
 	void setFitTolerance(float ft)
 	{
 		if(ft == 0.007) return;
-		fprintf(mFile,"setAttr \".ft\" %f;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %f;\n", ft);
 
 	}
 	void setHardCornerDetect(bool hcd)
 	{
 		if(hcd == 1) return;
-		fprintf(mFile,"setAttr \".hcd\" %i;\n", hcd);
+		fprintf(mFile,"\tsetAttr \".hcd\" %i;\n", hcd);
 
 	}
 	void setHardCornerMaxLength(float hcml)
 	{
 		if(hcml == 10.0) return;
-		fprintf(mFile,"setAttr \".hcml\" %f;\n", hcml);
+		fprintf(mFile,"\tsetAttr \".hcml\" %f;\n", hcml);
 
 	}
 	void setSimplifyBoundary(bool smpl)
 	{
 		if(smpl == 1) return;
-		fprintf(mFile,"setAttr \".smpl\" %i;\n", smpl);
+		fprintf(mFile,"\tsetAttr \".smpl\" %i;\n", smpl);
 
 	}
 	void setSimplifyThreshold(double smpt)
 	{
 		if(smpt == 0) return;
-		fprintf(mFile,"setAttr \".smpt\" %f;\n", smpt);
+		fprintf(mFile,"\tsetAttr \".smpt\" %f;\n", smpt);
 
 	}
 	void setPointsOnBoundary(bool pob)
 	{
 		if(pob == 0) return;
-		fprintf(mFile,"setAttr \".pob\" %i;\n", pob);
+		fprintf(mFile,"\tsetAttr \".pob\" %i;\n", pob);
 
 	}
 	void setMaxPointsAdded(int mpa)
 	{
 		if(mpa == 0) return;
-		fprintf(mFile,"setAttr \".mpa\" %i;\n", mpa);
+		fprintf(mFile,"\tsetAttr \".mpa\" %i;\n", mpa);
 
 	}
 	void setShaderScript(const string& shs)
 	{
 		if(shs == "NULL") return;
-		fprintf(mFile,"setAttr \".shs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".shs\" -type \"string\" ");
 		shs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -347,7 +348,8 @@ public:
 
 	}
 protected:
-	TextureToGeom(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	TextureToGeom(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

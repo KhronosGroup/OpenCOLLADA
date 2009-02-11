@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class MultilisterLight : public DependNode
 {
 public:
 public:
+	MultilisterLight():DependNode(){}
 	MultilisterLight(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "multilisterLight"){}
 	virtual ~MultilisterLight(){}
 	void setPointCamera(const float3& p)
 	{
 		if(p == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".p\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"float3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,19 +32,39 @@ public:
 	void setPointCameraX(float px)
 	{
 		if(px == 0.0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPointCameraY(float py)
 	{
 		if(py == 0.0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setPointCameraZ(float pz)
 	{
 		if(pz == 0.0) return;
-		fprintf(mFile,"setAttr \".p.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
+
+	}
+	void getPointCamera()
+	{
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
+	void getPointCameraX()
+	{
+		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
+
+	}
+	void getPointCameraY()
+	{
+		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
+
+	}
+	void getPointCameraZ()
+	{
+		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
 	void getLightData()
@@ -122,7 +143,8 @@ public:
 
 	}
 protected:
-	MultilisterLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	MultilisterLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

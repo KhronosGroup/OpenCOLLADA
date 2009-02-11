@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class FilterResample : public Filter
 {
 public:
 public:
+	FilterResample():Filter(){}
 	FilterResample(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterResample"){}
 	virtual ~FilterResample(){}
 	void setKernel(unsigned int kr)
 	{
 		if(kr == 600) return;
-		fprintf(mFile,"setAttr \".kr\" %i;\n", kr);
+		fprintf(mFile,"\tsetAttr \".kr\" %i;\n", kr);
 
 	}
 	void getTimeStep()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	FilterResample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Filter(file, name, parent, nodeType) {}
+	FilterResample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Filter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

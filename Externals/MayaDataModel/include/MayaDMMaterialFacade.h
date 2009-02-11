@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class MaterialFacade : public Facade
 {
 public:
 public:
+	MaterialFacade():Facade(){}
 	MaterialFacade(FILE* file,const std::string& name,const std::string& parent=""):Facade(file, name, parent, "materialFacade"){}
 	virtual ~MaterialFacade(){}
 	void setProxyInitProc(const string& pip)
 	{
 		if(pip == "NULL") return;
-		fprintf(mFile,"setAttr \".pip\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".pip\" -type \"string\" ");
 		pip.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setOutColor(const float3& oc)
 	{
 		if(oc == float3(1.0f,0.6f,0.4f)) return;
-		fprintf(mFile,"setAttr \".oc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".oc\" -type \"float3\" ");
 		oc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,19 +40,19 @@ public:
 	void setOutColorR(float ocr)
 	{
 		if(ocr == 0.0) return;
-		fprintf(mFile,"setAttr \".oc.ocr\" %f;\n", ocr);
+		fprintf(mFile,"\tsetAttr \".oc.ocr\" %f;\n", ocr);
 
 	}
 	void setOutColorG(float ocg)
 	{
 		if(ocg == 0.0) return;
-		fprintf(mFile,"setAttr \".oc.ocg\" %f;\n", ocg);
+		fprintf(mFile,"\tsetAttr \".oc.ocg\" %f;\n", ocg);
 
 	}
 	void setOutColorB(float ocb)
 	{
 		if(ocb == 0.0) return;
-		fprintf(mFile,"setAttr \".oc.ocb\" %f;\n", ocb);
+		fprintf(mFile,"\tsetAttr \".oc.ocb\" %f;\n", ocb);
 
 	}
 	void getHardwareProxy()
@@ -85,7 +86,8 @@ public:
 
 	}
 protected:
-	MaterialFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Facade(file, name, parent, nodeType) {}
+	MaterialFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Facade(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

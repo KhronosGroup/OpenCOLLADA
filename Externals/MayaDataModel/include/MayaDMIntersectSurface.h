@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class IntersectSurface : public AbstractBaseCreate
 {
 public:
 public:
+	IntersectSurface():AbstractBaseCreate(){}
 	IntersectSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "intersectSurface"){}
 	virtual ~IntersectSurface(){}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void getInputSurface1()
@@ -57,7 +58,8 @@ public:
 
 	}
 protected:
-	IntersectSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	IntersectSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

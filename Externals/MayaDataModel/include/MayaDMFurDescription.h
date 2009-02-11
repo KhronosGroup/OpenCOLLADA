@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -174,30 +174,31 @@ public:
 	struct ClumpShapeMapVSamples{
 	};
 public:
+	FurDescription():DependNode(){}
 	FurDescription(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurDescription"){}
 	virtual ~FurDescription(){}
 	void setLightModel(unsigned int lmd)
 	{
 		if(lmd == 2) return;
-		fprintf(mFile,"setAttr \".lmd\" %i;\n", lmd);
+		fprintf(mFile,"\tsetAttr \".lmd\" %i;\n", lmd);
 
 	}
 	void setDensity(int d)
 	{
 		if(d == 1000.0) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setGlobalScale(float gs)
 	{
 		if(gs == 1.0) return;
-		fprintf(mFile,"setAttr \".gs\" %f;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %f;\n", gs);
 
 	}
 	void setBaseColor(const float3& dbc)
 	{
 		if(dbc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".dbc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dbc\" -type \"float3\" ");
 		dbc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -205,37 +206,37 @@ public:
 	void setBaseColorR(float dbcr)
 	{
 		if(dbcr == 1.0) return;
-		fprintf(mFile,"setAttr \".dbcr\" %f;\n", dbcr);
+		fprintf(mFile,"\tsetAttr \".dbcr\" %f;\n", dbcr);
 
 	}
 	void setBaseColorG(float dbcg)
 	{
 		if(dbcg == 1.0) return;
-		fprintf(mFile,"setAttr \".dbcg\" %f;\n", dbcg);
+		fprintf(mFile,"\tsetAttr \".dbcg\" %f;\n", dbcg);
 
 	}
 	void setBaseColorB(float dbcb)
 	{
 		if(dbcb == 1.0) return;
-		fprintf(mFile,"setAttr \".dbcb\" %f;\n", dbcb);
+		fprintf(mFile,"\tsetAttr \".dbcb\" %f;\n", dbcb);
 
 	}
 	void setBaseColorNoise(float bcn)
 	{
 		if(bcn == 0.0) return;
-		fprintf(mFile,"setAttr \".bcn\" %f;\n", bcn);
+		fprintf(mFile,"\tsetAttr \".bcn\" %f;\n", bcn);
 
 	}
 	void setBaseColorNoiseFreq(float bcnf)
 	{
 		if(bcnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bcnf\" %f;\n", bcnf);
+		fprintf(mFile,"\tsetAttr \".bcnf\" %f;\n", bcnf);
 
 	}
 	void setTipColor(const float3& dtc)
 	{
 		if(dtc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".dtc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dtc\" -type \"float3\" ");
 		dtc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -243,37 +244,37 @@ public:
 	void setTipColorR(float dtcr)
 	{
 		if(dtcr == 1.0) return;
-		fprintf(mFile,"setAttr \".dtcr\" %f;\n", dtcr);
+		fprintf(mFile,"\tsetAttr \".dtcr\" %f;\n", dtcr);
 
 	}
 	void setTipColorG(float dtcg)
 	{
 		if(dtcg == 1.0) return;
-		fprintf(mFile,"setAttr \".dtcg\" %f;\n", dtcg);
+		fprintf(mFile,"\tsetAttr \".dtcg\" %f;\n", dtcg);
 
 	}
 	void setTipColorB(float dtcb)
 	{
 		if(dtcb == 1.0) return;
-		fprintf(mFile,"setAttr \".dtcb\" %f;\n", dtcb);
+		fprintf(mFile,"\tsetAttr \".dtcb\" %f;\n", dtcb);
 
 	}
 	void setTipColorNoise(float tcn)
 	{
 		if(tcn == 0.0) return;
-		fprintf(mFile,"setAttr \".tcn\" %f;\n", tcn);
+		fprintf(mFile,"\tsetAttr \".tcn\" %f;\n", tcn);
 
 	}
 	void setTipColorNoiseFreq(float tcnf)
 	{
 		if(tcnf == 10.0) return;
-		fprintf(mFile,"setAttr \".tcnf\" %f;\n", tcnf);
+		fprintf(mFile,"\tsetAttr \".tcnf\" %f;\n", tcnf);
 
 	}
 	void setBaseAmbientColor(const float3& dbac)
 	{
 		if(dbac == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".dbac\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dbac\" -type \"float3\" ");
 		dbac.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -281,37 +282,37 @@ public:
 	void setBaseAmbientColorR(float dbacr)
 	{
 		if(dbacr == 0.0) return;
-		fprintf(mFile,"setAttr \".dbacr\" %f;\n", dbacr);
+		fprintf(mFile,"\tsetAttr \".dbacr\" %f;\n", dbacr);
 
 	}
 	void setBaseAmbientColorG(float dbacg)
 	{
 		if(dbacg == 0.0) return;
-		fprintf(mFile,"setAttr \".dbacg\" %f;\n", dbacg);
+		fprintf(mFile,"\tsetAttr \".dbacg\" %f;\n", dbacg);
 
 	}
 	void setBaseAmbientColorB(float dbacb)
 	{
 		if(dbacb == 0.0) return;
-		fprintf(mFile,"setAttr \".dbacb\" %f;\n", dbacb);
+		fprintf(mFile,"\tsetAttr \".dbacb\" %f;\n", dbacb);
 
 	}
 	void setBaseAmbientColorNoise(float bacn)
 	{
 		if(bacn == 0.0) return;
-		fprintf(mFile,"setAttr \".bacn\" %f;\n", bacn);
+		fprintf(mFile,"\tsetAttr \".bacn\" %f;\n", bacn);
 
 	}
 	void setBaseAmbientColorNoiseFreq(float bacnf)
 	{
 		if(bacnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bacnf\" %f;\n", bacnf);
+		fprintf(mFile,"\tsetAttr \".bacnf\" %f;\n", bacnf);
 
 	}
 	void setTipAmbientColor(const float3& dtac)
 	{
 		if(dtac == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".dtac\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dtac\" -type \"float3\" ");
 		dtac.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -319,37 +320,37 @@ public:
 	void setTipAmbientColorR(float dtacr)
 	{
 		if(dtacr == 0.0) return;
-		fprintf(mFile,"setAttr \".dtacr\" %f;\n", dtacr);
+		fprintf(mFile,"\tsetAttr \".dtacr\" %f;\n", dtacr);
 
 	}
 	void setTipAmbientColorG(float dtacg)
 	{
 		if(dtacg == 0.0) return;
-		fprintf(mFile,"setAttr \".dtacg\" %f;\n", dtacg);
+		fprintf(mFile,"\tsetAttr \".dtacg\" %f;\n", dtacg);
 
 	}
 	void setTipAmbientColorB(float dtacb)
 	{
 		if(dtacb == 0.0) return;
-		fprintf(mFile,"setAttr \".dtacb\" %f;\n", dtacb);
+		fprintf(mFile,"\tsetAttr \".dtacb\" %f;\n", dtacb);
 
 	}
 	void setTipAmbientColorNoise(float tacn)
 	{
 		if(tacn == 0.0) return;
-		fprintf(mFile,"setAttr \".tacn\" %f;\n", tacn);
+		fprintf(mFile,"\tsetAttr \".tacn\" %f;\n", tacn);
 
 	}
 	void setTipAmbientColorNoiseFreq(float tacnf)
 	{
 		if(tacnf == 10.0) return;
-		fprintf(mFile,"setAttr \".tacnf\" %f;\n", tacnf);
+		fprintf(mFile,"\tsetAttr \".tacnf\" %f;\n", tacnf);
 
 	}
 	void setSpecularColor(const float3& dsc)
 	{
 		if(dsc == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".dsc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dsc\" -type \"float3\" ");
 		dsc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -357,666 +358,681 @@ public:
 	void setSpecularColorR(float dscr)
 	{
 		if(dscr == 0.5) return;
-		fprintf(mFile,"setAttr \".dscr\" %f;\n", dscr);
+		fprintf(mFile,"\tsetAttr \".dscr\" %f;\n", dscr);
 
 	}
 	void setSpecularColorG(float dscg)
 	{
 		if(dscg == 0.5) return;
-		fprintf(mFile,"setAttr \".dscg\" %f;\n", dscg);
+		fprintf(mFile,"\tsetAttr \".dscg\" %f;\n", dscg);
 
 	}
 	void setSpecularColorB(float dscb)
 	{
 		if(dscb == 0.5) return;
-		fprintf(mFile,"setAttr \".dscb\" %f;\n", dscb);
+		fprintf(mFile,"\tsetAttr \".dscb\" %f;\n", dscb);
 
 	}
 	void setSpecularColorNoise(float scn)
 	{
 		if(scn == 0.0) return;
-		fprintf(mFile,"setAttr \".scn\" %f;\n", scn);
+		fprintf(mFile,"\tsetAttr \".scn\" %f;\n", scn);
 
 	}
 	void setSpecularColorNoiseFreq(float scnf)
 	{
 		if(scnf == 10.0) return;
-		fprintf(mFile,"setAttr \".scnf\" %f;\n", scnf);
+		fprintf(mFile,"\tsetAttr \".scnf\" %f;\n", scnf);
 
 	}
 	void setLength(double dl)
 	{
 		if(dl == 1) return;
-		fprintf(mFile,"setAttr \".dl\" %f;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %f;\n", dl);
 
 	}
 	void setLengthMapOffset(double lmo)
 	{
 		if(lmo == 0) return;
-		fprintf(mFile,"setAttr \".lmo\" %f;\n", lmo);
+		fprintf(mFile,"\tsetAttr \".lmo\" %f;\n", lmo);
 
 	}
 	void setLengthMapMult(double lmm)
 	{
 		if(lmm == 1) return;
-		fprintf(mFile,"setAttr \".lmm\" %f;\n", lmm);
+		fprintf(mFile,"\tsetAttr \".lmm\" %f;\n", lmm);
 
 	}
 	void setLengthNoise(double ln)
 	{
 		if(ln == 0) return;
-		fprintf(mFile,"setAttr \".ln\" %f;\n", ln);
+		fprintf(mFile,"\tsetAttr \".ln\" %f;\n", ln);
 
 	}
 	void setLengthNoiseFreq(float lnf)
 	{
 		if(lnf == 10.0) return;
-		fprintf(mFile,"setAttr \".lnf\" %f;\n", lnf);
+		fprintf(mFile,"\tsetAttr \".lnf\" %f;\n", lnf);
 
 	}
 	void setSpecularSharpness(double dss)
 	{
 		if(dss == 5) return;
-		fprintf(mFile,"setAttr \".dss\" %f;\n", dss);
+		fprintf(mFile,"\tsetAttr \".dss\" %f;\n", dss);
 
 	}
 	void setSpecularSharpnessMapOffset(double ssmo)
 	{
 		if(ssmo == 0) return;
-		fprintf(mFile,"setAttr \".ssmo\" %f;\n", ssmo);
+		fprintf(mFile,"\tsetAttr \".ssmo\" %f;\n", ssmo);
 
 	}
 	void setSpecularSharpnessMapMult(double ssmm)
 	{
 		if(ssmm == 1) return;
-		fprintf(mFile,"setAttr \".ssmm\" %f;\n", ssmm);
+		fprintf(mFile,"\tsetAttr \".ssmm\" %f;\n", ssmm);
 
 	}
 	void setSpecularSharpnessNoise(double ssn)
 	{
 		if(ssn == 0) return;
-		fprintf(mFile,"setAttr \".ssn\" %f;\n", ssn);
+		fprintf(mFile,"\tsetAttr \".ssn\" %f;\n", ssn);
 
 	}
 	void setSpecularSharpnessNoiseFreq(float ssnf)
 	{
 		if(ssnf == 10.0) return;
-		fprintf(mFile,"setAttr \".ssnf\" %f;\n", ssnf);
+		fprintf(mFile,"\tsetAttr \".ssnf\" %f;\n", ssnf);
 
 	}
 	void setBaldness(double db)
 	{
 		if(db == 1) return;
-		fprintf(mFile,"setAttr \".db\" %f;\n", db);
+		fprintf(mFile,"\tsetAttr \".db\" %f;\n", db);
 
 	}
 	void setBaldnessMapOffset(double bmo)
 	{
 		if(bmo == 0) return;
-		fprintf(mFile,"setAttr \".bmo\" %f;\n", bmo);
+		fprintf(mFile,"\tsetAttr \".bmo\" %f;\n", bmo);
 
 	}
 	void setBaldnessMapMult(double bmm)
 	{
 		if(bmm == 1) return;
-		fprintf(mFile,"setAttr \".bmm\" %f;\n", bmm);
+		fprintf(mFile,"\tsetAttr \".bmm\" %f;\n", bmm);
 
 	}
 	void setBaldnessNoise(double bn)
 	{
 		if(bn == 0) return;
-		fprintf(mFile,"setAttr \".bn\" %f;\n", bn);
+		fprintf(mFile,"\tsetAttr \".bn\" %f;\n", bn);
 
 	}
 	void setBaldnessNoiseFreq(float bnf)
 	{
 		if(bnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bnf\" %f;\n", bnf);
+		fprintf(mFile,"\tsetAttr \".bnf\" %f;\n", bnf);
 
 	}
 	void setBaseOpacity(double dbo)
 	{
 		if(dbo == 1) return;
-		fprintf(mFile,"setAttr \".dbo\" %f;\n", dbo);
+		fprintf(mFile,"\tsetAttr \".dbo\" %f;\n", dbo);
 
 	}
 	void setBaseOpacityMapOffset(double bomo)
 	{
 		if(bomo == 0) return;
-		fprintf(mFile,"setAttr \".bomo\" %f;\n", bomo);
+		fprintf(mFile,"\tsetAttr \".bomo\" %f;\n", bomo);
 
 	}
 	void setBaseOpacityMapMult(double bomm)
 	{
 		if(bomm == 1) return;
-		fprintf(mFile,"setAttr \".bomm\" %f;\n", bomm);
+		fprintf(mFile,"\tsetAttr \".bomm\" %f;\n", bomm);
 
 	}
 	void setBaseOpacityNoise(double bon)
 	{
 		if(bon == 0) return;
-		fprintf(mFile,"setAttr \".bon\" %f;\n", bon);
+		fprintf(mFile,"\tsetAttr \".bon\" %f;\n", bon);
 
 	}
 	void setBaseOpacityNoiseFreq(float bonf)
 	{
 		if(bonf == 10.0) return;
-		fprintf(mFile,"setAttr \".bonf\" %f;\n", bonf);
+		fprintf(mFile,"\tsetAttr \".bonf\" %f;\n", bonf);
 
 	}
 	void setTipOpacity(double dto)
 	{
 		if(dto == 1) return;
-		fprintf(mFile,"setAttr \".dto\" %f;\n", dto);
+		fprintf(mFile,"\tsetAttr \".dto\" %f;\n", dto);
 
 	}
 	void setTipOpacityMapOffset(double tomo)
 	{
 		if(tomo == 0) return;
-		fprintf(mFile,"setAttr \".tomo\" %f;\n", tomo);
+		fprintf(mFile,"\tsetAttr \".tomo\" %f;\n", tomo);
 
 	}
 	void setTipOpacityMapMult(double tomm)
 	{
 		if(tomm == 1) return;
-		fprintf(mFile,"setAttr \".tomm\" %f;\n", tomm);
+		fprintf(mFile,"\tsetAttr \".tomm\" %f;\n", tomm);
 
 	}
 	void setTipOpacityNoise(double ton)
 	{
 		if(ton == 0) return;
-		fprintf(mFile,"setAttr \".ton\" %f;\n", ton);
+		fprintf(mFile,"\tsetAttr \".ton\" %f;\n", ton);
 
 	}
 	void setTipOpacityNoiseFreq(float tonf)
 	{
 		if(tonf == 10.0) return;
-		fprintf(mFile,"setAttr \".tonf\" %f;\n", tonf);
+		fprintf(mFile,"\tsetAttr \".tonf\" %f;\n", tonf);
 
 	}
 	void setBaseWidth(double dbw)
 	{
 		if(dbw == 0) return;
-		fprintf(mFile,"setAttr \".dbw\" %f;\n", dbw);
+		fprintf(mFile,"\tsetAttr \".dbw\" %f;\n", dbw);
 
 	}
 	void setBaseWidthMapOffset(double bwmo)
 	{
 		if(bwmo == 0) return;
-		fprintf(mFile,"setAttr \".bwmo\" %f;\n", bwmo);
+		fprintf(mFile,"\tsetAttr \".bwmo\" %f;\n", bwmo);
 
 	}
 	void setBaseWidthMapMult(double bwmm)
 	{
 		if(bwmm == 1) return;
-		fprintf(mFile,"setAttr \".bwmm\" %f;\n", bwmm);
+		fprintf(mFile,"\tsetAttr \".bwmm\" %f;\n", bwmm);
 
 	}
 	void setBaseWidthNoise(double bwn)
 	{
 		if(bwn == 0) return;
-		fprintf(mFile,"setAttr \".bwn\" %f;\n", bwn);
+		fprintf(mFile,"\tsetAttr \".bwn\" %f;\n", bwn);
 
 	}
 	void setBaseWidthNoiseFreq(float bwnf)
 	{
 		if(bwnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bwnf\" %f;\n", bwnf);
+		fprintf(mFile,"\tsetAttr \".bwnf\" %f;\n", bwnf);
 
 	}
 	void setTipWidth(double dtw)
 	{
 		if(dtw == 0) return;
-		fprintf(mFile,"setAttr \".dtw\" %f;\n", dtw);
+		fprintf(mFile,"\tsetAttr \".dtw\" %f;\n", dtw);
 
 	}
 	void setTipWidthMapOffset(double twmo)
 	{
 		if(twmo == 0) return;
-		fprintf(mFile,"setAttr \".twmo\" %f;\n", twmo);
+		fprintf(mFile,"\tsetAttr \".twmo\" %f;\n", twmo);
 
 	}
 	void setTipWidthMapMult(double twmm)
 	{
 		if(twmm == 1) return;
-		fprintf(mFile,"setAttr \".twmm\" %f;\n", twmm);
+		fprintf(mFile,"\tsetAttr \".twmm\" %f;\n", twmm);
 
 	}
 	void setTipWidthNoise(double twn)
 	{
 		if(twn == 0) return;
-		fprintf(mFile,"setAttr \".twn\" %f;\n", twn);
+		fprintf(mFile,"\tsetAttr \".twn\" %f;\n", twn);
 
 	}
 	void setTipWidthNoiseFreq(float twnf)
 	{
 		if(twnf == 10.0) return;
-		fprintf(mFile,"setAttr \".twnf\" %f;\n", twnf);
+		fprintf(mFile,"\tsetAttr \".twnf\" %f;\n", twnf);
 
 	}
 	void setSegments(double dsg)
 	{
 		if(dsg == 1) return;
-		fprintf(mFile,"setAttr \".dsg\" %f;\n", dsg);
+		fprintf(mFile,"\tsetAttr \".dsg\" %f;\n", dsg);
 
 	}
 	void setSegmentsMapOffset(double sgmo)
 	{
 		if(sgmo == 0) return;
-		fprintf(mFile,"setAttr \".sgmo\" %f;\n", sgmo);
+		fprintf(mFile,"\tsetAttr \".sgmo\" %f;\n", sgmo);
 
 	}
 	void setSegmentsMapMult(double sgmm)
 	{
 		if(sgmm == 1) return;
-		fprintf(mFile,"setAttr \".sgmm\" %f;\n", sgmm);
+		fprintf(mFile,"\tsetAttr \".sgmm\" %f;\n", sgmm);
 
 	}
 	void setSegmentsNoise(double sgn)
 	{
 		if(sgn == 0) return;
-		fprintf(mFile,"setAttr \".sgn\" %f;\n", sgn);
+		fprintf(mFile,"\tsetAttr \".sgn\" %f;\n", sgn);
 
 	}
 	void setSegmentsNoiseFreq(float sgnf)
 	{
 		if(sgnf == 10.0) return;
-		fprintf(mFile,"setAttr \".sgnf\" %f;\n", sgnf);
+		fprintf(mFile,"\tsetAttr \".sgnf\" %f;\n", sgnf);
 
 	}
 	void setBaseCurl(double dbcl)
 	{
 		if(dbcl == 0) return;
-		fprintf(mFile,"setAttr \".dbcl\" %f;\n", dbcl);
+		fprintf(mFile,"\tsetAttr \".dbcl\" %f;\n", dbcl);
 
 	}
 	void setBaseCurlMapOffset(double bclmo)
 	{
 		if(bclmo == 0) return;
-		fprintf(mFile,"setAttr \".bclmo\" %f;\n", bclmo);
+		fprintf(mFile,"\tsetAttr \".bclmo\" %f;\n", bclmo);
 
 	}
 	void setBaseCurlMapMult(double bclmm)
 	{
 		if(bclmm == 1) return;
-		fprintf(mFile,"setAttr \".bclmm\" %f;\n", bclmm);
+		fprintf(mFile,"\tsetAttr \".bclmm\" %f;\n", bclmm);
 
 	}
 	void setBaseCurlNoise(double bcln)
 	{
 		if(bcln == 0) return;
-		fprintf(mFile,"setAttr \".bcln\" %f;\n", bcln);
+		fprintf(mFile,"\tsetAttr \".bcln\" %f;\n", bcln);
 
 	}
 	void setBaseCurlNoiseFreq(float bclnf)
 	{
 		if(bclnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bclnf\" %f;\n", bclnf);
+		fprintf(mFile,"\tsetAttr \".bclnf\" %f;\n", bclnf);
 
 	}
 	void setTipCurl(double dtcl)
 	{
 		if(dtcl == 0) return;
-		fprintf(mFile,"setAttr \".dtcl\" %f;\n", dtcl);
+		fprintf(mFile,"\tsetAttr \".dtcl\" %f;\n", dtcl);
 
 	}
 	void setTipCurlMapOffset(double tclmo)
 	{
 		if(tclmo == 0) return;
-		fprintf(mFile,"setAttr \".tclmo\" %f;\n", tclmo);
+		fprintf(mFile,"\tsetAttr \".tclmo\" %f;\n", tclmo);
 
 	}
 	void setTipCurlMapMult(double tclmm)
 	{
 		if(tclmm == 1) return;
-		fprintf(mFile,"setAttr \".tclmm\" %f;\n", tclmm);
+		fprintf(mFile,"\tsetAttr \".tclmm\" %f;\n", tclmm);
 
 	}
 	void setTipCurlNoise(double tcln)
 	{
 		if(tcln == 0) return;
-		fprintf(mFile,"setAttr \".tcln\" %f;\n", tcln);
+		fprintf(mFile,"\tsetAttr \".tcln\" %f;\n", tcln);
 
 	}
 	void setTipCurlNoiseFreq(float tclnf)
 	{
 		if(tclnf == 10.0) return;
-		fprintf(mFile,"setAttr \".tclnf\" %f;\n", tclnf);
+		fprintf(mFile,"\tsetAttr \".tclnf\" %f;\n", tclnf);
 
 	}
 	void setScraggle(double ds)
 	{
 		if(ds == 0) return;
-		fprintf(mFile,"setAttr \".ds\" %f;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %f;\n", ds);
 
 	}
 	void setScraggleMapOffset(double smo)
 	{
 		if(smo == 0) return;
-		fprintf(mFile,"setAttr \".smo\" %f;\n", smo);
+		fprintf(mFile,"\tsetAttr \".smo\" %f;\n", smo);
 
 	}
 	void setScraggleMapMult(double smm)
 	{
 		if(smm == 1) return;
-		fprintf(mFile,"setAttr \".smm\" %f;\n", smm);
+		fprintf(mFile,"\tsetAttr \".smm\" %f;\n", smm);
 
 	}
 	void setScraggleNoise(double sn)
 	{
 		if(sn == 0) return;
-		fprintf(mFile,"setAttr \".sn\" %f;\n", sn);
+		fprintf(mFile,"\tsetAttr \".sn\" %f;\n", sn);
 
 	}
 	void setScraggleNoiseFreq(float snf)
 	{
 		if(snf == 10.0) return;
-		fprintf(mFile,"setAttr \".snf\" %f;\n", snf);
+		fprintf(mFile,"\tsetAttr \".snf\" %f;\n", snf);
 
 	}
 	void setScraggleFrequency(double dsf)
 	{
 		if(dsf == 5) return;
-		fprintf(mFile,"setAttr \".dsf\" %f;\n", dsf);
+		fprintf(mFile,"\tsetAttr \".dsf\" %f;\n", dsf);
 
 	}
 	void setScraggleFrequencyMapOffset(double sfmo)
 	{
 		if(sfmo == 0) return;
-		fprintf(mFile,"setAttr \".sfmo\" %f;\n", sfmo);
+		fprintf(mFile,"\tsetAttr \".sfmo\" %f;\n", sfmo);
 
 	}
 	void setScraggleFrequencyMapMult(double sfmm)
 	{
 		if(sfmm == 1) return;
-		fprintf(mFile,"setAttr \".sfmm\" %f;\n", sfmm);
+		fprintf(mFile,"\tsetAttr \".sfmm\" %f;\n", sfmm);
 
 	}
 	void setScraggleFrequencyNoise(double sfn)
 	{
 		if(sfn == 0) return;
-		fprintf(mFile,"setAttr \".sfn\" %f;\n", sfn);
+		fprintf(mFile,"\tsetAttr \".sfn\" %f;\n", sfn);
 
 	}
 	void setScraggleFrequencyNoiseFreq(float sfnf)
 	{
 		if(sfnf == 10.0) return;
-		fprintf(mFile,"setAttr \".sfnf\" %f;\n", sfnf);
+		fprintf(mFile,"\tsetAttr \".sfnf\" %f;\n", sfnf);
 
 	}
 	void setScraggleCorrelation(double dsco)
 	{
 		if(dsco == 0) return;
-		fprintf(mFile,"setAttr \".dsco\" %f;\n", dsco);
+		fprintf(mFile,"\tsetAttr \".dsco\" %f;\n", dsco);
 
 	}
 	void setScraggleCorrelationMapOffset(double scomo)
 	{
 		if(scomo == 0) return;
-		fprintf(mFile,"setAttr \".scomo\" %f;\n", scomo);
+		fprintf(mFile,"\tsetAttr \".scomo\" %f;\n", scomo);
 
 	}
 	void setScraggleCorrelationMapMult(double scomm)
 	{
 		if(scomm == 1) return;
-		fprintf(mFile,"setAttr \".scomm\" %f;\n", scomm);
+		fprintf(mFile,"\tsetAttr \".scomm\" %f;\n", scomm);
 
 	}
 	void setScraggleCorrelationNoise(double scon)
 	{
 		if(scon == 0) return;
-		fprintf(mFile,"setAttr \".scon\" %f;\n", scon);
+		fprintf(mFile,"\tsetAttr \".scon\" %f;\n", scon);
 
 	}
 	void setScraggleCorrelationNoiseFreq(float sconf)
 	{
 		if(sconf == 10.0) return;
-		fprintf(mFile,"setAttr \".sconf\" %f;\n", sconf);
+		fprintf(mFile,"\tsetAttr \".sconf\" %f;\n", sconf);
 
 	}
 	void setInclination(double di)
 	{
 		if(di == 0) return;
-		fprintf(mFile,"setAttr \".di\" %f;\n", di);
+		fprintf(mFile,"\tsetAttr \".di\" %f;\n", di);
 
 	}
 	void setInclinationMapOffset(double imo)
 	{
 		if(imo == 0) return;
-		fprintf(mFile,"setAttr \".imo\" %f;\n", imo);
+		fprintf(mFile,"\tsetAttr \".imo\" %f;\n", imo);
 
 	}
 	void setInclinationMapMult(double imm)
 	{
 		if(imm == 1) return;
-		fprintf(mFile,"setAttr \".imm\" %f;\n", imm);
+		fprintf(mFile,"\tsetAttr \".imm\" %f;\n", imm);
 
 	}
 	void setInclinationNoise(double in)
 	{
 		if(in == 0) return;
-		fprintf(mFile,"setAttr \".in\" %f;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %f;\n", in);
 
 	}
 	void setInclinationNoiseFreq(float inf)
 	{
 		if(inf == 10.0) return;
-		fprintf(mFile,"setAttr \".inf\" %f;\n", inf);
+		fprintf(mFile,"\tsetAttr \".inf\" %f;\n", inf);
 
 	}
 	void setRoll(double dr)
 	{
 		if(dr == 0) return;
-		fprintf(mFile,"setAttr \".dr\" %f;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %f;\n", dr);
 
 	}
 	void setRollMapOffset(double rmo)
 	{
 		if(rmo == 0) return;
-		fprintf(mFile,"setAttr \".rmo\" %f;\n", rmo);
+		fprintf(mFile,"\tsetAttr \".rmo\" %f;\n", rmo);
 
 	}
 	void setRollMapMult(double rmm)
 	{
 		if(rmm == 1) return;
-		fprintf(mFile,"setAttr \".rmm\" %f;\n", rmm);
+		fprintf(mFile,"\tsetAttr \".rmm\" %f;\n", rmm);
 
 	}
 	void setRollNoise(double rn)
 	{
 		if(rn == 0) return;
-		fprintf(mFile,"setAttr \".rn\" %f;\n", rn);
+		fprintf(mFile,"\tsetAttr \".rn\" %f;\n", rn);
 
 	}
 	void setRollNoiseFreq(float rnf)
 	{
 		if(rnf == 10.0) return;
-		fprintf(mFile,"setAttr \".rnf\" %f;\n", rnf);
+		fprintf(mFile,"\tsetAttr \".rnf\" %f;\n", rnf);
 
 	}
 	void setPolar(double dp)
 	{
 		if(dp == 0) return;
-		fprintf(mFile,"setAttr \".dp\" %f;\n", dp);
+		fprintf(mFile,"\tsetAttr \".dp\" %f;\n", dp);
 
 	}
 	void setPolarMapOffset(double pmo)
 	{
 		if(pmo == 0) return;
-		fprintf(mFile,"setAttr \".pmo\" %f;\n", pmo);
+		fprintf(mFile,"\tsetAttr \".pmo\" %f;\n", pmo);
 
 	}
 	void setPolarMapMult(double pmm)
 	{
 		if(pmm == 1) return;
-		fprintf(mFile,"setAttr \".pmm\" %f;\n", pmm);
+		fprintf(mFile,"\tsetAttr \".pmm\" %f;\n", pmm);
 
 	}
 	void setPolarNoise(double pn)
 	{
 		if(pn == 0) return;
-		fprintf(mFile,"setAttr \".pn\" %f;\n", pn);
+		fprintf(mFile,"\tsetAttr \".pn\" %f;\n", pn);
 
 	}
 	void setPolarNoiseFreq(float pnf)
 	{
 		if(pnf == 10.0) return;
-		fprintf(mFile,"setAttr \".pnf\" %f;\n", pnf);
+		fprintf(mFile,"\tsetAttr \".pnf\" %f;\n", pnf);
 
 	}
 	void setAttraction(double dat)
 	{
 		if(dat == 1) return;
-		fprintf(mFile,"setAttr \".dat\" %f;\n", dat);
+		fprintf(mFile,"\tsetAttr \".dat\" %f;\n", dat);
 
 	}
 	void setAttractionMapOffset(double atmo)
 	{
 		if(atmo == 0) return;
-		fprintf(mFile,"setAttr \".atmo\" %f;\n", atmo);
+		fprintf(mFile,"\tsetAttr \".atmo\" %f;\n", atmo);
 
 	}
 	void setAttractionMapMult(double atmm)
 	{
 		if(atmm == 1) return;
-		fprintf(mFile,"setAttr \".atmm\" %f;\n", atmm);
+		fprintf(mFile,"\tsetAttr \".atmm\" %f;\n", atmm);
 
 	}
 	void setAttractionNoise(double atn)
 	{
 		if(atn == 0) return;
-		fprintf(mFile,"setAttr \".atn\" %f;\n", atn);
+		fprintf(mFile,"\tsetAttr \".atn\" %f;\n", atn);
 
 	}
 	void setAttractionNoiseFreq(float atnf)
 	{
 		if(atnf == 10.0) return;
-		fprintf(mFile,"setAttr \".atnf\" %f;\n", atnf);
+		fprintf(mFile,"\tsetAttr \".atnf\" %f;\n", atnf);
 
 	}
 	void setOffset(double dofs)
 	{
 		if(dofs == 0) return;
-		fprintf(mFile,"setAttr \".dofs\" %f;\n", dofs);
+		fprintf(mFile,"\tsetAttr \".dofs\" %f;\n", dofs);
 
 	}
 	void setOffsetMapOffset(double ofsmo)
 	{
 		if(ofsmo == 0) return;
-		fprintf(mFile,"setAttr \".ofsmo\" %f;\n", ofsmo);
+		fprintf(mFile,"\tsetAttr \".ofsmo\" %f;\n", ofsmo);
 
 	}
 	void setOffsetMapMult(double ofsmm)
 	{
 		if(ofsmm == 1) return;
-		fprintf(mFile,"setAttr \".ofsmm\" %f;\n", ofsmm);
+		fprintf(mFile,"\tsetAttr \".ofsmm\" %f;\n", ofsmm);
 
 	}
 	void setOffsetNoise(double ofsn)
 	{
 		if(ofsn == 0) return;
-		fprintf(mFile,"setAttr \".ofsn\" %f;\n", ofsn);
+		fprintf(mFile,"\tsetAttr \".ofsn\" %f;\n", ofsn);
 
 	}
 	void setOffsetNoiseFreq(float ofsnf)
 	{
 		if(ofsnf == 10.0) return;
-		fprintf(mFile,"setAttr \".ofsnf\" %f;\n", ofsnf);
+		fprintf(mFile,"\tsetAttr \".ofsnf\" %f;\n", ofsnf);
 
 	}
 	void setClumping(float dc)
 	{
 		if(dc == 0.0) return;
-		fprintf(mFile,"setAttr \".dc\" %f;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %f;\n", dc);
 
 	}
 	void setClumpingMapOffset(float cmo)
 	{
 		if(cmo == 0.0) return;
-		fprintf(mFile,"setAttr \".cmo\" %f;\n", cmo);
+		fprintf(mFile,"\tsetAttr \".cmo\" %f;\n", cmo);
 
 	}
 	void setClumpingMapMult(float cmm)
 	{
 		if(cmm == 1.0) return;
-		fprintf(mFile,"setAttr \".cmm\" %f;\n", cmm);
+		fprintf(mFile,"\tsetAttr \".cmm\" %f;\n", cmm);
 
 	}
 	void setClumpingNoise(float cn)
 	{
 		if(cn == 0.0) return;
-		fprintf(mFile,"setAttr \".cn\" %f;\n", cn);
+		fprintf(mFile,"\tsetAttr \".cn\" %f;\n", cn);
 
 	}
 	void setClumpingNoiseFreq(float cnf)
 	{
 		if(cnf == 10.0) return;
-		fprintf(mFile,"setAttr \".cnf\" %f;\n", cnf);
+		fprintf(mFile,"\tsetAttr \".cnf\" %f;\n", cnf);
 
 	}
 	void setClumpingFrequency(float dcf)
 	{
 		if(dcf == 50) return;
-		fprintf(mFile,"setAttr \".dcf\" %f;\n", dcf);
+		fprintf(mFile,"\tsetAttr \".dcf\" %f;\n", dcf);
 
 	}
 	void setClumpingFrequencyMapOffset(float cfmo)
 	{
 		if(cfmo == 0.0) return;
-		fprintf(mFile,"setAttr \".cfmo\" %f;\n", cfmo);
+		fprintf(mFile,"\tsetAttr \".cfmo\" %f;\n", cfmo);
 
 	}
 	void setClumpingFrequencyMapMult(float cfmm)
 	{
 		if(cfmm == 1.0) return;
-		fprintf(mFile,"setAttr \".cfmm\" %f;\n", cfmm);
+		fprintf(mFile,"\tsetAttr \".cfmm\" %f;\n", cfmm);
 
 	}
 	void setClumpingFrequencyNoise(float cfn)
 	{
 		if(cfn == 0.0) return;
-		fprintf(mFile,"setAttr \".cfn\" %f;\n", cfn);
+		fprintf(mFile,"\tsetAttr \".cfn\" %f;\n", cfn);
 
 	}
 	void setClumpingFrequencyNoiseFreq(float cfnf)
 	{
 		if(cfnf == 10.0) return;
-		fprintf(mFile,"setAttr \".cfnf\" %f;\n", cfnf);
+		fprintf(mFile,"\tsetAttr \".cfnf\" %f;\n", cfnf);
 
 	}
 	void setClumpShape(float dcs)
 	{
 		if(dcs == 0.0) return;
-		fprintf(mFile,"setAttr \".dcs\" %f;\n", dcs);
+		fprintf(mFile,"\tsetAttr \".dcs\" %f;\n", dcs);
 
 	}
 	void setClumpShapeMapOffset(float csmo)
 	{
 		if(csmo == 0.0) return;
-		fprintf(mFile,"setAttr \".csmo\" %f;\n", csmo);
+		fprintf(mFile,"\tsetAttr \".csmo\" %f;\n", csmo);
 
 	}
 	void setClumpShapeMapMult(float csmm)
 	{
 		if(csmm == 1.0) return;
-		fprintf(mFile,"setAttr \".csmm\" %f;\n", csmm);
+		fprintf(mFile,"\tsetAttr \".csmm\" %f;\n", csmm);
 
 	}
 	void setClumpShapeNoise(float csn)
 	{
 		if(csn == 0.0) return;
-		fprintf(mFile,"setAttr \".csn\" %f;\n", csn);
+		fprintf(mFile,"\tsetAttr \".csn\" %f;\n", csn);
 
 	}
 	void setClumpShapeNoiseFreq(float csnf)
 	{
 		if(csnf == 10.0) return;
-		fprintf(mFile,"setAttr \".csnf\" %f;\n", csnf);
+		fprintf(mFile,"\tsetAttr \".csnf\" %f;\n", csnf);
 
 	}
 	void getLightModel()
 	{
 		fprintf(mFile,"\"%s.lmd\"",mName.c_str());
+
+	}
+	void getDagSetMembers()
+	{
+		fprintf(mFile,"\"%s.dsm\"",mName.c_str());
+
+	}
+	void getUvSetName()
+	{
+		fprintf(mFile,"\"%s.uvsn\"",mName.c_str());
+
+	}
+	void getFurGlobals()
+	{
+		fprintf(mFile,"\"%s.fgc\"",mName.c_str());
 
 	}
 	void getBaseColor()
@@ -1037,6 +1053,11 @@ public:
 	void getBaseColorB()
 	{
 		fprintf(mFile,"\"%s.dbcb\"",mName.c_str());
+
+	}
+	void getBaseColorMap()
+	{
+		fprintf(mFile,"\"%s.bcm\"",mName.c_str());
 
 	}
 	void getBaseColorMapUSamples()
@@ -1074,6 +1095,11 @@ public:
 		fprintf(mFile,"\"%s.dtcb\"",mName.c_str());
 
 	}
+	void getTipColorMap()
+	{
+		fprintf(mFile,"\"%s.tcm\"",mName.c_str());
+
+	}
 	void getTipColorMapUSamples()
 	{
 		fprintf(mFile,"\"%s.tcmus\"",mName.c_str());
@@ -1107,6 +1133,11 @@ public:
 	void getBaseAmbientColorB()
 	{
 		fprintf(mFile,"\"%s.dbacb\"",mName.c_str());
+
+	}
+	void getBaseAmbientColorMap()
+	{
+		fprintf(mFile,"\"%s.bacm\"",mName.c_str());
 
 	}
 	void getBaseAmbientColorMapUSamples()
@@ -1144,6 +1175,11 @@ public:
 		fprintf(mFile,"\"%s.dtacb\"",mName.c_str());
 
 	}
+	void getTipAmbientColorMap()
+	{
+		fprintf(mFile,"\"%s.tacm\"",mName.c_str());
+
+	}
 	void getTipAmbientColorMapUSamples()
 	{
 		fprintf(mFile,"\"%s.tacmus\"",mName.c_str());
@@ -1179,6 +1215,11 @@ public:
 		fprintf(mFile,"\"%s.dscb\"",mName.c_str());
 
 	}
+	void getSpecularColorMap()
+	{
+		fprintf(mFile,"\"%s.scm\"",mName.c_str());
+
+	}
 	void getSpecularColorMapUSamples()
 	{
 		fprintf(mFile,"\"%s.scmus\"",mName.c_str());
@@ -1197,6 +1238,11 @@ public:
 	void getLength()
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
+
+	}
+	void getLengthMap()
+	{
+		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
 	void getLengthMapUSamples()
@@ -1229,6 +1275,11 @@ public:
 		fprintf(mFile,"\"%s.dss\"",mName.c_str());
 
 	}
+	void getSpecularSharpnessMap()
+	{
+		fprintf(mFile,"\"%s.ssm\"",mName.c_str());
+
+	}
 	void getSpecularSharpnessMapUSamples()
 	{
 		fprintf(mFile,"\"%s.ssmus\"",mName.c_str());
@@ -1257,6 +1308,11 @@ public:
 	void getBaldness()
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
+
+	}
+	void getBaldnessMap()
+	{
+		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
 	void getBaldnessMapUSamples()
@@ -1289,6 +1345,11 @@ public:
 		fprintf(mFile,"\"%s.dbo\"",mName.c_str());
 
 	}
+	void getBaseOpacityMap()
+	{
+		fprintf(mFile,"\"%s.bom\"",mName.c_str());
+
+	}
 	void getBaseOpacityMapUSamples()
 	{
 		fprintf(mFile,"\"%s.bomus\"",mName.c_str());
@@ -1317,6 +1378,11 @@ public:
 	void getTipOpacity()
 	{
 		fprintf(mFile,"\"%s.dto\"",mName.c_str());
+
+	}
+	void getTipOpacityMap()
+	{
+		fprintf(mFile,"\"%s.tom\"",mName.c_str());
 
 	}
 	void getTipOpacityMapUSamples()
@@ -1349,6 +1415,11 @@ public:
 		fprintf(mFile,"\"%s.dbw\"",mName.c_str());
 
 	}
+	void getBaseWidthMap()
+	{
+		fprintf(mFile,"\"%s.bwm\"",mName.c_str());
+
+	}
 	void getBaseWidthMapUSamples()
 	{
 		fprintf(mFile,"\"%s.bwmus\"",mName.c_str());
@@ -1377,6 +1448,11 @@ public:
 	void getTipWidth()
 	{
 		fprintf(mFile,"\"%s.dtw\"",mName.c_str());
+
+	}
+	void getTipWidthMap()
+	{
+		fprintf(mFile,"\"%s.twm\"",mName.c_str());
 
 	}
 	void getTipWidthMapUSamples()
@@ -1409,6 +1485,11 @@ public:
 		fprintf(mFile,"\"%s.dsg\"",mName.c_str());
 
 	}
+	void getSegmentsMap()
+	{
+		fprintf(mFile,"\"%s.sgm\"",mName.c_str());
+
+	}
 	void getSegmentsMapUSamples()
 	{
 		fprintf(mFile,"\"%s.sgmus\"",mName.c_str());
@@ -1437,6 +1518,11 @@ public:
 	void getBaseCurl()
 	{
 		fprintf(mFile,"\"%s.dbcl\"",mName.c_str());
+
+	}
+	void getBaseCurlMap()
+	{
+		fprintf(mFile,"\"%s.bclm\"",mName.c_str());
 
 	}
 	void getBaseCurlMapUSamples()
@@ -1469,6 +1555,11 @@ public:
 		fprintf(mFile,"\"%s.dtcl\"",mName.c_str());
 
 	}
+	void getTipCurlMap()
+	{
+		fprintf(mFile,"\"%s.tclm\"",mName.c_str());
+
+	}
 	void getTipCurlMapUSamples()
 	{
 		fprintf(mFile,"\"%s.tclmus\"",mName.c_str());
@@ -1497,6 +1588,11 @@ public:
 	void getScraggle()
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
+
+	}
+	void getScraggleMap()
+	{
+		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
 	void getScraggleMapUSamples()
@@ -1529,6 +1625,11 @@ public:
 		fprintf(mFile,"\"%s.dsf\"",mName.c_str());
 
 	}
+	void getScraggleFrequencyMap()
+	{
+		fprintf(mFile,"\"%s.sfm\"",mName.c_str());
+
+	}
 	void getScraggleFrequencyMapUSamples()
 	{
 		fprintf(mFile,"\"%s.sfmus\"",mName.c_str());
@@ -1557,6 +1658,11 @@ public:
 	void getScraggleCorrelation()
 	{
 		fprintf(mFile,"\"%s.dsco\"",mName.c_str());
+
+	}
+	void getScraggleCorrelationMap()
+	{
+		fprintf(mFile,"\"%s.scom\"",mName.c_str());
 
 	}
 	void getScraggleCorrelationMapUSamples()
@@ -1589,6 +1695,11 @@ public:
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
 
 	}
+	void getInclinationMap()
+	{
+		fprintf(mFile,"\"%s.im\"",mName.c_str());
+
+	}
 	void getInclinationMapUSamples()
 	{
 		fprintf(mFile,"\"%s.imus\"",mName.c_str());
@@ -1617,6 +1728,11 @@ public:
 	void getRoll()
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
+
+	}
+	void getRollMap()
+	{
+		fprintf(mFile,"\"%s.rm\"",mName.c_str());
 
 	}
 	void getRollMapUSamples()
@@ -1649,6 +1765,11 @@ public:
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
+	void getPolarMap()
+	{
+		fprintf(mFile,"\"%s.pm\"",mName.c_str());
+
+	}
 	void getPolarMapUSamples()
 	{
 		fprintf(mFile,"\"%s.pmus\"",mName.c_str());
@@ -1677,6 +1798,11 @@ public:
 	void getAttraction()
 	{
 		fprintf(mFile,"\"%s.dat\"",mName.c_str());
+
+	}
+	void getAttractionMap()
+	{
+		fprintf(mFile,"\"%s.atm\"",mName.c_str());
 
 	}
 	void getAttractionMapUSamples()
@@ -1709,6 +1835,11 @@ public:
 		fprintf(mFile,"\"%s.dofs\"",mName.c_str());
 
 	}
+	void getOffsetMap()
+	{
+		fprintf(mFile,"\"%s.ofsm\"",mName.c_str());
+
+	}
 	void getOffsetMapUSamples()
 	{
 		fprintf(mFile,"\"%s.ofsmus\"",mName.c_str());
@@ -1737,6 +1868,11 @@ public:
 	void getClumping()
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
+
+	}
+	void getClumpingMap()
+	{
+		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
 	void getClumpingMapUSamples()
@@ -1769,6 +1905,11 @@ public:
 		fprintf(mFile,"\"%s.dcf\"",mName.c_str());
 
 	}
+	void getClumpingFrequencyMap()
+	{
+		fprintf(mFile,"\"%s.cfm\"",mName.c_str());
+
+	}
 	void getClumpingFrequencyMapUSamples()
 	{
 		fprintf(mFile,"\"%s.cfmus\"",mName.c_str());
@@ -1799,6 +1940,11 @@ public:
 		fprintf(mFile,"\"%s.dcs\"",mName.c_str());
 
 	}
+	void getClumpShapeMap()
+	{
+		fprintf(mFile,"\"%s.csm\"",mName.c_str());
+
+	}
 	void getClumpShapeMapUSamples()
 	{
 		fprintf(mFile,"\"%s.csmus\"",mName.c_str());
@@ -1825,7 +1971,8 @@ public:
 
 	}
 protected:
-	FurDescription(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	FurDescription(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

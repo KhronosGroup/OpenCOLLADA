@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Boundary : public BoundaryBase
 {
 public:
 public:
+	Boundary():BoundaryBase(){}
 	Boundary(FILE* file,const std::string& name,const std::string& parent=""):BoundaryBase(file, name, parent, "boundary"){}
 	virtual ~Boundary(){}
 	void setOrder(bool or)
 	{
 		if(or == true) return;
-		fprintf(mFile,"setAttr \".or\" %i;\n", or);
+		fprintf(mFile,"\tsetAttr \".or\" %i;\n", or);
 
 	}
 	void setEndPoint(bool ep)
 	{
 		if(ep == false) return;
-		fprintf(mFile,"setAttr \".ep\" %i;\n", ep);
+		fprintf(mFile,"\tsetAttr \".ep\" %i;\n", ep);
 
 	}
 	void getOrder()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BoundaryBase(file, name, parent, nodeType) {}
+	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BoundaryBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

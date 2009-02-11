@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,10 +18,17 @@ class RenderLight : public Light
 {
 public:
 public:
+	RenderLight():Light(){}
 	RenderLight(FILE* file,const std::string& name,const std::string& parent=""):Light(file, name, parent, "renderLight"){}
 	virtual ~RenderLight(){}
+	void getRayInstance()
+	{
+		fprintf(mFile,"\"%s.ryi\"",mName.c_str());
+
+	}
 protected:
-	RenderLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Light(file, name, parent, nodeType) {}
+	RenderLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Light(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

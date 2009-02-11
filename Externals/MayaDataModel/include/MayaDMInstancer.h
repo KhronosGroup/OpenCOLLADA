@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,47 +18,53 @@ class Instancer : public Transform
 {
 public:
 public:
+	Instancer():Transform(){}
 	Instancer(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "instancer"){}
 	virtual ~Instancer(){}
 	void setRotationOrder(unsigned int ror)
 	{
 		if(ror == 0) return;
-		fprintf(mFile,"setAttr \".ror\" %i;\n", ror);
+		fprintf(mFile,"\tsetAttr \".ror\" %i;\n", ror);
 
 	}
 	void setRotationAngleUnits(unsigned int rau)
 	{
 		if(rau == 0) return;
-		fprintf(mFile,"setAttr \".rau\" %i;\n", rau);
+		fprintf(mFile,"\tsetAttr \".rau\" %i;\n", rau);
 
 	}
 	void setCycle(unsigned int cyc)
 	{
 		if(cyc == 0) return;
-		fprintf(mFile,"setAttr \".cyc\" %i;\n", cyc);
+		fprintf(mFile,"\tsetAttr \".cyc\" %i;\n", cyc);
 
 	}
 	void setCycleStep(double cs)
 	{
 		if(cs == 1.0) return;
-		fprintf(mFile,"setAttr \".cs\" %f;\n", cs);
+		fprintf(mFile,"\tsetAttr \".cs\" %f;\n", cs);
 
 	}
 	void setCycleStepUnit(unsigned int csu)
 	{
 		if(csu == 0) return;
-		fprintf(mFile,"setAttr \".csu\" %i;\n", csu);
+		fprintf(mFile,"\tsetAttr \".csu\" %i;\n", csu);
 
 	}
 	void setLevelOfDetail(unsigned int lod)
 	{
 		if(lod == 0) return;
-		fprintf(mFile,"setAttr \".lod\" %i;\n", lod);
+		fprintf(mFile,"\tsetAttr \".lod\" %i;\n", lod);
 
 	}
 	void getInputPoints()
 	{
 		fprintf(mFile,"\"%s.inp\"",mName.c_str());
+
+	}
+	void getInputHierarchy(size_t inh_i)
+	{
+		fprintf(mFile,"\"%s.inh[%i]\"",mName.c_str(),inh_i);
 
 	}
 	void getRotationOrder()
@@ -102,7 +108,8 @@ public:
 
 	}
 protected:
-	Instancer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	Instancer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

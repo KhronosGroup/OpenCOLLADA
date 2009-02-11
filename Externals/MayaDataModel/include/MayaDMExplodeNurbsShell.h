@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class ExplodeNurbsShell : public AbstractBaseCreate
 {
 public:
 public:
+	ExplodeNurbsShell():AbstractBaseCreate(){}
 	ExplodeNurbsShell(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "explodeNurbsShell"){}
 	virtual ~ExplodeNurbsShell(){}
 	void getInputShell()
@@ -31,7 +32,8 @@ public:
 
 	}
 protected:
-	ExplodeNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ExplodeNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

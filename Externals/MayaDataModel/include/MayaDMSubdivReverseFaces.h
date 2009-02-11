@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class SubdivReverseFaces : public DependNode
 {
 public:
 public:
+	SubdivReverseFaces():DependNode(){}
 	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivReverseFaces"){}
 	virtual ~SubdivReverseFaces(){}
 	void setXMirror(bool xm)
 	{
 		if(xm == false) return;
-		fprintf(mFile,"setAttr \".xm\" %i;\n", xm);
+		fprintf(mFile,"\tsetAttr \".xm\" %i;\n", xm);
 
 	}
 	void setYMirror(bool ym)
 	{
 		if(ym == false) return;
-		fprintf(mFile,"setAttr \".ym\" %i;\n", ym);
+		fprintf(mFile,"\tsetAttr \".ym\" %i;\n", ym);
 
 	}
 	void setZMirror(bool zm)
 	{
 		if(zm == false) return;
-		fprintf(mFile,"setAttr \".zm\" %i;\n", zm);
+		fprintf(mFile,"\tsetAttr \".zm\" %i;\n", zm);
 
 	}
 	void getInSubdiv()
@@ -64,7 +65,8 @@ public:
 
 	}
 protected:
-	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

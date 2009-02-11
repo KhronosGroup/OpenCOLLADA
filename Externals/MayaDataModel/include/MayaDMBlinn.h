@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,47 +18,48 @@ class Blinn : public Reflect
 {
 public:
 public:
+	Blinn():Reflect(){}
 	Blinn(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "blinn"){}
 	virtual ~Blinn(){}
 	void setEccentricity(float ec)
 	{
 		if(ec == 0.3) return;
-		fprintf(mFile,"setAttr \".ec\" %f;\n", ec);
+		fprintf(mFile,"\tsetAttr \".ec\" %f;\n", ec);
 
 	}
 	void setSpecularRollOff(float sro)
 	{
 		if(sro == 0.7) return;
-		fprintf(mFile,"setAttr \".sro\" %f;\n", sro);
+		fprintf(mFile,"\tsetAttr \".sro\" %f;\n", sro);
 
 	}
 	void setReflectionRolloff(bool rro)
 	{
 		if(rro == true) return;
-		fprintf(mFile,"setAttr \".rro\" %i;\n", rro);
+		fprintf(mFile,"\tsetAttr \".rro\" %i;\n", rro);
 
 	}
 	void setMiReflectionBlur(float mircb)
 	{
 		if(mircb == 0) return;
-		fprintf(mFile,"setAttr \".mircb\" %f;\n", mircb);
+		fprintf(mFile,"\tsetAttr \".mircb\" %f;\n", mircb);
 
 	}
 	void setMiReflectionRays(short mircr)
 	{
 		if(mircr == 1) return;
-		fprintf(mFile,"setAttr \".mircr\" %i;\n", mircr);
+		fprintf(mFile,"\tsetAttr \".mircr\" %i;\n", mircr);
 
 	}
 	void setMiShinyness(float mis)
 	{
 		if(mis == 10) return;
-		fprintf(mFile,"setAttr \".mis\" %f;\n", mis);
+		fprintf(mFile,"\tsetAttr \".mis\" %f;\n", mis);
 
 	}
 	void setMiSpecularColor(const float3& misc)
 	{
-		fprintf(mFile,"setAttr \".misc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".misc\" -type \"float3\" ");
 		misc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -66,25 +67,25 @@ public:
 	void setMiSpecularColorR(float miscr)
 	{
 		if(miscr == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscr\" %f;\n", miscr);
+		fprintf(mFile,"\tsetAttr \".misc.miscr\" %f;\n", miscr);
 
 	}
 	void setMiSpecularColorG(float miscg)
 	{
 		if(miscg == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscg\" %f;\n", miscg);
+		fprintf(mFile,"\tsetAttr \".misc.miscg\" %f;\n", miscg);
 
 	}
 	void setMiSpecularColorB(float miscb)
 	{
 		if(miscb == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscb\" %f;\n", miscb);
+		fprintf(mFile,"\tsetAttr \".misc.miscb\" %f;\n", miscb);
 
 	}
 	void setMiReflectivity(float mirf)
 	{
 		if(mirf == 0.5) return;
-		fprintf(mFile,"setAttr \".mirf\" %f;\n", mirf);
+		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
 	void getEccentricity()
@@ -143,7 +144,8 @@ public:
 
 	}
 protected:
-	Blinn(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Reflect(file, name, parent, nodeType) {}
+	Blinn(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Reflect(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

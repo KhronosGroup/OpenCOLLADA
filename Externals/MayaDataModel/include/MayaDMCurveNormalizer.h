@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class CurveNormalizer : public DependNode
 {
 public:
 public:
+	CurveNormalizer():DependNode(){}
 	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "curveNormalizer"){}
 	virtual ~CurveNormalizer(){}
 	void setScalar(double sc)
 	{
 		if(sc == 1.0) return;
-		fprintf(mFile,"setAttr \".sc\" %f;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
 
 	}
 	void getScalar()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	CurveNormalizer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

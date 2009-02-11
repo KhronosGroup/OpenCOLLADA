@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class NurbsToSubdivProc : public NurbsToSubdiv
 {
 public:
 public:
+	NurbsToSubdivProc():NurbsToSubdiv(){}
 	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent=""):NurbsToSubdiv(file, name, parent, "nurbsToSubdivProc"){}
 	virtual ~NurbsToSubdivProc(){}
 	void setSolidType(unsigned int st)
 	{
 		if(st == 2) return;
-		fprintf(mFile,"setAttr \".st\" %i;\n", st);
+		fprintf(mFile,"\tsetAttr \".st\" %i;\n", st);
 
 	}
 	void setCapType(unsigned int ct)
 	{
 		if(ct == 0) return;
-		fprintf(mFile,"setAttr \".ct\" %i;\n", ct);
+		fprintf(mFile,"\tsetAttr \".ct\" %i;\n", ct);
 
 	}
 	void setTransform(const matrix& t)
 	{
 		if(t == identity) return;
-		fprintf(mFile,"setAttr \".t\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"matrix\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,13 +44,13 @@ public:
 	void setOffset(double o)
 	{
 		if(o == 1) return;
-		fprintf(mFile,"setAttr \".o\" %f;\n", o);
+		fprintf(mFile,"\tsetAttr \".o\" %f;\n", o);
 
 	}
 	void setBridge(unsigned int br)
 	{
 		if(br == 0) return;
-		fprintf(mFile,"setAttr \".br\" %i;\n", br);
+		fprintf(mFile,"\tsetAttr \".br\" %i;\n", br);
 
 	}
 	void getSolidType()
@@ -88,7 +89,8 @@ public:
 
 	}
 protected:
-	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NurbsToSubdiv(file, name, parent, nodeType) {}
+	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:NurbsToSubdiv(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

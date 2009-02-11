@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class PlanarTrimSurface : public AbstractBaseCreate
 {
 public:
 public:
+	PlanarTrimSurface():AbstractBaseCreate(){}
 	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "planarTrimSurface"){}
 	virtual ~PlanarTrimSurface(){}
 	void setDegree(unsigned int d)
 	{
 		if(d == 3) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setKeepOutside(bool ko)
 	{
 		if(ko == false) return;
-		fprintf(mFile,"setAttr \".ko\" %i;\n", ko);
+		fprintf(mFile,"\tsetAttr \".ko\" %i;\n", ko);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void getInputCurve(size_t ic_i)
@@ -64,7 +65,8 @@ public:
 
 	}
 protected:
-	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

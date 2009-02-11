@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Reverse : public DependNode
 {
 public:
 public:
+	Reverse():DependNode(){}
 	Reverse(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "reverse"){}
 	virtual ~Reverse(){}
 	void setInput(const float3& i_)
 	{
 		if(i_ == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".i\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".i\" -type \"float3\" ");
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,19 +32,19 @@ public:
 	void setInputX(float ix)
 	{
 		if(ix == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ix\" %f;\n", ix);
+		fprintf(mFile,"\tsetAttr \".i.ix\" %f;\n", ix);
 
 	}
 	void setInputY(float iy)
 	{
 		if(iy == 0.0) return;
-		fprintf(mFile,"setAttr \".i.iy\" %f;\n", iy);
+		fprintf(mFile,"\tsetAttr \".i.iy\" %f;\n", iy);
 
 	}
 	void setInputZ(float iz)
 	{
 		if(iz == 0.0) return;
-		fprintf(mFile,"setAttr \".i.iz\" %f;\n", iz);
+		fprintf(mFile,"\tsetAttr \".i.iz\" %f;\n", iz);
 
 	}
 	void getInput()
@@ -87,7 +88,8 @@ public:
 
 	}
 protected:
-	Reverse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Reverse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

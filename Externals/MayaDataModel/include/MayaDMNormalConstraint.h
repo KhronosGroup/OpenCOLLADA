@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -25,11 +25,12 @@ public:
 		}
 	};
 public:
+	NormalConstraint():Constraint(){}
 	NormalConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "normalConstraint"){}
 	virtual ~NormalConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
-		fprintf(mFile,"setAttr \".tg[%i]\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i]\" ",tg_i);
 		tg.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,20 +38,20 @@ public:
 	void setTargetWeight(size_t tg_i,double tw)
 	{
 		if(tw == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
 
 	}
 	void setConstraintParentInverseMatrix(const matrix& cpim)
 	{
 		if(cpim == identity) return;
-		fprintf(mFile,"setAttr \".cpim\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".cpim\" -type \"matrix\" ");
 		cpim.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setAimVector(const double3& a)
 	{
-		fprintf(mFile,"setAttr \".a\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".a\" -type \"double3\" ");
 		a.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -58,24 +59,24 @@ public:
 	void setAimVectorX(double ax)
 	{
 		if(ax == 1.0) return;
-		fprintf(mFile,"setAttr \".a.ax\" %f;\n", ax);
+		fprintf(mFile,"\tsetAttr \".a.ax\" %f;\n", ax);
 
 	}
 	void setAimVectorY(double ay)
 	{
 		if(ay == 0.0) return;
-		fprintf(mFile,"setAttr \".a.ay\" %f;\n", ay);
+		fprintf(mFile,"\tsetAttr \".a.ay\" %f;\n", ay);
 
 	}
 	void setAimVectorZ(double az)
 	{
 		if(az == 0.0) return;
-		fprintf(mFile,"setAttr \".a.az\" %f;\n", az);
+		fprintf(mFile,"\tsetAttr \".a.az\" %f;\n", az);
 
 	}
 	void setUpVector(const double3& u)
 	{
-		fprintf(mFile,"setAttr \".u\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".u\" -type \"double3\" ");
 		u.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,24 +84,24 @@ public:
 	void setUpVectorX(double ux)
 	{
 		if(ux == 0.0) return;
-		fprintf(mFile,"setAttr \".u.ux\" %f;\n", ux);
+		fprintf(mFile,"\tsetAttr \".u.ux\" %f;\n", ux);
 
 	}
 	void setUpVectorY(double uy)
 	{
 		if(uy == 1.0) return;
-		fprintf(mFile,"setAttr \".u.uy\" %f;\n", uy);
+		fprintf(mFile,"\tsetAttr \".u.uy\" %f;\n", uy);
 
 	}
 	void setUpVectorZ(double uz)
 	{
 		if(uz == 0.0) return;
-		fprintf(mFile,"setAttr \".u.uz\" %f;\n", uz);
+		fprintf(mFile,"\tsetAttr \".u.uz\" %f;\n", uz);
 
 	}
 	void setWorldUpVector(const double3& wu)
 	{
-		fprintf(mFile,"setAttr \".wu\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".wu\" -type \"double3\" ");
 		wu.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -108,25 +109,25 @@ public:
 	void setWorldUpVectorX(double wux)
 	{
 		if(wux == 0.0) return;
-		fprintf(mFile,"setAttr \".wu.wux\" %f;\n", wux);
+		fprintf(mFile,"\tsetAttr \".wu.wux\" %f;\n", wux);
 
 	}
 	void setWorldUpVectorY(double wuy)
 	{
 		if(wuy == 1.0) return;
-		fprintf(mFile,"setAttr \".wu.wuy\" %f;\n", wuy);
+		fprintf(mFile,"\tsetAttr \".wu.wuy\" %f;\n", wuy);
 
 	}
 	void setWorldUpVectorZ(double wuz)
 	{
 		if(wuz == 0.0) return;
-		fprintf(mFile,"setAttr \".wu.wuz\" %f;\n", wuz);
+		fprintf(mFile,"\tsetAttr \".wu.wuz\" %f;\n", wuz);
 
 	}
 	void setWorldUpMatrix(const matrix& wum)
 	{
 		if(wum == identity) return;
-		fprintf(mFile,"setAttr \".wum\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".wum\" -type \"matrix\" ");
 		wum.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -134,12 +135,12 @@ public:
 	void setWorldUpType(unsigned int wut)
 	{
 		if(wut == 3) return;
-		fprintf(mFile,"setAttr \".wut\" %i;\n", wut);
+		fprintf(mFile,"\tsetAttr \".wut\" %i;\n", wut);
 
 	}
 	void setConstraintTranslate(const double3& ct)
 	{
-		fprintf(mFile,"setAttr \".ct\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ct\" -type \"double3\" ");
 		ct.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -147,24 +148,24 @@ public:
 	void setConstraintTranslateX(double ctx)
 	{
 		if(ctx == 0) return;
-		fprintf(mFile,"setAttr \".ct.ctx\" %f;\n", ctx);
+		fprintf(mFile,"\tsetAttr \".ct.ctx\" %f;\n", ctx);
 
 	}
 	void setConstraintTranslateY(double cty)
 	{
 		if(cty == 0) return;
-		fprintf(mFile,"setAttr \".ct.cty\" %f;\n", cty);
+		fprintf(mFile,"\tsetAttr \".ct.cty\" %f;\n", cty);
 
 	}
 	void setConstraintTranslateZ(double ctz)
 	{
 		if(ctz == 0) return;
-		fprintf(mFile,"setAttr \".ct.ctz\" %f;\n", ctz);
+		fprintf(mFile,"\tsetAttr \".ct.ctz\" %f;\n", ctz);
 
 	}
 	void setConstraintRotatePivot(const double3& crp)
 	{
-		fprintf(mFile,"setAttr \".crp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".crp\" -type \"double3\" ");
 		crp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -172,24 +173,24 @@ public:
 	void setConstraintRotatePivotX(double crpx)
 	{
 		if(crpx == 0) return;
-		fprintf(mFile,"setAttr \".crp.crpx\" %f;\n", crpx);
+		fprintf(mFile,"\tsetAttr \".crp.crpx\" %f;\n", crpx);
 
 	}
 	void setConstraintRotatePivotY(double crpy)
 	{
 		if(crpy == 0) return;
-		fprintf(mFile,"setAttr \".crp.crpy\" %f;\n", crpy);
+		fprintf(mFile,"\tsetAttr \".crp.crpy\" %f;\n", crpy);
 
 	}
 	void setConstraintRotatePivotZ(double crpz)
 	{
 		if(crpz == 0) return;
-		fprintf(mFile,"setAttr \".crp.crpz\" %f;\n", crpz);
+		fprintf(mFile,"\tsetAttr \".crp.crpz\" %f;\n", crpz);
 
 	}
 	void setConstraintRotateTranslate(const double3& crt)
 	{
-		fprintf(mFile,"setAttr \".crt\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".crt\" -type \"double3\" ");
 		crt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -197,30 +198,30 @@ public:
 	void setConstraintRotateTranslateX(double crtx)
 	{
 		if(crtx == 0) return;
-		fprintf(mFile,"setAttr \".crt.crtx\" %f;\n", crtx);
+		fprintf(mFile,"\tsetAttr \".crt.crtx\" %f;\n", crtx);
 
 	}
 	void setConstraintRotateTranslateY(double crty)
 	{
 		if(crty == 0) return;
-		fprintf(mFile,"setAttr \".crt.crty\" %f;\n", crty);
+		fprintf(mFile,"\tsetAttr \".crt.crty\" %f;\n", crty);
 
 	}
 	void setConstraintRotateTranslateZ(double crtz)
 	{
 		if(crtz == 0) return;
-		fprintf(mFile,"setAttr \".crt.crtz\" %f;\n", crtz);
+		fprintf(mFile,"\tsetAttr \".crt.crtz\" %f;\n", crtz);
 
 	}
 	void setConstraintRotateOrder(unsigned int cro)
 	{
 		if(cro == 0) return;
-		fprintf(mFile,"setAttr \".cro\" %i;\n", cro);
+		fprintf(mFile,"\tsetAttr \".cro\" %i;\n", cro);
 
 	}
 	void setConstraintJointOrient(const double3& cjo)
 	{
-		fprintf(mFile,"setAttr \".cjo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".cjo\" -type \"double3\" ");
 		cjo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -228,24 +229,24 @@ public:
 	void setConstraintJointOrientX(double cjox)
 	{
 		if(cjox == 0) return;
-		fprintf(mFile,"setAttr \".cjo.cjox\" %f;\n", cjox);
+		fprintf(mFile,"\tsetAttr \".cjo.cjox\" %f;\n", cjox);
 
 	}
 	void setConstraintJointOrientY(double cjoy)
 	{
 		if(cjoy == 0) return;
-		fprintf(mFile,"setAttr \".cjo.cjoy\" %f;\n", cjoy);
+		fprintf(mFile,"\tsetAttr \".cjo.cjoy\" %f;\n", cjoy);
 
 	}
 	void setConstraintJointOrientZ(double cjoz)
 	{
 		if(cjoz == 0) return;
-		fprintf(mFile,"setAttr \".cjo.cjoz\" %f;\n", cjoz);
+		fprintf(mFile,"\tsetAttr \".cjo.cjoz\" %f;\n", cjoz);
 
 	}
 	void setRestRotate(const double3& rsrr)
 	{
-		fprintf(mFile,"setAttr \".rsrr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".rsrr\" -type \"double3\" ");
 		rsrr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -253,19 +254,19 @@ public:
 	void setRestRotateX(double rrx)
 	{
 		if(rrx == 0) return;
-		fprintf(mFile,"setAttr \".rsrr.rrx\" %f;\n", rrx);
+		fprintf(mFile,"\tsetAttr \".rsrr.rrx\" %f;\n", rrx);
 
 	}
 	void setRestRotateY(double rry)
 	{
 		if(rry == 0) return;
-		fprintf(mFile,"setAttr \".rsrr.rry\" %f;\n", rry);
+		fprintf(mFile,"\tsetAttr \".rsrr.rry\" %f;\n", rry);
 
 	}
 	void setRestRotateZ(double rrz)
 	{
 		if(rrz == 0) return;
-		fprintf(mFile,"setAttr \".rsrr.rrz\" %f;\n", rrz);
+		fprintf(mFile,"\tsetAttr \".rsrr.rrz\" %f;\n", rrz);
 
 	}
 	void getTarget(size_t tg_i)
@@ -504,7 +505,8 @@ public:
 
 	}
 protected:
-	NormalConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Constraint(file, name, parent, nodeType) {}
+	NormalConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Constraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

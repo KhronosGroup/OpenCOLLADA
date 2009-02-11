@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Partition : public Entity
 {
 public:
 public:
+	Partition():Entity(){}
 	Partition(FILE* file,const std::string& name,const std::string& parent=""):Entity(file, name, parent, "partition"){}
 	virtual ~Partition(){}
 	void setAnnotation(const string& an)
 	{
 		if(an == "NULL") return;
-		fprintf(mFile,"setAttr \".an\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".an\" -type \"string\" ");
 		an.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,12 @@ public:
 	void setPartitionType(unsigned int pt)
 	{
 		if(pt == 0) return;
-		fprintf(mFile,"setAttr \".pt\" %i;\n", pt);
+		fprintf(mFile,"\tsetAttr \".pt\" %i;\n", pt);
+
+	}
+	void getSets(size_t st_i)
+	{
+		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
 
 	}
 	void getEnvironment()
@@ -40,7 +46,8 @@ public:
 
 	}
 protected:
-	Partition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Entity(file, name, parent, nodeType) {}
+	Partition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Entity(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

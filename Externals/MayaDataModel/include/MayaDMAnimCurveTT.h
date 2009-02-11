@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,11 +23,12 @@ public:
 		}
 	};
 public:
+	AnimCurveTT():AnimCurve(){}
 	AnimCurveTT(FILE* file,const std::string& name,const std::string& parent=""):AnimCurve(file, name, parent, "animCurveTT"){}
 	virtual ~AnimCurveTT(){}
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
 	{
-		fprintf(mFile,"setAttr \".ktv[%i]\" ",ktv_i);
+		fprintf(mFile,"\tsetAttr \".ktv[%i]\" ",ktv_i);
 		ktv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	AnimCurveTT(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AnimCurve(file, name, parent, nodeType) {}
+	AnimCurveTT(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AnimCurve(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

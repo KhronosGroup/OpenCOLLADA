@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,11 +23,12 @@ public:
 		}
 	};
 public:
+	ClusterHandle():Shape(){}
 	ClusterHandle(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "clusterHandle"){}
 	virtual ~ClusterHandle(){}
 	void setOrigin(const double3& or)
 	{
-		fprintf(mFile,"setAttr \".or\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".or\" -type \"double3\" ");
 		or.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -35,19 +36,19 @@ public:
 	void setOriginX(double ox)
 	{
 		if(ox == 0) return;
-		fprintf(mFile,"setAttr \".or.ox\" %f;\n", ox);
+		fprintf(mFile,"\tsetAttr \".or.ox\" %f;\n", ox);
 
 	}
 	void setOriginY(double oy)
 	{
 		if(oy == 0) return;
-		fprintf(mFile,"setAttr \".or.oy\" %f;\n", oy);
+		fprintf(mFile,"\tsetAttr \".or.oy\" %f;\n", oy);
 
 	}
 	void setOriginZ(double oz)
 	{
 		if(oz == 0) return;
-		fprintf(mFile,"setAttr \".or.oz\" %f;\n", oz);
+		fprintf(mFile,"\tsetAttr \".or.oz\" %f;\n", oz);
 
 	}
 	void getClusterTransforms(size_t x_i)
@@ -90,8 +91,14 @@ public:
 		fprintf(mFile,"\"%s.or.oz\"",mName.c_str());
 
 	}
+	void getWeightedNode()
+	{
+		fprintf(mFile,"\"%s.wn\"",mName.c_str());
+
+	}
 protected:
-	ClusterHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	ClusterHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

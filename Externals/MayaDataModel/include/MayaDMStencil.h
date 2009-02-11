@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Stencil : public Texture2d
 {
 public:
 public:
+	Stencil():Texture2d(){}
 	Stencil(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "stencil"){}
 	virtual ~Stencil(){}
 	void setImage(const float3& im)
 	{
 		if(im == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".im\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".im\" -type \"float3\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,49 +32,49 @@ public:
 	void setImageR(float imr)
 	{
 		if(imr == 0.0) return;
-		fprintf(mFile,"setAttr \".im.imr\" %f;\n", imr);
+		fprintf(mFile,"\tsetAttr \".im.imr\" %f;\n", imr);
 
 	}
 	void setImageG(float img)
 	{
 		if(img == 0.0) return;
-		fprintf(mFile,"setAttr \".im.img\" %f;\n", img);
+		fprintf(mFile,"\tsetAttr \".im.img\" %f;\n", img);
 
 	}
 	void setImageB(float imb)
 	{
 		if(imb == 0.0) return;
-		fprintf(mFile,"setAttr \".im.imb\" %f;\n", imb);
+		fprintf(mFile,"\tsetAttr \".im.imb\" %f;\n", imb);
 
 	}
 	void setMask(float m)
 	{
 		if(m == 0.0) return;
-		fprintf(mFile,"setAttr \".m\" %f;\n", m);
+		fprintf(mFile,"\tsetAttr \".m\" %f;\n", m);
 
 	}
 	void setEdgeBlend(float eb)
 	{
 		if(eb == 0.0) return;
-		fprintf(mFile,"setAttr \".eb\" %f;\n", eb);
+		fprintf(mFile,"\tsetAttr \".eb\" %f;\n", eb);
 
 	}
 	void setKeyMasking(bool km)
 	{
 		if(km == false) return;
-		fprintf(mFile,"setAttr \".km\" %i;\n", km);
+		fprintf(mFile,"\tsetAttr \".km\" %i;\n", km);
 
 	}
 	void setPositiveKey(bool pk)
 	{
 		if(pk == false) return;
-		fprintf(mFile,"setAttr \".pk\" %i;\n", pk);
+		fprintf(mFile,"\tsetAttr \".pk\" %i;\n", pk);
 
 	}
 	void setColorKey(const float3& ck)
 	{
 		if(ck == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".ck\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ck\" -type \"float3\" ");
 		ck.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,43 +82,43 @@ public:
 	void setColorKeyR(float ckr)
 	{
 		if(ckr == 0.0) return;
-		fprintf(mFile,"setAttr \".ck.ckr\" %f;\n", ckr);
+		fprintf(mFile,"\tsetAttr \".ck.ckr\" %f;\n", ckr);
 
 	}
 	void setColorKeyG(float ckg)
 	{
 		if(ckg == 0.0) return;
-		fprintf(mFile,"setAttr \".ck.ckg\" %f;\n", ckg);
+		fprintf(mFile,"\tsetAttr \".ck.ckg\" %f;\n", ckg);
 
 	}
 	void setColorKeyB(float ckb)
 	{
 		if(ckb == 0.0) return;
-		fprintf(mFile,"setAttr \".ck.ckb\" %f;\n", ckb);
+		fprintf(mFile,"\tsetAttr \".ck.ckb\" %f;\n", ckb);
 
 	}
 	void setHueRange(float hr)
 	{
 		if(hr == 0.5) return;
-		fprintf(mFile,"setAttr \".hr\" %f;\n", hr);
+		fprintf(mFile,"\tsetAttr \".hr\" %f;\n", hr);
 
 	}
 	void setSaturationRange(float sr)
 	{
 		if(sr == 0.5) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setValueRange(float vr)
 	{
 		if(vr == 0.5) return;
-		fprintf(mFile,"setAttr \".vr\" %f;\n", vr);
+		fprintf(mFile,"\tsetAttr \".vr\" %f;\n", vr);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.5) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void getImage()
@@ -201,7 +202,8 @@ public:
 
 	}
 protected:
-	Stencil(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Stencil(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

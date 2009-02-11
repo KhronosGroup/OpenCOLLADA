@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -38,32 +38,33 @@ public:
 		}
 	};
 public:
+	LightLinker():DependNode(){}
 	LightLinker(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "lightLinker"){}
 	virtual ~LightLinker(){}
 	void setLink(size_t lnk_i,const Link& lnk)
 	{
-		fprintf(mFile,"setAttr \".lnk[%i]\" ",lnk_i);
+		fprintf(mFile,"\tsetAttr \".lnk[%i]\" ",lnk_i);
 		lnk.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setIgnore(size_t ign_i,const Ignore& ign)
 	{
-		fprintf(mFile,"setAttr \".ign[%i]\" ",ign_i);
+		fprintf(mFile,"\tsetAttr \".ign[%i]\" ",ign_i);
 		ign.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setShadowLink(size_t slnk_i,const ShadowLink& slnk)
 	{
-		fprintf(mFile,"setAttr \".slnk[%i]\" ",slnk_i);
+		fprintf(mFile,"\tsetAttr \".slnk[%i]\" ",slnk_i);
 		slnk.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setShadowIgnore(size_t sign_i,const ShadowIgnore& sign)
 	{
-		fprintf(mFile,"setAttr \".sign[%i]\" ",sign_i);
+		fprintf(mFile,"\tsetAttr \".sign[%i]\" ",sign_i);
 		sign.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -129,7 +130,8 @@ public:
 
 	}
 protected:
-	LightLinker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	LightLinker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

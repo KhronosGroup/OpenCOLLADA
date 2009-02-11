@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class MaterialInfo : public DependNode
 {
 public:
 public:
+	MaterialInfo():DependNode(){}
 	MaterialInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "materialInfo"){}
 	virtual ~MaterialInfo(){}
 	void setTextureFilter(unsigned int tmip)
 	{
 		if(tmip == 0) return;
-		fprintf(mFile,"setAttr \".tmip\" %i;\n", tmip);
+		fprintf(mFile,"\tsetAttr \".tmip\" %i;\n", tmip);
 
 	}
 	void getShadingGroup()
@@ -34,6 +35,11 @@ public:
 	void getMaterial()
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
+
+	}
+	void getTexture(size_t t_i)
+	{
+		fprintf(mFile,"\"%s.t[%i]\"",mName.c_str(),t_i);
 
 	}
 	void getTextureChannel()
@@ -52,7 +58,8 @@ public:
 
 	}
 protected:
-	MaterialInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	MaterialInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

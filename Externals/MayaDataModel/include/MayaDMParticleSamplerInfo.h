@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,116 @@ class ParticleSamplerInfo : public DependNode
 {
 public:
 public:
+	ParticleSamplerInfo():DependNode(){}
 	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleSamplerInfo"){}
 	virtual ~ParticleSamplerInfo(){}
 	void setOutUvType(unsigned int ouvt)
 	{
 		if(ouvt == 0) return;
-		fprintf(mFile,"setAttr \".ouvt\" %i;\n", ouvt);
+		fprintf(mFile,"\tsetAttr \".ouvt\" %i;\n", ouvt);
 
 	}
 	void setNormalizationValue(float nlv)
 	{
 		if(nlv == 1.0) return;
-		fprintf(mFile,"setAttr \".nlv\" %f;\n", nlv);
+		fprintf(mFile,"\tsetAttr \".nlv\" %f;\n", nlv);
 
 	}
 	void setNormalizationMethod(unsigned int nlm)
 	{
 		if(nlm == 0) return;
-		fprintf(mFile,"setAttr \".nlm\" %i;\n", nlm);
+		fprintf(mFile,"\tsetAttr \".nlm\" %i;\n", nlm);
 
 	}
 	void setInverseOutUv(bool iouv)
 	{
 		if(iouv == false) return;
-		fprintf(mFile,"setAttr \".iouv\" %i;\n", iouv);
+		fprintf(mFile,"\tsetAttr \".iouv\" %i;\n", iouv);
+
+	}
+	void getParticleAttrArray()
+	{
+		fprintf(mFile,"\"%s.paa\"",mName.c_str());
+
+	}
+	void getParticleOrder()
+	{
+		fprintf(mFile,"\"%s.podr\"",mName.c_str());
+
+	}
+	void getObjectType()
+	{
+		fprintf(mFile,"\"%s.otyp\"",mName.c_str());
+
+	}
+	void getParticleColor()
+	{
+		fprintf(mFile,"\"%s.pc\"",mName.c_str());
+
+	}
+	void getParticleColorR()
+	{
+		fprintf(mFile,"\"%s.pc.pcr\"",mName.c_str());
+
+	}
+	void getParticleColorG()
+	{
+		fprintf(mFile,"\"%s.pc.pcg\"",mName.c_str());
+
+	}
+	void getParticleColorB()
+	{
+		fprintf(mFile,"\"%s.pc.pcb\"",mName.c_str());
+
+	}
+	void getParticleTransparency()
+	{
+		fprintf(mFile,"\"%s.pt\"",mName.c_str());
+
+	}
+	void getParticleTransparencyR()
+	{
+		fprintf(mFile,"\"%s.pt.ptr\"",mName.c_str());
+
+	}
+	void getParticleTransparencyG()
+	{
+		fprintf(mFile,"\"%s.pt.ptg\"",mName.c_str());
+
+	}
+	void getParticleTransparencyB()
+	{
+		fprintf(mFile,"\"%s.pt.ptb\"",mName.c_str());
+
+	}
+	void getParticleIncandescence()
+	{
+		fprintf(mFile,"\"%s.pi\"",mName.c_str());
+
+	}
+	void getParticleIncandescenceR()
+	{
+		fprintf(mFile,"\"%s.pi.pir\"",mName.c_str());
+
+	}
+	void getParticleIncandescenceG()
+	{
+		fprintf(mFile,"\"%s.pi.pig\"",mName.c_str());
+
+	}
+	void getParticleIncandescenceB()
+	{
+		fprintf(mFile,"\"%s.pi.pib\"",mName.c_str());
+
+	}
+	void getParticleAge()
+	{
+		fprintf(mFile,"\"%s.pa\"",mName.c_str());
+
+	}
+	void getParticleLifespan()
+	{
+		fprintf(mFile,"\"%s.pls\"",mName.c_str());
 
 	}
 	void getOutUvCoord()
@@ -575,7 +661,8 @@ public:
 
 	}
 protected:
-	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ParticleSamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

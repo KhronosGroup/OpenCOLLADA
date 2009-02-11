@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Facade : public DependNode
 {
 public:
 public:
+	Facade():DependNode(){}
 	Facade(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "facade"){}
 	virtual ~Facade(){}
 	void setSharedLibName(const string& sln)
 	{
 		if(sln == "NULL") return;
-		fprintf(mFile,"setAttr \".sln\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".sln\" -type \"string\" ");
 		sln.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setUiName(const string& uin)
 	{
 		if(uin == "NULL") return;
-		fprintf(mFile,"setAttr \".uin\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uin\" -type \"string\" ");
 		uin.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,7 +40,7 @@ public:
 	void setKeyWords(const string& kwds)
 	{
 		if(kwds == "NULL") return;
-		fprintf(mFile,"setAttr \".kwds\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".kwds\" -type \"string\" ");
 		kwds.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -47,7 +48,7 @@ public:
 	void setUiScript(const string& uis)
 	{
 		if(uis == "NULL") return;
-		fprintf(mFile,"setAttr \".uis\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uis\" -type \"string\" ");
 		uis.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,7 +56,7 @@ public:
 	void setUniqueID(const string& uid)
 	{
 		if(uid == "NULL") return;
-		fprintf(mFile,"setAttr \".uid\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uid\" -type \"string\" ");
 		uid.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -91,7 +92,8 @@ public:
 
 	}
 protected:
-	Facade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Facade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

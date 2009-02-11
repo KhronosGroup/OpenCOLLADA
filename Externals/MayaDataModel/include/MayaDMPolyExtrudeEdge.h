@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,35 +29,36 @@ public:
 		}
 	};
 public:
+	PolyExtrudeEdge():PolyMoveEdge(){}
 	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveEdge(file, name, parent, "polyExtrudeEdge"){}
 	virtual ~PolyExtrudeEdge(){}
 	void setKeepFacesTogether(bool kft)
 	{
 		if(kft == true) return;
-		fprintf(mFile,"setAttr \".kft\" %i;\n", kft);
+		fprintf(mFile,"\tsetAttr \".kft\" %i;\n", kft);
 
 	}
 	void setDivisions(int d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setTwist(double twt)
 	{
 		if(twt == 0) return;
-		fprintf(mFile,"setAttr \".twt\" %f;\n", twt);
+		fprintf(mFile,"\tsetAttr \".twt\" %f;\n", twt);
 
 	}
 	void setTaper(double tp)
 	{
 		if(tp == 1.0) return;
-		fprintf(mFile,"setAttr \".tp\" %f;\n", tp);
+		fprintf(mFile,"\tsetAttr \".tp\" %f;\n", tp);
 
 	}
 	void setTaperCurve(size_t c_i,const TaperCurve& c)
 	{
-		fprintf(mFile,"setAttr \".c[%i]\" ",c_i);
+		fprintf(mFile,"\tsetAttr \".c[%i]\" ",c_i);
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -65,25 +66,25 @@ public:
 	void setTaperCurve_Position(size_t c_i,float cp)
 	{
 		if(cp == 0.0) return;
-		fprintf(mFile,"setAttr \".c[%i].cp\" %f;\n", c_i,cp);
+		fprintf(mFile,"\tsetAttr \".c[%i].cp\" %f;\n", c_i,cp);
 
 	}
 	void setTaperCurve_FloatValue(size_t c_i,float cfv)
 	{
 		if(cfv == 0.0) return;
-		fprintf(mFile,"setAttr \".c[%i].cfv\" %f;\n", c_i,cfv);
+		fprintf(mFile,"\tsetAttr \".c[%i].cfv\" %f;\n", c_i,cfv);
 
 	}
 	void setTaperCurve_Interp(size_t c_i,unsigned int ci)
 	{
 		if(ci == 0) return;
-		fprintf(mFile,"setAttr \".c[%i].ci\" %i;\n", c_i,ci);
+		fprintf(mFile,"\tsetAttr \".c[%i].ci\" %i;\n", c_i,ci);
 
 	}
 	void setSmoothingAngle(double sma)
 	{
 		if(sma == 3) return;
-		fprintf(mFile,"setAttr \".sma\" %f;\n", sma);
+		fprintf(mFile,"\tsetAttr \".sma\" %f;\n", sma);
 
 	}
 	void getKeepFacesTogether()
@@ -137,7 +138,8 @@ public:
 
 	}
 protected:
-	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyMoveEdge(file, name, parent, nodeType) {}
+	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyMoveEdge(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

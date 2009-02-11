@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolySplit : public PolyModifier
 {
 public:
 public:
+	PolySplit():PolyModifier(){}
 	PolySplit(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySplit"){}
 	virtual ~PolySplit(){}
 	void setVertices(size_t v_i,const float3& v)
 	{
-		fprintf(mFile,"setAttr \".v[%i]\" -type \"float3\" ",v_i);
+		fprintf(mFile,"\tsetAttr \".v[%i]\" -type \"float3\" ",v_i);
 		v.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertices(size_t v_start,size_t v_end,float* v)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\" ", v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\" ", v_start,v_end);
 		size_t size = (v_end-v_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -41,7 +42,7 @@ public:
 	}
 	void startVertices(size_t v_start,size_t v_end)
 	{
-		fprintf(mFile,"setAttr \".v[%i:%i]\"",v_start,v_end);
+		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
 	void appendVertices(float v)
@@ -57,30 +58,30 @@ public:
 	void setVtxx(size_t v_i,float vx)
 	{
 		if(vx == 0) return;
-		fprintf(mFile,"setAttr \".v[%i].vx\" %f;\n", v_i,vx);
+		fprintf(mFile,"\tsetAttr \".v[%i].vx\" %f;\n", v_i,vx);
 
 	}
 	void setVtxy(size_t v_i,float vy)
 	{
 		if(vy == 0) return;
-		fprintf(mFile,"setAttr \".v[%i].vy\" %f;\n", v_i,vy);
+		fprintf(mFile,"\tsetAttr \".v[%i].vy\" %f;\n", v_i,vy);
 
 	}
 	void setVtxz(size_t v_i,float vz)
 	{
 		if(vz == 0) return;
-		fprintf(mFile,"setAttr \".v[%i].vz\" %f;\n", v_i,vz);
+		fprintf(mFile,"\tsetAttr \".v[%i].vz\" %f;\n", v_i,vz);
 
 	}
 	void setEdge(size_t e_i,float e)
 	{
 		if(e == 0.0) return;
-		fprintf(mFile,"setAttr \".e[%i]\" %f;\n", e_i,e);
+		fprintf(mFile,"\tsetAttr \".e[%i]\" %f;\n", e_i,e);
 
 	}
 	void setEdge(size_t e_start,size_t e_end,float* e)
 	{
-		fprintf(mFile,"setAttr \".e[%i:%i]\" ", e_start,e_end);
+		fprintf(mFile,"\tsetAttr \".e[%i:%i]\" ", e_start,e_end);
 		size_t size = (e_end-e_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -92,7 +93,7 @@ public:
 	}
 	void startEdge(size_t e_start,size_t e_end)
 	{
-		fprintf(mFile,"setAttr \".e[%i:%i]\"",e_start,e_end);
+		fprintf(mFile,"\tsetAttr \".e[%i:%i]\"",e_start,e_end);
 
 	}
 	void appendEdge(float e)
@@ -108,12 +109,12 @@ public:
 	void setDesc(size_t d_i,int d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d[%i]\" %i;\n", d_i,d);
+		fprintf(mFile,"\tsetAttr \".d[%i]\" %i;\n", d_i,d);
 
 	}
 	void setDesc(size_t d_start,size_t d_end,int* d)
 	{
-		fprintf(mFile,"setAttr \".d[%i:%i]\" ", d_start,d_end);
+		fprintf(mFile,"\tsetAttr \".d[%i:%i]\" ", d_start,d_end);
 		size_t size = (d_end-d_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -125,7 +126,7 @@ public:
 	}
 	void startDesc(size_t d_start,size_t d_end)
 	{
-		fprintf(mFile,"setAttr \".d[%i:%i]\"",d_start,d_end);
+		fprintf(mFile,"\tsetAttr \".d[%i:%i]\"",d_start,d_end);
 
 	}
 	void appendDesc(int d)
@@ -141,19 +142,19 @@ public:
 	void setSubdivision(int s)
 	{
 		if(s == 1) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void setSmoothingAngle(double sma)
 	{
 		if(sma == 0) return;
-		fprintf(mFile,"setAttr \".sma\" %f;\n", sma);
+		fprintf(mFile,"\tsetAttr \".sma\" %f;\n", sma);
 
 	}
 	void setMaya70(bool m70)
 	{
 		if(m70 == true) return;
-		fprintf(mFile,"setAttr \".m70\" %i;\n", m70);
+		fprintf(mFile,"\tsetAttr \".m70\" %i;\n", m70);
 
 	}
 	void getVertices(size_t v_i)
@@ -197,7 +198,8 @@ public:
 
 	}
 protected:
-	PolySplit(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolySplit(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

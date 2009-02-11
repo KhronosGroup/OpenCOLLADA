@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class Blend : public DependNode
 {
 public:
 public:
+	Blend():DependNode(){}
 	Blend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "blend"){}
 	virtual ~Blend(){}
 	void setInput(size_t i_i,double i_)
 	{
 		if(i_ == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i]\" %f;\n", i_i,i_);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" %f;\n", i_i,i_);
 
 	}
 	void setInput(size_t i_start,size_t i_end,double* i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i:%i]\" ", i_start,i_end);
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\" ", i_start,i_end);
 		size_t size = (i_end-i_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startInput(size_t i_start,size_t i_end)
 	{
-		fprintf(mFile,"setAttr \".i[%i:%i]\"",i_start,i_end);
+		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
 
 	}
 	void appendInput(double i)
@@ -56,7 +57,7 @@ public:
 	void setCurrent(int c)
 	{
 		if(c == 0) return;
-		fprintf(mFile,"setAttr \".c\" %i;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
 	void getInput(size_t i_i)
@@ -70,7 +71,8 @@ public:
 
 	}
 protected:
-	Blend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Blend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

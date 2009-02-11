@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class BaseLattice : public Shape
 {
 public:
+	BaseLattice():Shape(){}
 	BaseLattice(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "baseLattice"){}
 	virtual ~BaseLattice(){}
 protected:
-	BaseLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	BaseLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

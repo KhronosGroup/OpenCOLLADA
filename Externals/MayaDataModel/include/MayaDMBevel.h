@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,54 +18,55 @@ class Bevel : public AbstractBaseCreate
 {
 public:
 public:
+	Bevel():AbstractBaseCreate(){}
 	Bevel(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "bevel"){}
 	virtual ~Bevel(){}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setWidth(double w)
 	{
 		if(w == 0) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setDepth(double d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setExtrudeDepth(double ed)
 	{
 		if(ed == 1) return;
-		fprintf(mFile,"setAttr \".ed\" %f;\n", ed);
+		fprintf(mFile,"\tsetAttr \".ed\" %f;\n", ed);
 
 	}
 	void setCornerType(unsigned int ct)
 	{
 		if(ct == 2) return;
-		fprintf(mFile,"setAttr \".ct\" %i;\n", ct);
+		fprintf(mFile,"\tsetAttr \".ct\" %i;\n", ct);
 
 	}
 	void setNumberOfSides(int ns)
 	{
 		if(ns == 4) return;
-		fprintf(mFile,"setAttr \".ns\" %i;\n", ns);
+		fprintf(mFile,"\tsetAttr \".ns\" %i;\n", ns);
 
 	}
 	void setBevelShapeType(unsigned int bst)
 	{
 		if(bst == 1) return;
-		fprintf(mFile,"setAttr \".bst\" %i;\n", bst);
+		fprintf(mFile,"\tsetAttr \".bst\" %i;\n", bst);
 
 	}
 	void setJoinSurfaces(bool js)
 	{
 		if(js == true) return;
-		fprintf(mFile,"setAttr \".js\" %i;\n", js);
+		fprintf(mFile,"\tsetAttr \".js\" %i;\n", js);
 
 	}
 	void getInputCurve()
@@ -134,7 +135,8 @@ public:
 
 	}
 protected:
-	Bevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	Bevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

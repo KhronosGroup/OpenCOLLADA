@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class EnvSphere : public TextureEnv
 {
 public:
 public:
+	EnvSphere():TextureEnv(){}
 	EnvSphere(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envSphere"){}
 	virtual ~EnvSphere(){}
 	void setImage(const float3& so)
 	{
 		if(so == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".so\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".so\" -type \"float3\" ");
 		so.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setImageR(float sor)
 	{
 		if(sor == 0.0) return;
-		fprintf(mFile,"setAttr \".so.sor\" %f;\n", sor);
+		fprintf(mFile,"\tsetAttr \".so.sor\" %f;\n", sor);
 
 	}
 	void setImageG(float sog)
 	{
 		if(sog == 0.0) return;
-		fprintf(mFile,"setAttr \".so.sog\" %f;\n", sog);
+		fprintf(mFile,"\tsetAttr \".so.sog\" %f;\n", sog);
 
 	}
 	void setImageB(float sob)
 	{
 		if(sob == 0.0) return;
-		fprintf(mFile,"setAttr \".so.sob\" %f;\n", sob);
+		fprintf(mFile,"\tsetAttr \".so.sob\" %f;\n", sob);
 
 	}
 	void setShearUV(const float2& suv)
 	{
 		if(suv == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".suv\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".suv\" -type \"float2\" ");
 		suv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,19 +58,19 @@ public:
 	void setShearU(float su)
 	{
 		if(su == 0.0) return;
-		fprintf(mFile,"setAttr \".suv.su\" %f;\n", su);
+		fprintf(mFile,"\tsetAttr \".suv.su\" %f;\n", su);
 
 	}
 	void setShearV(float sv)
 	{
 		if(sv == 0.0) return;
-		fprintf(mFile,"setAttr \".suv.sv\" %f;\n", sv);
+		fprintf(mFile,"\tsetAttr \".suv.sv\" %f;\n", sv);
 
 	}
 	void setFlip(bool f)
 	{
 		if(f == false) return;
-		fprintf(mFile,"setAttr \".f\" %i;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
 
 	}
 	void getPointCamera()
@@ -158,7 +159,8 @@ public:
 
 	}
 protected:
-	EnvSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):TextureEnv(file, name, parent, nodeType) {}
+	EnvSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:TextureEnv(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

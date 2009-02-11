@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class FilterEuler : public Filter
 {
 public:
 public:
+	FilterEuler():Filter(){}
 	FilterEuler(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterEuler"){}
 	virtual ~FilterEuler(){}
 	void setSmooth(unsigned int s)
 	{
 		if(s == 3) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void setNearestTo(unsigned int nt)
 	{
 		if(nt == 2) return;
-		fprintf(mFile,"setAttr \".nt\" %i;\n", nt);
+		fprintf(mFile,"\tsetAttr \".nt\" %i;\n", nt);
 
 	}
 	void setWeight(const double3& w)
 	{
 		if(w == double3(1.0, 1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".w\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".w\" -type \"double3\" ");
 		w.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,31 +44,31 @@ public:
 	void setWeightX(double wx)
 	{
 		if(wx == 1.0) return;
-		fprintf(mFile,"setAttr \".w.wx\" %f;\n", wx);
+		fprintf(mFile,"\tsetAttr \".w.wx\" %f;\n", wx);
 
 	}
 	void setWeightY(double wy)
 	{
 		if(wy == 1.0) return;
-		fprintf(mFile,"setAttr \".w.wy\" %f;\n", wy);
+		fprintf(mFile,"\tsetAttr \".w.wy\" %f;\n", wy);
 
 	}
 	void setWeightZ(double wz)
 	{
 		if(wz == 1.0) return;
-		fprintf(mFile,"setAttr \".w.wz\" %f;\n", wz);
+		fprintf(mFile,"\tsetAttr \".w.wz\" %f;\n", wz);
 
 	}
 	void setEnableInitialRotation(bool eir)
 	{
 		if(eir == false) return;
-		fprintf(mFile,"setAttr \".eir\" %i;\n", eir);
+		fprintf(mFile,"\tsetAttr \".eir\" %i;\n", eir);
 
 	}
 	void setInitialRotation(const double3& ir)
 	{
 		if(ir == double3(0., 0., 0.)) return;
-		fprintf(mFile,"setAttr \".ir\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ir\" -type \"double3\" ");
 		ir.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,25 +76,25 @@ public:
 	void setInitialRotationX(double irx)
 	{
 		if(irx == 0) return;
-		fprintf(mFile,"setAttr \".ir.irx\" %f;\n", irx);
+		fprintf(mFile,"\tsetAttr \".ir.irx\" %f;\n", irx);
 
 	}
 	void setInitialRotationY(double iry)
 	{
 		if(iry == 0) return;
-		fprintf(mFile,"setAttr \".ir.iry\" %f;\n", iry);
+		fprintf(mFile,"\tsetAttr \".ir.iry\" %f;\n", iry);
 
 	}
 	void setInitialRotationZ(double irz)
 	{
 		if(irz == 0) return;
-		fprintf(mFile,"setAttr \".ir.irz\" %f;\n", irz);
+		fprintf(mFile,"\tsetAttr \".ir.irz\" %f;\n", irz);
 
 	}
 	void setOutputUsageOpt(unsigned int use)
 	{
 		if(use == 0) return;
-		fprintf(mFile,"setAttr \".use\" %i;\n", use);
+		fprintf(mFile,"\tsetAttr \".use\" %i;\n", use);
 
 	}
 	void getSmooth()
@@ -157,7 +158,8 @@ public:
 
 	}
 protected:
-	FilterEuler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Filter(file, name, parent, nodeType) {}
+	FilterEuler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Filter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

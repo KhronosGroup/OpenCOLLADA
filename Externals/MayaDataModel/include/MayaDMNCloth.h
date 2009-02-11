@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class NCloth : public NParticle
 {
 public:
 public:
+	NCloth():NParticle(){}
 	NCloth(FILE* file,const std::string& name,const std::string& parent=""):NParticle(file, name, parent, "nCloth"){}
 	virtual ~NCloth(){}
 	void setNumSubdivisions(int nsub)
 	{
 		if(nsub == 2) return;
-		fprintf(mFile,"setAttr \".nsub\" %i;\n", nsub);
+		fprintf(mFile,"\tsetAttr \".nsub\" %i;\n", nsub);
 
 	}
 	void setScalingRelation(unsigned int srl)
 	{
 		if(srl == 0) return;
-		fprintf(mFile,"setAttr \".srl\" %i;\n", srl);
+		fprintf(mFile,"\tsetAttr \".srl\" %i;\n", srl);
 
 	}
 	void setStretchResistance(float stch)
 	{
 		if(stch == 20.0) return;
-		fprintf(mFile,"setAttr \".stch\" %f;\n", stch);
+		fprintf(mFile,"\tsetAttr \".stch\" %f;\n", stch);
 
 	}
 	void setCompressionResistance(float comr)
 	{
 		if(comr == 10.0) return;
-		fprintf(mFile,"setAttr \".comr\" %f;\n", comr);
+		fprintf(mFile,"\tsetAttr \".comr\" %f;\n", comr);
 
 	}
 	void setStretchMap(float stmp)
 	{
 		if(stmp == 1.0) return;
-		fprintf(mFile,"setAttr \".stmp\" %f;\n", stmp);
+		fprintf(mFile,"\tsetAttr \".stmp\" %f;\n", stmp);
 
 	}
 	void setStretchPerVertex(const doubleArray& spv)
 	{
 		if(spv.size == 0) return;
-		fprintf(mFile,"setAttr \".spv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".spv\" -type \"doubleArray\" ");
 		spv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -61,19 +62,19 @@ public:
 	void setBendResistance(float bnd)
 	{
 		if(bnd == 0.1) return;
-		fprintf(mFile,"setAttr \".bnd\" %f;\n", bnd);
+		fprintf(mFile,"\tsetAttr \".bnd\" %f;\n", bnd);
 
 	}
 	void setBendMap(float bemp)
 	{
 		if(bemp == 0.0) return;
-		fprintf(mFile,"setAttr \".bemp\" %f;\n", bemp);
+		fprintf(mFile,"\tsetAttr \".bemp\" %f;\n", bemp);
 
 	}
 	void setBendPerVertex(const doubleArray& bdpv)
 	{
 		if(bdpv.size == 0) return;
-		fprintf(mFile,"setAttr \".bdpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".bdpv\" -type \"doubleArray\" ");
 		bdpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,43 +82,43 @@ public:
 	void setBendAngleDropoff(float bnad)
 	{
 		if(bnad == 0.0) return;
-		fprintf(mFile,"setAttr \".bnad\" %f;\n", bnad);
+		fprintf(mFile,"\tsetAttr \".bnad\" %f;\n", bnad);
 
 	}
 	void setRestitutionTension(float retn)
 	{
 		if(retn == 1000.0) return;
-		fprintf(mFile,"setAttr \".retn\" %f;\n", retn);
+		fprintf(mFile,"\tsetAttr \".retn\" %f;\n", retn);
 
 	}
 	void setRestitutionAngle(float reae)
 	{
 		if(reae == 3) return;
-		fprintf(mFile,"setAttr \".reae\" %f;\n", reae);
+		fprintf(mFile,"\tsetAttr \".reae\" %f;\n", reae);
 
 	}
 	void setShearResistance(float shr)
 	{
 		if(shr == 0.0) return;
-		fprintf(mFile,"setAttr \".shr\" %f;\n", shr);
+		fprintf(mFile,"\tsetAttr \".shr\" %f;\n", shr);
 
 	}
 	void setRigidity(float rity)
 	{
 		if(rity == 0.0) return;
-		fprintf(mFile,"setAttr \".rity\" %f;\n", rity);
+		fprintf(mFile,"\tsetAttr \".rity\" %f;\n", rity);
 
 	}
 	void setRigidityMap(float rimp)
 	{
 		if(rimp == 0.0) return;
-		fprintf(mFile,"setAttr \".rimp\" %f;\n", rimp);
+		fprintf(mFile,"\tsetAttr \".rimp\" %f;\n", rimp);
 
 	}
 	void setRigidityPerVertex(const doubleArray& rpv)
 	{
 		if(rpv.size == 0) return;
-		fprintf(mFile,"setAttr \".rpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".rpv\" -type \"doubleArray\" ");
 		rpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -125,19 +126,19 @@ public:
 	void setDeformResistance(float dety)
 	{
 		if(dety == 0.0) return;
-		fprintf(mFile,"setAttr \".dety\" %f;\n", dety);
+		fprintf(mFile,"\tsetAttr \".dety\" %f;\n", dety);
 
 	}
 	void setDeformMap(float demp)
 	{
 		if(demp == 0.0) return;
-		fprintf(mFile,"setAttr \".demp\" %f;\n", demp);
+		fprintf(mFile,"\tsetAttr \".demp\" %f;\n", demp);
 
 	}
 	void setDeformPerVertex(const doubleArray& dfpv)
 	{
 		if(dfpv.size == 0) return;
-		fprintf(mFile,"setAttr \".dfpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".dfpv\" -type \"doubleArray\" ");
 		dfpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -145,19 +146,19 @@ public:
 	void setInputMeshAttract(float imat)
 	{
 		if(imat == 0.0) return;
-		fprintf(mFile,"setAttr \".imat\" %f;\n", imat);
+		fprintf(mFile,"\tsetAttr \".imat\" %f;\n", imat);
 
 	}
 	void setInputAttractMap(float iamp)
 	{
 		if(iamp == 0.0) return;
-		fprintf(mFile,"setAttr \".iamp\" %f;\n", iamp);
+		fprintf(mFile,"\tsetAttr \".iamp\" %f;\n", iamp);
 
 	}
 	void setInputAttractPerVertex(const doubleArray& iapv)
 	{
 		if(iapv.size == 0) return;
-		fprintf(mFile,"setAttr \".iapv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".iapv\" -type \"doubleArray\" ");
 		iapv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -165,19 +166,19 @@ public:
 	void setInputAttractDamp(float iadm)
 	{
 		if(iadm == 0.5) return;
-		fprintf(mFile,"setAttr \".iadm\" %f;\n", iadm);
+		fprintf(mFile,"\tsetAttr \".iadm\" %f;\n", iadm);
 
 	}
 	void setWrinkleMap(float wkmp)
 	{
 		if(wkmp == 0.0) return;
-		fprintf(mFile,"setAttr \".wkmp\" %f;\n", wkmp);
+		fprintf(mFile,"\tsetAttr \".wkmp\" %f;\n", wkmp);
 
 	}
 	void setWrinklePerVertex(const doubleArray& wpv)
 	{
 		if(wpv.size == 0) return;
-		fprintf(mFile,"setAttr \".wpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".wpv\" -type \"doubleArray\" ");
 		wpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -185,187 +186,187 @@ public:
 	void setWrinkleMapScale(float wms)
 	{
 		if(wms == 1.0) return;
-		fprintf(mFile,"setAttr \".wms\" %f;\n", wms);
+		fprintf(mFile,"\tsetAttr \".wms\" %f;\n", wms);
 
 	}
 	void setBendAngleScale(float basc)
 	{
 		if(basc == 1.0) return;
-		fprintf(mFile,"setAttr \".basc\" %f;\n", basc);
+		fprintf(mFile,"\tsetAttr \".basc\" %f;\n", basc);
 
 	}
 	void setSortLinks(bool stlk)
 	{
 		if(stlk == 0) return;
-		fprintf(mFile,"setAttr \".stlk\" %i;\n", stlk);
+		fprintf(mFile,"\tsetAttr \".stlk\" %i;\n", stlk);
 
 	}
 	void setEvaluationOrder(unsigned int evo)
 	{
 		if(evo == 0) return;
-		fprintf(mFile,"setAttr \".evo\" %i;\n", evo);
+		fprintf(mFile,"\tsetAttr \".evo\" %i;\n", evo);
 
 	}
 	void setAddCrossLinks(bool aclk)
 	{
 		if(aclk == true) return;
-		fprintf(mFile,"setAttr \".aclk\" %i;\n", aclk);
+		fprintf(mFile,"\tsetAttr \".aclk\" %i;\n", aclk);
 
 	}
 	void setStretchDamp(float sdmp)
 	{
 		if(sdmp == 0.1) return;
-		fprintf(mFile,"setAttr \".sdmp\" %f;\n", sdmp);
+		fprintf(mFile,"\tsetAttr \".sdmp\" %f;\n", sdmp);
 
 	}
 	void setSelfCollideWidthScale(float scws)
 	{
 		if(scws == 1.0) return;
-		fprintf(mFile,"setAttr \".scws\" %f;\n", scws);
+		fprintf(mFile,"\tsetAttr \".scws\" %f;\n", scws);
 
 	}
 	void setSelfCollisionSoftness(float scsf)
 	{
 		if(scsf == 0.0) return;
-		fprintf(mFile,"setAttr \".scsf\" %f;\n", scsf);
+		fprintf(mFile,"\tsetAttr \".scsf\" %f;\n", scsf);
 
 	}
 	void setSelfCrossoverPush(float scpu)
 	{
 		if(scpu == 0.0) return;
-		fprintf(mFile,"setAttr \".scpu\" %f;\n", scpu);
+		fprintf(mFile,"\tsetAttr \".scpu\" %f;\n", scpu);
 
 	}
 	void setSelfTrappedCheck(bool stpc)
 	{
 		if(stpc == 0) return;
-		fprintf(mFile,"setAttr \".stpc\" %i;\n", stpc);
+		fprintf(mFile,"\tsetAttr \".stpc\" %i;\n", stpc);
 
 	}
 	void setPressureMethod(unsigned int pmth)
 	{
 		if(pmth == 0) return;
-		fprintf(mFile,"setAttr \".pmth\" %i;\n", pmth);
+		fprintf(mFile,"\tsetAttr \".pmth\" %i;\n", pmth);
 
 	}
 	void setPressure(float pres)
 	{
 		if(pres == 0.0) return;
-		fprintf(mFile,"setAttr \".pres\" %f;\n", pres);
+		fprintf(mFile,"\tsetAttr \".pres\" %f;\n", pres);
 
 	}
 	void setStartPressure(float stpe)
 	{
 		if(stpe == 0.0) return;
-		fprintf(mFile,"setAttr \".stpe\" %f;\n", stpe);
+		fprintf(mFile,"\tsetAttr \".stpe\" %f;\n", stpe);
 
 	}
 	void setIncompressibility(float incm)
 	{
 		if(incm == 5.0) return;
-		fprintf(mFile,"setAttr \".incm\" %f;\n", incm);
+		fprintf(mFile,"\tsetAttr \".incm\" %f;\n", incm);
 
 	}
 	void setPressureDamping(float prdg)
 	{
 		if(prdg == 0.0) return;
-		fprintf(mFile,"setAttr \".prdg\" %f;\n", prdg);
+		fprintf(mFile,"\tsetAttr \".prdg\" %f;\n", prdg);
 
 	}
 	void setPumpRate(float pure)
 	{
 		if(pure == 0.0) return;
-		fprintf(mFile,"setAttr \".pure\" %f;\n", pure);
+		fprintf(mFile,"\tsetAttr \".pure\" %f;\n", pure);
 
 	}
 	void setAirTightness(float aits)
 	{
 		if(aits == 1.0) return;
-		fprintf(mFile,"setAttr \".aits\" %f;\n", aits);
+		fprintf(mFile,"\tsetAttr \".aits\" %f;\n", aits);
 
 	}
 	void setSealHoles(bool shol)
 	{
 		if(shol == true) return;
-		fprintf(mFile,"setAttr \".shol\" %i;\n", shol);
+		fprintf(mFile,"\tsetAttr \".shol\" %i;\n", shol);
 
 	}
 	void setIgnoreSolverGravity(bool igsg)
 	{
 		if(igsg == 0) return;
-		fprintf(mFile,"setAttr \".igsg\" %i;\n", igsg);
+		fprintf(mFile,"\tsetAttr \".igsg\" %i;\n", igsg);
 
 	}
 	void setIgnoreSolverWind(bool igsw)
 	{
 		if(igsw == 0) return;
-		fprintf(mFile,"setAttr \".igsw\" %i;\n", igsw);
+		fprintf(mFile,"\tsetAttr \".igsw\" %i;\n", igsw);
 
 	}
 	void setWindSelfShadow(bool wssh)
 	{
 		if(wssh == 0) return;
-		fprintf(mFile,"setAttr \".wssh\" %i;\n", wssh);
+		fprintf(mFile,"\tsetAttr \".wssh\" %i;\n", wssh);
 
 	}
 	void setLift(float lft)
 	{
 		if(lft == 0.05) return;
-		fprintf(mFile,"setAttr \".lft\" %f;\n", lft);
+		fprintf(mFile,"\tsetAttr \".lft\" %f;\n", lft);
 
 	}
 	void setDrag(float drg)
 	{
 		if(drg == 0.05) return;
-		fprintf(mFile,"setAttr \".drg\" %f;\n", drg);
+		fprintf(mFile,"\tsetAttr \".drg\" %f;\n", drg);
 
 	}
 	void setTangentialDrag(float tdrg)
 	{
 		if(tdrg == 0.0) return;
-		fprintf(mFile,"setAttr \".tdrg\" %f;\n", tdrg);
+		fprintf(mFile,"\tsetAttr \".tdrg\" %f;\n", tdrg);
 
 	}
 	void setSolverDisplay(unsigned int svds)
 	{
 		if(svds == 0) return;
-		fprintf(mFile,"setAttr \".svds\" %i;\n", svds);
+		fprintf(mFile,"\tsetAttr \".svds\" %i;\n", svds);
 
 	}
 	void setStretchMapType(unsigned int smt)
 	{
 		if(smt == 2) return;
-		fprintf(mFile,"setAttr \".smt\" %i;\n", smt);
+		fprintf(mFile,"\tsetAttr \".smt\" %i;\n", smt);
 
 	}
 	void setBendMapType(unsigned int bdmt)
 	{
 		if(bdmt == 2) return;
-		fprintf(mFile,"setAttr \".bdmt\" %i;\n", bdmt);
+		fprintf(mFile,"\tsetAttr \".bdmt\" %i;\n", bdmt);
 
 	}
 	void setRigidityMapType(unsigned int rmt)
 	{
 		if(rmt == 2) return;
-		fprintf(mFile,"setAttr \".rmt\" %i;\n", rmt);
+		fprintf(mFile,"\tsetAttr \".rmt\" %i;\n", rmt);
 
 	}
 	void setDeformMapType(unsigned int dmmt)
 	{
 		if(dmmt == 2) return;
-		fprintf(mFile,"setAttr \".dmmt\" %i;\n", dmmt);
+		fprintf(mFile,"\tsetAttr \".dmmt\" %i;\n", dmmt);
 
 	}
 	void setInputAttractMapType(unsigned int iamt)
 	{
 		if(iamt == 2) return;
-		fprintf(mFile,"setAttr \".iamt\" %i;\n", iamt);
+		fprintf(mFile,"\tsetAttr \".iamt\" %i;\n", iamt);
 
 	}
 	void setWrinkleMapType(unsigned int wmt)
 	{
 		if(wmt == 2) return;
-		fprintf(mFile,"setAttr \".wmt\" %i;\n", wmt);
+		fprintf(mFile,"\tsetAttr \".wmt\" %i;\n", wmt);
 
 	}
 	void getOutputMesh()
@@ -684,7 +685,8 @@ public:
 
 	}
 protected:
-	NCloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NParticle(file, name, parent, nodeType) {}
+	NCloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:NParticle(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

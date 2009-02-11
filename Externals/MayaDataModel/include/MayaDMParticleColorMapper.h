@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class ParticleColorMapper : public DependNode
 {
 public:
 public:
+	ParticleColorMapper():DependNode(){}
 	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleColorMapper"){}
 	virtual ~ParticleColorMapper(){}
 	void setParticleColor(const float3& pc)
 	{
-		fprintf(mFile,"setAttr \".pc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pc\" -type \"float3\" ");
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,19 +31,19 @@ public:
 	void setParticleColorR(float pcr)
 	{
 		if(pcr == 0.0) return;
-		fprintf(mFile,"setAttr \".pc.pcr\" %f;\n", pcr);
+		fprintf(mFile,"\tsetAttr \".pc.pcr\" %f;\n", pcr);
 
 	}
 	void setParticleColorG(float pcg)
 	{
 		if(pcg == 0.0) return;
-		fprintf(mFile,"setAttr \".pc.pcg\" %f;\n", pcg);
+		fprintf(mFile,"\tsetAttr \".pc.pcg\" %f;\n", pcg);
 
 	}
 	void setParticleColorB(float pcb)
 	{
 		if(pcb == 0.0) return;
-		fprintf(mFile,"setAttr \".pc.pcb\" %f;\n", pcb);
+		fprintf(mFile,"\tsetAttr \".pc.pcb\" %f;\n", pcb);
 
 	}
 	void getParticleColor()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ParticleColorMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

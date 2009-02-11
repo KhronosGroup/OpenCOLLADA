@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -31,11 +31,12 @@ public:
 		}
 	};
 public:
+	HyperLayout():DependNode(){}
 	HyperLayout(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hyperLayout"){}
 	virtual ~HyperLayout(){}
 	void setHyperPosition(size_t hyp_i,const HyperPosition& hyp)
 	{
-		fprintf(mFile,"setAttr \".hyp[%i]\" ",hyp_i);
+		fprintf(mFile,"\tsetAttr \".hyp[%i]\" ",hyp_i);
 		hyp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,31 +44,31 @@ public:
 	void setPositionX(size_t hyp_i,float x)
 	{
 		if(x == 0.0) return;
-		fprintf(mFile,"setAttr \".hyp[%i].x\" %f;\n", hyp_i,x);
+		fprintf(mFile,"\tsetAttr \".hyp[%i].x\" %f;\n", hyp_i,x);
 
 	}
 	void setPositionY(size_t hyp_i,float y)
 	{
 		if(y == 0.0) return;
-		fprintf(mFile,"setAttr \".hyp[%i].y\" %f;\n", hyp_i,y);
+		fprintf(mFile,"\tsetAttr \".hyp[%i].y\" %f;\n", hyp_i,y);
 
 	}
 	void setIsCollapsed(size_t hyp_i,bool isc)
 	{
 		if(isc == false) return;
-		fprintf(mFile,"setAttr \".hyp[%i].isc\" %i;\n", hyp_i,isc);
+		fprintf(mFile,"\tsetAttr \".hyp[%i].isc\" %i;\n", hyp_i,isc);
 
 	}
 	void setIsFreeform(size_t hyp_i,bool isf)
 	{
 		if(isf == false) return;
-		fprintf(mFile,"setAttr \".hyp[%i].isf\" %i;\n", hyp_i,isf);
+		fprintf(mFile,"\tsetAttr \".hyp[%i].isf\" %i;\n", hyp_i,isf);
 
 	}
 	void setImageName(const string& img)
 	{
 		if(img == "") return;
-		fprintf(mFile,"setAttr \".img\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".img\" -type \"string\" ");
 		img.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,7 +76,7 @@ public:
 	void setImagePosition(const double2& imp)
 	{
 		if(imp == double2(0, 0)) return;
-		fprintf(mFile,"setAttr \".imp\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".imp\" -type \"double2\" ");
 		imp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,25 +84,25 @@ public:
 	void setImagePositionX(double ipx)
 	{
 		if(ipx == 0.0) return;
-		fprintf(mFile,"setAttr \".imp.ipx\" %f;\n", ipx);
+		fprintf(mFile,"\tsetAttr \".imp.ipx\" %f;\n", ipx);
 
 	}
 	void setImagePositionY(double ipy)
 	{
 		if(ipy == 0.0) return;
-		fprintf(mFile,"setAttr \".imp.ipy\" %f;\n", ipy);
+		fprintf(mFile,"\tsetAttr \".imp.ipy\" %f;\n", ipy);
 
 	}
 	void setImageScale(float ims)
 	{
 		if(ims == 1.0) return;
-		fprintf(mFile,"setAttr \".ims\" %f;\n", ims);
+		fprintf(mFile,"\tsetAttr \".ims\" %f;\n", ims);
 
 	}
 	void setAllNodesFreeform(bool anf)
 	{
 		if(anf == false) return;
-		fprintf(mFile,"setAttr \".anf\" %i;\n", anf);
+		fprintf(mFile,"\tsetAttr \".anf\" %i;\n", anf);
 
 	}
 	void getHyperPosition(size_t hyp_i)
@@ -165,7 +166,8 @@ public:
 
 	}
 protected:
-	HyperLayout(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	HyperLayout(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

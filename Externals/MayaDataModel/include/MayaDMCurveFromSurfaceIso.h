@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class CurveFromSurfaceIso : public CurveFromSurface
 {
 public:
 public:
+	CurveFromSurfaceIso():CurveFromSurface(){}
 	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent=""):CurveFromSurface(file, name, parent, "curveFromSurfaceIso"){}
 	virtual ~CurveFromSurfaceIso(){}
 	void setIsoparmValue(double iv)
 	{
 		if(iv == 0.0) return;
-		fprintf(mFile,"setAttr \".iv\" %f;\n", iv);
+		fprintf(mFile,"\tsetAttr \".iv\" %f;\n", iv);
 
 	}
 	void setIsoparmDirection(unsigned int idr)
 	{
 		if(idr == 0) return;
-		fprintf(mFile,"setAttr \".idr\" %i;\n", idr);
+		fprintf(mFile,"\tsetAttr \".idr\" %i;\n", idr);
 
 	}
 	void setRelativeValue(bool rv)
 	{
 		if(rv == false) return;
-		fprintf(mFile,"setAttr \".rv\" %i;\n", rv);
+		fprintf(mFile,"\tsetAttr \".rv\" %i;\n", rv);
 
 	}
 	void getIsoparmValue()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromSurface(file, name, parent, nodeType) {}
+	CurveFromSurfaceIso(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveFromSurface(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

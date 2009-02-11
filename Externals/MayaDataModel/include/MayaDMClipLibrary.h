@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -72,25 +72,26 @@ public:
 		}
 	};
 public:
+	ClipLibrary():DependNode(){}
 	ClipLibrary(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "clipLibrary"){}
 	virtual ~ClipLibrary(){}
 	void setClipEvalList(size_t cel_i,const ClipEvalList& cel)
 	{
-		fprintf(mFile,"setAttr \".cel[%i]\" ",cel_i);
+		fprintf(mFile,"\tsetAttr \".cel[%i]\" ",cel_i);
 		cel.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setClipEval(size_t cel_i,size_t cev_i,const ClipEvalList::ClipEval& cev)
 	{
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i]\" ",cel_i,cev_i);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i]\" ",cel_i,cev_i);
 		cev.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_i,const ClipEvalList::ClipEval::ClipEval_Inmap& cevi)
 	{
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i].cevi[%i]\" ",cel_i,cev_i,cevi_i);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevi[%i]\" ",cel_i,cev_i,cevi_i);
 		cevi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -98,18 +99,18 @@ public:
 	void setClipEval_InmapTo(size_t cel_i,size_t cev_i,size_t cevi_i,short cevit)
 	{
 		if(cevit == 0) return;
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i].cevi[%i].cevit\" %i;\n", cel_i,cev_i,cevi_i,cevit);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevi[%i].cevit\" %i;\n", cel_i,cev_i,cevi_i,cevit);
 
 	}
 	void setClipEval_InmapFrom(size_t cel_i,size_t cev_i,size_t cevi_i,short cevif)
 	{
 		if(cevif == 0) return;
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i].cevi[%i].cevif\" %i;\n", cel_i,cev_i,cevi_i,cevif);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevi[%i].cevif\" %i;\n", cel_i,cev_i,cevi_i,cevif);
 
 	}
 	void setClipEval_Outmap(size_t cel_i,size_t cev_i,size_t cevo_i,const ClipEvalList::ClipEval::ClipEval_Outmap& cevo)
 	{
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i].cevo[%i]\" ",cel_i,cev_i,cevo_i);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevo[%i]\" ",cel_i,cev_i,cevo_i);
 		cevo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -117,18 +118,18 @@ public:
 	void setClipEval_OutmapTo(size_t cel_i,size_t cev_i,size_t cevo_i,short cevot)
 	{
 		if(cevot == 0) return;
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i].cevo[%i].cevot\" %i;\n", cel_i,cev_i,cevo_i,cevot);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevo[%i].cevot\" %i;\n", cel_i,cev_i,cevo_i,cevot);
 
 	}
 	void setClipEval_OutmapFrom(size_t cel_i,size_t cev_i,size_t cevo_i,short cevof)
 	{
 		if(cevof == 0) return;
-		fprintf(mFile,"setAttr \".cel[%i].cev[%i].cevo[%i].cevof\" %i;\n", cel_i,cev_i,cevo_i,cevof);
+		fprintf(mFile,"\tsetAttr \".cel[%i].cev[%i].cevo[%i].cevof\" %i;\n", cel_i,cev_i,cevo_i,cevof);
 
 	}
 	void setCharacterdata(size_t cd_i,const Characterdata& cd)
 	{
-		fprintf(mFile,"setAttr \".cd[%i]\" ",cd_i);
+		fprintf(mFile,"\tsetAttr \".cd[%i]\" ",cd_i);
 		cd.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -136,7 +137,7 @@ public:
 	void setClipIndexMapping(size_t cd_i,const intArray& cim)
 	{
 		if(cim.size == 0) return;
-		fprintf(mFile,"setAttr \".cd[%i].cim\" -type \"intArray\" ",cd_i);
+		fprintf(mFile,"\tsetAttr \".cd[%i].cim\" -type \"intArray\" ",cd_i);
 		cim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -144,7 +145,7 @@ public:
 	void setActiveClip(int act)
 	{
 		if(act == -1) return;
-		fprintf(mFile,"setAttr \".act\" %i;\n", act);
+		fprintf(mFile,"\tsetAttr \".act\" %i;\n", act);
 
 	}
 	void getClipEvalList(size_t cel_i)
@@ -238,7 +239,8 @@ public:
 
 	}
 protected:
-	ClipLibrary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ClipLibrary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class JointFfd : public Ffd
 {
 public:
 public:
+	JointFfd():Ffd(){}
 	JointFfd(FILE* file,const std::string& name,const std::string& parent=""):Ffd(file, name, parent, "jointFfd"){}
 	virtual ~JointFfd(){}
 	void setBaseLattice2Matrix(const matrix& b2)
 	{
 		if(b2 == identity) return;
-		fprintf(mFile,"setAttr \".b2\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".b2\" -type \"matrix\" ");
 		b2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setUseComponentCache(bool uc)
 	{
 		if(uc == true) return;
-		fprintf(mFile,"setAttr \".uc\" %i;\n", uc);
+		fprintf(mFile,"\tsetAttr \".uc\" %i;\n", uc);
 
 	}
 	void getBaseLattice2Matrix()
@@ -65,7 +66,8 @@ public:
 
 	}
 protected:
-	JointFfd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Ffd(file, name, parent, nodeType) {}
+	JointFfd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Ffd(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

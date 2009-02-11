@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -99,18 +99,19 @@ public:
 		}
 	};
 public:
+	ClipScheduler():DependNode(){}
 	ClipScheduler(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "clipScheduler"){}
 	virtual ~ClipScheduler(){}
 	void setBlendList(size_t bl_i,const BlendList& bl)
 	{
-		fprintf(mFile,"setAttr \".bl[%i]\" ",bl_i);
+		fprintf(mFile,"\tsetAttr \".bl[%i]\" ",bl_i);
 		bl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBlendList_Inmap(size_t bl_i,size_t bli_i,const BlendList::BlendList_Inmap& bli)
 	{
-		fprintf(mFile,"setAttr \".bl[%i].bli[%i]\" ",bl_i,bli_i);
+		fprintf(mFile,"\tsetAttr \".bl[%i].bli[%i]\" ",bl_i,bli_i);
 		bli.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -118,18 +119,18 @@ public:
 	void setBlendList_InmapTo(size_t bl_i,size_t bli_i,short blit)
 	{
 		if(blit == 0) return;
-		fprintf(mFile,"setAttr \".bl[%i].bli[%i].blit\" %i;\n", bl_i,bli_i,blit);
+		fprintf(mFile,"\tsetAttr \".bl[%i].bli[%i].blit\" %i;\n", bl_i,bli_i,blit);
 
 	}
 	void setBlendList_InmapFrom(size_t bl_i,size_t bli_i,short blif)
 	{
 		if(blif == 0) return;
-		fprintf(mFile,"setAttr \".bl[%i].bli[%i].blif\" %i;\n", bl_i,bli_i,blif);
+		fprintf(mFile,"\tsetAttr \".bl[%i].bli[%i].blif\" %i;\n", bl_i,bli_i,blif);
 
 	}
 	void setBlendList_Outmap(size_t bl_i,size_t blo_i,const BlendList::BlendList_Outmap& blo)
 	{
-		fprintf(mFile,"setAttr \".bl[%i].blo[%i]\" ",bl_i,blo_i);
+		fprintf(mFile,"\tsetAttr \".bl[%i].blo[%i]\" ",bl_i,blo_i);
 		blo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -137,18 +138,18 @@ public:
 	void setBlendList_OutmapTo(size_t bl_i,size_t blo_i,short blot)
 	{
 		if(blot == 0) return;
-		fprintf(mFile,"setAttr \".bl[%i].blo[%i].blot\" %i;\n", bl_i,blo_i,blot);
+		fprintf(mFile,"\tsetAttr \".bl[%i].blo[%i].blot\" %i;\n", bl_i,blo_i,blot);
 
 	}
 	void setBlendList_OutmapFrom(size_t bl_i,size_t blo_i,short blof)
 	{
 		if(blof == 0) return;
-		fprintf(mFile,"setAttr \".bl[%i].blo[%i].blof\" %i;\n", bl_i,blo_i,blof);
+		fprintf(mFile,"\tsetAttr \".bl[%i].blo[%i].blof\" %i;\n", bl_i,blo_i,blof);
 
 	}
 	void setBlendClips(size_t bc_i,const BlendClips& bc)
 	{
-		fprintf(mFile,"setAttr \".bc[%i]\" ",bc_i);
+		fprintf(mFile,"\tsetAttr \".bc[%i]\" ",bc_i);
 		bc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -156,18 +157,18 @@ public:
 	void setFirstClip(size_t bc_i,int fcl)
 	{
 		if(fcl == 0) return;
-		fprintf(mFile,"setAttr \".bc[%i].fcl\" %i;\n", bc_i,fcl);
+		fprintf(mFile,"\tsetAttr \".bc[%i].fcl\" %i;\n", bc_i,fcl);
 
 	}
 	void setSecondClip(size_t bc_i,int scl)
 	{
 		if(scl == 0) return;
-		fprintf(mFile,"setAttr \".bc[%i].scl\" %i;\n", bc_i,scl);
+		fprintf(mFile,"\tsetAttr \".bc[%i].scl\" %i;\n", bc_i,scl);
 
 	}
 	void setClipFunction_Inmap(size_t cfi_i,const ClipFunction::ClipFunction_Inmap& cfi)
 	{
-		fprintf(mFile,"setAttr \".cf.cfi[%i]\" ",cfi_i);
+		fprintf(mFile,"\tsetAttr \".cf.cfi[%i]\" ",cfi_i);
 		cfi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -175,18 +176,18 @@ public:
 	void setClipFunction_InmapTo(size_t cfi_i,short cfit)
 	{
 		if(cfit == 0) return;
-		fprintf(mFile,"setAttr \".cf.cfi[%i].cfit\" %i;\n", cfi_i,cfit);
+		fprintf(mFile,"\tsetAttr \".cf.cfi[%i].cfit\" %i;\n", cfi_i,cfit);
 
 	}
 	void setClipFunction_InmapFrom(size_t cfi_i,short cfif)
 	{
 		if(cfif == 0) return;
-		fprintf(mFile,"setAttr \".cf.cfi[%i].cfif\" %i;\n", cfi_i,cfif);
+		fprintf(mFile,"\tsetAttr \".cf.cfi[%i].cfif\" %i;\n", cfi_i,cfif);
 
 	}
 	void setClipFunction_Outmap(size_t cfo_i,const ClipFunction::ClipFunction_Outmap& cfo)
 	{
-		fprintf(mFile,"setAttr \".cf.cfo[%i]\" ",cfo_i);
+		fprintf(mFile,"\tsetAttr \".cf.cfo[%i]\" ",cfo_i);
 		cfo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -194,24 +195,24 @@ public:
 	void setClipFunction_OutmapTo(size_t cfo_i,short cfot)
 	{
 		if(cfot == 0) return;
-		fprintf(mFile,"setAttr \".cf.cfo[%i].cfot\" %i;\n", cfo_i,cfot);
+		fprintf(mFile,"\tsetAttr \".cf.cfo[%i].cfot\" %i;\n", cfo_i,cfot);
 
 	}
 	void setClipFunction_OutmapFrom(size_t cfo_i,short cfof)
 	{
 		if(cfof == 0) return;
-		fprintf(mFile,"setAttr \".cf.cfo[%i].cfof\" %i;\n", cfo_i,cfof);
+		fprintf(mFile,"\tsetAttr \".cf.cfo[%i].cfof\" %i;\n", cfo_i,cfof);
 
 	}
 	void setScale(size_t sc_i,double sc)
 	{
 		if(sc == 1.0) return;
-		fprintf(mFile,"setAttr \".sc[%i]\" %f;\n", sc_i,sc);
+		fprintf(mFile,"\tsetAttr \".sc[%i]\" %f;\n", sc_i,sc);
 
 	}
 	void setScale(size_t sc_start,size_t sc_end,double* sc)
 	{
-		fprintf(mFile,"setAttr \".sc[%i:%i]\" ", sc_start,sc_end);
+		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\" ", sc_start,sc_end);
 		size_t size = (sc_end-sc_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -223,7 +224,7 @@ public:
 	}
 	void startScale(size_t sc_start,size_t sc_end)
 	{
-		fprintf(mFile,"setAttr \".sc[%i:%i]\"",sc_start,sc_end);
+		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\"",sc_start,sc_end);
 
 	}
 	void appendScale(double sc)
@@ -239,12 +240,12 @@ public:
 	void setWeight(size_t w_i,double w)
 	{
 		if(w == 1.0) return;
-		fprintf(mFile,"setAttr \".w[%i]\" %f;\n", w_i,w);
+		fprintf(mFile,"\tsetAttr \".w[%i]\" %f;\n", w_i,w);
 
 	}
 	void setWeight(size_t w_start,size_t w_end,double* w)
 	{
-		fprintf(mFile,"setAttr \".w[%i:%i]\" ", w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".w[%i:%i]\" ", w_start,w_end);
 		size_t size = (w_end-w_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -256,7 +257,7 @@ public:
 	}
 	void startWeight(size_t w_start,size_t w_end)
 	{
-		fprintf(mFile,"setAttr \".w[%i:%i]\"",w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
 
 	}
 	void appendWeight(double w)
@@ -272,12 +273,12 @@ public:
 	void setWeightStyle(size_t ws_i,unsigned int ws)
 	{
 		if(ws == 0) return;
-		fprintf(mFile,"setAttr \".ws[%i]\" %i;\n", ws_i,ws);
+		fprintf(mFile,"\tsetAttr \".ws[%i]\" %i;\n", ws_i,ws);
 
 	}
 	void setWeightStyle(size_t ws_start,size_t ws_end,unsigned int* ws)
 	{
-		fprintf(mFile,"setAttr \".ws[%i:%i]\" ", ws_start,ws_end);
+		fprintf(mFile,"\tsetAttr \".ws[%i:%i]\" ", ws_start,ws_end);
 		size_t size = (ws_end-ws_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -289,7 +290,7 @@ public:
 	}
 	void startWeightStyle(size_t ws_start,size_t ws_end)
 	{
-		fprintf(mFile,"setAttr \".ws[%i:%i]\"",ws_start,ws_end);
+		fprintf(mFile,"\tsetAttr \".ws[%i:%i]\"",ws_start,ws_end);
 
 	}
 	void appendWeightStyle(unsigned int ws)
@@ -305,12 +306,12 @@ public:
 	void setPreCycle(size_t cb_i,double cb)
 	{
 		if(cb == 0.0) return;
-		fprintf(mFile,"setAttr \".cb[%i]\" %f;\n", cb_i,cb);
+		fprintf(mFile,"\tsetAttr \".cb[%i]\" %f;\n", cb_i,cb);
 
 	}
 	void setPreCycle(size_t cb_start,size_t cb_end,double* cb)
 	{
-		fprintf(mFile,"setAttr \".cb[%i:%i]\" ", cb_start,cb_end);
+		fprintf(mFile,"\tsetAttr \".cb[%i:%i]\" ", cb_start,cb_end);
 		size_t size = (cb_end-cb_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -322,7 +323,7 @@ public:
 	}
 	void startPreCycle(size_t cb_start,size_t cb_end)
 	{
-		fprintf(mFile,"setAttr \".cb[%i:%i]\"",cb_start,cb_end);
+		fprintf(mFile,"\tsetAttr \".cb[%i:%i]\"",cb_start,cb_end);
 
 	}
 	void appendPreCycle(double cb)
@@ -338,12 +339,12 @@ public:
 	void setPostCycle(size_t ca_i,double ca)
 	{
 		if(ca == 0.0) return;
-		fprintf(mFile,"setAttr \".ca[%i]\" %f;\n", ca_i,ca);
+		fprintf(mFile,"\tsetAttr \".ca[%i]\" %f;\n", ca_i,ca);
 
 	}
 	void setPostCycle(size_t ca_start,size_t ca_end,double* ca)
 	{
-		fprintf(mFile,"setAttr \".ca[%i:%i]\" ", ca_start,ca_end);
+		fprintf(mFile,"\tsetAttr \".ca[%i:%i]\" ", ca_start,ca_end);
 		size_t size = (ca_end-ca_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -355,7 +356,7 @@ public:
 	}
 	void startPostCycle(size_t ca_start,size_t ca_end)
 	{
-		fprintf(mFile,"setAttr \".ca[%i:%i]\"",ca_start,ca_end);
+		fprintf(mFile,"\tsetAttr \".ca[%i:%i]\"",ca_start,ca_end);
 
 	}
 	void appendPostCycle(double ca)
@@ -371,12 +372,12 @@ public:
 	void setEnable(size_t ea_i,bool ea)
 	{
 		if(ea == 1) return;
-		fprintf(mFile,"setAttr \".ea[%i]\" %i;\n", ea_i,ea);
+		fprintf(mFile,"\tsetAttr \".ea[%i]\" %i;\n", ea_i,ea);
 
 	}
 	void setEnable(size_t ea_start,size_t ea_end,bool* ea)
 	{
-		fprintf(mFile,"setAttr \".ea[%i:%i]\" ", ea_start,ea_end);
+		fprintf(mFile,"\tsetAttr \".ea[%i:%i]\" ", ea_start,ea_end);
 		size_t size = (ea_end-ea_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -388,7 +389,7 @@ public:
 	}
 	void startEnable(size_t ea_start,size_t ea_end)
 	{
-		fprintf(mFile,"setAttr \".ea[%i:%i]\"",ea_start,ea_end);
+		fprintf(mFile,"\tsetAttr \".ea[%i:%i]\"",ea_start,ea_end);
 
 	}
 	void appendEnable(bool ea)
@@ -404,12 +405,12 @@ public:
 	void setTrack(size_t tr_i,short tr)
 	{
 		if(tr == 0) return;
-		fprintf(mFile,"setAttr \".tr[%i]\" %i;\n", tr_i,tr);
+		fprintf(mFile,"\tsetAttr \".tr[%i]\" %i;\n", tr_i,tr);
 
 	}
 	void setTrack(size_t tr_start,size_t tr_end,short* tr)
 	{
-		fprintf(mFile,"setAttr \".tr[%i:%i]\" ", tr_start,tr_end);
+		fprintf(mFile,"\tsetAttr \".tr[%i:%i]\" ", tr_start,tr_end);
 		size_t size = (tr_end-tr_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -421,7 +422,7 @@ public:
 	}
 	void startTrack(size_t tr_start,size_t tr_end)
 	{
-		fprintf(mFile,"setAttr \".tr[%i:%i]\"",tr_start,tr_end);
+		fprintf(mFile,"\tsetAttr \".tr[%i:%i]\"",tr_start,tr_end);
 
 	}
 	void appendTrack(short tr)
@@ -437,12 +438,12 @@ public:
 	void setTrackState(size_t ts_i,short ts)
 	{
 		if(ts == 0) return;
-		fprintf(mFile,"setAttr \".ts[%i]\" %i;\n", ts_i,ts);
+		fprintf(mFile,"\tsetAttr \".ts[%i]\" %i;\n", ts_i,ts);
 
 	}
 	void setTrackState(size_t ts_start,size_t ts_end,short* ts)
 	{
-		fprintf(mFile,"setAttr \".ts[%i:%i]\" ", ts_start,ts_end);
+		fprintf(mFile,"\tsetAttr \".ts[%i:%i]\" ", ts_start,ts_end);
 		size_t size = (ts_end-ts_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -454,7 +455,7 @@ public:
 	}
 	void startTrackState(size_t ts_start,size_t ts_end)
 	{
-		fprintf(mFile,"setAttr \".ts[%i:%i]\"",ts_start,ts_end);
+		fprintf(mFile,"\tsetAttr \".ts[%i:%i]\"",ts_start,ts_end);
 
 	}
 	void appendTrackState(short ts)
@@ -470,18 +471,18 @@ public:
 	void setNumTracks(short nt)
 	{
 		if(nt == 0) return;
-		fprintf(mFile,"setAttr \".nt\" %i;\n", nt);
+		fprintf(mFile,"\tsetAttr \".nt\" %i;\n", nt);
 
 	}
 	void setCycle(size_t cy_i,double cy)
 	{
 		if(cy == 1.0) return;
-		fprintf(mFile,"setAttr \".cy[%i]\" %f;\n", cy_i,cy);
+		fprintf(mFile,"\tsetAttr \".cy[%i]\" %f;\n", cy_i,cy);
 
 	}
 	void setCycle(size_t cy_start,size_t cy_end,double* cy)
 	{
-		fprintf(mFile,"setAttr \".cy[%i:%i]\" ", cy_start,cy_end);
+		fprintf(mFile,"\tsetAttr \".cy[%i:%i]\" ", cy_start,cy_end);
 		size_t size = (cy_end-cy_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -493,7 +494,7 @@ public:
 	}
 	void startCycle(size_t cy_start,size_t cy_end)
 	{
-		fprintf(mFile,"setAttr \".cy[%i:%i]\"",cy_start,cy_end);
+		fprintf(mFile,"\tsetAttr \".cy[%i:%i]\"",cy_start,cy_end);
 
 	}
 	void appendCycle(double cy)
@@ -667,7 +668,8 @@ public:
 
 	}
 protected:
-	ClipScheduler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ClipScheduler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

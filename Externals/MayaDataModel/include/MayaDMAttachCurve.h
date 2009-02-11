@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class AttachCurve : public AbstractBaseCreate
 {
 public:
 public:
+	AttachCurve():AbstractBaseCreate(){}
 	AttachCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "attachCurve"){}
 	virtual ~AttachCurve(){}
 	void setReverse1(bool rv1)
 	{
 		if(rv1 == false) return;
-		fprintf(mFile,"setAttr \".rv1\" %i;\n", rv1);
+		fprintf(mFile,"\tsetAttr \".rv1\" %i;\n", rv1);
 
 	}
 	void setReverse2(bool rv2)
 	{
 		if(rv2 == false) return;
-		fprintf(mFile,"setAttr \".rv2\" %i;\n", rv2);
+		fprintf(mFile,"\tsetAttr \".rv2\" %i;\n", rv2);
 
 	}
 	void setMethod(unsigned int m)
 	{
 		if(m == 0) return;
-		fprintf(mFile,"setAttr \".m\" %i;\n", m);
+		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
 	void setKeepMultipleKnots(bool kmk)
 	{
 		if(kmk == true) return;
-		fprintf(mFile,"setAttr \".kmk\" %i;\n", kmk);
+		fprintf(mFile,"\tsetAttr \".kmk\" %i;\n", kmk);
 
 	}
 	void setBlendBias(double bb)
 	{
 		if(bb == 0.5) return;
-		fprintf(mFile,"setAttr \".bb\" %f;\n", bb);
+		fprintf(mFile,"\tsetAttr \".bb\" %f;\n", bb);
 
 	}
 	void setBlendKnotInsertion(bool bki)
 	{
 		if(bki == false) return;
-		fprintf(mFile,"setAttr \".bki\" %i;\n", bki);
+		fprintf(mFile,"\tsetAttr \".bki\" %i;\n", bki);
 
 	}
 	void setParameter(double p)
 	{
 		if(p == 0.1) return;
-		fprintf(mFile,"setAttr \".p\" %f;\n", p);
+		fprintf(mFile,"\tsetAttr \".p\" %f;\n", p);
 
 	}
 	void getInputCurve1()
@@ -118,7 +119,8 @@ public:
 
 	}
 protected:
-	AttachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	AttachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

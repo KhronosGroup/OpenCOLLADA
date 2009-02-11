@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -25,40 +25,49 @@ protected:
 public:
 	const std::string& getName()
 	{
-return mName;
+		return mName;
 	}
 	const std::string& getParent()
 	{
-return mParent;
+		return mParent;
 	}
 	const std::string& getType()
 	{
-return mNodeType;
+		return mNodeType;
+	}
+	void setName(const std::string& name)
+	{
+		mName = name;
+	}
+	void setParent(const std::string& parent)
+	{
+		mParent = parent;
 	}
 public:
+	DependNode(){}
 		virtual ~DependNode(){}
 	void setIsHistoricallyInteresting(unsigned char ihi)
 	{
 		if(ihi == 2) return;
-		fprintf(mFile,"setAttr \".ihi\" %i;\n", ihi);
+		fprintf(mFile,"\tsetAttr \".ihi\" %i;\n", ihi);
 
 	}
 	void setCaching(bool cch)
 	{
 		if(cch == false) return;
-		fprintf(mFile,"setAttr \".cch\" %i;\n", cch);
+		fprintf(mFile,"\tsetAttr \".cch\" %i;\n", cch);
 
 	}
 	void setNodeState(unsigned int nds)
 	{
 		if(nds == 0) return;
-		fprintf(mFile,"setAttr \".nds\" %i;\n", nds);
+		fprintf(mFile,"\tsetAttr \".nds\" %i;\n", nds);
 
 	}
 	void setBinMembership(const string& bnm)
 	{
 		if(bnm == "NULL") return;
-		fprintf(mFile,"setAttr \".bnm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bnm\" -type \"string\" ");
 		bnm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -84,11 +93,18 @@ public:
 
 	}
 protected:
-	DependNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):mFile(file), mName(name), mParent(parent), mNodeType(nodeType){createNode();}
+	DependNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:mFile(file), mName(name), mParent(parent), mNodeType(nodeType)
+	{
+		createNode();
+	}
 private:
 	void createNode()
 	{
-fprintf(mFile, "createNode %s -n \"%s\"", mNodeType.c_str(),mName.c_str());if(mParent != "") fprintf(mFile, " -p \"%s\"", mParent.c_str());fprintf(mFile, ";\n");
+		fprintf(mFile, "createNode %s -n \"%s\"", mNodeType.c_str(),mName.c_str());
+		if(mParent != "") 
+			fprintf(mFile, " -p \"%s\"", mParent.c_str());
+		fprintf(mFile, ";\n");
 	}
 
 };

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class PolyChipOff : public PolyMoveFace
 {
 public:
 public:
+	PolyChipOff():PolyMoveFace(){}
 	PolyChipOff(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveFace(file, name, parent, "polyChipOff"){}
 	virtual ~PolyChipOff(){}
 	void setKeepFacesTogether(bool kft)
 	{
 		if(kft == true) return;
-		fprintf(mFile,"setAttr \".kft\" %i;\n", kft);
+		fprintf(mFile,"\tsetAttr \".kft\" %i;\n", kft);
 
 	}
 	void setDuplicate(bool dup)
 	{
 		if(dup == true) return;
-		fprintf(mFile,"setAttr \".dup\" %i;\n", dup);
+		fprintf(mFile,"\tsetAttr \".dup\" %i;\n", dup);
 
 	}
 	void getKeepFacesTogether()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	PolyChipOff(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyMoveFace(file, name, parent, nodeType) {}
+	PolyChipOff(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyMoveFace(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

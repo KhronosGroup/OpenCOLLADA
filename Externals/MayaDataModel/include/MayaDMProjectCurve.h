@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class ProjectCurve : public AbstractBaseCreate
 {
 public:
 public:
+	ProjectCurve():AbstractBaseCreate(){}
 	ProjectCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "projectCurve"){}
 	virtual ~ProjectCurve(){}
 	void setDirection(const double3& d)
 	{
-		fprintf(mFile,"setAttr \".d\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"double3\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,31 +31,31 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 1) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setUseNormal(bool un)
 	{
 		if(un == false) return;
-		fprintf(mFile,"setAttr \".un\" %i;\n", un);
+		fprintf(mFile,"\tsetAttr \".un\" %i;\n", un);
 
 	}
 	void getInputCurve()
@@ -103,7 +104,8 @@ public:
 
 	}
 protected:
-	ProjectCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ProjectCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

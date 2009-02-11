@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class CurveFromSubdiv : public CurveRange
 {
 public:
 public:
+	CurveFromSubdiv():CurveRange(){}
 	CurveFromSubdiv(FILE* file,const std::string& name,const std::string& parent=""):CurveRange(file, name, parent, "curveFromSubdiv"){}
 	virtual ~CurveFromSubdiv(){}
 	void setMinValue(double min)
 	{
 		if(min == 1.0) return;
-		fprintf(mFile,"setAttr \".min\" %f;\n", min);
+		fprintf(mFile,"\tsetAttr \".min\" %f;\n", min);
 
 	}
 	void setMaxValue(double max)
 	{
 		if(max == -1.0) return;
-		fprintf(mFile,"setAttr \".max\" %f;\n", max);
+		fprintf(mFile,"\tsetAttr \".max\" %f;\n", max);
 
 	}
 	void setRelative(bool r)
 	{
 		if(r == false) return;
-		fprintf(mFile,"setAttr \".r\" %i;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %i;\n", r);
 
 	}
 	void getInputSubdiv()
@@ -64,7 +65,8 @@ public:
 
 	}
 protected:
-	CurveFromSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveRange(file, name, parent, nodeType) {}
+	CurveFromSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveRange(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

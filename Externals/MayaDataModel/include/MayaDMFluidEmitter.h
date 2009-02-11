@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,41 +18,42 @@ class FluidEmitter : public PointEmitter
 {
 public:
 public:
+	FluidEmitter():PointEmitter(){}
 	FluidEmitter(FILE* file,const std::string& name,const std::string& parent=""):PointEmitter(file, name, parent, "fluidEmitter"){}
 	virtual ~FluidEmitter(){}
 	void setFluidDropoff(double fdo)
 	{
 		if(fdo == 2) return;
-		fprintf(mFile,"setAttr \".fdo\" %f;\n", fdo);
+		fprintf(mFile,"\tsetAttr \".fdo\" %f;\n", fdo);
 
 	}
 	void setTurbulenceType(unsigned int trt)
 	{
 		if(trt == 0) return;
-		fprintf(mFile,"setAttr \".trt\" %i;\n", trt);
+		fprintf(mFile,"\tsetAttr \".trt\" %i;\n", trt);
 
 	}
 	void setFluidJitter(bool fjt)
 	{
 		if(fjt == true) return;
-		fprintf(mFile,"setAttr \".fjt\" %i;\n", fjt);
+		fprintf(mFile,"\tsetAttr \".fjt\" %i;\n", fjt);
 
 	}
 	void setTurbulence(double trb)
 	{
 		if(trb == 0.0) return;
-		fprintf(mFile,"setAttr \".trb\" %f;\n", trb);
+		fprintf(mFile,"\tsetAttr \".trb\" %f;\n", trb);
 
 	}
 	void setTurbulenceSpeed(double trs)
 	{
 		if(trs == 0.2) return;
-		fprintf(mFile,"setAttr \".trs\" %f;\n", trs);
+		fprintf(mFile,"\tsetAttr \".trs\" %f;\n", trs);
 
 	}
 	void setTurbulenceFrequency(const double3& tf)
 	{
-		fprintf(mFile,"setAttr \".tf\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".tf\" -type \"double3\" ");
 		tf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -60,24 +61,24 @@ public:
 	void setTurbulenceFrequencyX(double tfx)
 	{
 		if(tfx == 1.0) return;
-		fprintf(mFile,"setAttr \".tf.tfx\" %f;\n", tfx);
+		fprintf(mFile,"\tsetAttr \".tf.tfx\" %f;\n", tfx);
 
 	}
 	void setTurbulenceFrequencyY(double tfy)
 	{
 		if(tfy == 1.0) return;
-		fprintf(mFile,"setAttr \".tf.tfy\" %f;\n", tfy);
+		fprintf(mFile,"\tsetAttr \".tf.tfy\" %f;\n", tfy);
 
 	}
 	void setTurbulenceFrequencyZ(double tfz)
 	{
 		if(tfz == 1.0) return;
-		fprintf(mFile,"setAttr \".tf.tfz\" %f;\n", tfz);
+		fprintf(mFile,"\tsetAttr \".tf.tfz\" %f;\n", tfz);
 
 	}
 	void setTurbulenceOffset(const double3& to)
 	{
-		fprintf(mFile,"setAttr \".to\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".to\" -type \"double3\" ");
 		to.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,49 +86,49 @@ public:
 	void setTurbulenceOffsetX(double tox)
 	{
 		if(tox == 0.0) return;
-		fprintf(mFile,"setAttr \".to.tox\" %f;\n", tox);
+		fprintf(mFile,"\tsetAttr \".to.tox\" %f;\n", tox);
 
 	}
 	void setTurbulenceOffsetY(double toy)
 	{
 		if(toy == 0.0) return;
-		fprintf(mFile,"setAttr \".to.toy\" %f;\n", toy);
+		fprintf(mFile,"\tsetAttr \".to.toy\" %f;\n", toy);
 
 	}
 	void setTurbulenceOffsetZ(double toz)
 	{
 		if(toz == 0.0) return;
-		fprintf(mFile,"setAttr \".to.toz\" %f;\n", toz);
+		fprintf(mFile,"\tsetAttr \".to.toz\" %f;\n", toz);
 
 	}
 	void setDetailTurbulence(double dtr)
 	{
 		if(dtr == 0.0) return;
-		fprintf(mFile,"setAttr \".dtr\" %f;\n", dtr);
+		fprintf(mFile,"\tsetAttr \".dtr\" %f;\n", dtr);
 
 	}
 	void setFluidDensityEmission(double fde)
 	{
 		if(fde == 1.0) return;
-		fprintf(mFile,"setAttr \".fde\" %f;\n", fde);
+		fprintf(mFile,"\tsetAttr \".fde\" %f;\n", fde);
 
 	}
 	void setFluidHeatEmission(double fhe)
 	{
 		if(fhe == 0.0) return;
-		fprintf(mFile,"setAttr \".fhe\" %f;\n", fhe);
+		fprintf(mFile,"\tsetAttr \".fhe\" %f;\n", fhe);
 
 	}
 	void setFluidFuelEmission(double ffe)
 	{
 		if(ffe == 0.0) return;
-		fprintf(mFile,"setAttr \".ffe\" %f;\n", ffe);
+		fprintf(mFile,"\tsetAttr \".ffe\" %f;\n", ffe);
 
 	}
 	void setEmitFluidColor(bool efc)
 	{
 		if(efc == false) return;
-		fprintf(mFile,"setAttr \".efc\" %i;\n", efc);
+		fprintf(mFile,"\tsetAttr \".efc\" %i;\n", efc);
 
 	}
 	void getFluidDropoff()
@@ -226,7 +227,8 @@ public:
 
 	}
 protected:
-	FluidEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PointEmitter(file, name, parent, nodeType) {}
+	FluidEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PointEmitter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

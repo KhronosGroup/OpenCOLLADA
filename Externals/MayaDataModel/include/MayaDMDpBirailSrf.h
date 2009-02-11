@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class DpBirailSrf : public BirailSrf
 {
 public:
 public:
+	DpBirailSrf():BirailSrf(){}
 	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent=""):BirailSrf(file, name, parent, "dpBirailSrf"){}
 	virtual ~DpBirailSrf(){}
 	void setBlendFactor(double bl)
 	{
 		if(bl == 0.5) return;
-		fprintf(mFile,"setAttr \".bl\" %f;\n", bl);
+		fprintf(mFile,"\tsetAttr \".bl\" %f;\n", bl);
 
 	}
 	void setTangentContinuityProfile1(bool tp1)
 	{
 		if(tp1 == false) return;
-		fprintf(mFile,"setAttr \".tp1\" %i;\n", tp1);
+		fprintf(mFile,"\tsetAttr \".tp1\" %i;\n", tp1);
 
 	}
 	void setTangentContinuityProfile2(bool tp2)
 	{
 		if(tp2 == false) return;
-		fprintf(mFile,"setAttr \".tp2\" %i;\n", tp2);
+		fprintf(mFile,"\tsetAttr \".tp2\" %i;\n", tp2);
 
 	}
 	void getInputProfile1()
@@ -64,7 +65,8 @@ public:
 
 	}
 protected:
-	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BirailSrf(file, name, parent, nodeType) {}
+	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BirailSrf(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class TransferAttributes : public WeightGeometryFilter
 {
 public:
 public:
+	TransferAttributes():WeightGeometryFilter(){}
 	TransferAttributes(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "transferAttributes"){}
 	virtual ~TransferAttributes(){}
 	void setTransferPositions(unsigned int pos)
 	{
 		if(pos == 0) return;
-		fprintf(mFile,"setAttr \".pos\" %i;\n", pos);
+		fprintf(mFile,"\tsetAttr \".pos\" %i;\n", pos);
 
 	}
 	void setTransferNormals(unsigned int nml)
 	{
 		if(nml == 0) return;
-		fprintf(mFile,"setAttr \".nml\" %i;\n", nml);
+		fprintf(mFile,"\tsetAttr \".nml\" %i;\n", nml);
 
 	}
 	void setTransferUVs(unsigned int uvs)
 	{
 		if(uvs == 0) return;
-		fprintf(mFile,"setAttr \".uvs\" %i;\n", uvs);
+		fprintf(mFile,"\tsetAttr \".uvs\" %i;\n", uvs);
 
 	}
 	void setSourceUVSet(const string& suv)
 	{
 		if(suv == "NULL") return;
-		fprintf(mFile,"setAttr \".suv\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".suv\" -type \"string\" ");
 		suv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,7 +50,7 @@ public:
 	void setTargetUVSet(const string& tuv)
 	{
 		if(tuv == "NULL") return;
-		fprintf(mFile,"setAttr \".tuv\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tuv\" -type \"string\" ");
 		tuv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,13 +58,13 @@ public:
 	void setTransferColors(unsigned int col)
 	{
 		if(col == 0) return;
-		fprintf(mFile,"setAttr \".col\" %i;\n", col);
+		fprintf(mFile,"\tsetAttr \".col\" %i;\n", col);
 
 	}
 	void setSourceColorSet(const string& scs)
 	{
 		if(scs == "NULL") return;
-		fprintf(mFile,"setAttr \".scs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".scs\" -type \"string\" ");
 		scs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -71,7 +72,7 @@ public:
 	void setTargetColorSet(const string& tcs)
 	{
 		if(tcs == "NULL") return;
-		fprintf(mFile,"setAttr \".tcs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tcs\" -type \"string\" ");
 		tcs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -79,13 +80,13 @@ public:
 	void setSampleSpace(unsigned int spa)
 	{
 		if(spa == 0) return;
-		fprintf(mFile,"setAttr \".spa\" %i;\n", spa);
+		fprintf(mFile,"\tsetAttr \".spa\" %i;\n", spa);
 
 	}
 	void setSourceUVSpace(const string& sus)
 	{
 		if(sus == "NULL") return;
-		fprintf(mFile,"setAttr \".sus\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".sus\" -type \"string\" ");
 		sus.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -93,7 +94,7 @@ public:
 	void setTargetUVSpace(const string& tus)
 	{
 		if(tus == "NULL") return;
-		fprintf(mFile,"setAttr \".tus\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tus\" -type \"string\" ");
 		tus.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -101,25 +102,25 @@ public:
 	void setSearchMethod(unsigned int mtd)
 	{
 		if(mtd == 1) return;
-		fprintf(mFile,"setAttr \".mtd\" %i;\n", mtd);
+		fprintf(mFile,"\tsetAttr \".mtd\" %i;\n", mtd);
 
 	}
 	void setSearchDistance(double dis)
 	{
 		if(dis == 0.0) return;
-		fprintf(mFile,"setAttr \".dis\" %f;\n", dis);
+		fprintf(mFile,"\tsetAttr \".dis\" %f;\n", dis);
 
 	}
 	void setSearchTolerance(double tol)
 	{
 		if(tol == 1.3) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setSearchScale(const double3& ss)
 	{
 		if(ss == double3(1.0, 1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".ss\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ss\" -type \"double3\" ");
 		ss.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -127,31 +128,31 @@ public:
 	void setSearchScaleX(double ssx)
 	{
 		if(ssx == 0) return;
-		fprintf(mFile,"setAttr \".ss.ssx\" %f;\n", ssx);
+		fprintf(mFile,"\tsetAttr \".ss.ssx\" %f;\n", ssx);
 
 	}
 	void setSearchScaleY(double ssy)
 	{
 		if(ssy == 0) return;
-		fprintf(mFile,"setAttr \".ss.ssy\" %f;\n", ssy);
+		fprintf(mFile,"\tsetAttr \".ss.ssy\" %f;\n", ssy);
 
 	}
 	void setSearchScaleZ(double ssz)
 	{
 		if(ssz == 0) return;
-		fprintf(mFile,"setAttr \".ss.ssz\" %f;\n", ssz);
+		fprintf(mFile,"\tsetAttr \".ss.ssz\" %f;\n", ssz);
 
 	}
 	void setFlipUVs(unsigned int fuv)
 	{
 		if(fuv == 0) return;
-		fprintf(mFile,"setAttr \".fuv\" %i;\n", fuv);
+		fprintf(mFile,"\tsetAttr \".fuv\" %i;\n", fuv);
 
 	}
 	void setColorBorders(unsigned int clb)
 	{
 		if(clb == 1) return;
-		fprintf(mFile,"setAttr \".clb\" %i;\n", clb);
+		fprintf(mFile,"\tsetAttr \".clb\" %i;\n", clb);
 
 	}
 	void getSource(size_t src_i)
@@ -260,7 +261,8 @@ public:
 
 	}
 protected:
-	TransferAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):WeightGeometryFilter(file, name, parent, nodeType) {}
+	TransferAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:WeightGeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

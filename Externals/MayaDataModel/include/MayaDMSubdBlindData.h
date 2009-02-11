@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class SubdBlindData : public PolyBlindData
 {
 public:
+	SubdBlindData():PolyBlindData(){}
 	SubdBlindData(FILE* file,const std::string& name,const std::string& parent=""):PolyBlindData(file, name, parent, "subdBlindData"){}
 	virtual ~SubdBlindData(){}
 protected:
-	SubdBlindData(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyBlindData(file, name, parent, nodeType) {}
+	SubdBlindData(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyBlindData(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,24 @@ class ArrayMapper : public DependNode
 {
 public:
 public:
+	ArrayMapper():DependNode(){}
 	ArrayMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "arrayMapper"){}
 	virtual ~ArrayMapper(){}
 	void setMinValue(double min)
 	{
 		if(min == 0.0) return;
-		fprintf(mFile,"setAttr \".min\" %f;\n", min);
+		fprintf(mFile,"\tsetAttr \".min\" %f;\n", min);
 
 	}
 	void setMaxValue(double max)
 	{
 		if(max == 1.0) return;
-		fprintf(mFile,"setAttr \".max\" %f;\n", max);
+		fprintf(mFile,"\tsetAttr \".max\" %f;\n", max);
+
+	}
+	void getComputeNode()
+	{
+		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
 	void getUCoordPP()
@@ -88,7 +94,8 @@ public:
 
 	}
 protected:
-	ArrayMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ArrayMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

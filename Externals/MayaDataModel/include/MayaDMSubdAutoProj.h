@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,54 +18,55 @@ class SubdAutoProj : public SubdModifierUV
 {
 public:
 public:
+	SubdAutoProj():SubdModifierUV(){}
 	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierUV(file, name, parent, "subdAutoProj"){}
 	virtual ~SubdAutoProj(){}
 	void setPlanes(int p)
 	{
 		if(p == 6) return;
-		fprintf(mFile,"setAttr \".p\" %i;\n", p);
+		fprintf(mFile,"\tsetAttr \".p\" %i;\n", p);
 
 	}
 	void setOptimize(unsigned int o)
 	{
 		if(o == 1) return;
-		fprintf(mFile,"setAttr \".o\" %i;\n", o);
+		fprintf(mFile,"\tsetAttr \".o\" %i;\n", o);
 
 	}
 	void setSkipIntersect(bool si)
 	{
 		if(si == false) return;
-		fprintf(mFile,"setAttr \".si\" %i;\n", si);
+		fprintf(mFile,"\tsetAttr \".si\" %i;\n", si);
 
 	}
 	void setLayout(unsigned int l)
 	{
 		if(l == 1) return;
-		fprintf(mFile,"setAttr \".l\" %i;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
 	void setLayoutMethod(unsigned int lm)
 	{
 		if(lm == 0) return;
-		fprintf(mFile,"setAttr \".lm\" %i;\n", lm);
+		fprintf(mFile,"\tsetAttr \".lm\" %i;\n", lm);
 
 	}
 	void setPercentageSpace(float ps)
 	{
 		if(ps == 0) return;
-		fprintf(mFile,"setAttr \".ps\" %f;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %f;\n", ps);
 
 	}
 	void setScale(unsigned int sc)
 	{
 		if(sc == 1) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setDenseLayout(bool dl)
 	{
 		if(dl == false) return;
-		fprintf(mFile,"setAttr \".dl\" %i;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
 	void getPlanes()
@@ -109,7 +110,8 @@ public:
 
 	}
 protected:
-	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifierUV(file, name, parent, nodeType) {}
+	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

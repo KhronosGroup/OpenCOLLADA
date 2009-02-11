@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -147,18 +147,19 @@ public:
 		}
 	};
 public:
+	Mesh():SurfaceShape(){}
 	Mesh(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "mesh"){}
 	virtual ~Mesh(){}
 	void setOutMesh(const mesh& o)
 	{
-		fprintf(mFile,"setAttr \".o\" -type \"mesh\" ");
+		fprintf(mFile,"\tsetAttr \".o\" -type \"mesh\" ");
 		o.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setCachedInMesh(const mesh& ci)
 	{
-		fprintf(mFile,"setAttr \".ci\" -type \"mesh\" ");
+		fprintf(mFile,"\tsetAttr \".ci\" -type \"mesh\" ");
 		ci.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -166,54 +167,54 @@ public:
 	void setSmoothWarn(bool sw)
 	{
 		if(sw == true) return;
-		fprintf(mFile,"setAttr \".sw\" %i;\n", sw);
+		fprintf(mFile,"\tsetAttr \".sw\" %i;\n", sw);
 
 	}
 	void setSmoothLevel(short lev)
 	{
 		if(lev == 2) return;
-		fprintf(mFile,"setAttr \".lev\" %i;\n", lev);
+		fprintf(mFile,"\tsetAttr \".lev\" %i;\n", lev);
 
 	}
 	void setContinuity(float co)
 	{
 		if(co == 1) return;
-		fprintf(mFile,"setAttr \".co\" %f;\n", co);
+		fprintf(mFile,"\tsetAttr \".co\" %f;\n", co);
 
 	}
 	void setSmoothUVs(bool suv)
 	{
 		if(suv == true) return;
-		fprintf(mFile,"setAttr \".suv\" %i;\n", suv);
+		fprintf(mFile,"\tsetAttr \".suv\" %i;\n", suv);
 
 	}
 	void setKeepBorder(bool kb)
 	{
 		if(kb == false) return;
-		fprintf(mFile,"setAttr \".kb\" %i;\n", kb);
+		fprintf(mFile,"\tsetAttr \".kb\" %i;\n", kb);
 
 	}
 	void setKeepHardEdge(bool khe)
 	{
 		if(khe == false) return;
-		fprintf(mFile,"setAttr \".khe\" %i;\n", khe);
+		fprintf(mFile,"\tsetAttr \".khe\" %i;\n", khe);
 
 	}
 	void setPropagateEdgeHardness(bool peh)
 	{
 		if(peh == false) return;
-		fprintf(mFile,"setAttr \".peh\" %i;\n", peh);
+		fprintf(mFile,"\tsetAttr \".peh\" %i;\n", peh);
 
 	}
 	void setKeepMapBorders(unsigned int kmb)
 	{
 		if(kmb == 1) return;
-		fprintf(mFile,"setAttr \".kmb\" %i;\n", kmb);
+		fprintf(mFile,"\tsetAttr \".kmb\" %i;\n", kmb);
 
 	}
 	void setSmoothOffset(const float3& so)
 	{
-		fprintf(mFile,"setAttr \".so\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".so\" -type \"float3\" ");
 		so.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -221,115 +222,115 @@ public:
 	void setSofx(float sx)
 	{
 		if(sx == 0) return;
-		fprintf(mFile,"setAttr \".so.sx\" %f;\n", sx);
+		fprintf(mFile,"\tsetAttr \".so.sx\" %f;\n", sx);
 
 	}
 	void setSofy(float sy)
 	{
 		if(sy == 0) return;
-		fprintf(mFile,"setAttr \".so.sy\" %f;\n", sy);
+		fprintf(mFile,"\tsetAttr \".so.sy\" %f;\n", sy);
 
 	}
 	void setSofz(float sz)
 	{
 		if(sz == 0) return;
-		fprintf(mFile,"setAttr \".so.sz\" %f;\n", sz);
+		fprintf(mFile,"\tsetAttr \".so.sz\" %f;\n", sz);
 
 	}
 	void setDisplaySubdComps(bool dsc)
 	{
 		if(dsc == false) return;
-		fprintf(mFile,"setAttr \".dsc\" %i;\n", dsc);
+		fprintf(mFile,"\tsetAttr \".dsc\" %i;\n", dsc);
 
 	}
 	void setUseMaxEdgeLength(bool uxe)
 	{
 		if(uxe == false) return;
-		fprintf(mFile,"setAttr \".uxe\" %i;\n", uxe);
+		fprintf(mFile,"\tsetAttr \".uxe\" %i;\n", uxe);
 
 	}
 	void setUseMinEdgeLength(bool uie)
 	{
 		if(uie == false) return;
-		fprintf(mFile,"setAttr \".uie\" %i;\n", uie);
+		fprintf(mFile,"\tsetAttr \".uie\" %i;\n", uie);
 
 	}
 	void setUseMaxSubdivisions(bool uxs)
 	{
 		if(uxs == false) return;
-		fprintf(mFile,"setAttr \".uxs\" %i;\n", uxs);
+		fprintf(mFile,"\tsetAttr \".uxs\" %i;\n", uxs);
 
 	}
 	void setUseMaxUV(bool uxu)
 	{
 		if(uxu == false) return;
-		fprintf(mFile,"setAttr \".uxu\" %i;\n", uxu);
+		fprintf(mFile,"\tsetAttr \".uxu\" %i;\n", uxu);
 
 	}
 	void setUseMinScreen(bool uns)
 	{
 		if(uns == true) return;
-		fprintf(mFile,"setAttr \".uns\" %i;\n", uns);
+		fprintf(mFile,"\tsetAttr \".uns\" %i;\n", uns);
 
 	}
 	void setUseNumTriangles(bool unp)
 	{
 		if(unp == false) return;
-		fprintf(mFile,"setAttr \".unp\" %i;\n", unp);
+		fprintf(mFile,"\tsetAttr \".unp\" %i;\n", unp);
 
 	}
 	void setNumTriangles(int nt)
 	{
 		if(nt == 100) return;
-		fprintf(mFile,"setAttr \".nt\" %i;\n", nt);
+		fprintf(mFile,"\tsetAttr \".nt\" %i;\n", nt);
 
 	}
 	void setMaxEdgeLength(float mxe)
 	{
 		if(mxe == 0.1) return;
-		fprintf(mFile,"setAttr \".mxe\" %f;\n", mxe);
+		fprintf(mFile,"\tsetAttr \".mxe\" %f;\n", mxe);
 
 	}
 	void setMinEdgeLength(float mne)
 	{
 		if(mne == 0.01) return;
-		fprintf(mFile,"setAttr \".mne\" %f;\n", mne);
+		fprintf(mFile,"\tsetAttr \".mne\" %f;\n", mne);
 
 	}
 	void setMaxSubd(int mxs)
 	{
 		if(mxs == 5) return;
-		fprintf(mFile,"setAttr \".mxs\" %i;\n", mxs);
+		fprintf(mFile,"\tsetAttr \".mxs\" %i;\n", mxs);
 
 	}
 	void setMaxUv(float xuv)
 	{
 		if(xuv == 0.5) return;
-		fprintf(mFile,"setAttr \".xuv\" %f;\n", xuv);
+		fprintf(mFile,"\tsetAttr \".xuv\" %f;\n", xuv);
 
 	}
 	void setMinScreen(float mns)
 	{
 		if(mns == 14) return;
-		fprintf(mFile,"setAttr \".mns\" %f;\n", mns);
+		fprintf(mFile,"\tsetAttr \".mns\" %f;\n", mns);
 
 	}
 	void setMaxTriangles(int tsl)
 	{
 		if(tsl == 60000) return;
-		fprintf(mFile,"setAttr \".tsl\" %i;\n", tsl);
+		fprintf(mFile,"\tsetAttr \".tsl\" %i;\n", tsl);
 
 	}
 	void setPnts(size_t pt_i,const float3& pt)
 	{
-		fprintf(mFile,"setAttr \".pt[%i]\" -type \"float3\" ",pt_i);
+		fprintf(mFile,"\tsetAttr \".pt[%i]\" -type \"float3\" ",pt_i);
 		pt.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setPnts(size_t pt_start,size_t pt_end,float* pt)
 	{
-		fprintf(mFile,"setAttr \".pt[%i:%i]\" ", pt_start,pt_end);
+		fprintf(mFile,"\tsetAttr \".pt[%i:%i]\" ", pt_start,pt_end);
 		size_t size = (pt_end-pt_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -341,7 +342,7 @@ public:
 	}
 	void startPnts(size_t pt_start,size_t pt_end)
 	{
-		fprintf(mFile,"setAttr \".pt[%i:%i]\"",pt_start,pt_end);
+		fprintf(mFile,"\tsetAttr \".pt[%i:%i]\"",pt_start,pt_end);
 
 	}
 	void appendPnts(float pt)
@@ -357,31 +358,31 @@ public:
 	void setPntx(size_t pt_i,float px)
 	{
 		if(px == 0) return;
-		fprintf(mFile,"setAttr \".pt[%i].px\" %f;\n", pt_i,px);
+		fprintf(mFile,"\tsetAttr \".pt[%i].px\" %f;\n", pt_i,px);
 
 	}
 	void setPnty(size_t pt_i,float py)
 	{
 		if(py == 0) return;
-		fprintf(mFile,"setAttr \".pt[%i].py\" %f;\n", pt_i,py);
+		fprintf(mFile,"\tsetAttr \".pt[%i].py\" %f;\n", pt_i,py);
 
 	}
 	void setPntz(size_t pt_i,float pz)
 	{
 		if(pz == 0) return;
-		fprintf(mFile,"setAttr \".pt[%i].pz\" %f;\n", pt_i,pz);
+		fprintf(mFile,"\tsetAttr \".pt[%i].pz\" %f;\n", pt_i,pz);
 
 	}
 	void setVrts(size_t vt_i,const float3& vt)
 	{
-		fprintf(mFile,"setAttr \".vt[%i]\" -type \"float3\" ",vt_i);
+		fprintf(mFile,"\tsetAttr \".vt[%i]\" -type \"float3\" ",vt_i);
 		vt.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVrts(size_t vt_start,size_t vt_end,float* vt)
 	{
-		fprintf(mFile,"setAttr \".vt[%i:%i]\" ", vt_start,vt_end);
+		fprintf(mFile,"\tsetAttr \".vt[%i:%i]\" ", vt_start,vt_end);
 		size_t size = (vt_end-vt_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -393,7 +394,7 @@ public:
 	}
 	void startVrts(size_t vt_start,size_t vt_end)
 	{
-		fprintf(mFile,"setAttr \".vt[%i:%i]\"",vt_start,vt_end);
+		fprintf(mFile,"\tsetAttr \".vt[%i:%i]\"",vt_start,vt_end);
 
 	}
 	void appendVrts(float vt)
@@ -409,31 +410,31 @@ public:
 	void setVrtx(size_t vt_i,float vx)
 	{
 		if(vx == 0.0) return;
-		fprintf(mFile,"setAttr \".vt[%i].vx\" %f;\n", vt_i,vx);
+		fprintf(mFile,"\tsetAttr \".vt[%i].vx\" %f;\n", vt_i,vx);
 
 	}
 	void setVrty(size_t vt_i,float vy)
 	{
 		if(vy == 0.0) return;
-		fprintf(mFile,"setAttr \".vt[%i].vy\" %f;\n", vt_i,vy);
+		fprintf(mFile,"\tsetAttr \".vt[%i].vy\" %f;\n", vt_i,vy);
 
 	}
 	void setVrtz(size_t vt_i,float vz)
 	{
 		if(vz == 0.0) return;
-		fprintf(mFile,"setAttr \".vt[%i].vz\" %f;\n", vt_i,vz);
+		fprintf(mFile,"\tsetAttr \".vt[%i].vz\" %f;\n", vt_i,vz);
 
 	}
 	void setEdge(size_t ed_i,const long3& ed)
 	{
-		fprintf(mFile,"setAttr \".ed[%i]\" -type \"long3\" ",ed_i);
+		fprintf(mFile,"\tsetAttr \".ed[%i]\" -type \"long3\" ",ed_i);
 		ed.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setEdge(size_t ed_start,size_t ed_end,int* ed)
 	{
-		fprintf(mFile,"setAttr \".ed[%i:%i]\" ", ed_start,ed_end);
+		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\" ", ed_start,ed_end);
 		size_t size = (ed_end-ed_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -445,7 +446,7 @@ public:
 	}
 	void startEdge(size_t ed_start,size_t ed_end)
 	{
-		fprintf(mFile,"setAttr \".ed[%i:%i]\"",ed_start,ed_end);
+		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\"",ed_start,ed_end);
 
 	}
 	void appendEdge(int ed)
@@ -461,31 +462,31 @@ public:
 	void setEdg1(size_t ed_i,int e1)
 	{
 		if(e1 == 0) return;
-		fprintf(mFile,"setAttr \".ed[%i].e1\" %i;\n", ed_i,e1);
+		fprintf(mFile,"\tsetAttr \".ed[%i].e1\" %i;\n", ed_i,e1);
 
 	}
 	void setEdg2(size_t ed_i,int e2)
 	{
 		if(e2 == 0) return;
-		fprintf(mFile,"setAttr \".ed[%i].e2\" %i;\n", ed_i,e2);
+		fprintf(mFile,"\tsetAttr \".ed[%i].e2\" %i;\n", ed_i,e2);
 
 	}
 	void setEdgh(size_t ed_i,int eh)
 	{
 		if(eh == 0) return;
-		fprintf(mFile,"setAttr \".ed[%i].eh\" %i;\n", ed_i,eh);
+		fprintf(mFile,"\tsetAttr \".ed[%i].eh\" %i;\n", ed_i,eh);
 
 	}
 	void setUvpt(size_t uv_i,const float2& uv)
 	{
-		fprintf(mFile,"setAttr \".uv[%i]\" -type \"float2\" ",uv_i);
+		fprintf(mFile,"\tsetAttr \".uv[%i]\" -type \"float2\" ",uv_i);
 		uv.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setUvpt(size_t uv_start,size_t uv_end,float* uv)
 	{
-		fprintf(mFile,"setAttr \".uv[%i:%i]\" ", uv_start,uv_end);
+		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\" ", uv_start,uv_end);
 		size_t size = (uv_end-uv_start)*2+2;
 		for(size_t i=0;i<size;++i)
 		{
@@ -497,7 +498,7 @@ public:
 	}
 	void startUvpt(size_t uv_start,size_t uv_end)
 	{
-		fprintf(mFile,"setAttr \".uv[%i:%i]\"",uv_start,uv_end);
+		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\"",uv_start,uv_end);
 
 	}
 	void appendUvpt(float uv)
@@ -513,18 +514,18 @@ public:
 	void setUvpx(size_t uv_i,float ux)
 	{
 		if(ux == 0.0) return;
-		fprintf(mFile,"setAttr \".uv[%i].ux\" %f;\n", uv_i,ux);
+		fprintf(mFile,"\tsetAttr \".uv[%i].ux\" %f;\n", uv_i,ux);
 
 	}
 	void setUvpy(size_t uv_i,float uy)
 	{
 		if(uy == 0.0) return;
-		fprintf(mFile,"setAttr \".uv[%i].uy\" %f;\n", uv_i,uy);
+		fprintf(mFile,"\tsetAttr \".uv[%i].uy\" %f;\n", uv_i,uy);
 
 	}
 	void setColors(size_t clr_i,const Colors& clr)
 	{
-		fprintf(mFile,"setAttr \".clr[%i]\" ",clr_i);
+		fprintf(mFile,"\tsetAttr \".clr[%i]\" ",clr_i);
 		clr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -532,37 +533,37 @@ public:
 	void setColorR(size_t clr_i,float clrr)
 	{
 		if(clrr == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrr\" %f;\n", clr_i,clrr);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrr\" %f;\n", clr_i,clrr);
 
 	}
 	void setColorG(size_t clr_i,float clrg)
 	{
 		if(clrg == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrg\" %f;\n", clr_i,clrg);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrg\" %f;\n", clr_i,clrg);
 
 	}
 	void setColorB(size_t clr_i,float clrb)
 	{
 		if(clrb == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrb\" %f;\n", clr_i,clrb);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrb\" %f;\n", clr_i,clrb);
 
 	}
 	void setColorA(size_t clr_i,float clra)
 	{
 		if(clra == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clra\" %f;\n", clr_i,clra);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clra\" %f;\n", clr_i,clra);
 
 	}
 	void setNormals(size_t n_i,const float3& n)
 	{
-		fprintf(mFile,"setAttr \".n[%i]\" -type \"float3\" ",n_i);
+		fprintf(mFile,"\tsetAttr \".n[%i]\" -type \"float3\" ",n_i);
 		n.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setNormals(size_t n_start,size_t n_end,float* n)
 	{
-		fprintf(mFile,"setAttr \".n[%i:%i]\" ", n_start,n_end);
+		fprintf(mFile,"\tsetAttr \".n[%i:%i]\" ", n_start,n_end);
 		size_t size = (n_end-n_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -574,7 +575,7 @@ public:
 	}
 	void startNormals(size_t n_start,size_t n_end)
 	{
-		fprintf(mFile,"setAttr \".n[%i:%i]\"",n_start,n_end);
+		fprintf(mFile,"\tsetAttr \".n[%i:%i]\"",n_start,n_end);
 
 	}
 	void appendNormals(float n)
@@ -590,31 +591,31 @@ public:
 	void setNormalx(size_t n_i,float nx)
 	{
 		if(nx == 1e20) return;
-		fprintf(mFile,"setAttr \".n[%i].nx\" %f;\n", n_i,nx);
+		fprintf(mFile,"\tsetAttr \".n[%i].nx\" %f;\n", n_i,nx);
 
 	}
 	void setNormaly(size_t n_i,float ny)
 	{
 		if(ny == 1e20) return;
-		fprintf(mFile,"setAttr \".n[%i].ny\" %f;\n", n_i,ny);
+		fprintf(mFile,"\tsetAttr \".n[%i].ny\" %f;\n", n_i,ny);
 
 	}
 	void setNormalz(size_t n_i,float nz)
 	{
 		if(nz == 1e20) return;
-		fprintf(mFile,"setAttr \".n[%i].nz\" %f;\n", n_i,nz);
+		fprintf(mFile,"\tsetAttr \".n[%i].nz\" %f;\n", n_i,nz);
 
 	}
 	void setFace(size_t fc_i,const polyFaces& fc)
 	{
-		fprintf(mFile,"setAttr \".fc[%i]\" -type \"polyFaces\" ",fc_i);
+		fprintf(mFile,"\tsetAttr \".fc[%i]\" -type \"polyFaces\" ",fc_i);
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setFace(size_t fc_start,size_t fc_end,polyFaces* fc)
 	{
-		fprintf(mFile,"setAttr \".fc[%i:%i]\" ", fc_start,fc_end);
+		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\" ", fc_start,fc_end);
 		size_t size = (fc_end-fc_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -626,7 +627,7 @@ public:
 	}
 	void startFace(size_t fc_start,size_t fc_end)
 	{
-		fprintf(mFile,"setAttr \".fc[%i:%i]\"",fc_start,fc_end);
+		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\"",fc_start,fc_end);
 		fprintf(mFile," -type \"polyFaces\" ");
 
 	}
@@ -643,21 +644,21 @@ public:
 	}
 	void setColorPerVertex(const ColorPerVertex& cpvx)
 	{
-		fprintf(mFile,"setAttr \".cpvx\" ");
+		fprintf(mFile,"\tsetAttr \".cpvx\" ");
 		cpvx.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexColor(size_t vclr_i,const ColorPerVertex::VertexColor& vclr)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i]\" ",vclr_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i]\" ",vclr_i);
 		vclr.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexColorRGB(size_t vclr_i,const float3& vrgb)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb\" -type \"float3\" ",vclr_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb\" -type \"float3\" ",vclr_i);
 		vrgb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -665,37 +666,37 @@ public:
 	void setVertexColorR(size_t vclr_i,float vxcr)
 	{
 		if(vxcr == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb.vxcr\" %f;\n", vclr_i,vxcr);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb.vxcr\" %f;\n", vclr_i,vxcr);
 
 	}
 	void setVertexColorG(size_t vclr_i,float vxcg)
 	{
 		if(vxcg == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb.vxcg\" %f;\n", vclr_i,vxcg);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb.vxcg\" %f;\n", vclr_i,vxcg);
 
 	}
 	void setVertexColorB(size_t vclr_i,float vxcb)
 	{
 		if(vxcb == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vrgb.vxcb\" %f;\n", vclr_i,vxcb);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vrgb.vxcb\" %f;\n", vclr_i,vxcb);
 
 	}
 	void setVertexAlpha(size_t vclr_i,float vxal)
 	{
 		if(vxal == 1) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vxal\" %f;\n", vclr_i,vxal);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vxal\" %f;\n", vclr_i,vxal);
 
 	}
 	void setVertexFaceColor(size_t vclr_i,size_t vfcl_i,const ColorPerVertex::VertexColor::VertexFaceColor& vfcl)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i]\" ",vclr_i,vfcl_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i]\" ",vclr_i,vfcl_i);
 		vfcl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i,const float3& frgb)
 	{
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb\" -type \"float3\" ",vclr_i,vfcl_i);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb\" -type \"float3\" ",vclr_i,vfcl_i);
 		frgb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -703,44 +704,44 @@ public:
 	void setVertexFaceColorR(size_t vclr_i,size_t vfcl_i,float vfcr)
 	{
 		if(vfcr == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcr\" %f;\n", vclr_i,vfcl_i,vfcr);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcr\" %f;\n", vclr_i,vfcl_i,vfcr);
 
 	}
 	void setVertexFaceColorG(size_t vclr_i,size_t vfcl_i,float vfcg)
 	{
 		if(vfcg == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcg\" %f;\n", vclr_i,vfcl_i,vfcg);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcg\" %f;\n", vclr_i,vfcl_i,vfcg);
 
 	}
 	void setVertexFaceColorB(size_t vclr_i,size_t vfcl_i,float vfcb)
 	{
 		if(vfcb == 0) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcb\" %f;\n", vclr_i,vfcl_i,vfcb);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].frgb.vfcb\" %f;\n", vclr_i,vfcl_i,vfcb);
 
 	}
 	void setVertexFaceAlpha(size_t vclr_i,size_t vfcl_i,float vfal)
 	{
 		if(vfal == 1) return;
-		fprintf(mFile,"setAttr \".cpvx.vclr[%i].vfcl[%i].vfal\" %f;\n", vclr_i,vfcl_i,vfal);
+		fprintf(mFile,"\tsetAttr \".cpvx.vclr[%i].vfcl[%i].vfal\" %f;\n", vclr_i,vfcl_i,vfal);
 
 	}
 	void setNormalPerVertex(const NormalPerVertex& npvx)
 	{
-		fprintf(mFile,"setAttr \".npvx\" ");
+		fprintf(mFile,"\tsetAttr \".npvx\" ");
 		npvx.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexNormal(size_t vn_i,const NormalPerVertex::VertexNormal& vn)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i]\" ",vn_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i]\" ",vn_i);
 		vn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexNormalXYZ(size_t vn_i,const float3& nxyz)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz\" -type \"float3\" ",vn_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz\" -type \"float3\" ",vn_i);
 		nxyz.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -748,31 +749,31 @@ public:
 	void setVertexNormalX(size_t vn_i,float vxnx)
 	{
 		if(vxnx == 1e20) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz.vxnx\" %f;\n", vn_i,vxnx);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz.vxnx\" %f;\n", vn_i,vxnx);
 
 	}
 	void setVertexNormalY(size_t vn_i,float vxny)
 	{
 		if(vxny == 1e20) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz.vxny\" %f;\n", vn_i,vxny);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz.vxny\" %f;\n", vn_i,vxny);
 
 	}
 	void setVertexNormalZ(size_t vn_i,float vxnz)
 	{
 		if(vxnz == 1e20) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].nxyz.vxnz\" %f;\n", vn_i,vxnz);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].nxyz.vxnz\" %f;\n", vn_i,vxnz);
 
 	}
 	void setVertexFaceNormal(size_t vn_i,size_t vfnl_i,const NormalPerVertex::VertexNormal::VertexFaceNormal& vfnl)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i]\" ",vn_i,vfnl_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i]\" ",vn_i,vfnl_i);
 		vfnl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setVertexFaceNormalXYZ(size_t vn_i,size_t vfnl_i,const float3& fnxy)
 	{
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy\" -type \"float3\" ",vn_i,vfnl_i);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy\" -type \"float3\" ",vn_i,vfnl_i);
 		fnxy.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -780,157 +781,157 @@ public:
 	void setVertexFaceNormalX(size_t vn_i,size_t vfnl_i,float vfnx)
 	{
 		if(vfnx == 1e20) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnx\" %f;\n", vn_i,vfnl_i,vfnx);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnx\" %f;\n", vn_i,vfnl_i,vfnx);
 
 	}
 	void setVertexFaceNormalY(size_t vn_i,size_t vfnl_i,float vfny)
 	{
 		if(vfny == 1e20) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfny\" %f;\n", vn_i,vfnl_i,vfny);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfny\" %f;\n", vn_i,vfnl_i,vfny);
 
 	}
 	void setVertexFaceNormalZ(size_t vn_i,size_t vfnl_i,float vfnz)
 	{
 		if(vfnz == 1e20) return;
-		fprintf(mFile,"setAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnz\" %f;\n", vn_i,vfnl_i,vfnz);
+		fprintf(mFile,"\tsetAttr \".npvx.vn[%i].vfnl[%i].fnxy.vfnz\" %f;\n", vn_i,vfnl_i,vfnz);
 
 	}
 	void setDisplayVertices(bool dv)
 	{
 		if(dv == false) return;
-		fprintf(mFile,"setAttr \".dv\" %i;\n", dv);
+		fprintf(mFile,"\tsetAttr \".dv\" %i;\n", dv);
 
 	}
 	void setDisplayBorders(bool db)
 	{
 		if(db == false) return;
-		fprintf(mFile,"setAttr \".db\" %i;\n", db);
+		fprintf(mFile,"\tsetAttr \".db\" %i;\n", db);
 
 	}
 	void setDisplayFacesWithGroupId(int dfgi)
 	{
 		if(dfgi == -2) return;
-		fprintf(mFile,"setAttr \".dfgi\" %i;\n", dfgi);
+		fprintf(mFile,"\tsetAttr \".dfgi\" %i;\n", dfgi);
 
 	}
 	void setDisplayCenter(bool dc)
 	{
 		if(dc == false) return;
-		fprintf(mFile,"setAttr \".dc\" %i;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %i;\n", dc);
 
 	}
 	void setDisplayTriangles(bool dt)
 	{
 		if(dt == false) return;
-		fprintf(mFile,"setAttr \".dt\" %i;\n", dt);
+		fprintf(mFile,"\tsetAttr \".dt\" %i;\n", dt);
 
 	}
 	void setDisplayUVs(bool duv)
 	{
 		if(duv == false) return;
-		fprintf(mFile,"setAttr \".duv\" %i;\n", duv);
+		fprintf(mFile,"\tsetAttr \".duv\" %i;\n", duv);
 
 	}
 	void setDisplayItemNumbers(int din)
 	{
 		if(din == 0) return;
-		fprintf(mFile,"setAttr \".din\" %i;\n", din);
+		fprintf(mFile,"\tsetAttr \".din\" %i;\n", din);
 
 	}
 	void setDisplayNonPlanar(bool dnp)
 	{
 		if(dnp == false) return;
-		fprintf(mFile,"setAttr \".dnp\" %i;\n", dnp);
+		fprintf(mFile,"\tsetAttr \".dnp\" %i;\n", dnp);
 
 	}
 	void setBackfaceCulling(unsigned int bck)
 	{
 		if(bck == 0) return;
-		fprintf(mFile,"setAttr \".bck\" %i;\n", bck);
+		fprintf(mFile,"\tsetAttr \".bck\" %i;\n", bck);
 
 	}
 	void setVertexBackfaceCulling(bool vbc)
 	{
 		if(vbc == true) return;
-		fprintf(mFile,"setAttr \".vbc\" %i;\n", vbc);
+		fprintf(mFile,"\tsetAttr \".vbc\" %i;\n", vbc);
 
 	}
 	void setVertexSize(double vs)
 	{
 		if(vs == 3.0) return;
-		fprintf(mFile,"setAttr \".vs\" %f;\n", vs);
+		fprintf(mFile,"\tsetAttr \".vs\" %f;\n", vs);
 
 	}
 	void setUvSize(double usz)
 	{
 		if(usz == 4.0) return;
-		fprintf(mFile,"setAttr \".usz\" %f;\n", usz);
+		fprintf(mFile,"\tsetAttr \".usz\" %f;\n", usz);
 
 	}
 	void setBorderWidth(double bw)
 	{
 		if(bw == 2.0) return;
-		fprintf(mFile,"setAttr \".bw\" %f;\n", bw);
+		fprintf(mFile,"\tsetAttr \".bw\" %f;\n", bw);
 
 	}
 	void setNormalSize(double ns)
 	{
 		if(ns == 0.4) return;
-		fprintf(mFile,"setAttr \".ns\" %f;\n", ns);
+		fprintf(mFile,"\tsetAttr \".ns\" %f;\n", ns);
 
 	}
 	void setNormalType(unsigned int ndt)
 	{
 		if(ndt == 0) return;
-		fprintf(mFile,"setAttr \".ndt\" %i;\n", ndt);
+		fprintf(mFile,"\tsetAttr \".ndt\" %i;\n", ndt);
 
 	}
 	void setDisplayNormal(bool dn)
 	{
 		if(dn == false) return;
-		fprintf(mFile,"setAttr \".dn\" %i;\n", dn);
+		fprintf(mFile,"\tsetAttr \".dn\" %i;\n", dn);
 
 	}
 	void setDisplayTangent(bool dtn)
 	{
 		if(dtn == false) return;
-		fprintf(mFile,"setAttr \".dtn\" %i;\n", dtn);
+		fprintf(mFile,"\tsetAttr \".dtn\" %i;\n", dtn);
 
 	}
 	void setTangentSpace(unsigned int tgsp)
 	{
 		if(tgsp == 0) return;
-		fprintf(mFile,"setAttr \".tgsp\" %i;\n", tgsp);
+		fprintf(mFile,"\tsetAttr \".tgsp\" %i;\n", tgsp);
 
 	}
 	void setTangentSmoothingAngle(double tsa)
 	{
 		if(tsa == 0) return;
-		fprintf(mFile,"setAttr \".tsa\" %f;\n", tsa);
+		fprintf(mFile,"\tsetAttr \".tsa\" %f;\n", tsa);
 
 	}
 	void setTangentNormalThreshold(double tnt)
 	{
 		if(tnt == 0) return;
-		fprintf(mFile,"setAttr \".tnt\" %f;\n", tnt);
+		fprintf(mFile,"\tsetAttr \".tnt\" %f;\n", tnt);
 
 	}
 	void setAllowTopologyMod(bool atm)
 	{
 		if(atm == true) return;
-		fprintf(mFile,"setAttr \".atm\" %i;\n", atm);
+		fprintf(mFile,"\tsetAttr \".atm\" %i;\n", atm);
 
 	}
 	void setMaterialBlend(unsigned int matb)
 	{
 		if(matb == 0) return;
-		fprintf(mFile,"setAttr \".matb\" %i;\n", matb);
+		fprintf(mFile,"\tsetAttr \".matb\" %i;\n", matb);
 
 	}
 	void setUserTrg(const string& utrg)
 	{
 		if(utrg == "NULL") return;
-		fprintf(mFile,"setAttr \".utrg\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".utrg\" -type \"string\" ");
 		utrg.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -938,42 +939,42 @@ public:
 	void setDispResolution(unsigned int dr)
 	{
 		if(dr == 0) return;
-		fprintf(mFile,"setAttr \".dr\" %i;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %i;\n", dr);
 
 	}
 	void setDisplaySmoothMesh(unsigned int dsm)
 	{
 		if(dsm == 0) return;
-		fprintf(mFile,"setAttr \".dsm\" %i;\n", dsm);
+		fprintf(mFile,"\tsetAttr \".dsm\" %i;\n", dsm);
 
 	}
 	void setSmoothMeshSelectionMode(unsigned int ssm)
 	{
 		if(ssm == 0) return;
-		fprintf(mFile,"setAttr \".ssm\" %i;\n", ssm);
+		fprintf(mFile,"\tsetAttr \".ssm\" %i;\n", ssm);
 
 	}
 	void setReuseTriangles(bool rtri)
 	{
 		if(rtri == false) return;
-		fprintf(mFile,"setAttr \".rtri\" %i;\n", rtri);
+		fprintf(mFile,"\tsetAttr \".rtri\" %i;\n", rtri);
 
 	}
 	void setQuadSplit(unsigned int qsp)
 	{
 		if(qsp == 2) return;
-		fprintf(mFile,"setAttr \".qsp\" %i;\n", qsp);
+		fprintf(mFile,"\tsetAttr \".qsp\" %i;\n", qsp);
 
 	}
 	void setPerInstanceIndex(size_t pii_i,int pii)
 	{
 		if(pii == -1) return;
-		fprintf(mFile,"setAttr \".pii[%i]\" %i;\n", pii_i,pii);
+		fprintf(mFile,"\tsetAttr \".pii[%i]\" %i;\n", pii_i,pii);
 
 	}
 	void setPerInstanceIndex(size_t pii_start,size_t pii_end,int* pii)
 	{
-		fprintf(mFile,"setAttr \".pii[%i:%i]\" ", pii_start,pii_end);
+		fprintf(mFile,"\tsetAttr \".pii[%i:%i]\" ", pii_start,pii_end);
 		size_t size = (pii_end-pii_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -985,7 +986,7 @@ public:
 	}
 	void startPerInstanceIndex(size_t pii_start,size_t pii_end)
 	{
-		fprintf(mFile,"setAttr \".pii[%i:%i]\"",pii_start,pii_end);
+		fprintf(mFile,"\tsetAttr \".pii[%i:%i]\"",pii_start,pii_end);
 
 	}
 	void appendPerInstanceIndex(int pii)
@@ -1001,12 +1002,12 @@ public:
 	void setPerInstanceTag(size_t pit_i,int pit)
 	{
 		if(pit == -1) return;
-		fprintf(mFile,"setAttr \".pit[%i]\" %i;\n", pit_i,pit);
+		fprintf(mFile,"\tsetAttr \".pit[%i]\" %i;\n", pit_i,pit);
 
 	}
 	void setPerInstanceTag(size_t pit_start,size_t pit_end,int* pit)
 	{
-		fprintf(mFile,"setAttr \".pit[%i:%i]\" ", pit_start,pit_end);
+		fprintf(mFile,"\tsetAttr \".pit[%i:%i]\" ", pit_start,pit_end);
 		size_t size = (pit_end-pit_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1018,7 +1019,7 @@ public:
 	}
 	void startPerInstanceTag(size_t pit_start,size_t pit_end)
 	{
-		fprintf(mFile,"setAttr \".pit[%i:%i]\"",pit_start,pit_end);
+		fprintf(mFile,"\tsetAttr \".pit[%i:%i]\"",pit_start,pit_end);
 
 	}
 	void appendPerInstanceTag(int pit)
@@ -1033,7 +1034,7 @@ public:
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1041,133 +1042,133 @@ public:
 	void setMiOverrideCaustics(bool oca)
 	{
 		if(oca == false) return;
-		fprintf(mFile,"setAttr \".mrc.oca\" %i;\n", oca);
+		fprintf(mFile,"\tsetAttr \".mrc.oca\" %i;\n", oca);
 
 	}
 	void setMiCausticAccuracy(short caa)
 	{
 		if(caa == 64) return;
-		fprintf(mFile,"setAttr \".mrc.caa\" %i;\n", caa);
+		fprintf(mFile,"\tsetAttr \".mrc.caa\" %i;\n", caa);
 
 	}
 	void setMiCausticRadius(float car)
 	{
 		if(car == 0) return;
-		fprintf(mFile,"setAttr \".mrc.car\" %f;\n", car);
+		fprintf(mFile,"\tsetAttr \".mrc.car\" %f;\n", car);
 
 	}
 	void setMiOverrideGlobalIllumination(bool ogi)
 	{
 		if(ogi == false) return;
-		fprintf(mFile,"setAttr \".mrc.ogi\" %i;\n", ogi);
+		fprintf(mFile,"\tsetAttr \".mrc.ogi\" %i;\n", ogi);
 
 	}
 	void setMiGlobillumAccuracy(short gia)
 	{
 		if(gia == 64) return;
-		fprintf(mFile,"setAttr \".mrc.gia\" %i;\n", gia);
+		fprintf(mFile,"\tsetAttr \".mrc.gia\" %i;\n", gia);
 
 	}
 	void setMiGlobillumRadius(float gir)
 	{
 		if(gir == 0) return;
-		fprintf(mFile,"setAttr \".mrc.gir\" %f;\n", gir);
+		fprintf(mFile,"\tsetAttr \".mrc.gir\" %f;\n", gir);
 
 	}
 	void setMiOverrideFinalGather(bool ofg)
 	{
 		if(ofg == false) return;
-		fprintf(mFile,"setAttr \".mrc.ofg\" %i;\n", ofg);
+		fprintf(mFile,"\tsetAttr \".mrc.ofg\" %i;\n", ofg);
 
 	}
 	void setMiFinalGatherRays(int fry)
 	{
 		if(fry == 1000) return;
-		fprintf(mFile,"setAttr \".mrc.fry\" %i;\n", fry);
+		fprintf(mFile,"\tsetAttr \".mrc.fry\" %i;\n", fry);
 
 	}
 	void setMiFinalGatherMinRadius(float fmn)
 	{
 		if(fmn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmn\" %f;\n", fmn);
+		fprintf(mFile,"\tsetAttr \".mrc.fmn\" %f;\n", fmn);
 
 	}
 	void setMiFinalGatherMaxRadius(float fmx)
 	{
 		if(fmx == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmx\" %f;\n", fmx);
+		fprintf(mFile,"\tsetAttr \".mrc.fmx\" %f;\n", fmx);
 
 	}
 	void setMiFinalGatherFilter(short ffi)
 	{
 		if(ffi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.ffi\" %i;\n", ffi);
+		fprintf(mFile,"\tsetAttr \".mrc.ffi\" %i;\n", ffi);
 
 	}
 	void setMiFinalGatherView(bool fgv)
 	{
 		if(fgv == false) return;
-		fprintf(mFile,"setAttr \".mrc.fgv\" %i;\n", fgv);
+		fprintf(mFile,"\tsetAttr \".mrc.fgv\" %i;\n", fgv);
 
 	}
 	void setMiOverrideSamples(bool oos)
 	{
 		if(oos == false) return;
-		fprintf(mFile,"setAttr \".mrc.oos\" %i;\n", oos);
+		fprintf(mFile,"\tsetAttr \".mrc.oos\" %i;\n", oos);
 
 	}
 	void setMiMinSamples(short mins)
 	{
 		if(mins == 0) return;
-		fprintf(mFile,"setAttr \".mrc.mins\" %i;\n", mins);
+		fprintf(mFile,"\tsetAttr \".mrc.mins\" %i;\n", mins);
 
 	}
 	void setMiMaxSamples(short maxs)
 	{
 		if(maxs == 2) return;
-		fprintf(mFile,"setAttr \".mrc.maxs\" %i;\n", maxs);
+		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
 	void setMiFinalGatherCast(bool fgc)
 	{
 		if(fgc == true) return;
-		fprintf(mFile,"setAttr \".mrc.fgc\" %i;\n", fgc);
+		fprintf(mFile,"\tsetAttr \".mrc.fgc\" %i;\n", fgc);
 
 	}
 	void setMiFinalGatherReceive(bool fge)
 	{
 		if(fge == true) return;
-		fprintf(mFile,"setAttr \".mrc.fge\" %i;\n", fge);
+		fprintf(mFile,"\tsetAttr \".mrc.fge\" %i;\n", fge);
 
 	}
 	void setMiTransparencyCast(bool tpc)
 	{
 		if(tpc == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpc\" %i;\n", tpc);
+		fprintf(mFile,"\tsetAttr \".mrc.tpc\" %i;\n", tpc);
 
 	}
 	void setMiTransparencyReceive(bool tpr)
 	{
 		if(tpr == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpr\" %i;\n", tpr);
+		fprintf(mFile,"\tsetAttr \".mrc.tpr\" %i;\n", tpr);
 
 	}
 	void setMiReflectionReceive(bool rflr)
 	{
 		if(rflr == true) return;
-		fprintf(mFile,"setAttr \".mrc.rflr\" %i;\n", rflr);
+		fprintf(mFile,"\tsetAttr \".mrc.rflr\" %i;\n", rflr);
 
 	}
 	void setMiRefractionReceive(bool rfrr)
 	{
 		if(rfrr == true) return;
-		fprintf(mFile,"setAttr \".mrc.rfrr\" %i;\n", rfrr);
+		fprintf(mFile,"\tsetAttr \".mrc.rfrr\" %i;\n", rfrr);
 
 	}
 	void setDisplayAlphaAsGreyScale(bool dags)
 	{
 		if(dags == false) return;
-		fprintf(mFile,"setAttr \".dags\" %i;\n", dags);
+		fprintf(mFile,"\tsetAttr \".dags\" %i;\n", dags);
 
 	}
 	void getInMesh()
@@ -1188,6 +1189,11 @@ public:
 	void getWorldMesh(size_t w_i)
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
+
+	}
+	void getOutSmoothMesh()
+	{
+		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 	void getCachedSmoothMesh()
@@ -1565,6 +1571,11 @@ public:
 		fprintf(mFile,"\"%s.matb\"",mName.c_str());
 
 	}
+	void getUvTweakLocation()
+	{
+		fprintf(mFile,"\"%s.uvtl\"",mName.c_str());
+
+	}
 	void getUserTrg()
 	{
 		fprintf(mFile,"\"%s.utrg\"",mName.c_str());
@@ -1711,7 +1722,8 @@ public:
 
 	}
 protected:
-	Mesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SurfaceShape(file, name, parent, nodeType) {}
+	Mesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SurfaceShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

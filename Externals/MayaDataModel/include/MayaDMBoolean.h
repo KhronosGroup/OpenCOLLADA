@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Boolean : public AbstractBaseCreate
 {
 public:
 public:
+	Boolean():AbstractBaseCreate(){}
 	Boolean(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "boolean"){}
 	virtual ~Boolean(){}
 	void setOperation(unsigned int op)
 	{
 		if(op == 0) return;
-		fprintf(mFile,"setAttr \".op\" %i;\n", op);
+		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
 
 	}
 	void setTolerance(double tlb)
 	{
 		if(tlb == 0) return;
-		fprintf(mFile,"setAttr \".tlb\" %f;\n", tlb);
+		fprintf(mFile,"\tsetAttr \".tlb\" %f;\n", tlb);
 
 	}
 	void getInputShellA()
@@ -58,7 +59,8 @@ public:
 
 	}
 protected:
-	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

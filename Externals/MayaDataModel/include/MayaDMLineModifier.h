@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,59 +29,60 @@ public:
 		}
 	};
 public:
+	LineModifier():Shape(){}
 	LineModifier(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "lineModifier"){}
 	virtual ~LineModifier(){}
 	void setShape(unsigned int shp)
 	{
 		if(shp == 0) return;
-		fprintf(mFile,"setAttr \".shp\" %i;\n", shp);
+		fprintf(mFile,"\tsetAttr \".shp\" %i;\n", shp);
 
 	}
 	void setWidthScale(double wsc)
 	{
 		if(wsc == 5.0) return;
-		fprintf(mFile,"setAttr \".wsc\" %f;\n", wsc);
+		fprintf(mFile,"\tsetAttr \".wsc\" %f;\n", wsc);
 
 	}
 	void setWidthOffset(double wof)
 	{
 		if(wof == 0.0) return;
-		fprintf(mFile,"setAttr \".wof\" %f;\n", wof);
+		fprintf(mFile,"\tsetAttr \".wof\" %f;\n", wof);
 
 	}
 	void setOpacityScale(double osc)
 	{
 		if(osc == 1.0) return;
-		fprintf(mFile,"setAttr \".osc\" %f;\n", osc);
+		fprintf(mFile,"\tsetAttr \".osc\" %f;\n", osc);
 
 	}
 	void setOpacityOffset(double oof)
 	{
 		if(oof == 0.0) return;
-		fprintf(mFile,"setAttr \".oof\" %f;\n", oof);
+		fprintf(mFile,"\tsetAttr \".oof\" %f;\n", oof);
 
 	}
 	void setSurfaceOffset(double sof)
 	{
 		if(sof == 0.0) return;
-		fprintf(mFile,"setAttr \".sof\" %f;\n", sof);
+		fprintf(mFile,"\tsetAttr \".sof\" %f;\n", sof);
 
 	}
 	void setLineExtend(double lex)
 	{
 		if(lex == 0.0) return;
-		fprintf(mFile,"setAttr \".lex\" %f;\n", lex);
+		fprintf(mFile,"\tsetAttr \".lex\" %f;\n", lex);
 
 	}
 	void setModifyColor(bool mcl)
 	{
 		if(mcl == false) return;
-		fprintf(mFile,"setAttr \".mcl\" %i;\n", mcl);
+		fprintf(mFile,"\tsetAttr \".mcl\" %i;\n", mcl);
 
 	}
 	void setColor(const float3& clr)
 	{
-		fprintf(mFile,"setAttr \".clr\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".clr\" -type \"float3\" ");
 		clr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -89,108 +90,108 @@ public:
 	void setColorR(float crr)
 	{
 		if(crr == 1.0) return;
-		fprintf(mFile,"setAttr \".clr.crr\" %f;\n", crr);
+		fprintf(mFile,"\tsetAttr \".clr.crr\" %f;\n", crr);
 
 	}
 	void setColorG(float crg)
 	{
 		if(crg == 0.0) return;
-		fprintf(mFile,"setAttr \".clr.crg\" %f;\n", crg);
+		fprintf(mFile,"\tsetAttr \".clr.crg\" %f;\n", crg);
 
 	}
 	void setColorB(float crb)
 	{
 		if(crb == 0.0) return;
-		fprintf(mFile,"setAttr \".clr.crb\" %f;\n", crb);
+		fprintf(mFile,"\tsetAttr \".clr.crb\" %f;\n", crb);
 
 	}
 	void setTubeScale(double tus)
 	{
 		if(tus == 1.0) return;
-		fprintf(mFile,"setAttr \".tus\" %f;\n", tus);
+		fprintf(mFile,"\tsetAttr \".tus\" %f;\n", tus);
 
 	}
 	void setTubeDropout(double tud)
 	{
 		if(tud == 0.0) return;
-		fprintf(mFile,"setAttr \".tud\" %f;\n", tud);
+		fprintf(mFile,"\tsetAttr \".tud\" %f;\n", tud);
 
 	}
 	void setBranchDropout(double bdp)
 	{
 		if(bdp == 0.0) return;
-		fprintf(mFile,"setAttr \".bdp\" %f;\n", bdp);
+		fprintf(mFile,"\tsetAttr \".bdp\" %f;\n", bdp);
 
 	}
 	void setTwigDropout(double tdp)
 	{
 		if(tdp == 0.0) return;
-		fprintf(mFile,"setAttr \".tdp\" %f;\n", tdp);
+		fprintf(mFile,"\tsetAttr \".tdp\" %f;\n", tdp);
 
 	}
 	void setLeafDropout(double ldp)
 	{
 		if(ldp == 0.0) return;
-		fprintf(mFile,"setAttr \".ldp\" %f;\n", ldp);
+		fprintf(mFile,"\tsetAttr \".ldp\" %f;\n", ldp);
 
 	}
 	void setFlowerDropout(double fdp)
 	{
 		if(fdp == 0.0) return;
-		fprintf(mFile,"setAttr \".fdp\" %f;\n", fdp);
+		fprintf(mFile,"\tsetAttr \".fdp\" %f;\n", fdp);
 
 	}
 	void setLeafScale(double lsc)
 	{
 		if(lsc == 1.0) return;
-		fprintf(mFile,"setAttr \".lsc\" %f;\n", lsc);
+		fprintf(mFile,"\tsetAttr \".lsc\" %f;\n", lsc);
 
 	}
 	void setFlowerScale(double fsc)
 	{
 		if(fsc == 1.0) return;
-		fprintf(mFile,"setAttr \".fsc\" %f;\n", fsc);
+		fprintf(mFile,"\tsetAttr \".fsc\" %f;\n", fsc);
 
 	}
 	void setForce(double frc)
 	{
 		if(frc == 0.0) return;
-		fprintf(mFile,"setAttr \".frc\" %f;\n", frc);
+		fprintf(mFile,"\tsetAttr \".frc\" %f;\n", frc);
 
 	}
 	void setDirectionalForce(double dfc)
 	{
 		if(dfc == 0.0) return;
-		fprintf(mFile,"setAttr \".dfc\" %f;\n", dfc);
+		fprintf(mFile,"\tsetAttr \".dfc\" %f;\n", dfc);
 
 	}
 	void setDisplacement(double dsp)
 	{
 		if(dsp == 0.0) return;
-		fprintf(mFile,"setAttr \".dsp\" %f;\n", dsp);
+		fprintf(mFile,"\tsetAttr \".dsp\" %f;\n", dsp);
 
 	}
 	void setDirectionalDisplacement(double ddc)
 	{
 		if(ddc == 0.0) return;
-		fprintf(mFile,"setAttr \".ddc\" %f;\n", ddc);
+		fprintf(mFile,"\tsetAttr \".ddc\" %f;\n", ddc);
 
 	}
 	void setDropoffNoise(double don)
 	{
 		if(don == 0.0) return;
-		fprintf(mFile,"setAttr \".don\" %f;\n", don);
+		fprintf(mFile,"\tsetAttr \".don\" %f;\n", don);
 
 	}
 	void setNoiseFrequency(double nfr)
 	{
 		if(nfr == 0.2) return;
-		fprintf(mFile,"setAttr \".nfr\" %f;\n", nfr);
+		fprintf(mFile,"\tsetAttr \".nfr\" %f;\n", nfr);
 
 	}
 	void setDropoff(size_t drp_i,const Dropoff& drp)
 	{
-		fprintf(mFile,"setAttr \".drp[%i]\" ",drp_i);
+		fprintf(mFile,"\tsetAttr \".drp[%i]\" ",drp_i);
 		drp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -198,19 +199,19 @@ public:
 	void setDropoff_Position(size_t drp_i,float drpp)
 	{
 		if(drpp == 0.0) return;
-		fprintf(mFile,"setAttr \".drp[%i].drpp\" %f;\n", drp_i,drpp);
+		fprintf(mFile,"\tsetAttr \".drp[%i].drpp\" %f;\n", drp_i,drpp);
 
 	}
 	void setDropoff_FloatValue(size_t drp_i,float drpfv)
 	{
 		if(drpfv == 0.0) return;
-		fprintf(mFile,"setAttr \".drp[%i].drpfv\" %f;\n", drp_i,drpfv);
+		fprintf(mFile,"\tsetAttr \".drp[%i].drpfv\" %f;\n", drp_i,drpfv);
 
 	}
 	void setDropoff_Interp(size_t drp_i,unsigned int drpi)
 	{
 		if(drpi == 0) return;
-		fprintf(mFile,"setAttr \".drp[%i].drpi\" %i;\n", drp_i,drpi);
+		fprintf(mFile,"\tsetAttr \".drp[%i].drpi\" %i;\n", drp_i,drpi);
 
 	}
 	void getShape()
@@ -369,7 +370,8 @@ public:
 
 	}
 protected:
-	LineModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	LineModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

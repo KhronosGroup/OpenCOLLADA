@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class ReverseSurface : public AbstractBaseCreate
 {
 public:
 public:
+	ReverseSurface():AbstractBaseCreate(){}
 	ReverseSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "reverseSurface"){}
 	virtual ~ReverseSurface(){}
 	void setDirection(unsigned int d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void getInputSurface()
@@ -42,7 +43,8 @@ public:
 
 	}
 protected:
-	ReverseSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ReverseSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

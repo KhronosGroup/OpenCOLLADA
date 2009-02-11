@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class HwRenderGlobals : public DependNode
 {
 public:
 public:
+	HwRenderGlobals():DependNode(){}
 	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hwRenderGlobals"){}
 	virtual ~HwRenderGlobals(){}
 	void setRenderPasses(unsigned int rp)
 	{
 		if(rp == 0) return;
-		fprintf(mFile,"setAttr \".rp\" %i;\n", rp);
+		fprintf(mFile,"\tsetAttr \".rp\" %i;\n", rp);
 
 	}
 	void setCameraIcons(bool cai)
 	{
 		if(cai == false) return;
-		fprintf(mFile,"setAttr \".cai\" %i;\n", cai);
+		fprintf(mFile,"\tsetAttr \".cai\" %i;\n", cai);
 
 	}
 	void setCollisionIcons(bool coi)
 	{
 		if(coi == false) return;
-		fprintf(mFile,"setAttr \".coi\" %i;\n", coi);
+		fprintf(mFile,"\tsetAttr \".coi\" %i;\n", coi);
 
 	}
 	void setBackgroundColor(const float3& bc)
 	{
 		if(bc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".bc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".bc\" -type \"float3\" ");
 		bc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,115 +50,115 @@ public:
 	void setBackgroundColorR(float bcr)
 	{
 		if(bcr == 0.0) return;
-		fprintf(mFile,"setAttr \".bc.bcr\" %f;\n", bcr);
+		fprintf(mFile,"\tsetAttr \".bc.bcr\" %f;\n", bcr);
 
 	}
 	void setBackgroundColorG(float bcg)
 	{
 		if(bcg == 0.0) return;
-		fprintf(mFile,"setAttr \".bc.bcg\" %f;\n", bcg);
+		fprintf(mFile,"\tsetAttr \".bc.bcg\" %f;\n", bcg);
 
 	}
 	void setBackgroundColorB(float bcb)
 	{
 		if(bcb == 0.0) return;
-		fprintf(mFile,"setAttr \".bc.bcb\" %f;\n", bcb);
+		fprintf(mFile,"\tsetAttr \".bc.bcb\" %f;\n", bcb);
 
 	}
 	void setEmitterIcons(bool ei)
 	{
 		if(ei == false) return;
-		fprintf(mFile,"setAttr \".ei\" %i;\n", ei);
+		fprintf(mFile,"\tsetAttr \".ei\" %i;\n", ei);
 
 	}
 	void setExtension(unsigned int ex)
 	{
 		if(ex == 3) return;
-		fprintf(mFile,"setAttr \".ex\" %i;\n", ex);
+		fprintf(mFile,"\tsetAttr \".ex\" %i;\n", ex);
 
 	}
 	void setEdgeSmoothing(float es)
 	{
 		if(es == 1.0) return;
-		fprintf(mFile,"setAttr \".es\" %f;\n", es);
+		fprintf(mFile,"\tsetAttr \".es\" %f;\n", es);
 
 	}
 	void setEndFrame(int ef)
 	{
 		if(ef == 10) return;
-		fprintf(mFile,"setAttr \".ef\" %i;\n", ef);
+		fprintf(mFile,"\tsetAttr \".ef\" %i;\n", ef);
 
 	}
 	void setByFrame(int bf)
 	{
 		if(bf == 1) return;
-		fprintf(mFile,"setAttr \".bf\" %i;\n", bf);
+		fprintf(mFile,"\tsetAttr \".bf\" %i;\n", bf);
 
 	}
 	void setFieldIcons(bool fii)
 	{
 		if(fii == false) return;
-		fprintf(mFile,"setAttr \".fii\" %i;\n", fii);
+		fprintf(mFile,"\tsetAttr \".fii\" %i;\n", fii);
 
 	}
 	void setStartFrame(int sf)
 	{
 		if(sf == 1) return;
-		fprintf(mFile,"setAttr \".sf\" %i;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sf\" %i;\n", sf);
 
 	}
 	void setGrid(bool gr)
 	{
 		if(gr == false) return;
-		fprintf(mFile,"setAttr \".gr\" %i;\n", gr);
+		fprintf(mFile,"\tsetAttr \".gr\" %i;\n", gr);
 
 	}
 	void setLightIcons(bool li)
 	{
 		if(li == false) return;
-		fprintf(mFile,"setAttr \".li\" %i;\n", li);
+		fprintf(mFile,"\tsetAttr \".li\" %i;\n", li);
 
 	}
 	void setLineSmoothing(bool ls)
 	{
 		if(ls == false) return;
-		fprintf(mFile,"setAttr \".ls\" %i;\n", ls);
+		fprintf(mFile,"\tsetAttr \".ls\" %i;\n", ls);
 
 	}
 	void setMotionBlur(float mb)
 	{
 		if(mb == 0.0) return;
-		fprintf(mFile,"setAttr \".mb\" %f;\n", mb);
+		fprintf(mFile,"\tsetAttr \".mb\" %f;\n", mb);
 
 	}
 	void setTransformIcons(bool ti)
 	{
 		if(ti == false) return;
-		fprintf(mFile,"setAttr \".ti\" %i;\n", ti);
+		fprintf(mFile,"\tsetAttr \".ti\" %i;\n", ti);
 
 	}
 	void setTexturing(bool txt)
 	{
 		if(txt == true) return;
-		fprintf(mFile,"setAttr \".txt\" %i;\n", txt);
+		fprintf(mFile,"\tsetAttr \".txt\" %i;\n", txt);
 
 	}
 	void setMultiPassRendering(bool mpr)
 	{
 		if(mpr == false) return;
-		fprintf(mFile,"setAttr \".mpr\" %i;\n", mpr);
+		fprintf(mFile,"\tsetAttr \".mpr\" %i;\n", mpr);
 
 	}
 	void setWriteZDepth(bool wzd)
 	{
 		if(wzd == false) return;
-		fprintf(mFile,"setAttr \".wzd\" %i;\n", wzd);
+		fprintf(mFile,"\tsetAttr \".wzd\" %i;\n", wzd);
 
 	}
 	void setFilename(const string& fn)
 	{
 		if(fn == "NULL") return;
-		fprintf(mFile,"setAttr \".fn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".fn\" -type \"string\" ");
 		fn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -165,13 +166,13 @@ public:
 	void setImageFormat(unsigned int if_)
 	{
 		if(if_ == 0) return;
-		fprintf(mFile,"setAttr \".if\" %i;\n", if_);
+		fprintf(mFile,"\tsetAttr \".if\" %i;\n", if_);
 
 	}
 	void setResolution(const string& res)
 	{
 		if(res == "NULL") return;
-		fprintf(mFile,"setAttr \".res\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".res\" -type \"string\" ");
 		res.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -179,43 +180,43 @@ public:
 	void setAlphaSource(unsigned int as)
 	{
 		if(as == 0) return;
-		fprintf(mFile,"setAttr \".as\" %i;\n", as);
+		fprintf(mFile,"\tsetAttr \".as\" %i;\n", as);
 
 	}
 	void setDrawStyle(unsigned int ds)
 	{
 		if(ds == 3) return;
-		fprintf(mFile,"setAttr \".ds\" %i;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %i;\n", ds);
 
 	}
 	void setLightingMode(unsigned int lm)
 	{
 		if(lm == 0) return;
-		fprintf(mFile,"setAttr \".lm\" %i;\n", lm);
+		fprintf(mFile,"\tsetAttr \".lm\" %i;\n", lm);
 
 	}
 	void setFullImageResolution(bool fir)
 	{
 		if(fir == false) return;
-		fprintf(mFile,"setAttr \".fir\" %i;\n", fir);
+		fprintf(mFile,"\tsetAttr \".fir\" %i;\n", fir);
 
 	}
 	void setAntiAliasPolygons(bool aap)
 	{
 		if(aap == false) return;
-		fprintf(mFile,"setAttr \".aap\" %i;\n", aap);
+		fprintf(mFile,"\tsetAttr \".aap\" %i;\n", aap);
 
 	}
 	void setGeometryMask(bool gh)
 	{
 		if(gh == false) return;
-		fprintf(mFile,"setAttr \".gh\" %i;\n", gh);
+		fprintf(mFile,"\tsetAttr \".gh\" %i;\n", gh);
 
 	}
 	void setDisplayShadows(bool sd)
 	{
 		if(sd == false) return;
-		fprintf(mFile,"setAttr \".sd\" %i;\n", sd);
+		fprintf(mFile,"\tsetAttr \".sd\" %i;\n", sd);
 
 	}
 	void getRenderPasses()
@@ -379,7 +380,8 @@ public:
 
 	}
 protected:
-	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

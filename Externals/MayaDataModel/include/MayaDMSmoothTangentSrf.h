@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class SmoothTangentSrf : public AbstractBaseCreate
 {
 public:
 public:
+	SmoothTangentSrf():AbstractBaseCreate(){}
 	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "smoothTangentSrf"){}
 	virtual ~SmoothTangentSrf(){}
 	void setParameter(size_t p_i,double p)
 	{
 		if(p == 0.0) return;
-		fprintf(mFile,"setAttr \".p[%i]\" %f;\n", p_i,p);
+		fprintf(mFile,"\tsetAttr \".p[%i]\" %f;\n", p_i,p);
 
 	}
 	void setParameter(size_t p_start,size_t p_end,double* p)
 	{
-		fprintf(mFile,"setAttr \".p[%i:%i]\" ", p_start,p_end);
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\" ", p_start,p_end);
 		size_t size = (p_end-p_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startParameter(size_t p_start,size_t p_end)
 	{
-		fprintf(mFile,"setAttr \".p[%i:%i]\"",p_start,p_end);
+		fprintf(mFile,"\tsetAttr \".p[%i:%i]\"",p_start,p_end);
 
 	}
 	void appendParameter(double p)
@@ -56,13 +57,13 @@ public:
 	void setDirection(unsigned int d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setSmoothness(unsigned int s)
 	{
 		if(s == 1) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void getInputSurface()
@@ -91,7 +92,8 @@ public:
 
 	}
 protected:
-	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

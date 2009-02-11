@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class HeightField : public SurfaceShape
 {
 public:
 public:
+	HeightField():SurfaceShape(){}
 	HeightField(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "heightField"){}
 	virtual ~HeightField(){}
 	void setResolution(int res)
 	{
 		if(res == 10) return;
-		fprintf(mFile,"setAttr \".res\" %i;\n", res);
+		fprintf(mFile,"\tsetAttr \".res\" %i;\n", res);
 
 	}
 	void setColor(const float3& cl)
 	{
-		fprintf(mFile,"setAttr \".cl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cl\" -type \"float3\" ");
 		cl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -36,31 +37,31 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.5) return;
-		fprintf(mFile,"setAttr \".cl.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cl.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.5) return;
-		fprintf(mFile,"setAttr \".cl.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".cl.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.5) return;
-		fprintf(mFile,"setAttr \".cl.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cl.cb\" %f;\n", cb);
 
 	}
 	void setDisplacement(float dis)
 	{
 		if(dis == 0.0) return;
-		fprintf(mFile,"setAttr \".dis\" %f;\n", dis);
+		fprintf(mFile,"\tsetAttr \".dis\" %f;\n", dis);
 
 	}
 	void setHeightScale(float hc)
 	{
 		if(hc == 1.0) return;
-		fprintf(mFile,"setAttr \".hc\" %f;\n", hc);
+		fprintf(mFile,"\tsetAttr \".hc\" %f;\n", hc);
 
 	}
 	void getResolution()
@@ -104,7 +105,8 @@ public:
 
 	}
 protected:
-	HeightField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SurfaceShape(file, name, parent, nodeType) {}
+	HeightField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SurfaceShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

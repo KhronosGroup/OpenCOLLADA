@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class ObjectMultiFilter : public ObjectFilter
 {
 public:
 public:
+	ObjectMultiFilter():ObjectFilter(){}
 	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectMultiFilter"){}
 	virtual ~ObjectMultiFilter(){}
 	void setFilterType(unsigned int ftyp)
 	{
 		if(ftyp == 0) return;
-		fprintf(mFile,"setAttr \".ftyp\" %i;\n", ftyp);
+		fprintf(mFile,"\tsetAttr \".ftyp\" %i;\n", ftyp);
 
 	}
 	void getResultList()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectFilter(file, name, parent, nodeType) {}
+	ObjectMultiFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

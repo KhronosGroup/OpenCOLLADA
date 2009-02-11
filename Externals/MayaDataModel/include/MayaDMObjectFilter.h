@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,31 +18,32 @@ class ObjectFilter : public DependNode
 {
 public:
 public:
+	ObjectFilter():DependNode(){}
 	ObjectFilter(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "objectFilter"){}
 	virtual ~ObjectFilter(){}
 	void setChild(bool ch)
 	{
 		if(ch == 0) return;
-		fprintf(mFile,"setAttr \".ch\" %i;\n", ch);
+		fprintf(mFile,"\tsetAttr \".ch\" %i;\n", ch);
 
 	}
 	void setInvert(bool inv)
 	{
 		if(inv == 0) return;
-		fprintf(mFile,"setAttr \".inv\" %i;\n", inv);
+		fprintf(mFile,"\tsetAttr \".inv\" %i;\n", inv);
 
 	}
 	void setAnnotation(const string& an)
 	{
 		if(an == "NULL") return;
-		fprintf(mFile,"setAttr \".an\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".an\" -type \"string\" ");
 		an.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setCategory(const stringArray& cat)
 	{
-		fprintf(mFile,"setAttr \".cat\" -type \"stringArray\" ");
+		fprintf(mFile,"\tsetAttr \".cat\" -type \"stringArray\" ");
 		cat.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -50,13 +51,13 @@ public:
 	void setDisable(bool dis)
 	{
 		if(dis == 0) return;
-		fprintf(mFile,"setAttr \".dis\" %i;\n", dis);
+		fprintf(mFile,"\tsetAttr \".dis\" %i;\n", dis);
 
 	}
 	void setFilterClass(unsigned int fcls)
 	{
 		if(fcls == 0) return;
-		fprintf(mFile,"setAttr \".fcls\" %i;\n", fcls);
+		fprintf(mFile,"\tsetAttr \".fcls\" %i;\n", fcls);
 
 	}
 	void getChild()
@@ -100,7 +101,8 @@ public:
 
 	}
 protected:
-	ObjectFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ObjectFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

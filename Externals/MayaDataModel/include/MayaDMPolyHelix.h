@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,78 +18,79 @@ class PolyHelix : public PolyPrimitive
 {
 public:
 public:
+	PolyHelix():PolyPrimitive(){}
 	PolyHelix(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyHelix"){}
 	virtual ~PolyHelix(){}
 	void setCoils(double c)
 	{
 		if(c == 3) return;
-		fprintf(mFile,"setAttr \".c\" %f;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %f;\n", c);
 
 	}
 	void setHeight(double h)
 	{
 		if(h == 2) return;
-		fprintf(mFile,"setAttr \".h\" %f;\n", h);
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 
 	}
 	void setWidth(double w)
 	{
 		if(w == 2) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setRadius(double r)
 	{
 		if(r == 0) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setDirection(unsigned int d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setSubdivisionsAxis(int sa)
 	{
 		if(sa == 8) return;
-		fprintf(mFile,"setAttr \".sa\" %i;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %i;\n", sa);
 
 	}
 	void setSubdivisionsCoil(int sco)
 	{
 		if(sco == 50) return;
-		fprintf(mFile,"setAttr \".sco\" %i;\n", sco);
+		fprintf(mFile,"\tsetAttr \".sco\" %i;\n", sco);
 
 	}
 	void setSubdivisionsCaps(int sc)
 	{
 		if(sc == 0) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 2) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(unsigned int cuv)
 	{
 		if(cuv == 2) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void setRoundCap(bool rcp)
 	{
 		if(rcp == false) return;
-		fprintf(mFile,"setAttr \".rcp\" %i;\n", rcp);
+		fprintf(mFile,"\tsetAttr \".rcp\" %i;\n", rcp);
 
 	}
 	void setUseOldInitBehaviour(bool oib)
 	{
 		if(oib == false) return;
-		fprintf(mFile,"setAttr \".oib\" %i;\n", oib);
+		fprintf(mFile,"\tsetAttr \".oib\" %i;\n", oib);
 
 	}
 	void getCoils()
@@ -153,7 +154,8 @@ public:
 
 	}
 protected:
-	PolyHelix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolyHelix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class ImplicitSphere : public GeometryShape
 {
 public:
 public:
+	ImplicitSphere():GeometryShape(){}
 	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "implicitSphere"){}
 	virtual ~ImplicitSphere(){}
 	void setRadius(double rd)
 	{
 		if(rd == 1) return;
-		fprintf(mFile,"setAttr \".rd\" %f;\n", rd);
+		fprintf(mFile,"\tsetAttr \".rd\" %f;\n", rd);
 
 	}
 	void getSphere()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryShape(file, name, parent, nodeType) {}
+	ImplicitSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

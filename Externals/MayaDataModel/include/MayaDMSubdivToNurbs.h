@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,24 @@ class SubdivToNurbs : public AbstractBaseCreate
 {
 public:
 public:
+	SubdivToNurbs():AbstractBaseCreate(){}
 	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "subdivToNurbs"){}
 	virtual ~SubdivToNurbs(){}
 	void setOutputType(unsigned int ot)
 	{
 		if(ot == 0) return;
-		fprintf(mFile,"setAttr \".ot\" %i;\n", ot);
+		fprintf(mFile,"\tsetAttr \".ot\" %i;\n", ot);
 
 	}
 	void setApplyMatrixToResult(bool amr)
 	{
 		if(amr == true) return;
-		fprintf(mFile,"setAttr \".amr\" %i;\n", amr);
+		fprintf(mFile,"\tsetAttr \".amr\" %i;\n", amr);
+
+	}
+	void getInSubdiv()
+	{
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
 	void getOutputSurfaces(size_t os_i)
@@ -48,7 +54,8 @@ public:
 
 	}
 protected:
-	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	SubdivToNurbs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

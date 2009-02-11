@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class Reflect : public Lambert
 {
 public:
 public:
+	Reflect():Lambert(){}
 	Reflect(FILE* file,const std::string& name,const std::string& parent=""):Lambert(file, name, parent, "reflect"){}
 	virtual ~Reflect(){}
 	void setReflectionLimit(short fll)
 	{
 		if(fll == 1) return;
-		fprintf(mFile,"setAttr \".fll\" %i;\n", fll);
+		fprintf(mFile,"\tsetAttr \".fll\" %i;\n", fll);
 
 	}
 	void setSpecularColor(const float3& sc)
 	{
-		fprintf(mFile,"setAttr \".sc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sc\" -type \"float3\" ");
 		sc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -36,30 +37,30 @@ public:
 	void setSpecularColorR(float sr)
 	{
 		if(sr == 0.5) return;
-		fprintf(mFile,"setAttr \".sc.sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sc.sr\" %f;\n", sr);
 
 	}
 	void setSpecularColorG(float sg)
 	{
 		if(sg == 0.5) return;
-		fprintf(mFile,"setAttr \".sc.sg\" %f;\n", sg);
+		fprintf(mFile,"\tsetAttr \".sc.sg\" %f;\n", sg);
 
 	}
 	void setSpecularColorB(float sb)
 	{
 		if(sb == 0.5) return;
-		fprintf(mFile,"setAttr \".sc.sb\" %f;\n", sb);
+		fprintf(mFile,"\tsetAttr \".sc.sb\" %f;\n", sb);
 
 	}
 	void setReflectivity(float rfl)
 	{
 		if(rfl == 0.5) return;
-		fprintf(mFile,"setAttr \".rfl\" %f;\n", rfl);
+		fprintf(mFile,"\tsetAttr \".rfl\" %f;\n", rfl);
 
 	}
 	void setReflectedColor(const float3& rc)
 	{
-		fprintf(mFile,"setAttr \".rc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".rc\" -type \"float3\" ");
 		rc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -67,25 +68,25 @@ public:
 	void setReflectedColorR(float rr)
 	{
 		if(rr == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rr\" %f;\n", rr);
+		fprintf(mFile,"\tsetAttr \".rc.rr\" %f;\n", rr);
 
 	}
 	void setReflectedColorG(float rg)
 	{
 		if(rg == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rg\" %f;\n", rg);
+		fprintf(mFile,"\tsetAttr \".rc.rg\" %f;\n", rg);
 
 	}
 	void setReflectedColorB(float rb)
 	{
 		if(rb == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rb\" %f;\n", rb);
+		fprintf(mFile,"\tsetAttr \".rc.rb\" %f;\n", rb);
 
 	}
 	void setReflectionSpecularity(float rsp)
 	{
 		if(rsp == 1.0) return;
-		fprintf(mFile,"setAttr \".rsp\" %f;\n", rsp);
+		fprintf(mFile,"\tsetAttr \".rsp\" %f;\n", rsp);
 
 	}
 	void getReflectionLimit()
@@ -164,7 +165,8 @@ public:
 
 	}
 protected:
-	Reflect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Lambert(file, name, parent, nodeType) {}
+	Reflect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Lambert(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

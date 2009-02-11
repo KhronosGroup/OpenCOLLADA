@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class Place2dTexture : public DependNode
 {
 public:
 public:
+	Place2dTexture():DependNode(){}
 	Place2dTexture(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "place2dTexture"){}
 	virtual ~Place2dTexture(){}
 	void setVertexUvOne(const float2& vt1)
 	{
-		fprintf(mFile,"setAttr \".vt1\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt1\" -type \"float2\" ");
 		vt1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,18 +31,18 @@ public:
 	void setVertexUvOneU(float t1u)
 	{
 		if(t1u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt1.t1u\" %f;\n", t1u);
+		fprintf(mFile,"\tsetAttr \".vt1.t1u\" %f;\n", t1u);
 
 	}
 	void setVertexUvOneV(float t1v)
 	{
 		if(t1v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt1.t1v\" %f;\n", t1v);
+		fprintf(mFile,"\tsetAttr \".vt1.t1v\" %f;\n", t1v);
 
 	}
 	void setVertexUvTwo(const float2& vt2)
 	{
-		fprintf(mFile,"setAttr \".vt2\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt2\" -type \"float2\" ");
 		vt2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,18 +50,18 @@ public:
 	void setVertexUvTwoU(float t2u)
 	{
 		if(t2u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt2.t2u\" %f;\n", t2u);
+		fprintf(mFile,"\tsetAttr \".vt2.t2u\" %f;\n", t2u);
 
 	}
 	void setVertexUvTwoV(float t2v)
 	{
 		if(t2v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt2.t2v\" %f;\n", t2v);
+		fprintf(mFile,"\tsetAttr \".vt2.t2v\" %f;\n", t2v);
 
 	}
 	void setVertexUvThree(const float2& vt3)
 	{
-		fprintf(mFile,"setAttr \".vt3\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt3\" -type \"float2\" ");
 		vt3.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -68,18 +69,18 @@ public:
 	void setVertexUvThreeU(float t3u)
 	{
 		if(t3u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt3.t3u\" %f;\n", t3u);
+		fprintf(mFile,"\tsetAttr \".vt3.t3u\" %f;\n", t3u);
 
 	}
 	void setVertexUvThreeV(float t3v)
 	{
 		if(t3v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt3.t3v\" %f;\n", t3v);
+		fprintf(mFile,"\tsetAttr \".vt3.t3v\" %f;\n", t3v);
 
 	}
 	void setVertexCameraOne(const float3& vc1)
 	{
-		fprintf(mFile,"setAttr \".vc1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc1\" -type \"float3\" ");
 		vc1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -87,25 +88,25 @@ public:
 	void setVertexCameraOneX(float c1x)
 	{
 		if(c1x == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1x\" %f;\n", c1x);
+		fprintf(mFile,"\tsetAttr \".vc1.c1x\" %f;\n", c1x);
 
 	}
 	void setVertexCameraOneY(float c1y)
 	{
 		if(c1y == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1y\" %f;\n", c1y);
+		fprintf(mFile,"\tsetAttr \".vc1.c1y\" %f;\n", c1y);
 
 	}
 	void setVertexCameraOneZ(float c1z)
 	{
 		if(c1z == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1z\" %f;\n", c1z);
+		fprintf(mFile,"\tsetAttr \".vc1.c1z\" %f;\n", c1z);
 
 	}
 	void setCoverage(const float2& c)
 	{
 		if(c == float2(1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".c\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".c\" -type \"float2\" ");
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -113,19 +114,19 @@ public:
 	void setCoverageU(float cu)
 	{
 		if(cu == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cu\" %f;\n", cu);
+		fprintf(mFile,"\tsetAttr \".c.cu\" %f;\n", cu);
 
 	}
 	void setCoverageV(float cv)
 	{
 		if(cv == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cv\" %f;\n", cv);
+		fprintf(mFile,"\tsetAttr \".c.cv\" %f;\n", cv);
 
 	}
 	void setTranslateFrame(const float2& tf)
 	{
 		if(tf == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".tf\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".tf\" -type \"float2\" ");
 		tf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -133,55 +134,55 @@ public:
 	void setTranslateFrameU(float tfu)
 	{
 		if(tfu == 0.0) return;
-		fprintf(mFile,"setAttr \".tf.tfu\" %f;\n", tfu);
+		fprintf(mFile,"\tsetAttr \".tf.tfu\" %f;\n", tfu);
 
 	}
 	void setTranslateFrameV(float tfv)
 	{
 		if(tfv == 0.0) return;
-		fprintf(mFile,"setAttr \".tf.tfv\" %f;\n", tfv);
+		fprintf(mFile,"\tsetAttr \".tf.tfv\" %f;\n", tfv);
 
 	}
 	void setRotateFrame(double rf)
 	{
 		if(rf == 0) return;
-		fprintf(mFile,"setAttr \".rf\" %f;\n", rf);
+		fprintf(mFile,"\tsetAttr \".rf\" %f;\n", rf);
 
 	}
 	void setMirrorU(bool mu)
 	{
 		if(mu == false) return;
-		fprintf(mFile,"setAttr \".mu\" %i;\n", mu);
+		fprintf(mFile,"\tsetAttr \".mu\" %i;\n", mu);
 
 	}
 	void setMirrorV(bool mv)
 	{
 		if(mv == false) return;
-		fprintf(mFile,"setAttr \".mv\" %i;\n", mv);
+		fprintf(mFile,"\tsetAttr \".mv\" %i;\n", mv);
 
 	}
 	void setStagger(bool s)
 	{
 		if(s == false) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void setWrapU(bool wu)
 	{
 		if(wu == true) return;
-		fprintf(mFile,"setAttr \".wu\" %i;\n", wu);
+		fprintf(mFile,"\tsetAttr \".wu\" %i;\n", wu);
 
 	}
 	void setWrapV(bool wv)
 	{
 		if(wv == true) return;
-		fprintf(mFile,"setAttr \".wv\" %i;\n", wv);
+		fprintf(mFile,"\tsetAttr \".wv\" %i;\n", wv);
 
 	}
 	void setRepeatUV(const float2& re)
 	{
 		if(re == float2(1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".re\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".re\" -type \"float2\" ");
 		re.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -189,19 +190,19 @@ public:
 	void setRepeatU(float reu)
 	{
 		if(reu == 0.0) return;
-		fprintf(mFile,"setAttr \".re.reu\" %f;\n", reu);
+		fprintf(mFile,"\tsetAttr \".re.reu\" %f;\n", reu);
 
 	}
 	void setRepeatV(float rev)
 	{
 		if(rev == 0.0) return;
-		fprintf(mFile,"setAttr \".re.rev\" %f;\n", rev);
+		fprintf(mFile,"\tsetAttr \".re.rev\" %f;\n", rev);
 
 	}
 	void setOffset(const float2& of)
 	{
 		if(of == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".of\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".of\" -type \"float2\" ");
 		of.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -209,25 +210,25 @@ public:
 	void setOffsetU(float ofu)
 	{
 		if(ofu == 0.0) return;
-		fprintf(mFile,"setAttr \".of.ofu\" %f;\n", ofu);
+		fprintf(mFile,"\tsetAttr \".of.ofu\" %f;\n", ofu);
 
 	}
 	void setOffsetV(float ofv)
 	{
 		if(ofv == 0.0) return;
-		fprintf(mFile,"setAttr \".of.ofv\" %f;\n", ofv);
+		fprintf(mFile,"\tsetAttr \".of.ofv\" %f;\n", ofv);
 
 	}
 	void setRotateUV(double r)
 	{
 		if(r == 0) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setNoiseUV(const float2& n)
 	{
 		if(n == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".n\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".n\" -type \"float2\" ");
 		n.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -235,19 +236,19 @@ public:
 	void setNoiseU(float nu)
 	{
 		if(nu == 0.0) return;
-		fprintf(mFile,"setAttr \".n.nu\" %f;\n", nu);
+		fprintf(mFile,"\tsetAttr \".n.nu\" %f;\n", nu);
 
 	}
 	void setNoiseV(float nv)
 	{
 		if(nv == 0.0) return;
-		fprintf(mFile,"setAttr \".n.nv\" %f;\n", nv);
+		fprintf(mFile,"\tsetAttr \".n.nv\" %f;\n", nv);
 
 	}
 	void setFast(bool fa)
 	{
 		if(fa == false) return;
-		fprintf(mFile,"setAttr \".fa\" %i;\n", fa);
+		fprintf(mFile,"\tsetAttr \".fa\" %i;\n", fa);
 
 	}
 	void getUvCoord()
@@ -496,7 +497,8 @@ public:
 
 	}
 protected:
-	Place2dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Place2dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

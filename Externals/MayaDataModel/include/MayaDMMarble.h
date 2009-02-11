@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Marble : public Texture3d
 {
 public:
 public:
+	Marble():Texture3d(){}
 	Marble(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "marble"){}
 	virtual ~Marble(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setFillerColor(const float3& fc)
 	{
 		if(fc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,25 +38,25 @@ public:
 	void setFillerColorR(float fcr)
 	{
 		if(fcr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFillerColorG(float fcg)
 	{
 		if(fcg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFillerColorB(float fcb)
 	{
 		if(fcb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setVeinColor(const float3& vc)
 	{
 		if(vc == float3(0.298f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".vc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc\" -type \"float3\" ");
 		vc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,43 +64,43 @@ public:
 	void setVeinColorR(float vcr)
 	{
 		if(vcr == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcr\" %f;\n", vcr);
+		fprintf(mFile,"\tsetAttr \".vc.vcr\" %f;\n", vcr);
 
 	}
 	void setVeinColorG(float vcg)
 	{
 		if(vcg == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcg\" %f;\n", vcg);
+		fprintf(mFile,"\tsetAttr \".vc.vcg\" %f;\n", vcg);
 
 	}
 	void setVeinColorB(float vcb)
 	{
 		if(vcb == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcb\" %f;\n", vcb);
+		fprintf(mFile,"\tsetAttr \".vc.vcb\" %f;\n", vcb);
 
 	}
 	void setVeinWidth(float vw)
 	{
 		if(vw == 0.1) return;
-		fprintf(mFile,"setAttr \".vw\" %f;\n", vw);
+		fprintf(mFile,"\tsetAttr \".vw\" %f;\n", vw);
 
 	}
 	void setDiffusion(float di)
 	{
 		if(di == 0.5) return;
-		fprintf(mFile,"setAttr \".di\" %f;\n", di);
+		fprintf(mFile,"\tsetAttr \".di\" %f;\n", di);
 
 	}
 	void setContrast(float c)
 	{
 		if(c == 0.5) return;
-		fprintf(mFile,"setAttr \".c\" %f;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %f;\n", c);
 
 	}
 	void setRipples(const float3& r)
 	{
 		if(r == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".r\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".r\" -type \"float3\" ");
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -107,25 +108,25 @@ public:
 	void setRipplesX(float rx)
 	{
 		if(rx == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".r.rx\" %f;\n", rx);
 
 	}
 	void setRipplesY(float ry)
 	{
 		if(ry == 0.0) return;
-		fprintf(mFile,"setAttr \".r.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".r.ry\" %f;\n", ry);
 
 	}
 	void setRipplesZ(float rz)
 	{
 		if(rz == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".r.rz\" %f;\n", rz);
 
 	}
 	void setDepth(const float2& d)
 	{
 		if(d == float2(0.0f,20.0f)) return;
-		fprintf(mFile,"setAttr \".d\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"float2\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -133,25 +134,30 @@ public:
 	void setDepthMin(float dmn)
 	{
 		if(dmn == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmn\" %f;\n", dmn);
+		fprintf(mFile,"\tsetAttr \".d.dmn\" %f;\n", dmn);
 
 	}
 	void setDepthMax(float dmx)
 	{
 		if(dmx == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmx\" %f;\n", dmx);
+		fprintf(mFile,"\tsetAttr \".d.dmx\" %f;\n", dmx);
 
 	}
 	void setAmplitude(float a)
 	{
 		if(a == 1.5) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.707) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getNormalCamera()
@@ -315,7 +321,8 @@ public:
 
 	}
 protected:
-	Marble(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Marble(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

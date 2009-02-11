@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class PolySphere : public PolyPrimitive
 {
 public:
 public:
+	PolySphere():PolyPrimitive(){}
 	PolySphere(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polySphere"){}
 	virtual ~PolySphere(){}
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setSubdivisionsAxis(int sa)
 	{
 		if(sa == 20) return;
-		fprintf(mFile,"setAttr \".sa\" %i;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %i;\n", sa);
 
 	}
 	void setSubdivisionsHeight(int sh)
 	{
 		if(sh == 20) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 1) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(unsigned int cuv)
 	{
 		if(cuv == 2) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void getRadius()
@@ -76,7 +77,8 @@ public:
 
 	}
 protected:
-	PolySphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolySphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,96 +18,97 @@ class FfBlendSrf : public AbstractBaseCreate
 {
 public:
 public:
+	FfBlendSrf():AbstractBaseCreate(){}
 	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "ffBlendSrf"){}
 	virtual ~FfBlendSrf(){}
 	void setMultipleKnots(bool mk)
 	{
 		if(mk == true) return;
-		fprintf(mFile,"setAttr \".mk\" %i;\n", mk);
+		fprintf(mFile,"\tsetAttr \".mk\" %i;\n", mk);
 
 	}
 	void setPositionTolerance(double pt)
 	{
 		if(pt == 0.1) return;
-		fprintf(mFile,"setAttr \".pt\" %f;\n", pt);
+		fprintf(mFile,"\tsetAttr \".pt\" %f;\n", pt);
 
 	}
 	void setTangentTolerance(double tt)
 	{
 		if(tt == 0.1) return;
-		fprintf(mFile,"setAttr \".tt\" %f;\n", tt);
+		fprintf(mFile,"\tsetAttr \".tt\" %f;\n", tt);
 
 	}
 	void setAutoNormal(bool an)
 	{
 		if(an == true) return;
-		fprintf(mFile,"setAttr \".an\" %i;\n", an);
+		fprintf(mFile,"\tsetAttr \".an\" %i;\n", an);
 
 	}
 	void setFlipLeftNormal(bool fln)
 	{
 		if(fln == false) return;
-		fprintf(mFile,"setAttr \".fln\" %i;\n", fln);
+		fprintf(mFile,"\tsetAttr \".fln\" %i;\n", fln);
 
 	}
 	void setFlipRightNormal(bool frn)
 	{
 		if(frn == false) return;
-		fprintf(mFile,"setAttr \".frn\" %i;\n", frn);
+		fprintf(mFile,"\tsetAttr \".frn\" %i;\n", frn);
 
 	}
 	void setAutoAnchor(bool aa)
 	{
 		if(aa == true) return;
-		fprintf(mFile,"setAttr \".aa\" %i;\n", aa);
+		fprintf(mFile,"\tsetAttr \".aa\" %i;\n", aa);
 
 	}
 	void setLeftAnchor(double la)
 	{
 		if(la == 0.0) return;
-		fprintf(mFile,"setAttr \".la\" %f;\n", la);
+		fprintf(mFile,"\tsetAttr \".la\" %f;\n", la);
 
 	}
 	void setLeftStart(double ls)
 	{
 		if(ls == 0.0) return;
-		fprintf(mFile,"setAttr \".ls\" %f;\n", ls);
+		fprintf(mFile,"\tsetAttr \".ls\" %f;\n", ls);
 
 	}
 	void setLeftEnd(double le)
 	{
 		if(le == 1.0) return;
-		fprintf(mFile,"setAttr \".le\" %f;\n", le);
+		fprintf(mFile,"\tsetAttr \".le\" %f;\n", le);
 
 	}
 	void setReverseLeft(bool rvl)
 	{
 		if(rvl == false) return;
-		fprintf(mFile,"setAttr \".rvl\" %i;\n", rvl);
+		fprintf(mFile,"\tsetAttr \".rvl\" %i;\n", rvl);
 
 	}
 	void setRightAnchor(double ra)
 	{
 		if(ra == 0.0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setRightStart(double rs)
 	{
 		if(rs == 0.0) return;
-		fprintf(mFile,"setAttr \".rs\" %f;\n", rs);
+		fprintf(mFile,"\tsetAttr \".rs\" %f;\n", rs);
 
 	}
 	void setRightEnd(double re)
 	{
 		if(re == 1.0) return;
-		fprintf(mFile,"setAttr \".re\" %f;\n", re);
+		fprintf(mFile,"\tsetAttr \".re\" %f;\n", re);
 
 	}
 	void setReverseRight(bool rvr)
 	{
 		if(rvr == false) return;
-		fprintf(mFile,"setAttr \".rvr\" %i;\n", rvr);
+		fprintf(mFile,"\tsetAttr \".rvr\" %i;\n", rvr);
 
 	}
 	void getLeftCurve(size_t lc_i)
@@ -211,7 +212,8 @@ public:
 
 	}
 protected:
-	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

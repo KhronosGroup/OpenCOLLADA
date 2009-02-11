@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -41,35 +41,36 @@ public:
 		}
 	};
 public:
+	VolumeLight():PointLight(){}
 	VolumeLight(FILE* file,const std::string& name,const std::string& parent=""):PointLight(file, name, parent, "volumeLight"){}
 	virtual ~VolumeLight(){}
 	void setLightShape(unsigned int lis)
 	{
 		if(lis == 1) return;
-		fprintf(mFile,"setAttr \".lis\" %i;\n", lis);
+		fprintf(mFile,"\tsetAttr \".lis\" %i;\n", lis);
 
 	}
 	void setVolumeLightDir(unsigned int vld)
 	{
 		if(vld == 0) return;
-		fprintf(mFile,"setAttr \".vld\" %i;\n", vld);
+		fprintf(mFile,"\tsetAttr \".vld\" %i;\n", vld);
 
 	}
 	void setArc(float ac)
 	{
 		if(ac == 360.0) return;
-		fprintf(mFile,"setAttr \".ac\" %f;\n", ac);
+		fprintf(mFile,"\tsetAttr \".ac\" %f;\n", ac);
 
 	}
 	void setConeEndRadius(float cer)
 	{
 		if(cer == 0.0) return;
-		fprintf(mFile,"setAttr \".cer\" %f;\n", cer);
+		fprintf(mFile,"\tsetAttr \".cer\" %f;\n", cer);
 
 	}
 	void setColorRange(size_t crg_i,const ColorRange& crg)
 	{
-		fprintf(mFile,"setAttr \".crg[%i]\" ",crg_i);
+		fprintf(mFile,"\tsetAttr \".crg[%i]\" ",crg_i);
 		crg.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -77,12 +78,12 @@ public:
 	void setColorRange_Position(size_t crg_i,float crgp)
 	{
 		if(crgp == 0.0) return;
-		fprintf(mFile,"setAttr \".crg[%i].crgp\" %f;\n", crg_i,crgp);
+		fprintf(mFile,"\tsetAttr \".crg[%i].crgp\" %f;\n", crg_i,crgp);
 
 	}
 	void setColorRange_Color(size_t crg_i,const float3& crgc)
 	{
-		fprintf(mFile,"setAttr \".crg[%i].crgc\" -type \"float3\" ",crg_i);
+		fprintf(mFile,"\tsetAttr \".crg[%i].crgc\" -type \"float3\" ",crg_i);
 		crgc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -90,30 +91,30 @@ public:
 	void setColorRange_ColorR(size_t crg_i,float crgcr)
 	{
 		if(crgcr == 0.0) return;
-		fprintf(mFile,"setAttr \".crg[%i].crgc.crgcr\" %f;\n", crg_i,crgcr);
+		fprintf(mFile,"\tsetAttr \".crg[%i].crgc.crgcr\" %f;\n", crg_i,crgcr);
 
 	}
 	void setColorRange_ColorG(size_t crg_i,float crgcg)
 	{
 		if(crgcg == 0.0) return;
-		fprintf(mFile,"setAttr \".crg[%i].crgc.crgcg\" %f;\n", crg_i,crgcg);
+		fprintf(mFile,"\tsetAttr \".crg[%i].crgc.crgcg\" %f;\n", crg_i,crgcg);
 
 	}
 	void setColorRange_ColorB(size_t crg_i,float crgcb)
 	{
 		if(crgcb == 0.0) return;
-		fprintf(mFile,"setAttr \".crg[%i].crgc.crgcb\" %f;\n", crg_i,crgcb);
+		fprintf(mFile,"\tsetAttr \".crg[%i].crgc.crgcb\" %f;\n", crg_i,crgcb);
 
 	}
 	void setColorRange_Interp(size_t crg_i,unsigned int crgi)
 	{
 		if(crgi == 0) return;
-		fprintf(mFile,"setAttr \".crg[%i].crgi\" %i;\n", crg_i,crgi);
+		fprintf(mFile,"\tsetAttr \".crg[%i].crgi\" %i;\n", crg_i,crgi);
 
 	}
 	void setPenumbra(size_t pen_i,const Penumbra& pen)
 	{
-		fprintf(mFile,"setAttr \".pen[%i]\" ",pen_i);
+		fprintf(mFile,"\tsetAttr \".pen[%i]\" ",pen_i);
 		pen.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -121,25 +122,25 @@ public:
 	void setPenumbra_Position(size_t pen_i,float penp)
 	{
 		if(penp == 0.0) return;
-		fprintf(mFile,"setAttr \".pen[%i].penp\" %f;\n", pen_i,penp);
+		fprintf(mFile,"\tsetAttr \".pen[%i].penp\" %f;\n", pen_i,penp);
 
 	}
 	void setPenumbra_FloatValue(size_t pen_i,float penfv)
 	{
 		if(penfv == 0.0) return;
-		fprintf(mFile,"setAttr \".pen[%i].penfv\" %f;\n", pen_i,penfv);
+		fprintf(mFile,"\tsetAttr \".pen[%i].penfv\" %f;\n", pen_i,penfv);
 
 	}
 	void setPenumbra_Interp(size_t pen_i,unsigned int peni)
 	{
 		if(peni == 0) return;
-		fprintf(mFile,"setAttr \".pen[%i].peni\" %i;\n", pen_i,peni);
+		fprintf(mFile,"\tsetAttr \".pen[%i].peni\" %i;\n", pen_i,peni);
 
 	}
 	void setEmitAmbient(bool ema)
 	{
 		if(ema == false) return;
-		fprintf(mFile,"setAttr \".ema\" %i;\n", ema);
+		fprintf(mFile,"\tsetAttr \".ema\" %i;\n", ema);
 
 	}
 	void getLightShape()
@@ -223,7 +224,8 @@ public:
 
 	}
 protected:
-	VolumeLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PointLight(file, name, parent, nodeType) {}
+	VolumeLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PointLight(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

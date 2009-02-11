@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -28,60 +28,61 @@ public:
 		}
 	};
 public:
+	Jiggle():WeightGeometryFilter(){}
 	Jiggle(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "jiggle"){}
 	virtual ~Jiggle(){}
 	void setEnable(unsigned int ebl)
 	{
 		if(ebl == 2) return;
-		fprintf(mFile,"setAttr \".ebl\" %i;\n", ebl);
+		fprintf(mFile,"\tsetAttr \".ebl\" %i;\n", ebl);
 
 	}
 	void setIgnoreTransform(bool it)
 	{
 		if(it == false) return;
-		fprintf(mFile,"setAttr \".it\" %i;\n", it);
+		fprintf(mFile,"\tsetAttr \".it\" %i;\n", it);
 
 	}
 	void setForceAlongNormal(double fan)
 	{
 		if(fan == 1.0) return;
-		fprintf(mFile,"setAttr \".fan\" %f;\n", fan);
+		fprintf(mFile,"\tsetAttr \".fan\" %f;\n", fan);
 
 	}
 	void setForceOnTangent(double fot)
 	{
 		if(fot == 1.0) return;
-		fprintf(mFile,"setAttr \".fot\" %f;\n", fot);
+		fprintf(mFile,"\tsetAttr \".fot\" %f;\n", fot);
 
 	}
 	void setMotionMultiplier(double mm)
 	{
 		if(mm == 1.0) return;
-		fprintf(mFile,"setAttr \".mm\" %f;\n", mm);
+		fprintf(mFile,"\tsetAttr \".mm\" %f;\n", mm);
 
 	}
 	void setStiffness(double sf)
 	{
 		if(sf == 0.5) return;
-		fprintf(mFile,"setAttr \".sf\" %f;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sf\" %f;\n", sf);
 
 	}
 	void setDamping(double dp)
 	{
 		if(dp == 0.5) return;
-		fprintf(mFile,"setAttr \".dp\" %f;\n", dp);
+		fprintf(mFile,"\tsetAttr \".dp\" %f;\n", dp);
 
 	}
 	void setJiggleWeight(double jw)
 	{
 		if(jw == 1.0) return;
-		fprintf(mFile,"setAttr \".jw\" %f;\n", jw);
+		fprintf(mFile,"\tsetAttr \".jw\" %f;\n", jw);
 
 	}
 	void setDirectionBias(double bias)
 	{
 		if(bias == 0.0) return;
-		fprintf(mFile,"setAttr \".bias\" %f;\n", bias);
+		fprintf(mFile,"\tsetAttr \".bias\" %f;\n", bias);
 
 	}
 	void getDiskCache()
@@ -140,7 +141,8 @@ public:
 
 	}
 protected:
-	Jiggle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):WeightGeometryFilter(file, name, parent, nodeType) {}
+	Jiggle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:WeightGeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,24 +23,25 @@ public:
 		}
 	};
 public:
+	PointOnSurfaceInfo():AbstractBaseCreate(){}
 	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "pointOnSurfaceInfo"){}
 	virtual ~PointOnSurfaceInfo(){}
 	void setParameterU(double u)
 	{
 		if(u == 0.0) return;
-		fprintf(mFile,"setAttr \".u\" %f;\n", u);
+		fprintf(mFile,"\tsetAttr \".u\" %f;\n", u);
 
 	}
 	void setParameterV(double v)
 	{
 		if(v == 0.0) return;
-		fprintf(mFile,"setAttr \".v\" %f;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %f;\n", v);
 
 	}
 	void setTurnOnPercentage(bool top)
 	{
 		if(top == false) return;
-		fprintf(mFile,"setAttr \".top\" %i;\n", top);
+		fprintf(mFile,"\tsetAttr \".top\" %i;\n", top);
 
 	}
 	void getInputSurface()
@@ -209,7 +210,8 @@ public:
 
 	}
 protected:
-	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

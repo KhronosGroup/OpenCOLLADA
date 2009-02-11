@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,65 +18,66 @@ class PointEmitter : public DynBase
 {
 public:
 public:
+	PointEmitter():DynBase(){}
 	PointEmitter(FILE* file,const std::string& name,const std::string& parent=""):DynBase(file, name, parent, "pointEmitter"){}
 	virtual ~PointEmitter(){}
 	void setEmitterType(unsigned int emt)
 	{
 		if(emt == 1) return;
-		fprintf(mFile,"setAttr \".emt\" %i;\n", emt);
+		fprintf(mFile,"\tsetAttr \".emt\" %i;\n", emt);
 
 	}
 	void setRate(double rat)
 	{
 		if(rat == 100) return;
-		fprintf(mFile,"setAttr \".rat\" %f;\n", rat);
+		fprintf(mFile,"\tsetAttr \".rat\" %f;\n", rat);
 
 	}
 	void setScaleRateByObjectSize(bool sro)
 	{
 		if(sro == true) return;
-		fprintf(mFile,"setAttr \".sro\" %i;\n", sro);
+		fprintf(mFile,"\tsetAttr \".sro\" %i;\n", sro);
 
 	}
 	void setUseRatePP(bool urpp)
 	{
 		if(urpp == false) return;
-		fprintf(mFile,"setAttr \".urpp\" %i;\n", urpp);
+		fprintf(mFile,"\tsetAttr \".urpp\" %i;\n", urpp);
 
 	}
 	void setNeedParentUV(bool npuv)
 	{
 		if(npuv == false) return;
-		fprintf(mFile,"setAttr \".npuv\" %i;\n", npuv);
+		fprintf(mFile,"\tsetAttr \".npuv\" %i;\n", npuv);
 
 	}
 	void setCycleEmission(unsigned int cye)
 	{
 		if(cye == 0) return;
-		fprintf(mFile,"setAttr \".cye\" %i;\n", cye);
+		fprintf(mFile,"\tsetAttr \".cye\" %i;\n", cye);
 
 	}
 	void setCycleInterval(int cyi)
 	{
 		if(cyi == 1) return;
-		fprintf(mFile,"setAttr \".cyi\" %i;\n", cyi);
+		fprintf(mFile,"\tsetAttr \".cyi\" %i;\n", cyi);
 
 	}
 	void setMaxDistance(double max)
 	{
 		if(max == 0) return;
-		fprintf(mFile,"setAttr \".max\" %f;\n", max);
+		fprintf(mFile,"\tsetAttr \".max\" %f;\n", max);
 
 	}
 	void setMinDistance(double min)
 	{
 		if(min == 0) return;
-		fprintf(mFile,"setAttr \".min\" %f;\n", min);
+		fprintf(mFile,"\tsetAttr \".min\" %f;\n", min);
 
 	}
 	void setDirection(const double3& d)
 	{
-		fprintf(mFile,"setAttr \".d\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"double3\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -84,60 +85,60 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 1.0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void setSpread(double spr)
 	{
 		if(spr == 0.0) return;
-		fprintf(mFile,"setAttr \".spr\" %f;\n", spr);
+		fprintf(mFile,"\tsetAttr \".spr\" %f;\n", spr);
 
 	}
 	void setSpeed(double spd)
 	{
 		if(spd == 1.0) return;
-		fprintf(mFile,"setAttr \".spd\" %f;\n", spd);
+		fprintf(mFile,"\tsetAttr \".spd\" %f;\n", spd);
 
 	}
 	void setSpeedRandom(double srnd)
 	{
 		if(srnd == 0.0) return;
-		fprintf(mFile,"setAttr \".srnd\" %f;\n", srnd);
+		fprintf(mFile,"\tsetAttr \".srnd\" %f;\n", srnd);
 
 	}
 	void setTangentSpeed(double tspd)
 	{
 		if(tspd == 0.0) return;
-		fprintf(mFile,"setAttr \".tspd\" %f;\n", tspd);
+		fprintf(mFile,"\tsetAttr \".tspd\" %f;\n", tspd);
 
 	}
 	void setNormalSpeed(double nspd)
 	{
 		if(nspd == 1.0) return;
-		fprintf(mFile,"setAttr \".nspd\" %f;\n", nspd);
+		fprintf(mFile,"\tsetAttr \".nspd\" %f;\n", nspd);
 
 	}
 	void setInheritFactor(size_t inh_i,double inh)
 	{
 		if(inh == 0.0) return;
-		fprintf(mFile,"setAttr \".inh[%i]\" %f;\n", inh_i,inh);
+		fprintf(mFile,"\tsetAttr \".inh[%i]\" %f;\n", inh_i,inh);
 
 	}
 	void setInheritFactor(size_t inh_start,size_t inh_end,double* inh)
 	{
-		fprintf(mFile,"setAttr \".inh[%i:%i]\" ", inh_start,inh_end);
+		fprintf(mFile,"\tsetAttr \".inh[%i:%i]\" ", inh_start,inh_end);
 		size_t size = (inh_end-inh_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -149,7 +150,7 @@ public:
 	}
 	void startInheritFactor(size_t inh_start,size_t inh_end)
 	{
-		fprintf(mFile,"setAttr \".inh[%i:%i]\"",inh_start,inh_end);
+		fprintf(mFile,"\tsetAttr \".inh[%i:%i]\"",inh_start,inh_end);
 
 	}
 	void appendInheritFactor(double inh)
@@ -165,12 +166,12 @@ public:
 	void setIsFull(size_t full_i,bool full)
 	{
 		if(full == false) return;
-		fprintf(mFile,"setAttr \".full[%i]\" %i;\n", full_i,full);
+		fprintf(mFile,"\tsetAttr \".full[%i]\" %i;\n", full_i,full);
 
 	}
 	void setIsFull(size_t full_start,size_t full_end,bool* full)
 	{
-		fprintf(mFile,"setAttr \".full[%i:%i]\" ", full_start,full_end);
+		fprintf(mFile,"\tsetAttr \".full[%i:%i]\" ", full_start,full_end);
 		size_t size = (full_end-full_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -182,7 +183,7 @@ public:
 	}
 	void startIsFull(size_t full_start,size_t full_end)
 	{
-		fprintf(mFile,"setAttr \".full[%i:%i]\"",full_start,full_end);
+		fprintf(mFile,"\tsetAttr \".full[%i:%i]\"",full_start,full_end);
 
 	}
 	void appendIsFull(bool full)
@@ -198,7 +199,7 @@ public:
 	void setRatePP(const doubleArray& rpp)
 	{
 		if(rpp.size == 0) return;
-		fprintf(mFile,"setAttr \".rpp\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".rpp\" -type \"doubleArray\" ");
 		rpp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -206,7 +207,7 @@ public:
 	void setParentId(const doubleArray& paid)
 	{
 		if(paid.size == 0) return;
-		fprintf(mFile,"setAttr \".paid\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".paid\" -type \"doubleArray\" ");
 		paid.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -214,31 +215,31 @@ public:
 	void setRandStateX(size_t rst_i,int rstx)
 	{
 		if(rstx == 0) return;
-		fprintf(mFile,"setAttr \".rst[%i].rstx\" %i;\n", rst_i,rstx);
+		fprintf(mFile,"\tsetAttr \".rst[%i].rstx\" %i;\n", rst_i,rstx);
 
 	}
 	void setRandStateY(size_t rst_i,int rsty)
 	{
 		if(rsty == 0) return;
-		fprintf(mFile,"setAttr \".rst[%i].rsty\" %i;\n", rst_i,rsty);
+		fprintf(mFile,"\tsetAttr \".rst[%i].rsty\" %i;\n", rst_i,rsty);
 
 	}
 	void setRandStateZ(size_t rst_i,int rstz)
 	{
 		if(rstz == 0) return;
-		fprintf(mFile,"setAttr \".rst[%i].rstz\" %i;\n", rst_i,rstz);
+		fprintf(mFile,"\tsetAttr \".rst[%i].rstz\" %i;\n", rst_i,rstz);
 
 	}
 	void setEnableTextureRate(bool etr)
 	{
 		if(etr == false) return;
-		fprintf(mFile,"setAttr \".etr\" %i;\n", etr);
+		fprintf(mFile,"\tsetAttr \".etr\" %i;\n", etr);
 
 	}
 	void setTextureRate(const float3& txr)
 	{
 		if(txr == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".txr\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".txr\" -type \"float3\" ");
 		txr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -246,55 +247,55 @@ public:
 	void setTextureRateR(float txrr)
 	{
 		if(txrr == 0.0) return;
-		fprintf(mFile,"setAttr \".txr.txrr\" %f;\n", txrr);
+		fprintf(mFile,"\tsetAttr \".txr.txrr\" %f;\n", txrr);
 
 	}
 	void setTextureRateG(float txrg)
 	{
 		if(txrg == 0.0) return;
-		fprintf(mFile,"setAttr \".txr.txrg\" %f;\n", txrg);
+		fprintf(mFile,"\tsetAttr \".txr.txrg\" %f;\n", txrg);
 
 	}
 	void setTextureRateB(float txrb)
 	{
 		if(txrb == 0.0) return;
-		fprintf(mFile,"setAttr \".txr.txrb\" %f;\n", txrb);
+		fprintf(mFile,"\tsetAttr \".txr.txrb\" %f;\n", txrb);
 
 	}
 	void setEmitFromDark(bool efd)
 	{
 		if(efd == false) return;
-		fprintf(mFile,"setAttr \".efd\" %i;\n", efd);
+		fprintf(mFile,"\tsetAttr \".efd\" %i;\n", efd);
 
 	}
 	void setInheritColor(bool inhc)
 	{
 		if(inhc == false) return;
-		fprintf(mFile,"setAttr \".inhc\" %i;\n", inhc);
+		fprintf(mFile,"\tsetAttr \".inhc\" %i;\n", inhc);
 
 	}
 	void setInheritOpacity(bool inho)
 	{
 		if(inho == false) return;
-		fprintf(mFile,"setAttr \".inho\" %i;\n", inho);
+		fprintf(mFile,"\tsetAttr \".inho\" %i;\n", inho);
 
 	}
 	void setInvertOpacity(bool invo)
 	{
 		if(invo == false) return;
-		fprintf(mFile,"setAttr \".invo\" %i;\n", invo);
+		fprintf(mFile,"\tsetAttr \".invo\" %i;\n", invo);
 
 	}
 	void setUseLuminance(bool usel)
 	{
 		if(usel == false) return;
-		fprintf(mFile,"setAttr \".usel\" %i;\n", usel);
+		fprintf(mFile,"\tsetAttr \".usel\" %i;\n", usel);
 
 	}
 	void setParticleColor(const float3& pc)
 	{
 		if(pc == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".pc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pc\" -type \"float3\" ");
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -302,30 +303,30 @@ public:
 	void setParticleColorR(float pcr)
 	{
 		if(pcr == 0.5) return;
-		fprintf(mFile,"setAttr \".pc.pcr\" %f;\n", pcr);
+		fprintf(mFile,"\tsetAttr \".pc.pcr\" %f;\n", pcr);
 
 	}
 	void setParticleColorG(float pcg)
 	{
 		if(pcg == 0.5) return;
-		fprintf(mFile,"setAttr \".pc.pcg\" %f;\n", pcg);
+		fprintf(mFile,"\tsetAttr \".pc.pcg\" %f;\n", pcg);
 
 	}
 	void setParticleColorB(float pcb)
 	{
 		if(pcb == 0.5) return;
-		fprintf(mFile,"setAttr \".pc.pcb\" %f;\n", pcb);
+		fprintf(mFile,"\tsetAttr \".pc.pcb\" %f;\n", pcb);
 
 	}
 	void setVolumeShape(unsigned int vol)
 	{
 		if(vol == 0) return;
-		fprintf(mFile,"setAttr \".vol\" %i;\n", vol);
+		fprintf(mFile,"\tsetAttr \".vol\" %i;\n", vol);
 
 	}
 	void setVolumeOffset(const double3& vof)
 	{
-		fprintf(mFile,"setAttr \".vof\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".vof\" -type \"double3\" ");
 		vof.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -333,79 +334,79 @@ public:
 	void setVolumeOffsetX(double vfx)
 	{
 		if(vfx == 0) return;
-		fprintf(mFile,"setAttr \".vof.vfx\" %f;\n", vfx);
+		fprintf(mFile,"\tsetAttr \".vof.vfx\" %f;\n", vfx);
 
 	}
 	void setVolumeOffsetY(double vfy)
 	{
 		if(vfy == 0) return;
-		fprintf(mFile,"setAttr \".vof.vfy\" %f;\n", vfy);
+		fprintf(mFile,"\tsetAttr \".vof.vfy\" %f;\n", vfy);
 
 	}
 	void setVolumeOffsetZ(double vfz)
 	{
 		if(vfz == 0) return;
-		fprintf(mFile,"setAttr \".vof.vfz\" %f;\n", vfz);
+		fprintf(mFile,"\tsetAttr \".vof.vfz\" %f;\n", vfz);
 
 	}
 	void setVolumeSweep(double vsw)
 	{
 		if(vsw == 3) return;
-		fprintf(mFile,"setAttr \".vsw\" %f;\n", vsw);
+		fprintf(mFile,"\tsetAttr \".vsw\" %f;\n", vsw);
 
 	}
 	void setSectionRadius(double vsr)
 	{
 		if(vsr == 0) return;
-		fprintf(mFile,"setAttr \".vsr\" %f;\n", vsr);
+		fprintf(mFile,"\tsetAttr \".vsr\" %f;\n", vsr);
 
 	}
 	void setAwayFromCenter(double afc)
 	{
 		if(afc == 1.0) return;
-		fprintf(mFile,"setAttr \".afc\" %f;\n", afc);
+		fprintf(mFile,"\tsetAttr \".afc\" %f;\n", afc);
 
 	}
 	void setAwayFromAxis(double afa)
 	{
 		if(afa == 1.0) return;
-		fprintf(mFile,"setAttr \".afa\" %f;\n", afa);
+		fprintf(mFile,"\tsetAttr \".afa\" %f;\n", afa);
 
 	}
 	void setAlongAxis(double alx)
 	{
 		if(alx == 0.0) return;
-		fprintf(mFile,"setAttr \".alx\" %f;\n", alx);
+		fprintf(mFile,"\tsetAttr \".alx\" %f;\n", alx);
 
 	}
 	void setAroundAxis(double arx)
 	{
 		if(arx == 0.0) return;
-		fprintf(mFile,"setAttr \".arx\" %f;\n", arx);
+		fprintf(mFile,"\tsetAttr \".arx\" %f;\n", arx);
 
 	}
 	void setRandomDirection(double rnd)
 	{
 		if(rnd == 0.0) return;
-		fprintf(mFile,"setAttr \".rnd\" %f;\n", rnd);
+		fprintf(mFile,"\tsetAttr \".rnd\" %f;\n", rnd);
 
 	}
 	void setDirectionalSpeed(double drs)
 	{
 		if(drs == 0.0) return;
-		fprintf(mFile,"setAttr \".drs\" %f;\n", drs);
+		fprintf(mFile,"\tsetAttr \".drs\" %f;\n", drs);
 
 	}
 	void setScaleSpeedBySize(bool ssz)
 	{
 		if(ssz == false) return;
-		fprintf(mFile,"setAttr \".ssz\" %i;\n", ssz);
+		fprintf(mFile,"\tsetAttr \".ssz\" %i;\n", ssz);
 
 	}
 	void setDisplaySpeed(bool dss)
 	{
 		if(dss == true) return;
-		fprintf(mFile,"setAttr \".dss\" %i;\n", dss);
+		fprintf(mFile,"\tsetAttr \".dss\" %i;\n", dss);
 
 	}
 	void getEmitterType()
@@ -511,6 +512,16 @@ public:
 	void getEmitCountRemainder(size_t ecr_i)
 	{
 		fprintf(mFile,"\"%s.ecr[%i]\"",mName.c_str(),ecr_i);
+
+	}
+	void getRatePP()
+	{
+		fprintf(mFile,"\"%s.rpp\"",mName.c_str());
+
+	}
+	void getParentId()
+	{
+		fprintf(mFile,"\"%s.paid\"",mName.c_str());
 
 	}
 	void getSweptGeometry()
@@ -679,7 +690,8 @@ public:
 
 	}
 protected:
-	PointEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DynBase(file, name, parent, nodeType) {}
+	PointEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DynBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

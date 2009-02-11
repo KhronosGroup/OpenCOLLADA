@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class AnimBlend : public DependNode
 {
 public:
 public:
+	AnimBlend():DependNode(){}
 	AnimBlend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "animBlend"){}
 	virtual ~AnimBlend(){}
 	void setWeight(double w)
 	{
 		if(w == 0.0) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void getBlend()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	AnimBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	AnimBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

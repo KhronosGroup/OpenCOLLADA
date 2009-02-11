@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class EnvSky : public TextureEnv
 {
 public:
 public:
+	EnvSky():TextureEnv(){}
 	EnvSky(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envSky"){}
 	virtual ~EnvSky(){}
 	void setTotalBrightness(float tb)
 	{
 		if(tb == 1.0) return;
-		fprintf(mFile,"setAttr \".tb\" %f;\n", tb);
+		fprintf(mFile,"\tsetAttr \".tb\" %f;\n", tb);
 
 	}
 	void setSunBrightness(const float3& su)
 	{
 		if(su == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".su\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".su\" -type \"float3\" ");
 		su.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,25 +38,25 @@ public:
 	void setSunBrightnessR(float sur)
 	{
 		if(sur == 0.0) return;
-		fprintf(mFile,"setAttr \".su.sur\" %f;\n", sur);
+		fprintf(mFile,"\tsetAttr \".su.sur\" %f;\n", sur);
 
 	}
 	void setSunBrightnessG(float sug)
 	{
 		if(sug == 0.0) return;
-		fprintf(mFile,"setAttr \".su.sug\" %f;\n", sug);
+		fprintf(mFile,"\tsetAttr \".su.sug\" %f;\n", sug);
 
 	}
 	void setSunBrightnessB(float sub)
 	{
 		if(sub == 0.0) return;
-		fprintf(mFile,"setAttr \".su.sub\" %f;\n", sub);
+		fprintf(mFile,"\tsetAttr \".su.sub\" %f;\n", sub);
 
 	}
 	void setHaloBrightness(const float3& hb)
 	{
 		if(hb == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".hb\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".hb\" -type \"float3\" ");
 		hb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,49 +64,49 @@ public:
 	void setHaloBrightnessR(float hbr)
 	{
 		if(hbr == 0.0) return;
-		fprintf(mFile,"setAttr \".hb.hbr\" %f;\n", hbr);
+		fprintf(mFile,"\tsetAttr \".hb.hbr\" %f;\n", hbr);
 
 	}
 	void setHaloBrightnessG(float hbg)
 	{
 		if(hbg == 0.0) return;
-		fprintf(mFile,"setAttr \".hb.hbg\" %f;\n", hbg);
+		fprintf(mFile,"\tsetAttr \".hb.hbg\" %f;\n", hbg);
 
 	}
 	void setHaloBrightnessB(float hbb)
 	{
 		if(hbb == 0.0) return;
-		fprintf(mFile,"setAttr \".hb.hbb\" %f;\n", hbb);
+		fprintf(mFile,"\tsetAttr \".hb.hbb\" %f;\n", hbb);
 
 	}
 	void setElevation(double e)
 	{
 		if(e == 4) return;
-		fprintf(mFile,"setAttr \".e\" %f;\n", e);
+		fprintf(mFile,"\tsetAttr \".e\" %f;\n", e);
 
 	}
 	void setAzimuth(double az)
 	{
 		if(az == 1) return;
-		fprintf(mFile,"setAttr \".az\" %f;\n", az);
+		fprintf(mFile,"\tsetAttr \".az\" %f;\n", az);
 
 	}
 	void setSize(float sz)
 	{
 		if(sz == 0.531) return;
-		fprintf(mFile,"setAttr \".sz\" %f;\n", sz);
+		fprintf(mFile,"\tsetAttr \".sz\" %f;\n", sz);
 
 	}
 	void setBlur(float b)
 	{
 		if(b == 1.0) return;
-		fprintf(mFile,"setAttr \".b\" %f;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
 	void setSkyBrightness(const float3& sk)
 	{
 		if(sk == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".sk\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sk\" -type \"float3\" ");
 		sk.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -113,55 +114,55 @@ public:
 	void setSkyBrightnessR(float skr)
 	{
 		if(skr == 0.0) return;
-		fprintf(mFile,"setAttr \".sk.skr\" %f;\n", skr);
+		fprintf(mFile,"\tsetAttr \".sk.skr\" %f;\n", skr);
 
 	}
 	void setSkyBrightnessG(float skg)
 	{
 		if(skg == 0.0) return;
-		fprintf(mFile,"setAttr \".sk.skg\" %f;\n", skg);
+		fprintf(mFile,"\tsetAttr \".sk.skg\" %f;\n", skg);
 
 	}
 	void setSkyBrightnessB(float skb)
 	{
 		if(skb == 0.0) return;
-		fprintf(mFile,"setAttr \".sk.skb\" %f;\n", skb);
+		fprintf(mFile,"\tsetAttr \".sk.skb\" %f;\n", skb);
 
 	}
 	void setAirDensity(float ad)
 	{
 		if(ad == 1.0) return;
-		fprintf(mFile,"setAttr \".ad\" %f;\n", ad);
+		fprintf(mFile,"\tsetAttr \".ad\" %f;\n", ad);
 
 	}
 	void setDustDensity(float dd)
 	{
 		if(dd == 0.0) return;
-		fprintf(mFile,"setAttr \".dd\" %f;\n", dd);
+		fprintf(mFile,"\tsetAttr \".dd\" %f;\n", dd);
 
 	}
 	void setSkyThickness(float st)
 	{
 		if(st == 1000.0) return;
-		fprintf(mFile,"setAttr \".st\" %f;\n", st);
+		fprintf(mFile,"\tsetAttr \".st\" %f;\n", st);
 
 	}
 	void setSkyRadius(float sr)
 	{
 		if(sr == 50.0) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setHasFloor(bool hf)
 	{
 		if(hf == true) return;
-		fprintf(mFile,"setAttr \".hf\" %i;\n", hf);
+		fprintf(mFile,"\tsetAttr \".hf\" %i;\n", hf);
 
 	}
 	void setFloorColor(const float3& fc)
 	{
 		if(fc == float3(0.4f,0.4f,0.4f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -169,43 +170,43 @@ public:
 	void setFloorColorR(float fcr)
 	{
 		if(fcr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFloorColorG(float fcg)
 	{
 		if(fcg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFloorColorB(float fcb)
 	{
 		if(fcb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setFloorAltitude(float fa)
 	{
 		if(fa == -10.0) return;
-		fprintf(mFile,"setAttr \".fa\" %f;\n", fa);
+		fprintf(mFile,"\tsetAttr \".fa\" %f;\n", fa);
 
 	}
 	void setUseTexture(bool ut)
 	{
 		if(ut == false) return;
-		fprintf(mFile,"setAttr \".ut\" %i;\n", ut);
+		fprintf(mFile,"\tsetAttr \".ut\" %i;\n", ut);
 
 	}
 	void setCloudTexture(float ct)
 	{
 		if(ct == 1.0) return;
-		fprintf(mFile,"setAttr \".ct\" %f;\n", ct);
+		fprintf(mFile,"\tsetAttr \".ct\" %f;\n", ct);
 
 	}
 	void setCloudBrightness(const float3& cb)
 	{
 		if(cb == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".cb\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cb\" -type \"float3\" ");
 		cb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -213,25 +214,25 @@ public:
 	void setCloudBrightnessR(float cbr)
 	{
 		if(cbr == 0.0) return;
-		fprintf(mFile,"setAttr \".cb.cbr\" %f;\n", cbr);
+		fprintf(mFile,"\tsetAttr \".cb.cbr\" %f;\n", cbr);
 
 	}
 	void setCloudBrightnessG(float cbg)
 	{
 		if(cbg == 0.0) return;
-		fprintf(mFile,"setAttr \".cb.cbg\" %f;\n", cbg);
+		fprintf(mFile,"\tsetAttr \".cb.cbg\" %f;\n", cbg);
 
 	}
 	void setCloudBrightnessB(float cbb)
 	{
 		if(cbb == 0.0) return;
-		fprintf(mFile,"setAttr \".cb.cbb\" %f;\n", cbb);
+		fprintf(mFile,"\tsetAttr \".cb.cbb\" %f;\n", cbb);
 
 	}
 	void setSunsetBrightness(const float3& ss)
 	{
 		if(ss == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".ss\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ss\" -type \"float3\" ");
 		ss.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -239,67 +240,67 @@ public:
 	void setSunsetBrightnessR(float ssr)
 	{
 		if(ssr == 0.0) return;
-		fprintf(mFile,"setAttr \".ss.ssr\" %f;\n", ssr);
+		fprintf(mFile,"\tsetAttr \".ss.ssr\" %f;\n", ssr);
 
 	}
 	void setSunsetBrightnessG(float ssg)
 	{
 		if(ssg == 0.0) return;
-		fprintf(mFile,"setAttr \".ss.ssg\" %f;\n", ssg);
+		fprintf(mFile,"\tsetAttr \".ss.ssg\" %f;\n", ssg);
 
 	}
 	void setSunsetBrightnessB(float ssb)
 	{
 		if(ssb == 0.0) return;
-		fprintf(mFile,"setAttr \".ss.ssb\" %f;\n", ssb);
+		fprintf(mFile,"\tsetAttr \".ss.ssb\" %f;\n", ssb);
 
 	}
 	void setDensity(float d)
 	{
 		if(d == 1.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setThreshold(float t)
 	{
 		if(t == 0.5) return;
-		fprintf(mFile,"setAttr \".t\" %f;\n", t);
+		fprintf(mFile,"\tsetAttr \".t\" %f;\n", t);
 
 	}
 	void setPower(float po)
 	{
 		if(po == 1.0) return;
-		fprintf(mFile,"setAttr \".po\" %f;\n", po);
+		fprintf(mFile,"\tsetAttr \".po\" %f;\n", po);
 
 	}
 	void setAltitude(float a)
 	{
 		if(a == 0.2) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setHaloSize(float hs)
 	{
 		if(hs == 20.0) return;
-		fprintf(mFile,"setAttr \".hs\" %f;\n", hs);
+		fprintf(mFile,"\tsetAttr \".hs\" %f;\n", hs);
 
 	}
 	void setSkySamples(float ssa)
 	{
 		if(ssa == 5.0) return;
-		fprintf(mFile,"setAttr \".ssa\" %f;\n", ssa);
+		fprintf(mFile,"\tsetAttr \".ssa\" %f;\n", ssa);
 
 	}
 	void setFloorSamples(float fsa)
 	{
 		if(fsa == 1.0) return;
-		fprintf(mFile,"setAttr \".fsa\" %f;\n", fsa);
+		fprintf(mFile,"\tsetAttr \".fsa\" %f;\n", fsa);
 
 	}
 	void setCloudSamples(float csa)
 	{
 		if(csa == 5.0) return;
-		fprintf(mFile,"setAttr \".csa\" %f;\n", csa);
+		fprintf(mFile,"\tsetAttr \".csa\" %f;\n", csa);
 
 	}
 	void getPointCamera()
@@ -568,7 +569,8 @@ public:
 
 	}
 protected:
-	EnvSky(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):TextureEnv(file, name, parent, nodeType) {}
+	EnvSky(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:TextureEnv(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyMoveFacetUV : public PolyMoveUV
 {
 public:
+	PolyMoveFacetUV():PolyMoveUV(){}
 	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveUV(file, name, parent, "polyMoveFacetUV"){}
 	virtual ~PolyMoveFacetUV(){}
 protected:
-	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyMoveUV(file, name, parent, nodeType) {}
+	PolyMoveFacetUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyMoveUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,16 +18,18 @@ class SubdHierBlind : public BlindDataTemplate
 {
 public:
 public:
+	SubdHierBlind():BlindDataTemplate(){}
 	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent=""):BlindDataTemplate(file, name, parent, "subdHierBlind"){}
 	virtual ~SubdHierBlind(){}
 	void setWhichOneIndex(int woi)
 	{
 		if(woi == -1) return;
-		fprintf(mFile,"setAttr \".woi\" %i;\n", woi);
+		fprintf(mFile,"\tsetAttr \".woi\" %i;\n", woi);
 
 	}
 protected:
-	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BlindDataTemplate(file, name, parent, nodeType) {}
+	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BlindDataTemplate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

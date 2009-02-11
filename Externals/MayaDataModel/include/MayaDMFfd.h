@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -50,18 +50,19 @@ public:
 		}
 	};
 public:
+	Ffd():GeometryFilter(){}
 	Ffd(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "ffd"){}
 	virtual ~Ffd(){}
 	void setDeformedLattice(const DeformedLattice& dl)
 	{
-		fprintf(mFile,"setAttr \".dl\" ");
+		fprintf(mFile,"\tsetAttr \".dl\" ");
 		dl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setDeformedLatticePoints(const lattice& dlp)
 	{
-		fprintf(mFile,"setAttr \".dl.dlp\" -type \"lattice\" ");
+		fprintf(mFile,"\tsetAttr \".dl.dlp\" -type \"lattice\" ");
 		dlp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -69,21 +70,21 @@ public:
 	void setDeformedLatticeMatrix(const matrix& dlm)
 	{
 		if(dlm == identity) return;
-		fprintf(mFile,"setAttr \".dl.dlm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".dl.dlm\" -type \"matrix\" ");
 		dlm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBaseLattice(const BaseLattice& bl)
 	{
-		fprintf(mFile,"setAttr \".bl\" ");
+		fprintf(mFile,"\tsetAttr \".bl\" ");
 		bl.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBaseLatticePoints(const lattice& blp)
 	{
-		fprintf(mFile,"setAttr \".bl.blp\" -type \"lattice\" ");
+		fprintf(mFile,"\tsetAttr \".bl.blp\" -type \"lattice\" ");
 		blp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -91,14 +92,14 @@ public:
 	void setBaseLatticeMatrix(const matrix& blm)
 	{
 		if(blm == identity) return;
-		fprintf(mFile,"setAttr \".bl.blm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".bl.blm\" -type \"matrix\" ");
 		blm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setStuCacheList(size_t scl_i,const StuCacheList& scl)
 	{
-		fprintf(mFile,"setAttr \".scl[%i]\" ",scl_i);
+		fprintf(mFile,"\tsetAttr \".scl[%i]\" ",scl_i);
 		scl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -106,12 +107,12 @@ public:
 	void setStuCache(size_t scl_i,size_t stu_i,double stu)
 	{
 		if(stu == 0) return;
-		fprintf(mFile,"setAttr \".scl[%i].stu[%i]\" %f;\n", scl_i,stu_i,stu);
+		fprintf(mFile,"\tsetAttr \".scl[%i].stu[%i]\" %f;\n", scl_i,stu_i,stu);
 
 	}
 	void setStuCache(size_t scl_i,size_t stu_start,size_t stu_end,double* stu)
 	{
-		fprintf(mFile,"setAttr \".scl[%i].stu[%i:%i]\" ", scl_i,stu_start,stu_end);
+		fprintf(mFile,"\tsetAttr \".scl[%i].stu[%i:%i]\" ", scl_i,stu_start,stu_end);
 		size_t size = (stu_end-stu_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -123,7 +124,7 @@ public:
 	}
 	void startStuCache(size_t scl_i,size_t stu_start,size_t stu_end)
 	{
-		fprintf(mFile,"setAttr \".scl[%i].stu[%i:%i]\"",scl_i,stu_start,stu_end);
+		fprintf(mFile,"\tsetAttr \".scl[%i].stu[%i:%i]\"",scl_i,stu_start,stu_end);
 
 	}
 	void appendStuCache(double stu)
@@ -139,55 +140,55 @@ public:
 	void setPartialResolution(double ptr)
 	{
 		if(ptr == 0.01) return;
-		fprintf(mFile,"setAttr \".ptr\" %f;\n", ptr);
+		fprintf(mFile,"\tsetAttr \".ptr\" %f;\n", ptr);
 
 	}
 	void setLocalInfluenceS(short lis)
 	{
 		if(lis == 2) return;
-		fprintf(mFile,"setAttr \".lis\" %i;\n", lis);
+		fprintf(mFile,"\tsetAttr \".lis\" %i;\n", lis);
 
 	}
 	void setLocalInfluenceT(short lit)
 	{
 		if(lit == 2) return;
-		fprintf(mFile,"setAttr \".lit\" %i;\n", lit);
+		fprintf(mFile,"\tsetAttr \".lit\" %i;\n", lit);
 
 	}
 	void setLocalInfluenceU(short liu)
 	{
 		if(liu == 2) return;
-		fprintf(mFile,"setAttr \".liu\" %i;\n", liu);
+		fprintf(mFile,"\tsetAttr \".liu\" %i;\n", liu);
 
 	}
 	void setFreezeGeometry(bool fg)
 	{
 		if(fg == 0) return;
-		fprintf(mFile,"setAttr \".fg\" %i;\n", fg);
+		fprintf(mFile,"\tsetAttr \".fg\" %i;\n", fg);
 
 	}
 	void setLocal(bool lo)
 	{
 		if(lo == 0) return;
-		fprintf(mFile,"setAttr \".lo\" %i;\n", lo);
+		fprintf(mFile,"\tsetAttr \".lo\" %i;\n", lo);
 
 	}
 	void setUsePartialResolution(unsigned int upr)
 	{
 		if(upr == 0) return;
-		fprintf(mFile,"setAttr \".upr\" %i;\n", upr);
+		fprintf(mFile,"\tsetAttr \".upr\" %i;\n", upr);
 
 	}
 	void setOutsideLattice(unsigned int ot)
 	{
 		if(ot == 0) return;
-		fprintf(mFile,"setAttr \".ot\" %i;\n", ot);
+		fprintf(mFile,"\tsetAttr \".ot\" %i;\n", ot);
 
 	}
 	void setOutsideFalloffDist(double ofd)
 	{
 		if(ofd == 1.0) return;
-		fprintf(mFile,"setAttr \".ofd\" %f;\n", ofd);
+		fprintf(mFile,"\tsetAttr \".ofd\" %f;\n", ofd);
 
 	}
 	void getDeformedLattice()
@@ -276,7 +277,8 @@ public:
 
 	}
 protected:
-	Ffd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	Ffd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

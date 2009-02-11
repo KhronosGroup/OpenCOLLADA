@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -160,53 +160,54 @@ public:
 		}
 	};
 public:
+	HairSystem():Shape(){}
 	HairSystem(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "hairSystem"){}
 	virtual ~HairSystem(){}
 	void setSimulationMethod(unsigned int sim)
 	{
 		if(sim == 3) return;
-		fprintf(mFile,"setAttr \".sim\" %i;\n", sim);
+		fprintf(mFile,"\tsetAttr \".sim\" %i;\n", sim);
 
 	}
 	void setCollide(bool cld)
 	{
 		if(cld == true) return;
-		fprintf(mFile,"setAttr \".cld\" %i;\n", cld);
+		fprintf(mFile,"\tsetAttr \".cld\" %i;\n", cld);
 
 	}
 	void setCollideOverSample(int cos)
 	{
 		if(cos == 0) return;
-		fprintf(mFile,"setAttr \".cos\" %i;\n", cos);
+		fprintf(mFile,"\tsetAttr \".cos\" %i;\n", cos);
 
 	}
 	void setSelfCollide(bool scd)
 	{
 		if(scd == false) return;
-		fprintf(mFile,"setAttr \".scd\" %i;\n", scd);
+		fprintf(mFile,"\tsetAttr \".scd\" %i;\n", scd);
 
 	}
 	void setCollideGround(bool cdg)
 	{
 		if(cdg == false) return;
-		fprintf(mFile,"setAttr \".cdg\" %i;\n", cdg);
+		fprintf(mFile,"\tsetAttr \".cdg\" %i;\n", cdg);
 
 	}
 	void setGroundHeight(double ghe)
 	{
 		if(ghe == 0.0) return;
-		fprintf(mFile,"setAttr \".ghe\" %f;\n", ghe);
+		fprintf(mFile,"\tsetAttr \".ghe\" %f;\n", ghe);
 
 	}
 	void setStiffness(double sfn)
 	{
 		if(sfn == 0.15) return;
-		fprintf(mFile,"setAttr \".sfn\" %f;\n", sfn);
+		fprintf(mFile,"\tsetAttr \".sfn\" %f;\n", sfn);
 
 	}
 	void setStiffnessScale(size_t sts_i,const StiffnessScale& sts)
 	{
-		fprintf(mFile,"setAttr \".sts[%i]\" ",sts_i);
+		fprintf(mFile,"\tsetAttr \".sts[%i]\" ",sts_i);
 		sts.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -214,138 +215,138 @@ public:
 	void setStiffnessScale_Position(size_t sts_i,float stsp)
 	{
 		if(stsp == 0.0) return;
-		fprintf(mFile,"setAttr \".sts[%i].stsp\" %f;\n", sts_i,stsp);
+		fprintf(mFile,"\tsetAttr \".sts[%i].stsp\" %f;\n", sts_i,stsp);
 
 	}
 	void setStiffnessScale_FloatValue(size_t sts_i,float stsfv)
 	{
 		if(stsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".sts[%i].stsfv\" %f;\n", sts_i,stsfv);
+		fprintf(mFile,"\tsetAttr \".sts[%i].stsfv\" %f;\n", sts_i,stsfv);
 
 	}
 	void setStiffnessScale_Interp(size_t sts_i,unsigned int stsi)
 	{
 		if(stsi == 0) return;
-		fprintf(mFile,"setAttr \".sts[%i].stsi\" %i;\n", sts_i,stsi);
+		fprintf(mFile,"\tsetAttr \".sts[%i].stsi\" %i;\n", sts_i,stsi);
 
 	}
 	void setLengthFlex(double lfx)
 	{
 		if(lfx == 0.0) return;
-		fprintf(mFile,"setAttr \".lfx\" %f;\n", lfx);
+		fprintf(mFile,"\tsetAttr \".lfx\" %f;\n", lfx);
 
 	}
 	void setDamp(double dmp)
 	{
 		if(dmp == 0.0) return;
-		fprintf(mFile,"setAttr \".dmp\" %f;\n", dmp);
+		fprintf(mFile,"\tsetAttr \".dmp\" %f;\n", dmp);
 
 	}
 	void setDrag(double drg)
 	{
 		if(drg == 0.05) return;
-		fprintf(mFile,"setAttr \".drg\" %f;\n", drg);
+		fprintf(mFile,"\tsetAttr \".drg\" %f;\n", drg);
 
 	}
 	void setFriction(double frc)
 	{
 		if(frc == 0.5) return;
-		fprintf(mFile,"setAttr \".frc\" %f;\n", frc);
+		fprintf(mFile,"\tsetAttr \".frc\" %f;\n", frc);
 
 	}
 	void setMass(double mss)
 	{
 		if(mss == 1.0) return;
-		fprintf(mFile,"setAttr \".mss\" %f;\n", mss);
+		fprintf(mFile,"\tsetAttr \".mss\" %f;\n", mss);
 
 	}
 	void setDynamicsWeight(double dw)
 	{
 		if(dw == 1.0) return;
-		fprintf(mFile,"setAttr \".dw\" %f;\n", dw);
+		fprintf(mFile,"\tsetAttr \".dw\" %f;\n", dw);
 
 	}
 	void setCollideWidthOffset(double wid)
 	{
 		if(wid == 0.0) return;
-		fprintf(mFile,"setAttr \".wid\" %f;\n", wid);
+		fprintf(mFile,"\tsetAttr \".wid\" %f;\n", wid);
 
 	}
 	void setStaticCling(double stc)
 	{
 		if(stc == 0.0) return;
-		fprintf(mFile,"setAttr \".stc\" %f;\n", stc);
+		fprintf(mFile,"\tsetAttr \".stc\" %f;\n", stc);
 
 	}
 	void setRepulsion(double rpl)
 	{
 		if(rpl == 0.5) return;
-		fprintf(mFile,"setAttr \".rpl\" %f;\n", rpl);
+		fprintf(mFile,"\tsetAttr \".rpl\" %f;\n", rpl);
 
 	}
 	void setNumCollideNeighbors(int ncn)
 	{
 		if(ncn == 4) return;
-		fprintf(mFile,"setAttr \".ncn\" %i;\n", ncn);
+		fprintf(mFile,"\tsetAttr \".ncn\" %i;\n", ncn);
 
 	}
 	void setIterations(int itr)
 	{
 		if(itr == 4) return;
-		fprintf(mFile,"setAttr \".itr\" %i;\n", itr);
+		fprintf(mFile,"\tsetAttr \".itr\" %i;\n", itr);
 
 	}
 	void setDrawCollideWidth(bool dwd)
 	{
 		if(dwd == false) return;
-		fprintf(mFile,"setAttr \".dwd\" %i;\n", dwd);
+		fprintf(mFile,"\tsetAttr \".dwd\" %i;\n", dwd);
 
 	}
 	void setWidthDrawSkip(int wds)
 	{
 		if(wds == 2) return;
-		fprintf(mFile,"setAttr \".wds\" %i;\n", wds);
+		fprintf(mFile,"\tsetAttr \".wds\" %i;\n", wds);
 
 	}
 	void setGravity(double grv)
 	{
 		if(grv == 0.98) return;
-		fprintf(mFile,"setAttr \".grv\" %f;\n", grv);
+		fprintf(mFile,"\tsetAttr \".grv\" %f;\n", grv);
 
 	}
 	void setTurbulenceStrength(double tst)
 	{
 		if(tst == 0) return;
-		fprintf(mFile,"setAttr \".tst\" %f;\n", tst);
+		fprintf(mFile,"\tsetAttr \".tst\" %f;\n", tst);
 
 	}
 	void setTurbulenceFrequency(double tfr)
 	{
 		if(tfr == 0.2) return;
-		fprintf(mFile,"setAttr \".tfr\" %f;\n", tfr);
+		fprintf(mFile,"\tsetAttr \".tfr\" %f;\n", tfr);
 
 	}
 	void setTurbulenceSpeed(double tbs)
 	{
 		if(tbs == .2) return;
-		fprintf(mFile,"setAttr \".tbs\" %f;\n", tbs);
+		fprintf(mFile,"\tsetAttr \".tbs\" %f;\n", tbs);
 
 	}
 	void setAttractionDamp(double ad)
 	{
 		if(ad == 0.0) return;
-		fprintf(mFile,"setAttr \".ad\" %f;\n", ad);
+		fprintf(mFile,"\tsetAttr \".ad\" %f;\n", ad);
 
 	}
 	void setStartCurveAttract(double sct)
 	{
 		if(sct == 0.0) return;
-		fprintf(mFile,"setAttr \".sct\" %f;\n", sct);
+		fprintf(mFile,"\tsetAttr \".sct\" %f;\n", sct);
 
 	}
 	void setAttractionScale(size_t ats_i,const AttractionScale& ats)
 	{
-		fprintf(mFile,"setAttr \".ats[%i]\" ",ats_i);
+		fprintf(mFile,"\tsetAttr \".ats[%i]\" ",ats_i);
 		ats.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -353,54 +354,54 @@ public:
 	void setAttractionScale_Position(size_t ats_i,float atsp)
 	{
 		if(atsp == 0.0) return;
-		fprintf(mFile,"setAttr \".ats[%i].atsp\" %f;\n", ats_i,atsp);
+		fprintf(mFile,"\tsetAttr \".ats[%i].atsp\" %f;\n", ats_i,atsp);
 
 	}
 	void setAttractionScale_FloatValue(size_t ats_i,float atsfv)
 	{
 		if(atsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".ats[%i].atsfv\" %f;\n", ats_i,atsfv);
+		fprintf(mFile,"\tsetAttr \".ats[%i].atsfv\" %f;\n", ats_i,atsfv);
 
 	}
 	void setAttractionScale_Interp(size_t ats_i,unsigned int atsi)
 	{
 		if(atsi == 0) return;
-		fprintf(mFile,"setAttr \".ats[%i].atsi\" %i;\n", ats_i,atsi);
+		fprintf(mFile,"\tsetAttr \".ats[%i].atsi\" %i;\n", ats_i,atsi);
 
 	}
 	void setMotionDrag(double mdg)
 	{
 		if(mdg == 0.0) return;
-		fprintf(mFile,"setAttr \".mdg\" %f;\n", mdg);
+		fprintf(mFile,"\tsetAttr \".mdg\" %f;\n", mdg);
 
 	}
 	void setDisplayQuality(double dpq)
 	{
 		if(dpq == 100.0) return;
-		fprintf(mFile,"setAttr \".dpq\" %f;\n", dpq);
+		fprintf(mFile,"\tsetAttr \".dpq\" %f;\n", dpq);
 
 	}
 	void setNoStretch(bool nst)
 	{
 		if(nst == false) return;
-		fprintf(mFile,"setAttr \".nst\" %i;\n", nst);
+		fprintf(mFile,"\tsetAttr \".nst\" %i;\n", nst);
 
 	}
 	void setSubSegments(int ssg)
 	{
 		if(ssg == 0) return;
-		fprintf(mFile,"setAttr \".ssg\" %i;\n", ssg);
+		fprintf(mFile,"\tsetAttr \".ssg\" %i;\n", ssg);
 
 	}
 	void setClumpWidth(double cwd)
 	{
 		if(cwd == 0.3) return;
-		fprintf(mFile,"setAttr \".cwd\" %f;\n", cwd);
+		fprintf(mFile,"\tsetAttr \".cwd\" %f;\n", cwd);
 
 	}
 	void setClumpWidthScale(size_t cws_i,const ClumpWidthScale& cws)
 	{
-		fprintf(mFile,"setAttr \".cws[%i]\" ",cws_i);
+		fprintf(mFile,"\tsetAttr \".cws[%i]\" ",cws_i);
 		cws.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -408,30 +409,30 @@ public:
 	void setClumpWidthScale_Position(size_t cws_i,float cwsp)
 	{
 		if(cwsp == 0.0) return;
-		fprintf(mFile,"setAttr \".cws[%i].cwsp\" %f;\n", cws_i,cwsp);
+		fprintf(mFile,"\tsetAttr \".cws[%i].cwsp\" %f;\n", cws_i,cwsp);
 
 	}
 	void setClumpWidthScale_FloatValue(size_t cws_i,float cwsfv)
 	{
 		if(cwsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".cws[%i].cwsfv\" %f;\n", cws_i,cwsfv);
+		fprintf(mFile,"\tsetAttr \".cws[%i].cwsfv\" %f;\n", cws_i,cwsfv);
 
 	}
 	void setClumpWidthScale_Interp(size_t cws_i,unsigned int cwsi)
 	{
 		if(cwsi == 0) return;
-		fprintf(mFile,"setAttr \".cws[%i].cwsi\" %i;\n", cws_i,cwsi);
+		fprintf(mFile,"\tsetAttr \".cws[%i].cwsi\" %i;\n", cws_i,cwsi);
 
 	}
 	void setClumpTwist(double ctw)
 	{
 		if(ctw == 0.0) return;
-		fprintf(mFile,"setAttr \".ctw\" %f;\n", ctw);
+		fprintf(mFile,"\tsetAttr \".ctw\" %f;\n", ctw);
 
 	}
 	void setClumpCurl(size_t clc_i,const ClumpCurl& clc)
 	{
-		fprintf(mFile,"setAttr \".clc[%i]\" ",clc_i);
+		fprintf(mFile,"\tsetAttr \".clc[%i]\" ",clc_i);
 		clc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -439,24 +440,24 @@ public:
 	void setClumpCurl_Position(size_t clc_i,float clcp)
 	{
 		if(clcp == 0.0) return;
-		fprintf(mFile,"setAttr \".clc[%i].clcp\" %f;\n", clc_i,clcp);
+		fprintf(mFile,"\tsetAttr \".clc[%i].clcp\" %f;\n", clc_i,clcp);
 
 	}
 	void setClumpCurl_FloatValue(size_t clc_i,float clcfv)
 	{
 		if(clcfv == 0.0) return;
-		fprintf(mFile,"setAttr \".clc[%i].clcfv\" %f;\n", clc_i,clcfv);
+		fprintf(mFile,"\tsetAttr \".clc[%i].clcfv\" %f;\n", clc_i,clcfv);
 
 	}
 	void setClumpCurl_Interp(size_t clc_i,unsigned int clci)
 	{
 		if(clci == 0) return;
-		fprintf(mFile,"setAttr \".clc[%i].clci\" %i;\n", clc_i,clci);
+		fprintf(mFile,"\tsetAttr \".clc[%i].clci\" %i;\n", clc_i,clci);
 
 	}
 	void setClumpFlatness(size_t cfl_i,const ClumpFlatness& cfl)
 	{
-		fprintf(mFile,"setAttr \".cfl[%i]\" ",cfl_i);
+		fprintf(mFile,"\tsetAttr \".cfl[%i]\" ",cfl_i);
 		cfl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -464,36 +465,36 @@ public:
 	void setClumpFlatness_Position(size_t cfl_i,float cflp)
 	{
 		if(cflp == 0.0) return;
-		fprintf(mFile,"setAttr \".cfl[%i].cflp\" %f;\n", cfl_i,cflp);
+		fprintf(mFile,"\tsetAttr \".cfl[%i].cflp\" %f;\n", cfl_i,cflp);
 
 	}
 	void setClumpFlatness_FloatValue(size_t cfl_i,float cflfv)
 	{
 		if(cflfv == 0.0) return;
-		fprintf(mFile,"setAttr \".cfl[%i].cflfv\" %f;\n", cfl_i,cflfv);
+		fprintf(mFile,"\tsetAttr \".cfl[%i].cflfv\" %f;\n", cfl_i,cflfv);
 
 	}
 	void setClumpFlatness_Interp(size_t cfl_i,unsigned int cfli)
 	{
 		if(cfli == 0) return;
-		fprintf(mFile,"setAttr \".cfl[%i].cfli\" %i;\n", cfl_i,cfli);
+		fprintf(mFile,"\tsetAttr \".cfl[%i].cfli\" %i;\n", cfl_i,cfli);
 
 	}
 	void setBendFollow(double bnf)
 	{
 		if(bnf == 1.0) return;
-		fprintf(mFile,"setAttr \".bnf\" %f;\n", bnf);
+		fprintf(mFile,"\tsetAttr \".bnf\" %f;\n", bnf);
 
 	}
 	void setHairWidth(double hwd)
 	{
 		if(hwd == 0.01) return;
-		fprintf(mFile,"setAttr \".hwd\" %f;\n", hwd);
+		fprintf(mFile,"\tsetAttr \".hwd\" %f;\n", hwd);
 
 	}
 	void setHairWidthScale(size_t hws_i,const HairWidthScale& hws)
 	{
-		fprintf(mFile,"setAttr \".hws[%i]\" ",hws_i);
+		fprintf(mFile,"\tsetAttr \".hws[%i]\" ",hws_i);
 		hws.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -501,36 +502,36 @@ public:
 	void setHairWidthScale_Position(size_t hws_i,float hwsp)
 	{
 		if(hwsp == 0.0) return;
-		fprintf(mFile,"setAttr \".hws[%i].hwsp\" %f;\n", hws_i,hwsp);
+		fprintf(mFile,"\tsetAttr \".hws[%i].hwsp\" %f;\n", hws_i,hwsp);
 
 	}
 	void setHairWidthScale_FloatValue(size_t hws_i,float hwsfv)
 	{
 		if(hwsfv == 0.0) return;
-		fprintf(mFile,"setAttr \".hws[%i].hwsfv\" %f;\n", hws_i,hwsfv);
+		fprintf(mFile,"\tsetAttr \".hws[%i].hwsfv\" %f;\n", hws_i,hwsfv);
 
 	}
 	void setHairWidthScale_Interp(size_t hws_i,unsigned int hwsi)
 	{
 		if(hwsi == 0) return;
-		fprintf(mFile,"setAttr \".hws[%i].hwsi\" %i;\n", hws_i,hwsi);
+		fprintf(mFile,"\tsetAttr \".hws[%i].hwsi\" %i;\n", hws_i,hwsi);
 
 	}
 	void setBaldnessMap(double bmp)
 	{
 		if(bmp == 1.0) return;
-		fprintf(mFile,"setAttr \".bmp\" %f;\n", bmp);
+		fprintf(mFile,"\tsetAttr \".bmp\" %f;\n", bmp);
 
 	}
 	void setOpacity(double opc)
 	{
 		if(opc == 1.0) return;
-		fprintf(mFile,"setAttr \".opc\" %f;\n", opc);
+		fprintf(mFile,"\tsetAttr \".opc\" %f;\n", opc);
 
 	}
 	void setHairColor(const float3& hcl)
 	{
-		fprintf(mFile,"setAttr \".hcl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".hcl\" -type \"float3\" ");
 		hcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -538,24 +539,24 @@ public:
 	void setHairColorR(float hcr)
 	{
 		if(hcr == 0.3) return;
-		fprintf(mFile,"setAttr \".hcl.hcr\" %f;\n", hcr);
+		fprintf(mFile,"\tsetAttr \".hcl.hcr\" %f;\n", hcr);
 
 	}
 	void setHairColorG(float hcg)
 	{
 		if(hcg == 0.25) return;
-		fprintf(mFile,"setAttr \".hcl.hcg\" %f;\n", hcg);
+		fprintf(mFile,"\tsetAttr \".hcl.hcg\" %f;\n", hcg);
 
 	}
 	void setHairColorB(float hcb)
 	{
 		if(hcb == 0.15) return;
-		fprintf(mFile,"setAttr \".hcl.hcb\" %f;\n", hcb);
+		fprintf(mFile,"\tsetAttr \".hcl.hcb\" %f;\n", hcb);
 
 	}
 	void setHairColorScale(size_t hcs_i,const HairColorScale& hcs)
 	{
-		fprintf(mFile,"setAttr \".hcs[%i]\" ",hcs_i);
+		fprintf(mFile,"\tsetAttr \".hcs[%i]\" ",hcs_i);
 		hcs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -563,12 +564,12 @@ public:
 	void setHairColorScale_Position(size_t hcs_i,float hcsp)
 	{
 		if(hcsp == 0.0) return;
-		fprintf(mFile,"setAttr \".hcs[%i].hcsp\" %f;\n", hcs_i,hcsp);
+		fprintf(mFile,"\tsetAttr \".hcs[%i].hcsp\" %f;\n", hcs_i,hcsp);
 
 	}
 	void setHairColorScale_Color(size_t hcs_i,const float3& hcsc)
 	{
-		fprintf(mFile,"setAttr \".hcs[%i].hcsc\" -type \"float3\" ",hcs_i);
+		fprintf(mFile,"\tsetAttr \".hcs[%i].hcsc\" -type \"float3\" ",hcs_i);
 		hcsc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -576,48 +577,48 @@ public:
 	void setHairColorScale_ColorR(size_t hcs_i,float hcscr)
 	{
 		if(hcscr == 0.0) return;
-		fprintf(mFile,"setAttr \".hcs[%i].hcsc.hcscr\" %f;\n", hcs_i,hcscr);
+		fprintf(mFile,"\tsetAttr \".hcs[%i].hcsc.hcscr\" %f;\n", hcs_i,hcscr);
 
 	}
 	void setHairColorScale_ColorG(size_t hcs_i,float hcscg)
 	{
 		if(hcscg == 0.0) return;
-		fprintf(mFile,"setAttr \".hcs[%i].hcsc.hcscg\" %f;\n", hcs_i,hcscg);
+		fprintf(mFile,"\tsetAttr \".hcs[%i].hcsc.hcscg\" %f;\n", hcs_i,hcscg);
 
 	}
 	void setHairColorScale_ColorB(size_t hcs_i,float hcscb)
 	{
 		if(hcscb == 0.0) return;
-		fprintf(mFile,"setAttr \".hcs[%i].hcsc.hcscb\" %f;\n", hcs_i,hcscb);
+		fprintf(mFile,"\tsetAttr \".hcs[%i].hcsc.hcscb\" %f;\n", hcs_i,hcscb);
 
 	}
 	void setHairColorScale_Interp(size_t hcs_i,unsigned int hcsi)
 	{
 		if(hcsi == 0) return;
-		fprintf(mFile,"setAttr \".hcs[%i].hcsi\" %i;\n", hcs_i,hcsi);
+		fprintf(mFile,"\tsetAttr \".hcs[%i].hcsi\" %i;\n", hcs_i,hcsi);
 
 	}
 	void setHairsPerClump(int hpc)
 	{
 		if(hpc == 10) return;
-		fprintf(mFile,"setAttr \".hpc\" %i;\n", hpc);
+		fprintf(mFile,"\tsetAttr \".hpc\" %i;\n", hpc);
 
 	}
 	void setThinning(double thn)
 	{
 		if(thn == 0.0) return;
-		fprintf(mFile,"setAttr \".thn\" %f;\n", thn);
+		fprintf(mFile,"\tsetAttr \".thn\" %f;\n", thn);
 
 	}
 	void setTranslucence(double tlc)
 	{
 		if(tlc == 0.5) return;
-		fprintf(mFile,"setAttr \".tlc\" %f;\n", tlc);
+		fprintf(mFile,"\tsetAttr \".tlc\" %f;\n", tlc);
 
 	}
 	void setSpecularColor(const float3& spc)
 	{
-		fprintf(mFile,"setAttr \".spc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".spc\" -type \"float3\" ");
 		spc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -625,90 +626,90 @@ public:
 	void setSpecularColorR(float spr)
 	{
 		if(spr == 0.35) return;
-		fprintf(mFile,"setAttr \".spc.spr\" %f;\n", spr);
+		fprintf(mFile,"\tsetAttr \".spc.spr\" %f;\n", spr);
 
 	}
 	void setSpecularColorG(float spg)
 	{
 		if(spg == 0.35) return;
-		fprintf(mFile,"setAttr \".spc.spg\" %f;\n", spg);
+		fprintf(mFile,"\tsetAttr \".spc.spg\" %f;\n", spg);
 
 	}
 	void setSpecularColorB(float spb)
 	{
 		if(spb == 0.3) return;
-		fprintf(mFile,"setAttr \".spc.spb\" %f;\n", spb);
+		fprintf(mFile,"\tsetAttr \".spc.spb\" %f;\n", spb);
 
 	}
 	void setSpecularPower(double spp)
 	{
 		if(spp == 3.0) return;
-		fprintf(mFile,"setAttr \".spp\" %f;\n", spp);
+		fprintf(mFile,"\tsetAttr \".spp\" %f;\n", spp);
 
 	}
 	void setCastShadows(bool csd)
 	{
 		if(csd == true) return;
-		fprintf(mFile,"setAttr \".csd\" %i;\n", csd);
+		fprintf(mFile,"\tsetAttr \".csd\" %i;\n", csd);
 
 	}
 	void setDiffuseRand(double dfr)
 	{
 		if(dfr == 0.2) return;
-		fprintf(mFile,"setAttr \".dfr\" %f;\n", dfr);
+		fprintf(mFile,"\tsetAttr \".dfr\" %f;\n", dfr);
 
 	}
 	void setSpecularRand(double sra)
 	{
 		if(sra == 0.4) return;
-		fprintf(mFile,"setAttr \".sra\" %f;\n", sra);
+		fprintf(mFile,"\tsetAttr \".sra\" %f;\n", sra);
 
 	}
 	void setHueRand(double chr)
 	{
 		if(chr == 0.0) return;
-		fprintf(mFile,"setAttr \".chr\" %f;\n", chr);
+		fprintf(mFile,"\tsetAttr \".chr\" %f;\n", chr);
 
 	}
 	void setSatRand(double csr)
 	{
 		if(csr == 0.0) return;
-		fprintf(mFile,"setAttr \".csr\" %f;\n", csr);
+		fprintf(mFile,"\tsetAttr \".csr\" %f;\n", csr);
 
 	}
 	void setValRand(double cvr)
 	{
 		if(cvr == 0.0) return;
-		fprintf(mFile,"setAttr \".cvr\" %f;\n", cvr);
+		fprintf(mFile,"\tsetAttr \".cvr\" %f;\n", cvr);
 
 	}
 	void setMultiStreaks(int mst)
 	{
 		if(mst == 0) return;
-		fprintf(mFile,"setAttr \".mst\" %i;\n", mst);
+		fprintf(mFile,"\tsetAttr \".mst\" %i;\n", mst);
 
 	}
 	void setMultiStreakSpread1(double ms1)
 	{
 		if(ms1 == 0.3) return;
-		fprintf(mFile,"setAttr \".ms1\" %f;\n", ms1);
+		fprintf(mFile,"\tsetAttr \".ms1\" %f;\n", ms1);
 
 	}
 	void setMultiStreakSpread2(double ms2)
 	{
 		if(ms2 == 0.1) return;
-		fprintf(mFile,"setAttr \".ms2\" %f;\n", ms2);
+		fprintf(mFile,"\tsetAttr \".ms2\" %f;\n", ms2);
 
 	}
 	void setLightEachHair(bool leh)
 	{
 		if(leh == false) return;
-		fprintf(mFile,"setAttr \".leh\" %i;\n", leh);
+		fprintf(mFile,"\tsetAttr \".leh\" %i;\n", leh);
 
 	}
 	void setDisplacementScale(size_t dsc_i,const DisplacementScale& dsc)
 	{
-		fprintf(mFile,"setAttr \".dsc[%i]\" ",dsc_i);
+		fprintf(mFile,"\tsetAttr \".dsc[%i]\" ",dsc_i);
 		dsc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -716,150 +717,150 @@ public:
 	void setDisplacementScale_Position(size_t dsc_i,float dscp)
 	{
 		if(dscp == 0.0) return;
-		fprintf(mFile,"setAttr \".dsc[%i].dscp\" %f;\n", dsc_i,dscp);
+		fprintf(mFile,"\tsetAttr \".dsc[%i].dscp\" %f;\n", dsc_i,dscp);
 
 	}
 	void setDisplacementScale_FloatValue(size_t dsc_i,float dscfv)
 	{
 		if(dscfv == 0.0) return;
-		fprintf(mFile,"setAttr \".dsc[%i].dscfv\" %f;\n", dsc_i,dscfv);
+		fprintf(mFile,"\tsetAttr \".dsc[%i].dscfv\" %f;\n", dsc_i,dscfv);
 
 	}
 	void setDisplacementScale_Interp(size_t dsc_i,unsigned int dsci)
 	{
 		if(dsci == 0) return;
-		fprintf(mFile,"setAttr \".dsc[%i].dsci\" %i;\n", dsc_i,dsci);
+		fprintf(mFile,"\tsetAttr \".dsc[%i].dsci\" %i;\n", dsc_i,dsci);
 
 	}
 	void setCurl(double crl)
 	{
 		if(crl == 0.0) return;
-		fprintf(mFile,"setAttr \".crl\" %f;\n", crl);
+		fprintf(mFile,"\tsetAttr \".crl\" %f;\n", crl);
 
 	}
 	void setCurlFrequency(double crf)
 	{
 		if(crf == 10) return;
-		fprintf(mFile,"setAttr \".crf\" %f;\n", crf);
+		fprintf(mFile,"\tsetAttr \".crf\" %f;\n", crf);
 
 	}
 	void setNoiseMethod(unsigned int nmt)
 	{
 		if(nmt == 0) return;
-		fprintf(mFile,"setAttr \".nmt\" %i;\n", nmt);
+		fprintf(mFile,"\tsetAttr \".nmt\" %i;\n", nmt);
 
 	}
 	void setNoise(double noi)
 	{
 		if(noi == 0.0) return;
-		fprintf(mFile,"setAttr \".noi\" %f;\n", noi);
+		fprintf(mFile,"\tsetAttr \".noi\" %f;\n", noi);
 
 	}
 	void setDetailNoise(double dno)
 	{
 		if(dno == 0.0) return;
-		fprintf(mFile,"setAttr \".dno\" %f;\n", dno);
+		fprintf(mFile,"\tsetAttr \".dno\" %f;\n", dno);
 
 	}
 	void setNoiseFrequency(double nof)
 	{
 		if(nof == 0.4) return;
-		fprintf(mFile,"setAttr \".nof\" %f;\n", nof);
+		fprintf(mFile,"\tsetAttr \".nof\" %f;\n", nof);
 
 	}
 	void setNoiseFrequencyU(double nfu)
 	{
 		if(nfu == 1.0) return;
-		fprintf(mFile,"setAttr \".nfu\" %f;\n", nfu);
+		fprintf(mFile,"\tsetAttr \".nfu\" %f;\n", nfu);
 
 	}
 	void setNoiseFrequencyV(double nfv)
 	{
 		if(nfv == 1.0) return;
-		fprintf(mFile,"setAttr \".nfv\" %f;\n", nfv);
+		fprintf(mFile,"\tsetAttr \".nfv\" %f;\n", nfv);
 
 	}
 	void setNoiseFrequencyW(double nfw)
 	{
 		if(nfw == 1.0) return;
-		fprintf(mFile,"setAttr \".nfw\" %f;\n", nfw);
+		fprintf(mFile,"\tsetAttr \".nfw\" %f;\n", nfw);
 
 	}
 	void setSubClumpMethod(unsigned int scm)
 	{
 		if(scm == 0) return;
-		fprintf(mFile,"setAttr \".scm\" %i;\n", scm);
+		fprintf(mFile,"\tsetAttr \".scm\" %i;\n", scm);
 
 	}
 	void setSubClumping(double scp)
 	{
 		if(scp == 0.0) return;
-		fprintf(mFile,"setAttr \".scp\" %f;\n", scp);
+		fprintf(mFile,"\tsetAttr \".scp\" %f;\n", scp);
 
 	}
 	void setSubClumpRand(double scr)
 	{
 		if(scr == 0.0) return;
-		fprintf(mFile,"setAttr \".scr\" %f;\n", scr);
+		fprintf(mFile,"\tsetAttr \".scr\" %f;\n", scr);
 
 	}
 	void setNumUClumps(double nuc)
 	{
 		if(nuc == 15.0) return;
-		fprintf(mFile,"setAttr \".nuc\" %f;\n", nuc);
+		fprintf(mFile,"\tsetAttr \".nuc\" %f;\n", nuc);
 
 	}
 	void setNumVClumps(double nvc)
 	{
 		if(nvc == 15.0) return;
-		fprintf(mFile,"setAttr \".nvc\" %f;\n", nvc);
+		fprintf(mFile,"\tsetAttr \".nvc\" %f;\n", nvc);
 
 	}
 	void setClumpInterpolation(double cin)
 	{
 		if(cin == 0.0) return;
-		fprintf(mFile,"setAttr \".cin\" %f;\n", cin);
+		fprintf(mFile,"\tsetAttr \".cin\" %f;\n", cin);
 
 	}
 	void setInterpolationRange(double inr)
 	{
 		if(inr == 8.0) return;
-		fprintf(mFile,"setAttr \".inr\" %f;\n", inr);
+		fprintf(mFile,"\tsetAttr \".inr\" %f;\n", inr);
 
 	}
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;
-		fprintf(mFile,"setAttr \".stf\" %f;\n", stf);
+		fprintf(mFile,"\tsetAttr \".stf\" %f;\n", stf);
 
 	}
 	void setUsePre70ForceIntensity(bool upfi)
 	{
 		if(upfi == false) return;
-		fprintf(mFile,"setAttr \".upfi\" %i;\n", upfi);
+		fprintf(mFile,"\tsetAttr \".upfi\" %i;\n", upfi);
 
 	}
 	void setReceiveShadows(bool rcsh)
 	{
 		if(rcsh == true) return;
-		fprintf(mFile,"setAttr \".rcsh\" %i;\n", rcsh);
+		fprintf(mFile,"\tsetAttr \".rcsh\" %i;\n", rcsh);
 
 	}
 	void setVisibleInReflections(bool vir)
 	{
 		if(vir == false) return;
-		fprintf(mFile,"setAttr \".vir\" %i;\n", vir);
+		fprintf(mFile,"\tsetAttr \".vir\" %i;\n", vir);
 
 	}
 	void setVisibleInRefractions(bool vif)
 	{
 		if(vif == false) return;
-		fprintf(mFile,"setAttr \".vif\" %i;\n", vif);
+		fprintf(mFile,"\tsetAttr \".vif\" %i;\n", vif);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -867,128 +868,128 @@ public:
 	void setMiOverrideCaustics(bool oca)
 	{
 		if(oca == false) return;
-		fprintf(mFile,"setAttr \".mrc.oca\" %i;\n", oca);
+		fprintf(mFile,"\tsetAttr \".mrc.oca\" %i;\n", oca);
 
 	}
 	void setMiCausticAccuracy(short caa)
 	{
 		if(caa == 64) return;
-		fprintf(mFile,"setAttr \".mrc.caa\" %i;\n", caa);
+		fprintf(mFile,"\tsetAttr \".mrc.caa\" %i;\n", caa);
 
 	}
 	void setMiCausticRadius(float car)
 	{
 		if(car == 0) return;
-		fprintf(mFile,"setAttr \".mrc.car\" %f;\n", car);
+		fprintf(mFile,"\tsetAttr \".mrc.car\" %f;\n", car);
 
 	}
 	void setMiOverrideGlobalIllumination(bool ogi)
 	{
 		if(ogi == false) return;
-		fprintf(mFile,"setAttr \".mrc.ogi\" %i;\n", ogi);
+		fprintf(mFile,"\tsetAttr \".mrc.ogi\" %i;\n", ogi);
 
 	}
 	void setMiGlobillumAccuracy(short gia)
 	{
 		if(gia == 64) return;
-		fprintf(mFile,"setAttr \".mrc.gia\" %i;\n", gia);
+		fprintf(mFile,"\tsetAttr \".mrc.gia\" %i;\n", gia);
 
 	}
 	void setMiGlobillumRadius(float gir)
 	{
 		if(gir == 0) return;
-		fprintf(mFile,"setAttr \".mrc.gir\" %f;\n", gir);
+		fprintf(mFile,"\tsetAttr \".mrc.gir\" %f;\n", gir);
 
 	}
 	void setMiOverrideFinalGather(bool ofg)
 	{
 		if(ofg == false) return;
-		fprintf(mFile,"setAttr \".mrc.ofg\" %i;\n", ofg);
+		fprintf(mFile,"\tsetAttr \".mrc.ofg\" %i;\n", ofg);
 
 	}
 	void setMiFinalGatherRays(int fry)
 	{
 		if(fry == 1000) return;
-		fprintf(mFile,"setAttr \".mrc.fry\" %i;\n", fry);
+		fprintf(mFile,"\tsetAttr \".mrc.fry\" %i;\n", fry);
 
 	}
 	void setMiFinalGatherMinRadius(float fmn)
 	{
 		if(fmn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmn\" %f;\n", fmn);
+		fprintf(mFile,"\tsetAttr \".mrc.fmn\" %f;\n", fmn);
 
 	}
 	void setMiFinalGatherMaxRadius(float fmx)
 	{
 		if(fmx == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmx\" %f;\n", fmx);
+		fprintf(mFile,"\tsetAttr \".mrc.fmx\" %f;\n", fmx);
 
 	}
 	void setMiFinalGatherFilter(short ffi)
 	{
 		if(ffi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.ffi\" %i;\n", ffi);
+		fprintf(mFile,"\tsetAttr \".mrc.ffi\" %i;\n", ffi);
 
 	}
 	void setMiFinalGatherView(bool fgv)
 	{
 		if(fgv == false) return;
-		fprintf(mFile,"setAttr \".mrc.fgv\" %i;\n", fgv);
+		fprintf(mFile,"\tsetAttr \".mrc.fgv\" %i;\n", fgv);
 
 	}
 	void setMiOverrideSamples(bool oos)
 	{
 		if(oos == false) return;
-		fprintf(mFile,"setAttr \".mrc.oos\" %i;\n", oos);
+		fprintf(mFile,"\tsetAttr \".mrc.oos\" %i;\n", oos);
 
 	}
 	void setMiMinSamples(short mins)
 	{
 		if(mins == 0) return;
-		fprintf(mFile,"setAttr \".mrc.mins\" %i;\n", mins);
+		fprintf(mFile,"\tsetAttr \".mrc.mins\" %i;\n", mins);
 
 	}
 	void setMiMaxSamples(short maxs)
 	{
 		if(maxs == 2) return;
-		fprintf(mFile,"setAttr \".mrc.maxs\" %i;\n", maxs);
+		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
 	void setMiFinalGatherCast(bool fgc)
 	{
 		if(fgc == true) return;
-		fprintf(mFile,"setAttr \".mrc.fgc\" %i;\n", fgc);
+		fprintf(mFile,"\tsetAttr \".mrc.fgc\" %i;\n", fgc);
 
 	}
 	void setMiFinalGatherReceive(bool fge)
 	{
 		if(fge == true) return;
-		fprintf(mFile,"setAttr \".mrc.fge\" %i;\n", fge);
+		fprintf(mFile,"\tsetAttr \".mrc.fge\" %i;\n", fge);
 
 	}
 	void setMiTransparencyCast(bool tpc)
 	{
 		if(tpc == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpc\" %i;\n", tpc);
+		fprintf(mFile,"\tsetAttr \".mrc.tpc\" %i;\n", tpc);
 
 	}
 	void setMiTransparencyReceive(bool tpr)
 	{
 		if(tpr == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpr\" %i;\n", tpr);
+		fprintf(mFile,"\tsetAttr \".mrc.tpr\" %i;\n", tpr);
 
 	}
 	void setOutputHair(size_t oh_i,const vectorArray& oh)
 	{
 		if(oh.size == 0) return;
-		fprintf(mFile,"setAttr \".oh[%i]\" -type \"vectorArray\" ",oh_i);
+		fprintf(mFile,"\tsetAttr \".oh[%i]\" -type \"vectorArray\" ",oh_i);
 		oh.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setOutputHair(size_t oh_start,size_t oh_end,vectorArray* oh)
 	{
-		fprintf(mFile,"setAttr \".oh[%i:%i]\" ", oh_start,oh_end);
+		fprintf(mFile,"\tsetAttr \".oh[%i:%i]\" ", oh_start,oh_end);
 		size_t size = (oh_end-oh_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1000,7 +1001,7 @@ public:
 	}
 	void startOutputHair(size_t oh_start,size_t oh_end)
 	{
-		fprintf(mFile,"setAttr \".oh[%i:%i]\"",oh_start,oh_end);
+		fprintf(mFile,"\tsetAttr \".oh[%i:%i]\"",oh_start,oh_end);
 		fprintf(mFile," -type \"vectorArray\" ");
 
 	}
@@ -1620,6 +1621,26 @@ public:
 		fprintf(mFile,"\"%s.upfi\"",mName.c_str());
 
 	}
+	void getCollisionData()
+	{
+		fprintf(mFile,"\"%s.cda\"",mName.c_str());
+
+	}
+	void getCollisionGeometry(size_t cge_i)
+	{
+		fprintf(mFile,"\"%s.cda.cge[%i]\"",mName.c_str(),cge_i);
+
+	}
+	void getCollisionResilience(size_t crs_i)
+	{
+		fprintf(mFile,"\"%s.cda.crs[%i]\"",mName.c_str(),crs_i);
+
+	}
+	void getCollisionFriction(size_t cfr_i)
+	{
+		fprintf(mFile,"\"%s.cda.cfr[%i]\"",mName.c_str(),cfr_i);
+
+	}
 	void getDiskCache()
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
@@ -1751,7 +1772,8 @@ public:
 
 	}
 protected:
-	HairSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	HairSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

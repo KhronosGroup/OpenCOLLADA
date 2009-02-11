@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class Shape : public DagNode
 {
 public:
+	Shape():DagNode(){}
 	Shape(FILE* file,const std::string& name,const std::string& parent=""):DagNode(file, name, parent, "shape"){}
 	virtual ~Shape(){}
 protected:
-	Shape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DagNode(file, name, parent, nodeType) {}
+	Shape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DagNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

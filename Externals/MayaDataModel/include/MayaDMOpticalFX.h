@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class OpticalFX : public DependNode
 {
 public:
 public:
+	OpticalFX():DependNode(){}
 	OpticalFX(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "opticalFX"){}
 	virtual ~OpticalFX(){}
 	void setActive(bool act)
 	{
 		if(act == true) return;
-		fprintf(mFile,"setAttr \".act\" %i;\n", act);
+		fprintf(mFile,"\tsetAttr \".act\" %i;\n", act);
 
 	}
 	void setGlowType(unsigned int gt)
 	{
 		if(gt == 1) return;
-		fprintf(mFile,"setAttr \".gt\" %i;\n", gt);
+		fprintf(mFile,"\tsetAttr \".gt\" %i;\n", gt);
 
 	}
 	void setHaloType(unsigned int ht)
 	{
 		if(ht == 0) return;
-		fprintf(mFile,"setAttr \".ht\" %i;\n", ht);
+		fprintf(mFile,"\tsetAttr \".ht\" %i;\n", ht);
 
 	}
 	void setFogType(short ft)
 	{
 		if(ft == 0) return;
-		fprintf(mFile,"setAttr \".ft\" %i;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %i;\n", ft);
 
 	}
 	void setLensFlare(bool lf)
 	{
 		if(lf == false) return;
-		fprintf(mFile,"setAttr \".lf\" %i;\n", lf);
+		fprintf(mFile,"\tsetAttr \".lf\" %i;\n", lf);
 
 	}
 	void setGlowColor(const float3& gc)
 	{
 		if(gc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".gc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".gc\" -type \"float3\" ");
 		gc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -61,25 +62,25 @@ public:
 	void setGlowColorR(float gr)
 	{
 		if(gr == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gr\" %f;\n", gr);
+		fprintf(mFile,"\tsetAttr \".gc.gr\" %f;\n", gr);
 
 	}
 	void setGlowColorG(float gg)
 	{
 		if(gg == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gg\" %f;\n", gg);
+		fprintf(mFile,"\tsetAttr \".gc.gg\" %f;\n", gg);
 
 	}
 	void setGlowColorB(float gb)
 	{
 		if(gb == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gb\" %f;\n", gb);
+		fprintf(mFile,"\tsetAttr \".gc.gb\" %f;\n", gb);
 
 	}
 	void setHaloColor(const float3& hc)
 	{
 		if(hc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".hc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".hc\" -type \"float3\" ");
 		hc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -87,25 +88,25 @@ public:
 	void setHaloColorR(float hr)
 	{
 		if(hr == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hr\" %f;\n", hr);
+		fprintf(mFile,"\tsetAttr \".hc.hr\" %f;\n", hr);
 
 	}
 	void setHaloColorG(float hg)
 	{
 		if(hg == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hg\" %f;\n", hg);
+		fprintf(mFile,"\tsetAttr \".hc.hg\" %f;\n", hg);
 
 	}
 	void setHaloColorB(float hb)
 	{
 		if(hb == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hc.hb\" %f;\n", hb);
 
 	}
 	void setFogColor(const float3& fc)
 	{
 		if(fc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -113,25 +114,25 @@ public:
 	void setFogColorR(float fr)
 	{
 		if(fr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fc.fr\" %f;\n", fr);
 
 	}
 	void setFogColorG(float fg)
 	{
 		if(fg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fg\" %f;\n", fg);
+		fprintf(mFile,"\tsetAttr \".fc.fg\" %f;\n", fg);
 
 	}
 	void setFogColorB(float fb)
 	{
 		if(fb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fb\" %f;\n", fb);
+		fprintf(mFile,"\tsetAttr \".fc.fb\" %f;\n", fb);
 
 	}
 	void setFlareColor(const float3& rc)
 	{
 		if(rc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".rc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".rc\" -type \"float3\" ");
 		rc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -139,223 +140,223 @@ public:
 	void setFlareColorR(float rr)
 	{
 		if(rr == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rr\" %f;\n", rr);
+		fprintf(mFile,"\tsetAttr \".rc.rr\" %f;\n", rr);
 
 	}
 	void setFlareColorG(float rg)
 	{
 		if(rg == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rg\" %f;\n", rg);
+		fprintf(mFile,"\tsetAttr \".rc.rg\" %f;\n", rg);
 
 	}
 	void setFlareColorB(float rb)
 	{
 		if(rb == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rb\" %f;\n", rb);
+		fprintf(mFile,"\tsetAttr \".rc.rb\" %f;\n", rb);
 
 	}
 	void setFlareIntensity(float fi)
 	{
 		if(fi == 1.0) return;
-		fprintf(mFile,"setAttr \".fi\" %f;\n", fi);
+		fprintf(mFile,"\tsetAttr \".fi\" %f;\n", fi);
 
 	}
 	void setFlareNumCircles(float fn)
 	{
 		if(fn == 20.0) return;
-		fprintf(mFile,"setAttr \".fn\" %f;\n", fn);
+		fprintf(mFile,"\tsetAttr \".fn\" %f;\n", fn);
 
 	}
 	void setFlareMinSize(float fm)
 	{
 		if(fm == 0.1) return;
-		fprintf(mFile,"setAttr \".fm\" %f;\n", fm);
+		fprintf(mFile,"\tsetAttr \".fm\" %f;\n", fm);
 
 	}
 	void setFlareMaxSize(float fa)
 	{
 		if(fa == 1.0) return;
-		fprintf(mFile,"setAttr \".fa\" %f;\n", fa);
+		fprintf(mFile,"\tsetAttr \".fa\" %f;\n", fa);
 
 	}
 	void setFlareColSpread(float lc)
 	{
 		if(lc == 0.5) return;
-		fprintf(mFile,"setAttr \".lc\" %f;\n", lc);
+		fprintf(mFile,"\tsetAttr \".lc\" %f;\n", lc);
 
 	}
 	void setFlareFocus(float ff)
 	{
 		if(ff == 0.6) return;
-		fprintf(mFile,"setAttr \".ff\" %f;\n", ff);
+		fprintf(mFile,"\tsetAttr \".ff\" %f;\n", ff);
 
 	}
 	void setFlareVertical(float fv)
 	{
 		if(fv == 1.0) return;
-		fprintf(mFile,"setAttr \".fv\" %f;\n", fv);
+		fprintf(mFile,"\tsetAttr \".fv\" %f;\n", fv);
 
 	}
 	void setFlareHorizontal(float fh)
 	{
 		if(fh == 1.0) return;
-		fprintf(mFile,"setAttr \".fh\" %f;\n", fh);
+		fprintf(mFile,"\tsetAttr \".fh\" %f;\n", fh);
 
 	}
 	void setFlareLength(float fl)
 	{
 		if(fl == 1.0) return;
-		fprintf(mFile,"setAttr \".fl\" %f;\n", fl);
+		fprintf(mFile,"\tsetAttr \".fl\" %f;\n", fl);
 
 	}
 	void setHexagonFlare(bool hf)
 	{
 		if(hf == false) return;
-		fprintf(mFile,"setAttr \".hf\" %i;\n", hf);
+		fprintf(mFile,"\tsetAttr \".hf\" %i;\n", hf);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 1.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setHaloIntensity(float hi)
 	{
 		if(hi == 1.0) return;
-		fprintf(mFile,"setAttr \".hi\" %f;\n", hi);
+		fprintf(mFile,"\tsetAttr \".hi\" %f;\n", hi);
 
 	}
 	void setFogIntensity(float oi)
 	{
 		if(oi == 1.0) return;
-		fprintf(mFile,"setAttr \".oi\" %f;\n", oi);
+		fprintf(mFile,"\tsetAttr \".oi\" %f;\n", oi);
 
 	}
 	void setGlowSpread(float gs)
 	{
 		if(gs == 1.0) return;
-		fprintf(mFile,"setAttr \".gs\" %f;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %f;\n", gs);
 
 	}
 	void setHaloSpread(float hs)
 	{
 		if(hs == 1.0) return;
-		fprintf(mFile,"setAttr \".hs\" %f;\n", hs);
+		fprintf(mFile,"\tsetAttr \".hs\" %f;\n", hs);
 
 	}
 	void setFogSpread(float fs)
 	{
 		if(fs == 1.0) return;
-		fprintf(mFile,"setAttr \".fs\" %f;\n", fs);
+		fprintf(mFile,"\tsetAttr \".fs\" %f;\n", fs);
 
 	}
 	void setGlowNoise(float gd)
 	{
 		if(gd == 0.0) return;
-		fprintf(mFile,"setAttr \".gd\" %f;\n", gd);
+		fprintf(mFile,"\tsetAttr \".gd\" %f;\n", gd);
 
 	}
 	void setFogNoise(float fd)
 	{
 		if(fd == 0.0) return;
-		fprintf(mFile,"setAttr \".fd\" %f;\n", fd);
+		fprintf(mFile,"\tsetAttr \".fd\" %f;\n", fd);
 
 	}
 	void setGlowRadialNoise(float gn)
 	{
 		if(gn == 0.0) return;
-		fprintf(mFile,"setAttr \".gn\" %f;\n", gn);
+		fprintf(mFile,"\tsetAttr \".gn\" %f;\n", gn);
 
 	}
 	void setFogRadialNoise(float fz)
 	{
 		if(fz == 0.0) return;
-		fprintf(mFile,"setAttr \".fz\" %f;\n", fz);
+		fprintf(mFile,"\tsetAttr \".fz\" %f;\n", fz);
 
 	}
 	void setGlowStarLevel(float gv)
 	{
 		if(gv == 3.0) return;
-		fprintf(mFile,"setAttr \".gv\" %f;\n", gv);
+		fprintf(mFile,"\tsetAttr \".gv\" %f;\n", gv);
 
 	}
 	void setFogStarlevel(float fe)
 	{
 		if(fe == 0.0) return;
-		fprintf(mFile,"setAttr \".fe\" %f;\n", fe);
+		fprintf(mFile,"\tsetAttr \".fe\" %f;\n", fe);
 
 	}
 	void setGlowOpacity(float go)
 	{
 		if(go == 0.0) return;
-		fprintf(mFile,"setAttr \".go\" %f;\n", go);
+		fprintf(mFile,"\tsetAttr \".go\" %f;\n", go);
 
 	}
 	void setFogOpacity(float fo)
 	{
 		if(fo == 0.0) return;
-		fprintf(mFile,"setAttr \".fo\" %f;\n", fo);
+		fprintf(mFile,"\tsetAttr \".fo\" %f;\n", fo);
 
 	}
 	void setRadialFrequency(float rf)
 	{
 		if(rf == 0.5) return;
-		fprintf(mFile,"setAttr \".rf\" %f;\n", rf);
+		fprintf(mFile,"\tsetAttr \".rf\" %f;\n", rf);
 
 	}
 	void setStarPoints(float sp)
 	{
 		if(sp == 4.0) return;
-		fprintf(mFile,"setAttr \".sp\" %f;\n", sp);
+		fprintf(mFile,"\tsetAttr \".sp\" %f;\n", sp);
 
 	}
 	void setRotation(float ra)
 	{
 		if(ra == 0.0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setNoiseUscale(float nu)
 	{
 		if(nu == 1.0) return;
-		fprintf(mFile,"setAttr \".nu\" %f;\n", nu);
+		fprintf(mFile,"\tsetAttr \".nu\" %f;\n", nu);
 
 	}
 	void setNoiseVscale(float nv)
 	{
 		if(nv == 1.0) return;
-		fprintf(mFile,"setAttr \".nv\" %f;\n", nv);
+		fprintf(mFile,"\tsetAttr \".nv\" %f;\n", nv);
 
 	}
 	void setNoiseUoffset(float ni)
 	{
 		if(ni == 1.0) return;
-		fprintf(mFile,"setAttr \".ni\" %f;\n", ni);
+		fprintf(mFile,"\tsetAttr \".ni\" %f;\n", ni);
 
 	}
 	void setNoiseVoffset(float nf)
 	{
 		if(nf == 0.5) return;
-		fprintf(mFile,"setAttr \".nf\" %f;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
 	void setNoiseThreshold(float nt)
 	{
 		if(nt == 0.5) return;
-		fprintf(mFile,"setAttr \".nt\" %f;\n", nt);
+		fprintf(mFile,"\tsetAttr \".nt\" %f;\n", nt);
 
 	}
 	void setIgnoreLight(bool il)
 	{
 		if(il == false) return;
-		fprintf(mFile,"setAttr \".il\" %i;\n", il);
+		fprintf(mFile,"\tsetAttr \".il\" %i;\n", il);
 
 	}
 	void setLightWorldMat(const matrix& lw)
 	{
 		if(lw == identity) return;
-		fprintf(mFile,"setAttr \".lw\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".lw\" -type \"matrix\" ");
 		lw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -363,13 +364,13 @@ public:
 	void setGlowVisibility(float gvb)
 	{
 		if(gvb == 1.0) return;
-		fprintf(mFile,"setAttr \".gvb\" %f;\n", gvb);
+		fprintf(mFile,"\tsetAttr \".gvb\" %f;\n", gvb);
 
 	}
 	void setLightColor(const float3& lr)
 	{
 		if(lr == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".lr\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".lr\" -type \"float3\" ");
 		lr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -377,25 +378,25 @@ public:
 	void setLightColorR(float lcr)
 	{
 		if(lcr == 0.0) return;
-		fprintf(mFile,"setAttr \".lr.lcr\" %f;\n", lcr);
+		fprintf(mFile,"\tsetAttr \".lr.lcr\" %f;\n", lcr);
 
 	}
 	void setLightColorG(float lcg)
 	{
 		if(lcg == 0.0) return;
-		fprintf(mFile,"setAttr \".lr.lcg\" %f;\n", lcg);
+		fprintf(mFile,"\tsetAttr \".lr.lcg\" %f;\n", lcg);
 
 	}
 	void setLightColorB(float lgb)
 	{
 		if(lgb == 0.0) return;
-		fprintf(mFile,"setAttr \".lr.lgb\" %f;\n", lgb);
+		fprintf(mFile,"\tsetAttr \".lr.lgb\" %f;\n", lgb);
 
 	}
 	void setVisibility(const float3& vb)
 	{
 		if(vb == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".vb\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vb\" -type \"float3\" ");
 		vb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -403,19 +404,19 @@ public:
 	void setVisibilityR(float vbr)
 	{
 		if(vbr == 0.0) return;
-		fprintf(mFile,"setAttr \".vb.vbr\" %f;\n", vbr);
+		fprintf(mFile,"\tsetAttr \".vb.vbr\" %f;\n", vbr);
 
 	}
 	void setVisibilityG(float vbg)
 	{
 		if(vbg == 0.0) return;
-		fprintf(mFile,"setAttr \".vb.vbg\" %f;\n", vbg);
+		fprintf(mFile,"\tsetAttr \".vb.vbg\" %f;\n", vbg);
 
 	}
 	void setVisibilityB(float vbb)
 	{
 		if(vbb == 0.0) return;
-		fprintf(mFile,"setAttr \".vb.vbb\" %f;\n", vbb);
+		fprintf(mFile,"\tsetAttr \".vb.vbb\" %f;\n", vbb);
 
 	}
 	void getActive()
@@ -688,13 +689,64 @@ public:
 		fprintf(mFile,"\"%s.il\"",mName.c_str());
 
 	}
+	void getLightWorldMat()
+	{
+		fprintf(mFile,"\"%s.lw\"",mName.c_str());
+
+	}
 	void getLightConnection()
 	{
 		fprintf(mFile,"\"%s.ln\"",mName.c_str());
 
 	}
+	void getGlowVisibility()
+	{
+		fprintf(mFile,"\"%s.gvb\"",mName.c_str());
+
+	}
+	void getLightColor()
+	{
+		fprintf(mFile,"\"%s.lr\"",mName.c_str());
+
+	}
+	void getLightColorR()
+	{
+		fprintf(mFile,"\"%s.lr.lcr\"",mName.c_str());
+
+	}
+	void getLightColorG()
+	{
+		fprintf(mFile,"\"%s.lr.lcg\"",mName.c_str());
+
+	}
+	void getLightColorB()
+	{
+		fprintf(mFile,"\"%s.lr.lgb\"",mName.c_str());
+
+	}
+	void getVisibility()
+	{
+		fprintf(mFile,"\"%s.vb\"",mName.c_str());
+
+	}
+	void getVisibilityR()
+	{
+		fprintf(mFile,"\"%s.vb.vbr\"",mName.c_str());
+
+	}
+	void getVisibilityG()
+	{
+		fprintf(mFile,"\"%s.vb.vbg\"",mName.c_str());
+
+	}
+	void getVisibilityB()
+	{
+		fprintf(mFile,"\"%s.vb.vbb\"",mName.c_str());
+
+	}
 protected:
-	OpticalFX(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	OpticalFX(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

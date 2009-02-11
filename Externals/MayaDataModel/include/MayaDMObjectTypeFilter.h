@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class ObjectTypeFilter : public ObjectFilter
 {
 public:
 public:
+	ObjectTypeFilter():ObjectFilter(){}
 	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectTypeFilter"){}
 	virtual ~ObjectTypeFilter(){}
 	void setTypeName(const string& tnam)
 	{
 		if(tnam == "NULL") return;
-		fprintf(mFile,"setAttr \".tnam\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tnam\" -type \"string\" ");
 		tnam.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,7 +40,8 @@ public:
 
 	}
 protected:
-	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectFilter(file, name, parent, nodeType) {}
+	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

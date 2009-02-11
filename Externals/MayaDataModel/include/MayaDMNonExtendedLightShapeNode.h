@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,150 +18,151 @@ class NonExtendedLightShapeNode : public NonAmbientLightShapeNode
 {
 public:
 public:
+	NonExtendedLightShapeNode():NonAmbientLightShapeNode(){}
 	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent=""):NonAmbientLightShapeNode(file, name, parent, "nonExtendedLightShapeNode"){}
 	virtual ~NonExtendedLightShapeNode(){}
 	void setLightRadius(float lr)
 	{
 		if(lr == 0.0) return;
-		fprintf(mFile,"setAttr \".lr\" %f;\n", lr);
+		fprintf(mFile,"\tsetAttr \".lr\" %f;\n", lr);
 
 	}
 	void setCastSoftShadows(bool cw)
 	{
 		if(cw == false) return;
-		fprintf(mFile,"setAttr \".cw\" %i;\n", cw);
+		fprintf(mFile,"\tsetAttr \".cw\" %i;\n", cw);
 
 	}
 	void setUseDepthMapShadows(bool dms)
 	{
 		if(dms == false) return;
-		fprintf(mFile,"setAttr \".dms\" %i;\n", dms);
+		fprintf(mFile,"\tsetAttr \".dms\" %i;\n", dms);
 
 	}
 	void setReuseDmap(bool du)
 	{
 		if(du == false) return;
-		fprintf(mFile,"setAttr \".du\" %i;\n", du);
+		fprintf(mFile,"\tsetAttr \".du\" %i;\n", du);
 
 	}
 	void setUseMidDistDmap(bool md)
 	{
 		if(md == true) return;
-		fprintf(mFile,"setAttr \".md\" %i;\n", md);
+		fprintf(mFile,"\tsetAttr \".md\" %i;\n", md);
 
 	}
 	void setDmapFilterSize(short fs)
 	{
 		if(fs == 1) return;
-		fprintf(mFile,"setAttr \".fs\" %i;\n", fs);
+		fprintf(mFile,"\tsetAttr \".fs\" %i;\n", fs);
 
 	}
 	void setDmapResolution(short dr)
 	{
 		if(dr == 512) return;
-		fprintf(mFile,"setAttr \".dr\" %i;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %i;\n", dr);
 
 	}
 	void setDmapBias(float db)
 	{
 		if(db == 0.001) return;
-		fprintf(mFile,"setAttr \".db\" %f;\n", db);
+		fprintf(mFile,"\tsetAttr \".db\" %f;\n", db);
 
 	}
 	void setDmapFocus(float df)
 	{
 		if(df == 90.0) return;
-		fprintf(mFile,"setAttr \".df\" %f;\n", df);
+		fprintf(mFile,"\tsetAttr \".df\" %f;\n", df);
 
 	}
 	void setDmapWidthFocus(float dw)
 	{
 		if(dw == 100.0) return;
-		fprintf(mFile,"setAttr \".dw\" %f;\n", dw);
+		fprintf(mFile,"\tsetAttr \".dw\" %f;\n", dw);
 
 	}
 	void setUseDmapAutoFocus(bool af)
 	{
 		if(af == true) return;
-		fprintf(mFile,"setAttr \".af\" %i;\n", af);
+		fprintf(mFile,"\tsetAttr \".af\" %i;\n", af);
 
 	}
 	void setVolumeShadowSamples(short nv)
 	{
 		if(nv == 20) return;
-		fprintf(mFile,"setAttr \".nv\" %i;\n", nv);
+		fprintf(mFile,"\tsetAttr \".nv\" %i;\n", nv);
 
 	}
 	void setFogShadowIntensity(short fsi)
 	{
 		if(fsi == 1) return;
-		fprintf(mFile,"setAttr \".fsi\" %i;\n", fsi);
+		fprintf(mFile,"\tsetAttr \".fsi\" %i;\n", fsi);
 
 	}
 	void setUseDmapAutoClipping(bool uc)
 	{
 		if(uc == true) return;
-		fprintf(mFile,"setAttr \".uc\" %i;\n", uc);
+		fprintf(mFile,"\tsetAttr \".uc\" %i;\n", uc);
 
 	}
 	void setDmapNearClipPlane(float nc)
 	{
 		if(nc == 0.001) return;
-		fprintf(mFile,"setAttr \".nc\" %f;\n", nc);
+		fprintf(mFile,"\tsetAttr \".nc\" %f;\n", nc);
 
 	}
 	void setDmapFarClipPlane(float fcp)
 	{
 		if(fcp == 10000.0) return;
-		fprintf(mFile,"setAttr \".fcp\" %f;\n", fcp);
+		fprintf(mFile,"\tsetAttr \".fcp\" %f;\n", fcp);
 
 	}
 	void setUseOnlySingleDmap(bool us)
 	{
 		if(us == true) return;
-		fprintf(mFile,"setAttr \".us\" %i;\n", us);
+		fprintf(mFile,"\tsetAttr \".us\" %i;\n", us);
 
 	}
 	void setUseXPositiveDmap(bool xp)
 	{
 		if(xp == true) return;
-		fprintf(mFile,"setAttr \".xp\" %i;\n", xp);
+		fprintf(mFile,"\tsetAttr \".xp\" %i;\n", xp);
 
 	}
 	void setUseXNegativeDmap(bool xn)
 	{
 		if(xn == true) return;
-		fprintf(mFile,"setAttr \".xn\" %i;\n", xn);
+		fprintf(mFile,"\tsetAttr \".xn\" %i;\n", xn);
 
 	}
 	void setUseYPositiveDmap(bool yp)
 	{
 		if(yp == true) return;
-		fprintf(mFile,"setAttr \".yp\" %i;\n", yp);
+		fprintf(mFile,"\tsetAttr \".yp\" %i;\n", yp);
 
 	}
 	void setUseYNegativeDmap(bool yn)
 	{
 		if(yn == true) return;
-		fprintf(mFile,"setAttr \".yn\" %i;\n", yn);
+		fprintf(mFile,"\tsetAttr \".yn\" %i;\n", yn);
 
 	}
 	void setUseZPositiveDmap(bool zp)
 	{
 		if(zp == true) return;
-		fprintf(mFile,"setAttr \".zp\" %i;\n", zp);
+		fprintf(mFile,"\tsetAttr \".zp\" %i;\n", zp);
 
 	}
 	void setUseZNegativeDmap(bool zn)
 	{
 		if(zn == true) return;
-		fprintf(mFile,"setAttr \".zn\" %i;\n", zn);
+		fprintf(mFile,"\tsetAttr \".zn\" %i;\n", zn);
 
 	}
 	void setDmapUseMacro(const string& dc)
 	{
 		if(dc == "NULL") return;
-		fprintf(mFile,"setAttr \".dc\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".dc\" -type \"string\" ");
 		dc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -169,7 +170,7 @@ public:
 	void setDmapName(const string& smn)
 	{
 		if(smn == "NULL") return;
-		fprintf(mFile,"setAttr \".smn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".smn\" -type \"string\" ");
 		smn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -177,31 +178,31 @@ public:
 	void setDmapLightName(bool ul)
 	{
 		if(ul == true) return;
-		fprintf(mFile,"setAttr \".ul\" %i;\n", ul);
+		fprintf(mFile,"\tsetAttr \".ul\" %i;\n", ul);
 
 	}
 	void setDmapSceneName(bool um)
 	{
 		if(um == false) return;
-		fprintf(mFile,"setAttr \".um\" %i;\n", um);
+		fprintf(mFile,"\tsetAttr \".um\" %i;\n", um);
 
 	}
 	void setDmapFrameExt(bool uf)
 	{
 		if(uf == false) return;
-		fprintf(mFile,"setAttr \".uf\" %i;\n", uf);
+		fprintf(mFile,"\tsetAttr \".uf\" %i;\n", uf);
 
 	}
 	void setWriteDmap(bool ws)
 	{
 		if(ws == false) return;
-		fprintf(mFile,"setAttr \".ws\" %i;\n", ws);
+		fprintf(mFile,"\tsetAttr \".ws\" %i;\n", ws);
 
 	}
 	void setLastWrittenDmapAnimExtName(const string& lw)
 	{
 		if(lw == "NULL") return;
-		fprintf(mFile,"setAttr \".lw\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".lw\" -type \"string\" ");
 		lw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -209,7 +210,7 @@ public:
 	void setReceiveShadows(bool gs)
 	{
 		if(gs == true) return;
-		fprintf(mFile,"setAttr \".gs\" %i;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %i;\n", gs);
 
 	}
 	void getLightRadius()
@@ -368,7 +369,8 @@ public:
 
 	}
 protected:
-	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NonAmbientLightShapeNode(file, name, parent, nodeType) {}
+	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:NonAmbientLightShapeNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

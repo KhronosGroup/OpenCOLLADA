@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class FluidTexture3D : public FluidShape
 {
 public:
 public:
+	FluidTexture3D():FluidShape(){}
 	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent=""):FluidShape(file, name, parent, "fluidTexture3D"){}
 	virtual ~FluidTexture3D(){}
 	void setAlphaGain(float ag)
 	{
 		if(ag == 1.0) return;
-		fprintf(mFile,"setAttr \".ag\" %f;\n", ag);
+		fprintf(mFile,"\tsetAttr \".ag\" %f;\n", ag);
 
 	}
 	void setAlphaOffset(float ao)
 	{
 		if(ao == 0.0) return;
-		fprintf(mFile,"setAttr \".ao\" %f;\n", ao);
+		fprintf(mFile,"\tsetAttr \".ao\" %f;\n", ao);
 
 	}
 	void setDefaultColor(const float3& dcl)
 	{
 		if(dcl == float3(0.5f,0.5f,0.5f)) return;
-		fprintf(mFile,"setAttr \".dcl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dcl\" -type \"float3\" ");
 		dcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,19 +44,19 @@ public:
 	void setDefaultColorR(float dcr)
 	{
 		if(dcr == 0.0) return;
-		fprintf(mFile,"setAttr \".dcl.dcr\" %f;\n", dcr);
+		fprintf(mFile,"\tsetAttr \".dcl.dcr\" %f;\n", dcr);
 
 	}
 	void setDefaultColorG(float dcg)
 	{
 		if(dcg == 0.0) return;
-		fprintf(mFile,"setAttr \".dcl.dcg\" %f;\n", dcg);
+		fprintf(mFile,"\tsetAttr \".dcl.dcg\" %f;\n", dcg);
 
 	}
 	void setDefaultColorB(float dcb)
 	{
 		if(dcb == 0.0) return;
-		fprintf(mFile,"setAttr \".dcl.dcb\" %f;\n", dcb);
+		fprintf(mFile,"\tsetAttr \".dcl.dcb\" %f;\n", dcb);
 
 	}
 	void getRefPointCamera()
@@ -134,7 +135,8 @@ public:
 
 	}
 protected:
-	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):FluidShape(file, name, parent, nodeType) {}
+	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:FluidShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

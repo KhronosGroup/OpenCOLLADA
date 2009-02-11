@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,11 +23,12 @@ public:
 		}
 	};
 public:
+	AngleBetween():DependNode(){}
 	AngleBetween(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "angleBetween"){}
 	virtual ~AngleBetween(){}
 	void setVector1(const double3& v1)
 	{
-		fprintf(mFile,"setAttr \".v1\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".v1\" -type \"double3\" ");
 		v1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -35,24 +36,24 @@ public:
 	void setVector1X(double v1x)
 	{
 		if(v1x == 0) return;
-		fprintf(mFile,"setAttr \".v1.v1x\" %f;\n", v1x);
+		fprintf(mFile,"\tsetAttr \".v1.v1x\" %f;\n", v1x);
 
 	}
 	void setVector1Y(double v1y)
 	{
 		if(v1y == 1) return;
-		fprintf(mFile,"setAttr \".v1.v1y\" %f;\n", v1y);
+		fprintf(mFile,"\tsetAttr \".v1.v1y\" %f;\n", v1y);
 
 	}
 	void setVector1Z(double v1z)
 	{
 		if(v1z == 0) return;
-		fprintf(mFile,"setAttr \".v1.v1z\" %f;\n", v1z);
+		fprintf(mFile,"\tsetAttr \".v1.v1z\" %f;\n", v1z);
 
 	}
 	void setVector2(const double3& v2)
 	{
-		fprintf(mFile,"setAttr \".v2\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".v2\" -type \"double3\" ");
 		v2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -60,19 +61,19 @@ public:
 	void setVector2X(double v2x)
 	{
 		if(v2x == 0) return;
-		fprintf(mFile,"setAttr \".v2.v2x\" %f;\n", v2x);
+		fprintf(mFile,"\tsetAttr \".v2.v2x\" %f;\n", v2x);
 
 	}
 	void setVector2Y(double v2y)
 	{
 		if(v2y == 0) return;
-		fprintf(mFile,"setAttr \".v2.v2y\" %f;\n", v2y);
+		fprintf(mFile,"\tsetAttr \".v2.v2y\" %f;\n", v2y);
 
 	}
 	void setVector2Z(double v2z)
 	{
 		if(v2z == 1) return;
-		fprintf(mFile,"setAttr \".v2.v2z\" %f;\n", v2z);
+		fprintf(mFile,"\tsetAttr \".v2.v2z\" %f;\n", v2z);
 
 	}
 	void getVector1()
@@ -166,7 +167,8 @@ public:
 
 	}
 protected:
-	AngleBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	AngleBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

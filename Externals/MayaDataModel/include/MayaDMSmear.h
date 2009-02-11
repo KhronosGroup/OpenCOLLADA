@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Smear : public DependNode
 {
 public:
 public:
+	Smear():DependNode(){}
 	Smear(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "smear"){}
 	virtual ~Smear(){}
 	void setInRgb(const float3& i_)
 	{
 		if(i_ == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".i\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".i\" -type \"float3\" ");
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,19 +32,19 @@ public:
 	void setInColorR(float ir)
 	{
 		if(ir == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ir\" %f;\n", ir);
+		fprintf(mFile,"\tsetAttr \".i.ir\" %f;\n", ir);
 
 	}
 	void setInColorG(float ig)
 	{
 		if(ig == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ig\" %f;\n", ig);
+		fprintf(mFile,"\tsetAttr \".i.ig\" %f;\n", ig);
 
 	}
 	void setInColorB(float ib)
 	{
 		if(ib == 0.0) return;
-		fprintf(mFile,"setAttr \".i.ib\" %f;\n", ib);
+		fprintf(mFile,"\tsetAttr \".i.ib\" %f;\n", ib);
 
 	}
 	void getInRgb()
@@ -82,7 +83,8 @@ public:
 
 	}
 protected:
-	Smear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Smear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

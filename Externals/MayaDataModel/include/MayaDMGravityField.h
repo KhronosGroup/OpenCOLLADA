@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,11 +29,12 @@ public:
 		}
 	};
 public:
+	GravityField():Field(){}
 	GravityField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "gravityField"){}
 	virtual ~GravityField(){}
 	void setDirection(const Direction& d)
 	{
-		fprintf(mFile,"setAttr \".d\" ");
+		fprintf(mFile,"\tsetAttr \".d\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -41,19 +42,19 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void getDirection()
@@ -77,7 +78,8 @@ public:
 
 	}
 protected:
-	GravityField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	GravityField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,23 +18,24 @@ class AnimClip : public DependNode
 {
 public:
 public:
+	AnimClip():DependNode(){}
 	AnimClip(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "animClip"){}
 	virtual ~AnimClip(){}
 	void setEnable(bool ea)
 	{
 		if(ea == 1) return;
-		fprintf(mFile,"setAttr \".ea\" %i;\n", ea);
+		fprintf(mFile,"\tsetAttr \".ea\" %i;\n", ea);
 
 	}
 	void setAbsoluteChannel(size_t ac_i,bool ac)
 	{
 		if(ac == false) return;
-		fprintf(mFile,"setAttr \".ac[%i]\" %i;\n", ac_i,ac);
+		fprintf(mFile,"\tsetAttr \".ac[%i]\" %i;\n", ac_i,ac);
 
 	}
 	void setAbsoluteChannel(size_t ac_start,size_t ac_end,bool* ac)
 	{
-		fprintf(mFile,"setAttr \".ac[%i:%i]\" ", ac_start,ac_end);
+		fprintf(mFile,"\tsetAttr \".ac[%i:%i]\" ", ac_start,ac_end);
 		size_t size = (ac_end-ac_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -46,7 +47,7 @@ public:
 	}
 	void startAbsoluteChannel(size_t ac_start,size_t ac_end)
 	{
-		fprintf(mFile,"setAttr \".ac[%i:%i]\"",ac_start,ac_end);
+		fprintf(mFile,"\tsetAttr \".ac[%i:%i]\"",ac_start,ac_end);
 
 	}
 	void appendAbsoluteChannel(bool ac)
@@ -62,12 +63,12 @@ public:
 	void setChannelOffset(size_t co_i,double co)
 	{
 		if(co == 0.0) return;
-		fprintf(mFile,"setAttr \".co[%i]\" %f;\n", co_i,co);
+		fprintf(mFile,"\tsetAttr \".co[%i]\" %f;\n", co_i,co);
 
 	}
 	void setChannelOffset(size_t co_start,size_t co_end,double* co)
 	{
-		fprintf(mFile,"setAttr \".co[%i:%i]\" ", co_start,co_end);
+		fprintf(mFile,"\tsetAttr \".co[%i:%i]\" ", co_start,co_end);
 		size_t size = (co_end-co_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -79,7 +80,7 @@ public:
 	}
 	void startChannelOffset(size_t co_start,size_t co_end)
 	{
-		fprintf(mFile,"setAttr \".co[%i:%i]\"",co_start,co_end);
+		fprintf(mFile,"\tsetAttr \".co[%i:%i]\"",co_start,co_end);
 
 	}
 	void appendChannelOffset(double co)
@@ -95,61 +96,61 @@ public:
 	void setScale(double sc)
 	{
 		if(sc == 1.0) return;
-		fprintf(mFile,"setAttr \".sc\" %f;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
 
 	}
 	void setPreCycle(double cb)
 	{
 		if(cb == 0.0) return;
-		fprintf(mFile,"setAttr \".cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cb\" %f;\n", cb);
 
 	}
 	void setPostCycle(double ca)
 	{
 		if(ca == 0.0) return;
-		fprintf(mFile,"setAttr \".ca\" %f;\n", ca);
+		fprintf(mFile,"\tsetAttr \".ca\" %f;\n", ca);
 
 	}
 	void setWeight(double w)
 	{
 		if(w == 1.0) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setWeightStyle(unsigned int ws)
 	{
 		if(ws == 0) return;
-		fprintf(mFile,"setAttr \".ws\" %i;\n", ws);
+		fprintf(mFile,"\tsetAttr \".ws\" %i;\n", ws);
 
 	}
 	void setPose(bool ps)
 	{
 		if(ps == false) return;
-		fprintf(mFile,"setAttr \".ps\" %i;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %i;\n", ps);
 
 	}
 	void setClipInstance(bool ci)
 	{
 		if(ci == 1) return;
-		fprintf(mFile,"setAttr \".ci\" %i;\n", ci);
+		fprintf(mFile,"\tsetAttr \".ci\" %i;\n", ci);
 
 	}
 	void setTimeWarp(double tw)
 	{
 		if(tw == 0.0) return;
-		fprintf(mFile,"setAttr \".tw\" %f;\n", tw);
+		fprintf(mFile,"\tsetAttr \".tw\" %f;\n", tw);
 
 	}
 	void setTimeWarpEnable(bool twe)
 	{
 		if(twe == false) return;
-		fprintf(mFile,"setAttr \".twe\" %i;\n", twe);
+		fprintf(mFile,"\tsetAttr \".twe\" %i;\n", twe);
 
 	}
 	void setCycle(double cy)
 	{
 		if(cy == 1.0) return;
-		fprintf(mFile,"setAttr \".cy\" %f;\n", cy);
+		fprintf(mFile,"\tsetAttr \".cy\" %f;\n", cy);
 
 	}
 	void getEnable()
@@ -273,7 +274,8 @@ public:
 
 	}
 protected:
-	AnimClip(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	AnimClip(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

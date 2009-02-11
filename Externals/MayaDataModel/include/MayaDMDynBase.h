@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class DynBase : public Transform
 {
 public:
 public:
+	DynBase():Transform(){}
 	DynBase(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "dynBase"){}
 	virtual ~DynBase(){}
 	void setFromWhere(short fw)
 	{
 		if(fw == 0) return;
-		fprintf(mFile,"setAttr \".fw\" %i;\n", fw);
+		fprintf(mFile,"\tsetAttr \".fw\" %i;\n", fw);
 
 	}
 	void setSubsetId(int sid)
 	{
 		if(sid == -1) return;
-		fprintf(mFile,"setAttr \".sid\" %i;\n", sid);
+		fprintf(mFile,"\tsetAttr \".sid\" %i;\n", sid);
 
 	}
 	void getOwner()
@@ -83,7 +84,8 @@ public:
 
 	}
 protected:
-	DynBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	DynBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

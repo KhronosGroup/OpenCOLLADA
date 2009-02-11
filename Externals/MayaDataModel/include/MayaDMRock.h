@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Rock : public Texture3d
 {
 public:
 public:
+	Rock():Texture3d(){}
 	Rock(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "rock"){}
 	virtual ~Rock(){}
 	void setColor1(const float3& c1)
 	{
 		if(c1 == float3(0.235f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".c1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c1\" -type \"float3\" ");
 		c1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setColor1R(float c1r)
 	{
 		if(c1r == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1r\" %f;\n", c1r);
+		fprintf(mFile,"\tsetAttr \".c1.c1r\" %f;\n", c1r);
 
 	}
 	void setColor1G(float c1g)
 	{
 		if(c1g == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1g\" %f;\n", c1g);
+		fprintf(mFile,"\tsetAttr \".c1.c1g\" %f;\n", c1g);
 
 	}
 	void setColor1B(float c1b)
 	{
 		if(c1b == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1b\" %f;\n", c1b);
+		fprintf(mFile,"\tsetAttr \".c1.c1b\" %f;\n", c1b);
 
 	}
 	void setColor2(const float3& c2)
 	{
 		if(c2 == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".c2\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c2\" -type \"float3\" ");
 		c2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,37 +58,37 @@ public:
 	void setColor2R(float c2r)
 	{
 		if(c2r == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2r\" %f;\n", c2r);
+		fprintf(mFile,"\tsetAttr \".c2.c2r\" %f;\n", c2r);
 
 	}
 	void setColor2G(float c2g)
 	{
 		if(c2g == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2g\" %f;\n", c2g);
+		fprintf(mFile,"\tsetAttr \".c2.c2g\" %f;\n", c2g);
 
 	}
 	void setColor2B(float c2b)
 	{
 		if(c2b == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2b\" %f;\n", c2b);
+		fprintf(mFile,"\tsetAttr \".c2.c2b\" %f;\n", c2b);
 
 	}
 	void setGrainSize(float gs)
 	{
 		if(gs == 0.01) return;
-		fprintf(mFile,"setAttr \".gs\" %f;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %f;\n", gs);
 
 	}
 	void setDiffusion(float di)
 	{
 		if(di == 1.0) return;
-		fprintf(mFile,"setAttr \".di\" %f;\n", di);
+		fprintf(mFile,"\tsetAttr \".di\" %f;\n", di);
 
 	}
 	void setMixRatio(float mr)
 	{
 		if(mr == 0.5) return;
-		fprintf(mFile,"setAttr \".mr\" %f;\n", mr);
+		fprintf(mFile,"\tsetAttr \".mr\" %f;\n", mr);
 
 	}
 	void getRefPointObj()
@@ -186,7 +187,8 @@ public:
 
 	}
 protected:
-	Rock(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Rock(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

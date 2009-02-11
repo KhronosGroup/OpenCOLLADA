@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -30,11 +30,12 @@ public:
 		}
 	};
 public:
+	WeightGeometryFilter():GeometryFilter(){}
 	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "weightGeometryFilter"){}
 	virtual ~WeightGeometryFilter(){}
 	void setWeightList(size_t wl_i,const WeightList& wl)
 	{
-		fprintf(mFile,"setAttr \".wl[%i]\" ",wl_i);
+		fprintf(mFile,"\tsetAttr \".wl[%i]\" ",wl_i);
 		wl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -42,12 +43,12 @@ public:
 	void setWeights(size_t wl_i,size_t w_i,float w)
 	{
 		if(w == 1.0) return;
-		fprintf(mFile,"setAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
+		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
 
 	}
 	void setWeights(size_t wl_i,size_t w_start,size_t w_end,float* w)
 	{
-		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\" ", wl_i,w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\" ", wl_i,w_start,w_end);
 		size_t size = (w_end-w_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -59,7 +60,7 @@ public:
 	}
 	void startWeights(size_t wl_i,size_t w_start,size_t w_end)
 	{
-		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
 
 	}
 	void appendWeights(float w)
@@ -83,7 +84,8 @@ public:
 
 	}
 protected:
-	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

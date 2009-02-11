@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -38,35 +38,36 @@ public:
 		}
 	};
 public:
+	Stroke():PfxGeometry(){}
 	Stroke(FILE* file,const std::string& name,const std::string& parent=""):PfxGeometry(file, name, parent, "stroke"){}
 	virtual ~Stroke(){}
 	void setSampleDensity(double sdn)
 	{
 		if(sdn == 1.0) return;
-		fprintf(mFile,"setAttr \".sdn\" %f;\n", sdn);
+		fprintf(mFile,"\tsetAttr \".sdn\" %f;\n", sdn);
 
 	}
 	void setSmoothing(double smo)
 	{
 		if(smo == 0.0) return;
-		fprintf(mFile,"setAttr \".smo\" %f;\n", smo);
+		fprintf(mFile,"\tsetAttr \".smo\" %f;\n", smo);
 
 	}
 	void setPerspective(bool per)
 	{
 		if(per == 1) return;
-		fprintf(mFile,"setAttr \".per\" %i;\n", per);
+		fprintf(mFile,"\tsetAttr \".per\" %i;\n", per);
 
 	}
 	void setUseNormal(bool usn)
 	{
 		if(usn == 0) return;
-		fprintf(mFile,"setAttr \".usn\" %i;\n", usn);
+		fprintf(mFile,"\tsetAttr \".usn\" %i;\n", usn);
 
 	}
 	void setNormal(const double3& nml)
 	{
-		fprintf(mFile,"setAttr \".nml\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".nml\" -type \"double3\" ");
 		nml.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -74,36 +75,36 @@ public:
 	void setNormalX(double nmx)
 	{
 		if(nmx == 0.0) return;
-		fprintf(mFile,"setAttr \".nml.nmx\" %f;\n", nmx);
+		fprintf(mFile,"\tsetAttr \".nml.nmx\" %f;\n", nmx);
 
 	}
 	void setNormalY(double nmy)
 	{
 		if(nmy == 0.0) return;
-		fprintf(mFile,"setAttr \".nml.nmy\" %f;\n", nmy);
+		fprintf(mFile,"\tsetAttr \".nml.nmy\" %f;\n", nmy);
 
 	}
 	void setNormalZ(double nmz)
 	{
 		if(nmz == 1.0) return;
-		fprintf(mFile,"setAttr \".nml.nmz\" %f;\n", nmz);
+		fprintf(mFile,"\tsetAttr \".nml.nmz\" %f;\n", nmz);
 
 	}
 	void setMinClip(double mnc)
 	{
 		if(mnc == 0.0) return;
-		fprintf(mFile,"setAttr \".mnc\" %f;\n", mnc);
+		fprintf(mFile,"\tsetAttr \".mnc\" %f;\n", mnc);
 
 	}
 	void setMaxClip(double mxc)
 	{
 		if(mxc == 1.0) return;
-		fprintf(mFile,"setAttr \".mxc\" %f;\n", mxc);
+		fprintf(mFile,"\tsetAttr \".mxc\" %f;\n", mxc);
 
 	}
 	void setPathCurve(size_t pcv_i,const PathCurve& pcv)
 	{
-		fprintf(mFile,"setAttr \".pcv[%i]\" ",pcv_i);
+		fprintf(mFile,"\tsetAttr \".pcv[%i]\" ",pcv_i);
 		pcv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -111,25 +112,25 @@ public:
 	void setSamples(size_t pcv_i,int smp)
 	{
 		if(smp == 0) return;
-		fprintf(mFile,"setAttr \".pcv[%i].smp\" %i;\n", pcv_i,smp);
+		fprintf(mFile,"\tsetAttr \".pcv[%i].smp\" %i;\n", pcv_i,smp);
 
 	}
 	void setOpposite(size_t pcv_i,bool opp)
 	{
 		if(opp == false) return;
-		fprintf(mFile,"setAttr \".pcv[%i].opp\" %i;\n", pcv_i,opp);
+		fprintf(mFile,"\tsetAttr \".pcv[%i].opp\" %i;\n", pcv_i,opp);
 
 	}
 	void setOutPoint(size_t opt_i,const double3& opt)
 	{
-		fprintf(mFile,"setAttr \".opt[%i]\" -type \"double3\" ",opt_i);
+		fprintf(mFile,"\tsetAttr \".opt[%i]\" -type \"double3\" ",opt_i);
 		opt.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setOutPoint(size_t opt_start,size_t opt_end,double* opt)
 	{
-		fprintf(mFile,"setAttr \".opt[%i:%i]\" ", opt_start,opt_end);
+		fprintf(mFile,"\tsetAttr \".opt[%i:%i]\" ", opt_start,opt_end);
 		size_t size = (opt_end-opt_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -141,7 +142,7 @@ public:
 	}
 	void startOutPoint(size_t opt_start,size_t opt_end)
 	{
-		fprintf(mFile,"setAttr \".opt[%i:%i]\"",opt_start,opt_end);
+		fprintf(mFile,"\tsetAttr \".opt[%i:%i]\"",opt_start,opt_end);
 
 	}
 	void appendOutPoint(double opt)
@@ -157,78 +158,78 @@ public:
 	void setOutPointX(size_t opt_i,double ox)
 	{
 		if(ox == 0.0) return;
-		fprintf(mFile,"setAttr \".opt[%i].ox\" %f;\n", opt_i,ox);
+		fprintf(mFile,"\tsetAttr \".opt[%i].ox\" %f;\n", opt_i,ox);
 
 	}
 	void setOutPointY(size_t opt_i,double oy)
 	{
 		if(oy == 0.0) return;
-		fprintf(mFile,"setAttr \".opt[%i].oy\" %f;\n", opt_i,oy);
+		fprintf(mFile,"\tsetAttr \".opt[%i].oy\" %f;\n", opt_i,oy);
 
 	}
 	void setOutPointZ(size_t opt_i,double oz)
 	{
 		if(oz == 0.0) return;
-		fprintf(mFile,"setAttr \".opt[%i].oz\" %f;\n", opt_i,oz);
+		fprintf(mFile,"\tsetAttr \".opt[%i].oz\" %f;\n", opt_i,oz);
 
 	}
 	void setPressureMap1(unsigned int spm1)
 	{
 		if(spm1 == 0) return;
-		fprintf(mFile,"setAttr \".spm1\" %i;\n", spm1);
+		fprintf(mFile,"\tsetAttr \".spm1\" %i;\n", spm1);
 
 	}
 	void setPressureMin1(double ps1)
 	{
 		if(ps1 == 0.0) return;
-		fprintf(mFile,"setAttr \".ps1\" %f;\n", ps1);
+		fprintf(mFile,"\tsetAttr \".ps1\" %f;\n", ps1);
 
 	}
 	void setPressureMax1(double px1)
 	{
 		if(px1 == 1.0) return;
-		fprintf(mFile,"setAttr \".px1\" %f;\n", px1);
+		fprintf(mFile,"\tsetAttr \".px1\" %f;\n", px1);
 
 	}
 	void setPressureMap2(unsigned int spm2)
 	{
 		if(spm2 == 0) return;
-		fprintf(mFile,"setAttr \".spm2\" %i;\n", spm2);
+		fprintf(mFile,"\tsetAttr \".spm2\" %i;\n", spm2);
 
 	}
 	void setPressureMin2(double ps2)
 	{
 		if(ps2 == 0.0) return;
-		fprintf(mFile,"setAttr \".ps2\" %f;\n", ps2);
+		fprintf(mFile,"\tsetAttr \".ps2\" %f;\n", ps2);
 
 	}
 	void setPressureMax2(double px2)
 	{
 		if(px2 == 1.0) return;
-		fprintf(mFile,"setAttr \".px2\" %f;\n", px2);
+		fprintf(mFile,"\tsetAttr \".px2\" %f;\n", px2);
 
 	}
 	void setPressureMap3(unsigned int spm3)
 	{
 		if(spm3 == 0) return;
-		fprintf(mFile,"setAttr \".spm3\" %i;\n", spm3);
+		fprintf(mFile,"\tsetAttr \".spm3\" %i;\n", spm3);
 
 	}
 	void setPressureMin3(double ps3)
 	{
 		if(ps3 == 0.0) return;
-		fprintf(mFile,"setAttr \".ps3\" %f;\n", ps3);
+		fprintf(mFile,"\tsetAttr \".ps3\" %f;\n", ps3);
 
 	}
 	void setPressureMax3(double px3)
 	{
 		if(px3 == 1.0) return;
-		fprintf(mFile,"setAttr \".px3\" %f;\n", px3);
+		fprintf(mFile,"\tsetAttr \".px3\" %f;\n", px3);
 
 	}
 	void setPressureScale(size_t psc_i,const PressureScale& psc)
 	{
-		fprintf(mFile,"setAttr \".psc[%i]\" ",psc_i);
+		fprintf(mFile,"\tsetAttr \".psc[%i]\" ",psc_i);
 		psc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -236,30 +237,30 @@ public:
 	void setPressureScale_Position(size_t psc_i,float pscp)
 	{
 		if(pscp == 0.0) return;
-		fprintf(mFile,"setAttr \".psc[%i].pscp\" %f;\n", psc_i,pscp);
+		fprintf(mFile,"\tsetAttr \".psc[%i].pscp\" %f;\n", psc_i,pscp);
 
 	}
 	void setPressureScale_FloatValue(size_t psc_i,float pscfv)
 	{
 		if(pscfv == 0.0) return;
-		fprintf(mFile,"setAttr \".psc[%i].pscfv\" %f;\n", psc_i,pscfv);
+		fprintf(mFile,"\tsetAttr \".psc[%i].pscfv\" %f;\n", psc_i,pscfv);
 
 	}
 	void setPressureScale_Interp(size_t psc_i,unsigned int psci)
 	{
 		if(psci == 0) return;
-		fprintf(mFile,"setAttr \".psc[%i].psci\" %i;\n", psc_i,psci);
+		fprintf(mFile,"\tsetAttr \".psc[%i].psci\" %i;\n", psc_i,psci);
 
 	}
 	void setPressure(size_t psr_i,double psr)
 	{
 		if(psr == 0.0) return;
-		fprintf(mFile,"setAttr \".psr[%i]\" %f;\n", psr_i,psr);
+		fprintf(mFile,"\tsetAttr \".psr[%i]\" %f;\n", psr_i,psr);
 
 	}
 	void setPressure(size_t psr_start,size_t psr_end,double* psr)
 	{
-		fprintf(mFile,"setAttr \".psr[%i:%i]\" ", psr_start,psr_end);
+		fprintf(mFile,"\tsetAttr \".psr[%i:%i]\" ", psr_start,psr_end);
 		size_t size = (psr_end-psr_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -271,7 +272,7 @@ public:
 	}
 	void startPressure(size_t psr_start,size_t psr_end)
 	{
-		fprintf(mFile,"setAttr \".psr[%i:%i]\"",psr_start,psr_end);
+		fprintf(mFile,"\tsetAttr \".psr[%i:%i]\"",psr_start,psr_end);
 
 	}
 	void appendPressure(double psr)
@@ -470,7 +471,8 @@ public:
 
 	}
 protected:
-	Stroke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PfxGeometry(file, name, parent, nodeType) {}
+	Stroke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PfxGeometry(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

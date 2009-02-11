@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,54 +18,55 @@ class SubdLayoutUV : public SubdModifierUV
 {
 public:
 public:
+	SubdLayoutUV():SubdModifierUV(){}
 	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierUV(file, name, parent, "subdLayoutUV"){}
 	virtual ~SubdLayoutUV(){}
 	void setSeparate(unsigned int se)
 	{
 		if(se == 0) return;
-		fprintf(mFile,"setAttr \".se\" %i;\n", se);
+		fprintf(mFile,"\tsetAttr \".se\" %i;\n", se);
 
 	}
 	void setFlipReversed(bool fr)
 	{
 		if(fr == true) return;
-		fprintf(mFile,"setAttr \".fr\" %i;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %i;\n", fr);
 
 	}
 	void setLayout(unsigned int l)
 	{
 		if(l == 2) return;
-		fprintf(mFile,"setAttr \".l\" %i;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
 	void setPercentageSpace(float ps)
 	{
 		if(ps == 0) return;
-		fprintf(mFile,"setAttr \".ps\" %f;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %f;\n", ps);
 
 	}
 	void setScale(unsigned int sc)
 	{
 		if(sc == 1) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setDenseLayout(bool dl)
 	{
 		if(dl == false) return;
-		fprintf(mFile,"setAttr \".dl\" %i;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
 	void setRotateForBestFit(unsigned int rbf)
 	{
 		if(rbf == 0) return;
-		fprintf(mFile,"setAttr \".rbf\" %i;\n", rbf);
+		fprintf(mFile,"\tsetAttr \".rbf\" %i;\n", rbf);
 
 	}
 	void setLayoutMethod(unsigned int lm)
 	{
 		if(lm == 0) return;
-		fprintf(mFile,"setAttr \".lm\" %i;\n", lm);
+		fprintf(mFile,"\tsetAttr \".lm\" %i;\n", lm);
 
 	}
 	void getSeparate()
@@ -109,7 +110,8 @@ public:
 
 	}
 protected:
-	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifierUV(file, name, parent, nodeType) {}
+	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

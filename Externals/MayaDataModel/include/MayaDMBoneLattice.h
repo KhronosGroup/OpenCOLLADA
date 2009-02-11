@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class BoneLattice : public GeometryFilter
 {
 public:
 public:
+	BoneLattice():GeometryFilter(){}
 	BoneLattice(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "boneLattice"){}
 	virtual ~BoneLattice(){}
 	void setBicep(double bi)
 	{
 		if(bi == 0) return;
-		fprintf(mFile,"setAttr \".bi\" %f;\n", bi);
+		fprintf(mFile,"\tsetAttr \".bi\" %f;\n", bi);
 
 	}
 	void setTricep(double tr)
 	{
 		if(tr == 0) return;
-		fprintf(mFile,"setAttr \".tr\" %f;\n", tr);
+		fprintf(mFile,"\tsetAttr \".tr\" %f;\n", tr);
 
 	}
 	void setLengthIn(double li)
 	{
 		if(li == 0) return;
-		fprintf(mFile,"setAttr \".li\" %f;\n", li);
+		fprintf(mFile,"\tsetAttr \".li\" %f;\n", li);
 
 	}
 	void setLengthOut(double lo)
 	{
 		if(lo == 0) return;
-		fprintf(mFile,"setAttr \".lo\" %f;\n", lo);
+		fprintf(mFile,"\tsetAttr \".lo\" %f;\n", lo);
 
 	}
 	void setWidthLeft(double wl)
 	{
 		if(wl == 0) return;
-		fprintf(mFile,"setAttr \".wl\" %f;\n", wl);
+		fprintf(mFile,"\tsetAttr \".wl\" %f;\n", wl);
 
 	}
 	void setWidthRight(double wr)
 	{
 		if(wr == 0) return;
-		fprintf(mFile,"setAttr \".wr\" %f;\n", wr);
+		fprintf(mFile,"\tsetAttr \".wr\" %f;\n", wr);
 
 	}
 	void setUpperMatrix(const matrix& um)
 	{
 		if(um == identity) return;
-		fprintf(mFile,"setAttr \".um\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".um\" -type \"matrix\" ");
 		um.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -67,7 +68,7 @@ public:
 	void setInitialUpperMatrix(const matrix& ui)
 	{
 		if(ui == identity) return;
-		fprintf(mFile,"setAttr \".ui\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".ui\" -type \"matrix\" ");
 		ui.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,7 +76,7 @@ public:
 	void setDeformedLatticeMatrix(const matrix& md)
 	{
 		if(md == identity) return;
-		fprintf(mFile,"setAttr \".md\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".md\" -type \"matrix\" ");
 		md.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,14 +84,14 @@ public:
 	void setBaseLatticeMatrix(const matrix& mb)
 	{
 		if(mb == identity) return;
-		fprintf(mFile,"setAttr \".mb\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".mb\" -type \"matrix\" ");
 		mb.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBendVector(const float3& bv)
 	{
-		fprintf(mFile,"setAttr \".bv\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".bv\" -type \"float3\" ");
 		bv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -98,25 +99,25 @@ public:
 	void setBendVectorX(float bx)
 	{
 		if(bx == 0.0) return;
-		fprintf(mFile,"setAttr \".bv.bx\" %f;\n", bx);
+		fprintf(mFile,"\tsetAttr \".bv.bx\" %f;\n", bx);
 
 	}
 	void setBendVectorY(float by)
 	{
 		if(by == 0.0) return;
-		fprintf(mFile,"setAttr \".bv.by\" %f;\n", by);
+		fprintf(mFile,"\tsetAttr \".bv.by\" %f;\n", by);
 
 	}
 	void setBendVectorZ(float bz)
 	{
 		if(bz == 0.0) return;
-		fprintf(mFile,"setAttr \".bv.bz\" %f;\n", bz);
+		fprintf(mFile,"\tsetAttr \".bv.bz\" %f;\n", bz);
 
 	}
 	void setBendMagnitude(double bm)
 	{
 		if(bm == 0) return;
-		fprintf(mFile,"setAttr \".bm\" %f;\n", bm);
+		fprintf(mFile,"\tsetAttr \".bm\" %f;\n", bm);
 
 	}
 	void getBicep()
@@ -200,7 +201,8 @@ public:
 
 	}
 protected:
-	BoneLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	BoneLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

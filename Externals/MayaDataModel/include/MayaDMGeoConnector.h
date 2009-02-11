@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,12 +23,13 @@ public:
 		}
 	};
 public:
+	GeoConnector():DependNode(){}
 	GeoConnector(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "geoConnector"){}
 	virtual ~GeoConnector(){}
 	void setWorldMatrix(const matrix& wm)
 	{
 		if(wm == identity) return;
-		fprintf(mFile,"setAttr \".wm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".wm\" -type \"matrix\" ");
 		wm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -36,12 +37,12 @@ public:
 	void setGroupId(size_t gri_i,int gri)
 	{
 		if(gri == -1) return;
-		fprintf(mFile,"setAttr \".gri[%i]\" %i;\n", gri_i,gri);
+		fprintf(mFile,"\tsetAttr \".gri[%i]\" %i;\n", gri_i,gri);
 
 	}
 	void setGroupId(size_t gri_start,size_t gri_end,int* gri)
 	{
-		fprintf(mFile,"setAttr \".gri[%i:%i]\" ", gri_start,gri_end);
+		fprintf(mFile,"\tsetAttr \".gri[%i:%i]\" ", gri_start,gri_end);
 		size_t size = (gri_end-gri_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -53,7 +54,7 @@ public:
 	}
 	void startGroupId(size_t gri_start,size_t gri_end)
 	{
-		fprintf(mFile,"setAttr \".gri[%i:%i]\"",gri_start,gri_end);
+		fprintf(mFile,"\tsetAttr \".gri[%i:%i]\"",gri_start,gri_end);
 
 	}
 	void appendGroupId(int gri)
@@ -69,13 +70,13 @@ public:
 	void setTessellationFactor(int tf)
 	{
 		if(tf == 200) return;
-		fprintf(mFile,"setAttr \".tf\" %i;\n", tf);
+		fprintf(mFile,"\tsetAttr \".tf\" %i;\n", tf);
 
 	}
 	void setUvSetName(const string& guv)
 	{
 		if(guv == "NULL") return;
-		fprintf(mFile,"setAttr \".guv\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".guv\" -type \"string\" ");
 		guv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,19 +84,19 @@ public:
 	void setResilience(double res)
 	{
 		if(res == 1) return;
-		fprintf(mFile,"setAttr \".res\" %f;\n", res);
+		fprintf(mFile,"\tsetAttr \".res\" %f;\n", res);
 
 	}
 	void setFriction(double fri)
 	{
 		if(fri == 0) return;
-		fprintf(mFile,"setAttr \".fri\" %f;\n", fri);
+		fprintf(mFile,"\tsetAttr \".fri\" %f;\n", fri);
 
 	}
 	void setOffset(double off)
 	{
 		if(off == 0.01) return;
-		fprintf(mFile,"setAttr \".off\" %f;\n", off);
+		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
 	void getCurrentTime()
@@ -304,7 +305,8 @@ public:
 
 	}
 protected:
-	GeoConnector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	GeoConnector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

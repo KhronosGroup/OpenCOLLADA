@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,19 +18,20 @@ class Guide : public DependNode
 {
 public:
 public:
+	Guide():DependNode(){}
 	Guide(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "guide"){}
 	virtual ~Guide(){}
 	void setJointAboveMatrix(const matrix& am)
 	{
 		if(am == identity) return;
-		fprintf(mFile,"setAttr \".am\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".am\" -type \"matrix\" ");
 		am.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setJointXformMatrix(const matrix& jm)
 	{
-		fprintf(mFile,"setAttr \".jm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".jm\" -type \"matrix\" ");
 		jm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -38,7 +39,7 @@ public:
 	void setJointBelowMatrix(const matrix& bm)
 	{
 		if(bm == identity) return;
-		fprintf(mFile,"setAttr \".bm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".bm\" -type \"matrix\" ");
 		bm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -46,7 +47,7 @@ public:
 	void setJointGuideAxis(unsigned int ga)
 	{
 		if(ga == 0) return;
-		fprintf(mFile,"setAttr \".ga\" %i;\n", ga);
+		fprintf(mFile,"\tsetAttr \".ga\" %i;\n", ga);
 
 	}
 	void getJointAboveMatrix()
@@ -125,7 +126,8 @@ public:
 
 	}
 protected:
-	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

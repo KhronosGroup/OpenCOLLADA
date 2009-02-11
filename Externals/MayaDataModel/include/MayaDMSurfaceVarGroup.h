@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class SurfaceVarGroup : public BaseGeometryVarGroup
 {
 public:
 public:
+	SurfaceVarGroup():BaseGeometryVarGroup(){}
 	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent=""):BaseGeometryVarGroup(file, name, parent, "surfaceVarGroup"){}
 	virtual ~SurfaceVarGroup(){}
 	void getCreate(size_t cr_i)
@@ -31,7 +32,8 @@ public:
 
 	}
 protected:
-	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BaseGeometryVarGroup(file, name, parent, nodeType) {}
+	SurfaceVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BaseGeometryVarGroup(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

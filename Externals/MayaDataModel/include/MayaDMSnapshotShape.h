@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class SnapshotShape : public GeometryShape
 {
 public:
 public:
+	SnapshotShape():GeometryShape(){}
 	SnapshotShape(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "snapshotShape"){}
 	virtual ~SnapshotShape(){}
 	void setPoints(const pointArray& pts)
 	{
 		if(pts.size == 0) return;
-		fprintf(mFile,"setAttr \".pts\" -type \"pointArray\" ");
+		fprintf(mFile,"\tsetAttr \".pts\" -type \"pointArray\" ");
 		pts.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setFrames(const intArray& f)
 	{
 		if(f.size == 0) return;
-		fprintf(mFile,"setAttr \".f\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".f\" -type \"intArray\" ");
 		f.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,13 +40,13 @@ public:
 	void setDrawStyle(unsigned int d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setShowFrames(bool sf)
 	{
 		if(sf == 0) return;
-		fprintf(mFile,"setAttr \".sf\" %i;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sf\" %i;\n", sf);
 
 	}
 	void getPoints()
@@ -69,7 +70,8 @@ public:
 
 	}
 protected:
-	SnapshotShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryShape(file, name, parent, nodeType) {}
+	SnapshotShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class HyperView : public DependNode
 {
 public:
 public:
+	HyperView():DependNode(){}
 	HyperView(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hyperView"){}
 	virtual ~HyperView(){}
 	void setPosition(const double2& p)
 	{
 		if(p == double2(0, 0)) return;
-		fprintf(mFile,"setAttr \".p\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"double2\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,19 +32,19 @@ public:
 	void setPositionX(double px)
 	{
 		if(px == 0.0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPositionY(double py)
 	{
 		if(py == 0.0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setViewRectLow(const double2& vl)
 	{
 		if(vl == double2(0, 0)) return;
-		fprintf(mFile,"setAttr \".vl\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".vl\" -type \"double2\" ");
 		vl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -51,19 +52,19 @@ public:
 	void setViewXL(double xl)
 	{
 		if(xl == 0.0) return;
-		fprintf(mFile,"setAttr \".vl.xl\" %f;\n", xl);
+		fprintf(mFile,"\tsetAttr \".vl.xl\" %f;\n", xl);
 
 	}
 	void setViewYL(double yl)
 	{
 		if(yl == 0.0) return;
-		fprintf(mFile,"setAttr \".vl.yl\" %f;\n", yl);
+		fprintf(mFile,"\tsetAttr \".vl.yl\" %f;\n", yl);
 
 	}
 	void setViewRectHigh(const double2& vh)
 	{
 		if(vh == double2(0, 0)) return;
-		fprintf(mFile,"setAttr \".vh\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".vh\" -type \"double2\" ");
 		vh.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -71,25 +72,25 @@ public:
 	void setViewXH(double xh)
 	{
 		if(xh == 0.0) return;
-		fprintf(mFile,"setAttr \".vh.xh\" %f;\n", xh);
+		fprintf(mFile,"\tsetAttr \".vh.xh\" %f;\n", xh);
 
 	}
 	void setViewYH(double yh)
 	{
 		if(yh == 0.0) return;
-		fprintf(mFile,"setAttr \".vh.yh\" %f;\n", yh);
+		fprintf(mFile,"\tsetAttr \".vh.yh\" %f;\n", yh);
 
 	}
 	void setDagView(bool dag)
 	{
 		if(dag == true) return;
-		fprintf(mFile,"setAttr \".dag\" %i;\n", dag);
+		fprintf(mFile,"\tsetAttr \".dag\" %i;\n", dag);
 
 	}
 	void setDescription(const string& d)
 	{
 		if(d == "") return;
-		fprintf(mFile,"setAttr \".d\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"string\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -97,7 +98,7 @@ public:
 	void setFullName(const string& fn)
 	{
 		if(fn == "") return;
-		fprintf(mFile,"setAttr \".fn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".fn\" -type \"string\" ");
 		fn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -105,7 +106,7 @@ public:
 	void setShortName(const string& sn)
 	{
 		if(sn == "") return;
-		fprintf(mFile,"setAttr \".sn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".sn\" -type \"string\" ");
 		sn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -113,13 +114,13 @@ public:
 	void setBuildDirection(unsigned int bd)
 	{
 		if(bd == 2) return;
-		fprintf(mFile,"setAttr \".bd\" %i;\n", bd);
+		fprintf(mFile,"\tsetAttr \".bd\" %i;\n", bd);
 
 	}
 	void setGraphTraversalLimit(int gtl)
 	{
 		if(gtl == -1) return;
-		fprintf(mFile,"setAttr \".gtl\" %i;\n", gtl);
+		fprintf(mFile,"\tsetAttr \".gtl\" %i;\n", gtl);
 
 	}
 	void getPosition()
@@ -213,7 +214,8 @@ public:
 
 	}
 protected:
-	HyperView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	HyperView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

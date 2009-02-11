@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class CurveNormalizerLinear : public CurveNormalizer
 {
 public:
 public:
+	CurveNormalizerLinear():CurveNormalizer(){}
 	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent=""):CurveNormalizer(file, name, parent, "curveNormalizerLinear"){}
 	virtual ~CurveNormalizerLinear(){}
 	void setAnimInput(double ai)
 	{
 		if(ai == 0) return;
-		fprintf(mFile,"setAttr \".ai\" %f;\n", ai);
+		fprintf(mFile,"\tsetAttr \".ai\" %f;\n", ai);
 
 	}
 	void getAnimInput()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveNormalizer(file, name, parent, nodeType) {}
+	CurveNormalizerLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveNormalizer(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

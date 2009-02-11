@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,84 +18,85 @@ class SubdivToPoly : public DependNode
 {
 public:
 public:
+	SubdivToPoly():DependNode(){}
 	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivToPoly"){}
 	virtual ~SubdivToPoly(){}
 	void setFormat(unsigned int f)
 	{
 		if(f == 0) return;
-		fprintf(mFile,"setAttr \".f\" %i;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
 
 	}
 	void setPolygonType(unsigned int pt)
 	{
 		if(pt == 2) return;
-		fprintf(mFile,"setAttr \".pt\" %i;\n", pt);
+		fprintf(mFile,"\tsetAttr \".pt\" %i;\n", pt);
 
 	}
 	void setExtractPointPosition(bool epp)
 	{
 		if(epp == false) return;
-		fprintf(mFile,"setAttr \".epp\" %i;\n", epp);
+		fprintf(mFile,"\tsetAttr \".epp\" %i;\n", epp);
 
 	}
 	void setSampleCount(int sc)
 	{
 		if(sc == 1) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setDepth(int d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setMaxPolys(int mp)
 	{
 		if(mp == 0) return;
-		fprintf(mFile,"setAttr \".mp\" %i;\n", mp);
+		fprintf(mFile,"\tsetAttr \".mp\" %i;\n", mp);
 
 	}
 	void setSubdNormals(bool un)
 	{
 		if(un == false) return;
-		fprintf(mFile,"setAttr \".un\" %i;\n", un);
+		fprintf(mFile,"\tsetAttr \".un\" %i;\n", un);
 
 	}
 	void setCopyUVTopology(bool cut)
 	{
 		if(cut == false) return;
-		fprintf(mFile,"setAttr \".cut\" %i;\n", cut);
+		fprintf(mFile,"\tsetAttr \".cut\" %i;\n", cut);
 
 	}
 	void setShareUVs(bool suv)
 	{
 		if(suv == false) return;
-		fprintf(mFile,"setAttr \".suv\" %i;\n", suv);
+		fprintf(mFile,"\tsetAttr \".suv\" %i;\n", suv);
 
 	}
 	void setLevel(int l)
 	{
 		if(l == 0) return;
-		fprintf(mFile,"setAttr \".l\" %i;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
 	void setConvertComp(bool cc)
 	{
 		if(cc == false) return;
-		fprintf(mFile,"setAttr \".cc\" %i;\n", cc);
+		fprintf(mFile,"\tsetAttr \".cc\" %i;\n", cc);
 
 	}
 	void setOutSubdCVId(size_t os_i,const long2& os)
 	{
-		fprintf(mFile,"setAttr \".os[%i]\" -type \"long2\" ",os_i);
+		fprintf(mFile,"\tsetAttr \".os[%i]\" -type \"long2\" ",os_i);
 		os.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setOutSubdCVId(size_t os_start,size_t os_end,int* os)
 	{
-		fprintf(mFile,"setAttr \".os[%i:%i]\" ", os_start,os_end);
+		fprintf(mFile,"\tsetAttr \".os[%i:%i]\" ", os_start,os_end);
 		size_t size = (os_end-os_start)*2+2;
 		for(size_t i=0;i<size;++i)
 		{
@@ -107,7 +108,7 @@ public:
 	}
 	void startOutSubdCVId(size_t os_start,size_t os_end)
 	{
-		fprintf(mFile,"setAttr \".os[%i:%i]\"",os_start,os_end);
+		fprintf(mFile,"\tsetAttr \".os[%i:%i]\"",os_start,os_end);
 
 	}
 	void appendOutSubdCVId(int os)
@@ -123,25 +124,25 @@ public:
 	void setOutSubdCVIdLeft(size_t os_i,int osl)
 	{
 		if(osl == 0) return;
-		fprintf(mFile,"setAttr \".os[%i].osl\" %i;\n", os_i,osl);
+		fprintf(mFile,"\tsetAttr \".os[%i].osl\" %i;\n", os_i,osl);
 
 	}
 	void setOutSubdCVIdRight(size_t os_i,int osr)
 	{
 		if(osr == 0) return;
-		fprintf(mFile,"setAttr \".os[%i].osr\" %i;\n", os_i,osr);
+		fprintf(mFile,"\tsetAttr \".os[%i].osr\" %i;\n", os_i,osr);
 
 	}
 	void setInSubdCVId(size_t is_i,const long2& is)
 	{
-		fprintf(mFile,"setAttr \".is[%i]\" -type \"long2\" ",is_i);
+		fprintf(mFile,"\tsetAttr \".is[%i]\" -type \"long2\" ",is_i);
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInSubdCVId(size_t is_start,size_t is_end,int* is)
 	{
-		fprintf(mFile,"setAttr \".is[%i:%i]\" ", is_start,is_end);
+		fprintf(mFile,"\tsetAttr \".is[%i:%i]\" ", is_start,is_end);
 		size_t size = (is_end-is_start)*2+2;
 		for(size_t i=0;i<size;++i)
 		{
@@ -153,7 +154,7 @@ public:
 	}
 	void startInSubdCVId(size_t is_start,size_t is_end)
 	{
-		fprintf(mFile,"setAttr \".is[%i:%i]\"",is_start,is_end);
+		fprintf(mFile,"\tsetAttr \".is[%i:%i]\"",is_start,is_end);
 
 	}
 	void appendInSubdCVId(int is)
@@ -169,30 +170,30 @@ public:
 	void setInSubdCVIdLeft(size_t is_i,int isl)
 	{
 		if(isl == 0) return;
-		fprintf(mFile,"setAttr \".is[%i].isl\" %i;\n", is_i,isl);
+		fprintf(mFile,"\tsetAttr \".is[%i].isl\" %i;\n", is_i,isl);
 
 	}
 	void setInSubdCVIdRight(size_t is_i,int isr)
 	{
 		if(isr == 0) return;
-		fprintf(mFile,"setAttr \".is[%i].isr\" %i;\n", is_i,isr);
+		fprintf(mFile,"\tsetAttr \".is[%i].isr\" %i;\n", is_i,isr);
 
 	}
 	void setPreserveVertexOrdering(bool pvo)
 	{
 		if(pvo == true) return;
-		fprintf(mFile,"setAttr \".pvo\" %i;\n", pvo);
+		fprintf(mFile,"\tsetAttr \".pvo\" %i;\n", pvo);
 
 	}
 	void setOutv(size_t ov_i,int ov)
 	{
 		if(ov == 0) return;
-		fprintf(mFile,"setAttr \".ov[%i]\" %i;\n", ov_i,ov);
+		fprintf(mFile,"\tsetAttr \".ov[%i]\" %i;\n", ov_i,ov);
 
 	}
 	void setOutv(size_t ov_start,size_t ov_end,int* ov)
 	{
-		fprintf(mFile,"setAttr \".ov[%i:%i]\" ", ov_start,ov_end);
+		fprintf(mFile,"\tsetAttr \".ov[%i:%i]\" ", ov_start,ov_end);
 		size_t size = (ov_end-ov_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -204,7 +205,7 @@ public:
 	}
 	void startOutv(size_t ov_start,size_t ov_end)
 	{
-		fprintf(mFile,"setAttr \".ov[%i:%i]\"",ov_start,ov_end);
+		fprintf(mFile,"\tsetAttr \".ov[%i:%i]\"",ov_start,ov_end);
 
 	}
 	void appendOutv(int ov)
@@ -220,7 +221,12 @@ public:
 	void setApplyMatrixToResult(bool amr)
 	{
 		if(amr == true) return;
-		fprintf(mFile,"setAttr \".amr\" %i;\n", amr);
+		fprintf(mFile,"\tsetAttr \".amr\" %i;\n", amr);
+
+	}
+	void getInSubdiv()
+	{
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
 	void getOutMesh()
@@ -329,7 +335,8 @@ public:
 
 	}
 protected:
-	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

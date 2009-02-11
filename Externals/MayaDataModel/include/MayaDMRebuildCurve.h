@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,72 +18,73 @@ class RebuildCurve : public AbstractBaseCreate
 {
 public:
 public:
+	RebuildCurve():AbstractBaseCreate(){}
 	RebuildCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "rebuildCurve"){}
 	virtual ~RebuildCurve(){}
 	void setFitRebuild(bool fr)
 	{
 		if(fr == true) return;
-		fprintf(mFile,"setAttr \".fr\" %i;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %i;\n", fr);
 
 	}
 	void setRebuildType(unsigned int rt)
 	{
 		if(rt == 0) return;
-		fprintf(mFile,"setAttr \".rt\" %i;\n", rt);
+		fprintf(mFile,"\tsetAttr \".rt\" %i;\n", rt);
 
 	}
 	void setSpans(int s)
 	{
 		if(s == 4) return;
-		fprintf(mFile,"setAttr \".s\" %i;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
 	void setDegree(unsigned int d)
 	{
 		if(d == 3) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setEndKnots(unsigned int end)
 	{
 		if(end == 0) return;
-		fprintf(mFile,"setAttr \".end\" %i;\n", end);
+		fprintf(mFile,"\tsetAttr \".end\" %i;\n", end);
 
 	}
 	void setKeepRange(unsigned int kr)
 	{
 		if(kr == 1) return;
-		fprintf(mFile,"setAttr \".kr\" %i;\n", kr);
+		fprintf(mFile,"\tsetAttr \".kr\" %i;\n", kr);
 
 	}
 	void setKeepEndPoints(bool kep)
 	{
 		if(kep == true) return;
-		fprintf(mFile,"setAttr \".kep\" %i;\n", kep);
+		fprintf(mFile,"\tsetAttr \".kep\" %i;\n", kep);
 
 	}
 	void setKeepTangents(bool kt)
 	{
 		if(kt == true) return;
-		fprintf(mFile,"setAttr \".kt\" %i;\n", kt);
+		fprintf(mFile,"\tsetAttr \".kt\" %i;\n", kt);
 
 	}
 	void setKeepControlPoints(bool kcp)
 	{
 		if(kcp == false) return;
-		fprintf(mFile,"setAttr \".kcp\" %i;\n", kcp);
+		fprintf(mFile,"\tsetAttr \".kcp\" %i;\n", kcp);
 
 	}
 	void setSmartSurfaceCurveRebuild(bool scr)
 	{
 		if(scr == false) return;
-		fprintf(mFile,"setAttr \".scr\" %i;\n", scr);
+		fprintf(mFile,"\tsetAttr \".scr\" %i;\n", scr);
 
 	}
 	void getInputCurve()
@@ -157,7 +158,8 @@ public:
 
 	}
 protected:
-	RebuildCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	RebuildCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

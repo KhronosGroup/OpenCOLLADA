@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class Expression : public DependNode
 {
 public:
 public:
+	Expression():DependNode(){}
 	Expression(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "expression"){}
 	virtual ~Expression(){}
 	void setInput(size_t in_i,double in)
 	{
 		if(in == 0.0) return;
-		fprintf(mFile,"setAttr \".in[%i]\" %f;\n", in_i,in);
+		fprintf(mFile,"\tsetAttr \".in[%i]\" %f;\n", in_i,in);
 
 	}
 	void setInput(size_t in_start,size_t in_end,double* in)
 	{
-		fprintf(mFile,"setAttr \".in[%i:%i]\" ", in_start,in_end);
+		fprintf(mFile,"\tsetAttr \".in[%i:%i]\" ", in_start,in_end);
 		size_t size = (in_end-in_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startInput(size_t in_start,size_t in_end)
 	{
-		fprintf(mFile,"setAttr \".in[%i:%i]\"",in_start,in_end);
+		fprintf(mFile,"\tsetAttr \".in[%i:%i]\"",in_start,in_end);
 
 	}
 	void appendInput(double in)
@@ -56,7 +57,7 @@ public:
 	void setInternalExpression(const string& ixp)
 	{
 		if(ixp == "NULL") return;
-		fprintf(mFile,"setAttr \".ixp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ixp\" -type \"string\" ");
 		ixp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -64,13 +65,13 @@ public:
 	void setAnimated(unsigned int ani)
 	{
 		if(ani == 1) return;
-		fprintf(mFile,"setAttr \".ani\" %i;\n", ani);
+		fprintf(mFile,"\tsetAttr \".ani\" %i;\n", ani);
 
 	}
 	void setUnitOption(unsigned int uno)
 	{
 		if(uno == 0) return;
-		fprintf(mFile,"setAttr \".uno\" %i;\n", uno);
+		fprintf(mFile,"\tsetAttr \".uno\" %i;\n", uno);
 
 	}
 	void getInput(size_t in_i)
@@ -149,7 +150,8 @@ public:
 
 	}
 protected:
-	Expression(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Expression(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

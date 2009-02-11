@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class PointMatrixMult : public DependNode
 {
 public:
 public:
+	PointMatrixMult():DependNode(){}
 	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "pointMatrixMult"){}
 	virtual ~PointMatrixMult(){}
 	void setInPoint(const double3& ip)
 	{
-		fprintf(mFile,"setAttr \".ip\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ip\" -type \"double3\" ");
 		ip.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,25 +31,25 @@ public:
 	void setInPointX(double ipx)
 	{
 		if(ipx == 0) return;
-		fprintf(mFile,"setAttr \".ip.ipx\" %f;\n", ipx);
+		fprintf(mFile,"\tsetAttr \".ip.ipx\" %f;\n", ipx);
 
 	}
 	void setInPointY(double ipy)
 	{
 		if(ipy == 0) return;
-		fprintf(mFile,"setAttr \".ip.ipy\" %f;\n", ipy);
+		fprintf(mFile,"\tsetAttr \".ip.ipy\" %f;\n", ipy);
 
 	}
 	void setInPointZ(double ipz)
 	{
 		if(ipz == 0) return;
-		fprintf(mFile,"setAttr \".ip.ipz\" %f;\n", ipz);
+		fprintf(mFile,"\tsetAttr \".ip.ipz\" %f;\n", ipz);
 
 	}
 	void setInMatrix(const matrix& im)
 	{
 		if(im == identity) return;
-		fprintf(mFile,"setAttr \".im\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".im\" -type \"matrix\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -56,7 +57,37 @@ public:
 	void setVectorMultiply(bool vm)
 	{
 		if(vm == false) return;
-		fprintf(mFile,"setAttr \".vm\" %i;\n", vm);
+		fprintf(mFile,"\tsetAttr \".vm\" %i;\n", vm);
+
+	}
+	void getInPoint()
+	{
+		fprintf(mFile,"\"%s.ip\"",mName.c_str());
+
+	}
+	void getInPointX()
+	{
+		fprintf(mFile,"\"%s.ip.ipx\"",mName.c_str());
+
+	}
+	void getInPointY()
+	{
+		fprintf(mFile,"\"%s.ip.ipy\"",mName.c_str());
+
+	}
+	void getInPointZ()
+	{
+		fprintf(mFile,"\"%s.ip.ipz\"",mName.c_str());
+
+	}
+	void getInMatrix()
+	{
+		fprintf(mFile,"\"%s.im\"",mName.c_str());
+
+	}
+	void getVectorMultiply()
+	{
+		fprintf(mFile,"\"%s.vm\"",mName.c_str());
 
 	}
 	void getOutput()
@@ -80,7 +111,8 @@ public:
 
 	}
 protected:
-	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

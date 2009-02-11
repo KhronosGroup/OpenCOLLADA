@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,23 +18,24 @@ class CurveIntersect : public AbstractBaseCreate
 {
 public:
 public:
+	CurveIntersect():AbstractBaseCreate(){}
 	CurveIntersect(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "curveIntersect"){}
 	virtual ~CurveIntersect(){}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setUseDirection(bool ud)
 	{
 		if(ud == false) return;
-		fprintf(mFile,"setAttr \".ud\" %i;\n", ud);
+		fprintf(mFile,"\tsetAttr \".ud\" %i;\n", ud);
 
 	}
 	void setDirection(const double3& d)
 	{
-		fprintf(mFile,"setAttr \".d\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"double3\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -42,19 +43,19 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 1) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void getInputCurve1()
@@ -108,7 +109,8 @@ public:
 
 	}
 protected:
-	CurveIntersect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	CurveIntersect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -62,35 +62,36 @@ public:
 		}
 	};
 public:
+	SurfaceShape():ControlPoint(){}
 	SurfaceShape(FILE* file,const std::string& name,const std::string& parent=""):ControlPoint(file, name, parent, "surfaceShape"){}
 	virtual ~SurfaceShape(){}
 	void setIgnoreHwShader(bool ih)
 	{
 		if(ih == false) return;
-		fprintf(mFile,"setAttr \".ih\" %i;\n", ih);
+		fprintf(mFile,"\tsetAttr \".ih\" %i;\n", ih);
 
 	}
 	void setDoubleSided(bool ds)
 	{
 		if(ds == true) return;
-		fprintf(mFile,"setAttr \".ds\" %i;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %i;\n", ds);
 
 	}
 	void setOpposite(bool op)
 	{
 		if(op == false) return;
-		fprintf(mFile,"setAttr \".op\" %i;\n", op);
+		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
 
 	}
 	void setSmoothShading(bool smo)
 	{
 		if(smo == true) return;
-		fprintf(mFile,"setAttr \".smo\" %i;\n", smo);
+		fprintf(mFile,"\tsetAttr \".smo\" %i;\n", smo);
 
 	}
 	void setBoundingBoxScale(const float3& bbs)
 	{
-		fprintf(mFile,"setAttr \".bbs\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".bbs\" -type \"float3\" ");
 		bbs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -98,60 +99,60 @@ public:
 	void setBoundingBoxScaleX(float bscx)
 	{
 		if(bscx == 1.5) return;
-		fprintf(mFile,"setAttr \".bbs.bscx\" %f;\n", bscx);
+		fprintf(mFile,"\tsetAttr \".bbs.bscx\" %f;\n", bscx);
 
 	}
 	void setBoundingBoxScaleY(float bscy)
 	{
 		if(bscy == 1.5) return;
-		fprintf(mFile,"setAttr \".bbs.bscy\" %f;\n", bscy);
+		fprintf(mFile,"\tsetAttr \".bbs.bscy\" %f;\n", bscy);
 
 	}
 	void setBoundingBoxScaleZ(float bscz)
 	{
 		if(bscz == 1.5) return;
-		fprintf(mFile,"setAttr \".bbs.bscz\" %f;\n", bscz);
+		fprintf(mFile,"\tsetAttr \".bbs.bscz\" %f;\n", bscz);
 
 	}
 	void setFeatureDisplacement(bool fbda)
 	{
 		if(fbda == true) return;
-		fprintf(mFile,"setAttr \".fbda\" %i;\n", fbda);
+		fprintf(mFile,"\tsetAttr \".fbda\" %i;\n", fbda);
 
 	}
 	void setInitialSampleRate(int dsr)
 	{
 		if(dsr == 6) return;
-		fprintf(mFile,"setAttr \".dsr\" %i;\n", dsr);
+		fprintf(mFile,"\tsetAttr \".dsr\" %i;\n", dsr);
 
 	}
 	void setExtraSampleRate(int xsr)
 	{
 		if(xsr == 5) return;
-		fprintf(mFile,"setAttr \".xsr\" %i;\n", xsr);
+		fprintf(mFile,"\tsetAttr \".xsr\" %i;\n", xsr);
 
 	}
 	void setTextureThreshold(int fth)
 	{
 		if(fth == 0) return;
-		fprintf(mFile,"setAttr \".fth\" %i;\n", fth);
+		fprintf(mFile,"\tsetAttr \".fth\" %i;\n", fth);
 
 	}
 	void setNormalThreshold(float nat)
 	{
 		if(nat == 30) return;
-		fprintf(mFile,"setAttr \".nat\" %f;\n", nat);
+		fprintf(mFile,"\tsetAttr \".nat\" %f;\n", nat);
 
 	}
 	void setDisplayHWEnvironment(bool dhe)
 	{
 		if(dhe == false) return;
-		fprintf(mFile,"setAttr \".dhe\" %i;\n", dhe);
+		fprintf(mFile,"\tsetAttr \".dhe\" %i;\n", dhe);
 
 	}
 	void setCollisionOffsetVelocityIncrement(size_t covi_i,const CollisionOffsetVelocityIncrement& covi)
 	{
-		fprintf(mFile,"setAttr \".covi[%i]\" ",covi_i);
+		fprintf(mFile,"\tsetAttr \".covi[%i]\" ",covi_i);
 		covi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -159,24 +160,24 @@ public:
 	void setCollisionOffsetVelocityIncrement_Position(size_t covi_i,float covip)
 	{
 		if(covip == 0.0) return;
-		fprintf(mFile,"setAttr \".covi[%i].covip\" %f;\n", covi_i,covip);
+		fprintf(mFile,"\tsetAttr \".covi[%i].covip\" %f;\n", covi_i,covip);
 
 	}
 	void setCollisionOffsetVelocityIncrement_FloatValue(size_t covi_i,float covifv)
 	{
 		if(covifv == 0.0) return;
-		fprintf(mFile,"setAttr \".covi[%i].covifv\" %f;\n", covi_i,covifv);
+		fprintf(mFile,"\tsetAttr \".covi[%i].covifv\" %f;\n", covi_i,covifv);
 
 	}
 	void setCollisionOffsetVelocityIncrement_Interp(size_t covi_i,unsigned int covii)
 	{
 		if(covii == 0) return;
-		fprintf(mFile,"setAttr \".covi[%i].covii\" %i;\n", covi_i,covii);
+		fprintf(mFile,"\tsetAttr \".covi[%i].covii\" %i;\n", covi_i,covii);
 
 	}
 	void setCollisionDepthVelocityIncrement(size_t cdvi_i,const CollisionDepthVelocityIncrement& cdvi)
 	{
-		fprintf(mFile,"setAttr \".cdvi[%i]\" ",cdvi_i);
+		fprintf(mFile,"\tsetAttr \".cdvi[%i]\" ",cdvi_i);
 		cdvi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -184,24 +185,24 @@ public:
 	void setCollisionDepthVelocityIncrement_Position(size_t cdvi_i,float cdvip)
 	{
 		if(cdvip == 0.0) return;
-		fprintf(mFile,"setAttr \".cdvi[%i].cdvip\" %f;\n", cdvi_i,cdvip);
+		fprintf(mFile,"\tsetAttr \".cdvi[%i].cdvip\" %f;\n", cdvi_i,cdvip);
 
 	}
 	void setCollisionDepthVelocityIncrement_FloatValue(size_t cdvi_i,float cdvifv)
 	{
 		if(cdvifv == 0.0) return;
-		fprintf(mFile,"setAttr \".cdvi[%i].cdvifv\" %f;\n", cdvi_i,cdvifv);
+		fprintf(mFile,"\tsetAttr \".cdvi[%i].cdvifv\" %f;\n", cdvi_i,cdvifv);
 
 	}
 	void setCollisionDepthVelocityIncrement_Interp(size_t cdvi_i,unsigned int cdvii)
 	{
 		if(cdvii == 0) return;
-		fprintf(mFile,"setAttr \".cdvi[%i].cdvii\" %i;\n", cdvi_i,cdvii);
+		fprintf(mFile,"\tsetAttr \".cdvi[%i].cdvii\" %i;\n", cdvi_i,cdvii);
 
 	}
 	void setCollisionOffsetVelocityMultiplier(size_t covm_i,const CollisionOffsetVelocityMultiplier& covm)
 	{
-		fprintf(mFile,"setAttr \".covm[%i]\" ",covm_i);
+		fprintf(mFile,"\tsetAttr \".covm[%i]\" ",covm_i);
 		covm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -209,24 +210,24 @@ public:
 	void setCollisionOffsetVelocityMultiplier_Position(size_t covm_i,float covmp)
 	{
 		if(covmp == 0.0) return;
-		fprintf(mFile,"setAttr \".covm[%i].covmp\" %f;\n", covm_i,covmp);
+		fprintf(mFile,"\tsetAttr \".covm[%i].covmp\" %f;\n", covm_i,covmp);
 
 	}
 	void setCollisionOffsetVelocityMultiplier_FloatValue(size_t covm_i,float covmfv)
 	{
 		if(covmfv == 0.0) return;
-		fprintf(mFile,"setAttr \".covm[%i].covmfv\" %f;\n", covm_i,covmfv);
+		fprintf(mFile,"\tsetAttr \".covm[%i].covmfv\" %f;\n", covm_i,covmfv);
 
 	}
 	void setCollisionOffsetVelocityMultiplier_Interp(size_t covm_i,unsigned int covmi)
 	{
 		if(covmi == 0) return;
-		fprintf(mFile,"setAttr \".covm[%i].covmi\" %i;\n", covm_i,covmi);
+		fprintf(mFile,"\tsetAttr \".covm[%i].covmi\" %i;\n", covm_i,covmi);
 
 	}
 	void setCollisionDepthVelocityMultiplier(size_t cdvm_i,const CollisionDepthVelocityMultiplier& cdvm)
 	{
-		fprintf(mFile,"setAttr \".cdvm[%i]\" ",cdvm_i);
+		fprintf(mFile,"\tsetAttr \".cdvm[%i]\" ",cdvm_i);
 		cdvm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -234,19 +235,19 @@ public:
 	void setCollisionDepthVelocityMultiplier_Position(size_t cdvm_i,float cdvmp)
 	{
 		if(cdvmp == 0.0) return;
-		fprintf(mFile,"setAttr \".cdvm[%i].cdvmp\" %f;\n", cdvm_i,cdvmp);
+		fprintf(mFile,"\tsetAttr \".cdvm[%i].cdvmp\" %f;\n", cdvm_i,cdvmp);
 
 	}
 	void setCollisionDepthVelocityMultiplier_FloatValue(size_t cdvm_i,float cdvmfv)
 	{
 		if(cdvmfv == 0.0) return;
-		fprintf(mFile,"setAttr \".cdvm[%i].cdvmfv\" %f;\n", cdvm_i,cdvmfv);
+		fprintf(mFile,"\tsetAttr \".cdvm[%i].cdvmfv\" %f;\n", cdvm_i,cdvmfv);
 
 	}
 	void setCollisionDepthVelocityMultiplier_Interp(size_t cdvm_i,unsigned int cdvmi)
 	{
 		if(cdvmi == 0) return;
-		fprintf(mFile,"setAttr \".cdvm[%i].cdvmi\" %i;\n", cdvm_i,cdvmi);
+		fprintf(mFile,"\tsetAttr \".cdvm[%i].cdvmi\" %i;\n", cdvm_i,cdvmi);
 
 	}
 	void getIgnoreHwShader()
@@ -400,7 +401,8 @@ public:
 
 	}
 protected:
-	SurfaceShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ControlPoint(file, name, parent, nodeType) {}
+	SurfaceShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ControlPoint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

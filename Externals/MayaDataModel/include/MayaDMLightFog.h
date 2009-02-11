@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class LightFog : public DependNode
 {
 public:
 public:
+	LightFog():DependNode(){}
 	LightFog(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "lightFog"){}
 	virtual ~LightFog(){}
 	void setColor(const float3& c)
 	{
 		if(c == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".c\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c\" -type \"float3\" ");
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,49 +32,144 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".c.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".c.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".c.cb\" %f;\n", cb);
 
 	}
 	void setDensity(float d)
 	{
 		if(d == 1.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setFastDropOff(bool fd)
 	{
 		if(fd == false) return;
-		fprintf(mFile,"setAttr \".fd\" %i;\n", fd);
+		fprintf(mFile,"\tsetAttr \".fd\" %i;\n", fd);
 
 	}
 	void setColorBasedTransparency(bool cbt)
 	{
 		if(cbt == true) return;
-		fprintf(mFile,"setAttr \".cbt\" %i;\n", cbt);
+		fprintf(mFile,"\tsetAttr \".cbt\" %i;\n", cbt);
 
 	}
 	void setMatteOpacityMode(unsigned int mom)
 	{
 		if(mom == 2) return;
-		fprintf(mFile,"setAttr \".mom\" %i;\n", mom);
+		fprintf(mFile,"\tsetAttr \".mom\" %i;\n", mom);
 
 	}
 	void setMatteOpacity(float mog)
 	{
 		if(mog == 1.0) return;
-		fprintf(mFile,"setAttr \".mog\" %f;\n", mog);
+		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
+
+	}
+	void getFilterSize()
+	{
+		fprintf(mFile,"\"%s.fs\"",mName.c_str());
+
+	}
+	void getFilterSizeX()
+	{
+		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
+
+	}
+	void getFilterSizeY()
+	{
+		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
+
+	}
+	void getFilterSizeZ()
+	{
+		fprintf(mFile,"\"%s.fs.fsz\"",mName.c_str());
+
+	}
+	void getLightDataArray(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirection(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionX(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionY(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionZ(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityR(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityG(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityB(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightAmbient(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDiffuse(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightSpecular(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightShadowFraction(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
+
+	}
+	void getPreShadowIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightBlindData(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
 
 	}
 	void getColor()
@@ -182,7 +278,8 @@ public:
 
 	}
 protected:
-	LightFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	LightFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class BoundaryBase : public AbstractBaseCreate
 {
 public:
 public:
+	BoundaryBase():AbstractBaseCreate(){}
 	BoundaryBase(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "boundaryBase"){}
 	virtual ~BoundaryBase(){}
 	void setEndPointTolerance(double ept)
 	{
 		if(ept == 0) return;
-		fprintf(mFile,"setAttr \".ept\" %f;\n", ept);
+		fprintf(mFile,"\tsetAttr \".ept\" %f;\n", ept);
 
 	}
 	void getInputCurve1()
@@ -57,7 +58,8 @@ public:
 
 	}
 protected:
-	BoundaryBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	BoundaryBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

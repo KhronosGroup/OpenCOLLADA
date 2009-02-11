@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -33,17 +33,18 @@ public:
 		}
 	};
 public:
+	JointCluster():Cluster(){}
 	JointCluster(FILE* file,const std::string& name,const std::string& parent=""):Cluster(file, name, parent, "jointCluster"){}
 	virtual ~JointCluster(){}
 	void setChildEnabled(size_t che_i,bool che)
 	{
 		if(che == 0) return;
-		fprintf(mFile,"setAttr \".che[%i]\" %i;\n", che_i,che);
+		fprintf(mFile,"\tsetAttr \".che[%i]\" %i;\n", che_i,che);
 
 	}
 	void setChildEnabled(size_t che_start,size_t che_end,bool* che)
 	{
-		fprintf(mFile,"setAttr \".che[%i:%i]\" ", che_start,che_end);
+		fprintf(mFile,"\tsetAttr \".che[%i:%i]\" ", che_start,che_end);
 		size_t size = (che_end-che_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -55,7 +56,7 @@ public:
 	}
 	void startChildEnabled(size_t che_start,size_t che_end)
 	{
-		fprintf(mFile,"setAttr \".che[%i:%i]\"",che_start,che_end);
+		fprintf(mFile,"\tsetAttr \".che[%i:%i]\"",che_start,che_end);
 
 	}
 	void appendChildEnabled(bool che)
@@ -70,7 +71,7 @@ public:
 	}
 	void setJointMidplaneAxis(const double3& jma)
 	{
-		fprintf(mFile,"setAttr \".jma\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".jma\" -type \"double3\" ");
 		jma.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -78,31 +79,31 @@ public:
 	void setJointMidplaneAxisX(double jmx)
 	{
 		if(jmx == 0) return;
-		fprintf(mFile,"setAttr \".jma.jmx\" %f;\n", jmx);
+		fprintf(mFile,"\tsetAttr \".jma.jmx\" %f;\n", jmx);
 
 	}
 	void setJointMidplaneAxisY(double jmy)
 	{
 		if(jmy == 0) return;
-		fprintf(mFile,"setAttr \".jma.jmy\" %f;\n", jmy);
+		fprintf(mFile,"\tsetAttr \".jma.jmy\" %f;\n", jmy);
 
 	}
 	void setJointMidplaneAxisZ(double jmz)
 	{
 		if(jmz == 0) return;
-		fprintf(mFile,"setAttr \".jma.jmz\" %f;\n", jmz);
+		fprintf(mFile,"\tsetAttr \".jma.jmz\" %f;\n", jmz);
 
 	}
 	void setChildJointMidplaneAxis(size_t cjm_i,const double3& cjm)
 	{
-		fprintf(mFile,"setAttr \".cjm[%i]\" -type \"double3\" ",cjm_i);
+		fprintf(mFile,"\tsetAttr \".cjm[%i]\" -type \"double3\" ",cjm_i);
 		cjm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setChildJointMidplaneAxis(size_t cjm_start,size_t cjm_end,double* cjm)
 	{
-		fprintf(mFile,"setAttr \".cjm[%i:%i]\" ", cjm_start,cjm_end);
+		fprintf(mFile,"\tsetAttr \".cjm[%i:%i]\" ", cjm_start,cjm_end);
 		size_t size = (cjm_end-cjm_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -114,7 +115,7 @@ public:
 	}
 	void startChildJointMidplaneAxis(size_t cjm_start,size_t cjm_end)
 	{
-		fprintf(mFile,"setAttr \".cjm[%i:%i]\"",cjm_start,cjm_end);
+		fprintf(mFile,"\tsetAttr \".cjm[%i:%i]\"",cjm_start,cjm_end);
 
 	}
 	void appendChildJointMidplaneAxis(double cjm)
@@ -130,73 +131,73 @@ public:
 	void setChildjointMidplaneAxisX(size_t cjm_i,double cmx)
 	{
 		if(cmx == 0) return;
-		fprintf(mFile,"setAttr \".cjm[%i].cmx\" %f;\n", cjm_i,cmx);
+		fprintf(mFile,"\tsetAttr \".cjm[%i].cmx\" %f;\n", cjm_i,cmx);
 
 	}
 	void setChildjointMidplaneAxisY(size_t cjm_i,double cmy)
 	{
 		if(cmy == 0) return;
-		fprintf(mFile,"setAttr \".cjm[%i].cmy\" %f;\n", cjm_i,cmy);
+		fprintf(mFile,"\tsetAttr \".cjm[%i].cmy\" %f;\n", cjm_i,cmy);
 
 	}
 	void setChildjointMidplaneAxisZ(size_t cjm_i,double cmz)
 	{
 		if(cmz == 0) return;
-		fprintf(mFile,"setAttr \".cjm[%i].cmz\" %f;\n", cjm_i,cmz);
+		fprintf(mFile,"\tsetAttr \".cjm[%i].cmz\" %f;\n", cjm_i,cmz);
 
 	}
 	void setBoneLength(float bl)
 	{
 		if(bl == 0.0) return;
-		fprintf(mFile,"setAttr \".bl\" %f;\n", bl);
+		fprintf(mFile,"\tsetAttr \".bl\" %f;\n", bl);
 
 	}
 	void setUpperBound(float ub)
 	{
 		if(ub == 10) return;
-		fprintf(mFile,"setAttr \".ub\" %f;\n", ub);
+		fprintf(mFile,"\tsetAttr \".ub\" %f;\n", ub);
 
 	}
 	void setUpperValue(float uv)
 	{
 		if(uv == 1.0) return;
-		fprintf(mFile,"setAttr \".uv\" %f;\n", uv);
+		fprintf(mFile,"\tsetAttr \".uv\" %f;\n", uv);
 
 	}
 	void setLowerBound(float lb)
 	{
 		if(lb == 10.0) return;
-		fprintf(mFile,"setAttr \".lb\" %f;\n", lb);
+		fprintf(mFile,"\tsetAttr \".lb\" %f;\n", lb);
 
 	}
 	void setLowerValue(float lv)
 	{
 		if(lv == 1.0) return;
-		fprintf(mFile,"setAttr \".lv\" %f;\n", lv);
+		fprintf(mFile,"\tsetAttr \".lv\" %f;\n", lv);
 
 	}
 	void setUpperDropoffType(unsigned int udt)
 	{
 		if(udt == 0) return;
-		fprintf(mFile,"setAttr \".udt\" %i;\n", udt);
+		fprintf(mFile,"\tsetAttr \".udt\" %i;\n", udt);
 
 	}
 	void setLowerDropoffType(unsigned int ldt)
 	{
 		if(ldt == 0) return;
-		fprintf(mFile,"setAttr \".ldt\" %i;\n", ldt);
+		fprintf(mFile,"\tsetAttr \".ldt\" %i;\n", ldt);
 
 	}
 	void setUpperEnabled(bool upe)
 	{
 		if(upe == 0) return;
-		fprintf(mFile,"setAttr \".upe\" %i;\n", upe);
+		fprintf(mFile,"\tsetAttr \".upe\" %i;\n", upe);
 
 	}
 	void setConvertedTo2(bool ct2)
 	{
 		if(ct2 == 0) return;
-		fprintf(mFile,"setAttr \".ct2\" %i;\n", ct2);
+		fprintf(mFile,"\tsetAttr \".ct2\" %i;\n", ct2);
 
 	}
 	void getRedoLowerWeights()
@@ -395,7 +396,8 @@ public:
 
 	}
 protected:
-	JointCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Cluster(file, name, parent, nodeType) {}
+	JointCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Cluster(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

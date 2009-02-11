@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,41 +18,42 @@ class IkHandle : public Transform
 {
 public:
 public:
+	IkHandle():Transform(){}
 	IkHandle(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "ikHandle"){}
 	virtual ~IkHandle(){}
 	void setSnapEnable(bool hsh)
 	{
 		if(hsh == true) return;
-		fprintf(mFile,"setAttr \".hsh\" %i;\n", hsh);
+		fprintf(mFile,"\tsetAttr \".hsh\" %i;\n", hsh);
 
 	}
 	void setStickiness(unsigned int hs)
 	{
 		if(hs == 0) return;
-		fprintf(mFile,"setAttr \".hs\" %i;\n", hs);
+		fprintf(mFile,"\tsetAttr \".hs\" %i;\n", hs);
 
 	}
 	void setPriority(int hpr)
 	{
 		if(hpr == 1) return;
-		fprintf(mFile,"setAttr \".hpr\" %i;\n", hpr);
+		fprintf(mFile,"\tsetAttr \".hpr\" %i;\n", hpr);
 
 	}
 	void setWeight(double hw)
 	{
 		if(hw == 1.0) return;
-		fprintf(mFile,"setAttr \".hw\" %f;\n", hw);
+		fprintf(mFile,"\tsetAttr \".hw\" %f;\n", hw);
 
 	}
 	void setPoWeight(double hpo)
 	{
 		if(hpo == 1.0) return;
-		fprintf(mFile,"setAttr \".hpo\" %f;\n", hpo);
+		fprintf(mFile,"\tsetAttr \".hpo\" %f;\n", hpo);
 
 	}
 	void setPoleVector(const double3& pv)
 	{
-		fprintf(mFile,"setAttr \".pv\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".pv\" -type \"double3\" ");
 		pv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -60,84 +61,84 @@ public:
 	void setPoleVectorX(double pvx)
 	{
 		if(pvx == 0.0) return;
-		fprintf(mFile,"setAttr \".pv.pvx\" %f;\n", pvx);
+		fprintf(mFile,"\tsetAttr \".pv.pvx\" %f;\n", pvx);
 
 	}
 	void setPoleVectorY(double pvy)
 	{
 		if(pvy == 0.0) return;
-		fprintf(mFile,"setAttr \".pv.pvy\" %f;\n", pvy);
+		fprintf(mFile,"\tsetAttr \".pv.pvy\" %f;\n", pvy);
 
 	}
 	void setPoleVectorZ(double pvz)
 	{
 		if(pvz == 1.0) return;
-		fprintf(mFile,"setAttr \".pv.pvz\" %f;\n", pvz);
+		fprintf(mFile,"\tsetAttr \".pv.pvz\" %f;\n", pvz);
 
 	}
 	void setOffset(double off)
 	{
 		if(off == 0.0) return;
-		fprintf(mFile,"setAttr \".off\" %f;\n", off);
+		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
 	void setRoll(double rol)
 	{
 		if(rol == 0) return;
-		fprintf(mFile,"setAttr \".rol\" %f;\n", rol);
+		fprintf(mFile,"\tsetAttr \".rol\" %f;\n", rol);
 
 	}
 	void setTwist(double twi)
 	{
 		if(twi == 0) return;
-		fprintf(mFile,"setAttr \".twi\" %f;\n", twi);
+		fprintf(mFile,"\tsetAttr \".twi\" %f;\n", twi);
 
 	}
 	void setRootOnCurve(bool roc)
 	{
 		if(roc == false) return;
-		fprintf(mFile,"setAttr \".roc\" %i;\n", roc);
+		fprintf(mFile,"\tsetAttr \".roc\" %i;\n", roc);
 
 	}
 	void setTwistType(unsigned int twt)
 	{
 		if(twt == 0) return;
-		fprintf(mFile,"setAttr \".twt\" %i;\n", twt);
+		fprintf(mFile,"\tsetAttr \".twt\" %i;\n", twt);
 
 	}
 	void setRootTwistMode(bool rtm)
 	{
 		if(rtm == false) return;
-		fprintf(mFile,"setAttr \".rtm\" %i;\n", rtm);
+		fprintf(mFile,"\tsetAttr \".rtm\" %i;\n", rtm);
 
 	}
 	void setIkBlend(double ikb)
 	{
 		if(ikb == 1.0) return;
-		fprintf(mFile,"setAttr \".ikb\" %f;\n", ikb);
+		fprintf(mFile,"\tsetAttr \".ikb\" %f;\n", ikb);
 
 	}
 	void setIkFkManipulation(bool eik)
 	{
 		if(eik == false) return;
-		fprintf(mFile,"setAttr \".eik\" %i;\n", eik);
+		fprintf(mFile,"\tsetAttr \".eik\" %i;\n", eik);
 
 	}
 	void setDWorldUpType(unsigned int dwut)
 	{
 		if(dwut == 0) return;
-		fprintf(mFile,"setAttr \".dwut\" %i;\n", dwut);
+		fprintf(mFile,"\tsetAttr \".dwut\" %i;\n", dwut);
 
 	}
 	void setDWorldUpAxis(unsigned int dwua)
 	{
 		if(dwua == 0) return;
-		fprintf(mFile,"setAttr \".dwua\" %i;\n", dwua);
+		fprintf(mFile,"\tsetAttr \".dwua\" %i;\n", dwua);
 
 	}
 	void setDWorldUpVector(const double3& dwuv)
 	{
-		fprintf(mFile,"setAttr \".dwuv\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".dwuv\" -type \"double3\" ");
 		dwuv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -145,24 +146,24 @@ public:
 	void setDWorldUpVectorX(double dwux)
 	{
 		if(dwux == 0.0) return;
-		fprintf(mFile,"setAttr \".dwuv.dwux\" %f;\n", dwux);
+		fprintf(mFile,"\tsetAttr \".dwuv.dwux\" %f;\n", dwux);
 
 	}
 	void setDWorldUpVectorY(double dwuy)
 	{
 		if(dwuy == 1.0) return;
-		fprintf(mFile,"setAttr \".dwuv.dwuy\" %f;\n", dwuy);
+		fprintf(mFile,"\tsetAttr \".dwuv.dwuy\" %f;\n", dwuy);
 
 	}
 	void setDWorldUpVectorZ(double dwuz)
 	{
 		if(dwuz == 0.0) return;
-		fprintf(mFile,"setAttr \".dwuv.dwuz\" %f;\n", dwuz);
+		fprintf(mFile,"\tsetAttr \".dwuv.dwuz\" %f;\n", dwuz);
 
 	}
 	void setDWorldUpVectorEnd(const double3& dwve)
 	{
-		fprintf(mFile,"setAttr \".dwve\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".dwve\" -type \"double3\" ");
 		dwve.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -170,25 +171,25 @@ public:
 	void setDWorldUpVectorEndX(double dwvx)
 	{
 		if(dwvx == 0.0) return;
-		fprintf(mFile,"setAttr \".dwve.dwvx\" %f;\n", dwvx);
+		fprintf(mFile,"\tsetAttr \".dwve.dwvx\" %f;\n", dwvx);
 
 	}
 	void setDWorldUpVectorEndY(double dwvy)
 	{
 		if(dwvy == 1.0) return;
-		fprintf(mFile,"setAttr \".dwve.dwvy\" %f;\n", dwvy);
+		fprintf(mFile,"\tsetAttr \".dwve.dwvy\" %f;\n", dwvy);
 
 	}
 	void setDWorldUpVectorEndZ(double dwvz)
 	{
 		if(dwvz == 0.0) return;
-		fprintf(mFile,"setAttr \".dwve.dwvz\" %f;\n", dwvz);
+		fprintf(mFile,"\tsetAttr \".dwve.dwvz\" %f;\n", dwvz);
 
 	}
 	void setDWorldUpMatrix(const matrix& dwum)
 	{
 		if(dwum == identity) return;
-		fprintf(mFile,"setAttr \".dwum\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".dwum\" -type \"matrix\" ");
 		dwum.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -196,7 +197,7 @@ public:
 	void setDWorldUpMatrixEnd(const matrix& dwue)
 	{
 		if(dwue == identity) return;
-		fprintf(mFile,"setAttr \".dwue\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".dwue\" -type \"matrix\" ");
 		dwue.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -204,12 +205,12 @@ public:
 	void setDTwistValueType(unsigned int dtvt)
 	{
 		if(dtvt == 0) return;
-		fprintf(mFile,"setAttr \".dtvt\" %i;\n", dtvt);
+		fprintf(mFile,"\tsetAttr \".dtvt\" %i;\n", dtvt);
 
 	}
 	void setDTwistStartEnd(const double2& dtse)
 	{
-		fprintf(mFile,"setAttr \".dtse\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".dtse\" -type \"double2\" ");
 		dtse.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -217,18 +218,18 @@ public:
 	void setDTwistStart(double dtst)
 	{
 		if(dtst == 0.0) return;
-		fprintf(mFile,"setAttr \".dtse.dtst\" %f;\n", dtst);
+		fprintf(mFile,"\tsetAttr \".dtse.dtst\" %f;\n", dtst);
 
 	}
 	void setDTwistEnd(double dten)
 	{
 		if(dten == 0.0) return;
-		fprintf(mFile,"setAttr \".dtse.dten\" %f;\n", dten);
+		fprintf(mFile,"\tsetAttr \".dtse.dten\" %f;\n", dten);
 
 	}
 	void setDTwistRamp(const float3& dtra)
 	{
-		fprintf(mFile,"setAttr \".dtra\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dtra\" -type \"float3\" ");
 		dtra.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -236,37 +237,37 @@ public:
 	void setDTwistRampR(float dtrr)
 	{
 		if(dtrr == 0.0) return;
-		fprintf(mFile,"setAttr \".dtra.dtrr\" %f;\n", dtrr);
+		fprintf(mFile,"\tsetAttr \".dtra.dtrr\" %f;\n", dtrr);
 
 	}
 	void setDTwistRampG(float dtrg)
 	{
 		if(dtrg == 0.0) return;
-		fprintf(mFile,"setAttr \".dtra.dtrg\" %f;\n", dtrg);
+		fprintf(mFile,"\tsetAttr \".dtra.dtrg\" %f;\n", dtrg);
 
 	}
 	void setDTwistRampB(float dtrb)
 	{
 		if(dtrb == 0.0) return;
-		fprintf(mFile,"setAttr \".dtra.dtrb\" %f;\n", dtrb);
+		fprintf(mFile,"\tsetAttr \".dtra.dtrb\" %f;\n", dtrb);
 
 	}
 	void setDTwistRampMult(double dtrm)
 	{
 		if(dtrm == 90.0) return;
-		fprintf(mFile,"setAttr \".dtrm\" %f;\n", dtrm);
+		fprintf(mFile,"\tsetAttr \".dtrm\" %f;\n", dtrm);
 
 	}
 	void setDTwistControlEnable(bool dtce)
 	{
 		if(dtce == false) return;
-		fprintf(mFile,"setAttr \".dtce\" %i;\n", dtce);
+		fprintf(mFile,"\tsetAttr \".dtce\" %i;\n", dtce);
 
 	}
 	void setSplineIkOldStyle(bool sio)
 	{
 		if(sio == false) return;
-		fprintf(mFile,"setAttr \".sio\" %i;\n", sio);
+		fprintf(mFile,"\tsetAttr \".sio\" %i;\n", sio);
 
 	}
 	void getStartJoint()
@@ -490,7 +491,8 @@ public:
 
 	}
 protected:
-	IkHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	IkHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

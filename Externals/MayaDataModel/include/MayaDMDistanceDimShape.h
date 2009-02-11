@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class DistanceDimShape : public DimensionShape
 {
 public:
 public:
+	DistanceDimShape():DimensionShape(){}
 	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent=""):DimensionShape(file, name, parent, "distanceDimShape"){}
 	virtual ~DistanceDimShape(){}
 	void setStartPoint(const double3& sp)
 	{
-		fprintf(mFile,"setAttr \".sp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".sp\" -type \"double3\" ");
 		sp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,24 +31,24 @@ public:
 	void setStartPointX(double spx)
 	{
 		if(spx == 0) return;
-		fprintf(mFile,"setAttr \".sp.spx\" %f;\n", spx);
+		fprintf(mFile,"\tsetAttr \".sp.spx\" %f;\n", spx);
 
 	}
 	void setStartPointY(double spy)
 	{
 		if(spy == 0) return;
-		fprintf(mFile,"setAttr \".sp.spy\" %f;\n", spy);
+		fprintf(mFile,"\tsetAttr \".sp.spy\" %f;\n", spy);
 
 	}
 	void setStartPointZ(double spz)
 	{
 		if(spz == 0) return;
-		fprintf(mFile,"setAttr \".sp.spz\" %f;\n", spz);
+		fprintf(mFile,"\tsetAttr \".sp.spz\" %f;\n", spz);
 
 	}
 	void setEndPoint(const double3& ep)
 	{
-		fprintf(mFile,"setAttr \".ep\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ep\" -type \"double3\" ");
 		ep.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,19 +56,19 @@ public:
 	void setEndPointX(double epx)
 	{
 		if(epx == 0) return;
-		fprintf(mFile,"setAttr \".ep.epx\" %f;\n", epx);
+		fprintf(mFile,"\tsetAttr \".ep.epx\" %f;\n", epx);
 
 	}
 	void setEndPointY(double epy)
 	{
 		if(epy == 0) return;
-		fprintf(mFile,"setAttr \".ep.epy\" %f;\n", epy);
+		fprintf(mFile,"\tsetAttr \".ep.epy\" %f;\n", epy);
 
 	}
 	void setEndPointZ(double epz)
 	{
 		if(epz == 0) return;
-		fprintf(mFile,"setAttr \".ep.epz\" %f;\n", epz);
+		fprintf(mFile,"\tsetAttr \".ep.epz\" %f;\n", epz);
 
 	}
 	void getStartPoint()
@@ -116,7 +117,8 @@ public:
 
 	}
 protected:
-	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DimensionShape(file, name, parent, nodeType) {}
+	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DimensionShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

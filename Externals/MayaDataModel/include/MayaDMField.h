@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -43,41 +43,42 @@ public:
 		}
 	};
 public:
+	Field():DynBase(){}
 	Field(FILE* file,const std::string& name,const std::string& parent=""):DynBase(file, name, parent, "field"){}
 	virtual ~Field(){}
 	void setMagnitude(double mag)
 	{
 		if(mag == 1.0) return;
-		fprintf(mFile,"setAttr \".mag\" %f;\n", mag);
+		fprintf(mFile,"\tsetAttr \".mag\" %f;\n", mag);
 
 	}
 	void setAttenuation(double att)
 	{
 		if(att == 0.0) return;
-		fprintf(mFile,"setAttr \".att\" %f;\n", att);
+		fprintf(mFile,"\tsetAttr \".att\" %f;\n", att);
 
 	}
 	void setMaxDistance(double max)
 	{
 		if(max == 1) return;
-		fprintf(mFile,"setAttr \".max\" %f;\n", max);
+		fprintf(mFile,"\tsetAttr \".max\" %f;\n", max);
 
 	}
 	void setApplyPerVertex(bool apv)
 	{
 		if(apv == false) return;
-		fprintf(mFile,"setAttr \".apv\" %i;\n", apv);
+		fprintf(mFile,"\tsetAttr \".apv\" %i;\n", apv);
 
 	}
 	void setUseMaxDistance(bool umd)
 	{
 		if(umd == false) return;
-		fprintf(mFile,"setAttr \".umd\" %i;\n", umd);
+		fprintf(mFile,"\tsetAttr \".umd\" %i;\n", umd);
 
 	}
 	void setInputData(size_t ind_i,const InputData& ind)
 	{
-		fprintf(mFile,"setAttr \".ind[%i]\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i]\" ",ind_i);
 		ind.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,7 +86,7 @@ public:
 	void setInputPositions(size_t ind_i,const vectorArray& inp)
 	{
 		if(inp.size == 0) return;
-		fprintf(mFile,"setAttr \".ind[%i].inp\" -type \"vectorArray\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i].inp\" -type \"vectorArray\" ",ind_i);
 		inp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -93,7 +94,7 @@ public:
 	void setInputVelocities(size_t ind_i,const vectorArray& inv)
 	{
 		if(inv.size == 0) return;
-		fprintf(mFile,"setAttr \".ind[%i].inv\" -type \"vectorArray\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i].inv\" -type \"vectorArray\" ",ind_i);
 		inv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -101,7 +102,7 @@ public:
 	void setInputMass(size_t ind_i,const doubleArray& inm)
 	{
 		if(inm.size == 0) return;
-		fprintf(mFile,"setAttr \".ind[%i].inm\" -type \"doubleArray\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i].inm\" -type \"doubleArray\" ",ind_i);
 		inm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,18 +110,18 @@ public:
 	void setVolumeShape(unsigned int vol)
 	{
 		if(vol == 0) return;
-		fprintf(mFile,"setAttr \".vol\" %i;\n", vol);
+		fprintf(mFile,"\tsetAttr \".vol\" %i;\n", vol);
 
 	}
 	void setVolumeExclusion(bool vex)
 	{
 		if(vex == false) return;
-		fprintf(mFile,"setAttr \".vex\" %i;\n", vex);
+		fprintf(mFile,"\tsetAttr \".vex\" %i;\n", vex);
 
 	}
 	void setVolumeOffset(const double3& vfo)
 	{
-		fprintf(mFile,"setAttr \".vfo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".vfo\" -type \"double3\" ");
 		vfo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -128,36 +129,36 @@ public:
 	void setVolumeOffsetX(double vox)
 	{
 		if(vox == 0) return;
-		fprintf(mFile,"setAttr \".vfo.vox\" %f;\n", vox);
+		fprintf(mFile,"\tsetAttr \".vfo.vox\" %f;\n", vox);
 
 	}
 	void setVolumeOffsetY(double voy)
 	{
 		if(voy == 0) return;
-		fprintf(mFile,"setAttr \".vfo.voy\" %f;\n", voy);
+		fprintf(mFile,"\tsetAttr \".vfo.voy\" %f;\n", voy);
 
 	}
 	void setVolumeOffsetZ(double voz)
 	{
 		if(voz == 0) return;
-		fprintf(mFile,"setAttr \".vfo.voz\" %f;\n", voz);
+		fprintf(mFile,"\tsetAttr \".vfo.voz\" %f;\n", voz);
 
 	}
 	void setSectionRadius(double tsr)
 	{
 		if(tsr == 0) return;
-		fprintf(mFile,"setAttr \".tsr\" %f;\n", tsr);
+		fprintf(mFile,"\tsetAttr \".tsr\" %f;\n", tsr);
 
 	}
 	void setVolumeSweep(double vsw)
 	{
 		if(vsw == 3) return;
-		fprintf(mFile,"setAttr \".vsw\" %f;\n", vsw);
+		fprintf(mFile,"\tsetAttr \".vsw\" %f;\n", vsw);
 
 	}
 	void setFalloffCurve(size_t fc_i,const FalloffCurve& fc)
 	{
-		fprintf(mFile,"setAttr \".fc[%i]\" ",fc_i);
+		fprintf(mFile,"\tsetAttr \".fc[%i]\" ",fc_i);
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -165,19 +166,19 @@ public:
 	void setFalloffCurve_Position(size_t fc_i,float fcp)
 	{
 		if(fcp == 0.0) return;
-		fprintf(mFile,"setAttr \".fc[%i].fcp\" %f;\n", fc_i,fcp);
+		fprintf(mFile,"\tsetAttr \".fc[%i].fcp\" %f;\n", fc_i,fcp);
 
 	}
 	void setFalloffCurve_FloatValue(size_t fc_i,float fcfv)
 	{
 		if(fcfv == 0.0) return;
-		fprintf(mFile,"setAttr \".fc[%i].fcfv\" %f;\n", fc_i,fcfv);
+		fprintf(mFile,"\tsetAttr \".fc[%i].fcfv\" %f;\n", fc_i,fcfv);
 
 	}
 	void setFalloffCurve_Interp(size_t fc_i,unsigned int fci)
 	{
 		if(fci == 0) return;
-		fprintf(mFile,"setAttr \".fc[%i].fci\" %i;\n", fc_i,fci);
+		fprintf(mFile,"\tsetAttr \".fc[%i].fci\" %i;\n", fc_i,fci);
 
 	}
 	void getMagnitude()
@@ -311,7 +312,8 @@ public:
 
 	}
 protected:
-	Field(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DynBase(file, name, parent, nodeType) {}
+	Field(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DynBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

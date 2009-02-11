@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -69,18 +69,19 @@ public:
 		}
 	};
 public:
+	Camera():Shape(){}
 	Camera(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "camera"){}
 	virtual ~Camera(){}
 	void setRenderable(bool rnd)
 	{
 		if(rnd == true) return;
-		fprintf(mFile,"setAttr \".rnd\" %i;\n", rnd);
+		fprintf(mFile,"\tsetAttr \".rnd\" %i;\n", rnd);
 
 	}
 	void setCameraAperture(const double2& cap)
 	{
 		if(cap == double2(3.6, 2.4)) return;
-		fprintf(mFile,"setAttr \".cap\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".cap\" -type \"double2\" ");
 		cap.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -88,31 +89,31 @@ public:
 	void setHorizontalFilmAperture(double hfa)
 	{
 		if(hfa == 0.0) return;
-		fprintf(mFile,"setAttr \".cap.hfa\" %f;\n", hfa);
+		fprintf(mFile,"\tsetAttr \".cap.hfa\" %f;\n", hfa);
 
 	}
 	void setVerticalFilmAperture(double vfa)
 	{
 		if(vfa == 0.0) return;
-		fprintf(mFile,"setAttr \".cap.vfa\" %f;\n", vfa);
+		fprintf(mFile,"\tsetAttr \".cap.vfa\" %f;\n", vfa);
 
 	}
 	void setShakeOverscan(double sos)
 	{
 		if(sos == 1.0) return;
-		fprintf(mFile,"setAttr \".sos\" %f;\n", sos);
+		fprintf(mFile,"\tsetAttr \".sos\" %f;\n", sos);
 
 	}
 	void setShakeOverscanEnabled(bool soe)
 	{
 		if(soe == false) return;
-		fprintf(mFile,"setAttr \".soe\" %i;\n", soe);
+		fprintf(mFile,"\tsetAttr \".soe\" %i;\n", soe);
 
 	}
 	void setFilmOffset(const double2& fio)
 	{
 		if(fio == double2(0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".fio\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".fio\" -type \"double2\" ");
 		fio.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -120,25 +121,25 @@ public:
 	void setHorizontalFilmOffset(double hfo)
 	{
 		if(hfo == 0.0) return;
-		fprintf(mFile,"setAttr \".fio.hfo\" %f;\n", hfo);
+		fprintf(mFile,"\tsetAttr \".fio.hfo\" %f;\n", hfo);
 
 	}
 	void setVerticalFilmOffset(double vfo)
 	{
 		if(vfo == 0.0) return;
-		fprintf(mFile,"setAttr \".fio.vfo\" %f;\n", vfo);
+		fprintf(mFile,"\tsetAttr \".fio.vfo\" %f;\n", vfo);
 
 	}
 	void setShakeEnabled(bool se)
 	{
 		if(se == false) return;
-		fprintf(mFile,"setAttr \".se\" %i;\n", se);
+		fprintf(mFile,"\tsetAttr \".se\" %i;\n", se);
 
 	}
 	void setShake(const double2& shk)
 	{
 		if(shk == double2(0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".shk\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".shk\" -type \"double2\" ");
 		shk.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -146,30 +147,30 @@ public:
 	void setHorizontalShake(double hs)
 	{
 		if(hs == 0.0) return;
-		fprintf(mFile,"setAttr \".shk.hs\" %f;\n", hs);
+		fprintf(mFile,"\tsetAttr \".shk.hs\" %f;\n", hs);
 
 	}
 	void setVerticalShake(double vs)
 	{
 		if(vs == 0.0) return;
-		fprintf(mFile,"setAttr \".shk.vs\" %f;\n", vs);
+		fprintf(mFile,"\tsetAttr \".shk.vs\" %f;\n", vs);
 
 	}
 	void setStereoHorizontalImageTranslateEnabled(bool hte)
 	{
 		if(hte == false) return;
-		fprintf(mFile,"setAttr \".hte\" %i;\n", hte);
+		fprintf(mFile,"\tsetAttr \".hte\" %i;\n", hte);
 
 	}
 	void setStereoHorizontalImageTranslate(double hit)
 	{
 		if(hit == 0.0) return;
-		fprintf(mFile,"setAttr \".hit\" %f;\n", hit);
+		fprintf(mFile,"\tsetAttr \".hit\" %f;\n", hit);
 
 	}
 	void setPostProjection(const PostProjection& ppj)
 	{
-		fprintf(mFile,"setAttr \".ppj\" ");
+		fprintf(mFile,"\tsetAttr \".ppj\" ");
 		ppj.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -177,13 +178,13 @@ public:
 	void setPreScale(double psc)
 	{
 		if(psc == 1.0) return;
-		fprintf(mFile,"setAttr \".ppj.psc\" %f;\n", psc);
+		fprintf(mFile,"\tsetAttr \".ppj.psc\" %f;\n", psc);
 
 	}
 	void setFilmTranslate(const double2& ct)
 	{
 		if(ct == double2(0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ppj.ct\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ppj.ct\" -type \"double2\" ");
 		ct.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -191,18 +192,18 @@ public:
 	void setFilmTranslateH(double fth)
 	{
 		if(fth == 0.0) return;
-		fprintf(mFile,"setAttr \".ppj.ct.fth\" %f;\n", fth);
+		fprintf(mFile,"\tsetAttr \".ppj.ct.fth\" %f;\n", fth);
 
 	}
 	void setFilmTranslateV(double ftv)
 	{
 		if(ftv == 0.0) return;
-		fprintf(mFile,"setAttr \".ppj.ct.ftv\" %f;\n", ftv);
+		fprintf(mFile,"\tsetAttr \".ppj.ct.ftv\" %f;\n", ftv);
 
 	}
 	void setFilmRollControl(const PostProjection::FilmRollControl& frc)
 	{
-		fprintf(mFile,"setAttr \".ppj.frc\" ");
+		fprintf(mFile,"\tsetAttr \".ppj.frc\" ");
 		frc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -210,7 +211,7 @@ public:
 	void setFilmRollPivot(const double2& frp)
 	{
 		if(frp == double2(0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ppj.frc.frp\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ppj.frc.frp\" -type \"double2\" ");
 		frp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -218,121 +219,121 @@ public:
 	void setHorizontalRollPivot(double hrp)
 	{
 		if(hrp == 0.0) return;
-		fprintf(mFile,"setAttr \".ppj.frc.frp.hrp\" %f;\n", hrp);
+		fprintf(mFile,"\tsetAttr \".ppj.frc.frp.hrp\" %f;\n", hrp);
 
 	}
 	void setVerticalRollPivot(double vrp)
 	{
 		if(vrp == 0.0) return;
-		fprintf(mFile,"setAttr \".ppj.frc.frp.vrp\" %f;\n", vrp);
+		fprintf(mFile,"\tsetAttr \".ppj.frc.frp.vrp\" %f;\n", vrp);
 
 	}
 	void setFilmRollValue(double frv)
 	{
 		if(frv == 0) return;
-		fprintf(mFile,"setAttr \".ppj.frc.frv\" %f;\n", frv);
+		fprintf(mFile,"\tsetAttr \".ppj.frc.frv\" %f;\n", frv);
 
 	}
 	void setFilmRollOrder(unsigned int fro)
 	{
 		if(fro == 0) return;
-		fprintf(mFile,"setAttr \".ppj.frc.fro\" %i;\n", fro);
+		fprintf(mFile,"\tsetAttr \".ppj.frc.fro\" %i;\n", fro);
 
 	}
 	void setPostScale(double ptsc)
 	{
 		if(ptsc == 1.0) return;
-		fprintf(mFile,"setAttr \".ppj.ptsc\" %f;\n", ptsc);
+		fprintf(mFile,"\tsetAttr \".ppj.ptsc\" %f;\n", ptsc);
 
 	}
 	void setFilmFit(unsigned int ff)
 	{
 		if(ff == 1) return;
-		fprintf(mFile,"setAttr \".ff\" %i;\n", ff);
+		fprintf(mFile,"\tsetAttr \".ff\" %i;\n", ff);
 
 	}
 	void setFilmFitOffset(double ffo)
 	{
 		if(ffo == 0.0) return;
-		fprintf(mFile,"setAttr \".ffo\" %f;\n", ffo);
+		fprintf(mFile,"\tsetAttr \".ffo\" %f;\n", ffo);
 
 	}
 	void setOverscan(double ovr)
 	{
 		if(ovr == 1.0) return;
-		fprintf(mFile,"setAttr \".ovr\" %f;\n", ovr);
+		fprintf(mFile,"\tsetAttr \".ovr\" %f;\n", ovr);
 
 	}
 	void setFocalLength(double fl)
 	{
 		if(fl == 35.0) return;
-		fprintf(mFile,"setAttr \".fl\" %f;\n", fl);
+		fprintf(mFile,"\tsetAttr \".fl\" %f;\n", fl);
 
 	}
 	void setLensSqueezeRatio(double lsr)
 	{
 		if(lsr == 1.0) return;
-		fprintf(mFile,"setAttr \".lsr\" %f;\n", lsr);
+		fprintf(mFile,"\tsetAttr \".lsr\" %f;\n", lsr);
 
 	}
 	void setCameraScale(double cs)
 	{
 		if(cs == 1.0) return;
-		fprintf(mFile,"setAttr \".cs\" %f;\n", cs);
+		fprintf(mFile,"\tsetAttr \".cs\" %f;\n", cs);
 
 	}
 	void setTriggerUpdate(double tu)
 	{
 		if(tu == 0.0) return;
-		fprintf(mFile,"setAttr \".tu\" %f;\n", tu);
+		fprintf(mFile,"\tsetAttr \".tu\" %f;\n", tu);
 
 	}
 	void setNearClipPlane(double ncp)
 	{
 		if(ncp == 0) return;
-		fprintf(mFile,"setAttr \".ncp\" %f;\n", ncp);
+		fprintf(mFile,"\tsetAttr \".ncp\" %f;\n", ncp);
 
 	}
 	void setFarClipPlane(double fcp)
 	{
 		if(fcp == 1) return;
-		fprintf(mFile,"setAttr \".fcp\" %f;\n", fcp);
+		fprintf(mFile,"\tsetAttr \".fcp\" %f;\n", fcp);
 
 	}
 	void setFStop(double fs)
 	{
 		if(fs == 5.6) return;
-		fprintf(mFile,"setAttr \".fs\" %f;\n", fs);
+		fprintf(mFile,"\tsetAttr \".fs\" %f;\n", fs);
 
 	}
 	void setFocusDistance(double fd)
 	{
 		if(fd == 5) return;
-		fprintf(mFile,"setAttr \".fd\" %f;\n", fd);
+		fprintf(mFile,"\tsetAttr \".fd\" %f;\n", fd);
 
 	}
 	void setShutterAngle(double sa)
 	{
 		if(sa == 1) return;
-		fprintf(mFile,"setAttr \".sa\" %f;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %f;\n", sa);
 
 	}
 	void setCenterOfInterest(double coi)
 	{
 		if(coi == 5) return;
-		fprintf(mFile,"setAttr \".coi\" %f;\n", coi);
+		fprintf(mFile,"\tsetAttr \".coi\" %f;\n", coi);
 
 	}
 	void setOrthographicWidth(double ow)
 	{
 		if(ow == 1) return;
-		fprintf(mFile,"setAttr \".ow\" %f;\n", ow);
+		fprintf(mFile,"\tsetAttr \".ow\" %f;\n", ow);
 
 	}
 	void setImageName(const string& imn)
 	{
 		if(imn == "NULL") return;
-		fprintf(mFile,"setAttr \".imn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".imn\" -type \"string\" ");
 		imn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -340,7 +341,7 @@ public:
 	void setDepthName(const string& den)
 	{
 		if(den == "NULL") return;
-		fprintf(mFile,"setAttr \".den\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".den\" -type \"string\" ");
 		den.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -348,7 +349,7 @@ public:
 	void setMaskName(const string& man)
 	{
 		if(man == "NULL") return;
-		fprintf(mFile,"setAttr \".man\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".man\" -type \"string\" ");
 		man.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -356,7 +357,7 @@ public:
 	void setTumblePivot(const double3& tp)
 	{
 		if(tp == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".tp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".tp\" -type \"double3\" ");
 		tp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -364,31 +365,31 @@ public:
 	void setTumblePivotX(double tpx)
 	{
 		if(tpx == 0.0) return;
-		fprintf(mFile,"setAttr \".tp.tpx\" %f;\n", tpx);
+		fprintf(mFile,"\tsetAttr \".tp.tpx\" %f;\n", tpx);
 
 	}
 	void setTumblePivotY(double tpy)
 	{
 		if(tpy == 0.0) return;
-		fprintf(mFile,"setAttr \".tp.tpy\" %f;\n", tpy);
+		fprintf(mFile,"\tsetAttr \".tp.tpy\" %f;\n", tpy);
 
 	}
 	void setTumblePivotZ(double tpz)
 	{
 		if(tpz == 0.0) return;
-		fprintf(mFile,"setAttr \".tp.tpz\" %f;\n", tpz);
+		fprintf(mFile,"\tsetAttr \".tp.tpz\" %f;\n", tpz);
 
 	}
 	void setUsePivotAsLocalSpace(bool uls)
 	{
 		if(uls == 0) return;
-		fprintf(mFile,"setAttr \".uls\" %i;\n", uls);
+		fprintf(mFile,"\tsetAttr \".uls\" %i;\n", uls);
 
 	}
 	void setHomeCommand(const string& hc)
 	{
 		if(hc == "NULL") return;
-		fprintf(mFile,"setAttr \".hc\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".hc\" -type \"string\" ");
 		hc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -396,132 +397,132 @@ public:
 	void setLocatorScale(double lls)
 	{
 		if(lls == 1.0) return;
-		fprintf(mFile,"setAttr \".lls\" %f;\n", lls);
+		fprintf(mFile,"\tsetAttr \".lls\" %f;\n", lls);
 
 	}
 	void setDisplayFilmGate(bool dfg)
 	{
 		if(dfg == false) return;
-		fprintf(mFile,"setAttr \".dfg\" %i;\n", dfg);
+		fprintf(mFile,"\tsetAttr \".dfg\" %i;\n", dfg);
 
 	}
 	void setDisplayResolution(bool dr)
 	{
 		if(dr == false) return;
-		fprintf(mFile,"setAttr \".dr\" %i;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %i;\n", dr);
 
 	}
 	void setDisplaySafeAction(bool dsa)
 	{
 		if(dsa == false) return;
-		fprintf(mFile,"setAttr \".dsa\" %i;\n", dsa);
+		fprintf(mFile,"\tsetAttr \".dsa\" %i;\n", dsa);
 
 	}
 	void setDisplaySafeTitle(bool dst)
 	{
 		if(dst == false) return;
-		fprintf(mFile,"setAttr \".dst\" %i;\n", dst);
+		fprintf(mFile,"\tsetAttr \".dst\" %i;\n", dst);
 
 	}
 	void setDisplayFieldChart(bool dfc)
 	{
 		if(dfc == false) return;
-		fprintf(mFile,"setAttr \".dfc\" %i;\n", dfc);
+		fprintf(mFile,"\tsetAttr \".dfc\" %i;\n", dfc);
 
 	}
 	void setDisplayFilmPivot(bool dfp)
 	{
 		if(dfp == false) return;
-		fprintf(mFile,"setAttr \".dfp\" %i;\n", dfp);
+		fprintf(mFile,"\tsetAttr \".dfp\" %i;\n", dfp);
 
 	}
 	void setDisplayFilmOrigin(bool dfo)
 	{
 		if(dfo == false) return;
-		fprintf(mFile,"setAttr \".dfo\" %i;\n", dfo);
+		fprintf(mFile,"\tsetAttr \".dfo\" %i;\n", dfo);
 
 	}
 	void setClippingPlanes(bool cp)
 	{
 		if(cp == true) return;
-		fprintf(mFile,"setAttr \".cp\" %i;\n", cp);
+		fprintf(mFile,"\tsetAttr \".cp\" %i;\n", cp);
 
 	}
 	void setBestFitClippingPlanes(bool bfc)
 	{
 		if(bfc == true) return;
-		fprintf(mFile,"setAttr \".bfc\" %i;\n", bfc);
+		fprintf(mFile,"\tsetAttr \".bfc\" %i;\n", bfc);
 
 	}
 	void setDepthOfField(bool dof)
 	{
 		if(dof == false) return;
-		fprintf(mFile,"setAttr \".dof\" %i;\n", dof);
+		fprintf(mFile,"\tsetAttr \".dof\" %i;\n", dof);
 
 	}
 	void setMotionBlur(bool mb)
 	{
 		if(mb == false) return;
-		fprintf(mFile,"setAttr \".mb\" %i;\n", mb);
+		fprintf(mFile,"\tsetAttr \".mb\" %i;\n", mb);
 
 	}
 	void setOrthographic(bool o)
 	{
 		if(o == false) return;
-		fprintf(mFile,"setAttr \".o\" %i;\n", o);
+		fprintf(mFile,"\tsetAttr \".o\" %i;\n", o);
 
 	}
 	void setJournalCommand(bool jc)
 	{
 		if(jc == false) return;
-		fprintf(mFile,"setAttr \".jc\" %i;\n", jc);
+		fprintf(mFile,"\tsetAttr \".jc\" %i;\n", jc);
 
 	}
 	void setImage(bool img)
 	{
 		if(img == true) return;
-		fprintf(mFile,"setAttr \".img\" %i;\n", img);
+		fprintf(mFile,"\tsetAttr \".img\" %i;\n", img);
 
 	}
 	void setDepth(bool dep)
 	{
 		if(dep == false) return;
-		fprintf(mFile,"setAttr \".dep\" %i;\n", dep);
+		fprintf(mFile,"\tsetAttr \".dep\" %i;\n", dep);
 
 	}
 	void setTransparencyBasedDepth(bool tdth)
 	{
 		if(tdth == true) return;
-		fprintf(mFile,"setAttr \".tdth\" %i;\n", tdth);
+		fprintf(mFile,"\tsetAttr \".tdth\" %i;\n", tdth);
 
 	}
 	void setThreshold(double tthd)
 	{
 		if(tthd == 0.9) return;
-		fprintf(mFile,"setAttr \".tthd\" %f;\n", tthd);
+		fprintf(mFile,"\tsetAttr \".tthd\" %f;\n", tthd);
 
 	}
 	void setDepthType(unsigned int dptp)
 	{
 		if(dptp == 1) return;
-		fprintf(mFile,"setAttr \".dptp\" %i;\n", dptp);
+		fprintf(mFile,"\tsetAttr \".dptp\" %i;\n", dptp);
 
 	}
 	void setUseExploreDepthFormat(bool uexd)
 	{
 		if(uexd == false) return;
-		fprintf(mFile,"setAttr \".uexd\" %i;\n", uexd);
+		fprintf(mFile,"\tsetAttr \".uexd\" %i;\n", uexd);
 
 	}
 	void setMask(bool ma)
 	{
 		if(ma == true) return;
-		fprintf(mFile,"setAttr \".ma\" %i;\n", ma);
+		fprintf(mFile,"\tsetAttr \".ma\" %i;\n", ma);
 
 	}
 	void setBackgroundColor(const float3& col)
 	{
-		fprintf(mFile,"setAttr \".col\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".col\" -type \"float3\" ");
 		col.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -529,30 +530,30 @@ public:
 	void setBackgroundColorR(float colr)
 	{
 		if(colr == 0.0) return;
-		fprintf(mFile,"setAttr \".col.colr\" %f;\n", colr);
+		fprintf(mFile,"\tsetAttr \".col.colr\" %f;\n", colr);
 
 	}
 	void setBackgroundColorG(float colg)
 	{
 		if(colg == 0.0) return;
-		fprintf(mFile,"setAttr \".col.colg\" %f;\n", colg);
+		fprintf(mFile,"\tsetAttr \".col.colg\" %f;\n", colg);
 
 	}
 	void setBackgroundColorB(float colb)
 	{
 		if(colb == 0.0) return;
-		fprintf(mFile,"setAttr \".col.colb\" %f;\n", colb);
+		fprintf(mFile,"\tsetAttr \".col.colb\" %f;\n", colb);
 
 	}
 	void setFocusRegionScale(double frs)
 	{
 		if(frs == 1.0) return;
-		fprintf(mFile,"setAttr \".frs\" %f;\n", frs);
+		fprintf(mFile,"\tsetAttr \".frs\" %f;\n", frs);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -560,61 +561,61 @@ public:
 	void setMiFbComputeColor(bool micc)
 	{
 		if(micc == true) return;
-		fprintf(mFile,"setAttr \".mrc.micc\" %i;\n", micc);
+		fprintf(mFile,"\tsetAttr \".mrc.micc\" %i;\n", micc);
 
 	}
 	void setMiFbBitsizeColor(short mict)
 	{
 		if(mict == 0) return;
-		fprintf(mFile,"setAttr \".mrc.mict\" %i;\n", mict);
+		fprintf(mFile,"\tsetAttr \".mrc.mict\" %i;\n", mict);
 
 	}
 	void setMiFbComputeAlpha(bool mica)
 	{
 		if(mica == false) return;
-		fprintf(mFile,"setAttr \".mrc.mica\" %i;\n", mica);
+		fprintf(mFile,"\tsetAttr \".mrc.mica\" %i;\n", mica);
 
 	}
 	void setMiFbBitsizeAlpha(short miat)
 	{
 		if(miat == 0) return;
-		fprintf(mFile,"setAttr \".mrc.miat\" %i;\n", miat);
+		fprintf(mFile,"\tsetAttr \".mrc.miat\" %i;\n", miat);
 
 	}
 	void setMiFbComputeDepth(bool micd)
 	{
 		if(micd == false) return;
-		fprintf(mFile,"setAttr \".mrc.micd\" %i;\n", micd);
+		fprintf(mFile,"\tsetAttr \".mrc.micd\" %i;\n", micd);
 
 	}
 	void setMiFbComputeNormal(bool micn)
 	{
 		if(micn == false) return;
-		fprintf(mFile,"setAttr \".mrc.micn\" %i;\n", micn);
+		fprintf(mFile,"\tsetAttr \".mrc.micn\" %i;\n", micn);
 
 	}
 	void setMiFbComputeMotion(bool micm)
 	{
 		if(micm == false) return;
-		fprintf(mFile,"setAttr \".mrc.micm\" %i;\n", micm);
+		fprintf(mFile,"\tsetAttr \".mrc.micm\" %i;\n", micm);
 
 	}
 	void setMiFbComputeCoverage(bool micv)
 	{
 		if(micv == false) return;
-		fprintf(mFile,"setAttr \".mrc.micv\" %i;\n", micv);
+		fprintf(mFile,"\tsetAttr \".mrc.micv\" %i;\n", micv);
 
 	}
 	void setMiFbComputeTag(bool mitg)
 	{
 		if(mitg == false) return;
-		fprintf(mFile,"setAttr \".mrc.mitg\" %i;\n", mitg);
+		fprintf(mFile,"\tsetAttr \".mrc.mitg\" %i;\n", mitg);
 
 	}
 	void setMiFbComputeContour(bool mico)
 	{
 		if(mico == false) return;
-		fprintf(mFile,"setAttr \".mrc.mico\" %i;\n", mico);
+		fprintf(mFile,"\tsetAttr \".mrc.mico\" %i;\n", mico);
 
 	}
 	void getRenderable()
@@ -862,9 +863,19 @@ public:
 		fprintf(mFile,"\"%s.uls\"",mName.c_str());
 
 	}
+	void getImagePlane(size_t ip_i)
+	{
+		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
+
+	}
 	void getHomeCommand()
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
+
+	}
+	void getBookmarks(size_t b_i)
+	{
+		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
 
 	}
 	void getLocatorScale()
@@ -1088,7 +1099,8 @@ public:
 
 	}
 protected:
-	Camera(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	Camera(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

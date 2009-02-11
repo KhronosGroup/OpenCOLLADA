@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -28,19 +28,20 @@ public:
 		}
 	};
 public:
+	Reference():DependNode(){}
 	Reference(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "reference"){}
 	virtual ~Reference(){}
 	void setFileNames(size_t fn_i,const string& fn)
 	{
 		if(fn == "NULL") return;
-		fprintf(mFile,"setAttr \".fn[%i]\" -type \"string\" ",fn_i);
+		fprintf(mFile,"\tsetAttr \".fn[%i]\" -type \"string\" ",fn_i);
 		fn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setFileNames(size_t fn_start,size_t fn_end,string* fn)
 	{
-		fprintf(mFile,"setAttr \".fn[%i:%i]\" ", fn_start,fn_end);
+		fprintf(mFile,"\tsetAttr \".fn[%i:%i]\" ", fn_start,fn_end);
 		size_t size = (fn_end-fn_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -52,7 +53,7 @@ public:
 	}
 	void startFileNames(size_t fn_start,size_t fn_end)
 	{
-		fprintf(mFile,"setAttr \".fn[%i:%i]\"",fn_start,fn_end);
+		fprintf(mFile,"\tsetAttr \".fn[%i:%i]\"",fn_start,fn_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
@@ -69,7 +70,7 @@ public:
 	}
 	void setMultiParentList(size_t mpl_i,const MultiParentList& mpl)
 	{
-		fprintf(mFile,"setAttr \".mpl[%i]\" ",mpl_i);
+		fprintf(mFile,"\tsetAttr \".mpl[%i]\" ",mpl_i);
 		mpl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -77,7 +78,7 @@ public:
 	void setProxyTag(const string& ptag)
 	{
 		if(ptag == "NULL") return;
-		fprintf(mFile,"setAttr \".ptag\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ptag\" -type \"string\" ");
 		ptag.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,7 +86,7 @@ public:
 	void setLocked(bool lk)
 	{
 		if(lk == false) return;
-		fprintf(mFile,"setAttr \".lk\" %i;\n", lk);
+		fprintf(mFile,"\tsetAttr \".lk\" %i;\n", lk);
 
 	}
 	void getFileNames(size_t fn_i)
@@ -131,6 +132,16 @@ public:
 	void getParentList(size_t pl_i)
 	{
 		fprintf(mFile,"\"%s.pl[%i]\"",mName.c_str(),pl_i);
+
+	}
+	void getFosterParent()
+	{
+		fprintf(mFile,"\"%s.fp\"",mName.c_str());
+
+	}
+	void getFosterSiblings(size_t fs_i)
+	{
+		fprintf(mFile,"\"%s.fs[%i]\"",mName.c_str(),fs_i);
 
 	}
 	void getPlaceHolderList(size_t phl_i)
@@ -179,7 +190,8 @@ public:
 
 	}
 protected:
-	Reference(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Reference(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

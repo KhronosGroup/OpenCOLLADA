@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class VolumeShader : public DependNode
 {
 public:
 public:
+	VolumeShader():DependNode(){}
 	VolumeShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "volumeShader"){}
 	virtual ~VolumeShader(){}
 	void setOutColor(const float3& oc)
 	{
 		if(oc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".oc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".oc\" -type \"float3\" ");
 		oc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setOutColorR(float ocr)
 	{
 		if(ocr == 0.0) return;
-		fprintf(mFile,"setAttr \".oc.ocr\" %f;\n", ocr);
+		fprintf(mFile,"\tsetAttr \".oc.ocr\" %f;\n", ocr);
 
 	}
 	void setOutColorG(float ocg)
 	{
 		if(ocg == 0.0) return;
-		fprintf(mFile,"setAttr \".oc.ocg\" %f;\n", ocg);
+		fprintf(mFile,"\tsetAttr \".oc.ocg\" %f;\n", ocg);
 
 	}
 	void setOutColorB(float ocb)
 	{
 		if(ocb == 0.0) return;
-		fprintf(mFile,"setAttr \".oc.ocb\" %f;\n", ocb);
+		fprintf(mFile,"\tsetAttr \".oc.ocb\" %f;\n", ocb);
 
 	}
 	void setOutTransparency(const float3& ot)
 	{
 		if(ot == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".ot\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ot\" -type \"float3\" ");
 		ot.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setOutTransparencyR(float otr)
 	{
 		if(otr == 0.0) return;
-		fprintf(mFile,"setAttr \".ot.otr\" %f;\n", otr);
+		fprintf(mFile,"\tsetAttr \".ot.otr\" %f;\n", otr);
 
 	}
 	void setOutTransparencyG(float otg)
 	{
 		if(otg == 0.0) return;
-		fprintf(mFile,"setAttr \".ot.otg\" %f;\n", otg);
+		fprintf(mFile,"\tsetAttr \".ot.otg\" %f;\n", otg);
 
 	}
 	void setOutTransparencyB(float otb)
 	{
 		if(otb == 0.0) return;
-		fprintf(mFile,"setAttr \".ot.otb\" %f;\n", otb);
+		fprintf(mFile,"\tsetAttr \".ot.otb\" %f;\n", otb);
 
 	}
 	void setOutMatteOpacity(const float3& omo)
 	{
 		if(omo == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".omo\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".omo\" -type \"float3\" ");
 		omo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,19 +84,19 @@ public:
 	void setOutMatteOpacityR(float omor)
 	{
 		if(omor == 0.0) return;
-		fprintf(mFile,"setAttr \".omo.omor\" %f;\n", omor);
+		fprintf(mFile,"\tsetAttr \".omo.omor\" %f;\n", omor);
 
 	}
 	void setOutMatteOpacityG(float omog)
 	{
 		if(omog == 0.0) return;
-		fprintf(mFile,"setAttr \".omo.omog\" %f;\n", omog);
+		fprintf(mFile,"\tsetAttr \".omo.omog\" %f;\n", omog);
 
 	}
 	void setOutMatteOpacityB(float omob)
 	{
 		if(omob == 0.0) return;
-		fprintf(mFile,"setAttr \".omo.omob\" %f;\n", omob);
+		fprintf(mFile,"\tsetAttr \".omo.omob\" %f;\n", omob);
 
 	}
 	void getOutColor()
@@ -159,7 +160,8 @@ public:
 
 	}
 protected:
-	VolumeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	VolumeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

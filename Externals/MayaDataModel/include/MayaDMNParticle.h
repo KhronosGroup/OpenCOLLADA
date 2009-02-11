@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class NParticle : public Particle
 {
 public:
 public:
+	NParticle():Particle(){}
 	NParticle(FILE* file,const std::string& name,const std::string& parent=""):Particle(file, name, parent, "nParticle"){}
 	virtual ~NParticle(){}
 	void setPlayFromCache(bool pfc)
 	{
 		if(pfc == false) return;
-		fprintf(mFile,"setAttr \".pfc\" %i;\n", pfc);
+		fprintf(mFile,"\tsetAttr \".pfc\" %i;\n", pfc);
 
 	}
 	void setStartPositions(const vectorArray& spns)
 	{
 		if(spns.size == 0) return;
-		fprintf(mFile,"setAttr \".spns\" -type \"vectorArray\" ");
+		fprintf(mFile,"\tsetAttr \".spns\" -type \"vectorArray\" ");
 		spns.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,7 +38,7 @@ public:
 	void setStartVelocities(const vectorArray& sves)
 	{
 		if(sves.size == 0) return;
-		fprintf(mFile,"setAttr \".sves\" -type \"vectorArray\" ");
+		fprintf(mFile,"\tsetAttr \".sves\" -type \"vectorArray\" ");
 		sves.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -45,19 +46,19 @@ public:
 	void setThickness(float thss)
 	{
 		if(thss == 0.1) return;
-		fprintf(mFile,"setAttr \".thss\" %f;\n", thss);
+		fprintf(mFile,"\tsetAttr \".thss\" %f;\n", thss);
 
 	}
 	void setThicknessMap(float thmp)
 	{
 		if(thmp == 0.1) return;
-		fprintf(mFile,"setAttr \".thmp\" %f;\n", thmp);
+		fprintf(mFile,"\tsetAttr \".thmp\" %f;\n", thmp);
 
 	}
 	void setThicknessPerVertex(const doubleArray& thpv)
 	{
 		if(thpv.size == 0) return;
-		fprintf(mFile,"setAttr \".thpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".thpv\" -type \"doubleArray\" ");
 		thpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -65,19 +66,19 @@ public:
 	void setBounce(float boce)
 	{
 		if(boce == 0.0) return;
-		fprintf(mFile,"setAttr \".boce\" %f;\n", boce);
+		fprintf(mFile,"\tsetAttr \".boce\" %f;\n", boce);
 
 	}
 	void setBounceMap(float bomp)
 	{
 		if(bomp == 0.0) return;
-		fprintf(mFile,"setAttr \".bomp\" %f;\n", bomp);
+		fprintf(mFile,"\tsetAttr \".bomp\" %f;\n", bomp);
 
 	}
 	void setBouncePerVertex(const doubleArray& bpv)
 	{
 		if(bpv.size == 0) return;
-		fprintf(mFile,"setAttr \".bpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".bpv\" -type \"doubleArray\" ");
 		bpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -85,19 +86,19 @@ public:
 	void setFriction(float fron)
 	{
 		if(fron == 0.1) return;
-		fprintf(mFile,"setAttr \".fron\" %f;\n", fron);
+		fprintf(mFile,"\tsetAttr \".fron\" %f;\n", fron);
 
 	}
 	void setFrictionMap(float frmp)
 	{
 		if(frmp == 0.0) return;
-		fprintf(mFile,"setAttr \".frmp\" %f;\n", frmp);
+		fprintf(mFile,"\tsetAttr \".frmp\" %f;\n", frmp);
 
 	}
 	void setFrictionPerVertex(const doubleArray& fpv)
 	{
 		if(fpv.size == 0) return;
-		fprintf(mFile,"setAttr \".fpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".fpv\" -type \"doubleArray\" ");
 		fpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -105,19 +106,19 @@ public:
 	void setDamp(float adng)
 	{
 		if(adng == 0.0) return;
-		fprintf(mFile,"setAttr \".adng\" %f;\n", adng);
+		fprintf(mFile,"\tsetAttr \".adng\" %f;\n", adng);
 
 	}
 	void setDampMap(float admp)
 	{
 		if(admp == 0.0) return;
-		fprintf(mFile,"setAttr \".admp\" %f;\n", admp);
+		fprintf(mFile,"\tsetAttr \".admp\" %f;\n", admp);
 
 	}
 	void setDampPerVertex(const doubleArray& dpv)
 	{
 		if(dpv.size == 0) return;
-		fprintf(mFile,"setAttr \".dpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".dpv\" -type \"doubleArray\" ");
 		dpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -125,43 +126,43 @@ public:
 	void setCollisionFlag(unsigned int cofl)
 	{
 		if(cofl == 2) return;
-		fprintf(mFile,"setAttr \".cofl\" %i;\n", cofl);
+		fprintf(mFile,"\tsetAttr \".cofl\" %i;\n", cofl);
 
 	}
 	void setSelfCollisionFlag(unsigned int scfl)
 	{
 		if(scfl == 0) return;
-		fprintf(mFile,"setAttr \".scfl\" %i;\n", scfl);
+		fprintf(mFile,"\tsetAttr \".scfl\" %i;\n", scfl);
 
 	}
 	void setMaxSelfCollisionIterations(int msci)
 	{
 		if(msci == 4) return;
-		fprintf(mFile,"setAttr \".msci\" %i;\n", msci);
+		fprintf(mFile,"\tsetAttr \".msci\" %i;\n", msci);
 
 	}
 	void setMaxIterations(int mxit)
 	{
 		if(mxit == 500) return;
-		fprintf(mFile,"setAttr \".mxit\" %i;\n", mxit);
+		fprintf(mFile,"\tsetAttr \".mxit\" %i;\n", mxit);
 
 	}
 	void setPointMass(float pmss)
 	{
 		if(pmss == 1.0) return;
-		fprintf(mFile,"setAttr \".pmss\" %f;\n", pmss);
+		fprintf(mFile,"\tsetAttr \".pmss\" %f;\n", pmss);
 
 	}
 	void setMassMap(float mamp)
 	{
 		if(mamp == 1.0) return;
-		fprintf(mFile,"setAttr \".mamp\" %f;\n", mamp);
+		fprintf(mFile,"\tsetAttr \".mamp\" %f;\n", mamp);
 
 	}
 	void setMassPerVertex(const doubleArray& mpv)
 	{
 		if(mpv.size == 0) return;
-		fprintf(mFile,"setAttr \".mpv\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".mpv\" -type \"doubleArray\" ");
 		mpv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -169,120 +170,120 @@ public:
 	void setRestLengthScale(float rlsc)
 	{
 		if(rlsc == 1.0) return;
-		fprintf(mFile,"setAttr \".rlsc\" %f;\n", rlsc);
+		fprintf(mFile,"\tsetAttr \".rlsc\" %f;\n", rlsc);
 
 	}
 	void setActive(bool actv)
 	{
 		if(actv == 1) return;
-		fprintf(mFile,"setAttr \".actv\" %i;\n", actv);
+		fprintf(mFile,"\tsetAttr \".actv\" %i;\n", actv);
 
 	}
 	void setCollide(bool cold)
 	{
 		if(cold == 1) return;
-		fprintf(mFile,"setAttr \".cold\" %i;\n", cold);
+		fprintf(mFile,"\tsetAttr \".cold\" %i;\n", cold);
 
 	}
 	void setSelfCollide(bool scld)
 	{
 		if(scld == 1) return;
-		fprintf(mFile,"setAttr \".scld\" %i;\n", scld);
+		fprintf(mFile,"\tsetAttr \".scld\" %i;\n", scld);
 
 	}
 	void setCollisionLayer(float cll)
 	{
 		if(cll == 0.0) return;
-		fprintf(mFile,"setAttr \".cll\" %f;\n", cll);
+		fprintf(mFile,"\tsetAttr \".cll\" %f;\n", cll);
 
 	}
 	void setWindShadowDiffusion(float wsdi)
 	{
 		if(wsdi == 0.0) return;
-		fprintf(mFile,"setAttr \".wsdi\" %f;\n", wsdi);
+		fprintf(mFile,"\tsetAttr \".wsdi\" %f;\n", wsdi);
 
 	}
 	void setWindShadowDistance(float wsds)
 	{
 		if(wsds == 0.0) return;
-		fprintf(mFile,"setAttr \".wsds\" %f;\n", wsds);
+		fprintf(mFile,"\tsetAttr \".wsds\" %f;\n", wsds);
 
 	}
 	void setAirPushDistance(float apds)
 	{
 		if(apds == 0.0) return;
-		fprintf(mFile,"setAttr \".apds\" %f;\n", apds);
+		fprintf(mFile,"\tsetAttr \".apds\" %f;\n", apds);
 
 	}
 	void setAirPushVorticity(float apvy)
 	{
 		if(apvy == 0.0) return;
-		fprintf(mFile,"setAttr \".apvy\" %f;\n", apvy);
+		fprintf(mFile,"\tsetAttr \".apvy\" %f;\n", apvy);
 
 	}
 	void setPushOut(float pou)
 	{
 		if(pou == 0.0) return;
-		fprintf(mFile,"setAttr \".pou\" %f;\n", pou);
+		fprintf(mFile,"\tsetAttr \".pou\" %f;\n", pou);
 
 	}
 	void setPushOutRadius(float por)
 	{
 		if(por == 10.0) return;
-		fprintf(mFile,"setAttr \".por\" %f;\n", por);
+		fprintf(mFile,"\tsetAttr \".por\" %f;\n", por);
 
 	}
 	void setCrossoverPush(float cop)
 	{
 		if(cop == 0.0) return;
-		fprintf(mFile,"setAttr \".cop\" %f;\n", cop);
+		fprintf(mFile,"\tsetAttr \".cop\" %f;\n", cop);
 
 	}
 	void setTrappedCheck(bool tpc)
 	{
 		if(tpc == 0) return;
-		fprintf(mFile,"setAttr \".tpc\" %i;\n", tpc);
+		fprintf(mFile,"\tsetAttr \".tpc\" %i;\n", tpc);
 
 	}
 	void setThicknessMapType(unsigned int tmt)
 	{
 		if(tmt == 2) return;
-		fprintf(mFile,"setAttr \".tmt\" %i;\n", tmt);
+		fprintf(mFile,"\tsetAttr \".tmt\" %i;\n", tmt);
 
 	}
 	void setBounceMapType(unsigned int bmt)
 	{
 		if(bmt == 2) return;
-		fprintf(mFile,"setAttr \".bmt\" %i;\n", bmt);
+		fprintf(mFile,"\tsetAttr \".bmt\" %i;\n", bmt);
 
 	}
 	void setFrictionMapType(unsigned int fmt)
 	{
 		if(fmt == 2) return;
-		fprintf(mFile,"setAttr \".fmt\" %i;\n", fmt);
+		fprintf(mFile,"\tsetAttr \".fmt\" %i;\n", fmt);
 
 	}
 	void setDampMapType(unsigned int dmt)
 	{
 		if(dmt == 2) return;
-		fprintf(mFile,"setAttr \".dmt\" %i;\n", dmt);
+		fprintf(mFile,"\tsetAttr \".dmt\" %i;\n", dmt);
 
 	}
 	void setMassMapType(unsigned int mmt)
 	{
 		if(mmt == 2) return;
-		fprintf(mFile,"setAttr \".mmt\" %i;\n", mmt);
+		fprintf(mFile,"\tsetAttr \".mmt\" %i;\n", mmt);
 
 	}
 	void setLocalSpaceOutput(bool lsou)
 	{
 		if(lsou == 0) return;
-		fprintf(mFile,"setAttr \".lsou\" %i;\n", lsou);
+		fprintf(mFile,"\tsetAttr \".lsou\" %i;\n", lsou);
 
 	}
 	void setDisplayColor(const float3& dcl)
 	{
-		fprintf(mFile,"setAttr \".dcl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dcl\" -type \"float3\" ");
 		dcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -290,19 +291,19 @@ public:
 	void setDisplayColorR(float dcr)
 	{
 		if(dcr == 1.0) return;
-		fprintf(mFile,"setAttr \".dcl.dcr\" %f;\n", dcr);
+		fprintf(mFile,"\tsetAttr \".dcl.dcr\" %f;\n", dcr);
 
 	}
 	void setDisplayColorG(float dcg)
 	{
 		if(dcg == 0.8) return;
-		fprintf(mFile,"setAttr \".dcl.dcg\" %f;\n", dcg);
+		fprintf(mFile,"\tsetAttr \".dcl.dcg\" %f;\n", dcg);
 
 	}
 	void setDisplayColorB(float dcb)
 	{
 		if(dcb == 0.0) return;
-		fprintf(mFile,"setAttr \".dcl.dcb\" %f;\n", dcb);
+		fprintf(mFile,"\tsetAttr \".dcl.dcb\" %f;\n", dcb);
 
 	}
 	void getInputMesh()
@@ -515,6 +516,11 @@ public:
 		fprintf(mFile,"\"%s.mmt\"",mName.c_str());
 
 	}
+	void getNextState()
+	{
+		fprintf(mFile,"\"%s.nxst\"",mName.c_str());
+
+	}
 	void getCurrentState()
 	{
 		fprintf(mFile,"\"%s.cust\"",mName.c_str());
@@ -556,7 +562,8 @@ public:
 
 	}
 protected:
-	NParticle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Particle(file, name, parent, nodeType) {}
+	NParticle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Particle(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

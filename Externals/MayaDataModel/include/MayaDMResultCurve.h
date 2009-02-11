@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class ResultCurve : public AnimCurve
 {
 public:
 public:
+	ResultCurve():AnimCurve(){}
 	ResultCurve(FILE* file,const std::string& name,const std::string& parent=""):AnimCurve(file, name, parent, "resultCurve"){}
 	virtual ~ResultCurve(){}
 	void getStart()
@@ -36,7 +37,8 @@ public:
 
 	}
 protected:
-	ResultCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AnimCurve(file, name, parent, nodeType) {}
+	ResultCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AnimCurve(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

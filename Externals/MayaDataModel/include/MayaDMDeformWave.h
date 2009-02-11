@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class DeformWave : public DeformFunc
 {
 public:
 public:
+	DeformWave():DeformFunc(){}
 	DeformWave(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformWave"){}
 	virtual ~DeformWave(){}
 	void setMaxRadius(double mxr)
 	{
 		if(mxr == 1.0) return;
-		fprintf(mFile,"setAttr \".mxr\" %f;\n", mxr);
+		fprintf(mFile,"\tsetAttr \".mxr\" %f;\n", mxr);
 
 	}
 	void setMinRadius(double mnr)
 	{
 		if(mnr == 0.0) return;
-		fprintf(mFile,"setAttr \".mnr\" %f;\n", mnr);
+		fprintf(mFile,"\tsetAttr \".mnr\" %f;\n", mnr);
 
 	}
 	void setAmplitude(double amp)
 	{
 		if(amp == 0.0) return;
-		fprintf(mFile,"setAttr \".amp\" %f;\n", amp);
+		fprintf(mFile,"\tsetAttr \".amp\" %f;\n", amp);
 
 	}
 	void setWavelength(double wav)
 	{
 		if(wav == 1.0) return;
-		fprintf(mFile,"setAttr \".wav\" %f;\n", wav);
+		fprintf(mFile,"\tsetAttr \".wav\" %f;\n", wav);
 
 	}
 	void setDropoff(double dr)
 	{
 		if(dr == 0.0) return;
-		fprintf(mFile,"setAttr \".dr\" %f;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %f;\n", dr);
 
 	}
 	void setDropoffPosition(double dp)
 	{
 		if(dp == 0.0) return;
-		fprintf(mFile,"setAttr \".dp\" %f;\n", dp);
+		fprintf(mFile,"\tsetAttr \".dp\" %f;\n", dp);
 
 	}
 	void setOffset(double off)
 	{
 		if(off == 0.0) return;
-		fprintf(mFile,"setAttr \".off\" %f;\n", off);
+		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
 	void getMaxRadius()
@@ -98,7 +99,8 @@ public:
 
 	}
 protected:
-	DeformWave(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformFunc(file, name, parent, nodeType) {}
+	DeformWave(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformFunc(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class OffsetCos : public AbstractBaseCreate
 {
 public:
 public:
+	OffsetCos():AbstractBaseCreate(){}
 	OffsetCos(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "offsetCos"){}
 	virtual ~OffsetCos(){}
 	void setCutLoop(bool cl)
 	{
 		if(cl == false) return;
-		fprintf(mFile,"setAttr \".cl\" %i;\n", cl);
+		fprintf(mFile,"\tsetAttr \".cl\" %i;\n", cl);
 
 	}
 	void setConnectBreaks(unsigned int cb)
 	{
 		if(cb == 2) return;
-		fprintf(mFile,"setAttr \".cb\" %i;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cb\" %i;\n", cb);
 
 	}
 	void setDistance(double d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void setSubdivisionDensity(int sd)
 	{
 		if(sd == 5) return;
-		fprintf(mFile,"setAttr \".sd\" %i;\n", sd);
+		fprintf(mFile,"\tsetAttr \".sd\" %i;\n", sd);
 
 	}
 	void setCheckPoints(short cp)
 	{
 		if(cp == 3) return;
-		fprintf(mFile,"setAttr \".cp\" %i;\n", cp);
+		fprintf(mFile,"\tsetAttr \".cp\" %i;\n", cp);
 
 	}
 	void setStitch(bool st)
 	{
 		if(st == true) return;
-		fprintf(mFile,"setAttr \".st\" %i;\n", st);
+		fprintf(mFile,"\tsetAttr \".st\" %i;\n", st);
 
 	}
 	void getInputCurve()
@@ -108,7 +109,8 @@ public:
 
 	}
 protected:
-	OffsetCos(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	OffsetCos(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

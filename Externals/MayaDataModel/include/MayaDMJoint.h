@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Joint : public Transform
 {
 public:
 public:
+	Joint():Transform(){}
 	Joint(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "joint"){}
 	virtual ~Joint(){}
 	void setJointOrientType(const string& jot)
 	{
 		if(jot == "xyz") return;
-		fprintf(mFile,"setAttr \".jot\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".jot\" -type \"string\" ");
 		jot.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,24 +32,24 @@ public:
 	void setJointTypeX(bool jtx)
 	{
 		if(jtx == true) return;
-		fprintf(mFile,"setAttr \".jtx\" %i;\n", jtx);
+		fprintf(mFile,"\tsetAttr \".jtx\" %i;\n", jtx);
 
 	}
 	void setJointTypeY(bool jty)
 	{
 		if(jty == true) return;
-		fprintf(mFile,"setAttr \".jty\" %i;\n", jty);
+		fprintf(mFile,"\tsetAttr \".jty\" %i;\n", jty);
 
 	}
 	void setJointTypeZ(bool jtz)
 	{
 		if(jtz == true) return;
-		fprintf(mFile,"setAttr \".jtz\" %i;\n", jtz);
+		fprintf(mFile,"\tsetAttr \".jtz\" %i;\n", jtz);
 
 	}
 	void setJointOrient(const double3& jo)
 	{
-		fprintf(mFile,"setAttr \".jo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".jo\" -type \"double3\" ");
 		jo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -56,30 +57,30 @@ public:
 	void setJointOrientX(double jox)
 	{
 		if(jox == 0) return;
-		fprintf(mFile,"setAttr \".jo.jox\" %f;\n", jox);
+		fprintf(mFile,"\tsetAttr \".jo.jox\" %f;\n", jox);
 
 	}
 	void setJointOrientY(double joy)
 	{
 		if(joy == 0) return;
-		fprintf(mFile,"setAttr \".jo.joy\" %f;\n", joy);
+		fprintf(mFile,"\tsetAttr \".jo.joy\" %f;\n", joy);
 
 	}
 	void setJointOrientZ(double joz)
 	{
 		if(joz == 0) return;
-		fprintf(mFile,"setAttr \".jo.joz\" %f;\n", joz);
+		fprintf(mFile,"\tsetAttr \".jo.joz\" %f;\n", joz);
 
 	}
 	void setSegmentScaleCompensate(bool ssc)
 	{
 		if(ssc == true) return;
-		fprintf(mFile,"setAttr \".ssc\" %i;\n", ssc);
+		fprintf(mFile,"\tsetAttr \".ssc\" %i;\n", ssc);
 
 	}
 	void setInverseScale(const double3& is)
 	{
-		fprintf(mFile,"setAttr \".is\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".is\" -type \"double3\" ");
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -87,24 +88,24 @@ public:
 	void setInverseScaleX(double isx)
 	{
 		if(isx == 1.0) return;
-		fprintf(mFile,"setAttr \".is.isx\" %f;\n", isx);
+		fprintf(mFile,"\tsetAttr \".is.isx\" %f;\n", isx);
 
 	}
 	void setInverseScaleY(double isy)
 	{
 		if(isy == 1.0) return;
-		fprintf(mFile,"setAttr \".is.isy\" %f;\n", isy);
+		fprintf(mFile,"\tsetAttr \".is.isy\" %f;\n", isy);
 
 	}
 	void setInverseScaleZ(double isz)
 	{
 		if(isz == 1.0) return;
-		fprintf(mFile,"setAttr \".is.isz\" %f;\n", isz);
+		fprintf(mFile,"\tsetAttr \".is.isz\" %f;\n", isz);
 
 	}
 	void setStiffness(const double3& st)
 	{
-		fprintf(mFile,"setAttr \".st\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".st\" -type \"double3\" ");
 		st.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -112,24 +113,24 @@ public:
 	void setStiffnessX(double stx)
 	{
 		if(stx == 0.0) return;
-		fprintf(mFile,"setAttr \".st.stx\" %f;\n", stx);
+		fprintf(mFile,"\tsetAttr \".st.stx\" %f;\n", stx);
 
 	}
 	void setStiffnessY(double sty)
 	{
 		if(sty == 0.0) return;
-		fprintf(mFile,"setAttr \".st.sty\" %f;\n", sty);
+		fprintf(mFile,"\tsetAttr \".st.sty\" %f;\n", sty);
 
 	}
 	void setStiffnessZ(double stz)
 	{
 		if(stz == 0.0) return;
-		fprintf(mFile,"setAttr \".st.stz\" %f;\n", stz);
+		fprintf(mFile,"\tsetAttr \".st.stz\" %f;\n", stz);
 
 	}
 	void setPreferredAngle(const double3& pa)
 	{
-		fprintf(mFile,"setAttr \".pa\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".pa\" -type \"double3\" ");
 		pa.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -137,24 +138,24 @@ public:
 	void setPreferredAngleX(double pax)
 	{
 		if(pax == 0) return;
-		fprintf(mFile,"setAttr \".pa.pax\" %f;\n", pax);
+		fprintf(mFile,"\tsetAttr \".pa.pax\" %f;\n", pax);
 
 	}
 	void setPreferredAngleY(double pay)
 	{
 		if(pay == 0) return;
-		fprintf(mFile,"setAttr \".pa.pay\" %f;\n", pay);
+		fprintf(mFile,"\tsetAttr \".pa.pay\" %f;\n", pay);
 
 	}
 	void setPreferredAngleZ(double paz)
 	{
 		if(paz == 0) return;
-		fprintf(mFile,"setAttr \".pa.paz\" %f;\n", paz);
+		fprintf(mFile,"\tsetAttr \".pa.paz\" %f;\n", paz);
 
 	}
 	void setMinRotateDampRange(const double3& ndr)
 	{
-		fprintf(mFile,"setAttr \".ndr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ndr\" -type \"double3\" ");
 		ndr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -162,24 +163,24 @@ public:
 	void setMinRotateDampRangeX(double ndx)
 	{
 		if(ndx == 0) return;
-		fprintf(mFile,"setAttr \".ndr.ndx\" %f;\n", ndx);
+		fprintf(mFile,"\tsetAttr \".ndr.ndx\" %f;\n", ndx);
 
 	}
 	void setMinRotateDampRangeY(double ndy)
 	{
 		if(ndy == 0) return;
-		fprintf(mFile,"setAttr \".ndr.ndy\" %f;\n", ndy);
+		fprintf(mFile,"\tsetAttr \".ndr.ndy\" %f;\n", ndy);
 
 	}
 	void setMinRotateDampRangeZ(double ndz)
 	{
 		if(ndz == 0) return;
-		fprintf(mFile,"setAttr \".ndr.ndz\" %f;\n", ndz);
+		fprintf(mFile,"\tsetAttr \".ndr.ndz\" %f;\n", ndz);
 
 	}
 	void setMinRotateDampStrength(const double3& nst)
 	{
-		fprintf(mFile,"setAttr \".nst\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".nst\" -type \"double3\" ");
 		nst.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -187,24 +188,24 @@ public:
 	void setMinRotateDampStrengthX(double nstx)
 	{
 		if(nstx == 0.0) return;
-		fprintf(mFile,"setAttr \".nst.nstx\" %f;\n", nstx);
+		fprintf(mFile,"\tsetAttr \".nst.nstx\" %f;\n", nstx);
 
 	}
 	void setMinRotateDampStrengthY(double nsty)
 	{
 		if(nsty == 0.0) return;
-		fprintf(mFile,"setAttr \".nst.nsty\" %f;\n", nsty);
+		fprintf(mFile,"\tsetAttr \".nst.nsty\" %f;\n", nsty);
 
 	}
 	void setMinRotateDampStrengthZ(double nstz)
 	{
 		if(nstz == 0.0) return;
-		fprintf(mFile,"setAttr \".nst.nstz\" %f;\n", nstz);
+		fprintf(mFile,"\tsetAttr \".nst.nstz\" %f;\n", nstz);
 
 	}
 	void setMaxRotateDampRange(const double3& xdr)
 	{
-		fprintf(mFile,"setAttr \".xdr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".xdr\" -type \"double3\" ");
 		xdr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -212,24 +213,24 @@ public:
 	void setMaxRotateDampRangeX(double xdx)
 	{
 		if(xdx == 0) return;
-		fprintf(mFile,"setAttr \".xdr.xdx\" %f;\n", xdx);
+		fprintf(mFile,"\tsetAttr \".xdr.xdx\" %f;\n", xdx);
 
 	}
 	void setMaxRotateDampRangeY(double xdy)
 	{
 		if(xdy == 0) return;
-		fprintf(mFile,"setAttr \".xdr.xdy\" %f;\n", xdy);
+		fprintf(mFile,"\tsetAttr \".xdr.xdy\" %f;\n", xdy);
 
 	}
 	void setMaxRotateDampRangeZ(double xdz)
 	{
 		if(xdz == 0) return;
-		fprintf(mFile,"setAttr \".xdr.xdz\" %f;\n", xdz);
+		fprintf(mFile,"\tsetAttr \".xdr.xdz\" %f;\n", xdz);
 
 	}
 	void setMaxRotateDampStrength(const double3& xst)
 	{
-		fprintf(mFile,"setAttr \".xst\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".xst\" -type \"double3\" ");
 		xst.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -237,25 +238,25 @@ public:
 	void setMaxRotateDampStrengthX(double xstx)
 	{
 		if(xstx == 0.0) return;
-		fprintf(mFile,"setAttr \".xst.xstx\" %f;\n", xstx);
+		fprintf(mFile,"\tsetAttr \".xst.xstx\" %f;\n", xstx);
 
 	}
 	void setMaxRotateDampStrengthY(double xsty)
 	{
 		if(xsty == 0.0) return;
-		fprintf(mFile,"setAttr \".xst.xsty\" %f;\n", xsty);
+		fprintf(mFile,"\tsetAttr \".xst.xsty\" %f;\n", xsty);
 
 	}
 	void setMaxRotateDampStrengthZ(double xstz)
 	{
 		if(xstz == 0.0) return;
-		fprintf(mFile,"setAttr \".xst.xstz\" %f;\n", xstz);
+		fprintf(mFile,"\tsetAttr \".xst.xstz\" %f;\n", xstz);
 
 	}
 	void setBindPose(const matrix& bps)
 	{
 		if(bps == identity) return;
-		fprintf(mFile,"setAttr \".bps\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".bps\" -type \"matrix\" ");
 		bps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -263,31 +264,31 @@ public:
 	void setDrawStyle(unsigned int ds)
 	{
 		if(ds == 0) return;
-		fprintf(mFile,"setAttr \".ds\" %i;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %i;\n", ds);
 
 	}
 	void setDrawLabel(bool dl)
 	{
 		if(dl == false) return;
-		fprintf(mFile,"setAttr \".dl\" %i;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
 	void setSide(unsigned int sd)
 	{
 		if(sd == 0) return;
-		fprintf(mFile,"setAttr \".sd\" %i;\n", sd);
+		fprintf(mFile,"\tsetAttr \".sd\" %i;\n", sd);
 
 	}
 	void setType(unsigned int typ)
 	{
 		if(typ == 0) return;
-		fprintf(mFile,"setAttr \".typ\" %i;\n", typ);
+		fprintf(mFile,"\tsetAttr \".typ\" %i;\n", typ);
 
 	}
 	void setOtherType(const string& otp)
 	{
 		if(otp == "jaw") return;
-		fprintf(mFile,"setAttr \".otp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".otp\" -type \"string\" ");
 		otp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -295,13 +296,13 @@ public:
 	void setRadius(double radi)
 	{
 		if(radi == 1.0) return;
-		fprintf(mFile,"setAttr \".radi\" %f;\n", radi);
+		fprintf(mFile,"\tsetAttr \".radi\" %f;\n", radi);
 
 	}
 	void setHikNodeID(int hni)
 	{
 		if(hni == -1) return;
-		fprintf(mFile,"setAttr \".hni\" %i;\n", hni);
+		fprintf(mFile,"\tsetAttr \".hni\" %i;\n", hni);
 
 	}
 	void getJointTypeX()
@@ -505,7 +506,8 @@ public:
 
 	}
 protected:
-	Joint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Transform(file, name, parent, nodeType) {}
+	Joint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Transform(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

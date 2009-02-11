@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,47 +18,48 @@ class VolumeAxisField : public Field
 {
 public:
 public:
+	VolumeAxisField():Field(){}
 	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "volumeAxisField"){}
 	virtual ~VolumeAxisField(){}
 	void setInvertAttenuation(bool ia)
 	{
 		if(ia == false) return;
-		fprintf(mFile,"setAttr \".ia\" %i;\n", ia);
+		fprintf(mFile,"\tsetAttr \".ia\" %i;\n", ia);
 
 	}
 	void setAwayFromCenter(double afc)
 	{
 		if(afc == 1.0) return;
-		fprintf(mFile,"setAttr \".afc\" %f;\n", afc);
+		fprintf(mFile,"\tsetAttr \".afc\" %f;\n", afc);
 
 	}
 	void setAwayFromAxis(double afa)
 	{
 		if(afa == 1.0) return;
-		fprintf(mFile,"setAttr \".afa\" %f;\n", afa);
+		fprintf(mFile,"\tsetAttr \".afa\" %f;\n", afa);
 
 	}
 	void setAlongAxis(double alx)
 	{
 		if(alx == 0.0) return;
-		fprintf(mFile,"setAttr \".alx\" %f;\n", alx);
+		fprintf(mFile,"\tsetAttr \".alx\" %f;\n", alx);
 
 	}
 	void setAroundAxis(double arx)
 	{
 		if(arx == 0.0) return;
-		fprintf(mFile,"setAttr \".arx\" %f;\n", arx);
+		fprintf(mFile,"\tsetAttr \".arx\" %f;\n", arx);
 
 	}
 	void setDirectionalSpeed(double drs)
 	{
 		if(drs == 0.0) return;
-		fprintf(mFile,"setAttr \".drs\" %f;\n", drs);
+		fprintf(mFile,"\tsetAttr \".drs\" %f;\n", drs);
 
 	}
 	void setDirection(const double3& d)
 	{
-		fprintf(mFile,"setAttr \".d\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"double3\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -66,42 +67,42 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 1.0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void setDisplaySpeed(bool dss)
 	{
 		if(dss == true) return;
-		fprintf(mFile,"setAttr \".dss\" %i;\n", dss);
+		fprintf(mFile,"\tsetAttr \".dss\" %i;\n", dss);
 
 	}
 	void setTurbulence(double trb)
 	{
 		if(trb == 0.0) return;
-		fprintf(mFile,"setAttr \".trb\" %f;\n", trb);
+		fprintf(mFile,"\tsetAttr \".trb\" %f;\n", trb);
 
 	}
 	void setTurbulenceSpeed(double trs)
 	{
 		if(trs == 0.2) return;
-		fprintf(mFile,"setAttr \".trs\" %f;\n", trs);
+		fprintf(mFile,"\tsetAttr \".trs\" %f;\n", trs);
 
 	}
 	void setTurbulenceFrequency(const double3& tf)
 	{
-		fprintf(mFile,"setAttr \".tf\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".tf\" -type \"double3\" ");
 		tf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,24 +110,24 @@ public:
 	void setTurbulenceFrequencyX(double tfx)
 	{
 		if(tfx == 1.0) return;
-		fprintf(mFile,"setAttr \".tf.tfx\" %f;\n", tfx);
+		fprintf(mFile,"\tsetAttr \".tf.tfx\" %f;\n", tfx);
 
 	}
 	void setTurbulenceFrequencyY(double tfy)
 	{
 		if(tfy == 1.0) return;
-		fprintf(mFile,"setAttr \".tf.tfy\" %f;\n", tfy);
+		fprintf(mFile,"\tsetAttr \".tf.tfy\" %f;\n", tfy);
 
 	}
 	void setTurbulenceFrequencyZ(double tfz)
 	{
 		if(tfz == 1.0) return;
-		fprintf(mFile,"setAttr \".tf.tfz\" %f;\n", tfz);
+		fprintf(mFile,"\tsetAttr \".tf.tfz\" %f;\n", tfz);
 
 	}
 	void setTurbulenceOffset(const double3& to)
 	{
-		fprintf(mFile,"setAttr \".to\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".to\" -type \"double3\" ");
 		to.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -134,25 +135,25 @@ public:
 	void setTurbulenceOffsetX(double tox)
 	{
 		if(tox == 0.0) return;
-		fprintf(mFile,"setAttr \".to.tox\" %f;\n", tox);
+		fprintf(mFile,"\tsetAttr \".to.tox\" %f;\n", tox);
 
 	}
 	void setTurbulenceOffsetY(double toy)
 	{
 		if(toy == 0.0) return;
-		fprintf(mFile,"setAttr \".to.toy\" %f;\n", toy);
+		fprintf(mFile,"\tsetAttr \".to.toy\" %f;\n", toy);
 
 	}
 	void setTurbulenceOffsetZ(double toz)
 	{
 		if(toz == 0.0) return;
-		fprintf(mFile,"setAttr \".to.toz\" %f;\n", toz);
+		fprintf(mFile,"\tsetAttr \".to.toz\" %f;\n", toz);
 
 	}
 	void setDetailTurbulence(double dtr)
 	{
 		if(dtr == 0.0) return;
-		fprintf(mFile,"setAttr \".dtr\" %f;\n", dtr);
+		fprintf(mFile,"\tsetAttr \".dtr\" %f;\n", dtr);
 
 	}
 	void getInvertAttenuation()
@@ -271,7 +272,8 @@ public:
 
 	}
 protected:
-	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

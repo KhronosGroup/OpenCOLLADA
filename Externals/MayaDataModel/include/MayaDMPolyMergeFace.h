@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class PolyMergeFace : public PolyModifier
 {
 public:
 public:
+	PolyMergeFace():PolyModifier(){}
 	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMergeFace"){}
 	virtual ~PolyMergeFace(){}
 	void setMergeMode(unsigned int mm)
 	{
 		if(mm == 6) return;
-		fprintf(mFile,"setAttr \".mm\" %i;\n", mm);
+		fprintf(mFile,"\tsetAttr \".mm\" %i;\n", mm);
 
 	}
 	void setUseAreaTolerance(bool uat)
 	{
 		if(uat == true) return;
-		fprintf(mFile,"setAttr \".uat\" %i;\n", uat);
+		fprintf(mFile,"\tsetAttr \".uat\" %i;\n", uat);
 
 	}
 	void setFirstFacet(int ff)
 	{
 		if(ff == -1) return;
-		fprintf(mFile,"setAttr \".ff\" %i;\n", ff);
+		fprintf(mFile,"\tsetAttr \".ff\" %i;\n", ff);
 
 	}
 	void setSecondFacet(int sf)
 	{
 		if(sf == -1) return;
-		fprintf(mFile,"setAttr \".sf\" %i;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sf\" %i;\n", sf);
 
 	}
 	void getMergeMode()
@@ -60,7 +61,8 @@ public:
 
 	}
 protected:
-	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

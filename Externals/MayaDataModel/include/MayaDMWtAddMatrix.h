@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -28,11 +28,12 @@ public:
 		}
 	};
 public:
+	WtAddMatrix():DependNode(){}
 	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "wtAddMatrix"){}
 	virtual ~WtAddMatrix(){}
 	void setWtMatrix(size_t i_i,const WtMatrix& i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" ",i_i);
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -40,7 +41,7 @@ public:
 	void setMatrixIn(size_t i_i,const matrix& m)
 	{
 		if(m == identity) return;
-		fprintf(mFile,"setAttr \".i[%i].m\" -type \"matrix\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i].m\" -type \"matrix\" ",i_i);
 		m.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -48,7 +49,7 @@ public:
 	void setWeightIn(size_t i_i,double w)
 	{
 		if(w == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].w\" %f;\n", i_i,w);
+		fprintf(mFile,"\tsetAttr \".i[%i].w\" %f;\n", i_i,w);
 
 	}
 	void getWtMatrix(size_t i_i)
@@ -72,7 +73,8 @@ public:
 
 	}
 protected:
-	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

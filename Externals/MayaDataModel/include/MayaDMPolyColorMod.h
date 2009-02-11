@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -73,19 +73,20 @@ public:
 		}
 	};
 public:
+	PolyColorMod():PolyModifier(){}
 	PolyColorMod(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyColorMod"){}
 	virtual ~PolyColorMod(){}
 	void setBaseColorName(const string& bcn)
 	{
 		if(bcn == "NULL") return;
-		fprintf(mFile,"setAttr \".bcn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bcn\" -type \"string\" ");
 		bcn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setRedScale(size_t r_i,const RedScale& r)
 	{
-		fprintf(mFile,"setAttr \".r[%i]\" ",r_i);
+		fprintf(mFile,"\tsetAttr \".r[%i]\" ",r_i);
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -93,24 +94,24 @@ public:
 	void setRedScale_Position(size_t r_i,float rp)
 	{
 		if(rp == 0.0) return;
-		fprintf(mFile,"setAttr \".r[%i].rp\" %f;\n", r_i,rp);
+		fprintf(mFile,"\tsetAttr \".r[%i].rp\" %f;\n", r_i,rp);
 
 	}
 	void setRedScale_FloatValue(size_t r_i,float rfv)
 	{
 		if(rfv == 0.0) return;
-		fprintf(mFile,"setAttr \".r[%i].rfv\" %f;\n", r_i,rfv);
+		fprintf(mFile,"\tsetAttr \".r[%i].rfv\" %f;\n", r_i,rfv);
 
 	}
 	void setRedScale_Interp(size_t r_i,unsigned int ri)
 	{
 		if(ri == 0) return;
-		fprintf(mFile,"setAttr \".r[%i].ri\" %i;\n", r_i,ri);
+		fprintf(mFile,"\tsetAttr \".r[%i].ri\" %i;\n", r_i,ri);
 
 	}
 	void setGreenScale(size_t g_i,const GreenScale& g)
 	{
-		fprintf(mFile,"setAttr \".g[%i]\" ",g_i);
+		fprintf(mFile,"\tsetAttr \".g[%i]\" ",g_i);
 		g.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -118,24 +119,24 @@ public:
 	void setGreenScale_Position(size_t g_i,float gp)
 	{
 		if(gp == 0.0) return;
-		fprintf(mFile,"setAttr \".g[%i].gp\" %f;\n", g_i,gp);
+		fprintf(mFile,"\tsetAttr \".g[%i].gp\" %f;\n", g_i,gp);
 
 	}
 	void setGreenScale_FloatValue(size_t g_i,float gfv)
 	{
 		if(gfv == 0.0) return;
-		fprintf(mFile,"setAttr \".g[%i].gfv\" %f;\n", g_i,gfv);
+		fprintf(mFile,"\tsetAttr \".g[%i].gfv\" %f;\n", g_i,gfv);
 
 	}
 	void setGreenScale_Interp(size_t g_i,unsigned int gi)
 	{
 		if(gi == 0) return;
-		fprintf(mFile,"setAttr \".g[%i].gi\" %i;\n", g_i,gi);
+		fprintf(mFile,"\tsetAttr \".g[%i].gi\" %i;\n", g_i,gi);
 
 	}
 	void setBlueScale(size_t b_i,const BlueScale& b)
 	{
-		fprintf(mFile,"setAttr \".b[%i]\" ",b_i);
+		fprintf(mFile,"\tsetAttr \".b[%i]\" ",b_i);
 		b.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -143,24 +144,24 @@ public:
 	void setBlueScale_Position(size_t b_i,float bp)
 	{
 		if(bp == 0.0) return;
-		fprintf(mFile,"setAttr \".b[%i].bp\" %f;\n", b_i,bp);
+		fprintf(mFile,"\tsetAttr \".b[%i].bp\" %f;\n", b_i,bp);
 
 	}
 	void setBlueScale_FloatValue(size_t b_i,float bfv)
 	{
 		if(bfv == 0.0) return;
-		fprintf(mFile,"setAttr \".b[%i].bfv\" %f;\n", b_i,bfv);
+		fprintf(mFile,"\tsetAttr \".b[%i].bfv\" %f;\n", b_i,bfv);
 
 	}
 	void setBlueScale_Interp(size_t b_i,unsigned int bi)
 	{
 		if(bi == 0) return;
-		fprintf(mFile,"setAttr \".b[%i].bi\" %i;\n", b_i,bi);
+		fprintf(mFile,"\tsetAttr \".b[%i].bi\" %i;\n", b_i,bi);
 
 	}
 	void setAlphaScale(size_t a_i,const AlphaScale& a)
 	{
-		fprintf(mFile,"setAttr \".a[%i]\" ",a_i);
+		fprintf(mFile,"\tsetAttr \".a[%i]\" ",a_i);
 		a.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -168,24 +169,24 @@ public:
 	void setAlphaScale_Position(size_t a_i,float ap)
 	{
 		if(ap == 0.0) return;
-		fprintf(mFile,"setAttr \".a[%i].ap\" %f;\n", a_i,ap);
+		fprintf(mFile,"\tsetAttr \".a[%i].ap\" %f;\n", a_i,ap);
 
 	}
 	void setAlphaScale_FloatValue(size_t a_i,float afv)
 	{
 		if(afv == 0.0) return;
-		fprintf(mFile,"setAttr \".a[%i].afv\" %f;\n", a_i,afv);
+		fprintf(mFile,"\tsetAttr \".a[%i].afv\" %f;\n", a_i,afv);
 
 	}
 	void setAlphaScale_Interp(size_t a_i,unsigned int ai)
 	{
 		if(ai == 0) return;
-		fprintf(mFile,"setAttr \".a[%i].ai\" %i;\n", a_i,ai);
+		fprintf(mFile,"\tsetAttr \".a[%i].ai\" %i;\n", a_i,ai);
 
 	}
 	void setIntensityScale(size_t n_i,const IntensityScale& n)
 	{
-		fprintf(mFile,"setAttr \".n[%i]\" ",n_i);
+		fprintf(mFile,"\tsetAttr \".n[%i]\" ",n_i);
 		n.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -193,37 +194,37 @@ public:
 	void setIntensityScale_Position(size_t n_i,float np)
 	{
 		if(np == 0.0) return;
-		fprintf(mFile,"setAttr \".n[%i].np\" %f;\n", n_i,np);
+		fprintf(mFile,"\tsetAttr \".n[%i].np\" %f;\n", n_i,np);
 
 	}
 	void setIntensityScale_FloatValue(size_t n_i,float nfv)
 	{
 		if(nfv == 0.0) return;
-		fprintf(mFile,"setAttr \".n[%i].nfv\" %f;\n", n_i,nfv);
+		fprintf(mFile,"\tsetAttr \".n[%i].nfv\" %f;\n", n_i,nfv);
 
 	}
 	void setIntensityScale_Interp(size_t n_i,unsigned int ni)
 	{
 		if(ni == 0) return;
-		fprintf(mFile,"setAttr \".n[%i].ni\" %i;\n", n_i,ni);
+		fprintf(mFile,"\tsetAttr \".n[%i].ni\" %i;\n", n_i,ni);
 
 	}
 	void setHuev(float h)
 	{
 		if(h == 0.0) return;
-		fprintf(mFile,"setAttr \".h\" %f;\n", h);
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 
 	}
 	void setSatv(float s)
 	{
 		if(s == 1.0) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setValue(float v)
 	{
 		if(v == 1.0) return;
-		fprintf(mFile,"setAttr \".v\" %f;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %f;\n", v);
 
 	}
 	void getBaseColorName()
@@ -347,7 +348,8 @@ public:
 
 	}
 protected:
-	PolyColorMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyColorMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

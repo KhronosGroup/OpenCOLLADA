@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyCut : public PolyModifierWorld
 {
 public:
 public:
+	PolyCut():PolyModifierWorld(){}
 	PolyCut(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyCut"){}
 	virtual ~PolyCut(){}
 	void setCutPlaneCenter(const double3& pc)
 	{
 		if(pc == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".pc\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".pc\" -type \"double3\" ");
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setCutPlaneCenterX(double pcx)
 	{
 		if(pcx == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcx\" %f;\n", pcx);
+		fprintf(mFile,"\tsetAttr \".pc.pcx\" %f;\n", pcx);
 
 	}
 	void setCutPlaneCenterY(double pcy)
 	{
 		if(pcy == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcy\" %f;\n", pcy);
+		fprintf(mFile,"\tsetAttr \".pc.pcy\" %f;\n", pcy);
 
 	}
 	void setCutPlaneCenterZ(double pcz)
 	{
 		if(pcz == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcz\" %f;\n", pcz);
+		fprintf(mFile,"\tsetAttr \".pc.pcz\" %f;\n", pcz);
 
 	}
 	void setCutPlaneRotate(const double3& ro)
 	{
 		if(ro == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ro\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ro\" -type \"double3\" ");
 		ro.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setCutPlaneRotateX(double rx)
 	{
 		if(rx == 0) return;
-		fprintf(mFile,"setAttr \".ro.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".ro.rx\" %f;\n", rx);
 
 	}
 	void setCutPlaneRotateY(double ry)
 	{
 		if(ry == 0) return;
-		fprintf(mFile,"setAttr \".ro.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".ro.ry\" %f;\n", ry);
 
 	}
 	void setCutPlaneRotateZ(double rz)
 	{
 		if(rz == 0) return;
-		fprintf(mFile,"setAttr \".ro.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".ro.rz\" %f;\n", rz);
 
 	}
 	void setCutPlaneSize(const double2& ps)
 	{
 		if(ps == double2(1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".ps\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ps\" -type \"double2\" ");
 		ps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,25 +84,25 @@ public:
 	void setCutPlaneWidth(double pw)
 	{
 		if(pw == 0) return;
-		fprintf(mFile,"setAttr \".ps.pw\" %f;\n", pw);
+		fprintf(mFile,"\tsetAttr \".ps.pw\" %f;\n", pw);
 
 	}
 	void setCutPlaneHeight(double ph)
 	{
 		if(ph == 0) return;
-		fprintf(mFile,"setAttr \".ps.ph\" %f;\n", ph);
+		fprintf(mFile,"\tsetAttr \".ps.ph\" %f;\n", ph);
 
 	}
 	void setExtractFaces(bool ef)
 	{
 		if(ef == false) return;
-		fprintf(mFile,"setAttr \".ef\" %i;\n", ef);
+		fprintf(mFile,"\tsetAttr \".ef\" %i;\n", ef);
 
 	}
 	void setExtractOffset(const double3& eo)
 	{
 		if(eo == double3(0.5, 0.5, 0.5)) return;
-		fprintf(mFile,"setAttr \".eo\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".eo\" -type \"double3\" ");
 		eo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,31 +110,31 @@ public:
 	void setExtractOffsetX(double eox)
 	{
 		if(eox == 0) return;
-		fprintf(mFile,"setAttr \".eo.eox\" %f;\n", eox);
+		fprintf(mFile,"\tsetAttr \".eo.eox\" %f;\n", eox);
 
 	}
 	void setExtractOffsetY(double eoy)
 	{
 		if(eoy == 0) return;
-		fprintf(mFile,"setAttr \".eo.eoy\" %f;\n", eoy);
+		fprintf(mFile,"\tsetAttr \".eo.eoy\" %f;\n", eoy);
 
 	}
 	void setExtractOffsetZ(double eoz)
 	{
 		if(eoz == 0) return;
-		fprintf(mFile,"setAttr \".eo.eoz\" %f;\n", eoz);
+		fprintf(mFile,"\tsetAttr \".eo.eoz\" %f;\n", eoz);
 
 	}
 	void setDeleteFaces(bool df)
 	{
 		if(df == false) return;
-		fprintf(mFile,"setAttr \".df\" %i;\n", df);
+		fprintf(mFile,"\tsetAttr \".df\" %i;\n", df);
 
 	}
 	void setOnObject(bool oo)
 	{
 		if(oo == true) return;
-		fprintf(mFile,"setAttr \".oo\" %i;\n", oo);
+		fprintf(mFile,"\tsetAttr \".oo\" %i;\n", oo);
 
 	}
 	void getCutPlaneCenter()
@@ -232,7 +233,8 @@ public:
 
 	}
 protected:
-	PolyCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

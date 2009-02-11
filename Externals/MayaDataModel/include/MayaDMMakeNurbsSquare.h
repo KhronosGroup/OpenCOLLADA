@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class MakeNurbsSquare : public AbstractBaseCreate
 {
 public:
 public:
+	MakeNurbsSquare():AbstractBaseCreate(){}
 	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeNurbsSquare"){}
 	virtual ~MakeNurbsSquare(){}
 	void setNormal(const double3& nr)
 	{
-		fprintf(mFile,"setAttr \".nr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".nr\" -type \"double3\" ");
 		nr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,24 +31,24 @@ public:
 	void setNormalX(double nrx)
 	{
 		if(nrx == 0) return;
-		fprintf(mFile,"setAttr \".nr.nrx\" %f;\n", nrx);
+		fprintf(mFile,"\tsetAttr \".nr.nrx\" %f;\n", nrx);
 
 	}
 	void setNormalY(double nry)
 	{
 		if(nry == 0) return;
-		fprintf(mFile,"setAttr \".nr.nry\" %f;\n", nry);
+		fprintf(mFile,"\tsetAttr \".nr.nry\" %f;\n", nry);
 
 	}
 	void setNormalZ(double nrz)
 	{
 		if(nrz == 1) return;
-		fprintf(mFile,"setAttr \".nr.nrz\" %f;\n", nrz);
+		fprintf(mFile,"\tsetAttr \".nr.nrz\" %f;\n", nrz);
 
 	}
 	void setCenter(const double3& c)
 	{
-		fprintf(mFile,"setAttr \".c\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".c\" -type \"double3\" ");
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,43 +56,43 @@ public:
 	void setCenterX(double cx)
 	{
 		if(cx == 0) return;
-		fprintf(mFile,"setAttr \".c.cx\" %f;\n", cx);
+		fprintf(mFile,"\tsetAttr \".c.cx\" %f;\n", cx);
 
 	}
 	void setCenterY(double cy)
 	{
 		if(cy == 0) return;
-		fprintf(mFile,"setAttr \".c.cy\" %f;\n", cy);
+		fprintf(mFile,"\tsetAttr \".c.cy\" %f;\n", cy);
 
 	}
 	void setCenterZ(double cz)
 	{
 		if(cz == 0) return;
-		fprintf(mFile,"setAttr \".c.cz\" %f;\n", cz);
+		fprintf(mFile,"\tsetAttr \".c.cz\" %f;\n", cz);
 
 	}
 	void setSideLength1(double sl1)
 	{
 		if(sl1 == 1) return;
-		fprintf(mFile,"setAttr \".sl1\" %f;\n", sl1);
+		fprintf(mFile,"\tsetAttr \".sl1\" %f;\n", sl1);
 
 	}
 	void setSideLength2(double sl2)
 	{
 		if(sl2 == 1) return;
-		fprintf(mFile,"setAttr \".sl2\" %f;\n", sl2);
+		fprintf(mFile,"\tsetAttr \".sl2\" %f;\n", sl2);
 
 	}
 	void setDegree(unsigned int d)
 	{
 		if(d == 3) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setSpansPerSide(int sps)
 	{
 		if(sps == 1) return;
-		fprintf(mFile,"setAttr \".sps\" %i;\n", sps);
+		fprintf(mFile,"\tsetAttr \".sps\" %i;\n", sps);
 
 	}
 	void getNormal()
@@ -175,7 +176,8 @@ public:
 
 	}
 protected:
-	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

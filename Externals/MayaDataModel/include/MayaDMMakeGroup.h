@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,31 +18,32 @@ class MakeGroup : public DependNode
 {
 public:
 public:
+	MakeGroup():DependNode(){}
 	MakeGroup(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "makeGroup"){}
 	virtual ~MakeGroup(){}
 	void setGroupType(unsigned int gt)
 	{
 		if(gt == 0) return;
-		fprintf(mFile,"setAttr \".gt\" %i;\n", gt);
+		fprintf(mFile,"\tsetAttr \".gt\" %i;\n", gt);
 
 	}
 	void setGroupName(int gn)
 	{
 		if(gn == -1) return;
-		fprintf(mFile,"setAttr \".gn\" %i;\n", gn);
+		fprintf(mFile,"\tsetAttr \".gn\" %i;\n", gn);
 
 	}
 	void setElemList(const intArray& el)
 	{
 		if(el.size == 0) return;
-		fprintf(mFile,"setAttr \".el\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".el\" -type \"intArray\" ");
 		el.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputComponents(const componentList& ic)
 	{
-		fprintf(mFile,"setAttr \".ic\" -type \"componentList\" ");
+		fprintf(mFile,"\tsetAttr \".ic\" -type \"componentList\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -78,7 +79,8 @@ public:
 
 	}
 protected:
-	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class DistanceBetween : public DependNode
 {
 public:
 public:
+	DistanceBetween():DependNode(){}
 	DistanceBetween(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "distanceBetween"){}
 	virtual ~DistanceBetween(){}
 	void setPoint1(const double3& p1)
 	{
-		fprintf(mFile,"setAttr \".p1\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".p1\" -type \"double3\" ");
 		p1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,32 +31,32 @@ public:
 	void setPoint1X(double p1x)
 	{
 		if(p1x == 0) return;
-		fprintf(mFile,"setAttr \".p1.p1x\" %f;\n", p1x);
+		fprintf(mFile,"\tsetAttr \".p1.p1x\" %f;\n", p1x);
 
 	}
 	void setPoint1Y(double p1y)
 	{
 		if(p1y == 0) return;
-		fprintf(mFile,"setAttr \".p1.p1y\" %f;\n", p1y);
+		fprintf(mFile,"\tsetAttr \".p1.p1y\" %f;\n", p1y);
 
 	}
 	void setPoint1Z(double p1z)
 	{
 		if(p1z == 0) return;
-		fprintf(mFile,"setAttr \".p1.p1z\" %f;\n", p1z);
+		fprintf(mFile,"\tsetAttr \".p1.p1z\" %f;\n", p1z);
 
 	}
 	void setInMatrix1(const matrix& im1)
 	{
 		if(im1 == identity) return;
-		fprintf(mFile,"setAttr \".im1\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".im1\" -type \"matrix\" ");
 		im1.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setPoint2(const double3& p2)
 	{
-		fprintf(mFile,"setAttr \".p2\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".p2\" -type \"double3\" ");
 		p2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,27 +64,77 @@ public:
 	void setPoint2X(double p2x)
 	{
 		if(p2x == 0) return;
-		fprintf(mFile,"setAttr \".p2.p2x\" %f;\n", p2x);
+		fprintf(mFile,"\tsetAttr \".p2.p2x\" %f;\n", p2x);
 
 	}
 	void setPoint2Y(double p2y)
 	{
 		if(p2y == 0) return;
-		fprintf(mFile,"setAttr \".p2.p2y\" %f;\n", p2y);
+		fprintf(mFile,"\tsetAttr \".p2.p2y\" %f;\n", p2y);
 
 	}
 	void setPoint2Z(double p2z)
 	{
 		if(p2z == 0) return;
-		fprintf(mFile,"setAttr \".p2.p2z\" %f;\n", p2z);
+		fprintf(mFile,"\tsetAttr \".p2.p2z\" %f;\n", p2z);
 
 	}
 	void setInMatrix2(const matrix& im2)
 	{
 		if(im2 == identity) return;
-		fprintf(mFile,"setAttr \".im2\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".im2\" -type \"matrix\" ");
 		im2.write(mFile);
 		fprintf(mFile,";\n");
+
+	}
+	void getPoint1()
+	{
+		fprintf(mFile,"\"%s.p1\"",mName.c_str());
+
+	}
+	void getPoint1X()
+	{
+		fprintf(mFile,"\"%s.p1.p1x\"",mName.c_str());
+
+	}
+	void getPoint1Y()
+	{
+		fprintf(mFile,"\"%s.p1.p1y\"",mName.c_str());
+
+	}
+	void getPoint1Z()
+	{
+		fprintf(mFile,"\"%s.p1.p1z\"",mName.c_str());
+
+	}
+	void getInMatrix1()
+	{
+		fprintf(mFile,"\"%s.im1\"",mName.c_str());
+
+	}
+	void getPoint2()
+	{
+		fprintf(mFile,"\"%s.p2\"",mName.c_str());
+
+	}
+	void getPoint2X()
+	{
+		fprintf(mFile,"\"%s.p2.p2x\"",mName.c_str());
+
+	}
+	void getPoint2Y()
+	{
+		fprintf(mFile,"\"%s.p2.p2y\"",mName.c_str());
+
+	}
+	void getPoint2Z()
+	{
+		fprintf(mFile,"\"%s.p2.p2z\"",mName.c_str());
+
+	}
+	void getInMatrix2()
+	{
+		fprintf(mFile,"\"%s.im2\"",mName.c_str());
 
 	}
 	void getDistance()
@@ -92,7 +143,8 @@ public:
 
 	}
 protected:
-	DistanceBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DistanceBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

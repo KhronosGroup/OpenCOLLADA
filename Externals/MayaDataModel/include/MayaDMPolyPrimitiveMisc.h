@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class PolyPrimitiveMisc : public PolyPrimitive
 {
 public:
 public:
+	PolyPrimitiveMisc():PolyPrimitive(){}
 	PolyPrimitiveMisc(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyPrimitiveMisc"){}
 	virtual ~PolyPrimitiveMisc(){}
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setSideLength(double l)
 	{
 		if(l == 0) return;
-		fprintf(mFile,"setAttr \".l\" %f;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
 
 	}
 	void setPolyType(unsigned int pt)
 	{
 		if(pt == 0) return;
-		fprintf(mFile,"setAttr \".pt\" %i;\n", pt);
+		fprintf(mFile,"\tsetAttr \".pt\" %i;\n", pt);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 2) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(unsigned int cuv)
 	{
 		if(cuv == 3) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void getRadius()
@@ -76,7 +77,8 @@ public:
 
 	}
 protected:
-	PolyPrimitiveMisc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolyPrimitiveMisc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -82,73 +82,74 @@ public:
 		}
 	};
 public:
+	Subdiv():SurfaceShape(){}
 	Subdiv(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "subdiv"){}
 	virtual ~Subdiv(){}
 	void setDispVertices(bool dv)
 	{
 		if(dv == false) return;
-		fprintf(mFile,"setAttr \".dv\" %i;\n", dv);
+		fprintf(mFile,"\tsetAttr \".dv\" %i;\n", dv);
 
 	}
 	void setDispEdges(bool de)
 	{
 		if(de == false) return;
-		fprintf(mFile,"setAttr \".de\" %i;\n", de);
+		fprintf(mFile,"\tsetAttr \".de\" %i;\n", de);
 
 	}
 	void setDispFaces(bool df)
 	{
 		if(df == false) return;
-		fprintf(mFile,"setAttr \".df\" %i;\n", df);
+		fprintf(mFile,"\tsetAttr \".df\" %i;\n", df);
 
 	}
 	void setDispMaps(bool dm)
 	{
 		if(dm == false) return;
-		fprintf(mFile,"setAttr \".dm\" %i;\n", dm);
+		fprintf(mFile,"\tsetAttr \".dm\" %i;\n", dm);
 
 	}
 	void setDispUVBorder(bool db)
 	{
 		if(db == false) return;
-		fprintf(mFile,"setAttr \".db\" %i;\n", db);
+		fprintf(mFile,"\tsetAttr \".db\" %i;\n", db);
 
 	}
 	void setDispCreases(bool dcr)
 	{
 		if(dcr == false) return;
-		fprintf(mFile,"setAttr \".dcr\" %i;\n", dcr);
+		fprintf(mFile,"\tsetAttr \".dcr\" %i;\n", dcr);
 
 	}
 	void setDispGeometry(bool dg)
 	{
 		if(dg == true) return;
-		fprintf(mFile,"setAttr \".dg\" %i;\n", dg);
+		fprintf(mFile,"\tsetAttr \".dg\" %i;\n", dg);
 
 	}
 	void setDispResolution(int dr)
 	{
 		if(dr == 1) return;
-		fprintf(mFile,"setAttr \".dr\" %i;\n", dr);
+		fprintf(mFile,"\tsetAttr \".dr\" %i;\n", dr);
 
 	}
 	void setVertexTweak(size_t vtw_i,const VertexTweak& vtw)
 	{
-		fprintf(mFile,"setAttr \".vtw[%i]\" ",vtw_i);
+		fprintf(mFile,"\tsetAttr \".vtw[%i]\" ",vtw_i);
 		vtw.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setSingleVertexTweak(size_t vtw_i,size_t stw_i,const double3& stw)
 	{
-		fprintf(mFile,"setAttr \".vtw[%i].stw[%i]\" -type \"double3\" ",vtw_i,stw_i);
+		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i]\" -type \"double3\" ",vtw_i,stw_i);
 		stw.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setSingleVertexTweak(size_t vtw_i,size_t stw_start,size_t stw_end,double* stw)
 	{
-		fprintf(mFile,"setAttr \".vtw[%i].stw[%i:%i]\" ", vtw_i,stw_start,stw_end);
+		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i:%i]\" ", vtw_i,stw_start,stw_end);
 		size_t size = (stw_end-stw_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -160,7 +161,7 @@ public:
 	}
 	void startSingleVertexTweak(size_t vtw_i,size_t stw_start,size_t stw_end)
 	{
-		fprintf(mFile,"setAttr \".vtw[%i].stw[%i:%i]\"",vtw_i,stw_start,stw_end);
+		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i:%i]\"",vtw_i,stw_start,stw_end);
 
 	}
 	void appendSingleVertexTweak(double stw)
@@ -176,66 +177,66 @@ public:
 	void setSingleVertexTweakX(size_t vtw_i,size_t stw_i,double stwx)
 	{
 		if(stwx == 0) return;
-		fprintf(mFile,"setAttr \".vtw[%i].stw[%i].stwx\" %f;\n", vtw_i,stw_i,stwx);
+		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i].stwx\" %f;\n", vtw_i,stw_i,stwx);
 
 	}
 	void setSingleVertexTweakY(size_t vtw_i,size_t stw_i,double stwy)
 	{
 		if(stwy == 0) return;
-		fprintf(mFile,"setAttr \".vtw[%i].stw[%i].stwy\" %f;\n", vtw_i,stw_i,stwy);
+		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i].stwy\" %f;\n", vtw_i,stw_i,stwy);
 
 	}
 	void setSingleVertexTweakZ(size_t vtw_i,size_t stw_i,double stwz)
 	{
 		if(stwz == 0) return;
-		fprintf(mFile,"setAttr \".vtw[%i].stw[%i].stwz\" %f;\n", vtw_i,stw_i,stwz);
+		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i].stwz\" %f;\n", vtw_i,stw_i,stwz);
 
 	}
 	void setNormalsDisplayScale(double ndf)
 	{
 		if(ndf == 1.0) return;
-		fprintf(mFile,"setAttr \".ndf\" %f;\n", ndf);
+		fprintf(mFile,"\tsetAttr \".ndf\" %f;\n", ndf);
 
 	}
 	void setFormat(unsigned int f)
 	{
 		if(f == 1) return;
-		fprintf(mFile,"setAttr \".f\" %i;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
 
 	}
 	void setDepth(int d)
 	{
 		if(d == 2) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setSampleCount(int sc)
 	{
 		if(sc == 4) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setDisplayLevel(unsigned int dl)
 	{
 		if(dl == 0) return;
-		fprintf(mFile,"setAttr \".dl\" %i;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
 	void setDisplayFilter(unsigned int dfl)
 	{
 		if(dfl == 0) return;
-		fprintf(mFile,"setAttr \".dfl\" %i;\n", dfl);
+		fprintf(mFile,"\tsetAttr \".dfl\" %i;\n", dfl);
 
 	}
 	void setScalingHierarchy(unsigned int sh)
 	{
 		if(sh == 1) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -243,127 +244,127 @@ public:
 	void setMiOverrideCaustics(bool oca)
 	{
 		if(oca == false) return;
-		fprintf(mFile,"setAttr \".mrc.oca\" %i;\n", oca);
+		fprintf(mFile,"\tsetAttr \".mrc.oca\" %i;\n", oca);
 
 	}
 	void setMiCausticAccuracy(short caa)
 	{
 		if(caa == 64) return;
-		fprintf(mFile,"setAttr \".mrc.caa\" %i;\n", caa);
+		fprintf(mFile,"\tsetAttr \".mrc.caa\" %i;\n", caa);
 
 	}
 	void setMiCausticRadius(float car)
 	{
 		if(car == 0) return;
-		fprintf(mFile,"setAttr \".mrc.car\" %f;\n", car);
+		fprintf(mFile,"\tsetAttr \".mrc.car\" %f;\n", car);
 
 	}
 	void setMiOverrideGlobalIllumination(bool ogi)
 	{
 		if(ogi == false) return;
-		fprintf(mFile,"setAttr \".mrc.ogi\" %i;\n", ogi);
+		fprintf(mFile,"\tsetAttr \".mrc.ogi\" %i;\n", ogi);
 
 	}
 	void setMiGlobillumAccuracy(short gia)
 	{
 		if(gia == 64) return;
-		fprintf(mFile,"setAttr \".mrc.gia\" %i;\n", gia);
+		fprintf(mFile,"\tsetAttr \".mrc.gia\" %i;\n", gia);
 
 	}
 	void setMiGlobillumRadius(float gir)
 	{
 		if(gir == 0) return;
-		fprintf(mFile,"setAttr \".mrc.gir\" %f;\n", gir);
+		fprintf(mFile,"\tsetAttr \".mrc.gir\" %f;\n", gir);
 
 	}
 	void setMiOverrideFinalGather(bool ofg)
 	{
 		if(ofg == false) return;
-		fprintf(mFile,"setAttr \".mrc.ofg\" %i;\n", ofg);
+		fprintf(mFile,"\tsetAttr \".mrc.ofg\" %i;\n", ofg);
 
 	}
 	void setMiFinalGatherRays(int fry)
 	{
 		if(fry == 1000) return;
-		fprintf(mFile,"setAttr \".mrc.fry\" %i;\n", fry);
+		fprintf(mFile,"\tsetAttr \".mrc.fry\" %i;\n", fry);
 
 	}
 	void setMiFinalGatherMinRadius(float fmn)
 	{
 		if(fmn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmn\" %f;\n", fmn);
+		fprintf(mFile,"\tsetAttr \".mrc.fmn\" %f;\n", fmn);
 
 	}
 	void setMiFinalGatherMaxRadius(float fmx)
 	{
 		if(fmx == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmx\" %f;\n", fmx);
+		fprintf(mFile,"\tsetAttr \".mrc.fmx\" %f;\n", fmx);
 
 	}
 	void setMiFinalGatherFilter(short ffi)
 	{
 		if(ffi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.ffi\" %i;\n", ffi);
+		fprintf(mFile,"\tsetAttr \".mrc.ffi\" %i;\n", ffi);
 
 	}
 	void setMiFinalGatherView(bool fgv)
 	{
 		if(fgv == false) return;
-		fprintf(mFile,"setAttr \".mrc.fgv\" %i;\n", fgv);
+		fprintf(mFile,"\tsetAttr \".mrc.fgv\" %i;\n", fgv);
 
 	}
 	void setMiOverrideSamples(bool oos)
 	{
 		if(oos == false) return;
-		fprintf(mFile,"setAttr \".mrc.oos\" %i;\n", oos);
+		fprintf(mFile,"\tsetAttr \".mrc.oos\" %i;\n", oos);
 
 	}
 	void setMiMinSamples(short mins)
 	{
 		if(mins == 0) return;
-		fprintf(mFile,"setAttr \".mrc.mins\" %i;\n", mins);
+		fprintf(mFile,"\tsetAttr \".mrc.mins\" %i;\n", mins);
 
 	}
 	void setMiMaxSamples(short maxs)
 	{
 		if(maxs == 2) return;
-		fprintf(mFile,"setAttr \".mrc.maxs\" %i;\n", maxs);
+		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
 	void setMiFinalGatherCast(bool fgc)
 	{
 		if(fgc == true) return;
-		fprintf(mFile,"setAttr \".mrc.fgc\" %i;\n", fgc);
+		fprintf(mFile,"\tsetAttr \".mrc.fgc\" %i;\n", fgc);
 
 	}
 	void setMiFinalGatherReceive(bool fge)
 	{
 		if(fge == true) return;
-		fprintf(mFile,"setAttr \".mrc.fge\" %i;\n", fge);
+		fprintf(mFile,"\tsetAttr \".mrc.fge\" %i;\n", fge);
 
 	}
 	void setMiTransparencyCast(bool tpc)
 	{
 		if(tpc == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpc\" %i;\n", tpc);
+		fprintf(mFile,"\tsetAttr \".mrc.tpc\" %i;\n", tpc);
 
 	}
 	void setMiTransparencyReceive(bool tpr)
 	{
 		if(tpr == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpr\" %i;\n", tpr);
+		fprintf(mFile,"\tsetAttr \".mrc.tpr\" %i;\n", tpr);
 
 	}
 	void setMiReflectionReceive(bool rflr)
 	{
 		if(rflr == true) return;
-		fprintf(mFile,"setAttr \".mrc.rflr\" %i;\n", rflr);
+		fprintf(mFile,"\tsetAttr \".mrc.rflr\" %i;\n", rflr);
 
 	}
 	void setMiRefractionReceive(bool rfrr)
 	{
 		if(rfrr == true) return;
-		fprintf(mFile,"setAttr \".mrc.rfrr\" %i;\n", rfrr);
+		fprintf(mFile,"\tsetAttr \".mrc.rfrr\" %i;\n", rfrr);
 
 	}
 	void getCreate()
@@ -657,7 +658,8 @@ public:
 
 	}
 protected:
-	Subdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SurfaceShape(file, name, parent, nodeType) {}
+	Subdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SurfaceShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

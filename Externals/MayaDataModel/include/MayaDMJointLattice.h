@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class JointLattice : public GeometryFilter
 {
 public:
 public:
+	JointLattice():GeometryFilter(){}
 	JointLattice(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "jointLattice"){}
 	virtual ~JointLattice(){}
 	void setCreasing(double cr)
 	{
 		if(cr == 0) return;
-		fprintf(mFile,"setAttr \".cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cr\" %f;\n", cr);
 
 	}
 	void setRounding(double ro)
 	{
 		if(ro == 0) return;
-		fprintf(mFile,"setAttr \".ro\" %f;\n", ro);
+		fprintf(mFile,"\tsetAttr \".ro\" %f;\n", ro);
 
 	}
 	void setLengthIn(double li)
 	{
 		if(li == 0) return;
-		fprintf(mFile,"setAttr \".li\" %f;\n", li);
+		fprintf(mFile,"\tsetAttr \".li\" %f;\n", li);
 
 	}
 	void setLengthOut(double lo)
 	{
 		if(lo == 0) return;
-		fprintf(mFile,"setAttr \".lo\" %f;\n", lo);
+		fprintf(mFile,"\tsetAttr \".lo\" %f;\n", lo);
 
 	}
 	void setWidthLeft(double wl)
 	{
 		if(wl == 0) return;
-		fprintf(mFile,"setAttr \".wl\" %f;\n", wl);
+		fprintf(mFile,"\tsetAttr \".wl\" %f;\n", wl);
 
 	}
 	void setWidthRight(double wr)
 	{
 		if(wr == 0) return;
-		fprintf(mFile,"setAttr \".wr\" %f;\n", wr);
+		fprintf(mFile,"\tsetAttr \".wr\" %f;\n", wr);
 
 	}
 	void setUpperMatrix(const matrix& um)
 	{
 		if(um == identity) return;
-		fprintf(mFile,"setAttr \".um\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".um\" -type \"matrix\" ");
 		um.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -67,7 +68,7 @@ public:
 	void setLowerMatrix(const matrix& lm)
 	{
 		if(lm == identity) return;
-		fprintf(mFile,"setAttr \".lm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".lm\" -type \"matrix\" ");
 		lm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,7 +76,7 @@ public:
 	void setInitialUpperMatrix(const matrix& iu)
 	{
 		if(iu == identity) return;
-		fprintf(mFile,"setAttr \".iu\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".iu\" -type \"matrix\" ");
 		iu.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,7 +84,7 @@ public:
 	void setInitialLowerMatrix(const matrix& il)
 	{
 		if(il == identity) return;
-		fprintf(mFile,"setAttr \".il\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".il\" -type \"matrix\" ");
 		il.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -91,7 +92,7 @@ public:
 	void setDeformedLatticeMatrix(const matrix& md)
 	{
 		if(md == identity) return;
-		fprintf(mFile,"setAttr \".md\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".md\" -type \"matrix\" ");
 		md.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -99,14 +100,14 @@ public:
 	void setBaseLatticeMatrix(const matrix& mb)
 	{
 		if(mb == identity) return;
-		fprintf(mFile,"setAttr \".mb\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".mb\" -type \"matrix\" ");
 		mb.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBendVector(const float3& bv)
 	{
-		fprintf(mFile,"setAttr \".bv\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".bv\" -type \"float3\" ");
 		bv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -114,25 +115,25 @@ public:
 	void setBendVectorX(float bx)
 	{
 		if(bx == 0.0) return;
-		fprintf(mFile,"setAttr \".bv.bx\" %f;\n", bx);
+		fprintf(mFile,"\tsetAttr \".bv.bx\" %f;\n", bx);
 
 	}
 	void setBendVectorY(float by)
 	{
 		if(by == 0.0) return;
-		fprintf(mFile,"setAttr \".bv.by\" %f;\n", by);
+		fprintf(mFile,"\tsetAttr \".bv.by\" %f;\n", by);
 
 	}
 	void setBendVectorZ(float bz)
 	{
 		if(bz == 0.0) return;
-		fprintf(mFile,"setAttr \".bv.bz\" %f;\n", bz);
+		fprintf(mFile,"\tsetAttr \".bv.bz\" %f;\n", bz);
 
 	}
 	void setBendMagnitude(double bm)
 	{
 		if(bm == 0) return;
-		fprintf(mFile,"setAttr \".bm\" %f;\n", bm);
+		fprintf(mFile,"\tsetAttr \".bm\" %f;\n", bm);
 
 	}
 	void getCreasing()
@@ -231,7 +232,8 @@ public:
 
 	}
 protected:
-	JointLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	JointLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

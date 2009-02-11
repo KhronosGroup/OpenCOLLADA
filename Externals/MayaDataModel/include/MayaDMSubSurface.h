@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class SubSurface : public AbstractBaseCreate
 {
 public:
 public:
+	SubSurface():AbstractBaseCreate(){}
 	SubSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "subSurface"){}
 	virtual ~SubSurface(){}
 	void setFirstFaceU(int ffu)
 	{
 		if(ffu == 0) return;
-		fprintf(mFile,"setAttr \".ffu\" %i;\n", ffu);
+		fprintf(mFile,"\tsetAttr \".ffu\" %i;\n", ffu);
 
 	}
 	void setFirstFaceV(int ffv)
 	{
 		if(ffv == 0) return;
-		fprintf(mFile,"setAttr \".ffv\" %i;\n", ffv);
+		fprintf(mFile,"\tsetAttr \".ffv\" %i;\n", ffv);
 
 	}
 	void setFaceCountU(int fcu)
 	{
 		if(fcu == 1) return;
-		fprintf(mFile,"setAttr \".fcu\" %i;\n", fcu);
+		fprintf(mFile,"\tsetAttr \".fcu\" %i;\n", fcu);
 
 	}
 	void setFaceCountV(int fcv)
 	{
 		if(fcv == 1) return;
-		fprintf(mFile,"setAttr \".fcv\" %i;\n", fcv);
+		fprintf(mFile,"\tsetAttr \".fcv\" %i;\n", fcv);
 
 	}
 	void getInputSurface()
@@ -75,7 +76,8 @@ public:
 
 	}
 protected:
-	SubSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	SubSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

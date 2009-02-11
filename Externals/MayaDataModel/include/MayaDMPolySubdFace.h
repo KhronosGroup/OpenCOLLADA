@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class PolySubdFace : public PolyModifier
 {
 public:
 public:
+	PolySubdFace():PolyModifier(){}
 	PolySubdFace(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySubdFace"){}
 	virtual ~PolySubdFace(){}
 	void setDivisions(int dv)
 	{
 		if(dv == 1) return;
-		fprintf(mFile,"setAttr \".dv\" %i;\n", dv);
+		fprintf(mFile,"\tsetAttr \".dv\" %i;\n", dv);
 
 	}
 	void setDivisionsU(int duv)
 	{
 		if(duv == 1) return;
-		fprintf(mFile,"setAttr \".duv\" %i;\n", duv);
+		fprintf(mFile,"\tsetAttr \".duv\" %i;\n", duv);
 
 	}
 	void setDivisionsV(int dvv)
 	{
 		if(dvv == 1) return;
-		fprintf(mFile,"setAttr \".dvv\" %i;\n", dvv);
+		fprintf(mFile,"\tsetAttr \".dvv\" %i;\n", dvv);
 
 	}
 	void setMode(unsigned int m)
 	{
 		if(m == 0) return;
-		fprintf(mFile,"setAttr \".m\" %i;\n", m);
+		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
 	void setSubdMethod(unsigned int sbm)
 	{
 		if(sbm == 0) return;
-		fprintf(mFile,"setAttr \".sbm\" %i;\n", sbm);
+		fprintf(mFile,"\tsetAttr \".sbm\" %i;\n", sbm);
 
 	}
 	void getDivisions()
@@ -76,7 +77,8 @@ public:
 
 	}
 protected:
-	PolySubdFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolySubdFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

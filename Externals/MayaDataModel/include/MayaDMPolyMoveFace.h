@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class PolyMoveFace : public PolyMoveEdge
 {
 public:
 public:
+	PolyMoveFace():PolyMoveEdge(){}
 	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveEdge(file, name, parent, "polyMoveFace"){}
 	virtual ~PolyMoveFace(){}
 	void setOffset(float off)
 	{
 		if(off == 0.0) return;
-		fprintf(mFile,"setAttr \".off\" %f;\n", off);
+		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
 	void setWeight(double w)
 	{
 		if(w == 0.0) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setGravity(const double3& g)
 	{
 		if(g == double3(0.0, -1.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".g\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".g\" -type \"double3\" ");
 		g.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -43,31 +44,31 @@ public:
 	void setGravityX(double gx)
 	{
 		if(gx == 0) return;
-		fprintf(mFile,"setAttr \".g.gx\" %f;\n", gx);
+		fprintf(mFile,"\tsetAttr \".g.gx\" %f;\n", gx);
 
 	}
 	void setGravityY(double gy)
 	{
 		if(gy == 0) return;
-		fprintf(mFile,"setAttr \".g.gy\" %f;\n", gy);
+		fprintf(mFile,"\tsetAttr \".g.gy\" %f;\n", gy);
 
 	}
 	void setGravityZ(double gz)
 	{
 		if(gz == 0) return;
-		fprintf(mFile,"setAttr \".g.gz\" %f;\n", gz);
+		fprintf(mFile,"\tsetAttr \".g.gz\" %f;\n", gz);
 
 	}
 	void setAttraction(double att)
 	{
 		if(att == 0.0) return;
-		fprintf(mFile,"setAttr \".att\" %f;\n", att);
+		fprintf(mFile,"\tsetAttr \".att\" %f;\n", att);
 
 	}
 	void setMagnet(const double3& m)
 	{
 		if(m == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".m\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".m\" -type \"double3\" ");
 		m.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,19 +76,19 @@ public:
 	void setMagnX(double mx)
 	{
 		if(mx == 0) return;
-		fprintf(mFile,"setAttr \".m.mx\" %f;\n", mx);
+		fprintf(mFile,"\tsetAttr \".m.mx\" %f;\n", mx);
 
 	}
 	void setMagnY(double my)
 	{
 		if(my == 0) return;
-		fprintf(mFile,"setAttr \".m.my\" %f;\n", my);
+		fprintf(mFile,"\tsetAttr \".m.my\" %f;\n", my);
 
 	}
 	void setMagnZ(double mz)
 	{
 		if(mz == 0) return;
-		fprintf(mFile,"setAttr \".m.mz\" %f;\n", mz);
+		fprintf(mFile,"\tsetAttr \".m.mz\" %f;\n", mz);
 
 	}
 	void getOffset()
@@ -146,7 +147,8 @@ public:
 
 	}
 protected:
-	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyMoveEdge(file, name, parent, nodeType) {}
+	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyMoveEdge(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

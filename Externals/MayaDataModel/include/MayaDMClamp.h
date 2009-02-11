@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Clamp : public DependNode
 {
 public:
 public:
+	Clamp():DependNode(){}
 	Clamp(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "clamp"){}
 	virtual ~Clamp(){}
 	void setMin(const float3& mn)
 	{
 		if(mn == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".mn\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mn\" -type \"float3\" ");
 		mn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setMinR(float mnr)
 	{
 		if(mnr == 0.0) return;
-		fprintf(mFile,"setAttr \".mn.mnr\" %f;\n", mnr);
+		fprintf(mFile,"\tsetAttr \".mn.mnr\" %f;\n", mnr);
 
 	}
 	void setMinG(float mng)
 	{
 		if(mng == 0.0) return;
-		fprintf(mFile,"setAttr \".mn.mng\" %f;\n", mng);
+		fprintf(mFile,"\tsetAttr \".mn.mng\" %f;\n", mng);
 
 	}
 	void setMinB(float mnb)
 	{
 		if(mnb == 0.0) return;
-		fprintf(mFile,"setAttr \".mn.mnb\" %f;\n", mnb);
+		fprintf(mFile,"\tsetAttr \".mn.mnb\" %f;\n", mnb);
 
 	}
 	void setMax(const float3& mx)
 	{
 		if(mx == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".mx\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mx\" -type \"float3\" ");
 		mx.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setMaxR(float mxr)
 	{
 		if(mxr == 0.0) return;
-		fprintf(mFile,"setAttr \".mx.mxr\" %f;\n", mxr);
+		fprintf(mFile,"\tsetAttr \".mx.mxr\" %f;\n", mxr);
 
 	}
 	void setMaxG(float mxg)
 	{
 		if(mxg == 0.0) return;
-		fprintf(mFile,"setAttr \".mx.mxg\" %f;\n", mxg);
+		fprintf(mFile,"\tsetAttr \".mx.mxg\" %f;\n", mxg);
 
 	}
 	void setMaxB(float mxb)
 	{
 		if(mxb == 0.0) return;
-		fprintf(mFile,"setAttr \".mx.mxb\" %f;\n", mxb);
+		fprintf(mFile,"\tsetAttr \".mx.mxb\" %f;\n", mxb);
 
 	}
 	void setInput(const float3& ip)
 	{
 		if(ip == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".ip\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ip\" -type \"float3\" ");
 		ip.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,19 +84,19 @@ public:
 	void setInputR(float ipr)
 	{
 		if(ipr == 0.0) return;
-		fprintf(mFile,"setAttr \".ip.ipr\" %f;\n", ipr);
+		fprintf(mFile,"\tsetAttr \".ip.ipr\" %f;\n", ipr);
 
 	}
 	void setInputG(float ipg)
 	{
 		if(ipg == 0.0) return;
-		fprintf(mFile,"setAttr \".ip.ipg\" %f;\n", ipg);
+		fprintf(mFile,"\tsetAttr \".ip.ipg\" %f;\n", ipg);
 
 	}
 	void setInputB(float ipb)
 	{
 		if(ipb == 0.0) return;
-		fprintf(mFile,"setAttr \".ip.ipb\" %f;\n", ipb);
+		fprintf(mFile,"\tsetAttr \".ip.ipb\" %f;\n", ipb);
 
 	}
 	void getMin()
@@ -179,7 +180,8 @@ public:
 
 	}
 protected:
-	Clamp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Clamp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

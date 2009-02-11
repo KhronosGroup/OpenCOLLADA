@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,72 +18,73 @@ class ObjectRenderFilter : public ObjectFilter
 {
 public:
 public:
+	ObjectRenderFilter():ObjectFilter(){}
 	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectRenderFilter"){}
 	virtual ~ObjectRenderFilter(){}
 	void setShaders(bool shad)
 	{
 		if(shad == 0) return;
-		fprintf(mFile,"setAttr \".shad\" %i;\n", shad);
+		fprintf(mFile,"\tsetAttr \".shad\" %i;\n", shad);
 
 	}
 	void setTextures(bool txtr)
 	{
 		if(txtr == 0) return;
-		fprintf(mFile,"setAttr \".txtr\" %i;\n", txtr);
+		fprintf(mFile,"\tsetAttr \".txtr\" %i;\n", txtr);
 
 	}
 	void setTextures2D(bool tx2d)
 	{
 		if(tx2d == 0) return;
-		fprintf(mFile,"setAttr \".tx2d\" %i;\n", tx2d);
+		fprintf(mFile,"\tsetAttr \".tx2d\" %i;\n", tx2d);
 
 	}
 	void setTextures3D(bool tx3d)
 	{
 		if(tx3d == 0) return;
-		fprintf(mFile,"setAttr \".tx3d\" %i;\n", tx3d);
+		fprintf(mFile,"\tsetAttr \".tx3d\" %i;\n", tx3d);
 
 	}
 	void setLights(bool lght)
 	{
 		if(lght == 0) return;
-		fprintf(mFile,"setAttr \".lght\" %i;\n", lght);
+		fprintf(mFile,"\tsetAttr \".lght\" %i;\n", lght);
 
 	}
 	void setExclusiveLights(bool exlt)
 	{
 		if(exlt == 0) return;
-		fprintf(mFile,"setAttr \".exlt\" %i;\n", exlt);
+		fprintf(mFile,"\tsetAttr \".exlt\" %i;\n", exlt);
 
 	}
 	void setNonExclusiveLights(bool nxlt)
 	{
 		if(nxlt == 0) return;
-		fprintf(mFile,"setAttr \".nxlt\" %i;\n", nxlt);
+		fprintf(mFile,"\tsetAttr \".nxlt\" %i;\n", nxlt);
 
 	}
 	void setPostProcess(bool post)
 	{
 		if(post == 0) return;
-		fprintf(mFile,"setAttr \".post\" %i;\n", post);
+		fprintf(mFile,"\tsetAttr \".post\" %i;\n", post);
 
 	}
 	void setUtility(bool util)
 	{
 		if(util == 0) return;
-		fprintf(mFile,"setAttr \".util\" %i;\n", util);
+		fprintf(mFile,"\tsetAttr \".util\" %i;\n", util);
 
 	}
 	void setRenderableObjectSets(bool ros)
 	{
 		if(ros == 0) return;
-		fprintf(mFile,"setAttr \".ros\" %i;\n", ros);
+		fprintf(mFile,"\tsetAttr \".ros\" %i;\n", ros);
 
 	}
 	void setLightSets(bool ls)
 	{
 		if(ls == 0) return;
-		fprintf(mFile,"setAttr \".ls\" %i;\n", ls);
+		fprintf(mFile,"\tsetAttr \".ls\" %i;\n", ls);
 
 	}
 	void getShaders()
@@ -142,7 +143,8 @@ public:
 
 	}
 protected:
-	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectFilter(file, name, parent, nodeType) {}
+	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

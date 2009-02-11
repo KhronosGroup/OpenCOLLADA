@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class DeleteComponent : public DependNode
 {
 public:
 public:
+	DeleteComponent():DependNode(){}
 	DeleteComponent(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "deleteComponent"){}
 	virtual ~DeleteComponent(){}
 	void setDeleteComponents(const componentList& dc)
 	{
-		fprintf(mFile,"setAttr \".dc\" -type \"componentList\" ");
+		fprintf(mFile,"\tsetAttr \".dc\" -type \"componentList\" ");
 		dc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,7 +31,7 @@ public:
 	void setUseOldPolyArchitecture(bool uopa)
 	{
 		if(uopa == false) return;
-		fprintf(mFile,"setAttr \".uopa\" %i;\n", uopa);
+		fprintf(mFile,"\tsetAttr \".uopa\" %i;\n", uopa);
 
 	}
 	void getInputGeometry()
@@ -49,7 +50,8 @@ public:
 
 	}
 protected:
-	DeleteComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DeleteComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

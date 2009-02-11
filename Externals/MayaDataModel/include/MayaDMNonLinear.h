@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,14 +18,20 @@ class NonLinear : public GeometryFilter
 {
 public:
 public:
+	NonLinear():GeometryFilter(){}
 	NonLinear(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "nonLinear"){}
 	virtual ~NonLinear(){}
 	void setMatrix(const matrix& ma)
 	{
 		if(ma == identity) return;
-		fprintf(mFile,"setAttr \".ma\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".ma\" -type \"matrix\" ");
 		ma.write(mFile);
 		fprintf(mFile,";\n");
+
+	}
+	void getDeformerData()
+	{
+		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
 	void getMatrix()
@@ -34,7 +40,8 @@ public:
 
 	}
 protected:
-	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

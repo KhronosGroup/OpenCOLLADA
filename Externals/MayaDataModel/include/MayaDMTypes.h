@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -1155,7 +1155,7 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"    f %i ", faceEdgeCount);
+			fprintf_s(file,"\t\tf %i ", faceEdgeCount);
 			for(int i=0; i<faceEdgeCount; ++i)
 			{
 				fprintf_s(file,"%i", edgeIdValue[i]);
@@ -1187,7 +1187,7 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"    h %i ", holeEdgeCount);
+			fprintf_s(file,"\t\th %i ", holeEdgeCount);
 			for(int i=0; i<holeEdgeCount; ++i)
 			{
 				fprintf_s(file,"%i", edgeIdValue[i]);
@@ -1219,7 +1219,7 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"    mf %i ", faceUVCount);
+			fprintf_s(file,"\t\tmf %i ", faceUVCount);
 			for(int i=0; i<faceUVCount; ++i)
 			{
 				fprintf_s(file,"%i", uvIdValue[i]);
@@ -1251,7 +1251,7 @@ struct polyFaces
 		}
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"    mh %i ", holeUVCount);
+			fprintf_s(file,"\t\tmh %i ", holeUVCount);
 			for(int i=0; i<holeUVCount; ++i)
 			{
 				fprintf_s(file,"%i", uvIdValue[i]);
@@ -1291,7 +1291,7 @@ struct polyFaces
 
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"    mu %i ", uvSet);
+			fprintf_s(file,"\t\tmu %i ", uvSet);
 			fprintf_s(file,"%i ", faceUVCount);
 			for(int i=0; i<faceUVCount; ++i)
 			{
@@ -1334,7 +1334,7 @@ struct polyFaces
 
         void write(FILE* file) const
         {
-            fprintf_s(file,"    mc %i ", colorSet);
+            fprintf_s(file,"\t\tmc %i ", colorSet);
             fprintf_s(file,"%i ", faceColorCount);
             for(int i=0; i<faceColorCount; ++i)
             {
@@ -1369,7 +1369,7 @@ struct polyFaces
 		
 		void write(FILE* file) const
 		{
-			fprintf_s(file,"    fc %i ", faceColorCount);
+			fprintf_s(file,"\t\tfc %i ", faceColorCount);
 			for(int i=0; i<faceColorCount; ++i)
 			{
 				fprintf_s(file,"%i", colorIndexValue[i]);

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class GeoConnectable : public Shape
 {
 public:
 public:
+	GeoConnectable():Shape(){}
 	GeoConnectable(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "geoConnectable"){}
 	virtual ~GeoConnectable(){}
 	void getConnectionsToMe(size_t ct_i)
@@ -81,7 +82,8 @@ public:
 
 	}
 protected:
-	GeoConnectable(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	GeoConnectable(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

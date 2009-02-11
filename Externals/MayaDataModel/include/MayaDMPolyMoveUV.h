@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyMoveUV : public PolyModifier
 {
 public:
 public:
+	PolyMoveUV():PolyModifier(){}
 	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMoveUV"){}
 	virtual ~PolyMoveUV(){}
 	void setTranslate(const double2& t)
 	{
 		if(t == double2(0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".t\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"double2\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setTranslateU(double tu)
 	{
 		if(tu == 0.0) return;
-		fprintf(mFile,"setAttr \".t.tu\" %f;\n", tu);
+		fprintf(mFile,"\tsetAttr \".t.tu\" %f;\n", tu);
 
 	}
 	void setTranslateV(double tv)
 	{
 		if(tv == 0.0) return;
-		fprintf(mFile,"setAttr \".t.tv\" %f;\n", tv);
+		fprintf(mFile,"\tsetAttr \".t.tv\" %f;\n", tv);
 
 	}
 	void setRotationAngle(double ra)
 	{
 		if(ra == 0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setPivot(const double2& pvt)
 	{
 		if(pvt == double2(0.5, 0.5)) return;
-		fprintf(mFile,"setAttr \".pvt\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".pvt\" -type \"double2\" ");
 		pvt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,19 +58,19 @@ public:
 	void setPivotU(double pvu)
 	{
 		if(pvu == 0.0) return;
-		fprintf(mFile,"setAttr \".pvt.pvu\" %f;\n", pvu);
+		fprintf(mFile,"\tsetAttr \".pvt.pvu\" %f;\n", pvu);
 
 	}
 	void setPivotV(double pvv)
 	{
 		if(pvv == 0.0) return;
-		fprintf(mFile,"setAttr \".pvt.pvv\" %f;\n", pvv);
+		fprintf(mFile,"\tsetAttr \".pvt.pvv\" %f;\n", pvv);
 
 	}
 	void setScale(const double2& s)
 	{
 		if(s == double2(1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".s\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".s\" -type \"double2\" ");
 		s.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -77,31 +78,31 @@ public:
 	void setScaleU(double su)
 	{
 		if(su == 0.0) return;
-		fprintf(mFile,"setAttr \".s.su\" %f;\n", su);
+		fprintf(mFile,"\tsetAttr \".s.su\" %f;\n", su);
 
 	}
 	void setScaleV(double sv)
 	{
 		if(sv == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sv\" %f;\n", sv);
+		fprintf(mFile,"\tsetAttr \".s.sv\" %f;\n", sv);
 
 	}
 	void setRandom(float ran)
 	{
 		if(ran == 0.0) return;
-		fprintf(mFile,"setAttr \".ran\" %f;\n", ran);
+		fprintf(mFile,"\tsetAttr \".ran\" %f;\n", ran);
 
 	}
 	void setRandomSeed(int rs)
 	{
 		if(rs == 0) return;
-		fprintf(mFile,"setAttr \".rs\" %i;\n", rs);
+		fprintf(mFile,"\tsetAttr \".rs\" %i;\n", rs);
 
 	}
 	void setAxisLen(const double2& l)
 	{
 		if(l == double2(1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".l\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".l\" -type \"double2\" ");
 		l.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,19 +110,19 @@ public:
 	void setAxisLenX(double lx)
 	{
 		if(lx == 0.0) return;
-		fprintf(mFile,"setAttr \".l.lx\" %f;\n", lx);
+		fprintf(mFile,"\tsetAttr \".l.lx\" %f;\n", lx);
 
 	}
 	void setAxisLenY(double ly)
 	{
 		if(ly == 0.0) return;
-		fprintf(mFile,"setAttr \".l.ly\" %f;\n", ly);
+		fprintf(mFile,"\tsetAttr \".l.ly\" %f;\n", ly);
 
 	}
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
-		fprintf(mFile,"setAttr \".uvs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -212,7 +213,8 @@ public:
 
 	}
 protected:
-	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyMirror : public PolyModifierWorld
 {
 public:
 public:
+	PolyMirror():PolyModifierWorld(){}
 	PolyMirror(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyMirror"){}
 	virtual ~PolyMirror(){}
 	void setPivot(const double3& p)
 	{
 		if(p == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".p\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"double3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,37 +32,37 @@ public:
 	void setPivotX(double px)
 	{
 		if(px == 0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPivotY(double py)
 	{
 		if(py == 0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setPivotZ(double pz)
 	{
 		if(pz == 0) return;
-		fprintf(mFile,"setAttr \".p.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
 
 	}
 	void setDirection(unsigned int d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setMergeMode(unsigned int mm)
 	{
 		if(mm == 0) return;
-		fprintf(mFile,"setAttr \".mm\" %i;\n", mm);
+		fprintf(mFile,"\tsetAttr \".mm\" %i;\n", mm);
 
 	}
 	void setMergeThreshold(double mt)
 	{
 		if(mt == 0) return;
-		fprintf(mFile,"setAttr \".mt\" %f;\n", mt);
+		fprintf(mFile,"\tsetAttr \".mt\" %f;\n", mt);
 
 	}
 	void getPivot()
@@ -100,7 +101,8 @@ public:
 
 	}
 protected:
-	PolyMirror(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyMirror(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

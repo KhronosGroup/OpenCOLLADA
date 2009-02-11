@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class FilterClosestSample : public Filter
 {
 public:
 public:
+	FilterClosestSample():Filter(){}
 	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterClosestSample"){}
 	virtual ~FilterClosestSample(){}
 	void setFrequency(double f)
 	{
 		if(f == 30.) return;
-		fprintf(mFile,"setAttr \".f\" %f;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %f;\n", f);
 
 	}
 	void getFrequency()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Filter(file, name, parent, nodeType) {}
+	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Filter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

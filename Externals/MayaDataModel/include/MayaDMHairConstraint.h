@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class HairConstraint : public Shape
 {
 public:
 public:
+	HairConstraint():Shape(){}
 	HairConstraint(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "hairConstraint"){}
 	virtual ~HairConstraint(){}
 	void setCurveIndices(size_t cin_i,int cin)
 	{
 		if(cin == 0) return;
-		fprintf(mFile,"setAttr \".cin[%i]\" %i;\n", cin_i,cin);
+		fprintf(mFile,"\tsetAttr \".cin[%i]\" %i;\n", cin_i,cin);
 
 	}
 	void setCurveIndices(size_t cin_start,size_t cin_end,int* cin)
 	{
-		fprintf(mFile,"setAttr \".cin[%i:%i]\" ", cin_start,cin_end);
+		fprintf(mFile,"\tsetAttr \".cin[%i:%i]\" ", cin_start,cin_end);
 		size_t size = (cin_end-cin_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startCurveIndices(size_t cin_start,size_t cin_end)
 	{
-		fprintf(mFile,"setAttr \".cin[%i:%i]\"",cin_start,cin_end);
+		fprintf(mFile,"\tsetAttr \".cin[%i:%i]\"",cin_start,cin_end);
 
 	}
 	void appendCurveIndices(int cin)
@@ -56,37 +57,37 @@ public:
 	void setConstraintMethod(unsigned int cm)
 	{
 		if(cm == 1) return;
-		fprintf(mFile,"setAttr \".cm\" %i;\n", cm);
+		fprintf(mFile,"\tsetAttr \".cm\" %i;\n", cm);
 
 	}
 	void setPointMethod(unsigned int pmt)
 	{
 		if(pmt == 0) return;
-		fprintf(mFile,"setAttr \".pmt\" %i;\n", pmt);
+		fprintf(mFile,"\tsetAttr \".pmt\" %i;\n", pmt);
 
 	}
 	void setStiffness(double stf)
 	{
 		if(stf == 0.5) return;
-		fprintf(mFile,"setAttr \".stf\" %f;\n", stf);
+		fprintf(mFile,"\tsetAttr \".stf\" %f;\n", stf);
 
 	}
 	void setGlueStrength(double gst)
 	{
 		if(gst == 1.0) return;
-		fprintf(mFile,"setAttr \".gst\" %f;\n", gst);
+		fprintf(mFile,"\tsetAttr \".gst\" %f;\n", gst);
 
 	}
 	void setUParameter(double upr)
 	{
 		if(upr == 1.0) return;
-		fprintf(mFile,"setAttr \".upr\" %f;\n", upr);
+		fprintf(mFile,"\tsetAttr \".upr\" %f;\n", upr);
 
 	}
 	void setUDistance(double udi)
 	{
 		if(udi == 1.0) return;
-		fprintf(mFile,"setAttr \".udi\" %f;\n", udi);
+		fprintf(mFile,"\tsetAttr \".udi\" %f;\n", udi);
 
 	}
 	void getCurveIndices(size_t cin_i)
@@ -130,7 +131,8 @@ public:
 
 	}
 protected:
-	HairConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	HairConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

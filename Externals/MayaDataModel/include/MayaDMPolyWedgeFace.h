@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,29 +18,30 @@ class PolyWedgeFace : public PolyModifierWorld
 {
 public:
 public:
+	PolyWedgeFace():PolyModifierWorld(){}
 	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyWedgeFace"){}
 	virtual ~PolyWedgeFace(){}
 	void setWedgeAngle(double wa)
 	{
 		if(wa == 0) return;
-		fprintf(mFile,"setAttr \".wa\" %f;\n", wa);
+		fprintf(mFile,"\tsetAttr \".wa\" %f;\n", wa);
 
 	}
 	void setDivisions(int d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void setEdge(size_t ed_i,int ed)
 	{
 		if(ed == 0) return;
-		fprintf(mFile,"setAttr \".ed[%i]\" %i;\n", ed_i,ed);
+		fprintf(mFile,"\tsetAttr \".ed[%i]\" %i;\n", ed_i,ed);
 
 	}
 	void setEdge(size_t ed_start,size_t ed_end,int* ed)
 	{
-		fprintf(mFile,"setAttr \".ed[%i:%i]\" ", ed_start,ed_end);
+		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\" ", ed_start,ed_end);
 		size_t size = (ed_end-ed_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -52,7 +53,7 @@ public:
 	}
 	void startEdge(size_t ed_start,size_t ed_end)
 	{
-		fprintf(mFile,"setAttr \".ed[%i:%i]\"",ed_start,ed_end);
+		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\"",ed_start,ed_end);
 
 	}
 	void appendEdge(int ed)
@@ -81,7 +82,8 @@ public:
 
 	}
 protected:
-	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

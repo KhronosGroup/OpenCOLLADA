@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Wrap : public GeometryFilter
 {
 public:
 public:
+	Wrap():GeometryFilter(){}
 	Wrap(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "wrap"){}
 	virtual ~Wrap(){}
 	void setGeomMatrix(const matrix& gm)
 	{
 		if(gm == identity) return;
-		fprintf(mFile,"setAttr \".gm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".gm\" -type \"matrix\" ");
 		gm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,12 +32,12 @@ public:
 	void setDropoff(size_t dr_i,double dr)
 	{
 		if(dr == 4.0) return;
-		fprintf(mFile,"setAttr \".dr[%i]\" %f;\n", dr_i,dr);
+		fprintf(mFile,"\tsetAttr \".dr[%i]\" %f;\n", dr_i,dr);
 
 	}
 	void setDropoff(size_t dr_start,size_t dr_end,double* dr)
 	{
-		fprintf(mFile,"setAttr \".dr[%i:%i]\" ", dr_start,dr_end);
+		fprintf(mFile,"\tsetAttr \".dr[%i:%i]\" ", dr_start,dr_end);
 		size_t size = (dr_end-dr_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -48,7 +49,7 @@ public:
 	}
 	void startDropoff(size_t dr_start,size_t dr_end)
 	{
-		fprintf(mFile,"setAttr \".dr[%i:%i]\"",dr_start,dr_end);
+		fprintf(mFile,"\tsetAttr \".dr[%i:%i]\"",dr_start,dr_end);
 
 	}
 	void appendDropoff(double dr)
@@ -64,12 +65,12 @@ public:
 	void setSmoothness(size_t smt_i,double smt)
 	{
 		if(smt == 0.0) return;
-		fprintf(mFile,"setAttr \".smt[%i]\" %f;\n", smt_i,smt);
+		fprintf(mFile,"\tsetAttr \".smt[%i]\" %f;\n", smt_i,smt);
 
 	}
 	void setSmoothness(size_t smt_start,size_t smt_end,double* smt)
 	{
-		fprintf(mFile,"setAttr \".smt[%i:%i]\" ", smt_start,smt_end);
+		fprintf(mFile,"\tsetAttr \".smt[%i:%i]\" ", smt_start,smt_end);
 		size_t size = (smt_end-smt_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -81,7 +82,7 @@ public:
 	}
 	void startSmoothness(size_t smt_start,size_t smt_end)
 	{
-		fprintf(mFile,"setAttr \".smt[%i:%i]\"",smt_start,smt_end);
+		fprintf(mFile,"\tsetAttr \".smt[%i:%i]\"",smt_start,smt_end);
 
 	}
 	void appendSmoothness(double smt)
@@ -97,12 +98,12 @@ public:
 	void setInflType(size_t it_i,short it)
 	{
 		if(it == 2) return;
-		fprintf(mFile,"setAttr \".it[%i]\" %i;\n", it_i,it);
+		fprintf(mFile,"\tsetAttr \".it[%i]\" %i;\n", it_i,it);
 
 	}
 	void setInflType(size_t it_start,size_t it_end,short* it)
 	{
-		fprintf(mFile,"setAttr \".it[%i:%i]\" ", it_start,it_end);
+		fprintf(mFile,"\tsetAttr \".it[%i:%i]\" ", it_start,it_end);
 		size_t size = (it_end-it_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -114,7 +115,7 @@ public:
 	}
 	void startInflType(size_t it_start,size_t it_end)
 	{
-		fprintf(mFile,"setAttr \".it[%i:%i]\"",it_start,it_end);
+		fprintf(mFile,"\tsetAttr \".it[%i:%i]\"",it_start,it_end);
 
 	}
 	void appendInflType(short it)
@@ -130,12 +131,12 @@ public:
 	void setNurbsSamples(size_t ns_i,short ns)
 	{
 		if(ns == 10) return;
-		fprintf(mFile,"setAttr \".ns[%i]\" %i;\n", ns_i,ns);
+		fprintf(mFile,"\tsetAttr \".ns[%i]\" %i;\n", ns_i,ns);
 
 	}
 	void setNurbsSamples(size_t ns_start,size_t ns_end,short* ns)
 	{
-		fprintf(mFile,"setAttr \".ns[%i:%i]\" ", ns_start,ns_end);
+		fprintf(mFile,"\tsetAttr \".ns[%i:%i]\" ", ns_start,ns_end);
 		size_t size = (ns_end-ns_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -147,7 +148,7 @@ public:
 	}
 	void startNurbsSamples(size_t ns_start,size_t ns_end)
 	{
-		fprintf(mFile,"setAttr \".ns[%i:%i]\"",ns_start,ns_end);
+		fprintf(mFile,"\tsetAttr \".ns[%i:%i]\"",ns_start,ns_end);
 
 	}
 	void appendNurbsSamples(short ns)
@@ -163,19 +164,19 @@ public:
 	void setWeightThreshold(double wt)
 	{
 		if(wt == 0) return;
-		fprintf(mFile,"setAttr \".wt\" %f;\n", wt);
+		fprintf(mFile,"\tsetAttr \".wt\" %f;\n", wt);
 
 	}
 	void setMaxDistance(double md)
 	{
 		if(md == 0) return;
-		fprintf(mFile,"setAttr \".md\" %f;\n", md);
+		fprintf(mFile,"\tsetAttr \".md\" %f;\n", md);
 
 	}
 	void setExclusiveBind(bool rb)
 	{
 		if(rb == false) return;
-		fprintf(mFile,"setAttr \".rb\" %i;\n", rb);
+		fprintf(mFile,"\tsetAttr \".rb\" %i;\n", rb);
 
 	}
 	void getGeomMatrix()
@@ -239,7 +240,8 @@ public:
 
 	}
 protected:
-	Wrap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	Wrap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

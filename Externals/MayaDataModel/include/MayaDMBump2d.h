@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,59 +18,60 @@ class Bump2d : public DependNode
 {
 public:
 public:
+	Bump2d():DependNode(){}
 	Bump2d(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "bump2d"){}
 	virtual ~Bump2d(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setAdjustEdges(bool ae)
 	{
 		if(ae == false) return;
-		fprintf(mFile,"setAttr \".ae\" %i;\n", ae);
+		fprintf(mFile,"\tsetAttr \".ae\" %i;\n", ae);
 
 	}
 	void setBumpDepth(float bd)
 	{
 		if(bd == 1.0) return;
-		fprintf(mFile,"setAttr \".bd\" %f;\n", bd);
+		fprintf(mFile,"\tsetAttr \".bd\" %f;\n", bd);
 
 	}
 	void setBumpInterp(unsigned int bi)
 	{
 		if(bi == 0) return;
-		fprintf(mFile,"setAttr \".bi\" %i;\n", bi);
+		fprintf(mFile,"\tsetAttr \".bi\" %i;\n", bi);
 
 	}
 	void setBumpFilter(float bf)
 	{
 		if(bf == 1.0) return;
-		fprintf(mFile,"setAttr \".bf\" %f;\n", bf);
+		fprintf(mFile,"\tsetAttr \".bf\" %f;\n", bf);
 
 	}
 	void setBumpFilterOffset(float bfo)
 	{
 		if(bfo == 0.0) return;
-		fprintf(mFile,"setAttr \".bfo\" %f;\n", bfo);
+		fprintf(mFile,"\tsetAttr \".bfo\" %f;\n", bfo);
 
 	}
 	void setBumpValue(float bv)
 	{
 		if(bv == 0.0) return;
-		fprintf(mFile,"setAttr \".bv\" %f;\n", bv);
+		fprintf(mFile,"\tsetAttr \".bv\" %f;\n", bv);
 
 	}
 	void setProvide3dInfo(bool p3d)
 	{
 		if(p3d == false) return;
-		fprintf(mFile,"setAttr \".p3d\" %i;\n", p3d);
+		fprintf(mFile,"\tsetAttr \".p3d\" %i;\n", p3d);
 
 	}
 	void setVertexUvOne(const float2& vt1)
 	{
-		fprintf(mFile,"setAttr \".vt1\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt1\" -type \"float2\" ");
 		vt1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -78,18 +79,18 @@ public:
 	void setVertexUvOneU(float t1u)
 	{
 		if(t1u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt1.t1u\" %f;\n", t1u);
+		fprintf(mFile,"\tsetAttr \".vt1.t1u\" %f;\n", t1u);
 
 	}
 	void setVertexUvOneV(float t1v)
 	{
 		if(t1v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt1.t1v\" %f;\n", t1v);
+		fprintf(mFile,"\tsetAttr \".vt1.t1v\" %f;\n", t1v);
 
 	}
 	void setVertexUvTwo(const float2& vt2)
 	{
-		fprintf(mFile,"setAttr \".vt2\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt2\" -type \"float2\" ");
 		vt2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -97,18 +98,18 @@ public:
 	void setVertexUvTwoU(float t2u)
 	{
 		if(t2u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt2.t2u\" %f;\n", t2u);
+		fprintf(mFile,"\tsetAttr \".vt2.t2u\" %f;\n", t2u);
 
 	}
 	void setVertexUvTwoV(float t2v)
 	{
 		if(t2v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt2.t2v\" %f;\n", t2v);
+		fprintf(mFile,"\tsetAttr \".vt2.t2v\" %f;\n", t2v);
 
 	}
 	void setVertexCameraOne(const float3& vc1)
 	{
-		fprintf(mFile,"setAttr \".vc1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc1\" -type \"float3\" ");
 		vc1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -116,24 +117,24 @@ public:
 	void setVertexCameraOneX(float c1x)
 	{
 		if(c1x == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1x\" %f;\n", c1x);
+		fprintf(mFile,"\tsetAttr \".vc1.c1x\" %f;\n", c1x);
 
 	}
 	void setVertexCameraOneY(float c1y)
 	{
 		if(c1y == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1y\" %f;\n", c1y);
+		fprintf(mFile,"\tsetAttr \".vc1.c1y\" %f;\n", c1y);
 
 	}
 	void setVertexCameraOneZ(float c1z)
 	{
 		if(c1z == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1z\" %f;\n", c1z);
+		fprintf(mFile,"\tsetAttr \".vc1.c1z\" %f;\n", c1z);
 
 	}
 	void setVertexCameraTwo(const float3& vc2)
 	{
-		fprintf(mFile,"setAttr \".vc2\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc2\" -type \"float3\" ");
 		vc2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -141,19 +142,19 @@ public:
 	void setVertexCameraTwoX(float c2x)
 	{
 		if(c2x == 0.0) return;
-		fprintf(mFile,"setAttr \".vc2.c2x\" %f;\n", c2x);
+		fprintf(mFile,"\tsetAttr \".vc2.c2x\" %f;\n", c2x);
 
 	}
 	void setVertexCameraTwoY(float c2y)
 	{
 		if(c2y == 0.0) return;
-		fprintf(mFile,"setAttr \".vc2.c2y\" %f;\n", c2y);
+		fprintf(mFile,"\tsetAttr \".vc2.c2y\" %f;\n", c2y);
 
 	}
 	void setVertexCameraTwoZ(float c2z)
 	{
 		if(c2z == 0.0) return;
-		fprintf(mFile,"setAttr \".vc2.c2z\" %f;\n", c2z);
+		fprintf(mFile,"\tsetAttr \".vc2.c2z\" %f;\n", c2z);
 
 	}
 	void getPointCamera()
@@ -254,6 +255,11 @@ public:
 	void getRayOriginZ()
 	{
 		fprintf(mFile,"\"%s.ro.roz\"",mName.c_str());
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getUvCoord()
@@ -477,7 +483,8 @@ public:
 
 	}
 protected:
-	Bump2d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Bump2d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

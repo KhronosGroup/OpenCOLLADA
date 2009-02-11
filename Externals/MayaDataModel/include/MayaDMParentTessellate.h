@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,114 +18,115 @@ class ParentTessellate : public AbstractBaseNurbsConversion
 {
 public:
 public:
+	ParentTessellate():AbstractBaseNurbsConversion(){}
 	ParentTessellate(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseNurbsConversion(file, name, parent, "parentTessellate"){}
 	virtual ~ParentTessellate(){}
 	void setFormat(unsigned int f)
 	{
 		if(f == 1) return;
-		fprintf(mFile,"setAttr \".f\" %i;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
 
 	}
 	void setPolygonType(unsigned int pt)
 	{
 		if(pt == 0) return;
-		fprintf(mFile,"setAttr \".pt\" %i;\n", pt);
+		fprintf(mFile,"\tsetAttr \".pt\" %i;\n", pt);
 
 	}
 	void setPolygonCount(int pc)
 	{
 		if(pc == 200) return;
-		fprintf(mFile,"setAttr \".pc\" %i;\n", pc);
+		fprintf(mFile,"\tsetAttr \".pc\" %i;\n", pc);
 
 	}
 	void setChordHeightRatio(double chr)
 	{
 		if(chr == 0.983) return;
-		fprintf(mFile,"setAttr \".chr\" %f;\n", chr);
+		fprintf(mFile,"\tsetAttr \".chr\" %f;\n", chr);
 
 	}
 	void setPre70ChordHeightRatio(bool pchr)
 	{
 		if(pchr == false) return;
-		fprintf(mFile,"setAttr \".pchr\" %i;\n", pchr);
+		fprintf(mFile,"\tsetAttr \".pchr\" %i;\n", pchr);
 
 	}
 	void setFractionalTolerance(double ft)
 	{
 		if(ft == 0.01) return;
-		fprintf(mFile,"setAttr \".ft\" %f;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %f;\n", ft);
 
 	}
 	void setMinEdgeLength(double mel)
 	{
 		if(mel == 0) return;
-		fprintf(mFile,"setAttr \".mel\" %f;\n", mel);
+		fprintf(mFile,"\tsetAttr \".mel\" %f;\n", mel);
 
 	}
 	void setDelta(double d)
 	{
 		if(d == 0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setUType(unsigned int ut)
 	{
 		if(ut == 3) return;
-		fprintf(mFile,"setAttr \".ut\" %i;\n", ut);
+		fprintf(mFile,"\tsetAttr \".ut\" %i;\n", ut);
 
 	}
 	void setUNumber(int un)
 	{
 		if(un == 3) return;
-		fprintf(mFile,"setAttr \".un\" %i;\n", un);
+		fprintf(mFile,"\tsetAttr \".un\" %i;\n", un);
 
 	}
 	void setVType(unsigned int vt)
 	{
 		if(vt == 3) return;
-		fprintf(mFile,"setAttr \".vt\" %i;\n", vt);
+		fprintf(mFile,"\tsetAttr \".vt\" %i;\n", vt);
 
 	}
 	void setVNumber(int vn)
 	{
 		if(vn == 3) return;
-		fprintf(mFile,"setAttr \".vn\" %i;\n", vn);
+		fprintf(mFile,"\tsetAttr \".vn\" %i;\n", vn);
 
 	}
 	void setUseChordHeight(bool uch)
 	{
 		if(uch == false) return;
-		fprintf(mFile,"setAttr \".uch\" %i;\n", uch);
+		fprintf(mFile,"\tsetAttr \".uch\" %i;\n", uch);
 
 	}
 	void setUseChordHeightRatio(bool ucr)
 	{
 		if(ucr == true) return;
-		fprintf(mFile,"setAttr \".ucr\" %i;\n", ucr);
+		fprintf(mFile,"\tsetAttr \".ucr\" %i;\n", ucr);
 
 	}
 	void setChordHeight(double cht)
 	{
 		if(cht == 0) return;
-		fprintf(mFile,"setAttr \".cht\" %f;\n", cht);
+		fprintf(mFile,"\tsetAttr \".cht\" %f;\n", cht);
 
 	}
 	void setEdgeSwap(bool es)
 	{
 		if(es == false) return;
-		fprintf(mFile,"setAttr \".es\" %i;\n", es);
+		fprintf(mFile,"\tsetAttr \".es\" %i;\n", es);
 
 	}
 	void setMatchNormalDir(bool mnd)
 	{
 		if(mnd == false) return;
-		fprintf(mFile,"setAttr \".mnd\" %i;\n", mnd);
+		fprintf(mFile,"\tsetAttr \".mnd\" %i;\n", mnd);
 
 	}
 	void setNormalizeTrimmedUVRange(bool ntr)
 	{
 		if(ntr == true) return;
-		fprintf(mFile,"setAttr \".ntr\" %i;\n", ntr);
+		fprintf(mFile,"\tsetAttr \".ntr\" %i;\n", ntr);
 
 	}
 	void getFormat()
@@ -224,7 +225,8 @@ public:
 
 	}
 protected:
-	ParentTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
+	ParentTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Bulge : public Texture2d
 {
 public:
 public:
+	Bulge():Texture2d(){}
 	Bulge(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "bulge"){}
 	virtual ~Bulge(){}
 	void setUWidth(float uw)
 	{
 		if(uw == 0.1) return;
-		fprintf(mFile,"setAttr \".uw\" %f;\n", uw);
+		fprintf(mFile,"\tsetAttr \".uw\" %f;\n", uw);
 
 	}
 	void setVWidth(float vw)
 	{
 		if(vw == 0.1) return;
-		fprintf(mFile,"setAttr \".vw\" %f;\n", vw);
+		fprintf(mFile,"\tsetAttr \".vw\" %f;\n", vw);
 
 	}
 	void getUWidth()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	Bulge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Bulge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyMapSew : public PolyModifier
 {
 public:
 public:
+	PolyMapSew():PolyModifier(){}
 	PolyMapSew(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMapSew"){}
 	virtual ~PolyMapSew(){}
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
-		fprintf(mFile,"setAttr \".uvs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -34,7 +35,8 @@ public:
 
 	}
 protected:
-	PolyMapSew(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyMapSew(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

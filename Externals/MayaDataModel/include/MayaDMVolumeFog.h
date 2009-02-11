@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -30,11 +30,12 @@ public:
 		}
 	};
 public:
+	VolumeFog():DependNode(){}
 	VolumeFog(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "volumeFog"){}
 	virtual ~VolumeFog(){}
 	void setColor(const float3& cl)
 	{
-		fprintf(mFile,"setAttr \".cl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cl\" -type \"float3\" ");
 		cl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -42,30 +43,30 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.9) return;
-		fprintf(mFile,"setAttr \".cl.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cl.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.9) return;
-		fprintf(mFile,"setAttr \".cl.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".cl.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.9) return;
-		fprintf(mFile,"setAttr \".cl.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cl.cb\" %f;\n", cb);
 
 	}
 	void setColorRampInput(unsigned int cri)
 	{
 		if(cri == 0) return;
-		fprintf(mFile,"setAttr \".cri\" %i;\n", cri);
+		fprintf(mFile,"\tsetAttr \".cri\" %i;\n", cri);
 
 	}
 	void setColorRamp(size_t crm_i,const ColorRamp& crm)
 	{
-		fprintf(mFile,"setAttr \".crm[%i]\" ",crm_i);
+		fprintf(mFile,"\tsetAttr \".crm[%i]\" ",crm_i);
 		crm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -73,12 +74,12 @@ public:
 	void setColorRamp_Position(size_t crm_i,float crmp)
 	{
 		if(crmp == 0.0) return;
-		fprintf(mFile,"setAttr \".crm[%i].crmp\" %f;\n", crm_i,crmp);
+		fprintf(mFile,"\tsetAttr \".crm[%i].crmp\" %f;\n", crm_i,crmp);
 
 	}
 	void setColorRamp_Color(size_t crm_i,const float3& crmc)
 	{
-		fprintf(mFile,"setAttr \".crm[%i].crmc\" -type \"float3\" ",crm_i);
+		fprintf(mFile,"\tsetAttr \".crm[%i].crmc\" -type \"float3\" ",crm_i);
 		crmc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -86,30 +87,30 @@ public:
 	void setColorRamp_ColorR(size_t crm_i,float crmcr)
 	{
 		if(crmcr == 0.0) return;
-		fprintf(mFile,"setAttr \".crm[%i].crmc.crmcr\" %f;\n", crm_i,crmcr);
+		fprintf(mFile,"\tsetAttr \".crm[%i].crmc.crmcr\" %f;\n", crm_i,crmcr);
 
 	}
 	void setColorRamp_ColorG(size_t crm_i,float crmcg)
 	{
 		if(crmcg == 0.0) return;
-		fprintf(mFile,"setAttr \".crm[%i].crmc.crmcg\" %f;\n", crm_i,crmcg);
+		fprintf(mFile,"\tsetAttr \".crm[%i].crmc.crmcg\" %f;\n", crm_i,crmcg);
 
 	}
 	void setColorRamp_ColorB(size_t crm_i,float crmcb)
 	{
 		if(crmcb == 0.0) return;
-		fprintf(mFile,"setAttr \".crm[%i].crmc.crmcb\" %f;\n", crm_i,crmcb);
+		fprintf(mFile,"\tsetAttr \".crm[%i].crmc.crmcb\" %f;\n", crm_i,crmcb);
 
 	}
 	void setColorRamp_Interp(size_t crm_i,unsigned int crmi)
 	{
 		if(crmi == 0) return;
-		fprintf(mFile,"setAttr \".crm[%i].crmi\" %i;\n", crm_i,crmi);
+		fprintf(mFile,"\tsetAttr \".crm[%i].crmi\" %i;\n", crm_i,crmi);
 
 	}
 	void setTransparency(const float3& t)
 	{
-		fprintf(mFile,"setAttr \".t\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"float3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -117,24 +118,24 @@ public:
 	void setTransparencyR(float tr)
 	{
 		if(tr == 0.5) return;
-		fprintf(mFile,"setAttr \".t.tr\" %f;\n", tr);
+		fprintf(mFile,"\tsetAttr \".t.tr\" %f;\n", tr);
 
 	}
 	void setTransparencyG(float tg)
 	{
 		if(tg == 0.5) return;
-		fprintf(mFile,"setAttr \".t.tg\" %f;\n", tg);
+		fprintf(mFile,"\tsetAttr \".t.tg\" %f;\n", tg);
 
 	}
 	void setTransparencyB(float tb)
 	{
 		if(tb == 0.5) return;
-		fprintf(mFile,"setAttr \".t.tb\" %f;\n", tb);
+		fprintf(mFile,"\tsetAttr \".t.tb\" %f;\n", tb);
 
 	}
 	void setIncandescence(const float3& ic)
 	{
-		fprintf(mFile,"setAttr \".ic\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ic\" -type \"float3\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -142,91 +143,91 @@ public:
 	void setIncandescenceR(float ir)
 	{
 		if(ir == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.ir\" %f;\n", ir);
+		fprintf(mFile,"\tsetAttr \".ic.ir\" %f;\n", ir);
 
 	}
 	void setIncandescenceG(float ig)
 	{
 		if(ig == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.ig\" %f;\n", ig);
+		fprintf(mFile,"\tsetAttr \".ic.ig\" %f;\n", ig);
 
 	}
 	void setIncandescenceB(float ib)
 	{
 		if(ib == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.ib\" %f;\n", ib);
+		fprintf(mFile,"\tsetAttr \".ic.ib\" %f;\n", ib);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 0.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setDensity(float dns)
 	{
 		if(dns == 1) return;
-		fprintf(mFile,"setAttr \".dns\" %f;\n", dns);
+		fprintf(mFile,"\tsetAttr \".dns\" %f;\n", dns);
 
 	}
 	void setDensityMode(unsigned int dmd)
 	{
 		if(dmd == 1) return;
-		fprintf(mFile,"setAttr \".dmd\" %i;\n", dmd);
+		fprintf(mFile,"\tsetAttr \".dmd\" %i;\n", dmd);
 
 	}
 	void setDropoffShape(unsigned int dos)
 	{
 		if(dos == 0) return;
-		fprintf(mFile,"setAttr \".dos\" %i;\n", dos);
+		fprintf(mFile,"\tsetAttr \".dos\" %i;\n", dos);
 
 	}
 	void setEdgeDropoff(float edr)
 	{
 		if(edr == .5) return;
-		fprintf(mFile,"setAttr \".edr\" %f;\n", edr);
+		fprintf(mFile,"\tsetAttr \".edr\" %f;\n", edr);
 
 	}
 	void setAxialDropoff(float axd)
 	{
 		if(axd == 0.3) return;
-		fprintf(mFile,"setAttr \".axd\" %f;\n", axd);
+		fprintf(mFile,"\tsetAttr \".axd\" %f;\n", axd);
 
 	}
 	void setDropoffMethod(unsigned int drm)
 	{
 		if(drm == 0) return;
-		fprintf(mFile,"setAttr \".drm\" %i;\n", drm);
+		fprintf(mFile,"\tsetAttr \".drm\" %i;\n", drm);
 
 	}
 	void setDropoffSubtract(float drs)
 	{
 		if(drs == 1.0) return;
-		fprintf(mFile,"setAttr \".drs\" %f;\n", drs);
+		fprintf(mFile,"\tsetAttr \".drs\" %f;\n", drs);
 
 	}
 	void setIlluminated(bool il)
 	{
 		if(il == false) return;
-		fprintf(mFile,"setAttr \".il\" %i;\n", il);
+		fprintf(mFile,"\tsetAttr \".il\" %i;\n", il);
 
 	}
 	void setLightScatter(float lsc)
 	{
 		if(lsc == 1.0) return;
-		fprintf(mFile,"setAttr \".lsc\" %f;\n", lsc);
+		fprintf(mFile,"\tsetAttr \".lsc\" %f;\n", lsc);
 
 	}
 	void setMatteOpacityMode(unsigned int mom)
 	{
 		if(mom == 2) return;
-		fprintf(mFile,"setAttr \".mom\" %i;\n", mom);
+		fprintf(mFile,"\tsetAttr \".mom\" %i;\n", mom);
 
 	}
 	void setMatteOpacity(float mog)
 	{
 		if(mog == 1.0) return;
-		fprintf(mFile,"setAttr \".mog\" %f;\n", mog);
+		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
 
 	}
 	void getRayDirection()
@@ -327,6 +328,86 @@ public:
 	void getFarPointObjectZ()
 	{
 		fprintf(mFile,"\"%s.fo.foz\"",mName.c_str());
+
+	}
+	void getMatrixWorldToEye()
+	{
+		fprintf(mFile,"\"%s.wte\"",mName.c_str());
+
+	}
+	void getLightDataArray(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirection(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionX(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionY(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionZ(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityR(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityG(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityB(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightAmbient(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDiffuse(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightSpecular(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightShadowFraction(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
+
+	}
+	void getPreShadowIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightBlindData(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
 
 	}
 	void getColor()
@@ -570,7 +651,8 @@ public:
 
 	}
 protected:
-	VolumeFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	VolumeFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

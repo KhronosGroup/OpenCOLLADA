@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,16 +18,23 @@ class Record : public DependNode
 {
 public:
 public:
+	Record():DependNode(){}
 	Record(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "record"){}
 	virtual ~Record(){}
 	void setInput(double i_)
 	{
 		if(i_ == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
+		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
+
+	}
+	void getInput()
+	{
+		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
 protected:
-	Record(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Record(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

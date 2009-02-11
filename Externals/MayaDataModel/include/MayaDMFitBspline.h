@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class FitBspline : public AbstractBaseCreate
 {
 public:
 public:
+	FitBspline():AbstractBaseCreate(){}
 	FitBspline(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "fitBspline"){}
 	virtual ~FitBspline(){}
 	void setTolerance(double tol)
 	{
 		if(tol == 0) return;
-		fprintf(mFile,"setAttr \".tol\" %f;\n", tol);
+		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
 	void getInputCurve()
@@ -42,7 +43,8 @@ public:
 
 	}
 protected:
-	FitBspline(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	FitBspline(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

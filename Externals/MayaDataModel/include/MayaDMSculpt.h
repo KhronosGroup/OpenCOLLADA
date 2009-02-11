@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Sculpt : public GeometryFilter
 {
 public:
 public:
+	Sculpt():GeometryFilter(){}
 	Sculpt(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "sculpt"){}
 	virtual ~Sculpt(){}
 	void setSculptObjectMatrix(const matrix& sm)
 	{
 		if(sm == identity) return;
-		fprintf(mFile,"setAttr \".sm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".sm\" -type \"matrix\" ");
 		sm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,36 +32,36 @@ public:
 	void setMode(unsigned int mo)
 	{
 		if(mo == 2) return;
-		fprintf(mFile,"setAttr \".mo\" %i;\n", mo);
+		fprintf(mFile,"\tsetAttr \".mo\" %i;\n", mo);
 
 	}
 	void setInsideMode(unsigned int im)
 	{
 		if(im == 1) return;
-		fprintf(mFile,"setAttr \".im\" %i;\n", im);
+		fprintf(mFile,"\tsetAttr \".im\" %i;\n", im);
 
 	}
 	void setMaximumDisplacement(double md)
 	{
 		if(md == 1) return;
-		fprintf(mFile,"setAttr \".md\" %f;\n", md);
+		fprintf(mFile,"\tsetAttr \".md\" %f;\n", md);
 
 	}
 	void setDropoffDistance(double dd)
 	{
 		if(dd == 1) return;
-		fprintf(mFile,"setAttr \".dd\" %f;\n", dd);
+		fprintf(mFile,"\tsetAttr \".dd\" %f;\n", dd);
 
 	}
 	void setDropoffType(unsigned int dt)
 	{
 		if(dt == 1) return;
-		fprintf(mFile,"setAttr \".dt\" %i;\n", dt);
+		fprintf(mFile,"\tsetAttr \".dt\" %i;\n", dt);
 
 	}
 	void setStartPosition(const float3& sp)
 	{
-		fprintf(mFile,"setAttr \".sp\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sp\" -type \"float3\" ");
 		sp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -68,25 +69,25 @@ public:
 	void setStartPosX(float sx)
 	{
 		if(sx == 0) return;
-		fprintf(mFile,"setAttr \".sp.sx\" %f;\n", sx);
+		fprintf(mFile,"\tsetAttr \".sp.sx\" %f;\n", sx);
 
 	}
 	void setStartPosY(float sy)
 	{
 		if(sy == 0) return;
-		fprintf(mFile,"setAttr \".sp.sy\" %f;\n", sy);
+		fprintf(mFile,"\tsetAttr \".sp.sy\" %f;\n", sy);
 
 	}
 	void setStartPosZ(float sz)
 	{
 		if(sz == 0) return;
-		fprintf(mFile,"setAttr \".sp.sz\" %f;\n", sz);
+		fprintf(mFile,"\tsetAttr \".sp.sz\" %f;\n", sz);
 
 	}
 	void setExtendedEnd(bool exd)
 	{
 		if(exd == false) return;
-		fprintf(mFile,"setAttr \".exd\" %i;\n", exd);
+		fprintf(mFile,"\tsetAttr \".exd\" %i;\n", exd);
 
 	}
 	void getSculptObjectMatrix()
@@ -150,7 +151,8 @@ public:
 
 	}
 protected:
-	Sculpt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	Sculpt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

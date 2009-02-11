@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,72 +18,73 @@ class AttachSurface : public AbstractBaseCreate
 {
 public:
 public:
+	AttachSurface():AbstractBaseCreate(){}
 	AttachSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "attachSurface"){}
 	virtual ~AttachSurface(){}
 	void setMethod(unsigned int m)
 	{
 		if(m == 0) return;
-		fprintf(mFile,"setAttr \".m\" %i;\n", m);
+		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
 	void setDirectionU(bool du)
 	{
 		if(du == true) return;
-		fprintf(mFile,"setAttr \".du\" %i;\n", du);
+		fprintf(mFile,"\tsetAttr \".du\" %i;\n", du);
 
 	}
 	void setReverse1(bool rv1)
 	{
 		if(rv1 == false) return;
-		fprintf(mFile,"setAttr \".rv1\" %i;\n", rv1);
+		fprintf(mFile,"\tsetAttr \".rv1\" %i;\n", rv1);
 
 	}
 	void setReverse2(bool rv2)
 	{
 		if(rv2 == false) return;
-		fprintf(mFile,"setAttr \".rv2\" %i;\n", rv2);
+		fprintf(mFile,"\tsetAttr \".rv2\" %i;\n", rv2);
 
 	}
 	void setSwap1(bool sw1)
 	{
 		if(sw1 == false) return;
-		fprintf(mFile,"setAttr \".sw1\" %i;\n", sw1);
+		fprintf(mFile,"\tsetAttr \".sw1\" %i;\n", sw1);
 
 	}
 	void setSwap2(bool sw2)
 	{
 		if(sw2 == false) return;
-		fprintf(mFile,"setAttr \".sw2\" %i;\n", sw2);
+		fprintf(mFile,"\tsetAttr \".sw2\" %i;\n", sw2);
 
 	}
 	void setTwist(bool tw)
 	{
 		if(tw == false) return;
-		fprintf(mFile,"setAttr \".tw\" %i;\n", tw);
+		fprintf(mFile,"\tsetAttr \".tw\" %i;\n", tw);
 
 	}
 	void setBlendBias(double bb)
 	{
 		if(bb == 0.5) return;
-		fprintf(mFile,"setAttr \".bb\" %f;\n", bb);
+		fprintf(mFile,"\tsetAttr \".bb\" %f;\n", bb);
 
 	}
 	void setBlendKnotInsertion(bool bki)
 	{
 		if(bki == false) return;
-		fprintf(mFile,"setAttr \".bki\" %i;\n", bki);
+		fprintf(mFile,"\tsetAttr \".bki\" %i;\n", bki);
 
 	}
 	void setParameter(double p)
 	{
 		if(p == 0.1) return;
-		fprintf(mFile,"setAttr \".p\" %f;\n", p);
+		fprintf(mFile,"\tsetAttr \".p\" %f;\n", p);
 
 	}
 	void setKeepMultipleKnots(bool kmk)
 	{
 		if(kmk == true) return;
-		fprintf(mFile,"setAttr \".kmk\" %i;\n", kmk);
+		fprintf(mFile,"\tsetAttr \".kmk\" %i;\n", kmk);
 
 	}
 	void getInputSurface1()
@@ -157,7 +158,8 @@ public:
 
 	}
 protected:
-	AttachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	AttachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

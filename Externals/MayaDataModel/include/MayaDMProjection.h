@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Projection : public Texture3d
 {
 public:
 public:
+	Projection():Texture3d(){}
 	Projection(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "projection"){}
 	virtual ~Projection(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setImage(const float3& im)
 	{
 		if(im == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".im\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".im\" -type \"float3\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,55 +38,55 @@ public:
 	void setImageR(float imr)
 	{
 		if(imr == 0.0) return;
-		fprintf(mFile,"setAttr \".im.imr\" %f;\n", imr);
+		fprintf(mFile,"\tsetAttr \".im.imr\" %f;\n", imr);
 
 	}
 	void setImageG(float img)
 	{
 		if(img == 0.0) return;
-		fprintf(mFile,"setAttr \".im.img\" %f;\n", img);
+		fprintf(mFile,"\tsetAttr \".im.img\" %f;\n", img);
 
 	}
 	void setImageB(float imb)
 	{
 		if(imb == 0.0) return;
-		fprintf(mFile,"setAttr \".im.imb\" %f;\n", imb);
+		fprintf(mFile,"\tsetAttr \".im.imb\" %f;\n", imb);
 
 	}
 	void setUAngle(double ua)
 	{
 		if(ua == 1) return;
-		fprintf(mFile,"setAttr \".ua\" %f;\n", ua);
+		fprintf(mFile,"\tsetAttr \".ua\" %f;\n", ua);
 
 	}
 	void setVAngle(double va)
 	{
 		if(va == 9) return;
-		fprintf(mFile,"setAttr \".va\" %f;\n", va);
+		fprintf(mFile,"\tsetAttr \".va\" %f;\n", va);
 
 	}
 	void setProjType(unsigned int t)
 	{
 		if(t == 1) return;
-		fprintf(mFile,"setAttr \".t\" %i;\n", t);
+		fprintf(mFile,"\tsetAttr \".t\" %i;\n", t);
 
 	}
 	void setFitType(unsigned int ft)
 	{
 		if(ft == 1) return;
-		fprintf(mFile,"setAttr \".ft\" %i;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %i;\n", ft);
 
 	}
 	void setFitFill(unsigned int ff)
 	{
 		if(ff == 0) return;
-		fprintf(mFile,"setAttr \".ff\" %i;\n", ff);
+		fprintf(mFile,"\tsetAttr \".ff\" %i;\n", ff);
 
 	}
 	void setRipples(const float3& r)
 	{
 		if(r == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".r\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".r\" -type \"float3\" ");
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -93,25 +94,25 @@ public:
 	void setRipplesX(float rx)
 	{
 		if(rx == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".r.rx\" %f;\n", rx);
 
 	}
 	void setRipplesY(float ry)
 	{
 		if(ry == 0.0) return;
-		fprintf(mFile,"setAttr \".r.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".r.ry\" %f;\n", ry);
 
 	}
 	void setRipplesZ(float rz)
 	{
 		if(rz == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".r.rz\" %f;\n", rz);
 
 	}
 	void setDepth(const float2& d)
 	{
 		if(d == float2(0.0f,10.0f)) return;
-		fprintf(mFile,"setAttr \".d\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"float2\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -119,36 +120,36 @@ public:
 	void setDepthMin(float dmn)
 	{
 		if(dmn == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmn\" %f;\n", dmn);
+		fprintf(mFile,"\tsetAttr \".d.dmn\" %f;\n", dmn);
 
 	}
 	void setDepthMax(float dmx)
 	{
 		if(dmx == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmx\" %f;\n", dmx);
+		fprintf(mFile,"\tsetAttr \".d.dmx\" %f;\n", dmx);
 
 	}
 	void setAmplitudeX(float ax)
 	{
 		if(ax == 0.0) return;
-		fprintf(mFile,"setAttr \".ax\" %f;\n", ax);
+		fprintf(mFile,"\tsetAttr \".ax\" %f;\n", ax);
 
 	}
 	void setAmplitudeY(float ay)
 	{
 		if(ay == 0.0) return;
-		fprintf(mFile,"setAttr \".ay\" %f;\n", ay);
+		fprintf(mFile,"\tsetAttr \".ay\" %f;\n", ay);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.3) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setVertexCameraOne(const float3& vc1)
 	{
-		fprintf(mFile,"setAttr \".vc1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc1\" -type \"float3\" ");
 		vc1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -156,24 +157,24 @@ public:
 	void setVertexCameraOneX(float c1x)
 	{
 		if(c1x == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1x\" %f;\n", c1x);
+		fprintf(mFile,"\tsetAttr \".vc1.c1x\" %f;\n", c1x);
 
 	}
 	void setVertexCameraOneY(float c1y)
 	{
 		if(c1y == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1y\" %f;\n", c1y);
+		fprintf(mFile,"\tsetAttr \".vc1.c1y\" %f;\n", c1y);
 
 	}
 	void setVertexCameraOneZ(float c1z)
 	{
 		if(c1z == 0.0) return;
-		fprintf(mFile,"setAttr \".vc1.c1z\" %f;\n", c1z);
+		fprintf(mFile,"\tsetAttr \".vc1.c1z\" %f;\n", c1z);
 
 	}
 	void setVertexCameraTwo(const float3& vc2)
 	{
-		fprintf(mFile,"setAttr \".vc2\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc2\" -type \"float3\" ");
 		vc2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -181,24 +182,24 @@ public:
 	void setVertexCameraTwoX(float c2x)
 	{
 		if(c2x == 0.0) return;
-		fprintf(mFile,"setAttr \".vc2.c2x\" %f;\n", c2x);
+		fprintf(mFile,"\tsetAttr \".vc2.c2x\" %f;\n", c2x);
 
 	}
 	void setVertexCameraTwoY(float c2y)
 	{
 		if(c2y == 0.0) return;
-		fprintf(mFile,"setAttr \".vc2.c2y\" %f;\n", c2y);
+		fprintf(mFile,"\tsetAttr \".vc2.c2y\" %f;\n", c2y);
 
 	}
 	void setVertexCameraTwoZ(float c2z)
 	{
 		if(c2z == 0.0) return;
-		fprintf(mFile,"setAttr \".vc2.c2z\" %f;\n", c2z);
+		fprintf(mFile,"\tsetAttr \".vc2.c2z\" %f;\n", c2z);
 
 	}
 	void setVertexCameraThree(const float3& vc3)
 	{
-		fprintf(mFile,"setAttr \".vc3\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc3\" -type \"float3\" ");
 		vc3.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -206,24 +207,24 @@ public:
 	void setVertexCameraThreeX(float c3x)
 	{
 		if(c3x == 0.0) return;
-		fprintf(mFile,"setAttr \".vc3.c3x\" %f;\n", c3x);
+		fprintf(mFile,"\tsetAttr \".vc3.c3x\" %f;\n", c3x);
 
 	}
 	void setVertexCameraThreeY(float c3y)
 	{
 		if(c3y == 0.0) return;
-		fprintf(mFile,"setAttr \".vc3.c3y\" %f;\n", c3y);
+		fprintf(mFile,"\tsetAttr \".vc3.c3y\" %f;\n", c3y);
 
 	}
 	void setVertexCameraThreeZ(float c3z)
 	{
 		if(c3z == 0.0) return;
-		fprintf(mFile,"setAttr \".vc3.c3z\" %f;\n", c3z);
+		fprintf(mFile,"\tsetAttr \".vc3.c3z\" %f;\n", c3z);
 
 	}
 	void setVertexUvOne(const float2& vt1)
 	{
-		fprintf(mFile,"setAttr \".vt1\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt1\" -type \"float2\" ");
 		vt1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -231,18 +232,18 @@ public:
 	void setVertexUvOneU(float t1u)
 	{
 		if(t1u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt1.t1u\" %f;\n", t1u);
+		fprintf(mFile,"\tsetAttr \".vt1.t1u\" %f;\n", t1u);
 
 	}
 	void setVertexUvOneV(float t1v)
 	{
 		if(t1v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt1.t1v\" %f;\n", t1v);
+		fprintf(mFile,"\tsetAttr \".vt1.t1v\" %f;\n", t1v);
 
 	}
 	void setVertexUvTwo(const float2& vt2)
 	{
-		fprintf(mFile,"setAttr \".vt2\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt2\" -type \"float2\" ");
 		vt2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -250,18 +251,18 @@ public:
 	void setVertexUvTwoU(float t2u)
 	{
 		if(t2u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt2.t2u\" %f;\n", t2u);
+		fprintf(mFile,"\tsetAttr \".vt2.t2u\" %f;\n", t2u);
 
 	}
 	void setVertexUvTwoV(float t2v)
 	{
 		if(t2v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt2.t2v\" %f;\n", t2v);
+		fprintf(mFile,"\tsetAttr \".vt2.t2v\" %f;\n", t2v);
 
 	}
 	void setVertexUvThree(const float2& vt3)
 	{
-		fprintf(mFile,"setAttr \".vt3\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".vt3\" -type \"float2\" ");
 		vt3.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -269,13 +270,13 @@ public:
 	void setVertexUvThreeU(float t3u)
 	{
 		if(t3u == 0.0) return;
-		fprintf(mFile,"setAttr \".vt3.t3u\" %f;\n", t3u);
+		fprintf(mFile,"\tsetAttr \".vt3.t3u\" %f;\n", t3u);
 
 	}
 	void setVertexUvThreeV(float t3v)
 	{
 		if(t3v == 0.0) return;
-		fprintf(mFile,"setAttr \".vt3.t3v\" %f;\n", t3v);
+		fprintf(mFile,"\tsetAttr \".vt3.t3v\" %f;\n", t3v);
 
 	}
 	void getNormalCamera()
@@ -356,6 +357,11 @@ public:
 	void getRefPointCameraZ()
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getImage()
@@ -694,7 +700,8 @@ public:
 
 	}
 protected:
-	Projection(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Projection(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

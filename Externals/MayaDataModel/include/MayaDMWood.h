@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class Wood : public Texture3d
 {
 public:
 public:
+	Wood():Texture3d(){}
 	Wood(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "wood"){}
 	virtual ~Wood(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setFillerColor(const float3& fc)
 	{
 		if(fc == float3(0.824f,0.627f,0.471f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,25 +38,25 @@ public:
 	void setFillerColorR(float fcr)
 	{
 		if(fcr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFillerColorG(float fcg)
 	{
 		if(fcg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFillerColorB(float fcb)
 	{
 		if(fcb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setVeinColor(const float3& vc)
 	{
 		if(vc == float3(0.157f,0.078f,0.039f)) return;
-		fprintf(mFile,"setAttr \".vc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vc\" -type \"float3\" ");
 		vc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,49 +64,49 @@ public:
 	void setVeinColorR(float vcr)
 	{
 		if(vcr == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcr\" %f;\n", vcr);
+		fprintf(mFile,"\tsetAttr \".vc.vcr\" %f;\n", vcr);
 
 	}
 	void setVeinColorG(float vcg)
 	{
 		if(vcg == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcg\" %f;\n", vcg);
+		fprintf(mFile,"\tsetAttr \".vc.vcg\" %f;\n", vcg);
 
 	}
 	void setVeinColorB(float vcb)
 	{
 		if(vcb == 0.0) return;
-		fprintf(mFile,"setAttr \".vc.vcb\" %f;\n", vcb);
+		fprintf(mFile,"\tsetAttr \".vc.vcb\" %f;\n", vcb);
 
 	}
 	void setVeinSpread(float v)
 	{
 		if(v == 0.25) return;
-		fprintf(mFile,"setAttr \".v\" %f;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %f;\n", v);
 
 	}
 	void setLayerSize(float ls)
 	{
 		if(ls == 0.05) return;
-		fprintf(mFile,"setAttr \".ls\" %f;\n", ls);
+		fprintf(mFile,"\tsetAttr \".ls\" %f;\n", ls);
 
 	}
 	void setRandomness(float rd)
 	{
 		if(rd == 0.5) return;
-		fprintf(mFile,"setAttr \".rd\" %f;\n", rd);
+		fprintf(mFile,"\tsetAttr \".rd\" %f;\n", rd);
 
 	}
 	void setAge(float a)
 	{
 		if(a == 20.0) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setGrainColor(const float3& gc)
 	{
 		if(gc == float3(0.118f,0.039f,0.0f)) return;
-		fprintf(mFile,"setAttr \".gc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".gc\" -type \"float3\" ");
 		gc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -113,37 +114,37 @@ public:
 	void setGrainColorR(float gcr)
 	{
 		if(gcr == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcr\" %f;\n", gcr);
+		fprintf(mFile,"\tsetAttr \".gc.gcr\" %f;\n", gcr);
 
 	}
 	void setGrainColorG(float gcg)
 	{
 		if(gcg == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcg\" %f;\n", gcg);
+		fprintf(mFile,"\tsetAttr \".gc.gcg\" %f;\n", gcg);
 
 	}
 	void setGrainColorB(float gcb)
 	{
 		if(gcb == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gcb\" %f;\n", gcb);
+		fprintf(mFile,"\tsetAttr \".gc.gcb\" %f;\n", gcb);
 
 	}
 	void setGrainContrast(float gx)
 	{
 		if(gx == 0.5) return;
-		fprintf(mFile,"setAttr \".gx\" %f;\n", gx);
+		fprintf(mFile,"\tsetAttr \".gx\" %f;\n", gx);
 
 	}
 	void setGrainSpacing(float gs)
 	{
 		if(gs == 0.01) return;
-		fprintf(mFile,"setAttr \".gs\" %f;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %f;\n", gs);
 
 	}
 	void setCenter(const float2& c)
 	{
 		if(c == float2(0.5f,-0.5f)) return;
-		fprintf(mFile,"setAttr \".c\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".c\" -type \"float2\" ");
 		c.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -151,37 +152,37 @@ public:
 	void setCenterU(float cu)
 	{
 		if(cu == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cu\" %f;\n", cu);
+		fprintf(mFile,"\tsetAttr \".c.cu\" %f;\n", cu);
 
 	}
 	void setCenterV(float cv)
 	{
 		if(cv == 0.0) return;
-		fprintf(mFile,"setAttr \".c.cv\" %f;\n", cv);
+		fprintf(mFile,"\tsetAttr \".c.cv\" %f;\n", cv);
 
 	}
 	void setAmplitudeX(float ax)
 	{
 		if(ax == 0.0) return;
-		fprintf(mFile,"setAttr \".ax\" %f;\n", ax);
+		fprintf(mFile,"\tsetAttr \".ax\" %f;\n", ax);
 
 	}
 	void setAmplitudeY(float ay)
 	{
 		if(ay == 0.0) return;
-		fprintf(mFile,"setAttr \".ay\" %f;\n", ay);
+		fprintf(mFile,"\tsetAttr \".ay\" %f;\n", ay);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.35) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setRipples(const float3& r)
 	{
 		if(r == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".r\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".r\" -type \"float3\" ");
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -189,25 +190,25 @@ public:
 	void setRipplesX(float rx)
 	{
 		if(rx == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".r.rx\" %f;\n", rx);
 
 	}
 	void setRipplesY(float ry)
 	{
 		if(ry == 0.0) return;
-		fprintf(mFile,"setAttr \".r.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".r.ry\" %f;\n", ry);
 
 	}
 	void setRipplesZ(float rz)
 	{
 		if(rz == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".r.rz\" %f;\n", rz);
 
 	}
 	void setDepth(const float2& d)
 	{
 		if(d == float2(0.0f,8.0f)) return;
-		fprintf(mFile,"setAttr \".d\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"float2\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -215,13 +216,18 @@ public:
 	void setDepthMin(float dmn)
 	{
 		if(dmn == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmn\" %f;\n", dmn);
+		fprintf(mFile,"\tsetAttr \".d.dmn\" %f;\n", dmn);
 
 	}
 	void setDepthMax(float dmx)
 	{
 		if(dmx == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmx\" %f;\n", dmx);
+		fprintf(mFile,"\tsetAttr \".d.dmx\" %f;\n", dmx);
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getNormalCamera()
@@ -440,7 +446,8 @@ public:
 
 	}
 protected:
-	Wood(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Wood(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

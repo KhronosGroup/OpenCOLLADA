@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Granite : public Texture3d
 {
 public:
 public:
+	Granite():Texture3d(){}
 	Granite(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "granite"){}
 	virtual ~Granite(){}
 	void setColor1(const float3& c1)
 	{
 		if(c1 == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".c1\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c1\" -type \"float3\" ");
 		c1.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setColor1R(float c1r)
 	{
 		if(c1r == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1r\" %f;\n", c1r);
+		fprintf(mFile,"\tsetAttr \".c1.c1r\" %f;\n", c1r);
 
 	}
 	void setColor1G(float c1g)
 	{
 		if(c1g == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1g\" %f;\n", c1g);
+		fprintf(mFile,"\tsetAttr \".c1.c1g\" %f;\n", c1g);
 
 	}
 	void setColor1B(float c1b)
 	{
 		if(c1b == 0.0) return;
-		fprintf(mFile,"setAttr \".c1.c1b\" %f;\n", c1b);
+		fprintf(mFile,"\tsetAttr \".c1.c1b\" %f;\n", c1b);
 
 	}
 	void setColor2(const float3& c2)
 	{
 		if(c2 == float3(0.549f,0.784f,0.392f)) return;
-		fprintf(mFile,"setAttr \".c2\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c2\" -type \"float3\" ");
 		c2.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setColor2R(float c2r)
 	{
 		if(c2r == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2r\" %f;\n", c2r);
+		fprintf(mFile,"\tsetAttr \".c2.c2r\" %f;\n", c2r);
 
 	}
 	void setColor2G(float c2g)
 	{
 		if(c2g == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2g\" %f;\n", c2g);
+		fprintf(mFile,"\tsetAttr \".c2.c2g\" %f;\n", c2g);
 
 	}
 	void setColor2B(float c2b)
 	{
 		if(c2b == 0.0) return;
-		fprintf(mFile,"setAttr \".c2.c2b\" %f;\n", c2b);
+		fprintf(mFile,"\tsetAttr \".c2.c2b\" %f;\n", c2b);
 
 	}
 	void setColor3(const float3& c3)
 	{
 		if(c3 == float3(0.627f,0.824f,0.823f)) return;
-		fprintf(mFile,"setAttr \".c3\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".c3\" -type \"float3\" ");
 		c3.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,25 +84,25 @@ public:
 	void setColor3R(float c3r)
 	{
 		if(c3r == 0.0) return;
-		fprintf(mFile,"setAttr \".c3.c3r\" %f;\n", c3r);
+		fprintf(mFile,"\tsetAttr \".c3.c3r\" %f;\n", c3r);
 
 	}
 	void setColor3G(float c3g)
 	{
 		if(c3g == 0.0) return;
-		fprintf(mFile,"setAttr \".c3.c3g\" %f;\n", c3g);
+		fprintf(mFile,"\tsetAttr \".c3.c3g\" %f;\n", c3g);
 
 	}
 	void setColor3B(float c3b)
 	{
 		if(c3b == 0.0) return;
-		fprintf(mFile,"setAttr \".c3.c3b\" %f;\n", c3b);
+		fprintf(mFile,"\tsetAttr \".c3.c3b\" %f;\n", c3b);
 
 	}
 	void setFillerColor(const float3& fc)
 	{
 		if(fc == float3(0.588f,0.294f,0.196f)) return;
-		fprintf(mFile,"setAttr \".fc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" -type \"float3\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,61 +110,61 @@ public:
 	void setFillerColorR(float fcr)
 	{
 		if(fcr == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fc.fcr\" %f;\n", fcr);
 
 	}
 	void setFillerColorG(float fcg)
 	{
 		if(fcg == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fc.fcg\" %f;\n", fcg);
 
 	}
 	void setFillerColorB(float fcb)
 	{
 		if(fcb == 0.0) return;
-		fprintf(mFile,"setAttr \".fc.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fc.fcb\" %f;\n", fcb);
 
 	}
 	void setCellSize(float cs)
 	{
 		if(cs == 0.15) return;
-		fprintf(mFile,"setAttr \".cs\" %f;\n", cs);
+		fprintf(mFile,"\tsetAttr \".cs\" %f;\n", cs);
 
 	}
 	void setDensity(float dy)
 	{
 		if(dy == 1.0) return;
-		fprintf(mFile,"setAttr \".dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".dy\" %f;\n", dy);
 
 	}
 	void setMixRatio(float mr)
 	{
 		if(mr == 0.5) return;
-		fprintf(mFile,"setAttr \".mr\" %f;\n", mr);
+		fprintf(mFile,"\tsetAttr \".mr\" %f;\n", mr);
 
 	}
 	void setSpottyness(float s)
 	{
 		if(s == 0.3) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setRandomness(float ra)
 	{
 		if(ra == 1.0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.5) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setCreases(bool c)
 	{
 		if(c == true) return;
-		fprintf(mFile,"setAttr \".c\" %i;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
 	void getRefPointObj()
@@ -322,7 +323,8 @@ public:
 
 	}
 protected:
-	Granite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Granite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

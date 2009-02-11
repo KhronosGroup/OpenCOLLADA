@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,30 @@ class NonAmbientLightShapeNode : public RenderLight
 {
 public:
 public:
+	NonAmbientLightShapeNode():RenderLight(){}
 	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent=""):RenderLight(file, name, parent, "nonAmbientLightShapeNode"){}
 	virtual ~NonAmbientLightShapeNode(){}
 	void setDecayRate(unsigned int de)
 	{
 		if(de == 0) return;
-		fprintf(mFile,"setAttr \".de\" %i;\n", de);
+		fprintf(mFile,"\tsetAttr \".de\" %i;\n", de);
 
 	}
 	void setEmitDiffuse(bool edi)
 	{
 		if(edi == true) return;
-		fprintf(mFile,"setAttr \".edi\" %i;\n", edi);
+		fprintf(mFile,"\tsetAttr \".edi\" %i;\n", edi);
 
 	}
 	void setEmitSpecular(bool esp)
 	{
 		if(esp == true) return;
-		fprintf(mFile,"setAttr \".esp\" %i;\n", esp);
+		fprintf(mFile,"\tsetAttr \".esp\" %i;\n", esp);
+
+	}
+	void getDecayRate()
+	{
+		fprintf(mFile,"\"%s.de\"",mName.c_str());
 
 	}
 	void getEmitDiffuse()
@@ -49,7 +55,8 @@ public:
 
 	}
 protected:
-	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):RenderLight(file, name, parent, nodeType) {}
+	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:RenderLight(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

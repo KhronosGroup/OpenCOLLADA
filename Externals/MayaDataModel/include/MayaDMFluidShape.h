@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -252,29 +252,30 @@ public:
 		}
 	};
 public:
+	FluidShape():SurfaceShape(){}
 	FluidShape(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "fluidShape"){}
 	virtual ~FluidShape(){}
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;
-		fprintf(mFile,"setAttr \".stf\" %f;\n", stf);
+		fprintf(mFile,"\tsetAttr \".stf\" %f;\n", stf);
 
 	}
 	void setDisableInteractiveEval(bool die)
 	{
 		if(die == false) return;
-		fprintf(mFile,"setAttr \".die\" %i;\n", die);
+		fprintf(mFile,"\tsetAttr \".die\" %i;\n", die);
 
 	}
 	void setIs2d(bool is2)
 	{
 		if(is2 == false) return;
-		fprintf(mFile,"setAttr \".is2\" %i;\n", is2);
+		fprintf(mFile,"\tsetAttr \".is2\" %i;\n", is2);
 
 	}
 	void setResolution(const Resolution& res)
 	{
-		fprintf(mFile,"setAttr \".res\" ");
+		fprintf(mFile,"\tsetAttr \".res\" ");
 		res.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -282,24 +283,24 @@ public:
 	void setResolutionW(int rw)
 	{
 		if(rw == 10) return;
-		fprintf(mFile,"setAttr \".res.rw\" %i;\n", rw);
+		fprintf(mFile,"\tsetAttr \".res.rw\" %i;\n", rw);
 
 	}
 	void setResolutionH(int rh)
 	{
 		if(rh == 10) return;
-		fprintf(mFile,"setAttr \".res.rh\" %i;\n", rh);
+		fprintf(mFile,"\tsetAttr \".res.rh\" %i;\n", rh);
 
 	}
 	void setResolutionD(int rd)
 	{
 		if(rd == 10) return;
-		fprintf(mFile,"setAttr \".res.rd\" %i;\n", rd);
+		fprintf(mFile,"\tsetAttr \".res.rd\" %i;\n", rd);
 
 	}
 	void setDimensions(const Dimensions& dim)
 	{
-		fprintf(mFile,"setAttr \".dim\" ");
+		fprintf(mFile,"\tsetAttr \".dim\" ");
 		dim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -307,44 +308,44 @@ public:
 	void setDimensionsW(double dw)
 	{
 		if(dw == 3) return;
-		fprintf(mFile,"setAttr \".dim.dw\" %f;\n", dw);
+		fprintf(mFile,"\tsetAttr \".dim.dw\" %f;\n", dw);
 
 	}
 	void setDimensionsH(double dh)
 	{
 		if(dh == 3) return;
-		fprintf(mFile,"setAttr \".dim.dh\" %f;\n", dh);
+		fprintf(mFile,"\tsetAttr \".dim.dh\" %f;\n", dh);
 
 	}
 	void setDimensionsD(double dd)
 	{
 		if(dd == 3) return;
-		fprintf(mFile,"setAttr \".dim.dd\" %f;\n", dd);
+		fprintf(mFile,"\tsetAttr \".dim.dd\" %f;\n", dd);
 
 	}
 	void setDoFields(bool dfr)
 	{
 		if(dfr == true) return;
-		fprintf(mFile,"setAttr \".dfr\" %i;\n", dfr);
+		fprintf(mFile,"\tsetAttr \".dfr\" %i;\n", dfr);
 
 	}
 	void setFieldList(size_t fll_i,const FieldList& fll)
 	{
-		fprintf(mFile,"setAttr \".fll[%i]\" ",fll_i);
+		fprintf(mFile,"\tsetAttr \".fll[%i]\" ",fll_i);
 		fll.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setFieldFunction(size_t fll_i,const FieldList::FieldFunction& frf)
 	{
-		fprintf(mFile,"setAttr \".fll[%i].frf\" ",fll_i);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf\" ",fll_i);
 		frf.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setFieldFunction_Inmap(size_t fll_i,size_t frfi_i,const FieldList::FieldFunction::FieldFunction_Inmap& frfi)
 	{
-		fprintf(mFile,"setAttr \".fll[%i].frf.frfi[%i]\" ",fll_i,frfi_i);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfi[%i]\" ",fll_i,frfi_i);
 		frfi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -352,18 +353,18 @@ public:
 	void setFieldFunction_InmapTo(size_t fll_i,size_t frfi_i,short frfit)
 	{
 		if(frfit == 0) return;
-		fprintf(mFile,"setAttr \".fll[%i].frf.frfi[%i].frfit\" %i;\n", fll_i,frfi_i,frfit);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfi[%i].frfit\" %i;\n", fll_i,frfi_i,frfit);
 
 	}
 	void setFieldFunction_InmapFrom(size_t fll_i,size_t frfi_i,short frfif)
 	{
 		if(frfif == 0) return;
-		fprintf(mFile,"setAttr \".fll[%i].frf.frfi[%i].frfif\" %i;\n", fll_i,frfi_i,frfif);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfi[%i].frfif\" %i;\n", fll_i,frfi_i,frfif);
 
 	}
 	void setFieldFunction_Outmap(size_t fll_i,size_t frfo_i,const FieldList::FieldFunction::FieldFunction_Outmap& frfo)
 	{
-		fprintf(mFile,"setAttr \".fll[%i].frf.frfo[%i]\" ",fll_i,frfo_i);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfo[%i]\" ",fll_i,frfo_i);
 		frfo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -371,36 +372,36 @@ public:
 	void setFieldFunction_OutmapTo(size_t fll_i,size_t frfo_i,short frfot)
 	{
 		if(frfot == 0) return;
-		fprintf(mFile,"setAttr \".fll[%i].frf.frfo[%i].frfot\" %i;\n", fll_i,frfo_i,frfot);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfo[%i].frfot\" %i;\n", fll_i,frfo_i,frfot);
 
 	}
 	void setFieldFunction_OutmapFrom(size_t fll_i,size_t frfo_i,short frfof)
 	{
 		if(frfof == 0) return;
-		fprintf(mFile,"setAttr \".fll[%i].frf.frfo[%i].frfof\" %i;\n", fll_i,frfo_i,frfof);
+		fprintf(mFile,"\tsetAttr \".fll[%i].frf.frfo[%i].frfof\" %i;\n", fll_i,frfo_i,frfof);
 
 	}
 	void setDoEmission(bool de)
 	{
 		if(de == true) return;
-		fprintf(mFile,"setAttr \".de\" %i;\n", de);
+		fprintf(mFile,"\tsetAttr \".de\" %i;\n", de);
 
 	}
 	void setInheritFactor(double inh)
 	{
 		if(inh == 0.0) return;
-		fprintf(mFile,"setAttr \".inh\" %f;\n", inh);
+		fprintf(mFile,"\tsetAttr \".inh\" %f;\n", inh);
 
 	}
 	void setSeed(size_t sd_i,int sd)
 	{
 		if(sd == 1) return;
-		fprintf(mFile,"setAttr \".sd[%i]\" %i;\n", sd_i,sd);
+		fprintf(mFile,"\tsetAttr \".sd[%i]\" %i;\n", sd_i,sd);
 
 	}
 	void setSeed(size_t sd_start,size_t sd_end,int* sd)
 	{
-		fprintf(mFile,"setAttr \".sd[%i:%i]\" ", sd_start,sd_end);
+		fprintf(mFile,"\tsetAttr \".sd[%i:%i]\" ", sd_start,sd_end);
 		size_t size = (sd_end-sd_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -412,7 +413,7 @@ public:
 	}
 	void startSeed(size_t sd_start,size_t sd_end)
 	{
-		fprintf(mFile,"setAttr \".sd[%i:%i]\"",sd_start,sd_end);
+		fprintf(mFile,"\tsetAttr \".sd[%i:%i]\"",sd_start,sd_end);
 
 	}
 	void appendSeed(int sd)
@@ -427,21 +428,21 @@ public:
 	}
 	void setEmissionList(size_t eml_i,const EmissionList& eml)
 	{
-		fprintf(mFile,"setAttr \".eml[%i]\" ",eml_i);
+		fprintf(mFile,"\tsetAttr \".eml[%i]\" ",eml_i);
 		eml.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setEmissionFunction(size_t eml_i,const EmissionList::EmissionFunction& emf)
 	{
-		fprintf(mFile,"setAttr \".eml[%i].emf\" ",eml_i);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf\" ",eml_i);
 		emf.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setEmissionFunction_Inmap(size_t eml_i,size_t emfi_i,const EmissionList::EmissionFunction::EmissionFunction_Inmap& emfi)
 	{
-		fprintf(mFile,"setAttr \".eml[%i].emf.emfi[%i]\" ",eml_i,emfi_i);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfi[%i]\" ",eml_i,emfi_i);
 		emfi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -449,18 +450,18 @@ public:
 	void setEmissionFunction_InmapTo(size_t eml_i,size_t emfi_i,short emfit)
 	{
 		if(emfit == 0) return;
-		fprintf(mFile,"setAttr \".eml[%i].emf.emfi[%i].emfit\" %i;\n", eml_i,emfi_i,emfit);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfi[%i].emfit\" %i;\n", eml_i,emfi_i,emfit);
 
 	}
 	void setEmissionFunction_InmapFrom(size_t eml_i,size_t emfi_i,short emfif)
 	{
 		if(emfif == 0) return;
-		fprintf(mFile,"setAttr \".eml[%i].emf.emfi[%i].emfif\" %i;\n", eml_i,emfi_i,emfif);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfi[%i].emfif\" %i;\n", eml_i,emfi_i,emfif);
 
 	}
 	void setEmissionFunction_Outmap(size_t eml_i,size_t emfo_i,const EmissionList::EmissionFunction::EmissionFunction_Outmap& emfo)
 	{
-		fprintf(mFile,"setAttr \".eml[%i].emf.emfo[%i]\" ",eml_i,emfo_i);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfo[%i]\" ",eml_i,emfo_i);
 		emfo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -468,36 +469,36 @@ public:
 	void setEmissionFunction_OutmapTo(size_t eml_i,size_t emfo_i,short emfot)
 	{
 		if(emfot == 0) return;
-		fprintf(mFile,"setAttr \".eml[%i].emf.emfo[%i].emfot\" %i;\n", eml_i,emfo_i,emfot);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfo[%i].emfot\" %i;\n", eml_i,emfo_i,emfot);
 
 	}
 	void setEmissionFunction_OutmapFrom(size_t eml_i,size_t emfo_i,short emfof)
 	{
 		if(emfof == 0) return;
-		fprintf(mFile,"setAttr \".eml[%i].emf.emfo[%i].emfof\" %i;\n", eml_i,emfo_i,emfof);
+		fprintf(mFile,"\tsetAttr \".eml[%i].emf.emfo[%i].emfof\" %i;\n", eml_i,emfo_i,emfof);
 
 	}
 	void setSlices(int sli)
 	{
 		if(sli == 2) return;
-		fprintf(mFile,"setAttr \".sli\" %i;\n", sli);
+		fprintf(mFile,"\tsetAttr \".sli\" %i;\n", sli);
 
 	}
 	void setVoxelQuality(unsigned int vqu)
 	{
 		if(vqu == 0) return;
-		fprintf(mFile,"setAttr \".vqu\" %i;\n", vqu);
+		fprintf(mFile,"\tsetAttr \".vqu\" %i;\n", vqu);
 
 	}
 	void setDrawSubVolume(bool dsv)
 	{
 		if(dsv == false) return;
-		fprintf(mFile,"setAttr \".dsv\" %i;\n", dsv);
+		fprintf(mFile,"\tsetAttr \".dsv\" %i;\n", dsv);
 
 	}
 	void setSubVolumeCenter(const SubVolumeCenter& svc)
 	{
-		fprintf(mFile,"setAttr \".svc\" ");
+		fprintf(mFile,"\tsetAttr \".svc\" ");
 		svc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -505,24 +506,24 @@ public:
 	void setSubVolumeCenterW(int scw)
 	{
 		if(scw == -1) return;
-		fprintf(mFile,"setAttr \".svc.scw\" %i;\n", scw);
+		fprintf(mFile,"\tsetAttr \".svc.scw\" %i;\n", scw);
 
 	}
 	void setSubVolumeCenterH(int sch)
 	{
 		if(sch == -1) return;
-		fprintf(mFile,"setAttr \".svc.sch\" %i;\n", sch);
+		fprintf(mFile,"\tsetAttr \".svc.sch\" %i;\n", sch);
 
 	}
 	void setSubVolumeCenterD(int scd)
 	{
 		if(scd == -1) return;
-		fprintf(mFile,"setAttr \".svc.scd\" %i;\n", scd);
+		fprintf(mFile,"\tsetAttr \".svc.scd\" %i;\n", scd);
 
 	}
 	void setSubVolumeSize(const SubVolumeSize& svs)
 	{
-		fprintf(mFile,"setAttr \".svs\" ");
+		fprintf(mFile,"\tsetAttr \".svs\" ");
 		svs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -530,217 +531,217 @@ public:
 	void setSubVolumeSizeW(int ssw)
 	{
 		if(ssw == -1) return;
-		fprintf(mFile,"setAttr \".svs.ssw\" %i;\n", ssw);
+		fprintf(mFile,"\tsetAttr \".svs.ssw\" %i;\n", ssw);
 
 	}
 	void setSubVolumeSizeH(int ssh)
 	{
 		if(ssh == -1) return;
-		fprintf(mFile,"setAttr \".svs.ssh\" %i;\n", ssh);
+		fprintf(mFile,"\tsetAttr \".svs.ssh\" %i;\n", ssh);
 
 	}
 	void setSubVolumeSizeD(int ssd)
 	{
 		if(ssd == -1) return;
-		fprintf(mFile,"setAttr \".svs.ssd\" %i;\n", ssd);
+		fprintf(mFile,"\tsetAttr \".svs.ssd\" %i;\n", ssd);
 
 	}
 	void setBoundaryDraw(unsigned int bod)
 	{
 		if(bod == 0) return;
-		fprintf(mFile,"setAttr \".bod\" %i;\n", bod);
+		fprintf(mFile,"\tsetAttr \".bod\" %i;\n", bod);
 
 	}
 	void setDrawHeads(bool dhd)
 	{
 		if(dhd == true) return;
-		fprintf(mFile,"setAttr \".dhd\" %i;\n", dhd);
+		fprintf(mFile,"\tsetAttr \".dhd\" %i;\n", dhd);
 
 	}
 	void setVelocityDraw(bool vld)
 	{
 		if(vld == false) return;
-		fprintf(mFile,"setAttr \".vld\" %i;\n", vld);
+		fprintf(mFile,"\tsetAttr \".vld\" %i;\n", vld);
 
 	}
 	void setVelocityDrawLength(double vdl)
 	{
 		if(vdl == 1) return;
-		fprintf(mFile,"setAttr \".vdl\" %f;\n", vdl);
+		fprintf(mFile,"\tsetAttr \".vdl\" %f;\n", vdl);
 
 	}
 	void setVelocityDrawSkip(int vds)
 	{
 		if(vds == 1) return;
-		fprintf(mFile,"setAttr \".vds\" %i;\n", vds);
+		fprintf(mFile,"\tsetAttr \".vds\" %i;\n", vds);
 
 	}
 	void setShadedDisplay(unsigned int sdp)
 	{
 		if(sdp == 1) return;
-		fprintf(mFile,"setAttr \".sdp\" %i;\n", sdp);
+		fprintf(mFile,"\tsetAttr \".sdp\" %i;\n", sdp);
 
 	}
 	void setOpacityPreviewGain(float opg)
 	{
 		if(opg == 0.5) return;
-		fprintf(mFile,"setAttr \".opg\" %f;\n", opg);
+		fprintf(mFile,"\tsetAttr \".opg\" %f;\n", opg);
 
 	}
 	void setWireframeDisplay(unsigned int wdp)
 	{
 		if(wdp == 2) return;
-		fprintf(mFile,"setAttr \".wdp\" %i;\n", wdp);
+		fprintf(mFile,"\tsetAttr \".wdp\" %i;\n", wdp);
 
 	}
 	void setNumericDisplay(unsigned int nud)
 	{
 		if(nud == 0) return;
-		fprintf(mFile,"setAttr \".nud\" %i;\n", nud);
+		fprintf(mFile,"\tsetAttr \".nud\" %i;\n", nud);
 
 	}
 	void setHardwareSelfShadow(bool hss)
 	{
 		if(hss == true) return;
-		fprintf(mFile,"setAttr \".hss\" %i;\n", hss);
+		fprintf(mFile,"\tsetAttr \".hss\" %i;\n", hss);
 
 	}
 	void setCoordinateMethod(unsigned int cmet)
 	{
 		if(cmet == 0) return;
-		fprintf(mFile,"setAttr \".cmet\" %i;\n", cmet);
+		fprintf(mFile,"\tsetAttr \".cmet\" %i;\n", cmet);
 
 	}
 	void setSimulationRateScale(float srs)
 	{
 		if(srs == 1) return;
-		fprintf(mFile,"setAttr \".srs\" %f;\n", srs);
+		fprintf(mFile,"\tsetAttr \".srs\" %f;\n", srs);
 
 	}
 	void setGridInterpolator(unsigned int gdi)
 	{
 		if(gdi == 0) return;
-		fprintf(mFile,"setAttr \".gdi\" %i;\n", gdi);
+		fprintf(mFile,"\tsetAttr \".gdi\" %i;\n", gdi);
 
 	}
 	void setForceDynamics(bool fdn)
 	{
 		if(fdn == false) return;
-		fprintf(mFile,"setAttr \".fdn\" %i;\n", fdn);
+		fprintf(mFile,"\tsetAttr \".fdn\" %i;\n", fdn);
 
 	}
 	void setSolver(unsigned int sol)
 	{
 		if(sol == 1) return;
-		fprintf(mFile,"setAttr \".sol\" %i;\n", sol);
+		fprintf(mFile,"\tsetAttr \".sol\" %i;\n", sol);
 
 	}
 	void setSolverQuality(int sql)
 	{
 		if(sql == 20) return;
-		fprintf(mFile,"setAttr \".sql\" %i;\n", sql);
+		fprintf(mFile,"\tsetAttr \".sql\" %i;\n", sql);
 
 	}
 	void setHighDetailSolve(unsigned int hds)
 	{
 		if(hds == 0) return;
-		fprintf(mFile,"setAttr \".hds\" %i;\n", hds);
+		fprintf(mFile,"\tsetAttr \".hds\" %i;\n", hds);
 
 	}
 	void setBoundaryX(unsigned int bndx)
 	{
 		if(bndx == 1) return;
-		fprintf(mFile,"setAttr \".bndx\" %i;\n", bndx);
+		fprintf(mFile,"\tsetAttr \".bndx\" %i;\n", bndx);
 
 	}
 	void setBoundaryY(unsigned int bndy)
 	{
 		if(bndy == 1) return;
-		fprintf(mFile,"setAttr \".bndy\" %i;\n", bndy);
+		fprintf(mFile,"\tsetAttr \".bndy\" %i;\n", bndy);
 
 	}
 	void setBoundaryZ(unsigned int bndz)
 	{
 		if(bndz == 1) return;
-		fprintf(mFile,"setAttr \".bndz\" %i;\n", bndz);
+		fprintf(mFile,"\tsetAttr \".bndz\" %i;\n", bndz);
 
 	}
 	void setMassConversion(double mcv)
 	{
 		if(mcv == 1) return;
-		fprintf(mFile,"setAttr \".mcv\" %f;\n", mcv);
+		fprintf(mFile,"\tsetAttr \".mcv\" %f;\n", mcv);
 
 	}
 	void setFalloffMethod(unsigned int fmt)
 	{
 		if(fmt == 0) return;
-		fprintf(mFile,"setAttr \".fmt\" %i;\n", fmt);
+		fprintf(mFile,"\tsetAttr \".fmt\" %i;\n", fmt);
 
 	}
 	void setDensityMethod(unsigned int dmt)
 	{
 		if(dmt == 2) return;
-		fprintf(mFile,"setAttr \".dmt\" %i;\n", dmt);
+		fprintf(mFile,"\tsetAttr \".dmt\" %i;\n", dmt);
 
 	}
 	void setDensityGradient(unsigned int dgr)
 	{
 		if(dgr == 0) return;
-		fprintf(mFile,"setAttr \".dgr\" %i;\n", dgr);
+		fprintf(mFile,"\tsetAttr \".dgr\" %i;\n", dgr);
 
 	}
 	void setDensityScale(float dsc)
 	{
 		if(dsc == 0.5) return;
-		fprintf(mFile,"setAttr \".dsc\" %f;\n", dsc);
+		fprintf(mFile,"\tsetAttr \".dsc\" %f;\n", dsc);
 
 	}
 	void setDensityDissipation(double dds)
 	{
 		if(dds == 0) return;
-		fprintf(mFile,"setAttr \".dds\" %f;\n", dds);
+		fprintf(mFile,"\tsetAttr \".dds\" %f;\n", dds);
 
 	}
 	void setDensityDiffusion(double ddf)
 	{
 		if(ddf == 0) return;
-		fprintf(mFile,"setAttr \".ddf\" %f;\n", ddf);
+		fprintf(mFile,"\tsetAttr \".ddf\" %f;\n", ddf);
 
 	}
 	void setConserveMass(bool cm)
 	{
 		if(cm == true) return;
-		fprintf(mFile,"setAttr \".cm\" %i;\n", cm);
+		fprintf(mFile,"\tsetAttr \".cm\" %i;\n", cm);
 
 	}
 	void setDensityBuoyancy(float dsb)
 	{
 		if(dsb == 1.0) return;
-		fprintf(mFile,"setAttr \".dsb\" %f;\n", dsb);
+		fprintf(mFile,"\tsetAttr \".dsb\" %f;\n", dsb);
 
 	}
 	void setGravity(float grv)
 	{
 		if(grv == 9.8) return;
-		fprintf(mFile,"setAttr \".grv\" %f;\n", grv);
+		fprintf(mFile,"\tsetAttr \".grv\" %f;\n", grv);
 
 	}
 	void setVelocityMethod(unsigned int vmt)
 	{
 		if(vmt == 2) return;
-		fprintf(mFile,"setAttr \".vmt\" %i;\n", vmt);
+		fprintf(mFile,"\tsetAttr \".vmt\" %i;\n", vmt);
 
 	}
 	void setVelocityGradient(unsigned int vgr)
 	{
 		if(vgr == 0) return;
-		fprintf(mFile,"setAttr \".vgr\" %i;\n", vgr);
+		fprintf(mFile,"\tsetAttr \".vgr\" %i;\n", vgr);
 
 	}
 	void setVelocityScale(const float3& vsc)
 	{
 		if(vsc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".vsc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".vsc\" -type \"float3\" ");
 		vsc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -748,192 +749,192 @@ public:
 	void setVelocityScaleX(float vsx)
 	{
 		if(vsx == 0.0) return;
-		fprintf(mFile,"setAttr \".vsc.vsx\" %f;\n", vsx);
+		fprintf(mFile,"\tsetAttr \".vsc.vsx\" %f;\n", vsx);
 
 	}
 	void setVelocityScaleY(float vsy)
 	{
 		if(vsy == 0.0) return;
-		fprintf(mFile,"setAttr \".vsc.vsy\" %f;\n", vsy);
+		fprintf(mFile,"\tsetAttr \".vsc.vsy\" %f;\n", vsy);
 
 	}
 	void setVelocityScaleZ(float vsz)
 	{
 		if(vsz == 0.0) return;
-		fprintf(mFile,"setAttr \".vsc.vsz\" %f;\n", vsz);
+		fprintf(mFile,"\tsetAttr \".vsc.vsz\" %f;\n", vsz);
 
 	}
 	void setViscosity(float viy)
 	{
 		if(viy == 0) return;
-		fprintf(mFile,"setAttr \".viy\" %f;\n", viy);
+		fprintf(mFile,"\tsetAttr \".viy\" %f;\n", viy);
 
 	}
 	void setFriction(float fri)
 	{
 		if(fri == 0) return;
-		fprintf(mFile,"setAttr \".fri\" %f;\n", fri);
+		fprintf(mFile,"\tsetAttr \".fri\" %f;\n", fri);
 
 	}
 	void setVelocitySwirl(float vsw)
 	{
 		if(vsw == 0) return;
-		fprintf(mFile,"setAttr \".vsw\" %f;\n", vsw);
+		fprintf(mFile,"\tsetAttr \".vsw\" %f;\n", vsw);
 
 	}
 	void setVelocityDamp(float vdp)
 	{
 		if(vdp == 0) return;
-		fprintf(mFile,"setAttr \".vdp\" %f;\n", vdp);
+		fprintf(mFile,"\tsetAttr \".vdp\" %f;\n", vdp);
 
 	}
 	void setVelocityAdvect(bool va)
 	{
 		if(va == true) return;
-		fprintf(mFile,"setAttr \".va\" %i;\n", va);
+		fprintf(mFile,"\tsetAttr \".va\" %i;\n", va);
 
 	}
 	void setVelocityProject(bool vi)
 	{
 		if(vi == true) return;
-		fprintf(mFile,"setAttr \".vi\" %i;\n", vi);
+		fprintf(mFile,"\tsetAttr \".vi\" %i;\n", vi);
 
 	}
 	void setTurbulenceStrength(float tst)
 	{
 		if(tst == 0) return;
-		fprintf(mFile,"setAttr \".tst\" %f;\n", tst);
+		fprintf(mFile,"\tsetAttr \".tst\" %f;\n", tst);
 
 	}
 	void setTurbulenceFrequency(float tfr)
 	{
 		if(tfr == 0.2) return;
-		fprintf(mFile,"setAttr \".tfr\" %f;\n", tfr);
+		fprintf(mFile,"\tsetAttr \".tfr\" %f;\n", tfr);
 
 	}
 	void setTurbulenceSpeed(float tbs)
 	{
 		if(tbs == .2) return;
-		fprintf(mFile,"setAttr \".tbs\" %f;\n", tbs);
+		fprintf(mFile,"\tsetAttr \".tbs\" %f;\n", tbs);
 
 	}
 	void setTurbulenceRes(int trs)
 	{
 		if(trs == 10) return;
-		fprintf(mFile,"setAttr \".trs\" %i;\n", trs);
+		fprintf(mFile,"\tsetAttr \".trs\" %i;\n", trs);
 
 	}
 	void setTemperatureMethod(unsigned int tmet)
 	{
 		if(tmet == 0) return;
-		fprintf(mFile,"setAttr \".tmet\" %i;\n", tmet);
+		fprintf(mFile,"\tsetAttr \".tmet\" %i;\n", tmet);
 
 	}
 	void setTemperatureGradient(unsigned int tgr)
 	{
 		if(tgr == 0) return;
-		fprintf(mFile,"setAttr \".tgr\" %i;\n", tgr);
+		fprintf(mFile,"\tsetAttr \".tgr\" %i;\n", tgr);
 
 	}
 	void setTemperatureScale(float tmsc)
 	{
 		if(tmsc == 1.0) return;
-		fprintf(mFile,"setAttr \".tmsc\" %f;\n", tmsc);
+		fprintf(mFile,"\tsetAttr \".tmsc\" %f;\n", tmsc);
 
 	}
 	void setTemperatureDissipation(double tds)
 	{
 		if(tds == 0.1) return;
-		fprintf(mFile,"setAttr \".tds\" %f;\n", tds);
+		fprintf(mFile,"\tsetAttr \".tds\" %f;\n", tds);
 
 	}
 	void setTemperatureDiffusion(double tdf)
 	{
 		if(tdf == 0.1) return;
-		fprintf(mFile,"setAttr \".tdf\" %f;\n", tdf);
+		fprintf(mFile,"\tsetAttr \".tdf\" %f;\n", tdf);
 
 	}
 	void setTemperatureTurbulence(float ttb)
 	{
 		if(ttb == 0.1) return;
-		fprintf(mFile,"setAttr \".ttb\" %f;\n", ttb);
+		fprintf(mFile,"\tsetAttr \".ttb\" %f;\n", ttb);
 
 	}
 	void setBuoyancy(float buo)
 	{
 		if(buo == 3) return;
-		fprintf(mFile,"setAttr \".buo\" %f;\n", buo);
+		fprintf(mFile,"\tsetAttr \".buo\" %f;\n", buo);
 
 	}
 	void setColorMethod(unsigned int cmt)
 	{
 		if(cmt == 0) return;
-		fprintf(mFile,"setAttr \".cmt\" %i;\n", cmt);
+		fprintf(mFile,"\tsetAttr \".cmt\" %i;\n", cmt);
 
 	}
 	void setColorDissipation(double cds)
 	{
 		if(cds == 0) return;
-		fprintf(mFile,"setAttr \".cds\" %f;\n", cds);
+		fprintf(mFile,"\tsetAttr \".cds\" %f;\n", cds);
 
 	}
 	void setColorDiffusion(double cdf)
 	{
 		if(cdf == 0) return;
-		fprintf(mFile,"setAttr \".cdf\" %f;\n", cdf);
+		fprintf(mFile,"\tsetAttr \".cdf\" %f;\n", cdf);
 
 	}
 	void setFuelMethod(unsigned int fmet)
 	{
 		if(fmet == 0) return;
-		fprintf(mFile,"setAttr \".fmet\" %i;\n", fmet);
+		fprintf(mFile,"\tsetAttr \".fmet\" %i;\n", fmet);
 
 	}
 	void setFuelGradient(unsigned int fgr)
 	{
 		if(fgr == 0) return;
-		fprintf(mFile,"setAttr \".fgr\" %i;\n", fgr);
+		fprintf(mFile,"\tsetAttr \".fgr\" %i;\n", fgr);
 
 	}
 	void setFuelScale(float fesc)
 	{
 		if(fesc == 1.0) return;
-		fprintf(mFile,"setAttr \".fesc\" %f;\n", fesc);
+		fprintf(mFile,"\tsetAttr \".fesc\" %f;\n", fesc);
 
 	}
 	void setReactionSpeed(float resp)
 	{
 		if(resp == 0.05) return;
-		fprintf(mFile,"setAttr \".resp\" %f;\n", resp);
+		fprintf(mFile,"\tsetAttr \".resp\" %f;\n", resp);
 
 	}
 	void setFuelIgnitionTemp(float fuit)
 	{
 		if(fuit == 0.0) return;
-		fprintf(mFile,"setAttr \".fuit\" %f;\n", fuit);
+		fprintf(mFile,"\tsetAttr \".fuit\" %f;\n", fuit);
 
 	}
 	void setMaxReactionTemp(float mxrt)
 	{
 		if(mxrt == 1.0) return;
-		fprintf(mFile,"setAttr \".mxrt\" %f;\n", mxrt);
+		fprintf(mFile,"\tsetAttr \".mxrt\" %f;\n", mxrt);
 
 	}
 	void setHeatReleased(float hre)
 	{
 		if(hre == 1.0) return;
-		fprintf(mFile,"setAttr \".hre\" %f;\n", hre);
+		fprintf(mFile,"\tsetAttr \".hre\" %f;\n", hre);
 
 	}
 	void setLightReleased(float lre)
 	{
 		if(lre == 0.0) return;
-		fprintf(mFile,"setAttr \".lre\" %f;\n", lre);
+		fprintf(mFile,"\tsetAttr \".lre\" %f;\n", lre);
 
 	}
 	void setLightColor(const float3& lco)
 	{
-		fprintf(mFile,"setAttr \".lco\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".lco\" -type \"float3\" ");
 		lco.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -941,30 +942,30 @@ public:
 	void setLightColorR(float lcor)
 	{
 		if(lcor == 1.0) return;
-		fprintf(mFile,"setAttr \".lco.lcor\" %f;\n", lcor);
+		fprintf(mFile,"\tsetAttr \".lco.lcor\" %f;\n", lcor);
 
 	}
 	void setLightColorG(float lcog)
 	{
 		if(lcog == 1.0) return;
-		fprintf(mFile,"setAttr \".lco.lcog\" %f;\n", lcog);
+		fprintf(mFile,"\tsetAttr \".lco.lcog\" %f;\n", lcog);
 
 	}
 	void setLightColorB(float lcob)
 	{
 		if(lcob == 1.0) return;
-		fprintf(mFile,"setAttr \".lco.lcob\" %f;\n", lcob);
+		fprintf(mFile,"\tsetAttr \".lco.lcob\" %f;\n", lcob);
 
 	}
 	void setUsePre70Dynamics(bool updy)
 	{
 		if(updy == false) return;
-		fprintf(mFile,"setAttr \".updy\" %i;\n", updy);
+		fprintf(mFile,"\tsetAttr \".updy\" %i;\n", updy);
 
 	}
 	void setInputData(size_t ind_i,const InputData& ind)
 	{
-		fprintf(mFile,"setAttr \".ind[%i]\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i]\" ",ind_i);
 		ind.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -972,7 +973,7 @@ public:
 	void setInputPositions(size_t ind_i,const vectorArray& inp)
 	{
 		if(inp.size == 0) return;
-		fprintf(mFile,"setAttr \".ind[%i].inp\" -type \"vectorArray\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i].inp\" -type \"vectorArray\" ",ind_i);
 		inp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -980,7 +981,7 @@ public:
 	void setInputVelocities(size_t ind_i,const vectorArray& inv)
 	{
 		if(inv.size == 0) return;
-		fprintf(mFile,"setAttr \".ind[%i].inv\" -type \"vectorArray\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i].inv\" -type \"vectorArray\" ",ind_i);
 		inv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -988,7 +989,7 @@ public:
 	void setInputMass(size_t ind_i,const doubleArray& inm)
 	{
 		if(inm.size == 0) return;
-		fprintf(mFile,"setAttr \".ind[%i].inm\" -type \"doubleArray\" ",ind_i);
+		fprintf(mFile,"\tsetAttr \".ind[%i].inm\" -type \"doubleArray\" ",ind_i);
 		inm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -996,36 +997,36 @@ public:
 	void setMatteOpacityMode(unsigned int mom)
 	{
 		if(mom == 2) return;
-		fprintf(mFile,"setAttr \".mom\" %i;\n", mom);
+		fprintf(mFile,"\tsetAttr \".mom\" %i;\n", mom);
 
 	}
 	void setMatteOpacity(float mog)
 	{
 		if(mog == 1.0) return;
-		fprintf(mFile,"setAttr \".mog\" %f;\n", mog);
+		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
 
 	}
 	void setSelfShadowing(bool ss)
 	{
 		if(ss == false) return;
-		fprintf(mFile,"setAttr \".ss\" %i;\n", ss);
+		fprintf(mFile,"\tsetAttr \".ss\" %i;\n", ss);
 
 	}
 	void setQuality(float qua)
 	{
 		if(qua == 1.0) return;
-		fprintf(mFile,"setAttr \".qua\" %f;\n", qua);
+		fprintf(mFile,"\tsetAttr \".qua\" %f;\n", qua);
 
 	}
 	void setRenderInterpolator(unsigned int rin)
 	{
 		if(rin == 0) return;
-		fprintf(mFile,"setAttr \".rin\" %i;\n", rin);
+		fprintf(mFile,"\tsetAttr \".rin\" %i;\n", rin);
 
 	}
 	void setColor(size_t cl_i,const Color& cl)
 	{
-		fprintf(mFile,"setAttr \".cl[%i]\" ",cl_i);
+		fprintf(mFile,"\tsetAttr \".cl[%i]\" ",cl_i);
 		cl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1033,12 +1034,12 @@ public:
 	void setColor_Position(size_t cl_i,float clp)
 	{
 		if(clp == 0.0) return;
-		fprintf(mFile,"setAttr \".cl[%i].clp\" %f;\n", cl_i,clp);
+		fprintf(mFile,"\tsetAttr \".cl[%i].clp\" %f;\n", cl_i,clp);
 
 	}
 	void setColor_Color(size_t cl_i,const float3& clc)
 	{
-		fprintf(mFile,"setAttr \".cl[%i].clc\" -type \"float3\" ",cl_i);
+		fprintf(mFile,"\tsetAttr \".cl[%i].clc\" -type \"float3\" ",cl_i);
 		clc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1046,42 +1047,42 @@ public:
 	void setColor_ColorR(size_t cl_i,float clcr)
 	{
 		if(clcr == 0.0) return;
-		fprintf(mFile,"setAttr \".cl[%i].clc.clcr\" %f;\n", cl_i,clcr);
+		fprintf(mFile,"\tsetAttr \".cl[%i].clc.clcr\" %f;\n", cl_i,clcr);
 
 	}
 	void setColor_ColorG(size_t cl_i,float clcg)
 	{
 		if(clcg == 0.0) return;
-		fprintf(mFile,"setAttr \".cl[%i].clc.clcg\" %f;\n", cl_i,clcg);
+		fprintf(mFile,"\tsetAttr \".cl[%i].clc.clcg\" %f;\n", cl_i,clcg);
 
 	}
 	void setColor_ColorB(size_t cl_i,float clcb)
 	{
 		if(clcb == 0.0) return;
-		fprintf(mFile,"setAttr \".cl[%i].clc.clcb\" %f;\n", cl_i,clcb);
+		fprintf(mFile,"\tsetAttr \".cl[%i].clc.clcb\" %f;\n", cl_i,clcb);
 
 	}
 	void setColor_Interp(size_t cl_i,unsigned int cli)
 	{
 		if(cli == 0) return;
-		fprintf(mFile,"setAttr \".cl[%i].cli\" %i;\n", cl_i,cli);
+		fprintf(mFile,"\tsetAttr \".cl[%i].cli\" %i;\n", cl_i,cli);
 
 	}
 	void setColorInput(unsigned int coi)
 	{
 		if(coi == 0) return;
-		fprintf(mFile,"setAttr \".coi\" %i;\n", coi);
+		fprintf(mFile,"\tsetAttr \".coi\" %i;\n", coi);
 
 	}
 	void setColorInputBias(float cib)
 	{
 		if(cib == 0.0) return;
-		fprintf(mFile,"setAttr \".cib\" %f;\n", cib);
+		fprintf(mFile,"\tsetAttr \".cib\" %f;\n", cib);
 
 	}
 	void setOpacity(size_t opa_i,const Opacity& opa)
 	{
-		fprintf(mFile,"setAttr \".opa[%i]\" ",opa_i);
+		fprintf(mFile,"\tsetAttr \".opa[%i]\" ",opa_i);
 		opa.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1089,36 +1090,36 @@ public:
 	void setOpacity_Position(size_t opa_i,float opap)
 	{
 		if(opap == 0.0) return;
-		fprintf(mFile,"setAttr \".opa[%i].opap\" %f;\n", opa_i,opap);
+		fprintf(mFile,"\tsetAttr \".opa[%i].opap\" %f;\n", opa_i,opap);
 
 	}
 	void setOpacity_FloatValue(size_t opa_i,float opafv)
 	{
 		if(opafv == 0.0) return;
-		fprintf(mFile,"setAttr \".opa[%i].opafv\" %f;\n", opa_i,opafv);
+		fprintf(mFile,"\tsetAttr \".opa[%i].opafv\" %f;\n", opa_i,opafv);
 
 	}
 	void setOpacity_Interp(size_t opa_i,unsigned int opai)
 	{
 		if(opai == 0) return;
-		fprintf(mFile,"setAttr \".opa[%i].opai\" %i;\n", opa_i,opai);
+		fprintf(mFile,"\tsetAttr \".opa[%i].opai\" %i;\n", opa_i,opai);
 
 	}
 	void setOpacityInput(unsigned int opi)
 	{
 		if(opi == 5) return;
-		fprintf(mFile,"setAttr \".opi\" %i;\n", opi);
+		fprintf(mFile,"\tsetAttr \".opi\" %i;\n", opi);
 
 	}
 	void setOpacityInputBias(float oib)
 	{
 		if(oib == 0.0) return;
-		fprintf(mFile,"setAttr \".oib\" %f;\n", oib);
+		fprintf(mFile,"\tsetAttr \".oib\" %f;\n", oib);
 
 	}
 	void setTransparency(const float3& t)
 	{
-		fprintf(mFile,"setAttr \".t\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"float3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1126,30 +1127,30 @@ public:
 	void setTransparencyR(float tr)
 	{
 		if(tr == 0.25) return;
-		fprintf(mFile,"setAttr \".t.tr\" %f;\n", tr);
+		fprintf(mFile,"\tsetAttr \".t.tr\" %f;\n", tr);
 
 	}
 	void setTransparencyG(float tg)
 	{
 		if(tg == 0.25) return;
-		fprintf(mFile,"setAttr \".t.tg\" %f;\n", tg);
+		fprintf(mFile,"\tsetAttr \".t.tg\" %f;\n", tg);
 
 	}
 	void setTransparencyB(float tb)
 	{
 		if(tb == 0.25) return;
-		fprintf(mFile,"setAttr \".t.tb\" %f;\n", tb);
+		fprintf(mFile,"\tsetAttr \".t.tb\" %f;\n", tb);
 
 	}
 	void setShadowOpacity(float shp)
 	{
 		if(shp == 0.5) return;
-		fprintf(mFile,"setAttr \".shp\" %f;\n", shp);
+		fprintf(mFile,"\tsetAttr \".shp\" %f;\n", shp);
 
 	}
 	void setIncandescence(size_t i_i,const Incandescence& i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" ",i_i);
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1157,12 +1158,12 @@ public:
 	void setIncandescence_Position(size_t i_i,float ip)
 	{
 		if(ip == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].ip\" %f;\n", i_i,ip);
+		fprintf(mFile,"\tsetAttr \".i[%i].ip\" %f;\n", i_i,ip);
 
 	}
 	void setIncandescence_Color(size_t i_i,const float3& ic)
 	{
-		fprintf(mFile,"setAttr \".i[%i].ic\" -type \"float3\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i].ic\" -type \"float3\" ",i_i);
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1170,48 +1171,48 @@ public:
 	void setIncandescence_ColorR(size_t i_i,float icr)
 	{
 		if(icr == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].ic.icr\" %f;\n", i_i,icr);
+		fprintf(mFile,"\tsetAttr \".i[%i].ic.icr\" %f;\n", i_i,icr);
 
 	}
 	void setIncandescence_ColorG(size_t i_i,float icg)
 	{
 		if(icg == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].ic.icg\" %f;\n", i_i,icg);
+		fprintf(mFile,"\tsetAttr \".i[%i].ic.icg\" %f;\n", i_i,icg);
 
 	}
 	void setIncandescence_ColorB(size_t i_i,float icb)
 	{
 		if(icb == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].ic.icb\" %f;\n", i_i,icb);
+		fprintf(mFile,"\tsetAttr \".i[%i].ic.icb\" %f;\n", i_i,icb);
 
 	}
 	void setIncandescence_Interp(size_t i_i,unsigned int ii)
 	{
 		if(ii == 0) return;
-		fprintf(mFile,"setAttr \".i[%i].ii\" %i;\n", i_i,ii);
+		fprintf(mFile,"\tsetAttr \".i[%i].ii\" %i;\n", i_i,ii);
 
 	}
 	void setIncandescenceInput(unsigned int ili)
 	{
 		if(ili == 6) return;
-		fprintf(mFile,"setAttr \".ili\" %i;\n", ili);
+		fprintf(mFile,"\tsetAttr \".ili\" %i;\n", ili);
 
 	}
 	void setIncandescenceInputBias(float iib)
 	{
 		if(iib == 0.0) return;
-		fprintf(mFile,"setAttr \".iib\" %f;\n", iib);
+		fprintf(mFile,"\tsetAttr \".iib\" %f;\n", iib);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 0.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setSpecularColor(const float3& spc)
 	{
-		fprintf(mFile,"setAttr \".spc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".spc\" -type \"float3\" ");
 		spc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1219,30 +1220,30 @@ public:
 	void setSpecularColorR(float spr)
 	{
 		if(spr == 0.0) return;
-		fprintf(mFile,"setAttr \".spc.spr\" %f;\n", spr);
+		fprintf(mFile,"\tsetAttr \".spc.spr\" %f;\n", spr);
 
 	}
 	void setSpecularColorG(float spg)
 	{
 		if(spg == 0.0) return;
-		fprintf(mFile,"setAttr \".spc.spg\" %f;\n", spg);
+		fprintf(mFile,"\tsetAttr \".spc.spg\" %f;\n", spg);
 
 	}
 	void setSpecularColorB(float spb)
 	{
 		if(spb == 0.0) return;
-		fprintf(mFile,"setAttr \".spc.spb\" %f;\n", spb);
+		fprintf(mFile,"\tsetAttr \".spc.spb\" %f;\n", spb);
 
 	}
 	void setCosinePower(float csp)
 	{
 		if(csp == 20.0) return;
-		fprintf(mFile,"setAttr \".csp\" %f;\n", csp);
+		fprintf(mFile,"\tsetAttr \".csp\" %f;\n", csp);
 
 	}
 	void setEnvironment(size_t env_i,const Environment& env)
 	{
-		fprintf(mFile,"setAttr \".env[%i]\" ",env_i);
+		fprintf(mFile,"\tsetAttr \".env[%i]\" ",env_i);
 		env.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1250,12 +1251,12 @@ public:
 	void setEnvironment_Position(size_t env_i,float envp)
 	{
 		if(envp == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envp\" %f;\n", env_i,envp);
+		fprintf(mFile,"\tsetAttr \".env[%i].envp\" %f;\n", env_i,envp);
 
 	}
 	void setEnvironment_Color(size_t env_i,const float3& envc)
 	{
-		fprintf(mFile,"setAttr \".env[%i].envc\" -type \"float3\" ",env_i);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc\" -type \"float3\" ",env_i);
 		envc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1263,96 +1264,96 @@ public:
 	void setEnvironment_ColorR(size_t env_i,float envcr)
 	{
 		if(envcr == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcr\" %f;\n", env_i,envcr);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcr\" %f;\n", env_i,envcr);
 
 	}
 	void setEnvironment_ColorG(size_t env_i,float envcg)
 	{
 		if(envcg == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcg\" %f;\n", env_i,envcg);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcg\" %f;\n", env_i,envcg);
 
 	}
 	void setEnvironment_ColorB(size_t env_i,float envcb)
 	{
 		if(envcb == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcb\" %f;\n", env_i,envcb);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcb\" %f;\n", env_i,envcb);
 
 	}
 	void setEnvironment_Interp(size_t env_i,unsigned int envi)
 	{
 		if(envi == 0) return;
-		fprintf(mFile,"setAttr \".env[%i].envi\" %i;\n", env_i,envi);
+		fprintf(mFile,"\tsetAttr \".env[%i].envi\" %i;\n", env_i,envi);
 
 	}
 	void setDropoffShape(unsigned int dos)
 	{
 		if(dos == 2) return;
-		fprintf(mFile,"setAttr \".dos\" %i;\n", dos);
+		fprintf(mFile,"\tsetAttr \".dos\" %i;\n", dos);
 
 	}
 	void setEdgeDropoff(float edr)
 	{
 		if(edr == .05) return;
-		fprintf(mFile,"setAttr \".edr\" %f;\n", edr);
+		fprintf(mFile,"\tsetAttr \".edr\" %f;\n", edr);
 
 	}
 	void setContrastTolerance(float ctl)
 	{
 		if(ctl == 0.01) return;
-		fprintf(mFile,"setAttr \".ctl\" %f;\n", ctl);
+		fprintf(mFile,"\tsetAttr \".ctl\" %f;\n", ctl);
 
 	}
 	void setHeightField(bool hfld)
 	{
 		if(hfld == false) return;
-		fprintf(mFile,"setAttr \".hfld\" %i;\n", hfld);
+		fprintf(mFile,"\tsetAttr \".hfld\" %i;\n", hfld);
 
 	}
 	void setSurfaceRender(bool srr)
 	{
 		if(srr == false) return;
-		fprintf(mFile,"setAttr \".srr\" %i;\n", srr);
+		fprintf(mFile,"\tsetAttr \".srr\" %i;\n", srr);
 
 	}
 	void setSurfaceThreshold(float srt)
 	{
 		if(srt == 0.01) return;
-		fprintf(mFile,"setAttr \".srt\" %f;\n", srt);
+		fprintf(mFile,"\tsetAttr \".srt\" %f;\n", srt);
 
 	}
 	void setSurfaceTolerance(float stl)
 	{
 		if(stl == 0.1) return;
-		fprintf(mFile,"setAttr \".stl\" %f;\n", stl);
+		fprintf(mFile,"\tsetAttr \".stl\" %f;\n", stl);
 
 	}
 	void setSoftSurface(bool ssf)
 	{
 		if(ssf == false) return;
-		fprintf(mFile,"setAttr \".ssf\" %i;\n", ssf);
+		fprintf(mFile,"\tsetAttr \".ssf\" %i;\n", ssf);
 
 	}
 	void setRefractiveIndex(float rei)
 	{
 		if(rei == 1.8) return;
-		fprintf(mFile,"setAttr \".rei\" %f;\n", rei);
+		fprintf(mFile,"\tsetAttr \".rei\" %f;\n", rei);
 
 	}
 	void setSampleMethod(unsigned int smpm)
 	{
 		if(smpm == 3) return;
-		fprintf(mFile,"setAttr \".smpm\" %i;\n", smpm);
+		fprintf(mFile,"\tsetAttr \".smpm\" %i;\n", smpm);
 
 	}
 	void setRealLights(bool rl)
 	{
 		if(rl == true) return;
-		fprintf(mFile,"setAttr \".rl\" %i;\n", rl);
+		fprintf(mFile,"\tsetAttr \".rl\" %i;\n", rl);
 
 	}
 	void setDirectionalLight(const float3& dl)
 	{
-		fprintf(mFile,"setAttr \".dl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dl\" -type \"float3\" ");
 		dl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1360,91 +1361,91 @@ public:
 	void setDirectionalLightX(float dlx)
 	{
 		if(dlx == 0.5) return;
-		fprintf(mFile,"setAttr \".dl.dlx\" %f;\n", dlx);
+		fprintf(mFile,"\tsetAttr \".dl.dlx\" %f;\n", dlx);
 
 	}
 	void setDirectionalLightY(float dly)
 	{
 		if(dly == 0.8) return;
-		fprintf(mFile,"setAttr \".dl.dly\" %f;\n", dly);
+		fprintf(mFile,"\tsetAttr \".dl.dly\" %f;\n", dly);
 
 	}
 	void setDirectionalLightZ(float dlz)
 	{
 		if(dlz == 0.5) return;
-		fprintf(mFile,"setAttr \".dl.dlz\" %f;\n", dlz);
+		fprintf(mFile,"\tsetAttr \".dl.dlz\" %f;\n", dlz);
 
 	}
 	void setTextureType(unsigned int tty)
 	{
 		if(tty == 0) return;
-		fprintf(mFile,"setAttr \".tty\" %i;\n", tty);
+		fprintf(mFile,"\tsetAttr \".tty\" %i;\n", tty);
 
 	}
 	void setColorTexture(bool ctx)
 	{
 		if(ctx == false) return;
-		fprintf(mFile,"setAttr \".ctx\" %i;\n", ctx);
+		fprintf(mFile,"\tsetAttr \".ctx\" %i;\n", ctx);
 
 	}
 	void setColorTexGain(float ctxg)
 	{
 		if(ctxg == 1.0) return;
-		fprintf(mFile,"setAttr \".ctxg\" %f;\n", ctxg);
+		fprintf(mFile,"\tsetAttr \".ctxg\" %f;\n", ctxg);
 
 	}
 	void setIncandTexture(bool itx)
 	{
 		if(itx == false) return;
-		fprintf(mFile,"setAttr \".itx\" %i;\n", itx);
+		fprintf(mFile,"\tsetAttr \".itx\" %i;\n", itx);
 
 	}
 	void setIncandTexGain(float itxg)
 	{
 		if(itxg == 1.0) return;
-		fprintf(mFile,"setAttr \".itxg\" %f;\n", itxg);
+		fprintf(mFile,"\tsetAttr \".itxg\" %f;\n", itxg);
 
 	}
 	void setOpacityTexture(bool otx)
 	{
 		if(otx == false) return;
-		fprintf(mFile,"setAttr \".otx\" %i;\n", otx);
+		fprintf(mFile,"\tsetAttr \".otx\" %i;\n", otx);
 
 	}
 	void setOpacityTexGain(float otxg)
 	{
 		if(otxg == 1.0) return;
-		fprintf(mFile,"setAttr \".otxg\" %f;\n", otxg);
+		fprintf(mFile,"\tsetAttr \".otxg\" %f;\n", otxg);
 
 	}
 	void setInvertTexture(bool ivt)
 	{
 		if(ivt == false) return;
-		fprintf(mFile,"setAttr \".ivt\" %i;\n", ivt);
+		fprintf(mFile,"\tsetAttr \".ivt\" %i;\n", ivt);
 
 	}
 	void setAmplitude(float a)
 	{
 		if(a == 1.0) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.707) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.0) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setTextureScale(const float3& txsc)
 	{
 		if(txsc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".txsc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".txsc\" -type \"float3\" ");
 		txsc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1452,25 +1453,25 @@ public:
 	void setTextureScaleX(float tscx)
 	{
 		if(tscx == 0.0) return;
-		fprintf(mFile,"setAttr \".txsc.tscx\" %f;\n", tscx);
+		fprintf(mFile,"\tsetAttr \".txsc.tscx\" %f;\n", tscx);
 
 	}
 	void setTextureScaleY(float tscy)
 	{
 		if(tscy == 0.0) return;
-		fprintf(mFile,"setAttr \".txsc.tscy\" %f;\n", tscy);
+		fprintf(mFile,"\tsetAttr \".txsc.tscy\" %f;\n", tscy);
 
 	}
 	void setTextureScaleZ(float tscz)
 	{
 		if(tscz == 0.0) return;
-		fprintf(mFile,"setAttr \".txsc.tscz\" %f;\n", tscz);
+		fprintf(mFile,"\tsetAttr \".txsc.tscz\" %f;\n", tscz);
 
 	}
 	void setTextureOrigin(const float3& tor)
 	{
 		if(tor == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".tor\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".tor\" -type \"float3\" ");
 		tor.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1478,97 +1479,97 @@ public:
 	void setTextureOriginX(float torx)
 	{
 		if(torx == 0.0) return;
-		fprintf(mFile,"setAttr \".tor.torx\" %f;\n", torx);
+		fprintf(mFile,"\tsetAttr \".tor.torx\" %f;\n", torx);
 
 	}
 	void setTextureOriginY(float tory)
 	{
 		if(tory == 0.0) return;
-		fprintf(mFile,"setAttr \".tor.tory\" %f;\n", tory);
+		fprintf(mFile,"\tsetAttr \".tor.tory\" %f;\n", tory);
 
 	}
 	void setTextureOriginZ(float torz)
 	{
 		if(torz == 0.0) return;
-		fprintf(mFile,"setAttr \".tor.torz\" %f;\n", torz);
+		fprintf(mFile,"\tsetAttr \".tor.torz\" %f;\n", torz);
 
 	}
 	void setDepthMax(short dm)
 	{
 		if(dm == 2) return;
-		fprintf(mFile,"setAttr \".dm\" %i;\n", dm);
+		fprintf(mFile,"\tsetAttr \".dm\" %i;\n", dm);
 
 	}
 	void setFrequency(float fq)
 	{
 		if(fq == 1.0) return;
-		fprintf(mFile,"setAttr \".fq\" %f;\n", fq);
+		fprintf(mFile,"\tsetAttr \".fq\" %f;\n", fq);
 
 	}
 	void setFrequencyRatio(float fr)
 	{
 		if(fr == 2.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setInflection(bool in)
 	{
 		if(in == false) return;
-		fprintf(mFile,"setAttr \".in\" %i;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %i;\n", in);
 
 	}
 	void setTextureTime(float tti)
 	{
 		if(tti == 0.0) return;
-		fprintf(mFile,"setAttr \".tti\" %f;\n", tti);
+		fprintf(mFile,"\tsetAttr \".tti\" %f;\n", tti);
 
 	}
 	void setBillowDensity(float bd)
 	{
 		if(bd == 1.0) return;
-		fprintf(mFile,"setAttr \".bd\" %f;\n", bd);
+		fprintf(mFile,"\tsetAttr \".bd\" %f;\n", bd);
 
 	}
 	void setSpottyness(float sp)
 	{
 		if(sp == 0.1) return;
-		fprintf(mFile,"setAttr \".sp\" %f;\n", sp);
+		fprintf(mFile,"\tsetAttr \".sp\" %f;\n", sp);
 
 	}
 	void setSizeRand(float sr)
 	{
 		if(sr == 0.0) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setRandomness(float rnd)
 	{
 		if(rnd == 1.0) return;
-		fprintf(mFile,"setAttr \".rnd\" %f;\n", rnd);
+		fprintf(mFile,"\tsetAttr \".rnd\" %f;\n", rnd);
 
 	}
 	void setFalloff(unsigned int falo)
 	{
 		if(falo == 2) return;
-		fprintf(mFile,"setAttr \".falo\" %i;\n", falo);
+		fprintf(mFile,"\tsetAttr \".falo\" %i;\n", falo);
 
 	}
 	void setNumWaves(short nw)
 	{
 		if(nw == 5) return;
-		fprintf(mFile,"setAttr \".nw\" %i;\n", nw);
+		fprintf(mFile,"\tsetAttr \".nw\" %i;\n", nw);
 
 	}
 	void setImplode(float imp)
 	{
 		if(imp == 0.0) return;
-		fprintf(mFile,"setAttr \".imp\" %f;\n", imp);
+		fprintf(mFile,"\tsetAttr \".imp\" %f;\n", imp);
 
 	}
 	void setImplodeCenter(const float3& imc)
 	{
 		if(imc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".imc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".imc\" -type \"float3\" ");
 		imc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1576,132 +1577,132 @@ public:
 	void setImplodeCenterX(float imx)
 	{
 		if(imx == 0.0) return;
-		fprintf(mFile,"setAttr \".imc.imx\" %f;\n", imx);
+		fprintf(mFile,"\tsetAttr \".imc.imx\" %f;\n", imx);
 
 	}
 	void setImplodeCenterY(float imy)
 	{
 		if(imy == 0.0) return;
-		fprintf(mFile,"setAttr \".imc.imy\" %f;\n", imy);
+		fprintf(mFile,"\tsetAttr \".imc.imy\" %f;\n", imy);
 
 	}
 	void setImplodeCenterZ(float imz)
 	{
 		if(imz == 0.0) return;
-		fprintf(mFile,"setAttr \".imc.imz\" %f;\n", imz);
+		fprintf(mFile,"\tsetAttr \".imc.imz\" %f;\n", imz);
 
 	}
 	void setCacheDensity(bool cdns)
 	{
 		if(cdns == true) return;
-		fprintf(mFile,"setAttr \".cdns\" %i;\n", cdns);
+		fprintf(mFile,"\tsetAttr \".cdns\" %i;\n", cdns);
 
 	}
 	void setLoadDensity(bool ldns)
 	{
 		if(ldns == true) return;
-		fprintf(mFile,"setAttr \".ldns\" %i;\n", ldns);
+		fprintf(mFile,"\tsetAttr \".ldns\" %i;\n", ldns);
 
 	}
 	void setCacheVelocity(bool cvel)
 	{
 		if(cvel == true) return;
-		fprintf(mFile,"setAttr \".cvel\" %i;\n", cvel);
+		fprintf(mFile,"\tsetAttr \".cvel\" %i;\n", cvel);
 
 	}
 	void setLoadVelocity(bool lvel)
 	{
 		if(lvel == true) return;
-		fprintf(mFile,"setAttr \".lvel\" %i;\n", lvel);
+		fprintf(mFile,"\tsetAttr \".lvel\" %i;\n", lvel);
 
 	}
 	void setCacheTemperature(bool ctmp)
 	{
 		if(ctmp == true) return;
-		fprintf(mFile,"setAttr \".ctmp\" %i;\n", ctmp);
+		fprintf(mFile,"\tsetAttr \".ctmp\" %i;\n", ctmp);
 
 	}
 	void setLoadTemperature(bool ltmp)
 	{
 		if(ltmp == true) return;
-		fprintf(mFile,"setAttr \".ltmp\" %i;\n", ltmp);
+		fprintf(mFile,"\tsetAttr \".ltmp\" %i;\n", ltmp);
 
 	}
 	void setCacheColor(bool ccol)
 	{
 		if(ccol == true) return;
-		fprintf(mFile,"setAttr \".ccol\" %i;\n", ccol);
+		fprintf(mFile,"\tsetAttr \".ccol\" %i;\n", ccol);
 
 	}
 	void setLoadColor(bool lcol)
 	{
 		if(lcol == true) return;
-		fprintf(mFile,"setAttr \".lcol\" %i;\n", lcol);
+		fprintf(mFile,"\tsetAttr \".lcol\" %i;\n", lcol);
 
 	}
 	void setCacheReaction(bool crea)
 	{
 		if(crea == true) return;
-		fprintf(mFile,"setAttr \".crea\" %i;\n", crea);
+		fprintf(mFile,"\tsetAttr \".crea\" %i;\n", crea);
 
 	}
 	void setLoadReaction(bool lrea)
 	{
 		if(lrea == true) return;
-		fprintf(mFile,"setAttr \".lrea\" %i;\n", lrea);
+		fprintf(mFile,"\tsetAttr \".lrea\" %i;\n", lrea);
 
 	}
 	void setCacheTextureCoordinates(bool catc)
 	{
 		if(catc == true) return;
-		fprintf(mFile,"setAttr \".catc\" %i;\n", catc);
+		fprintf(mFile,"\tsetAttr \".catc\" %i;\n", catc);
 
 	}
 	void setLoadTextureCoordinates(bool lotc)
 	{
 		if(lotc == true) return;
-		fprintf(mFile,"setAttr \".lotc\" %i;\n", lotc);
+		fprintf(mFile,"\tsetAttr \".lotc\" %i;\n", lotc);
 
 	}
 	void setCacheFalloff(bool cfal)
 	{
 		if(cfal == true) return;
-		fprintf(mFile,"setAttr \".cfal\" %i;\n", cfal);
+		fprintf(mFile,"\tsetAttr \".cfal\" %i;\n", cfal);
 
 	}
 	void setLoadFalloff(bool lfal)
 	{
 		if(lfal == true) return;
-		fprintf(mFile,"setAttr \".lfal\" %i;\n", lfal);
+		fprintf(mFile,"\tsetAttr \".lfal\" %i;\n", lfal);
 
 	}
 	void setCollide(bool cld)
 	{
 		if(cld == true) return;
-		fprintf(mFile,"setAttr \".cld\" %i;\n", cld);
+		fprintf(mFile,"\tsetAttr \".cld\" %i;\n", cld);
 
 	}
 	void setObjectType(char obt)
 	{
 		if(obt == 2) return;
-		fprintf(mFile,"setAttr \".obt\" %;\n", obt);
+		fprintf(mFile,"\tsetAttr \".obt\" %;\n", obt);
 
 	}
 	void setSurfaceShaderDepth(float susd)
 	{
 		if(susd == 1.0) return;
-		fprintf(mFile,"setAttr \".susd\" %f;\n", susd);
+		fprintf(mFile,"\tsetAttr \".susd\" %f;\n", susd);
 
 	}
 	void setCoordinateSpeed(float csd)
 	{
 		if(csd == 0.2) return;
-		fprintf(mFile,"setAttr \".csd\" %f;\n", csd);
+		fprintf(mFile,"\tsetAttr \".csd\" %f;\n", csd);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1709,91 +1710,91 @@ public:
 	void setMiOverrideCaustics(bool oca)
 	{
 		if(oca == false) return;
-		fprintf(mFile,"setAttr \".mrc.oca\" %i;\n", oca);
+		fprintf(mFile,"\tsetAttr \".mrc.oca\" %i;\n", oca);
 
 	}
 	void setMiCausticAccuracy(short caa)
 	{
 		if(caa == 64) return;
-		fprintf(mFile,"setAttr \".mrc.caa\" %i;\n", caa);
+		fprintf(mFile,"\tsetAttr \".mrc.caa\" %i;\n", caa);
 
 	}
 	void setMiCausticRadius(float car)
 	{
 		if(car == 0) return;
-		fprintf(mFile,"setAttr \".mrc.car\" %f;\n", car);
+		fprintf(mFile,"\tsetAttr \".mrc.car\" %f;\n", car);
 
 	}
 	void setMiOverrideGlobalIllumination(bool ogi)
 	{
 		if(ogi == false) return;
-		fprintf(mFile,"setAttr \".mrc.ogi\" %i;\n", ogi);
+		fprintf(mFile,"\tsetAttr \".mrc.ogi\" %i;\n", ogi);
 
 	}
 	void setMiGlobillumAccuracy(short gia)
 	{
 		if(gia == 64) return;
-		fprintf(mFile,"setAttr \".mrc.gia\" %i;\n", gia);
+		fprintf(mFile,"\tsetAttr \".mrc.gia\" %i;\n", gia);
 
 	}
 	void setMiGlobillumRadius(float gir)
 	{
 		if(gir == 0) return;
-		fprintf(mFile,"setAttr \".mrc.gir\" %f;\n", gir);
+		fprintf(mFile,"\tsetAttr \".mrc.gir\" %f;\n", gir);
 
 	}
 	void setMiOverrideFinalGather(bool ofg)
 	{
 		if(ofg == false) return;
-		fprintf(mFile,"setAttr \".mrc.ofg\" %i;\n", ofg);
+		fprintf(mFile,"\tsetAttr \".mrc.ofg\" %i;\n", ofg);
 
 	}
 	void setMiFinalGatherRays(int fry)
 	{
 		if(fry == 1000) return;
-		fprintf(mFile,"setAttr \".mrc.fry\" %i;\n", fry);
+		fprintf(mFile,"\tsetAttr \".mrc.fry\" %i;\n", fry);
 
 	}
 	void setMiFinalGatherMinRadius(float fmn)
 	{
 		if(fmn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmn\" %f;\n", fmn);
+		fprintf(mFile,"\tsetAttr \".mrc.fmn\" %f;\n", fmn);
 
 	}
 	void setMiFinalGatherMaxRadius(float fmx)
 	{
 		if(fmx == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmx\" %f;\n", fmx);
+		fprintf(mFile,"\tsetAttr \".mrc.fmx\" %f;\n", fmx);
 
 	}
 	void setMiFinalGatherFilter(short ffi)
 	{
 		if(ffi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.ffi\" %i;\n", ffi);
+		fprintf(mFile,"\tsetAttr \".mrc.ffi\" %i;\n", ffi);
 
 	}
 	void setMiFinalGatherView(bool fgv)
 	{
 		if(fgv == false) return;
-		fprintf(mFile,"setAttr \".mrc.fgv\" %i;\n", fgv);
+		fprintf(mFile,"\tsetAttr \".mrc.fgv\" %i;\n", fgv);
 
 	}
 	void setMiOverrideSamples(bool oos)
 	{
 		if(oos == false) return;
-		fprintf(mFile,"setAttr \".mrc.oos\" %i;\n", oos);
+		fprintf(mFile,"\tsetAttr \".mrc.oos\" %i;\n", oos);
 
 	}
 	void setMiMinSamples(short mins)
 	{
 		if(mins == 1) return;
-		fprintf(mFile,"setAttr \".mrc.mins\" %i;\n", mins);
+		fprintf(mFile,"\tsetAttr \".mrc.mins\" %i;\n", mins);
 
 	}
 	void setMiMaxSamples(short maxs)
 	{
 		if(maxs == 2) return;
-		fprintf(mFile,"setAttr \".mrc.maxs\" %i;\n", maxs);
+		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
 	void getOutGrid()
@@ -2481,6 +2482,26 @@ public:
 		fprintf(mFile,"\"%s.mog\"",mName.c_str());
 
 	}
+	void getFilterSize()
+	{
+		fprintf(mFile,"\"%s.fs\"",mName.c_str());
+
+	}
+	void getFilterSizeX()
+	{
+		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
+
+	}
+	void getFilterSizeY()
+	{
+		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
+
+	}
+	void getFilterSizeZ()
+	{
+		fprintf(mFile,"\"%s.fs.fsz\"",mName.c_str());
+
+	}
 	void getMatrixEyeToWorld()
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
@@ -2574,6 +2595,81 @@ public:
 	void getRayInstance()
 	{
 		fprintf(mFile,"\"%s.ryi\"",mName.c_str());
+
+	}
+	void getLightDataArray(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirection(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionX(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionY(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionZ(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityR(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityG(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityB(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightAmbient(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDiffuse(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightSpecular(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightShadowFraction(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
+
+	}
+	void getPreShadowIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightBlindData(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
 
 	}
 	void getSelfShadowing()
@@ -3211,9 +3307,34 @@ public:
 		fprintf(mFile,"\"%s.lfal\"",mName.c_str());
 
 	}
+	void getCollisionData()
+	{
+		fprintf(mFile,"\"%s.cda\"",mName.c_str());
+
+	}
+	void getCollisionGeometry(size_t cge_i)
+	{
+		fprintf(mFile,"\"%s.cda.cge[%i]\"",mName.c_str(),cge_i);
+
+	}
+	void getCollisionResilience(size_t crs_i)
+	{
+		fprintf(mFile,"\"%s.cda.crs[%i]\"",mName.c_str(),crs_i);
+
+	}
+	void getCollisionFriction(size_t cfr_i)
+	{
+		fprintf(mFile,"\"%s.cda.cfr[%i]\"",mName.c_str(),cfr_i);
+
+	}
 	void getCollide()
 	{
 		fprintf(mFile,"\"%s.cld\"",mName.c_str());
+
+	}
+	void getObjectType()
+	{
+		fprintf(mFile,"\"%s.obt\"",mName.c_str());
 
 	}
 	void getSurfaceShaderDepth()
@@ -3312,7 +3433,8 @@ public:
 
 	}
 protected:
-	FluidShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SurfaceShape(file, name, parent, nodeType) {}
+	FluidShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SurfaceShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -54,18 +54,19 @@ public:
 		}
 	};
 public:
+	Character():ObjectSet(){}
 	Character(FILE* file,const std::string& name,const std::string& parent=""):ObjectSet(file, name, parent, "character"){}
 	virtual ~Character(){}
 	void setClipEvaluate(const ClipEvaluate& ce)
 	{
-		fprintf(mFile,"setAttr \".ce\" ");
+		fprintf(mFile,"\tsetAttr \".ce\" ");
 		ce.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setClipEvaluate_Inmap(size_t cei_i,const ClipEvaluate::ClipEvaluate_Inmap& cei)
 	{
-		fprintf(mFile,"setAttr \".ce.cei[%i]\" ",cei_i);
+		fprintf(mFile,"\tsetAttr \".ce.cei[%i]\" ",cei_i);
 		cei.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -73,18 +74,18 @@ public:
 	void setClipEvaluate_InmapTo(size_t cei_i,short ceit)
 	{
 		if(ceit == 0) return;
-		fprintf(mFile,"setAttr \".ce.cei[%i].ceit\" %i;\n", cei_i,ceit);
+		fprintf(mFile,"\tsetAttr \".ce.cei[%i].ceit\" %i;\n", cei_i,ceit);
 
 	}
 	void setClipEvaluate_InmapFrom(size_t cei_i,short ceif)
 	{
 		if(ceif == 0) return;
-		fprintf(mFile,"setAttr \".ce.cei[%i].ceif\" %i;\n", cei_i,ceif);
+		fprintf(mFile,"\tsetAttr \".ce.cei[%i].ceif\" %i;\n", cei_i,ceif);
 
 	}
 	void setClipEvaluate_Outmap(size_t ceo_i,const ClipEvaluate::ClipEvaluate_Outmap& ceo)
 	{
-		fprintf(mFile,"setAttr \".ce.ceo[%i]\" ",ceo_i);
+		fprintf(mFile,"\tsetAttr \".ce.ceo[%i]\" ",ceo_i);
 		ceo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -92,24 +93,24 @@ public:
 	void setClipEvaluate_OutmapTo(size_t ceo_i,short ceot)
 	{
 		if(ceot == 0) return;
-		fprintf(mFile,"setAttr \".ce.ceo[%i].ceot\" %i;\n", ceo_i,ceot);
+		fprintf(mFile,"\tsetAttr \".ce.ceo[%i].ceot\" %i;\n", ceo_i,ceot);
 
 	}
 	void setClipEvaluate_OutmapFrom(size_t ceo_i,short ceof)
 	{
 		if(ceof == 0) return;
-		fprintf(mFile,"setAttr \".ce.ceo[%i].ceof\" %i;\n", ceo_i,ceof);
+		fprintf(mFile,"\tsetAttr \".ce.ceo[%i].ceof\" %i;\n", ceo_i,ceof);
 
 	}
 	void setUnitlessValues(size_t uv_i,double uv)
 	{
 		if(uv == 0.0) return;
-		fprintf(mFile,"setAttr \".uv[%i]\" %f;\n", uv_i,uv);
+		fprintf(mFile,"\tsetAttr \".uv[%i]\" %f;\n", uv_i,uv);
 
 	}
 	void setUnitlessValues(size_t uv_start,size_t uv_end,double* uv)
 	{
-		fprintf(mFile,"setAttr \".uv[%i:%i]\" ", uv_start,uv_end);
+		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\" ", uv_start,uv_end);
 		size_t size = (uv_end-uv_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -121,7 +122,7 @@ public:
 	}
 	void startUnitlessValues(size_t uv_start,size_t uv_end)
 	{
-		fprintf(mFile,"setAttr \".uv[%i:%i]\"",uv_start,uv_end);
+		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\"",uv_start,uv_end);
 
 	}
 	void appendUnitlessValues(double uv)
@@ -137,12 +138,12 @@ public:
 	void setLinearValues(size_t lv_i,double lv)
 	{
 		if(lv == 0) return;
-		fprintf(mFile,"setAttr \".lv[%i]\" %f;\n", lv_i,lv);
+		fprintf(mFile,"\tsetAttr \".lv[%i]\" %f;\n", lv_i,lv);
 
 	}
 	void setLinearValues(size_t lv_start,size_t lv_end,double* lv)
 	{
-		fprintf(mFile,"setAttr \".lv[%i:%i]\" ", lv_start,lv_end);
+		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\" ", lv_start,lv_end);
 		size_t size = (lv_end-lv_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -154,7 +155,7 @@ public:
 	}
 	void startLinearValues(size_t lv_start,size_t lv_end)
 	{
-		fprintf(mFile,"setAttr \".lv[%i:%i]\"",lv_start,lv_end);
+		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\"",lv_start,lv_end);
 
 	}
 	void appendLinearValues(double lv)
@@ -170,12 +171,12 @@ public:
 	void setAngularValues(size_t av_i,double av)
 	{
 		if(av == 0) return;
-		fprintf(mFile,"setAttr \".av[%i]\" %f;\n", av_i,av);
+		fprintf(mFile,"\tsetAttr \".av[%i]\" %f;\n", av_i,av);
 
 	}
 	void setAngularValues(size_t av_start,size_t av_end,double* av)
 	{
-		fprintf(mFile,"setAttr \".av[%i:%i]\" ", av_start,av_end);
+		fprintf(mFile,"\tsetAttr \".av[%i:%i]\" ", av_start,av_end);
 		size_t size = (av_end-av_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -187,7 +188,7 @@ public:
 	}
 	void startAngularValues(size_t av_start,size_t av_end)
 	{
-		fprintf(mFile,"setAttr \".av[%i:%i]\"",av_start,av_end);
+		fprintf(mFile,"\tsetAttr \".av[%i:%i]\"",av_start,av_end);
 
 	}
 	void appendAngularValues(double av)
@@ -203,7 +204,7 @@ public:
 	void setClipIndexMap(const intArray& cim)
 	{
 		if(cim.size == 0) return;
-		fprintf(mFile,"setAttr \".cim\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".cim\" -type \"intArray\" ");
 		cim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -211,7 +212,7 @@ public:
 	void setActiveClipConnected(bool acc)
 	{
 		if(acc == 0) return;
-		fprintf(mFile,"setAttr \".acc\" %i;\n", acc);
+		fprintf(mFile,"\tsetAttr \".acc\" %i;\n", acc);
 
 	}
 	void getClipEvaluate()
@@ -290,7 +291,8 @@ public:
 
 	}
 protected:
-	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectSet(file, name, parent, nodeType) {}
+	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectSet(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

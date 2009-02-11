@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class FurGlobals : public DependNode
 {
 public:
 public:
+	FurGlobals():DependNode(){}
 	FurGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurGlobals"){}
 	virtual ~FurGlobals(){}
 	void setRenderFur(bool rh)
 	{
 		if(rh == true) return;
-		fprintf(mFile,"setAttr \".rh\" %i;\n", rh);
+		fprintf(mFile,"\tsetAttr \".rh\" %i;\n", rh);
 
 	}
 	void setAreaValue(unsigned int av)
 	{
 		if(av == 2) return;
-		fprintf(mFile,"setAttr \".av\" %i;\n", av);
+		fprintf(mFile,"\tsetAttr \".av\" %i;\n", av);
 
 	}
 	void setEqualMap(short em)
 	{
 		if(em == 1) return;
-		fprintf(mFile,"setAttr \".em\" %i;\n", em);
+		fprintf(mFile,"\tsetAttr \".em\" %i;\n", em);
 
 	}
 	void setShadowFur(bool sh)
 	{
 		if(sh == true) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setCompFur(bool ch)
 	{
 		if(ch == true) return;
-		fprintf(mFile,"setAttr \".ch\" %i;\n", ch);
+		fprintf(mFile,"\tsetAttr \".ch\" %i;\n", ch);
 
 	}
 	void setReadFurFiles(bool rff)
 	{
 		if(rff == false) return;
-		fprintf(mFile,"setAttr \".rff\" %i;\n", rff);
+		fprintf(mFile,"\tsetAttr \".rff\" %i;\n", rff);
 
 	}
 	void setReadFurFilesPath(const string& rfp)
 	{
 		if(rfp == "n/a") return;
-		fprintf(mFile,"setAttr \".rfp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".rfp\" -type \"string\" ");
 		rfp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -67,7 +68,7 @@ public:
 	void setReadEqualMapPath(const string& rep)
 	{
 		if(rep == "n/a") return;
-		fprintf(mFile,"setAttr \".rep\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".rep\" -type \"string\" ");
 		rep.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,13 +76,13 @@ public:
 	void setReadShadowMap(bool rsm)
 	{
 		if(rsm == false) return;
-		fprintf(mFile,"setAttr \".rsm\" %i;\n", rsm);
+		fprintf(mFile,"\tsetAttr \".rsm\" %i;\n", rsm);
 
 	}
 	void setReadShadowMapPath(const string& rsp)
 	{
 		if(rsp == "n/a") return;
-		fprintf(mFile,"setAttr \".rsp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".rsp\" -type \"string\" ");
 		rsp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -89,13 +90,13 @@ public:
 	void setReadFurImage(bool rhi)
 	{
 		if(rhi == false) return;
-		fprintf(mFile,"setAttr \".rhi\" %i;\n", rhi);
+		fprintf(mFile,"\tsetAttr \".rhi\" %i;\n", rhi);
 
 	}
 	void setReadFurImagePath(const string& rhp)
 	{
 		if(rhp == "n/a") return;
-		fprintf(mFile,"setAttr \".rhp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".rhp\" -type \"string\" ");
 		rhp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -103,7 +104,7 @@ public:
 	void setProjectLocation(const string& pjl)
 	{
 		if(pjl == "n/a") return;
-		fprintf(mFile,"setAttr \".pjl\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".pjl\" -type \"string\" ");
 		pjl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -111,61 +112,61 @@ public:
 	void setKeepIntermediateFiles(bool kif)
 	{
 		if(kif == false) return;
-		fprintf(mFile,"setAttr \".kif\" %i;\n", kif);
+		fprintf(mFile,"\tsetAttr \".kif\" %i;\n", kif);
 
 	}
 	void setKeepFurImages(bool kfi)
 	{
 		if(kfi == true) return;
-		fprintf(mFile,"setAttr \".kfi\" %i;\n", kfi);
+		fprintf(mFile,"\tsetAttr \".kfi\" %i;\n", kfi);
 
 	}
 	void setCopyAttrMaps(short cam)
 	{
 		if(cam == 0) return;
-		fprintf(mFile,"setAttr \".cam\" %i;\n", cam);
+		fprintf(mFile,"\tsetAttr \".cam\" %i;\n", cam);
 
 	}
 	void setFurPixelBufferSize(short fpsz)
 	{
 		if(fpsz == 5) return;
-		fprintf(mFile,"setAttr \".fpsz\" %i;\n", fpsz);
+		fprintf(mFile,"\tsetAttr \".fpsz\" %i;\n", fpsz);
 
 	}
 	void setShadowPixelBufferSize(short shsz)
 	{
 		if(shsz == 5) return;
-		fprintf(mFile,"setAttr \".shsz\" %i;\n", shsz);
+		fprintf(mFile,"\tsetAttr \".shsz\" %i;\n", shsz);
 
 	}
 	void setNurbsTesselation(short nts)
 	{
 		if(nts == 4) return;
-		fprintf(mFile,"setAttr \".nts\" %i;\n", nts);
+		fprintf(mFile,"\tsetAttr \".nts\" %i;\n", nts);
 
 	}
 	void setIncludePidInFilesName(bool ipid)
 	{
 		if(ipid == false) return;
-		fprintf(mFile,"setAttr \".ipid\" %i;\n", ipid);
+		fprintf(mFile,"\tsetAttr \".ipid\" %i;\n", ipid);
 
 	}
 	void setRenderFurImages(bool rfi)
 	{
 		if(rfi == true) return;
-		fprintf(mFile,"setAttr \".rfi\" %i;\n", rfi);
+		fprintf(mFile,"\tsetAttr \".rfi\" %i;\n", rfi);
 
 	}
 	void setRenderShadowMaps(bool rnsm)
 	{
 		if(rnsm == true) return;
-		fprintf(mFile,"setAttr \".rnsm\" %i;\n", rnsm);
+		fprintf(mFile,"\tsetAttr \".rnsm\" %i;\n", rnsm);
 
 	}
 	void setDisableGeometryRendering(bool dgr)
 	{
 		if(dgr == false) return;
-		fprintf(mFile,"setAttr \".dgr\" %i;\n", dgr);
+		fprintf(mFile,"\tsetAttr \".dgr\" %i;\n", dgr);
 
 	}
 	void getRenderFur()
@@ -198,9 +199,24 @@ public:
 		fprintf(mFile,"\"%s.rff\"",mName.c_str());
 
 	}
+	void getReadFurFilesPath()
+	{
+		fprintf(mFile,"\"%s.rfp\"",mName.c_str());
+
+	}
+	void getReadEqualMapPath()
+	{
+		fprintf(mFile,"\"%s.rep\"",mName.c_str());
+
+	}
 	void getReadShadowMap()
 	{
 		fprintf(mFile,"\"%s.rsm\"",mName.c_str());
+
+	}
+	void getReadShadowMapPath()
+	{
+		fprintf(mFile,"\"%s.rsp\"",mName.c_str());
 
 	}
 	void getReadFurImage()
@@ -208,9 +224,29 @@ public:
 		fprintf(mFile,"\"%s.rhi\"",mName.c_str());
 
 	}
+	void getReadFurImagePath()
+	{
+		fprintf(mFile,"\"%s.rhp\"",mName.c_str());
+
+	}
 	void getProjectLocation()
 	{
 		fprintf(mFile,"\"%s.pjl\"",mName.c_str());
+
+	}
+	void getHairDescriptions()
+	{
+		fprintf(mFile,"\"%s.hdc\"",mName.c_str());
+
+	}
+	void getAttractorSets()
+	{
+		fprintf(mFile,"\"%s.asc\"",mName.c_str());
+
+	}
+	void getFurNodeList()
+	{
+		fprintf(mFile,"\"%s.fnl\"",mName.c_str());
 
 	}
 	void getKeepIntermediateFiles()
@@ -264,7 +300,8 @@ public:
 
 	}
 protected:
-	FurGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	FurGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

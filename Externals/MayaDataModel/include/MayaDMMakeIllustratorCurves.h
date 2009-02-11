@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class MakeIllustratorCurves : public AbstractBaseCreate
 {
 public:
 public:
+	MakeIllustratorCurves():AbstractBaseCreate(){}
 	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeIllustratorCurves"){}
 	virtual ~MakeIllustratorCurves(){}
 	void setIllustratorFilename(const string& ifn)
 	{
 		if(ifn == "NULL") return;
-		fprintf(mFile,"setAttr \".ifn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ifn\" -type \"string\" ");
 		ifn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,13 +32,13 @@ public:
 	void setScaleFactor(float sf)
 	{
 		if(sf == 1.0f) return;
-		fprintf(mFile,"setAttr \".sf\" %f;\n", sf);
+		fprintf(mFile,"\tsetAttr \".sf\" %f;\n", sf);
 
 	}
 	void setTolerance(float tl)
 	{
 		if(tl == 0.001f) return;
-		fprintf(mFile,"setAttr \".tl\" %f;\n", tl);
+		fprintf(mFile,"\tsetAttr \".tl\" %f;\n", tl);
 
 	}
 	void getIllustratorFilename()
@@ -91,7 +92,8 @@ public:
 
 	}
 protected:
-	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

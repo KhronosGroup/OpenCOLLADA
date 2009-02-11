@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class ProjectTangent : public AbstractBaseCreate
 {
 public:
 public:
+	ProjectTangent():AbstractBaseCreate(){}
 	ProjectTangent(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "projectTangent"){}
 	virtual ~ProjectTangent(){}
 	void setTangentScale(double ts)
 	{
 		if(ts == 1) return;
-		fprintf(mFile,"setAttr \".ts\" %f;\n", ts);
+		fprintf(mFile,"\tsetAttr \".ts\" %f;\n", ts);
 
 	}
 	void setCurvatureScale(double cs)
 	{
 		if(cs == 0) return;
-		fprintf(mFile,"setAttr \".cs\" %f;\n", cs);
+		fprintf(mFile,"\tsetAttr \".cs\" %f;\n", cs);
 
 	}
 	void setRotate(double ro)
 	{
 		if(ro == 0) return;
-		fprintf(mFile,"setAttr \".ro\" %f;\n", ro);
+		fprintf(mFile,"\tsetAttr \".ro\" %f;\n", ro);
 
 	}
 	void setTangentDirection(unsigned int td)
 	{
 		if(td == 1) return;
-		fprintf(mFile,"setAttr \".td\" %i;\n", td);
+		fprintf(mFile,"\tsetAttr \".td\" %i;\n", td);
 
 	}
 	void setCurvature(bool c)
 	{
 		if(c == false) return;
-		fprintf(mFile,"setAttr \".c\" %i;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
 	void setReverseTangent(bool rt)
 	{
 		if(rt == false) return;
-		fprintf(mFile,"setAttr \".rt\" %i;\n", rt);
+		fprintf(mFile,"\tsetAttr \".rt\" %i;\n", rt);
 
 	}
 	void setIgnoreEdges(bool ie)
 	{
 		if(ie == false) return;
-		fprintf(mFile,"setAttr \".ie\" %i;\n", ie);
+		fprintf(mFile,"\tsetAttr \".ie\" %i;\n", ie);
 
 	}
 	void getInputCurveToProject()
@@ -123,7 +124,8 @@ public:
 
 	}
 protected:
-	ProjectTangent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ProjectTangent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

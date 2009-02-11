@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PoleVectorConstraint : public PointConstraint
 {
 public:
 public:
+	PoleVectorConstraint():PointConstraint(){}
 	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent=""):PointConstraint(file, name, parent, "poleVectorConstraint"){}
 	virtual ~PoleVectorConstraint(){}
 	void setPivotSpace(const matrix& ps)
 	{
 		if(ps == identity) return;
-		fprintf(mFile,"setAttr \".ps\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".ps\" -type \"matrix\" ");
 		ps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -34,7 +35,8 @@ public:
 
 	}
 protected:
-	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PointConstraint(file, name, parent, nodeType) {}
+	PoleVectorConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PointConstraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

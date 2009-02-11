@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class TimeFunction : public DependNode
 {
 public:
 public:
+	TimeFunction():DependNode(){}
 	TimeFunction(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "timeFunction"){}
 	virtual ~TimeFunction(){}
 	void setInput(double i_)
 	{
 		if(i_ == 0.0) return;
-		fprintf(mFile,"setAttr \".i\" %f;\n", i_);
+		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
 
 	}
 	void getInput()
@@ -37,7 +38,8 @@ public:
 
 	}
 protected:
-	TimeFunction(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	TimeFunction(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

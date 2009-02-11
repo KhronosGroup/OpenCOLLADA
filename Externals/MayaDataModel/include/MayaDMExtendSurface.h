@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class ExtendSurface : public AbstractBaseCreate
 {
 public:
 public:
+	ExtendSurface():AbstractBaseCreate(){}
 	ExtendSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "extendSurface"){}
 	virtual ~ExtendSurface(){}
 	void setExtensionType(unsigned int et)
 	{
 		if(et == 0) return;
-		fprintf(mFile,"setAttr \".et\" %i;\n", et);
+		fprintf(mFile,"\tsetAttr \".et\" %i;\n", et);
 
 	}
 	void setExtendMethod(unsigned int em)
 	{
 		if(em == 0) return;
-		fprintf(mFile,"setAttr \".em\" %i;\n", em);
+		fprintf(mFile,"\tsetAttr \".em\" %i;\n", em);
 
 	}
 	void setExtendSide(unsigned int es)
 	{
 		if(es == 1) return;
-		fprintf(mFile,"setAttr \".es\" %i;\n", es);
+		fprintf(mFile,"\tsetAttr \".es\" %i;\n", es);
 
 	}
 	void setExtendDirection(unsigned int ed)
 	{
 		if(ed == 0) return;
-		fprintf(mFile,"setAttr \".ed\" %i;\n", ed);
+		fprintf(mFile,"\tsetAttr \".ed\" %i;\n", ed);
 
 	}
 	void setJoin(bool jn)
 	{
 		if(jn == true) return;
-		fprintf(mFile,"setAttr \".jn\" %i;\n", jn);
+		fprintf(mFile,"\tsetAttr \".jn\" %i;\n", jn);
 
 	}
 	void setDistance(double d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void getInputSurface()
@@ -102,7 +103,8 @@ public:
 
 	}
 protected:
-	ExtendSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ExtendSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

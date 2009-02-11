@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class PolyDuplicateEdge : public PolyModifier
 {
 public:
 public:
+	PolyDuplicateEdge():PolyModifier(){}
 	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDuplicateEdge"){}
 	virtual ~PolyDuplicateEdge(){}
 	void setOffset(float of)
 	{
 		if(of == 0.5) return;
-		fprintf(mFile,"setAttr \".of\" %f;\n", of);
+		fprintf(mFile,"\tsetAttr \".of\" %f;\n", of);
 
 	}
 	void setStartVertexOffset(float svo)
 	{
 		if(svo == 0.0) return;
-		fprintf(mFile,"setAttr \".svo\" %f;\n", svo);
+		fprintf(mFile,"\tsetAttr \".svo\" %f;\n", svo);
 
 	}
 	void setEndVertexOffset(float evo)
 	{
 		if(evo == 0.0) return;
-		fprintf(mFile,"setAttr \".evo\" %f;\n", evo);
+		fprintf(mFile,"\tsetAttr \".evo\" %f;\n", evo);
 
 	}
 	void setDeleteEdge(bool de)
 	{
 		if(de == true) return;
-		fprintf(mFile,"setAttr \".de\" %i;\n", de);
+		fprintf(mFile,"\tsetAttr \".de\" %i;\n", de);
 
 	}
 	void setSmoothingAngle(double sma)
 	{
 		if(sma == 1) return;
-		fprintf(mFile,"setAttr \".sma\" %f;\n", sma);
+		fprintf(mFile,"\tsetAttr \".sma\" %f;\n", sma);
 
 	}
 	void setSplitType(unsigned int stp)
 	{
 		if(stp == 1) return;
-		fprintf(mFile,"setAttr \".stp\" %i;\n", stp);
+		fprintf(mFile,"\tsetAttr \".stp\" %i;\n", stp);
 
 	}
 	void getOffset()
@@ -87,7 +88,8 @@ public:
 
 	}
 protected:
-	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

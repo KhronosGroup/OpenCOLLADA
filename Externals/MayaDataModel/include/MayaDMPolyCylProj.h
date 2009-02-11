@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyCylProj : public PolyModifierWorld
 {
 public:
 public:
+	PolyCylProj():PolyModifierWorld(){}
 	PolyCylProj(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyCylProj"){}
 	virtual ~PolyCylProj(){}
 	void setProjectionCenter(const double3& pc)
 	{
 		if(pc == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".pc\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".pc\" -type \"double3\" ");
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setProjectionCenterX(double pcx)
 	{
 		if(pcx == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcx\" %f;\n", pcx);
+		fprintf(mFile,"\tsetAttr \".pc.pcx\" %f;\n", pcx);
 
 	}
 	void setProjectionCenterY(double pcy)
 	{
 		if(pcy == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcy\" %f;\n", pcy);
+		fprintf(mFile,"\tsetAttr \".pc.pcy\" %f;\n", pcy);
 
 	}
 	void setProjectionCenterZ(double pcz)
 	{
 		if(pcz == 0) return;
-		fprintf(mFile,"setAttr \".pc.pcz\" %f;\n", pcz);
+		fprintf(mFile,"\tsetAttr \".pc.pcz\" %f;\n", pcz);
 
 	}
 	void setImageCenter(const double2& ic)
 	{
 		if(ic == double2(0.5, 0.5)) return;
-		fprintf(mFile,"setAttr \".ic\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ic\" -type \"double2\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,19 +58,19 @@ public:
 	void setImageCenterX(double icx)
 	{
 		if(icx == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.icx\" %f;\n", icx);
+		fprintf(mFile,"\tsetAttr \".ic.icx\" %f;\n", icx);
 
 	}
 	void setImageCenterY(double icy)
 	{
 		if(icy == 0.0) return;
-		fprintf(mFile,"setAttr \".ic.icy\" %f;\n", icy);
+		fprintf(mFile,"\tsetAttr \".ic.icy\" %f;\n", icy);
 
 	}
 	void setRotate(const double3& ro)
 	{
 		if(ro == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ro\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ro\" -type \"double3\" ");
 		ro.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -77,25 +78,25 @@ public:
 	void setRotateX(double rx)
 	{
 		if(rx == 0) return;
-		fprintf(mFile,"setAttr \".ro.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".ro.rx\" %f;\n", rx);
 
 	}
 	void setRotateY(double ry)
 	{
 		if(ry == 0) return;
-		fprintf(mFile,"setAttr \".ro.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".ro.ry\" %f;\n", ry);
 
 	}
 	void setRotateZ(double rz)
 	{
 		if(rz == 0) return;
-		fprintf(mFile,"setAttr \".ro.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".ro.rz\" %f;\n", rz);
 
 	}
 	void setProjectionScale(const double2& ps)
 	{
 		if(ps == double2(180.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".ps\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".ps\" -type \"double2\" ");
 		ps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -103,19 +104,19 @@ public:
 	void setProjectionHorizontalSweep(double phs)
 	{
 		if(phs == 0) return;
-		fprintf(mFile,"setAttr \".ps.phs\" %f;\n", phs);
+		fprintf(mFile,"\tsetAttr \".ps.phs\" %f;\n", phs);
 
 	}
 	void setProjectionHeight(double ph)
 	{
 		if(ph == 0) return;
-		fprintf(mFile,"setAttr \".ps.ph\" %f;\n", ph);
+		fprintf(mFile,"\tsetAttr \".ps.ph\" %f;\n", ph);
 
 	}
 	void setImageScale(const double2& is)
 	{
 		if(is == double2(1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".is\" -type \"double2\" ");
+		fprintf(mFile,"\tsetAttr \".is\" -type \"double2\" ");
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -123,19 +124,19 @@ public:
 	void setImageScaleU(double isu)
 	{
 		if(isu == 0.0) return;
-		fprintf(mFile,"setAttr \".is.isu\" %f;\n", isu);
+		fprintf(mFile,"\tsetAttr \".is.isu\" %f;\n", isu);
 
 	}
 	void setImageScaleV(double isv)
 	{
 		if(isv == 0.0) return;
-		fprintf(mFile,"setAttr \".is.isv\" %f;\n", isv);
+		fprintf(mFile,"\tsetAttr \".is.isv\" %f;\n", isv);
 
 	}
 	void setUvSetName(const string& uvs)
 	{
 		if(uvs == "NULL") return;
-		fprintf(mFile,"setAttr \".uvs\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uvs\" -type \"string\" ");
 		uvs.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -143,25 +144,25 @@ public:
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setRotationAngle(double ra)
 	{
 		if(ra == 0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setSeamCorrect(bool sc)
 	{
 		if(sc == false) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setUseOldPolyProjection(bool uopp)
 	{
 		if(uopp == false) return;
-		fprintf(mFile,"setAttr \".uopp\" %i;\n", uopp);
+		fprintf(mFile,"\tsetAttr \".uopp\" %i;\n", uopp);
 
 	}
 	void getProjectionCenter()
@@ -275,7 +276,8 @@ public:
 
 	}
 protected:
-	PolyCylProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyCylProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

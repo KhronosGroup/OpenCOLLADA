@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,11 +29,12 @@ public:
 		}
 	};
 public:
+	DragField():Field(){}
 	DragField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "dragField"){}
 	virtual ~DragField(){}
 	void setDirection(const Direction& d)
 	{
-		fprintf(mFile,"setAttr \".d\" ");
+		fprintf(mFile,"\tsetAttr \".d\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -41,43 +42,43 @@ public:
 	void setDirectionX(double dx)
 	{
 		if(dx == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dx\" %f;\n", dx);
+		fprintf(mFile,"\tsetAttr \".d.dx\" %f;\n", dx);
 
 	}
 	void setDirectionY(double dy)
 	{
 		if(dy == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dy\" %f;\n", dy);
+		fprintf(mFile,"\tsetAttr \".d.dy\" %f;\n", dy);
 
 	}
 	void setDirectionZ(double dz)
 	{
 		if(dz == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dz\" %f;\n", dz);
+		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
 	void setUseDirection(bool ud)
 	{
 		if(ud == false) return;
-		fprintf(mFile,"setAttr \".ud\" %i;\n", ud);
+		fprintf(mFile,"\tsetAttr \".ud\" %i;\n", ud);
 
 	}
 	void setInheritVelocity(double iv)
 	{
 		if(iv == 0) return;
-		fprintf(mFile,"setAttr \".iv\" %f;\n", iv);
+		fprintf(mFile,"\tsetAttr \".iv\" %f;\n", iv);
 
 	}
 	void setMotionAttenuation(double mna)
 	{
 		if(mna == 0.0) return;
-		fprintf(mFile,"setAttr \".mna\" %f;\n", mna);
+		fprintf(mFile,"\tsetAttr \".mna\" %f;\n", mna);
 
 	}
 	void setSpeedAttenuation(double spa)
 	{
 		if(spa == 0.0) return;
-		fprintf(mFile,"setAttr \".spa\" %f;\n", spa);
+		fprintf(mFile,"\tsetAttr \".spa\" %f;\n", spa);
 
 	}
 	void getDirection()
@@ -126,7 +127,8 @@ public:
 
 	}
 protected:
-	DragField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Field(file, name, parent, nodeType) {}
+	DragField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Field(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

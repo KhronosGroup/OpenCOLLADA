@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class EnvFacade : public Facade
 {
 public:
+	EnvFacade():Facade(){}
 	EnvFacade(FILE* file,const std::string& name,const std::string& parent=""):Facade(file, name, parent, "envFacade"){}
 	virtual ~EnvFacade(){}
 protected:
-	EnvFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Facade(file, name, parent, nodeType) {}
+	EnvFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Facade(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class BlendWeighted : public Blend
 {
 public:
 public:
+	BlendWeighted():Blend(){}
 	BlendWeighted(FILE* file,const std::string& name,const std::string& parent=""):Blend(file, name, parent, "blendWeighted"){}
 	virtual ~BlendWeighted(){}
 	void setWeight(size_t w_i,float w)
 	{
 		if(w == 1.0) return;
-		fprintf(mFile,"setAttr \".w[%i]\" %f;\n", w_i,w);
+		fprintf(mFile,"\tsetAttr \".w[%i]\" %f;\n", w_i,w);
 
 	}
 	void setWeight(size_t w_start,size_t w_end,float* w)
 	{
-		fprintf(mFile,"setAttr \".w[%i:%i]\" ", w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".w[%i:%i]\" ", w_start,w_end);
 		size_t size = (w_end-w_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startWeight(size_t w_start,size_t w_end)
 	{
-		fprintf(mFile,"setAttr \".w[%i:%i]\"",w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
 
 	}
 	void appendWeight(float w)
@@ -59,7 +60,8 @@ public:
 
 	}
 protected:
-	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Blend(file, name, parent, nodeType) {}
+	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Blend(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

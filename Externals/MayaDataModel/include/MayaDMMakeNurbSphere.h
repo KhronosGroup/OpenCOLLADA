@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class MakeNurbSphere : public RevolvedPrimitive
 {
 public:
+	MakeNurbSphere():RevolvedPrimitive(){}
 	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent=""):RevolvedPrimitive(file, name, parent, "makeNurbSphere"){}
 	virtual ~MakeNurbSphere(){}
 protected:
-	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):RevolvedPrimitive(file, name, parent, nodeType) {}
+	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:RevolvedPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

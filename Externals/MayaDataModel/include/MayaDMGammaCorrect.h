@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class GammaCorrect : public DependNode
 {
 public:
 public:
+	GammaCorrect():DependNode(){}
 	GammaCorrect(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "gammaCorrect"){}
 	virtual ~GammaCorrect(){}
 	void setValue(const float3& v)
 	{
 		if(v == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".v\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".v\" -type \"float3\" ");
 		v.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setValueX(float vx)
 	{
 		if(vx == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vx\" %f;\n", vx);
+		fprintf(mFile,"\tsetAttr \".v.vx\" %f;\n", vx);
 
 	}
 	void setValueY(float vy)
 	{
 		if(vy == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vy\" %f;\n", vy);
+		fprintf(mFile,"\tsetAttr \".v.vy\" %f;\n", vy);
 
 	}
 	void setValueZ(float vz)
 	{
 		if(vz == 0.0) return;
-		fprintf(mFile,"setAttr \".v.vz\" %f;\n", vz);
+		fprintf(mFile,"\tsetAttr \".v.vz\" %f;\n", vz);
 
 	}
 	void setGamma(const float3& g)
 	{
 		if(g == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".g\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".g\" -type \"float3\" ");
 		g.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,19 +58,19 @@ public:
 	void setGammaX(float gx)
 	{
 		if(gx == 0.0) return;
-		fprintf(mFile,"setAttr \".g.gx\" %f;\n", gx);
+		fprintf(mFile,"\tsetAttr \".g.gx\" %f;\n", gx);
 
 	}
 	void setGammaY(float gy)
 	{
 		if(gy == 0.0) return;
-		fprintf(mFile,"setAttr \".g.gy\" %f;\n", gy);
+		fprintf(mFile,"\tsetAttr \".g.gy\" %f;\n", gy);
 
 	}
 	void setGammaZ(float gz)
 	{
 		if(gz == 0.0) return;
-		fprintf(mFile,"setAttr \".g.gz\" %f;\n", gz);
+		fprintf(mFile,"\tsetAttr \".g.gz\" %f;\n", gz);
 
 	}
 	void getValue()
@@ -133,7 +134,8 @@ public:
 
 	}
 protected:
-	GammaCorrect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	GammaCorrect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

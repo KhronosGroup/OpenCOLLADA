@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class TextureEnv : public DependNode
 {
 public:
 public:
+	TextureEnv():DependNode(){}
 	TextureEnv(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "textureEnv"){}
 	virtual ~TextureEnv(){}
 	void setObjectType(char ot)
 	{
 		if(ot == 1) return;
-		fprintf(mFile,"setAttr \".ot\" %;\n", ot);
+		fprintf(mFile,"\tsetAttr \".ot\" %;\n", ot);
 
 	}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void getObjectType()
@@ -45,6 +46,11 @@ public:
 	void getMatrixEyeToWorld()
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getNormalCamera()
@@ -163,7 +169,8 @@ public:
 
 	}
 protected:
-	TextureEnv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	TextureEnv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class Primitive : public AbstractBaseCreate
 {
 public:
 public:
+	Primitive():AbstractBaseCreate(){}
 	Primitive(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "primitive"){}
 	virtual ~Primitive(){}
 	void setPivot(const double3& p)
 	{
-		fprintf(mFile,"setAttr \".p\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"double3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,24 +31,24 @@ public:
 	void setPivotX(double px)
 	{
 		if(px == 0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPivotY(double py)
 	{
 		if(py == 0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setPivotZ(double pz)
 	{
 		if(pz == 0) return;
-		fprintf(mFile,"setAttr \".p.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
 
 	}
 	void setAxis(const double3& ax)
 	{
-		fprintf(mFile,"setAttr \".ax\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ax\" -type \"double3\" ");
 		ax.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,19 +56,19 @@ public:
 	void setAxisX(double axx)
 	{
 		if(axx == 1) return;
-		fprintf(mFile,"setAttr \".ax.axx\" %f;\n", axx);
+		fprintf(mFile,"\tsetAttr \".ax.axx\" %f;\n", axx);
 
 	}
 	void setAxisY(double axy)
 	{
 		if(axy == 0) return;
-		fprintf(mFile,"setAttr \".ax.axy\" %f;\n", axy);
+		fprintf(mFile,"\tsetAttr \".ax.axy\" %f;\n", axy);
 
 	}
 	void setAxisZ(double axz)
 	{
 		if(axz == 0) return;
-		fprintf(mFile,"setAttr \".ax.axz\" %f;\n", axz);
+		fprintf(mFile,"\tsetAttr \".ax.axz\" %f;\n", axz);
 
 	}
 	void getPivot()
@@ -116,7 +117,8 @@ public:
 
 	}
 protected:
-	Primitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	Primitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

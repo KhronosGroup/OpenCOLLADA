@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyCopyUV : public PolyModifierUV
 {
 public:
 public:
+	PolyCopyUV():PolyModifierUV(){}
 	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyCopyUV"){}
 	virtual ~PolyCopyUV(){}
 	void setUvSetNameInput(const string& uvi)
 	{
 		if(uvi == "NULL") return;
-		fprintf(mFile,"setAttr \".uvi\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".uvi\" -type \"string\" ");
 		uvi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -34,7 +35,8 @@ public:
 
 	}
 protected:
-	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyCopyUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

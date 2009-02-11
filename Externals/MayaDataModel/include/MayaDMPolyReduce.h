@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,54 +18,55 @@ class PolyReduce : public PolyModifier
 {
 public:
 public:
+	PolyReduce():PolyModifier(){}
 	PolyReduce(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyReduce"){}
 	virtual ~PolyReduce(){}
 	void setPercentage(double p)
 	{
 		if(p == 0) return;
-		fprintf(mFile,"setAttr \".p\" %f;\n", p);
+		fprintf(mFile,"\tsetAttr \".p\" %f;\n", p);
 
 	}
 	void setCompactness(double com)
 	{
 		if(com == 0.0) return;
-		fprintf(mFile,"setAttr \".com\" %f;\n", com);
+		fprintf(mFile,"\tsetAttr \".com\" %f;\n", com);
 
 	}
 	void setGeomWeights(double gwt)
 	{
 		if(gwt == 1) return;
-		fprintf(mFile,"setAttr \".gwt\" %f;\n", gwt);
+		fprintf(mFile,"\tsetAttr \".gwt\" %f;\n", gwt);
 
 	}
 	void setUvWeights(double uwt)
 	{
 		if(uwt == 0) return;
-		fprintf(mFile,"setAttr \".uwt\" %f;\n", uwt);
+		fprintf(mFile,"\tsetAttr \".uwt\" %f;\n", uwt);
 
 	}
 	void setColorWeights(double cwt)
 	{
 		if(cwt == 0) return;
-		fprintf(mFile,"setAttr \".cwt\" %f;\n", cwt);
+		fprintf(mFile,"\tsetAttr \".cwt\" %f;\n", cwt);
 
 	}
 	void setKeepQuadsWeight(double kqw)
 	{
 		if(kqw == 0) return;
-		fprintf(mFile,"setAttr \".kqw\" %f;\n", kqw);
+		fprintf(mFile,"\tsetAttr \".kqw\" %f;\n", kqw);
 
 	}
 	void setWeightCoefficient(double wc)
 	{
 		if(wc == 10000.0) return;
-		fprintf(mFile,"setAttr \".wc\" %f;\n", wc);
+		fprintf(mFile,"\tsetAttr \".wc\" %f;\n", wc);
 
 	}
 	void setVertexWeights(const doubleArray& vwt)
 	{
 		if(vwt.size == 0) return;
-		fprintf(mFile,"setAttr \".vwt\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".vwt\" -type \"doubleArray\" ");
 		vwt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -73,55 +74,55 @@ public:
 	void setKeepBorder(bool kb)
 	{
 		if(kb == true) return;
-		fprintf(mFile,"setAttr \".kb\" %i;\n", kb);
+		fprintf(mFile,"\tsetAttr \".kb\" %i;\n", kb);
 
 	}
 	void setKeepMapBorder(bool kmb)
 	{
 		if(kmb == true) return;
-		fprintf(mFile,"setAttr \".kmb\" %i;\n", kmb);
+		fprintf(mFile,"\tsetAttr \".kmb\" %i;\n", kmb);
 
 	}
 	void setKeepHardEdge(bool khe)
 	{
 		if(khe == true) return;
-		fprintf(mFile,"setAttr \".khe\" %i;\n", khe);
+		fprintf(mFile,"\tsetAttr \".khe\" %i;\n", khe);
 
 	}
 	void setKeepOriginalVertices(bool kev)
 	{
 		if(kev == false) return;
-		fprintf(mFile,"setAttr \".kev\" %i;\n", kev);
+		fprintf(mFile,"\tsetAttr \".kev\" %i;\n", kev);
 
 	}
 	void setTriangulate(bool t)
 	{
 		if(t == true) return;
-		fprintf(mFile,"setAttr \".t\" %i;\n", t);
+		fprintf(mFile,"\tsetAttr \".t\" %i;\n", t);
 
 	}
 	void setCachingReduce(bool cr)
 	{
 		if(cr == false) return;
-		fprintf(mFile,"setAttr \".cr\" %i;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cr\" %i;\n", cr);
 
 	}
 	void setBorder(double b)
 	{
 		if(b == .5) return;
-		fprintf(mFile,"setAttr \".b\" %f;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
 	void setLine(double l)
 	{
 		if(l == .5) return;
-		fprintf(mFile,"setAttr \".l\" %f;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
 
 	}
 	void setDetail(double d)
 	{
 		if(d == .5) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void getPercentage()
@@ -215,7 +216,8 @@ public:
 
 	}
 protected:
-	PolyReduce(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyReduce(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

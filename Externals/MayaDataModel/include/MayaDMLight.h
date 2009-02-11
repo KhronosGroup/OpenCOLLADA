@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Light : public Shape
 {
 public:
 public:
+	Light():Shape(){}
 	Light(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "light"){}
 	virtual ~Light(){}
 	void setColor(const float3& cl)
 	{
 		if(cl == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".cl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cl\" -type \"float3\" ");
 		cl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,37 +32,37 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.0) return;
-		fprintf(mFile,"setAttr \".cl.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cl.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.0) return;
-		fprintf(mFile,"setAttr \".cl.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".cl.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.0) return;
-		fprintf(mFile,"setAttr \".cl.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cl.cb\" %f;\n", cb);
 
 	}
 	void setIntensity(float in)
 	{
 		if(in == 1.0) return;
-		fprintf(mFile,"setAttr \".in\" %f;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %f;\n", in);
 
 	}
 	void setUseRayTraceShadows(bool urs)
 	{
 		if(urs == false) return;
-		fprintf(mFile,"setAttr \".urs\" %i;\n", urs);
+		fprintf(mFile,"\tsetAttr \".urs\" %i;\n", urs);
 
 	}
 	void setShadowColor(const float3& sc)
 	{
 		if(sc == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".sc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".sc\" -type \"float3\" ");
 		sc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -69,43 +70,43 @@ public:
 	void setShadColorR(float scr)
 	{
 		if(scr == 0.0) return;
-		fprintf(mFile,"setAttr \".sc.scr\" %f;\n", scr);
+		fprintf(mFile,"\tsetAttr \".sc.scr\" %f;\n", scr);
 
 	}
 	void setShadColorG(float scg)
 	{
 		if(scg == 0.0) return;
-		fprintf(mFile,"setAttr \".sc.scg\" %f;\n", scg);
+		fprintf(mFile,"\tsetAttr \".sc.scg\" %f;\n", scg);
 
 	}
 	void setShadColorB(float scb)
 	{
 		if(scb == 0.0) return;
-		fprintf(mFile,"setAttr \".sc.scb\" %f;\n", scb);
+		fprintf(mFile,"\tsetAttr \".sc.scb\" %f;\n", scb);
 
 	}
 	void setShadowRays(short shr)
 	{
 		if(shr == 1) return;
-		fprintf(mFile,"setAttr \".shr\" %i;\n", shr);
+		fprintf(mFile,"\tsetAttr \".shr\" %i;\n", shr);
 
 	}
 	void setRayDepthLimit(short rdl)
 	{
 		if(rdl == 1) return;
-		fprintf(mFile,"setAttr \".rdl\" %i;\n", rdl);
+		fprintf(mFile,"\tsetAttr \".rdl\" %i;\n", rdl);
 
 	}
 	void setCenterOfIllumination(double col)
 	{
 		if(col == 5.0) return;
-		fprintf(mFile,"setAttr \".col\" %f;\n", col);
+		fprintf(mFile,"\tsetAttr \".col\" %f;\n", col);
 
 	}
 	void setPointCamera(const float3& p)
 	{
 		if(p == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".p\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"float3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -113,31 +114,31 @@ public:
 	void setPointCameraX(float px)
 	{
 		if(px == 0.0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPointCameraY(float py)
 	{
 		if(py == 0.0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setPointCameraZ(float pz)
 	{
 		if(pz == 0.0) return;
-		fprintf(mFile,"setAttr \".p.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
 
 	}
 	void setRenderState(int rdst)
 	{
 		if(rdst == 0) return;
-		fprintf(mFile,"setAttr \".rdst\" %i;\n", rdst);
+		fprintf(mFile,"\tsetAttr \".rdst\" %i;\n", rdst);
 
 	}
 	void setLocatorScale(double lls)
 	{
 		if(lls == 1.0) return;
-		fprintf(mFile,"setAttr \".lls\" %f;\n", lls);
+		fprintf(mFile,"\tsetAttr \".lls\" %f;\n", lls);
 
 	}
 	void getColor()
@@ -203,6 +204,61 @@ public:
 	void getCenterOfIllumination()
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
+
+	}
+	void getPointCamera()
+	{
+		fprintf(mFile,"\"%s.p\"",mName.c_str());
+
+	}
+	void getPointCameraX()
+	{
+		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
+
+	}
+	void getPointCameraY()
+	{
+		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
+
+	}
+	void getPointCameraZ()
+	{
+		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
+
+	}
+	void getMatrixWorldToEye()
+	{
+		fprintf(mFile,"\"%s.wte\"",mName.c_str());
+
+	}
+	void getMatrixEyeToWorld()
+	{
+		fprintf(mFile,"\"%s.etw\"",mName.c_str());
+
+	}
+	void getObjectId()
+	{
+		fprintf(mFile,"\"%s.oi\"",mName.c_str());
+
+	}
+	void getPrimitiveId()
+	{
+		fprintf(mFile,"\"%s.pi\"",mName.c_str());
+
+	}
+	void getRaySampler()
+	{
+		fprintf(mFile,"\"%s.rts\"",mName.c_str());
+
+	}
+	void getRayDepth()
+	{
+		fprintf(mFile,"\"%s.rd\"",mName.c_str());
+
+	}
+	void getRenderState()
+	{
+		fprintf(mFile,"\"%s.rdst\"",mName.c_str());
 
 	}
 	void getLocatorScale()
@@ -341,7 +397,8 @@ public:
 
 	}
 protected:
-	Light(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	Light(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

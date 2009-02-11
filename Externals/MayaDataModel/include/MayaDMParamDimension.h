@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class ParamDimension : public NurbsDimShape
 {
 public:
+	ParamDimension():NurbsDimShape(){}
 	ParamDimension(FILE* file,const std::string& name,const std::string& parent=""):NurbsDimShape(file, name, parent, "paramDimension"){}
 	virtual ~ParamDimension(){}
 protected:
-	ParamDimension(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NurbsDimShape(file, name, parent, nodeType) {}
+	ParamDimension(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:NurbsDimShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

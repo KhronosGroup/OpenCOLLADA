@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -39,11 +39,12 @@ public:
 		}
 	};
 public:
+	CacheBlend():CacheBase(){}
 	CacheBlend(FILE* file,const std::string& name,const std::string& parent=""):CacheBase(file, name, parent, "cacheBlend"){}
 	virtual ~CacheBlend(){}
 	void setInCache(size_t ic_i,const InCache& ic)
 	{
-		fprintf(mFile,"setAttr \".ic[%i]\" ",ic_i);
+		fprintf(mFile,"\tsetAttr \".ic[%i]\" ",ic_i);
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -51,14 +52,14 @@ public:
 	void setPerPtWeights(size_t ic_i,size_t ppw_i,const doubleArray& ppw)
 	{
 		if(ppw.size == 0) return;
-		fprintf(mFile,"setAttr \".ic[%i].ppw[%i]\" -type \"doubleArray\" ",ic_i,ppw_i);
+		fprintf(mFile,"\tsetAttr \".ic[%i].ppw[%i]\" -type \"doubleArray\" ",ic_i,ppw_i);
 		ppw.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setPerPtWeights(size_t ic_i,size_t ppw_start,size_t ppw_end,doubleArray* ppw)
 	{
-		fprintf(mFile,"setAttr \".ic[%i].ppw[%i:%i]\" ", ic_i,ppw_start,ppw_end);
+		fprintf(mFile,"\tsetAttr \".ic[%i].ppw[%i:%i]\" ", ic_i,ppw_start,ppw_end);
 		size_t size = (ppw_end-ppw_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -70,7 +71,7 @@ public:
 	}
 	void startPerPtWeights(size_t ic_i,size_t ppw_start,size_t ppw_end)
 	{
-		fprintf(mFile,"setAttr \".ic[%i].ppw[%i:%i]\"",ic_i,ppw_start,ppw_end);
+		fprintf(mFile,"\tsetAttr \".ic[%i].ppw[%i:%i]\"",ic_i,ppw_start,ppw_end);
 		fprintf(mFile," -type \"doubleArray\" ");
 
 	}
@@ -88,12 +89,12 @@ public:
 	void setDisableAll(bool da)
 	{
 		if(da == 0) return;
-		fprintf(mFile,"setAttr \".da\" %i;\n", da);
+		fprintf(mFile,"\tsetAttr \".da\" %i;\n", da);
 
 	}
 	void setCacheData(size_t cd_i,const CacheData& cd)
 	{
-		fprintf(mFile,"setAttr \".cd[%i]\" ",cd_i);
+		fprintf(mFile,"\tsetAttr \".cd[%i]\" ",cd_i);
 		cd.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -101,13 +102,13 @@ public:
 	void setRange(size_t cd_i,bool ra)
 	{
 		if(ra == false) return;
-		fprintf(mFile,"setAttr \".cd[%i].ra\" %i;\n", cd_i,ra);
+		fprintf(mFile,"\tsetAttr \".cd[%i].ra\" %i;\n", cd_i,ra);
 
 	}
 	void setWeight(size_t cd_i,double w)
 	{
 		if(w == 1.0) return;
-		fprintf(mFile,"setAttr \".cd[%i].w\" %f;\n", cd_i,w);
+		fprintf(mFile,"\tsetAttr \".cd[%i].w\" %f;\n", cd_i,w);
 
 	}
 	void getInCache(size_t ic_i)
@@ -156,7 +157,8 @@ public:
 
 	}
 protected:
-	CacheBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CacheBase(file, name, parent, nodeType) {}
+	CacheBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CacheBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

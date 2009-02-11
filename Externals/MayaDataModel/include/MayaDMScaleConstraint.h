@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -31,18 +31,19 @@ public:
 		}
 	};
 public:
+	ScaleConstraint():Constraint(){}
 	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "scaleConstraint"){}
 	virtual ~ScaleConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
-		fprintf(mFile,"setAttr \".tg[%i]\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i]\" ",tg_i);
 		tg.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setTargetScale(size_t tg_i,const double3& ts)
 	{
-		fprintf(mFile,"setAttr \".tg[%i].ts\" -type \"double3\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ts\" -type \"double3\" ",tg_i);
 		ts.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -50,25 +51,25 @@ public:
 	void setTargetScaleX(size_t tg_i,double tsx)
 	{
 		if(tsx == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].ts.tsx\" %f;\n", tg_i,tsx);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ts.tsx\" %f;\n", tg_i,tsx);
 
 	}
 	void setTargetScaleY(size_t tg_i,double tsy)
 	{
 		if(tsy == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].ts.tsy\" %f;\n", tg_i,tsy);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ts.tsy\" %f;\n", tg_i,tsy);
 
 	}
 	void setTargetScaleZ(size_t tg_i,double tsz)
 	{
 		if(tsz == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].ts.tsz\" %f;\n", tg_i,tsz);
+		fprintf(mFile,"\tsetAttr \".tg[%i].ts.tsz\" %f;\n", tg_i,tsz);
 
 	}
 	void setTargetParentMatrix(size_t tg_i,const matrix& tpm)
 	{
 		if(tpm == identity) return;
-		fprintf(mFile,"setAttr \".tg[%i].tpm\" -type \"matrix\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tpm\" -type \"matrix\" ",tg_i);
 		tpm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -76,20 +77,20 @@ public:
 	void setTargetWeight(size_t tg_i,double tw)
 	{
 		if(tw == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
 
 	}
 	void setConstraintParentInverseMatrix(const matrix& cpim)
 	{
 		if(cpim == identity) return;
-		fprintf(mFile,"setAttr \".cpim\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".cpim\" -type \"matrix\" ");
 		cpim.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setOffset(const double3& o)
 	{
-		fprintf(mFile,"setAttr \".o\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".o\" -type \"double3\" ");
 		o.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -97,19 +98,19 @@ public:
 	void setOffsetX(double ox)
 	{
 		if(ox == 1.0) return;
-		fprintf(mFile,"setAttr \".o.ox\" %f;\n", ox);
+		fprintf(mFile,"\tsetAttr \".o.ox\" %f;\n", ox);
 
 	}
 	void setOffsetY(double oy)
 	{
 		if(oy == 1.0) return;
-		fprintf(mFile,"setAttr \".o.oy\" %f;\n", oy);
+		fprintf(mFile,"\tsetAttr \".o.oy\" %f;\n", oy);
 
 	}
 	void setOffsetZ(double oz)
 	{
 		if(oz == 1.0) return;
-		fprintf(mFile,"setAttr \".o.oz\" %f;\n", oz);
+		fprintf(mFile,"\tsetAttr \".o.oz\" %f;\n", oz);
 
 	}
 	void getTarget(size_t tg_i)
@@ -213,7 +214,8 @@ public:
 
 	}
 protected:
-	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Constraint(file, name, parent, nodeType) {}
+	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Constraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

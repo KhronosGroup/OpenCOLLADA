@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -25,11 +25,12 @@ public:
 		}
 	};
 public:
+	GeometryConstraint():Constraint(){}
 	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "geometryConstraint"){}
 	virtual ~GeometryConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
-		fprintf(mFile,"setAttr \".tg[%i]\" ",tg_i);
+		fprintf(mFile,"\tsetAttr \".tg[%i]\" ",tg_i);
 		tg.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,13 +38,13 @@ public:
 	void setTargetWeight(size_t tg_i,double tw)
 	{
 		if(tw == 1.0) return;
-		fprintf(mFile,"setAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
+		fprintf(mFile,"\tsetAttr \".tg[%i].tw\" %f;\n", tg_i,tw);
 
 	}
 	void setConstraintParentInverseMatrix(const matrix& cpim)
 	{
 		if(cpim == identity) return;
-		fprintf(mFile,"setAttr \".cpim\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".cpim\" -type \"matrix\" ");
 		cpim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -74,7 +75,8 @@ public:
 
 	}
 protected:
-	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Constraint(file, name, parent, nodeType) {}
+	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Constraint(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

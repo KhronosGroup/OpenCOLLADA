@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -100,41 +100,42 @@ public:
 		}
 	};
 public:
+	RampShader():DependNode(){}
 	RampShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "rampShader"){}
 	virtual ~RampShader(){}
 	void setRefractionLimit(short rdl)
 	{
 		if(rdl == 6) return;
-		fprintf(mFile,"setAttr \".rdl\" %i;\n", rdl);
+		fprintf(mFile,"\tsetAttr \".rdl\" %i;\n", rdl);
 
 	}
 	void setRefractiveIndex(float rfi)
 	{
 		if(rfi == 1.0) return;
-		fprintf(mFile,"setAttr \".rfi\" %f;\n", rfi);
+		fprintf(mFile,"\tsetAttr \".rfi\" %f;\n", rfi);
 
 	}
 	void setRefractions(bool rfc)
 	{
 		if(rfc == false) return;
-		fprintf(mFile,"setAttr \".rfc\" %i;\n", rfc);
+		fprintf(mFile,"\tsetAttr \".rfc\" %i;\n", rfc);
 
 	}
 	void setDiffuse(float dc)
 	{
 		if(dc == 0.8) return;
-		fprintf(mFile,"setAttr \".dc\" %f;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %f;\n", dc);
 
 	}
 	void setForwardScatter(float fsc)
 	{
 		if(fsc == 0.0) return;
-		fprintf(mFile,"setAttr \".fsc\" %f;\n", fsc);
+		fprintf(mFile,"\tsetAttr \".fsc\" %f;\n", fsc);
 
 	}
 	void setColor(size_t clr_i,const Color& clr)
 	{
-		fprintf(mFile,"setAttr \".clr[%i]\" ",clr_i);
+		fprintf(mFile,"\tsetAttr \".clr[%i]\" ",clr_i);
 		clr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -142,12 +143,12 @@ public:
 	void setColor_Position(size_t clr_i,float clrp)
 	{
 		if(clrp == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrp\" %f;\n", clr_i,clrp);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrp\" %f;\n", clr_i,clrp);
 
 	}
 	void setColor_Color(size_t clr_i,const float3& clrc)
 	{
-		fprintf(mFile,"setAttr \".clr[%i].clrc\" -type \"float3\" ",clr_i);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrc\" -type \"float3\" ",clr_i);
 		clrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -155,42 +156,42 @@ public:
 	void setColor_ColorR(size_t clr_i,float clrcr)
 	{
 		if(clrcr == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrc.clrcr\" %f;\n", clr_i,clrcr);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrc.clrcr\" %f;\n", clr_i,clrcr);
 
 	}
 	void setColor_ColorG(size_t clr_i,float clrcg)
 	{
 		if(clrcg == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrc.clrcg\" %f;\n", clr_i,clrcg);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrc.clrcg\" %f;\n", clr_i,clrcg);
 
 	}
 	void setColor_ColorB(size_t clr_i,float clrcb)
 	{
 		if(clrcb == 0.0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clrc.clrcb\" %f;\n", clr_i,clrcb);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clrc.clrcb\" %f;\n", clr_i,clrcb);
 
 	}
 	void setColor_Interp(size_t clr_i,unsigned int clri)
 	{
 		if(clri == 0) return;
-		fprintf(mFile,"setAttr \".clr[%i].clri\" %i;\n", clr_i,clri);
+		fprintf(mFile,"\tsetAttr \".clr[%i].clri\" %i;\n", clr_i,clri);
 
 	}
 	void setColorInput(unsigned int cin)
 	{
 		if(cin == 0) return;
-		fprintf(mFile,"setAttr \".cin\" %i;\n", cin);
+		fprintf(mFile,"\tsetAttr \".cin\" %i;\n", cin);
 
 	}
 	void setShadowMode(unsigned int smd)
 	{
 		if(smd == 0) return;
-		fprintf(mFile,"setAttr \".smd\" %i;\n", smd);
+		fprintf(mFile,"\tsetAttr \".smd\" %i;\n", smd);
 
 	}
 	void setShadowColor(const float3& shc)
 	{
-		fprintf(mFile,"setAttr \".shc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".shc\" -type \"float3\" ");
 		shc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -198,30 +199,30 @@ public:
 	void setShadowColorR(float shr)
 	{
 		if(shr == 0.0) return;
-		fprintf(mFile,"setAttr \".shc.shr\" %f;\n", shr);
+		fprintf(mFile,"\tsetAttr \".shc.shr\" %f;\n", shr);
 
 	}
 	void setShadowColorG(float shg)
 	{
 		if(shg == 0.0) return;
-		fprintf(mFile,"setAttr \".shc.shg\" %f;\n", shg);
+		fprintf(mFile,"\tsetAttr \".shc.shg\" %f;\n", shg);
 
 	}
 	void setShadowColorB(float shb)
 	{
 		if(shb == 0.0) return;
-		fprintf(mFile,"setAttr \".shc.shb\" %f;\n", shb);
+		fprintf(mFile,"\tsetAttr \".shc.shb\" %f;\n", shb);
 
 	}
 	void setShadowThreshold(float sht)
 	{
 		if(sht == 0.0) return;
-		fprintf(mFile,"setAttr \".sht\" %f;\n", sht);
+		fprintf(mFile,"\tsetAttr \".sht\" %f;\n", sht);
 
 	}
 	void setTransparency(size_t it_i,const Transparency& it)
 	{
-		fprintf(mFile,"setAttr \".it[%i]\" ",it_i);
+		fprintf(mFile,"\tsetAttr \".it[%i]\" ",it_i);
 		it.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -229,12 +230,12 @@ public:
 	void setTransparency_Position(size_t it_i,float itp)
 	{
 		if(itp == 0.0) return;
-		fprintf(mFile,"setAttr \".it[%i].itp\" %f;\n", it_i,itp);
+		fprintf(mFile,"\tsetAttr \".it[%i].itp\" %f;\n", it_i,itp);
 
 	}
 	void setTransparency_Color(size_t it_i,const float3& itc)
 	{
-		fprintf(mFile,"setAttr \".it[%i].itc\" -type \"float3\" ",it_i);
+		fprintf(mFile,"\tsetAttr \".it[%i].itc\" -type \"float3\" ",it_i);
 		itc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -242,30 +243,30 @@ public:
 	void setTransparency_ColorR(size_t it_i,float itcr)
 	{
 		if(itcr == 0.0) return;
-		fprintf(mFile,"setAttr \".it[%i].itc.itcr\" %f;\n", it_i,itcr);
+		fprintf(mFile,"\tsetAttr \".it[%i].itc.itcr\" %f;\n", it_i,itcr);
 
 	}
 	void setTransparency_ColorG(size_t it_i,float itcg)
 	{
 		if(itcg == 0.0) return;
-		fprintf(mFile,"setAttr \".it[%i].itc.itcg\" %f;\n", it_i,itcg);
+		fprintf(mFile,"\tsetAttr \".it[%i].itc.itcg\" %f;\n", it_i,itcg);
 
 	}
 	void setTransparency_ColorB(size_t it_i,float itcb)
 	{
 		if(itcb == 0.0) return;
-		fprintf(mFile,"setAttr \".it[%i].itc.itcb\" %f;\n", it_i,itcb);
+		fprintf(mFile,"\tsetAttr \".it[%i].itc.itcb\" %f;\n", it_i,itcb);
 
 	}
 	void setTransparency_Interp(size_t it_i,unsigned int iti)
 	{
 		if(iti == 0) return;
-		fprintf(mFile,"setAttr \".it[%i].iti\" %i;\n", it_i,iti);
+		fprintf(mFile,"\tsetAttr \".it[%i].iti\" %i;\n", it_i,iti);
 
 	}
 	void setAmbientColor(const float3& ambc)
 	{
-		fprintf(mFile,"setAttr \".ambc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ambc\" -type \"float3\" ");
 		ambc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -273,24 +274,24 @@ public:
 	void setAmbientColorR(float acr)
 	{
 		if(acr == 0.0) return;
-		fprintf(mFile,"setAttr \".ambc.acr\" %f;\n", acr);
+		fprintf(mFile,"\tsetAttr \".ambc.acr\" %f;\n", acr);
 
 	}
 	void setAmbientColorG(float acg)
 	{
 		if(acg == 0.0) return;
-		fprintf(mFile,"setAttr \".ambc.acg\" %f;\n", acg);
+		fprintf(mFile,"\tsetAttr \".ambc.acg\" %f;\n", acg);
 
 	}
 	void setAmbientColorB(float acb)
 	{
 		if(acb == 0.0) return;
-		fprintf(mFile,"setAttr \".ambc.acb\" %f;\n", acb);
+		fprintf(mFile,"\tsetAttr \".ambc.acb\" %f;\n", acb);
 
 	}
 	void setIncandescence(size_t ic_i,const Incandescence& ic)
 	{
-		fprintf(mFile,"setAttr \".ic[%i]\" ",ic_i);
+		fprintf(mFile,"\tsetAttr \".ic[%i]\" ",ic_i);
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -298,12 +299,12 @@ public:
 	void setIncandescence_Position(size_t ic_i,float icp)
 	{
 		if(icp == 0.0) return;
-		fprintf(mFile,"setAttr \".ic[%i].icp\" %f;\n", ic_i,icp);
+		fprintf(mFile,"\tsetAttr \".ic[%i].icp\" %f;\n", ic_i,icp);
 
 	}
 	void setIncandescence_Color(size_t ic_i,const float3& icc)
 	{
-		fprintf(mFile,"setAttr \".ic[%i].icc\" -type \"float3\" ",ic_i);
+		fprintf(mFile,"\tsetAttr \".ic[%i].icc\" -type \"float3\" ",ic_i);
 		icc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -311,114 +312,114 @@ public:
 	void setIncandescence_ColorR(size_t ic_i,float iccr)
 	{
 		if(iccr == 0.0) return;
-		fprintf(mFile,"setAttr \".ic[%i].icc.iccr\" %f;\n", ic_i,iccr);
+		fprintf(mFile,"\tsetAttr \".ic[%i].icc.iccr\" %f;\n", ic_i,iccr);
 
 	}
 	void setIncandescence_ColorG(size_t ic_i,float iccg)
 	{
 		if(iccg == 0.0) return;
-		fprintf(mFile,"setAttr \".ic[%i].icc.iccg\" %f;\n", ic_i,iccg);
+		fprintf(mFile,"\tsetAttr \".ic[%i].icc.iccg\" %f;\n", ic_i,iccg);
 
 	}
 	void setIncandescence_ColorB(size_t ic_i,float iccb)
 	{
 		if(iccb == 0.0) return;
-		fprintf(mFile,"setAttr \".ic[%i].icc.iccb\" %f;\n", ic_i,iccb);
+		fprintf(mFile,"\tsetAttr \".ic[%i].icc.iccb\" %f;\n", ic_i,iccb);
 
 	}
 	void setIncandescence_Interp(size_t ic_i,unsigned int ici)
 	{
 		if(ici == 0) return;
-		fprintf(mFile,"setAttr \".ic[%i].ici\" %i;\n", ic_i,ici);
+		fprintf(mFile,"\tsetAttr \".ic[%i].ici\" %i;\n", ic_i,ici);
 
 	}
 	void setTranslucence(float tc)
 	{
 		if(tc == 0.0) return;
-		fprintf(mFile,"setAttr \".tc\" %f;\n", tc);
+		fprintf(mFile,"\tsetAttr \".tc\" %f;\n", tc);
 
 	}
 	void setTranslucenceFocus(float tcf)
 	{
 		if(tcf == 0.0) return;
-		fprintf(mFile,"setAttr \".tcf\" %f;\n", tcf);
+		fprintf(mFile,"\tsetAttr \".tcf\" %f;\n", tcf);
 
 	}
 	void setTranslucenceDepth(float trsd)
 	{
 		if(trsd == 0.05) return;
-		fprintf(mFile,"setAttr \".trsd\" %f;\n", trsd);
+		fprintf(mFile,"\tsetAttr \".trsd\" %f;\n", trsd);
 
 	}
 	void setOpacityDepth(float opad)
 	{
 		if(opad == 0.0) return;
-		fprintf(mFile,"setAttr \".opad\" %f;\n", opad);
+		fprintf(mFile,"\tsetAttr \".opad\" %f;\n", opad);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 0.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setSpecularGlow(float spg)
 	{
 		if(spg == 0.0) return;
-		fprintf(mFile,"setAttr \".spg\" %f;\n", spg);
+		fprintf(mFile,"\tsetAttr \".spg\" %f;\n", spg);
 
 	}
 	void setHideSource(bool hs)
 	{
 		if(hs == false) return;
-		fprintf(mFile,"setAttr \".hs\" %i;\n", hs);
+		fprintf(mFile,"\tsetAttr \".hs\" %i;\n", hs);
 
 	}
 	void setSurfaceThickness(float thik)
 	{
 		if(thik == 0.0) return;
-		fprintf(mFile,"setAttr \".thik\" %f;\n", thik);
+		fprintf(mFile,"\tsetAttr \".thik\" %f;\n", thik);
 
 	}
 	void setShadowAttenuation(float fakc)
 	{
 		if(fakc == 0.5) return;
-		fprintf(mFile,"setAttr \".fakc\" %f;\n", fakc);
+		fprintf(mFile,"\tsetAttr \".fakc\" %f;\n", fakc);
 
 	}
 	void setTransparencyDepth(float trdp)
 	{
 		if(trdp == 0.0) return;
-		fprintf(mFile,"setAttr \".trdp\" %f;\n", trdp);
+		fprintf(mFile,"\tsetAttr \".trdp\" %f;\n", trdp);
 
 	}
 	void setLightAbsorbance(float absb)
 	{
 		if(absb == 0.0) return;
-		fprintf(mFile,"setAttr \".absb\" %f;\n", absb);
+		fprintf(mFile,"\tsetAttr \".absb\" %f;\n", absb);
 
 	}
 	void setChromaticAberration(bool crab)
 	{
 		if(crab == false) return;
-		fprintf(mFile,"setAttr \".crab\" %i;\n", crab);
+		fprintf(mFile,"\tsetAttr \".crab\" %i;\n", crab);
 
 	}
 	void setEccentricity(float ec)
 	{
 		if(ec == 0.3) return;
-		fprintf(mFile,"setAttr \".ec\" %f;\n", ec);
+		fprintf(mFile,"\tsetAttr \".ec\" %f;\n", ec);
 
 	}
 	void setSpecularity(float spl)
 	{
 		if(spl == 0.3) return;
-		fprintf(mFile,"setAttr \".spl\" %f;\n", spl);
+		fprintf(mFile,"\tsetAttr \".spl\" %f;\n", spl);
 
 	}
 	void setSpecularRollOff(size_t sro_i,const SpecularRollOff& sro)
 	{
-		fprintf(mFile,"setAttr \".sro[%i]\" ",sro_i);
+		fprintf(mFile,"\tsetAttr \".sro[%i]\" ",sro_i);
 		sro.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -426,30 +427,30 @@ public:
 	void setSpecularRollOff_Position(size_t sro_i,float srop)
 	{
 		if(srop == 0.0) return;
-		fprintf(mFile,"setAttr \".sro[%i].srop\" %f;\n", sro_i,srop);
+		fprintf(mFile,"\tsetAttr \".sro[%i].srop\" %f;\n", sro_i,srop);
 
 	}
 	void setSpecularRollOff_FloatValue(size_t sro_i,float srofv)
 	{
 		if(srofv == 0.0) return;
-		fprintf(mFile,"setAttr \".sro[%i].srofv\" %f;\n", sro_i,srofv);
+		fprintf(mFile,"\tsetAttr \".sro[%i].srofv\" %f;\n", sro_i,srofv);
 
 	}
 	void setSpecularRollOff_Interp(size_t sro_i,unsigned int sroi)
 	{
 		if(sroi == 0) return;
-		fprintf(mFile,"setAttr \".sro[%i].sroi\" %i;\n", sro_i,sroi);
+		fprintf(mFile,"\tsetAttr \".sro[%i].sroi\" %i;\n", sro_i,sroi);
 
 	}
 	void setReflectionLimit(short fll)
 	{
 		if(fll == 1) return;
-		fprintf(mFile,"setAttr \".fll\" %i;\n", fll);
+		fprintf(mFile,"\tsetAttr \".fll\" %i;\n", fll);
 
 	}
 	void setSpecularColor(size_t sc_i,const SpecularColor& sc)
 	{
-		fprintf(mFile,"setAttr \".sc[%i]\" ",sc_i);
+		fprintf(mFile,"\tsetAttr \".sc[%i]\" ",sc_i);
 		sc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -457,12 +458,12 @@ public:
 	void setSpecularColor_Position(size_t sc_i,float scp)
 	{
 		if(scp == 0.0) return;
-		fprintf(mFile,"setAttr \".sc[%i].scp\" %f;\n", sc_i,scp);
+		fprintf(mFile,"\tsetAttr \".sc[%i].scp\" %f;\n", sc_i,scp);
 
 	}
 	void setSpecularColor_Color(size_t sc_i,const float3& scc)
 	{
-		fprintf(mFile,"setAttr \".sc[%i].scc\" -type \"float3\" ",sc_i);
+		fprintf(mFile,"\tsetAttr \".sc[%i].scc\" -type \"float3\" ",sc_i);
 		scc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -470,30 +471,30 @@ public:
 	void setSpecularColor_ColorR(size_t sc_i,float sccr)
 	{
 		if(sccr == 0.0) return;
-		fprintf(mFile,"setAttr \".sc[%i].scc.sccr\" %f;\n", sc_i,sccr);
+		fprintf(mFile,"\tsetAttr \".sc[%i].scc.sccr\" %f;\n", sc_i,sccr);
 
 	}
 	void setSpecularColor_ColorG(size_t sc_i,float sccg)
 	{
 		if(sccg == 0.0) return;
-		fprintf(mFile,"setAttr \".sc[%i].scc.sccg\" %f;\n", sc_i,sccg);
+		fprintf(mFile,"\tsetAttr \".sc[%i].scc.sccg\" %f;\n", sc_i,sccg);
 
 	}
 	void setSpecularColor_ColorB(size_t sc_i,float sccb)
 	{
 		if(sccb == 0.0) return;
-		fprintf(mFile,"setAttr \".sc[%i].scc.sccb\" %f;\n", sc_i,sccb);
+		fprintf(mFile,"\tsetAttr \".sc[%i].scc.sccb\" %f;\n", sc_i,sccb);
 
 	}
 	void setSpecularColor_Interp(size_t sc_i,unsigned int sci)
 	{
 		if(sci == 0) return;
-		fprintf(mFile,"setAttr \".sc[%i].sci\" %i;\n", sc_i,sci);
+		fprintf(mFile,"\tsetAttr \".sc[%i].sci\" %i;\n", sc_i,sci);
 
 	}
 	void setReflectivity(size_t rfl_i,const Reflectivity& rfl)
 	{
-		fprintf(mFile,"setAttr \".rfl[%i]\" ",rfl_i);
+		fprintf(mFile,"\tsetAttr \".rfl[%i]\" ",rfl_i);
 		rfl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -501,24 +502,24 @@ public:
 	void setReflectivity_Position(size_t rfl_i,float rflp)
 	{
 		if(rflp == 0.0) return;
-		fprintf(mFile,"setAttr \".rfl[%i].rflp\" %f;\n", rfl_i,rflp);
+		fprintf(mFile,"\tsetAttr \".rfl[%i].rflp\" %f;\n", rfl_i,rflp);
 
 	}
 	void setReflectivity_FloatValue(size_t rfl_i,float rflfv)
 	{
 		if(rflfv == 0.0) return;
-		fprintf(mFile,"setAttr \".rfl[%i].rflfv\" %f;\n", rfl_i,rflfv);
+		fprintf(mFile,"\tsetAttr \".rfl[%i].rflfv\" %f;\n", rfl_i,rflfv);
 
 	}
 	void setReflectivity_Interp(size_t rfl_i,unsigned int rfli)
 	{
 		if(rfli == 0) return;
-		fprintf(mFile,"setAttr \".rfl[%i].rfli\" %i;\n", rfl_i,rfli);
+		fprintf(mFile,"\tsetAttr \".rfl[%i].rfli\" %i;\n", rfl_i,rfli);
 
 	}
 	void setEnvironment(size_t env_i,const Environment& env)
 	{
-		fprintf(mFile,"setAttr \".env[%i]\" ",env_i);
+		fprintf(mFile,"\tsetAttr \".env[%i]\" ",env_i);
 		env.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -526,12 +527,12 @@ public:
 	void setEnvironment_Position(size_t env_i,float envp)
 	{
 		if(envp == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envp\" %f;\n", env_i,envp);
+		fprintf(mFile,"\tsetAttr \".env[%i].envp\" %f;\n", env_i,envp);
 
 	}
 	void setEnvironment_Color(size_t env_i,const float3& envc)
 	{
-		fprintf(mFile,"setAttr \".env[%i].envc\" -type \"float3\" ",env_i);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc\" -type \"float3\" ",env_i);
 		envc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -539,30 +540,30 @@ public:
 	void setEnvironment_ColorR(size_t env_i,float envcr)
 	{
 		if(envcr == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcr\" %f;\n", env_i,envcr);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcr\" %f;\n", env_i,envcr);
 
 	}
 	void setEnvironment_ColorG(size_t env_i,float envcg)
 	{
 		if(envcg == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcg\" %f;\n", env_i,envcg);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcg\" %f;\n", env_i,envcg);
 
 	}
 	void setEnvironment_ColorB(size_t env_i,float envcb)
 	{
 		if(envcb == 0.0) return;
-		fprintf(mFile,"setAttr \".env[%i].envc.envcb\" %f;\n", env_i,envcb);
+		fprintf(mFile,"\tsetAttr \".env[%i].envc.envcb\" %f;\n", env_i,envcb);
 
 	}
 	void setEnvironment_Interp(size_t env_i,unsigned int envi)
 	{
 		if(envi == 0) return;
-		fprintf(mFile,"setAttr \".env[%i].envi\" %i;\n", env_i,envi);
+		fprintf(mFile,"\tsetAttr \".env[%i].envi\" %i;\n", env_i,envi);
 
 	}
 	void setReflectedColor(const float3& rc)
 	{
-		fprintf(mFile,"setAttr \".rc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".rc\" -type \"float3\" ");
 		rc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -570,66 +571,66 @@ public:
 	void setReflectedColorR(float rr)
 	{
 		if(rr == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rr\" %f;\n", rr);
+		fprintf(mFile,"\tsetAttr \".rc.rr\" %f;\n", rr);
 
 	}
 	void setReflectedColorG(float rg)
 	{
 		if(rg == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rg\" %f;\n", rg);
+		fprintf(mFile,"\tsetAttr \".rc.rg\" %f;\n", rg);
 
 	}
 	void setReflectedColorB(float rb)
 	{
 		if(rb == 0.0) return;
-		fprintf(mFile,"setAttr \".rc.rb\" %f;\n", rb);
+		fprintf(mFile,"\tsetAttr \".rc.rb\" %f;\n", rb);
 
 	}
 	void setReflectionSpecularity(float rsp)
 	{
 		if(rsp == 1.0) return;
-		fprintf(mFile,"setAttr \".rsp\" %f;\n", rsp);
+		fprintf(mFile,"\tsetAttr \".rsp\" %f;\n", rsp);
 
 	}
 	void setMatteOpacityMode(unsigned int mom)
 	{
 		if(mom == 2) return;
-		fprintf(mFile,"setAttr \".mom\" %i;\n", mom);
+		fprintf(mFile,"\tsetAttr \".mom\" %i;\n", mom);
 
 	}
 	void setMatteOpacity(float mog)
 	{
 		if(mog == 1.0) return;
-		fprintf(mFile,"setAttr \".mog\" %f;\n", mog);
+		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
 
 	}
 	void setMiRefractionBlur(float mirfb)
 	{
 		if(mirfb == 0) return;
-		fprintf(mFile,"setAttr \".mirfb\" %f;\n", mirfb);
+		fprintf(mFile,"\tsetAttr \".mirfb\" %f;\n", mirfb);
 
 	}
 	void setMiRefractionRays(short mirfr)
 	{
 		if(mirfr == 1) return;
-		fprintf(mFile,"setAttr \".mirfr\" %i;\n", mirfr);
+		fprintf(mFile,"\tsetAttr \".mirfr\" %i;\n", mirfr);
 
 	}
 	void setMiReflectionBlur(float mircb)
 	{
 		if(mircb == 0) return;
-		fprintf(mFile,"setAttr \".mircb\" %f;\n", mircb);
+		fprintf(mFile,"\tsetAttr \".mircb\" %f;\n", mircb);
 
 	}
 	void setMiReflectionRays(short mircr)
 	{
 		if(mircr == 1) return;
-		fprintf(mFile,"setAttr \".mircr\" %i;\n", mircr);
+		fprintf(mFile,"\tsetAttr \".mircr\" %i;\n", mircr);
 
 	}
 	void setMiIrradiance(const float3& mii)
 	{
-		fprintf(mFile,"setAttr \".mii\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mii\" -type \"float3\" ");
 		mii.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -637,24 +638,24 @@ public:
 	void setMiIrradianceR(float miir)
 	{
 		if(miir == 0) return;
-		fprintf(mFile,"setAttr \".mii.miir\" %f;\n", miir);
+		fprintf(mFile,"\tsetAttr \".mii.miir\" %f;\n", miir);
 
 	}
 	void setMiIrradianceG(float miig)
 	{
 		if(miig == 0) return;
-		fprintf(mFile,"setAttr \".mii.miig\" %f;\n", miig);
+		fprintf(mFile,"\tsetAttr \".mii.miig\" %f;\n", miig);
 
 	}
 	void setMiIrradianceB(float miib)
 	{
 		if(miib == 0) return;
-		fprintf(mFile,"setAttr \".mii.miib\" %f;\n", miib);
+		fprintf(mFile,"\tsetAttr \".mii.miib\" %f;\n", miib);
 
 	}
 	void setMiIrradianceColor(const float3& miic)
 	{
-		fprintf(mFile,"setAttr \".miic\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".miic\" -type \"float3\" ");
 		miic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -662,36 +663,36 @@ public:
 	void setMiIrradianceColorR(float miicr)
 	{
 		if(miicr == 1) return;
-		fprintf(mFile,"setAttr \".miic.miicr\" %f;\n", miicr);
+		fprintf(mFile,"\tsetAttr \".miic.miicr\" %f;\n", miicr);
 
 	}
 	void setMiIrradianceColorG(float miicg)
 	{
 		if(miicg == 1) return;
-		fprintf(mFile,"setAttr \".miic.miicg\" %f;\n", miicg);
+		fprintf(mFile,"\tsetAttr \".miic.miicg\" %f;\n", miicg);
 
 	}
 	void setMiIrradianceColorB(float miicb)
 	{
 		if(miicb == 1) return;
-		fprintf(mFile,"setAttr \".miic.miicb\" %f;\n", miicb);
+		fprintf(mFile,"\tsetAttr \".miic.miicb\" %f;\n", miicb);
 
 	}
 	void setMiDeriveFromMaya(bool mifm)
 	{
 		if(mifm == true) return;
-		fprintf(mFile,"setAttr \".mifm\" %i;\n", mifm);
+		fprintf(mFile,"\tsetAttr \".mifm\" %i;\n", mifm);
 
 	}
 	void setMiShinyness(float mis)
 	{
 		if(mis == 10) return;
-		fprintf(mFile,"setAttr \".mis\" %f;\n", mis);
+		fprintf(mFile,"\tsetAttr \".mis\" %f;\n", mis);
 
 	}
 	void setMiSpecularColor(const float3& misc)
 	{
-		fprintf(mFile,"setAttr \".misc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".misc\" -type \"float3\" ");
 		misc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -699,54 +700,54 @@ public:
 	void setMiSpecularColorR(float miscr)
 	{
 		if(miscr == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscr\" %f;\n", miscr);
+		fprintf(mFile,"\tsetAttr \".misc.miscr\" %f;\n", miscr);
 
 	}
 	void setMiSpecularColorG(float miscg)
 	{
 		if(miscg == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscg\" %f;\n", miscg);
+		fprintf(mFile,"\tsetAttr \".misc.miscg\" %f;\n", miscg);
 
 	}
 	void setMiSpecularColorB(float miscb)
 	{
 		if(miscb == 0.5) return;
-		fprintf(mFile,"setAttr \".misc.miscb\" %f;\n", miscb);
+		fprintf(mFile,"\tsetAttr \".misc.miscb\" %f;\n", miscb);
 
 	}
 	void setMiReflectivity(float mirf)
 	{
 		if(mirf == 0.5) return;
-		fprintf(mFile,"setAttr \".mirf\" %f;\n", mirf);
+		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
 	void setMiRefractiveIndex(float miri)
 	{
 		if(miri == 1) return;
-		fprintf(mFile,"setAttr \".miri\" %f;\n", miri);
+		fprintf(mFile,"\tsetAttr \".miri\" %f;\n", miri);
 
 	}
 	void setMiRefractions(bool mirc)
 	{
 		if(mirc == true) return;
-		fprintf(mFile,"setAttr \".mirc\" %i;\n", mirc);
+		fprintf(mFile,"\tsetAttr \".mirc\" %i;\n", mirc);
 
 	}
 	void setMiAbsorbs(bool miab)
 	{
 		if(miab == true) return;
-		fprintf(mFile,"setAttr \".miab\" %i;\n", miab);
+		fprintf(mFile,"\tsetAttr \".miab\" %i;\n", miab);
 
 	}
 	void setMiDiffuse(float midc)
 	{
 		if(midc == 0.8) return;
-		fprintf(mFile,"setAttr \".midc\" %f;\n", midc);
+		fprintf(mFile,"\tsetAttr \".midc\" %f;\n", midc);
 
 	}
 	void setMiColor(const float3& mic)
 	{
-		fprintf(mFile,"setAttr \".mic\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mic\" -type \"float3\" ");
 		mic.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -754,24 +755,24 @@ public:
 	void setMiColorR(float micr)
 	{
 		if(micr == 0.5) return;
-		fprintf(mFile,"setAttr \".mic.micr\" %f;\n", micr);
+		fprintf(mFile,"\tsetAttr \".mic.micr\" %f;\n", micr);
 
 	}
 	void setMiColorG(float micg)
 	{
 		if(micg == 0.5) return;
-		fprintf(mFile,"setAttr \".mic.micg\" %f;\n", micg);
+		fprintf(mFile,"\tsetAttr \".mic.micg\" %f;\n", micg);
 
 	}
 	void setMiColorB(float micb)
 	{
 		if(micb == 0.5) return;
-		fprintf(mFile,"setAttr \".mic.micb\" %f;\n", micb);
+		fprintf(mFile,"\tsetAttr \".mic.micb\" %f;\n", micb);
 
 	}
 	void setMiTransparency(const float3& mit)
 	{
-		fprintf(mFile,"setAttr \".mit\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mit\" -type \"float3\" ");
 		mit.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -779,36 +780,36 @@ public:
 	void setMiTransparencyR(float mitr)
 	{
 		if(mitr == 0) return;
-		fprintf(mFile,"setAttr \".mit.mitr\" %f;\n", mitr);
+		fprintf(mFile,"\tsetAttr \".mit.mitr\" %f;\n", mitr);
 
 	}
 	void setMiTransparencyG(float mitg)
 	{
 		if(mitg == 0) return;
-		fprintf(mFile,"setAttr \".mit.mitg\" %f;\n", mitg);
+		fprintf(mFile,"\tsetAttr \".mit.mitg\" %f;\n", mitg);
 
 	}
 	void setMiTransparencyB(float mitb)
 	{
 		if(mitb == 0) return;
-		fprintf(mFile,"setAttr \".mit.mitb\" %f;\n", mitb);
+		fprintf(mFile,"\tsetAttr \".mit.mitb\" %f;\n", mitb);
 
 	}
 	void setMiTranslucence(float mitc)
 	{
 		if(mitc == 0) return;
-		fprintf(mFile,"setAttr \".mitc\" %f;\n", mitc);
+		fprintf(mFile,"\tsetAttr \".mitc\" %f;\n", mitc);
 
 	}
 	void setMiTranslucenceFocus(float mitf)
 	{
 		if(mitf == 0.5) return;
-		fprintf(mFile,"setAttr \".mitf\" %f;\n", mitf);
+		fprintf(mFile,"\tsetAttr \".mitf\" %f;\n", mitf);
 
 	}
 	void setMiNormalCamera(const float3& minc)
 	{
-		fprintf(mFile,"setAttr \".minc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".minc\" -type \"float3\" ");
 		minc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -816,19 +817,44 @@ public:
 	void setMiNormalCameraX(float mincx)
 	{
 		if(mincx == 0) return;
-		fprintf(mFile,"setAttr \".minc.mincx\" %f;\n", mincx);
+		fprintf(mFile,"\tsetAttr \".minc.mincx\" %f;\n", mincx);
 
 	}
 	void setMiNormalCameraY(float mincy)
 	{
 		if(mincy == 0) return;
-		fprintf(mFile,"setAttr \".minc.mincy\" %f;\n", mincy);
+		fprintf(mFile,"\tsetAttr \".minc.mincy\" %f;\n", mincy);
 
 	}
 	void setMiNormalCameraZ(float mincz)
 	{
 		if(mincz == 0) return;
-		fprintf(mFile,"setAttr \".minc.mincz\" %f;\n", mincz);
+		fprintf(mFile,"\tsetAttr \".minc.mincz\" %f;\n", mincz);
+
+	}
+	void getObjectId()
+	{
+		fprintf(mFile,"\"%s.oi\"",mName.c_str());
+
+	}
+	void getPrimitiveId()
+	{
+		fprintf(mFile,"\"%s.pi\"",mName.c_str());
+
+	}
+	void getRaySampler()
+	{
+		fprintf(mFile,"\"%s.rtr\"",mName.c_str());
+
+	}
+	void getRayDepth()
+	{
+		fprintf(mFile,"\"%s.rd\"",mName.c_str());
+
+	}
+	void getRayInstance()
+	{
+		fprintf(mFile,"\"%s.ryi\"",mName.c_str());
 
 	}
 	void getRefractionLimit()
@@ -839,6 +865,11 @@ public:
 	void getRefractiveIndex()
 	{
 		fprintf(mFile,"\"%s.rfi\"",mName.c_str());
+
+	}
+	void getMediumRefractiveIndex()
+	{
+		fprintf(mFile,"\"%s.mrfi\"",mName.c_str());
 
 	}
 	void getRefractions()
@@ -854,6 +885,26 @@ public:
 	void getForwardScatter()
 	{
 		fprintf(mFile,"\"%s.fsc\"",mName.c_str());
+
+	}
+	void getRayDirection()
+	{
+		fprintf(mFile,"\"%s.rad\"",mName.c_str());
+
+	}
+	void getRayDirectionX()
+	{
+		fprintf(mFile,"\"%s.rad.rdx\"",mName.c_str());
+
+	}
+	void getRayDirectionY()
+	{
+		fprintf(mFile,"\"%s.rad.rdy\"",mName.c_str());
+
+	}
+	void getRayDirectionZ()
+	{
+		fprintf(mFile,"\"%s.rad.rdz\"",mName.c_str());
 
 	}
 	void getColor(size_t clr_i)
@@ -1351,6 +1402,81 @@ public:
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
 
 	}
+	void getLightDataArray(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirection(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionX(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionY(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDirectionZ(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityR(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityG(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightIntensityB(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightAmbient(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightDiffuse(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightSpecular(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightShadowFraction(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
+
+	}
+	void getPreShadowIntensity(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
+
+	}
+	void getLightBlindData(size_t ltd_i)
+	{
+		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
+
+	}
 	void getMatteOpacityMode()
 	{
 		fprintf(mFile,"\"%s.mom\"",mName.c_str());
@@ -1567,7 +1693,8 @@ public:
 
 	}
 protected:
-	RampShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	RampShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

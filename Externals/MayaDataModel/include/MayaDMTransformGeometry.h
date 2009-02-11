@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class TransformGeometry : public AbstractBaseCreate
 {
 public:
 public:
+	TransformGeometry():AbstractBaseCreate(){}
 	TransformGeometry(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "transformGeometry"){}
 	virtual ~TransformGeometry(){}
 	void setTransform(const matrix& txf)
 	{
 		if(txf == identity) return;
-		fprintf(mFile,"setAttr \".txf\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".txf\" -type \"matrix\" ");
 		txf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,13 +32,13 @@ public:
 	void setInvertTransform(bool itf)
 	{
 		if(itf == false) return;
-		fprintf(mFile,"setAttr \".itf\" %i;\n", itf);
+		fprintf(mFile,"\tsetAttr \".itf\" %i;\n", itf);
 
 	}
 	void setFreezeNormals(unsigned int fn)
 	{
 		if(fn == 0) return;
-		fprintf(mFile,"setAttr \".fn\" %i;\n", fn);
+		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
 
 	}
 	void getInputGeometry()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

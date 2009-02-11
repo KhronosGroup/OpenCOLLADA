@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class PolyQuad : public PolyModifierWorld
 {
 public:
 public:
+	PolyQuad():PolyModifierWorld(){}
 	PolyQuad(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyQuad"){}
 	virtual ~PolyQuad(){}
 	void setAngle(double a)
 	{
 		if(a == 3) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setKeepGroupBorder(bool kgb)
 	{
 		if(kgb == true) return;
-		fprintf(mFile,"setAttr \".kgb\" %i;\n", kgb);
+		fprintf(mFile,"\tsetAttr \".kgb\" %i;\n", kgb);
 
 	}
 	void setKeepTextureBorders(bool ktb)
 	{
 		if(ktb == true) return;
-		fprintf(mFile,"setAttr \".ktb\" %i;\n", ktb);
+		fprintf(mFile,"\tsetAttr \".ktb\" %i;\n", ktb);
 
 	}
 	void setKeepHardEdges(bool khe)
 	{
 		if(khe == true) return;
-		fprintf(mFile,"setAttr \".khe\" %i;\n", khe);
+		fprintf(mFile,"\tsetAttr \".khe\" %i;\n", khe);
 
 	}
 	void setMaya80(bool m80)
 	{
 		if(m80 == true) return;
-		fprintf(mFile,"setAttr \".m80\" %i;\n", m80);
+		fprintf(mFile,"\tsetAttr \".m80\" %i;\n", m80);
 
 	}
 	void getAngle()
@@ -71,7 +72,8 @@ public:
 
 	}
 protected:
-	PolyQuad(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyQuad(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierWorld(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

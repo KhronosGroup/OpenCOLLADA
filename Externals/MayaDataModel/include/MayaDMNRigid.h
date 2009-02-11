@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class NRigid : public NParticle
 {
 public:
 public:
+	NRigid():NParticle(){}
 	NRigid(FILE* file,const std::string& name,const std::string& parent=""):NParticle(file, name, parent, "nRigid"){}
 	virtual ~NRigid(){}
 	void setSolverDisplay(unsigned int svds)
 	{
 		if(svds == 0) return;
-		fprintf(mFile,"setAttr \".svds\" %i;\n", svds);
+		fprintf(mFile,"\tsetAttr \".svds\" %i;\n", svds);
 
 	}
 	void getSolverDisplay()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	NRigid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NParticle(file, name, parent, nodeType) {}
+	NRigid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:NParticle(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

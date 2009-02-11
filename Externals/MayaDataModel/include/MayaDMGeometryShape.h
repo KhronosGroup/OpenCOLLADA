@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -39,145 +39,146 @@ public:
 		}
 	};
 public:
+	GeometryShape():Shape(){}
 	GeometryShape(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "geometryShape"){}
 	virtual ~GeometryShape(){}
 	void setRenderType(short rt)
 	{
 		if(rt == 0) return;
-		fprintf(mFile,"setAttr \".rt\" %i;\n", rt);
+		fprintf(mFile,"\tsetAttr \".rt\" %i;\n", rt);
 
 	}
 	void setRenderVolume(bool rv)
 	{
 		if(rv == false) return;
-		fprintf(mFile,"setAttr \".rv\" %i;\n", rv);
+		fprintf(mFile,"\tsetAttr \".rv\" %i;\n", rv);
 
 	}
 	void setVisibleFraction(float vf)
 	{
 		if(vf == 1.0f) return;
-		fprintf(mFile,"setAttr \".vf\" %f;\n", vf);
+		fprintf(mFile,"\tsetAttr \".vf\" %f;\n", vf);
 
 	}
 	void setMotionBlur(bool mb)
 	{
 		if(mb == true) return;
-		fprintf(mFile,"setAttr \".mb\" %i;\n", mb);
+		fprintf(mFile,"\tsetAttr \".mb\" %i;\n", mb);
 
 	}
 	void setVisibleInReflections(bool vir)
 	{
 		if(vir == false) return;
-		fprintf(mFile,"setAttr \".vir\" %i;\n", vir);
+		fprintf(mFile,"\tsetAttr \".vir\" %i;\n", vir);
 
 	}
 	void setVisibleInRefractions(bool vif)
 	{
 		if(vif == false) return;
-		fprintf(mFile,"setAttr \".vif\" %i;\n", vif);
+		fprintf(mFile,"\tsetAttr \".vif\" %i;\n", vif);
 
 	}
 	void setCastsShadows(bool csh)
 	{
 		if(csh == true) return;
-		fprintf(mFile,"setAttr \".csh\" %i;\n", csh);
+		fprintf(mFile,"\tsetAttr \".csh\" %i;\n", csh);
 
 	}
 	void setReceiveShadows(bool rcsh)
 	{
 		if(rcsh == true) return;
-		fprintf(mFile,"setAttr \".rcsh\" %i;\n", rcsh);
+		fprintf(mFile,"\tsetAttr \".rcsh\" %i;\n", rcsh);
 
 	}
 	void setMaxVisibilitySamplesOverride(bool vbo)
 	{
 		if(vbo == false) return;
-		fprintf(mFile,"setAttr \".vbo\" %i;\n", vbo);
+		fprintf(mFile,"\tsetAttr \".vbo\" %i;\n", vbo);
 
 	}
 	void setMaxVisibilitySamples(int mvs)
 	{
 		if(mvs == 1) return;
-		fprintf(mFile,"setAttr \".mvs\" %i;\n", mvs);
+		fprintf(mFile,"\tsetAttr \".mvs\" %i;\n", mvs);
 
 	}
 	void setGeometryAntialiasingOverride(bool gao)
 	{
 		if(gao == false) return;
-		fprintf(mFile,"setAttr \".gao\" %i;\n", gao);
+		fprintf(mFile,"\tsetAttr \".gao\" %i;\n", gao);
 
 	}
 	void setAntialiasingLevel(int gal)
 	{
 		if(gal == 1) return;
-		fprintf(mFile,"setAttr \".gal\" %i;\n", gal);
+		fprintf(mFile,"\tsetAttr \".gal\" %i;\n", gal);
 
 	}
 	void setShadingSamplesOverride(bool sso)
 	{
 		if(sso == false) return;
-		fprintf(mFile,"setAttr \".sso\" %i;\n", sso);
+		fprintf(mFile,"\tsetAttr \".sso\" %i;\n", sso);
 
 	}
 	void setShadingSamples(int ssa)
 	{
 		if(ssa == 1) return;
-		fprintf(mFile,"setAttr \".ssa\" %i;\n", ssa);
+		fprintf(mFile,"\tsetAttr \".ssa\" %i;\n", ssa);
 
 	}
 	void setMaxShadingSamples(int msa)
 	{
 		if(msa == 1) return;
-		fprintf(mFile,"setAttr \".msa\" %i;\n", msa);
+		fprintf(mFile,"\tsetAttr \".msa\" %i;\n", msa);
 
 	}
 	void setVolumeSamplesOverride(bool vso)
 	{
 		if(vso == false) return;
-		fprintf(mFile,"setAttr \".vso\" %i;\n", vso);
+		fprintf(mFile,"\tsetAttr \".vso\" %i;\n", vso);
 
 	}
 	void setVolumeSamples(int vss)
 	{
 		if(vss == 1) return;
-		fprintf(mFile,"setAttr \".vss\" %i;\n", vss);
+		fprintf(mFile,"\tsetAttr \".vss\" %i;\n", vss);
 
 	}
 	void setDepthJitter(bool dej)
 	{
 		if(dej == false) return;
-		fprintf(mFile,"setAttr \".dej\" %i;\n", dej);
+		fprintf(mFile,"\tsetAttr \".dej\" %i;\n", dej);
 
 	}
 	void setIgnoreSelfShadowing(bool iss)
 	{
 		if(iss == false) return;
-		fprintf(mFile,"setAttr \".iss\" %i;\n", iss);
+		fprintf(mFile,"\tsetAttr \".iss\" %i;\n", iss);
 
 	}
 	void setPrimaryVisibility(bool vis)
 	{
 		if(vis == true) return;
-		fprintf(mFile,"setAttr \".vis\" %i;\n", vis);
+		fprintf(mFile,"\tsetAttr \".vis\" %i;\n", vis);
 
 	}
 	void setCompInstObjGroups(size_t ciog_i,const CompInstObjGroups& ciog)
 	{
-		fprintf(mFile,"setAttr \".ciog[%i]\" ",ciog_i);
+		fprintf(mFile,"\tsetAttr \".ciog[%i]\" ",ciog_i);
 		ciog.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setCompObjectGroups(size_t ciog_i,size_t cog_i,const CompInstObjGroups::CompObjectGroups& cog)
 	{
-		fprintf(mFile,"setAttr \".ciog[%i].cog[%i]\" ",ciog_i,cog_i);
+		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i]\" ",ciog_i,cog_i);
 		cog.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setCompObjectGrpCompList(size_t ciog_i,size_t cog_i,const componentList& cgcl)
 	{
-		fprintf(mFile,"setAttr \".ciog[%i].cog[%i].cgcl\" -type \"componentList\" ",ciog_i,cog_i);
+		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i].cgcl\" -type \"componentList\" ",ciog_i,cog_i);
 		cgcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -185,7 +186,7 @@ public:
 	void setCompObjectGroupId(size_t ciog_i,size_t cog_i,int cgid)
 	{
 		if(cgid == 0) return;
-		fprintf(mFile,"setAttr \".ciog[%i].cog[%i].cgid\" %i;\n", ciog_i,cog_i,cgid);
+		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i].cgid\" %i;\n", ciog_i,cog_i,cgid);
 
 	}
 	void getRenderType()
@@ -309,7 +310,8 @@ public:
 
 	}
 protected:
-	GeometryShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	GeometryShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

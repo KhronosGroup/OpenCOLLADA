@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -51,24 +51,25 @@ public:
 		}
 	};
 public:
+	Ocean():Texture2d(){}
 	Ocean(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "ocean"){}
 	virtual ~Ocean(){}
 	void setTime(float ti)
 	{
 		if(ti == 0.0) return;
-		fprintf(mFile,"setAttr \".ti\" %f;\n", ti);
+		fprintf(mFile,"\tsetAttr \".ti\" %f;\n", ti);
 
 	}
 	void setScale(float sc)
 	{
 		if(sc == 10.0) return;
-		fprintf(mFile,"setAttr \".sc\" %f;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
 
 	}
 	void setWindUV(const float2& wi)
 	{
 		if(wi == float2(1.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".wi\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".wi\" -type \"float2\" ");
 		wi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -76,48 +77,48 @@ public:
 	void setWindU(float wiu)
 	{
 		if(wiu == 0.0) return;
-		fprintf(mFile,"setAttr \".wi.wiu\" %f;\n", wiu);
+		fprintf(mFile,"\tsetAttr \".wi.wiu\" %f;\n", wiu);
 
 	}
 	void setWindV(float wiv)
 	{
 		if(wiv == 0.0) return;
-		fprintf(mFile,"setAttr \".wi.wiv\" %f;\n", wiv);
+		fprintf(mFile,"\tsetAttr \".wi.wiv\" %f;\n", wiv);
 
 	}
 	void setObserverSpeed(float os)
 	{
 		if(os == 0.0) return;
-		fprintf(mFile,"setAttr \".os\" %f;\n", os);
+		fprintf(mFile,"\tsetAttr \".os\" %f;\n", os);
 
 	}
 	void setWaveDirSpread(float wd)
 	{
 		if(wd == 0.2) return;
-		fprintf(mFile,"setAttr \".wd\" %f;\n", wd);
+		fprintf(mFile,"\tsetAttr \".wd\" %f;\n", wd);
 
 	}
 	void setNumFrequencies(float nf)
 	{
 		if(nf == 3.0) return;
-		fprintf(mFile,"setAttr \".nf\" %f;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
 	void setWaveLengthMin(float wlm)
 	{
 		if(wlm == 0.3) return;
-		fprintf(mFile,"setAttr \".wlm\" %f;\n", wlm);
+		fprintf(mFile,"\tsetAttr \".wlm\" %f;\n", wlm);
 
 	}
 	void setWaveLengthMax(float wlx)
 	{
 		if(wlx == 4.0) return;
-		fprintf(mFile,"setAttr \".wlx\" %f;\n", wlx);
+		fprintf(mFile,"\tsetAttr \".wlx\" %f;\n", wlx);
 
 	}
 	void setWaveHeight(size_t wh_i,const WaveHeight& wh)
 	{
-		fprintf(mFile,"setAttr \".wh[%i]\" ",wh_i);
+		fprintf(mFile,"\tsetAttr \".wh[%i]\" ",wh_i);
 		wh.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -125,24 +126,24 @@ public:
 	void setWaveHeight_Position(size_t wh_i,float whp)
 	{
 		if(whp == 0.0) return;
-		fprintf(mFile,"setAttr \".wh[%i].whp\" %f;\n", wh_i,whp);
+		fprintf(mFile,"\tsetAttr \".wh[%i].whp\" %f;\n", wh_i,whp);
 
 	}
 	void setWaveHeight_FloatValue(size_t wh_i,float whfv)
 	{
 		if(whfv == 0.0) return;
-		fprintf(mFile,"setAttr \".wh[%i].whfv\" %f;\n", wh_i,whfv);
+		fprintf(mFile,"\tsetAttr \".wh[%i].whfv\" %f;\n", wh_i,whfv);
 
 	}
 	void setWaveHeight_Interp(size_t wh_i,unsigned int whi)
 	{
 		if(whi == 0) return;
-		fprintf(mFile,"setAttr \".wh[%i].whi\" %i;\n", wh_i,whi);
+		fprintf(mFile,"\tsetAttr \".wh[%i].whi\" %i;\n", wh_i,whi);
 
 	}
 	void setWaveTurbulence(size_t wtb_i,const WaveTurbulence& wtb)
 	{
-		fprintf(mFile,"setAttr \".wtb[%i]\" ",wtb_i);
+		fprintf(mFile,"\tsetAttr \".wtb[%i]\" ",wtb_i);
 		wtb.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -150,24 +151,24 @@ public:
 	void setWaveTurbulence_Position(size_t wtb_i,float wtbp)
 	{
 		if(wtbp == 0.0) return;
-		fprintf(mFile,"setAttr \".wtb[%i].wtbp\" %f;\n", wtb_i,wtbp);
+		fprintf(mFile,"\tsetAttr \".wtb[%i].wtbp\" %f;\n", wtb_i,wtbp);
 
 	}
 	void setWaveTurbulence_FloatValue(size_t wtb_i,float wtbfv)
 	{
 		if(wtbfv == 0.0) return;
-		fprintf(mFile,"setAttr \".wtb[%i].wtbfv\" %f;\n", wtb_i,wtbfv);
+		fprintf(mFile,"\tsetAttr \".wtb[%i].wtbfv\" %f;\n", wtb_i,wtbfv);
 
 	}
 	void setWaveTurbulence_Interp(size_t wtb_i,unsigned int wtbi)
 	{
 		if(wtbi == 0) return;
-		fprintf(mFile,"setAttr \".wtb[%i].wtbi\" %i;\n", wtb_i,wtbi);
+		fprintf(mFile,"\tsetAttr \".wtb[%i].wtbi\" %i;\n", wtb_i,wtbi);
 
 	}
 	void setWavePeaking(size_t wp_i,const WavePeaking& wp)
 	{
-		fprintf(mFile,"setAttr \".wp[%i]\" ",wp_i);
+		fprintf(mFile,"\tsetAttr \".wp[%i]\" ",wp_i);
 		wp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -175,37 +176,37 @@ public:
 	void setWavePeaking_Position(size_t wp_i,float wpp)
 	{
 		if(wpp == 0.0) return;
-		fprintf(mFile,"setAttr \".wp[%i].wpp\" %f;\n", wp_i,wpp);
+		fprintf(mFile,"\tsetAttr \".wp[%i].wpp\" %f;\n", wp_i,wpp);
 
 	}
 	void setWavePeaking_FloatValue(size_t wp_i,float wpfv)
 	{
 		if(wpfv == 0.0) return;
-		fprintf(mFile,"setAttr \".wp[%i].wpfv\" %f;\n", wp_i,wpfv);
+		fprintf(mFile,"\tsetAttr \".wp[%i].wpfv\" %f;\n", wp_i,wpfv);
 
 	}
 	void setWavePeaking_Interp(size_t wp_i,unsigned int wpi)
 	{
 		if(wpi == 0) return;
-		fprintf(mFile,"setAttr \".wp[%i].wpi\" %i;\n", wp_i,wpi);
+		fprintf(mFile,"\tsetAttr \".wp[%i].wpi\" %i;\n", wp_i,wpi);
 
 	}
 	void setFoamEmission(float fme)
 	{
 		if(fme == 0.0) return;
-		fprintf(mFile,"setAttr \".fme\" %f;\n", fme);
+		fprintf(mFile,"\tsetAttr \".fme\" %f;\n", fme);
 
 	}
 	void setFoamThreshold(float fmt)
 	{
 		if(fmt == 0.51) return;
-		fprintf(mFile,"setAttr \".fmt\" %f;\n", fmt);
+		fprintf(mFile,"\tsetAttr \".fmt\" %f;\n", fmt);
 
 	}
 	void setColorMode(unsigned int cmd)
 	{
 		if(cmd == 0) return;
-		fprintf(mFile,"setAttr \".cmd\" %i;\n", cmd);
+		fprintf(mFile,"\tsetAttr \".cmd\" %i;\n", cmd);
 
 	}
 	void getTime()
@@ -339,7 +340,8 @@ public:
 
 	}
 protected:
-	Ocean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture2d(file, name, parent, nodeType) {}
+	Ocean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture2d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

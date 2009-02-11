@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -81,12 +81,13 @@ public:
 		}
 	};
 public:
+	Particle():DeformableShape(){}
 	Particle(FILE* file,const std::string& name,const std::string& parent=""):DeformableShape(file, name, parent, "particle"){}
 	virtual ~Particle(){}
 	void setPosition0(const vectorArray& pos0)
 	{
 		if(pos0.size == 0) return;
-		fprintf(mFile,"setAttr \".pos0\" -type \"vectorArray\" ");
+		fprintf(mFile,"\tsetAttr \".pos0\" -type \"vectorArray\" ");
 		pos0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -94,7 +95,7 @@ public:
 	void setVelocity0(const vectorArray& vel0)
 	{
 		if(vel0.size == 0) return;
-		fprintf(mFile,"setAttr \".vel0\" -type \"vectorArray\" ");
+		fprintf(mFile,"\tsetAttr \".vel0\" -type \"vectorArray\" ");
 		vel0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -102,7 +103,7 @@ public:
 	void setAcceleration0(const vectorArray& acc0)
 	{
 		if(acc0.size == 0) return;
-		fprintf(mFile,"setAttr \".acc0\" -type \"vectorArray\" ");
+		fprintf(mFile,"\tsetAttr \".acc0\" -type \"vectorArray\" ");
 		acc0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -110,13 +111,13 @@ public:
 	void setUseStartupCache(bool usc)
 	{
 		if(usc == false) return;
-		fprintf(mFile,"setAttr \".usc\" %i;\n", usc);
+		fprintf(mFile,"\tsetAttr \".usc\" %i;\n", usc);
 
 	}
 	void setStartupCachePath(const string& scp)
 	{
 		if(scp == "NULL") return;
-		fprintf(mFile,"setAttr \".scp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".scp\" -type \"string\" ");
 		scp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -124,13 +125,13 @@ public:
 	void setStartupCacheFrame(int scf)
 	{
 		if(scf == 0) return;
-		fprintf(mFile,"setAttr \".scf\" %i;\n", scf);
+		fprintf(mFile,"\tsetAttr \".scf\" %i;\n", scf);
 
 	}
 	void setMass0(const doubleArray& mas0)
 	{
 		if(mas0.size == 0) return;
-		fprintf(mFile,"setAttr \".mas0\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".mas0\" -type \"doubleArray\" ");
 		mas0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -138,7 +139,7 @@ public:
 	void setParticleId0(const doubleArray& id0)
 	{
 		if(id0.size == 0) return;
-		fprintf(mFile,"setAttr \".id0\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".id0\" -type \"doubleArray\" ");
 		id0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -146,19 +147,19 @@ public:
 	void setNextId(int nid)
 	{
 		if(nid == 0) return;
-		fprintf(mFile,"setAttr \".nid\" %i;\n", nid);
+		fprintf(mFile,"\tsetAttr \".nid\" %i;\n", nid);
 
 	}
 	void setNextId0(int nid0)
 	{
 		if(nid0 == 0) return;
-		fprintf(mFile,"setAttr \".nid0\" %i;\n", nid0);
+		fprintf(mFile,"\tsetAttr \".nid0\" %i;\n", nid0);
 
 	}
 	void setBirthTime0(const doubleArray& bt0)
 	{
 		if(bt0.size == 0) return;
-		fprintf(mFile,"setAttr \".bt0\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".bt0\" -type \"doubleArray\" ");
 		bt0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -166,7 +167,7 @@ public:
 	void setAge0(const doubleArray& ag0)
 	{
 		if(ag0.size == 0) return;
-		fprintf(mFile,"setAttr \".ag0\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".ag0\" -type \"doubleArray\" ");
 		ag0.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -174,31 +175,31 @@ public:
 	void setDieOnEmissionVolumeExit(bool dve)
 	{
 		if(dve == false) return;
-		fprintf(mFile,"setAttr \".dve\" %i;\n", dve);
+		fprintf(mFile,"\tsetAttr \".dve\" %i;\n", dve);
 
 	}
 	void setLifespanMode(unsigned int lfm)
 	{
 		if(lfm == 0) return;
-		fprintf(mFile,"setAttr \".lfm\" %i;\n", lfm);
+		fprintf(mFile,"\tsetAttr \".lfm\" %i;\n", lfm);
 
 	}
 	void setLifespanRandom(double lfr)
 	{
 		if(lfr == 0.0) return;
-		fprintf(mFile,"setAttr \".lfr\" %f;\n", lfr);
+		fprintf(mFile,"\tsetAttr \".lfr\" %f;\n", lfr);
 
 	}
 	void setExpressionsAfterDynamics(bool ead)
 	{
 		if(ead == false) return;
-		fprintf(mFile,"setAttr \".ead\" %i;\n", ead);
+		fprintf(mFile,"\tsetAttr \".ead\" %i;\n", ead);
 
 	}
 	void setInternalRuntimeBeforeDynamicsExpression(const string& irbx)
 	{
 		if(irbx == "NULL") return;
-		fprintf(mFile,"setAttr \".irbx\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".irbx\" -type \"string\" ");
 		irbx.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -206,7 +207,7 @@ public:
 	void setInternalRuntimeAfterDynamicsExpression(const string& irax)
 	{
 		if(irax == "NULL") return;
-		fprintf(mFile,"setAttr \".irax\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".irax\" -type \"string\" ");
 		irax.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -214,7 +215,7 @@ public:
 	void setInternalCreationExpression(const string& icx)
 	{
 		if(icx == "NULL") return;
-		fprintf(mFile,"setAttr \".icx\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".icx\" -type \"string\" ");
 		icx.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -222,60 +223,60 @@ public:
 	void setIsDynamic(bool isd)
 	{
 		if(isd == true) return;
-		fprintf(mFile,"setAttr \".isd\" %i;\n", isd);
+		fprintf(mFile,"\tsetAttr \".isd\" %i;\n", isd);
 
 	}
 	void setDynamicsWeight(double dw)
 	{
 		if(dw == 1.0) return;
-		fprintf(mFile,"setAttr \".dw\" %f;\n", dw);
+		fprintf(mFile,"\tsetAttr \".dw\" %f;\n", dw);
 
 	}
 	void setForcesInWorld(bool fiw)
 	{
 		if(fiw == true) return;
-		fprintf(mFile,"setAttr \".fiw\" %i;\n", fiw);
+		fprintf(mFile,"\tsetAttr \".fiw\" %i;\n", fiw);
 
 	}
 	void setConserve(double con)
 	{
 		if(con == 1.0) return;
-		fprintf(mFile,"setAttr \".con\" %f;\n", con);
+		fprintf(mFile,"\tsetAttr \".con\" %f;\n", con);
 
 	}
 	void setEmissionInWorld(bool eiw)
 	{
 		if(eiw == true) return;
-		fprintf(mFile,"setAttr \".eiw\" %i;\n", eiw);
+		fprintf(mFile,"\tsetAttr \".eiw\" %i;\n", eiw);
 
 	}
 	void setMaxCount(int mxc)
 	{
 		if(mxc == -1) return;
-		fprintf(mFile,"setAttr \".mxc\" %i;\n", mxc);
+		fprintf(mFile,"\tsetAttr \".mxc\" %i;\n", mxc);
 
 	}
 	void setLevelOfDetail(double lod)
 	{
 		if(lod == 1) return;
-		fprintf(mFile,"setAttr \".lod\" %f;\n", lod);
+		fprintf(mFile,"\tsetAttr \".lod\" %f;\n", lod);
 
 	}
 	void setInheritFactor(double inh)
 	{
 		if(inh == 0.0) return;
-		fprintf(mFile,"setAttr \".inh\" %f;\n", inh);
+		fprintf(mFile,"\tsetAttr \".inh\" %f;\n", inh);
 
 	}
 	void setSeed(size_t sd_i,int sd)
 	{
 		if(sd == 1) return;
-		fprintf(mFile,"setAttr \".sd[%i]\" %i;\n", sd_i,sd);
+		fprintf(mFile,"\tsetAttr \".sd[%i]\" %i;\n", sd_i,sd);
 
 	}
 	void setSeed(size_t sd_start,size_t sd_end,int* sd)
 	{
-		fprintf(mFile,"setAttr \".sd[%i:%i]\" ", sd_start,sd_end);
+		fprintf(mFile,"\tsetAttr \".sd[%i:%i]\" ", sd_start,sd_end);
 		size_t size = (sd_end-sd_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -287,7 +288,7 @@ public:
 	}
 	void startSeed(size_t sd_start,size_t sd_end)
 	{
-		fprintf(mFile,"setAttr \".sd[%i:%i]\"",sd_start,sd_end);
+		fprintf(mFile,"\tsetAttr \".sd[%i:%i]\"",sd_start,sd_end);
 
 	}
 	void appendSeed(int sd)
@@ -303,42 +304,42 @@ public:
 	void setStartFrame(double stf)
 	{
 		if(stf == 1.0) return;
-		fprintf(mFile,"setAttr \".stf\" %f;\n", stf);
+		fprintf(mFile,"\tsetAttr \".stf\" %f;\n", stf);
 
 	}
 	void setInputGeometrySpace(unsigned int igs)
 	{
 		if(igs == 0) return;
-		fprintf(mFile,"setAttr \".igs\" %i;\n", igs);
+		fprintf(mFile,"\tsetAttr \".igs\" %i;\n", igs);
 
 	}
 	void setEnforceCountFromHistory(bool ecfh)
 	{
 		if(ecfh == true) return;
-		fprintf(mFile,"setAttr \".ecfh\" %i;\n", ecfh);
+		fprintf(mFile,"\tsetAttr \".ecfh\" %i;\n", ecfh);
 
 	}
 	void setTargetGeometrySpace(unsigned int tgs)
 	{
 		if(tgs == 2) return;
-		fprintf(mFile,"setAttr \".tgs\" %i;\n", tgs);
+		fprintf(mFile,"\tsetAttr \".tgs\" %i;\n", tgs);
 
 	}
 	void setGoalSmoothness(double gsm)
 	{
 		if(gsm == 3) return;
-		fprintf(mFile,"setAttr \".gsm\" %f;\n", gsm);
+		fprintf(mFile,"\tsetAttr \".gsm\" %f;\n", gsm);
 
 	}
 	void setGoalWeight(size_t gw_i,double gw)
 	{
 		if(gw == 0.0) return;
-		fprintf(mFile,"setAttr \".gw[%i]\" %f;\n", gw_i,gw);
+		fprintf(mFile,"\tsetAttr \".gw[%i]\" %f;\n", gw_i,gw);
 
 	}
 	void setGoalWeight(size_t gw_start,size_t gw_end,double* gw)
 	{
-		fprintf(mFile,"setAttr \".gw[%i:%i]\" ", gw_start,gw_end);
+		fprintf(mFile,"\tsetAttr \".gw[%i:%i]\" ", gw_start,gw_end);
 		size_t size = (gw_end-gw_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -350,7 +351,7 @@ public:
 	}
 	void startGoalWeight(size_t gw_start,size_t gw_end)
 	{
-		fprintf(mFile,"setAttr \".gw[%i:%i]\"",gw_start,gw_end);
+		fprintf(mFile,"\tsetAttr \".gw[%i:%i]\"",gw_start,gw_end);
 
 	}
 	void appendGoalWeight(double gw)
@@ -366,12 +367,12 @@ public:
 	void setGoalActive(size_t ga_i,bool ga)
 	{
 		if(ga == true) return;
-		fprintf(mFile,"setAttr \".ga[%i]\" %i;\n", ga_i,ga);
+		fprintf(mFile,"\tsetAttr \".ga[%i]\" %i;\n", ga_i,ga);
 
 	}
 	void setGoalActive(size_t ga_start,size_t ga_end,bool* ga)
 	{
-		fprintf(mFile,"setAttr \".ga[%i:%i]\" ", ga_start,ga_end);
+		fprintf(mFile,"\tsetAttr \".ga[%i:%i]\" ", ga_start,ga_end);
 		size_t size = (ga_end-ga_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -383,7 +384,7 @@ public:
 	}
 	void startGoalActive(size_t ga_start,size_t ga_end)
 	{
-		fprintf(mFile,"setAttr \".ga[%i:%i]\"",ga_start,ga_end);
+		fprintf(mFile,"\tsetAttr \".ga[%i:%i]\"",ga_start,ga_end);
 
 	}
 	void appendGoalActive(bool ga)
@@ -399,14 +400,14 @@ public:
 	void setGoalUvSetName(size_t guv_i,const string& guv)
 	{
 		if(guv == "NULL") return;
-		fprintf(mFile,"setAttr \".guv[%i]\" -type \"string\" ",guv_i);
+		fprintf(mFile,"\tsetAttr \".guv[%i]\" -type \"string\" ",guv_i);
 		guv.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setGoalUvSetName(size_t guv_start,size_t guv_end,string* guv)
 	{
-		fprintf(mFile,"setAttr \".guv[%i:%i]\" ", guv_start,guv_end);
+		fprintf(mFile,"\tsetAttr \".guv[%i:%i]\" ", guv_start,guv_end);
 		size_t size = (guv_end-guv_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -418,7 +419,7 @@ public:
 	}
 	void startGoalUvSetName(size_t guv_start,size_t guv_end)
 	{
-		fprintf(mFile,"setAttr \".guv[%i:%i]\"",guv_start,guv_end);
+		fprintf(mFile,"\tsetAttr \".guv[%i:%i]\"",guv_start,guv_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
@@ -436,32 +437,32 @@ public:
 	void setCacheData(bool chd)
 	{
 		if(chd == 0) return;
-		fprintf(mFile,"setAttr \".chd\" %i;\n", chd);
+		fprintf(mFile,"\tsetAttr \".chd\" %i;\n", chd);
 
 	}
 	void setCacheWidth(int chw)
 	{
 		if(chw == 1) return;
-		fprintf(mFile,"setAttr \".chw\" %i;\n", chw);
+		fprintf(mFile,"\tsetAttr \".chw\" %i;\n", chw);
 
 	}
 	void setTraceDepth(int trd)
 	{
 		if(trd == 10) return;
-		fprintf(mFile,"setAttr \".trd\" %i;\n", trd);
+		fprintf(mFile,"\tsetAttr \".trd\" %i;\n", trd);
 
 	}
 	void setEventName(size_t evn_i,const string& evn)
 	{
 		if(evn == "NULL") return;
-		fprintf(mFile,"setAttr \".evn[%i]\" -type \"string\" ",evn_i);
+		fprintf(mFile,"\tsetAttr \".evn[%i]\" -type \"string\" ",evn_i);
 		evn.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setEventName(size_t evn_start,size_t evn_end,string* evn)
 	{
-		fprintf(mFile,"setAttr \".evn[%i:%i]\" ", evn_start,evn_end);
+		fprintf(mFile,"\tsetAttr \".evn[%i:%i]\" ", evn_start,evn_end);
 		size_t size = (evn_end-evn_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -473,7 +474,7 @@ public:
 	}
 	void startEventName(size_t evn_start,size_t evn_end)
 	{
-		fprintf(mFile,"setAttr \".evn[%i:%i]\"",evn_start,evn_end);
+		fprintf(mFile,"\tsetAttr \".evn[%i:%i]\"",evn_start,evn_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
@@ -491,12 +492,12 @@ public:
 	void setEventValid(size_t evv_i,int evv)
 	{
 		if(evv == -1) return;
-		fprintf(mFile,"setAttr \".evv[%i]\" %i;\n", evv_i,evv);
+		fprintf(mFile,"\tsetAttr \".evv[%i]\" %i;\n", evv_i,evv);
 
 	}
 	void setEventValid(size_t evv_start,size_t evv_end,int* evv)
 	{
-		fprintf(mFile,"setAttr \".evv[%i:%i]\" ", evv_start,evv_end);
+		fprintf(mFile,"\tsetAttr \".evv[%i:%i]\" ", evv_start,evv_end);
 		size_t size = (evv_end-evv_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -508,7 +509,7 @@ public:
 	}
 	void startEventValid(size_t evv_start,size_t evv_end)
 	{
-		fprintf(mFile,"setAttr \".evv[%i:%i]\"",evv_start,evv_end);
+		fprintf(mFile,"\tsetAttr \".evv[%i:%i]\"",evv_start,evv_end);
 
 	}
 	void appendEventValid(int evv)
@@ -524,12 +525,12 @@ public:
 	void setEventCount(size_t ecp_i,short ecp)
 	{
 		if(ecp == -1) return;
-		fprintf(mFile,"setAttr \".ecp[%i]\" %i;\n", ecp_i,ecp);
+		fprintf(mFile,"\tsetAttr \".ecp[%i]\" %i;\n", ecp_i,ecp);
 
 	}
 	void setEventCount(size_t ecp_start,size_t ecp_end,short* ecp)
 	{
-		fprintf(mFile,"setAttr \".ecp[%i:%i]\" ", ecp_start,ecp_end);
+		fprintf(mFile,"\tsetAttr \".ecp[%i:%i]\" ", ecp_start,ecp_end);
 		size_t size = (ecp_end-ecp_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -541,7 +542,7 @@ public:
 	}
 	void startEventCount(size_t ecp_start,size_t ecp_end)
 	{
-		fprintf(mFile,"setAttr \".ecp[%i:%i]\"",ecp_start,ecp_end);
+		fprintf(mFile,"\tsetAttr \".ecp[%i:%i]\"",ecp_start,ecp_end);
 
 	}
 	void appendEventCount(short ecp)
@@ -557,12 +558,12 @@ public:
 	void setEventEmit(size_t eve_i,short eve)
 	{
 		if(eve == -1) return;
-		fprintf(mFile,"setAttr \".eve[%i]\" %i;\n", eve_i,eve);
+		fprintf(mFile,"\tsetAttr \".eve[%i]\" %i;\n", eve_i,eve);
 
 	}
 	void setEventEmit(size_t eve_start,size_t eve_end,short* eve)
 	{
-		fprintf(mFile,"setAttr \".eve[%i:%i]\" ", eve_start,eve_end);
+		fprintf(mFile,"\tsetAttr \".eve[%i:%i]\" ", eve_start,eve_end);
 		size_t size = (eve_end-eve_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -574,7 +575,7 @@ public:
 	}
 	void startEventEmit(size_t eve_start,size_t eve_end)
 	{
-		fprintf(mFile,"setAttr \".eve[%i:%i]\"",eve_start,eve_end);
+		fprintf(mFile,"\tsetAttr \".eve[%i:%i]\"",eve_start,eve_end);
 
 	}
 	void appendEventEmit(short eve)
@@ -590,12 +591,12 @@ public:
 	void setEventSplit(size_t evs_i,short evs)
 	{
 		if(evs == -1) return;
-		fprintf(mFile,"setAttr \".evs[%i]\" %i;\n", evs_i,evs);
+		fprintf(mFile,"\tsetAttr \".evs[%i]\" %i;\n", evs_i,evs);
 
 	}
 	void setEventSplit(size_t evs_start,size_t evs_end,short* evs)
 	{
-		fprintf(mFile,"setAttr \".evs[%i:%i]\" ", evs_start,evs_end);
+		fprintf(mFile,"\tsetAttr \".evs[%i:%i]\" ", evs_start,evs_end);
 		size_t size = (evs_end-evs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -607,7 +608,7 @@ public:
 	}
 	void startEventSplit(size_t evs_start,size_t evs_end)
 	{
-		fprintf(mFile,"setAttr \".evs[%i:%i]\"",evs_start,evs_end);
+		fprintf(mFile,"\tsetAttr \".evs[%i:%i]\"",evs_start,evs_end);
 
 	}
 	void appendEventSplit(short evs)
@@ -623,12 +624,12 @@ public:
 	void setEventDie(size_t evd_i,short evd)
 	{
 		if(evd == -1) return;
-		fprintf(mFile,"setAttr \".evd[%i]\" %i;\n", evd_i,evd);
+		fprintf(mFile,"\tsetAttr \".evd[%i]\" %i;\n", evd_i,evd);
 
 	}
 	void setEventDie(size_t evd_start,size_t evd_end,short* evd)
 	{
-		fprintf(mFile,"setAttr \".evd[%i:%i]\" ", evd_start,evd_end);
+		fprintf(mFile,"\tsetAttr \".evd[%i:%i]\" ", evd_start,evd_end);
 		size_t size = (evd_end-evd_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -640,7 +641,7 @@ public:
 	}
 	void startEventDie(size_t evd_start,size_t evd_end)
 	{
-		fprintf(mFile,"setAttr \".evd[%i:%i]\"",evd_start,evd_end);
+		fprintf(mFile,"\tsetAttr \".evd[%i:%i]\"",evd_start,evd_end);
 
 	}
 	void appendEventDie(short evd)
@@ -656,12 +657,12 @@ public:
 	void setEventRandom(size_t evr_i,short evr)
 	{
 		if(evr == -1) return;
-		fprintf(mFile,"setAttr \".evr[%i]\" %i;\n", evr_i,evr);
+		fprintf(mFile,"\tsetAttr \".evr[%i]\" %i;\n", evr_i,evr);
 
 	}
 	void setEventRandom(size_t evr_start,size_t evr_end,short* evr)
 	{
-		fprintf(mFile,"setAttr \".evr[%i:%i]\" ", evr_start,evr_end);
+		fprintf(mFile,"\tsetAttr \".evr[%i:%i]\" ", evr_start,evr_end);
 		size_t size = (evr_end-evr_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -673,7 +674,7 @@ public:
 	}
 	void startEventRandom(size_t evr_start,size_t evr_end)
 	{
-		fprintf(mFile,"setAttr \".evr[%i:%i]\"",evr_start,evr_end);
+		fprintf(mFile,"\tsetAttr \".evr[%i:%i]\"",evr_start,evr_end);
 
 	}
 	void appendEventRandom(short evr)
@@ -689,12 +690,12 @@ public:
 	void setEventSpread(size_t esp_i,double esp)
 	{
 		if(esp == -1.0) return;
-		fprintf(mFile,"setAttr \".esp[%i]\" %f;\n", esp_i,esp);
+		fprintf(mFile,"\tsetAttr \".esp[%i]\" %f;\n", esp_i,esp);
 
 	}
 	void setEventSpread(size_t esp_start,size_t esp_end,double* esp)
 	{
-		fprintf(mFile,"setAttr \".esp[%i:%i]\" ", esp_start,esp_end);
+		fprintf(mFile,"\tsetAttr \".esp[%i:%i]\" ", esp_start,esp_end);
 		size_t size = (esp_end-esp_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -706,7 +707,7 @@ public:
 	}
 	void startEventSpread(size_t esp_start,size_t esp_end)
 	{
-		fprintf(mFile,"setAttr \".esp[%i:%i]\"",esp_start,esp_end);
+		fprintf(mFile,"\tsetAttr \".esp[%i:%i]\"",esp_start,esp_end);
 
 	}
 	void appendEventSpread(double esp)
@@ -722,14 +723,14 @@ public:
 	void setEventProc(size_t epr_i,const string& epr)
 	{
 		if(epr == "NULL") return;
-		fprintf(mFile,"setAttr \".epr[%i]\" -type \"string\" ",epr_i);
+		fprintf(mFile,"\tsetAttr \".epr[%i]\" -type \"string\" ",epr_i);
 		epr.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setEventProc(size_t epr_start,size_t epr_end,string* epr)
 	{
-		fprintf(mFile,"setAttr \".epr[%i:%i]\" ", epr_start,epr_end);
+		fprintf(mFile,"\tsetAttr \".epr[%i:%i]\" ", epr_start,epr_end);
 		size_t size = (epr_end-epr_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -741,7 +742,7 @@ public:
 	}
 	void startEventProc(size_t epr_start,size_t epr_end)
 	{
-		fprintf(mFile,"setAttr \".epr[%i:%i]\"",epr_start,epr_end);
+		fprintf(mFile,"\tsetAttr \".epr[%i:%i]\"",epr_start,epr_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
@@ -758,14 +759,14 @@ public:
 	}
 	void setInstanceData(size_t idt_i,const InstanceData& idt)
 	{
-		fprintf(mFile,"setAttr \".idt[%i]\" ",idt_i);
+		fprintf(mFile,"\tsetAttr \".idt[%i]\" ",idt_i);
 		idt.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInstanceAttributeMapping(size_t idt_i,const stringArray& iam)
 	{
-		fprintf(mFile,"setAttr \".idt[%i].iam\" -type \"stringArray\" ",idt_i);
+		fprintf(mFile,"\tsetAttr \".idt[%i].iam\" -type \"stringArray\" ",idt_i);
 		iam.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -773,36 +774,36 @@ public:
 	void setNewFileFormat(short nff)
 	{
 		if(nff == 0) return;
-		fprintf(mFile,"setAttr \".nff\" %i;\n", nff);
+		fprintf(mFile,"\tsetAttr \".nff\" %i;\n", nff);
 
 	}
 	void setDepthSort(bool ds)
 	{
 		if(ds == false) return;
-		fprintf(mFile,"setAttr \".ds\" %i;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %i;\n", ds);
 
 	}
 	void setParticleRenderType(unsigned int prt)
 	{
 		if(prt == 3) return;
-		fprintf(mFile,"setAttr \".prt\" %i;\n", prt);
+		fprintf(mFile,"\tsetAttr \".prt\" %i;\n", prt);
 
 	}
 	void setDisableCloudAxis(bool dca)
 	{
 		if(dca == false) return;
-		fprintf(mFile,"setAttr \".dca\" %i;\n", dca);
+		fprintf(mFile,"\tsetAttr \".dca\" %i;\n", dca);
 
 	}
 	void setNormalizeVelocity(bool nvl)
 	{
 		if(nvl == false) return;
-		fprintf(mFile,"setAttr \".nvl\" %i;\n", nvl);
+		fprintf(mFile,"\tsetAttr \".nvl\" %i;\n", nvl);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -810,91 +811,91 @@ public:
 	void setMiOverrideCaustics(bool oca)
 	{
 		if(oca == false) return;
-		fprintf(mFile,"setAttr \".mrc.oca\" %i;\n", oca);
+		fprintf(mFile,"\tsetAttr \".mrc.oca\" %i;\n", oca);
 
 	}
 	void setMiCausticAccuracy(short caa)
 	{
 		if(caa == 64) return;
-		fprintf(mFile,"setAttr \".mrc.caa\" %i;\n", caa);
+		fprintf(mFile,"\tsetAttr \".mrc.caa\" %i;\n", caa);
 
 	}
 	void setMiCausticRadius(float car)
 	{
 		if(car == 0) return;
-		fprintf(mFile,"setAttr \".mrc.car\" %f;\n", car);
+		fprintf(mFile,"\tsetAttr \".mrc.car\" %f;\n", car);
 
 	}
 	void setMiOverrideGlobalIllumination(bool ogi)
 	{
 		if(ogi == false) return;
-		fprintf(mFile,"setAttr \".mrc.ogi\" %i;\n", ogi);
+		fprintf(mFile,"\tsetAttr \".mrc.ogi\" %i;\n", ogi);
 
 	}
 	void setMiGlobillumAccuracy(short gia)
 	{
 		if(gia == 64) return;
-		fprintf(mFile,"setAttr \".mrc.gia\" %i;\n", gia);
+		fprintf(mFile,"\tsetAttr \".mrc.gia\" %i;\n", gia);
 
 	}
 	void setMiGlobillumRadius(float gir)
 	{
 		if(gir == 0) return;
-		fprintf(mFile,"setAttr \".mrc.gir\" %f;\n", gir);
+		fprintf(mFile,"\tsetAttr \".mrc.gir\" %f;\n", gir);
 
 	}
 	void setMiOverrideFinalGather(bool ofg)
 	{
 		if(ofg == false) return;
-		fprintf(mFile,"setAttr \".mrc.ofg\" %i;\n", ofg);
+		fprintf(mFile,"\tsetAttr \".mrc.ofg\" %i;\n", ofg);
 
 	}
 	void setMiFinalGatherRays(int fry)
 	{
 		if(fry == 1000) return;
-		fprintf(mFile,"setAttr \".mrc.fry\" %i;\n", fry);
+		fprintf(mFile,"\tsetAttr \".mrc.fry\" %i;\n", fry);
 
 	}
 	void setMiFinalGatherMinRadius(float fmn)
 	{
 		if(fmn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmn\" %f;\n", fmn);
+		fprintf(mFile,"\tsetAttr \".mrc.fmn\" %f;\n", fmn);
 
 	}
 	void setMiFinalGatherMaxRadius(float fmx)
 	{
 		if(fmx == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmx\" %f;\n", fmx);
+		fprintf(mFile,"\tsetAttr \".mrc.fmx\" %f;\n", fmx);
 
 	}
 	void setMiFinalGatherFilter(short ffi)
 	{
 		if(ffi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.ffi\" %i;\n", ffi);
+		fprintf(mFile,"\tsetAttr \".mrc.ffi\" %i;\n", ffi);
 
 	}
 	void setMiFinalGatherView(bool fgv)
 	{
 		if(fgv == false) return;
-		fprintf(mFile,"setAttr \".mrc.fgv\" %i;\n", fgv);
+		fprintf(mFile,"\tsetAttr \".mrc.fgv\" %i;\n", fgv);
 
 	}
 	void setMiOverrideSamples(bool oos)
 	{
 		if(oos == false) return;
-		fprintf(mFile,"setAttr \".mrc.oos\" %i;\n", oos);
+		fprintf(mFile,"\tsetAttr \".mrc.oos\" %i;\n", oos);
 
 	}
 	void setMiMinSamples(short mins)
 	{
 		if(mins == 1) return;
-		fprintf(mFile,"setAttr \".mrc.mins\" %i;\n", mins);
+		fprintf(mFile,"\tsetAttr \".mrc.mins\" %i;\n", mins);
 
 	}
 	void setMiMaxSamples(short maxs)
 	{
 		if(maxs == 2) return;
-		fprintf(mFile,"setAttr \".mrc.maxs\" %i;\n", maxs);
+		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
 	void getPosition()
@@ -1182,6 +1183,11 @@ public:
 		fprintf(mFile,"\"%s.ifl\"",mName.c_str());
 
 	}
+	void getNewParticles(size_t npt_i)
+	{
+		fprintf(mFile,"\"%s.npt[%i]\"",mName.c_str(),npt_i);
+
+	}
 	void getLifespanMode()
 	{
 		fprintf(mFile,"\"%s.lfm\"",mName.c_str());
@@ -1210,6 +1216,16 @@ public:
 	void getOutput(size_t xo_i)
 	{
 		fprintf(mFile,"\"%s.xo[%i]\"",mName.c_str(),xo_i);
+
+	}
+	void getTime()
+	{
+		fprintf(mFile,"\"%s.tim\"",mName.c_str());
+
+	}
+	void getFrame()
+	{
+		fprintf(mFile,"\"%s.frm\"",mName.c_str());
 
 	}
 	void getDiedLastTime()
@@ -1733,7 +1749,8 @@ public:
 
 	}
 protected:
-	Particle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformableShape(file, name, parent, nodeType) {}
+	Particle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformableShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,107 +18,108 @@ class EnvFog : public LightFog
 {
 public:
 public:
+	EnvFog():LightFog(){}
 	EnvFog(FILE* file,const std::string& name,const std::string& parent=""):LightFog(file, name, parent, "envFog"){}
 	virtual ~EnvFog(){}
 	void setDistanceClipPlanes(unsigned int dcp)
 	{
 		if(dcp == 1) return;
-		fprintf(mFile,"setAttr \".dcp\" %i;\n", dcp);
+		fprintf(mFile,"\tsetAttr \".dcp\" %i;\n", dcp);
 
 	}
 	void setUseLayer(bool ul)
 	{
 		if(ul == false) return;
-		fprintf(mFile,"setAttr \".ul\" %i;\n", ul);
+		fprintf(mFile,"\tsetAttr \".ul\" %i;\n", ul);
 
 	}
 	void setUseHeight(bool uh)
 	{
 		if(uh == false) return;
-		fprintf(mFile,"setAttr \".uh\" %i;\n", uh);
+		fprintf(mFile,"\tsetAttr \".uh\" %i;\n", uh);
 
 	}
 	void setBlendRange(float br)
 	{
 		if(br == 1.0) return;
-		fprintf(mFile,"setAttr \".br\" %f;\n", br);
+		fprintf(mFile,"\tsetAttr \".br\" %f;\n", br);
 
 	}
 	void setSaturationDistance(float sdt)
 	{
 		if(sdt == 100.0) return;
-		fprintf(mFile,"setAttr \".sdt\" %f;\n", sdt);
+		fprintf(mFile,"\tsetAttr \".sdt\" %f;\n", sdt);
 
 	}
 	void setFogNearDistance(float fnd)
 	{
 		if(fnd == 0.0) return;
-		fprintf(mFile,"setAttr \".fnd\" %f;\n", fnd);
+		fprintf(mFile,"\tsetAttr \".fnd\" %f;\n", fnd);
 
 	}
 	void setFogFarDistance(float ffd)
 	{
 		if(ffd == 200.0) return;
-		fprintf(mFile,"setAttr \".ffd\" %f;\n", ffd);
+		fprintf(mFile,"\tsetAttr \".ffd\" %f;\n", ffd);
 
 	}
 	void setLayer(float l)
 	{
 		if(l == 1.0) return;
-		fprintf(mFile,"setAttr \".l\" %f;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %f;\n", l);
 
 	}
 	void setMinHeight(float mnh)
 	{
 		if(mnh == -1.0) return;
-		fprintf(mFile,"setAttr \".mnh\" %f;\n", mnh);
+		fprintf(mFile,"\tsetAttr \".mnh\" %f;\n", mnh);
 
 	}
 	void setMaxHeight(float mxh)
 	{
 		if(mxh == 1.0) return;
-		fprintf(mFile,"setAttr \".mxh\" %f;\n", mxh);
+		fprintf(mFile,"\tsetAttr \".mxh\" %f;\n", mxh);
 
 	}
 	void setUseDistance(bool ud)
 	{
 		if(ud == false) return;
-		fprintf(mFile,"setAttr \".ud\" %i;\n", ud);
+		fprintf(mFile,"\tsetAttr \".ud\" %i;\n", ud);
 
 	}
 	void setStartDistance(float sd)
 	{
 		if(sd == 0.0) return;
-		fprintf(mFile,"setAttr \".sd\" %f;\n", sd);
+		fprintf(mFile,"\tsetAttr \".sd\" %f;\n", sd);
 
 	}
 	void setEndDistance(float ed)
 	{
 		if(ed == -1.0) return;
-		fprintf(mFile,"setAttr \".ed\" %f;\n", ed);
+		fprintf(mFile,"\tsetAttr \".ed\" %f;\n", ed);
 
 	}
 	void setPhysicalFog(bool sff)
 	{
 		if(sff == false) return;
-		fprintf(mFile,"setAttr \".sff\" %i;\n", sff);
+		fprintf(mFile,"\tsetAttr \".sff\" %i;\n", sff);
 
 	}
 	void setFogType(unsigned int ftp)
 	{
 		if(ftp == 0) return;
-		fprintf(mFile,"setAttr \".ftp\" %i;\n", ftp);
+		fprintf(mFile,"\tsetAttr \".ftp\" %i;\n", ftp);
 
 	}
 	void setFogDensity(double fdn)
 	{
 		if(fdn == 0.4) return;
-		fprintf(mFile,"setAttr \".fdn\" %f;\n", fdn);
+		fprintf(mFile,"\tsetAttr \".fdn\" %f;\n", fdn);
 
 	}
 	void setFogColor(const float3& fcl)
 	{
-		fprintf(mFile,"setAttr \".fcl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fcl\" -type \"float3\" ");
 		fcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -126,24 +127,24 @@ public:
 	void setFogColorR(float fcr)
 	{
 		if(fcr == 1.0) return;
-		fprintf(mFile,"setAttr \".fcl.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fcl.fcr\" %f;\n", fcr);
 
 	}
 	void setFogColorG(float fcg)
 	{
 		if(fcg == 1.0) return;
-		fprintf(mFile,"setAttr \".fcl.fcg\" %f;\n", fcg);
+		fprintf(mFile,"\tsetAttr \".fcl.fcg\" %f;\n", fcg);
 
 	}
 	void setFogColorB(float fcb)
 	{
 		if(fcb == 1.0) return;
-		fprintf(mFile,"setAttr \".fcl.fcb\" %f;\n", fcb);
+		fprintf(mFile,"\tsetAttr \".fcl.fcb\" %f;\n", fcb);
 
 	}
 	void setFogOpacity(const float3& fop)
 	{
-		fprintf(mFile,"setAttr \".fop\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fop\" -type \"float3\" ");
 		fop.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -151,54 +152,54 @@ public:
 	void setFogOpacityR(float for_)
 	{
 		if(for_ == 0.5) return;
-		fprintf(mFile,"setAttr \".fop.for\" %f;\n", for_);
+		fprintf(mFile,"\tsetAttr \".fop.for\" %f;\n", for_);
 
 	}
 	void setFogOpacityG(float fog)
 	{
 		if(fog == 0.5) return;
-		fprintf(mFile,"setAttr \".fop.fog\" %f;\n", fog);
+		fprintf(mFile,"\tsetAttr \".fop.fog\" %f;\n", fog);
 
 	}
 	void setFogOpacityB(float fob)
 	{
 		if(fob == 0.5) return;
-		fprintf(mFile,"setAttr \".fop.fob\" %f;\n", fob);
+		fprintf(mFile,"\tsetAttr \".fop.fob\" %f;\n", fob);
 
 	}
 	void setFogMinHeight(double fmh)
 	{
 		if(fmh == 0.0) return;
-		fprintf(mFile,"setAttr \".fmh\" %f;\n", fmh);
+		fprintf(mFile,"\tsetAttr \".fmh\" %f;\n", fmh);
 
 	}
 	void setFogMaxHeight(double fxh)
 	{
 		if(fxh == 1.0) return;
-		fprintf(mFile,"setAttr \".fxh\" %f;\n", fxh);
+		fprintf(mFile,"\tsetAttr \".fxh\" %f;\n", fxh);
 
 	}
 	void setFogDecay(double fdc)
 	{
 		if(fdc == 0.2) return;
-		fprintf(mFile,"setAttr \".fdc\" %f;\n", fdc);
+		fprintf(mFile,"\tsetAttr \".fdc\" %f;\n", fdc);
 
 	}
 	void setFogLightScatter(double flc)
 	{
 		if(flc == 1.0) return;
-		fprintf(mFile,"setAttr \".flc\" %f;\n", flc);
+		fprintf(mFile,"\tsetAttr \".flc\" %f;\n", flc);
 
 	}
 	void setAirDensity(double adn)
 	{
 		if(adn == 0.0) return;
-		fprintf(mFile,"setAttr \".adn\" %f;\n", adn);
+		fprintf(mFile,"\tsetAttr \".adn\" %f;\n", adn);
 
 	}
 	void setAirColor(const float3& acl)
 	{
-		fprintf(mFile,"setAttr \".acl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".acl\" -type \"float3\" ");
 		acl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -206,24 +207,24 @@ public:
 	void setAirColorR(float acr)
 	{
 		if(acr == 0.6) return;
-		fprintf(mFile,"setAttr \".acl.acr\" %f;\n", acr);
+		fprintf(mFile,"\tsetAttr \".acl.acr\" %f;\n", acr);
 
 	}
 	void setAirColorG(float acg)
 	{
 		if(acg == 0.8) return;
-		fprintf(mFile,"setAttr \".acl.acg\" %f;\n", acg);
+		fprintf(mFile,"\tsetAttr \".acl.acg\" %f;\n", acg);
 
 	}
 	void setAirColorB(float acb)
 	{
 		if(acb == 1.0) return;
-		fprintf(mFile,"setAttr \".acl.acb\" %f;\n", acb);
+		fprintf(mFile,"\tsetAttr \".acl.acb\" %f;\n", acb);
 
 	}
 	void setAirOpacity(const float3& aop)
 	{
-		fprintf(mFile,"setAttr \".aop\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".aop\" -type \"float3\" ");
 		aop.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -231,54 +232,54 @@ public:
 	void setAirOpacityR(float aor)
 	{
 		if(aor == 0.37) return;
-		fprintf(mFile,"setAttr \".aop.aor\" %f;\n", aor);
+		fprintf(mFile,"\tsetAttr \".aop.aor\" %f;\n", aor);
 
 	}
 	void setAirOpacityG(float aog)
 	{
 		if(aog == 0.47) return;
-		fprintf(mFile,"setAttr \".aop.aog\" %f;\n", aog);
+		fprintf(mFile,"\tsetAttr \".aop.aog\" %f;\n", aog);
 
 	}
 	void setAirOpacityB(float aob)
 	{
 		if(aob == 0.9) return;
-		fprintf(mFile,"setAttr \".aop.aob\" %f;\n", aob);
+		fprintf(mFile,"\tsetAttr \".aop.aob\" %f;\n", aob);
 
 	}
 	void setAirMinHeight(double amh)
 	{
 		if(amh == 0.0) return;
-		fprintf(mFile,"setAttr \".amh\" %f;\n", amh);
+		fprintf(mFile,"\tsetAttr \".amh\" %f;\n", amh);
 
 	}
 	void setAirMaxHeight(double axh)
 	{
 		if(axh == 50.0) return;
-		fprintf(mFile,"setAttr \".axh\" %f;\n", axh);
+		fprintf(mFile,"\tsetAttr \".axh\" %f;\n", axh);
 
 	}
 	void setAirDecay(double adc)
 	{
 		if(adc == 0.1) return;
-		fprintf(mFile,"setAttr \".adc\" %f;\n", adc);
+		fprintf(mFile,"\tsetAttr \".adc\" %f;\n", adc);
 
 	}
 	void setAirLightScatter(double alc)
 	{
 		if(alc == 1.0) return;
-		fprintf(mFile,"setAttr \".alc\" %f;\n", alc);
+		fprintf(mFile,"\tsetAttr \".alc\" %f;\n", alc);
 
 	}
 	void setWaterDensity(double wdn)
 	{
 		if(wdn == 0.0) return;
-		fprintf(mFile,"setAttr \".wdn\" %f;\n", wdn);
+		fprintf(mFile,"\tsetAttr \".wdn\" %f;\n", wdn);
 
 	}
 	void setWaterColor(const float3& wcl)
 	{
-		fprintf(mFile,"setAttr \".wcl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".wcl\" -type \"float3\" ");
 		wcl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -286,24 +287,24 @@ public:
 	void setWaterColorR(float wcr)
 	{
 		if(wcr == 0.6) return;
-		fprintf(mFile,"setAttr \".wcl.wcr\" %f;\n", wcr);
+		fprintf(mFile,"\tsetAttr \".wcl.wcr\" %f;\n", wcr);
 
 	}
 	void setWaterColorG(float wcg)
 	{
 		if(wcg == 0.8) return;
-		fprintf(mFile,"setAttr \".wcl.wcg\" %f;\n", wcg);
+		fprintf(mFile,"\tsetAttr \".wcl.wcg\" %f;\n", wcg);
 
 	}
 	void setWaterColorB(float wcb)
 	{
 		if(wcb == 1.0) return;
-		fprintf(mFile,"setAttr \".wcl.wcb\" %f;\n", wcb);
+		fprintf(mFile,"\tsetAttr \".wcl.wcb\" %f;\n", wcb);
 
 	}
 	void setWaterOpacity(const float3& wop)
 	{
-		fprintf(mFile,"setAttr \".wop\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".wop\" -type \"float3\" ");
 		wop.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -311,78 +312,78 @@ public:
 	void setWaterOpacityR(float wor)
 	{
 		if(wor == 0.37) return;
-		fprintf(mFile,"setAttr \".wop.wor\" %f;\n", wor);
+		fprintf(mFile,"\tsetAttr \".wop.wor\" %f;\n", wor);
 
 	}
 	void setWaterOpacityG(float wog)
 	{
 		if(wog == 0.47) return;
-		fprintf(mFile,"setAttr \".wop.wog\" %f;\n", wog);
+		fprintf(mFile,"\tsetAttr \".wop.wog\" %f;\n", wog);
 
 	}
 	void setWaterOpacityB(float wob)
 	{
 		if(wob == 0.9) return;
-		fprintf(mFile,"setAttr \".wop.wob\" %f;\n", wob);
+		fprintf(mFile,"\tsetAttr \".wop.wob\" %f;\n", wob);
 
 	}
 	void setWaterLevel(double wlv)
 	{
 		if(wlv == 0.0) return;
-		fprintf(mFile,"setAttr \".wlv\" %f;\n", wlv);
+		fprintf(mFile,"\tsetAttr \".wlv\" %f;\n", wlv);
 
 	}
 	void setWaterDepth(double wdp)
 	{
 		if(wdp == 50.0) return;
-		fprintf(mFile,"setAttr \".wdp\" %f;\n", wdp);
+		fprintf(mFile,"\tsetAttr \".wdp\" %f;\n", wdp);
 
 	}
 	void setWaterLightDecay(double wdc)
 	{
 		if(wdc == 2.0) return;
-		fprintf(mFile,"setAttr \".wdc\" %f;\n", wdc);
+		fprintf(mFile,"\tsetAttr \".wdc\" %f;\n", wdc);
 
 	}
 	void setWaterLightScatter(double wlc)
 	{
 		if(wlc == 1.0) return;
-		fprintf(mFile,"setAttr \".wlc\" %f;\n", wlc);
+		fprintf(mFile,"\tsetAttr \".wlc\" %f;\n", wlc);
 
 	}
 	void setPlanetRadius(double prd)
 	{
 		if(prd == 1000.0) return;
-		fprintf(mFile,"setAttr \".prd\" %f;\n", prd);
+		fprintf(mFile,"\tsetAttr \".prd\" %f;\n", prd);
 
 	}
 	void setFogAxis(unsigned int fax)
 	{
 		if(fax == 0) return;
-		fprintf(mFile,"setAttr \".fax\" %i;\n", fax);
+		fprintf(mFile,"\tsetAttr \".fax\" %i;\n", fax);
 
 	}
 	void setSunIntensity(double sin)
 	{
 		if(sin == 1.0) return;
-		fprintf(mFile,"setAttr \".sin\" %f;\n", sin);
+		fprintf(mFile,"\tsetAttr \".sin\" %f;\n", sin);
 
 	}
 	void setSunAzimuth(double saz)
 	{
 		if(saz == 0.0) return;
-		fprintf(mFile,"setAttr \".saz\" %f;\n", saz);
+		fprintf(mFile,"\tsetAttr \".saz\" %f;\n", saz);
 
 	}
 	void setSunElevation(double sel)
 	{
 		if(sel == 45.0) return;
-		fprintf(mFile,"setAttr \".sel\" %f;\n", sel);
+		fprintf(mFile,"\tsetAttr \".sel\" %f;\n", sel);
 
 	}
 	void setSunColor(const float3& snc)
 	{
-		fprintf(mFile,"setAttr \".snc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".snc\" -type \"float3\" ");
 		snc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -390,19 +391,19 @@ public:
 	void setSunColorR(float snr)
 	{
 		if(snr == 1.0) return;
-		fprintf(mFile,"setAttr \".snc.snr\" %f;\n", snr);
+		fprintf(mFile,"\tsetAttr \".snc.snr\" %f;\n", snr);
 
 	}
 	void setSunColorG(float sng)
 	{
 		if(sng == 1.0) return;
-		fprintf(mFile,"setAttr \".snc.sng\" %f;\n", sng);
+		fprintf(mFile,"\tsetAttr \".snc.sng\" %f;\n", sng);
 
 	}
 	void setSunColorB(float snb)
 	{
 		if(snb == 1.0) return;
-		fprintf(mFile,"setAttr \".snc.snb\" %f;\n", snb);
+		fprintf(mFile,"\tsetAttr \".snc.snb\" %f;\n", snb);
 
 	}
 	void getMatrixEyeToWorld()
@@ -468,6 +469,11 @@ public:
 	void getRayDirectionZ()
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
+
+	}
+	void getDistanceClipPlanes()
+	{
+		fprintf(mFile,"\"%s.dcp\"",mName.c_str());
 
 	}
 	void getUseLayer()
@@ -781,7 +787,8 @@ public:
 
 	}
 protected:
-	EnvFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):LightFog(file, name, parent, nodeType) {}
+	EnvFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:LightFog(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

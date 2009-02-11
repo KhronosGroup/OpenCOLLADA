@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -22,30 +22,31 @@ public:
 	struct FaceSecond{
 	};
 public:
+	FurPointOnSubd():DependNode(){}
 	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "furPointOnSubd"){}
 	virtual ~FurPointOnSubd(){}
 	void setRelative(bool rel)
 	{
 		if(rel == true) return;
-		fprintf(mFile,"setAttr \".rel\" %i;\n", rel);
+		fprintf(mFile,"\tsetAttr \".rel\" %i;\n", rel);
 
 	}
 	void setUValue(double u)
 	{
 		if(u == 0.0) return;
-		fprintf(mFile,"setAttr \".u\" %f;\n", u);
+		fprintf(mFile,"\tsetAttr \".u\" %f;\n", u);
 
 	}
 	void setVValue(double v)
 	{
 		if(v == 0.0) return;
-		fprintf(mFile,"setAttr \".v\" %f;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %f;\n", v);
 
 	}
 	void setPosition(const double3& p)
 	{
 		if(p == 0.0) return;
-		fprintf(mFile,"setAttr \".p\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"double3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -53,25 +54,25 @@ public:
 	void setPositionX(double px)
 	{
 		if(px == 0.0) return;
-		fprintf(mFile,"setAttr \".px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".px\" %f;\n", px);
 
 	}
 	void setPositionY(double py)
 	{
 		if(py == 0.0) return;
-		fprintf(mFile,"setAttr \".py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".py\" %f;\n", py);
 
 	}
 	void setPositionZ(double pz)
 	{
 		if(pz == 0.0) return;
-		fprintf(mFile,"setAttr \".pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".pz\" %f;\n", pz);
 
 	}
 	void setNormal(const double3& n)
 	{
 		if(n == 0.0) return;
-		fprintf(mFile,"setAttr \".n\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".n\" -type \"double3\" ");
 		n.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -79,19 +80,24 @@ public:
 	void setNormalX(double nx)
 	{
 		if(nx == 0.0) return;
-		fprintf(mFile,"setAttr \".nx\" %f;\n", nx);
+		fprintf(mFile,"\tsetAttr \".nx\" %f;\n", nx);
 
 	}
 	void setNormalY(double ny)
 	{
 		if(ny == 0.0) return;
-		fprintf(mFile,"setAttr \".ny\" %f;\n", ny);
+		fprintf(mFile,"\tsetAttr \".ny\" %f;\n", ny);
 
 	}
 	void setNormalZ(double nz)
 	{
 		if(nz == 0.0) return;
-		fprintf(mFile,"setAttr \".nz\" %f;\n", nz);
+		fprintf(mFile,"\tsetAttr \".nz\" %f;\n", nz);
+
+	}
+	void getSubd()
+	{
+		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
 	void getFaceFirst()
@@ -160,7 +166,8 @@ public:
 
 	}
 protected:
-	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

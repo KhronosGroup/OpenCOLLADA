@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class Movie : public File
 {
 public:
+	Movie():File(){}
 	Movie(FILE* file,const std::string& name,const std::string& parent=""):File(file, name, parent, "movie"){}
 	virtual ~Movie(){}
 protected:
-	Movie(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):File(file, name, parent, nodeType) {}
+	Movie(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:File(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

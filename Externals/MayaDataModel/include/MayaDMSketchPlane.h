@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class SketchPlane : public Plane
 {
 public:
+	SketchPlane():Plane(){}
 	SketchPlane(FILE* file,const std::string& name,const std::string& parent=""):Plane(file, name, parent, "sketchPlane"){}
 	virtual ~SketchPlane(){}
 protected:
-	SketchPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Plane(file, name, parent, nodeType) {}
+	SketchPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Plane(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

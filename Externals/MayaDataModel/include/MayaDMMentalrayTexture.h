@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -29,18 +29,19 @@ public:
 		}
 	};
 public:
+	MentalrayTexture():DependNode(){}
 	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "mentalrayTexture"){}
 	virtual ~MentalrayTexture(){}
 	void setMiTextureType(unsigned int mitt)
 	{
 		if(mitt == 1) return;
-		fprintf(mFile,"setAttr \".mitt\" %i;\n", mitt);
+		fprintf(mFile,"\tsetAttr \".mitt\" %i;\n", mitt);
 
 	}
 	void setFileTextureName(const string& ftn)
 	{
 		if(ftn == "NULL") return;
-		fprintf(mFile,"setAttr \".ftn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ftn\" -type \"string\" ");
 		ftn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -48,30 +49,30 @@ public:
 	void setMiLocal(bool mil)
 	{
 		if(mil == false) return;
-		fprintf(mFile,"setAttr \".mil\" %i;\n", mil);
+		fprintf(mFile,"\tsetAttr \".mil\" %i;\n", mil);
 
 	}
 	void setMiWritable(bool miw)
 	{
 		if(miw == false) return;
-		fprintf(mFile,"setAttr \".miw\" %i;\n", miw);
+		fprintf(mFile,"\tsetAttr \".miw\" %i;\n", miw);
 
 	}
 	void setMiFilter(bool mift)
 	{
 		if(mift == false) return;
-		fprintf(mFile,"setAttr \".mift\" %i;\n", mift);
+		fprintf(mFile,"\tsetAttr \".mift\" %i;\n", mift);
 
 	}
 	void setMiFilterSize(float mifs)
 	{
 		if(mifs == 1.0) return;
-		fprintf(mFile,"setAttr \".mifs\" %f;\n", mifs);
+		fprintf(mFile,"\tsetAttr \".mifs\" %f;\n", mifs);
 
 	}
 	void setMiFileSize(const MiFileSize& mifr)
 	{
-		fprintf(mFile,"setAttr \".mifr\" ");
+		fprintf(mFile,"\tsetAttr \".mifr\" ");
 		mifr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -79,19 +80,19 @@ public:
 	void setMiWidth(int miwd)
 	{
 		if(miwd == 100) return;
-		fprintf(mFile,"setAttr \".mifr.miwd\" %i;\n", miwd);
+		fprintf(mFile,"\tsetAttr \".mifr.miwd\" %i;\n", miwd);
 
 	}
 	void setMiHeight(int mihg)
 	{
 		if(mihg == 100) return;
-		fprintf(mFile,"setAttr \".mifr.mihg\" %i;\n", mihg);
+		fprintf(mFile,"\tsetAttr \".mifr.mihg\" %i;\n", mihg);
 
 	}
 	void setMiDepth(unsigned int midp)
 	{
 		if(midp == 0) return;
-		fprintf(mFile,"setAttr \".mifr.midp\" %i;\n", midp);
+		fprintf(mFile,"\tsetAttr \".mifr.midp\" %i;\n", midp);
 
 	}
 	void getMiTextureType()
@@ -145,7 +146,8 @@ public:
 
 	}
 protected:
-	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

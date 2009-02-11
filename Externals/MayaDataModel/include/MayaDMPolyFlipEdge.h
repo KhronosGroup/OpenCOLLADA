@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class PolyFlipEdge : public PolyModifier
 {
 public:
 public:
+	PolyFlipEdge():PolyModifier(){}
 	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyFlipEdge"){}
 	virtual ~PolyFlipEdge(){}
 	void setEdge(const componentList& e)
 	{
-		fprintf(mFile,"setAttr \".e\" -type \"componentList\" ");
+		fprintf(mFile,"\tsetAttr \".e\" -type \"componentList\" ");
 		e.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -33,7 +34,8 @@ public:
 
 	}
 protected:
-	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

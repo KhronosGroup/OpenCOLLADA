@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class OffsetSurface : public AbstractBaseCreate
 {
 public:
 public:
+	OffsetSurface():AbstractBaseCreate(){}
 	OffsetSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "offsetSurface"){}
 	virtual ~OffsetSurface(){}
 	void setDistance(double d)
 	{
 		if(d == 1) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setMethod(unsigned int m)
 	{
 		if(m == 0) return;
-		fprintf(mFile,"setAttr \".m\" %i;\n", m);
+		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
 	void getInputSurface()
@@ -53,7 +54,8 @@ public:
 
 	}
 protected:
-	OffsetSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	OffsetSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

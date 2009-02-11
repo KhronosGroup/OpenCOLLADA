@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -50,6 +50,34 @@ namespace MayaDM
 	{
 		parent(file, childName, parentName, absolute, addObject, noConnections, relative, removeObject, true, world);
 	}
+
+//     template<typename C>
+//     C setParent ( FILE* file, C& childNode, DagNode& parentNode,
+//         bool absolute = false, bool addObject = false, bool noConnections = false, 
+//         bool relative = false, bool removeObject = false, bool shape = false, 
+//         bool world = false ) //     {
+//         parent(file, childNode.getName(), parentNode.getName(), absolute, addObject, noConnections, relative, removeObject, shape, world);
+//         if(addObject && !removeObject)
+//         {
+//             C newInstance = childNode;
+//             newInstance.setParent(parentNode.getName());
+//             return newInstance;
+//         }
+//         else if(!addObject && !removeObject)
+//         {
+//             childNode.setParent(parentNode.getName());
+//             return childNode;
+//         }
+//         else if (removeObject)
+//         {
+//             childNode.
+//         }
+//         if (world)
+//         {
+//             childNode.setParent("");
+//             return childNode;
+//         }
+//     }
 }
 
 #endif //__MayaDM_COMMANDS_H__

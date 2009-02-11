@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,19 +18,20 @@ class SubdTweakUV : public SubdModifier
 {
 public:
 public:
+	SubdTweakUV():SubdModifier(){}
 	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdTweakUV"){}
 	virtual ~SubdTweakUV(){}
 	void setUvTweak(size_t uvtk_i,const float2& uvtk)
 	{
 		if(uvtk == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".uvtk[%i]\" -type \"float2\" ",uvtk_i);
+		fprintf(mFile,"\tsetAttr \".uvtk[%i]\" -type \"float2\" ",uvtk_i);
 		uvtk.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setUvTweak(size_t uvtk_start,size_t uvtk_end,float* uvtk)
 	{
-		fprintf(mFile,"setAttr \".uvtk[%i:%i]\" ", uvtk_start,uvtk_end);
+		fprintf(mFile,"\tsetAttr \".uvtk[%i:%i]\" ", uvtk_start,uvtk_end);
 		size_t size = (uvtk_end-uvtk_start)*2+2;
 		for(size_t i=0;i<size;++i)
 		{
@@ -42,7 +43,7 @@ public:
 	}
 	void startUvTweak(size_t uvtk_start,size_t uvtk_end)
 	{
-		fprintf(mFile,"setAttr \".uvtk[%i:%i]\"",uvtk_start,uvtk_end);
+		fprintf(mFile,"\tsetAttr \".uvtk[%i:%i]\"",uvtk_start,uvtk_end);
 
 	}
 	void appendUvTweak(float uvtk)
@@ -58,13 +59,13 @@ public:
 	void setUvTweakU(size_t uvtk_i,float tu)
 	{
 		if(tu == 0.0) return;
-		fprintf(mFile,"setAttr \".uvtk[%i].tu\" %f;\n", uvtk_i,tu);
+		fprintf(mFile,"\tsetAttr \".uvtk[%i].tu\" %f;\n", uvtk_i,tu);
 
 	}
 	void setUvTweakV(size_t uvtk_i,float tv)
 	{
 		if(tv == 0.0) return;
-		fprintf(mFile,"setAttr \".uvtk[%i].tv\" %f;\n", uvtk_i,tv);
+		fprintf(mFile,"\tsetAttr \".uvtk[%i].tv\" %f;\n", uvtk_i,tv);
 
 	}
 	void getUvTweak(size_t uvtk_i)
@@ -83,7 +84,8 @@ public:
 
 	}
 protected:
-	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifier(file, name, parent, nodeType) {}
+	SubdTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

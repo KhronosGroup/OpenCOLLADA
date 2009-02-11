@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class MakeNurbPlane : public Primitive
 {
 public:
 public:
+	MakeNurbPlane():Primitive(){}
 	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent=""):Primitive(file, name, parent, "makeNurbPlane"){}
 	virtual ~MakeNurbPlane(){}
 	void setWidth(double w)
 	{
 		if(w == 1) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setLengthRatio(double lr)
 	{
 		if(lr == 1.0) return;
-		fprintf(mFile,"setAttr \".lr\" %f;\n", lr);
+		fprintf(mFile,"\tsetAttr \".lr\" %f;\n", lr);
 
 	}
 	void setPatchesU(int u)
 	{
 		if(u == 1) return;
-		fprintf(mFile,"setAttr \".u\" %i;\n", u);
+		fprintf(mFile,"\tsetAttr \".u\" %i;\n", u);
 
 	}
 	void setPatchesV(int v)
 	{
 		if(v == 1) return;
-		fprintf(mFile,"setAttr \".v\" %i;\n", v);
+		fprintf(mFile,"\tsetAttr \".v\" %i;\n", v);
 
 	}
 	void setDegree(unsigned int d)
 	{
 		if(d == 3) return;
-		fprintf(mFile,"setAttr \".d\" %i;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
 	void getWidth()
@@ -76,7 +77,8 @@ public:
 
 	}
 protected:
-	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Primitive(file, name, parent, nodeType) {}
+	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Primitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

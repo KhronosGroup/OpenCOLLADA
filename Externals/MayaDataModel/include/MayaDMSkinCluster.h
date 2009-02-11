@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -30,11 +30,12 @@ public:
 		}
 	};
 public:
+	SkinCluster():GeometryFilter(){}
 	SkinCluster(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "skinCluster"){}
 	virtual ~SkinCluster(){}
 	void setWeightList(size_t wl_i,const WeightList& wl)
 	{
-		fprintf(mFile,"setAttr \".wl[%i]\" ",wl_i);
+		fprintf(mFile,"\tsetAttr \".wl[%i]\" ",wl_i);
 		wl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -42,12 +43,12 @@ public:
 	void setWeights(size_t wl_i,size_t w_i,double w)
 	{
 		if(w == 0.0) return;
-		fprintf(mFile,"setAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
+		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i]\" %f;\n", wl_i,w_i,w);
 
 	}
 	void setWeights(size_t wl_i,size_t w_start,size_t w_end,double* w)
 	{
-		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\" ", wl_i,w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\" ", wl_i,w_start,w_end);
 		size_t size = (w_end-w_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -59,7 +60,7 @@ public:
 	}
 	void startWeights(size_t wl_i,size_t w_start,size_t w_end)
 	{
-		fprintf(mFile,"setAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
+		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
 
 	}
 	void appendWeights(double w)
@@ -75,14 +76,14 @@ public:
 	void setBindPreMatrix(size_t pm_i,const matrix& pm)
 	{
 		if(pm == identity) return;
-		fprintf(mFile,"setAttr \".pm[%i]\" -type \"matrix\" ",pm_i);
+		fprintf(mFile,"\tsetAttr \".pm[%i]\" -type \"matrix\" ",pm_i);
 		pm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setBindPreMatrix(size_t pm_start,size_t pm_end,matrix* pm)
 	{
-		fprintf(mFile,"setAttr \".pm[%i:%i]\" ", pm_start,pm_end);
+		fprintf(mFile,"\tsetAttr \".pm[%i:%i]\" ", pm_start,pm_end);
 		size_t size = (pm_end-pm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -94,7 +95,7 @@ public:
 	}
 	void startBindPreMatrix(size_t pm_start,size_t pm_end)
 	{
-		fprintf(mFile,"setAttr \".pm[%i:%i]\"",pm_start,pm_end);
+		fprintf(mFile,"\tsetAttr \".pm[%i:%i]\"",pm_start,pm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -112,7 +113,7 @@ public:
 	void setGeomMatrix(const matrix& gm)
 	{
 		if(gm == identity) return;
-		fprintf(mFile,"setAttr \".gm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".gm\" -type \"matrix\" ");
 		gm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -120,14 +121,14 @@ public:
 	void setMatrix(size_t ma_i,const matrix& ma)
 	{
 		if(ma == identity) return;
-		fprintf(mFile,"setAttr \".ma[%i]\" -type \"matrix\" ",ma_i);
+		fprintf(mFile,"\tsetAttr \".ma[%i]\" -type \"matrix\" ",ma_i);
 		ma.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setMatrix(size_t ma_start,size_t ma_end,matrix* ma)
 	{
-		fprintf(mFile,"setAttr \".ma[%i:%i]\" ", ma_start,ma_end);
+		fprintf(mFile,"\tsetAttr \".ma[%i:%i]\" ", ma_start,ma_end);
 		size_t size = (ma_end-ma_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -139,7 +140,7 @@ public:
 	}
 	void startMatrix(size_t ma_start,size_t ma_end)
 	{
-		fprintf(mFile,"setAttr \".ma[%i:%i]\"",ma_start,ma_end);
+		fprintf(mFile,"\tsetAttr \".ma[%i:%i]\"",ma_start,ma_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -157,12 +158,12 @@ public:
 	void setDropoff(size_t dpf_i,double dpf)
 	{
 		if(dpf == 4.0) return;
-		fprintf(mFile,"setAttr \".dpf[%i]\" %f;\n", dpf_i,dpf);
+		fprintf(mFile,"\tsetAttr \".dpf[%i]\" %f;\n", dpf_i,dpf);
 
 	}
 	void setDropoff(size_t dpf_start,size_t dpf_end,double* dpf)
 	{
-		fprintf(mFile,"setAttr \".dpf[%i:%i]\" ", dpf_start,dpf_end);
+		fprintf(mFile,"\tsetAttr \".dpf[%i:%i]\" ", dpf_start,dpf_end);
 		size_t size = (dpf_end-dpf_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -174,7 +175,7 @@ public:
 	}
 	void startDropoff(size_t dpf_start,size_t dpf_end)
 	{
-		fprintf(mFile,"setAttr \".dpf[%i:%i]\"",dpf_start,dpf_end);
+		fprintf(mFile,"\tsetAttr \".dpf[%i:%i]\"",dpf_start,dpf_end);
 
 	}
 	void appendDropoff(double dpf)
@@ -190,12 +191,12 @@ public:
 	void setSmoothness(size_t smt_i,double smt)
 	{
 		if(smt == 0.0) return;
-		fprintf(mFile,"setAttr \".smt[%i]\" %f;\n", smt_i,smt);
+		fprintf(mFile,"\tsetAttr \".smt[%i]\" %f;\n", smt_i,smt);
 
 	}
 	void setSmoothness(size_t smt_start,size_t smt_end,double* smt)
 	{
-		fprintf(mFile,"setAttr \".smt[%i:%i]\" ", smt_start,smt_end);
+		fprintf(mFile,"\tsetAttr \".smt[%i:%i]\" ", smt_start,smt_end);
 		size_t size = (smt_end-smt_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -207,7 +208,7 @@ public:
 	}
 	void startSmoothness(size_t smt_start,size_t smt_end)
 	{
-		fprintf(mFile,"setAttr \".smt[%i:%i]\"",smt_start,smt_end);
+		fprintf(mFile,"\tsetAttr \".smt[%i:%i]\"",smt_start,smt_end);
 
 	}
 	void appendSmoothness(double smt)
@@ -223,12 +224,12 @@ public:
 	void setLockWeights(size_t lw_i,bool lw)
 	{
 		if(lw == false) return;
-		fprintf(mFile,"setAttr \".lw[%i]\" %i;\n", lw_i,lw);
+		fprintf(mFile,"\tsetAttr \".lw[%i]\" %i;\n", lw_i,lw);
 
 	}
 	void setLockWeights(size_t lw_start,size_t lw_end,bool* lw)
 	{
-		fprintf(mFile,"setAttr \".lw[%i:%i]\" ", lw_start,lw_end);
+		fprintf(mFile,"\tsetAttr \".lw[%i:%i]\" ", lw_start,lw_end);
 		size_t size = (lw_end-lw_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -240,7 +241,7 @@ public:
 	}
 	void startLockWeights(size_t lw_start,size_t lw_end)
 	{
-		fprintf(mFile,"setAttr \".lw[%i:%i]\"",lw_start,lw_end);
+		fprintf(mFile,"\tsetAttr \".lw[%i:%i]\"",lw_start,lw_end);
 
 	}
 	void appendLockWeights(bool lw)
@@ -256,25 +257,25 @@ public:
 	void setMaintainMaxInfluences(bool mmi)
 	{
 		if(mmi == false) return;
-		fprintf(mFile,"setAttr \".mmi\" %i;\n", mmi);
+		fprintf(mFile,"\tsetAttr \".mmi\" %i;\n", mmi);
 
 	}
 	void setMaxInfluences(int mi)
 	{
 		if(mi == 2) return;
-		fprintf(mFile,"setAttr \".mi\" %i;\n", mi);
+		fprintf(mFile,"\tsetAttr \".mi\" %i;\n", mi);
 
 	}
 	void setBindMethod(int bm)
 	{
 		if(bm == 1) return;
-		fprintf(mFile,"setAttr \".bm\" %i;\n", bm);
+		fprintf(mFile,"\tsetAttr \".bm\" %i;\n", bm);
 
 	}
 	void setPaintWeights(const doubleArray& ptw)
 	{
 		if(ptw.size == 0) return;
-		fprintf(mFile,"setAttr \".ptw\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".ptw\" -type \"doubleArray\" ");
 		ptw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -282,18 +283,18 @@ public:
 	void setUseComponents(bool uc)
 	{
 		if(uc == 0) return;
-		fprintf(mFile,"setAttr \".uc\" %i;\n", uc);
+		fprintf(mFile,"\tsetAttr \".uc\" %i;\n", uc);
 
 	}
 	void setNurbsSamples(size_t ns_i,int ns)
 	{
 		if(ns == 10) return;
-		fprintf(mFile,"setAttr \".ns[%i]\" %i;\n", ns_i,ns);
+		fprintf(mFile,"\tsetAttr \".ns[%i]\" %i;\n", ns_i,ns);
 
 	}
 	void setNurbsSamples(size_t ns_start,size_t ns_end,int* ns)
 	{
-		fprintf(mFile,"setAttr \".ns[%i:%i]\" ", ns_start,ns_end);
+		fprintf(mFile,"\tsetAttr \".ns[%i:%i]\" ", ns_start,ns_end);
 		size_t size = (ns_end-ns_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -305,7 +306,7 @@ public:
 	}
 	void startNurbsSamples(size_t ns_start,size_t ns_end)
 	{
-		fprintf(mFile,"setAttr \".ns[%i:%i]\"",ns_start,ns_end);
+		fprintf(mFile,"\tsetAttr \".ns[%i:%i]\"",ns_start,ns_end);
 
 	}
 	void appendNurbsSamples(int ns)
@@ -321,19 +322,19 @@ public:
 	void setUseComponentsMatrix(bool ucm)
 	{
 		if(ucm == false) return;
-		fprintf(mFile,"setAttr \".ucm\" %i;\n", ucm);
+		fprintf(mFile,"\tsetAttr \".ucm\" %i;\n", ucm);
 
 	}
 	void setNormalizeWeights(bool nw)
 	{
 		if(nw == true) return;
-		fprintf(mFile,"setAttr \".nw\" %i;\n", nw);
+		fprintf(mFile,"\tsetAttr \".nw\" %i;\n", nw);
 
 	}
 	void setDeformUserNormals(bool dun)
 	{
 		if(dun == true) return;
-		fprintf(mFile,"setAttr \".dun\" %i;\n", dun);
+		fprintf(mFile,"\tsetAttr \".dun\" %i;\n", dun);
 
 	}
 	void getWeightList(size_t wl_i)
@@ -462,7 +463,8 @@ public:
 
 	}
 protected:
-	SkinCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):GeometryFilter(file, name, parent, nodeType) {}
+	SkinCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:GeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

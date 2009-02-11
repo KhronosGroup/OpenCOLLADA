@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,18 +23,19 @@ public:
 		}
 	};
 public:
+	PointOnCurveInfo():AbstractBaseCreate(){}
 	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "pointOnCurveInfo"){}
 	virtual ~PointOnCurveInfo(){}
 	void setParameter(double pr)
 	{
 		if(pr == 0.0) return;
-		fprintf(mFile,"setAttr \".pr\" %f;\n", pr);
+		fprintf(mFile,"\tsetAttr \".pr\" %f;\n", pr);
 
 	}
 	void setTurnOnPercentage(bool top)
 	{
 		if(top == false) return;
-		fprintf(mFile,"setAttr \".top\" %i;\n", top);
+		fprintf(mFile,"\tsetAttr \".top\" %i;\n", top);
 
 	}
 	void getInputCurve()
@@ -183,7 +184,8 @@ public:
 
 	}
 protected:
-	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	PointOnCurveInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

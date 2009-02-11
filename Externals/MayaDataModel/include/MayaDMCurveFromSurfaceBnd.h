@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,24 +18,25 @@ class CurveFromSurfaceBnd : public CurveFromSurface
 {
 public:
 public:
+	CurveFromSurfaceBnd():CurveFromSurface(){}
 	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent=""):CurveFromSurface(file, name, parent, "curveFromSurfaceBnd"){}
 	virtual ~CurveFromSurfaceBnd(){}
 	void setFace(int f)
 	{
 		if(f == 0) return;
-		fprintf(mFile,"setAttr \".f\" %i;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
 
 	}
 	void setBoundary(int b)
 	{
 		if(b == 0) return;
-		fprintf(mFile,"setAttr \".b\" %i;\n", b);
+		fprintf(mFile,"\tsetAttr \".b\" %i;\n", b);
 
 	}
 	void setEdge(int e)
 	{
 		if(e == -1) return;
-		fprintf(mFile,"setAttr \".e\" %i;\n", e);
+		fprintf(mFile,"\tsetAttr \".e\" %i;\n", e);
 
 	}
 	void getFace()
@@ -54,7 +55,8 @@ public:
 
 	}
 protected:
-	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromSurface(file, name, parent, nodeType) {}
+	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveFromSurface(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

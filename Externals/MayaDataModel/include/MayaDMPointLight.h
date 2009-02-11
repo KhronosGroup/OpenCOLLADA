@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -87,30 +87,31 @@ public:
 		}
 	};
 public:
+	PointLight():NonExtendedLightShapeNode(){}
 	PointLight(FILE* file,const std::string& name,const std::string& parent=""):NonExtendedLightShapeNode(file, name, parent, "pointLight"){}
 	virtual ~PointLight(){}
 	void setFogRadius(float fr)
 	{
 		if(fr == 1.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setObjectType(char ot)
 	{
 		if(ot == 1) return;
-		fprintf(mFile,"setAttr \".ot\" %;\n", ot);
+		fprintf(mFile,"\tsetAttr \".ot\" %;\n", ot);
 
 	}
 	void setFogType(unsigned int ft)
 	{
 		if(ft == 0) return;
-		fprintf(mFile,"setAttr \".ft\" %i;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %i;\n", ft);
 
 	}
 	void setPointWorld(const float3& pw)
 	{
 		if(pw == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".pw\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pw\" -type \"float3\" ");
 		pw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -118,25 +119,25 @@ public:
 	void setPointWorldX(float tx)
 	{
 		if(tx == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.tx\" %f;\n", tx);
+		fprintf(mFile,"\tsetAttr \".pw.tx\" %f;\n", tx);
 
 	}
 	void setPointWorldY(float ty)
 	{
 		if(ty == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.ty\" %f;\n", ty);
+		fprintf(mFile,"\tsetAttr \".pw.ty\" %f;\n", ty);
 
 	}
 	void setPointWorldZ(float tz)
 	{
 		if(tz == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.tz\" %f;\n", tz);
+		fprintf(mFile,"\tsetAttr \".pw.tz\" %f;\n", tz);
 
 	}
 	void setFarPointWorld(const float3& fw)
 	{
 		if(fw == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".fw\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".fw\" -type \"float3\" ");
 		fw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -144,30 +145,30 @@ public:
 	void setFarPointWorldX(float fwx)
 	{
 		if(fwx == 0.0) return;
-		fprintf(mFile,"setAttr \".fw.fwx\" %f;\n", fwx);
+		fprintf(mFile,"\tsetAttr \".fw.fwx\" %f;\n", fwx);
 
 	}
 	void setFarPointWorldY(float fwy)
 	{
 		if(fwy == 0.0) return;
-		fprintf(mFile,"setAttr \".fw.fwy\" %f;\n", fwy);
+		fprintf(mFile,"\tsetAttr \".fw.fwy\" %f;\n", fwy);
 
 	}
 	void setFarPointWorldZ(float fwz)
 	{
 		if(fwz == 0.0) return;
-		fprintf(mFile,"setAttr \".fw.fwz\" %f;\n", fwz);
+		fprintf(mFile,"\tsetAttr \".fw.fwz\" %f;\n", fwz);
 
 	}
 	void setFogIntensity(float fin)
 	{
 		if(fin == 1.0) return;
-		fprintf(mFile,"setAttr \".fin\" %f;\n", fin);
+		fprintf(mFile,"\tsetAttr \".fin\" %f;\n", fin);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -175,18 +176,18 @@ public:
 	void setMiExportMrLight(bool milt)
 	{
 		if(milt == false) return;
-		fprintf(mFile,"setAttr \".mrc.milt\" %i;\n", milt);
+		fprintf(mFile,"\tsetAttr \".mrc.milt\" %i;\n", milt);
 
 	}
 	void setEmitPhotons(bool phot)
 	{
 		if(phot == false) return;
-		fprintf(mFile,"setAttr \".mrc.phot\" %i;\n", phot);
+		fprintf(mFile,"\tsetAttr \".mrc.phot\" %i;\n", phot);
 
 	}
 	void setEnergy(const float3& eng)
 	{
-		fprintf(mFile,"setAttr \".mrc.eng\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mrc.eng\" -type \"float3\" ");
 		eng.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -194,79 +195,79 @@ public:
 	void setEnergyR(float engr)
 	{
 		if(engr == 8000) return;
-		fprintf(mFile,"setAttr \".mrc.eng.engr\" %f;\n", engr);
+		fprintf(mFile,"\tsetAttr \".mrc.eng.engr\" %f;\n", engr);
 
 	}
 	void setEnergyG(float engg)
 	{
 		if(engg == 8000) return;
-		fprintf(mFile,"setAttr \".mrc.eng.engg\" %f;\n", engg);
+		fprintf(mFile,"\tsetAttr \".mrc.eng.engg\" %f;\n", engg);
 
 	}
 	void setEnergyB(float engb)
 	{
 		if(engb == 8000) return;
-		fprintf(mFile,"setAttr \".mrc.eng.engb\" %f;\n", engb);
+		fprintf(mFile,"\tsetAttr \".mrc.eng.engb\" %f;\n", engb);
 
 	}
 	void setPhotonIntensity(float phi)
 	{
 		if(phi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.phi\" %f;\n", phi);
+		fprintf(mFile,"\tsetAttr \".mrc.phi\" %f;\n", phi);
 
 	}
 	void setExponent(float exp)
 	{
 		if(exp == 2) return;
-		fprintf(mFile,"setAttr \".mrc.exp\" %f;\n", exp);
+		fprintf(mFile,"\tsetAttr \".mrc.exp\" %f;\n", exp);
 
 	}
 	void setCausticPhotons(int cph)
 	{
 		if(cph == 10000) return;
-		fprintf(mFile,"setAttr \".mrc.cph\" %i;\n", cph);
+		fprintf(mFile,"\tsetAttr \".mrc.cph\" %i;\n", cph);
 
 	}
 	void setGlobIllPhotons(int gph)
 	{
 		if(gph == 10000) return;
-		fprintf(mFile,"setAttr \".mrc.gph\" %i;\n", gph);
+		fprintf(mFile,"\tsetAttr \".mrc.gph\" %i;\n", gph);
 
 	}
 	void setShadowMap(bool usm)
 	{
 		if(usm == false) return;
-		fprintf(mFile,"setAttr \".mrc.usm\" %i;\n", usm);
+		fprintf(mFile,"\tsetAttr \".mrc.usm\" %i;\n", usm);
 
 	}
 	void setSmapResolution(int smr)
 	{
 		if(smr == 256) return;
-		fprintf(mFile,"setAttr \".mrc.smr\" %i;\n", smr);
+		fprintf(mFile,"\tsetAttr \".mrc.smr\" %i;\n", smr);
 
 	}
 	void setSmapSamples(short smsa)
 	{
 		if(smsa == 1) return;
-		fprintf(mFile,"setAttr \".mrc.smsa\" %i;\n", smsa);
+		fprintf(mFile,"\tsetAttr \".mrc.smsa\" %i;\n", smsa);
 
 	}
 	void setSmapSoftness(float smso)
 	{
 		if(smso == 0) return;
-		fprintf(mFile,"setAttr \".mrc.smso\" %f;\n", smso);
+		fprintf(mFile,"\tsetAttr \".mrc.smso\" %f;\n", smso);
 
 	}
 	void setSmapBias(float smb)
 	{
 		if(smb == 0) return;
-		fprintf(mFile,"setAttr \".mrc.smb\" %f;\n", smb);
+		fprintf(mFile,"\tsetAttr \".mrc.smb\" %f;\n", smb);
 
 	}
 	void setSmapFilename(const string& smf)
 	{
 		if(smf == "NULL") return;
-		fprintf(mFile,"setAttr \".mrc.smf\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".mrc.smf\" -type \"string\" ");
 		smf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -274,60 +275,60 @@ public:
 	void setSmapLightName(bool smln)
 	{
 		if(smln == 0) return;
-		fprintf(mFile,"setAttr \".mrc.smln\" %i;\n", smln);
+		fprintf(mFile,"\tsetAttr \".mrc.smln\" %i;\n", smln);
 
 	}
 	void setSmapSceneName(bool smsn)
 	{
 		if(smsn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.smsn\" %i;\n", smsn);
+		fprintf(mFile,"\tsetAttr \".mrc.smsn\" %i;\n", smsn);
 
 	}
 	void setSmapFrameExt(bool smfe)
 	{
 		if(smfe == 0) return;
-		fprintf(mFile,"setAttr \".mrc.smfe\" %i;\n", smfe);
+		fprintf(mFile,"\tsetAttr \".mrc.smfe\" %i;\n", smfe);
 
 	}
 	void setSmapDetail(bool smd)
 	{
 		if(smd == 0) return;
-		fprintf(mFile,"setAttr \".mrc.smd\" %i;\n", smd);
+		fprintf(mFile,"\tsetAttr \".mrc.smd\" %i;\n", smd);
 
 	}
 	void setSmapDetailSamples(short sds)
 	{
 		if(sds == 0) return;
-		fprintf(mFile,"setAttr \".mrc.sds\" %i;\n", sds);
+		fprintf(mFile,"\tsetAttr \".mrc.sds\" %i;\n", sds);
 
 	}
 	void setSmapDetailAccuracy(float sdac)
 	{
 		if(sdac == 0) return;
-		fprintf(mFile,"setAttr \".mrc.sdac\" %f;\n", sdac);
+		fprintf(mFile,"\tsetAttr \".mrc.sdac\" %f;\n", sdac);
 
 	}
 	void setSmapDetailAlpha(bool sdal)
 	{
 		if(sdal == 0) return;
-		fprintf(mFile,"setAttr \".mrc.sdal\" %i;\n", sdal);
+		fprintf(mFile,"\tsetAttr \".mrc.sdal\" %i;\n", sdal);
 
 	}
 	void setAreaLight(bool algt)
 	{
 		if(algt == false) return;
-		fprintf(mFile,"setAttr \".mrc.algt\" %i;\n", algt);
+		fprintf(mFile,"\tsetAttr \".mrc.algt\" %i;\n", algt);
 
 	}
 	void setAreaType(unsigned int atyp)
 	{
 		if(atyp == 0) return;
-		fprintf(mFile,"setAttr \".mrc.atyp\" %i;\n", atyp);
+		fprintf(mFile,"\tsetAttr \".mrc.atyp\" %i;\n", atyp);
 
 	}
 	void setAreaNormal(const float3& ano)
 	{
-		fprintf(mFile,"setAttr \".mrc.ano\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mrc.ano\" -type \"float3\" ");
 		ano.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -335,24 +336,24 @@ public:
 	void setAreaNormalX(float anox)
 	{
 		if(anox == 0) return;
-		fprintf(mFile,"setAttr \".mrc.ano.anox\" %f;\n", anox);
+		fprintf(mFile,"\tsetAttr \".mrc.ano.anox\" %f;\n", anox);
 
 	}
 	void setAreaNormalY(float anoy)
 	{
 		if(anoy == 2) return;
-		fprintf(mFile,"setAttr \".mrc.ano.anoy\" %f;\n", anoy);
+		fprintf(mFile,"\tsetAttr \".mrc.ano.anoy\" %f;\n", anoy);
 
 	}
 	void setAreaNormalZ(float anoz)
 	{
 		if(anoz == 0) return;
-		fprintf(mFile,"setAttr \".mrc.ano.anoz\" %f;\n", anoz);
+		fprintf(mFile,"\tsetAttr \".mrc.ano.anoz\" %f;\n", anoz);
 
 	}
 	void setAreaEdge(const float3& aed)
 	{
-		fprintf(mFile,"setAttr \".mrc.aed\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".mrc.aed\" -type \"float3\" ");
 		aed.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -360,30 +361,30 @@ public:
 	void setAreaEdgeX(float aedx)
 	{
 		if(aedx == 2) return;
-		fprintf(mFile,"setAttr \".mrc.aed.aedx\" %f;\n", aedx);
+		fprintf(mFile,"\tsetAttr \".mrc.aed.aedx\" %f;\n", aedx);
 
 	}
 	void setAreaEdgeY(float aedy)
 	{
 		if(aedy == 0) return;
-		fprintf(mFile,"setAttr \".mrc.aed.aedy\" %f;\n", aedy);
+		fprintf(mFile,"\tsetAttr \".mrc.aed.aedy\" %f;\n", aedy);
 
 	}
 	void setAreaEdgeZ(float aedz)
 	{
 		if(aedz == 0) return;
-		fprintf(mFile,"setAttr \".mrc.aed.aedz\" %f;\n", aedz);
+		fprintf(mFile,"\tsetAttr \".mrc.aed.aedz\" %f;\n", aedz);
 
 	}
 	void setAreaRadius(float arad)
 	{
 		if(arad == 2) return;
-		fprintf(mFile,"setAttr \".mrc.arad\" %f;\n", arad);
+		fprintf(mFile,"\tsetAttr \".mrc.arad\" %f;\n", arad);
 
 	}
 	void setAreaSampling(const short2& asa)
 	{
-		fprintf(mFile,"setAttr \".mrc.asa\" -type \"short2\" ");
+		fprintf(mFile,"\tsetAttr \".mrc.asa\" -type \"short2\" ");
 		asa.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -391,24 +392,24 @@ public:
 	void setAreaSamplingU(short asau)
 	{
 		if(asau == 3) return;
-		fprintf(mFile,"setAttr \".mrc.asa.asau\" %i;\n", asau);
+		fprintf(mFile,"\tsetAttr \".mrc.asa.asau\" %i;\n", asau);
 
 	}
 	void setAreaSamplingV(short asav)
 	{
 		if(asav == 3) return;
-		fprintf(mFile,"setAttr \".mrc.asa.asav\" %i;\n", asav);
+		fprintf(mFile,"\tsetAttr \".mrc.asa.asav\" %i;\n", asav);
 
 	}
 	void setAreaLowLevel(short alev)
 	{
 		if(alev == 0) return;
-		fprintf(mFile,"setAttr \".mrc.alev\" %i;\n", alev);
+		fprintf(mFile,"\tsetAttr \".mrc.alev\" %i;\n", alev);
 
 	}
 	void setAreaLowSampling(const short2& alo)
 	{
-		fprintf(mFile,"setAttr \".mrc.alo\" -type \"short2\" ");
+		fprintf(mFile,"\tsetAttr \".mrc.alo\" -type \"short2\" ");
 		alo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -416,19 +417,19 @@ public:
 	void setAreaLowSamplingU(short alou)
 	{
 		if(alou == 2) return;
-		fprintf(mFile,"setAttr \".mrc.alo.alou\" %i;\n", alou);
+		fprintf(mFile,"\tsetAttr \".mrc.alo.alou\" %i;\n", alou);
 
 	}
 	void setAreaLowSamplingV(short alov)
 	{
 		if(alov == 2) return;
-		fprintf(mFile,"setAttr \".mrc.alo.alov\" %i;\n", alov);
+		fprintf(mFile,"\tsetAttr \".mrc.alo.alov\" %i;\n", alov);
 
 	}
 	void setAreaVisible(bool avis)
 	{
 		if(avis == false) return;
-		fprintf(mFile,"setAttr \".mrc.avis\" %i;\n", avis);
+		fprintf(mFile,"\tsetAttr \".mrc.avis\" %i;\n", avis);
 
 	}
 	void getFogGeometry()
@@ -446,9 +447,54 @@ public:
 		fprintf(mFile,"\"%s.lg\"",mName.c_str());
 
 	}
+	void getObjectType()
+	{
+		fprintf(mFile,"\"%s.ot\"",mName.c_str());
+
+	}
 	void getFogType()
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
+
+	}
+	void getPointWorld()
+	{
+		fprintf(mFile,"\"%s.pw\"",mName.c_str());
+
+	}
+	void getPointWorldX()
+	{
+		fprintf(mFile,"\"%s.pw.tx\"",mName.c_str());
+
+	}
+	void getPointWorldY()
+	{
+		fprintf(mFile,"\"%s.pw.ty\"",mName.c_str());
+
+	}
+	void getPointWorldZ()
+	{
+		fprintf(mFile,"\"%s.pw.tz\"",mName.c_str());
+
+	}
+	void getFarPointWorld()
+	{
+		fprintf(mFile,"\"%s.fw\"",mName.c_str());
+
+	}
+	void getFarPointWorldX()
+	{
+		fprintf(mFile,"\"%s.fw.fwx\"",mName.c_str());
+
+	}
+	void getFarPointWorldY()
+	{
+		fprintf(mFile,"\"%s.fw.fwy\"",mName.c_str());
+
+	}
+	void getFarPointWorldZ()
+	{
+		fprintf(mFile,"\"%s.fw.fwz\"",mName.c_str());
 
 	}
 	void getFogIntensity()
@@ -692,7 +738,8 @@ public:
 
 	}
 protected:
-	PointLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):NonExtendedLightShapeNode(file, name, parent, nodeType) {}
+	PointLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:NonExtendedLightShapeNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

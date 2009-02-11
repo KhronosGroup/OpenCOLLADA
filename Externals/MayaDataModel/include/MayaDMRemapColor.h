@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -51,11 +51,12 @@ public:
 		}
 	};
 public:
+	RemapColor():DependNode(){}
 	RemapColor(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "remapColor"){}
 	virtual ~RemapColor(){}
 	void setColor(const float3& cl)
 	{
-		fprintf(mFile,"setAttr \".cl\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cl\" -type \"float3\" ");
 		cl.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -63,48 +64,48 @@ public:
 	void setColorR(float cr)
 	{
 		if(cr == 0.5) return;
-		fprintf(mFile,"setAttr \".cl.cr\" %f;\n", cr);
+		fprintf(mFile,"\tsetAttr \".cl.cr\" %f;\n", cr);
 
 	}
 	void setColorG(float cg)
 	{
 		if(cg == 0.5) return;
-		fprintf(mFile,"setAttr \".cl.cg\" %f;\n", cg);
+		fprintf(mFile,"\tsetAttr \".cl.cg\" %f;\n", cg);
 
 	}
 	void setColorB(float cb)
 	{
 		if(cb == 0.5) return;
-		fprintf(mFile,"setAttr \".cl.cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cl.cb\" %f;\n", cb);
 
 	}
 	void setInputMin(float imn)
 	{
 		if(imn == 0) return;
-		fprintf(mFile,"setAttr \".imn\" %f;\n", imn);
+		fprintf(mFile,"\tsetAttr \".imn\" %f;\n", imn);
 
 	}
 	void setInputMax(float imx)
 	{
 		if(imx == 1) return;
-		fprintf(mFile,"setAttr \".imx\" %f;\n", imx);
+		fprintf(mFile,"\tsetAttr \".imx\" %f;\n", imx);
 
 	}
 	void setOutputMin(float omn)
 	{
 		if(omn == 0) return;
-		fprintf(mFile,"setAttr \".omn\" %f;\n", omn);
+		fprintf(mFile,"\tsetAttr \".omn\" %f;\n", omn);
 
 	}
 	void setOutputMax(float omx)
 	{
 		if(omx == 1) return;
-		fprintf(mFile,"setAttr \".omx\" %f;\n", omx);
+		fprintf(mFile,"\tsetAttr \".omx\" %f;\n", omx);
 
 	}
 	void setRed(size_t r_i,const Red& r)
 	{
-		fprintf(mFile,"setAttr \".r[%i]\" ",r_i);
+		fprintf(mFile,"\tsetAttr \".r[%i]\" ",r_i);
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -112,24 +113,24 @@ public:
 	void setRed_Position(size_t r_i,float rp)
 	{
 		if(rp == 0.0) return;
-		fprintf(mFile,"setAttr \".r[%i].rp\" %f;\n", r_i,rp);
+		fprintf(mFile,"\tsetAttr \".r[%i].rp\" %f;\n", r_i,rp);
 
 	}
 	void setRed_FloatValue(size_t r_i,float rfv)
 	{
 		if(rfv == 0.0) return;
-		fprintf(mFile,"setAttr \".r[%i].rfv\" %f;\n", r_i,rfv);
+		fprintf(mFile,"\tsetAttr \".r[%i].rfv\" %f;\n", r_i,rfv);
 
 	}
 	void setRed_Interp(size_t r_i,unsigned int ri)
 	{
 		if(ri == 0) return;
-		fprintf(mFile,"setAttr \".r[%i].ri\" %i;\n", r_i,ri);
+		fprintf(mFile,"\tsetAttr \".r[%i].ri\" %i;\n", r_i,ri);
 
 	}
 	void setGreen(size_t g_i,const Green& g)
 	{
-		fprintf(mFile,"setAttr \".g[%i]\" ",g_i);
+		fprintf(mFile,"\tsetAttr \".g[%i]\" ",g_i);
 		g.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -137,24 +138,24 @@ public:
 	void setGreen_Position(size_t g_i,float gp)
 	{
 		if(gp == 0.0) return;
-		fprintf(mFile,"setAttr \".g[%i].gp\" %f;\n", g_i,gp);
+		fprintf(mFile,"\tsetAttr \".g[%i].gp\" %f;\n", g_i,gp);
 
 	}
 	void setGreen_FloatValue(size_t g_i,float gfv)
 	{
 		if(gfv == 0.0) return;
-		fprintf(mFile,"setAttr \".g[%i].gfv\" %f;\n", g_i,gfv);
+		fprintf(mFile,"\tsetAttr \".g[%i].gfv\" %f;\n", g_i,gfv);
 
 	}
 	void setGreen_Interp(size_t g_i,unsigned int gi)
 	{
 		if(gi == 0) return;
-		fprintf(mFile,"setAttr \".g[%i].gi\" %i;\n", g_i,gi);
+		fprintf(mFile,"\tsetAttr \".g[%i].gi\" %i;\n", g_i,gi);
 
 	}
 	void setBlue(size_t b_i,const Blue& b)
 	{
-		fprintf(mFile,"setAttr \".b[%i]\" ",b_i);
+		fprintf(mFile,"\tsetAttr \".b[%i]\" ",b_i);
 		b.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -162,19 +163,19 @@ public:
 	void setBlue_Position(size_t b_i,float bp)
 	{
 		if(bp == 0.0) return;
-		fprintf(mFile,"setAttr \".b[%i].bp\" %f;\n", b_i,bp);
+		fprintf(mFile,"\tsetAttr \".b[%i].bp\" %f;\n", b_i,bp);
 
 	}
 	void setBlue_FloatValue(size_t b_i,float bfv)
 	{
 		if(bfv == 0.0) return;
-		fprintf(mFile,"setAttr \".b[%i].bfv\" %f;\n", b_i,bfv);
+		fprintf(mFile,"\tsetAttr \".b[%i].bfv\" %f;\n", b_i,bfv);
 
 	}
 	void setBlue_Interp(size_t b_i,unsigned int bi)
 	{
 		if(bi == 0) return;
-		fprintf(mFile,"setAttr \".b[%i].bi\" %i;\n", b_i,bi);
+		fprintf(mFile,"\tsetAttr \".b[%i].bi\" %i;\n", b_i,bi);
 
 	}
 	void getColor()
@@ -298,7 +299,8 @@ public:
 
 	}
 protected:
-	RemapColor(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	RemapColor(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

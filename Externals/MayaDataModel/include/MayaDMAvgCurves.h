@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class AvgCurves : public AbstractBaseCreate
 {
 public:
 public:
+	AvgCurves():AbstractBaseCreate(){}
 	AvgCurves(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "avgCurves"){}
 	virtual ~AvgCurves(){}
 	void setWeight1(double w1)
 	{
 		if(w1 == 0.5) return;
-		fprintf(mFile,"setAttr \".w1\" %f;\n", w1);
+		fprintf(mFile,"\tsetAttr \".w1\" %f;\n", w1);
 
 	}
 	void setWeight2(double w2)
 	{
 		if(w2 == 0.5) return;
-		fprintf(mFile,"setAttr \".w2\" %f;\n", w2);
+		fprintf(mFile,"\tsetAttr \".w2\" %f;\n", w2);
 
 	}
 	void setAutomaticWeight(bool aw)
 	{
 		if(aw == true) return;
-		fprintf(mFile,"setAttr \".aw\" %i;\n", aw);
+		fprintf(mFile,"\tsetAttr \".aw\" %i;\n", aw);
 
 	}
 	void setNormalizeWeights(bool nw)
 	{
 		if(nw == true) return;
-		fprintf(mFile,"setAttr \".nw\" %i;\n", nw);
+		fprintf(mFile,"\tsetAttr \".nw\" %i;\n", nw);
 
 	}
 	void getInputCurve1()
@@ -80,7 +81,8 @@ public:
 
 	}
 protected:
-	AvgCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	AvgCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

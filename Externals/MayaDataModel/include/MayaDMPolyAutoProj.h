@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class PolyAutoProj : public PolyModifierUV
 {
 public:
 public:
+	PolyAutoProj():PolyModifierUV(){}
 	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyAutoProj"){}
 	virtual ~PolyAutoProj(){}
 	void setTranslate(const double3& t)
 	{
 		if(t == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".t\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".t\" -type \"double3\" ");
 		t.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setTranslateX(double tx)
 	{
 		if(tx == 0) return;
-		fprintf(mFile,"setAttr \".t.tx\" %f;\n", tx);
+		fprintf(mFile,"\tsetAttr \".t.tx\" %f;\n", tx);
 
 	}
 	void setTranslateY(double ty)
 	{
 		if(ty == 0) return;
-		fprintf(mFile,"setAttr \".t.ty\" %f;\n", ty);
+		fprintf(mFile,"\tsetAttr \".t.ty\" %f;\n", ty);
 
 	}
 	void setTranslateZ(double tz)
 	{
 		if(tz == 0) return;
-		fprintf(mFile,"setAttr \".t.tz\" %f;\n", tz);
+		fprintf(mFile,"\tsetAttr \".t.tz\" %f;\n", tz);
 
 	}
 	void setRotate(const double3& ro)
 	{
 		if(ro == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ro\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ro\" -type \"double3\" ");
 		ro.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setRotateX(double rx)
 	{
 		if(rx == 0) return;
-		fprintf(mFile,"setAttr \".ro.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".ro.rx\" %f;\n", rx);
 
 	}
 	void setRotateY(double ry)
 	{
 		if(ry == 0) return;
-		fprintf(mFile,"setAttr \".ro.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".ro.ry\" %f;\n", ry);
 
 	}
 	void setRotateZ(double rz)
 	{
 		if(rz == 0) return;
-		fprintf(mFile,"setAttr \".ro.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".ro.rz\" %f;\n", rz);
 
 	}
 	void setScale(const double3& s)
 	{
 		if(s == double3(1.0, 1.0, 1.0)) return;
-		fprintf(mFile,"setAttr \".s\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".s\" -type \"double3\" ");
 		s.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,25 +84,25 @@ public:
 	void setScaleX(double sx)
 	{
 		if(sx == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sx\" %f;\n", sx);
+		fprintf(mFile,"\tsetAttr \".s.sx\" %f;\n", sx);
 
 	}
 	void setScaleY(double sy)
 	{
 		if(sy == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sy\" %f;\n", sy);
+		fprintf(mFile,"\tsetAttr \".s.sy\" %f;\n", sy);
 
 	}
 	void setScaleZ(double sz)
 	{
 		if(sz == 0.0) return;
-		fprintf(mFile,"setAttr \".s.sz\" %f;\n", sz);
+		fprintf(mFile,"\tsetAttr \".s.sz\" %f;\n", sz);
 
 	}
 	void setPivot(const float3& pvt)
 	{
 		if(pvt == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".pvt\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pvt\" -type \"float3\" ");
 		pvt.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,73 +110,73 @@ public:
 	void setPivotX(float pvx)
 	{
 		if(pvx == 0) return;
-		fprintf(mFile,"setAttr \".pvt.pvx\" %f;\n", pvx);
+		fprintf(mFile,"\tsetAttr \".pvt.pvx\" %f;\n", pvx);
 
 	}
 	void setPivotY(float pvy)
 	{
 		if(pvy == 0) return;
-		fprintf(mFile,"setAttr \".pvt.pvy\" %f;\n", pvy);
+		fprintf(mFile,"\tsetAttr \".pvt.pvy\" %f;\n", pvy);
 
 	}
 	void setPivotZ(float pvz)
 	{
 		if(pvz == 0) return;
-		fprintf(mFile,"setAttr \".pvt.pvz\" %f;\n", pvz);
+		fprintf(mFile,"\tsetAttr \".pvt.pvz\" %f;\n", pvz);
 
 	}
 	void setPlanes(int p)
 	{
 		if(p == 6) return;
-		fprintf(mFile,"setAttr \".p\" %i;\n", p);
+		fprintf(mFile,"\tsetAttr \".p\" %i;\n", p);
 
 	}
 	void setOptimize(unsigned int o)
 	{
 		if(o == 1) return;
-		fprintf(mFile,"setAttr \".o\" %i;\n", o);
+		fprintf(mFile,"\tsetAttr \".o\" %i;\n", o);
 
 	}
 	void setLayoutMethod(unsigned int lm)
 	{
 		if(lm == 0) return;
-		fprintf(mFile,"setAttr \".lm\" %i;\n", lm);
+		fprintf(mFile,"\tsetAttr \".lm\" %i;\n", lm);
 
 	}
 	void setSkipIntersect(bool si)
 	{
 		if(si == false) return;
-		fprintf(mFile,"setAttr \".si\" %i;\n", si);
+		fprintf(mFile,"\tsetAttr \".si\" %i;\n", si);
 
 	}
 	void setLayout(unsigned int l)
 	{
 		if(l == 2) return;
-		fprintf(mFile,"setAttr \".l\" %i;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
 	void setPercentageSpace(float ps)
 	{
 		if(ps == 0) return;
-		fprintf(mFile,"setAttr \".ps\" %f;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %f;\n", ps);
 
 	}
 	void setScaleMode(unsigned int sc)
 	{
 		if(sc == 1) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setDenseLayout(bool dl)
 	{
 		if(dl == false) return;
-		fprintf(mFile,"setAttr \".dl\" %i;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
 	void setProjectBothDirections(bool pb)
 	{
 		if(pb == false) return;
-		fprintf(mFile,"setAttr \".pb\" %i;\n", pb);
+		fprintf(mFile,"\tsetAttr \".pb\" %i;\n", pb);
 
 	}
 	void getTranslate()
@@ -309,7 +310,8 @@ public:
 
 	}
 protected:
-	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

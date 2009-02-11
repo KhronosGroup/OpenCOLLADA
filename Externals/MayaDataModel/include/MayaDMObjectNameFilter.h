@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class ObjectNameFilter : public ObjectFilter
 {
 public:
 public:
+	ObjectNameFilter():ObjectFilter(){}
 	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectNameFilter"){}
 	virtual ~ObjectNameFilter(){}
 	void setRegExp(const string& rex)
 	{
 		if(rex == "NULL") return;
-		fprintf(mFile,"setAttr \".rex\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".rex\" -type \"string\" ");
 		rex.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setNameStrings(const stringArray& nstr)
 	{
 		if(nstr.size == 0) return;
-		fprintf(mFile,"setAttr \".nstr\" -type \"stringArray\" ");
+		fprintf(mFile,"\tsetAttr \".nstr\" -type \"stringArray\" ");
 		nstr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,7 +40,7 @@ public:
 	void setAttrName(bool attr)
 	{
 		if(attr == false) return;
-		fprintf(mFile,"setAttr \".attr\" %i;\n", attr);
+		fprintf(mFile,"\tsetAttr \".attr\" %i;\n", attr);
 
 	}
 	void getRegExp()
@@ -58,7 +59,8 @@ public:
 
 	}
 protected:
-	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectFilter(file, name, parent, nodeType) {}
+	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

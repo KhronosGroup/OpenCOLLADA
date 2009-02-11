@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class ParticleIncandMapper : public DependNode
 {
 public:
 public:
+	ParticleIncandMapper():DependNode(){}
 	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleIncandMapper"){}
 	virtual ~ParticleIncandMapper(){}
 	void setParticleIncandescence(const float3& pi)
 	{
-		fprintf(mFile,"setAttr \".pi\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pi\" -type \"float3\" ");
 		pi.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,19 +31,19 @@ public:
 	void setParticleIncandescenceR(float pir)
 	{
 		if(pir == 0.0) return;
-		fprintf(mFile,"setAttr \".pi.pir\" %f;\n", pir);
+		fprintf(mFile,"\tsetAttr \".pi.pir\" %f;\n", pir);
 
 	}
 	void setParticleIncandescenceG(float pig)
 	{
 		if(pig == 0.0) return;
-		fprintf(mFile,"setAttr \".pi.pig\" %f;\n", pig);
+		fprintf(mFile,"\tsetAttr \".pi.pig\" %f;\n", pig);
 
 	}
 	void setParticleIncandescenceB(float pib)
 	{
 		if(pib == 0.0) return;
-		fprintf(mFile,"setAttr \".pi.pib\" %f;\n", pib);
+		fprintf(mFile,"\tsetAttr \".pi.pib\" %f;\n", pib);
 
 	}
 	void getParticleIncandescence()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ParticleIncandMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

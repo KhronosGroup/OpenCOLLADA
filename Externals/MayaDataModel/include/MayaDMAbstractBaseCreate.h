@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class AbstractBaseCreate : public DependNode
 {
 public:
+	AbstractBaseCreate():DependNode(){}
 	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "abstractBaseCreate"){}
 	virtual ~AbstractBaseCreate(){}
 protected:
-	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class DeformSquash : public DeformFunc
 {
 public:
 public:
+	DeformSquash():DeformFunc(){}
 	DeformSquash(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformSquash"){}
 	virtual ~DeformSquash(){}
 	void setLowBound(double lb)
 	{
 		if(lb == -1.0) return;
-		fprintf(mFile,"setAttr \".lb\" %f;\n", lb);
+		fprintf(mFile,"\tsetAttr \".lb\" %f;\n", lb);
 
 	}
 	void setHighBound(double hb)
 	{
 		if(hb == 1.0) return;
-		fprintf(mFile,"setAttr \".hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hb\" %f;\n", hb);
 
 	}
 	void setStartSmoothness(double ss)
 	{
 		if(ss == 0.0) return;
-		fprintf(mFile,"setAttr \".ss\" %f;\n", ss);
+		fprintf(mFile,"\tsetAttr \".ss\" %f;\n", ss);
 
 	}
 	void setEndSmoothness(double es)
 	{
 		if(es == 0.0) return;
-		fprintf(mFile,"setAttr \".es\" %f;\n", es);
+		fprintf(mFile,"\tsetAttr \".es\" %f;\n", es);
 
 	}
 	void setMaxExpandPos(double mp)
 	{
 		if(mp == 0.5) return;
-		fprintf(mFile,"setAttr \".mp\" %f;\n", mp);
+		fprintf(mFile,"\tsetAttr \".mp\" %f;\n", mp);
 
 	}
 	void setExpand(double exp)
 	{
 		if(exp == 1.0) return;
-		fprintf(mFile,"setAttr \".exp\" %f;\n", exp);
+		fprintf(mFile,"\tsetAttr \".exp\" %f;\n", exp);
 
 	}
 	void setFactor(double fac)
 	{
 		if(fac == 0.0) return;
-		fprintf(mFile,"setAttr \".fac\" %f;\n", fac);
+		fprintf(mFile,"\tsetAttr \".fac\" %f;\n", fac);
 
 	}
 	void getLowBound()
@@ -98,7 +99,8 @@ public:
 
 	}
 protected:
-	DeformSquash(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformFunc(file, name, parent, nodeType) {}
+	DeformSquash(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformFunc(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

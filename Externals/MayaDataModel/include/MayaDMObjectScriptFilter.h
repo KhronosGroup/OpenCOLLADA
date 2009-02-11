@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class ObjectScriptFilter : public ObjectFilter
 {
 public:
 public:
+	ObjectScriptFilter():ObjectFilter(){}
 	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectScriptFilter"){}
 	virtual ~ObjectScriptFilter(){}
 	void setArrayArg(bool aarg)
 	{
 		if(aarg == 1) return;
-		fprintf(mFile,"setAttr \".aarg\" %i;\n", aarg);
+		fprintf(mFile,"\tsetAttr \".aarg\" %i;\n", aarg);
 
 	}
 	void setProcName(const string& pnam)
 	{
 		if(pnam == "NULL") return;
-		fprintf(mFile,"setAttr \".pnam\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".pnam\" -type \"string\" ");
 		pnam.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,13 +38,13 @@ public:
 	void setAttrName(bool attr)
 	{
 		if(attr == false) return;
-		fprintf(mFile,"setAttr \".attr\" %i;\n", attr);
+		fprintf(mFile,"\tsetAttr \".attr\" %i;\n", attr);
 
 	}
 	void setUniqueNodeNames(bool unn)
 	{
 		if(unn == 0) return;
-		fprintf(mFile,"setAttr \".unn\" %i;\n", unn);
+		fprintf(mFile,"\tsetAttr \".unn\" %i;\n", unn);
 
 	}
 	void getArrayArg()
@@ -67,7 +68,8 @@ public:
 
 	}
 protected:
-	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ObjectFilter(file, name, parent, nodeType) {}
+	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ObjectFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

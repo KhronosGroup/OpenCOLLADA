@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,60 +18,61 @@ class PolyCylinder : public PolyPrimitive
 {
 public:
 public:
+	PolyCylinder():PolyPrimitive(){}
 	PolyCylinder(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyCylinder"){}
 	virtual ~PolyCylinder(){}
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setHeight(double h)
 	{
 		if(h == 2) return;
-		fprintf(mFile,"setAttr \".h\" %f;\n", h);
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 
 	}
 	void setSubdivisionsAxis(int sa)
 	{
 		if(sa == 20) return;
-		fprintf(mFile,"setAttr \".sa\" %i;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %i;\n", sa);
 
 	}
 	void setSubdivisionsHeight(int sh)
 	{
 		if(sh == 1) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setSubdivisionsCaps(int sc)
 	{
 		if(sc == 0) return;
-		fprintf(mFile,"setAttr \".sc\" %i;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %i;\n", sc);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 2) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(unsigned int cuv)
 	{
 		if(cuv == 2) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void setMaya70(bool m70)
 	{
 		if(m70 == false) return;
-		fprintf(mFile,"setAttr \".m70\" %i;\n", m70);
+		fprintf(mFile,"\tsetAttr \".m70\" %i;\n", m70);
 
 	}
 	void setRoundCap(bool rcp)
 	{
 		if(rcp == false) return;
-		fprintf(mFile,"setAttr \".rcp\" %i;\n", rcp);
+		fprintf(mFile,"\tsetAttr \".rcp\" %i;\n", rcp);
 
 	}
 	void getRadius()
@@ -120,7 +121,8 @@ public:
 
 	}
 protected:
-	PolyCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolyCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

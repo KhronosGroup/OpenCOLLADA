@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,11 +18,12 @@ class NurbsCurve : public CurveShape
 {
 public:
 public:
+	NurbsCurve():CurveShape(){}
 	NurbsCurve(FILE* file,const std::string& name,const std::string& parent=""):CurveShape(file, name, parent, "nurbsCurve"){}
 	virtual ~NurbsCurve(){}
 	void setCached(const nurbsCurve& cc)
 	{
-		fprintf(mFile,"setAttr \".cc\" -type \"nurbsCurve\" ");
+		fprintf(mFile,"\tsetAttr \".cc\" -type \"nurbsCurve\" ");
 		cc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -30,31 +31,31 @@ public:
 	void setInPlace(bool ipo)
 	{
 		if(ipo == false) return;
-		fprintf(mFile,"setAttr \".ipo\" %i;\n", ipo);
+		fprintf(mFile,"\tsetAttr \".ipo\" %i;\n", ipo);
 
 	}
 	void setDispCV(bool dcv)
 	{
 		if(dcv == false) return;
-		fprintf(mFile,"setAttr \".dcv\" %i;\n", dcv);
+		fprintf(mFile,"\tsetAttr \".dcv\" %i;\n", dcv);
 
 	}
 	void setDispEP(bool dep)
 	{
 		if(dep == false) return;
-		fprintf(mFile,"setAttr \".dep\" %i;\n", dep);
+		fprintf(mFile,"\tsetAttr \".dep\" %i;\n", dep);
 
 	}
 	void setDispHull(bool dh)
 	{
 		if(dh == false) return;
-		fprintf(mFile,"setAttr \".dh\" %i;\n", dh);
+		fprintf(mFile,"\tsetAttr \".dh\" %i;\n", dh);
 
 	}
 	void setDispGeometry(bool dg)
 	{
 		if(dg == true) return;
-		fprintf(mFile,"setAttr \".dg\" %i;\n", dg);
+		fprintf(mFile,"\tsetAttr \".dg\" %i;\n", dg);
 
 	}
 	void getCreate()
@@ -183,7 +184,8 @@ public:
 
 	}
 protected:
-	NurbsCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveShape(file, name, parent, nodeType) {}
+	NurbsCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveShape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

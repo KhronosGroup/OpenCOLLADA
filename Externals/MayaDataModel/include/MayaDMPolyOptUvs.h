@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,72 +18,73 @@ class PolyOptUvs : public PolyModifierUV
 {
 public:
 public:
+	PolyOptUvs():PolyModifierUV(){}
 	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyOptUvs"){}
 	virtual ~PolyOptUvs(){}
 	void setIterations(int i_)
 	{
 		if(i_ == 100) return;
-		fprintf(mFile,"setAttr \".i\" %i;\n", i_);
+		fprintf(mFile,"\tsetAttr \".i\" %i;\n", i_);
 
 	}
 	void setStoppingThreshold(float ss)
 	{
 		if(ss == .001) return;
-		fprintf(mFile,"setAttr \".ss\" %f;\n", ss);
+		fprintf(mFile,"\tsetAttr \".ss\" %f;\n", ss);
 
 	}
 	void setAreaWeight(float aw)
 	{
 		if(aw == 1.) return;
-		fprintf(mFile,"setAttr \".aw\" %f;\n", aw);
+		fprintf(mFile,"\tsetAttr \".aw\" %f;\n", aw);
 
 	}
 	void setUseScale(bool us)
 	{
 		if(us == false) return;
-		fprintf(mFile,"setAttr \".us\" %i;\n", us);
+		fprintf(mFile,"\tsetAttr \".us\" %i;\n", us);
 
 	}
 	void setScale(float s)
 	{
 		if(s == 1.) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setPinUvBorder(bool pub)
 	{
 		if(pub == 0) return;
-		fprintf(mFile,"setAttr \".pub\" %i;\n", pub);
+		fprintf(mFile,"\tsetAttr \".pub\" %i;\n", pub);
 
 	}
 	void setPinSelected(bool ps)
 	{
 		if(ps == 0) return;
-		fprintf(mFile,"setAttr \".ps\" %i;\n", ps);
+		fprintf(mFile,"\tsetAttr \".ps\" %i;\n", ps);
 
 	}
 	void setApplyToShell(bool as)
 	{
 		if(as == 0) return;
-		fprintf(mFile,"setAttr \".as\" %i;\n", as);
+		fprintf(mFile,"\tsetAttr \".as\" %i;\n", as);
 
 	}
 	void setOptimizeAxis(unsigned int oa)
 	{
 		if(oa == 0) return;
-		fprintf(mFile,"setAttr \".oa\" %i;\n", oa);
+		fprintf(mFile,"\tsetAttr \".oa\" %i;\n", oa);
 
 	}
 	void setGlobalBlend(float gb)
 	{
 		if(gb == 0.0) return;
-		fprintf(mFile,"setAttr \".gb\" %f;\n", gb);
+		fprintf(mFile,"\tsetAttr \".gb\" %f;\n", gb);
 
 	}
 	void setGlobalMethodBlend(float gmb)
 	{
 		if(gmb == 0.5) return;
-		fprintf(mFile,"setAttr \".gmb\" %f;\n", gmb);
+		fprintf(mFile,"\tsetAttr \".gmb\" %f;\n", gmb);
 
 	}
 	void getIterations()
@@ -142,7 +143,8 @@ public:
 
 	}
 protected:
-	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifierUV(file, name, parent, nodeType) {}
+	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,41 +18,42 @@ class VertexBakeSet : public BakeSet
 {
 public:
 public:
+	VertexBakeSet():BakeSet(){}
 	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent=""):BakeSet(file, name, parent, "vertexBakeSet"){}
 	virtual ~VertexBakeSet(){}
 	void setBakeColor(bool color)
 	{
 		if(color == 1) return;
-		fprintf(mFile,"setAttr \".color\" %i;\n", color);
+		fprintf(mFile,"\tsetAttr \".color\" %i;\n", color);
 
 	}
 	void setColorBlending(unsigned int cblend)
 	{
 		if(cblend == 0) return;
-		fprintf(mFile,"setAttr \".cblend\" %i;\n", cblend);
+		fprintf(mFile,"\tsetAttr \".cblend\" %i;\n", cblend);
 
 	}
 	void setAlphaBlending(unsigned int ablend)
 	{
 		if(ablend == 0) return;
-		fprintf(mFile,"setAttr \".ablend\" %i;\n", ablend);
+		fprintf(mFile,"\tsetAttr \".ablend\" %i;\n", ablend);
 
 	}
 	void setScaleRgba(float scale)
 	{
 		if(scale == 1.0) return;
-		fprintf(mFile,"setAttr \".scale\" %f;\n", scale);
+		fprintf(mFile,"\tsetAttr \".scale\" %f;\n", scale);
 
 	}
 	void setClampMin(bool min)
 	{
 		if(min == 0) return;
-		fprintf(mFile,"setAttr \".min\" %i;\n", min);
+		fprintf(mFile,"\tsetAttr \".min\" %i;\n", min);
 
 	}
 	void setMinColor(const float3& lc)
 	{
-		fprintf(mFile,"setAttr \".lc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".lc\" -type \"float3\" ");
 		lc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -60,36 +61,36 @@ public:
 	void setMinColorR(float lr)
 	{
 		if(lr == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lr\" %f;\n", lr);
+		fprintf(mFile,"\tsetAttr \".lc.lr\" %f;\n", lr);
 
 	}
 	void setMinColorG(float lg)
 	{
 		if(lg == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lg\" %f;\n", lg);
+		fprintf(mFile,"\tsetAttr \".lc.lg\" %f;\n", lg);
 
 	}
 	void setMinColorB(float lb)
 	{
 		if(lb == 0.0) return;
-		fprintf(mFile,"setAttr \".lc.lb\" %f;\n", lb);
+		fprintf(mFile,"\tsetAttr \".lc.lb\" %f;\n", lb);
 
 	}
 	void setMinAlpha(float mina)
 	{
 		if(mina == 0) return;
-		fprintf(mFile,"setAttr \".mina\" %f;\n", mina);
+		fprintf(mFile,"\tsetAttr \".mina\" %f;\n", mina);
 
 	}
 	void setClampMax(bool max)
 	{
 		if(max == 0) return;
-		fprintf(mFile,"setAttr \".max\" %i;\n", max);
+		fprintf(mFile,"\tsetAttr \".max\" %i;\n", max);
 
 	}
 	void setMaxColor(const float3& hc)
 	{
-		fprintf(mFile,"setAttr \".hc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".hc\" -type \"float3\" ");
 		hc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -97,37 +98,37 @@ public:
 	void setMaxColorR(float hr)
 	{
 		if(hr == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hr\" %f;\n", hr);
+		fprintf(mFile,"\tsetAttr \".hc.hr\" %f;\n", hr);
 
 	}
 	void setMaxColorG(float hg)
 	{
 		if(hg == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hg\" %f;\n", hg);
+		fprintf(mFile,"\tsetAttr \".hc.hg\" %f;\n", hg);
 
 	}
 	void setMaxColorB(float hb)
 	{
 		if(hb == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hc.hb\" %f;\n", hb);
 
 	}
 	void setMaxAlpha(float maxa)
 	{
 		if(maxa == 1) return;
-		fprintf(mFile,"setAttr \".maxa\" %f;\n", maxa);
+		fprintf(mFile,"\tsetAttr \".maxa\" %f;\n", maxa);
 
 	}
 	void setUseFaceNormals(bool ufn)
 	{
 		if(ufn == 0) return;
-		fprintf(mFile,"setAttr \".ufn\" %i;\n", ufn);
+		fprintf(mFile,"\tsetAttr \".ufn\" %i;\n", ufn);
 
 	}
 	void setColorSetName(const string& csn)
 	{
 		if(csn == "NULL") return;
-		fprintf(mFile,"setAttr \".csn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".csn\" -type \"string\" ");
 		csn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -218,7 +219,8 @@ public:
 
 	}
 protected:
-	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BakeSet(file, name, parent, nodeType) {}
+	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BakeSet(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

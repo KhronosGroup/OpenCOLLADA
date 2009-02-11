@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Snapshot : public DependNode
 {
 public:
 public:
+	Snapshot():DependNode(){}
 	Snapshot(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "snapshot"){}
 	virtual ~Snapshot(){}
 	void setInputMatrix(const matrix& im)
 	{
 		if(im == identity) return;
-		fprintf(mFile,"setAttr \".im\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".im\" -type \"matrix\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setLocalPosition(const double3& lp)
 	{
 		if(lp == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".lp\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".lp\" -type \"double3\" ");
 		lp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,25 +40,25 @@ public:
 	void setLocalPositionX(double lpx)
 	{
 		if(lpx == 0) return;
-		fprintf(mFile,"setAttr \".lp.lpx\" %f;\n", lpx);
+		fprintf(mFile,"\tsetAttr \".lp.lpx\" %f;\n", lpx);
 
 	}
 	void setLocalPositionY(double lpy)
 	{
 		if(lpy == 0) return;
-		fprintf(mFile,"setAttr \".lp.lpy\" %f;\n", lpy);
+		fprintf(mFile,"\tsetAttr \".lp.lpy\" %f;\n", lpy);
 
 	}
 	void setLocalPositionZ(double lpz)
 	{
 		if(lpz == 0) return;
-		fprintf(mFile,"setAttr \".lp.lpz\" %f;\n", lpz);
+		fprintf(mFile,"\tsetAttr \".lp.lpz\" %f;\n", lpz);
 
 	}
 	void setUpdate(unsigned int up)
 	{
 		if(up == 1) return;
-		fprintf(mFile,"setAttr \".up\" %i;\n", up);
+		fprintf(mFile,"\tsetAttr \".up\" %i;\n", up);
 
 	}
 	void getStartTime()
@@ -131,7 +132,8 @@ public:
 
 	}
 protected:
-	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -26,18 +26,19 @@ public:
 		}
 	};
 public:
+	TripleShadingSwitch():BaseShadingSwitch(){}
 	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent=""):BaseShadingSwitch(file, name, parent, "tripleShadingSwitch"){}
 	virtual ~TripleShadingSwitch(){}
 	void setInput(size_t i_i,const Input& i_)
 	{
-		fprintf(mFile,"setAttr \".i[%i]\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i]\" ",i_i);
 		i_.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInTriple(size_t i_i,const float3& it)
 	{
-		fprintf(mFile,"setAttr \".i[%i].it\" -type \"float3\" ",i_i);
+		fprintf(mFile,"\tsetAttr \".i[%i].it\" -type \"float3\" ",i_i);
 		it.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -45,25 +46,25 @@ public:
 	void setInComp1(size_t i_i,float ic1)
 	{
 		if(ic1 == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].it.ic1\" %f;\n", i_i,ic1);
+		fprintf(mFile,"\tsetAttr \".i[%i].it.ic1\" %f;\n", i_i,ic1);
 
 	}
 	void setInComp2(size_t i_i,float ic2)
 	{
 		if(ic2 == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].it.ic2\" %f;\n", i_i,ic2);
+		fprintf(mFile,"\tsetAttr \".i[%i].it.ic2\" %f;\n", i_i,ic2);
 
 	}
 	void setInComp3(size_t i_i,float ic3)
 	{
 		if(ic3 == 0.0) return;
-		fprintf(mFile,"setAttr \".i[%i].it.ic3\" %f;\n", i_i,ic3);
+		fprintf(mFile,"\tsetAttr \".i[%i].it.ic3\" %f;\n", i_i,ic3);
 
 	}
 	void setDefault(const float3& def)
 	{
 		if(def == float3(0.8f,0.8f,0.8f)) return;
-		fprintf(mFile,"setAttr \".def\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".def\" -type \"float3\" ");
 		def.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -71,19 +72,19 @@ public:
 	void setDefComp1(float dc1)
 	{
 		if(dc1 == 0.0) return;
-		fprintf(mFile,"setAttr \".def.dc1\" %f;\n", dc1);
+		fprintf(mFile,"\tsetAttr \".def.dc1\" %f;\n", dc1);
 
 	}
 	void setDefComp2(float dc2)
 	{
 		if(dc2 == 0.0) return;
-		fprintf(mFile,"setAttr \".def.dc2\" %f;\n", dc2);
+		fprintf(mFile,"\tsetAttr \".def.dc2\" %f;\n", dc2);
 
 	}
 	void setDefComp3(float dc3)
 	{
 		if(dc3 == 0.0) return;
-		fprintf(mFile,"setAttr \".def.dc3\" %f;\n", dc3);
+		fprintf(mFile,"\tsetAttr \".def.dc3\" %f;\n", dc3);
 
 	}
 	void getInput(size_t i_i)
@@ -157,7 +158,8 @@ public:
 
 	}
 protected:
-	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BaseShadingSwitch(file, name, parent, nodeType) {}
+	TripleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BaseShadingSwitch(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

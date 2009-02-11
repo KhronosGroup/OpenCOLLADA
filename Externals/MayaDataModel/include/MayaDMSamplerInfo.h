@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class SamplerInfo : public DependNode
 {
 public:
 public:
+	SamplerInfo():DependNode(){}
 	SamplerInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "samplerInfo"){}
 	virtual ~SamplerInfo(){}
 	void setPointCamera(const float3& p)
 	{
 		if(p == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".p\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".p\" -type \"float3\" ");
 		p.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setPointCameraX(float px)
 	{
 		if(px == 0.0) return;
-		fprintf(mFile,"setAttr \".p.px\" %f;\n", px);
+		fprintf(mFile,"\tsetAttr \".p.px\" %f;\n", px);
 
 	}
 	void setPointCameraY(float py)
 	{
 		if(py == 0.0) return;
-		fprintf(mFile,"setAttr \".p.py\" %f;\n", py);
+		fprintf(mFile,"\tsetAttr \".p.py\" %f;\n", py);
 
 	}
 	void setPointCameraZ(float pz)
 	{
 		if(pz == 0.0) return;
-		fprintf(mFile,"setAttr \".p.pz\" %f;\n", pz);
+		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
 
 	}
 	void setPointObj(const float3& po)
 	{
 		if(po == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".po\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".po\" -type \"float3\" ");
 		po.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,25 +58,25 @@ public:
 	void setPointObjX(float pox)
 	{
 		if(pox == 0.0) return;
-		fprintf(mFile,"setAttr \".po.pox\" %f;\n", pox);
+		fprintf(mFile,"\tsetAttr \".po.pox\" %f;\n", pox);
 
 	}
 	void setPointObjY(float poy)
 	{
 		if(poy == 0.0) return;
-		fprintf(mFile,"setAttr \".po.poy\" %f;\n", poy);
+		fprintf(mFile,"\tsetAttr \".po.poy\" %f;\n", poy);
 
 	}
 	void setPointObjZ(float poz)
 	{
 		if(poz == 0.0) return;
-		fprintf(mFile,"setAttr \".po.poz\" %f;\n", poz);
+		fprintf(mFile,"\tsetAttr \".po.poz\" %f;\n", poz);
 
 	}
 	void setPointWorld(const float3& pw)
 	{
 		if(pw == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".pw\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".pw\" -type \"float3\" ");
 		pw.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -83,25 +84,25 @@ public:
 	void setPointWorldX(float pwx)
 	{
 		if(pwx == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.pwx\" %f;\n", pwx);
+		fprintf(mFile,"\tsetAttr \".pw.pwx\" %f;\n", pwx);
 
 	}
 	void setPointWorldY(float pwy)
 	{
 		if(pwy == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.pwy\" %f;\n", pwy);
+		fprintf(mFile,"\tsetAttr \".pw.pwy\" %f;\n", pwy);
 
 	}
 	void setPointWorldZ(float pwz)
 	{
 		if(pwz == 0.0) return;
-		fprintf(mFile,"setAttr \".pw.pwz\" %f;\n", pwz);
+		fprintf(mFile,"\tsetAttr \".pw.pwz\" %f;\n", pwz);
 
 	}
 	void setNormalCamera(const float3& n)
 	{
 		if(n == float3(0.0f,0.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".n\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".n\" -type \"float3\" ");
 		n.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -109,25 +110,25 @@ public:
 	void setNormalCameraX(float nx)
 	{
 		if(nx == 0.0) return;
-		fprintf(mFile,"setAttr \".n.nx\" %f;\n", nx);
+		fprintf(mFile,"\tsetAttr \".n.nx\" %f;\n", nx);
 
 	}
 	void setNormalCameraY(float ny)
 	{
 		if(ny == 0.0) return;
-		fprintf(mFile,"setAttr \".n.ny\" %f;\n", ny);
+		fprintf(mFile,"\tsetAttr \".n.ny\" %f;\n", ny);
 
 	}
 	void setNormalCameraZ(float nz)
 	{
 		if(nz == 0.0) return;
-		fprintf(mFile,"setAttr \".n.nz\" %f;\n", nz);
+		fprintf(mFile,"\tsetAttr \".n.nz\" %f;\n", nz);
 
 	}
 	void setUvCoord(const float2& uv)
 	{
 		if(uv == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".uv\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".uv\" -type \"float2\" ");
 		uv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -135,19 +136,19 @@ public:
 	void setUCoord(float u)
 	{
 		if(u == 0.0) return;
-		fprintf(mFile,"setAttr \".uv.u\" %f;\n", u);
+		fprintf(mFile,"\tsetAttr \".uv.u\" %f;\n", u);
 
 	}
 	void setVCoord(float v)
 	{
 		if(v == 0.0) return;
-		fprintf(mFile,"setAttr \".uv.v\" %f;\n", v);
+		fprintf(mFile,"\tsetAttr \".uv.v\" %f;\n", v);
 
 	}
 	void setRayDirection(const float3& r)
 	{
 		if(r == float3(0.0f,0.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".r\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".r\" -type \"float3\" ");
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -155,25 +156,25 @@ public:
 	void setRayDirectionX(float rx)
 	{
 		if(rx == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".r.rx\" %f;\n", rx);
 
 	}
 	void setRayDirectionY(float ry)
 	{
 		if(ry == 0.0) return;
-		fprintf(mFile,"setAttr \".r.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".r.ry\" %f;\n", ry);
 
 	}
 	void setRayDirectionZ(float rz)
 	{
 		if(rz == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".r.rz\" %f;\n", rz);
 
 	}
 	void setTangentUCamera(const float3& tu)
 	{
 		if(tu == float3(1.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".tu\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".tu\" -type \"float3\" ");
 		tu.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -181,25 +182,25 @@ public:
 	void setTangentUx(float tux)
 	{
 		if(tux == 0.0) return;
-		fprintf(mFile,"setAttr \".tu.tux\" %f;\n", tux);
+		fprintf(mFile,"\tsetAttr \".tu.tux\" %f;\n", tux);
 
 	}
 	void setTangentUy(float tuy)
 	{
 		if(tuy == 0.0) return;
-		fprintf(mFile,"setAttr \".tu.tuy\" %f;\n", tuy);
+		fprintf(mFile,"\tsetAttr \".tu.tuy\" %f;\n", tuy);
 
 	}
 	void setTangentUz(float tuz)
 	{
 		if(tuz == 0.0) return;
-		fprintf(mFile,"setAttr \".tu.tuz\" %f;\n", tuz);
+		fprintf(mFile,"\tsetAttr \".tu.tuz\" %f;\n", tuz);
 
 	}
 	void setTangentVCamera(const float3& tv)
 	{
 		if(tv == float3(0.0f,1.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".tv\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".tv\" -type \"float3\" ");
 		tv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -207,25 +208,25 @@ public:
 	void setTangentVx(float tvx)
 	{
 		if(tvx == 0.0) return;
-		fprintf(mFile,"setAttr \".tv.tvx\" %f;\n", tvx);
+		fprintf(mFile,"\tsetAttr \".tv.tvx\" %f;\n", tvx);
 
 	}
 	void setTangentVy(float tvy)
 	{
 		if(tvy == 0.0) return;
-		fprintf(mFile,"setAttr \".tv.tvy\" %f;\n", tvy);
+		fprintf(mFile,"\tsetAttr \".tv.tvy\" %f;\n", tvy);
 
 	}
 	void setTangentVz(float tvz)
 	{
 		if(tvz == 0.0) return;
-		fprintf(mFile,"setAttr \".tv.tvz\" %f;\n", tvz);
+		fprintf(mFile,"\tsetAttr \".tv.tvz\" %f;\n", tvz);
 
 	}
 	void setPixelCenter(const float2& pc)
 	{
 		if(pc == float2(0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".pc\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".pc\" -type \"float2\" ");
 		pc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -233,25 +234,25 @@ public:
 	void setPixelCenterX(float pcx)
 	{
 		if(pcx == 0.0) return;
-		fprintf(mFile,"setAttr \".pc.pcx\" %f;\n", pcx);
+		fprintf(mFile,"\tsetAttr \".pc.pcx\" %f;\n", pcx);
 
 	}
 	void setPixelCenterY(float pcy)
 	{
 		if(pcy == 0.0) return;
-		fprintf(mFile,"setAttr \".pc.pcy\" %f;\n", pcy);
+		fprintf(mFile,"\tsetAttr \".pc.pcy\" %f;\n", pcy);
 
 	}
 	void setFlippedNormal(bool fn)
 	{
 		if(fn == false) return;
-		fprintf(mFile,"setAttr \".fn\" %i;\n", fn);
+		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
 
 	}
 	void setFacingRatio(float fr)
 	{
 		if(fr == 0.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void getPointCamera()
@@ -440,7 +441,8 @@ public:
 
 	}
 protected:
-	SamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	SamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class ShaderGlow : public DependNode
 {
 public:
 public:
+	ShaderGlow():DependNode(){}
 	ShaderGlow(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "shaderGlow"){}
 	virtual ~ShaderGlow(){}
 	void setGlowType(unsigned int gt)
 	{
 		if(gt == 1) return;
-		fprintf(mFile,"setAttr \".gt\" %i;\n", gt);
+		fprintf(mFile,"\tsetAttr \".gt\" %i;\n", gt);
 
 	}
 	void setHaloType(unsigned int ht)
 	{
 		if(ht == 1) return;
-		fprintf(mFile,"setAttr \".ht\" %i;\n", ht);
+		fprintf(mFile,"\tsetAttr \".ht\" %i;\n", ht);
 
 	}
 	void setGlowIntensity(float gi)
 	{
 		if(gi == 1.0) return;
-		fprintf(mFile,"setAttr \".gi\" %f;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %f;\n", gi);
 
 	}
 	void setGlowColor(const float3& gc)
 	{
 		if(gc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".gc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".gc\" -type \"float3\" ");
 		gc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,79 +50,79 @@ public:
 	void setGlowColorR(float gr)
 	{
 		if(gr == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gr\" %f;\n", gr);
+		fprintf(mFile,"\tsetAttr \".gc.gr\" %f;\n", gr);
 
 	}
 	void setGlowColorG(float gg)
 	{
 		if(gg == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gg\" %f;\n", gg);
+		fprintf(mFile,"\tsetAttr \".gc.gg\" %f;\n", gg);
 
 	}
 	void setGlowColorB(float gb)
 	{
 		if(gb == 0.0) return;
-		fprintf(mFile,"setAttr \".gc.gb\" %f;\n", gb);
+		fprintf(mFile,"\tsetAttr \".gc.gb\" %f;\n", gb);
 
 	}
 	void setGlowSpread(float gs)
 	{
 		if(gs == 0.05) return;
-		fprintf(mFile,"setAttr \".gs\" %f;\n", gs);
+		fprintf(mFile,"\tsetAttr \".gs\" %f;\n", gs);
 
 	}
 	void setGlowEccentricity(float gecc)
 	{
 		if(gecc == 0.1) return;
-		fprintf(mFile,"setAttr \".gecc\" %f;\n", gecc);
+		fprintf(mFile,"\tsetAttr \".gecc\" %f;\n", gecc);
 
 	}
 	void setGlowRadialNoise(float gn)
 	{
 		if(gn == 0.0) return;
-		fprintf(mFile,"setAttr \".gn\" %f;\n", gn);
+		fprintf(mFile,"\tsetAttr \".gn\" %f;\n", gn);
 
 	}
 	void setGlowStarLevel(float gv)
 	{
 		if(gv == 0.0) return;
-		fprintf(mFile,"setAttr \".gv\" %f;\n", gv);
+		fprintf(mFile,"\tsetAttr \".gv\" %f;\n", gv);
 
 	}
 	void setGlowOpacity(float go)
 	{
 		if(go == 0.0) return;
-		fprintf(mFile,"setAttr \".go\" %f;\n", go);
+		fprintf(mFile,"\tsetAttr \".go\" %f;\n", go);
 
 	}
 	void setGlowRingIntensity(float gri)
 	{
 		if(gri == 0.0) return;
-		fprintf(mFile,"setAttr \".gri\" %f;\n", gri);
+		fprintf(mFile,"\tsetAttr \".gri\" %f;\n", gri);
 
 	}
 	void setGlowRingFrequency(float grf)
 	{
 		if(grf == 0.5) return;
-		fprintf(mFile,"setAttr \".grf\" %f;\n", grf);
+		fprintf(mFile,"\tsetAttr \".grf\" %f;\n", grf);
 
 	}
 	void setGlowFilterWidth(int gfw)
 	{
 		if(gfw == 1) return;
-		fprintf(mFile,"setAttr \".gfw\" %i;\n", gfw);
+		fprintf(mFile,"\tsetAttr \".gfw\" %i;\n", gfw);
 
 	}
 	void setHaloIntensity(float hi)
 	{
 		if(hi == 1.0) return;
-		fprintf(mFile,"setAttr \".hi\" %f;\n", hi);
+		fprintf(mFile,"\tsetAttr \".hi\" %f;\n", hi);
 
 	}
 	void setHaloColor(const float3& hc)
 	{
 		if(hc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".hc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".hc\" -type \"float3\" ");
 		hc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -129,103 +130,103 @@ public:
 	void setHaloColorR(float hr)
 	{
 		if(hr == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hr\" %f;\n", hr);
+		fprintf(mFile,"\tsetAttr \".hc.hr\" %f;\n", hr);
 
 	}
 	void setHaloColorG(float hg)
 	{
 		if(hg == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hg\" %f;\n", hg);
+		fprintf(mFile,"\tsetAttr \".hc.hg\" %f;\n", hg);
 
 	}
 	void setHaloColorB(float hb)
 	{
 		if(hb == 0.0) return;
-		fprintf(mFile,"setAttr \".hc.hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hc.hb\" %f;\n", hb);
 
 	}
 	void setHaloSpread(float hs)
 	{
 		if(hs == 0.3) return;
-		fprintf(mFile,"setAttr \".hs\" %f;\n", hs);
+		fprintf(mFile,"\tsetAttr \".hs\" %f;\n", hs);
 
 	}
 	void setHaloEccentricity(float hecc)
 	{
 		if(hecc == 0.1) return;
-		fprintf(mFile,"setAttr \".hecc\" %f;\n", hecc);
+		fprintf(mFile,"\tsetAttr \".hecc\" %f;\n", hecc);
 
 	}
 	void setHaloRadialNoise(float hn)
 	{
 		if(hn == 0.0) return;
-		fprintf(mFile,"setAttr \".hn\" %f;\n", hn);
+		fprintf(mFile,"\tsetAttr \".hn\" %f;\n", hn);
 
 	}
 	void setHaloStarLevel(float hv)
 	{
 		if(hv == 0.0) return;
-		fprintf(mFile,"setAttr \".hv\" %f;\n", hv);
+		fprintf(mFile,"\tsetAttr \".hv\" %f;\n", hv);
 
 	}
 	void setHaloOpacity(float ho)
 	{
 		if(ho == 0.0) return;
-		fprintf(mFile,"setAttr \".ho\" %f;\n", ho);
+		fprintf(mFile,"\tsetAttr \".ho\" %f;\n", ho);
 
 	}
 	void setHaloRingIntensity(float hri)
 	{
 		if(hri == 0.0) return;
-		fprintf(mFile,"setAttr \".hri\" %f;\n", hri);
+		fprintf(mFile,"\tsetAttr \".hri\" %f;\n", hri);
 
 	}
 	void setHaloRingFrequency(float hrf)
 	{
 		if(hrf == 0.5) return;
-		fprintf(mFile,"setAttr \".hrf\" %f;\n", hrf);
+		fprintf(mFile,"\tsetAttr \".hrf\" %f;\n", hrf);
 
 	}
 	void setHaloFilterWidth(int hfw)
 	{
 		if(hfw == 1) return;
-		fprintf(mFile,"setAttr \".hfw\" %i;\n", hfw);
+		fprintf(mFile,"\tsetAttr \".hfw\" %i;\n", hfw);
 
 	}
 	void setQuality(float qual)
 	{
 		if(qual == 0.5) return;
-		fprintf(mFile,"setAttr \".qual\" %f;\n", qual);
+		fprintf(mFile,"\tsetAttr \".qual\" %f;\n", qual);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.0) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setRadialFrequency(float rf)
 	{
 		if(rf == 0.5) return;
-		fprintf(mFile,"setAttr \".rf\" %f;\n", rf);
+		fprintf(mFile,"\tsetAttr \".rf\" %f;\n", rf);
 
 	}
 	void setStarPoints(float sp)
 	{
 		if(sp == 4.0) return;
-		fprintf(mFile,"setAttr \".sp\" %f;\n", sp);
+		fprintf(mFile,"\tsetAttr \".sp\" %f;\n", sp);
 
 	}
 	void setRotation(float ra)
 	{
 		if(ra == 0.0) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setAutoExposure(bool ae)
 	{
 		if(ae == true) return;
-		fprintf(mFile,"setAttr \".ae\" %i;\n", ae);
+		fprintf(mFile,"\tsetAttr \".ae\" %i;\n", ae);
 
 	}
 	void getGlowType()
@@ -399,7 +400,8 @@ public:
 
 	}
 protected:
-	ShaderGlow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	ShaderGlow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -34,30 +34,31 @@ public:
 		}
 	};
 public:
+	SoftMod():WeightGeometryFilter(){}
 	SoftMod(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "softMod"){}
 	virtual ~SoftMod(){}
 	void setPercentResolution(float ptr)
 	{
 		if(ptr == 5) return;
-		fprintf(mFile,"setAttr \".ptr\" %f;\n", ptr);
+		fprintf(mFile,"\tsetAttr \".ptr\" %f;\n", ptr);
 
 	}
 	void setUsePartialResolution(unsigned int upr)
 	{
 		if(upr == 0) return;
-		fprintf(mFile,"setAttr \".upr\" %i;\n", upr);
+		fprintf(mFile,"\tsetAttr \".upr\" %i;\n", upr);
 
 	}
 	void setRelative(bool rel)
 	{
 		if(rel == false) return;
-		fprintf(mFile,"setAttr \".rel\" %i;\n", rel);
+		fprintf(mFile,"\tsetAttr \".rel\" %i;\n", rel);
 
 	}
 	void setWeightedCompensationMatrix(const matrix& wcm)
 	{
 		if(wcm == identity) return;
-		fprintf(mFile,"setAttr \".wcm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".wcm\" -type \"matrix\" ");
 		wcm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -65,14 +66,14 @@ public:
 	void setGeomMatrix(size_t gm_i,const matrix& gm)
 	{
 		if(gm == identity) return;
-		fprintf(mFile,"setAttr \".gm[%i]\" -type \"matrix\" ",gm_i);
+		fprintf(mFile,"\tsetAttr \".gm[%i]\" -type \"matrix\" ",gm_i);
 		gm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setGeomMatrix(size_t gm_start,size_t gm_end,matrix* gm)
 	{
-		fprintf(mFile,"setAttr \".gm[%i:%i]\" ", gm_start,gm_end);
+		fprintf(mFile,"\tsetAttr \".gm[%i:%i]\" ", gm_start,gm_end);
 		size_t size = (gm_end-gm_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -84,7 +85,7 @@ public:
 	}
 	void startGeomMatrix(size_t gm_start,size_t gm_end)
 	{
-		fprintf(mFile,"setAttr \".gm[%i:%i]\"",gm_start,gm_end);
+		fprintf(mFile,"\tsetAttr \".gm[%i:%i]\"",gm_start,gm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
@@ -102,7 +103,7 @@ public:
 	void setMatrix(const matrix& ma)
 	{
 		if(ma == identity) return;
-		fprintf(mFile,"setAttr \".ma\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".ma\" -type \"matrix\" ");
 		ma.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -110,14 +111,14 @@ public:
 	void setBindPreMatrix(const matrix& pm)
 	{
 		if(pm == identity) return;
-		fprintf(mFile,"setAttr \".pm\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".pm\" -type \"matrix\" ");
 		pm.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setFalloffCurve(size_t fc_i,const FalloffCurve& fc)
 	{
-		fprintf(mFile,"setAttr \".fc[%i]\" ",fc_i);
+		fprintf(mFile,"\tsetAttr \".fc[%i]\" ",fc_i);
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -125,30 +126,30 @@ public:
 	void setFalloffCurve_Position(size_t fc_i,float fcp)
 	{
 		if(fcp == 0.0) return;
-		fprintf(mFile,"setAttr \".fc[%i].fcp\" %f;\n", fc_i,fcp);
+		fprintf(mFile,"\tsetAttr \".fc[%i].fcp\" %f;\n", fc_i,fcp);
 
 	}
 	void setFalloffCurve_FloatValue(size_t fc_i,float fcfv)
 	{
 		if(fcfv == 0.0) return;
-		fprintf(mFile,"setAttr \".fc[%i].fcfv\" %f;\n", fc_i,fcfv);
+		fprintf(mFile,"\tsetAttr \".fc[%i].fcfv\" %f;\n", fc_i,fcfv);
 
 	}
 	void setFalloffCurve_Interp(size_t fc_i,unsigned int fci)
 	{
 		if(fci == 0) return;
-		fprintf(mFile,"setAttr \".fc[%i].fci\" %i;\n", fc_i,fci);
+		fprintf(mFile,"\tsetAttr \".fc[%i].fci\" %i;\n", fc_i,fci);
 
 	}
 	void setFalloffRadius(double fr)
 	{
 		if(fr == 5) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setFalloffCenter(const double3& fcr)
 	{
-		fprintf(mFile,"setAttr \".fcr\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".fcr\" -type \"double3\" ");
 		fcr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -156,55 +157,55 @@ public:
 	void setFalloffCenterX(double fcx)
 	{
 		if(fcx == 0) return;
-		fprintf(mFile,"setAttr \".fcr.fcx\" %f;\n", fcx);
+		fprintf(mFile,"\tsetAttr \".fcr.fcx\" %f;\n", fcx);
 
 	}
 	void setFalloffCenterY(double fcy)
 	{
 		if(fcy == 0) return;
-		fprintf(mFile,"setAttr \".fcr.fcy\" %f;\n", fcy);
+		fprintf(mFile,"\tsetAttr \".fcr.fcy\" %f;\n", fcy);
 
 	}
 	void setFalloffCenterZ(double fcz)
 	{
 		if(fcz == 0) return;
-		fprintf(mFile,"setAttr \".fcr.fcz\" %f;\n", fcz);
+		fprintf(mFile,"\tsetAttr \".fcr.fcz\" %f;\n", fcz);
 
 	}
 	void setFalloffInX(bool fix)
 	{
 		if(fix == true) return;
-		fprintf(mFile,"setAttr \".fix\" %i;\n", fix);
+		fprintf(mFile,"\tsetAttr \".fix\" %i;\n", fix);
 
 	}
 	void setFalloffInY(bool fiy)
 	{
 		if(fiy == true) return;
-		fprintf(mFile,"setAttr \".fiy\" %i;\n", fiy);
+		fprintf(mFile,"\tsetAttr \".fiy\" %i;\n", fiy);
 
 	}
 	void setFalloffInZ(bool fiz)
 	{
 		if(fiz == true) return;
-		fprintf(mFile,"setAttr \".fiz\" %i;\n", fiz);
+		fprintf(mFile,"\tsetAttr \".fiz\" %i;\n", fiz);
 
 	}
 	void setFalloffAroundSelection(bool fas)
 	{
 		if(fas == true) return;
-		fprintf(mFile,"setAttr \".fas\" %i;\n", fas);
+		fprintf(mFile,"\tsetAttr \".fas\" %i;\n", fas);
 
 	}
 	void setFalloffMasking(bool fm)
 	{
 		if(fm == true) return;
-		fprintf(mFile,"setAttr \".fm\" %i;\n", fm);
+		fprintf(mFile,"\tsetAttr \".fm\" %i;\n", fm);
 
 	}
 	void setInfluenceMatrix(const matrix& im)
 	{
 		if(im == identity) return;
-		fprintf(mFile,"setAttr \".im\" -type \"matrix\" ");
+		fprintf(mFile,"\tsetAttr \".im\" -type \"matrix\" ");
 		im.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -212,19 +213,19 @@ public:
 	void setAngleInterpolation(unsigned int ait)
 	{
 		if(ait == 0) return;
-		fprintf(mFile,"setAttr \".ait\" %i;\n", ait);
+		fprintf(mFile,"\tsetAttr \".ait\" %i;\n", ait);
 
 	}
 	void setUseDistanceCache(bool udc)
 	{
 		if(udc == true) return;
-		fprintf(mFile,"setAttr \".udc\" %i;\n", udc);
+		fprintf(mFile,"\tsetAttr \".udc\" %i;\n", udc);
 
 	}
 	void setFalloffMode(unsigned int fom)
 	{
 		if(fom == 0) return;
-		fprintf(mFile,"setAttr \".fom\" %i;\n", fom);
+		fprintf(mFile,"\tsetAttr \".fom\" %i;\n", fom);
 
 	}
 	void getUsePartialResolution()
@@ -373,7 +374,8 @@ public:
 
 	}
 protected:
-	SoftMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):WeightGeometryFilter(file, name, parent, nodeType) {}
+	SoftMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:WeightGeometryFilter(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

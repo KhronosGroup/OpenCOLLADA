@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,48 +18,49 @@ class DeformFlare : public DeformFunc
 {
 public:
 public:
+	DeformFlare():DeformFunc(){}
 	DeformFlare(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformFlare"){}
 	virtual ~DeformFlare(){}
 	void setLowBound(double lb)
 	{
 		if(lb == -1.0) return;
-		fprintf(mFile,"setAttr \".lb\" %f;\n", lb);
+		fprintf(mFile,"\tsetAttr \".lb\" %f;\n", lb);
 
 	}
 	void setHighBound(double hb)
 	{
 		if(hb == 1.0) return;
-		fprintf(mFile,"setAttr \".hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".hb\" %f;\n", hb);
 
 	}
 	void setStartFlareX(double sfx)
 	{
 		if(sfx == 1.0) return;
-		fprintf(mFile,"setAttr \".sfx\" %f;\n", sfx);
+		fprintf(mFile,"\tsetAttr \".sfx\" %f;\n", sfx);
 
 	}
 	void setStartFlareZ(double sfz)
 	{
 		if(sfz == 1.0) return;
-		fprintf(mFile,"setAttr \".sfz\" %f;\n", sfz);
+		fprintf(mFile,"\tsetAttr \".sfz\" %f;\n", sfz);
 
 	}
 	void setEndFlareX(double efx)
 	{
 		if(efx == 1.0) return;
-		fprintf(mFile,"setAttr \".efx\" %f;\n", efx);
+		fprintf(mFile,"\tsetAttr \".efx\" %f;\n", efx);
 
 	}
 	void setEndFlareZ(double efz)
 	{
 		if(efz == 1.0) return;
-		fprintf(mFile,"setAttr \".efz\" %f;\n", efz);
+		fprintf(mFile,"\tsetAttr \".efz\" %f;\n", efz);
 
 	}
 	void setCurve(double crv)
 	{
 		if(crv == 0.0) return;
-		fprintf(mFile,"setAttr \".crv\" %f;\n", crv);
+		fprintf(mFile,"\tsetAttr \".crv\" %f;\n", crv);
 
 	}
 	void getLowBound()
@@ -98,7 +99,8 @@ public:
 
 	}
 protected:
-	DeformFlare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DeformFunc(file, name, parent, nodeType) {}
+	DeformFlare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DeformFunc(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

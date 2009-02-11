@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -17,10 +17,12 @@ namespace MayaDM
 class PolyCreator : public PolyBase
 {
 public:
+	PolyCreator():PolyBase(){}
 	PolyCreator(FILE* file,const std::string& name,const std::string& parent=""):PolyBase(file, name, parent, "polyCreator"){}
 	virtual ~PolyCreator(){}
 protected:
-	PolyCreator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyBase(file, name, parent, nodeType) {}
+	PolyCreator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

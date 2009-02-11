@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class PolyBase : public DependNode
 {
 public:
 public:
+	PolyBase():DependNode(){}
 	PolyBase(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "polyBase"){}
 	virtual ~PolyBase(){}
 	void getOutput()
@@ -26,7 +27,8 @@ public:
 
 	}
 protected:
-	PolyBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	PolyBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -109,17 +109,18 @@ public:
 		}
 	};
 public:
+	HikFloorContactMarker():Locator(){}
 	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "hikFloorContactMarker"){}
 	virtual ~HikFloorContactMarker(){}
 	void setMarkerSize(double msz)
 	{
 		if(msz == 1.0) return;
-		fprintf(mFile,"setAttr \".msz\" %f;\n", msz);
+		fprintf(mFile,"\tsetAttr \".msz\" %f;\n", msz);
 
 	}
 	void setFloorContacts(const FloorContacts& fc)
 	{
-		fprintf(mFile,"setAttr \".fc\" ");
+		fprintf(mFile,"\tsetAttr \".fc\" ");
 		fc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -127,42 +128,42 @@ public:
 	void setDrawHandContact(bool dhc)
 	{
 		if(dhc == 1) return;
-		fprintf(mFile,"setAttr \".fc.dhc\" %i;\n", dhc);
+		fprintf(mFile,"\tsetAttr \".fc.dhc\" %i;\n", dhc);
 
 	}
 	void setHandsContact(bool hfc)
 	{
 		if(hfc == 0) return;
-		fprintf(mFile,"setAttr \".fc.hfc\" %i;\n", hfc);
+		fprintf(mFile,"\tsetAttr \".fc.hfc\" %i;\n", hfc);
 
 	}
 	void setDrawFeetContact(bool dfc)
 	{
 		if(dfc == 1) return;
-		fprintf(mFile,"setAttr \".fc.dfc\" %i;\n", dfc);
+		fprintf(mFile,"\tsetAttr \".fc.dfc\" %i;\n", dfc);
 
 	}
 	void setFeetContact(bool fec)
 	{
 		if(fec == 0) return;
-		fprintf(mFile,"setAttr \".fc.fec\" %i;\n", fec);
+		fprintf(mFile,"\tsetAttr \".fc.fec\" %i;\n", fec);
 
 	}
 	void setFingersContact(bool fic)
 	{
 		if(fic == 0) return;
-		fprintf(mFile,"setAttr \".fc.fic\" %i;\n", fic);
+		fprintf(mFile,"\tsetAttr \".fc.fic\" %i;\n", fic);
 
 	}
 	void setToesContact(bool tfc)
 	{
 		if(tfc == 0) return;
-		fprintf(mFile,"setAttr \".fc.tfc\" %i;\n", tfc);
+		fprintf(mFile,"\tsetAttr \".fc.tfc\" %i;\n", tfc);
 
 	}
 	void setHandsFloorContactSetup(const HandsFloorContactSetup& flc)
 	{
-		fprintf(mFile,"setAttr \".flc\" ");
+		fprintf(mFile,"\tsetAttr \".flc\" ");
 		flc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -170,24 +171,24 @@ public:
 	void setHandsFloorPivot(unsigned int hfp)
 	{
 		if(hfp == 0) return;
-		fprintf(mFile,"setAttr \".flc.hfp\" %i;\n", hfp);
+		fprintf(mFile,"\tsetAttr \".flc.hfp\" %i;\n", hfp);
 
 	}
 	void setHandsContactType(unsigned int hct)
 	{
 		if(hct == 0) return;
-		fprintf(mFile,"setAttr \".flc.hct\" %i;\n", hct);
+		fprintf(mFile,"\tsetAttr \".flc.hct\" %i;\n", hct);
 
 	}
 	void setHandsContactStiffness(float hcs)
 	{
 		if(hcs == 0.00) return;
-		fprintf(mFile,"setAttr \".flc.hcs\" %f;\n", hcs);
+		fprintf(mFile,"\tsetAttr \".flc.hcs\" %f;\n", hcs);
 
 	}
 	void setContactsPosition(const ContactsPosition& cp)
 	{
-		fprintf(mFile,"setAttr \".cp\" ");
+		fprintf(mFile,"\tsetAttr \".cp\" ");
 		cp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -195,42 +196,42 @@ public:
 	void setHandHeight(float hh)
 	{
 		if(hh == 7.50) return;
-		fprintf(mFile,"setAttr \".cp.hh\" %f;\n", hh);
+		fprintf(mFile,"\tsetAttr \".cp.hh\" %f;\n", hh);
 
 	}
 	void setHandBack(float hb)
 	{
 		if(hb == 4.50) return;
-		fprintf(mFile,"setAttr \".cp.hb\" %f;\n", hb);
+		fprintf(mFile,"\tsetAttr \".cp.hb\" %f;\n", hb);
 
 	}
 	void setHandMiddle(float hm)
 	{
 		if(hm == 13.00) return;
-		fprintf(mFile,"setAttr \".cp.hm\" %f;\n", hm);
+		fprintf(mFile,"\tsetAttr \".cp.hm\" %f;\n", hm);
 
 	}
 	void setHandFront(float hf)
 	{
 		if(hf == 7.00) return;
-		fprintf(mFile,"setAttr \".cp.hf\" %f;\n", hf);
+		fprintf(mFile,"\tsetAttr \".cp.hf\" %f;\n", hf);
 
 	}
 	void setHandInSide(float his)
 	{
 		if(his == 5.00) return;
-		fprintf(mFile,"setAttr \".cp.his\" %f;\n", his);
+		fprintf(mFile,"\tsetAttr \".cp.his\" %f;\n", his);
 
 	}
 	void setHandOutSide(float hos)
 	{
 		if(hos == 5.00) return;
-		fprintf(mFile,"setAttr \".cp.hos\" %f;\n", hos);
+		fprintf(mFile,"\tsetAttr \".cp.hos\" %f;\n", hos);
 
 	}
 	void setFeetFloorContactSetup(const FeetFloorContactSetup& fle)
 	{
-		fprintf(mFile,"setAttr \".fle\" ");
+		fprintf(mFile,"\tsetAttr \".fle\" ");
 		fle.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -238,24 +239,24 @@ public:
 	void setFeetFloorPivot(unsigned int fpv)
 	{
 		if(fpv == 0) return;
-		fprintf(mFile,"setAttr \".fle.fpv\" %i;\n", fpv);
+		fprintf(mFile,"\tsetAttr \".fle.fpv\" %i;\n", fpv);
 
 	}
 	void setFeetContactType(unsigned int fct)
 	{
 		if(fct == 0) return;
-		fprintf(mFile,"setAttr \".fle.fct\" %i;\n", fct);
+		fprintf(mFile,"\tsetAttr \".fle.fct\" %i;\n", fct);
 
 	}
 	void setFeetContactStiffness(float fcs)
 	{
 		if(fcs == 0.00) return;
-		fprintf(mFile,"setAttr \".fle.fcs\" %f;\n", fcs);
+		fprintf(mFile,"\tsetAttr \".fle.fcs\" %f;\n", fcs);
 
 	}
 	void setFeetContactPosition(const FeetContactPosition& flf)
 	{
-		fprintf(mFile,"setAttr \".flf\" ");
+		fprintf(mFile,"\tsetAttr \".flf\" ");
 		flf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -263,42 +264,42 @@ public:
 	void setFootHeight(float fh)
 	{
 		if(fh == 7.50) return;
-		fprintf(mFile,"setAttr \".flf.fh\" %f;\n", fh);
+		fprintf(mFile,"\tsetAttr \".flf.fh\" %f;\n", fh);
 
 	}
 	void setFootBack(float fra)
 	{
 		if(fra == 4.50) return;
-		fprintf(mFile,"setAttr \".flf.fra\" %f;\n", fra);
+		fprintf(mFile,"\tsetAttr \".flf.fra\" %f;\n", fra);
 
 	}
 	void setFootMiddle(float fma)
 	{
 		if(fma == 13.00) return;
-		fprintf(mFile,"setAttr \".flf.fma\" %f;\n", fma);
+		fprintf(mFile,"\tsetAttr \".flf.fma\" %f;\n", fma);
 
 	}
 	void setFootFront(float ffm)
 	{
 		if(ffm == 7.00) return;
-		fprintf(mFile,"setAttr \".flf.ffm\" %f;\n", ffm);
+		fprintf(mFile,"\tsetAttr \".flf.ffm\" %f;\n", ffm);
 
 	}
 	void setFootInSide(float fia)
 	{
 		if(fia == 5.00) return;
-		fprintf(mFile,"setAttr \".flf.fia\" %f;\n", fia);
+		fprintf(mFile,"\tsetAttr \".flf.fia\" %f;\n", fia);
 
 	}
 	void setFootOutSide(float foa)
 	{
 		if(foa == 5.00) return;
-		fprintf(mFile,"setAttr \".flf.foa\" %f;\n", foa);
+		fprintf(mFile,"\tsetAttr \".flf.foa\" %f;\n", foa);
 
 	}
 	void setFingersFloorContactSetup(const FingersFloorContactSetup& flg)
 	{
-		fprintf(mFile,"setAttr \".flg\" ");
+		fprintf(mFile,"\tsetAttr \".flg\" ");
 		flg.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -306,18 +307,18 @@ public:
 	void setFingersContactType(unsigned int fcm)
 	{
 		if(fcm == 1) return;
-		fprintf(mFile,"setAttr \".flg.fcm\" %i;\n", fcm);
+		fprintf(mFile,"\tsetAttr \".flg.fcm\" %i;\n", fcm);
 
 	}
 	void setFingersContactRollStiffness(float hcr)
 	{
 		if(hcr == 0.00) return;
-		fprintf(mFile,"setAttr \".flg.hcr\" %f;\n", hcr);
+		fprintf(mFile,"\tsetAttr \".flg.hcr\" %f;\n", hcr);
 
 	}
 	void setToesFloorContactSetup(const ToesFloorContactSetup& fli)
 	{
-		fprintf(mFile,"setAttr \".fli\" ");
+		fprintf(mFile,"\tsetAttr \".fli\" ");
 		fli.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -325,13 +326,13 @@ public:
 	void setToesContactType(unsigned int tct)
 	{
 		if(tct == 1) return;
-		fprintf(mFile,"setAttr \".fli.tct\" %i;\n", tct);
+		fprintf(mFile,"\tsetAttr \".fli.tct\" %i;\n", tct);
 
 	}
 	void setToesContactRollStiffness(float fcr)
 	{
 		if(fcr == 0.00) return;
-		fprintf(mFile,"setAttr \".fli.fcr\" %f;\n", fcr);
+		fprintf(mFile,"\tsetAttr \".fli.fcr\" %f;\n", fcr);
 
 	}
 	void getMarkerSize()
@@ -515,7 +516,8 @@ public:
 
 	}
 protected:
-	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Locator(file, name, parent, nodeType) {}
+	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Locator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -25,11 +25,12 @@ public:
 		}
 	};
 public:
+	ResultCurveTimeToAngular():ResultCurve(){}
 	ResultCurveTimeToAngular(FILE* file,const std::string& name,const std::string& parent=""):ResultCurve(file, name, parent, "resultCurveTimeToAngular"){}
 	virtual ~ResultCurveTimeToAngular(){}
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
 	{
-		fprintf(mFile,"setAttr \".ktv[%i]\" ",ktv_i);
+		fprintf(mFile,"\tsetAttr \".ktv[%i]\" ",ktv_i);
 		ktv.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,7 +38,7 @@ public:
 	void setKeyValue(size_t ktv_i,double kv)
 	{
 		if(kv == 0) return;
-		fprintf(mFile,"setAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);
+		fprintf(mFile,"\tsetAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);
 
 	}
 	void getInput()
@@ -56,7 +57,8 @@ public:
 
 	}
 protected:
-	ResultCurveTimeToAngular(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):ResultCurve(file, name, parent, nodeType) {}
+	ResultCurveTimeToAngular(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:ResultCurve(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

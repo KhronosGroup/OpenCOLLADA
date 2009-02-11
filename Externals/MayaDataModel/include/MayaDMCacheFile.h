@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class CacheFile : public CacheBase
 {
 public:
 public:
+	CacheFile():CacheBase(){}
 	CacheFile(FILE* file,const std::string& name,const std::string& parent=""):CacheBase(file, name, parent, "cacheFile"){}
 	virtual ~CacheFile(){}
 	void setCacheName(const string& cn)
 	{
 		if(cn == "NULL") return;
-		fprintf(mFile,"setAttr \".cn\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cn\" -type \"string\" ");
 		cn.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,7 +32,7 @@ public:
 	void setCachePath(const string& cp)
 	{
 		if(cp == "NULL") return;
-		fprintf(mFile,"setAttr \".cp\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cp\" -type \"string\" ");
 		cp.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -39,14 +40,14 @@ public:
 	void setChannel(size_t ch_i,const string& ch)
 	{
 		if(ch == "NULL") return;
-		fprintf(mFile,"setAttr \".ch[%i]\" -type \"string\" ",ch_i);
+		fprintf(mFile,"\tsetAttr \".ch[%i]\" -type \"string\" ",ch_i);
 		ch.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setChannel(size_t ch_start,size_t ch_end,string* ch)
 	{
-		fprintf(mFile,"setAttr \".ch[%i:%i]\" ", ch_start,ch_end);
+		fprintf(mFile,"\tsetAttr \".ch[%i:%i]\" ", ch_start,ch_end);
 		size_t size = (ch_end-ch_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -58,7 +59,7 @@ public:
 	}
 	void startChannel(size_t ch_start,size_t ch_end)
 	{
-		fprintf(mFile,"setAttr \".ch[%i:%i]\"",ch_start,ch_end);
+		fprintf(mFile,"\tsetAttr \".ch[%i:%i]\"",ch_start,ch_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
@@ -76,14 +77,14 @@ public:
 	void setPerPtWeights(size_t ppw_i,const doubleArray& ppw)
 	{
 		if(ppw.size == 0) return;
-		fprintf(mFile,"setAttr \".ppw[%i]\" -type \"doubleArray\" ",ppw_i);
+		fprintf(mFile,"\tsetAttr \".ppw[%i]\" -type \"doubleArray\" ",ppw_i);
 		ppw.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setPerPtWeights(size_t ppw_start,size_t ppw_end,doubleArray* ppw)
 	{
-		fprintf(mFile,"setAttr \".ppw[%i:%i]\" ", ppw_start,ppw_end);
+		fprintf(mFile,"\tsetAttr \".ppw[%i:%i]\" ", ppw_start,ppw_end);
 		size_t size = (ppw_end-ppw_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -95,7 +96,7 @@ public:
 	}
 	void startPerPtWeights(size_t ppw_start,size_t ppw_end)
 	{
-		fprintf(mFile,"setAttr \".ppw[%i:%i]\"",ppw_start,ppw_end);
+		fprintf(mFile,"\tsetAttr \".ppw[%i:%i]\"",ppw_start,ppw_end);
 		fprintf(mFile," -type \"doubleArray\" ");
 
 	}
@@ -113,55 +114,55 @@ public:
 	void setScale(double sc)
 	{
 		if(sc == 1.0) return;
-		fprintf(mFile,"setAttr \".sc\" %f;\n", sc);
+		fprintf(mFile,"\tsetAttr \".sc\" %f;\n", sc);
 
 	}
 	void setPreCycle(double cb)
 	{
 		if(cb == 0.0) return;
-		fprintf(mFile,"setAttr \".cb\" %f;\n", cb);
+		fprintf(mFile,"\tsetAttr \".cb\" %f;\n", cb);
 
 	}
 	void setPostCycle(double ca)
 	{
 		if(ca == 0.0) return;
-		fprintf(mFile,"setAttr \".ca\" %f;\n", ca);
+		fprintf(mFile,"\tsetAttr \".ca\" %f;\n", ca);
 
 	}
 	void setEnable(bool en)
 	{
 		if(en == 1) return;
-		fprintf(mFile,"setAttr \".en\" %i;\n", en);
+		fprintf(mFile,"\tsetAttr \".en\" %i;\n", en);
 
 	}
 	void setTrack(short tr)
 	{
 		if(tr == 0) return;
-		fprintf(mFile,"setAttr \".tr\" %i;\n", tr);
+		fprintf(mFile,"\tsetAttr \".tr\" %i;\n", tr);
 
 	}
 	void setTrackState(short ts)
 	{
 		if(ts == 0) return;
-		fprintf(mFile,"setAttr \".ts\" %i;\n", ts);
+		fprintf(mFile,"\tsetAttr \".ts\" %i;\n", ts);
 
 	}
 	void setMultiThread(bool mt)
 	{
 		if(mt == 0) return;
-		fprintf(mFile,"setAttr \".mt\" %i;\n", mt);
+		fprintf(mFile,"\tsetAttr \".mt\" %i;\n", mt);
 
 	}
 	void setMemQueueSize(int qs)
 	{
 		if(qs == 20) return;
-		fprintf(mFile,"setAttr \".qs\" %i;\n", qs);
+		fprintf(mFile,"\tsetAttr \".qs\" %i;\n", qs);
 
 	}
 	void setDisplayLoadProgress(bool dp)
 	{
 		if(dp == 1) return;
-		fprintf(mFile,"setAttr \".dp\" %i;\n", dp);
+		fprintf(mFile,"\tsetAttr \".dp\" %i;\n", dp);
 
 	}
 	void getCacheName()
@@ -280,7 +281,8 @@ public:
 
 	}
 protected:
-	CacheFile(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CacheBase(file, name, parent, nodeType) {}
+	CacheFile(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CacheBase(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

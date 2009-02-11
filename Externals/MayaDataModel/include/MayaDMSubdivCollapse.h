@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class SubdivCollapse : public DependNode
 {
 public:
 public:
+	SubdivCollapse():DependNode(){}
 	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivCollapse"){}
 	virtual ~SubdivCollapse(){}
 	void setLevel(int l)
 	{
 		if(l == 0) return;
-		fprintf(mFile,"setAttr \".l\" %i;\n", l);
+		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
 	void getInSubdiv()
@@ -42,7 +43,8 @@ public:
 
 	}
 protected:
-	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

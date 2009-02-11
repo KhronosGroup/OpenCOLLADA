@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,19 +18,20 @@ class PolyTweak : public PolyModifier
 {
 public:
 public:
+	PolyTweak():PolyModifier(){}
 	PolyTweak(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTweak"){}
 	virtual ~PolyTweak(){}
 	void setTweak(size_t tk_i,const float3& tk)
 	{
 		if(tk == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".tk[%i]\" -type \"float3\" ",tk_i);
+		fprintf(mFile,"\tsetAttr \".tk[%i]\" -type \"float3\" ",tk_i);
 		tk.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setTweak(size_t tk_start,size_t tk_end,float* tk)
 	{
-		fprintf(mFile,"setAttr \".tk[%i:%i]\" ", tk_start,tk_end);
+		fprintf(mFile,"\tsetAttr \".tk[%i:%i]\" ", tk_start,tk_end);
 		size_t size = (tk_end-tk_start)*3+3;
 		for(size_t i=0;i<size;++i)
 		{
@@ -42,7 +43,7 @@ public:
 	}
 	void startTweak(size_t tk_start,size_t tk_end)
 	{
-		fprintf(mFile,"setAttr \".tk[%i:%i]\"",tk_start,tk_end);
+		fprintf(mFile,"\tsetAttr \".tk[%i:%i]\"",tk_start,tk_end);
 
 	}
 	void appendTweak(float tk)
@@ -58,19 +59,19 @@ public:
 	void setTweakX(size_t tk_i,float tx)
 	{
 		if(tx == 0.0) return;
-		fprintf(mFile,"setAttr \".tk[%i].tx\" %f;\n", tk_i,tx);
+		fprintf(mFile,"\tsetAttr \".tk[%i].tx\" %f;\n", tk_i,tx);
 
 	}
 	void setTweakY(size_t tk_i,float ty)
 	{
 		if(ty == 0.0) return;
-		fprintf(mFile,"setAttr \".tk[%i].ty\" %f;\n", tk_i,ty);
+		fprintf(mFile,"\tsetAttr \".tk[%i].ty\" %f;\n", tk_i,ty);
 
 	}
 	void setTweakZ(size_t tk_i,float tz)
 	{
 		if(tz == 0.0) return;
-		fprintf(mFile,"setAttr \".tk[%i].tz\" %f;\n", tk_i,tz);
+		fprintf(mFile,"\tsetAttr \".tk[%i].tz\" %f;\n", tk_i,tz);
 
 	}
 	void getTweak(size_t tk_i)
@@ -94,7 +95,8 @@ public:
 
 	}
 protected:
-	PolyTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyModifier(file, name, parent, nodeType) {}
+	PolyTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyModifier(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

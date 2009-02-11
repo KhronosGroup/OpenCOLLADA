@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class AnimBlendInOut : public AnimBlend
 {
 public:
 public:
+	AnimBlendInOut():AnimBlend(){}
 	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent=""):AnimBlend(file, name, parent, "animBlendInOut"){}
 	virtual ~AnimBlendInOut(){}
 	void setRotationBlend(unsigned int rb)
 	{
 		if(rb == 0) return;
-		fprintf(mFile,"setAttr \".rb\" %i;\n", rb);
+		fprintf(mFile,"\tsetAttr \".rb\" %i;\n", rb);
 
 	}
 	void getRotationBlend()
@@ -32,7 +33,8 @@ public:
 
 	}
 protected:
-	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AnimBlend(file, name, parent, nodeType) {}
+	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AnimBlend(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

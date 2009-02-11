@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,30 +18,31 @@ class Condition : public DependNode
 {
 public:
 public:
+	Condition():DependNode(){}
 	Condition(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "condition"){}
 	virtual ~Condition(){}
 	void setOperation(unsigned int op)
 	{
 		if(op == 0) return;
-		fprintf(mFile,"setAttr \".op\" %i;\n", op);
+		fprintf(mFile,"\tsetAttr \".op\" %i;\n", op);
 
 	}
 	void setFirstTerm(float ft)
 	{
 		if(ft == 0.0) return;
-		fprintf(mFile,"setAttr \".ft\" %f;\n", ft);
+		fprintf(mFile,"\tsetAttr \".ft\" %f;\n", ft);
 
 	}
 	void setSecondTerm(float st)
 	{
 		if(st == 0.0) return;
-		fprintf(mFile,"setAttr \".st\" %f;\n", st);
+		fprintf(mFile,"\tsetAttr \".st\" %f;\n", st);
 
 	}
 	void setColorIfTrue(const float3& ct)
 	{
 		if(ct == float3(0.0f,0.0f,0.0f)) return;
-		fprintf(mFile,"setAttr \".ct\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ct\" -type \"float3\" ");
 		ct.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -49,25 +50,25 @@ public:
 	void setColorIfTrueR(float ctr)
 	{
 		if(ctr == 0.0) return;
-		fprintf(mFile,"setAttr \".ct.ctr\" %f;\n", ctr);
+		fprintf(mFile,"\tsetAttr \".ct.ctr\" %f;\n", ctr);
 
 	}
 	void setColorIfTrueG(float ctg)
 	{
 		if(ctg == 0.0) return;
-		fprintf(mFile,"setAttr \".ct.ctg\" %f;\n", ctg);
+		fprintf(mFile,"\tsetAttr \".ct.ctg\" %f;\n", ctg);
 
 	}
 	void setColorIfTrueB(float ctb)
 	{
 		if(ctb == 0.0) return;
-		fprintf(mFile,"setAttr \".ct.ctb\" %f;\n", ctb);
+		fprintf(mFile,"\tsetAttr \".ct.ctb\" %f;\n", ctb);
 
 	}
 	void setColorIfFalse(const float3& cf)
 	{
 		if(cf == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".cf\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cf\" -type \"float3\" ");
 		cf.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -75,19 +76,19 @@ public:
 	void setColorIfFalseR(float cfr)
 	{
 		if(cfr == 0.0) return;
-		fprintf(mFile,"setAttr \".cf.cfr\" %f;\n", cfr);
+		fprintf(mFile,"\tsetAttr \".cf.cfr\" %f;\n", cfr);
 
 	}
 	void setColorIfFalseG(float cfg)
 	{
 		if(cfg == 0.0) return;
-		fprintf(mFile,"setAttr \".cf.cfg\" %f;\n", cfg);
+		fprintf(mFile,"\tsetAttr \".cf.cfg\" %f;\n", cfg);
 
 	}
 	void setColorIfFalseB(float cfb)
 	{
 		if(cfb == 0.0) return;
-		fprintf(mFile,"setAttr \".cf.cfb\" %f;\n", cfb);
+		fprintf(mFile,"\tsetAttr \".cf.cfb\" %f;\n", cfb);
 
 	}
 	void getOperation()
@@ -166,7 +167,8 @@ public:
 
 	}
 protected:
-	Condition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	Condition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

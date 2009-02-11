@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,36 +18,37 @@ class SolidFractal : public Texture3d
 {
 public:
 public:
+	SolidFractal():Texture3d(){}
 	SolidFractal(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "solidFractal"){}
 	virtual ~SolidFractal(){}
 	void setXPixelAngle(float xpa)
 	{
 		if(xpa == 0.002053) return;
-		fprintf(mFile,"setAttr \".xpa\" %f;\n", xpa);
+		fprintf(mFile,"\tsetAttr \".xpa\" %f;\n", xpa);
 
 	}
 	void setAmplitude(float a)
 	{
 		if(a == 1.0) return;
-		fprintf(mFile,"setAttr \".a\" %f;\n", a);
+		fprintf(mFile,"\tsetAttr \".a\" %f;\n", a);
 
 	}
 	void setRatio(float ra)
 	{
 		if(ra == 0.707) return;
-		fprintf(mFile,"setAttr \".ra\" %f;\n", ra);
+		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.0) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setRipples(const float3& r)
 	{
 		if(r == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".r\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".r\" -type \"float3\" ");
 		r.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -55,25 +56,25 @@ public:
 	void setRipplesX(float rx)
 	{
 		if(rx == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rx\" %f;\n", rx);
+		fprintf(mFile,"\tsetAttr \".r.rx\" %f;\n", rx);
 
 	}
 	void setRipplesY(float ry)
 	{
 		if(ry == 0.0) return;
-		fprintf(mFile,"setAttr \".r.ry\" %f;\n", ry);
+		fprintf(mFile,"\tsetAttr \".r.ry\" %f;\n", ry);
 
 	}
 	void setRipplesZ(float rz)
 	{
 		if(rz == 0.0) return;
-		fprintf(mFile,"setAttr \".r.rz\" %f;\n", rz);
+		fprintf(mFile,"\tsetAttr \".r.rz\" %f;\n", rz);
 
 	}
 	void setDepth(const float2& d)
 	{
 		if(d == float2(0.0f,8.0f)) return;
-		fprintf(mFile,"setAttr \".d\" -type \"float2\" ");
+		fprintf(mFile,"\tsetAttr \".d\" -type \"float2\" ");
 		d.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -81,49 +82,54 @@ public:
 	void setDepthMin(float dmn)
 	{
 		if(dmn == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmn\" %f;\n", dmn);
+		fprintf(mFile,"\tsetAttr \".d.dmn\" %f;\n", dmn);
 
 	}
 	void setDepthMax(float dmx)
 	{
 		if(dmx == 0.0) return;
-		fprintf(mFile,"setAttr \".d.dmx\" %f;\n", dmx);
+		fprintf(mFile,"\tsetAttr \".d.dmx\" %f;\n", dmx);
 
 	}
 	void setFrequencyRatio(float fr)
 	{
 		if(fr == 2.0) return;
-		fprintf(mFile,"setAttr \".fr\" %f;\n", fr);
+		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
 	void setBias(float bs)
 	{
 		if(bs == 0.0) return;
-		fprintf(mFile,"setAttr \".bs\" %f;\n", bs);
+		fprintf(mFile,"\tsetAttr \".bs\" %f;\n", bs);
 
 	}
 	void setInflection(bool in)
 	{
 		if(in == false) return;
-		fprintf(mFile,"setAttr \".in\" %i;\n", in);
+		fprintf(mFile,"\tsetAttr \".in\" %i;\n", in);
 
 	}
 	void setAnimated(bool an)
 	{
 		if(an == false) return;
-		fprintf(mFile,"setAttr \".an\" %i;\n", an);
+		fprintf(mFile,"\tsetAttr \".an\" %i;\n", an);
 
 	}
 	void setTimeRatio(float tr)
 	{
 		if(tr == 2.0) return;
-		fprintf(mFile,"setAttr \".tr\" %f;\n", tr);
+		fprintf(mFile,"\tsetAttr \".tr\" %f;\n", tr);
 
 	}
 	void setTime(float ti)
 	{
 		if(ti == 0.0) return;
-		fprintf(mFile,"setAttr \".ti\" %f;\n", ti);
+		fprintf(mFile,"\tsetAttr \".ti\" %f;\n", ti);
+
+	}
+	void getXPixelAngle()
+	{
+		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
 	void getRefPointObj()
@@ -247,7 +253,8 @@ public:
 
 	}
 protected:
-	SolidFractal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	SolidFractal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,60 +23,61 @@ public:
 		}
 	};
 public:
+	Spring():Shape(){}
 	Spring(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "spring"){}
 	virtual ~Spring(){}
 	void setEnd1Weight(double f)
 	{
 		if(f == 1) return;
-		fprintf(mFile,"setAttr \".f\" %f;\n", f);
+		fprintf(mFile,"\tsetAttr \".f\" %f;\n", f);
 
 	}
 	void setEnd2Weight(double t)
 	{
 		if(t == 1) return;
-		fprintf(mFile,"setAttr \".t\" %f;\n", t);
+		fprintf(mFile,"\tsetAttr \".t\" %f;\n", t);
 
 	}
 	void setUseStiffnessPS(bool usps)
 	{
 		if(usps == true) return;
-		fprintf(mFile,"setAttr \".usps\" %i;\n", usps);
+		fprintf(mFile,"\tsetAttr \".usps\" %i;\n", usps);
 
 	}
 	void setUseDampingPS(bool udps)
 	{
 		if(udps == true) return;
-		fprintf(mFile,"setAttr \".udps\" %i;\n", udps);
+		fprintf(mFile,"\tsetAttr \".udps\" %i;\n", udps);
 
 	}
 	void setUseRestLengthPS(bool urps)
 	{
 		if(urps == true) return;
-		fprintf(mFile,"setAttr \".urps\" %i;\n", urps);
+		fprintf(mFile,"\tsetAttr \".urps\" %i;\n", urps);
 
 	}
 	void setStiffness(double s)
 	{
 		if(s == 1) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setDamping(double d)
 	{
 		if(d == .2) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setRestLength(double r)
 	{
 		if(r == 0) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setStiffnessPS(const doubleArray& sps)
 	{
 		if(sps.size == 0) return;
-		fprintf(mFile,"setAttr \".sps\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".sps\" -type \"doubleArray\" ");
 		sps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -84,7 +85,7 @@ public:
 	void setDampingPS(const doubleArray& dps)
 	{
 		if(dps.size == 0) return;
-		fprintf(mFile,"setAttr \".dps\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".dps\" -type \"doubleArray\" ");
 		dps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -92,7 +93,7 @@ public:
 	void setRestLengthPS(const doubleArray& rps)
 	{
 		if(rps.size == 0) return;
-		fprintf(mFile,"setAttr \".rps\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".rps\" -type \"doubleArray\" ");
 		rps.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -100,14 +101,14 @@ public:
 	void setObjectPositions(size_t opos_i,const vectorArray& opos)
 	{
 		if(opos.size == 0) return;
-		fprintf(mFile,"setAttr \".opos[%i]\" -type \"vectorArray\" ",opos_i);
+		fprintf(mFile,"\tsetAttr \".opos[%i]\" -type \"vectorArray\" ",opos_i);
 		opos.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setObjectPositions(size_t opos_start,size_t opos_end,vectorArray* opos)
 	{
-		fprintf(mFile,"setAttr \".opos[%i:%i]\" ", opos_start,opos_end);
+		fprintf(mFile,"\tsetAttr \".opos[%i:%i]\" ", opos_start,opos_end);
 		size_t size = (opos_end-opos_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -119,7 +120,7 @@ public:
 	}
 	void startObjectPositions(size_t opos_start,size_t opos_end)
 	{
-		fprintf(mFile,"setAttr \".opos[%i:%i]\"",opos_start,opos_end);
+		fprintf(mFile,"\tsetAttr \".opos[%i:%i]\"",opos_start,opos_end);
 		fprintf(mFile," -type \"vectorArray\" ");
 
 	}
@@ -137,14 +138,14 @@ public:
 	void setObjectVelocities(size_t ovel_i,const vectorArray& ovel)
 	{
 		if(ovel.size == 0) return;
-		fprintf(mFile,"setAttr \".ovel[%i]\" -type \"vectorArray\" ",ovel_i);
+		fprintf(mFile,"\tsetAttr \".ovel[%i]\" -type \"vectorArray\" ",ovel_i);
 		ovel.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setObjectVelocities(size_t ovel_start,size_t ovel_end,vectorArray* ovel)
 	{
-		fprintf(mFile,"setAttr \".ovel[%i:%i]\" ", ovel_start,ovel_end);
+		fprintf(mFile,"\tsetAttr \".ovel[%i:%i]\" ", ovel_start,ovel_end);
 		size_t size = (ovel_end-ovel_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -156,7 +157,7 @@ public:
 	}
 	void startObjectVelocities(size_t ovel_start,size_t ovel_end)
 	{
-		fprintf(mFile,"setAttr \".ovel[%i:%i]\"",ovel_start,ovel_end);
+		fprintf(mFile,"\tsetAttr \".ovel[%i:%i]\"",ovel_start,ovel_end);
 		fprintf(mFile," -type \"vectorArray\" ");
 
 	}
@@ -174,14 +175,14 @@ public:
 	void setObjectMass(size_t omas_i,const doubleArray& omas)
 	{
 		if(omas.size == 0) return;
-		fprintf(mFile,"setAttr \".omas[%i]\" -type \"doubleArray\" ",omas_i);
+		fprintf(mFile,"\tsetAttr \".omas[%i]\" -type \"doubleArray\" ",omas_i);
 		omas.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setObjectMass(size_t omas_start,size_t omas_end,doubleArray* omas)
 	{
-		fprintf(mFile,"setAttr \".omas[%i:%i]\" ", omas_start,omas_end);
+		fprintf(mFile,"\tsetAttr \".omas[%i:%i]\" ", omas_start,omas_end);
 		size_t size = (omas_end-omas_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -193,7 +194,7 @@ public:
 	}
 	void startObjectMass(size_t omas_start,size_t omas_end)
 	{
-		fprintf(mFile,"setAttr \".omas[%i:%i]\"",omas_start,omas_end);
+		fprintf(mFile,"\tsetAttr \".omas[%i:%i]\"",omas_start,omas_end);
 		fprintf(mFile," -type \"doubleArray\" ");
 
 	}
@@ -211,7 +212,7 @@ public:
 	void setValidIndex(const intArray& vali)
 	{
 		if(vali.size == 0) return;
-		fprintf(mFile,"setAttr \".vali\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".vali\" -type \"intArray\" ");
 		vali.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -219,7 +220,7 @@ public:
 	void setObject0(const intArray& obz)
 	{
 		if(obz.size == 0) return;
-		fprintf(mFile,"setAttr \".obz\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".obz\" -type \"intArray\" ");
 		obz.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -227,7 +228,7 @@ public:
 	void setPoint0(const intArray& ptz)
 	{
 		if(ptz.size == 0) return;
-		fprintf(mFile,"setAttr \".ptz\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".ptz\" -type \"intArray\" ");
 		ptz.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -235,7 +236,7 @@ public:
 	void setObject1(const intArray& obo)
 	{
 		if(obo.size == 0) return;
-		fprintf(mFile,"setAttr \".obo\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".obo\" -type \"intArray\" ");
 		obo.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -243,7 +244,7 @@ public:
 	void setPoint1(const intArray& pto)
 	{
 		if(pto.size == 0) return;
-		fprintf(mFile,"setAttr \".pto\" -type \"intArray\" ");
+		fprintf(mFile,"\tsetAttr \".pto\" -type \"intArray\" ");
 		pto.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -251,19 +252,19 @@ public:
 	void setMinSprings(int ms)
 	{
 		if(ms == 0) return;
-		fprintf(mFile,"setAttr \".ms\" %i;\n", ms);
+		fprintf(mFile,"\tsetAttr \".ms\" %i;\n", ms);
 
 	}
 	void setManageParticleDeath(bool mpd)
 	{
 		if(mpd == true) return;
-		fprintf(mFile,"setAttr \".mpd\" %i;\n", mpd);
+		fprintf(mFile,"\tsetAttr \".mpd\" %i;\n", mpd);
 
 	}
 	void setLengths(const doubleArray& lns)
 	{
 		if(lns.size == 0) return;
-		fprintf(mFile,"setAttr \".lns\" -type \"doubleArray\" ");
+		fprintf(mFile,"\tsetAttr \".lns\" -type \"doubleArray\" ");
 		lns.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -399,7 +400,8 @@ public:
 
 	}
 protected:
-	Spring(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Shape(file, name, parent, nodeType) {}
+	Spring(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Shape(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

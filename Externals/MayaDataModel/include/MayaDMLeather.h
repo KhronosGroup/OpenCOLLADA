@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class Leather : public Texture3d
 {
 public:
 public:
+	Leather():Texture3d(){}
 	Leather(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "leather"){}
 	virtual ~Leather(){}
 	void setCellColor(const float3& ce)
 	{
 		if(ce == float3(0.373f,0.157f,0.059f)) return;
-		fprintf(mFile,"setAttr \".ce\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".ce\" -type \"float3\" ");
 		ce.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -31,25 +32,25 @@ public:
 	void setCellColorR(float cer)
 	{
 		if(cer == 0.0) return;
-		fprintf(mFile,"setAttr \".ce.cer\" %f;\n", cer);
+		fprintf(mFile,"\tsetAttr \".ce.cer\" %f;\n", cer);
 
 	}
 	void setCellColorG(float ceg)
 	{
 		if(ceg == 0.0) return;
-		fprintf(mFile,"setAttr \".ce.ceg\" %f;\n", ceg);
+		fprintf(mFile,"\tsetAttr \".ce.ceg\" %f;\n", ceg);
 
 	}
 	void setCellColorB(float ceb)
 	{
 		if(ceb == 0.0) return;
-		fprintf(mFile,"setAttr \".ce.ceb\" %f;\n", ceb);
+		fprintf(mFile,"\tsetAttr \".ce.ceb\" %f;\n", ceb);
 
 	}
 	void setCreaseColor(const float3& cr)
 	{
 		if(cr == float3(0.235f,0.118f,0.0f)) return;
-		fprintf(mFile,"setAttr \".cr\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".cr\" -type \"float3\" ");
 		cr.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -57,55 +58,55 @@ public:
 	void setCreaseColorR(float crr)
 	{
 		if(crr == 0.0) return;
-		fprintf(mFile,"setAttr \".cr.crr\" %f;\n", crr);
+		fprintf(mFile,"\tsetAttr \".cr.crr\" %f;\n", crr);
 
 	}
 	void setCreaseColorG(float crg)
 	{
 		if(crg == 0.0) return;
-		fprintf(mFile,"setAttr \".cr.crg\" %f;\n", crg);
+		fprintf(mFile,"\tsetAttr \".cr.crg\" %f;\n", crg);
 
 	}
 	void setCreaseColorB(float crb)
 	{
 		if(crb == 0.0) return;
-		fprintf(mFile,"setAttr \".cr.crb\" %f;\n", crb);
+		fprintf(mFile,"\tsetAttr \".cr.crb\" %f;\n", crb);
 
 	}
 	void setCellSize(float cs)
 	{
 		if(cs == 0.5) return;
-		fprintf(mFile,"setAttr \".cs\" %f;\n", cs);
+		fprintf(mFile,"\tsetAttr \".cs\" %f;\n", cs);
 
 	}
 	void setDensity(float d)
 	{
 		if(d == 1.0) return;
-		fprintf(mFile,"setAttr \".d\" %f;\n", d);
+		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
 	void setSpottyness(float s)
 	{
 		if(s == 0.1) return;
-		fprintf(mFile,"setAttr \".s\" %f;\n", s);
+		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
 	void setRandomness(float r)
 	{
 		if(r == 0.5) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setThreshold(float th)
 	{
 		if(th == 0.83) return;
-		fprintf(mFile,"setAttr \".th\" %f;\n", th);
+		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
 	void setCreases(bool c)
 	{
 		if(c == true) return;
-		fprintf(mFile,"setAttr \".c\" %i;\n", c);
+		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
 	void getRefPointObj()
@@ -219,7 +220,8 @@ public:
 
 	}
 protected:
-	Leather(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Texture3d(file, name, parent, nodeType) {}
+	Leather(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Texture3d(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

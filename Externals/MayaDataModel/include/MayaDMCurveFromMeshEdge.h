@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,17 +18,18 @@ class CurveFromMeshEdge : public CurveFromMesh
 {
 public:
 public:
+	CurveFromMeshEdge():CurveFromMesh(){}
 	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent=""):CurveFromMesh(file, name, parent, "curveFromMeshEdge"){}
 	virtual ~CurveFromMeshEdge(){}
 	void setEdgeIndex(size_t ei_i,int ei)
 	{
 		if(ei == 0) return;
-		fprintf(mFile,"setAttr \".ei[%i]\" %i;\n", ei_i,ei);
+		fprintf(mFile,"\tsetAttr \".ei[%i]\" %i;\n", ei_i,ei);
 
 	}
 	void setEdgeIndex(size_t ei_start,size_t ei_end,int* ei)
 	{
-		fprintf(mFile,"setAttr \".ei[%i:%i]\" ", ei_start,ei_end);
+		fprintf(mFile,"\tsetAttr \".ei[%i:%i]\" ", ei_start,ei_end);
 		size_t size = (ei_end-ei_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -40,7 +41,7 @@ public:
 	}
 	void startEdgeIndex(size_t ei_start,size_t ei_end)
 	{
-		fprintf(mFile,"setAttr \".ei[%i:%i]\"",ei_start,ei_end);
+		fprintf(mFile,"\tsetAttr \".ei[%i:%i]\"",ei_start,ei_end);
 
 	}
 	void appendEdgeIndex(int ei)
@@ -59,7 +60,8 @@ public:
 
 	}
 protected:
-	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):CurveFromMesh(file, name, parent, nodeType) {}
+	CurveFromMeshEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:CurveFromMesh(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

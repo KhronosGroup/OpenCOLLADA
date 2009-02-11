@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -63,18 +63,19 @@ public:
 		}
 	};
 public:
+	FurFeedback():Locator(){}
 	FurFeedback(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "FurFeedback"){}
 	virtual ~FurFeedback(){}
 	void setInputSurface(const nurbsSurface& is)
 	{
-		fprintf(mFile,"setAttr \".is\" -type \"nurbsSurface\" ");
+		fprintf(mFile,"\tsetAttr \".is\" -type \"nurbsSurface\" ");
 		is.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputMesh(const mesh& imsh)
 	{
-		fprintf(mFile,"setAttr \".imsh\" -type \"mesh\" ");
+		fprintf(mFile,"\tsetAttr \".imsh\" -type \"mesh\" ");
 		imsh.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -82,36 +83,36 @@ public:
 	void setRealUSamples(int rus)
 	{
 		if(rus == 32) return;
-		fprintf(mFile,"setAttr \".rus\" %i;\n", rus);
+		fprintf(mFile,"\tsetAttr \".rus\" %i;\n", rus);
 
 	}
 	void setRealVSamples(int rvs)
 	{
 		if(rvs == 32) return;
-		fprintf(mFile,"setAttr \".rvs\" %i;\n", rvs);
+		fprintf(mFile,"\tsetAttr \".rvs\" %i;\n", rvs);
 
 	}
 	void setUSamples(int us)
 	{
 		if(us == 32) return;
-		fprintf(mFile,"setAttr \".us\" %i;\n", us);
+		fprintf(mFile,"\tsetAttr \".us\" %i;\n", us);
 
 	}
 	void setVSamples(int vs)
 	{
 		if(vs == 32) return;
-		fprintf(mFile,"setAttr \".vs\" %i;\n", vs);
+		fprintf(mFile,"\tsetAttr \".vs\" %i;\n", vs);
 
 	}
 	void setFlipNormals(bool fn)
 	{
 		if(fn == false) return;
-		fprintf(mFile,"setAttr \".fn\" %i;\n", fn);
+		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
 
 	}
 	void setHairs(const pointArray& h)
 	{
-		fprintf(mFile,"setAttr \".h\" -type \"pointArray\" ");
+		fprintf(mFile,"\tsetAttr \".h\" -type \"pointArray\" ");
 		h.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -119,25 +120,25 @@ public:
 	void setFurAccuracy(float ha)
 	{
 		if(ha == 0.0) return;
-		fprintf(mFile,"setAttr \".ha\" %f;\n", ha);
+		fprintf(mFile,"\tsetAttr \".ha\" %f;\n", ha);
 
 	}
 	void setFurGlobalScale(float fgs)
 	{
 		if(fgs == 1.0) return;
-		fprintf(mFile,"setAttr \".fgs\" %f;\n", fgs);
+		fprintf(mFile,"\tsetAttr \".fgs\" %f;\n", fgs);
 
 	}
 	void setAttractorGlobalScale(float ags)
 	{
 		if(ags == 1.0) return;
-		fprintf(mFile,"setAttr \".ags\" %f;\n", ags);
+		fprintf(mFile,"\tsetAttr \".ags\" %f;\n", ags);
 
 	}
 	void setExportAttr(const string& ea)
 	{
 		if(ea == "n/a") return;
-		fprintf(mFile,"setAttr \".ea\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ea\" -type \"string\" ");
 		ea.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -145,7 +146,7 @@ public:
 	void setExportFile(const string& ef)
 	{
 		if(ef == "n/a") return;
-		fprintf(mFile,"setAttr \".ef\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ef\" -type \"string\" ");
 		ef.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -153,54 +154,54 @@ public:
 	void setExportWidth(int ew)
 	{
 		if(ew == 256) return;
-		fprintf(mFile,"setAttr \".ew\" %i;\n", ew);
+		fprintf(mFile,"\tsetAttr \".ew\" %i;\n", ew);
 
 	}
 	void setExportHeight(int eh)
 	{
 		if(eh == 256) return;
-		fprintf(mFile,"setAttr \".eh\" %i;\n", eh);
+		fprintf(mFile,"\tsetAttr \".eh\" %i;\n", eh);
 
 	}
 	void setColorFeedbackEnabled(bool cfe)
 	{
 		if(cfe == false) return;
-		fprintf(mFile,"setAttr \".cfe\" %i;\n", cfe);
+		fprintf(mFile,"\tsetAttr \".cfe\" %i;\n", cfe);
 
 	}
 	void setAttractorModel(unsigned int amd)
 	{
 		if(amd == 0) return;
-		fprintf(mFile,"setAttr \".amd\" %i;\n", amd);
+		fprintf(mFile,"\tsetAttr \".amd\" %i;\n", amd);
 
 	}
 	void setAttractorsPerHair(int aph)
 	{
 		if(aph == 1) return;
-		fprintf(mFile,"setAttr \".aph\" %i;\n", aph);
+		fprintf(mFile,"\tsetAttr \".aph\" %i;\n", aph);
 
 	}
 	void setDrawAttractors(bool drat)
 	{
 		if(drat == false) return;
-		fprintf(mFile,"setAttr \".drat\" %i;\n", drat);
+		fprintf(mFile,"\tsetAttr \".drat\" %i;\n", drat);
 
 	}
 	void setLength(double dl)
 	{
 		if(dl == 1) return;
-		fprintf(mFile,"setAttr \".dl\" %f;\n", dl);
+		fprintf(mFile,"\tsetAttr \".dl\" %f;\n", dl);
 
 	}
 	void setLengthSamples(size_t ls_i,double ls)
 	{
 		if(ls == 0.0) return;
-		fprintf(mFile,"setAttr \".ls[%i]\" %f;\n", ls_i,ls);
+		fprintf(mFile,"\tsetAttr \".ls[%i]\" %f;\n", ls_i,ls);
 
 	}
 	void setLengthSamples(size_t ls_start,size_t ls_end,double* ls)
 	{
-		fprintf(mFile,"setAttr \".ls[%i:%i]\" ", ls_start,ls_end);
+		fprintf(mFile,"\tsetAttr \".ls[%i:%i]\" ", ls_start,ls_end);
 		size_t size = (ls_end-ls_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -212,7 +213,7 @@ public:
 	}
 	void startLengthSamples(size_t ls_start,size_t ls_end)
 	{
-		fprintf(mFile,"setAttr \".ls[%i:%i]\"",ls_start,ls_end);
+		fprintf(mFile,"\tsetAttr \".ls[%i:%i]\"",ls_start,ls_end);
 
 	}
 	void appendLengthSamples(double ls)
@@ -228,7 +229,7 @@ public:
 	void setLengthMap(const string& lm)
 	{
 		if(lm == "n/a") return;
-		fprintf(mFile,"setAttr \".lm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".lm\" -type \"string\" ");
 		lm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -236,54 +237,54 @@ public:
 	void setLengthMapOffset(double lmo)
 	{
 		if(lmo == 0) return;
-		fprintf(mFile,"setAttr \".lmo\" %f;\n", lmo);
+		fprintf(mFile,"\tsetAttr \".lmo\" %f;\n", lmo);
 
 	}
 	void setLengthMapMult(double lmm)
 	{
 		if(lmm == 1) return;
-		fprintf(mFile,"setAttr \".lmm\" %f;\n", lmm);
+		fprintf(mFile,"\tsetAttr \".lmm\" %f;\n", lmm);
 
 	}
 	void setLengthNoise(double ln)
 	{
 		if(ln == 0) return;
-		fprintf(mFile,"setAttr \".ln\" %f;\n", ln);
+		fprintf(mFile,"\tsetAttr \".ln\" %f;\n", ln);
 
 	}
 	void setLengthNoiseFreq(float lnf)
 	{
 		if(lnf == 10.0) return;
-		fprintf(mFile,"setAttr \".lnf\" %f;\n", lnf);
+		fprintf(mFile,"\tsetAttr \".lnf\" %f;\n", lnf);
 
 	}
 	void setLengthSamplesDirty(int lsd)
 	{
 		if(lsd == 0.0) return;
-		fprintf(mFile,"setAttr \".lsd\" %i;\n", lsd);
+		fprintf(mFile,"\tsetAttr \".lsd\" %i;\n", lsd);
 
 	}
 	void setLengthMapDirty(int lmd)
 	{
 		if(lmd == 0.0) return;
-		fprintf(mFile,"setAttr \".lmd\" %i;\n", lmd);
+		fprintf(mFile,"\tsetAttr \".lmd\" %i;\n", lmd);
 
 	}
 	void setInclination(float din)
 	{
 		if(din == 0.0) return;
-		fprintf(mFile,"setAttr \".din\" %f;\n", din);
+		fprintf(mFile,"\tsetAttr \".din\" %f;\n", din);
 
 	}
 	void setInclinationSamples(size_t ins_i,double ins)
 	{
 		if(ins == 0.0) return;
-		fprintf(mFile,"setAttr \".ins[%i]\" %f;\n", ins_i,ins);
+		fprintf(mFile,"\tsetAttr \".ins[%i]\" %f;\n", ins_i,ins);
 
 	}
 	void setInclinationSamples(size_t ins_start,size_t ins_end,double* ins)
 	{
-		fprintf(mFile,"setAttr \".ins[%i:%i]\" ", ins_start,ins_end);
+		fprintf(mFile,"\tsetAttr \".ins[%i:%i]\" ", ins_start,ins_end);
 		size_t size = (ins_end-ins_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -295,7 +296,7 @@ public:
 	}
 	void startInclinationSamples(size_t ins_start,size_t ins_end)
 	{
-		fprintf(mFile,"setAttr \".ins[%i:%i]\"",ins_start,ins_end);
+		fprintf(mFile,"\tsetAttr \".ins[%i:%i]\"",ins_start,ins_end);
 
 	}
 	void appendInclinationSamples(double ins)
@@ -311,7 +312,7 @@ public:
 	void setInclinationMap(const string& inm)
 	{
 		if(inm == "n/a") return;
-		fprintf(mFile,"setAttr \".inm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".inm\" -type \"string\" ");
 		inm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -319,54 +320,54 @@ public:
 	void setInclinationMapOffset(float inmo)
 	{
 		if(inmo == 0.0) return;
-		fprintf(mFile,"setAttr \".inmo\" %f;\n", inmo);
+		fprintf(mFile,"\tsetAttr \".inmo\" %f;\n", inmo);
 
 	}
 	void setInclinationMapMult(float inmm)
 	{
 		if(inmm == 1.0) return;
-		fprintf(mFile,"setAttr \".inmm\" %f;\n", inmm);
+		fprintf(mFile,"\tsetAttr \".inmm\" %f;\n", inmm);
 
 	}
 	void setInclinationNoise(float inn)
 	{
 		if(inn == 0.0) return;
-		fprintf(mFile,"setAttr \".inn\" %f;\n", inn);
+		fprintf(mFile,"\tsetAttr \".inn\" %f;\n", inn);
 
 	}
 	void setInclinationNoiseFreq(float innf)
 	{
 		if(innf == 10.0) return;
-		fprintf(mFile,"setAttr \".innf\" %f;\n", innf);
+		fprintf(mFile,"\tsetAttr \".innf\" %f;\n", innf);
 
 	}
 	void setInclinationSamplesDirty(int insd)
 	{
 		if(insd == 0.0) return;
-		fprintf(mFile,"setAttr \".insd\" %i;\n", insd);
+		fprintf(mFile,"\tsetAttr \".insd\" %i;\n", insd);
 
 	}
 	void setInclinationMapDirty(int inmd)
 	{
 		if(inmd == 0.0) return;
-		fprintf(mFile,"setAttr \".inmd\" %i;\n", inmd);
+		fprintf(mFile,"\tsetAttr \".inmd\" %i;\n", inmd);
 
 	}
 	void setRoll(float drl)
 	{
 		if(drl == 0.5) return;
-		fprintf(mFile,"setAttr \".drl\" %f;\n", drl);
+		fprintf(mFile,"\tsetAttr \".drl\" %f;\n", drl);
 
 	}
 	void setRollSamples(size_t rls_i,double rls)
 	{
 		if(rls == 0.0) return;
-		fprintf(mFile,"setAttr \".rls[%i]\" %f;\n", rls_i,rls);
+		fprintf(mFile,"\tsetAttr \".rls[%i]\" %f;\n", rls_i,rls);
 
 	}
 	void setRollSamples(size_t rls_start,size_t rls_end,double* rls)
 	{
-		fprintf(mFile,"setAttr \".rls[%i:%i]\" ", rls_start,rls_end);
+		fprintf(mFile,"\tsetAttr \".rls[%i:%i]\" ", rls_start,rls_end);
 		size_t size = (rls_end-rls_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -378,7 +379,7 @@ public:
 	}
 	void startRollSamples(size_t rls_start,size_t rls_end)
 	{
-		fprintf(mFile,"setAttr \".rls[%i:%i]\"",rls_start,rls_end);
+		fprintf(mFile,"\tsetAttr \".rls[%i:%i]\"",rls_start,rls_end);
 
 	}
 	void appendRollSamples(double rls)
@@ -394,7 +395,7 @@ public:
 	void setRollMap(const string& rlm)
 	{
 		if(rlm == "n/a") return;
-		fprintf(mFile,"setAttr \".rlm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".rlm\" -type \"string\" ");
 		rlm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -402,54 +403,54 @@ public:
 	void setRollMapOffset(float rlmo)
 	{
 		if(rlmo == 0.0) return;
-		fprintf(mFile,"setAttr \".rlmo\" %f;\n", rlmo);
+		fprintf(mFile,"\tsetAttr \".rlmo\" %f;\n", rlmo);
 
 	}
 	void setRollMapMult(float rlmm)
 	{
 		if(rlmm == 1.0) return;
-		fprintf(mFile,"setAttr \".rlmm\" %f;\n", rlmm);
+		fprintf(mFile,"\tsetAttr \".rlmm\" %f;\n", rlmm);
 
 	}
 	void setRollNoise(float rln)
 	{
 		if(rln == 0.0) return;
-		fprintf(mFile,"setAttr \".rln\" %f;\n", rln);
+		fprintf(mFile,"\tsetAttr \".rln\" %f;\n", rln);
 
 	}
 	void setRollNoiseFreq(float rlnf)
 	{
 		if(rlnf == 10.0) return;
-		fprintf(mFile,"setAttr \".rlnf\" %f;\n", rlnf);
+		fprintf(mFile,"\tsetAttr \".rlnf\" %f;\n", rlnf);
 
 	}
 	void setRollSamplesDirty(int rlsd)
 	{
 		if(rlsd == 0.0) return;
-		fprintf(mFile,"setAttr \".rlsd\" %i;\n", rlsd);
+		fprintf(mFile,"\tsetAttr \".rlsd\" %i;\n", rlsd);
 
 	}
 	void setRollMapDirty(int rlmd)
 	{
 		if(rlmd == 0.0) return;
-		fprintf(mFile,"setAttr \".rlmd\" %i;\n", rlmd);
+		fprintf(mFile,"\tsetAttr \".rlmd\" %i;\n", rlmd);
 
 	}
 	void setPolar(float dpo)
 	{
 		if(dpo == 0.5) return;
-		fprintf(mFile,"setAttr \".dpo\" %f;\n", dpo);
+		fprintf(mFile,"\tsetAttr \".dpo\" %f;\n", dpo);
 
 	}
 	void setPolarSamples(size_t pos_i,double pos)
 	{
 		if(pos == 0.0) return;
-		fprintf(mFile,"setAttr \".pos[%i]\" %f;\n", pos_i,pos);
+		fprintf(mFile,"\tsetAttr \".pos[%i]\" %f;\n", pos_i,pos);
 
 	}
 	void setPolarSamples(size_t pos_start,size_t pos_end,double* pos)
 	{
-		fprintf(mFile,"setAttr \".pos[%i:%i]\" ", pos_start,pos_end);
+		fprintf(mFile,"\tsetAttr \".pos[%i:%i]\" ", pos_start,pos_end);
 		size_t size = (pos_end-pos_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -461,7 +462,7 @@ public:
 	}
 	void startPolarSamples(size_t pos_start,size_t pos_end)
 	{
-		fprintf(mFile,"setAttr \".pos[%i:%i]\"",pos_start,pos_end);
+		fprintf(mFile,"\tsetAttr \".pos[%i:%i]\"",pos_start,pos_end);
 
 	}
 	void appendPolarSamples(double pos)
@@ -477,7 +478,7 @@ public:
 	void setPolarMap(const string& pom)
 	{
 		if(pom == "n/a") return;
-		fprintf(mFile,"setAttr \".pom\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".pom\" -type \"string\" ");
 		pom.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -485,54 +486,54 @@ public:
 	void setPolarMapOffset(float pomo)
 	{
 		if(pomo == 0.0) return;
-		fprintf(mFile,"setAttr \".pomo\" %f;\n", pomo);
+		fprintf(mFile,"\tsetAttr \".pomo\" %f;\n", pomo);
 
 	}
 	void setPolarMapMult(float pomm)
 	{
 		if(pomm == 1.0) return;
-		fprintf(mFile,"setAttr \".pomm\" %f;\n", pomm);
+		fprintf(mFile,"\tsetAttr \".pomm\" %f;\n", pomm);
 
 	}
 	void setPolarNoise(float pon)
 	{
 		if(pon == 0.0) return;
-		fprintf(mFile,"setAttr \".pon\" %f;\n", pon);
+		fprintf(mFile,"\tsetAttr \".pon\" %f;\n", pon);
 
 	}
 	void setPolarNoiseFreq(float ponf)
 	{
 		if(ponf == 10.0) return;
-		fprintf(mFile,"setAttr \".ponf\" %f;\n", ponf);
+		fprintf(mFile,"\tsetAttr \".ponf\" %f;\n", ponf);
 
 	}
 	void setPolarSamplesDirty(int posd)
 	{
 		if(posd == 0.0) return;
-		fprintf(mFile,"setAttr \".posd\" %i;\n", posd);
+		fprintf(mFile,"\tsetAttr \".posd\" %i;\n", posd);
 
 	}
 	void setPolarMapDirty(int pomd)
 	{
 		if(pomd == 0.0) return;
-		fprintf(mFile,"setAttr \".pomd\" %i;\n", pomd);
+		fprintf(mFile,"\tsetAttr \".pomd\" %i;\n", pomd);
 
 	}
 	void setBaldness(float db)
 	{
 		if(db == 1.0) return;
-		fprintf(mFile,"setAttr \".db\" %f;\n", db);
+		fprintf(mFile,"\tsetAttr \".db\" %f;\n", db);
 
 	}
 	void setBaldnessSamples(size_t bs_i,double bs)
 	{
 		if(bs == 0.0) return;
-		fprintf(mFile,"setAttr \".bs[%i]\" %f;\n", bs_i,bs);
+		fprintf(mFile,"\tsetAttr \".bs[%i]\" %f;\n", bs_i,bs);
 
 	}
 	void setBaldnessSamples(size_t bs_start,size_t bs_end,double* bs)
 	{
-		fprintf(mFile,"setAttr \".bs[%i:%i]\" ", bs_start,bs_end);
+		fprintf(mFile,"\tsetAttr \".bs[%i:%i]\" ", bs_start,bs_end);
 		size_t size = (bs_end-bs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -544,7 +545,7 @@ public:
 	}
 	void startBaldnessSamples(size_t bs_start,size_t bs_end)
 	{
-		fprintf(mFile,"setAttr \".bs[%i:%i]\"",bs_start,bs_end);
+		fprintf(mFile,"\tsetAttr \".bs[%i:%i]\"",bs_start,bs_end);
 
 	}
 	void appendBaldnessSamples(double bs)
@@ -560,7 +561,7 @@ public:
 	void setBaldnessMap(const string& bm)
 	{
 		if(bm == "n/a") return;
-		fprintf(mFile,"setAttr \".bm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bm\" -type \"string\" ");
 		bm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -568,54 +569,54 @@ public:
 	void setBaldnessMapOffset(float bmo)
 	{
 		if(bmo == 0.0) return;
-		fprintf(mFile,"setAttr \".bmo\" %f;\n", bmo);
+		fprintf(mFile,"\tsetAttr \".bmo\" %f;\n", bmo);
 
 	}
 	void setBaldnessMapMult(float bmm)
 	{
 		if(bmm == 1.0) return;
-		fprintf(mFile,"setAttr \".bmm\" %f;\n", bmm);
+		fprintf(mFile,"\tsetAttr \".bmm\" %f;\n", bmm);
 
 	}
 	void setBaldnessNoise(float bn)
 	{
 		if(bn == 0.0) return;
-		fprintf(mFile,"setAttr \".bn\" %f;\n", bn);
+		fprintf(mFile,"\tsetAttr \".bn\" %f;\n", bn);
 
 	}
 	void setBaldnessNoiseFreq(float bnf)
 	{
 		if(bnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bnf\" %f;\n", bnf);
+		fprintf(mFile,"\tsetAttr \".bnf\" %f;\n", bnf);
 
 	}
 	void setBaldnessSamplesDirty(int bsd)
 	{
 		if(bsd == 0.0) return;
-		fprintf(mFile,"setAttr \".bsd\" %i;\n", bsd);
+		fprintf(mFile,"\tsetAttr \".bsd\" %i;\n", bsd);
 
 	}
 	void setBaldnessMapDirty(int bmd)
 	{
 		if(bmd == 0.0) return;
-		fprintf(mFile,"setAttr \".bmd\" %i;\n", bmd);
+		fprintf(mFile,"\tsetAttr \".bmd\" %i;\n", bmd);
 
 	}
 	void setBaseOpacity(float dbo)
 	{
 		if(dbo == 1.0) return;
-		fprintf(mFile,"setAttr \".dbo\" %f;\n", dbo);
+		fprintf(mFile,"\tsetAttr \".dbo\" %f;\n", dbo);
 
 	}
 	void setBaseOpacitySamples(size_t bos_i,double bos)
 	{
 		if(bos == 0.0) return;
-		fprintf(mFile,"setAttr \".bos[%i]\" %f;\n", bos_i,bos);
+		fprintf(mFile,"\tsetAttr \".bos[%i]\" %f;\n", bos_i,bos);
 
 	}
 	void setBaseOpacitySamples(size_t bos_start,size_t bos_end,double* bos)
 	{
-		fprintf(mFile,"setAttr \".bos[%i:%i]\" ", bos_start,bos_end);
+		fprintf(mFile,"\tsetAttr \".bos[%i:%i]\" ", bos_start,bos_end);
 		size_t size = (bos_end-bos_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -627,7 +628,7 @@ public:
 	}
 	void startBaseOpacitySamples(size_t bos_start,size_t bos_end)
 	{
-		fprintf(mFile,"setAttr \".bos[%i:%i]\"",bos_start,bos_end);
+		fprintf(mFile,"\tsetAttr \".bos[%i:%i]\"",bos_start,bos_end);
 
 	}
 	void appendBaseOpacitySamples(double bos)
@@ -643,7 +644,7 @@ public:
 	void setBaseOpacityMap(const string& bom)
 	{
 		if(bom == "n/a") return;
-		fprintf(mFile,"setAttr \".bom\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bom\" -type \"string\" ");
 		bom.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -651,54 +652,54 @@ public:
 	void setBaseOpacityMapOffset(float bomo)
 	{
 		if(bomo == 0.0) return;
-		fprintf(mFile,"setAttr \".bomo\" %f;\n", bomo);
+		fprintf(mFile,"\tsetAttr \".bomo\" %f;\n", bomo);
 
 	}
 	void setBaseOpacityMapMult(float bomm)
 	{
 		if(bomm == 1.0) return;
-		fprintf(mFile,"setAttr \".bomm\" %f;\n", bomm);
+		fprintf(mFile,"\tsetAttr \".bomm\" %f;\n", bomm);
 
 	}
 	void setBaseOpacityNoise(float bon)
 	{
 		if(bon == 0.0) return;
-		fprintf(mFile,"setAttr \".bon\" %f;\n", bon);
+		fprintf(mFile,"\tsetAttr \".bon\" %f;\n", bon);
 
 	}
 	void setBaseOpacityNoiseFreq(float bonf)
 	{
 		if(bonf == 10.0) return;
-		fprintf(mFile,"setAttr \".bonf\" %f;\n", bonf);
+		fprintf(mFile,"\tsetAttr \".bonf\" %f;\n", bonf);
 
 	}
 	void setBaseOpacitySamplesDirty(int bosd)
 	{
 		if(bosd == 0.0) return;
-		fprintf(mFile,"setAttr \".bosd\" %i;\n", bosd);
+		fprintf(mFile,"\tsetAttr \".bosd\" %i;\n", bosd);
 
 	}
 	void setBaseOpacityMapDirty(int bomd)
 	{
 		if(bomd == 0.0) return;
-		fprintf(mFile,"setAttr \".bomd\" %i;\n", bomd);
+		fprintf(mFile,"\tsetAttr \".bomd\" %i;\n", bomd);
 
 	}
 	void setTipOpacity(float dto)
 	{
 		if(dto == 1.0) return;
-		fprintf(mFile,"setAttr \".dto\" %f;\n", dto);
+		fprintf(mFile,"\tsetAttr \".dto\" %f;\n", dto);
 
 	}
 	void setTipOpacitySamples(size_t tos_i,double tos)
 	{
 		if(tos == 0.0) return;
-		fprintf(mFile,"setAttr \".tos[%i]\" %f;\n", tos_i,tos);
+		fprintf(mFile,"\tsetAttr \".tos[%i]\" %f;\n", tos_i,tos);
 
 	}
 	void setTipOpacitySamples(size_t tos_start,size_t tos_end,double* tos)
 	{
-		fprintf(mFile,"setAttr \".tos[%i:%i]\" ", tos_start,tos_end);
+		fprintf(mFile,"\tsetAttr \".tos[%i:%i]\" ", tos_start,tos_end);
 		size_t size = (tos_end-tos_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -710,7 +711,7 @@ public:
 	}
 	void startTipOpacitySamples(size_t tos_start,size_t tos_end)
 	{
-		fprintf(mFile,"setAttr \".tos[%i:%i]\"",tos_start,tos_end);
+		fprintf(mFile,"\tsetAttr \".tos[%i:%i]\"",tos_start,tos_end);
 
 	}
 	void appendTipOpacitySamples(double tos)
@@ -726,7 +727,7 @@ public:
 	void setTipOpacityMap(const string& tom)
 	{
 		if(tom == "n/a") return;
-		fprintf(mFile,"setAttr \".tom\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tom\" -type \"string\" ");
 		tom.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -734,54 +735,54 @@ public:
 	void setTipOpacityMapOffset(float tomo)
 	{
 		if(tomo == 0.0) return;
-		fprintf(mFile,"setAttr \".tomo\" %f;\n", tomo);
+		fprintf(mFile,"\tsetAttr \".tomo\" %f;\n", tomo);
 
 	}
 	void setTipOpacityMapMult(float tomm)
 	{
 		if(tomm == 1.0) return;
-		fprintf(mFile,"setAttr \".tomm\" %f;\n", tomm);
+		fprintf(mFile,"\tsetAttr \".tomm\" %f;\n", tomm);
 
 	}
 	void setTipOpacityNoise(float ton)
 	{
 		if(ton == 0.0) return;
-		fprintf(mFile,"setAttr \".ton\" %f;\n", ton);
+		fprintf(mFile,"\tsetAttr \".ton\" %f;\n", ton);
 
 	}
 	void setTipOpacityNoiseFreq(float tonf)
 	{
 		if(tonf == 10.0) return;
-		fprintf(mFile,"setAttr \".tonf\" %f;\n", tonf);
+		fprintf(mFile,"\tsetAttr \".tonf\" %f;\n", tonf);
 
 	}
 	void setTipOpacitySamplesDirty(int tosd)
 	{
 		if(tosd == 0.0) return;
-		fprintf(mFile,"setAttr \".tosd\" %i;\n", tosd);
+		fprintf(mFile,"\tsetAttr \".tosd\" %i;\n", tosd);
 
 	}
 	void setTipOpacityMapDirty(int tomd)
 	{
 		if(tomd == 0.0) return;
-		fprintf(mFile,"setAttr \".tomd\" %i;\n", tomd);
+		fprintf(mFile,"\tsetAttr \".tomd\" %i;\n", tomd);
 
 	}
 	void setBaseCurl(float dbcl)
 	{
 		if(dbcl == 0.50) return;
-		fprintf(mFile,"setAttr \".dbcl\" %f;\n", dbcl);
+		fprintf(mFile,"\tsetAttr \".dbcl\" %f;\n", dbcl);
 
 	}
 	void setBaseCurlSamples(size_t bcls_i,double bcls)
 	{
 		if(bcls == 0.0) return;
-		fprintf(mFile,"setAttr \".bcls[%i]\" %f;\n", bcls_i,bcls);
+		fprintf(mFile,"\tsetAttr \".bcls[%i]\" %f;\n", bcls_i,bcls);
 
 	}
 	void setBaseCurlSamples(size_t bcls_start,size_t bcls_end,double* bcls)
 	{
-		fprintf(mFile,"setAttr \".bcls[%i:%i]\" ", bcls_start,bcls_end);
+		fprintf(mFile,"\tsetAttr \".bcls[%i:%i]\" ", bcls_start,bcls_end);
 		size_t size = (bcls_end-bcls_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -793,7 +794,7 @@ public:
 	}
 	void startBaseCurlSamples(size_t bcls_start,size_t bcls_end)
 	{
-		fprintf(mFile,"setAttr \".bcls[%i:%i]\"",bcls_start,bcls_end);
+		fprintf(mFile,"\tsetAttr \".bcls[%i:%i]\"",bcls_start,bcls_end);
 
 	}
 	void appendBaseCurlSamples(double bcls)
@@ -809,7 +810,7 @@ public:
 	void setBaseCurlMap(const string& bclm)
 	{
 		if(bclm == "n/a") return;
-		fprintf(mFile,"setAttr \".bclm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bclm\" -type \"string\" ");
 		bclm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -817,54 +818,54 @@ public:
 	void setBaseCurlMapOffset(float bclmo)
 	{
 		if(bclmo == 0.0) return;
-		fprintf(mFile,"setAttr \".bclmo\" %f;\n", bclmo);
+		fprintf(mFile,"\tsetAttr \".bclmo\" %f;\n", bclmo);
 
 	}
 	void setBaseCurlMapMult(float bclmm)
 	{
 		if(bclmm == 1.0) return;
-		fprintf(mFile,"setAttr \".bclmm\" %f;\n", bclmm);
+		fprintf(mFile,"\tsetAttr \".bclmm\" %f;\n", bclmm);
 
 	}
 	void setBaseCurlNoise(float bcln)
 	{
 		if(bcln == 0.0) return;
-		fprintf(mFile,"setAttr \".bcln\" %f;\n", bcln);
+		fprintf(mFile,"\tsetAttr \".bcln\" %f;\n", bcln);
 
 	}
 	void setBaseCurlNoiseFreq(float bclnf)
 	{
 		if(bclnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bclnf\" %f;\n", bclnf);
+		fprintf(mFile,"\tsetAttr \".bclnf\" %f;\n", bclnf);
 
 	}
 	void setBaseCurlSamplesDirty(int bclsd)
 	{
 		if(bclsd == 0.0) return;
-		fprintf(mFile,"setAttr \".bclsd\" %i;\n", bclsd);
+		fprintf(mFile,"\tsetAttr \".bclsd\" %i;\n", bclsd);
 
 	}
 	void setBaseCurlMapDirty(int bclmd)
 	{
 		if(bclmd == 0.0) return;
-		fprintf(mFile,"setAttr \".bclmd\" %i;\n", bclmd);
+		fprintf(mFile,"\tsetAttr \".bclmd\" %i;\n", bclmd);
 
 	}
 	void setTipCurl(float dtcl)
 	{
 		if(dtcl == 0.5) return;
-		fprintf(mFile,"setAttr \".dtcl\" %f;\n", dtcl);
+		fprintf(mFile,"\tsetAttr \".dtcl\" %f;\n", dtcl);
 
 	}
 	void setTipCurlSamples(size_t tcls_i,double tcls)
 	{
 		if(tcls == 0.0) return;
-		fprintf(mFile,"setAttr \".tcls[%i]\" %f;\n", tcls_i,tcls);
+		fprintf(mFile,"\tsetAttr \".tcls[%i]\" %f;\n", tcls_i,tcls);
 
 	}
 	void setTipCurlSamples(size_t tcls_start,size_t tcls_end,double* tcls)
 	{
-		fprintf(mFile,"setAttr \".tcls[%i:%i]\" ", tcls_start,tcls_end);
+		fprintf(mFile,"\tsetAttr \".tcls[%i:%i]\" ", tcls_start,tcls_end);
 		size_t size = (tcls_end-tcls_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -876,7 +877,7 @@ public:
 	}
 	void startTipCurlSamples(size_t tcls_start,size_t tcls_end)
 	{
-		fprintf(mFile,"setAttr \".tcls[%i:%i]\"",tcls_start,tcls_end);
+		fprintf(mFile,"\tsetAttr \".tcls[%i:%i]\"",tcls_start,tcls_end);
 
 	}
 	void appendTipCurlSamples(double tcls)
@@ -892,7 +893,7 @@ public:
 	void setTipCurlMap(const string& tclm)
 	{
 		if(tclm == "n/a") return;
-		fprintf(mFile,"setAttr \".tclm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tclm\" -type \"string\" ");
 		tclm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -900,54 +901,54 @@ public:
 	void setTipCurlMapOffset(float tclmo)
 	{
 		if(tclmo == 0.0) return;
-		fprintf(mFile,"setAttr \".tclmo\" %f;\n", tclmo);
+		fprintf(mFile,"\tsetAttr \".tclmo\" %f;\n", tclmo);
 
 	}
 	void setTipCurlMapMult(float tclmm)
 	{
 		if(tclmm == 1.0) return;
-		fprintf(mFile,"setAttr \".tclmm\" %f;\n", tclmm);
+		fprintf(mFile,"\tsetAttr \".tclmm\" %f;\n", tclmm);
 
 	}
 	void setTipCurlNoise(float tcln)
 	{
 		if(tcln == 0.0) return;
-		fprintf(mFile,"setAttr \".tcln\" %f;\n", tcln);
+		fprintf(mFile,"\tsetAttr \".tcln\" %f;\n", tcln);
 
 	}
 	void setTipCurlNoiseFreq(float tclnf)
 	{
 		if(tclnf == 10.0) return;
-		fprintf(mFile,"setAttr \".tclnf\" %f;\n", tclnf);
+		fprintf(mFile,"\tsetAttr \".tclnf\" %f;\n", tclnf);
 
 	}
 	void setTipCurlSamplesDirty(int tclsd)
 	{
 		if(tclsd == 0.0) return;
-		fprintf(mFile,"setAttr \".tclsd\" %i;\n", tclsd);
+		fprintf(mFile,"\tsetAttr \".tclsd\" %i;\n", tclsd);
 
 	}
 	void setTipCurlMapDirty(int tclmd)
 	{
 		if(tclmd == 0.0) return;
-		fprintf(mFile,"setAttr \".tclmd\" %i;\n", tclmd);
+		fprintf(mFile,"\tsetAttr \".tclmd\" %i;\n", tclmd);
 
 	}
 	void setBaseWidth(double dbw)
 	{
 		if(dbw == 0) return;
-		fprintf(mFile,"setAttr \".dbw\" %f;\n", dbw);
+		fprintf(mFile,"\tsetAttr \".dbw\" %f;\n", dbw);
 
 	}
 	void setBaseWidthSamples(size_t bws_i,double bws)
 	{
 		if(bws == 0.0) return;
-		fprintf(mFile,"setAttr \".bws[%i]\" %f;\n", bws_i,bws);
+		fprintf(mFile,"\tsetAttr \".bws[%i]\" %f;\n", bws_i,bws);
 
 	}
 	void setBaseWidthSamples(size_t bws_start,size_t bws_end,double* bws)
 	{
-		fprintf(mFile,"setAttr \".bws[%i:%i]\" ", bws_start,bws_end);
+		fprintf(mFile,"\tsetAttr \".bws[%i:%i]\" ", bws_start,bws_end);
 		size_t size = (bws_end-bws_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -959,7 +960,7 @@ public:
 	}
 	void startBaseWidthSamples(size_t bws_start,size_t bws_end)
 	{
-		fprintf(mFile,"setAttr \".bws[%i:%i]\"",bws_start,bws_end);
+		fprintf(mFile,"\tsetAttr \".bws[%i:%i]\"",bws_start,bws_end);
 
 	}
 	void appendBaseWidthSamples(double bws)
@@ -975,7 +976,7 @@ public:
 	void setBaseWidthMap(const string& bwm)
 	{
 		if(bwm == "n/a") return;
-		fprintf(mFile,"setAttr \".bwm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bwm\" -type \"string\" ");
 		bwm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -983,54 +984,54 @@ public:
 	void setBaseWidthMapOffset(double bwmo)
 	{
 		if(bwmo == 0) return;
-		fprintf(mFile,"setAttr \".bwmo\" %f;\n", bwmo);
+		fprintf(mFile,"\tsetAttr \".bwmo\" %f;\n", bwmo);
 
 	}
 	void setBaseWidthMapMult(double bwmm)
 	{
 		if(bwmm == 1) return;
-		fprintf(mFile,"setAttr \".bwmm\" %f;\n", bwmm);
+		fprintf(mFile,"\tsetAttr \".bwmm\" %f;\n", bwmm);
 
 	}
 	void setBaseWidthNoise(double bwn)
 	{
 		if(bwn == 0) return;
-		fprintf(mFile,"setAttr \".bwn\" %f;\n", bwn);
+		fprintf(mFile,"\tsetAttr \".bwn\" %f;\n", bwn);
 
 	}
 	void setBaseWidthNoiseFreq(float bwnf)
 	{
 		if(bwnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bwnf\" %f;\n", bwnf);
+		fprintf(mFile,"\tsetAttr \".bwnf\" %f;\n", bwnf);
 
 	}
 	void setBaseWidthSamplesDirty(int bwsd)
 	{
 		if(bwsd == 0.0) return;
-		fprintf(mFile,"setAttr \".bwsd\" %i;\n", bwsd);
+		fprintf(mFile,"\tsetAttr \".bwsd\" %i;\n", bwsd);
 
 	}
 	void setBaseWidthMapDirty(int bwmd)
 	{
 		if(bwmd == 0.0) return;
-		fprintf(mFile,"setAttr \".bwmd\" %i;\n", bwmd);
+		fprintf(mFile,"\tsetAttr \".bwmd\" %i;\n", bwmd);
 
 	}
 	void setTipWidth(double dtw)
 	{
 		if(dtw == 0) return;
-		fprintf(mFile,"setAttr \".dtw\" %f;\n", dtw);
+		fprintf(mFile,"\tsetAttr \".dtw\" %f;\n", dtw);
 
 	}
 	void setTipWidthSamples(size_t tws_i,double tws)
 	{
 		if(tws == 0.0) return;
-		fprintf(mFile,"setAttr \".tws[%i]\" %f;\n", tws_i,tws);
+		fprintf(mFile,"\tsetAttr \".tws[%i]\" %f;\n", tws_i,tws);
 
 	}
 	void setTipWidthSamples(size_t tws_start,size_t tws_end,double* tws)
 	{
-		fprintf(mFile,"setAttr \".tws[%i:%i]\" ", tws_start,tws_end);
+		fprintf(mFile,"\tsetAttr \".tws[%i:%i]\" ", tws_start,tws_end);
 		size_t size = (tws_end-tws_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1042,7 +1043,7 @@ public:
 	}
 	void startTipWidthSamples(size_t tws_start,size_t tws_end)
 	{
-		fprintf(mFile,"setAttr \".tws[%i:%i]\"",tws_start,tws_end);
+		fprintf(mFile,"\tsetAttr \".tws[%i:%i]\"",tws_start,tws_end);
 
 	}
 	void appendTipWidthSamples(double tws)
@@ -1058,7 +1059,7 @@ public:
 	void setTipWidthMap(const string& twm)
 	{
 		if(twm == "n/a") return;
-		fprintf(mFile,"setAttr \".twm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".twm\" -type \"string\" ");
 		twm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1066,54 +1067,54 @@ public:
 	void setTipWidthMapOffset(double twmo)
 	{
 		if(twmo == 0) return;
-		fprintf(mFile,"setAttr \".twmo\" %f;\n", twmo);
+		fprintf(mFile,"\tsetAttr \".twmo\" %f;\n", twmo);
 
 	}
 	void setTipWidthMapMult(double twmm)
 	{
 		if(twmm == 1) return;
-		fprintf(mFile,"setAttr \".twmm\" %f;\n", twmm);
+		fprintf(mFile,"\tsetAttr \".twmm\" %f;\n", twmm);
 
 	}
 	void setTipWidthNoise(double twn)
 	{
 		if(twn == 0) return;
-		fprintf(mFile,"setAttr \".twn\" %f;\n", twn);
+		fprintf(mFile,"\tsetAttr \".twn\" %f;\n", twn);
 
 	}
 	void setTipWidthNoiseFreq(float twnf)
 	{
 		if(twnf == 10.0) return;
-		fprintf(mFile,"setAttr \".twnf\" %f;\n", twnf);
+		fprintf(mFile,"\tsetAttr \".twnf\" %f;\n", twnf);
 
 	}
 	void setTipWidthSamplesDirty(int twsd)
 	{
 		if(twsd == 0.0) return;
-		fprintf(mFile,"setAttr \".twsd\" %i;\n", twsd);
+		fprintf(mFile,"\tsetAttr \".twsd\" %i;\n", twsd);
 
 	}
 	void setTipWidthMapDirty(int twmd)
 	{
 		if(twmd == 0.0) return;
-		fprintf(mFile,"setAttr \".twmd\" %i;\n", twmd);
+		fprintf(mFile,"\tsetAttr \".twmd\" %i;\n", twmd);
 
 	}
 	void setScraggle(float ds)
 	{
 		if(ds == 0.0) return;
-		fprintf(mFile,"setAttr \".ds\" %f;\n", ds);
+		fprintf(mFile,"\tsetAttr \".ds\" %f;\n", ds);
 
 	}
 	void setScraggleSamples(size_t ss_i,double ss)
 	{
 		if(ss == 0.0) return;
-		fprintf(mFile,"setAttr \".ss[%i]\" %f;\n", ss_i,ss);
+		fprintf(mFile,"\tsetAttr \".ss[%i]\" %f;\n", ss_i,ss);
 
 	}
 	void setScraggleSamples(size_t ss_start,size_t ss_end,double* ss)
 	{
-		fprintf(mFile,"setAttr \".ss[%i:%i]\" ", ss_start,ss_end);
+		fprintf(mFile,"\tsetAttr \".ss[%i:%i]\" ", ss_start,ss_end);
 		size_t size = (ss_end-ss_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1125,7 +1126,7 @@ public:
 	}
 	void startScraggleSamples(size_t ss_start,size_t ss_end)
 	{
-		fprintf(mFile,"setAttr \".ss[%i:%i]\"",ss_start,ss_end);
+		fprintf(mFile,"\tsetAttr \".ss[%i:%i]\"",ss_start,ss_end);
 
 	}
 	void appendScraggleSamples(double ss)
@@ -1141,7 +1142,7 @@ public:
 	void setScraggleMap(const string& sm)
 	{
 		if(sm == "n/a") return;
-		fprintf(mFile,"setAttr \".sm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".sm\" -type \"string\" ");
 		sm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1149,54 +1150,54 @@ public:
 	void setScraggleMapOffset(float smo)
 	{
 		if(smo == 0.0) return;
-		fprintf(mFile,"setAttr \".smo\" %f;\n", smo);
+		fprintf(mFile,"\tsetAttr \".smo\" %f;\n", smo);
 
 	}
 	void setScraggleMapMult(float smm)
 	{
 		if(smm == 1.0) return;
-		fprintf(mFile,"setAttr \".smm\" %f;\n", smm);
+		fprintf(mFile,"\tsetAttr \".smm\" %f;\n", smm);
 
 	}
 	void setScraggleNoise(float sn)
 	{
 		if(sn == 0.0) return;
-		fprintf(mFile,"setAttr \".sn\" %f;\n", sn);
+		fprintf(mFile,"\tsetAttr \".sn\" %f;\n", sn);
 
 	}
 	void setScraggleNoiseFreq(float snf)
 	{
 		if(snf == 10.0) return;
-		fprintf(mFile,"setAttr \".snf\" %f;\n", snf);
+		fprintf(mFile,"\tsetAttr \".snf\" %f;\n", snf);
 
 	}
 	void setScraggleSamplesDirty(int ssd)
 	{
 		if(ssd == 0.0) return;
-		fprintf(mFile,"setAttr \".ssd\" %i;\n", ssd);
+		fprintf(mFile,"\tsetAttr \".ssd\" %i;\n", ssd);
 
 	}
 	void setScraggleMapDirty(int smd)
 	{
 		if(smd == 0.0) return;
-		fprintf(mFile,"setAttr \".smd\" %i;\n", smd);
+		fprintf(mFile,"\tsetAttr \".smd\" %i;\n", smd);
 
 	}
 	void setScraggleCorrelation(float dsco)
 	{
 		if(dsco == 0.0) return;
-		fprintf(mFile,"setAttr \".dsco\" %f;\n", dsco);
+		fprintf(mFile,"\tsetAttr \".dsco\" %f;\n", dsco);
 
 	}
 	void setScraggleCorrelationSamples(size_t scos_i,double scos)
 	{
 		if(scos == 0.0) return;
-		fprintf(mFile,"setAttr \".scos[%i]\" %f;\n", scos_i,scos);
+		fprintf(mFile,"\tsetAttr \".scos[%i]\" %f;\n", scos_i,scos);
 
 	}
 	void setScraggleCorrelationSamples(size_t scos_start,size_t scos_end,double* scos)
 	{
-		fprintf(mFile,"setAttr \".scos[%i:%i]\" ", scos_start,scos_end);
+		fprintf(mFile,"\tsetAttr \".scos[%i:%i]\" ", scos_start,scos_end);
 		size_t size = (scos_end-scos_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1208,7 +1209,7 @@ public:
 	}
 	void startScraggleCorrelationSamples(size_t scos_start,size_t scos_end)
 	{
-		fprintf(mFile,"setAttr \".scos[%i:%i]\"",scos_start,scos_end);
+		fprintf(mFile,"\tsetAttr \".scos[%i:%i]\"",scos_start,scos_end);
 
 	}
 	void appendScraggleCorrelationSamples(double scos)
@@ -1224,7 +1225,7 @@ public:
 	void setScraggleCorrelationMap(const string& scom)
 	{
 		if(scom == "n/a") return;
-		fprintf(mFile,"setAttr \".scom\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".scom\" -type \"string\" ");
 		scom.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1232,54 +1233,54 @@ public:
 	void setScraggleCorrelationMapOffset(float scomo)
 	{
 		if(scomo == 0.0) return;
-		fprintf(mFile,"setAttr \".scomo\" %f;\n", scomo);
+		fprintf(mFile,"\tsetAttr \".scomo\" %f;\n", scomo);
 
 	}
 	void setScraggleCorrelationMapMult(float scomm)
 	{
 		if(scomm == 1.0) return;
-		fprintf(mFile,"setAttr \".scomm\" %f;\n", scomm);
+		fprintf(mFile,"\tsetAttr \".scomm\" %f;\n", scomm);
 
 	}
 	void setScraggleCorrelationNoise(float scon)
 	{
 		if(scon == 0.0) return;
-		fprintf(mFile,"setAttr \".scon\" %f;\n", scon);
+		fprintf(mFile,"\tsetAttr \".scon\" %f;\n", scon);
 
 	}
 	void setScraggleCorrelationNoiseFreq(float sconf)
 	{
 		if(sconf == 10.0) return;
-		fprintf(mFile,"setAttr \".sconf\" %f;\n", sconf);
+		fprintf(mFile,"\tsetAttr \".sconf\" %f;\n", sconf);
 
 	}
 	void setScraggleCorrelationSamplesDirty(int scosd)
 	{
 		if(scosd == 0.0) return;
-		fprintf(mFile,"setAttr \".scosd\" %i;\n", scosd);
+		fprintf(mFile,"\tsetAttr \".scosd\" %i;\n", scosd);
 
 	}
 	void setScraggleCorrelationMapDirty(int scomd)
 	{
 		if(scomd == 0.0) return;
-		fprintf(mFile,"setAttr \".scomd\" %i;\n", scomd);
+		fprintf(mFile,"\tsetAttr \".scomd\" %i;\n", scomd);
 
 	}
 	void setScraggleFrequency(float dscf)
 	{
 		if(dscf == 5.0) return;
-		fprintf(mFile,"setAttr \".dscf\" %f;\n", dscf);
+		fprintf(mFile,"\tsetAttr \".dscf\" %f;\n", dscf);
 
 	}
 	void setScraggleFrequencySamples(size_t scfs_i,double scfs)
 	{
 		if(scfs == 0.0) return;
-		fprintf(mFile,"setAttr \".scfs[%i]\" %f;\n", scfs_i,scfs);
+		fprintf(mFile,"\tsetAttr \".scfs[%i]\" %f;\n", scfs_i,scfs);
 
 	}
 	void setScraggleFrequencySamples(size_t scfs_start,size_t scfs_end,double* scfs)
 	{
-		fprintf(mFile,"setAttr \".scfs[%i:%i]\" ", scfs_start,scfs_end);
+		fprintf(mFile,"\tsetAttr \".scfs[%i:%i]\" ", scfs_start,scfs_end);
 		size_t size = (scfs_end-scfs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1291,7 +1292,7 @@ public:
 	}
 	void startScraggleFrequencySamples(size_t scfs_start,size_t scfs_end)
 	{
-		fprintf(mFile,"setAttr \".scfs[%i:%i]\"",scfs_start,scfs_end);
+		fprintf(mFile,"\tsetAttr \".scfs[%i:%i]\"",scfs_start,scfs_end);
 
 	}
 	void appendScraggleFrequencySamples(double scfs)
@@ -1307,7 +1308,7 @@ public:
 	void setScraggleFrequencyMap(const string& scfm)
 	{
 		if(scfm == "n/a") return;
-		fprintf(mFile,"setAttr \".scfm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".scfm\" -type \"string\" ");
 		scfm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1315,54 +1316,54 @@ public:
 	void setScraggleFrequencyMapOffset(float scfmo)
 	{
 		if(scfmo == 0.0) return;
-		fprintf(mFile,"setAttr \".scfmo\" %f;\n", scfmo);
+		fprintf(mFile,"\tsetAttr \".scfmo\" %f;\n", scfmo);
 
 	}
 	void setScraggleFrequencyMapMult(float scfmm)
 	{
 		if(scfmm == 1.0) return;
-		fprintf(mFile,"setAttr \".scfmm\" %f;\n", scfmm);
+		fprintf(mFile,"\tsetAttr \".scfmm\" %f;\n", scfmm);
 
 	}
 	void setScraggleFrequencyNoise(float scfn)
 	{
 		if(scfn == 0.0) return;
-		fprintf(mFile,"setAttr \".scfn\" %f;\n", scfn);
+		fprintf(mFile,"\tsetAttr \".scfn\" %f;\n", scfn);
 
 	}
 	void setScraggleFrequencyNoiseFreq(float scfnf)
 	{
 		if(scfnf == 10.0) return;
-		fprintf(mFile,"setAttr \".scfnf\" %f;\n", scfnf);
+		fprintf(mFile,"\tsetAttr \".scfnf\" %f;\n", scfnf);
 
 	}
 	void setScraggleFrequencySamplesDirty(int scfsd)
 	{
 		if(scfsd == 0.0) return;
-		fprintf(mFile,"setAttr \".scfsd\" %i;\n", scfsd);
+		fprintf(mFile,"\tsetAttr \".scfsd\" %i;\n", scfsd);
 
 	}
 	void setScraggleFrequencyMapDirty(int scfmd)
 	{
 		if(scfmd == 0.0) return;
-		fprintf(mFile,"setAttr \".scfmd\" %i;\n", scfmd);
+		fprintf(mFile,"\tsetAttr \".scfmd\" %i;\n", scfmd);
 
 	}
 	void setSegments(float dseg)
 	{
 		if(dseg == 10) return;
-		fprintf(mFile,"setAttr \".dseg\" %f;\n", dseg);
+		fprintf(mFile,"\tsetAttr \".dseg\" %f;\n", dseg);
 
 	}
 	void setSegmentsSamples(size_t segs_i,double segs)
 	{
 		if(segs == 0.0) return;
-		fprintf(mFile,"setAttr \".segs[%i]\" %f;\n", segs_i,segs);
+		fprintf(mFile,"\tsetAttr \".segs[%i]\" %f;\n", segs_i,segs);
 
 	}
 	void setSegmentsSamples(size_t segs_start,size_t segs_end,double* segs)
 	{
-		fprintf(mFile,"setAttr \".segs[%i:%i]\" ", segs_start,segs_end);
+		fprintf(mFile,"\tsetAttr \".segs[%i:%i]\" ", segs_start,segs_end);
 		size_t size = (segs_end-segs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1374,7 +1375,7 @@ public:
 	}
 	void startSegmentsSamples(size_t segs_start,size_t segs_end)
 	{
-		fprintf(mFile,"setAttr \".segs[%i:%i]\"",segs_start,segs_end);
+		fprintf(mFile,"\tsetAttr \".segs[%i:%i]\"",segs_start,segs_end);
 
 	}
 	void appendSegmentsSamples(double segs)
@@ -1390,7 +1391,7 @@ public:
 	void setSegmentsMap(const string& segm)
 	{
 		if(segm == "n/a") return;
-		fprintf(mFile,"setAttr \".segm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".segm\" -type \"string\" ");
 		segm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1398,54 +1399,54 @@ public:
 	void setSegmentsMapOffset(float segmo)
 	{
 		if(segmo == 0.0) return;
-		fprintf(mFile,"setAttr \".segmo\" %f;\n", segmo);
+		fprintf(mFile,"\tsetAttr \".segmo\" %f;\n", segmo);
 
 	}
 	void setSegmentsMapMult(float segmm)
 	{
 		if(segmm == 1.0) return;
-		fprintf(mFile,"setAttr \".segmm\" %f;\n", segmm);
+		fprintf(mFile,"\tsetAttr \".segmm\" %f;\n", segmm);
 
 	}
 	void setSegmentsNoise(float segn)
 	{
 		if(segn == 0.0) return;
-		fprintf(mFile,"setAttr \".segn\" %f;\n", segn);
+		fprintf(mFile,"\tsetAttr \".segn\" %f;\n", segn);
 
 	}
 	void setSegmentsNoiseFreq(float segnf)
 	{
 		if(segnf == 10.0) return;
-		fprintf(mFile,"setAttr \".segnf\" %f;\n", segnf);
+		fprintf(mFile,"\tsetAttr \".segnf\" %f;\n", segnf);
 
 	}
 	void setSegmentsSamplesDirty(int segsd)
 	{
 		if(segsd == 0.0) return;
-		fprintf(mFile,"setAttr \".segsd\" %i;\n", segsd);
+		fprintf(mFile,"\tsetAttr \".segsd\" %i;\n", segsd);
 
 	}
 	void setSegmentsMapDirty(int segmd)
 	{
 		if(segmd == 0.0) return;
-		fprintf(mFile,"setAttr \".segmd\" %i;\n", segmd);
+		fprintf(mFile,"\tsetAttr \".segmd\" %i;\n", segmd);
 
 	}
 	void setAttraction(float dat)
 	{
 		if(dat == 1.0) return;
-		fprintf(mFile,"setAttr \".dat\" %f;\n", dat);
+		fprintf(mFile,"\tsetAttr \".dat\" %f;\n", dat);
 
 	}
 	void setAttractionSamples(size_t ats_i,double ats)
 	{
 		if(ats == 0.0) return;
-		fprintf(mFile,"setAttr \".ats[%i]\" %f;\n", ats_i,ats);
+		fprintf(mFile,"\tsetAttr \".ats[%i]\" %f;\n", ats_i,ats);
 
 	}
 	void setAttractionSamples(size_t ats_start,size_t ats_end,double* ats)
 	{
-		fprintf(mFile,"setAttr \".ats[%i:%i]\" ", ats_start,ats_end);
+		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\" ", ats_start,ats_end);
 		size_t size = (ats_end-ats_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1457,7 +1458,7 @@ public:
 	}
 	void startAttractionSamples(size_t ats_start,size_t ats_end)
 	{
-		fprintf(mFile,"setAttr \".ats[%i:%i]\"",ats_start,ats_end);
+		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\"",ats_start,ats_end);
 
 	}
 	void appendAttractionSamples(double ats)
@@ -1473,7 +1474,7 @@ public:
 	void setAttractionMap(const string& atm)
 	{
 		if(atm == "n/a") return;
-		fprintf(mFile,"setAttr \".atm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".atm\" -type \"string\" ");
 		atm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1481,54 +1482,54 @@ public:
 	void setAttractionMapOffset(float atmo)
 	{
 		if(atmo == 0.0) return;
-		fprintf(mFile,"setAttr \".atmo\" %f;\n", atmo);
+		fprintf(mFile,"\tsetAttr \".atmo\" %f;\n", atmo);
 
 	}
 	void setAttractionMapMult(float atmm)
 	{
 		if(atmm == 1.0) return;
-		fprintf(mFile,"setAttr \".atmm\" %f;\n", atmm);
+		fprintf(mFile,"\tsetAttr \".atmm\" %f;\n", atmm);
 
 	}
 	void setAttractionNoise(float atn)
 	{
 		if(atn == 0.0) return;
-		fprintf(mFile,"setAttr \".atn\" %f;\n", atn);
+		fprintf(mFile,"\tsetAttr \".atn\" %f;\n", atn);
 
 	}
 	void setAttractionNoiseFreq(float atnf)
 	{
 		if(atnf == 10.0) return;
-		fprintf(mFile,"setAttr \".atnf\" %f;\n", atnf);
+		fprintf(mFile,"\tsetAttr \".atnf\" %f;\n", atnf);
 
 	}
 	void setAttractionSamplesDirty(int atsd)
 	{
 		if(atsd == 0.0) return;
-		fprintf(mFile,"setAttr \".atsd\" %i;\n", atsd);
+		fprintf(mFile,"\tsetAttr \".atsd\" %i;\n", atsd);
 
 	}
 	void setAttractionMapDirty(int atmd)
 	{
 		if(atmd == 0.0) return;
-		fprintf(mFile,"setAttr \".atmd\" %i;\n", atmd);
+		fprintf(mFile,"\tsetAttr \".atmd\" %i;\n", atmd);
 
 	}
 	void setOffset(double dofs)
 	{
 		if(dofs == 0) return;
-		fprintf(mFile,"setAttr \".dofs\" %f;\n", dofs);
+		fprintf(mFile,"\tsetAttr \".dofs\" %f;\n", dofs);
 
 	}
 	void setOffsetSamples(size_t ofss_i,double ofss)
 	{
 		if(ofss == 0.0) return;
-		fprintf(mFile,"setAttr \".ofss[%i]\" %f;\n", ofss_i,ofss);
+		fprintf(mFile,"\tsetAttr \".ofss[%i]\" %f;\n", ofss_i,ofss);
 
 	}
 	void setOffsetSamples(size_t ofss_start,size_t ofss_end,double* ofss)
 	{
-		fprintf(mFile,"setAttr \".ofss[%i:%i]\" ", ofss_start,ofss_end);
+		fprintf(mFile,"\tsetAttr \".ofss[%i:%i]\" ", ofss_start,ofss_end);
 		size_t size = (ofss_end-ofss_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1540,7 +1541,7 @@ public:
 	}
 	void startOffsetSamples(size_t ofss_start,size_t ofss_end)
 	{
-		fprintf(mFile,"setAttr \".ofss[%i:%i]\"",ofss_start,ofss_end);
+		fprintf(mFile,"\tsetAttr \".ofss[%i:%i]\"",ofss_start,ofss_end);
 
 	}
 	void appendOffsetSamples(double ofss)
@@ -1556,7 +1557,7 @@ public:
 	void setOffsetMap(const string& ofsm)
 	{
 		if(ofsm == "n/a") return;
-		fprintf(mFile,"setAttr \".ofsm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".ofsm\" -type \"string\" ");
 		ofsm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1564,54 +1565,54 @@ public:
 	void setOffsetMapOffset(double ofsmo)
 	{
 		if(ofsmo == 0) return;
-		fprintf(mFile,"setAttr \".ofsmo\" %f;\n", ofsmo);
+		fprintf(mFile,"\tsetAttr \".ofsmo\" %f;\n", ofsmo);
 
 	}
 	void setOffsetMapMult(double ofsmm)
 	{
 		if(ofsmm == 1) return;
-		fprintf(mFile,"setAttr \".ofsmm\" %f;\n", ofsmm);
+		fprintf(mFile,"\tsetAttr \".ofsmm\" %f;\n", ofsmm);
 
 	}
 	void setOffsetNoise(double ofsn)
 	{
 		if(ofsn == 0) return;
-		fprintf(mFile,"setAttr \".ofsn\" %f;\n", ofsn);
+		fprintf(mFile,"\tsetAttr \".ofsn\" %f;\n", ofsn);
 
 	}
 	void setOffsetNoiseFreq(float ofsnf)
 	{
 		if(ofsnf == 10.0) return;
-		fprintf(mFile,"setAttr \".ofsnf\" %f;\n", ofsnf);
+		fprintf(mFile,"\tsetAttr \".ofsnf\" %f;\n", ofsnf);
 
 	}
 	void setOffsetSamplesDirty(int ofssd)
 	{
 		if(ofssd == 0.0) return;
-		fprintf(mFile,"setAttr \".ofssd\" %i;\n", ofssd);
+		fprintf(mFile,"\tsetAttr \".ofssd\" %i;\n", ofssd);
 
 	}
 	void setOffsetMapDirty(int ofsmd)
 	{
 		if(ofsmd == 0.0) return;
-		fprintf(mFile,"setAttr \".ofsmd\" %i;\n", ofsmd);
+		fprintf(mFile,"\tsetAttr \".ofsmd\" %i;\n", ofsmd);
 
 	}
 	void setClumping(float dc)
 	{
 		if(dc == 0.0) return;
-		fprintf(mFile,"setAttr \".dc\" %f;\n", dc);
+		fprintf(mFile,"\tsetAttr \".dc\" %f;\n", dc);
 
 	}
 	void setClumpingSamples(size_t cs_i,double cs)
 	{
 		if(cs == 0.0) return;
-		fprintf(mFile,"setAttr \".cs[%i]\" %f;\n", cs_i,cs);
+		fprintf(mFile,"\tsetAttr \".cs[%i]\" %f;\n", cs_i,cs);
 
 	}
 	void setClumpingSamples(size_t cs_start,size_t cs_end,double* cs)
 	{
-		fprintf(mFile,"setAttr \".cs[%i:%i]\" ", cs_start,cs_end);
+		fprintf(mFile,"\tsetAttr \".cs[%i:%i]\" ", cs_start,cs_end);
 		size_t size = (cs_end-cs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1623,7 +1624,7 @@ public:
 	}
 	void startClumpingSamples(size_t cs_start,size_t cs_end)
 	{
-		fprintf(mFile,"setAttr \".cs[%i:%i]\"",cs_start,cs_end);
+		fprintf(mFile,"\tsetAttr \".cs[%i:%i]\"",cs_start,cs_end);
 
 	}
 	void appendClumpingSamples(double cs)
@@ -1639,7 +1640,7 @@ public:
 	void setClumpingMap(const string& cm)
 	{
 		if(cm == "n/a") return;
-		fprintf(mFile,"setAttr \".cm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cm\" -type \"string\" ");
 		cm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1647,54 +1648,54 @@ public:
 	void setClumpingMapOffset(float cmo)
 	{
 		if(cmo == 0.0) return;
-		fprintf(mFile,"setAttr \".cmo\" %f;\n", cmo);
+		fprintf(mFile,"\tsetAttr \".cmo\" %f;\n", cmo);
 
 	}
 	void setClumpingMapMult(float cmm)
 	{
 		if(cmm == 0.0) return;
-		fprintf(mFile,"setAttr \".cmm\" %f;\n", cmm);
+		fprintf(mFile,"\tsetAttr \".cmm\" %f;\n", cmm);
 
 	}
 	void setClumpingNoise(float cn)
 	{
 		if(cn == 0.0) return;
-		fprintf(mFile,"setAttr \".cn\" %f;\n", cn);
+		fprintf(mFile,"\tsetAttr \".cn\" %f;\n", cn);
 
 	}
 	void setClumpingNoiseFreq(float cnf)
 	{
 		if(cnf == 0.0) return;
-		fprintf(mFile,"setAttr \".cnf\" %f;\n", cnf);
+		fprintf(mFile,"\tsetAttr \".cnf\" %f;\n", cnf);
 
 	}
 	void setClumpingSamplesDirty(int csd)
 	{
 		if(csd == 0.0) return;
-		fprintf(mFile,"setAttr \".csd\" %i;\n", csd);
+		fprintf(mFile,"\tsetAttr \".csd\" %i;\n", csd);
 
 	}
 	void setClumpingMapDirty(int cmd)
 	{
 		if(cmd == 0.0) return;
-		fprintf(mFile,"setAttr \".cmd\" %i;\n", cmd);
+		fprintf(mFile,"\tsetAttr \".cmd\" %i;\n", cmd);
 
 	}
 	void setClumpingFrequency(float dcf)
 	{
 		if(dcf == 0.0) return;
-		fprintf(mFile,"setAttr \".dcf\" %f;\n", dcf);
+		fprintf(mFile,"\tsetAttr \".dcf\" %f;\n", dcf);
 
 	}
 	void setClumpingFrequencySamples(size_t cfs_i,double cfs)
 	{
 		if(cfs == 0.0) return;
-		fprintf(mFile,"setAttr \".cfs[%i]\" %f;\n", cfs_i,cfs);
+		fprintf(mFile,"\tsetAttr \".cfs[%i]\" %f;\n", cfs_i,cfs);
 
 	}
 	void setClumpingFrequencySamples(size_t cfs_start,size_t cfs_end,double* cfs)
 	{
-		fprintf(mFile,"setAttr \".cfs[%i:%i]\" ", cfs_start,cfs_end);
+		fprintf(mFile,"\tsetAttr \".cfs[%i:%i]\" ", cfs_start,cfs_end);
 		size_t size = (cfs_end-cfs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1706,7 +1707,7 @@ public:
 	}
 	void startClumpingFrequencySamples(size_t cfs_start,size_t cfs_end)
 	{
-		fprintf(mFile,"setAttr \".cfs[%i:%i]\"",cfs_start,cfs_end);
+		fprintf(mFile,"\tsetAttr \".cfs[%i:%i]\"",cfs_start,cfs_end);
 
 	}
 	void appendClumpingFrequencySamples(double cfs)
@@ -1722,7 +1723,7 @@ public:
 	void setClumpingFrequencyMap(const string& cfm)
 	{
 		if(cfm == "n/a") return;
-		fprintf(mFile,"setAttr \".cfm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cfm\" -type \"string\" ");
 		cfm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1730,54 +1731,54 @@ public:
 	void setClumpingFrequencyMapOffset(float cfmo)
 	{
 		if(cfmo == 0.0) return;
-		fprintf(mFile,"setAttr \".cfmo\" %f;\n", cfmo);
+		fprintf(mFile,"\tsetAttr \".cfmo\" %f;\n", cfmo);
 
 	}
 	void setClumpingFrequencyMapMult(float cfmm)
 	{
 		if(cfmm == 0.0) return;
-		fprintf(mFile,"setAttr \".cfmm\" %f;\n", cfmm);
+		fprintf(mFile,"\tsetAttr \".cfmm\" %f;\n", cfmm);
 
 	}
 	void setClumpingFrequencyNoise(float cfn)
 	{
 		if(cfn == 0.0) return;
-		fprintf(mFile,"setAttr \".cfn\" %f;\n", cfn);
+		fprintf(mFile,"\tsetAttr \".cfn\" %f;\n", cfn);
 
 	}
 	void setClumpingFrequencyNoiseFreq(float cfnf)
 	{
 		if(cfnf == 0.0) return;
-		fprintf(mFile,"setAttr \".cfnf\" %f;\n", cfnf);
+		fprintf(mFile,"\tsetAttr \".cfnf\" %f;\n", cfnf);
 
 	}
 	void setClumpingFrequencySamplesDirty(int cfsd)
 	{
 		if(cfsd == 0.0) return;
-		fprintf(mFile,"setAttr \".cfsd\" %i;\n", cfsd);
+		fprintf(mFile,"\tsetAttr \".cfsd\" %i;\n", cfsd);
 
 	}
 	void setClumpingFrequencyMapDirty(int cfmd)
 	{
 		if(cfmd == 0.0) return;
-		fprintf(mFile,"setAttr \".cfmd\" %i;\n", cfmd);
+		fprintf(mFile,"\tsetAttr \".cfmd\" %i;\n", cfmd);
 
 	}
 	void setClumpingShape(float dcs)
 	{
 		if(dcs == 0.0) return;
-		fprintf(mFile,"setAttr \".dcs\" %f;\n", dcs);
+		fprintf(mFile,"\tsetAttr \".dcs\" %f;\n", dcs);
 
 	}
 	void setClumpingShapeSamples(size_t css_i,double css)
 	{
 		if(css == 0.0) return;
-		fprintf(mFile,"setAttr \".css[%i]\" %f;\n", css_i,css);
+		fprintf(mFile,"\tsetAttr \".css[%i]\" %f;\n", css_i,css);
 
 	}
 	void setClumpingShapeSamples(size_t css_start,size_t css_end,double* css)
 	{
-		fprintf(mFile,"setAttr \".css[%i:%i]\" ", css_start,css_end);
+		fprintf(mFile,"\tsetAttr \".css[%i:%i]\" ", css_start,css_end);
 		size_t size = (css_end-css_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1789,7 +1790,7 @@ public:
 	}
 	void startClumpingShapeSamples(size_t css_start,size_t css_end)
 	{
-		fprintf(mFile,"setAttr \".css[%i:%i]\"",css_start,css_end);
+		fprintf(mFile,"\tsetAttr \".css[%i:%i]\"",css_start,css_end);
 
 	}
 	void appendClumpingShapeSamples(double css)
@@ -1805,7 +1806,7 @@ public:
 	void setClumpingShapeMap(const string& csm)
 	{
 		if(csm == "n/a") return;
-		fprintf(mFile,"setAttr \".csm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".csm\" -type \"string\" ");
 		csm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1813,43 +1814,43 @@ public:
 	void setClumpingShapeMapOffset(float csmo)
 	{
 		if(csmo == 0.0) return;
-		fprintf(mFile,"setAttr \".csmo\" %f;\n", csmo);
+		fprintf(mFile,"\tsetAttr \".csmo\" %f;\n", csmo);
 
 	}
 	void setClumpingShapeMapMult(float csmm)
 	{
 		if(csmm == 0.0) return;
-		fprintf(mFile,"setAttr \".csmm\" %f;\n", csmm);
+		fprintf(mFile,"\tsetAttr \".csmm\" %f;\n", csmm);
 
 	}
 	void setClumpingShapeNoise(float csn)
 	{
 		if(csn == 0.0) return;
-		fprintf(mFile,"setAttr \".csn\" %f;\n", csn);
+		fprintf(mFile,"\tsetAttr \".csn\" %f;\n", csn);
 
 	}
 	void setClumpingShapeNoiseFreq(float csnf)
 	{
 		if(csnf == 0.0) return;
-		fprintf(mFile,"setAttr \".csnf\" %f;\n", csnf);
+		fprintf(mFile,"\tsetAttr \".csnf\" %f;\n", csnf);
 
 	}
 	void setClumpingShapeSamplesDirty(int cssd)
 	{
 		if(cssd == 0.0) return;
-		fprintf(mFile,"setAttr \".cssd\" %i;\n", cssd);
+		fprintf(mFile,"\tsetAttr \".cssd\" %i;\n", cssd);
 
 	}
 	void setClumpingShapeMapDirty(int csmd)
 	{
 		if(csmd == 0.0) return;
-		fprintf(mFile,"setAttr \".csmd\" %i;\n", csmd);
+		fprintf(mFile,"\tsetAttr \".csmd\" %i;\n", csmd);
 
 	}
 	void setBaseColor(const float3& dbc)
 	{
 		if(dbc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".dbc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dbc\" -type \"float3\" ");
 		dbc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1857,30 +1858,30 @@ public:
 	void setBaseColorR(float dbcr)
 	{
 		if(dbcr == 1.0) return;
-		fprintf(mFile,"setAttr \".dbcr\" %f;\n", dbcr);
+		fprintf(mFile,"\tsetAttr \".dbcr\" %f;\n", dbcr);
 
 	}
 	void setBaseColorG(float dbcg)
 	{
 		if(dbcg == 1.0) return;
-		fprintf(mFile,"setAttr \".dbcg\" %f;\n", dbcg);
+		fprintf(mFile,"\tsetAttr \".dbcg\" %f;\n", dbcg);
 
 	}
 	void setBaseColorB(float dbcb)
 	{
 		if(dbcb == 1.0) return;
-		fprintf(mFile,"setAttr \".dbcb\" %f;\n", dbcb);
+		fprintf(mFile,"\tsetAttr \".dbcb\" %f;\n", dbcb);
 
 	}
 	void setBaseColorSamples(size_t bcs_i,double bcs)
 	{
 		if(bcs == 0.0) return;
-		fprintf(mFile,"setAttr \".bcs[%i]\" %f;\n", bcs_i,bcs);
+		fprintf(mFile,"\tsetAttr \".bcs[%i]\" %f;\n", bcs_i,bcs);
 
 	}
 	void setBaseColorSamples(size_t bcs_start,size_t bcs_end,double* bcs)
 	{
-		fprintf(mFile,"setAttr \".bcs[%i:%i]\" ", bcs_start,bcs_end);
+		fprintf(mFile,"\tsetAttr \".bcs[%i:%i]\" ", bcs_start,bcs_end);
 		size_t size = (bcs_end-bcs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1892,7 +1893,7 @@ public:
 	}
 	void startBaseColorSamples(size_t bcs_start,size_t bcs_end)
 	{
-		fprintf(mFile,"setAttr \".bcs[%i:%i]\"",bcs_start,bcs_end);
+		fprintf(mFile,"\tsetAttr \".bcs[%i:%i]\"",bcs_start,bcs_end);
 
 	}
 	void appendBaseColorSamples(double bcs)
@@ -1908,7 +1909,7 @@ public:
 	void setBaseColorMap(const string& bcm)
 	{
 		if(bcm == "n/a") return;
-		fprintf(mFile,"setAttr \".bcm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".bcm\" -type \"string\" ");
 		bcm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1916,31 +1917,31 @@ public:
 	void setBaseColorNoise(float bcn)
 	{
 		if(bcn == 0.0) return;
-		fprintf(mFile,"setAttr \".bcn\" %f;\n", bcn);
+		fprintf(mFile,"\tsetAttr \".bcn\" %f;\n", bcn);
 
 	}
 	void setBaseColorNoiseFreq(float bcnf)
 	{
 		if(bcnf == 10.0) return;
-		fprintf(mFile,"setAttr \".bcnf\" %f;\n", bcnf);
+		fprintf(mFile,"\tsetAttr \".bcnf\" %f;\n", bcnf);
 
 	}
 	void setBaseColorSamplesDirty(int bcsd)
 	{
 		if(bcsd == 0.0) return;
-		fprintf(mFile,"setAttr \".bcsd\" %i;\n", bcsd);
+		fprintf(mFile,"\tsetAttr \".bcsd\" %i;\n", bcsd);
 
 	}
 	void setBaseColorMapDirty(int bcmd)
 	{
 		if(bcmd == 0.0) return;
-		fprintf(mFile,"setAttr \".bcmd\" %i;\n", bcmd);
+		fprintf(mFile,"\tsetAttr \".bcmd\" %i;\n", bcmd);
 
 	}
 	void setTipColor(const float3& dtc)
 	{
 		if(dtc == float3(1.0f,1.0f,1.0f)) return;
-		fprintf(mFile,"setAttr \".dtc\" -type \"float3\" ");
+		fprintf(mFile,"\tsetAttr \".dtc\" -type \"float3\" ");
 		dtc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -1948,30 +1949,30 @@ public:
 	void setTipColorR(float dtcr)
 	{
 		if(dtcr == 1.0) return;
-		fprintf(mFile,"setAttr \".dtcr\" %f;\n", dtcr);
+		fprintf(mFile,"\tsetAttr \".dtcr\" %f;\n", dtcr);
 
 	}
 	void setTipColorG(float dtcg)
 	{
 		if(dtcg == 1.0) return;
-		fprintf(mFile,"setAttr \".dtcg\" %f;\n", dtcg);
+		fprintf(mFile,"\tsetAttr \".dtcg\" %f;\n", dtcg);
 
 	}
 	void setTipColorB(float dtcb)
 	{
 		if(dtcb == 1.0) return;
-		fprintf(mFile,"setAttr \".dtcb\" %f;\n", dtcb);
+		fprintf(mFile,"\tsetAttr \".dtcb\" %f;\n", dtcb);
 
 	}
 	void setTipColorSamples(size_t tcs_i,double tcs)
 	{
 		if(tcs == 0.0) return;
-		fprintf(mFile,"setAttr \".tcs[%i]\" %f;\n", tcs_i,tcs);
+		fprintf(mFile,"\tsetAttr \".tcs[%i]\" %f;\n", tcs_i,tcs);
 
 	}
 	void setTipColorSamples(size_t tcs_start,size_t tcs_end,double* tcs)
 	{
-		fprintf(mFile,"setAttr \".tcs[%i:%i]\" ", tcs_start,tcs_end);
+		fprintf(mFile,"\tsetAttr \".tcs[%i:%i]\" ", tcs_start,tcs_end);
 		size_t size = (tcs_end-tcs_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -1983,7 +1984,7 @@ public:
 	}
 	void startTipColorSamples(size_t tcs_start,size_t tcs_end)
 	{
-		fprintf(mFile,"setAttr \".tcs[%i:%i]\"",tcs_start,tcs_end);
+		fprintf(mFile,"\tsetAttr \".tcs[%i:%i]\"",tcs_start,tcs_end);
 
 	}
 	void appendTipColorSamples(double tcs)
@@ -1999,7 +2000,7 @@ public:
 	void setTipColorMap(const string& tcm)
 	{
 		if(tcm == "n/a") return;
-		fprintf(mFile,"setAttr \".tcm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".tcm\" -type \"string\" ");
 		tcm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2007,42 +2008,42 @@ public:
 	void setTipColorNoise(float tcn)
 	{
 		if(tcn == 0.0) return;
-		fprintf(mFile,"setAttr \".tcn\" %f;\n", tcn);
+		fprintf(mFile,"\tsetAttr \".tcn\" %f;\n", tcn);
 
 	}
 	void setTipColorNoiseFreq(float tcnf)
 	{
 		if(tcnf == 10.0) return;
-		fprintf(mFile,"setAttr \".tcnf\" %f;\n", tcnf);
+		fprintf(mFile,"\tsetAttr \".tcnf\" %f;\n", tcnf);
 
 	}
 	void setTipColorSamplesDirty(int tcsd)
 	{
 		if(tcsd == 0.0) return;
-		fprintf(mFile,"setAttr \".tcsd\" %i;\n", tcsd);
+		fprintf(mFile,"\tsetAttr \".tcsd\" %i;\n", tcsd);
 
 	}
 	void setTipColorMapDirty(int tcmd)
 	{
 		if(tcmd == 0.0) return;
-		fprintf(mFile,"setAttr \".tcmd\" %i;\n", tcmd);
+		fprintf(mFile,"\tsetAttr \".tcmd\" %i;\n", tcmd);
 
 	}
 	void setRadius(double dar)
 	{
 		if(dar == 1) return;
-		fprintf(mFile,"setAttr \".dar\" %f;\n", dar);
+		fprintf(mFile,"\tsetAttr \".dar\" %f;\n", dar);
 
 	}
 	void setRadiusSamples(size_t ars_i,double ars)
 	{
 		if(ars == 0.0) return;
-		fprintf(mFile,"setAttr \".ars[%i]\" %f;\n", ars_i,ars);
+		fprintf(mFile,"\tsetAttr \".ars[%i]\" %f;\n", ars_i,ars);
 
 	}
 	void setRadiusSamples(size_t ars_start,size_t ars_end,double* ars)
 	{
-		fprintf(mFile,"setAttr \".ars[%i:%i]\" ", ars_start,ars_end);
+		fprintf(mFile,"\tsetAttr \".ars[%i:%i]\" ", ars_start,ars_end);
 		size_t size = (ars_end-ars_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2054,7 +2055,7 @@ public:
 	}
 	void startRadiusSamples(size_t ars_start,size_t ars_end)
 	{
-		fprintf(mFile,"setAttr \".ars[%i:%i]\"",ars_start,ars_end);
+		fprintf(mFile,"\tsetAttr \".ars[%i:%i]\"",ars_start,ars_end);
 
 	}
 	void appendRadiusSamples(double ars)
@@ -2070,7 +2071,7 @@ public:
 	void setRadiusMap(const string& arm)
 	{
 		if(arm == "n/a") return;
-		fprintf(mFile,"setAttr \".arm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".arm\" -type \"string\" ");
 		arm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2078,54 +2079,54 @@ public:
 	void setRadiusMapOffset(double armo)
 	{
 		if(armo == 0) return;
-		fprintf(mFile,"setAttr \".armo\" %f;\n", armo);
+		fprintf(mFile,"\tsetAttr \".armo\" %f;\n", armo);
 
 	}
 	void setRadiusMapMult(double armm)
 	{
 		if(armm == 1) return;
-		fprintf(mFile,"setAttr \".armm\" %f;\n", armm);
+		fprintf(mFile,"\tsetAttr \".armm\" %f;\n", armm);
 
 	}
 	void setRadiusNoise(double arn)
 	{
 		if(arn == 0) return;
-		fprintf(mFile,"setAttr \".arn\" %f;\n", arn);
+		fprintf(mFile,"\tsetAttr \".arn\" %f;\n", arn);
 
 	}
 	void setRadiusNoiseFreq(float arnf)
 	{
 		if(arnf == 10.0) return;
-		fprintf(mFile,"setAttr \".arnf\" %f;\n", arnf);
+		fprintf(mFile,"\tsetAttr \".arnf\" %f;\n", arnf);
 
 	}
 	void setRadiusSamplesDirty(int arsd)
 	{
 		if(arsd == 0.0) return;
-		fprintf(mFile,"setAttr \".arsd\" %i;\n", arsd);
+		fprintf(mFile,"\tsetAttr \".arsd\" %i;\n", arsd);
 
 	}
 	void setRadiusMapDirty(int armd)
 	{
 		if(armd == 0.0) return;
-		fprintf(mFile,"setAttr \".armd\" %i;\n", armd);
+		fprintf(mFile,"\tsetAttr \".armd\" %i;\n", armd);
 
 	}
 	void setPower(float dap)
 	{
 		if(dap == 1.0) return;
-		fprintf(mFile,"setAttr \".dap\" %f;\n", dap);
+		fprintf(mFile,"\tsetAttr \".dap\" %f;\n", dap);
 
 	}
 	void setPowerSamples(size_t aps_i,double aps)
 	{
 		if(aps == 0.0) return;
-		fprintf(mFile,"setAttr \".aps[%i]\" %f;\n", aps_i,aps);
+		fprintf(mFile,"\tsetAttr \".aps[%i]\" %f;\n", aps_i,aps);
 
 	}
 	void setPowerSamples(size_t aps_start,size_t aps_end,double* aps)
 	{
-		fprintf(mFile,"setAttr \".aps[%i:%i]\" ", aps_start,aps_end);
+		fprintf(mFile,"\tsetAttr \".aps[%i:%i]\" ", aps_start,aps_end);
 		size_t size = (aps_end-aps_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2137,7 +2138,7 @@ public:
 	}
 	void startPowerSamples(size_t aps_start,size_t aps_end)
 	{
-		fprintf(mFile,"setAttr \".aps[%i:%i]\"",aps_start,aps_end);
+		fprintf(mFile,"\tsetAttr \".aps[%i:%i]\"",aps_start,aps_end);
 
 	}
 	void appendPowerSamples(double aps)
@@ -2153,7 +2154,7 @@ public:
 	void setPowerMap(const string& apm)
 	{
 		if(apm == "n/a") return;
-		fprintf(mFile,"setAttr \".apm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".apm\" -type \"string\" ");
 		apm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2161,54 +2162,54 @@ public:
 	void setPowerMapOffset(float apmo)
 	{
 		if(apmo == 0.0) return;
-		fprintf(mFile,"setAttr \".apmo\" %f;\n", apmo);
+		fprintf(mFile,"\tsetAttr \".apmo\" %f;\n", apmo);
 
 	}
 	void setPowerMapMult(float apmm)
 	{
 		if(apmm == 1.0) return;
-		fprintf(mFile,"setAttr \".apmm\" %f;\n", apmm);
+		fprintf(mFile,"\tsetAttr \".apmm\" %f;\n", apmm);
 
 	}
 	void setPowerNoise(float apn)
 	{
 		if(apn == 0.0) return;
-		fprintf(mFile,"setAttr \".apn\" %f;\n", apn);
+		fprintf(mFile,"\tsetAttr \".apn\" %f;\n", apn);
 
 	}
 	void setPowerNoiseFreq(float apnf)
 	{
 		if(apnf == 10.0) return;
-		fprintf(mFile,"setAttr \".apnf\" %f;\n", apnf);
+		fprintf(mFile,"\tsetAttr \".apnf\" %f;\n", apnf);
 
 	}
 	void setPowerSamplesDirty(int apsd)
 	{
 		if(apsd == 0.0) return;
-		fprintf(mFile,"setAttr \".apsd\" %i;\n", apsd);
+		fprintf(mFile,"\tsetAttr \".apsd\" %i;\n", apsd);
 
 	}
 	void setPowerMapDirty(int apmd)
 	{
 		if(apmd == 0.0) return;
-		fprintf(mFile,"setAttr \".apmd\" %i;\n", apmd);
+		fprintf(mFile,"\tsetAttr \".apmd\" %i;\n", apmd);
 
 	}
 	void setInfluence(float dai)
 	{
 		if(dai == 1.0) return;
-		fprintf(mFile,"setAttr \".dai\" %f;\n", dai);
+		fprintf(mFile,"\tsetAttr \".dai\" %f;\n", dai);
 
 	}
 	void setInfluenceSamples(size_t ais_i,double ais)
 	{
 		if(ais == 0.0) return;
-		fprintf(mFile,"setAttr \".ais[%i]\" %f;\n", ais_i,ais);
+		fprintf(mFile,"\tsetAttr \".ais[%i]\" %f;\n", ais_i,ais);
 
 	}
 	void setInfluenceSamples(size_t ais_start,size_t ais_end,double* ais)
 	{
-		fprintf(mFile,"setAttr \".ais[%i:%i]\" ", ais_start,ais_end);
+		fprintf(mFile,"\tsetAttr \".ais[%i:%i]\" ", ais_start,ais_end);
 		size_t size = (ais_end-ais_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2220,7 +2221,7 @@ public:
 	}
 	void startInfluenceSamples(size_t ais_start,size_t ais_end)
 	{
-		fprintf(mFile,"setAttr \".ais[%i:%i]\"",ais_start,ais_end);
+		fprintf(mFile,"\tsetAttr \".ais[%i:%i]\"",ais_start,ais_end);
 
 	}
 	void appendInfluenceSamples(double ais)
@@ -2236,7 +2237,7 @@ public:
 	void setInfluenceMap(const string& aim)
 	{
 		if(aim == "n/a") return;
-		fprintf(mFile,"setAttr \".aim\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".aim\" -type \"string\" ");
 		aim.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2244,54 +2245,54 @@ public:
 	void setInfluenceMapOffset(float aimo)
 	{
 		if(aimo == 0.0) return;
-		fprintf(mFile,"setAttr \".aimo\" %f;\n", aimo);
+		fprintf(mFile,"\tsetAttr \".aimo\" %f;\n", aimo);
 
 	}
 	void setInfluenceMapMult(float aimm)
 	{
 		if(aimm == 1.0) return;
-		fprintf(mFile,"setAttr \".aimm\" %f;\n", aimm);
+		fprintf(mFile,"\tsetAttr \".aimm\" %f;\n", aimm);
 
 	}
 	void setInfluenceNoise(float ain)
 	{
 		if(ain == 0.0) return;
-		fprintf(mFile,"setAttr \".ain\" %f;\n", ain);
+		fprintf(mFile,"\tsetAttr \".ain\" %f;\n", ain);
 
 	}
 	void setInfluenceNoiseFreq(float ainf)
 	{
 		if(ainf == 10.0) return;
-		fprintf(mFile,"setAttr \".ainf\" %f;\n", ainf);
+		fprintf(mFile,"\tsetAttr \".ainf\" %f;\n", ainf);
 
 	}
 	void setInfluenceSamplesDirty(int aisd)
 	{
 		if(aisd == 0.0) return;
-		fprintf(mFile,"setAttr \".aisd\" %i;\n", aisd);
+		fprintf(mFile,"\tsetAttr \".aisd\" %i;\n", aisd);
 
 	}
 	void setInfluenceMapDirty(int aimd)
 	{
 		if(aimd == 0.0) return;
-		fprintf(mFile,"setAttr \".aimd\" %i;\n", aimd);
+		fprintf(mFile,"\tsetAttr \".aimd\" %i;\n", aimd);
 
 	}
 	void setStartLength(double dasl)
 	{
 		if(dasl == 0) return;
-		fprintf(mFile,"setAttr \".dasl\" %f;\n", dasl);
+		fprintf(mFile,"\tsetAttr \".dasl\" %f;\n", dasl);
 
 	}
 	void setStartLengthSamples(size_t asls_i,double asls)
 	{
 		if(asls == 0.0) return;
-		fprintf(mFile,"setAttr \".asls[%i]\" %f;\n", asls_i,asls);
+		fprintf(mFile,"\tsetAttr \".asls[%i]\" %f;\n", asls_i,asls);
 
 	}
 	void setStartLengthSamples(size_t asls_start,size_t asls_end,double* asls)
 	{
-		fprintf(mFile,"setAttr \".asls[%i:%i]\" ", asls_start,asls_end);
+		fprintf(mFile,"\tsetAttr \".asls[%i:%i]\" ", asls_start,asls_end);
 		size_t size = (asls_end-asls_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2303,7 +2304,7 @@ public:
 	}
 	void startStartLengthSamples(size_t asls_start,size_t asls_end)
 	{
-		fprintf(mFile,"setAttr \".asls[%i:%i]\"",asls_start,asls_end);
+		fprintf(mFile,"\tsetAttr \".asls[%i:%i]\"",asls_start,asls_end);
 
 	}
 	void appendStartLengthSamples(double asls)
@@ -2319,7 +2320,7 @@ public:
 	void setStartLengthMap(const string& aslm)
 	{
 		if(aslm == "n/a") return;
-		fprintf(mFile,"setAttr \".aslm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".aslm\" -type \"string\" ");
 		aslm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2327,54 +2328,54 @@ public:
 	void setStartLengthMapOffset(double aslmo)
 	{
 		if(aslmo == 0) return;
-		fprintf(mFile,"setAttr \".aslmo\" %f;\n", aslmo);
+		fprintf(mFile,"\tsetAttr \".aslmo\" %f;\n", aslmo);
 
 	}
 	void setStartLengthMapMult(double aslmm)
 	{
 		if(aslmm == 1) return;
-		fprintf(mFile,"setAttr \".aslmm\" %f;\n", aslmm);
+		fprintf(mFile,"\tsetAttr \".aslmm\" %f;\n", aslmm);
 
 	}
 	void setStartLengthNoise(double asln)
 	{
 		if(asln == 0) return;
-		fprintf(mFile,"setAttr \".asln\" %f;\n", asln);
+		fprintf(mFile,"\tsetAttr \".asln\" %f;\n", asln);
 
 	}
 	void setStartLengthNoiseFreq(float aslnf)
 	{
 		if(aslnf == 10.0) return;
-		fprintf(mFile,"setAttr \".aslnf\" %f;\n", aslnf);
+		fprintf(mFile,"\tsetAttr \".aslnf\" %f;\n", aslnf);
 
 	}
 	void setStartLengthSamplesDirty(int aslsd)
 	{
 		if(aslsd == 0.0) return;
-		fprintf(mFile,"setAttr \".aslsd\" %i;\n", aslsd);
+		fprintf(mFile,"\tsetAttr \".aslsd\" %i;\n", aslsd);
 
 	}
 	void setStartLengthMapDirty(int aslmd)
 	{
 		if(aslmd == 0.0) return;
-		fprintf(mFile,"setAttr \".aslmd\" %i;\n", aslmd);
+		fprintf(mFile,"\tsetAttr \".aslmd\" %i;\n", aslmd);
 
 	}
 	void setEndLength(double dael)
 	{
 		if(dael == 5) return;
-		fprintf(mFile,"setAttr \".dael\" %f;\n", dael);
+		fprintf(mFile,"\tsetAttr \".dael\" %f;\n", dael);
 
 	}
 	void setEndLengthSamples(size_t aels_i,double aels)
 	{
 		if(aels == 0.0) return;
-		fprintf(mFile,"setAttr \".aels[%i]\" %f;\n", aels_i,aels);
+		fprintf(mFile,"\tsetAttr \".aels[%i]\" %f;\n", aels_i,aels);
 
 	}
 	void setEndLengthSamples(size_t aels_start,size_t aels_end,double* aels)
 	{
-		fprintf(mFile,"setAttr \".aels[%i:%i]\" ", aels_start,aels_end);
+		fprintf(mFile,"\tsetAttr \".aels[%i:%i]\" ", aels_start,aels_end);
 		size_t size = (aels_end-aels_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2386,7 +2387,7 @@ public:
 	}
 	void startEndLengthSamples(size_t aels_start,size_t aels_end)
 	{
-		fprintf(mFile,"setAttr \".aels[%i:%i]\"",aels_start,aels_end);
+		fprintf(mFile,"\tsetAttr \".aels[%i:%i]\"",aels_start,aels_end);
 
 	}
 	void appendEndLengthSamples(double aels)
@@ -2402,7 +2403,7 @@ public:
 	void setEndLengthMap(const string& aelm)
 	{
 		if(aelm == "n/a") return;
-		fprintf(mFile,"setAttr \".aelm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".aelm\" -type \"string\" ");
 		aelm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2410,54 +2411,54 @@ public:
 	void setEndLengthMapOffset(double aelmo)
 	{
 		if(aelmo == 0) return;
-		fprintf(mFile,"setAttr \".aelmo\" %f;\n", aelmo);
+		fprintf(mFile,"\tsetAttr \".aelmo\" %f;\n", aelmo);
 
 	}
 	void setEndLengthMapMult(double aelmm)
 	{
 		if(aelmm == 1) return;
-		fprintf(mFile,"setAttr \".aelmm\" %f;\n", aelmm);
+		fprintf(mFile,"\tsetAttr \".aelmm\" %f;\n", aelmm);
 
 	}
 	void setEndLengthNoise(double aeln)
 	{
 		if(aeln == 0) return;
-		fprintf(mFile,"setAttr \".aeln\" %f;\n", aeln);
+		fprintf(mFile,"\tsetAttr \".aeln\" %f;\n", aeln);
 
 	}
 	void setEndLengthNoiseFreq(float aelnf)
 	{
 		if(aelnf == 10.0) return;
-		fprintf(mFile,"setAttr \".aelnf\" %f;\n", aelnf);
+		fprintf(mFile,"\tsetAttr \".aelnf\" %f;\n", aelnf);
 
 	}
 	void setEndLengthSamplesDirty(int aelsd)
 	{
 		if(aelsd == 0.0) return;
-		fprintf(mFile,"setAttr \".aelsd\" %i;\n", aelsd);
+		fprintf(mFile,"\tsetAttr \".aelsd\" %i;\n", aelsd);
 
 	}
 	void setEndLengthMapDirty(int aelmd)
 	{
 		if(aelmd == 0.0) return;
-		fprintf(mFile,"setAttr \".aelmd\" %i;\n", aelmd);
+		fprintf(mFile,"\tsetAttr \".aelmd\" %i;\n", aelmd);
 
 	}
 	void setThresholdLength(double datl)
 	{
 		if(datl == 0) return;
-		fprintf(mFile,"setAttr \".datl\" %f;\n", datl);
+		fprintf(mFile,"\tsetAttr \".datl\" %f;\n", datl);
 
 	}
 	void setThresholdLengthSamples(size_t atls_i,double atls)
 	{
 		if(atls == 0.0) return;
-		fprintf(mFile,"setAttr \".atls[%i]\" %f;\n", atls_i,atls);
+		fprintf(mFile,"\tsetAttr \".atls[%i]\" %f;\n", atls_i,atls);
 
 	}
 	void setThresholdLengthSamples(size_t atls_start,size_t atls_end,double* atls)
 	{
-		fprintf(mFile,"setAttr \".atls[%i:%i]\" ", atls_start,atls_end);
+		fprintf(mFile,"\tsetAttr \".atls[%i:%i]\" ", atls_start,atls_end);
 		size_t size = (atls_end-atls_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2469,7 +2470,7 @@ public:
 	}
 	void startThresholdLengthSamples(size_t atls_start,size_t atls_end)
 	{
-		fprintf(mFile,"setAttr \".atls[%i:%i]\"",atls_start,atls_end);
+		fprintf(mFile,"\tsetAttr \".atls[%i:%i]\"",atls_start,atls_end);
 
 	}
 	void appendThresholdLengthSamples(double atls)
@@ -2485,7 +2486,7 @@ public:
 	void setThresholdLengthMap(const string& atlm)
 	{
 		if(atlm == "n/a") return;
-		fprintf(mFile,"setAttr \".atlm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".atlm\" -type \"string\" ");
 		atlm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2493,54 +2494,54 @@ public:
 	void setThresholdLengthMapOffset(double atlmo)
 	{
 		if(atlmo == 0) return;
-		fprintf(mFile,"setAttr \".atlmo\" %f;\n", atlmo);
+		fprintf(mFile,"\tsetAttr \".atlmo\" %f;\n", atlmo);
 
 	}
 	void setThresholdLengthMapMult(double atlmm)
 	{
 		if(atlmm == 1) return;
-		fprintf(mFile,"setAttr \".atlmm\" %f;\n", atlmm);
+		fprintf(mFile,"\tsetAttr \".atlmm\" %f;\n", atlmm);
 
 	}
 	void setThresholdLengthNoise(double atln)
 	{
 		if(atln == 0) return;
-		fprintf(mFile,"setAttr \".atln\" %f;\n", atln);
+		fprintf(mFile,"\tsetAttr \".atln\" %f;\n", atln);
 
 	}
 	void setThresholdLengthNoiseFreq(float atlnf)
 	{
 		if(atlnf == 10.0) return;
-		fprintf(mFile,"setAttr \".atlnf\" %f;\n", atlnf);
+		fprintf(mFile,"\tsetAttr \".atlnf\" %f;\n", atlnf);
 
 	}
 	void setThresholdLengthSamplesDirty(int atlsd)
 	{
 		if(atlsd == 0.0) return;
-		fprintf(mFile,"setAttr \".atlsd\" %i;\n", atlsd);
+		fprintf(mFile,"\tsetAttr \".atlsd\" %i;\n", atlsd);
 
 	}
 	void setThresholdLengthMapDirty(int atlmd)
 	{
 		if(atlmd == 0.0) return;
-		fprintf(mFile,"setAttr \".atlmd\" %i;\n", atlmd);
+		fprintf(mFile,"\tsetAttr \".atlmd\" %i;\n", atlmd);
 
 	}
 	void setUnused(float dun)
 	{
 		if(dun == 1.0) return;
-		fprintf(mFile,"setAttr \".dun\" %f;\n", dun);
+		fprintf(mFile,"\tsetAttr \".dun\" %f;\n", dun);
 
 	}
 	void setUnusedSamples(size_t uns_i,double uns)
 	{
 		if(uns == 0.0) return;
-		fprintf(mFile,"setAttr \".uns[%i]\" %f;\n", uns_i,uns);
+		fprintf(mFile,"\tsetAttr \".uns[%i]\" %f;\n", uns_i,uns);
 
 	}
 	void setUnusedSamples(size_t uns_start,size_t uns_end,double* uns)
 	{
-		fprintf(mFile,"setAttr \".uns[%i:%i]\" ", uns_start,uns_end);
+		fprintf(mFile,"\tsetAttr \".uns[%i:%i]\" ", uns_start,uns_end);
 		size_t size = (uns_end-uns_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2552,7 +2553,7 @@ public:
 	}
 	void startUnusedSamples(size_t uns_start,size_t uns_end)
 	{
-		fprintf(mFile,"setAttr \".uns[%i:%i]\"",uns_start,uns_end);
+		fprintf(mFile,"\tsetAttr \".uns[%i:%i]\"",uns_start,uns_end);
 
 	}
 	void appendUnusedSamples(double uns)
@@ -2568,7 +2569,7 @@ public:
 	void setUnusedMap(const string& unm)
 	{
 		if(unm == "n/a") return;
-		fprintf(mFile,"setAttr \".unm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".unm\" -type \"string\" ");
 		unm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2576,54 +2577,54 @@ public:
 	void setUnusedMapOffset(float unmo)
 	{
 		if(unmo == 0.0) return;
-		fprintf(mFile,"setAttr \".unmo\" %f;\n", unmo);
+		fprintf(mFile,"\tsetAttr \".unmo\" %f;\n", unmo);
 
 	}
 	void setUnusedMapMult(float unmm)
 	{
 		if(unmm == 1.0) return;
-		fprintf(mFile,"setAttr \".unmm\" %f;\n", unmm);
+		fprintf(mFile,"\tsetAttr \".unmm\" %f;\n", unmm);
 
 	}
 	void setUnusedNoise(float unn)
 	{
 		if(unn == 0.0) return;
-		fprintf(mFile,"setAttr \".unn\" %f;\n", unn);
+		fprintf(mFile,"\tsetAttr \".unn\" %f;\n", unn);
 
 	}
 	void setUnusedNoiseFreq(float unnf)
 	{
 		if(unnf == 10.0) return;
-		fprintf(mFile,"setAttr \".unnf\" %f;\n", unnf);
+		fprintf(mFile,"\tsetAttr \".unnf\" %f;\n", unnf);
 
 	}
 	void setUnusedSamplesDirty(int unsd)
 	{
 		if(unsd == 0.0) return;
-		fprintf(mFile,"setAttr \".unsd\" %i;\n", unsd);
+		fprintf(mFile,"\tsetAttr \".unsd\" %i;\n", unsd);
 
 	}
 	void setUnusedMapDirty(int unmd)
 	{
 		if(unmd == 0.0) return;
-		fprintf(mFile,"setAttr \".unmd\" %i;\n", unmd);
+		fprintf(mFile,"\tsetAttr \".unmd\" %i;\n", unmd);
 
 	}
 	void setEqualizer(float dem)
 	{
 		if(dem == 1.0) return;
-		fprintf(mFile,"setAttr \".dem\" %f;\n", dem);
+		fprintf(mFile,"\tsetAttr \".dem\" %f;\n", dem);
 
 	}
 	void setEqualizerSamples(size_t ems_i,double ems)
 	{
 		if(ems == 0.0) return;
-		fprintf(mFile,"setAttr \".ems[%i]\" %f;\n", ems_i,ems);
+		fprintf(mFile,"\tsetAttr \".ems[%i]\" %f;\n", ems_i,ems);
 
 	}
 	void setEqualizerSamples(size_t ems_start,size_t ems_end,double* ems)
 	{
-		fprintf(mFile,"setAttr \".ems[%i:%i]\" ", ems_start,ems_end);
+		fprintf(mFile,"\tsetAttr \".ems[%i:%i]\" ", ems_start,ems_end);
 		size_t size = (ems_end-ems_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -2635,7 +2636,7 @@ public:
 	}
 	void startEqualizerSamples(size_t ems_start,size_t ems_end)
 	{
-		fprintf(mFile,"setAttr \".ems[%i:%i]\"",ems_start,ems_end);
+		fprintf(mFile,"\tsetAttr \".ems[%i:%i]\"",ems_start,ems_end);
 
 	}
 	void appendEqualizerSamples(double ems)
@@ -2651,7 +2652,7 @@ public:
 	void setEqualizerMap(const string& emm)
 	{
 		if(emm == "n/a") return;
-		fprintf(mFile,"setAttr \".emm\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".emm\" -type \"string\" ");
 		emm.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2659,42 +2660,42 @@ public:
 	void setEqualizerMapOffset(float emmo)
 	{
 		if(emmo == 0.0) return;
-		fprintf(mFile,"setAttr \".emmo\" %f;\n", emmo);
+		fprintf(mFile,"\tsetAttr \".emmo\" %f;\n", emmo);
 
 	}
 	void setEqualizerMapMult(float emmm)
 	{
 		if(emmm == 1.0) return;
-		fprintf(mFile,"setAttr \".emmm\" %f;\n", emmm);
+		fprintf(mFile,"\tsetAttr \".emmm\" %f;\n", emmm);
 
 	}
 	void setEqualizerNoise(float emn)
 	{
 		if(emn == 0.0) return;
-		fprintf(mFile,"setAttr \".emn\" %f;\n", emn);
+		fprintf(mFile,"\tsetAttr \".emn\" %f;\n", emn);
 
 	}
 	void setEqualizerNoiseFreq(float emnf)
 	{
 		if(emnf == 10.0) return;
-		fprintf(mFile,"setAttr \".emnf\" %f;\n", emnf);
+		fprintf(mFile,"\tsetAttr \".emnf\" %f;\n", emnf);
 
 	}
 	void setEqualizerSamplesDirty(int emsd)
 	{
 		if(emsd == 0.0) return;
-		fprintf(mFile,"setAttr \".emsd\" %i;\n", emsd);
+		fprintf(mFile,"\tsetAttr \".emsd\" %i;\n", emsd);
 
 	}
 	void setEqualizerMapDirty(int emmd)
 	{
 		if(emmd == 0.0) return;
-		fprintf(mFile,"setAttr \".emmd\" %i;\n", emmd);
+		fprintf(mFile,"\tsetAttr \".emmd\" %i;\n", emmd);
 
 	}
 	void setMentalRayControls(const MentalRayControls& mrc)
 	{
-		fprintf(mFile,"setAttr \".mrc\" ");
+		fprintf(mFile,"\tsetAttr \".mrc\" ");
 		mrc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -2702,115 +2703,115 @@ public:
 	void setMiOverrideCaustics(bool oca)
 	{
 		if(oca == false) return;
-		fprintf(mFile,"setAttr \".mrc.oca\" %i;\n", oca);
+		fprintf(mFile,"\tsetAttr \".mrc.oca\" %i;\n", oca);
 
 	}
 	void setMiCausticAccuracy(short caa)
 	{
 		if(caa == 64) return;
-		fprintf(mFile,"setAttr \".mrc.caa\" %i;\n", caa);
+		fprintf(mFile,"\tsetAttr \".mrc.caa\" %i;\n", caa);
 
 	}
 	void setMiCausticRadius(float car)
 	{
 		if(car == 0) return;
-		fprintf(mFile,"setAttr \".mrc.car\" %f;\n", car);
+		fprintf(mFile,"\tsetAttr \".mrc.car\" %f;\n", car);
 
 	}
 	void setMiOverrideGlobalIllumination(bool ogi)
 	{
 		if(ogi == false) return;
-		fprintf(mFile,"setAttr \".mrc.ogi\" %i;\n", ogi);
+		fprintf(mFile,"\tsetAttr \".mrc.ogi\" %i;\n", ogi);
 
 	}
 	void setMiGlobillumAccuracy(short gia)
 	{
 		if(gia == 64) return;
-		fprintf(mFile,"setAttr \".mrc.gia\" %i;\n", gia);
+		fprintf(mFile,"\tsetAttr \".mrc.gia\" %i;\n", gia);
 
 	}
 	void setMiGlobillumRadius(float gir)
 	{
 		if(gir == 0) return;
-		fprintf(mFile,"setAttr \".mrc.gir\" %f;\n", gir);
+		fprintf(mFile,"\tsetAttr \".mrc.gir\" %f;\n", gir);
 
 	}
 	void setMiOverrideFinalGather(bool ofg)
 	{
 		if(ofg == false) return;
-		fprintf(mFile,"setAttr \".mrc.ofg\" %i;\n", ofg);
+		fprintf(mFile,"\tsetAttr \".mrc.ofg\" %i;\n", ofg);
 
 	}
 	void setMiFinalGatherRays(int fry)
 	{
 		if(fry == 1000) return;
-		fprintf(mFile,"setAttr \".mrc.fry\" %i;\n", fry);
+		fprintf(mFile,"\tsetAttr \".mrc.fry\" %i;\n", fry);
 
 	}
 	void setMiFinalGatherMinRadius(float fmn)
 	{
 		if(fmn == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmn\" %f;\n", fmn);
+		fprintf(mFile,"\tsetAttr \".mrc.fmn\" %f;\n", fmn);
 
 	}
 	void setMiFinalGatherMaxRadius(float fmx)
 	{
 		if(fmx == 0) return;
-		fprintf(mFile,"setAttr \".mrc.fmx\" %f;\n", fmx);
+		fprintf(mFile,"\tsetAttr \".mrc.fmx\" %f;\n", fmx);
 
 	}
 	void setMiFinalGatherFilter(short ffi)
 	{
 		if(ffi == 1) return;
-		fprintf(mFile,"setAttr \".mrc.ffi\" %i;\n", ffi);
+		fprintf(mFile,"\tsetAttr \".mrc.ffi\" %i;\n", ffi);
 
 	}
 	void setMiFinalGatherView(bool fgv)
 	{
 		if(fgv == false) return;
-		fprintf(mFile,"setAttr \".mrc.fgv\" %i;\n", fgv);
+		fprintf(mFile,"\tsetAttr \".mrc.fgv\" %i;\n", fgv);
 
 	}
 	void setMiOverrideSamples(bool oos)
 	{
 		if(oos == false) return;
-		fprintf(mFile,"setAttr \".mrc.oos\" %i;\n", oos);
+		fprintf(mFile,"\tsetAttr \".mrc.oos\" %i;\n", oos);
 
 	}
 	void setMiMinSamples(short mins)
 	{
 		if(mins == -2) return;
-		fprintf(mFile,"setAttr \".mrc.mins\" %i;\n", mins);
+		fprintf(mFile,"\tsetAttr \".mrc.mins\" %i;\n", mins);
 
 	}
 	void setMiMaxSamples(short maxs)
 	{
 		if(maxs == 0) return;
-		fprintf(mFile,"setAttr \".mrc.maxs\" %i;\n", maxs);
+		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
 	void setMiFinalGatherCast(bool fgc)
 	{
 		if(fgc == true) return;
-		fprintf(mFile,"setAttr \".mrc.fgc\" %i;\n", fgc);
+		fprintf(mFile,"\tsetAttr \".mrc.fgc\" %i;\n", fgc);
 
 	}
 	void setMiFinalGatherReceive(bool fge)
 	{
 		if(fge == true) return;
-		fprintf(mFile,"setAttr \".mrc.fge\" %i;\n", fge);
+		fprintf(mFile,"\tsetAttr \".mrc.fge\" %i;\n", fge);
 
 	}
 	void setMiTransparencyCast(bool tpc)
 	{
 		if(tpc == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpc\" %i;\n", tpc);
+		fprintf(mFile,"\tsetAttr \".mrc.tpc\" %i;\n", tpc);
 
 	}
 	void setMiTransparencyReceive(bool tpr)
 	{
 		if(tpr == true) return;
-		fprintf(mFile,"setAttr \".mrc.tpr\" %i;\n", tpr);
+		fprintf(mFile,"\tsetAttr \".mrc.tpr\" %i;\n", tpr);
 
 	}
 	void getInputSurface()
@@ -2848,6 +2849,11 @@ public:
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
+	void getHairs()
+	{
+		fprintf(mFile,"\"%s.h\"",mName.c_str());
+
+	}
 	void getFurAccuracy()
 	{
 		fprintf(mFile,"\"%s.ha\"",mName.c_str());
@@ -2861,6 +2867,16 @@ public:
 	void getAttractorGlobalScale()
 	{
 		fprintf(mFile,"\"%s.ags\"",mName.c_str());
+
+	}
+	void getExportAttr()
+	{
+		fprintf(mFile,"\"%s.ea\"",mName.c_str());
+
+	}
+	void getExportFile()
+	{
+		fprintf(mFile,"\"%s.ef\"",mName.c_str());
 
 	}
 	void getExportWidth()
@@ -2903,6 +2919,16 @@ public:
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
+	void getLengthSamples(size_t ls_i)
+	{
+		fprintf(mFile,"\"%s.ls[%i]\"",mName.c_str(),ls_i);
+
+	}
+	void getLengthMap()
+	{
+		fprintf(mFile,"\"%s.lm\"",mName.c_str());
+
+	}
 	void getLengthMapOffset()
 	{
 		fprintf(mFile,"\"%s.lmo\"",mName.c_str());
@@ -2936,6 +2962,16 @@ public:
 	void getInclination()
 	{
 		fprintf(mFile,"\"%s.din\"",mName.c_str());
+
+	}
+	void getInclinationSamples(size_t ins_i)
+	{
+		fprintf(mFile,"\"%s.ins[%i]\"",mName.c_str(),ins_i);
+
+	}
+	void getInclinationMap()
+	{
+		fprintf(mFile,"\"%s.inm\"",mName.c_str());
 
 	}
 	void getInclinationMapOffset()
@@ -2973,6 +3009,16 @@ public:
 		fprintf(mFile,"\"%s.drl\"",mName.c_str());
 
 	}
+	void getRollSamples(size_t rls_i)
+	{
+		fprintf(mFile,"\"%s.rls[%i]\"",mName.c_str(),rls_i);
+
+	}
+	void getRollMap()
+	{
+		fprintf(mFile,"\"%s.rlm\"",mName.c_str());
+
+	}
 	void getRollMapOffset()
 	{
 		fprintf(mFile,"\"%s.rlmo\"",mName.c_str());
@@ -3006,6 +3052,16 @@ public:
 	void getPolar()
 	{
 		fprintf(mFile,"\"%s.dpo\"",mName.c_str());
+
+	}
+	void getPolarSamples(size_t pos_i)
+	{
+		fprintf(mFile,"\"%s.pos[%i]\"",mName.c_str(),pos_i);
+
+	}
+	void getPolarMap()
+	{
+		fprintf(mFile,"\"%s.pom\"",mName.c_str());
 
 	}
 	void getPolarMapOffset()
@@ -3043,6 +3099,16 @@ public:
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
+	void getBaldnessSamples(size_t bs_i)
+	{
+		fprintf(mFile,"\"%s.bs[%i]\"",mName.c_str(),bs_i);
+
+	}
+	void getBaldnessMap()
+	{
+		fprintf(mFile,"\"%s.bm\"",mName.c_str());
+
+	}
 	void getBaldnessMapOffset()
 	{
 		fprintf(mFile,"\"%s.bmo\"",mName.c_str());
@@ -3076,6 +3142,16 @@ public:
 	void getBaseOpacity()
 	{
 		fprintf(mFile,"\"%s.dbo\"",mName.c_str());
+
+	}
+	void getBaseOpacitySamples(size_t bos_i)
+	{
+		fprintf(mFile,"\"%s.bos[%i]\"",mName.c_str(),bos_i);
+
+	}
+	void getBaseOpacityMap()
+	{
+		fprintf(mFile,"\"%s.bom\"",mName.c_str());
 
 	}
 	void getBaseOpacityMapOffset()
@@ -3113,6 +3189,16 @@ public:
 		fprintf(mFile,"\"%s.dto\"",mName.c_str());
 
 	}
+	void getTipOpacitySamples(size_t tos_i)
+	{
+		fprintf(mFile,"\"%s.tos[%i]\"",mName.c_str(),tos_i);
+
+	}
+	void getTipOpacityMap()
+	{
+		fprintf(mFile,"\"%s.tom\"",mName.c_str());
+
+	}
 	void getTipOpacityMapOffset()
 	{
 		fprintf(mFile,"\"%s.tomo\"",mName.c_str());
@@ -3146,6 +3232,16 @@ public:
 	void getBaseCurl()
 	{
 		fprintf(mFile,"\"%s.dbcl\"",mName.c_str());
+
+	}
+	void getBaseCurlSamples(size_t bcls_i)
+	{
+		fprintf(mFile,"\"%s.bcls[%i]\"",mName.c_str(),bcls_i);
+
+	}
+	void getBaseCurlMap()
+	{
+		fprintf(mFile,"\"%s.bclm\"",mName.c_str());
 
 	}
 	void getBaseCurlMapOffset()
@@ -3183,6 +3279,16 @@ public:
 		fprintf(mFile,"\"%s.dtcl\"",mName.c_str());
 
 	}
+	void getTipCurlSamples(size_t tcls_i)
+	{
+		fprintf(mFile,"\"%s.tcls[%i]\"",mName.c_str(),tcls_i);
+
+	}
+	void getTipCurlMap()
+	{
+		fprintf(mFile,"\"%s.tclm\"",mName.c_str());
+
+	}
 	void getTipCurlMapOffset()
 	{
 		fprintf(mFile,"\"%s.tclmo\"",mName.c_str());
@@ -3216,6 +3322,16 @@ public:
 	void getBaseWidth()
 	{
 		fprintf(mFile,"\"%s.dbw\"",mName.c_str());
+
+	}
+	void getBaseWidthSamples(size_t bws_i)
+	{
+		fprintf(mFile,"\"%s.bws[%i]\"",mName.c_str(),bws_i);
+
+	}
+	void getBaseWidthMap()
+	{
+		fprintf(mFile,"\"%s.bwm\"",mName.c_str());
 
 	}
 	void getBaseWidthMapOffset()
@@ -3253,6 +3369,16 @@ public:
 		fprintf(mFile,"\"%s.dtw\"",mName.c_str());
 
 	}
+	void getTipWidthSamples(size_t tws_i)
+	{
+		fprintf(mFile,"\"%s.tws[%i]\"",mName.c_str(),tws_i);
+
+	}
+	void getTipWidthMap()
+	{
+		fprintf(mFile,"\"%s.twm\"",mName.c_str());
+
+	}
 	void getTipWidthMapOffset()
 	{
 		fprintf(mFile,"\"%s.twmo\"",mName.c_str());
@@ -3286,6 +3412,16 @@ public:
 	void getScraggle()
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
+
+	}
+	void getScraggleSamples(size_t ss_i)
+	{
+		fprintf(mFile,"\"%s.ss[%i]\"",mName.c_str(),ss_i);
+
+	}
+	void getScraggleMap()
+	{
+		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
 	void getScraggleMapOffset()
@@ -3323,6 +3459,16 @@ public:
 		fprintf(mFile,"\"%s.dsco\"",mName.c_str());
 
 	}
+	void getScraggleCorrelationSamples(size_t scos_i)
+	{
+		fprintf(mFile,"\"%s.scos[%i]\"",mName.c_str(),scos_i);
+
+	}
+	void getScraggleCorrelationMap()
+	{
+		fprintf(mFile,"\"%s.scom\"",mName.c_str());
+
+	}
 	void getScraggleCorrelationMapOffset()
 	{
 		fprintf(mFile,"\"%s.scomo\"",mName.c_str());
@@ -3356,6 +3502,16 @@ public:
 	void getScraggleFrequency()
 	{
 		fprintf(mFile,"\"%s.dscf\"",mName.c_str());
+
+	}
+	void getScraggleFrequencySamples(size_t scfs_i)
+	{
+		fprintf(mFile,"\"%s.scfs[%i]\"",mName.c_str(),scfs_i);
+
+	}
+	void getScraggleFrequencyMap()
+	{
+		fprintf(mFile,"\"%s.scfm\"",mName.c_str());
 
 	}
 	void getScraggleFrequencyMapOffset()
@@ -3393,6 +3549,16 @@ public:
 		fprintf(mFile,"\"%s.dseg\"",mName.c_str());
 
 	}
+	void getSegmentsSamples(size_t segs_i)
+	{
+		fprintf(mFile,"\"%s.segs[%i]\"",mName.c_str(),segs_i);
+
+	}
+	void getSegmentsMap()
+	{
+		fprintf(mFile,"\"%s.segm\"",mName.c_str());
+
+	}
 	void getSegmentsMapOffset()
 	{
 		fprintf(mFile,"\"%s.segmo\"",mName.c_str());
@@ -3426,6 +3592,16 @@ public:
 	void getAttraction()
 	{
 		fprintf(mFile,"\"%s.dat\"",mName.c_str());
+
+	}
+	void getAttractionSamples(size_t ats_i)
+	{
+		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
+
+	}
+	void getAttractionMap()
+	{
+		fprintf(mFile,"\"%s.atm\"",mName.c_str());
 
 	}
 	void getAttractionMapOffset()
@@ -3463,6 +3639,16 @@ public:
 		fprintf(mFile,"\"%s.dofs\"",mName.c_str());
 
 	}
+	void getOffsetSamples(size_t ofss_i)
+	{
+		fprintf(mFile,"\"%s.ofss[%i]\"",mName.c_str(),ofss_i);
+
+	}
+	void getOffsetMap()
+	{
+		fprintf(mFile,"\"%s.ofsm\"",mName.c_str());
+
+	}
 	void getOffsetMapOffset()
 	{
 		fprintf(mFile,"\"%s.ofsmo\"",mName.c_str());
@@ -3496,6 +3682,16 @@ public:
 	void getClumping()
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
+
+	}
+	void getClumpingSamples(size_t cs_i)
+	{
+		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
+
+	}
+	void getClumpingMap()
+	{
+		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
 	void getClumpingMapOffset()
@@ -3533,6 +3729,16 @@ public:
 		fprintf(mFile,"\"%s.dcf\"",mName.c_str());
 
 	}
+	void getClumpingFrequencySamples(size_t cfs_i)
+	{
+		fprintf(mFile,"\"%s.cfs[%i]\"",mName.c_str(),cfs_i);
+
+	}
+	void getClumpingFrequencyMap()
+	{
+		fprintf(mFile,"\"%s.cfm\"",mName.c_str());
+
+	}
 	void getClumpingFrequencyMapOffset()
 	{
 		fprintf(mFile,"\"%s.cfmo\"",mName.c_str());
@@ -3566,6 +3772,16 @@ public:
 	void getClumpingShape()
 	{
 		fprintf(mFile,"\"%s.dcs\"",mName.c_str());
+
+	}
+	void getClumpingShapeSamples(size_t css_i)
+	{
+		fprintf(mFile,"\"%s.css[%i]\"",mName.c_str(),css_i);
+
+	}
+	void getClumpingShapeMap()
+	{
+		fprintf(mFile,"\"%s.csm\"",mName.c_str());
 
 	}
 	void getClumpingShapeMapOffset()
@@ -3618,6 +3834,16 @@ public:
 		fprintf(mFile,"\"%s.dbcb\"",mName.c_str());
 
 	}
+	void getBaseColorSamples(size_t bcs_i)
+	{
+		fprintf(mFile,"\"%s.bcs[%i]\"",mName.c_str(),bcs_i);
+
+	}
+	void getBaseColorMap()
+	{
+		fprintf(mFile,"\"%s.bcm\"",mName.c_str());
+
+	}
 	void getBaseColorNoise()
 	{
 		fprintf(mFile,"\"%s.bcn\"",mName.c_str());
@@ -3658,6 +3884,16 @@ public:
 		fprintf(mFile,"\"%s.dtcb\"",mName.c_str());
 
 	}
+	void getTipColorSamples(size_t tcs_i)
+	{
+		fprintf(mFile,"\"%s.tcs[%i]\"",mName.c_str(),tcs_i);
+
+	}
+	void getTipColorMap()
+	{
+		fprintf(mFile,"\"%s.tcm\"",mName.c_str());
+
+	}
 	void getTipColorNoise()
 	{
 		fprintf(mFile,"\"%s.tcn\"",mName.c_str());
@@ -3681,6 +3917,16 @@ public:
 	void getRadius()
 	{
 		fprintf(mFile,"\"%s.dar\"",mName.c_str());
+
+	}
+	void getRadiusSamples(size_t ars_i)
+	{
+		fprintf(mFile,"\"%s.ars[%i]\"",mName.c_str(),ars_i);
+
+	}
+	void getRadiusMap()
+	{
+		fprintf(mFile,"\"%s.arm\"",mName.c_str());
 
 	}
 	void getRadiusMapOffset()
@@ -3718,6 +3964,16 @@ public:
 		fprintf(mFile,"\"%s.dap\"",mName.c_str());
 
 	}
+	void getPowerSamples(size_t aps_i)
+	{
+		fprintf(mFile,"\"%s.aps[%i]\"",mName.c_str(),aps_i);
+
+	}
+	void getPowerMap()
+	{
+		fprintf(mFile,"\"%s.apm\"",mName.c_str());
+
+	}
 	void getPowerMapOffset()
 	{
 		fprintf(mFile,"\"%s.apmo\"",mName.c_str());
@@ -3751,6 +4007,16 @@ public:
 	void getInfluence()
 	{
 		fprintf(mFile,"\"%s.dai\"",mName.c_str());
+
+	}
+	void getInfluenceSamples(size_t ais_i)
+	{
+		fprintf(mFile,"\"%s.ais[%i]\"",mName.c_str(),ais_i);
+
+	}
+	void getInfluenceMap()
+	{
+		fprintf(mFile,"\"%s.aim\"",mName.c_str());
 
 	}
 	void getInfluenceMapOffset()
@@ -3788,6 +4054,16 @@ public:
 		fprintf(mFile,"\"%s.dasl\"",mName.c_str());
 
 	}
+	void getStartLengthSamples(size_t asls_i)
+	{
+		fprintf(mFile,"\"%s.asls[%i]\"",mName.c_str(),asls_i);
+
+	}
+	void getStartLengthMap()
+	{
+		fprintf(mFile,"\"%s.aslm\"",mName.c_str());
+
+	}
 	void getStartLengthMapOffset()
 	{
 		fprintf(mFile,"\"%s.aslmo\"",mName.c_str());
@@ -3821,6 +4097,16 @@ public:
 	void getEndLength()
 	{
 		fprintf(mFile,"\"%s.dael\"",mName.c_str());
+
+	}
+	void getEndLengthSamples(size_t aels_i)
+	{
+		fprintf(mFile,"\"%s.aels[%i]\"",mName.c_str(),aels_i);
+
+	}
+	void getEndLengthMap()
+	{
+		fprintf(mFile,"\"%s.aelm\"",mName.c_str());
 
 	}
 	void getEndLengthMapOffset()
@@ -3858,6 +4144,16 @@ public:
 		fprintf(mFile,"\"%s.datl\"",mName.c_str());
 
 	}
+	void getThresholdLengthSamples(size_t atls_i)
+	{
+		fprintf(mFile,"\"%s.atls[%i]\"",mName.c_str(),atls_i);
+
+	}
+	void getThresholdLengthMap()
+	{
+		fprintf(mFile,"\"%s.atlm\"",mName.c_str());
+
+	}
 	void getThresholdLengthMapOffset()
 	{
 		fprintf(mFile,"\"%s.atlmo\"",mName.c_str());
@@ -3893,6 +4189,16 @@ public:
 		fprintf(mFile,"\"%s.dun\"",mName.c_str());
 
 	}
+	void getUnusedSamples(size_t uns_i)
+	{
+		fprintf(mFile,"\"%s.uns[%i]\"",mName.c_str(),uns_i);
+
+	}
+	void getUnusedMap()
+	{
+		fprintf(mFile,"\"%s.unm\"",mName.c_str());
+
+	}
 	void getUnusedMapOffset()
 	{
 		fprintf(mFile,"\"%s.unmo\"",mName.c_str());
@@ -3921,6 +4227,16 @@ public:
 	void getEqualizer()
 	{
 		fprintf(mFile,"\"%s.dem\"",mName.c_str());
+
+	}
+	void getEqualizerSamples(size_t ems_i)
+	{
+		fprintf(mFile,"\"%s.ems[%i]\"",mName.c_str(),ems_i);
+
+	}
+	void getEqualizerMap()
+	{
+		fprintf(mFile,"\"%s.emm\"",mName.c_str());
 
 	}
 	void getEqualizerMapOffset()
@@ -4054,7 +4370,8 @@ public:
 
 	}
 protected:
-	FurFeedback(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):Locator(file, name, parent, nodeType) {}
+	FurFeedback(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:Locator(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

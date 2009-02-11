@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,42 +18,43 @@ class PolyPlane : public PolyPrimitive
 {
 public:
 public:
+	PolyPlane():PolyPrimitive(){}
 	PolyPlane(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyPlane"){}
 	virtual ~PolyPlane(){}
 	void setWidth(double w)
 	{
 		if(w == 1) return;
-		fprintf(mFile,"setAttr \".w\" %f;\n", w);
+		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
 	void setHeight(double h)
 	{
 		if(h == 1) return;
-		fprintf(mFile,"setAttr \".h\" %f;\n", h);
+		fprintf(mFile,"\tsetAttr \".h\" %f;\n", h);
 
 	}
 	void setSubdivisionsWidth(int sw)
 	{
 		if(sw == 10) return;
-		fprintf(mFile,"setAttr \".sw\" %i;\n", sw);
+		fprintf(mFile,"\tsetAttr \".sw\" %i;\n", sw);
 
 	}
 	void setSubdivisionsHeight(int sh)
 	{
 		if(sh == 10) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setTexture(unsigned int tx)
 	{
 		if(tx == 1) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(unsigned int cuv)
 	{
 		if(cuv == 1) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void getWidth()
@@ -87,7 +88,8 @@ public:
 
 	}
 protected:
-	PolyPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolyPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class GroupParts : public DependNode
 {
 public:
 public:
+	GroupParts():DependNode(){}
 	GroupParts(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "groupParts"){}
 	virtual ~GroupParts(){}
 	void setInputComponents(const componentList& ic)
 	{
-		fprintf(mFile,"setAttr \".ic\" -type \"componentList\" ");
+		fprintf(mFile,"\tsetAttr \".ic\" -type \"componentList\" ");
 		ic.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setInputRemoveComponent(const componentList& irc)
 	{
-		fprintf(mFile,"setAttr \".irc\" -type \"componentList\" ");
+		fprintf(mFile,"\tsetAttr \".irc\" -type \"componentList\" ");
 		irc.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -37,7 +38,7 @@ public:
 	void setGroupId(int gi)
 	{
 		if(gi == -1) return;
-		fprintf(mFile,"setAttr \".gi\" %i;\n", gi);
+		fprintf(mFile,"\tsetAttr \".gi\" %i;\n", gi);
 
 	}
 	void getInputGeometry()
@@ -66,7 +67,8 @@ public:
 
 	}
 protected:
-	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

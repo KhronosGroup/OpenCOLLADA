@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -23,12 +23,13 @@ public:
 		}
 	};
 public:
+	ClosestPointOnSurface():AbstractBaseCreate(){}
 	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "closestPointOnSurface"){}
 	virtual ~ClosestPointOnSurface(){}
 	void setInPosition(const double3& ip)
 	{
 		if(ip == double3(0.0, 0.0, 0.0)) return;
-		fprintf(mFile,"setAttr \".ip\" -type \"double3\" ");
+		fprintf(mFile,"\tsetAttr \".ip\" -type \"double3\" ");
 		ip.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -36,19 +37,19 @@ public:
 	void setInPositionX(double ipx)
 	{
 		if(ipx == 0) return;
-		fprintf(mFile,"setAttr \".ip.ipx\" %f;\n", ipx);
+		fprintf(mFile,"\tsetAttr \".ip.ipx\" %f;\n", ipx);
 
 	}
 	void setInPositionY(double ipy)
 	{
 		if(ipy == 0) return;
-		fprintf(mFile,"setAttr \".ip.ipy\" %f;\n", ipy);
+		fprintf(mFile,"\tsetAttr \".ip.ipy\" %f;\n", ipy);
 
 	}
 	void setInPositionZ(double ipz)
 	{
 		if(ipz == 0) return;
-		fprintf(mFile,"setAttr \".ip.ipz\" %f;\n", ipz);
+		fprintf(mFile,"\tsetAttr \".ip.ipz\" %f;\n", ipz);
 
 	}
 	void getInputSurface()
@@ -112,7 +113,8 @@ public:
 
 	}
 protected:
-	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):AbstractBaseCreate(file, name, parent, nodeType) {}
+	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:AbstractBaseCreate(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

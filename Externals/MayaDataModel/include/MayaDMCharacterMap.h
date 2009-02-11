@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,19 +18,20 @@ class CharacterMap : public DependNode
 {
 public:
 public:
+	CharacterMap():DependNode(){}
 	CharacterMap(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "characterMap"){}
 	virtual ~CharacterMap(){}
 	void setMemberIndex(size_t mi_i,const intArray& mi)
 	{
 		if(mi.size == 0) return;
-		fprintf(mFile,"setAttr \".mi[%i]\" -type \"intArray\" ",mi_i);
+		fprintf(mFile,"\tsetAttr \".mi[%i]\" -type \"intArray\" ",mi_i);
 		mi.write(mFile);
 		fprintf(mFile,";\n");
 
 	}
 	void setMemberIndex(size_t mi_start,size_t mi_end,intArray* mi)
 	{
-		fprintf(mFile,"setAttr \".mi[%i:%i]\" ", mi_start,mi_end);
+		fprintf(mFile,"\tsetAttr \".mi[%i:%i]\" ", mi_start,mi_end);
 		size_t size = (mi_end-mi_start)*1+1;
 		for(size_t i=0;i<size;++i)
 		{
@@ -42,7 +43,7 @@ public:
 	}
 	void startMemberIndex(size_t mi_start,size_t mi_end)
 	{
-		fprintf(mFile,"setAttr \".mi[%i:%i]\"",mi_start,mi_end);
+		fprintf(mFile,"\tsetAttr \".mi[%i:%i]\"",mi_start,mi_end);
 		fprintf(mFile," -type \"intArray\" ");
 
 	}
@@ -63,7 +64,8 @@ public:
 
 	}
 protected:
-	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

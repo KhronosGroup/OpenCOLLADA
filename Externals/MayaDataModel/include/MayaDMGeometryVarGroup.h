@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,6 +18,7 @@ class GeometryVarGroup : public BaseGeometryVarGroup
 {
 public:
 public:
+	GeometryVarGroup():BaseGeometryVarGroup(){}
 	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent=""):BaseGeometryVarGroup(file, name, parent, "geometryVarGroup"){}
 	virtual ~GeometryVarGroup(){}
 	void getCreate(size_t cr_i)
@@ -31,7 +32,8 @@ public:
 
 	}
 protected:
-	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):BaseGeometryVarGroup(file, name, parent, nodeType) {}
+	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:BaseGeometryVarGroup(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

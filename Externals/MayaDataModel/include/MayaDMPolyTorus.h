@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,54 +18,55 @@ class PolyTorus : public PolyPrimitive
 {
 public:
 public:
+	PolyTorus():PolyPrimitive(){}
 	PolyTorus(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyTorus"){}
 	virtual ~PolyTorus(){}
 	void setRadius(double r)
 	{
 		if(r == 1) return;
-		fprintf(mFile,"setAttr \".r\" %f;\n", r);
+		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
 	void setSectionRadius(double sr)
 	{
 		if(sr == 0) return;
-		fprintf(mFile,"setAttr \".sr\" %f;\n", sr);
+		fprintf(mFile,"\tsetAttr \".sr\" %f;\n", sr);
 
 	}
 	void setTwist(double tw)
 	{
 		if(tw == 0) return;
-		fprintf(mFile,"setAttr \".tw\" %f;\n", tw);
+		fprintf(mFile,"\tsetAttr \".tw\" %f;\n", tw);
 
 	}
 	void setSubdivisionsAxis(int sa)
 	{
 		if(sa == 20) return;
-		fprintf(mFile,"setAttr \".sa\" %i;\n", sa);
+		fprintf(mFile,"\tsetAttr \".sa\" %i;\n", sa);
 
 	}
 	void setSubdivisionsHeight(int sh)
 	{
 		if(sh == 20) return;
-		fprintf(mFile,"setAttr \".sh\" %i;\n", sh);
+		fprintf(mFile,"\tsetAttr \".sh\" %i;\n", sh);
 
 	}
 	void setTexture(bool tx)
 	{
 		if(tx == true) return;
-		fprintf(mFile,"setAttr \".tx\" %i;\n", tx);
+		fprintf(mFile,"\tsetAttr \".tx\" %i;\n", tx);
 
 	}
 	void setCreateUVs(bool cuv)
 	{
 		if(cuv == true) return;
-		fprintf(mFile,"setAttr \".cuv\" %i;\n", cuv);
+		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
 	void setReverseTexture(bool rtx)
 	{
 		if(rtx == false) return;
-		fprintf(mFile,"setAttr \".rtx\" %i;\n", rtx);
+		fprintf(mFile,"\tsetAttr \".rtx\" %i;\n", rtx);
 
 	}
 	void getRadius()
@@ -104,7 +105,8 @@ public:
 
 	}
 protected:
-	PolyTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):PolyPrimitive(file, name, parent, nodeType) {}
+	PolyTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:PolyPrimitive(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

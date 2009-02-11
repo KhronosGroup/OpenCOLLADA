@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,18 +18,19 @@ class SubdMapSewMove : public SubdModifierUV
 {
 public:
 public:
+	SubdMapSewMove():SubdModifierUV(){}
 	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierUV(file, name, parent, "subdMapSewMove"){}
 	virtual ~SubdMapSewMove(){}
 	void setLimitPieceSize(bool lps)
 	{
 		if(lps == false) return;
-		fprintf(mFile,"setAttr \".lps\" %i;\n", lps);
+		fprintf(mFile,"\tsetAttr \".lps\" %i;\n", lps);
 
 	}
 	void setNumberFaces(int nf)
 	{
 		if(nf == 10) return;
-		fprintf(mFile,"setAttr \".nf\" %i;\n", nf);
+		fprintf(mFile,"\tsetAttr \".nf\" %i;\n", nf);
 
 	}
 	void getLimitPieceSize()
@@ -43,7 +44,8 @@ public:
 
 	}
 protected:
-	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):SubdModifierUV(file, name, parent, nodeType) {}
+	SubdMapSewMove(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:SubdModifierUV(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

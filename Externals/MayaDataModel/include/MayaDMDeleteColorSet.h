@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,12 +18,13 @@ class DeleteColorSet : public DependNode
 {
 public:
 public:
+	DeleteColorSet():DependNode(){}
 	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "deleteColorSet"){}
 	virtual ~DeleteColorSet(){}
 	void setColorSetName(const string& cols)
 	{
 		if(cols == "NULL") return;
-		fprintf(mFile,"setAttr \".cols\" -type \"string\" ");
+		fprintf(mFile,"\tsetAttr \".cols\" -type \"string\" ");
 		cols.write(mFile);
 		fprintf(mFile,";\n");
 
@@ -44,7 +45,8 @@ public:
 
 	}
 protected:
-	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM

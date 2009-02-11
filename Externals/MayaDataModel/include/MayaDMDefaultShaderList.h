@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright (c) 2008-2009 NetAllied Systems GmbH
 
     This file is part of MayaDataModel.
 
@@ -18,10 +18,17 @@ class DefaultShaderList : public DependNode
 {
 public:
 public:
+	DefaultShaderList():DependNode(){}
 	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "defaultShaderList"){}
 	virtual ~DefaultShaderList(){}
+	void getShaders(size_t s_i)
+	{
+		fprintf(mFile,"\"%s.s[%i]\"",mName.c_str(),s_i);
+
+	}
 protected:
-	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType):DependNode(file, name, parent, nodeType) {}
+	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+		:DependNode(file, name, parent, nodeType) {}
 
 };
 }//namespace MayaDM
