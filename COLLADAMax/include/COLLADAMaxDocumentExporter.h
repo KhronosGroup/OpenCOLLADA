@@ -88,6 +88,8 @@ namespace COLLADAMax
         /** The id of the @a \<scene\> element.*/
         static const String SCENE_ID;
 
+		static const String AUTHORING_TOOL;
+
 		/** A map, that hold all already exported objects with their ids*/
 		ObjectExportNodeMap mExportedObjects;
 

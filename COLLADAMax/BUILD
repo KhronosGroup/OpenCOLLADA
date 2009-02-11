@@ -15,6 +15,10 @@ Requirements:
 
 - MS Visual Studio 2005.
 
+- SVN comand line tool, especially svnversion  (optional)
+  Available at http://subversion.tigris.org/
+  svnversion must be in your path
+
 
 Building:
 ---------

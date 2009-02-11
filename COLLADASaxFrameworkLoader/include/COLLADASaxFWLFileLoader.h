@@ -103,6 +103,8 @@ namespace COLLADASaxFWL
 		/** Starts loading a library effects.*/
 		virtual bool begin__library_effects( const library_effects__AttributeData& attributeData );
 
+		/** Starts loading a library cameras.*/
+		virtual bool begin__library_cameras( const library_cameras__AttributeData& attributeData );
 
     private:
 

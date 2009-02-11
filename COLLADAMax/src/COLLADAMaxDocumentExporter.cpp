@@ -28,6 +28,7 @@
 #include "COLLADAMaxImageExporter.h"
 #include "COLLADAMaxCameraExporter.h"
 #include "COLLADAMaxLightExporter.h"
+#include "COLLADAMaxVersionInfo.h"
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
@@ -39,6 +40,12 @@ namespace COLLADAMax
 {
 
     const String DocumentExporter::SCENE_ID = "MaxScene";
+
+	const String DocumentExporter::AUTHORING_TOOL = String("COLLADAMax Next Gen") + 
+		                                            (CURRENT_REVISION.empty() ? "" : String(";  Revision: ") + CURRENT_REVISION) + 
+													String(";  Platform: ") + CURRENT_PLATFORM + 
+													String(";  Configuration: ") + CURRENT_CONFIGURATION;
+
 
     //---------------------------------------------------------------
 	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames  )
@@ -148,7 +155,7 @@ namespace COLLADAMax
 		if ( !maxFileUri.getPathFile().empty() )
 			asset.getContributor().mSourceData = maxFileUri.getURIString();
 
-        asset.getContributor().mAuthoringTool = "COLLADAMax";
+        asset.getContributor().mAuthoringTool = AUTHORING_TOOL;
 
 
         // set *system* unit information

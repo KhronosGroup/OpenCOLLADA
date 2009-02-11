@@ -27,6 +27,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -69,6 +70,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -111,6 +113,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -154,6 +157,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -197,6 +201,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -239,6 +244,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -284,6 +290,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -327,6 +334,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -371,6 +379,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -413,6 +422,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -455,6 +465,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -498,6 +509,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -541,6 +553,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -583,6 +596,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -628,6 +642,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -671,6 +686,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2009)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -716,6 +732,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -758,6 +775,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -803,6 +821,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -846,6 +865,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -890,6 +910,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -932,6 +953,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -974,6 +996,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1017,6 +1040,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH2008)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -1059,6 +1083,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1101,6 +1126,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -1143,6 +1169,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1186,6 +1213,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils-d.lib COLLADAFramework-d.lib COLLADAStreamWriter-d.lib COLLADASaxFrameworkLoader-d.lib GeneratedSaxParser-d.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -1229,6 +1257,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1271,6 +1300,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH8)/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "
@@ -1316,6 +1346,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="echo off&#x0D;&#x0A;&#x0D;&#x0A;set F=..\include\COLLADAMaxVersionInfo.h&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo Generating %F% &#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo #ifndef __COLLADAMAX_VERSIONINFO_H__ &gt; %F%&#x0D;&#x0A;echo #define __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #include &quot;COLLADAMaxPrerequisites.h&quot;   &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo namespace COLLADAMax &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo { &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;FOR /f  %%A in (&apos;svnversion ..\..\ &apos;) do set REVISION=%%A&#x0D;&#x0A;&#x0D;&#x0A;&#x0D;&#x0A;echo     const String CURRENT_REVISION = &quot;%REVISION%&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_PLATFORM = &quot;$(PlatformName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;echo     const String CURRENT_CONFIGURATION = &quot;$(ConfigurationName)&quot;; &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo } &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo.  &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;echo #endif // __COLLADAMAX_VERSIONINFO_H__ &gt;&gt; %F%&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -1359,6 +1390,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="COLLADABaseUtils.lib COLLADAFramework.lib COLLADAStreamWriter.lib COLLADASaxFrameworkLoader.lib GeneratedSaxParser.lib maxutil.lib core.lib paramblk2.lib geom.lib bmm.lib mesh.lib mnmath.lib poly.lib"
 				OutputFile="$(OutDir)\$(ProjectName)New.dle"
+				Version="0.8.3"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(MAX_SDK_PATH9)/x64/lib&quot;;&quot;..\..\COLLADABaseUtils\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAFramework\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADAStreamWriter\lib\win\$(PlatformName)&quot;;&quot;..\..\GeneratedSaxParser\lib\win\$(PlatformName)&quot;;&quot;..\..\COLLADASaxFrameworkLoader\lib\win\$(PlatformName)&quot;;&quot;$(BOOST_LIB64_PATH)&quot;"
 				IgnoreDefaultLibraryNames=" "

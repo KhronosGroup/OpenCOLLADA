@@ -108,4 +108,10 @@ namespace COLLADAMax
 		return effectImporter.import();
 	}
 
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeCamera( const COLLADAFW::Camera* camera )
+	{
+		return true;
+	}
+
 } // namespace COLLADAMax

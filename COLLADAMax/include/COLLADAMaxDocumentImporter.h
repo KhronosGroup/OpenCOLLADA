@@ -40,6 +40,7 @@ namespace COLLADAFW
 	class UniqueId;
 	class LibraryNodes;
 	class Node;
+	class Camera;
 }
 
 namespace COLLADAMax
@@ -209,6 +210,11 @@ namespace COLLADAMax
 		/** Writes the effect.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeEffect( const COLLADAFW::Effect* effect );
+
+		/** Writes the camera.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeCamera( const COLLADAFW::Camera* camera );
+
 
 	
 	private:

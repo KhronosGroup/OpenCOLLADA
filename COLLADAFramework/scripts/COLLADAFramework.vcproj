@@ -296,6 +296,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\src\COLLADAFWCamera.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWColor.cpp"
 				>
 			</File>
@@ -435,6 +439,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWArrayPrimitiveType.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWCamera.h"
 				>
 			</File>
 			<File
