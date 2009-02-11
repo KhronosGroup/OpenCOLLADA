@@ -510,6 +510,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWInstanceCamera.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWInstanceEffect.h"
 				>
 			</File>

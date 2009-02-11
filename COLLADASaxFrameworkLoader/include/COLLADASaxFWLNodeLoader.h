@@ -176,9 +176,15 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the beginning of an instance node element.*/
 		virtual bool begin__instance_node( const instance_node__AttributeData& attributeData );
 
-		/** Sax callback function for the ending of an instance node element.*/
-		virtual bool end__instance_node();
+		/** We don't need to do anything here.*/
+		virtual bool end__instance_node(){return true;}
 
+
+		/** Appends the instance camera to the current node.*/
+		virtual bool begin__instance_camera( const instance_camera__AttributeData& attributeData );
+
+		/** We don't need to do anything here.*/
+		virtual bool end__instance_camera(){return true;}
 
 	};
 

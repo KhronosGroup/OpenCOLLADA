@@ -73,15 +73,19 @@ namespace COLLADASaxFWL
 		/** We don't need to do anything here.*/
 		virtual bool end__optics__technique_common(){return true;}
 
-		/** Create an orthographic camera. Not yet implemented.*/
-		virtual bool begin__orthographic(){return true;}
-		virtual bool end__orthographic(){return true;}
 
-		/** Create an orthographic camera.*/
+		/** Set camera type to perspective.*/
 		virtual bool begin__perspective();
 
 		/** We don't need to do anything here.*/
 		virtual bool end__perspective(){return true;}
+
+
+		/** Set camera type to orthographic.*/
+		virtual bool begin__orthographic();
+
+		/** We don't need to do anything here.*/
+		virtual bool end__orthographic(){return true;}
 
 
 		/** We don't need to do anything here.*/
@@ -102,6 +106,26 @@ namespace COLLADASaxFWL
 
 		/** Stores the yfov of the current camera.*/
 		virtual bool data__yfov( double value );
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__xmag( const xmag__AttributeData& attributeData ){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__xmag(){return true;}
+
+		/** Stores the xmag of the current camera.*/
+		virtual bool data__xmag( double value );
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__ymag( const ymag__AttributeData& attributeData ){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__ymag(){return true;}
+
+		/** Stores the ymag of the current camera.*/
+		virtual bool data__ymag( double value );
 
 
 		/** We don't need to do anything here.*/
@@ -132,6 +156,36 @@ namespace COLLADASaxFWL
 
 		/** Stores the far clipping plane of the current camera.*/
 		virtual bool data__perspective__zfar( double value );
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__orthographic__aspect_ratio( const aspect_ratio__AttributeData& attributeData ){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__orthographic__aspect_ratio(){return true;}
+
+		/** Stores the aspect ratio of the current camera.*/
+		virtual bool data__orthographic__aspect_ratio( double value );
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__orthographic__znear( const znear__AttributeData& attributeData ){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__orthographic__znear(){return true;}
+
+		/** Stores the near clipping plane of the current camera.*/
+		virtual bool data__orthographic__znear( double value );
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__orthographic__zfar( const zfar__AttributeData& attributeData ){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__orthographic__zfar(){return true;}
+
+		/** Stores the far clipping plane of the current camera.*/
+		virtual bool data__orthographic__zfar( double value );
 
 
 		/** We don't need to do anything here.*/

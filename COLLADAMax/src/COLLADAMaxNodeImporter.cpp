@@ -93,7 +93,7 @@ namespace COLLADAMax
 		}
 		else
 		{
-			newImportNode = importInstanceGeometrie( node, parentImportNode );
+			newImportNode = importInstanceGeometry( node, parentImportNode );
 			importNodes(node->getChildNodes(), newImportNode);
 		}
 
@@ -168,7 +168,7 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	ImpNode* NodeImporter::importInstanceGeometrie( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	ImpNode* NodeImporter::importInstanceGeometry( const COLLADAFW::Node* node, ImpNode* parentImportNode )
 	{
 		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 		setNodeProperties(node, newImportNode);

@@ -16,6 +16,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWTransformation.h"
 #include "COLLADAFWInstanceGeometry.h"
 #include "COLLADAFWInstanceNode.h"
+#include "COLLADAFWInstanceCamera.h"
 #include "COLLADAFWArrayPrimitiveType.h"
 #include "COLLADAFWPointerArray.h"
 
@@ -70,6 +71,9 @@ namespace COLLADAFW
 		/** List of all instance nodes of this node. Array and contents will be delete in destructor.*/
 		InstanceNodePointerArray mInstanceNodes;
 
+		/** List of all instance cameras of this node. Array and contents will be delete in destructor.*/
+		InstanceCameraPointerArray mInstanceCameras;
+
 		/** List of all child nodes. Array and contents will be delete in destructor.*/
 		NodePointerArray mChildNodes;
 
@@ -110,6 +114,12 @@ namespace COLLADAFW
 
 		/** List of all instance nodes of this node.*/
 		const InstanceNodePointerArray& getInstanceNodes() const { return mInstanceNodes; }
+
+		/** List of all instance cameras of this camera.*/
+		InstanceCameraPointerArray& getInstanceCameras() { return mInstanceCameras; }
+
+		/** List of all instance cameras of this camera.*/
+		const InstanceCameraPointerArray& getInstanceCameras() const { return mInstanceCameras; }
 
 		/** Get list of all child nodes.*/
 		NodePointerArray& getChildNodes() { return mChildNodes; }

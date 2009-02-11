@@ -63,7 +63,7 @@ namespace COLLADAMax
 		instance geometry. A new INode is created, that references the instantiated geometry and has the
 		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
 		Use this member, if a node has exactly one instance geometry.*/
-		ImpNode* importInstanceGeometrie( const COLLADAFW::Node* node, ImpNode* parentImportNode );
+		ImpNode* importInstanceGeometry( const COLLADAFW::Node* node, ImpNode* parentImportNode );
 
 		/** Imports all the instance nodes in  @a instanceNodeArray and attaches them to @a parentImportNode.*/
 		bool importInstanceNodes( const COLLADAFW::InstanceNodePointerArray& instanceNodeArray, ImpNode* parentImportNode );

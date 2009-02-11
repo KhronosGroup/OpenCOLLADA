@@ -64,6 +64,32 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::end__camera()
 	{
+		// we need to determine the description type
+		// X = 1, Y = 2, aspect ratio = 4
+		int descriptionType = (mCurrentCameraHasX ? 1 : 0) +
+							  (mCurrentCameraHasY ? 2 : 0) +
+							  (mCurrentCameraHasAspectRatio ? 4 : 0);
+		switch ( descriptionType )
+		{
+		case 1:
+			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::SINGLE_X);
+			break;
+		case 2:
+			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::SINGLE_Y);
+			break;
+		case 3:
+			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::X_AND_Y);
+			break;
+		case 5:
+			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::ASPECTRATIO_AND_X);
+			break;
+		case 6:
+			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::ASPECTRATIO_AND_Y);
+			break;
+		default:
+			mCurrentCamera->setDescriptionType(COLLADAFW::Camera::UNDEFINED);
+		}
+
 		bool success = writer()->writeCamera(mCurrentCamera);
 		FW_DELETE mCurrentCamera;
 		resetCurrentValues();
@@ -78,9 +104,17 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	bool LibraryCamerasLoader::begin__orthographic()
+	{
+		mCurrentCamera->setCameraType(COLLADAFW::Camera::ORTHOGRAPHIC);
+		return true;
+	}
+
+	//------------------------------
 	bool LibraryCamerasLoader::data__xfov( double value )
 	{
 		mCurrentCamera->setXFovOrXMag( value );
+		mCurrentCameraHasX = true;
 		return true;
 	}
 
@@ -88,6 +122,24 @@ namespace COLLADASaxFWL
 	bool LibraryCamerasLoader::data__yfov( double value )
 	{
 		mCurrentCamera->setYFovOrYMag( value );
+		mCurrentCameraHasX = true;
+		return true;
+	}
+
+
+	//------------------------------
+	bool LibraryCamerasLoader::data__xmag( double value )
+	{
+		mCurrentCamera->setXFovOrXMag( value );
+		mCurrentCameraHasX = true;
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryCamerasLoader::data__ymag( double value )
+	{
+		mCurrentCamera->setYFovOrYMag( value );
+		mCurrentCameraHasX = true;
 		return true;
 	}
 
@@ -95,20 +147,46 @@ namespace COLLADASaxFWL
 	bool LibraryCamerasLoader::data__perspective__aspect_ratio( double value )
 	{
 		mCurrentCamera->setAspectRatio(value);
+		mCurrentCameraHasAspectRatio = true;
 		return true;
 	}
 
+	//------------------------------
 	bool LibraryCamerasLoader::data__perspective__znear( double value )
 	{
 		mCurrentCamera->setNearClippingPlane(value);
 		return true;
 	}
 
+	//------------------------------
 	bool LibraryCamerasLoader::data__perspective__zfar( double value )
 	{
 		mCurrentCamera->setFarClippingPlane(value);
 		return true;
 	}
+
+	//------------------------------
+	bool LibraryCamerasLoader::data__orthographic__aspect_ratio( double value )
+	{
+		mCurrentCamera->setAspectRatio(value);
+		mCurrentCameraHasAspectRatio = true;
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryCamerasLoader::data__orthographic__znear( double value )
+	{
+		mCurrentCamera->setNearClippingPlane(value);
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryCamerasLoader::data__orthographic__zfar( double value )
+	{
+		mCurrentCamera->setFarClippingPlane(value);
+		return true;
+	}
+
 
 
 } // namespace COLLADASaxFWL
