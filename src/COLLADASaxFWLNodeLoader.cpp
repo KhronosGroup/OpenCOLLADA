@@ -299,8 +299,8 @@ namespace COLLADASaxFWL
 		assert(lookat);
 
 		COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition ();
-		COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPosition ();
-		COLLADABU::Math::Vector3& upPosition = lookat->getUpPosition ();
+		COLLADABU::Math::Vector3& interestPointPosition = lookat->getInterestPointPosition ();
+		COLLADABU::Math::Vector3& upAxisDirection = lookat->getUpAxisDirection ();
 
 		size_t i = 0;
 		if ( i < length && mTransformationNumbersReceived < 3 )
@@ -315,7 +315,7 @@ namespace COLLADASaxFWL
 		{
 			for ( size_t j=0; j<3 && i<length; ++j, ++i )
 			{
-				interestPosition[j] = data[i];
+				interestPointPosition[j] = data[i];
 				mTransformationNumbersReceived++;
 			}
 		}
@@ -323,7 +323,7 @@ namespace COLLADASaxFWL
 		{
 			for ( size_t j=0; j<3 && i<length; ++j, ++i )
 			{
-				upPosition[j] = data[i];
+				upAxisDirection[j] = data[i];
 				mTransformationNumbersReceived++;
 			}
 		}
@@ -403,7 +403,7 @@ namespace COLLADASaxFWL
 		COLLADAFW::UniqueId instantiatedCameraUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Camera::ID() );
 
 		COLLADAFW::InstanceCamera* instanceCamera = FW_NEW COLLADAFW::InstanceCamera(instantiatedCameraUniqueId);
-		currentNode->getInstanceNodes().append(instanceCamera);
+		currentNode->getInstanceCameras().append(instanceCamera);
 
 		return true;
 	}
