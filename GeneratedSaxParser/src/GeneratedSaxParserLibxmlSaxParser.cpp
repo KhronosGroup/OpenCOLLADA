@@ -58,8 +58,6 @@ namespace GeneratedSaxParser
 	//--------------------------------------------------------------------
 	LibxmlSaxParser::~LibxmlSaxParser()
 	{
-		if (mParserContext)
-			xmlFreeParserCtxt(mParserContext);
 	}
 
 	bool LibxmlSaxParser::parseFile( const char* fileName )
@@ -85,7 +83,15 @@ namespace GeneratedSaxParser
 			initializeParserContext();
 			xmlParseDocument(mParserContext);
 
-		//	xmlFreeParserCtxt(mParserContext);
+			mParserContext->sax = 0;
+
+			if ( mParserContext->myDoc ) 
+			{
+				xmlFreeDoc(mParserContext->myDoc);
+				mParserContext->myDoc = 0;
+			}
+
+			xmlFreeParserCtxt(mParserContext);
 			mParserContext = 0;
 
 			return true;
