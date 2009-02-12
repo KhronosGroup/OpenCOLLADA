@@ -23,7 +23,7 @@ namespace MayaDM
 		bool relative = false, bool removeObject = false, bool shape = false, 
 		bool world = false ) 
 	{
-		fprintf ( file, "   parent" );
+		fprintf ( file, "parent" );
 
 		if ( absolute ) fprintf ( file, " -a" );
 		if ( addObject ) fprintf ( file, " -add" );
