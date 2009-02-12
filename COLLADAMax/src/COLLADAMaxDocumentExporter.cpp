@@ -28,7 +28,8 @@
 #include "COLLADAMaxImageExporter.h"
 #include "COLLADAMaxCameraExporter.h"
 #include "COLLADAMaxLightExporter.h"
-#include "COLLADAMaxVersionInfo.h"
+
+#include "COLLADAMaxColladaPlugin.h"
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
@@ -41,10 +42,10 @@ namespace COLLADAMax
 
     const String DocumentExporter::SCENE_ID = "MaxScene";
 
-	const String DocumentExporter::AUTHORING_TOOL = String("COLLADAMax Next Gen") + 
-		                                            (CURRENT_REVISION.empty() ? "" : String(";  Revision: ") + CURRENT_REVISION) + 
-													String(";  Platform: ") + CURRENT_PLATFORM + 
-													String(";  Configuration: ") + CURRENT_CONFIGURATION;
+	const String DocumentExporter::AUTHORING_TOOL = String("COLLADAMax NextGen") + 
+		(COLLADAPlugin::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::REVISION_STRING) +
+		String(";  ") + COLLADAPlugin::PLATFORM_STRING + 
+		String(";  ") + COLLADAPlugin::CONFIGURATION_STRING;
 
 
     //---------------------------------------------------------------

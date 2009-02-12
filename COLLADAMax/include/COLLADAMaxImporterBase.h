@@ -45,6 +45,9 @@ namespace COLLADAMax
     /** The base class of all importer classes. It provides methods  used by all importer classes.*/
 	class ImporterBase 	
 	{
+	public:
+		static const String EMPTY_STRING;
+
 	private:
 		/** The collada importer the importer belongs to.*/
 		DocumentImporter* mDocumentImporter;
@@ -70,6 +73,12 @@ namespace COLLADAMax
 
 		/** Returns collada importer the importer belongs to.*/
 		DocumentImporter* getColladaImporter() { return mDocumentImporter; }
+
+		/** Performs all operations to ensure that the object is referenced by the all nodes
+		that need to reference it.
+		@tparam FWObject The framework object class of the framework object that became object */
+		template<class FWObject>
+		bool handleObjectReferences( FWObject* fWobject, Object* object );
 
 		/** Adds an UniqueId-Object INode pair to the UniqueIdObjectINodeMap.  An Object INode 
 		is an INode that references an object. For nodes that reference an object that has 
@@ -130,6 +139,10 @@ namespace COLLADAMax
 		/** Adds the @pair clonedNode and @a originalNode to the list of cloned and original inodes.*/
 		void addClonedINodeOriginalINodePair(INode* clonedNode, INode* originalNode);
 
+		/** Adds an object object-name pair  to the ObejctObjectNameMap. Whenever an object is created, 
+		add it using this method.*/
+		void addObjectObjectNamePair( Object* object, const String& name);
+
 		/** Returns the object that was created from the imported object with UniqueId @a uniqueId. If 
 		@a uniqueId has not been added using addUniqueIdObjectPair, null is returned.*/
 		Object* getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId);
@@ -165,6 +178,9 @@ namespace COLLADAMax
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/ 
 		const DocumentImporter::INodeINodePairList& getClonedINodeOriginalINodePairList();
 
+		/** Returns the name of @a object.*/
+		const String& getObjectNameByObject( Object* object ) const;
+
 	private:
 
         /** Disable default copy ctor. */
@@ -174,6 +190,36 @@ namespace COLLADAMax
 		const ImporterBase& operator= ( const ImporterBase& pre );
 
 	};
+
+
+
+	//------------------------------
+	template<class FWObject>
+	bool ImporterBase::handleObjectReferences( FWObject* fWobject, Object* object )
+	{
+		const COLLADAFW::UniqueId& uniqueID = fWobject->getUniqueId();
+
+		const String& objectName = fWobject->getName();
+		addUniqueIdObjectPair(uniqueID, object);
+		if ( !objectName.empty() )
+			addObjectObjectNamePair(object, objectName);
+
+		INodeList objectNodeList;
+		getObjectINodesByUniqueId(uniqueID, objectNodeList);
+		for ( size_t i = 0, count = objectNodeList.size(); i<count; ++i)
+		{
+			INode* maxNode = objectNodeList[i];
+			TCHAR* name = maxNode->GetName();
+			if ( !name || !(*name) )
+				maxNode->SetName( (char *)objectName.c_str());
+			maxNode->SetObjectRef(object);
+		}
+
+		return true;
+	}
+
+
+
 
 } // namespace COLLADAMAX
 

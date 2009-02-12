@@ -97,6 +97,9 @@ namespace COLLADAMax
 		/** List of inode inode pairs.*/
 		typedef std::vector<std::pair<INode*, INode*>> INodeINodePairList;
 
+		/** Maps an object to its name.*/
+		typedef std::map<Object*, String > ObjectObjectNameMap;
+
 
 	private:
 		/** Max interface.*/
@@ -157,6 +160,9 @@ namespace COLLADAMax
 		/** List of pairs of cloned nodes and their originals. This is used to assign materials. When ever
 		an inode is cloned, the cloned one and itself should be added to that list.*/
 		INodeINodePairList mClonedINodeOriginalINodePairList;
+
+		/** Maps an object to its name. Whenever an object is created, add it with its name to this map.*/
+		ObjectObjectNameMap mObjectObjectNameMap;
 
 	public:
 		/** Constructor .
@@ -265,6 +271,10 @@ namespace COLLADAMax
 		/**Returns the list of pairs of cloned nodes and their originals. This is used to assign materials. 
 		When ever an inode is cloned, the cloned one and itself should be added to that list.*/
 		INodeINodePairList& getClonedINodeOriginalINodePairList() { return mClonedINodeOriginalINodePairList; }
+
+		/** Returns the map, that maps an object to its name. Whenever an object is created, add it with 
+		its name to this map.*/
+		ObjectObjectNameMap& getObjectObjectNameMap() { return mObjectObjectNameMap; }
 
 		friend class ImporterBase;
 

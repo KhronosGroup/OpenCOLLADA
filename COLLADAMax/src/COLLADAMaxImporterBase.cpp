@@ -24,6 +24,8 @@ http://www.opensource.org/licenses/mit-license.php
 namespace COLLADAMax
 {
 
+	const String ImporterBase::EMPTY_STRING = "";
+
 	ImporterBase::ImporterBase( DocumentImporter* documentImporter)
 		:	mDocumentImporter(documentImporter)
 	{
@@ -51,6 +53,7 @@ namespace COLLADAMax
 	{
 		return mDocumentImporter->getDummyObject();
 	}
+
 
 	//------------------------------
 	void ImporterBase::addUniqueIdObjectINodePair( const COLLADAFW::UniqueId& uniqueId, INode* node )
@@ -168,6 +171,13 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	void ImporterBase::addObjectObjectNamePair( Object* object, const String& name )
+	{
+		DocumentImporter::ObjectObjectNameMap& objectObjectNameMap = mDocumentImporter->getObjectObjectNameMap();
+		objectObjectNameMap.insert(std::pair<Object*, String>(object, name));
+	}
+
+	//------------------------------
 	Object* ImporterBase::getObjectByUniqueId( const COLLADAFW::UniqueId& uniqueId )
 	{
 		const DocumentImporter::UniqueIdObjectMap& uniqueIdObjectMap = mDocumentImporter->getUniqueIdObjectMap();
@@ -246,8 +256,21 @@ namespace COLLADAMax
 		return mDocumentImporter->getGeometryMaterialIdMapMap()[uniqueId];
 	}
 
+	//------------------------------
 	const DocumentImporter::INodeINodePairList& ImporterBase::getClonedINodeOriginalINodePairList()
 	{
 		return mDocumentImporter->getClonedINodeOriginalINodePairList();
 	}
+
+	//------------------------------
+	const String& ImporterBase::getObjectNameByObject( Object* object ) const
+	{
+		const DocumentImporter::ObjectObjectNameMap& objectObjectNameMap = mDocumentImporter->getObjectObjectNameMap();
+		DocumentImporter::ObjectObjectNameMap::const_iterator it = objectObjectNameMap.find(object);
+		if ( it == objectObjectNameMap.end() )
+			return EMPTY_STRING;
+		else
+			return it->second;
+	}
+
 } // namespace COLLADAMax

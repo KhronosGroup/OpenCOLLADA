@@ -50,7 +50,10 @@ namespace COLLADASaxFWL
         , mTexCoordList (0)
         , mColorList (0)
 	{
-        mMesh->setName ( geometryName );
+		if ( !geometryName.empty() )
+			mMesh->setName ( geometryName );
+		else if ( !geometryId.empty() )
+			mMesh->setName ( geometryId );
 	}
 
 

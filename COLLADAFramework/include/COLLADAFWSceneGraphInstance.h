@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWPointerArray.h"
 
 
 namespace COLLADAFW
@@ -50,13 +51,9 @@ namespace COLLADAFW
 
 		virtual SceneGraphInstance* clone() const { return new SceneGraphInstance(*this); }
 
-	private:
-		/** Disable default copy ctor. */
-//		SceneGraphInstance( const SceneGraphInstance& pre );
-		/** Disable default assignment operator. */
-//		const SceneGraphInstance& operator= ( const SceneGraphInstance& pre );
-
 	};
+
+	typedef PointerArray<SceneGraphInstance> SceneGraphInstancePointerArray;
 
 
 } // namespace COLLADAFW

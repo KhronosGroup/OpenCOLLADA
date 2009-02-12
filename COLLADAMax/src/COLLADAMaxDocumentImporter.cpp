@@ -23,6 +23,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxMaterialImporter.h"
 #include "COLLADAMaxMaterialCreator.h"
 #include "COLLADAMaxEffectImporter.h"
+#include "COLLADAMaxCameraImporter.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
 #include "COLLADAFWLibraryNodes.h"
@@ -111,7 +112,8 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	bool DocumentImporter::writeCamera( const COLLADAFW::Camera* camera )
 	{
-		return true;
+		CameraImporter cameraImporter(this, camera);
+		return cameraImporter.import();
 	}
 
 } // namespace COLLADAMax

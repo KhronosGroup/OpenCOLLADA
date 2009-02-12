@@ -24,6 +24,8 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWNode.h"
 #include "Math/COLLADABUMathMatrix4.h"
 
+
+class INode;
 namespace COLLADAFW
 {
 };
@@ -56,14 +58,38 @@ namespace COLLADAMax
 		/** Imports all nodes in  @a nodeArray and attaches them to @a parentImportNode.*/
 		bool importNodes(const COLLADAFW::NodePointerArray& nodeArray, ImpNode* parentImportNode);
 
+		/** Imports all the instances in  @a instanceArray and attaches them to @a parentImportNode.*/
+		template<class Instance, 
+			void (NodeImporter::*postProcess)( INode*, Instance* )>
+		bool importInstances( const COLLADAFW::PointerArray<Instance>& instanceArray, ImpNode* parentImportNode );
+
 		/** Imports all the instance geometries in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
 		bool importInstanceGeometries( const COLLADAFW::InstanceGeometryPointerArray& instanceGeometryArray, ImpNode* parentImportNode );
+
+		/** Imports all the instance cameras in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
+		bool importInstanceCameras( const COLLADAFW::InstanceCameraPointerArray& instanceCameraArray, ImpNode* parentImportNode );
+
+
+		/** Imports the first instance of type Instance in @a node. A new INode is created, that references 
+		the instantiated geometry and has the	properties of @a node (name, transformation). The new INode 
+		is attached to @a parentImportNode. Use this member, if a node has exactly one instance.*/
+		template<class Instance, 
+			const COLLADAFW::PointerArray<Instance>& (COLLADAFW::Node::*getInstances)()const,
+			void (NodeImporter::*postProcess)( INode*, Instance* )>
+		ImpNode* importInstance( const COLLADAFW::Node* node, ImpNode* parentImportNode );
 
 		/** Imports the first instance geometry in @a node. It is assumed that @a node has at least one
 		instance geometry. A new INode is created, that references the instantiated geometry and has the
 		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
 		Use this member, if a node has exactly one instance geometry.*/
 		ImpNode* importInstanceGeometry( const COLLADAFW::Node* node, ImpNode* parentImportNode );
+
+
+		/** Imports the first instance camera in @a node. It is assumed that @a node has at least one
+		instance camera. A new INode is created, that references the instantiated camera and has the
+		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
+		Use this member, if a node has exactly one instance camera.*/
+		ImpNode* importInstanceCamera( const COLLADAFW::Node* node, ImpNode* parentImportNode );
 
 		/** Imports all the instance nodes in  @a instanceNodeArray and attaches them to @a parentImportNode.*/
 		bool importInstanceNodes( const COLLADAFW::InstanceNodePointerArray& instanceNodeArray, ImpNode* parentImportNode );

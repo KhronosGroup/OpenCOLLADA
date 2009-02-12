@@ -113,7 +113,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::data__xfov( double value )
 	{
-		mCurrentCamera->setXFovOrXMag( value );
+		mCurrentCamera->setXFov( value );
 		mCurrentCameraHasX = true;
 		return true;
 	}
@@ -121,8 +121,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::data__yfov( double value )
 	{
-		mCurrentCamera->setYFovOrYMag( value );
-		mCurrentCameraHasX = true;
+		mCurrentCamera->setYFov( value );
+		mCurrentCameraHasY = true;
 		return true;
 	}
 
@@ -130,7 +130,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::data__xmag( double value )
 	{
-		mCurrentCamera->setXFovOrXMag( value );
+		mCurrentCamera->setXMag( value );
 		mCurrentCameraHasX = true;
 		return true;
 	}
@@ -138,8 +138,8 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryCamerasLoader::data__ymag( double value )
 	{
-		mCurrentCamera->setYFovOrYMag( value );
-		mCurrentCameraHasX = true;
+		mCurrentCamera->setYMag( value );
+		mCurrentCameraHasY = true;
 		return true;
 	}
 

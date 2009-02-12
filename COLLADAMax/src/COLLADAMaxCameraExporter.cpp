@@ -134,7 +134,6 @@ namespace COLLADAMax
 
 		if ( camera )
 		{
-
 			if (  mDocumentExporter->isExportedObject(ObjectIdentifier(camera)) )
 				return;
 

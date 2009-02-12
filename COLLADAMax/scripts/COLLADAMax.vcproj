@@ -2075,6 +2075,10 @@
 				Name="importer"
 				>
 				<File
+					RelativePath="..\src\COLLADAMaxCameraImporter.cpp"
+					>
+				</File>
+				<File
 					RelativePath="..\src\COLLADAMaxColladaImporter.cpp"
 					>
 				</File>
@@ -2256,6 +2260,10 @@
 			<Filter
 				Name="importer"
 				>
+				<File
+					RelativePath="..\include\COLLADAMaxCameraImporter.h"
+					>
+				</File>
 				<File
 					RelativePath="..\include\COLLADAMaxColladaImporter.h"
 					>

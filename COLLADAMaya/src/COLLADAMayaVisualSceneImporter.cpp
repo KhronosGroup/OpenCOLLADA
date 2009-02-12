@@ -365,9 +365,9 @@ namespace COLLADAMaya
                     /** The position of the object. */
                     COLLADABU::Math::Vector3& eyePosition = lookat->getEyePosition (); 
                     /** The position of the interest point. */
-                    COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPosition (); 
+                    COLLADABU::Math::Vector3& interestPosition = lookat->getInterestPointPosition(); 
                     /** The direction that points up. */
-                    COLLADABU::Math::Vector3& upPosition = lookat->getUpPosition ();
+                    COLLADABU::Math::Vector3& upPosition = lookat->getUpAxisDirection();
 
                     // TODO Do anything with this values!
 

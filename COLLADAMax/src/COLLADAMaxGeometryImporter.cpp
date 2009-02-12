@@ -95,7 +95,7 @@ namespace COLLADAMax
 		triangleMesh.InvalidateGeomCache();
 		triangleMesh.InvalidateTopologyCache();
 
-		handleReferences(mesh, triangleObject);
+		handleObjectReferences(mesh, triangleObject);
 
 		return true;
 	}
@@ -390,7 +390,7 @@ namespace COLLADAMax
 
 		//polygonMesh.InvalidateGeomCache();
 
-		handleReferences(mesh, polygonObject);
+		handleObjectReferences(mesh, polygonObject);
 
 		return true;
 	}
@@ -707,20 +707,6 @@ namespace COLLADAMax
 		return true;
 	}
 
-	//------------------------------
-	bool GeometryImporter::handleReferences( COLLADAFW::Geometry* geometry, Object* object )
-	{
-		const COLLADAFW::UniqueId& uniqueID = geometry->getUniqueId();
-
-		addUniqueIdObjectPair(uniqueID, object);
-
-		INodeList objectNodeList;
-		getObjectINodesByUniqueId(uniqueID, objectNodeList);
-		for ( size_t i = 0, count = objectNodeList.size(); i<count; ++i)
-			objectNodeList[i]->SetObjectRef(object);
-		
-		return true;
-	}
 
 	//------------------------------
 	void GeometryImporter::createFWMaterialIdMaxMtlIdMap( const COLLADAFW::MeshPrimitiveArray& primitiveArray, DocumentImporter::FWMaterialIdMaxMtlIdMap& materialMap )

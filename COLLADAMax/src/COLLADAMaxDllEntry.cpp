@@ -22,10 +22,15 @@
 #include "COLLADAMaxColladaExporter.h"
 #include "COLLADAMaxColladaImporter.h"
 
+#include "COLLADAMaxColladaPlugin.h"
+
+#include "COLLADAMaxVersionInfo.h"
+
 HINSTANCE hInstance;
 int controlsInit = FALSE;
 
-static const COLLADAMax::String LIBDESCRIPTION = "COLLADAMax NextGen";
+static const COLLADAMax::String LIBDESCRIPTION = "COLLADAMax NextGen" + 
+      (COLLADAMax::COLLADAPlugin::REVISION_STRING.empty() ? "" : (COLLADAMax::String(" ") + COLLADAMax::COLLADAPlugin::REVISION_STRING));
 
 BOOL WINAPI DllMain ( HINSTANCE hinstDLL, ULONG fdwReason, LPVOID UNUSED ( lpvReserved ) )
 {

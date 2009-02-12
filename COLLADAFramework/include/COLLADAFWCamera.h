@@ -21,7 +21,7 @@ namespace COLLADAFW
     /** Camera class. The camera is either a perspective or an orthographic camera.
 	The CameraType indicates of which type the camera is which. 
 	For perspective cameras mXFovOrXMag and mYFovOrYMag store the horizontal or vertical field of view,
-	for perspective cameras mXFovOrXMag and mYFovOrYMag store the horizontal or vertical magnification of the view.*/
+	for orthographic cameras mXFovOrXMag and mYFovOrYMag store the horizontal or vertical magnification of the view.*/
 	class Camera : public ObjectTemplate < COLLADA_TYPE::CAMERA >
 	{
 	public:
@@ -33,7 +33,7 @@ namespace COLLADAFW
 			PERSPECTIVE
 		};
 
-		/** Defines which values are used to describe the perspective camera.*/
+		/** Defines which values are used to describe the camera.*/
 		enum DescriptionType
 		{
 			UNDEFINED,					//!< The perspective camera object is invalid
@@ -97,17 +97,29 @@ namespace COLLADAFW
 		/** sets the type of description used to define the perspective camera.*/
 		void setDescriptionType(DescriptionType descriptionType) { mDescriptionType = descriptionType; }
 
-		/** Returns the horizontal field of view or magnification of the view.*/ 
-		double getXFovOrXMag() const { return mXFovOrXMag; }
+		/** Returns the horizontal field of view. Use only for perspective cameras.*/ 
+		double getXFov() const { return mXFovOrXMag; }
 
-		/** Sets the horizontal field of view or magnification of the view.*/ 
-		void setXFovOrXMag(double xFov) { mXFovOrXMag = xFov; }
+		/** Sets the horizontal field of view. Use only for perspective cameras.*/ 
+		void setXFov(double xFov) { mXFovOrXMag = xFov; }
 
-		/** Returns the vertical field of view or magnification of the view.*/ 
-		double getYFovOrYMag() const { return mYFovOrYMag; }
+		/** Returns the horizontal magnification of the view. Use only for orthographic cameras.*/ 
+		double getXMag() const { return mXFovOrXMag; }
 
-		/** Sets the vertical field of view or magnification of the view.*/ 
-		void setYFovOrYMag(double yFov) { mYFovOrYMag = yFov; }
+		/** Sets the horizontal magnification of the view. Use only for orthographic cameras.*/ 
+		void setXMag(double xMag) { mXFovOrXMag = xMag; }
+
+		/** Returns the vertical field of view. Use only for perspective cameras.*/ 
+		double getYFov() const { return mYFovOrYMag; }
+
+		/** Sets the vertical field of view. Use only for perspective cameras.*/ 
+		void setYFov(double yFov) { mYFovOrYMag = yFov; }
+
+		/** Returns the vertical magnification of the view. Use only for orthographic cameras.*/ 
+		double getYMag() const { return mYFovOrYMag; }
+
+		/** Sets the vertical magnification of the view. Use only for orthographic cameras.*/ 
+		void setYMag(double yMag) { mYFovOrYMag = yMag; }
 
 		/** Returns the aspect ratio.*/ 
 		double getAspectRatio() const { return mAspectRatio; }

@@ -36,10 +36,10 @@ namespace COLLADAFW
         COLLADABU::Math::Vector3 mEyePosition; 
 
         /** The target of the viewer. Defines the pitch and the yaw of the transform. */
-        COLLADABU::Math::Vector3 mInterestPosition; 
+        COLLADABU::Math::Vector3 mInterestPointPosition; 
 
         /** The up-axis of the viewer. Defines the roll of the transform. */
-        COLLADABU::Math::Vector3 mUpPosition; 
+        COLLADABU::Math::Vector3 mUpAxisDirection; 
 
 	public:
 
@@ -57,14 +57,14 @@ namespace COLLADAFW
         void setEyePosition ( COLLADABU::Math::Vector3& val ) { mEyePosition = val; }
 
         /** The target of the viewer. Defines the pitch and the yaw of the transform. */
-		COLLADABU::Math::Vector3& getInterestPosition () { return mInterestPosition; }
-		const COLLADABU::Math::Vector3& getInterestPosition () const { return mInterestPosition; }
-        void setInterestPosition ( COLLADABU::Math::Vector3& val ) { mInterestPosition = val; }
+		COLLADABU::Math::Vector3& getInterestPointPosition () { return mInterestPointPosition; }
+		const COLLADABU::Math::Vector3& getInterestPointPosition () const { return mInterestPointPosition; }
+        void setInterestPointPosition ( COLLADABU::Math::Vector3& val ) { mInterestPointPosition = val; }
 
         /** The up-axis of the viewer. Defines the roll of the transform. */
-        COLLADABU::Math::Vector3& getUpPosition () { return mUpPosition; }
-		const COLLADABU::Math::Vector3& getUpPosition () const { return mUpPosition; }
-        void setUpPosition ( COLLADABU::Math::Vector3& val ) { mUpPosition = val; }
+        COLLADABU::Math::Vector3& getUpAxisDirection () { return mUpAxisDirection; }
+		const COLLADABU::Math::Vector3& getUpAxisDirection () const { return mUpAxisDirection; }
+        void setUpAxisDirection ( COLLADABU::Math::Vector3& val ) { mUpAxisDirection = val; }
 
 		/** Clones the lookat.*/
 		virtual Lookat* clone() const { return new Lookat(*this); }

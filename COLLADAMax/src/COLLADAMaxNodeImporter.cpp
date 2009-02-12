@@ -59,7 +59,7 @@ namespace COLLADAMax
 	//------------------------------
 	void NodeImporter::setNodeProperties( const COLLADAFW::Node* node, ImpNode* importNode)
 	{
-		String newNodeName = node->getName();
+		const String& newNodeName = node->getName();
 		if ( !newNodeName.empty() )
 			importNode->SetName(newNodeName.c_str());
 
@@ -69,17 +69,17 @@ namespace COLLADAMax
 		Matrix3 maxTransformationMatrix;
 		Matrix4ToMaxMatrix3(maxTransformationMatrix, transformationMatrix);
 		importNode->SetTransform(0, maxTransformationMatrix);
-
 	}
 
 	//------------------------------
 	ImpNode* NodeImporter::importNode( const COLLADAFW::Node* node, ImpNode* parentImportNode )
 	{
-		bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
+		bool singleInstance = (node->getInstanceGeometries().getCount() +
+			                           node->getInstanceCameras().getCount() ) == 1;
 		ImpNode* newImportNode = 0;
 		const COLLADAFW::UniqueId& nodeUniqueId = node->getUniqueId();
 
-		if ( !singleGeometryInstance )
+		if ( !singleInstance )
 		{
 			newImportNode = getMaxImportInterface()->CreateNode();
 
@@ -89,11 +89,16 @@ namespace COLLADAMax
 			RefResult res = newImportNode->Reference(getDummyObject());
 
 			importInstanceGeometries(node->getInstanceGeometries(), newImportNode);
+			importInstanceCameras(node->getInstanceCameras(), newImportNode);
 			importNodes(node->getChildNodes(), newImportNode);
 		}
 		else
 		{
 			newImportNode = importInstanceGeometry( node, parentImportNode );
+			if ( !newImportNode )
+				newImportNode = importInstanceCamera( node, parentImportNode );
+
+			assert(newImportNode);
 			importNodes(node->getChildNodes(), newImportNode);
 		}
 
@@ -131,15 +136,17 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
-	bool NodeImporter::importInstanceGeometries( const COLLADAFW::InstanceGeometryPointerArray& instanceGeometryArray, ImpNode* parentImportNode )
+	template<class Instance, 
+		     void (NodeImporter::*postProcess)( INode*, Instance* )>
+	bool NodeImporter::importInstances( const COLLADAFW::PointerArray<Instance>& instanceArray, ImpNode* parentImportNode )
 	{
-		for ( size_t i = 0, count = instanceGeometryArray.getCount(); i < count; ++i)
+		for ( size_t i = 0, count = instanceArray.getCount(); i < count; ++i)
 		{
-			COLLADAFW::InstanceGeometry* instanceGeometry = instanceGeometryArray[i];
+			Instance* instance = instanceArray[i];
 
 			ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 			INode* newNode = newImportNode->GetINode();
-			const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedObjectId();
+			const COLLADAFW::UniqueId& uniqueId = instance->getInstanciatedObjectId();
 
 			Object* object = getObjectByUniqueId(uniqueId);
 			if ( object )
@@ -150,37 +157,63 @@ namespace COLLADAMax
 			{
 				newImportNode->Reference( getDummyObject() );
 			}
-			const COLLADAFW::UniqueId& instanceGeometryUniqueId = instanceGeometry->getInstanciatedObjectId();
+			const COLLADAFW::UniqueId& instanceUniqueId = instance->getInstanciatedObjectId();
 			// Store mapping between unique ids and nodes referencing the corresponding object.
 			// Used to clone nodes
-			addObjectINodeUniqueIdPair(newNode, instanceGeometryUniqueId);
+			addObjectINodeUniqueIdPair(newNode, instanceUniqueId);
 			// Used to resolve instancing of objects
-			addUniqueIdObjectINodePair(instanceGeometryUniqueId, newNode);
+			addUniqueIdObjectINodePair(instanceUniqueId, newNode);
 
 			INode* parentNode = parentImportNode->GetINode();
 			parentNode->AttachChild(newNode, FALSE);
 
-			// Store the information about material bindings
-			storeMaterialBindings(newNode, instanceGeometry);
+			// post process the creation
+			if ( postProcess )
+				(this->*postProcess)(newNode, instance);
 		}
 
 		return true;
 	}
 
+
 	//------------------------------
-	ImpNode* NodeImporter::importInstanceGeometry( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	bool NodeImporter::importInstanceGeometries( const COLLADAFW::InstanceGeometryPointerArray& instanceGeometryArray, ImpNode* parentImportNode )
 	{
+		return importInstances<COLLADAFW::InstanceGeometry, &NodeImporter::storeMaterialBindings>(instanceGeometryArray, parentImportNode);
+	}
+
+
+	//------------------------------
+	bool NodeImporter::importInstanceCameras( const COLLADAFW::InstanceCameraPointerArray& instanceCameraArray, ImpNode* parentImportNode )
+	{
+		return importInstances<COLLADAFW::InstanceCamera, 0>(instanceCameraArray, parentImportNode);
+	}
+
+	//------------------------------
+	template<class Instance, 
+		     const COLLADAFW::PointerArray<Instance>& (COLLADAFW::Node::*getInstances)()const,
+			 void (NodeImporter::*postProcess)( INode*, Instance* )>
+	ImpNode* NodeImporter::importInstance( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	{
+		const COLLADAFW::PointerArray<Instance>& instances = (node->*getInstances)();
+		if ( instances.getCount() != 1 )
+			return 0;
+
 		ImpNode* newImportNode = getMaxImportInterface()->CreateNode();
 		setNodeProperties(node, newImportNode);
 		INode* newNode = newImportNode->GetINode();
 
-		COLLADAFW::InstanceGeometry* instanceGeometry = node->getInstanceGeometries()[0];
+		Instance* instanceGeometry = instances[0];
 		const COLLADAFW::UniqueId& uniqueId = instanceGeometry->getInstanciatedObjectId();
 
 		Object* object = getObjectByUniqueId(uniqueId);
 		if ( object )
 		{
 			newImportNode->Reference(object);
+			const String& objectName = getObjectNameByObject(object);
+
+			if ( node->getName().empty() && !objectName.empty() )
+				newImportNode->SetName( objectName.c_str() );
 		}
 		else
 		{
@@ -196,12 +229,25 @@ namespace COLLADAMax
 		INode* parentNode = parentImportNode->GetINode();
 		parentNode->AttachChild(newNode, FALSE);
 
-		// Store the information about material bindings
-		storeMaterialBindings(newNode, instanceGeometry);
+		// post process the creation
+		if ( postProcess )
+			(this->*postProcess)(newNode, instanceGeometry);
 
 		return newImportNode;
 	}
 
+	//------------------------------
+	ImpNode* NodeImporter::importInstanceGeometry( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	{
+		return importInstance<COLLADAFW::InstanceGeometry, &COLLADAFW::Node::getInstanceGeometries, &NodeImporter::storeMaterialBindings>(node, parentImportNode);
+	}
+
+
+	//------------------------------
+	ImpNode* NodeImporter::importInstanceCamera( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	{
+		return importInstance<COLLADAFW::InstanceCamera, &COLLADAFW::Node::getInstanceCameras, 0>(node, parentImportNode);
+	}
 
 	//------------------------------
 	bool NodeImporter::importInstanceNodes( const COLLADAFW::InstanceNodePointerArray& instanceNodeArray, ImpNode* parentImportNode )

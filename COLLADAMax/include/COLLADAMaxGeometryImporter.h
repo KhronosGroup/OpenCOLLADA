@@ -99,10 +99,6 @@ namespace COLLADAMax
 
 
 
-		/** Performs all operations to ensure that the geometry is referenced by the all nodes
-		that need to reference it.*/
-		bool handleReferences(COLLADAFW::Geometry* geometry, Object* object);
-
 		/** Fills the map with pair of frame work material ids of the used by primitives in @a primitiveArray
 		and material ids used in Max. The max material ids start with 1 and are increased for each new
 		framework material id.*/
