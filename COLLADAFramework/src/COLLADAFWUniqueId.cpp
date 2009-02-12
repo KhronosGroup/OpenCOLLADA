@@ -17,11 +17,12 @@ namespace COLLADAFW
 	const UniqueId UniqueId::INVALID = UniqueId();
 
 
-	//--------------------------------------------------------------------
+	//-------------------------------
 	UniqueId::~UniqueId()
 	{
 	}
 
+    //-------------------------------
 	bool UniqueId::operator<( const UniqueId& rhs ) const
 	{
 		if ( mClassId < rhs.mClassId )
@@ -38,4 +39,13 @@ namespace COLLADAFW
 
 		return false;
 	}
+
+    //-------------------------------
+    bool UniqueId::operator== ( const UniqueId& uid ) const
+    {
+        if (mClassId != uid.getClassId ()) return false;
+        if (mObjectId != uid.getObjectId ()) return false;
+        return true;
+    }
+
 } // namespace COLLADAFW

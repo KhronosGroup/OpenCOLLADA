@@ -40,11 +40,6 @@ namespace COLLADAMaya
     class EffectImporter;
 
 
-    typedef std::map<COLLADAFW::UniqueId, std::set<const COLLADAFW::UniqueId>> UniqueIdUniqueIdsMap;
-    typedef std::map<COLLADAFW::UniqueId, MayaNode> UniqueIdMayaNodesMap;
-    typedef std::map<COLLADAFW::UniqueId, MayaDM::Mesh> UniqueIdMayaDMMeshMap;
-
-
     /** The main importer class. This class imports all data of the scene. */
     class DocumentImporter : public COLLADAFW::IWriter 
     {
@@ -76,7 +71,6 @@ namespace COLLADAMaya
 
         bool mAssetWritten;
         bool mSceneGraphWritten;
-        bool mGeometryWritten;
 
         bool mSceneGraphRead;
         bool mGeometryRead;
@@ -94,7 +88,7 @@ namespace COLLADAMaya
         EffectImporter* mEffectImporter;
 
         /** The variable tells, how many times the document is read. */
-        size_t mDocumentReads;
+        size_t mNumDocumentParses;
 
     public:
 
@@ -201,6 +195,13 @@ namespace COLLADAMaya
         /** When this method is called, the writer must write the effect.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeEffect ( const COLLADAFW::Effect* effect );
+
+        /** When this method is called, the writer must write the camera.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeCamera( const COLLADAFW::Camera* camera ) 
+        {
+            return true;
+        }
 
     private:
 

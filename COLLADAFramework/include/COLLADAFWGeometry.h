@@ -49,10 +49,6 @@ namespace COLLADAFW
 
     private:
 	
-        /** A text string containing the unique identifier of the <geometry> element. This
-        value must be unique within the instance document. Optional. */
-        String mId;
-
         /** A text string containing the name of the <geometry> element. Optional. */
         String mName; 
 

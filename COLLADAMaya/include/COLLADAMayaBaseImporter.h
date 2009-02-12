@@ -33,7 +33,21 @@ namespace COLLADAMaya
     {
     public:
 
+        typedef std::set<const COLLADAFW::UniqueId> UniqueIdSet;
+
+        typedef std::map<COLLADAFW::UniqueId, COLLADAFW::UniqueId> UniqueIdUniqueIdMap;
         typedef std::map<COLLADAFW::UniqueId, String> UniqueIdNamesMap;
+
+        typedef std::vector<const COLLADAFW::UniqueId> UniqueIdVec;
+        typedef std::map<COLLADAFW::UniqueId, UniqueIdVec> UniqueIdUniqueIdsMap;
+
+        typedef std::map<COLLADAFW::UniqueId, MayaNode> UniqueIdMayaNodesMap;
+        typedef std::map<COLLADAFW::UniqueId, MayaDM::Mesh> UniqueIdMayaDMMeshMap;
+
+        typedef std::pair<COLLADAFW::UniqueId,COLLADAFW::MaterialId> CombinedId;
+        typedef std::vector<size_t> IndicesVector;
+        typedef std::map<CombinedId, IndicesVector> CombinedIdIndicesMap;
+
 
     private:
 

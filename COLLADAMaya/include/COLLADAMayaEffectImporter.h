@@ -69,12 +69,14 @@ namespace COLLADAMaya
         /**
         * The map holds the maya material objects.
         */
-        const UniqueIdMayaDependNodeMap& getMayaEffectMap () const { return mMayaEffectMap; }
+        MayaDM::DependNode* findMayaEffect ( const COLLADAFW::UniqueId& val ) const;
+
+	private:
 
         /**
         * The map holds the maya material objects.
         */
-        MayaDM::DependNode* findMayaEffect ( const COLLADAFW::UniqueId& val ) const;
+        const UniqueIdMayaDependNodeMap& getMayaEffectMap () const { return mMayaEffectMap; }
 
         /**
         * The map holds the maya material objects.
@@ -85,9 +87,6 @@ namespace COLLADAMaya
         * One effect can have multiple materials. But one material just one effect.
         */
         const UniqueIdDependNodesMap getEffectMaterialsMap () const { return mEffectMaterialsMap; }
-
-
-	private:
 
         /**
          * Imports a lambert shader effect.

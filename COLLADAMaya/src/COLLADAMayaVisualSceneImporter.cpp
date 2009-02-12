@@ -18,11 +18,9 @@
 #include "COLLADAMayaDocumentImporter.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
-#include "COLLADAMayaGeometryImporter.h"
 #include "COLLADAMayaMaterialImporter.h"
 
 #include "MayaDMJoint.h"
-#include "MayaDMLambert.h"
 #include "MayaDMDependNode.h"
 #include "MayaDMCommands.h"
 
@@ -44,8 +42,6 @@ namespace COLLADAMaya
 {
     
     const String VisualSceneImporter::TRANSFORM_NODE_NAME = "Transform";
-    const String VisualSceneImporter::SHADING_ENGINE_NAME = "ShadingEngine";
-    const String VisualSceneImporter::MATERIAL_INFO_NAME = "MaterialInfo";
 
 
     // -----------------------------------
@@ -79,7 +75,7 @@ namespace COLLADAMaya
         String parentNodeName = ""; 
         if ( parentTransformNodeId != NULL ) 
         {
-            parentMayaNode = getMayaTransformNode ( *parentTransformNodeId );
+            parentMayaNode = findMayaTransformNode ( *parentTransformNodeId );
             assert ( parentMayaNode != NULL );
             parentNodeName = parentMayaNode->getName ();
         }
@@ -102,7 +98,7 @@ namespace COLLADAMaya
         importTransformations ( node, transformNode );
 
         // Import instance geometry.
-        readGeometryInstances ( node, transformNode );
+        readGeometryInstances ( node );
 
         // Import the node instances.
         readNodeInstances ( node );
@@ -115,62 +111,6 @@ namespace COLLADAMaya
             COLLADAFW::Node* childNode = childNodes [i];
             importNode ( childNode, &transformNodeId );
         }
-    }
-
-    // -----------------------------------
-    bool VisualSceneImporter::readNodeInstances ( const COLLADAFW::Node* node )
-    {
-        const COLLADAFW::InstanceNodeArray& nodeInstances = node->getInstanceNodes ();
-        size_t numInstances = nodeInstances.getCount ();
-        for ( size_t i=0; i<numInstances; ++i )
-        {
-            const COLLADAFW::InstanceNode* nodeInstance = nodeInstances [i];
-            const COLLADAFW::UniqueId& childInstanceId = nodeInstance->getInstanciatedObjectId ();
-
-            // Check if the original node is already generated!
-            MayaNode* mayaChildNode = getMayaTransformNode ( childInstanceId );
-            String childNodeName = mayaChildNode->getName ();
-
-            // Get the pathes.
-            const COLLADAFW::UniqueId& nodeId = node->getUniqueId ();
-            MayaNode* mayaNode = getMayaTransformNode ( nodeId );
-            String parentNodePath = mayaNode->getNodePath ();
-            String childNodePath = mayaChildNode->getNodePath ();
-
-            // parent -shape -noConnections -relative -addObject "|node1|node2" "|rootNode";
-            FILE* file = getDocumentImporter ()->getFile ();
-            MayaDM::parentShape ( file, childNodePath, parentNodePath, false, true, true, true  );
-        }
-
-        return true;
-    }
-
-    // -----------------------------------
-    bool VisualSceneImporter::readGeometryInstances (
-        const COLLADAFW::Node* node, 
-        MayaDM::Transform* transformNode )
-    {
-        bool singleGeometryInstance = node->getInstanceGeometries().getCount() == 1;
-
-        // Get the unique id of the current node.
-        const COLLADAFW::UniqueId& nodeId = node->getUniqueId ();
-
-        // Go through the geometry instances and save the geometry ids to the current node.
-        const COLLADAFW::InstanceGeometryArray& geometryInstances = node->getInstanceGeometries ();
-        size_t numInstances = geometryInstances.getCount ();
-        for ( size_t i=0; i<numInstances; ++i )
-        {
-            const COLLADAFW::InstanceGeometry* instanceGeometry = geometryInstances [i];
-            const COLLADAFW::UniqueId& geometryId = instanceGeometry->getInstanciatedObjectId ();
-
-            // Save for every geometry a list of transform nodes, which refer to it.
-            mGeometryTransformIdsMap [ geometryId ].insert ( nodeId );
-
-            // Read the shading engines.
-            readMaterialInstances ( instanceGeometry );
-        }
-
-        return true;
     }
 
     // -----------------------------------
@@ -706,7 +646,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    const MayaNode* VisualSceneImporter::getMayaTransformNode ( 
+    const MayaNode* VisualSceneImporter::findMayaTransformNode ( 
         const COLLADAFW::UniqueId& uniqueId ) const
     {
         UniqueIdMayaNodesMap::const_iterator it = mMayaTransformNodesMap.find ( uniqueId );
@@ -717,7 +657,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    MayaNode* VisualSceneImporter::getMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId )
+    MayaNode* VisualSceneImporter::findMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId )
     {
         UniqueIdMayaNodesMap::iterator it = mMayaTransformNodesMap.find ( uniqueId );
         if ( it != mMayaTransformNodesMap.end () )
@@ -727,7 +667,7 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    const std::set<const COLLADAFW::UniqueId>* VisualSceneImporter::getGeometryTransformIds ( 
+    const BaseImporter::UniqueIdVec* VisualSceneImporter::findGeometryTransformIds ( 
         const COLLADAFW::UniqueId& geometryId ) const
     {
         UniqueIdUniqueIdsMap::const_iterator it = mGeometryTransformIdsMap.find ( geometryId );
@@ -739,124 +679,75 @@ namespace COLLADAMaya
     }
 
     // -----------------------------------
-    void VisualSceneImporter::readMaterialInstances ( const COLLADAFW::InstanceGeometry* instanceGeometry )
+    bool VisualSceneImporter::readNodeInstances ( const COLLADAFW::Node* node )
     {
+        const COLLADAFW::InstanceNodeArray& nodeInstances = node->getInstanceNodes ();
+        size_t numInstances = nodeInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceNode* nodeInstance = nodeInstances [i];
+            const COLLADAFW::UniqueId& childInstanceId = nodeInstance->getInstanciatedObjectId ();
+
+            // Check if the original node is already generated!
+            MayaNode* mayaChildNode = findMayaTransformNode ( childInstanceId );
+            String childNodeName = mayaChildNode->getName ();
+
+            // Get the pathes.
+            const COLLADAFW::UniqueId& nodeId = node->getUniqueId ();
+            MayaNode* mayaNode = findMayaTransformNode ( nodeId );
+            String parentNodePath = mayaNode->getNodePath ();
+            String childNodePath = mayaChildNode->getNodePath ();
+
+            // parent -shape -noConnections -relative -addObject "|node1|node2" "|rootNode";
+            FILE* file = getDocumentImporter ()->getFile ();
+            MayaDM::parentShape ( file, childNodePath, parentNodePath, false, true, true, true  );
+        }
+
+        return true;
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::readGeometryInstances ( const COLLADAFW::Node* node )
+    {
+        // Get the unique id of the current node.
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+
+        // Go through the geometry instances and save the geometry ids to the current node.
+        const COLLADAFW::InstanceGeometryArray& geometryInstances = node->getInstanceGeometries ();
+        size_t numInstances = geometryInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceGeometry* instanceGeometry = geometryInstances [i];
+            const COLLADAFW::UniqueId& geometryId = instanceGeometry->getInstanciatedObjectId ();
+
+            // Save for every geometry a list of transform nodes, which refer to it.
+            mGeometryTransformIdsMap [ geometryId ].push_back ( transformNodeId );
+
+            // Read the shading engines.
+            readMaterialInstances ( transformNodeId, instanceGeometry );
+        }
+
+        return true;
+    }
+
+    // -----------------------------------
+    void VisualSceneImporter::readMaterialInstances ( 
+        const COLLADAFW::UniqueId& transformNodeId, 
+        const COLLADAFW::InstanceGeometry* instanceGeometry )
+    {
+        // Get the material importer
+        MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
+
         // Go through the bound materials
         const COLLADAFW::InstanceGeometry::MaterialBindingArray& materialBindingsArray = instanceGeometry->getMaterialBindings ();
         size_t numOfBindings = materialBindingsArray.getCount ();
         for ( size_t i=0; i<numOfBindings; ++i )
         {
             const COLLADAFW::InstanceGeometry::MaterialBinding& materialBinding = materialBindingsArray [i];
-            const COLLADAFW::UniqueId& referencedMaterialId = materialBinding.getReferencedMaterial ();
 
-            // Get the material id and the shading engine name.
-            COLLADAFW::MaterialId materialId = materialBinding.getMaterialId ();
-
-            // Check if already a shading engine with the materialId exist.
-            MayaDM::ShadingEngine* shadingEngine;
-            MayaDM::MaterialInfo* materialInfo;
-            String shadingEngineName;
-            ShaderData* shaderData = findShaderData ( materialId );
-            if ( shaderData == 0 )
-            {
-                // Get the unique shading engine name.
-                shadingEngineName = materialBinding.getName ();
-                if ( COLLADABU::Utils::equals ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ))
-                    shadingEngineName = SHADING_ENGINE_NAME;
-                shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
-
-                // Create a shading engine, if we not already have one.
-                FILE* file = getDocumentImporter ()->getFile ();
-                shadingEngine = new MayaDM::ShadingEngine ( file, shadingEngineName.c_str () );
-
-                // Create the material info node for the shading engine.
-                // createNode materialInfo -name "materialInfo2";
-                String materialInfoName = MATERIAL_INFO_NAME;
-                materialInfoName = mMaterialInfoIdList.addId ( materialInfoName ); 
-                MayaDM::MaterialInfo* materialInfo = new MayaDM::MaterialInfo ( file, materialInfoName.c_str () );
-
-                // Push it in the map of shading engines
-                appendShaderData ( materialId, shadingEngine, materialInfo );
-
-                // Connect the message attribute of the shading engine 
-                // with the shading group of the material info.
-                // connectAttr "blinn1SG.message" "materialInfo2.shadingGroup";
-                connectAttr ( file, shadingEngine->getMessage (), materialInfo->getShadingGroup () );
-
-                MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-                MayaDM::DependNode* materialNode = materialImporter->findMayaMaterial ( referencedMaterialId );
-
-                // If the materials are already imported, we make the 
-                // connection between the shading engine and the material.
-                // TODO Do this also in the material importer!!!
-                if ( materialNode != 0 )
-                {
-                    String nodeType = materialNode->getType ();
-                    if ( COLLADABU::Utils::equalsIgnoreCase ( nodeType, "kLambert" ) )
-                    {
-                        MayaDM::Lambert* lambertNode = ( MayaDM::Lambert* ) materialNode;
-
-                        // connectAttr "blinn1.outColor" "blinn1SG.surfaceShader";
-                        connectAttr ( file, lambertNode->getOutColor (), shadingEngine->getSurfaceShader () );
-
-                        // connectAttr "blinn1.message" "materialInfo2.material";
-                        connectAttr ( file, lambertNode->getMessage (), materialInfo->getMaterial () );
-                    }
-                }
-
-            }
-            else
-            {
-                shadingEngine = shaderData->getShadingEngine ();
-                materialInfo = shaderData->getMaterialInfo ();
-                shadingEngineName = shadingEngine->getName ();
-            }
-
-            // Get the geometry id of the object, we want to connect the 
-            // current geometry's "instObjGroups" attribute with the  shading
-            // engine's "dagSetMembers" attribute.
-            const COLLADAFW::UniqueId& geometryId = instanceGeometry->getInstanciatedObjectId ();
-            GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
-
-            MayaNode* mayaMeshNode = geometryImporter->getMayaMeshNode ( geometryId );
-            if ( mayaMeshNode != 0 )
-               String meshNodePath = mayaMeshNode->getNodePath ();
-
-            MayaDM::Mesh* mesh = geometryImporter->getMayaDMMeshNode ( geometryId );
-            if ( mesh != 0 )
-            {
-                // TODO connectAttr...
-                // connectAttr "blinn1SG.message" "materialInfo2.shadingGroup";
-                // connectAttr "blinn1.outColor" "blinn1SG.surfaceShader";
-                // connectAttr "blinn1.message" "materialInfo2.material";
-                // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
-                FILE* file = getDocumentImporter ()->getFile ();
-                connectAttr ( file, mesh->getInstObjGroups (0), shadingEngine->getDagSetMembers (0) );
-            }
+            // Write the shader data into the maya file.
+            materialImporter->writeShaderData ( materialBinding, transformNodeId, instanceGeometry );
         }
-    }
-
-    // -----------------------------------
-    VisualSceneImporter::ShaderData* VisualSceneImporter::findShaderData ( 
-        const COLLADAFW::MaterialId& val )
-    {
-        ShaderDataMap::const_iterator it = mShaderDataMap.find ( val );
-        ShaderDataMap::const_iterator itEnd = mShaderDataMap.end ();
-        if ( it == mShaderDataMap.end () )
-        {
-            return 0;
-        }
-
-        return it->second;
-    }
-
-    // -----------------------------------
-    void VisualSceneImporter::appendShaderData ( 
-        const COLLADAFW::MaterialId& val, 
-        MayaDM::ShadingEngine* shadingEngine, 
-        MayaDM::MaterialInfo* materialInfo )
-    {
-        mShaderDataMap [val] = new VisualSceneImporter::ShaderData ( shadingEngine, materialInfo );
     }
 
 }

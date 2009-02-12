@@ -54,6 +54,8 @@ namespace COLLADAFW
 
 		bool operator<(const UniqueId& rhs) const;
 
+        bool operator==(const UniqueId& uid) const;
+
 	};
 } // namespace COLLADAFW
 

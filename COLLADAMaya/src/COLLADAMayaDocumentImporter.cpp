@@ -47,13 +47,12 @@ namespace COLLADAMaya
         , mGeometryImporter (0)
         , mMaterialImporter (0)
         , mEffectImporter (0)
-        , mSceneGraphWritten ( false )
-        , mGeometryWritten ( false )
-        , mAssetWritten ( false )
-        , mSceneGraphRead ( false )
-        , mGeometryRead ( false )
+        , mSceneGraphWritten (false)
+        , mAssetWritten (false)
+        , mSceneGraphRead (false)
+        , mGeometryRead (false)
         , mLinearUnitMeter (1)
-        , mDocumentReads (0)
+        , mNumDocumentParses (0)
     {
     }
 
@@ -172,117 +171,16 @@ namespace COLLADAMaya
     void DocumentImporter::finish ()
     {
         // If the last read is ready, we can write the connections and close the file.
-        --mDocumentReads;
-        if ( mDocumentReads == 0 ) 
+        --mNumDocumentParses;
+        if ( mNumDocumentParses == 0 ) 
         {
-            // TODO After the read of the collada document, 
+            // TODO After the complete read of the collada document, 
             // the connections can be written into the maya file.
-
+            mMaterialImporter->writeConnections ();
 
             // Close the file
-            if ( mFile != 0 ) fclose ( mFile );
+            closeMayaAsciiFile ();
         }
-    }
-
-    //-----------------------------
-    bool DocumentImporter::writeGlobalAsset ( const COLLADAFW::FileInfo* asset )
-    {
-        if ( mAssetWritten ) return true;
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        // TODO
-        String mayaVersion ( MGlobal::mayaVersion ().asChar () );
-        fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
-//         fprintf_s ( mFile, "//Name: %s\n", mMayaAsciiFileURI.getPathFile ().c_str () );
-
-//         std::stringstream curDate;
-//         getCurrentDate ( curDate );
-//         fprintf_s ( mFile, "//Last modified: %s\n", curDate.str () );
-//         String codeset ( MGlobal::executeCommandStringResult ( "about -codeset" ).asChar () );
-//         fprintf_s ( mFile, "//Codeset: %s\n", codeset.c_str() );
-
-        fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
-
-        // TODO Default values for the units!
-        const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
-        fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", unit.mLinearUnit.c_str (), unit.mAngularUnit.c_str (), unit.mTimeUnit.c_str () );
-
-        // Set the linear unit in meters
-        mLinearUnitMeter = unit.mLinearUnitMeter;
-        mUpAxisType = asset->getUpAxisType ();
-
-//         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
-//         String product ( MGlobal::executeCommandStringResult ( "about -product" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
-//         fprintf_s ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
-//         String cutIdentifier ( MGlobal::executeCommandStringResult ( "product -cutIdentifier" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
-//         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
-//         fprintf_s ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
-
-        mAssetWritten = true;
-
-        if ( mSceneGraphRead || mGeometryRead )
-        {
-            mSceneGraphRead = false;
-            mGeometryRead = false;
-            readColladaDocument ();
-        }
-
-        return true;
-    }
-
-    //-----------------------------
-    bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
-    {
-        bool retValue = false;
-
-        // Order: asset, scene graph, geometry
-        if ( !mAssetWritten ) 
-        {
-            mSceneGraphRead = true;
-            return true;
-        }
-
-        if ( mSceneGraphWritten ) return true;
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        retValue = mVisualSceneImporter->importVisualScene ( visualScene );
-        mSceneGraphWritten = true;
-
-        if ( mGeometryRead )
-        {
-            mGeometryRead = false;
-            readColladaDocument ();
-        }
-
-        return retValue;
-    }
-
-    //-----------------------------
-    bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
-    {
-        bool retValue = false;
-
-        // Order: asset, scene graph, geometry
-        if ( !mAssetWritten || !mSceneGraphWritten ) 
-        {
-            mGeometryRead = true;
-            return true;
-        }
-
-        // Create the file, if not already done.
-        if ( mFile == 0 ) start();
-
-        retValue = mGeometryImporter->importGeometry ( geometry );
-        mGeometryWritten = true;
-
-        return retValue;
     }
 
     //-----------------------------
@@ -293,7 +191,7 @@ namespace COLLADAMaya
         String filename = getColladaFilename ();
         String fileUriString = URI::nativePathToUri ( filename );
 
-        ++mDocumentReads;
+        ++mNumDocumentParses;
         root.loadDocument ( fileUriString );
     }
 
@@ -353,38 +251,131 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
+    bool DocumentImporter::writeGlobalAsset ( const COLLADAFW::FileInfo* asset )
+    {
+        if ( mAssetWritten ) return true;
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // TODO
+        String mayaVersion ( MGlobal::mayaVersion ().asChar () );
+        fprintf_s ( mFile, "//Maya ASCII %s scene\n", mayaVersion.c_str () );
+        //         fprintf_s ( mFile, "//Name: %s\n", mMayaAsciiFileURI.getPathFile ().c_str () );
+
+        //         std::stringstream curDate;
+        //         getCurrentDate ( curDate );
+        //         fprintf_s ( mFile, "//Last modified: %s\n", curDate.str () );
+        //         String codeset ( MGlobal::executeCommandStringResult ( "about -codeset" ).asChar () );
+        //         fprintf_s ( mFile, "//Codeset: %s\n", codeset.c_str() );
+
+        fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
+
+        // TODO Default values for the units!
+        const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
+        fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", unit.mLinearUnit.c_str (), unit.mAngularUnit.c_str (), unit.mTimeUnit.c_str () );
+
+        // Set the linear unit in meters
+        mLinearUnitMeter = unit.mLinearUnitMeter;
+        mUpAxisType = asset->getUpAxisType ();
+
+        //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
+        //         fprintf_s ( mFile, "fileInfo \"application\" \"%s\";\n", application.c_str () );
+        //         String product ( MGlobal::executeCommandStringResult ( "about -product" ).asChar () );
+        //         fprintf_s ( mFile, "fileInfo \"product\" \"%s\";\n", product.c_str () );
+        //         fprintf_s ( mFile, "fileInfo \"version\" \"%s\";\n", mayaVersion.c_str () );
+        //         String cutIdentifier ( MGlobal::executeCommandStringResult ( "product -cutIdentifier" ).asChar () );
+        //         fprintf_s ( mFile, "fileInfo \"cutIdentifier\" \"%s\";\n", cutIdentifier.c_str () );
+        //         String operatingSystemVersion ( MGlobal::executeCommandStringResult ( "product -operatingSystemVersion" ).asChar () );
+        //         fprintf_s ( mFile, "fileInfo \"osv\" \"%s\";\n", operatingSystemVersion.c_str () );
+
+        mAssetWritten = true;
+
+        if ( mSceneGraphRead || mGeometryRead )
+        {
+            mSceneGraphRead = false;
+            mGeometryRead = false;
+            readColladaDocument ();
+        }
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeVisualScene ( const COLLADAFW::VisualScene* visualScene )
+    {
+        // Order: asset, scene graph, geometry
+        if ( !mAssetWritten ) 
+        {
+            mSceneGraphRead = true;
+            return true;
+        }
+        if ( mSceneGraphWritten ) return true;
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // Import the data.
+        mVisualSceneImporter->importVisualScene ( visualScene );
+        mSceneGraphWritten = true;
+
+        if ( mGeometryRead )
+        {
+            mGeometryRead = false;
+            readColladaDocument ();
+        }
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeGeometry ( const COLLADAFW::Geometry* geometry )
+    {
+        // Order: asset, scene graph, geometry
+        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        {
+            mGeometryRead = true;
+            return true;
+        }
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // Import the data.
+        mGeometryImporter->importGeometry ( geometry );
+
+        return true;
+    }
+
+    //-----------------------------
     bool DocumentImporter::writeLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
     {
         // TODO 
-        return false;
+        return true;
     }
 
     //-----------------------------
     bool DocumentImporter::writeMaterial ( const COLLADAFW::Material* material )
     {
-        bool retValue = false;
-
         // Create the file, if not already done.
         if ( mFile == 0 ) start();
 
-        retValue = mMaterialImporter->importMaterial ( material );
-        mGeometryWritten = true;
+        // Import the data.
+        mMaterialImporter->importMaterial ( material );
 
-        return retValue;
+        return true;
     }
 
     //-----------------------------
     bool DocumentImporter::writeEffect ( const COLLADAFW::Effect* effect )
     {
-        bool retValue = false;
-
         // Create the file, if not already done.
         if ( mFile == 0 ) start();
 
-        retValue = mEffectImporter->importEffect ( effect );
-        mGeometryWritten = true;
+        // Import the data.
+        mEffectImporter->importEffect ( effect );
 
-        return retValue;
+        return true;
     }
 
 }

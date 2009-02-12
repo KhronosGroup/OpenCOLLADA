@@ -31,6 +31,11 @@ namespace COLLADAMaya
     //------------------------------
     bool EffectImporter::importEffect ( const COLLADAFW::Effect* effect )
     {
+        // Check if the current effect is already imported.
+        const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
+        if ( findMayaEffect ( effectId ) != 0 ) return false;
+
+        // Create the maya effect in depend on the shader type.
         const COLLADAFW::CommonEffectPointerArray& commonEffects = effect->getCommonEffects ();
         size_t numCommonEffects = commonEffects.getCount ();
         for ( size_t i=0; i<numCommonEffects; ++i )
@@ -72,27 +77,12 @@ namespace COLLADAMaya
 
         const COLLADAFW::Color& color = effect->getStandardColor ();
 
+        // Write the effect into the maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
         MayaDM::Lambert* lambert = new MayaDM::Lambert ( file, effectName );
 
+        // Push it into the map.
         appendEffect ( effectId, lambert );
-
-        // TODO
-        // Find all geometries, which use this effect and create the connections.
-        MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
-//        std::vector<COLLADAFW::UniqueId>& materials = materialImporter->findEffectMaterials ( effectId );
-// 
-//         // Iterate over the materials and get all geometries, which use it.
-//         size_t numMaterials = materials.size ();
-//         for ( size_t i=0; i<numMaterials; ++i )
-//         {
-//             COLLADAFW::UniqueId& materialId = materials [i];
-// 
-//             // Get the geometries, which use this material
-//             VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-//             visualSceneImporter->f
-//         }
-
     }
 
     // --------------------------
@@ -111,5 +101,6 @@ namespace COLLADAMaya
     {
         mMayaEffectMap [id] = effectNode;
     }
+
 
 } // namespace COLLADAMaya

@@ -43,13 +43,15 @@ namespace COLLADAMaya
         /** The standard name for geometry without name. */
         static const String GEOMETRY_NAME;
 
+    private:
+
         /**
         * The list of the unique maya mesh node names.
         */
         COLLADABU::IDList mMeshNodeIdList;
 
         /** 
-         * The map holds the unique ids of the nodes to the maya specific nodes. 
+         * The map holds the unique ids of the geometry nodes to the maya specific nodes. 
          */
         UniqueIdMayaNodesMap mMayaMeshNodesMap;
 
@@ -57,6 +59,12 @@ namespace COLLADAMaya
         * The map holds the unique ids of the nodes to the  specific nodes. 
         */
         UniqueIdMayaDMMeshMap mMayaDMMeshNodesMap;
+
+        /**
+         * The map holds for every geometry's shading engine a list of 
+         * the index values of the geometry's primitives.
+         */
+        CombinedIdIndicesMap mShadingEnginePrimitivesMap;
 
     public:
 
@@ -72,26 +80,42 @@ namespace COLLADAMaya
         /** 
         * The map holds the unique ids of the nodes to the maya specific nodes. 
         */
-        const MayaNode* getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+        const MayaNode* findMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
 
         /** 
         * The map holds the unique ids of the nodes to the maya specific nodes. 
         */
-        MayaNode* getMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId );
+        MayaNode* findMayaMeshNode ( const COLLADAFW::UniqueId& uniqueId );
 
-        MayaDM::Mesh* getMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId );
-        const MayaDM::Mesh* getMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+        /** 
+        * The map holds the unique ids of the nodes to the  specific nodes. 
+        */
+        MayaDM::Mesh* findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId );
+
+        /** 
+        * The map holds the unique ids of the nodes to the  specific nodes. 
+        */
+        const MayaDM::Mesh* findMayaDMMeshNode ( const COLLADAFW::UniqueId& uniqueId ) const;
+
+        /**
+         * Returns a pointer to the vector of indices of the given geometry and shading engine.
+         * The map holds for every geometry's shading engine a list of the index values of the 
+         * geometry's primitives.
+         */
+        std::vector<size_t>* getShadingEnginePrimitiveIndices ( 
+            const COLLADAFW::UniqueId& geometryId, 
+            const COLLADAFW::MaterialId shadingEngineId );
 
     private:
 
         /** 
-         * Imports the data of the current mesh element. 
-         */
+        * Imports the data of the current mesh element. 
+        */
         void importMesh ( const COLLADAFW::Mesh* mesh );
 
         /**
-         * Writes the geometry of the current mesh.
-         */
+        * Writes the geometry of the current mesh.
+        */
         void createMesh ( 
             const COLLADAFW::Mesh* mesh, 
             MayaNode* parentMayaNode, 
@@ -254,6 +278,23 @@ namespace COLLADAMaya
             const COLLADAFW::Edge& edge, 
             const std::map<COLLADAFW::Edge,size_t>& edgeIndicesMap, 
             int& edgeIndex );
+
+        /**
+        * The map holds for every geometry's shading engine a list of 
+        * the index values of the geometry's primitives.
+        */
+        void setShadingEnginePrimitiveIndex ( 
+            const COLLADAFW::UniqueId& geometryId, 
+            const COLLADAFW::MaterialId shadingEngineId, 
+            const size_t primitiveIndex );
+
+        /**
+        * Fills the ShadingEnginePrimitivesMap. Used to create the connections between the 
+        * shading engines and the geometries.
+        * The map holds for every geometry's shading engine a list of the index values of the 
+        * geometry's primitives.
+        */
+        void setMeshPrimitiveShadingEngines ( const COLLADAFW::Mesh* mesh );
 
     };
 
