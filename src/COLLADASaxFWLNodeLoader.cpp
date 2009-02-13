@@ -22,6 +22,7 @@
 #include "COLLADAFWGeometry.h"
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWCamera.h"
+#include "COLLADAFWLight.h"
 
 
 namespace COLLADASaxFWL
@@ -404,6 +405,18 @@ namespace COLLADASaxFWL
 
 		COLLADAFW::InstanceCamera* instanceCamera = FW_NEW COLLADAFW::InstanceCamera(instantiatedCameraUniqueId);
 		currentNode->getInstanceCameras().append(instanceCamera);
+
+		return true;
+	}
+
+	//------------------------------
+	bool NodeLoader::begin__instance_light( const instance_light__AttributeData& attributeData )
+	{
+		COLLADAFW::Node* currentNode = mNodeStack.top();
+		COLLADAFW::UniqueId instantiatedLightUniqueId = getUniqueIdFromUrl( attributeData.url, COLLADAFW::Light::ID() );
+
+		COLLADAFW::InstanceLight* instanceLight = FW_NEW COLLADAFW::InstanceLight(instantiatedLightUniqueId);
+		currentNode->getInstanceLights().append(instanceLight);
 
 		return true;
 	}

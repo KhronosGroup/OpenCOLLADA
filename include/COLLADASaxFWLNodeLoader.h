@@ -186,6 +186,13 @@ namespace COLLADASaxFWL
 		/** We don't need to do anything here.*/
 		virtual bool end__instance_camera(){return true;}
 
+
+		/** Appends the instance light to the current node.*/
+		virtual bool begin__instance_light( const instance_light__AttributeData& attributeData );
+
+		/** We don't need to do anything here.*/
+		virtual bool end__instance_light(){return true;}
+
 	};
 
 } // namespace COLLADASAXFWL
