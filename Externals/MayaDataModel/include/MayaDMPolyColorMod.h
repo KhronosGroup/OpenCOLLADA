@@ -74,7 +74,8 @@ public:
 	};
 public:
 	PolyColorMod():PolyModifier(){}
-	PolyColorMod(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyColorMod"){}
+	PolyColorMod(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyColorMod", create){}
 	virtual ~PolyColorMod(){}
 	void setBaseColorName(const string& bcn)
 	{
@@ -227,129 +228,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".v\" %f;\n", v);
 
 	}
-	void getBaseColorName()
+	void getBaseColorName()const
 	{
 		fprintf(mFile,"\"%s.bcn\"",mName.c_str());
 
 	}
-	void getRedScale(size_t r_i)
+	void getRedScale(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
 
 	}
-	void getRedScale_Position(size_t r_i)
+	void getRedScale_Position(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].rp\"",mName.c_str(),r_i);
 
 	}
-	void getRedScale_FloatValue(size_t r_i)
+	void getRedScale_FloatValue(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].rfv\"",mName.c_str(),r_i);
 
 	}
-	void getRedScale_Interp(size_t r_i)
+	void getRedScale_Interp(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].ri\"",mName.c_str(),r_i);
 
 	}
-	void getGreenScale(size_t g_i)
+	void getGreenScale(size_t g_i)const
 	{
 		fprintf(mFile,"\"%s.g[%i]\"",mName.c_str(),g_i);
 
 	}
-	void getGreenScale_Position(size_t g_i)
+	void getGreenScale_Position(size_t g_i)const
 	{
 		fprintf(mFile,"\"%s.g[%i].gp\"",mName.c_str(),g_i);
 
 	}
-	void getGreenScale_FloatValue(size_t g_i)
+	void getGreenScale_FloatValue(size_t g_i)const
 	{
 		fprintf(mFile,"\"%s.g[%i].gfv\"",mName.c_str(),g_i);
 
 	}
-	void getGreenScale_Interp(size_t g_i)
+	void getGreenScale_Interp(size_t g_i)const
 	{
 		fprintf(mFile,"\"%s.g[%i].gi\"",mName.c_str(),g_i);
 
 	}
-	void getBlueScale(size_t b_i)
+	void getBlueScale(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
 
 	}
-	void getBlueScale_Position(size_t b_i)
+	void getBlueScale_Position(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i].bp\"",mName.c_str(),b_i);
 
 	}
-	void getBlueScale_FloatValue(size_t b_i)
+	void getBlueScale_FloatValue(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i].bfv\"",mName.c_str(),b_i);
 
 	}
-	void getBlueScale_Interp(size_t b_i)
+	void getBlueScale_Interp(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i].bi\"",mName.c_str(),b_i);
 
 	}
-	void getAlphaScale(size_t a_i)
+	void getAlphaScale(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i]\"",mName.c_str(),a_i);
 
 	}
-	void getAlphaScale_Position(size_t a_i)
+	void getAlphaScale_Position(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i].ap\"",mName.c_str(),a_i);
 
 	}
-	void getAlphaScale_FloatValue(size_t a_i)
+	void getAlphaScale_FloatValue(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i].afv\"",mName.c_str(),a_i);
 
 	}
-	void getAlphaScale_Interp(size_t a_i)
+	void getAlphaScale_Interp(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i].ai\"",mName.c_str(),a_i);
 
 	}
-	void getIntensityScale(size_t n_i)
+	void getIntensityScale(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i]\"",mName.c_str(),n_i);
 
 	}
-	void getIntensityScale_Position(size_t n_i)
+	void getIntensityScale_Position(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].np\"",mName.c_str(),n_i);
 
 	}
-	void getIntensityScale_FloatValue(size_t n_i)
+	void getIntensityScale_FloatValue(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].nfv\"",mName.c_str(),n_i);
 
 	}
-	void getIntensityScale_Interp(size_t n_i)
+	void getIntensityScale_Interp(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].ni\"",mName.c_str(),n_i);
 
 	}
-	void getHuev()
+	void getHuev()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getSatv()
+	void getSatv()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getValue()
+	void getValue()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
 protected:
-	PolyColorMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyColorMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

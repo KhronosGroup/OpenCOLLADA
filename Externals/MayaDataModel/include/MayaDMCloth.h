@@ -19,7 +19,8 @@ class Cloth : public Texture2d
 public:
 public:
 	Cloth():Texture2d(){}
-	Cloth(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "cloth"){}
+	Cloth(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "cloth", create){}
 	virtual ~Cloth(){}
 	void setGapColor(const float3& gc)
 	{
@@ -141,104 +142,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".bs\" %f;\n", bs);
 
 	}
-	void getGapColor()
+	void getGapColor()const
 	{
 		fprintf(mFile,"\"%s.gc\"",mName.c_str());
 
 	}
-	void getGapColorR()
+	void getGapColorR()const
 	{
 		fprintf(mFile,"\"%s.gc.gcr\"",mName.c_str());
 
 	}
-	void getGapColorG()
+	void getGapColorG()const
 	{
 		fprintf(mFile,"\"%s.gc.gcg\"",mName.c_str());
 
 	}
-	void getGapColorB()
+	void getGapColorB()const
 	{
 		fprintf(mFile,"\"%s.gc.gcb\"",mName.c_str());
 
 	}
-	void getUColor()
+	void getUColor()const
 	{
 		fprintf(mFile,"\"%s.uc\"",mName.c_str());
 
 	}
-	void getUColorR()
+	void getUColorR()const
 	{
 		fprintf(mFile,"\"%s.uc.ucr\"",mName.c_str());
 
 	}
-	void getUColorG()
+	void getUColorG()const
 	{
 		fprintf(mFile,"\"%s.uc.ucg\"",mName.c_str());
 
 	}
-	void getUColorB()
+	void getUColorB()const
 	{
 		fprintf(mFile,"\"%s.uc.ucb\"",mName.c_str());
 
 	}
-	void getVColor()
+	void getVColor()const
 	{
 		fprintf(mFile,"\"%s.vc\"",mName.c_str());
 
 	}
-	void getVColorR()
+	void getVColorR()const
 	{
 		fprintf(mFile,"\"%s.vc.vcr\"",mName.c_str());
 
 	}
-	void getVColorG()
+	void getVColorG()const
 	{
 		fprintf(mFile,"\"%s.vc.vcg\"",mName.c_str());
 
 	}
-	void getVColorB()
+	void getVColorB()const
 	{
 		fprintf(mFile,"\"%s.vc.vcb\"",mName.c_str());
 
 	}
-	void getUWidth()
+	void getUWidth()const
 	{
 		fprintf(mFile,"\"%s.uwi\"",mName.c_str());
 
 	}
-	void getVWidth()
+	void getVWidth()const
 	{
 		fprintf(mFile,"\"%s.vwi\"",mName.c_str());
 
 	}
-	void getUWave()
+	void getUWave()const
 	{
 		fprintf(mFile,"\"%s.uwa\"",mName.c_str());
 
 	}
-	void getVWave()
+	void getVWave()const
 	{
 		fprintf(mFile,"\"%s.vwa\"",mName.c_str());
 
 	}
-	void getRandomness()
+	void getRandomness()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getWidthSpread()
+	void getWidthSpread()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
-	void getBrightSpread()
+	void getBrightSpread()const
 	{
 		fprintf(mFile,"\"%s.bs\"",mName.c_str());
 
 	}
 protected:
-	Cloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Cloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

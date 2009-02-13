@@ -19,7 +19,8 @@ class MpBirailSrf : public BirailSrf
 public:
 public:
 	MpBirailSrf():BirailSrf(){}
-	MpBirailSrf(FILE* file,const std::string& name,const std::string& parent=""):BirailSrf(file, name, parent, "mpBirailSrf"){}
+	MpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BirailSrf(file, name, parent, "mpBirailSrf", create){}
 	virtual ~MpBirailSrf(){}
 	void setTangentContinuityProfile1(bool tp1)
 	{
@@ -33,24 +34,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".tp2\" %i;\n", tp2);
 
 	}
-	void getInputProfile(size_t ip_i)
+	void getInputProfile(size_t ip_i)const
 	{
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
-	void getTangentContinuityProfile1()
+	void getTangentContinuityProfile1()const
 	{
 		fprintf(mFile,"\"%s.tp1\"",mName.c_str());
 
 	}
-	void getTangentContinuityProfile2()
+	void getTangentContinuityProfile2()const
 	{
 		fprintf(mFile,"\"%s.tp2\"",mName.c_str());
 
 	}
 protected:
-	MpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BirailSrf(file, name, parent, nodeType) {}
+	MpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BirailSrf(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

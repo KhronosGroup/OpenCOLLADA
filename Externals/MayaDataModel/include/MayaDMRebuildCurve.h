@@ -19,7 +19,8 @@ class RebuildCurve : public AbstractBaseCreate
 public:
 public:
 	RebuildCurve():AbstractBaseCreate(){}
-	RebuildCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "rebuildCurve"){}
+	RebuildCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "rebuildCurve", create){}
 	virtual ~RebuildCurve(){}
 	void setFitRebuild(bool fr)
 	{
@@ -87,79 +88,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".scr\" %i;\n", scr);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getMatchCurve()
+	void getMatchCurve()const
 	{
 		fprintf(mFile,"\"%s.mc\"",mName.c_str());
 
 	}
-	void getFitRebuild()
+	void getFitRebuild()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getRebuildType()
+	void getRebuildType()const
 	{
 		fprintf(mFile,"\"%s.rt\"",mName.c_str());
 
 	}
-	void getSpans()
+	void getSpans()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getEndKnots()
+	void getEndKnots()const
 	{
 		fprintf(mFile,"\"%s.end\"",mName.c_str());
 
 	}
-	void getKeepRange()
+	void getKeepRange()const
 	{
 		fprintf(mFile,"\"%s.kr\"",mName.c_str());
 
 	}
-	void getKeepEndPoints()
+	void getKeepEndPoints()const
 	{
 		fprintf(mFile,"\"%s.kep\"",mName.c_str());
 
 	}
-	void getKeepTangents()
+	void getKeepTangents()const
 	{
 		fprintf(mFile,"\"%s.kt\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getKeepControlPoints()
+	void getKeepControlPoints()const
 	{
 		fprintf(mFile,"\"%s.kcp\"",mName.c_str());
 
 	}
-	void getSmartSurfaceCurveRebuild()
+	void getSmartSurfaceCurveRebuild()const
 	{
 		fprintf(mFile,"\"%s.scr\"",mName.c_str());
 
 	}
 protected:
-	RebuildCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	RebuildCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

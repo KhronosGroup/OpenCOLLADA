@@ -19,7 +19,8 @@ class SubdivCollapse : public DependNode
 public:
 public:
 	SubdivCollapse():DependNode(){}
-	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivCollapse"){}
+	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "subdivCollapse", create){}
 	virtual ~SubdivCollapse(){}
 	void setLevel(int l)
 	{
@@ -27,24 +28,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
-	void getInSubdiv()
+	void getInSubdiv()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getOutSubdiv()
+	void getOutSubdiv()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getLevel()
+	void getLevel()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
 protected:
-	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SubdivCollapse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -56,7 +56,8 @@ public:
 	};
 public:
 	RoundConstantRadius():AbstractBaseCreate(){}
-	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "roundConstantRadius"){}
+	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "roundConstantRadius", create){}
 	virtual ~RoundConstantRadius(){}
 	void setInputSurface(size_t is_i,const nurbsSurface& is)
 	{
@@ -77,19 +78,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInputSurface(size_t is_start,size_t is_end)
+	void startInputSurface(size_t is_start,size_t is_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".is[%i:%i]\"",is_start,is_end);
 		fprintf(mFile," -type \"nurbsSurface\" ");
 
 	}
-	void appendInputSurface(const nurbsSurface& is)
+	void appendInputSurface(const nurbsSurface& is)const
 	{
 		fprintf(mFile,"\n");
 		is.write(mFile);
 
 	}
-	void endInputSurface()
+	void endInputSurface()const
 	{
 		fprintf(mFile,";\n");
 
@@ -112,17 +113,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startRadius(size_t r_start,size_t r_end)
+	void startRadius(size_t r_start,size_t r_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".r[%i:%i]\"",r_start,r_end);
 
 	}
-	void appendRadius(double r)
+	void appendRadius(double r)const
 	{
 		fprintf(mFile," %f",r);
 
 	}
-	void endRadius()
+	void endRadius()const
 	{
 		fprintf(mFile,";\n");
 
@@ -153,19 +154,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInputCurveA(size_t e_i,size_t ica_start,size_t ica_end)
+	void startInputCurveA(size_t e_i,size_t ica_start,size_t ica_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".e[%i].ica[%i:%i]\"",e_i,ica_start,ica_end);
 		fprintf(mFile," -type \"nurbsCurve\" ");
 
 	}
-	void appendInputCurveA(const nurbsCurve& ica)
+	void appendInputCurveA(const nurbsCurve& ica)const
 	{
 		fprintf(mFile,"\n");
 		ica.write(mFile);
 
 	}
-	void endInputCurveA()
+	void endInputCurveA()const
 	{
 		fprintf(mFile,";\n");
 
@@ -189,19 +190,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInputCurveB(size_t e_i,size_t icb_start,size_t icb_end)
+	void startInputCurveB(size_t e_i,size_t icb_start,size_t icb_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".e[%i].icb[%i:%i]\"",e_i,icb_start,icb_end);
 		fprintf(mFile," -type \"nurbsCurve\" ");
 
 	}
-	void appendInputCurveB(const nurbsCurve& icb)
+	void appendInputCurveB(const nurbsCurve& icb)const
 	{
 		fprintf(mFile,"\n");
 		icb.write(mFile);
 
 	}
-	void endInputCurveB()
+	void endInputCurveB()const
 	{
 		fprintf(mFile,";\n");
 
@@ -224,17 +225,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInSurfIdxA(size_t e_i,size_t isa_start,size_t isa_end)
+	void startInSurfIdxA(size_t e_i,size_t isa_start,size_t isa_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".e[%i].isa[%i:%i]\"",e_i,isa_start,isa_end);
 
 	}
-	void appendInSurfIdxA(int isa)
+	void appendInSurfIdxA(int isa)const
 	{
 		fprintf(mFile," %i",isa);
 
 	}
-	void endInSurfIdxA()
+	void endInSurfIdxA()const
 	{
 		fprintf(mFile,";\n");
 
@@ -257,17 +258,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInSurfIdxB(size_t e_i,size_t isb_start,size_t isb_end)
+	void startInSurfIdxB(size_t e_i,size_t isb_start,size_t isb_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".e[%i].isb[%i:%i]\"",e_i,isb_start,isb_end);
 
 	}
-	void appendInSurfIdxB(int isb)
+	void appendInSurfIdxB(int isb)const
 	{
 		fprintf(mFile," %i",isb);
 
 	}
-	void endInSurfIdxB()
+	void endInSurfIdxB()const
 	{
 		fprintf(mFile,";\n");
 
@@ -284,54 +285,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
-	void getInputSurface(size_t is_i)
+	void getInputSurface(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
-	void getRadius(size_t r_i)
+	void getRadius(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
 
 	}
-	void getInputCurveA(size_t e_i,size_t ica_i)
+	void getInputCurveA(size_t e_i,size_t ica_i)const
 	{
 		fprintf(mFile,"\"%s.e[%i].ica[%i]\"",mName.c_str(),e_i,ica_i);
 
 	}
-	void getInputCurveB(size_t e_i,size_t icb_i)
+	void getInputCurveB(size_t e_i,size_t icb_i)const
 	{
 		fprintf(mFile,"\"%s.e[%i].icb[%i]\"",mName.c_str(),e_i,icb_i);
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getFilletStatus(size_t fis_i)
+	void getFilletStatus(size_t fis_i)const
 	{
 		fprintf(mFile,"\"%s.fis[%i]\"",mName.c_str(),fis_i);
 
 	}
-	void getOriginalSurface(size_t os_i)
+	void getOriginalSurface(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
-	void getFilletSurface(size_t fs_i)
+	void getFilletSurface(size_t fs_i)const
 	{
 		fprintf(mFile,"\"%s.fs[%i]\"",mName.c_str(),fs_i);
 
 	}
-	void getCornerSurface(size_t cs_i)
+	void getCornerSurface(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
 
 	}
 protected:
-	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	RoundConstantRadius(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

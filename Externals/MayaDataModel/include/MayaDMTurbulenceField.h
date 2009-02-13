@@ -19,7 +19,8 @@ class TurbulenceField : public Field
 public:
 public:
 	TurbulenceField():Field(){}
-	TurbulenceField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "turbulenceField"){}
+	TurbulenceField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Field(file, name, parent, "turbulenceField", create){}
 	virtual ~TurbulenceField(){}
 	void setFrequency(double frq)
 	{
@@ -63,44 +64,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".intr\" %i;\n", intr);
 
 	}
-	void getFrequency()
+	void getFrequency()const
 	{
 		fprintf(mFile,"\"%s.frq\"",mName.c_str());
 
 	}
-	void getPhaseX()
+	void getPhaseX()const
 	{
 		fprintf(mFile,"\"%s.phx\"",mName.c_str());
 
 	}
-	void getPhaseY()
+	void getPhaseY()const
 	{
 		fprintf(mFile,"\"%s.phy\"",mName.c_str());
 
 	}
-	void getPhaseZ()
+	void getPhaseZ()const
 	{
 		fprintf(mFile,"\"%s.phz\"",mName.c_str());
 
 	}
-	void getNoiseLevel()
+	void getNoiseLevel()const
 	{
 		fprintf(mFile,"\"%s.nslv\"",mName.c_str());
 
 	}
-	void getNoiseRatio()
+	void getNoiseRatio()const
 	{
 		fprintf(mFile,"\"%s.nsrt\"",mName.c_str());
 
 	}
-	void getInterpolationType()
+	void getInterpolationType()const
 	{
 		fprintf(mFile,"\"%s.intr\"",mName.c_str());
 
 	}
 protected:
-	TurbulenceField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Field(file, name, parent, nodeType) {}
+	TurbulenceField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Field(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

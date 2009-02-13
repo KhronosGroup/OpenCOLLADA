@@ -18,11 +18,12 @@ class Plane : public GeometryShape
 {
 public:
 	Plane():GeometryShape(){}
-	Plane(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "plane"){}
+	Plane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryShape(file, name, parent, "plane", create){}
 	virtual ~Plane(){}
 protected:
-	Plane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryShape(file, name, parent, nodeType) {}
+	Plane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

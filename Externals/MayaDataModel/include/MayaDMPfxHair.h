@@ -19,16 +19,17 @@ class PfxHair : public PfxGeometry
 public:
 public:
 	PfxHair():PfxGeometry(){}
-	PfxHair(FILE* file,const std::string& name,const std::string& parent=""):PfxGeometry(file, name, parent, "pfxHair"){}
+	PfxHair(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PfxGeometry(file, name, parent, "pfxHair", create){}
 	virtual ~PfxHair(){}
-	void getRenderHairs()
+	void getRenderHairs()const
 	{
 		fprintf(mFile,"\"%s.rhs\"",mName.c_str());
 
 	}
 protected:
-	PfxHair(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PfxGeometry(file, name, parent, nodeType) {}
+	PfxHair(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PfxGeometry(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -18,11 +18,12 @@ class RenderCone : public ImplicitCone
 {
 public:
 	RenderCone():ImplicitCone(){}
-	RenderCone(FILE* file,const std::string& name,const std::string& parent=""):ImplicitCone(file, name, parent, "renderCone"){}
+	RenderCone(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ImplicitCone(file, name, parent, "renderCone", create){}
 	virtual ~RenderCone(){}
 protected:
-	RenderCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ImplicitCone(file, name, parent, nodeType) {}
+	RenderCone(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ImplicitCone(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

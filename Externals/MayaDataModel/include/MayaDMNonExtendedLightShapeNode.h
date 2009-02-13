@@ -19,7 +19,8 @@ class NonExtendedLightShapeNode : public NonAmbientLightShapeNode
 public:
 public:
 	NonExtendedLightShapeNode():NonAmbientLightShapeNode(){}
-	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent=""):NonAmbientLightShapeNode(file, name, parent, "nonExtendedLightShapeNode"){}
+	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:NonAmbientLightShapeNode(file, name, parent, "nonExtendedLightShapeNode", create){}
 	virtual ~NonExtendedLightShapeNode(){}
 	void setLightRadius(float lr)
 	{
@@ -213,164 +214,164 @@ public:
 		fprintf(mFile,"\tsetAttr \".gs\" %i;\n", gs);
 
 	}
-	void getLightRadius()
+	void getLightRadius()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getCastSoftShadows()
+	void getCastSoftShadows()const
 	{
 		fprintf(mFile,"\"%s.cw\"",mName.c_str());
 
 	}
-	void getUseDepthMapShadows()
+	void getUseDepthMapShadows()const
 	{
 		fprintf(mFile,"\"%s.dms\"",mName.c_str());
 
 	}
-	void getReuseDmap()
+	void getReuseDmap()const
 	{
 		fprintf(mFile,"\"%s.du\"",mName.c_str());
 
 	}
-	void getUseMidDistDmap()
+	void getUseMidDistDmap()const
 	{
 		fprintf(mFile,"\"%s.md\"",mName.c_str());
 
 	}
-	void getDmapFilterSize()
+	void getDmapFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getDmapResolution()
+	void getDmapResolution()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getDmapBias()
+	void getDmapBias()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getDmapFocus()
+	void getDmapFocus()const
 	{
 		fprintf(mFile,"\"%s.df\"",mName.c_str());
 
 	}
-	void getDmapWidthFocus()
+	void getDmapWidthFocus()const
 	{
 		fprintf(mFile,"\"%s.dw\"",mName.c_str());
 
 	}
-	void getUseDmapAutoFocus()
+	void getUseDmapAutoFocus()const
 	{
 		fprintf(mFile,"\"%s.af\"",mName.c_str());
 
 	}
-	void getVolumeShadowSamples()
+	void getVolumeShadowSamples()const
 	{
 		fprintf(mFile,"\"%s.nv\"",mName.c_str());
 
 	}
-	void getFogShadowIntensity()
+	void getFogShadowIntensity()const
 	{
 		fprintf(mFile,"\"%s.fsi\"",mName.c_str());
 
 	}
-	void getUseDmapAutoClipping()
+	void getUseDmapAutoClipping()const
 	{
 		fprintf(mFile,"\"%s.uc\"",mName.c_str());
 
 	}
-	void getDmapNearClipPlane()
+	void getDmapNearClipPlane()const
 	{
 		fprintf(mFile,"\"%s.nc\"",mName.c_str());
 
 	}
-	void getDmapFarClipPlane()
+	void getDmapFarClipPlane()const
 	{
 		fprintf(mFile,"\"%s.fcp\"",mName.c_str());
 
 	}
-	void getUseOnlySingleDmap()
+	void getUseOnlySingleDmap()const
 	{
 		fprintf(mFile,"\"%s.us\"",mName.c_str());
 
 	}
-	void getUseXPositiveDmap()
+	void getUseXPositiveDmap()const
 	{
 		fprintf(mFile,"\"%s.xp\"",mName.c_str());
 
 	}
-	void getUseXNegativeDmap()
+	void getUseXNegativeDmap()const
 	{
 		fprintf(mFile,"\"%s.xn\"",mName.c_str());
 
 	}
-	void getUseYPositiveDmap()
+	void getUseYPositiveDmap()const
 	{
 		fprintf(mFile,"\"%s.yp\"",mName.c_str());
 
 	}
-	void getUseYNegativeDmap()
+	void getUseYNegativeDmap()const
 	{
 		fprintf(mFile,"\"%s.yn\"",mName.c_str());
 
 	}
-	void getUseZPositiveDmap()
+	void getUseZPositiveDmap()const
 	{
 		fprintf(mFile,"\"%s.zp\"",mName.c_str());
 
 	}
-	void getUseZNegativeDmap()
+	void getUseZNegativeDmap()const
 	{
 		fprintf(mFile,"\"%s.zn\"",mName.c_str());
 
 	}
-	void getDmapUseMacro()
+	void getDmapUseMacro()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getDmapName()
+	void getDmapName()const
 	{
 		fprintf(mFile,"\"%s.smn\"",mName.c_str());
 
 	}
-	void getDmapLightName()
+	void getDmapLightName()const
 	{
 		fprintf(mFile,"\"%s.ul\"",mName.c_str());
 
 	}
-	void getDmapSceneName()
+	void getDmapSceneName()const
 	{
 		fprintf(mFile,"\"%s.um\"",mName.c_str());
 
 	}
-	void getDmapFrameExt()
+	void getDmapFrameExt()const
 	{
 		fprintf(mFile,"\"%s.uf\"",mName.c_str());
 
 	}
-	void getWriteDmap()
+	void getWriteDmap()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
-	void getLastWrittenDmapAnimExtName()
+	void getLastWrittenDmapAnimExtName()const
 	{
 		fprintf(mFile,"\"%s.lw\"",mName.c_str());
 
 	}
-	void getReceiveShadows()
+	void getReceiveShadows()const
 	{
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 
 	}
 protected:
-	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:NonAmbientLightShapeNode(file, name, parent, nodeType) {}
+	NonExtendedLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:NonAmbientLightShapeNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

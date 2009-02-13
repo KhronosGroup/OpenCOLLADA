@@ -19,7 +19,8 @@ class MakeTwoPointCircularArc : public MakeCircularArc
 public:
 public:
 	MakeTwoPointCircularArc():MakeCircularArc(){}
-	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent=""):MakeCircularArc(file, name, parent, "makeTwoPointCircularArc"){}
+	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:MakeCircularArc(file, name, parent, "makeTwoPointCircularArc", create){}
 	virtual ~MakeTwoPointCircularArc(){}
 	void setPoint1(const double3& pt1)
 	{
@@ -108,79 +109,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".tac\" %i;\n", tac);
 
 	}
-	void getPoint1()
+	void getPoint1()const
 	{
 		fprintf(mFile,"\"%s.pt1\"",mName.c_str());
 
 	}
-	void getPoint1X()
+	void getPoint1X()const
 	{
 		fprintf(mFile,"\"%s.pt1.p1x\"",mName.c_str());
 
 	}
-	void getPoint1Y()
+	void getPoint1Y()const
 	{
 		fprintf(mFile,"\"%s.pt1.p1y\"",mName.c_str());
 
 	}
-	void getPoint1Z()
+	void getPoint1Z()const
 	{
 		fprintf(mFile,"\"%s.pt1.p1z\"",mName.c_str());
 
 	}
-	void getPoint2()
+	void getPoint2()const
 	{
 		fprintf(mFile,"\"%s.pt2\"",mName.c_str());
 
 	}
-	void getPoint2X()
+	void getPoint2X()const
 	{
 		fprintf(mFile,"\"%s.pt2.p2x\"",mName.c_str());
 
 	}
-	void getPoint2Y()
+	void getPoint2Y()const
 	{
 		fprintf(mFile,"\"%s.pt2.p2y\"",mName.c_str());
 
 	}
-	void getPoint2Z()
+	void getPoint2Z()const
 	{
 		fprintf(mFile,"\"%s.pt2.p2z\"",mName.c_str());
 
 	}
-	void getDirectionVector()
+	void getDirectionVector()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getDirectionVectorX()
+	void getDirectionVectorX()const
 	{
 		fprintf(mFile,"\"%s.dv.dvx\"",mName.c_str());
 
 	}
-	void getDirectionVectorY()
+	void getDirectionVectorY()const
 	{
 		fprintf(mFile,"\"%s.dv.dvy\"",mName.c_str());
 
 	}
-	void getDirectionVectorZ()
+	void getDirectionVectorZ()const
 	{
 		fprintf(mFile,"\"%s.dv.dvz\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getToggleArc()
+	void getToggleArc()const
 	{
 		fprintf(mFile,"\"%s.tac\"",mName.c_str());
 
 	}
 protected:
-	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:MakeCircularArc(file, name, parent, nodeType) {}
+	MakeTwoPointCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:MakeCircularArc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class Condition : public DependNode
 public:
 public:
 	Condition():DependNode(){}
-	Condition(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "condition"){}
+	Condition(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "condition", create){}
 	virtual ~Condition(){}
 	void setOperation(unsigned int op)
 	{
@@ -91,84 +92,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".cf.cfb\" %f;\n", cfb);
 
 	}
-	void getOperation()
+	void getOperation()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getFirstTerm()
+	void getFirstTerm()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getSecondTerm()
+	void getSecondTerm()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getColorIfTrue()
+	void getColorIfTrue()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getColorIfTrueR()
+	void getColorIfTrueR()const
 	{
 		fprintf(mFile,"\"%s.ct.ctr\"",mName.c_str());
 
 	}
-	void getColorIfTrueG()
+	void getColorIfTrueG()const
 	{
 		fprintf(mFile,"\"%s.ct.ctg\"",mName.c_str());
 
 	}
-	void getColorIfTrueB()
+	void getColorIfTrueB()const
 	{
 		fprintf(mFile,"\"%s.ct.ctb\"",mName.c_str());
 
 	}
-	void getColorIfFalse()
+	void getColorIfFalse()const
 	{
 		fprintf(mFile,"\"%s.cf\"",mName.c_str());
 
 	}
-	void getColorIfFalseR()
+	void getColorIfFalseR()const
 	{
 		fprintf(mFile,"\"%s.cf.cfr\"",mName.c_str());
 
 	}
-	void getColorIfFalseG()
+	void getColorIfFalseG()const
 	{
 		fprintf(mFile,"\"%s.cf.cfg\"",mName.c_str());
 
 	}
-	void getColorIfFalseB()
+	void getColorIfFalseB()const
 	{
 		fprintf(mFile,"\"%s.cf.cfb\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
 protected:
-	Condition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Condition(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

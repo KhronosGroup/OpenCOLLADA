@@ -19,7 +19,8 @@ class DisplayLayerManager : public DependNode
 public:
 public:
 	DisplayLayerManager():DependNode(){}
-	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "displayLayerManager"){}
+	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "displayLayerManager", create){}
 	virtual ~DisplayLayerManager(){}
 	void setCurrentDisplayLayer(short cdl)
 	{
@@ -45,34 +46,34 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDisplayLayerId(size_t dli_start,size_t dli_end)
+	void startDisplayLayerId(size_t dli_start,size_t dli_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dli[%i:%i]\"",dli_start,dli_end);
 
 	}
-	void appendDisplayLayerId(short dli)
+	void appendDisplayLayerId(short dli)const
 	{
 		fprintf(mFile," %i",dli);
 
 	}
-	void endDisplayLayerId()
+	void endDisplayLayerId()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getCurrentDisplayLayer()
+	void getCurrentDisplayLayer()const
 	{
 		fprintf(mFile,"\"%s.cdl\"",mName.c_str());
 
 	}
-	void getDisplayLayerId(size_t dli_i)
+	void getDisplayLayerId(size_t dli_i)const
 	{
 		fprintf(mFile,"\"%s.dli[%i]\"",mName.c_str(),dli_i);
 
 	}
 protected:
-	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DisplayLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

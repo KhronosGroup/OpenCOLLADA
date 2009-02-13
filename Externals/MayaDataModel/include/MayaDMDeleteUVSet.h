@@ -19,7 +19,8 @@ class DeleteUVSet : public DependNode
 public:
 public:
 	DeleteUVSet():DependNode(){}
-	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "deleteUVSet"){}
+	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "deleteUVSet", create){}
 	virtual ~DeleteUVSet(){}
 	void setUvSetName(const string& uvs)
 	{
@@ -29,24 +30,24 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
 protected:
-	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DeleteUVSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

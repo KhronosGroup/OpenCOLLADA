@@ -19,7 +19,8 @@ class Guide : public DependNode
 public:
 public:
 	Guide():DependNode(){}
-	Guide(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "guide"){}
+	Guide(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "guide", create){}
 	virtual ~Guide(){}
 	void setJointAboveMatrix(const matrix& am)
 	{
@@ -50,84 +51,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".ga\" %i;\n", ga);
 
 	}
-	void getJointAboveMatrix()
+	void getJointAboveMatrix()const
 	{
 		fprintf(mFile,"\"%s.am\"",mName.c_str());
 
 	}
-	void getJointXformMatrix()
+	void getJointXformMatrix()const
 	{
 		fprintf(mFile,"\"%s.jm\"",mName.c_str());
 
 	}
-	void getJointBelowMatrix()
+	void getJointBelowMatrix()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
-	void getJointGuideAxis()
+	void getJointGuideAxis()const
 	{
 		fprintf(mFile,"\"%s.ga\"",mName.c_str());
 
 	}
-	void getBendVector()
+	void getBendVector()const
 	{
 		fprintf(mFile,"\"%s.bv\"",mName.c_str());
 
 	}
-	void getBendVectorX()
+	void getBendVectorX()const
 	{
 		fprintf(mFile,"\"%s.bv.bx\"",mName.c_str());
 
 	}
-	void getBendVectorY()
+	void getBendVectorY()const
 	{
 		fprintf(mFile,"\"%s.bv.by\"",mName.c_str());
 
 	}
-	void getBendVectorZ()
+	void getBendVectorZ()const
 	{
 		fprintf(mFile,"\"%s.bv.bz\"",mName.c_str());
 
 	}
-	void getBendAngle()
+	void getBendAngle()const
 	{
 		fprintf(mFile,"\"%s.ba\"",mName.c_str());
 
 	}
-	void getBendMagnitude()
+	void getBendMagnitude()const
 	{
 		fprintf(mFile,"\"%s.mg\"",mName.c_str());
 
 	}
-	void getRotateX()
+	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.rx\"",mName.c_str());
 
 	}
-	void getRotateY()
+	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.ry\"",mName.c_str());
 
 	}
-	void getRotateZ()
+	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rz\"",mName.c_str());
 
 	}
-	void getMaxXYZ()
+	void getMaxXYZ()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
-	void getAutoGuide()
+	void getAutoGuide()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
 protected:
-	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Guide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

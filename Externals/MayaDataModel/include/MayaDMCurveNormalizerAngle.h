@@ -19,7 +19,8 @@ class CurveNormalizerAngle : public CurveNormalizer
 public:
 public:
 	CurveNormalizerAngle():CurveNormalizer(){}
-	CurveNormalizerAngle(FILE* file,const std::string& name,const std::string& parent=""):CurveNormalizer(file, name, parent, "curveNormalizerAngle"){}
+	CurveNormalizerAngle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CurveNormalizer(file, name, parent, "curveNormalizerAngle", create){}
 	virtual ~CurveNormalizerAngle(){}
 	void setAnimInput(double ai)
 	{
@@ -27,19 +28,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".ai\" %f;\n", ai);
 
 	}
-	void getAnimInput()
+	void getAnimInput()const
 	{
 		fprintf(mFile,"\"%s.ai\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	CurveNormalizerAngle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CurveNormalizer(file, name, parent, nodeType) {}
+	CurveNormalizerAngle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CurveNormalizer(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

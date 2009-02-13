@@ -19,7 +19,8 @@ class PolyMergeEdge : public PolyModifier
 public:
 public:
 	PolyMergeEdge():PolyModifier(){}
-	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMergeEdge"){}
+	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyMergeEdge", create){}
 	virtual ~PolyMergeEdge(){}
 	void setMergeMode(unsigned int mm)
 	{
@@ -45,29 +46,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".mt\" %i;\n", mt);
 
 	}
-	void getMergeMode()
+	void getMergeMode()const
 	{
 		fprintf(mFile,"\"%s.mm\"",mName.c_str());
 
 	}
-	void getFirstEdge()
+	void getFirstEdge()const
 	{
 		fprintf(mFile,"\"%s.fe\"",mName.c_str());
 
 	}
-	void getSecondEdge()
+	void getSecondEdge()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
-	void getMergeTexture()
+	void getMergeTexture()const
 	{
 		fprintf(mFile,"\"%s.mt\"",mName.c_str());
 
 	}
 protected:
-	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyMergeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

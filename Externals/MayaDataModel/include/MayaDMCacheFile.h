@@ -19,7 +19,8 @@ class CacheFile : public CacheBase
 public:
 public:
 	CacheFile():CacheBase(){}
-	CacheFile(FILE* file,const std::string& name,const std::string& parent=""):CacheBase(file, name, parent, "cacheFile"){}
+	CacheFile(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CacheBase(file, name, parent, "cacheFile", create){}
 	virtual ~CacheFile(){}
 	void setCacheName(const string& cn)
 	{
@@ -57,19 +58,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startChannel(size_t ch_start,size_t ch_end)
+	void startChannel(size_t ch_start,size_t ch_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ch[%i:%i]\"",ch_start,ch_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
-	void appendChannel(const string& ch)
+	void appendChannel(const string& ch)const
 	{
 		fprintf(mFile,"\n");
 		ch.write(mFile);
 
 	}
-	void endChannel()
+	void endChannel()const
 	{
 		fprintf(mFile,";\n");
 
@@ -94,19 +95,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPerPtWeights(size_t ppw_start,size_t ppw_end)
+	void startPerPtWeights(size_t ppw_start,size_t ppw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ppw[%i:%i]\"",ppw_start,ppw_end);
 		fprintf(mFile," -type \"doubleArray\" ");
 
 	}
-	void appendPerPtWeights(const doubleArray& ppw)
+	void appendPerPtWeights(const doubleArray& ppw)const
 	{
 		fprintf(mFile,"\n");
 		ppw.write(mFile);
 
 	}
-	void endPerPtWeights()
+	void endPerPtWeights()const
 	{
 		fprintf(mFile,";\n");
 
@@ -165,124 +166,124 @@ public:
 		fprintf(mFile,"\tsetAttr \".dp\" %i;\n", dp);
 
 	}
-	void getCacheName()
+	void getCacheName()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getCachePath()
+	void getCachePath()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getChannel(size_t ch_i)
+	void getChannel(size_t ch_i)const
 	{
 		fprintf(mFile,"\"%s.ch[%i]\"",mName.c_str(),ch_i);
 
 	}
-	void getCacheWeights()
+	void getCacheWeights()const
 	{
 		fprintf(mFile,"\"%s.cw\"",mName.c_str());
 
 	}
-	void getPerPtWeights(size_t ppw_i)
+	void getPerPtWeights(size_t ppw_i)const
 	{
 		fprintf(mFile,"\"%s.ppw[%i]\"",mName.c_str(),ppw_i);
 
 	}
-	void getOriginalStart()
+	void getOriginalStart()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getOriginalEnd()
+	void getOriginalEnd()const
 	{
 		fprintf(mFile,"\"%s.oe\"",mName.c_str());
 
 	}
-	void getSourceStart()
+	void getSourceStart()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getSourceEnd()
+	void getSourceEnd()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
-	void getStartFrame()
+	void getStartFrame()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getHold()
+	void getHold()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getPreCycle()
+	void getPreCycle()const
 	{
 		fprintf(mFile,"\"%s.cb\"",mName.c_str());
 
 	}
-	void getPostCycle()
+	void getPostCycle()const
 	{
 		fprintf(mFile,"\"%s.ca\"",mName.c_str());
 
 	}
-	void getStart()
+	void getStart()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getEnd()
+	void getEnd()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.en\"",mName.c_str());
 
 	}
-	void getTrack()
+	void getTrack()const
 	{
 		fprintf(mFile,"\"%s.tr\"",mName.c_str());
 
 	}
-	void getTrackState()
+	void getTrackState()const
 	{
 		fprintf(mFile,"\"%s.ts\"",mName.c_str());
 
 	}
-	void getMultiThread()
+	void getMultiThread()const
 	{
 		fprintf(mFile,"\"%s.mt\"",mName.c_str());
 
 	}
-	void getMemQueueSize()
+	void getMemQueueSize()const
 	{
 		fprintf(mFile,"\"%s.qs\"",mName.c_str());
 
 	}
-	void getDisplayLoadProgress()
+	void getDisplayLoadProgress()const
 	{
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
 protected:
-	CacheFile(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CacheBase(file, name, parent, nodeType) {}
+	CacheFile(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CacheBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

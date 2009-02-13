@@ -19,7 +19,8 @@ class BakeSet : public ObjectSet
 public:
 public:
 	BakeSet():ObjectSet(){}
-	BakeSet(FILE* file,const std::string& name,const std::string& parent=""):ObjectSet(file, name, parent, "bakeSet"){}
+	BakeSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectSet(file, name, parent, "bakeSet", create){}
 	virtual ~BakeSet(){}
 	void setBakeAlpha(bool alpha)
 	{
@@ -63,49 +64,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".ndr\" %i;\n", ndr);
 
 	}
-	void getBakeAlpha()
+	void getBakeAlpha()const
 	{
 		fprintf(mFile,"\"%s.alpha\"",mName.c_str());
 
 	}
-	void getAlphaMode()
+	void getAlphaMode()const
 	{
 		fprintf(mFile,"\"%s.mode\"",mName.c_str());
 
 	}
-	void getOcclusionRays()
+	void getOcclusionRays()const
 	{
 		fprintf(mFile,"\"%s.mor\"",mName.c_str());
 
 	}
-	void getOcclusionFalloff()
+	void getOcclusionFalloff()const
 	{
 		fprintf(mFile,"\"%s.mof\"",mName.c_str());
 
 	}
-	void getColorMode()
+	void getColorMode()const
 	{
 		fprintf(mFile,"\"%s.clm\"",mName.c_str());
 
 	}
-	void getOrthogonalReflection()
+	void getOrthogonalReflection()const
 	{
 		fprintf(mFile,"\"%s.orf\"",mName.c_str());
 
 	}
-	void getNormalDirection()
+	void getNormalDirection()const
 	{
 		fprintf(mFile,"\"%s.ndr\"",mName.c_str());
 
 	}
-	void getCustomShader()
+	void getCustomShader()const
 	{
 		fprintf(mFile,"\"%s.csh\"",mName.c_str());
 
 	}
 protected:
-	BakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectSet(file, name, parent, nodeType) {}
+	BakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectSet(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

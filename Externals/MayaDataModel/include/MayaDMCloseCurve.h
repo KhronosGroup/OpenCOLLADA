@@ -19,7 +19,8 @@ class CloseCurve : public AbstractBaseCreate
 public:
 public:
 	CloseCurve():AbstractBaseCreate(){}
-	CloseCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "closeCurve"){}
+	CloseCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "closeCurve", create){}
 	virtual ~CloseCurve(){}
 	void setPreserveShape(unsigned int ps)
 	{
@@ -45,39 +46,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".p\" %f;\n", p);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getPreserveShape()
+	void getPreserveShape()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getBlendBias()
+	void getBlendBias()const
 	{
 		fprintf(mFile,"\"%s.bb\"",mName.c_str());
 
 	}
-	void getBlendKnotInsertion()
+	void getBlendKnotInsertion()const
 	{
 		fprintf(mFile,"\"%s.bki\"",mName.c_str());
 
 	}
-	void getParameter()
+	void getParameter()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	CloseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	CloseCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

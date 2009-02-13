@@ -19,7 +19,8 @@ class Light : public Shape
 public:
 public:
 	Light():Shape(){}
-	Light(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "light"){}
+	Light(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "light", create){}
 	virtual ~Light(){}
 	void setColor(const float3& cl)
 	{
@@ -141,264 +142,264 @@ public:
 		fprintf(mFile,"\tsetAttr \".lls\" %f;\n", lls);
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.cl.cr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.cl.cg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.cl.cb\"",mName.c_str());
 
 	}
-	void getIntensity()
+	void getIntensity()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getUseRayTraceShadows()
+	void getUseRayTraceShadows()const
 	{
 		fprintf(mFile,"\"%s.urs\"",mName.c_str());
 
 	}
-	void getShadowColor()
+	void getShadowColor()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getShadColorR()
+	void getShadColorR()const
 	{
 		fprintf(mFile,"\"%s.sc.scr\"",mName.c_str());
 
 	}
-	void getShadColorG()
+	void getShadColorG()const
 	{
 		fprintf(mFile,"\"%s.sc.scg\"",mName.c_str());
 
 	}
-	void getShadColorB()
+	void getShadColorB()const
 	{
 		fprintf(mFile,"\"%s.sc.scb\"",mName.c_str());
 
 	}
-	void getShadowRays()
+	void getShadowRays()const
 	{
 		fprintf(mFile,"\"%s.shr\"",mName.c_str());
 
 	}
-	void getRayDepthLimit()
+	void getRayDepthLimit()const
 	{
 		fprintf(mFile,"\"%s.rdl\"",mName.c_str());
 
 	}
-	void getCenterOfIllumination()
+	void getCenterOfIllumination()const
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getMatrixWorldToEye()
+	void getMatrixWorldToEye()const
 	{
 		fprintf(mFile,"\"%s.wte\"",mName.c_str());
 
 	}
-	void getMatrixEyeToWorld()
+	void getMatrixEyeToWorld()const
 	{
 		fprintf(mFile,"\"%s.etw\"",mName.c_str());
 
 	}
-	void getObjectId()
+	void getObjectId()const
 	{
 		fprintf(mFile,"\"%s.oi\"",mName.c_str());
 
 	}
-	void getPrimitiveId()
+	void getPrimitiveId()const
 	{
 		fprintf(mFile,"\"%s.pi\"",mName.c_str());
 
 	}
-	void getRaySampler()
+	void getRaySampler()const
 	{
 		fprintf(mFile,"\"%s.rts\"",mName.c_str());
 
 	}
-	void getRayDepth()
+	void getRayDepth()const
 	{
 		fprintf(mFile,"\"%s.rd\"",mName.c_str());
 
 	}
-	void getRenderState()
+	void getRenderState()const
 	{
 		fprintf(mFile,"\"%s.rdst\"",mName.c_str());
 
 	}
-	void getLocatorScale()
+	void getLocatorScale()const
 	{
 		fprintf(mFile,"\"%s.lls\"",mName.c_str());
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.uu\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.vv\"",mName.c_str());
 
 	}
-	void getUvFilterSize()
+	void getUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fq\"",mName.c_str());
 
 	}
-	void getUvFilterSizeX()
+	void getUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.fq.fsx\"",mName.c_str());
 
 	}
-	void getUvFilterSizeY()
+	void getUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.fq.fsy\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
-	void getLightData()
+	void getLightData()const
 	{
 		fprintf(mFile,"\"%s.ltd\"",mName.c_str());
 
 	}
-	void getLightDirection()
+	void getLightDirection()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld\"",mName.c_str());
 
 	}
-	void getLightDirectionX()
+	void getLightDirectionX()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld.ldx\"",mName.c_str());
 
 	}
-	void getLightDirectionY()
+	void getLightDirectionY()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld.ldy\"",mName.c_str());
 
 	}
-	void getLightDirectionZ()
+	void getLightDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld.ldz\"",mName.c_str());
 
 	}
-	void getLightIntensity()
+	void getLightIntensity()const
 	{
 		fprintf(mFile,"\"%s.ltd.li\"",mName.c_str());
 
 	}
-	void getLightIntensityR()
+	void getLightIntensityR()const
 	{
 		fprintf(mFile,"\"%s.ltd.li.lir\"",mName.c_str());
 
 	}
-	void getLightIntensityG()
+	void getLightIntensityG()const
 	{
 		fprintf(mFile,"\"%s.ltd.li.lig\"",mName.c_str());
 
 	}
-	void getLightIntensityB()
+	void getLightIntensityB()const
 	{
 		fprintf(mFile,"\"%s.ltd.li.lib\"",mName.c_str());
 
 	}
-	void getLightAmbient()
+	void getLightAmbient()const
 	{
 		fprintf(mFile,"\"%s.ltd.la\"",mName.c_str());
 
 	}
-	void getLightDiffuse()
+	void getLightDiffuse()const
 	{
 		fprintf(mFile,"\"%s.ltd.ldf\"",mName.c_str());
 
 	}
-	void getLightSpecular()
+	void getLightSpecular()const
 	{
 		fprintf(mFile,"\"%s.ltd.ls\"",mName.c_str());
 
 	}
-	void getLightShadowFraction()
+	void getLightShadowFraction()const
 	{
 		fprintf(mFile,"\"%s.ltd.lsf\"",mName.c_str());
 
 	}
-	void getPreShadowIntensity()
+	void getPreShadowIntensity()const
 	{
 		fprintf(mFile,"\"%s.ltd.psi\"",mName.c_str());
 
 	}
-	void getLightBlindData()
+	void getLightBlindData()const
 	{
 		fprintf(mFile,"\"%s.ltd.lbl\"",mName.c_str());
 
 	}
-	void getOpticalFXvisibility()
+	void getOpticalFXvisibility()const
 	{
 		fprintf(mFile,"\"%s.ov\"",mName.c_str());
 
 	}
-	void getOpticalFXvisibilityR()
+	void getOpticalFXvisibilityR()const
 	{
 		fprintf(mFile,"\"%s.ov.ovr\"",mName.c_str());
 
 	}
-	void getOpticalFXvisibilityG()
+	void getOpticalFXvisibilityG()const
 	{
 		fprintf(mFile,"\"%s.ov.ovg\"",mName.c_str());
 
 	}
-	void getOpticalFXvisibilityB()
+	void getOpticalFXvisibilityB()const
 	{
 		fprintf(mFile,"\"%s.ov.ovb\"",mName.c_str());
 
 	}
 protected:
-	Light(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	Light(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

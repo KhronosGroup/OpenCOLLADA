@@ -26,7 +26,8 @@ public:
 	};
 public:
 	NormalConstraint():Constraint(){}
-	NormalConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "normalConstraint"){}
+	NormalConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Constraint(file, name, parent, "normalConstraint", create){}
 	virtual ~NormalConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
@@ -269,244 +270,244 @@ public:
 		fprintf(mFile,"\tsetAttr \".rsrr.rrz\" %f;\n", rrz);
 
 	}
-	void getTarget(size_t tg_i)
+	void getTarget(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetGeometry(size_t tg_i)
+	void getTargetGeometry(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tgm\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetWeight(size_t tg_i)
+	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
 
 	}
-	void getConstraintParentInverseMatrix()
+	void getConstraintParentInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.cpim\"",mName.c_str());
 
 	}
-	void getAimVector()
+	void getAimVector()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getAimVectorX()
+	void getAimVectorX()const
 	{
 		fprintf(mFile,"\"%s.a.ax\"",mName.c_str());
 
 	}
-	void getAimVectorY()
+	void getAimVectorY()const
 	{
 		fprintf(mFile,"\"%s.a.ay\"",mName.c_str());
 
 	}
-	void getAimVectorZ()
+	void getAimVectorZ()const
 	{
 		fprintf(mFile,"\"%s.a.az\"",mName.c_str());
 
 	}
-	void getUpVector()
+	void getUpVector()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getUpVectorX()
+	void getUpVectorX()const
 	{
 		fprintf(mFile,"\"%s.u.ux\"",mName.c_str());
 
 	}
-	void getUpVectorY()
+	void getUpVectorY()const
 	{
 		fprintf(mFile,"\"%s.u.uy\"",mName.c_str());
 
 	}
-	void getUpVectorZ()
+	void getUpVectorZ()const
 	{
 		fprintf(mFile,"\"%s.u.uz\"",mName.c_str());
 
 	}
-	void getWorldUpVector()
+	void getWorldUpVector()const
 	{
 		fprintf(mFile,"\"%s.wu\"",mName.c_str());
 
 	}
-	void getWorldUpVectorX()
+	void getWorldUpVectorX()const
 	{
 		fprintf(mFile,"\"%s.wu.wux\"",mName.c_str());
 
 	}
-	void getWorldUpVectorY()
+	void getWorldUpVectorY()const
 	{
 		fprintf(mFile,"\"%s.wu.wuy\"",mName.c_str());
 
 	}
-	void getWorldUpVectorZ()
+	void getWorldUpVectorZ()const
 	{
 		fprintf(mFile,"\"%s.wu.wuz\"",mName.c_str());
 
 	}
-	void getWorldUpMatrix()
+	void getWorldUpMatrix()const
 	{
 		fprintf(mFile,"\"%s.wum\"",mName.c_str());
 
 	}
-	void getWorldUpType()
+	void getWorldUpType()const
 	{
 		fprintf(mFile,"\"%s.wut\"",mName.c_str());
 
 	}
-	void getConstraintTranslate()
+	void getConstraintTranslate()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getConstraintTranslateX()
+	void getConstraintTranslateX()const
 	{
 		fprintf(mFile,"\"%s.ct.ctx\"",mName.c_str());
 
 	}
-	void getConstraintTranslateY()
+	void getConstraintTranslateY()const
 	{
 		fprintf(mFile,"\"%s.ct.cty\"",mName.c_str());
 
 	}
-	void getConstraintTranslateZ()
+	void getConstraintTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.ct.ctz\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivot()
+	void getConstraintRotatePivot()const
 	{
 		fprintf(mFile,"\"%s.crp\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivotX()
+	void getConstraintRotatePivotX()const
 	{
 		fprintf(mFile,"\"%s.crp.crpx\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivotY()
+	void getConstraintRotatePivotY()const
 	{
 		fprintf(mFile,"\"%s.crp.crpy\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivotZ()
+	void getConstraintRotatePivotZ()const
 	{
 		fprintf(mFile,"\"%s.crp.crpz\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslate()
+	void getConstraintRotateTranslate()const
 	{
 		fprintf(mFile,"\"%s.crt\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslateX()
+	void getConstraintRotateTranslateX()const
 	{
 		fprintf(mFile,"\"%s.crt.crtx\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslateY()
+	void getConstraintRotateTranslateY()const
 	{
 		fprintf(mFile,"\"%s.crt.crty\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslateZ()
+	void getConstraintRotateTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.crt.crtz\"",mName.c_str());
 
 	}
-	void getConstraintRotateOrder()
+	void getConstraintRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.cro\"",mName.c_str());
 
 	}
-	void getConstraintJointOrient()
+	void getConstraintJointOrient()const
 	{
 		fprintf(mFile,"\"%s.cjo\"",mName.c_str());
 
 	}
-	void getConstraintJointOrientX()
+	void getConstraintJointOrientX()const
 	{
 		fprintf(mFile,"\"%s.cjo.cjox\"",mName.c_str());
 
 	}
-	void getConstraintJointOrientY()
+	void getConstraintJointOrientY()const
 	{
 		fprintf(mFile,"\"%s.cjo.cjoy\"",mName.c_str());
 
 	}
-	void getConstraintJointOrientZ()
+	void getConstraintJointOrientZ()const
 	{
 		fprintf(mFile,"\"%s.cjo.cjoz\"",mName.c_str());
 
 	}
-	void getConstraintRotate()
+	void getConstraintRotate()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getConstraintRotateX()
+	void getConstraintRotateX()const
 	{
 		fprintf(mFile,"\"%s.cr.crx\"",mName.c_str());
 
 	}
-	void getConstraintRotateY()
+	void getConstraintRotateY()const
 	{
 		fprintf(mFile,"\"%s.cr.cry\"",mName.c_str());
 
 	}
-	void getConstraintRotateZ()
+	void getConstraintRotateZ()const
 	{
 		fprintf(mFile,"\"%s.cr.crz\"",mName.c_str());
 
 	}
-	void getConstraintVector()
+	void getConstraintVector()const
 	{
 		fprintf(mFile,"\"%s.cv\"",mName.c_str());
 
 	}
-	void getConstraintVectorX()
+	void getConstraintVectorX()const
 	{
 		fprintf(mFile,"\"%s.cv.cvx\"",mName.c_str());
 
 	}
-	void getConstraintVectorY()
+	void getConstraintVectorY()const
 	{
 		fprintf(mFile,"\"%s.cv.cvy\"",mName.c_str());
 
 	}
-	void getConstraintVectorZ()
+	void getConstraintVectorZ()const
 	{
 		fprintf(mFile,"\"%s.cv.cvz\"",mName.c_str());
 
 	}
-	void getRestRotate()
+	void getRestRotate()const
 	{
 		fprintf(mFile,"\"%s.rsrr\"",mName.c_str());
 
 	}
-	void getRestRotateX()
+	void getRestRotateX()const
 	{
 		fprintf(mFile,"\"%s.rsrr.rrx\"",mName.c_str());
 
 	}
-	void getRestRotateY()
+	void getRestRotateY()const
 	{
 		fprintf(mFile,"\"%s.rsrr.rry\"",mName.c_str());
 
 	}
-	void getRestRotateZ()
+	void getRestRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rsrr.rrz\"",mName.c_str());
 
 	}
 protected:
-	NormalConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Constraint(file, name, parent, nodeType) {}
+	NormalConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Constraint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

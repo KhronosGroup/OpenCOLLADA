@@ -19,7 +19,8 @@ class ObjectNameFilter : public ObjectFilter
 public:
 public:
 	ObjectNameFilter():ObjectFilter(){}
-	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectNameFilter"){}
+	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectFilter(file, name, parent, "objectNameFilter", create){}
 	virtual ~ObjectNameFilter(){}
 	void setRegExp(const string& rex)
 	{
@@ -43,24 +44,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".attr\" %i;\n", attr);
 
 	}
-	void getRegExp()
+	void getRegExp()const
 	{
 		fprintf(mFile,"\"%s.rex\"",mName.c_str());
 
 	}
-	void getNameStrings()
+	void getNameStrings()const
 	{
 		fprintf(mFile,"\"%s.nstr\"",mName.c_str());
 
 	}
-	void getAttrName()
+	void getAttrName()const
 	{
 		fprintf(mFile,"\"%s.attr\"",mName.c_str());
 
 	}
 protected:
-	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectFilter(file, name, parent, nodeType) {}
+	ObjectNameFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

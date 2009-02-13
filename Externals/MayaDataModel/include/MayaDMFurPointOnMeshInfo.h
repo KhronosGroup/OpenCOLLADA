@@ -21,7 +21,8 @@ public:
 	};
 public:
 	FurPointOnMeshInfo():DependNode(){}
-	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "furPointOnMeshInfo"){}
+	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "furPointOnMeshInfo", create){}
 	virtual ~FurPointOnMeshInfo(){}
 	void setInMesh(const mesh& im)
 	{
@@ -100,74 +101,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".nz\" %f;\n", nz);
 
 	}
-	void getInMesh()
+	void getInMesh()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getFaceIndex()
+	void getFaceIndex()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getRelative()
+	void getRelative()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getParameterU()
+	void getParameterU()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getParameterV()
+	void getParameterV()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.px\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.py\"",mName.c_str());
 
 	}
-	void getPositionZ()
+	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.pz\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.ny\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nz\"",mName.c_str());
 
 	}
 protected:
-	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FurPointOnMeshInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

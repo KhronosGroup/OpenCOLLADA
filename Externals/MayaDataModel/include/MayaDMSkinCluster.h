@@ -31,7 +31,8 @@ public:
 	};
 public:
 	SkinCluster():GeometryFilter(){}
-	SkinCluster(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "skinCluster"){}
+	SkinCluster(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "skinCluster", create){}
 	virtual ~SkinCluster(){}
 	void setWeightList(size_t wl_i,const WeightList& wl)
 	{
@@ -58,17 +59,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWeights(size_t wl_i,size_t w_start,size_t w_end)
+	void startWeights(size_t wl_i,size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
 
 	}
-	void appendWeights(double w)
+	void appendWeights(double w)const
 	{
 		fprintf(mFile," %f",w);
 
 	}
-	void endWeights()
+	void endWeights()const
 	{
 		fprintf(mFile,";\n");
 
@@ -93,19 +94,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBindPreMatrix(size_t pm_start,size_t pm_end)
+	void startBindPreMatrix(size_t pm_start,size_t pm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pm[%i:%i]\"",pm_start,pm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendBindPreMatrix(const matrix& pm)
+	void appendBindPreMatrix(const matrix& pm)const
 	{
 		fprintf(mFile,"\n");
 		pm.write(mFile);
 
 	}
-	void endBindPreMatrix()
+	void endBindPreMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -138,19 +139,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startMatrix(size_t ma_start,size_t ma_end)
+	void startMatrix(size_t ma_start,size_t ma_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ma[%i:%i]\"",ma_start,ma_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendMatrix(const matrix& ma)
+	void appendMatrix(const matrix& ma)const
 	{
 		fprintf(mFile,"\n");
 		ma.write(mFile);
 
 	}
-	void endMatrix()
+	void endMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -173,17 +174,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDropoff(size_t dpf_start,size_t dpf_end)
+	void startDropoff(size_t dpf_start,size_t dpf_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dpf[%i:%i]\"",dpf_start,dpf_end);
 
 	}
-	void appendDropoff(double dpf)
+	void appendDropoff(double dpf)const
 	{
 		fprintf(mFile," %f",dpf);
 
 	}
-	void endDropoff()
+	void endDropoff()const
 	{
 		fprintf(mFile,";\n");
 
@@ -206,17 +207,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startSmoothness(size_t smt_start,size_t smt_end)
+	void startSmoothness(size_t smt_start,size_t smt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".smt[%i:%i]\"",smt_start,smt_end);
 
 	}
-	void appendSmoothness(double smt)
+	void appendSmoothness(double smt)const
 	{
 		fprintf(mFile," %f",smt);
 
 	}
-	void endSmoothness()
+	void endSmoothness()const
 	{
 		fprintf(mFile,";\n");
 
@@ -239,17 +240,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLockWeights(size_t lw_start,size_t lw_end)
+	void startLockWeights(size_t lw_start,size_t lw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".lw[%i:%i]\"",lw_start,lw_end);
 
 	}
-	void appendLockWeights(bool lw)
+	void appendLockWeights(bool lw)const
 	{
 		fprintf(mFile," %i",lw);
 
 	}
-	void endLockWeights()
+	void endLockWeights()const
 	{
 		fprintf(mFile,";\n");
 
@@ -304,17 +305,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startNurbsSamples(size_t ns_start,size_t ns_end)
+	void startNurbsSamples(size_t ns_start,size_t ns_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ns[%i:%i]\"",ns_start,ns_end);
 
 	}
-	void appendNurbsSamples(int ns)
+	void appendNurbsSamples(int ns)const
 	{
 		fprintf(mFile," %i",ns);
 
 	}
-	void endNurbsSamples()
+	void endNurbsSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -337,134 +338,134 @@ public:
 		fprintf(mFile,"\tsetAttr \".dun\" %i;\n", dun);
 
 	}
-	void getWeightList(size_t wl_i)
+	void getWeightList(size_t wl_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
 
 	}
-	void getWeights(size_t wl_i,size_t w_i)
+	void getWeights(size_t wl_i,size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i].w[%i]\"",mName.c_str(),wl_i,w_i);
 
 	}
-	void getBindPreMatrix(size_t pm_i)
+	void getBindPreMatrix(size_t pm_i)const
 	{
 		fprintf(mFile,"\"%s.pm[%i]\"",mName.c_str(),pm_i);
 
 	}
-	void getGeomMatrix()
+	void getGeomMatrix()const
 	{
 		fprintf(mFile,"\"%s.gm\"",mName.c_str());
 
 	}
-	void getMatrix(size_t ma_i)
+	void getMatrix(size_t ma_i)const
 	{
 		fprintf(mFile,"\"%s.ma[%i]\"",mName.c_str(),ma_i);
 
 	}
-	void getDropoffRate()
+	void getDropoffRate()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getDropoff(size_t dpf_i)
+	void getDropoff(size_t dpf_i)const
 	{
 		fprintf(mFile,"\"%s.dpf[%i]\"",mName.c_str(),dpf_i);
 
 	}
-	void getSmoothness(size_t smt_i)
+	void getSmoothness(size_t smt_i)const
 	{
 		fprintf(mFile,"\"%s.smt[%i]\"",mName.c_str(),smt_i);
 
 	}
-	void getLockWeights(size_t lw_i)
+	void getLockWeights(size_t lw_i)const
 	{
 		fprintf(mFile,"\"%s.lw[%i]\"",mName.c_str(),lw_i);
 
 	}
-	void getMaintainMaxInfluences()
+	void getMaintainMaxInfluences()const
 	{
 		fprintf(mFile,"\"%s.mmi\"",mName.c_str());
 
 	}
-	void getMaxInfluences()
+	void getMaxInfluences()const
 	{
 		fprintf(mFile,"\"%s.mi\"",mName.c_str());
 
 	}
-	void getBindMethod()
+	void getBindMethod()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
-	void getDriverPoints(size_t drp_i)
+	void getDriverPoints(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i]\"",mName.c_str(),drp_i);
 
 	}
-	void getBasePoints(size_t bsp_i)
+	void getBasePoints(size_t bsp_i)const
 	{
 		fprintf(mFile,"\"%s.bsp[%i]\"",mName.c_str(),bsp_i);
 
 	}
-	void getBaseDirty()
+	void getBaseDirty()const
 	{
 		fprintf(mFile,"\"%s.bsd\"",mName.c_str());
 
 	}
-	void getPaintWeights()
+	void getPaintWeights()const
 	{
 		fprintf(mFile,"\"%s.ptw\"",mName.c_str());
 
 	}
-	void getPaintTrans()
+	void getPaintTrans()const
 	{
 		fprintf(mFile,"\"%s.ptt\"",mName.c_str());
 
 	}
-	void getPaintArrDirty()
+	void getPaintArrDirty()const
 	{
 		fprintf(mFile,"\"%s.pad\"",mName.c_str());
 
 	}
-	void getUseComponents()
+	void getUseComponents()const
 	{
 		fprintf(mFile,"\"%s.uc\"",mName.c_str());
 
 	}
-	void getNurbsSamples(size_t ns_i)
+	void getNurbsSamples(size_t ns_i)const
 	{
 		fprintf(mFile,"\"%s.ns[%i]\"",mName.c_str(),ns_i);
 
 	}
-	void getUseComponentsMatrix()
+	void getUseComponentsMatrix()const
 	{
 		fprintf(mFile,"\"%s.ucm\"",mName.c_str());
 
 	}
-	void getNormalizeWeights()
+	void getNormalizeWeights()const
 	{
 		fprintf(mFile,"\"%s.nw\"",mName.c_str());
 
 	}
-	void getDeformUserNormals()
+	void getDeformUserNormals()const
 	{
 		fprintf(mFile,"\"%s.dun\"",mName.c_str());
 
 	}
-	void getWtDrty()
+	void getWtDrty()const
 	{
 		fprintf(mFile,"\"%s.wtd\"",mName.c_str());
 
 	}
-	void getBindPose()
+	void getBindPose()const
 	{
 		fprintf(mFile,"\"%s.bp\"",mName.c_str());
 
 	}
 protected:
-	SkinCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	SkinCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

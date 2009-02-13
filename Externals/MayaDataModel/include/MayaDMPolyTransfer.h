@@ -19,7 +19,8 @@ class PolyTransfer : public PolyModifier
 public:
 public:
 	PolyTransfer():PolyModifier(){}
-	PolyTransfer(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTransfer"){}
+	PolyTransfer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyTransfer", create){}
 	virtual ~PolyTransfer(){}
 	void setOtherPoly(const mesh& op)
 	{
@@ -46,29 +47,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".vc\" %i;\n", vc);
 
 	}
-	void getOtherPoly()
+	void getOtherPoly()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getVertices()
+	void getVertices()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getUvSets()
+	void getUvSets()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getVertexColor()
+	void getVertexColor()const
 	{
 		fprintf(mFile,"\"%s.vc\"",mName.c_str());
 
 	}
 protected:
-	PolyTransfer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyTransfer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

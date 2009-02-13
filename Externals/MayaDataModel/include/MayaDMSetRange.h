@@ -19,7 +19,8 @@ class SetRange : public DependNode
 public:
 public:
 	SetRange():DependNode(){}
-	SetRange(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "setRange"){}
+	SetRange(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "setRange", create){}
 	virtual ~SetRange(){}
 	void setValue(const float3& v)
 	{
@@ -151,129 +152,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".om.omz\" %f;\n", omz);
 
 	}
-	void getValue()
+	void getValue()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getValueX()
+	void getValueX()const
 	{
 		fprintf(mFile,"\"%s.v.vx\"",mName.c_str());
 
 	}
-	void getValueY()
+	void getValueY()const
 	{
 		fprintf(mFile,"\"%s.v.vy\"",mName.c_str());
 
 	}
-	void getValueZ()
+	void getValueZ()const
 	{
 		fprintf(mFile,"\"%s.v.vz\"",mName.c_str());
 
 	}
-	void getMin()
+	void getMin()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getMinX()
+	void getMinX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getMinY()
+	void getMinY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getMinZ()
+	void getMinZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getMax()
+	void getMax()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getMaxX()
+	void getMaxX()const
 	{
 		fprintf(mFile,"\"%s.m.mx\"",mName.c_str());
 
 	}
-	void getMaxY()
+	void getMaxY()const
 	{
 		fprintf(mFile,"\"%s.m.my\"",mName.c_str());
 
 	}
-	void getMaxZ()
+	void getMaxZ()const
 	{
 		fprintf(mFile,"\"%s.m.mz\"",mName.c_str());
 
 	}
-	void getOldMin()
+	void getOldMin()const
 	{
 		fprintf(mFile,"\"%s.on\"",mName.c_str());
 
 	}
-	void getOldMinX()
+	void getOldMinX()const
 	{
 		fprintf(mFile,"\"%s.on.onx\"",mName.c_str());
 
 	}
-	void getOldMinY()
+	void getOldMinY()const
 	{
 		fprintf(mFile,"\"%s.on.ony\"",mName.c_str());
 
 	}
-	void getOldMinZ()
+	void getOldMinZ()const
 	{
 		fprintf(mFile,"\"%s.on.onz\"",mName.c_str());
 
 	}
-	void getOldMax()
+	void getOldMax()const
 	{
 		fprintf(mFile,"\"%s.om\"",mName.c_str());
 
 	}
-	void getOldMaxX()
+	void getOldMaxX()const
 	{
 		fprintf(mFile,"\"%s.om.omx\"",mName.c_str());
 
 	}
-	void getOldMaxY()
+	void getOldMaxY()const
 	{
 		fprintf(mFile,"\"%s.om.omy\"",mName.c_str());
 
 	}
-	void getOldMaxZ()
+	void getOldMaxZ()const
 	{
 		fprintf(mFile,"\"%s.om.omz\"",mName.c_str());
 
 	}
-	void getOutValue()
+	void getOutValue()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutValueX()
+	void getOutValueX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutValueY()
+	void getOutValueY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutValueZ()
+	void getOutValueZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
 protected:
-	SetRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SetRange(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

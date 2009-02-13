@@ -110,7 +110,8 @@ public:
 	};
 public:
 	HikFloorContactMarker():Locator(){}
-	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "hikFloorContactMarker"){}
+	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Locator(file, name, parent, "hikFloorContactMarker", create){}
 	virtual ~HikFloorContactMarker(){}
 	void setMarkerSize(double msz)
 	{
@@ -335,189 +336,189 @@ public:
 		fprintf(mFile,"\tsetAttr \".fli.fcr\" %f;\n", fcr);
 
 	}
-	void getMarkerSize()
+	void getMarkerSize()const
 	{
 		fprintf(mFile,"\"%s.msz\"",mName.c_str());
 
 	}
-	void getFloorContacts()
+	void getFloorContacts()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getDrawHandContact()
+	void getDrawHandContact()const
 	{
 		fprintf(mFile,"\"%s.fc.dhc\"",mName.c_str());
 
 	}
-	void getHandsContact()
+	void getHandsContact()const
 	{
 		fprintf(mFile,"\"%s.fc.hfc\"",mName.c_str());
 
 	}
-	void getDrawFeetContact()
+	void getDrawFeetContact()const
 	{
 		fprintf(mFile,"\"%s.fc.dfc\"",mName.c_str());
 
 	}
-	void getFeetContact()
+	void getFeetContact()const
 	{
 		fprintf(mFile,"\"%s.fc.fec\"",mName.c_str());
 
 	}
-	void getFingersContact()
+	void getFingersContact()const
 	{
 		fprintf(mFile,"\"%s.fc.fic\"",mName.c_str());
 
 	}
-	void getToesContact()
+	void getToesContact()const
 	{
 		fprintf(mFile,"\"%s.fc.tfc\"",mName.c_str());
 
 	}
-	void getHandsFloorContactSetup()
+	void getHandsFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.flc\"",mName.c_str());
 
 	}
-	void getHandsFloorPivot()
+	void getHandsFloorPivot()const
 	{
 		fprintf(mFile,"\"%s.flc.hfp\"",mName.c_str());
 
 	}
-	void getHandsContactType()
+	void getHandsContactType()const
 	{
 		fprintf(mFile,"\"%s.flc.hct\"",mName.c_str());
 
 	}
-	void getHandsContactStiffness()
+	void getHandsContactStiffness()const
 	{
 		fprintf(mFile,"\"%s.flc.hcs\"",mName.c_str());
 
 	}
-	void getContactsPosition()
+	void getContactsPosition()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getHandHeight()
+	void getHandHeight()const
 	{
 		fprintf(mFile,"\"%s.cp.hh\"",mName.c_str());
 
 	}
-	void getHandBack()
+	void getHandBack()const
 	{
 		fprintf(mFile,"\"%s.cp.hb\"",mName.c_str());
 
 	}
-	void getHandMiddle()
+	void getHandMiddle()const
 	{
 		fprintf(mFile,"\"%s.cp.hm\"",mName.c_str());
 
 	}
-	void getHandFront()
+	void getHandFront()const
 	{
 		fprintf(mFile,"\"%s.cp.hf\"",mName.c_str());
 
 	}
-	void getHandInSide()
+	void getHandInSide()const
 	{
 		fprintf(mFile,"\"%s.cp.his\"",mName.c_str());
 
 	}
-	void getHandOutSide()
+	void getHandOutSide()const
 	{
 		fprintf(mFile,"\"%s.cp.hos\"",mName.c_str());
 
 	}
-	void getFeetFloorContactSetup()
+	void getFeetFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.fle\"",mName.c_str());
 
 	}
-	void getFeetFloorPivot()
+	void getFeetFloorPivot()const
 	{
 		fprintf(mFile,"\"%s.fle.fpv\"",mName.c_str());
 
 	}
-	void getFeetContactType()
+	void getFeetContactType()const
 	{
 		fprintf(mFile,"\"%s.fle.fct\"",mName.c_str());
 
 	}
-	void getFeetContactStiffness()
+	void getFeetContactStiffness()const
 	{
 		fprintf(mFile,"\"%s.fle.fcs\"",mName.c_str());
 
 	}
-	void getFeetContactPosition()
+	void getFeetContactPosition()const
 	{
 		fprintf(mFile,"\"%s.flf\"",mName.c_str());
 
 	}
-	void getFootHeight()
+	void getFootHeight()const
 	{
 		fprintf(mFile,"\"%s.flf.fh\"",mName.c_str());
 
 	}
-	void getFootBack()
+	void getFootBack()const
 	{
 		fprintf(mFile,"\"%s.flf.fra\"",mName.c_str());
 
 	}
-	void getFootMiddle()
+	void getFootMiddle()const
 	{
 		fprintf(mFile,"\"%s.flf.fma\"",mName.c_str());
 
 	}
-	void getFootFront()
+	void getFootFront()const
 	{
 		fprintf(mFile,"\"%s.flf.ffm\"",mName.c_str());
 
 	}
-	void getFootInSide()
+	void getFootInSide()const
 	{
 		fprintf(mFile,"\"%s.flf.fia\"",mName.c_str());
 
 	}
-	void getFootOutSide()
+	void getFootOutSide()const
 	{
 		fprintf(mFile,"\"%s.flf.foa\"",mName.c_str());
 
 	}
-	void getFingersFloorContactSetup()
+	void getFingersFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.flg\"",mName.c_str());
 
 	}
-	void getFingersContactType()
+	void getFingersContactType()const
 	{
 		fprintf(mFile,"\"%s.flg.fcm\"",mName.c_str());
 
 	}
-	void getFingersContactRollStiffness()
+	void getFingersContactRollStiffness()const
 	{
 		fprintf(mFile,"\"%s.flg.hcr\"",mName.c_str());
 
 	}
-	void getToesFloorContactSetup()
+	void getToesFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.fli\"",mName.c_str());
 
 	}
-	void getToesContactType()
+	void getToesContactType()const
 	{
 		fprintf(mFile,"\"%s.fli.tct\"",mName.c_str());
 
 	}
-	void getToesContactRollStiffness()
+	void getToesContactRollStiffness()const
 	{
 		fprintf(mFile,"\"%s.fli.fcr\"",mName.c_str());
 
 	}
 protected:
-	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Locator(file, name, parent, nodeType) {}
+	HikFloorContactMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Locator(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

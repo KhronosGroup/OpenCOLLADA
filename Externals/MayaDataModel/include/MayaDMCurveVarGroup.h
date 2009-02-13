@@ -19,7 +19,8 @@ class CurveVarGroup : public BaseGeometryVarGroup
 public:
 public:
 	CurveVarGroup():BaseGeometryVarGroup(){}
-	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent=""):BaseGeometryVarGroup(file, name, parent, "curveVarGroup"){}
+	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, "curveVarGroup", create){}
 	virtual ~CurveVarGroup(){}
 	void setDisplaySmoothness(int ds)
 	{
@@ -27,24 +28,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".ds\" %i;\n", ds);
 
 	}
-	void getCreate(size_t cr_i)
+	void getCreate(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
 
 	}
-	void getLocal(size_t l_i)
+	void getLocal(size_t l_i)const
 	{
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
 
 	}
-	void getDisplaySmoothness()
+	void getDisplaySmoothness()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
 protected:
-	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BaseGeometryVarGroup(file, name, parent, nodeType) {}
+	CurveVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

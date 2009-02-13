@@ -19,7 +19,8 @@ class PointMatrixMult : public DependNode
 public:
 public:
 	PointMatrixMult():DependNode(){}
-	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "pointMatrixMult"){}
+	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "pointMatrixMult", create){}
 	virtual ~PointMatrixMult(){}
 	void setInPoint(const double3& ip)
 	{
@@ -60,59 +61,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".vm\" %i;\n", vm);
 
 	}
-	void getInPoint()
+	void getInPoint()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getInPointX()
+	void getInPointX()const
 	{
 		fprintf(mFile,"\"%s.ip.ipx\"",mName.c_str());
 
 	}
-	void getInPointY()
+	void getInPointY()const
 	{
 		fprintf(mFile,"\"%s.ip.ipy\"",mName.c_str());
 
 	}
-	void getInPointZ()
+	void getInPointZ()const
 	{
 		fprintf(mFile,"\"%s.ip.ipz\"",mName.c_str());
 
 	}
-	void getInMatrix()
+	void getInMatrix()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getVectorMultiply()
+	void getVectorMultiply()const
 	{
 		fprintf(mFile,"\"%s.vm\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutputX()
+	void getOutputX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutputY()
+	void getOutputY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutputZ()
+	void getOutputZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
 protected:
-	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	PointMatrixMult(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

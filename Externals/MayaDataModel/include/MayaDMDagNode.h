@@ -37,9 +37,6 @@ public:
 		}* objectGroups;
 		void write(FILE* file) const
 		{
-            size_t size1 = sizeof(objectGroups);
-            size_t size2 = sizeof(ObjectGroups);
-
 			size_t size = sizeof(objectGroups)/sizeof(ObjectGroups);
 			for(size_t i=0; i<size; ++i)
 			{
@@ -104,7 +101,8 @@ public:
 	};
 public:
 	DagNode():Entity(){}
-	DagNode(FILE* file,const std::string& name,const std::string& parent=""):Entity(file, name, parent, "dagNode"){}
+	DagNode(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Entity(file, name, parent, "dagNode", create){}
 	virtual ~DagNode(){}
 	void setVisibility(bool v)
 	{
@@ -325,309 +323,309 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getBoundingBox()
+	void getBoundingBox()const
 	{
 		fprintf(mFile,"\"%s.bb\"",mName.c_str());
 
 	}
-	void getBoundingBoxMin()
+	void getBoundingBoxMin()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmn\"",mName.c_str());
 
 	}
-	void getBoundingBoxMinX()
+	void getBoundingBoxMinX()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmn.bbnx\"",mName.c_str());
 
 	}
-	void getBoundingBoxMinY()
+	void getBoundingBoxMinY()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmn.bbny\"",mName.c_str());
 
 	}
-	void getBoundingBoxMinZ()
+	void getBoundingBoxMinZ()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmn.bbnz\"",mName.c_str());
 
 	}
-	void getBoundingBoxMax()
+	void getBoundingBoxMax()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmx\"",mName.c_str());
 
 	}
-	void getBoundingBoxMaxX()
+	void getBoundingBoxMaxX()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmx.bbxx\"",mName.c_str());
 
 	}
-	void getBoundingBoxMaxY()
+	void getBoundingBoxMaxY()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmx.bbxy\"",mName.c_str());
 
 	}
-	void getBoundingBoxMaxZ()
+	void getBoundingBoxMaxZ()const
 	{
 		fprintf(mFile,"\"%s.bb.bbmx.bbxz\"",mName.c_str());
 
 	}
-	void getBoundingBoxSize()
+	void getBoundingBoxSize()const
 	{
 		fprintf(mFile,"\"%s.bb.bbsi\"",mName.c_str());
 
 	}
-	void getBoundingBoxSizeX()
+	void getBoundingBoxSizeX()const
 	{
 		fprintf(mFile,"\"%s.bb.bbsi.bbsx\"",mName.c_str());
 
 	}
-	void getBoundingBoxSizeY()
+	void getBoundingBoxSizeY()const
 	{
 		fprintf(mFile,"\"%s.bb.bbsi.bbsy\"",mName.c_str());
 
 	}
-	void getBoundingBoxSizeZ()
+	void getBoundingBoxSizeZ()const
 	{
 		fprintf(mFile,"\"%s.bb.bbsi.bbsz\"",mName.c_str());
 
 	}
-	void getCenter()
+	void getCenter()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getBoundingBoxCenterX()
+	void getBoundingBoxCenterX()const
 	{
 		fprintf(mFile,"\"%s.c.bcx\"",mName.c_str());
 
 	}
-	void getBoundingBoxCenterY()
+	void getBoundingBoxCenterY()const
 	{
 		fprintf(mFile,"\"%s.c.bcy\"",mName.c_str());
 
 	}
-	void getBoundingBoxCenterZ()
+	void getBoundingBoxCenterZ()const
 	{
 		fprintf(mFile,"\"%s.c.bcz\"",mName.c_str());
 
 	}
-	void getMatrix()
+	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getInverseMatrix()
+	void getInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getWorldMatrix(size_t wm_i)
+	void getWorldMatrix(size_t wm_i)const
 	{
 		fprintf(mFile,"\"%s.wm[%i]\"",mName.c_str(),wm_i);
 
 	}
-	void getWorldInverseMatrix(size_t wim_i)
+	void getWorldInverseMatrix(size_t wim_i)const
 	{
 		fprintf(mFile,"\"%s.wim[%i]\"",mName.c_str(),wim_i);
 
 	}
-	void getParentMatrix(size_t pm_i)
+	void getParentMatrix(size_t pm_i)const
 	{
 		fprintf(mFile,"\"%s.pm[%i]\"",mName.c_str(),pm_i);
 
 	}
-	void getParentInverseMatrix(size_t pim_i)
+	void getParentInverseMatrix(size_t pim_i)const
 	{
 		fprintf(mFile,"\"%s.pim[%i]\"",mName.c_str(),pim_i);
 
 	}
-	void getVisibility()
+	void getVisibility()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getIntermediateObject()
+	void getIntermediateObject()const
 	{
 		fprintf(mFile,"\"%s.io\"",mName.c_str());
 
 	}
-	void getTemplate()
+	void getTemplate()const
 	{
 		fprintf(mFile,"\"%s.tmp\"",mName.c_str());
 
 	}
-	void getGhosting()
+	void getGhosting()const
 	{
 		fprintf(mFile,"\"%s.gh\"",mName.c_str());
 
 	}
-	void getInstObjGroups(size_t iog_i)
+	void getInstObjGroups(size_t iog_i)const
 	{
 		fprintf(mFile,"\"%s.iog[%i]\"",mName.c_str(),iog_i);
 
 	}
-	void getObjectGroups(size_t iog_i,size_t og_i)
+	void getObjectGroups(size_t iog_i,size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.iog[%i].og[%i]\"",mName.c_str(),iog_i,og_i);
 
 	}
-	void getObjectGroupId(size_t iog_i,size_t og_i)
+	void getObjectGroupId(size_t iog_i,size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.iog[%i].og[%i].gid\"",mName.c_str(),iog_i,og_i);
 
 	}
-	void getObjectGrpColor(size_t iog_i,size_t og_i)
+	void getObjectGrpColor(size_t iog_i,size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.iog[%i].og[%i].gco\"",mName.c_str(),iog_i,og_i);
 
 	}
-	void getUseObjectColor()
+	void getUseObjectColor()const
 	{
 		fprintf(mFile,"\"%s.uoc\"",mName.c_str());
 
 	}
-	void getObjectColor()
+	void getObjectColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getDrawOverride()
+	void getDrawOverride()const
 	{
 		fprintf(mFile,"\"%s.do\"",mName.c_str());
 
 	}
-	void getOverrideDisplayType()
+	void getOverrideDisplayType()const
 	{
 		fprintf(mFile,"\"%s.do.ovdt\"",mName.c_str());
 
 	}
-	void getOverrideLevelOfDetail()
+	void getOverrideLevelOfDetail()const
 	{
 		fprintf(mFile,"\"%s.do.ovlod\"",mName.c_str());
 
 	}
-	void getOverrideShading()
+	void getOverrideShading()const
 	{
 		fprintf(mFile,"\"%s.do.ovs\"",mName.c_str());
 
 	}
-	void getOverrideTexturing()
+	void getOverrideTexturing()const
 	{
 		fprintf(mFile,"\"%s.do.ovt\"",mName.c_str());
 
 	}
-	void getOverridePlayback()
+	void getOverridePlayback()const
 	{
 		fprintf(mFile,"\"%s.do.ovp\"",mName.c_str());
 
 	}
-	void getOverrideEnabled()
+	void getOverrideEnabled()const
 	{
 		fprintf(mFile,"\"%s.do.ove\"",mName.c_str());
 
 	}
-	void getOverrideVisibility()
+	void getOverrideVisibility()const
 	{
 		fprintf(mFile,"\"%s.do.ovv\"",mName.c_str());
 
 	}
-	void getOverrideColor()
+	void getOverrideColor()const
 	{
 		fprintf(mFile,"\"%s.do.ovc\"",mName.c_str());
 
 	}
-	void getLodVisibility()
+	void getLodVisibility()const
 	{
 		fprintf(mFile,"\"%s.lodv\"",mName.c_str());
 
 	}
-	void getRenderInfo()
+	void getRenderInfo()const
 	{
 		fprintf(mFile,"\"%s.ri\"",mName.c_str());
 
 	}
-	void getIdentification()
+	void getIdentification()const
 	{
 		fprintf(mFile,"\"%s.ri.rlid\"",mName.c_str());
 
 	}
-	void getLayerRenderable()
+	void getLayerRenderable()const
 	{
 		fprintf(mFile,"\"%s.ri.rndr\"",mName.c_str());
 
 	}
-	void getLayerOverrideColor()
+	void getLayerOverrideColor()const
 	{
 		fprintf(mFile,"\"%s.ri.lovc\"",mName.c_str());
 
 	}
-	void getRenderLayerInfo(size_t rlio_i)
+	void getRenderLayerInfo(size_t rlio_i)const
 	{
 		fprintf(mFile,"\"%s.rlio[%i]\"",mName.c_str(),rlio_i);
 
 	}
-	void getRenderLayerId(size_t rlio_i)
+	void getRenderLayerId(size_t rlio_i)const
 	{
 		fprintf(mFile,"\"%s.rlio[%i].rli\"",mName.c_str(),rlio_i);
 
 	}
-	void getRenderLayerRenderable(size_t rlio_i)
+	void getRenderLayerRenderable(size_t rlio_i)const
 	{
 		fprintf(mFile,"\"%s.rlio[%i].rlr\"",mName.c_str(),rlio_i);
 
 	}
-	void getRenderLayerColor(size_t rlio_i)
+	void getRenderLayerColor(size_t rlio_i)const
 	{
 		fprintf(mFile,"\"%s.rlio[%i].rlc\"",mName.c_str(),rlio_i);
 
 	}
-	void getGhostingControl()
+	void getGhostingControl()const
 	{
 		fprintf(mFile,"\"%s.gc\"",mName.c_str());
 
 	}
-	void getGhostCustomSteps()
+	void getGhostCustomSteps()const
 	{
 		fprintf(mFile,"\"%s.gcs\"",mName.c_str());
 
 	}
-	void getGhostPreSteps()
+	void getGhostPreSteps()const
 	{
 		fprintf(mFile,"\"%s.gcs.gpr\"",mName.c_str());
 
 	}
-	void getGhostPostSteps()
+	void getGhostPostSteps()const
 	{
 		fprintf(mFile,"\"%s.gcs.gps\"",mName.c_str());
 
 	}
-	void getGhostStepSize()
+	void getGhostStepSize()const
 	{
 		fprintf(mFile,"\"%s.gcs.gss\"",mName.c_str());
 
 	}
-	void getGhostFrames()
+	void getGhostFrames()const
 	{
 		fprintf(mFile,"\"%s.gf\"",mName.c_str());
 
 	}
-	void getGhostRangeStart()
+	void getGhostRangeStart()const
 	{
 		fprintf(mFile,"\"%s.grs\"",mName.c_str());
 
 	}
-	void getGhostRangeEnd()
+	void getGhostRangeEnd()const
 	{
 		fprintf(mFile,"\"%s.gre\"",mName.c_str());
 
 	}
-	void getGhostDriver()
+	void getGhostDriver()const
 	{
 		fprintf(mFile,"\"%s.gdr\"",mName.c_str());
 
 	}
 protected:
-	DagNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Entity(file, name, parent, nodeType) {}
+	DagNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Entity(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

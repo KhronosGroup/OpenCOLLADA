@@ -66,7 +66,8 @@ public:
 	};
 public:
 	ControlPoint():DeformableShape(){}
-	ControlPoint(FILE* file,const std::string& name,const std::string& parent=""):DeformableShape(file, name, parent, "controlPoint"){}
+	ControlPoint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformableShape(file, name, parent, "controlPoint", create){}
 	virtual ~ControlPoint(){}
 	void setTweak(bool tw)
 	{
@@ -99,17 +100,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startControlPoints(size_t cp_start,size_t cp_end)
+	void startControlPoints(size_t cp_start,size_t cp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cp[%i:%i]\"",cp_start,cp_end);
 
 	}
-	void appendControlPoints(double cp)
+	void appendControlPoints(double cp)const
 	{
 		fprintf(mFile," %f",cp);
 
 	}
-	void endControlPoints()
+	void endControlPoints()const
 	{
 		fprintf(mFile,";\n");
 
@@ -166,29 +167,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-    void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)
-    {
-        fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
-    }
-    void appendColorSetPoints(float clsp)
-    {
-        fprintf(mFile," %f",clsp);
-    }
-    void endColorSetPoints()
-    {
-        fprintf(mFile,";\n");
-    }
-	void startUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end)
+	void startUvSetPoints(size_t uvst_i,size_t uvsp_start,size_t uvsp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uvst[%i].uvsp[%i:%i]\"",uvst_i,uvsp_start,uvsp_end);
 
 	}
-	void appendUvSetPoints(float uvsp)
+	void appendUvSetPoints(float uvsp)const
 	{
 		fprintf(mFile," %f",uvsp);
 
 	}
-	void endUvSetPoints()
+	void endUvSetPoints()const
 	{
 		fprintf(mFile,";\n");
 
@@ -268,6 +257,18 @@ public:
 		fprintf(mFile,"\tsetAttr \".clst[%i].rprt\" %i;\n", clst_i,rprt);
 
 	}
+    void startColorSetPoints(size_t clst_i,size_t clsp_start,size_t clsp_end)
+    {
+        fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i:%i]\"",clst_i,clsp_start,clsp_end);
+    }
+    void appendColorSetPoints(float clsp)
+    {
+        fprintf(mFile," %f",clsp);
+    }
+    void endColorSetPoints()
+    {
+        fprintf(mFile,";\n");
+    }
 	void setColorSetPoints(size_t clst_i,size_t clsp_i,const ColorSet::ColorSetPoints& clsp)
 	{
 		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i]\" ",clst_i,clsp_i);
@@ -299,154 +300,154 @@ public:
 		fprintf(mFile,"\tsetAttr \".clst[%i].clsp[%i].clpa\" %f;\n", clst_i,clsp_i,clpa);
 
 	}
-	void getTweak()
+	void getTweak()const
 	{
 		fprintf(mFile,"\"%s.tw\"",mName.c_str());
 
 	}
-	void getRelativeTweak()
+	void getRelativeTweak()const
 	{
 		fprintf(mFile,"\"%s.rtw\"",mName.c_str());
 
 	}
-	void getControlPoints(size_t cp_i)
+	void getControlPoints(size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.cp[%i]\"",mName.c_str(),cp_i);
 
 	}
-	void getXValue(size_t cp_i)
+	void getXValue(size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.cp[%i].xv\"",mName.c_str(),cp_i);
 
 	}
-	void getYValue(size_t cp_i)
+	void getYValue(size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.cp[%i].yv\"",mName.c_str(),cp_i);
 
 	}
-	void getZValue(size_t cp_i)
+	void getZValue(size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.cp[%i].zv\"",mName.c_str(),cp_i);
 
 	}
-	void getWeights(size_t wt_i)
+	void getWeights(size_t wt_i)const
 	{
 		fprintf(mFile,"\"%s.wt[%i]\"",mName.c_str(),wt_i);
 
 	}
-	void getTweakLocation()
+	void getTweakLocation()const
 	{
 		fprintf(mFile,"\"%s.twl\"",mName.c_str());
 
 	}
-	void getBlindDataNodes(size_t bn_i)
+	void getBlindDataNodes(size_t bn_i)const
 	{
 		fprintf(mFile,"\"%s.bn[%i]\"",mName.c_str(),bn_i);
 
 	}
-	void getUvSet(size_t uvst_i)
+	void getUvSet(size_t uvst_i)const
 	{
 		fprintf(mFile,"\"%s.uvst[%i]\"",mName.c_str(),uvst_i);
 
 	}
-	void getUvSetName(size_t uvst_i)
+	void getUvSetName(size_t uvst_i)const
 	{
 		fprintf(mFile,"\"%s.uvst[%i].uvsn\"",mName.c_str(),uvst_i);
 
 	}
-	void getUvSetPoints(size_t uvst_i,size_t uvsp_i)
+	void getUvSetPoints(size_t uvst_i,size_t uvsp_i)const
 	{
 		fprintf(mFile,"\"%s.uvst[%i].uvsp[%i]\"",mName.c_str(),uvst_i,uvsp_i);
 
 	}
-	void getUvSetPointsU(size_t uvst_i,size_t uvsp_i)
+	void getUvSetPointsU(size_t uvst_i,size_t uvsp_i)const
 	{
 		fprintf(mFile,"\"%s.uvst[%i].uvsp[%i].uvpu\"",mName.c_str(),uvst_i,uvsp_i);
 
 	}
-	void getUvSetPointsV(size_t uvst_i,size_t uvsp_i)
+	void getUvSetPointsV(size_t uvst_i,size_t uvsp_i)const
 	{
 		fprintf(mFile,"\"%s.uvst[%i].uvsp[%i].uvpv\"",mName.c_str(),uvst_i,uvsp_i);
 
 	}
-	void getUvSetTweakLocation(size_t uvst_i)
+	void getUvSetTweakLocation(size_t uvst_i)const
 	{
 		fprintf(mFile,"\"%s.uvst[%i].uvtw\"",mName.c_str(),uvst_i);
 
 	}
-	void getCurrentUVSet()
+	void getCurrentUVSet()const
 	{
 		fprintf(mFile,"\"%s.cuvs\"",mName.c_str());
 
 	}
-	void getDisplayImmediate()
+	void getDisplayImmediate()const
 	{
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
 
 	}
-	void getDisplayColors()
+	void getDisplayColors()const
 	{
 		fprintf(mFile,"\"%s.dcol\"",mName.c_str());
 
 	}
-	void getDisplayColorChannel()
+	void getDisplayColorChannel()const
 	{
 		fprintf(mFile,"\"%s.dcc\"",mName.c_str());
 
 	}
-	void getCurrentColorSet()
+	void getCurrentColorSet()const
 	{
 		fprintf(mFile,"\"%s.ccls\"",mName.c_str());
 
 	}
-	void getColorSet(size_t clst_i)
+	void getColorSet(size_t clst_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i]\"",mName.c_str(),clst_i);
 
 	}
-	void getColorName(size_t clst_i)
+	void getColorName(size_t clst_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clsn\"",mName.c_str(),clst_i);
 
 	}
-	void getClamped(size_t clst_i)
+	void getClamped(size_t clst_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clam\"",mName.c_str(),clst_i);
 
 	}
-	void getRepresentation(size_t clst_i)
+	void getRepresentation(size_t clst_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].rprt\"",mName.c_str(),clst_i);
 
 	}
-	void getColorSetPoints(size_t clst_i,size_t clsp_i)
+	void getColorSetPoints(size_t clst_i,size_t clsp_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clsp[%i]\"",mName.c_str(),clst_i,clsp_i);
 
 	}
-	void getColorSetPointsR(size_t clst_i,size_t clsp_i)
+	void getColorSetPointsR(size_t clst_i,size_t clsp_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clsp[%i].clpr\"",mName.c_str(),clst_i,clsp_i);
 
 	}
-	void getColorSetPointsG(size_t clst_i,size_t clsp_i)
+	void getColorSetPointsG(size_t clst_i,size_t clsp_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clsp[%i].clpg\"",mName.c_str(),clst_i,clsp_i);
 
 	}
-	void getColorSetPointsB(size_t clst_i,size_t clsp_i)
+	void getColorSetPointsB(size_t clst_i,size_t clsp_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clsp[%i].clpb\"",mName.c_str(),clst_i,clsp_i);
 
 	}
-	void getColorSetPointsA(size_t clst_i,size_t clsp_i)
+	void getColorSetPointsA(size_t clst_i,size_t clsp_i)const
 	{
 		fprintf(mFile,"\"%s.clst[%i].clsp[%i].clpa\"",mName.c_str(),clst_i,clsp_i);
 
 	}
 protected:
-	ControlPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformableShape(file, name, parent, nodeType) {}
+	ControlPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformableShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

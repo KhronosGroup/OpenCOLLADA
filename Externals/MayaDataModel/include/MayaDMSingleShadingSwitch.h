@@ -26,7 +26,8 @@ public:
 	};
 public:
 	SingleShadingSwitch():BaseShadingSwitch(){}
-	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent=""):BaseShadingSwitch(file, name, parent, "singleShadingSwitch"){}
+	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BaseShadingSwitch(file, name, parent, "singleShadingSwitch", create){}
 	virtual ~SingleShadingSwitch(){}
 	void setInput(size_t i_i,const Input& i_)
 	{
@@ -47,34 +48,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".def\" %f;\n", def);
 
 	}
-	void getInput(size_t i_i)
+	void getInput(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getInSingle(size_t i_i)
+	void getInSingle(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].it\"",mName.c_str(),i_i);
 
 	}
-	void getInShape(size_t i_i)
+	void getInShape(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].is\"",mName.c_str(),i_i);
 
 	}
-	void getDefault()
+	void getDefault()const
 	{
 		fprintf(mFile,"\"%s.def\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
 
 	}
 protected:
-	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BaseShadingSwitch(file, name, parent, nodeType) {}
+	SingleShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BaseShadingSwitch(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

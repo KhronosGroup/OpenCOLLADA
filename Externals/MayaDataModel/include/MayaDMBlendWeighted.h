@@ -19,7 +19,8 @@ class BlendWeighted : public Blend
 public:
 public:
 	BlendWeighted():Blend(){}
-	BlendWeighted(FILE* file,const std::string& name,const std::string& parent=""):Blend(file, name, parent, "blendWeighted"){}
+	BlendWeighted(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Blend(file, name, parent, "blendWeighted", create){}
 	virtual ~BlendWeighted(){}
 	void setWeight(size_t w_i,float w)
 	{
@@ -39,29 +40,29 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWeight(size_t w_start,size_t w_end)
+	void startWeight(size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
 
 	}
-	void appendWeight(float w)
+	void appendWeight(float w)const
 	{
 		fprintf(mFile," %f",w);
 
 	}
-	void endWeight()
+	void endWeight()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getWeight(size_t w_i)
+	void getWeight(size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
 protected:
-	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Blend(file, name, parent, nodeType) {}
+	BlendWeighted(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Blend(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

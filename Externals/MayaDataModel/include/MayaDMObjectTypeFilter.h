@@ -19,7 +19,8 @@ class ObjectTypeFilter : public ObjectFilter
 public:
 public:
 	ObjectTypeFilter():ObjectFilter(){}
-	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectTypeFilter"){}
+	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectFilter(file, name, parent, "objectTypeFilter", create){}
 	virtual ~ObjectTypeFilter(){}
 	void setTypeName(const string& tnam)
 	{
@@ -29,19 +30,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getTypeName()
+	void getTypeName()const
 	{
 		fprintf(mFile,"\"%s.tnam\"",mName.c_str());
 
 	}
-	void getType()
+	void getType()const
 	{
 		fprintf(mFile,"\"%s.typ\"",mName.c_str());
 
 	}
 protected:
-	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectFilter(file, name, parent, nodeType) {}
+	ObjectTypeFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

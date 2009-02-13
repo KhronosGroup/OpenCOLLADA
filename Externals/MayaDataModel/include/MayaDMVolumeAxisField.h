@@ -19,7 +19,8 @@ class VolumeAxisField : public Field
 public:
 public:
 	VolumeAxisField():Field(){}
-	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "volumeAxisField"){}
+	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Field(file, name, parent, "volumeAxisField", create){}
 	virtual ~VolumeAxisField(){}
 	void setInvertAttenuation(bool ia)
 	{
@@ -156,124 +157,124 @@ public:
 		fprintf(mFile,"\tsetAttr \".dtr\" %f;\n", dtr);
 
 	}
-	void getInvertAttenuation()
+	void getInvertAttenuation()const
 	{
 		fprintf(mFile,"\"%s.ia\"",mName.c_str());
 
 	}
-	void getAwayFromCenter()
+	void getAwayFromCenter()const
 	{
 		fprintf(mFile,"\"%s.afc\"",mName.c_str());
 
 	}
-	void getAwayFromAxis()
+	void getAwayFromAxis()const
 	{
 		fprintf(mFile,"\"%s.afa\"",mName.c_str());
 
 	}
-	void getAlongAxis()
+	void getAlongAxis()const
 	{
 		fprintf(mFile,"\"%s.alx\"",mName.c_str());
 
 	}
-	void getAroundAxis()
+	void getAroundAxis()const
 	{
 		fprintf(mFile,"\"%s.arx\"",mName.c_str());
 
 	}
-	void getDirectionalSpeed()
+	void getDirectionalSpeed()const
 	{
 		fprintf(mFile,"\"%s.drs\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getDisplaySpeed()
+	void getDisplaySpeed()const
 	{
 		fprintf(mFile,"\"%s.dss\"",mName.c_str());
 
 	}
-	void getTurbulence()
+	void getTurbulence()const
 	{
 		fprintf(mFile,"\"%s.trb\"",mName.c_str());
 
 	}
-	void getTurbulenceSpeed()
+	void getTurbulenceSpeed()const
 	{
 		fprintf(mFile,"\"%s.trs\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequency()
+	void getTurbulenceFrequency()const
 	{
 		fprintf(mFile,"\"%s.tf\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequencyX()
+	void getTurbulenceFrequencyX()const
 	{
 		fprintf(mFile,"\"%s.tf.tfx\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequencyY()
+	void getTurbulenceFrequencyY()const
 	{
 		fprintf(mFile,"\"%s.tf.tfy\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequencyZ()
+	void getTurbulenceFrequencyZ()const
 	{
 		fprintf(mFile,"\"%s.tf.tfz\"",mName.c_str());
 
 	}
-	void getTurbulenceOffset()
+	void getTurbulenceOffset()const
 	{
 		fprintf(mFile,"\"%s.to\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetX()
+	void getTurbulenceOffsetX()const
 	{
 		fprintf(mFile,"\"%s.to.tox\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetY()
+	void getTurbulenceOffsetY()const
 	{
 		fprintf(mFile,"\"%s.to.toy\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetZ()
+	void getTurbulenceOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.to.toz\"",mName.c_str());
 
 	}
-	void getDetailTurbulence()
+	void getDetailTurbulence()const
 	{
 		fprintf(mFile,"\"%s.dtr\"",mName.c_str());
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 
 	}
 protected:
-	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Field(file, name, parent, nodeType) {}
+	VolumeAxisField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Field(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

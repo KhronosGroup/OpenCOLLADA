@@ -19,7 +19,8 @@ class Lattice : public ControlPoint
 public:
 public:
 	Lattice():ControlPoint(){}
-	Lattice(FILE* file,const std::string& name,const std::string& parent=""):ControlPoint(file, name, parent, "lattice"){}
+	Lattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ControlPoint(file, name, parent, "lattice", create){}
 	virtual ~Lattice(){}
 	void setSDivisions(short sd)
 	{
@@ -83,69 +84,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".or.oz\" %f;\n", oz);
 
 	}
-	void getLatticeOutput()
+	void getLatticeOutput()const
 	{
 		fprintf(mFile,"\"%s.lo\"",mName.c_str());
 
 	}
-	void getWorldLattice(size_t wl_i)
+	void getWorldLattice(size_t wl_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
 
 	}
-	void getLatticeInput()
+	void getLatticeInput()const
 	{
 		fprintf(mFile,"\"%s.li\"",mName.c_str());
 
 	}
-	void getCached()
+	void getCached()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
-	void getLatticePointMoved()
+	void getLatticePointMoved()const
 	{
 		fprintf(mFile,"\"%s.lpm\"",mName.c_str());
 
 	}
-	void getDisplayControl()
+	void getDisplayControl()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getDispPoints()
+	void getDispPoints()const
 	{
 		fprintf(mFile,"\"%s.dcv\"",mName.c_str());
 
 	}
-	void getDispLattice()
+	void getDispLattice()const
 	{
 		fprintf(mFile,"\"%s.dep\"",mName.c_str());
 
 	}
-	void getOrigin()
+	void getOrigin()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getOriginX()
+	void getOriginX()const
 	{
 		fprintf(mFile,"\"%s.or.ox\"",mName.c_str());
 
 	}
-	void getOriginY()
+	void getOriginY()const
 	{
 		fprintf(mFile,"\"%s.or.oy\"",mName.c_str());
 
 	}
-	void getOriginZ()
+	void getOriginZ()const
 	{
 		fprintf(mFile,"\"%s.or.oz\"",mName.c_str());
 
 	}
 protected:
-	Lattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ControlPoint(file, name, parent, nodeType) {}
+	Lattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ControlPoint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

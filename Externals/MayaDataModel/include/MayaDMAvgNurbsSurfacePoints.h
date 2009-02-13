@@ -42,7 +42,8 @@ public:
 	};
 public:
 	AvgNurbsSurfacePoints():AbstractBaseCreate(){}
-	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "avgNurbsSurfacePoints"){}
+	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "avgNurbsSurfacePoints", create){}
 	virtual ~AvgNurbsSurfacePoints(){}
 	void setSurfacePoint(size_t sp_i,const SurfacePoint& sp)
 	{
@@ -88,84 +89,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".sp[%i].cj\" %i;\n", sp_i,cj);
 
 	}
-	void getInputSurface(size_t sp_i)
+	void getInputSurface(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].is\"",mName.c_str(),sp_i);
 
 	}
-	void getWeight(size_t sp_i)
+	void getWeight(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].wt\"",mName.c_str(),sp_i);
 
 	}
-	void getParameterU(size_t sp_i)
+	void getParameterU(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].u\"",mName.c_str(),sp_i);
 
 	}
-	void getParameterV(size_t sp_i)
+	void getParameterV(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].v\"",mName.c_str(),sp_i);
 
 	}
-	void getCvIthIndex(size_t sp_i)
+	void getCvIthIndex(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].ci\"",mName.c_str(),sp_i);
 
 	}
-	void getCvJthIndex(size_t sp_i)
+	void getCvJthIndex(size_t sp_i)const
 	{
 		fprintf(mFile,"\"%s.sp[%i].cj\"",mName.c_str(),sp_i);
 
 	}
-	void getResult()
+	void getResult()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.r.p\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.r.p.px\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.r.p.py\"",mName.c_str());
 
 	}
-	void getPositionZ()
+	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.r.p.pz\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.r.n\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.r.n.nx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.r.n.ny\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.r.n.nz\"",mName.c_str());
 
 	}
 protected:
-	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	AvgNurbsSurfacePoints(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class SubCurve : public CurveRange
 public:
 public:
 	SubCurve():CurveRange(){}
-	SubCurve(FILE* file,const std::string& name,const std::string& parent=""):CurveRange(file, name, parent, "subCurve"){}
+	SubCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CurveRange(file, name, parent, "subCurve", create){}
 	virtual ~SubCurve(){}
 	void setMinValue(double min)
 	{
@@ -39,34 +40,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".r\" %i;\n", r);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getMinValue()
+	void getMinValue()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
 
 	}
-	void getMaxValue()
+	void getMaxValue()const
 	{
 		fprintf(mFile,"\"%s.max\"",mName.c_str());
 
 	}
-	void getRelative()
+	void getRelative()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	SubCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CurveRange(file, name, parent, nodeType) {}
+	SubCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CurveRange(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -51,7 +51,8 @@ public:
 	};
 public:
 	Ffd():GeometryFilter(){}
-	Ffd(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "ffd"){}
+	Ffd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "ffd", create){}
 	virtual ~Ffd(){}
 	void setDeformedLattice(const DeformedLattice& dl)
 	{
@@ -122,17 +123,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startStuCache(size_t scl_i,size_t stu_start,size_t stu_end)
+	void startStuCache(size_t scl_i,size_t stu_start,size_t stu_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".scl[%i].stu[%i:%i]\"",scl_i,stu_start,stu_end);
 
 	}
-	void appendStuCache(double stu)
+	void appendStuCache(double stu)const
 	{
 		fprintf(mFile," %f",stu);
 
 	}
-	void endStuCache()
+	void endStuCache()const
 	{
 		fprintf(mFile,";\n");
 
@@ -191,94 +192,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".ofd\" %f;\n", ofd);
 
 	}
-	void getDeformedLattice()
+	void getDeformedLattice()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getDeformedLatticePoints()
+	void getDeformedLatticePoints()const
 	{
 		fprintf(mFile,"\"%s.dl.dlp\"",mName.c_str());
 
 	}
-	void getDeformedLatticeMatrix()
+	void getDeformedLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.dl.dlm\"",mName.c_str());
 
 	}
-	void getBaseLattice()
+	void getBaseLattice()const
 	{
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
 
 	}
-	void getBaseLatticePoints()
+	void getBaseLatticePoints()const
 	{
 		fprintf(mFile,"\"%s.bl.blp\"",mName.c_str());
 
 	}
-	void getBaseLatticeMatrix()
+	void getBaseLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.bl.blm\"",mName.c_str());
 
 	}
-	void getStuCacheList(size_t scl_i)
+	void getStuCacheList(size_t scl_i)const
 	{
 		fprintf(mFile,"\"%s.scl[%i]\"",mName.c_str(),scl_i);
 
 	}
-	void getStuCache(size_t scl_i,size_t stu_i)
+	void getStuCache(size_t scl_i,size_t stu_i)const
 	{
 		fprintf(mFile,"\"%s.scl[%i].stu[%i]\"",mName.c_str(),scl_i,stu_i);
 
 	}
-	void getPartialResolution()
+	void getPartialResolution()const
 	{
 		fprintf(mFile,"\"%s.ptr\"",mName.c_str());
 
 	}
-	void getLocalInfluenceS()
+	void getLocalInfluenceS()const
 	{
 		fprintf(mFile,"\"%s.lis\"",mName.c_str());
 
 	}
-	void getLocalInfluenceT()
+	void getLocalInfluenceT()const
 	{
 		fprintf(mFile,"\"%s.lit\"",mName.c_str());
 
 	}
-	void getLocalInfluenceU()
+	void getLocalInfluenceU()const
 	{
 		fprintf(mFile,"\"%s.liu\"",mName.c_str());
 
 	}
-	void getFreezeGeometry()
+	void getFreezeGeometry()const
 	{
 		fprintf(mFile,"\"%s.fg\"",mName.c_str());
 
 	}
-	void getLocal()
+	void getLocal()const
 	{
 		fprintf(mFile,"\"%s.lo\"",mName.c_str());
 
 	}
-	void getUsePartialResolution()
+	void getUsePartialResolution()const
 	{
 		fprintf(mFile,"\"%s.upr\"",mName.c_str());
 
 	}
-	void getOutsideLattice()
+	void getOutsideLattice()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutsideFalloffDist()
+	void getOutsideFalloffDist()const
 	{
 		fprintf(mFile,"\"%s.ofd\"",mName.c_str());
 
 	}
 protected:
-	Ffd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	Ffd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

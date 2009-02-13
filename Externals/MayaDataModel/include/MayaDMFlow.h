@@ -19,7 +19,8 @@ class Flow : public DependNode
 public:
 public:
 	Flow():DependNode(){}
-	Flow(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "flow"){}
+	Flow(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "flow", create){}
 	virtual ~Flow(){}
 	void setLatticeOnObject(bool lo)
 	{
@@ -133,17 +134,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCenter(size_t ctr_start,size_t ctr_end)
+	void startCenter(size_t ctr_start,size_t ctr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ctr[%i:%i]\"",ctr_start,ctr_end);
 
 	}
-	void appendCenter(double ctr)
+	void appendCenter(double ctr)const
 	{
 		fprintf(mFile," %f",ctr);
 
 	}
-	void endCenter()
+	void endCenter()const
 	{
 		fprintf(mFile,";\n");
 
@@ -186,136 +187,136 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startObjectWorldMatrix(size_t owmx_start,size_t owmx_end)
+	void startObjectWorldMatrix(size_t owmx_start,size_t owmx_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".owmx[%i:%i]\"",owmx_start,owmx_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendObjectWorldMatrix(const matrix& owmx)
+	void appendObjectWorldMatrix(const matrix& owmx)const
 	{
 		fprintf(mFile,"\n");
 		owmx.write(mFile);
 
 	}
-	void endObjectWorldMatrix()
+	void endObjectWorldMatrix()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getMotionPath()
+	void getMotionPath()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 
 	}
-	void getCurve()
+	void getCurve()const
 	{
 		fprintf(mFile,"\"%s.crv\"",mName.c_str());
 
 	}
-	void getParmValue()
+	void getParmValue()const
 	{
 		fprintf(mFile,"\"%s.pv\"",mName.c_str());
 
 	}
-	void getSDivisions()
+	void getSDivisions()const
 	{
 		fprintf(mFile,"\"%s.sdv\"",mName.c_str());
 
 	}
-	void getTDivisions()
+	void getTDivisions()const
 	{
 		fprintf(mFile,"\"%s.tdv\"",mName.c_str());
 
 	}
-	void getUDivisions()
+	void getUDivisions()const
 	{
 		fprintf(mFile,"\"%s.udv\"",mName.c_str());
 
 	}
-	void getInBaseMatrix()
+	void getInBaseMatrix()const
 	{
 		fprintf(mFile,"\"%s.ibm\"",mName.c_str());
 
 	}
-	void getDefMatrixInv()
+	void getDefMatrixInv()const
 	{
 		fprintf(mFile,"\"%s.dmi\"",mName.c_str());
 
 	}
-	void getSetFrontAxis()
+	void getSetFrontAxis()const
 	{
 		fprintf(mFile,"\"%s.sfa\"",mName.c_str());
 
 	}
-	void getSetUpAxis()
+	void getSetUpAxis()const
 	{
 		fprintf(mFile,"\"%s.sua\"",mName.c_str());
 
 	}
-	void getOrientMatrix()
+	void getOrientMatrix()const
 	{
 		fprintf(mFile,"\"%s.omx\"",mName.c_str());
 
 	}
-	void getAllCoords()
+	void getAllCoords()const
 	{
 		fprintf(mFile,"\"%s.ac\"",mName.c_str());
 
 	}
-	void getXCoord()
+	void getXCoord()const
 	{
 		fprintf(mFile,"\"%s.ac.xc\"",mName.c_str());
 
 	}
-	void getYCoord()
+	void getYCoord()const
 	{
 		fprintf(mFile,"\"%s.ac.yc\"",mName.c_str());
 
 	}
-	void getZCoord()
+	void getZCoord()const
 	{
 		fprintf(mFile,"\"%s.ac.zc\"",mName.c_str());
 
 	}
-	void getCenter(size_t ctr_i)
+	void getCenter(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i]\"",mName.c_str(),ctr_i);
 
 	}
-	void getCenterX(size_t ctr_i)
+	void getCenterX(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].ctx\"",mName.c_str(),ctr_i);
 
 	}
-	void getCenterY(size_t ctr_i)
+	void getCenterY(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].cty\"",mName.c_str(),ctr_i);
 
 	}
-	void getCenterZ(size_t ctr_i)
+	void getCenterZ(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].ctz\"",mName.c_str(),ctr_i);
 
 	}
-	void getObjectWorldMatrix(size_t owmx_i)
+	void getObjectWorldMatrix(size_t owmx_i)const
 	{
 		fprintf(mFile,"\"%s.owmx[%i]\"",mName.c_str(),owmx_i);
 
 	}
-	void getOutBaseMatrix()
+	void getOutBaseMatrix()const
 	{
 		fprintf(mFile,"\"%s.obm\"",mName.c_str());
 
 	}
-	void getDefPts()
+	void getDefPts()const
 	{
 		fprintf(mFile,"\"%s.dpt\"",mName.c_str());
 
 	}
 protected:
-	Flow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Flow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

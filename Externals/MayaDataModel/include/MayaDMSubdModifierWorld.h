@@ -19,7 +19,8 @@ class SubdModifierWorld : public SubdModifier
 public:
 public:
 	SubdModifierWorld():SubdModifier(){}
-	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdModifierWorld"){}
+	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SubdModifier(file, name, parent, "subdModifierWorld", create){}
 	virtual ~SubdModifierWorld(){}
 	void setInputMatrix(const matrix& ix)
 	{
@@ -41,24 +42,24 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputMatrix()
+	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.ix\"",mName.c_str());
 
 	}
-	void getWorldSpace()
+	void getWorldSpace()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
-	void getManipMatrix()
+	void getManipMatrix()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 
 	}
 protected:
-	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SubdModifier(file, name, parent, nodeType) {}
+	SubdModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SubdModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

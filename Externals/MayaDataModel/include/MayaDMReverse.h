@@ -19,7 +19,8 @@ class Reverse : public DependNode
 public:
 public:
 	Reverse():DependNode(){}
-	Reverse(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "reverse"){}
+	Reverse(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "reverse", create){}
 	virtual ~Reverse(){}
 	void setInput(const float3& i_)
 	{
@@ -47,49 +48,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".i.iz\" %f;\n", iz);
 
 	}
-	void getInput()
+	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getInputX()
+	void getInputX()const
 	{
 		fprintf(mFile,"\"%s.i.ix\"",mName.c_str());
 
 	}
-	void getInputY()
+	void getInputY()const
 	{
 		fprintf(mFile,"\"%s.i.iy\"",mName.c_str());
 
 	}
-	void getInputZ()
+	void getInputZ()const
 	{
 		fprintf(mFile,"\"%s.i.iz\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutputX()
+	void getOutputX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutputY()
+	void getOutputY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutputZ()
+	void getOutputZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
 protected:
-	Reverse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Reverse(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

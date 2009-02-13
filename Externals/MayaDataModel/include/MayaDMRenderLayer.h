@@ -64,7 +64,8 @@ public:
 	};
 public:
 	RenderLayer():DependNode(){}
-	RenderLayer(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderLayer"){}
+	RenderLayer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "renderLayer", create){}
 	virtual ~RenderLayer(){}
 	void setGlobal(bool g)
 	{
@@ -121,17 +122,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLayerChildren(size_t rlc_start,size_t rlc_end)
+	void startLayerChildren(size_t rlc_start,size_t rlc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".rlc[%i:%i]\"",rlc_start,rlc_end);
 
 	}
-	void appendLayerChildren(short rlc)
+	void appendLayerChildren(short rlc)const
 	{
 		fprintf(mFile," %i",rlc);
 
 	}
-	void endLayerChildren()
+	void endLayerChildren()const
 	{
 		fprintf(mFile,";\n");
 
@@ -232,159 +233,159 @@ public:
 		fprintf(mFile,"\tsetAttr \".ac\" %i;\n", ac);
 
 	}
-	void getGlobal()
+	void getGlobal()const
 	{
 		fprintf(mFile,"\"%s.g\"",mName.c_str());
 
 	}
-	void getRenderInfo()
+	void getRenderInfo()const
 	{
 		fprintf(mFile,"\"%s.ri\"",mName.c_str());
 
 	}
-	void getIdentification()
+	void getIdentification()const
 	{
 		fprintf(mFile,"\"%s.ri.rlid\"",mName.c_str());
 
 	}
-	void getRenderable()
+	void getRenderable()const
 	{
 		fprintf(mFile,"\"%s.ri.rndr\"",mName.c_str());
 
 	}
-	void getDrawColor()
+	void getDrawColor()const
 	{
 		fprintf(mFile,"\"%s.ri.c\"",mName.c_str());
 
 	}
-	void getLayerParent()
+	void getLayerParent()const
 	{
 		fprintf(mFile,"\"%s.rlp\"",mName.c_str());
 
 	}
-	void getLayerChildren(size_t rlc_i)
+	void getLayerChildren(size_t rlc_i)const
 	{
 		fprintf(mFile,"\"%s.rlc[%i]\"",mName.c_str(),rlc_i);
 
 	}
-	void getRenderPassInfo()
+	void getRenderPassInfo()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
 
 	}
-	void getBeauty()
+	void getBeauty()const
 	{
 		fprintf(mFile,"\"%s.rp.b\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.rp.cp\"",mName.c_str());
 
 	}
-	void getAmbient()
+	void getAmbient()const
 	{
 		fprintf(mFile,"\"%s.rp.am\"",mName.c_str());
 
 	}
-	void getDiffuse()
+	void getDiffuse()const
 	{
 		fprintf(mFile,"\"%s.rp.di\"",mName.c_str());
 
 	}
-	void getSpecular()
+	void getSpecular()const
 	{
 		fprintf(mFile,"\"%s.rp.sp\"",mName.c_str());
 
 	}
-	void getShadow()
+	void getShadow()const
 	{
 		fprintf(mFile,"\"%s.rp.s\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getGlobalIllum()
+	void getGlobalIllum()const
 	{
 		fprintf(mFile,"\"%s.mrc.gp\"",mName.c_str());
 
 	}
-	void getAdjustments(size_t adjs_i)
+	void getAdjustments(size_t adjs_i)const
 	{
 		fprintf(mFile,"\"%s.adjs[%i]\"",mName.c_str(),adjs_i);
 
 	}
-	void getPlug(size_t adjs_i)
+	void getPlug(size_t adjs_i)const
 	{
 		fprintf(mFile,"\"%s.adjs[%i].plg\"",mName.c_str(),adjs_i);
 
 	}
-	void getValue(size_t adjs_i)
+	void getValue(size_t adjs_i)const
 	{
 		fprintf(mFile,"\"%s.adjs[%i].val\"",mName.c_str(),adjs_i);
 
 	}
-	void getOutAdjustments(size_t oajs_i)
+	void getOutAdjustments(size_t oajs_i)const
 	{
 		fprintf(mFile,"\"%s.oajs[%i]\"",mName.c_str(),oajs_i);
 
 	}
-	void getOutPlug(size_t oajs_i)
+	void getOutPlug(size_t oajs_i)const
 	{
 		fprintf(mFile,"\"%s.oajs[%i].opg\"",mName.c_str(),oajs_i);
 
 	}
-	void getOutValue(size_t oajs_i)
+	void getOutValue(size_t oajs_i)const
 	{
 		fprintf(mFile,"\"%s.oajs[%i].ovl\"",mName.c_str(),oajs_i);
 
 	}
-	void getShadingGroupOverride()
+	void getShadingGroupOverride()const
 	{
 		fprintf(mFile,"\"%s.sgo\"",mName.c_str());
 
 	}
-	void getAttributeOverrideScript()
+	void getAttributeOverrideScript()const
 	{
 		fprintf(mFile,"\"%s.aos\"",mName.c_str());
 
 	}
-	void getImageRendered()
+	void getImageRendered()const
 	{
 		fprintf(mFile,"\"%s.ird\"",mName.c_str());
 
 	}
-	void getRecycleImage()
+	void getRecycleImage()const
 	{
 		fprintf(mFile,"\"%s.rci\"",mName.c_str());
 
 	}
-	void getImageName()
+	void getImageName()const
 	{
 		fprintf(mFile,"\"%s.img\"",mName.c_str());
 
 	}
-	void getDisplayOrder()
+	void getDisplayOrder()const
 	{
 		fprintf(mFile,"\"%s.do\"",mName.c_str());
 
 	}
-	void getPsdBlendMode()
+	void getPsdBlendMode()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
-	void getPsdAlphaChannel()
+	void getPsdAlphaChannel()const
 	{
 		fprintf(mFile,"\"%s.ac\"",mName.c_str());
 
 	}
 protected:
-	RenderLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RenderLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,16 +19,17 @@ class DefaultRenderUtilityList : public DependNode
 public:
 public:
 	DefaultRenderUtilityList():DependNode(){}
-	DefaultRenderUtilityList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "defaultRenderUtilityList"){}
+	DefaultRenderUtilityList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "defaultRenderUtilityList", create){}
 	virtual ~DefaultRenderUtilityList(){}
-	void getUtilities(size_t u_i)
+	void getUtilities(size_t u_i)const
 	{
 		fprintf(mFile,"\"%s.u[%i]\"",mName.c_str(),u_i);
 
 	}
 protected:
-	DefaultRenderUtilityList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DefaultRenderUtilityList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

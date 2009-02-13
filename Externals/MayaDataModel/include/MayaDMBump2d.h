@@ -19,7 +19,8 @@ class Bump2d : public DependNode
 public:
 public:
 	Bump2d():DependNode(){}
-	Bump2d(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "bump2d"){}
+	Bump2d(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "bump2d", create){}
 	virtual ~Bump2d(){}
 	void setXPixelAngle(float xpa)
 	{
@@ -157,334 +158,334 @@ public:
 		fprintf(mFile,"\tsetAttr \".vc2.c2z\" %f;\n", c2z);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getPointObj()
+	void getPointObj()const
 	{
 		fprintf(mFile,"\"%s.po\"",mName.c_str());
 
 	}
-	void getPointObjX()
+	void getPointObjX()const
 	{
 		fprintf(mFile,"\"%s.po.pox\"",mName.c_str());
 
 	}
-	void getPointObjY()
+	void getPointObjY()const
 	{
 		fprintf(mFile,"\"%s.po.poy\"",mName.c_str());
 
 	}
-	void getPointObjZ()
+	void getPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.po.poz\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rpox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.rpoy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.rpoz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getRayOrigin()
+	void getRayOrigin()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getRayOriginX()
+	void getRayOriginX()const
 	{
 		fprintf(mFile,"\"%s.ro.rox\"",mName.c_str());
 
 	}
-	void getRayOriginY()
+	void getRayOriginY()const
 	{
 		fprintf(mFile,"\"%s.ro.roy\"",mName.c_str());
 
 	}
-	void getRayOriginZ()
+	void getRayOriginZ()const
 	{
 		fprintf(mFile,"\"%s.ro.roz\"",mName.c_str());
 
 	}
-	void getXPixelAngle()
+	void getXPixelAngle()const
 	{
 		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.u\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.v\"",mName.c_str());
 
 	}
-	void getUvFilterSize()
+	void getUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getUvFilterSizeX()
+	void getUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
 
 	}
-	void getUvFilterSizeY()
+	void getUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getTangentUCamera()
+	void getTangentUCamera()const
 	{
 		fprintf(mFile,"\"%s.tu\"",mName.c_str());
 
 	}
-	void getTangentUx()
+	void getTangentUx()const
 	{
 		fprintf(mFile,"\"%s.tu.tux\"",mName.c_str());
 
 	}
-	void getTangentUy()
+	void getTangentUy()const
 	{
 		fprintf(mFile,"\"%s.tu.tuy\"",mName.c_str());
 
 	}
-	void getTangentUz()
+	void getTangentUz()const
 	{
 		fprintf(mFile,"\"%s.tu.tuz\"",mName.c_str());
 
 	}
-	void getTangentVCamera()
+	void getTangentVCamera()const
 	{
 		fprintf(mFile,"\"%s.tv\"",mName.c_str());
 
 	}
-	void getTangentVx()
+	void getTangentVx()const
 	{
 		fprintf(mFile,"\"%s.tv.tvx\"",mName.c_str());
 
 	}
-	void getTangentVy()
+	void getTangentVy()const
 	{
 		fprintf(mFile,"\"%s.tv.tvy\"",mName.c_str());
 
 	}
-	void getTangentVz()
+	void getTangentVz()const
 	{
 		fprintf(mFile,"\"%s.tv.tvz\"",mName.c_str());
 
 	}
-	void getAdjustEdges()
+	void getAdjustEdges()const
 	{
 		fprintf(mFile,"\"%s.ae\"",mName.c_str());
 
 	}
-	void getBumpDepth()
+	void getBumpDepth()const
 	{
 		fprintf(mFile,"\"%s.bd\"",mName.c_str());
 
 	}
-	void getBumpInterp()
+	void getBumpInterp()const
 	{
 		fprintf(mFile,"\"%s.bi\"",mName.c_str());
 
 	}
-	void getBumpFilter()
+	void getBumpFilter()const
 	{
 		fprintf(mFile,"\"%s.bf\"",mName.c_str());
 
 	}
-	void getBumpFilterOffset()
+	void getBumpFilterOffset()const
 	{
 		fprintf(mFile,"\"%s.bfo\"",mName.c_str());
 
 	}
-	void getBumpValue()
+	void getBumpValue()const
 	{
 		fprintf(mFile,"\"%s.bv\"",mName.c_str());
 
 	}
-	void getProvide3dInfo()
+	void getProvide3dInfo()const
 	{
 		fprintf(mFile,"\"%s.p3d\"",mName.c_str());
 
 	}
-	void getOutNormal()
+	void getOutNormal()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutNormalX()
+	void getOutNormalX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutNormalY()
+	void getOutNormalY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutNormalZ()
+	void getOutNormalZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
-	void getVertexUvOne()
+	void getVertexUvOne()const
 	{
 		fprintf(mFile,"\"%s.vt1\"",mName.c_str());
 
 	}
-	void getVertexUvOneU()
+	void getVertexUvOneU()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1u\"",mName.c_str());
 
 	}
-	void getVertexUvOneV()
+	void getVertexUvOneV()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1v\"",mName.c_str());
 
 	}
-	void getVertexUvTwo()
+	void getVertexUvTwo()const
 	{
 		fprintf(mFile,"\"%s.vt2\"",mName.c_str());
 
 	}
-	void getVertexUvTwoU()
+	void getVertexUvTwoU()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2u\"",mName.c_str());
 
 	}
-	void getVertexUvTwoV()
+	void getVertexUvTwoV()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2v\"",mName.c_str());
 
 	}
-	void getVertexCameraOne()
+	void getVertexCameraOne()const
 	{
 		fprintf(mFile,"\"%s.vc1\"",mName.c_str());
 
 	}
-	void getVertexCameraOneX()
+	void getVertexCameraOneX()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1x\"",mName.c_str());
 
 	}
-	void getVertexCameraOneY()
+	void getVertexCameraOneY()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1y\"",mName.c_str());
 
 	}
-	void getVertexCameraOneZ()
+	void getVertexCameraOneZ()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1z\"",mName.c_str());
 
 	}
-	void getVertexCameraTwo()
+	void getVertexCameraTwo()const
 	{
 		fprintf(mFile,"\"%s.vc2\"",mName.c_str());
 
 	}
-	void getVertexCameraTwoX()
+	void getVertexCameraTwoX()const
 	{
 		fprintf(mFile,"\"%s.vc2.c2x\"",mName.c_str());
 
 	}
-	void getVertexCameraTwoY()
+	void getVertexCameraTwoY()const
 	{
 		fprintf(mFile,"\"%s.vc2.c2y\"",mName.c_str());
 
 	}
-	void getVertexCameraTwoZ()
+	void getVertexCameraTwoZ()const
 	{
 		fprintf(mFile,"\"%s.vc2.c2z\"",mName.c_str());
 
 	}
 protected:
-	Bump2d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Bump2d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

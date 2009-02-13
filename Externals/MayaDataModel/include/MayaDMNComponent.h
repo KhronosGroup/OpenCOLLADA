@@ -19,7 +19,8 @@ class NComponent : public DependNode
 public:
 public:
 	NComponent():DependNode(){}
-	NComponent(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "nComponent"){}
+	NComponent(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "nComponent", create){}
 	virtual ~NComponent(){}
 	void setComponentGroupId(int cid)
 	{
@@ -123,17 +124,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startComponentIndices(size_t ci_start,size_t ci_end)
+	void startComponentIndices(size_t ci_start,size_t ci_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ci[%i:%i]\"",ci_start,ci_end);
 
 	}
-	void appendComponentIndices(int ci)
+	void appendComponentIndices(int ci)const
 	{
 		fprintf(mFile," %i",ci);
 
 	}
-	void endComponentIndices()
+	void endComponentIndices()const
 	{
 		fprintf(mFile,";\n");
 
@@ -156,109 +157,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".wmt\" %i;\n", wmt);
 
 	}
-	void getSurface()
+	void getSurface()const
 	{
 		fprintf(mFile,"\"%s.srf\"",mName.c_str());
 
 	}
-	void getComponentGroupId()
+	void getComponentGroupId()const
 	{
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 
 	}
-	void getComponentType()
+	void getComponentType()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getElements()
+	void getElements()const
 	{
 		fprintf(mFile,"\"%s.el\"",mName.c_str());
 
 	}
-	void getStrength()
+	void getStrength()const
 	{
 		fprintf(mFile,"\"%s.stn\"",mName.c_str());
 
 	}
-	void getStrengthMap()
+	void getStrengthMap()const
 	{
 		fprintf(mFile,"\"%s.stnm\"",mName.c_str());
 
 	}
-	void getStrengthPerVertex()
+	void getStrengthPerVertex()const
 	{
 		fprintf(mFile,"\"%s.spv\"",mName.c_str());
 
 	}
-	void getGlueStrength()
+	void getGlueStrength()const
 	{
 		fprintf(mFile,"\"%s.gst\"",mName.c_str());
 
 	}
-	void getGlueStrengthMap()
+	void getGlueStrengthMap()const
 	{
 		fprintf(mFile,"\"%s.gstm\"",mName.c_str());
 
 	}
-	void getGlueStrengthPerVertex()
+	void getGlueStrengthPerVertex()const
 	{
 		fprintf(mFile,"\"%s.gspv\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.wgh\"",mName.c_str());
 
 	}
-	void getWeightMap()
+	void getWeightMap()const
 	{
 		fprintf(mFile,"\"%s.wemp\"",mName.c_str());
 
 	}
-	void getWeightPerVertex()
+	void getWeightPerVertex()const
 	{
 		fprintf(mFile,"\"%s.wpv\"",mName.c_str());
 
 	}
-	void getTangentStrength()
+	void getTangentStrength()const
 	{
 		fprintf(mFile,"\"%s.tst\"",mName.c_str());
 
 	}
-	void getObjectId()
+	void getObjectId()const
 	{
 		fprintf(mFile,"\"%s.obid\"",mName.c_str());
 
 	}
-	void getComponentIndices(size_t ci_i)
+	void getComponentIndices(size_t ci_i)const
 	{
 		fprintf(mFile,"\"%s.ci[%i]\"",mName.c_str(),ci_i);
 
 	}
-	void getOutComponent()
+	void getOutComponent()const
 	{
 		fprintf(mFile,"\"%s.ocp\"",mName.c_str());
 
 	}
-	void getStrengthMapType()
+	void getStrengthMapType()const
 	{
 		fprintf(mFile,"\"%s.smt\"",mName.c_str());
 
 	}
-	void getGlueStrengthMapType()
+	void getGlueStrengthMapType()const
 	{
 		fprintf(mFile,"\"%s.gsmt\"",mName.c_str());
 
 	}
-	void getWeightMapType()
+	void getWeightMapType()const
 	{
 		fprintf(mFile,"\"%s.wmt\"",mName.c_str());
 
 	}
 protected:
-	NComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	NComponent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

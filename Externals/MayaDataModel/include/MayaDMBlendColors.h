@@ -19,7 +19,8 @@ class BlendColors : public DependNode
 public:
 public:
 	BlendColors():DependNode(){}
-	BlendColors(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "blendColors"){}
+	BlendColors(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "blendColors", create){}
 	virtual ~BlendColors(){}
 	void setBlender(float b)
 	{
@@ -79,74 +80,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".c2.c2b\" %f;\n", c2b);
 
 	}
-	void getBlender()
+	void getBlender()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getColor1()
+	void getColor1()const
 	{
 		fprintf(mFile,"\"%s.c1\"",mName.c_str());
 
 	}
-	void getColor1R()
+	void getColor1R()const
 	{
 		fprintf(mFile,"\"%s.c1.c1r\"",mName.c_str());
 
 	}
-	void getColor1G()
+	void getColor1G()const
 	{
 		fprintf(mFile,"\"%s.c1.c1g\"",mName.c_str());
 
 	}
-	void getColor1B()
+	void getColor1B()const
 	{
 		fprintf(mFile,"\"%s.c1.c1b\"",mName.c_str());
 
 	}
-	void getColor2()
+	void getColor2()const
 	{
 		fprintf(mFile,"\"%s.c2\"",mName.c_str());
 
 	}
-	void getColor2R()
+	void getColor2R()const
 	{
 		fprintf(mFile,"\"%s.c2.c2r\"",mName.c_str());
 
 	}
-	void getColor2G()
+	void getColor2G()const
 	{
 		fprintf(mFile,"\"%s.c2.c2g\"",mName.c_str());
 
 	}
-	void getColor2B()
+	void getColor2B()const
 	{
 		fprintf(mFile,"\"%s.c2.c2b\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getOutputR()
+	void getOutputR()const
 	{
 		fprintf(mFile,"\"%s.op.opr\"",mName.c_str());
 
 	}
-	void getOutputG()
+	void getOutputG()const
 	{
 		fprintf(mFile,"\"%s.op.opg\"",mName.c_str());
 
 	}
-	void getOutputB()
+	void getOutputB()const
 	{
 		fprintf(mFile,"\"%s.op.opb\"",mName.c_str());
 
 	}
 protected:
-	BlendColors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	BlendColors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

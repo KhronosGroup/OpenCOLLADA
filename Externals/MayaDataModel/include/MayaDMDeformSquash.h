@@ -19,7 +19,8 @@ class DeformSquash : public DeformFunc
 public:
 public:
 	DeformSquash():DeformFunc(){}
-	DeformSquash(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformSquash"){}
+	DeformSquash(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformFunc(file, name, parent, "deformSquash", create){}
 	virtual ~DeformSquash(){}
 	void setLowBound(double lb)
 	{
@@ -63,44 +64,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".fac\" %f;\n", fac);
 
 	}
-	void getLowBound()
+	void getLowBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getHighBound()
+	void getHighBound()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
 
 	}
-	void getStartSmoothness()
+	void getStartSmoothness()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getEndSmoothness()
+	void getEndSmoothness()const
 	{
 		fprintf(mFile,"\"%s.es\"",mName.c_str());
 
 	}
-	void getMaxExpandPos()
+	void getMaxExpandPos()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 
 	}
-	void getExpand()
+	void getExpand()const
 	{
 		fprintf(mFile,"\"%s.exp\"",mName.c_str());
 
 	}
-	void getFactor()
+	void getFactor()const
 	{
 		fprintf(mFile,"\"%s.fac\"",mName.c_str());
 
 	}
 protected:
-	DeformSquash(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformFunc(file, name, parent, nodeType) {}
+	DeformSquash(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

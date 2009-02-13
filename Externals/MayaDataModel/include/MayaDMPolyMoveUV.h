@@ -19,7 +19,8 @@ class PolyMoveUV : public PolyModifier
 public:
 public:
 	PolyMoveUV():PolyModifier(){}
-	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMoveUV"){}
+	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyMoveUV", create){}
 	virtual ~PolyMoveUV(){}
 	void setTranslate(const double2& t)
 	{
@@ -127,94 +128,94 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getTranslate()
+	void getTranslate()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getTranslateU()
+	void getTranslateU()const
 	{
 		fprintf(mFile,"\"%s.t.tu\"",mName.c_str());
 
 	}
-	void getTranslateV()
+	void getTranslateV()const
 	{
 		fprintf(mFile,"\"%s.t.tv\"",mName.c_str());
 
 	}
-	void getRotationAngle()
+	void getRotationAngle()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getPivot()
+	void getPivot()const
 	{
 		fprintf(mFile,"\"%s.pvt\"",mName.c_str());
 
 	}
-	void getPivotU()
+	void getPivotU()const
 	{
 		fprintf(mFile,"\"%s.pvt.pvu\"",mName.c_str());
 
 	}
-	void getPivotV()
+	void getPivotV()const
 	{
 		fprintf(mFile,"\"%s.pvt.pvv\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getScaleU()
+	void getScaleU()const
 	{
 		fprintf(mFile,"\"%s.s.su\"",mName.c_str());
 
 	}
-	void getScaleV()
+	void getScaleV()const
 	{
 		fprintf(mFile,"\"%s.s.sv\"",mName.c_str());
 
 	}
-	void getRandom()
+	void getRandom()const
 	{
 		fprintf(mFile,"\"%s.ran\"",mName.c_str());
 
 	}
-	void getRandomSeed()
+	void getRandomSeed()const
 	{
 		fprintf(mFile,"\"%s.rs\"",mName.c_str());
 
 	}
-	void getAxisLen()
+	void getAxisLen()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getAxisLenX()
+	void getAxisLenX()const
 	{
 		fprintf(mFile,"\"%s.l.lx\"",mName.c_str());
 
 	}
-	void getAxisLenY()
+	void getAxisLenY()const
 	{
 		fprintf(mFile,"\"%s.l.ly\"",mName.c_str());
 
 	}
-	void getCompId()
+	void getCompId()const
 	{
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
 protected:
-	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyMoveUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class LookAt : public AimConstraint
 public:
 public:
 	LookAt():AimConstraint(){}
-	LookAt(FILE* file,const std::string& name,const std::string& parent=""):AimConstraint(file, name, parent, "lookAt"){}
+	LookAt(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AimConstraint(file, name, parent, "lookAt", create){}
 	virtual ~LookAt(){}
 	void setDistanceBetween(double db)
 	{
@@ -39,24 +40,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".dc\" %i;\n", dc);
 
 	}
-	void getDistanceBetween()
+	void getDistanceBetween()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.tws\"",mName.c_str());
 
 	}
-	void getDisplayConnector()
+	void getDisplayConnector()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
 protected:
-	LookAt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AimConstraint(file, name, parent, nodeType) {}
+	LookAt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AimConstraint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

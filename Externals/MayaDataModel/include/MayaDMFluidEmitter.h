@@ -19,7 +19,8 @@ class FluidEmitter : public PointEmitter
 public:
 public:
 	FluidEmitter():PointEmitter(){}
-	FluidEmitter(FILE* file,const std::string& name,const std::string& parent=""):PointEmitter(file, name, parent, "fluidEmitter"){}
+	FluidEmitter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PointEmitter(file, name, parent, "fluidEmitter", create){}
 	virtual ~FluidEmitter(){}
 	void setFluidDropoff(double fdo)
 	{
@@ -131,104 +132,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".efc\" %i;\n", efc);
 
 	}
-	void getFluidDropoff()
+	void getFluidDropoff()const
 	{
 		fprintf(mFile,"\"%s.fdo\"",mName.c_str());
 
 	}
-	void getTurbulenceType()
+	void getTurbulenceType()const
 	{
 		fprintf(mFile,"\"%s.trt\"",mName.c_str());
 
 	}
-	void getFluidJitter()
+	void getFluidJitter()const
 	{
 		fprintf(mFile,"\"%s.fjt\"",mName.c_str());
 
 	}
-	void getTurbulence()
+	void getTurbulence()const
 	{
 		fprintf(mFile,"\"%s.trb\"",mName.c_str());
 
 	}
-	void getTurbulenceSpeed()
+	void getTurbulenceSpeed()const
 	{
 		fprintf(mFile,"\"%s.trs\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequency()
+	void getTurbulenceFrequency()const
 	{
 		fprintf(mFile,"\"%s.tf\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequencyX()
+	void getTurbulenceFrequencyX()const
 	{
 		fprintf(mFile,"\"%s.tf.tfx\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequencyY()
+	void getTurbulenceFrequencyY()const
 	{
 		fprintf(mFile,"\"%s.tf.tfy\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequencyZ()
+	void getTurbulenceFrequencyZ()const
 	{
 		fprintf(mFile,"\"%s.tf.tfz\"",mName.c_str());
 
 	}
-	void getTurbulenceOffset()
+	void getTurbulenceOffset()const
 	{
 		fprintf(mFile,"\"%s.to\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetX()
+	void getTurbulenceOffsetX()const
 	{
 		fprintf(mFile,"\"%s.to.tox\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetY()
+	void getTurbulenceOffsetY()const
 	{
 		fprintf(mFile,"\"%s.to.toy\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetZ()
+	void getTurbulenceOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.to.toz\"",mName.c_str());
 
 	}
-	void getDetailTurbulence()
+	void getDetailTurbulence()const
 	{
 		fprintf(mFile,"\"%s.dtr\"",mName.c_str());
 
 	}
-	void getFluidDensityEmission()
+	void getFluidDensityEmission()const
 	{
 		fprintf(mFile,"\"%s.fde\"",mName.c_str());
 
 	}
-	void getFluidHeatEmission()
+	void getFluidHeatEmission()const
 	{
 		fprintf(mFile,"\"%s.fhe\"",mName.c_str());
 
 	}
-	void getFluidFuelEmission()
+	void getFluidFuelEmission()const
 	{
 		fprintf(mFile,"\"%s.ffe\"",mName.c_str());
 
 	}
-	void getEmitFluidColor()
+	void getEmitFluidColor()const
 	{
 		fprintf(mFile,"\"%s.efc\"",mName.c_str());
 
 	}
-	void getEmissionFunction()
+	void getEmissionFunction()const
 	{
 		fprintf(mFile,"\"%s.ef\"",mName.c_str());
 
 	}
 protected:
-	FluidEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PointEmitter(file, name, parent, nodeType) {}
+	FluidEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PointEmitter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

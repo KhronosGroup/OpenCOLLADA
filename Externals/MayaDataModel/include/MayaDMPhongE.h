@@ -19,7 +19,8 @@ class PhongE : public Reflect
 public:
 public:
 	PhongE():Reflect(){}
-	PhongE(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "phongE"){}
+	PhongE(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Reflect(file, name, parent, "phongE", create){}
 	virtual ~PhongE(){}
 	void setRoughness(float rn)
 	{
@@ -133,99 +134,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
-	void getRoughness()
+	void getRoughness()const
 	{
 		fprintf(mFile,"\"%s.rn\"",mName.c_str());
 
 	}
-	void getHighlightSize()
+	void getHighlightSize()const
 	{
 		fprintf(mFile,"\"%s.hls\"",mName.c_str());
 
 	}
-	void getWhiteness()
+	void getWhiteness()const
 	{
 		fprintf(mFile,"\"%s.wn\"",mName.c_str());
 
 	}
-	void getWhitenessR()
+	void getWhitenessR()const
 	{
 		fprintf(mFile,"\"%s.wn.wnr\"",mName.c_str());
 
 	}
-	void getWhitenessG()
+	void getWhitenessG()const
 	{
 		fprintf(mFile,"\"%s.wn.wng\"",mName.c_str());
 
 	}
-	void getWhitenessB()
+	void getWhitenessB()const
 	{
 		fprintf(mFile,"\"%s.wn.wnb\"",mName.c_str());
 
 	}
-	void getMiReflectionBlur()
+	void getMiReflectionBlur()const
 	{
 		fprintf(mFile,"\"%s.mircb\"",mName.c_str());
 
 	}
-	void getMiReflectionRays()
+	void getMiReflectionRays()const
 	{
 		fprintf(mFile,"\"%s.mircr\"",mName.c_str());
 
 	}
-	void getMiShinyness()
+	void getMiShinyness()const
 	{
 		fprintf(mFile,"\"%s.mis\"",mName.c_str());
 
 	}
-	void getMiWhiteness()
+	void getMiWhiteness()const
 	{
 		fprintf(mFile,"\"%s.miwn\"",mName.c_str());
 
 	}
-	void getMiWhitenessR()
+	void getMiWhitenessR()const
 	{
 		fprintf(mFile,"\"%s.miwn.miwnr\"",mName.c_str());
 
 	}
-	void getMiWhitenessG()
+	void getMiWhitenessG()const
 	{
 		fprintf(mFile,"\"%s.miwn.miwng\"",mName.c_str());
 
 	}
-	void getMiWhitenessB()
+	void getMiWhitenessB()const
 	{
 		fprintf(mFile,"\"%s.miwn.miwnb\"",mName.c_str());
 
 	}
-	void getMiSpecularColor()
+	void getMiSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.misc\"",mName.c_str());
 
 	}
-	void getMiSpecularColorR()
+	void getMiSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.misc.miscr\"",mName.c_str());
 
 	}
-	void getMiSpecularColorG()
+	void getMiSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.misc.miscg\"",mName.c_str());
 
 	}
-	void getMiSpecularColorB()
+	void getMiSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.misc.miscb\"",mName.c_str());
 
 	}
-	void getMiReflectivity()
+	void getMiReflectivity()const
 	{
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 
 	}
 protected:
-	PhongE(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Reflect(file, name, parent, nodeType) {}
+	PhongE(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Reflect(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

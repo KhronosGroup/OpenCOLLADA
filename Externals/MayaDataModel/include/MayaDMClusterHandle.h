@@ -24,7 +24,8 @@ public:
 	};
 public:
 	ClusterHandle():Shape(){}
-	ClusterHandle(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "clusterHandle"){}
+	ClusterHandle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "clusterHandle", create){}
 	virtual ~ClusterHandle(){}
 	void setOrigin(const double3& or)
 	{
@@ -51,54 +52,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".or.oz\" %f;\n", oz);
 
 	}
-	void getClusterTransforms(size_t x_i)
+	void getClusterTransforms(size_t x_i)const
 	{
 		fprintf(mFile,"\"%s.x[%i]\"",mName.c_str(),x_i);
 
 	}
-	void getPreWeightedMatrixTransform(size_t x_i)
+	void getPreWeightedMatrixTransform(size_t x_i)const
 	{
 		fprintf(mFile,"\"%s.x[%i].pre\"",mName.c_str(),x_i);
 
 	}
-	void getWeightedMatrixTransform(size_t x_i)
+	void getWeightedMatrixTransform(size_t x_i)const
 	{
 		fprintf(mFile,"\"%s.x[%i].wt\"",mName.c_str(),x_i);
 
 	}
-	void getPostWeightedMatrixTransform(size_t x_i)
+	void getPostWeightedMatrixTransform(size_t x_i)const
 	{
 		fprintf(mFile,"\"%s.x[%i].post\"",mName.c_str(),x_i);
 
 	}
-	void getOrigin()
+	void getOrigin()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getOriginX()
+	void getOriginX()const
 	{
 		fprintf(mFile,"\"%s.or.ox\"",mName.c_str());
 
 	}
-	void getOriginY()
+	void getOriginY()const
 	{
 		fprintf(mFile,"\"%s.or.oy\"",mName.c_str());
 
 	}
-	void getOriginZ()
+	void getOriginZ()const
 	{
 		fprintf(mFile,"\"%s.or.oz\"",mName.c_str());
 
 	}
-	void getWeightedNode()
+	void getWeightedNode()const
 	{
 		fprintf(mFile,"\"%s.wn\"",mName.c_str());
 
 	}
 protected:
-	ClusterHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	ClusterHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

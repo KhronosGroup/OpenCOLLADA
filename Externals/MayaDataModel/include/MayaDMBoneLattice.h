@@ -19,7 +19,8 @@ class BoneLattice : public GeometryFilter
 public:
 public:
 	BoneLattice():GeometryFilter(){}
-	BoneLattice(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "boneLattice"){}
+	BoneLattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "boneLattice", create){}
 	virtual ~BoneLattice(){}
 	void setBicep(double bi)
 	{
@@ -120,89 +121,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".bm\" %f;\n", bm);
 
 	}
-	void getBicep()
+	void getBicep()const
 	{
 		fprintf(mFile,"\"%s.bi\"",mName.c_str());
 
 	}
-	void getTricep()
+	void getTricep()const
 	{
 		fprintf(mFile,"\"%s.tr\"",mName.c_str());
 
 	}
-	void getLengthIn()
+	void getLengthIn()const
 	{
 		fprintf(mFile,"\"%s.li\"",mName.c_str());
 
 	}
-	void getLengthOut()
+	void getLengthOut()const
 	{
 		fprintf(mFile,"\"%s.lo\"",mName.c_str());
 
 	}
-	void getWidthLeft()
+	void getWidthLeft()const
 	{
 		fprintf(mFile,"\"%s.wl\"",mName.c_str());
 
 	}
-	void getWidthRight()
+	void getWidthRight()const
 	{
 		fprintf(mFile,"\"%s.wr\"",mName.c_str());
 
 	}
-	void getUpperMatrix()
+	void getUpperMatrix()const
 	{
 		fprintf(mFile,"\"%s.um\"",mName.c_str());
 
 	}
-	void getInitialUpperMatrix()
+	void getInitialUpperMatrix()const
 	{
 		fprintf(mFile,"\"%s.ui\"",mName.c_str());
 
 	}
-	void getDeformedLatticeMatrix()
+	void getDeformedLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.md\"",mName.c_str());
 
 	}
-	void getBaseLatticeMatrix()
+	void getBaseLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.mb\"",mName.c_str());
 
 	}
-	void getAdjustedUpperBaseLatticeMatrix()
+	void getAdjustedUpperBaseLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.au\"",mName.c_str());
 
 	}
-	void getBendVector()
+	void getBendVector()const
 	{
 		fprintf(mFile,"\"%s.bv\"",mName.c_str());
 
 	}
-	void getBendVectorX()
+	void getBendVectorX()const
 	{
 		fprintf(mFile,"\"%s.bv.bx\"",mName.c_str());
 
 	}
-	void getBendVectorY()
+	void getBendVectorY()const
 	{
 		fprintf(mFile,"\"%s.bv.by\"",mName.c_str());
 
 	}
-	void getBendVectorZ()
+	void getBendVectorZ()const
 	{
 		fprintf(mFile,"\"%s.bv.bz\"",mName.c_str());
 
 	}
-	void getBendMagnitude()
+	void getBendMagnitude()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
 protected:
-	BoneLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	BoneLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

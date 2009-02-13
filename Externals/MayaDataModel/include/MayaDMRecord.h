@@ -19,7 +19,8 @@ class Record : public DependNode
 public:
 public:
 	Record():DependNode(){}
-	Record(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "record"){}
+	Record(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "record", create){}
 	virtual ~Record(){}
 	void setInput(double i_)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".i\" %f;\n", i_);
 
 	}
-	void getInput()
+	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
 protected:
-	Record(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Record(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

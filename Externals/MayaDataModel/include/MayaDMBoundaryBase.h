@@ -19,7 +19,8 @@ class BoundaryBase : public AbstractBaseCreate
 public:
 public:
 	BoundaryBase():AbstractBaseCreate(){}
-	BoundaryBase(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "boundaryBase"){}
+	BoundaryBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "boundaryBase", create){}
 	virtual ~BoundaryBase(){}
 	void setEndPointTolerance(double ept)
 	{
@@ -27,39 +28,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".ept\" %f;\n", ept);
 
 	}
-	void getInputCurve1()
+	void getInputCurve1()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2()
+	void getInputCurve2()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getInputCurve3()
+	void getInputCurve3()const
 	{
 		fprintf(mFile,"\"%s.ic3\"",mName.c_str());
 
 	}
-	void getInputCurve4()
+	void getInputCurve4()const
 	{
 		fprintf(mFile,"\"%s.ic4\"",mName.c_str());
 
 	}
-	void getEndPointTolerance()
+	void getEndPointTolerance()const
 	{
 		fprintf(mFile,"\"%s.ept\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	BoundaryBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	BoundaryBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

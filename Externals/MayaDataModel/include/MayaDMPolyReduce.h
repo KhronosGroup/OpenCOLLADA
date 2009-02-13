@@ -19,7 +19,8 @@ class PolyReduce : public PolyModifier
 public:
 public:
 	PolyReduce():PolyModifier(){}
-	PolyReduce(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyReduce"){}
+	PolyReduce(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyReduce", create){}
 	virtual ~PolyReduce(){}
 	void setPercentage(double p)
 	{
@@ -125,99 +126,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
-	void getPercentage()
+	void getPercentage()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getCompactness()
+	void getCompactness()const
 	{
 		fprintf(mFile,"\"%s.com\"",mName.c_str());
 
 	}
-	void getGeomWeights()
+	void getGeomWeights()const
 	{
 		fprintf(mFile,"\"%s.gwt\"",mName.c_str());
 
 	}
-	void getUvWeights()
+	void getUvWeights()const
 	{
 		fprintf(mFile,"\"%s.uwt\"",mName.c_str());
 
 	}
-	void getColorWeights()
+	void getColorWeights()const
 	{
 		fprintf(mFile,"\"%s.cwt\"",mName.c_str());
 
 	}
-	void getKeepQuadsWeight()
+	void getKeepQuadsWeight()const
 	{
 		fprintf(mFile,"\"%s.kqw\"",mName.c_str());
 
 	}
-	void getWeightCoefficient()
+	void getWeightCoefficient()const
 	{
 		fprintf(mFile,"\"%s.wc\"",mName.c_str());
 
 	}
-	void getWeights(size_t wts_i)
+	void getWeights(size_t wts_i)const
 	{
 		fprintf(mFile,"\"%s.wts[%i]\"",mName.c_str(),wts_i);
 
 	}
-	void getVertexWeights()
+	void getVertexWeights()const
 	{
 		fprintf(mFile,"\"%s.vwt\"",mName.c_str());
 
 	}
-	void getKeepBorder()
+	void getKeepBorder()const
 	{
 		fprintf(mFile,"\"%s.kb\"",mName.c_str());
 
 	}
-	void getKeepMapBorder()
+	void getKeepMapBorder()const
 	{
 		fprintf(mFile,"\"%s.kmb\"",mName.c_str());
 
 	}
-	void getKeepHardEdge()
+	void getKeepHardEdge()const
 	{
 		fprintf(mFile,"\"%s.khe\"",mName.c_str());
 
 	}
-	void getKeepOriginalVertices()
+	void getKeepOriginalVertices()const
 	{
 		fprintf(mFile,"\"%s.kev\"",mName.c_str());
 
 	}
-	void getTriangulate()
+	void getTriangulate()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getCachingReduce()
+	void getCachingReduce()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getBorder()
+	void getBorder()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getLine()
+	void getLine()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getDetail()
+	void getDetail()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 protected:
-	PolyReduce(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyReduce(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

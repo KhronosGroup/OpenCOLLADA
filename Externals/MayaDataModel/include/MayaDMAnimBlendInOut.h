@@ -19,7 +19,8 @@ class AnimBlendInOut : public AnimBlend
 public:
 public:
 	AnimBlendInOut():AnimBlend(){}
-	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent=""):AnimBlend(file, name, parent, "animBlendInOut"){}
+	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AnimBlend(file, name, parent, "animBlendInOut", create){}
 	virtual ~AnimBlendInOut(){}
 	void setRotationBlend(unsigned int rb)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".rb\" %i;\n", rb);
 
 	}
-	void getRotationBlend()
+	void getRotationBlend()const
 	{
 		fprintf(mFile,"\"%s.rb\"",mName.c_str());
 
 	}
 protected:
-	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AnimBlend(file, name, parent, nodeType) {}
+	AnimBlendInOut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AnimBlend(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

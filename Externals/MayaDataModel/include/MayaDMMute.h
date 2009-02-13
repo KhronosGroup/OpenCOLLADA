@@ -19,7 +19,8 @@ class Mute : public DependNode
 public:
 public:
 	Mute():DependNode(){}
-	Mute(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "mute"){}
+	Mute(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "mute", create){}
 	virtual ~Mute(){}
 	void setMute(bool m)
 	{
@@ -27,34 +28,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
-	void getInput()
+	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getHold()
+	void getHold()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getHoldTime()
+	void getHoldTime()const
 	{
 		fprintf(mFile,"\"%s.ht\"",mName.c_str());
 
 	}
-	void getMute()
+	void getMute()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	Mute(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Mute(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

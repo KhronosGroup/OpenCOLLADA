@@ -34,7 +34,8 @@ public:
 	};
 public:
 	JointCluster():Cluster(){}
-	JointCluster(FILE* file,const std::string& name,const std::string& parent=""):Cluster(file, name, parent, "jointCluster"){}
+	JointCluster(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Cluster(file, name, parent, "jointCluster", create){}
 	virtual ~JointCluster(){}
 	void setChildEnabled(size_t che_i,bool che)
 	{
@@ -54,17 +55,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startChildEnabled(size_t che_start,size_t che_end)
+	void startChildEnabled(size_t che_start,size_t che_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".che[%i:%i]\"",che_start,che_end);
 
 	}
-	void appendChildEnabled(bool che)
+	void appendChildEnabled(bool che)const
 	{
 		fprintf(mFile," %i",che);
 
 	}
-	void endChildEnabled()
+	void endChildEnabled()const
 	{
 		fprintf(mFile,";\n");
 
@@ -113,17 +114,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startChildJointMidplaneAxis(size_t cjm_start,size_t cjm_end)
+	void startChildJointMidplaneAxis(size_t cjm_start,size_t cjm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cjm[%i:%i]\"",cjm_start,cjm_end);
 
 	}
-	void appendChildJointMidplaneAxis(double cjm)
+	void appendChildJointMidplaneAxis(double cjm)const
 	{
 		fprintf(mFile," %f",cjm);
 
 	}
-	void endChildJointMidplaneAxis()
+	void endChildJointMidplaneAxis()const
 	{
 		fprintf(mFile,";\n");
 
@@ -200,204 +201,204 @@ public:
 		fprintf(mFile,"\tsetAttr \".ct2\" %i;\n", ct2);
 
 	}
-	void getRedoLowerWeights()
+	void getRedoLowerWeights()const
 	{
 		fprintf(mFile,"\"%s.rlw\"",mName.c_str());
 
 	}
-	void getRedoUpperWeights()
+	void getRedoUpperWeights()const
 	{
 		fprintf(mFile,"\"%s.ruw\"",mName.c_str());
 
 	}
-	void getChildJointClusterXforms(size_t cjx_i)
+	void getChildJointClusterXforms(size_t cjx_i)const
 	{
 		fprintf(mFile,"\"%s.cjx[%i]\"",mName.c_str(),cjx_i);
 
 	}
-	void getChildJointPreMatrix(size_t cjx_i)
+	void getChildJointPreMatrix(size_t cjx_i)const
 	{
 		fprintf(mFile,"\"%s.cjx[%i].cpr\"",mName.c_str(),cjx_i);
 
 	}
-	void getChildJointWeightedMatrix(size_t cjx_i)
+	void getChildJointWeightedMatrix(size_t cjx_i)const
 	{
 		fprintf(mFile,"\"%s.cjx[%i].cjw\"",mName.c_str(),cjx_i);
 
 	}
-	void getChildJointPostMatrix(size_t cjx_i)
+	void getChildJointPostMatrix(size_t cjx_i)const
 	{
 		fprintf(mFile,"\"%s.cjx[%i].cpo\"",mName.c_str(),cjx_i);
 
 	}
-	void getChildJointPreCompensationMatrix(size_t cjpr_i)
+	void getChildJointPreCompensationMatrix(size_t cjpr_i)const
 	{
 		fprintf(mFile,"\"%s.cjpr[%i]\"",mName.c_str(),cjpr_i);
 
 	}
-	void getChildJointWeightedCompensationMatrix(size_t cjwc_i)
+	void getChildJointWeightedCompensationMatrix(size_t cjwc_i)const
 	{
 		fprintf(mFile,"\"%s.cjwc[%i]\"",mName.c_str(),cjwc_i);
 
 	}
-	void getChildJointPostCompensationMatrix(size_t cjps_i)
+	void getChildJointPostCompensationMatrix(size_t cjps_i)const
 	{
 		fprintf(mFile,"\"%s.cjps[%i]\"",mName.c_str(),cjps_i);
 
 	}
-	void getBindPose()
+	void getBindPose()const
 	{
 		fprintf(mFile,"\"%s.bp\"",mName.c_str());
 
 	}
-	void getNextJointBindPose()
+	void getNextJointBindPose()const
 	{
 		fprintf(mFile,"\"%s.njb\"",mName.c_str());
 
 	}
-	void getChildJointBindPose(size_t cjb_i)
+	void getChildJointBindPose(size_t cjb_i)const
 	{
 		fprintf(mFile,"\"%s.cjb[%i]\"",mName.c_str(),cjb_i);
 
 	}
-	void getJointMidplaneAxis()
+	void getJointMidplaneAxis()const
 	{
 		fprintf(mFile,"\"%s.jma\"",mName.c_str());
 
 	}
-	void getJointMidplaneAxisX()
+	void getJointMidplaneAxisX()const
 	{
 		fprintf(mFile,"\"%s.jma.jmx\"",mName.c_str());
 
 	}
-	void getJointMidplaneAxisY()
+	void getJointMidplaneAxisY()const
 	{
 		fprintf(mFile,"\"%s.jma.jmy\"",mName.c_str());
 
 	}
-	void getJointMidplaneAxisZ()
+	void getJointMidplaneAxisZ()const
 	{
 		fprintf(mFile,"\"%s.jma.jmz\"",mName.c_str());
 
 	}
-	void getNextJointClusterXforms()
+	void getNextJointClusterXforms()const
 	{
 		fprintf(mFile,"\"%s.njx\"",mName.c_str());
 
 	}
-	void getNextJointPreMatrix()
+	void getNextJointPreMatrix()const
 	{
 		fprintf(mFile,"\"%s.njx.npr\"",mName.c_str());
 
 	}
-	void getNextJointWeightedMatrix()
+	void getNextJointWeightedMatrix()const
 	{
 		fprintf(mFile,"\"%s.njx.njw\"",mName.c_str());
 
 	}
-	void getNextJointPostMatrix()
+	void getNextJointPostMatrix()const
 	{
 		fprintf(mFile,"\"%s.njx.npo\"",mName.c_str());
 
 	}
-	void getNextJointPreCompensationMatrix()
+	void getNextJointPreCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.njpr\"",mName.c_str());
 
 	}
-	void getNextJointWeightedCompensationMatrix()
+	void getNextJointWeightedCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.njwc\"",mName.c_str());
 
 	}
-	void getNextJointPostCompensationMatrix()
+	void getNextJointPostCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.njps\"",mName.c_str());
 
 	}
-	void getNextJointMidplaneAxis()
+	void getNextJointMidplaneAxis()const
 	{
 		fprintf(mFile,"\"%s.njm\"",mName.c_str());
 
 	}
-	void getNextjointMidplaneAxisX()
+	void getNextjointMidplaneAxisX()const
 	{
 		fprintf(mFile,"\"%s.njm.nmx\"",mName.c_str());
 
 	}
-	void getNextjointMidplaneAxisY()
+	void getNextjointMidplaneAxisY()const
 	{
 		fprintf(mFile,"\"%s.njm.nmy\"",mName.c_str());
 
 	}
-	void getNextjointMidplaneAxisZ()
+	void getNextjointMidplaneAxisZ()const
 	{
 		fprintf(mFile,"\"%s.njm.nmz\"",mName.c_str());
 
 	}
-	void getChildJointMidplaneAxis(size_t cjm_i)
+	void getChildJointMidplaneAxis(size_t cjm_i)const
 	{
 		fprintf(mFile,"\"%s.cjm[%i]\"",mName.c_str(),cjm_i);
 
 	}
-	void getChildjointMidplaneAxisX(size_t cjm_i)
+	void getChildjointMidplaneAxisX(size_t cjm_i)const
 	{
 		fprintf(mFile,"\"%s.cjm[%i].cmx\"",mName.c_str(),cjm_i);
 
 	}
-	void getChildjointMidplaneAxisY(size_t cjm_i)
+	void getChildjointMidplaneAxisY(size_t cjm_i)const
 	{
 		fprintf(mFile,"\"%s.cjm[%i].cmy\"",mName.c_str(),cjm_i);
 
 	}
-	void getChildjointMidplaneAxisZ(size_t cjm_i)
+	void getChildjointMidplaneAxisZ(size_t cjm_i)const
 	{
 		fprintf(mFile,"\"%s.cjm[%i].cmz\"",mName.c_str(),cjm_i);
 
 	}
-	void getDistanceList(size_t dl_i)
+	void getDistanceList(size_t dl_i)const
 	{
 		fprintf(mFile,"\"%s.dl[%i]\"",mName.c_str(),dl_i);
 
 	}
-	void getDistances(size_t dl_i,size_t cd_i)
+	void getDistances(size_t dl_i,size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.dl[%i].cd[%i]\"",mName.c_str(),dl_i,cd_i);
 
 	}
-	void getBoneLength()
+	void getBoneLength()const
 	{
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
 
 	}
-	void getUpperBound()
+	void getUpperBound()const
 	{
 		fprintf(mFile,"\"%s.ub\"",mName.c_str());
 
 	}
-	void getUpperValue()
+	void getUpperValue()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getLowerBound()
+	void getLowerBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getLowerValue()
+	void getLowerValue()const
 	{
 		fprintf(mFile,"\"%s.lv\"",mName.c_str());
 
 	}
-	void getClusterFlexorSet()
+	void getClusterFlexorSet()const
 	{
 		fprintf(mFile,"\"%s.cfs\"",mName.c_str());
 
 	}
 protected:
-	JointCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Cluster(file, name, parent, nodeType) {}
+	JointCluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Cluster(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

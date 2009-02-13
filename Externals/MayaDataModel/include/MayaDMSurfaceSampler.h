@@ -19,7 +19,8 @@ class SurfaceSampler : public DependNode
 public:
 public:
 	SurfaceSampler():DependNode(){}
-	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "surfaceSampler"){}
+	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "surfaceSampler", create){}
 	virtual ~SurfaceSampler(){}
 	void setMaxDist(float S00)
 	{
@@ -78,64 +79,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".S09\" %i;\n", S09);
 
 	}
-	void getMaxDist()
+	void getMaxDist()const
 	{
 		fprintf(mFile,"\"%s.S00\"",mName.c_str());
 
 	}
-	void getEnvelopes(size_t S01_i)
+	void getEnvelopes(size_t S01_i)const
 	{
 		fprintf(mFile,"\"%s.S01[%i]\"",mName.c_str(),S01_i);
 
 	}
-	void getEnveloperSearch()
+	void getEnveloperSearch()const
 	{
 		fprintf(mFile,"\"%s.S02\"",mName.c_str());
 
 	}
-	void getEvaluateMaterial()
+	void getEvaluateMaterial()const
 	{
 		fprintf(mFile,"\"%s.S03\"",mName.c_str());
 
 	}
-	void getEvaluateCustomShader()
+	void getEvaluateCustomShader()const
 	{
 		fprintf(mFile,"\"%s.S04\"",mName.c_str());
 
 	}
-	void getCustomColor()
+	void getCustomColor()const
 	{
 		fprintf(mFile,"\"%s.S05\"",mName.c_str());
 
 	}
-	void getDefaultColor()
+	void getDefaultColor()const
 	{
 		fprintf(mFile,"\"%s.S06\"",mName.c_str());
 
 	}
-	void getCoordinate()
+	void getCoordinate()const
 	{
 		fprintf(mFile,"\"%s.S07\"",mName.c_str());
 
 	}
-	void getAutoInverseNormal()
+	void getAutoInverseNormal()const
 	{
 		fprintf(mFile,"\"%s.S08\"",mName.c_str());
 
 	}
-	void getVectorToColor()
+	void getVectorToColor()const
 	{
 		fprintf(mFile,"\"%s.S09\"",mName.c_str());
 
 	}
-	void getSources(size_t S10_i)
+	void getSources(size_t S10_i)const
 	{
 		fprintf(mFile,"\"%s.S10[%i]\"",mName.c_str(),S10_i);
 
 	}
 protected:
-	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SurfaceSampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

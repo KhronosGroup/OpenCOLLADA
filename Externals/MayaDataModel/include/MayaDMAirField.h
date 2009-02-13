@@ -30,7 +30,8 @@ public:
 	};
 public:
 	AirField():Field(){}
-	AirField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "airField"){}
+	AirField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Field(file, name, parent, "airField", create){}
 	virtual ~AirField(){}
 	void setDirection(const Direction& d)
 	{
@@ -93,59 +94,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".ir\" %i;\n", ir);
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getSpeed()
+	void getSpeed()const
 	{
 		fprintf(mFile,"\"%s.spd\"",mName.c_str());
 
 	}
-	void getInheritVelocity()
+	void getInheritVelocity()const
 	{
 		fprintf(mFile,"\"%s.iv\"",mName.c_str());
 
 	}
-	void getComponentOnly()
+	void getComponentOnly()const
 	{
 		fprintf(mFile,"\"%s.co\"",mName.c_str());
 
 	}
-	void getSpread()
+	void getSpread()const
 	{
 		fprintf(mFile,"\"%s.spr\"",mName.c_str());
 
 	}
-	void getEnableSpread()
+	void getEnableSpread()const
 	{
 		fprintf(mFile,"\"%s.es\"",mName.c_str());
 
 	}
-	void getInheritRotation()
+	void getInheritRotation()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 
 	}
 protected:
-	AirField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Field(file, name, parent, nodeType) {}
+	AirField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Field(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

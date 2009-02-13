@@ -19,7 +19,8 @@ class Marble : public Texture3d
 public:
 public:
 	Marble():Texture3d(){}
-	Marble(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "marble"){}
+	Marble(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "marble", create){}
 	virtual ~Marble(){}
 	void setXPixelAngle(float xpa)
 	{
@@ -155,174 +156,174 @@ public:
 		fprintf(mFile,"\tsetAttr \".ra\" %f;\n", ra);
 
 	}
-	void getXPixelAngle()
+	void getXPixelAngle()const
 	{
 		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getFillerColor()
+	void getFillerColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFillerColorR()
+	void getFillerColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fcr\"",mName.c_str());
 
 	}
-	void getFillerColorG()
+	void getFillerColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fcg\"",mName.c_str());
 
 	}
-	void getFillerColorB()
+	void getFillerColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fcb\"",mName.c_str());
 
 	}
-	void getVeinColor()
+	void getVeinColor()const
 	{
 		fprintf(mFile,"\"%s.vc\"",mName.c_str());
 
 	}
-	void getVeinColorR()
+	void getVeinColorR()const
 	{
 		fprintf(mFile,"\"%s.vc.vcr\"",mName.c_str());
 
 	}
-	void getVeinColorG()
+	void getVeinColorG()const
 	{
 		fprintf(mFile,"\"%s.vc.vcg\"",mName.c_str());
 
 	}
-	void getVeinColorB()
+	void getVeinColorB()const
 	{
 		fprintf(mFile,"\"%s.vc.vcb\"",mName.c_str());
 
 	}
-	void getVeinWidth()
+	void getVeinWidth()const
 	{
 		fprintf(mFile,"\"%s.vw\"",mName.c_str());
 
 	}
-	void getDiffusion()
+	void getDiffusion()const
 	{
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
 
 	}
-	void getContrast()
+	void getContrast()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getRipples()
+	void getRipples()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRipplesX()
+	void getRipplesX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRipplesY()
+	void getRipplesY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRipplesZ()
+	void getRipplesZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDepthMin()
+	void getDepthMin()const
 	{
 		fprintf(mFile,"\"%s.d.dmn\"",mName.c_str());
 
 	}
-	void getDepthMax()
+	void getDepthMax()const
 	{
 		fprintf(mFile,"\"%s.d.dmx\"",mName.c_str());
 
 	}
-	void getAmplitude()
+	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getRatio()
+	void getRatio()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
 protected:
-	Marble(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Marble(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

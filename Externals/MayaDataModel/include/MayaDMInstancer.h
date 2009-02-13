@@ -19,7 +19,8 @@ class Instancer : public Transform
 public:
 public:
 	Instancer():Transform(){}
-	Instancer(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "instancer"){}
+	Instancer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "instancer", create){}
 	virtual ~Instancer(){}
 	void setRotationOrder(unsigned int ror)
 	{
@@ -57,59 +58,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".lod\" %i;\n", lod);
 
 	}
-	void getInputPoints()
+	void getInputPoints()const
 	{
 		fprintf(mFile,"\"%s.inp\"",mName.c_str());
 
 	}
-	void getInputHierarchy(size_t inh_i)
+	void getInputHierarchy(size_t inh_i)const
 	{
 		fprintf(mFile,"\"%s.inh[%i]\"",mName.c_str(),inh_i);
 
 	}
-	void getRotationOrder()
+	void getRotationOrder()const
 	{
 		fprintf(mFile,"\"%s.ror\"",mName.c_str());
 
 	}
-	void getRotationAngleUnits()
+	void getRotationAngleUnits()const
 	{
 		fprintf(mFile,"\"%s.rau\"",mName.c_str());
 
 	}
-	void getCycle()
+	void getCycle()const
 	{
 		fprintf(mFile,"\"%s.cyc\"",mName.c_str());
 
 	}
-	void getCycleStep()
+	void getCycleStep()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getCycleStepUnit()
+	void getCycleStepUnit()const
 	{
 		fprintf(mFile,"\"%s.csu\"",mName.c_str());
 
 	}
-	void getLevelOfDetail()
+	void getLevelOfDetail()const
 	{
 		fprintf(mFile,"\"%s.lod\"",mName.c_str());
 
 	}
-	void getInstanceCount()
+	void getInstanceCount()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getHierarchyCount()
+	void getHierarchyCount()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 
 	}
 protected:
-	Instancer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	Instancer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

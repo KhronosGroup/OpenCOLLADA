@@ -42,7 +42,8 @@ public:
 	};
 public:
 	RemapValue():DependNode(){}
-	RemapValue(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "remapValue"){}
+	RemapValue(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "remapValue", create){}
 	virtual ~RemapValue(){}
 	void setInputValue(float i_)
 	{
@@ -143,114 +144,114 @@ public:
 		fprintf(mFile,"\tsetAttr \".cl[%i].cli\" %i;\n", cl_i,cli);
 
 	}
-	void getInputValue()
+	void getInputValue()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getInputMin()
+	void getInputMin()const
 	{
 		fprintf(mFile,"\"%s.imn\"",mName.c_str());
 
 	}
-	void getInputMax()
+	void getInputMax()const
 	{
 		fprintf(mFile,"\"%s.imx\"",mName.c_str());
 
 	}
-	void getOutputMin()
+	void getOutputMin()const
 	{
 		fprintf(mFile,"\"%s.omn\"",mName.c_str());
 
 	}
-	void getOutputMax()
+	void getOutputMax()const
 	{
 		fprintf(mFile,"\"%s.omx\"",mName.c_str());
 
 	}
-	void getValue(size_t vl_i)
+	void getValue(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i]\"",mName.c_str(),vl_i);
 
 	}
-	void getValue_Position(size_t vl_i)
+	void getValue_Position(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vlp\"",mName.c_str(),vl_i);
 
 	}
-	void getValue_FloatValue(size_t vl_i)
+	void getValue_FloatValue(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vlfv\"",mName.c_str(),vl_i);
 
 	}
-	void getValue_Interp(size_t vl_i)
+	void getValue_Interp(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vli\"",mName.c_str(),vl_i);
 
 	}
-	void getColor(size_t cl_i)
+	void getColor(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
 
 	}
-	void getColor_Position(size_t cl_i)
+	void getColor_Position(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clp\"",mName.c_str(),cl_i);
 
 	}
-	void getColor_Color(size_t cl_i)
+	void getColor_Color(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clc\"",mName.c_str(),cl_i);
 
 	}
-	void getColor_ColorR(size_t cl_i)
+	void getColor_ColorR(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clc.clcr\"",mName.c_str(),cl_i);
 
 	}
-	void getColor_ColorG(size_t cl_i)
+	void getColor_ColorG(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clc.clcg\"",mName.c_str(),cl_i);
 
 	}
-	void getColor_ColorB(size_t cl_i)
+	void getColor_ColorB(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].clc.clcb\"",mName.c_str(),cl_i);
 
 	}
-	void getColor_Interp(size_t cl_i)
+	void getColor_Interp(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i].cli\"",mName.c_str(),cl_i);
 
 	}
-	void getOutValue()
+	void getOutValue()const
 	{
 		fprintf(mFile,"\"%s.ov\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
 protected:
-	RemapValue(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RemapValue(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

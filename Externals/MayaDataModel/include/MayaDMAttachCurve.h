@@ -19,7 +19,8 @@ class AttachCurve : public AbstractBaseCreate
 public:
 public:
 	AttachCurve():AbstractBaseCreate(){}
-	AttachCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "attachCurve"){}
+	AttachCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "attachCurve", create){}
 	virtual ~AttachCurve(){}
 	void setReverse1(bool rv1)
 	{
@@ -63,64 +64,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".p\" %f;\n", p);
 
 	}
-	void getInputCurve1()
+	void getInputCurve1()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2()
+	void getInputCurve2()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getInputCurves(size_t ics_i)
+	void getInputCurves(size_t ics_i)const
 	{
 		fprintf(mFile,"\"%s.ics[%i]\"",mName.c_str(),ics_i);
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getReverse1()
+	void getReverse1()const
 	{
 		fprintf(mFile,"\"%s.rv1\"",mName.c_str());
 
 	}
-	void getReverse2()
+	void getReverse2()const
 	{
 		fprintf(mFile,"\"%s.rv2\"",mName.c_str());
 
 	}
-	void getMethod()
+	void getMethod()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getKeepMultipleKnots()
+	void getKeepMultipleKnots()const
 	{
 		fprintf(mFile,"\"%s.kmk\"",mName.c_str());
 
 	}
-	void getBlendBias()
+	void getBlendBias()const
 	{
 		fprintf(mFile,"\"%s.bb\"",mName.c_str());
 
 	}
-	void getBlendKnotInsertion()
+	void getBlendKnotInsertion()const
 	{
 		fprintf(mFile,"\"%s.bki\"",mName.c_str());
 
 	}
-	void getParameter()
+	void getParameter()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
 protected:
-	AttachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	AttachCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

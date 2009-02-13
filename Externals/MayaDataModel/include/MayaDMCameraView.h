@@ -19,7 +19,8 @@ class CameraView : public DependNode
 public:
 public:
 	CameraView():DependNode(){}
-	CameraView(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "cameraView"){}
+	CameraView(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "cameraView", create){}
 	virtual ~CameraView(){}
 	void setEye(const double3& e)
 	{
@@ -163,119 +164,119 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getEye()
+	void getEye()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
-	void getEyeX()
+	void getEyeX()const
 	{
 		fprintf(mFile,"\"%s.e.ex\"",mName.c_str());
 
 	}
-	void getEyeY()
+	void getEyeY()const
 	{
 		fprintf(mFile,"\"%s.e.ey\"",mName.c_str());
 
 	}
-	void getEyeZ()
+	void getEyeZ()const
 	{
 		fprintf(mFile,"\"%s.e.ez\"",mName.c_str());
 
 	}
-	void getCenterOfInterest()
+	void getCenterOfInterest()const
 	{
 		fprintf(mFile,"\"%s.coi\"",mName.c_str());
 
 	}
-	void getCenterOfInterestX()
+	void getCenterOfInterestX()const
 	{
 		fprintf(mFile,"\"%s.coi.cx\"",mName.c_str());
 
 	}
-	void getCenterOfInterestY()
+	void getCenterOfInterestY()const
 	{
 		fprintf(mFile,"\"%s.coi.cy\"",mName.c_str());
 
 	}
-	void getCenterOfInterestZ()
+	void getCenterOfInterestZ()const
 	{
 		fprintf(mFile,"\"%s.coi.cz\"",mName.c_str());
 
 	}
-	void getUp()
+	void getUp()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getUpX()
+	void getUpX()const
 	{
 		fprintf(mFile,"\"%s.u.ux\"",mName.c_str());
 
 	}
-	void getUpY()
+	void getUpY()const
 	{
 		fprintf(mFile,"\"%s.u.uy\"",mName.c_str());
 
 	}
-	void getUpZ()
+	void getUpZ()const
 	{
 		fprintf(mFile,"\"%s.u.uz\"",mName.c_str());
 
 	}
-	void getTumblePivot()
+	void getTumblePivot()const
 	{
 		fprintf(mFile,"\"%s.tp\"",mName.c_str());
 
 	}
-	void getTumblePivotX()
+	void getTumblePivotX()const
 	{
 		fprintf(mFile,"\"%s.tp.tpx\"",mName.c_str());
 
 	}
-	void getTumblePivotY()
+	void getTumblePivotY()const
 	{
 		fprintf(mFile,"\"%s.tp.tpy\"",mName.c_str());
 
 	}
-	void getTumblePivotZ()
+	void getTumblePivotZ()const
 	{
 		fprintf(mFile,"\"%s.tp.tpz\"",mName.c_str());
 
 	}
-	void getHorizontalAperture()
+	void getHorizontalAperture()const
 	{
 		fprintf(mFile,"\"%s.ha\"",mName.c_str());
 
 	}
-	void getVerticalAperture()
+	void getVerticalAperture()const
 	{
 		fprintf(mFile,"\"%s.va\"",mName.c_str());
 
 	}
-	void getFocalLength()
+	void getFocalLength()const
 	{
 		fprintf(mFile,"\"%s.fl\"",mName.c_str());
 
 	}
-	void getOrthographicWidth()
+	void getOrthographicWidth()const
 	{
 		fprintf(mFile,"\"%s.ow\"",mName.c_str());
 
 	}
-	void getOrthographic()
+	void getOrthographic()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getDescription()
+	void getDescription()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 protected:
-	CameraView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	CameraView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

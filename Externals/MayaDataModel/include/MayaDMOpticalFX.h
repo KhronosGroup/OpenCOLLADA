@@ -19,7 +19,8 @@ class OpticalFX : public DependNode
 public:
 public:
 	OpticalFX():DependNode(){}
-	OpticalFX(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "opticalFX"){}
+	OpticalFX(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "opticalFX", create){}
 	virtual ~OpticalFX(){}
 	void setActive(bool act)
 	{
@@ -419,334 +420,334 @@ public:
 		fprintf(mFile,"\tsetAttr \".vb.vbb\" %f;\n", vbb);
 
 	}
-	void getActive()
+	void getActive()const
 	{
 		fprintf(mFile,"\"%s.act\"",mName.c_str());
 
 	}
-	void getGlowType()
+	void getGlowType()const
 	{
 		fprintf(mFile,"\"%s.gt\"",mName.c_str());
 
 	}
-	void getHaloType()
+	void getHaloType()const
 	{
 		fprintf(mFile,"\"%s.ht\"",mName.c_str());
 
 	}
-	void getFogType()
+	void getFogType()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getLensFlare()
+	void getLensFlare()const
 	{
 		fprintf(mFile,"\"%s.lf\"",mName.c_str());
 
 	}
-	void getGlowColor()
+	void getGlowColor()const
 	{
 		fprintf(mFile,"\"%s.gc\"",mName.c_str());
 
 	}
-	void getGlowColorR()
+	void getGlowColorR()const
 	{
 		fprintf(mFile,"\"%s.gc.gr\"",mName.c_str());
 
 	}
-	void getGlowColorG()
+	void getGlowColorG()const
 	{
 		fprintf(mFile,"\"%s.gc.gg\"",mName.c_str());
 
 	}
-	void getGlowColorB()
+	void getGlowColorB()const
 	{
 		fprintf(mFile,"\"%s.gc.gb\"",mName.c_str());
 
 	}
-	void getHaloColor()
+	void getHaloColor()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 
 	}
-	void getHaloColorR()
+	void getHaloColorR()const
 	{
 		fprintf(mFile,"\"%s.hc.hr\"",mName.c_str());
 
 	}
-	void getHaloColorG()
+	void getHaloColorG()const
 	{
 		fprintf(mFile,"\"%s.hc.hg\"",mName.c_str());
 
 	}
-	void getHaloColorB()
+	void getHaloColorB()const
 	{
 		fprintf(mFile,"\"%s.hc.hb\"",mName.c_str());
 
 	}
-	void getFogColor()
+	void getFogColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFogColorR()
+	void getFogColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fr\"",mName.c_str());
 
 	}
-	void getFogColorG()
+	void getFogColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fg\"",mName.c_str());
 
 	}
-	void getFogColorB()
+	void getFogColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fb\"",mName.c_str());
 
 	}
-	void getFlareColor()
+	void getFlareColor()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
-	void getFlareColorR()
+	void getFlareColorR()const
 	{
 		fprintf(mFile,"\"%s.rc.rr\"",mName.c_str());
 
 	}
-	void getFlareColorG()
+	void getFlareColorG()const
 	{
 		fprintf(mFile,"\"%s.rc.rg\"",mName.c_str());
 
 	}
-	void getFlareColorB()
+	void getFlareColorB()const
 	{
 		fprintf(mFile,"\"%s.rc.rb\"",mName.c_str());
 
 	}
-	void getFlareIntensity()
+	void getFlareIntensity()const
 	{
 		fprintf(mFile,"\"%s.fi\"",mName.c_str());
 
 	}
-	void getFlareNumCircles()
+	void getFlareNumCircles()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getFlareMinSize()
+	void getFlareMinSize()const
 	{
 		fprintf(mFile,"\"%s.fm\"",mName.c_str());
 
 	}
-	void getFlareMaxSize()
+	void getFlareMaxSize()const
 	{
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 
 	}
-	void getFlareColSpread()
+	void getFlareColSpread()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 
 	}
-	void getFlareFocus()
+	void getFlareFocus()const
 	{
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 
 	}
-	void getFlareVertical()
+	void getFlareVertical()const
 	{
 		fprintf(mFile,"\"%s.fv\"",mName.c_str());
 
 	}
-	void getFlareHorizontal()
+	void getFlareHorizontal()const
 	{
 		fprintf(mFile,"\"%s.fh\"",mName.c_str());
 
 	}
-	void getFlareLength()
+	void getFlareLength()const
 	{
 		fprintf(mFile,"\"%s.fl\"",mName.c_str());
 
 	}
-	void getHexagonFlare()
+	void getHexagonFlare()const
 	{
 		fprintf(mFile,"\"%s.hf\"",mName.c_str());
 
 	}
-	void getGlowIntensity()
+	void getGlowIntensity()const
 	{
 		fprintf(mFile,"\"%s.gi\"",mName.c_str());
 
 	}
-	void getHaloIntensity()
+	void getHaloIntensity()const
 	{
 		fprintf(mFile,"\"%s.hi\"",mName.c_str());
 
 	}
-	void getFogIntensity()
+	void getFogIntensity()const
 	{
 		fprintf(mFile,"\"%s.oi\"",mName.c_str());
 
 	}
-	void getGlowSpread()
+	void getGlowSpread()const
 	{
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 
 	}
-	void getHaloSpread()
+	void getHaloSpread()const
 	{
 		fprintf(mFile,"\"%s.hs\"",mName.c_str());
 
 	}
-	void getFogSpread()
+	void getFogSpread()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getGlowNoise()
+	void getGlowNoise()const
 	{
 		fprintf(mFile,"\"%s.gd\"",mName.c_str());
 
 	}
-	void getFogNoise()
+	void getFogNoise()const
 	{
 		fprintf(mFile,"\"%s.fd\"",mName.c_str());
 
 	}
-	void getGlowRadialNoise()
+	void getGlowRadialNoise()const
 	{
 		fprintf(mFile,"\"%s.gn\"",mName.c_str());
 
 	}
-	void getFogRadialNoise()
+	void getFogRadialNoise()const
 	{
 		fprintf(mFile,"\"%s.fz\"",mName.c_str());
 
 	}
-	void getGlowStarLevel()
+	void getGlowStarLevel()const
 	{
 		fprintf(mFile,"\"%s.gv\"",mName.c_str());
 
 	}
-	void getFogStarlevel()
+	void getFogStarlevel()const
 	{
 		fprintf(mFile,"\"%s.fe\"",mName.c_str());
 
 	}
-	void getGlowOpacity()
+	void getGlowOpacity()const
 	{
 		fprintf(mFile,"\"%s.go\"",mName.c_str());
 
 	}
-	void getFogOpacity()
+	void getFogOpacity()const
 	{
 		fprintf(mFile,"\"%s.fo\"",mName.c_str());
 
 	}
-	void getRadialFrequency()
+	void getRadialFrequency()const
 	{
 		fprintf(mFile,"\"%s.rf\"",mName.c_str());
 
 	}
-	void getStarPoints()
+	void getStarPoints()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getRotation()
+	void getRotation()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getNoiseUscale()
+	void getNoiseUscale()const
 	{
 		fprintf(mFile,"\"%s.nu\"",mName.c_str());
 
 	}
-	void getNoiseVscale()
+	void getNoiseVscale()const
 	{
 		fprintf(mFile,"\"%s.nv\"",mName.c_str());
 
 	}
-	void getNoiseUoffset()
+	void getNoiseUoffset()const
 	{
 		fprintf(mFile,"\"%s.ni\"",mName.c_str());
 
 	}
-	void getNoiseVoffset()
+	void getNoiseVoffset()const
 	{
 		fprintf(mFile,"\"%s.nf\"",mName.c_str());
 
 	}
-	void getNoiseThreshold()
+	void getNoiseThreshold()const
 	{
 		fprintf(mFile,"\"%s.nt\"",mName.c_str());
 
 	}
-	void getIgnoreLight()
+	void getIgnoreLight()const
 	{
 		fprintf(mFile,"\"%s.il\"",mName.c_str());
 
 	}
-	void getLightWorldMat()
+	void getLightWorldMat()const
 	{
 		fprintf(mFile,"\"%s.lw\"",mName.c_str());
 
 	}
-	void getLightConnection()
+	void getLightConnection()const
 	{
 		fprintf(mFile,"\"%s.ln\"",mName.c_str());
 
 	}
-	void getGlowVisibility()
+	void getGlowVisibility()const
 	{
 		fprintf(mFile,"\"%s.gvb\"",mName.c_str());
 
 	}
-	void getLightColor()
+	void getLightColor()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getLightColorR()
+	void getLightColorR()const
 	{
 		fprintf(mFile,"\"%s.lr.lcr\"",mName.c_str());
 
 	}
-	void getLightColorG()
+	void getLightColorG()const
 	{
 		fprintf(mFile,"\"%s.lr.lcg\"",mName.c_str());
 
 	}
-	void getLightColorB()
+	void getLightColorB()const
 	{
 		fprintf(mFile,"\"%s.lr.lgb\"",mName.c_str());
 
 	}
-	void getVisibility()
+	void getVisibility()const
 	{
 		fprintf(mFile,"\"%s.vb\"",mName.c_str());
 
 	}
-	void getVisibilityR()
+	void getVisibilityR()const
 	{
 		fprintf(mFile,"\"%s.vb.vbr\"",mName.c_str());
 
 	}
-	void getVisibilityG()
+	void getVisibilityG()const
 	{
 		fprintf(mFile,"\"%s.vb.vbg\"",mName.c_str());
 
 	}
-	void getVisibilityB()
+	void getVisibilityB()const
 	{
 		fprintf(mFile,"\"%s.vb.vbb\"",mName.c_str());
 
 	}
 protected:
-	OpticalFX(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	OpticalFX(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

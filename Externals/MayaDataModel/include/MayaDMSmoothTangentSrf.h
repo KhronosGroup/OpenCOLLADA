@@ -19,7 +19,8 @@ class SmoothTangentSrf : public AbstractBaseCreate
 public:
 public:
 	SmoothTangentSrf():AbstractBaseCreate(){}
-	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "smoothTangentSrf"){}
+	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "smoothTangentSrf", create){}
 	virtual ~SmoothTangentSrf(){}
 	void setParameter(size_t p_i,double p)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startParameter(size_t p_start,size_t p_end)
+	void startParameter(size_t p_start,size_t p_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".p[%i:%i]\"",p_start,p_end);
 
 	}
-	void appendParameter(double p)
+	void appendParameter(double p)const
 	{
 		fprintf(mFile," %f",p);
 
 	}
-	void endParameter()
+	void endParameter()const
 	{
 		fprintf(mFile,";\n");
 
@@ -66,34 +67,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getParameter(size_t p_i)
+	void getParameter(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSmoothness()
+	void getSmoothness()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	SmoothTangentSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

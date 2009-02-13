@@ -19,7 +19,8 @@ class MakeNurbCube : public Primitive
 public:
 public:
 	MakeNurbCube():Primitive(){}
-	MakeNurbCube(FILE* file,const std::string& name,const std::string& parent=""):Primitive(file, name, parent, "makeNurbCube"){}
+	MakeNurbCube(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Primitive(file, name, parent, "makeNurbCube", create){}
 	virtual ~MakeNurbCube(){}
 	void setWidth(double w)
 	{
@@ -57,64 +58,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getLengthRatio()
+	void getLengthRatio()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getHeightRatio()
+	void getHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.hr\"",mName.c_str());
 
 	}
-	void getPatchesU()
+	void getPatchesU()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getPatchesV()
+	void getPatchesV()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getOutputSurface1()
+	void getOutputSurface1()const
 	{
 		fprintf(mFile,"\"%s.os1\"",mName.c_str());
 
 	}
-	void getOutputSurface2()
+	void getOutputSurface2()const
 	{
 		fprintf(mFile,"\"%s.os2\"",mName.c_str());
 
 	}
-	void getOutputSurface3()
+	void getOutputSurface3()const
 	{
 		fprintf(mFile,"\"%s.os3\"",mName.c_str());
 
 	}
-	void getOutputSurface4()
+	void getOutputSurface4()const
 	{
 		fprintf(mFile,"\"%s.os4\"",mName.c_str());
 
 	}
-	void getOutputSurface5()
+	void getOutputSurface5()const
 	{
 		fprintf(mFile,"\"%s.os5\"",mName.c_str());
 
 	}
 protected:
-	MakeNurbCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Primitive(file, name, parent, nodeType) {}
+	MakeNurbCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Primitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

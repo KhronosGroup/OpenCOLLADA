@@ -19,7 +19,8 @@ class NurbsTessellate : public ParentTessellate
 public:
 public:
 	NurbsTessellate():ParentTessellate(){}
-	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent=""):ParentTessellate(file, name, parent, "nurbsTessellate"){}
+	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ParentTessellate(file, name, parent, "nurbsTessellate", create){}
 	virtual ~NurbsTessellate(){}
 	void setSmoothEdge(bool ues)
 	{
@@ -57,44 +58,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".cvt\" %i;\n", cvt);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getSmoothEdge()
+	void getSmoothEdge()const
 	{
 		fprintf(mFile,"\"%s.ues\"",mName.c_str());
 
 	}
-	void getSmoothEdgeRatio()
+	void getSmoothEdgeRatio()const
 	{
 		fprintf(mFile,"\"%s.esr\"",mName.c_str());
 
 	}
-	void getExplicitTessellationAttributes()
+	void getExplicitTessellationAttributes()const
 	{
 		fprintf(mFile,"\"%s.eta\"",mName.c_str());
 
 	}
-	void getUDivisionsFactor()
+	void getUDivisionsFactor()const
 	{
 		fprintf(mFile,"\"%s.nuf\"",mName.c_str());
 
 	}
-	void getVDivisionsFactor()
+	void getVDivisionsFactor()const
 	{
 		fprintf(mFile,"\"%s.nvf\"",mName.c_str());
 
 	}
-	void getCurvatureTolerance()
+	void getCurvatureTolerance()const
 	{
 		fprintf(mFile,"\"%s.cvt\"",mName.c_str());
 
 	}
 protected:
-	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ParentTessellate(file, name, parent, nodeType) {}
+	NurbsTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ParentTessellate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

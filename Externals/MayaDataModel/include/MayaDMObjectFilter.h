@@ -19,7 +19,8 @@ class ObjectFilter : public DependNode
 public:
 public:
 	ObjectFilter():DependNode(){}
-	ObjectFilter(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "objectFilter"){}
+	ObjectFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "objectFilter", create){}
 	virtual ~ObjectFilter(){}
 	void setChild(bool ch)
 	{
@@ -60,49 +61,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".fcls\" %i;\n", fcls);
 
 	}
-	void getChild()
+	void getChild()const
 	{
 		fprintf(mFile,"\"%s.ch\"",mName.c_str());
 
 	}
-	void getInvert()
+	void getInvert()const
 	{
 		fprintf(mFile,"\"%s.inv\"",mName.c_str());
 
 	}
-	void getInputList()
+	void getInputList()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getOutputList()
+	void getOutputList()const
 	{
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
 
 	}
-	void getAnnotation()
+	void getAnnotation()const
 	{
 		fprintf(mFile,"\"%s.an\"",mName.c_str());
 
 	}
-	void getCategory()
+	void getCategory()const
 	{
 		fprintf(mFile,"\"%s.cat\"",mName.c_str());
 
 	}
-	void getDisable()
+	void getDisable()const
 	{
 		fprintf(mFile,"\"%s.dis\"",mName.c_str());
 
 	}
-	void getFilterClass()
+	void getFilterClass()const
 	{
 		fprintf(mFile,"\"%s.fcls\"",mName.c_str());
 
 	}
 protected:
-	ObjectFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ObjectFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

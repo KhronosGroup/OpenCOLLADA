@@ -19,7 +19,8 @@ class PolyHelix : public PolyPrimitive
 public:
 public:
 	PolyHelix():PolyPrimitive(){}
-	PolyHelix(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyHelix"){}
+	PolyHelix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyPrimitive(file, name, parent, "polyHelix", create){}
 	virtual ~PolyHelix(){}
 	void setCoils(double c)
 	{
@@ -93,69 +94,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".oib\" %i;\n", oib);
 
 	}
-	void getCoils()
+	void getCoils()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getHeight()
+	void getHeight()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSubdivisionsAxis()
+	void getSubdivisionsAxis()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getSubdivisionsCoil()
+	void getSubdivisionsCoil()const
 	{
 		fprintf(mFile,"\"%s.sco\"",mName.c_str());
 
 	}
-	void getSubdivisionsCaps()
+	void getSubdivisionsCaps()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getTexture()
+	void getTexture()const
 	{
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 
 	}
-	void getCreateUVs()
+	void getCreateUVs()const
 	{
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 
 	}
-	void getRoundCap()
+	void getRoundCap()const
 	{
 		fprintf(mFile,"\"%s.rcp\"",mName.c_str());
 
 	}
-	void getUseOldInitBehaviour()
+	void getUseOldInitBehaviour()const
 	{
 		fprintf(mFile,"\"%s.oib\"",mName.c_str());
 
 	}
 protected:
-	PolyHelix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyPrimitive(file, name, parent, nodeType) {}
+	PolyHelix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

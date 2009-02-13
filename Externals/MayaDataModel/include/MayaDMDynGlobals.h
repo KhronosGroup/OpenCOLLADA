@@ -19,7 +19,8 @@ class DynGlobals : public DependNode
 public:
 public:
 	DynGlobals():DependNode(){}
-	DynGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "dynGlobals"){}
+	DynGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "dynGlobals", create){}
 	virtual ~DynGlobals(){}
 	void setOverSamples(int os)
 	{
@@ -69,39 +70,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getOverSamples()
+	void getOverSamples()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getInternalOverSamples()
+	void getInternalOverSamples()const
 	{
 		fprintf(mFile,"\"%s.ios\"",mName.c_str());
 
 	}
-	void getUseParticleDiskCache()
+	void getUseParticleDiskCache()const
 	{
 		fprintf(mFile,"\"%s.upd\"",mName.c_str());
 
 	}
-	void getCacheDirectory()
+	void getCacheDirectory()const
 	{
 		fprintf(mFile,"\"%s.cd\"",mName.c_str());
 
 	}
-	void getMinFrameCached()
+	void getMinFrameCached()const
 	{
 		fprintf(mFile,"\"%s.mnf\"",mName.c_str());
 
 	}
-	void getMaxFrameCached()
+	void getMaxFrameCached()const
 	{
 		fprintf(mFile,"\"%s.mxf\"",mName.c_str());
 
 	}
 protected:
-	DynGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DynGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

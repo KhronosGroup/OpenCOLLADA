@@ -19,7 +19,8 @@ class BlendDevice : public Blend
 public:
 public:
 	BlendDevice():Blend(){}
-	BlendDevice(FILE* file,const std::string& name,const std::string& parent=""):Blend(file, name, parent, "blendDevice"){}
+	BlendDevice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Blend(file, name, parent, "blendDevice", create){}
 	virtual ~BlendDevice(){}
 	void setInputAngle(size_t ia_i,double ia)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInputAngle(size_t ia_start,size_t ia_end)
+	void startInputAngle(size_t ia_start,size_t ia_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ia[%i:%i]\"",ia_start,ia_end);
 
 	}
-	void appendInputAngle(double ia)
+	void appendInputAngle(double ia)const
 	{
 		fprintf(mFile," %f",ia);
 
 	}
-	void endInputAngle()
+	void endInputAngle()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,94 +73,94 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInputLinear(size_t il_start,size_t il_end)
+	void startInputLinear(size_t il_start,size_t il_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".il[%i:%i]\"",il_start,il_end);
 
 	}
-	void appendInputLinear(double il)
+	void appendInputLinear(double il)const
 	{
 		fprintf(mFile," %f",il);
 
 	}
-	void endInputLinear()
+	void endInputLinear()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getDeviceValue()
+	void getDeviceValue()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getDeviceBlender()
+	void getDeviceBlender()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getInputAngle(size_t ia_i)
+	void getInputAngle(size_t ia_i)const
 	{
 		fprintf(mFile,"\"%s.ia[%i]\"",mName.c_str(),ia_i);
 
 	}
-	void getOutputAngle()
+	void getOutputAngle()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
-	void getInputLinear(size_t il_i)
+	void getInputLinear(size_t il_i)const
 	{
 		fprintf(mFile,"\"%s.il[%i]\"",mName.c_str(),il_i);
 
 	}
-	void getOutputLinear()
+	void getOutputLinear()const
 	{
 		fprintf(mFile,"\"%s.ol\"",mName.c_str());
 
 	}
-	void getBlender()
+	void getBlender()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getMinTime()
+	void getMinTime()const
 	{
 		fprintf(mFile,"\"%s.mnt\"",mName.c_str());
 
 	}
-	void getPeriod()
+	void getPeriod()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getTimeStamp()
+	void getTimeStamp()const
 	{
 		fprintf(mFile,"\"%s.ts\"",mName.c_str());
 
 	}
-	void getData()
+	void getData()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getStride()
+	void getStride()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
 protected:
-	BlendDevice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Blend(file, name, parent, nodeType) {}
+	BlendDevice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Blend(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

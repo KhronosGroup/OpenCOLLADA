@@ -19,7 +19,8 @@ class PlusMinusAverage : public DependNode
 public:
 public:
 	PlusMinusAverage():DependNode(){}
-	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "plusMinusAverage"){}
+	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "plusMinusAverage", create){}
 	virtual ~PlusMinusAverage(){}
 	void setOperation(unsigned int op)
 	{
@@ -45,17 +46,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInput1D(size_t i1_start,size_t i1_end)
+	void startInput1D(size_t i1_start,size_t i1_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i1[%i:%i]\"",i1_start,i1_end);
 
 	}
-	void appendInput1D(float i1)
+	void appendInput1D(float i1)const
 	{
 		fprintf(mFile," %f",i1);
 
 	}
-	void endInput1D()
+	void endInput1D()const
 	{
 		fprintf(mFile,";\n");
 
@@ -80,17 +81,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInput2D(size_t i2_start,size_t i2_end)
+	void startInput2D(size_t i2_start,size_t i2_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i2[%i:%i]\"",i2_start,i2_end);
 
 	}
-	void appendInput2D(float i2)
+	void appendInput2D(float i2)const
 	{
 		fprintf(mFile," %f",i2);
 
 	}
-	void endInput2D()
+	void endInput2D()const
 	{
 		fprintf(mFile,";\n");
 
@@ -127,17 +128,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInput3D(size_t i3_start,size_t i3_end)
+	void startInput3D(size_t i3_start,size_t i3_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i3[%i:%i]\"",i3_start,i3_end);
 
 	}
-	void appendInput3D(float i3)
+	void appendInput3D(float i3)const
 	{
 		fprintf(mFile," %f",i3);
 
 	}
-	void endInput3D()
+	void endInput3D()const
 	{
 		fprintf(mFile,";\n");
 
@@ -160,94 +161,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".i3[%i].i3z\" %f;\n", i3_i,i3z);
 
 	}
-	void getOperation()
+	void getOperation()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getInput1D(size_t i1_i)
+	void getInput1D(size_t i1_i)const
 	{
 		fprintf(mFile,"\"%s.i1[%i]\"",mName.c_str(),i1_i);
 
 	}
-	void getInput2D(size_t i2_i)
+	void getInput2D(size_t i2_i)const
 	{
 		fprintf(mFile,"\"%s.i2[%i]\"",mName.c_str(),i2_i);
 
 	}
-	void getInput2Dx(size_t i2_i)
+	void getInput2Dx(size_t i2_i)const
 	{
 		fprintf(mFile,"\"%s.i2[%i].i2x\"",mName.c_str(),i2_i);
 
 	}
-	void getInput2Dy(size_t i2_i)
+	void getInput2Dy(size_t i2_i)const
 	{
 		fprintf(mFile,"\"%s.i2[%i].i2y\"",mName.c_str(),i2_i);
 
 	}
-	void getInput3D(size_t i3_i)
+	void getInput3D(size_t i3_i)const
 	{
 		fprintf(mFile,"\"%s.i3[%i]\"",mName.c_str(),i3_i);
 
 	}
-	void getInput3Dx(size_t i3_i)
+	void getInput3Dx(size_t i3_i)const
 	{
 		fprintf(mFile,"\"%s.i3[%i].i3x\"",mName.c_str(),i3_i);
 
 	}
-	void getInput3Dy(size_t i3_i)
+	void getInput3Dy(size_t i3_i)const
 	{
 		fprintf(mFile,"\"%s.i3[%i].i3y\"",mName.c_str(),i3_i);
 
 	}
-	void getInput3Dz(size_t i3_i)
+	void getInput3Dz(size_t i3_i)const
 	{
 		fprintf(mFile,"\"%s.i3[%i].i3z\"",mName.c_str(),i3_i);
 
 	}
-	void getOutput1D()
+	void getOutput1D()const
 	{
 		fprintf(mFile,"\"%s.o1\"",mName.c_str());
 
 	}
-	void getOutput2D()
+	void getOutput2D()const
 	{
 		fprintf(mFile,"\"%s.o2\"",mName.c_str());
 
 	}
-	void getOutput2Dx()
+	void getOutput2Dx()const
 	{
 		fprintf(mFile,"\"%s.o2.o2x\"",mName.c_str());
 
 	}
-	void getOutput2Dy()
+	void getOutput2Dy()const
 	{
 		fprintf(mFile,"\"%s.o2.o2y\"",mName.c_str());
 
 	}
-	void getOutput3D()
+	void getOutput3D()const
 	{
 		fprintf(mFile,"\"%s.o3\"",mName.c_str());
 
 	}
-	void getOutput3Dx()
+	void getOutput3Dx()const
 	{
 		fprintf(mFile,"\"%s.o3.o3x\"",mName.c_str());
 
 	}
-	void getOutput3Dy()
+	void getOutput3Dy()const
 	{
 		fprintf(mFile,"\"%s.o3.o3y\"",mName.c_str());
 
 	}
-	void getOutput3Dz()
+	void getOutput3Dz()const
 	{
 		fprintf(mFile,"\"%s.o3.o3z\"",mName.c_str());
 
 	}
 protected:
-	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	PlusMinusAverage(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

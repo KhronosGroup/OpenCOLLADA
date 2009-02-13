@@ -19,7 +19,8 @@ class SamplerInfo : public DependNode
 public:
 public:
 	SamplerInfo():DependNode(){}
-	SamplerInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "samplerInfo"){}
+	SamplerInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "samplerInfo", create){}
 	virtual ~SamplerInfo(){}
 	void setPointCamera(const float3& p)
 	{
@@ -255,194 +256,194 @@ public:
 		fprintf(mFile,"\tsetAttr \".fr\" %f;\n", fr);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getPointObj()
+	void getPointObj()const
 	{
 		fprintf(mFile,"\"%s.po\"",mName.c_str());
 
 	}
-	void getPointObjX()
+	void getPointObjX()const
 	{
 		fprintf(mFile,"\"%s.po.pox\"",mName.c_str());
 
 	}
-	void getPointObjY()
+	void getPointObjY()const
 	{
 		fprintf(mFile,"\"%s.po.poy\"",mName.c_str());
 
 	}
-	void getPointObjZ()
+	void getPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.po.poz\"",mName.c_str());
 
 	}
-	void getPointWorld()
+	void getPointWorld()const
 	{
 		fprintf(mFile,"\"%s.pw\"",mName.c_str());
 
 	}
-	void getPointWorldX()
+	void getPointWorldX()const
 	{
 		fprintf(mFile,"\"%s.pw.pwx\"",mName.c_str());
 
 	}
-	void getPointWorldY()
+	void getPointWorldY()const
 	{
 		fprintf(mFile,"\"%s.pw.pwy\"",mName.c_str());
 
 	}
-	void getPointWorldZ()
+	void getPointWorldZ()const
 	{
 		fprintf(mFile,"\"%s.pw.pwz\"",mName.c_str());
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.u\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.v\"",mName.c_str());
 
 	}
-	void getRayDirection()
+	void getRayDirection()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRayDirectionX()
+	void getRayDirectionX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRayDirectionY()
+	void getRayDirectionY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRayDirectionZ()
+	void getRayDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getTangentUCamera()
+	void getTangentUCamera()const
 	{
 		fprintf(mFile,"\"%s.tu\"",mName.c_str());
 
 	}
-	void getTangentUx()
+	void getTangentUx()const
 	{
 		fprintf(mFile,"\"%s.tu.tux\"",mName.c_str());
 
 	}
-	void getTangentUy()
+	void getTangentUy()const
 	{
 		fprintf(mFile,"\"%s.tu.tuy\"",mName.c_str());
 
 	}
-	void getTangentUz()
+	void getTangentUz()const
 	{
 		fprintf(mFile,"\"%s.tu.tuz\"",mName.c_str());
 
 	}
-	void getTangentVCamera()
+	void getTangentVCamera()const
 	{
 		fprintf(mFile,"\"%s.tv\"",mName.c_str());
 
 	}
-	void getTangentVx()
+	void getTangentVx()const
 	{
 		fprintf(mFile,"\"%s.tv.tvx\"",mName.c_str());
 
 	}
-	void getTangentVy()
+	void getTangentVy()const
 	{
 		fprintf(mFile,"\"%s.tv.tvy\"",mName.c_str());
 
 	}
-	void getTangentVz()
+	void getTangentVz()const
 	{
 		fprintf(mFile,"\"%s.tv.tvz\"",mName.c_str());
 
 	}
-	void getMatrixEyeToWorld()
+	void getMatrixEyeToWorld()const
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
 
 	}
-	void getPixelCenter()
+	void getPixelCenter()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getPixelCenterX()
+	void getPixelCenterX()const
 	{
 		fprintf(mFile,"\"%s.pc.pcx\"",mName.c_str());
 
 	}
-	void getPixelCenterY()
+	void getPixelCenterY()const
 	{
 		fprintf(mFile,"\"%s.pc.pcy\"",mName.c_str());
 
 	}
-	void getFlippedNormal()
+	void getFlippedNormal()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getFacingRatio()
+	void getFacingRatio()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
 protected:
-	SamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SamplerInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

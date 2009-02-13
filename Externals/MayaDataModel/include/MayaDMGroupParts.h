@@ -19,7 +19,8 @@ class GroupParts : public DependNode
 public:
 public:
 	GroupParts():DependNode(){}
-	GroupParts(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "groupParts"){}
+	GroupParts(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "groupParts", create){}
 	virtual ~GroupParts(){}
 	void setInputComponents(const componentList& ic)
 	{
@@ -41,34 +42,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".gi\" %i;\n", gi);
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getInputComponents()
+	void getInputComponents()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getInputRemoveComponent()
+	void getInputRemoveComponent()const
 	{
 		fprintf(mFile,"\"%s.irc\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getGroupId()
+	void getGroupId()const
 	{
 		fprintf(mFile,"\"%s.gi\"",mName.c_str());
 
 	}
 protected:
-	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	GroupParts(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -31,7 +31,8 @@ public:
 	};
 public:
 	PolyToSubdiv():DependNode(){}
-	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "polyToSubdiv"){}
+	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "polyToSubdiv", create){}
 	virtual ~PolyToSubdiv(){}
 	void setInMesh(const mesh& i_)
 	{
@@ -96,17 +97,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startUvPoints(size_t cuv_i,size_t uvp_start,size_t uvp_end)
+	void startUvPoints(size_t cuv_i,size_t uvp_start,size_t uvp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cuv[%i].uvp[%i:%i]\"",cuv_i,uvp_start,uvp_end);
 
 	}
-	void appendUvPoints(float uvp)
+	void appendUvPoints(float uvp)const
 	{
 		fprintf(mFile," %f",uvp);
 
 	}
-	void endUvPoints()
+	void endUvPoints()const
 	{
 		fprintf(mFile,";\n");
 
@@ -135,74 +136,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".qc\" %i;\n", qc);
 
 	}
-	void getInMesh()
+	void getInMesh()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getOutSubdiv()
+	void getOutSubdiv()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getMaxPolyCount()
+	void getMaxPolyCount()const
 	{
 		fprintf(mFile,"\"%s.mpc\"",mName.c_str());
 
 	}
-	void getMaxEdgesPerVert()
+	void getMaxEdgesPerVert()const
 	{
 		fprintf(mFile,"\"%s.me\"",mName.c_str());
 
 	}
-	void getApplyMatrixToResult()
+	void getApplyMatrixToResult()const
 	{
 		fprintf(mFile,"\"%s.amr\"",mName.c_str());
 
 	}
-	void getAbsolutePosition()
+	void getAbsolutePosition()const
 	{
 		fprintf(mFile,"\"%s.ap\"",mName.c_str());
 
 	}
-	void getUvTreatment()
+	void getUvTreatment()const
 	{
 		fprintf(mFile,"\"%s.uvt\"",mName.c_str());
 
 	}
-	void getCachedUVs(size_t cuv_i)
+	void getCachedUVs(size_t cuv_i)const
 	{
 		fprintf(mFile,"\"%s.cuv[%i]\"",mName.c_str(),cuv_i);
 
 	}
-	void getUvPoints(size_t cuv_i,size_t uvp_i)
+	void getUvPoints(size_t cuv_i,size_t uvp_i)const
 	{
 		fprintf(mFile,"\"%s.cuv[%i].uvp[%i]\"",mName.c_str(),cuv_i,uvp_i);
 
 	}
-	void getUvPointsU(size_t cuv_i,size_t uvp_i)
+	void getUvPointsU(size_t cuv_i,size_t uvp_i)const
 	{
 		fprintf(mFile,"\"%s.cuv[%i].uvp[%i].uvu\"",mName.c_str(),cuv_i,uvp_i);
 
 	}
-	void getUvPointsV(size_t cuv_i,size_t uvp_i)
+	void getUvPointsV(size_t cuv_i,size_t uvp_i)const
 	{
 		fprintf(mFile,"\"%s.cuv[%i].uvp[%i].uvv\"",mName.c_str(),cuv_i,uvp_i);
 
 	}
-	void getPreserveVertexOrdering()
+	void getPreserveVertexOrdering()const
 	{
 		fprintf(mFile,"\"%s.pvo\"",mName.c_str());
 
 	}
-	void getQuickConvert()
+	void getQuickConvert()const
 	{
 		fprintf(mFile,"\"%s.qc\"",mName.c_str());
 
 	}
 protected:
-	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	PolyToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

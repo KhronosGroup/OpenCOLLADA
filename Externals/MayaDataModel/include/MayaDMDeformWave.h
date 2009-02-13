@@ -19,7 +19,8 @@ class DeformWave : public DeformFunc
 public:
 public:
 	DeformWave():DeformFunc(){}
-	DeformWave(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformWave"){}
+	DeformWave(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformFunc(file, name, parent, "deformWave", create){}
 	virtual ~DeformWave(){}
 	void setMaxRadius(double mxr)
 	{
@@ -63,44 +64,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
-	void getMaxRadius()
+	void getMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mxr\"",mName.c_str());
 
 	}
-	void getMinRadius()
+	void getMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mnr\"",mName.c_str());
 
 	}
-	void getAmplitude()
+	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.amp\"",mName.c_str());
 
 	}
-	void getWavelength()
+	void getWavelength()const
 	{
 		fprintf(mFile,"\"%s.wav\"",mName.c_str());
 
 	}
-	void getDropoff()
+	void getDropoff()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getDropoffPosition()
+	void getDropoffPosition()const
 	{
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
 protected:
-	DeformWave(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformFunc(file, name, parent, nodeType) {}
+	DeformWave(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class RigidConstraint : public Transform
 public:
 public:
 	RigidConstraint():Transform(){}
-	RigidConstraint(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "rigidConstraint"){}
+	RigidConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "rigidConstraint", create){}
 	virtual ~RigidConstraint(){}
 	void setConstraintType(unsigned int typ)
 	{
@@ -153,154 +154,154 @@ public:
 		fprintf(mFile,"\tsetAttr \".udp.upz\" %f;\n", upz);
 
 	}
-	void getRigidBody1()
+	void getRigidBody1()const
 	{
 		fprintf(mFile,"\"%s.rb1\"",mName.c_str());
 
 	}
-	void getRigidBody2()
+	void getRigidBody2()const
 	{
 		fprintf(mFile,"\"%s.rb2\"",mName.c_str());
 
 	}
-	void getConstraintType()
+	void getConstraintType()const
 	{
 		fprintf(mFile,"\"%s.typ\"",mName.c_str());
 
 	}
-	void getInitialPositionX()
+	void getInitialPositionX()const
 	{
 		fprintf(mFile,"\"%s.ip.ipx\"",mName.c_str());
 
 	}
-	void getInitialPositionY()
+	void getInitialPositionY()const
 	{
 		fprintf(mFile,"\"%s.ip.ipy\"",mName.c_str());
 
 	}
-	void getInitialPositionZ()
+	void getInitialPositionZ()const
 	{
 		fprintf(mFile,"\"%s.ip.ipz\"",mName.c_str());
 
 	}
-	void getVelocity()
+	void getVelocity()const
 	{
 		fprintf(mFile,"\"%s.vel\"",mName.c_str());
 
 	}
-	void getVelocityX()
+	void getVelocityX()const
 	{
 		fprintf(mFile,"\"%s.vel.vlx\"",mName.c_str());
 
 	}
-	void getVelocityY()
+	void getVelocityY()const
 	{
 		fprintf(mFile,"\"%s.vel.vly\"",mName.c_str());
 
 	}
-	void getVelocityZ()
+	void getVelocityZ()const
 	{
 		fprintf(mFile,"\"%s.vel.vlz\"",mName.c_str());
 
 	}
-	void getAngularVelocity()
+	void getAngularVelocity()const
 	{
 		fprintf(mFile,"\"%s.avl\"",mName.c_str());
 
 	}
-	void getAngularVelocityX()
+	void getAngularVelocityX()const
 	{
 		fprintf(mFile,"\"%s.avl.avx\"",mName.c_str());
 
 	}
-	void getAngularVelocityY()
+	void getAngularVelocityY()const
 	{
 		fprintf(mFile,"\"%s.avl.avy\"",mName.c_str());
 
 	}
-	void getAngularVelocityZ()
+	void getAngularVelocityZ()const
 	{
 		fprintf(mFile,"\"%s.avl.avz\"",mName.c_str());
 
 	}
-	void getInitialOrientationX()
+	void getInitialOrientationX()const
 	{
 		fprintf(mFile,"\"%s.ino.iox\"",mName.c_str());
 
 	}
-	void getInitialOrientationY()
+	void getInitialOrientationY()const
 	{
 		fprintf(mFile,"\"%s.ino.ioy\"",mName.c_str());
 
 	}
-	void getInitialOrientationZ()
+	void getInitialOrientationZ()const
 	{
 		fprintf(mFile,"\"%s.ino.ioz\"",mName.c_str());
 
 	}
-	void getSpringStiffness()
+	void getSpringStiffness()const
 	{
 		fprintf(mFile,"\"%s.sst\"",mName.c_str());
 
 	}
-	void getSpringDamping()
+	void getSpringDamping()const
 	{
 		fprintf(mFile,"\"%s.dmp\"",mName.c_str());
 
 	}
-	void getSpringRestLength()
+	void getSpringRestLength()const
 	{
 		fprintf(mFile,"\"%s.srl\"",mName.c_str());
 
 	}
-	void getInterpenetrate()
+	void getInterpenetrate()const
 	{
 		fprintf(mFile,"\"%s.int\"",mName.c_str());
 
 	}
-	void getIsParented()
+	void getIsParented()const
 	{
 		fprintf(mFile,"\"%s.par\"",mName.c_str());
 
 	}
-	void getIsBounded()
+	void getIsBounded()const
 	{
 		fprintf(mFile,"\"%s.bon\"",mName.c_str());
 
 	}
-	void getSolverId()
+	void getSolverId()const
 	{
 		fprintf(mFile,"\"%s.sid\"",mName.c_str());
 
 	}
-	void getConstrain()
+	void getConstrain()const
 	{
 		fprintf(mFile,"\"%s.con\"",mName.c_str());
 
 	}
-	void getRelativeTo()
+	void getRelativeTo()const
 	{
 		fprintf(mFile,"\"%s.rlt\"",mName.c_str());
 
 	}
-	void getUserDefinedPositionX()
+	void getUserDefinedPositionX()const
 	{
 		fprintf(mFile,"\"%s.udp.upx\"",mName.c_str());
 
 	}
-	void getUserDefinedPositionY()
+	void getUserDefinedPositionY()const
 	{
 		fprintf(mFile,"\"%s.udp.upy\"",mName.c_str());
 
 	}
-	void getUserDefinedPositionZ()
+	void getUserDefinedPositionZ()const
 	{
 		fprintf(mFile,"\"%s.udp.upz\"",mName.c_str());
 
 	}
 protected:
-	RigidConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	RigidConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

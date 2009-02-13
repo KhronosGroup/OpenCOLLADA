@@ -19,7 +19,8 @@ class Texture2d : public DependNode
 public:
 public:
 	Texture2d():DependNode(){}
-	Texture2d(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "texture2d"){}
+	Texture2d(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "texture2d", create){}
 	virtual ~Texture2d(){}
 	void setFilter(float f)
 	{
@@ -135,154 +136,154 @@ public:
 		fprintf(mFile,"\tsetAttr \".dc.dcb\" %f;\n", dcb);
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.u\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.v\"",mName.c_str());
 
 	}
-	void getUvFilterSize()
+	void getUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getUvFilterSizeX()
+	void getUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
 
 	}
-	void getUvFilterSizeY()
+	void getUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
 
 	}
-	void getFilter()
+	void getFilter()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getFilterOffset()
+	void getFilterOffset()const
 	{
 		fprintf(mFile,"\"%s.fo\"",mName.c_str());
 
 	}
-	void getInvert()
+	void getInvert()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getAlphaIsLuminance()
+	void getAlphaIsLuminance()const
 	{
 		fprintf(mFile,"\"%s.ail\"",mName.c_str());
 
 	}
-	void getColorGain()
+	void getColorGain()const
 	{
 		fprintf(mFile,"\"%s.cg\"",mName.c_str());
 
 	}
-	void getColorGainR()
+	void getColorGainR()const
 	{
 		fprintf(mFile,"\"%s.cg.cgr\"",mName.c_str());
 
 	}
-	void getColorGainG()
+	void getColorGainG()const
 	{
 		fprintf(mFile,"\"%s.cg.cgg\"",mName.c_str());
 
 	}
-	void getColorGainB()
+	void getColorGainB()const
 	{
 		fprintf(mFile,"\"%s.cg.cgb\"",mName.c_str());
 
 	}
-	void getColorOffset()
+	void getColorOffset()const
 	{
 		fprintf(mFile,"\"%s.co\"",mName.c_str());
 
 	}
-	void getColorOffsetR()
+	void getColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.co.cor\"",mName.c_str());
 
 	}
-	void getColorOffsetG()
+	void getColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.co.cog\"",mName.c_str());
 
 	}
-	void getColorOffsetB()
+	void getColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.co.cob\"",mName.c_str());
 
 	}
-	void getAlphaGain()
+	void getAlphaGain()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
-	void getAlphaOffset()
+	void getAlphaOffset()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
 
 	}
-	void getDefaultColor()
+	void getDefaultColor()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getDefaultColorR()
+	void getDefaultColorR()const
 	{
 		fprintf(mFile,"\"%s.dc.dcr\"",mName.c_str());
 
 	}
-	void getDefaultColorG()
+	void getDefaultColorG()const
 	{
 		fprintf(mFile,"\"%s.dc.dcg\"",mName.c_str());
 
 	}
-	void getDefaultColorB()
+	void getDefaultColorB()const
 	{
 		fprintf(mFile,"\"%s.dc.dcb\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
-	void getOutAlpha()
+	void getOutAlpha()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
 protected:
-	Texture2d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Texture2d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class NonLinear : public GeometryFilter
 public:
 public:
 	NonLinear():GeometryFilter(){}
-	NonLinear(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "nonLinear"){}
+	NonLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "nonLinear", create){}
 	virtual ~NonLinear(){}
 	void setMatrix(const matrix& ma)
 	{
@@ -29,19 +30,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getDeformerData()
+	void getDeformerData()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
-	void getMatrix()
+	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
 protected:
-	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	NonLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

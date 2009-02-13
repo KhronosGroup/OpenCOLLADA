@@ -83,7 +83,8 @@ public:
 	};
 public:
 	Subdiv():SurfaceShape(){}
-	Subdiv(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "subdiv"){}
+	Subdiv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SurfaceShape(file, name, parent, "subdiv", create){}
 	virtual ~Subdiv(){}
 	void setDispVertices(bool dv)
 	{
@@ -159,17 +160,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startSingleVertexTweak(size_t vtw_i,size_t stw_start,size_t stw_end)
+	void startSingleVertexTweak(size_t vtw_i,size_t stw_start,size_t stw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".vtw[%i].stw[%i:%i]\"",vtw_i,stw_start,stw_end);
 
 	}
-	void appendSingleVertexTweak(double stw)
+	void appendSingleVertexTweak(double stw)const
 	{
 		fprintf(mFile," %f",stw);
 
 	}
-	void endSingleVertexTweak()
+	void endSingleVertexTweak()const
 	{
 		fprintf(mFile,";\n");
 
@@ -367,299 +368,299 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.rfrr\" %i;\n", rfrr);
 
 	}
-	void getCreate()
+	void getCreate()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getCached()
+	void getCached()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
-	void getDispVertices()
+	void getDispVertices()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getDispVerticesAsLimitPoints()
+	void getDispVerticesAsLimitPoints()const
 	{
 		fprintf(mFile,"\"%s.dvl\"",mName.c_str());
 
 	}
-	void getLocalizeLimitPointsEdit()
+	void getLocalizeLimitPointsEdit()const
 	{
 		fprintf(mFile,"\"%s.llp\"",mName.c_str());
 
 	}
-	void getDispEdges()
+	void getDispEdges()const
 	{
 		fprintf(mFile,"\"%s.de\"",mName.c_str());
 
 	}
-	void getDispFaces()
+	void getDispFaces()const
 	{
 		fprintf(mFile,"\"%s.df\"",mName.c_str());
 
 	}
-	void getDispMaps()
+	void getDispMaps()const
 	{
 		fprintf(mFile,"\"%s.dm\"",mName.c_str());
 
 	}
-	void getDispUVBorder()
+	void getDispUVBorder()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getDispCreases()
+	void getDispCreases()const
 	{
 		fprintf(mFile,"\"%s.dcr\"",mName.c_str());
 
 	}
-	void getDispGeometry()
+	void getDispGeometry()const
 	{
 		fprintf(mFile,"\"%s.dg\"",mName.c_str());
 
 	}
-	void getDispResolution()
+	void getDispResolution()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getVertex(size_t vt_i)
+	void getVertex(size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i]\"",mName.c_str(),vt_i);
 
 	}
-	void getSingleVertex(size_t vt_i,size_t svt_i)
+	void getSingleVertex(size_t vt_i,size_t svt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].svt[%i]\"",mName.c_str(),vt_i,svt_i);
 
 	}
-	void getSingleVertexX(size_t vt_i,size_t svt_i)
+	void getSingleVertexX(size_t vt_i,size_t svt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].svt[%i].svx\"",mName.c_str(),vt_i,svt_i);
 
 	}
-	void getSingleVertexY(size_t vt_i,size_t svt_i)
+	void getSingleVertexY(size_t vt_i,size_t svt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].svt[%i].svy\"",mName.c_str(),vt_i,svt_i);
 
 	}
-	void getSingleVertexZ(size_t vt_i,size_t svt_i)
+	void getSingleVertexZ(size_t vt_i,size_t svt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].svt[%i].svz\"",mName.c_str(),vt_i,svt_i);
 
 	}
-	void getVertexTweak(size_t vtw_i)
+	void getVertexTweak(size_t vtw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i]\"",mName.c_str(),vtw_i);
 
 	}
-	void getSingleVertexTweak(size_t vtw_i,size_t stw_i)
+	void getSingleVertexTweak(size_t vtw_i,size_t stw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i]\"",mName.c_str(),vtw_i,stw_i);
 
 	}
-	void getSingleVertexTweakX(size_t vtw_i,size_t stw_i)
+	void getSingleVertexTweakX(size_t vtw_i,size_t stw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i].stwx\"",mName.c_str(),vtw_i,stw_i);
 
 	}
-	void getSingleVertexTweakY(size_t vtw_i,size_t stw_i)
+	void getSingleVertexTweakY(size_t vtw_i,size_t stw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i].stwy\"",mName.c_str(),vtw_i,stw_i);
 
 	}
-	void getSingleVertexTweakZ(size_t vtw_i,size_t stw_i)
+	void getSingleVertexTweakZ(size_t vtw_i,size_t stw_i)const
 	{
 		fprintf(mFile,"\"%s.vtw[%i].stw[%i].stwz\"",mName.c_str(),vtw_i,stw_i);
 
 	}
-	void getOutSubdiv()
+	void getOutSubdiv()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getWorldSubdiv(size_t ws_i)
+	void getWorldSubdiv(size_t ws_i)const
 	{
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
 
 	}
-	void getEdgeCrease()
+	void getEdgeCrease()const
 	{
 		fprintf(mFile,"\"%s.ecr\"",mName.c_str());
 
 	}
-	void getTextureCoord()
+	void getTextureCoord()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
-	void getFaceUVIds(size_t fuv_i)
+	void getFaceUVIds(size_t fuv_i)const
 	{
 		fprintf(mFile,"\"%s.fuv[%i]\"",mName.c_str(),fuv_i);
 
 	}
-	void getNormalsDisplayScale()
+	void getNormalsDisplayScale()const
 	{
 		fprintf(mFile,"\"%s.ndf\"",mName.c_str());
 
 	}
-	void getFormat()
+	void getFormat()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSampleCount()
+	void getSampleCount()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getDisplayLevel()
+	void getDisplayLevel()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getDisplayFilter()
+	void getDisplayFilter()const
 	{
 		fprintf(mFile,"\"%s.dfl\"",mName.c_str());
 
 	}
-	void getBaseFaceCount()
+	void getBaseFaceCount()const
 	{
 		fprintf(mFile,"\"%s.bfc\"",mName.c_str());
 
 	}
-	void getLevelOneFaceCount()
+	void getLevelOneFaceCount()const
 	{
 		fprintf(mFile,"\"%s.ofc\"",mName.c_str());
 
 	}
-	void getScalingHierarchy()
+	void getScalingHierarchy()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOverrideCaustics()
+	void getMiOverrideCaustics()const
 	{
 		fprintf(mFile,"\"%s.mrc.oca\"",mName.c_str());
 
 	}
-	void getMiCausticAccuracy()
+	void getMiCausticAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.caa\"",mName.c_str());
 
 	}
-	void getMiCausticRadius()
+	void getMiCausticRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.car\"",mName.c_str());
 
 	}
-	void getMiOverrideGlobalIllumination()
+	void getMiOverrideGlobalIllumination()const
 	{
 		fprintf(mFile,"\"%s.mrc.ogi\"",mName.c_str());
 
 	}
-	void getMiGlobillumAccuracy()
+	void getMiGlobillumAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.gia\"",mName.c_str());
 
 	}
-	void getMiGlobillumRadius()
+	void getMiGlobillumRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.gir\"",mName.c_str());
 
 	}
-	void getMiOverrideFinalGather()
+	void getMiOverrideFinalGather()const
 	{
 		fprintf(mFile,"\"%s.mrc.ofg\"",mName.c_str());
 
 	}
-	void getMiFinalGatherRays()
+	void getMiFinalGatherRays()const
 	{
 		fprintf(mFile,"\"%s.mrc.fry\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMinRadius()
+	void getMiFinalGatherMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmn\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMaxRadius()
+	void getMiFinalGatherMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmx\"",mName.c_str());
 
 	}
-	void getMiFinalGatherFilter()
+	void getMiFinalGatherFilter()const
 	{
 		fprintf(mFile,"\"%s.mrc.ffi\"",mName.c_str());
 
 	}
-	void getMiFinalGatherView()
+	void getMiFinalGatherView()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgv\"",mName.c_str());
 
 	}
-	void getMiOverrideSamples()
+	void getMiOverrideSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.oos\"",mName.c_str());
 
 	}
-	void getMiMinSamples()
+	void getMiMinSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.mins\"",mName.c_str());
 
 	}
-	void getMiMaxSamples()
+	void getMiMaxSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 
 	}
-	void getMiFinalGatherCast()
+	void getMiFinalGatherCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgc\"",mName.c_str());
 
 	}
-	void getMiFinalGatherReceive()
+	void getMiFinalGatherReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.fge\"",mName.c_str());
 
 	}
-	void getMiTransparencyCast()
+	void getMiTransparencyCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpc\"",mName.c_str());
 
 	}
-	void getMiTransparencyReceive()
+	void getMiTransparencyReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpr\"",mName.c_str());
 
 	}
-	void getMiReflectionReceive()
+	void getMiReflectionReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.rflr\"",mName.c_str());
 
 	}
-	void getMiRefractionReceive()
+	void getMiRefractionReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.rfrr\"",mName.c_str());
 
 	}
 protected:
-	Subdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SurfaceShape(file, name, parent, nodeType) {}
+	Subdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class AttachSurface : public AbstractBaseCreate
 public:
 public:
 	AttachSurface():AbstractBaseCreate(){}
-	AttachSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "attachSurface"){}
+	AttachSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "attachSurface", create){}
 	virtual ~AttachSurface(){}
 	void setMethod(unsigned int m)
 	{
@@ -87,79 +88,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".kmk\" %i;\n", kmk);
 
 	}
-	void getInputSurface1()
+	void getInputSurface1()const
 	{
 		fprintf(mFile,"\"%s.is1\"",mName.c_str());
 
 	}
-	void getInputSurface2()
+	void getInputSurface2()const
 	{
 		fprintf(mFile,"\"%s.is2\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getMethod()
+	void getMethod()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getDirectionU()
+	void getDirectionU()const
 	{
 		fprintf(mFile,"\"%s.du\"",mName.c_str());
 
 	}
-	void getReverse1()
+	void getReverse1()const
 	{
 		fprintf(mFile,"\"%s.rv1\"",mName.c_str());
 
 	}
-	void getReverse2()
+	void getReverse2()const
 	{
 		fprintf(mFile,"\"%s.rv2\"",mName.c_str());
 
 	}
-	void getSwap1()
+	void getSwap1()const
 	{
 		fprintf(mFile,"\"%s.sw1\"",mName.c_str());
 
 	}
-	void getSwap2()
+	void getSwap2()const
 	{
 		fprintf(mFile,"\"%s.sw2\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.tw\"",mName.c_str());
 
 	}
-	void getBlendBias()
+	void getBlendBias()const
 	{
 		fprintf(mFile,"\"%s.bb\"",mName.c_str());
 
 	}
-	void getBlendKnotInsertion()
+	void getBlendKnotInsertion()const
 	{
 		fprintf(mFile,"\"%s.bki\"",mName.c_str());
 
 	}
-	void getParameter()
+	void getParameter()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getKeepMultipleKnots()
+	void getKeepMultipleKnots()const
 	{
 		fprintf(mFile,"\"%s.kmk\"",mName.c_str());
 
 	}
 protected:
-	AttachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	AttachSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

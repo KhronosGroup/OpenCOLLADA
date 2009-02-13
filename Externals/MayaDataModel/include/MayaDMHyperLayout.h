@@ -32,7 +32,8 @@ public:
 	};
 public:
 	HyperLayout():DependNode(){}
-	HyperLayout(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hyperLayout"){}
+	HyperLayout(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hyperLayout", create){}
 	virtual ~HyperLayout(){}
 	void setHyperPosition(size_t hyp_i,const HyperPosition& hyp)
 	{
@@ -105,69 +106,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".anf\" %i;\n", anf);
 
 	}
-	void getHyperPosition(size_t hyp_i)
+	void getHyperPosition(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i]\"",mName.c_str(),hyp_i);
 
 	}
-	void getPositionX(size_t hyp_i)
+	void getPositionX(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].x\"",mName.c_str(),hyp_i);
 
 	}
-	void getPositionY(size_t hyp_i)
+	void getPositionY(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].y\"",mName.c_str(),hyp_i);
 
 	}
-	void getIsCollapsed(size_t hyp_i)
+	void getIsCollapsed(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].isc\"",mName.c_str(),hyp_i);
 
 	}
-	void getIsFreeform(size_t hyp_i)
+	void getIsFreeform(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].isf\"",mName.c_str(),hyp_i);
 
 	}
-	void getDependNode(size_t hyp_i)
+	void getDependNode(size_t hyp_i)const
 	{
 		fprintf(mFile,"\"%s.hyp[%i].dn\"",mName.c_str(),hyp_i);
 
 	}
-	void getImageName()
+	void getImageName()const
 	{
 		fprintf(mFile,"\"%s.img\"",mName.c_str());
 
 	}
-	void getImagePosition()
+	void getImagePosition()const
 	{
 		fprintf(mFile,"\"%s.imp\"",mName.c_str());
 
 	}
-	void getImagePositionX()
+	void getImagePositionX()const
 	{
 		fprintf(mFile,"\"%s.imp.ipx\"",mName.c_str());
 
 	}
-	void getImagePositionY()
+	void getImagePositionY()const
 	{
 		fprintf(mFile,"\"%s.imp.ipy\"",mName.c_str());
 
 	}
-	void getImageScale()
+	void getImageScale()const
 	{
 		fprintf(mFile,"\"%s.ims\"",mName.c_str());
 
 	}
-	void getAllNodesFreeform()
+	void getAllNodesFreeform()const
 	{
 		fprintf(mFile,"\"%s.anf\"",mName.c_str());
 
 	}
 protected:
-	HyperLayout(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HyperLayout(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

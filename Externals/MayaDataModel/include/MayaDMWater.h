@@ -19,7 +19,8 @@ class Water : public Texture2d
 public:
 public:
 	Water():Texture2d(){}
-	Water(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "water"){}
+	Water(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "water", create){}
 	virtual ~Water(){}
 	void setNumberOfWaves(short nw)
 	{
@@ -203,154 +204,154 @@ public:
 		fprintf(mFile,"\tsetAttr \".fa\" %i;\n", fa);
 
 	}
-	void getNumberOfWaves()
+	void getNumberOfWaves()const
 	{
 		fprintf(mFile,"\"%s.nw\"",mName.c_str());
 
 	}
-	void getWaveTime()
+	void getWaveTime()const
 	{
 		fprintf(mFile,"\"%s.wt\"",mName.c_str());
 
 	}
-	void getWaveVelocity()
+	void getWaveVelocity()const
 	{
 		fprintf(mFile,"\"%s.wv\"",mName.c_str());
 
 	}
-	void getWaveAmplitude()
+	void getWaveAmplitude()const
 	{
 		fprintf(mFile,"\"%s.wa\"",mName.c_str());
 
 	}
-	void getWaveFrequency()
+	void getWaveFrequency()const
 	{
 		fprintf(mFile,"\"%s.wf\"",mName.c_str());
 
 	}
-	void getSubWaveFrequency()
+	void getSubWaveFrequency()const
 	{
 		fprintf(mFile,"\"%s.swf\"",mName.c_str());
 
 	}
-	void getSmoothness()
+	void getSmoothness()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getWindUV()
+	void getWindUV()const
 	{
 		fprintf(mFile,"\"%s.wi\"",mName.c_str());
 
 	}
-	void getWindU()
+	void getWindU()const
 	{
 		fprintf(mFile,"\"%s.wi.wiu\"",mName.c_str());
 
 	}
-	void getWindV()
+	void getWindV()const
 	{
 		fprintf(mFile,"\"%s.wi.wiv\"",mName.c_str());
 
 	}
-	void getRippleTime()
+	void getRippleTime()const
 	{
 		fprintf(mFile,"\"%s.rt\"",mName.c_str());
 
 	}
-	void getRippleFrequency()
+	void getRippleFrequency()const
 	{
 		fprintf(mFile,"\"%s.rf\"",mName.c_str());
 
 	}
-	void getRippleAmplitude()
+	void getRippleAmplitude()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getDropSize()
+	void getDropSize()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getRippleOrigin()
+	void getRippleOrigin()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
-	void getRippleOriginU()
+	void getRippleOriginU()const
 	{
 		fprintf(mFile,"\"%s.rc.rcu\"",mName.c_str());
 
 	}
-	void getRippleOriginV()
+	void getRippleOriginV()const
 	{
 		fprintf(mFile,"\"%s.rc.rcv\"",mName.c_str());
 
 	}
-	void getGroupVelocity()
+	void getGroupVelocity()const
 	{
 		fprintf(mFile,"\"%s.gv\"",mName.c_str());
 
 	}
-	void getPhaseVelocity()
+	void getPhaseVelocity()const
 	{
 		fprintf(mFile,"\"%s.pv\"",mName.c_str());
 
 	}
-	void getSpreadStart()
+	void getSpreadStart()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getSpreadRate()
+	void getSpreadRate()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getReflectionBox()
+	void getReflectionBox()const
 	{
 		fprintf(mFile,"\"%s.rb\"",mName.c_str());
 
 	}
-	void getBoxMin()
+	void getBoxMin()const
 	{
 		fprintf(mFile,"\"%s.bmn\"",mName.c_str());
 
 	}
-	void getBoxMinU()
+	void getBoxMinU()const
 	{
 		fprintf(mFile,"\"%s.bmn.bu1\"",mName.c_str());
 
 	}
-	void getBoxMinV()
+	void getBoxMinV()const
 	{
 		fprintf(mFile,"\"%s.bmn.bv1\"",mName.c_str());
 
 	}
-	void getBoxMax()
+	void getBoxMax()const
 	{
 		fprintf(mFile,"\"%s.bmx\"",mName.c_str());
 
 	}
-	void getBoxMaxU()
+	void getBoxMaxU()const
 	{
 		fprintf(mFile,"\"%s.bmx.bu2\"",mName.c_str());
 
 	}
-	void getBoxMaxV()
+	void getBoxMaxV()const
 	{
 		fprintf(mFile,"\"%s.bmx.bv2\"",mName.c_str());
 
 	}
-	void getFast()
+	void getFast()const
 	{
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 
 	}
 protected:
-	Water(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Water(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

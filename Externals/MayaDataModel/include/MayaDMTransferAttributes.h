@@ -19,7 +19,8 @@ class TransferAttributes : public WeightGeometryFilter
 public:
 public:
 	TransferAttributes():WeightGeometryFilter(){}
-	TransferAttributes(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "transferAttributes"){}
+	TransferAttributes(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:WeightGeometryFilter(file, name, parent, "transferAttributes", create){}
 	virtual ~TransferAttributes(){}
 	void setTransferPositions(unsigned int pos)
 	{
@@ -155,114 +156,114 @@ public:
 		fprintf(mFile,"\tsetAttr \".clb\" %i;\n", clb);
 
 	}
-	void getSource(size_t src_i)
+	void getSource(size_t src_i)const
 	{
 		fprintf(mFile,"\"%s.src[%i]\"",mName.c_str(),src_i);
 
 	}
-	void getTransferPositions()
+	void getTransferPositions()const
 	{
 		fprintf(mFile,"\"%s.pos\"",mName.c_str());
 
 	}
-	void getTransferNormals()
+	void getTransferNormals()const
 	{
 		fprintf(mFile,"\"%s.nml\"",mName.c_str());
 
 	}
-	void getTransferUVs()
+	void getTransferUVs()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
-	void getSourceUVSet()
+	void getSourceUVSet()const
 	{
 		fprintf(mFile,"\"%s.suv\"",mName.c_str());
 
 	}
-	void getTargetUVSet()
+	void getTargetUVSet()const
 	{
 		fprintf(mFile,"\"%s.tuv\"",mName.c_str());
 
 	}
-	void getTransferColors()
+	void getTransferColors()const
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
 
 	}
-	void getSourceColorSet()
+	void getSourceColorSet()const
 	{
 		fprintf(mFile,"\"%s.scs\"",mName.c_str());
 
 	}
-	void getTargetColorSet()
+	void getTargetColorSet()const
 	{
 		fprintf(mFile,"\"%s.tcs\"",mName.c_str());
 
 	}
-	void getSampleSpace()
+	void getSampleSpace()const
 	{
 		fprintf(mFile,"\"%s.spa\"",mName.c_str());
 
 	}
-	void getSourceUVSpace()
+	void getSourceUVSpace()const
 	{
 		fprintf(mFile,"\"%s.sus\"",mName.c_str());
 
 	}
-	void getTargetUVSpace()
+	void getTargetUVSpace()const
 	{
 		fprintf(mFile,"\"%s.tus\"",mName.c_str());
 
 	}
-	void getSearchMethod()
+	void getSearchMethod()const
 	{
 		fprintf(mFile,"\"%s.mtd\"",mName.c_str());
 
 	}
-	void getSearchDistance()
+	void getSearchDistance()const
 	{
 		fprintf(mFile,"\"%s.dis\"",mName.c_str());
 
 	}
-	void getSearchTolerance()
+	void getSearchTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getSearchScale()
+	void getSearchScale()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getSearchScaleX()
+	void getSearchScaleX()const
 	{
 		fprintf(mFile,"\"%s.ss.ssx\"",mName.c_str());
 
 	}
-	void getSearchScaleY()
+	void getSearchScaleY()const
 	{
 		fprintf(mFile,"\"%s.ss.ssy\"",mName.c_str());
 
 	}
-	void getSearchScaleZ()
+	void getSearchScaleZ()const
 	{
 		fprintf(mFile,"\"%s.ss.ssz\"",mName.c_str());
 
 	}
-	void getFlipUVs()
+	void getFlipUVs()const
 	{
 		fprintf(mFile,"\"%s.fuv\"",mName.c_str());
 
 	}
-	void getColorBorders()
+	void getColorBorders()const
 	{
 		fprintf(mFile,"\"%s.clb\"",mName.c_str());
 
 	}
 protected:
-	TransferAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:WeightGeometryFilter(file, name, parent, nodeType) {}
+	TransferAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class SubdHierBlind : public BlindDataTemplate
 public:
 public:
 	SubdHierBlind():BlindDataTemplate(){}
-	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent=""):BlindDataTemplate(file, name, parent, "subdHierBlind"){}
+	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BlindDataTemplate(file, name, parent, "subdHierBlind", create){}
 	virtual ~SubdHierBlind(){}
 	void setWhichOneIndex(int woi)
 	{
@@ -28,8 +29,8 @@ public:
 
 	}
 protected:
-	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BlindDataTemplate(file, name, parent, nodeType) {}
+	SubdHierBlind(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BlindDataTemplate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

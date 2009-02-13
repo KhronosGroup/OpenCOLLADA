@@ -19,21 +19,22 @@ class CacheBase : public DependNode
 public:
 public:
 	CacheBase():DependNode(){}
-	CacheBase(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "cacheBase"){}
+	CacheBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "cacheBase", create){}
 	virtual ~CacheBase(){}
-	void getOutCacheData(size_t ocd_i)
+	void getOutCacheData(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i]\"",mName.c_str(),ocd_i);
 
 	}
-	void getInRange()
+	void getInRange()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 
 	}
 protected:
-	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	CacheBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

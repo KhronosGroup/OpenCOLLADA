@@ -23,17 +23,21 @@ protected:
 	std::string mParent;
 	std::string mNodeType;
 public:
-	const std::string& getName()
+	const std::string& getName()const
 	{
 		return mName;
 	}
-	const std::string& getParent()
+	const std::string& getParent()const
 	{
 		return mParent;
 	}
-	const std::string& getType()
+	const std::string& getType()const
 	{
 		return mNodeType;
+	}
+	void setFile(FILE* file)
+	{
+		mFile = file;
 	}
 	void setName(const std::string& name)
 	{
@@ -72,34 +76,35 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getMessage()
+	void getMessage()const
 	{
 		fprintf(mFile,"\"%s.msg\"",mName.c_str());
 
 	}
-	void getIsHistoricallyInteresting()
+	void getIsHistoricallyInteresting()const
 	{
 		fprintf(mFile,"\"%s.ihi\"",mName.c_str());
 
 	}
-	void getCaching()
+	void getCaching()const
 	{
 		fprintf(mFile,"\"%s.cch\"",mName.c_str());
 
 	}
-	void getNodeState()
+	void getNodeState()const
 	{
 		fprintf(mFile,"\"%s.nds\"",mName.c_str());
 
 	}
 protected:
-	DependNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+	DependNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:mFile(file), mName(name), mParent(parent), mNodeType(nodeType)
 	{
-		createNode();
+		if(create)
+			createNode();
 	}
 private:
-	void createNode()
+	void createNode()const
 	{
 		fprintf(mFile, "createNode %s -n \"%s\"", mNodeType.c_str(),mName.c_str());
 		if(mParent != "") 

@@ -19,7 +19,8 @@ class Contrast : public DependNode
 public:
 public:
 	Contrast():DependNode(){}
-	Contrast(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "contrast"){}
+	Contrast(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "contrast", create){}
 	virtual ~Contrast(){}
 	void setValue(const float3& v)
 	{
@@ -99,89 +100,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".b.bz\" %f;\n", bz);
 
 	}
-	void getValue()
+	void getValue()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getValueX()
+	void getValueX()const
 	{
 		fprintf(mFile,"\"%s.v.vx\"",mName.c_str());
 
 	}
-	void getValueY()
+	void getValueY()const
 	{
 		fprintf(mFile,"\"%s.v.vy\"",mName.c_str());
 
 	}
-	void getValueZ()
+	void getValueZ()const
 	{
 		fprintf(mFile,"\"%s.v.vz\"",mName.c_str());
 
 	}
-	void getContrast()
+	void getContrast()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getContrastX()
+	void getContrastX()const
 	{
 		fprintf(mFile,"\"%s.c.cx\"",mName.c_str());
 
 	}
-	void getContrastY()
+	void getContrastY()const
 	{
 		fprintf(mFile,"\"%s.c.cy\"",mName.c_str());
 
 	}
-	void getContrastZ()
+	void getContrastZ()const
 	{
 		fprintf(mFile,"\"%s.c.cz\"",mName.c_str());
 
 	}
-	void getBias()
+	void getBias()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getBiasX()
+	void getBiasX()const
 	{
 		fprintf(mFile,"\"%s.b.bx\"",mName.c_str());
 
 	}
-	void getBiasY()
+	void getBiasY()const
 	{
 		fprintf(mFile,"\"%s.b.by\"",mName.c_str());
 
 	}
-	void getBiasZ()
+	void getBiasZ()const
 	{
 		fprintf(mFile,"\"%s.b.bz\"",mName.c_str());
 
 	}
-	void getOutValue()
+	void getOutValue()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutValueX()
+	void getOutValueX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutValueY()
+	void getOutValueY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutValueZ()
+	void getOutValueZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
 protected:
-	Contrast(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Contrast(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

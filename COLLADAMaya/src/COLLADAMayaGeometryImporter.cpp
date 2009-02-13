@@ -37,6 +37,7 @@ namespace COLLADAMaya
 {
     
     const String GeometryImporter::GEOMETRY_NAME = "Geometry";
+    const String GeometryImporter::GROUPID_NAME = "GroupId1";
 
 
     // --------------------------------------------
@@ -90,12 +91,15 @@ namespace COLLADAMaya
         const UniqueIdVec* transformNodes = visualSceneImporter->findGeometryTransformIds ( geometryId );
         size_t numNodeInstances = transformNodes->size ();
 
+        // The index value of the current geometry instance.
+        size_t geometryInstanceIndex = 0;
+
         UniqueIdVec::const_iterator nodesIter = transformNodes->begin ();
         while ( nodesIter != transformNodes->end () )
         {
             // Get the maya node of the current transform node.
-            const COLLADAFW::UniqueId& transformNodeUniqueId = *nodesIter;
-            MayaNode* mayaTransformNode = visualSceneImporter->findMayaTransformNode ( transformNodeUniqueId );
+            const COLLADAFW::UniqueId& transformNodeId = *nodesIter;
+            MayaNode* mayaTransformNode = visualSceneImporter->findMayaTransformNode ( transformNodeId );
             String transformNodeName = mayaTransformNode->getName ();
 
             // Get the path to the parent transform node.
@@ -118,7 +122,41 @@ namespace COLLADAMaya
                 MayaDM::parentShape ( file, meshNodePath, transformNodePath, false, true, true, true );
             }
 
+            // Create maya group ids for every mesh primitive (if there is more than one).
+            createGroupNodes ( mesh, geometryInstanceIndex );
+
             ++nodesIter;
+            ++geometryInstanceIndex;
+        }
+    }
+
+    // --------------------------------------------
+    void GeometryImporter::createGroupNodes ( 
+        const COLLADAFW::Mesh* mesh, 
+        const size_t geometryInstanceIndex )
+    {
+        // Get the unique id of the current geometry.
+        const COLLADAFW::UniqueId& geometryId = mesh->getUniqueId ();
+
+        // We have to go through every mesh primitive.
+        const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
+        size_t meshPrimitivesCount = meshPrimitives.getCount ();
+
+        // We don't need to create groups if we just have one primitive.
+        if ( meshPrimitivesCount <= 1 ) return;
+
+        // Create a group for every primitive.
+        for ( size_t primitiveIndex=0; primitiveIndex<meshPrimitivesCount; ++primitiveIndex )
+        {
+            String groupName ( GROUPID_NAME );
+            groupName = mGroupIdList.addId ( groupName );
+            FILE* file = getDocumentImporter ()->getFile ();
+            MayaDM::GroupId groupId ( file, groupName );
+
+            // Assign the group to the unique geometry id, the transform node 
+            // to the mesh instance and the index of the geometry's primitives.
+            GroupIdAssignment groupIdAssignment ( groupId, geometryId, geometryInstanceIndex, primitiveIndex );
+            mGroupIdAssignments.push_back ( groupIdAssignment );
         }
     }
 
@@ -207,6 +245,9 @@ namespace COLLADAMaya
         // We have to go through every mesh primitive.
         const COLLADAFW::MeshPrimitiveArray& meshPrimitives = mesh->getMeshPrimitives ();
         size_t meshPrimitivesCount = meshPrimitives.getCount ();
+
+        // We don't need this, if we have just one primitive.
+        if ( meshPrimitivesCount <= 1 ) return;
 
         // Iterate over the object instances.
         for ( size_t j=0; j<numNodeInstances; ++j )

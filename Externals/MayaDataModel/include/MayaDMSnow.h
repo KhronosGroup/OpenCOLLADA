@@ -19,7 +19,8 @@ class Snow : public Texture3d
 public:
 public:
 	Snow():Texture3d(){}
-	Snow(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "snow"){}
+	Snow(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "snow", create){}
 	virtual ~Snow(){}
 	void setSnowColor(const float3& sn)
 	{
@@ -91,129 +92,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".tn\" %f;\n", tn);
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getEyeToTextureMatrix()
+	void getEyeToTextureMatrix()const
 	{
 		fprintf(mFile,"\"%s.e2t\"",mName.c_str());
 
 	}
-	void getSnowColor()
+	void getSnowColor()const
 	{
 		fprintf(mFile,"\"%s.sn\"",mName.c_str());
 
 	}
-	void getSnowColorR()
+	void getSnowColorR()const
 	{
 		fprintf(mFile,"\"%s.sn.snr\"",mName.c_str());
 
 	}
-	void getSnowColorG()
+	void getSnowColorG()const
 	{
 		fprintf(mFile,"\"%s.sn.sng\"",mName.c_str());
 
 	}
-	void getSnowColorB()
+	void getSnowColorB()const
 	{
 		fprintf(mFile,"\"%s.sn.snb\"",mName.c_str());
 
 	}
-	void getSurfaceColor()
+	void getSurfaceColor()const
 	{
 		fprintf(mFile,"\"%s.su\"",mName.c_str());
 
 	}
-	void getSurfaceColorR()
+	void getSurfaceColorR()const
 	{
 		fprintf(mFile,"\"%s.su.sur\"",mName.c_str());
 
 	}
-	void getSurfaceColorG()
+	void getSurfaceColorG()const
 	{
 		fprintf(mFile,"\"%s.su.sug\"",mName.c_str());
 
 	}
-	void getSurfaceColorB()
+	void getSurfaceColorB()const
 	{
 		fprintf(mFile,"\"%s.su.sub\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
-	void getDepthDecay()
+	void getDepthDecay()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
-	void getThickness()
+	void getThickness()const
 	{
 		fprintf(mFile,"\"%s.tn\"",mName.c_str());
 
 	}
 protected:
-	Snow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Snow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

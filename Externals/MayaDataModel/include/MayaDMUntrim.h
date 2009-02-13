@@ -19,26 +19,27 @@ class Untrim : public AbstractBaseCreate
 public:
 public:
 	Untrim():AbstractBaseCreate(){}
-	Untrim(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "untrim"){}
+	Untrim(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "untrim", create){}
 	virtual ~Untrim(){}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getOutputCurve(size_t oc_i)
+	void getOutputCurve(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
 protected:
-	Untrim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Untrim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

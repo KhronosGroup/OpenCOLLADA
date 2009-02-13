@@ -19,7 +19,8 @@ class ImagePlane : public DependNode
 public:
 public:
 	ImagePlane():DependNode(){}
-	ImagePlane(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "imagePlane"){}
+	ImagePlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "imagePlane", create){}
 	virtual ~ImagePlane(){}
 	void setType(unsigned int t)
 	{
@@ -351,234 +352,234 @@ public:
 		fprintf(mFile,"\tsetAttr \".ds\" %f;\n", ds);
 
 	}
-	void getType()
+	void getType()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getImageName()
+	void getImageName()const
 	{
 		fprintf(mFile,"\"%s.imn\"",mName.c_str());
 
 	}
-	void getUseFrameExtension()
+	void getUseFrameExtension()const
 	{
 		fprintf(mFile,"\"%s.ufe\"",mName.c_str());
 
 	}
-	void getFrameExtension()
+	void getFrameExtension()const
 	{
 		fprintf(mFile,"\"%s.fe\"",mName.c_str());
 
 	}
-	void getFrameOffset()
+	void getFrameOffset()const
 	{
 		fprintf(mFile,"\"%s.fo\"",mName.c_str());
 
 	}
-	void getCoverage()
+	void getCoverage()const
 	{
 		fprintf(mFile,"\"%s.cov\"",mName.c_str());
 
 	}
-	void getCoverageX()
+	void getCoverageX()const
 	{
 		fprintf(mFile,"\"%s.cov.cvx\"",mName.c_str());
 
 	}
-	void getCoverageY()
+	void getCoverageY()const
 	{
 		fprintf(mFile,"\"%s.cov.cvy\"",mName.c_str());
 
 	}
-	void getCoverageOrigin()
+	void getCoverageOrigin()const
 	{
 		fprintf(mFile,"\"%s.co\"",mName.c_str());
 
 	}
-	void getCoverageOriginX()
+	void getCoverageOriginX()const
 	{
 		fprintf(mFile,"\"%s.co.cox\"",mName.c_str());
 
 	}
-	void getCoverageOriginY()
+	void getCoverageOriginY()const
 	{
 		fprintf(mFile,"\"%s.co.coy\"",mName.c_str());
 
 	}
-	void getSourceTexture()
+	void getSourceTexture()const
 	{
 		fprintf(mFile,"\"%s.stx\"",mName.c_str());
 
 	}
-	void getFit()
+	void getFit()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getDisplayMode()
+	void getDisplayMode()const
 	{
 		fprintf(mFile,"\"%s.dm\"",mName.c_str());
 
 	}
-	void getDisplayOnlyIfCurrent()
+	void getDisplayOnlyIfCurrent()const
 	{
 		fprintf(mFile,"\"%s.dic\"",mName.c_str());
 
 	}
-	void getAlphaGain()
+	void getAlphaGain()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
-	void getShadingSamplesOverride()
+	void getShadingSamplesOverride()const
 	{
 		fprintf(mFile,"\"%s.sso\"",mName.c_str());
 
 	}
-	void getShadingSamples()
+	void getShadingSamples()const
 	{
 		fprintf(mFile,"\"%s.ssa\"",mName.c_str());
 
 	}
-	void getMaxShadingSamples()
+	void getMaxShadingSamples()const
 	{
 		fprintf(mFile,"\"%s.msa\"",mName.c_str());
 
 	}
-	void getLockedToCamera()
+	void getLockedToCamera()const
 	{
 		fprintf(mFile,"\"%s.dlc\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSqueezeCorrection()
+	void getSqueezeCorrection()const
 	{
 		fprintf(mFile,"\"%s.sqc\"",mName.c_str());
 
 	}
-	void getSize()
+	void getSize()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getSizeX()
+	void getSizeX()const
 	{
 		fprintf(mFile,"\"%s.s.sx\"",mName.c_str());
 
 	}
-	void getSizeY()
+	void getSizeY()const
 	{
 		fprintf(mFile,"\"%s.s.sy\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOffsetX()
+	void getOffsetX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOffsetY()
+	void getOffsetY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getCenter()
+	void getCenter()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getCenterX()
+	void getCenterX()const
 	{
 		fprintf(mFile,"\"%s.c.cx\"",mName.c_str());
 
 	}
-	void getCenterY()
+	void getCenterY()const
 	{
 		fprintf(mFile,"\"%s.c.cy\"",mName.c_str());
 
 	}
-	void getCenterZ()
+	void getCenterZ()const
 	{
 		fprintf(mFile,"\"%s.c.cz\"",mName.c_str());
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getHeight()
+	void getHeight()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getVisibleInReflections()
+	void getVisibleInReflections()const
 	{
 		fprintf(mFile,"\"%s.vir\"",mName.c_str());
 
 	}
-	void getVisibleInRefractions()
+	void getVisibleInRefractions()const
 	{
 		fprintf(mFile,"\"%s.vif\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getUseDepthMap()
+	void getUseDepthMap()const
 	{
 		fprintf(mFile,"\"%s.udm\"",mName.c_str());
 
 	}
-	void getCompositeDepth()
+	void getCompositeDepth()const
 	{
 		fprintf(mFile,"\"%s.cmp\"",mName.c_str());
 
 	}
-	void getAlreadyPremult()
+	void getAlreadyPremult()const
 	{
 		fprintf(mFile,"\"%s.pre\"",mName.c_str());
 
 	}
-	void getDepthOversample()
+	void getDepthOversample()const
 	{
 		fprintf(mFile,"\"%s.osp\"",mName.c_str());
 
 	}
-	void getSeparateDepth()
+	void getSeparateDepth()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
-	void getDepthFile()
+	void getDepthFile()const
 	{
 		fprintf(mFile,"\"%s.df\"",mName.c_str());
 
 	}
-	void getDepthBias()
+	void getDepthBias()const
 	{
 		fprintf(mFile,"\"%s.dg\"",mName.c_str());
 
 	}
-	void getDepthScale()
+	void getDepthScale()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
 protected:
-	ImagePlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ImagePlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

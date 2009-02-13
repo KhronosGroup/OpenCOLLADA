@@ -19,7 +19,8 @@ class EnvSky : public TextureEnv
 public:
 public:
 	EnvSky():TextureEnv(){}
-	EnvSky(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envSky"){}
+	EnvSky(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:TextureEnv(file, name, parent, "envSky", create){}
 	virtual ~EnvSky(){}
 	void setTotalBrightness(float tb)
 	{
@@ -303,274 +304,274 @@ public:
 		fprintf(mFile,"\tsetAttr \".csa\" %f;\n", csa);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getTotalBrightness()
+	void getTotalBrightness()const
 	{
 		fprintf(mFile,"\"%s.tb\"",mName.c_str());
 
 	}
-	void getSunBrightness()
+	void getSunBrightness()const
 	{
 		fprintf(mFile,"\"%s.su\"",mName.c_str());
 
 	}
-	void getSunBrightnessR()
+	void getSunBrightnessR()const
 	{
 		fprintf(mFile,"\"%s.su.sur\"",mName.c_str());
 
 	}
-	void getSunBrightnessG()
+	void getSunBrightnessG()const
 	{
 		fprintf(mFile,"\"%s.su.sug\"",mName.c_str());
 
 	}
-	void getSunBrightnessB()
+	void getSunBrightnessB()const
 	{
 		fprintf(mFile,"\"%s.su.sub\"",mName.c_str());
 
 	}
-	void getHaloBrightness()
+	void getHaloBrightness()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
 
 	}
-	void getHaloBrightnessR()
+	void getHaloBrightnessR()const
 	{
 		fprintf(mFile,"\"%s.hb.hbr\"",mName.c_str());
 
 	}
-	void getHaloBrightnessG()
+	void getHaloBrightnessG()const
 	{
 		fprintf(mFile,"\"%s.hb.hbg\"",mName.c_str());
 
 	}
-	void getHaloBrightnessB()
+	void getHaloBrightnessB()const
 	{
 		fprintf(mFile,"\"%s.hb.hbb\"",mName.c_str());
 
 	}
-	void getElevation()
+	void getElevation()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
-	void getAzimuth()
+	void getAzimuth()const
 	{
 		fprintf(mFile,"\"%s.az\"",mName.c_str());
 
 	}
-	void getSize()
+	void getSize()const
 	{
 		fprintf(mFile,"\"%s.sz\"",mName.c_str());
 
 	}
-	void getBlur()
+	void getBlur()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getSkyBrightness()
+	void getSkyBrightness()const
 	{
 		fprintf(mFile,"\"%s.sk\"",mName.c_str());
 
 	}
-	void getSkyBrightnessR()
+	void getSkyBrightnessR()const
 	{
 		fprintf(mFile,"\"%s.sk.skr\"",mName.c_str());
 
 	}
-	void getSkyBrightnessG()
+	void getSkyBrightnessG()const
 	{
 		fprintf(mFile,"\"%s.sk.skg\"",mName.c_str());
 
 	}
-	void getSkyBrightnessB()
+	void getSkyBrightnessB()const
 	{
 		fprintf(mFile,"\"%s.sk.skb\"",mName.c_str());
 
 	}
-	void getAirDensity()
+	void getAirDensity()const
 	{
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 
 	}
-	void getDustDensity()
+	void getDustDensity()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
-	void getSkyThickness()
+	void getSkyThickness()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getSkyRadius()
+	void getSkyRadius()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getHasFloor()
+	void getHasFloor()const
 	{
 		fprintf(mFile,"\"%s.hf\"",mName.c_str());
 
 	}
-	void getFloorColor()
+	void getFloorColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFloorColorR()
+	void getFloorColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fcr\"",mName.c_str());
 
 	}
-	void getFloorColorG()
+	void getFloorColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fcg\"",mName.c_str());
 
 	}
-	void getFloorColorB()
+	void getFloorColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fcb\"",mName.c_str());
 
 	}
-	void getFloorAltitude()
+	void getFloorAltitude()const
 	{
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 
 	}
-	void getUseTexture()
+	void getUseTexture()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
 
 	}
-	void getCloudTexture()
+	void getCloudTexture()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getCloudBrightness()
+	void getCloudBrightness()const
 	{
 		fprintf(mFile,"\"%s.cb\"",mName.c_str());
 
 	}
-	void getCloudBrightnessR()
+	void getCloudBrightnessR()const
 	{
 		fprintf(mFile,"\"%s.cb.cbr\"",mName.c_str());
 
 	}
-	void getCloudBrightnessG()
+	void getCloudBrightnessG()const
 	{
 		fprintf(mFile,"\"%s.cb.cbg\"",mName.c_str());
 
 	}
-	void getCloudBrightnessB()
+	void getCloudBrightnessB()const
 	{
 		fprintf(mFile,"\"%s.cb.cbb\"",mName.c_str());
 
 	}
-	void getSunsetBrightness()
+	void getSunsetBrightness()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getSunsetBrightnessR()
+	void getSunsetBrightnessR()const
 	{
 		fprintf(mFile,"\"%s.ss.ssr\"",mName.c_str());
 
 	}
-	void getSunsetBrightnessG()
+	void getSunsetBrightnessG()const
 	{
 		fprintf(mFile,"\"%s.ss.ssg\"",mName.c_str());
 
 	}
-	void getSunsetBrightnessB()
+	void getSunsetBrightnessB()const
 	{
 		fprintf(mFile,"\"%s.ss.ssb\"",mName.c_str());
 
 	}
-	void getDensity()
+	void getDensity()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getPower()
+	void getPower()const
 	{
 		fprintf(mFile,"\"%s.po\"",mName.c_str());
 
 	}
-	void getAltitude()
+	void getAltitude()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getHaloSize()
+	void getHaloSize()const
 	{
 		fprintf(mFile,"\"%s.hs\"",mName.c_str());
 
 	}
-	void getSkySamples()
+	void getSkySamples()const
 	{
 		fprintf(mFile,"\"%s.ssa\"",mName.c_str());
 
 	}
-	void getFloorSamples()
+	void getFloorSamples()const
 	{
 		fprintf(mFile,"\"%s.fsa\"",mName.c_str());
 
 	}
-	void getCloudSamples()
+	void getCloudSamples()const
 	{
 		fprintf(mFile,"\"%s.csa\"",mName.c_str());
 
 	}
 protected:
-	EnvSky(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:TextureEnv(file, name, parent, nodeType) {}
+	EnvSky(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

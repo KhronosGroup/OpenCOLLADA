@@ -19,7 +19,8 @@ class NewtonField : public Field
 public:
 public:
 	NewtonField():Field(){}
-	NewtonField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "newtonField"){}
+	NewtonField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Field(file, name, parent, "newtonField", create){}
 	virtual ~NewtonField(){}
 	void setMinDistance(double min)
 	{
@@ -35,19 +36,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getMinDistance()
+	void getMinDistance()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
 
 	}
-	void getOwnerMassData()
+	void getOwnerMassData()const
 	{
 		fprintf(mFile,"\"%s.omd\"",mName.c_str());
 
 	}
 protected:
-	NewtonField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Field(file, name, parent, nodeType) {}
+	NewtonField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Field(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

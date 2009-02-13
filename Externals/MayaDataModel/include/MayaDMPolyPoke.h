@@ -19,7 +19,8 @@ class PolyPoke : public PolyModifierWorld
 public:
 public:
 	PolyPoke():PolyModifierWorld(){}
-	PolyPoke(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyPoke"){}
+	PolyPoke(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyPoke", create){}
 	virtual ~PolyPoke(){}
 	void setTranslate(const double3& t)
 	{
@@ -79,54 +80,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".m70\" %i;\n", m70);
 
 	}
-	void getTranslate()
+	void getTranslate()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getTranslateX()
+	void getTranslateX()const
 	{
 		fprintf(mFile,"\"%s.t.tx\"",mName.c_str());
 
 	}
-	void getTranslateY()
+	void getTranslateY()const
 	{
 		fprintf(mFile,"\"%s.t.ty\"",mName.c_str());
 
 	}
-	void getTranslateZ()
+	void getTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.t.tz\"",mName.c_str());
 
 	}
-	void getLocalTranslate()
+	void getLocalTranslate()const
 	{
 		fprintf(mFile,"\"%s.lt\"",mName.c_str());
 
 	}
-	void getLocalTranslateX()
+	void getLocalTranslateX()const
 	{
 		fprintf(mFile,"\"%s.lt.ltx\"",mName.c_str());
 
 	}
-	void getLocalTranslateY()
+	void getLocalTranslateY()const
 	{
 		fprintf(mFile,"\"%s.lt.lty\"",mName.c_str());
 
 	}
-	void getLocalTranslateZ()
+	void getLocalTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.lt.ltz\"",mName.c_str());
 
 	}
-	void getMatrix()
+	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.cma\"",mName.c_str());
 
 	}
 protected:
-	PolyPoke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyPoke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class HikGroundPlane : public Transform
 public:
 public:
 	HikGroundPlane():Transform(){}
-	HikGroundPlane(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "hikGroundPlane"){}
+	HikGroundPlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "hikGroundPlane", create){}
 	virtual ~HikGroundPlane(){}
 	void setLength(double leng)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".leng\" %f;\n", leng);
 
 	}
-	void getLength()
+	void getLength()const
 	{
 		fprintf(mFile,"\"%s.leng\"",mName.c_str());
 
 	}
 protected:
-	HikGroundPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	HikGroundPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

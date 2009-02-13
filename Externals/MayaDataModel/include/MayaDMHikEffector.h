@@ -19,7 +19,8 @@ class HikEffector : public Transform
 public:
 public:
 	HikEffector():Transform(){}
-	HikEffector(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "hikEffector"){}
+	HikEffector(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "hikEffector", create){}
 	virtual ~HikEffector(){}
 	void setPinning(unsigned int pin)
 	{
@@ -144,129 +145,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".mkl\" %i;\n", mkl);
 
 	}
-	void getJoint()
+	void getJoint()const
 	{
 		fprintf(mFile,"\"%s.jt\"",mName.c_str());
 
 	}
-	void getFkjoint()
+	void getFkjoint()const
 	{
 		fprintf(mFile,"\"%s.fj\"",mName.c_str());
 
 	}
-	void getPinning()
+	void getPinning()const
 	{
 		fprintf(mFile,"\"%s.pin\"",mName.c_str());
 
 	}
-	void getHandle(size_t ha_i)
+	void getHandle(size_t ha_i)const
 	{
 		fprintf(mFile,"\"%s.ha[%i]\"",mName.c_str(),ha_i);
 
 	}
-	void getEffectorID()
+	void getEffectorID()const
 	{
 		fprintf(mFile,"\"%s.ei\"",mName.c_str());
 
 	}
-	void getPivots(size_t pvt_i)
+	void getPivots(size_t pvt_i)const
 	{
 		fprintf(mFile,"\"%s.pvt[%i]\"",mName.c_str(),pvt_i);
 
 	}
-	void getPivotOffset()
+	void getPivotOffset()const
 	{
 		fprintf(mFile,"\"%s.po\"",mName.c_str());
 
 	}
-	void getPivotOffsetX()
+	void getPivotOffsetX()const
 	{
 		fprintf(mFile,"\"%s.po.px\"",mName.c_str());
 
 	}
-	void getPivotOffsetY()
+	void getPivotOffsetY()const
 	{
 		fprintf(mFile,"\"%s.po.py\"",mName.c_str());
 
 	}
-	void getPivotOffsetZ()
+	void getPivotOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.po.pz\"",mName.c_str());
 
 	}
-	void getReachTranslation()
+	void getReachTranslation()const
 	{
 		fprintf(mFile,"\"%s.rt\"",mName.c_str());
 
 	}
-	void getReachRotation()
+	void getReachRotation()const
 	{
 		fprintf(mFile,"\"%s.rr\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.radi\"",mName.c_str());
 
 	}
-	void getAuxEffector()
+	void getAuxEffector()const
 	{
 		fprintf(mFile,"\"%s.aeff\"",mName.c_str());
 
 	}
-	void getPreRotation()
+	void getPreRotation()const
 	{
 		fprintf(mFile,"\"%s.pr\"",mName.c_str());
 
 	}
-	void getPreRotationX()
+	void getPreRotationX()const
 	{
 		fprintf(mFile,"\"%s.pr.prx\"",mName.c_str());
 
 	}
-	void getPreRotationY()
+	void getPreRotationY()const
 	{
 		fprintf(mFile,"\"%s.pr.pry\"",mName.c_str());
 
 	}
-	void getPreRotationZ()
+	void getPreRotationZ()const
 	{
 		fprintf(mFile,"\"%s.pr.prz\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.col.clr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.col.clg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.col.clb\"",mName.c_str());
 
 	}
-	void getAlpha()
+	void getAlpha()const
 	{
 		fprintf(mFile,"\"%s.alp\"",mName.c_str());
 
 	}
-	void getMarkerLook()
+	void getMarkerLook()const
 	{
 		fprintf(mFile,"\"%s.mkl\"",mName.c_str());
 
 	}
 protected:
-	HikEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	HikEffector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

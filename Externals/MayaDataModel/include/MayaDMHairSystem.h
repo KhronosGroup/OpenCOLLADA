@@ -161,7 +161,8 @@ public:
 	};
 public:
 	HairSystem():Shape(){}
-	HairSystem(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "hairSystem"){}
+	HairSystem(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "hairSystem", create){}
 	virtual ~HairSystem(){}
 	void setSimulationMethod(unsigned int sim)
 	{
@@ -999,781 +1000,781 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startOutputHair(size_t oh_start,size_t oh_end)
+	void startOutputHair(size_t oh_start,size_t oh_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".oh[%i:%i]\"",oh_start,oh_end);
 		fprintf(mFile," -type \"vectorArray\" ");
 
 	}
-	void appendOutputHair(const vectorArray& oh)
+	void appendOutputHair(const vectorArray& oh)const
 	{
 		fprintf(mFile,"\n");
 		oh.write(mFile);
 
 	}
-	void endOutputHair()
+	void endOutputHair()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getSimulationMethod()
+	void getSimulationMethod()const
 	{
 		fprintf(mFile,"\"%s.sim\"",mName.c_str());
 
 	}
-	void getInputHair(size_t ih_i)
+	void getInputHair(size_t ih_i)const
 	{
 		fprintf(mFile,"\"%s.ih[%i]\"",mName.c_str(),ih_i);
 
 	}
-	void getInputHairPin(size_t ihp_i)
+	void getInputHairPin(size_t ihp_i)const
 	{
 		fprintf(mFile,"\"%s.ihp[%i]\"",mName.c_str(),ihp_i);
 
 	}
-	void getCollide()
+	void getCollide()const
 	{
 		fprintf(mFile,"\"%s.cld\"",mName.c_str());
 
 	}
-	void getCollideOverSample()
+	void getCollideOverSample()const
 	{
 		fprintf(mFile,"\"%s.cos\"",mName.c_str());
 
 	}
-	void getSelfCollide()
+	void getSelfCollide()const
 	{
 		fprintf(mFile,"\"%s.scd\"",mName.c_str());
 
 	}
-	void getCollideGround()
+	void getCollideGround()const
 	{
 		fprintf(mFile,"\"%s.cdg\"",mName.c_str());
 
 	}
-	void getGroundHeight()
+	void getGroundHeight()const
 	{
 		fprintf(mFile,"\"%s.ghe\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.sfn\"",mName.c_str());
 
 	}
-	void getStiffnessScale(size_t sts_i)
+	void getStiffnessScale(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i]\"",mName.c_str(),sts_i);
 
 	}
-	void getStiffnessScale_Position(size_t sts_i)
+	void getStiffnessScale_Position(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsp\"",mName.c_str(),sts_i);
 
 	}
-	void getStiffnessScale_FloatValue(size_t sts_i)
+	void getStiffnessScale_FloatValue(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsfv\"",mName.c_str(),sts_i);
 
 	}
-	void getStiffnessScale_Interp(size_t sts_i)
+	void getStiffnessScale_Interp(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsi\"",mName.c_str(),sts_i);
 
 	}
-	void getLengthFlex()
+	void getLengthFlex()const
 	{
 		fprintf(mFile,"\"%s.lfx\"",mName.c_str());
 
 	}
-	void getDamp()
+	void getDamp()const
 	{
 		fprintf(mFile,"\"%s.dmp\"",mName.c_str());
 
 	}
-	void getDrag()
+	void getDrag()const
 	{
 		fprintf(mFile,"\"%s.drg\"",mName.c_str());
 
 	}
-	void getFriction()
+	void getFriction()const
 	{
 		fprintf(mFile,"\"%s.frc\"",mName.c_str());
 
 	}
-	void getMass()
+	void getMass()const
 	{
 		fprintf(mFile,"\"%s.mss\"",mName.c_str());
 
 	}
-	void getDynamicsWeight()
+	void getDynamicsWeight()const
 	{
 		fprintf(mFile,"\"%s.dw\"",mName.c_str());
 
 	}
-	void getCollideWidthOffset()
+	void getCollideWidthOffset()const
 	{
 		fprintf(mFile,"\"%s.wid\"",mName.c_str());
 
 	}
-	void getStaticCling()
+	void getStaticCling()const
 	{
 		fprintf(mFile,"\"%s.stc\"",mName.c_str());
 
 	}
-	void getRepulsion()
+	void getRepulsion()const
 	{
 		fprintf(mFile,"\"%s.rpl\"",mName.c_str());
 
 	}
-	void getNumCollideNeighbors()
+	void getNumCollideNeighbors()const
 	{
 		fprintf(mFile,"\"%s.ncn\"",mName.c_str());
 
 	}
-	void getIterations()
+	void getIterations()const
 	{
 		fprintf(mFile,"\"%s.itr\"",mName.c_str());
 
 	}
-	void getDrawCollideWidth()
+	void getDrawCollideWidth()const
 	{
 		fprintf(mFile,"\"%s.dwd\"",mName.c_str());
 
 	}
-	void getWidthDrawSkip()
+	void getWidthDrawSkip()const
 	{
 		fprintf(mFile,"\"%s.wds\"",mName.c_str());
 
 	}
-	void getGravity()
+	void getGravity()const
 	{
 		fprintf(mFile,"\"%s.grv\"",mName.c_str());
 
 	}
-	void getTurbulenceStrength()
+	void getTurbulenceStrength()const
 	{
 		fprintf(mFile,"\"%s.tst\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequency()
+	void getTurbulenceFrequency()const
 	{
 		fprintf(mFile,"\"%s.tfr\"",mName.c_str());
 
 	}
-	void getTurbulenceSpeed()
+	void getTurbulenceSpeed()const
 	{
 		fprintf(mFile,"\"%s.tbs\"",mName.c_str());
 
 	}
-	void getAttractionDamp()
+	void getAttractionDamp()const
 	{
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 
 	}
-	void getStartCurveAttract()
+	void getStartCurveAttract()const
 	{
 		fprintf(mFile,"\"%s.sct\"",mName.c_str());
 
 	}
-	void getAttractionScale(size_t ats_i)
+	void getAttractionScale(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionScale_Position(size_t ats_i)
+	void getAttractionScale_Position(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsp\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionScale_FloatValue(size_t ats_i)
+	void getAttractionScale_FloatValue(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsfv\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionScale_Interp(size_t ats_i)
+	void getAttractionScale_Interp(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsi\"",mName.c_str(),ats_i);
 
 	}
-	void getMotionDrag()
+	void getMotionDrag()const
 	{
 		fprintf(mFile,"\"%s.mdg\"",mName.c_str());
 
 	}
-	void getDisplayQuality()
+	void getDisplayQuality()const
 	{
 		fprintf(mFile,"\"%s.dpq\"",mName.c_str());
 
 	}
-	void getNoStretch()
+	void getNoStretch()const
 	{
 		fprintf(mFile,"\"%s.nst\"",mName.c_str());
 
 	}
-	void getSubSegments()
+	void getSubSegments()const
 	{
 		fprintf(mFile,"\"%s.ssg\"",mName.c_str());
 
 	}
-	void getClumpWidth()
+	void getClumpWidth()const
 	{
 		fprintf(mFile,"\"%s.cwd\"",mName.c_str());
 
 	}
-	void getClumpWidthScale(size_t cws_i)
+	void getClumpWidthScale(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i]\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpWidthScale_Position(size_t cws_i)
+	void getClumpWidthScale_Position(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsp\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpWidthScale_FloatValue(size_t cws_i)
+	void getClumpWidthScale_FloatValue(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsfv\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpWidthScale_Interp(size_t cws_i)
+	void getClumpWidthScale_Interp(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsi\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpTwist()
+	void getClumpTwist()const
 	{
 		fprintf(mFile,"\"%s.ctw\"",mName.c_str());
 
 	}
-	void getClumpCurl(size_t clc_i)
+	void getClumpCurl(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i]\"",mName.c_str(),clc_i);
 
 	}
-	void getClumpCurl_Position(size_t clc_i)
+	void getClumpCurl_Position(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i].clcp\"",mName.c_str(),clc_i);
 
 	}
-	void getClumpCurl_FloatValue(size_t clc_i)
+	void getClumpCurl_FloatValue(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i].clcfv\"",mName.c_str(),clc_i);
 
 	}
-	void getClumpCurl_Interp(size_t clc_i)
+	void getClumpCurl_Interp(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i].clci\"",mName.c_str(),clc_i);
 
 	}
-	void getClumpFlatness(size_t cfl_i)
+	void getClumpFlatness(size_t cfl_i)const
 	{
 		fprintf(mFile,"\"%s.cfl[%i]\"",mName.c_str(),cfl_i);
 
 	}
-	void getClumpFlatness_Position(size_t cfl_i)
+	void getClumpFlatness_Position(size_t cfl_i)const
 	{
 		fprintf(mFile,"\"%s.cfl[%i].cflp\"",mName.c_str(),cfl_i);
 
 	}
-	void getClumpFlatness_FloatValue(size_t cfl_i)
+	void getClumpFlatness_FloatValue(size_t cfl_i)const
 	{
 		fprintf(mFile,"\"%s.cfl[%i].cflfv\"",mName.c_str(),cfl_i);
 
 	}
-	void getClumpFlatness_Interp(size_t cfl_i)
+	void getClumpFlatness_Interp(size_t cfl_i)const
 	{
 		fprintf(mFile,"\"%s.cfl[%i].cfli\"",mName.c_str(),cfl_i);
 
 	}
-	void getBendFollow()
+	void getBendFollow()const
 	{
 		fprintf(mFile,"\"%s.bnf\"",mName.c_str());
 
 	}
-	void getHairWidth()
+	void getHairWidth()const
 	{
 		fprintf(mFile,"\"%s.hwd\"",mName.c_str());
 
 	}
-	void getHairWidthScale(size_t hws_i)
+	void getHairWidthScale(size_t hws_i)const
 	{
 		fprintf(mFile,"\"%s.hws[%i]\"",mName.c_str(),hws_i);
 
 	}
-	void getHairWidthScale_Position(size_t hws_i)
+	void getHairWidthScale_Position(size_t hws_i)const
 	{
 		fprintf(mFile,"\"%s.hws[%i].hwsp\"",mName.c_str(),hws_i);
 
 	}
-	void getHairWidthScale_FloatValue(size_t hws_i)
+	void getHairWidthScale_FloatValue(size_t hws_i)const
 	{
 		fprintf(mFile,"\"%s.hws[%i].hwsfv\"",mName.c_str(),hws_i);
 
 	}
-	void getHairWidthScale_Interp(size_t hws_i)
+	void getHairWidthScale_Interp(size_t hws_i)const
 	{
 		fprintf(mFile,"\"%s.hws[%i].hwsi\"",mName.c_str(),hws_i);
 
 	}
-	void getBaldnessMap()
+	void getBaldnessMap()const
 	{
 		fprintf(mFile,"\"%s.bmp\"",mName.c_str());
 
 	}
-	void getOpacity()
+	void getOpacity()const
 	{
 		fprintf(mFile,"\"%s.opc\"",mName.c_str());
 
 	}
-	void getHairColor()
+	void getHairColor()const
 	{
 		fprintf(mFile,"\"%s.hcl\"",mName.c_str());
 
 	}
-	void getHairColorR()
+	void getHairColorR()const
 	{
 		fprintf(mFile,"\"%s.hcl.hcr\"",mName.c_str());
 
 	}
-	void getHairColorG()
+	void getHairColorG()const
 	{
 		fprintf(mFile,"\"%s.hcl.hcg\"",mName.c_str());
 
 	}
-	void getHairColorB()
+	void getHairColorB()const
 	{
 		fprintf(mFile,"\"%s.hcl.hcb\"",mName.c_str());
 
 	}
-	void getHairColorScale(size_t hcs_i)
+	void getHairColorScale(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i]\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairColorScale_Position(size_t hcs_i)
+	void getHairColorScale_Position(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsp\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairColorScale_Color(size_t hcs_i)
+	void getHairColorScale_Color(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsc\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairColorScale_ColorR(size_t hcs_i)
+	void getHairColorScale_ColorR(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsc.hcscr\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairColorScale_ColorG(size_t hcs_i)
+	void getHairColorScale_ColorG(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsc.hcscg\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairColorScale_ColorB(size_t hcs_i)
+	void getHairColorScale_ColorB(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsc.hcscb\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairColorScale_Interp(size_t hcs_i)
+	void getHairColorScale_Interp(size_t hcs_i)const
 	{
 		fprintf(mFile,"\"%s.hcs[%i].hcsi\"",mName.c_str(),hcs_i);
 
 	}
-	void getHairsPerClump()
+	void getHairsPerClump()const
 	{
 		fprintf(mFile,"\"%s.hpc\"",mName.c_str());
 
 	}
-	void getThinning()
+	void getThinning()const
 	{
 		fprintf(mFile,"\"%s.thn\"",mName.c_str());
 
 	}
-	void getTranslucence()
+	void getTranslucence()const
 	{
 		fprintf(mFile,"\"%s.tlc\"",mName.c_str());
 
 	}
-	void getSpecularColor()
+	void getSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.spc\"",mName.c_str());
 
 	}
-	void getSpecularColorR()
+	void getSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.spc.spr\"",mName.c_str());
 
 	}
-	void getSpecularColorG()
+	void getSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.spc.spg\"",mName.c_str());
 
 	}
-	void getSpecularColorB()
+	void getSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.spc.spb\"",mName.c_str());
 
 	}
-	void getSpecularPower()
+	void getSpecularPower()const
 	{
 		fprintf(mFile,"\"%s.spp\"",mName.c_str());
 
 	}
-	void getCastShadows()
+	void getCastShadows()const
 	{
 		fprintf(mFile,"\"%s.csd\"",mName.c_str());
 
 	}
-	void getDiffuseRand()
+	void getDiffuseRand()const
 	{
 		fprintf(mFile,"\"%s.dfr\"",mName.c_str());
 
 	}
-	void getSpecularRand()
+	void getSpecularRand()const
 	{
 		fprintf(mFile,"\"%s.sra\"",mName.c_str());
 
 	}
-	void getHueRand()
+	void getHueRand()const
 	{
 		fprintf(mFile,"\"%s.chr\"",mName.c_str());
 
 	}
-	void getSatRand()
+	void getSatRand()const
 	{
 		fprintf(mFile,"\"%s.csr\"",mName.c_str());
 
 	}
-	void getValRand()
+	void getValRand()const
 	{
 		fprintf(mFile,"\"%s.cvr\"",mName.c_str());
 
 	}
-	void getMultiStreaks()
+	void getMultiStreaks()const
 	{
 		fprintf(mFile,"\"%s.mst\"",mName.c_str());
 
 	}
-	void getMultiStreakSpread1()
+	void getMultiStreakSpread1()const
 	{
 		fprintf(mFile,"\"%s.ms1\"",mName.c_str());
 
 	}
-	void getMultiStreakSpread2()
+	void getMultiStreakSpread2()const
 	{
 		fprintf(mFile,"\"%s.ms2\"",mName.c_str());
 
 	}
-	void getLightEachHair()
+	void getLightEachHair()const
 	{
 		fprintf(mFile,"\"%s.leh\"",mName.c_str());
 
 	}
-	void getDisplacementScale(size_t dsc_i)
+	void getDisplacementScale(size_t dsc_i)const
 	{
 		fprintf(mFile,"\"%s.dsc[%i]\"",mName.c_str(),dsc_i);
 
 	}
-	void getDisplacementScale_Position(size_t dsc_i)
+	void getDisplacementScale_Position(size_t dsc_i)const
 	{
 		fprintf(mFile,"\"%s.dsc[%i].dscp\"",mName.c_str(),dsc_i);
 
 	}
-	void getDisplacementScale_FloatValue(size_t dsc_i)
+	void getDisplacementScale_FloatValue(size_t dsc_i)const
 	{
 		fprintf(mFile,"\"%s.dsc[%i].dscfv\"",mName.c_str(),dsc_i);
 
 	}
-	void getDisplacementScale_Interp(size_t dsc_i)
+	void getDisplacementScale_Interp(size_t dsc_i)const
 	{
 		fprintf(mFile,"\"%s.dsc[%i].dsci\"",mName.c_str(),dsc_i);
 
 	}
-	void getCurl()
+	void getCurl()const
 	{
 		fprintf(mFile,"\"%s.crl\"",mName.c_str());
 
 	}
-	void getCurlFrequency()
+	void getCurlFrequency()const
 	{
 		fprintf(mFile,"\"%s.crf\"",mName.c_str());
 
 	}
-	void getNoiseMethod()
+	void getNoiseMethod()const
 	{
 		fprintf(mFile,"\"%s.nmt\"",mName.c_str());
 
 	}
-	void getNoise()
+	void getNoise()const
 	{
 		fprintf(mFile,"\"%s.noi\"",mName.c_str());
 
 	}
-	void getDetailNoise()
+	void getDetailNoise()const
 	{
 		fprintf(mFile,"\"%s.dno\"",mName.c_str());
 
 	}
-	void getNoiseFrequency()
+	void getNoiseFrequency()const
 	{
 		fprintf(mFile,"\"%s.nof\"",mName.c_str());
 
 	}
-	void getNoiseFrequencyU()
+	void getNoiseFrequencyU()const
 	{
 		fprintf(mFile,"\"%s.nfu\"",mName.c_str());
 
 	}
-	void getNoiseFrequencyV()
+	void getNoiseFrequencyV()const
 	{
 		fprintf(mFile,"\"%s.nfv\"",mName.c_str());
 
 	}
-	void getNoiseFrequencyW()
+	void getNoiseFrequencyW()const
 	{
 		fprintf(mFile,"\"%s.nfw\"",mName.c_str());
 
 	}
-	void getSubClumpMethod()
+	void getSubClumpMethod()const
 	{
 		fprintf(mFile,"\"%s.scm\"",mName.c_str());
 
 	}
-	void getSubClumping()
+	void getSubClumping()const
 	{
 		fprintf(mFile,"\"%s.scp\"",mName.c_str());
 
 	}
-	void getSubClumpRand()
+	void getSubClumpRand()const
 	{
 		fprintf(mFile,"\"%s.scr\"",mName.c_str());
 
 	}
-	void getNumUClumps()
+	void getNumUClumps()const
 	{
 		fprintf(mFile,"\"%s.nuc\"",mName.c_str());
 
 	}
-	void getNumVClumps()
+	void getNumVClumps()const
 	{
 		fprintf(mFile,"\"%s.nvc\"",mName.c_str());
 
 	}
-	void getClumpInterpolation()
+	void getClumpInterpolation()const
 	{
 		fprintf(mFile,"\"%s.cin\"",mName.c_str());
 
 	}
-	void getInterpolationRange()
+	void getInterpolationRange()const
 	{
 		fprintf(mFile,"\"%s.inr\"",mName.c_str());
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.sti\"",mName.c_str());
 
 	}
-	void getStartFrame()
+	void getStartFrame()const
 	{
 		fprintf(mFile,"\"%s.stf\"",mName.c_str());
 
 	}
-	void getInputForce(size_t ifc_i)
+	void getInputForce(size_t ifc_i)const
 	{
 		fprintf(mFile,"\"%s.ifc[%i]\"",mName.c_str(),ifc_i);
 
 	}
-	void getFieldData()
+	void getFieldData()const
 	{
 		fprintf(mFile,"\"%s.fd\"",mName.c_str());
 
 	}
-	void getFieldDataPosition()
+	void getFieldDataPosition()const
 	{
 		fprintf(mFile,"\"%s.fd.fdp\"",mName.c_str());
 
 	}
-	void getFieldDataVelocity()
+	void getFieldDataVelocity()const
 	{
 		fprintf(mFile,"\"%s.fd.fdv\"",mName.c_str());
 
 	}
-	void getFieldDataMass()
+	void getFieldDataMass()const
 	{
 		fprintf(mFile,"\"%s.fd.fdm\"",mName.c_str());
 
 	}
-	void getFieldDataDeltaTime()
+	void getFieldDataDeltaTime()const
 	{
 		fprintf(mFile,"\"%s.fd.fdt\"",mName.c_str());
 
 	}
-	void getUsePre70ForceIntensity()
+	void getUsePre70ForceIntensity()const
 	{
 		fprintf(mFile,"\"%s.upfi\"",mName.c_str());
 
 	}
-	void getCollisionData()
+	void getCollisionData()const
 	{
 		fprintf(mFile,"\"%s.cda\"",mName.c_str());
 
 	}
-	void getCollisionGeometry(size_t cge_i)
+	void getCollisionGeometry(size_t cge_i)const
 	{
 		fprintf(mFile,"\"%s.cda.cge[%i]\"",mName.c_str(),cge_i);
 
 	}
-	void getCollisionResilience(size_t crs_i)
+	void getCollisionResilience(size_t crs_i)const
 	{
 		fprintf(mFile,"\"%s.cda.crs[%i]\"",mName.c_str(),crs_i);
 
 	}
-	void getCollisionFriction(size_t cfr_i)
+	void getCollisionFriction(size_t cfr_i)const
 	{
 		fprintf(mFile,"\"%s.cda.cfr[%i]\"",mName.c_str(),cfr_i);
 
 	}
-	void getDiskCache()
+	void getDiskCache()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getReceiveShadows()
+	void getReceiveShadows()const
 	{
 		fprintf(mFile,"\"%s.rcsh\"",mName.c_str());
 
 	}
-	void getVisibleInReflections()
+	void getVisibleInReflections()const
 	{
 		fprintf(mFile,"\"%s.vir\"",mName.c_str());
 
 	}
-	void getVisibleInRefractions()
+	void getVisibleInRefractions()const
 	{
 		fprintf(mFile,"\"%s.vif\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOverrideCaustics()
+	void getMiOverrideCaustics()const
 	{
 		fprintf(mFile,"\"%s.mrc.oca\"",mName.c_str());
 
 	}
-	void getMiCausticAccuracy()
+	void getMiCausticAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.caa\"",mName.c_str());
 
 	}
-	void getMiCausticRadius()
+	void getMiCausticRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.car\"",mName.c_str());
 
 	}
-	void getMiOverrideGlobalIllumination()
+	void getMiOverrideGlobalIllumination()const
 	{
 		fprintf(mFile,"\"%s.mrc.ogi\"",mName.c_str());
 
 	}
-	void getMiGlobillumAccuracy()
+	void getMiGlobillumAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.gia\"",mName.c_str());
 
 	}
-	void getMiGlobillumRadius()
+	void getMiGlobillumRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.gir\"",mName.c_str());
 
 	}
-	void getMiOverrideFinalGather()
+	void getMiOverrideFinalGather()const
 	{
 		fprintf(mFile,"\"%s.mrc.ofg\"",mName.c_str());
 
 	}
-	void getMiFinalGatherRays()
+	void getMiFinalGatherRays()const
 	{
 		fprintf(mFile,"\"%s.mrc.fry\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMinRadius()
+	void getMiFinalGatherMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmn\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMaxRadius()
+	void getMiFinalGatherMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmx\"",mName.c_str());
 
 	}
-	void getMiFinalGatherFilter()
+	void getMiFinalGatherFilter()const
 	{
 		fprintf(mFile,"\"%s.mrc.ffi\"",mName.c_str());
 
 	}
-	void getMiFinalGatherView()
+	void getMiFinalGatherView()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgv\"",mName.c_str());
 
 	}
-	void getMiOverrideSamples()
+	void getMiOverrideSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.oos\"",mName.c_str());
 
 	}
-	void getMiMinSamples()
+	void getMiMinSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.mins\"",mName.c_str());
 
 	}
-	void getMiMaxSamples()
+	void getMiMaxSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 
 	}
-	void getMiFinalGatherCast()
+	void getMiFinalGatherCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgc\"",mName.c_str());
 
 	}
-	void getMiFinalGatherReceive()
+	void getMiFinalGatherReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.fge\"",mName.c_str());
 
 	}
-	void getMiTransparencyCast()
+	void getMiTransparencyCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpc\"",mName.c_str());
 
 	}
-	void getMiTransparencyReceive()
+	void getMiTransparencyReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpr\"",mName.c_str());
 
 	}
-	void getOutputHair(size_t oh_i)
+	void getOutputHair(size_t oh_i)const
 	{
 		fprintf(mFile,"\"%s.oh[%i]\"",mName.c_str(),oh_i);
 
 	}
-	void getOutputRenderHairs()
+	void getOutputRenderHairs()const
 	{
 		fprintf(mFile,"\"%s.orh\"",mName.c_str());
 
 	}
 protected:
-	HairSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	HairSystem(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

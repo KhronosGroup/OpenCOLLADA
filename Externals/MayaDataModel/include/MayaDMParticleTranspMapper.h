@@ -19,7 +19,8 @@ class ParticleTranspMapper : public DependNode
 public:
 public:
 	ParticleTranspMapper():DependNode(){}
-	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "particleTranspMapper"){}
+	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "particleTranspMapper", create){}
 	virtual ~ParticleTranspMapper(){}
 	void setParticleTransparency(const float3& pt)
 	{
@@ -46,29 +47,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".pt.ptb\" %f;\n", ptb);
 
 	}
-	void getParticleTransparency()
+	void getParticleTransparency()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getParticleTransparencyR()
+	void getParticleTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.pt.ptr\"",mName.c_str());
 
 	}
-	void getParticleTransparencyG()
+	void getParticleTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.pt.ptg\"",mName.c_str());
 
 	}
-	void getParticleTransparencyB()
+	void getParticleTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.pt.ptb\"",mName.c_str());
 
 	}
 protected:
-	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ParticleTranspMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

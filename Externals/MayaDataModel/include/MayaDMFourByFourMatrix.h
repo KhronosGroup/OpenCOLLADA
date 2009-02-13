@@ -19,7 +19,8 @@ class FourByFourMatrix : public DependNode
 public:
 public:
 	FourByFourMatrix():DependNode(){}
-	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "fourByFourMatrix"){}
+	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "fourByFourMatrix", create){}
 	virtual ~FourByFourMatrix(){}
 	void setIn00(double i00)
 	{
@@ -117,94 +118,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".i33\" %f;\n", i33);
 
 	}
-	void getIn00()
+	void getIn00()const
 	{
 		fprintf(mFile,"\"%s.i00\"",mName.c_str());
 
 	}
-	void getIn01()
+	void getIn01()const
 	{
 		fprintf(mFile,"\"%s.i01\"",mName.c_str());
 
 	}
-	void getIn02()
+	void getIn02()const
 	{
 		fprintf(mFile,"\"%s.i02\"",mName.c_str());
 
 	}
-	void getIn03()
+	void getIn03()const
 	{
 		fprintf(mFile,"\"%s.i03\"",mName.c_str());
 
 	}
-	void getIn10()
+	void getIn10()const
 	{
 		fprintf(mFile,"\"%s.i10\"",mName.c_str());
 
 	}
-	void getIn11()
+	void getIn11()const
 	{
 		fprintf(mFile,"\"%s.i11\"",mName.c_str());
 
 	}
-	void getIn12()
+	void getIn12()const
 	{
 		fprintf(mFile,"\"%s.i12\"",mName.c_str());
 
 	}
-	void getIn13()
+	void getIn13()const
 	{
 		fprintf(mFile,"\"%s.i13\"",mName.c_str());
 
 	}
-	void getIn20()
+	void getIn20()const
 	{
 		fprintf(mFile,"\"%s.i20\"",mName.c_str());
 
 	}
-	void getIn21()
+	void getIn21()const
 	{
 		fprintf(mFile,"\"%s.i21\"",mName.c_str());
 
 	}
-	void getIn22()
+	void getIn22()const
 	{
 		fprintf(mFile,"\"%s.i22\"",mName.c_str());
 
 	}
-	void getIn23()
+	void getIn23()const
 	{
 		fprintf(mFile,"\"%s.i23\"",mName.c_str());
 
 	}
-	void getIn30()
+	void getIn30()const
 	{
 		fprintf(mFile,"\"%s.i30\"",mName.c_str());
 
 	}
-	void getIn31()
+	void getIn31()const
 	{
 		fprintf(mFile,"\"%s.i31\"",mName.c_str());
 
 	}
-	void getIn32()
+	void getIn32()const
 	{
 		fprintf(mFile,"\"%s.i32\"",mName.c_str());
 
 	}
-	void getIn33()
+	void getIn33()const
 	{
 		fprintf(mFile,"\"%s.i33\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FourByFourMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

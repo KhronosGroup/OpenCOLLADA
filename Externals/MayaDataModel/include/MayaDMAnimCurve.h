@@ -19,7 +19,8 @@ class AnimCurve : public DependNode
 public:
 public:
 	AnimCurve():DependNode(){}
-	AnimCurve(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "animCurve"){}
+	AnimCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "animCurve", create){}
 	virtual ~AnimCurve(){}
 	void setTangentType(unsigned int tan)
 	{
@@ -51,17 +52,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanLocked(size_t ktl_start,size_t ktl_end)
+	void startKeyTanLocked(size_t ktl_start,size_t ktl_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ktl[%i:%i]\"",ktl_start,ktl_end);
 
 	}
-	void appendKeyTanLocked(bool ktl)
+	void appendKeyTanLocked(bool ktl)const
 	{
 		fprintf(mFile," %i",ktl);
 
 	}
-	void endKeyTanLocked()
+	void endKeyTanLocked()const
 	{
 		fprintf(mFile,";\n");
 
@@ -84,17 +85,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyWeightLocked(size_t kwl_start,size_t kwl_end)
+	void startKeyWeightLocked(size_t kwl_start,size_t kwl_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kwl[%i:%i]\"",kwl_start,kwl_end);
 
 	}
-	void appendKeyWeightLocked(bool kwl)
+	void appendKeyWeightLocked(bool kwl)const
 	{
 		fprintf(mFile," %i",kwl);
 
 	}
-	void endKeyWeightLocked()
+	void endKeyWeightLocked()const
 	{
 		fprintf(mFile,";\n");
 
@@ -117,17 +118,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanInX(size_t kix_start,size_t kix_end)
+	void startKeyTanInX(size_t kix_start,size_t kix_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kix[%i:%i]\"",kix_start,kix_end);
 
 	}
-	void appendKeyTanInX(double kix)
+	void appendKeyTanInX(double kix)const
 	{
 		fprintf(mFile," %f",kix);
 
 	}
-	void endKeyTanInX()
+	void endKeyTanInX()const
 	{
 		fprintf(mFile,";\n");
 
@@ -150,17 +151,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanInY(size_t kiy_start,size_t kiy_end)
+	void startKeyTanInY(size_t kiy_start,size_t kiy_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kiy[%i:%i]\"",kiy_start,kiy_end);
 
 	}
-	void appendKeyTanInY(double kiy)
+	void appendKeyTanInY(double kiy)const
 	{
 		fprintf(mFile," %f",kiy);
 
 	}
-	void endKeyTanInY()
+	void endKeyTanInY()const
 	{
 		fprintf(mFile,";\n");
 
@@ -183,17 +184,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanOutX(size_t kox_start,size_t kox_end)
+	void startKeyTanOutX(size_t kox_start,size_t kox_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kox[%i:%i]\"",kox_start,kox_end);
 
 	}
-	void appendKeyTanOutX(double kox)
+	void appendKeyTanOutX(double kox)const
 	{
 		fprintf(mFile," %f",kox);
 
 	}
-	void endKeyTanOutX()
+	void endKeyTanOutX()const
 	{
 		fprintf(mFile,";\n");
 
@@ -216,17 +217,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanOutY(size_t koy_start,size_t koy_end)
+	void startKeyTanOutY(size_t koy_start,size_t koy_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".koy[%i:%i]\"",koy_start,koy_end);
 
 	}
-	void appendKeyTanOutY(double koy)
+	void appendKeyTanOutY(double koy)const
 	{
 		fprintf(mFile," %f",koy);
 
 	}
-	void endKeyTanOutY()
+	void endKeyTanOutY()const
 	{
 		fprintf(mFile,";\n");
 
@@ -249,17 +250,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanInType(size_t kit_start,size_t kit_end)
+	void startKeyTanInType(size_t kit_start,size_t kit_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kit[%i:%i]\"",kit_start,kit_end);
 
 	}
-	void appendKeyTanInType(unsigned int kit)
+	void appendKeyTanInType(unsigned int kit)const
 	{
 		fprintf(mFile," %i",kit);
 
 	}
-	void endKeyTanInType()
+	void endKeyTanInType()const
 	{
 		fprintf(mFile,";\n");
 
@@ -282,17 +283,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTanOutType(size_t kot_start,size_t kot_end)
+	void startKeyTanOutType(size_t kot_start,size_t kot_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kot[%i:%i]\"",kot_start,kot_end);
 
 	}
-	void appendKeyTanOutType(unsigned int kot)
+	void appendKeyTanOutType(unsigned int kot)const
 	{
 		fprintf(mFile," %i",kot);
 
 	}
-	void endKeyTanOutType()
+	void endKeyTanOutType()const
 	{
 		fprintf(mFile,";\n");
 
@@ -315,17 +316,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyBreakdown(size_t kbd_start,size_t kbd_end)
+	void startKeyBreakdown(size_t kbd_start,size_t kbd_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kbd[%i:%i]\"",kbd_start,kbd_end);
 
 	}
-	void appendKeyBreakdown(bool kbd)
+	void appendKeyBreakdown(bool kbd)const
 	{
 		fprintf(mFile," %i",kbd);
 
 	}
-	void endKeyBreakdown()
+	void endKeyBreakdown()const
 	{
 		fprintf(mFile,";\n");
 
@@ -348,17 +349,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startKeyTickDrawSpecial(size_t kyts_start,size_t kyts_end)
+	void startKeyTickDrawSpecial(size_t kyts_start,size_t kyts_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".kyts[%i:%i]\"",kyts_start,kyts_end);
 
 	}
-	void appendKeyTickDrawSpecial(bool kyts)
+	void appendKeyTickDrawSpecial(bool kyts)const
 	{
 		fprintf(mFile," %i",kyts);
 
 	}
-	void endKeyTickDrawSpecial()
+	void endKeyTickDrawSpecial()const
 	{
 		fprintf(mFile,";\n");
 
@@ -446,64 +447,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".cc.ccb\" %f;\n", ccb);
 
 	}
-	void getApply()
+	void getApply()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getStipplePattern()
+	void getStipplePattern()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getOutStippleThreshold()
+	void getOutStippleThreshold()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutStippleRange()
+	void getOutStippleRange()const
 	{
 		fprintf(mFile,"\"%s.osr\"",mName.c_str());
 
 	}
-	void getInStippleRange()
+	void getInStippleRange()const
 	{
 		fprintf(mFile,"\"%s.isr\"",mName.c_str());
 
 	}
-	void getStippleReverse()
+	void getStippleReverse()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getUseCurveColor()
+	void getUseCurveColor()const
 	{
 		fprintf(mFile,"\"%s.ucc\"",mName.c_str());
 
 	}
-	void getCurveColor()
+	void getCurveColor()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
-	void getCurveColorR()
+	void getCurveColorR()const
 	{
 		fprintf(mFile,"\"%s.cc.ccr\"",mName.c_str());
 
 	}
-	void getCurveColorG()
+	void getCurveColorG()const
 	{
 		fprintf(mFile,"\"%s.cc.ccg\"",mName.c_str());
 
 	}
-	void getCurveColorB()
+	void getCurveColorB()const
 	{
 		fprintf(mFile,"\"%s.cc.ccb\"",mName.c_str());
 
 	}
 protected:
-	AnimCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	AnimCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

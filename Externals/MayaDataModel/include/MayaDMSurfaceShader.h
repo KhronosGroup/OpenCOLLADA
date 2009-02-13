@@ -19,7 +19,8 @@ class SurfaceShader : public DependNode
 public:
 public:
 	SurfaceShader():DependNode(){}
-	SurfaceShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "surfaceShader"){}
+	SurfaceShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "surfaceShader", create){}
 	virtual ~SurfaceShader(){}
 	void setOutColor(const float3& oc)
 	{
@@ -328,254 +329,254 @@ public:
 		fprintf(mFile,"\tsetAttr \".maga\" %f;\n", maga);
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
-	void getOutTransparency()
+	void getOutTransparency()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutTransparencyR()
+	void getOutTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.ot.otr\"",mName.c_str());
 
 	}
-	void getOutTransparencyG()
+	void getOutTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.ot.otg\"",mName.c_str());
 
 	}
-	void getOutTransparencyB()
+	void getOutTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 
 	}
-	void getOutMatteOpacity()
+	void getOutMatteOpacity()const
 	{
 		fprintf(mFile,"\"%s.omo\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityR()
+	void getOutMatteOpacityR()const
 	{
 		fprintf(mFile,"\"%s.omo.omor\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityG()
+	void getOutMatteOpacityG()const
 	{
 		fprintf(mFile,"\"%s.omo.omog\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityB()
+	void getOutMatteOpacityB()const
 	{
 		fprintf(mFile,"\"%s.omo.omob\"",mName.c_str());
 
 	}
-	void getOutGlowColor()
+	void getOutGlowColor()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getOutGlowColorR()
+	void getOutGlowColorR()const
 	{
 		fprintf(mFile,"\"%s.og.ogr\"",mName.c_str());
 
 	}
-	void getOutGlowColorG()
+	void getOutGlowColorG()const
 	{
 		fprintf(mFile,"\"%s.og.ogg\"",mName.c_str());
 
 	}
-	void getOutGlowColorB()
+	void getOutGlowColorB()const
 	{
 		fprintf(mFile,"\"%s.og.ogb\"",mName.c_str());
 
 	}
-	void getMiDeriveFromMaya()
+	void getMiDeriveFromMaya()const
 	{
 		fprintf(mFile,"\"%s.mifm\"",mName.c_str());
 
 	}
-	void getMiShinyness()
+	void getMiShinyness()const
 	{
 		fprintf(mFile,"\"%s.mis\"",mName.c_str());
 
 	}
-	void getMiAngle()
+	void getMiAngle()const
 	{
 		fprintf(mFile,"\"%s.mia\"",mName.c_str());
 
 	}
-	void getMiSpreadX()
+	void getMiSpreadX()const
 	{
 		fprintf(mFile,"\"%s.misx\"",mName.c_str());
 
 	}
-	void getMiSpreadY()
+	void getMiSpreadY()const
 	{
 		fprintf(mFile,"\"%s.misy\"",mName.c_str());
 
 	}
-	void getMiWhiteness()
+	void getMiWhiteness()const
 	{
 		fprintf(mFile,"\"%s.miwn\"",mName.c_str());
 
 	}
-	void getMiWhitenessR()
+	void getMiWhitenessR()const
 	{
 		fprintf(mFile,"\"%s.miwn.miwnr\"",mName.c_str());
 
 	}
-	void getMiWhitenessG()
+	void getMiWhitenessG()const
 	{
 		fprintf(mFile,"\"%s.miwn.miwng\"",mName.c_str());
 
 	}
-	void getMiWhitenessB()
+	void getMiWhitenessB()const
 	{
 		fprintf(mFile,"\"%s.miwn.miwnb\"",mName.c_str());
 
 	}
-	void getMiSpecularColor()
+	void getMiSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.misc\"",mName.c_str());
 
 	}
-	void getMiSpecularColorR()
+	void getMiSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.misc.miscr\"",mName.c_str());
 
 	}
-	void getMiSpecularColorG()
+	void getMiSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.misc.miscg\"",mName.c_str());
 
 	}
-	void getMiSpecularColorB()
+	void getMiSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.misc.miscb\"",mName.c_str());
 
 	}
-	void getMiReflectivity()
+	void getMiReflectivity()const
 	{
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 
 	}
-	void getMiRefractiveIndex()
+	void getMiRefractiveIndex()const
 	{
 		fprintf(mFile,"\"%s.miri\"",mName.c_str());
 
 	}
-	void getMiRefractions()
+	void getMiRefractions()const
 	{
 		fprintf(mFile,"\"%s.mirc\"",mName.c_str());
 
 	}
-	void getMiAbsorbs()
+	void getMiAbsorbs()const
 	{
 		fprintf(mFile,"\"%s.miab\"",mName.c_str());
 
 	}
-	void getMiDiffuse()
+	void getMiDiffuse()const
 	{
 		fprintf(mFile,"\"%s.midc\"",mName.c_str());
 
 	}
-	void getMiColor()
+	void getMiColor()const
 	{
 		fprintf(mFile,"\"%s.mic\"",mName.c_str());
 
 	}
-	void getMiColorR()
+	void getMiColorR()const
 	{
 		fprintf(mFile,"\"%s.mic.micr\"",mName.c_str());
 
 	}
-	void getMiColorG()
+	void getMiColorG()const
 	{
 		fprintf(mFile,"\"%s.mic.micg\"",mName.c_str());
 
 	}
-	void getMiColorB()
+	void getMiColorB()const
 	{
 		fprintf(mFile,"\"%s.mic.micb\"",mName.c_str());
 
 	}
-	void getMiTransparency()
+	void getMiTransparency()const
 	{
 		fprintf(mFile,"\"%s.mit\"",mName.c_str());
 
 	}
-	void getMiTransparencyR()
+	void getMiTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.mit.mitr\"",mName.c_str());
 
 	}
-	void getMiTransparencyG()
+	void getMiTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.mit.mitg\"",mName.c_str());
 
 	}
-	void getMiTransparencyB()
+	void getMiTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.mit.mitb\"",mName.c_str());
 
 	}
-	void getMiTranslucence()
+	void getMiTranslucence()const
 	{
 		fprintf(mFile,"\"%s.mitc\"",mName.c_str());
 
 	}
-	void getMiTranslucenceFocus()
+	void getMiTranslucenceFocus()const
 	{
 		fprintf(mFile,"\"%s.mitf\"",mName.c_str());
 
 	}
-	void getMiNormalCamera()
+	void getMiNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.minc\"",mName.c_str());
 
 	}
-	void getMiNormalCameraX()
+	void getMiNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.minc.mincx\"",mName.c_str());
 
 	}
-	void getMiNormalCameraY()
+	void getMiNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.minc.mincy\"",mName.c_str());
 
 	}
-	void getMiNormalCameraZ()
+	void getMiNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.minc.mincz\"",mName.c_str());
 
 	}
-	void getMaterialAlphaGain()
+	void getMaterialAlphaGain()const
 	{
 		fprintf(mFile,"\"%s.maga\"",mName.c_str());
 
 	}
 protected:
-	SurfaceShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SurfaceShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

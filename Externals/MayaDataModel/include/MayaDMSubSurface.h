@@ -19,7 +19,8 @@ class SubSurface : public AbstractBaseCreate
 public:
 public:
 	SubSurface():AbstractBaseCreate(){}
-	SubSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "subSurface"){}
+	SubSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "subSurface", create){}
 	virtual ~SubSurface(){}
 	void setFirstFaceU(int ffu)
 	{
@@ -45,39 +46,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".fcv\" %i;\n", fcv);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getFirstFaceU()
+	void getFirstFaceU()const
 	{
 		fprintf(mFile,"\"%s.ffu\"",mName.c_str());
 
 	}
-	void getFirstFaceV()
+	void getFirstFaceV()const
 	{
 		fprintf(mFile,"\"%s.ffv\"",mName.c_str());
 
 	}
-	void getFaceCountU()
+	void getFaceCountU()const
 	{
 		fprintf(mFile,"\"%s.fcu\"",mName.c_str());
 
 	}
-	void getFaceCountV()
+	void getFaceCountV()const
 	{
 		fprintf(mFile,"\"%s.fcv\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	SubSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	SubSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

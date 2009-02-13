@@ -19,7 +19,8 @@ class RebuildSurface : public AbstractBaseNurbsConversion
 public:
 public:
 	RebuildSurface():AbstractBaseNurbsConversion(){}
-	RebuildSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseNurbsConversion(file, name, parent, "rebuildSurface"){}
+	RebuildSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, "rebuildSurface", create){}
 	virtual ~RebuildSurface(){}
 	void setRebuildType(unsigned int rt)
 	{
@@ -99,89 +100,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".orr\" %i;\n", orr);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getMatchSurface()
+	void getMatchSurface()const
 	{
 		fprintf(mFile,"\"%s.ms\"",mName.c_str());
 
 	}
-	void getRebuildType()
+	void getRebuildType()const
 	{
 		fprintf(mFile,"\"%s.rt\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.dir\"",mName.c_str());
 
 	}
-	void getSpansU()
+	void getSpansU()const
 	{
 		fprintf(mFile,"\"%s.su\"",mName.c_str());
 
 	}
-	void getSpansV()
+	void getSpansV()const
 	{
 		fprintf(mFile,"\"%s.sv\"",mName.c_str());
 
 	}
-	void getDegreeU()
+	void getDegreeU()const
 	{
 		fprintf(mFile,"\"%s.du\"",mName.c_str());
 
 	}
-	void getDegreeV()
+	void getDegreeV()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getEndKnots()
+	void getEndKnots()const
 	{
 		fprintf(mFile,"\"%s.end\"",mName.c_str());
 
 	}
-	void getKeepCorners()
+	void getKeepCorners()const
 	{
 		fprintf(mFile,"\"%s.kc\"",mName.c_str());
 
 	}
-	void getKeepRange()
+	void getKeepRange()const
 	{
 		fprintf(mFile,"\"%s.kr\"",mName.c_str());
 
 	}
-	void getKeepControlPoints()
+	void getKeepControlPoints()const
 	{
 		fprintf(mFile,"\"%s.kcp\"",mName.c_str());
 
 	}
-	void getFitRebuild()
+	void getFitRebuild()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getOldRebuildRational()
+	void getOldRebuildRational()const
 	{
 		fprintf(mFile,"\"%s.orr\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	RebuildSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
+	RebuildSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

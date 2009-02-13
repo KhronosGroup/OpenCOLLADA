@@ -251,6 +251,31 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
+    COLLADAMaya::String DocumentImporter::frameworkNameToMayaName ( const String& name )
+    {
+        // Replace offending characters by some that are supported within maya:
+        // ':', '|', '-', '!' are replaced by '_'.
+
+        const char* c = name.c_str ();
+        int length = name.length();
+        char* tmp = new char[length + 1];
+
+        for ( int i = 0; i <= length; i++ )
+        {
+            char d = c[i];
+            if ( d == '.' || d == '-' || d == '|' || d == ':' || d == '/' || d == '\\' || d == '(' || d == ')' || d == '[' || d == ']' )
+            {
+                d =  '_';
+            }
+            tmp[i] = d;
+        }
+
+        String newName = COLLADABU::Utils::checkNCName ( tmp );
+        delete[] tmp;
+        return newName;
+    }
+
+    //-----------------------------
     bool DocumentImporter::writeGlobalAsset ( const COLLADAFW::FileInfo* asset )
     {
         if ( mAssetWritten ) return true;

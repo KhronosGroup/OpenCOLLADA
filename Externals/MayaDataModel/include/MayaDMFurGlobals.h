@@ -19,7 +19,8 @@ class FurGlobals : public DependNode
 public:
 public:
 	FurGlobals():DependNode(){}
-	FurGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurGlobals"){}
+	FurGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "FurGlobals", create){}
 	virtual ~FurGlobals(){}
 	void setRenderFur(bool rh)
 	{
@@ -169,139 +170,139 @@ public:
 		fprintf(mFile,"\tsetAttr \".dgr\" %i;\n", dgr);
 
 	}
-	void getRenderFur()
+	void getRenderFur()const
 	{
 		fprintf(mFile,"\"%s.rh\"",mName.c_str());
 
 	}
-	void getAreaValue()
+	void getAreaValue()const
 	{
 		fprintf(mFile,"\"%s.av\"",mName.c_str());
 
 	}
-	void getEqualMap()
+	void getEqualMap()const
 	{
 		fprintf(mFile,"\"%s.em\"",mName.c_str());
 
 	}
-	void getShadowFur()
+	void getShadowFur()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getCompFur()
+	void getCompFur()const
 	{
 		fprintf(mFile,"\"%s.ch\"",mName.c_str());
 
 	}
-	void getReadFurFiles()
+	void getReadFurFiles()const
 	{
 		fprintf(mFile,"\"%s.rff\"",mName.c_str());
 
 	}
-	void getReadFurFilesPath()
+	void getReadFurFilesPath()const
 	{
 		fprintf(mFile,"\"%s.rfp\"",mName.c_str());
 
 	}
-	void getReadEqualMapPath()
+	void getReadEqualMapPath()const
 	{
 		fprintf(mFile,"\"%s.rep\"",mName.c_str());
 
 	}
-	void getReadShadowMap()
+	void getReadShadowMap()const
 	{
 		fprintf(mFile,"\"%s.rsm\"",mName.c_str());
 
 	}
-	void getReadShadowMapPath()
+	void getReadShadowMapPath()const
 	{
 		fprintf(mFile,"\"%s.rsp\"",mName.c_str());
 
 	}
-	void getReadFurImage()
+	void getReadFurImage()const
 	{
 		fprintf(mFile,"\"%s.rhi\"",mName.c_str());
 
 	}
-	void getReadFurImagePath()
+	void getReadFurImagePath()const
 	{
 		fprintf(mFile,"\"%s.rhp\"",mName.c_str());
 
 	}
-	void getProjectLocation()
+	void getProjectLocation()const
 	{
 		fprintf(mFile,"\"%s.pjl\"",mName.c_str());
 
 	}
-	void getHairDescriptions()
+	void getHairDescriptions()const
 	{
 		fprintf(mFile,"\"%s.hdc\"",mName.c_str());
 
 	}
-	void getAttractorSets()
+	void getAttractorSets()const
 	{
 		fprintf(mFile,"\"%s.asc\"",mName.c_str());
 
 	}
-	void getFurNodeList()
+	void getFurNodeList()const
 	{
 		fprintf(mFile,"\"%s.fnl\"",mName.c_str());
 
 	}
-	void getKeepIntermediateFiles()
+	void getKeepIntermediateFiles()const
 	{
 		fprintf(mFile,"\"%s.kif\"",mName.c_str());
 
 	}
-	void getKeepFurImages()
+	void getKeepFurImages()const
 	{
 		fprintf(mFile,"\"%s.kfi\"",mName.c_str());
 
 	}
-	void getCopyAttrMaps()
+	void getCopyAttrMaps()const
 	{
 		fprintf(mFile,"\"%s.cam\"",mName.c_str());
 
 	}
-	void getFurPixelBufferSize()
+	void getFurPixelBufferSize()const
 	{
 		fprintf(mFile,"\"%s.fpsz\"",mName.c_str());
 
 	}
-	void getShadowPixelBufferSize()
+	void getShadowPixelBufferSize()const
 	{
 		fprintf(mFile,"\"%s.shsz\"",mName.c_str());
 
 	}
-	void getNurbsTesselation()
+	void getNurbsTesselation()const
 	{
 		fprintf(mFile,"\"%s.nts\"",mName.c_str());
 
 	}
-	void getIncludePidInFilesName()
+	void getIncludePidInFilesName()const
 	{
 		fprintf(mFile,"\"%s.ipid\"",mName.c_str());
 
 	}
-	void getRenderFurImages()
+	void getRenderFurImages()const
 	{
 		fprintf(mFile,"\"%s.rfi\"",mName.c_str());
 
 	}
-	void getRenderShadowMaps()
+	void getRenderShadowMaps()const
 	{
 		fprintf(mFile,"\"%s.rnsm\"",mName.c_str());
 
 	}
-	void getDisableGeometryRendering()
+	void getDisableGeometryRendering()const
 	{
 		fprintf(mFile,"\"%s.dgr\"",mName.c_str());
 
 	}
 protected:
-	FurGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FurGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

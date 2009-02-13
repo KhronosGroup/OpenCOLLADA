@@ -19,71 +19,72 @@ class GeoConnectable : public Shape
 public:
 public:
 	GeoConnectable():Shape(){}
-	GeoConnectable(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "geoConnectable"){}
+	GeoConnectable(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "geoConnectable", create){}
 	virtual ~GeoConnectable(){}
-	void getConnectionsToMe(size_t ct_i)
+	void getConnectionsToMe(size_t ct_i)const
 	{
 		fprintf(mFile,"\"%s.ct[%i]\"",mName.c_str(),ct_i);
 
 	}
-	void getAuxiliariesOwned()
+	void getAuxiliariesOwned()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
 
 	}
-	void getVelocityValid()
+	void getVelocityValid()const
 	{
 		fprintf(mFile,"\"%s.vv\"",mName.c_str());
 
 	}
-	void getDoVelocity()
+	void getDoVelocity()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getPrevTime()
+	void getPrevTime()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getCachedPositions()
+	void getCachedPositions()const
 	{
 		fprintf(mFile,"\"%s.cpo\"",mName.c_str());
 
 	}
-	void getCachedVelocities()
+	void getCachedVelocities()const
 	{
 		fprintf(mFile,"\"%s.cve\"",mName.c_str());
 
 	}
-	void getComponentPositions(size_t cpp_i)
+	void getComponentPositions(size_t cpp_i)const
 	{
 		fprintf(mFile,"\"%s.cpp[%i]\"",mName.c_str(),cpp_i);
 
 	}
-	void getGroupId(size_t gri_i)
+	void getGroupId(size_t gri_i)const
 	{
 		fprintf(mFile,"\"%s.gri[%i]\"",mName.c_str(),gri_i);
 
 	}
-	void getInputGeometryMsg()
+	void getInputGeometryMsg()const
 	{
 		fprintf(mFile,"\"%s.igm\"",mName.c_str());
 
 	}
-	void getSurfaceGeometry()
+	void getSurfaceGeometry()const
 	{
 		fprintf(mFile,"\"%s.sge\"",mName.c_str());
 
 	}
-	void getLocalSurfaceGeometry()
+	void getLocalSurfaceGeometry()const
 	{
 		fprintf(mFile,"\"%s.lsg\"",mName.c_str());
 
 	}
 protected:
-	GeoConnectable(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	GeoConnectable(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

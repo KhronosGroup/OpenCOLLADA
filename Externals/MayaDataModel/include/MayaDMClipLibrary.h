@@ -73,7 +73,8 @@ public:
 	};
 public:
 	ClipLibrary():DependNode(){}
-	ClipLibrary(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "clipLibrary"){}
+	ClipLibrary(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "clipLibrary", create){}
 	virtual ~ClipLibrary(){}
 	void setClipEvalList(size_t cel_i,const ClipEvalList& cel)
 	{
@@ -148,99 +149,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".act\" %i;\n", act);
 
 	}
-	void getClipEvalList(size_t cel_i)
+	void getClipEvalList(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i]\"",mName.c_str(),cel_i);
 
 	}
-	void getClipEval(size_t cel_i,size_t cev_i)
+	void getClipEval(size_t cel_i,size_t cev_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i]\"",mName.c_str(),cel_i,cev_i);
 
 	}
-	void getClipEval_Raw(size_t cel_i,size_t cev_i)
+	void getClipEval_Raw(size_t cel_i,size_t cev_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevr\"",mName.c_str(),cel_i,cev_i);
 
 	}
-	void getClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_i)
+	void getClipEval_Inmap(size_t cel_i,size_t cev_i,size_t cevi_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevi[%i]\"",mName.c_str(),cel_i,cev_i,cevi_i);
 
 	}
-	void getClipEval_InmapTo(size_t cel_i,size_t cev_i,size_t cevi_i)
+	void getClipEval_InmapTo(size_t cel_i,size_t cev_i,size_t cevi_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevi[%i].cevit\"",mName.c_str(),cel_i,cev_i,cevi_i);
 
 	}
-	void getClipEval_InmapFrom(size_t cel_i,size_t cev_i,size_t cevi_i)
+	void getClipEval_InmapFrom(size_t cel_i,size_t cev_i,size_t cevi_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevi[%i].cevif\"",mName.c_str(),cel_i,cev_i,cevi_i);
 
 	}
-	void getClipEval_Outmap(size_t cel_i,size_t cev_i,size_t cevo_i)
+	void getClipEval_Outmap(size_t cel_i,size_t cev_i,size_t cevo_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevo[%i]\"",mName.c_str(),cel_i,cev_i,cevo_i);
 
 	}
-	void getClipEval_OutmapTo(size_t cel_i,size_t cev_i,size_t cevo_i)
+	void getClipEval_OutmapTo(size_t cel_i,size_t cev_i,size_t cevo_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevo[%i].cevot\"",mName.c_str(),cel_i,cev_i,cevo_i);
 
 	}
-	void getClipEval_OutmapFrom(size_t cel_i,size_t cev_i,size_t cevo_i)
+	void getClipEval_OutmapFrom(size_t cel_i,size_t cev_i,size_t cevo_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].cev[%i].cevo[%i].cevof\"",mName.c_str(),cel_i,cev_i,cevo_i);
 
 	}
-	void getClipFunction()
+	void getClipFunction()const
 	{
 		fprintf(mFile,"\"%s.cf\"",mName.c_str());
 
 	}
-	void getCharacterdata(size_t cd_i)
+	void getCharacterdata(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i]\"",mName.c_str(),cd_i);
 
 	}
-	void getCharacterMapping(size_t cd_i)
+	void getCharacterMapping(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].cm\"",mName.c_str(),cd_i);
 
 	}
-	void getClipIndexMapping(size_t cd_i)
+	void getClipIndexMapping(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].cim\"",mName.c_str(),cd_i);
 
 	}
-	void getClipName(size_t cn_i)
+	void getClipName(size_t cn_i)const
 	{
 		fprintf(mFile,"\"%s.cn[%i]\"",mName.c_str(),cn_i);
 
 	}
-	void getStart(size_t st_i)
+	void getStart(size_t st_i)const
 	{
 		fprintf(mFile,"\"%s.st[%i]\"",mName.c_str(),st_i);
 
 	}
-	void getDuration(size_t du_i)
+	void getDuration(size_t du_i)const
 	{
 		fprintf(mFile,"\"%s.du[%i]\"",mName.c_str(),du_i);
 
 	}
-	void getSourceClip(size_t sc_i)
+	void getSourceClip(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
 
 	}
-	void getClip(size_t cl_i)
+	void getClip(size_t cl_i)const
 	{
 		fprintf(mFile,"\"%s.cl[%i]\"",mName.c_str(),cl_i);
 
 	}
 protected:
-	ClipLibrary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ClipLibrary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

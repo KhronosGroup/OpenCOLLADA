@@ -19,7 +19,8 @@ class HsvToRgb : public DependNode
 public:
 public:
 	HsvToRgb():DependNode(){}
-	HsvToRgb(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hsvToRgb"){}
+	HsvToRgb(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hsvToRgb", create){}
 	virtual ~HsvToRgb(){}
 	void setInHsv(const float3& i_)
 	{
@@ -47,49 +48,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".i.ib\" %f;\n", ib);
 
 	}
-	void getInHsv()
+	void getInHsv()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getInHsvR()
+	void getInHsvR()const
 	{
 		fprintf(mFile,"\"%s.i.ir\"",mName.c_str());
 
 	}
-	void getInHsvG()
+	void getInHsvG()const
 	{
 		fprintf(mFile,"\"%s.i.ig\"",mName.c_str());
 
 	}
-	void getInHsvB()
+	void getInHsvB()const
 	{
 		fprintf(mFile,"\"%s.i.ib\"",mName.c_str());
 
 	}
-	void getOutRgb()
+	void getOutRgb()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutRgbR()
+	void getOutRgbR()const
 	{
 		fprintf(mFile,"\"%s.o.or\"",mName.c_str());
 
 	}
-	void getOutRgbG()
+	void getOutRgbG()const
 	{
 		fprintf(mFile,"\"%s.o.og\"",mName.c_str());
 
 	}
-	void getOutRgbB()
+	void getOutRgbB()const
 	{
 		fprintf(mFile,"\"%s.o.ob\"",mName.c_str());
 
 	}
 protected:
-	HsvToRgb(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HsvToRgb(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -56,7 +56,8 @@ public:
 	};
 public:
 	PolyColorPerVertex():PolyModifier(){}
-	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyColorPerVertex"){}
+	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyColorPerVertex", create){}
 	virtual ~PolyColorPerVertex(){}
 	void setColorPerVertex(const ColorPerVertex& cpvx)
 	{
@@ -161,89 +162,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".rprt\" %i;\n", rprt);
 
 	}
-	void getColorPerVertex()
+	void getColorPerVertex()const
 	{
 		fprintf(mFile,"\"%s.cpvx\"",mName.c_str());
 
 	}
-	void getVertexColor(size_t vclr_i)
+	void getVertexColor(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i]\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorRGB(size_t vclr_i)
+	void getVertexColorRGB(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorR(size_t vclr_i)
+	void getVertexColorR(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb.vxcr\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorG(size_t vclr_i)
+	void getVertexColorG(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb.vxcg\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorB(size_t vclr_i)
+	void getVertexColorB(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb.vxcb\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexAlpha(size_t vclr_i)
+	void getVertexAlpha(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vxal\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexFaceColor(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColor(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i]\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorR(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorR(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb.vfcr\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorG(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorG(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb.vfcg\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorB(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorB(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb.vfcb\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceAlpha(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceAlpha(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].vfal\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getColorSetName()
+	void getColorSetName()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getClamped()
+	void getClamped()const
 	{
 		fprintf(mFile,"\"%s.clam\"",mName.c_str());
 
 	}
-	void getRepresentation()
+	void getRepresentation()const
 	{
 		fprintf(mFile,"\"%s.rprt\"",mName.c_str());
 
 	}
 protected:
-	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyColorPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

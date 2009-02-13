@@ -19,7 +19,8 @@ class UvChooser : public DependNode
 public:
 public:
 	UvChooser():DependNode(){}
-	UvChooser(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "uvChooser"){}
+	UvChooser(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "uvChooser", create){}
 	virtual ~UvChooser(){}
 	void setUvSets(size_t uvs_i,const string& uvs)
 	{
@@ -41,19 +42,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startUvSets(size_t uvs_start,size_t uvs_end)
+	void startUvSets(size_t uvs_start,size_t uvs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uvs[%i:%i]\"",uvs_start,uvs_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
-	void appendUvSets(const string& uvs)
+	void appendUvSets(const string& uvs)const
 	{
 		fprintf(mFile,"\n");
 		uvs.write(mFile);
 
 	}
-	void endUvSets()
+	void endUvSets()const
 	{
 		fprintf(mFile,";\n");
 
@@ -222,179 +223,179 @@ public:
 		fprintf(mFile,"\tsetAttr \".oc1.o1z\" %f;\n", o1z);
 
 	}
-	void getUvSets(size_t uvs_i)
+	void getUvSets(size_t uvs_i)const
 	{
 		fprintf(mFile,"\"%s.uvs[%i]\"",mName.c_str(),uvs_i);
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.u\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.v\"",mName.c_str());
 
 	}
-	void getVertexUvOne()
+	void getVertexUvOne()const
 	{
 		fprintf(mFile,"\"%s.vt1\"",mName.c_str());
 
 	}
-	void getVertexUvOneU()
+	void getVertexUvOneU()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1u\"",mName.c_str());
 
 	}
-	void getVertexUvOneV()
+	void getVertexUvOneV()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1v\"",mName.c_str());
 
 	}
-	void getVertexUvTwo()
+	void getVertexUvTwo()const
 	{
 		fprintf(mFile,"\"%s.vt2\"",mName.c_str());
 
 	}
-	void getVertexUvTwoU()
+	void getVertexUvTwoU()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2u\"",mName.c_str());
 
 	}
-	void getVertexUvTwoV()
+	void getVertexUvTwoV()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2v\"",mName.c_str());
 
 	}
-	void getVertexUvThree()
+	void getVertexUvThree()const
 	{
 		fprintf(mFile,"\"%s.vt3\"",mName.c_str());
 
 	}
-	void getVertexUvThreeU()
+	void getVertexUvThreeU()const
 	{
 		fprintf(mFile,"\"%s.vt3.t3u\"",mName.c_str());
 
 	}
-	void getVertexUvThreeV()
+	void getVertexUvThreeV()const
 	{
 		fprintf(mFile,"\"%s.vt3.t3v\"",mName.c_str());
 
 	}
-	void getVertexCameraOne()
+	void getVertexCameraOne()const
 	{
 		fprintf(mFile,"\"%s.vc1\"",mName.c_str());
 
 	}
-	void getVertexCameraOneX()
+	void getVertexCameraOneX()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1x\"",mName.c_str());
 
 	}
-	void getVertexCameraOneY()
+	void getVertexCameraOneY()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1y\"",mName.c_str());
 
 	}
-	void getVertexCameraOneZ()
+	void getVertexCameraOneZ()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1z\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
-	void getOutUv()
+	void getOutUv()const
 	{
 		fprintf(mFile,"\"%s.ouv\"",mName.c_str());
 
 	}
-	void getOutU()
+	void getOutU()const
 	{
 		fprintf(mFile,"\"%s.ouv.ou\"",mName.c_str());
 
 	}
-	void getOutV()
+	void getOutV()const
 	{
 		fprintf(mFile,"\"%s.ouv.ov\"",mName.c_str());
 
 	}
-	void getOutVertexUvOne()
+	void getOutVertexUvOne()const
 	{
 		fprintf(mFile,"\"%s.ov1\"",mName.c_str());
 
 	}
-	void getOutVertexUvOneU()
+	void getOutVertexUvOneU()const
 	{
 		fprintf(mFile,"\"%s.ov1.o1u\"",mName.c_str());
 
 	}
-	void getOutVertexUvOneV()
+	void getOutVertexUvOneV()const
 	{
 		fprintf(mFile,"\"%s.ov1.o1v\"",mName.c_str());
 
 	}
-	void getOutVertexUvTwo()
+	void getOutVertexUvTwo()const
 	{
 		fprintf(mFile,"\"%s.ov2\"",mName.c_str());
 
 	}
-	void getOutVertexUvTwoU()
+	void getOutVertexUvTwoU()const
 	{
 		fprintf(mFile,"\"%s.ov2.o2u\"",mName.c_str());
 
 	}
-	void getOutVertexUvTwoV()
+	void getOutVertexUvTwoV()const
 	{
 		fprintf(mFile,"\"%s.ov2.o2v\"",mName.c_str());
 
 	}
-	void getOutVertexUvThree()
+	void getOutVertexUvThree()const
 	{
 		fprintf(mFile,"\"%s.ov3\"",mName.c_str());
 
 	}
-	void getOutVertexUvThreeU()
+	void getOutVertexUvThreeU()const
 	{
 		fprintf(mFile,"\"%s.ov3.o3u\"",mName.c_str());
 
 	}
-	void getOutVertexUvThreeV()
+	void getOutVertexUvThreeV()const
 	{
 		fprintf(mFile,"\"%s.ov3.o3v\"",mName.c_str());
 
 	}
-	void getOutVertexCameraOne()
+	void getOutVertexCameraOne()const
 	{
 		fprintf(mFile,"\"%s.oc1\"",mName.c_str());
 
 	}
-	void getOutVertexCameraOneX()
+	void getOutVertexCameraOneX()const
 	{
 		fprintf(mFile,"\"%s.oc1.o1x\"",mName.c_str());
 
 	}
-	void getOutVertexCameraOneY()
+	void getOutVertexCameraOneY()const
 	{
 		fprintf(mFile,"\"%s.oc1.o1y\"",mName.c_str());
 
 	}
-	void getOutVertexCameraOneZ()
+	void getOutVertexCameraOneZ()const
 	{
 		fprintf(mFile,"\"%s.oc1.o1z\"",mName.c_str());
 
 	}
 protected:
-	UvChooser(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	UvChooser(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

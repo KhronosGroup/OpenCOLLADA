@@ -425,7 +425,7 @@ namespace COLLADAMaya
         if ( !mVisualSceneAdded )
         {
             // There is always just one visual scene. Give it a valid unique id.
-            String visualSceneName = mDocumentExporter->checkNCName( mSceneId );
+            String visualSceneName = COLLADABU::Utils::checkNCName( mSceneId );
             openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
             mVisualSceneAdded = true;
         }

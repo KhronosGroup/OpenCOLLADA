@@ -30,7 +30,8 @@ public:
 	};
 public:
 	PolySplitRing():PolyModifierWorld(){}
-	PolySplitRing(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polySplitRing"){}
+	PolySplitRing(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySplitRing", create){}
 	virtual ~PolySplitRing(){}
 	void setWeight(float wt)
 	{
@@ -129,94 +130,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".fq\" %i;\n", fq);
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.wt\"",mName.c_str());
 
 	}
-	void getAbsoluteWeight()
+	void getAbsoluteWeight()const
 	{
 		fprintf(mFile,"\"%s.ab\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getRootEdge()
+	void getRootEdge()const
 	{
 		fprintf(mFile,"\"%s.re\"",mName.c_str());
 
 	}
-	void getSmoothingAngle()
+	void getSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 
 	}
-	void getSplitType()
+	void getSplitType()const
 	{
 		fprintf(mFile,"\"%s.stp\"",mName.c_str());
 
 	}
-	void getDivisions()
+	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.div\"",mName.c_str());
 
 	}
-	void getEnableProfileCurve()
+	void getEnableProfileCurve()const
 	{
 		fprintf(mFile,"\"%s.epc\"",mName.c_str());
 
 	}
-	void getProfileCurve(size_t p_i)
+	void getProfileCurve(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getProfileCurve_Position(size_t p_i)
+	void getProfileCurve_Position(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pp\"",mName.c_str(),p_i);
 
 	}
-	void getProfileCurve_FloatValue(size_t p_i)
+	void getProfileCurve_FloatValue(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pfv\"",mName.c_str(),p_i);
 
 	}
-	void getProfileCurve_Interp(size_t p_i)
+	void getProfileCurve_Interp(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pi\"",mName.c_str(),p_i);
 
 	}
-	void getProfileCurveInputOffset()
+	void getProfileCurveInputOffset()const
 	{
 		fprintf(mFile,"\"%s.pio\"",mName.c_str());
 
 	}
-	void getProfileCurveInputScale()
+	void getProfileCurveInputScale()const
 	{
 		fprintf(mFile,"\"%s.pis\"",mName.c_str());
 
 	}
-	void getUseFaceNormalsAtEnds()
+	void getUseFaceNormalsAtEnds()const
 	{
 		fprintf(mFile,"\"%s.fne\"",mName.c_str());
 
 	}
-	void getUseEqualMultiplier()
+	void getUseEqualMultiplier()const
 	{
 		fprintf(mFile,"\"%s.uem\"",mName.c_str());
 
 	}
-	void getFixQuads()
+	void getFixQuads()const
 	{
 		fprintf(mFile,"\"%s.fq\"",mName.c_str());
 
 	}
 protected:
-	PolySplitRing(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolySplitRing(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

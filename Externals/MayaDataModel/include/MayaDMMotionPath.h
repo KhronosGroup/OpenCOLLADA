@@ -19,7 +19,8 @@ class MotionPath : public DependNode
 public:
 public:
 	MotionPath():DependNode(){}
-	MotionPath(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "motionPath"){}
+	MotionPath(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "motionPath", create){}
 	virtual ~MotionPath(){}
 	void setUValue(double u)
 	{
@@ -150,169 +151,169 @@ public:
 		fprintf(mFile,"\tsetAttr \".fm\" %i;\n", fm);
 
 	}
-	void getUValue()
+	void getUValue()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getFrontTwist()
+	void getFrontTwist()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getUpTwist()
+	void getUpTwist()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
 
 	}
-	void getSideTwist()
+	void getSideTwist()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getAllCoordinates()
+	void getAllCoordinates()const
 	{
 		fprintf(mFile,"\"%s.ac\"",mName.c_str());
 
 	}
-	void getXCoordinate()
+	void getXCoordinate()const
 	{
 		fprintf(mFile,"\"%s.ac.xc\"",mName.c_str());
 
 	}
-	void getYCoordinate()
+	void getYCoordinate()const
 	{
 		fprintf(mFile,"\"%s.ac.yc\"",mName.c_str());
 
 	}
-	void getZCoordinate()
+	void getZCoordinate()const
 	{
 		fprintf(mFile,"\"%s.ac.zc\"",mName.c_str());
 
 	}
-	void getOrientMatrix()
+	void getOrientMatrix()const
 	{
 		fprintf(mFile,"\"%s.om\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRotateX()
+	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRotateY()
+	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRotateZ()
+	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getRotateOrder()
+	void getRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getFlowNode()
+	void getFlowNode()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getGeometryPath()
+	void getGeometryPath()const
 	{
 		fprintf(mFile,"\"%s.gp\"",mName.c_str());
 
 	}
-	void getPositionMarkerTime(size_t pmt_i)
+	void getPositionMarkerTime(size_t pmt_i)const
 	{
 		fprintf(mFile,"\"%s.pmt[%i]\"",mName.c_str(),pmt_i);
 
 	}
-	void getOrientationMarkerTime(size_t omt_i)
+	void getOrientationMarkerTime(size_t omt_i)const
 	{
 		fprintf(mFile,"\"%s.omt[%i]\"",mName.c_str(),omt_i);
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.nr\"",mName.c_str());
 
 	}
-	void getInverseUp()
+	void getInverseUp()const
 	{
 		fprintf(mFile,"\"%s.iu\"",mName.c_str());
 
 	}
-	void getInverseFront()
+	void getInverseFront()const
 	{
 		fprintf(mFile,"\"%s.if\"",mName.c_str());
 
 	}
-	void getFrontAxis()
+	void getFrontAxis()const
 	{
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 
 	}
-	void getUpAxis()
+	void getUpAxis()const
 	{
 		fprintf(mFile,"\"%s.ua\"",mName.c_str());
 
 	}
-	void getWorldUpType()
+	void getWorldUpType()const
 	{
 		fprintf(mFile,"\"%s.wut\"",mName.c_str());
 
 	}
-	void getWorldUpVector()
+	void getWorldUpVector()const
 	{
 		fprintf(mFile,"\"%s.wu\"",mName.c_str());
 
 	}
-	void getWorldUpVectorX()
+	void getWorldUpVectorX()const
 	{
 		fprintf(mFile,"\"%s.wu.wux\"",mName.c_str());
 
 	}
-	void getWorldUpVectorY()
+	void getWorldUpVectorY()const
 	{
 		fprintf(mFile,"\"%s.wu.wuy\"",mName.c_str());
 
 	}
-	void getWorldUpVectorZ()
+	void getWorldUpVectorZ()const
 	{
 		fprintf(mFile,"\"%s.wu.wuz\"",mName.c_str());
 
 	}
-	void getWorldUpMatrix()
+	void getWorldUpMatrix()const
 	{
 		fprintf(mFile,"\"%s.wum\"",mName.c_str());
 
 	}
-	void getBank()
+	void getBank()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getBankScale()
+	void getBankScale()const
 	{
 		fprintf(mFile,"\"%s.bs\"",mName.c_str());
 
 	}
-	void getBankLimit()
+	void getBankLimit()const
 	{
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
 
 	}
 protected:
-	MotionPath(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	MotionPath(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

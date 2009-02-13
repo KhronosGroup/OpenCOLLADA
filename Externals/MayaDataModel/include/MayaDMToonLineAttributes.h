@@ -19,7 +19,8 @@ class ToonLineAttributes : public DependNode
 public:
 public:
 	ToonLineAttributes():DependNode(){}
-	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "toonLineAttributes"){}
+	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "toonLineAttributes", create){}
 	virtual ~ToonLineAttributes(){}
 	void setLineWidth(float lwd)
 	{
@@ -39,24 +40,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".vu\" %i;\n", vu);
 
 	}
-	void getLineWidth()
+	void getLineWidth()const
 	{
 		fprintf(mFile,"\"%s.lwd\"",mName.c_str());
 
 	}
-	void getLineVisibility()
+	void getLineVisibility()const
 	{
 		fprintf(mFile,"\"%s.lv\"",mName.c_str());
 
 	}
-	void getViewUpdate()
+	void getViewUpdate()const
 	{
 		fprintf(mFile,"\"%s.vu\"",mName.c_str());
 
 	}
 protected:
-	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ToonLineAttributes(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

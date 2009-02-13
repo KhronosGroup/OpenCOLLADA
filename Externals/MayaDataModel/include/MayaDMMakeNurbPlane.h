@@ -19,7 +19,8 @@ class MakeNurbPlane : public Primitive
 public:
 public:
 	MakeNurbPlane():Primitive(){}
-	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent=""):Primitive(file, name, parent, "makeNurbPlane"){}
+	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Primitive(file, name, parent, "makeNurbPlane", create){}
 	virtual ~MakeNurbPlane(){}
 	void setWidth(double w)
 	{
@@ -51,34 +52,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getLengthRatio()
+	void getLengthRatio()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getPatchesU()
+	void getPatchesU()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getPatchesV()
+	void getPatchesV()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 protected:
-	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Primitive(file, name, parent, nodeType) {}
+	MakeNurbPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Primitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

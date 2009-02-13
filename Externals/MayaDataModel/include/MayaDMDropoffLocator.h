@@ -19,7 +19,8 @@ class DropoffLocator : public Locator
 public:
 public:
 	DropoffLocator():Locator(){}
-	DropoffLocator(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "dropoffLocator"){}
+	DropoffLocator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Locator(file, name, parent, "dropoffLocator", create){}
 	virtual ~DropoffLocator(){}
 	void setPercent(float pc)
 	{
@@ -33,19 +34,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".pr\" %f;\n", pr);
 
 	}
-	void getPercent()
+	void getPercent()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getParam()
+	void getParam()const
 	{
 		fprintf(mFile,"\"%s.pr\"",mName.c_str());
 
 	}
 protected:
-	DropoffLocator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Locator(file, name, parent, nodeType) {}
+	DropoffLocator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Locator(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

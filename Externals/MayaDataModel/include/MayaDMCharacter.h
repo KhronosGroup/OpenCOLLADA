@@ -55,7 +55,8 @@ public:
 	};
 public:
 	Character():ObjectSet(){}
-	Character(FILE* file,const std::string& name,const std::string& parent=""):ObjectSet(file, name, parent, "character"){}
+	Character(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectSet(file, name, parent, "character", create){}
 	virtual ~Character(){}
 	void setClipEvaluate(const ClipEvaluate& ce)
 	{
@@ -120,17 +121,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startUnitlessValues(size_t uv_start,size_t uv_end)
+	void startUnitlessValues(size_t uv_start,size_t uv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\"",uv_start,uv_end);
 
 	}
-	void appendUnitlessValues(double uv)
+	void appendUnitlessValues(double uv)const
 	{
 		fprintf(mFile," %f",uv);
 
 	}
-	void endUnitlessValues()
+	void endUnitlessValues()const
 	{
 		fprintf(mFile,";\n");
 
@@ -153,17 +154,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLinearValues(size_t lv_start,size_t lv_end)
+	void startLinearValues(size_t lv_start,size_t lv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\"",lv_start,lv_end);
 
 	}
-	void appendLinearValues(double lv)
+	void appendLinearValues(double lv)const
 	{
 		fprintf(mFile," %f",lv);
 
 	}
-	void endLinearValues()
+	void endLinearValues()const
 	{
 		fprintf(mFile,";\n");
 
@@ -186,17 +187,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startAngularValues(size_t av_start,size_t av_end)
+	void startAngularValues(size_t av_start,size_t av_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".av[%i:%i]\"",av_start,av_end);
 
 	}
-	void appendAngularValues(double av)
+	void appendAngularValues(double av)const
 	{
 		fprintf(mFile," %f",av);
 
 	}
-	void endAngularValues()
+	void endAngularValues()const
 	{
 		fprintf(mFile,";\n");
 
@@ -215,84 +216,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".acc\" %i;\n", acc);
 
 	}
-	void getClipEvaluate()
+	void getClipEvaluate()const
 	{
 		fprintf(mFile,"\"%s.ce\"",mName.c_str());
 
 	}
-	void getClipEvaluate_Raw()
+	void getClipEvaluate_Raw()const
 	{
 		fprintf(mFile,"\"%s.ce.cer\"",mName.c_str());
 
 	}
-	void getClipEvaluate_Inmap(size_t cei_i)
+	void getClipEvaluate_Inmap(size_t cei_i)const
 	{
 		fprintf(mFile,"\"%s.ce.cei[%i]\"",mName.c_str(),cei_i);
 
 	}
-	void getClipEvaluate_InmapTo(size_t cei_i)
+	void getClipEvaluate_InmapTo(size_t cei_i)const
 	{
 		fprintf(mFile,"\"%s.ce.cei[%i].ceit\"",mName.c_str(),cei_i);
 
 	}
-	void getClipEvaluate_InmapFrom(size_t cei_i)
+	void getClipEvaluate_InmapFrom(size_t cei_i)const
 	{
 		fprintf(mFile,"\"%s.ce.cei[%i].ceif\"",mName.c_str(),cei_i);
 
 	}
-	void getClipEvaluate_Outmap(size_t ceo_i)
+	void getClipEvaluate_Outmap(size_t ceo_i)const
 	{
 		fprintf(mFile,"\"%s.ce.ceo[%i]\"",mName.c_str(),ceo_i);
 
 	}
-	void getClipEvaluate_OutmapTo(size_t ceo_i)
+	void getClipEvaluate_OutmapTo(size_t ceo_i)const
 	{
 		fprintf(mFile,"\"%s.ce.ceo[%i].ceot\"",mName.c_str(),ceo_i);
 
 	}
-	void getClipEvaluate_OutmapFrom(size_t ceo_i)
+	void getClipEvaluate_OutmapFrom(size_t ceo_i)const
 	{
 		fprintf(mFile,"\"%s.ce.ceo[%i].ceof\"",mName.c_str(),ceo_i);
 
 	}
-	void getUnitlessValues(size_t uv_i)
+	void getUnitlessValues(size_t uv_i)const
 	{
 		fprintf(mFile,"\"%s.uv[%i]\"",mName.c_str(),uv_i);
 
 	}
-	void getLinearValues(size_t lv_i)
+	void getLinearValues(size_t lv_i)const
 	{
 		fprintf(mFile,"\"%s.lv[%i]\"",mName.c_str(),lv_i);
 
 	}
-	void getAngularValues(size_t av_i)
+	void getAngularValues(size_t av_i)const
 	{
 		fprintf(mFile,"\"%s.av[%i]\"",mName.c_str(),av_i);
 
 	}
-	void getTimeValues(size_t tv_i)
+	void getTimeValues(size_t tv_i)const
 	{
 		fprintf(mFile,"\"%s.tv[%i]\"",mName.c_str(),tv_i);
 
 	}
-	void getAnimationMapping()
+	void getAnimationMapping()const
 	{
 		fprintf(mFile,"\"%s.am\"",mName.c_str());
 
 	}
-	void getReferenceMapping()
+	void getReferenceMapping()const
 	{
 		fprintf(mFile,"\"%s.rm\"",mName.c_str());
 
 	}
-	void getOffsetNode()
+	void getOffsetNode()const
 	{
 		fprintf(mFile,"\"%s.ofn\"",mName.c_str());
 
 	}
 protected:
-	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectSet(file, name, parent, nodeType) {}
+	Character(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectSet(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

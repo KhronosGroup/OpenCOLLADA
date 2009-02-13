@@ -19,7 +19,8 @@ class PolyMergeFace : public PolyModifier
 public:
 public:
 	PolyMergeFace():PolyModifier(){}
-	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMergeFace"){}
+	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyMergeFace", create){}
 	virtual ~PolyMergeFace(){}
 	void setMergeMode(unsigned int mm)
 	{
@@ -45,24 +46,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".sf\" %i;\n", sf);
 
 	}
-	void getMergeMode()
+	void getMergeMode()const
 	{
 		fprintf(mFile,"\"%s.mm\"",mName.c_str());
 
 	}
-	void getFirstFacet()
+	void getFirstFacet()const
 	{
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 
 	}
-	void getSecondFacet()
+	void getSecondFacet()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
 protected:
-	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyMergeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

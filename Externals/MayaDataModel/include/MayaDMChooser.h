@@ -19,7 +19,8 @@ class Chooser : public DependNode
 public:
 public:
 	Chooser():DependNode(){}
-	Chooser(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "chooser"){}
+	Chooser(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "chooser", create){}
 	virtual ~Chooser(){}
 	void setInLevel(size_t il_i,bool il)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInLevel(size_t il_start,size_t il_end)
+	void startInLevel(size_t il_start,size_t il_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".il[%i:%i]\"",il_start,il_end);
 
 	}
-	void appendInLevel(bool il)
+	void appendInLevel(bool il)const
 	{
 		fprintf(mFile," %i",il);
 
 	}
-	void endInLevel()
+	void endInLevel()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,39 +73,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDisplayLevel(size_t dl_start,size_t dl_end)
+	void startDisplayLevel(size_t dl_start,size_t dl_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dl[%i:%i]\"",dl_start,dl_end);
 
 	}
-	void appendDisplayLevel(unsigned int dl)
+	void appendDisplayLevel(unsigned int dl)const
 	{
 		fprintf(mFile," %i",dl);
 
 	}
-	void endDisplayLevel()
+	void endDisplayLevel()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getInLevel(size_t il_i)
+	void getInLevel(size_t il_i)const
 	{
 		fprintf(mFile,"\"%s.il[%i]\"",mName.c_str(),il_i);
 
 	}
-	void getDisplayLevel(size_t dl_i)
+	void getDisplayLevel(size_t dl_i)const
 	{
 		fprintf(mFile,"\"%s.dl[%i]\"",mName.c_str(),dl_i);
 
 	}
-	void getOutput(size_t o_i)
+	void getOutput(size_t o_i)const
 	{
 		fprintf(mFile,"\"%s.o[%i]\"",mName.c_str(),o_i);
 
 	}
 protected:
-	Chooser(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Chooser(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

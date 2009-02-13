@@ -19,7 +19,8 @@ class PolyModifier : public PolyBase
 public:
 public:
 	PolyModifier():PolyBase(){}
-	PolyModifier(FILE* file,const std::string& name,const std::string& parent=""):PolyBase(file, name, parent, "polyModifier"){}
+	PolyModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyBase(file, name, parent, "polyModifier", create){}
 	virtual ~PolyModifier(){}
 	void setUseOldPolyArchitecture(bool uopa)
 	{
@@ -34,19 +35,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputPolymesh()
+	void getInputPolymesh()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getInputComponents()
+	void getInputComponents()const
 	{
 		fprintf(mFile,"\"%s.ics\"",mName.c_str());
 
 	}
 protected:
-	PolyModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyBase(file, name, parent, nodeType) {}
+	PolyModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

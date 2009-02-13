@@ -19,7 +19,8 @@ class CurveFromSubdivFace : public CurveFromSubdiv
 public:
 public:
 	CurveFromSubdivFace():CurveFromSubdiv(){}
-	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent=""):CurveFromSubdiv(file, name, parent, "curveFromSubdivFace"){}
+	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CurveFromSubdiv(file, name, parent, "curveFromSubdivFace", create){}
 	virtual ~CurveFromSubdivFace(){}
 	void setFaceIndexL(size_t fil_i,int fil)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startFaceIndexL(size_t fil_start,size_t fil_end)
+	void startFaceIndexL(size_t fil_start,size_t fil_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".fil[%i:%i]\"",fil_start,fil_end);
 
 	}
-	void appendFaceIndexL(int fil)
+	void appendFaceIndexL(int fil)const
 	{
 		fprintf(mFile," %i",fil);
 
 	}
-	void endFaceIndexL()
+	void endFaceIndexL()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,34 +73,34 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startFaceIndexR(size_t fir_start,size_t fir_end)
+	void startFaceIndexR(size_t fir_start,size_t fir_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".fir[%i:%i]\"",fir_start,fir_end);
 
 	}
-	void appendFaceIndexR(int fir)
+	void appendFaceIndexR(int fir)const
 	{
 		fprintf(mFile," %i",fir);
 
 	}
-	void endFaceIndexR()
+	void endFaceIndexR()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getFaceIndexL(size_t fil_i)
+	void getFaceIndexL(size_t fil_i)const
 	{
 		fprintf(mFile,"\"%s.fil[%i]\"",mName.c_str(),fil_i);
 
 	}
-	void getFaceIndexR(size_t fir_i)
+	void getFaceIndexR(size_t fir_i)const
 	{
 		fprintf(mFile,"\"%s.fir[%i]\"",mName.c_str(),fir_i);
 
 	}
 protected:
-	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CurveFromSubdiv(file, name, parent, nodeType) {}
+	CurveFromSubdivFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CurveFromSubdiv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

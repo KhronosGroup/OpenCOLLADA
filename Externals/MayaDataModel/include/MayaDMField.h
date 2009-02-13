@@ -44,7 +44,8 @@ public:
 	};
 public:
 	Field():DynBase(){}
-	Field(FILE* file,const std::string& name,const std::string& parent=""):DynBase(file, name, parent, "field"){}
+	Field(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DynBase(file, name, parent, "field", create){}
 	virtual ~Field(){}
 	void setMagnitude(double mag)
 	{
@@ -181,139 +182,139 @@ public:
 		fprintf(mFile,"\tsetAttr \".fc[%i].fci\" %i;\n", fc_i,fci);
 
 	}
-	void getMagnitude()
+	void getMagnitude()const
 	{
 		fprintf(mFile,"\"%s.mag\"",mName.c_str());
 
 	}
-	void getAttenuation()
+	void getAttenuation()const
 	{
 		fprintf(mFile,"\"%s.att\"",mName.c_str());
 
 	}
-	void getMaxDistance()
+	void getMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.max\"",mName.c_str());
 
 	}
-	void getApplyPerVertex()
+	void getApplyPerVertex()const
 	{
 		fprintf(mFile,"\"%s.apv\"",mName.c_str());
 
 	}
-	void getUseMaxDistance()
+	void getUseMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.umd\"",mName.c_str());
 
 	}
-	void getInputData(size_t ind_i)
+	void getInputData(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i]\"",mName.c_str(),ind_i);
 
 	}
-	void getInputPositions(size_t ind_i)
+	void getInputPositions(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i].inp\"",mName.c_str(),ind_i);
 
 	}
-	void getInputVelocities(size_t ind_i)
+	void getInputVelocities(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i].inv\"",mName.c_str(),ind_i);
 
 	}
-	void getInputMass(size_t ind_i)
+	void getInputMass(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i].inm\"",mName.c_str(),ind_i);
 
 	}
-	void getDeltaTime(size_t ind_i)
+	void getDeltaTime(size_t ind_i)const
 	{
 		fprintf(mFile,"\"%s.ind[%i].dt\"",mName.c_str(),ind_i);
 
 	}
-	void getInputForce(size_t inf_i)
+	void getInputForce(size_t inf_i)const
 	{
 		fprintf(mFile,"\"%s.inf[%i]\"",mName.c_str(),inf_i);
 
 	}
-	void getOutputForce(size_t of_i)
+	void getOutputForce(size_t of_i)const
 	{
 		fprintf(mFile,"\"%s.of[%i]\"",mName.c_str(),of_i);
 
 	}
-	void getVolumeShape()
+	void getVolumeShape()const
 	{
 		fprintf(mFile,"\"%s.vol\"",mName.c_str());
 
 	}
-	void getVolumeExclusion()
+	void getVolumeExclusion()const
 	{
 		fprintf(mFile,"\"%s.vex\"",mName.c_str());
 
 	}
-	void getVolumeOffset()
+	void getVolumeOffset()const
 	{
 		fprintf(mFile,"\"%s.vfo\"",mName.c_str());
 
 	}
-	void getVolumeOffsetX()
+	void getVolumeOffsetX()const
 	{
 		fprintf(mFile,"\"%s.vfo.vox\"",mName.c_str());
 
 	}
-	void getVolumeOffsetY()
+	void getVolumeOffsetY()const
 	{
 		fprintf(mFile,"\"%s.vfo.voy\"",mName.c_str());
 
 	}
-	void getVolumeOffsetZ()
+	void getVolumeOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.vfo.voz\"",mName.c_str());
 
 	}
-	void getSectionRadius()
+	void getSectionRadius()const
 	{
 		fprintf(mFile,"\"%s.tsr\"",mName.c_str());
 
 	}
-	void getVolumeSweep()
+	void getVolumeSweep()const
 	{
 		fprintf(mFile,"\"%s.vsw\"",mName.c_str());
 
 	}
-	void getInputPPData(size_t ppda_i)
+	void getInputPPData(size_t ppda_i)const
 	{
 		fprintf(mFile,"\"%s.ppda[%i]\"",mName.c_str(),ppda_i);
 
 	}
-	void getOwnerPPData()
+	void getOwnerPPData()const
 	{
 		fprintf(mFile,"\"%s.oppd\"",mName.c_str());
 
 	}
-	void getFalloffCurve(size_t fc_i)
+	void getFalloffCurve(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffCurve_Position(size_t fc_i)
+	void getFalloffCurve_Position(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fcp\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffCurve_FloatValue(size_t fc_i)
+	void getFalloffCurve_FloatValue(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fcfv\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffCurve_Interp(size_t fc_i)
+	void getFalloffCurve_Interp(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fci\"",mName.c_str(),fc_i);
 
 	}
 protected:
-	Field(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DynBase(file, name, parent, nodeType) {}
+	Field(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DynBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

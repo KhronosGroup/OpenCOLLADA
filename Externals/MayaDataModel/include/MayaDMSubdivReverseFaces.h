@@ -19,7 +19,8 @@ class SubdivReverseFaces : public DependNode
 public:
 public:
 	SubdivReverseFaces():DependNode(){}
-	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivReverseFaces"){}
+	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "subdivReverseFaces", create){}
 	virtual ~SubdivReverseFaces(){}
 	void setXMirror(bool xm)
 	{
@@ -39,34 +40,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".zm\" %i;\n", zm);
 
 	}
-	void getInSubdiv()
+	void getInSubdiv()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getXMirror()
+	void getXMirror()const
 	{
 		fprintf(mFile,"\"%s.xm\"",mName.c_str());
 
 	}
-	void getYMirror()
+	void getYMirror()const
 	{
 		fprintf(mFile,"\"%s.ym\"",mName.c_str());
 
 	}
-	void getZMirror()
+	void getZMirror()const
 	{
 		fprintf(mFile,"\"%s.zm\"",mName.c_str());
 
 	}
-	void getOutSubdiv()
+	void getOutSubdiv()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SubdivReverseFaces(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

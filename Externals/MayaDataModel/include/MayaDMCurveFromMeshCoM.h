@@ -19,16 +19,17 @@ class CurveFromMeshCoM : public CurveFromMesh
 public:
 public:
 	CurveFromMeshCoM():CurveFromMesh(){}
-	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent=""):CurveFromMesh(file, name, parent, "curveFromMeshCoM"){}
+	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CurveFromMesh(file, name, parent, "curveFromMeshCoM", create){}
 	virtual ~CurveFromMeshCoM(){}
-	void getCurveOnMesh()
+	void getCurveOnMesh()const
 	{
 		fprintf(mFile,"\"%s.com\"",mName.c_str());
 
 	}
 protected:
-	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CurveFromMesh(file, name, parent, nodeType) {}
+	CurveFromMeshCoM(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CurveFromMesh(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

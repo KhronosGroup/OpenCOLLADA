@@ -35,7 +35,8 @@ public:
 	};
 public:
 	PfxToon():PfxGeometry(){}
-	PfxToon(FILE* file,const std::string& name,const std::string& parent=""):PfxGeometry(file, name, parent, "pfxToon"){}
+	PfxToon(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PfxGeometry(file, name, parent, "pfxToon", create){}
 	virtual ~PfxToon(){}
 	void setDisplayInViewport(bool div)
 	{
@@ -498,429 +499,429 @@ public:
 		fprintf(mFile,"\tsetAttr \".icl.icb\" %f;\n", icb);
 
 	}
-	void getInputSurface(size_t ins_i)
+	void getInputSurface(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i]\"",mName.c_str(),ins_i);
 
 	}
-	void getSurface(size_t ins_i)
+	void getSurface(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i].srf\"",mName.c_str(),ins_i);
 
 	}
-	void getInputWorldMatrix(size_t ins_i)
+	void getInputWorldMatrix(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i].iwm\"",mName.c_str(),ins_i);
 
 	}
-	void getDisplayInViewport()
+	void getDisplayInViewport()const
 	{
 		fprintf(mFile,"\"%s.div\"",mName.c_str());
 
 	}
-	void getProfileLines()
+	void getProfileLines()const
 	{
 		fprintf(mFile,"\"%s.pln\"",mName.c_str());
 
 	}
-	void getCreaseLines()
+	void getCreaseLines()const
 	{
 		fprintf(mFile,"\"%s.cln\"",mName.c_str());
 
 	}
-	void getBorderLines()
+	void getBorderLines()const
 	{
 		fprintf(mFile,"\"%s.bln\"",mName.c_str());
 
 	}
-	void getIntersectionLines()
+	void getIntersectionLines()const
 	{
 		fprintf(mFile,"\"%s.iln\"",mName.c_str());
 
 	}
-	void getSelfIntersect()
+	void getSelfIntersect()const
 	{
 		fprintf(mFile,"\"%s.sei\"",mName.c_str());
 
 	}
-	void getLineWidth()
+	void getLineWidth()const
 	{
 		fprintf(mFile,"\"%s.lwd\"",mName.c_str());
 
 	}
-	void getLineWidthMap()
+	void getLineWidthMap()const
 	{
 		fprintf(mFile,"\"%s.lwm\"",mName.c_str());
 
 	}
-	void getLineOpacity()
+	void getLineOpacity()const
 	{
 		fprintf(mFile,"\"%s.lop\"",mName.c_str());
 
 	}
-	void getLineOpacityMap()
+	void getLineOpacityMap()const
 	{
 		fprintf(mFile,"\"%s.lpm\"",mName.c_str());
 
 	}
-	void getLocalOcclusion()
+	void getLocalOcclusion()const
 	{
 		fprintf(mFile,"\"%s.lcl\"",mName.c_str());
 
 	}
-	void getOcclusionTolerance()
+	void getOcclusionTolerance()const
 	{
 		fprintf(mFile,"\"%s.otl\"",mName.c_str());
 
 	}
-	void getDepthBias()
+	void getDepthBias()const
 	{
 		fprintf(mFile,"\"%s.dbs\"",mName.c_str());
 
 	}
-	void getProfileLineWidth()
+	void getProfileLineWidth()const
 	{
 		fprintf(mFile,"\"%s.plw\"",mName.c_str());
 
 	}
-	void getCreaseLineWidth()
+	void getCreaseLineWidth()const
 	{
 		fprintf(mFile,"\"%s.clw\"",mName.c_str());
 
 	}
-	void getBorderLineWidth()
+	void getBorderLineWidth()const
 	{
 		fprintf(mFile,"\"%s.blw\"",mName.c_str());
 
 	}
-	void getIntersectionLineWidth()
+	void getIntersectionLineWidth()const
 	{
 		fprintf(mFile,"\"%s.ilw\"",mName.c_str());
 
 	}
-	void getLineOffset()
+	void getLineOffset()const
 	{
 		fprintf(mFile,"\"%s.lof\"",mName.c_str());
 
 	}
-	void getLineOffsetMap()
+	void getLineOffsetMap()const
 	{
 		fprintf(mFile,"\"%s.lom\"",mName.c_str());
 
 	}
-	void getLightingBasedWidth()
+	void getLightingBasedWidth()const
 	{
 		fprintf(mFile,"\"%s.lbw\"",mName.c_str());
 
 	}
-	void getOcclusionWidthScale()
+	void getOcclusionWidthScale()const
 	{
 		fprintf(mFile,"\"%s.ows\"",mName.c_str());
 
 	}
-	void getDepthOffset()
+	void getDepthOffset()const
 	{
 		fprintf(mFile,"\"%s.dff\"",mName.c_str());
 
 	}
-	void getCreaseAngleMin()
+	void getCreaseAngleMin()const
 	{
 		fprintf(mFile,"\"%s.amn\"",mName.c_str());
 
 	}
-	void getCreaseAngleMax()
+	void getCreaseAngleMax()const
 	{
 		fprintf(mFile,"\"%s.amx\"",mName.c_str());
 
 	}
-	void getHardCreasesOnly()
+	void getHardCreasesOnly()const
 	{
 		fprintf(mFile,"\"%s.hco\"",mName.c_str());
 
 	}
-	void getBackfacingCreases()
+	void getBackfacingCreases()const
 	{
 		fprintf(mFile,"\"%s.bfc\"",mName.c_str());
 
 	}
-	void getIntersectionAngleMin()
+	void getIntersectionAngleMin()const
 	{
 		fprintf(mFile,"\"%s.imn\"",mName.c_str());
 
 	}
-	void getIntersectionAngleMax()
+	void getIntersectionAngleMax()const
 	{
 		fprintf(mFile,"\"%s.imx\"",mName.c_str());
 
 	}
-	void getSmoothProfile()
+	void getSmoothProfile()const
 	{
 		fprintf(mFile,"\"%s.spf\"",mName.c_str());
 
 	}
-	void getTighterProfile()
+	void getTighterProfile()const
 	{
 		fprintf(mFile,"\"%s.tpf\"",mName.c_str());
 
 	}
-	void getCurvatureModulation()
+	void getCurvatureModulation()const
 	{
 		fprintf(mFile,"\"%s.cmo\"",mName.c_str());
 
 	}
-	void getCurvatureWidth(size_t cwd_i)
+	void getCurvatureWidth(size_t cwd_i)const
 	{
 		fprintf(mFile,"\"%s.cwd[%i]\"",mName.c_str(),cwd_i);
 
 	}
-	void getCurvatureWidth_Position(size_t cwd_i)
+	void getCurvatureWidth_Position(size_t cwd_i)const
 	{
 		fprintf(mFile,"\"%s.cwd[%i].cwdp\"",mName.c_str(),cwd_i);
 
 	}
-	void getCurvatureWidth_FloatValue(size_t cwd_i)
+	void getCurvatureWidth_FloatValue(size_t cwd_i)const
 	{
 		fprintf(mFile,"\"%s.cwd[%i].cwdfv\"",mName.c_str(),cwd_i);
 
 	}
-	void getCurvatureWidth_Interp(size_t cwd_i)
+	void getCurvatureWidth_Interp(size_t cwd_i)const
 	{
 		fprintf(mFile,"\"%s.cwd[%i].cwdi\"",mName.c_str(),cwd_i);
 
 	}
-	void getProfileWidthModulation()
+	void getProfileWidthModulation()const
 	{
 		fprintf(mFile,"\"%s.pwm\"",mName.c_str());
 
 	}
-	void getCreaseWidthModulation()
+	void getCreaseWidthModulation()const
 	{
 		fprintf(mFile,"\"%s.cwm\"",mName.c_str());
 
 	}
-	void getBorderWidthModulation()
+	void getBorderWidthModulation()const
 	{
 		fprintf(mFile,"\"%s.bwm\"",mName.c_str());
 
 	}
-	void getIntersectionWidthModulation()
+	void getIntersectionWidthModulation()const
 	{
 		fprintf(mFile,"\"%s.imd\"",mName.c_str());
 
 	}
-	void getProfileBreakAngle()
+	void getProfileBreakAngle()const
 	{
 		fprintf(mFile,"\"%s.pba\"",mName.c_str());
 
 	}
-	void getCreaseBreakAngle()
+	void getCreaseBreakAngle()const
 	{
 		fprintf(mFile,"\"%s.cba\"",mName.c_str());
 
 	}
-	void getBorderBreakAngle()
+	void getBorderBreakAngle()const
 	{
 		fprintf(mFile,"\"%s.bba\"",mName.c_str());
 
 	}
-	void getIntersectionBreakAngle()
+	void getIntersectionBreakAngle()const
 	{
 		fprintf(mFile,"\"%s.iba\"",mName.c_str());
 
 	}
-	void getRemoveFlushBorders()
+	void getRemoveFlushBorders()const
 	{
 		fprintf(mFile,"\"%s.rfb\"",mName.c_str());
 
 	}
-	void getFlushTolerance()
+	void getFlushTolerance()const
 	{
 		fprintf(mFile,"\"%s.tfl\"",mName.c_str());
 
 	}
-	void getFlushAngleMax()
+	void getFlushAngleMax()const
 	{
 		fprintf(mFile,"\"%s.fmx\"",mName.c_str());
 
 	}
-	void getLineEndThinning()
+	void getLineEndThinning()const
 	{
 		fprintf(mFile,"\"%s.let\"",mName.c_str());
 
 	}
-	void getLineExtend()
+	void getLineExtend()const
 	{
 		fprintf(mFile,"\"%s.lex\"",mName.c_str());
 
 	}
-	void getResampleProfile()
+	void getResampleProfile()const
 	{
 		fprintf(mFile,"\"%s.rpf\"",mName.c_str());
 
 	}
-	void getResampleCrease()
+	void getResampleCrease()const
 	{
 		fprintf(mFile,"\"%s.rcr\"",mName.c_str());
 
 	}
-	void getResampleBorder()
+	void getResampleBorder()const
 	{
 		fprintf(mFile,"\"%s.rbd\"",mName.c_str());
 
 	}
-	void getResampleIntersection()
+	void getResampleIntersection()const
 	{
 		fprintf(mFile,"\"%s.rin\"",mName.c_str());
 
 	}
-	void getMaxSegmentLength()
+	void getMaxSegmentLength()const
 	{
 		fprintf(mFile,"\"%s.msl\"",mName.c_str());
 
 	}
-	void getMinSegmentLength()
+	void getMinSegmentLength()const
 	{
 		fprintf(mFile,"\"%s.mns\"",mName.c_str());
 
 	}
-	void getScreenSpaceResampling()
+	void getScreenSpaceResampling()const
 	{
 		fprintf(mFile,"\"%s.ssr\"",mName.c_str());
 
 	}
-	void getPfxRandomize()
+	void getPfxRandomize()const
 	{
 		fprintf(mFile,"\"%s.prz\"",mName.c_str());
 
 	}
-	void getScreenspaceWidth()
+	void getScreenspaceWidth()const
 	{
 		fprintf(mFile,"\"%s.spw\"",mName.c_str());
 
 	}
-	void getDistanceScaling()
+	void getDistanceScaling()const
 	{
 		fprintf(mFile,"\"%s.dsl\"",mName.c_str());
 
 	}
-	void getMinPixelWidth()
+	void getMinPixelWidth()const
 	{
 		fprintf(mFile,"\"%s.mpw\"",mName.c_str());
 
 	}
-	void getMaxPixelWidth()
+	void getMaxPixelWidth()const
 	{
 		fprintf(mFile,"\"%s.mxp\"",mName.c_str());
 
 	}
-	void getProfileColor()
+	void getProfileColor()const
 	{
 		fprintf(mFile,"\"%s.pcl\"",mName.c_str());
 
 	}
-	void getProfileColorR()
+	void getProfileColorR()const
 	{
 		fprintf(mFile,"\"%s.pcl.pcr\"",mName.c_str());
 
 	}
-	void getProfileColorG()
+	void getProfileColorG()const
 	{
 		fprintf(mFile,"\"%s.pcl.pcg\"",mName.c_str());
 
 	}
-	void getProfileColorB()
+	void getProfileColorB()const
 	{
 		fprintf(mFile,"\"%s.pcl.pcb\"",mName.c_str());
 
 	}
-	void getCreaseColor()
+	void getCreaseColor()const
 	{
 		fprintf(mFile,"\"%s.ccl\"",mName.c_str());
 
 	}
-	void getCreaseColorR()
+	void getCreaseColorR()const
 	{
 		fprintf(mFile,"\"%s.ccl.ccr\"",mName.c_str());
 
 	}
-	void getCreaseColorG()
+	void getCreaseColorG()const
 	{
 		fprintf(mFile,"\"%s.ccl.ccg\"",mName.c_str());
 
 	}
-	void getCreaseColorB()
+	void getCreaseColorB()const
 	{
 		fprintf(mFile,"\"%s.ccl.ccb\"",mName.c_str());
 
 	}
-	void getBorderColor()
+	void getBorderColor()const
 	{
 		fprintf(mFile,"\"%s.bcl\"",mName.c_str());
 
 	}
-	void getBorderColorR()
+	void getBorderColorR()const
 	{
 		fprintf(mFile,"\"%s.bcl.bcr\"",mName.c_str());
 
 	}
-	void getBorderColorG()
+	void getBorderColorG()const
 	{
 		fprintf(mFile,"\"%s.bcl.bcg\"",mName.c_str());
 
 	}
-	void getBorderColorB()
+	void getBorderColorB()const
 	{
 		fprintf(mFile,"\"%s.bcl.bcb\"",mName.c_str());
 
 	}
-	void getIntersectionColor()
+	void getIntersectionColor()const
 	{
 		fprintf(mFile,"\"%s.icl\"",mName.c_str());
 
 	}
-	void getIntersectionColorR()
+	void getIntersectionColorR()const
 	{
 		fprintf(mFile,"\"%s.icl.icr\"",mName.c_str());
 
 	}
-	void getIntersectionColorG()
+	void getIntersectionColorG()const
 	{
 		fprintf(mFile,"\"%s.icl.icg\"",mName.c_str());
 
 	}
-	void getIntersectionColorB()
+	void getIntersectionColorB()const
 	{
 		fprintf(mFile,"\"%s.icl.icb\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.ocl\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.ocl.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.ocl.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.ocl.ocb\"",mName.c_str());
 
 	}
-	void getOutProfileMesh(size_t opm_i)
+	void getOutProfileMesh(size_t opm_i)const
 	{
 		fprintf(mFile,"\"%s.opm[%i]\"",mName.c_str(),opm_i);
 
 	}
 protected:
-	PfxToon(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PfxGeometry(file, name, parent, nodeType) {}
+	PfxToon(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PfxGeometry(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

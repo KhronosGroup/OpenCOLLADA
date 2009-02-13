@@ -19,7 +19,8 @@ class PolyBoolOp : public PolyUnite
 public:
 public:
 	PolyBoolOp():PolyUnite(){}
-	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent=""):PolyUnite(file, name, parent, "polyBoolOp"){}
+	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyUnite(file, name, parent, "polyBoolOp", create){}
 	virtual ~PolyBoolOp(){}
 	void setOperation(unsigned int op)
 	{
@@ -45,29 +46,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".fat\" %f;\n", fat);
 
 	}
-	void getOperation()
+	void getOperation()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getUseThresholds()
+	void getUseThresholds()const
 	{
 		fprintf(mFile,"\"%s.uth\"",mName.c_str());
 
 	}
-	void getVertexDistanceThreshold()
+	void getVertexDistanceThreshold()const
 	{
 		fprintf(mFile,"\"%s.vdt\"",mName.c_str());
 
 	}
-	void getFaceAreaThreshold()
+	void getFaceAreaThreshold()const
 	{
 		fprintf(mFile,"\"%s.fat\"",mName.c_str());
 
 	}
 protected:
-	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyUnite(file, name, parent, nodeType) {}
+	PolyBoolOp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyUnite(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

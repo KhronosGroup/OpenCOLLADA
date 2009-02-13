@@ -78,6 +78,43 @@ namespace MayaDM
 //             return childNode;
 //         }
 //     }
+
+    /**
+    * This command is used to put objects onto or off of the active list. 
+    * If none of the five flags [-add, -af, -r, -d, -tgl] are specified, the default is to replace 
+    * the objects on the active list with the given list of objects. When selecting a set as in 
+    * "select set1", the behaviour is for all the members of the set to become selected instead of 
+    * the set itself. If you want to select a set, the "-ne/noExpand" flag must be used. With the 
+    * advent of namespaces, selection by name may be confusing. To clarify, without a qualified 
+    * namespace, name lookup is limited to objects in the root namespace ":". 
+    * There are really two parts of a name: the namespace and the name itself which is unique 
+    * within the namespace. If you want to select objects in a specific namespace, you need to 
+    * include the namespace separator ":". For example, 'select -r "foo*"' is trying to look for 
+    * an object with the "foo" prefix in the root namespace. It is not trying to look for all 
+    * objects in the namespace with the "foo" prefix. If you want to select all objects in a 
+    * namespace (foo), use 'select "foo:*"'. 
+    * Note: When the application starts up, there are several dependency nodes created by the 
+    * system which must exist. These objects are not deletable but are selectable. All objects 
+    * (dag and dependency nodes) in the scene can be obtained using the "ls" command without any 
+    * arguments. When using the "-all", "adn/allDependencyNodes" or "-ado/allDagObjects" flags, 
+    * only the deletable objects are selected. The non deletable object can still be selected by 
+    * explicitly specifying their name as in "select time1;". 
+     * @param FILE* file
+     * @param const std::string& obj
+     * @param bool noExpand Indicates that any set which is among the specified items should not be 
+     *          expanded to its list of members. This allows sets to be selected as opposed to the 
+     *          members of sets which is the default behaviour. 
+     * @return const
+     */
+    #define mayaSelect(file, objName, noExpand) \
+    {                                           \
+        fprintf(file, "select ");               \
+        if ( noExpand )                         \
+            fprintf(file, "-noExpand ");        \
+        fprintf(file, "%s", objName.c_str());   \
+        fprintf(file, ";\n");                   \
+    }
+
 }
 
 #endif //__MayaDM_COMMANDS_H__

@@ -19,7 +19,8 @@ class SubdLayoutUV : public SubdModifierUV
 public:
 public:
 	SubdLayoutUV():SubdModifierUV(){}
-	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierUV(file, name, parent, "subdLayoutUV"){}
+	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SubdModifierUV(file, name, parent, "subdLayoutUV", create){}
 	virtual ~SubdLayoutUV(){}
 	void setSeparate(unsigned int se)
 	{
@@ -69,49 +70,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".lm\" %i;\n", lm);
 
 	}
-	void getSeparate()
+	void getSeparate()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
-	void getFlipReversed()
+	void getFlipReversed()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getLayout()
+	void getLayout()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getPercentageSpace()
+	void getPercentageSpace()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getDenseLayout()
+	void getDenseLayout()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getRotateForBestFit()
+	void getRotateForBestFit()const
 	{
 		fprintf(mFile,"\"%s.rbf\"",mName.c_str());
 
 	}
-	void getLayoutMethod()
+	void getLayoutMethod()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
 protected:
-	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SubdModifierUV(file, name, parent, nodeType) {}
+	SubdLayoutUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SubdModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

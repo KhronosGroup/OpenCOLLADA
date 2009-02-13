@@ -18,11 +18,12 @@ class SubdCleanTopology : public SubdModifier
 {
 public:
 	SubdCleanTopology():SubdModifier(){}
-	SubdCleanTopology(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdCleanTopology"){}
+	SubdCleanTopology(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SubdModifier(file, name, parent, "subdCleanTopology", create){}
 	virtual ~SubdCleanTopology(){}
 protected:
-	SubdCleanTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SubdModifier(file, name, parent, nodeType) {}
+	SubdCleanTopology(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SubdModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

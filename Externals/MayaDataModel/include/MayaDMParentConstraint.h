@@ -57,7 +57,8 @@ public:
 	};
 public:
 	ParentConstraint():Constraint(){}
-	ParentConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "parentConstraint"){}
+	ParentConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Constraint(file, name, parent, "parentConstraint", create){}
 	virtual ~ParentConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
@@ -488,389 +489,389 @@ public:
 		fprintf(mFile,"\tsetAttr \".inc\" %i;\n", inc);
 
 	}
-	void getTarget(size_t tg_i)
+	void getTarget(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetParentMatrix(size_t tg_i)
+	void getTargetParentMatrix(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tpm\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetWeight(size_t tg_i)
+	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateCached(size_t tg_i)
+	void getTargetRotateCached(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ctr\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateCachedX(size_t tg_i)
+	void getTargetRotateCachedX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ctr.ctrx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateCachedY(size_t tg_i)
+	void getTargetRotateCachedY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ctr.ctry\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateCachedZ(size_t tg_i)
+	void getTargetRotateCachedZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ctr.ctrz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetTranslate(size_t tg_i)
+	void getTargetTranslate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tt\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetTranslateX(size_t tg_i)
+	void getTargetTranslateX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tt.ttx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetTranslateY(size_t tg_i)
+	void getTargetTranslateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tt.tty\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetTranslateZ(size_t tg_i)
+	void getTargetTranslateZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tt.ttz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotatePivot(size_t tg_i)
+	void getTargetRotatePivot(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trp\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotatePivotX(size_t tg_i)
+	void getTargetRotatePivotX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trp.trpx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotatePivotY(size_t tg_i)
+	void getTargetRotatePivotY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trp.trpy\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotatePivotZ(size_t tg_i)
+	void getTargetRotatePivotZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trp.trpz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateTranslate(size_t tg_i)
+	void getTargetRotateTranslate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trt\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateTranslateX(size_t tg_i)
+	void getTargetRotateTranslateX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trt.trtx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateTranslateY(size_t tg_i)
+	void getTargetRotateTranslateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trt.trty\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateTranslateZ(size_t tg_i)
+	void getTargetRotateTranslateZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].trt.trtz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetTranslate(size_t tg_i)
+	void getTargetOffsetTranslate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tot\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetTranslateX(size_t tg_i)
+	void getTargetOffsetTranslateX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tot.totx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetTranslateY(size_t tg_i)
+	void getTargetOffsetTranslateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tot.toty\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetTranslateZ(size_t tg_i)
+	void getTargetOffsetTranslateZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tot.totz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotate(size_t tg_i)
+	void getTargetRotate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tr\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateX(size_t tg_i)
+	void getTargetRotateX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tr.trx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateY(size_t tg_i)
+	void getTargetRotateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tr.try\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateZ(size_t tg_i)
+	void getTargetRotateZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tr.trz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetRotateOrder(size_t tg_i)
+	void getTargetRotateOrder(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tro\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetJointOrient(size_t tg_i)
+	void getTargetJointOrient(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tjo\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetJointOrientX(size_t tg_i)
+	void getTargetJointOrientX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tjo.tjox\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetJointOrientY(size_t tg_i)
+	void getTargetJointOrientY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tjo.tjoy\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetJointOrientZ(size_t tg_i)
+	void getTargetJointOrientZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tjo.tjoz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetRotate(size_t tg_i)
+	void getTargetOffsetRotate(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tor\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetRotateX(size_t tg_i)
+	void getTargetOffsetRotateX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tor.torx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetRotateY(size_t tg_i)
+	void getTargetOffsetRotateY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tor.tory\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetOffsetRotateZ(size_t tg_i)
+	void getTargetOffsetRotateZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tor.torz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScale(size_t tg_i)
+	void getTargetScale(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScaleX(size_t tg_i)
+	void getTargetScaleX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScaleY(size_t tg_i)
+	void getTargetScaleY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsy\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScaleZ(size_t tg_i)
+	void getTargetScaleZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsz\"",mName.c_str(),tg_i);
 
 	}
-	void getConstraintParentInverseMatrix()
+	void getConstraintParentInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.cpim\"",mName.c_str());
 
 	}
-	void getLastTargetRotate()
+	void getLastTargetRotate()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getLastTargetRotateX()
+	void getLastTargetRotateX()const
 	{
 		fprintf(mFile,"\"%s.lr.lrx\"",mName.c_str());
 
 	}
-	void getLastTargetRotateY()
+	void getLastTargetRotateY()const
 	{
 		fprintf(mFile,"\"%s.lr.lry\"",mName.c_str());
 
 	}
-	void getLastTargetRotateZ()
+	void getLastTargetRotateZ()const
 	{
 		fprintf(mFile,"\"%s.lr.lrz\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivot()
+	void getConstraintRotatePivot()const
 	{
 		fprintf(mFile,"\"%s.crp\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivotX()
+	void getConstraintRotatePivotX()const
 	{
 		fprintf(mFile,"\"%s.crp.crpx\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivotY()
+	void getConstraintRotatePivotY()const
 	{
 		fprintf(mFile,"\"%s.crp.crpy\"",mName.c_str());
 
 	}
-	void getConstraintRotatePivotZ()
+	void getConstraintRotatePivotZ()const
 	{
 		fprintf(mFile,"\"%s.crp.crpz\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslate()
+	void getConstraintRotateTranslate()const
 	{
 		fprintf(mFile,"\"%s.crt\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslateX()
+	void getConstraintRotateTranslateX()const
 	{
 		fprintf(mFile,"\"%s.crt.crtx\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslateY()
+	void getConstraintRotateTranslateY()const
 	{
 		fprintf(mFile,"\"%s.crt.crty\"",mName.c_str());
 
 	}
-	void getConstraintRotateTranslateZ()
+	void getConstraintRotateTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.crt.crtz\"",mName.c_str());
 
 	}
-	void getConstraintTranslate()
+	void getConstraintTranslate()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getConstraintTranslateX()
+	void getConstraintTranslateX()const
 	{
 		fprintf(mFile,"\"%s.ct.ctx\"",mName.c_str());
 
 	}
-	void getConstraintTranslateY()
+	void getConstraintTranslateY()const
 	{
 		fprintf(mFile,"\"%s.ct.cty\"",mName.c_str());
 
 	}
-	void getConstraintTranslateZ()
+	void getConstraintTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.ct.ctz\"",mName.c_str());
 
 	}
-	void getRestTranslate()
+	void getRestTranslate()const
 	{
 		fprintf(mFile,"\"%s.rst\"",mName.c_str());
 
 	}
-	void getRestTranslateX()
+	void getRestTranslateX()const
 	{
 		fprintf(mFile,"\"%s.rst.rtx\"",mName.c_str());
 
 	}
-	void getRestTranslateY()
+	void getRestTranslateY()const
 	{
 		fprintf(mFile,"\"%s.rst.rty\"",mName.c_str());
 
 	}
-	void getRestTranslateZ()
+	void getRestTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.rst.rtz\"",mName.c_str());
 
 	}
-	void getConstraintRotateOrder()
+	void getConstraintRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.cro\"",mName.c_str());
 
 	}
-	void getConstraintJointOrient()
+	void getConstraintJointOrient()const
 	{
 		fprintf(mFile,"\"%s.cjo\"",mName.c_str());
 
 	}
-	void getConstraintJointOrientX()
+	void getConstraintJointOrientX()const
 	{
 		fprintf(mFile,"\"%s.cjo.cjox\"",mName.c_str());
 
 	}
-	void getConstraintJointOrientY()
+	void getConstraintJointOrientY()const
 	{
 		fprintf(mFile,"\"%s.cjo.cjoy\"",mName.c_str());
 
 	}
-	void getConstraintJointOrientZ()
+	void getConstraintJointOrientZ()const
 	{
 		fprintf(mFile,"\"%s.cjo.cjoz\"",mName.c_str());
 
 	}
-	void getConstraintRotate()
+	void getConstraintRotate()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getConstraintRotateX()
+	void getConstraintRotateX()const
 	{
 		fprintf(mFile,"\"%s.cr.crx\"",mName.c_str());
 
 	}
-	void getConstraintRotateY()
+	void getConstraintRotateY()const
 	{
 		fprintf(mFile,"\"%s.cr.cry\"",mName.c_str());
 
 	}
-	void getConstraintRotateZ()
+	void getConstraintRotateZ()const
 	{
 		fprintf(mFile,"\"%s.cr.crz\"",mName.c_str());
 
 	}
-	void getRestRotate()
+	void getRestRotate()const
 	{
 		fprintf(mFile,"\"%s.rsrr\"",mName.c_str());
 
 	}
-	void getRestRotateX()
+	void getRestRotateX()const
 	{
 		fprintf(mFile,"\"%s.rsrr.rrx\"",mName.c_str());
 
 	}
-	void getRestRotateY()
+	void getRestRotateY()const
 	{
 		fprintf(mFile,"\"%s.rsrr.rry\"",mName.c_str());
 
 	}
-	void getRestRotateZ()
+	void getRestRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rsrr.rrz\"",mName.c_str());
 
 	}
-	void getInterpType()
+	void getInterpType()const
 	{
 		fprintf(mFile,"\"%s.int\"",mName.c_str());
 
 	}
-	void getInterpCache()
+	void getInterpCache()const
 	{
 		fprintf(mFile,"\"%s.inc\"",mName.c_str());
 
 	}
 protected:
-	ParentConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Constraint(file, name, parent, nodeType) {}
+	ParentConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Constraint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

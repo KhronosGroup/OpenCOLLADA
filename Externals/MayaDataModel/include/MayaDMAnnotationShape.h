@@ -19,7 +19,8 @@ class AnnotationShape : public DimensionShape
 public:
 public:
 	AnnotationShape():DimensionShape(){}
-	AnnotationShape(FILE* file,const std::string& name,const std::string& parent=""):DimensionShape(file, name, parent, "annotationShape"){}
+	AnnotationShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DimensionShape(file, name, parent, "annotationShape", create){}
 	virtual ~AnnotationShape(){}
 	void setText(const string& txt)
 	{
@@ -49,19 +50,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDagObjectMatrix(size_t dom_start,size_t dom_end)
+	void startDagObjectMatrix(size_t dom_start,size_t dom_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dom[%i:%i]\"",dom_start,dom_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendDagObjectMatrix(const matrix& dom)
+	void appendDagObjectMatrix(const matrix& dom)const
 	{
 		fprintf(mFile,"\n");
 		dom.write(mFile);
 
 	}
-	void endDagObjectMatrix()
+	void endDagObjectMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,44 +73,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".daro\" %i;\n", daro);
 
 	}
-	void getText()
+	void getText()const
 	{
 		fprintf(mFile,"\"%s.txt\"",mName.c_str());
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.tp\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.tp.tpx\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.tp.tpy\"",mName.c_str());
 
 	}
-	void getPositionZ()
+	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.tp.tpz\"",mName.c_str());
 
 	}
-	void getDagObjectMatrix(size_t dom_i)
+	void getDagObjectMatrix(size_t dom_i)const
 	{
 		fprintf(mFile,"\"%s.dom[%i]\"",mName.c_str(),dom_i);
 
 	}
-	void getDisplayArrow()
+	void getDisplayArrow()const
 	{
 		fprintf(mFile,"\"%s.daro\"",mName.c_str());
 
 	}
 protected:
-	AnnotationShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DimensionShape(file, name, parent, nodeType) {}
+	AnnotationShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DimensionShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

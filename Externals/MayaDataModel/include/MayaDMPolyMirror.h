@@ -19,7 +19,8 @@ class PolyMirror : public PolyModifierWorld
 public:
 public:
 	PolyMirror():PolyModifierWorld(){}
-	PolyMirror(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyMirror"){}
+	PolyMirror(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyMirror", create){}
 	virtual ~PolyMirror(){}
 	void setPivot(const double3& p)
 	{
@@ -65,44 +66,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".mt\" %f;\n", mt);
 
 	}
-	void getPivot()
+	void getPivot()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPivotX()
+	void getPivotX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPivotY()
+	void getPivotY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPivotZ()
+	void getPivotZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getMergeMode()
+	void getMergeMode()const
 	{
 		fprintf(mFile,"\"%s.mm\"",mName.c_str());
 
 	}
-	void getMergeThreshold()
+	void getMergeThreshold()const
 	{
 		fprintf(mFile,"\"%s.mt\"",mName.c_str());
 
 	}
 protected:
-	PolyMirror(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyMirror(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

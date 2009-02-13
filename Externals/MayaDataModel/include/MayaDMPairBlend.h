@@ -19,7 +19,8 @@ class PairBlend : public DependNode
 public:
 public:
 	PairBlend():DependNode(){}
-	PairBlend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "pairBlend"){}
+	PairBlend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "pairBlend", create){}
 	virtual ~PairBlend(){}
 	void setCurrentDriver(unsigned int c)
 	{
@@ -169,139 +170,139 @@ public:
 		fprintf(mFile,"\tsetAttr \".ri\" %i;\n", ri);
 
 	}
-	void getInTranslate1()
+	void getInTranslate1()const
 	{
 		fprintf(mFile,"\"%s.it1\"",mName.c_str());
 
 	}
-	void getInTranslateX1()
+	void getInTranslateX1()const
 	{
 		fprintf(mFile,"\"%s.it1.itx1\"",mName.c_str());
 
 	}
-	void getInTranslateY1()
+	void getInTranslateY1()const
 	{
 		fprintf(mFile,"\"%s.it1.ity1\"",mName.c_str());
 
 	}
-	void getInTranslateZ1()
+	void getInTranslateZ1()const
 	{
 		fprintf(mFile,"\"%s.it1.itz1\"",mName.c_str());
 
 	}
-	void getInRotate1()
+	void getInRotate1()const
 	{
 		fprintf(mFile,"\"%s.ir1\"",mName.c_str());
 
 	}
-	void getInRotateX1()
+	void getInRotateX1()const
 	{
 		fprintf(mFile,"\"%s.ir1.irx1\"",mName.c_str());
 
 	}
-	void getInRotateY1()
+	void getInRotateY1()const
 	{
 		fprintf(mFile,"\"%s.ir1.iry1\"",mName.c_str());
 
 	}
-	void getInRotateZ1()
+	void getInRotateZ1()const
 	{
 		fprintf(mFile,"\"%s.ir1.irz1\"",mName.c_str());
 
 	}
-	void getInTranslate2()
+	void getInTranslate2()const
 	{
 		fprintf(mFile,"\"%s.it2\"",mName.c_str());
 
 	}
-	void getInTranslateX2()
+	void getInTranslateX2()const
 	{
 		fprintf(mFile,"\"%s.it2.itx2\"",mName.c_str());
 
 	}
-	void getInTranslateY2()
+	void getInTranslateY2()const
 	{
 		fprintf(mFile,"\"%s.it2.ity2\"",mName.c_str());
 
 	}
-	void getInTranslateZ2()
+	void getInTranslateZ2()const
 	{
 		fprintf(mFile,"\"%s.it2.itz2\"",mName.c_str());
 
 	}
-	void getInRotate2()
+	void getInRotate2()const
 	{
 		fprintf(mFile,"\"%s.ir2\"",mName.c_str());
 
 	}
-	void getInRotateX2()
+	void getInRotateX2()const
 	{
 		fprintf(mFile,"\"%s.ir2.irx2\"",mName.c_str());
 
 	}
-	void getInRotateY2()
+	void getInRotateY2()const
 	{
 		fprintf(mFile,"\"%s.ir2.iry2\"",mName.c_str());
 
 	}
-	void getInRotateZ2()
+	void getInRotateZ2()const
 	{
 		fprintf(mFile,"\"%s.ir2.irz2\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getRotateOrder()
+	void getRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getOutTranslate()
+	void getOutTranslate()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutTranslateX()
+	void getOutTranslateX()const
 	{
 		fprintf(mFile,"\"%s.ot.otx\"",mName.c_str());
 
 	}
-	void getOutTranslateY()
+	void getOutTranslateY()const
 	{
 		fprintf(mFile,"\"%s.ot.oty\"",mName.c_str());
 
 	}
-	void getOutTranslateZ()
+	void getOutTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.ot.otz\"",mName.c_str());
 
 	}
-	void getOutRotate()
+	void getOutRotate()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getOutRotateX()
+	void getOutRotateX()const
 	{
 		fprintf(mFile,"\"%s.or.orx\"",mName.c_str());
 
 	}
-	void getOutRotateY()
+	void getOutRotateY()const
 	{
 		fprintf(mFile,"\"%s.or.ory\"",mName.c_str());
 
 	}
-	void getOutRotateZ()
+	void getOutRotateZ()const
 	{
 		fprintf(mFile,"\"%s.or.orz\"",mName.c_str());
 
 	}
 protected:
-	PairBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	PairBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

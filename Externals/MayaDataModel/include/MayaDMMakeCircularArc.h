@@ -19,7 +19,8 @@ class MakeCircularArc : public AbstractBaseCreate
 public:
 public:
 	MakeCircularArc():AbstractBaseCreate(){}
-	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeCircularArc"){}
+	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeCircularArc", create){}
 	virtual ~MakeCircularArc(){}
 	void setDegree(unsigned int d)
 	{
@@ -33,69 +34,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSections()
+	void getSections()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getCenter()
+	void getCenter()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getCenterX()
+	void getCenterX()const
 	{
 		fprintf(mFile,"\"%s.c.cx\"",mName.c_str());
 
 	}
-	void getCenterY()
+	void getCenterY()const
 	{
 		fprintf(mFile,"\"%s.c.cy\"",mName.c_str());
 
 	}
-	void getCenterZ()
+	void getCenterZ()const
 	{
 		fprintf(mFile,"\"%s.c.cz\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.nr\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nr.nrx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.nr.nry\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nr.nrz\"",mName.c_str());
 
 	}
-	void getSweep()
+	void getSweep()const
 	{
 		fprintf(mFile,"\"%s.sw\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class FluidTexture2D : public FluidShape
 public:
 public:
 	FluidTexture2D():FluidShape(){}
-	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent=""):FluidShape(file, name, parent, "fluidTexture2D"){}
+	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:FluidShape(file, name, parent, "fluidTexture2D", create){}
 	virtual ~FluidTexture2D(){}
 	void setAlphaGain(float ag)
 	{
@@ -59,89 +60,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".dcl.dcb\" %f;\n", dcb);
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.uvu\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.uvv\"",mName.c_str());
 
 	}
-	void getUvFilterSize()
+	void getUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.uvfs\"",mName.c_str());
 
 	}
-	void getUvFilterSizeX()
+	void getUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.uvfs.uvfsx\"",mName.c_str());
 
 	}
-	void getUvFilterSizeY()
+	void getUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.uvfs.uvfsy\"",mName.c_str());
 
 	}
-	void getOutAlpha()
+	void getOutAlpha()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
-	void getOutUV()
+	void getOutUV()const
 	{
 		fprintf(mFile,"\"%s.ouv\"",mName.c_str());
 
 	}
-	void getOutU()
+	void getOutU()const
 	{
 		fprintf(mFile,"\"%s.ouv.ou\"",mName.c_str());
 
 	}
-	void getOutV()
+	void getOutV()const
 	{
 		fprintf(mFile,"\"%s.ouv.ov\"",mName.c_str());
 
 	}
-	void getAlphaGain()
+	void getAlphaGain()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
-	void getAlphaOffset()
+	void getAlphaOffset()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
 
 	}
-	void getDefaultColor()
+	void getDefaultColor()const
 	{
 		fprintf(mFile,"\"%s.dcl\"",mName.c_str());
 
 	}
-	void getDefaultColorR()
+	void getDefaultColorR()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcr\"",mName.c_str());
 
 	}
-	void getDefaultColorG()
+	void getDefaultColorG()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcg\"",mName.c_str());
 
 	}
-	void getDefaultColorB()
+	void getDefaultColorB()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcb\"",mName.c_str());
 
 	}
 protected:
-	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:FluidShape(file, name, parent, nodeType) {}
+	FluidTexture2D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:FluidShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

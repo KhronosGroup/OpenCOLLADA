@@ -19,7 +19,8 @@ class PolyDuplicateEdge : public PolyModifier
 public:
 public:
 	PolyDuplicateEdge():PolyModifier(){}
-	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDuplicateEdge"){}
+	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyDuplicateEdge", create){}
 	virtual ~PolyDuplicateEdge(){}
 	void setOffset(float of)
 	{
@@ -57,39 +58,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".stp\" %i;\n", stp);
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.of\"",mName.c_str());
 
 	}
-	void getStartVertexOffset()
+	void getStartVertexOffset()const
 	{
 		fprintf(mFile,"\"%s.svo\"",mName.c_str());
 
 	}
-	void getEndVertexOffset()
+	void getEndVertexOffset()const
 	{
 		fprintf(mFile,"\"%s.evo\"",mName.c_str());
 
 	}
-	void getDeleteEdge()
+	void getDeleteEdge()const
 	{
 		fprintf(mFile,"\"%s.de\"",mName.c_str());
 
 	}
-	void getSmoothingAngle()
+	void getSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 
 	}
-	void getSplitType()
+	void getSplitType()const
 	{
 		fprintf(mFile,"\"%s.stp\"",mName.c_str());
 
 	}
 protected:
-	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyDuplicateEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

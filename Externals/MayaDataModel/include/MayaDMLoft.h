@@ -19,7 +19,8 @@ class Loft : public AbstractBaseCreate
 public:
 public:
 	Loft():AbstractBaseCreate(){}
-	Loft(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "loft"){}
+	Loft(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "loft", create){}
 	virtual ~Loft(){}
 	void setUniform(bool u)
 	{
@@ -63,17 +64,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startReverse(size_t r_start,size_t r_end)
+	void startReverse(size_t r_start,size_t r_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".r[%i:%i]\"",r_start,r_end);
 
 	}
-	void appendReverse(bool r)
+	void appendReverse(bool r)const
 	{
 		fprintf(mFile," %i",r);
 
 	}
-	void endReverse()
+	void endReverse()const
 	{
 		fprintf(mFile,";\n");
 
@@ -108,74 +109,74 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCreateCusp(size_t cc_start,size_t cc_end)
+	void startCreateCusp(size_t cc_start,size_t cc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cc[%i:%i]\"",cc_start,cc_end);
 
 	}
-	void appendCreateCusp(bool cc)
+	void appendCreateCusp(bool cc)const
 	{
 		fprintf(mFile," %i",cc);
 
 	}
-	void endCreateCusp()
+	void endCreateCusp()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getInputCurve(size_t ic_i)
+	void getInputCurve(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
-	void getUniform()
+	void getUniform()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getClose()
+	void getClose()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getAutoReverse()
+	void getAutoReverse()const
 	{
 		fprintf(mFile,"\"%s.ar\"",mName.c_str());
 
 	}
-	void getReverse(size_t r_i)
+	void getReverse(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
 
 	}
-	void getReverseSurfaceNormals()
+	void getReverseSurfaceNormals()const
 	{
 		fprintf(mFile,"\"%s.rsn\"",mName.c_str());
 
 	}
-	void getSectionSpans()
+	void getSectionSpans()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getCreateCusp(size_t cc_i)
+	void getCreateCusp(size_t cc_i)const
 	{
 		fprintf(mFile,"\"%s.cc[%i]\"",mName.c_str(),cc_i);
 
 	}
 protected:
-	Loft(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Loft(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

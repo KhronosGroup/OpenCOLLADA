@@ -19,7 +19,8 @@ class MakeIllustratorCurves : public AbstractBaseCreate
 public:
 public:
 	MakeIllustratorCurves():AbstractBaseCreate(){}
-	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeIllustratorCurves"){}
+	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeIllustratorCurves", create){}
 	virtual ~MakeIllustratorCurves(){}
 	void setIllustratorFilename(const string& ifn)
 	{
@@ -41,59 +42,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".tl\" %f;\n", tl);
 
 	}
-	void getIllustratorFilename()
+	void getIllustratorFilename()const
 	{
 		fprintf(mFile,"\"%s.ifn\"",mName.c_str());
 
 	}
-	void getScaleFactor()
+	void getScaleFactor()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
-	void getReload()
+	void getReload()const
 	{
 		fprintf(mFile,"\"%s.rl\"",mName.c_str());
 
 	}
-	void getOutputCurves(size_t oc_i)
+	void getOutputCurves(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
-	void getCount(size_t c_i)
+	void getCount(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i]\"",mName.c_str(),c_i);
 
 	}
-	void getPosition(size_t p_i)
+	void getPosition(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getPositionX(size_t p_i)
+	void getPositionX(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].px\"",mName.c_str(),p_i);
 
 	}
-	void getPositionY(size_t p_i)
+	void getPositionY(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].py\"",mName.c_str(),p_i);
 
 	}
-	void getPositionZ(size_t p_i)
+	void getPositionZ(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pz\"",mName.c_str(),p_i);
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tl\"",mName.c_str());
 
 	}
 protected:
-	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeIllustratorCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -64,7 +64,8 @@ public:
 	};
 public:
 	FurFeedback():Locator(){}
-	FurFeedback(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "FurFeedback"){}
+	FurFeedback(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Locator(file, name, parent, "FurFeedback", create){}
 	virtual ~FurFeedback(){}
 	void setInputSurface(const nurbsSurface& is)
 	{
@@ -211,17 +212,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLengthSamples(size_t ls_start,size_t ls_end)
+	void startLengthSamples(size_t ls_start,size_t ls_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ls[%i:%i]\"",ls_start,ls_end);
 
 	}
-	void appendLengthSamples(double ls)
+	void appendLengthSamples(double ls)const
 	{
 		fprintf(mFile," %f",ls);
 
 	}
-	void endLengthSamples()
+	void endLengthSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -294,17 +295,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInclinationSamples(size_t ins_start,size_t ins_end)
+	void startInclinationSamples(size_t ins_start,size_t ins_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ins[%i:%i]\"",ins_start,ins_end);
 
 	}
-	void appendInclinationSamples(double ins)
+	void appendInclinationSamples(double ins)const
 	{
 		fprintf(mFile," %f",ins);
 
 	}
-	void endInclinationSamples()
+	void endInclinationSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -377,17 +378,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startRollSamples(size_t rls_start,size_t rls_end)
+	void startRollSamples(size_t rls_start,size_t rls_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".rls[%i:%i]\"",rls_start,rls_end);
 
 	}
-	void appendRollSamples(double rls)
+	void appendRollSamples(double rls)const
 	{
 		fprintf(mFile," %f",rls);
 
 	}
-	void endRollSamples()
+	void endRollSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -460,17 +461,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPolarSamples(size_t pos_start,size_t pos_end)
+	void startPolarSamples(size_t pos_start,size_t pos_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pos[%i:%i]\"",pos_start,pos_end);
 
 	}
-	void appendPolarSamples(double pos)
+	void appendPolarSamples(double pos)const
 	{
 		fprintf(mFile," %f",pos);
 
 	}
-	void endPolarSamples()
+	void endPolarSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -543,17 +544,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBaldnessSamples(size_t bs_start,size_t bs_end)
+	void startBaldnessSamples(size_t bs_start,size_t bs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".bs[%i:%i]\"",bs_start,bs_end);
 
 	}
-	void appendBaldnessSamples(double bs)
+	void appendBaldnessSamples(double bs)const
 	{
 		fprintf(mFile," %f",bs);
 
 	}
-	void endBaldnessSamples()
+	void endBaldnessSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -626,17 +627,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBaseOpacitySamples(size_t bos_start,size_t bos_end)
+	void startBaseOpacitySamples(size_t bos_start,size_t bos_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".bos[%i:%i]\"",bos_start,bos_end);
 
 	}
-	void appendBaseOpacitySamples(double bos)
+	void appendBaseOpacitySamples(double bos)const
 	{
 		fprintf(mFile," %f",bos);
 
 	}
-	void endBaseOpacitySamples()
+	void endBaseOpacitySamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -709,17 +710,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTipOpacitySamples(size_t tos_start,size_t tos_end)
+	void startTipOpacitySamples(size_t tos_start,size_t tos_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tos[%i:%i]\"",tos_start,tos_end);
 
 	}
-	void appendTipOpacitySamples(double tos)
+	void appendTipOpacitySamples(double tos)const
 	{
 		fprintf(mFile," %f",tos);
 
 	}
-	void endTipOpacitySamples()
+	void endTipOpacitySamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -792,17 +793,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBaseCurlSamples(size_t bcls_start,size_t bcls_end)
+	void startBaseCurlSamples(size_t bcls_start,size_t bcls_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".bcls[%i:%i]\"",bcls_start,bcls_end);
 
 	}
-	void appendBaseCurlSamples(double bcls)
+	void appendBaseCurlSamples(double bcls)const
 	{
 		fprintf(mFile," %f",bcls);
 
 	}
-	void endBaseCurlSamples()
+	void endBaseCurlSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -875,17 +876,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTipCurlSamples(size_t tcls_start,size_t tcls_end)
+	void startTipCurlSamples(size_t tcls_start,size_t tcls_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tcls[%i:%i]\"",tcls_start,tcls_end);
 
 	}
-	void appendTipCurlSamples(double tcls)
+	void appendTipCurlSamples(double tcls)const
 	{
 		fprintf(mFile," %f",tcls);
 
 	}
-	void endTipCurlSamples()
+	void endTipCurlSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -958,17 +959,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBaseWidthSamples(size_t bws_start,size_t bws_end)
+	void startBaseWidthSamples(size_t bws_start,size_t bws_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".bws[%i:%i]\"",bws_start,bws_end);
 
 	}
-	void appendBaseWidthSamples(double bws)
+	void appendBaseWidthSamples(double bws)const
 	{
 		fprintf(mFile," %f",bws);
 
 	}
-	void endBaseWidthSamples()
+	void endBaseWidthSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1041,17 +1042,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTipWidthSamples(size_t tws_start,size_t tws_end)
+	void startTipWidthSamples(size_t tws_start,size_t tws_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tws[%i:%i]\"",tws_start,tws_end);
 
 	}
-	void appendTipWidthSamples(double tws)
+	void appendTipWidthSamples(double tws)const
 	{
 		fprintf(mFile," %f",tws);
 
 	}
-	void endTipWidthSamples()
+	void endTipWidthSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1124,17 +1125,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startScraggleSamples(size_t ss_start,size_t ss_end)
+	void startScraggleSamples(size_t ss_start,size_t ss_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ss[%i:%i]\"",ss_start,ss_end);
 
 	}
-	void appendScraggleSamples(double ss)
+	void appendScraggleSamples(double ss)const
 	{
 		fprintf(mFile," %f",ss);
 
 	}
-	void endScraggleSamples()
+	void endScraggleSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1207,17 +1208,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startScraggleCorrelationSamples(size_t scos_start,size_t scos_end)
+	void startScraggleCorrelationSamples(size_t scos_start,size_t scos_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".scos[%i:%i]\"",scos_start,scos_end);
 
 	}
-	void appendScraggleCorrelationSamples(double scos)
+	void appendScraggleCorrelationSamples(double scos)const
 	{
 		fprintf(mFile," %f",scos);
 
 	}
-	void endScraggleCorrelationSamples()
+	void endScraggleCorrelationSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1290,17 +1291,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startScraggleFrequencySamples(size_t scfs_start,size_t scfs_end)
+	void startScraggleFrequencySamples(size_t scfs_start,size_t scfs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".scfs[%i:%i]\"",scfs_start,scfs_end);
 
 	}
-	void appendScraggleFrequencySamples(double scfs)
+	void appendScraggleFrequencySamples(double scfs)const
 	{
 		fprintf(mFile," %f",scfs);
 
 	}
-	void endScraggleFrequencySamples()
+	void endScraggleFrequencySamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1373,17 +1374,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startSegmentsSamples(size_t segs_start,size_t segs_end)
+	void startSegmentsSamples(size_t segs_start,size_t segs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".segs[%i:%i]\"",segs_start,segs_end);
 
 	}
-	void appendSegmentsSamples(double segs)
+	void appendSegmentsSamples(double segs)const
 	{
 		fprintf(mFile," %f",segs);
 
 	}
-	void endSegmentsSamples()
+	void endSegmentsSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1456,17 +1457,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startAttractionSamples(size_t ats_start,size_t ats_end)
+	void startAttractionSamples(size_t ats_start,size_t ats_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ats[%i:%i]\"",ats_start,ats_end);
 
 	}
-	void appendAttractionSamples(double ats)
+	void appendAttractionSamples(double ats)const
 	{
 		fprintf(mFile," %f",ats);
 
 	}
-	void endAttractionSamples()
+	void endAttractionSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1539,17 +1540,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startOffsetSamples(size_t ofss_start,size_t ofss_end)
+	void startOffsetSamples(size_t ofss_start,size_t ofss_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ofss[%i:%i]\"",ofss_start,ofss_end);
 
 	}
-	void appendOffsetSamples(double ofss)
+	void appendOffsetSamples(double ofss)const
 	{
 		fprintf(mFile," %f",ofss);
 
 	}
-	void endOffsetSamples()
+	void endOffsetSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1622,17 +1623,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startClumpingSamples(size_t cs_start,size_t cs_end)
+	void startClumpingSamples(size_t cs_start,size_t cs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cs[%i:%i]\"",cs_start,cs_end);
 
 	}
-	void appendClumpingSamples(double cs)
+	void appendClumpingSamples(double cs)const
 	{
 		fprintf(mFile," %f",cs);
 
 	}
-	void endClumpingSamples()
+	void endClumpingSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1705,17 +1706,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startClumpingFrequencySamples(size_t cfs_start,size_t cfs_end)
+	void startClumpingFrequencySamples(size_t cfs_start,size_t cfs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cfs[%i:%i]\"",cfs_start,cfs_end);
 
 	}
-	void appendClumpingFrequencySamples(double cfs)
+	void appendClumpingFrequencySamples(double cfs)const
 	{
 		fprintf(mFile," %f",cfs);
 
 	}
-	void endClumpingFrequencySamples()
+	void endClumpingFrequencySamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1788,17 +1789,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startClumpingShapeSamples(size_t css_start,size_t css_end)
+	void startClumpingShapeSamples(size_t css_start,size_t css_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".css[%i:%i]\"",css_start,css_end);
 
 	}
-	void appendClumpingShapeSamples(double css)
+	void appendClumpingShapeSamples(double css)const
 	{
 		fprintf(mFile," %f",css);
 
 	}
-	void endClumpingShapeSamples()
+	void endClumpingShapeSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1891,17 +1892,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBaseColorSamples(size_t bcs_start,size_t bcs_end)
+	void startBaseColorSamples(size_t bcs_start,size_t bcs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".bcs[%i:%i]\"",bcs_start,bcs_end);
 
 	}
-	void appendBaseColorSamples(double bcs)
+	void appendBaseColorSamples(double bcs)const
 	{
 		fprintf(mFile," %f",bcs);
 
 	}
-	void endBaseColorSamples()
+	void endBaseColorSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1982,17 +1983,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTipColorSamples(size_t tcs_start,size_t tcs_end)
+	void startTipColorSamples(size_t tcs_start,size_t tcs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tcs[%i:%i]\"",tcs_start,tcs_end);
 
 	}
-	void appendTipColorSamples(double tcs)
+	void appendTipColorSamples(double tcs)const
 	{
 		fprintf(mFile," %f",tcs);
 
 	}
-	void endTipColorSamples()
+	void endTipColorSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2053,17 +2054,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startRadiusSamples(size_t ars_start,size_t ars_end)
+	void startRadiusSamples(size_t ars_start,size_t ars_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ars[%i:%i]\"",ars_start,ars_end);
 
 	}
-	void appendRadiusSamples(double ars)
+	void appendRadiusSamples(double ars)const
 	{
 		fprintf(mFile," %f",ars);
 
 	}
-	void endRadiusSamples()
+	void endRadiusSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2136,17 +2137,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPowerSamples(size_t aps_start,size_t aps_end)
+	void startPowerSamples(size_t aps_start,size_t aps_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".aps[%i:%i]\"",aps_start,aps_end);
 
 	}
-	void appendPowerSamples(double aps)
+	void appendPowerSamples(double aps)const
 	{
 		fprintf(mFile," %f",aps);
 
 	}
-	void endPowerSamples()
+	void endPowerSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2219,17 +2220,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInfluenceSamples(size_t ais_start,size_t ais_end)
+	void startInfluenceSamples(size_t ais_start,size_t ais_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ais[%i:%i]\"",ais_start,ais_end);
 
 	}
-	void appendInfluenceSamples(double ais)
+	void appendInfluenceSamples(double ais)const
 	{
 		fprintf(mFile," %f",ais);
 
 	}
-	void endInfluenceSamples()
+	void endInfluenceSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2302,17 +2303,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startStartLengthSamples(size_t asls_start,size_t asls_end)
+	void startStartLengthSamples(size_t asls_start,size_t asls_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".asls[%i:%i]\"",asls_start,asls_end);
 
 	}
-	void appendStartLengthSamples(double asls)
+	void appendStartLengthSamples(double asls)const
 	{
 		fprintf(mFile," %f",asls);
 
 	}
-	void endStartLengthSamples()
+	void endStartLengthSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2385,17 +2386,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEndLengthSamples(size_t aels_start,size_t aels_end)
+	void startEndLengthSamples(size_t aels_start,size_t aels_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".aels[%i:%i]\"",aels_start,aels_end);
 
 	}
-	void appendEndLengthSamples(double aels)
+	void appendEndLengthSamples(double aels)const
 	{
 		fprintf(mFile," %f",aels);
 
 	}
-	void endEndLengthSamples()
+	void endEndLengthSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2468,17 +2469,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startThresholdLengthSamples(size_t atls_start,size_t atls_end)
+	void startThresholdLengthSamples(size_t atls_start,size_t atls_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".atls[%i:%i]\"",atls_start,atls_end);
 
 	}
-	void appendThresholdLengthSamples(double atls)
+	void appendThresholdLengthSamples(double atls)const
 	{
 		fprintf(mFile," %f",atls);
 
 	}
-	void endThresholdLengthSamples()
+	void endThresholdLengthSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2551,17 +2552,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startUnusedSamples(size_t uns_start,size_t uns_end)
+	void startUnusedSamples(size_t uns_start,size_t uns_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uns[%i:%i]\"",uns_start,uns_end);
 
 	}
-	void appendUnusedSamples(double uns)
+	void appendUnusedSamples(double uns)const
 	{
 		fprintf(mFile," %f",uns);
 
 	}
-	void endUnusedSamples()
+	void endUnusedSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2634,17 +2635,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEqualizerSamples(size_t ems_start,size_t ems_end)
+	void startEqualizerSamples(size_t ems_start,size_t ems_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ems[%i:%i]\"",ems_start,ems_end);
 
 	}
-	void appendEqualizerSamples(double ems)
+	void appendEqualizerSamples(double ems)const
 	{
 		fprintf(mFile," %f",ems);
 
 	}
-	void endEqualizerSamples()
+	void endEqualizerSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -2814,1564 +2815,1564 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.tpr\" %i;\n", tpr);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInputMesh()
+	void getInputMesh()const
 	{
 		fprintf(mFile,"\"%s.imsh\"",mName.c_str());
 
 	}
-	void getRealUSamples()
+	void getRealUSamples()const
 	{
 		fprintf(mFile,"\"%s.rus\"",mName.c_str());
 
 	}
-	void getRealVSamples()
+	void getRealVSamples()const
 	{
 		fprintf(mFile,"\"%s.rvs\"",mName.c_str());
 
 	}
-	void getUSamples()
+	void getUSamples()const
 	{
 		fprintf(mFile,"\"%s.us\"",mName.c_str());
 
 	}
-	void getVSamples()
+	void getVSamples()const
 	{
 		fprintf(mFile,"\"%s.vs\"",mName.c_str());
 
 	}
-	void getFlipNormals()
+	void getFlipNormals()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getHairs()
+	void getHairs()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getFurAccuracy()
+	void getFurAccuracy()const
 	{
 		fprintf(mFile,"\"%s.ha\"",mName.c_str());
 
 	}
-	void getFurGlobalScale()
+	void getFurGlobalScale()const
 	{
 		fprintf(mFile,"\"%s.fgs\"",mName.c_str());
 
 	}
-	void getAttractorGlobalScale()
+	void getAttractorGlobalScale()const
 	{
 		fprintf(mFile,"\"%s.ags\"",mName.c_str());
 
 	}
-	void getExportAttr()
+	void getExportAttr()const
 	{
 		fprintf(mFile,"\"%s.ea\"",mName.c_str());
 
 	}
-	void getExportFile()
+	void getExportFile()const
 	{
 		fprintf(mFile,"\"%s.ef\"",mName.c_str());
 
 	}
-	void getExportWidth()
+	void getExportWidth()const
 	{
 		fprintf(mFile,"\"%s.ew\"",mName.c_str());
 
 	}
-	void getExportHeight()
+	void getExportHeight()const
 	{
 		fprintf(mFile,"\"%s.eh\"",mName.c_str());
 
 	}
-	void getColorFeedbackEnabled()
+	void getColorFeedbackEnabled()const
 	{
 		fprintf(mFile,"\"%s.cfe\"",mName.c_str());
 
 	}
-	void getAttractors()
+	void getAttractors()const
 	{
 		fprintf(mFile,"\"%s.atr\"",mName.c_str());
 
 	}
-	void getAttractorModel()
+	void getAttractorModel()const
 	{
 		fprintf(mFile,"\"%s.amd\"",mName.c_str());
 
 	}
-	void getAttractorsPerHair()
+	void getAttractorsPerHair()const
 	{
 		fprintf(mFile,"\"%s.aph\"",mName.c_str());
 
 	}
-	void getDrawAttractors()
+	void getDrawAttractors()const
 	{
 		fprintf(mFile,"\"%s.drat\"",mName.c_str());
 
 	}
-	void getLength()
+	void getLength()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getLengthSamples(size_t ls_i)
+	void getLengthSamples(size_t ls_i)const
 	{
 		fprintf(mFile,"\"%s.ls[%i]\"",mName.c_str(),ls_i);
 
 	}
-	void getLengthMap()
+	void getLengthMap()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
-	void getLengthMapOffset()
+	void getLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.lmo\"",mName.c_str());
 
 	}
-	void getLengthMapMult()
+	void getLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.lmm\"",mName.c_str());
 
 	}
-	void getLengthNoise()
+	void getLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.ln\"",mName.c_str());
 
 	}
-	void getLengthNoiseFreq()
+	void getLengthNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.lnf\"",mName.c_str());
 
 	}
-	void getLengthSamplesDirty()
+	void getLengthSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.lsd\"",mName.c_str());
 
 	}
-	void getLengthMapDirty()
+	void getLengthMapDirty()const
 	{
 		fprintf(mFile,"\"%s.lmd\"",mName.c_str());
 
 	}
-	void getInclination()
+	void getInclination()const
 	{
 		fprintf(mFile,"\"%s.din\"",mName.c_str());
 
 	}
-	void getInclinationSamples(size_t ins_i)
+	void getInclinationSamples(size_t ins_i)const
 	{
 		fprintf(mFile,"\"%s.ins[%i]\"",mName.c_str(),ins_i);
 
 	}
-	void getInclinationMap()
+	void getInclinationMap()const
 	{
 		fprintf(mFile,"\"%s.inm\"",mName.c_str());
 
 	}
-	void getInclinationMapOffset()
+	void getInclinationMapOffset()const
 	{
 		fprintf(mFile,"\"%s.inmo\"",mName.c_str());
 
 	}
-	void getInclinationMapMult()
+	void getInclinationMapMult()const
 	{
 		fprintf(mFile,"\"%s.inmm\"",mName.c_str());
 
 	}
-	void getInclinationNoise()
+	void getInclinationNoise()const
 	{
 		fprintf(mFile,"\"%s.inn\"",mName.c_str());
 
 	}
-	void getInclinationNoiseFreq()
+	void getInclinationNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.innf\"",mName.c_str());
 
 	}
-	void getInclinationSamplesDirty()
+	void getInclinationSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.insd\"",mName.c_str());
 
 	}
-	void getInclinationMapDirty()
+	void getInclinationMapDirty()const
 	{
 		fprintf(mFile,"\"%s.inmd\"",mName.c_str());
 
 	}
-	void getRoll()
+	void getRoll()const
 	{
 		fprintf(mFile,"\"%s.drl\"",mName.c_str());
 
 	}
-	void getRollSamples(size_t rls_i)
+	void getRollSamples(size_t rls_i)const
 	{
 		fprintf(mFile,"\"%s.rls[%i]\"",mName.c_str(),rls_i);
 
 	}
-	void getRollMap()
+	void getRollMap()const
 	{
 		fprintf(mFile,"\"%s.rlm\"",mName.c_str());
 
 	}
-	void getRollMapOffset()
+	void getRollMapOffset()const
 	{
 		fprintf(mFile,"\"%s.rlmo\"",mName.c_str());
 
 	}
-	void getRollMapMult()
+	void getRollMapMult()const
 	{
 		fprintf(mFile,"\"%s.rlmm\"",mName.c_str());
 
 	}
-	void getRollNoise()
+	void getRollNoise()const
 	{
 		fprintf(mFile,"\"%s.rln\"",mName.c_str());
 
 	}
-	void getRollNoiseFreq()
+	void getRollNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.rlnf\"",mName.c_str());
 
 	}
-	void getRollSamplesDirty()
+	void getRollSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.rlsd\"",mName.c_str());
 
 	}
-	void getRollMapDirty()
+	void getRollMapDirty()const
 	{
 		fprintf(mFile,"\"%s.rlmd\"",mName.c_str());
 
 	}
-	void getPolar()
+	void getPolar()const
 	{
 		fprintf(mFile,"\"%s.dpo\"",mName.c_str());
 
 	}
-	void getPolarSamples(size_t pos_i)
+	void getPolarSamples(size_t pos_i)const
 	{
 		fprintf(mFile,"\"%s.pos[%i]\"",mName.c_str(),pos_i);
 
 	}
-	void getPolarMap()
+	void getPolarMap()const
 	{
 		fprintf(mFile,"\"%s.pom\"",mName.c_str());
 
 	}
-	void getPolarMapOffset()
+	void getPolarMapOffset()const
 	{
 		fprintf(mFile,"\"%s.pomo\"",mName.c_str());
 
 	}
-	void getPolarMapMult()
+	void getPolarMapMult()const
 	{
 		fprintf(mFile,"\"%s.pomm\"",mName.c_str());
 
 	}
-	void getPolarNoise()
+	void getPolarNoise()const
 	{
 		fprintf(mFile,"\"%s.pon\"",mName.c_str());
 
 	}
-	void getPolarNoiseFreq()
+	void getPolarNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.ponf\"",mName.c_str());
 
 	}
-	void getPolarSamplesDirty()
+	void getPolarSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.posd\"",mName.c_str());
 
 	}
-	void getPolarMapDirty()
+	void getPolarMapDirty()const
 	{
 		fprintf(mFile,"\"%s.pomd\"",mName.c_str());
 
 	}
-	void getBaldness()
+	void getBaldness()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getBaldnessSamples(size_t bs_i)
+	void getBaldnessSamples(size_t bs_i)const
 	{
 		fprintf(mFile,"\"%s.bs[%i]\"",mName.c_str(),bs_i);
 
 	}
-	void getBaldnessMap()
+	void getBaldnessMap()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
-	void getBaldnessMapOffset()
+	void getBaldnessMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bmo\"",mName.c_str());
 
 	}
-	void getBaldnessMapMult()
+	void getBaldnessMapMult()const
 	{
 		fprintf(mFile,"\"%s.bmm\"",mName.c_str());
 
 	}
-	void getBaldnessNoise()
+	void getBaldnessNoise()const
 	{
 		fprintf(mFile,"\"%s.bn\"",mName.c_str());
 
 	}
-	void getBaldnessNoiseFreq()
+	void getBaldnessNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.bnf\"",mName.c_str());
 
 	}
-	void getBaldnessSamplesDirty()
+	void getBaldnessSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.bsd\"",mName.c_str());
 
 	}
-	void getBaldnessMapDirty()
+	void getBaldnessMapDirty()const
 	{
 		fprintf(mFile,"\"%s.bmd\"",mName.c_str());
 
 	}
-	void getBaseOpacity()
+	void getBaseOpacity()const
 	{
 		fprintf(mFile,"\"%s.dbo\"",mName.c_str());
 
 	}
-	void getBaseOpacitySamples(size_t bos_i)
+	void getBaseOpacitySamples(size_t bos_i)const
 	{
 		fprintf(mFile,"\"%s.bos[%i]\"",mName.c_str(),bos_i);
 
 	}
-	void getBaseOpacityMap()
+	void getBaseOpacityMap()const
 	{
 		fprintf(mFile,"\"%s.bom\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapOffset()
+	void getBaseOpacityMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bomo\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapMult()
+	void getBaseOpacityMapMult()const
 	{
 		fprintf(mFile,"\"%s.bomm\"",mName.c_str());
 
 	}
-	void getBaseOpacityNoise()
+	void getBaseOpacityNoise()const
 	{
 		fprintf(mFile,"\"%s.bon\"",mName.c_str());
 
 	}
-	void getBaseOpacityNoiseFreq()
+	void getBaseOpacityNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.bonf\"",mName.c_str());
 
 	}
-	void getBaseOpacitySamplesDirty()
+	void getBaseOpacitySamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.bosd\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapDirty()
+	void getBaseOpacityMapDirty()const
 	{
 		fprintf(mFile,"\"%s.bomd\"",mName.c_str());
 
 	}
-	void getTipOpacity()
+	void getTipOpacity()const
 	{
 		fprintf(mFile,"\"%s.dto\"",mName.c_str());
 
 	}
-	void getTipOpacitySamples(size_t tos_i)
+	void getTipOpacitySamples(size_t tos_i)const
 	{
 		fprintf(mFile,"\"%s.tos[%i]\"",mName.c_str(),tos_i);
 
 	}
-	void getTipOpacityMap()
+	void getTipOpacityMap()const
 	{
 		fprintf(mFile,"\"%s.tom\"",mName.c_str());
 
 	}
-	void getTipOpacityMapOffset()
+	void getTipOpacityMapOffset()const
 	{
 		fprintf(mFile,"\"%s.tomo\"",mName.c_str());
 
 	}
-	void getTipOpacityMapMult()
+	void getTipOpacityMapMult()const
 	{
 		fprintf(mFile,"\"%s.tomm\"",mName.c_str());
 
 	}
-	void getTipOpacityNoise()
+	void getTipOpacityNoise()const
 	{
 		fprintf(mFile,"\"%s.ton\"",mName.c_str());
 
 	}
-	void getTipOpacityNoiseFreq()
+	void getTipOpacityNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.tonf\"",mName.c_str());
 
 	}
-	void getTipOpacitySamplesDirty()
+	void getTipOpacitySamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.tosd\"",mName.c_str());
 
 	}
-	void getTipOpacityMapDirty()
+	void getTipOpacityMapDirty()const
 	{
 		fprintf(mFile,"\"%s.tomd\"",mName.c_str());
 
 	}
-	void getBaseCurl()
+	void getBaseCurl()const
 	{
 		fprintf(mFile,"\"%s.dbcl\"",mName.c_str());
 
 	}
-	void getBaseCurlSamples(size_t bcls_i)
+	void getBaseCurlSamples(size_t bcls_i)const
 	{
 		fprintf(mFile,"\"%s.bcls[%i]\"",mName.c_str(),bcls_i);
 
 	}
-	void getBaseCurlMap()
+	void getBaseCurlMap()const
 	{
 		fprintf(mFile,"\"%s.bclm\"",mName.c_str());
 
 	}
-	void getBaseCurlMapOffset()
+	void getBaseCurlMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bclmo\"",mName.c_str());
 
 	}
-	void getBaseCurlMapMult()
+	void getBaseCurlMapMult()const
 	{
 		fprintf(mFile,"\"%s.bclmm\"",mName.c_str());
 
 	}
-	void getBaseCurlNoise()
+	void getBaseCurlNoise()const
 	{
 		fprintf(mFile,"\"%s.bcln\"",mName.c_str());
 
 	}
-	void getBaseCurlNoiseFreq()
+	void getBaseCurlNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.bclnf\"",mName.c_str());
 
 	}
-	void getBaseCurlSamplesDirty()
+	void getBaseCurlSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.bclsd\"",mName.c_str());
 
 	}
-	void getBaseCurlMapDirty()
+	void getBaseCurlMapDirty()const
 	{
 		fprintf(mFile,"\"%s.bclmd\"",mName.c_str());
 
 	}
-	void getTipCurl()
+	void getTipCurl()const
 	{
 		fprintf(mFile,"\"%s.dtcl\"",mName.c_str());
 
 	}
-	void getTipCurlSamples(size_t tcls_i)
+	void getTipCurlSamples(size_t tcls_i)const
 	{
 		fprintf(mFile,"\"%s.tcls[%i]\"",mName.c_str(),tcls_i);
 
 	}
-	void getTipCurlMap()
+	void getTipCurlMap()const
 	{
 		fprintf(mFile,"\"%s.tclm\"",mName.c_str());
 
 	}
-	void getTipCurlMapOffset()
+	void getTipCurlMapOffset()const
 	{
 		fprintf(mFile,"\"%s.tclmo\"",mName.c_str());
 
 	}
-	void getTipCurlMapMult()
+	void getTipCurlMapMult()const
 	{
 		fprintf(mFile,"\"%s.tclmm\"",mName.c_str());
 
 	}
-	void getTipCurlNoise()
+	void getTipCurlNoise()const
 	{
 		fprintf(mFile,"\"%s.tcln\"",mName.c_str());
 
 	}
-	void getTipCurlNoiseFreq()
+	void getTipCurlNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.tclnf\"",mName.c_str());
 
 	}
-	void getTipCurlSamplesDirty()
+	void getTipCurlSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.tclsd\"",mName.c_str());
 
 	}
-	void getTipCurlMapDirty()
+	void getTipCurlMapDirty()const
 	{
 		fprintf(mFile,"\"%s.tclmd\"",mName.c_str());
 
 	}
-	void getBaseWidth()
+	void getBaseWidth()const
 	{
 		fprintf(mFile,"\"%s.dbw\"",mName.c_str());
 
 	}
-	void getBaseWidthSamples(size_t bws_i)
+	void getBaseWidthSamples(size_t bws_i)const
 	{
 		fprintf(mFile,"\"%s.bws[%i]\"",mName.c_str(),bws_i);
 
 	}
-	void getBaseWidthMap()
+	void getBaseWidthMap()const
 	{
 		fprintf(mFile,"\"%s.bwm\"",mName.c_str());
 
 	}
-	void getBaseWidthMapOffset()
+	void getBaseWidthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bwmo\"",mName.c_str());
 
 	}
-	void getBaseWidthMapMult()
+	void getBaseWidthMapMult()const
 	{
 		fprintf(mFile,"\"%s.bwmm\"",mName.c_str());
 
 	}
-	void getBaseWidthNoise()
+	void getBaseWidthNoise()const
 	{
 		fprintf(mFile,"\"%s.bwn\"",mName.c_str());
 
 	}
-	void getBaseWidthNoiseFreq()
+	void getBaseWidthNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.bwnf\"",mName.c_str());
 
 	}
-	void getBaseWidthSamplesDirty()
+	void getBaseWidthSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.bwsd\"",mName.c_str());
 
 	}
-	void getBaseWidthMapDirty()
+	void getBaseWidthMapDirty()const
 	{
 		fprintf(mFile,"\"%s.bwmd\"",mName.c_str());
 
 	}
-	void getTipWidth()
+	void getTipWidth()const
 	{
 		fprintf(mFile,"\"%s.dtw\"",mName.c_str());
 
 	}
-	void getTipWidthSamples(size_t tws_i)
+	void getTipWidthSamples(size_t tws_i)const
 	{
 		fprintf(mFile,"\"%s.tws[%i]\"",mName.c_str(),tws_i);
 
 	}
-	void getTipWidthMap()
+	void getTipWidthMap()const
 	{
 		fprintf(mFile,"\"%s.twm\"",mName.c_str());
 
 	}
-	void getTipWidthMapOffset()
+	void getTipWidthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.twmo\"",mName.c_str());
 
 	}
-	void getTipWidthMapMult()
+	void getTipWidthMapMult()const
 	{
 		fprintf(mFile,"\"%s.twmm\"",mName.c_str());
 
 	}
-	void getTipWidthNoise()
+	void getTipWidthNoise()const
 	{
 		fprintf(mFile,"\"%s.twn\"",mName.c_str());
 
 	}
-	void getTipWidthNoiseFreq()
+	void getTipWidthNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.twnf\"",mName.c_str());
 
 	}
-	void getTipWidthSamplesDirty()
+	void getTipWidthSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.twsd\"",mName.c_str());
 
 	}
-	void getTipWidthMapDirty()
+	void getTipWidthMapDirty()const
 	{
 		fprintf(mFile,"\"%s.twmd\"",mName.c_str());
 
 	}
-	void getScraggle()
+	void getScraggle()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getScraggleSamples(size_t ss_i)
+	void getScraggleSamples(size_t ss_i)const
 	{
 		fprintf(mFile,"\"%s.ss[%i]\"",mName.c_str(),ss_i);
 
 	}
-	void getScraggleMap()
+	void getScraggleMap()const
 	{
 		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
-	void getScraggleMapOffset()
+	void getScraggleMapOffset()const
 	{
 		fprintf(mFile,"\"%s.smo\"",mName.c_str());
 
 	}
-	void getScraggleMapMult()
+	void getScraggleMapMult()const
 	{
 		fprintf(mFile,"\"%s.smm\"",mName.c_str());
 
 	}
-	void getScraggleNoise()
+	void getScraggleNoise()const
 	{
 		fprintf(mFile,"\"%s.sn\"",mName.c_str());
 
 	}
-	void getScraggleNoiseFreq()
+	void getScraggleNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.snf\"",mName.c_str());
 
 	}
-	void getScraggleSamplesDirty()
+	void getScraggleSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.ssd\"",mName.c_str());
 
 	}
-	void getScraggleMapDirty()
+	void getScraggleMapDirty()const
 	{
 		fprintf(mFile,"\"%s.smd\"",mName.c_str());
 
 	}
-	void getScraggleCorrelation()
+	void getScraggleCorrelation()const
 	{
 		fprintf(mFile,"\"%s.dsco\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationSamples(size_t scos_i)
+	void getScraggleCorrelationSamples(size_t scos_i)const
 	{
 		fprintf(mFile,"\"%s.scos[%i]\"",mName.c_str(),scos_i);
 
 	}
-	void getScraggleCorrelationMap()
+	void getScraggleCorrelationMap()const
 	{
 		fprintf(mFile,"\"%s.scom\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapOffset()
+	void getScraggleCorrelationMapOffset()const
 	{
 		fprintf(mFile,"\"%s.scomo\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapMult()
+	void getScraggleCorrelationMapMult()const
 	{
 		fprintf(mFile,"\"%s.scomm\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationNoise()
+	void getScraggleCorrelationNoise()const
 	{
 		fprintf(mFile,"\"%s.scon\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationNoiseFreq()
+	void getScraggleCorrelationNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.sconf\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationSamplesDirty()
+	void getScraggleCorrelationSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.scosd\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapDirty()
+	void getScraggleCorrelationMapDirty()const
 	{
 		fprintf(mFile,"\"%s.scomd\"",mName.c_str());
 
 	}
-	void getScraggleFrequency()
+	void getScraggleFrequency()const
 	{
 		fprintf(mFile,"\"%s.dscf\"",mName.c_str());
 
 	}
-	void getScraggleFrequencySamples(size_t scfs_i)
+	void getScraggleFrequencySamples(size_t scfs_i)const
 	{
 		fprintf(mFile,"\"%s.scfs[%i]\"",mName.c_str(),scfs_i);
 
 	}
-	void getScraggleFrequencyMap()
+	void getScraggleFrequencyMap()const
 	{
 		fprintf(mFile,"\"%s.scfm\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapOffset()
+	void getScraggleFrequencyMapOffset()const
 	{
 		fprintf(mFile,"\"%s.scfmo\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapMult()
+	void getScraggleFrequencyMapMult()const
 	{
 		fprintf(mFile,"\"%s.scfmm\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyNoise()
+	void getScraggleFrequencyNoise()const
 	{
 		fprintf(mFile,"\"%s.scfn\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyNoiseFreq()
+	void getScraggleFrequencyNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.scfnf\"",mName.c_str());
 
 	}
-	void getScraggleFrequencySamplesDirty()
+	void getScraggleFrequencySamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.scfsd\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapDirty()
+	void getScraggleFrequencyMapDirty()const
 	{
 		fprintf(mFile,"\"%s.scfmd\"",mName.c_str());
 
 	}
-	void getSegments()
+	void getSegments()const
 	{
 		fprintf(mFile,"\"%s.dseg\"",mName.c_str());
 
 	}
-	void getSegmentsSamples(size_t segs_i)
+	void getSegmentsSamples(size_t segs_i)const
 	{
 		fprintf(mFile,"\"%s.segs[%i]\"",mName.c_str(),segs_i);
 
 	}
-	void getSegmentsMap()
+	void getSegmentsMap()const
 	{
 		fprintf(mFile,"\"%s.segm\"",mName.c_str());
 
 	}
-	void getSegmentsMapOffset()
+	void getSegmentsMapOffset()const
 	{
 		fprintf(mFile,"\"%s.segmo\"",mName.c_str());
 
 	}
-	void getSegmentsMapMult()
+	void getSegmentsMapMult()const
 	{
 		fprintf(mFile,"\"%s.segmm\"",mName.c_str());
 
 	}
-	void getSegmentsNoise()
+	void getSegmentsNoise()const
 	{
 		fprintf(mFile,"\"%s.segn\"",mName.c_str());
 
 	}
-	void getSegmentsNoiseFreq()
+	void getSegmentsNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.segnf\"",mName.c_str());
 
 	}
-	void getSegmentsSamplesDirty()
+	void getSegmentsSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.segsd\"",mName.c_str());
 
 	}
-	void getSegmentsMapDirty()
+	void getSegmentsMapDirty()const
 	{
 		fprintf(mFile,"\"%s.segmd\"",mName.c_str());
 
 	}
-	void getAttraction()
+	void getAttraction()const
 	{
 		fprintf(mFile,"\"%s.dat\"",mName.c_str());
 
 	}
-	void getAttractionSamples(size_t ats_i)
+	void getAttractionSamples(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionMap()
+	void getAttractionMap()const
 	{
 		fprintf(mFile,"\"%s.atm\"",mName.c_str());
 
 	}
-	void getAttractionMapOffset()
+	void getAttractionMapOffset()const
 	{
 		fprintf(mFile,"\"%s.atmo\"",mName.c_str());
 
 	}
-	void getAttractionMapMult()
+	void getAttractionMapMult()const
 	{
 		fprintf(mFile,"\"%s.atmm\"",mName.c_str());
 
 	}
-	void getAttractionNoise()
+	void getAttractionNoise()const
 	{
 		fprintf(mFile,"\"%s.atn\"",mName.c_str());
 
 	}
-	void getAttractionNoiseFreq()
+	void getAttractionNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.atnf\"",mName.c_str());
 
 	}
-	void getAttractionSamplesDirty()
+	void getAttractionSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.atsd\"",mName.c_str());
 
 	}
-	void getAttractionMapDirty()
+	void getAttractionMapDirty()const
 	{
 		fprintf(mFile,"\"%s.atmd\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.dofs\"",mName.c_str());
 
 	}
-	void getOffsetSamples(size_t ofss_i)
+	void getOffsetSamples(size_t ofss_i)const
 	{
 		fprintf(mFile,"\"%s.ofss[%i]\"",mName.c_str(),ofss_i);
 
 	}
-	void getOffsetMap()
+	void getOffsetMap()const
 	{
 		fprintf(mFile,"\"%s.ofsm\"",mName.c_str());
 
 	}
-	void getOffsetMapOffset()
+	void getOffsetMapOffset()const
 	{
 		fprintf(mFile,"\"%s.ofsmo\"",mName.c_str());
 
 	}
-	void getOffsetMapMult()
+	void getOffsetMapMult()const
 	{
 		fprintf(mFile,"\"%s.ofsmm\"",mName.c_str());
 
 	}
-	void getOffsetNoise()
+	void getOffsetNoise()const
 	{
 		fprintf(mFile,"\"%s.ofsn\"",mName.c_str());
 
 	}
-	void getOffsetNoiseFreq()
+	void getOffsetNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.ofsnf\"",mName.c_str());
 
 	}
-	void getOffsetSamplesDirty()
+	void getOffsetSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.ofssd\"",mName.c_str());
 
 	}
-	void getOffsetMapDirty()
+	void getOffsetMapDirty()const
 	{
 		fprintf(mFile,"\"%s.ofsmd\"",mName.c_str());
 
 	}
-	void getClumping()
+	void getClumping()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getClumpingSamples(size_t cs_i)
+	void getClumpingSamples(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
 
 	}
-	void getClumpingMap()
+	void getClumpingMap()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
-	void getClumpingMapOffset()
+	void getClumpingMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cmo\"",mName.c_str());
 
 	}
-	void getClumpingMapMult()
+	void getClumpingMapMult()const
 	{
 		fprintf(mFile,"\"%s.cmm\"",mName.c_str());
 
 	}
-	void getClumpingNoise()
+	void getClumpingNoise()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getClumpingNoiseFreq()
+	void getClumpingNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.cnf\"",mName.c_str());
 
 	}
-	void getClumpingSamplesDirty()
+	void getClumpingSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.csd\"",mName.c_str());
 
 	}
-	void getClumpingMapDirty()
+	void getClumpingMapDirty()const
 	{
 		fprintf(mFile,"\"%s.cmd\"",mName.c_str());
 
 	}
-	void getClumpingFrequency()
+	void getClumpingFrequency()const
 	{
 		fprintf(mFile,"\"%s.dcf\"",mName.c_str());
 
 	}
-	void getClumpingFrequencySamples(size_t cfs_i)
+	void getClumpingFrequencySamples(size_t cfs_i)const
 	{
 		fprintf(mFile,"\"%s.cfs[%i]\"",mName.c_str(),cfs_i);
 
 	}
-	void getClumpingFrequencyMap()
+	void getClumpingFrequencyMap()const
 	{
 		fprintf(mFile,"\"%s.cfm\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapOffset()
+	void getClumpingFrequencyMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cfmo\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapMult()
+	void getClumpingFrequencyMapMult()const
 	{
 		fprintf(mFile,"\"%s.cfmm\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyNoise()
+	void getClumpingFrequencyNoise()const
 	{
 		fprintf(mFile,"\"%s.cfn\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyNoiseFreq()
+	void getClumpingFrequencyNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.cfnf\"",mName.c_str());
 
 	}
-	void getClumpingFrequencySamplesDirty()
+	void getClumpingFrequencySamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.cfsd\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapDirty()
+	void getClumpingFrequencyMapDirty()const
 	{
 		fprintf(mFile,"\"%s.cfmd\"",mName.c_str());
 
 	}
-	void getClumpingShape()
+	void getClumpingShape()const
 	{
 		fprintf(mFile,"\"%s.dcs\"",mName.c_str());
 
 	}
-	void getClumpingShapeSamples(size_t css_i)
+	void getClumpingShapeSamples(size_t css_i)const
 	{
 		fprintf(mFile,"\"%s.css[%i]\"",mName.c_str(),css_i);
 
 	}
-	void getClumpingShapeMap()
+	void getClumpingShapeMap()const
 	{
 		fprintf(mFile,"\"%s.csm\"",mName.c_str());
 
 	}
-	void getClumpingShapeMapOffset()
+	void getClumpingShapeMapOffset()const
 	{
 		fprintf(mFile,"\"%s.csmo\"",mName.c_str());
 
 	}
-	void getClumpingShapeMapMult()
+	void getClumpingShapeMapMult()const
 	{
 		fprintf(mFile,"\"%s.csmm\"",mName.c_str());
 
 	}
-	void getClumpingShapeNoise()
+	void getClumpingShapeNoise()const
 	{
 		fprintf(mFile,"\"%s.csn\"",mName.c_str());
 
 	}
-	void getClumpingShapeNoiseFreq()
+	void getClumpingShapeNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.csnf\"",mName.c_str());
 
 	}
-	void getClumpingShapeSamplesDirty()
+	void getClumpingShapeSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.cssd\"",mName.c_str());
 
 	}
-	void getClumpingShapeMapDirty()
+	void getClumpingShapeMapDirty()const
 	{
 		fprintf(mFile,"\"%s.csmd\"",mName.c_str());
 
 	}
-	void getBaseColor()
+	void getBaseColor()const
 	{
 		fprintf(mFile,"\"%s.dbc\"",mName.c_str());
 
 	}
-	void getBaseColorR()
+	void getBaseColorR()const
 	{
 		fprintf(mFile,"\"%s.dbcr\"",mName.c_str());
 
 	}
-	void getBaseColorG()
+	void getBaseColorG()const
 	{
 		fprintf(mFile,"\"%s.dbcg\"",mName.c_str());
 
 	}
-	void getBaseColorB()
+	void getBaseColorB()const
 	{
 		fprintf(mFile,"\"%s.dbcb\"",mName.c_str());
 
 	}
-	void getBaseColorSamples(size_t bcs_i)
+	void getBaseColorSamples(size_t bcs_i)const
 	{
 		fprintf(mFile,"\"%s.bcs[%i]\"",mName.c_str(),bcs_i);
 
 	}
-	void getBaseColorMap()
+	void getBaseColorMap()const
 	{
 		fprintf(mFile,"\"%s.bcm\"",mName.c_str());
 
 	}
-	void getBaseColorNoise()
+	void getBaseColorNoise()const
 	{
 		fprintf(mFile,"\"%s.bcn\"",mName.c_str());
 
 	}
-	void getBaseColorNoiseFreq()
+	void getBaseColorNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.bcnf\"",mName.c_str());
 
 	}
-	void getBaseColorSamplesDirty()
+	void getBaseColorSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.bcsd\"",mName.c_str());
 
 	}
-	void getBaseColorMapDirty()
+	void getBaseColorMapDirty()const
 	{
 		fprintf(mFile,"\"%s.bcmd\"",mName.c_str());
 
 	}
-	void getTipColor()
+	void getTipColor()const
 	{
 		fprintf(mFile,"\"%s.dtc\"",mName.c_str());
 
 	}
-	void getTipColorR()
+	void getTipColorR()const
 	{
 		fprintf(mFile,"\"%s.dtcr\"",mName.c_str());
 
 	}
-	void getTipColorG()
+	void getTipColorG()const
 	{
 		fprintf(mFile,"\"%s.dtcg\"",mName.c_str());
 
 	}
-	void getTipColorB()
+	void getTipColorB()const
 	{
 		fprintf(mFile,"\"%s.dtcb\"",mName.c_str());
 
 	}
-	void getTipColorSamples(size_t tcs_i)
+	void getTipColorSamples(size_t tcs_i)const
 	{
 		fprintf(mFile,"\"%s.tcs[%i]\"",mName.c_str(),tcs_i);
 
 	}
-	void getTipColorMap()
+	void getTipColorMap()const
 	{
 		fprintf(mFile,"\"%s.tcm\"",mName.c_str());
 
 	}
-	void getTipColorNoise()
+	void getTipColorNoise()const
 	{
 		fprintf(mFile,"\"%s.tcn\"",mName.c_str());
 
 	}
-	void getTipColorNoiseFreq()
+	void getTipColorNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.tcnf\"",mName.c_str());
 
 	}
-	void getTipColorSamplesDirty()
+	void getTipColorSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.tcsd\"",mName.c_str());
 
 	}
-	void getTipColorMapDirty()
+	void getTipColorMapDirty()const
 	{
 		fprintf(mFile,"\"%s.tcmd\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.dar\"",mName.c_str());
 
 	}
-	void getRadiusSamples(size_t ars_i)
+	void getRadiusSamples(size_t ars_i)const
 	{
 		fprintf(mFile,"\"%s.ars[%i]\"",mName.c_str(),ars_i);
 
 	}
-	void getRadiusMap()
+	void getRadiusMap()const
 	{
 		fprintf(mFile,"\"%s.arm\"",mName.c_str());
 
 	}
-	void getRadiusMapOffset()
+	void getRadiusMapOffset()const
 	{
 		fprintf(mFile,"\"%s.armo\"",mName.c_str());
 
 	}
-	void getRadiusMapMult()
+	void getRadiusMapMult()const
 	{
 		fprintf(mFile,"\"%s.armm\"",mName.c_str());
 
 	}
-	void getRadiusNoise()
+	void getRadiusNoise()const
 	{
 		fprintf(mFile,"\"%s.arn\"",mName.c_str());
 
 	}
-	void getRadiusNoiseFreq()
+	void getRadiusNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.arnf\"",mName.c_str());
 
 	}
-	void getRadiusSamplesDirty()
+	void getRadiusSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.arsd\"",mName.c_str());
 
 	}
-	void getRadiusMapDirty()
+	void getRadiusMapDirty()const
 	{
 		fprintf(mFile,"\"%s.armd\"",mName.c_str());
 
 	}
-	void getPower()
+	void getPower()const
 	{
 		fprintf(mFile,"\"%s.dap\"",mName.c_str());
 
 	}
-	void getPowerSamples(size_t aps_i)
+	void getPowerSamples(size_t aps_i)const
 	{
 		fprintf(mFile,"\"%s.aps[%i]\"",mName.c_str(),aps_i);
 
 	}
-	void getPowerMap()
+	void getPowerMap()const
 	{
 		fprintf(mFile,"\"%s.apm\"",mName.c_str());
 
 	}
-	void getPowerMapOffset()
+	void getPowerMapOffset()const
 	{
 		fprintf(mFile,"\"%s.apmo\"",mName.c_str());
 
 	}
-	void getPowerMapMult()
+	void getPowerMapMult()const
 	{
 		fprintf(mFile,"\"%s.apmm\"",mName.c_str());
 
 	}
-	void getPowerNoise()
+	void getPowerNoise()const
 	{
 		fprintf(mFile,"\"%s.apn\"",mName.c_str());
 
 	}
-	void getPowerNoiseFreq()
+	void getPowerNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.apnf\"",mName.c_str());
 
 	}
-	void getPowerSamplesDirty()
+	void getPowerSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.apsd\"",mName.c_str());
 
 	}
-	void getPowerMapDirty()
+	void getPowerMapDirty()const
 	{
 		fprintf(mFile,"\"%s.apmd\"",mName.c_str());
 
 	}
-	void getInfluence()
+	void getInfluence()const
 	{
 		fprintf(mFile,"\"%s.dai\"",mName.c_str());
 
 	}
-	void getInfluenceSamples(size_t ais_i)
+	void getInfluenceSamples(size_t ais_i)const
 	{
 		fprintf(mFile,"\"%s.ais[%i]\"",mName.c_str(),ais_i);
 
 	}
-	void getInfluenceMap()
+	void getInfluenceMap()const
 	{
 		fprintf(mFile,"\"%s.aim\"",mName.c_str());
 
 	}
-	void getInfluenceMapOffset()
+	void getInfluenceMapOffset()const
 	{
 		fprintf(mFile,"\"%s.aimo\"",mName.c_str());
 
 	}
-	void getInfluenceMapMult()
+	void getInfluenceMapMult()const
 	{
 		fprintf(mFile,"\"%s.aimm\"",mName.c_str());
 
 	}
-	void getInfluenceNoise()
+	void getInfluenceNoise()const
 	{
 		fprintf(mFile,"\"%s.ain\"",mName.c_str());
 
 	}
-	void getInfluenceNoiseFreq()
+	void getInfluenceNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.ainf\"",mName.c_str());
 
 	}
-	void getInfluenceSamplesDirty()
+	void getInfluenceSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.aisd\"",mName.c_str());
 
 	}
-	void getInfluenceMapDirty()
+	void getInfluenceMapDirty()const
 	{
 		fprintf(mFile,"\"%s.aimd\"",mName.c_str());
 
 	}
-	void getStartLength()
+	void getStartLength()const
 	{
 		fprintf(mFile,"\"%s.dasl\"",mName.c_str());
 
 	}
-	void getStartLengthSamples(size_t asls_i)
+	void getStartLengthSamples(size_t asls_i)const
 	{
 		fprintf(mFile,"\"%s.asls[%i]\"",mName.c_str(),asls_i);
 
 	}
-	void getStartLengthMap()
+	void getStartLengthMap()const
 	{
 		fprintf(mFile,"\"%s.aslm\"",mName.c_str());
 
 	}
-	void getStartLengthMapOffset()
+	void getStartLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.aslmo\"",mName.c_str());
 
 	}
-	void getStartLengthMapMult()
+	void getStartLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.aslmm\"",mName.c_str());
 
 	}
-	void getStartLengthNoise()
+	void getStartLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.asln\"",mName.c_str());
 
 	}
-	void getStartLengthNoiseFreq()
+	void getStartLengthNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.aslnf\"",mName.c_str());
 
 	}
-	void getStartLengthSamplesDirty()
+	void getStartLengthSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.aslsd\"",mName.c_str());
 
 	}
-	void getStartLengthMapDirty()
+	void getStartLengthMapDirty()const
 	{
 		fprintf(mFile,"\"%s.aslmd\"",mName.c_str());
 
 	}
-	void getEndLength()
+	void getEndLength()const
 	{
 		fprintf(mFile,"\"%s.dael\"",mName.c_str());
 
 	}
-	void getEndLengthSamples(size_t aels_i)
+	void getEndLengthSamples(size_t aels_i)const
 	{
 		fprintf(mFile,"\"%s.aels[%i]\"",mName.c_str(),aels_i);
 
 	}
-	void getEndLengthMap()
+	void getEndLengthMap()const
 	{
 		fprintf(mFile,"\"%s.aelm\"",mName.c_str());
 
 	}
-	void getEndLengthMapOffset()
+	void getEndLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.aelmo\"",mName.c_str());
 
 	}
-	void getEndLengthMapMult()
+	void getEndLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.aelmm\"",mName.c_str());
 
 	}
-	void getEndLengthNoise()
+	void getEndLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.aeln\"",mName.c_str());
 
 	}
-	void getEndLengthNoiseFreq()
+	void getEndLengthNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.aelnf\"",mName.c_str());
 
 	}
-	void getEndLengthSamplesDirty()
+	void getEndLengthSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.aelsd\"",mName.c_str());
 
 	}
-	void getEndLengthMapDirty()
+	void getEndLengthMapDirty()const
 	{
 		fprintf(mFile,"\"%s.aelmd\"",mName.c_str());
 
 	}
-	void getThresholdLength()
+	void getThresholdLength()const
 	{
 		fprintf(mFile,"\"%s.datl\"",mName.c_str());
 
 	}
-	void getThresholdLengthSamples(size_t atls_i)
+	void getThresholdLengthSamples(size_t atls_i)const
 	{
 		fprintf(mFile,"\"%s.atls[%i]\"",mName.c_str(),atls_i);
 
 	}
-	void getThresholdLengthMap()
+	void getThresholdLengthMap()const
 	{
 		fprintf(mFile,"\"%s.atlm\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapOffset()
+	void getThresholdLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.atlmo\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapMult()
+	void getThresholdLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.atlmm\"",mName.c_str());
 
 	}
-	void getThresholdLengthNoise()
+	void getThresholdLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.atln\"",mName.c_str());
 
 	}
-	void getThresholdLengthNoiseFreq()
+	void getThresholdLengthNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.atlnf\"",mName.c_str());
 
 	}
-	void getThresholdLengthSamplesDirty()
+	void getThresholdLengthSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.atlsd\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapDirty()
+	void getThresholdLengthMapDirty()const
 	{
 		fprintf(mFile,"\"%s.atlmd\"",mName.c_str());
 
 	}
-	void getUnused()
+	void getUnused()const
 	{
 		fprintf(mFile,"\"%s.dun\"",mName.c_str());
 
 	}
-	void getUnusedSamples(size_t uns_i)
+	void getUnusedSamples(size_t uns_i)const
 	{
 		fprintf(mFile,"\"%s.uns[%i]\"",mName.c_str(),uns_i);
 
 	}
-	void getUnusedMap()
+	void getUnusedMap()const
 	{
 		fprintf(mFile,"\"%s.unm\"",mName.c_str());
 
 	}
-	void getUnusedMapOffset()
+	void getUnusedMapOffset()const
 	{
 		fprintf(mFile,"\"%s.unmo\"",mName.c_str());
 
 	}
-	void getUnusedMapMult()
+	void getUnusedMapMult()const
 	{
 		fprintf(mFile,"\"%s.unmm\"",mName.c_str());
 
 	}
-	void getUnusedNoise()
+	void getUnusedNoise()const
 	{
 		fprintf(mFile,"\"%s.unn\"",mName.c_str());
 
 	}
-	void getUnusedSamplesDirty()
+	void getUnusedSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.unsd\"",mName.c_str());
 
 	}
-	void getUnusedMapDirty()
+	void getUnusedMapDirty()const
 	{
 		fprintf(mFile,"\"%s.unmd\"",mName.c_str());
 
 	}
-	void getEqualizer()
+	void getEqualizer()const
 	{
 		fprintf(mFile,"\"%s.dem\"",mName.c_str());
 
 	}
-	void getEqualizerSamples(size_t ems_i)
+	void getEqualizerSamples(size_t ems_i)const
 	{
 		fprintf(mFile,"\"%s.ems[%i]\"",mName.c_str(),ems_i);
 
 	}
-	void getEqualizerMap()
+	void getEqualizerMap()const
 	{
 		fprintf(mFile,"\"%s.emm\"",mName.c_str());
 
 	}
-	void getEqualizerMapOffset()
+	void getEqualizerMapOffset()const
 	{
 		fprintf(mFile,"\"%s.emmo\"",mName.c_str());
 
 	}
-	void getEqualizerMapMult()
+	void getEqualizerMapMult()const
 	{
 		fprintf(mFile,"\"%s.emmm\"",mName.c_str());
 
 	}
-	void getEqualizerNoise()
+	void getEqualizerNoise()const
 	{
 		fprintf(mFile,"\"%s.emn\"",mName.c_str());
 
 	}
-	void getEqualizerNoiseFreq()
+	void getEqualizerNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.emnf\"",mName.c_str());
 
 	}
-	void getEqualizerSamplesDirty()
+	void getEqualizerSamplesDirty()const
 	{
 		fprintf(mFile,"\"%s.emsd\"",mName.c_str());
 
 	}
-	void getEqualizerMapDirty()
+	void getEqualizerMapDirty()const
 	{
 		fprintf(mFile,"\"%s.emmd\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOverrideCaustics()
+	void getMiOverrideCaustics()const
 	{
 		fprintf(mFile,"\"%s.mrc.oca\"",mName.c_str());
 
 	}
-	void getMiCausticAccuracy()
+	void getMiCausticAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.caa\"",mName.c_str());
 
 	}
-	void getMiCausticRadius()
+	void getMiCausticRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.car\"",mName.c_str());
 
 	}
-	void getMiOverrideGlobalIllumination()
+	void getMiOverrideGlobalIllumination()const
 	{
 		fprintf(mFile,"\"%s.mrc.ogi\"",mName.c_str());
 
 	}
-	void getMiGlobillumAccuracy()
+	void getMiGlobillumAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.gia\"",mName.c_str());
 
 	}
-	void getMiGlobillumRadius()
+	void getMiGlobillumRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.gir\"",mName.c_str());
 
 	}
-	void getMiOverrideFinalGather()
+	void getMiOverrideFinalGather()const
 	{
 		fprintf(mFile,"\"%s.mrc.ofg\"",mName.c_str());
 
 	}
-	void getMiFinalGatherRays()
+	void getMiFinalGatherRays()const
 	{
 		fprintf(mFile,"\"%s.mrc.fry\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMinRadius()
+	void getMiFinalGatherMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmn\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMaxRadius()
+	void getMiFinalGatherMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmx\"",mName.c_str());
 
 	}
-	void getMiFinalGatherFilter()
+	void getMiFinalGatherFilter()const
 	{
 		fprintf(mFile,"\"%s.mrc.ffi\"",mName.c_str());
 
 	}
-	void getMiFinalGatherView()
+	void getMiFinalGatherView()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgv\"",mName.c_str());
 
 	}
-	void getMiOverrideSamples()
+	void getMiOverrideSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.oos\"",mName.c_str());
 
 	}
-	void getMiMinSamples()
+	void getMiMinSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.mins\"",mName.c_str());
 
 	}
-	void getMiMaxSamples()
+	void getMiMaxSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 
 	}
-	void getMiFinalGatherCast()
+	void getMiFinalGatherCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgc\"",mName.c_str());
 
 	}
-	void getMiFinalGatherReceive()
+	void getMiFinalGatherReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.fge\"",mName.c_str());
 
 	}
-	void getMiTransparencyCast()
+	void getMiTransparencyCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpc\"",mName.c_str());
 
 	}
-	void getMiTransparencyReceive()
+	void getMiTransparencyReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpr\"",mName.c_str());
 
 	}
 protected:
-	FurFeedback(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Locator(file, name, parent, nodeType) {}
+	FurFeedback(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Locator(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

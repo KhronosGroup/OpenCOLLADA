@@ -32,12 +32,12 @@ namespace COLLADAFW
     //---------------------------------------------------------------
     bool Color::isValid() const
     {
-        if (!( mR >= 0 && mR <= 1 ) &&
+        if (!(( mR >= 0 && mR <= 1 ) &&
             ( mG >= 0 && mG <= 1 ) &&
             ( mB >= 0 && mB <= 1 ) &&
-            ( mA >= 0 && mA <= 1 ))
+            ( mA >= 0 && mA <= 1 )))
         {
-            assert("Current color is not valid!");
+//            assert("Current color is not valid!");
             return false;
         }
 

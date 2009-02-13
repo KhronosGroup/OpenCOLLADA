@@ -19,7 +19,8 @@ class Luminance : public DependNode
 public:
 public:
 	Luminance():DependNode(){}
-	Luminance(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "luminance"){}
+	Luminance(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "luminance", create){}
 	virtual ~Luminance(){}
 	void setValue(const float3& v)
 	{
@@ -47,34 +48,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".v.vb\" %f;\n", vb);
 
 	}
-	void getValue()
+	void getValue()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getValueR()
+	void getValueR()const
 	{
 		fprintf(mFile,"\"%s.v.vr\"",mName.c_str());
 
 	}
-	void getValueG()
+	void getValueG()const
 	{
 		fprintf(mFile,"\"%s.v.vg\"",mName.c_str());
 
 	}
-	void getValueB()
+	void getValueB()const
 	{
 		fprintf(mFile,"\"%s.v.vb\"",mName.c_str());
 
 	}
-	void getOutValue()
+	void getOutValue()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	Luminance(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Luminance(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

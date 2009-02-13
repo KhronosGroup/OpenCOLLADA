@@ -19,7 +19,8 @@ class FfFilletSrf : public AbstractBaseCreate
 public:
 public:
 	FfFilletSrf():AbstractBaseCreate(){}
-	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "ffFilletSrf"){}
+	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "ffFilletSrf", create){}
 	virtual ~FfFilletSrf(){}
 	void setPositionTolerance(double pt)
 	{
@@ -45,44 +46,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".b\" %f;\n", b);
 
 	}
-	void getLeftCurve()
+	void getLeftCurve()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 
 	}
-	void getRightCurve()
+	void getRightCurve()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
-	void getPositionTolerance()
+	void getPositionTolerance()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getTangentTolerance()
+	void getTangentTolerance()const
 	{
 		fprintf(mFile,"\"%s.tt\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getBias()
+	void getBias()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	FfFilletSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

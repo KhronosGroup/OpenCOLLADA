@@ -19,7 +19,8 @@ class DisplacementShader : public DependNode
 public:
 public:
 	DisplacementShader():DependNode(){}
-	DisplacementShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "displacementShader"){}
+	DisplacementShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "displacementShader", create){}
 	virtual ~DisplacementShader(){}
 	void setDisplacement(float d)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
-	void getDisplacement()
+	void getDisplacement()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 protected:
-	DisplacementShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DisplacementShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

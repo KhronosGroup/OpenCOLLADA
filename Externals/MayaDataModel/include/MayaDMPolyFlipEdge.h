@@ -19,7 +19,8 @@ class PolyFlipEdge : public PolyModifier
 public:
 public:
 	PolyFlipEdge():PolyModifier(){}
-	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyFlipEdge"){}
+	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyFlipEdge", create){}
 	virtual ~PolyFlipEdge(){}
 	void setEdge(const componentList& e)
 	{
@@ -28,14 +29,14 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getEdge()
+	void getEdge()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
 protected:
-	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyFlipEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

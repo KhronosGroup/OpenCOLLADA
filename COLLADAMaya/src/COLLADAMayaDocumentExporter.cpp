@@ -335,9 +335,7 @@ namespace COLLADAMaya
         MString mayaReturnString ( buffer );
         delete buffer;
 
-//        String returnString = mayaReturnString.asChar();
-        String returnString = checkNCName( mayaReturnString.asChar() );
-        return returnString;
+        return COLLADABU::Utils::checkNCName( mayaReturnString.asChar() );
     }
 
     //---------------------------------------------------------------
@@ -350,7 +348,6 @@ namespace COLLADAMaya
         return mayaNameToColladaName ( dagPath.partialPathName(), false );
     }
 
-
     //---------------------------------------------------------------
     String DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
     {
@@ -360,53 +357,6 @@ namespace COLLADAMaya
         // get viral node names after repeated import/export.
         MFnDependencyNode node ( dagPath.node() );
         return mayaNameToColladaName ( node.name(), true );
-    }
-
-
-    //---------------------------------------------------------------
-    String DocumentExporter::colladaNameToDagName ( const MString& dagPath )
-    {
-        // Make a COLLADA name suitable for a DAG name
-        int length = dagPath.length();
-        char* tmp = new char[length + 1];
-        const char* c = dagPath.asChar();
-
-        for ( int i = 0; i <= length; i++ )
-        {
-            if ( ( tmp[i] = c[i] ) == '.' )
-            {
-                tmp[i] =  '_';
-            }
-        }
-
-        MString rv ( tmp, length );
-
-        delete[] tmp;
-        return rv.asChar();
-    }
-
-    //---------------------------------------------------------------
-    String DocumentExporter::checkNCName(const String &ncName)
-    {
-        std::string copy = ncName;
-        std::string::size_type found;
-        while ((found = copy.find(' ')) != std::string::npos)
-        {
-            copy.replace(found, 1, 1, '_');
-        }
-        while ((found = copy.find(':')) != std::string::npos)
-        {
-            copy.replace(found, 1, 1, '_');
-        }
-        if ( (copy[0] < 'a' || copy[0] > 'z')
-            && (copy[0] < 'A' || copy[0] > 'Z')
-            && copy[0] != '_')
-            copy.insert(copy.begin(), 1, '_');
-
-        //if (!isalpha((unsigned char)copy[0]) && copy[0] != '_')
-        //
-
-        return copy;
     }
 
     SceneGraph* DocumentExporter::getSceneGraph()

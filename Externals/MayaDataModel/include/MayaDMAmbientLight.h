@@ -19,7 +19,8 @@ class AmbientLight : public RenderLight
 public:
 public:
 	AmbientLight():RenderLight(){}
-	AmbientLight(FILE* file,const std::string& name,const std::string& parent=""):RenderLight(file, name, parent, "ambientLight"){}
+	AmbientLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:RenderLight(file, name, parent, "ambientLight", create){}
 	virtual ~AmbientLight(){}
 	void setAmbientShade(float as)
 	{
@@ -51,54 +52,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".gs\" %i;\n", gs);
 
 	}
-	void getAmbientShade()
+	void getAmbientShade()const
 	{
 		fprintf(mFile,"\"%s.as\"",mName.c_str());
 
 	}
-	void getObjectType()
+	void getObjectType()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getShadowRadius()
+	void getShadowRadius()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getCastSoftShadows()
+	void getCastSoftShadows()const
 	{
 		fprintf(mFile,"\"%s.cw\"",mName.c_str());
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getReceiveShadows()
+	void getReceiveShadows()const
 	{
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 
 	}
 protected:
-	AmbientLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:RenderLight(file, name, parent, nodeType) {}
+	AmbientLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:RenderLight(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

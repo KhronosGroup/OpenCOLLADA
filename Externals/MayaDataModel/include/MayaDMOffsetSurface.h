@@ -19,7 +19,8 @@ class OffsetSurface : public AbstractBaseCreate
 public:
 public:
 	OffsetSurface():AbstractBaseCreate(){}
-	OffsetSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "offsetSurface"){}
+	OffsetSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "offsetSurface", create){}
 	virtual ~OffsetSurface(){}
 	void setDistance(double d)
 	{
@@ -33,29 +34,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getMethod()
+	void getMethod()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	OffsetSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	OffsetSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

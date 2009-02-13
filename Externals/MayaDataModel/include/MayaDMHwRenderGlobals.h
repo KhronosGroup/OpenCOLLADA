@@ -19,7 +19,8 @@ class HwRenderGlobals : public DependNode
 public:
 public:
 	HwRenderGlobals():DependNode(){}
-	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hwRenderGlobals"){}
+	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hwRenderGlobals", create){}
 	virtual ~HwRenderGlobals(){}
 	void setRenderPasses(unsigned int rp)
 	{
@@ -219,169 +220,169 @@ public:
 		fprintf(mFile,"\tsetAttr \".sd\" %i;\n", sd);
 
 	}
-	void getRenderPasses()
+	void getRenderPasses()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
 
 	}
-	void getCameraIcons()
+	void getCameraIcons()const
 	{
 		fprintf(mFile,"\"%s.cai\"",mName.c_str());
 
 	}
-	void getCollisionIcons()
+	void getCollisionIcons()const
 	{
 		fprintf(mFile,"\"%s.coi\"",mName.c_str());
 
 	}
-	void getBackgroundColor()
+	void getBackgroundColor()const
 	{
 		fprintf(mFile,"\"%s.bc\"",mName.c_str());
 
 	}
-	void getBackgroundColorR()
+	void getBackgroundColorR()const
 	{
 		fprintf(mFile,"\"%s.bc.bcr\"",mName.c_str());
 
 	}
-	void getBackgroundColorG()
+	void getBackgroundColorG()const
 	{
 		fprintf(mFile,"\"%s.bc.bcg\"",mName.c_str());
 
 	}
-	void getBackgroundColorB()
+	void getBackgroundColorB()const
 	{
 		fprintf(mFile,"\"%s.bc.bcb\"",mName.c_str());
 
 	}
-	void getEmitterIcons()
+	void getEmitterIcons()const
 	{
 		fprintf(mFile,"\"%s.ei\"",mName.c_str());
 
 	}
-	void getExtension()
+	void getExtension()const
 	{
 		fprintf(mFile,"\"%s.ex\"",mName.c_str());
 
 	}
-	void getEdgeSmoothing()
+	void getEdgeSmoothing()const
 	{
 		fprintf(mFile,"\"%s.es\"",mName.c_str());
 
 	}
-	void getEndFrame()
+	void getEndFrame()const
 	{
 		fprintf(mFile,"\"%s.ef\"",mName.c_str());
 
 	}
-	void getByFrame()
+	void getByFrame()const
 	{
 		fprintf(mFile,"\"%s.bf\"",mName.c_str());
 
 	}
-	void getFieldIcons()
+	void getFieldIcons()const
 	{
 		fprintf(mFile,"\"%s.fii\"",mName.c_str());
 
 	}
-	void getStartFrame()
+	void getStartFrame()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
-	void getGrid()
+	void getGrid()const
 	{
 		fprintf(mFile,"\"%s.gr\"",mName.c_str());
 
 	}
-	void getLightIcons()
+	void getLightIcons()const
 	{
 		fprintf(mFile,"\"%s.li\"",mName.c_str());
 
 	}
-	void getLineSmoothing()
+	void getLineSmoothing()const
 	{
 		fprintf(mFile,"\"%s.ls\"",mName.c_str());
 
 	}
-	void getMotionBlur()
+	void getMotionBlur()const
 	{
 		fprintf(mFile,"\"%s.mb\"",mName.c_str());
 
 	}
-	void getTransformIcons()
+	void getTransformIcons()const
 	{
 		fprintf(mFile,"\"%s.ti\"",mName.c_str());
 
 	}
-	void getTexturing()
+	void getTexturing()const
 	{
 		fprintf(mFile,"\"%s.txt\"",mName.c_str());
 
 	}
-	void getMultiPassRendering()
+	void getMultiPassRendering()const
 	{
 		fprintf(mFile,"\"%s.mpr\"",mName.c_str());
 
 	}
-	void getWriteZDepth()
+	void getWriteZDepth()const
 	{
 		fprintf(mFile,"\"%s.wzd\"",mName.c_str());
 
 	}
-	void getFilename()
+	void getFilename()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getImageFormat()
+	void getImageFormat()const
 	{
 		fprintf(mFile,"\"%s.if\"",mName.c_str());
 
 	}
-	void getResolution()
+	void getResolution()const
 	{
 		fprintf(mFile,"\"%s.res\"",mName.c_str());
 
 	}
-	void getAlphaSource()
+	void getAlphaSource()const
 	{
 		fprintf(mFile,"\"%s.as\"",mName.c_str());
 
 	}
-	void getDrawStyle()
+	void getDrawStyle()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getLightingMode()
+	void getLightingMode()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
-	void getFullImageResolution()
+	void getFullImageResolution()const
 	{
 		fprintf(mFile,"\"%s.fir\"",mName.c_str());
 
 	}
-	void getAntiAliasPolygons()
+	void getAntiAliasPolygons()const
 	{
 		fprintf(mFile,"\"%s.aap\"",mName.c_str());
 
 	}
-	void getGeometryMask()
+	void getGeometryMask()const
 	{
 		fprintf(mFile,"\"%s.gh\"",mName.c_str());
 
 	}
-	void getDisplayShadows()
+	void getDisplayShadows()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
 protected:
-	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HwRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

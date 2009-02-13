@@ -19,7 +19,8 @@ class MultDoubleLinear : public DependNode
 public:
 public:
 	MultDoubleLinear():DependNode(){}
-	MultDoubleLinear(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "multDoubleLinear"){}
+	MultDoubleLinear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "multDoubleLinear", create){}
 	virtual ~MultDoubleLinear(){}
 	void setInput1(double i1)
 	{
@@ -33,24 +34,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".i2\" %f;\n", i2);
 
 	}
-	void getInput1()
+	void getInput1()const
 	{
 		fprintf(mFile,"\"%s.i1\"",mName.c_str());
 
 	}
-	void getInput2()
+	void getInput2()const
 	{
 		fprintf(mFile,"\"%s.i2\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	MultDoubleLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	MultDoubleLinear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

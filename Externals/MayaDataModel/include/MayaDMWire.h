@@ -19,7 +19,8 @@ class Wire : public WeightGeometryFilter
 public:
 public:
 	Wire():WeightGeometryFilter(){}
-	Wire(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "wire"){}
+	Wire(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:WeightGeometryFilter(file, name, parent, "wire", create){}
 	virtual ~Wire(){}
 	void setCrossingEffect(float ce)
 	{
@@ -69,17 +70,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDropoffDistance(size_t dds_start,size_t dds_end)
+	void startDropoffDistance(size_t dds_start,size_t dds_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dds[%i:%i]\"",dds_start,dds_end);
 
 	}
-	void appendDropoffDistance(float dds)
+	void appendDropoffDistance(float dds)const
 	{
 		fprintf(mFile," %f",dds);
 
 	}
-	void endDropoffDistance()
+	void endDropoffDistance()const
 	{
 		fprintf(mFile,";\n");
 
@@ -102,17 +103,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startScale(size_t sc_start,size_t sc_end)
+	void startScale(size_t sc_start,size_t sc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\"",sc_start,sc_end);
 
 	}
-	void appendScale(float sc)
+	void appendScale(float sc)const
 	{
 		fprintf(mFile," %f",sc);
 
 	}
-	void endScale()
+	void endScale()const
 	{
 		fprintf(mFile,";\n");
 
@@ -135,17 +136,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWireLocatorPercentage(size_t wlpc_start,size_t wlpc_end)
+	void startWireLocatorPercentage(size_t wlpc_start,size_t wlpc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wlpc[%i:%i]\"",wlpc_start,wlpc_end);
 
 	}
-	void appendWireLocatorPercentage(float wlpc)
+	void appendWireLocatorPercentage(float wlpc)const
 	{
 		fprintf(mFile," %f",wlpc);
 
 	}
-	void endWireLocatorPercentage()
+	void endWireLocatorPercentage()const
 	{
 		fprintf(mFile,";\n");
 
@@ -168,17 +169,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWireLocatorParameter(size_t wlp_start,size_t wlp_end)
+	void startWireLocatorParameter(size_t wlp_start,size_t wlp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wlp[%i:%i]\"",wlp_start,wlp_end);
 
 	}
-	void appendWireLocatorParameter(float wlp)
+	void appendWireLocatorParameter(float wlp)const
 	{
 		fprintf(mFile," %f",wlp);
 
 	}
-	void endWireLocatorParameter()
+	void endWireLocatorParameter()const
 	{
 		fprintf(mFile,";\n");
 
@@ -201,17 +202,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWireLocatorEnvelope(size_t wle_start,size_t wle_end)
+	void startWireLocatorEnvelope(size_t wle_start,size_t wle_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wle[%i:%i]\"",wle_start,wle_end);
 
 	}
-	void appendWireLocatorEnvelope(float wle)
+	void appendWireLocatorEnvelope(float wle)const
 	{
 		fprintf(mFile," %f",wle);
 
 	}
-	void endWireLocatorEnvelope()
+	void endWireLocatorEnvelope()const
 	{
 		fprintf(mFile,";\n");
 
@@ -234,17 +235,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWireLocatorTwist(size_t wlt_start,size_t wlt_end)
+	void startWireLocatorTwist(size_t wlt_start,size_t wlt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wlt[%i:%i]\"",wlt_start,wlt_end);
 
 	}
-	void appendWireLocatorTwist(float wlt)
+	void appendWireLocatorTwist(float wlt)const
 	{
 		fprintf(mFile," %f",wlt);
 
 	}
-	void endWireLocatorTwist()
+	void endWireLocatorTwist()const
 	{
 		fprintf(mFile,";\n");
 
@@ -268,19 +269,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDeformedWire(size_t dw_start,size_t dw_end)
+	void startDeformedWire(size_t dw_start,size_t dw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dw[%i:%i]\"",dw_start,dw_end);
 		fprintf(mFile," -type \"nurbsCurve\" ");
 
 	}
-	void appendDeformedWire(const nurbsCurve& dw)
+	void appendDeformedWire(const nurbsCurve& dw)const
 	{
 		fprintf(mFile,"\n");
 		dw.write(mFile);
 
 	}
-	void endDeformedWire()
+	void endDeformedWire()const
 	{
 		fprintf(mFile,";\n");
 
@@ -304,96 +305,96 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startBaseWire(size_t bw_start,size_t bw_end)
+	void startBaseWire(size_t bw_start,size_t bw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".bw[%i:%i]\"",bw_start,bw_end);
 		fprintf(mFile," -type \"nurbsCurve\" ");
 
 	}
-	void appendBaseWire(const nurbsCurve& bw)
+	void appendBaseWire(const nurbsCurve& bw)const
 	{
 		fprintf(mFile,"\n");
 		bw.write(mFile);
 
 	}
-	void endBaseWire()
+	void endBaseWire()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getCrossingEffect()
+	void getCrossingEffect()const
 	{
 		fprintf(mFile,"\"%s.ce\"",mName.c_str());
 
 	}
-	void getTension()
+	void getTension()const
 	{
 		fprintf(mFile,"\"%s.te\"",mName.c_str());
 
 	}
-	void getLocalInfluence()
+	void getLocalInfluence()const
 	{
 		fprintf(mFile,"\"%s.li\"",mName.c_str());
 
 	}
-	void getRotation()
+	void getRotation()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getFreezeGeometry()
+	void getFreezeGeometry()const
 	{
 		fprintf(mFile,"\"%s.fg\"",mName.c_str());
 
 	}
-	void getDropoffDistance(size_t dds_i)
+	void getDropoffDistance(size_t dds_i)const
 	{
 		fprintf(mFile,"\"%s.dds[%i]\"",mName.c_str(),dds_i);
 
 	}
-	void getScale(size_t sc_i)
+	void getScale(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
 
 	}
-	void getWireLocatorPercentage(size_t wlpc_i)
+	void getWireLocatorPercentage(size_t wlpc_i)const
 	{
 		fprintf(mFile,"\"%s.wlpc[%i]\"",mName.c_str(),wlpc_i);
 
 	}
-	void getWireLocatorParameter(size_t wlp_i)
+	void getWireLocatorParameter(size_t wlp_i)const
 	{
 		fprintf(mFile,"\"%s.wlp[%i]\"",mName.c_str(),wlp_i);
 
 	}
-	void getWireLocatorEnvelope(size_t wle_i)
+	void getWireLocatorEnvelope(size_t wle_i)const
 	{
 		fprintf(mFile,"\"%s.wle[%i]\"",mName.c_str(),wle_i);
 
 	}
-	void getWireLocatorTwist(size_t wlt_i)
+	void getWireLocatorTwist(size_t wlt_i)const
 	{
 		fprintf(mFile,"\"%s.wlt[%i]\"",mName.c_str(),wlt_i);
 
 	}
-	void getDeformedWire(size_t dw_i)
+	void getDeformedWire(size_t dw_i)const
 	{
 		fprintf(mFile,"\"%s.dw[%i]\"",mName.c_str(),dw_i);
 
 	}
-	void getBaseWire(size_t bw_i)
+	void getBaseWire(size_t bw_i)const
 	{
 		fprintf(mFile,"\"%s.bw[%i]\"",mName.c_str(),bw_i);
 
 	}
-	void getHolder(size_t ho_i)
+	void getHolder(size_t ho_i)const
 	{
 		fprintf(mFile,"\"%s.ho[%i]\"",mName.c_str(),ho_i);
 
 	}
 protected:
-	Wire(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:WeightGeometryFilter(file, name, parent, nodeType) {}
+	Wire(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

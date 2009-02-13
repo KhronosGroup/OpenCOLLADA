@@ -19,7 +19,8 @@ class OffsetCurve : public AbstractBaseCreate
 public:
 public:
 	OffsetCurve():AbstractBaseCreate(){}
-	OffsetCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "offsetCurve"){}
+	OffsetCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "offsetCurve", create){}
 	virtual ~OffsetCurve(){}
 	void setConnectBreaks(unsigned int cb)
 	{
@@ -112,94 +113,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".up\" %i;\n", up);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getConnectBreaks()
+	void getConnectBreaks()const
 	{
 		fprintf(mFile,"\"%s.cb\"",mName.c_str());
 
 	}
-	void getReparameterize()
+	void getReparameterize()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
 
 	}
-	void getStitch()
+	void getStitch()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getCutLoop()
+	void getCutLoop()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getCutRadius()
+	void getCutRadius()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getSubdivisionDensity()
+	void getSubdivisionDensity()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
-	void getUseGivenNormal()
+	void getUseGivenNormal()const
 	{
 		fprintf(mFile,"\"%s.ugn\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.nr\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nr.nrx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.nr.nry\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nr.nrz\"",mName.c_str());
 
 	}
-	void getParameter()
+	void getParameter()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getUseParameter()
+	void getUseParameter()const
 	{
 		fprintf(mFile,"\"%s.up\"",mName.c_str());
 
 	}
-	void getOutputCurve(size_t oc_i)
+	void getOutputCurve(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
 protected:
-	OffsetCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	OffsetCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

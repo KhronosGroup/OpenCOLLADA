@@ -19,7 +19,8 @@ class PolyMoveFace : public PolyMoveEdge
 public:
 public:
 	PolyMoveFace():PolyMoveEdge(){}
-	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveEdge(file, name, parent, "polyMoveFace"){}
+	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyMoveEdge(file, name, parent, "polyMoveFace", create){}
 	virtual ~PolyMoveFace(){}
 	void setOffset(float off)
 	{
@@ -91,64 +92,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".m.mz\" %f;\n", mz);
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getGravity()
+	void getGravity()const
 	{
 		fprintf(mFile,"\"%s.g\"",mName.c_str());
 
 	}
-	void getGravityX()
+	void getGravityX()const
 	{
 		fprintf(mFile,"\"%s.g.gx\"",mName.c_str());
 
 	}
-	void getGravityY()
+	void getGravityY()const
 	{
 		fprintf(mFile,"\"%s.g.gy\"",mName.c_str());
 
 	}
-	void getGravityZ()
+	void getGravityZ()const
 	{
 		fprintf(mFile,"\"%s.g.gz\"",mName.c_str());
 
 	}
-	void getAttraction()
+	void getAttraction()const
 	{
 		fprintf(mFile,"\"%s.att\"",mName.c_str());
 
 	}
-	void getMagnet()
+	void getMagnet()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getMagnX()
+	void getMagnX()const
 	{
 		fprintf(mFile,"\"%s.m.mx\"",mName.c_str());
 
 	}
-	void getMagnY()
+	void getMagnY()const
 	{
 		fprintf(mFile,"\"%s.m.my\"",mName.c_str());
 
 	}
-	void getMagnZ()
+	void getMagnZ()const
 	{
 		fprintf(mFile,"\"%s.m.mz\"",mName.c_str());
 
 	}
 protected:
-	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyMoveEdge(file, name, parent, nodeType) {}
+	PolyMoveFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyMoveEdge(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

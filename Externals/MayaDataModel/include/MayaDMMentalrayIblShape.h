@@ -23,17 +23,21 @@ protected:
 	std::string mParent;
 	std::string mNodeType;
 public:
-	const std::string& getName()
+	const std::string& getName()const
 	{
 		return mName;
 	}
-	const std::string& getParent()
+	const std::string& getParent()const
 	{
 		return mParent;
 	}
-	const std::string& getType()
+	const std::string& getType()const
 	{
 		return mNodeType;
+	}
+	void setFile(FILE* file)
+	{
+		mFile = file;
 	}
 	void setName(const std::string& name)
 	{
@@ -624,289 +628,290 @@ public:
 		fprintf(mFile,"\tsetAttr \".pco.pcob\" %f;\n", pcob);
 
 	}
-	void getFrameExtension()
+	void getFrameExtension()const
 	{
 		fprintf(mFile,"\"%s.fe\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.col.colr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.col.colg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.col.colb\"",mName.c_str());
 
 	}
-	void getColorGain()
+	void getColorGain()const
 	{
 		fprintf(mFile,"\"%s.cg\"",mName.c_str());
 
 	}
-	void getColorGainR()
+	void getColorGainR()const
 	{
 		fprintf(mFile,"\"%s.cg.cgr\"",mName.c_str());
 
 	}
-	void getColorGainG()
+	void getColorGainG()const
 	{
 		fprintf(mFile,"\"%s.cg.cgg\"",mName.c_str());
 
 	}
-	void getColorGainB()
+	void getColorGainB()const
 	{
 		fprintf(mFile,"\"%s.cg.cgb\"",mName.c_str());
 
 	}
-	void getColorOffset()
+	void getColorOffset()const
 	{
 		fprintf(mFile,"\"%s.cof\"",mName.c_str());
 
 	}
-	void getColorOffsetR()
+	void getColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.cof.cofr\"",mName.c_str());
 
 	}
-	void getColorOffsetG()
+	void getColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.cof.cofg\"",mName.c_str());
 
 	}
-	void getColorOffsetB()
+	void getColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.cof.cofb\"",mName.c_str());
 
 	}
-	void getEnvColorGain()
+	void getEnvColorGain()const
 	{
 		fprintf(mFile,"\"%s.ecg\"",mName.c_str());
 
 	}
-	void getEnvColorGainR()
+	void getEnvColorGainR()const
 	{
 		fprintf(mFile,"\"%s.ecg.ecgr\"",mName.c_str());
 
 	}
-	void getEnvColorGainG()
+	void getEnvColorGainG()const
 	{
 		fprintf(mFile,"\"%s.ecg.ecgg\"",mName.c_str());
 
 	}
-	void getEnvColorGainB()
+	void getEnvColorGainB()const
 	{
 		fprintf(mFile,"\"%s.ecg.ecgb\"",mName.c_str());
 
 	}
-	void getEnvColorOffset()
+	void getEnvColorOffset()const
 	{
 		fprintf(mFile,"\"%s.eco\"",mName.c_str());
 
 	}
-	void getEnvColorOffsetR()
+	void getEnvColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.eco.ecor\"",mName.c_str());
 
 	}
-	void getEnvColorOffsetG()
+	void getEnvColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.eco.ecog\"",mName.c_str());
 
 	}
-	void getEnvColorOffsetB()
+	void getEnvColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.eco.ecorb\"",mName.c_str());
 
 	}
-	void getFgColorGain()
+	void getFgColorGain()const
 	{
 		fprintf(mFile,"\"%s.fcg\"",mName.c_str());
 
 	}
-	void getFgColorGainR()
+	void getFgColorGainR()const
 	{
 		fprintf(mFile,"\"%s.fcg.fcgr\"",mName.c_str());
 
 	}
-	void getFgColorGainG()
+	void getFgColorGainG()const
 	{
 		fprintf(mFile,"\"%s.fcg.fcgg\"",mName.c_str());
 
 	}
-	void getFgColorGainB()
+	void getFgColorGainB()const
 	{
 		fprintf(mFile,"\"%s.fcg.fcgb\"",mName.c_str());
 
 	}
-	void getFgColorOffset()
+	void getFgColorOffset()const
 	{
 		fprintf(mFile,"\"%s.fco\"",mName.c_str());
 
 	}
-	void getFgColorOffsetR()
+	void getFgColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.fco.fcor\"",mName.c_str());
 
 	}
-	void getFgColorOffsetG()
+	void getFgColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.fco.fcog\"",mName.c_str());
 
 	}
-	void getFgColorOffsetB()
+	void getFgColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.fco.fcob\"",mName.c_str());
 
 	}
-	void getFilterU()
+	void getFilterU()const
 	{
 		fprintf(mFile,"\"%s.flt.fiu\"",mName.c_str());
 
 	}
-	void getFilterV()
+	void getFilterV()const
 	{
 		fprintf(mFile,"\"%s.flt.fiv\"",mName.c_str());
 
 	}
-	void getSamplesU()
+	void getSamplesU()const
 	{
 		fprintf(mFile,"\"%s.smp.smpu\"",mName.c_str());
 
 	}
-	void getSamplesV()
+	void getSamplesV()const
 	{
 		fprintf(mFile,"\"%s.smp.smpv\"",mName.c_str());
 
 	}
-	void getLowSamplesU()
+	void getLowSamplesU()const
 	{
 		fprintf(mFile,"\"%s.low.lowu\"",mName.c_str());
 
 	}
-	void getLowSamplesV()
+	void getLowSamplesV()const
 	{
 		fprintf(mFile,"\"%s.low.lowv\"",mName.c_str());
 
 	}
-	void getShadowColor()
+	void getShadowColor()const
 	{
 		fprintf(mFile,"\"%s.shc\"",mName.c_str());
 
 	}
-	void getShadowColorR()
+	void getShadowColorR()const
 	{
 		fprintf(mFile,"\"%s.shc.shcr\"",mName.c_str());
 
 	}
-	void getShadowColorG()
+	void getShadowColorG()const
 	{
 		fprintf(mFile,"\"%s.shc.shcg\"",mName.c_str());
 
 	}
-	void getShadowColorB()
+	void getShadowColorB()const
 	{
 		fprintf(mFile,"\"%s.shc.shcb\"",mName.c_str());
 
 	}
-	void getLightColorGain()
+	void getLightColorGain()const
 	{
 		fprintf(mFile,"\"%s.lcg\"",mName.c_str());
 
 	}
-	void getLightColorGainR()
+	void getLightColorGainR()const
 	{
 		fprintf(mFile,"\"%s.lcg.lcgr\"",mName.c_str());
 
 	}
-	void getLightColorGainG()
+	void getLightColorGainG()const
 	{
 		fprintf(mFile,"\"%s.lcg.lcgg\"",mName.c_str());
 
 	}
-	void getLightColorGainB()
+	void getLightColorGainB()const
 	{
 		fprintf(mFile,"\"%s.lcg.lcgb\"",mName.c_str());
 
 	}
-	void getLightColorOffset()
+	void getLightColorOffset()const
 	{
 		fprintf(mFile,"\"%s.lco\"",mName.c_str());
 
 	}
-	void getLightColorOffsetR()
+	void getLightColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.lco.lcor\"",mName.c_str());
 
 	}
-	void getLightColorOffsetG()
+	void getLightColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.lco.lcog\"",mName.c_str());
 
 	}
-	void getLightColorOffsetB()
+	void getLightColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.lco.lcob\"",mName.c_str());
 
 	}
-	void getPhotonColorGain()
+	void getPhotonColorGain()const
 	{
 		fprintf(mFile,"\"%s.pcg\"",mName.c_str());
 
 	}
-	void getPhotonColorGainR()
+	void getPhotonColorGainR()const
 	{
 		fprintf(mFile,"\"%s.pcg.pcgr\"",mName.c_str());
 
 	}
-	void getPhotonColorGainG()
+	void getPhotonColorGainG()const
 	{
 		fprintf(mFile,"\"%s.pcg.pcgg\"",mName.c_str());
 
 	}
-	void getPhotonColorGainB()
+	void getPhotonColorGainB()const
 	{
 		fprintf(mFile,"\"%s.pcg.pcgb\"",mName.c_str());
 
 	}
-	void getPhotonColorOffset()
+	void getPhotonColorOffset()const
 	{
 		fprintf(mFile,"\"%s.pco\"",mName.c_str());
 
 	}
-	void getPhotonColorOffsetR()
+	void getPhotonColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.pco.pcor\"",mName.c_str());
 
 	}
-	void getPhotonColorOffsetG()
+	void getPhotonColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.pco.pcog\"",mName.c_str());
 
 	}
-	void getPhotonColorOffsetB()
+	void getPhotonColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.pco.pcob\"",mName.c_str());
 
 	}
 protected:
-	MentalrayIblShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
+	MentalrayIblShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
 		:mFile(file), mName(name), mParent(parent), mNodeType(nodeType)
 	{
-		createNode();
+		if(create)
+			createNode();
 	}
 private:
-	void createNode()
+	void createNode()const
 	{
 		fprintf(mFile, "createNode %s -n \"%s\"", mNodeType.c_str(),mName.c_str());
 		if(mParent != "") 

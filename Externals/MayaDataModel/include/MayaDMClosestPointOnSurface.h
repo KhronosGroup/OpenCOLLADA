@@ -24,7 +24,8 @@ public:
 	};
 public:
 	ClosestPointOnSurface():AbstractBaseCreate(){}
-	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "closestPointOnSurface"){}
+	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "closestPointOnSurface", create){}
 	virtual ~ClosestPointOnSurface(){}
 	void setInPosition(const double3& ip)
 	{
@@ -52,69 +53,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".ip.ipz\" %f;\n", ipz);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInPosition()
+	void getInPosition()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getInPositionX()
+	void getInPositionX()const
 	{
 		fprintf(mFile,"\"%s.ip.ipx\"",mName.c_str());
 
 	}
-	void getInPositionY()
+	void getInPositionY()const
 	{
 		fprintf(mFile,"\"%s.ip.ipy\"",mName.c_str());
 
 	}
-	void getInPositionZ()
+	void getInPositionZ()const
 	{
 		fprintf(mFile,"\"%s.ip.ipz\"",mName.c_str());
 
 	}
-	void getResult()
+	void getResult()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.r.p\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.r.p.px\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.r.p.py\"",mName.c_str());
 
 	}
-	void getPositionZ()
+	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.r.p.pz\"",mName.c_str());
 
 	}
-	void getParameterU()
+	void getParameterU()const
 	{
 		fprintf(mFile,"\"%s.r.u\"",mName.c_str());
 
 	}
-	void getParameterV()
+	void getParameterV()const
 	{
 		fprintf(mFile,"\"%s.r.v\"",mName.c_str());
 
 	}
 protected:
-	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	ClosestPointOnSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

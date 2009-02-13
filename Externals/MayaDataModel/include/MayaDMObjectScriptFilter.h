@@ -19,7 +19,8 @@ class ObjectScriptFilter : public ObjectFilter
 public:
 public:
 	ObjectScriptFilter():ObjectFilter(){}
-	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectScriptFilter"){}
+	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectFilter(file, name, parent, "objectScriptFilter", create){}
 	virtual ~ObjectScriptFilter(){}
 	void setArrayArg(bool aarg)
 	{
@@ -47,29 +48,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".unn\" %i;\n", unn);
 
 	}
-	void getArrayArg()
+	void getArrayArg()const
 	{
 		fprintf(mFile,"\"%s.aarg\"",mName.c_str());
 
 	}
-	void getProcName()
+	void getProcName()const
 	{
 		fprintf(mFile,"\"%s.pnam\"",mName.c_str());
 
 	}
-	void getAttrName()
+	void getAttrName()const
 	{
 		fprintf(mFile,"\"%s.attr\"",mName.c_str());
 
 	}
-	void getUniqueNodeNames()
+	void getUniqueNodeNames()const
 	{
 		fprintf(mFile,"\"%s.unn\"",mName.c_str());
 
 	}
 protected:
-	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectFilter(file, name, parent, nodeType) {}
+	ObjectScriptFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

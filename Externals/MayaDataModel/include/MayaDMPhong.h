@@ -19,7 +19,8 @@ class Phong : public Reflect
 public:
 public:
 	Phong():Reflect(){}
-	Phong(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "phong"){}
+	Phong(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Reflect(file, name, parent, "phong", create){}
 	virtual ~Phong(){}
 	void setCosinePower(float cp)
 	{
@@ -76,54 +77,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
-	void getCosinePower()
+	void getCosinePower()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getMiReflectionBlur()
+	void getMiReflectionBlur()const
 	{
 		fprintf(mFile,"\"%s.mircb\"",mName.c_str());
 
 	}
-	void getMiReflectionRays()
+	void getMiReflectionRays()const
 	{
 		fprintf(mFile,"\"%s.mircr\"",mName.c_str());
 
 	}
-	void getMiShinyness()
+	void getMiShinyness()const
 	{
 		fprintf(mFile,"\"%s.mis\"",mName.c_str());
 
 	}
-	void getMiSpecularColor()
+	void getMiSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.misc\"",mName.c_str());
 
 	}
-	void getMiSpecularColorR()
+	void getMiSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.misc.miscr\"",mName.c_str());
 
 	}
-	void getMiSpecularColorG()
+	void getMiSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.misc.miscg\"",mName.c_str());
 
 	}
-	void getMiSpecularColorB()
+	void getMiSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.misc.miscb\"",mName.c_str());
 
 	}
-	void getMiReflectivity()
+	void getMiReflectivity()const
 	{
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 
 	}
 protected:
-	Phong(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Reflect(file, name, parent, nodeType) {}
+	Phong(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Reflect(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

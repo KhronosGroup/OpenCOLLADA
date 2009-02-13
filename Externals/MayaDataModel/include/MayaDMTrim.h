@@ -19,7 +19,8 @@ class Trim : public AbstractBaseCreate
 public:
 public:
 	Trim():AbstractBaseCreate(){}
-	Trim(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "trim"){}
+	Trim(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "trim", create){}
 	virtual ~Trim(){}
 	void setLocatorU(size_t lu_i,double lu)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLocatorU(size_t lu_start,size_t lu_end)
+	void startLocatorU(size_t lu_start,size_t lu_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".lu[%i:%i]\"",lu_start,lu_end);
 
 	}
-	void appendLocatorU(double lu)
+	void appendLocatorU(double lu)const
 	{
 		fprintf(mFile," %f",lu);
 
 	}
-	void endLocatorU()
+	void endLocatorU()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,17 +73,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLocatorV(size_t lv_start,size_t lv_end)
+	void startLocatorV(size_t lv_start,size_t lv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".lv[%i:%i]\"",lv_start,lv_end);
 
 	}
-	void appendLocatorV(double lv)
+	void appendLocatorV(double lv)const
 	{
 		fprintf(mFile," %f",lv);
 
 	}
-	void endLocatorV()
+	void endLocatorV()const
 	{
 		fprintf(mFile,";\n");
 
@@ -105,64 +106,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
-	void getInputCurve(size_t ic_i)
+	void getInputCurve(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getLocatorU(size_t lu_i)
+	void getLocatorU(size_t lu_i)const
 	{
 		fprintf(mFile,"\"%s.lu[%i]\"",mName.c_str(),lu_i);
 
 	}
-	void getLocatorV(size_t lv_i)
+	void getLocatorV(size_t lv_i)const
 	{
 		fprintf(mFile,"\"%s.lv[%i]\"",mName.c_str(),lv_i);
 
 	}
-	void getSelected()
+	void getSelected()const
 	{
 		fprintf(mFile,"\"%s.sl\"",mName.c_str());
 
 	}
-	void getShrink()
+	void getShrink()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getUsedCurves(size_t uc_i)
+	void getUsedCurves(size_t uc_i)const
 	{
 		fprintf(mFile,"\"%s.uc[%i]\"",mName.c_str(),uc_i);
 
 	}
-	void getSplitSurface()
+	void getSplitSurface()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getShouldBeLast()
+	void getShouldBeLast()const
 	{
 		fprintf(mFile,"\"%s.sbl\"",mName.c_str());
 
 	}
 protected:
-	Trim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Trim(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

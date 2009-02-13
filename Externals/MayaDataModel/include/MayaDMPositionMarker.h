@@ -19,16 +19,17 @@ class PositionMarker : public Locator
 public:
 public:
 	PositionMarker():Locator(){}
-	PositionMarker(FILE* file,const std::string& name,const std::string& parent=""):Locator(file, name, parent, "positionMarker"){}
+	PositionMarker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Locator(file, name, parent, "positionMarker", create){}
 	virtual ~PositionMarker(){}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
 protected:
-	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Locator(file, name, parent, nodeType) {}
+	PositionMarker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Locator(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

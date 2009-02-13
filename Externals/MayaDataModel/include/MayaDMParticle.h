@@ -82,7 +82,8 @@ public:
 	};
 public:
 	Particle():DeformableShape(){}
-	Particle(FILE* file,const std::string& name,const std::string& parent=""):DeformableShape(file, name, parent, "particle"){}
+	Particle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformableShape(file, name, parent, "particle", create){}
 	virtual ~Particle(){}
 	void setPosition0(const vectorArray& pos0)
 	{
@@ -286,17 +287,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startSeed(size_t sd_start,size_t sd_end)
+	void startSeed(size_t sd_start,size_t sd_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".sd[%i:%i]\"",sd_start,sd_end);
 
 	}
-	void appendSeed(int sd)
+	void appendSeed(int sd)const
 	{
 		fprintf(mFile," %i",sd);
 
 	}
-	void endSeed()
+	void endSeed()const
 	{
 		fprintf(mFile,";\n");
 
@@ -349,17 +350,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGoalWeight(size_t gw_start,size_t gw_end)
+	void startGoalWeight(size_t gw_start,size_t gw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".gw[%i:%i]\"",gw_start,gw_end);
 
 	}
-	void appendGoalWeight(double gw)
+	void appendGoalWeight(double gw)const
 	{
 		fprintf(mFile," %f",gw);
 
 	}
-	void endGoalWeight()
+	void endGoalWeight()const
 	{
 		fprintf(mFile,";\n");
 
@@ -382,17 +383,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGoalActive(size_t ga_start,size_t ga_end)
+	void startGoalActive(size_t ga_start,size_t ga_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ga[%i:%i]\"",ga_start,ga_end);
 
 	}
-	void appendGoalActive(bool ga)
+	void appendGoalActive(bool ga)const
 	{
 		fprintf(mFile," %i",ga);
 
 	}
-	void endGoalActive()
+	void endGoalActive()const
 	{
 		fprintf(mFile,";\n");
 
@@ -417,19 +418,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGoalUvSetName(size_t guv_start,size_t guv_end)
+	void startGoalUvSetName(size_t guv_start,size_t guv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".guv[%i:%i]\"",guv_start,guv_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
-	void appendGoalUvSetName(const string& guv)
+	void appendGoalUvSetName(const string& guv)const
 	{
 		fprintf(mFile,"\n");
 		guv.write(mFile);
 
 	}
-	void endGoalUvSetName()
+	void endGoalUvSetName()const
 	{
 		fprintf(mFile,";\n");
 
@@ -472,19 +473,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventName(size_t evn_start,size_t evn_end)
+	void startEventName(size_t evn_start,size_t evn_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".evn[%i:%i]\"",evn_start,evn_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
-	void appendEventName(const string& evn)
+	void appendEventName(const string& evn)const
 	{
 		fprintf(mFile,"\n");
 		evn.write(mFile);
 
 	}
-	void endEventName()
+	void endEventName()const
 	{
 		fprintf(mFile,";\n");
 
@@ -507,17 +508,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventValid(size_t evv_start,size_t evv_end)
+	void startEventValid(size_t evv_start,size_t evv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".evv[%i:%i]\"",evv_start,evv_end);
 
 	}
-	void appendEventValid(int evv)
+	void appendEventValid(int evv)const
 	{
 		fprintf(mFile," %i",evv);
 
 	}
-	void endEventValid()
+	void endEventValid()const
 	{
 		fprintf(mFile,";\n");
 
@@ -540,17 +541,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventCount(size_t ecp_start,size_t ecp_end)
+	void startEventCount(size_t ecp_start,size_t ecp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ecp[%i:%i]\"",ecp_start,ecp_end);
 
 	}
-	void appendEventCount(short ecp)
+	void appendEventCount(short ecp)const
 	{
 		fprintf(mFile," %i",ecp);
 
 	}
-	void endEventCount()
+	void endEventCount()const
 	{
 		fprintf(mFile,";\n");
 
@@ -573,17 +574,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventEmit(size_t eve_start,size_t eve_end)
+	void startEventEmit(size_t eve_start,size_t eve_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".eve[%i:%i]\"",eve_start,eve_end);
 
 	}
-	void appendEventEmit(short eve)
+	void appendEventEmit(short eve)const
 	{
 		fprintf(mFile," %i",eve);
 
 	}
-	void endEventEmit()
+	void endEventEmit()const
 	{
 		fprintf(mFile,";\n");
 
@@ -606,17 +607,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventSplit(size_t evs_start,size_t evs_end)
+	void startEventSplit(size_t evs_start,size_t evs_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".evs[%i:%i]\"",evs_start,evs_end);
 
 	}
-	void appendEventSplit(short evs)
+	void appendEventSplit(short evs)const
 	{
 		fprintf(mFile," %i",evs);
 
 	}
-	void endEventSplit()
+	void endEventSplit()const
 	{
 		fprintf(mFile,";\n");
 
@@ -639,17 +640,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventDie(size_t evd_start,size_t evd_end)
+	void startEventDie(size_t evd_start,size_t evd_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".evd[%i:%i]\"",evd_start,evd_end);
 
 	}
-	void appendEventDie(short evd)
+	void appendEventDie(short evd)const
 	{
 		fprintf(mFile," %i",evd);
 
 	}
-	void endEventDie()
+	void endEventDie()const
 	{
 		fprintf(mFile,";\n");
 
@@ -672,17 +673,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventRandom(size_t evr_start,size_t evr_end)
+	void startEventRandom(size_t evr_start,size_t evr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".evr[%i:%i]\"",evr_start,evr_end);
 
 	}
-	void appendEventRandom(short evr)
+	void appendEventRandom(short evr)const
 	{
 		fprintf(mFile," %i",evr);
 
 	}
-	void endEventRandom()
+	void endEventRandom()const
 	{
 		fprintf(mFile,";\n");
 
@@ -705,17 +706,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventSpread(size_t esp_start,size_t esp_end)
+	void startEventSpread(size_t esp_start,size_t esp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".esp[%i:%i]\"",esp_start,esp_end);
 
 	}
-	void appendEventSpread(double esp)
+	void appendEventSpread(double esp)const
 	{
 		fprintf(mFile," %f",esp);
 
 	}
-	void endEventSpread()
+	void endEventSpread()const
 	{
 		fprintf(mFile,";\n");
 
@@ -740,19 +741,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEventProc(size_t epr_start,size_t epr_end)
+	void startEventProc(size_t epr_start,size_t epr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".epr[%i:%i]\"",epr_start,epr_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
-	void appendEventProc(const string& epr)
+	void appendEventProc(const string& epr)const
 	{
 		fprintf(mFile,"\n");
 		epr.write(mFile);
 
 	}
-	void endEventProc()
+	void endEventProc()const
 	{
 		fprintf(mFile,";\n");
 
@@ -898,859 +899,859 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.maxs\" %i;\n", maxs);
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.pos\"",mName.c_str());
 
 	}
-	void getRampPosition()
+	void getRampPosition()const
 	{
 		fprintf(mFile,"\"%s.rps\"",mName.c_str());
 
 	}
-	void getCentroid()
+	void getCentroid()const
 	{
 		fprintf(mFile,"\"%s.ctd\"",mName.c_str());
 
 	}
-	void getCentroidX()
+	void getCentroidX()const
 	{
 		fprintf(mFile,"\"%s.ctd.ctdx\"",mName.c_str());
 
 	}
-	void getCentroidY()
+	void getCentroidY()const
 	{
 		fprintf(mFile,"\"%s.ctd.ctdy\"",mName.c_str());
 
 	}
-	void getCentroidZ()
+	void getCentroidZ()const
 	{
 		fprintf(mFile,"\"%s.ctd.ctdz\"",mName.c_str());
 
 	}
-	void getLastPosition()
+	void getLastPosition()const
 	{
 		fprintf(mFile,"\"%s.lpos\"",mName.c_str());
 
 	}
-	void getVelocity()
+	void getVelocity()const
 	{
 		fprintf(mFile,"\"%s.vel\"",mName.c_str());
 
 	}
-	void getRampVelocity()
+	void getRampVelocity()const
 	{
 		fprintf(mFile,"\"%s.rvl\"",mName.c_str());
 
 	}
-	void getLastVelocity()
+	void getLastVelocity()const
 	{
 		fprintf(mFile,"\"%s.lvel\"",mName.c_str());
 
 	}
-	void getAcceleration()
+	void getAcceleration()const
 	{
 		fprintf(mFile,"\"%s.acc\"",mName.c_str());
 
 	}
-	void getRampAcceleration()
+	void getRampAcceleration()const
 	{
 		fprintf(mFile,"\"%s.rac\"",mName.c_str());
 
 	}
-	void getForce()
+	void getForce()const
 	{
 		fprintf(mFile,"\"%s.frc\"",mName.c_str());
 
 	}
-	void getInputForce(size_t ifc_i)
+	void getInputForce(size_t ifc_i)const
 	{
 		fprintf(mFile,"\"%s.ifc[%i]\"",mName.c_str(),ifc_i);
 
 	}
-	void getWorldPosition()
+	void getWorldPosition()const
 	{
 		fprintf(mFile,"\"%s.wps\"",mName.c_str());
 
 	}
-	void getWorldCentroid()
+	void getWorldCentroid()const
 	{
 		fprintf(mFile,"\"%s.wctn\"",mName.c_str());
 
 	}
-	void getWorldCentroidX()
+	void getWorldCentroidX()const
 	{
 		fprintf(mFile,"\"%s.wctn.wctx\"",mName.c_str());
 
 	}
-	void getWorldCentroidY()
+	void getWorldCentroidY()const
 	{
 		fprintf(mFile,"\"%s.wctn.wcty\"",mName.c_str());
 
 	}
-	void getWorldCentroidZ()
+	void getWorldCentroidZ()const
 	{
 		fprintf(mFile,"\"%s.wctn.wctz\"",mName.c_str());
 
 	}
-	void getLastWorldPosition()
+	void getLastWorldPosition()const
 	{
 		fprintf(mFile,"\"%s.lwps\"",mName.c_str());
 
 	}
-	void getWorldVelocity()
+	void getWorldVelocity()const
 	{
 		fprintf(mFile,"\"%s.wvl\"",mName.c_str());
 
 	}
-	void getWorldVelocityInObjectSpace()
+	void getWorldVelocityInObjectSpace()const
 	{
 		fprintf(mFile,"\"%s.wvo\"",mName.c_str());
 
 	}
-	void getLastWorldVelocity()
+	void getLastWorldVelocity()const
 	{
 		fprintf(mFile,"\"%s.lwvl\"",mName.c_str());
 
 	}
-	void getLastWorldMatrix()
+	void getLastWorldMatrix()const
 	{
 		fprintf(mFile,"\"%s.lwm\"",mName.c_str());
 
 	}
-	void getPosition0()
+	void getPosition0()const
 	{
 		fprintf(mFile,"\"%s.pos0\"",mName.c_str());
 
 	}
-	void getVelocity0()
+	void getVelocity0()const
 	{
 		fprintf(mFile,"\"%s.vel0\"",mName.c_str());
 
 	}
-	void getAcceleration0()
+	void getAcceleration0()const
 	{
 		fprintf(mFile,"\"%s.acc0\"",mName.c_str());
 
 	}
-	void getStartupCachePath()
+	void getStartupCachePath()const
 	{
 		fprintf(mFile,"\"%s.scp\"",mName.c_str());
 
 	}
-	void getStartupCacheFrame()
+	void getStartupCacheFrame()const
 	{
 		fprintf(mFile,"\"%s.scf\"",mName.c_str());
 
 	}
-	void getCachedPosition()
+	void getCachedPosition()const
 	{
 		fprintf(mFile,"\"%s.cpos\"",mName.c_str());
 
 	}
-	void getLastCachedPosition()
+	void getLastCachedPosition()const
 	{
 		fprintf(mFile,"\"%s.lcps\"",mName.c_str());
 
 	}
-	void getCachedWorldPosition()
+	void getCachedWorldPosition()const
 	{
 		fprintf(mFile,"\"%s.cwps\"",mName.c_str());
 
 	}
-	void getCachedWorldCentroid()
+	void getCachedWorldCentroid()const
 	{
 		fprintf(mFile,"\"%s.cwcn\"",mName.c_str());
 
 	}
-	void getCachedWorldCentroidX()
+	void getCachedWorldCentroidX()const
 	{
 		fprintf(mFile,"\"%s.cwcn.cwcx\"",mName.c_str());
 
 	}
-	void getCachedWorldCentroidY()
+	void getCachedWorldCentroidY()const
 	{
 		fprintf(mFile,"\"%s.cwcn.cwcy\"",mName.c_str());
 
 	}
-	void getCachedWorldCentroidZ()
+	void getCachedWorldCentroidZ()const
 	{
 		fprintf(mFile,"\"%s.cwcn.cwcz\"",mName.c_str());
 
 	}
-	void getCachedVelocity()
+	void getCachedVelocity()const
 	{
 		fprintf(mFile,"\"%s.cvel\"",mName.c_str());
 
 	}
-	void getCachedWorldVelocity()
+	void getCachedWorldVelocity()const
 	{
 		fprintf(mFile,"\"%s.cwvl\"",mName.c_str());
 
 	}
-	void getCount()
+	void getCount()const
 	{
 		fprintf(mFile,"\"%s.cnt\"",mName.c_str());
 
 	}
-	void getMass()
+	void getMass()const
 	{
 		fprintf(mFile,"\"%s.mas\"",mName.c_str());
 
 	}
-	void getMass0()
+	void getMass0()const
 	{
 		fprintf(mFile,"\"%s.mas0\"",mName.c_str());
 
 	}
-	void getMassCache()
+	void getMassCache()const
 	{
 		fprintf(mFile,"\"%s.masc\"",mName.c_str());
 
 	}
-	void getParticleId()
+	void getParticleId()const
 	{
 		fprintf(mFile,"\"%s.id\"",mName.c_str());
 
 	}
-	void getParticleId0()
+	void getParticleId0()const
 	{
 		fprintf(mFile,"\"%s.id0\"",mName.c_str());
 
 	}
-	void getIdCache()
+	void getIdCache()const
 	{
 		fprintf(mFile,"\"%s.idc\"",mName.c_str());
 
 	}
-	void getIdMapping()
+	void getIdMapping()const
 	{
 		fprintf(mFile,"\"%s.idm\"",mName.c_str());
 
 	}
-	void getSortedId()
+	void getSortedId()const
 	{
 		fprintf(mFile,"\"%s.idm.sid\"",mName.c_str());
 
 	}
-	void getIdIndex()
+	void getIdIndex()const
 	{
 		fprintf(mFile,"\"%s.idm.idix\"",mName.c_str());
 
 	}
-	void getBirthTime()
+	void getBirthTime()const
 	{
 		fprintf(mFile,"\"%s.bt\"",mName.c_str());
 
 	}
-	void getBirthTime0()
+	void getBirthTime0()const
 	{
 		fprintf(mFile,"\"%s.bt0\"",mName.c_str());
 
 	}
-	void getBirthTimeCache()
+	void getBirthTimeCache()const
 	{
 		fprintf(mFile,"\"%s.btc\"",mName.c_str());
 
 	}
-	void getAge()
+	void getAge()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
-	void getAge0()
+	void getAge0()const
 	{
 		fprintf(mFile,"\"%s.ag0\"",mName.c_str());
 
 	}
-	void getAgeCache()
+	void getAgeCache()const
 	{
 		fprintf(mFile,"\"%s.agc\"",mName.c_str());
 
 	}
-	void getEmission()
+	void getEmission()const
 	{
 		fprintf(mFile,"\"%s.emt\"",mName.c_str());
 
 	}
-	void getDieOnEmissionVolumeExit()
+	void getDieOnEmissionVolumeExit()const
 	{
 		fprintf(mFile,"\"%s.dve\"",mName.c_str());
 
 	}
-	void getIsFull()
+	void getIsFull()const
 	{
 		fprintf(mFile,"\"%s.ifl\"",mName.c_str());
 
 	}
-	void getNewParticles(size_t npt_i)
+	void getNewParticles(size_t npt_i)const
 	{
 		fprintf(mFile,"\"%s.npt[%i]\"",mName.c_str(),npt_i);
 
 	}
-	void getLifespanMode()
+	void getLifespanMode()const
 	{
 		fprintf(mFile,"\"%s.lfm\"",mName.c_str());
 
 	}
-	void getLifespanRandom()
+	void getLifespanRandom()const
 	{
 		fprintf(mFile,"\"%s.lfr\"",mName.c_str());
 
 	}
-	void getFinalLifespanPP()
+	void getFinalLifespanPP()const
 	{
 		fprintf(mFile,"\"%s.flp\"",mName.c_str());
 
 	}
-	void getExpressionsAfterDynamics()
+	void getExpressionsAfterDynamics()const
 	{
 		fprintf(mFile,"\"%s.ead\"",mName.c_str());
 
 	}
-	void getInput(size_t xi_i)
+	void getInput(size_t xi_i)const
 	{
 		fprintf(mFile,"\"%s.xi[%i]\"",mName.c_str(),xi_i);
 
 	}
-	void getOutput(size_t xo_i)
+	void getOutput(size_t xo_i)const
 	{
 		fprintf(mFile,"\"%s.xo[%i]\"",mName.c_str(),xo_i);
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 
 	}
-	void getFrame()
+	void getFrame()const
 	{
 		fprintf(mFile,"\"%s.frm\"",mName.c_str());
 
 	}
-	void getDiedLastTime()
+	void getDiedLastTime()const
 	{
 		fprintf(mFile,"\"%s.dlt\"",mName.c_str());
 
 	}
-	void getNetEmittedLastTime()
+	void getNetEmittedLastTime()const
 	{
 		fprintf(mFile,"\"%s.nlt\"",mName.c_str());
 
 	}
-	void getStartEmittedIndex()
+	void getStartEmittedIndex()const
 	{
 		fprintf(mFile,"\"%s.sei\"",mName.c_str());
 
 	}
-	void getIsDynamic()
+	void getIsDynamic()const
 	{
 		fprintf(mFile,"\"%s.isd\"",mName.c_str());
 
 	}
-	void getDynamicsWeight()
+	void getDynamicsWeight()const
 	{
 		fprintf(mFile,"\"%s.dw\"",mName.c_str());
 
 	}
-	void getForcesInWorld()
+	void getForcesInWorld()const
 	{
 		fprintf(mFile,"\"%s.fiw\"",mName.c_str());
 
 	}
-	void getConserve()
+	void getConserve()const
 	{
 		fprintf(mFile,"\"%s.con\"",mName.c_str());
 
 	}
-	void getEmissionInWorld()
+	void getEmissionInWorld()const
 	{
 		fprintf(mFile,"\"%s.eiw\"",mName.c_str());
 
 	}
-	void getMaxCount()
+	void getMaxCount()const
 	{
 		fprintf(mFile,"\"%s.mxc\"",mName.c_str());
 
 	}
-	void getLevelOfDetail()
+	void getLevelOfDetail()const
 	{
 		fprintf(mFile,"\"%s.lod\"",mName.c_str());
 
 	}
-	void getInheritFactor()
+	void getInheritFactor()const
 	{
 		fprintf(mFile,"\"%s.inh\"",mName.c_str());
 
 	}
-	void getSeed(size_t sd_i)
+	void getSeed(size_t sd_i)const
 	{
 		fprintf(mFile,"\"%s.sd[%i]\"",mName.c_str(),sd_i);
 
 	}
-	void getFieldData()
+	void getFieldData()const
 	{
 		fprintf(mFile,"\"%s.fd\"",mName.c_str());
 
 	}
-	void getFieldDataPosition()
+	void getFieldDataPosition()const
 	{
 		fprintf(mFile,"\"%s.fd.fdp\"",mName.c_str());
 
 	}
-	void getFieldDataVelocity()
+	void getFieldDataVelocity()const
 	{
 		fprintf(mFile,"\"%s.fd.fdv\"",mName.c_str());
 
 	}
-	void getFieldDataMass()
+	void getFieldDataMass()const
 	{
 		fprintf(mFile,"\"%s.fd.fdm\"",mName.c_str());
 
 	}
-	void getFieldDataDeltaTime()
+	void getFieldDataDeltaTime()const
 	{
 		fprintf(mFile,"\"%s.fd.fdt\"",mName.c_str());
 
 	}
-	void getEmitterData()
+	void getEmitterData()const
 	{
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
 
 	}
-	void getEmitterDataPosition()
+	void getEmitterDataPosition()const
 	{
 		fprintf(mFile,"\"%s.ed.edp\"",mName.c_str());
 
 	}
-	void getEmitterDataVelocity()
+	void getEmitterDataVelocity()const
 	{
 		fprintf(mFile,"\"%s.ed.edv\"",mName.c_str());
 
 	}
-	void getEmitterDataDeltaTime()
+	void getEmitterDataDeltaTime()const
 	{
 		fprintf(mFile,"\"%s.ed.edt\"",mName.c_str());
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 
 	}
-	void getLastTimeEvaluated()
+	void getLastTimeEvaluated()const
 	{
 		fprintf(mFile,"\"%s.lti\"",mName.c_str());
 
 	}
-	void getCachedTime()
+	void getCachedTime()const
 	{
 		fprintf(mFile,"\"%s.chti\"",mName.c_str());
 
 	}
-	void getTimeStepSize()
+	void getTimeStepSize()const
 	{
 		fprintf(mFile,"\"%s.tss\"",mName.c_str());
 
 	}
-	void getSceneTimeStepSize()
+	void getSceneTimeStepSize()const
 	{
 		fprintf(mFile,"\"%s.sts\"",mName.c_str());
 
 	}
-	void getStartFrame()
+	void getStartFrame()const
 	{
 		fprintf(mFile,"\"%s.stf\"",mName.c_str());
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.stt\"",mName.c_str());
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.igeo\"",mName.c_str());
 
 	}
-	void getInputGeometryPoints()
+	void getInputGeometryPoints()const
 	{
 		fprintf(mFile,"\"%s.igpt\"",mName.c_str());
 
 	}
-	void getInputGeometrySpace()
+	void getInputGeometrySpace()const
 	{
 		fprintf(mFile,"\"%s.igs\"",mName.c_str());
 
 	}
-	void getEnforceCountFromHistory()
+	void getEnforceCountFromHistory()const
 	{
 		fprintf(mFile,"\"%s.ecfh\"",mName.c_str());
 
 	}
-	void getTargetGeometry()
+	void getTargetGeometry()const
 	{
 		fprintf(mFile,"\"%s.tgeo\"",mName.c_str());
 
 	}
-	void getTargetGeometryWorldMatrix()
+	void getTargetGeometryWorldMatrix()const
 	{
 		fprintf(mFile,"\"%s.tgm\"",mName.c_str());
 
 	}
-	void getTargetGeometrySpace()
+	void getTargetGeometrySpace()const
 	{
 		fprintf(mFile,"\"%s.tgs\"",mName.c_str());
 
 	}
-	void getGoalSmoothness()
+	void getGoalSmoothness()const
 	{
 		fprintf(mFile,"\"%s.gsm\"",mName.c_str());
 
 	}
-	void getGoalGeometry(size_t ggeo_i)
+	void getGoalGeometry(size_t ggeo_i)const
 	{
 		fprintf(mFile,"\"%s.ggeo[%i]\"",mName.c_str(),ggeo_i);
 
 	}
-	void getGoalWeight(size_t gw_i)
+	void getGoalWeight(size_t gw_i)const
 	{
 		fprintf(mFile,"\"%s.gw[%i]\"",mName.c_str(),gw_i);
 
 	}
-	void getGoalActive(size_t ga_i)
+	void getGoalActive(size_t ga_i)const
 	{
 		fprintf(mFile,"\"%s.ga[%i]\"",mName.c_str(),ga_i);
 
 	}
-	void getGoalUvSetName(size_t guv_i)
+	void getGoalUvSetName(size_t guv_i)const
 	{
 		fprintf(mFile,"\"%s.guv[%i]\"",mName.c_str(),guv_i);
 
 	}
-	void getCacheData()
+	void getCacheData()const
 	{
 		fprintf(mFile,"\"%s.chd\"",mName.c_str());
 
 	}
-	void getCacheWidth()
+	void getCacheWidth()const
 	{
 		fprintf(mFile,"\"%s.chw\"",mName.c_str());
 
 	}
-	void getTraceDepth()
+	void getTraceDepth()const
 	{
 		fprintf(mFile,"\"%s.trd\"",mName.c_str());
 
 	}
-	void getCollisionData()
+	void getCollisionData()const
 	{
 		fprintf(mFile,"\"%s.cda\"",mName.c_str());
 
 	}
-	void getCollisionGeometry(size_t cge_i)
+	void getCollisionGeometry(size_t cge_i)const
 	{
 		fprintf(mFile,"\"%s.cda.cge[%i]\"",mName.c_str(),cge_i);
 
 	}
-	void getCollisionResilience(size_t crs_i)
+	void getCollisionResilience(size_t crs_i)const
 	{
 		fprintf(mFile,"\"%s.cda.crs[%i]\"",mName.c_str(),crs_i);
 
 	}
-	void getCollisionFriction(size_t cfr_i)
+	void getCollisionFriction(size_t cfr_i)const
 	{
 		fprintf(mFile,"\"%s.cda.cfr[%i]\"",mName.c_str(),cfr_i);
 
 	}
-	void getCollisionOffset(size_t cof_i)
+	void getCollisionOffset(size_t cof_i)const
 	{
 		fprintf(mFile,"\"%s.cda.cof[%i]\"",mName.c_str(),cof_i);
 
 	}
-	void getCollisionRecords()
+	void getCollisionRecords()const
 	{
 		fprintf(mFile,"\"%s.crc\"",mName.c_str());
 
 	}
-	void getTotalEventCount()
+	void getTotalEventCount()const
 	{
 		fprintf(mFile,"\"%s.tec\"",mName.c_str());
 
 	}
-	void getEventTest()
+	void getEventTest()const
 	{
 		fprintf(mFile,"\"%s.evt\"",mName.c_str());
 
 	}
-	void getLastTotalEventCount()
+	void getLastTotalEventCount()const
 	{
 		fprintf(mFile,"\"%s.ltec\"",mName.c_str());
 
 	}
-	void getEventTarget(size_t etg_i)
+	void getEventTarget(size_t etg_i)const
 	{
 		fprintf(mFile,"\"%s.etg[%i]\"",mName.c_str(),etg_i);
 
 	}
-	void getEventName(size_t evn_i)
+	void getEventName(size_t evn_i)const
 	{
 		fprintf(mFile,"\"%s.evn[%i]\"",mName.c_str(),evn_i);
 
 	}
-	void getEventValid(size_t evv_i)
+	void getEventValid(size_t evv_i)const
 	{
 		fprintf(mFile,"\"%s.evv[%i]\"",mName.c_str(),evv_i);
 
 	}
-	void getEventCount(size_t ecp_i)
+	void getEventCount(size_t ecp_i)const
 	{
 		fprintf(mFile,"\"%s.ecp[%i]\"",mName.c_str(),ecp_i);
 
 	}
-	void getEventEmit(size_t eve_i)
+	void getEventEmit(size_t eve_i)const
 	{
 		fprintf(mFile,"\"%s.eve[%i]\"",mName.c_str(),eve_i);
 
 	}
-	void getEventSplit(size_t evs_i)
+	void getEventSplit(size_t evs_i)const
 	{
 		fprintf(mFile,"\"%s.evs[%i]\"",mName.c_str(),evs_i);
 
 	}
-	void getEventDie(size_t evd_i)
+	void getEventDie(size_t evd_i)const
 	{
 		fprintf(mFile,"\"%s.evd[%i]\"",mName.c_str(),evd_i);
 
 	}
-	void getEventRandom(size_t evr_i)
+	void getEventRandom(size_t evr_i)const
 	{
 		fprintf(mFile,"\"%s.evr[%i]\"",mName.c_str(),evr_i);
 
 	}
-	void getEventSpread(size_t esp_i)
+	void getEventSpread(size_t esp_i)const
 	{
 		fprintf(mFile,"\"%s.esp[%i]\"",mName.c_str(),esp_i);
 
 	}
-	void getEventProc(size_t epr_i)
+	void getEventProc(size_t epr_i)const
 	{
 		fprintf(mFile,"\"%s.epr[%i]\"",mName.c_str(),epr_i);
 
 	}
-	void getInstanceData(size_t idt_i)
+	void getInstanceData(size_t idt_i)const
 	{
 		fprintf(mFile,"\"%s.idt[%i]\"",mName.c_str(),idt_i);
 
 	}
-	void getInstancePointData(size_t idt_i)
+	void getInstancePointData(size_t idt_i)const
 	{
 		fprintf(mFile,"\"%s.idt[%i].ipd\"",mName.c_str(),idt_i);
 
 	}
-	void getNumberOfEvents()
+	void getNumberOfEvents()const
 	{
 		fprintf(mFile,"\"%s.nev\"",mName.c_str());
 
 	}
-	void getEventNameCount()
+	void getEventNameCount()const
 	{
 		fprintf(mFile,"\"%s.enc\"",mName.c_str());
 
 	}
-	void getFieldConnections(size_t fc_i)
+	void getFieldConnections(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
-	void getCollisionConnections(size_t cc_i)
+	void getCollisionConnections(size_t cc_i)const
 	{
 		fprintf(mFile,"\"%s.cc[%i]\"",mName.c_str(),cc_i);
 
 	}
-	void getConnectionsToMe(size_t ct_i)
+	void getConnectionsToMe(size_t ct_i)const
 	{
 		fprintf(mFile,"\"%s.ct[%i]\"",mName.c_str(),ct_i);
 
 	}
-	void getAuxiliariesOwned()
+	void getAuxiliariesOwned()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
 
 	}
-	void getEmitterConnections(size_t ec_i)
+	void getEmitterConnections(size_t ec_i)const
 	{
 		fprintf(mFile,"\"%s.ec[%i]\"",mName.c_str(),ec_i);
 
 	}
-	void getInheritColor()
+	void getInheritColor()const
 	{
 		fprintf(mFile,"\"%s.inc\"",mName.c_str());
 
 	}
-	void getShapeNameMsg()
+	void getShapeNameMsg()const
 	{
 		fprintf(mFile,"\"%s.snmg\"",mName.c_str());
 
 	}
-	void getDoDynamics()
+	void getDoDynamics()const
 	{
 		fprintf(mFile,"\"%s.ddy\"",mName.c_str());
 
 	}
-	void getDoEmission()
+	void getDoEmission()const
 	{
 		fprintf(mFile,"\"%s.dem\"",mName.c_str());
 
 	}
-	void getForceEmission()
+	void getForceEmission()const
 	{
 		fprintf(mFile,"\"%s.fem\"",mName.c_str());
 
 	}
-	void getDoAge()
+	void getDoAge()const
 	{
 		fprintf(mFile,"\"%s.dag\"",mName.c_str());
 
 	}
-	void getAgesLastDone()
+	void getAgesLastDone()const
 	{
 		fprintf(mFile,"\"%s.agld\"",mName.c_str());
 
 	}
-	void getTimeLastComputed()
+	void getTimeLastComputed()const
 	{
 		fprintf(mFile,"\"%s.tlc\"",mName.c_str());
 
 	}
-	void getParentMatrixDirty()
+	void getParentMatrixDirty()const
 	{
 		fprintf(mFile,"\"%s.pmd\"",mName.c_str());
 
 	}
-	void getNewFileFormat()
+	void getNewFileFormat()const
 	{
 		fprintf(mFile,"\"%s.nff\"",mName.c_str());
 
 	}
-	void getDepthSort()
+	void getDepthSort()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getParticleRenderType()
+	void getParticleRenderType()const
 	{
 		fprintf(mFile,"\"%s.prt\"",mName.c_str());
 
 	}
-	void getDisableCloudAxis()
+	void getDisableCloudAxis()const
 	{
 		fprintf(mFile,"\"%s.dca\"",mName.c_str());
 
 	}
-	void getNormalizeVelocity()
+	void getNormalizeVelocity()const
 	{
 		fprintf(mFile,"\"%s.nvl\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOverrideCaustics()
+	void getMiOverrideCaustics()const
 	{
 		fprintf(mFile,"\"%s.mrc.oca\"",mName.c_str());
 
 	}
-	void getMiCausticAccuracy()
+	void getMiCausticAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.caa\"",mName.c_str());
 
 	}
-	void getMiCausticRadius()
+	void getMiCausticRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.car\"",mName.c_str());
 
 	}
-	void getMiOverrideGlobalIllumination()
+	void getMiOverrideGlobalIllumination()const
 	{
 		fprintf(mFile,"\"%s.mrc.ogi\"",mName.c_str());
 
 	}
-	void getMiGlobillumAccuracy()
+	void getMiGlobillumAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.gia\"",mName.c_str());
 
 	}
-	void getMiGlobillumRadius()
+	void getMiGlobillumRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.gir\"",mName.c_str());
 
 	}
-	void getMiOverrideFinalGather()
+	void getMiOverrideFinalGather()const
 	{
 		fprintf(mFile,"\"%s.mrc.ofg\"",mName.c_str());
 
 	}
-	void getMiFinalGatherRays()
+	void getMiFinalGatherRays()const
 	{
 		fprintf(mFile,"\"%s.mrc.fry\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMinRadius()
+	void getMiFinalGatherMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmn\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMaxRadius()
+	void getMiFinalGatherMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmx\"",mName.c_str());
 
 	}
-	void getMiFinalGatherFilter()
+	void getMiFinalGatherFilter()const
 	{
 		fprintf(mFile,"\"%s.mrc.ffi\"",mName.c_str());
 
 	}
-	void getMiFinalGatherView()
+	void getMiFinalGatherView()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgv\"",mName.c_str());
 
 	}
-	void getMiOverrideSamples()
+	void getMiOverrideSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.oos\"",mName.c_str());
 
 	}
-	void getMiMinSamples()
+	void getMiMinSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.mins\"",mName.c_str());
 
 	}
-	void getMiMaxSamples()
+	void getMiMaxSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 
 	}
-	void getPpFieldData(size_t ppfd_i)
+	void getPpFieldData(size_t ppfd_i)const
 	{
 		fprintf(mFile,"\"%s.ppfd[%i]\"",mName.c_str(),ppfd_i);
 
 	}
-	void getOwnerPPFieldData(size_t opfd_i)
+	void getOwnerPPFieldData(size_t opfd_i)const
 	{
 		fprintf(mFile,"\"%s.opfd[%i]\"",mName.c_str(),opfd_i);
 
 	}
-	void getDeformedPosition()
+	void getDeformedPosition()const
 	{
 		fprintf(mFile,"\"%s.dpos\"",mName.c_str());
 
 	}
 protected:
-	Particle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformableShape(file, name, parent, nodeType) {}
+	Particle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformableShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class Boundary : public BoundaryBase
 public:
 public:
 	Boundary():BoundaryBase(){}
-	Boundary(FILE* file,const std::string& name,const std::string& parent=""):BoundaryBase(file, name, parent, "boundary"){}
+	Boundary(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BoundaryBase(file, name, parent, "boundary", create){}
 	virtual ~Boundary(){}
 	void setOrder(bool or)
 	{
@@ -33,19 +34,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".ep\" %i;\n", ep);
 
 	}
-	void getOrder()
+	void getOrder()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getEndPoint()
+	void getEndPoint()const
 	{
 		fprintf(mFile,"\"%s.ep\"",mName.c_str());
 
 	}
 protected:
-	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BoundaryBase(file, name, parent, nodeType) {}
+	Boundary(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BoundaryBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

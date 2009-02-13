@@ -42,7 +42,8 @@ public:
 	};
 public:
 	VolumeLight():PointLight(){}
-	VolumeLight(FILE* file,const std::string& name,const std::string& parent=""):PointLight(file, name, parent, "volumeLight"){}
+	VolumeLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PointLight(file, name, parent, "volumeLight", create){}
 	virtual ~VolumeLight(){}
 	void setLightShape(unsigned int lis)
 	{
@@ -143,89 +144,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".ema\" %i;\n", ema);
 
 	}
-	void getLightShape()
+	void getLightShape()const
 	{
 		fprintf(mFile,"\"%s.lis\"",mName.c_str());
 
 	}
-	void getVolumeLightDir()
+	void getVolumeLightDir()const
 	{
 		fprintf(mFile,"\"%s.vld\"",mName.c_str());
 
 	}
-	void getArc()
+	void getArc()const
 	{
 		fprintf(mFile,"\"%s.ac\"",mName.c_str());
 
 	}
-	void getConeEndRadius()
+	void getConeEndRadius()const
 	{
 		fprintf(mFile,"\"%s.cer\"",mName.c_str());
 
 	}
-	void getColorRange(size_t crg_i)
+	void getColorRange(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i]\"",mName.c_str(),crg_i);
 
 	}
-	void getColorRange_Position(size_t crg_i)
+	void getColorRange_Position(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgp\"",mName.c_str(),crg_i);
 
 	}
-	void getColorRange_Color(size_t crg_i)
+	void getColorRange_Color(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgc\"",mName.c_str(),crg_i);
 
 	}
-	void getColorRange_ColorR(size_t crg_i)
+	void getColorRange_ColorR(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgc.crgcr\"",mName.c_str(),crg_i);
 
 	}
-	void getColorRange_ColorG(size_t crg_i)
+	void getColorRange_ColorG(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgc.crgcg\"",mName.c_str(),crg_i);
 
 	}
-	void getColorRange_ColorB(size_t crg_i)
+	void getColorRange_ColorB(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgc.crgcb\"",mName.c_str(),crg_i);
 
 	}
-	void getColorRange_Interp(size_t crg_i)
+	void getColorRange_Interp(size_t crg_i)const
 	{
 		fprintf(mFile,"\"%s.crg[%i].crgi\"",mName.c_str(),crg_i);
 
 	}
-	void getPenumbra(size_t pen_i)
+	void getPenumbra(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i]\"",mName.c_str(),pen_i);
 
 	}
-	void getPenumbra_Position(size_t pen_i)
+	void getPenumbra_Position(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i].penp\"",mName.c_str(),pen_i);
 
 	}
-	void getPenumbra_FloatValue(size_t pen_i)
+	void getPenumbra_FloatValue(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i].penfv\"",mName.c_str(),pen_i);
 
 	}
-	void getPenumbra_Interp(size_t pen_i)
+	void getPenumbra_Interp(size_t pen_i)const
 	{
 		fprintf(mFile,"\"%s.pen[%i].peni\"",mName.c_str(),pen_i);
 
 	}
-	void getEmitAmbient()
+	void getEmitAmbient()const
 	{
 		fprintf(mFile,"\"%s.ema\"",mName.c_str());
 
 	}
 protected:
-	VolumeLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PointLight(file, name, parent, nodeType) {}
+	VolumeLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PointLight(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

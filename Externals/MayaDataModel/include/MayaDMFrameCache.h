@@ -19,7 +19,8 @@ class FrameCache : public DependNode
 public:
 public:
 	FrameCache():DependNode(){}
-	FrameCache(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "frameCache"){}
+	FrameCache(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "frameCache", create){}
 	virtual ~FrameCache(){}
 	void setVaryTime(double vt)
 	{
@@ -33,34 +34,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
-	void getFuture(size_t f_i)
+	void getFuture(size_t f_i)const
 	{
 		fprintf(mFile,"\"%s.f[%i]\"",mName.c_str(),f_i);
 
 	}
-	void getPast(size_t p_i)
+	void getPast(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getVarying()
+	void getVarying()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getVaryTime()
+	void getVaryTime()const
 	{
 		fprintf(mFile,"\"%s.vt\"",mName.c_str());
 
 	}
-	void getStream()
+	void getStream()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
 protected:
-	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FrameCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

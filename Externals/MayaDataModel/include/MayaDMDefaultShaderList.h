@@ -19,16 +19,17 @@ class DefaultShaderList : public DependNode
 public:
 public:
 	DefaultShaderList():DependNode(){}
-	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "defaultShaderList"){}
+	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "defaultShaderList", create){}
 	virtual ~DefaultShaderList(){}
-	void getShaders(size_t s_i)
+	void getShaders(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i]\"",mName.c_str(),s_i);
 
 	}
 protected:
-	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DefaultShaderList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

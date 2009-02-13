@@ -19,7 +19,8 @@ class OffsetCos : public AbstractBaseCreate
 public:
 public:
 	OffsetCos():AbstractBaseCreate(){}
-	OffsetCos(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "offsetCos"){}
+	OffsetCos(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "offsetCos", create){}
 	virtual ~OffsetCos(){}
 	void setCutLoop(bool cl)
 	{
@@ -63,54 +64,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".st\" %i;\n", st);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getCutLoop()
+	void getCutLoop()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getConnectBreaks()
+	void getConnectBreaks()const
 	{
 		fprintf(mFile,"\"%s.cb\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getSubdivisionDensity()
+	void getSubdivisionDensity()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
-	void getCheckPoints()
+	void getCheckPoints()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getStitch()
+	void getStitch()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getOutputCurve(size_t oc_i)
+	void getOutputCurve(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
 protected:
-	OffsetCos(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	OffsetCos(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

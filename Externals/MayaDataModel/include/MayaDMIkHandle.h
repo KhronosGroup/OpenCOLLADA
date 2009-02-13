@@ -19,7 +19,8 @@ class IkHandle : public Transform
 public:
 public:
 	IkHandle():Transform(){}
-	IkHandle(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "ikHandle"){}
+	IkHandle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "ikHandle", create){}
 	virtual ~IkHandle(){}
 	void setSnapEnable(bool hsh)
 	{
@@ -270,229 +271,229 @@ public:
 		fprintf(mFile,"\tsetAttr \".sio\" %i;\n", sio);
 
 	}
-	void getStartJoint()
+	void getStartJoint()const
 	{
 		fprintf(mFile,"\"%s.hsj\"",mName.c_str());
 
 	}
-	void getEndEffector()
+	void getEndEffector()const
 	{
 		fprintf(mFile,"\"%s.hee\"",mName.c_str());
 
 	}
-	void getIkSolver()
+	void getIkSolver()const
 	{
 		fprintf(mFile,"\"%s.hsv\"",mName.c_str());
 
 	}
-	void getSnapEnable()
+	void getSnapEnable()const
 	{
 		fprintf(mFile,"\"%s.hsh\"",mName.c_str());
 
 	}
-	void getStickiness()
+	void getStickiness()const
 	{
 		fprintf(mFile,"\"%s.hs\"",mName.c_str());
 
 	}
-	void getPriority()
+	void getPriority()const
 	{
 		fprintf(mFile,"\"%s.hpr\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.hw\"",mName.c_str());
 
 	}
-	void getPoWeight()
+	void getPoWeight()const
 	{
 		fprintf(mFile,"\"%s.hpo\"",mName.c_str());
 
 	}
-	void getPoleVector()
+	void getPoleVector()const
 	{
 		fprintf(mFile,"\"%s.pv\"",mName.c_str());
 
 	}
-	void getPoleVectorX()
+	void getPoleVectorX()const
 	{
 		fprintf(mFile,"\"%s.pv.pvx\"",mName.c_str());
 
 	}
-	void getPoleVectorY()
+	void getPoleVectorY()const
 	{
 		fprintf(mFile,"\"%s.pv.pvy\"",mName.c_str());
 
 	}
-	void getPoleVectorZ()
+	void getPoleVectorZ()const
 	{
 		fprintf(mFile,"\"%s.pv.pvz\"",mName.c_str());
 
 	}
-	void getInCurve()
+	void getInCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
-	void getRoll()
+	void getRoll()const
 	{
 		fprintf(mFile,"\"%s.rol\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.twi\"",mName.c_str());
 
 	}
-	void getRootOnCurve()
+	void getRootOnCurve()const
 	{
 		fprintf(mFile,"\"%s.roc\"",mName.c_str());
 
 	}
-	void getTwistType()
+	void getTwistType()const
 	{
 		fprintf(mFile,"\"%s.twt\"",mName.c_str());
 
 	}
-	void getRootTwistMode()
+	void getRootTwistMode()const
 	{
 		fprintf(mFile,"\"%s.rtm\"",mName.c_str());
 
 	}
-	void getIkBlend()
+	void getIkBlend()const
 	{
 		fprintf(mFile,"\"%s.ikb\"",mName.c_str());
 
 	}
-	void getIkFkManipulation()
+	void getIkFkManipulation()const
 	{
 		fprintf(mFile,"\"%s.eik\"",mName.c_str());
 
 	}
-	void getDWorldUpType()
+	void getDWorldUpType()const
 	{
 		fprintf(mFile,"\"%s.dwut\"",mName.c_str());
 
 	}
-	void getDWorldUpAxis()
+	void getDWorldUpAxis()const
 	{
 		fprintf(mFile,"\"%s.dwua\"",mName.c_str());
 
 	}
-	void getDWorldUpVector()
+	void getDWorldUpVector()const
 	{
 		fprintf(mFile,"\"%s.dwuv\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorX()
+	void getDWorldUpVectorX()const
 	{
 		fprintf(mFile,"\"%s.dwuv.dwux\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorY()
+	void getDWorldUpVectorY()const
 	{
 		fprintf(mFile,"\"%s.dwuv.dwuy\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorZ()
+	void getDWorldUpVectorZ()const
 	{
 		fprintf(mFile,"\"%s.dwuv.dwuz\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorEnd()
+	void getDWorldUpVectorEnd()const
 	{
 		fprintf(mFile,"\"%s.dwve\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorEndX()
+	void getDWorldUpVectorEndX()const
 	{
 		fprintf(mFile,"\"%s.dwve.dwvx\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorEndY()
+	void getDWorldUpVectorEndY()const
 	{
 		fprintf(mFile,"\"%s.dwve.dwvy\"",mName.c_str());
 
 	}
-	void getDWorldUpVectorEndZ()
+	void getDWorldUpVectorEndZ()const
 	{
 		fprintf(mFile,"\"%s.dwve.dwvz\"",mName.c_str());
 
 	}
-	void getDWorldUpMatrix()
+	void getDWorldUpMatrix()const
 	{
 		fprintf(mFile,"\"%s.dwum\"",mName.c_str());
 
 	}
-	void getDWorldUpMatrixEnd()
+	void getDWorldUpMatrixEnd()const
 	{
 		fprintf(mFile,"\"%s.dwue\"",mName.c_str());
 
 	}
-	void getDTwistValueType()
+	void getDTwistValueType()const
 	{
 		fprintf(mFile,"\"%s.dtvt\"",mName.c_str());
 
 	}
-	void getDTwistStartEnd()
+	void getDTwistStartEnd()const
 	{
 		fprintf(mFile,"\"%s.dtse\"",mName.c_str());
 
 	}
-	void getDTwistStart()
+	void getDTwistStart()const
 	{
 		fprintf(mFile,"\"%s.dtse.dtst\"",mName.c_str());
 
 	}
-	void getDTwistEnd()
+	void getDTwistEnd()const
 	{
 		fprintf(mFile,"\"%s.dtse.dten\"",mName.c_str());
 
 	}
-	void getDTwistRamp()
+	void getDTwistRamp()const
 	{
 		fprintf(mFile,"\"%s.dtra\"",mName.c_str());
 
 	}
-	void getDTwistRampR()
+	void getDTwistRampR()const
 	{
 		fprintf(mFile,"\"%s.dtra.dtrr\"",mName.c_str());
 
 	}
-	void getDTwistRampG()
+	void getDTwistRampG()const
 	{
 		fprintf(mFile,"\"%s.dtra.dtrg\"",mName.c_str());
 
 	}
-	void getDTwistRampB()
+	void getDTwistRampB()const
 	{
 		fprintf(mFile,"\"%s.dtra.dtrb\"",mName.c_str());
 
 	}
-	void getDTwistRampMult()
+	void getDTwistRampMult()const
 	{
 		fprintf(mFile,"\"%s.dtrm\"",mName.c_str());
 
 	}
-	void getDTwistControlEnable()
+	void getDTwistControlEnable()const
 	{
 		fprintf(mFile,"\"%s.dtce\"",mName.c_str());
 
 	}
-	void getSplineIkOldStyle()
+	void getSplineIkOldStyle()const
 	{
 		fprintf(mFile,"\"%s.sio\"",mName.c_str());
 
 	}
 protected:
-	IkHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	IkHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

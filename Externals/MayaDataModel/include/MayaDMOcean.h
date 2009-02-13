@@ -52,7 +52,8 @@ public:
 	};
 public:
 	Ocean():Texture2d(){}
-	Ocean(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "ocean"){}
+	Ocean(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "ocean", create){}
 	virtual ~Ocean(){}
 	void setTime(float ti)
 	{
@@ -209,139 +210,139 @@ public:
 		fprintf(mFile,"\tsetAttr \".cmd\" %i;\n", cmd);
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.ti\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getWindUV()
+	void getWindUV()const
 	{
 		fprintf(mFile,"\"%s.wi\"",mName.c_str());
 
 	}
-	void getWindU()
+	void getWindU()const
 	{
 		fprintf(mFile,"\"%s.wi.wiu\"",mName.c_str());
 
 	}
-	void getWindV()
+	void getWindV()const
 	{
 		fprintf(mFile,"\"%s.wi.wiv\"",mName.c_str());
 
 	}
-	void getObserverSpeed()
+	void getObserverSpeed()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getWaveDirSpread()
+	void getWaveDirSpread()const
 	{
 		fprintf(mFile,"\"%s.wd\"",mName.c_str());
 
 	}
-	void getNumFrequencies()
+	void getNumFrequencies()const
 	{
 		fprintf(mFile,"\"%s.nf\"",mName.c_str());
 
 	}
-	void getWaveLengthMin()
+	void getWaveLengthMin()const
 	{
 		fprintf(mFile,"\"%s.wlm\"",mName.c_str());
 
 	}
-	void getWaveLengthMax()
+	void getWaveLengthMax()const
 	{
 		fprintf(mFile,"\"%s.wlx\"",mName.c_str());
 
 	}
-	void getWaveHeight(size_t wh_i)
+	void getWaveHeight(size_t wh_i)const
 	{
 		fprintf(mFile,"\"%s.wh[%i]\"",mName.c_str(),wh_i);
 
 	}
-	void getWaveHeight_Position(size_t wh_i)
+	void getWaveHeight_Position(size_t wh_i)const
 	{
 		fprintf(mFile,"\"%s.wh[%i].whp\"",mName.c_str(),wh_i);
 
 	}
-	void getWaveHeight_FloatValue(size_t wh_i)
+	void getWaveHeight_FloatValue(size_t wh_i)const
 	{
 		fprintf(mFile,"\"%s.wh[%i].whfv\"",mName.c_str(),wh_i);
 
 	}
-	void getWaveHeight_Interp(size_t wh_i)
+	void getWaveHeight_Interp(size_t wh_i)const
 	{
 		fprintf(mFile,"\"%s.wh[%i].whi\"",mName.c_str(),wh_i);
 
 	}
-	void getWaveTurbulence(size_t wtb_i)
+	void getWaveTurbulence(size_t wtb_i)const
 	{
 		fprintf(mFile,"\"%s.wtb[%i]\"",mName.c_str(),wtb_i);
 
 	}
-	void getWaveTurbulence_Position(size_t wtb_i)
+	void getWaveTurbulence_Position(size_t wtb_i)const
 	{
 		fprintf(mFile,"\"%s.wtb[%i].wtbp\"",mName.c_str(),wtb_i);
 
 	}
-	void getWaveTurbulence_FloatValue(size_t wtb_i)
+	void getWaveTurbulence_FloatValue(size_t wtb_i)const
 	{
 		fprintf(mFile,"\"%s.wtb[%i].wtbfv\"",mName.c_str(),wtb_i);
 
 	}
-	void getWaveTurbulence_Interp(size_t wtb_i)
+	void getWaveTurbulence_Interp(size_t wtb_i)const
 	{
 		fprintf(mFile,"\"%s.wtb[%i].wtbi\"",mName.c_str(),wtb_i);
 
 	}
-	void getWavePeaking(size_t wp_i)
+	void getWavePeaking(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i]\"",mName.c_str(),wp_i);
 
 	}
-	void getWavePeaking_Position(size_t wp_i)
+	void getWavePeaking_Position(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpp\"",mName.c_str(),wp_i);
 
 	}
-	void getWavePeaking_FloatValue(size_t wp_i)
+	void getWavePeaking_FloatValue(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpfv\"",mName.c_str(),wp_i);
 
 	}
-	void getWavePeaking_Interp(size_t wp_i)
+	void getWavePeaking_Interp(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpi\"",mName.c_str(),wp_i);
 
 	}
-	void getFoamEmission()
+	void getFoamEmission()const
 	{
 		fprintf(mFile,"\"%s.fme\"",mName.c_str());
 
 	}
-	void getFoamThreshold()
+	void getFoamThreshold()const
 	{
 		fprintf(mFile,"\"%s.fmt\"",mName.c_str());
 
 	}
-	void getColorMode()
+	void getColorMode()const
 	{
 		fprintf(mFile,"\"%s.cmd\"",mName.c_str());
 
 	}
-	void getOutFoam()
+	void getOutFoam()const
 	{
 		fprintf(mFile,"\"%s.ofm\"",mName.c_str());
 
 	}
 protected:
-	Ocean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Ocean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PolyAutoProj : public PolyModifierUV
 public:
 public:
 	PolyAutoProj():PolyModifierUV(){}
-	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyAutoProj"){}
+	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierUV(file, name, parent, "polyAutoProj", create){}
 	virtual ~PolyAutoProj(){}
 	void setTranslate(const double3& t)
 	{
@@ -179,139 +180,139 @@ public:
 		fprintf(mFile,"\tsetAttr \".pb\" %i;\n", pb);
 
 	}
-	void getTranslate()
+	void getTranslate()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getTranslateX()
+	void getTranslateX()const
 	{
 		fprintf(mFile,"\"%s.t.tx\"",mName.c_str());
 
 	}
-	void getTranslateY()
+	void getTranslateY()const
 	{
 		fprintf(mFile,"\"%s.t.ty\"",mName.c_str());
 
 	}
-	void getTranslateZ()
+	void getTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.t.tz\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getRotateX()
+	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.ro.rx\"",mName.c_str());
 
 	}
-	void getRotateY()
+	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.ro.ry\"",mName.c_str());
 
 	}
-	void getRotateZ()
+	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.ro.rz\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getScaleX()
+	void getScaleX()const
 	{
 		fprintf(mFile,"\"%s.s.sx\"",mName.c_str());
 
 	}
-	void getScaleY()
+	void getScaleY()const
 	{
 		fprintf(mFile,"\"%s.s.sy\"",mName.c_str());
 
 	}
-	void getScaleZ()
+	void getScaleZ()const
 	{
 		fprintf(mFile,"\"%s.s.sz\"",mName.c_str());
 
 	}
-	void getPivot()
+	void getPivot()const
 	{
 		fprintf(mFile,"\"%s.pvt\"",mName.c_str());
 
 	}
-	void getPivotX()
+	void getPivotX()const
 	{
 		fprintf(mFile,"\"%s.pvt.pvx\"",mName.c_str());
 
 	}
-	void getPivotY()
+	void getPivotY()const
 	{
 		fprintf(mFile,"\"%s.pvt.pvy\"",mName.c_str());
 
 	}
-	void getPivotZ()
+	void getPivotZ()const
 	{
 		fprintf(mFile,"\"%s.pvt.pvz\"",mName.c_str());
 
 	}
-	void getPlanes()
+	void getPlanes()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getOptimize()
+	void getOptimize()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getLayoutMethod()
+	void getLayoutMethod()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
-	void getSkipIntersect()
+	void getSkipIntersect()const
 	{
 		fprintf(mFile,"\"%s.si\"",mName.c_str());
 
 	}
-	void getLayout()
+	void getLayout()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getPercentageSpace()
+	void getPercentageSpace()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getScaleMode()
+	void getScaleMode()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getDenseLayout()
+	void getDenseLayout()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getProjectBothDirections()
+	void getProjectBothDirections()const
 	{
 		fprintf(mFile,"\"%s.pb\"",mName.c_str());
 
 	}
-	void getPolyGeomObject()
+	void getPolyGeomObject()const
 	{
 		fprintf(mFile,"\"%s.pg\"",mName.c_str());
 
 	}
 protected:
-	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierUV(file, name, parent, nodeType) {}
+	PolyAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

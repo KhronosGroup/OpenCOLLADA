@@ -39,7 +39,8 @@ public:
 	};
 public:
 	LightLinker():DependNode(){}
-	LightLinker(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "lightLinker"){}
+	LightLinker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "lightLinker", create){}
 	virtual ~LightLinker(){}
 	void setLink(size_t lnk_i,const Link& lnk)
 	{
@@ -69,69 +70,69 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getLink(size_t lnk_i)
+	void getLink(size_t lnk_i)const
 	{
 		fprintf(mFile,"\"%s.lnk[%i]\"",mName.c_str(),lnk_i);
 
 	}
-	void getLight(size_t lnk_i)
+	void getLight(size_t lnk_i)const
 	{
 		fprintf(mFile,"\"%s.lnk[%i].llnk\"",mName.c_str(),lnk_i);
 
 	}
-	void getObject(size_t lnk_i)
+	void getObject(size_t lnk_i)const
 	{
 		fprintf(mFile,"\"%s.lnk[%i].olnk\"",mName.c_str(),lnk_i);
 
 	}
-	void getIgnore(size_t ign_i)
+	void getIgnore(size_t ign_i)const
 	{
 		fprintf(mFile,"\"%s.ign[%i]\"",mName.c_str(),ign_i);
 
 	}
-	void getLightIgnored(size_t ign_i)
+	void getLightIgnored(size_t ign_i)const
 	{
 		fprintf(mFile,"\"%s.ign[%i].lign\"",mName.c_str(),ign_i);
 
 	}
-	void getObjectIgnored(size_t ign_i)
+	void getObjectIgnored(size_t ign_i)const
 	{
 		fprintf(mFile,"\"%s.ign[%i].oign\"",mName.c_str(),ign_i);
 
 	}
-	void getShadowLink(size_t slnk_i)
+	void getShadowLink(size_t slnk_i)const
 	{
 		fprintf(mFile,"\"%s.slnk[%i]\"",mName.c_str(),slnk_i);
 
 	}
-	void getShadowLight(size_t slnk_i)
+	void getShadowLight(size_t slnk_i)const
 	{
 		fprintf(mFile,"\"%s.slnk[%i].sllk\"",mName.c_str(),slnk_i);
 
 	}
-	void getShadowObject(size_t slnk_i)
+	void getShadowObject(size_t slnk_i)const
 	{
 		fprintf(mFile,"\"%s.slnk[%i].solk\"",mName.c_str(),slnk_i);
 
 	}
-	void getShadowIgnore(size_t sign_i)
+	void getShadowIgnore(size_t sign_i)const
 	{
 		fprintf(mFile,"\"%s.sign[%i]\"",mName.c_str(),sign_i);
 
 	}
-	void getShadowLightIgnored(size_t sign_i)
+	void getShadowLightIgnored(size_t sign_i)const
 	{
 		fprintf(mFile,"\"%s.sign[%i].slig\"",mName.c_str(),sign_i);
 
 	}
-	void getShadowObjectIgnored(size_t sign_i)
+	void getShadowObjectIgnored(size_t sign_i)const
 	{
 		fprintf(mFile,"\"%s.sign[%i].soig\"",mName.c_str(),sign_i);
 
 	}
 protected:
-	LightLinker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	LightLinker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

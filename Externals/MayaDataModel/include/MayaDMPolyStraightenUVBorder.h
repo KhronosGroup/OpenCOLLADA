@@ -19,7 +19,8 @@ class PolyStraightenUVBorder : public PolyModifierUV
 public:
 public:
 	PolyStraightenUVBorder():PolyModifierUV(){}
-	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyStraightenUVBorder"){}
+	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierUV(file, name, parent, "polyStraightenUVBorder", create){}
 	virtual ~PolyStraightenUVBorder(){}
 	void setCurvature(float c)
 	{
@@ -45,29 +46,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".gt\" %i;\n", gt);
 
 	}
-	void getCurvature()
+	void getCurvature()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getPreserveLength()
+	void getPreserveLength()const
 	{
 		fprintf(mFile,"\"%s.pl\"",mName.c_str());
 
 	}
-	void getBlendOriginal()
+	void getBlendOriginal()const
 	{
 		fprintf(mFile,"\"%s.bo\"",mName.c_str());
 
 	}
-	void getGapTolerance()
+	void getGapTolerance()const
 	{
 		fprintf(mFile,"\"%s.gt\"",mName.c_str());
 
 	}
 protected:
-	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierUV(file, name, parent, nodeType) {}
+	PolyStraightenUVBorder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

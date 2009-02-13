@@ -19,7 +19,8 @@ class PolyMergeUV : public PolyModifierUV
 public:
 public:
 	PolyMergeUV():PolyModifierUV(){}
-	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyMergeUV"){}
+	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierUV(file, name, parent, "polyMergeUV", create){}
 	virtual ~PolyMergeUV(){}
 	void setDistance(float d)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 protected:
-	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierUV(file, name, parent, nodeType) {}
+	PolyMergeUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

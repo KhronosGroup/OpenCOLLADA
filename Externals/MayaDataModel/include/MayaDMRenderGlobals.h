@@ -19,7 +19,8 @@ class RenderGlobals : public DependNode
 public:
 public:
 	RenderGlobals():DependNode(){}
-	RenderGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderGlobals"){}
+	RenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "renderGlobals", create){}
 	virtual ~RenderGlobals(){}
 	void setMacCodec(int macc)
 	{
@@ -571,419 +572,419 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getMacCodec()
+	void getMacCodec()const
 	{
 		fprintf(mFile,"\"%s.macc\"",mName.c_str());
 
 	}
-	void getMacDepth()
+	void getMacDepth()const
 	{
 		fprintf(mFile,"\"%s.macd\"",mName.c_str());
 
 	}
-	void getMacQual()
+	void getMacQual()const
 	{
 		fprintf(mFile,"\"%s.macq\"",mName.c_str());
 
 	}
-	void getComFrrt()
+	void getComFrrt()const
 	{
 		fprintf(mFile,"\"%s.mcfr\"",mName.c_str());
 
 	}
-	void getRenderAll()
+	void getRenderAll()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getQuality()
+	void getQuality()const
 	{
 		fprintf(mFile,"\"%s.qual\"",mName.c_str());
 
 	}
-	void getResolution()
+	void getResolution()const
 	{
 		fprintf(mFile,"\"%s.res\"",mName.c_str());
 
 	}
-	void getClipFinalShadedColor()
+	void getClipFinalShadedColor()const
 	{
 		fprintf(mFile,"\"%s.clip\"",mName.c_str());
 
 	}
-	void getEnableDepthMaps()
+	void getEnableDepthMaps()const
 	{
 		fprintf(mFile,"\"%s.edm\"",mName.c_str());
 
 	}
-	void getEnableDefaultLight()
+	void getEnableDefaultLight()const
 	{
 		fprintf(mFile,"\"%s.edl\"",mName.c_str());
 
 	}
-	void getEnableStrokeRender()
+	void getEnableStrokeRender()const
 	{
 		fprintf(mFile,"\"%s.esr\"",mName.c_str());
 
 	}
-	void getOnlyRenderStrokes()
+	void getOnlyRenderStrokes()const
 	{
 		fprintf(mFile,"\"%s.ors\"",mName.c_str());
 
 	}
-	void getStrokesDepthFile()
+	void getStrokesDepthFile()const
 	{
 		fprintf(mFile,"\"%s.sdf\"",mName.c_str());
 
 	}
-	void getImageFormat()
+	void getImageFormat()const
 	{
 		fprintf(mFile,"\"%s.outf\"",mName.c_str());
 
 	}
-	void getImfPluginKey()
+	void getImfPluginKey()const
 	{
 		fprintf(mFile,"\"%s.imfkey\"",mName.c_str());
 
 	}
-	void getGammaCorrection()
+	void getGammaCorrection()const
 	{
 		fprintf(mFile,"\"%s.gama\"",mName.c_str());
 
 	}
-	void getTopRegion()
+	void getTopRegion()const
 	{
 		fprintf(mFile,"\"%s.top\"",mName.c_str());
 
 	}
-	void getLeftRegion()
+	void getLeftRegion()const
 	{
 		fprintf(mFile,"\"%s.left\"",mName.c_str());
 
 	}
-	void getBottomRegion()
+	void getBottomRegion()const
 	{
 		fprintf(mFile,"\"%s.bot\"",mName.c_str());
 
 	}
-	void getRightRegion()
+	void getRightRegion()const
 	{
 		fprintf(mFile,"\"%s.rght\"",mName.c_str());
 
 	}
-	void getUseRenderRegion()
+	void getUseRenderRegion()const
 	{
 		fprintf(mFile,"\"%s.urr\"",mName.c_str());
 
 	}
-	void getByFrame()
+	void getByFrame()const
 	{
 		fprintf(mFile,"\"%s.bf\"",mName.c_str());
 
 	}
-	void getByFrameStep()
+	void getByFrameStep()const
 	{
 		fprintf(mFile,"\"%s.bfs\"",mName.c_str());
 
 	}
-	void getByExtension()
+	void getByExtension()const
 	{
 		fprintf(mFile,"\"%s.be\"",mName.c_str());
 
 	}
-	void getFieldExtControl()
+	void getFieldExtControl()const
 	{
 		fprintf(mFile,"\"%s.fec\"",mName.c_str());
 
 	}
-	void getOutFormatControl()
+	void getOutFormatControl()const
 	{
 		fprintf(mFile,"\"%s.ofc\"",mName.c_str());
 
 	}
-	void getOddFieldExt()
+	void getOddFieldExt()const
 	{
 		fprintf(mFile,"\"%s.ofe\"",mName.c_str());
 
 	}
-	void getEvenFieldExt()
+	void getEvenFieldExt()const
 	{
 		fprintf(mFile,"\"%s.efe\"",mName.c_str());
 
 	}
-	void getOutFormatExt()
+	void getOutFormatExt()const
 	{
 		fprintf(mFile,"\"%s.oft\"",mName.c_str());
 
 	}
-	void getComposite()
+	void getComposite()const
 	{
 		fprintf(mFile,"\"%s.comp\"",mName.c_str());
 
 	}
-	void getCompositeThreshold()
+	void getCompositeThreshold()const
 	{
 		fprintf(mFile,"\"%s.cth\"",mName.c_str());
 
 	}
-	void getShadowsObeyLightLinking()
+	void getShadowsObeyLightLinking()const
 	{
 		fprintf(mFile,"\"%s.soll\"",mName.c_str());
 
 	}
-	void getShadowsObeyShadowLinking()
+	void getShadowsObeyShadowLinking()const
 	{
 		fprintf(mFile,"\"%s.sosl\"",mName.c_str());
 
 	}
-	void getRecursionDepth()
+	void getRecursionDepth()const
 	{
 		fprintf(mFile,"\"%s.rd\"",mName.c_str());
 
 	}
-	void getLeafPrimitives()
+	void getLeafPrimitives()const
 	{
 		fprintf(mFile,"\"%s.lp\"",mName.c_str());
 
 	}
-	void getSubdivisionPower()
+	void getSubdivisionPower()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getSubdivisionHashSize()
+	void getSubdivisionHashSize()const
 	{
 		fprintf(mFile,"\"%s.shs\"",mName.c_str());
 
 	}
-	void getLogRenderPerformance()
+	void getLogRenderPerformance()const
 	{
 		fprintf(mFile,"\"%s.lpr\"",mName.c_str());
 
 	}
-	void getGeometryVector()
+	void getGeometryVector()const
 	{
 		fprintf(mFile,"\"%s.gv\"",mName.c_str());
 
 	}
-	void getShadingVector()
+	void getShadingVector()const
 	{
 		fprintf(mFile,"\"%s.sv\"",mName.c_str());
 
 	}
-	void getMaximumMemory()
+	void getMaximumMemory()const
 	{
 		fprintf(mFile,"\"%s.mm\"",mName.c_str());
 
 	}
-	void getNumCpusToUse()
+	void getNumCpusToUse()const
 	{
 		fprintf(mFile,"\"%s.npu\"",mName.c_str());
 
 	}
-	void getInterruptFrequency()
+	void getInterruptFrequency()const
 	{
 		fprintf(mFile,"\"%s.itf\"",mName.c_str());
 
 	}
-	void getShadowPass()
+	void getShadowPass()const
 	{
 		fprintf(mFile,"\"%s.shp\"",mName.c_str());
 
 	}
-	void getIprShadowPass()
+	void getIprShadowPass()const
 	{
 		fprintf(mFile,"\"%s.isp\"",mName.c_str());
 
 	}
-	void getUseFileCache()
+	void getUseFileCache()const
 	{
 		fprintf(mFile,"\"%s.uf\"",mName.c_str());
 
 	}
-	void getOptimizeInstances()
+	void getOptimizeInstances()const
 	{
 		fprintf(mFile,"\"%s.oi\"",mName.c_str());
 
 	}
-	void getReuseTessellations()
+	void getReuseTessellations()const
 	{
 		fprintf(mFile,"\"%s.rut\"",mName.c_str());
 
 	}
-	void getMatteOpacityUsesTransparency()
+	void getMatteOpacityUsesTransparency()const
 	{
 		fprintf(mFile,"\"%s.mot\"",mName.c_str());
 
 	}
-	void getMotionBlurByFrame()
+	void getMotionBlurByFrame()const
 	{
 		fprintf(mFile,"\"%s.mbf\"",mName.c_str());
 
 	}
-	void getFogGeometry()
+	void getFogGeometry()const
 	{
 		fprintf(mFile,"\"%s.fg\"",mName.c_str());
 
 	}
-	void getApplyFogInPost()
+	void getApplyFogInPost()const
 	{
 		fprintf(mFile,"\"%s.afp\"",mName.c_str());
 
 	}
-	void getPostFogBlur()
+	void getPostFogBlur()const
 	{
 		fprintf(mFile,"\"%s.pfb\"",mName.c_str());
 
 	}
-	void getPreMel()
+	void getPreMel()const
 	{
 		fprintf(mFile,"\"%s.pram\"",mName.c_str());
 
 	}
-	void getPostMel()
+	void getPostMel()const
 	{
 		fprintf(mFile,"\"%s.poam\"",mName.c_str());
 
 	}
-	void getPreRenderLayerMel()
+	void getPreRenderLayerMel()const
 	{
 		fprintf(mFile,"\"%s.prlm\"",mName.c_str());
 
 	}
-	void getPostRenderLayerMel()
+	void getPostRenderLayerMel()const
 	{
 		fprintf(mFile,"\"%s.polm\"",mName.c_str());
 
 	}
-	void getPreRenderMel()
+	void getPreRenderMel()const
 	{
 		fprintf(mFile,"\"%s.prm\"",mName.c_str());
 
 	}
-	void getPostRenderMel()
+	void getPostRenderMel()const
 	{
 		fprintf(mFile,"\"%s.pom\"",mName.c_str());
 
 	}
-	void getPreFurRenderMel()
+	void getPreFurRenderMel()const
 	{
 		fprintf(mFile,"\"%s.pfrm\"",mName.c_str());
 
 	}
-	void getPostFurRenderMel()
+	void getPostFurRenderMel()const
 	{
 		fprintf(mFile,"\"%s.pfom\"",mName.c_str());
 
 	}
-	void getCreateIprFile()
+	void getCreateIprFile()const
 	{
 		fprintf(mFile,"\"%s.cif\"",mName.c_str());
 
 	}
-	void getBlurLength()
+	void getBlurLength()const
 	{
 		fprintf(mFile,"\"%s.bll\"",mName.c_str());
 
 	}
-	void getBlurSharpness()
+	void getBlurSharpness()const
 	{
 		fprintf(mFile,"\"%s.bls\"",mName.c_str());
 
 	}
-	void getSmoothValue()
+	void getSmoothValue()const
 	{
 		fprintf(mFile,"\"%s.smv\"",mName.c_str());
 
 	}
-	void getUseBlur2DMemoryCap()
+	void getUseBlur2DMemoryCap()const
 	{
 		fprintf(mFile,"\"%s.ubc\"",mName.c_str());
 
 	}
-	void getBlur2DMemoryCap()
+	void getBlur2DMemoryCap()const
 	{
 		fprintf(mFile,"\"%s.mbc\"",mName.c_str());
 
 	}
-	void getUseDisplacementBoundingBox()
+	void getUseDisplacementBoundingBox()const
 	{
 		fprintf(mFile,"\"%s.udbx\"",mName.c_str());
 
 	}
-	void getSmoothColor()
+	void getSmoothColor()const
 	{
 		fprintf(mFile,"\"%s.smc\"",mName.c_str());
 
 	}
-	void getKeepMotionVector()
+	void getKeepMotionVector()const
 	{
 		fprintf(mFile,"\"%s.kmv\"",mName.c_str());
 
 	}
-	void getIprRenderShading()
+	void getIprRenderShading()const
 	{
 		fprintf(mFile,"\"%s.isl\"",mName.c_str());
 
 	}
-	void getIprRenderShadowMaps()
+	void getIprRenderShadowMaps()const
 	{
 		fprintf(mFile,"\"%s.ism\"",mName.c_str());
 
 	}
-	void getIprRenderMotionBlur()
+	void getIprRenderMotionBlur()const
 	{
 		fprintf(mFile,"\"%s.imb\"",mName.c_str());
 
 	}
-	void getRendercallback()
+	void getRendercallback()const
 	{
 		fprintf(mFile,"\"%s.rcb\"",mName.c_str());
 
 	}
-	void getRenderLayerEnable()
+	void getRenderLayerEnable()const
 	{
 		fprintf(mFile,"\"%s.rlen\"",mName.c_str());
 
 	}
-	void getForceTileSize()
+	void getForceTileSize()const
 	{
 		fprintf(mFile,"\"%s.frts\"",mName.c_str());
 
 	}
-	void getTileWidth()
+	void getTileWidth()const
 	{
 		fprintf(mFile,"\"%s.tlwd\"",mName.c_str());
 
 	}
-	void getTileHeight()
+	void getTileHeight()const
 	{
 		fprintf(mFile,"\"%s.tlht\"",mName.c_str());
 
 	}
-	void getJitterFinalColor()
+	void getJitterFinalColor()const
 	{
 		fprintf(mFile,"\"%s.jfc\"",mName.c_str());
 
 	}
-	void getRaysSeeBackground()
+	void getRaysSeeBackground()const
 	{
 		fprintf(mFile,"\"%s.rsb\"",mName.c_str());
 
 	}
-	void getOversamplePaintEffects()
+	void getOversamplePaintEffects()const
 	{
 		fprintf(mFile,"\"%s.ope\"",mName.c_str());
 
 	}
-	void getOversamplePfxPostFilter()
+	void getOversamplePfxPostFilter()const
 	{
 		fprintf(mFile,"\"%s.oppf\"",mName.c_str());
 
 	}
 protected:
-	RenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

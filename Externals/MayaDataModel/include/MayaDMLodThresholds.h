@@ -19,7 +19,8 @@ class LodThresholds : public DependNode
 public:
 public:
 	LodThresholds():DependNode(){}
-	LodThresholds(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "lodThresholds"){}
+	LodThresholds(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "lodThresholds", create){}
 	virtual ~LodThresholds(){}
 	void setInBoxMin(const double3& bmn)
 	{
@@ -114,104 +115,104 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startThreshold(size_t th_start,size_t th_end)
+	void startThreshold(size_t th_start,size_t th_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".th[%i:%i]\"",th_start,th_end);
 
 	}
-	void appendThreshold(double th)
+	void appendThreshold(double th)const
 	{
 		fprintf(mFile," %f",th);
 
 	}
-	void endThreshold()
+	void endThreshold()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getInBoxMin()
+	void getInBoxMin()const
 	{
 		fprintf(mFile,"\"%s.bmn\"",mName.c_str());
 
 	}
-	void getInBoxMinX()
+	void getInBoxMinX()const
 	{
 		fprintf(mFile,"\"%s.bmn.bmix\"",mName.c_str());
 
 	}
-	void getInBoxMinY()
+	void getInBoxMinY()const
 	{
 		fprintf(mFile,"\"%s.bmn.bmiy\"",mName.c_str());
 
 	}
-	void getInBoxMinZ()
+	void getInBoxMinZ()const
 	{
 		fprintf(mFile,"\"%s.bmn.bmiz\"",mName.c_str());
 
 	}
-	void getInBoxMax()
+	void getInBoxMax()const
 	{
 		fprintf(mFile,"\"%s.bmx\"",mName.c_str());
 
 	}
-	void getInBoxMaxX()
+	void getInBoxMaxX()const
 	{
 		fprintf(mFile,"\"%s.bmx.bmax\"",mName.c_str());
 
 	}
-	void getInBoxMaxY()
+	void getInBoxMaxY()const
 	{
 		fprintf(mFile,"\"%s.bmx.bmay\"",mName.c_str());
 
 	}
-	void getInBoxMaxZ()
+	void getInBoxMaxZ()const
 	{
 		fprintf(mFile,"\"%s.bmx.bmaz\"",mName.c_str());
 
 	}
-	void getCamera()
+	void getCamera()const
 	{
 		fprintf(mFile,"\"%s.cam\"",mName.c_str());
 
 	}
-	void getCameraX()
+	void getCameraX()const
 	{
 		fprintf(mFile,"\"%s.cam.cax\"",mName.c_str());
 
 	}
-	void getCameraY()
+	void getCameraY()const
 	{
 		fprintf(mFile,"\"%s.cam.cay\"",mName.c_str());
 
 	}
-	void getCameraZ()
+	void getCameraZ()const
 	{
 		fprintf(mFile,"\"%s.cam.caz\"",mName.c_str());
 
 	}
-	void getThreshold(size_t th_i)
+	void getThreshold(size_t th_i)const
 	{
 		fprintf(mFile,"\"%s.th[%i]\"",mName.c_str(),th_i);
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getActiveLevel()
+	void getActiveLevel()const
 	{
 		fprintf(mFile,"\"%s.al\"",mName.c_str());
 
 	}
-	void getOutLevel(size_t ol_i)
+	void getOutLevel(size_t ol_i)const
 	{
 		fprintf(mFile,"\"%s.ol[%i]\"",mName.c_str(),ol_i);
 
 	}
 protected:
-	LodThresholds(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	LodThresholds(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

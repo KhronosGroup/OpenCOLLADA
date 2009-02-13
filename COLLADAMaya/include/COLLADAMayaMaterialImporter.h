@@ -45,6 +45,11 @@ namespace COLLADAMaya
         /** The standard name for a material without name. */
         static const String MATERIAL_NAME;
 
+        /** The name of maya's default shader list. */
+        static const String DEFAULT_SHADER_LIST;
+        static const String DEFAULT_SHADING_ENGINE;
+        static const String ATTR_SHADERS;
+
     public:
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdMayaMaterialMap;
@@ -68,17 +73,14 @@ namespace COLLADAMaya
                 : mShadingEngine ( shadingEngine )
                 , mMaterialInfo ( materialInfo )
             {}
-            virtual ~ShadingData() {}
+            virtual ~ShadingData() 
+            {
+                delete mShadingEngine;
+                delete mMaterialInfo;
+            }
 
             MayaDM::ShadingEngine* getShadingEngine () const { return mShadingEngine; }
             MayaDM::MaterialInfo* getMaterialInfo () const { return mMaterialInfo; }
-
-        private:
-            /** Disable default copy ctor. */
-            ShadingData( const ShadingData& pre );
-            /** Disable default assignment operator. */
-            const ShadingData& operator= ( const ShadingData& pre );
-
         };
         typedef std::map<COLLADAFW::UniqueId, ShadingData*> ShadingDataMap;
 
@@ -143,7 +145,7 @@ namespace COLLADAMaya
         /**
          * The map holds for every shader engine a list of geometry ids, which use this shader engine.
          */
-        ShadingEngineBindingMap mShadingEngineGeometryInstancesMap;
+        ShadingEngineBindingMap mShadingEngineBindingMap;
 
     public:
 
@@ -151,7 +153,7 @@ namespace COLLADAMaya
         MaterialImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
-        virtual ~MaterialImporter () {}
+        virtual ~MaterialImporter ();
 
         /** Imports the given material. */
         bool importMaterial ( const COLLADAFW::Material* material );
@@ -165,7 +167,6 @@ namespace COLLADAMaya
         /** Writes the connection attributes into the maya ascii file. */
         void writeConnections ();
 
-        void connectGeometries ();
         /**
         * The map holds the maya material objects.
         */
@@ -175,6 +176,17 @@ namespace COLLADAMaya
 
         /** Connect the material with the shading engine and the material info. */
         void connectShadingEngines ();
+
+        /** Connect the material with the depending geometries. */
+        void connectGeometries ();
+
+        /** If there are some object groups, we have to connect them with the geometries. */
+        void connectGeometryGroups ();
+
+        /**
+         * Connects the default shader list with the materials.
+         */
+        void connectDefaultShaderList ();
 
         /**
         * The map holds the maya material objects.
@@ -221,7 +233,6 @@ namespace COLLADAMaya
         size_t getGeometryInstanceIndex ( 
             const COLLADAFW::UniqueId& geometryId, 
             const COLLADAFW::UniqueId& transformNodeId );
-
 
     };
 }

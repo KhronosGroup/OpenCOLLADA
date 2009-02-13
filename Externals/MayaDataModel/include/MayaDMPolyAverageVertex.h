@@ -19,7 +19,8 @@ class PolyAverageVertex : public PolyModifierWorld
 public:
 public:
 	PolyAverageVertex():PolyModifierWorld(){}
-	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyAverageVertex"){}
+	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyAverageVertex", create){}
 	virtual ~PolyAverageVertex(){}
 	void setAlpha(float a)
 	{
@@ -39,24 +40,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".i\" %i;\n", i_);
 
 	}
-	void getAlpha()
+	void getAlpha()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getBeta()
+	void getBeta()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getIterations()
+	void getIterations()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
 protected:
-	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyAverageVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

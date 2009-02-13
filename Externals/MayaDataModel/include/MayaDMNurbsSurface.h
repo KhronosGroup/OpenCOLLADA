@@ -66,7 +66,8 @@ public:
 	};
 public:
 	NurbsSurface():SurfaceShape(){}
-	NurbsSurface(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "nurbsSurface"){}
+	NurbsSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SurfaceShape(file, name, parent, "nurbsSurface", create){}
 	virtual ~NurbsSurface(){}
 	void setDivisionsU(unsigned char dvu)
 	{
@@ -442,424 +443,424 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.rfrr\" %i;\n", rfrr);
 
 	}
-	void getCreate()
+	void getCreate()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getLocal()
+	void getLocal()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getWorldSpace(size_t ws_i)
+	void getWorldSpace(size_t ws_i)const
 	{
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
 
 	}
-	void getDivisionsU()
+	void getDivisionsU()const
 	{
 		fprintf(mFile,"\"%s.dvu\"",mName.c_str());
 
 	}
-	void getDivisionsV()
+	void getDivisionsV()const
 	{
 		fprintf(mFile,"\"%s.dvv\"",mName.c_str());
 
 	}
-	void getCurvePrecision()
+	void getCurvePrecision()const
 	{
 		fprintf(mFile,"\"%s.cpr\"",mName.c_str());
 
 	}
-	void getCurvePrecisionShaded()
+	void getCurvePrecisionShaded()const
 	{
 		fprintf(mFile,"\"%s.cps\"",mName.c_str());
 
 	}
-	void getSimplifyMode()
+	void getSimplifyMode()const
 	{
 		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
-	void getSimplifyU()
+	void getSimplifyU()const
 	{
 		fprintf(mFile,"\"%s.smu\"",mName.c_str());
 
 	}
-	void getSimplifyV()
+	void getSimplifyV()const
 	{
 		fprintf(mFile,"\"%s.smv\"",mName.c_str());
 
 	}
-	void getSmoothEdge()
+	void getSmoothEdge()const
 	{
 		fprintf(mFile,"\"%s.ues\"",mName.c_str());
 
 	}
-	void getSmoothEdgeRatio()
+	void getSmoothEdgeRatio()const
 	{
 		fprintf(mFile,"\"%s.esr\"",mName.c_str());
 
 	}
-	void getUseChordHeight()
+	void getUseChordHeight()const
 	{
 		fprintf(mFile,"\"%s.uch\"",mName.c_str());
 
 	}
-	void getObjSpaceChordHeight()
+	void getObjSpaceChordHeight()const
 	{
 		fprintf(mFile,"\"%s.uco\"",mName.c_str());
 
 	}
-	void getUseChordHeightRatio()
+	void getUseChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.ucr\"",mName.c_str());
 
 	}
-	void getEdgeSwap()
+	void getEdgeSwap()const
 	{
 		fprintf(mFile,"\"%s.es\"",mName.c_str());
 
 	}
-	void getUseMinScreen()
+	void getUseMinScreen()const
 	{
 		fprintf(mFile,"\"%s.uns\"",mName.c_str());
 
 	}
-	void getSelCVDisp()
+	void getSelCVDisp()const
 	{
 		fprintf(mFile,"\"%s.scvd\"",mName.c_str());
 
 	}
-	void getDispCV()
+	void getDispCV()const
 	{
 		fprintf(mFile,"\"%s.dcv\"",mName.c_str());
 
 	}
-	void getDispEP()
+	void getDispEP()const
 	{
 		fprintf(mFile,"\"%s.dep\"",mName.c_str());
 
 	}
-	void getDispHull()
+	void getDispHull()const
 	{
 		fprintf(mFile,"\"%s.dh\"",mName.c_str());
 
 	}
-	void getDispGeometry()
+	void getDispGeometry()const
 	{
 		fprintf(mFile,"\"%s.dg\"",mName.c_str());
 
 	}
-	void getDispOrigin()
+	void getDispOrigin()const
 	{
 		fprintf(mFile,"\"%s.dor\"",mName.c_str());
 
 	}
-	void getNumberU()
+	void getNumberU()const
 	{
 		fprintf(mFile,"\"%s.nu\"",mName.c_str());
 
 	}
-	void getModeU()
+	void getModeU()const
 	{
 		fprintf(mFile,"\"%s.mu\"",mName.c_str());
 
 	}
-	void getNumberV()
+	void getNumberV()const
 	{
 		fprintf(mFile,"\"%s.nv\"",mName.c_str());
 
 	}
-	void getModeV()
+	void getModeV()const
 	{
 		fprintf(mFile,"\"%s.mv\"",mName.c_str());
 
 	}
-	void getChordHeight()
+	void getChordHeight()const
 	{
 		fprintf(mFile,"\"%s.ch\"",mName.c_str());
 
 	}
-	void getChordHeightRatio()
+	void getChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.chr\"",mName.c_str());
 
 	}
-	void getMinScreen()
+	void getMinScreen()const
 	{
 		fprintf(mFile,"\"%s.mns\"",mName.c_str());
 
 	}
-	void getFormU()
+	void getFormU()const
 	{
 		fprintf(mFile,"\"%s.fu\"",mName.c_str());
 
 	}
-	void getFormV()
+	void getFormV()const
 	{
 		fprintf(mFile,"\"%s.fv\"",mName.c_str());
 
 	}
-	void getCached()
+	void getCached()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
-	void getPatchUVIds(size_t pu_i)
+	void getPatchUVIds(size_t pu_i)const
 	{
 		fprintf(mFile,"\"%s.pu[%i]\"",mName.c_str(),pu_i);
 
 	}
-	void getInPlace()
+	void getInPlace()const
 	{
 		fprintf(mFile,"\"%s.ipo\"",mName.c_str());
 
 	}
-	void getTweakSizeU()
+	void getTweakSizeU()const
 	{
 		fprintf(mFile,"\"%s.tsu\"",mName.c_str());
 
 	}
-	void getTweakSizeV()
+	void getTweakSizeV()const
 	{
 		fprintf(mFile,"\"%s.tsv\"",mName.c_str());
 
 	}
-	void getMinMaxRangeU()
+	void getMinMaxRangeU()const
 	{
 		fprintf(mFile,"\"%s.mmu\"",mName.c_str());
 
 	}
-	void getMinValueU()
+	void getMinValueU()const
 	{
 		fprintf(mFile,"\"%s.mmu.mnu\"",mName.c_str());
 
 	}
-	void getMaxValueU()
+	void getMaxValueU()const
 	{
 		fprintf(mFile,"\"%s.mmu.mxu\"",mName.c_str());
 
 	}
-	void getMinMaxRangeV()
+	void getMinMaxRangeV()const
 	{
 		fprintf(mFile,"\"%s.mmv\"",mName.c_str());
 
 	}
-	void getMinValueV()
+	void getMinValueV()const
 	{
 		fprintf(mFile,"\"%s.mmv.mnv\"",mName.c_str());
 
 	}
-	void getMaxValueV()
+	void getMaxValueV()const
 	{
 		fprintf(mFile,"\"%s.mmv.mxv\"",mName.c_str());
 
 	}
-	void getDegreeUV()
+	void getDegreeUV()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDegreeU()
+	void getDegreeU()const
 	{
 		fprintf(mFile,"\"%s.d.du\"",mName.c_str());
 
 	}
-	void getDegreeV()
+	void getDegreeV()const
 	{
 		fprintf(mFile,"\"%s.d.dv\"",mName.c_str());
 
 	}
-	void getSpansUV()
+	void getSpansUV()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getSpansU()
+	void getSpansU()const
 	{
 		fprintf(mFile,"\"%s.sp.su\"",mName.c_str());
 
 	}
-	void getSpansV()
+	void getSpansV()const
 	{
 		fprintf(mFile,"\"%s.sp.sv\"",mName.c_str());
 
 	}
-	void getDisplayRenderTessellation()
+	void getDisplayRenderTessellation()const
 	{
 		fprintf(mFile,"\"%s.drt\"",mName.c_str());
 
 	}
-	void getRenderTriangleCount()
+	void getRenderTriangleCount()const
 	{
 		fprintf(mFile,"\"%s.tcn\"",mName.c_str());
 
 	}
-	void getFixTextureWarp()
+	void getFixTextureWarp()const
 	{
 		fprintf(mFile,"\"%s.ftwp\"",mName.c_str());
 
 	}
-	void getGridDivisionPerSpanU()
+	void getGridDivisionPerSpanU()const
 	{
 		fprintf(mFile,"\"%s.gdsu\"",mName.c_str());
 
 	}
-	void getGridDivisionPerSpanV()
+	void getGridDivisionPerSpanV()const
 	{
 		fprintf(mFile,"\"%s.gdsv\"",mName.c_str());
 
 	}
-	void getExplicitTessellationAttributes()
+	void getExplicitTessellationAttributes()const
 	{
 		fprintf(mFile,"\"%s.eta\"",mName.c_str());
 
 	}
-	void getUDivisionsFactor()
+	void getUDivisionsFactor()const
 	{
 		fprintf(mFile,"\"%s.nufa\"",mName.c_str());
 
 	}
-	void getVDivisionsFactor()
+	void getVDivisionsFactor()const
 	{
 		fprintf(mFile,"\"%s.nvfa\"",mName.c_str());
 
 	}
-	void getCurvatureTolerance()
+	void getCurvatureTolerance()const
 	{
 		fprintf(mFile,"\"%s.cvto\"",mName.c_str());
 
 	}
-	void getBasicTessellationType()
+	void getBasicTessellationType()const
 	{
 		fprintf(mFile,"\"%s.btt\"",mName.c_str());
 
 	}
-	void getDispSF()
+	void getDispSF()const
 	{
 		fprintf(mFile,"\"%s.dsf\"",mName.c_str());
 
 	}
-	void getNormalsDisplayScale()
+	void getNormalsDisplayScale()const
 	{
 		fprintf(mFile,"\"%s.ndf\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOverrideCaustics()
+	void getMiOverrideCaustics()const
 	{
 		fprintf(mFile,"\"%s.mrc.oca\"",mName.c_str());
 
 	}
-	void getMiCausticAccuracy()
+	void getMiCausticAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.caa\"",mName.c_str());
 
 	}
-	void getMiCausticRadius()
+	void getMiCausticRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.car\"",mName.c_str());
 
 	}
-	void getMiOverrideGlobalIllumination()
+	void getMiOverrideGlobalIllumination()const
 	{
 		fprintf(mFile,"\"%s.mrc.ogi\"",mName.c_str());
 
 	}
-	void getMiGlobillumAccuracy()
+	void getMiGlobillumAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.gia\"",mName.c_str());
 
 	}
-	void getMiGlobillumRadius()
+	void getMiGlobillumRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.gir\"",mName.c_str());
 
 	}
-	void getMiOverrideFinalGather()
+	void getMiOverrideFinalGather()const
 	{
 		fprintf(mFile,"\"%s.mrc.ofg\"",mName.c_str());
 
 	}
-	void getMiFinalGatherRays()
+	void getMiFinalGatherRays()const
 	{
 		fprintf(mFile,"\"%s.mrc.fry\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMinRadius()
+	void getMiFinalGatherMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmn\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMaxRadius()
+	void getMiFinalGatherMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmx\"",mName.c_str());
 
 	}
-	void getMiFinalGatherFilter()
+	void getMiFinalGatherFilter()const
 	{
 		fprintf(mFile,"\"%s.mrc.ffi\"",mName.c_str());
 
 	}
-	void getMiFinalGatherView()
+	void getMiFinalGatherView()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgv\"",mName.c_str());
 
 	}
-	void getMiOverrideSamples()
+	void getMiOverrideSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.oos\"",mName.c_str());
 
 	}
-	void getMiMinSamples()
+	void getMiMinSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.mins\"",mName.c_str());
 
 	}
-	void getMiMaxSamples()
+	void getMiMaxSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 
 	}
-	void getMiFinalGatherCast()
+	void getMiFinalGatherCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgc\"",mName.c_str());
 
 	}
-	void getMiFinalGatherReceive()
+	void getMiFinalGatherReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.fge\"",mName.c_str());
 
 	}
-	void getMiTransparencyCast()
+	void getMiTransparencyCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpc\"",mName.c_str());
 
 	}
-	void getMiTransparencyReceive()
+	void getMiTransparencyReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpr\"",mName.c_str());
 
 	}
-	void getMiReflectionReceive()
+	void getMiReflectionReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.rflr\"",mName.c_str());
 
 	}
-	void getMiRefractionReceive()
+	void getMiRefractionReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.rfrr\"",mName.c_str());
 
 	}
 protected:
-	NurbsSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SurfaceShape(file, name, parent, nodeType) {}
+	NurbsSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

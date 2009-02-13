@@ -19,7 +19,8 @@ class NurbsToSubdivProc : public NurbsToSubdiv
 public:
 public:
 	NurbsToSubdivProc():NurbsToSubdiv(){}
-	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent=""):NurbsToSubdiv(file, name, parent, "nurbsToSubdivProc"){}
+	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:NurbsToSubdiv(file, name, parent, "nurbsToSubdivProc", create){}
 	virtual ~NurbsToSubdivProc(){}
 	void setSolidType(unsigned int st)
 	{
@@ -53,44 +54,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".br\" %i;\n", br);
 
 	}
-	void getSolidType()
+	void getSolidType()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getCapType()
+	void getCapType()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getTransform()
+	void getTransform()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getBridge()
+	void getBridge()const
 	{
 		fprintf(mFile,"\"%s.br\"",mName.c_str());
 
 	}
-	void getBridgeInU()
+	void getBridgeInU()const
 	{
 		fprintf(mFile,"\"%s.biu\"",mName.c_str());
 
 	}
-	void getBridgeInV()
+	void getBridgeInV()const
 	{
 		fprintf(mFile,"\"%s.biv\"",mName.c_str());
 
 	}
 protected:
-	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:NurbsToSubdiv(file, name, parent, nodeType) {}
+	NurbsToSubdivProc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:NurbsToSubdiv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

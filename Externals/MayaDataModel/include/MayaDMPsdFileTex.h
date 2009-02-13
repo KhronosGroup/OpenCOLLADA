@@ -19,7 +19,8 @@ class PsdFileTex : public File
 public:
 public:
 	PsdFileTex():File(){}
-	PsdFileTex(FILE* file,const std::string& name,const std::string& parent=""):File(file, name, parent, "psdFileTex"){}
+	PsdFileTex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:File(file, name, parent, "psdFileTex", create){}
 	virtual ~PsdFileTex(){}
 	void setLayerSetName(const string& lsn)
 	{
@@ -37,29 +38,29 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getLayerSetName()
+	void getLayerSetName()const
 	{
 		fprintf(mFile,"\"%s.lsn\"",mName.c_str());
 
 	}
-	void getLayerSets()
+	void getLayerSets()const
 	{
 		fprintf(mFile,"\"%s.lys\"",mName.c_str());
 
 	}
-	void getAlpha()
+	void getAlpha()const
 	{
 		fprintf(mFile,"\"%s.alp\"",mName.c_str());
 
 	}
-	void getAlphaList()
+	void getAlphaList()const
 	{
 		fprintf(mFile,"\"%s.als\"",mName.c_str());
 
 	}
 protected:
-	PsdFileTex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:File(file, name, parent, nodeType) {}
+	PsdFileTex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:File(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class ProjectTangent : public AbstractBaseCreate
 public:
 public:
 	ProjectTangent():AbstractBaseCreate(){}
-	ProjectTangent(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "projectTangent"){}
+	ProjectTangent(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "projectTangent", create){}
 	virtual ~ProjectTangent(){}
 	void setTangentScale(double ts)
 	{
@@ -63,69 +64,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".ie\" %i;\n", ie);
 
 	}
-	void getInputCurveToProject()
+	void getInputCurveToProject()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getInputCurve1ToProjectTo()
+	void getInputCurve1ToProjectTo()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2ToProjectTo()
+	void getInputCurve2ToProjectTo()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getInputSurfaceToProjectTo()
+	void getInputSurfaceToProjectTo()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getTangentScale()
+	void getTangentScale()const
 	{
 		fprintf(mFile,"\"%s.ts\"",mName.c_str());
 
 	}
-	void getCurvatureScale()
+	void getCurvatureScale()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getTangentDirection()
+	void getTangentDirection()const
 	{
 		fprintf(mFile,"\"%s.td\"",mName.c_str());
 
 	}
-	void getCurvature()
+	void getCurvature()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getReverseTangent()
+	void getReverseTangent()const
 	{
 		fprintf(mFile,"\"%s.rt\"",mName.c_str());
 
 	}
-	void getIgnoreEdges()
+	void getIgnoreEdges()const
 	{
 		fprintf(mFile,"\"%s.ie\"",mName.c_str());
 
 	}
 protected:
-	ProjectTangent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	ProjectTangent(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

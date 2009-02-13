@@ -18,11 +18,12 @@ class IkSplineSolver : public IkSolver
 {
 public:
 	IkSplineSolver():IkSolver(){}
-	IkSplineSolver(FILE* file,const std::string& name,const std::string& parent=""):IkSolver(file, name, parent, "ikSplineSolver"){}
+	IkSplineSolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:IkSolver(file, name, parent, "ikSplineSolver", create){}
 	virtual ~IkSplineSolver(){}
 protected:
-	IkSplineSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:IkSolver(file, name, parent, nodeType) {}
+	IkSplineSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:IkSolver(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

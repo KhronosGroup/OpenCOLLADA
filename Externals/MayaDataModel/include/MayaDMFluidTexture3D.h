@@ -19,7 +19,8 @@ class FluidTexture3D : public FluidShape
 public:
 public:
 	FluidTexture3D():FluidShape(){}
-	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent=""):FluidShape(file, name, parent, "fluidTexture3D"){}
+	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:FluidShape(file, name, parent, "fluidTexture3D", create){}
 	virtual ~FluidTexture3D(){}
 	void setAlphaGain(float ag)
 	{
@@ -59,84 +60,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".dcl.dcb\" %f;\n", dcb);
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getOutAlpha()
+	void getOutAlpha()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
-	void getOutCoord()
+	void getOutCoord()const
 	{
 		fprintf(mFile,"\"%s.ouc\"",mName.c_str());
 
 	}
-	void getOucx()
+	void getOucx()const
 	{
 		fprintf(mFile,"\"%s.ouc.ocx\"",mName.c_str());
 
 	}
-	void getOucy()
+	void getOucy()const
 	{
 		fprintf(mFile,"\"%s.ouc.ocy\"",mName.c_str());
 
 	}
-	void getOucz()
+	void getOucz()const
 	{
 		fprintf(mFile,"\"%s.ouc.ocz\"",mName.c_str());
 
 	}
-	void getAlphaGain()
+	void getAlphaGain()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
-	void getAlphaOffset()
+	void getAlphaOffset()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
 
 	}
-	void getDefaultColor()
+	void getDefaultColor()const
 	{
 		fprintf(mFile,"\"%s.dcl\"",mName.c_str());
 
 	}
-	void getDefaultColorR()
+	void getDefaultColorR()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcr\"",mName.c_str());
 
 	}
-	void getDefaultColorG()
+	void getDefaultColorG()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcg\"",mName.c_str());
 
 	}
-	void getDefaultColorB()
+	void getDefaultColorB()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcb\"",mName.c_str());
 
 	}
 protected:
-	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:FluidShape(file, name, parent, nodeType) {}
+	FluidTexture3D(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:FluidShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

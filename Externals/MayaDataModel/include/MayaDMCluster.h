@@ -24,7 +24,8 @@ public:
 	};
 public:
 	Cluster():WeightGeometryFilter(){}
-	Cluster(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "cluster"){}
+	Cluster(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:WeightGeometryFilter(file, name, parent, "cluster", create){}
 	virtual ~Cluster(){}
 	void setPercentResolution(float ptr)
 	{
@@ -72,19 +73,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGeomMatrix(size_t gm_start,size_t gm_end)
+	void startGeomMatrix(size_t gm_start,size_t gm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".gm[%i:%i]\"",gm_start,gm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendGeomMatrix(const matrix& gm)
+	void appendGeomMatrix(const matrix& gm)const
 	{
 		fprintf(mFile,"\n");
 		gm.write(mFile);
 
 	}
-	void endGeomMatrix()
+	void endGeomMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -111,79 +112,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".ait\" %i;\n", ait);
 
 	}
-	void getUsePartialResolution()
+	void getUsePartialResolution()const
 	{
 		fprintf(mFile,"\"%s.upr\"",mName.c_str());
 
 	}
-	void getRelative()
+	void getRelative()const
 	{
 		fprintf(mFile,"\"%s.rel\"",mName.c_str());
 
 	}
-	void getClusterXforms()
+	void getClusterXforms()const
 	{
 		fprintf(mFile,"\"%s.x\"",mName.c_str());
 
 	}
-	void getPreMatrix()
+	void getPreMatrix()const
 	{
 		fprintf(mFile,"\"%s.x.pre\"",mName.c_str());
 
 	}
-	void getWeightedMatrix()
+	void getWeightedMatrix()const
 	{
 		fprintf(mFile,"\"%s.x.wt\"",mName.c_str());
 
 	}
-	void getPostMatrix()
+	void getPostMatrix()const
 	{
 		fprintf(mFile,"\"%s.x.post\"",mName.c_str());
 
 	}
-	void getWeightedCompensationMatrix()
+	void getWeightedCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.wcm\"",mName.c_str());
 
 	}
-	void getGeomMatrix(size_t gm_i)
+	void getGeomMatrix(size_t gm_i)const
 	{
 		fprintf(mFile,"\"%s.gm[%i]\"",mName.c_str(),gm_i);
 
 	}
-	void getMatrix()
+	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
-	void getBindPreMatrix()
+	void getBindPreMatrix()const
 	{
 		fprintf(mFile,"\"%s.pm\"",mName.c_str());
 
 	}
-	void getBindState()
+	void getBindState()const
 	{
 		fprintf(mFile,"\"%s.bs\"",mName.c_str());
 
 	}
-	void getPostCompensationMatrix()
+	void getPostCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.psc\"",mName.c_str());
 
 	}
-	void getPreCompensationMatrix()
+	void getPreCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.prc\"",mName.c_str());
 
 	}
-	void getAngleInterpolation()
+	void getAngleInterpolation()const
 	{
 		fprintf(mFile,"\"%s.ait\"",mName.c_str());
 
 	}
 protected:
-	Cluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:WeightGeometryFilter(file, name, parent, nodeType) {}
+	Cluster(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class DistanceDimShape : public DimensionShape
 public:
 public:
 	DistanceDimShape():DimensionShape(){}
-	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent=""):DimensionShape(file, name, parent, "distanceDimShape"){}
+	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DimensionShape(file, name, parent, "distanceDimShape", create){}
 	virtual ~DistanceDimShape(){}
 	void setStartPoint(const double3& sp)
 	{
@@ -71,54 +72,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".ep.epz\" %f;\n", epz);
 
 	}
-	void getStartPoint()
+	void getStartPoint()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getStartPointX()
+	void getStartPointX()const
 	{
 		fprintf(mFile,"\"%s.sp.spx\"",mName.c_str());
 
 	}
-	void getStartPointY()
+	void getStartPointY()const
 	{
 		fprintf(mFile,"\"%s.sp.spy\"",mName.c_str());
 
 	}
-	void getStartPointZ()
+	void getStartPointZ()const
 	{
 		fprintf(mFile,"\"%s.sp.spz\"",mName.c_str());
 
 	}
-	void getEndPoint()
+	void getEndPoint()const
 	{
 		fprintf(mFile,"\"%s.ep\"",mName.c_str());
 
 	}
-	void getEndPointX()
+	void getEndPointX()const
 	{
 		fprintf(mFile,"\"%s.ep.epx\"",mName.c_str());
 
 	}
-	void getEndPointY()
+	void getEndPointY()const
 	{
 		fprintf(mFile,"\"%s.ep.epy\"",mName.c_str());
 
 	}
-	void getEndPointZ()
+	void getEndPointZ()const
 	{
 		fprintf(mFile,"\"%s.ep.epz\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.dist\"",mName.c_str());
 
 	}
 protected:
-	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DimensionShape(file, name, parent, nodeType) {}
+	DistanceDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DimensionShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

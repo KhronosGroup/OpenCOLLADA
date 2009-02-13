@@ -19,7 +19,8 @@ class EnvSphere : public TextureEnv
 public:
 public:
 	EnvSphere():TextureEnv(){}
-	EnvSphere(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envSphere"){}
+	EnvSphere(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:TextureEnv(file, name, parent, "envSphere", create){}
 	virtual ~EnvSphere(){}
 	void setImage(const float3& so)
 	{
@@ -73,94 +74,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".f\" %i;\n", f);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getImage()
+	void getImage()const
 	{
 		fprintf(mFile,"\"%s.so\"",mName.c_str());
 
 	}
-	void getImageR()
+	void getImageR()const
 	{
 		fprintf(mFile,"\"%s.so.sor\"",mName.c_str());
 
 	}
-	void getImageG()
+	void getImageG()const
 	{
 		fprintf(mFile,"\"%s.so.sog\"",mName.c_str());
 
 	}
-	void getImageB()
+	void getImageB()const
 	{
 		fprintf(mFile,"\"%s.so.sob\"",mName.c_str());
 
 	}
-	void getShearUV()
+	void getShearUV()const
 	{
 		fprintf(mFile,"\"%s.suv\"",mName.c_str());
 
 	}
-	void getShearU()
+	void getShearU()const
 	{
 		fprintf(mFile,"\"%s.suv.su\"",mName.c_str());
 
 	}
-	void getShearV()
+	void getShearV()const
 	{
 		fprintf(mFile,"\"%s.suv.sv\"",mName.c_str());
 
 	}
-	void getFlip()
+	void getFlip()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
 protected:
-	EnvSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:TextureEnv(file, name, parent, nodeType) {}
+	EnvSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PolyMapCut : public PolyModifier
 public:
 public:
 	PolyMapCut():PolyModifier(){}
-	PolyMapCut(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyMapCut"){}
+	PolyMapCut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyMapCut", create){}
 	virtual ~PolyMapCut(){}
 	void setUvSetName(const string& uvs)
 	{
@@ -29,14 +30,14 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
 protected:
-	PolyMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyMapCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

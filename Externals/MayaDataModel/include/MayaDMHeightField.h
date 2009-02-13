@@ -19,7 +19,8 @@ class HeightField : public SurfaceShape
 public:
 public:
 	HeightField():SurfaceShape(){}
-	HeightField(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "heightField"){}
+	HeightField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SurfaceShape(file, name, parent, "heightField", create){}
 	virtual ~HeightField(){}
 	void setResolution(int res)
 	{
@@ -64,49 +65,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".hc\" %f;\n", hc);
 
 	}
-	void getResolution()
+	void getResolution()const
 	{
 		fprintf(mFile,"\"%s.res\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.cl.cr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.cl.cg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.cl.cb\"",mName.c_str());
 
 	}
-	void getDisplacement()
+	void getDisplacement()const
 	{
 		fprintf(mFile,"\"%s.dis\"",mName.c_str());
 
 	}
-	void getHeightScale()
+	void getHeightScale()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 
 	}
-	void getCacheNeedsRebuilding()
+	void getCacheNeedsRebuilding()const
 	{
 		fprintf(mFile,"\"%s.cnr\"",mName.c_str());
 
 	}
 protected:
-	HeightField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SurfaceShape(file, name, parent, nodeType) {}
+	HeightField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

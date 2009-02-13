@@ -19,7 +19,8 @@ class VolumeNoise : public Texture3d
 public:
 public:
 	VolumeNoise():Texture3d(){}
-	VolumeNoise(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "volumeNoise"){}
+	VolumeNoise(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "volumeNoise", create){}
 	virtual ~VolumeNoise(){}
 	void setXPixelAngle(float xpa)
 	{
@@ -201,194 +202,194 @@ public:
 		fprintf(mFile,"\tsetAttr \".imc.imz\" %f;\n", imz);
 
 	}
-	void getXPixelAngle()
+	void getXPixelAngle()const
 	{
 		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getAmplitude()
+	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getRatio()
+	void getRatio()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getScaleX()
+	void getScaleX()const
 	{
 		fprintf(mFile,"\"%s.sc.sx\"",mName.c_str());
 
 	}
-	void getScaleY()
+	void getScaleY()const
 	{
 		fprintf(mFile,"\"%s.sc.sy\"",mName.c_str());
 
 	}
-	void getScaleZ()
+	void getScaleZ()const
 	{
 		fprintf(mFile,"\"%s.sc.sz\"",mName.c_str());
 
 	}
-	void getOrigin()
+	void getOrigin()const
 	{
 		fprintf(mFile,"\"%s.orr\"",mName.c_str());
 
 	}
-	void getOriginX()
+	void getOriginX()const
 	{
 		fprintf(mFile,"\"%s.orr.orx\"",mName.c_str());
 
 	}
-	void getOriginY()
+	void getOriginY()const
 	{
 		fprintf(mFile,"\"%s.orr.ory\"",mName.c_str());
 
 	}
-	void getOriginZ()
+	void getOriginZ()const
 	{
 		fprintf(mFile,"\"%s.orr.orz\"",mName.c_str());
 
 	}
-	void getDepthMax()
+	void getDepthMax()const
 	{
 		fprintf(mFile,"\"%s.dm\"",mName.c_str());
 
 	}
-	void getFrequency()
+	void getFrequency()const
 	{
 		fprintf(mFile,"\"%s.fq\"",mName.c_str());
 
 	}
-	void getFrequencyRatio()
+	void getFrequencyRatio()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getInflection()
+	void getInflection()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.ti\"",mName.c_str());
 
 	}
-	void getNoiseType()
+	void getNoiseType()const
 	{
 		fprintf(mFile,"\"%s.nty\"",mName.c_str());
 
 	}
-	void getDensity()
+	void getDensity()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSpottyness()
+	void getSpottyness()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getSizeRand()
+	void getSizeRand()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getRandomness()
+	void getRandomness()const
 	{
 		fprintf(mFile,"\"%s.rn\"",mName.c_str());
 
 	}
-	void getFalloff()
+	void getFalloff()const
 	{
 		fprintf(mFile,"\"%s.fof\"",mName.c_str());
 
 	}
-	void getNumWaves()
+	void getNumWaves()const
 	{
 		fprintf(mFile,"\"%s.nw\"",mName.c_str());
 
 	}
-	void getImplode()
+	void getImplode()const
 	{
 		fprintf(mFile,"\"%s.imp\"",mName.c_str());
 
 	}
-	void getImplodeCenter()
+	void getImplodeCenter()const
 	{
 		fprintf(mFile,"\"%s.imc\"",mName.c_str());
 
 	}
-	void getImplodeCenterX()
+	void getImplodeCenterX()const
 	{
 		fprintf(mFile,"\"%s.imc.imx\"",mName.c_str());
 
 	}
-	void getImplodeCenterY()
+	void getImplodeCenterY()const
 	{
 		fprintf(mFile,"\"%s.imc.imy\"",mName.c_str());
 
 	}
-	void getImplodeCenterZ()
+	void getImplodeCenterZ()const
 	{
 		fprintf(mFile,"\"%s.imc.imz\"",mName.c_str());
 
 	}
 protected:
-	VolumeNoise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	VolumeNoise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

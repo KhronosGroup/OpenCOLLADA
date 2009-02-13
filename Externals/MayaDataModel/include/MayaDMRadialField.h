@@ -19,7 +19,8 @@ class RadialField : public Field
 public:
 public:
 	RadialField():Field(){}
-	RadialField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "radialField"){}
+	RadialField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Field(file, name, parent, "radialField", create){}
 	virtual ~RadialField(){}
 	void setRadialType(double typ)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".typ\" %f;\n", typ);
 
 	}
-	void getRadialType()
+	void getRadialType()const
 	{
 		fprintf(mFile,"\"%s.typ\"",mName.c_str());
 
 	}
 protected:
-	RadialField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Field(file, name, parent, nodeType) {}
+	RadialField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Field(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

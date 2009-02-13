@@ -19,7 +19,8 @@ class FfBlendSrfObsolete : public AbstractBaseCreate
 public:
 public:
 	FfBlendSrfObsolete():AbstractBaseCreate(){}
-	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "ffBlendSrfObsolete"){}
+	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "ffBlendSrfObsolete", create){}
 	virtual ~FfBlendSrfObsolete(){}
 	void setPositionTolerance(double pt)
 	{
@@ -69,74 +70,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".mk\" %i;\n", mk);
 
 	}
-	void getLeftCurve(size_t lc_i)
+	void getLeftCurve(size_t lc_i)const
 	{
 		fprintf(mFile,"\"%s.lc[%i]\"",mName.c_str(),lc_i);
 
 	}
-	void getRightCurve(size_t rc_i)
+	void getRightCurve(size_t rc_i)const
 	{
 		fprintf(mFile,"\"%s.rc[%i]\"",mName.c_str(),rc_i);
 
 	}
-	void getPositionTolerance()
+	void getPositionTolerance()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getTangentTolerance()
+	void getTangentTolerance()const
 	{
 		fprintf(mFile,"\"%s.tt\"",mName.c_str());
 
 	}
-	void getFlipLeft()
+	void getFlipLeft()const
 	{
 		fprintf(mFile,"\"%s.fl\"",mName.c_str());
 
 	}
-	void getFlipRight()
+	void getFlipRight()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getAutoDirection()
+	void getAutoDirection()const
 	{
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 
 	}
-	void getLeftRail()
+	void getLeftRail()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getRightRail()
+	void getRightRail()const
 	{
 		fprintf(mFile,"\"%s.rr\"",mName.c_str());
 
 	}
-	void getLeftParameter()
+	void getLeftParameter()const
 	{
 		fprintf(mFile,"\"%s.lp\"",mName.c_str());
 
 	}
-	void getRightParameter()
+	void getRightParameter()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getMultipleKnots()
+	void getMultipleKnots()const
 	{
 		fprintf(mFile,"\"%s.mk\"",mName.c_str());
 
 	}
 protected:
-	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	FfBlendSrfObsolete(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

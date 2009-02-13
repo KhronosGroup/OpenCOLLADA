@@ -19,7 +19,8 @@ class Anisotropic : public Reflect
 public:
 public:
 	Anisotropic():Reflect(){}
-	Anisotropic(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "anisotropic"){}
+	Anisotropic(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Reflect(file, name, parent, "anisotropic", create){}
 	virtual ~Anisotropic(){}
 	void setSpreadX(float sprx)
 	{
@@ -118,129 +119,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
-	void getTangentUCamera()
+	void getTangentUCamera()const
 	{
 		fprintf(mFile,"\"%s.utan\"",mName.c_str());
 
 	}
-	void getTangentUCameraX()
+	void getTangentUCameraX()const
 	{
 		fprintf(mFile,"\"%s.utan.utnx\"",mName.c_str());
 
 	}
-	void getTangentUCameraY()
+	void getTangentUCameraY()const
 	{
 		fprintf(mFile,"\"%s.utan.utny\"",mName.c_str());
 
 	}
-	void getTangentUCameraZ()
+	void getTangentUCameraZ()const
 	{
 		fprintf(mFile,"\"%s.utan.utnz\"",mName.c_str());
 
 	}
-	void getTangentVCamera()
+	void getTangentVCamera()const
 	{
 		fprintf(mFile,"\"%s.vtan\"",mName.c_str());
 
 	}
-	void getTangentVCameraX()
+	void getTangentVCameraX()const
 	{
 		fprintf(mFile,"\"%s.vtan.vtnx\"",mName.c_str());
 
 	}
-	void getTangentVCameraY()
+	void getTangentVCameraY()const
 	{
 		fprintf(mFile,"\"%s.vtan.vtny\"",mName.c_str());
 
 	}
-	void getTangentVCameraZ()
+	void getTangentVCameraZ()const
 	{
 		fprintf(mFile,"\"%s.vtan.vtnz\"",mName.c_str());
 
 	}
-	void getSpreadX()
+	void getSpreadX()const
 	{
 		fprintf(mFile,"\"%s.sprx\"",mName.c_str());
 
 	}
-	void getSpreadY()
+	void getSpreadY()const
 	{
 		fprintf(mFile,"\"%s.spry\"",mName.c_str());
 
 	}
-	void getRoughness()
+	void getRoughness()const
 	{
 		fprintf(mFile,"\"%s.roug\"",mName.c_str());
 
 	}
-	void getAngle()
+	void getAngle()const
 	{
 		fprintf(mFile,"\"%s.angl\"",mName.c_str());
 
 	}
-	void getFresnelRefractiveIndex()
+	void getFresnelRefractiveIndex()const
 	{
 		fprintf(mFile,"\"%s.frfi\"",mName.c_str());
 
 	}
-	void getAnisotropicReflectivity()
+	void getAnisotropicReflectivity()const
 	{
 		fprintf(mFile,"\"%s.arfl\"",mName.c_str());
 
 	}
-	void getMiReflectionBlur()
+	void getMiReflectionBlur()const
 	{
 		fprintf(mFile,"\"%s.mircb\"",mName.c_str());
 
 	}
-	void getMiReflectionRays()
+	void getMiReflectionRays()const
 	{
 		fprintf(mFile,"\"%s.mircr\"",mName.c_str());
 
 	}
-	void getMiAngle()
+	void getMiAngle()const
 	{
 		fprintf(mFile,"\"%s.mia\"",mName.c_str());
 
 	}
-	void getMiSpreadX()
+	void getMiSpreadX()const
 	{
 		fprintf(mFile,"\"%s.misx\"",mName.c_str());
 
 	}
-	void getMiSpreadY()
+	void getMiSpreadY()const
 	{
 		fprintf(mFile,"\"%s.misy\"",mName.c_str());
 
 	}
-	void getMiSpecularColor()
+	void getMiSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.misc\"",mName.c_str());
 
 	}
-	void getMiSpecularColorR()
+	void getMiSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.misc.miscr\"",mName.c_str());
 
 	}
-	void getMiSpecularColorG()
+	void getMiSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.misc.miscg\"",mName.c_str());
 
 	}
-	void getMiSpecularColorB()
+	void getMiSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.misc.miscb\"",mName.c_str());
 
 	}
-	void getMiReflectivity()
+	void getMiReflectivity()const
 	{
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 
 	}
 protected:
-	Anisotropic(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Reflect(file, name, parent, nodeType) {}
+	Anisotropic(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Reflect(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

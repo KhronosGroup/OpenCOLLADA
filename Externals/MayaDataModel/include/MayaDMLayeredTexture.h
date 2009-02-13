@@ -33,7 +33,8 @@ public:
 	};
 public:
 	LayeredTexture():DependNode(){}
-	LayeredTexture(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "layeredTexture"){}
+	LayeredTexture(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "layeredTexture", create){}
 	virtual ~LayeredTexture(){}
 	void setInputs(size_t cs_i,const Inputs& cs)
 	{
@@ -116,99 +117,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".ail\" %i;\n", ail);
 
 	}
-	void getInputs(size_t cs_i)
+	void getInputs(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i]\"",mName.c_str(),cs_i);
 
 	}
-	void getColor(size_t cs_i)
+	void getColor(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c\"",mName.c_str(),cs_i);
 
 	}
-	void getColorR(size_t cs_i)
+	void getColorR(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c.cr\"",mName.c_str(),cs_i);
 
 	}
-	void getColorG(size_t cs_i)
+	void getColorG(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c.cg\"",mName.c_str(),cs_i);
 
 	}
-	void getColorB(size_t cs_i)
+	void getColorB(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].c.cb\"",mName.c_str(),cs_i);
 
 	}
-	void getAlpha(size_t cs_i)
+	void getAlpha(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].a\"",mName.c_str(),cs_i);
 
 	}
-	void getBlendMode(size_t cs_i)
+	void getBlendMode(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].bm\"",mName.c_str(),cs_i);
 
 	}
-	void getIsVisible(size_t cs_i)
+	void getIsVisible(size_t cs_i)const
 	{
 		fprintf(mFile,"\"%s.cs[%i].iv\"",mName.c_str(),cs_i);
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
-	void getOutAlpha()
+	void getOutAlpha()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
-	void getAlphaIsLuminance()
+	void getAlphaIsLuminance()const
 	{
 		fprintf(mFile,"\"%s.ail\"",mName.c_str());
 
 	}
-	void getOutTransparency()
+	void getOutTransparency()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutTransparencyR()
+	void getOutTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.ot.otr\"",mName.c_str());
 
 	}
-	void getOutTransparencyG()
+	void getOutTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.ot.otg\"",mName.c_str());
 
 	}
-	void getOutTransparencyB()
+	void getOutTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 
 	}
 protected:
-	LayeredTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	LayeredTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

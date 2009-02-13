@@ -19,7 +19,8 @@ class BirailSrf : public AbstractBaseCreate
 public:
 public:
 	BirailSrf():AbstractBaseCreate(){}
-	BirailSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "birailSrf"){}
+	BirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "birailSrf", create){}
 	virtual ~BirailSrf(){}
 	void setTransformMode(unsigned int tm)
 	{
@@ -27,34 +28,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".tm\" %i;\n", tm);
 
 	}
-	void getInputRail1()
+	void getInputRail1()const
 	{
 		fprintf(mFile,"\"%s.ir1\"",mName.c_str());
 
 	}
-	void getInputRail2()
+	void getInputRail2()const
 	{
 		fprintf(mFile,"\"%s.ir2\"",mName.c_str());
 
 	}
-	void getSweepStyle()
+	void getSweepStyle()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getTransformMode()
+	void getTransformMode()const
 	{
 		fprintf(mFile,"\"%s.tm\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	BirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	BirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

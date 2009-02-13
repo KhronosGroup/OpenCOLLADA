@@ -19,7 +19,8 @@ class SubdTweak : public SubdModifier
 public:
 public:
 	SubdTweak():SubdModifier(){}
-	SubdTweak(FILE* file,const std::string& name,const std::string& parent=""):SubdModifier(file, name, parent, "subdTweak"){}
+	SubdTweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SubdModifier(file, name, parent, "subdTweak", create){}
 	virtual ~SubdTweak(){}
 	void setTweak(size_t tk_i,const double3& tk)
 	{
@@ -41,17 +42,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTweak(size_t tk_start,size_t tk_end)
+	void startTweak(size_t tk_start,size_t tk_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tk[%i:%i]\"",tk_start,tk_end);
 
 	}
-	void appendTweak(double tk)
+	void appendTweak(double tk)const
 	{
 		fprintf(mFile," %f",tk);
 
 	}
-	void endTweak()
+	void endTweak()const
 	{
 		fprintf(mFile,";\n");
 
@@ -74,34 +75,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".tk[%i].tz\" %f;\n", tk_i,tz);
 
 	}
-	void getTweak(size_t tk_i)
+	void getTweak(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i]\"",mName.c_str(),tk_i);
 
 	}
-	void getTweakX(size_t tk_i)
+	void getTweakX(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].tx\"",mName.c_str(),tk_i);
 
 	}
-	void getTweakY(size_t tk_i)
+	void getTweakY(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].ty\"",mName.c_str(),tk_i);
 
 	}
-	void getTweakZ(size_t tk_i)
+	void getTweakZ(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].tz\"",mName.c_str(),tk_i);
 
 	}
-	void getMap64BitIndices()
+	void getMap64BitIndices()const
 	{
 		fprintf(mFile,"\"%s.map\"",mName.c_str());
 
 	}
 protected:
-	SubdTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SubdModifier(file, name, parent, nodeType) {}
+	SubdTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SubdModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

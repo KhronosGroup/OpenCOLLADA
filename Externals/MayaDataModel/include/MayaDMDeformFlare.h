@@ -19,7 +19,8 @@ class DeformFlare : public DeformFunc
 public:
 public:
 	DeformFlare():DeformFunc(){}
-	DeformFlare(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformFlare"){}
+	DeformFlare(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformFunc(file, name, parent, "deformFlare", create){}
 	virtual ~DeformFlare(){}
 	void setLowBound(double lb)
 	{
@@ -63,44 +64,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".crv\" %f;\n", crv);
 
 	}
-	void getLowBound()
+	void getLowBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getHighBound()
+	void getHighBound()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
 
 	}
-	void getStartFlareX()
+	void getStartFlareX()const
 	{
 		fprintf(mFile,"\"%s.sfx\"",mName.c_str());
 
 	}
-	void getStartFlareZ()
+	void getStartFlareZ()const
 	{
 		fprintf(mFile,"\"%s.sfz\"",mName.c_str());
 
 	}
-	void getEndFlareX()
+	void getEndFlareX()const
 	{
 		fprintf(mFile,"\"%s.efx\"",mName.c_str());
 
 	}
-	void getEndFlareZ()
+	void getEndFlareZ()const
 	{
 		fprintf(mFile,"\"%s.efz\"",mName.c_str());
 
 	}
-	void getCurve()
+	void getCurve()const
 	{
 		fprintf(mFile,"\"%s.crv\"",mName.c_str());
 
 	}
 protected:
-	DeformFlare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformFunc(file, name, parent, nodeType) {}
+	DeformFlare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

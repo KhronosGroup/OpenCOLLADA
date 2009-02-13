@@ -29,7 +29,8 @@ public:
 	};
 public:
 	WtAddMatrix():DependNode(){}
-	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "wtAddMatrix"){}
+	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "wtAddMatrix", create){}
 	virtual ~WtAddMatrix(){}
 	void setWtMatrix(size_t i_i,const WtMatrix& i_)
 	{
@@ -52,29 +53,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".i[%i].w\" %f;\n", i_i,w);
 
 	}
-	void getWtMatrix(size_t i_i)
+	void getWtMatrix(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getMatrixIn(size_t i_i)
+	void getMatrixIn(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].m\"",mName.c_str(),i_i);
 
 	}
-	void getWeightIn(size_t i_i)
+	void getWeightIn(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].w\"",mName.c_str(),i_i);
 
 	}
-	void getMatrixSum()
+	void getMatrixSum()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	WtAddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

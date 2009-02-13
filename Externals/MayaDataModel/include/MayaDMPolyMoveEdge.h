@@ -19,7 +19,8 @@ class PolyMoveEdge : public PolyMoveVertex
 public:
 public:
 	PolyMoveEdge():PolyMoveVertex(){}
-	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveVertex(file, name, parent, "polyMoveEdge"){}
+	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyMoveVertex(file, name, parent, "polyMoveEdge", create){}
 	virtual ~PolyMoveEdge(){}
 	void setLocalRotate(const double3& lr)
 	{
@@ -79,54 +80,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".lc\" %i;\n", lc);
 
 	}
-	void getLocalRotate()
+	void getLocalRotate()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getLocalRotateX()
+	void getLocalRotateX()const
 	{
 		fprintf(mFile,"\"%s.lr.lrx\"",mName.c_str());
 
 	}
-	void getLocalRotateY()
+	void getLocalRotateY()const
 	{
 		fprintf(mFile,"\"%s.lr.lry\"",mName.c_str());
 
 	}
-	void getLocalRotateZ()
+	void getLocalRotateZ()const
 	{
 		fprintf(mFile,"\"%s.lr.lrz\"",mName.c_str());
 
 	}
-	void getLocalScale()
+	void getLocalScale()const
 	{
 		fprintf(mFile,"\"%s.ls\"",mName.c_str());
 
 	}
-	void getLocalScaleX()
+	void getLocalScaleX()const
 	{
 		fprintf(mFile,"\"%s.ls.lsx\"",mName.c_str());
 
 	}
-	void getLocalScaleY()
+	void getLocalScaleY()const
 	{
 		fprintf(mFile,"\"%s.ls.lsy\"",mName.c_str());
 
 	}
-	void getLocalScaleZ()
+	void getLocalScaleZ()const
 	{
 		fprintf(mFile,"\"%s.ls.lsz\"",mName.c_str());
 
 	}
-	void getLocalCenter()
+	void getLocalCenter()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 
 	}
 protected:
-	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyMoveVertex(file, name, parent, nodeType) {}
+	PolyMoveEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyMoveVertex(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

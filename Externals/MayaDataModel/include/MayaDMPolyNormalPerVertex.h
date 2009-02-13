@@ -51,7 +51,8 @@ public:
 	};
 public:
 	PolyNormalPerVertex():PolyModifier(){}
-	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyNormalPerVertex"){}
+	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyNormalPerVertex", create){}
 	virtual ~PolyNormalPerVertex(){}
 	void setNormalPerVertex(const NormalPerVertex& npvx)
 	{
@@ -136,19 +137,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".npva\" %i;\n", npva);
 
 	}
-	void getNormalDeform()
+	void getNormalDeform()const
 	{
 		fprintf(mFile,"\"%s.npvd\"",mName.c_str());
 
 	}
-	void getNormalAdd()
+	void getNormalAdd()const
 	{
 		fprintf(mFile,"\"%s.npva\"",mName.c_str());
 
 	}
 protected:
-	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyNormalPerVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

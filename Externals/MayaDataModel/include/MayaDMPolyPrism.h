@@ -19,7 +19,8 @@ class PolyPrism : public PolyPrimitive
 public:
 public:
 	PolyPrism():PolyPrimitive(){}
-	PolyPrism(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyPrism"){}
+	PolyPrism(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyPrimitive(file, name, parent, "polyPrism", create){}
 	virtual ~PolyPrism(){}
 	void setLength(double l)
 	{
@@ -63,44 +64,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
-	void getLength()
+	void getLength()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getSideLength()
+	void getSideLength()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getNumderOfSides()
+	void getNumderOfSides()const
 	{
 		fprintf(mFile,"\"%s.ns\"",mName.c_str());
 
 	}
-	void getSubdivisionsHeight()
+	void getSubdivisionsHeight()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getSubdivisionsCaps()
+	void getSubdivisionsCaps()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getTexture()
+	void getTexture()const
 	{
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 
 	}
-	void getCreateUVs()
+	void getCreateUVs()const
 	{
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 
 	}
 protected:
-	PolyPrism(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyPrimitive(file, name, parent, nodeType) {}
+	PolyPrism(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

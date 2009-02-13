@@ -30,7 +30,8 @@ public:
 	};
 public:
 	MentalrayTexture():DependNode(){}
-	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "mentalrayTexture"){}
+	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "mentalrayTexture", create){}
 	virtual ~MentalrayTexture(){}
 	void setMiTextureType(unsigned int mitt)
 	{
@@ -95,59 +96,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".mifr.midp\" %i;\n", midp);
 
 	}
-	void getMiTextureType()
+	void getMiTextureType()const
 	{
 		fprintf(mFile,"\"%s.mitt\"",mName.c_str());
 
 	}
-	void getFileTextureName()
+	void getFileTextureName()const
 	{
 		fprintf(mFile,"\"%s.ftn\"",mName.c_str());
 
 	}
-	void getMiLocal()
+	void getMiLocal()const
 	{
 		fprintf(mFile,"\"%s.mil\"",mName.c_str());
 
 	}
-	void getMiWritable()
+	void getMiWritable()const
 	{
 		fprintf(mFile,"\"%s.miw\"",mName.c_str());
 
 	}
-	void getMiFilter()
+	void getMiFilter()const
 	{
 		fprintf(mFile,"\"%s.mift\"",mName.c_str());
 
 	}
-	void getMiFilterSize()
+	void getMiFilterSize()const
 	{
 		fprintf(mFile,"\"%s.mifs\"",mName.c_str());
 
 	}
-	void getMiFileSize()
+	void getMiFileSize()const
 	{
 		fprintf(mFile,"\"%s.mifr\"",mName.c_str());
 
 	}
-	void getMiWidth()
+	void getMiWidth()const
 	{
 		fprintf(mFile,"\"%s.mifr.miwd\"",mName.c_str());
 
 	}
-	void getMiHeight()
+	void getMiHeight()const
 	{
 		fprintf(mFile,"\"%s.mifr.mihg\"",mName.c_str());
 
 	}
-	void getMiDepth()
+	void getMiDepth()const
 	{
 		fprintf(mFile,"\"%s.mifr.midp\"",mName.c_str());
 
 	}
 protected:
-	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	MentalrayTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

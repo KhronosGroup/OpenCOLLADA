@@ -19,26 +19,27 @@ class RenderGlobalsList : public DependNode
 public:
 public:
 	RenderGlobalsList():DependNode(){}
-	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderGlobalsList"){}
+	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "renderGlobalsList", create){}
 	virtual ~RenderGlobalsList(){}
-	void getRenderGlobals(size_t rg_i)
+	void getRenderGlobals(size_t rg_i)const
 	{
 		fprintf(mFile,"\"%s.rg[%i]\"",mName.c_str(),rg_i);
 
 	}
-	void getRenderQualities(size_t rq_i)
+	void getRenderQualities(size_t rq_i)const
 	{
 		fprintf(mFile,"\"%s.rq[%i]\"",mName.c_str(),rq_i);
 
 	}
-	void getRenderResolutions(size_t rr_i)
+	void getRenderResolutions(size_t rr_i)const
 	{
 		fprintf(mFile,"\"%s.rr[%i]\"",mName.c_str(),rr_i);
 
 	}
 protected:
-	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RenderGlobalsList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

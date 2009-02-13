@@ -19,7 +19,8 @@ class DagPose : public DependNode
 public:
 public:
 	DagPose():DependNode(){}
-	DagPose(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "dagPose"){}
+	DagPose(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "dagPose", create){}
 	virtual ~DagPose(){}
 	void setWorldMatrix(size_t wm_i,const matrix& wm)
 	{
@@ -41,19 +42,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWorldMatrix(size_t wm_start,size_t wm_end)
+	void startWorldMatrix(size_t wm_start,size_t wm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wm[%i:%i]\"",wm_start,wm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendWorldMatrix(const matrix& wm)
+	void appendWorldMatrix(const matrix& wm)const
 	{
 		fprintf(mFile,"\n");
 		wm.write(mFile);
 
 	}
-	void endWorldMatrix()
+	void endWorldMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -78,19 +79,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startXformMatrix(size_t xm_start,size_t xm_end)
+	void startXformMatrix(size_t xm_start,size_t xm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".xm[%i:%i]\"",xm_start,xm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendXformMatrix(const matrix& xm)
+	void appendXformMatrix(const matrix& xm)const
 	{
 		fprintf(mFile,"\n");
 		xm.write(mFile);
 
 	}
-	void endXformMatrix()
+	void endXformMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -113,17 +114,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGlobal(size_t g_start,size_t g_end)
+	void startGlobal(size_t g_start,size_t g_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".g[%i:%i]\"",g_start,g_end);
 
 	}
-	void appendGlobal(bool g)
+	void appendGlobal(bool g)const
 	{
 		fprintf(mFile," %i",g);
 
 	}
-	void endGlobal()
+	void endGlobal()const
 	{
 		fprintf(mFile,";\n");
 
@@ -134,29 +135,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".bp\" %i;\n", bp);
 
 	}
-	void getWorldMatrix(size_t wm_i)
+	void getWorldMatrix(size_t wm_i)const
 	{
 		fprintf(mFile,"\"%s.wm[%i]\"",mName.c_str(),wm_i);
 
 	}
-	void getMembers(size_t m_i)
+	void getMembers(size_t m_i)const
 	{
 		fprintf(mFile,"\"%s.m[%i]\"",mName.c_str(),m_i);
 
 	}
-	void getParents(size_t p_i)
+	void getParents(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getWorld()
+	void getWorld()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
 protected:
-	DagPose(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DagPose(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

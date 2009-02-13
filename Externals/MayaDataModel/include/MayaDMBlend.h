@@ -19,7 +19,8 @@ class Blend : public DependNode
 public:
 public:
 	Blend():DependNode(){}
-	Blend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "blend"){}
+	Blend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "blend", create){}
 	virtual ~Blend(){}
 	void setInput(size_t i_i,double i_)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInput(size_t i_start,size_t i_end)
+	void startInput(size_t i_start,size_t i_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
 
 	}
-	void appendInput(double i)
+	void appendInput(double i)const
 	{
 		fprintf(mFile," %f",i);
 
 	}
-	void endInput()
+	void endInput()const
 	{
 		fprintf(mFile,";\n");
 
@@ -60,19 +61,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
-	void getInput(size_t i_i)
+	void getInput(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	Blend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Blend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PolySubdFace : public PolyModifier
 public:
 public:
 	PolySubdFace():PolyModifier(){}
-	PolySubdFace(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySubdFace"){}
+	PolySubdFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polySubdFace", create){}
 	virtual ~PolySubdFace(){}
 	void setDivisions(int dv)
 	{
@@ -51,34 +52,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".sbm\" %i;\n", sbm);
 
 	}
-	void getDivisions()
+	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getDivisionsU()
+	void getDivisionsU()const
 	{
 		fprintf(mFile,"\"%s.duv\"",mName.c_str());
 
 	}
-	void getDivisionsV()
+	void getDivisionsV()const
 	{
 		fprintf(mFile,"\"%s.dvv\"",mName.c_str());
 
 	}
-	void getMode()
+	void getMode()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getSubdMethod()
+	void getSubdMethod()const
 	{
 		fprintf(mFile,"\"%s.sbm\"",mName.c_str());
 
 	}
 protected:
-	PolySubdFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolySubdFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

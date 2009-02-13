@@ -19,7 +19,8 @@ class PolyBevel : public PolyModifierWorld
 public:
 public:
 	PolyBevel():PolyModifierWorld(){}
-	PolyBevel(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyBevel"){}
+	PolyBevel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyBevel", create){}
 	virtual ~PolyBevel(){}
 	void setOffsetAsFraction(bool oaf)
 	{
@@ -93,69 +94,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".ma\" %f;\n", ma);
 
 	}
-	void getOffsetAsFraction()
+	void getOffsetAsFraction()const
 	{
 		fprintf(mFile,"\"%s.oaf\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getRoundness()
+	void getRoundness()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getSegments()
+	void getSegments()const
 	{
 		fprintf(mFile,"\"%s.sg\"",mName.c_str());
 
 	}
-	void getAutoFit()
+	void getAutoFit()const
 	{
 		fprintf(mFile,"\"%s.af\"",mName.c_str());
 
 	}
-	void getAngleTolerance()
+	void getAngleTolerance()const
 	{
 		fprintf(mFile,"\"%s.at\"",mName.c_str());
 
 	}
-	void getFillNgons()
+	void getFillNgons()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getUvAssignment()
+	void getUvAssignment()const
 	{
 		fprintf(mFile,"\"%s.ua\"",mName.c_str());
 
 	}
-	void getMergeVertices()
+	void getMergeVertices()const
 	{
 		fprintf(mFile,"\"%s.mv\"",mName.c_str());
 
 	}
-	void getMergeVertexTolerance()
+	void getMergeVertexTolerance()const
 	{
 		fprintf(mFile,"\"%s.mvt\"",mName.c_str());
 
 	}
-	void getSmoothingAngle()
+	void getSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getMiteringAngle()
+	void getMiteringAngle()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
 protected:
-	PolyBevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyBevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class TrimWithBoundaries : public AbstractBaseCreate
 public:
 public:
 	TrimWithBoundaries():AbstractBaseCreate(){}
-	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "trimWithBoundaries"){}
+	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "trimWithBoundaries", create){}
 	virtual ~TrimWithBoundaries(){}
 	void setFlipNormal(bool fn)
 	{
@@ -39,39 +40,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".te\" %f;\n", te);
 
 	}
-	void getInputBoundaries(size_t ib_i)
+	void getInputBoundaries(size_t ib_i)const
 	{
 		fprintf(mFile,"\"%s.ib[%i]\"",mName.c_str(),ib_i);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getFlipNormal()
+	void getFlipNormal()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getTolerancePE()
+	void getTolerancePE()const
 	{
 		fprintf(mFile,"\"%s.tpe\"",mName.c_str());
 
 	}
-	void getToleranceE()
+	void getToleranceE()const
 	{
 		fprintf(mFile,"\"%s.te\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	TrimWithBoundaries(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -106,7 +106,8 @@ public:
 	};
 public:
 	Transform():DagNode(){}
-	Transform(FILE* file,const std::string& name,const std::string& parent=""):DagNode(file, name, parent, "transform"){}
+	Transform(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DagNode(file, name, parent, "transform", create){}
 	virtual ~Transform(){}
 	void setTranslate(const double3& t)
 	{
@@ -786,364 +787,364 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.mieg\" %i;\n", mieg);
 
 	}
-	void getTranslate()
+	void getTranslate()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getTranslateX()
+	void getTranslateX()const
 	{
 		fprintf(mFile,"\"%s.t.tx\"",mName.c_str());
 
 	}
-	void getTranslateY()
+	void getTranslateY()const
 	{
 		fprintf(mFile,"\"%s.t.ty\"",mName.c_str());
 
 	}
-	void getTranslateZ()
+	void getTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.t.tz\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRotateX()
+	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRotateY()
+	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRotateZ()
+	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getRotateOrder()
+	void getRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getScaleX()
+	void getScaleX()const
 	{
 		fprintf(mFile,"\"%s.s.sx\"",mName.c_str());
 
 	}
-	void getScaleY()
+	void getScaleY()const
 	{
 		fprintf(mFile,"\"%s.s.sy\"",mName.c_str());
 
 	}
-	void getScaleZ()
+	void getScaleZ()const
 	{
 		fprintf(mFile,"\"%s.s.sz\"",mName.c_str());
 
 	}
-	void getShear()
+	void getShear()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getShearXY()
+	void getShearXY()const
 	{
 		fprintf(mFile,"\"%s.sh.shxy\"",mName.c_str());
 
 	}
-	void getShearXZ()
+	void getShearXZ()const
 	{
 		fprintf(mFile,"\"%s.sh.shxz\"",mName.c_str());
 
 	}
-	void getShearYZ()
+	void getShearYZ()const
 	{
 		fprintf(mFile,"\"%s.sh.shyz\"",mName.c_str());
 
 	}
-	void getRotatePivot()
+	void getRotatePivot()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
 
 	}
-	void getRotatePivotX()
+	void getRotatePivotX()const
 	{
 		fprintf(mFile,"\"%s.rp.rpx\"",mName.c_str());
 
 	}
-	void getRotatePivotY()
+	void getRotatePivotY()const
 	{
 		fprintf(mFile,"\"%s.rp.rpy\"",mName.c_str());
 
 	}
-	void getRotatePivotZ()
+	void getRotatePivotZ()const
 	{
 		fprintf(mFile,"\"%s.rp.rpz\"",mName.c_str());
 
 	}
-	void getRotatePivotTranslate()
+	void getRotatePivotTranslate()const
 	{
 		fprintf(mFile,"\"%s.rpt\"",mName.c_str());
 
 	}
-	void getRotatePivotTranslateX()
+	void getRotatePivotTranslateX()const
 	{
 		fprintf(mFile,"\"%s.rpt.rptx\"",mName.c_str());
 
 	}
-	void getRotatePivotTranslateY()
+	void getRotatePivotTranslateY()const
 	{
 		fprintf(mFile,"\"%s.rpt.rpty\"",mName.c_str());
 
 	}
-	void getRotatePivotTranslateZ()
+	void getRotatePivotTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.rpt.rptz\"",mName.c_str());
 
 	}
-	void getScalePivot()
+	void getScalePivot()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getScalePivotX()
+	void getScalePivotX()const
 	{
 		fprintf(mFile,"\"%s.sp.spx\"",mName.c_str());
 
 	}
-	void getScalePivotY()
+	void getScalePivotY()const
 	{
 		fprintf(mFile,"\"%s.sp.spy\"",mName.c_str());
 
 	}
-	void getScalePivotZ()
+	void getScalePivotZ()const
 	{
 		fprintf(mFile,"\"%s.sp.spz\"",mName.c_str());
 
 	}
-	void getScalePivotTranslate()
+	void getScalePivotTranslate()const
 	{
 		fprintf(mFile,"\"%s.spt\"",mName.c_str());
 
 	}
-	void getScalePivotTranslateX()
+	void getScalePivotTranslateX()const
 	{
 		fprintf(mFile,"\"%s.spt.sptx\"",mName.c_str());
 
 	}
-	void getScalePivotTranslateY()
+	void getScalePivotTranslateY()const
 	{
 		fprintf(mFile,"\"%s.spt.spty\"",mName.c_str());
 
 	}
-	void getScalePivotTranslateZ()
+	void getScalePivotTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.spt.sptz\"",mName.c_str());
 
 	}
-	void getRotateAxis()
+	void getRotateAxis()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getRotateAxisX()
+	void getRotateAxisX()const
 	{
 		fprintf(mFile,"\"%s.ra.rax\"",mName.c_str());
 
 	}
-	void getRotateAxisY()
+	void getRotateAxisY()const
 	{
 		fprintf(mFile,"\"%s.ra.ray\"",mName.c_str());
 
 	}
-	void getRotateAxisZ()
+	void getRotateAxisZ()const
 	{
 		fprintf(mFile,"\"%s.ra.raz\"",mName.c_str());
 
 	}
-	void getTransMinusRotatePivot()
+	void getTransMinusRotatePivot()const
 	{
 		fprintf(mFile,"\"%s.tmrp\"",mName.c_str());
 
 	}
-	void getTransMinusRotatePivotX()
+	void getTransMinusRotatePivotX()const
 	{
 		fprintf(mFile,"\"%s.tmrp.tmrx\"",mName.c_str());
 
 	}
-	void getTransMinusRotatePivotY()
+	void getTransMinusRotatePivotY()const
 	{
 		fprintf(mFile,"\"%s.tmrp.tmry\"",mName.c_str());
 
 	}
-	void getTransMinusRotatePivotZ()
+	void getTransMinusRotatePivotZ()const
 	{
 		fprintf(mFile,"\"%s.tmrp.tmrz\"",mName.c_str());
 
 	}
-	void getGeometry()
+	void getGeometry()const
 	{
 		fprintf(mFile,"\"%s.g\"",mName.c_str());
 
 	}
-	void getXformMatrix()
+	void getXformMatrix()const
 	{
 		fprintf(mFile,"\"%s.xm\"",mName.c_str());
 
 	}
-	void getSelectHandle()
+	void getSelectHandle()const
 	{
 		fprintf(mFile,"\"%s.hdl\"",mName.c_str());
 
 	}
-	void getSelectHandleX()
+	void getSelectHandleX()const
 	{
 		fprintf(mFile,"\"%s.hdl.hdlx\"",mName.c_str());
 
 	}
-	void getSelectHandleY()
+	void getSelectHandleY()const
 	{
 		fprintf(mFile,"\"%s.hdl.hdly\"",mName.c_str());
 
 	}
-	void getSelectHandleZ()
+	void getSelectHandleZ()const
 	{
 		fprintf(mFile,"\"%s.hdl.hdlz\"",mName.c_str());
 
 	}
-	void getInheritsTransform()
+	void getInheritsTransform()const
 	{
 		fprintf(mFile,"\"%s.it\"",mName.c_str());
 
 	}
-	void getDisplayHandle()
+	void getDisplayHandle()const
 	{
 		fprintf(mFile,"\"%s.dh\"",mName.c_str());
 
 	}
-	void getDisplayScalePivot()
+	void getDisplayScalePivot()const
 	{
 		fprintf(mFile,"\"%s.dsp\"",mName.c_str());
 
 	}
-	void getDisplayRotatePivot()
+	void getDisplayRotatePivot()const
 	{
 		fprintf(mFile,"\"%s.drp\"",mName.c_str());
 
 	}
-	void getDisplayLocalAxis()
+	void getDisplayLocalAxis()const
 	{
 		fprintf(mFile,"\"%s.dla\"",mName.c_str());
 
 	}
-	void getDynamics()
+	void getDynamics()const
 	{
 		fprintf(mFile,"\"%s.dyn\"",mName.c_str());
 
 	}
-	void getShowManipDefault()
+	void getShowManipDefault()const
 	{
 		fprintf(mFile,"\"%s.smd\"",mName.c_str());
 
 	}
-	void getSpecifiedManipLocation()
+	void getSpecifiedManipLocation()const
 	{
 		fprintf(mFile,"\"%s.sml\"",mName.c_str());
 
 	}
-	void getRotateQuaternion()
+	void getRotateQuaternion()const
 	{
 		fprintf(mFile,"\"%s.rq\"",mName.c_str());
 
 	}
-	void getRotateQuaternionX()
+	void getRotateQuaternionX()const
 	{
 		fprintf(mFile,"\"%s.rq.rqx\"",mName.c_str());
 
 	}
-	void getRotateQuaternionY()
+	void getRotateQuaternionY()const
 	{
 		fprintf(mFile,"\"%s.rq.rqy\"",mName.c_str());
 
 	}
-	void getRotateQuaternionZ()
+	void getRotateQuaternionZ()const
 	{
 		fprintf(mFile,"\"%s.rq.rqz\"",mName.c_str());
 
 	}
-	void getRotateQuaternionW()
+	void getRotateQuaternionW()const
 	{
 		fprintf(mFile,"\"%s.rq.rqw\"",mName.c_str());
 
 	}
-	void getRotationInterpolation()
+	void getRotationInterpolation()const
 	{
 		fprintf(mFile,"\"%s.roi\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiDeriveFromMaya()
+	void getMiDeriveFromMaya()const
 	{
 		fprintf(mFile,"\"%s.mrc.dfm\"",mName.c_str());
 
 	}
-	void getMiHide()
+	void getMiHide()const
 	{
 		fprintf(mFile,"\"%s.mrc.hde\"",mName.c_str());
 
 	}
-	void getMiVisible()
+	void getMiVisible()const
 	{
 		fprintf(mFile,"\"%s.mrc.vsb\"",mName.c_str());
 
 	}
-	void getMiTrace()
+	void getMiTrace()const
 	{
 		fprintf(mFile,"\"%s.mrc.trc\"",mName.c_str());
 
 	}
-	void getMiShadow()
+	void getMiShadow()const
 	{
 		fprintf(mFile,"\"%s.mrc.shd\"",mName.c_str());
 
 	}
-	void getMiCaustic()
+	void getMiCaustic()const
 	{
 		fprintf(mFile,"\"%s.mrc.cst\"",mName.c_str());
 
 	}
-	void getMiGlobillum()
+	void getMiGlobillum()const
 	{
 		fprintf(mFile,"\"%s.mrc.glb\"",mName.c_str());
 
 	}
-	void getMiExportGeoShader()
+	void getMiExportGeoShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.mieg\"",mName.c_str());
 
 	}
-	void getMiGeoShader()
+	void getMiGeoShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.migs\"",mName.c_str());
 
 	}
 protected:
-	Transform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DagNode(file, name, parent, nodeType) {}
+	Transform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DagNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -30,7 +30,8 @@ public:
 	};
 public:
 	LineModifier():Shape(){}
-	LineModifier(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "lineModifier"){}
+	LineModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "lineModifier", create){}
 	virtual ~LineModifier(){}
 	void setShape(unsigned int shp)
 	{
@@ -214,164 +215,164 @@ public:
 		fprintf(mFile,"\tsetAttr \".drp[%i].drpi\" %i;\n", drp_i,drpi);
 
 	}
-	void getShape()
+	void getShape()const
 	{
 		fprintf(mFile,"\"%s.shp\"",mName.c_str());
 
 	}
-	void getWidthScale()
+	void getWidthScale()const
 	{
 		fprintf(mFile,"\"%s.wsc\"",mName.c_str());
 
 	}
-	void getWidthOffset()
+	void getWidthOffset()const
 	{
 		fprintf(mFile,"\"%s.wof\"",mName.c_str());
 
 	}
-	void getOpacityScale()
+	void getOpacityScale()const
 	{
 		fprintf(mFile,"\"%s.osc\"",mName.c_str());
 
 	}
-	void getOpacityOffset()
+	void getOpacityOffset()const
 	{
 		fprintf(mFile,"\"%s.oof\"",mName.c_str());
 
 	}
-	void getSurfaceOffset()
+	void getSurfaceOffset()const
 	{
 		fprintf(mFile,"\"%s.sof\"",mName.c_str());
 
 	}
-	void getLineExtend()
+	void getLineExtend()const
 	{
 		fprintf(mFile,"\"%s.lex\"",mName.c_str());
 
 	}
-	void getModifyColor()
+	void getModifyColor()const
 	{
 		fprintf(mFile,"\"%s.mcl\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.clr\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.clr.crr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.clr.crg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.clr.crb\"",mName.c_str());
 
 	}
-	void getTubeScale()
+	void getTubeScale()const
 	{
 		fprintf(mFile,"\"%s.tus\"",mName.c_str());
 
 	}
-	void getTubeDropout()
+	void getTubeDropout()const
 	{
 		fprintf(mFile,"\"%s.tud\"",mName.c_str());
 
 	}
-	void getBranchDropout()
+	void getBranchDropout()const
 	{
 		fprintf(mFile,"\"%s.bdp\"",mName.c_str());
 
 	}
-	void getTwigDropout()
+	void getTwigDropout()const
 	{
 		fprintf(mFile,"\"%s.tdp\"",mName.c_str());
 
 	}
-	void getLeafDropout()
+	void getLeafDropout()const
 	{
 		fprintf(mFile,"\"%s.ldp\"",mName.c_str());
 
 	}
-	void getFlowerDropout()
+	void getFlowerDropout()const
 	{
 		fprintf(mFile,"\"%s.fdp\"",mName.c_str());
 
 	}
-	void getLeafScale()
+	void getLeafScale()const
 	{
 		fprintf(mFile,"\"%s.lsc\"",mName.c_str());
 
 	}
-	void getFlowerScale()
+	void getFlowerScale()const
 	{
 		fprintf(mFile,"\"%s.fsc\"",mName.c_str());
 
 	}
-	void getForce()
+	void getForce()const
 	{
 		fprintf(mFile,"\"%s.frc\"",mName.c_str());
 
 	}
-	void getDirectionalForce()
+	void getDirectionalForce()const
 	{
 		fprintf(mFile,"\"%s.dfc\"",mName.c_str());
 
 	}
-	void getDisplacement()
+	void getDisplacement()const
 	{
 		fprintf(mFile,"\"%s.dsp\"",mName.c_str());
 
 	}
-	void getDirectionalDisplacement()
+	void getDirectionalDisplacement()const
 	{
 		fprintf(mFile,"\"%s.ddc\"",mName.c_str());
 
 	}
-	void getDropoffNoise()
+	void getDropoffNoise()const
 	{
 		fprintf(mFile,"\"%s.don\"",mName.c_str());
 
 	}
-	void getNoiseFrequency()
+	void getNoiseFrequency()const
 	{
 		fprintf(mFile,"\"%s.nfr\"",mName.c_str());
 
 	}
-	void getDropoff(size_t drp_i)
+	void getDropoff(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i]\"",mName.c_str(),drp_i);
 
 	}
-	void getDropoff_Position(size_t drp_i)
+	void getDropoff_Position(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i].drpp\"",mName.c_str(),drp_i);
 
 	}
-	void getDropoff_FloatValue(size_t drp_i)
+	void getDropoff_FloatValue(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i].drpfv\"",mName.c_str(),drp_i);
 
 	}
-	void getDropoff_Interp(size_t drp_i)
+	void getDropoff_Interp(size_t drp_i)const
 	{
 		fprintf(mFile,"\"%s.drp[%i].drpi\"",mName.c_str(),drp_i);
 
 	}
-	void getOutLineModifier(size_t olm_i)
+	void getOutLineModifier(size_t olm_i)const
 	{
 		fprintf(mFile,"\"%s.olm[%i]\"",mName.c_str(),olm_i);
 
 	}
 protected:
-	LineModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	LineModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

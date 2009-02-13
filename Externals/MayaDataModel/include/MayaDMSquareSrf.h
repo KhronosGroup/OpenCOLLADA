@@ -19,7 +19,8 @@ class SquareSrf : public BoundaryBase
 public:
 public:
 	SquareSrf():BoundaryBase(){}
-	SquareSrf(FILE* file,const std::string& name,const std::string& parent=""):BoundaryBase(file, name, parent, "squareSrf"){}
+	SquareSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BoundaryBase(file, name, parent, "squareSrf", create){}
 	virtual ~SquareSrf(){}
 	void setCurveFitCheckpoints(int cfc)
 	{
@@ -75,74 +76,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".rc4\" %i;\n", rc4);
 
 	}
-	void getCurveFitCheckpoints()
+	void getCurveFitCheckpoints()const
 	{
 		fprintf(mFile,"\"%s.cfc\"",mName.c_str());
 
 	}
-	void getContinuityType1()
+	void getContinuityType1()const
 	{
 		fprintf(mFile,"\"%s.ct1\"",mName.c_str());
 
 	}
-	void getContinuityType2()
+	void getContinuityType2()const
 	{
 		fprintf(mFile,"\"%s.ct2\"",mName.c_str());
 
 	}
-	void getContinuityType3()
+	void getContinuityType3()const
 	{
 		fprintf(mFile,"\"%s.ct3\"",mName.c_str());
 
 	}
-	void getContinuityType4()
+	void getContinuityType4()const
 	{
 		fprintf(mFile,"\"%s.ct4\"",mName.c_str());
 
 	}
-	void getRebuildCurve1()
+	void getRebuildCurve1()const
 	{
 		fprintf(mFile,"\"%s.rc1\"",mName.c_str());
 
 	}
-	void getRebuildCurve2()
+	void getRebuildCurve2()const
 	{
 		fprintf(mFile,"\"%s.rc2\"",mName.c_str());
 
 	}
-	void getRebuildCurve3()
+	void getRebuildCurve3()const
 	{
 		fprintf(mFile,"\"%s.rc3\"",mName.c_str());
 
 	}
-	void getRebuildCurve4()
+	void getRebuildCurve4()const
 	{
 		fprintf(mFile,"\"%s.rc4\"",mName.c_str());
 
 	}
-	void getContinuityPassed1()
+	void getContinuityPassed1()const
 	{
 		fprintf(mFile,"\"%s.cp1\"",mName.c_str());
 
 	}
-	void getContinuityPassed2()
+	void getContinuityPassed2()const
 	{
 		fprintf(mFile,"\"%s.cp2\"",mName.c_str());
 
 	}
-	void getContinuityPassed3()
+	void getContinuityPassed3()const
 	{
 		fprintf(mFile,"\"%s.cp3\"",mName.c_str());
 
 	}
-	void getContinuityPassed4()
+	void getContinuityPassed4()const
 	{
 		fprintf(mFile,"\"%s.cp4\"",mName.c_str());
 
 	}
 protected:
-	SquareSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BoundaryBase(file, name, parent, nodeType) {}
+	SquareSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BoundaryBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

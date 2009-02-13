@@ -19,7 +19,8 @@ class Nucleus : public DependNode
 public:
 public:
 	Nucleus():DependNode(){}
-	Nucleus(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "nucleus"){}
+	Nucleus(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "nucleus", create){}
 	virtual ~Nucleus(){}
 	void setStartFrame(double stf)
 	{
@@ -223,219 +224,219 @@ public:
 		fprintf(mFile,"\tsetAttr \".spsc\" %f;\n", spsc);
 
 	}
-	void getInputStart(size_t is_i)
+	void getInputStart(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
-	void getInputCurrent(size_t ic_i)
+	void getInputCurrent(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
-	void getInputActive(size_t niao_i)
+	void getInputActive(size_t niao_i)const
 	{
 		fprintf(mFile,"\"%s.niao[%i]\"",mName.c_str(),niao_i);
 
 	}
-	void getInputPassive(size_t nipo_i)
+	void getInputPassive(size_t nipo_i)const
 	{
 		fprintf(mFile,"\"%s.nipo[%i]\"",mName.c_str(),nipo_i);
 
 	}
-	void getInputActiveStart(size_t nias_i)
+	void getInputActiveStart(size_t nias_i)const
 	{
 		fprintf(mFile,"\"%s.nias[%i]\"",mName.c_str(),nias_i);
 
 	}
-	void getInputPassiveStart(size_t nips_i)
+	void getInputPassiveStart(size_t nips_i)const
 	{
 		fprintf(mFile,"\"%s.nips[%i]\"",mName.c_str(),nips_i);
 
 	}
-	void getOutputObjects(size_t noao_i)
+	void getOutputObjects(size_t noao_i)const
 	{
 		fprintf(mFile,"\"%s.noao[%i]\"",mName.c_str(),noao_i);
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.sti\"",mName.c_str());
 
 	}
-	void getStartFrame()
+	void getStartFrame()const
 	{
 		fprintf(mFile,"\"%s.stf\"",mName.c_str());
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.ena\"",mName.c_str());
 
 	}
-	void getGravity()
+	void getGravity()const
 	{
 		fprintf(mFile,"\"%s.grty\"",mName.c_str());
 
 	}
-	void getGravityDirection()
+	void getGravityDirection()const
 	{
 		fprintf(mFile,"\"%s.grdi\"",mName.c_str());
 
 	}
-	void getGravityDirectionX()
+	void getGravityDirectionX()const
 	{
 		fprintf(mFile,"\"%s.grdi.grdx\"",mName.c_str());
 
 	}
-	void getGravityDirectionY()
+	void getGravityDirectionY()const
 	{
 		fprintf(mFile,"\"%s.grdi.grdy\"",mName.c_str());
 
 	}
-	void getGravityDirectionZ()
+	void getGravityDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.grdi.grdz\"",mName.c_str());
 
 	}
-	void getAirDensity()
+	void getAirDensity()const
 	{
 		fprintf(mFile,"\"%s.ady\"",mName.c_str());
 
 	}
-	void getWindSpeed()
+	void getWindSpeed()const
 	{
 		fprintf(mFile,"\"%s.wisp\"",mName.c_str());
 
 	}
-	void getWindDirection()
+	void getWindDirection()const
 	{
 		fprintf(mFile,"\"%s.widi\"",mName.c_str());
 
 	}
-	void getWindDirectionX()
+	void getWindDirectionX()const
 	{
 		fprintf(mFile,"\"%s.widi.widx\"",mName.c_str());
 
 	}
-	void getWindDirectionY()
+	void getWindDirectionY()const
 	{
 		fprintf(mFile,"\"%s.widi.widy\"",mName.c_str());
 
 	}
-	void getWindDirectionZ()
+	void getWindDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.widi.widz\"",mName.c_str());
 
 	}
-	void getWindNoise()
+	void getWindNoise()const
 	{
 		fprintf(mFile,"\"%s.wnoi\"",mName.c_str());
 
 	}
-	void getCollisionLayerRange()
+	void getCollisionLayerRange()const
 	{
 		fprintf(mFile,"\"%s.clra\"",mName.c_str());
 
 	}
-	void getCollisionSoftness()
+	void getCollisionSoftness()const
 	{
 		fprintf(mFile,"\"%s.clso\"",mName.c_str());
 
 	}
-	void getUsePlane()
+	void getUsePlane()const
 	{
 		fprintf(mFile,"\"%s.nupl\"",mName.c_str());
 
 	}
-	void getPlaneOrigin()
+	void getPlaneOrigin()const
 	{
 		fprintf(mFile,"\"%s.npor\"",mName.c_str());
 
 	}
-	void getPlaneOriginX()
+	void getPlaneOriginX()const
 	{
 		fprintf(mFile,"\"%s.npor.npox\"",mName.c_str());
 
 	}
-	void getPlaneOriginY()
+	void getPlaneOriginY()const
 	{
 		fprintf(mFile,"\"%s.npor.npoy\"",mName.c_str());
 
 	}
-	void getPlaneOriginZ()
+	void getPlaneOriginZ()const
 	{
 		fprintf(mFile,"\"%s.npor.npoz\"",mName.c_str());
 
 	}
-	void getPlaneNormal()
+	void getPlaneNormal()const
 	{
 		fprintf(mFile,"\"%s.npun\"",mName.c_str());
 
 	}
-	void getPlaneNormalX()
+	void getPlaneNormalX()const
 	{
 		fprintf(mFile,"\"%s.npun.npnx\"",mName.c_str());
 
 	}
-	void getPlaneNormalY()
+	void getPlaneNormalY()const
 	{
 		fprintf(mFile,"\"%s.npun.npny\"",mName.c_str());
 
 	}
-	void getPlaneNormalZ()
+	void getPlaneNormalZ()const
 	{
 		fprintf(mFile,"\"%s.npun.npnz\"",mName.c_str());
 
 	}
-	void getPlaneBounce()
+	void getPlaneBounce()const
 	{
 		fprintf(mFile,"\"%s.npbc\"",mName.c_str());
 
 	}
-	void getPlaneFriction()
+	void getPlaneFriction()const
 	{
 		fprintf(mFile,"\"%s.npfr\"",mName.c_str());
 
 	}
-	void getSubSteps()
+	void getSubSteps()const
 	{
 		fprintf(mFile,"\"%s.sstp\"",mName.c_str());
 
 	}
-	void getMaxCollisionIterations()
+	void getMaxCollisionIterations()const
 	{
 		fprintf(mFile,"\"%s.mcit\"",mName.c_str());
 
 	}
-	void getCollisionFlag()
+	void getCollisionFlag()const
 	{
 		fprintf(mFile,"\"%s.cofl\"",mName.c_str());
 
 	}
-	void getSelfCollisionFlag()
+	void getSelfCollisionFlag()const
 	{
 		fprintf(mFile,"\"%s.scfl\"",mName.c_str());
 
 	}
-	void getTimeScale()
+	void getTimeScale()const
 	{
 		fprintf(mFile,"\"%s.tisc\"",mName.c_str());
 
 	}
-	void getSpaceScale()
+	void getSpaceScale()const
 	{
 		fprintf(mFile,"\"%s.spsc\"",mName.c_str());
 
 	}
 protected:
-	Nucleus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Nucleus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

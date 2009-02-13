@@ -19,21 +19,22 @@ class GeometryVarGroup : public BaseGeometryVarGroup
 public:
 public:
 	GeometryVarGroup():BaseGeometryVarGroup(){}
-	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent=""):BaseGeometryVarGroup(file, name, parent, "geometryVarGroup"){}
+	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, "geometryVarGroup", create){}
 	virtual ~GeometryVarGroup(){}
-	void getCreate(size_t cr_i)
+	void getCreate(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
 
 	}
-	void getLocal(size_t l_i)
+	void getLocal(size_t l_i)const
 	{
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
 
 	}
 protected:
-	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BaseGeometryVarGroup(file, name, parent, nodeType) {}
+	GeometryVarGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BaseGeometryVarGroup(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

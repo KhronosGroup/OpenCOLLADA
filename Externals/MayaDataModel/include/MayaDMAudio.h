@@ -19,7 +19,8 @@ class Audio : public DependNode
 public:
 public:
 	Audio():DependNode(){}
-	Audio(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "audio"){}
+	Audio(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "audio", create){}
 	virtual ~Audio(){}
 	void setFilename(const string& f)
 	{
@@ -35,24 +36,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".r\" %i;\n", r);
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getFilename()
+	void getFilename()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getOrder()
+	void getOrder()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
 protected:
-	Audio(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Audio(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class EnvFog : public LightFog
 public:
 public:
 	EnvFog():LightFog(){}
-	EnvFog(FILE* file,const std::string& name,const std::string& parent=""):LightFog(file, name, parent, "envFog"){}
+	EnvFog(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:LightFog(file, name, parent, "envFog", create){}
 	virtual ~EnvFog(){}
 	void setDistanceClipPlanes(unsigned int dcp)
 	{
@@ -406,389 +407,389 @@ public:
 		fprintf(mFile,"\tsetAttr \".snc.snb\" %f;\n", snb);
 
 	}
-	void getMatrixEyeToWorld()
+	void getMatrixEyeToWorld()const
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getPointWorld()
+	void getPointWorld()const
 	{
 		fprintf(mFile,"\"%s.pw\"",mName.c_str());
 
 	}
-	void getPointWorldX()
+	void getPointWorldX()const
 	{
 		fprintf(mFile,"\"%s.pw.pwx\"",mName.c_str());
 
 	}
-	void getPointWorldY()
+	void getPointWorldY()const
 	{
 		fprintf(mFile,"\"%s.pw.pwy\"",mName.c_str());
 
 	}
-	void getPointWorldZ()
+	void getPointWorldZ()const
 	{
 		fprintf(mFile,"\"%s.pw.pwz\"",mName.c_str());
 
 	}
-	void getRayDirection()
+	void getRayDirection()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRayDirectionX()
+	void getRayDirectionX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRayDirectionY()
+	void getRayDirectionY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRayDirectionZ()
+	void getRayDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getDistanceClipPlanes()
+	void getDistanceClipPlanes()const
 	{
 		fprintf(mFile,"\"%s.dcp\"",mName.c_str());
 
 	}
-	void getUseLayer()
+	void getUseLayer()const
 	{
 		fprintf(mFile,"\"%s.ul\"",mName.c_str());
 
 	}
-	void getUseHeight()
+	void getUseHeight()const
 	{
 		fprintf(mFile,"\"%s.uh\"",mName.c_str());
 
 	}
-	void getBlendRange()
+	void getBlendRange()const
 	{
 		fprintf(mFile,"\"%s.br\"",mName.c_str());
 
 	}
-	void getSaturationDistance()
+	void getSaturationDistance()const
 	{
 		fprintf(mFile,"\"%s.sdt\"",mName.c_str());
 
 	}
-	void getFogNearDistance()
+	void getFogNearDistance()const
 	{
 		fprintf(mFile,"\"%s.fnd\"",mName.c_str());
 
 	}
-	void getFogFarDistance()
+	void getFogFarDistance()const
 	{
 		fprintf(mFile,"\"%s.ffd\"",mName.c_str());
 
 	}
-	void getLayer()
+	void getLayer()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getMinHeight()
+	void getMinHeight()const
 	{
 		fprintf(mFile,"\"%s.mnh\"",mName.c_str());
 
 	}
-	void getMaxHeight()
+	void getMaxHeight()const
 	{
 		fprintf(mFile,"\"%s.mxh\"",mName.c_str());
 
 	}
-	void getUseDistance()
+	void getUseDistance()const
 	{
 		fprintf(mFile,"\"%s.ud\"",mName.c_str());
 
 	}
-	void getStartDistance()
+	void getStartDistance()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
-	void getEndDistance()
+	void getEndDistance()const
 	{
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
 
 	}
-	void getPhysicalFog()
+	void getPhysicalFog()const
 	{
 		fprintf(mFile,"\"%s.sff\"",mName.c_str());
 
 	}
-	void getFogType()
+	void getFogType()const
 	{
 		fprintf(mFile,"\"%s.ftp\"",mName.c_str());
 
 	}
-	void getFogDensity()
+	void getFogDensity()const
 	{
 		fprintf(mFile,"\"%s.fdn\"",mName.c_str());
 
 	}
-	void getFogColor()
+	void getFogColor()const
 	{
 		fprintf(mFile,"\"%s.fcl\"",mName.c_str());
 
 	}
-	void getFogColorR()
+	void getFogColorR()const
 	{
 		fprintf(mFile,"\"%s.fcl.fcr\"",mName.c_str());
 
 	}
-	void getFogColorG()
+	void getFogColorG()const
 	{
 		fprintf(mFile,"\"%s.fcl.fcg\"",mName.c_str());
 
 	}
-	void getFogColorB()
+	void getFogColorB()const
 	{
 		fprintf(mFile,"\"%s.fcl.fcb\"",mName.c_str());
 
 	}
-	void getFogOpacity()
+	void getFogOpacity()const
 	{
 		fprintf(mFile,"\"%s.fop\"",mName.c_str());
 
 	}
-	void getFogOpacityR()
+	void getFogOpacityR()const
 	{
 		fprintf(mFile,"\"%s.fop.for\"",mName.c_str());
 
 	}
-	void getFogOpacityG()
+	void getFogOpacityG()const
 	{
 		fprintf(mFile,"\"%s.fop.fog\"",mName.c_str());
 
 	}
-	void getFogOpacityB()
+	void getFogOpacityB()const
 	{
 		fprintf(mFile,"\"%s.fop.fob\"",mName.c_str());
 
 	}
-	void getFogMinHeight()
+	void getFogMinHeight()const
 	{
 		fprintf(mFile,"\"%s.fmh\"",mName.c_str());
 
 	}
-	void getFogMaxHeight()
+	void getFogMaxHeight()const
 	{
 		fprintf(mFile,"\"%s.fxh\"",mName.c_str());
 
 	}
-	void getFogDecay()
+	void getFogDecay()const
 	{
 		fprintf(mFile,"\"%s.fdc\"",mName.c_str());
 
 	}
-	void getFogLightScatter()
+	void getFogLightScatter()const
 	{
 		fprintf(mFile,"\"%s.flc\"",mName.c_str());
 
 	}
-	void getAirDensity()
+	void getAirDensity()const
 	{
 		fprintf(mFile,"\"%s.adn\"",mName.c_str());
 
 	}
-	void getAirColor()
+	void getAirColor()const
 	{
 		fprintf(mFile,"\"%s.acl\"",mName.c_str());
 
 	}
-	void getAirColorR()
+	void getAirColorR()const
 	{
 		fprintf(mFile,"\"%s.acl.acr\"",mName.c_str());
 
 	}
-	void getAirColorG()
+	void getAirColorG()const
 	{
 		fprintf(mFile,"\"%s.acl.acg\"",mName.c_str());
 
 	}
-	void getAirColorB()
+	void getAirColorB()const
 	{
 		fprintf(mFile,"\"%s.acl.acb\"",mName.c_str());
 
 	}
-	void getAirOpacity()
+	void getAirOpacity()const
 	{
 		fprintf(mFile,"\"%s.aop\"",mName.c_str());
 
 	}
-	void getAirOpacityR()
+	void getAirOpacityR()const
 	{
 		fprintf(mFile,"\"%s.aop.aor\"",mName.c_str());
 
 	}
-	void getAirOpacityG()
+	void getAirOpacityG()const
 	{
 		fprintf(mFile,"\"%s.aop.aog\"",mName.c_str());
 
 	}
-	void getAirOpacityB()
+	void getAirOpacityB()const
 	{
 		fprintf(mFile,"\"%s.aop.aob\"",mName.c_str());
 
 	}
-	void getAirMinHeight()
+	void getAirMinHeight()const
 	{
 		fprintf(mFile,"\"%s.amh\"",mName.c_str());
 
 	}
-	void getAirMaxHeight()
+	void getAirMaxHeight()const
 	{
 		fprintf(mFile,"\"%s.axh\"",mName.c_str());
 
 	}
-	void getAirDecay()
+	void getAirDecay()const
 	{
 		fprintf(mFile,"\"%s.adc\"",mName.c_str());
 
 	}
-	void getAirLightScatter()
+	void getAirLightScatter()const
 	{
 		fprintf(mFile,"\"%s.alc\"",mName.c_str());
 
 	}
-	void getWaterDensity()
+	void getWaterDensity()const
 	{
 		fprintf(mFile,"\"%s.wdn\"",mName.c_str());
 
 	}
-	void getWaterColor()
+	void getWaterColor()const
 	{
 		fprintf(mFile,"\"%s.wcl\"",mName.c_str());
 
 	}
-	void getWaterColorR()
+	void getWaterColorR()const
 	{
 		fprintf(mFile,"\"%s.wcl.wcr\"",mName.c_str());
 
 	}
-	void getWaterColorG()
+	void getWaterColorG()const
 	{
 		fprintf(mFile,"\"%s.wcl.wcg\"",mName.c_str());
 
 	}
-	void getWaterColorB()
+	void getWaterColorB()const
 	{
 		fprintf(mFile,"\"%s.wcl.wcb\"",mName.c_str());
 
 	}
-	void getWaterOpacity()
+	void getWaterOpacity()const
 	{
 		fprintf(mFile,"\"%s.wop\"",mName.c_str());
 
 	}
-	void getWaterOpacityR()
+	void getWaterOpacityR()const
 	{
 		fprintf(mFile,"\"%s.wop.wor\"",mName.c_str());
 
 	}
-	void getWaterOpacityG()
+	void getWaterOpacityG()const
 	{
 		fprintf(mFile,"\"%s.wop.wog\"",mName.c_str());
 
 	}
-	void getWaterOpacityB()
+	void getWaterOpacityB()const
 	{
 		fprintf(mFile,"\"%s.wop.wob\"",mName.c_str());
 
 	}
-	void getWaterLevel()
+	void getWaterLevel()const
 	{
 		fprintf(mFile,"\"%s.wlv\"",mName.c_str());
 
 	}
-	void getWaterDepth()
+	void getWaterDepth()const
 	{
 		fprintf(mFile,"\"%s.wdp\"",mName.c_str());
 
 	}
-	void getWaterLightDecay()
+	void getWaterLightDecay()const
 	{
 		fprintf(mFile,"\"%s.wdc\"",mName.c_str());
 
 	}
-	void getWaterLightScatter()
+	void getWaterLightScatter()const
 	{
 		fprintf(mFile,"\"%s.wlc\"",mName.c_str());
 
 	}
-	void getPlanetRadius()
+	void getPlanetRadius()const
 	{
 		fprintf(mFile,"\"%s.prd\"",mName.c_str());
 
 	}
-	void getFogAxis()
+	void getFogAxis()const
 	{
 		fprintf(mFile,"\"%s.fax\"",mName.c_str());
 
 	}
-	void getSunIntensity()
+	void getSunIntensity()const
 	{
 		fprintf(mFile,"\"%s.sin\"",mName.c_str());
 
 	}
-	void getSunAzimuth()
+	void getSunAzimuth()const
 	{
 		fprintf(mFile,"\"%s.saz\"",mName.c_str());
 
 	}
-	void getSunElevation()
+	void getSunElevation()const
 	{
 		fprintf(mFile,"\"%s.sel\"",mName.c_str());
 
 	}
-	void getSunColor()
+	void getSunColor()const
 	{
 		fprintf(mFile,"\"%s.snc\"",mName.c_str());
 
 	}
-	void getSunColorR()
+	void getSunColorR()const
 	{
 		fprintf(mFile,"\"%s.snc.snr\"",mName.c_str());
 
 	}
-	void getSunColorG()
+	void getSunColorG()const
 	{
 		fprintf(mFile,"\"%s.snc.sng\"",mName.c_str());
 
 	}
-	void getSunColorB()
+	void getSunColorB()const
 	{
 		fprintf(mFile,"\"%s.snc.snb\"",mName.c_str());
 
 	}
 protected:
-	EnvFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:LightFog(file, name, parent, nodeType) {}
+	EnvFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:LightFog(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

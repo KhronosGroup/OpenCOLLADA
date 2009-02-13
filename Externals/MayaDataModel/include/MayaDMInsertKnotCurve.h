@@ -19,7 +19,8 @@ class InsertKnotCurve : public AbstractBaseCreate
 public:
 public:
 	InsertKnotCurve():AbstractBaseCreate(){}
-	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "insertKnotCurve"){}
+	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "insertKnotCurve", create){}
 	virtual ~InsertKnotCurve(){}
 	void setParameter(size_t p_i,double p)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startParameter(size_t p_start,size_t p_end)
+	void startParameter(size_t p_start,size_t p_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".p[%i:%i]\"",p_start,p_end);
 
 	}
-	void appendParameter(double p)
+	void appendParameter(double p)const
 	{
 		fprintf(mFile," %f",p);
 
 	}
-	void endParameter()
+	void endParameter()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,17 +73,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startNumberOfKnots(size_t nk_start,size_t nk_end)
+	void startNumberOfKnots(size_t nk_start,size_t nk_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".nk[%i:%i]\"",nk_start,nk_end);
 
 	}
-	void appendNumberOfKnots(int nk)
+	void appendNumberOfKnots(int nk)const
 	{
 		fprintf(mFile," %i",nk);
 
 	}
-	void endNumberOfKnots()
+	void endNumberOfKnots()const
 	{
 		fprintf(mFile,";\n");
 
@@ -99,39 +100,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".ib\" %i;\n", ib);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getParameter(size_t p_i)
+	void getParameter(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getNumberOfKnots(size_t nk_i)
+	void getNumberOfKnots(size_t nk_i)const
 	{
 		fprintf(mFile,"\"%s.nk[%i]\"",mName.c_str(),nk_i);
 
 	}
-	void getAddKnots()
+	void getAddKnots()const
 	{
 		fprintf(mFile,"\"%s.add\"",mName.c_str());
 
 	}
-	void getInsertBetween()
+	void getInsertBetween()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	InsertKnotCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

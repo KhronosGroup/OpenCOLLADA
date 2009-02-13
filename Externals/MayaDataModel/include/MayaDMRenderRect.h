@@ -18,11 +18,12 @@ class RenderRect : public GeometryShape
 {
 public:
 	RenderRect():GeometryShape(){}
-	RenderRect(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "renderRect"){}
+	RenderRect(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryShape(file, name, parent, "renderRect", create){}
 	virtual ~RenderRect(){}
 protected:
-	RenderRect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryShape(file, name, parent, nodeType) {}
+	RenderRect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

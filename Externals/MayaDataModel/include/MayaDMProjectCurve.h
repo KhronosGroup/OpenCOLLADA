@@ -19,7 +19,8 @@ class ProjectCurve : public AbstractBaseCreate
 public:
 public:
 	ProjectCurve():AbstractBaseCreate(){}
-	ProjectCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "projectCurve"){}
+	ProjectCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "projectCurve", create){}
 	virtual ~ProjectCurve(){}
 	void setDirection(const double3& d)
 	{
@@ -58,54 +59,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".un\" %i;\n", un);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getOutputCurve(size_t oc_i)
+	void getOutputCurve(size_t oc_i)const
 	{
 		fprintf(mFile,"\"%s.oc[%i]\"",mName.c_str(),oc_i);
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getUseNormal()
+	void getUseNormal()const
 	{
 		fprintf(mFile,"\"%s.un\"",mName.c_str());
 
 	}
 protected:
-	ProjectCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	ProjectCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

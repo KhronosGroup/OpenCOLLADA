@@ -19,7 +19,8 @@ class FilletCurve : public AbstractBaseCreate
 public:
 public:
 	FilletCurve():AbstractBaseCreate(){}
-	FilletCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "filletCurve"){}
+	FilletCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "filletCurve", create){}
 	virtual ~FilletCurve(){}
 	void setRadius(double r)
 	{
@@ -81,84 +82,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".bc\" %i;\n", bc);
 
 	}
-	void getPrimaryCurve()
+	void getPrimaryCurve()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getSecondaryCurve()
+	void getSecondaryCurve()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getDetachedCurve1()
+	void getDetachedCurve1()const
 	{
 		fprintf(mFile,"\"%s.dc1\"",mName.c_str());
 
 	}
-	void getDetachedCurve2()
+	void getDetachedCurve2()const
 	{
 		fprintf(mFile,"\"%s.dc2\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getBias()
+	void getBias()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getCurveParameter1()
+	void getCurveParameter1()const
 	{
 		fprintf(mFile,"\"%s.cp1\"",mName.c_str());
 
 	}
-	void getCurveParameter2()
+	void getCurveParameter2()const
 	{
 		fprintf(mFile,"\"%s.cp2\"",mName.c_str());
 
 	}
-	void getTrim()
+	void getTrim()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getJoin()
+	void getJoin()const
 	{
 		fprintf(mFile,"\"%s.jn\"",mName.c_str());
 
 	}
-	void getCircular()
+	void getCircular()const
 	{
 		fprintf(mFile,"\"%s.cir\"",mName.c_str());
 
 	}
-	void getFreeformBlend()
+	void getFreeformBlend()const
 	{
 		fprintf(mFile,"\"%s.fb\"",mName.c_str());
 
 	}
-	void getBlendControl()
+	void getBlendControl()const
 	{
 		fprintf(mFile,"\"%s.bc\"",mName.c_str());
 
 	}
 protected:
-	FilletCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	FilletCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

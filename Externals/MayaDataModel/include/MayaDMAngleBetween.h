@@ -24,7 +24,8 @@ public:
 	};
 public:
 	AngleBetween():DependNode(){}
-	AngleBetween(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "angleBetween"){}
+	AngleBetween(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "angleBetween", create){}
 	virtual ~AngleBetween(){}
 	void setVector1(const double3& v1)
 	{
@@ -76,99 +77,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".v2.v2z\" %f;\n", v2z);
 
 	}
-	void getVector1()
+	void getVector1()const
 	{
 		fprintf(mFile,"\"%s.v1\"",mName.c_str());
 
 	}
-	void getVector1X()
+	void getVector1X()const
 	{
 		fprintf(mFile,"\"%s.v1.v1x\"",mName.c_str());
 
 	}
-	void getVector1Y()
+	void getVector1Y()const
 	{
 		fprintf(mFile,"\"%s.v1.v1y\"",mName.c_str());
 
 	}
-	void getVector1Z()
+	void getVector1Z()const
 	{
 		fprintf(mFile,"\"%s.v1.v1z\"",mName.c_str());
 
 	}
-	void getVector2()
+	void getVector2()const
 	{
 		fprintf(mFile,"\"%s.v2\"",mName.c_str());
 
 	}
-	void getVector2X()
+	void getVector2X()const
 	{
 		fprintf(mFile,"\"%s.v2.v2x\"",mName.c_str());
 
 	}
-	void getVector2Y()
+	void getVector2Y()const
 	{
 		fprintf(mFile,"\"%s.v2.v2y\"",mName.c_str());
 
 	}
-	void getVector2Z()
+	void getVector2Z()const
 	{
 		fprintf(mFile,"\"%s.v2.v2z\"",mName.c_str());
 
 	}
-	void getEuler()
+	void getEuler()const
 	{
 		fprintf(mFile,"\"%s.eu\"",mName.c_str());
 
 	}
-	void getEulerX()
+	void getEulerX()const
 	{
 		fprintf(mFile,"\"%s.eu.eux\"",mName.c_str());
 
 	}
-	void getEulerY()
+	void getEulerY()const
 	{
 		fprintf(mFile,"\"%s.eu.euy\"",mName.c_str());
 
 	}
-	void getEulerZ()
+	void getEulerZ()const
 	{
 		fprintf(mFile,"\"%s.eu.euz\"",mName.c_str());
 
 	}
-	void getAxisAngle()
+	void getAxisAngle()const
 	{
 		fprintf(mFile,"\"%s.axa\"",mName.c_str());
 
 	}
-	void getAxis()
+	void getAxis()const
 	{
 		fprintf(mFile,"\"%s.axa.ax\"",mName.c_str());
 
 	}
-	void getAxisX()
+	void getAxisX()const
 	{
 		fprintf(mFile,"\"%s.axa.ax.axx\"",mName.c_str());
 
 	}
-	void getAxisY()
+	void getAxisY()const
 	{
 		fprintf(mFile,"\"%s.axa.ax.axy\"",mName.c_str());
 
 	}
-	void getAxisZ()
+	void getAxisZ()const
 	{
 		fprintf(mFile,"\"%s.axa.ax.axz\"",mName.c_str());
 
 	}
-	void getAngle()
+	void getAngle()const
 	{
 		fprintf(mFile,"\"%s.axa.a\"",mName.c_str());
 
 	}
 protected:
-	AngleBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	AngleBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

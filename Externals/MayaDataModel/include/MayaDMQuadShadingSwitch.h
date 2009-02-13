@@ -51,7 +51,8 @@ public:
 	};
 public:
 	QuadShadingSwitch():BaseShadingSwitch(){}
-	QuadShadingSwitch(FILE* file,const std::string& name,const std::string& parent=""):BaseShadingSwitch(file, name, parent, "quadShadingSwitch"){}
+	QuadShadingSwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BaseShadingSwitch(file, name, parent, "quadShadingSwitch", create){}
 	virtual ~QuadShadingSwitch(){}
 	void setInput(size_t i_i,const Input& i_)
 	{
@@ -137,109 +138,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".def.dsi\" %f;\n", dsi);
 
 	}
-	void getInput(size_t i_i)
+	void getInput(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getInQuad(size_t i_i)
+	void getInQuad(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].iq\"",mName.c_str(),i_i);
 
 	}
-	void getInTriple(size_t i_i)
+	void getInTriple(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].iq.itr\"",mName.c_str(),i_i);
 
 	}
-	void getInComp1(size_t i_i)
+	void getInComp1(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].iq.itr.ic1\"",mName.c_str(),i_i);
 
 	}
-	void getInComp2(size_t i_i)
+	void getInComp2(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].iq.itr.ic2\"",mName.c_str(),i_i);
 
 	}
-	void getInComp3(size_t i_i)
+	void getInComp3(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].iq.itr.ic3\"",mName.c_str(),i_i);
 
 	}
-	void getInSingle(size_t i_i)
+	void getInSingle(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].iq.isi\"",mName.c_str(),i_i);
 
 	}
-	void getInShape(size_t i_i)
+	void getInShape(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i].is\"",mName.c_str(),i_i);
 
 	}
-	void getDefault()
+	void getDefault()const
 	{
 		fprintf(mFile,"\"%s.def\"",mName.c_str());
 
 	}
-	void getDefTriple()
+	void getDefTriple()const
 	{
 		fprintf(mFile,"\"%s.def.dtr\"",mName.c_str());
 
 	}
-	void getDefComp1()
+	void getDefComp1()const
 	{
 		fprintf(mFile,"\"%s.def.dtr.dc1\"",mName.c_str());
 
 	}
-	void getDefComp2()
+	void getDefComp2()const
 	{
 		fprintf(mFile,"\"%s.def.dtr.dc2\"",mName.c_str());
 
 	}
-	void getDefComp3()
+	void getDefComp3()const
 	{
 		fprintf(mFile,"\"%s.def.dtr.dc3\"",mName.c_str());
 
 	}
-	void getDefSingle()
+	void getDefSingle()const
 	{
 		fprintf(mFile,"\"%s.def.dsi\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
 
 	}
-	void getOutTriple()
+	void getOutTriple()const
 	{
 		fprintf(mFile,"\"%s.out.otr\"",mName.c_str());
 
 	}
-	void getOutComp1()
+	void getOutComp1()const
 	{
 		fprintf(mFile,"\"%s.out.otr.oc1\"",mName.c_str());
 
 	}
-	void getOutComp2()
+	void getOutComp2()const
 	{
 		fprintf(mFile,"\"%s.out.otr.oc2\"",mName.c_str());
 
 	}
-	void getOutComp3()
+	void getOutComp3()const
 	{
 		fprintf(mFile,"\"%s.out.otr.oc3\"",mName.c_str());
 
 	}
-	void getOutSingle()
+	void getOutSingle()const
 	{
 		fprintf(mFile,"\"%s.out.osi\"",mName.c_str());
 
 	}
 protected:
-	QuadShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BaseShadingSwitch(file, name, parent, nodeType) {}
+	QuadShadingSwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BaseShadingSwitch(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

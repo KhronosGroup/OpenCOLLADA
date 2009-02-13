@@ -19,7 +19,8 @@ class RenderQuality : public DependNode
 public:
 public:
 	RenderQuality():DependNode(){}
-	RenderQuality(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderQuality"){}
+	RenderQuality(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "renderQuality", create){}
 	virtual ~RenderQuality(){}
 	void setReflections(int rfl)
 	{
@@ -153,119 +154,119 @@ public:
 		fprintf(mFile,"\tsetAttr \".cct\" %f;\n", cct);
 
 	}
-	void getReflections()
+	void getReflections()const
 	{
 		fprintf(mFile,"\"%s.rfl\"",mName.c_str());
 
 	}
-	void getRefractions()
+	void getRefractions()const
 	{
 		fprintf(mFile,"\"%s.rfr\"",mName.c_str());
 
 	}
-	void getShadows()
+	void getShadows()const
 	{
 		fprintf(mFile,"\"%s.sl\"",mName.c_str());
 
 	}
-	void getRayTraceBias()
+	void getRayTraceBias()const
 	{
 		fprintf(mFile,"\"%s.rtb\"",mName.c_str());
 
 	}
-	void getEdgeAntiAliasing()
+	void getEdgeAntiAliasing()const
 	{
 		fprintf(mFile,"\"%s.eaa\"",mName.c_str());
 
 	}
-	void getRenderSample()
+	void getRenderSample()const
 	{
 		fprintf(mFile,"\"%s.rsdn\"",mName.c_str());
 
 	}
-	void getUseMultiPixelFilter()
+	void getUseMultiPixelFilter()const
 	{
 		fprintf(mFile,"\"%s.ufil\"",mName.c_str());
 
 	}
-	void getPixelFilterType()
+	void getPixelFilterType()const
 	{
 		fprintf(mFile,"\"%s.pft\"",mName.c_str());
 
 	}
-	void getPixelFilterWidthX()
+	void getPixelFilterWidthX()const
 	{
 		fprintf(mFile,"\"%s.pfwx\"",mName.c_str());
 
 	}
-	void getPixelFilterWidthY()
+	void getPixelFilterWidthY()const
 	{
 		fprintf(mFile,"\"%s.pfwy\"",mName.c_str());
 
 	}
-	void getPlugInFilterWeight()
+	void getPlugInFilterWeight()const
 	{
 		fprintf(mFile,"\"%s.pifw\"",mName.c_str());
 
 	}
-	void getShadingSamples()
+	void getShadingSamples()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getMaxShadingSamples()
+	void getMaxShadingSamples()const
 	{
 		fprintf(mFile,"\"%s.mss\"",mName.c_str());
 
 	}
-	void getVisibilitySamples()
+	void getVisibilitySamples()const
 	{
 		fprintf(mFile,"\"%s.mvs\"",mName.c_str());
 
 	}
-	void getMaxVisibilitySamples()
+	void getMaxVisibilitySamples()const
 	{
 		fprintf(mFile,"\"%s.mvm\"",mName.c_str());
 
 	}
-	void getVolumeSamples()
+	void getVolumeSamples()const
 	{
 		fprintf(mFile,"\"%s.vs\"",mName.c_str());
 
 	}
-	void getParticleSamples()
+	void getParticleSamples()const
 	{
 		fprintf(mFile,"\"%s.pss\"",mName.c_str());
 
 	}
-	void getEnableRaytracing()
+	void getEnableRaytracing()const
 	{
 		fprintf(mFile,"\"%s.ert\"",mName.c_str());
 
 	}
-	void getRedThreshold()
+	void getRedThreshold()const
 	{
 		fprintf(mFile,"\"%s.rct\"",mName.c_str());
 
 	}
-	void getGreenThreshold()
+	void getGreenThreshold()const
 	{
 		fprintf(mFile,"\"%s.gct\"",mName.c_str());
 
 	}
-	void getBlueThreshold()
+	void getBlueThreshold()const
 	{
 		fprintf(mFile,"\"%s.bct\"",mName.c_str());
 
 	}
-	void getCoverageThreshold()
+	void getCoverageThreshold()const
 	{
 		fprintf(mFile,"\"%s.cct\"",mName.c_str());
 
 	}
 protected:
-	RenderQuality(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RenderQuality(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

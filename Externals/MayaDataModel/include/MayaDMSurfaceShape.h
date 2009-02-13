@@ -63,7 +63,8 @@ public:
 	};
 public:
 	SurfaceShape():ControlPoint(){}
-	SurfaceShape(FILE* file,const std::string& name,const std::string& parent=""):ControlPoint(file, name, parent, "surfaceShape"){}
+	SurfaceShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ControlPoint(file, name, parent, "surfaceShape", create){}
 	virtual ~SurfaceShape(){}
 	void setIgnoreHwShader(bool ih)
 	{
@@ -250,159 +251,159 @@ public:
 		fprintf(mFile,"\tsetAttr \".cdvm[%i].cdvmi\" %i;\n", cdvm_i,cdvmi);
 
 	}
-	void getIgnoreHwShader()
+	void getIgnoreHwShader()const
 	{
 		fprintf(mFile,"\"%s.ih\"",mName.c_str());
 
 	}
-	void getDoubleSided()
+	void getDoubleSided()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getOpposite()
+	void getOpposite()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getSmoothShading()
+	void getSmoothShading()const
 	{
 		fprintf(mFile,"\"%s.smo\"",mName.c_str());
 
 	}
-	void getBoundingBoxScale()
+	void getBoundingBoxScale()const
 	{
 		fprintf(mFile,"\"%s.bbs\"",mName.c_str());
 
 	}
-	void getBoundingBoxScaleX()
+	void getBoundingBoxScaleX()const
 	{
 		fprintf(mFile,"\"%s.bbs.bscx\"",mName.c_str());
 
 	}
-	void getBoundingBoxScaleY()
+	void getBoundingBoxScaleY()const
 	{
 		fprintf(mFile,"\"%s.bbs.bscy\"",mName.c_str());
 
 	}
-	void getBoundingBoxScaleZ()
+	void getBoundingBoxScaleZ()const
 	{
 		fprintf(mFile,"\"%s.bbs.bscz\"",mName.c_str());
 
 	}
-	void getFeatureDisplacement()
+	void getFeatureDisplacement()const
 	{
 		fprintf(mFile,"\"%s.fbda\"",mName.c_str());
 
 	}
-	void getInitialSampleRate()
+	void getInitialSampleRate()const
 	{
 		fprintf(mFile,"\"%s.dsr\"",mName.c_str());
 
 	}
-	void getExtraSampleRate()
+	void getExtraSampleRate()const
 	{
 		fprintf(mFile,"\"%s.xsr\"",mName.c_str());
 
 	}
-	void getTextureThreshold()
+	void getTextureThreshold()const
 	{
 		fprintf(mFile,"\"%s.fth\"",mName.c_str());
 
 	}
-	void getNormalThreshold()
+	void getNormalThreshold()const
 	{
 		fprintf(mFile,"\"%s.nat\"",mName.c_str());
 
 	}
-	void getDisplayHWEnvironment()
+	void getDisplayHWEnvironment()const
 	{
 		fprintf(mFile,"\"%s.dhe\"",mName.c_str());
 
 	}
-	void getCollisionOffsetVelocityIncrement(size_t covi_i)
+	void getCollisionOffsetVelocityIncrement(size_t covi_i)const
 	{
 		fprintf(mFile,"\"%s.covi[%i]\"",mName.c_str(),covi_i);
 
 	}
-	void getCollisionOffsetVelocityIncrement_Position(size_t covi_i)
+	void getCollisionOffsetVelocityIncrement_Position(size_t covi_i)const
 	{
 		fprintf(mFile,"\"%s.covi[%i].covip\"",mName.c_str(),covi_i);
 
 	}
-	void getCollisionOffsetVelocityIncrement_FloatValue(size_t covi_i)
+	void getCollisionOffsetVelocityIncrement_FloatValue(size_t covi_i)const
 	{
 		fprintf(mFile,"\"%s.covi[%i].covifv\"",mName.c_str(),covi_i);
 
 	}
-	void getCollisionOffsetVelocityIncrement_Interp(size_t covi_i)
+	void getCollisionOffsetVelocityIncrement_Interp(size_t covi_i)const
 	{
 		fprintf(mFile,"\"%s.covi[%i].covii\"",mName.c_str(),covi_i);
 
 	}
-	void getCollisionDepthVelocityIncrement(size_t cdvi_i)
+	void getCollisionDepthVelocityIncrement(size_t cdvi_i)const
 	{
 		fprintf(mFile,"\"%s.cdvi[%i]\"",mName.c_str(),cdvi_i);
 
 	}
-	void getCollisionDepthVelocityIncrement_Position(size_t cdvi_i)
+	void getCollisionDepthVelocityIncrement_Position(size_t cdvi_i)const
 	{
 		fprintf(mFile,"\"%s.cdvi[%i].cdvip\"",mName.c_str(),cdvi_i);
 
 	}
-	void getCollisionDepthVelocityIncrement_FloatValue(size_t cdvi_i)
+	void getCollisionDepthVelocityIncrement_FloatValue(size_t cdvi_i)const
 	{
 		fprintf(mFile,"\"%s.cdvi[%i].cdvifv\"",mName.c_str(),cdvi_i);
 
 	}
-	void getCollisionDepthVelocityIncrement_Interp(size_t cdvi_i)
+	void getCollisionDepthVelocityIncrement_Interp(size_t cdvi_i)const
 	{
 		fprintf(mFile,"\"%s.cdvi[%i].cdvii\"",mName.c_str(),cdvi_i);
 
 	}
-	void getCollisionOffsetVelocityMultiplier(size_t covm_i)
+	void getCollisionOffsetVelocityMultiplier(size_t covm_i)const
 	{
 		fprintf(mFile,"\"%s.covm[%i]\"",mName.c_str(),covm_i);
 
 	}
-	void getCollisionOffsetVelocityMultiplier_Position(size_t covm_i)
+	void getCollisionOffsetVelocityMultiplier_Position(size_t covm_i)const
 	{
 		fprintf(mFile,"\"%s.covm[%i].covmp\"",mName.c_str(),covm_i);
 
 	}
-	void getCollisionOffsetVelocityMultiplier_FloatValue(size_t covm_i)
+	void getCollisionOffsetVelocityMultiplier_FloatValue(size_t covm_i)const
 	{
 		fprintf(mFile,"\"%s.covm[%i].covmfv\"",mName.c_str(),covm_i);
 
 	}
-	void getCollisionOffsetVelocityMultiplier_Interp(size_t covm_i)
+	void getCollisionOffsetVelocityMultiplier_Interp(size_t covm_i)const
 	{
 		fprintf(mFile,"\"%s.covm[%i].covmi\"",mName.c_str(),covm_i);
 
 	}
-	void getCollisionDepthVelocityMultiplier(size_t cdvm_i)
+	void getCollisionDepthVelocityMultiplier(size_t cdvm_i)const
 	{
 		fprintf(mFile,"\"%s.cdvm[%i]\"",mName.c_str(),cdvm_i);
 
 	}
-	void getCollisionDepthVelocityMultiplier_Position(size_t cdvm_i)
+	void getCollisionDepthVelocityMultiplier_Position(size_t cdvm_i)const
 	{
 		fprintf(mFile,"\"%s.cdvm[%i].cdvmp\"",mName.c_str(),cdvm_i);
 
 	}
-	void getCollisionDepthVelocityMultiplier_FloatValue(size_t cdvm_i)
+	void getCollisionDepthVelocityMultiplier_FloatValue(size_t cdvm_i)const
 	{
 		fprintf(mFile,"\"%s.cdvm[%i].cdvmfv\"",mName.c_str(),cdvm_i);
 
 	}
-	void getCollisionDepthVelocityMultiplier_Interp(size_t cdvm_i)
+	void getCollisionDepthVelocityMultiplier_Interp(size_t cdvm_i)const
 	{
 		fprintf(mFile,"\"%s.cdvm[%i].cdvmi\"",mName.c_str(),cdvm_i);
 
 	}
 protected:
-	SurfaceShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ControlPoint(file, name, parent, nodeType) {}
+	SurfaceShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ControlPoint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class SnapshotShape : public GeometryShape
 public:
 public:
 	SnapshotShape():GeometryShape(){}
-	SnapshotShape(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "snapshotShape"){}
+	SnapshotShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryShape(file, name, parent, "snapshotShape", create){}
 	virtual ~SnapshotShape(){}
 	void setPoints(const pointArray& pts)
 	{
@@ -49,29 +50,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".sf\" %i;\n", sf);
 
 	}
-	void getPoints()
+	void getPoints()const
 	{
 		fprintf(mFile,"\"%s.pts\"",mName.c_str());
 
 	}
-	void getFrames()
+	void getFrames()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getDrawStyle()
+	void getDrawStyle()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getShowFrames()
+	void getShowFrames()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
 protected:
-	SnapshotShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryShape(file, name, parent, nodeType) {}
+	SnapshotShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

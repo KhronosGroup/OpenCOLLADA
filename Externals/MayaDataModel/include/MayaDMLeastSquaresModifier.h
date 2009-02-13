@@ -49,7 +49,8 @@ public:
 	};
 public:
 	LeastSquaresModifier():AbstractBaseCreate(){}
-	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "leastSquaresModifier"){}
+	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "leastSquaresModifier", create){}
 	virtual ~LeastSquaresModifier(){}
 	void setAttributeCollection(const AttributeCollection& ac)
 	{
@@ -129,24 +130,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".ac.pc[%i].pw\" %f;\n", pc_i,pw);
 
 	}
-	void getInputNurbsObject()
+	void getInputNurbsObject()const
 	{
 		fprintf(mFile,"\"%s.ac.ino\"",mName.c_str());
 
 	}
-	void getWorldSpaceToObjectSpace()
+	void getWorldSpaceToObjectSpace()const
 	{
 		fprintf(mFile,"\"%s.ac.wto\"",mName.c_str());
 
 	}
-	void getOutputNurbsObject()
+	void getOutputNurbsObject()const
 	{
 		fprintf(mFile,"\"%s.ac.ono\"",mName.c_str());
 
 	}
 protected:
-	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	LeastSquaresModifier(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

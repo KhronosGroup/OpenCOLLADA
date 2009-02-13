@@ -19,7 +19,8 @@ class PolyModifierWorld : public PolyModifier
 public:
 public:
 	PolyModifierWorld():PolyModifier(){}
-	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyModifierWorld"){}
+	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyModifierWorld", create){}
 	virtual ~PolyModifierWorld(){}
 	void setInputMatrix(const matrix& ix)
 	{
@@ -41,24 +42,24 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputMatrix()
+	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.ix\"",mName.c_str());
 
 	}
-	void getWorldSpace()
+	void getWorldSpace()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
-	void getManipMatrix()
+	void getManipMatrix()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 
 	}
 protected:
-	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyModifierWorld(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class ObjectRenderFilter : public ObjectFilter
 public:
 public:
 	ObjectRenderFilter():ObjectFilter(){}
-	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent=""):ObjectFilter(file, name, parent, "objectRenderFilter"){}
+	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectFilter(file, name, parent, "objectRenderFilter", create){}
 	virtual ~ObjectRenderFilter(){}
 	void setShaders(bool shad)
 	{
@@ -87,64 +88,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".ls\" %i;\n", ls);
 
 	}
-	void getShaders()
+	void getShaders()const
 	{
 		fprintf(mFile,"\"%s.shad\"",mName.c_str());
 
 	}
-	void getTextures()
+	void getTextures()const
 	{
 		fprintf(mFile,"\"%s.txtr\"",mName.c_str());
 
 	}
-	void getTextures2D()
+	void getTextures2D()const
 	{
 		fprintf(mFile,"\"%s.tx2d\"",mName.c_str());
 
 	}
-	void getTextures3D()
+	void getTextures3D()const
 	{
 		fprintf(mFile,"\"%s.tx3d\"",mName.c_str());
 
 	}
-	void getLights()
+	void getLights()const
 	{
 		fprintf(mFile,"\"%s.lght\"",mName.c_str());
 
 	}
-	void getExclusiveLights()
+	void getExclusiveLights()const
 	{
 		fprintf(mFile,"\"%s.exlt\"",mName.c_str());
 
 	}
-	void getNonExclusiveLights()
+	void getNonExclusiveLights()const
 	{
 		fprintf(mFile,"\"%s.nxlt\"",mName.c_str());
 
 	}
-	void getPostProcess()
+	void getPostProcess()const
 	{
 		fprintf(mFile,"\"%s.post\"",mName.c_str());
 
 	}
-	void getUtility()
+	void getUtility()const
 	{
 		fprintf(mFile,"\"%s.util\"",mName.c_str());
 
 	}
-	void getRenderableObjectSets()
+	void getRenderableObjectSets()const
 	{
 		fprintf(mFile,"\"%s.ros\"",mName.c_str());
 
 	}
-	void getLightSets()
+	void getLightSets()const
 	{
 		fprintf(mFile,"\"%s.ls\"",mName.c_str());
 
 	}
 protected:
-	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectFilter(file, name, parent, nodeType) {}
+	ObjectRenderFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

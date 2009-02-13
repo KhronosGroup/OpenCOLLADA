@@ -19,7 +19,8 @@ class StitchSrf : public AbstractBaseCreate
 public:
 public:
 	StitchSrf():AbstractBaseCreate(){}
-	StitchSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "stitchSrf"){}
+	StitchSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "stitchSrf", create){}
 	virtual ~StitchSrf(){}
 	void setPositionalContinuity(size_t pc_i,bool pc)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPositionalContinuity(size_t pc_start,size_t pc_end)
+	void startPositionalContinuity(size_t pc_start,size_t pc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pc[%i:%i]\"",pc_start,pc_end);
 
 	}
-	void appendPositionalContinuity(bool pc)
+	void appendPositionalContinuity(bool pc)const
 	{
 		fprintf(mFile," %i",pc);
 
 	}
-	void endPositionalContinuity()
+	void endPositionalContinuity()const
 	{
 		fprintf(mFile,";\n");
 
@@ -72,17 +73,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTangentialContinuity(size_t tc_start,size_t tc_end)
+	void startTangentialContinuity(size_t tc_start,size_t tc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tc[%i:%i]\"",tc_start,tc_end);
 
 	}
-	void appendTangentialContinuity(bool tc)
+	void appendTangentialContinuity(bool tc)const
 	{
 		fprintf(mFile," %i",tc);
 
 	}
-	void endTangentialContinuity()
+	void endTangentialContinuity()const
 	{
 		fprintf(mFile,";\n");
 
@@ -105,17 +106,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startToggleTolerance(size_t tt_start,size_t tt_end)
+	void startToggleTolerance(size_t tt_start,size_t tt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tt[%i:%i]\"",tt_start,tt_end);
 
 	}
-	void appendToggleTolerance(bool tt)
+	void appendToggleTolerance(bool tt)const
 	{
 		fprintf(mFile," %i",tt);
 
 	}
-	void endToggleTolerance()
+	void endToggleTolerance()const
 	{
 		fprintf(mFile,";\n");
 
@@ -138,17 +139,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTolerance(size_t tol_start,size_t tol_end)
+	void startTolerance(size_t tol_start,size_t tol_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tol[%i:%i]\"",tol_start,tol_end);
 
 	}
-	void appendTolerance(double tol)
+	void appendTolerance(double tol)const
 	{
 		fprintf(mFile," %f",tol);
 
 	}
-	void endTolerance()
+	void endTolerance()const
 	{
 		fprintf(mFile,";\n");
 
@@ -171,17 +172,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startStepCount(size_t sc_start,size_t sc_end)
+	void startStepCount(size_t sc_start,size_t sc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".sc[%i:%i]\"",sc_start,sc_end);
 
 	}
-	void appendStepCount(int sc)
+	void appendStepCount(int sc)const
 	{
 		fprintf(mFile," %i",sc);
 
 	}
-	void endStepCount()
+	void endStepCount()const
 	{
 		fprintf(mFile,";\n");
 
@@ -204,17 +205,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startParameterU(size_t u_start,size_t u_end)
+	void startParameterU(size_t u_start,size_t u_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".u[%i:%i]\"",u_start,u_end);
 
 	}
-	void appendParameterU(double u)
+	void appendParameterU(double u)const
 	{
 		fprintf(mFile," %f",u);
 
 	}
-	void endParameterU()
+	void endParameterU()const
 	{
 		fprintf(mFile,";\n");
 
@@ -237,17 +238,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startParameterV(size_t v_start,size_t v_end)
+	void startParameterV(size_t v_start,size_t v_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
-	void appendParameterV(double v)
+	void appendParameterV(double v)const
 	{
 		fprintf(mFile," %f",v);
 
 	}
-	void endParameterV()
+	void endParameterV()const
 	{
 		fprintf(mFile,";\n");
 
@@ -282,17 +283,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCvIthIndex(size_t ci_start,size_t ci_end)
+	void startCvIthIndex(size_t ci_start,size_t ci_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ci[%i:%i]\"",ci_start,ci_end);
 
 	}
-	void appendCvIthIndex(int ci)
+	void appendCvIthIndex(int ci)const
 	{
 		fprintf(mFile," %i",ci);
 
 	}
-	void endCvIthIndex()
+	void endCvIthIndex()const
 	{
 		fprintf(mFile,";\n");
 
@@ -315,17 +316,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCvJthIndex(size_t cj_start,size_t cj_end)
+	void startCvJthIndex(size_t cj_start,size_t cj_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cj[%i:%i]\"",cj_start,cj_end);
 
 	}
-	void appendCvJthIndex(int cj)
+	void appendCvJthIndex(int cj)const
 	{
 		fprintf(mFile," %i",cj);
 
 	}
-	void endCvJthIndex()
+	void endCvJthIndex()const
 	{
 		fprintf(mFile,";\n");
 
@@ -342,164 +343,164 @@ public:
 		fprintf(mFile,"\tsetAttr \".fb\" %i;\n", fb);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInputCurve(size_t ic_i)
+	void getInputCurve(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
-	void getInputMatchCurve(size_t imc_i)
+	void getInputMatchCurve(size_t imc_i)const
 	{
 		fprintf(mFile,"\"%s.imc[%i]\"",mName.c_str(),imc_i);
 
 	}
-	void getInputReferenceCOS(size_t ir_i)
+	void getInputReferenceCOS(size_t ir_i)const
 	{
 		fprintf(mFile,"\"%s.ir[%i]\"",mName.c_str(),ir_i);
 
 	}
-	void getPositionalContinuity(size_t pc_i)
+	void getPositionalContinuity(size_t pc_i)const
 	{
 		fprintf(mFile,"\"%s.pc[%i]\"",mName.c_str(),pc_i);
 
 	}
-	void getTangentialContinuity(size_t tc_i)
+	void getTangentialContinuity(size_t tc_i)const
 	{
 		fprintf(mFile,"\"%s.tc[%i]\"",mName.c_str(),tc_i);
 
 	}
-	void getToggleTolerance(size_t tt_i)
+	void getToggleTolerance(size_t tt_i)const
 	{
 		fprintf(mFile,"\"%s.tt[%i]\"",mName.c_str(),tt_i);
 
 	}
-	void getTolerance(size_t tol_i)
+	void getTolerance(size_t tol_i)const
 	{
 		fprintf(mFile,"\"%s.tol[%i]\"",mName.c_str(),tol_i);
 
 	}
-	void getStepCount(size_t sc_i)
+	void getStepCount(size_t sc_i)const
 	{
 		fprintf(mFile,"\"%s.sc[%i]\"",mName.c_str(),sc_i);
 
 	}
-	void getParameterU(size_t u_i)
+	void getParameterU(size_t u_i)const
 	{
 		fprintf(mFile,"\"%s.u[%i]\"",mName.c_str(),u_i);
 
 	}
-	void getParameterV(size_t v_i)
+	void getParameterV(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
-	void getPosition(size_t p_i)
+	void getPosition(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getPositionX(size_t p_i)
+	void getPositionX(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].px\"",mName.c_str(),p_i);
 
 	}
-	void getPositionY(size_t p_i)
+	void getPositionY(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].py\"",mName.c_str(),p_i);
 
 	}
-	void getPositionZ(size_t p_i)
+	void getPositionZ(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pz\"",mName.c_str(),p_i);
 
 	}
-	void getNormal(size_t n_i)
+	void getNormal(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i]\"",mName.c_str(),n_i);
 
 	}
-	void getNormalX(size_t n_i)
+	void getNormalX(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].nx\"",mName.c_str(),n_i);
 
 	}
-	void getNormalY(size_t n_i)
+	void getNormalY(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].ny\"",mName.c_str(),n_i);
 
 	}
-	void getNormalZ(size_t n_i)
+	void getNormalZ(size_t n_i)const
 	{
 		fprintf(mFile,"\"%s.n[%i].nz\"",mName.c_str(),n_i);
 
 	}
-	void getTogglePointNormals()
+	void getTogglePointNormals()const
 	{
 		fprintf(mFile,"\"%s.tpn\"",mName.c_str());
 
 	}
-	void getTogglePointPosition()
+	void getTogglePointPosition()const
 	{
 		fprintf(mFile,"\"%s.tpp\"",mName.c_str());
 
 	}
-	void getCvIthIndex(size_t ci_i)
+	void getCvIthIndex(size_t ci_i)const
 	{
 		fprintf(mFile,"\"%s.ci[%i]\"",mName.c_str(),ci_i);
 
 	}
-	void getCvJthIndex(size_t cj_i)
+	void getCvJthIndex(size_t cj_i)const
 	{
 		fprintf(mFile,"\"%s.cj[%i]\"",mName.c_str(),cj_i);
 
 	}
-	void getCvPosition(size_t cv_i)
+	void getCvPosition(size_t cv_i)const
 	{
 		fprintf(mFile,"\"%s.cv[%i]\"",mName.c_str(),cv_i);
 
 	}
-	void getCvpositionX(size_t cv_i)
+	void getCvpositionX(size_t cv_i)const
 	{
 		fprintf(mFile,"\"%s.cv[%i].cvx\"",mName.c_str(),cv_i);
 
 	}
-	void getCvpositionY(size_t cv_i)
+	void getCvpositionY(size_t cv_i)const
 	{
 		fprintf(mFile,"\"%s.cv[%i].cvy\"",mName.c_str(),cv_i);
 
 	}
-	void getCvpositionZ(size_t cv_i)
+	void getCvpositionZ(size_t cv_i)const
 	{
 		fprintf(mFile,"\"%s.cv[%i].cvz\"",mName.c_str(),cv_i);
 
 	}
-	void getBias()
+	void getBias()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getFixBoundary()
+	void getFixBoundary()const
 	{
 		fprintf(mFile,"\"%s.fb\"",mName.c_str());
 
 	}
-	void getShouldBeLast()
+	void getShouldBeLast()const
 	{
 		fprintf(mFile,"\"%s.sbl\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	StitchSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	StitchSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

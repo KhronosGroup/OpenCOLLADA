@@ -18,11 +18,12 @@ class BaseLattice : public Shape
 {
 public:
 	BaseLattice():Shape(){}
-	BaseLattice(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "baseLattice"){}
+	BaseLattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "baseLattice", create){}
 	virtual ~BaseLattice(){}
 protected:
-	BaseLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	BaseLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

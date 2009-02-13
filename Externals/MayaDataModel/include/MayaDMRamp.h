@@ -28,7 +28,8 @@ public:
 	};
 public:
 	Ramp():Texture2d(){}
-	Ramp(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "ramp"){}
+	Ramp(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "ramp", create){}
 	virtual ~Ramp(){}
 	void setType(unsigned int t)
 	{
@@ -141,99 +142,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".vnf\" %f;\n", vnf);
 
 	}
-	void getType()
+	void getType()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getInterpolation()
+	void getInterpolation()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getColorEntryList(size_t cel_i)
+	void getColorEntryList(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i]\"",mName.c_str(),cel_i);
 
 	}
-	void getPosition(size_t cel_i)
+	void getPosition(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ep\"",mName.c_str(),cel_i);
 
 	}
-	void getColor(size_t cel_i)
+	void getColor(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ec\"",mName.c_str(),cel_i);
 
 	}
-	void getColorR(size_t cel_i)
+	void getColorR(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ec.ecr\"",mName.c_str(),cel_i);
 
 	}
-	void getColorG(size_t cel_i)
+	void getColorG(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ec.ecg\"",mName.c_str(),cel_i);
 
 	}
-	void getColorB(size_t cel_i)
+	void getColorB(size_t cel_i)const
 	{
 		fprintf(mFile,"\"%s.cel[%i].ec.ecb\"",mName.c_str(),cel_i);
 
 	}
-	void getUWave()
+	void getUWave()const
 	{
 		fprintf(mFile,"\"%s.uw\"",mName.c_str());
 
 	}
-	void getVWave()
+	void getVWave()const
 	{
 		fprintf(mFile,"\"%s.vw\"",mName.c_str());
 
 	}
-	void getNoise()
+	void getNoise()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNoiseFreq()
+	void getNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.nf\"",mName.c_str());
 
 	}
-	void getHueNoise()
+	void getHueNoise()const
 	{
 		fprintf(mFile,"\"%s.hn\"",mName.c_str());
 
 	}
-	void getSatNoise()
+	void getSatNoise()const
 	{
 		fprintf(mFile,"\"%s.sn\"",mName.c_str());
 
 	}
-	void getValNoise()
+	void getValNoise()const
 	{
 		fprintf(mFile,"\"%s.vn\"",mName.c_str());
 
 	}
-	void getHueNoiseFreq()
+	void getHueNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.hnf\"",mName.c_str());
 
 	}
-	void getSatNoiseFreq()
+	void getSatNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.snf\"",mName.c_str());
 
 	}
-	void getValNoiseFreq()
+	void getValNoiseFreq()const
 	{
 		fprintf(mFile,"\"%s.vnf\"",mName.c_str());
 
 	}
 protected:
-	Ramp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Ramp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

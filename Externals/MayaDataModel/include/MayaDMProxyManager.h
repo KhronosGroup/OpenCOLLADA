@@ -19,26 +19,27 @@ class ProxyManager : public DependNode
 public:
 public:
 	ProxyManager():DependNode(){}
-	ProxyManager(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "proxyManager"){}
+	ProxyManager(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "proxyManager", create){}
 	virtual ~ProxyManager(){}
-	void getProxyList(size_t plst_i)
+	void getProxyList(size_t plst_i)const
 	{
 		fprintf(mFile,"\"%s.plst[%i]\"",mName.c_str(),plst_i);
 
 	}
-	void getActiveProxy()
+	void getActiveProxy()const
 	{
 		fprintf(mFile,"\"%s.aprx\"",mName.c_str());
 
 	}
-	void getSharedEditsOwner()
+	void getSharedEditsOwner()const
 	{
 		fprintf(mFile,"\"%s.psed\"",mName.c_str());
 
 	}
 protected:
-	ProxyManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ProxyManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

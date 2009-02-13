@@ -43,7 +43,8 @@ public:
 	};
 public:
 	Tweak():GeometryFilter(){}
-	Tweak(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "tweak"){}
+	Tweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "tweak", create){}
 	virtual ~Tweak(){}
 	void setRelativeTweak(bool rtw)
 	{
@@ -77,17 +78,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startControlPoints(size_t pl_i,size_t cp_start,size_t cp_end)
+	void startControlPoints(size_t pl_i,size_t cp_start,size_t cp_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pl[%i].cp[%i:%i]\"",pl_i,cp_start,cp_end);
 
 	}
-	void appendControlPoints(double cp)
+	void appendControlPoints(double cp)const
 	{
 		fprintf(mFile," %f",cp);
 
 	}
-	void endControlPoints()
+	void endControlPoints()const
 	{
 		fprintf(mFile,";\n");
 
@@ -136,17 +137,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startVertex(size_t vl_i,size_t vt_start,size_t vt_end)
+	void startVertex(size_t vl_i,size_t vt_start,size_t vt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i:%i]\"",vl_i,vt_start,vt_end);
 
 	}
-	void appendVertex(float vt)
+	void appendVertex(float vt)const
 	{
 		fprintf(mFile," %f",vt);
 
 	}
-	void endVertex()
+	void endVertex()const
 	{
 		fprintf(mFile,";\n");
 
@@ -169,64 +170,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".vl[%i].vt[%i].vz\" %f;\n", vl_i,vt_i,vz);
 
 	}
-	void getRelativeTweak()
+	void getRelativeTweak()const
 	{
 		fprintf(mFile,"\"%s.rtw\"",mName.c_str());
 
 	}
-	void getPlist(size_t pl_i)
+	void getPlist(size_t pl_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i]\"",mName.c_str(),pl_i);
 
 	}
-	void getControlPoints(size_t pl_i,size_t cp_i)
+	void getControlPoints(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i]\"",mName.c_str(),pl_i,cp_i);
 
 	}
-	void getXValue(size_t pl_i,size_t cp_i)
+	void getXValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].xv\"",mName.c_str(),pl_i,cp_i);
 
 	}
-	void getYValue(size_t pl_i,size_t cp_i)
+	void getYValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].yv\"",mName.c_str(),pl_i,cp_i);
 
 	}
-	void getZValue(size_t pl_i,size_t cp_i)
+	void getZValue(size_t pl_i,size_t cp_i)const
 	{
 		fprintf(mFile,"\"%s.pl[%i].cp[%i].zv\"",mName.c_str(),pl_i,cp_i);
 
 	}
-	void getVlist(size_t vl_i)
+	void getVlist(size_t vl_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i]\"",mName.c_str(),vl_i);
 
 	}
-	void getVertex(size_t vl_i,size_t vt_i)
+	void getVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i]\"",mName.c_str(),vl_i,vt_i);
 
 	}
-	void getXVertex(size_t vl_i,size_t vt_i)
+	void getXVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vx\"",mName.c_str(),vl_i,vt_i);
 
 	}
-	void getYVertex(size_t vl_i,size_t vt_i)
+	void getYVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vy\"",mName.c_str(),vl_i,vt_i);
 
 	}
-	void getZVertex(size_t vl_i,size_t vt_i)
+	void getZVertex(size_t vl_i,size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vl[%i].vt[%i].vz\"",mName.c_str(),vl_i,vt_i);
 
 	}
 protected:
-	Tweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	Tweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PointEmitter : public DynBase
 public:
 public:
 	PointEmitter():DynBase(){}
-	PointEmitter(FILE* file,const std::string& name,const std::string& parent=""):DynBase(file, name, parent, "pointEmitter"){}
+	PointEmitter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DynBase(file, name, parent, "pointEmitter", create){}
 	virtual ~PointEmitter(){}
 	void setEmitterType(unsigned int emt)
 	{
@@ -148,17 +149,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInheritFactor(size_t inh_start,size_t inh_end)
+	void startInheritFactor(size_t inh_start,size_t inh_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".inh[%i:%i]\"",inh_start,inh_end);
 
 	}
-	void appendInheritFactor(double inh)
+	void appendInheritFactor(double inh)const
 	{
 		fprintf(mFile," %f",inh);
 
 	}
-	void endInheritFactor()
+	void endInheritFactor()const
 	{
 		fprintf(mFile,";\n");
 
@@ -181,17 +182,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startIsFull(size_t full_start,size_t full_end)
+	void startIsFull(size_t full_start,size_t full_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".full[%i:%i]\"",full_start,full_end);
 
 	}
-	void appendIsFull(bool full)
+	void appendIsFull(bool full)const
 	{
 		fprintf(mFile," %i",full);
 
 	}
-	void endIsFull()
+	void endIsFull()const
 	{
 		fprintf(mFile,";\n");
 
@@ -409,289 +410,289 @@ public:
 		fprintf(mFile,"\tsetAttr \".dss\" %i;\n", dss);
 
 	}
-	void getEmitterType()
+	void getEmitterType()const
 	{
 		fprintf(mFile,"\"%s.emt\"",mName.c_str());
 
 	}
-	void getRate()
+	void getRate()const
 	{
 		fprintf(mFile,"\"%s.rat\"",mName.c_str());
 
 	}
-	void getCycleEmission()
+	void getCycleEmission()const
 	{
 		fprintf(mFile,"\"%s.cye\"",mName.c_str());
 
 	}
-	void getCycleInterval()
+	void getCycleInterval()const
 	{
 		fprintf(mFile,"\"%s.cyi\"",mName.c_str());
 
 	}
-	void getMaxDistance()
+	void getMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.max\"",mName.c_str());
 
 	}
-	void getMinDistance()
+	void getMinDistance()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getSpread()
+	void getSpread()const
 	{
 		fprintf(mFile,"\"%s.spr\"",mName.c_str());
 
 	}
-	void getSpeed()
+	void getSpeed()const
 	{
 		fprintf(mFile,"\"%s.spd\"",mName.c_str());
 
 	}
-	void getSpeedRandom()
+	void getSpeedRandom()const
 	{
 		fprintf(mFile,"\"%s.srnd\"",mName.c_str());
 
 	}
-	void getTangentSpeed()
+	void getTangentSpeed()const
 	{
 		fprintf(mFile,"\"%s.tspd\"",mName.c_str());
 
 	}
-	void getNormalSpeed()
+	void getNormalSpeed()const
 	{
 		fprintf(mFile,"\"%s.nspd\"",mName.c_str());
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getInheritFactor(size_t inh_i)
+	void getInheritFactor(size_t inh_i)const
 	{
 		fprintf(mFile,"\"%s.inh[%i]\"",mName.c_str(),inh_i);
 
 	}
-	void getIsFull(size_t full_i)
+	void getIsFull(size_t full_i)const
 	{
 		fprintf(mFile,"\"%s.full[%i]\"",mName.c_str(),full_i);
 
 	}
-	void getStartTime(size_t stt_i)
+	void getStartTime(size_t stt_i)const
 	{
 		fprintf(mFile,"\"%s.stt[%i]\"",mName.c_str(),stt_i);
 
 	}
-	void getDeltaTime(size_t dt_i)
+	void getDeltaTime(size_t dt_i)const
 	{
 		fprintf(mFile,"\"%s.dt[%i]\"",mName.c_str(),dt_i);
 
 	}
-	void getEmitCountRemainder(size_t ecr_i)
+	void getEmitCountRemainder(size_t ecr_i)const
 	{
 		fprintf(mFile,"\"%s.ecr[%i]\"",mName.c_str(),ecr_i);
 
 	}
-	void getRatePP()
+	void getRatePP()const
 	{
 		fprintf(mFile,"\"%s.rpp\"",mName.c_str());
 
 	}
-	void getParentId()
+	void getParentId()const
 	{
 		fprintf(mFile,"\"%s.paid\"",mName.c_str());
 
 	}
-	void getSweptGeometry()
+	void getSweptGeometry()const
 	{
 		fprintf(mFile,"\"%s.swge\"",mName.c_str());
 
 	}
-	void getOutput(size_t ot_i)
+	void getOutput(size_t ot_i)const
 	{
 		fprintf(mFile,"\"%s.ot[%i]\"",mName.c_str(),ot_i);
 
 	}
-	void getSeed(size_t sd_i)
+	void getSeed(size_t sd_i)const
 	{
 		fprintf(mFile,"\"%s.sd[%i]\"",mName.c_str(),sd_i);
 
 	}
-	void getEnableTextureRate()
+	void getEnableTextureRate()const
 	{
 		fprintf(mFile,"\"%s.etr\"",mName.c_str());
 
 	}
-	void getTextureRate()
+	void getTextureRate()const
 	{
 		fprintf(mFile,"\"%s.txr\"",mName.c_str());
 
 	}
-	void getTextureRateR()
+	void getTextureRateR()const
 	{
 		fprintf(mFile,"\"%s.txr.txrr\"",mName.c_str());
 
 	}
-	void getTextureRateG()
+	void getTextureRateG()const
 	{
 		fprintf(mFile,"\"%s.txr.txrg\"",mName.c_str());
 
 	}
-	void getTextureRateB()
+	void getTextureRateB()const
 	{
 		fprintf(mFile,"\"%s.txr.txrb\"",mName.c_str());
 
 	}
-	void getEmitFromDark()
+	void getEmitFromDark()const
 	{
 		fprintf(mFile,"\"%s.efd\"",mName.c_str());
 
 	}
-	void getInheritColor()
+	void getInheritColor()const
 	{
 		fprintf(mFile,"\"%s.inhc\"",mName.c_str());
 
 	}
-	void getInheritOpacity()
+	void getInheritOpacity()const
 	{
 		fprintf(mFile,"\"%s.inho\"",mName.c_str());
 
 	}
-	void getInvertOpacity()
+	void getInvertOpacity()const
 	{
 		fprintf(mFile,"\"%s.invo\"",mName.c_str());
 
 	}
-	void getUseLuminance()
+	void getUseLuminance()const
 	{
 		fprintf(mFile,"\"%s.usel\"",mName.c_str());
 
 	}
-	void getParticleColor()
+	void getParticleColor()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getParticleColorR()
+	void getParticleColorR()const
 	{
 		fprintf(mFile,"\"%s.pc.pcr\"",mName.c_str());
 
 	}
-	void getParticleColorG()
+	void getParticleColorG()const
 	{
 		fprintf(mFile,"\"%s.pc.pcg\"",mName.c_str());
 
 	}
-	void getParticleColorB()
+	void getParticleColorB()const
 	{
 		fprintf(mFile,"\"%s.pc.pcb\"",mName.c_str());
 
 	}
-	void getVolumeShape()
+	void getVolumeShape()const
 	{
 		fprintf(mFile,"\"%s.vol\"",mName.c_str());
 
 	}
-	void getVolumeOffset()
+	void getVolumeOffset()const
 	{
 		fprintf(mFile,"\"%s.vof\"",mName.c_str());
 
 	}
-	void getVolumeOffsetX()
+	void getVolumeOffsetX()const
 	{
 		fprintf(mFile,"\"%s.vof.vfx\"",mName.c_str());
 
 	}
-	void getVolumeOffsetY()
+	void getVolumeOffsetY()const
 	{
 		fprintf(mFile,"\"%s.vof.vfy\"",mName.c_str());
 
 	}
-	void getVolumeOffsetZ()
+	void getVolumeOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.vof.vfz\"",mName.c_str());
 
 	}
-	void getVolumeEfficiency()
+	void getVolumeEfficiency()const
 	{
 		fprintf(mFile,"\"%s.vef\"",mName.c_str());
 
 	}
-	void getVolumeSweep()
+	void getVolumeSweep()const
 	{
 		fprintf(mFile,"\"%s.vsw\"",mName.c_str());
 
 	}
-	void getSectionRadius()
+	void getSectionRadius()const
 	{
 		fprintf(mFile,"\"%s.vsr\"",mName.c_str());
 
 	}
-	void getAwayFromCenter()
+	void getAwayFromCenter()const
 	{
 		fprintf(mFile,"\"%s.afc\"",mName.c_str());
 
 	}
-	void getAwayFromAxis()
+	void getAwayFromAxis()const
 	{
 		fprintf(mFile,"\"%s.afa\"",mName.c_str());
 
 	}
-	void getAlongAxis()
+	void getAlongAxis()const
 	{
 		fprintf(mFile,"\"%s.alx\"",mName.c_str());
 
 	}
-	void getAroundAxis()
+	void getAroundAxis()const
 	{
 		fprintf(mFile,"\"%s.arx\"",mName.c_str());
 
 	}
-	void getRandomDirection()
+	void getRandomDirection()const
 	{
 		fprintf(mFile,"\"%s.rnd\"",mName.c_str());
 
 	}
-	void getDirectionalSpeed()
+	void getDirectionalSpeed()const
 	{
 		fprintf(mFile,"\"%s.drs\"",mName.c_str());
 
 	}
-	void getScaleSpeedBySize()
+	void getScaleSpeedBySize()const
 	{
 		fprintf(mFile,"\"%s.ssz\"",mName.c_str());
 
 	}
-	void getDisplaySpeed()
+	void getDisplaySpeed()const
 	{
 		fprintf(mFile,"\"%s.dss\"",mName.c_str());
 
 	}
 protected:
-	PointEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DynBase(file, name, parent, nodeType) {}
+	PointEmitter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DynBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

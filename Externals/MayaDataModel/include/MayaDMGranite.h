@@ -19,7 +19,8 @@ class Granite : public Texture3d
 public:
 public:
 	Granite():Texture3d(){}
-	Granite(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "granite"){}
+	Granite(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "granite", create){}
 	virtual ~Granite(){}
 	void setColor1(const float3& c1)
 	{
@@ -167,164 +168,164 @@ public:
 		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getColor1()
+	void getColor1()const
 	{
 		fprintf(mFile,"\"%s.c1\"",mName.c_str());
 
 	}
-	void getColor1R()
+	void getColor1R()const
 	{
 		fprintf(mFile,"\"%s.c1.c1r\"",mName.c_str());
 
 	}
-	void getColor1G()
+	void getColor1G()const
 	{
 		fprintf(mFile,"\"%s.c1.c1g\"",mName.c_str());
 
 	}
-	void getColor1B()
+	void getColor1B()const
 	{
 		fprintf(mFile,"\"%s.c1.c1b\"",mName.c_str());
 
 	}
-	void getColor2()
+	void getColor2()const
 	{
 		fprintf(mFile,"\"%s.c2\"",mName.c_str());
 
 	}
-	void getColor2R()
+	void getColor2R()const
 	{
 		fprintf(mFile,"\"%s.c2.c2r\"",mName.c_str());
 
 	}
-	void getColor2G()
+	void getColor2G()const
 	{
 		fprintf(mFile,"\"%s.c2.c2g\"",mName.c_str());
 
 	}
-	void getColor2B()
+	void getColor2B()const
 	{
 		fprintf(mFile,"\"%s.c2.c2b\"",mName.c_str());
 
 	}
-	void getColor3()
+	void getColor3()const
 	{
 		fprintf(mFile,"\"%s.c3\"",mName.c_str());
 
 	}
-	void getColor3R()
+	void getColor3R()const
 	{
 		fprintf(mFile,"\"%s.c3.c3r\"",mName.c_str());
 
 	}
-	void getColor3G()
+	void getColor3G()const
 	{
 		fprintf(mFile,"\"%s.c3.c3g\"",mName.c_str());
 
 	}
-	void getColor3B()
+	void getColor3B()const
 	{
 		fprintf(mFile,"\"%s.c3.c3b\"",mName.c_str());
 
 	}
-	void getFillerColor()
+	void getFillerColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFillerColorR()
+	void getFillerColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fcr\"",mName.c_str());
 
 	}
-	void getFillerColorG()
+	void getFillerColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fcg\"",mName.c_str());
 
 	}
-	void getFillerColorB()
+	void getFillerColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fcb\"",mName.c_str());
 
 	}
-	void getCellSize()
+	void getCellSize()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getDensity()
+	void getDensity()const
 	{
 		fprintf(mFile,"\"%s.dy\"",mName.c_str());
 
 	}
-	void getMixRatio()
+	void getMixRatio()const
 	{
 		fprintf(mFile,"\"%s.mr\"",mName.c_str());
 
 	}
-	void getSpottyness()
+	void getSpottyness()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getRandomness()
+	void getRandomness()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
-	void getCreases()
+	void getCreases()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
 protected:
-	Granite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Granite(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

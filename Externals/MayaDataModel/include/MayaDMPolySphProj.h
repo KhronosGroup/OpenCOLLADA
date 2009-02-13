@@ -19,7 +19,8 @@ class PolySphProj : public PolyModifierWorld
 public:
 public:
 	PolySphProj():PolyModifierWorld(){}
-	PolySphProj(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polySphProj"){}
+	PolySphProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polySphProj", create){}
 	virtual ~PolySphProj(){}
 	void setProjectionCenter(const double3& pc)
 	{
@@ -165,119 +166,119 @@ public:
 		fprintf(mFile,"\tsetAttr \".uopp\" %i;\n", uopp);
 
 	}
-	void getProjectionCenter()
+	void getProjectionCenter()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getProjectionCenterX()
+	void getProjectionCenterX()const
 	{
 		fprintf(mFile,"\"%s.pc.pcx\"",mName.c_str());
 
 	}
-	void getProjectionCenterY()
+	void getProjectionCenterY()const
 	{
 		fprintf(mFile,"\"%s.pc.pcy\"",mName.c_str());
 
 	}
-	void getProjectionCenterZ()
+	void getProjectionCenterZ()const
 	{
 		fprintf(mFile,"\"%s.pc.pcz\"",mName.c_str());
 
 	}
-	void getImageCenter()
+	void getImageCenter()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getImageCenterX()
+	void getImageCenterX()const
 	{
 		fprintf(mFile,"\"%s.ic.icx\"",mName.c_str());
 
 	}
-	void getImageCenterY()
+	void getImageCenterY()const
 	{
 		fprintf(mFile,"\"%s.ic.icy\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getRotateX()
+	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.ro.rx\"",mName.c_str());
 
 	}
-	void getRotateY()
+	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.ro.ry\"",mName.c_str());
 
 	}
-	void getRotateZ()
+	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.ro.rz\"",mName.c_str());
 
 	}
-	void getProjectionScale()
+	void getProjectionScale()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getProjectionHorizontalSweep()
+	void getProjectionHorizontalSweep()const
 	{
 		fprintf(mFile,"\"%s.ps.phs\"",mName.c_str());
 
 	}
-	void getProjectionVerticalSweep()
+	void getProjectionVerticalSweep()const
 	{
 		fprintf(mFile,"\"%s.ps.pvs\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
-	void getImageScale()
+	void getImageScale()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getImageScaleU()
+	void getImageScaleU()const
 	{
 		fprintf(mFile,"\"%s.is.isu\"",mName.c_str());
 
 	}
-	void getImageScaleV()
+	void getImageScaleV()const
 	{
 		fprintf(mFile,"\"%s.is.isv\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRotationAngle()
+	void getRotationAngle()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getSeamCorrect()
+	void getSeamCorrect()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getCompId()
+	void getCompId()const
 	{
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 
 	}
 protected:
-	PolySphProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolySphProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class IkSolver : public DependNode
 public:
 public:
 	IkSolver():DependNode(){}
-	IkSolver(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "ikSolver"){}
+	IkSolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "ikSolver", create){}
 	virtual ~IkSolver(){}
 	void setMaxIterations(int mxi)
 	{
@@ -34,8 +35,8 @@ public:
 
 	}
 protected:
-	IkSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	IkSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

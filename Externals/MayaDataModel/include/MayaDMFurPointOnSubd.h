@@ -23,7 +23,8 @@ public:
 	};
 public:
 	FurPointOnSubd():DependNode(){}
-	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "furPointOnSubd"){}
+	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "furPointOnSubd", create){}
 	virtual ~FurPointOnSubd(){}
 	void setRelative(bool rel)
 	{
@@ -95,79 +96,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".nz\" %f;\n", nz);
 
 	}
-	void getSubd()
+	void getSubd()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getFaceFirst()
+	void getFaceFirst()const
 	{
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 
 	}
-	void getFaceSecond()
+	void getFaceSecond()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getRelative()
+	void getRelative()const
 	{
 		fprintf(mFile,"\"%s.rel\"",mName.c_str());
 
 	}
-	void getUValue()
+	void getUValue()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getVValue()
+	void getVValue()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.px\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.py\"",mName.c_str());
 
 	}
-	void getPositionZ()
+	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.pz\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.ny\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nz\"",mName.c_str());
 
 	}
 protected:
-	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FurPointOnSubd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

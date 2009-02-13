@@ -19,7 +19,8 @@ class MakeThreePointCircularArc : public MakeCircularArc
 public:
 public:
 	MakeThreePointCircularArc():MakeCircularArc(){}
-	MakeThreePointCircularArc(FILE* file,const std::string& name,const std::string& parent=""):MakeCircularArc(file, name, parent, "makeThreePointCircularArc"){}
+	MakeThreePointCircularArc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:MakeCircularArc(file, name, parent, "makeThreePointCircularArc", create){}
 	virtual ~MakeThreePointCircularArc(){}
 	void setPoint1(const double3& pt1)
 	{
@@ -96,74 +97,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".pt3.p3z\" %f;\n", p3z);
 
 	}
-	void getPoint1()
+	void getPoint1()const
 	{
 		fprintf(mFile,"\"%s.pt1\"",mName.c_str());
 
 	}
-	void getPoint1X()
+	void getPoint1X()const
 	{
 		fprintf(mFile,"\"%s.pt1.p1x\"",mName.c_str());
 
 	}
-	void getPoint1Y()
+	void getPoint1Y()const
 	{
 		fprintf(mFile,"\"%s.pt1.p1y\"",mName.c_str());
 
 	}
-	void getPoint1Z()
+	void getPoint1Z()const
 	{
 		fprintf(mFile,"\"%s.pt1.p1z\"",mName.c_str());
 
 	}
-	void getPoint2()
+	void getPoint2()const
 	{
 		fprintf(mFile,"\"%s.pt2\"",mName.c_str());
 
 	}
-	void getPoint2X()
+	void getPoint2X()const
 	{
 		fprintf(mFile,"\"%s.pt2.p2x\"",mName.c_str());
 
 	}
-	void getPoint2Y()
+	void getPoint2Y()const
 	{
 		fprintf(mFile,"\"%s.pt2.p2y\"",mName.c_str());
 
 	}
-	void getPoint2Z()
+	void getPoint2Z()const
 	{
 		fprintf(mFile,"\"%s.pt2.p2z\"",mName.c_str());
 
 	}
-	void getPoint3()
+	void getPoint3()const
 	{
 		fprintf(mFile,"\"%s.pt3\"",mName.c_str());
 
 	}
-	void getPoint3X()
+	void getPoint3X()const
 	{
 		fprintf(mFile,"\"%s.pt3.p3x\"",mName.c_str());
 
 	}
-	void getPoint3Y()
+	void getPoint3Y()const
 	{
 		fprintf(mFile,"\"%s.pt3.p3y\"",mName.c_str());
 
 	}
-	void getPoint3Z()
+	void getPoint3Z()const
 	{
 		fprintf(mFile,"\"%s.pt3.p3z\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
 protected:
-	MakeThreePointCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:MakeCircularArc(file, name, parent, nodeType) {}
+	MakeThreePointCircularArc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:MakeCircularArc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

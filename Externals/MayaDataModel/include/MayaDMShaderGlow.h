@@ -19,7 +19,8 @@ class ShaderGlow : public DependNode
 public:
 public:
 	ShaderGlow():DependNode(){}
-	ShaderGlow(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "shaderGlow"){}
+	ShaderGlow(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "shaderGlow", create){}
 	virtual ~ShaderGlow(){}
 	void setGlowType(unsigned int gt)
 	{
@@ -229,179 +230,179 @@ public:
 		fprintf(mFile,"\tsetAttr \".ae\" %i;\n", ae);
 
 	}
-	void getGlowType()
+	void getGlowType()const
 	{
 		fprintf(mFile,"\"%s.gt\"",mName.c_str());
 
 	}
-	void getHaloType()
+	void getHaloType()const
 	{
 		fprintf(mFile,"\"%s.ht\"",mName.c_str());
 
 	}
-	void getGlowIntensity()
+	void getGlowIntensity()const
 	{
 		fprintf(mFile,"\"%s.gi\"",mName.c_str());
 
 	}
-	void getGlowColor()
+	void getGlowColor()const
 	{
 		fprintf(mFile,"\"%s.gc\"",mName.c_str());
 
 	}
-	void getGlowColorR()
+	void getGlowColorR()const
 	{
 		fprintf(mFile,"\"%s.gc.gr\"",mName.c_str());
 
 	}
-	void getGlowColorG()
+	void getGlowColorG()const
 	{
 		fprintf(mFile,"\"%s.gc.gg\"",mName.c_str());
 
 	}
-	void getGlowColorB()
+	void getGlowColorB()const
 	{
 		fprintf(mFile,"\"%s.gc.gb\"",mName.c_str());
 
 	}
-	void getGlowSpread()
+	void getGlowSpread()const
 	{
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 
 	}
-	void getGlowEccentricity()
+	void getGlowEccentricity()const
 	{
 		fprintf(mFile,"\"%s.gecc\"",mName.c_str());
 
 	}
-	void getGlowRadialNoise()
+	void getGlowRadialNoise()const
 	{
 		fprintf(mFile,"\"%s.gn\"",mName.c_str());
 
 	}
-	void getGlowStarLevel()
+	void getGlowStarLevel()const
 	{
 		fprintf(mFile,"\"%s.gv\"",mName.c_str());
 
 	}
-	void getGlowOpacity()
+	void getGlowOpacity()const
 	{
 		fprintf(mFile,"\"%s.go\"",mName.c_str());
 
 	}
-	void getGlowRingIntensity()
+	void getGlowRingIntensity()const
 	{
 		fprintf(mFile,"\"%s.gri\"",mName.c_str());
 
 	}
-	void getGlowRingFrequency()
+	void getGlowRingFrequency()const
 	{
 		fprintf(mFile,"\"%s.grf\"",mName.c_str());
 
 	}
-	void getGlowFilterWidth()
+	void getGlowFilterWidth()const
 	{
 		fprintf(mFile,"\"%s.gfw\"",mName.c_str());
 
 	}
-	void getHaloIntensity()
+	void getHaloIntensity()const
 	{
 		fprintf(mFile,"\"%s.hi\"",mName.c_str());
 
 	}
-	void getHaloColor()
+	void getHaloColor()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 
 	}
-	void getHaloColorR()
+	void getHaloColorR()const
 	{
 		fprintf(mFile,"\"%s.hc.hr\"",mName.c_str());
 
 	}
-	void getHaloColorG()
+	void getHaloColorG()const
 	{
 		fprintf(mFile,"\"%s.hc.hg\"",mName.c_str());
 
 	}
-	void getHaloColorB()
+	void getHaloColorB()const
 	{
 		fprintf(mFile,"\"%s.hc.hb\"",mName.c_str());
 
 	}
-	void getHaloSpread()
+	void getHaloSpread()const
 	{
 		fprintf(mFile,"\"%s.hs\"",mName.c_str());
 
 	}
-	void getHaloEccentricity()
+	void getHaloEccentricity()const
 	{
 		fprintf(mFile,"\"%s.hecc\"",mName.c_str());
 
 	}
-	void getHaloRadialNoise()
+	void getHaloRadialNoise()const
 	{
 		fprintf(mFile,"\"%s.hn\"",mName.c_str());
 
 	}
-	void getHaloStarLevel()
+	void getHaloStarLevel()const
 	{
 		fprintf(mFile,"\"%s.hv\"",mName.c_str());
 
 	}
-	void getHaloOpacity()
+	void getHaloOpacity()const
 	{
 		fprintf(mFile,"\"%s.ho\"",mName.c_str());
 
 	}
-	void getHaloRingIntensity()
+	void getHaloRingIntensity()const
 	{
 		fprintf(mFile,"\"%s.hri\"",mName.c_str());
 
 	}
-	void getHaloRingFrequency()
+	void getHaloRingFrequency()const
 	{
 		fprintf(mFile,"\"%s.hrf\"",mName.c_str());
 
 	}
-	void getHaloFilterWidth()
+	void getHaloFilterWidth()const
 	{
 		fprintf(mFile,"\"%s.hfw\"",mName.c_str());
 
 	}
-	void getQuality()
+	void getQuality()const
 	{
 		fprintf(mFile,"\"%s.qual\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
-	void getRadialFrequency()
+	void getRadialFrequency()const
 	{
 		fprintf(mFile,"\"%s.rf\"",mName.c_str());
 
 	}
-	void getStarPoints()
+	void getStarPoints()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getRotation()
+	void getRotation()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getAutoExposure()
+	void getAutoExposure()const
 	{
 		fprintf(mFile,"\"%s.ae\"",mName.c_str());
 
 	}
 protected:
-	ShaderGlow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ShaderGlow(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,11 +19,12 @@ class CgfxShader : public HwShader
 public:
 public:
 	CgfxShader():HwShader(){}
-	CgfxShader(FILE* file,const std::string& name,const std::string& parent=""):HwShader(file, name, parent, "cgfxShader"){}
+	CgfxShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:HwShader(file, name, parent, "cgfxShader", create){}
 	virtual ~CgfxShader(){}
 protected:
-	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:HwShader(file, name, parent, nodeType) {}
+	CgfxShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:HwShader(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

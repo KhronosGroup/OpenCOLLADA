@@ -108,7 +108,8 @@ public:
 	};
 public:
 	Brush():DependNode(){}
-	Brush(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "brush"){}
+	Brush(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "brush", create){}
 	virtual ~Brush(){}
 	void setGlobalScale(double gsc)
 	{
@@ -2363,1864 +2364,1864 @@ public:
 		fprintf(mFile,"\tsetAttr \".hde\" %i;\n", hde);
 
 	}
-	void getOutBrush()
+	void getOutBrush()const
 	{
 		fprintf(mFile,"\"%s.obr\"",mName.c_str());
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 
 	}
-	void getGlobalScale()
+	void getGlobalScale()const
 	{
 		fprintf(mFile,"\"%s.gsc\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.dep\"",mName.c_str());
 
 	}
-	void getModifyDepth()
+	void getModifyDepth()const
 	{
 		fprintf(mFile,"\"%s.mdp\"",mName.c_str());
 
 	}
-	void getModifyColor()
+	void getModifyColor()const
 	{
 		fprintf(mFile,"\"%s.mdc\"",mName.c_str());
 
 	}
-	void getModifyAlpha()
+	void getModifyAlpha()const
 	{
 		fprintf(mFile,"\"%s.mda\"",mName.c_str());
 
 	}
-	void getIlluminated()
+	void getIlluminated()const
 	{
 		fprintf(mFile,"\"%s.ill\"",mName.c_str());
 
 	}
-	void getCastShadows()
+	void getCastShadows()const
 	{
 		fprintf(mFile,"\"%s.csd\"",mName.c_str());
 
 	}
-	void getLightingBasedWidth()
+	void getLightingBasedWidth()const
 	{
 		fprintf(mFile,"\"%s.lbw\"",mName.c_str());
 
 	}
-	void getBranches()
+	void getBranches()const
 	{
 		fprintf(mFile,"\"%s.brc\"",mName.c_str());
 
 	}
-	void getTwigs()
+	void getTwigs()const
 	{
 		fprintf(mFile,"\"%s.twg\"",mName.c_str());
 
 	}
-	void getBuds()
+	void getBuds()const
 	{
 		fprintf(mFile,"\"%s.bud\"",mName.c_str());
 
 	}
-	void getLeaves()
+	void getLeaves()const
 	{
 		fprintf(mFile,"\"%s.lvs\"",mName.c_str());
 
 	}
-	void getFlowers()
+	void getFlowers()const
 	{
 		fprintf(mFile,"\"%s.flw\"",mName.c_str());
 
 	}
-	void getBrushType()
+	void getBrushType()const
 	{
 		fprintf(mFile,"\"%s.brt\"",mName.c_str());
 
 	}
-	void getBrushWidth()
+	void getBrushWidth()const
 	{
 		fprintf(mFile,"\"%s.bwd\"",mName.c_str());
 
 	}
-	void getScreenspaceWidth()
+	void getScreenspaceWidth()const
 	{
 		fprintf(mFile,"\"%s.spw\"",mName.c_str());
 
 	}
-	void getDistanceScaling()
+	void getDistanceScaling()const
 	{
 		fprintf(mFile,"\"%s.dsl\"",mName.c_str());
 
 	}
-	void getMinPixelWidth()
+	void getMinPixelWidth()const
 	{
 		fprintf(mFile,"\"%s.mpw\"",mName.c_str());
 
 	}
-	void getMaxPixelWidth()
+	void getMaxPixelWidth()const
 	{
 		fprintf(mFile,"\"%s.mxp\"",mName.c_str());
 
 	}
-	void getStampDensity()
+	void getStampDensity()const
 	{
 		fprintf(mFile,"\"%s.sdn\"",mName.c_str());
 
 	}
-	void getSoftness()
+	void getSoftness()const
 	{
 		fprintf(mFile,"\"%s.sft\"",mName.c_str());
 
 	}
-	void getEdgeAntialias()
+	void getEdgeAntialias()const
 	{
 		fprintf(mFile,"\"%s.eaa\"",mName.c_str());
 
 	}
-	void getEdgeClip()
+	void getEdgeClip()const
 	{
 		fprintf(mFile,"\"%s.ecl\"",mName.c_str());
 
 	}
-	void getEdgeClipDepth()
+	void getEdgeClipDepth()const
 	{
 		fprintf(mFile,"\"%s.ecd\"",mName.c_str());
 
 	}
-	void getOcclusionWidthScale()
+	void getOcclusionWidthScale()const
 	{
 		fprintf(mFile,"\"%s.ows\"",mName.c_str());
 
 	}
-	void getBlurIntensity()
+	void getBlurIntensity()const
 	{
 		fprintf(mFile,"\"%s.bin\"",mName.c_str());
 
 	}
-	void getColor1()
+	void getColor1()const
 	{
 		fprintf(mFile,"\"%s.cl1\"",mName.c_str());
 
 	}
-	void getColor1R()
+	void getColor1R()const
 	{
 		fprintf(mFile,"\"%s.cl1.c1r\"",mName.c_str());
 
 	}
-	void getColor1G()
+	void getColor1G()const
 	{
 		fprintf(mFile,"\"%s.cl1.c1g\"",mName.c_str());
 
 	}
-	void getColor1B()
+	void getColor1B()const
 	{
 		fprintf(mFile,"\"%s.cl1.c1b\"",mName.c_str());
 
 	}
-	void getColor2()
+	void getColor2()const
 	{
 		fprintf(mFile,"\"%s.cl2\"",mName.c_str());
 
 	}
-	void getColor2R()
+	void getColor2R()const
 	{
 		fprintf(mFile,"\"%s.cl2.c2r\"",mName.c_str());
 
 	}
-	void getColor2G()
+	void getColor2G()const
 	{
 		fprintf(mFile,"\"%s.cl2.c2g\"",mName.c_str());
 
 	}
-	void getColor2B()
+	void getColor2B()const
 	{
 		fprintf(mFile,"\"%s.cl2.c2b\"",mName.c_str());
 
 	}
-	void getTransparency1()
+	void getTransparency1()const
 	{
 		fprintf(mFile,"\"%s.tn1\"",mName.c_str());
 
 	}
-	void getTransparency1R()
+	void getTransparency1R()const
 	{
 		fprintf(mFile,"\"%s.tn1.t1r\"",mName.c_str());
 
 	}
-	void getTransparency1G()
+	void getTransparency1G()const
 	{
 		fprintf(mFile,"\"%s.tn1.t1g\"",mName.c_str());
 
 	}
-	void getTransparency1B()
+	void getTransparency1B()const
 	{
 		fprintf(mFile,"\"%s.tn1.t1b\"",mName.c_str());
 
 	}
-	void getTransparency2()
+	void getTransparency2()const
 	{
 		fprintf(mFile,"\"%s.tn2\"",mName.c_str());
 
 	}
-	void getTransparency2R()
+	void getTransparency2R()const
 	{
 		fprintf(mFile,"\"%s.tn2.t2r\"",mName.c_str());
 
 	}
-	void getTransparency2G()
+	void getTransparency2G()const
 	{
 		fprintf(mFile,"\"%s.tn2.t2g\"",mName.c_str());
 
 	}
-	void getTransparency2B()
+	void getTransparency2B()const
 	{
 		fprintf(mFile,"\"%s.tn2.t2b\"",mName.c_str());
 
 	}
-	void getIncandescence1()
+	void getIncandescence1()const
 	{
 		fprintf(mFile,"\"%s.in1\"",mName.c_str());
 
 	}
-	void getIncandescence1R()
+	void getIncandescence1R()const
 	{
 		fprintf(mFile,"\"%s.in1.i1r\"",mName.c_str());
 
 	}
-	void getIncandescence1G()
+	void getIncandescence1G()const
 	{
 		fprintf(mFile,"\"%s.in1.i1g\"",mName.c_str());
 
 	}
-	void getIncandescence1B()
+	void getIncandescence1B()const
 	{
 		fprintf(mFile,"\"%s.in1.i1b\"",mName.c_str());
 
 	}
-	void getIncandescence2()
+	void getIncandescence2()const
 	{
 		fprintf(mFile,"\"%s.in2\"",mName.c_str());
 
 	}
-	void getIncandescence2R()
+	void getIncandescence2R()const
 	{
 		fprintf(mFile,"\"%s.in2.i2r\"",mName.c_str());
 
 	}
-	void getIncandescence2G()
+	void getIncandescence2G()const
 	{
 		fprintf(mFile,"\"%s.in2.i2g\"",mName.c_str());
 
 	}
-	void getIncandescence2B()
+	void getIncandescence2B()const
 	{
 		fprintf(mFile,"\"%s.in2.i2b\"",mName.c_str());
 
 	}
-	void getSpecularColor()
+	void getSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.spc\"",mName.c_str());
 
 	}
-	void getSpecularColorR()
+	void getSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.spc.spr\"",mName.c_str());
 
 	}
-	void getSpecularColorG()
+	void getSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.spc.spg\"",mName.c_str());
 
 	}
-	void getSpecularColorB()
+	void getSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.spc.spb\"",mName.c_str());
 
 	}
-	void getSpecular()
+	void getSpecular()const
 	{
 		fprintf(mFile,"\"%s.spe\"",mName.c_str());
 
 	}
-	void getSpecularPower()
+	void getSpecularPower()const
 	{
 		fprintf(mFile,"\"%s.spp\"",mName.c_str());
 
 	}
-	void getTranslucence()
+	void getTranslucence()const
 	{
 		fprintf(mFile,"\"%s.trn\"",mName.c_str());
 
 	}
-	void getGlow()
+	void getGlow()const
 	{
 		fprintf(mFile,"\"%s.glw\"",mName.c_str());
 
 	}
-	void getGlowColor()
+	void getGlowColor()const
 	{
 		fprintf(mFile,"\"%s.glc\"",mName.c_str());
 
 	}
-	void getGlowColorR()
+	void getGlowColorR()const
 	{
 		fprintf(mFile,"\"%s.glc.glr\"",mName.c_str());
 
 	}
-	void getGlowColorG()
+	void getGlowColorG()const
 	{
 		fprintf(mFile,"\"%s.glc.glg\"",mName.c_str());
 
 	}
-	void getGlowColorB()
+	void getGlowColorB()const
 	{
 		fprintf(mFile,"\"%s.glc.glb\"",mName.c_str());
 
 	}
-	void getGlowSpread()
+	void getGlowSpread()const
 	{
 		fprintf(mFile,"\"%s.gls\"",mName.c_str());
 
 	}
-	void getShaderGlow()
+	void getShaderGlow()const
 	{
 		fprintf(mFile,"\"%s.sgl\"",mName.c_str());
 
 	}
-	void getHueRand()
+	void getHueRand()const
 	{
 		fprintf(mFile,"\"%s.chr\"",mName.c_str());
 
 	}
-	void getSatRand()
+	void getSatRand()const
 	{
 		fprintf(mFile,"\"%s.csr\"",mName.c_str());
 
 	}
-	void getValRand()
+	void getValRand()const
 	{
 		fprintf(mFile,"\"%s.cvr\"",mName.c_str());
 
 	}
-	void getRootFade()
+	void getRootFade()const
 	{
 		fprintf(mFile,"\"%s.rfd\"",mName.c_str());
 
 	}
-	void getTipFade()
+	void getTipFade()const
 	{
 		fprintf(mFile,"\"%s.tfd\"",mName.c_str());
 
 	}
-	void getFakeShadow()
+	void getFakeShadow()const
 	{
 		fprintf(mFile,"\"%s.fks\"",mName.c_str());
 
 	}
-	void getShadowOffset()
+	void getShadowOffset()const
 	{
 		fprintf(mFile,"\"%s.sof\"",mName.c_str());
 
 	}
-	void getShadowDiffusion()
+	void getShadowDiffusion()const
 	{
 		fprintf(mFile,"\"%s.sdf\"",mName.c_str());
 
 	}
-	void getShadowTransparency()
+	void getShadowTransparency()const
 	{
 		fprintf(mFile,"\"%s.stn\"",mName.c_str());
 
 	}
-	void getBackShadow()
+	void getBackShadow()const
 	{
 		fprintf(mFile,"\"%s.bks\"",mName.c_str());
 
 	}
-	void getBrightnessRand()
+	void getBrightnessRand()const
 	{
 		fprintf(mFile,"\"%s.brn\"",mName.c_str());
 
 	}
-	void getCenterShadow()
+	void getCenterShadow()const
 	{
 		fprintf(mFile,"\"%s.cns\"",mName.c_str());
 
 	}
-	void getDepthShadowType()
+	void getDepthShadowType()const
 	{
 		fprintf(mFile,"\"%s.dpt\"",mName.c_str());
 
 	}
-	void getDepthShadow()
+	void getDepthShadow()const
 	{
 		fprintf(mFile,"\"%s.dpl\"",mName.c_str());
 
 	}
-	void getDepthShadowDepth()
+	void getDepthShadowDepth()const
 	{
 		fprintf(mFile,"\"%s.dps\"",mName.c_str());
 
 	}
-	void getRealLights()
+	void getRealLights()const
 	{
 		fprintf(mFile,"\"%s.rll\"",mName.c_str());
 
 	}
-	void getLightDirection()
+	void getLightDirection()const
 	{
 		fprintf(mFile,"\"%s.ldr\"",mName.c_str());
 
 	}
-	void getLightDirectionX()
+	void getLightDirectionX()const
 	{
 		fprintf(mFile,"\"%s.ldr.ldx\"",mName.c_str());
 
 	}
-	void getLightDirectionY()
+	void getLightDirectionY()const
 	{
 		fprintf(mFile,"\"%s.ldr.ldy\"",mName.c_str());
 
 	}
-	void getLightDirectionZ()
+	void getLightDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.ldr.ldz\"",mName.c_str());
 
 	}
-	void getGapSize()
+	void getGapSize()const
 	{
 		fprintf(mFile,"\"%s.gsz\"",mName.c_str());
 
 	}
-	void getGapSpacing()
+	void getGapSpacing()const
 	{
 		fprintf(mFile,"\"%s.gsp\"",mName.c_str());
 
 	}
-	void getGapRand()
+	void getGapRand()const
 	{
 		fprintf(mFile,"\"%s.grn\"",mName.c_str());
 
 	}
-	void getFlowSpeed()
+	void getFlowSpeed()const
 	{
 		fprintf(mFile,"\"%s.fws\"",mName.c_str());
 
 	}
-	void getTextureFlow()
+	void getTextureFlow()const
 	{
 		fprintf(mFile,"\"%s.tfl\"",mName.c_str());
 
 	}
-	void getTimeClip()
+	void getTimeClip()const
 	{
 		fprintf(mFile,"\"%s.tcl\"",mName.c_str());
 
 	}
-	void getStrokeTime()
+	void getStrokeTime()const
 	{
 		fprintf(mFile,"\"%s.srm\"",mName.c_str());
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.sti\"",mName.c_str());
 
 	}
-	void getEndTime()
+	void getEndTime()const
 	{
 		fprintf(mFile,"\"%s.eti\"",mName.c_str());
 
 	}
-	void getTubes()
+	void getTubes()const
 	{
 		fprintf(mFile,"\"%s.tub\"",mName.c_str());
 
 	}
-	void getCreationScript()
+	void getCreationScript()const
 	{
 		fprintf(mFile,"\"%s.csc\"",mName.c_str());
 
 	}
-	void getRuntimeScript()
+	void getRuntimeScript()const
 	{
 		fprintf(mFile,"\"%s.rsc\"",mName.c_str());
 
 	}
-	void getTubeCompletion()
+	void getTubeCompletion()const
 	{
 		fprintf(mFile,"\"%s.tcm\"",mName.c_str());
 
 	}
-	void getTubesPerStep()
+	void getTubesPerStep()const
 	{
 		fprintf(mFile,"\"%s.tps\"",mName.c_str());
 
 	}
-	void getTubeRand()
+	void getTubeRand()const
 	{
 		fprintf(mFile,"\"%s.trd\"",mName.c_str());
 
 	}
-	void getStartTubes()
+	void getStartTubes()const
 	{
 		fprintf(mFile,"\"%s.stb\"",mName.c_str());
 
 	}
-	void getLengthMax()
+	void getLengthMax()const
 	{
 		fprintf(mFile,"\"%s.lnx\"",mName.c_str());
 
 	}
-	void getLengthMin()
+	void getLengthMin()const
 	{
 		fprintf(mFile,"\"%s.lnn\"",mName.c_str());
 
 	}
-	void getSegments()
+	void getSegments()const
 	{
 		fprintf(mFile,"\"%s.sgm\"",mName.c_str());
 
 	}
-	void getTubeWidth1()
+	void getTubeWidth1()const
 	{
 		fprintf(mFile,"\"%s.tw1\"",mName.c_str());
 
 	}
-	void getTubeWidth2()
+	void getTubeWidth2()const
 	{
 		fprintf(mFile,"\"%s.tw2\"",mName.c_str());
 
 	}
-	void getWidthRand()
+	void getWidthRand()const
 	{
 		fprintf(mFile,"\"%s.wdr\"",mName.c_str());
 
 	}
-	void getWidthBias()
+	void getWidthBias()const
 	{
 		fprintf(mFile,"\"%s.wdb\"",mName.c_str());
 
 	}
-	void getLengthFlex()
+	void getLengthFlex()const
 	{
 		fprintf(mFile,"\"%s.lfx\"",mName.c_str());
 
 	}
-	void getSegmentLengthBias()
+	void getSegmentLengthBias()const
 	{
 		fprintf(mFile,"\"%s.sgb\"",mName.c_str());
 
 	}
-	void getSegmentWidthBias()
+	void getSegmentWidthBias()const
 	{
 		fprintf(mFile,"\"%s.swb\"",mName.c_str());
 
 	}
-	void getTubeDirection()
+	void getTubeDirection()const
 	{
 		fprintf(mFile,"\"%s.tdr\"",mName.c_str());
 
 	}
-	void getElevationMin()
+	void getElevationMin()const
 	{
 		fprintf(mFile,"\"%s.elm\"",mName.c_str());
 
 	}
-	void getElevationMax()
+	void getElevationMax()const
 	{
 		fprintf(mFile,"\"%s.elx\"",mName.c_str());
 
 	}
-	void getAzimuthMin()
+	void getAzimuthMin()const
 	{
 		fprintf(mFile,"\"%s.azn\"",mName.c_str());
 
 	}
-	void getAzimuthMax()
+	void getAzimuthMax()const
 	{
 		fprintf(mFile,"\"%s.azx\"",mName.c_str());
 
 	}
-	void getFlatness1()
+	void getFlatness1()const
 	{
 		fprintf(mFile,"\"%s.fl1\"",mName.c_str());
 
 	}
-	void getFlatness2()
+	void getFlatness2()const
 	{
 		fprintf(mFile,"\"%s.fl2\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.twi\"",mName.c_str());
 
 	}
-	void getTwistRate()
+	void getTwistRate()const
 	{
 		fprintf(mFile,"\"%s.twr\"",mName.c_str());
 
 	}
-	void getTwistRand()
+	void getTwistRand()const
 	{
 		fprintf(mFile,"\"%s.twd\"",mName.c_str());
 
 	}
-	void getSpiralMin()
+	void getSpiralMin()const
 	{
 		fprintf(mFile,"\"%s.spm\"",mName.c_str());
 
 	}
-	void getSpiralMax()
+	void getSpiralMax()const
 	{
 		fprintf(mFile,"\"%s.spx\"",mName.c_str());
 
 	}
-	void getSpiralDecay()
+	void getSpiralDecay()const
 	{
 		fprintf(mFile,"\"%s.spd\"",mName.c_str());
 
 	}
-	void getBend()
+	void getBend()const
 	{
 		fprintf(mFile,"\"%s.ben\"",mName.c_str());
 
 	}
-	void getBendBias()
+	void getBendBias()const
 	{
 		fprintf(mFile,"\"%s.bnb\"",mName.c_str());
 
 	}
-	void getDisplacementDelay()
+	void getDisplacementDelay()const
 	{
 		fprintf(mFile,"\"%s.ddl\"",mName.c_str());
 
 	}
-	void getWiggle()
+	void getWiggle()const
 	{
 		fprintf(mFile,"\"%s.wgl\"",mName.c_str());
 
 	}
-	void getWiggleFrequency()
+	void getWiggleFrequency()const
 	{
 		fprintf(mFile,"\"%s.wgf\"",mName.c_str());
 
 	}
-	void getWiggleOffset()
+	void getWiggleOffset()const
 	{
 		fprintf(mFile,"\"%s.wgo\"",mName.c_str());
 
 	}
-	void getCurl()
+	void getCurl()const
 	{
 		fprintf(mFile,"\"%s.crl\"",mName.c_str());
 
 	}
-	void getCurlFrequency()
+	void getCurlFrequency()const
 	{
 		fprintf(mFile,"\"%s.crf\"",mName.c_str());
 
 	}
-	void getCurlOffset()
+	void getCurlOffset()const
 	{
 		fprintf(mFile,"\"%s.cro\"",mName.c_str());
 
 	}
-	void getNoise()
+	void getNoise()const
 	{
 		fprintf(mFile,"\"%s.noi\"",mName.c_str());
 
 	}
-	void getNoiseFrequency()
+	void getNoiseFrequency()const
 	{
 		fprintf(mFile,"\"%s.nof\"",mName.c_str());
 
 	}
-	void getNoiseOffset()
+	void getNoiseOffset()const
 	{
 		fprintf(mFile,"\"%s.noo\"",mName.c_str());
 
 	}
-	void getSplitMaxDepth()
+	void getSplitMaxDepth()const
 	{
 		fprintf(mFile,"\"%s.smd\"",mName.c_str());
 
 	}
-	void getSplitRand()
+	void getSplitRand()const
 	{
 		fprintf(mFile,"\"%s.srd\"",mName.c_str());
 
 	}
-	void getSplitAngle()
+	void getSplitAngle()const
 	{
 		fprintf(mFile,"\"%s.spa\"",mName.c_str());
 
 	}
-	void getSplitSizeDecay()
+	void getSplitSizeDecay()const
 	{
 		fprintf(mFile,"\"%s.ssd\"",mName.c_str());
 
 	}
-	void getSplitBias()
+	void getSplitBias()const
 	{
 		fprintf(mFile,"\"%s.slb\"",mName.c_str());
 
 	}
-	void getSplitTwist()
+	void getSplitTwist()const
 	{
 		fprintf(mFile,"\"%s.slt\"",mName.c_str());
 
 	}
-	void getStartBranches()
+	void getStartBranches()const
 	{
 		fprintf(mFile,"\"%s.sbr\"",mName.c_str());
 
 	}
-	void getNumBranches()
+	void getNumBranches()const
 	{
 		fprintf(mFile,"\"%s.nbr\"",mName.c_str());
 
 	}
-	void getBranchDropout()
+	void getBranchDropout()const
 	{
 		fprintf(mFile,"\"%s.bdr\"",mName.c_str());
 
 	}
-	void getMiddleBranch()
+	void getMiddleBranch()const
 	{
 		fprintf(mFile,"\"%s.mbr\"",mName.c_str());
 
 	}
-	void getMinSize()
+	void getMinSize()const
 	{
 		fprintf(mFile,"\"%s.mms\"",mName.c_str());
 
 	}
-	void getPathFollow()
+	void getPathFollow()const
 	{
 		fprintf(mFile,"\"%s.pfl\"",mName.c_str());
 
 	}
-	void getPathAttract()
+	void getPathAttract()const
 	{
 		fprintf(mFile,"\"%s.pat\"",mName.c_str());
 
 	}
-	void getCurveFollow()
+	void getCurveFollow()const
 	{
 		fprintf(mFile,"\"%s.cfw\"",mName.c_str());
 
 	}
-	void getCurveAttract()
+	void getCurveAttract()const
 	{
 		fprintf(mFile,"\"%s.cva\"",mName.c_str());
 
 	}
-	void getCurveMaxDist()
+	void getCurveMaxDist()const
 	{
 		fprintf(mFile,"\"%s.cmd\"",mName.c_str());
 
 	}
-	void getUniformForce()
+	void getUniformForce()const
 	{
 		fprintf(mFile,"\"%s.ufr\"",mName.c_str());
 
 	}
-	void getUniformForceX()
+	void getUniformForceX()const
 	{
 		fprintf(mFile,"\"%s.ufr.ufx\"",mName.c_str());
 
 	}
-	void getUniformForceY()
+	void getUniformForceY()const
 	{
 		fprintf(mFile,"\"%s.ufr.ufy\"",mName.c_str());
 
 	}
-	void getUniformForceZ()
+	void getUniformForceZ()const
 	{
 		fprintf(mFile,"\"%s.ufr.ufz\"",mName.c_str());
 
 	}
-	void getTurbulenceType()
+	void getTurbulenceType()const
 	{
 		fprintf(mFile,"\"%s.trt\"",mName.c_str());
 
 	}
-	void getTurbulenceInterpolation()
+	void getTurbulenceInterpolation()const
 	{
 		fprintf(mFile,"\"%s.tin\"",mName.c_str());
 
 	}
-	void getTurbulence()
+	void getTurbulence()const
 	{
 		fprintf(mFile,"\"%s.tur\"",mName.c_str());
 
 	}
-	void getTurbulenceFrequency()
+	void getTurbulenceFrequency()const
 	{
 		fprintf(mFile,"\"%s.trf\"",mName.c_str());
 
 	}
-	void getTurbulenceSpeed()
+	void getTurbulenceSpeed()const
 	{
 		fprintf(mFile,"\"%s.trs\"",mName.c_str());
 
 	}
-	void getTurbulenceOffset()
+	void getTurbulenceOffset()const
 	{
 		fprintf(mFile,"\"%s.tro\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetX()
+	void getTurbulenceOffsetX()const
 	{
 		fprintf(mFile,"\"%s.tro.trx\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetY()
+	void getTurbulenceOffsetY()const
 	{
 		fprintf(mFile,"\"%s.tro.try\"",mName.c_str());
 
 	}
-	void getTurbulenceOffsetZ()
+	void getTurbulenceOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.tro.trz\"",mName.c_str());
 
 	}
-	void getRandom()
+	void getRandom()const
 	{
 		fprintf(mFile,"\"%s.ran\"",mName.c_str());
 
 	}
-	void getGravity()
+	void getGravity()const
 	{
 		fprintf(mFile,"\"%s.grv\"",mName.c_str());
 
 	}
-	void getMomentum()
+	void getMomentum()const
 	{
 		fprintf(mFile,"\"%s.mmt\"",mName.c_str());
 
 	}
-	void getDeflection()
+	void getDeflection()const
 	{
 		fprintf(mFile,"\"%s.def\"",mName.c_str());
 
 	}
-	void getDeflectionMin()
+	void getDeflectionMin()const
 	{
 		fprintf(mFile,"\"%s.dfm\"",mName.c_str());
 
 	}
-	void getDeflectionMax()
+	void getDeflectionMax()const
 	{
 		fprintf(mFile,"\"%s.dfx\"",mName.c_str());
 
 	}
-	void getTwigsInCluster()
+	void getTwigsInCluster()const
 	{
 		fprintf(mFile,"\"%s.tic\"",mName.c_str());
 
 	}
-	void getTwigDropout()
+	void getTwigDropout()const
 	{
 		fprintf(mFile,"\"%s.tdp\"",mName.c_str());
 
 	}
-	void getTwigAngle1()
+	void getTwigAngle1()const
 	{
 		fprintf(mFile,"\"%s.ta1\"",mName.c_str());
 
 	}
-	void getTwigAngle2()
+	void getTwigAngle2()const
 	{
 		fprintf(mFile,"\"%s.ta2\"",mName.c_str());
 
 	}
-	void getTwigTwist()
+	void getTwigTwist()const
 	{
 		fprintf(mFile,"\"%s.ttw\"",mName.c_str());
 
 	}
-	void getTwigLength()
+	void getTwigLength()const
 	{
 		fprintf(mFile,"\"%s.twl\"",mName.c_str());
 
 	}
-	void getTwigStart()
+	void getTwigStart()const
 	{
 		fprintf(mFile,"\"%s.tst\"",mName.c_str());
 
 	}
-	void getNumTwigClusters()
+	void getNumTwigClusters()const
 	{
 		fprintf(mFile,"\"%s.ntc\"",mName.c_str());
 
 	}
-	void getTwigBaseWidth()
+	void getTwigBaseWidth()const
 	{
 		fprintf(mFile,"\"%s.twb\"",mName.c_str());
 
 	}
-	void getTwigTipWidth()
+	void getTwigTipWidth()const
 	{
 		fprintf(mFile,"\"%s.twt\"",mName.c_str());
 
 	}
-	void getTwigStiffness()
+	void getTwigStiffness()const
 	{
 		fprintf(mFile,"\"%s.tgs\"",mName.c_str());
 
 	}
-	void getBranchAfterTwigs()
+	void getBranchAfterTwigs()const
 	{
 		fprintf(mFile,"\"%s.bat\"",mName.c_str());
 
 	}
-	void getLeavesInCluster()
+	void getLeavesInCluster()const
 	{
 		fprintf(mFile,"\"%s.lic\"",mName.c_str());
 
 	}
-	void getLeafLocation()
+	void getLeafLocation()const
 	{
 		fprintf(mFile,"\"%s.llo\"",mName.c_str());
 
 	}
-	void getLeafDropout()
+	void getLeafDropout()const
 	{
 		fprintf(mFile,"\"%s.ldp\"",mName.c_str());
 
 	}
-	void getLeafAngle1()
+	void getLeafAngle1()const
 	{
 		fprintf(mFile,"\"%s.ll1\"",mName.c_str());
 
 	}
-	void getLeafAngle2()
+	void getLeafAngle2()const
 	{
 		fprintf(mFile,"\"%s.ll2\"",mName.c_str());
 
 	}
-	void getLeafTwist()
+	void getLeafTwist()const
 	{
 		fprintf(mFile,"\"%s.ltw\"",mName.c_str());
 
 	}
-	void getLeafBend()
+	void getLeafBend()const
 	{
 		fprintf(mFile,"\"%s.lbn\"",mName.c_str());
 
 	}
-	void getLeafCurl(size_t lcl_i)
+	void getLeafCurl(size_t lcl_i)const
 	{
 		fprintf(mFile,"\"%s.lcl[%i]\"",mName.c_str(),lcl_i);
 
 	}
-	void getLeafCurl_Position(size_t lcl_i)
+	void getLeafCurl_Position(size_t lcl_i)const
 	{
 		fprintf(mFile,"\"%s.lcl[%i].lclp\"",mName.c_str(),lcl_i);
 
 	}
-	void getLeafCurl_FloatValue(size_t lcl_i)
+	void getLeafCurl_FloatValue(size_t lcl_i)const
 	{
 		fprintf(mFile,"\"%s.lcl[%i].lclfv\"",mName.c_str(),lcl_i);
 
 	}
-	void getLeafCurl_Interp(size_t lcl_i)
+	void getLeafCurl_Interp(size_t lcl_i)const
 	{
 		fprintf(mFile,"\"%s.lcl[%i].lcli\"",mName.c_str(),lcl_i);
 
 	}
-	void getLeafTwirl()
+	void getLeafTwirl()const
 	{
 		fprintf(mFile,"\"%s.ltwl\"",mName.c_str());
 
 	}
-	void getLeafSegments()
+	void getLeafSegments()const
 	{
 		fprintf(mFile,"\"%s.lsg\"",mName.c_str());
 
 	}
-	void getLeafStart()
+	void getLeafStart()const
 	{
 		fprintf(mFile,"\"%s.lst\"",mName.c_str());
 
 	}
-	void getNumLeafClusters()
+	void getNumLeafClusters()const
 	{
 		fprintf(mFile,"\"%s.nlc\"",mName.c_str());
 
 	}
-	void getLeafFlatness()
+	void getLeafFlatness()const
 	{
 		fprintf(mFile,"\"%s.lft\"",mName.c_str());
 
 	}
-	void getLeafLength()
+	void getLeafLength()const
 	{
 		fprintf(mFile,"\"%s.lln\"",mName.c_str());
 
 	}
-	void getLeafBaseWidth()
+	void getLeafBaseWidth()const
 	{
 		fprintf(mFile,"\"%s.leb\"",mName.c_str());
 
 	}
-	void getLeafTipWidth()
+	void getLeafTipWidth()const
 	{
 		fprintf(mFile,"\"%s.let\"",mName.c_str());
 
 	}
-	void getLeafSizeDecay()
+	void getLeafSizeDecay()const
 	{
 		fprintf(mFile,"\"%s.lsd\"",mName.c_str());
 
 	}
-	void getLeafTranslucence()
+	void getLeafTranslucence()const
 	{
 		fprintf(mFile,"\"%s.ltr\"",mName.c_str());
 
 	}
-	void getLeafSpecular()
+	void getLeafSpecular()const
 	{
 		fprintf(mFile,"\"%s.lsp\"",mName.c_str());
 
 	}
-	void getTerminalLeaf()
+	void getTerminalLeaf()const
 	{
 		fprintf(mFile,"\"%s.tml\"",mName.c_str());
 
 	}
-	void getLeafColor1()
+	void getLeafColor1()const
 	{
 		fprintf(mFile,"\"%s.lc1\"",mName.c_str());
 
 	}
-	void getLeafColor1R()
+	void getLeafColor1R()const
 	{
 		fprintf(mFile,"\"%s.lc1.lr1\"",mName.c_str());
 
 	}
-	void getLeafColor1G()
+	void getLeafColor1G()const
 	{
 		fprintf(mFile,"\"%s.lc1.lg1\"",mName.c_str());
 
 	}
-	void getLeafColor1B()
+	void getLeafColor1B()const
 	{
 		fprintf(mFile,"\"%s.lc1.lb1\"",mName.c_str());
 
 	}
-	void getLeafColor2()
+	void getLeafColor2()const
 	{
 		fprintf(mFile,"\"%s.lc2\"",mName.c_str());
 
 	}
-	void getLeafColor2R()
+	void getLeafColor2R()const
 	{
 		fprintf(mFile,"\"%s.lc2.lr2\"",mName.c_str());
 
 	}
-	void getLeafColor2G()
+	void getLeafColor2G()const
 	{
 		fprintf(mFile,"\"%s.lc2.lg2\"",mName.c_str());
 
 	}
-	void getLeafColor2B()
+	void getLeafColor2B()const
 	{
 		fprintf(mFile,"\"%s.lc2.lb2\"",mName.c_str());
 
 	}
-	void getLeafHueRand()
+	void getLeafHueRand()const
 	{
 		fprintf(mFile,"\"%s.lhr\"",mName.c_str());
 
 	}
-	void getLeafSatRand()
+	void getLeafSatRand()const
 	{
 		fprintf(mFile,"\"%s.lsr\"",mName.c_str());
 
 	}
-	void getLeafValRand()
+	void getLeafValRand()const
 	{
 		fprintf(mFile,"\"%s.lvr\"",mName.c_str());
 
 	}
-	void getLeafUseBranchTex()
+	void getLeafUseBranchTex()const
 	{
 		fprintf(mFile,"\"%s.lub\"",mName.c_str());
 
 	}
-	void getLeafImage()
+	void getLeafImage()const
 	{
 		fprintf(mFile,"\"%s.lim\"",mName.c_str());
 
 	}
-	void getLeafStiffness()
+	void getLeafStiffness()const
 	{
 		fprintf(mFile,"\"%s.lfs\"",mName.c_str());
 
 	}
-	void getBudSize()
+	void getBudSize()const
 	{
 		fprintf(mFile,"\"%s.bds\"",mName.c_str());
 
 	}
-	void getBudColor()
+	void getBudColor()const
 	{
 		fprintf(mFile,"\"%s.bcr\"",mName.c_str());
 
 	}
-	void getBudColorR()
+	void getBudColorR()const
 	{
 		fprintf(mFile,"\"%s.bcr.bur\"",mName.c_str());
 
 	}
-	void getBudColorG()
+	void getBudColorG()const
 	{
 		fprintf(mFile,"\"%s.bcr.bug\"",mName.c_str());
 
 	}
-	void getBudColorB()
+	void getBudColorB()const
 	{
 		fprintf(mFile,"\"%s.bcr.bub\"",mName.c_str());
 
 	}
-	void getPetalsInFlower()
+	void getPetalsInFlower()const
 	{
 		fprintf(mFile,"\"%s.pif\"",mName.c_str());
 
 	}
-	void getFlowerLocation()
+	void getFlowerLocation()const
 	{
 		fprintf(mFile,"\"%s.flc\"",mName.c_str());
 
 	}
-	void getPetalDropout()
+	void getPetalDropout()const
 	{
 		fprintf(mFile,"\"%s.pdp\"",mName.c_str());
 
 	}
-	void getFlowerAngle1()
+	void getFlowerAngle1()const
 	{
 		fprintf(mFile,"\"%s.fw1\"",mName.c_str());
 
 	}
-	void getFlowerAngle2()
+	void getFlowerAngle2()const
 	{
 		fprintf(mFile,"\"%s.fw2\"",mName.c_str());
 
 	}
-	void getFlowerTwist()
+	void getFlowerTwist()const
 	{
 		fprintf(mFile,"\"%s.ftw\"",mName.c_str());
 
 	}
-	void getPetalBend()
+	void getPetalBend()const
 	{
 		fprintf(mFile,"\"%s.pbn\"",mName.c_str());
 
 	}
-	void getPetalCurl(size_t pcl_i)
+	void getPetalCurl(size_t pcl_i)const
 	{
 		fprintf(mFile,"\"%s.pcl[%i]\"",mName.c_str(),pcl_i);
 
 	}
-	void getPetalCurl_Position(size_t pcl_i)
+	void getPetalCurl_Position(size_t pcl_i)const
 	{
 		fprintf(mFile,"\"%s.pcl[%i].pclp\"",mName.c_str(),pcl_i);
 
 	}
-	void getPetalCurl_FloatValue(size_t pcl_i)
+	void getPetalCurl_FloatValue(size_t pcl_i)const
 	{
 		fprintf(mFile,"\"%s.pcl[%i].pclfv\"",mName.c_str(),pcl_i);
 
 	}
-	void getPetalCurl_Interp(size_t pcl_i)
+	void getPetalCurl_Interp(size_t pcl_i)const
 	{
 		fprintf(mFile,"\"%s.pcl[%i].pcli\"",mName.c_str(),pcl_i);
 
 	}
-	void getPetalTwirl()
+	void getPetalTwirl()const
 	{
 		fprintf(mFile,"\"%s.lpwl\"",mName.c_str());
 
 	}
-	void getPetalSegments()
+	void getPetalSegments()const
 	{
 		fprintf(mFile,"\"%s.psg\"",mName.c_str());
 
 	}
-	void getFlowerStart()
+	void getFlowerStart()const
 	{
 		fprintf(mFile,"\"%s.fst\"",mName.c_str());
 
 	}
-	void getNumFlowers()
+	void getNumFlowers()const
 	{
 		fprintf(mFile,"\"%s.nfl\"",mName.c_str());
 
 	}
-	void getPetalFlatness()
+	void getPetalFlatness()const
 	{
 		fprintf(mFile,"\"%s.pft\"",mName.c_str());
 
 	}
-	void getPetalLength()
+	void getPetalLength()const
 	{
 		fprintf(mFile,"\"%s.pln\"",mName.c_str());
 
 	}
-	void getPetalBaseWidth()
+	void getPetalBaseWidth()const
 	{
 		fprintf(mFile,"\"%s.ptb\"",mName.c_str());
 
 	}
-	void getPetalTipWidth()
+	void getPetalTipWidth()const
 	{
 		fprintf(mFile,"\"%s.ptt\"",mName.c_str());
 
 	}
-	void getFlowerSizeDecay()
+	void getFlowerSizeDecay()const
 	{
 		fprintf(mFile,"\"%s.fsd\"",mName.c_str());
 
 	}
-	void getFlowerTranslucence()
+	void getFlowerTranslucence()const
 	{
 		fprintf(mFile,"\"%s.ftr\"",mName.c_str());
 
 	}
-	void getFlowerSpecular()
+	void getFlowerSpecular()const
 	{
 		fprintf(mFile,"\"%s.fsp\"",mName.c_str());
 
 	}
-	void getPetalColor1()
+	void getPetalColor1()const
 	{
 		fprintf(mFile,"\"%s.pc1\"",mName.c_str());
 
 	}
-	void getPetalColor1R()
+	void getPetalColor1R()const
 	{
 		fprintf(mFile,"\"%s.pc1.pr1\"",mName.c_str());
 
 	}
-	void getPetalColor1G()
+	void getPetalColor1G()const
 	{
 		fprintf(mFile,"\"%s.pc1.pg1\"",mName.c_str());
 
 	}
-	void getPetalColor1B()
+	void getPetalColor1B()const
 	{
 		fprintf(mFile,"\"%s.pc1.pb1\"",mName.c_str());
 
 	}
-	void getPetalColor2()
+	void getPetalColor2()const
 	{
 		fprintf(mFile,"\"%s.pc2\"",mName.c_str());
 
 	}
-	void getPetalColor2R()
+	void getPetalColor2R()const
 	{
 		fprintf(mFile,"\"%s.pc2.pr2\"",mName.c_str());
 
 	}
-	void getPetalColor2G()
+	void getPetalColor2G()const
 	{
 		fprintf(mFile,"\"%s.pc2.pg2\"",mName.c_str());
 
 	}
-	void getPetalColor2B()
+	void getPetalColor2B()const
 	{
 		fprintf(mFile,"\"%s.pc2.pb2\"",mName.c_str());
 
 	}
-	void getFlowerHueRand()
+	void getFlowerHueRand()const
 	{
 		fprintf(mFile,"\"%s.fhr\"",mName.c_str());
 
 	}
-	void getFlowerSatRand()
+	void getFlowerSatRand()const
 	{
 		fprintf(mFile,"\"%s.fsr\"",mName.c_str());
 
 	}
-	void getFlowerValRand()
+	void getFlowerValRand()const
 	{
 		fprintf(mFile,"\"%s.fvr\"",mName.c_str());
 
 	}
-	void getFlowerUseBranchTex()
+	void getFlowerUseBranchTex()const
 	{
 		fprintf(mFile,"\"%s.fub\"",mName.c_str());
 
 	}
-	void getFlowerImage()
+	void getFlowerImage()const
 	{
 		fprintf(mFile,"\"%s.fim\"",mName.c_str());
 
 	}
-	void getFlowerStiffness()
+	void getFlowerStiffness()const
 	{
 		fprintf(mFile,"\"%s.fls\"",mName.c_str());
 
 	}
-	void getSimplifyMethod()
+	void getSimplifyMethod()const
 	{
 		fprintf(mFile,"\"%s.smp\"",mName.c_str());
 
 	}
-	void getColorLengthMap()
+	void getColorLengthMap()const
 	{
 		fprintf(mFile,"\"%s.clm\"",mName.c_str());
 
 	}
-	void getTranspLengthMap()
+	void getTranspLengthMap()const
 	{
 		fprintf(mFile,"\"%s.tlm\"",mName.c_str());
 
 	}
-	void getIncandLengthMap()
+	void getIncandLengthMap()const
 	{
 		fprintf(mFile,"\"%s.ilm\"",mName.c_str());
 
 	}
-	void getWidthLengthMap()
+	void getWidthLengthMap()const
 	{
 		fprintf(mFile,"\"%s.wlm\"",mName.c_str());
 
 	}
-	void getSplitLengthMap()
+	void getSplitLengthMap()const
 	{
 		fprintf(mFile,"\"%s.spl\"",mName.c_str());
 
 	}
-	void getMapColor()
+	void getMapColor()const
 	{
 		fprintf(mFile,"\"%s.mcl\"",mName.c_str());
 
 	}
-	void getMapOpacity()
+	void getMapOpacity()const
 	{
 		fprintf(mFile,"\"%s.mop\"",mName.c_str());
 
 	}
-	void getMapDisplacement()
+	void getMapDisplacement()const
 	{
 		fprintf(mFile,"\"%s.mds\"",mName.c_str());
 
 	}
-	void getTextureType()
+	void getTextureType()const
 	{
 		fprintf(mFile,"\"%s.txt\"",mName.c_str());
 
 	}
-	void getMapMethod()
+	void getMapMethod()const
 	{
 		fprintf(mFile,"\"%s.mmd\"",mName.c_str());
 
 	}
-	void getTexColorScale()
+	void getTexColorScale()const
 	{
 		fprintf(mFile,"\"%s.tcs\"",mName.c_str());
 
 	}
-	void getTexColorOffset()
+	void getTexColorOffset()const
 	{
 		fprintf(mFile,"\"%s.tco\"",mName.c_str());
 
 	}
-	void getTexOpacityScale()
+	void getTexOpacityScale()const
 	{
 		fprintf(mFile,"\"%s.tos\"",mName.c_str());
 
 	}
-	void getTexOpacityOffset()
+	void getTexOpacityOffset()const
 	{
 		fprintf(mFile,"\"%s.too\"",mName.c_str());
 
 	}
-	void getDisplacementScale()
+	void getDisplacementScale()const
 	{
 		fprintf(mFile,"\"%s.dsc\"",mName.c_str());
 
 	}
-	void getDisplacementOffset()
+	void getDisplacementOffset()const
 	{
 		fprintf(mFile,"\"%s.dof\"",mName.c_str());
 
 	}
-	void getBumpIntensity()
+	void getBumpIntensity()const
 	{
 		fprintf(mFile,"\"%s.bmi\"",mName.c_str());
 
 	}
-	void getBumpBlur()
+	void getBumpBlur()const
 	{
 		fprintf(mFile,"\"%s.bbl\"",mName.c_str());
 
 	}
-	void getLuminanceIsDisplacement()
+	void getLuminanceIsDisplacement()const
 	{
 		fprintf(mFile,"\"%s.lid\"",mName.c_str());
 
 	}
-	void getTexColor1()
+	void getTexColor1()const
 	{
 		fprintf(mFile,"\"%s.tc1\"",mName.c_str());
 
 	}
-	void getTexColor1R()
+	void getTexColor1R()const
 	{
 		fprintf(mFile,"\"%s.tc1.x1r\"",mName.c_str());
 
 	}
-	void getTexColor1G()
+	void getTexColor1G()const
 	{
 		fprintf(mFile,"\"%s.tc1.x1g\"",mName.c_str());
 
 	}
-	void getTexColor1B()
+	void getTexColor1B()const
 	{
 		fprintf(mFile,"\"%s.tc1.x1b\"",mName.c_str());
 
 	}
-	void getTexColor2()
+	void getTexColor2()const
 	{
 		fprintf(mFile,"\"%s.tc2\"",mName.c_str());
 
 	}
-	void getTexColor2R()
+	void getTexColor2R()const
 	{
 		fprintf(mFile,"\"%s.tc2.x2r\"",mName.c_str());
 
 	}
-	void getTexColor2G()
+	void getTexColor2G()const
 	{
 		fprintf(mFile,"\"%s.tc2.x2g\"",mName.c_str());
 
 	}
-	void getTexColor2B()
+	void getTexColor2B()const
 	{
 		fprintf(mFile,"\"%s.tc2.x2b\"",mName.c_str());
 
 	}
-	void getTexAlpha1()
+	void getTexAlpha1()const
 	{
 		fprintf(mFile,"\"%s.al1\"",mName.c_str());
 
 	}
-	void getTexAlpha2()
+	void getTexAlpha2()const
 	{
 		fprintf(mFile,"\"%s.al2\"",mName.c_str());
 
 	}
-	void getTexUniformity()
+	void getTexUniformity()const
 	{
 		fprintf(mFile,"\"%s.txu\"",mName.c_str());
 
 	}
-	void getFringeRemoval()
+	void getFringeRemoval()const
 	{
 		fprintf(mFile,"\"%s.frm\"",mName.c_str());
 
 	}
-	void getRepeatU()
+	void getRepeatU()const
 	{
 		fprintf(mFile,"\"%s.rpu\"",mName.c_str());
 
 	}
-	void getRepeatV()
+	void getRepeatV()const
 	{
 		fprintf(mFile,"\"%s.rpv\"",mName.c_str());
 
 	}
-	void getOffsetU()
+	void getOffsetU()const
 	{
 		fprintf(mFile,"\"%s.ofu\"",mName.c_str());
 
 	}
-	void getOffsetV()
+	void getOffsetV()const
 	{
 		fprintf(mFile,"\"%s.ofv\"",mName.c_str());
 
 	}
-	void getBlurMult()
+	void getBlurMult()const
 	{
 		fprintf(mFile,"\"%s.bmt\"",mName.c_str());
 
 	}
-	void getSmear()
+	void getSmear()const
 	{
 		fprintf(mFile,"\"%s.smr\"",mName.c_str());
 
 	}
-	void getSmearU()
+	void getSmearU()const
 	{
 		fprintf(mFile,"\"%s.sru\"",mName.c_str());
 
 	}
-	void getSmearV()
+	void getSmearV()const
 	{
 		fprintf(mFile,"\"%s.srv\"",mName.c_str());
 
 	}
-	void getImageName()
+	void getImageName()const
 	{
 		fprintf(mFile,"\"%s.imn\"",mName.c_str());
 
 	}
-	void getUseFrameExtension()
+	void getUseFrameExtension()const
 	{
 		fprintf(mFile,"\"%s.ufe\"",mName.c_str());
 
 	}
-	void getFrameExtension()
+	void getFrameExtension()const
 	{
 		fprintf(mFile,"\"%s.fe\"",mName.c_str());
 
 	}
-	void getFractalRatio()
+	void getFractalRatio()const
 	{
 		fprintf(mFile,"\"%s.fra\"",mName.c_str());
 
 	}
-	void getFractalAmplitude()
+	void getFractalAmplitude()const
 	{
 		fprintf(mFile,"\"%s.fam\"",mName.c_str());
 
 	}
-	void getFractalThreshold()
+	void getFractalThreshold()const
 	{
 		fprintf(mFile,"\"%s.fth\"",mName.c_str());
 
 	}
-	void getMultiStreaks()
+	void getMultiStreaks()const
 	{
 		fprintf(mFile,"\"%s.mst\"",mName.c_str());
 
 	}
-	void getMultiStreakSpread1()
+	void getMultiStreakSpread1()const
 	{
 		fprintf(mFile,"\"%s.ms1\"",mName.c_str());
 
 	}
-	void getMultiStreakSpread2()
+	void getMultiStreakSpread2()const
 	{
 		fprintf(mFile,"\"%s.ms2\"",mName.c_str());
 
 	}
-	void getMultiStreakDiffuseRand()
+	void getMultiStreakDiffuseRand()const
 	{
 		fprintf(mFile,"\"%s.msdr\"",mName.c_str());
 
 	}
-	void getMultiStreakSpecularRand()
+	void getMultiStreakSpecularRand()const
 	{
 		fprintf(mFile,"\"%s.mssr\"",mName.c_str());
 
 	}
-	void getMultiStreakLightAll()
+	void getMultiStreakLightAll()const
 	{
 		fprintf(mFile,"\"%s.msla\"",mName.c_str());
 
 	}
-	void getSingleSided()
+	void getSingleSided()const
 	{
 		fprintf(mFile,"\"%s.snsd\"",mName.c_str());
 
 	}
-	void getTubeSections()
+	void getTubeSections()const
 	{
 		fprintf(mFile,"\"%s.tbs\"",mName.c_str());
 
 	}
-	void getSubSegments()
+	void getSubSegments()const
 	{
 		fprintf(mFile,"\"%s.ssg\"",mName.c_str());
 
 	}
-	void getPerPixelLighting()
+	void getPerPixelLighting()const
 	{
 		fprintf(mFile,"\"%s.ppl\"",mName.c_str());
 
 	}
-	void getWidthScale(size_t wsc_i)
+	void getWidthScale(size_t wsc_i)const
 	{
 		fprintf(mFile,"\"%s.wsc[%i]\"",mName.c_str(),wsc_i);
 
 	}
-	void getWidthScale_Position(size_t wsc_i)
+	void getWidthScale_Position(size_t wsc_i)const
 	{
 		fprintf(mFile,"\"%s.wsc[%i].wscp\"",mName.c_str(),wsc_i);
 
 	}
-	void getWidthScale_FloatValue(size_t wsc_i)
+	void getWidthScale_FloatValue(size_t wsc_i)const
 	{
 		fprintf(mFile,"\"%s.wsc[%i].wscfv\"",mName.c_str(),wsc_i);
 
 	}
-	void getWidthScale_Interp(size_t wsc_i)
+	void getWidthScale_Interp(size_t wsc_i)const
 	{
 		fprintf(mFile,"\"%s.wsc[%i].wsci\"",mName.c_str(),wsc_i);
 
 	}
-	void getLeafWidthScale(size_t lws_i)
+	void getLeafWidthScale(size_t lws_i)const
 	{
 		fprintf(mFile,"\"%s.lws[%i]\"",mName.c_str(),lws_i);
 
 	}
-	void getLeafWidthScale_Position(size_t lws_i)
+	void getLeafWidthScale_Position(size_t lws_i)const
 	{
 		fprintf(mFile,"\"%s.lws[%i].lwsp\"",mName.c_str(),lws_i);
 
 	}
-	void getLeafWidthScale_FloatValue(size_t lws_i)
+	void getLeafWidthScale_FloatValue(size_t lws_i)const
 	{
 		fprintf(mFile,"\"%s.lws[%i].lwsfv\"",mName.c_str(),lws_i);
 
 	}
-	void getLeafWidthScale_Interp(size_t lws_i)
+	void getLeafWidthScale_Interp(size_t lws_i)const
 	{
 		fprintf(mFile,"\"%s.lws[%i].lwsi\"",mName.c_str(),lws_i);
 
 	}
-	void getPetalWidthScale(size_t pws_i)
+	void getPetalWidthScale(size_t pws_i)const
 	{
 		fprintf(mFile,"\"%s.pws[%i]\"",mName.c_str(),pws_i);
 
 	}
-	void getPetalWidthScale_Position(size_t pws_i)
+	void getPetalWidthScale_Position(size_t pws_i)const
 	{
 		fprintf(mFile,"\"%s.pws[%i].pwsp\"",mName.c_str(),pws_i);
 
 	}
-	void getPetalWidthScale_FloatValue(size_t pws_i)
+	void getPetalWidthScale_FloatValue(size_t pws_i)const
 	{
 		fprintf(mFile,"\"%s.pws[%i].pwsfv\"",mName.c_str(),pws_i);
 
 	}
-	void getPetalWidthScale_Interp(size_t pws_i)
+	void getPetalWidthScale_Interp(size_t pws_i)const
 	{
 		fprintf(mFile,"\"%s.pws[%i].pwsi\"",mName.c_str(),pws_i);
 
 	}
-	void getTwigLengthScale(size_t tls_i)
+	void getTwigLengthScale(size_t tls_i)const
 	{
 		fprintf(mFile,"\"%s.tls[%i]\"",mName.c_str(),tls_i);
 
 	}
-	void getTwigLengthScale_Position(size_t tls_i)
+	void getTwigLengthScale_Position(size_t tls_i)const
 	{
 		fprintf(mFile,"\"%s.tls[%i].tlsp\"",mName.c_str(),tls_i);
 
 	}
-	void getTwigLengthScale_FloatValue(size_t tls_i)
+	void getTwigLengthScale_FloatValue(size_t tls_i)const
 	{
 		fprintf(mFile,"\"%s.tls[%i].tlsfv\"",mName.c_str(),tls_i);
 
 	}
-	void getTwigLengthScale_Interp(size_t tls_i)
+	void getTwigLengthScale_Interp(size_t tls_i)const
 	{
 		fprintf(mFile,"\"%s.tls[%i].tlsi\"",mName.c_str(),tls_i);
 
 	}
-	void getBranchThorns()
+	void getBranchThorns()const
 	{
 		fprintf(mFile,"\"%s.bth\"",mName.c_str());
 
 	}
-	void getTwigThorns()
+	void getTwigThorns()const
 	{
 		fprintf(mFile,"\"%s.tth\"",mName.c_str());
 
 	}
-	void getLeafThorns()
+	void getLeafThorns()const
 	{
 		fprintf(mFile,"\"%s.lth\"",mName.c_str());
 
 	}
-	void getFlowerThorns()
+	void getFlowerThorns()const
 	{
 		fprintf(mFile,"\"%s.flt\"",mName.c_str());
 
 	}
-	void getThornDensity()
+	void getThornDensity()const
 	{
 		fprintf(mFile,"\"%s.nth\"",mName.c_str());
 
 	}
-	void getThornLength()
+	void getThornLength()const
 	{
 		fprintf(mFile,"\"%s.tln\"",mName.c_str());
 
 	}
-	void getThornBaseWidth()
+	void getThornBaseWidth()const
 	{
 		fprintf(mFile,"\"%s.tbwd\"",mName.c_str());
 
 	}
-	void getThornTipWidth()
+	void getThornTipWidth()const
 	{
 		fprintf(mFile,"\"%s.ttwd\"",mName.c_str());
 
 	}
-	void getThornElevation()
+	void getThornElevation()const
 	{
 		fprintf(mFile,"\"%s.tel\"",mName.c_str());
 
 	}
-	void getThornSpecular()
+	void getThornSpecular()const
 	{
 		fprintf(mFile,"\"%s.tsp\"",mName.c_str());
 
 	}
-	void getThornBaseColor()
+	void getThornBaseColor()const
 	{
 		fprintf(mFile,"\"%s.tbc\"",mName.c_str());
 
 	}
-	void getThornBaseColorR()
+	void getThornBaseColorR()const
 	{
 		fprintf(mFile,"\"%s.tbc.tbcr\"",mName.c_str());
 
 	}
-	void getThornBaseColorG()
+	void getThornBaseColorG()const
 	{
 		fprintf(mFile,"\"%s.tbc.tbcg\"",mName.c_str());
 
 	}
-	void getThornBaseColorB()
+	void getThornBaseColorB()const
 	{
 		fprintf(mFile,"\"%s.tbc.tbcb\"",mName.c_str());
 
 	}
-	void getThornTipColor()
+	void getThornTipColor()const
 	{
 		fprintf(mFile,"\"%s.ttc\"",mName.c_str());
 
 	}
-	void getThornTipColorR()
+	void getThornTipColorR()const
 	{
 		fprintf(mFile,"\"%s.ttc.ttcr\"",mName.c_str());
 
 	}
-	void getThornTipColorG()
+	void getThornTipColorG()const
 	{
 		fprintf(mFile,"\"%s.ttc.ttcg\"",mName.c_str());
 
 	}
-	void getThornTipColorB()
+	void getThornTipColorB()const
 	{
 		fprintf(mFile,"\"%s.ttc.ttcb\"",mName.c_str());
 
 	}
-	void getEnvironment(size_t env_i)
+	void getEnvironment(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i]\"",mName.c_str(),env_i);
 
 	}
-	void getEnvironment_Position(size_t env_i)
+	void getEnvironment_Position(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envp\"",mName.c_str(),env_i);
 
 	}
-	void getEnvironment_Color(size_t env_i)
+	void getEnvironment_Color(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc\"",mName.c_str(),env_i);
 
 	}
-	void getEnvironment_ColorR(size_t env_i)
+	void getEnvironment_ColorR(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc.envcr\"",mName.c_str(),env_i);
 
 	}
-	void getEnvironment_ColorG(size_t env_i)
+	void getEnvironment_ColorG(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc.envcg\"",mName.c_str(),env_i);
 
 	}
-	void getEnvironment_ColorB(size_t env_i)
+	void getEnvironment_ColorB(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envc.envcb\"",mName.c_str(),env_i);
 
 	}
-	void getEnvironment_Interp(size_t env_i)
+	void getEnvironment_Interp(size_t env_i)const
 	{
 		fprintf(mFile,"\"%s.env[%i].envi\"",mName.c_str(),env_i);
 
 	}
-	void getReflectionRolloff(size_t rro_i)
+	void getReflectionRolloff(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i]\"",mName.c_str(),rro_i);
 
 	}
-	void getReflectionRolloff_Position(size_t rro_i)
+	void getReflectionRolloff_Position(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i].rrop\"",mName.c_str(),rro_i);
 
 	}
-	void getReflectionRolloff_FloatValue(size_t rro_i)
+	void getReflectionRolloff_FloatValue(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i].rrofv\"",mName.c_str(),rro_i);
 
 	}
-	void getReflectionRolloff_Interp(size_t rro_i)
+	void getReflectionRolloff_Interp(size_t rro_i)const
 	{
 		fprintf(mFile,"\"%s.rro[%i].rroi\"",mName.c_str(),rro_i);
 
 	}
-	void getBranchReflectivity()
+	void getBranchReflectivity()const
 	{
 		fprintf(mFile,"\"%s.brf\"",mName.c_str());
 
 	}
-	void getLeafReflectivity()
+	void getLeafReflectivity()const
 	{
 		fprintf(mFile,"\"%s.lrf\"",mName.c_str());
 
 	}
-	void getFlowerReflectivity()
+	void getFlowerReflectivity()const
 	{
 		fprintf(mFile,"\"%s.frf\"",mName.c_str());
 
 	}
-	void getForwardTwist()
+	void getForwardTwist()const
 	{
 		fprintf(mFile,"\"%s.fwt\"",mName.c_str());
 
 	}
-	void getLeafForwardTwist()
+	void getLeafForwardTwist()const
 	{
 		fprintf(mFile,"\"%s.lfwt\"",mName.c_str());
 
 	}
-	void getPetalForwardTwist()
+	void getPetalForwardTwist()const
 	{
 		fprintf(mFile,"\"%s.lpwt\"",mName.c_str());
 
 	}
-	void getEndCaps()
+	void getEndCaps()const
 	{
 		fprintf(mFile,"\"%s.edc\"",mName.c_str());
 
 	}
-	void getHardEdges()
+	void getHardEdges()const
 	{
 		fprintf(mFile,"\"%s.hde\"",mName.c_str());
 
 	}
 protected:
-	Brush(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Brush(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

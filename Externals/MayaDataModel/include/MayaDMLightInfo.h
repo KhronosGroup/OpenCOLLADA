@@ -19,7 +19,8 @@ class LightInfo : public DependNode
 public:
 public:
 	LightInfo():DependNode(){}
-	LightInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "lightInfo"){}
+	LightInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "lightInfo", create){}
 	virtual ~LightInfo(){}
 	void setLightDirectionOnly(bool ldo)
 	{
@@ -27,89 +28,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".ldo\" %i;\n", ldo);
 
 	}
-	void getMatrixEyeToWorld()
+	void getMatrixEyeToWorld()const
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
 
 	}
-	void getLightDirectionOnly()
+	void getLightDirectionOnly()const
 	{
 		fprintf(mFile,"\"%s.ldo\"",mName.c_str());
 
 	}
-	void getWorldMatrix()
+	void getWorldMatrix()const
 	{
 		fprintf(mFile,"\"%s.wm\"",mName.c_str());
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getLightPosition()
+	void getLightPosition()const
 	{
 		fprintf(mFile,"\"%s.lp\"",mName.c_str());
 
 	}
-	void getLightPositionX()
+	void getLightPositionX()const
 	{
 		fprintf(mFile,"\"%s.lp.lpx\"",mName.c_str());
 
 	}
-	void getLightPositionY()
+	void getLightPositionY()const
 	{
 		fprintf(mFile,"\"%s.lp.lpy\"",mName.c_str());
 
 	}
-	void getLightPositionZ()
+	void getLightPositionZ()const
 	{
 		fprintf(mFile,"\"%s.lp.lpz\"",mName.c_str());
 
 	}
-	void getLightDirection()
+	void getLightDirection()const
 	{
 		fprintf(mFile,"\"%s.ld\"",mName.c_str());
 
 	}
-	void getLightDirectionX()
+	void getLightDirectionX()const
 	{
 		fprintf(mFile,"\"%s.ld.ldx\"",mName.c_str());
 
 	}
-	void getLightDirectionY()
+	void getLightDirectionY()const
 	{
 		fprintf(mFile,"\"%s.ld.ldy\"",mName.c_str());
 
 	}
-	void getLightDirectionZ()
+	void getLightDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.ld.ldz\"",mName.c_str());
 
 	}
-	void getSampleDistance()
+	void getSampleDistance()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
 protected:
-	LightInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	LightInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

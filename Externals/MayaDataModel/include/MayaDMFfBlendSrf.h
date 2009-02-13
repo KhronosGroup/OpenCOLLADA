@@ -19,7 +19,8 @@ class FfBlendSrf : public AbstractBaseCreate
 public:
 public:
 	FfBlendSrf():AbstractBaseCreate(){}
-	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "ffBlendSrf"){}
+	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "ffBlendSrf", create){}
 	virtual ~FfBlendSrf(){}
 	void setMultipleKnots(bool mk)
 	{
@@ -111,109 +112,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".rvr\" %i;\n", rvr);
 
 	}
-	void getLeftCurve(size_t lc_i)
+	void getLeftCurve(size_t lc_i)const
 	{
 		fprintf(mFile,"\"%s.lc[%i]\"",mName.c_str(),lc_i);
 
 	}
-	void getRightCurve(size_t rc_i)
+	void getRightCurve(size_t rc_i)const
 	{
 		fprintf(mFile,"\"%s.rc[%i]\"",mName.c_str(),rc_i);
 
 	}
-	void getLeftRail()
+	void getLeftRail()const
 	{
 		fprintf(mFile,"\"%s.lr\"",mName.c_str());
 
 	}
-	void getRightRail()
+	void getRightRail()const
 	{
 		fprintf(mFile,"\"%s.rr\"",mName.c_str());
 
 	}
-	void getMultipleKnots()
+	void getMultipleKnots()const
 	{
 		fprintf(mFile,"\"%s.mk\"",mName.c_str());
 
 	}
-	void getPositionTolerance()
+	void getPositionTolerance()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getTangentTolerance()
+	void getTangentTolerance()const
 	{
 		fprintf(mFile,"\"%s.tt\"",mName.c_str());
 
 	}
-	void getAutoNormal()
+	void getAutoNormal()const
 	{
 		fprintf(mFile,"\"%s.an\"",mName.c_str());
 
 	}
-	void getFlipLeftNormal()
+	void getFlipLeftNormal()const
 	{
 		fprintf(mFile,"\"%s.fln\"",mName.c_str());
 
 	}
-	void getFlipRightNormal()
+	void getFlipRightNormal()const
 	{
 		fprintf(mFile,"\"%s.frn\"",mName.c_str());
 
 	}
-	void getAutoAnchor()
+	void getAutoAnchor()const
 	{
 		fprintf(mFile,"\"%s.aa\"",mName.c_str());
 
 	}
-	void getLeftAnchor()
+	void getLeftAnchor()const
 	{
 		fprintf(mFile,"\"%s.la\"",mName.c_str());
 
 	}
-	void getLeftStart()
+	void getLeftStart()const
 	{
 		fprintf(mFile,"\"%s.ls\"",mName.c_str());
 
 	}
-	void getLeftEnd()
+	void getLeftEnd()const
 	{
 		fprintf(mFile,"\"%s.le\"",mName.c_str());
 
 	}
-	void getReverseLeft()
+	void getReverseLeft()const
 	{
 		fprintf(mFile,"\"%s.rvl\"",mName.c_str());
 
 	}
-	void getRightAnchor()
+	void getRightAnchor()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getRightStart()
+	void getRightStart()const
 	{
 		fprintf(mFile,"\"%s.rs\"",mName.c_str());
 
 	}
-	void getRightEnd()
+	void getRightEnd()const
 	{
 		fprintf(mFile,"\"%s.re\"",mName.c_str());
 
 	}
-	void getReverseRight()
+	void getReverseRight()const
 	{
 		fprintf(mFile,"\"%s.rvr\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	FfBlendSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -18,11 +18,12 @@ class SketchPlane : public Plane
 {
 public:
 	SketchPlane():Plane(){}
-	SketchPlane(FILE* file,const std::string& name,const std::string& parent=""):Plane(file, name, parent, "sketchPlane"){}
+	SketchPlane(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Plane(file, name, parent, "sketchPlane", create){}
 	virtual ~SketchPlane(){}
 protected:
-	SketchPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Plane(file, name, parent, nodeType) {}
+	SketchPlane(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Plane(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

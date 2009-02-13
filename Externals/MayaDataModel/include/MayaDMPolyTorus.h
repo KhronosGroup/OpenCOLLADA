@@ -19,7 +19,8 @@ class PolyTorus : public PolyPrimitive
 public:
 public:
 	PolyTorus():PolyPrimitive(){}
-	PolyTorus(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyTorus"){}
+	PolyTorus(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyPrimitive(file, name, parent, "polyTorus", create){}
 	virtual ~PolyTorus(){}
 	void setRadius(double r)
 	{
@@ -69,44 +70,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".rtx\" %i;\n", rtx);
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getSectionRadius()
+	void getSectionRadius()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.tw\"",mName.c_str());
 
 	}
-	void getSubdivisionsAxis()
+	void getSubdivisionsAxis()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getSubdivisionsHeight()
+	void getSubdivisionsHeight()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getTexture()
+	void getTexture()const
 	{
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 
 	}
-	void getCreateUVs()
+	void getCreateUVs()const
 	{
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 
 	}
 protected:
-	PolyTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyPrimitive(file, name, parent, nodeType) {}
+	PolyTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

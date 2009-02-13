@@ -19,7 +19,8 @@ class Reflect : public Lambert
 public:
 public:
 	Reflect():Lambert(){}
-	Reflect(FILE* file,const std::string& name,const std::string& parent=""):Lambert(file, name, parent, "reflect"){}
+	Reflect(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Lambert(file, name, parent, "reflect", create){}
 	virtual ~Reflect(){}
 	void setReflectionLimit(short fll)
 	{
@@ -89,84 +90,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".rsp\" %f;\n", rsp);
 
 	}
-	void getReflectionLimit()
+	void getReflectionLimit()const
 	{
 		fprintf(mFile,"\"%s.fll\"",mName.c_str());
 
 	}
-	void getSpecularColor()
+	void getSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getSpecularColorR()
+	void getSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.sc.sr\"",mName.c_str());
 
 	}
-	void getSpecularColorG()
+	void getSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.sc.sg\"",mName.c_str());
 
 	}
-	void getSpecularColorB()
+	void getSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.sc.sb\"",mName.c_str());
 
 	}
-	void getReflectivity()
+	void getReflectivity()const
 	{
 		fprintf(mFile,"\"%s.rfl\"",mName.c_str());
 
 	}
-	void getReflectedColor()
+	void getReflectedColor()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
-	void getReflectedColorR()
+	void getReflectedColorR()const
 	{
 		fprintf(mFile,"\"%s.rc.rr\"",mName.c_str());
 
 	}
-	void getReflectedColorG()
+	void getReflectedColorG()const
 	{
 		fprintf(mFile,"\"%s.rc.rg\"",mName.c_str());
 
 	}
-	void getReflectedColorB()
+	void getReflectedColorB()const
 	{
 		fprintf(mFile,"\"%s.rc.rb\"",mName.c_str());
 
 	}
-	void getTriangleNormalCamera()
+	void getTriangleNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.tnc\"",mName.c_str());
 
 	}
-	void getTriangleNormalCameraX()
+	void getTriangleNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.tnc.tnx\"",mName.c_str());
 
 	}
-	void getTriangleNormalCameraY()
+	void getTriangleNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.tnc.tny\"",mName.c_str());
 
 	}
-	void getTriangleNormalCameraZ()
+	void getTriangleNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.tnc.tnz\"",mName.c_str());
 
 	}
-	void getReflectionSpecularity()
+	void getReflectionSpecularity()const
 	{
 		fprintf(mFile,"\"%s.rsp\"",mName.c_str());
 
 	}
 protected:
-	Reflect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Lambert(file, name, parent, nodeType) {}
+	Reflect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Lambert(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

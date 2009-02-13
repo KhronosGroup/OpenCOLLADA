@@ -19,7 +19,8 @@ class EnvBall : public TextureEnv
 public:
 public:
 	EnvBall():TextureEnv(){}
-	EnvBall(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envBall"){}
+	EnvBall(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:TextureEnv(file, name, parent, "envBall", create){}
 	virtual ~EnvBall(){}
 	void setImage(const float3& so)
 	{
@@ -113,109 +114,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".eye\" %i;\n", eye);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getImage()
+	void getImage()const
 	{
 		fprintf(mFile,"\"%s.so\"",mName.c_str());
 
 	}
-	void getImageR()
+	void getImageR()const
 	{
 		fprintf(mFile,"\"%s.so.sor\"",mName.c_str());
 
 	}
-	void getImageG()
+	void getImageG()const
 	{
 		fprintf(mFile,"\"%s.so.sog\"",mName.c_str());
 
 	}
-	void getImageB()
+	void getImageB()const
 	{
 		fprintf(mFile,"\"%s.so.sob\"",mName.c_str());
 
 	}
-	void getInclination()
+	void getInclination()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getElevation()
+	void getElevation()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
-	void getSkyRadius()
+	void getSkyRadius()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getBottom()
+	void getBottom()const
 	{
 		fprintf(mFile,"\"%s.bo\"",mName.c_str());
 
 	}
-	void getTop()
+	void getTop()const
 	{
 		fprintf(mFile,"\"%s.to\"",mName.c_str());
 
 	}
-	void getLeft()
+	void getLeft()const
 	{
 		fprintf(mFile,"\"%s.le\"",mName.c_str());
 
 	}
-	void getRight()
+	void getRight()const
 	{
 		fprintf(mFile,"\"%s.ri\"",mName.c_str());
 
 	}
-	void getFront()
+	void getFront()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getBack()
+	void getBack()const
 	{
 		fprintf(mFile,"\"%s.ba\"",mName.c_str());
 
 	}
-	void getReflect()
+	void getReflect()const
 	{
 		fprintf(mFile,"\"%s.ref\"",mName.c_str());
 
 	}
-	void getEyeSpace()
+	void getEyeSpace()const
 	{
 		fprintf(mFile,"\"%s.eye\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
 protected:
-	EnvBall(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:TextureEnv(file, name, parent, nodeType) {}
+	EnvBall(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

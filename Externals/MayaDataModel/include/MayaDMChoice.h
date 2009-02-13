@@ -19,7 +19,8 @@ class Choice : public DependNode
 public:
 public:
 	Choice():DependNode(){}
-	Choice(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "choice"){}
+	Choice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "choice", create){}
 	virtual ~Choice(){}
 	void setSelector(int s)
 	{
@@ -27,24 +28,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
-	void getSelector()
+	void getSelector()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getInput(size_t i_i)
+	void getInput(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	Choice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Choice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

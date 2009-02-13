@@ -19,7 +19,8 @@ class NCloth : public NParticle
 public:
 public:
 	NCloth():NParticle(){}
-	NCloth(FILE* file,const std::string& name,const std::string& parent=""):NParticle(file, name, parent, "nCloth"){}
+	NCloth(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:NParticle(file, name, parent, "nCloth", create){}
 	virtual ~NCloth(){}
 	void setNumSubdivisions(int nsub)
 	{
@@ -369,324 +370,324 @@ public:
 		fprintf(mFile,"\tsetAttr \".wmt\" %i;\n", wmt);
 
 	}
-	void getOutputMesh()
+	void getOutputMesh()const
 	{
 		fprintf(mFile,"\"%s.omsh\"",mName.c_str());
 
 	}
-	void getRestShapeMesh()
+	void getRestShapeMesh()const
 	{
 		fprintf(mFile,"\"%s.rsmh\"",mName.c_str());
 
 	}
-	void getNumSubdivisions()
+	void getNumSubdivisions()const
 	{
 		fprintf(mFile,"\"%s.nsub\"",mName.c_str());
 
 	}
-	void getScalingRelation()
+	void getScalingRelation()const
 	{
 		fprintf(mFile,"\"%s.srl\"",mName.c_str());
 
 	}
-	void getStretchResistance()
+	void getStretchResistance()const
 	{
 		fprintf(mFile,"\"%s.stch\"",mName.c_str());
 
 	}
-	void getCompressionResistance()
+	void getCompressionResistance()const
 	{
 		fprintf(mFile,"\"%s.comr\"",mName.c_str());
 
 	}
-	void getStretchMap()
+	void getStretchMap()const
 	{
 		fprintf(mFile,"\"%s.stmp\"",mName.c_str());
 
 	}
-	void getStretchPerVertex()
+	void getStretchPerVertex()const
 	{
 		fprintf(mFile,"\"%s.spv\"",mName.c_str());
 
 	}
-	void getBendResistance()
+	void getBendResistance()const
 	{
 		fprintf(mFile,"\"%s.bnd\"",mName.c_str());
 
 	}
-	void getBendMap()
+	void getBendMap()const
 	{
 		fprintf(mFile,"\"%s.bemp\"",mName.c_str());
 
 	}
-	void getBendPerVertex()
+	void getBendPerVertex()const
 	{
 		fprintf(mFile,"\"%s.bdpv\"",mName.c_str());
 
 	}
-	void getBendAngleDropoff()
+	void getBendAngleDropoff()const
 	{
 		fprintf(mFile,"\"%s.bnad\"",mName.c_str());
 
 	}
-	void getRestitutionTension()
+	void getRestitutionTension()const
 	{
 		fprintf(mFile,"\"%s.retn\"",mName.c_str());
 
 	}
-	void getRestitutionAngle()
+	void getRestitutionAngle()const
 	{
 		fprintf(mFile,"\"%s.reae\"",mName.c_str());
 
 	}
-	void getShearResistance()
+	void getShearResistance()const
 	{
 		fprintf(mFile,"\"%s.shr\"",mName.c_str());
 
 	}
-	void getRigidity()
+	void getRigidity()const
 	{
 		fprintf(mFile,"\"%s.rity\"",mName.c_str());
 
 	}
-	void getRigidityMap()
+	void getRigidityMap()const
 	{
 		fprintf(mFile,"\"%s.rimp\"",mName.c_str());
 
 	}
-	void getRigidityPerVertex()
+	void getRigidityPerVertex()const
 	{
 		fprintf(mFile,"\"%s.rpv\"",mName.c_str());
 
 	}
-	void getDeformResistance()
+	void getDeformResistance()const
 	{
 		fprintf(mFile,"\"%s.dety\"",mName.c_str());
 
 	}
-	void getDeformMap()
+	void getDeformMap()const
 	{
 		fprintf(mFile,"\"%s.demp\"",mName.c_str());
 
 	}
-	void getDeformPerVertex()
+	void getDeformPerVertex()const
 	{
 		fprintf(mFile,"\"%s.dfpv\"",mName.c_str());
 
 	}
-	void getInputMeshAttract()
+	void getInputMeshAttract()const
 	{
 		fprintf(mFile,"\"%s.imat\"",mName.c_str());
 
 	}
-	void getInputAttractMap()
+	void getInputAttractMap()const
 	{
 		fprintf(mFile,"\"%s.iamp\"",mName.c_str());
 
 	}
-	void getInputAttractPerVertex()
+	void getInputAttractPerVertex()const
 	{
 		fprintf(mFile,"\"%s.iapv\"",mName.c_str());
 
 	}
-	void getInputAttractDamp()
+	void getInputAttractDamp()const
 	{
 		fprintf(mFile,"\"%s.iadm\"",mName.c_str());
 
 	}
-	void getWrinkleMap()
+	void getWrinkleMap()const
 	{
 		fprintf(mFile,"\"%s.wkmp\"",mName.c_str());
 
 	}
-	void getWrinklePerVertex()
+	void getWrinklePerVertex()const
 	{
 		fprintf(mFile,"\"%s.wpv\"",mName.c_str());
 
 	}
-	void getWrinkleMapScale()
+	void getWrinkleMapScale()const
 	{
 		fprintf(mFile,"\"%s.wms\"",mName.c_str());
 
 	}
-	void getBendAngleScale()
+	void getBendAngleScale()const
 	{
 		fprintf(mFile,"\"%s.basc\"",mName.c_str());
 
 	}
-	void getSortLinks()
+	void getSortLinks()const
 	{
 		fprintf(mFile,"\"%s.stlk\"",mName.c_str());
 
 	}
-	void getEvaluationOrder()
+	void getEvaluationOrder()const
 	{
 		fprintf(mFile,"\"%s.evo\"",mName.c_str());
 
 	}
-	void getAddCrossLinks()
+	void getAddCrossLinks()const
 	{
 		fprintf(mFile,"\"%s.aclk\"",mName.c_str());
 
 	}
-	void getStretchDamp()
+	void getStretchDamp()const
 	{
 		fprintf(mFile,"\"%s.sdmp\"",mName.c_str());
 
 	}
-	void getMinimalStretch()
+	void getMinimalStretch()const
 	{
 		fprintf(mFile,"\"%s.msso\"",mName.c_str());
 
 	}
-	void getMinimalBend()
+	void getMinimalBend()const
 	{
 		fprintf(mFile,"\"%s.mbso\"",mName.c_str());
 
 	}
-	void getMinimalShear()
+	void getMinimalShear()const
 	{
 		fprintf(mFile,"\"%s.mshs\"",mName.c_str());
 
 	}
-	void getStretchHierarchyLevels()
+	void getStretchHierarchyLevels()const
 	{
 		fprintf(mFile,"\"%s.shlv\"",mName.c_str());
 
 	}
-	void getStretchHierarchyPercent()
+	void getStretchHierarchyPercent()const
 	{
 		fprintf(mFile,"\"%s.shpe\"",mName.c_str());
 
 	}
-	void getSelfCollideWidthScale()
+	void getSelfCollideWidthScale()const
 	{
 		fprintf(mFile,"\"%s.scws\"",mName.c_str());
 
 	}
-	void getSelfCollisionSoftness()
+	void getSelfCollisionSoftness()const
 	{
 		fprintf(mFile,"\"%s.scsf\"",mName.c_str());
 
 	}
-	void getSelfCrossoverPush()
+	void getSelfCrossoverPush()const
 	{
 		fprintf(mFile,"\"%s.scpu\"",mName.c_str());
 
 	}
-	void getSelfTrappedCheck()
+	void getSelfTrappedCheck()const
 	{
 		fprintf(mFile,"\"%s.stpc\"",mName.c_str());
 
 	}
-	void getPressureMethod()
+	void getPressureMethod()const
 	{
 		fprintf(mFile,"\"%s.pmth\"",mName.c_str());
 
 	}
-	void getPressure()
+	void getPressure()const
 	{
 		fprintf(mFile,"\"%s.pres\"",mName.c_str());
 
 	}
-	void getStartPressure()
+	void getStartPressure()const
 	{
 		fprintf(mFile,"\"%s.stpe\"",mName.c_str());
 
 	}
-	void getIncompressibility()
+	void getIncompressibility()const
 	{
 		fprintf(mFile,"\"%s.incm\"",mName.c_str());
 
 	}
-	void getPressureDamping()
+	void getPressureDamping()const
 	{
 		fprintf(mFile,"\"%s.prdg\"",mName.c_str());
 
 	}
-	void getPumpRate()
+	void getPumpRate()const
 	{
 		fprintf(mFile,"\"%s.pure\"",mName.c_str());
 
 	}
-	void getAirTightness()
+	void getAirTightness()const
 	{
 		fprintf(mFile,"\"%s.aits\"",mName.c_str());
 
 	}
-	void getSealHoles()
+	void getSealHoles()const
 	{
 		fprintf(mFile,"\"%s.shol\"",mName.c_str());
 
 	}
-	void getIgnoreSolverGravity()
+	void getIgnoreSolverGravity()const
 	{
 		fprintf(mFile,"\"%s.igsg\"",mName.c_str());
 
 	}
-	void getIgnoreSolverWind()
+	void getIgnoreSolverWind()const
 	{
 		fprintf(mFile,"\"%s.igsw\"",mName.c_str());
 
 	}
-	void getWindSelfShadow()
+	void getWindSelfShadow()const
 	{
 		fprintf(mFile,"\"%s.wssh\"",mName.c_str());
 
 	}
-	void getLift()
+	void getLift()const
 	{
 		fprintf(mFile,"\"%s.lft\"",mName.c_str());
 
 	}
-	void getDrag()
+	void getDrag()const
 	{
 		fprintf(mFile,"\"%s.drg\"",mName.c_str());
 
 	}
-	void getTangentialDrag()
+	void getTangentialDrag()const
 	{
 		fprintf(mFile,"\"%s.tdrg\"",mName.c_str());
 
 	}
-	void getSolverDisplay()
+	void getSolverDisplay()const
 	{
 		fprintf(mFile,"\"%s.svds\"",mName.c_str());
 
 	}
-	void getStretchMapType()
+	void getStretchMapType()const
 	{
 		fprintf(mFile,"\"%s.smt\"",mName.c_str());
 
 	}
-	void getBendMapType()
+	void getBendMapType()const
 	{
 		fprintf(mFile,"\"%s.bdmt\"",mName.c_str());
 
 	}
-	void getRigidityMapType()
+	void getRigidityMapType()const
 	{
 		fprintf(mFile,"\"%s.rmt\"",mName.c_str());
 
 	}
-	void getDeformMapType()
+	void getDeformMapType()const
 	{
 		fprintf(mFile,"\"%s.dmmt\"",mName.c_str());
 
 	}
-	void getInputAttractMapType()
+	void getInputAttractMapType()const
 	{
 		fprintf(mFile,"\"%s.iamt\"",mName.c_str());
 
 	}
-	void getWrinkleMapType()
+	void getWrinkleMapType()const
 	{
 		fprintf(mFile,"\"%s.wmt\"",mName.c_str());
 
 	}
 protected:
-	NCloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:NParticle(file, name, parent, nodeType) {}
+	NCloth(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:NParticle(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

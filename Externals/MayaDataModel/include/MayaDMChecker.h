@@ -19,7 +19,8 @@ class Checker : public Texture2d
 public:
 public:
 	Checker():Texture2d(){}
-	Checker(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "checker"){}
+	Checker(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "checker", create){}
 	virtual ~Checker(){}
 	void setColor1(const float3& c1)
 	{
@@ -79,54 +80,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".ct\" %f;\n", ct);
 
 	}
-	void getColor1()
+	void getColor1()const
 	{
 		fprintf(mFile,"\"%s.c1\"",mName.c_str());
 
 	}
-	void getColor1R()
+	void getColor1R()const
 	{
 		fprintf(mFile,"\"%s.c1.c1r\"",mName.c_str());
 
 	}
-	void getColor1G()
+	void getColor1G()const
 	{
 		fprintf(mFile,"\"%s.c1.c1g\"",mName.c_str());
 
 	}
-	void getColor1B()
+	void getColor1B()const
 	{
 		fprintf(mFile,"\"%s.c1.c1b\"",mName.c_str());
 
 	}
-	void getColor2()
+	void getColor2()const
 	{
 		fprintf(mFile,"\"%s.c2\"",mName.c_str());
 
 	}
-	void getColor2R()
+	void getColor2R()const
 	{
 		fprintf(mFile,"\"%s.c2.c2r\"",mName.c_str());
 
 	}
-	void getColor2G()
+	void getColor2G()const
 	{
 		fprintf(mFile,"\"%s.c2.c2g\"",mName.c_str());
 
 	}
-	void getColor2B()
+	void getColor2B()const
 	{
 		fprintf(mFile,"\"%s.c2.c2b\"",mName.c_str());
 
 	}
-	void getContrast()
+	void getContrast()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
 protected:
-	Checker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Checker(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

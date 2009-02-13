@@ -84,6 +84,7 @@ namespace COLLADAMaya
         String nodeName = node->getName ();
         if ( COLLADABU::Utils::equals ( nodeName, "" ) )
             nodeName = TRANSFORM_NODE_NAME;
+        nodeName = DocumentImporter::frameworkNameToMayaName ( nodeName );
         nodeName = mTransformNodeIdList.addId ( nodeName );
 
         // Create the node object (joint or node)
@@ -111,6 +112,8 @@ namespace COLLADAMaya
             COLLADAFW::Node* childNode = childNodes [i];
             importNode ( childNode, &transformNodeId );
         }
+
+        delete transformNode;
     }
 
     // -----------------------------------

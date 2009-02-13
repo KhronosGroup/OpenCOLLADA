@@ -19,7 +19,8 @@ class StitchAsNurbsShell : public AbstractBaseCreate
 public:
 public:
 	StitchAsNurbsShell():AbstractBaseCreate(){}
-	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "stitchAsNurbsShell"){}
+	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "stitchAsNurbsShell", create){}
 	virtual ~StitchAsNurbsShell(){}
 	void setTolerance(double tol)
 	{
@@ -27,24 +28,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
-	void getInputSurface(size_t is_i)
+	void getInputSurface(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getOutputShell()
+	void getOutputShell()const
 	{
 		fprintf(mFile,"\"%s.osh\"",mName.c_str());
 
 	}
 protected:
-	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	StitchAsNurbsShell(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

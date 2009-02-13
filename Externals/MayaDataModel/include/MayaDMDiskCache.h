@@ -19,7 +19,8 @@ class DiskCache : public DependNode
 public:
 public:
 	DiskCache():DependNode(){}
-	DiskCache(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "diskCache"){}
+	DiskCache(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "diskCache", create){}
 	virtual ~DiskCache(){}
 	void setEnable(bool ebl)
 	{
@@ -57,59 +58,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".cpl\" %i;\n", cpl);
 
 	}
-	void getDiskCache()
+	void getDiskCache()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.ebl\"",mName.c_str());
 
 	}
-	void getCacheName()
+	void getCacheName()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.stim\"",mName.c_str());
 
 	}
-	void getEndTime()
+	void getEndTime()const
 	{
 		fprintf(mFile,"\"%s.etim\"",mName.c_str());
 
 	}
-	void getSamplingType()
+	void getSamplingType()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getSamplingRate()
+	void getSamplingRate()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getCacheType()
+	void getCacheType()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getHiddenCacheName()
+	void getHiddenCacheName()const
 	{
 		fprintf(mFile,"\"%s.hcn\"",mName.c_str());
 
 	}
-	void getCopyLocally()
+	void getCopyLocally()const
 	{
 		fprintf(mFile,"\"%s.cpl\"",mName.c_str());
 
 	}
 protected:
-	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DiskCache(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

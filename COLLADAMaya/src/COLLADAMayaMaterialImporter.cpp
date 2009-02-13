@@ -21,6 +21,9 @@
 
 #include "MayaDMMesh.h"
 #include "MayaDMLambert.h"
+#include "MayaDMGroupId.h"
+#include "MayaDMDefaultShaderList.h"
+#include "MayaDMCommands.h"
 
 
 namespace COLLADAMaya
@@ -29,12 +32,48 @@ namespace COLLADAMaya
     const String MaterialImporter::MATERIAL_NAME = "Material";
     const String MaterialImporter::SHADING_ENGINE_NAME = "ShadingEngine";
     const String MaterialImporter::MATERIAL_INFO_NAME = "MaterialInfo";
-
+    const String MaterialImporter::DEFAULT_SHADER_LIST = "defaultShaderList1";
+    const String MaterialImporter::DEFAULT_SHADING_ENGINE = "initialShadingGroup";
+    const String MaterialImporter::ATTR_SHADERS = "shaders";
+    
 
     //------------------------------
     MaterialImporter::MaterialImporter ( DocumentImporter* documentImporter )
     : BaseImporter ( documentImporter )
     {}
+
+    // --------------------------
+    MaterialImporter::~MaterialImporter ()
+    {
+        // Delete the shadingBindings
+        {
+            ShadingEngineBindingMap::iterator iter = mShadingEngineBindingMap.begin ();
+            while ( iter != mShadingEngineBindingMap.end () )
+            {
+                std::set<ShadingBinding*>& geometryInstances = iter->second;
+
+                std::set<ShadingBinding*>::iterator iter2 = geometryInstances.begin ();
+                while ( iter2 != geometryInstances.end () )
+                {
+                    ShadingBinding* geometryInstance = *iter2;
+                    delete geometryInstance;
+                    ++iter2;
+                }
+                ++iter;
+            }
+        }
+
+        // Delete the shader datas
+        {
+            ShadingDataMap::iterator iter = mShaderDataMap.begin ();
+            while ( iter != mShaderDataMap.end () )
+            {
+                ShadingData* shadingData = iter->second;
+                delete shadingData;
+                ++iter;
+            }
+        }
+    }
 
     // --------------------------
     bool MaterialImporter::importMaterial ( const COLLADAFW::Material* material )
@@ -47,6 +86,7 @@ namespace COLLADAMaya
         String materialName ( material->getName () );
         if ( COLLADABU::Utils::equals ( materialName, COLLADABU::Utils::EMPTY_STRING ) )
             materialName = MATERIAL_NAME;
+        materialName = DocumentImporter::frameworkNameToMayaName ( materialName );
         materialName = mMaterialIdList.addId ( materialName );
         
         // Store the material name.
@@ -120,25 +160,24 @@ namespace COLLADAMaya
          const COLLADAFW::UniqueId& referencedMaterialId = materialBinding.getReferencedMaterial ();
 
          // Check if already a shading engine with the materialId exist.
-         MayaDM::ShadingEngine* shadingEngine;
-         MayaDM::MaterialInfo* materialInfo;
-         String shadingEngineName;
          ShadingData* shaderData = findShaderData ( referencedMaterialId );
          if ( shaderData == 0 )
          {
              // Get the unique shading engine name.
-             shadingEngineName = materialBinding.getName ();
+             String shadingEngineName = materialBinding.getName ();
              if ( COLLADABU::Utils::equals ( shadingEngineName, COLLADABU::Utils::EMPTY_STRING ))
                  shadingEngineName = SHADING_ENGINE_NAME;
+             shadingEngineName = DocumentImporter::frameworkNameToMayaName ( shadingEngineName );
              shadingEngineName = mShadingEngineIdList.addId ( shadingEngineName );
 
              // Create a shading engine, if we not already have one.
              FILE* file = getDocumentImporter ()->getFile ();
-             shadingEngine = new MayaDM::ShadingEngine ( file, shadingEngineName.c_str () );
+             MayaDM::ShadingEngine* shadingEngine = new MayaDM::ShadingEngine ( file, shadingEngineName.c_str () );
 
              // Create the material info node for the shading engine.
              // createNode materialInfo -name "materialInfo2";
              String materialInfoName = MATERIAL_INFO_NAME;
+             materialInfoName = DocumentImporter::frameworkNameToMayaName ( materialInfoName );
              materialInfoName = mMaterialInfoIdList.addId ( materialInfoName ); 
              MayaDM::MaterialInfo* materialInfo = new MayaDM::MaterialInfo ( file, materialInfoName.c_str () );
 
@@ -153,21 +192,37 @@ namespace COLLADAMaya
          COLLADAFW::MaterialId shadingEngineId = materialBinding.getMaterialId ();
 
          // Push the geometry id of the current instance in the list 
-         ShadingBinding* geometryInstance = new ShadingBinding();
-         geometryInstance->setGeometryId ( geometryId );
-         geometryInstance->setTransformNodeId ( transformNodeId );
-         geometryInstance->setMaterialId ( referencedMaterialId );
-         mShadingEngineGeometryInstancesMap [shadingEngineId].insert ( geometryInstance );
+         ShadingBinding* shadingBinding = new ShadingBinding();
+         shadingBinding->setGeometryId ( geometryId );
+         shadingBinding->setTransformNodeId ( transformNodeId );
+         shadingBinding->setMaterialId ( referencedMaterialId );
+         mShadingEngineBindingMap [shadingEngineId].insert ( shadingBinding );
      }
 
     // --------------------------
     void MaterialImporter::writeConnections ()
     {
+        // TODO
+        // select -noExpand :defaultShaderList1;
+        // setAttr -size 4 ".shaders";
+        // select -noExpand :initialShadingGroup;
+        FILE* file = getDocumentImporter ()->getFile ();
+        String defaultShaderName = ":" + DEFAULT_SHADER_LIST;
+        mayaSelect ( file, defaultShaderName, true );
+        String defaultShadingEngineName = ":" + DEFAULT_SHADING_ENGINE;
+        mayaSelect ( file, defaultShadingEngineName, true );
+
+        // If there are some object groups, we have to connect them with the geometries.
+        connectGeometryGroups();
+
         // Connect the material with the shading engine and the material info.
         connectShadingEngines ();
 
-        connectGeometries();
+        // Connect the material with the depending geometries.
+        connectGeometries ();
 
+        // Connects the default shader list with the materials.
+        connectDefaultShaderList();
     }
 
     // --------------------------
@@ -242,13 +297,13 @@ namespace COLLADAMaya
     void MaterialImporter::connectGeometries ()
     {
         // Find all geometry mesh primitives, which use this effect and create the connections.
-        ShadingEngineBindingMap::iterator shadingEngineToGeometriesIter = mShadingEngineGeometryInstancesMap.begin ();
-        while ( shadingEngineToGeometriesIter != mShadingEngineGeometryInstancesMap.end () )
+        ShadingEngineBindingMap::iterator shadingEngineIter = mShadingEngineBindingMap.begin ();
+        while ( shadingEngineIter != mShadingEngineBindingMap.end () )
         {
             size_t shadingEngineIndex = 0;
 
-            COLLADAFW::MaterialId shadingEngineId = shadingEngineToGeometriesIter->first;
-            std::set<ShadingBinding*>& geometryInstances = shadingEngineToGeometriesIter->second;
+            COLLADAFW::MaterialId shadingEngineId = shadingEngineIter->first;
+            std::set<ShadingBinding*>& geometryInstances = shadingEngineIter->second;
 
             std::set<ShadingBinding*>::iterator geometryInstancesIter = geometryInstances.begin ();
             while ( geometryInstancesIter != geometryInstances.end () )
@@ -278,17 +333,29 @@ namespace COLLADAMaya
 
                     // Get the index values for the current geometry's primitive elements, 
                     // which use the current shading engine.
-                    std::vector<size_t>* primitivesIndicesVec = geometryImporter->getShadingEnginePrimitiveIndices ( geometryId, shadingEngineId );
+                    std::vector<size_t>* primitivesIndicesVec = 
+                        geometryImporter->getShadingEnginePrimitiveIndices ( geometryId, shadingEngineId );
 
                     // Iterate over the primitiv indices.
                     size_t primitivesCount = primitivesIndicesVec->size ();
                     for ( size_t p=0; p<primitivesCount; ++p )
                     {
                         size_t primitiveIndex = (*primitivesIndicesVec) [p];
-
-                        // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
                         FILE* file = getDocumentImporter ()->getFile ();
-                        connectAttr ( file, mesh->getObjectGroups ( geometryInstanceIndex, primitiveIndex ), shadingEngine->getDagSetMembers ( shadingEngineIndex ) );
+
+                        if ( primitivesCount > 1 )
+                        {
+                            // connectAttr "|pCube2|pCubeShape1.instObjGroups" "blinn1SG.dagSetMembers" -nextAvailable;
+                            connectAttr ( file, mesh->getObjectGroups ( geometryInstanceIndex, primitiveIndex ), shadingEngine->getDagSetMembers ( shadingEngineIndex ) );
+
+                            // connectAttr "lambert2SG.memberWireframeColor" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGrpColor";
+                            connectAttr ( file, shadingEngine->getMemberWireframeColor (), mesh->getObjectGrpColor ( geometryInstanceIndex, primitiveIndex ) );
+                        }
+                        else
+                        {
+                            // connectAttr "|pCube1|pCubeShape1.instObjGroups" "lambert2SG.dagSetMembers" -nextAvailable;
+                            connectAttr ( file, mesh->getInstObjGroups ( geometryInstanceIndex ), shadingEngine->getDagSetMembers ( shadingEngineIndex ) );
+                        }
                     }
 
                     ++geometryInstancesIter;
@@ -296,7 +363,55 @@ namespace COLLADAMaya
                 }
             }
 
-            ++ shadingEngineToGeometriesIter;
+            ++ shadingEngineIter;
         }
     }
+
+    // --------------------------
+    void MaterialImporter::connectGeometryGroups ()
+    {
+        // If there are some object groups, we have to connect them with the geometries.
+        GeometryImporter* geometryImporter = getDocumentImporter ()->getGeometryImporter ();
+        GeometryImporter::GroupIdAssignments groupIdAssignments = geometryImporter->getGroupIdAssignments ();
+        for ( size_t i=0; i<groupIdAssignments.size (); ++i )
+        {
+            GeometryImporter::GroupIdAssignment& groupIdAssignment = groupIdAssignments [i];
+            const MayaDM::GroupId& groupId = groupIdAssignment.getGroupId ();
+            const COLLADAFW::UniqueId& geometryId = groupIdAssignment.getGeometryId ();
+            size_t geometryInstanceIndex = groupIdAssignment.getGeometryInstanceIndex ();
+            size_t primitiveIndex = groupIdAssignment.getPrimitiveIndex ();
+
+            MayaDM::Mesh* mesh = geometryImporter->findMayaDMMeshNode ( geometryId );
+
+            // connectAttr "groupId1.groupId" "|pCube1|pCubeShape1.instObjGroups.objectGroups[0].objectGroupId";
+            FILE* file = getDocumentImporter ()->getFile ();
+            connectAttr ( file, groupId.getGroupId (), mesh->getObjectGroupId ( geometryInstanceIndex, primitiveIndex ) );
+        }
+    }
+
+    // --------------------------
+    void MaterialImporter::connectDefaultShaderList ()
+    {
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        // connectAttr "lambert2.message" ":defaultShaderList1.shaders" -nextAvailable;
+        EffectImporter* effectImporter = getDocumentImporter ()->getEffectImporter ();
+        const EffectImporter::UniqueIdDependNodeMap& effectMap = effectImporter->getMayaEffectMap ();
+        EffectImporter::UniqueIdDependNodeMap::const_iterator it = effectMap.begin ();
+
+        String defaultShaderName = ":" + DEFAULT_SHADER_LIST;
+        MayaDM::DefaultShaderList defaultShaderList ( file, defaultShaderName, "", false );
+        //MayaDM::ShadingEngine defaultShadingEngine ( file, defaultShadingEngineName, "", false );
+
+        size_t shaderIndex = 0;
+        while ( it != effectMap.end () )
+        {
+            MayaDM::DependNode* dependNode = it->second;
+            String destination = ":" + DEFAULT_SHADER_LIST + "." + ATTR_SHADERS;
+            connectAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders (shaderIndex) );
+            ++shaderIndex;
+            ++it;
+        }
+    }
+
 }

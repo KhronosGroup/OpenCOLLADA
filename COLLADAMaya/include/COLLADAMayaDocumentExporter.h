@@ -258,13 +258,6 @@ namespace COLLADAMaya
          */
         void endExport();
 
-        /**
-         * Makes a valid NCName from the given string.
-         * @param ncName Any string.
-         * @return COLLADAMaya::String A valid NCName.
-         */
-        static String checkNCName(const String &ncName);
-
     private:
 
         /** Exports the asset. */

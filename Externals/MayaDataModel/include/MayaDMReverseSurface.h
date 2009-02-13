@@ -19,7 +19,8 @@ class ReverseSurface : public AbstractBaseCreate
 public:
 public:
 	ReverseSurface():AbstractBaseCreate(){}
-	ReverseSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "reverseSurface"){}
+	ReverseSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "reverseSurface", create){}
 	virtual ~ReverseSurface(){}
 	void setDirection(unsigned int d)
 	{
@@ -27,24 +28,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	ReverseSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	ReverseSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

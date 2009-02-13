@@ -19,7 +19,8 @@ class AnimClip : public DependNode
 public:
 public:
 	AnimClip():DependNode(){}
-	AnimClip(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "animClip"){}
+	AnimClip(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "animClip", create){}
 	virtual ~AnimClip(){}
 	void setEnable(bool ea)
 	{
@@ -45,17 +46,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startAbsoluteChannel(size_t ac_start,size_t ac_end)
+	void startAbsoluteChannel(size_t ac_start,size_t ac_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ac[%i:%i]\"",ac_start,ac_end);
 
 	}
-	void appendAbsoluteChannel(bool ac)
+	void appendAbsoluteChannel(bool ac)const
 	{
 		fprintf(mFile," %i",ac);
 
 	}
-	void endAbsoluteChannel()
+	void endAbsoluteChannel()const
 	{
 		fprintf(mFile,";\n");
 
@@ -78,17 +79,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startChannelOffset(size_t co_start,size_t co_end)
+	void startChannelOffset(size_t co_start,size_t co_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".co[%i:%i]\"",co_start,co_end);
 
 	}
-	void appendChannelOffset(double co)
+	void appendChannelOffset(double co)const
 	{
 		fprintf(mFile," %f",co);
 
 	}
-	void endChannelOffset()
+	void endChannelOffset()const
 	{
 		fprintf(mFile,";\n");
 
@@ -153,129 +154,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".cy\" %f;\n", cy);
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.ea\"",mName.c_str());
 
 	}
-	void getAbsoluteChannel(size_t ac_i)
+	void getAbsoluteChannel(size_t ac_i)const
 	{
 		fprintf(mFile,"\"%s.ac[%i]\"",mName.c_str(),ac_i);
 
 	}
-	void getChannelOffset(size_t co_i)
+	void getChannelOffset(size_t co_i)const
 	{
 		fprintf(mFile,"\"%s.co[%i]\"",mName.c_str(),co_i);
 
 	}
-	void getStartFrame()
+	void getStartFrame()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getHold()
+	void getHold()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getPreCycle()
+	void getPreCycle()const
 	{
 		fprintf(mFile,"\"%s.cb\"",mName.c_str());
 
 	}
-	void getPostCycle()
+	void getPostCycle()const
 	{
 		fprintf(mFile,"\"%s.ca\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getWeightStyle()
+	void getWeightStyle()const
 	{
 		fprintf(mFile,"\"%s.ws\"",mName.c_str());
 
 	}
-	void getPose()
+	void getPose()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getSourceStart()
+	void getSourceStart()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getSourceEnd()
+	void getSourceEnd()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
-	void getClip()
+	void getClip()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getClipInstance()
+	void getClipInstance()const
 	{
 		fprintf(mFile,"\"%s.ci\"",mName.c_str());
 
 	}
-	void getTimeWarp()
+	void getTimeWarp()const
 	{
 		fprintf(mFile,"\"%s.tw\"",mName.c_str());
 
 	}
-	void getTimeWarpEnable()
+	void getTimeWarpEnable()const
 	{
 		fprintf(mFile,"\"%s.twe\"",mName.c_str());
 
 	}
-	void getStart()
+	void getStart()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getDuration()
+	void getDuration()const
 	{
 		fprintf(mFile,"\"%s.du\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getAbsoluteRotations()
+	void getAbsoluteRotations()const
 	{
 		fprintf(mFile,"\"%s.abro\"",mName.c_str());
 
 	}
-	void getCycle()
+	void getCycle()const
 	{
 		fprintf(mFile,"\"%s.cy\"",mName.c_str());
 
 	}
-	void getStartTrim()
+	void getStartTrim()const
 	{
 		fprintf(mFile,"\"%s.str\"",mName.c_str());
 
 	}
-	void getStartPercent()
+	void getStartPercent()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
 protected:
-	AnimClip(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	AnimClip(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

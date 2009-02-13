@@ -19,7 +19,8 @@ class DpBirailSrf : public BirailSrf
 public:
 public:
 	DpBirailSrf():BirailSrf(){}
-	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent=""):BirailSrf(file, name, parent, "dpBirailSrf"){}
+	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BirailSrf(file, name, parent, "dpBirailSrf", create){}
 	virtual ~DpBirailSrf(){}
 	void setBlendFactor(double bl)
 	{
@@ -39,34 +40,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".tp2\" %i;\n", tp2);
 
 	}
-	void getInputProfile1()
+	void getInputProfile1()const
 	{
 		fprintf(mFile,"\"%s.ip1\"",mName.c_str());
 
 	}
-	void getInputProfile2()
+	void getInputProfile2()const
 	{
 		fprintf(mFile,"\"%s.ip2\"",mName.c_str());
 
 	}
-	void getBlendFactor()
+	void getBlendFactor()const
 	{
 		fprintf(mFile,"\"%s.bl\"",mName.c_str());
 
 	}
-	void getTangentContinuityProfile1()
+	void getTangentContinuityProfile1()const
 	{
 		fprintf(mFile,"\"%s.tp1\"",mName.c_str());
 
 	}
-	void getTangentContinuityProfile2()
+	void getTangentContinuityProfile2()const
 	{
 		fprintf(mFile,"\"%s.tp2\"",mName.c_str());
 
 	}
 protected:
-	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BirailSrf(file, name, parent, nodeType) {}
+	DpBirailSrf(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BirailSrf(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

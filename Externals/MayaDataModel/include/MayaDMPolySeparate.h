@@ -19,7 +19,8 @@ class PolySeparate : public DependNode
 public:
 public:
 	PolySeparate():DependNode(){}
-	PolySeparate(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "polySeparate"){}
+	PolySeparate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "polySeparate", create){}
 	virtual ~PolySeparate(){}
 	void setUseOldPolyArchitecture(bool uopa)
 	{
@@ -41,29 +42,29 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputPoly()
+	void getInputPoly()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getIcount()
+	void getIcount()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getRemShells()
+	void getRemShells()const
 	{
 		fprintf(mFile,"\"%s.rs\"",mName.c_str());
 
 	}
-	void getOutput(size_t out_i)
+	void getOutput(size_t out_i)const
 	{
 		fprintf(mFile,"\"%s.out[%i]\"",mName.c_str(),out_i);
 
 	}
 protected:
-	PolySeparate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	PolySeparate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

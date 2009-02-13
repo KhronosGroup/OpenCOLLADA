@@ -19,7 +19,8 @@ class HardwareRenderGlobals : public DependNode
 public:
 public:
 	HardwareRenderGlobals():DependNode(){}
-	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hardwareRenderGlobals"){}
+	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hardwareRenderGlobals", create){}
 	virtual ~HardwareRenderGlobals(){}
 	void setColorTextureResolution(int ctrs)
 	{
@@ -219,174 +220,174 @@ public:
 		fprintf(mFile,"\tsetAttr \".hwel\" %i;\n", hwel);
 
 	}
-	void getColorTextureResolution()
+	void getColorTextureResolution()const
 	{
 		fprintf(mFile,"\"%s.ctrs\"",mName.c_str());
 
 	}
-	void getBumpTextureResolution()
+	void getBumpTextureResolution()const
 	{
 		fprintf(mFile,"\"%s.btrs\"",mName.c_str());
 
 	}
-	void getFrameBufferFormat()
+	void getFrameBufferFormat()const
 	{
 		fprintf(mFile,"\"%s.fbfm\"",mName.c_str());
 
 	}
-	void getEnableHighQualityLighting()
+	void getEnableHighQualityLighting()const
 	{
 		fprintf(mFile,"\"%s.ehql\"",mName.c_str());
 
 	}
-	void getEnableAcceleratedMultiSampling()
+	void getEnableAcceleratedMultiSampling()const
 	{
 		fprintf(mFile,"\"%s.eams\"",mName.c_str());
 
 	}
-	void getEnableEdgeAntiAliasing()
+	void getEnableEdgeAntiAliasing()const
 	{
 		fprintf(mFile,"\"%s.eeaa\"",mName.c_str());
 
 	}
-	void getEnableGeometryMask()
+	void getEnableGeometryMask()const
 	{
 		fprintf(mFile,"\"%s.engm\"",mName.c_str());
 
 	}
-	void getNumberOfSamples()
+	void getNumberOfSamples()const
 	{
 		fprintf(mFile,"\"%s.mes\"",mName.c_str());
 
 	}
-	void getEnableMotionBlur()
+	void getEnableMotionBlur()const
 	{
 		fprintf(mFile,"\"%s.emb\"",mName.c_str());
 
 	}
-	void getMotionBlurByFrame()
+	void getMotionBlurByFrame()const
 	{
 		fprintf(mFile,"\"%s.mbbf\"",mName.c_str());
 
 	}
-	void getNumberOfExposures()
+	void getNumberOfExposures()const
 	{
 		fprintf(mFile,"\"%s.mbs\"",mName.c_str());
 
 	}
-	void getTransparencySorting()
+	void getTransparencySorting()const
 	{
 		fprintf(mFile,"\"%s.trm\"",mName.c_str());
 
 	}
-	void getTransparentShadowCasting()
+	void getTransparentShadowCasting()const
 	{
 		fprintf(mFile,"\"%s.tshc\"",mName.c_str());
 
 	}
-	void getEnableNonPowerOfTwoTexture()
+	void getEnableNonPowerOfTwoTexture()const
 	{
 		fprintf(mFile,"\"%s.enpt\"",mName.c_str());
 
 	}
-	void getCulling()
+	void getCulling()const
 	{
 		fprintf(mFile,"\"%s.clmt\"",mName.c_str());
 
 	}
-	void getTextureCompression()
+	void getTextureCompression()const
 	{
 		fprintf(mFile,"\"%s.tcov\"",mName.c_str());
 
 	}
-	void getLightIntensityThreshold()
+	void getLightIntensityThreshold()const
 	{
 		fprintf(mFile,"\"%s.lith\"",mName.c_str());
 
 	}
-	void getSmallObjectCulling()
+	void getSmallObjectCulling()const
 	{
 		fprintf(mFile,"\"%s.sobc\"",mName.c_str());
 
 	}
-	void getCullingThreshold()
+	void getCullingThreshold()const
 	{
 		fprintf(mFile,"\"%s.cuth\"",mName.c_str());
 
 	}
-	void getGraphicsHardwareGeometryCachingData()
+	void getGraphicsHardwareGeometryCachingData()const
 	{
 		fprintf(mFile,"\"%s.hgcd\"",mName.c_str());
 
 	}
-	void getGraphicsHardwareGeometryCachingIndexing()
+	void getGraphicsHardwareGeometryCachingIndexing()const
 	{
 		fprintf(mFile,"\"%s.hgci\"",mName.c_str());
 
 	}
-	void getMaximumGeometryCacheSize()
+	void getMaximumGeometryCacheSize()const
 	{
 		fprintf(mFile,"\"%s.mgcs\"",mName.c_str());
 
 	}
-	void getWriteAlphaAsColor()
+	void getWriteAlphaAsColor()const
 	{
 		fprintf(mFile,"\"%s.twa\"",mName.c_str());
 
 	}
-	void getWriteZDepthAsColor()
+	void getWriteZDepthAsColor()const
 	{
 		fprintf(mFile,"\"%s.twz\"",mName.c_str());
 
 	}
-	void getHardwareCodec()
+	void getHardwareCodec()const
 	{
 		fprintf(mFile,"\"%s.hwcc\"",mName.c_str());
 
 	}
-	void getHardwareDepth()
+	void getHardwareDepth()const
 	{
 		fprintf(mFile,"\"%s.hwdp\"",mName.c_str());
 
 	}
-	void getHardwareQual()
+	void getHardwareQual()const
 	{
 		fprintf(mFile,"\"%s.hwql\"",mName.c_str());
 
 	}
-	void getHardwareFrameRate()
+	void getHardwareFrameRate()const
 	{
 		fprintf(mFile,"\"%s.hwfr\"",mName.c_str());
 
 	}
-	void getShadowsObeyLightLinking()
+	void getShadowsObeyLightLinking()const
 	{
 		fprintf(mFile,"\"%s.soll\"",mName.c_str());
 
 	}
-	void getShadowsObeyShadowLinking()
+	void getShadowsObeyShadowLinking()const
 	{
 		fprintf(mFile,"\"%s.sosl\"",mName.c_str());
 
 	}
-	void getBlendSpecularWithAlpha()
+	void getBlendSpecularWithAlpha()const
 	{
 		fprintf(mFile,"\"%s.bswa\"",mName.c_str());
 
 	}
-	void getShadingModel()
+	void getShadingModel()const
 	{
 		fprintf(mFile,"\"%s.shml\"",mName.c_str());
 
 	}
-	void getHardwareEnvironmentLookup()
+	void getHardwareEnvironmentLookup()const
 	{
 		fprintf(mFile,"\"%s.hwel\"",mName.c_str());
 
 	}
 protected:
-	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HardwareRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

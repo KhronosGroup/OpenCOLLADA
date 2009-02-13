@@ -19,7 +19,8 @@ class FilterResample : public Filter
 public:
 public:
 	FilterResample():Filter(){}
-	FilterResample(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterResample"){}
+	FilterResample(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Filter(file, name, parent, "filterResample", create){}
 	virtual ~FilterResample(){}
 	void setKernel(unsigned int kr)
 	{
@@ -27,19 +28,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".kr\" %i;\n", kr);
 
 	}
-	void getTimeStep()
+	void getTimeStep()const
 	{
 		fprintf(mFile,"\"%s.ts\"",mName.c_str());
 
 	}
-	void getKernel()
+	void getKernel()const
 	{
 		fprintf(mFile,"\"%s.kr\"",mName.c_str());
 
 	}
 protected:
-	FilterResample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Filter(file, name, parent, nodeType) {}
+	FilterResample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Filter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

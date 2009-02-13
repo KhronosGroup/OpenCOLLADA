@@ -19,7 +19,8 @@ class EnvChrome : public TextureEnv
 public:
 public:
 	EnvChrome():TextureEnv(){}
-	EnvChrome(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envChrome"){}
+	EnvChrome(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:TextureEnv(file, name, parent, "envChrome", create){}
 	virtual ~EnvChrome(){}
 	void setSkyColor(const float3& sc)
 	{
@@ -261,219 +262,219 @@ public:
 		fprintf(mFile,"\tsetAttr \".gdo\" %f;\n", gdo);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getSkyColor()
+	void getSkyColor()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getSkyColorR()
+	void getSkyColorR()const
 	{
 		fprintf(mFile,"\"%s.sc.scr\"",mName.c_str());
 
 	}
-	void getSkyColorG()
+	void getSkyColorG()const
 	{
 		fprintf(mFile,"\"%s.sc.scg\"",mName.c_str());
 
 	}
-	void getSkyColorB()
+	void getSkyColorB()const
 	{
 		fprintf(mFile,"\"%s.sc.scb\"",mName.c_str());
 
 	}
-	void getZenithColor()
+	void getZenithColor()const
 	{
 		fprintf(mFile,"\"%s.zc\"",mName.c_str());
 
 	}
-	void getZenithColorR()
+	void getZenithColorR()const
 	{
 		fprintf(mFile,"\"%s.zc.zcr\"",mName.c_str());
 
 	}
-	void getZenithColorG()
+	void getZenithColorG()const
 	{
 		fprintf(mFile,"\"%s.zc.zcg\"",mName.c_str());
 
 	}
-	void getZenithColorB()
+	void getZenithColorB()const
 	{
 		fprintf(mFile,"\"%s.zc.zcb\"",mName.c_str());
 
 	}
-	void getLightColor()
+	void getLightColor()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 
 	}
-	void getLightColorR()
+	void getLightColorR()const
 	{
 		fprintf(mFile,"\"%s.lc.lcr\"",mName.c_str());
 
 	}
-	void getLightColorG()
+	void getLightColorG()const
 	{
 		fprintf(mFile,"\"%s.lc.lcg\"",mName.c_str());
 
 	}
-	void getLightColorB()
+	void getLightColorB()const
 	{
 		fprintf(mFile,"\"%s.lc.lcb\"",mName.c_str());
 
 	}
-	void getLightWidth()
+	void getLightWidth()const
 	{
 		fprintf(mFile,"\"%s.lw\"",mName.c_str());
 
 	}
-	void getLightWidthGain()
+	void getLightWidthGain()const
 	{
 		fprintf(mFile,"\"%s.lwg\"",mName.c_str());
 
 	}
-	void getLightWidthOffset()
+	void getLightWidthOffset()const
 	{
 		fprintf(mFile,"\"%s.lwo\"",mName.c_str());
 
 	}
-	void getLightDepth()
+	void getLightDepth()const
 	{
 		fprintf(mFile,"\"%s.ld\"",mName.c_str());
 
 	}
-	void getLightDepthGain()
+	void getLightDepthGain()const
 	{
 		fprintf(mFile,"\"%s.ldg\"",mName.c_str());
 
 	}
-	void getLightDepthOffset()
+	void getLightDepthOffset()const
 	{
 		fprintf(mFile,"\"%s.ldo\"",mName.c_str());
 
 	}
-	void getRealFloor()
+	void getRealFloor()const
 	{
 		fprintf(mFile,"\"%s.rf\"",mName.c_str());
 
 	}
-	void getFloorColor()
+	void getFloorColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFloorColorR()
+	void getFloorColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fcr\"",mName.c_str());
 
 	}
-	void getFloorColorG()
+	void getFloorColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fcg\"",mName.c_str());
 
 	}
-	void getFloorColorB()
+	void getFloorColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fcb\"",mName.c_str());
 
 	}
-	void getFloorAltitude()
+	void getFloorAltitude()const
 	{
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 
 	}
-	void getHorizonColor()
+	void getHorizonColor()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 
 	}
-	void getHorizonColorR()
+	void getHorizonColorR()const
 	{
 		fprintf(mFile,"\"%s.hc.hcr\"",mName.c_str());
 
 	}
-	void getHorizonColorG()
+	void getHorizonColorG()const
 	{
 		fprintf(mFile,"\"%s.hc.hcg\"",mName.c_str());
 
 	}
-	void getHorizonColorB()
+	void getHorizonColorB()const
 	{
 		fprintf(mFile,"\"%s.hc.hcb\"",mName.c_str());
 
 	}
-	void getGridColor()
+	void getGridColor()const
 	{
 		fprintf(mFile,"\"%s.gc\"",mName.c_str());
 
 	}
-	void getGridColorR()
+	void getGridColorR()const
 	{
 		fprintf(mFile,"\"%s.gc.gcr\"",mName.c_str());
 
 	}
-	void getGridColorG()
+	void getGridColorG()const
 	{
 		fprintf(mFile,"\"%s.gc.gcg\"",mName.c_str());
 
 	}
-	void getGridColorB()
+	void getGridColorB()const
 	{
 		fprintf(mFile,"\"%s.gc.gcb\"",mName.c_str());
 
 	}
-	void getGridWidth()
+	void getGridWidth()const
 	{
 		fprintf(mFile,"\"%s.gw\"",mName.c_str());
 
 	}
-	void getGridWidthGain()
+	void getGridWidthGain()const
 	{
 		fprintf(mFile,"\"%s.gwg\"",mName.c_str());
 
 	}
-	void getGridWidthOffset()
+	void getGridWidthOffset()const
 	{
 		fprintf(mFile,"\"%s.gwo\"",mName.c_str());
 
 	}
-	void getGridDepth()
+	void getGridDepth()const
 	{
 		fprintf(mFile,"\"%s.gd\"",mName.c_str());
 
 	}
-	void getGridDepthGain()
+	void getGridDepthGain()const
 	{
 		fprintf(mFile,"\"%s.gdg\"",mName.c_str());
 
 	}
-	void getGridDepthOffset()
+	void getGridDepthOffset()const
 	{
 		fprintf(mFile,"\"%s.gdo\"",mName.c_str());
 
 	}
 protected:
-	EnvChrome(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:TextureEnv(file, name, parent, nodeType) {}
+	EnvChrome(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

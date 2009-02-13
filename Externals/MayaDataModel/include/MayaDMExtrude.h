@@ -19,7 +19,8 @@ class Extrude : public AbstractBaseCreate
 public:
 public:
 	Extrude():AbstractBaseCreate(){}
-	Extrude(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "extrude"){}
+	Extrude(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "extrude", create){}
 	virtual ~Extrude(){}
 	void setExtrudeType(unsigned int et)
 	{
@@ -131,114 +132,114 @@ public:
 		fprintf(mFile,"\tsetAttr \".scs\" %i;\n", scs);
 
 	}
-	void getProfile()
+	void getProfile()const
 	{
 		fprintf(mFile,"\"%s.pr\"",mName.c_str());
 
 	}
-	void getPath()
+	void getPath()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getExtrudeType()
+	void getExtrudeType()const
 	{
 		fprintf(mFile,"\"%s.et\"",mName.c_str());
 
 	}
-	void getFixedPath()
+	void getFixedPath()const
 	{
 		fprintf(mFile,"\"%s.fpt\"",mName.c_str());
 
 	}
-	void getUseComponentPivot()
+	void getUseComponentPivot()const
 	{
 		fprintf(mFile,"\"%s.ucp\"",mName.c_str());
 
 	}
-	void getUseProfileNormal()
+	void getUseProfileNormal()const
 	{
 		fprintf(mFile,"\"%s.upn\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getLength()
+	void getLength()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getPivot()
+	void getPivot()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPivotX()
+	void getPivotX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPivotY()
+	void getPivotY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPivotZ()
+	void getPivotZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getRotation()
+	void getRotation()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getReverseSurfaceIfPathReversed()
+	void getReverseSurfaceIfPathReversed()const
 	{
 		fprintf(mFile,"\"%s.rsp\"",mName.c_str());
 
 	}
-	void getDegreeAlongLength()
+	void getDegreeAlongLength()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getSubCurveSubSurface()
+	void getSubCurveSubSurface()const
 	{
 		fprintf(mFile,"\"%s.scs\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	Extrude(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Extrude(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

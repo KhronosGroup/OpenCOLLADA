@@ -19,7 +19,8 @@ class PolyNormal : public PolyModifier
 public:
 public:
 	PolyNormal():PolyModifier(){}
-	PolyNormal(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyNormal"){}
+	PolyNormal(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyNormal", create){}
 	virtual ~PolyNormal(){}
 	void setNormalMode(unsigned int nm)
 	{
@@ -33,19 +34,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".unm\" %i;\n", unm);
 
 	}
-	void getNormalMode()
+	void getNormalMode()const
 	{
 		fprintf(mFile,"\"%s.nm\"",mName.c_str());
 
 	}
-	void getUserNormalMode()
+	void getUserNormalMode()const
 	{
 		fprintf(mFile,"\"%s.unm\"",mName.c_str());
 
 	}
 protected:
-	PolyNormal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyNormal(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

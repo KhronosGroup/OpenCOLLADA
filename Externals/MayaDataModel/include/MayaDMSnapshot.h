@@ -19,7 +19,8 @@ class Snapshot : public DependNode
 public:
 public:
 	Snapshot():DependNode(){}
-	Snapshot(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "snapshot"){}
+	Snapshot(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "snapshot", create){}
 	virtual ~Snapshot(){}
 	void setInputMatrix(const matrix& im)
 	{
@@ -61,79 +62,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".up\" %i;\n", up);
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getEndTime()
+	void getEndTime()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
-	void getIncrement()
+	void getIncrement()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getInputGeom()
+	void getInputGeom()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getOutputGeom(size_t out_i)
+	void getOutputGeom(size_t out_i)const
 	{
 		fprintf(mFile,"\"%s.out[%i]\"",mName.c_str(),out_i);
 
 	}
-	void getInputMatrix()
+	void getInputMatrix()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getLocalPosition()
+	void getLocalPosition()const
 	{
 		fprintf(mFile,"\"%s.lp\"",mName.c_str());
 
 	}
-	void getLocalPositionX()
+	void getLocalPositionX()const
 	{
 		fprintf(mFile,"\"%s.lp.lpx\"",mName.c_str());
 
 	}
-	void getLocalPositionY()
+	void getLocalPositionY()const
 	{
 		fprintf(mFile,"\"%s.lp.lpy\"",mName.c_str());
 
 	}
-	void getLocalPositionZ()
+	void getLocalPositionZ()const
 	{
 		fprintf(mFile,"\"%s.lp.lpz\"",mName.c_str());
 
 	}
-	void getPoints()
+	void getPoints()const
 	{
 		fprintf(mFile,"\"%s.pts\"",mName.c_str());
 
 	}
-	void getFrames()
+	void getFrames()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getAnimCurveChanged()
+	void getAnimCurveChanged()const
 	{
 		fprintf(mFile,"\"%s.acc\"",mName.c_str());
 
 	}
-	void getUpdate()
+	void getUpdate()const
 	{
 		fprintf(mFile,"\"%s.up\"",mName.c_str());
 
 	}
 protected:
-	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Snapshot(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

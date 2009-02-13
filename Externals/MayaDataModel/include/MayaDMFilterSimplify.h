@@ -19,7 +19,8 @@ class FilterSimplify : public Filter
 public:
 public:
 	FilterSimplify():Filter(){}
-	FilterSimplify(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterSimplify"){}
+	FilterSimplify(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Filter(file, name, parent, "filterSimplify", create){}
 	virtual ~FilterSimplify(){}
 	void setTolerance(double tol)
 	{
@@ -51,34 +52,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".ad\" %i;\n", ad);
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getTimeTolerance()
+	void getTimeTolerance()const
 	{
 		fprintf(mFile,"\"%s.tt\"",mName.c_str());
 
 	}
-	void getMinTimeStep()
+	void getMinTimeStep()const
 	{
 		fprintf(mFile,"\"%s.mnt\"",mName.c_str());
 
 	}
-	void getMaxTimeStep()
+	void getMaxTimeStep()const
 	{
 		fprintf(mFile,"\"%s.mxt\"",mName.c_str());
 
 	}
-	void getAllowDuplicates()
+	void getAllowDuplicates()const
 	{
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 
 	}
 protected:
-	FilterSimplify(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Filter(file, name, parent, nodeType) {}
+	FilterSimplify(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Filter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

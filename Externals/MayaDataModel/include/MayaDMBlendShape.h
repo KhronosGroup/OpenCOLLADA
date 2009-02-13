@@ -59,7 +59,8 @@ public:
 	};
 public:
 	BlendShape():GeometryFilter(){}
-	BlendShape(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "blendShape"){}
+	BlendShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "blendShape", create){}
 	virtual ~BlendShape(){}
 	void setTopologyCheck(bool tc)
 	{
@@ -85,17 +86,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWeight(size_t w_start,size_t w_end)
+	void startWeight(size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".w[%i:%i]\"",w_start,w_end);
 
 	}
-	void appendWeight(float w)
+	void appendWeight(float w)const
 	{
 		fprintf(mFile," %f",w);
 
 	}
-	void endWeight()
+	void endWeight()const
 	{
 		fprintf(mFile,";\n");
 
@@ -120,19 +121,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startIcon(size_t icn_start,size_t icn_end)
+	void startIcon(size_t icn_start,size_t icn_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".icn[%i:%i]\"",icn_start,icn_end);
 		fprintf(mFile," -type \"string\" ");
 
 	}
-	void appendIcon(const string& icn)
+	void appendIcon(const string& icn)const
 	{
 		fprintf(mFile,"\n");
 		icn.write(mFile);
 
 	}
-	void endIcon()
+	void endIcon()const
 	{
 		fprintf(mFile,";\n");
 
@@ -190,17 +191,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTargetWeights(size_t it_i,size_t itg_i,size_t tw_start,size_t tw_end)
+	void startTargetWeights(size_t it_i,size_t itg_i,size_t tw_start,size_t tw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".it[%i].itg[%i].tw[%i:%i]\"",it_i,itg_i,tw_start,tw_end);
 
 	}
-	void appendTargetWeights(float tw)
+	void appendTargetWeights(float tw)const
 	{
 		fprintf(mFile," %f",tw);
 
 	}
-	void endTargetWeights()
+	void endTargetWeights()const
 	{
 		fprintf(mFile,";\n");
 
@@ -267,104 +268,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".pb\" %i;\n", pb);
 
 	}
-	void getTopologyCheck()
+	void getTopologyCheck()const
 	{
 		fprintf(mFile,"\"%s.tc\"",mName.c_str());
 
 	}
-	void getWeight(size_t w_i)
+	void getWeight(size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
-	void getIcon(size_t icn_i)
+	void getIcon(size_t icn_i)const
 	{
 		fprintf(mFile,"\"%s.icn[%i]\"",mName.c_str(),icn_i);
 
 	}
-	void getInputTarget(size_t it_i)
+	void getInputTarget(size_t it_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i]\"",mName.c_str(),it_i);
 
 	}
-	void getInputTargetGroup(size_t it_i,size_t itg_i)
+	void getInputTargetGroup(size_t it_i,size_t itg_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i]\"",mName.c_str(),it_i,itg_i);
 
 	}
-	void getInputTargetItem(size_t it_i,size_t itg_i,size_t iti_i)
+	void getInputTargetItem(size_t it_i,size_t itg_i,size_t iti_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i]\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
-	void getInputGeomTarget(size_t it_i,size_t itg_i,size_t iti_i)
+	void getInputGeomTarget(size_t it_i,size_t itg_i,size_t iti_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i].igt\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
-	void getInputPointsTarget(size_t it_i,size_t itg_i,size_t iti_i)
+	void getInputPointsTarget(size_t it_i,size_t itg_i,size_t iti_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i].ipt\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
-	void getInputComponentsTarget(size_t it_i,size_t itg_i,size_t iti_i)
+	void getInputComponentsTarget(size_t it_i,size_t itg_i,size_t iti_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].iti[%i].ict\"",mName.c_str(),it_i,itg_i,iti_i);
 
 	}
-	void getTargetWeights(size_t it_i,size_t itg_i,size_t tw_i)
+	void getTargetWeights(size_t it_i,size_t itg_i,size_t tw_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i].itg[%i].tw[%i]\"",mName.c_str(),it_i,itg_i,tw_i);
 
 	}
-	void getOrigin()
+	void getOrigin()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getBaseOrigin()
+	void getBaseOrigin()const
 	{
 		fprintf(mFile,"\"%s.bo\"",mName.c_str());
 
 	}
-	void getBaseOriginX()
+	void getBaseOriginX()const
 	{
 		fprintf(mFile,"\"%s.bo.bx\"",mName.c_str());
 
 	}
-	void getBaseOriginY()
+	void getBaseOriginY()const
 	{
 		fprintf(mFile,"\"%s.bo.by\"",mName.c_str());
 
 	}
-	void getBaseOriginZ()
+	void getBaseOriginZ()const
 	{
 		fprintf(mFile,"\"%s.bo.bz\"",mName.c_str());
 
 	}
-	void getTargetOrigin()
+	void getTargetOrigin()const
 	{
 		fprintf(mFile,"\"%s.to\"",mName.c_str());
 
 	}
-	void getTargetOriginX()
+	void getTargetOriginX()const
 	{
 		fprintf(mFile,"\"%s.to.tx\"",mName.c_str());
 
 	}
-	void getTargetOriginY()
+	void getTargetOriginY()const
 	{
 		fprintf(mFile,"\"%s.to.ty\"",mName.c_str());
 
 	}
-	void getTargetOriginZ()
+	void getTargetOriginZ()const
 	{
 		fprintf(mFile,"\"%s.to.tz\"",mName.c_str());
 
 	}
 protected:
-	BlendShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	BlendShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

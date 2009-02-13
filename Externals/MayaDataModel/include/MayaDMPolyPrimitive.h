@@ -19,7 +19,8 @@ class PolyPrimitive : public PolyCreator
 public:
 public:
 	PolyPrimitive():PolyCreator(){}
-	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent=""):PolyCreator(file, name, parent, "polyPrimitive"){}
+	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyCreator(file, name, parent, "polyPrimitive", create){}
 	virtual ~PolyPrimitive(){}
 	void setAxis(const double3& ax)
 	{
@@ -60,39 +61,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getAxis()
+	void getAxis()const
 	{
 		fprintf(mFile,"\"%s.ax\"",mName.c_str());
 
 	}
-	void getAxisX()
+	void getAxisX()const
 	{
 		fprintf(mFile,"\"%s.ax.axx\"",mName.c_str());
 
 	}
-	void getAxisY()
+	void getAxisY()const
 	{
 		fprintf(mFile,"\"%s.ax.axy\"",mName.c_str());
 
 	}
-	void getAxisZ()
+	void getAxisZ()const
 	{
 		fprintf(mFile,"\"%s.ax.axz\"",mName.c_str());
 
 	}
-	void getParamWarn()
+	void getParamWarn()const
 	{
 		fprintf(mFile,"\"%s.pw\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
 protected:
-	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyCreator(file, name, parent, nodeType) {}
+	PolyPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyCreator(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

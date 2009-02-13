@@ -19,7 +19,8 @@ class DeformSine : public DeformFunc
 public:
 public:
 	DeformSine():DeformFunc(){}
-	DeformSine(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformSine"){}
+	DeformSine(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformFunc(file, name, parent, "deformSine", create){}
 	virtual ~DeformSine(){}
 	void setLowBound(double lb)
 	{
@@ -57,39 +58,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
-	void getLowBound()
+	void getLowBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getHighBound()
+	void getHighBound()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
 
 	}
-	void getAmplitude()
+	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.amp\"",mName.c_str());
 
 	}
-	void getWavelength()
+	void getWavelength()const
 	{
 		fprintf(mFile,"\"%s.wav\"",mName.c_str());
 
 	}
-	void getDropoff()
+	void getDropoff()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
 protected:
-	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformFunc(file, name, parent, nodeType) {}
+	DeformSine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

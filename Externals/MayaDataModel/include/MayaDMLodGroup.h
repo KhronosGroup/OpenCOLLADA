@@ -19,7 +19,8 @@ class LodGroup : public Transform
 public:
 public:
 	LodGroup():Transform(){}
-	LodGroup(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "lodGroup"){}
+	LodGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "lodGroup", create){}
 	virtual ~LodGroup(){}
 	void setCameraMatrix(const matrix& cm)
 	{
@@ -47,17 +48,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startThreshold(size_t th_start,size_t th_end)
+	void startThreshold(size_t th_start,size_t th_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".th[%i:%i]\"",th_start,th_end);
 
 	}
-	void appendThreshold(double th)
+	void appendThreshold(double th)const
 	{
 		fprintf(mFile," %f",th);
 
 	}
-	void endThreshold()
+	void endThreshold()const
 	{
 		fprintf(mFile,";\n");
 
@@ -80,17 +81,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDisplayLevel(size_t dl_start,size_t dl_end)
+	void startDisplayLevel(size_t dl_start,size_t dl_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dl[%i:%i]\"",dl_start,dl_end);
 
 	}
-	void appendDisplayLevel(unsigned int dl)
+	void appendDisplayLevel(unsigned int dl)const
 	{
 		fprintf(mFile," %i",dl);
 
 	}
-	void endDisplayLevel()
+	void endDisplayLevel()const
 	{
 		fprintf(mFile,";\n");
 
@@ -113,54 +114,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".mxd\" %f;\n", mxd);
 
 	}
-	void getCameraMatrix()
+	void getCameraMatrix()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
-	void getThreshold(size_t th_i)
+	void getThreshold(size_t th_i)const
 	{
 		fprintf(mFile,"\"%s.th[%i]\"",mName.c_str(),th_i);
 
 	}
-	void getDisplayLevel(size_t dl_i)
+	void getDisplayLevel(size_t dl_i)const
 	{
 		fprintf(mFile,"\"%s.dl[%i]\"",mName.c_str(),dl_i);
 
 	}
-	void getMinMaxDistance()
+	void getMinMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.mmd\"",mName.c_str());
 
 	}
-	void getMinDistance()
+	void getMinDistance()const
 	{
 		fprintf(mFile,"\"%s.mid\"",mName.c_str());
 
 	}
-	void getMaxDistance()
+	void getMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.mxd\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getActiveLevel()
+	void getActiveLevel()const
 	{
 		fprintf(mFile,"\"%s.al\"",mName.c_str());
 
 	}
-	void getOutput(size_t o_i)
+	void getOutput(size_t o_i)const
 	{
 		fprintf(mFile,"\"%s.o[%i]\"",mName.c_str(),o_i);
 
 	}
 protected:
-	LodGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	LodGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

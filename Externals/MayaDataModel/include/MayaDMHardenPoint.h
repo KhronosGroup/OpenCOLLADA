@@ -19,7 +19,8 @@ class HardenPoint : public AbstractBaseCreate
 public:
 public:
 	HardenPoint():AbstractBaseCreate(){}
-	HardenPoint(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "hardenPoint"){}
+	HardenPoint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "hardenPoint", create){}
 	virtual ~HardenPoint(){}
 	void setIndex(size_t i_i,int i_)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startIndex(size_t i_start,size_t i_end)
+	void startIndex(size_t i_start,size_t i_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
 
 	}
-	void appendIndex(int i)
+	void appendIndex(int i)const
 	{
 		fprintf(mFile," %i",i);
 
 	}
-	void endIndex()
+	void endIndex()const
 	{
 		fprintf(mFile,";\n");
 
@@ -60,29 +61,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".m\" %i;\n", m);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getIndex(size_t i_i)
+	void getIndex(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getMultiplicity()
+	void getMultiplicity()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	HardenPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	HardenPoint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

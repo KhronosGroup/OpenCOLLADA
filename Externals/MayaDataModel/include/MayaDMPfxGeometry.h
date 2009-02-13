@@ -19,7 +19,8 @@ class PfxGeometry : public Shape
 public:
 public:
 	PfxGeometry():Shape(){}
-	PfxGeometry(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "pfxGeometry"){}
+	PfxGeometry(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "pfxGeometry", create){}
 	virtual ~PfxGeometry(){}
 	void setDisplayPercent(double dpc)
 	{
@@ -166,204 +167,204 @@ public:
 		fprintf(mFile,"\tsetAttr \".cva\" %i;\n", cva);
 
 	}
-	void getDisplayPercent()
+	void getDisplayPercent()const
 	{
 		fprintf(mFile,"\"%s.dpc\"",mName.c_str());
 
 	}
-	void getDrawAsMesh()
+	void getDrawAsMesh()const
 	{
 		fprintf(mFile,"\"%s.dam\"",mName.c_str());
 
 	}
-	void getSeed()
+	void getSeed()const
 	{
 		fprintf(mFile,"\"%s.sed\"",mName.c_str());
 
 	}
-	void getDrawOrder()
+	void getDrawOrder()const
 	{
 		fprintf(mFile,"\"%s.dro\"",mName.c_str());
 
 	}
-	void getSurfaceOffset()
+	void getSurfaceOffset()const
 	{
 		fprintf(mFile,"\"%s.sof\"",mName.c_str());
 
 	}
-	void getBrush()
+	void getBrush()const
 	{
 		fprintf(mFile,"\"%s.brs\"",mName.c_str());
 
 	}
-	void getMotionBlurred()
+	void getMotionBlurred()const
 	{
 		fprintf(mFile,"\"%s.mblr\"",mName.c_str());
 
 	}
-	void getPrimaryVisibility()
+	void getPrimaryVisibility()const
 	{
 		fprintf(mFile,"\"%s.pvs\"",mName.c_str());
 
 	}
-	void getControlCurve(size_t clc_i)
+	void getControlCurve(size_t clc_i)const
 	{
 		fprintf(mFile,"\"%s.clc[%i]\"",mName.c_str(),clc_i);
 
 	}
-	void getOutMainMesh()
+	void getOutMainMesh()const
 	{
 		fprintf(mFile,"\"%s.omm\"",mName.c_str());
 
 	}
-	void getOutFlowerMesh()
+	void getOutFlowerMesh()const
 	{
 		fprintf(mFile,"\"%s.ofm\"",mName.c_str());
 
 	}
-	void getOutLeafMesh()
+	void getOutLeafMesh()const
 	{
 		fprintf(mFile,"\"%s.olm\"",mName.c_str());
 
 	}
-	void getWorldMainMesh(size_t wmm_i)
+	void getWorldMainMesh(size_t wmm_i)const
 	{
 		fprintf(mFile,"\"%s.wmm[%i]\"",mName.c_str(),wmm_i);
 
 	}
-	void getWorldLeafMesh(size_t wlm_i)
+	void getWorldLeafMesh(size_t wlm_i)const
 	{
 		fprintf(mFile,"\"%s.wlm[%i]\"",mName.c_str(),wlm_i);
 
 	}
-	void getWorldFlowerMesh(size_t wfm_i)
+	void getWorldFlowerMesh(size_t wfm_i)const
 	{
 		fprintf(mFile,"\"%s.wfm[%i]\"",mName.c_str(),wfm_i);
 
 	}
-	void getMainVertBufSize()
+	void getMainVertBufSize()const
 	{
 		fprintf(mFile,"\"%s.mvbs\"",mName.c_str());
 
 	}
-	void getFlowerVertBufSize()
+	void getFlowerVertBufSize()const
 	{
 		fprintf(mFile,"\"%s.fvbs\"",mName.c_str());
 
 	}
-	void getLeafVertBufSize()
+	void getLeafVertBufSize()const
 	{
 		fprintf(mFile,"\"%s.lvbs\"",mName.c_str());
 
 	}
-	void getMeshPolyLimit()
+	void getMeshPolyLimit()const
 	{
 		fprintf(mFile,"\"%s.mpl\"",mName.c_str());
 
 	}
-	void getMeshVertexColorMode()
+	void getMeshVertexColorMode()const
 	{
 		fprintf(mFile,"\"%s.mvc\"",mName.c_str());
 
 	}
-	void getMeshHardEdges()
+	void getMeshHardEdges()const
 	{
 		fprintf(mFile,"\"%s.mhe\"",mName.c_str());
 
 	}
-	void getMeshQuadOutput()
+	void getMeshQuadOutput()const
 	{
 		fprintf(mFile,"\"%s.mqo\"",mName.c_str());
 
 	}
-	void getCameraPoint()
+	void getCameraPoint()const
 	{
 		fprintf(mFile,"\"%s.cpt\"",mName.c_str());
 
 	}
-	void getCameraPointX()
+	void getCameraPointX()const
 	{
 		fprintf(mFile,"\"%s.cpt.cpx\"",mName.c_str());
 
 	}
-	void getCameraPointY()
+	void getCameraPointY()const
 	{
 		fprintf(mFile,"\"%s.cpt.cpy\"",mName.c_str());
 
 	}
-	void getCameraPointZ()
+	void getCameraPointZ()const
 	{
 		fprintf(mFile,"\"%s.cpt.cpz\"",mName.c_str());
 
 	}
-	void getLineModifier(size_t lmd_i)
+	void getLineModifier(size_t lmd_i)const
 	{
 		fprintf(mFile,"\"%s.lmd[%i]\"",mName.c_str(),lmd_i);
 
 	}
-	void getMaxDrawSegments()
+	void getMaxDrawSegments()const
 	{
 		fprintf(mFile,"\"%s.mdsg\"",mName.c_str());
 
 	}
-	void getCurveMode()
+	void getCurveMode()const
 	{
 		fprintf(mFile,"\"%s.cmd\"",mName.c_str());
 
 	}
-	void getLeafCurveMode()
+	void getLeafCurveMode()const
 	{
 		fprintf(mFile,"\"%s.lcm\"",mName.c_str());
 
 	}
-	void getFlowerCurveMode()
+	void getFlowerCurveMode()const
 	{
 		fprintf(mFile,"\"%s.fcm\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.dgr\"",mName.c_str());
 
 	}
-	void getCurveAlign()
+	void getCurveAlign()const
 	{
 		fprintf(mFile,"\"%s.cva\"",mName.c_str());
 
 	}
-	void getOutMainCurveCount()
+	void getOutMainCurveCount()const
 	{
 		fprintf(mFile,"\"%s.omcc\"",mName.c_str());
 
 	}
-	void getOutLeafCurveCount()
+	void getOutLeafCurveCount()const
 	{
 		fprintf(mFile,"\"%s.olcc\"",mName.c_str());
 
 	}
-	void getOutFlowerCurveCount()
+	void getOutFlowerCurveCount()const
 	{
 		fprintf(mFile,"\"%s.ofcc\"",mName.c_str());
 
 	}
-	void getOutMainCurves(size_t omc_i)
+	void getOutMainCurves(size_t omc_i)const
 	{
 		fprintf(mFile,"\"%s.omc[%i]\"",mName.c_str(),omc_i);
 
 	}
-	void getOutLeafCurves(size_t olc_i)
+	void getOutLeafCurves(size_t olc_i)const
 	{
 		fprintf(mFile,"\"%s.olc[%i]\"",mName.c_str(),olc_i);
 
 	}
-	void getOutFlowerCurves(size_t ofc_i)
+	void getOutFlowerCurves(size_t ofc_i)const
 	{
 		fprintf(mFile,"\"%s.ofc[%i]\"",mName.c_str(),ofc_i);
 
 	}
 protected:
-	PfxGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	PfxGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

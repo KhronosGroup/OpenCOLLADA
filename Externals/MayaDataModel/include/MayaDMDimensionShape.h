@@ -18,11 +18,12 @@ class DimensionShape : public Shape
 {
 public:
 	DimensionShape():Shape(){}
-	DimensionShape(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "dimensionShape"){}
+	DimensionShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "dimensionShape", create){}
 	virtual ~DimensionShape(){}
 protected:
-	DimensionShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	DimensionShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

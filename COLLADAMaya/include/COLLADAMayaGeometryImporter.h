@@ -27,6 +27,7 @@
 
 #include "MayaDMTypes.h"
 #include "MayaDMMesh.h"
+#include "MayaDMGroupId.h"
 
 #include <vector>
 
@@ -43,12 +44,61 @@ namespace COLLADAMaya
         /** The standard name for geometry without name. */
         static const String GEOMETRY_NAME;
 
+        /** The standard name for a maya group. */
+        static const String GROUPID_NAME;
+
+    public:
+
+        /**
+        * Assign the group to the unique geometry id, the transform node 
+        * to the mesh instance and the index of the geometry's primitives.
+        */
+        class GroupIdAssignment
+        {
+        private:
+            MayaDM::GroupId mGroupId;
+            COLLADAFW::UniqueId mGeometryId;
+            size_t mGeometryInstanceIndex;
+            size_t mPrimitiveIndex;
+        public:
+            GroupIdAssignment () {}
+            GroupIdAssignment ( 
+                MayaDM::GroupId& groupId, 
+                const COLLADAFW::UniqueId& geometryId, 
+                const size_t geometryInstanceIndex,
+                const size_t primitiveIndex )
+                : mGroupId (groupId)
+                , mGeometryId (geometryId)
+                , mGeometryInstanceIndex (geometryInstanceIndex)
+                , mPrimitiveIndex (primitiveIndex)
+            {}
+            virtual ~GroupIdAssignment () {}
+
+            const MayaDM::GroupId& getGroupId () const { return mGroupId; }
+            void setGroupId ( MayaDM::GroupId& val ) { mGroupId = val; }
+
+            const COLLADAFW::UniqueId& getGeometryId () const { return mGeometryId; }
+            void setGeometryId ( const COLLADAFW::UniqueId& val ) { mGeometryId = val; }
+
+            const size_t getGeometryInstanceIndex () const { return mGeometryInstanceIndex; }
+            void setGeometryInstanceIndex ( const size_t val ) { mGeometryInstanceIndex = val; }
+
+            const size_t getPrimitiveIndex () const { return mPrimitiveIndex; }
+            void setPrimitiveIndex ( const size_t val ) { mPrimitiveIndex = val; }
+        };
+        typedef std::vector<GroupIdAssignment> GroupIdAssignments;
+
     private:
 
         /**
         * The list of the unique maya mesh node names.
         */
         COLLADABU::IDList mMeshNodeIdList;
+
+        /**
+        * The list of the unique maya group id names.
+        */
+        COLLADABU::IDList mGroupIdList;
 
         /** 
          * The map holds the unique ids of the geometry nodes to the maya specific nodes. 
@@ -65,6 +115,22 @@ namespace COLLADAMaya
          * the index values of the geometry's primitives.
          */
         CombinedIdIndicesMap mShadingEnginePrimitivesMap;
+
+        /**
+         * The map holds for every geometry id the number of mesh 
+         * primitive elements.
+         */
+
+        /**
+         * The map holds for every primitive element of every geometry 
+         * instance the generated group id.
+         */
+
+        /**
+         * Assign the group to the unique geometry id, the transform node 
+         * to the mesh instance and the index of the geometry's primitives.
+         */
+        GroupIdAssignments mGroupIdAssignments;
 
     public:
 
@@ -106,6 +172,12 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& geometryId, 
             const COLLADAFW::MaterialId shadingEngineId );
 
+        /**
+        * Assign the group to the unique geometry id, the transform node 
+        * to the mesh instance and the index of the geometry's primitives.
+        */
+        const GroupIdAssignments& getGroupIdAssignments () const { return mGroupIdAssignments; }
+
     private:
 
         /** 
@@ -120,6 +192,13 @@ namespace COLLADAMaya
             const COLLADAFW::Mesh* mesh, 
             MayaNode* parentMayaNode, 
             size_t numNodeInstances );
+
+        /**
+         * Create maya group ids for every mesh primitive (if there is more than one).
+         */
+        void createGroupNodes ( 
+            const COLLADAFW::Mesh* mesh, 
+            const size_t geometryInstanceIndex );
 
         /**
          * Create the object group instances and the object groups and write it into the maya file.

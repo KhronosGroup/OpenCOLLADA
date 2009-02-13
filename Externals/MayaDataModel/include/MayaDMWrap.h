@@ -19,7 +19,8 @@ class Wrap : public GeometryFilter
 public:
 public:
 	Wrap():GeometryFilter(){}
-	Wrap(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "wrap"){}
+	Wrap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "wrap", create){}
 	virtual ~Wrap(){}
 	void setGeomMatrix(const matrix& gm)
 	{
@@ -47,17 +48,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDropoff(size_t dr_start,size_t dr_end)
+	void startDropoff(size_t dr_start,size_t dr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dr[%i:%i]\"",dr_start,dr_end);
 
 	}
-	void appendDropoff(double dr)
+	void appendDropoff(double dr)const
 	{
 		fprintf(mFile," %f",dr);
 
 	}
-	void endDropoff()
+	void endDropoff()const
 	{
 		fprintf(mFile,";\n");
 
@@ -80,17 +81,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startSmoothness(size_t smt_start,size_t smt_end)
+	void startSmoothness(size_t smt_start,size_t smt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".smt[%i:%i]\"",smt_start,smt_end);
 
 	}
-	void appendSmoothness(double smt)
+	void appendSmoothness(double smt)const
 	{
 		fprintf(mFile," %f",smt);
 
 	}
-	void endSmoothness()
+	void endSmoothness()const
 	{
 		fprintf(mFile,";\n");
 
@@ -113,17 +114,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInflType(size_t it_start,size_t it_end)
+	void startInflType(size_t it_start,size_t it_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".it[%i:%i]\"",it_start,it_end);
 
 	}
-	void appendInflType(short it)
+	void appendInflType(short it)const
 	{
 		fprintf(mFile," %i",it);
 
 	}
-	void endInflType()
+	void endInflType()const
 	{
 		fprintf(mFile,";\n");
 
@@ -146,17 +147,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startNurbsSamples(size_t ns_start,size_t ns_end)
+	void startNurbsSamples(size_t ns_start,size_t ns_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ns[%i:%i]\"",ns_start,ns_end);
 
 	}
-	void appendNurbsSamples(short ns)
+	void appendNurbsSamples(short ns)const
 	{
 		fprintf(mFile," %i",ns);
 
 	}
-	void endNurbsSamples()
+	void endNurbsSamples()const
 	{
 		fprintf(mFile,";\n");
 
@@ -179,69 +180,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".rb\" %i;\n", rb);
 
 	}
-	void getGeomMatrix()
+	void getGeomMatrix()const
 	{
 		fprintf(mFile,"\"%s.gm\"",mName.c_str());
 
 	}
-	void getDriverPoints(size_t dp_i)
+	void getDriverPoints(size_t dp_i)const
 	{
 		fprintf(mFile,"\"%s.dp[%i]\"",mName.c_str(),dp_i);
 
 	}
-	void getBasePoints(size_t bp_i)
+	void getBasePoints(size_t bp_i)const
 	{
 		fprintf(mFile,"\"%s.bp[%i]\"",mName.c_str(),bp_i);
 
 	}
-	void getDropoff(size_t dr_i)
+	void getDropoff(size_t dr_i)const
 	{
 		fprintf(mFile,"\"%s.dr[%i]\"",mName.c_str(),dr_i);
 
 	}
-	void getSmoothness(size_t smt_i)
+	void getSmoothness(size_t smt_i)const
 	{
 		fprintf(mFile,"\"%s.smt[%i]\"",mName.c_str(),smt_i);
 
 	}
-	void getInflType(size_t it_i)
+	void getInflType(size_t it_i)const
 	{
 		fprintf(mFile,"\"%s.it[%i]\"",mName.c_str(),it_i);
 
 	}
-	void getNurbsSamples(size_t ns_i)
+	void getNurbsSamples(size_t ns_i)const
 	{
 		fprintf(mFile,"\"%s.ns[%i]\"",mName.c_str(),ns_i);
 
 	}
-	void getWeightThreshold()
+	void getWeightThreshold()const
 	{
 		fprintf(mFile,"\"%s.wt\"",mName.c_str());
 
 	}
-	void getMaxDistance()
+	void getMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.md\"",mName.c_str());
 
 	}
-	void getExclusiveBind()
+	void getExclusiveBind()const
 	{
 		fprintf(mFile,"\"%s.rb\"",mName.c_str());
 
 	}
-	void getWtDrty()
+	void getWtDrty()const
 	{
 		fprintf(mFile,"\"%s.wtd\"",mName.c_str());
 
 	}
-	void getBaseDrt()
+	void getBaseDrt()const
 	{
 		fprintf(mFile,"\"%s.bsd\"",mName.c_str());
 
 	}
 protected:
-	Wrap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	Wrap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class MakeNurbCircle : public AbstractBaseCreate
 public:
 public:
 	MakeNurbCircle():AbstractBaseCreate(){}
-	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeNurbCircle"){}
+	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeNurbCircle", create){}
 	virtual ~MakeNurbCircle(){}
 	void setFirst(const double3& fp)
 	{
@@ -138,109 +139,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".fc\" %i;\n", fc);
 
 	}
-	void getFirst()
+	void getFirst()const
 	{
 		fprintf(mFile,"\"%s.fp\"",mName.c_str());
 
 	}
-	void getFirstPointX()
+	void getFirstPointX()const
 	{
 		fprintf(mFile,"\"%s.fp.fpx\"",mName.c_str());
 
 	}
-	void getFirstPointY()
+	void getFirstPointY()const
 	{
 		fprintf(mFile,"\"%s.fp.fpy\"",mName.c_str());
 
 	}
-	void getFirstPointZ()
+	void getFirstPointZ()const
 	{
 		fprintf(mFile,"\"%s.fp.fpz\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.nr\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nr.nrx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.nr.nry\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nr.nrz\"",mName.c_str());
 
 	}
-	void getCenter()
+	void getCenter()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getCenterX()
+	void getCenterX()const
 	{
 		fprintf(mFile,"\"%s.c.cx\"",mName.c_str());
 
 	}
-	void getCenterY()
+	void getCenterY()const
 	{
 		fprintf(mFile,"\"%s.c.cy\"",mName.c_str());
 
 	}
-	void getCenterZ()
+	void getCenterZ()const
 	{
 		fprintf(mFile,"\"%s.c.cz\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getSweep()
+	void getSweep()const
 	{
 		fprintf(mFile,"\"%s.sw\"",mName.c_str());
 
 	}
-	void getUseTolerance()
+	void getUseTolerance()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSections()
+	void getSections()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getFixCenter()
+	void getFixCenter()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeNurbCircle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

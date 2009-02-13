@@ -19,7 +19,8 @@ class ShadingEngine : public ObjectSet
 public:
 public:
 	ShadingEngine():ObjectSet(){}
-	ShadingEngine(FILE* file,const std::string& name,const std::string& parent=""):ObjectSet(file, name, parent, "shadingEngine"){}
+	ShadingEngine(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ObjectSet(file, name, parent, "shadingEngine", create){}
 	virtual ~ShadingEngine(){}
 	void setMiExportMrMaterial(bool mimt)
 	{
@@ -100,139 +101,139 @@ public:
 		fprintf(mFile,"\tsetAttr \".mirw\" %i;\n", mirw);
 
 	}
-	void getSurfaceShader()
+	void getSurfaceShader()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getDisplacementShader()
+	void getDisplacementShader()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getVolumeShader()
+	void getVolumeShader()const
 	{
 		fprintf(mFile,"\"%s.vs\"",mName.c_str());
 
 	}
-	void getImageShader()
+	void getImageShader()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getMiExportMrMaterial()
+	void getMiExportMrMaterial()const
 	{
 		fprintf(mFile,"\"%s.mimt\"",mName.c_str());
 
 	}
-	void getMiOpaque()
+	void getMiOpaque()const
 	{
 		fprintf(mFile,"\"%s.miop\"",mName.c_str());
 
 	}
-	void getMiCutAwayOpacity()
+	void getMiCutAwayOpacity()const
 	{
 		fprintf(mFile,"\"%s.mico\"",mName.c_str());
 
 	}
-	void getMiExportShadingEngine()
+	void getMiExportShadingEngine()const
 	{
 		fprintf(mFile,"\"%s.mise\"",mName.c_str());
 
 	}
-	void getMiMaterialShader()
+	void getMiMaterialShader()const
 	{
 		fprintf(mFile,"\"%s.mims\"",mName.c_str());
 
 	}
-	void getMiShadowShader()
+	void getMiShadowShader()const
 	{
 		fprintf(mFile,"\"%s.miss\"",mName.c_str());
 
 	}
-	void getMiExportVolumeSampler()
+	void getMiExportVolumeSampler()const
 	{
 		fprintf(mFile,"\"%s.mism\"",mName.c_str());
 
 	}
-	void getMiVolumeShader()
+	void getMiVolumeShader()const
 	{
 		fprintf(mFile,"\"%s.mivs\"",mName.c_str());
 
 	}
-	void getMiPhotonShader()
+	void getMiPhotonShader()const
 	{
 		fprintf(mFile,"\"%s.mips\"",mName.c_str());
 
 	}
-	void getMiPhotonVolumeShader()
+	void getMiPhotonVolumeShader()const
 	{
 		fprintf(mFile,"\"%s.mipv\"",mName.c_str());
 
 	}
-	void getMiDisplacementShader()
+	void getMiDisplacementShader()const
 	{
 		fprintf(mFile,"\"%s.mids\"",mName.c_str());
 
 	}
-	void getMiEnvironmentShader()
+	void getMiEnvironmentShader()const
 	{
 		fprintf(mFile,"\"%s.mies\"",mName.c_str());
 
 	}
-	void getMiLightMapShader()
+	void getMiLightMapShader()const
 	{
 		fprintf(mFile,"\"%s.milm\"",mName.c_str());
 
 	}
-	void getMiContourShader()
+	void getMiContourShader()const
 	{
 		fprintf(mFile,"\"%s.mics\"",mName.c_str());
 
 	}
-	void getMiContourEnable()
+	void getMiContourEnable()const
 	{
 		fprintf(mFile,"\"%s.mice\"",mName.c_str());
 
 	}
-	void getMiContourColor()
+	void getMiContourColor()const
 	{
 		fprintf(mFile,"\"%s.micc\"",mName.c_str());
 
 	}
-	void getMiContourColorR()
+	void getMiContourColorR()const
 	{
 		fprintf(mFile,"\"%s.micc.micr\"",mName.c_str());
 
 	}
-	void getMiContourColorG()
+	void getMiContourColorG()const
 	{
 		fprintf(mFile,"\"%s.micc.micg\"",mName.c_str());
 
 	}
-	void getMiContourColorB()
+	void getMiContourColorB()const
 	{
 		fprintf(mFile,"\"%s.micc.micb\"",mName.c_str());
 
 	}
-	void getMiContourAlpha()
+	void getMiContourAlpha()const
 	{
 		fprintf(mFile,"\"%s.mica\"",mName.c_str());
 
 	}
-	void getMiContourWidth()
+	void getMiContourWidth()const
 	{
 		fprintf(mFile,"\"%s.micw\"",mName.c_str());
 
 	}
-	void getMiContourRelativeWidth()
+	void getMiContourRelativeWidth()const
 	{
 		fprintf(mFile,"\"%s.mirw\"",mName.c_str());
 
 	}
 protected:
-	ShadingEngine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ObjectSet(file, name, parent, nodeType) {}
+	ShadingEngine(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ObjectSet(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

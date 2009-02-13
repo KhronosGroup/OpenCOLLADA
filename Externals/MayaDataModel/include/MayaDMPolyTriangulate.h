@@ -19,7 +19,8 @@ class PolyTriangulate : public PolyModifier
 public:
 public:
 	PolyTriangulate():PolyModifier(){}
-	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTriangulate"){}
+	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyTriangulate", create){}
 	virtual ~PolyTriangulate(){}
 	void setMaya80(bool m80)
 	{
@@ -28,8 +29,8 @@ public:
 
 	}
 protected:
-	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyTriangulate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

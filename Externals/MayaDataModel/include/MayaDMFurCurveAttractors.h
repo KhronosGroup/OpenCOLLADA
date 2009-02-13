@@ -55,7 +55,8 @@ public:
 	};
 public:
 	FurCurveAttractors():DependNode(){}
-	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurCurveAttractors"){}
+	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "FurCurveAttractors", create){}
 	virtual ~FurCurveAttractors(){}
 	void setCurveAttractorModel(unsigned int camd)
 	{
@@ -255,239 +256,239 @@ public:
 		fprintf(mFile,"\tsetAttr \".ctlnf\" %f;\n", ctlnf);
 
 	}
-	void getCurveAttractorModel()
+	void getCurveAttractorModel()const
 	{
 		fprintf(mFile,"\"%s.camd\"",mName.c_str());
 
 	}
-	void getDagSetMembers()
+	void getDagSetMembers()const
 	{
 		fprintf(mFile,"\"%s.dsm\"",mName.c_str());
 
 	}
-	void getCurveAttractors()
+	void getCurveAttractors()const
 	{
 		fprintf(mFile,"\"%s.catt\"",mName.c_str());
 
 	}
-	void getFurGlobals()
+	void getFurGlobals()const
 	{
 		fprintf(mFile,"\"%s.fgc\"",mName.c_str());
 
 	}
-	void getCurveRadius()
+	void getCurveRadius()const
 	{
 		fprintf(mFile,"\"%s.dcr\"",mName.c_str());
 
 	}
-	void getCurveRadiusMap()
+	void getCurveRadiusMap()const
 	{
 		fprintf(mFile,"\"%s.crm\"",mName.c_str());
 
 	}
-	void getCurveRadiusMapUSamples()
+	void getCurveRadiusMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.crmus\"",mName.c_str());
 
 	}
-	void getCurveRadiusMapVSamples()
+	void getCurveRadiusMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.crmvs\"",mName.c_str());
 
 	}
-	void getCurveRadiusMapOffset()
+	void getCurveRadiusMapOffset()const
 	{
 		fprintf(mFile,"\"%s.crmo\"",mName.c_str());
 
 	}
-	void getCurveRadiusMapMult()
+	void getCurveRadiusMapMult()const
 	{
 		fprintf(mFile,"\"%s.crmm\"",mName.c_str());
 
 	}
-	void getCurveRadiusNoise()
+	void getCurveRadiusNoise()const
 	{
 		fprintf(mFile,"\"%s.crn\"",mName.c_str());
 
 	}
-	void getCurvePower()
+	void getCurvePower()const
 	{
 		fprintf(mFile,"\"%s.dcp\"",mName.c_str());
 
 	}
-	void getCurvePowerMap()
+	void getCurvePowerMap()const
 	{
 		fprintf(mFile,"\"%s.cpm\"",mName.c_str());
 
 	}
-	void getCurvePowerMapUSamples()
+	void getCurvePowerMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.cpmus\"",mName.c_str());
 
 	}
-	void getCurvePowerMapVSamples()
+	void getCurvePowerMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.cpmvs\"",mName.c_str());
 
 	}
-	void getCurvePowerMapOffset()
+	void getCurvePowerMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cpmo\"",mName.c_str());
 
 	}
-	void getCurvePowerMapMult()
+	void getCurvePowerMapMult()const
 	{
 		fprintf(mFile,"\"%s.cpmm\"",mName.c_str());
 
 	}
-	void getCurvePowerNoise()
+	void getCurvePowerNoise()const
 	{
 		fprintf(mFile,"\"%s.cpn\"",mName.c_str());
 
 	}
-	void getCurveInfluence()
+	void getCurveInfluence()const
 	{
 		fprintf(mFile,"\"%s.dci\"",mName.c_str());
 
 	}
-	void getCurveInfluenceMap()
+	void getCurveInfluenceMap()const
 	{
 		fprintf(mFile,"\"%s.cim\"",mName.c_str());
 
 	}
-	void getCurveInfluenceMapUSamples()
+	void getCurveInfluenceMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.cimus\"",mName.c_str());
 
 	}
-	void getCurveInfluenceMapVSamples()
+	void getCurveInfluenceMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.cimvs\"",mName.c_str());
 
 	}
-	void getCurveInfluenceMapOffset()
+	void getCurveInfluenceMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cimo\"",mName.c_str());
 
 	}
-	void getCurveInfluenceMapMult()
+	void getCurveInfluenceMapMult()const
 	{
 		fprintf(mFile,"\"%s.cimm\"",mName.c_str());
 
 	}
-	void getCurveInfluenceNoise()
+	void getCurveInfluenceNoise()const
 	{
 		fprintf(mFile,"\"%s.cin\"",mName.c_str());
 
 	}
-	void getCurveStartLength()
+	void getCurveStartLength()const
 	{
 		fprintf(mFile,"\"%s.dcsl\"",mName.c_str());
 
 	}
-	void getCurveStartLengthMap()
+	void getCurveStartLengthMap()const
 	{
 		fprintf(mFile,"\"%s.cslm\"",mName.c_str());
 
 	}
-	void getCurveStartLengthMapUSamples()
+	void getCurveStartLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.cslmus\"",mName.c_str());
 
 	}
-	void getCurveStartLengthMapVSamples()
+	void getCurveStartLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.cslmvs\"",mName.c_str());
 
 	}
-	void getCurveStartLengthMapOffset()
+	void getCurveStartLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cslmo\"",mName.c_str());
 
 	}
-	void getCurveStartLengthMapMult()
+	void getCurveStartLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.cslmm\"",mName.c_str());
 
 	}
-	void getCurveStartLengthNoise()
+	void getCurveStartLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.csln\"",mName.c_str());
 
 	}
-	void getCurveEndLength()
+	void getCurveEndLength()const
 	{
 		fprintf(mFile,"\"%s.dcel\"",mName.c_str());
 
 	}
-	void getCurveEndLengthMap()
+	void getCurveEndLengthMap()const
 	{
 		fprintf(mFile,"\"%s.celm\"",mName.c_str());
 
 	}
-	void getCurveEndLengthMapUSamples()
+	void getCurveEndLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.celmus\"",mName.c_str());
 
 	}
-	void getCurveEndLengthMapVSamples()
+	void getCurveEndLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.celmvs\"",mName.c_str());
 
 	}
-	void getCurveEndLengthMapOffset()
+	void getCurveEndLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.celmo\"",mName.c_str());
 
 	}
-	void getCurveEndLengthMapMult()
+	void getCurveEndLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.celmm\"",mName.c_str());
 
 	}
-	void getCurveEndLengthNoise()
+	void getCurveEndLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.celn\"",mName.c_str());
 
 	}
-	void getCurveThresholdLength()
+	void getCurveThresholdLength()const
 	{
 		fprintf(mFile,"\"%s.dctl\"",mName.c_str());
 
 	}
-	void getCurveThresholdLengthMap()
+	void getCurveThresholdLengthMap()const
 	{
 		fprintf(mFile,"\"%s.ctlm\"",mName.c_str());
 
 	}
-	void getCurveThresholdLengthMapUSamples()
+	void getCurveThresholdLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.ctlmus\"",mName.c_str());
 
 	}
-	void getCurveThresholdLengthMapVSamples()
+	void getCurveThresholdLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.ctlmvs\"",mName.c_str());
 
 	}
-	void getCurveThresholdLengthMapOffset()
+	void getCurveThresholdLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.ctlmo\"",mName.c_str());
 
 	}
-	void getCurveThresholdLengthMapMult()
+	void getCurveThresholdLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.ctlmm\"",mName.c_str());
 
 	}
-	void getCurveThresholdLengthNoise()
+	void getCurveThresholdLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.ctln\"",mName.c_str());
 
 	}
 protected:
-	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FurCurveAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

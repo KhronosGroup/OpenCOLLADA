@@ -19,7 +19,8 @@ class VertexBakeSet : public BakeSet
 public:
 public:
 	VertexBakeSet():BakeSet(){}
-	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent=""):BakeSet(file, name, parent, "vertexBakeSet"){}
+	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BakeSet(file, name, parent, "vertexBakeSet", create){}
 	virtual ~VertexBakeSet(){}
 	void setBakeColor(bool color)
 	{
@@ -133,94 +134,94 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getSharedVertices()
+	void getSharedVertices()const
 	{
 		fprintf(mFile,"\"%s.shared\"",mName.c_str());
 
 	}
-	void getBakeColor()
+	void getBakeColor()const
 	{
 		fprintf(mFile,"\"%s.color\"",mName.c_str());
 
 	}
-	void getColorBlending()
+	void getColorBlending()const
 	{
 		fprintf(mFile,"\"%s.cblend\"",mName.c_str());
 
 	}
-	void getAlphaBlending()
+	void getAlphaBlending()const
 	{
 		fprintf(mFile,"\"%s.ablend\"",mName.c_str());
 
 	}
-	void getScaleRgba()
+	void getScaleRgba()const
 	{
 		fprintf(mFile,"\"%s.scale\"",mName.c_str());
 
 	}
-	void getClampMin()
+	void getClampMin()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
 
 	}
-	void getMinColorR()
+	void getMinColorR()const
 	{
 		fprintf(mFile,"\"%s.lc.lr\"",mName.c_str());
 
 	}
-	void getMinColorG()
+	void getMinColorG()const
 	{
 		fprintf(mFile,"\"%s.lc.lg\"",mName.c_str());
 
 	}
-	void getMinColorB()
+	void getMinColorB()const
 	{
 		fprintf(mFile,"\"%s.lc.lb\"",mName.c_str());
 
 	}
-	void getMinAlpha()
+	void getMinAlpha()const
 	{
 		fprintf(mFile,"\"%s.mina\"",mName.c_str());
 
 	}
-	void getClampMax()
+	void getClampMax()const
 	{
 		fprintf(mFile,"\"%s.max\"",mName.c_str());
 
 	}
-	void getMaxColorR()
+	void getMaxColorR()const
 	{
 		fprintf(mFile,"\"%s.hc.hr\"",mName.c_str());
 
 	}
-	void getMaxColorG()
+	void getMaxColorG()const
 	{
 		fprintf(mFile,"\"%s.hc.hg\"",mName.c_str());
 
 	}
-	void getMaxColorB()
+	void getMaxColorB()const
 	{
 		fprintf(mFile,"\"%s.hc.hb\"",mName.c_str());
 
 	}
-	void getMaxAlpha()
+	void getMaxAlpha()const
 	{
 		fprintf(mFile,"\"%s.maxa\"",mName.c_str());
 
 	}
-	void getUseFaceNormals()
+	void getUseFaceNormals()const
 	{
 		fprintf(mFile,"\"%s.ufn\"",mName.c_str());
 
 	}
-	void getColorSetName()
+	void getColorSetName()const
 	{
 		fprintf(mFile,"\"%s.csn\"",mName.c_str());
 
 	}
 protected:
-	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BakeSet(file, name, parent, nodeType) {}
+	VertexBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BakeSet(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

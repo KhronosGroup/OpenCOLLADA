@@ -24,7 +24,8 @@ public:
 	};
 public:
 	TextureToGeom():DependNode(){}
-	TextureToGeom(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "textureToGeom"){}
+	TextureToGeom(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "textureToGeom", create){}
 	virtual ~TextureToGeom(){}
 	void setSegGroupIds(size_t sgi_i,int sgi)
 	{
@@ -44,17 +45,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startSegGroupIds(size_t sgi_start,size_t sgi_end)
+	void startSegGroupIds(size_t sgi_start,size_t sgi_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".sgi[%i:%i]\"",sgi_start,sgi_end);
 
 	}
-	void appendSegGroupIds(int sgi)
+	void appendSegGroupIds(int sgi)const
 	{
 		fprintf(mFile," %i",sgi);
 
 	}
-	void endSegGroupIds()
+	void endSegGroupIds()const
 	{
 		fprintf(mFile,";\n");
 
@@ -192,164 +193,164 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getSegmentCount()
+	void getSegmentCount()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.out\"",mName.c_str());
 
 	}
-	void getOutColorData(size_t ocd_i)
+	void getOutColorData(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i]\"",mName.c_str(),ocd_i);
 
 	}
-	void getOutColor(size_t ocd_i)
+	void getOutColor(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oc\"",mName.c_str(),ocd_i);
 
 	}
-	void getOutColorR(size_t ocd_i)
+	void getOutColorR(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oc.ocr\"",mName.c_str(),ocd_i);
 
 	}
-	void getOutColorG(size_t ocd_i)
+	void getOutColorG(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oc.ocg\"",mName.c_str(),ocd_i);
 
 	}
-	void getOutColorB(size_t ocd_i)
+	void getOutColorB(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oc.ocb\"",mName.c_str(),ocd_i);
 
 	}
-	void getOutAlpha(size_t ocd_i)
+	void getOutAlpha(size_t ocd_i)const
 	{
 		fprintf(mFile,"\"%s.ocd[%i].oa\"",mName.c_str(),ocd_i);
 
 	}
-	void getOutSegFace(size_t ofm_i)
+	void getOutSegFace(size_t ofm_i)const
 	{
 		fprintf(mFile,"\"%s.ofm[%i]\"",mName.c_str(),ofm_i);
 
 	}
-	void getSegGroupIds(size_t sgi_i)
+	void getSegGroupIds(size_t sgi_i)const
 	{
 		fprintf(mFile,"\"%s.sgi[%i]\"",mName.c_str(),sgi_i);
 
 	}
-	void getInputMesh()
+	void getInputMesh()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getInputMeshUVSet()
+	void getInputMeshUVSet()const
 	{
 		fprintf(mFile,"\"%s.iuv\"",mName.c_str());
 
 	}
-	void getQuantize()
+	void getQuantize()const
 	{
 		fprintf(mFile,"\"%s.qut\"",mName.c_str());
 
 	}
-	void getQuantizeLevels()
+	void getQuantizeLevels()const
 	{
 		fprintf(mFile,"\"%s.qutl\"",mName.c_str());
 
 	}
-	void getMaxColorDiff()
+	void getMaxColorDiff()const
 	{
 		fprintf(mFile,"\"%s.mcd\"",mName.c_str());
 
 	}
-	void getMinSegmentSize()
+	void getMinSegmentSize()const
 	{
 		fprintf(mFile,"\"%s.msz\"",mName.c_str());
 
 	}
-	void getSpatialRadius()
+	void getSpatialRadius()const
 	{
 		fprintf(mFile,"\"%s.spr\"",mName.c_str());
 
 	}
-	void getColorRange()
+	void getColorRange()const
 	{
 		fprintf(mFile,"\"%s.crng\"",mName.c_str());
 
 	}
-	void getImageFile()
+	void getImageFile()const
 	{
 		fprintf(mFile,"\"%s.if\"",mName.c_str());
 
 	}
-	void getMeshQuality()
+	void getMeshQuality()const
 	{
 		fprintf(mFile,"\"%s.mq\"",mName.c_str());
 
 	}
-	void getSurfaceOffset()
+	void getSurfaceOffset()const
 	{
 		fprintf(mFile,"\"%s.so\"",mName.c_str());
 
 	}
-	void getSmoothBoundary()
+	void getSmoothBoundary()const
 	{
 		fprintf(mFile,"\"%s.smbd\"",mName.c_str());
 
 	}
-	void getSmoothFactor()
+	void getSmoothFactor()const
 	{
 		fprintf(mFile,"\"%s.smf\"",mName.c_str());
 
 	}
-	void getFitTolerance()
+	void getFitTolerance()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getHardCornerDetect()
+	void getHardCornerDetect()const
 	{
 		fprintf(mFile,"\"%s.hcd\"",mName.c_str());
 
 	}
-	void getHardCornerMaxLength()
+	void getHardCornerMaxLength()const
 	{
 		fprintf(mFile,"\"%s.hcml\"",mName.c_str());
 
 	}
-	void getSimplifyBoundary()
+	void getSimplifyBoundary()const
 	{
 		fprintf(mFile,"\"%s.smpl\"",mName.c_str());
 
 	}
-	void getSimplifyThreshold()
+	void getSimplifyThreshold()const
 	{
 		fprintf(mFile,"\"%s.smpt\"",mName.c_str());
 
 	}
-	void getPointsOnBoundary()
+	void getPointsOnBoundary()const
 	{
 		fprintf(mFile,"\"%s.pob\"",mName.c_str());
 
 	}
-	void getMaxPointsAdded()
+	void getMaxPointsAdded()const
 	{
 		fprintf(mFile,"\"%s.mpa\"",mName.c_str());
 
 	}
-	void getShaderScript()
+	void getShaderScript()const
 	{
 		fprintf(mFile,"\"%s.shs\"",mName.c_str());
 
 	}
 protected:
-	TextureToGeom(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	TextureToGeom(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

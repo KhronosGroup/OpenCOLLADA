@@ -19,7 +19,8 @@ class StrokeGlobals : public DependNode
 public:
 public:
 	StrokeGlobals():DependNode(){}
-	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "strokeGlobals"){}
+	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "strokeGlobals", create){}
 	virtual ~StrokeGlobals(){}
 	void setSceneScale(double pss)
 	{
@@ -106,79 +107,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".ldr.ldz\" %f;\n", ldz);
 
 	}
-	void getSceneScale()
+	void getSceneScale()const
 	{
 		fprintf(mFile,"\"%s.pss\"",mName.c_str());
 
 	}
-	void getCanvasScale()
+	void getCanvasScale()const
 	{
 		fprintf(mFile,"\"%s.pcs\"",mName.c_str());
 
 	}
-	void getWrapH()
+	void getWrapH()const
 	{
 		fprintf(mFile,"\"%s.wrh\"",mName.c_str());
 
 	}
-	void getWrapV()
+	void getWrapV()const
 	{
 		fprintf(mFile,"\"%s.wrv\"",mName.c_str());
 
 	}
-	void getSceneWrapH()
+	void getSceneWrapH()const
 	{
 		fprintf(mFile,"\"%s.swh\"",mName.c_str());
 
 	}
-	void getSceneWrapV()
+	void getSceneWrapV()const
 	{
 		fprintf(mFile,"\"%s.swv\"",mName.c_str());
 
 	}
-	void getForceRealLights()
+	void getForceRealLights()const
 	{
 		fprintf(mFile,"\"%s.frl\"",mName.c_str());
 
 	}
-	void getForceDepth()
+	void getForceDepth()const
 	{
 		fprintf(mFile,"\"%s.fdp\"",mName.c_str());
 
 	}
-	void getUseCanvasLight()
+	void getUseCanvasLight()const
 	{
 		fprintf(mFile,"\"%s.ucl\"",mName.c_str());
 
 	}
-	void getForceTubeDirAlongPath()
+	void getForceTubeDirAlongPath()const
 	{
 		fprintf(mFile,"\"%s.ftd\"",mName.c_str());
 
 	}
-	void getLightDirection()
+	void getLightDirection()const
 	{
 		fprintf(mFile,"\"%s.ldr\"",mName.c_str());
 
 	}
-	void getLightDirectionX()
+	void getLightDirectionX()const
 	{
 		fprintf(mFile,"\"%s.ldr.ldx\"",mName.c_str());
 
 	}
-	void getLightDirectionY()
+	void getLightDirectionY()const
 	{
 		fprintf(mFile,"\"%s.ldr.ldy\"",mName.c_str());
 
 	}
-	void getLightDirectionZ()
+	void getLightDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.ldr.ldz\"",mName.c_str());
 
 	}
 protected:
-	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	StrokeGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

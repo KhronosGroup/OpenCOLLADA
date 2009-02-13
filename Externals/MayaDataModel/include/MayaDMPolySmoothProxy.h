@@ -19,7 +19,8 @@ class PolySmoothProxy : public PolyModifier
 public:
 public:
 	PolySmoothProxy():PolyModifier(){}
-	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySmoothProxy"){}
+	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polySmoothProxy", create){}
 	virtual ~PolySmoothProxy(){}
 	void setMethod(unsigned int mth)
 	{
@@ -117,94 +118,94 @@ public:
 		fprintf(mFile,"\tsetAttr \".mn\" %i;\n", mn);
 
 	}
-	void getCachedSmoothMesh()
+	void getCachedSmoothMesh()const
 	{
 		fprintf(mFile,"\"%s.csm\"",mName.c_str());
 
 	}
-	void getMethod()
+	void getMethod()const
 	{
 		fprintf(mFile,"\"%s.mth\"",mName.c_str());
 
 	}
-	void getExponentialLevel()
+	void getExponentialLevel()const
 	{
 		fprintf(mFile,"\"%s.el\"",mName.c_str());
 
 	}
-	void getContinuity()
+	void getContinuity()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getSmoothUVs()
+	void getSmoothUVs()const
 	{
 		fprintf(mFile,"\"%s.suv\"",mName.c_str());
 
 	}
-	void getKeepBorder()
+	void getKeepBorder()const
 	{
 		fprintf(mFile,"\"%s.kb\"",mName.c_str());
 
 	}
-	void getKeepHardEdge()
+	void getKeepHardEdge()const
 	{
 		fprintf(mFile,"\"%s.khe\"",mName.c_str());
 
 	}
-	void getPropagateEdgeHardness()
+	void getPropagateEdgeHardness()const
 	{
 		fprintf(mFile,"\"%s.peh\"",mName.c_str());
 
 	}
-	void getKeepMapBorders()
+	void getKeepMapBorders()const
 	{
 		fprintf(mFile,"\"%s.kmb\"",mName.c_str());
 
 	}
-	void getLinearLevel()
+	void getLinearLevel()const
 	{
 		fprintf(mFile,"\"%s.ll\"",mName.c_str());
 
 	}
-	void getDivisionsPerEdge()
+	void getDivisionsPerEdge()const
 	{
 		fprintf(mFile,"\"%s.dpe\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.deg\"",mName.c_str());
 
 	}
-	void getPushStrength()
+	void getPushStrength()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getRoundness()
+	void getRoundness()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getMultiEdgeCrease()
+	void getMultiEdgeCrease()const
 	{
 		fprintf(mFile,"\"%s.mec\"",mName.c_str());
 
 	}
-	void getMaya65Above()
+	void getMaya65Above()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
-	void getMaya2008Above()
+	void getMaya2008Above()const
 	{
 		fprintf(mFile,"\"%s.mn\"",mName.c_str());
 
 	}
 protected:
-	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolySmoothProxy(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

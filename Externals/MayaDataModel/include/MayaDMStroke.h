@@ -39,7 +39,8 @@ public:
 	};
 public:
 	Stroke():PfxGeometry(){}
-	Stroke(FILE* file,const std::string& name,const std::string& parent=""):PfxGeometry(file, name, parent, "stroke"){}
+	Stroke(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PfxGeometry(file, name, parent, "stroke", create){}
 	virtual ~Stroke(){}
 	void setSampleDensity(double sdn)
 	{
@@ -140,17 +141,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startOutPoint(size_t opt_start,size_t opt_end)
+	void startOutPoint(size_t opt_start,size_t opt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".opt[%i:%i]\"",opt_start,opt_end);
 
 	}
-	void appendOutPoint(double opt)
+	void appendOutPoint(double opt)const
 	{
 		fprintf(mFile," %f",opt);
 
 	}
-	void endOutPoint()
+	void endOutPoint()const
 	{
 		fprintf(mFile,";\n");
 
@@ -270,209 +271,209 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPressure(size_t psr_start,size_t psr_end)
+	void startPressure(size_t psr_start,size_t psr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".psr[%i:%i]\"",psr_start,psr_end);
 
 	}
-	void appendPressure(double psr)
+	void appendPressure(double psr)const
 	{
 		fprintf(mFile," %f",psr);
 
 	}
-	void endPressure()
+	void endPressure()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getSampleDensity()
+	void getSampleDensity()const
 	{
 		fprintf(mFile,"\"%s.sdn\"",mName.c_str());
 
 	}
-	void getSmoothing()
+	void getSmoothing()const
 	{
 		fprintf(mFile,"\"%s.smo\"",mName.c_str());
 
 	}
-	void getPerspective()
+	void getPerspective()const
 	{
 		fprintf(mFile,"\"%s.per\"",mName.c_str());
 
 	}
-	void getUseNormal()
+	void getUseNormal()const
 	{
 		fprintf(mFile,"\"%s.usn\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.nml\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nml.nmx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.nml.nmy\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nml.nmz\"",mName.c_str());
 
 	}
-	void getMinClip()
+	void getMinClip()const
 	{
 		fprintf(mFile,"\"%s.mnc\"",mName.c_str());
 
 	}
-	void getMaxClip()
+	void getMaxClip()const
 	{
 		fprintf(mFile,"\"%s.mxc\"",mName.c_str());
 
 	}
-	void getPathCurve(size_t pcv_i)
+	void getPathCurve(size_t pcv_i)const
 	{
 		fprintf(mFile,"\"%s.pcv[%i]\"",mName.c_str(),pcv_i);
 
 	}
-	void getCurve(size_t pcv_i)
+	void getCurve(size_t pcv_i)const
 	{
 		fprintf(mFile,"\"%s.pcv[%i].crv\"",mName.c_str(),pcv_i);
 
 	}
-	void getSamples(size_t pcv_i)
+	void getSamples(size_t pcv_i)const
 	{
 		fprintf(mFile,"\"%s.pcv[%i].smp\"",mName.c_str(),pcv_i);
 
 	}
-	void getOpposite(size_t pcv_i)
+	void getOpposite(size_t pcv_i)const
 	{
 		fprintf(mFile,"\"%s.pcv[%i].opp\"",mName.c_str(),pcv_i);
 
 	}
-	void getOutPoint(size_t opt_i)
+	void getOutPoint(size_t opt_i)const
 	{
 		fprintf(mFile,"\"%s.opt[%i]\"",mName.c_str(),opt_i);
 
 	}
-	void getOutPointX(size_t opt_i)
+	void getOutPointX(size_t opt_i)const
 	{
 		fprintf(mFile,"\"%s.opt[%i].ox\"",mName.c_str(),opt_i);
 
 	}
-	void getOutPointY(size_t opt_i)
+	void getOutPointY(size_t opt_i)const
 	{
 		fprintf(mFile,"\"%s.opt[%i].oy\"",mName.c_str(),opt_i);
 
 	}
-	void getOutPointZ(size_t opt_i)
+	void getOutPointZ(size_t opt_i)const
 	{
 		fprintf(mFile,"\"%s.opt[%i].oz\"",mName.c_str(),opt_i);
 
 	}
-	void getOutNormal(size_t onm_i)
+	void getOutNormal(size_t onm_i)const
 	{
 		fprintf(mFile,"\"%s.onm[%i]\"",mName.c_str(),onm_i);
 
 	}
-	void getOutNormalX(size_t onm_i)
+	void getOutNormalX(size_t onm_i)const
 	{
 		fprintf(mFile,"\"%s.onm[%i].onx\"",mName.c_str(),onm_i);
 
 	}
-	void getOutNormalY(size_t onm_i)
+	void getOutNormalY(size_t onm_i)const
 	{
 		fprintf(mFile,"\"%s.onm[%i].ony\"",mName.c_str(),onm_i);
 
 	}
-	void getOutNormalZ(size_t onm_i)
+	void getOutNormalZ(size_t onm_i)const
 	{
 		fprintf(mFile,"\"%s.onm[%i].onz\"",mName.c_str(),onm_i);
 
 	}
-	void getPressureMap1()
+	void getPressureMap1()const
 	{
 		fprintf(mFile,"\"%s.spm1\"",mName.c_str());
 
 	}
-	void getPressureMin1()
+	void getPressureMin1()const
 	{
 		fprintf(mFile,"\"%s.ps1\"",mName.c_str());
 
 	}
-	void getPressureMax1()
+	void getPressureMax1()const
 	{
 		fprintf(mFile,"\"%s.px1\"",mName.c_str());
 
 	}
-	void getPressureMap2()
+	void getPressureMap2()const
 	{
 		fprintf(mFile,"\"%s.spm2\"",mName.c_str());
 
 	}
-	void getPressureMin2()
+	void getPressureMin2()const
 	{
 		fprintf(mFile,"\"%s.ps2\"",mName.c_str());
 
 	}
-	void getPressureMax2()
+	void getPressureMax2()const
 	{
 		fprintf(mFile,"\"%s.px2\"",mName.c_str());
 
 	}
-	void getPressureMap3()
+	void getPressureMap3()const
 	{
 		fprintf(mFile,"\"%s.spm3\"",mName.c_str());
 
 	}
-	void getPressureMin3()
+	void getPressureMin3()const
 	{
 		fprintf(mFile,"\"%s.ps3\"",mName.c_str());
 
 	}
-	void getPressureMax3()
+	void getPressureMax3()const
 	{
 		fprintf(mFile,"\"%s.px3\"",mName.c_str());
 
 	}
-	void getPressureScale(size_t psc_i)
+	void getPressureScale(size_t psc_i)const
 	{
 		fprintf(mFile,"\"%s.psc[%i]\"",mName.c_str(),psc_i);
 
 	}
-	void getPressureScale_Position(size_t psc_i)
+	void getPressureScale_Position(size_t psc_i)const
 	{
 		fprintf(mFile,"\"%s.psc[%i].pscp\"",mName.c_str(),psc_i);
 
 	}
-	void getPressureScale_FloatValue(size_t psc_i)
+	void getPressureScale_FloatValue(size_t psc_i)const
 	{
 		fprintf(mFile,"\"%s.psc[%i].pscfv\"",mName.c_str(),psc_i);
 
 	}
-	void getPressureScale_Interp(size_t psc_i)
+	void getPressureScale_Interp(size_t psc_i)const
 	{
 		fprintf(mFile,"\"%s.psc[%i].psci\"",mName.c_str(),psc_i);
 
 	}
-	void getPressure(size_t psr_i)
+	void getPressure(size_t psr_i)const
 	{
 		fprintf(mFile,"\"%s.psr[%i]\"",mName.c_str(),psr_i);
 
 	}
-	void getUvSetName(size_t uvsetn_i)
+	void getUvSetName(size_t uvsetn_i)const
 	{
 		fprintf(mFile,"\"%s.uvsetn[%i]\"",mName.c_str(),uvsetn_i);
 
 	}
 protected:
-	Stroke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PfxGeometry(file, name, parent, nodeType) {}
+	Stroke(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PfxGeometry(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

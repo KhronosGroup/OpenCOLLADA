@@ -19,7 +19,8 @@ class GlobalStitch : public AbstractBaseCreate
 public:
 public:
 	GlobalStitch():AbstractBaseCreate(){}
-	GlobalStitch(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "globalStitch"){}
+	GlobalStitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "globalStitch", create){}
 	virtual ~GlobalStitch(){}
 	void setStitchCorners(unsigned int sc)
 	{
@@ -81,89 +82,89 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLockSurface(size_t lk_start,size_t lk_end)
+	void startLockSurface(size_t lk_start,size_t lk_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".lk[%i:%i]\"",lk_start,lk_end);
 
 	}
-	void appendLockSurface(bool lk)
+	void appendLockSurface(bool lk)const
 	{
 		fprintf(mFile," %i",lk);
 
 	}
-	void endLockSurface()
+	void endLockSurface()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getInputSurface(size_t is_i)
+	void getInputSurface(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
-	void getStitchCorners()
+	void getStitchCorners()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getStitchEdges()
+	void getStitchEdges()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
-	void getStitchSmoothness()
+	void getStitchSmoothness()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getStitchPartialEdges()
+	void getStitchPartialEdges()const
 	{
 		fprintf(mFile,"\"%s.spe\"",mName.c_str());
 
 	}
-	void getMaxSeparation()
+	void getMaxSeparation()const
 	{
 		fprintf(mFile,"\"%s.ms\"",mName.c_str());
 
 	}
-	void getSampling()
+	void getSampling()const
 	{
 		fprintf(mFile,"\"%s.sam\"",mName.c_str());
 
 	}
-	void getModificationResistance()
+	void getModificationResistance()const
 	{
 		fprintf(mFile,"\"%s.mr\"",mName.c_str());
 
 	}
-	void getLockSurface(size_t lk_i)
+	void getLockSurface(size_t lk_i)const
 	{
 		fprintf(mFile,"\"%s.lk[%i]\"",mName.c_str(),lk_i);
 
 	}
-	void getShouldBeLast()
+	void getShouldBeLast()const
 	{
 		fprintf(mFile,"\"%s.sbl\"",mName.c_str());
 
 	}
-	void getOutputSurface(size_t os_i)
+	void getOutputSurface(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
-	void getConnectedEdges(size_t ce_i)
+	void getConnectedEdges(size_t ce_i)const
 	{
 		fprintf(mFile,"\"%s.ce[%i]\"",mName.c_str(),ce_i);
 
 	}
-	void getUnconnectedEdges(size_t ue_i)
+	void getUnconnectedEdges(size_t ue_i)const
 	{
 		fprintf(mFile,"\"%s.ue[%i]\"",mName.c_str(),ue_i);
 
 	}
 protected:
-	GlobalStitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	GlobalStitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

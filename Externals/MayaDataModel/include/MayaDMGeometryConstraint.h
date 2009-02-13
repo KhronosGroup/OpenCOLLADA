@@ -26,7 +26,8 @@ public:
 	};
 public:
 	GeometryConstraint():Constraint(){}
-	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "geometryConstraint"){}
+	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Constraint(file, name, parent, "geometryConstraint", create){}
 	virtual ~GeometryConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
@@ -49,34 +50,34 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getTarget(size_t tg_i)
+	void getTarget(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetGeometry(size_t tg_i)
+	void getTargetGeometry(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tgm\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetWeight(size_t tg_i)
+	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
 
 	}
-	void getConstraintParentInverseMatrix()
+	void getConstraintParentInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.cpim\"",mName.c_str());
 
 	}
-	void getConstraintGeometry()
+	void getConstraintGeometry()const
 	{
 		fprintf(mFile,"\"%s.cgm\"",mName.c_str());
 
 	}
 protected:
-	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Constraint(file, name, parent, nodeType) {}
+	GeometryConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Constraint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

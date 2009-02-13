@@ -19,7 +19,8 @@ class PolyCube : public PolyPrimitive
 public:
 public:
 	PolyCube():PolyPrimitive(){}
-	PolyCube(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyCube"){}
+	PolyCube(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyPrimitive(file, name, parent, "polyCube", create){}
 	virtual ~PolyCube(){}
 	void setWidth(double w)
 	{
@@ -69,49 +70,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".cuv\" %i;\n", cuv);
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getHeight()
+	void getHeight()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSubdivisionsWidth()
+	void getSubdivisionsWidth()const
 	{
 		fprintf(mFile,"\"%s.sw\"",mName.c_str());
 
 	}
-	void getSubdivisionsHeight()
+	void getSubdivisionsHeight()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getSubdivisionsDepth()
+	void getSubdivisionsDepth()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
-	void getTexture()
+	void getTexture()const
 	{
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 
 	}
-	void getCreateUVs()
+	void getCreateUVs()const
 	{
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 
 	}
 protected:
-	PolyCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyPrimitive(file, name, parent, nodeType) {}
+	PolyCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

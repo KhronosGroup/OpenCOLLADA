@@ -19,7 +19,8 @@ class DeformBend : public DeformFunc
 public:
 public:
 	DeformBend():DeformFunc(){}
-	DeformBend(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformBend"){}
+	DeformBend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformFunc(file, name, parent, "deformBend", create){}
 	virtual ~DeformBend(){}
 	void setLowBound(double lb)
 	{
@@ -39,24 +40,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".cur\" %f;\n", cur);
 
 	}
-	void getLowBound()
+	void getLowBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getHighBound()
+	void getHighBound()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
 
 	}
-	void getCurvature()
+	void getCurvature()const
 	{
 		fprintf(mFile,"\"%s.cur\"",mName.c_str());
 
 	}
 protected:
-	DeformBend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformFunc(file, name, parent, nodeType) {}
+	DeformBend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

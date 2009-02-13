@@ -19,7 +19,8 @@ class Facade : public DependNode
 public:
 public:
 	Facade():DependNode(){}
-	Facade(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "facade"){}
+	Facade(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "facade", create){}
 	virtual ~Facade(){}
 	void setSharedLibName(const string& sln)
 	{
@@ -61,39 +62,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getSharedLibName()
+	void getSharedLibName()const
 	{
 		fprintf(mFile,"\"%s.sln\"",mName.c_str());
 
 	}
-	void getConnection()
+	void getConnection()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getUiName()
+	void getUiName()const
 	{
 		fprintf(mFile,"\"%s.uin\"",mName.c_str());
 
 	}
-	void getKeyWords()
+	void getKeyWords()const
 	{
 		fprintf(mFile,"\"%s.kwds\"",mName.c_str());
 
 	}
-	void getUiScript()
+	void getUiScript()const
 	{
 		fprintf(mFile,"\"%s.uis\"",mName.c_str());
 
 	}
-	void getUniqueID()
+	void getUniqueID()const
 	{
 		fprintf(mFile,"\"%s.uid\"",mName.c_str());
 
 	}
 protected:
-	Facade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Facade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

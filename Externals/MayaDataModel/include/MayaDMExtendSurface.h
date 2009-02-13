@@ -19,7 +19,8 @@ class ExtendSurface : public AbstractBaseCreate
 public:
 public:
 	ExtendSurface():AbstractBaseCreate(){}
-	ExtendSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "extendSurface"){}
+	ExtendSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "extendSurface", create){}
 	virtual ~ExtendSurface(){}
 	void setExtensionType(unsigned int et)
 	{
@@ -57,54 +58,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %f;\n", d);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getTargetObject()
+	void getTargetObject()const
 	{
 		fprintf(mFile,"\"%s.to\"",mName.c_str());
 
 	}
-	void getExtensionType()
+	void getExtensionType()const
 	{
 		fprintf(mFile,"\"%s.et\"",mName.c_str());
 
 	}
-	void getExtendMethod()
+	void getExtendMethod()const
 	{
 		fprintf(mFile,"\"%s.em\"",mName.c_str());
 
 	}
-	void getExtendSide()
+	void getExtendSide()const
 	{
 		fprintf(mFile,"\"%s.es\"",mName.c_str());
 
 	}
-	void getExtendDirection()
+	void getExtendDirection()const
 	{
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
 
 	}
-	void getJoin()
+	void getJoin()const
 	{
 		fprintf(mFile,"\"%s.jn\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	ExtendSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	ExtendSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class AvgCurves : public AbstractBaseCreate
 public:
 public:
 	AvgCurves():AbstractBaseCreate(){}
-	AvgCurves(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "avgCurves"){}
+	AvgCurves(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "avgCurves", create){}
 	virtual ~AvgCurves(){}
 	void setWeight1(double w1)
 	{
@@ -45,44 +46,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".nw\" %i;\n", nw);
 
 	}
-	void getInputCurve1()
+	void getInputCurve1()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2()
+	void getInputCurve2()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getWeight1()
+	void getWeight1()const
 	{
 		fprintf(mFile,"\"%s.w1\"",mName.c_str());
 
 	}
-	void getWeight2()
+	void getWeight2()const
 	{
 		fprintf(mFile,"\"%s.w2\"",mName.c_str());
 
 	}
-	void getAutomaticWeight()
+	void getAutomaticWeight()const
 	{
 		fprintf(mFile,"\"%s.aw\"",mName.c_str());
 
 	}
-	void getNormalizeWeights()
+	void getNormalizeWeights()const
 	{
 		fprintf(mFile,"\"%s.nw\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	AvgCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	AvgCurves(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

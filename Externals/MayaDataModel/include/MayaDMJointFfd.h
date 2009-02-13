@@ -19,7 +19,8 @@ class JointFfd : public Ffd
 public:
 public:
 	JointFfd():Ffd(){}
-	JointFfd(FILE* file,const std::string& name,const std::string& parent=""):Ffd(file, name, parent, "jointFfd"){}
+	JointFfd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Ffd(file, name, parent, "jointFfd", create){}
 	virtual ~JointFfd(){}
 	void setBaseLattice2Matrix(const matrix& b2)
 	{
@@ -35,39 +36,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".uc\" %i;\n", uc);
 
 	}
-	void getBaseLattice2Matrix()
+	void getBaseLattice2Matrix()const
 	{
 		fprintf(mFile,"\"%s.b2\"",mName.c_str());
 
 	}
-	void getGroupIdUpperBindSkin(size_t gu_i)
+	void getGroupIdUpperBindSkin(size_t gu_i)const
 	{
 		fprintf(mFile,"\"%s.gu[%i]\"",mName.c_str(),gu_i);
 
 	}
-	void getGroupIdLowerBindSkin(size_t gl_i)
+	void getGroupIdLowerBindSkin(size_t gl_i)const
 	{
 		fprintf(mFile,"\"%s.gl[%i]\"",mName.c_str(),gl_i);
 
 	}
-	void getUpperBindSkinNode()
+	void getUpperBindSkinNode()const
 	{
 		fprintf(mFile,"\"%s.ub\"",mName.c_str());
 
 	}
-	void getLowerBindSkinNode()
+	void getLowerBindSkinNode()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getUseComponentCache()
+	void getUseComponentCache()const
 	{
 		fprintf(mFile,"\"%s.uc\"",mName.c_str());
 
 	}
 protected:
-	JointFfd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Ffd(file, name, parent, nodeType) {}
+	JointFfd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Ffd(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

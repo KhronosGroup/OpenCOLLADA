@@ -19,7 +19,8 @@ class RenderLayerManager : public DependNode
 public:
 public:
 	RenderLayerManager():DependNode(){}
-	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "renderLayerManager"){}
+	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "renderLayerManager", create){}
 	virtual ~RenderLayerManager(){}
 	void setCurrentRenderLayer(short crl)
 	{
@@ -45,34 +46,34 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startRenderLayerId(size_t rlmi_start,size_t rlmi_end)
+	void startRenderLayerId(size_t rlmi_start,size_t rlmi_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".rlmi[%i:%i]\"",rlmi_start,rlmi_end);
 
 	}
-	void appendRenderLayerId(short rlmi)
+	void appendRenderLayerId(short rlmi)const
 	{
 		fprintf(mFile," %i",rlmi);
 
 	}
-	void endRenderLayerId()
+	void endRenderLayerId()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getCurrentRenderLayer()
+	void getCurrentRenderLayer()const
 	{
 		fprintf(mFile,"\"%s.crl\"",mName.c_str());
 
 	}
-	void getRenderLayerId(size_t rlmi_i)
+	void getRenderLayerId(size_t rlmi_i)const
 	{
 		fprintf(mFile,"\"%s.rlmi[%i]\"",mName.c_str(),rlmi_i);
 
 	}
 protected:
-	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RenderLayerManager(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

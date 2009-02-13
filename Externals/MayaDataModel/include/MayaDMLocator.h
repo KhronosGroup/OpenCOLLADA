@@ -19,7 +19,8 @@ class Locator : public GeometryShape
 public:
 public:
 	Locator():GeometryShape(){}
-	Locator(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "locator"){}
+	Locator(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryShape(file, name, parent, "locator", create){}
 	virtual ~Locator(){}
 	void setUnderWorldObject(bool uwo)
 	{
@@ -79,69 +80,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".los.lsz\" %f;\n", lsz);
 
 	}
-	void getLocalPosition()
+	void getLocalPosition()const
 	{
 		fprintf(mFile,"\"%s.lp\"",mName.c_str());
 
 	}
-	void getLocalPositionX()
+	void getLocalPositionX()const
 	{
 		fprintf(mFile,"\"%s.lp.lpx\"",mName.c_str());
 
 	}
-	void getLocalPositionY()
+	void getLocalPositionY()const
 	{
 		fprintf(mFile,"\"%s.lp.lpy\"",mName.c_str());
 
 	}
-	void getLocalPositionZ()
+	void getLocalPositionZ()const
 	{
 		fprintf(mFile,"\"%s.lp.lpz\"",mName.c_str());
 
 	}
-	void getWorldPosition(size_t wp_i)
+	void getWorldPosition(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i]\"",mName.c_str(),wp_i);
 
 	}
-	void getWorldPositionX(size_t wp_i)
+	void getWorldPositionX(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpx\"",mName.c_str(),wp_i);
 
 	}
-	void getWorldPositionY(size_t wp_i)
+	void getWorldPositionY(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpy\"",mName.c_str(),wp_i);
 
 	}
-	void getWorldPositionZ(size_t wp_i)
+	void getWorldPositionZ(size_t wp_i)const
 	{
 		fprintf(mFile,"\"%s.wp[%i].wpz\"",mName.c_str(),wp_i);
 
 	}
-	void getLocalScale()
+	void getLocalScale()const
 	{
 		fprintf(mFile,"\"%s.los\"",mName.c_str());
 
 	}
-	void getLocalScaleX()
+	void getLocalScaleX()const
 	{
 		fprintf(mFile,"\"%s.los.lsx\"",mName.c_str());
 
 	}
-	void getLocalScaleY()
+	void getLocalScaleY()const
 	{
 		fprintf(mFile,"\"%s.los.lsy\"",mName.c_str());
 
 	}
-	void getLocalScaleZ()
+	void getLocalScaleZ()const
 	{
 		fprintf(mFile,"\"%s.los.lsz\"",mName.c_str());
 
 	}
 protected:
-	Locator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryShape(file, name, parent, nodeType) {}
+	Locator(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

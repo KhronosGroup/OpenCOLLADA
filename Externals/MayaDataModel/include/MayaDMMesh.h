@@ -148,7 +148,8 @@ public:
 	};
 public:
 	Mesh():SurfaceShape(){}
-	Mesh(FILE* file,const std::string& name,const std::string& parent=""):SurfaceShape(file, name, parent, "mesh"){}
+	Mesh(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SurfaceShape(file, name, parent, "mesh", create){}
 	virtual ~Mesh(){}
 	void setOutMesh(const mesh& o)
 	{
@@ -340,17 +341,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPnts(size_t pt_start,size_t pt_end)
+	void startPnts(size_t pt_start,size_t pt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pt[%i:%i]\"",pt_start,pt_end);
 
 	}
-	void appendPnts(float pt)
+	void appendPnts(float pt)const
 	{
 		fprintf(mFile," %f",pt);
 
 	}
-	void endPnts()
+	void endPnts()const
 	{
 		fprintf(mFile,";\n");
 
@@ -392,17 +393,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startVrts(size_t vt_start,size_t vt_end)
+	void startVrts(size_t vt_start,size_t vt_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".vt[%i:%i]\"",vt_start,vt_end);
 
 	}
-	void appendVrts(float vt)
+	void appendVrts(float vt)const
 	{
 		fprintf(mFile," %f",vt);
 
 	}
-	void endVrts()
+	void endVrts()const
 	{
 		fprintf(mFile,";\n");
 
@@ -444,17 +445,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEdge(size_t ed_start,size_t ed_end)
+	void startEdge(size_t ed_start,size_t ed_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\"",ed_start,ed_end);
 
 	}
-	void appendEdge(int ed)
+	void appendEdge(int ed)const
 	{
 		fprintf(mFile," %i",ed);
 
 	}
-	void endEdge()
+	void endEdge()const
 	{
 		fprintf(mFile,";\n");
 
@@ -496,17 +497,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startUvpt(size_t uv_start,size_t uv_end)
+	void startUvpt(size_t uv_start,size_t uv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uv[%i:%i]\"",uv_start,uv_end);
 
 	}
-	void appendUvpt(float uv)
+	void appendUvpt(float uv)const
 	{
 		fprintf(mFile," %f",uv);
 
 	}
-	void endUvpt()
+	void endUvpt()const
 	{
 		fprintf(mFile,";\n");
 
@@ -573,17 +574,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startNormals(size_t n_start,size_t n_end)
+	void startNormals(size_t n_start,size_t n_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".n[%i:%i]\"",n_start,n_end);
 
 	}
-	void appendNormals(float n)
+	void appendNormals(float n)const
 	{
 		fprintf(mFile," %f",n);
 
 	}
-	void endNormals()
+	void endNormals()const
 	{
 		fprintf(mFile,";\n");
 
@@ -625,19 +626,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startFace(size_t fc_start,size_t fc_end)
+	void startFace(size_t fc_start,size_t fc_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".fc[%i:%i]\"",fc_start,fc_end);
 		fprintf(mFile," -type \"polyFaces\" ");
 
 	}
-	void appendFace(const polyFaces& fc)
+	void appendFace(const polyFaces& fc)const
 	{
 		fprintf(mFile,"\n");
 		fc.write(mFile);
 
 	}
-	void endFace()
+	void endFace()const
 	{
 		fprintf(mFile,";\n");
 
@@ -984,17 +985,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPerInstanceIndex(size_t pii_start,size_t pii_end)
+	void startPerInstanceIndex(size_t pii_start,size_t pii_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pii[%i:%i]\"",pii_start,pii_end);
 
 	}
-	void appendPerInstanceIndex(int pii)
+	void appendPerInstanceIndex(int pii)const
 	{
 		fprintf(mFile," %i",pii);
 
 	}
-	void endPerInstanceIndex()
+	void endPerInstanceIndex()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1017,17 +1018,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPerInstanceTag(size_t pit_start,size_t pit_end)
+	void startPerInstanceTag(size_t pit_start,size_t pit_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".pit[%i:%i]\"",pit_start,pit_end);
 
 	}
-	void appendPerInstanceTag(int pit)
+	void appendPerInstanceTag(int pit)const
 	{
 		fprintf(mFile," %i",pit);
 
 	}
-	void endPerInstanceTag()
+	void endPerInstanceTag()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1171,559 +1172,559 @@ public:
 		fprintf(mFile,"\tsetAttr \".dags\" %i;\n", dags);
 
 	}
-	void getInMesh()
+	void getInMesh()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getOutMesh()
+	void getOutMesh()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutGeometryClean()
+	void getOutGeometryClean()const
 	{
 		fprintf(mFile,"\"%s.ogc\"",mName.c_str());
 
 	}
-	void getWorldMesh(size_t w_i)
+	void getWorldMesh(size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.w[%i]\"",mName.c_str(),w_i);
 
 	}
-	void getOutSmoothMesh()
+	void getOutSmoothMesh()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getCachedSmoothMesh()
+	void getCachedSmoothMesh()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getSmoothWarn()
+	void getSmoothWarn()const
 	{
 		fprintf(mFile,"\"%s.sw\"",mName.c_str());
 
 	}
-	void getSmoothLevel()
+	void getSmoothLevel()const
 	{
 		fprintf(mFile,"\"%s.lev\"",mName.c_str());
 
 	}
-	void getContinuity()
+	void getContinuity()const
 	{
 		fprintf(mFile,"\"%s.co\"",mName.c_str());
 
 	}
-	void getSmoothUVs()
+	void getSmoothUVs()const
 	{
 		fprintf(mFile,"\"%s.suv\"",mName.c_str());
 
 	}
-	void getKeepBorder()
+	void getKeepBorder()const
 	{
 		fprintf(mFile,"\"%s.kb\"",mName.c_str());
 
 	}
-	void getKeepHardEdge()
+	void getKeepHardEdge()const
 	{
 		fprintf(mFile,"\"%s.khe\"",mName.c_str());
 
 	}
-	void getPropagateEdgeHardness()
+	void getPropagateEdgeHardness()const
 	{
 		fprintf(mFile,"\"%s.peh\"",mName.c_str());
 
 	}
-	void getKeepMapBorders()
+	void getKeepMapBorders()const
 	{
 		fprintf(mFile,"\"%s.kmb\"",mName.c_str());
 
 	}
-	void getSmoothOffset()
+	void getSmoothOffset()const
 	{
 		fprintf(mFile,"\"%s.so\"",mName.c_str());
 
 	}
-	void getSofx()
+	void getSofx()const
 	{
 		fprintf(mFile,"\"%s.so.sx\"",mName.c_str());
 
 	}
-	void getSofy()
+	void getSofy()const
 	{
 		fprintf(mFile,"\"%s.so.sy\"",mName.c_str());
 
 	}
-	void getSofz()
+	void getSofz()const
 	{
 		fprintf(mFile,"\"%s.so.sz\"",mName.c_str());
 
 	}
-	void getDisplaySubdComps()
+	void getDisplaySubdComps()const
 	{
 		fprintf(mFile,"\"%s.dsc\"",mName.c_str());
 
 	}
-	void getUseMaxEdgeLength()
+	void getUseMaxEdgeLength()const
 	{
 		fprintf(mFile,"\"%s.uxe\"",mName.c_str());
 
 	}
-	void getUseMinEdgeLength()
+	void getUseMinEdgeLength()const
 	{
 		fprintf(mFile,"\"%s.uie\"",mName.c_str());
 
 	}
-	void getUseMaxSubdivisions()
+	void getUseMaxSubdivisions()const
 	{
 		fprintf(mFile,"\"%s.uxs\"",mName.c_str());
 
 	}
-	void getUseMaxUV()
+	void getUseMaxUV()const
 	{
 		fprintf(mFile,"\"%s.uxu\"",mName.c_str());
 
 	}
-	void getUseMinScreen()
+	void getUseMinScreen()const
 	{
 		fprintf(mFile,"\"%s.uns\"",mName.c_str());
 
 	}
-	void getUseNumTriangles()
+	void getUseNumTriangles()const
 	{
 		fprintf(mFile,"\"%s.unp\"",mName.c_str());
 
 	}
-	void getNumTriangles()
+	void getNumTriangles()const
 	{
 		fprintf(mFile,"\"%s.nt\"",mName.c_str());
 
 	}
-	void getMaxEdgeLength()
+	void getMaxEdgeLength()const
 	{
 		fprintf(mFile,"\"%s.mxe\"",mName.c_str());
 
 	}
-	void getMinEdgeLength()
+	void getMinEdgeLength()const
 	{
 		fprintf(mFile,"\"%s.mne\"",mName.c_str());
 
 	}
-	void getMaxSubd()
+	void getMaxSubd()const
 	{
 		fprintf(mFile,"\"%s.mxs\"",mName.c_str());
 
 	}
-	void getMaxUv()
+	void getMaxUv()const
 	{
 		fprintf(mFile,"\"%s.xuv\"",mName.c_str());
 
 	}
-	void getMinScreen()
+	void getMinScreen()const
 	{
 		fprintf(mFile,"\"%s.mns\"",mName.c_str());
 
 	}
-	void getMaxTriangles()
+	void getMaxTriangles()const
 	{
 		fprintf(mFile,"\"%s.tsl\"",mName.c_str());
 
 	}
-	void getPnts(size_t pt_i)
+	void getPnts(size_t pt_i)const
 	{
 		fprintf(mFile,"\"%s.pt[%i]\"",mName.c_str(),pt_i);
 
 	}
-	void getPntx(size_t pt_i)
+	void getPntx(size_t pt_i)const
 	{
 		fprintf(mFile,"\"%s.pt[%i].px\"",mName.c_str(),pt_i);
 
 	}
-	void getPnty(size_t pt_i)
+	void getPnty(size_t pt_i)const
 	{
 		fprintf(mFile,"\"%s.pt[%i].py\"",mName.c_str(),pt_i);
 
 	}
-	void getPntz(size_t pt_i)
+	void getPntz(size_t pt_i)const
 	{
 		fprintf(mFile,"\"%s.pt[%i].pz\"",mName.c_str(),pt_i);
 
 	}
-	void getVrtx(size_t vt_i)
+	void getVrtx(size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].vx\"",mName.c_str(),vt_i);
 
 	}
-	void getVrty(size_t vt_i)
+	void getVrty(size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].vy\"",mName.c_str(),vt_i);
 
 	}
-	void getVrtz(size_t vt_i)
+	void getVrtz(size_t vt_i)const
 	{
 		fprintf(mFile,"\"%s.vt[%i].vz\"",mName.c_str(),vt_i);
 
 	}
-	void getEdg1(size_t ed_i)
+	void getEdg1(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i].e1\"",mName.c_str(),ed_i);
 
 	}
-	void getEdg2(size_t ed_i)
+	void getEdg2(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i].e2\"",mName.c_str(),ed_i);
 
 	}
-	void getEdgh(size_t ed_i)
+	void getEdgh(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i].eh\"",mName.c_str(),ed_i);
 
 	}
-	void getUvpx(size_t uv_i)
+	void getUvpx(size_t uv_i)const
 	{
 		fprintf(mFile,"\"%s.uv[%i].ux\"",mName.c_str(),uv_i);
 
 	}
-	void getUvpy(size_t uv_i)
+	void getUvpy(size_t uv_i)const
 	{
 		fprintf(mFile,"\"%s.uv[%i].uy\"",mName.c_str(),uv_i);
 
 	}
-	void getColorPerVertex()
+	void getColorPerVertex()const
 	{
 		fprintf(mFile,"\"%s.cpvx\"",mName.c_str());
 
 	}
-	void getVertexColor(size_t vclr_i)
+	void getVertexColor(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i]\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorRGB(size_t vclr_i)
+	void getVertexColorRGB(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorR(size_t vclr_i)
+	void getVertexColorR(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb.vxcr\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorG(size_t vclr_i)
+	void getVertexColorG(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb.vxcg\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexColorB(size_t vclr_i)
+	void getVertexColorB(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vrgb.vxcb\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexAlpha(size_t vclr_i)
+	void getVertexAlpha(size_t vclr_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vxal\"",mName.c_str(),vclr_i);
 
 	}
-	void getVertexFaceColor(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColor(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i]\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorRGB(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorR(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorR(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb.vfcr\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorG(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorG(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb.vfcg\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceColorB(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceColorB(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].frgb.vfcb\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getVertexFaceAlpha(size_t vclr_i,size_t vfcl_i)
+	void getVertexFaceAlpha(size_t vclr_i,size_t vfcl_i)const
 	{
 		fprintf(mFile,"\"%s.cpvx.vclr[%i].vfcl[%i].vfal\"",mName.c_str(),vclr_i,vfcl_i);
 
 	}
-	void getDisplayVertices()
+	void getDisplayVertices()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getDisplayBorders()
+	void getDisplayBorders()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getDisplayEdges()
+	void getDisplayEdges()const
 	{
 		fprintf(mFile,"\"%s.de\"",mName.c_str());
 
 	}
-	void getDisplayFacesWithGroupId()
+	void getDisplayFacesWithGroupId()const
 	{
 		fprintf(mFile,"\"%s.dfgi\"",mName.c_str());
 
 	}
-	void getDisplayCenter()
+	void getDisplayCenter()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getDisplayTriangles()
+	void getDisplayTriangles()const
 	{
 		fprintf(mFile,"\"%s.dt\"",mName.c_str());
 
 	}
-	void getDisplayUVs()
+	void getDisplayUVs()const
 	{
 		fprintf(mFile,"\"%s.duv\"",mName.c_str());
 
 	}
-	void getDisplayItemNumbers()
+	void getDisplayItemNumbers()const
 	{
 		fprintf(mFile,"\"%s.din\"",mName.c_str());
 
 	}
-	void getDisplayNonPlanar()
+	void getDisplayNonPlanar()const
 	{
 		fprintf(mFile,"\"%s.dnp\"",mName.c_str());
 
 	}
-	void getBackfaceCulling()
+	void getBackfaceCulling()const
 	{
 		fprintf(mFile,"\"%s.bck\"",mName.c_str());
 
 	}
-	void getVertexBackfaceCulling()
+	void getVertexBackfaceCulling()const
 	{
 		fprintf(mFile,"\"%s.vbc\"",mName.c_str());
 
 	}
-	void getVertexSize()
+	void getVertexSize()const
 	{
 		fprintf(mFile,"\"%s.vs\"",mName.c_str());
 
 	}
-	void getUvSize()
+	void getUvSize()const
 	{
 		fprintf(mFile,"\"%s.usz\"",mName.c_str());
 
 	}
-	void getBorderWidth()
+	void getBorderWidth()const
 	{
 		fprintf(mFile,"\"%s.bw\"",mName.c_str());
 
 	}
-	void getNormalSize()
+	void getNormalSize()const
 	{
 		fprintf(mFile,"\"%s.ns\"",mName.c_str());
 
 	}
-	void getNormalType()
+	void getNormalType()const
 	{
 		fprintf(mFile,"\"%s.ndt\"",mName.c_str());
 
 	}
-	void getDisplayNormal()
+	void getDisplayNormal()const
 	{
 		fprintf(mFile,"\"%s.dn\"",mName.c_str());
 
 	}
-	void getDisplayTangent()
+	void getDisplayTangent()const
 	{
 		fprintf(mFile,"\"%s.dtn\"",mName.c_str());
 
 	}
-	void getTangentSpace()
+	void getTangentSpace()const
 	{
 		fprintf(mFile,"\"%s.tgsp\"",mName.c_str());
 
 	}
-	void getTangentSmoothingAngle()
+	void getTangentSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.tsa\"",mName.c_str());
 
 	}
-	void getTangentNormalThreshold()
+	void getTangentNormalThreshold()const
 	{
 		fprintf(mFile,"\"%s.tnt\"",mName.c_str());
 
 	}
-	void getAllowTopologyMod()
+	void getAllowTopologyMod()const
 	{
 		fprintf(mFile,"\"%s.atm\"",mName.c_str());
 
 	}
-	void getMaterialBlend()
+	void getMaterialBlend()const
 	{
 		fprintf(mFile,"\"%s.matb\"",mName.c_str());
 
 	}
-	void getUvTweakLocation()
+	void getUvTweakLocation()const
 	{
 		fprintf(mFile,"\"%s.uvtl\"",mName.c_str());
 
 	}
-	void getUserTrg()
+	void getUserTrg()const
 	{
 		fprintf(mFile,"\"%s.utrg\"",mName.c_str());
 
 	}
-	void getDispResolution()
+	void getDispResolution()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getReuseTriangles()
+	void getReuseTriangles()const
 	{
 		fprintf(mFile,"\"%s.rtri\"",mName.c_str());
 
 	}
-	void getQuadSplit()
+	void getQuadSplit()const
 	{
 		fprintf(mFile,"\"%s.qsp\"",mName.c_str());
 
 	}
-	void getPerInstanceIndex(size_t pii_i)
+	void getPerInstanceIndex(size_t pii_i)const
 	{
 		fprintf(mFile,"\"%s.pii[%i]\"",mName.c_str(),pii_i);
 
 	}
-	void getPerInstanceTag(size_t pit_i)
+	void getPerInstanceTag(size_t pit_i)const
 	{
 		fprintf(mFile,"\"%s.pit[%i]\"",mName.c_str(),pit_i);
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOverrideCaustics()
+	void getMiOverrideCaustics()const
 	{
 		fprintf(mFile,"\"%s.mrc.oca\"",mName.c_str());
 
 	}
-	void getMiCausticAccuracy()
+	void getMiCausticAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.caa\"",mName.c_str());
 
 	}
-	void getMiCausticRadius()
+	void getMiCausticRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.car\"",mName.c_str());
 
 	}
-	void getMiOverrideGlobalIllumination()
+	void getMiOverrideGlobalIllumination()const
 	{
 		fprintf(mFile,"\"%s.mrc.ogi\"",mName.c_str());
 
 	}
-	void getMiGlobillumAccuracy()
+	void getMiGlobillumAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.gia\"",mName.c_str());
 
 	}
-	void getMiGlobillumRadius()
+	void getMiGlobillumRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.gir\"",mName.c_str());
 
 	}
-	void getMiOverrideFinalGather()
+	void getMiOverrideFinalGather()const
 	{
 		fprintf(mFile,"\"%s.mrc.ofg\"",mName.c_str());
 
 	}
-	void getMiFinalGatherRays()
+	void getMiFinalGatherRays()const
 	{
 		fprintf(mFile,"\"%s.mrc.fry\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMinRadius()
+	void getMiFinalGatherMinRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmn\"",mName.c_str());
 
 	}
-	void getMiFinalGatherMaxRadius()
+	void getMiFinalGatherMaxRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.fmx\"",mName.c_str());
 
 	}
-	void getMiFinalGatherFilter()
+	void getMiFinalGatherFilter()const
 	{
 		fprintf(mFile,"\"%s.mrc.ffi\"",mName.c_str());
 
 	}
-	void getMiFinalGatherView()
+	void getMiFinalGatherView()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgv\"",mName.c_str());
 
 	}
-	void getMiOverrideSamples()
+	void getMiOverrideSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.oos\"",mName.c_str());
 
 	}
-	void getMiMinSamples()
+	void getMiMinSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.mins\"",mName.c_str());
 
 	}
-	void getMiMaxSamples()
+	void getMiMaxSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.maxs\"",mName.c_str());
 
 	}
-	void getMiFinalGatherCast()
+	void getMiFinalGatherCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.fgc\"",mName.c_str());
 
 	}
-	void getMiFinalGatherReceive()
+	void getMiFinalGatherReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.fge\"",mName.c_str());
 
 	}
-	void getMiTransparencyCast()
+	void getMiTransparencyCast()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpc\"",mName.c_str());
 
 	}
-	void getMiTransparencyReceive()
+	void getMiTransparencyReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.tpr\"",mName.c_str());
 
 	}
-	void getMiReflectionReceive()
+	void getMiReflectionReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.rflr\"",mName.c_str());
 
 	}
-	void getMiRefractionReceive()
+	void getMiRefractionReceive()const
 	{
 		fprintf(mFile,"\"%s.mrc.rfrr\"",mName.c_str());
 
 	}
-	void getDisplayAlphaAsGreyScale()
+	void getDisplayAlphaAsGreyScale()const
 	{
 		fprintf(mFile,"\"%s.dags\"",mName.c_str());
 
 	}
 protected:
-	Mesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SurfaceShape(file, name, parent, nodeType) {}
+	Mesh(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SurfaceShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PolyTweak : public PolyModifier
 public:
 public:
 	PolyTweak():PolyModifier(){}
-	PolyTweak(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTweak"){}
+	PolyTweak(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyTweak", create){}
 	virtual ~PolyTweak(){}
 	void setTweak(size_t tk_i,const float3& tk)
 	{
@@ -41,17 +42,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTweak(size_t tk_start,size_t tk_end)
+	void startTweak(size_t tk_start,size_t tk_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".tk[%i:%i]\"",tk_start,tk_end);
 
 	}
-	void appendTweak(float tk)
+	void appendTweak(float tk)const
 	{
 		fprintf(mFile," %f",tk);
 
 	}
-	void endTweak()
+	void endTweak()const
 	{
 		fprintf(mFile,";\n");
 
@@ -74,29 +75,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".tk[%i].tz\" %f;\n", tk_i,tz);
 
 	}
-	void getTweak(size_t tk_i)
+	void getTweak(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i]\"",mName.c_str(),tk_i);
 
 	}
-	void getTweakX(size_t tk_i)
+	void getTweakX(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].tx\"",mName.c_str(),tk_i);
 
 	}
-	void getTweakY(size_t tk_i)
+	void getTweakY(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].ty\"",mName.c_str(),tk_i);
 
 	}
-	void getTweakZ(size_t tk_i)
+	void getTweakZ(size_t tk_i)const
 	{
 		fprintf(mFile,"\"%s.tk[%i].tz\"",mName.c_str(),tk_i);
 
 	}
 protected:
-	PolyTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyTweak(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

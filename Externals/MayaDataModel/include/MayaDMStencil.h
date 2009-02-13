@@ -19,7 +19,8 @@ class Stencil : public Texture2d
 public:
 public:
 	Stencil():Texture2d(){}
-	Stencil(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "stencil"){}
+	Stencil(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "stencil", create){}
 	virtual ~Stencil(){}
 	void setImage(const float3& im)
 	{
@@ -121,89 +122,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".th\" %f;\n", th);
 
 	}
-	void getImage()
+	void getImage()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getImageR()
+	void getImageR()const
 	{
 		fprintf(mFile,"\"%s.im.imr\"",mName.c_str());
 
 	}
-	void getImageG()
+	void getImageG()const
 	{
 		fprintf(mFile,"\"%s.im.img\"",mName.c_str());
 
 	}
-	void getImageB()
+	void getImageB()const
 	{
 		fprintf(mFile,"\"%s.im.imb\"",mName.c_str());
 
 	}
-	void getMask()
+	void getMask()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getEdgeBlend()
+	void getEdgeBlend()const
 	{
 		fprintf(mFile,"\"%s.eb\"",mName.c_str());
 
 	}
-	void getKeyMasking()
+	void getKeyMasking()const
 	{
 		fprintf(mFile,"\"%s.km\"",mName.c_str());
 
 	}
-	void getPositiveKey()
+	void getPositiveKey()const
 	{
 		fprintf(mFile,"\"%s.pk\"",mName.c_str());
 
 	}
-	void getColorKey()
+	void getColorKey()const
 	{
 		fprintf(mFile,"\"%s.ck\"",mName.c_str());
 
 	}
-	void getColorKeyR()
+	void getColorKeyR()const
 	{
 		fprintf(mFile,"\"%s.ck.ckr\"",mName.c_str());
 
 	}
-	void getColorKeyG()
+	void getColorKeyG()const
 	{
 		fprintf(mFile,"\"%s.ck.ckg\"",mName.c_str());
 
 	}
-	void getColorKeyB()
+	void getColorKeyB()const
 	{
 		fprintf(mFile,"\"%s.ck.ckb\"",mName.c_str());
 
 	}
-	void getHueRange()
+	void getHueRange()const
 	{
 		fprintf(mFile,"\"%s.hr\"",mName.c_str());
 
 	}
-	void getSaturationRange()
+	void getSaturationRange()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getValueRange()
+	void getValueRange()const
 	{
 		fprintf(mFile,"\"%s.vr\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
 protected:
-	Stencil(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Stencil(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,21 +19,22 @@ class Network : public DependNode
 public:
 public:
 	Network():DependNode(){}
-	Network(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "network"){}
+	Network(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "network", create){}
 	virtual ~Network(){}
-	void getAffects(size_t a_i)
+	void getAffects(size_t a_i)const
 	{
 		fprintf(mFile,"\"%s.a[%i]\"",mName.c_str(),a_i);
 
 	}
-	void getAffectedBy(size_t ab_i)
+	void getAffectedBy(size_t ab_i)const
 	{
 		fprintf(mFile,"\"%s.ab[%i]\"",mName.c_str(),ab_i);
 
 	}
 protected:
-	Network(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Network(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

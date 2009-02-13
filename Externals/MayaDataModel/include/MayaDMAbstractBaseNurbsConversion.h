@@ -18,11 +18,12 @@ class AbstractBaseNurbsConversion : public AbstractBaseCreate
 {
 public:
 	AbstractBaseNurbsConversion():AbstractBaseCreate(){}
-	AbstractBaseNurbsConversion(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "abstractBaseNurbsConversion"){}
+	AbstractBaseNurbsConversion(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "abstractBaseNurbsConversion", create){}
 	virtual ~AbstractBaseNurbsConversion(){}
 protected:
-	AbstractBaseNurbsConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	AbstractBaseNurbsConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

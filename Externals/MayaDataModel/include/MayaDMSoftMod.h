@@ -35,7 +35,8 @@ public:
 	};
 public:
 	SoftMod():WeightGeometryFilter(){}
-	SoftMod(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "softMod"){}
+	SoftMod(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:WeightGeometryFilter(file, name, parent, "softMod", create){}
 	virtual ~SoftMod(){}
 	void setPercentResolution(float ptr)
 	{
@@ -83,19 +84,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGeomMatrix(size_t gm_start,size_t gm_end)
+	void startGeomMatrix(size_t gm_start,size_t gm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".gm[%i:%i]\"",gm_start,gm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendGeomMatrix(const matrix& gm)
+	void appendGeomMatrix(const matrix& gm)const
 	{
 		fprintf(mFile,"\n");
 		gm.write(mFile);
 
 	}
-	void endGeomMatrix()
+	void endGeomMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -228,154 +229,154 @@ public:
 		fprintf(mFile,"\tsetAttr \".fom\" %i;\n", fom);
 
 	}
-	void getUsePartialResolution()
+	void getUsePartialResolution()const
 	{
 		fprintf(mFile,"\"%s.upr\"",mName.c_str());
 
 	}
-	void getRelative()
+	void getRelative()const
 	{
 		fprintf(mFile,"\"%s.rel\"",mName.c_str());
 
 	}
-	void getSoftModXforms()
+	void getSoftModXforms()const
 	{
 		fprintf(mFile,"\"%s.x\"",mName.c_str());
 
 	}
-	void getPreMatrix()
+	void getPreMatrix()const
 	{
 		fprintf(mFile,"\"%s.x.pre\"",mName.c_str());
 
 	}
-	void getWeightedMatrix()
+	void getWeightedMatrix()const
 	{
 		fprintf(mFile,"\"%s.x.wt\"",mName.c_str());
 
 	}
-	void getPostMatrix()
+	void getPostMatrix()const
 	{
 		fprintf(mFile,"\"%s.x.post\"",mName.c_str());
 
 	}
-	void getWeightedCompensationMatrix()
+	void getWeightedCompensationMatrix()const
 	{
 		fprintf(mFile,"\"%s.wcm\"",mName.c_str());
 
 	}
-	void getGeomMatrix(size_t gm_i)
+	void getGeomMatrix(size_t gm_i)const
 	{
 		fprintf(mFile,"\"%s.gm[%i]\"",mName.c_str(),gm_i);
 
 	}
-	void getMatrix()
+	void getMatrix()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
-	void getBindPreMatrix()
+	void getBindPreMatrix()const
 	{
 		fprintf(mFile,"\"%s.pm\"",mName.c_str());
 
 	}
-	void getFalloffCurve(size_t fc_i)
+	void getFalloffCurve(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffCurve_Position(size_t fc_i)
+	void getFalloffCurve_Position(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fcp\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffCurve_FloatValue(size_t fc_i)
+	void getFalloffCurve_FloatValue(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fcfv\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffCurve_Interp(size_t fc_i)
+	void getFalloffCurve_Interp(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i].fci\"",mName.c_str(),fc_i);
 
 	}
-	void getFalloffRadius()
+	void getFalloffRadius()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getFalloffCenter()
+	void getFalloffCenter()const
 	{
 		fprintf(mFile,"\"%s.fcr\"",mName.c_str());
 
 	}
-	void getFalloffCenterX()
+	void getFalloffCenterX()const
 	{
 		fprintf(mFile,"\"%s.fcr.fcx\"",mName.c_str());
 
 	}
-	void getFalloffCenterY()
+	void getFalloffCenterY()const
 	{
 		fprintf(mFile,"\"%s.fcr.fcy\"",mName.c_str());
 
 	}
-	void getFalloffCenterZ()
+	void getFalloffCenterZ()const
 	{
 		fprintf(mFile,"\"%s.fcr.fcz\"",mName.c_str());
 
 	}
-	void getFalloffInX()
+	void getFalloffInX()const
 	{
 		fprintf(mFile,"\"%s.fix\"",mName.c_str());
 
 	}
-	void getFalloffInY()
+	void getFalloffInY()const
 	{
 		fprintf(mFile,"\"%s.fiy\"",mName.c_str());
 
 	}
-	void getFalloffInZ()
+	void getFalloffInZ()const
 	{
 		fprintf(mFile,"\"%s.fiz\"",mName.c_str());
 
 	}
-	void getFalloffAroundSelection()
+	void getFalloffAroundSelection()const
 	{
 		fprintf(mFile,"\"%s.fas\"",mName.c_str());
 
 	}
-	void getFalloffMasking()
+	void getFalloffMasking()const
 	{
 		fprintf(mFile,"\"%s.fm\"",mName.c_str());
 
 	}
-	void getInfluenceMatrix()
+	void getInfluenceMatrix()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getAngleInterpolation()
+	void getAngleInterpolation()const
 	{
 		fprintf(mFile,"\"%s.ait\"",mName.c_str());
 
 	}
-	void getUseDistanceCache()
+	void getUseDistanceCache()const
 	{
 		fprintf(mFile,"\"%s.udc\"",mName.c_str());
 
 	}
-	void getDistanceCacheDirty()
+	void getDistanceCacheDirty()const
 	{
 		fprintf(mFile,"\"%s.dcd\"",mName.c_str());
 
 	}
-	void getFalloffMode()
+	void getFalloffMode()const
 	{
 		fprintf(mFile,"\"%s.fom\"",mName.c_str());
 
 	}
 protected:
-	SoftMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:WeightGeometryFilter(file, name, parent, nodeType) {}
+	SoftMod(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

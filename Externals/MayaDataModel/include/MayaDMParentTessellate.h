@@ -19,7 +19,8 @@ class ParentTessellate : public AbstractBaseNurbsConversion
 public:
 public:
 	ParentTessellate():AbstractBaseNurbsConversion(){}
-	ParentTessellate(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseNurbsConversion(file, name, parent, "parentTessellate"){}
+	ParentTessellate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, "parentTessellate", create){}
 	virtual ~ParentTessellate(){}
 	void setFormat(unsigned int f)
 	{
@@ -129,104 +130,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".ntr\" %i;\n", ntr);
 
 	}
-	void getFormat()
+	void getFormat()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getPolygonType()
+	void getPolygonType()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getPolygonCount()
+	void getPolygonCount()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getChordHeightRatio()
+	void getChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.chr\"",mName.c_str());
 
 	}
-	void getPre70ChordHeightRatio()
+	void getPre70ChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.pchr\"",mName.c_str());
 
 	}
-	void getFractionalTolerance()
+	void getFractionalTolerance()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getMinEdgeLength()
+	void getMinEdgeLength()const
 	{
 		fprintf(mFile,"\"%s.mel\"",mName.c_str());
 
 	}
-	void getDelta()
+	void getDelta()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getUType()
+	void getUType()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
 
 	}
-	void getUNumber()
+	void getUNumber()const
 	{
 		fprintf(mFile,"\"%s.un\"",mName.c_str());
 
 	}
-	void getVType()
+	void getVType()const
 	{
 		fprintf(mFile,"\"%s.vt\"",mName.c_str());
 
 	}
-	void getVNumber()
+	void getVNumber()const
 	{
 		fprintf(mFile,"\"%s.vn\"",mName.c_str());
 
 	}
-	void getUseChordHeight()
+	void getUseChordHeight()const
 	{
 		fprintf(mFile,"\"%s.uch\"",mName.c_str());
 
 	}
-	void getUseChordHeightRatio()
+	void getUseChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.ucr\"",mName.c_str());
 
 	}
-	void getChordHeight()
+	void getChordHeight()const
 	{
 		fprintf(mFile,"\"%s.cht\"",mName.c_str());
 
 	}
-	void getEdgeSwap()
+	void getEdgeSwap()const
 	{
 		fprintf(mFile,"\"%s.es\"",mName.c_str());
 
 	}
-	void getMatchNormalDir()
+	void getMatchNormalDir()const
 	{
 		fprintf(mFile,"\"%s.mnd\"",mName.c_str());
 
 	}
-	void getNormalizeTrimmedUVRange()
+	void getNormalizeTrimmedUVRange()const
 	{
 		fprintf(mFile,"\"%s.ntr\"",mName.c_str());
 
 	}
-	void getOutputPolygon()
+	void getOutputPolygon()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
 protected:
-	ParentTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
+	ParentTessellate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class VectorRenderGlobals : public DependNode
 public:
 public:
 	VectorRenderGlobals():DependNode(){}
-	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "vectorRenderGlobals"){}
+	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "vectorRenderGlobals", create){}
 	virtual ~VectorRenderGlobals(){}
 	void setCurrentFrame(bool cf)
 	{
@@ -204,29 +205,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".ew\" %f;\n", ew);
 
 	}
-	void getImageNamePrefix()
+	void getImageNamePrefix()const
 	{
 		fprintf(mFile,"\"%s.inp\"",mName.c_str());
 
 	}
-	void getImageFormat()
+	void getImageFormat()const
 	{
 		fprintf(mFile,"\"%s.if\"",mName.c_str());
 
 	}
-	void getPixelAspectRatio()
+	void getPixelAspectRatio()const
 	{
 		fprintf(mFile,"\"%s.par\"",mName.c_str());
 
 	}
-	void getFilenameFormat()
+	void getFilenameFormat()const
 	{
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 
 	}
 protected:
-	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	VectorRenderGlobals(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

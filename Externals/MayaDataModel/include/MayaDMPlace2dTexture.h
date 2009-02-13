@@ -19,7 +19,8 @@ class Place2dTexture : public DependNode
 public:
 public:
 	Place2dTexture():DependNode(){}
-	Place2dTexture(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "place2dTexture"){}
+	Place2dTexture(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "place2dTexture", create){}
 	virtual ~Place2dTexture(){}
 	void setVertexUvOne(const float2& vt1)
 	{
@@ -251,254 +252,254 @@ public:
 		fprintf(mFile,"\tsetAttr \".fa\" %i;\n", fa);
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.u\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.v\"",mName.c_str());
 
 	}
-	void getVertexUvOne()
+	void getVertexUvOne()const
 	{
 		fprintf(mFile,"\"%s.vt1\"",mName.c_str());
 
 	}
-	void getVertexUvOneU()
+	void getVertexUvOneU()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1u\"",mName.c_str());
 
 	}
-	void getVertexUvOneV()
+	void getVertexUvOneV()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1v\"",mName.c_str());
 
 	}
-	void getVertexUvTwo()
+	void getVertexUvTwo()const
 	{
 		fprintf(mFile,"\"%s.vt2\"",mName.c_str());
 
 	}
-	void getVertexUvTwoU()
+	void getVertexUvTwoU()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2u\"",mName.c_str());
 
 	}
-	void getVertexUvTwoV()
+	void getVertexUvTwoV()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2v\"",mName.c_str());
 
 	}
-	void getVertexUvThree()
+	void getVertexUvThree()const
 	{
 		fprintf(mFile,"\"%s.vt3\"",mName.c_str());
 
 	}
-	void getVertexUvThreeU()
+	void getVertexUvThreeU()const
 	{
 		fprintf(mFile,"\"%s.vt3.t3u\"",mName.c_str());
 
 	}
-	void getVertexUvThreeV()
+	void getVertexUvThreeV()const
 	{
 		fprintf(mFile,"\"%s.vt3.t3v\"",mName.c_str());
 
 	}
-	void getVertexCameraOne()
+	void getVertexCameraOne()const
 	{
 		fprintf(mFile,"\"%s.vc1\"",mName.c_str());
 
 	}
-	void getVertexCameraOneX()
+	void getVertexCameraOneX()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1x\"",mName.c_str());
 
 	}
-	void getVertexCameraOneY()
+	void getVertexCameraOneY()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1y\"",mName.c_str());
 
 	}
-	void getVertexCameraOneZ()
+	void getVertexCameraOneZ()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1z\"",mName.c_str());
 
 	}
-	void getUvFilterSize()
+	void getUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getUvFilterSizeX()
+	void getUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
 
 	}
-	void getUvFilterSizeY()
+	void getUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
 
 	}
-	void getCoverage()
+	void getCoverage()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getCoverageU()
+	void getCoverageU()const
 	{
 		fprintf(mFile,"\"%s.c.cu\"",mName.c_str());
 
 	}
-	void getCoverageV()
+	void getCoverageV()const
 	{
 		fprintf(mFile,"\"%s.c.cv\"",mName.c_str());
 
 	}
-	void getTranslateFrame()
+	void getTranslateFrame()const
 	{
 		fprintf(mFile,"\"%s.tf\"",mName.c_str());
 
 	}
-	void getTranslateFrameU()
+	void getTranslateFrameU()const
 	{
 		fprintf(mFile,"\"%s.tf.tfu\"",mName.c_str());
 
 	}
-	void getTranslateFrameV()
+	void getTranslateFrameV()const
 	{
 		fprintf(mFile,"\"%s.tf.tfv\"",mName.c_str());
 
 	}
-	void getRotateFrame()
+	void getRotateFrame()const
 	{
 		fprintf(mFile,"\"%s.rf\"",mName.c_str());
 
 	}
-	void getMirrorU()
+	void getMirrorU()const
 	{
 		fprintf(mFile,"\"%s.mu\"",mName.c_str());
 
 	}
-	void getMirrorV()
+	void getMirrorV()const
 	{
 		fprintf(mFile,"\"%s.mv\"",mName.c_str());
 
 	}
-	void getStagger()
+	void getStagger()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getWrapU()
+	void getWrapU()const
 	{
 		fprintf(mFile,"\"%s.wu\"",mName.c_str());
 
 	}
-	void getWrapV()
+	void getWrapV()const
 	{
 		fprintf(mFile,"\"%s.wv\"",mName.c_str());
 
 	}
-	void getRepeatUV()
+	void getRepeatUV()const
 	{
 		fprintf(mFile,"\"%s.re\"",mName.c_str());
 
 	}
-	void getRepeatU()
+	void getRepeatU()const
 	{
 		fprintf(mFile,"\"%s.re.reu\"",mName.c_str());
 
 	}
-	void getRepeatV()
+	void getRepeatV()const
 	{
 		fprintf(mFile,"\"%s.re.rev\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.of\"",mName.c_str());
 
 	}
-	void getOffsetU()
+	void getOffsetU()const
 	{
 		fprintf(mFile,"\"%s.of.ofu\"",mName.c_str());
 
 	}
-	void getOffsetV()
+	void getOffsetV()const
 	{
 		fprintf(mFile,"\"%s.of.ofv\"",mName.c_str());
 
 	}
-	void getRotateUV()
+	void getRotateUV()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getNoiseUV()
+	void getNoiseUV()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNoiseU()
+	void getNoiseU()const
 	{
 		fprintf(mFile,"\"%s.n.nu\"",mName.c_str());
 
 	}
-	void getNoiseV()
+	void getNoiseV()const
 	{
 		fprintf(mFile,"\"%s.n.nv\"",mName.c_str());
 
 	}
-	void getFast()
+	void getFast()const
 	{
 		fprintf(mFile,"\"%s.fa\"",mName.c_str());
 
 	}
-	void getOutUV()
+	void getOutUV()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutU()
+	void getOutU()const
 	{
 		fprintf(mFile,"\"%s.o.ou\"",mName.c_str());
 
 	}
-	void getOutV()
+	void getOutV()const
 	{
 		fprintf(mFile,"\"%s.o.ov\"",mName.c_str());
 
 	}
-	void getOutUvFilterSize()
+	void getOutUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.ofs\"",mName.c_str());
 
 	}
-	void getOutUvFilterSizeX()
+	void getOutUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.ofs.ofsx\"",mName.c_str());
 
 	}
-	void getOutUvFilterSizeY()
+	void getOutUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.ofs.ofsy\"",mName.c_str());
 
 	}
-	void getDoTransform()
+	void getDoTransform()const
 	{
 		fprintf(mFile,"\"%s.do\"",mName.c_str());
 
 	}
 protected:
-	Place2dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Place2dTexture(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

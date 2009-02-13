@@ -19,7 +19,8 @@ class FilterClosestSample : public Filter
 public:
 public:
 	FilterClosestSample():Filter(){}
-	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterClosestSample"){}
+	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Filter(file, name, parent, "filterClosestSample", create){}
 	virtual ~FilterClosestSample(){}
 	void setFrequency(double f)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".f\" %f;\n", f);
 
 	}
-	void getFrequency()
+	void getFrequency()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
 protected:
-	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Filter(file, name, parent, nodeType) {}
+	FilterClosestSample(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Filter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

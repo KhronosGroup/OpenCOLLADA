@@ -19,7 +19,8 @@ class EnvCube : public TextureEnv
 public:
 public:
 	EnvCube():TextureEnv(){}
-	EnvCube(FILE* file,const std::string& name,const std::string& parent=""):TextureEnv(file, name, parent, "envCube"){}
+	EnvCube(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:TextureEnv(file, name, parent, "envCube", create){}
 	virtual ~EnvCube(){}
 	void setPointWorld(const float3& pw)
 	{
@@ -214,154 +215,154 @@ public:
 		fprintf(mFile,"\tsetAttr \".ba.bab\" %f;\n", bab);
 
 	}
-	void getPointWorld()
+	void getPointWorld()const
 	{
 		fprintf(mFile,"\"%s.pw\"",mName.c_str());
 
 	}
-	void getPointWorldX()
+	void getPointWorldX()const
 	{
 		fprintf(mFile,"\"%s.pw.pwx\"",mName.c_str());
 
 	}
-	void getPointWorldY()
+	void getPointWorldY()const
 	{
 		fprintf(mFile,"\"%s.pw.pwy\"",mName.c_str());
 
 	}
-	void getPointWorldZ()
+	void getPointWorldZ()const
 	{
 		fprintf(mFile,"\"%s.pw.pwz\"",mName.c_str());
 
 	}
-	void getLeft()
+	void getLeft()const
 	{
 		fprintf(mFile,"\"%s.le\"",mName.c_str());
 
 	}
-	void getLeftR()
+	void getLeftR()const
 	{
 		fprintf(mFile,"\"%s.le.ler\"",mName.c_str());
 
 	}
-	void getLeftG()
+	void getLeftG()const
 	{
 		fprintf(mFile,"\"%s.le.leg\"",mName.c_str());
 
 	}
-	void getLeftB()
+	void getLeftB()const
 	{
 		fprintf(mFile,"\"%s.le.leb\"",mName.c_str());
 
 	}
-	void getRight()
+	void getRight()const
 	{
 		fprintf(mFile,"\"%s.ri\"",mName.c_str());
 
 	}
-	void getRightR()
+	void getRightR()const
 	{
 		fprintf(mFile,"\"%s.ri.rir\"",mName.c_str());
 
 	}
-	void getRightG()
+	void getRightG()const
 	{
 		fprintf(mFile,"\"%s.ri.rig\"",mName.c_str());
 
 	}
-	void getRightB()
+	void getRightB()const
 	{
 		fprintf(mFile,"\"%s.ri.rib\"",mName.c_str());
 
 	}
-	void getTop()
+	void getTop()const
 	{
 		fprintf(mFile,"\"%s.to\"",mName.c_str());
 
 	}
-	void getTopR()
+	void getTopR()const
 	{
 		fprintf(mFile,"\"%s.to.tor\"",mName.c_str());
 
 	}
-	void getTopG()
+	void getTopG()const
 	{
 		fprintf(mFile,"\"%s.to.tog\"",mName.c_str());
 
 	}
-	void getTopB()
+	void getTopB()const
 	{
 		fprintf(mFile,"\"%s.to.tob\"",mName.c_str());
 
 	}
-	void getBottom()
+	void getBottom()const
 	{
 		fprintf(mFile,"\"%s.bo\"",mName.c_str());
 
 	}
-	void getBottomR()
+	void getBottomR()const
 	{
 		fprintf(mFile,"\"%s.bo.bor\"",mName.c_str());
 
 	}
-	void getBottomG()
+	void getBottomG()const
 	{
 		fprintf(mFile,"\"%s.bo.bog\"",mName.c_str());
 
 	}
-	void getBottomB()
+	void getBottomB()const
 	{
 		fprintf(mFile,"\"%s.bo.bob\"",mName.c_str());
 
 	}
-	void getFront()
+	void getFront()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getFrontR()
+	void getFrontR()const
 	{
 		fprintf(mFile,"\"%s.fr.frr\"",mName.c_str());
 
 	}
-	void getFrontG()
+	void getFrontG()const
 	{
 		fprintf(mFile,"\"%s.fr.frg\"",mName.c_str());
 
 	}
-	void getFrontB()
+	void getFrontB()const
 	{
 		fprintf(mFile,"\"%s.fr.frb\"",mName.c_str());
 
 	}
-	void getBack()
+	void getBack()const
 	{
 		fprintf(mFile,"\"%s.ba\"",mName.c_str());
 
 	}
-	void getBackR()
+	void getBackR()const
 	{
 		fprintf(mFile,"\"%s.ba.bar\"",mName.c_str());
 
 	}
-	void getBackG()
+	void getBackG()const
 	{
 		fprintf(mFile,"\"%s.ba.bag\"",mName.c_str());
 
 	}
-	void getBackB()
+	void getBackB()const
 	{
 		fprintf(mFile,"\"%s.ba.bab\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
 protected:
-	EnvCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:TextureEnv(file, name, parent, nodeType) {}
+	EnvCube(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:TextureEnv(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

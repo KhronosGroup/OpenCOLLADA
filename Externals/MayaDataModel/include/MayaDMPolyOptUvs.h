@@ -19,7 +19,8 @@ class PolyOptUvs : public PolyModifierUV
 public:
 public:
 	PolyOptUvs():PolyModifierUV(){}
-	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyOptUvs"){}
+	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierUV(file, name, parent, "polyOptUvs", create){}
 	virtual ~PolyOptUvs(){}
 	void setIterations(int i_)
 	{
@@ -87,64 +88,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".gmb\" %f;\n", gmb);
 
 	}
-	void getIterations()
+	void getIterations()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getStoppingThreshold()
+	void getStoppingThreshold()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getAreaWeight()
+	void getAreaWeight()const
 	{
 		fprintf(mFile,"\"%s.aw\"",mName.c_str());
 
 	}
-	void getUseScale()
+	void getUseScale()const
 	{
 		fprintf(mFile,"\"%s.us\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getPinUvBorder()
+	void getPinUvBorder()const
 	{
 		fprintf(mFile,"\"%s.pub\"",mName.c_str());
 
 	}
-	void getPinSelected()
+	void getPinSelected()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getApplyToShell()
+	void getApplyToShell()const
 	{
 		fprintf(mFile,"\"%s.as\"",mName.c_str());
 
 	}
-	void getOptimizeAxis()
+	void getOptimizeAxis()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
-	void getGlobalBlend()
+	void getGlobalBlend()const
 	{
 		fprintf(mFile,"\"%s.gb\"",mName.c_str());
 
 	}
-	void getGlobalMethodBlend()
+	void getGlobalMethodBlend()const
 	{
 		fprintf(mFile,"\"%s.gmb\"",mName.c_str());
 
 	}
 protected:
-	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierUV(file, name, parent, nodeType) {}
+	PolyOptUvs(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

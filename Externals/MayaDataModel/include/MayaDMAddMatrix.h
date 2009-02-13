@@ -19,7 +19,8 @@ class AddMatrix : public DependNode
 public:
 public:
 	AddMatrix():DependNode(){}
-	AddMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "addMatrix"){}
+	AddMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "addMatrix", create){}
 	virtual ~AddMatrix(){}
 	void setMatrixIn(size_t i_i,const matrix& i_)
 	{
@@ -41,36 +42,36 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startMatrixIn(size_t i_start,size_t i_end)
+	void startMatrixIn(size_t i_start,size_t i_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendMatrixIn(const matrix& i)
+	void appendMatrixIn(const matrix& i)const
 	{
 		fprintf(mFile,"\n");
 		i.write(mFile);
 
 	}
-	void endMatrixIn()
+	void endMatrixIn()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getMatrixIn(size_t i_i)
+	void getMatrixIn(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getMatrixSum()
+	void getMatrixSum()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	AddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	AddMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

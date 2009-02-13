@@ -19,7 +19,8 @@ class Leather : public Texture3d
 public:
 public:
 	Leather():Texture3d(){}
-	Leather(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "leather"){}
+	Leather(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "leather", create){}
 	virtual ~Leather(){}
 	void setCellColor(const float3& ce)
 	{
@@ -109,119 +110,119 @@ public:
 		fprintf(mFile,"\tsetAttr \".c\" %i;\n", c);
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getCellColor()
+	void getCellColor()const
 	{
 		fprintf(mFile,"\"%s.ce\"",mName.c_str());
 
 	}
-	void getCellColorR()
+	void getCellColorR()const
 	{
 		fprintf(mFile,"\"%s.ce.cer\"",mName.c_str());
 
 	}
-	void getCellColorG()
+	void getCellColorG()const
 	{
 		fprintf(mFile,"\"%s.ce.ceg\"",mName.c_str());
 
 	}
-	void getCellColorB()
+	void getCellColorB()const
 	{
 		fprintf(mFile,"\"%s.ce.ceb\"",mName.c_str());
 
 	}
-	void getCreaseColor()
+	void getCreaseColor()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getCreaseColorR()
+	void getCreaseColorR()const
 	{
 		fprintf(mFile,"\"%s.cr.crr\"",mName.c_str());
 
 	}
-	void getCreaseColorG()
+	void getCreaseColorG()const
 	{
 		fprintf(mFile,"\"%s.cr.crg\"",mName.c_str());
 
 	}
-	void getCreaseColorB()
+	void getCreaseColorB()const
 	{
 		fprintf(mFile,"\"%s.cr.crb\"",mName.c_str());
 
 	}
-	void getCellSize()
+	void getCellSize()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getDensity()
+	void getDensity()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSpottyness()
+	void getSpottyness()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getRandomness()
+	void getRandomness()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
-	void getCreases()
+	void getCreases()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
 protected:
-	Leather(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Leather(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

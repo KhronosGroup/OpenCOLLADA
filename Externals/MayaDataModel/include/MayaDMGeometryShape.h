@@ -40,7 +40,8 @@ public:
 	};
 public:
 	GeometryShape():Shape(){}
-	GeometryShape(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "geometryShape"){}
+	GeometryShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "geometryShape", create){}
 	virtual ~GeometryShape(){}
 	void setRenderType(short rt)
 	{
@@ -189,129 +190,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".ciog[%i].cog[%i].cgid\" %i;\n", ciog_i,cog_i,cgid);
 
 	}
-	void getRenderType()
+	void getRenderType()const
 	{
 		fprintf(mFile,"\"%s.rt\"",mName.c_str());
 
 	}
-	void getRenderVolume()
+	void getRenderVolume()const
 	{
 		fprintf(mFile,"\"%s.rv\"",mName.c_str());
 
 	}
-	void getVisibleFraction()
+	void getVisibleFraction()const
 	{
 		fprintf(mFile,"\"%s.vf\"",mName.c_str());
 
 	}
-	void getMotionBlur()
+	void getMotionBlur()const
 	{
 		fprintf(mFile,"\"%s.mb\"",mName.c_str());
 
 	}
-	void getVisibleInReflections()
+	void getVisibleInReflections()const
 	{
 		fprintf(mFile,"\"%s.vir\"",mName.c_str());
 
 	}
-	void getVisibleInRefractions()
+	void getVisibleInRefractions()const
 	{
 		fprintf(mFile,"\"%s.vif\"",mName.c_str());
 
 	}
-	void getCastsShadows()
+	void getCastsShadows()const
 	{
 		fprintf(mFile,"\"%s.csh\"",mName.c_str());
 
 	}
-	void getReceiveShadows()
+	void getReceiveShadows()const
 	{
 		fprintf(mFile,"\"%s.rcsh\"",mName.c_str());
 
 	}
-	void getMaxVisibilitySamplesOverride()
+	void getMaxVisibilitySamplesOverride()const
 	{
 		fprintf(mFile,"\"%s.vbo\"",mName.c_str());
 
 	}
-	void getMaxVisibilitySamples()
+	void getMaxVisibilitySamples()const
 	{
 		fprintf(mFile,"\"%s.mvs\"",mName.c_str());
 
 	}
-	void getGeometryAntialiasingOverride()
+	void getGeometryAntialiasingOverride()const
 	{
 		fprintf(mFile,"\"%s.gao\"",mName.c_str());
 
 	}
-	void getAntialiasingLevel()
+	void getAntialiasingLevel()const
 	{
 		fprintf(mFile,"\"%s.gal\"",mName.c_str());
 
 	}
-	void getShadingSamplesOverride()
+	void getShadingSamplesOverride()const
 	{
 		fprintf(mFile,"\"%s.sso\"",mName.c_str());
 
 	}
-	void getShadingSamples()
+	void getShadingSamples()const
 	{
 		fprintf(mFile,"\"%s.ssa\"",mName.c_str());
 
 	}
-	void getMaxShadingSamples()
+	void getMaxShadingSamples()const
 	{
 		fprintf(mFile,"\"%s.msa\"",mName.c_str());
 
 	}
-	void getVolumeSamplesOverride()
+	void getVolumeSamplesOverride()const
 	{
 		fprintf(mFile,"\"%s.vso\"",mName.c_str());
 
 	}
-	void getVolumeSamples()
+	void getVolumeSamples()const
 	{
 		fprintf(mFile,"\"%s.vss\"",mName.c_str());
 
 	}
-	void getDepthJitter()
+	void getDepthJitter()const
 	{
 		fprintf(mFile,"\"%s.dej\"",mName.c_str());
 
 	}
-	void getIgnoreSelfShadowing()
+	void getIgnoreSelfShadowing()const
 	{
 		fprintf(mFile,"\"%s.iss\"",mName.c_str());
 
 	}
-	void getPrimaryVisibility()
+	void getPrimaryVisibility()const
 	{
 		fprintf(mFile,"\"%s.vis\"",mName.c_str());
 
 	}
-	void getReferenceObject()
+	void getReferenceObject()const
 	{
 		fprintf(mFile,"\"%s.rob\"",mName.c_str());
 
 	}
-	void getCompInstObjGroups(size_t ciog_i)
+	void getCompInstObjGroups(size_t ciog_i)const
 	{
 		fprintf(mFile,"\"%s.ciog[%i]\"",mName.c_str(),ciog_i);
 
 	}
-	void getCompObjectGroups(size_t ciog_i,size_t cog_i)
+	void getCompObjectGroups(size_t ciog_i,size_t cog_i)const
 	{
 		fprintf(mFile,"\"%s.ciog[%i].cog[%i]\"",mName.c_str(),ciog_i,cog_i);
 
 	}
-	void getCompObjectGroupId(size_t ciog_i,size_t cog_i)
+	void getCompObjectGroupId(size_t ciog_i,size_t cog_i)const
 	{
 		fprintf(mFile,"\"%s.ciog[%i].cog[%i].cgid\"",mName.c_str(),ciog_i,cog_i);
 
 	}
 protected:
-	GeometryShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	GeometryShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

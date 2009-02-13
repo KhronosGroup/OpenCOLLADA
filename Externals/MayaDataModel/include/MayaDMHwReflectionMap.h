@@ -19,7 +19,8 @@ class HwReflectionMap : public DependNode
 public:
 public:
 	HwReflectionMap():DependNode(){}
-	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hwReflectionMap"){}
+	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hwReflectionMap", create){}
 	virtual ~HwReflectionMap(){}
 	void setDecalMode(bool dm)
 	{
@@ -95,59 +96,59 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getDecalMode()
+	void getDecalMode()const
 	{
 		fprintf(mFile,"\"%s.dm\"",mName.c_str());
 
 	}
-	void getCubeMap()
+	void getCubeMap()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
-	void getTextureHasChanged()
+	void getTextureHasChanged()const
 	{
 		fprintf(mFile,"\"%s.thc\"",mName.c_str());
 
 	}
-	void getSphereMapTextureName()
+	void getSphereMapTextureName()const
 	{
 		fprintf(mFile,"\"%s.smtn\"",mName.c_str());
 
 	}
-	void getCubeFrontTextureName()
+	void getCubeFrontTextureName()const
 	{
 		fprintf(mFile,"\"%s.cftn\"",mName.c_str());
 
 	}
-	void getCubeBackTextureName()
+	void getCubeBackTextureName()const
 	{
 		fprintf(mFile,"\"%s.cbkn\"",mName.c_str());
 
 	}
-	void getCubeTopTextureName()
+	void getCubeTopTextureName()const
 	{
 		fprintf(mFile,"\"%s.ctpn\"",mName.c_str());
 
 	}
-	void getCubeBottomTextureName()
+	void getCubeBottomTextureName()const
 	{
 		fprintf(mFile,"\"%s.cbmn\"",mName.c_str());
 
 	}
-	void getCubeLeftTextureName()
+	void getCubeLeftTextureName()const
 	{
 		fprintf(mFile,"\"%s.cltn\"",mName.c_str());
 
 	}
-	void getCubeRightTextureName()
+	void getCubeRightTextureName()const
 	{
 		fprintf(mFile,"\"%s.crtn\"",mName.c_str());
 
 	}
 protected:
-	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HwReflectionMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

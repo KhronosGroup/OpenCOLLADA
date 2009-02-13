@@ -29,7 +29,8 @@ public:
 	};
 public:
 	RigidBody():Shape(){}
-	RigidBody(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "rigidBody"){}
+	RigidBody(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "rigidBody", create){}
 	virtual ~RigidBody(){}
 	void setRunUpCache(const doubleArray& rc)
 	{
@@ -399,17 +400,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInputForceType(size_t ift_start,size_t ift_end)
+	void startInputForceType(size_t ift_start,size_t ift_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ift[%i:%i]\"",ift_start,ift_end);
 
 	}
-	void appendInputForceType(bool ift)
+	void appendInputForceType(bool ift)const
 	{
 		fprintf(mFile," %i",ift);
 
 	}
-	void endInputForceType()
+	void endInputForceType()const
 	{
 		fprintf(mFile,";\n");
 
@@ -456,539 +457,539 @@ public:
 		fprintf(mFile,"\tsetAttr \".dd\" %i;\n", dd);
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getRigidWorldMatrix()
+	void getRigidWorldMatrix()const
 	{
 		fprintf(mFile,"\"%s.rmx\"",mName.c_str());
 
 	}
-	void getInputGeometryMsg(size_t igm_i)
+	void getInputGeometryMsg(size_t igm_i)const
 	{
 		fprintf(mFile,"\"%s.igm[%i]\"",mName.c_str(),igm_i);
 
 	}
-	void getFieldConnections(size_t fc_i)
+	void getFieldConnections(size_t fc_i)const
 	{
 		fprintf(mFile,"\"%s.fc[%i]\"",mName.c_str(),fc_i);
 
 	}
-	void getRunUpCache()
+	void getRunUpCache()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
-	void getDataCache()
+	void getDataCache()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getFirstCachedFrame()
+	void getFirstCachedFrame()const
 	{
 		fprintf(mFile,"\"%s.fcf\"",mName.c_str());
 
 	}
-	void getLastCachedFrame()
+	void getLastCachedFrame()const
 	{
 		fprintf(mFile,"\"%s.lcf\"",mName.c_str());
 
 	}
-	void getCachedFrameCount()
+	void getCachedFrameCount()const
 	{
 		fprintf(mFile,"\"%s.cfc\"",mName.c_str());
 
 	}
-	void getCacheDirtyArray()
+	void getCacheDirtyArray()const
 	{
 		fprintf(mFile,"\"%s.cda\"",mName.c_str());
 
 	}
-	void getContactName(size_t cnn_i)
+	void getContactName(size_t cnn_i)const
 	{
 		fprintf(mFile,"\"%s.cnn[%i]\"",mName.c_str(),cnn_i);
 
 	}
-	void getInterpenetrateWith(size_t itw_i)
+	void getInterpenetrateWith(size_t itw_i)const
 	{
 		fprintf(mFile,"\"%s.itw[%i]\"",mName.c_str(),itw_i);
 
 	}
-	void getInitialPositionX()
+	void getInitialPositionX()const
 	{
 		fprintf(mFile,"\"%s.ip.ipx\"",mName.c_str());
 
 	}
-	void getInitialPositionY()
+	void getInitialPositionY()const
 	{
 		fprintf(mFile,"\"%s.ip.ipy\"",mName.c_str());
 
 	}
-	void getInitialPositionZ()
+	void getInitialPositionZ()const
 	{
 		fprintf(mFile,"\"%s.ip.ipz\"",mName.c_str());
 
 	}
-	void getLastPositionX()
+	void getLastPositionX()const
 	{
 		fprintf(mFile,"\"%s.lp.lpx\"",mName.c_str());
 
 	}
-	void getLastPositionY()
+	void getLastPositionY()const
 	{
 		fprintf(mFile,"\"%s.lp.lpy\"",mName.c_str());
 
 	}
-	void getLastPositionZ()
+	void getLastPositionZ()const
 	{
 		fprintf(mFile,"\"%s.lp.lpz\"",mName.c_str());
 
 	}
-	void getLastRotationX()
+	void getLastRotationX()const
 	{
 		fprintf(mFile,"\"%s.lr.lrx\"",mName.c_str());
 
 	}
-	void getLastRotationY()
+	void getLastRotationY()const
 	{
 		fprintf(mFile,"\"%s.lr.lry\"",mName.c_str());
 
 	}
-	void getLastRotationZ()
+	void getLastRotationZ()const
 	{
 		fprintf(mFile,"\"%s.lr.lrz\"",mName.c_str());
 
 	}
-	void getInitialOrientationX()
+	void getInitialOrientationX()const
 	{
 		fprintf(mFile,"\"%s.ior.iox\"",mName.c_str());
 
 	}
-	void getInitialOrientationY()
+	void getInitialOrientationY()const
 	{
 		fprintf(mFile,"\"%s.ior.ioy\"",mName.c_str());
 
 	}
-	void getInitialOrientationZ()
+	void getInitialOrientationZ()const
 	{
 		fprintf(mFile,"\"%s.ior.ioz\"",mName.c_str());
 
 	}
-	void getInitialVelocity()
+	void getInitialVelocity()const
 	{
 		fprintf(mFile,"\"%s.iv\"",mName.c_str());
 
 	}
-	void getInitialVelocityX()
+	void getInitialVelocityX()const
 	{
 		fprintf(mFile,"\"%s.iv.ivx\"",mName.c_str());
 
 	}
-	void getInitialVelocityY()
+	void getInitialVelocityY()const
 	{
 		fprintf(mFile,"\"%s.iv.ivy\"",mName.c_str());
 
 	}
-	void getInitialVelocityZ()
+	void getInitialVelocityZ()const
 	{
 		fprintf(mFile,"\"%s.iv.ivz\"",mName.c_str());
 
 	}
-	void getInitialSpin()
+	void getInitialSpin()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInitialSpinX()
+	void getInitialSpinX()const
 	{
 		fprintf(mFile,"\"%s.is.isx\"",mName.c_str());
 
 	}
-	void getInitialSpinY()
+	void getInitialSpinY()const
 	{
 		fprintf(mFile,"\"%s.is.isy\"",mName.c_str());
 
 	}
-	void getInitialSpinZ()
+	void getInitialSpinZ()const
 	{
 		fprintf(mFile,"\"%s.is.isz\"",mName.c_str());
 
 	}
-	void getCenterOfMass()
+	void getCenterOfMass()const
 	{
 		fprintf(mFile,"\"%s.com\"",mName.c_str());
 
 	}
-	void getCenterOfMassX()
+	void getCenterOfMassX()const
 	{
 		fprintf(mFile,"\"%s.com.cmx\"",mName.c_str());
 
 	}
-	void getCenterOfMassY()
+	void getCenterOfMassY()const
 	{
 		fprintf(mFile,"\"%s.com.cmy\"",mName.c_str());
 
 	}
-	void getCenterOfMassZ()
+	void getCenterOfMassZ()const
 	{
 		fprintf(mFile,"\"%s.com.cmz\"",mName.c_str());
 
 	}
-	void getImpulse()
+	void getImpulse()const
 	{
 		fprintf(mFile,"\"%s.imp\"",mName.c_str());
 
 	}
-	void getImpulseX()
+	void getImpulseX()const
 	{
 		fprintf(mFile,"\"%s.imp.imx\"",mName.c_str());
 
 	}
-	void getImpulseY()
+	void getImpulseY()const
 	{
 		fprintf(mFile,"\"%s.imp.imy\"",mName.c_str());
 
 	}
-	void getImpulseZ()
+	void getImpulseZ()const
 	{
 		fprintf(mFile,"\"%s.imp.imz\"",mName.c_str());
 
 	}
-	void getImpulsePosition()
+	void getImpulsePosition()const
 	{
 		fprintf(mFile,"\"%s.ipo\"",mName.c_str());
 
 	}
-	void getImpulsePositionX()
+	void getImpulsePositionX()const
 	{
 		fprintf(mFile,"\"%s.ipo.pix\"",mName.c_str());
 
 	}
-	void getImpulsePositionY()
+	void getImpulsePositionY()const
 	{
 		fprintf(mFile,"\"%s.ipo.piy\"",mName.c_str());
 
 	}
-	void getImpulsePositionZ()
+	void getImpulsePositionZ()const
 	{
 		fprintf(mFile,"\"%s.ipo.piz\"",mName.c_str());
 
 	}
-	void getSpinImpulse()
+	void getSpinImpulse()const
 	{
 		fprintf(mFile,"\"%s.sim\"",mName.c_str());
 
 	}
-	void getSpinImpulseX()
+	void getSpinImpulseX()const
 	{
 		fprintf(mFile,"\"%s.sim.six\"",mName.c_str());
 
 	}
-	void getSpinImpulseY()
+	void getSpinImpulseY()const
 	{
 		fprintf(mFile,"\"%s.sim.siy\"",mName.c_str());
 
 	}
-	void getSpinImpulseZ()
+	void getSpinImpulseZ()const
 	{
 		fprintf(mFile,"\"%s.sim.siz\"",mName.c_str());
 
 	}
-	void getMass()
+	void getMass()const
 	{
 		fprintf(mFile,"\"%s.mas\"",mName.c_str());
 
 	}
-	void getVolume()
+	void getVolume()const
 	{
 		fprintf(mFile,"\"%s.vol\"",mName.c_str());
 
 	}
-	void getBounciness()
+	void getBounciness()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getDamping()
+	void getDamping()const
 	{
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
-	void getStaticFriction()
+	void getStaticFriction()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
-	void getDynamicFriction()
+	void getDynamicFriction()const
 	{
 		fprintf(mFile,"\"%s.df\"",mName.c_str());
 
 	}
-	void getCollisionLayer()
+	void getCollisionLayer()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getStandIn()
+	void getStandIn()const
 	{
 		fprintf(mFile,"\"%s.si\"",mName.c_str());
 
 	}
-	void getInputGeometryCnt()
+	void getInputGeometryCnt()const
 	{
 		fprintf(mFile,"\"%s.igc\"",mName.c_str());
 
 	}
-	void getActive()
+	void getActive()const
 	{
 		fprintf(mFile,"\"%s.act\"",mName.c_str());
 
 	}
-	void getChoice()
+	void getChoice()const
 	{
 		fprintf(mFile,"\"%s.chc\"",mName.c_str());
 
 	}
-	void getIsKinematic()
+	void getIsKinematic()const
 	{
 		fprintf(mFile,"\"%s.kin\"",mName.c_str());
 
 	}
-	void getIsKeyframed()
+	void getIsKeyframed()const
 	{
 		fprintf(mFile,"\"%s.key\"",mName.c_str());
 
 	}
-	void getIsParented()
+	void getIsParented()const
 	{
 		fprintf(mFile,"\"%s.par\"",mName.c_str());
 
 	}
-	void getParticleCollision()
+	void getParticleCollision()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getAutoInit()
+	void getAutoInit()const
 	{
 		fprintf(mFile,"\"%s.ai\"",mName.c_str());
 
 	}
-	void getAllowDisconnection()
+	void getAllowDisconnection()const
 	{
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 
 	}
-	void getCacheData()
+	void getCacheData()const
 	{
 		fprintf(mFile,"\"%s.idc\"",mName.c_str());
 
 	}
-	void getVelocity()
+	void getVelocity()const
 	{
 		fprintf(mFile,"\"%s.vel\"",mName.c_str());
 
 	}
-	void getVelocityX()
+	void getVelocityX()const
 	{
 		fprintf(mFile,"\"%s.vel.vx\"",mName.c_str());
 
 	}
-	void getVelocityY()
+	void getVelocityY()const
 	{
 		fprintf(mFile,"\"%s.vel.vy\"",mName.c_str());
 
 	}
-	void getVelocityZ()
+	void getVelocityZ()const
 	{
 		fprintf(mFile,"\"%s.vel.vz\"",mName.c_str());
 
 	}
-	void getSpin()
+	void getSpin()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getSpinX()
+	void getSpinX()const
 	{
 		fprintf(mFile,"\"%s.sp.spx\"",mName.c_str());
 
 	}
-	void getSpinY()
+	void getSpinY()const
 	{
 		fprintf(mFile,"\"%s.sp.spy\"",mName.c_str());
 
 	}
-	void getSpinZ()
+	void getSpinZ()const
 	{
 		fprintf(mFile,"\"%s.sp.spz\"",mName.c_str());
 
 	}
-	void getContactCount()
+	void getContactCount()const
 	{
 		fprintf(mFile,"\"%s.cct\"",mName.c_str());
 
 	}
-	void getContactPosition(size_t cnp_i)
+	void getContactPosition(size_t cnp_i)const
 	{
 		fprintf(mFile,"\"%s.cnp[%i]\"",mName.c_str(),cnp_i);
 
 	}
-	void getContactX(size_t cnp_i)
+	void getContactX(size_t cnp_i)const
 	{
 		fprintf(mFile,"\"%s.cnp[%i].cnx\"",mName.c_str(),cnp_i);
 
 	}
-	void getContactY(size_t cnp_i)
+	void getContactY(size_t cnp_i)const
 	{
 		fprintf(mFile,"\"%s.cnp[%i].cny\"",mName.c_str(),cnp_i);
 
 	}
-	void getContactZ(size_t cnp_i)
+	void getContactZ(size_t cnp_i)const
 	{
 		fprintf(mFile,"\"%s.cnp[%i].cnz\"",mName.c_str(),cnp_i);
 
 	}
-	void getForce()
+	void getForce()const
 	{
 		fprintf(mFile,"\"%s.for\"",mName.c_str());
 
 	}
-	void getForceX()
+	void getForceX()const
 	{
 		fprintf(mFile,"\"%s.for.fx\"",mName.c_str());
 
 	}
-	void getForceY()
+	void getForceY()const
 	{
 		fprintf(mFile,"\"%s.for.fy\"",mName.c_str());
 
 	}
-	void getForceZ()
+	void getForceZ()const
 	{
 		fprintf(mFile,"\"%s.for.fz\"",mName.c_str());
 
 	}
-	void getTorque()
+	void getTorque()const
 	{
 		fprintf(mFile,"\"%s.tor\"",mName.c_str());
 
 	}
-	void getTorqueX()
+	void getTorqueX()const
 	{
 		fprintf(mFile,"\"%s.tor.trx\"",mName.c_str());
 
 	}
-	void getTorqueY()
+	void getTorqueY()const
 	{
 		fprintf(mFile,"\"%s.tor.try\"",mName.c_str());
 
 	}
-	void getTorqueZ()
+	void getTorqueZ()const
 	{
 		fprintf(mFile,"\"%s.tor.trz\"",mName.c_str());
 
 	}
-	void getFieldData()
+	void getFieldData()const
 	{
 		fprintf(mFile,"\"%s.fld\"",mName.c_str());
 
 	}
-	void getFieldDataPosition()
+	void getFieldDataPosition()const
 	{
 		fprintf(mFile,"\"%s.fld.fdp\"",mName.c_str());
 
 	}
-	void getFieldDataVelocity()
+	void getFieldDataVelocity()const
 	{
 		fprintf(mFile,"\"%s.fld.fdv\"",mName.c_str());
 
 	}
-	void getFieldDataMass()
+	void getFieldDataMass()const
 	{
 		fprintf(mFile,"\"%s.fld.fdm\"",mName.c_str());
 
 	}
-	void getDeltaTime()
+	void getDeltaTime()const
 	{
 		fprintf(mFile,"\"%s.fld.dt\"",mName.c_str());
 
 	}
-	void getInputForce(size_t ifr_i)
+	void getInputForce(size_t ifr_i)const
 	{
 		fprintf(mFile,"\"%s.ifr[%i]\"",mName.c_str(),ifr_i);
 
 	}
-	void getInputForceType(size_t ift_i)
+	void getInputForceType(size_t ift_i)const
 	{
 		fprintf(mFile,"\"%s.ift[%i]\"",mName.c_str(),ift_i);
 
 	}
-	void getCollisionRecords(size_t crc_i)
+	void getCollisionRecords(size_t crc_i)const
 	{
 		fprintf(mFile,"\"%s.crc[%i]\"",mName.c_str(),crc_i);
 
 	}
-	void getGeneralForce()
+	void getGeneralForce()const
 	{
 		fprintf(mFile,"\"%s.gfr\"",mName.c_str());
 
 	}
-	void getOutputForce()
+	void getOutputForce()const
 	{
 		fprintf(mFile,"\"%s.gfr.ofr\"",mName.c_str());
 
 	}
-	void getOutputTorque()
+	void getOutputTorque()const
 	{
 		fprintf(mFile,"\"%s.gfr.otr\"",mName.c_str());
 
 	}
-	void getSolverId()
+	void getSolverId()const
 	{
 		fprintf(mFile,"\"%s.sid\"",mName.c_str());
 
 	}
-	void getBakeSimulationIndex()
+	void getBakeSimulationIndex()const
 	{
 		fprintf(mFile,"\"%s.bsi\"",mName.c_str());
 
 	}
-	void getShapeChanged()
+	void getShapeChanged()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getLockCenterOfMass()
+	void getLockCenterOfMass()const
 	{
 		fprintf(mFile,"\"%s.lcm\"",mName.c_str());
 
 	}
-	void getIgnore()
+	void getIgnore()const
 	{
 		fprintf(mFile,"\"%s.ign\"",mName.c_str());
 
 	}
-	void getCollisions()
+	void getCollisions()const
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
 
 	}
-	void getApplyForceAt()
+	void getApplyForceAt()const
 	{
 		fprintf(mFile,"\"%s.afa\"",mName.c_str());
 
 	}
-	void getDebugDraw()
+	void getDebugDraw()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
 protected:
-	RigidBody(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	RigidBody(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -32,7 +32,8 @@ public:
 	};
 public:
 	PolyTweakUV():PolyModifier(){}
-	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyTweakUV"){}
+	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyTweakUV", create){}
 	virtual ~PolyTweakUV(){}
 	void setUvTweak(size_t uvtk_i,const float2& uvtk)
 	{
@@ -54,17 +55,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startUvTweak(size_t uvtk_start,size_t uvtk_end)
+	void startUvTweak(size_t uvtk_start,size_t uvtk_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".uvtk[%i:%i]\"",uvtk_start,uvtk_end);
 
 	}
-	void appendUvTweak(float uvtk)
+	void appendUvTweak(float uvtk)const
 	{
 		fprintf(mFile," %f",uvtk);
 
 	}
-	void endUvTweak()
+	void endUvTweak()const
 	{
 		fprintf(mFile,";\n");
 
@@ -120,54 +121,54 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getUvTweak(size_t uvtk_i)
+	void getUvTweak(size_t uvtk_i)const
 	{
 		fprintf(mFile,"\"%s.uvtk[%i]\"",mName.c_str(),uvtk_i);
 
 	}
-	void getUvTweakU(size_t uvtk_i)
+	void getUvTweakU(size_t uvtk_i)const
 	{
 		fprintf(mFile,"\"%s.uvtk[%i].tu\"",mName.c_str(),uvtk_i);
 
 	}
-	void getUvTweakV(size_t uvtk_i)
+	void getUvTweakV(size_t uvtk_i)const
 	{
 		fprintf(mFile,"\"%s.uvtk[%i].tv\"",mName.c_str(),uvtk_i);
 
 	}
-	void getNewUV(size_t nuv_i)
+	void getNewUV(size_t nuv_i)const
 	{
 		fprintf(mFile,"\"%s.nuv[%i]\"",mName.c_str(),nuv_i);
 
 	}
-	void getFaceId(size_t nuv_i)
+	void getFaceId(size_t nuv_i)const
 	{
 		fprintf(mFile,"\"%s.nuv[%i].fid\"",mName.c_str(),nuv_i);
 
 	}
-	void getVertexId(size_t nuv_i)
+	void getVertexId(size_t nuv_i)const
 	{
 		fprintf(mFile,"\"%s.nuv[%i].vid\"",mName.c_str(),nuv_i);
 
 	}
-	void getNewUValue(size_t nuv_i)
+	void getNewUValue(size_t nuv_i)const
 	{
 		fprintf(mFile,"\"%s.nuv[%i].nu\"",mName.c_str(),nuv_i);
 
 	}
-	void getNewVValue(size_t nuv_i)
+	void getNewVValue(size_t nuv_i)const
 	{
 		fprintf(mFile,"\"%s.nuv[%i].nv\"",mName.c_str(),nuv_i);
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
 protected:
-	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyTweakUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

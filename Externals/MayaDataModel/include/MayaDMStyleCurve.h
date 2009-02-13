@@ -19,7 +19,8 @@ class StyleCurve : public AbstractBaseCreate
 public:
 public:
 	StyleCurve():AbstractBaseCreate(){}
-	StyleCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "styleCurve"){}
+	StyleCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "styleCurve", create){}
 	virtual ~StyleCurve(){}
 	void setStyle(unsigned int s)
 	{
@@ -27,19 +28,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".s\" %i;\n", s);
 
 	}
-	void getStyle()
+	void getStyle()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getOutCurve()
+	void getOutCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	StyleCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	StyleCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

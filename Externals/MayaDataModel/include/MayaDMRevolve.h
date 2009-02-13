@@ -19,7 +19,8 @@ class Revolve : public AbstractBaseCreate
 public:
 public:
 	Revolve():AbstractBaseCreate(){}
-	Revolve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "revolve"){}
+	Revolve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "revolve", create){}
 	virtual ~Revolve(){}
 	void setStartSweep(double ssw)
 	{
@@ -143,189 +144,189 @@ public:
 		fprintf(mFile,"\tsetAttr \".br\" %i;\n", br);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getStartSweep()
+	void getStartSweep()const
 	{
 		fprintf(mFile,"\"%s.ssw\"",mName.c_str());
 
 	}
-	void getEndSweep()
+	void getEndSweep()const
 	{
 		fprintf(mFile,"\"%s.esw\"",mName.c_str());
 
 	}
-	void getUseTolerance()
+	void getUseTolerance()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSections()
+	void getSections()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getAxis()
+	void getAxis()const
 	{
 		fprintf(mFile,"\"%s.ax\"",mName.c_str());
 
 	}
-	void getAxisX()
+	void getAxisX()const
 	{
 		fprintf(mFile,"\"%s.ax.axx\"",mName.c_str());
 
 	}
-	void getAxisY()
+	void getAxisY()const
 	{
 		fprintf(mFile,"\"%s.ax.axy\"",mName.c_str());
 
 	}
-	void getAxisZ()
+	void getAxisZ()const
 	{
 		fprintf(mFile,"\"%s.ax.axz\"",mName.c_str());
 
 	}
-	void getPivot()
+	void getPivot()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPivotX()
+	void getPivotX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPivotY()
+	void getPivotY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPivotZ()
+	void getPivotZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getAutoCorrectNormal()
+	void getAutoCorrectNormal()const
 	{
 		fprintf(mFile,"\"%s.acn\"",mName.c_str());
 
 	}
-	void getComputePivotAndAxis()
+	void getComputePivotAndAxis()const
 	{
 		fprintf(mFile,"\"%s.cpa\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRadiusAnchor()
+	void getRadiusAnchor()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getAxisChoice()
+	void getAxisChoice()const
 	{
 		fprintf(mFile,"\"%s.aco\"",mName.c_str());
 
 	}
-	void getBridge()
+	void getBridge()const
 	{
 		fprintf(mFile,"\"%s.br\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getBridgeCurve()
+	void getBridgeCurve()const
 	{
 		fprintf(mFile,"\"%s.bc\"",mName.c_str());
 
 	}
-	void getCompAxis()
+	void getCompAxis()const
 	{
 		fprintf(mFile,"\"%s.ca\"",mName.c_str());
 
 	}
-	void getCompAxisX()
+	void getCompAxisX()const
 	{
 		fprintf(mFile,"\"%s.ca.cax\"",mName.c_str());
 
 	}
-	void getCompAxisY()
+	void getCompAxisY()const
 	{
 		fprintf(mFile,"\"%s.ca.cay\"",mName.c_str());
 
 	}
-	void getCompAxisZ()
+	void getCompAxisZ()const
 	{
 		fprintf(mFile,"\"%s.ca.caz\"",mName.c_str());
 
 	}
-	void getCompPivot()
+	void getCompPivot()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getCompPivotX()
+	void getCompPivotX()const
 	{
 		fprintf(mFile,"\"%s.cp.cpx\"",mName.c_str());
 
 	}
-	void getCompPivotY()
+	void getCompPivotY()const
 	{
 		fprintf(mFile,"\"%s.cp.cpy\"",mName.c_str());
 
 	}
-	void getCompPivotZ()
+	void getCompPivotZ()const
 	{
 		fprintf(mFile,"\"%s.cp.cpz\"",mName.c_str());
 
 	}
-	void getCompAxisChoice()
+	void getCompAxisChoice()const
 	{
 		fprintf(mFile,"\"%s.cac\"",mName.c_str());
 
 	}
-	void getCompAnchor()
+	void getCompAnchor()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getCompAnchorX()
+	void getCompAnchorX()const
 	{
 		fprintf(mFile,"\"%s.cn.cnx\"",mName.c_str());
 
 	}
-	void getCompAnchorY()
+	void getCompAnchorY()const
 	{
 		fprintf(mFile,"\"%s.cn.cny\"",mName.c_str());
 
 	}
-	void getCompAnchorZ()
+	void getCompAnchorZ()const
 	{
 		fprintf(mFile,"\"%s.cn.cnz\"",mName.c_str());
 
 	}
 protected:
-	Revolve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Revolve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

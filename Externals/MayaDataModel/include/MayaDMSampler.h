@@ -58,7 +58,8 @@ public:
 	};
 public:
 	Sampler():DependNode(){}
-	Sampler(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "sampler"){}
+	Sampler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "sampler", create){}
 	virtual ~Sampler(){}
 	void setMinimum(double min)
 	{
@@ -135,79 +136,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".f.fd\" %f;\n", fd);
 
 	}
-	void getMinimum()
+	void getMinimum()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
 
 	}
-	void getMaximum()
+	void getMaximum()const
 	{
 		fprintf(mFile,"\"%s.max\"",mName.c_str());
 
 	}
-	void getStep()
+	void getStep()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getInvert()
+	void getInvert()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getValue(size_t v_i)
+	void getValue(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
-	void getFunction()
+	void getFunction()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getFunction_Raw()
+	void getFunction_Raw()const
 	{
 		fprintf(mFile,"\"%s.f.fr\"",mName.c_str());
 
 	}
-	void getFunction_Inmap(size_t fi_i)
+	void getFunction_Inmap(size_t fi_i)const
 	{
 		fprintf(mFile,"\"%s.f.fi[%i]\"",mName.c_str(),fi_i);
 
 	}
-	void getFunction_InmapTo(size_t fi_i)
+	void getFunction_InmapTo(size_t fi_i)const
 	{
 		fprintf(mFile,"\"%s.f.fi[%i].fit\"",mName.c_str(),fi_i);
 
 	}
-	void getFunction_InmapFrom(size_t fi_i)
+	void getFunction_InmapFrom(size_t fi_i)const
 	{
 		fprintf(mFile,"\"%s.f.fi[%i].fif\"",mName.c_str(),fi_i);
 
 	}
-	void getFunction_Outmap(size_t fo_i)
+	void getFunction_Outmap(size_t fo_i)const
 	{
 		fprintf(mFile,"\"%s.f.fo[%i]\"",mName.c_str(),fo_i);
 
 	}
-	void getFunction_OutmapTo(size_t fo_i)
+	void getFunction_OutmapTo(size_t fo_i)const
 	{
 		fprintf(mFile,"\"%s.f.fo[%i].fot\"",mName.c_str(),fo_i);
 
 	}
-	void getFunction_OutmapFrom(size_t fo_i)
+	void getFunction_OutmapFrom(size_t fo_i)const
 	{
 		fprintf(mFile,"\"%s.f.fo[%i].fof\"",mName.c_str(),fo_i);
 
 	}
-	void getFunction_Default()
+	void getFunction_Default()const
 	{
 		fprintf(mFile,"\"%s.f.fd\"",mName.c_str());
 
 	}
 protected:
-	Sampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Sampler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

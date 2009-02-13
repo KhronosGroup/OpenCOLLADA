@@ -32,7 +32,8 @@ public:
 	};
 public:
 	ScaleConstraint():Constraint(){}
-	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent=""):Constraint(file, name, parent, "scaleConstraint"){}
+	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Constraint(file, name, parent, "scaleConstraint", create){}
 	virtual ~ScaleConstraint(){}
 	void setTarget(size_t tg_i,const Target& tg)
 	{
@@ -113,109 +114,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".o.oz\" %f;\n", oz);
 
 	}
-	void getTarget(size_t tg_i)
+	void getTarget(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i]\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScale(size_t tg_i)
+	void getTargetScale(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScaleX(size_t tg_i)
+	void getTargetScaleX(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsx\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScaleY(size_t tg_i)
+	void getTargetScaleY(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsy\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetScaleZ(size_t tg_i)
+	void getTargetScaleZ(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].ts.tsz\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetParentMatrix(size_t tg_i)
+	void getTargetParentMatrix(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tpm\"",mName.c_str(),tg_i);
 
 	}
-	void getTargetWeight(size_t tg_i)
+	void getTargetWeight(size_t tg_i)const
 	{
 		fprintf(mFile,"\"%s.tg[%i].tw\"",mName.c_str(),tg_i);
 
 	}
-	void getConstraintParentInverseMatrix()
+	void getConstraintParentInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.cpim\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOffsetX()
+	void getOffsetX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOffsetY()
+	void getOffsetY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOffsetZ()
+	void getOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
-	void getConstraintScale()
+	void getConstraintScale()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getConstraintScaleX()
+	void getConstraintScaleX()const
 	{
 		fprintf(mFile,"\"%s.cs.csx\"",mName.c_str());
 
 	}
-	void getConstraintScaleY()
+	void getConstraintScaleY()const
 	{
 		fprintf(mFile,"\"%s.cs.csy\"",mName.c_str());
 
 	}
-	void getConstraintScaleZ()
+	void getConstraintScaleZ()const
 	{
 		fprintf(mFile,"\"%s.cs.csz\"",mName.c_str());
 
 	}
-	void getRestScale()
+	void getRestScale()const
 	{
 		fprintf(mFile,"\"%s.rs\"",mName.c_str());
 
 	}
-	void getRestScaleX()
+	void getRestScaleX()const
 	{
 		fprintf(mFile,"\"%s.rs.rsx\"",mName.c_str());
 
 	}
-	void getRestScaleY()
+	void getRestScaleY()const
 	{
 		fprintf(mFile,"\"%s.rs.rsy\"",mName.c_str());
 
 	}
-	void getRestScaleZ()
+	void getRestScaleZ()const
 	{
 		fprintf(mFile,"\"%s.rs.rsz\"",mName.c_str());
 
 	}
 protected:
-	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Constraint(file, name, parent, nodeType) {}
+	ScaleConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Constraint(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

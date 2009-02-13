@@ -19,7 +19,8 @@ class TimeToUnitConversion : public DependNode
 public:
 public:
 	TimeToUnitConversion():DependNode(){}
-	TimeToUnitConversion(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "timeToUnitConversion"){}
+	TimeToUnitConversion(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "timeToUnitConversion", create){}
 	virtual ~TimeToUnitConversion(){}
 	void setConversionFactor(double cf)
 	{
@@ -27,19 +28,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".cf\" %f;\n", cf);
 
 	}
-	void getInput()
+	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	TimeToUnitConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	TimeToUnitConversion(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

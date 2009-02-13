@@ -19,7 +19,8 @@ class PolyCollapseF : public PolyModifier
 public:
 public:
 	PolyCollapseF():PolyModifier(){}
-	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyCollapseF"){}
+	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyCollapseF", create){}
 	virtual ~PolyCollapseF(){}
 	void setUseAreaThreshold(bool uat)
 	{
@@ -33,19 +34,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".at\" %f;\n", at);
 
 	}
-	void getUseAreaThreshold()
+	void getUseAreaThreshold()const
 	{
 		fprintf(mFile,"\"%s.uat\"",mName.c_str());
 
 	}
-	void getAreaThreshold()
+	void getAreaThreshold()const
 	{
 		fprintf(mFile,"\"%s.at\"",mName.c_str());
 
 	}
 protected:
-	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyCollapseF(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

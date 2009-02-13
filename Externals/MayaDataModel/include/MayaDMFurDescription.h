@@ -175,7 +175,8 @@ public:
 	};
 public:
 	FurDescription():DependNode(){}
-	FurDescription(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurDescription"){}
+	FurDescription(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "FurDescription", create){}
 	virtual ~FurDescription(){}
 	void setLightModel(unsigned int lmd)
 	{
@@ -1015,964 +1016,964 @@ public:
 		fprintf(mFile,"\tsetAttr \".csnf\" %f;\n", csnf);
 
 	}
-	void getLightModel()
+	void getLightModel()const
 	{
 		fprintf(mFile,"\"%s.lmd\"",mName.c_str());
 
 	}
-	void getDagSetMembers()
+	void getDagSetMembers()const
 	{
 		fprintf(mFile,"\"%s.dsm\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvsn\"",mName.c_str());
 
 	}
-	void getFurGlobals()
+	void getFurGlobals()const
 	{
 		fprintf(mFile,"\"%s.fgc\"",mName.c_str());
 
 	}
-	void getBaseColor()
+	void getBaseColor()const
 	{
 		fprintf(mFile,"\"%s.dbc\"",mName.c_str());
 
 	}
-	void getBaseColorR()
+	void getBaseColorR()const
 	{
 		fprintf(mFile,"\"%s.dbcr\"",mName.c_str());
 
 	}
-	void getBaseColorG()
+	void getBaseColorG()const
 	{
 		fprintf(mFile,"\"%s.dbcg\"",mName.c_str());
 
 	}
-	void getBaseColorB()
+	void getBaseColorB()const
 	{
 		fprintf(mFile,"\"%s.dbcb\"",mName.c_str());
 
 	}
-	void getBaseColorMap()
+	void getBaseColorMap()const
 	{
 		fprintf(mFile,"\"%s.bcm\"",mName.c_str());
 
 	}
-	void getBaseColorMapUSamples()
+	void getBaseColorMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.bcmus\"",mName.c_str());
 
 	}
-	void getBaseColorMapVSamples()
+	void getBaseColorMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.bcmvs\"",mName.c_str());
 
 	}
-	void getBaseColorNoise()
+	void getBaseColorNoise()const
 	{
 		fprintf(mFile,"\"%s.bcn\"",mName.c_str());
 
 	}
-	void getTipColor()
+	void getTipColor()const
 	{
 		fprintf(mFile,"\"%s.dtc\"",mName.c_str());
 
 	}
-	void getTipColorR()
+	void getTipColorR()const
 	{
 		fprintf(mFile,"\"%s.dtcr\"",mName.c_str());
 
 	}
-	void getTipColorG()
+	void getTipColorG()const
 	{
 		fprintf(mFile,"\"%s.dtcg\"",mName.c_str());
 
 	}
-	void getTipColorB()
+	void getTipColorB()const
 	{
 		fprintf(mFile,"\"%s.dtcb\"",mName.c_str());
 
 	}
-	void getTipColorMap()
+	void getTipColorMap()const
 	{
 		fprintf(mFile,"\"%s.tcm\"",mName.c_str());
 
 	}
-	void getTipColorMapUSamples()
+	void getTipColorMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.tcmus\"",mName.c_str());
 
 	}
-	void getTipColorMapVSamples()
+	void getTipColorMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.tcmvs\"",mName.c_str());
 
 	}
-	void getTipColorNoise()
+	void getTipColorNoise()const
 	{
 		fprintf(mFile,"\"%s.tcn\"",mName.c_str());
 
 	}
-	void getBaseAmbientColor()
+	void getBaseAmbientColor()const
 	{
 		fprintf(mFile,"\"%s.dbac\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorR()
+	void getBaseAmbientColorR()const
 	{
 		fprintf(mFile,"\"%s.dbacr\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorG()
+	void getBaseAmbientColorG()const
 	{
 		fprintf(mFile,"\"%s.dbacg\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorB()
+	void getBaseAmbientColorB()const
 	{
 		fprintf(mFile,"\"%s.dbacb\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorMap()
+	void getBaseAmbientColorMap()const
 	{
 		fprintf(mFile,"\"%s.bacm\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorMapUSamples()
+	void getBaseAmbientColorMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.bacmus\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorMapVSamples()
+	void getBaseAmbientColorMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.bacmvs\"",mName.c_str());
 
 	}
-	void getBaseAmbientColorNoise()
+	void getBaseAmbientColorNoise()const
 	{
 		fprintf(mFile,"\"%s.bacn\"",mName.c_str());
 
 	}
-	void getTipAmbientColor()
+	void getTipAmbientColor()const
 	{
 		fprintf(mFile,"\"%s.dtac\"",mName.c_str());
 
 	}
-	void getTipAmbientColorR()
+	void getTipAmbientColorR()const
 	{
 		fprintf(mFile,"\"%s.dtacr\"",mName.c_str());
 
 	}
-	void getTipAmbientColorG()
+	void getTipAmbientColorG()const
 	{
 		fprintf(mFile,"\"%s.dtacg\"",mName.c_str());
 
 	}
-	void getTipAmbientColorB()
+	void getTipAmbientColorB()const
 	{
 		fprintf(mFile,"\"%s.dtacb\"",mName.c_str());
 
 	}
-	void getTipAmbientColorMap()
+	void getTipAmbientColorMap()const
 	{
 		fprintf(mFile,"\"%s.tacm\"",mName.c_str());
 
 	}
-	void getTipAmbientColorMapUSamples()
+	void getTipAmbientColorMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.tacmus\"",mName.c_str());
 
 	}
-	void getTipAmbientColorMapVSamples()
+	void getTipAmbientColorMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.tacmvs\"",mName.c_str());
 
 	}
-	void getTipAmbientColorNoise()
+	void getTipAmbientColorNoise()const
 	{
 		fprintf(mFile,"\"%s.tacn\"",mName.c_str());
 
 	}
-	void getSpecularColor()
+	void getSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.dsc\"",mName.c_str());
 
 	}
-	void getSpecularColorR()
+	void getSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.dscr\"",mName.c_str());
 
 	}
-	void getSpecularColorG()
+	void getSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.dscg\"",mName.c_str());
 
 	}
-	void getSpecularColorB()
+	void getSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.dscb\"",mName.c_str());
 
 	}
-	void getSpecularColorMap()
+	void getSpecularColorMap()const
 	{
 		fprintf(mFile,"\"%s.scm\"",mName.c_str());
 
 	}
-	void getSpecularColorMapUSamples()
+	void getSpecularColorMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.scmus\"",mName.c_str());
 
 	}
-	void getSpecularColorMapVSamples()
+	void getSpecularColorMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.scmvs\"",mName.c_str());
 
 	}
-	void getSpecularColorNoise()
+	void getSpecularColorNoise()const
 	{
 		fprintf(mFile,"\"%s.scn\"",mName.c_str());
 
 	}
-	void getLength()
+	void getLength()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getLengthMap()
+	void getLengthMap()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
-	void getLengthMapUSamples()
+	void getLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.lmus\"",mName.c_str());
 
 	}
-	void getLengthMapVSamples()
+	void getLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.lmvs\"",mName.c_str());
 
 	}
-	void getLengthMapOffset()
+	void getLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.lmo\"",mName.c_str());
 
 	}
-	void getLengthMapMult()
+	void getLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.lmm\"",mName.c_str());
 
 	}
-	void getLengthNoise()
+	void getLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.ln\"",mName.c_str());
 
 	}
-	void getSpecularSharpness()
+	void getSpecularSharpness()const
 	{
 		fprintf(mFile,"\"%s.dss\"",mName.c_str());
 
 	}
-	void getSpecularSharpnessMap()
+	void getSpecularSharpnessMap()const
 	{
 		fprintf(mFile,"\"%s.ssm\"",mName.c_str());
 
 	}
-	void getSpecularSharpnessMapUSamples()
+	void getSpecularSharpnessMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.ssmus\"",mName.c_str());
 
 	}
-	void getSpecularSharpnessMapVSamples()
+	void getSpecularSharpnessMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.ssmvs\"",mName.c_str());
 
 	}
-	void getSpecularSharpnessMapOffset()
+	void getSpecularSharpnessMapOffset()const
 	{
 		fprintf(mFile,"\"%s.ssmo\"",mName.c_str());
 
 	}
-	void getSpecularSharpnessMapMult()
+	void getSpecularSharpnessMapMult()const
 	{
 		fprintf(mFile,"\"%s.ssmm\"",mName.c_str());
 
 	}
-	void getSpecularSharpnessNoise()
+	void getSpecularSharpnessNoise()const
 	{
 		fprintf(mFile,"\"%s.ssn\"",mName.c_str());
 
 	}
-	void getBaldness()
+	void getBaldness()const
 	{
 		fprintf(mFile,"\"%s.db\"",mName.c_str());
 
 	}
-	void getBaldnessMap()
+	void getBaldnessMap()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
-	void getBaldnessMapUSamples()
+	void getBaldnessMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.bmus\"",mName.c_str());
 
 	}
-	void getBaldnessMapVSamples()
+	void getBaldnessMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.bmvs\"",mName.c_str());
 
 	}
-	void getBaldnessMapOffset()
+	void getBaldnessMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bmo\"",mName.c_str());
 
 	}
-	void getBaldnessMapMult()
+	void getBaldnessMapMult()const
 	{
 		fprintf(mFile,"\"%s.bmm\"",mName.c_str());
 
 	}
-	void getBaldnessNoise()
+	void getBaldnessNoise()const
 	{
 		fprintf(mFile,"\"%s.bn\"",mName.c_str());
 
 	}
-	void getBaseOpacity()
+	void getBaseOpacity()const
 	{
 		fprintf(mFile,"\"%s.dbo\"",mName.c_str());
 
 	}
-	void getBaseOpacityMap()
+	void getBaseOpacityMap()const
 	{
 		fprintf(mFile,"\"%s.bom\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapUSamples()
+	void getBaseOpacityMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.bomus\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapVSamples()
+	void getBaseOpacityMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.bomvs\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapOffset()
+	void getBaseOpacityMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bomo\"",mName.c_str());
 
 	}
-	void getBaseOpacityMapMult()
+	void getBaseOpacityMapMult()const
 	{
 		fprintf(mFile,"\"%s.bomm\"",mName.c_str());
 
 	}
-	void getBaseOpacityNoise()
+	void getBaseOpacityNoise()const
 	{
 		fprintf(mFile,"\"%s.bon\"",mName.c_str());
 
 	}
-	void getTipOpacity()
+	void getTipOpacity()const
 	{
 		fprintf(mFile,"\"%s.dto\"",mName.c_str());
 
 	}
-	void getTipOpacityMap()
+	void getTipOpacityMap()const
 	{
 		fprintf(mFile,"\"%s.tom\"",mName.c_str());
 
 	}
-	void getTipOpacityMapUSamples()
+	void getTipOpacityMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.tomus\"",mName.c_str());
 
 	}
-	void getTipOpacityMapVSamples()
+	void getTipOpacityMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.tomvs\"",mName.c_str());
 
 	}
-	void getTipOpacityMapOffset()
+	void getTipOpacityMapOffset()const
 	{
 		fprintf(mFile,"\"%s.tomo\"",mName.c_str());
 
 	}
-	void getTipOpacityMapMult()
+	void getTipOpacityMapMult()const
 	{
 		fprintf(mFile,"\"%s.tomm\"",mName.c_str());
 
 	}
-	void getTipOpacityNoise()
+	void getTipOpacityNoise()const
 	{
 		fprintf(mFile,"\"%s.ton\"",mName.c_str());
 
 	}
-	void getBaseWidth()
+	void getBaseWidth()const
 	{
 		fprintf(mFile,"\"%s.dbw\"",mName.c_str());
 
 	}
-	void getBaseWidthMap()
+	void getBaseWidthMap()const
 	{
 		fprintf(mFile,"\"%s.bwm\"",mName.c_str());
 
 	}
-	void getBaseWidthMapUSamples()
+	void getBaseWidthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.bwmus\"",mName.c_str());
 
 	}
-	void getBaseWidthMapVSamples()
+	void getBaseWidthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.bwmvs\"",mName.c_str());
 
 	}
-	void getBaseWidthMapOffset()
+	void getBaseWidthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bwmo\"",mName.c_str());
 
 	}
-	void getBaseWidthMapMult()
+	void getBaseWidthMapMult()const
 	{
 		fprintf(mFile,"\"%s.bwmm\"",mName.c_str());
 
 	}
-	void getBaseWidthNoise()
+	void getBaseWidthNoise()const
 	{
 		fprintf(mFile,"\"%s.bwn\"",mName.c_str());
 
 	}
-	void getTipWidth()
+	void getTipWidth()const
 	{
 		fprintf(mFile,"\"%s.dtw\"",mName.c_str());
 
 	}
-	void getTipWidthMap()
+	void getTipWidthMap()const
 	{
 		fprintf(mFile,"\"%s.twm\"",mName.c_str());
 
 	}
-	void getTipWidthMapUSamples()
+	void getTipWidthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.twmus\"",mName.c_str());
 
 	}
-	void getTipWidthMapVSamples()
+	void getTipWidthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.twmvs\"",mName.c_str());
 
 	}
-	void getTipWidthMapOffset()
+	void getTipWidthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.twmo\"",mName.c_str());
 
 	}
-	void getTipWidthMapMult()
+	void getTipWidthMapMult()const
 	{
 		fprintf(mFile,"\"%s.twmm\"",mName.c_str());
 
 	}
-	void getTipWidthNoise()
+	void getTipWidthNoise()const
 	{
 		fprintf(mFile,"\"%s.twn\"",mName.c_str());
 
 	}
-	void getSegments()
+	void getSegments()const
 	{
 		fprintf(mFile,"\"%s.dsg\"",mName.c_str());
 
 	}
-	void getSegmentsMap()
+	void getSegmentsMap()const
 	{
 		fprintf(mFile,"\"%s.sgm\"",mName.c_str());
 
 	}
-	void getSegmentsMapUSamples()
+	void getSegmentsMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.sgmus\"",mName.c_str());
 
 	}
-	void getSegmentsMapVSamples()
+	void getSegmentsMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.sgmvs\"",mName.c_str());
 
 	}
-	void getSegmentsMapOffset()
+	void getSegmentsMapOffset()const
 	{
 		fprintf(mFile,"\"%s.sgmo\"",mName.c_str());
 
 	}
-	void getSegmentsMapMult()
+	void getSegmentsMapMult()const
 	{
 		fprintf(mFile,"\"%s.sgmm\"",mName.c_str());
 
 	}
-	void getSegmentsNoise()
+	void getSegmentsNoise()const
 	{
 		fprintf(mFile,"\"%s.sgn\"",mName.c_str());
 
 	}
-	void getBaseCurl()
+	void getBaseCurl()const
 	{
 		fprintf(mFile,"\"%s.dbcl\"",mName.c_str());
 
 	}
-	void getBaseCurlMap()
+	void getBaseCurlMap()const
 	{
 		fprintf(mFile,"\"%s.bclm\"",mName.c_str());
 
 	}
-	void getBaseCurlMapUSamples()
+	void getBaseCurlMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.bclmus\"",mName.c_str());
 
 	}
-	void getBaseCurlMapVSamples()
+	void getBaseCurlMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.bclmvs\"",mName.c_str());
 
 	}
-	void getBaseCurlMapOffset()
+	void getBaseCurlMapOffset()const
 	{
 		fprintf(mFile,"\"%s.bclmo\"",mName.c_str());
 
 	}
-	void getBaseCurlMapMult()
+	void getBaseCurlMapMult()const
 	{
 		fprintf(mFile,"\"%s.bclmm\"",mName.c_str());
 
 	}
-	void getBaseCurlNoise()
+	void getBaseCurlNoise()const
 	{
 		fprintf(mFile,"\"%s.bcln\"",mName.c_str());
 
 	}
-	void getTipCurl()
+	void getTipCurl()const
 	{
 		fprintf(mFile,"\"%s.dtcl\"",mName.c_str());
 
 	}
-	void getTipCurlMap()
+	void getTipCurlMap()const
 	{
 		fprintf(mFile,"\"%s.tclm\"",mName.c_str());
 
 	}
-	void getTipCurlMapUSamples()
+	void getTipCurlMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.tclmus\"",mName.c_str());
 
 	}
-	void getTipCurlMapVSamples()
+	void getTipCurlMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.tclmvs\"",mName.c_str());
 
 	}
-	void getTipCurlMapOffset()
+	void getTipCurlMapOffset()const
 	{
 		fprintf(mFile,"\"%s.tclmo\"",mName.c_str());
 
 	}
-	void getTipCurlMapMult()
+	void getTipCurlMapMult()const
 	{
 		fprintf(mFile,"\"%s.tclmm\"",mName.c_str());
 
 	}
-	void getTipCurlNoise()
+	void getTipCurlNoise()const
 	{
 		fprintf(mFile,"\"%s.tcln\"",mName.c_str());
 
 	}
-	void getScraggle()
+	void getScraggle()const
 	{
 		fprintf(mFile,"\"%s.ds\"",mName.c_str());
 
 	}
-	void getScraggleMap()
+	void getScraggleMap()const
 	{
 		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
-	void getScraggleMapUSamples()
+	void getScraggleMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.smus\"",mName.c_str());
 
 	}
-	void getScraggleMapVSamples()
+	void getScraggleMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.smvs\"",mName.c_str());
 
 	}
-	void getScraggleMapOffset()
+	void getScraggleMapOffset()const
 	{
 		fprintf(mFile,"\"%s.smo\"",mName.c_str());
 
 	}
-	void getScraggleMapMult()
+	void getScraggleMapMult()const
 	{
 		fprintf(mFile,"\"%s.smm\"",mName.c_str());
 
 	}
-	void getScraggleNoise()
+	void getScraggleNoise()const
 	{
 		fprintf(mFile,"\"%s.sn\"",mName.c_str());
 
 	}
-	void getScraggleFrequency()
+	void getScraggleFrequency()const
 	{
 		fprintf(mFile,"\"%s.dsf\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMap()
+	void getScraggleFrequencyMap()const
 	{
 		fprintf(mFile,"\"%s.sfm\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapUSamples()
+	void getScraggleFrequencyMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.sfmus\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapVSamples()
+	void getScraggleFrequencyMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.sfmvs\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapOffset()
+	void getScraggleFrequencyMapOffset()const
 	{
 		fprintf(mFile,"\"%s.sfmo\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyMapMult()
+	void getScraggleFrequencyMapMult()const
 	{
 		fprintf(mFile,"\"%s.sfmm\"",mName.c_str());
 
 	}
-	void getScraggleFrequencyNoise()
+	void getScraggleFrequencyNoise()const
 	{
 		fprintf(mFile,"\"%s.sfn\"",mName.c_str());
 
 	}
-	void getScraggleCorrelation()
+	void getScraggleCorrelation()const
 	{
 		fprintf(mFile,"\"%s.dsco\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMap()
+	void getScraggleCorrelationMap()const
 	{
 		fprintf(mFile,"\"%s.scom\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapUSamples()
+	void getScraggleCorrelationMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.scomus\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapVSamples()
+	void getScraggleCorrelationMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.scomvs\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapOffset()
+	void getScraggleCorrelationMapOffset()const
 	{
 		fprintf(mFile,"\"%s.scomo\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationMapMult()
+	void getScraggleCorrelationMapMult()const
 	{
 		fprintf(mFile,"\"%s.scomm\"",mName.c_str());
 
 	}
-	void getScraggleCorrelationNoise()
+	void getScraggleCorrelationNoise()const
 	{
 		fprintf(mFile,"\"%s.scon\"",mName.c_str());
 
 	}
-	void getInclination()
+	void getInclination()const
 	{
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
 
 	}
-	void getInclinationMap()
+	void getInclinationMap()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getInclinationMapUSamples()
+	void getInclinationMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.imus\"",mName.c_str());
 
 	}
-	void getInclinationMapVSamples()
+	void getInclinationMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.imvs\"",mName.c_str());
 
 	}
-	void getInclinationMapOffset()
+	void getInclinationMapOffset()const
 	{
 		fprintf(mFile,"\"%s.imo\"",mName.c_str());
 
 	}
-	void getInclinationMapMult()
+	void getInclinationMapMult()const
 	{
 		fprintf(mFile,"\"%s.imm\"",mName.c_str());
 
 	}
-	void getInclinationNoise()
+	void getInclinationNoise()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getRoll()
+	void getRoll()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getRollMap()
+	void getRollMap()const
 	{
 		fprintf(mFile,"\"%s.rm\"",mName.c_str());
 
 	}
-	void getRollMapUSamples()
+	void getRollMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.rmus\"",mName.c_str());
 
 	}
-	void getRollMapVSamples()
+	void getRollMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.rmvs\"",mName.c_str());
 
 	}
-	void getRollMapOffset()
+	void getRollMapOffset()const
 	{
 		fprintf(mFile,"\"%s.rmo\"",mName.c_str());
 
 	}
-	void getRollMapMult()
+	void getRollMapMult()const
 	{
 		fprintf(mFile,"\"%s.rmm\"",mName.c_str());
 
 	}
-	void getRollNoise()
+	void getRollNoise()const
 	{
 		fprintf(mFile,"\"%s.rn\"",mName.c_str());
 
 	}
-	void getPolar()
+	void getPolar()const
 	{
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
-	void getPolarMap()
+	void getPolarMap()const
 	{
 		fprintf(mFile,"\"%s.pm\"",mName.c_str());
 
 	}
-	void getPolarMapUSamples()
+	void getPolarMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.pmus\"",mName.c_str());
 
 	}
-	void getPolarMapVSamples()
+	void getPolarMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.pmvs\"",mName.c_str());
 
 	}
-	void getPolarMapOffset()
+	void getPolarMapOffset()const
 	{
 		fprintf(mFile,"\"%s.pmo\"",mName.c_str());
 
 	}
-	void getPolarMapMult()
+	void getPolarMapMult()const
 	{
 		fprintf(mFile,"\"%s.pmm\"",mName.c_str());
 
 	}
-	void getPolarNoise()
+	void getPolarNoise()const
 	{
 		fprintf(mFile,"\"%s.pn\"",mName.c_str());
 
 	}
-	void getAttraction()
+	void getAttraction()const
 	{
 		fprintf(mFile,"\"%s.dat\"",mName.c_str());
 
 	}
-	void getAttractionMap()
+	void getAttractionMap()const
 	{
 		fprintf(mFile,"\"%s.atm\"",mName.c_str());
 
 	}
-	void getAttractionMapUSamples()
+	void getAttractionMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.atmus\"",mName.c_str());
 
 	}
-	void getAttractionMapVSamples()
+	void getAttractionMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.atmvs\"",mName.c_str());
 
 	}
-	void getAttractionMapOffset()
+	void getAttractionMapOffset()const
 	{
 		fprintf(mFile,"\"%s.atmo\"",mName.c_str());
 
 	}
-	void getAttractionMapMult()
+	void getAttractionMapMult()const
 	{
 		fprintf(mFile,"\"%s.atmm\"",mName.c_str());
 
 	}
-	void getAttractionNoise()
+	void getAttractionNoise()const
 	{
 		fprintf(mFile,"\"%s.atn\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.dofs\"",mName.c_str());
 
 	}
-	void getOffsetMap()
+	void getOffsetMap()const
 	{
 		fprintf(mFile,"\"%s.ofsm\"",mName.c_str());
 
 	}
-	void getOffsetMapUSamples()
+	void getOffsetMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.ofsmus\"",mName.c_str());
 
 	}
-	void getOffsetMapVSamples()
+	void getOffsetMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.ofsmvs\"",mName.c_str());
 
 	}
-	void getOffsetMapOffset()
+	void getOffsetMapOffset()const
 	{
 		fprintf(mFile,"\"%s.ofsmo\"",mName.c_str());
 
 	}
-	void getOffsetMapMult()
+	void getOffsetMapMult()const
 	{
 		fprintf(mFile,"\"%s.ofsmm\"",mName.c_str());
 
 	}
-	void getOffsetNoise()
+	void getOffsetNoise()const
 	{
 		fprintf(mFile,"\"%s.ofsn\"",mName.c_str());
 
 	}
-	void getClumping()
+	void getClumping()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getClumpingMap()
+	void getClumpingMap()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
-	void getClumpingMapUSamples()
+	void getClumpingMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.cmus\"",mName.c_str());
 
 	}
-	void getClumpingMapVSamples()
+	void getClumpingMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.cmvs\"",mName.c_str());
 
 	}
-	void getClumpingMapOffset()
+	void getClumpingMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cmo\"",mName.c_str());
 
 	}
-	void getClumpingMapMult()
+	void getClumpingMapMult()const
 	{
 		fprintf(mFile,"\"%s.cmm\"",mName.c_str());
 
 	}
-	void getClumpingNoise()
+	void getClumpingNoise()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getClumpingFrequency()
+	void getClumpingFrequency()const
 	{
 		fprintf(mFile,"\"%s.dcf\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMap()
+	void getClumpingFrequencyMap()const
 	{
 		fprintf(mFile,"\"%s.cfm\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapUSamples()
+	void getClumpingFrequencyMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.cfmus\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapVSamples()
+	void getClumpingFrequencyMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.cfmvs\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapOffset()
+	void getClumpingFrequencyMapOffset()const
 	{
 		fprintf(mFile,"\"%s.cfmo\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyMapMult()
+	void getClumpingFrequencyMapMult()const
 	{
 		fprintf(mFile,"\"%s.cfmm\"",mName.c_str());
 
 	}
-	void getClumpingFrequencyNoise()
+	void getClumpingFrequencyNoise()const
 	{
 		fprintf(mFile,"\"%s.cfn\"",mName.c_str());
 
 	}
-	void getClumpShape()
+	void getClumpShape()const
 	{
 		fprintf(mFile,"\"%s.dcs\"",mName.c_str());
 
 	}
-	void getClumpShapeMap()
+	void getClumpShapeMap()const
 	{
 		fprintf(mFile,"\"%s.csm\"",mName.c_str());
 
 	}
-	void getClumpShapeMapUSamples()
+	void getClumpShapeMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.csmus\"",mName.c_str());
 
 	}
-	void getClumpShapeMapVSamples()
+	void getClumpShapeMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.csmvs\"",mName.c_str());
 
 	}
-	void getClumpShapeMapOffset()
+	void getClumpShapeMapOffset()const
 	{
 		fprintf(mFile,"\"%s.csmo\"",mName.c_str());
 
 	}
-	void getClumpShapeMapMult()
+	void getClumpShapeMapMult()const
 	{
 		fprintf(mFile,"\"%s.csmm\"",mName.c_str());
 
 	}
-	void getClumpShapeNoise()
+	void getClumpShapeNoise()const
 	{
 		fprintf(mFile,"\"%s.csn\"",mName.c_str());
 
 	}
 protected:
-	FurDescription(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FurDescription(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

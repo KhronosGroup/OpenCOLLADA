@@ -29,7 +29,8 @@ public:
 	};
 public:
 	Jiggle():WeightGeometryFilter(){}
-	Jiggle(FILE* file,const std::string& name,const std::string& parent=""):WeightGeometryFilter(file, name, parent, "jiggle"){}
+	Jiggle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:WeightGeometryFilter(file, name, parent, "jiggle", create){}
 	virtual ~Jiggle(){}
 	void setEnable(unsigned int ebl)
 	{
@@ -85,64 +86,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".bias\" %f;\n", bias);
 
 	}
-	void getDiskCache()
+	void getDiskCache()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.ebl\"",mName.c_str());
 
 	}
-	void getIgnoreTransform()
+	void getIgnoreTransform()const
 	{
 		fprintf(mFile,"\"%s.it\"",mName.c_str());
 
 	}
-	void getForceAlongNormal()
+	void getForceAlongNormal()const
 	{
 		fprintf(mFile,"\"%s.fan\"",mName.c_str());
 
 	}
-	void getForceOnTangent()
+	void getForceOnTangent()const
 	{
 		fprintf(mFile,"\"%s.fot\"",mName.c_str());
 
 	}
-	void getMotionMultiplier()
+	void getMotionMultiplier()const
 	{
 		fprintf(mFile,"\"%s.mm\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.sf\"",mName.c_str());
 
 	}
-	void getDamping()
+	void getDamping()const
 	{
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
-	void getJiggleWeight()
+	void getJiggleWeight()const
 	{
 		fprintf(mFile,"\"%s.jw\"",mName.c_str());
 
 	}
-	void getDirectionBias()
+	void getDirectionBias()const
 	{
 		fprintf(mFile,"\"%s.bias\"",mName.c_str());
 
 	}
 protected:
-	Jiggle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:WeightGeometryFilter(file, name, parent, nodeType) {}
+	Jiggle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:WeightGeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

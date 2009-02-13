@@ -52,7 +52,8 @@ public:
 	};
 public:
 	Follicle():Shape(){}
-	Follicle(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "follicle"){}
+	Follicle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "follicle", create){}
 	virtual ~Follicle(){}
 	void setParameterU(double pu)
 	{
@@ -324,354 +325,354 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInputMesh()
+	void getInputMesh()const
 	{
 		fprintf(mFile,"\"%s.inm\"",mName.c_str());
 
 	}
-	void getInputWorldMatrix()
+	void getInputWorldMatrix()const
 	{
 		fprintf(mFile,"\"%s.iwm\"",mName.c_str());
 
 	}
-	void getParameterU()
+	void getParameterU()const
 	{
 		fprintf(mFile,"\"%s.pu\"",mName.c_str());
 
 	}
-	void getParameterV()
+	void getParameterV()const
 	{
 		fprintf(mFile,"\"%s.pv\"",mName.c_str());
 
 	}
-	void getStartPosition()
+	void getStartPosition()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getRestPosition()
+	void getRestPosition()const
 	{
 		fprintf(mFile,"\"%s.rp\"",mName.c_str());
 
 	}
-	void getCurrentPosition()
+	void getCurrentPosition()const
 	{
 		fprintf(mFile,"\"%s.crp\"",mName.c_str());
 
 	}
-	void getRestPose()
+	void getRestPose()const
 	{
 		fprintf(mFile,"\"%s.rsp\"",mName.c_str());
 
 	}
-	void getPointLock()
+	void getPointLock()const
 	{
 		fprintf(mFile,"\"%s.ptl\"",mName.c_str());
 
 	}
-	void getSimulationMethod()
+	void getSimulationMethod()const
 	{
 		fprintf(mFile,"\"%s.sim\"",mName.c_str());
 
 	}
-	void getStartDirection()
+	void getStartDirection()const
 	{
 		fprintf(mFile,"\"%s.sdr\"",mName.c_str());
 
 	}
-	void getFlipDirection()
+	void getFlipDirection()const
 	{
 		fprintf(mFile,"\"%s.fld\"",mName.c_str());
 
 	}
-	void getHairSysGravity()
+	void getHairSysGravity()const
 	{
 		fprintf(mFile,"\"%s.hsg\"",mName.c_str());
 
 	}
-	void getHairSysStiffness()
+	void getHairSysStiffness()const
 	{
 		fprintf(mFile,"\"%s.hss\"",mName.c_str());
 
 	}
-	void getOverrideDynamics()
+	void getOverrideDynamics()const
 	{
 		fprintf(mFile,"\"%s.ovd\"",mName.c_str());
 
 	}
-	void getCollide()
+	void getCollide()const
 	{
 		fprintf(mFile,"\"%s.cld\"",mName.c_str());
 
 	}
-	void getDamp()
+	void getDamp()const
 	{
 		fprintf(mFile,"\"%s.dmp\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.stf\"",mName.c_str());
 
 	}
-	void getStiffnessScale(size_t sts_i)
+	void getStiffnessScale(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i]\"",mName.c_str(),sts_i);
 
 	}
-	void getStiffnessScale_Position(size_t sts_i)
+	void getStiffnessScale_Position(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsp\"",mName.c_str(),sts_i);
 
 	}
-	void getStiffnessScale_FloatValue(size_t sts_i)
+	void getStiffnessScale_FloatValue(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsfv\"",mName.c_str(),sts_i);
 
 	}
-	void getStiffnessScale_Interp(size_t sts_i)
+	void getStiffnessScale_Interp(size_t sts_i)const
 	{
 		fprintf(mFile,"\"%s.sts[%i].stsi\"",mName.c_str(),sts_i);
 
 	}
-	void getLengthFlex()
+	void getLengthFlex()const
 	{
 		fprintf(mFile,"\"%s.lfl\"",mName.c_str());
 
 	}
-	void getClumpWidthMult()
+	void getClumpWidthMult()const
 	{
 		fprintf(mFile,"\"%s.cwm\"",mName.c_str());
 
 	}
-	void getClumpWidthScale(size_t cws_i)
+	void getClumpWidthScale(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i]\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpWidthScale_Position(size_t cws_i)
+	void getClumpWidthScale_Position(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsp\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpWidthScale_FloatValue(size_t cws_i)
+	void getClumpWidthScale_FloatValue(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsfv\"",mName.c_str(),cws_i);
 
 	}
-	void getClumpWidthScale_Interp(size_t cws_i)
+	void getClumpWidthScale_Interp(size_t cws_i)const
 	{
 		fprintf(mFile,"\"%s.cws[%i].cwsi\"",mName.c_str(),cws_i);
 
 	}
-	void getStartCurveAttract()
+	void getStartCurveAttract()const
 	{
 		fprintf(mFile,"\"%s.sct\"",mName.c_str());
 
 	}
-	void getAttractionScale(size_t ats_i)
+	void getAttractionScale(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i]\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionScale_Position(size_t ats_i)
+	void getAttractionScale_Position(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsp\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionScale_FloatValue(size_t ats_i)
+	void getAttractionScale_FloatValue(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsfv\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionScale_Interp(size_t ats_i)
+	void getAttractionScale_Interp(size_t ats_i)const
 	{
 		fprintf(mFile,"\"%s.ats[%i].atsi\"",mName.c_str(),ats_i);
 
 	}
-	void getAttractionDamp()
+	void getAttractionDamp()const
 	{
 		fprintf(mFile,"\"%s.ad\"",mName.c_str());
 
 	}
-	void getDensityMult()
+	void getDensityMult()const
 	{
 		fprintf(mFile,"\"%s.dml\"",mName.c_str());
 
 	}
-	void getCurlMult()
+	void getCurlMult()const
 	{
 		fprintf(mFile,"\"%s.cml\"",mName.c_str());
 
 	}
-	void getClumpTwistOffset()
+	void getClumpTwistOffset()const
 	{
 		fprintf(mFile,"\"%s.ctf\"",mName.c_str());
 
 	}
-	void getBraid()
+	void getBraid()const
 	{
 		fprintf(mFile,"\"%s.brd\"",mName.c_str());
 
 	}
-	void getColorBlend()
+	void getColorBlend()const
 	{
 		fprintf(mFile,"\"%s.cbl\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.cl.cr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.cl.cg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.cl.cb\"",mName.c_str());
 
 	}
-	void getFixedSegmentLength()
+	void getFixedSegmentLength()const
 	{
 		fprintf(mFile,"\"%s.fsl\"",mName.c_str());
 
 	}
-	void getSegmentLength()
+	void getSegmentLength()const
 	{
 		fprintf(mFile,"\"%s.sgl\"",mName.c_str());
 
 	}
-	void getSampleDensity()
+	void getSampleDensity()const
 	{
 		fprintf(mFile,"\"%s.sdn\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.dgr\"",mName.c_str());
 
 	}
-	void getClumpWidth()
+	void getClumpWidth()const
 	{
 		fprintf(mFile,"\"%s.cw\"",mName.c_str());
 
 	}
-	void getOutTranslate()
+	void getOutTranslate()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutTranslateX()
+	void getOutTranslateX()const
 	{
 		fprintf(mFile,"\"%s.ot.otx\"",mName.c_str());
 
 	}
-	void getOutTranslateY()
+	void getOutTranslateY()const
 	{
 		fprintf(mFile,"\"%s.ot.oty\"",mName.c_str());
 
 	}
-	void getOutTranslateZ()
+	void getOutTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.ot.otz\"",mName.c_str());
 
 	}
-	void getOutRotate()
+	void getOutRotate()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getOutRotateX()
+	void getOutRotateX()const
 	{
 		fprintf(mFile,"\"%s.or.orx\"",mName.c_str());
 
 	}
-	void getOutRotateY()
+	void getOutRotateY()const
 	{
 		fprintf(mFile,"\"%s.or.ory\"",mName.c_str());
 
 	}
-	void getOutRotateZ()
+	void getOutRotateZ()const
 	{
 		fprintf(mFile,"\"%s.or.orz\"",mName.c_str());
 
 	}
-	void getOutTangent()
+	void getOutTangent()const
 	{
 		fprintf(mFile,"\"%s.otn\"",mName.c_str());
 
 	}
-	void getOutTangentX()
+	void getOutTangentX()const
 	{
 		fprintf(mFile,"\"%s.otn.otnx\"",mName.c_str());
 
 	}
-	void getOutTangentY()
+	void getOutTangentY()const
 	{
 		fprintf(mFile,"\"%s.otn.otny\"",mName.c_str());
 
 	}
-	void getOutTangentZ()
+	void getOutTangentZ()const
 	{
 		fprintf(mFile,"\"%s.otn.otnz\"",mName.c_str());
 
 	}
-	void getOutNormal()
+	void getOutNormal()const
 	{
 		fprintf(mFile,"\"%s.onm\"",mName.c_str());
 
 	}
-	void getOutNormalX()
+	void getOutNormalX()const
 	{
 		fprintf(mFile,"\"%s.onm.onx\"",mName.c_str());
 
 	}
-	void getOutNormalY()
+	void getOutNormalY()const
 	{
 		fprintf(mFile,"\"%s.onm.ony\"",mName.c_str());
 
 	}
-	void getOutNormalZ()
+	void getOutNormalZ()const
 	{
 		fprintf(mFile,"\"%s.onm.onz\"",mName.c_str());
 
 	}
-	void getOutHair()
+	void getOutHair()const
 	{
 		fprintf(mFile,"\"%s.oha\"",mName.c_str());
 
 	}
-	void getOutCurve()
+	void getOutCurve()const
 	{
 		fprintf(mFile,"\"%s.ocr\"",mName.c_str());
 
 	}
-	void getValidUv()
+	void getValidUv()const
 	{
 		fprintf(mFile,"\"%s.vuv\"",mName.c_str());
 
 	}
-	void getMapSetName()
+	void getMapSetName()const
 	{
 		fprintf(mFile,"\"%s.msn\"",mName.c_str());
 
 	}
 protected:
-	Follicle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	Follicle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

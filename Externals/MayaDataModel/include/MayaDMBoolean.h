@@ -19,7 +19,8 @@ class Boolean : public AbstractBaseCreate
 public:
 public:
 	Boolean():AbstractBaseCreate(){}
-	Boolean(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "boolean"){}
+	Boolean(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "boolean", create){}
 	virtual ~Boolean(){}
 	void setOperation(unsigned int op)
 	{
@@ -33,34 +34,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".tlb\" %f;\n", tlb);
 
 	}
-	void getInputShellA()
+	void getInputShellA()const
 	{
 		fprintf(mFile,"\"%s.isa\"",mName.c_str());
 
 	}
-	void getInputShellB()
+	void getInputShellB()const
 	{
 		fprintf(mFile,"\"%s.isb\"",mName.c_str());
 
 	}
-	void getOperation()
+	void getOperation()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tlb\"",mName.c_str());
 
 	}
-	void getOutputShell()
+	void getOutputShell()const
 	{
 		fprintf(mFile,"\"%s.osh\"",mName.c_str());
 
 	}
 protected:
-	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Boolean(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

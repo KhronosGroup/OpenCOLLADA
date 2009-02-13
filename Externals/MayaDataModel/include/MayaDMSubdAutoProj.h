@@ -19,7 +19,8 @@ class SubdAutoProj : public SubdModifierUV
 public:
 public:
 	SubdAutoProj():SubdModifierUV(){}
-	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierUV(file, name, parent, "subdAutoProj"){}
+	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SubdModifierUV(file, name, parent, "subdAutoProj", create){}
 	virtual ~SubdAutoProj(){}
 	void setPlanes(int p)
 	{
@@ -69,49 +70,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".dl\" %i;\n", dl);
 
 	}
-	void getPlanes()
+	void getPlanes()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getOptimize()
+	void getOptimize()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getSkipIntersect()
+	void getSkipIntersect()const
 	{
 		fprintf(mFile,"\"%s.si\"",mName.c_str());
 
 	}
-	void getLayout()
+	void getLayout()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getLayoutMethod()
+	void getLayoutMethod()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
-	void getPercentageSpace()
+	void getPercentageSpace()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getScale()
+	void getScale()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getDenseLayout()
+	void getDenseLayout()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
 protected:
-	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SubdModifierUV(file, name, parent, nodeType) {}
+	SubdAutoProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SubdModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

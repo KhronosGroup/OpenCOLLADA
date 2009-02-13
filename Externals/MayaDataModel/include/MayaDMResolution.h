@@ -19,7 +19,8 @@ class Resolution : public DependNode
 public:
 public:
 	Resolution():DependNode(){}
-	Resolution(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "resolution"){}
+	Resolution(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "resolution", create){}
 	virtual ~Resolution(){}
 	void setWidth(int w)
 	{
@@ -93,69 +94,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".pdu\" %i;\n", pdu);
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getHeight()
+	void getHeight()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getPixelAspect()
+	void getPixelAspect()const
 	{
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
 
 	}
-	void getAspectLock()
+	void getAspectLock()const
 	{
 		fprintf(mFile,"\"%s.al\"",mName.c_str());
 
 	}
-	void getDeviceAspectRatio()
+	void getDeviceAspectRatio()const
 	{
 		fprintf(mFile,"\"%s.dar\"",mName.c_str());
 
 	}
-	void getLockDeviceAspectRatio()
+	void getLockDeviceAspectRatio()const
 	{
 		fprintf(mFile,"\"%s.ldar\"",mName.c_str());
 
 	}
-	void getDotsPerInch()
+	void getDotsPerInch()const
 	{
 		fprintf(mFile,"\"%s.dpi\"",mName.c_str());
 
 	}
-	void getOddFieldFirst()
+	void getOddFieldFirst()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
-	void getFields()
+	void getFields()const
 	{
 		fprintf(mFile,"\"%s.fld\"",mName.c_str());
 
 	}
-	void getZerothScanline()
+	void getZerothScanline()const
 	{
 		fprintf(mFile,"\"%s.zsl\"",mName.c_str());
 
 	}
-	void getImageSizeUnits()
+	void getImageSizeUnits()const
 	{
 		fprintf(mFile,"\"%s.isu\"",mName.c_str());
 
 	}
-	void getPixelDensityUnits()
+	void getPixelDensityUnits()const
 	{
 		fprintf(mFile,"\"%s.pdu\"",mName.c_str());
 
 	}
 protected:
-	Resolution(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Resolution(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PolyQuad : public PolyModifierWorld
 public:
 public:
 	PolyQuad():PolyModifierWorld(){}
-	PolyQuad(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyQuad"){}
+	PolyQuad(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyQuad", create){}
 	virtual ~PolyQuad(){}
 	void setAngle(double a)
 	{
@@ -51,29 +52,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".m80\" %i;\n", m80);
 
 	}
-	void getAngle()
+	void getAngle()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getKeepGroupBorder()
+	void getKeepGroupBorder()const
 	{
 		fprintf(mFile,"\"%s.kgb\"",mName.c_str());
 
 	}
-	void getKeepTextureBorders()
+	void getKeepTextureBorders()const
 	{
 		fprintf(mFile,"\"%s.ktb\"",mName.c_str());
 
 	}
-	void getKeepHardEdges()
+	void getKeepHardEdges()const
 	{
 		fprintf(mFile,"\"%s.khe\"",mName.c_str());
 
 	}
 protected:
-	PolyQuad(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyQuad(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

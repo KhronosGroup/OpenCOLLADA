@@ -18,11 +18,12 @@ class MakeNurbCylinder : public RevolvedPrimitive
 {
 public:
 	MakeNurbCylinder():RevolvedPrimitive(){}
-	MakeNurbCylinder(FILE* file,const std::string& name,const std::string& parent=""):RevolvedPrimitive(file, name, parent, "makeNurbCylinder"){}
+	MakeNurbCylinder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:RevolvedPrimitive(file, name, parent, "makeNurbCylinder", create){}
 	virtual ~MakeNurbCylinder(){}
 protected:
-	MakeNurbCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:RevolvedPrimitive(file, name, parent, nodeType) {}
+	MakeNurbCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:RevolvedPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

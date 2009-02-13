@@ -19,7 +19,8 @@ class NurbsToSubdiv : public AbstractBaseNurbsConversion
 public:
 public:
 	NurbsToSubdiv():AbstractBaseNurbsConversion(){}
-	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseNurbsConversion(file, name, parent, "nurbsToSubdiv"){}
+	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, "nurbsToSubdiv", create){}
 	virtual ~NurbsToSubdiv(){}
 	void setMaxPolyCount(int mpc)
 	{
@@ -45,39 +46,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".cp\" %i;\n", cp);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getOutputSubd()
+	void getOutputSubd()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getMaxPolyCount()
+	void getMaxPolyCount()const
 	{
 		fprintf(mFile,"\"%s.mpc\"",mName.c_str());
 
 	}
-	void getReverseNormal()
+	void getReverseNormal()const
 	{
 		fprintf(mFile,"\"%s.rn\"",mName.c_str());
 
 	}
-	void getMatchPeriodic()
+	void getMatchPeriodic()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 
 	}
-	void getCollapsePoles()
+	void getCollapsePoles()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
 protected:
-	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseNurbsConversion(file, name, parent, nodeType) {}
+	NurbsToSubdiv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseNurbsConversion(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

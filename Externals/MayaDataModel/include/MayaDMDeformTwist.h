@@ -19,7 +19,8 @@ class DeformTwist : public DeformFunc
 public:
 public:
 	DeformTwist():DeformFunc(){}
-	DeformTwist(FILE* file,const std::string& name,const std::string& parent=""):DeformFunc(file, name, parent, "deformTwist"){}
+	DeformTwist(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DeformFunc(file, name, parent, "deformTwist", create){}
 	virtual ~DeformTwist(){}
 	void setLowBound(double lb)
 	{
@@ -45,29 +46,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".ea\" %f;\n", ea);
 
 	}
-	void getLowBound()
+	void getLowBound()const
 	{
 		fprintf(mFile,"\"%s.lb\"",mName.c_str());
 
 	}
-	void getHighBound()
+	void getHighBound()const
 	{
 		fprintf(mFile,"\"%s.hb\"",mName.c_str());
 
 	}
-	void getStartAngle()
+	void getStartAngle()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getEndAngle()
+	void getEndAngle()const
 	{
 		fprintf(mFile,"\"%s.ea\"",mName.c_str());
 
 	}
 protected:
-	DeformTwist(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DeformFunc(file, name, parent, nodeType) {}
+	DeformTwist(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DeformFunc(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

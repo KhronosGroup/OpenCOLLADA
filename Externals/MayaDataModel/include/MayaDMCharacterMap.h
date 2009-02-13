@@ -19,7 +19,8 @@ class CharacterMap : public DependNode
 public:
 public:
 	CharacterMap():DependNode(){}
-	CharacterMap(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "characterMap"){}
+	CharacterMap(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "characterMap", create){}
 	virtual ~CharacterMap(){}
 	void setMemberIndex(size_t mi_i,const intArray& mi)
 	{
@@ -41,31 +42,31 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startMemberIndex(size_t mi_start,size_t mi_end)
+	void startMemberIndex(size_t mi_start,size_t mi_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".mi[%i:%i]\"",mi_start,mi_end);
 		fprintf(mFile," -type \"intArray\" ");
 
 	}
-	void appendMemberIndex(const intArray& mi)
+	void appendMemberIndex(const intArray& mi)const
 	{
 		fprintf(mFile,"\n");
 		mi.write(mFile);
 
 	}
-	void endMemberIndex()
+	void endMemberIndex()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getMember(size_t m_i)
+	void getMember(size_t m_i)const
 	{
 		fprintf(mFile,"\"%s.m[%i]\"",mName.c_str(),m_i);
 
 	}
 protected:
-	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	CharacterMap(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

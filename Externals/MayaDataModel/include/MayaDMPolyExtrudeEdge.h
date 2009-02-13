@@ -30,7 +30,8 @@ public:
 	};
 public:
 	PolyExtrudeEdge():PolyMoveEdge(){}
-	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyMoveEdge(file, name, parent, "polyExtrudeEdge"){}
+	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyMoveEdge(file, name, parent, "polyExtrudeEdge", create){}
 	virtual ~PolyExtrudeEdge(){}
 	void setKeepFacesTogether(bool kft)
 	{
@@ -87,59 +88,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".sma\" %f;\n", sma);
 
 	}
-	void getKeepFacesTogether()
+	void getKeepFacesTogether()const
 	{
 		fprintf(mFile,"\"%s.kft\"",mName.c_str());
 
 	}
-	void getDivisions()
+	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getInputProfile()
+	void getInputProfile()const
 	{
 		fprintf(mFile,"\"%s.ipc\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.twt\"",mName.c_str());
 
 	}
-	void getTaper()
+	void getTaper()const
 	{
 		fprintf(mFile,"\"%s.tp\"",mName.c_str());
 
 	}
-	void getTaperCurve(size_t c_i)
+	void getTaperCurve(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i]\"",mName.c_str(),c_i);
 
 	}
-	void getTaperCurve_Position(size_t c_i)
+	void getTaperCurve_Position(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].cp\"",mName.c_str(),c_i);
 
 	}
-	void getTaperCurve_FloatValue(size_t c_i)
+	void getTaperCurve_FloatValue(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].cfv\"",mName.c_str(),c_i);
 
 	}
-	void getTaperCurve_Interp(size_t c_i)
+	void getTaperCurve_Interp(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].ci\"",mName.c_str(),c_i);
 
 	}
-	void getSmoothingAngle()
+	void getSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 
 	}
 protected:
-	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyMoveEdge(file, name, parent, nodeType) {}
+	PolyExtrudeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyMoveEdge(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

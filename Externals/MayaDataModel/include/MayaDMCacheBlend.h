@@ -40,7 +40,8 @@ public:
 	};
 public:
 	CacheBlend():CacheBase(){}
-	CacheBlend(FILE* file,const std::string& name,const std::string& parent=""):CacheBase(file, name, parent, "cacheBlend"){}
+	CacheBlend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CacheBase(file, name, parent, "cacheBlend", create){}
 	virtual ~CacheBlend(){}
 	void setInCache(size_t ic_i,const InCache& ic)
 	{
@@ -69,19 +70,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startPerPtWeights(size_t ic_i,size_t ppw_start,size_t ppw_end)
+	void startPerPtWeights(size_t ic_i,size_t ppw_start,size_t ppw_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ic[%i].ppw[%i:%i]\"",ic_i,ppw_start,ppw_end);
 		fprintf(mFile," -type \"doubleArray\" ");
 
 	}
-	void appendPerPtWeights(const doubleArray& ppw)
+	void appendPerPtWeights(const doubleArray& ppw)const
 	{
 		fprintf(mFile,"\n");
 		ppw.write(mFile);
 
 	}
-	void endPerPtWeights()
+	void endPerPtWeights()const
 	{
 		fprintf(mFile,";\n");
 
@@ -111,54 +112,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".cd[%i].w\" %f;\n", cd_i,w);
 
 	}
-	void getInCache(size_t ic_i)
+	void getInCache(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
-	void getVectorArray(size_t ic_i,size_t va_i)
+	void getVectorArray(size_t ic_i,size_t va_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].va[%i]\"",mName.c_str(),ic_i,va_i);
 
 	}
-	void getPerPtWeights(size_t ic_i,size_t ppw_i)
+	void getPerPtWeights(size_t ic_i,size_t ppw_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i].ppw[%i]\"",mName.c_str(),ic_i,ppw_i);
 
 	}
-	void getDisableAll()
+	void getDisableAll()const
 	{
 		fprintf(mFile,"\"%s.da\"",mName.c_str());
 
 	}
-	void getCacheData(size_t cd_i)
+	void getCacheData(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i]\"",mName.c_str(),cd_i);
 
 	}
-	void getStart(size_t cd_i)
+	void getStart(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].st\"",mName.c_str(),cd_i);
 
 	}
-	void getEnd(size_t cd_i)
+	void getEnd(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].e\"",mName.c_str(),cd_i);
 
 	}
-	void getRange(size_t cd_i)
+	void getRange(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].ra\"",mName.c_str(),cd_i);
 
 	}
-	void getWeight(size_t cd_i)
+	void getWeight(size_t cd_i)const
 	{
 		fprintf(mFile,"\"%s.cd[%i].w\"",mName.c_str(),cd_i);
 
 	}
 protected:
-	CacheBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CacheBase(file, name, parent, nodeType) {}
+	CacheBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CacheBase(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

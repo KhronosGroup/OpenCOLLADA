@@ -19,7 +19,8 @@ class PassMatrix : public DependNode
 public:
 public:
 	PassMatrix():DependNode(){}
-	PassMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "passMatrix"){}
+	PassMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "passMatrix", create){}
 	virtual ~PassMatrix(){}
 	void setInMatrix(const matrix& i_)
 	{
@@ -35,24 +36,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".s\" %f;\n", s);
 
 	}
-	void getInMatrix()
+	void getInMatrix()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getInScale()
+	void getInScale()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getOutMatrix()
+	void getOutMatrix()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	PassMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	PassMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

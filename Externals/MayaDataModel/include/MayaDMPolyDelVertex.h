@@ -18,11 +18,12 @@ class PolyDelVertex : public PolyModifier
 {
 public:
 	PolyDelVertex():PolyModifier(){}
-	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polyDelVertex"){}
+	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polyDelVertex", create){}
 	virtual ~PolyDelVertex(){}
 protected:
-	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolyDelVertex(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class NonAmbientLightShapeNode : public RenderLight
 public:
 public:
 	NonAmbientLightShapeNode():RenderLight(){}
-	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent=""):RenderLight(file, name, parent, "nonAmbientLightShapeNode"){}
+	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:RenderLight(file, name, parent, "nonAmbientLightShapeNode", create){}
 	virtual ~NonAmbientLightShapeNode(){}
 	void setDecayRate(unsigned int de)
 	{
@@ -39,24 +40,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".esp\" %i;\n", esp);
 
 	}
-	void getDecayRate()
+	void getDecayRate()const
 	{
 		fprintf(mFile,"\"%s.de\"",mName.c_str());
 
 	}
-	void getEmitDiffuse()
+	void getEmitDiffuse()const
 	{
 		fprintf(mFile,"\"%s.edi\"",mName.c_str());
 
 	}
-	void getEmitSpecular()
+	void getEmitSpecular()const
 	{
 		fprintf(mFile,"\"%s.esp\"",mName.c_str());
 
 	}
 protected:
-	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:RenderLight(file, name, parent, nodeType) {}
+	NonAmbientLightShapeNode(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:RenderLight(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

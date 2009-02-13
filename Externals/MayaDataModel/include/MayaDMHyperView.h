@@ -19,7 +19,8 @@ class HyperView : public DependNode
 public:
 public:
 	HyperView():DependNode(){}
-	HyperView(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hyperView"){}
+	HyperView(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hyperView", create){}
 	virtual ~HyperView(){}
 	void setPosition(const double2& p)
 	{
@@ -123,99 +124,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".gtl\" %i;\n", gtl);
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getViewRectLow()
+	void getViewRectLow()const
 	{
 		fprintf(mFile,"\"%s.vl\"",mName.c_str());
 
 	}
-	void getViewXL()
+	void getViewXL()const
 	{
 		fprintf(mFile,"\"%s.vl.xl\"",mName.c_str());
 
 	}
-	void getViewYL()
+	void getViewYL()const
 	{
 		fprintf(mFile,"\"%s.vl.yl\"",mName.c_str());
 
 	}
-	void getViewRectHigh()
+	void getViewRectHigh()const
 	{
 		fprintf(mFile,"\"%s.vh\"",mName.c_str());
 
 	}
-	void getViewXH()
+	void getViewXH()const
 	{
 		fprintf(mFile,"\"%s.vh.xh\"",mName.c_str());
 
 	}
-	void getViewYH()
+	void getViewYH()const
 	{
 		fprintf(mFile,"\"%s.vh.yh\"",mName.c_str());
 
 	}
-	void getDagView()
+	void getDagView()const
 	{
 		fprintf(mFile,"\"%s.dag\"",mName.c_str());
 
 	}
-	void getDescription()
+	void getDescription()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getFocusNode()
+	void getFocusNode()const
 	{
 		fprintf(mFile,"\"%s.fnd\"",mName.c_str());
 
 	}
-	void getRootNode(size_t rnd_i)
+	void getRootNode(size_t rnd_i)const
 	{
 		fprintf(mFile,"\"%s.rnd[%i]\"",mName.c_str(),rnd_i);
 
 	}
-	void getFullName()
+	void getFullName()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getShortName()
+	void getShortName()const
 	{
 		fprintf(mFile,"\"%s.sn\"",mName.c_str());
 
 	}
-	void getBuildDirection()
+	void getBuildDirection()const
 	{
 		fprintf(mFile,"\"%s.bd\"",mName.c_str());
 
 	}
-	void getGraphTraversalLimit()
+	void getGraphTraversalLimit()const
 	{
 		fprintf(mFile,"\"%s.gtl\"",mName.c_str());
 
 	}
-	void getHyperLayout()
+	void getHyperLayout()const
 	{
 		fprintf(mFile,"\"%s.hl\"",mName.c_str());
 
 	}
 protected:
-	HyperView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HyperView(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

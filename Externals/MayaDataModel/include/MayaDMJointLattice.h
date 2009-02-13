@@ -19,7 +19,8 @@ class JointLattice : public GeometryFilter
 public:
 public:
 	JointLattice():GeometryFilter(){}
-	JointLattice(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "jointLattice"){}
+	JointLattice(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "jointLattice", create){}
 	virtual ~JointLattice(){}
 	void setCreasing(double cr)
 	{
@@ -136,104 +137,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".bm\" %f;\n", bm);
 
 	}
-	void getCreasing()
+	void getCreasing()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getRounding()
+	void getRounding()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getLengthIn()
+	void getLengthIn()const
 	{
 		fprintf(mFile,"\"%s.li\"",mName.c_str());
 
 	}
-	void getLengthOut()
+	void getLengthOut()const
 	{
 		fprintf(mFile,"\"%s.lo\"",mName.c_str());
 
 	}
-	void getWidthLeft()
+	void getWidthLeft()const
 	{
 		fprintf(mFile,"\"%s.wl\"",mName.c_str());
 
 	}
-	void getWidthRight()
+	void getWidthRight()const
 	{
 		fprintf(mFile,"\"%s.wr\"",mName.c_str());
 
 	}
-	void getUpperMatrix()
+	void getUpperMatrix()const
 	{
 		fprintf(mFile,"\"%s.um\"",mName.c_str());
 
 	}
-	void getLowerMatrix()
+	void getLowerMatrix()const
 	{
 		fprintf(mFile,"\"%s.lm\"",mName.c_str());
 
 	}
-	void getInitialUpperMatrix()
+	void getInitialUpperMatrix()const
 	{
 		fprintf(mFile,"\"%s.iu\"",mName.c_str());
 
 	}
-	void getInitialLowerMatrix()
+	void getInitialLowerMatrix()const
 	{
 		fprintf(mFile,"\"%s.il\"",mName.c_str());
 
 	}
-	void getDeformedLatticeMatrix()
+	void getDeformedLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.md\"",mName.c_str());
 
 	}
-	void getBaseLatticeMatrix()
+	void getBaseLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.mb\"",mName.c_str());
 
 	}
-	void getAdjustedUpperBaseLatticeMatrix()
+	void getAdjustedUpperBaseLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.au\"",mName.c_str());
 
 	}
-	void getAdjustedLowerBaseLatticeMatrix()
+	void getAdjustedLowerBaseLatticeMatrix()const
 	{
 		fprintf(mFile,"\"%s.al\"",mName.c_str());
 
 	}
-	void getBendVector()
+	void getBendVector()const
 	{
 		fprintf(mFile,"\"%s.bv\"",mName.c_str());
 
 	}
-	void getBendVectorX()
+	void getBendVectorX()const
 	{
 		fprintf(mFile,"\"%s.bv.bx\"",mName.c_str());
 
 	}
-	void getBendVectorY()
+	void getBendVectorY()const
 	{
 		fprintf(mFile,"\"%s.bv.by\"",mName.c_str());
 
 	}
-	void getBendVectorZ()
+	void getBendVectorZ()const
 	{
 		fprintf(mFile,"\"%s.bv.bz\"",mName.c_str());
 
 	}
-	void getBendMagnitude()
+	void getBendMagnitude()const
 	{
 		fprintf(mFile,"\"%s.bm\"",mName.c_str());
 
 	}
 protected:
-	JointLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	JointLattice(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

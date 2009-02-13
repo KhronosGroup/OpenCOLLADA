@@ -19,7 +19,8 @@ class ObjectSet : public Entity
 public:
 public:
 	ObjectSet():Entity(){}
-	ObjectSet(FILE* file,const std::string& name,const std::string& parent=""):Entity(file, name, parent, "objectSet"){}
+	ObjectSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Entity(file, name, parent, "objectSet", create){}
 	virtual ~ObjectSet(){}
 	void setMemberWireframeColor(short mwc)
 	{
@@ -71,39 +72,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".ro\" %i;\n", ro);
 
 	}
-	void getDagSetMembers(size_t dsm_i)
+	void getDagSetMembers(size_t dsm_i)const
 	{
 		fprintf(mFile,"\"%s.dsm[%i]\"",mName.c_str(),dsm_i);
 
 	}
-	void getDnSetMembers(size_t dnsm_i)
+	void getDnSetMembers(size_t dnsm_i)const
 	{
 		fprintf(mFile,"\"%s.dnsm[%i]\"",mName.c_str(),dnsm_i);
 
 	}
-	void getMemberWireframeColor()
+	void getMemberWireframeColor()const
 	{
 		fprintf(mFile,"\"%s.mwc\"",mName.c_str());
 
 	}
-	void getPartition()
+	void getPartition()const
 	{
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
 
 	}
-	void getGroupNodes(size_t gn_i)
+	void getGroupNodes(size_t gn_i)const
 	{
 		fprintf(mFile,"\"%s.gn[%i]\"",mName.c_str(),gn_i);
 
 	}
-	void getUsedBy(size_t ub_i)
+	void getUsedBy(size_t ub_i)const
 	{
 		fprintf(mFile,"\"%s.ub[%i]\"",mName.c_str(),ub_i);
 
 	}
 protected:
-	ObjectSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Entity(file, name, parent, nodeType) {}
+	ObjectSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Entity(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

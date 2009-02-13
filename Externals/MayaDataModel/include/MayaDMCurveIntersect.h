@@ -19,7 +19,8 @@ class CurveIntersect : public AbstractBaseCreate
 public:
 public:
 	CurveIntersect():AbstractBaseCreate(){}
-	CurveIntersect(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "curveIntersect"){}
+	CurveIntersect(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "curveIntersect", create){}
 	virtual ~CurveIntersect(){}
 	void setTolerance(double tol)
 	{
@@ -58,59 +59,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".d.dz\" %f;\n", dz);
 
 	}
-	void getInputCurve1()
+	void getInputCurve1()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2()
+	void getInputCurve2()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getUseDirection()
+	void getUseDirection()const
 	{
 		fprintf(mFile,"\"%s.ud\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getParameter1(size_t p1_i)
+	void getParameter1(size_t p1_i)const
 	{
 		fprintf(mFile,"\"%s.p1[%i]\"",mName.c_str(),p1_i);
 
 	}
-	void getParameter2(size_t p2_i)
+	void getParameter2(size_t p2_i)const
 	{
 		fprintf(mFile,"\"%s.p2[%i]\"",mName.c_str(),p2_i);
 
 	}
 protected:
-	CurveIntersect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	CurveIntersect(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PolyFlipUV : public PolyModifierUV
 public:
 public:
 	PolyFlipUV():PolyModifierUV(){}
-	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyFlipUV"){}
+	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierUV(file, name, parent, "polyFlipUV", create){}
 	virtual ~PolyFlipUV(){}
 	void setFlipType(unsigned int ft)
 	{
@@ -33,19 +34,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".l\" %i;\n", l);
 
 	}
-	void getFlipType()
+	void getFlipType()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getLocal()
+	void getLocal()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
 protected:
-	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierUV(file, name, parent, nodeType) {}
+	PolyFlipUV(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

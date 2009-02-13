@@ -19,7 +19,8 @@ class Bevel : public AbstractBaseCreate
 public:
 public:
 	Bevel():AbstractBaseCreate(){}
-	Bevel(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "bevel"){}
+	Bevel(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "bevel", create){}
 	virtual ~Bevel(){}
 	void setTolerance(double tol)
 	{
@@ -69,74 +70,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".js\" %i;\n", js);
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getUseDirectionCurve()
+	void getUseDirectionCurve()const
 	{
 		fprintf(mFile,"\"%s.udc\"",mName.c_str());
 
 	}
-	void getOutputSurface1()
+	void getOutputSurface1()const
 	{
 		fprintf(mFile,"\"%s.os1\"",mName.c_str());
 
 	}
-	void getOutputSurface2()
+	void getOutputSurface2()const
 	{
 		fprintf(mFile,"\"%s.os2\"",mName.c_str());
 
 	}
-	void getOutputSurface3()
+	void getOutputSurface3()const
 	{
 		fprintf(mFile,"\"%s.os3\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getExtrudeDepth()
+	void getExtrudeDepth()const
 	{
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
 
 	}
-	void getCornerType()
+	void getCornerType()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getNumberOfSides()
+	void getNumberOfSides()const
 	{
 		fprintf(mFile,"\"%s.ns\"",mName.c_str());
 
 	}
-	void getBevelShapeType()
+	void getBevelShapeType()const
 	{
 		fprintf(mFile,"\"%s.bst\"",mName.c_str());
 
 	}
-	void getJoinSurfaces()
+	void getJoinSurfaces()const
 	{
 		fprintf(mFile,"\"%s.js\"",mName.c_str());
 
 	}
 protected:
-	Bevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Bevel(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

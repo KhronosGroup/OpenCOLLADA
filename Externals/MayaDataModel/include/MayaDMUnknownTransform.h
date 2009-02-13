@@ -18,11 +18,12 @@ class UnknownTransform : public Transform
 {
 public:
 	UnknownTransform():Transform(){}
-	UnknownTransform(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "unknownTransform"){}
+	UnknownTransform(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "unknownTransform", create){}
 	virtual ~UnknownTransform(){}
 protected:
-	UnknownTransform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	UnknownTransform(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

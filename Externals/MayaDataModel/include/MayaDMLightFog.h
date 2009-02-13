@@ -19,7 +19,8 @@ class LightFog : public DependNode
 public:
 public:
 	LightFog():DependNode(){}
-	LightFog(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "lightFog"){}
+	LightFog(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "lightFog", create){}
 	virtual ~LightFog(){}
 	void setColor(const float3& c)
 	{
@@ -77,209 +78,209 @@ public:
 		fprintf(mFile,"\tsetAttr \".mog\" %f;\n", mog);
 
 	}
-	void getFilterSize()
+	void getFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getFilterSizeX()
+	void getFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
 
 	}
-	void getFilterSizeY()
+	void getFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
 
 	}
-	void getFilterSizeZ()
+	void getFilterSizeZ()const
 	{
 		fprintf(mFile,"\"%s.fs.fsz\"",mName.c_str());
 
 	}
-	void getLightDataArray(size_t ltd_i)
+	void getLightDataArray(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i]\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightDirection(size_t ltd_i)
+	void getLightDirection(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ld\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightDirectionX(size_t ltd_i)
+	void getLightDirectionX(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ld.ldx\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightDirectionY(size_t ltd_i)
+	void getLightDirectionY(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ld.ldy\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightDirectionZ(size_t ltd_i)
+	void getLightDirectionZ(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ld.ldz\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightIntensity(size_t ltd_i)
+	void getLightIntensity(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].li\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightIntensityR(size_t ltd_i)
+	void getLightIntensityR(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].li.lir\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightIntensityG(size_t ltd_i)
+	void getLightIntensityG(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].li.lig\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightIntensityB(size_t ltd_i)
+	void getLightIntensityB(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].li.lib\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightAmbient(size_t ltd_i)
+	void getLightAmbient(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].la\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightDiffuse(size_t ltd_i)
+	void getLightDiffuse(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ldf\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightSpecular(size_t ltd_i)
+	void getLightSpecular(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].ls\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightShadowFraction(size_t ltd_i)
+	void getLightShadowFraction(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].lsf\"",mName.c_str(),ltd_i);
 
 	}
-	void getPreShadowIntensity(size_t ltd_i)
+	void getPreShadowIntensity(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].psi\"",mName.c_str(),ltd_i);
 
 	}
-	void getLightBlindData(size_t ltd_i)
+	void getLightBlindData(size_t ltd_i)const
 	{
 		fprintf(mFile,"\"%s.ltd[%i].lbd\"",mName.c_str(),ltd_i);
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.c.cr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.c.cg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.c.cb\"",mName.c_str());
 
 	}
-	void getDensity()
+	void getDensity()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getFastDropOff()
+	void getFastDropOff()const
 	{
 		fprintf(mFile,"\"%s.fd\"",mName.c_str());
 
 	}
-	void getColorBasedTransparency()
+	void getColorBasedTransparency()const
 	{
 		fprintf(mFile,"\"%s.cbt\"",mName.c_str());
 
 	}
-	void getMatteOpacityMode()
+	void getMatteOpacityMode()const
 	{
 		fprintf(mFile,"\"%s.mom\"",mName.c_str());
 
 	}
-	void getMatteOpacity()
+	void getMatteOpacity()const
 	{
 		fprintf(mFile,"\"%s.mog\"",mName.c_str());
 
 	}
-	void getOutMatteOpacity()
+	void getOutMatteOpacity()const
 	{
 		fprintf(mFile,"\"%s.omo\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityR()
+	void getOutMatteOpacityR()const
 	{
 		fprintf(mFile,"\"%s.omo.omor\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityG()
+	void getOutMatteOpacityG()const
 	{
 		fprintf(mFile,"\"%s.omo.omog\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityB()
+	void getOutMatteOpacityB()const
 	{
 		fprintf(mFile,"\"%s.omo.omob\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
-	void getOutTransparency()
+	void getOutTransparency()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutTransparencyR()
+	void getOutTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.ot.otr\"",mName.c_str());
 
 	}
-	void getOutTransparencyG()
+	void getOutTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.ot.otg\"",mName.c_str());
 
 	}
-	void getOutTransparencyB()
+	void getOutTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 
 	}
 protected:
-	LightFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	LightFog(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,16 +19,17 @@ class HyperGraphInfo : public DependNode
 public:
 public:
 	HyperGraphInfo():DependNode(){}
-	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hyperGraphInfo"){}
+	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hyperGraphInfo", create){}
 	virtual ~HyperGraphInfo(){}
-	void getBookmarks(size_t b_i)
+	void getBookmarks(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
 
 	}
 protected:
-	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HyperGraphInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

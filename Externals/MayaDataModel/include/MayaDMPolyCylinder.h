@@ -19,7 +19,8 @@ class PolyCylinder : public PolyPrimitive
 public:
 public:
 	PolyCylinder():PolyPrimitive(){}
-	PolyCylinder(FILE* file,const std::string& name,const std::string& parent=""):PolyPrimitive(file, name, parent, "polyCylinder"){}
+	PolyCylinder(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyPrimitive(file, name, parent, "polyCylinder", create){}
 	virtual ~PolyCylinder(){}
 	void setRadius(double r)
 	{
@@ -75,54 +76,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".rcp\" %i;\n", rcp);
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getHeight()
+	void getHeight()const
 	{
 		fprintf(mFile,"\"%s.h\"",mName.c_str());
 
 	}
-	void getSubdivisionsAxis()
+	void getSubdivisionsAxis()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getSubdivisionsHeight()
+	void getSubdivisionsHeight()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getSubdivisionsCaps()
+	void getSubdivisionsCaps()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getTexture()
+	void getTexture()const
 	{
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 
 	}
-	void getCreateUVs()
+	void getCreateUVs()const
 	{
 		fprintf(mFile,"\"%s.cuv\"",mName.c_str());
 
 	}
-	void getMaya70()
+	void getMaya70()const
 	{
 		fprintf(mFile,"\"%s.m70\"",mName.c_str());
 
 	}
-	void getRoundCap()
+	void getRoundCap()const
 	{
 		fprintf(mFile,"\"%s.rcp\"",mName.c_str());
 
 	}
 protected:
-	PolyCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyPrimitive(file, name, parent, nodeType) {}
+	PolyCylinder(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class MakeNurbsSquare : public AbstractBaseCreate
 public:
 public:
 	MakeNurbsSquare():AbstractBaseCreate(){}
-	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "makeNurbsSquare"){}
+	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "makeNurbsSquare", create){}
 	virtual ~MakeNurbsSquare(){}
 	void setNormal(const double3& nr)
 	{
@@ -95,89 +96,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".sps\" %i;\n", sps);
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.nr\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.nr.nrx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.nr.nry\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.nr.nrz\"",mName.c_str());
 
 	}
-	void getCenter()
+	void getCenter()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getCenterX()
+	void getCenterX()const
 	{
 		fprintf(mFile,"\"%s.c.cx\"",mName.c_str());
 
 	}
-	void getCenterY()
+	void getCenterY()const
 	{
 		fprintf(mFile,"\"%s.c.cy\"",mName.c_str());
 
 	}
-	void getCenterZ()
+	void getCenterZ()const
 	{
 		fprintf(mFile,"\"%s.c.cz\"",mName.c_str());
 
 	}
-	void getSideLength1()
+	void getSideLength1()const
 	{
 		fprintf(mFile,"\"%s.sl1\"",mName.c_str());
 
 	}
-	void getSideLength2()
+	void getSideLength2()const
 	{
 		fprintf(mFile,"\"%s.sl2\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSpansPerSide()
+	void getSpansPerSide()const
 	{
 		fprintf(mFile,"\"%s.sps\"",mName.c_str());
 
 	}
-	void getOutputCurve1()
+	void getOutputCurve1()const
 	{
 		fprintf(mFile,"\"%s.oc1\"",mName.c_str());
 
 	}
-	void getOutputCurve2()
+	void getOutputCurve2()const
 	{
 		fprintf(mFile,"\"%s.oc2\"",mName.c_str());
 
 	}
-	void getOutputCurve3()
+	void getOutputCurve3()const
 	{
 		fprintf(mFile,"\"%s.oc3\"",mName.c_str());
 
 	}
-	void getOutputCurve4()
+	void getOutputCurve4()const
 	{
 		fprintf(mFile,"\"%s.oc4\"",mName.c_str());
 
 	}
 protected:
-	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	MakeNurbsSquare(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

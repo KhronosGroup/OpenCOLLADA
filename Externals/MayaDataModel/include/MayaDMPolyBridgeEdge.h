@@ -30,7 +30,8 @@ public:
 	};
 public:
 	PolyBridgeEdge():PolyModifierWorld(){}
-	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyBridgeEdge"){}
+	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyBridgeEdge", create){}
 	virtual ~PolyBridgeEdge(){}
 	void setTwist(double twt)
 	{
@@ -105,74 +106,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".sma\" %f;\n", sma);
 
 	}
-	void getInputProfile()
+	void getInputProfile()const
 	{
 		fprintf(mFile,"\"%s.ipc\"",mName.c_str());
 
 	}
-	void getTwist()
+	void getTwist()const
 	{
 		fprintf(mFile,"\"%s.twt\"",mName.c_str());
 
 	}
-	void getTaper()
+	void getTaper()const
 	{
 		fprintf(mFile,"\"%s.tp\"",mName.c_str());
 
 	}
-	void getTaperCurve(size_t c_i)
+	void getTaperCurve(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i]\"",mName.c_str(),c_i);
 
 	}
-	void getTaperCurve_Position(size_t c_i)
+	void getTaperCurve_Position(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].cp\"",mName.c_str(),c_i);
 
 	}
-	void getTaperCurve_FloatValue(size_t c_i)
+	void getTaperCurve_FloatValue(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].cfv\"",mName.c_str(),c_i);
 
 	}
-	void getTaperCurve_Interp(size_t c_i)
+	void getTaperCurve_Interp(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i].ci\"",mName.c_str(),c_i);
 
 	}
-	void getDivisions()
+	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getStartVert1()
+	void getStartVert1()const
 	{
 		fprintf(mFile,"\"%s.sv1\"",mName.c_str());
 
 	}
-	void getStartVert2()
+	void getStartVert2()const
 	{
 		fprintf(mFile,"\"%s.sv2\"",mName.c_str());
 
 	}
-	void getBridgeOffset()
+	void getBridgeOffset()const
 	{
 		fprintf(mFile,"\"%s.bo\"",mName.c_str());
 
 	}
-	void getCurveType()
+	void getCurveType()const
 	{
 		fprintf(mFile,"\"%s.ctp\"",mName.c_str());
 
 	}
-	void getSmoothingAngle()
+	void getSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 
 	}
 protected:
-	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyBridgeEdge(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

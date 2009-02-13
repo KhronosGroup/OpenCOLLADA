@@ -19,7 +19,8 @@ class Sculpt : public GeometryFilter
 public:
 public:
 	Sculpt():GeometryFilter(){}
-	Sculpt(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "sculpt"){}
+	Sculpt(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "sculpt", create){}
 	virtual ~Sculpt(){}
 	void setSculptObjectMatrix(const matrix& sm)
 	{
@@ -90,69 +91,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".exd\" %i;\n", exd);
 
 	}
-	void getSculptObjectMatrix()
+	void getSculptObjectMatrix()const
 	{
 		fprintf(mFile,"\"%s.sm\"",mName.c_str());
 
 	}
-	void getSculptObjectGeometry()
+	void getSculptObjectGeometry()const
 	{
 		fprintf(mFile,"\"%s.sg\"",mName.c_str());
 
 	}
-	void getMode()
+	void getMode()const
 	{
 		fprintf(mFile,"\"%s.mo\"",mName.c_str());
 
 	}
-	void getInsideMode()
+	void getInsideMode()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getMaximumDisplacement()
+	void getMaximumDisplacement()const
 	{
 		fprintf(mFile,"\"%s.md\"",mName.c_str());
 
 	}
-	void getDropoffDistance()
+	void getDropoffDistance()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
-	void getDropoffType()
+	void getDropoffType()const
 	{
 		fprintf(mFile,"\"%s.dt\"",mName.c_str());
 
 	}
-	void getStartPosition()
+	void getStartPosition()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getStartPosX()
+	void getStartPosX()const
 	{
 		fprintf(mFile,"\"%s.sp.sx\"",mName.c_str());
 
 	}
-	void getStartPosY()
+	void getStartPosY()const
 	{
 		fprintf(mFile,"\"%s.sp.sy\"",mName.c_str());
 
 	}
-	void getStartPosZ()
+	void getStartPosZ()const
 	{
 		fprintf(mFile,"\"%s.sp.sz\"",mName.c_str());
 
 	}
-	void getExtendedEnd()
+	void getExtendedEnd()const
 	{
 		fprintf(mFile,"\"%s.exd\"",mName.c_str());
 
 	}
 protected:
-	Sculpt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	Sculpt(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

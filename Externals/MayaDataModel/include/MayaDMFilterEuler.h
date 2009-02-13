@@ -19,7 +19,8 @@ class FilterEuler : public Filter
 public:
 public:
 	FilterEuler():Filter(){}
-	FilterEuler(FILE* file,const std::string& name,const std::string& parent=""):Filter(file, name, parent, "filterEuler"){}
+	FilterEuler(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Filter(file, name, parent, "filterEuler", create){}
 	virtual ~FilterEuler(){}
 	void setSmooth(unsigned int s)
 	{
@@ -97,69 +98,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".use\" %i;\n", use);
 
 	}
-	void getSmooth()
+	void getSmooth()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getNearestTo()
+	void getNearestTo()const
 	{
 		fprintf(mFile,"\"%s.nt\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getWeightX()
+	void getWeightX()const
 	{
 		fprintf(mFile,"\"%s.w.wx\"",mName.c_str());
 
 	}
-	void getWeightY()
+	void getWeightY()const
 	{
 		fprintf(mFile,"\"%s.w.wy\"",mName.c_str());
 
 	}
-	void getWeightZ()
+	void getWeightZ()const
 	{
 		fprintf(mFile,"\"%s.w.wz\"",mName.c_str());
 
 	}
-	void getEnableInitialRotation()
+	void getEnableInitialRotation()const
 	{
 		fprintf(mFile,"\"%s.eir\"",mName.c_str());
 
 	}
-	void getInitialRotation()
+	void getInitialRotation()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 
 	}
-	void getInitialRotationX()
+	void getInitialRotationX()const
 	{
 		fprintf(mFile,"\"%s.ir.irx\"",mName.c_str());
 
 	}
-	void getInitialRotationY()
+	void getInitialRotationY()const
 	{
 		fprintf(mFile,"\"%s.ir.iry\"",mName.c_str());
 
 	}
-	void getInitialRotationZ()
+	void getInitialRotationZ()const
 	{
 		fprintf(mFile,"\"%s.ir.irz\"",mName.c_str());
 
 	}
-	void getOutputUsageOpt()
+	void getOutputUsageOpt()const
 	{
 		fprintf(mFile,"\"%s.use\"",mName.c_str());
 
 	}
 protected:
-	FilterEuler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Filter(file, name, parent, nodeType) {}
+	FilterEuler(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Filter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

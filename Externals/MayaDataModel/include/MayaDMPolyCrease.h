@@ -19,7 +19,8 @@ class PolyCrease : public PolyModifierWorld
 public:
 public:
 	PolyCrease():PolyModifierWorld(){}
-	PolyCrease(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyCrease"){}
+	PolyCrease(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyCrease", create){}
 	virtual ~PolyCrease(){}
 	void setCrease(size_t cr_i,float cr)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCrease(size_t cr_start,size_t cr_end)
+	void startCrease(size_t cr_start,size_t cr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cr[%i:%i]\"",cr_start,cr_end);
 
 	}
-	void appendCrease(float cr)
+	void appendCrease(float cr)const
 	{
 		fprintf(mFile," %f",cr);
 
 	}
-	void endCrease()
+	void endCrease()const
 	{
 		fprintf(mFile,";\n");
 
@@ -79,39 +80,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCreaseVertex(size_t crv_start,size_t crv_end)
+	void startCreaseVertex(size_t crv_start,size_t crv_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".crv[%i:%i]\"",crv_start,crv_end);
 
 	}
-	void appendCreaseVertex(float crv)
+	void appendCreaseVertex(float crv)const
 	{
 		fprintf(mFile," %f",crv);
 
 	}
-	void endCreaseVertex()
+	void endCreaseVertex()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getCrease(size_t cr_i)
+	void getCrease(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
 
 	}
-	void getInputVertexComponents()
+	void getInputVertexComponents()const
 	{
 		fprintf(mFile,"\"%s.ivc\"",mName.c_str());
 
 	}
-	void getCreaseVertex(size_t crv_i)
+	void getCreaseVertex(size_t crv_i)const
 	{
 		fprintf(mFile,"\"%s.crv[%i]\"",mName.c_str(),crv_i);
 
 	}
 protected:
-	PolyCrease(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyCrease(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

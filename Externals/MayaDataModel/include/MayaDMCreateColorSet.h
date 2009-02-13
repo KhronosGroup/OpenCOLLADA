@@ -19,7 +19,8 @@ class CreateColorSet : public DependNode
 public:
 public:
 	CreateColorSet():DependNode(){}
-	CreateColorSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "createColorSet"){}
+	CreateColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "createColorSet", create){}
 	virtual ~CreateColorSet(){}
 	void setColorSetName(const string& colos)
 	{
@@ -41,34 +42,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".rprt\" %i;\n", rprt);
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getColorSetName()
+	void getColorSetName()const
 	{
 		fprintf(mFile,"\"%s.colos\"",mName.c_str());
 
 	}
-	void getClamped()
+	void getClamped()const
 	{
 		fprintf(mFile,"\"%s.clam\"",mName.c_str());
 
 	}
-	void getRepresentation()
+	void getRepresentation()const
 	{
 		fprintf(mFile,"\"%s.rprt\"",mName.c_str());
 
 	}
 protected:
-	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	CreateColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

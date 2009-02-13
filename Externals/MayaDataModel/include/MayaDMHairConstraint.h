@@ -19,7 +19,8 @@ class HairConstraint : public Shape
 public:
 public:
 	HairConstraint():Shape(){}
-	HairConstraint(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "hairConstraint"){}
+	HairConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "hairConstraint", create){}
 	virtual ~HairConstraint(){}
 	void setCurveIndices(size_t cin_i,int cin)
 	{
@@ -39,17 +40,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startCurveIndices(size_t cin_start,size_t cin_end)
+	void startCurveIndices(size_t cin_start,size_t cin_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cin[%i:%i]\"",cin_start,cin_end);
 
 	}
-	void appendCurveIndices(int cin)
+	void appendCurveIndices(int cin)const
 	{
 		fprintf(mFile," %i",cin);
 
 	}
-	void endCurveIndices()
+	void endCurveIndices()const
 	{
 		fprintf(mFile,";\n");
 
@@ -90,49 +91,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".udi\" %f;\n", udi);
 
 	}
-	void getCurveIndices(size_t cin_i)
+	void getCurveIndices(size_t cin_i)const
 	{
 		fprintf(mFile,"\"%s.cin[%i]\"",mName.c_str(),cin_i);
 
 	}
-	void getConstraintMethod()
+	void getConstraintMethod()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
-	void getPointMethod()
+	void getPointMethod()const
 	{
 		fprintf(mFile,"\"%s.pmt\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.stf\"",mName.c_str());
 
 	}
-	void getGlueStrength()
+	void getGlueStrength()const
 	{
 		fprintf(mFile,"\"%s.gst\"",mName.c_str());
 
 	}
-	void getUParameter()
+	void getUParameter()const
 	{
 		fprintf(mFile,"\"%s.upr\"",mName.c_str());
 
 	}
-	void getUDistance()
+	void getUDistance()const
 	{
 		fprintf(mFile,"\"%s.udi\"",mName.c_str());
 
 	}
-	void getOutPin(size_t opn_i)
+	void getOutPin(size_t opn_i)const
 	{
 		fprintf(mFile,"\"%s.opn[%i]\"",mName.c_str(),opn_i);
 
 	}
 protected:
-	HairConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	HairConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

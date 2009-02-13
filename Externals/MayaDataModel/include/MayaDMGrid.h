@@ -19,7 +19,8 @@ class Grid : public Texture2d
 public:
 public:
 	Grid():Texture2d(){}
-	Grid(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "grid"){}
+	Grid(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "grid", create){}
 	virtual ~Grid(){}
 	void setFillerColor(const float3& fc)
 	{
@@ -91,64 +92,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".vw\" %f;\n", vw);
 
 	}
-	void getFillerColor()
+	void getFillerColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFillerColorR()
+	void getFillerColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fcr\"",mName.c_str());
 
 	}
-	void getFillerColorG()
+	void getFillerColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fcg\"",mName.c_str());
 
 	}
-	void getFillerColorB()
+	void getFillerColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fcb\"",mName.c_str());
 
 	}
-	void getLineColor()
+	void getLineColor()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 
 	}
-	void getLineColorR()
+	void getLineColorR()const
 	{
 		fprintf(mFile,"\"%s.lc.lcr\"",mName.c_str());
 
 	}
-	void getLineColorG()
+	void getLineColorG()const
 	{
 		fprintf(mFile,"\"%s.lc.lcg\"",mName.c_str());
 
 	}
-	void getLineColorB()
+	void getLineColorB()const
 	{
 		fprintf(mFile,"\"%s.lc.lcb\"",mName.c_str());
 
 	}
-	void getContrast()
+	void getContrast()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getUWidth()
+	void getUWidth()const
 	{
 		fprintf(mFile,"\"%s.uw\"",mName.c_str());
 
 	}
-	void getVWidth()
+	void getVWidth()const
 	{
 		fprintf(mFile,"\"%s.vw\"",mName.c_str());
 
 	}
 protected:
-	Grid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Grid(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

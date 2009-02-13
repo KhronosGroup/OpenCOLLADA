@@ -52,7 +52,8 @@ public:
 	};
 public:
 	RemapHsv():DependNode(){}
-	RemapHsv(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "remapHsv"){}
+	RemapHsv(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "remapHsv", create){}
 	virtual ~RemapHsv(){}
 	void setColor(const float3& cl)
 	{
@@ -178,129 +179,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".v[%i].vi\" %i;\n", v_i,vi);
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.cl\"",mName.c_str());
 
 	}
-	void getColorR()
+	void getColorR()const
 	{
 		fprintf(mFile,"\"%s.cl.cr\"",mName.c_str());
 
 	}
-	void getColorG()
+	void getColorG()const
 	{
 		fprintf(mFile,"\"%s.cl.cg\"",mName.c_str());
 
 	}
-	void getColorB()
+	void getColorB()const
 	{
 		fprintf(mFile,"\"%s.cl.cb\"",mName.c_str());
 
 	}
-	void getInputMin()
+	void getInputMin()const
 	{
 		fprintf(mFile,"\"%s.imn\"",mName.c_str());
 
 	}
-	void getInputMax()
+	void getInputMax()const
 	{
 		fprintf(mFile,"\"%s.imx\"",mName.c_str());
 
 	}
-	void getOutputMin()
+	void getOutputMin()const
 	{
 		fprintf(mFile,"\"%s.omn\"",mName.c_str());
 
 	}
-	void getOutputMax()
+	void getOutputMax()const
 	{
 		fprintf(mFile,"\"%s.omx\"",mName.c_str());
 
 	}
-	void getHue(size_t h_i)
+	void getHue(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i]\"",mName.c_str(),h_i);
 
 	}
-	void getHue_Position(size_t h_i)
+	void getHue_Position(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i].hp\"",mName.c_str(),h_i);
 
 	}
-	void getHue_FloatValue(size_t h_i)
+	void getHue_FloatValue(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i].hfv\"",mName.c_str(),h_i);
 
 	}
-	void getHue_Interp(size_t h_i)
+	void getHue_Interp(size_t h_i)const
 	{
 		fprintf(mFile,"\"%s.h[%i].hi\"",mName.c_str(),h_i);
 
 	}
-	void getSaturation(size_t s_i)
+	void getSaturation(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i]\"",mName.c_str(),s_i);
 
 	}
-	void getSaturation_Position(size_t s_i)
+	void getSaturation_Position(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i].sp\"",mName.c_str(),s_i);
 
 	}
-	void getSaturation_FloatValue(size_t s_i)
+	void getSaturation_FloatValue(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i].sfv\"",mName.c_str(),s_i);
 
 	}
-	void getSaturation_Interp(size_t s_i)
+	void getSaturation_Interp(size_t s_i)const
 	{
 		fprintf(mFile,"\"%s.s[%i].si\"",mName.c_str(),s_i);
 
 	}
-	void getValue(size_t v_i)
+	void getValue(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
-	void getValue_Position(size_t v_i)
+	void getValue_Position(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vp\"",mName.c_str(),v_i);
 
 	}
-	void getValue_FloatValue(size_t v_i)
+	void getValue_FloatValue(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vfv\"",mName.c_str(),v_i);
 
 	}
-	void getValue_Interp(size_t v_i)
+	void getValue_Interp(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vi\"",mName.c_str(),v_i);
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
 protected:
-	RemapHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RemapHsv(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

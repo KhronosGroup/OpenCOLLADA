@@ -41,7 +41,8 @@ public:
 	};
 public:
 	DynamicConstraint():Shape(){}
-	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "dynamicConstraint"){}
+	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "dynamicConstraint", create){}
 	virtual ~DynamicConstraint(){}
 	void setIsDynamic(bool isd)
 	{
@@ -291,244 +292,244 @@ public:
 		fprintf(mFile,"\tsetAttr \".mini\" %i;\n", mini);
 
 	}
-	void getIsDynamic()
+	void getIsDynamic()const
 	{
 		fprintf(mFile,"\"%s.isd\"",mName.c_str());
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.ena\"",mName.c_str());
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 
 	}
-	void getComponentIds(size_t cid_i)
+	void getComponentIds(size_t cid_i)const
 	{
 		fprintf(mFile,"\"%s.cid[%i]\"",mName.c_str(),cid_i);
 
 	}
-	void getConstraintMethod()
+	void getConstraintMethod()const
 	{
 		fprintf(mFile,"\"%s.cm\"",mName.c_str());
 
 	}
-	void getConnectionMethod()
+	void getConnectionMethod()const
 	{
 		fprintf(mFile,"\"%s.cnm\"",mName.c_str());
 
 	}
-	void getConstraintRelation()
+	void getConstraintRelation()const
 	{
 		fprintf(mFile,"\"%s.crr\"",mName.c_str());
 
 	}
-	void getComponentRelation()
+	void getComponentRelation()const
 	{
 		fprintf(mFile,"\"%s.cmr\"",mName.c_str());
 
 	}
-	void getConnectionUpdate()
+	void getConnectionUpdate()const
 	{
 		fprintf(mFile,"\"%s.cu\"",mName.c_str());
 
 	}
-	void getConnectWithinComponent()
+	void getConnectWithinComponent()const
 	{
 		fprintf(mFile,"\"%s.cwc\"",mName.c_str());
 
 	}
-	void getConnectionDensity()
+	void getConnectionDensity()const
 	{
 		fprintf(mFile,"\"%s.cdn\"",mName.c_str());
 
 	}
-	void getConnectionDensityRange(size_t cdnr_i)
+	void getConnectionDensityRange(size_t cdnr_i)const
 	{
 		fprintf(mFile,"\"%s.cdnr[%i]\"",mName.c_str(),cdnr_i);
 
 	}
-	void getConnectionDensityRange_Position(size_t cdnr_i)
+	void getConnectionDensityRange_Position(size_t cdnr_i)const
 	{
 		fprintf(mFile,"\"%s.cdnr[%i].cdnrp\"",mName.c_str(),cdnr_i);
 
 	}
-	void getConnectionDensityRange_FloatValue(size_t cdnr_i)
+	void getConnectionDensityRange_FloatValue(size_t cdnr_i)const
 	{
 		fprintf(mFile,"\"%s.cdnr[%i].cdnrfv\"",mName.c_str(),cdnr_i);
 
 	}
-	void getConnectionDensityRange_Interp(size_t cdnr_i)
+	void getConnectionDensityRange_Interp(size_t cdnr_i)const
 	{
 		fprintf(mFile,"\"%s.cdnr[%i].cdnri\"",mName.c_str(),cdnr_i);
 
 	}
-	void getDisplayConnections()
+	void getDisplayConnections()const
 	{
 		fprintf(mFile,"\"%s.dcn\"",mName.c_str());
 
 	}
-	void getStrength()
+	void getStrength()const
 	{
 		fprintf(mFile,"\"%s.str\"",mName.c_str());
 
 	}
-	void getRestLengthMethod()
+	void getRestLengthMethod()const
 	{
 		fprintf(mFile,"\"%s.rlm\"",mName.c_str());
 
 	}
-	void getRestLength()
+	void getRestLength()const
 	{
 		fprintf(mFile,"\"%s.rl\"",mName.c_str());
 
 	}
-	void getRestLengthScale()
+	void getRestLengthScale()const
 	{
 		fprintf(mFile,"\"%s.rls\"",mName.c_str());
 
 	}
-	void getTangentStrength()
+	void getTangentStrength()const
 	{
 		fprintf(mFile,"\"%s.tst\"",mName.c_str());
 
 	}
-	void getBend()
+	void getBend()const
 	{
 		fprintf(mFile,"\"%s.bnd\"",mName.c_str());
 
 	}
-	void getBendStrength()
+	void getBendStrength()const
 	{
 		fprintf(mFile,"\"%s.bns\"",mName.c_str());
 
 	}
-	void getBendBreakAngle()
+	void getBendBreakAngle()const
 	{
 		fprintf(mFile,"\"%s.bba\"",mName.c_str());
 
 	}
-	void getGlueStrength()
+	void getGlueStrength()const
 	{
 		fprintf(mFile,"\"%s.gls\"",mName.c_str());
 
 	}
-	void getGlueStrengthScale()
+	void getGlueStrengthScale()const
 	{
 		fprintf(mFile,"\"%s.glss\"",mName.c_str());
 
 	}
-	void getForce()
+	void getForce()const
 	{
 		fprintf(mFile,"\"%s.for\"",mName.c_str());
 
 	}
-	void getMotionDrag()
+	void getMotionDrag()const
 	{
 		fprintf(mFile,"\"%s.mdg\"",mName.c_str());
 
 	}
-	void getDropoff()
+	void getDropoff()const
 	{
 		fprintf(mFile,"\"%s.drp\"",mName.c_str());
 
 	}
-	void getDropoffDistance()
+	void getDropoffDistance()const
 	{
 		fprintf(mFile,"\"%s.ddd\"",mName.c_str());
 
 	}
-	void getStrengthDropoff(size_t sdp_i)
+	void getStrengthDropoff(size_t sdp_i)const
 	{
 		fprintf(mFile,"\"%s.sdp[%i]\"",mName.c_str(),sdp_i);
 
 	}
-	void getStrengthDropoff_Position(size_t sdp_i)
+	void getStrengthDropoff_Position(size_t sdp_i)const
 	{
 		fprintf(mFile,"\"%s.sdp[%i].sdpp\"",mName.c_str(),sdp_i);
 
 	}
-	void getStrengthDropoff_FloatValue(size_t sdp_i)
+	void getStrengthDropoff_FloatValue(size_t sdp_i)const
 	{
 		fprintf(mFile,"\"%s.sdp[%i].sdpfv\"",mName.c_str(),sdp_i);
 
 	}
-	void getStrengthDropoff_Interp(size_t sdp_i)
+	void getStrengthDropoff_Interp(size_t sdp_i)const
 	{
 		fprintf(mFile,"\"%s.sdp[%i].sdpi\"",mName.c_str(),sdp_i);
 
 	}
-	void getMaxDistance()
+	void getMaxDistance()const
 	{
 		fprintf(mFile,"\"%s.mds\"",mName.c_str());
 
 	}
-	void getDamp()
+	void getDamp()const
 	{
 		fprintf(mFile,"\"%s.dmp\"",mName.c_str());
 
 	}
-	void getFriction()
+	void getFriction()const
 	{
 		fprintf(mFile,"\"%s.frc\"",mName.c_str());
 
 	}
-	void getLocalCollide()
+	void getLocalCollide()const
 	{
 		fprintf(mFile,"\"%s.lcl\"",mName.c_str());
 
 	}
-	void getCollideWidthScale()
+	void getCollideWidthScale()const
 	{
 		fprintf(mFile,"\"%s.cws\"",mName.c_str());
 
 	}
-	void getExcludeCollisions()
+	void getExcludeCollisions()const
 	{
 		fprintf(mFile,"\"%s.excs\"",mName.c_str());
 
 	}
-	void getSingleSided()
+	void getSingleSided()const
 	{
 		fprintf(mFile,"\"%s.ssd\"",mName.c_str());
 
 	}
-	void getMaxIterations()
+	void getMaxIterations()const
 	{
 		fprintf(mFile,"\"%s.mitr\"",mName.c_str());
 
 	}
-	void getMinIterations()
+	void getMinIterations()const
 	{
 		fprintf(mFile,"\"%s.mini\"",mName.c_str());
 
 	}
-	void getEvalStart(size_t evs_i)
+	void getEvalStart(size_t evs_i)const
 	{
 		fprintf(mFile,"\"%s.evs[%i]\"",mName.c_str(),evs_i);
 
 	}
-	void getEvalCurrent(size_t evc_i)
+	void getEvalCurrent(size_t evc_i)const
 	{
 		fprintf(mFile,"\"%s.evc[%i]\"",mName.c_str(),evc_i);
 
 	}
-	void getIterations()
+	void getIterations()const
 	{
 		fprintf(mFile,"\"%s.itr\"",mName.c_str());
 
 	}
-	void getCollide()
+	void getCollide()const
 	{
 		fprintf(mFile,"\"%s.cld\"",mName.c_str());
 
 	}
 protected:
-	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	DynamicConstraint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class ImplicitBox : public GeometryShape
 public:
 public:
 	ImplicitBox():GeometryShape(){}
-	ImplicitBox(FILE* file,const std::string& name,const std::string& parent=""):GeometryShape(file, name, parent, "implicitBox"){}
+	ImplicitBox(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryShape(file, name, parent, "implicitBox", create){}
 	virtual ~ImplicitBox(){}
 	void setSize(const double3& siz)
 	{
@@ -46,34 +47,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".siz.szz\" %f;\n", szz);
 
 	}
-	void getBox()
+	void getBox()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getSize()
+	void getSize()const
 	{
 		fprintf(mFile,"\"%s.siz\"",mName.c_str());
 
 	}
-	void getSizeX()
+	void getSizeX()const
 	{
 		fprintf(mFile,"\"%s.siz.szx\"",mName.c_str());
 
 	}
-	void getSizeY()
+	void getSizeY()const
 	{
 		fprintf(mFile,"\"%s.siz.szy\"",mName.c_str());
 
 	}
-	void getSizeZ()
+	void getSizeZ()const
 	{
 		fprintf(mFile,"\"%s.siz.szz\"",mName.c_str());
 
 	}
 protected:
-	ImplicitBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryShape(file, name, parent, nodeType) {}
+	ImplicitBox(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

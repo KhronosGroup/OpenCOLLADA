@@ -26,7 +26,8 @@ public:
 	};
 public:
 	GeometryFilter():DependNode(){}
-	GeometryFilter(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "geometryFilter"){}
+	GeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "geometryFilter", create){}
 	virtual ~GeometryFilter(){}
 	void setInput(size_t ip_i,const Input& ip)
 	{
@@ -47,59 +48,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".en\" %f;\n", en);
 
 	}
-	void getInput(size_t ip_i)
+	void getInput(size_t ip_i)const
 	{
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
-	void getInputGeometry(size_t ip_i)
+	void getInputGeometry(size_t ip_i)const
 	{
 		fprintf(mFile,"\"%s.ip[%i].ig\"",mName.c_str(),ip_i);
 
 	}
-	void getGroupId(size_t ip_i)
+	void getGroupId(size_t ip_i)const
 	{
 		fprintf(mFile,"\"%s.ip[%i].gi\"",mName.c_str(),ip_i);
 
 	}
-	void getOutputGeometry(size_t og_i)
+	void getOutputGeometry(size_t og_i)const
 	{
 		fprintf(mFile,"\"%s.og[%i]\"",mName.c_str(),og_i);
 
 	}
-	void getEnvelope()
+	void getEnvelope()const
 	{
 		fprintf(mFile,"\"%s.en\"",mName.c_str());
 
 	}
-	void getFunction()
+	void getFunction()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getFchild1()
+	void getFchild1()const
 	{
 		fprintf(mFile,"\"%s.f.f1\"",mName.c_str());
 
 	}
-	void getFchild2()
+	void getFchild2()const
 	{
 		fprintf(mFile,"\"%s.f.f2\"",mName.c_str());
 
 	}
-	void getFchild3()
+	void getFchild3()const
 	{
 		fprintf(mFile,"\"%s.f.f3\"",mName.c_str());
 
 	}
-	void getMap64BitIndices()
+	void getMap64BitIndices()const
 	{
 		fprintf(mFile,"\"%s.map\"",mName.c_str());
 
 	}
 protected:
-	GeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	GeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

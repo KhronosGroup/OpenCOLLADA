@@ -19,7 +19,8 @@ class Texture3d : public DependNode
 public:
 public:
 	Texture3d():DependNode(){}
-	Texture3d(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "texture3d"){}
+	Texture3d(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "texture3d", create){}
 	virtual ~Texture3d(){}
 	void setFilter(float f)
 	{
@@ -153,204 +154,204 @@ public:
 		fprintf(mFile,"\tsetAttr \".dc.dcb\" %f;\n", dcb);
 
 	}
-	void getPointObj()
+	void getPointObj()const
 	{
 		fprintf(mFile,"\"%s.po\"",mName.c_str());
 
 	}
-	void getPointObjX()
+	void getPointObjX()const
 	{
 		fprintf(mFile,"\"%s.po.pox\"",mName.c_str());
 
 	}
-	void getPointObjY()
+	void getPointObjY()const
 	{
 		fprintf(mFile,"\"%s.po.poy\"",mName.c_str());
 
 	}
-	void getPointObjZ()
+	void getPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.po.poz\"",mName.c_str());
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getFilterSize()
+	void getFilterSize()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getFilterSizeX()
+	void getFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.fs.fsx\"",mName.c_str());
 
 	}
-	void getFilterSizeY()
+	void getFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.fs.fsy\"",mName.c_str());
 
 	}
-	void getFilterSizeZ()
+	void getFilterSizeZ()const
 	{
 		fprintf(mFile,"\"%s.fs.fsz\"",mName.c_str());
 
 	}
-	void getPlacementMatrix()
+	void getPlacementMatrix()const
 	{
 		fprintf(mFile,"\"%s.pm\"",mName.c_str());
 
 	}
-	void getMatrixEyeToWorld()
+	void getMatrixEyeToWorld()const
 	{
 		fprintf(mFile,"\"%s.e2w\"",mName.c_str());
 
 	}
-	void getFilter()
+	void getFilter()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getFilterOffset()
+	void getFilterOffset()const
 	{
 		fprintf(mFile,"\"%s.fo\"",mName.c_str());
 
 	}
-	void getBlend()
+	void getBlend()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getWrap()
+	void getWrap()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getInvert()
+	void getInvert()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getAlphaIsLuminance()
+	void getAlphaIsLuminance()const
 	{
 		fprintf(mFile,"\"%s.ail\"",mName.c_str());
 
 	}
-	void getColorGain()
+	void getColorGain()const
 	{
 		fprintf(mFile,"\"%s.cg\"",mName.c_str());
 
 	}
-	void getColorGainR()
+	void getColorGainR()const
 	{
 		fprintf(mFile,"\"%s.cg.cgr\"",mName.c_str());
 
 	}
-	void getColorGainG()
+	void getColorGainG()const
 	{
 		fprintf(mFile,"\"%s.cg.cgg\"",mName.c_str());
 
 	}
-	void getColorGainB()
+	void getColorGainB()const
 	{
 		fprintf(mFile,"\"%s.cg.cgb\"",mName.c_str());
 
 	}
-	void getColorOffset()
+	void getColorOffset()const
 	{
 		fprintf(mFile,"\"%s.co\"",mName.c_str());
 
 	}
-	void getColorOffsetR()
+	void getColorOffsetR()const
 	{
 		fprintf(mFile,"\"%s.co.cor\"",mName.c_str());
 
 	}
-	void getColorOffsetG()
+	void getColorOffsetG()const
 	{
 		fprintf(mFile,"\"%s.co.cog\"",mName.c_str());
 
 	}
-	void getColorOffsetB()
+	void getColorOffsetB()const
 	{
 		fprintf(mFile,"\"%s.co.cob\"",mName.c_str());
 
 	}
-	void getAlphaGain()
+	void getAlphaGain()const
 	{
 		fprintf(mFile,"\"%s.ag\"",mName.c_str());
 
 	}
-	void getAlphaOffset()
+	void getAlphaOffset()const
 	{
 		fprintf(mFile,"\"%s.ao\"",mName.c_str());
 
 	}
-	void getDefaultColor()
+	void getDefaultColor()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getDefaultColorR()
+	void getDefaultColorR()const
 	{
 		fprintf(mFile,"\"%s.dc.dcr\"",mName.c_str());
 
 	}
-	void getDefaultColorG()
+	void getDefaultColorG()const
 	{
 		fprintf(mFile,"\"%s.dc.dcg\"",mName.c_str());
 
 	}
-	void getDefaultColorB()
+	void getDefaultColorB()const
 	{
 		fprintf(mFile,"\"%s.dc.dcb\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
-	void getOutAlpha()
+	void getOutAlpha()const
 	{
 		fprintf(mFile,"\"%s.oa\"",mName.c_str());
 
 	}
 protected:
-	Texture3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Texture3d(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

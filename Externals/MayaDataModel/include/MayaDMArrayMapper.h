@@ -19,7 +19,8 @@ class ArrayMapper : public DependNode
 public:
 public:
 	ArrayMapper():DependNode(){}
-	ArrayMapper(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "arrayMapper"){}
+	ArrayMapper(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "arrayMapper", create){}
 	virtual ~ArrayMapper(){}
 	void setMinValue(double min)
 	{
@@ -33,69 +34,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".max\" %f;\n", max);
 
 	}
-	void getComputeNode()
+	void getComputeNode()const
 	{
 		fprintf(mFile,"\"%s.cn\"",mName.c_str());
 
 	}
-	void getUCoordPP()
+	void getUCoordPP()const
 	{
 		fprintf(mFile,"\"%s.upp\"",mName.c_str());
 
 	}
-	void getVCoordPP()
+	void getVCoordPP()const
 	{
 		fprintf(mFile,"\"%s.vpp\"",mName.c_str());
 
 	}
-	void getMinValue()
+	void getMinValue()const
 	{
 		fprintf(mFile,"\"%s.min\"",mName.c_str());
 
 	}
-	void getMaxValue()
+	void getMaxValue()const
 	{
 		fprintf(mFile,"\"%s.max\"",mName.c_str());
 
 	}
-	void getComputeNodeColor()
+	void getComputeNodeColor()const
 	{
 		fprintf(mFile,"\"%s.cnc\"",mName.c_str());
 
 	}
-	void getComputeNodeColorR()
+	void getComputeNodeColorR()const
 	{
 		fprintf(mFile,"\"%s.cnc.cncr\"",mName.c_str());
 
 	}
-	void getComputeNodeColorG()
+	void getComputeNodeColorG()const
 	{
 		fprintf(mFile,"\"%s.cnc.cncg\"",mName.c_str());
 
 	}
-	void getComputeNodeColorB()
+	void getComputeNodeColorB()const
 	{
 		fprintf(mFile,"\"%s.cnc.cncb\"",mName.c_str());
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 
 	}
-	void getOutColorPP()
+	void getOutColorPP()const
 	{
 		fprintf(mFile,"\"%s.ocpp\"",mName.c_str());
 
 	}
-	void getOutValuePP()
+	void getOutValuePP()const
 	{
 		fprintf(mFile,"\"%s.ovpp\"",mName.c_str());
 
 	}
 protected:
-	ArrayMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	ArrayMapper(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

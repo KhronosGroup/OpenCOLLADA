@@ -25,8 +25,7 @@ namespace COLLADAMaya
     {
     public:
 
-        typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdMayaDependNodeMap;
-        typedef std::map<COLLADAFW::UniqueId, std::vector<MayaDM::DependNode*>> UniqueIdDependNodesMap;
+        typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdDependNodeMap;
 
     private:
 	
@@ -48,12 +47,7 @@ namespace COLLADAMaya
         /**
         * The map holds the maya effect objects.
         */
-        UniqueIdMayaDependNodeMap mMayaEffectMap;
-
-        /**
-         * One effect can have multiple materials. But one material just one effect.
-         */
-        UniqueIdDependNodesMap mEffectMaterialsMap;
+        UniqueIdDependNodeMap mMayaEffectMap;
 
     public:
 
@@ -71,12 +65,12 @@ namespace COLLADAMaya
         */
         MayaDM::DependNode* findMayaEffect ( const COLLADAFW::UniqueId& val ) const;
 
-	private:
-
         /**
         * The map holds the maya material objects.
         */
-        const UniqueIdMayaDependNodeMap& getMayaEffectMap () const { return mMayaEffectMap; }
+        const UniqueIdDependNodeMap& getMayaEffectMap () const { return mMayaEffectMap; }
+
+	private:
 
         /**
         * The map holds the maya material objects.
@@ -84,14 +78,75 @@ namespace COLLADAMaya
         void appendEffect ( const COLLADAFW::UniqueId& id, MayaDM::DependNode* effectNode );
 
         /**
-        * One effect can have multiple materials. But one material just one effect.
-        */
-        const UniqueIdDependNodesMap getEffectMaterialsMap () const { return mEffectMaterialsMap; }
-
-        /**
          * Imports a lambert shader effect.
          */
-        void importLambertShader ( const COLLADAFW::Effect* effect );
+        void importLambertShader ( 
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect );
+
+        /**
+         * Imports the shader attributes.
+         */
+        template<class T>
+        void importShaderAttributes ( 
+            T* lambert,
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect )
+        {
+            {
+                const COLLADAFW::Color& color = effect->getStandardColor ();
+                if ( color.isValid () )
+                    lambert->setColor ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+            }
+
+            const COLLADAFW::ColorOrTexture& diffuse = commonEffect->getDiffuse ();
+            if ( diffuse.isColor () )
+            {
+                const COLLADAFW::Color& color = diffuse.getColor ();
+                if ( color.isValid () )
+                    lambert->setColor ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+            }
+
+            const COLLADAFW::ColorOrTexture& emission = commonEffect->getEmission ();
+            if ( emission.isColor () )
+            {
+                const COLLADAFW::Color& color = emission.getColor ();
+                if ( color.isValid () )
+                    lambert->setIncandescence ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+            }
+
+            // TODO 
+            commonEffect->getIndexOfRefraction ();
+
+            const COLLADAFW::ColorOrTexture& reflective = commonEffect->getReflective ();
+            if ( reflective.isColor () )
+            {
+                const COLLADAFW::Color& color = reflective.getColor ();
+                // TODO
+            }
+
+            // TODO
+            commonEffect->getReflectivity ();
+            commonEffect->getShininess ();
+
+            const COLLADAFW::ColorOrTexture& specular = commonEffect->getSpecular ();
+            if ( specular.isColor () )
+            {
+                const COLLADAFW::Color& color = specular.getColor ();
+                // TODO
+            }
+
+            // TODO
+            commonEffect->getTransparency ();
+
+            const COLLADAFW::ColorOrTexture& transparent = commonEffect->getTransparent();
+            if ( transparent.isColor () )
+            {
+                const COLLADAFW::Color& color = transparent.getColor ();
+                if ( color.isValid () )
+                    lambert->setTransparency ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+            }
+        }
 
         /** Disable default copy ctor. */
 		EffectImporter( const EffectImporter& pre );

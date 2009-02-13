@@ -19,7 +19,8 @@ class NurbsCurve : public CurveShape
 public:
 public:
 	NurbsCurve():CurveShape(){}
-	NurbsCurve(FILE* file,const std::string& name,const std::string& parent=""):CurveShape(file, name, parent, "nurbsCurve"){}
+	NurbsCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CurveShape(file, name, parent, "nurbsCurve", create){}
 	virtual ~NurbsCurve(){}
 	void setCached(const nurbsCurve& cc)
 	{
@@ -58,134 +59,134 @@ public:
 		fprintf(mFile,"\tsetAttr \".dg\" %i;\n", dg);
 
 	}
-	void getCreate()
+	void getCreate()const
 	{
 		fprintf(mFile,"\"%s.cr\"",mName.c_str());
 
 	}
-	void getLocal()
+	void getLocal()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getWorldSpace(size_t ws_i)
+	void getWorldSpace(size_t ws_i)const
 	{
 		fprintf(mFile,"\"%s.ws[%i]\"",mName.c_str(),ws_i);
 
 	}
-	void getWorldNormal(size_t wn_i)
+	void getWorldNormal(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i]\"",mName.c_str(),wn_i);
 
 	}
-	void getWorldNormalX(size_t wn_i)
+	void getWorldNormalX(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i].wnx\"",mName.c_str(),wn_i);
 
 	}
-	void getWorldNormalY(size_t wn_i)
+	void getWorldNormalY(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i].wny\"",mName.c_str(),wn_i);
 
 	}
-	void getWorldNormalZ(size_t wn_i)
+	void getWorldNormalZ(size_t wn_i)const
 	{
 		fprintf(mFile,"\"%s.wn[%i].wnz\"",mName.c_str(),wn_i);
 
 	}
-	void getForm()
+	void getForm()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSpans()
+	void getSpans()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getEditPoints(size_t eps_i)
+	void getEditPoints(size_t eps_i)const
 	{
 		fprintf(mFile,"\"%s.eps[%i]\"",mName.c_str(),eps_i);
 
 	}
-	void getXValueEp(size_t eps_i)
+	void getXValueEp(size_t eps_i)const
 	{
 		fprintf(mFile,"\"%s.eps[%i].xve\"",mName.c_str(),eps_i);
 
 	}
-	void getYValueEp(size_t eps_i)
+	void getYValueEp(size_t eps_i)const
 	{
 		fprintf(mFile,"\"%s.eps[%i].yve\"",mName.c_str(),eps_i);
 
 	}
-	void getZValueEp(size_t eps_i)
+	void getZValueEp(size_t eps_i)const
 	{
 		fprintf(mFile,"\"%s.eps[%i].zve\"",mName.c_str(),eps_i);
 
 	}
-	void getCached()
+	void getCached()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
-	void getInPlace()
+	void getInPlace()const
 	{
 		fprintf(mFile,"\"%s.ipo\"",mName.c_str());
 
 	}
-	void getDispCV()
+	void getDispCV()const
 	{
 		fprintf(mFile,"\"%s.dcv\"",mName.c_str());
 
 	}
-	void getDispEP()
+	void getDispEP()const
 	{
 		fprintf(mFile,"\"%s.dep\"",mName.c_str());
 
 	}
-	void getDispHull()
+	void getDispHull()const
 	{
 		fprintf(mFile,"\"%s.dh\"",mName.c_str());
 
 	}
-	void getDispCurveEndPoints()
+	void getDispCurveEndPoints()const
 	{
 		fprintf(mFile,"\"%s.dce\"",mName.c_str());
 
 	}
-	void getDispGeometry()
+	void getDispGeometry()const
 	{
 		fprintf(mFile,"\"%s.dg\"",mName.c_str());
 
 	}
-	void getTweakSize()
+	void getTweakSize()const
 	{
 		fprintf(mFile,"\"%s.ts\"",mName.c_str());
 
 	}
-	void getMinMaxValue()
+	void getMinMaxValue()const
 	{
 		fprintf(mFile,"\"%s.mmv\"",mName.c_str());
 
 	}
-	void getMinValue()
+	void getMinValue()const
 	{
 		fprintf(mFile,"\"%s.mmv.min\"",mName.c_str());
 
 	}
-	void getMaxValue()
+	void getMaxValue()const
 	{
 		fprintf(mFile,"\"%s.mmv.max\"",mName.c_str());
 
 	}
 protected:
-	NurbsCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CurveShape(file, name, parent, nodeType) {}
+	NurbsCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CurveShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class BlendTwoAttr : public Blend
 public:
 public:
 	BlendTwoAttr():Blend(){}
-	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent=""):Blend(file, name, parent, "blendTwoAttr"){}
+	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Blend(file, name, parent, "blendTwoAttr", create){}
 	virtual ~BlendTwoAttr(){}
 	void setAttributesBlender(float ab)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".ab\" %f;\n", ab);
 
 	}
-	void getAttributesBlender()
+	void getAttributesBlender()const
 	{
 		fprintf(mFile,"\"%s.ab\"",mName.c_str());
 
 	}
 protected:
-	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Blend(file, name, parent, nodeType) {}
+	BlendTwoAttr(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Blend(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

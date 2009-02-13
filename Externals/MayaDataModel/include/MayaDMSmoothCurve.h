@@ -19,7 +19,8 @@ class SmoothCurve : public AbstractBaseCreate
 public:
 public:
 	SmoothCurve():AbstractBaseCreate(){}
-	SmoothCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "smoothCurve"){}
+	SmoothCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "smoothCurve", create){}
 	virtual ~SmoothCurve(){}
 	void setSmoothness(double s)
 	{
@@ -45,44 +46,44 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startIndex(size_t i_start,size_t i_end)
+	void startIndex(size_t i_start,size_t i_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".i[%i:%i]\"",i_start,i_end);
 
 	}
-	void appendIndex(int i)
+	void appendIndex(int i)const
 	{
 		fprintf(mFile," %i",i);
 
 	}
-	void endIndex()
+	void endIndex()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getInputCurve()
+	void getInputCurve()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
-	void getSmoothness()
+	void getSmoothness()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getIndex(size_t i_i)
+	void getIndex(size_t i_i)const
 	{
 		fprintf(mFile,"\"%s.i[%i]\"",mName.c_str(),i_i);
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	SmoothCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	SmoothCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

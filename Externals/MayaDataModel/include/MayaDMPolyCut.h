@@ -19,7 +19,8 @@ class PolyCut : public PolyModifierWorld
 public:
 public:
 	PolyCut():PolyModifierWorld(){}
-	PolyCut(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyCut"){}
+	PolyCut(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyCut", create){}
 	virtual ~PolyCut(){}
 	void setCutPlaneCenter(const double3& pc)
 	{
@@ -137,104 +138,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".oo\" %i;\n", oo);
 
 	}
-	void getCutPlaneCenter()
+	void getCutPlaneCenter()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getCutPlaneCenterX()
+	void getCutPlaneCenterX()const
 	{
 		fprintf(mFile,"\"%s.pc.pcx\"",mName.c_str());
 
 	}
-	void getCutPlaneCenterY()
+	void getCutPlaneCenterY()const
 	{
 		fprintf(mFile,"\"%s.pc.pcy\"",mName.c_str());
 
 	}
-	void getCutPlaneCenterZ()
+	void getCutPlaneCenterZ()const
 	{
 		fprintf(mFile,"\"%s.pc.pcz\"",mName.c_str());
 
 	}
-	void getCutPlaneRotate()
+	void getCutPlaneRotate()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getCutPlaneRotateX()
+	void getCutPlaneRotateX()const
 	{
 		fprintf(mFile,"\"%s.ro.rx\"",mName.c_str());
 
 	}
-	void getCutPlaneRotateY()
+	void getCutPlaneRotateY()const
 	{
 		fprintf(mFile,"\"%s.ro.ry\"",mName.c_str());
 
 	}
-	void getCutPlaneRotateZ()
+	void getCutPlaneRotateZ()const
 	{
 		fprintf(mFile,"\"%s.ro.rz\"",mName.c_str());
 
 	}
-	void getCutPlaneSize()
+	void getCutPlaneSize()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getCutPlaneWidth()
+	void getCutPlaneWidth()const
 	{
 		fprintf(mFile,"\"%s.ps.pw\"",mName.c_str());
 
 	}
-	void getCutPlaneHeight()
+	void getCutPlaneHeight()const
 	{
 		fprintf(mFile,"\"%s.ps.ph\"",mName.c_str());
 
 	}
-	void getExtractFaces()
+	void getExtractFaces()const
 	{
 		fprintf(mFile,"\"%s.ef\"",mName.c_str());
 
 	}
-	void getExtractOffset()
+	void getExtractOffset()const
 	{
 		fprintf(mFile,"\"%s.eo\"",mName.c_str());
 
 	}
-	void getExtractOffsetX()
+	void getExtractOffsetX()const
 	{
 		fprintf(mFile,"\"%s.eo.eox\"",mName.c_str());
 
 	}
-	void getExtractOffsetY()
+	void getExtractOffsetY()const
 	{
 		fprintf(mFile,"\"%s.eo.eoy\"",mName.c_str());
 
 	}
-	void getExtractOffsetZ()
+	void getExtractOffsetZ()const
 	{
 		fprintf(mFile,"\"%s.eo.eoz\"",mName.c_str());
 
 	}
-	void getDeleteFaces()
+	void getDeleteFaces()const
 	{
 		fprintf(mFile,"\"%s.df\"",mName.c_str());
 
 	}
-	void getOnObject()
+	void getOnObject()const
 	{
 		fprintf(mFile,"\"%s.oo\"",mName.c_str());
 
 	}
-	void getCompId()
+	void getCompId()const
 	{
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 
 	}
 protected:
-	PolyCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyCut(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

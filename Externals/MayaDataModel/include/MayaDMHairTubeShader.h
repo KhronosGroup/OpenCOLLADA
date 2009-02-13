@@ -31,7 +31,8 @@ public:
 	};
 public:
 	HairTubeShader():Reflect(){}
-	HairTubeShader(FILE* file,const std::string& name,const std::string& parent=""):Reflect(file, name, parent, "hairTubeShader"){}
+	HairTubeShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Reflect(file, name, parent, "hairTubeShader", create){}
 	virtual ~HairTubeShader(){}
 	void setTubeDirection(unsigned int tdr)
 	{
@@ -168,174 +169,174 @@ public:
 		fprintf(mFile,"\tsetAttr \".mirf\" %f;\n", mirf);
 
 	}
-	void getTangentUCamera()
+	void getTangentUCamera()const
 	{
 		fprintf(mFile,"\"%s.utan\"",mName.c_str());
 
 	}
-	void getTangentUCameraX()
+	void getTangentUCameraX()const
 	{
 		fprintf(mFile,"\"%s.utan.utnx\"",mName.c_str());
 
 	}
-	void getTangentUCameraY()
+	void getTangentUCameraY()const
 	{
 		fprintf(mFile,"\"%s.utan.utny\"",mName.c_str());
 
 	}
-	void getTangentUCameraZ()
+	void getTangentUCameraZ()const
 	{
 		fprintf(mFile,"\"%s.utan.utnz\"",mName.c_str());
 
 	}
-	void getTangentVCamera()
+	void getTangentVCamera()const
 	{
 		fprintf(mFile,"\"%s.vtan\"",mName.c_str());
 
 	}
-	void getTangentVCameraX()
+	void getTangentVCameraX()const
 	{
 		fprintf(mFile,"\"%s.vtan.vtnx\"",mName.c_str());
 
 	}
-	void getTangentVCameraY()
+	void getTangentVCameraY()const
 	{
 		fprintf(mFile,"\"%s.vtan.vtny\"",mName.c_str());
 
 	}
-	void getTangentVCameraZ()
+	void getTangentVCameraZ()const
 	{
 		fprintf(mFile,"\"%s.vtan.vtnz\"",mName.c_str());
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.uvu\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.uvv\"",mName.c_str());
 
 	}
-	void getTubeDirection()
+	void getTubeDirection()const
 	{
 		fprintf(mFile,"\"%s.tdr\"",mName.c_str());
 
 	}
-	void getColorScale(size_t cls_i)
+	void getColorScale(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i]\"",mName.c_str(),cls_i);
 
 	}
-	void getColorScale_Position(size_t cls_i)
+	void getColorScale_Position(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsp\"",mName.c_str(),cls_i);
 
 	}
-	void getColorScale_Color(size_t cls_i)
+	void getColorScale_Color(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsc\"",mName.c_str(),cls_i);
 
 	}
-	void getColorScale_ColorR(size_t cls_i)
+	void getColorScale_ColorR(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsc.clscr\"",mName.c_str(),cls_i);
 
 	}
-	void getColorScale_ColorG(size_t cls_i)
+	void getColorScale_ColorG(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsc.clscg\"",mName.c_str(),cls_i);
 
 	}
-	void getColorScale_ColorB(size_t cls_i)
+	void getColorScale_ColorB(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsc.clscb\"",mName.c_str(),cls_i);
 
 	}
-	void getColorScale_Interp(size_t cls_i)
+	void getColorScale_Interp(size_t cls_i)const
 	{
 		fprintf(mFile,"\"%s.cls[%i].clsi\"",mName.c_str(),cls_i);
 
 	}
-	void getSpecularPower()
+	void getSpecularPower()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getSpecularShift()
+	void getSpecularShift()const
 	{
 		fprintf(mFile,"\"%s.ssh\"",mName.c_str());
 
 	}
-	void getScatterPower()
+	void getScatterPower()const
 	{
 		fprintf(mFile,"\"%s.scp\"",mName.c_str());
 
 	}
-	void getScatter()
+	void getScatter()const
 	{
 		fprintf(mFile,"\"%s.sct\"",mName.c_str());
 
 	}
-	void getMiReflectionBlur()
+	void getMiReflectionBlur()const
 	{
 		fprintf(mFile,"\"%s.mircb\"",mName.c_str());
 
 	}
-	void getMiReflectionRays()
+	void getMiReflectionRays()const
 	{
 		fprintf(mFile,"\"%s.mircr\"",mName.c_str());
 
 	}
-	void getMiAngle()
+	void getMiAngle()const
 	{
 		fprintf(mFile,"\"%s.mia\"",mName.c_str());
 
 	}
-	void getMiSpreadX()
+	void getMiSpreadX()const
 	{
 		fprintf(mFile,"\"%s.misx\"",mName.c_str());
 
 	}
-	void getMiSpreadY()
+	void getMiSpreadY()const
 	{
 		fprintf(mFile,"\"%s.misy\"",mName.c_str());
 
 	}
-	void getMiSpecularColor()
+	void getMiSpecularColor()const
 	{
 		fprintf(mFile,"\"%s.misc\"",mName.c_str());
 
 	}
-	void getMiSpecularColorR()
+	void getMiSpecularColorR()const
 	{
 		fprintf(mFile,"\"%s.misc.miscr\"",mName.c_str());
 
 	}
-	void getMiSpecularColorG()
+	void getMiSpecularColorG()const
 	{
 		fprintf(mFile,"\"%s.misc.miscg\"",mName.c_str());
 
 	}
-	void getMiSpecularColorB()
+	void getMiSpecularColorB()const
 	{
 		fprintf(mFile,"\"%s.misc.miscb\"",mName.c_str());
 
 	}
-	void getMiReflectivity()
+	void getMiReflectivity()const
 	{
 		fprintf(mFile,"\"%s.mirf\"",mName.c_str());
 
 	}
 protected:
-	HairTubeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Reflect(file, name, parent, nodeType) {}
+	HairTubeShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Reflect(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

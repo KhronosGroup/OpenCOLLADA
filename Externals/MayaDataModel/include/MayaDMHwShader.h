@@ -19,7 +19,8 @@ class HwShader : public DependNode
 public:
 public:
 	HwShader():DependNode(){}
-	HwShader(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "hwShader"){}
+	HwShader(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "hwShader", create){}
 	virtual ~HwShader(){}
 	void setEnableHwShading(int ehs)
 	{
@@ -43,104 +44,104 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
-	void getOutTransparency()
+	void getOutTransparency()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getOutTransparencyR()
+	void getOutTransparencyR()const
 	{
 		fprintf(mFile,"\"%s.ot.otr\"",mName.c_str());
 
 	}
-	void getOutTransparencyG()
+	void getOutTransparencyG()const
 	{
 		fprintf(mFile,"\"%s.ot.otg\"",mName.c_str());
 
 	}
-	void getOutTransparencyB()
+	void getOutTransparencyB()const
 	{
 		fprintf(mFile,"\"%s.ot.otb\"",mName.c_str());
 
 	}
-	void getOutGlowColor()
+	void getOutGlowColor()const
 	{
 		fprintf(mFile,"\"%s.ogc\"",mName.c_str());
 
 	}
-	void getOutGlowColorR()
+	void getOutGlowColorR()const
 	{
 		fprintf(mFile,"\"%s.ogc.ogr\"",mName.c_str());
 
 	}
-	void getOutGlowColorG()
+	void getOutGlowColorG()const
 	{
 		fprintf(mFile,"\"%s.ogc.ogg\"",mName.c_str());
 
 	}
-	void getOutGlowColorB()
+	void getOutGlowColorB()const
 	{
 		fprintf(mFile,"\"%s.ogc.ogb\"",mName.c_str());
 
 	}
-	void getOutMatteOpacity()
+	void getOutMatteOpacity()const
 	{
 		fprintf(mFile,"\"%s.omo\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityR()
+	void getOutMatteOpacityR()const
 	{
 		fprintf(mFile,"\"%s.omo.omor\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityG()
+	void getOutMatteOpacityG()const
 	{
 		fprintf(mFile,"\"%s.omo.omog\"",mName.c_str());
 
 	}
-	void getOutMatteOpacityB()
+	void getOutMatteOpacityB()const
 	{
 		fprintf(mFile,"\"%s.omo.omob\"",mName.c_str());
 
 	}
-	void getEnableHwShading()
+	void getEnableHwShading()const
 	{
 		fprintf(mFile,"\"%s.ehs\"",mName.c_str());
 
 	}
-	void getVaryingParameters()
+	void getVaryingParameters()const
 	{
 		fprintf(mFile,"\"%s.vpar\"",mName.c_str());
 
 	}
-	void getUniformParameters()
+	void getUniformParameters()const
 	{
 		fprintf(mFile,"\"%s.upar\"",mName.c_str());
 
 	}
 protected:
-	HwShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HwShader(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

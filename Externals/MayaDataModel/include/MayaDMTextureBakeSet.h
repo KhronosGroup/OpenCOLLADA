@@ -19,7 +19,8 @@ class TextureBakeSet : public BakeSet
 public:
 public:
 	TextureBakeSet():BakeSet(){}
-	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent=""):BakeSet(file, name, parent, "textureBakeSet"){}
+	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:BakeSet(file, name, parent, "textureBakeSet", create){}
 	virtual ~TextureBakeSet(){}
 	void setSeparation(unsigned int sep)
 	{
@@ -157,129 +158,129 @@ public:
 		fprintf(mFile,"\tsetAttr \".nsp\" %i;\n", nsp);
 
 	}
-	void getSeparation()
+	void getSeparation()const
 	{
 		fprintf(mFile,"\"%s.sep\"",mName.c_str());
 
 	}
-	void getPrefix()
+	void getPrefix()const
 	{
 		fprintf(mFile,"\"%s.pre\"",mName.c_str());
 
 	}
-	void getXResolution()
+	void getXResolution()const
 	{
 		fprintf(mFile,"\"%s.xres\"",mName.c_str());
 
 	}
-	void getYResolution()
+	void getYResolution()const
 	{
 		fprintf(mFile,"\"%s.yres\"",mName.c_str());
 
 	}
-	void getFileFormat()
+	void getFileFormat()const
 	{
 		fprintf(mFile,"\"%s.format\"",mName.c_str());
 
 	}
-	void getBitsPerChannel()
+	void getBitsPerChannel()const
 	{
 		fprintf(mFile,"\"%s.bits\"",mName.c_str());
 
 	}
-	void getOverrideUvSet()
+	void getOverrideUvSet()const
 	{
 		fprintf(mFile,"\"%s.overrideuv\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.set\"",mName.c_str());
 
 	}
-	void getUvRange()
+	void getUvRange()const
 	{
 		fprintf(mFile,"\"%s.range\"",mName.c_str());
 
 	}
-	void getUMin()
+	void getUMin()const
 	{
 		fprintf(mFile,"\"%s.ul\"",mName.c_str());
 
 	}
-	void getUMax()
+	void getUMax()const
 	{
 		fprintf(mFile,"\"%s.uh\"",mName.c_str());
 
 	}
-	void getVMin()
+	void getVMin()const
 	{
 		fprintf(mFile,"\"%s.vl\"",mName.c_str());
 
 	}
-	void getVMax()
+	void getVMax()const
 	{
 		fprintf(mFile,"\"%s.vh\"",mName.c_str());
 
 	}
-	void getBackgroundMode()
+	void getBackgroundMode()const
 	{
 		fprintf(mFile,"\"%s.bmode\"",mName.c_str());
 
 	}
-	void getBackgroundColor()
+	void getBackgroundColor()const
 	{
 		fprintf(mFile,"\"%s.bgc\"",mName.c_str());
 
 	}
-	void getBackgroundColorR()
+	void getBackgroundColorR()const
 	{
 		fprintf(mFile,"\"%s.bgc.bgr\"",mName.c_str());
 
 	}
-	void getBackgroundColorG()
+	void getBackgroundColorG()const
 	{
 		fprintf(mFile,"\"%s.bgc.bgg\"",mName.c_str());
 
 	}
-	void getBackgroundColorB()
+	void getBackgroundColorB()const
 	{
 		fprintf(mFile,"\"%s.bgc.bgb\"",mName.c_str());
 
 	}
-	void getFillTextureSeams()
+	void getFillTextureSeams()const
 	{
 		fprintf(mFile,"\"%s.fillseams\"",mName.c_str());
 
 	}
-	void getFillScale()
+	void getFillScale()const
 	{
 		fprintf(mFile,"\"%s.fillscale\"",mName.c_str());
 
 	}
-	void getFinalGatherQuality()
+	void getFinalGatherQuality()const
 	{
 		fprintf(mFile,"\"%s.fgq\"",mName.c_str());
 
 	}
-	void getFinalGatherReflect()
+	void getFinalGatherReflect()const
 	{
 		fprintf(mFile,"\"%s.fgr\"",mName.c_str());
 
 	}
-	void getBakeToOneMap()
+	void getBakeToOneMap()const
 	{
 		fprintf(mFile,"\"%s.one\"",mName.c_str());
 
 	}
-	void getSamples()
+	void getSamples()const
 	{
 		fprintf(mFile,"\"%s.nsp\"",mName.c_str());
 
 	}
 protected:
-	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:BakeSet(file, name, parent, nodeType) {}
+	TextureBakeSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:BakeSet(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class PlanarTrimSurface : public AbstractBaseCreate
 public:
 public:
 	PlanarTrimSurface():AbstractBaseCreate(){}
-	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "planarTrimSurface"){}
+	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "planarTrimSurface", create){}
 	virtual ~PlanarTrimSurface(){}
 	void setDegree(unsigned int d)
 	{
@@ -39,34 +40,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".tol\" %f;\n", tol);
 
 	}
-	void getInputCurve(size_t ic_i)
+	void getInputCurve(size_t ic_i)const
 	{
 		fprintf(mFile,"\"%s.ic[%i]\"",mName.c_str(),ic_i);
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getKeepOutside()
+	void getKeepOutside()const
 	{
 		fprintf(mFile,"\"%s.ko\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
 protected:
-	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	PlanarTrimSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

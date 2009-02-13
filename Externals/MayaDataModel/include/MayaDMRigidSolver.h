@@ -29,7 +29,8 @@ public:
 	};
 public:
 	RigidSolver():DependNode(){}
-	RigidSolver(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "rigidSolver"){}
+	RigidSolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "rigidSolver", create){}
 	virtual ~RigidSolver(){}
 	void setGeneralForce(size_t gfr_i,const GeneralForce& gfr)
 	{
@@ -73,17 +74,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startTranslate(size_t t_start,size_t t_end)
+	void startTranslate(size_t t_start,size_t t_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".t[%i:%i]\"",t_start,t_end);
 
 	}
-	void appendTranslate(double t)
+	void appendTranslate(double t)const
 	{
 		fprintf(mFile," %f",t);
 
 	}
-	void endTranslate()
+	void endTranslate()const
 	{
 		fprintf(mFile,";\n");
 
@@ -125,17 +126,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startRotate(size_t r_start,size_t r_end)
+	void startRotate(size_t r_start,size_t r_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".r[%i:%i]\"",r_start,r_end);
 
 	}
-	void appendRotate(double r)
+	void appendRotate(double r)const
 	{
 		fprintf(mFile," %f",r);
 
 	}
-	void endRotate()
+	void endRotate()const
 	{
 		fprintf(mFile,";\n");
 
@@ -177,17 +178,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startConstraintTranslate(size_t ctr_start,size_t ctr_end)
+	void startConstraintTranslate(size_t ctr_start,size_t ctr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ctr[%i:%i]\"",ctr_start,ctr_end);
 
 	}
-	void appendConstraintTranslate(double ctr)
+	void appendConstraintTranslate(double ctr)const
 	{
 		fprintf(mFile," %f",ctr);
 
 	}
-	void endConstraintTranslate()
+	void endConstraintTranslate()const
 	{
 		fprintf(mFile,";\n");
 
@@ -229,17 +230,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startConstraintRotate(size_t cr_start,size_t cr_end)
+	void startConstraintRotate(size_t cr_start,size_t cr_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".cr[%i:%i]\"",cr_start,cr_end);
 
 	}
-	void appendConstraintRotate(double cr)
+	void appendConstraintRotate(double cr)const
 	{
 		fprintf(mFile," %f",cr);
 
 	}
-	void endConstraintRotate()
+	void endConstraintRotate()const
 	{
 		fprintf(mFile,";\n");
 
@@ -376,179 +377,179 @@ public:
 		fprintf(mFile,"\tsetAttr \".st\" %i;\n", st);
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getStartTime()
+	void getStartTime()const
 	{
 		fprintf(mFile,"\"%s.stm\"",mName.c_str());
 
 	}
-	void getGeneralForce(size_t gfr_i)
+	void getGeneralForce(size_t gfr_i)const
 	{
 		fprintf(mFile,"\"%s.gfr[%i]\"",mName.c_str(),gfr_i);
 
 	}
-	void getInputForce(size_t gfr_i)
+	void getInputForce(size_t gfr_i)const
 	{
 		fprintf(mFile,"\"%s.gfr[%i].ifr\"",mName.c_str(),gfr_i);
 
 	}
-	void getInputTorque(size_t gfr_i)
+	void getInputTorque(size_t gfr_i)const
 	{
 		fprintf(mFile,"\"%s.gfr[%i].itr\"",mName.c_str(),gfr_i);
 
 	}
-	void getTranslate(size_t t_i)
+	void getTranslate(size_t t_i)const
 	{
 		fprintf(mFile,"\"%s.t[%i]\"",mName.c_str(),t_i);
 
 	}
-	void getTranslateX(size_t t_i)
+	void getTranslateX(size_t t_i)const
 	{
 		fprintf(mFile,"\"%s.t[%i].tx\"",mName.c_str(),t_i);
 
 	}
-	void getTranslateY(size_t t_i)
+	void getTranslateY(size_t t_i)const
 	{
 		fprintf(mFile,"\"%s.t[%i].ty\"",mName.c_str(),t_i);
 
 	}
-	void getTranslateZ(size_t t_i)
+	void getTranslateZ(size_t t_i)const
 	{
 		fprintf(mFile,"\"%s.t[%i].tz\"",mName.c_str(),t_i);
 
 	}
-	void getRotate(size_t r_i)
+	void getRotate(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i]\"",mName.c_str(),r_i);
 
 	}
-	void getRotateX(size_t r_i)
+	void getRotateX(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].rx\"",mName.c_str(),r_i);
 
 	}
-	void getRotateY(size_t r_i)
+	void getRotateY(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].ry\"",mName.c_str(),r_i);
 
 	}
-	void getRotateZ(size_t r_i)
+	void getRotateZ(size_t r_i)const
 	{
 		fprintf(mFile,"\"%s.r[%i].rz\"",mName.c_str(),r_i);
 
 	}
-	void getConstraintTranslate(size_t ctr_i)
+	void getConstraintTranslate(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i]\"",mName.c_str(),ctr_i);
 
 	}
-	void getConstraintTranslateX(size_t ctr_i)
+	void getConstraintTranslateX(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].ctx\"",mName.c_str(),ctr_i);
 
 	}
-	void getConstraintTranslateY(size_t ctr_i)
+	void getConstraintTranslateY(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].cty\"",mName.c_str(),ctr_i);
 
 	}
-	void getConstraintTranslateZ(size_t ctr_i)
+	void getConstraintTranslateZ(size_t ctr_i)const
 	{
 		fprintf(mFile,"\"%s.ctr[%i].ctz\"",mName.c_str(),ctr_i);
 
 	}
-	void getConstraintRotate(size_t cr_i)
+	void getConstraintRotate(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i]\"",mName.c_str(),cr_i);
 
 	}
-	void getConstraintRotateX(size_t cr_i)
+	void getConstraintRotateX(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i].crx\"",mName.c_str(),cr_i);
 
 	}
-	void getConstraintRotateY(size_t cr_i)
+	void getConstraintRotateY(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i].cry\"",mName.c_str(),cr_i);
 
 	}
-	void getConstraintRotateZ(size_t cr_i)
+	void getConstraintRotateZ(size_t cr_i)const
 	{
 		fprintf(mFile,"\"%s.cr[%i].crz\"",mName.c_str(),cr_i);
 
 	}
-	void getScaleVelocity()
+	void getScaleVelocity()const
 	{
 		fprintf(mFile,"\"%s.svv\"",mName.c_str());
 
 	}
-	void getSolverMethod()
+	void getSolverMethod()const
 	{
 		fprintf(mFile,"\"%s.slm\"",mName.c_str());
 
 	}
-	void getFriction()
+	void getFriction()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getBounciness()
+	void getBounciness()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getDynamics()
+	void getDynamics()const
 	{
 		fprintf(mFile,"\"%s.dyn\"",mName.c_str());
 
 	}
-	void getAutoSolverTolerances()
+	void getAutoSolverTolerances()const
 	{
 		fprintf(mFile,"\"%s.ast\"",mName.c_str());
 
 	}
-	void getDisplayVelocity()
+	void getDisplayVelocity()const
 	{
 		fprintf(mFile,"\"%s.dv\"",mName.c_str());
 
 	}
-	void getDisplayCenterOfMass()
+	void getDisplayCenterOfMass()const
 	{
 		fprintf(mFile,"\"%s.dcom\"",mName.c_str());
 
 	}
-	void getDisplayConstraint()
+	void getDisplayConstraint()const
 	{
 		fprintf(mFile,"\"%s.dc\"",mName.c_str());
 
 	}
-	void getDisplayLabel()
+	void getDisplayLabel()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getCacheData()
+	void getCacheData()const
 	{
 		fprintf(mFile,"\"%s.cd\"",mName.c_str());
 
 	}
-	void getContactData()
+	void getContactData()const
 	{
 		fprintf(mFile,"\"%s.ctd\"",mName.c_str());
 
 	}
-	void getState()
+	void getState()const
 	{
 		fprintf(mFile,"\"%s.stt\"",mName.c_str());
 
 	}
 protected:
-	RigidSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	RigidSolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

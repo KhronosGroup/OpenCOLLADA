@@ -19,7 +19,8 @@ class MaterialFacade : public Facade
 public:
 public:
 	MaterialFacade():Facade(){}
-	MaterialFacade(FILE* file,const std::string& name,const std::string& parent=""):Facade(file, name, parent, "materialFacade"){}
+	MaterialFacade(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Facade(file, name, parent, "materialFacade", create){}
 	virtual ~MaterialFacade(){}
 	void setProxyInitProc(const string& pip)
 	{
@@ -55,39 +56,39 @@ public:
 		fprintf(mFile,"\tsetAttr \".oc.ocb\" %f;\n", ocb);
 
 	}
-	void getHardwareProxy()
+	void getHardwareProxy()const
 	{
 		fprintf(mFile,"\"%s.hp\"",mName.c_str());
 
 	}
-	void getProxyInitProc()
+	void getProxyInitProc()const
 	{
 		fprintf(mFile,"\"%s.pip\"",mName.c_str());
 
 	}
-	void getOutColor()
+	void getOutColor()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getOutColorR()
+	void getOutColorR()const
 	{
 		fprintf(mFile,"\"%s.oc.ocr\"",mName.c_str());
 
 	}
-	void getOutColorG()
+	void getOutColorG()const
 	{
 		fprintf(mFile,"\"%s.oc.ocg\"",mName.c_str());
 
 	}
-	void getOutColorB()
+	void getOutColorB()const
 	{
 		fprintf(mFile,"\"%s.oc.ocb\"",mName.c_str());
 
 	}
 protected:
-	MaterialFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Facade(file, name, parent, nodeType) {}
+	MaterialFacade(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Facade(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

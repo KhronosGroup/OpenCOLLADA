@@ -19,7 +19,8 @@ class SubdivToPoly : public DependNode
 public:
 public:
 	SubdivToPoly():DependNode(){}
-	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivToPoly"){}
+	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "subdivToPoly", create){}
 	virtual ~SubdivToPoly(){}
 	void setFormat(unsigned int f)
 	{
@@ -106,17 +107,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startOutSubdCVId(size_t os_start,size_t os_end)
+	void startOutSubdCVId(size_t os_start,size_t os_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".os[%i:%i]\"",os_start,os_end);
 
 	}
-	void appendOutSubdCVId(int os)
+	void appendOutSubdCVId(int os)const
 	{
 		fprintf(mFile," %i",os);
 
 	}
-	void endOutSubdCVId()
+	void endOutSubdCVId()const
 	{
 		fprintf(mFile,";\n");
 
@@ -152,17 +153,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startInSubdCVId(size_t is_start,size_t is_end)
+	void startInSubdCVId(size_t is_start,size_t is_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".is[%i:%i]\"",is_start,is_end);
 
 	}
-	void appendInSubdCVId(int is)
+	void appendInSubdCVId(int is)const
 	{
 		fprintf(mFile," %i",is);
 
 	}
-	void endInSubdCVId()
+	void endInSubdCVId()const
 	{
 		fprintf(mFile,";\n");
 
@@ -203,17 +204,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startOutv(size_t ov_start,size_t ov_end)
+	void startOutv(size_t ov_start,size_t ov_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ov[%i:%i]\"",ov_start,ov_end);
 
 	}
-	void appendOutv(int ov)
+	void appendOutv(int ov)const
 	{
 		fprintf(mFile," %i",ov);
 
 	}
-	void endOutv()
+	void endOutv()const
 	{
 		fprintf(mFile,";\n");
 
@@ -224,119 +225,119 @@ public:
 		fprintf(mFile,"\tsetAttr \".amr\" %i;\n", amr);
 
 	}
-	void getInSubdiv()
+	void getInSubdiv()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getOutMesh()
+	void getOutMesh()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getFormat()
+	void getFormat()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getPolygonType()
+	void getPolygonType()const
 	{
 		fprintf(mFile,"\"%s.pt\"",mName.c_str());
 
 	}
-	void getExtractPointPosition()
+	void getExtractPointPosition()const
 	{
 		fprintf(mFile,"\"%s.epp\"",mName.c_str());
 
 	}
-	void getSampleCount()
+	void getSampleCount()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getMaxPolys()
+	void getMaxPolys()const
 	{
 		fprintf(mFile,"\"%s.mp\"",mName.c_str());
 
 	}
-	void getSubdNormals()
+	void getSubdNormals()const
 	{
 		fprintf(mFile,"\"%s.un\"",mName.c_str());
 
 	}
-	void getCopyUVTopology()
+	void getCopyUVTopology()const
 	{
 		fprintf(mFile,"\"%s.cut\"",mName.c_str());
 
 	}
-	void getShareUVs()
+	void getShareUVs()const
 	{
 		fprintf(mFile,"\"%s.suv\"",mName.c_str());
 
 	}
-	void getLevel()
+	void getLevel()const
 	{
 		fprintf(mFile,"\"%s.l\"",mName.c_str());
 
 	}
-	void getConvertComp()
+	void getConvertComp()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
-	void getOutSubdCVId(size_t os_i)
+	void getOutSubdCVId(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i]\"",mName.c_str(),os_i);
 
 	}
-	void getOutSubdCVIdLeft(size_t os_i)
+	void getOutSubdCVIdLeft(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i].osl\"",mName.c_str(),os_i);
 
 	}
-	void getOutSubdCVIdRight(size_t os_i)
+	void getOutSubdCVIdRight(size_t os_i)const
 	{
 		fprintf(mFile,"\"%s.os[%i].osr\"",mName.c_str(),os_i);
 
 	}
-	void getInSubdCVId(size_t is_i)
+	void getInSubdCVId(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i]\"",mName.c_str(),is_i);
 
 	}
-	void getInSubdCVIdLeft(size_t is_i)
+	void getInSubdCVIdLeft(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i].isl\"",mName.c_str(),is_i);
 
 	}
-	void getInSubdCVIdRight(size_t is_i)
+	void getInSubdCVIdRight(size_t is_i)const
 	{
 		fprintf(mFile,"\"%s.is[%i].isr\"",mName.c_str(),is_i);
 
 	}
-	void getPreserveVertexOrdering()
+	void getPreserveVertexOrdering()const
 	{
 		fprintf(mFile,"\"%s.pvo\"",mName.c_str());
 
 	}
-	void getOutv(size_t ov_i)
+	void getOutv(size_t ov_i)const
 	{
 		fprintf(mFile,"\"%s.ov[%i]\"",mName.c_str(),ov_i);
 
 	}
-	void getApplyMatrixToResult()
+	void getApplyMatrixToResult()const
 	{
 		fprintf(mFile,"\"%s.amr\"",mName.c_str());
 
 	}
 protected:
-	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SubdivToPoly(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

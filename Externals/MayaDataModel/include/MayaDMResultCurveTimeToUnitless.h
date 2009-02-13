@@ -26,7 +26,8 @@ public:
 	};
 public:
 	ResultCurveTimeToUnitless():ResultCurve(){}
-	ResultCurveTimeToUnitless(FILE* file,const std::string& name,const std::string& parent=""):ResultCurve(file, name, parent, "resultCurveTimeToUnitless"){}
+	ResultCurveTimeToUnitless(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:ResultCurve(file, name, parent, "resultCurveTimeToUnitless", create){}
 	virtual ~ResultCurveTimeToUnitless(){}
 	void setKeyTimeValue(size_t ktv_i,const KeyTimeValue& ktv)
 	{
@@ -41,24 +42,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".ktv[%i].kv\" %f;\n", ktv_i,kv);
 
 	}
-	void getInput()
+	void getInput()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getInputResult()
+	void getInputResult()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 
 	}
 protected:
-	ResultCurveTimeToUnitless(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:ResultCurve(file, name, parent, nodeType) {}
+	ResultCurveTimeToUnitless(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:ResultCurve(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

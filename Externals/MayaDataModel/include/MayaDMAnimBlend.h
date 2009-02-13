@@ -19,7 +19,8 @@ class AnimBlend : public DependNode
 public:
 public:
 	AnimBlend():DependNode(){}
-	AnimBlend(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "animBlend"){}
+	AnimBlend(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "animBlend", create){}
 	virtual ~AnimBlend(){}
 	void setWeight(double w)
 	{
@@ -27,19 +28,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".w\" %f;\n", w);
 
 	}
-	void getBlend()
+	void getBlend()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getWeight()
+	void getWeight()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
 protected:
-	AnimBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	AnimBlend(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

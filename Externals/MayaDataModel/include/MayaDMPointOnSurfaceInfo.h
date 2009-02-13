@@ -24,7 +24,8 @@ public:
 	};
 public:
 	PointOnSurfaceInfo():AbstractBaseCreate(){}
-	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "pointOnSurfaceInfo"){}
+	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "pointOnSurfaceInfo", create){}
 	virtual ~PointOnSurfaceInfo(){}
 	void setParameterU(double u)
 	{
@@ -44,174 +45,174 @@ public:
 		fprintf(mFile,"\tsetAttr \".top\" %i;\n", top);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getParameterU()
+	void getParameterU()const
 	{
 		fprintf(mFile,"\"%s.u\"",mName.c_str());
 
 	}
-	void getParameterV()
+	void getParameterV()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getTurnOnPercentage()
+	void getTurnOnPercentage()const
 	{
 		fprintf(mFile,"\"%s.top\"",mName.c_str());
 
 	}
-	void getResult()
+	void getResult()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getPosition()
+	void getPosition()const
 	{
 		fprintf(mFile,"\"%s.r.p\"",mName.c_str());
 
 	}
-	void getPositionX()
+	void getPositionX()const
 	{
 		fprintf(mFile,"\"%s.r.p.px\"",mName.c_str());
 
 	}
-	void getPositionY()
+	void getPositionY()const
 	{
 		fprintf(mFile,"\"%s.r.p.py\"",mName.c_str());
 
 	}
-	void getPositionZ()
+	void getPositionZ()const
 	{
 		fprintf(mFile,"\"%s.r.p.pz\"",mName.c_str());
 
 	}
-	void getNormal()
+	void getNormal()const
 	{
 		fprintf(mFile,"\"%s.r.n\"",mName.c_str());
 
 	}
-	void getNormalX()
+	void getNormalX()const
 	{
 		fprintf(mFile,"\"%s.r.n.nx\"",mName.c_str());
 
 	}
-	void getNormalY()
+	void getNormalY()const
 	{
 		fprintf(mFile,"\"%s.r.n.ny\"",mName.c_str());
 
 	}
-	void getNormalZ()
+	void getNormalZ()const
 	{
 		fprintf(mFile,"\"%s.r.n.nz\"",mName.c_str());
 
 	}
-	void getNormalizedNormal()
+	void getNormalizedNormal()const
 	{
 		fprintf(mFile,"\"%s.r.nn\"",mName.c_str());
 
 	}
-	void getNormalizedNormalX()
+	void getNormalizedNormalX()const
 	{
 		fprintf(mFile,"\"%s.r.nn.nnx\"",mName.c_str());
 
 	}
-	void getNormalizedNormalY()
+	void getNormalizedNormalY()const
 	{
 		fprintf(mFile,"\"%s.r.nn.nny\"",mName.c_str());
 
 	}
-	void getNormalizedNormalZ()
+	void getNormalizedNormalZ()const
 	{
 		fprintf(mFile,"\"%s.r.nn.nnz\"",mName.c_str());
 
 	}
-	void getTangentU()
+	void getTangentU()const
 	{
 		fprintf(mFile,"\"%s.r.tu\"",mName.c_str());
 
 	}
-	void getTangentUx()
+	void getTangentUx()const
 	{
 		fprintf(mFile,"\"%s.r.tu.tux\"",mName.c_str());
 
 	}
-	void getTangentUy()
+	void getTangentUy()const
 	{
 		fprintf(mFile,"\"%s.r.tu.tuy\"",mName.c_str());
 
 	}
-	void getTangentUz()
+	void getTangentUz()const
 	{
 		fprintf(mFile,"\"%s.r.tu.tuz\"",mName.c_str());
 
 	}
-	void getNormalizedTangentU()
+	void getNormalizedTangentU()const
 	{
 		fprintf(mFile,"\"%s.r.ntu\"",mName.c_str());
 
 	}
-	void getNormalizedTangentUX()
+	void getNormalizedTangentUX()const
 	{
 		fprintf(mFile,"\"%s.r.ntu.nux\"",mName.c_str());
 
 	}
-	void getNormalizedTangentUY()
+	void getNormalizedTangentUY()const
 	{
 		fprintf(mFile,"\"%s.r.ntu.nuy\"",mName.c_str());
 
 	}
-	void getNormalizedTangentUZ()
+	void getNormalizedTangentUZ()const
 	{
 		fprintf(mFile,"\"%s.r.ntu.nuz\"",mName.c_str());
 
 	}
-	void getTangentV()
+	void getTangentV()const
 	{
 		fprintf(mFile,"\"%s.r.tv\"",mName.c_str());
 
 	}
-	void getTangentVx()
+	void getTangentVx()const
 	{
 		fprintf(mFile,"\"%s.r.tv.tvx\"",mName.c_str());
 
 	}
-	void getTangentVy()
+	void getTangentVy()const
 	{
 		fprintf(mFile,"\"%s.r.tv.tvy\"",mName.c_str());
 
 	}
-	void getTangentVz()
+	void getTangentVz()const
 	{
 		fprintf(mFile,"\"%s.r.tv.tvz\"",mName.c_str());
 
 	}
-	void getNormalizedTangentV()
+	void getNormalizedTangentV()const
 	{
 		fprintf(mFile,"\"%s.r.ntv\"",mName.c_str());
 
 	}
-	void getNormalizedTangentVX()
+	void getNormalizedTangentVX()const
 	{
 		fprintf(mFile,"\"%s.r.ntv.nvx\"",mName.c_str());
 
 	}
-	void getNormalizedTangentVY()
+	void getNormalizedTangentVY()const
 	{
 		fprintf(mFile,"\"%s.r.ntv.nvy\"",mName.c_str());
 
 	}
-	void getNormalizedTangentVZ()
+	void getNormalizedTangentVZ()const
 	{
 		fprintf(mFile,"\"%s.r.ntv.nvz\"",mName.c_str());
 
 	}
 protected:
-	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	PointOnSurfaceInfo(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

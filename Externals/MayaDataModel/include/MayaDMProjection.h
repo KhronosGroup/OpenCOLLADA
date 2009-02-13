@@ -19,7 +19,8 @@ class Projection : public Texture3d
 public:
 public:
 	Projection():Texture3d(){}
-	Projection(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "projection"){}
+	Projection(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "projection", create){}
 	virtual ~Projection(){}
 	void setXPixelAngle(float xpa)
 	{
@@ -279,429 +280,429 @@ public:
 		fprintf(mFile,"\tsetAttr \".vt3.t3v\" %f;\n", t3v);
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getSrfNormal()
+	void getSrfNormal()const
 	{
 		fprintf(mFile,"\"%s.srn\"",mName.c_str());
 
 	}
-	void getSrfNormalX()
+	void getSrfNormalX()const
 	{
 		fprintf(mFile,"\"%s.srn.snx\"",mName.c_str());
 
 	}
-	void getSrfNormalY()
+	void getSrfNormalY()const
 	{
 		fprintf(mFile,"\"%s.srn.sny\"",mName.c_str());
 
 	}
-	void getSrfNormalZ()
+	void getSrfNormalZ()const
 	{
 		fprintf(mFile,"\"%s.srn.snz\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getXPixelAngle()
+	void getXPixelAngle()const
 	{
 		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
-	void getImage()
+	void getImage()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getImageR()
+	void getImageR()const
 	{
 		fprintf(mFile,"\"%s.im.imr\"",mName.c_str());
 
 	}
-	void getImageG()
+	void getImageG()const
 	{
 		fprintf(mFile,"\"%s.im.img\"",mName.c_str());
 
 	}
-	void getImageB()
+	void getImageB()const
 	{
 		fprintf(mFile,"\"%s.im.imb\"",mName.c_str());
 
 	}
-	void getUAngle()
+	void getUAngle()const
 	{
 		fprintf(mFile,"\"%s.ua\"",mName.c_str());
 
 	}
-	void getVAngle()
+	void getVAngle()const
 	{
 		fprintf(mFile,"\"%s.va\"",mName.c_str());
 
 	}
-	void getProjType()
+	void getProjType()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getLinkedCamera()
+	void getLinkedCamera()const
 	{
 		fprintf(mFile,"\"%s.lc\"",mName.c_str());
 
 	}
-	void getFitType()
+	void getFitType()const
 	{
 		fprintf(mFile,"\"%s.ft\"",mName.c_str());
 
 	}
-	void getFitFill()
+	void getFitFill()const
 	{
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 
 	}
-	void getRipples()
+	void getRipples()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRipplesX()
+	void getRipplesX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRipplesY()
+	void getRipplesY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRipplesZ()
+	void getRipplesZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDepthMin()
+	void getDepthMin()const
 	{
 		fprintf(mFile,"\"%s.d.dmn\"",mName.c_str());
 
 	}
-	void getDepthMax()
+	void getDepthMax()const
 	{
 		fprintf(mFile,"\"%s.d.dmx\"",mName.c_str());
 
 	}
-	void getAmplitudeX()
+	void getAmplitudeX()const
 	{
 		fprintf(mFile,"\"%s.ax\"",mName.c_str());
 
 	}
-	void getAmplitudeY()
+	void getAmplitudeY()const
 	{
 		fprintf(mFile,"\"%s.ay\"",mName.c_str());
 
 	}
-	void getRatio()
+	void getRatio()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getInfoBits()
+	void getInfoBits()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
-	void getDepWts()
+	void getDepWts()const
 	{
 		fprintf(mFile,"\"%s.dwt\"",mName.c_str());
 
 	}
-	void getAngWts()
+	void getAngWts()const
 	{
 		fprintf(mFile,"\"%s.awt\"",mName.c_str());
 
 	}
-	void getCamPos()
+	void getCamPos()const
 	{
 		fprintf(mFile,"\"%s.cpo\"",mName.c_str());
 
 	}
-	void getCamPsX()
+	void getCamPsX()const
 	{
 		fprintf(mFile,"\"%s.cpo.cpx\"",mName.c_str());
 
 	}
-	void getCamPsY()
+	void getCamPsY()const
 	{
 		fprintf(mFile,"\"%s.cpo.cpy\"",mName.c_str());
 
 	}
-	void getCamPsZ()
+	void getCamPsZ()const
 	{
 		fprintf(mFile,"\"%s.cpo.cpz\"",mName.c_str());
 
 	}
-	void getCamAg()
+	void getCamAg()const
 	{
 		fprintf(mFile,"\"%s.cag\"",mName.c_str());
 
 	}
-	void getCamAngX()
+	void getCamAngX()const
 	{
 		fprintf(mFile,"\"%s.cag.cax\"",mName.c_str());
 
 	}
-	void getCamAngY()
+	void getCamAngY()const
 	{
 		fprintf(mFile,"\"%s.cag.cay\"",mName.c_str());
 
 	}
-	void getCamAngZ()
+	void getCamAngZ()const
 	{
 		fprintf(mFile,"\"%s.cag.caz\"",mName.c_str());
 
 	}
-	void getPassTr()
+	void getPassTr()const
 	{
 		fprintf(mFile,"\"%s.pst\"",mName.c_str());
 
 	}
-	void getUvCoord()
+	void getUvCoord()const
 	{
 		fprintf(mFile,"\"%s.uv\"",mName.c_str());
 
 	}
-	void getUCoord()
+	void getUCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.u\"",mName.c_str());
 
 	}
-	void getVCoord()
+	void getVCoord()const
 	{
 		fprintf(mFile,"\"%s.uv.v\"",mName.c_str());
 
 	}
-	void getVertexCameraOne()
+	void getVertexCameraOne()const
 	{
 		fprintf(mFile,"\"%s.vc1\"",mName.c_str());
 
 	}
-	void getVertexCameraOneX()
+	void getVertexCameraOneX()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1x\"",mName.c_str());
 
 	}
-	void getVertexCameraOneY()
+	void getVertexCameraOneY()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1y\"",mName.c_str());
 
 	}
-	void getVertexCameraOneZ()
+	void getVertexCameraOneZ()const
 	{
 		fprintf(mFile,"\"%s.vc1.c1z\"",mName.c_str());
 
 	}
-	void getVertexCameraTwo()
+	void getVertexCameraTwo()const
 	{
 		fprintf(mFile,"\"%s.vc2\"",mName.c_str());
 
 	}
-	void getVertexCameraTwoX()
+	void getVertexCameraTwoX()const
 	{
 		fprintf(mFile,"\"%s.vc2.c2x\"",mName.c_str());
 
 	}
-	void getVertexCameraTwoY()
+	void getVertexCameraTwoY()const
 	{
 		fprintf(mFile,"\"%s.vc2.c2y\"",mName.c_str());
 
 	}
-	void getVertexCameraTwoZ()
+	void getVertexCameraTwoZ()const
 	{
 		fprintf(mFile,"\"%s.vc2.c2z\"",mName.c_str());
 
 	}
-	void getVertexCameraThree()
+	void getVertexCameraThree()const
 	{
 		fprintf(mFile,"\"%s.vc3\"",mName.c_str());
 
 	}
-	void getVertexCameraThreeX()
+	void getVertexCameraThreeX()const
 	{
 		fprintf(mFile,"\"%s.vc3.c3x\"",mName.c_str());
 
 	}
-	void getVertexCameraThreeY()
+	void getVertexCameraThreeY()const
 	{
 		fprintf(mFile,"\"%s.vc3.c3y\"",mName.c_str());
 
 	}
-	void getVertexCameraThreeZ()
+	void getVertexCameraThreeZ()const
 	{
 		fprintf(mFile,"\"%s.vc3.c3z\"",mName.c_str());
 
 	}
-	void getVertexUvOne()
+	void getVertexUvOne()const
 	{
 		fprintf(mFile,"\"%s.vt1\"",mName.c_str());
 
 	}
-	void getVertexUvOneU()
+	void getVertexUvOneU()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1u\"",mName.c_str());
 
 	}
-	void getVertexUvOneV()
+	void getVertexUvOneV()const
 	{
 		fprintf(mFile,"\"%s.vt1.t1v\"",mName.c_str());
 
 	}
-	void getVertexUvTwo()
+	void getVertexUvTwo()const
 	{
 		fprintf(mFile,"\"%s.vt2\"",mName.c_str());
 
 	}
-	void getVertexUvTwoU()
+	void getVertexUvTwoU()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2u\"",mName.c_str());
 
 	}
-	void getVertexUvTwoV()
+	void getVertexUvTwoV()const
 	{
 		fprintf(mFile,"\"%s.vt2.t2v\"",mName.c_str());
 
 	}
-	void getVertexUvThree()
+	void getVertexUvThree()const
 	{
 		fprintf(mFile,"\"%s.vt3\"",mName.c_str());
 
 	}
-	void getVertexUvThreeU()
+	void getVertexUvThreeU()const
 	{
 		fprintf(mFile,"\"%s.vt3.t3u\"",mName.c_str());
 
 	}
-	void getVertexUvThreeV()
+	void getVertexUvThreeV()const
 	{
 		fprintf(mFile,"\"%s.vt3.t3v\"",mName.c_str());
 
 	}
-	void getUvFilterSize()
+	void getUvFilterSize()const
 	{
 		fprintf(mFile,"\"%s.uf\"",mName.c_str());
 
 	}
-	void getUvFilterSizeX()
+	void getUvFilterSizeX()const
 	{
 		fprintf(mFile,"\"%s.uf.ufx\"",mName.c_str());
 
 	}
-	void getUvFilterSizeY()
+	void getUvFilterSizeY()const
 	{
 		fprintf(mFile,"\"%s.uf.ufy\"",mName.c_str());
 
 	}
-	void getTangentUCamera()
+	void getTangentUCamera()const
 	{
 		fprintf(mFile,"\"%s.tu\"",mName.c_str());
 
 	}
-	void getTangentUx()
+	void getTangentUx()const
 	{
 		fprintf(mFile,"\"%s.tu.tux\"",mName.c_str());
 
 	}
-	void getTangentUy()
+	void getTangentUy()const
 	{
 		fprintf(mFile,"\"%s.tu.tuy\"",mName.c_str());
 
 	}
-	void getTangentUz()
+	void getTangentUz()const
 	{
 		fprintf(mFile,"\"%s.tu.tuz\"",mName.c_str());
 
 	}
-	void getTangentVCamera()
+	void getTangentVCamera()const
 	{
 		fprintf(mFile,"\"%s.tv\"",mName.c_str());
 
 	}
-	void getTangentVx()
+	void getTangentVx()const
 	{
 		fprintf(mFile,"\"%s.tv.tvx\"",mName.c_str());
 
 	}
-	void getTangentVy()
+	void getTangentVy()const
 	{
 		fprintf(mFile,"\"%s.tv.tvy\"",mName.c_str());
 
 	}
-	void getTangentVz()
+	void getTangentVz()const
 	{
 		fprintf(mFile,"\"%s.tv.tvz\"",mName.c_str());
 
 	}
 protected:
-	Projection(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Projection(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

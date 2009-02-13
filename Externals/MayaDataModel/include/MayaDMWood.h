@@ -19,7 +19,8 @@ class Wood : public Texture3d
 public:
 public:
 	Wood():Texture3d(){}
-	Wood(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "wood"){}
+	Wood(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "wood", create){}
 	virtual ~Wood(){}
 	void setXPixelAngle(float xpa)
 	{
@@ -225,229 +226,229 @@ public:
 		fprintf(mFile,"\tsetAttr \".d.dmx\" %f;\n", dmx);
 
 	}
-	void getXPixelAngle()
+	void getXPixelAngle()const
 	{
 		fprintf(mFile,"\"%s.xpa\"",mName.c_str());
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getFillerColor()
+	void getFillerColor()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getFillerColorR()
+	void getFillerColorR()const
 	{
 		fprintf(mFile,"\"%s.fc.fcr\"",mName.c_str());
 
 	}
-	void getFillerColorG()
+	void getFillerColorG()const
 	{
 		fprintf(mFile,"\"%s.fc.fcg\"",mName.c_str());
 
 	}
-	void getFillerColorB()
+	void getFillerColorB()const
 	{
 		fprintf(mFile,"\"%s.fc.fcb\"",mName.c_str());
 
 	}
-	void getVeinColor()
+	void getVeinColor()const
 	{
 		fprintf(mFile,"\"%s.vc\"",mName.c_str());
 
 	}
-	void getVeinColorR()
+	void getVeinColorR()const
 	{
 		fprintf(mFile,"\"%s.vc.vcr\"",mName.c_str());
 
 	}
-	void getVeinColorG()
+	void getVeinColorG()const
 	{
 		fprintf(mFile,"\"%s.vc.vcg\"",mName.c_str());
 
 	}
-	void getVeinColorB()
+	void getVeinColorB()const
 	{
 		fprintf(mFile,"\"%s.vc.vcb\"",mName.c_str());
 
 	}
-	void getVeinSpread()
+	void getVeinSpread()const
 	{
 		fprintf(mFile,"\"%s.v\"",mName.c_str());
 
 	}
-	void getLayerSize()
+	void getLayerSize()const
 	{
 		fprintf(mFile,"\"%s.ls\"",mName.c_str());
 
 	}
-	void getRandomness()
+	void getRandomness()const
 	{
 		fprintf(mFile,"\"%s.rd\"",mName.c_str());
 
 	}
-	void getAge()
+	void getAge()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getGrainColor()
+	void getGrainColor()const
 	{
 		fprintf(mFile,"\"%s.gc\"",mName.c_str());
 
 	}
-	void getGrainColorR()
+	void getGrainColorR()const
 	{
 		fprintf(mFile,"\"%s.gc.gcr\"",mName.c_str());
 
 	}
-	void getGrainColorG()
+	void getGrainColorG()const
 	{
 		fprintf(mFile,"\"%s.gc.gcg\"",mName.c_str());
 
 	}
-	void getGrainColorB()
+	void getGrainColorB()const
 	{
 		fprintf(mFile,"\"%s.gc.gcb\"",mName.c_str());
 
 	}
-	void getGrainContrast()
+	void getGrainContrast()const
 	{
 		fprintf(mFile,"\"%s.gx\"",mName.c_str());
 
 	}
-	void getGrainSpacing()
+	void getGrainSpacing()const
 	{
 		fprintf(mFile,"\"%s.gs\"",mName.c_str());
 
 	}
-	void getCenter()
+	void getCenter()const
 	{
 		fprintf(mFile,"\"%s.c\"",mName.c_str());
 
 	}
-	void getCenterU()
+	void getCenterU()const
 	{
 		fprintf(mFile,"\"%s.c.cu\"",mName.c_str());
 
 	}
-	void getCenterV()
+	void getCenterV()const
 	{
 		fprintf(mFile,"\"%s.c.cv\"",mName.c_str());
 
 	}
-	void getAmplitudeX()
+	void getAmplitudeX()const
 	{
 		fprintf(mFile,"\"%s.ax\"",mName.c_str());
 
 	}
-	void getAmplitudeY()
+	void getAmplitudeY()const
 	{
 		fprintf(mFile,"\"%s.ay\"",mName.c_str());
 
 	}
-	void getRatio()
+	void getRatio()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getRipples()
+	void getRipples()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getRipplesX()
+	void getRipplesX()const
 	{
 		fprintf(mFile,"\"%s.r.rx\"",mName.c_str());
 
 	}
-	void getRipplesY()
+	void getRipplesY()const
 	{
 		fprintf(mFile,"\"%s.r.ry\"",mName.c_str());
 
 	}
-	void getRipplesZ()
+	void getRipplesZ()const
 	{
 		fprintf(mFile,"\"%s.r.rz\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDepthMin()
+	void getDepthMin()const
 	{
 		fprintf(mFile,"\"%s.d.dmn\"",mName.c_str());
 
 	}
-	void getDepthMax()
+	void getDepthMax()const
 	{
 		fprintf(mFile,"\"%s.d.dmx\"",mName.c_str());
 
 	}
 protected:
-	Wood(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Wood(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

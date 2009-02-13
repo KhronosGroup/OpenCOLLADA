@@ -19,7 +19,8 @@ class CloseSurface : public AbstractBaseCreate
 public:
 public:
 	CloseSurface():AbstractBaseCreate(){}
-	CloseSurface(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "closeSurface"){}
+	CloseSurface(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "closeSurface", create){}
 	virtual ~CloseSurface(){}
 	void setPreserveShape(unsigned int ps)
 	{
@@ -51,44 +52,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".d\" %i;\n", d);
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getPreserveShape()
+	void getPreserveShape()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getBlendBias()
+	void getBlendBias()const
 	{
 		fprintf(mFile,"\"%s.bb\"",mName.c_str());
 
 	}
-	void getBlendKnotInsertion()
+	void getBlendKnotInsertion()const
 	{
 		fprintf(mFile,"\"%s.bki\"",mName.c_str());
 
 	}
-	void getParameter()
+	void getParameter()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	CloseSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	CloseSurface(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

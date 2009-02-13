@@ -55,7 +55,8 @@ public:
 	};
 public:
 	FurAttractors():DependNode(){}
-	FurAttractors(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "FurAttractors"){}
+	FurAttractors(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "FurAttractors", create){}
 	virtual ~FurAttractors(){}
 	void setAttractorModel(unsigned int amd)
 	{
@@ -255,239 +256,239 @@ public:
 		fprintf(mFile,"\tsetAttr \".tlnf\" %f;\n", tlnf);
 
 	}
-	void getAttractorModel()
+	void getAttractorModel()const
 	{
 		fprintf(mFile,"\"%s.amd\"",mName.c_str());
 
 	}
-	void getDagSetMembers()
+	void getDagSetMembers()const
 	{
 		fprintf(mFile,"\"%s.dsm\"",mName.c_str());
 
 	}
-	void getAttractors()
+	void getAttractors()const
 	{
 		fprintf(mFile,"\"%s.att\"",mName.c_str());
 
 	}
-	void getFurGlobals()
+	void getFurGlobals()const
 	{
 		fprintf(mFile,"\"%s.fgc\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.rd\"",mName.c_str());
 
 	}
-	void getRadiusMap()
+	void getRadiusMap()const
 	{
 		fprintf(mFile,"\"%s.rm\"",mName.c_str());
 
 	}
-	void getRadiusMapUSamples()
+	void getRadiusMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.rmus\"",mName.c_str());
 
 	}
-	void getRadiusMapVSamples()
+	void getRadiusMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.rmvs\"",mName.c_str());
 
 	}
-	void getRadiusMapOffset()
+	void getRadiusMapOffset()const
 	{
 		fprintf(mFile,"\"%s.rmo\"",mName.c_str());
 
 	}
-	void getRadiusMapMult()
+	void getRadiusMapMult()const
 	{
 		fprintf(mFile,"\"%s.rmm\"",mName.c_str());
 
 	}
-	void getRadiusNoise()
+	void getRadiusNoise()const
 	{
 		fprintf(mFile,"\"%s.rn\"",mName.c_str());
 
 	}
-	void getPower()
+	void getPower()const
 	{
 		fprintf(mFile,"\"%s.dp\"",mName.c_str());
 
 	}
-	void getPowerMap()
+	void getPowerMap()const
 	{
 		fprintf(mFile,"\"%s.pm\"",mName.c_str());
 
 	}
-	void getPowerMapUSamples()
+	void getPowerMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.pmus\"",mName.c_str());
 
 	}
-	void getPowerMapVSamples()
+	void getPowerMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.pmvs\"",mName.c_str());
 
 	}
-	void getPowerMapOffset()
+	void getPowerMapOffset()const
 	{
 		fprintf(mFile,"\"%s.pmo\"",mName.c_str());
 
 	}
-	void getPowerMapMult()
+	void getPowerMapMult()const
 	{
 		fprintf(mFile,"\"%s.pmm\"",mName.c_str());
 
 	}
-	void getPowerNoise()
+	void getPowerNoise()const
 	{
 		fprintf(mFile,"\"%s.pn\"",mName.c_str());
 
 	}
-	void getInfluence()
+	void getInfluence()const
 	{
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
 
 	}
-	void getInfluenceMap()
+	void getInfluenceMap()const
 	{
 		fprintf(mFile,"\"%s.im\"",mName.c_str());
 
 	}
-	void getInfluenceMapUSamples()
+	void getInfluenceMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.imus\"",mName.c_str());
 
 	}
-	void getInfluenceMapVSamples()
+	void getInfluenceMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.imvs\"",mName.c_str());
 
 	}
-	void getInfluenceMapOffset()
+	void getInfluenceMapOffset()const
 	{
 		fprintf(mFile,"\"%s.imo\"",mName.c_str());
 
 	}
-	void getInfluenceMapMult()
+	void getInfluenceMapMult()const
 	{
 		fprintf(mFile,"\"%s.imm\"",mName.c_str());
 
 	}
-	void getInfluenceNoise()
+	void getInfluenceNoise()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getStartLength()
+	void getStartLength()const
 	{
 		fprintf(mFile,"\"%s.dsl\"",mName.c_str());
 
 	}
-	void getStartLengthMap()
+	void getStartLengthMap()const
 	{
 		fprintf(mFile,"\"%s.slm\"",mName.c_str());
 
 	}
-	void getStartLengthMapUSamples()
+	void getStartLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.slmus\"",mName.c_str());
 
 	}
-	void getStartLengthMapVSamples()
+	void getStartLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.slmvs\"",mName.c_str());
 
 	}
-	void getStartLengthMapOffset()
+	void getStartLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.slmo\"",mName.c_str());
 
 	}
-	void getStartLengthMapMult()
+	void getStartLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.slmm\"",mName.c_str());
 
 	}
-	void getStartLengthNoise()
+	void getStartLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.sln\"",mName.c_str());
 
 	}
-	void getEndLength()
+	void getEndLength()const
 	{
 		fprintf(mFile,"\"%s.del\"",mName.c_str());
 
 	}
-	void getEndLengthMap()
+	void getEndLengthMap()const
 	{
 		fprintf(mFile,"\"%s.elm\"",mName.c_str());
 
 	}
-	void getEndLengthMapUSamples()
+	void getEndLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.elmus\"",mName.c_str());
 
 	}
-	void getEndLengthMapVSamples()
+	void getEndLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.elmvs\"",mName.c_str());
 
 	}
-	void getEndLengthMapOffset()
+	void getEndLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.elmo\"",mName.c_str());
 
 	}
-	void getEndLengthMapMult()
+	void getEndLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.elmm\"",mName.c_str());
 
 	}
-	void getEndLengthNoise()
+	void getEndLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.eln\"",mName.c_str());
 
 	}
-	void getThresholdLength()
+	void getThresholdLength()const
 	{
 		fprintf(mFile,"\"%s.dtl\"",mName.c_str());
 
 	}
-	void getThresholdLengthMap()
+	void getThresholdLengthMap()const
 	{
 		fprintf(mFile,"\"%s.tlm\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapUSamples()
+	void getThresholdLengthMapUSamples()const
 	{
 		fprintf(mFile,"\"%s.tlmus\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapVSamples()
+	void getThresholdLengthMapVSamples()const
 	{
 		fprintf(mFile,"\"%s.tlmvs\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapOffset()
+	void getThresholdLengthMapOffset()const
 	{
 		fprintf(mFile,"\"%s.tlmo\"",mName.c_str());
 
 	}
-	void getThresholdLengthMapMult()
+	void getThresholdLengthMapMult()const
 	{
 		fprintf(mFile,"\"%s.tlmm\"",mName.c_str());
 
 	}
-	void getThresholdLengthNoise()
+	void getThresholdLengthNoise()const
 	{
 		fprintf(mFile,"\"%s.tln\"",mName.c_str());
 
 	}
 protected:
-	FurAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	FurAttractors(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class SubdPlanarProj : public SubdModifierWorld
 public:
 public:
 	SubdPlanarProj():SubdModifierWorld(){}
-	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent=""):SubdModifierWorld(file, name, parent, "subdPlanarProj"){}
+	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:SubdModifierWorld(file, name, parent, "subdPlanarProj", create){}
 	virtual ~SubdPlanarProj(){}
 	void setProjectionCenter(const double3& pc)
 	{
@@ -145,109 +146,109 @@ public:
 		fprintf(mFile,"\tsetAttr \".r\" %f;\n", r);
 
 	}
-	void getProjectionCenter()
+	void getProjectionCenter()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getProjectionCenterX()
+	void getProjectionCenterX()const
 	{
 		fprintf(mFile,"\"%s.pc.pcx\"",mName.c_str());
 
 	}
-	void getProjectionCenterY()
+	void getProjectionCenterY()const
 	{
 		fprintf(mFile,"\"%s.pc.pcy\"",mName.c_str());
 
 	}
-	void getProjectionCenterZ()
+	void getProjectionCenterZ()const
 	{
 		fprintf(mFile,"\"%s.pc.pcz\"",mName.c_str());
 
 	}
-	void getImageCenter()
+	void getImageCenter()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getImageCenterX()
+	void getImageCenterX()const
 	{
 		fprintf(mFile,"\"%s.ic2.icx\"",mName.c_str());
 
 	}
-	void getImageCenterY()
+	void getImageCenterY()const
 	{
 		fprintf(mFile,"\"%s.ic2.icy\"",mName.c_str());
 
 	}
-	void getRotate()
+	void getRotate()const
 	{
 		fprintf(mFile,"\"%s.ro\"",mName.c_str());
 
 	}
-	void getRotateX()
+	void getRotateX()const
 	{
 		fprintf(mFile,"\"%s.ro.rx\"",mName.c_str());
 
 	}
-	void getRotateY()
+	void getRotateY()const
 	{
 		fprintf(mFile,"\"%s.ro.ry\"",mName.c_str());
 
 	}
-	void getRotateZ()
+	void getRotateZ()const
 	{
 		fprintf(mFile,"\"%s.ro.rz\"",mName.c_str());
 
 	}
-	void getProjectionScale()
+	void getProjectionScale()const
 	{
 		fprintf(mFile,"\"%s.ps\"",mName.c_str());
 
 	}
-	void getProjectionWidth()
+	void getProjectionWidth()const
 	{
 		fprintf(mFile,"\"%s.ps.pw\"",mName.c_str());
 
 	}
-	void getProjectionHeight()
+	void getProjectionHeight()const
 	{
 		fprintf(mFile,"\"%s.ps.ph\"",mName.c_str());
 
 	}
-	void getImageScale()
+	void getImageScale()const
 	{
 		fprintf(mFile,"\"%s.is2\"",mName.c_str());
 
 	}
-	void getImageScaleU()
+	void getImageScaleU()const
 	{
 		fprintf(mFile,"\"%s.is2.isu\"",mName.c_str());
 
 	}
-	void getImageScaleV()
+	void getImageScaleV()const
 	{
 		fprintf(mFile,"\"%s.is2.isv\"",mName.c_str());
 
 	}
-	void getRotationAngle()
+	void getRotationAngle()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getCompId()
+	void getCompId()const
 	{
 		fprintf(mFile,"\"%s.cid\"",mName.c_str());
 
 	}
 protected:
-	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:SubdModifierWorld(file, name, parent, nodeType) {}
+	SubdPlanarProj(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:SubdModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

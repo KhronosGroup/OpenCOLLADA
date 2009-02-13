@@ -70,7 +70,8 @@ public:
 	};
 public:
 	Camera():Shape(){}
-	Camera(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "camera"){}
+	Camera(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "camera", create){}
 	virtual ~Camera(){}
 	void setRenderable(bool rnd)
 	{
@@ -618,489 +619,489 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.mico\" %i;\n", mico);
 
 	}
-	void getRenderable()
+	void getRenderable()const
 	{
 		fprintf(mFile,"\"%s.rnd\"",mName.c_str());
 
 	}
-	void getCameraAperture()
+	void getCameraAperture()const
 	{
 		fprintf(mFile,"\"%s.cap\"",mName.c_str());
 
 	}
-	void getHorizontalFilmAperture()
+	void getHorizontalFilmAperture()const
 	{
 		fprintf(mFile,"\"%s.cap.hfa\"",mName.c_str());
 
 	}
-	void getVerticalFilmAperture()
+	void getVerticalFilmAperture()const
 	{
 		fprintf(mFile,"\"%s.cap.vfa\"",mName.c_str());
 
 	}
-	void getShakeOverscan()
+	void getShakeOverscan()const
 	{
 		fprintf(mFile,"\"%s.sos\"",mName.c_str());
 
 	}
-	void getShakeOverscanEnabled()
+	void getShakeOverscanEnabled()const
 	{
 		fprintf(mFile,"\"%s.soe\"",mName.c_str());
 
 	}
-	void getFilmOffset()
+	void getFilmOffset()const
 	{
 		fprintf(mFile,"\"%s.fio\"",mName.c_str());
 
 	}
-	void getHorizontalFilmOffset()
+	void getHorizontalFilmOffset()const
 	{
 		fprintf(mFile,"\"%s.fio.hfo\"",mName.c_str());
 
 	}
-	void getVerticalFilmOffset()
+	void getVerticalFilmOffset()const
 	{
 		fprintf(mFile,"\"%s.fio.vfo\"",mName.c_str());
 
 	}
-	void getShakeEnabled()
+	void getShakeEnabled()const
 	{
 		fprintf(mFile,"\"%s.se\"",mName.c_str());
 
 	}
-	void getShake()
+	void getShake()const
 	{
 		fprintf(mFile,"\"%s.shk\"",mName.c_str());
 
 	}
-	void getHorizontalShake()
+	void getHorizontalShake()const
 	{
 		fprintf(mFile,"\"%s.shk.hs\"",mName.c_str());
 
 	}
-	void getVerticalShake()
+	void getVerticalShake()const
 	{
 		fprintf(mFile,"\"%s.shk.vs\"",mName.c_str());
 
 	}
-	void getStereoHorizontalImageTranslateEnabled()
+	void getStereoHorizontalImageTranslateEnabled()const
 	{
 		fprintf(mFile,"\"%s.hte\"",mName.c_str());
 
 	}
-	void getStereoHorizontalImageTranslate()
+	void getStereoHorizontalImageTranslate()const
 	{
 		fprintf(mFile,"\"%s.hit\"",mName.c_str());
 
 	}
-	void getPostProjection()
+	void getPostProjection()const
 	{
 		fprintf(mFile,"\"%s.ppj\"",mName.c_str());
 
 	}
-	void getPreScale()
+	void getPreScale()const
 	{
 		fprintf(mFile,"\"%s.ppj.psc\"",mName.c_str());
 
 	}
-	void getFilmTranslate()
+	void getFilmTranslate()const
 	{
 		fprintf(mFile,"\"%s.ppj.ct\"",mName.c_str());
 
 	}
-	void getFilmTranslateH()
+	void getFilmTranslateH()const
 	{
 		fprintf(mFile,"\"%s.ppj.ct.fth\"",mName.c_str());
 
 	}
-	void getFilmTranslateV()
+	void getFilmTranslateV()const
 	{
 		fprintf(mFile,"\"%s.ppj.ct.ftv\"",mName.c_str());
 
 	}
-	void getFilmRollControl()
+	void getFilmRollControl()const
 	{
 		fprintf(mFile,"\"%s.ppj.frc\"",mName.c_str());
 
 	}
-	void getFilmRollPivot()
+	void getFilmRollPivot()const
 	{
 		fprintf(mFile,"\"%s.ppj.frc.frp\"",mName.c_str());
 
 	}
-	void getHorizontalRollPivot()
+	void getHorizontalRollPivot()const
 	{
 		fprintf(mFile,"\"%s.ppj.frc.frp.hrp\"",mName.c_str());
 
 	}
-	void getVerticalRollPivot()
+	void getVerticalRollPivot()const
 	{
 		fprintf(mFile,"\"%s.ppj.frc.frp.vrp\"",mName.c_str());
 
 	}
-	void getFilmRollValue()
+	void getFilmRollValue()const
 	{
 		fprintf(mFile,"\"%s.ppj.frc.frv\"",mName.c_str());
 
 	}
-	void getFilmRollOrder()
+	void getFilmRollOrder()const
 	{
 		fprintf(mFile,"\"%s.ppj.frc.fro\"",mName.c_str());
 
 	}
-	void getPostScale()
+	void getPostScale()const
 	{
 		fprintf(mFile,"\"%s.ppj.ptsc\"",mName.c_str());
 
 	}
-	void getFilmFit()
+	void getFilmFit()const
 	{
 		fprintf(mFile,"\"%s.ff\"",mName.c_str());
 
 	}
-	void getFilmFitOffset()
+	void getFilmFitOffset()const
 	{
 		fprintf(mFile,"\"%s.ffo\"",mName.c_str());
 
 	}
-	void getOverscan()
+	void getOverscan()const
 	{
 		fprintf(mFile,"\"%s.ovr\"",mName.c_str());
 
 	}
-	void getFocalLength()
+	void getFocalLength()const
 	{
 		fprintf(mFile,"\"%s.fl\"",mName.c_str());
 
 	}
-	void getLensSqueezeRatio()
+	void getLensSqueezeRatio()const
 	{
 		fprintf(mFile,"\"%s.lsr\"",mName.c_str());
 
 	}
-	void getCameraScale()
+	void getCameraScale()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getTriggerUpdate()
+	void getTriggerUpdate()const
 	{
 		fprintf(mFile,"\"%s.tu\"",mName.c_str());
 
 	}
-	void getNearClipPlane()
+	void getNearClipPlane()const
 	{
 		fprintf(mFile,"\"%s.ncp\"",mName.c_str());
 
 	}
-	void getFarClipPlane()
+	void getFarClipPlane()const
 	{
 		fprintf(mFile,"\"%s.fcp\"",mName.c_str());
 
 	}
-	void getFStop()
+	void getFStop()const
 	{
 		fprintf(mFile,"\"%s.fs\"",mName.c_str());
 
 	}
-	void getFocusDistance()
+	void getFocusDistance()const
 	{
 		fprintf(mFile,"\"%s.fd\"",mName.c_str());
 
 	}
-	void getShutterAngle()
+	void getShutterAngle()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getCenterOfInterest()
+	void getCenterOfInterest()const
 	{
 		fprintf(mFile,"\"%s.coi\"",mName.c_str());
 
 	}
-	void getOrthographicWidth()
+	void getOrthographicWidth()const
 	{
 		fprintf(mFile,"\"%s.ow\"",mName.c_str());
 
 	}
-	void getImageName()
+	void getImageName()const
 	{
 		fprintf(mFile,"\"%s.imn\"",mName.c_str());
 
 	}
-	void getDepthName()
+	void getDepthName()const
 	{
 		fprintf(mFile,"\"%s.den\"",mName.c_str());
 
 	}
-	void getMaskName()
+	void getMaskName()const
 	{
 		fprintf(mFile,"\"%s.man\"",mName.c_str());
 
 	}
-	void getTumblePivot()
+	void getTumblePivot()const
 	{
 		fprintf(mFile,"\"%s.tp\"",mName.c_str());
 
 	}
-	void getTumblePivotX()
+	void getTumblePivotX()const
 	{
 		fprintf(mFile,"\"%s.tp.tpx\"",mName.c_str());
 
 	}
-	void getTumblePivotY()
+	void getTumblePivotY()const
 	{
 		fprintf(mFile,"\"%s.tp.tpy\"",mName.c_str());
 
 	}
-	void getTumblePivotZ()
+	void getTumblePivotZ()const
 	{
 		fprintf(mFile,"\"%s.tp.tpz\"",mName.c_str());
 
 	}
-	void getUsePivotAsLocalSpace()
+	void getUsePivotAsLocalSpace()const
 	{
 		fprintf(mFile,"\"%s.uls\"",mName.c_str());
 
 	}
-	void getImagePlane(size_t ip_i)
+	void getImagePlane(size_t ip_i)const
 	{
 		fprintf(mFile,"\"%s.ip[%i]\"",mName.c_str(),ip_i);
 
 	}
-	void getHomeCommand()
+	void getHomeCommand()const
 	{
 		fprintf(mFile,"\"%s.hc\"",mName.c_str());
 
 	}
-	void getBookmarks(size_t b_i)
+	void getBookmarks(size_t b_i)const
 	{
 		fprintf(mFile,"\"%s.b[%i]\"",mName.c_str(),b_i);
 
 	}
-	void getLocatorScale()
+	void getLocatorScale()const
 	{
 		fprintf(mFile,"\"%s.lls\"",mName.c_str());
 
 	}
-	void getDisplayFilmGate()
+	void getDisplayFilmGate()const
 	{
 		fprintf(mFile,"\"%s.dfg\"",mName.c_str());
 
 	}
-	void getDisplayResolution()
+	void getDisplayResolution()const
 	{
 		fprintf(mFile,"\"%s.dr\"",mName.c_str());
 
 	}
-	void getDisplaySafeAction()
+	void getDisplaySafeAction()const
 	{
 		fprintf(mFile,"\"%s.dsa\"",mName.c_str());
 
 	}
-	void getDisplaySafeTitle()
+	void getDisplaySafeTitle()const
 	{
 		fprintf(mFile,"\"%s.dst\"",mName.c_str());
 
 	}
-	void getDisplayFieldChart()
+	void getDisplayFieldChart()const
 	{
 		fprintf(mFile,"\"%s.dfc\"",mName.c_str());
 
 	}
-	void getDisplayFilmPivot()
+	void getDisplayFilmPivot()const
 	{
 		fprintf(mFile,"\"%s.dfp\"",mName.c_str());
 
 	}
-	void getDisplayFilmOrigin()
+	void getDisplayFilmOrigin()const
 	{
 		fprintf(mFile,"\"%s.dfo\"",mName.c_str());
 
 	}
-	void getClippingPlanes()
+	void getClippingPlanes()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getBestFitClippingPlanes()
+	void getBestFitClippingPlanes()const
 	{
 		fprintf(mFile,"\"%s.bfc\"",mName.c_str());
 
 	}
-	void getDepthOfField()
+	void getDepthOfField()const
 	{
 		fprintf(mFile,"\"%s.dof\"",mName.c_str());
 
 	}
-	void getMotionBlur()
+	void getMotionBlur()const
 	{
 		fprintf(mFile,"\"%s.mb\"",mName.c_str());
 
 	}
-	void getOrthographic()
+	void getOrthographic()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getJournalCommand()
+	void getJournalCommand()const
 	{
 		fprintf(mFile,"\"%s.jc\"",mName.c_str());
 
 	}
-	void getImage()
+	void getImage()const
 	{
 		fprintf(mFile,"\"%s.img\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.dep\"",mName.c_str());
 
 	}
-	void getTransparencyBasedDepth()
+	void getTransparencyBasedDepth()const
 	{
 		fprintf(mFile,"\"%s.tdth\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.tthd\"",mName.c_str());
 
 	}
-	void getDepthType()
+	void getDepthType()const
 	{
 		fprintf(mFile,"\"%s.dptp\"",mName.c_str());
 
 	}
-	void getUseExploreDepthFormat()
+	void getUseExploreDepthFormat()const
 	{
 		fprintf(mFile,"\"%s.uexd\"",mName.c_str());
 
 	}
-	void getMask()
+	void getMask()const
 	{
 		fprintf(mFile,"\"%s.ma\"",mName.c_str());
 
 	}
-	void getBackgroundColor()
+	void getBackgroundColor()const
 	{
 		fprintf(mFile,"\"%s.col\"",mName.c_str());
 
 	}
-	void getBackgroundColorR()
+	void getBackgroundColorR()const
 	{
 		fprintf(mFile,"\"%s.col.colr\"",mName.c_str());
 
 	}
-	void getBackgroundColorG()
+	void getBackgroundColorG()const
 	{
 		fprintf(mFile,"\"%s.col.colg\"",mName.c_str());
 
 	}
-	void getBackgroundColorB()
+	void getBackgroundColorB()const
 	{
 		fprintf(mFile,"\"%s.col.colb\"",mName.c_str());
 
 	}
-	void getFocusRegionScale()
+	void getFocusRegionScale()const
 	{
 		fprintf(mFile,"\"%s.frs\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiOutputShader()
+	void getMiOutputShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.mios\"",mName.c_str());
 
 	}
-	void getMiFbComputeColor()
+	void getMiFbComputeColor()const
 	{
 		fprintf(mFile,"\"%s.mrc.micc\"",mName.c_str());
 
 	}
-	void getMiFbBitsizeColor()
+	void getMiFbBitsizeColor()const
 	{
 		fprintf(mFile,"\"%s.mrc.mict\"",mName.c_str());
 
 	}
-	void getMiFbComputeAlpha()
+	void getMiFbComputeAlpha()const
 	{
 		fprintf(mFile,"\"%s.mrc.mica\"",mName.c_str());
 
 	}
-	void getMiFbBitsizeAlpha()
+	void getMiFbBitsizeAlpha()const
 	{
 		fprintf(mFile,"\"%s.mrc.miat\"",mName.c_str());
 
 	}
-	void getMiFbComputeDepth()
+	void getMiFbComputeDepth()const
 	{
 		fprintf(mFile,"\"%s.mrc.micd\"",mName.c_str());
 
 	}
-	void getMiFbComputeNormal()
+	void getMiFbComputeNormal()const
 	{
 		fprintf(mFile,"\"%s.mrc.micn\"",mName.c_str());
 
 	}
-	void getMiFbComputeMotion()
+	void getMiFbComputeMotion()const
 	{
 		fprintf(mFile,"\"%s.mrc.micm\"",mName.c_str());
 
 	}
-	void getMiFbComputeCoverage()
+	void getMiFbComputeCoverage()const
 	{
 		fprintf(mFile,"\"%s.mrc.micv\"",mName.c_str());
 
 	}
-	void getMiFbComputeTag()
+	void getMiFbComputeTag()const
 	{
 		fprintf(mFile,"\"%s.mrc.mitg\"",mName.c_str());
 
 	}
-	void getMiFbComputeContour()
+	void getMiFbComputeContour()const
 	{
 		fprintf(mFile,"\"%s.mrc.mico\"",mName.c_str());
 
 	}
-	void getMiVolumeShader()
+	void getMiVolumeShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.mivs\"",mName.c_str());
 
 	}
-	void getMiLensShader()
+	void getMiLensShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.mils\"",mName.c_str());
 
 	}
-	void getMiEnvironmentShader()
+	void getMiEnvironmentShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.mies\"",mName.c_str());
 
 	}
-	void getMiOutputShaderList(size_t miol_i)
+	void getMiOutputShaderList(size_t miol_i)const
 	{
 		fprintf(mFile,"\"%s.mrc.miol[%i]\"",mName.c_str(),miol_i);
 
 	}
-	void getMiLensShaderList(size_t mill_i)
+	void getMiLensShaderList(size_t mill_i)const
 	{
 		fprintf(mFile,"\"%s.mrc.mill[%i]\"",mName.c_str(),mill_i);
 
 	}
-	void getMiRenderPassList(size_t mirp_i)
+	void getMiRenderPassList(size_t mirp_i)const
 	{
 		fprintf(mFile,"\"%s.mrc.mirp[%i]\"",mName.c_str(),mirp_i);
 
 	}
 protected:
-	Camera(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	Camera(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

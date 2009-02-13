@@ -19,7 +19,8 @@ class Crater : public Texture3d
 public:
 public:
 	Crater():Texture3d(){}
-	Crater(FILE* file,const std::string& name,const std::string& parent=""):Texture3d(file, name, parent, "crater"){}
+	Crater(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture3d(file, name, parent, "crater", create){}
 	virtual ~Crater(){}
 	void setShaker(float sh)
 	{
@@ -147,189 +148,189 @@ public:
 		fprintf(mFile,"\tsetAttr \".nf\" %f;\n", nf);
 
 	}
-	void getNormalCamera()
+	void getNormalCamera()const
 	{
 		fprintf(mFile,"\"%s.n\"",mName.c_str());
 
 	}
-	void getNormalCameraX()
+	void getNormalCameraX()const
 	{
 		fprintf(mFile,"\"%s.n.nx\"",mName.c_str());
 
 	}
-	void getNormalCameraY()
+	void getNormalCameraY()const
 	{
 		fprintf(mFile,"\"%s.n.ny\"",mName.c_str());
 
 	}
-	void getNormalCameraZ()
+	void getNormalCameraZ()const
 	{
 		fprintf(mFile,"\"%s.n.nz\"",mName.c_str());
 
 	}
-	void getRefPointObj()
+	void getRefPointObj()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getRefPointObjX()
+	void getRefPointObjX()const
 	{
 		fprintf(mFile,"\"%s.rpo.rox\"",mName.c_str());
 
 	}
-	void getRefPointObjY()
+	void getRefPointObjY()const
 	{
 		fprintf(mFile,"\"%s.rpo.roy\"",mName.c_str());
 
 	}
-	void getRefPointObjZ()
+	void getRefPointObjZ()const
 	{
 		fprintf(mFile,"\"%s.rpo.roz\"",mName.c_str());
 
 	}
-	void getRefPointCamera()
+	void getRefPointCamera()const
 	{
 		fprintf(mFile,"\"%s.rpc\"",mName.c_str());
 
 	}
-	void getRefPointCameraX()
+	void getRefPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcx\"",mName.c_str());
 
 	}
-	void getRefPointCameraY()
+	void getRefPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcy\"",mName.c_str());
 
 	}
-	void getRefPointCameraZ()
+	void getRefPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.rpc.rcz\"",mName.c_str());
 
 	}
-	void getShaker()
+	void getShaker()const
 	{
 		fprintf(mFile,"\"%s.sh\"",mName.c_str());
 
 	}
-	void getChannel1()
+	void getChannel1()const
 	{
 		fprintf(mFile,"\"%s.c1\"",mName.c_str());
 
 	}
-	void getChannel1R()
+	void getChannel1R()const
 	{
 		fprintf(mFile,"\"%s.c1.c1r\"",mName.c_str());
 
 	}
-	void getChannel1G()
+	void getChannel1G()const
 	{
 		fprintf(mFile,"\"%s.c1.c1g\"",mName.c_str());
 
 	}
-	void getChannel1B()
+	void getChannel1B()const
 	{
 		fprintf(mFile,"\"%s.c1.c1b\"",mName.c_str());
 
 	}
-	void getChannel2()
+	void getChannel2()const
 	{
 		fprintf(mFile,"\"%s.c2\"",mName.c_str());
 
 	}
-	void getChannel2R()
+	void getChannel2R()const
 	{
 		fprintf(mFile,"\"%s.c2.c2r\"",mName.c_str());
 
 	}
-	void getChannel2G()
+	void getChannel2G()const
 	{
 		fprintf(mFile,"\"%s.c2.c2g\"",mName.c_str());
 
 	}
-	void getChannel2B()
+	void getChannel2B()const
 	{
 		fprintf(mFile,"\"%s.c2.c2b\"",mName.c_str());
 
 	}
-	void getChannel3()
+	void getChannel3()const
 	{
 		fprintf(mFile,"\"%s.c3\"",mName.c_str());
 
 	}
-	void getChannel3R()
+	void getChannel3R()const
 	{
 		fprintf(mFile,"\"%s.c3.c3r\"",mName.c_str());
 
 	}
-	void getChannel3G()
+	void getChannel3G()const
 	{
 		fprintf(mFile,"\"%s.c3.c3g\"",mName.c_str());
 
 	}
-	void getChannel3B()
+	void getChannel3B()const
 	{
 		fprintf(mFile,"\"%s.c3.c3b\"",mName.c_str());
 
 	}
-	void getMelt()
+	void getMelt()const
 	{
 		fprintf(mFile,"\"%s.m\"",mName.c_str());
 
 	}
-	void getBalance()
+	void getBalance()const
 	{
 		fprintf(mFile,"\"%s.ba\"",mName.c_str());
 
 	}
-	void getFrequency()
+	void getFrequency()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getNormDepth()
+	void getNormDepth()const
 	{
 		fprintf(mFile,"\"%s.nd\"",mName.c_str());
 
 	}
-	void getNormMelt()
+	void getNormMelt()const
 	{
 		fprintf(mFile,"\"%s.nm\"",mName.c_str());
 
 	}
-	void getNormBalance()
+	void getNormBalance()const
 	{
 		fprintf(mFile,"\"%s.nb\"",mName.c_str());
 
 	}
-	void getNormFrequency()
+	void getNormFrequency()const
 	{
 		fprintf(mFile,"\"%s.nf\"",mName.c_str());
 
 	}
-	void getOutNormal()
+	void getOutNormal()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutNormalX()
+	void getOutNormalX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutNormalY()
+	void getOutNormalY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutNormalZ()
+	void getOutNormalZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
 protected:
-	Crater(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture3d(file, name, parent, nodeType) {}
+	Crater(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture3d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

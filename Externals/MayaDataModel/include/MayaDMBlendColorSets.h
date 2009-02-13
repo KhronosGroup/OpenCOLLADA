@@ -19,7 +19,8 @@ class BlendColorSets : public PolyModifier
 public:
 public:
 	BlendColorSets():PolyModifier(){}
-	BlendColorSets(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "blendColorSets"){}
+	BlendColorSets(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "blendColorSets", create){}
 	virtual ~BlendColorSets(){}
 	void setBaseColorName(const string& bcn)
 	{
@@ -75,49 +76,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".bwd\" %f;\n", bwd);
 
 	}
-	void getBaseColorName()
+	void getBaseColorName()const
 	{
 		fprintf(mFile,"\"%s.bcn\"",mName.c_str());
 
 	}
-	void getSrcColorName()
+	void getSrcColorName()const
 	{
 		fprintf(mFile,"\"%s.src\"",mName.c_str());
 
 	}
-	void getDstColorName()
+	void getDstColorName()const
 	{
 		fprintf(mFile,"\"%s.dst\"",mName.c_str());
 
 	}
-	void getBlendFunc()
+	void getBlendFunc()const
 	{
 		fprintf(mFile,"\"%s.bfn\"",mName.c_str());
 
 	}
-	void getBlendWeightA()
+	void getBlendWeightA()const
 	{
 		fprintf(mFile,"\"%s.bwa\"",mName.c_str());
 
 	}
-	void getBlendWeightB()
+	void getBlendWeightB()const
 	{
 		fprintf(mFile,"\"%s.bwb\"",mName.c_str());
 
 	}
-	void getBlendWeightC()
+	void getBlendWeightC()const
 	{
 		fprintf(mFile,"\"%s.bwc\"",mName.c_str());
 
 	}
-	void getBlendWeightD()
+	void getBlendWeightD()const
 	{
 		fprintf(mFile,"\"%s.bwd\"",mName.c_str());
 
 	}
 protected:
-	BlendColorSets(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	BlendColorSets(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

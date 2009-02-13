@@ -19,7 +19,8 @@ class Smear : public DependNode
 public:
 public:
 	Smear():DependNode(){}
-	Smear(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "smear"){}
+	Smear(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "smear", create){}
 	virtual ~Smear(){}
 	void setInRgb(const float3& i_)
 	{
@@ -47,44 +48,44 @@ public:
 		fprintf(mFile,"\tsetAttr \".i.ib\" %f;\n", ib);
 
 	}
-	void getInRgb()
+	void getInRgb()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getInColorR()
+	void getInColorR()const
 	{
 		fprintf(mFile,"\"%s.i.ir\"",mName.c_str());
 
 	}
-	void getInColorG()
+	void getInColorG()const
 	{
 		fprintf(mFile,"\"%s.i.ig\"",mName.c_str());
 
 	}
-	void getInColorB()
+	void getInColorB()const
 	{
 		fprintf(mFile,"\"%s.i.ib\"",mName.c_str());
 
 	}
-	void getOutUV()
+	void getOutUV()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutU()
+	void getOutU()const
 	{
 		fprintf(mFile,"\"%s.o.ou\"",mName.c_str());
 
 	}
-	void getOutV()
+	void getOutV()const
 	{
 		fprintf(mFile,"\"%s.o.ov\"",mName.c_str());
 
 	}
 protected:
-	Smear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Smear(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

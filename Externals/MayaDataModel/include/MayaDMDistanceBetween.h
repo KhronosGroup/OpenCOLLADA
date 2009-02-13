@@ -19,7 +19,8 @@ class DistanceBetween : public DependNode
 public:
 public:
 	DistanceBetween():DependNode(){}
-	DistanceBetween(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "distanceBetween"){}
+	DistanceBetween(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "distanceBetween", create){}
 	virtual ~DistanceBetween(){}
 	void setPoint1(const double3& p1)
 	{
@@ -87,64 +88,64 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getPoint1()
+	void getPoint1()const
 	{
 		fprintf(mFile,"\"%s.p1\"",mName.c_str());
 
 	}
-	void getPoint1X()
+	void getPoint1X()const
 	{
 		fprintf(mFile,"\"%s.p1.p1x\"",mName.c_str());
 
 	}
-	void getPoint1Y()
+	void getPoint1Y()const
 	{
 		fprintf(mFile,"\"%s.p1.p1y\"",mName.c_str());
 
 	}
-	void getPoint1Z()
+	void getPoint1Z()const
 	{
 		fprintf(mFile,"\"%s.p1.p1z\"",mName.c_str());
 
 	}
-	void getInMatrix1()
+	void getInMatrix1()const
 	{
 		fprintf(mFile,"\"%s.im1\"",mName.c_str());
 
 	}
-	void getPoint2()
+	void getPoint2()const
 	{
 		fprintf(mFile,"\"%s.p2\"",mName.c_str());
 
 	}
-	void getPoint2X()
+	void getPoint2X()const
 	{
 		fprintf(mFile,"\"%s.p2.p2x\"",mName.c_str());
 
 	}
-	void getPoint2Y()
+	void getPoint2Y()const
 	{
 		fprintf(mFile,"\"%s.p2.p2y\"",mName.c_str());
 
 	}
-	void getPoint2Z()
+	void getPoint2Z()const
 	{
 		fprintf(mFile,"\"%s.p2.p2z\"",mName.c_str());
 
 	}
-	void getInMatrix2()
+	void getInMatrix2()const
 	{
 		fprintf(mFile,"\"%s.im2\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
 protected:
-	DistanceBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DistanceBetween(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

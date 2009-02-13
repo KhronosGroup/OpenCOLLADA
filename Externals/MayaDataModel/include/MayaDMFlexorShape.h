@@ -19,7 +19,8 @@ class FlexorShape : public Shape
 public:
 public:
 	FlexorShape():Shape(){}
-	FlexorShape(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "flexorShape"){}
+	FlexorShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "flexorShape", create){}
 	virtual ~FlexorShape(){}
 	void setCurrentDriver(short cdr)
 	{
@@ -27,24 +28,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".cdr\" %i;\n", cdr);
 
 	}
-	void getDriver(size_t dr_i)
+	void getDriver(size_t dr_i)const
 	{
 		fprintf(mFile,"\"%s.dr[%i]\"",mName.c_str(),dr_i);
 
 	}
-	void getCurrentDriver()
+	void getCurrentDriver()const
 	{
 		fprintf(mFile,"\"%s.cdr\"",mName.c_str());
 
 	}
-	void getFlexorNodes(size_t fn_i)
+	void getFlexorNodes(size_t fn_i)const
 	{
 		fprintf(mFile,"\"%s.fn[%i]\"",mName.c_str(),fn_i);
 
 	}
 protected:
-	FlexorShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	FlexorShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

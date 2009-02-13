@@ -19,7 +19,8 @@ class HistorySwitch : public GeometryFilter
 public:
 public:
 	HistorySwitch():GeometryFilter(){}
-	HistorySwitch(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "historySwitch"){}
+	HistorySwitch(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "historySwitch", create){}
 	virtual ~HistorySwitch(){}
 	void setPlayFromCache(bool pfc)
 	{
@@ -27,29 +28,29 @@ public:
 		fprintf(mFile,"\tsetAttr \".pfc\" %i;\n", pfc);
 
 	}
-	void getUndeformedGeometry(size_t ug_i)
+	void getUndeformedGeometry(size_t ug_i)const
 	{
 		fprintf(mFile,"\"%s.ug[%i]\"",mName.c_str(),ug_i);
 
 	}
-	void getPlayFromCache()
+	void getPlayFromCache()const
 	{
 		fprintf(mFile,"\"%s.pfc\"",mName.c_str());
 
 	}
-	void getInPositions(size_t inp_i)
+	void getInPositions(size_t inp_i)const
 	{
 		fprintf(mFile,"\"%s.inp[%i]\"",mName.c_str(),inp_i);
 
 	}
-	void getOutPositions(size_t op_i)
+	void getOutPositions(size_t op_i)const
 	{
 		fprintf(mFile,"\"%s.op[%i]\"",mName.c_str(),op_i);
 
 	}
 protected:
-	HistorySwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	HistorySwitch(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

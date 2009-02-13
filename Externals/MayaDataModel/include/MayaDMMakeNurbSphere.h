@@ -18,11 +18,12 @@ class MakeNurbSphere : public RevolvedPrimitive
 {
 public:
 	MakeNurbSphere():RevolvedPrimitive(){}
-	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent=""):RevolvedPrimitive(file, name, parent, "makeNurbSphere"){}
+	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:RevolvedPrimitive(file, name, parent, "makeNurbSphere", create){}
 	virtual ~MakeNurbSphere(){}
 protected:
-	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:RevolvedPrimitive(file, name, parent, nodeType) {}
+	MakeNurbSphere(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:RevolvedPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

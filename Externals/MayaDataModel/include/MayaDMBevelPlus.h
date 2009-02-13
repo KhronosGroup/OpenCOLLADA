@@ -19,7 +19,8 @@ class BevelPlus : public AbstractBaseCreate
 public:
 public:
 	BevelPlus():AbstractBaseCreate(){}
-	BevelPlus(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "bevelPlus"){}
+	BevelPlus(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "bevelPlus", create){}
 	virtual ~BevelPlus(){}
 	void setTolerance(double tol)
 	{
@@ -135,164 +136,164 @@ public:
 		fprintf(mFile,"\tsetAttr \".chr\" %f;\n", chr);
 
 	}
-	void getInputCurves(size_t ics_i)
+	void getInputCurves(size_t ics_i)const
 	{
 		fprintf(mFile,"\"%s.ics[%i]\"",mName.c_str(),ics_i);
 
 	}
-	void getOuterStyleCurve()
+	void getOuterStyleCurve()const
 	{
 		fprintf(mFile,"\"%s.osc\"",mName.c_str());
 
 	}
-	void getInnerStyleCurve()
+	void getInnerStyleCurve()const
 	{
 		fprintf(mFile,"\"%s.isc\"",mName.c_str());
 
 	}
-	void getOutputPoly()
+	void getOutputPoly()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getStartCapSurface()
+	void getStartCapSurface()const
 	{
 		fprintf(mFile,"\"%s.scs\"",mName.c_str());
 
 	}
-	void getEndCapSurface()
+	void getEndCapSurface()const
 	{
 		fprintf(mFile,"\"%s.ecs\"",mName.c_str());
 
 	}
-	void getOutputSurfaces(size_t os1_i)
+	void getOutputSurfaces(size_t os1_i)const
 	{
 		fprintf(mFile,"\"%s.os1[%i]\"",mName.c_str(),os1_i);
 
 	}
-	void getCount(size_t c_i)
+	void getCount(size_t c_i)const
 	{
 		fprintf(mFile,"\"%s.c[%i]\"",mName.c_str(),c_i);
 
 	}
-	void getPosition(size_t p_i)
+	void getPosition(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i]\"",mName.c_str(),p_i);
 
 	}
-	void getPositionX(size_t p_i)
+	void getPositionX(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].px\"",mName.c_str(),p_i);
 
 	}
-	void getPositionY(size_t p_i)
+	void getPositionY(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].py\"",mName.c_str(),p_i);
 
 	}
-	void getPositionZ(size_t p_i)
+	void getPositionZ(size_t p_i)const
 	{
 		fprintf(mFile,"\"%s.p[%i].pz\"",mName.c_str(),p_i);
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getWidth()
+	void getWidth()const
 	{
 		fprintf(mFile,"\"%s.w\"",mName.c_str());
 
 	}
-	void getDepth()
+	void getDepth()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getExtrudeDepth()
+	void getExtrudeDepth()const
 	{
 		fprintf(mFile,"\"%s.ed\"",mName.c_str());
 
 	}
-	void getNumberOfSides()
+	void getNumberOfSides()const
 	{
 		fprintf(mFile,"\"%s.ns\"",mName.c_str());
 
 	}
-	void getCapSides()
+	void getCapSides()const
 	{
 		fprintf(mFile,"\"%s.cap\"",mName.c_str());
 
 	}
-	void getJoinSurfaces()
+	void getJoinSurfaces()const
 	{
 		fprintf(mFile,"\"%s.js\"",mName.c_str());
 
 	}
-	void getOrderedCurves()
+	void getOrderedCurves()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
-	void getNormalsOutwards()
+	void getNormalsOutwards()const
 	{
 		fprintf(mFile,"\"%s.no\"",mName.c_str());
 
 	}
-	void getPolyOutMethod()
+	void getPolyOutMethod()const
 	{
 		fprintf(mFile,"\"%s.pom\"",mName.c_str());
 
 	}
-	void getPolyOutCount()
+	void getPolyOutCount()const
 	{
 		fprintf(mFile,"\"%s.poc\"",mName.c_str());
 
 	}
-	void getPolyOutExtrusionType()
+	void getPolyOutExtrusionType()const
 	{
 		fprintf(mFile,"\"%s.pet\"",mName.c_str());
 
 	}
-	void getPolyOutExtrusionSamples()
+	void getPolyOutExtrusionSamples()const
 	{
 		fprintf(mFile,"\"%s.pes\"",mName.c_str());
 
 	}
-	void getPolyOutCurveType()
+	void getPolyOutCurveType()const
 	{
 		fprintf(mFile,"\"%s.pct\"",mName.c_str());
 
 	}
-	void getPolyOutCurveSamples()
+	void getPolyOutCurveSamples()const
 	{
 		fprintf(mFile,"\"%s.pcs\"",mName.c_str());
 
 	}
-	void getPolyOutUseChordHeight()
+	void getPolyOutUseChordHeight()const
 	{
 		fprintf(mFile,"\"%s.uch\"",mName.c_str());
 
 	}
-	void getPolyOutChordHeight()
+	void getPolyOutChordHeight()const
 	{
 		fprintf(mFile,"\"%s.cht\"",mName.c_str());
 
 	}
-	void getPolyOutUseChordHeightRatio()
+	void getPolyOutUseChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.ucr\"",mName.c_str());
 
 	}
-	void getPolyOutChordHeightRatio()
+	void getPolyOutChordHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.chr\"",mName.c_str());
 
 	}
 protected:
-	BevelPlus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	BevelPlus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

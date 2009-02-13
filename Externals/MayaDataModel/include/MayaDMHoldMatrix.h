@@ -19,7 +19,8 @@ class HoldMatrix : public DependNode
 public:
 public:
 	HoldMatrix():DependNode(){}
-	HoldMatrix(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "holdMatrix"){}
+	HoldMatrix(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "holdMatrix", create){}
 	virtual ~HoldMatrix(){}
 	void setInMatrix(const matrix& i_)
 	{
@@ -37,19 +38,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInMatrix()
+	void getInMatrix()const
 	{
 		fprintf(mFile,"\"%s.i\"",mName.c_str());
 
 	}
-	void getOutMatrix()
+	void getOutMatrix()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
 protected:
-	HoldMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	HoldMatrix(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

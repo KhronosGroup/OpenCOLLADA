@@ -19,7 +19,8 @@ class PolyMapSewMove : public PolyModifierUV
 public:
 public:
 	PolyMapSewMove():PolyModifierUV(){}
-	PolyMapSewMove(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierUV(file, name, parent, "polyMapSewMove"){}
+	PolyMapSewMove(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierUV(file, name, parent, "polyMapSewMove", create){}
 	virtual ~PolyMapSewMove(){}
 	void setLimitPieceSize(bool lps)
 	{
@@ -33,19 +34,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".nf\" %i;\n", nf);
 
 	}
-	void getLimitPieceSize()
+	void getLimitPieceSize()const
 	{
 		fprintf(mFile,"\"%s.lps\"",mName.c_str());
 
 	}
-	void getNumberFaces()
+	void getNumberFaces()const
 	{
 		fprintf(mFile,"\"%s.nf\"",mName.c_str());
 
 	}
 protected:
-	PolyMapSewMove(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierUV(file, name, parent, nodeType) {}
+	PolyMapSewMove(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierUV(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

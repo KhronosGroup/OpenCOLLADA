@@ -19,7 +19,8 @@ class Clamp : public DependNode
 public:
 public:
 	Clamp():DependNode(){}
-	Clamp(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "clamp"){}
+	Clamp(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "clamp", create){}
 	virtual ~Clamp(){}
 	void setMin(const float3& mn)
 	{
@@ -99,89 +100,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".ip.ipb\" %f;\n", ipb);
 
 	}
-	void getMin()
+	void getMin()const
 	{
 		fprintf(mFile,"\"%s.mn\"",mName.c_str());
 
 	}
-	void getMinR()
+	void getMinR()const
 	{
 		fprintf(mFile,"\"%s.mn.mnr\"",mName.c_str());
 
 	}
-	void getMinG()
+	void getMinG()const
 	{
 		fprintf(mFile,"\"%s.mn.mng\"",mName.c_str());
 
 	}
-	void getMinB()
+	void getMinB()const
 	{
 		fprintf(mFile,"\"%s.mn.mnb\"",mName.c_str());
 
 	}
-	void getMax()
+	void getMax()const
 	{
 		fprintf(mFile,"\"%s.mx\"",mName.c_str());
 
 	}
-	void getMaxR()
+	void getMaxR()const
 	{
 		fprintf(mFile,"\"%s.mx.mxr\"",mName.c_str());
 
 	}
-	void getMaxG()
+	void getMaxG()const
 	{
 		fprintf(mFile,"\"%s.mx.mxg\"",mName.c_str());
 
 	}
-	void getMaxB()
+	void getMaxB()const
 	{
 		fprintf(mFile,"\"%s.mx.mxb\"",mName.c_str());
 
 	}
-	void getInput()
+	void getInput()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getInputR()
+	void getInputR()const
 	{
 		fprintf(mFile,"\"%s.ip.ipr\"",mName.c_str());
 
 	}
-	void getInputG()
+	void getInputG()const
 	{
 		fprintf(mFile,"\"%s.ip.ipg\"",mName.c_str());
 
 	}
-	void getInputB()
+	void getInputB()const
 	{
 		fprintf(mFile,"\"%s.ip.ipb\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getOutputR()
+	void getOutputR()const
 	{
 		fprintf(mFile,"\"%s.op.opr\"",mName.c_str());
 
 	}
-	void getOutputG()
+	void getOutputG()const
 	{
 		fprintf(mFile,"\"%s.op.opg\"",mName.c_str());
 
 	}
-	void getOutputB()
+	void getOutputB()const
 	{
 		fprintf(mFile,"\"%s.op.opb\"",mName.c_str());
 
 	}
 protected:
-	Clamp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	Clamp(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

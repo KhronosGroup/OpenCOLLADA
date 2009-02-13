@@ -19,7 +19,8 @@ class MakeNurbTorus : public RevolvedPrimitive
 public:
 public:
 	MakeNurbTorus():RevolvedPrimitive(){}
-	MakeNurbTorus(FILE* file,const std::string& name,const std::string& parent=""):RevolvedPrimitive(file, name, parent, "makeNurbTorus"){}
+	MakeNurbTorus(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:RevolvedPrimitive(file, name, parent, "makeNurbTorus", create){}
 	virtual ~MakeNurbTorus(){}
 	void setMinorSweep(double msw)
 	{
@@ -27,14 +28,14 @@ public:
 		fprintf(mFile,"\tsetAttr \".msw\" %f;\n", msw);
 
 	}
-	void getMinorSweep()
+	void getMinorSweep()const
 	{
 		fprintf(mFile,"\"%s.msw\"",mName.c_str());
 
 	}
 protected:
-	MakeNurbTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:RevolvedPrimitive(file, name, parent, nodeType) {}
+	MakeNurbTorus(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:RevolvedPrimitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

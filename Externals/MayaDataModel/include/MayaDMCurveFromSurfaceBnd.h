@@ -19,7 +19,8 @@ class CurveFromSurfaceBnd : public CurveFromSurface
 public:
 public:
 	CurveFromSurfaceBnd():CurveFromSurface(){}
-	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent=""):CurveFromSurface(file, name, parent, "curveFromSurfaceBnd"){}
+	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:CurveFromSurface(file, name, parent, "curveFromSurfaceBnd", create){}
 	virtual ~CurveFromSurfaceBnd(){}
 	void setFace(int f)
 	{
@@ -39,24 +40,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".e\" %i;\n", e);
 
 	}
-	void getFace()
+	void getFace()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getBoundary()
+	void getBoundary()const
 	{
 		fprintf(mFile,"\"%s.b\"",mName.c_str());
 
 	}
-	void getEdge()
+	void getEdge()const
 	{
 		fprintf(mFile,"\"%s.e\"",mName.c_str());
 
 	}
 protected:
-	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:CurveFromSurface(file, name, parent, nodeType) {}
+	CurveFromSurfaceBnd(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:CurveFromSurface(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

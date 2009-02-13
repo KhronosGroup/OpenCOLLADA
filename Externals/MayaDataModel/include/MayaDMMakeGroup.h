@@ -19,7 +19,8 @@ class MakeGroup : public DependNode
 public:
 public:
 	MakeGroup():DependNode(){}
-	MakeGroup(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "makeGroup"){}
+	MakeGroup(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "makeGroup", create){}
 	virtual ~MakeGroup(){}
 	void setGroupType(unsigned int gt)
 	{
@@ -48,39 +49,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getGroupType()
+	void getGroupType()const
 	{
 		fprintf(mFile,"\"%s.gt\"",mName.c_str());
 
 	}
-	void getGroupName()
+	void getGroupName()const
 	{
 		fprintf(mFile,"\"%s.gn\"",mName.c_str());
 
 	}
-	void getElemList()
+	void getElemList()const
 	{
 		fprintf(mFile,"\"%s.el\"",mName.c_str());
 
 	}
-	void getInputComponents()
+	void getInputComponents()const
 	{
 		fprintf(mFile,"\"%s.ic\"",mName.c_str());
 
 	}
 protected:
-	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	MakeGroup(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

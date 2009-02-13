@@ -24,7 +24,8 @@ public:
 	};
 public:
 	GeoConnector():DependNode(){}
-	GeoConnector(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "geoConnector"){}
+	GeoConnector(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "geoConnector", create){}
 	virtual ~GeoConnector(){}
 	void setWorldMatrix(const matrix& wm)
 	{
@@ -52,17 +53,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startGroupId(size_t gri_start,size_t gri_end)
+	void startGroupId(size_t gri_start,size_t gri_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".gri[%i:%i]\"",gri_start,gri_end);
 
 	}
-	void appendGroupId(int gri)
+	void appendGroupId(int gri)const
 	{
 		fprintf(mFile," %i",gri);
 
 	}
-	void endGroupId()
+	void endGroupId()const
 	{
 		fprintf(mFile,";\n");
 
@@ -99,214 +100,214 @@ public:
 		fprintf(mFile,"\tsetAttr \".off\" %f;\n", off);
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.ct\"",mName.c_str());
 
 	}
-	void getOwner()
+	void getOwner()const
 	{
 		fprintf(mFile,"\"%s.own\"",mName.c_str());
 
 	}
-	void getInputGeometryMsg()
+	void getInputGeometryMsg()const
 	{
 		fprintf(mFile,"\"%s.igm\"",mName.c_str());
 
 	}
-	void getLocalGeometry()
+	void getLocalGeometry()const
 	{
 		fprintf(mFile,"\"%s.lge\"",mName.c_str());
 
 	}
-	void getWorldMatrix()
+	void getWorldMatrix()const
 	{
 		fprintf(mFile,"\"%s.wm\"",mName.c_str());
 
 	}
-	void getOwnerPositions()
+	void getOwnerPositions()const
 	{
 		fprintf(mFile,"\"%s.pos\"",mName.c_str());
 
 	}
-	void getOwnerVelocities()
+	void getOwnerVelocities()const
 	{
 		fprintf(mFile,"\"%s.vel\"",mName.c_str());
 
 	}
-	void getOwnerMasses()
+	void getOwnerMasses()const
 	{
 		fprintf(mFile,"\"%s.mas\"",mName.c_str());
 
 	}
-	void getIdMapping()
+	void getIdMapping()const
 	{
 		fprintf(mFile,"\"%s.idm\"",mName.c_str());
 
 	}
-	void getSortedId()
+	void getSortedId()const
 	{
 		fprintf(mFile,"\"%s.idm.sid\"",mName.c_str());
 
 	}
-	void getIdIndex()
+	void getIdIndex()const
 	{
 		fprintf(mFile,"\"%s.idm.idix\"",mName.c_str());
 
 	}
-	void getInputForce(size_t ifc_i)
+	void getInputForce(size_t ifc_i)const
 	{
 		fprintf(mFile,"\"%s.ifc[%i]\"",mName.c_str(),ifc_i);
 
 	}
-	void getOwnerCentroid()
+	void getOwnerCentroid()const
 	{
 		fprintf(mFile,"\"%s.ocd\"",mName.c_str());
 
 	}
-	void getOwnerCentroidX()
+	void getOwnerCentroidX()const
 	{
 		fprintf(mFile,"\"%s.ocd.ocx\"",mName.c_str());
 
 	}
-	void getOwnerCentroidY()
+	void getOwnerCentroidY()const
 	{
 		fprintf(mFile,"\"%s.ocd.ocy\"",mName.c_str());
 
 	}
-	void getOwnerCentroidZ()
+	void getOwnerCentroidZ()const
 	{
 		fprintf(mFile,"\"%s.ocd.ocz\"",mName.c_str());
 
 	}
-	void getOwnerCentroidLocal()
+	void getOwnerCentroidLocal()const
 	{
 		fprintf(mFile,"\"%s.ocl\"",mName.c_str());
 
 	}
-	void getOwnerCentroidLocalX()
+	void getOwnerCentroidLocalX()const
 	{
 		fprintf(mFile,"\"%s.ocl.olcx\"",mName.c_str());
 
 	}
-	void getOwnerCentroidLocalY()
+	void getOwnerCentroidLocalY()const
 	{
 		fprintf(mFile,"\"%s.ocl.ocly\"",mName.c_str());
 
 	}
-	void getOwnerCentroidLocalZ()
+	void getOwnerCentroidLocalZ()const
 	{
 		fprintf(mFile,"\"%s.ocl.oclz\"",mName.c_str());
 
 	}
-	void getGroupId(size_t gri_i)
+	void getGroupId(size_t gri_i)const
 	{
 		fprintf(mFile,"\"%s.gri[%i]\"",mName.c_str(),gri_i);
 
 	}
-	void getComponentPositions(size_t cpp_i)
+	void getComponentPositions(size_t cpp_i)const
 	{
 		fprintf(mFile,"\"%s.cpp[%i]\"",mName.c_str(),cpp_i);
 
 	}
-	void getComponentVelocities(size_t cpv_i)
+	void getComponentVelocities(size_t cpv_i)const
 	{
 		fprintf(mFile,"\"%s.cpv[%i]\"",mName.c_str(),cpv_i);
 
 	}
-	void getComponentCentroid(size_t cpc_i)
+	void getComponentCentroid(size_t cpc_i)const
 	{
 		fprintf(mFile,"\"%s.cpc[%i]\"",mName.c_str(),cpc_i);
 
 	}
-	void getComponentCentroidX(size_t cpc_i)
+	void getComponentCentroidX(size_t cpc_i)const
 	{
 		fprintf(mFile,"\"%s.cpc[%i].ccx\"",mName.c_str(),cpc_i);
 
 	}
-	void getComponentCentroidY(size_t cpc_i)
+	void getComponentCentroidY(size_t cpc_i)const
 	{
 		fprintf(mFile,"\"%s.cpc[%i].ccy\"",mName.c_str(),cpc_i);
 
 	}
-	void getComponentCentroidZ(size_t cpc_i)
+	void getComponentCentroidZ(size_t cpc_i)const
 	{
 		fprintf(mFile,"\"%s.cpc[%i].ccz\"",mName.c_str(),cpc_i);
 
 	}
-	void getComponentCentroidLocal(size_t ccl_i)
+	void getComponentCentroidLocal(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i]\"",mName.c_str(),ccl_i);
 
 	}
-	void getComponentCentroidLocalX(size_t ccl_i)
+	void getComponentCentroidLocalX(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i].cclx\"",mName.c_str(),ccl_i);
 
 	}
-	void getComponentCentroidLocalY(size_t ccl_i)
+	void getComponentCentroidLocalY(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i].clcy\"",mName.c_str(),ccl_i);
 
 	}
-	void getComponentCentroidLocalZ(size_t ccl_i)
+	void getComponentCentroidLocalZ(size_t ccl_i)const
 	{
 		fprintf(mFile,"\"%s.ccl[%i].clcz\"",mName.c_str(),ccl_i);
 
 	}
-	void getSweptGeometry()
+	void getSweptGeometry()const
 	{
 		fprintf(mFile,"\"%s.swg\"",mName.c_str());
 
 	}
-	void getLocalSweptGeometry()
+	void getLocalSweptGeometry()const
 	{
 		fprintf(mFile,"\"%s.lsg\"",mName.c_str());
 
 	}
-	void getRatePPIn(size_t rpi_i)
+	void getRatePPIn(size_t rpi_i)const
 	{
 		fprintf(mFile,"\"%s.rpi[%i]\"",mName.c_str(),rpi_i);
 
 	}
-	void getRatePPOut()
+	void getRatePPOut()const
 	{
 		fprintf(mFile,"\"%s.rpo\"",mName.c_str());
 
 	}
-	void getMatrixModified()
+	void getMatrixModified()const
 	{
 		fprintf(mFile,"\"%s.mtm\"",mName.c_str());
 
 	}
-	void getGeometryModified()
+	void getGeometryModified()const
 	{
 		fprintf(mFile,"\"%s.gmd\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.guv\"",mName.c_str());
 
 	}
-	void getResilience()
+	void getResilience()const
 	{
 		fprintf(mFile,"\"%s.res\"",mName.c_str());
 
 	}
-	void getFriction()
+	void getFriction()const
 	{
 		fprintf(mFile,"\"%s.fri\"",mName.c_str());
 
 	}
-	void getOffset()
+	void getOffset()const
 	{
 		fprintf(mFile,"\"%s.off\"",mName.c_str());
 
 	}
 protected:
-	GeoConnector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	GeoConnector(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

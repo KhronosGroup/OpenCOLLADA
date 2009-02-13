@@ -24,7 +24,8 @@ public:
 	};
 public:
 	Spring():Shape(){}
-	Spring(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "spring"){}
+	Spring(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "spring", create){}
 	virtual ~Spring(){}
 	void setEnd1Weight(double f)
 	{
@@ -118,19 +119,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startObjectPositions(size_t opos_start,size_t opos_end)
+	void startObjectPositions(size_t opos_start,size_t opos_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".opos[%i:%i]\"",opos_start,opos_end);
 		fprintf(mFile," -type \"vectorArray\" ");
 
 	}
-	void appendObjectPositions(const vectorArray& opos)
+	void appendObjectPositions(const vectorArray& opos)const
 	{
 		fprintf(mFile,"\n");
 		opos.write(mFile);
 
 	}
-	void endObjectPositions()
+	void endObjectPositions()const
 	{
 		fprintf(mFile,";\n");
 
@@ -155,19 +156,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startObjectVelocities(size_t ovel_start,size_t ovel_end)
+	void startObjectVelocities(size_t ovel_start,size_t ovel_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ovel[%i:%i]\"",ovel_start,ovel_end);
 		fprintf(mFile," -type \"vectorArray\" ");
 
 	}
-	void appendObjectVelocities(const vectorArray& ovel)
+	void appendObjectVelocities(const vectorArray& ovel)const
 	{
 		fprintf(mFile,"\n");
 		ovel.write(mFile);
 
 	}
-	void endObjectVelocities()
+	void endObjectVelocities()const
 	{
 		fprintf(mFile,";\n");
 
@@ -192,19 +193,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startObjectMass(size_t omas_start,size_t omas_end)
+	void startObjectMass(size_t omas_start,size_t omas_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".omas[%i:%i]\"",omas_start,omas_end);
 		fprintf(mFile," -type \"doubleArray\" ");
 
 	}
-	void appendObjectMass(const doubleArray& omas)
+	void appendObjectMass(const doubleArray& omas)const
 	{
 		fprintf(mFile,"\n");
 		omas.write(mFile);
 
 	}
-	void endObjectMass()
+	void endObjectMass()const
 	{
 		fprintf(mFile,";\n");
 
@@ -269,139 +270,139 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getEnd1Weight()
+	void getEnd1Weight()const
 	{
 		fprintf(mFile,"\"%s.f\"",mName.c_str());
 
 	}
-	void getEnd2Weight()
+	void getEnd2Weight()const
 	{
 		fprintf(mFile,"\"%s.t\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getDamping()
+	void getDamping()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getRestLength()
+	void getRestLength()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getStiffnessPS()
+	void getStiffnessPS()const
 	{
 		fprintf(mFile,"\"%s.sps\"",mName.c_str());
 
 	}
-	void getDampingPS()
+	void getDampingPS()const
 	{
 		fprintf(mFile,"\"%s.dps\"",mName.c_str());
 
 	}
-	void getRestLengthPS()
+	void getRestLengthPS()const
 	{
 		fprintf(mFile,"\"%s.rps\"",mName.c_str());
 
 	}
-	void getObjectPositions(size_t opos_i)
+	void getObjectPositions(size_t opos_i)const
 	{
 		fprintf(mFile,"\"%s.opos[%i]\"",mName.c_str(),opos_i);
 
 	}
-	void getObjectVelocities(size_t ovel_i)
+	void getObjectVelocities(size_t ovel_i)const
 	{
 		fprintf(mFile,"\"%s.ovel[%i]\"",mName.c_str(),ovel_i);
 
 	}
-	void getObjectMass(size_t omas_i)
+	void getObjectMass(size_t omas_i)const
 	{
 		fprintf(mFile,"\"%s.omas[%i]\"",mName.c_str(),omas_i);
 
 	}
-	void getDeltaTime(size_t dt_i)
+	void getDeltaTime(size_t dt_i)const
 	{
 		fprintf(mFile,"\"%s.dt[%i]\"",mName.c_str(),dt_i);
 
 	}
-	void getOutputForce(size_t of_i)
+	void getOutputForce(size_t of_i)const
 	{
 		fprintf(mFile,"\"%s.of[%i]\"",mName.c_str(),of_i);
 
 	}
-	void getIdMapping(size_t idm_i)
+	void getIdMapping(size_t idm_i)const
 	{
 		fprintf(mFile,"\"%s.idm[%i]\"",mName.c_str(),idm_i);
 
 	}
-	void getSortedId(size_t idm_i)
+	void getSortedId(size_t idm_i)const
 	{
 		fprintf(mFile,"\"%s.idm[%i].sid\"",mName.c_str(),idm_i);
 
 	}
-	void getIdIndex(size_t idm_i)
+	void getIdIndex(size_t idm_i)const
 	{
 		fprintf(mFile,"\"%s.idm[%i].idix\"",mName.c_str(),idm_i);
 
 	}
-	void getCount()
+	void getCount()const
 	{
 		fprintf(mFile,"\"%s.cnt\"",mName.c_str());
 
 	}
-	void getObjects(size_t obj_i)
+	void getObjects(size_t obj_i)const
 	{
 		fprintf(mFile,"\"%s.obj[%i]\"",mName.c_str(),obj_i);
 
 	}
-	void getObjCount()
+	void getObjCount()const
 	{
 		fprintf(mFile,"\"%s.obc\"",mName.c_str());
 
 	}
-	void getLengths()
+	void getLengths()const
 	{
 		fprintf(mFile,"\"%s.lns\"",mName.c_str());
 
 	}
-	void getMinUsed()
+	void getMinUsed()const
 	{
 		fprintf(mFile,"\"%s.mnu\"",mName.c_str());
 
 	}
-	void getMaxUsed()
+	void getMaxUsed()const
 	{
 		fprintf(mFile,"\"%s.mxu\"",mName.c_str());
 
 	}
-	void getPt0Index()
+	void getPt0Index()const
 	{
 		fprintf(mFile,"\"%s.pzi\"",mName.c_str());
 
 	}
-	void getPt1Index()
+	void getPt1Index()const
 	{
 		fprintf(mFile,"\"%s.poi\"",mName.c_str());
 
 	}
-	void getObj0Index()
+	void getObj0Index()const
 	{
 		fprintf(mFile,"\"%s.ozi\"",mName.c_str());
 
 	}
-	void getObj1Index()
+	void getObj1Index()const
 	{
 		fprintf(mFile,"\"%s.ooi\"",mName.c_str());
 
 	}
 protected:
-	Spring(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	Spring(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -30,7 +30,8 @@ public:
 	};
 public:
 	DragField():Field(){}
-	DragField(FILE* file,const std::string& name,const std::string& parent=""):Field(file, name, parent, "dragField"){}
+	DragField(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Field(file, name, parent, "dragField", create){}
 	virtual ~DragField(){}
 	void setDirection(const Direction& d)
 	{
@@ -81,54 +82,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".spa\" %f;\n", spa);
 
 	}
-	void getDirection()
+	void getDirection()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getDirectionX()
+	void getDirectionX()const
 	{
 		fprintf(mFile,"\"%s.d.dx\"",mName.c_str());
 
 	}
-	void getDirectionY()
+	void getDirectionY()const
 	{
 		fprintf(mFile,"\"%s.d.dy\"",mName.c_str());
 
 	}
-	void getDirectionZ()
+	void getDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.d.dz\"",mName.c_str());
 
 	}
-	void getUseDirection()
+	void getUseDirection()const
 	{
 		fprintf(mFile,"\"%s.ud\"",mName.c_str());
 
 	}
-	void getInheritVelocity()
+	void getInheritVelocity()const
 	{
 		fprintf(mFile,"\"%s.iv\"",mName.c_str());
 
 	}
-	void getMotionAttenuation()
+	void getMotionAttenuation()const
 	{
 		fprintf(mFile,"\"%s.mna\"",mName.c_str());
 
 	}
-	void getSpeedAttenuation()
+	void getSpeedAttenuation()const
 	{
 		fprintf(mFile,"\"%s.spa\"",mName.c_str());
 
 	}
-	void getCurrentTime()
+	void getCurrentTime()const
 	{
 		fprintf(mFile,"\"%s.cti\"",mName.c_str());
 
 	}
 protected:
-	DragField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Field(file, name, parent, nodeType) {}
+	DragField(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Field(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

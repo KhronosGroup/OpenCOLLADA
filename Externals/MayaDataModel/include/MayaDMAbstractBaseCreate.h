@@ -18,11 +18,12 @@ class AbstractBaseCreate : public DependNode
 {
 public:
 	AbstractBaseCreate():DependNode(){}
-	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "abstractBaseCreate"){}
+	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "abstractBaseCreate", create){}
 	virtual ~AbstractBaseCreate(){}
 protected:
-	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	AbstractBaseCreate(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

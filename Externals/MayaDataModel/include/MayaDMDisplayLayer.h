@@ -40,7 +40,8 @@ public:
 	};
 public:
 	DisplayLayer():DependNode(){}
-	DisplayLayer(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "displayLayer"){}
+	DisplayLayer(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "displayLayer", create){}
 	virtual ~DisplayLayer(){}
 	void setIdentification(short id)
 	{
@@ -109,64 +110,64 @@ public:
 		fprintf(mFile,"\tsetAttr \".do\" %i;\n", do_);
 
 	}
-	void getIdentification()
+	void getIdentification()const
 	{
 		fprintf(mFile,"\"%s.id\"",mName.c_str());
 
 	}
-	void getDrawInfo()
+	void getDrawInfo()const
 	{
 		fprintf(mFile,"\"%s.di\"",mName.c_str());
 
 	}
-	void getDisplayType()
+	void getDisplayType()const
 	{
 		fprintf(mFile,"\"%s.di.dt\"",mName.c_str());
 
 	}
-	void getLevelOfDetail()
+	void getLevelOfDetail()const
 	{
 		fprintf(mFile,"\"%s.di.lod\"",mName.c_str());
 
 	}
-	void getShading()
+	void getShading()const
 	{
 		fprintf(mFile,"\"%s.di.s\"",mName.c_str());
 
 	}
-	void getTexturing()
+	void getTexturing()const
 	{
 		fprintf(mFile,"\"%s.di.t\"",mName.c_str());
 
 	}
-	void getPlayback()
+	void getPlayback()const
 	{
 		fprintf(mFile,"\"%s.di.p\"",mName.c_str());
 
 	}
-	void getEnabled()
+	void getEnabled()const
 	{
 		fprintf(mFile,"\"%s.di.e\"",mName.c_str());
 
 	}
-	void getVisibility()
+	void getVisibility()const
 	{
 		fprintf(mFile,"\"%s.di.v\"",mName.c_str());
 
 	}
-	void getColor()
+	void getColor()const
 	{
 		fprintf(mFile,"\"%s.di.c\"",mName.c_str());
 
 	}
-	void getDisplayOrder()
+	void getDisplayOrder()const
 	{
 		fprintf(mFile,"\"%s.do\"",mName.c_str());
 
 	}
 protected:
-	DisplayLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DisplayLayer(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

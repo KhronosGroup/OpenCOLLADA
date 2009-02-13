@@ -203,6 +203,11 @@ namespace COLLADAMaya
             return true;
         }
 
+        /**
+         * Replace offending characters by some that are supported within maya.
+         */
+        static String frameworkNameToMayaName ( const String& name );
+
     private:
 
         /** Imports the current scene. */

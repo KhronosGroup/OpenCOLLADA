@@ -88,7 +88,8 @@ public:
 	};
 public:
 	SpotLight():NonExtendedLightShapeNode(){}
-	SpotLight(FILE* file,const std::string& name,const std::string& parent=""):NonExtendedLightShapeNode(file, name, parent, "spotLight"){}
+	SpotLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, "spotLight", create){}
 	virtual ~SpotLight(){}
 	void setConeAngle(double ca)
 	{
@@ -522,404 +523,404 @@ public:
 		fprintf(mFile,"\tsetAttr \".mrc.avis\" %i;\n", avis);
 
 	}
-	void getConeAngle()
+	void getConeAngle()const
 	{
 		fprintf(mFile,"\"%s.ca\"",mName.c_str());
 
 	}
-	void getPenumbraAngle()
+	void getPenumbraAngle()const
 	{
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
 
 	}
-	void getDropoff()
+	void getDropoff()const
 	{
 		fprintf(mFile,"\"%s.dro\"",mName.c_str());
 
 	}
-	void getBarnDoors()
+	void getBarnDoors()const
 	{
 		fprintf(mFile,"\"%s.bd\"",mName.c_str());
 
 	}
-	void getLeftBarnDoor()
+	void getLeftBarnDoor()const
 	{
 		fprintf(mFile,"\"%s.lbd\"",mName.c_str());
 
 	}
-	void getRightBarnDoor()
+	void getRightBarnDoor()const
 	{
 		fprintf(mFile,"\"%s.rbd\"",mName.c_str());
 
 	}
-	void getTopBarnDoor()
+	void getTopBarnDoor()const
 	{
 		fprintf(mFile,"\"%s.tbd\"",mName.c_str());
 
 	}
-	void getBottomBarnDoor()
+	void getBottomBarnDoor()const
 	{
 		fprintf(mFile,"\"%s.bbd\"",mName.c_str());
 
 	}
-	void getUseDecayRegions()
+	void getUseDecayRegions()const
 	{
 		fprintf(mFile,"\"%s.udr\"",mName.c_str());
 
 	}
-	void getStartDistance1()
+	void getStartDistance1()const
 	{
 		fprintf(mFile,"\"%s.sd1\"",mName.c_str());
 
 	}
-	void getEndDistance1()
+	void getEndDistance1()const
 	{
 		fprintf(mFile,"\"%s.ed1\"",mName.c_str());
 
 	}
-	void getStartDistance2()
+	void getStartDistance2()const
 	{
 		fprintf(mFile,"\"%s.sd2\"",mName.c_str());
 
 	}
-	void getEndDistance2()
+	void getEndDistance2()const
 	{
 		fprintf(mFile,"\"%s.ed2\"",mName.c_str());
 
 	}
-	void getStartDistance3()
+	void getStartDistance3()const
 	{
 		fprintf(mFile,"\"%s.sd3\"",mName.c_str());
 
 	}
-	void getEndDistance3()
+	void getEndDistance3()const
 	{
 		fprintf(mFile,"\"%s.ed3\"",mName.c_str());
 
 	}
-	void getFogSpread()
+	void getFogSpread()const
 	{
 		fprintf(mFile,"\"%s.fsp\"",mName.c_str());
 
 	}
-	void getFogIntensity()
+	void getFogIntensity()const
 	{
 		fprintf(mFile,"\"%s.fin\"",mName.c_str());
 
 	}
-	void getObjectType()
+	void getObjectType()const
 	{
 		fprintf(mFile,"\"%s.ot\"",mName.c_str());
 
 	}
-	void getPointWorld()
+	void getPointWorld()const
 	{
 		fprintf(mFile,"\"%s.pw\"",mName.c_str());
 
 	}
-	void getPointWorldX()
+	void getPointWorldX()const
 	{
 		fprintf(mFile,"\"%s.pw.tx\"",mName.c_str());
 
 	}
-	void getPointWorldY()
+	void getPointWorldY()const
 	{
 		fprintf(mFile,"\"%s.pw.ty\"",mName.c_str());
 
 	}
-	void getPointWorldZ()
+	void getPointWorldZ()const
 	{
 		fprintf(mFile,"\"%s.pw.tz\"",mName.c_str());
 
 	}
-	void getFarPointWorld()
+	void getFarPointWorld()const
 	{
 		fprintf(mFile,"\"%s.fw\"",mName.c_str());
 
 	}
-	void getFarPointWorldX()
+	void getFarPointWorldX()const
 	{
 		fprintf(mFile,"\"%s.fw.fx\"",mName.c_str());
 
 	}
-	void getFarPointWorldY()
+	void getFarPointWorldY()const
 	{
 		fprintf(mFile,"\"%s.fw.fy\"",mName.c_str());
 
 	}
-	void getFarPointWorldZ()
+	void getFarPointWorldZ()const
 	{
 		fprintf(mFile,"\"%s.fw.fz\"",mName.c_str());
 
 	}
-	void getRayDirection()
+	void getRayDirection()const
 	{
 		fprintf(mFile,"\"%s.rad\"",mName.c_str());
 
 	}
-	void getRayDirectionX()
+	void getRayDirectionX()const
 	{
 		fprintf(mFile,"\"%s.rad.rdx\"",mName.c_str());
 
 	}
-	void getRayDirectionY()
+	void getRayDirectionY()const
 	{
 		fprintf(mFile,"\"%s.rad.rdy\"",mName.c_str());
 
 	}
-	void getRayDirectionZ()
+	void getRayDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.rad.rdz\"",mName.c_str());
 
 	}
-	void getFogGeometry()
+	void getFogGeometry()const
 	{
 		fprintf(mFile,"\"%s.fg\"",mName.c_str());
 
 	}
-	void getLightGlow()
+	void getLightGlow()const
 	{
 		fprintf(mFile,"\"%s.lg\"",mName.c_str());
 
 	}
-	void getPsIllumSamples()
+	void getPsIllumSamples()const
 	{
 		fprintf(mFile,"\"%s.pis\"",mName.c_str());
 
 	}
-	void getMentalRayControls()
+	void getMentalRayControls()const
 	{
 		fprintf(mFile,"\"%s.mrc\"",mName.c_str());
 
 	}
-	void getMiExportMrLight()
+	void getMiExportMrLight()const
 	{
 		fprintf(mFile,"\"%s.mrc.milt\"",mName.c_str());
 
 	}
-	void getMiLightShader()
+	void getMiLightShader()const
 	{
 		fprintf(mFile,"\"%s.mrc.mils\"",mName.c_str());
 
 	}
-	void getMiPhotonEmitter()
+	void getMiPhotonEmitter()const
 	{
 		fprintf(mFile,"\"%s.mrc.mipe\"",mName.c_str());
 
 	}
-	void getEmitPhotons()
+	void getEmitPhotons()const
 	{
 		fprintf(mFile,"\"%s.mrc.phot\"",mName.c_str());
 
 	}
-	void getEnergy()
+	void getEnergy()const
 	{
 		fprintf(mFile,"\"%s.mrc.eng\"",mName.c_str());
 
 	}
-	void getEnergyR()
+	void getEnergyR()const
 	{
 		fprintf(mFile,"\"%s.mrc.eng.engr\"",mName.c_str());
 
 	}
-	void getEnergyG()
+	void getEnergyG()const
 	{
 		fprintf(mFile,"\"%s.mrc.eng.engg\"",mName.c_str());
 
 	}
-	void getEnergyB()
+	void getEnergyB()const
 	{
 		fprintf(mFile,"\"%s.mrc.eng.engb\"",mName.c_str());
 
 	}
-	void getPhotonIntensity()
+	void getPhotonIntensity()const
 	{
 		fprintf(mFile,"\"%s.mrc.phi\"",mName.c_str());
 
 	}
-	void getExponent()
+	void getExponent()const
 	{
 		fprintf(mFile,"\"%s.mrc.exp\"",mName.c_str());
 
 	}
-	void getCausticPhotons()
+	void getCausticPhotons()const
 	{
 		fprintf(mFile,"\"%s.mrc.cph\"",mName.c_str());
 
 	}
-	void getGlobIllPhotons()
+	void getGlobIllPhotons()const
 	{
 		fprintf(mFile,"\"%s.mrc.gph\"",mName.c_str());
 
 	}
-	void getShadowMap()
+	void getShadowMap()const
 	{
 		fprintf(mFile,"\"%s.mrc.usm\"",mName.c_str());
 
 	}
-	void getSmapResolution()
+	void getSmapResolution()const
 	{
 		fprintf(mFile,"\"%s.mrc.smr\"",mName.c_str());
 
 	}
-	void getSmapSamples()
+	void getSmapSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.smsa\"",mName.c_str());
 
 	}
-	void getSmapSoftness()
+	void getSmapSoftness()const
 	{
 		fprintf(mFile,"\"%s.mrc.smso\"",mName.c_str());
 
 	}
-	void getSmapBias()
+	void getSmapBias()const
 	{
 		fprintf(mFile,"\"%s.mrc.smb\"",mName.c_str());
 
 	}
-	void getSmapCamera()
+	void getSmapCamera()const
 	{
 		fprintf(mFile,"\"%s.mrc.smc\"",mName.c_str());
 
 	}
-	void getSmapFilename()
+	void getSmapFilename()const
 	{
 		fprintf(mFile,"\"%s.mrc.smf\"",mName.c_str());
 
 	}
-	void getSmapLightName()
+	void getSmapLightName()const
 	{
 		fprintf(mFile,"\"%s.mrc.smln\"",mName.c_str());
 
 	}
-	void getSmapSceneName()
+	void getSmapSceneName()const
 	{
 		fprintf(mFile,"\"%s.mrc.smsn\"",mName.c_str());
 
 	}
-	void getSmapFrameExt()
+	void getSmapFrameExt()const
 	{
 		fprintf(mFile,"\"%s.mrc.smfe\"",mName.c_str());
 
 	}
-	void getSmapDetail()
+	void getSmapDetail()const
 	{
 		fprintf(mFile,"\"%s.mrc.smd\"",mName.c_str());
 
 	}
-	void getSmapDetailSamples()
+	void getSmapDetailSamples()const
 	{
 		fprintf(mFile,"\"%s.mrc.sds\"",mName.c_str());
 
 	}
-	void getSmapDetailAccuracy()
+	void getSmapDetailAccuracy()const
 	{
 		fprintf(mFile,"\"%s.mrc.sdac\"",mName.c_str());
 
 	}
-	void getSmapDetailAlpha()
+	void getSmapDetailAlpha()const
 	{
 		fprintf(mFile,"\"%s.mrc.sdal\"",mName.c_str());
 
 	}
-	void getAreaLight()
+	void getAreaLight()const
 	{
 		fprintf(mFile,"\"%s.mrc.algt\"",mName.c_str());
 
 	}
-	void getAreaType()
+	void getAreaType()const
 	{
 		fprintf(mFile,"\"%s.mrc.atyp\"",mName.c_str());
 
 	}
-	void getAreaNormal()
+	void getAreaNormal()const
 	{
 		fprintf(mFile,"\"%s.mrc.ano\"",mName.c_str());
 
 	}
-	void getAreaNormalX()
+	void getAreaNormalX()const
 	{
 		fprintf(mFile,"\"%s.mrc.ano.anox\"",mName.c_str());
 
 	}
-	void getAreaNormalY()
+	void getAreaNormalY()const
 	{
 		fprintf(mFile,"\"%s.mrc.ano.anoy\"",mName.c_str());
 
 	}
-	void getAreaNormalZ()
+	void getAreaNormalZ()const
 	{
 		fprintf(mFile,"\"%s.mrc.ano.anoz\"",mName.c_str());
 
 	}
-	void getAreaEdge()
+	void getAreaEdge()const
 	{
 		fprintf(mFile,"\"%s.mrc.aed\"",mName.c_str());
 
 	}
-	void getAreaEdgeX()
+	void getAreaEdgeX()const
 	{
 		fprintf(mFile,"\"%s.mrc.aed.aedx\"",mName.c_str());
 
 	}
-	void getAreaEdgeY()
+	void getAreaEdgeY()const
 	{
 		fprintf(mFile,"\"%s.mrc.aed.aedy\"",mName.c_str());
 
 	}
-	void getAreaEdgeZ()
+	void getAreaEdgeZ()const
 	{
 		fprintf(mFile,"\"%s.mrc.aed.aedz\"",mName.c_str());
 
 	}
-	void getAreaRadius()
+	void getAreaRadius()const
 	{
 		fprintf(mFile,"\"%s.mrc.arad\"",mName.c_str());
 
 	}
-	void getAreaSampling()
+	void getAreaSampling()const
 	{
 		fprintf(mFile,"\"%s.mrc.asa\"",mName.c_str());
 
 	}
-	void getAreaSamplingU()
+	void getAreaSamplingU()const
 	{
 		fprintf(mFile,"\"%s.mrc.asa.asau\"",mName.c_str());
 
 	}
-	void getAreaSamplingV()
+	void getAreaSamplingV()const
 	{
 		fprintf(mFile,"\"%s.mrc.asa.asav\"",mName.c_str());
 
 	}
-	void getAreaLowLevel()
+	void getAreaLowLevel()const
 	{
 		fprintf(mFile,"\"%s.mrc.alev\"",mName.c_str());
 
 	}
-	void getAreaLowSampling()
+	void getAreaLowSampling()const
 	{
 		fprintf(mFile,"\"%s.mrc.alo\"",mName.c_str());
 
 	}
-	void getAreaLowSamplingU()
+	void getAreaLowSamplingU()const
 	{
 		fprintf(mFile,"\"%s.mrc.alo.alou\"",mName.c_str());
 
 	}
-	void getAreaLowSamplingV()
+	void getAreaLowSamplingV()const
 	{
 		fprintf(mFile,"\"%s.mrc.alo.alov\"",mName.c_str());
 
 	}
-	void getAreaVisible()
+	void getAreaVisible()const
 	{
 		fprintf(mFile,"\"%s.mrc.avis\"",mName.c_str());
 
 	}
 protected:
-	SpotLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:NonExtendedLightShapeNode(file, name, parent, nodeType) {}
+	SpotLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:NonExtendedLightShapeNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

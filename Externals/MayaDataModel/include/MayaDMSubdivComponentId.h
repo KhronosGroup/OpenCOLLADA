@@ -19,7 +19,8 @@ class SubdivComponentId : public DependNode
 public:
 public:
 	SubdivComponentId():DependNode(){}
-	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "subdivComponentId"){}
+	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "subdivComponentId", create){}
 	virtual ~SubdivComponentId(){}
 	void setInBase(int ib)
 	{
@@ -63,79 +64,79 @@ public:
 		fprintf(mFile,"\tsetAttr \".ir\" %i;\n", ir);
 
 	}
-	void getInBase()
+	void getInBase()const
 	{
 		fprintf(mFile,"\"%s.ib\"",mName.c_str());
 
 	}
-	void getInEdge()
+	void getInEdge()const
 	{
 		fprintf(mFile,"\"%s.ie\"",mName.c_str());
 
 	}
-	void getInLevel()
+	void getInLevel()const
 	{
 		fprintf(mFile,"\"%s.il\"",mName.c_str());
 
 	}
-	void getInPath()
+	void getInPath()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getInFinal()
+	void getInFinal()const
 	{
 		fprintf(mFile,"\"%s.if\"",mName.c_str());
 
 	}
-	void getOutLeft()
+	void getOutLeft()const
 	{
 		fprintf(mFile,"\"%s.olt\"",mName.c_str());
 
 	}
-	void getOutRight()
+	void getOutRight()const
 	{
 		fprintf(mFile,"\"%s.or\"",mName.c_str());
 
 	}
-	void getInLeft()
+	void getInLeft()const
 	{
 		fprintf(mFile,"\"%s.ilt\"",mName.c_str());
 
 	}
-	void getInRight()
+	void getInRight()const
 	{
 		fprintf(mFile,"\"%s.ir\"",mName.c_str());
 
 	}
-	void getOutBase()
+	void getOutBase()const
 	{
 		fprintf(mFile,"\"%s.ob\"",mName.c_str());
 
 	}
-	void getOutEdge()
+	void getOutEdge()const
 	{
 		fprintf(mFile,"\"%s.oe\"",mName.c_str());
 
 	}
-	void getOutLevel()
+	void getOutLevel()const
 	{
 		fprintf(mFile,"\"%s.ol\"",mName.c_str());
 
 	}
-	void getOutPath()
+	void getOutPath()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getOutFinal()
+	void getOutFinal()const
 	{
 		fprintf(mFile,"\"%s.of\"",mName.c_str());
 
 	}
 protected:
-	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	SubdivComponentId(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

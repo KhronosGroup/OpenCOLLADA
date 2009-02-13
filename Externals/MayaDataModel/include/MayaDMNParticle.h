@@ -19,7 +19,8 @@ class NParticle : public Particle
 public:
 public:
 	NParticle():Particle(){}
-	NParticle(FILE* file,const std::string& name,const std::string& parent=""):Particle(file, name, parent, "nParticle"){}
+	NParticle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Particle(file, name, parent, "nParticle", create){}
 	virtual ~NParticle(){}
 	void setPlayFromCache(bool pfc)
 	{
@@ -306,264 +307,264 @@ public:
 		fprintf(mFile,"\tsetAttr \".dcl.dcb\" %f;\n", dcb);
 
 	}
-	void getInputMesh()
+	void getInputMesh()const
 	{
 		fprintf(mFile,"\"%s.imsh\"",mName.c_str());
 
 	}
-	void getPositions()
+	void getPositions()const
 	{
 		fprintf(mFile,"\"%s.poss\"",mName.c_str());
 
 	}
-	void getPlayFromCache()
+	void getPlayFromCache()const
 	{
 		fprintf(mFile,"\"%s.pfc\"",mName.c_str());
 
 	}
-	void getStartPositions()
+	void getStartPositions()const
 	{
 		fprintf(mFile,"\"%s.spns\"",mName.c_str());
 
 	}
-	void getStartVelocities()
+	void getStartVelocities()const
 	{
 		fprintf(mFile,"\"%s.sves\"",mName.c_str());
 
 	}
-	void getThickness()
+	void getThickness()const
 	{
 		fprintf(mFile,"\"%s.thss\"",mName.c_str());
 
 	}
-	void getThicknessMap()
+	void getThicknessMap()const
 	{
 		fprintf(mFile,"\"%s.thmp\"",mName.c_str());
 
 	}
-	void getThicknessPerVertex()
+	void getThicknessPerVertex()const
 	{
 		fprintf(mFile,"\"%s.thpv\"",mName.c_str());
 
 	}
-	void getBounce()
+	void getBounce()const
 	{
 		fprintf(mFile,"\"%s.boce\"",mName.c_str());
 
 	}
-	void getBounceMap()
+	void getBounceMap()const
 	{
 		fprintf(mFile,"\"%s.bomp\"",mName.c_str());
 
 	}
-	void getBouncePerVertex()
+	void getBouncePerVertex()const
 	{
 		fprintf(mFile,"\"%s.bpv\"",mName.c_str());
 
 	}
-	void getFriction()
+	void getFriction()const
 	{
 		fprintf(mFile,"\"%s.fron\"",mName.c_str());
 
 	}
-	void getFrictionMap()
+	void getFrictionMap()const
 	{
 		fprintf(mFile,"\"%s.frmp\"",mName.c_str());
 
 	}
-	void getFrictionPerVertex()
+	void getFrictionPerVertex()const
 	{
 		fprintf(mFile,"\"%s.fpv\"",mName.c_str());
 
 	}
-	void getDamp()
+	void getDamp()const
 	{
 		fprintf(mFile,"\"%s.adng\"",mName.c_str());
 
 	}
-	void getDampMap()
+	void getDampMap()const
 	{
 		fprintf(mFile,"\"%s.admp\"",mName.c_str());
 
 	}
-	void getDampPerVertex()
+	void getDampPerVertex()const
 	{
 		fprintf(mFile,"\"%s.dpv\"",mName.c_str());
 
 	}
-	void getCollisionFlag()
+	void getCollisionFlag()const
 	{
 		fprintf(mFile,"\"%s.cofl\"",mName.c_str());
 
 	}
-	void getSelfCollisionFlag()
+	void getSelfCollisionFlag()const
 	{
 		fprintf(mFile,"\"%s.scfl\"",mName.c_str());
 
 	}
-	void getMaxSelfCollisionIterations()
+	void getMaxSelfCollisionIterations()const
 	{
 		fprintf(mFile,"\"%s.msci\"",mName.c_str());
 
 	}
-	void getMaxIterations()
+	void getMaxIterations()const
 	{
 		fprintf(mFile,"\"%s.mxit\"",mName.c_str());
 
 	}
-	void getPointMass()
+	void getPointMass()const
 	{
 		fprintf(mFile,"\"%s.pmss\"",mName.c_str());
 
 	}
-	void getMassMap()
+	void getMassMap()const
 	{
 		fprintf(mFile,"\"%s.mamp\"",mName.c_str());
 
 	}
-	void getMassPerVertex()
+	void getMassPerVertex()const
 	{
 		fprintf(mFile,"\"%s.mpv\"",mName.c_str());
 
 	}
-	void getRestLengthScale()
+	void getRestLengthScale()const
 	{
 		fprintf(mFile,"\"%s.rlsc\"",mName.c_str());
 
 	}
-	void getActive()
+	void getActive()const
 	{
 		fprintf(mFile,"\"%s.actv\"",mName.c_str());
 
 	}
-	void getCollide()
+	void getCollide()const
 	{
 		fprintf(mFile,"\"%s.cold\"",mName.c_str());
 
 	}
-	void getSelfCollide()
+	void getSelfCollide()const
 	{
 		fprintf(mFile,"\"%s.scld\"",mName.c_str());
 
 	}
-	void getCollisionLayer()
+	void getCollisionLayer()const
 	{
 		fprintf(mFile,"\"%s.cll\"",mName.c_str());
 
 	}
-	void getWindShadowDiffusion()
+	void getWindShadowDiffusion()const
 	{
 		fprintf(mFile,"\"%s.wsdi\"",mName.c_str());
 
 	}
-	void getWindShadowDistance()
+	void getWindShadowDistance()const
 	{
 		fprintf(mFile,"\"%s.wsds\"",mName.c_str());
 
 	}
-	void getAirPushDistance()
+	void getAirPushDistance()const
 	{
 		fprintf(mFile,"\"%s.apds\"",mName.c_str());
 
 	}
-	void getAirPushVorticity()
+	void getAirPushVorticity()const
 	{
 		fprintf(mFile,"\"%s.apvy\"",mName.c_str());
 
 	}
-	void getPushOut()
+	void getPushOut()const
 	{
 		fprintf(mFile,"\"%s.pou\"",mName.c_str());
 
 	}
-	void getPushOutRadius()
+	void getPushOutRadius()const
 	{
 		fprintf(mFile,"\"%s.por\"",mName.c_str());
 
 	}
-	void getCrossoverPush()
+	void getCrossoverPush()const
 	{
 		fprintf(mFile,"\"%s.cop\"",mName.c_str());
 
 	}
-	void getTrappedCheck()
+	void getTrappedCheck()const
 	{
 		fprintf(mFile,"\"%s.tpc\"",mName.c_str());
 
 	}
-	void getThicknessMapType()
+	void getThicknessMapType()const
 	{
 		fprintf(mFile,"\"%s.tmt\"",mName.c_str());
 
 	}
-	void getBounceMapType()
+	void getBounceMapType()const
 	{
 		fprintf(mFile,"\"%s.bmt\"",mName.c_str());
 
 	}
-	void getFrictionMapType()
+	void getFrictionMapType()const
 	{
 		fprintf(mFile,"\"%s.fmt\"",mName.c_str());
 
 	}
-	void getDampMapType()
+	void getDampMapType()const
 	{
 		fprintf(mFile,"\"%s.dmt\"",mName.c_str());
 
 	}
-	void getMassMapType()
+	void getMassMapType()const
 	{
 		fprintf(mFile,"\"%s.mmt\"",mName.c_str());
 
 	}
-	void getNextState()
+	void getNextState()const
 	{
 		fprintf(mFile,"\"%s.nxst\"",mName.c_str());
 
 	}
-	void getCurrentState()
+	void getCurrentState()const
 	{
 		fprintf(mFile,"\"%s.cust\"",mName.c_str());
 
 	}
-	void getStartState()
+	void getStartState()const
 	{
 		fprintf(mFile,"\"%s.stst\"",mName.c_str());
 
 	}
-	void getNucleusId()
+	void getNucleusId()const
 	{
 		fprintf(mFile,"\"%s.nuid\"",mName.c_str());
 
 	}
-	void getLocalSpaceOutput()
+	void getLocalSpaceOutput()const
 	{
 		fprintf(mFile,"\"%s.lsou\"",mName.c_str());
 
 	}
-	void getDisplayColor()
+	void getDisplayColor()const
 	{
 		fprintf(mFile,"\"%s.dcl\"",mName.c_str());
 
 	}
-	void getDisplayColorR()
+	void getDisplayColorR()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcr\"",mName.c_str());
 
 	}
-	void getDisplayColorG()
+	void getDisplayColorG()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcg\"",mName.c_str());
 
 	}
-	void getDisplayColorB()
+	void getDisplayColorB()const
 	{
 		fprintf(mFile,"\"%s.dcl.dcb\"",mName.c_str());
 
 	}
 protected:
-	NParticle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Particle(file, name, parent, nodeType) {}
+	NParticle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Particle(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

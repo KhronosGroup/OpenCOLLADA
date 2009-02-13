@@ -350,7 +350,8 @@ public:
 	};
 public:
 	HikHandle():IkHandle(){}
-	HikHandle(FILE* file,const std::string& name,const std::string& parent=""):IkHandle(file, name, parent, "hikHandle"){}
+	HikHandle(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:IkHandle(file, name, parent, "hikHandle", create){}
 	virtual ~HikHandle(){}
 	void setDefaultMatrix(size_t dm_i,const matrix& dm)
 	{
@@ -372,19 +373,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDefaultMatrix(size_t dm_start,size_t dm_end)
+	void startDefaultMatrix(size_t dm_start,size_t dm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".dm[%i:%i]\"",dm_start,dm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendDefaultMatrix(const matrix& dm)
+	void appendDefaultMatrix(const matrix& dm)const
 	{
 		fprintf(mFile,"\n");
 		dm.write(mFile);
 
 	}
-	void endDefaultMatrix()
+	void endDefaultMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -409,19 +410,19 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startStancePoseMatrix(size_t sm_start,size_t sm_end)
+	void startStancePoseMatrix(size_t sm_start,size_t sm_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".sm[%i:%i]\"",sm_start,sm_end);
 		fprintf(mFile," -type \"matrix\" ");
 
 	}
-	void appendStancePoseMatrix(const matrix& sm)
+	void appendStancePoseMatrix(const matrix& sm)const
 	{
 		fprintf(mFile,"\n");
 		sm.write(mFile);
 
 	}
-	void endStancePoseMatrix()
+	void endStancePoseMatrix()const
 	{
 		fprintf(mFile,";\n");
 
@@ -1269,769 +1270,769 @@ public:
 		fprintf(mFile,"\tsetAttr \".re.rlro\" %f;\n", rlro);
 
 	}
-	void getEffectors(size_t eff_i)
+	void getEffectors(size_t eff_i)const
 	{
 		fprintf(mFile,"\"%s.eff[%i]\"",mName.c_str(),eff_i);
 
 	}
-	void getLeftFootGroundPlane()
+	void getLeftFootGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.lfg\"",mName.c_str());
 
 	}
-	void getRightFootGroundPlane()
+	void getRightFootGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.rfg\"",mName.c_str());
 
 	}
-	void getRightFootOrientedGroundPlane()
+	void getRightFootOrientedGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.rog\"",mName.c_str());
 
 	}
-	void getLeftFootOrientedGroundPlane()
+	void getLeftFootOrientedGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.log\"",mName.c_str());
 
 	}
-	void getLeftHandGroundPlane()
+	void getLeftHandGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.lhg\"",mName.c_str());
 
 	}
-	void getRightHandGroundPlane()
+	void getRightHandGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.rhg\"",mName.c_str());
 
 	}
-	void getLeftHandOrientedGroundPlane()
+	void getLeftHandOrientedGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.loh\"",mName.c_str());
 
 	}
-	void getRightHandOrientedGroundPlane()
+	void getRightHandOrientedGroundPlane()const
 	{
 		fprintf(mFile,"\"%s.roh\"",mName.c_str());
 
 	}
-	void getJoints(size_t jt_i)
+	void getJoints(size_t jt_i)const
 	{
 		fprintf(mFile,"\"%s.jt[%i]\"",mName.c_str(),jt_i);
 
 	}
-	void getFkjoints(size_t fj_i)
+	void getFkjoints(size_t fj_i)const
 	{
 		fprintf(mFile,"\"%s.fj[%i]\"",mName.c_str(),fj_i);
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.tim\"",mName.c_str());
 
 	}
-	void getDefaultMatrix(size_t dm_i)
+	void getDefaultMatrix(size_t dm_i)const
 	{
 		fprintf(mFile,"\"%s.dm[%i]\"",mName.c_str(),dm_i);
 
 	}
-	void getStancePoseMatrix(size_t sm_i)
+	void getStancePoseMatrix(size_t sm_i)const
 	{
 		fprintf(mFile,"\"%s.sm[%i]\"",mName.c_str(),sm_i);
 
 	}
-	void getUsingMB55Rig()
+	void getUsingMB55Rig()const
 	{
 		fprintf(mFile,"\"%s.m55\"",mName.c_str());
 
 	}
-	void getActivate()
+	void getActivate()const
 	{
 		fprintf(mFile,"\"%s.act\"",mName.c_str());
 
 	}
-	void getConvertScale()
+	void getConvertScale()const
 	{
 		fprintf(mFile,"\"%s.cs\"",mName.c_str());
 
 	}
-	void getPropertyChanged()
+	void getPropertyChanged()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getSolving()
+	void getSolving()const
 	{
 		fprintf(mFile,"\"%s.sol\"",mName.c_str());
 
 	}
-	void getPostureType()
+	void getPostureType()const
 	{
 		fprintf(mFile,"\"%s.sol.pt\"",mName.c_str());
 
 	}
-	void getExpertMode()
+	void getExpertMode()const
 	{
 		fprintf(mFile,"\"%s.sol.exp\"",mName.c_str());
 
 	}
-	void getRealisticShoulderSolving()
+	void getRealisticShoulderSolving()const
 	{
 		fprintf(mFile,"\"%s.sol.rss\"",mName.c_str());
 
 	}
-	void getSolveFingers()
+	void getSolveFingers()const
 	{
 		fprintf(mFile,"\"%s.sol.sf\"",mName.c_str());
 
 	}
-	void getHipTranslationMode()
+	void getHipTranslationMode()const
 	{
 		fprintf(mFile,"\"%s.sol.htm\"",mName.c_str());
 
 	}
-	void getFloorContacts()
+	void getFloorContacts()const
 	{
 		fprintf(mFile,"\"%s.fc\"",mName.c_str());
 
 	}
-	void getHandsFloorContact()
+	void getHandsFloorContact()const
 	{
 		fprintf(mFile,"\"%s.fc.hfc\"",mName.c_str());
 
 	}
-	void getFeetFloorContact()
+	void getFeetFloorContact()const
 	{
 		fprintf(mFile,"\"%s.fc.fec\"",mName.c_str());
 
 	}
-	void getFingersFloorContact()
+	void getFingersFloorContact()const
 	{
 		fprintf(mFile,"\"%s.fc.fic\"",mName.c_str());
 
 	}
-	void getToesFloorContact()
+	void getToesFloorContact()const
 	{
 		fprintf(mFile,"\"%s.fc.tfc\"",mName.c_str());
 
 	}
-	void getHandsFloorContactSetup()
+	void getHandsFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.flc\"",mName.c_str());
 
 	}
-	void getHandsFloorPivot()
+	void getHandsFloorPivot()const
 	{
 		fprintf(mFile,"\"%s.flc.hfp\"",mName.c_str());
 
 	}
-	void getHandsContactType()
+	void getHandsContactType()const
 	{
 		fprintf(mFile,"\"%s.flc.hct\"",mName.c_str());
 
 	}
-	void getHandsContactStiffness()
+	void getHandsContactStiffness()const
 	{
 		fprintf(mFile,"\"%s.flc.hcs\"",mName.c_str());
 
 	}
-	void getContactsPosition()
+	void getContactsPosition()const
 	{
 		fprintf(mFile,"\"%s.cp\"",mName.c_str());
 
 	}
-	void getHandHeight()
+	void getHandHeight()const
 	{
 		fprintf(mFile,"\"%s.cp.hh\"",mName.c_str());
 
 	}
-	void getHandBack()
+	void getHandBack()const
 	{
 		fprintf(mFile,"\"%s.cp.hb\"",mName.c_str());
 
 	}
-	void getHandMiddle()
+	void getHandMiddle()const
 	{
 		fprintf(mFile,"\"%s.cp.hm\"",mName.c_str());
 
 	}
-	void getHandFront()
+	void getHandFront()const
 	{
 		fprintf(mFile,"\"%s.cp.hf\"",mName.c_str());
 
 	}
-	void getHandInSide()
+	void getHandInSide()const
 	{
 		fprintf(mFile,"\"%s.cp.his\"",mName.c_str());
 
 	}
-	void getHandOutSide()
+	void getHandOutSide()const
 	{
 		fprintf(mFile,"\"%s.cp.hos\"",mName.c_str());
 
 	}
-	void getFeetFloorContactSetup()
+	void getFeetFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.fle\"",mName.c_str());
 
 	}
-	void getFeetFloorPivot()
+	void getFeetFloorPivot()const
 	{
 		fprintf(mFile,"\"%s.fle.fpv\"",mName.c_str());
 
 	}
-	void getFeetContactType()
+	void getFeetContactType()const
 	{
 		fprintf(mFile,"\"%s.fle.fct\"",mName.c_str());
 
 	}
-	void getFeetContactStiffness()
+	void getFeetContactStiffness()const
 	{
 		fprintf(mFile,"\"%s.fle.fcs\"",mName.c_str());
 
 	}
-	void getFeetContactPosition()
+	void getFeetContactPosition()const
 	{
 		fprintf(mFile,"\"%s.flf\"",mName.c_str());
 
 	}
-	void getFootHeight()
+	void getFootHeight()const
 	{
 		fprintf(mFile,"\"%s.flf.fh\"",mName.c_str());
 
 	}
-	void getFootBack()
+	void getFootBack()const
 	{
 		fprintf(mFile,"\"%s.flf.fra\"",mName.c_str());
 
 	}
-	void getFootMiddle()
+	void getFootMiddle()const
 	{
 		fprintf(mFile,"\"%s.flf.fma\"",mName.c_str());
 
 	}
-	void getFootFront()
+	void getFootFront()const
 	{
 		fprintf(mFile,"\"%s.flf.ffm\"",mName.c_str());
 
 	}
-	void getFootInSide()
+	void getFootInSide()const
 	{
 		fprintf(mFile,"\"%s.flf.fia\"",mName.c_str());
 
 	}
-	void getFootOutSide()
+	void getFootOutSide()const
 	{
 		fprintf(mFile,"\"%s.flf.foa\"",mName.c_str());
 
 	}
-	void getFingersFloorContactSetup()
+	void getFingersFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.flg\"",mName.c_str());
 
 	}
-	void getFingersContactType()
+	void getFingersContactType()const
 	{
 		fprintf(mFile,"\"%s.flg.fcm\"",mName.c_str());
 
 	}
-	void getFingersContactRollStiffness()
+	void getFingersContactRollStiffness()const
 	{
 		fprintf(mFile,"\"%s.flg.hcr\"",mName.c_str());
 
 	}
-	void getFingerTipsSizes()
+	void getFingerTipsSizes()const
 	{
 		fprintf(mFile,"\"%s.fts\"",mName.c_str());
 
 	}
-	void getLeftHandThumbTip()
+	void getLeftHandThumbTip()const
 	{
 		fprintf(mFile,"\"%s.fts.ltt\"",mName.c_str());
 
 	}
-	void getLeftHandIndexTip()
+	void getLeftHandIndexTip()const
 	{
 		fprintf(mFile,"\"%s.fts.lit\"",mName.c_str());
 
 	}
-	void getLeftHandMiddleTip()
+	void getLeftHandMiddleTip()const
 	{
 		fprintf(mFile,"\"%s.fts.lmt\"",mName.c_str());
 
 	}
-	void getLeftHandRingTip()
+	void getLeftHandRingTip()const
 	{
 		fprintf(mFile,"\"%s.fts.lrt\"",mName.c_str());
 
 	}
-	void getLeftHandPinkyTip()
+	void getLeftHandPinkyTip()const
 	{
 		fprintf(mFile,"\"%s.fts.lpt\"",mName.c_str());
 
 	}
-	void getLeftHandExtraFingerTip()
+	void getLeftHandExtraFingerTip()const
 	{
 		fprintf(mFile,"\"%s.fts.lxt\"",mName.c_str());
 
 	}
-	void getRightHandThumbTip()
+	void getRightHandThumbTip()const
 	{
 		fprintf(mFile,"\"%s.fts.rtt\"",mName.c_str());
 
 	}
-	void getRightHandIndexTip()
+	void getRightHandIndexTip()const
 	{
 		fprintf(mFile,"\"%s.fts.rit\"",mName.c_str());
 
 	}
-	void getRightHandMiddleTip()
+	void getRightHandMiddleTip()const
 	{
 		fprintf(mFile,"\"%s.fts.rmt\"",mName.c_str());
 
 	}
-	void getRightHandRingTip()
+	void getRightHandRingTip()const
 	{
 		fprintf(mFile,"\"%s.fts.rrt\"",mName.c_str());
 
 	}
-	void getRightHandPinkyTip()
+	void getRightHandPinkyTip()const
 	{
 		fprintf(mFile,"\"%s.fts.rpp\"",mName.c_str());
 
 	}
-	void getRightHandExtraFingerTip()
+	void getRightHandExtraFingerTip()const
 	{
 		fprintf(mFile,"\"%s.fts.rxt\"",mName.c_str());
 
 	}
-	void getToesFloorContactSetup()
+	void getToesFloorContactSetup()const
 	{
 		fprintf(mFile,"\"%s.fli\"",mName.c_str());
 
 	}
-	void getToesContactType()
+	void getToesContactType()const
 	{
 		fprintf(mFile,"\"%s.fli.tct\"",mName.c_str());
 
 	}
-	void getToesContactRollStiffness()
+	void getToesContactRollStiffness()const
 	{
 		fprintf(mFile,"\"%s.fli.fcr\"",mName.c_str());
 
 	}
-	void getToeTipsSizes()
+	void getToeTipsSizes()const
 	{
 		fprintf(mFile,"\"%s.flj\"",mName.c_str());
 
 	}
-	void getLeftFootThumbTip()
+	void getLeftFootThumbTip()const
 	{
 		fprintf(mFile,"\"%s.flj.ttl\"",mName.c_str());
 
 	}
-	void getLeftFootIndexTip()
+	void getLeftFootIndexTip()const
 	{
 		fprintf(mFile,"\"%s.flj.til\"",mName.c_str());
 
 	}
-	void getLeftFootMiddleTip()
+	void getLeftFootMiddleTip()const
 	{
 		fprintf(mFile,"\"%s.flj.tml\"",mName.c_str());
 
 	}
-	void getLeftFootRingTip()
+	void getLeftFootRingTip()const
 	{
 		fprintf(mFile,"\"%s.flj.trl\"",mName.c_str());
 
 	}
-	void getLeftFootPinkyTip()
+	void getLeftFootPinkyTip()const
 	{
 		fprintf(mFile,"\"%s.flj.tpl\"",mName.c_str());
 
 	}
-	void getLeftFootExtraFingerTip()
+	void getLeftFootExtraFingerTip()const
 	{
 		fprintf(mFile,"\"%s.flj.txl\"",mName.c_str());
 
 	}
-	void getRightFootThumbTip()
+	void getRightFootThumbTip()const
 	{
 		fprintf(mFile,"\"%s.flj.ttr\"",mName.c_str());
 
 	}
-	void getRightFootIndexTip()
+	void getRightFootIndexTip()const
 	{
 		fprintf(mFile,"\"%s.flj.tir\"",mName.c_str());
 
 	}
-	void getRightFootMiddleTip()
+	void getRightFootMiddleTip()const
 	{
 		fprintf(mFile,"\"%s.flj.tmr\"",mName.c_str());
 
 	}
-	void getRightFootRingTip()
+	void getRightFootRingTip()const
 	{
 		fprintf(mFile,"\"%s.flj.trr\"",mName.c_str());
 
 	}
-	void getRightFootPinkyTip()
+	void getRightFootPinkyTip()const
 	{
 		fprintf(mFile,"\"%s.flj.tpr\"",mName.c_str());
 
 	}
-	void getRightFootExtraFingerTip()
+	void getRightFootExtraFingerTip()const
 	{
 		fprintf(mFile,"\"%s.flj.txr\"",mName.c_str());
 
 	}
-	void getHead()
+	void getHead()const
 	{
 		fprintf(mFile,"\"%s.fll\"",mName.c_str());
 
 	}
-	void getHeadPull()
+	void getHeadPull()const
 	{
 		fprintf(mFile,"\"%s.fll.phd\"",mName.c_str());
 
 	}
-	void getLeftArm()
+	void getLeftArm()const
 	{
 		fprintf(mFile,"\"%s.flm\"",mName.c_str());
 
 	}
-	void getLeftElbowPull()
+	void getLeftElbowPull()const
 	{
 		fprintf(mFile,"\"%s.flm.ple\"",mName.c_str());
 
 	}
-	void getLeftHandPullChest()
+	void getLeftHandPullChest()const
 	{
 		fprintf(mFile,"\"%s.flm.cpl\"",mName.c_str());
 
 	}
-	void getLeftHandPullHips()
+	void getLeftHandPullHips()const
 	{
 		fprintf(mFile,"\"%s.flm.plh\"",mName.c_str());
 
 	}
-	void getLeftFingerBasePull()
+	void getLeftFingerBasePull()const
 	{
 		fprintf(mFile,"\"%s.flm.plb\"",mName.c_str());
 
 	}
-	void getRightArm()
+	void getRightArm()const
 	{
 		fprintf(mFile,"\"%s.fln\"",mName.c_str());
 
 	}
-	void getRightElbowPull()
+	void getRightElbowPull()const
 	{
 		fprintf(mFile,"\"%s.fln.pre\"",mName.c_str());
 
 	}
-	void getRightHandPullChest()
+	void getRightHandPullChest()const
 	{
 		fprintf(mFile,"\"%s.fln.cpr\"",mName.c_str());
 
 	}
-	void getRightHandPullHips()
+	void getRightHandPullHips()const
 	{
 		fprintf(mFile,"\"%s.fln.prh\"",mName.c_str());
 
 	}
-	void getRightFingerBasePull()
+	void getRightFingerBasePull()const
 	{
 		fprintf(mFile,"\"%s.fln.prb\"",mName.c_str());
 
 	}
-	void getChest()
+	void getChest()const
 	{
 		fprintf(mFile,"\"%s.flo\"",mName.c_str());
 
 	}
-	void getChestPull()
+	void getChestPull()const
 	{
 		fprintf(mFile,"\"%s.flo.rcp\"",mName.c_str());
 
 	}
-	void getHips()
+	void getHips()const
 	{
 		fprintf(mFile,"\"%s.flp\"",mName.c_str());
 
 	}
-	void getHipsPull()
+	void getHipsPull()const
 	{
 		fprintf(mFile,"\"%s.flp.chp\"",mName.c_str());
 
 	}
-	void getLeftLeg()
+	void getLeftLeg()const
 	{
 		fprintf(mFile,"\"%s.flq\"",mName.c_str());
 
 	}
-	void getLeftKneePull()
+	void getLeftKneePull()const
 	{
 		fprintf(mFile,"\"%s.flq.plk\"",mName.c_str());
 
 	}
-	void getLeftFootPull()
+	void getLeftFootPull()const
 	{
 		fprintf(mFile,"\"%s.flq.plf\"",mName.c_str());
 
 	}
-	void getLeftToeBasePull()
+	void getLeftToeBasePull()const
 	{
 		fprintf(mFile,"\"%s.flq.plt\"",mName.c_str());
 
 	}
-	void getRightLeg()
+	void getRightLeg()const
 	{
 		fprintf(mFile,"\"%s.flr\"",mName.c_str());
 
 	}
-	void getRightKneePull()
+	void getRightKneePull()const
 	{
 		fprintf(mFile,"\"%s.flr.prk\"",mName.c_str());
 
 	}
-	void getRightFootPull()
+	void getRightFootPull()const
 	{
 		fprintf(mFile,"\"%s.flr.prf\"",mName.c_str());
 
 	}
-	void getRightToeBasePull()
+	void getRightToeBasePull()const
 	{
 		fprintf(mFile,"\"%s.flr.prt\"",mName.c_str());
 
 	}
-	void getExtra()
+	void getExtra()const
 	{
 		fprintf(mFile,"\"%s.ex\"",mName.c_str());
 
 	}
-	void getPullIterationCount()
+	void getPullIterationCount()const
 	{
 		fprintf(mFile,"\"%s.ex.pic\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getNeckStiffness()
+	void getNeckStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.nst\"",mName.c_str());
 
 	}
-	void getLeftShoulderStiffness()
+	void getLeftShoulderStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rlco\"",mName.c_str());
 
 	}
-	void getLeftArmStiffness()
+	void getLeftArmStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rle\"",mName.c_str());
 
 	}
-	void getLeftElbowMaxExtension()
+	void getLeftElbowMaxExtension()const
 	{
 		fprintf(mFile,"\"%s.st.mle\"",mName.c_str());
 
 	}
-	void getLeftElbowCompressionFactor()
+	void getLeftElbowCompressionFactor()const
 	{
 		fprintf(mFile,"\"%s.st.cle\"",mName.c_str());
 
 	}
-	void getRightShoulderStiffness()
+	void getRightShoulderStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rrc\"",mName.c_str());
 
 	}
-	void getRightArmStiffness()
+	void getRightArmStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rre\"",mName.c_str());
 
 	}
-	void getRightElbowMaxExtension()
+	void getRightElbowMaxExtension()const
 	{
 		fprintf(mFile,"\"%s.st.mre\"",mName.c_str());
 
 	}
-	void getRightElbowCompressionFactor()
+	void getRightElbowCompressionFactor()const
 	{
 		fprintf(mFile,"\"%s.st.cre\"",mName.c_str());
 
 	}
-	void getHipsEnforceGravity()
+	void getHipsEnforceGravity()const
 	{
 		fprintf(mFile,"\"%s.st.egr\"",mName.c_str());
 
 	}
-	void getChestStiffness()
+	void getChestStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rco\"",mName.c_str());
 
 	}
-	void getSpineStiffness()
+	void getSpineStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.sst\"",mName.c_str());
 
 	}
-	void getHipsStiffness()
+	void getHipsStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rho\"",mName.c_str());
 
 	}
-	void getLeftKneeMaxExtension()
+	void getLeftKneeMaxExtension()const
 	{
 		fprintf(mFile,"\"%s.st.mlk\"",mName.c_str());
 
 	}
-	void getLeftLegStiffness()
+	void getLeftLegStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rlk\"",mName.c_str());
 
 	}
-	void getLeftKneeCompressionFactor()
+	void getLeftKneeCompressionFactor()const
 	{
 		fprintf(mFile,"\"%s.st.clk\"",mName.c_str());
 
 	}
-	void getRightLegStiffness()
+	void getRightLegStiffness()const
 	{
 		fprintf(mFile,"\"%s.st.rrk\"",mName.c_str());
 
 	}
-	void getRightKneeMaxExtension()
+	void getRightKneeMaxExtension()const
 	{
 		fprintf(mFile,"\"%s.st.mrk\"",mName.c_str());
 
 	}
-	void getRightKneeCompressionFactor()
+	void getRightKneeCompressionFactor()const
 	{
 		fprintf(mFile,"\"%s.st.crk\"",mName.c_str());
 
 	}
-	void getKillPitch()
+	void getKillPitch()const
 	{
 		fprintf(mFile,"\"%s.kp\"",mName.c_str());
 
 	}
-	void getLeftElbowKillPitch()
+	void getLeftElbowKillPitch()const
 	{
 		fprintf(mFile,"\"%s.kp.lek\"",mName.c_str());
 
 	}
-	void getRightElbowKillPitch()
+	void getRightElbowKillPitch()const
 	{
 		fprintf(mFile,"\"%s.kp.rek\"",mName.c_str());
 
 	}
-	void getLeftKneeKillPitch()
+	void getLeftKneeKillPitch()const
 	{
 		fprintf(mFile,"\"%s.kp.lkk\"",mName.c_str());
 
 	}
-	void getRightKneeKillPitch()
+	void getRightKneeKillPitch()const
 	{
 		fprintf(mFile,"\"%s.kp.rkk\"",mName.c_str());
 
 	}
-	void getRollExtraction()
+	void getRollExtraction()const
 	{
 		fprintf(mFile,"\"%s.re\"",mName.c_str());
 
 	}
-	void getRollExtractionMode()
+	void getRollExtractionMode()const
 	{
 		fprintf(mFile,"\"%s.re.rem\"",mName.c_str());
 
 	}
-	void getLeftArmRollMode()
+	void getLeftArmRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.larm\"",mName.c_str());
 
 	}
-	void getLeftArmRoll()
+	void getLeftArmRoll()const
 	{
 		fprintf(mFile,"\"%s.re.lar\"",mName.c_str());
 
 	}
-	void getLeftForeArmRollMode()
+	void getLeftForeArmRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.lfrm\"",mName.c_str());
 
 	}
-	void getLeftForeArmRoll()
+	void getLeftForeArmRoll()const
 	{
 		fprintf(mFile,"\"%s.re.lfr\"",mName.c_str());
 
 	}
-	void getRightArmRollMode()
+	void getRightArmRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.rarm\"",mName.c_str());
 
 	}
-	void getRightArmRoll()
+	void getRightArmRoll()const
 	{
 		fprintf(mFile,"\"%s.re.rar\"",mName.c_str());
 
 	}
-	void getRightForeArmRollMode()
+	void getRightForeArmRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.rfrm\"",mName.c_str());
 
 	}
-	void getRightForeArmRoll()
+	void getRightForeArmRoll()const
 	{
 		fprintf(mFile,"\"%s.re.rfr\"",mName.c_str());
 
 	}
-	void getLeftUpLegRollMode()
+	void getLeftUpLegRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.lurm\"",mName.c_str());
 
 	}
-	void getLeftUpLegRoll()
+	void getLeftUpLegRoll()const
 	{
 		fprintf(mFile,"\"%s.re.lur\"",mName.c_str());
 
 	}
-	void getLeftLegRollMode()
+	void getLeftLegRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.llrm\"",mName.c_str());
 
 	}
-	void getLeftLegRoll()
+	void getLeftLegRoll()const
 	{
 		fprintf(mFile,"\"%s.re.llr\"",mName.c_str());
 
 	}
-	void getRightUpLegRollMode()
+	void getRightUpLegRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.rurm\"",mName.c_str());
 
 	}
-	void getRightUpLegRoll()
+	void getRightUpLegRoll()const
 	{
 		fprintf(mFile,"\"%s.re.rur\"",mName.c_str());
 
 	}
-	void getRightLegRollMode()
+	void getRightLegRollMode()const
 	{
 		fprintf(mFile,"\"%s.re.rlrm\"",mName.c_str());
 
 	}
-	void getRightLegRoll()
+	void getRightLegRoll()const
 	{
 		fprintf(mFile,"\"%s.re.rlro\"",mName.c_str());
 
 	}
 protected:
-	HikHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:IkHandle(file, name, parent, nodeType) {}
+	HikHandle(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:IkHandle(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

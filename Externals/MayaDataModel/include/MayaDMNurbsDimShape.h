@@ -19,7 +19,8 @@ class NurbsDimShape : public DimensionShape
 public:
 public:
 	NurbsDimShape():DimensionShape(){}
-	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent=""):DimensionShape(file, name, parent, "nurbsDimShape"){}
+	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DimensionShape(file, name, parent, "nurbsDimShape", create){}
 	virtual ~NurbsDimShape(){}
 	void setUParamValue(double upv)
 	{
@@ -33,24 +34,24 @@ public:
 		fprintf(mFile,"\tsetAttr \".vpv\" %f;\n", vpv);
 
 	}
-	void getUParamValue()
+	void getUParamValue()const
 	{
 		fprintf(mFile,"\"%s.upv\"",mName.c_str());
 
 	}
-	void getVParamValue()
+	void getVParamValue()const
 	{
 		fprintf(mFile,"\"%s.vpv\"",mName.c_str());
 
 	}
-	void getNurbsGeometry()
+	void getNurbsGeometry()const
 	{
 		fprintf(mFile,"\"%s.ng\"",mName.c_str());
 
 	}
 protected:
-	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DimensionShape(file, name, parent, nodeType) {}
+	NurbsDimShape(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DimensionShape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

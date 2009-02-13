@@ -19,161 +19,162 @@ class DefaultLightList : public DependNode
 public:
 public:
 	DefaultLightList():DependNode(){}
-	DefaultLightList(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "defaultLightList"){}
+	DefaultLightList(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "defaultLightList", create){}
 	virtual ~DefaultLightList(){}
-	void getLightDataArray(size_t lda_i)
+	void getLightDataArray(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i]\"",mName.c_str(),lda_i);
 
 	}
-	void getLightDirection(size_t lda_i)
+	void getLightDirection(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ld\"",mName.c_str(),lda_i);
 
 	}
-	void getLightDirectionX(size_t lda_i)
+	void getLightDirectionX(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ld.ldx\"",mName.c_str(),lda_i);
 
 	}
-	void getLightDirectionY(size_t lda_i)
+	void getLightDirectionY(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ld.ldy\"",mName.c_str(),lda_i);
 
 	}
-	void getLightDirectionZ(size_t lda_i)
+	void getLightDirectionZ(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ld.ldz\"",mName.c_str(),lda_i);
 
 	}
-	void getLightIntensity(size_t lda_i)
+	void getLightIntensity(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].li\"",mName.c_str(),lda_i);
 
 	}
-	void getLightIntensityR(size_t lda_i)
+	void getLightIntensityR(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].li.lir\"",mName.c_str(),lda_i);
 
 	}
-	void getLightIntensityG(size_t lda_i)
+	void getLightIntensityG(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].li.lig\"",mName.c_str(),lda_i);
 
 	}
-	void getLightIntensityB(size_t lda_i)
+	void getLightIntensityB(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].li.lib\"",mName.c_str(),lda_i);
 
 	}
-	void getLightAmbient(size_t lda_i)
+	void getLightAmbient(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].la\"",mName.c_str(),lda_i);
 
 	}
-	void getLightDiffuse(size_t lda_i)
+	void getLightDiffuse(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ldf\"",mName.c_str(),lda_i);
 
 	}
-	void getLightSpecular(size_t lda_i)
+	void getLightSpecular(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].ls\"",mName.c_str(),lda_i);
 
 	}
-	void getLightShadowFraction(size_t lda_i)
+	void getLightShadowFraction(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].lsf\"",mName.c_str(),lda_i);
 
 	}
-	void getPreShadowIntensity(size_t lda_i)
+	void getPreShadowIntensity(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].psi\"",mName.c_str(),lda_i);
 
 	}
-	void getLightBlindData(size_t lda_i)
+	void getLightBlindData(size_t lda_i)const
 	{
 		fprintf(mFile,"\"%s.lda[%i].lbd\"",mName.c_str(),lda_i);
 
 	}
-	void getLightData()
+	void getLightData()const
 	{
 		fprintf(mFile,"\"%s.ltd\"",mName.c_str());
 
 	}
-	void getLightDirectionOut()
+	void getLightDirectionOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.ldo\"",mName.c_str());
 
 	}
-	void getLightDirectionOutX()
+	void getLightDirectionOutX()const
 	{
 		fprintf(mFile,"\"%s.ltd.ldo.lqx\"",mName.c_str());
 
 	}
-	void getLightDirectionOutY()
+	void getLightDirectionOutY()const
 	{
 		fprintf(mFile,"\"%s.ltd.ldo.lqy\"",mName.c_str());
 
 	}
-	void getLightDirectionOutZ()
+	void getLightDirectionOutZ()const
 	{
 		fprintf(mFile,"\"%s.ltd.ldo.lqz\"",mName.c_str());
 
 	}
-	void getLightIntensityOut()
+	void getLightIntensityOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.lw\"",mName.c_str());
 
 	}
-	void getLightIntensityOutR()
+	void getLightIntensityOutR()const
 	{
 		fprintf(mFile,"\"%s.ltd.lw.lwr\"",mName.c_str());
 
 	}
-	void getLightIntensityOutG()
+	void getLightIntensityOutG()const
 	{
 		fprintf(mFile,"\"%s.ltd.lw.lwg\"",mName.c_str());
 
 	}
-	void getLightIntensityOutB()
+	void getLightIntensityOutB()const
 	{
 		fprintf(mFile,"\"%s.ltd.lw.lwb\"",mName.c_str());
 
 	}
-	void getLightAmbientOut()
+	void getLightAmbientOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.lya\"",mName.c_str());
 
 	}
-	void getLightDiffuseOut()
+	void getLightDiffuseOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.lyf\"",mName.c_str());
 
 	}
-	void getLightSpecularOut()
+	void getLightSpecularOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.lys\"",mName.c_str());
 
 	}
-	void getLightShadowFractionOut()
+	void getLightShadowFractionOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.sfo\"",mName.c_str());
 
 	}
-	void getPreShadowIntensityOut()
+	void getPreShadowIntensityOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.psio\"",mName.c_str());
 
 	}
-	void getLightBlindDataOut()
+	void getLightBlindDataOut()const
 	{
 		fprintf(mFile,"\"%s.ltd.lbdo\"",mName.c_str());
 
 	}
 protected:
-	DefaultLightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DefaultLightList(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

@@ -19,7 +19,8 @@ class MultilisterLight : public DependNode
 public:
 public:
 	MultilisterLight():DependNode(){}
-	MultilisterLight(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "multilisterLight"){}
+	MultilisterLight(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "multilisterLight", create){}
 	virtual ~MultilisterLight(){}
 	void setPointCamera(const float3& p)
 	{
@@ -47,104 +48,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".p.pz\" %f;\n", pz);
 
 	}
-	void getPointCamera()
+	void getPointCamera()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPointCameraX()
+	void getPointCameraX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPointCameraY()
+	void getPointCameraY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPointCameraZ()
+	void getPointCameraZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getLightData()
+	void getLightData()const
 	{
 		fprintf(mFile,"\"%s.ltd\"",mName.c_str());
 
 	}
-	void getLightDirection()
+	void getLightDirection()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld\"",mName.c_str());
 
 	}
-	void getLightDirectionX()
+	void getLightDirectionX()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld.ldx\"",mName.c_str());
 
 	}
-	void getLightDirectionY()
+	void getLightDirectionY()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld.ldy\"",mName.c_str());
 
 	}
-	void getLightDirectionZ()
+	void getLightDirectionZ()const
 	{
 		fprintf(mFile,"\"%s.ltd.ld.ldz\"",mName.c_str());
 
 	}
-	void getLightIntensity()
+	void getLightIntensity()const
 	{
 		fprintf(mFile,"\"%s.ltd.li\"",mName.c_str());
 
 	}
-	void getLightIntensityR()
+	void getLightIntensityR()const
 	{
 		fprintf(mFile,"\"%s.ltd.li.lir\"",mName.c_str());
 
 	}
-	void getLightIntensityG()
+	void getLightIntensityG()const
 	{
 		fprintf(mFile,"\"%s.ltd.li.lig\"",mName.c_str());
 
 	}
-	void getLightIntensityB()
+	void getLightIntensityB()const
 	{
 		fprintf(mFile,"\"%s.ltd.li.lib\"",mName.c_str());
 
 	}
-	void getLightAmbient()
+	void getLightAmbient()const
 	{
 		fprintf(mFile,"\"%s.ltd.la\"",mName.c_str());
 
 	}
-	void getLightDiffuse()
+	void getLightDiffuse()const
 	{
 		fprintf(mFile,"\"%s.ltd.ldf\"",mName.c_str());
 
 	}
-	void getLightSpecular()
+	void getLightSpecular()const
 	{
 		fprintf(mFile,"\"%s.ltd.ls\"",mName.c_str());
 
 	}
-	void getLightShadowFraction()
+	void getLightShadowFraction()const
 	{
 		fprintf(mFile,"\"%s.ltd.lsf\"",mName.c_str());
 
 	}
-	void getPreShadowIntensity()
+	void getPreShadowIntensity()const
 	{
 		fprintf(mFile,"\"%s.ltd.psi\"",mName.c_str());
 
 	}
-	void getLightBlindData()
+	void getLightBlindData()const
 	{
 		fprintf(mFile,"\"%s.ltd.lbd\"",mName.c_str());
 
 	}
 protected:
-	MultilisterLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	MultilisterLight(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

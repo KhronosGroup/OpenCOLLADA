@@ -19,7 +19,8 @@ class Mountain : public Texture2d
 public:
 public:
 	Mountain():Texture2d(){}
-	Mountain(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "mountain"){}
+	Mountain(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "mountain", create){}
 	virtual ~Mountain(){}
 	void setSnowColor(const float3& sc)
 	{
@@ -121,89 +122,89 @@ public:
 		fprintf(mFile,"\tsetAttr \".dmx\" %f;\n", dmx);
 
 	}
-	void getSnowColor()
+	void getSnowColor()const
 	{
 		fprintf(mFile,"\"%s.sc\"",mName.c_str());
 
 	}
-	void getSnowColorR()
+	void getSnowColorR()const
 	{
 		fprintf(mFile,"\"%s.sc.scr\"",mName.c_str());
 
 	}
-	void getSnowColorG()
+	void getSnowColorG()const
 	{
 		fprintf(mFile,"\"%s.sc.scg\"",mName.c_str());
 
 	}
-	void getSnowColorB()
+	void getSnowColorB()const
 	{
 		fprintf(mFile,"\"%s.sc.scb\"",mName.c_str());
 
 	}
-	void getRockColor()
+	void getRockColor()const
 	{
 		fprintf(mFile,"\"%s.rc\"",mName.c_str());
 
 	}
-	void getRockColorR()
+	void getRockColorR()const
 	{
 		fprintf(mFile,"\"%s.rc.rcr\"",mName.c_str());
 
 	}
-	void getRockColorG()
+	void getRockColorG()const
 	{
 		fprintf(mFile,"\"%s.rc.rcg\"",mName.c_str());
 
 	}
-	void getRockColorB()
+	void getRockColorB()const
 	{
 		fprintf(mFile,"\"%s.rc.rcb\"",mName.c_str());
 
 	}
-	void getAmplitude()
+	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getSnowRoughness()
+	void getSnowRoughness()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getRockRoughness()
+	void getRockRoughness()const
 	{
 		fprintf(mFile,"\"%s.rr\"",mName.c_str());
 
 	}
-	void getBoundary()
+	void getBoundary()const
 	{
 		fprintf(mFile,"\"%s.bo\"",mName.c_str());
 
 	}
-	void getSnowAltitude()
+	void getSnowAltitude()const
 	{
 		fprintf(mFile,"\"%s.sa\"",mName.c_str());
 
 	}
-	void getSnowDropoff()
+	void getSnowDropoff()const
 	{
 		fprintf(mFile,"\"%s.sd\"",mName.c_str());
 
 	}
-	void getSnowSlope()
+	void getSnowSlope()const
 	{
 		fprintf(mFile,"\"%s.ss\"",mName.c_str());
 
 	}
-	void getDepthMax()
+	void getDepthMax()const
 	{
 		fprintf(mFile,"\"%s.dmx\"",mName.c_str());
 
 	}
 protected:
-	Mountain(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Mountain(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

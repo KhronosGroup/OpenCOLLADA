@@ -31,7 +31,8 @@ public:
 	};
 public:
 	WeightGeometryFilter():GeometryFilter(){}
-	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent=""):GeometryFilter(file, name, parent, "weightGeometryFilter"){}
+	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:GeometryFilter(file, name, parent, "weightGeometryFilter", create){}
 	virtual ~WeightGeometryFilter(){}
 	void setWeightList(size_t wl_i,const WeightList& wl)
 	{
@@ -58,34 +59,34 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startWeights(size_t wl_i,size_t w_start,size_t w_end)
+	void startWeights(size_t wl_i,size_t w_start,size_t w_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".wl[%i].w[%i:%i]\"",wl_i,w_start,w_end);
 
 	}
-	void appendWeights(float w)
+	void appendWeights(float w)const
 	{
 		fprintf(mFile," %f",w);
 
 	}
-	void endWeights()
+	void endWeights()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getWeightList(size_t wl_i)
+	void getWeightList(size_t wl_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i]\"",mName.c_str(),wl_i);
 
 	}
-	void getWeights(size_t wl_i,size_t w_i)
+	void getWeights(size_t wl_i,size_t w_i)const
 	{
 		fprintf(mFile,"\"%s.wl[%i].w[%i]\"",mName.c_str(),wl_i,w_i);
 
 	}
 protected:
-	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:GeometryFilter(file, name, parent, nodeType) {}
+	WeightGeometryFilter(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:GeometryFilter(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

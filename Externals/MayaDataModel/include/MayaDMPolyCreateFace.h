@@ -19,7 +19,8 @@ class PolyCreateFace : public PolyCreator
 public:
 public:
 	PolyCreateFace():PolyCreator(){}
-	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent=""):PolyCreator(file, name, parent, "polyCreateFace"){}
+	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyCreator(file, name, parent, "polyCreateFace", create){}
 	virtual ~PolyCreateFace(){}
 	void setVertices(size_t v_i,const float3& v)
 	{
@@ -40,17 +41,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startVertices(size_t v_start,size_t v_end)
+	void startVertices(size_t v_start,size_t v_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
-	void appendVertices(float v)
+	void appendVertices(float v)const
 	{
 		fprintf(mFile," %f",v);
 
 	}
-	void endVertices()
+	void endVertices()const
 	{
 		fprintf(mFile,";\n");
 
@@ -91,17 +92,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startLoop(size_t l_start,size_t l_end)
+	void startLoop(size_t l_start,size_t l_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".l[%i:%i]\"",l_start,l_end);
 
 	}
-	void appendLoop(int l)
+	void appendLoop(int l)const
 	{
 		fprintf(mFile," %i",l);
 
 	}
-	void endLoop()
+	void endLoop()const
 	{
 		fprintf(mFile,";\n");
 
@@ -126,49 +127,49 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getVertices(size_t v_i)
+	void getVertices(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
-	void getVtxx(size_t v_i)
+	void getVtxx(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vx\"",mName.c_str(),v_i);
 
 	}
-	void getVtxy(size_t v_i)
+	void getVtxy(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vy\"",mName.c_str(),v_i);
 
 	}
-	void getVtxz(size_t v_i)
+	void getVtxz(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vz\"",mName.c_str(),v_i);
 
 	}
-	void getLoop(size_t l_i)
+	void getLoop(size_t l_i)const
 	{
 		fprintf(mFile,"\"%s.l[%i]\"",mName.c_str(),l_i);
 
 	}
-	void getSubdivision()
+	void getSubdivision()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getTexture()
+	void getTexture()const
 	{
 		fprintf(mFile,"\"%s.tx\"",mName.c_str());
 
 	}
-	void getUvSetName()
+	void getUvSetName()const
 	{
 		fprintf(mFile,"\"%s.uvs\"",mName.c_str());
 
 	}
 protected:
-	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyCreator(file, name, parent, nodeType) {}
+	PolyCreateFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyCreator(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

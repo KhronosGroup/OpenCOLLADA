@@ -19,7 +19,8 @@ class PolyWedgeFace : public PolyModifierWorld
 public:
 public:
 	PolyWedgeFace():PolyModifierWorld(){}
-	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent=""):PolyModifierWorld(file, name, parent, "polyWedgeFace"){}
+	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifierWorld(file, name, parent, "polyWedgeFace", create){}
 	virtual ~PolyWedgeFace(){}
 	void setWedgeAngle(double wa)
 	{
@@ -51,39 +52,39 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEdge(size_t ed_start,size_t ed_end)
+	void startEdge(size_t ed_start,size_t ed_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".ed[%i:%i]\"",ed_start,ed_end);
 
 	}
-	void appendEdge(int ed)
+	void appendEdge(int ed)const
 	{
 		fprintf(mFile," %i",ed);
 
 	}
-	void endEdge()
+	void endEdge()const
 	{
 		fprintf(mFile,";\n");
 
 	}
-	void getWedgeAngle()
+	void getWedgeAngle()const
 	{
 		fprintf(mFile,"\"%s.wa\"",mName.c_str());
 
 	}
-	void getDivisions()
+	void getDivisions()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getEdge(size_t ed_i)
+	void getEdge(size_t ed_i)const
 	{
 		fprintf(mFile,"\"%s.ed[%i]\"",mName.c_str(),ed_i);
 
 	}
 protected:
-	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifierWorld(file, name, parent, nodeType) {}
+	PolyWedgeFace(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifierWorld(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

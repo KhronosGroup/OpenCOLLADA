@@ -19,7 +19,8 @@ class ExtendCurve : public AbstractBaseCreate
 public:
 public:
 	ExtendCurve():AbstractBaseCreate(){}
-	ExtendCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "extendCurve"){}
+	ExtendCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "extendCurve", create){}
 	virtual ~ExtendCurve(){}
 	void setInputPoint(const double3& ip)
 	{
@@ -82,84 +83,84 @@ public:
 		fprintf(mFile,"\tsetAttr \".rmk\" %i;\n", rmk);
 
 	}
-	void getInputCurve1()
+	void getInputCurve1()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2()
+	void getInputCurve2()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getInputSurface()
+	void getInputSurface()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInputPoint()
+	void getInputPoint()const
 	{
 		fprintf(mFile,"\"%s.ip\"",mName.c_str());
 
 	}
-	void getPointX()
+	void getPointX()const
 	{
 		fprintf(mFile,"\"%s.ip.px\"",mName.c_str());
 
 	}
-	void getPointY()
+	void getPointY()const
 	{
 		fprintf(mFile,"\"%s.ip.py\"",mName.c_str());
 
 	}
-	void getPointZ()
+	void getPointZ()const
 	{
 		fprintf(mFile,"\"%s.ip.pz\"",mName.c_str());
 
 	}
-	void getExtensionType()
+	void getExtensionType()const
 	{
 		fprintf(mFile,"\"%s.et\"",mName.c_str());
 
 	}
-	void getExtendMethod()
+	void getExtendMethod()const
 	{
 		fprintf(mFile,"\"%s.em\"",mName.c_str());
 
 	}
-	void getStart()
+	void getStart()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getBothEnds()
+	void getBothEnds()const
 	{
 		fprintf(mFile,"\"%s.be\"",mName.c_str());
 
 	}
-	void getJoin()
+	void getJoin()const
 	{
 		fprintf(mFile,"\"%s.jn\"",mName.c_str());
 
 	}
-	void getDistance()
+	void getDistance()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getRemoveMultipleKnots()
+	void getRemoveMultipleKnots()const
 	{
 		fprintf(mFile,"\"%s.rmk\"",mName.c_str());
 
 	}
-	void getOutputCurve()
+	void getOutputCurve()const
 	{
 		fprintf(mFile,"\"%s.oc\"",mName.c_str());
 
 	}
 protected:
-	ExtendCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	ExtendCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

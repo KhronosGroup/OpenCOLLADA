@@ -19,7 +19,8 @@ class Primitive : public AbstractBaseCreate
 public:
 public:
 	Primitive():AbstractBaseCreate(){}
-	Primitive(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "primitive"){}
+	Primitive(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "primitive", create){}
 	virtual ~Primitive(){}
 	void setPivot(const double3& p)
 	{
@@ -71,54 +72,54 @@ public:
 		fprintf(mFile,"\tsetAttr \".ax.axz\" %f;\n", axz);
 
 	}
-	void getPivot()
+	void getPivot()const
 	{
 		fprintf(mFile,"\"%s.p\"",mName.c_str());
 
 	}
-	void getPivotX()
+	void getPivotX()const
 	{
 		fprintf(mFile,"\"%s.p.px\"",mName.c_str());
 
 	}
-	void getPivotY()
+	void getPivotY()const
 	{
 		fprintf(mFile,"\"%s.p.py\"",mName.c_str());
 
 	}
-	void getPivotZ()
+	void getPivotZ()const
 	{
 		fprintf(mFile,"\"%s.p.pz\"",mName.c_str());
 
 	}
-	void getAxis()
+	void getAxis()const
 	{
 		fprintf(mFile,"\"%s.ax\"",mName.c_str());
 
 	}
-	void getAxisX()
+	void getAxisX()const
 	{
 		fprintf(mFile,"\"%s.ax.axx\"",mName.c_str());
 
 	}
-	void getAxisY()
+	void getAxisY()const
 	{
 		fprintf(mFile,"\"%s.ax.axy\"",mName.c_str());
 
 	}
-	void getAxisZ()
+	void getAxisZ()const
 	{
 		fprintf(mFile,"\"%s.ax.axz\"",mName.c_str());
 
 	}
-	void getOutputSurface()
+	void getOutputSurface()const
 	{
 		fprintf(mFile,"\"%s.os\"",mName.c_str());
 
 	}
 protected:
-	Primitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	Primitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

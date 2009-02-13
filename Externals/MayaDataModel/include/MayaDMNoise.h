@@ -19,7 +19,8 @@ class Noise : public Texture2d
 public:
 public:
 	Noise():Texture2d(){}
-	Noise(FILE* file,const std::string& name,const std::string& parent=""):Texture2d(file, name, parent, "noise"){}
+	Noise(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Texture2d(file, name, parent, "noise", create){}
 	virtual ~Noise(){}
 	void setAmplitude(float a)
 	{
@@ -137,104 +138,104 @@ public:
 		fprintf(mFile,"\tsetAttr \".imc.imv\" %f;\n", imv);
 
 	}
-	void getAmplitude()
+	void getAmplitude()const
 	{
 		fprintf(mFile,"\"%s.a\"",mName.c_str());
 
 	}
-	void getRatio()
+	void getRatio()const
 	{
 		fprintf(mFile,"\"%s.ra\"",mName.c_str());
 
 	}
-	void getThreshold()
+	void getThreshold()const
 	{
 		fprintf(mFile,"\"%s.th\"",mName.c_str());
 
 	}
-	void getDepthMax()
+	void getDepthMax()const
 	{
 		fprintf(mFile,"\"%s.dm\"",mName.c_str());
 
 	}
-	void getFrequency()
+	void getFrequency()const
 	{
 		fprintf(mFile,"\"%s.fq\"",mName.c_str());
 
 	}
-	void getFrequencyRatio()
+	void getFrequencyRatio()const
 	{
 		fprintf(mFile,"\"%s.fr\"",mName.c_str());
 
 	}
-	void getInflection()
+	void getInflection()const
 	{
 		fprintf(mFile,"\"%s.in\"",mName.c_str());
 
 	}
-	void getTime()
+	void getTime()const
 	{
 		fprintf(mFile,"\"%s.ti\"",mName.c_str());
 
 	}
-	void getNoiseType()
+	void getNoiseType()const
 	{
 		fprintf(mFile,"\"%s.nty\"",mName.c_str());
 
 	}
-	void getDensity()
+	void getDensity()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSpottyness()
+	void getSpottyness()const
 	{
 		fprintf(mFile,"\"%s.sp\"",mName.c_str());
 
 	}
-	void getSizeRand()
+	void getSizeRand()const
 	{
 		fprintf(mFile,"\"%s.sr\"",mName.c_str());
 
 	}
-	void getRandomness()
+	void getRandomness()const
 	{
 		fprintf(mFile,"\"%s.rn\"",mName.c_str());
 
 	}
-	void getFalloff()
+	void getFalloff()const
 	{
 		fprintf(mFile,"\"%s.fof\"",mName.c_str());
 
 	}
-	void getNumWaves()
+	void getNumWaves()const
 	{
 		fprintf(mFile,"\"%s.nw\"",mName.c_str());
 
 	}
-	void getImplode()
+	void getImplode()const
 	{
 		fprintf(mFile,"\"%s.imp\"",mName.c_str());
 
 	}
-	void getImplodeCenter()
+	void getImplodeCenter()const
 	{
 		fprintf(mFile,"\"%s.imc\"",mName.c_str());
 
 	}
-	void getImplodeCenterU()
+	void getImplodeCenterU()const
 	{
 		fprintf(mFile,"\"%s.imc.imu\"",mName.c_str());
 
 	}
-	void getImplodeCenterV()
+	void getImplodeCenterV()const
 	{
 		fprintf(mFile,"\"%s.imc.imv\"",mName.c_str());
 
 	}
 protected:
-	Noise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Texture2d(file, name, parent, nodeType) {}
+	Noise(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Texture2d(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

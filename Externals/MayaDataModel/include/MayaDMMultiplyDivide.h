@@ -19,7 +19,8 @@ class MultiplyDivide : public DependNode
 public:
 public:
 	MultiplyDivide():DependNode(){}
-	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "multiplyDivide"){}
+	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "multiplyDivide", create){}
 	virtual ~MultiplyDivide(){}
 	void setOperation(unsigned int op)
 	{
@@ -79,74 +80,74 @@ public:
 		fprintf(mFile,"\tsetAttr \".i2.i2z\" %f;\n", i2z);
 
 	}
-	void getOperation()
+	void getOperation()const
 	{
 		fprintf(mFile,"\"%s.op\"",mName.c_str());
 
 	}
-	void getInput1()
+	void getInput1()const
 	{
 		fprintf(mFile,"\"%s.i1\"",mName.c_str());
 
 	}
-	void getInput1X()
+	void getInput1X()const
 	{
 		fprintf(mFile,"\"%s.i1.i1x\"",mName.c_str());
 
 	}
-	void getInput1Y()
+	void getInput1Y()const
 	{
 		fprintf(mFile,"\"%s.i1.i1y\"",mName.c_str());
 
 	}
-	void getInput1Z()
+	void getInput1Z()const
 	{
 		fprintf(mFile,"\"%s.i1.i1z\"",mName.c_str());
 
 	}
-	void getInput2()
+	void getInput2()const
 	{
 		fprintf(mFile,"\"%s.i2\"",mName.c_str());
 
 	}
-	void getInput2X()
+	void getInput2X()const
 	{
 		fprintf(mFile,"\"%s.i2.i2x\"",mName.c_str());
 
 	}
-	void getInput2Y()
+	void getInput2Y()const
 	{
 		fprintf(mFile,"\"%s.i2.i2y\"",mName.c_str());
 
 	}
-	void getInput2Z()
+	void getInput2Z()const
 	{
 		fprintf(mFile,"\"%s.i2.i2z\"",mName.c_str());
 
 	}
-	void getOutput()
+	void getOutput()const
 	{
 		fprintf(mFile,"\"%s.o\"",mName.c_str());
 
 	}
-	void getOutputX()
+	void getOutputX()const
 	{
 		fprintf(mFile,"\"%s.o.ox\"",mName.c_str());
 
 	}
-	void getOutputY()
+	void getOutputY()const
 	{
 		fprintf(mFile,"\"%s.o.oy\"",mName.c_str());
 
 	}
-	void getOutputZ()
+	void getOutputZ()const
 	{
 		fprintf(mFile,"\"%s.o.oz\"",mName.c_str());
 
 	}
 protected:
-	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	MultiplyDivide(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

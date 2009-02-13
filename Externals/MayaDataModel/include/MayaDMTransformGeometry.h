@@ -19,7 +19,8 @@ class TransformGeometry : public AbstractBaseCreate
 public:
 public:
 	TransformGeometry():AbstractBaseCreate(){}
-	TransformGeometry(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "transformGeometry"){}
+	TransformGeometry(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "transformGeometry", create){}
 	virtual ~TransformGeometry(){}
 	void setTransform(const matrix& txf)
 	{
@@ -41,34 +42,34 @@ public:
 		fprintf(mFile,"\tsetAttr \".fn\" %i;\n", fn);
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getTransform()
+	void getTransform()const
 	{
 		fprintf(mFile,"\"%s.txf\"",mName.c_str());
 
 	}
-	void getInvertTransform()
+	void getInvertTransform()const
 	{
 		fprintf(mFile,"\"%s.itf\"",mName.c_str());
 
 	}
-	void getFreezeNormals()
+	void getFreezeNormals()const
 	{
 		fprintf(mFile,"\"%s.fn\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
 protected:
-	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	TransformGeometry(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

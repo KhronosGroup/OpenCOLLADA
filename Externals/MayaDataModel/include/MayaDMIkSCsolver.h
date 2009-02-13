@@ -18,11 +18,12 @@ class IkSCsolver : public IkSolver
 {
 public:
 	IkSCsolver():IkSolver(){}
-	IkSCsolver(FILE* file,const std::string& name,const std::string& parent=""):IkSolver(file, name, parent, "ikSCsolver"){}
+	IkSCsolver(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:IkSolver(file, name, parent, "ikSCsolver", create){}
 	virtual ~IkSCsolver(){}
 protected:
-	IkSCsolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:IkSolver(file, name, parent, nodeType) {}
+	IkSCsolver(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:IkSolver(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

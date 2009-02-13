@@ -19,7 +19,8 @@ class PolySplit : public PolyModifier
 public:
 public:
 	PolySplit():PolyModifier(){}
-	PolySplit(FILE* file,const std::string& name,const std::string& parent=""):PolyModifier(file, name, parent, "polySplit"){}
+	PolySplit(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:PolyModifier(file, name, parent, "polySplit", create){}
 	virtual ~PolySplit(){}
 	void setVertices(size_t v_i,const float3& v)
 	{
@@ -40,17 +41,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startVertices(size_t v_start,size_t v_end)
+	void startVertices(size_t v_start,size_t v_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".v[%i:%i]\"",v_start,v_end);
 
 	}
-	void appendVertices(float v)
+	void appendVertices(float v)const
 	{
 		fprintf(mFile," %f",v);
 
 	}
-	void endVertices()
+	void endVertices()const
 	{
 		fprintf(mFile,";\n");
 
@@ -91,17 +92,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startEdge(size_t e_start,size_t e_end)
+	void startEdge(size_t e_start,size_t e_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".e[%i:%i]\"",e_start,e_end);
 
 	}
-	void appendEdge(float e)
+	void appendEdge(float e)const
 	{
 		fprintf(mFile," %f",e);
 
 	}
-	void endEdge()
+	void endEdge()const
 	{
 		fprintf(mFile,";\n");
 
@@ -124,17 +125,17 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void startDesc(size_t d_start,size_t d_end)
+	void startDesc(size_t d_start,size_t d_end)const
 	{
 		fprintf(mFile,"\tsetAttr \".d[%i:%i]\"",d_start,d_end);
 
 	}
-	void appendDesc(int d)
+	void appendDesc(int d)const
 	{
 		fprintf(mFile," %i",d);
 
 	}
-	void endDesc()
+	void endDesc()const
 	{
 		fprintf(mFile,";\n");
 
@@ -157,49 +158,49 @@ public:
 		fprintf(mFile,"\tsetAttr \".m70\" %i;\n", m70);
 
 	}
-	void getVertices(size_t v_i)
+	void getVertices(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i]\"",mName.c_str(),v_i);
 
 	}
-	void getVtxx(size_t v_i)
+	void getVtxx(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vx\"",mName.c_str(),v_i);
 
 	}
-	void getVtxy(size_t v_i)
+	void getVtxy(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vy\"",mName.c_str(),v_i);
 
 	}
-	void getVtxz(size_t v_i)
+	void getVtxz(size_t v_i)const
 	{
 		fprintf(mFile,"\"%s.v[%i].vz\"",mName.c_str(),v_i);
 
 	}
-	void getEdge(size_t e_i)
+	void getEdge(size_t e_i)const
 	{
 		fprintf(mFile,"\"%s.e[%i]\"",mName.c_str(),e_i);
 
 	}
-	void getDesc(size_t d_i)
+	void getDesc(size_t d_i)const
 	{
 		fprintf(mFile,"\"%s.d[%i]\"",mName.c_str(),d_i);
 
 	}
-	void getSubdivision()
+	void getSubdivision()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getSmoothingAngle()
+	void getSmoothingAngle()const
 	{
 		fprintf(mFile,"\"%s.sma\"",mName.c_str());
 
 	}
 protected:
-	PolySplit(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:PolyModifier(file, name, parent, nodeType) {}
+	PolySplit(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:PolyModifier(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

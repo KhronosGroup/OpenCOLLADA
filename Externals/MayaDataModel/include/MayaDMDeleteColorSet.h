@@ -19,7 +19,8 @@ class DeleteColorSet : public DependNode
 public:
 public:
 	DeleteColorSet():DependNode(){}
-	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "deleteColorSet"){}
+	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "deleteColorSet", create){}
 	virtual ~DeleteColorSet(){}
 	void setColorSetName(const string& cols)
 	{
@@ -29,24 +30,24 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getColorSetName()
+	void getColorSetName()const
 	{
 		fprintf(mFile,"\"%s.cols\"",mName.c_str());
 
 	}
 protected:
-	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	DeleteColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

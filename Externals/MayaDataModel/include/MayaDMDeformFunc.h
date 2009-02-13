@@ -19,7 +19,8 @@ class DeformFunc : public Shape
 public:
 public:
 	DeformFunc():Shape(){}
-	DeformFunc(FILE* file,const std::string& name,const std::string& parent=""):Shape(file, name, parent, "deformFunc"){}
+	DeformFunc(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Shape(file, name, parent, "deformFunc", create){}
 	virtual ~DeformFunc(){}
 	void setDeformerData(const doubleArray& dd)
 	{
@@ -35,19 +36,19 @@ public:
 		fprintf(mFile,"\tsetAttr \".hw\" %f;\n", hw);
 
 	}
-	void getDeformerData()
+	void getDeformerData()const
 	{
 		fprintf(mFile,"\"%s.dd\"",mName.c_str());
 
 	}
-	void getHandleWidth()
+	void getHandleWidth()const
 	{
 		fprintf(mFile,"\"%s.hw\"",mName.c_str());
 
 	}
 protected:
-	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Shape(file, name, parent, nodeType) {}
+	DeformFunc(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Shape(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

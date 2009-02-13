@@ -19,7 +19,8 @@ class CharacterOffset : public DependNode
 public:
 public:
 	CharacterOffset():DependNode(){}
-	CharacterOffset(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "characterOffset"){}
+	CharacterOffset(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "characterOffset", create){}
 	virtual ~CharacterOffset(){}
 	void setInRootTranslate(const double3& rti)
 	{
@@ -269,244 +270,244 @@ public:
 		fprintf(mFile,"\tsetAttr \".rpf.rppfz\" %f;\n", rppfz);
 
 	}
-	void getInRootTranslate()
+	void getInRootTranslate()const
 	{
 		fprintf(mFile,"\"%s.rti\"",mName.c_str());
 
 	}
-	void getInRootTranslateX()
+	void getInRootTranslateX()const
 	{
 		fprintf(mFile,"\"%s.rti.rtix\"",mName.c_str());
 
 	}
-	void getInRootTranslateY()
+	void getInRootTranslateY()const
 	{
 		fprintf(mFile,"\"%s.rti.rtiy\"",mName.c_str());
 
 	}
-	void getInRootTranslateZ()
+	void getInRootTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.rti.rtiz\"",mName.c_str());
 
 	}
-	void getInRootRotate()
+	void getInRootRotate()const
 	{
 		fprintf(mFile,"\"%s.rri\"",mName.c_str());
 
 	}
-	void getInRootRotateX()
+	void getInRootRotateX()const
 	{
 		fprintf(mFile,"\"%s.rri.rrix\"",mName.c_str());
 
 	}
-	void getInRootRotateY()
+	void getInRootRotateY()const
 	{
 		fprintf(mFile,"\"%s.rri.rriy\"",mName.c_str());
 
 	}
-	void getInRootRotateZ()
+	void getInRootRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rri.rriz\"",mName.c_str());
 
 	}
-	void getRootRotateOrder()
+	void getRootRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.rror\"",mName.c_str());
 
 	}
-	void getRootJointOrient()
+	void getRootJointOrient()const
 	{
 		fprintf(mFile,"\"%s.rjo\"",mName.c_str());
 
 	}
-	void getRootJointOrientX()
+	void getRootJointOrientX()const
 	{
 		fprintf(mFile,"\"%s.rjo.rjox\"",mName.c_str());
 
 	}
-	void getRootJointOrientY()
+	void getRootJointOrientY()const
 	{
 		fprintf(mFile,"\"%s.rjo.rjoy\"",mName.c_str());
 
 	}
-	void getRootJointOrientZ()
+	void getRootJointOrientZ()const
 	{
 		fprintf(mFile,"\"%s.rjo.rjoz\"",mName.c_str());
 
 	}
-	void getRootParentMatrix()
+	void getRootParentMatrix()const
 	{
 		fprintf(mFile,"\"%s.rpm\"",mName.c_str());
 
 	}
-	void getRootParentInverseMatrix()
+	void getRootParentInverseMatrix()const
 	{
 		fprintf(mFile,"\"%s.rpim\"",mName.c_str());
 
 	}
-	void getApplyControlParentTransform()
+	void getApplyControlParentTransform()const
 	{
 		fprintf(mFile,"\"%s.acpx\"",mName.c_str());
 
 	}
-	void getEnable()
+	void getEnable()const
 	{
 		fprintf(mFile,"\"%s.nabl\"",mName.c_str());
 
 	}
-	void getOffsetRootTranslate()
+	void getOffsetRootTranslate()const
 	{
 		fprintf(mFile,"\"%s.rtf\"",mName.c_str());
 
 	}
-	void getOffsetRootTranslateX()
+	void getOffsetRootTranslateX()const
 	{
 		fprintf(mFile,"\"%s.rtf.rtfx\"",mName.c_str());
 
 	}
-	void getOffsetRootTranslateY()
+	void getOffsetRootTranslateY()const
 	{
 		fprintf(mFile,"\"%s.rtf.rtfy\"",mName.c_str());
 
 	}
-	void getOffsetRootTranslateZ()
+	void getOffsetRootTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.rtf.rtfz\"",mName.c_str());
 
 	}
-	void getInitialOffsetRootTranslate()
+	void getInitialOffsetRootTranslate()const
 	{
 		fprintf(mFile,"\"%s.itf\"",mName.c_str());
 
 	}
-	void getInitialOffsetRootTranslateX()
+	void getInitialOffsetRootTranslateX()const
 	{
 		fprintf(mFile,"\"%s.itf.itfx\"",mName.c_str());
 
 	}
-	void getInitialOffsetRootTranslateY()
+	void getInitialOffsetRootTranslateY()const
 	{
 		fprintf(mFile,"\"%s.itf.itfy\"",mName.c_str());
 
 	}
-	void getInitialOffsetRootTranslateZ()
+	void getInitialOffsetRootTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.itf.itfz\"",mName.c_str());
 
 	}
-	void getRotateControlScale()
+	void getRotateControlScale()const
 	{
 		fprintf(mFile,"\"%s.rcs\"",mName.c_str());
 
 	}
-	void getRotateControlScaleX()
+	void getRotateControlScaleX()const
 	{
 		fprintf(mFile,"\"%s.rcs.rcsx\"",mName.c_str());
 
 	}
-	void getRotateControlScaleY()
+	void getRotateControlScaleY()const
 	{
 		fprintf(mFile,"\"%s.rcs.rcsy\"",mName.c_str());
 
 	}
-	void getRotateControlScaleZ()
+	void getRotateControlScaleZ()const
 	{
 		fprintf(mFile,"\"%s.rcs.rcsz\"",mName.c_str());
 
 	}
-	void getRotateControlParentMatrix()
+	void getRotateControlParentMatrix()const
 	{
 		fprintf(mFile,"\"%s.rcpm\"",mName.c_str());
 
 	}
-	void getOffsetRootRotate()
+	void getOffsetRootRotate()const
 	{
 		fprintf(mFile,"\"%s.rrf\"",mName.c_str());
 
 	}
-	void getOffsetRootRotateX()
+	void getOffsetRootRotateX()const
 	{
 		fprintf(mFile,"\"%s.rrf.rrfx\"",mName.c_str());
 
 	}
-	void getOffsetRootRotateY()
+	void getOffsetRootRotateY()const
 	{
 		fprintf(mFile,"\"%s.rrf.rrfy\"",mName.c_str());
 
 	}
-	void getOffsetRootRotateZ()
+	void getOffsetRootRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rrf.rrfz\"",mName.c_str());
 
 	}
-	void getOffsetRootRotateOrder()
+	void getOffsetRootRotateOrder()const
 	{
 		fprintf(mFile,"\"%s.rfor\"",mName.c_str());
 
 	}
-	void getOffsetRootRotatePivot()
+	void getOffsetRootRotatePivot()const
 	{
 		fprintf(mFile,"\"%s.rpf\"",mName.c_str());
 
 	}
-	void getOffsetRootRotatePivotX()
+	void getOffsetRootRotatePivotX()const
 	{
 		fprintf(mFile,"\"%s.rpf.rppfx\"",mName.c_str());
 
 	}
-	void getOffsetRootRotatePivotY()
+	void getOffsetRootRotatePivotY()const
 	{
 		fprintf(mFile,"\"%s.rpf.rppfy\"",mName.c_str());
 
 	}
-	void getOffsetRootRotatePivotZ()
+	void getOffsetRootRotatePivotZ()const
 	{
 		fprintf(mFile,"\"%s.rpf.rppfz\"",mName.c_str());
 
 	}
-	void getOutRootTranslate()
+	void getOutRootTranslate()const
 	{
 		fprintf(mFile,"\"%s.rto\"",mName.c_str());
 
 	}
-	void getOutRootTranslateX()
+	void getOutRootTranslateX()const
 	{
 		fprintf(mFile,"\"%s.rto.rtox\"",mName.c_str());
 
 	}
-	void getOutRootTranslateY()
+	void getOutRootTranslateY()const
 	{
 		fprintf(mFile,"\"%s.rto.rtoy\"",mName.c_str());
 
 	}
-	void getOutRootTranslateZ()
+	void getOutRootTranslateZ()const
 	{
 		fprintf(mFile,"\"%s.rto.rtoz\"",mName.c_str());
 
 	}
-	void getOutRootRotate()
+	void getOutRootRotate()const
 	{
 		fprintf(mFile,"\"%s.rro\"",mName.c_str());
 
 	}
-	void getOutRootRotateX()
+	void getOutRootRotateX()const
 	{
 		fprintf(mFile,"\"%s.rro.rrox\"",mName.c_str());
 
 	}
-	void getOutRootRotateY()
+	void getOutRootRotateY()const
 	{
 		fprintf(mFile,"\"%s.rro.rroy\"",mName.c_str());
 
 	}
-	void getOutRootRotateZ()
+	void getOutRootRotateZ()const
 	{
 		fprintf(mFile,"\"%s.rro.rroz\"",mName.c_str());
 
 	}
 protected:
-	CharacterOffset(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	CharacterOffset(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

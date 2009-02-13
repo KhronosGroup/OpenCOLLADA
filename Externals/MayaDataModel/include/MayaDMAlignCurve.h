@@ -19,7 +19,8 @@ class AlignCurve : public AbstractBaseCreate
 public:
 public:
 	AlignCurve():AbstractBaseCreate(){}
-	AlignCurve(FILE* file,const std::string& name,const std::string& parent=""):AbstractBaseCreate(file, name, parent, "alignCurve"){}
+	AlignCurve(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:AbstractBaseCreate(file, name, parent, "alignCurve", create){}
 	virtual ~AlignCurve(){}
 	void setTangentScale1(double ts1)
 	{
@@ -105,99 +106,99 @@ public:
 		fprintf(mFile,"\tsetAttr \".cc\" %i;\n", cc);
 
 	}
-	void getInputCurve1()
+	void getInputCurve1()const
 	{
 		fprintf(mFile,"\"%s.ic1\"",mName.c_str());
 
 	}
-	void getInputCurve2()
+	void getInputCurve2()const
 	{
 		fprintf(mFile,"\"%s.ic2\"",mName.c_str());
 
 	}
-	void getOutputCurve1()
+	void getOutputCurve1()const
 	{
 		fprintf(mFile,"\"%s.oc1\"",mName.c_str());
 
 	}
-	void getOutputCurve2()
+	void getOutputCurve2()const
 	{
 		fprintf(mFile,"\"%s.oc2\"",mName.c_str());
 
 	}
-	void getTangentScale1()
+	void getTangentScale1()const
 	{
 		fprintf(mFile,"\"%s.ts1\"",mName.c_str());
 
 	}
-	void getTangentScale2()
+	void getTangentScale2()const
 	{
 		fprintf(mFile,"\"%s.ts2\"",mName.c_str());
 
 	}
-	void getCurvatureScale1()
+	void getCurvatureScale1()const
 	{
 		fprintf(mFile,"\"%s.cs1\"",mName.c_str());
 
 	}
-	void getCurvatureScale2()
+	void getCurvatureScale2()const
 	{
 		fprintf(mFile,"\"%s.cs2\"",mName.c_str());
 
 	}
-	void getPositionalContinuityType()
+	void getPositionalContinuityType()const
 	{
 		fprintf(mFile,"\"%s.pct\"",mName.c_str());
 
 	}
-	void getTangentContinuityType()
+	void getTangentContinuityType()const
 	{
 		fprintf(mFile,"\"%s.tct\"",mName.c_str());
 
 	}
-	void getJoinParameter()
+	void getJoinParameter()const
 	{
 		fprintf(mFile,"\"%s.jnp\"",mName.c_str());
 
 	}
-	void getReverse1()
+	void getReverse1()const
 	{
 		fprintf(mFile,"\"%s.rv1\"",mName.c_str());
 
 	}
-	void getReverse2()
+	void getReverse2()const
 	{
 		fprintf(mFile,"\"%s.rv2\"",mName.c_str());
 
 	}
-	void getAttach()
+	void getAttach()const
 	{
 		fprintf(mFile,"\"%s.at\"",mName.c_str());
 
 	}
-	void getKeepMultipleKnots()
+	void getKeepMultipleKnots()const
 	{
 		fprintf(mFile,"\"%s.kmk\"",mName.c_str());
 
 	}
-	void getPositionalContinuity()
+	void getPositionalContinuity()const
 	{
 		fprintf(mFile,"\"%s.pc\"",mName.c_str());
 
 	}
-	void getTangentContinuity()
+	void getTangentContinuity()const
 	{
 		fprintf(mFile,"\"%s.tc\"",mName.c_str());
 
 	}
-	void getCurvatureContinuity()
+	void getCurvatureContinuity()const
 	{
 		fprintf(mFile,"\"%s.cc\"",mName.c_str());
 
 	}
 protected:
-	AlignCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:AbstractBaseCreate(file, name, parent, nodeType) {}
+	AlignCurve(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:AbstractBaseCreate(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

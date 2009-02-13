@@ -19,7 +19,8 @@ class Joint : public Transform
 public:
 public:
 	Joint():Transform(){}
-	Joint(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "joint"){}
+	Joint(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "joint", create){}
 	virtual ~Joint(){}
 	void setJointOrientType(const string& jot)
 	{
@@ -305,209 +306,209 @@ public:
 		fprintf(mFile,"\tsetAttr \".hni\" %i;\n", hni);
 
 	}
-	void getJointTypeX()
+	void getJointTypeX()const
 	{
 		fprintf(mFile,"\"%s.jtx\"",mName.c_str());
 
 	}
-	void getJointTypeY()
+	void getJointTypeY()const
 	{
 		fprintf(mFile,"\"%s.jty\"",mName.c_str());
 
 	}
-	void getJointTypeZ()
+	void getJointTypeZ()const
 	{
 		fprintf(mFile,"\"%s.jtz\"",mName.c_str());
 
 	}
-	void getJointOrient()
+	void getJointOrient()const
 	{
 		fprintf(mFile,"\"%s.jo\"",mName.c_str());
 
 	}
-	void getJointOrientX()
+	void getJointOrientX()const
 	{
 		fprintf(mFile,"\"%s.jo.jox\"",mName.c_str());
 
 	}
-	void getJointOrientY()
+	void getJointOrientY()const
 	{
 		fprintf(mFile,"\"%s.jo.joy\"",mName.c_str());
 
 	}
-	void getJointOrientZ()
+	void getJointOrientZ()const
 	{
 		fprintf(mFile,"\"%s.jo.joz\"",mName.c_str());
 
 	}
-	void getSegmentScaleCompensate()
+	void getSegmentScaleCompensate()const
 	{
 		fprintf(mFile,"\"%s.ssc\"",mName.c_str());
 
 	}
-	void getInverseScale()
+	void getInverseScale()const
 	{
 		fprintf(mFile,"\"%s.is\"",mName.c_str());
 
 	}
-	void getInverseScaleX()
+	void getInverseScaleX()const
 	{
 		fprintf(mFile,"\"%s.is.isx\"",mName.c_str());
 
 	}
-	void getInverseScaleY()
+	void getInverseScaleY()const
 	{
 		fprintf(mFile,"\"%s.is.isy\"",mName.c_str());
 
 	}
-	void getInverseScaleZ()
+	void getInverseScaleZ()const
 	{
 		fprintf(mFile,"\"%s.is.isz\"",mName.c_str());
 
 	}
-	void getStiffness()
+	void getStiffness()const
 	{
 		fprintf(mFile,"\"%s.st\"",mName.c_str());
 
 	}
-	void getStiffnessX()
+	void getStiffnessX()const
 	{
 		fprintf(mFile,"\"%s.st.stx\"",mName.c_str());
 
 	}
-	void getStiffnessY()
+	void getStiffnessY()const
 	{
 		fprintf(mFile,"\"%s.st.sty\"",mName.c_str());
 
 	}
-	void getStiffnessZ()
+	void getStiffnessZ()const
 	{
 		fprintf(mFile,"\"%s.st.stz\"",mName.c_str());
 
 	}
-	void getPreferredAngle()
+	void getPreferredAngle()const
 	{
 		fprintf(mFile,"\"%s.pa\"",mName.c_str());
 
 	}
-	void getPreferredAngleX()
+	void getPreferredAngleX()const
 	{
 		fprintf(mFile,"\"%s.pa.pax\"",mName.c_str());
 
 	}
-	void getPreferredAngleY()
+	void getPreferredAngleY()const
 	{
 		fprintf(mFile,"\"%s.pa.pay\"",mName.c_str());
 
 	}
-	void getPreferredAngleZ()
+	void getPreferredAngleZ()const
 	{
 		fprintf(mFile,"\"%s.pa.paz\"",mName.c_str());
 
 	}
-	void getMinRotateDampRange()
+	void getMinRotateDampRange()const
 	{
 		fprintf(mFile,"\"%s.ndr\"",mName.c_str());
 
 	}
-	void getMinRotateDampRangeX()
+	void getMinRotateDampRangeX()const
 	{
 		fprintf(mFile,"\"%s.ndr.ndx\"",mName.c_str());
 
 	}
-	void getMinRotateDampRangeY()
+	void getMinRotateDampRangeY()const
 	{
 		fprintf(mFile,"\"%s.ndr.ndy\"",mName.c_str());
 
 	}
-	void getMinRotateDampRangeZ()
+	void getMinRotateDampRangeZ()const
 	{
 		fprintf(mFile,"\"%s.ndr.ndz\"",mName.c_str());
 
 	}
-	void getMinRotateDampStrength()
+	void getMinRotateDampStrength()const
 	{
 		fprintf(mFile,"\"%s.nst\"",mName.c_str());
 
 	}
-	void getMinRotateDampStrengthX()
+	void getMinRotateDampStrengthX()const
 	{
 		fprintf(mFile,"\"%s.nst.nstx\"",mName.c_str());
 
 	}
-	void getMinRotateDampStrengthY()
+	void getMinRotateDampStrengthY()const
 	{
 		fprintf(mFile,"\"%s.nst.nsty\"",mName.c_str());
 
 	}
-	void getMinRotateDampStrengthZ()
+	void getMinRotateDampStrengthZ()const
 	{
 		fprintf(mFile,"\"%s.nst.nstz\"",mName.c_str());
 
 	}
-	void getMaxRotateDampRange()
+	void getMaxRotateDampRange()const
 	{
 		fprintf(mFile,"\"%s.xdr\"",mName.c_str());
 
 	}
-	void getMaxRotateDampRangeX()
+	void getMaxRotateDampRangeX()const
 	{
 		fprintf(mFile,"\"%s.xdr.xdx\"",mName.c_str());
 
 	}
-	void getMaxRotateDampRangeY()
+	void getMaxRotateDampRangeY()const
 	{
 		fprintf(mFile,"\"%s.xdr.xdy\"",mName.c_str());
 
 	}
-	void getMaxRotateDampRangeZ()
+	void getMaxRotateDampRangeZ()const
 	{
 		fprintf(mFile,"\"%s.xdr.xdz\"",mName.c_str());
 
 	}
-	void getMaxRotateDampStrength()
+	void getMaxRotateDampStrength()const
 	{
 		fprintf(mFile,"\"%s.xst\"",mName.c_str());
 
 	}
-	void getMaxRotateDampStrengthX()
+	void getMaxRotateDampStrengthX()const
 	{
 		fprintf(mFile,"\"%s.xst.xstx\"",mName.c_str());
 
 	}
-	void getMaxRotateDampStrengthY()
+	void getMaxRotateDampStrengthY()const
 	{
 		fprintf(mFile,"\"%s.xst.xsty\"",mName.c_str());
 
 	}
-	void getMaxRotateDampStrengthZ()
+	void getMaxRotateDampStrengthZ()const
 	{
 		fprintf(mFile,"\"%s.xst.xstz\"",mName.c_str());
 
 	}
-	void getBindPose()
+	void getBindPose()const
 	{
 		fprintf(mFile,"\"%s.bps\"",mName.c_str());
 
 	}
-	void getDrawLabel()
+	void getDrawLabel()const
 	{
 		fprintf(mFile,"\"%s.dl\"",mName.c_str());
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.radi\"",mName.c_str());
 
 	}
-	void getHikNodeID()
+	void getHikNodeID()const
 	{
 		fprintf(mFile,"\"%s.hni\"",mName.c_str());
 
 	}
 protected:
-	Joint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	Joint(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

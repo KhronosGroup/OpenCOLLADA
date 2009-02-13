@@ -19,7 +19,8 @@ class CopyColorSet : public DependNode
 public:
 public:
 	CopyColorSet():DependNode(){}
-	CopyColorSet(FILE* file,const std::string& name,const std::string& parent=""):DependNode(file, name, parent, "copyColorSet"){}
+	CopyColorSet(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:DependNode(file, name, parent, "copyColorSet", create){}
 	virtual ~CopyColorSet(){}
 	void setSrcColorSetName(const string& src)
 	{
@@ -37,29 +38,29 @@ public:
 		fprintf(mFile,";\n");
 
 	}
-	void getInputGeometry()
+	void getInputGeometry()const
 	{
 		fprintf(mFile,"\"%s.ig\"",mName.c_str());
 
 	}
-	void getOutputGeometry()
+	void getOutputGeometry()const
 	{
 		fprintf(mFile,"\"%s.og\"",mName.c_str());
 
 	}
-	void getSrcColorSetName()
+	void getSrcColorSetName()const
 	{
 		fprintf(mFile,"\"%s.src\"",mName.c_str());
 
 	}
-	void getDstColorName()
+	void getDstColorName()const
 	{
 		fprintf(mFile,"\"%s.dst\"",mName.c_str());
 
 	}
 protected:
-	CopyColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:DependNode(file, name, parent, nodeType) {}
+	CopyColorSet(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:DependNode(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

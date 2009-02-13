@@ -19,7 +19,8 @@ class RevolvedPrimitive : public Primitive
 public:
 public:
 	RevolvedPrimitive():Primitive(){}
-	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent=""):Primitive(file, name, parent, "revolvedPrimitive"){}
+	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Primitive(file, name, parent, "revolvedPrimitive", create){}
 	virtual ~RevolvedPrimitive(){}
 	void setRadius(double r)
 	{
@@ -75,69 +76,69 @@ public:
 		fprintf(mFile,"\tsetAttr \".hr\" %f;\n", hr);
 
 	}
-	void getRadius()
+	void getRadius()const
 	{
 		fprintf(mFile,"\"%s.r\"",mName.c_str());
 
 	}
-	void getStartSweep()
+	void getStartSweep()const
 	{
 		fprintf(mFile,"\"%s.ssw\"",mName.c_str());
 
 	}
-	void getEndSweep()
+	void getEndSweep()const
 	{
 		fprintf(mFile,"\"%s.esw\"",mName.c_str());
 
 	}
-	void getUseTolerance()
+	void getUseTolerance()const
 	{
 		fprintf(mFile,"\"%s.ut\"",mName.c_str());
 
 	}
-	void getDegree()
+	void getDegree()const
 	{
 		fprintf(mFile,"\"%s.d\"",mName.c_str());
 
 	}
-	void getSections()
+	void getSections()const
 	{
 		fprintf(mFile,"\"%s.s\"",mName.c_str());
 
 	}
-	void getSpans()
+	void getSpans()const
 	{
 		fprintf(mFile,"\"%s.nsp\"",mName.c_str());
 
 	}
-	void getTolerance()
+	void getTolerance()const
 	{
 		fprintf(mFile,"\"%s.tol\"",mName.c_str());
 
 	}
-	void getHeightRatio()
+	void getHeightRatio()const
 	{
 		fprintf(mFile,"\"%s.hr\"",mName.c_str());
 
 	}
-	void getTopCapCurve()
+	void getTopCapCurve()const
 	{
 		fprintf(mFile,"\"%s.tcc\"",mName.c_str());
 
 	}
-	void getBottomCapCurve()
+	void getBottomCapCurve()const
 	{
 		fprintf(mFile,"\"%s.bcc\"",mName.c_str());
 
 	}
-	void getAbsoluteSweepDifference()
+	void getAbsoluteSweepDifference()const
 	{
 		fprintf(mFile,"\"%s.asd\"",mName.c_str());
 
 	}
 protected:
-	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Primitive(file, name, parent, nodeType) {}
+	RevolvedPrimitive(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Primitive(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM

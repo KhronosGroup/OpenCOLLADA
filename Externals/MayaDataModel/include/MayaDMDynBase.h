@@ -19,7 +19,8 @@ class DynBase : public Transform
 public:
 public:
 	DynBase():Transform(){}
-	DynBase(FILE* file,const std::string& name,const std::string& parent=""):Transform(file, name, parent, "dynBase"){}
+	DynBase(FILE* file,const std::string& name,const std::string& parent="",bool create=true)
+		:Transform(file, name, parent, "dynBase", create){}
 	virtual ~DynBase(){}
 	void setFromWhere(short fw)
 	{
@@ -33,59 +34,59 @@ public:
 		fprintf(mFile,"\tsetAttr \".sid\" %i;\n", sid);
 
 	}
-	void getOwner()
+	void getOwner()const
 	{
 		fprintf(mFile,"\"%s.ow\"",mName.c_str());
 
 	}
-	void getFromWhere()
+	void getFromWhere()const
 	{
 		fprintf(mFile,"\"%s.fw\"",mName.c_str());
 
 	}
-	void getSubsetId()
+	void getSubsetId()const
 	{
 		fprintf(mFile,"\"%s.sid\"",mName.c_str());
 
 	}
-	void getPositional()
+	void getPositional()const
 	{
 		fprintf(mFile,"\"%s.psl\"",mName.c_str());
 
 	}
-	void getOwnerCentroid()
+	void getOwnerCentroid()const
 	{
 		fprintf(mFile,"\"%s.ocd\"",mName.c_str());
 
 	}
-	void getOwnerCentroidX()
+	void getOwnerCentroidX()const
 	{
 		fprintf(mFile,"\"%s.ocd.ocx\"",mName.c_str());
 
 	}
-	void getOwnerCentroidY()
+	void getOwnerCentroidY()const
 	{
 		fprintf(mFile,"\"%s.ocd.ocy\"",mName.c_str());
 
 	}
-	void getOwnerCentroidZ()
+	void getOwnerCentroidZ()const
 	{
 		fprintf(mFile,"\"%s.ocd.ocz\"",mName.c_str());
 
 	}
-	void getOwnerPosData()
+	void getOwnerPosData()const
 	{
 		fprintf(mFile,"\"%s.opd\"",mName.c_str());
 
 	}
-	void getOwnerVelData()
+	void getOwnerVelData()const
 	{
 		fprintf(mFile,"\"%s.ovd\"",mName.c_str());
 
 	}
 protected:
-	DynBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType)
-		:Transform(file, name, parent, nodeType) {}
+	DynBase(FILE* file,const std::string& name,const std::string& parent,const std::string& nodeType,bool create=true)
+		:Transform(file, name, parent, nodeType, create) {}
 
 };
 }//namespace MayaDM
