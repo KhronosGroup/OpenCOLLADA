@@ -78,8 +78,22 @@ namespace COLLADAMaya
         void appendEffect ( const COLLADAFW::UniqueId& id, MayaDM::DependNode* effectNode );
 
         /**
-         * Imports a lambert shader effect.
+         * Imports a blinn shader effect.
          */
+        void importBlinnShader ( 
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect );
+
+        /**
+        * Imports a phong shader effect.
+        */
+        void importPhongShader ( 
+            const COLLADAFW::Effect* effect, 
+            const COLLADAFW::EffectCommon* commonEffect );
+
+        /**
+        * Imports a lambert shader effect.
+        */
         void importLambertShader ( 
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect );
@@ -93,6 +107,8 @@ namespace COLLADAMaya
             const COLLADAFW::Effect* effect, 
             const COLLADAFW::EffectCommon* commonEffect )
         {
+            // TODO Textures!
+
             {
                 const COLLADAFW::Color& color = effect->getStandardColor ();
                 if ( color.isValid () )

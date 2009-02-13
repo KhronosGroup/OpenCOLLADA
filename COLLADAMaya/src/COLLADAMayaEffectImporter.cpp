@@ -12,6 +12,8 @@
 #include "COLLADAMayaEffectImporter.h"
 
 #include "MayaDMLambert.h"
+#include "MayaDMBlinn.h"
+#include "MayaDMPhong.h"
 
 
 namespace COLLADAMaya
@@ -55,10 +57,13 @@ namespace COLLADAMaya
             switch ( shaderType )
             {
             case COLLADAFW::EffectCommon::SHADER_BLINN:
+                importBlinnShader ( effect, commonEffect );
                 break;
             case COLLADAFW::EffectCommon::SHADER_CONSTANT:
+                // TODO
                 break;
             case COLLADAFW::EffectCommon::SHADER_PHONG:
+                importPhongShader ( effect, commonEffect );
                 break;
             case COLLADAFW::EffectCommon::SHADER_LAMBERT:
                 importLambertShader ( effect, commonEffect );
@@ -71,6 +76,58 @@ namespace COLLADAMaya
         }
 
         return true;
+    }
+
+    //------------------------------
+    void EffectImporter::importBlinnShader ( 
+        const COLLADAFW::Effect* effect, 
+        const COLLADAFW::EffectCommon* commonEffect )
+    {
+        // Get the material name.
+        String effectName ( effect->getName () );
+        if ( COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
+            effectName = EFFECT_NAME;
+        effectName = DocumentImporter::frameworkNameToMayaName ( effectName );
+        effectName = mEffectIdList.addId ( effectName );
+
+        const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
+        mMayaEffectNamesMap [effectId] = effectName;
+
+        // Write the effect into the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+        MayaDM::Blinn* blinn = new MayaDM::Blinn ( file, effectName );
+
+        // Import the shader attributes.
+        importShaderAttributes ( blinn, effect, commonEffect );
+
+        // Push it into the map.
+        appendEffect ( effectId, blinn );
+    }
+
+    //------------------------------
+    void EffectImporter::importPhongShader ( 
+        const COLLADAFW::Effect* effect, 
+        const COLLADAFW::EffectCommon* commonEffect )
+    {
+        // Get the material name.
+        String effectName ( effect->getName () );
+        if ( COLLADABU::Utils::equals ( effectName, COLLADABU::Utils::EMPTY_STRING ) )
+            effectName = EFFECT_NAME;
+        effectName = DocumentImporter::frameworkNameToMayaName ( effectName );
+        effectName = mEffectIdList.addId ( effectName );
+
+        const COLLADAFW::UniqueId& effectId = effect->getUniqueId ();
+        mMayaEffectNamesMap [effectId] = effectName;
+
+        // Write the effect into the maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+        MayaDM::Phong* phong = new MayaDM::Phong ( file, effectName );
+
+        // Import the shader attributes.
+        importShaderAttributes ( phong, effect, commonEffect );
+
+        // Push it into the map.
+        appendEffect ( effectId, phong );
     }
 
     //------------------------------
