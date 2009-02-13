@@ -69,6 +69,8 @@ namespace COLLADAMax
 		/** Imports all the instance cameras in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
 		bool importInstanceCameras( const COLLADAFW::InstanceCameraPointerArray& instanceCameraArray, ImpNode* parentImportNode );
 
+		/** Imports all the instance lights in  @a instanceGeometryArray and attaches them to @a parentImportNode.*/
+		bool importInstanceLights( const COLLADAFW::InstanceLightPointerArray& instanceLightArray, ImpNode* parentImportNode );
 
 		/** Imports the first instance of type Instance in @a node. A new INode is created, that references 
 		the instantiated geometry and has the	properties of @a node (name, transformation). The new INode 
@@ -84,12 +86,17 @@ namespace COLLADAMax
 		Use this member, if a node has exactly one instance geometry.*/
 		ImpNode* importInstanceGeometry( const COLLADAFW::Node* node, ImpNode* parentImportNode );
 
-
 		/** Imports the first instance camera in @a node. It is assumed that @a node has at least one
 		instance camera. A new INode is created, that references the instantiated camera and has the
 		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
 		Use this member, if a node has exactly one instance camera.*/
 		ImpNode* importInstanceCamera( const COLLADAFW::Node* node, ImpNode* parentImportNode );
+
+		/** Imports the first instance light in @a node. It is assumed that @a node has at least one
+		instance light. A new INode is created, that references the instantiated light and has the
+		properties of @a node (name, transformation). The new INode is attached to @a parentImportNode. 
+		Use this member, if a node has exactly one instance light.*/
+		ImpNode* importInstanceLight( const COLLADAFW::Node* node, ImpNode* parentImportNode );
 
 		/** Imports all the instance nodes in  @a instanceNodeArray and attaches them to @a parentImportNode.*/
 		bool importInstanceNodes( const COLLADAFW::InstanceNodePointerArray& instanceNodeArray, ImpNode* parentImportNode );

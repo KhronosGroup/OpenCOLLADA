@@ -24,6 +24,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAMaxMaterialCreator.h"
 #include "COLLADAMaxEffectImporter.h"
 #include "COLLADAMaxCameraImporter.h"
+#include "COLLADAMaxLightImporter.h"
 #include "COLLADAMaxFWLErrorHandler.h"
 
 #include "COLLADAFWLibraryNodes.h"
@@ -40,6 +41,7 @@ namespace COLLADAMax
 		: mMaxInterface(maxInterface)
 		, mMaxImportInterface(maxImportInterface)
 		, mImportFilePath(filepath)
+		, mNumberOfAmbientColors(0)
 		, mDummyObject((DummyObject*) getMaxImportInterface()->Create(HELPER_CLASS_ID, Class_ID(DUMMY_CLASS_ID, 0)))
 	{
 	}
@@ -64,6 +66,11 @@ namespace COLLADAMax
 		if ( !root.loadDocument(mImportFilePath) )
 			return false;
 
+		if ( (mNumberOfAmbientColors > 0) && mAmbientColor.isValid() )
+		{
+			mMaxImportInterface->SetAmbient(0, Point3(mAmbientColor.getRed(), mAmbientColor.getGreen(), mAmbientColor.getBlue() ));
+		}
+
 		return createAndAssignMaterials();
 	}
 
@@ -72,6 +79,24 @@ namespace COLLADAMax
 	{
 		MaterialCreator materialCreator(this);
 		return materialCreator.create();
+	}
+
+	//---------------------------------------------------------------
+	void DocumentImporter::addAmbientColor( const COLLADAFW::Color& ambientColor )
+	{
+		if ( mAmbientColor.isValid())
+		{
+			mAmbientColor.setRed( (mAmbientColor.getRed() * mNumberOfAmbientColors + ambientColor.getRed())/(mNumberOfAmbientColors+1) );
+			mAmbientColor.setGreen( (mAmbientColor.getGreen() * mNumberOfAmbientColors + ambientColor.getGreen())/(mNumberOfAmbientColors+1) );
+			mAmbientColor.setBlue( (mAmbientColor.getBlue() * mNumberOfAmbientColors + ambientColor.getBlue())/(mNumberOfAmbientColors+1) );
+			mNumberOfAmbientColors++;
+		}
+		else
+		{
+			mAmbientColor = ambientColor;
+			mNumberOfAmbientColors = 1;
+		}
+
 	}
 
 	//---------------------------------------------------------------
@@ -114,6 +139,13 @@ namespace COLLADAMax
 	{
 		CameraImporter cameraImporter(this, camera);
 		return cameraImporter.import();
+	}
+
+	//---------------------------------------------------------------
+	bool DocumentImporter::writeLight( const COLLADAFW::Light* light )
+	{
+		LightImporter lightImporter(this, light);
+		return lightImporter.import();
 	}
 
 } // namespace COLLADAMax

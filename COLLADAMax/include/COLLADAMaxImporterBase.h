@@ -62,6 +62,9 @@ namespace COLLADAMax
         /** Destructor. */
 		virtual ~ImporterBase();
 
+		/** Returns the document importer.*/
+		DocumentImporter* getDocumentImporter() { return mDocumentImporter; }
+
 		/** Returns the max interface.*/
 		Interface* getMaxInterface();
 

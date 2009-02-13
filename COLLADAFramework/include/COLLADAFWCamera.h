@@ -72,8 +72,7 @@ namespace COLLADAFW
 		/** The far clipping plane.*/
 		double mFarClippingPlane;
 	public:
-		/** 
-		@param objectId The object id of the camera.*/
+		/** @param objectId The object id of the camera.*/
 		Camera( ObjectId objectId );
 
         /** Destructor. */

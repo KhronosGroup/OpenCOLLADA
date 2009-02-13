@@ -77,6 +77,12 @@ namespace GeneratedSaxParser
 			}
 
 			xmlSAXHandlerPtr oldSaxContext = mParserContext->sax;
+
+			if (mParserContext->sax != (xmlSAXHandlerPtr) &xmlDefaultSAXHandler)
+			{
+				xmlFree(mParserContext->sax);
+			}
+
 			mParserContext->sax = &SAXHANDLER;
 			mParserContext->userData = (void*)this;
 

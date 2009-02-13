@@ -23,7 +23,9 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWMaterial.h"
 #include "COLLADAFWEffect.h"
+#include "COLLADAFWColor.h"
 #include "COLLADAFWInstanceGeometry.h"
+
 #include <list>
 
 //#include "dummy.h"
@@ -111,6 +113,12 @@ namespace COLLADAMax
 		/** File path of the COLLADA document to import.*/
 		NativeString mImportFilePath;
 
+		/** The accumulated ambient color.*/
+		COLLADAFW::Color mAmbientColor;
+
+		/** The number of ambient colors already added.*/
+		size_t mNumberOfAmbientColors;
+
 		/** A dummy helper, that is used for nodes that do not have an object assigned to.*/
 		DummyObject* mDummyObject;
 		
@@ -182,6 +190,15 @@ namespace COLLADAMax
 		/** Returns the max interface.*/
 		ImpInterface* getMaxImportInterface() { return mMaxImportInterface; }
 
+		/** Returns the accumulated ambient color.*/
+		const COLLADAFW::Color& getAmbientColor() const { return mAmbientColor; }
+
+		/** Returns the number of accumulated ambient colors.*/
+		size_t getNumberOfAmbientColors() const { return mNumberOfAmbientColors; }
+
+		/** Adds @a ambientColor to the total ambient color.*/
+		void addAmbientColor( const COLLADAFW::Color& ambientColor);
+
 		/** Deletes the entire scene.
 		@param errorMessage A message containing informations about the error that occurred.
 		*/
@@ -221,8 +238,10 @@ namespace COLLADAMax
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeCamera( const COLLADAFW::Camera* camera );
 
+		/** Writes the light.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeLight( const COLLADAFW::Light* light );
 
-	
 	private:
         /** Disable default copy ctor. */
 		DocumentImporter( const DocumentImporter& pre );

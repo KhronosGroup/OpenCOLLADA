@@ -23,6 +23,7 @@ namespace COLLADAFW
 	class Material;
 	class Effect;
 	class Camera;
+	class Light;
 
 
 	/** Class that needs to be implemented by a writer. 
@@ -79,6 +80,10 @@ namespace COLLADAFW
 		/** When this method is called, the writer must write the camera.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeCamera( const Camera* camera ) = 0;
+
+		/** When this method is called, the writer must write the light.
+		@return The writer should return true, if writing succeeded, false otherwise.*/
+		virtual bool writeLight( const Light* camera ) = 0;
 
 	private:
 

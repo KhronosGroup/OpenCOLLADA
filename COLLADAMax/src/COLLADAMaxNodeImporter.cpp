@@ -90,15 +90,21 @@ namespace COLLADAMax
 
 			importInstanceGeometries(node->getInstanceGeometries(), newImportNode);
 			importInstanceCameras(node->getInstanceCameras(), newImportNode);
+			importInstanceLights(node->getInstanceLights(), newImportNode);
 			importNodes(node->getChildNodes(), newImportNode);
 		}
 		else
 		{
 			newImportNode = importInstanceGeometry( node, parentImportNode );
+
 			if ( !newImportNode )
 				newImportNode = importInstanceCamera( node, parentImportNode );
 
+			if ( !newImportNode )
+				newImportNode = importInstanceLight( node, parentImportNode );
+
 			assert(newImportNode);
+			// todo if ( newimportnode ) else with parentnode
 			importNodes(node->getChildNodes(), newImportNode);
 		}
 
@@ -190,6 +196,12 @@ namespace COLLADAMax
 	}
 
 	//------------------------------
+	bool NodeImporter::importInstanceLights( const COLLADAFW::InstanceLightPointerArray& instanceLightArray, ImpNode* parentImportNode )
+	{
+		return importInstances<COLLADAFW::InstanceLight, 0>(instanceLightArray, parentImportNode);
+	}
+
+	//------------------------------
 	template<class Instance, 
 		     const COLLADAFW::PointerArray<Instance>& (COLLADAFW::Node::*getInstances)()const,
 			 void (NodeImporter::*postProcess)( INode*, Instance* )>
@@ -247,6 +259,12 @@ namespace COLLADAMax
 	ImpNode* NodeImporter::importInstanceCamera( const COLLADAFW::Node* node, ImpNode* parentImportNode )
 	{
 		return importInstance<COLLADAFW::InstanceCamera, &COLLADAFW::Node::getInstanceCameras, 0>(node, parentImportNode);
+	}
+
+	//------------------------------
+	ImpNode* NodeImporter::importInstanceLight( const COLLADAFW::Node* node, ImpNode* parentImportNode )
+	{
+		return importInstance<COLLADAFW::InstanceLight, &COLLADAFW::Node::getInstanceLights, 0>(node, parentImportNode);
 	}
 
 	//------------------------------

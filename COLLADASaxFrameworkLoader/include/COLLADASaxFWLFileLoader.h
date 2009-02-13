@@ -106,6 +106,9 @@ namespace COLLADASaxFWL
 		/** Starts loading a library cameras.*/
 		virtual bool begin__library_cameras( const library_cameras__AttributeData& attributeData );
 
+		/** Starts loading a library lights.*/
+		virtual bool begin__library_lights( const library_lights__AttributeData& attributeData );
+
     private:
 
         /** Disable default copy ctor. */

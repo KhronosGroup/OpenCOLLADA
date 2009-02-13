@@ -336,6 +336,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWLight.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWLoaderUtils.cpp"
 				>
 			</File>
@@ -522,6 +526,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWInstanceLight.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWInstanceMaterial.h"
 				>
 			</File>
@@ -535,6 +543,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWLibraryNodes.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWLight.h"
 				>
 			</File>
 			<File
