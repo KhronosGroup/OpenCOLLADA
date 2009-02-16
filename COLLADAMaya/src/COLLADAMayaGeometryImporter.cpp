@@ -37,7 +37,7 @@ namespace COLLADAMaya
 {
     
     const String GeometryImporter::GEOMETRY_NAME = "Geometry";
-    const String GeometryImporter::GROUPID_NAME = "GroupId1";
+    const String GeometryImporter::GROUPID_NAME = "GroupId";
 
 
     // --------------------------------------------
@@ -46,13 +46,13 @@ namespace COLLADAMaya
     {}
 
     // --------------------------------------------
-    bool GeometryImporter::importGeometry ( const COLLADAFW::Geometry* geometry )
+    void GeometryImporter::importGeometry ( const COLLADAFW::Geometry* geometry )
     {
-        if ( geometry == 0 ) return false;
+        if ( geometry == 0 ) return;
 
         // Check if the current geometry is already imported.
         const COLLADAFW::UniqueId& geometryId = geometry->getUniqueId ();
-        if ( findMayaMeshNode ( geometryId ) != 0 ) return false;
+        if ( findMayaMeshNode ( geometryId ) != 0 ) return;
 
         COLLADAFW::Geometry::GeometryType type = geometry->getType ();
         switch ( type )
@@ -60,11 +60,11 @@ namespace COLLADAMaya
         case COLLADAFW::Geometry::GEO_TYPE_CONVEX_MESH:
             std::cerr << "Import of convex_mesh not supported!" << std::endl;
             MGlobal::displayError ( "Import of convex_mesh not supported!" );
-            return false;
+            return;
         case COLLADAFW::Geometry::GEO_TYPE_SPLINE:
             std::cerr << "Import of spline not supported!" << std::endl;
             MGlobal::displayError ( "Import of spline not supported!" );
-            return false;
+            return;
         case COLLADAFW::Geometry::GEO_TYPE_MESH:
             {
                 COLLADAFW::Mesh* mesh = ( COLLADAFW::Mesh* ) geometry;
@@ -72,10 +72,10 @@ namespace COLLADAMaya
                 break;
             }
         default:
-            return false;
+            return;
         }
 
-        return true;
+        return;
     }
 
     // --------------------------------------------
@@ -178,7 +178,12 @@ namespace COLLADAMaya
         mMayaMeshNodesMap [ uniqueId ] = mayaMeshNode;
 
         // Get the parent node name.
-        assert ( mayaTransformNode != NULL );
+        if ( mayaTransformNode == NULL ) 
+        {
+            assert ( mayaTransformNode != NULL );
+            MGlobal::displayError ( "No transform node! ");
+            return;
+        }
         String transformNodePath = mayaTransformNode->getNodePath ();
 
         // Create the current mesh node.

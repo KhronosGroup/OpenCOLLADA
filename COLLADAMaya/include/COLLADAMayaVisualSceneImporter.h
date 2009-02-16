@@ -60,6 +60,18 @@ namespace COLLADAMaya
          */
         UniqueIdUniqueIdsMap mGeometryTransformIdsMap;
 
+        /*
+        * The map holds for every unique id of a camera a list of transform node unique ids.
+        * We need it for the creation of the camera, to set the parent transform nodes.
+        */
+        UniqueIdUniqueIdsMap mCameraTransformIdsMap;
+
+        /*
+        * The map holds for every unique id of a light a list of transform node unique ids.
+        * We need it for the creation of the light, to set the parent transform nodes.
+        */
+        UniqueIdUniqueIdsMap mLightTransformIdsMap;
+
         /** 
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
@@ -145,6 +157,20 @@ namespace COLLADAMaya
         */
         const UniqueIdVec* findGeometryTransformIds ( const COLLADAFW::UniqueId& geometryId ) const;
 
+        /*
+        * The map holdes for every camera (identified by it's unique id ) a list of all 
+        * transform nodes (identified by their names, which are unique!).
+        * We need it for the creation of the camera, to set the parent transform nodes.
+        */
+        const UniqueIdVec* findCameraTransformIds ( const COLLADAFW::UniqueId& cameraId ) const;
+
+        /*
+        * The map holdes for every light (identified by it's unique id ) a list of all 
+        * transform nodes (identified by their names, which are unique!).
+        * We need it for the creation of the light, to set the parent transform nodes.
+        */
+        const UniqueIdVec* findLightTransformIds ( const COLLADAFW::UniqueId& lightId ) const;
+
     private:
 
         /*
@@ -158,6 +184,16 @@ namespace COLLADAMaya
          *	Save the transformation ids to the geometry ids.
          */
         bool readGeometryInstances ( const COLLADAFW::Node* node );
+
+        /**
+        *	Save the transformation ids to the geometry ids.
+        */
+        bool readCameraInstances ( const COLLADAFW::Node* node );
+
+        /**
+        *	Save the transformation ids to the geometry ids.
+        */
+        bool readLightInstances ( const COLLADAFW::Node* node );
 
         /**
          * Read the shading engines.

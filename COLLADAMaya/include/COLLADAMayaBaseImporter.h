@@ -88,6 +88,22 @@ namespace COLLADAMaya
         */
         void toLinearUnit ( const double val0, const double val1, const double val2, COLLADABU::Math::Vector3& retVal );
 
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        double toLinearUnit ( const double val );
+
+        /**
+        * Converts the given value to the linear unit in meters.
+        * How many real-world meters in one distance unit as a floating-point number.
+        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+        * 0.3048 for the name "foot".
+        */
+        float toLinearUnit ( const float val );
+
     protected:
 
         /** Returns a pointer to the current document importer. */
@@ -95,54 +111,6 @@ namespace COLLADAMaya
 
         /** Returns a pointer to the current document importer. */
         const DocumentImporter* getDocumentImporter () const { return mDocumentImporter; }
-
-//         /** Pointer to the current dae document. */
-//         daeDocument* getDaeDocument () 
-//         { 
-//             return mDocumentImporter->getDocumentLoader ().getDaeDocument (); 
-//         }
-// 
-//         /** Pointer to the current dae document. */
-//         const daeDocument* getDaeDocument () const 
-//         { 
-//             return mDocumentImporter->getDocumentLoader ().getDaeDocument (); 
-//         }
-// 
-//         /** Returns the current document loader. */
-//         COLLADADH::Loader& getDocumentLoader ()
-//         {
-//             return mDocumentImporter->getDocumentLoader ();
-//         }
-// 
-//         /** Returns the current document loader. */
-//         const COLLADADH::Loader& getDocumentLoader () const
-//         {
-//             return mDocumentImporter->getDocumentLoader ();
-//         }
-
-    private:
-
-        /**
-        * Converts the given value to the linear unit in meters.
-        * How many real-world meters in one distance unit as a floating-point number.
-        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
-        * 0.3048 for the name "foot".
-        */
-        double toLinearUnit ( const double val )
-        {
-            return ( val * mDocumentImporter->getLinearUnitMeter () );
-        }
-
-        /**
-        * Converts the given value to the linear unit in meters.
-        * How many real-world meters in one distance unit as a floating-point number.
-        * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
-        * 0.3048 for the name "foot".
-        */
-        float toLinearUnit ( const float val )
-        {
-            return ( val * (float) mDocumentImporter->getLinearUnitMeter () );
-        }
 
     };
 }

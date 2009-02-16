@@ -22,10 +22,11 @@
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWFileInfo.h"
-#include "COLLADAFWVisualScene.h"
-#include "COLLADAFWGeometry.h"
-#include "COLLADAFWMaterial.h"
-#include "COLLADAFWEffect.h"
+// #include "COLLADAFWVisualScene.h"
+// #include "COLLADAFWGeometry.h"
+// #include "COLLADAFWMaterial.h"
+// #include "COLLADAFWEffect.h"
+// #include "COLLADAFWCamera.h"
 
 #include "MayaDMMesh.h"
 
@@ -38,6 +39,8 @@ namespace COLLADAMaya
     class GeometryImporter;
     class MaterialImporter;
     class EffectImporter;
+    class CameraImporter;
+    class LightImporter;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -74,6 +77,8 @@ namespace COLLADAMaya
 
         bool mSceneGraphRead;
         bool mGeometryRead;
+        bool mCameraRead;
+        bool mLightRead;
 
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* mVisualSceneImporter;
@@ -86,6 +91,12 @@ namespace COLLADAMaya
 
         /** Pointer to the geometry importer. */
         EffectImporter* mEffectImporter;
+
+        /** Pointer to the camera importer. */
+        CameraImporter* mCameraImporter;
+
+        /** Pointer to the light importer. */
+        LightImporter* mLightImporter;
 
         /** The variable tells, how many times the document is read. */
         size_t mNumDocumentParses;
@@ -139,6 +150,14 @@ namespace COLLADAMaya
         /** Pointer to the geometry importer. */
         EffectImporter* getEffectImporter () { return mEffectImporter; }
         const EffectImporter* getEffectImporter () const { return mEffectImporter; }
+
+        /** Pointer to the camera importer. */
+        CameraImporter* getCameraImporter () { return mCameraImporter; }
+        const CameraImporter* getCameraImporter () const { return mCameraImporter; }
+
+        /** Pointer to the light importer. */
+        LightImporter* getLightImporter () { return mLightImporter; }
+        const LightImporter* getLightImporter () const { return mLightImporter; }
 
         /** This method will be called if an error in the loading process occurred and the loader 
         cannot continue to to load. The writer should undo all operations that have been performed.
@@ -198,10 +217,11 @@ namespace COLLADAMaya
 
         /** When this method is called, the writer must write the camera.
         @return The writer should return true, if writing succeeded, false otherwise.*/
-        virtual bool writeCamera( const COLLADAFW::Camera* camera ) 
-        {
-            return true;
-        }
+        virtual bool writeCamera( const COLLADAFW::Camera* camera );
+
+        /** When this method is called, the writer must write the light.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeLight( const COLLADAFW::Light* camera );
 
         /**
          * Replace offending characters by some that are supported within maya.

@@ -15,6 +15,8 @@
 #include "MayaDMBlinn.h"
 #include "MayaDMPhong.h"
 
+#include "COLLADAFWEffect.h"
+
 
 namespace COLLADAMaya
 {

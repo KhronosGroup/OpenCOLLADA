@@ -5,6 +5,18 @@ namespace COLLADAMaya
 {
 
     //-----------------------------
+    double BaseImporter::toLinearUnit ( const double val )
+    {
+        return ( val * mDocumentImporter->getLinearUnitMeter () );
+    }
+
+    //-----------------------------
+    float BaseImporter::toLinearUnit ( const float val )
+    {
+        return ( val * (float) mDocumentImporter->getLinearUnitMeter () );
+    }
+
+    //-----------------------------
     MayaDM::double3 BaseImporter::toLinearUnit ( const MayaDM::double3& val )
     {
         if ( mDocumentImporter->getUpAxisType () == COLLADAFW::FileInfo::X_UP )

@@ -17,21 +17,67 @@
 #define __COLLADA_MAYA_CAMERA_IMPORTER_H__
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaBaseImporter.h"
+
+#include "COLLADABUIDList.h"
+
+#include <MayaDMCamera.h>
+
 
 namespace COLLADAMaya
 {
 
     /** Declares xy */
-    class CameraImporter
+    class CameraImporter : BaseImporter
     {
+    private:
+
+        /** The standard name for camera without name. */
+        static const String CAMERA_NAME;
+
+    private:
+
+        /**
+        * The list of the unique maya camera names.
+        */
+        COLLADABU::IDList mCameraIdList;
+        
+        /** 
+        * The map holds the unique ids of the camera nodes to the maya specific nodes. 
+        */
+        UniqueIdMayaNodesMap mMayaCameraNodesMap;
 
     public:
 
         /** Constructor. */
-        CameraImporter () {}
+        CameraImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
-        virtual ~CameraImporter () {}
+        virtual ~CameraImporter ();
+
+        /**
+         * Imports the data of the current camera.
+         */
+        void importCamera ( const COLLADAFW::Camera* camera );
+
+        /**
+        * Imports the data of the current camera.
+        */
+        void createCamera ( 
+            const COLLADAFW::Camera* camera,  
+            MayaNode* mayaTransformNode, 
+            size_t numNodeInstances );
+
+        void setPerspectiveCameraAttributes ( 
+            const COLLADAFW::Camera* camera, 
+            MayaDM::Camera& mayaCamera );
+
+        void setOrthographicCameraAttributes ( 
+            const COLLADAFW::Camera* camera, 
+            MayaDM::Camera& mayaCamera );
+        
+        MayaNode* findMayaCameraNode ( const COLLADAFW::UniqueId& cameraId );
+
 
     };
 }

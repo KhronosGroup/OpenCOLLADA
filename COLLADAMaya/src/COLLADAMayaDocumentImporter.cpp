@@ -21,6 +21,7 @@
 #include "COLLADAMayaEffectImporter.h"
 #include "COLLADAMayaGeometryImporter.h"
 #include "COLLADAMayaCameraImporter.h"
+#include "COLLADAMayaLightImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
 #include "COLLADAMayaVisualSceneImporter.h"
@@ -47,10 +48,14 @@ namespace COLLADAMaya
         , mGeometryImporter (0)
         , mMaterialImporter (0)
         , mEffectImporter (0)
+        , mCameraImporter (0)
+        , mLightImporter (0)
         , mSceneGraphWritten (false)
         , mAssetWritten (false)
         , mSceneGraphRead (false)
         , mGeometryRead (false)
+        , mCameraRead (false)
+        , mLightRead (false)
         , mLinearUnitMeter (1)
         , mNumDocumentParses (0)
     {
@@ -75,6 +80,8 @@ namespace COLLADAMaya
         mGeometryImporter = new GeometryImporter ( this );
         mMaterialImporter = new MaterialImporter ( this );
         mEffectImporter = new EffectImporter ( this );
+        mCameraImporter = new CameraImporter ( this );
+        mLightImporter = new LightImporter ( this );
 
         // Get the sceneID (assign a name to the scene)
         MString sceneName = MFileIO::currentFile ();
@@ -91,6 +98,8 @@ namespace COLLADAMaya
         delete mGeometryImporter;
         delete mMaterialImporter;
         delete mEffectImporter;
+        delete mCameraImporter;
+        delete mLightImporter;
     }
 
     //-----------------------------
@@ -316,10 +325,12 @@ namespace COLLADAMaya
 
         mAssetWritten = true;
 
-        if ( mSceneGraphRead || mGeometryRead )
+        if ( mSceneGraphRead || mGeometryRead || mCameraRead || mLightRead )
         {
             mSceneGraphRead = false;
             mGeometryRead = false;
+            mCameraRead = false;
+            mLightRead = false;
             readColladaDocument ();
         }
 
@@ -344,9 +355,11 @@ namespace COLLADAMaya
         mVisualSceneImporter->importVisualScene ( visualScene );
         mSceneGraphWritten = true;
 
-        if ( mGeometryRead )
+        if ( mGeometryRead || mCameraRead || mLightRead )
         {
             mGeometryRead = false;
+            mCameraRead = false;
+            mLightRead = false;
             readColladaDocument ();
         }
 
@@ -399,6 +412,44 @@ namespace COLLADAMaya
 
         // Import the data.
         mEffectImporter->importEffect ( effect );
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeCamera ( const COLLADAFW::Camera* camera )
+    {
+        // Order: asset, scene graph, others
+        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        {
+            mCameraRead = true;
+            return true;
+        }
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // Import the data.
+        mCameraImporter->importCamera ( camera );
+
+        return true;
+    }
+
+    //-----------------------------
+    bool DocumentImporter::writeLight ( const COLLADAFW::Light* camera )
+    {
+        // Order: asset, scene graph, others
+        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        {
+            mLightRead = true;
+            return true;
+        }
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // Import the data.
+        mLightImporter->importLight ( camera );
 
         return true;
     }

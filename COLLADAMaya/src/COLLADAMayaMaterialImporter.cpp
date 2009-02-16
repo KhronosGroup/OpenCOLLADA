@@ -25,6 +25,8 @@
 #include "MayaDMDefaultShaderList.h"
 #include "MayaDMCommands.h"
 
+#include "COLLADAFWMaterial.h"
+
 
 namespace COLLADAMaya
 {

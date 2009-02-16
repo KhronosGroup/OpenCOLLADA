@@ -98,11 +98,11 @@ namespace COLLADAMaya
         // Import the tranformations.
         importTransformations ( node, transformNode );
 
-        // Import instance geometry.
+        // Import the instances.
         readGeometryInstances ( node );
-
-        // Import the node instances.
         readNodeInstances ( node );
+        readCameraInstances ( node );
+        readLightInstances ( node );
 
         // Recursive call for all child elements.
         const COLLADAFW::NodeArray& childNodes = node->getChildNodes ();
@@ -656,7 +656,7 @@ namespace COLLADAMaya
         if ( it != mMayaTransformNodesMap.end () )
             return &(*it).second;
 
-        return NULL;
+        return 0;
     }
 
     // -----------------------------------
@@ -666,7 +666,7 @@ namespace COLLADAMaya
         if ( it != mMayaTransformNodesMap.end () )
             return &(*it).second;
 
-        return NULL;
+        return 0;
     }
 
     // -----------------------------------
@@ -678,7 +678,31 @@ namespace COLLADAMaya
         if ( it != mGeometryTransformIdsMap.end () )
             return &(*it).second;
 
-        return NULL;
+        return 0;
+    }
+
+    // -----------------------------------
+    const BaseImporter::UniqueIdVec* VisualSceneImporter::findCameraTransformIds ( 
+        const COLLADAFW::UniqueId& cameraId ) const
+    {
+        UniqueIdUniqueIdsMap::const_iterator it = mCameraTransformIdsMap.find ( cameraId );
+
+        if ( it != mCameraTransformIdsMap.end () )
+            return &(*it).second;
+
+        return 0;
+    }
+
+    // -----------------------------------
+    const BaseImporter::UniqueIdVec* VisualSceneImporter::findLightTransformIds ( 
+        const COLLADAFW::UniqueId& lightId ) const
+    {
+        UniqueIdUniqueIdsMap::const_iterator it = mLightTransformIdsMap.find ( lightId );
+
+        if ( it != mLightTransformIdsMap.end () )
+            return &(*it).second;
+
+        return 0;
     }
 
     // -----------------------------------
@@ -753,4 +777,45 @@ namespace COLLADAMaya
         }
     }
 
+    // -----------------------------------
+    bool VisualSceneImporter::readCameraInstances ( const COLLADAFW::Node* node )
+    {
+        // Get the unique id of the current node.
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+
+        // Go through the camera instances and save the geometry ids to the current node.
+        const COLLADAFW::InstanceCameraArray& cameraInstances = node->getInstanceCameras ();
+        size_t numInstances = cameraInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceCamera* instanceCamera = cameraInstances [i];
+            const COLLADAFW::UniqueId& cameraId = instanceCamera->getInstanciatedObjectId ();
+
+            // Save for every geometry a list of transform nodes, which refer to it.
+            mCameraTransformIdsMap [ cameraId ].push_back ( transformNodeId );
+        }
+
+        return true;
+    }
+
+    // -----------------------------------
+    bool VisualSceneImporter::readLightInstances ( const COLLADAFW::Node* node )
+    {
+        // Get the unique id of the current node.
+        const COLLADAFW::UniqueId& transformNodeId = node->getUniqueId ();
+
+        // Go through the camera instances and save the geometry ids to the current node.
+        const COLLADAFW::InstanceLightArray& lightInstances = node->getInstanceLights ();
+        size_t numInstances = lightInstances.getCount ();
+        for ( size_t i=0; i<numInstances; ++i )
+        {
+            const COLLADAFW::InstanceLight* instanceLight = lightInstances [i];
+            const COLLADAFW::UniqueId& lightId = instanceLight->getInstanciatedObjectId ();
+
+            // Save for every geometry a list of transform nodes, which refer to it.
+            mLightTransformIdsMap [ lightId ].push_back ( transformNodeId );
+        }
+
+        return true;
+    }
 }

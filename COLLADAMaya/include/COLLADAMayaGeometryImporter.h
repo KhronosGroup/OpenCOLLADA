@@ -117,16 +117,6 @@ namespace COLLADAMaya
         CombinedIdIndicesMap mShadingEnginePrimitivesMap;
 
         /**
-         * The map holds for every geometry id the number of mesh 
-         * primitive elements.
-         */
-
-        /**
-         * The map holds for every primitive element of every geometry 
-         * instance the generated group id.
-         */
-
-        /**
          * Assign the group to the unique geometry id, the transform node 
          * to the mesh instance and the index of the geometry's primitives.
          */
@@ -141,7 +131,7 @@ namespace COLLADAMaya
         virtual ~GeometryImporter () {}
 
         /** Imports the geometry element. */
-        bool importGeometry ( const COLLADAFW::Geometry* geometry );
+        void importGeometry ( const COLLADAFW::Geometry* geometry );
 
         /** 
         * The map holds the unique ids of the nodes to the maya specific nodes. 

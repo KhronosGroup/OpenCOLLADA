@@ -115,6 +115,80 @@ namespace MayaDM
         fprintf(file, ";\n");                   \
     }
 
+    /**
+    * Edit the aspect ratio of the camera element.
+    * @param FILE* file The file to write the edit value.
+    * @param const std::string& name The name of the camera to edit.
+    * @param const double aspectRatio The value to set.
+    */
+    static void editCameraAspectRatio(FILE* file, const std::string& name, const double aspectRatio)
+    {                                           
+        fprintf(file,"camera -e");
+        fprintf(file, " -ar %f", aspectRatio);
+        fprintf(file, " %s", name.c_str());
+        fprintf(file, ";\n");
+    }
+
+    /**
+    * Edit the horizontalFieldOfView of the camera element.
+    * @param FILE* file The file to write the edit value.
+    * @param const std::string& name The name of the camera to edit.
+    * @param const double horizontalFieldOfView The value to set.
+    */
+    static void editCameraHorizontalFieldOfView(FILE* file, const std::string& name, 
+        const double horizontalFieldOfView)
+    {                                           
+        fprintf(file,"camera -e");
+        fprintf(file, " -hfv %f", horizontalFieldOfView);
+        fprintf(file, " %s", name.c_str());
+        fprintf(file, ";\n");
+    }
+
+    /**
+    * Edit the verticalFieldOfView of the camera element.
+    * @param FILE* file The file to write the edit value.
+    * @param const std::string& name The name of the camera to edit.
+    * @param const double verticalFieldOfView The value to set.
+    */
+    static void editCameraVerticalFieldOfView(FILE* file, const std::string& name, 
+        const double verticalFieldOfView)
+    {                                           
+        fprintf(file,"camera -e");
+        fprintf(file, " -vfv %f", verticalFieldOfView);
+        fprintf(file, " %s", name.c_str());
+        fprintf(file, ";\n");
+    }
+
+    /**
+    * Edit the orthographicWidth of the camera element.
+    * @param FILE* file The file to write the edit value.
+    * @param const std::string& name The name of the camera to edit.
+    * @param const double orthographicWidth The value to set.
+    */
+    static void editCameraOrthographicWidth(FILE* file, const std::string& name, 
+        const double orthographicWidth)
+    {                                           
+        fprintf(file,"camera -e");
+        fprintf(file, " -ow %f", orthographicWidth);
+        fprintf(file, " %s", name.c_str());
+        fprintf(file, ";\n");
+    }
+
+    /**
+    * Edit the orthographicHeight of the camera element.
+    * @param FILE* file The file to write the edit value.
+    * @param const std::string& name The name of the camera to edit.
+    * @param const double orthographicHeight The value to set.
+    */
+    static void editCameraOrthographicHeight(FILE* file, const std::string& name, 
+        const double orthographicHeight)
+    {                                           
+        fprintf(file,"camera -e");
+        fprintf(file, " -oh %f", orthographicHeight);
+        fprintf(file, " %s", name.c_str());
+        fprintf(file, ";\n");
+    }
+
 }
 
 #endif //__MayaDM_COMMANDS_H__

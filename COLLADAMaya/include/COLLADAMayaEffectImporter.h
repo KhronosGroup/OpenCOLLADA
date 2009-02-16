@@ -11,10 +11,12 @@
 #ifndef __COLLADAMAYA_EFFECTIMPORTER_H__
 #define __COLLADAMAYA_EFFECTIMPORTER_H__
 
-#include "COLLADAFWPrerequisites.h"
+#include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaBaseImporter.h"
 
 #include "COLLADABUIDList.h"
+
+#include "COLLADAFWEffectCommon.h"
 
 
 namespace COLLADAMaya
@@ -52,7 +54,7 @@ namespace COLLADAMaya
     public:
 
         /** Constructor. */
-		EffectImporter (  DocumentImporter* documentImporter );
+		EffectImporter ( DocumentImporter* documentImporter );
 
         /** Destructor. */
 		virtual ~EffectImporter ();
@@ -109,11 +111,10 @@ namespace COLLADAMaya
         {
             // TODO Textures!
 
-            {
-                const COLLADAFW::Color& color = effect->getStandardColor ();
-                if ( color.isValid () )
-                    lambert->setColor ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
-            }
+            const COLLADAFW::Color& standardColor = effect->getStandardColor ();
+            if ( standardColor.isValid () )
+                lambert->setColor ( MayaDM::float3 (standardColor.getRed (), standardColor.getGreen (), standardColor.getBlue ()) );
+
 
             const COLLADAFW::ColorOrTexture& diffuse = commonEffect->getDiffuse ();
             if ( diffuse.isColor () )
@@ -122,6 +123,11 @@ namespace COLLADAMaya
                 if ( color.isValid () )
                     lambert->setColor ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
             }
+            else 
+            {
+                // TODO
+            }
+
 
             const COLLADAFW::ColorOrTexture& emission = commonEffect->getEmission ();
             if ( emission.isColor () )

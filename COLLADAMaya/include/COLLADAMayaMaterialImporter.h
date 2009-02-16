@@ -26,6 +26,8 @@
 #include "MayaDMMaterialInfo.h"
 #include "MayaDMTransform.h"
 
+#include "COLLADAFWInstanceGeometry.h"
+
 
 namespace COLLADAMaya
 {
