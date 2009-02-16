@@ -113,7 +113,7 @@ namespace COLLADAMaya
 
             const COLLADAFW::Color& standardColor = effect->getStandardColor ();
             if ( standardColor.isValid () )
-                lambert->setColor ( MayaDM::float3 (standardColor.getRed (), standardColor.getGreen (), standardColor.getBlue ()) );
+                lambert->setColor ( MayaDM::float3 ( (float)standardColor.getRed (), (float)standardColor.getGreen (), (float)standardColor.getBlue ()) );
 
 
             const COLLADAFW::ColorOrTexture& diffuse = commonEffect->getDiffuse ();
@@ -121,7 +121,7 @@ namespace COLLADAMaya
             {
                 const COLLADAFW::Color& color = diffuse.getColor ();
                 if ( color.isValid () )
-                    lambert->setColor ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+                    lambert->setColor ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
             }
             else 
             {
@@ -134,7 +134,7 @@ namespace COLLADAMaya
             {
                 const COLLADAFW::Color& color = emission.getColor ();
                 if ( color.isValid () )
-                    lambert->setIncandescence ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+                    lambert->setIncandescence ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
             }
 
             // TODO 
@@ -166,7 +166,7 @@ namespace COLLADAMaya
             {
                 const COLLADAFW::Color& color = transparent.getColor ();
                 if ( color.isValid () )
-                    lambert->setTransparency ( MayaDM::float3 (color.getRed (), color.getGreen (), color.getBlue ()) );
+                    lambert->setTransparency ( MayaDM::float3 ( (float)color.getRed (), (float)color.getGreen (), (float)color.getBlue ()) );
             }
         }
 

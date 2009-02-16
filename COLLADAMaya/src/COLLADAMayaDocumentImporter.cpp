@@ -266,10 +266,10 @@ namespace COLLADAMaya
         // ':', '|', '-', '!' are replaced by '_'.
 
         const char* c = name.c_str ();
-        int length = name.length();
+        size_t length = name.length();
         char* tmp = new char[length + 1];
 
-        for ( int i = 0; i <= length; i++ )
+        for ( size_t i = 0; i <= length; i++ )
         {
             char d = c[i];
             if ( d == '.' || d == '-' || d == '|' || d == ':' || d == '/' || d == '\\' || d == '(' || d == ')' || d == '[' || d == ']' )

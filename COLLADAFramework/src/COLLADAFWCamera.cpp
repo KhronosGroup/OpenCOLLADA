@@ -21,11 +21,8 @@ namespace COLLADAFW
 		, mCameraType(UNDEFINED_CAMERATYPE)
 		, mDescriptionType( UNDEFINED )
 		, mXFovOrXMag(0)
-        , mHasXFovOrXMag (false)
 		, mYFovOrYMag(0)
-        , mHasYFovOrYMag (false)
 		, mAspectRatio(0)
-        , mHasAspectRatio (false)
 		, mNearClippingPlane(0)
 		, mFarClippingPlane(0)
 	{

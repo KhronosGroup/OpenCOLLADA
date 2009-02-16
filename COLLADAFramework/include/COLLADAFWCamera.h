@@ -43,10 +43,9 @@ namespace COLLADAFW
 			ASPECTRATIO_AND_X,          //!< aspect ratio and xfov or xmag, respectively describe the camera
 			ASPECTRATIO_AND_Y,          //!< aspect ratio and yfov or <mag, respectivelydescribe the camera
 		};  
-
-
 	
 	private:
+
 		/** The name of the camera*/
 		String mName;
 
@@ -58,15 +57,12 @@ namespace COLLADAFW
 
 		/** The horizontal field of view or magnification of the view.*/ 
 		double mXFovOrXMag;
-        bool mHasXFovOrXMag;
 
 		/** The vertical field of view or magnification of the view.*/ 
 		double mYFovOrYMag;
-        bool mHasYFovOrYMag;
 
 		/** The aspect ratio.*/
 		double mAspectRatio;
-        bool mHasAspectRatio;
 
 		/** The near clipping plane.*/
 		double mNearClippingPlane;
@@ -102,40 +98,31 @@ namespace COLLADAFW
 		double getXFov() const { return mXFovOrXMag; }
 
 		/** Sets the horizontal field of view. Use only for perspective cameras.*/ 
-		void setXFov(double xFov) { mXFovOrXMag = xFov; mHasXFovOrXMag = true; }
+		void setXFov(double xFov) { mXFovOrXMag = xFov; }
 
 		/** Returns the horizontal magnification of the view. Use only for orthographic cameras.*/ 
 		double getXMag() const { return mXFovOrXMag; }
 
 		/** Sets the horizontal magnification of the view. Use only for orthographic cameras.*/ 
-		void setXMag(double xMag) { mXFovOrXMag = xMag; mHasXFovOrXMag = true; }
+		void setXMag(double xMag) { mXFovOrXMag = xMag; }
 
 		/** Returns the vertical field of view. Use only for perspective cameras.*/ 
 		double getYFov() const { return mYFovOrYMag; }
 
 		/** Sets the vertical field of view. Use only for perspective cameras.*/ 
-		void setYFov(double yFov) { mYFovOrYMag = yFov; mHasYFovOrYMag = true; }
+		void setYFov(double yFov) { mYFovOrYMag = yFov; }
 
 		/** Returns the vertical magnification of the view. Use only for orthographic cameras.*/ 
 		double getYMag() const { return mYFovOrYMag; }
 
 		/** Sets the vertical magnification of the view. Use only for orthographic cameras.*/ 
-		void setYMag(double yMag) { mYFovOrYMag = yMag; mHasYFovOrYMag = true; }
-
-        /** The horizontal field of view or magnification of the view.*/ 
-        const bool& getHasXFovOrXMag () const { return mHasXFovOrXMag; }
-
-        /** The vertical field of view or magnification of the view.*/ 
-        const bool& getHasYFovOrYMag () const { return mHasYFovOrYMag; }
+		void setYMag(double yMag) { mYFovOrYMag = yMag; }
 
 		/** Returns the aspect ratio.*/ 
 		double getAspectRatio() const { return mAspectRatio; }
 
 		/** Sets the aspect ratio.*/ 
-		void setAspectRatio(double aspectRatio) { mAspectRatio = aspectRatio; mHasAspectRatio = true; }
-
-        /** The aspect ratio.*/
-        const bool& getHasAspectRatio () const { return mHasAspectRatio; }
+		void setAspectRatio(double aspectRatio) { mAspectRatio = aspectRatio; }
 
 		/** Returns the near clipping plane.*/
 		double getNearClippingPlane() const { return mNearClippingPlane; }

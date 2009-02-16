@@ -65,8 +65,7 @@ namespace COLLADAMaya
         */
         void createCamera ( 
             const COLLADAFW::Camera* camera,  
-            MayaNode* mayaTransformNode, 
-            size_t numNodeInstances );
+            MayaNode* mayaTransformNode );
 
         void setPerspectiveCameraAttributes ( 
             const COLLADAFW::Camera* camera, 

@@ -336,9 +336,9 @@ namespace COLLADAMaya
                 {
                     COLLADABU::Math::Vector3 converted;
                     toLinearUnit ( (*values)[i], (*values)[i+1], (*values)[i+2], converted );
-                    meshNode.appendVrts ( converted[0] );
-                    meshNode.appendVrts ( converted[1] );
-                    meshNode.appendVrts ( converted[2] );
+                    meshNode.appendVrts ( (float)converted[0] );
+                    meshNode.appendVrts ( (float)converted[1] );
+                    meshNode.appendVrts ( (float)converted[2] );
                 }
                 meshNode.endVrts (); 
             }
@@ -352,9 +352,9 @@ namespace COLLADAMaya
                 {
                     COLLADABU::Math::Vector3 converted;
                     toLinearUnit ( (*values)[i], (*values)[i+1], (*values)[i+2], converted );
-                    meshNode.appendVrts ( converted[0] );
-                    meshNode.appendVrts ( converted[1] );
-                    meshNode.appendVrts ( converted[2] );
+                    meshNode.appendVrts ( (float)converted[0] );
+                    meshNode.appendVrts ( (float)converted[1] );
+                    meshNode.appendVrts ( (float)converted[2] );
                 }
                 meshNode.endVrts (); 
             }
