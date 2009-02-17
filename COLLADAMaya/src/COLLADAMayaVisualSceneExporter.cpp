@@ -217,6 +217,86 @@ namespace COLLADAMaya
             }
         }
 
+        // Export type-specific information
+        MFn::Type type = dagPath.apiType();
+        switch (type)
+        {
+        case MFn::kLookAt:
+        case MFn::kParentConstraint:
+        case MFn::kOrientConstraint:
+        case MFn::kConstraint:
+        case MFn::kAimConstraint:
+        case MFn::kPoleVectorConstraint:
+        case MFn::kPointConstraint:
+        case MFn::kNormalConstraint:
+            MGlobal::displayError ( "Export of constraints not supported: " 
+                + MString ( sceneElement->getNodeName ().c_str () ) );
+            break;
+
+        case MFn::kAmbientLight:
+        case MFn::kSpotLight:
+        case MFn::kPointLight:
+        case MFn::kDirectionalLight:
+            break;
+
+        case MFn::kMesh:
+            break;
+
+        case MFn::kIkHandle:
+            if ( ExportOptions::exportJointsAndSkin() )
+            {
+                MGlobal::displayError ( "Export of ik handles not supported: " 
+                    + MString ( sceneElement->getNodeName ().c_str () ) );
+            }
+            break;
+
+        case MFn::kCamera:
+            break;
+
+        case MFn::kRigid:
+            if ( ExportOptions::exportPhysics() )
+            {
+                MGlobal::displayError ( "Export of physics not supported: "
+                    + MString ( sceneElement->getNodeName ().c_str () ) );
+            }
+            break;
+
+        case MFn::kNurbsCurve:
+            {
+                MGlobal::displayError ( "Export of spline not supported: " 
+                    + MString ( sceneElement->getNodeName ().c_str () ) );
+            }
+            break;
+        case MFn::kNurbsSurface:
+            {
+                MGlobal::displayError ( "Export of nurbs not supported: "
+                    + MString ( sceneElement->getNodeName ().c_str () ) );
+            }
+            break;
+        case MFn::kEmitter:
+            {
+                MGlobal::displayError ( "Export of emitters not supported: "
+                    + MString ( sceneElement->getNodeName ().c_str () ) );
+            }
+            break;
+        case MFn::kAir:
+        case MFn::kDrag:
+        case MFn::kField:
+        case MFn::kGravity:
+        case MFn::kNewton:
+        case MFn::kRadial:
+        case MFn::kTurbulence:
+        case MFn::kUniform:
+        case MFn::kVortex:
+        case MFn::kVolumeAxis:
+            {
+                MGlobal::displayError ( "Could not export. Unknown node type: " 
+                    + MString ( sceneElement->getNodeName ().c_str () ) );
+            }
+            break;
+        default: break;
+        }
+
         // Check if the element isn't already exported
         if ( isLocal && !hasPreviousInstance )
         {
