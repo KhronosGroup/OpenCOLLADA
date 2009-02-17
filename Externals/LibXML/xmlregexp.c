@@ -49,7 +49,7 @@
     xmlRegexpErrCompile(ctxt, str);
 #define NEXT ctxt->cur++
 #define CUR (*(ctxt->cur))
-#define NXT(index) (ctxt->cur[index])
+#define NXT(id) (ctxt->cur[id])
 
 #define CUR_SCHAR(s, l) xmlStringCurrentChar(NULL, s, &l)
 #define NEXTL(l) ctxt->cur += l;

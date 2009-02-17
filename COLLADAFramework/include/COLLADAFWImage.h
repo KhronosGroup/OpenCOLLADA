@@ -1,5 +1,5 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+    Copyright(c) 2008 NetAllied Systems GmbH
 
     This file is part of COLLADAFramework.
 
@@ -12,8 +12,9 @@
 #define __COLLADAFW_IMAGE_H__
 
 #include "COLLADAFWPrerequisites.h"
-#include "COLLADAFWImageSource.h"
+#include "COLLADAFWObject.h"
 
+#include "COLLADABUURI.h"
 
 namespace COLLADAFW
 {
@@ -21,7 +22,7 @@ namespace COLLADAFW
     /** 
     Declares the storage for the graphical representation of an object.
     Digital imagery comes in three main forms of data: raster, vector, and hybrid. Raster imagery comprises a
-    sequence of brightness or color values, called picture elements (pixels), that together form the complete
+    sequence of brightness or color values, called picture elements(pixels), that together form the complete
     picture. Vector imagery uses mathematical formulae for curves, lines, and shapes to describe a picture or
     drawing. Hybrid imagery combines both raster and vector information, leveraging their respective strengths,
     to describe the picture.
@@ -30,15 +31,23 @@ namespace COLLADAFW
     by texture look-up functions to access noncolor values such as displacement, normal, or height field
     values.
     */
-	class Image 	
+	class Image : public ObjectTemplate < COLLADA_TYPE::IMAGE >
     {
-	private:
-	
-        /** A text string containing the unique identifier of the <image> element. This value must
-        be unique within the instance document. Optional. */
-        String mId; 
+	public:
+		enum SourceType
+		{
+			SOURCE_TYPE_URI,
+			SOURCE_TYPE_DATA, 
+			SOURCE_TYPE_UNKNOWN
+		};
 
-        /** The text string name of this element. Optional. */
+		typedef ArrayPrimitiveType<char> CharacterArray;
+
+	private:
+		/** The source type of the image. */
+		SourceType mSourceType;
+
+		/** The name of the image*/
         String mName;
 
         /** A text string value that indicates the image format. It describes the encoding of the
@@ -48,14 +57,13 @@ namespace COLLADAFW
         this attribute to "JPG". Optional. */
         String mFormat; 
 
-        /** An integer value that indicates the height of the image in pixels. Optional. */
+        /** The height of the image in pixels. */
         unsigned int mHeight; 
 
-        /** An integer value that indicates the width of the image in pixels. Optional. */
+		/** The width of the image in pixels. */
         unsigned int mWidth;
 
-        /** An integer value that indicates the depth of the image in pixels. A 2-D image has a
-        depth of 1, which is the default. Optional. */
+        /** The depth of the image in pixels. A 2-D image has a depth of 1, which is the default. Optional. */
         unsigned int mDepth; 
 
         /** This specifies either embedded image data or an external image file. One of the 
@@ -64,63 +72,80 @@ namespace COLLADAFW
         image data. This element has no attributes or child elements.
         • <init_from>: Contains a string of type xs:anyURI that specifies an external image file.
         This element has no attributes or child elements. */
-        ImageSource mImageSource;
+
+		/** The URI of the image. */
+		COLLADABU::URI mImageURI;
+
+		/** Contains a sequence of hexadecimal encoded binary octets composing the embedded
+		image data.*/
+		CharacterArray mData;
+
 
 	public:
 
-        /** Constructor. */
-        Image() {}
+		/** @param objectId The object id of the image.*/
+		Image( ObjectId objectId );
 
         /** Destructor. */
-        virtual ~Image() {}
+        virtual ~Image();
 
-        /** A text string containing the unique identifier of the <image> element. This value must
-        be unique within the instance document. Optional. */
-        const String getId () const { return mId; }
+		/** Returns the source type of the image. */
+		SourceType getSourceType() const { return mSourceType; }
 
-        /** A text string containing the unique identifier of the <image> element. This value must
-        be unique within the instance document. Optional. */
-        void setId ( const String Id ) { mId = Id; }
+		/** Sets the source type of the image. */
+		void setSourceType(SourceType sourceType ) { mSourceType = sourceType; }
 
-        /** The text string name of this element. Optional. */
-        const String getName () const { return mName; }
+        /** Returns the name of the image*/
+        const String& getName() const { return mName; }
 
-        /** The text string name of this element. Optional. */
-        void setName ( const String Name ) { mName = Name; }
+		/** Returns the name of the image*/
+        void setName( const String& name ) { mName = name; }
 
         /** A text string value that indicates the image format. It describes the encoding of the
         image in <data> or the format of the image referenced by <init_from> if it is in a
         nonstandard format that cannot be identified by its file extension. For example, if
         <data> in a COLLADA document contains the digital contents of a JPEG file, then set
         this attribute to "JPG". Optional. */
-        const String getFormat () const { return mFormat; }
+        const String& getFormat() const { return mFormat; }
 
         /** A text string value that indicates the image format. It describes the encoding of the
         image in <data> or the format of the image referenced by <init_from> if it is in a
         nonstandard format that cannot be identified by its file extension. For example, if
         <data> in a COLLADA document contains the digital contents of a JPEG file, then set
         this attribute to "JPG". Optional. */
-        void setFormat ( const String Format ) { mFormat = Format; }
+        void setFormat( const String format ) { mFormat = format; }
 
-        /** An integer value that indicates the height of the image in pixels. Optional. */
-        const unsigned int getHeight () const { return mHeight; }
+		/** Returns the height of the image in pixels. */
+        unsigned int getHeight() const { return mHeight; }
 
-        /** An integer value that indicates the height of the image in pixels. Optional. */
-        void setHeight ( const unsigned int Height ) { mHeight = Height; }
+		/** Sets the height of the image in pixels. */
+        void setHeight( unsigned int height ) { mHeight = height; }
 
-        /** An integer value that indicates the width of the image in pixels. Optional. */
-        const unsigned int getWidth () const { return mWidth; }
+		/** Returns the width of the image in pixels. */
+        unsigned int getWidth() const { return mWidth; }
 
-        /** An integer value that indicates the width of the image in pixels. Optional. */
-        void setWidth ( const unsigned int Width ) { mWidth = Width; }
+		/** Sets the width of the image in pixels. */
+        void setWidth( unsigned int width ) { mWidth = width; }
 
-        /** An integer value that indicates the depth of the image in pixels. A 2-D image has a
-        depth of 1, which is the default. Optional. */
-        const unsigned int getDepth () const { return mDepth; }
+		/** Returns the depth of the image in pixels. A 2-D image has a depth of 1, which is the default.*/
+        unsigned int getDepth() const { return mDepth; }
 
-        /** An integer value that indicates the depth of the image in pixels. A 2-D image has a
-        depth of 1, which is the default. Optional. */
-        void setDepth ( const unsigned int Depth ) { mDepth = Depth; }
+		/** Sets the depth of the image in pixels. A 2-D image has a depth of 1, which is the default.*/
+        void setDepth( unsigned int depth ) { mDepth = depth; }
+
+		/** Returns the URI of the Image */
+		const COLLADABU::URI& getImageURI() const { return mImageURI; }
+
+		/** Returns the URI of the Image */
+		void setImageURI( const COLLADABU::URI& imageURI ) { mImageURI = imageURI; }
+
+		/** Returns a sequence of hexadecimal encoded binary octets composing the embedded
+		image data.*/
+		const CharacterArray& getData() const { return mData; }
+
+		/** Returns a sequence of hexadecimal encoded binary octets composing the embedded
+		image data.*/
+		CharacterArray& getData() { return mData; }
 
 	private:
 
@@ -128,7 +153,7 @@ namespace COLLADAFW
 		Image( const Image& pre );
 
         /** Disable default assignment operator. */
-		const Image& operator= ( const Image& pre );
+		const Image& operator=( const Image& pre );
 
 	};
 

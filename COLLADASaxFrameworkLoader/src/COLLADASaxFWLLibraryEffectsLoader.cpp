@@ -13,6 +13,7 @@
 
 #include "COLLADAFWIWriter.h"
 #include "COLLADAFWEffect.h"
+#include "COLLADAFWImage.h"
 
 namespace COLLADASaxFWL
 {
@@ -24,7 +25,7 @@ namespace COLLADASaxFWL
 		, mCurrentProfile(PROFILE_UNKNOWN)
 		, mCurrentShaderParameterType(UNKNOWN_SHADER_TYPE)
 		, mCurrentColorValueIndex(0)
-
+		, mCurrentSampler(0)
 	{
 	}
 	
@@ -123,6 +124,64 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
+	bool LibraryEffectsLoader::handleTexture( const texture__AttributeData& attributeData, ShaderParameterTypes shaderParameterType )
+	{
+		switch ( mCurrentProfile )
+		{
+		case PROFILE_COMMON:
+			{
+				COLLADAFW::ColorOrTexture* colorOrTexture = 0;
+				switch ( shaderParameterType )
+				{
+				case SHADER_PARAMETER_EMISSION:
+					{
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getEmission();
+						break;
+					}
+				case SHADER_PARAMETER_AMBIENT:
+					{
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getAmbient();
+						break;
+					}
+				case SHADER_PARAMETER_DIFFUSE:
+					{
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getDiffuse();
+						break;
+					}
+				case SHADER_PARAMETER_SPECULAR:
+					{
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getSpecular();
+						break;
+					}
+				case SHADER_PARAMETER_REFLECTIVE:
+					{
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getReflective();
+						break;
+					}
+				case SHADER_PARAMETER_TRANSPARANT:
+					{
+						colorOrTexture = &mCurrentEffect->getCommonEffects().back()->getTransparent();
+						break;
+					}
+				}
+
+				SidSamplerInfoMap::const_iterator it = mSidSamplerInfoMap.find((const char*)attributeData.texture);
+				if ( it == mSidSamplerInfoMap.end() )
+					break;
+
+				const SamplerInfo& samplerInfo = it->second;
+
+				colorOrTexture->setType(COLLADAFW::ColorOrTexture::TEXTURE);
+				COLLADAFW::Texture& texture = colorOrTexture->getTexture();
+				texture.setSamplerId( samplerInfo.id );
+				break;
+			}
+		}
+		return true;
+
+	}
+
+	//------------------------------
 	bool LibraryEffectsLoader::begin__effect( const effect__AttributeData& attributeData )
 	{
 		mCurrentEffect = FW_NEW COLLADAFW::Effect(getUniqueIdFromId(attributeData.id, COLLADAFW::Effect::ID()).getObjectId());
@@ -158,6 +217,117 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::end__profile_COMMON()
 	{
 		mCurrentProfile = PROFILE_UNKNOWN;
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::begin__newparam__surface( const newparam__surface__AttributeData& attributeData )
+	{
+		mCurrentSurface.surfaceType = attributeData.type;
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__newparam__surface()
+	{
+		mSidSurfaceMap.insert(std::make_pair(mCurrentNewParamSid, mCurrentSurface));
+		mCurrentSurfaceInitFrom.clear();
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__surface__init_from()
+	{
+		mCurrentSurface.imageUniqueId = getUniqueIdFromId((const ParserChar*)mCurrentSurfaceInitFrom.c_str(), COLLADAFW::Image::ID());
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::data__surface__init_from( const ParserChar* data, size_t length )
+	{
+		mCurrentSurfaceInitFrom.append((const char* )data, length);
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::begin__profile_COMMON__newparam( const profile_COMMON__newparam__AttributeData& attributeData )
+	{
+		if ( attributeData.sid )
+			mCurrentNewParamSid = (const char *)attributeData.sid;	
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__profile_COMMON__newparam()
+	{
+		mCurrentNewParamSid.clear();
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::begin__newparam__sampler2D()
+	{
+		mCurrentSampler = new COLLADAFW::Sampler();
+		mCurrentSampler->setSamplerType( COLLADAFW::Sampler::SAMPLER_TYPE_2D );
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__newparam__sampler2D()
+	{
+		SamplerInfo samplerInfo;
+		samplerInfo.sampler = mCurrentSampler;
+		samplerInfo.id = 0;
+		samplerInfo.surfaceSid = mCurrentSamplerSource;
+		mSidSamplerInfoMap.insert(std::make_pair(mCurrentNewParamSid, samplerInfo));
+		mCurrentSampler = 0;
+		mCurrentSamplerSource.clear();
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::data__sampler2D__source( const ParserChar* data, size_t length )
+	{
+		mCurrentSamplerSource.append((const char* )data, length);
+		return true;
+	}
+
+
+	//------------------------------
+	bool LibraryEffectsLoader::begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData )
+	{
+		COLLADAFW::EffectCommon& commonEffect =  *mCurrentEffect->getCommonEffects().back();
+		COLLADAFW::SamplerPointerArray& samplerArray = commonEffect.getSamplerPointerArray();
+		SidSamplerInfoMap::iterator samplerIt = mSidSamplerInfoMap.begin();
+		for ( ; samplerIt != mSidSamplerInfoMap.end(); ++samplerIt)
+		{
+			SamplerInfo& samplerInfo = samplerIt->second;
+			samplerInfo.id = samplerArray.getCount();
+			COLLADAFW::Sampler* sampler = samplerInfo.sampler;
+			SidSurfaceMap::const_iterator surfaceIt = mSidSurfaceMap.find( samplerInfo.surfaceSid );
+			if ( surfaceIt != mSidSurfaceMap.end() )
+			{
+				const Surface& surface = surfaceIt->second;
+				sampler->setSource(surface.imageUniqueId);
+
+				// copy sampler into common effect
+				samplerArray.append( sampler->clone() );
+			}
+		}
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__profile_COMMON__technique()
+	{
+		SidSamplerInfoMap::iterator samplerIt = mSidSamplerInfoMap.begin();
+		for ( ; samplerIt != mSidSamplerInfoMap.end(); ++samplerIt)
+		{
+			SamplerInfo& samplerInfo = samplerIt->second;
+			delete samplerInfo.sampler;
+		}
+		mSidSamplerInfoMap.clear();
+		mSidSurfaceMap.clear();
 		return true;
 	}
 
@@ -214,6 +384,11 @@ namespace COLLADASaxFWL
 		return handleColorData(data, length);
 	}
 
+	bool LibraryEffectsLoader::begin__emission__texture( const texture__AttributeData& attributeData )
+	{
+		return handleTexture( attributeData, SHADER_PARAMETER_EMISSION);
+	}
+
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__ambient__color( const ambient__color__AttributeData& attributeData )
@@ -236,6 +411,11 @@ namespace COLLADASaxFWL
 		return handleColorData(data, length);
 	}
 
+	//------------------------------
+	bool LibraryEffectsLoader::begin__ambient__texture( const texture__AttributeData& attributeData )
+	{
+		return handleTexture( attributeData, SHADER_PARAMETER_AMBIENT);
+	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__diffuse__color( const diffuse__color__AttributeData& attributeData )
@@ -258,7 +438,11 @@ namespace COLLADASaxFWL
 		return handleColorData(data, length);
 	}
 
-
+	//------------------------------
+	bool LibraryEffectsLoader::begin__diffuse__texture( const texture__AttributeData& attributeData )
+	{
+		return handleTexture( attributeData, SHADER_PARAMETER_DIFFUSE);
+	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__specular__color( const specular__color__AttributeData& attributeData )
@@ -281,6 +465,11 @@ namespace COLLADASaxFWL
 		return handleColorData(data, length);
 	}
 
+	//------------------------------
+	bool LibraryEffectsLoader::begin__specular__texture( const texture__AttributeData& attributeData )
+	{
+		return handleTexture( attributeData, SHADER_PARAMETER_SPECULAR);
+	}
 
 	//------------------------------
 	bool LibraryEffectsLoader::begin__reflective__color( const reflective__color__AttributeData& attributeData )
@@ -304,6 +493,12 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	bool LibraryEffectsLoader::begin__reflective__texture( const texture__AttributeData& attributeData )
+	{
+		return handleTexture( attributeData, SHADER_PARAMETER_REFLECTIVE);
+	}
+
+	//------------------------------
 	bool LibraryEffectsLoader::begin__transparent__color( const transparent__color__AttributeData& attributeData )
 	{
 		mCurrentShaderParameterType = SHADER_PARAMETER_TRANSPARANT;
@@ -322,6 +517,11 @@ namespace COLLADASaxFWL
 	bool LibraryEffectsLoader::data__transparent__color( const double* data, size_t length )
 	{
 		return handleColorData(data, length);
+	}
+
+	bool LibraryEffectsLoader::begin__transparent__texture( const texture__AttributeData& attributeData )
+	{
+		return handleTexture( attributeData, SHADER_PARAMETER_TRANSPARANT);
 	}
 
 	//------------------------------
@@ -351,5 +551,17 @@ namespace COLLADASaxFWL
 		mCurrentEffect->getCommonEffects().back()->setIndexOfRefraction(value);
 		return true;
 	}
+
+
+
+
+
+
+
+
+
+
+
+	
 
 } // namespace COLLADASaxFWL

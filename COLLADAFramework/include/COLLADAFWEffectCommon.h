@@ -15,11 +15,14 @@
 #include "COLLADAFWColorOrTexture.h"
 #include "COLLADAFWPointerArray.h"
 
+#include "COLLADAFWSampler.h"
+
 
 namespace COLLADAFW
 {
 	/** Once we implement referencing of floats, this might become a class.*/
 	typedef double FloatOrParam;
+
 
     /** An effect defined as in the COLLADA common profile.  */
 	class EffectCommon 	
@@ -34,6 +37,8 @@ namespace COLLADAFW
 			SHADER_PHONG,
 			SHADER_LAMBERT
 		};
+
+
 	private:
 
 		/** The shader used by the effect.*/
@@ -125,6 +130,9 @@ namespace COLLADAFW
 		Lambert
 		*/
 		FloatOrParam mIndexOfRefraction;
+
+		/** All the samplers used as texture in the CommanEffect.*/
+		SamplerPointerArray mSamplers;
 
 	public:
 
@@ -407,6 +415,13 @@ namespace COLLADAFW
 		Lambert
 		*/
 		void setIndexOfRefraction( const FloatOrParam& IndexOfRefraction ) { mIndexOfRefraction = IndexOfRefraction; }
+
+		/** Returns the samplers used by the common effect.*/
+		SamplerPointerArray& getSamplerPointerArray() { return mSamplers; }
+
+		/** Returns the samplers used by the common effect.*/
+		const SamplerPointerArray& getSamplerPointerArray() const { return mSamplers; }
+
 
 		/** clones the effect*/
 		EffectCommon* clone( ) { return FW_NEW EffectCommon(*this); }

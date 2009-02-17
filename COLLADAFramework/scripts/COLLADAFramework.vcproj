@@ -324,6 +324,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWImage.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWInstanceEffect.cpp"
 				>
 			</File>
@@ -404,11 +408,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\COLLADAFWSampler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\COLLADAFWScale.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\COLLADAFWSceneGraphInstance.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\COLLADAFWTexture.cpp"
 				>
 			</File>
 			<File
@@ -650,6 +662,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\include\COLLADAFWSampler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\include\COLLADAFWScale.h"
 				>
 			</File>
@@ -699,6 +715,10 @@
 			</File>
 			<File
 				RelativePath="..\include\COLLADAFWTechnique.h"
+				>
+			</File>
+			<File
+				RelativePath="..\include\COLLADAFWTexture.h"
 				>
 			</File>
 			<File

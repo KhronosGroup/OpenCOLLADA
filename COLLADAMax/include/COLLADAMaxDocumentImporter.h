@@ -238,6 +238,10 @@ namespace COLLADAMax
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeCamera( const COLLADAFW::Camera* camera );
 
+		/** Writes the image.
+		@return True on succeeded, false otherwise.*/
+		virtual bool writeImage( const COLLADAFW::Image* image );
+
 		/** Writes the light.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeLight( const COLLADAFW::Light* light );

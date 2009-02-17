@@ -35,6 +35,11 @@ namespace COLLADAFW
 
 	typedef unsigned long MaterialId;
 
+
+	/** Data type to reference sampler. Used by texture.*/
+	typedef size_t SamplerID;
+
+
     // Element Type Enum
     namespace COLLADA_TYPE
     {

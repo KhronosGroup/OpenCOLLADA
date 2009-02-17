@@ -83,16 +83,16 @@ namespace COLLADAFW
 		void setName(const COLLADAFW::String& name) { mName = name; }
 
 		/** Returns the type of the camera.*/
-		const CameraType& getCameraType() const { return mCameraType; }
+		CameraType getCameraType() const { return mCameraType; }
 
 		/** Sets the type of the camera.*/
-		void setCameraType( const CameraType& cameraType)  { mCameraType = cameraType; }
+		void setCameraType( CameraType cameraType)  { mCameraType = cameraType; }
 
 		/** Returns the type of description used to define the perspective camera.*/
-		const DescriptionType& getDescriptionType() const { return mDescriptionType; }
+		DescriptionType getDescriptionType() const { return mDescriptionType; }
 
 		/** sets the type of description used to define the perspective camera.*/
-		void setDescriptionType(const DescriptionType& descriptionType) { mDescriptionType = descriptionType; }
+		void setDescriptionType(DescriptionType descriptionType) { mDescriptionType = descriptionType; }
 
 		/** Returns the horizontal field of view. Use only for perspective cameras.*/ 
 		double getXFov() const { return mXFovOrXMag; }

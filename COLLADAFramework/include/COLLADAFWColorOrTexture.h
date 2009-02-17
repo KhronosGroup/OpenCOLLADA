@@ -13,7 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWColor.h"
-//#include "COLLADAFWTexture.h"
+#include "COLLADAFWTexture.h"
 #include <vector>
 #include <map>
 
@@ -37,64 +37,46 @@ namespace COLLADAFW
 	private:
         Type mType;
 		Color mColor;
-        //Texture mTexture;
-        String mSid;
+        Texture mTexture;
 
     public:
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param color The color that should be represented.
         */
-        ColorOrTexture ( Color color, const String& sid = "" )
+        ColorOrTexture ( Color color)
         : mColor ( color )
         , mType ( COLOR )
-        , mSid ( sid )
         {};
 
         /** Constructor to create a ColorOrTexture object that represents a color.
         @param texture The color that should be represented.
         */
-/*        ColorOrTexture ( Texture texture, const String& sid = "" )
+        ColorOrTexture ( Texture texture )
         : mTexture ( texture )
         , mType ( TEXTURE )
-        , mSid ( sid )
         {};
-*/
-        /** Creates an invalid CommonColorOrTextureType*/
+
+		/** Creates an invalid CommonColorOrTextureType*/
         ColorOrTexture() : mType ( UNSPECIFIED ) {};
 
-        /** Copy-Constructor */
-        ColorOrTexture ( const ColorOrTexture& cot )
-        {
-            mColor = cot.mColor;
-//            mTexture = cot.mTexture;
-            mType = cot.mType;
-            mSid = cot.mSid;
-        }
-
-		/** Returns the type of the color or texture.*/
+  		/** Returns the type of the color or texture.*/
 		Type getType() const { return mType; }
 
 		/** Returns the type of the color or texture.*/
 		void setType(Type type) { mType = type; }
 
-        /** Returns the sid. */
-        const String& getSid () const
-        {
-            return mSid;
-        }
-
-        /** Return true if the CommonColorOrTextureType is a valid color, false otherwise*/
+		/** Return true if the CommonColorOrTextureType is a valid color, false otherwise*/
         bool isColor() const
         {
             return ( mType == COLOR ) && ( mColor.isValid() );
         }
 
         /** Return true if the CommonColorOrTextureType is a valid Texture, false otherwise.*/
- /*       bool isTexture() const
+        bool isTexture() const
         {
             return ( mType == TEXTURE ) && ( mTexture.isValid() );
         }
-*/
+
         /** Return true if the CommonColorOrTextureType is a valid Texture, false otherwise.*/
         bool isValid() const
         {
@@ -115,17 +97,16 @@ namespace COLLADAFW
         }
 
         /** Returns the texture */
-/*        const Texture& getTexture() const
-        {
-            return mTexture;
-        }*/
-
-        /** Returns the texture */
-/*        Texture& getTexture()
+        const Texture& getTexture() const
         {
             return mTexture;
         }
-		*/
+
+        /** Returns the texture */
+        Texture& getTexture()
+        {
+            return mTexture;
+        }
 
     };
 

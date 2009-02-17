@@ -18,7 +18,6 @@
 
 #include "COLLADAFWEffectCommon.h"
 
-
 namespace COLLADAFW
 {
 
@@ -62,6 +61,7 @@ namespace COLLADAFW
 
 		/** All the COLLADA common effects .*/
 		CommonEffectPointerArray mCommonEffects;
+	
 
 		/** The standard color, i.e. the color to by used by systems that support only
 		one color, like most of the CAD-systems.*/

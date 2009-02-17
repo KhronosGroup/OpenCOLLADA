@@ -142,6 +142,13 @@ namespace COLLADAMax
 	}
 
 	//---------------------------------------------------------------
+	bool DocumentImporter::writeImage( const COLLADAFW::Image* image )
+	{
+		int gg=1;
+		return true;
+	}
+
+	//---------------------------------------------------------------
 	bool DocumentImporter::writeLight( const COLLADAFW::Light* light )
 	{
 		LightImporter lightImporter(this, light);

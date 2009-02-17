@@ -416,10 +416,10 @@ XMLPUBVAR double xmlXPathNINF;
  * Returns the xmlNodePtr at the given @index in @ns or NULL if
  *         @index is out of range (0 to length-1)
  */
-#define xmlXPathNodeSetItem(ns, index)				\
+#define xmlXPathNodeSetItem(ns, id)				\
 		((((ns) != NULL) && 				\
-		  ((index) >= 0) && ((index) < (ns)->nodeNr)) ?	\
-		 (ns)->nodeTab[(index)]				\
+		  ((id) >= 0) && ((id) < (ns)->nodeNr)) ?	\
+		 (ns)->nodeTab[(id)]				\
 		 : NULL)
 /**
  * xmlXPathNodeSetIsEmpty:
