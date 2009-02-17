@@ -34,6 +34,7 @@ namespace COLLADAMaya
             , mIsLocal ( true )
             , mIsForced ( false )
             , mIsVisible ( false )
+            , mHasJoint ( false )
             , mInstantiatedSceneElement ( NULL )
     {}
 

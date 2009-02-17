@@ -497,10 +497,6 @@ namespace COLLADAMaya
         // Push the exported controller in the export list
         mExportedControllers.push_back ( controllerId );
 
-        // Attach a function set to the controller node.
-        MStatus status;
-        MFnMesh meshFn ( controllerNode, &status );
-
         // Figure out which type of skin controller we currently have: mesh-centric or joint-centric
         bool isJointCluster = controllerNode.hasFn(MFn::kJointCluster);
         bool isSkinCluster = controllerNode.hasFn(MFn::kSkinClusterFilter);
@@ -508,7 +504,7 @@ namespace COLLADAMaya
 
         // Retrieve the instance information for this skinned character
         MFnGeometryFilter clusterFn(controllerNode);
-        uint clusterIndex = retrieveInstanceInformation( meshFn, clusterFn, outputShape );
+        uint clusterIndex = retrieveInstanceInformation ( clusterFn, outputShape );
 
         // Create the controller name
         MString mayaControllerName = ( isSkinCluster ) ? clusterFn.name() : outputShape.partialPathName();
@@ -915,11 +911,14 @@ namespace COLLADAMaya
 
     //------------------------------------------------------
     uint ControllerExporter::retrieveInstanceInformation(
-        const MFnMesh &fnMesh,
         const MFnGeometryFilter &clusterFn,
         MDagPath &outputShape )
     {
         MStatus status;
+
+        // Attach a function set to the controller node.
+        MFnMesh fnMesh ( outputShape, &status );
+        CHECK_MSTATUS (status);
 
         uint idx = clusterFn.indexForOutputShape(outputShape.node());
         if (idx == ~0u)

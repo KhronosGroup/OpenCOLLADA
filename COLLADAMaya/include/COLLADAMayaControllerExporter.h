@@ -305,13 +305,11 @@ namespace COLLADAMaya
 
         /**
          * Retrieve the instance information for this skinned character.
-         * @param meshFn The current mesh object with the function set.
          * @param clusterFn The skinned character.
          * @param outputShape The output shape
          * @return uint The current cluster index.
          */
         uint retrieveInstanceInformation(
-            const MFnMesh& meshFn,
             const MFnGeometryFilter& clusterFn,
             MDagPath& outputShape );
 

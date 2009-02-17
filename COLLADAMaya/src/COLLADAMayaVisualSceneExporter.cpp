@@ -128,10 +128,6 @@ namespace COLLADAMaya
 
         // The unique ID
         String meshId = mDocumentExporter->dagPathToColladaId ( dagPath );
-//         // Attach a function set
-//         MFnDependencyNode fn ( dagPath.node() );
-//         String nodeNameCollada = mDocumentExporter->mayaNameToColladaName ( fn.name(), true );
-//         String meshId = /*GEOMETRY_ID_PRAEFIX +*/ nodeNameCollada;
 
         // The transform node
         MStatus status;
@@ -148,7 +144,6 @@ namespace COLLADAMaya
         bool isForced = sceneElement->getIsForced();
         bool isVisible = sceneElement->getIsVisible();
         bool isExportNode = sceneElement->getIsExportNode();
-//        if ( !sceneGraph->getIsExportNode ( dagPath, isForced, isVisible ) ) return false;
 
         // Check for a file reference
         bool isLocal = sceneElement->getIsLocal();
