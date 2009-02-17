@@ -49,11 +49,11 @@ namespace COLLADASaxFWL
 		/** Resets all the variables used for the current camera.*/
 		void resetCurrentValues();
 
-		/** Finishes loading a library effects.*/
+		/** Finishes loading a library cameras.*/
 		virtual bool end__library_cameras();
 
 
-		/** Stores camera id and name.*/
+		/** Creates a new camera.*/
 		virtual bool begin__camera( const camera__AttributeData& attributeData );
 
 		/** Sends camera to the writer.*/

@@ -15,9 +15,12 @@
 #include "COLLADASaxFWLFilePartLoader.h"
 #include "COLLADAFWEffectCommon.h"
 
+#include "COLLADAFWTypes.h"
+
 namespace COLLADAFW
 {
 	class Effect;
+	class Sampler;
 }
 
 
@@ -55,6 +58,31 @@ namespace COLLADASaxFWL
 			UNKNOWN_SHADER_TYPE
 		};
 
+		struct Surface
+		{
+			fx_surface_type_enum surfaceType;
+
+			/** The unique id of the image used by the surface.*/
+			COLLADAFW::UniqueId imageUniqueId;
+		};
+
+		typedef std::map<String, Surface> SidSurfaceMap;
+
+		struct SamplerInfo
+		{
+			/** The sampler.*/
+			COLLADAFW::Sampler* sampler;
+
+			/** The index of the sampler.*/
+			COLLADAFW::SamplerID id;
+
+			/** The source of the sampler.*/
+			String surfaceSid;
+		};
+
+		typedef std::map<String, SamplerInfo> SidSamplerInfoMap;
+
+
 	private:
 		/** The effect currently being imported.*/
 		COLLADAFW::Effect* mCurrentEffect;
@@ -67,7 +95,28 @@ namespace COLLADASaxFWL
 
 		/** The index of the next color component to read.*/
 		size_t mCurrentColorValueIndex;
-	
+
+		/** The sid of the current new param.*/
+		String mCurrentNewParamSid;
+
+		/** The current surface.*/
+		Surface mCurrentSurface;
+
+		/** The init from string of the current surface.*/
+		String mCurrentSurfaceInitFrom;
+
+		/** Maps sids of surfaces to the surface.*/
+		SidSurfaceMap mSidSurfaceMap;
+
+		/** The source of the current sampler.*/
+		String mCurrentSamplerSource;
+
+		/** The current sampler.*/
+		COLLADAFW::Sampler* mCurrentSampler;
+
+		/** Maps sids of samplers to the samplers info.*/
+		SidSamplerInfoMap mSidSamplerInfoMap;
+
 	public:
 
         /** Constructor. */
@@ -91,7 +140,55 @@ namespace COLLADASaxFWL
 		/** Set the current profile to unknown.*/
 		virtual bool end__profile_COMMON();
 
+
+		/** Store the sid of the new param.*/
+		virtual bool begin__profile_COMMON__newparam( const profile_COMMON__newparam__AttributeData& attributeData );
+
+		/** Clear the sid of the new param.*/
+		virtual bool end__profile_COMMON__newparam();
+
+
+		/** Set the surface type.*/
+		virtual bool begin__newparam__surface( const newparam__surface__AttributeData& attributeData );
+
+		/** Adds the surface to the map of surfaces.*/
+		virtual bool end__newparam__surface();
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__surface__init_from( const surface__init_from__AttributeData& attributeData ){return true;}
+
+		/** Assign the unique id of the surface image.*/
+		virtual bool end__surface__init_from();
+
+		/** Store data in mCurrentSurfaceInitFrom.*/
+		virtual bool data__surface__init_from( const ParserChar* data, size_t length );
+
+
+		/** Creates a new sampler2D.*/
+		virtual bool begin__newparam__sampler2D();
+
+		/** Adds the sampler to the map of samplers.*/
+		virtual bool end__newparam__sampler2D();
+
+
+		/** We don't need to do anything here.*/
+		virtual bool begin__sampler2D__source(){return true;}
+
+		/** We don't need to do anything here.*/
+		virtual bool end__sampler2D__source(){return true;}
+
+		/** Store data in mCurrentSamplerSource.*/
+		virtual bool data__sampler2D__source( const ParserChar* data, size_t length );
+
 		
+		/** Resolve all the samplers and copy them to the current effect.*/
+		virtual bool begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData );
+
+		/** Delete all temporyry samplers.*/
+		virtual bool end__profile_COMMON__technique();
+
+
 		/** Set the shader type of the current profile.*/
 		virtual bool begin__technique__constant();
 
@@ -149,6 +246,11 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__emission__color( const double* value, size_t length );
 
+		/** Stores texture data into the correct texture object.*/
+		virtual bool begin__emission__texture( const texture__AttributeData& attributeData );
+		/** We don't need to do anything here.*/
+		virtual bool end__emission__texture(){return true;}
+
 		/** Sets the shader parameter type.*/
 		virtual bool begin__ambient__color( const ambient__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
@@ -156,6 +258,10 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__ambient__color( const double* value, size_t length );
 
+		/** Stores texture data into the correct texture object.*/
+		virtual bool begin__ambient__texture( const texture__AttributeData& attributeData );
+		/** We don't need to do anything here.*/
+		virtual bool end__ambient__texture(){return true;}
 
 		/** Sets the shader parameter type.*/
 		virtual bool begin__diffuse__color( const diffuse__color__AttributeData& attributeData );
@@ -164,6 +270,10 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__diffuse__color( const double* value, size_t length );
 
+		/** Stores texture data into the correct texture object.*/
+		virtual bool begin__diffuse__texture( const texture__AttributeData& attributeData );
+		/** We don't need to do anything here.*/
+		virtual bool end__diffuse__texture(){return true;}
 
 		/** Sets the shader parameter type.*/
 		virtual bool begin__specular__color( const specular__color__AttributeData& attributeData );
@@ -172,6 +282,11 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__specular__color( const double* value, size_t length );
 
+		/** Stores texture data into the correct texture object.*/
+		virtual bool begin__specular__texture( const texture__AttributeData& attributeData );
+		/** We don't need to do anything here.*/
+		virtual bool end__specular__texture(){return true;}
+
 		/** Sets the shader parameter type.*/
 		virtual bool begin__reflective__color( const reflective__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
@@ -179,12 +294,22 @@ namespace COLLADASaxFWL
 		/** Stores color data into the correct color object.*/
 		virtual bool data__reflective__color( const double* value, size_t length );
 
+		/** Stores texture data into the correct texture object.*/
+		virtual bool begin__reflective__texture( const texture__AttributeData& attributeData );
+		/** We don't need to do anything here.*/
+		virtual bool end__reflective__texture(){return true;}
+
 		/** Sets the shader parameter type.*/
 		virtual bool begin__transparent__color( const transparent__color__AttributeData& attributeData );
 		/** Resets the shader parameter type.*/
 		virtual bool end__transparent__color();
 		/** Stores color data into the correct color object.*/
 		virtual bool data__transparent__color( const double* value, size_t length );
+
+		/** Stores texture data into the correct texture object.*/
+		virtual bool begin__transparent__texture( const texture__AttributeData& attributeData );
+		/** We don't need to do anything here.*/
+		virtual bool end__transparent__texture(){return true;}
 
 		/** We don't need to do anything here.*/
 		virtual bool begin__shininess__float( const shininess__float__AttributeData& attributeData ){return true;}
@@ -226,6 +351,9 @@ namespace COLLADASaxFWL
 
 		/** Stores color data into the  @a color object.*/
 		bool handleColorData( const double* value, size_t length, COLLADAFW::Color& color );
+
+		/** Stores texture data into the @a shaderParameterType texture object.*/
+		bool handleTexture( const texture__AttributeData& attributeData,  ShaderParameterTypes shaderParameterType);
 
 	private:
 

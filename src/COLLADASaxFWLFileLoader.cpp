@@ -18,6 +18,7 @@
 #include "COLLADASaxFWLLibraryEffectsLoader.h"
 #include "COLLADASaxFWLLibraryCamerasLoader.h"
 #include "COLLADASaxFWLLibraryLightsLoader.h"
+#include "COLLADASaxFWLLibraryImagesLoader.h"
 #include "COLLADASaxFWLMeshLoader.h"
 #include "COLLADASaxFWLGeometryLoader.h"
 #include "COLLADASaxFWLSaxParserErrorHandler.h"
@@ -155,6 +156,18 @@ namespace COLLADASaxFWL
 		setParser(libraryLightsLoader);
 		return true;
 	}
+
+	//-----------------------------
+	bool FileLoader::begin__library_images( const library_images__AttributeData& attributeData )
+	{
+		deleteFilePartLoader();
+		LibraryImagesLoader* libraryImagesLoader = new LibraryImagesLoader(this);
+
+		setPartLoader(libraryImagesLoader);
+		setParser(libraryImagesLoader);
+		return true;
+	}
+
 
 	//-----------------------------
     bool FileLoader::end__COLLADA ()
