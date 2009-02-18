@@ -62,7 +62,8 @@ namespace COLLADAMaya
                 importBlinnShader ( effect, commonEffect );
                 break;
             case COLLADAFW::EffectCommon::SHADER_CONSTANT:
-                // TODO
+                // Import as a lambert shader.
+                importLambertShader ( effect, commonEffect );
                 break;
             case COLLADAFW::EffectCommon::SHADER_PHONG:
                 importPhongShader ( effect, commonEffect );
@@ -72,6 +73,7 @@ namespace COLLADAMaya
                 break;
             case COLLADAFW::EffectCommon::SHADER_UNKNOWN:
             default:
+                // TODO
                 // Standard shader (lambert?)
                 break;
             }
@@ -100,7 +102,7 @@ namespace COLLADAMaya
         MayaDM::Blinn* blinn = new MayaDM::Blinn ( file, effectName );
 
         // Import the shader attributes.
-        importShaderAttributes ( blinn, effect, commonEffect );
+        importShaderAttributes ( SHADER_BLINN, blinn, effect, commonEffect );
 
         // Push it into the map.
         appendEffect ( effectId, blinn );
@@ -126,7 +128,7 @@ namespace COLLADAMaya
         MayaDM::Phong* phong = new MayaDM::Phong ( file, effectName );
 
         // Import the shader attributes.
-        importShaderAttributes ( phong, effect, commonEffect );
+        importShaderAttributes ( SHADER_PHONG, phong, effect, commonEffect );
 
         // Push it into the map.
         appendEffect ( effectId, phong );
@@ -152,7 +154,7 @@ namespace COLLADAMaya
         MayaDM::Lambert* lambert = new MayaDM::Lambert ( file, effectName );
 
         // Import the shader attributes.
-        importShaderAttributes ( lambert, effect, commonEffect );
+        importShaderAttributes ( SHADER_LAMBERT, lambert, effect, commonEffect );
 
         // Push it into the map.
         appendEffect ( effectId, lambert );
@@ -175,5 +177,24 @@ namespace COLLADAMaya
         mMayaEffectMap [id] = effectNode;
     }
 
+    // --------------------------
+    void EffectImporter::appendShaderNodeAttribute ( 
+        const COLLADAFW::Texture &texture, 
+        const ShaderType& shaderType, 
+        const ShaderAttribute& shaderAttribute, 
+        MayaDM::DependNode* shaderNode )
+    {
+        // Get the current sampler id.
+        COLLADAFW::SamplerID samplerId = texture.getSamplerId ();
+
+        // Save the samplerId to this effect, so we can do the connection one time later.
+        ShaderNodeAttribute shaderNodeAttribute;
+        shaderNodeAttribute.mShaderType = shaderType;
+        shaderNodeAttribute.mShaderAttribute = shaderAttribute;
+        shaderNodeAttribute.mShaderNode = shaderNode;
+
+        // Push the shader node attribute data in the map to the sampler id.
+        mSamplerIdShaderNodesMap [ samplerId ].push_back ( shaderNodeAttribute );
+    }
 
 } // namespace COLLADAMaya

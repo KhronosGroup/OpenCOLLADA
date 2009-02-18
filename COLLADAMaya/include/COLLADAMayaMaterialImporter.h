@@ -36,6 +36,11 @@ namespace COLLADAMaya
     class MaterialImporter : public BaseImporter
     {
 
+    public:
+
+        /** The name of maya's initial shading engine. */
+        static const String INITIAL_SHADING_ENGINE;
+
     private:
 
         /** The standard name for a shading engine. */
@@ -49,14 +54,13 @@ namespace COLLADAMaya
 
         /** The name of maya's default shader list. */
         static const String DEFAULT_SHADER_LIST;
-        static const String INITIAL_SHADING_ENGINE;
         static const String ATTR_SHADERS;
 
     public:
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdMayaMaterialMap;
 
-    private:
+    public:
 
         /**
          * The maya shading engine and material info.
@@ -85,6 +89,8 @@ namespace COLLADAMaya
             MayaDM::MaterialInfo* getMaterialInfo () const { return mMaterialInfo; }
         };
         typedef std::map<COLLADAFW::UniqueId, ShadingData*> ShadingDataMap;
+
+    private:
 
         /**
          * The binding of a geometry instance to a material.
@@ -176,6 +182,11 @@ namespace COLLADAMaya
         */
         MayaDM::DependNode* findMayaMaterial ( const COLLADAFW::UniqueId& val ) const;
 
+        /**
+        * The map with the unique ids of the shading engine to the shading engines itself. 
+        */
+        const ShadingDataMap& getShadingEnginesMap () const { return mShaderDataMap; }
+
     private:
 
         /** Connect the material with the shading engine and the material info. */
@@ -206,11 +217,6 @@ namespace COLLADAMaya
         * The list of the unique maya shading engine names.
         */
         const COLLADABU::IDList& getShadingEngineIdList () const { return mShadingEngineIdList; }
-
-        /**
-        * The map with the unique ids of the shading engine to the shading engines itself. 
-        */
-        const ShadingDataMap& getShadingEnginesMap () const { return mShaderDataMap; }
 
         /**
         * The map with the unique ids of the shading engine to the shading engines itself. 

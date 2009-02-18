@@ -73,6 +73,9 @@ namespace COLLADAFW
         /** Destructor. */
 		virtual ~FloatOrParam () {};
 
+        /** The type of the current element. */
+        const COLLADAFW::FloatOrParam::Type& getType () const { return mType; }
+
 	private:
 
         /** Disable default copy ctor. */

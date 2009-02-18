@@ -11,6 +11,7 @@
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaLightImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
+#include "COLLADAMayaMaterialImporter.h"
 
 #include "math\COLLADABUMathUtils.h"
 
@@ -30,17 +31,21 @@ namespace COLLADAMaya
     const String LightImporter::LIGHT_NAME = "Light";
     const String LightImporter::INITIAL_LIGHT_LIST = ":lightList1";
     const String LightImporter::DEFAULT_LIGHT_SET = ":defaultLightSet";
+    const String LightImporter::LIGHT_LINKER_NAME = "lightLinker1";
 
 
     //------------------------------
 	LightImporter::LightImporter ( DocumentImporter* documentImporter ) 
         : BaseImporter ( documentImporter )
+        , mLightLinker (0)
 	{
 	}
 	
     //------------------------------
 	LightImporter::~LightImporter()
 	{
+        delete mLightLinker;
+
         UniqueIdLightNodeMap::const_iterator it = mMayaLightMap.begin ();
         if ( it != mMayaLightMap.end () )
         {
@@ -50,8 +55,21 @@ namespace COLLADAMaya
 	}
 
     //------------------------------
+    void LightImporter::createLightLinker ()
+    {
+        if ( mLightLinker == 0 )
+        {
+            FILE* file = getDocumentImporter ()->getFile ();
+            mLightLinker = new MayaDM::LightLinker ( file, LIGHT_LINKER_NAME );
+        }
+    }
+
+    //------------------------------
     void LightImporter::importLight ( const COLLADAFW::Light* light )
     {
+        // If we have one or more lights, we need a light linker
+        if ( mLightLinker == 0 ) createLightLinker ();
+
         // Check if the light is already imported.
         const COLLADAFW::UniqueId& lightId = light->getUniqueId ();
         if ( findMayaLightNode ( lightId ) != 0 ) return;
@@ -238,13 +256,95 @@ namespace COLLADAMaya
         mMayaLightMap [id] = lightNode;
     }
 
-    // --------------------------------------------
+    // --------------------------
     void LightImporter::writeConnections ()
     {
+        connectLightObjects();
+        connectLightLinkers ();
+    }
+
+    // --------------------------
+    void LightImporter::connectLightLinkers ()
+    {
+        if ( !mLightLinker ) return;
+
+        // The maya ascii file.
+        FILE* file = getDocumentImporter ()->getFile ();
+
+        size_t lightLinkerLinkIndex = 0;
+
+        // Get the default light set.
+        MayaDM::ObjectSet defaultLightSet ( file, DEFAULT_LIGHT_SET, "", false );
+
+        // Connect the existing shader engines with the first light linker link's object.
+        MaterialImporter* materialImporter = getDocumentImporter ()->getMaterialImporter ();
+        const MaterialImporter::ShadingDataMap& shadingDataMap = materialImporter->getShadingEnginesMap ();
+        MaterialImporter::ShadingDataMap::const_iterator it = shadingDataMap.begin ();
+        while ( it != shadingDataMap.end () )
+        {
+            MaterialImporter::ShadingData* shadingData = it->second;
+            MayaDM::ShadingEngine* shadingEngine = shadingData->getShadingEngine ();
+
+            // Connect the the default light set message with the next light linker link's light
+            // connectAttr ":defaultLightSet.message" "lightLinker1.link[0].light";
+            connectAttr ( file, defaultLightSet.getMessage (), mLightLinker->getLight ( lightLinkerLinkIndex ) );
+
+            // Connect the current shading engine's message with the next light linker link's object.
+            // connectAttr "lambert2SG.message" "lightLinker1.link[0].object";
+            connectAttr ( file, shadingEngine->getMessage (), mLightLinker->getObject ( lightLinkerLinkIndex ) );
+
+            // Connect the the default light set message with the next light linker shadow link's shadow light
+            // connectAttr ":defaultLightSet.message" "lightLinker1.shadowLink[0].shadowLight";
+            connectAttr ( file, defaultLightSet.getMessage (), mLightLinker->getShadowLight ( lightLinkerLinkIndex ) );
+
+            // Connect the current shading engine's message with the next light linker shadow link's shadow object.
+            // connectAttr "lambert2SG.message" "lightLinker1.shadowLink[0].shadowObject";
+            connectAttr ( file, shadingEngine->getMessage (), mLightLinker->getShadowObject ( lightLinkerLinkIndex ) );
+
+            // Increment the light linker index
+            ++lightLinkerLinkIndex;
+
+            ++it;
+        }
+
+        // Create the dummy object of the initial shading group.
+        MayaDM::ShadingEngine initialShadingEngine ( file, MaterialImporter::INITIAL_SHADING_ENGINE, "", false );
+
+        // Connect the default light set message with the next light linker link's light
+        // connectAttr ":defaultLightSet.message" "lightLinker1.link[1].light";
+        connectAttr ( file, defaultLightSet.getMessage (), mLightLinker->getLight ( lightLinkerLinkIndex ) );
+        // Connect the initial shading group message with the next light linker link's object
+        // connectAttr ":initialShadingGroup.message" "lightLinker1.link[1].object";
+        connectAttr ( file, initialShadingEngine.getMessage (), mLightLinker->getObject ( lightLinkerLinkIndex ) );
+
+        // Connect the default light set message with the light linker shadow link's shadow light
+        // connectAttr ":defaultLightSet.message" "lightLinker1.shadowLink[1].shadowLight";
+        connectAttr ( file, defaultLightSet.getMessage (), mLightLinker->getShadowLight ( lightLinkerLinkIndex ) );
+        // Connect the initial shading group message with the next light linker shadow link's shadow object
+        // connectAttr ":initialShadingGroup.message" "lightLinker1.shadowLink[1].shadowObject";
+        connectAttr ( file, initialShadingEngine.getMessage (), mLightLinker->getShadowObject ( lightLinkerLinkIndex ) );
+
+
+        // Create a dummy object for the light list.
+        MayaDM::LightList lightList ( file, INITIAL_LIGHT_LIST, "", false );
+
+        // Connect the light linker the initial light list link Nodes
+        // connectAttr "lightLinker1.message" ":lightList1.linkNodes" -nextAvailable;
+        connectAttr ( file, mLightLinker->getMessage (), lightList.getLinkNodes (0) );
+
+    }
+
+    // --------------------------
+    void LightImporter::connectLightObjects ()
+    {
+        // The maya ascii file.
         FILE* file = getDocumentImporter ()->getFile ();
 
         // Create a dummy object for the light list.
         MayaDM::LightList lightList ( file, INITIAL_LIGHT_LIST, "", false );
+
+        // Create the default light set dummy object, if we need it for the connections. 
+        MayaDM::ObjectSet* defaultLightSet = 0;
 
         size_t lightIndex = 0;
         size_t lightSetIndex = 0;
@@ -285,14 +385,15 @@ namespace COLLADAMaya
                 String transformNodePath = mayaTransformNode->getNodePath ();
                 MayaDM::Transform transformNode ( file, transformNodePath, "", false );
 
-                // Get the default light set to add the light transform nodes.
-                MayaDM::ObjectSet lightSet ( file, DEFAULT_LIGHT_SET, "", false );
+                // Create the dummy object of the default light set, if we need it.
+                if ( defaultLightSet == 0 )
+                    defaultLightSet = new MayaDM::ObjectSet ( file, DEFAULT_LIGHT_SET, "", false );
 
                 // Connect the light transforms instance object groups with the default light set.
                 //connectAttr "spotLight1.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;
                 //connectAttr "|spotLight2.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;
                 //connectAttr "spotLight3.instObjGroups" ":defaultLightSet.dagSetMembers" -nextAvailable;
-                connectAttr ( file, transformNode.getInstObjGroups (0), lightSet.getDagSetMembers (lightSetIndex) );
+                connectAttr ( file, transformNode.getInstObjGroups (0), defaultLightSet->getDagSetMembers (lightSetIndex) );
                 ++lightSetIndex;
 
                 ++nodesIter;
@@ -301,7 +402,8 @@ namespace COLLADAMaya
             ++it;
         }
 
-
+        if ( defaultLightSet != 0 )
+            delete defaultLightSet;
     }
 
 } // namespace COLLADAMaya

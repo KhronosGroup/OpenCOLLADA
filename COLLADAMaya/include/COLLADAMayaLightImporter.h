@@ -18,6 +18,7 @@
 
 #include <MayaDMSpotLight.h>
 #include <MayaDMPointLight.h>
+#include <MayaDMLightLinker.h>
 
 
 namespace COLLADAMaya
@@ -28,21 +29,32 @@ namespace COLLADAMaya
     {
     private:
 
-        /** The name of maya's default light list. */
+        // TODO LightLinker
+
+        /** The standard name for camera without name. */
+        static const String LIGHT_NAME;
+
+        /** The name of maya's default light list and set. */
         static const String INITIAL_LIGHT_LIST;
         static const String DEFAULT_LIGHT_SET;
+
+        /** The name of the light linker to link all the light objects. */
+        static const String LIGHT_LINKER_NAME;
 
     private:
 
         typedef std::map<COLLADAFW::UniqueId, MayaDM::Light*> UniqueIdLightNodeMap;
 
-    private:
-
-        /** The standard name for camera without name. */
-        static const String LIGHT_NAME;
-
 	private:
-	
+
+        /**
+         * If we have one or more lights, we need a light linker.
+         * This node defines light linking relationships between lights and objects. Connecting a 
+         * light to the "light" child of the "link" compound will cause it to illuminate the object 
+         * connected to the "object" child of the same index of the "link" compound.
+         */
+        MayaDM::LightLinker* mLightLinker;
+
         /**
         * The list of the unique maya light names.
         */
@@ -77,12 +89,30 @@ namespace COLLADAMaya
          */
         void writeConnections ();
 
+        void connectLightObjects ();
     private:
+
+        /**
+         * If we have one or more lights, we need a light linker.
+         * This node defines light linking relationships between lights and objects. Connecting a 
+         * light to the "light" child of the "link" compound will cause it to illuminate the object 
+         * connected to the "object" child of the same index of the "link" compound.
+         */
+        void createLightLinker ();
 
         /**
          * Creates a light.
          */
         void createLight ( const COLLADAFW::Light* light,  MayaNode* mayaTransformNode );
+
+        /**
+         * Writes the object connections of the light linker into the maya ascii file.
+         * If we have one or more lights, we need a light linker.
+         * This node defines light linking relationships between lights and objects. Connecting a 
+         * light to the "light" child of the "link" compound will cause it to illuminate the object 
+         * connected to the "object" child of the same index of the "link" compound.
+         */
+        void connectLightLinkers ();
 
         /**
         * Sets the spot light specific attributes.

@@ -229,12 +229,6 @@ namespace COLLADAMaya
     // --------------------------
     void MaterialImporter::writeConnections ()
     {
-        // select -noExpand :defaultShaderList1;
-        // select -noExpand :initialShadingGroup;
-        FILE* file = getDocumentImporter ()->getFile ();
-        mayaSelect ( file, DEFAULT_SHADER_LIST, true );
-        mayaSelect ( file, INITIAL_SHADING_ENGINE, true );
-
         // If there are some object groups, we have to connect them with the geometries.
         connectGeometryGroups();
 

@@ -94,7 +94,6 @@ namespace COLLADAMaya
             std::vector<MVector> translate3Vec;
             size_t numTranslate3;
 
-
             // 5 phases
             size_t phase;
         };
