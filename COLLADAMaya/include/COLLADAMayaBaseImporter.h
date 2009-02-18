@@ -44,6 +44,8 @@ namespace COLLADAMaya
         typedef std::map<COLLADAFW::UniqueId, MayaNode> UniqueIdMayaNodesMap;
         typedef std::map<COLLADAFW::UniqueId, MayaDM::Mesh> UniqueIdMayaDMMeshMap;
 
+        typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdDependNodeMap;
+
         typedef std::pair<COLLADAFW::UniqueId,COLLADAFW::MaterialId> CombinedId;
         typedef std::vector<size_t> IndicesVector;
         typedef std::map<CombinedId, IndicesVector> CombinedIdIndicesMap;

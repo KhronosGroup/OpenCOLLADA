@@ -49,7 +49,7 @@ namespace COLLADAMaya
 
         /** The name of maya's default shader list. */
         static const String DEFAULT_SHADER_LIST;
-        static const String DEFAULT_SHADING_ENGINE;
+        static const String INITIAL_SHADING_ENGINE;
         static const String ATTR_SHADERS;
 
     public:
@@ -166,7 +166,9 @@ namespace COLLADAMaya
             const COLLADAFW::UniqueId& transformNodeId, 
             const COLLADAFW::InstanceGeometry* instanceGeometry );
 
-        /** Writes the connection attributes into the maya ascii file. */
+        /** 
+        * Writes the connection attributes into the maya ascii file. 
+        */
         void writeConnections ();
 
         /**

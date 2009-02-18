@@ -35,14 +35,72 @@ namespace COLLADAFW
     public:
 
         /** Descriptive information about unit of measure. Its optional attributes are:*/
-        struct Unit
+        class Unit
         {
+        public:
+            static const double LINEAR_UNIT_KILOMETER;
+            static const double LINEAR_UNIT_METER;
+            static const double LINEAR_UNIT_DECIMETER;
+            static const double LINEAR_UNIT_CENTIMETER;
+            static const double LINEAR_UNIT_MILLIMETER;
+            static const double LINEAR_UNIT_FOOT;
+            static const double LINEAR_UNIT_INCH; 
+            static const double LINEAR_UNIT_YARD;
+
+            static const String LINEAR_UNIT_KILOMETER_NAME;
+            static const String LINEAR_UNIT_METER_NAME;
+            static const String LINEAR_UNIT_DECIMETER_NAME;
+            static const String LINEAR_UNIT_CENTIMETER_NAME;
+            static const String LINEAR_UNIT_MILLIMETER_NAME;
+            static const String LINEAR_UNIT_FOOT_NAME;
+            static const String LINEAR_UNIT_INCH_NAME; 
+            static const String LINEAR_UNIT_YARD_NAME;
+
+            static const String ANGULAR_UNIT_DEGREES_NAME;
+            static const String ANGULAR_UNIT_RADIANS_NAME;
+
+            static const String TIME_UNIT_FILM_NAME;
+
+
+            enum LinearUnit
+            {
+                KILOMETER, 
+                METER,
+                DECIMETER,
+                CENTIMETER,
+                MILLIMETER,
+                FOOT,
+                INCH,
+                YARD, 
+                UNKNOWN_LINEAR_UNIT
+            };
+
+            enum AngularUnit
+            {
+                DEGREES, 
+                RADIANS,
+                UNKNOWN_ANGULAR_UNIT
+            };
+
+            enum TimeUnit
+            {
+                FILM,
+                UNKNOWN_TIME_UNIT
+            };
+
+        private:
+
+            /**
+             * The enum value for the linear unit.
+             */
+            LinearUnit mLinearUnitUnit;
+
             /** 
             * The name of the distance unit to use in the scene. For example, 
             * "meter", "centimeter", "inches", or "parsec". This can be the 
             * real name of a measurement, or an imaginary name.
             */
-            String mLinearUnit;
+            String mLinearUnitName;
 
             /**
             * How many real-world meters in one distance unit as a floating-point number.
@@ -54,14 +112,95 @@ namespace COLLADAFW
             /**
              * The angular unit;
              */
-            String mAngularUnit;
+            String mAngularUnitName;
+            AngularUnit mAngularUnitUnit;
 
             /**
              * The time unit.
              */
-            String mTimeUnit;
+            String mTimeUnitName;
+            TimeUnit mTimeUnitUnit;
+
+        public:
+
+            Unit () 
+                : mLinearUnitName ( LINEAR_UNIT_METER_NAME )
+                , mLinearUnitUnit ( METER )
+                , mLinearUnitMeter ( LINEAR_UNIT_METER )
+                , mAngularUnitName ( ANGULAR_UNIT_DEGREES_NAME )
+                , mAngularUnitUnit ( DEGREES )
+                , mTimeUnitName ( TIME_UNIT_FILM_NAME )
+                , mTimeUnitUnit ( FILM )
+            {}
+
+            Unit ( String linearUnitName, double linearUnitMeter, 
+                String angularUnitName, String timeUnitName = TIME_UNIT_FILM_NAME )
+                : mLinearUnitName ( linearUnitName )
+                , mLinearUnitMeter ( linearUnitMeter )
+                , mAngularUnitName ( angularUnitName )
+                , mTimeUnitName ( timeUnitName )
+            {
+                initializeLinearUnitUnitByName ( mLinearUnitName );
+                initializeAngularUnitUnitByName ( mAngularUnitName );
+                initializeTimeUnitUnitByName ( mTimeUnitName );
+            }
+
+            virtual ~Unit () {}
+
+            /**
+            * The enum value for the linear unit.
+            */
+            const LinearUnit& getLinearUnitUnit () const { return mLinearUnitUnit; }
+            void setLinearUnitUnit ( const LinearUnit& val ) { mLinearUnitUnit = val; }
+
+            /** 
+            * The name of the distance unit to use in the scene. For example, 
+            * "meter", "centimeter", "inches", or "parsec". This can be the 
+            * real name of a measurement, or an imaginary name.
+            */
+            const String& getLinearUnit () const { return mLinearUnitName; }
+            void setLinearUnit ( const String& val );
+
+            /**
+             * Initializes the linear unit unit with the specified enum value 
+             * in depend of the given name.
+             */
+            void initializeLinearUnitUnitByName ( const String& val );
+
+            /**
+            * How many real-world meters in one distance unit as a floating-point number.
+            * For example, 1.0 for the name "meter"; 1000 for the name "kilometer";
+            * 0.3048 for the name "foot".
+            */
+            const double getLinearUnitMeter () const { return mLinearUnitMeter; }
+            void setLinearUnitMeter ( const double val ) { mLinearUnitMeter = val; }
+
+            /**
+            * The angular unit;
+            */
+            const String& getAngularUnitName () const { return mAngularUnitName; }
+            void setAngularUnitName ( const String& val );
+
+            /**
+            * Initializes the angular unit unit with the specified enum value 
+            * in depend of the given name.
+            */
+            void initializeAngularUnitUnitByName ( const String& angularUnitName );
+
+            /**
+            * The time unit.
+            */
+            const String& getTimeUnitName () const { return mTimeUnitName; }
+            void setTimeUnitName ( const String& val );
+
+            /**
+            * Initializes the time unit unit with the specified enum value 
+            * in depend of the given name.
+            */
+            void initializeTimeUnitUnitByName ( const String& timeUnitName );
 
         };
+
 
         /*Descriptive information about the coordinate system
         of the geometric data. All coordinates are right handed
@@ -126,7 +265,7 @@ namespace COLLADAFW
         */
         void setLinearUnit ( const String& linearUnit )
         {
-            mUnit.mLinearUnit = linearUnit;
+            mUnit.setLinearUnit ( linearUnit );
         }
 
         /** 
@@ -134,7 +273,7 @@ namespace COLLADAFW
         */
         void setLinearUnitMeter ( const double linearUnitMeter )
         {
-            mUnit.mLinearUnitMeter = linearUnitMeter;
+            mUnit.setLinearUnitMeter ( linearUnitMeter );
         }
 
         /** Returns the unit. */

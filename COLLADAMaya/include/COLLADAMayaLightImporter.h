@@ -28,6 +28,16 @@ namespace COLLADAMaya
     {
     private:
 
+        /** The name of maya's default light list. */
+        static const String INITIAL_LIGHT_LIST;
+        static const String DEFAULT_LIGHT_SET;
+
+    private:
+
+        typedef std::map<COLLADAFW::UniqueId, MayaDM::Light*> UniqueIdLightNodeMap;
+
+    private:
+
         /** The standard name for camera without name. */
         static const String LIGHT_NAME;
 
@@ -40,8 +50,14 @@ namespace COLLADAMaya
 
         /** 
         * The map holds the unique ids of the light nodes to the maya specific nodes. 
+        * Need for the instances.
         */
         UniqueIdMayaNodesMap mMayaLightNodesMap;
+
+        /**
+        * The map holds the maya light objects for the connections.
+        */
+        UniqueIdLightNodeMap mMayaLightMap;
 
 	public:
 
@@ -55,6 +71,11 @@ namespace COLLADAMaya
         * Imports the data of the current light.
         */
         void importLight ( const COLLADAFW::Light* light );
+
+        /**
+         * Writes the connection attributes into the maya ascii file. 
+         */
+        void writeConnections ();
 
     private:
 
@@ -77,7 +98,21 @@ namespace COLLADAMaya
             const COLLADAFW::Light* light, 
             MayaDM::Light* mayaLight );
 
+        /** 
+        * The map holds the unique ids of the light nodes to the maya specific nodes. 
+        * Need for the instances.
+        */
         MayaNode* findMayaLightNode ( const COLLADAFW::UniqueId& lightId );
+
+        /**
+        * The map holds the maya material objects.
+        */
+        MayaDM::Light* findMayaLight ( const COLLADAFW::UniqueId& val ) const;
+
+        /**
+        * The map holds the maya light objects.
+        */
+        void appendLight ( const COLLADAFW::UniqueId& id, MayaDM::Light* lightNode );
 
 	};
 

@@ -22,6 +22,7 @@
 #include "COLLADAMayaGeometryImporter.h"
 #include "COLLADAMayaCameraImporter.h"
 #include "COLLADAMayaLightImporter.h"
+#include "COLLADAMayaImageImporter.h"
 #include "COLLADAMayaVisualSceneImporter.h"
 
 #include "COLLADAMayaVisualSceneImporter.h"
@@ -50,12 +51,14 @@ namespace COLLADAMaya
         , mEffectImporter (0)
         , mCameraImporter (0)
         , mLightImporter (0)
+        , mImageImporter (0)
         , mSceneGraphWritten (false)
         , mAssetWritten (false)
         , mSceneGraphRead (false)
         , mGeometryRead (false)
         , mCameraRead (false)
         , mLightRead (false)
+        , mImageRead (false)
         , mLinearUnitMeter (1)
         , mNumDocumentParses (0)
     {
@@ -82,6 +85,7 @@ namespace COLLADAMaya
         mEffectImporter = new EffectImporter ( this );
         mCameraImporter = new CameraImporter ( this );
         mLightImporter = new LightImporter ( this );
+        mImageImporter = new ImageImporter (this);
 
         // Get the sceneID (assign a name to the scene)
         MString sceneName = MFileIO::currentFile ();
@@ -100,6 +104,7 @@ namespace COLLADAMaya
         delete mEffectImporter;
         delete mCameraImporter;
         delete mLightImporter;
+        delete mImageImporter;
     }
 
     //-----------------------------
@@ -186,6 +191,7 @@ namespace COLLADAMaya
             // TODO After the complete read of the collada document, 
             // the connections can be written into the maya file.
             mMaterialImporter->writeConnections ();
+            mLightImporter->writeConnections ();
 
             // Close the file
             closeMayaAsciiFile ();
@@ -305,12 +311,85 @@ namespace COLLADAMaya
 
         fprintf_s ( mFile, "requires maya \"%s\";\n", mayaVersion.c_str () );
 
-        // TODO Default values for the units!
+        // Get the unit informations.
         const COLLADAFW::FileInfo::Unit& unit = asset->getUnit ();
-        fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", unit.mLinearUnit.c_str (), unit.mAngularUnit.c_str (), unit.mTimeUnit.c_str () );
 
-        // Set the linear unit in meters
-        mLinearUnitMeter = unit.mLinearUnitMeter;
+        // TODO Default values for the units!
+        String linearUnitName = unit.getLinearUnit ();
+        double linearUnitMeter = unit.getLinearUnitMeter ();
+
+        // Set the linear unit in meters.
+        // Maya knows: millimeter, centimeter, meter, foot, inch and yard.
+        switch ( unit.getLinearUnitUnit () )
+        {
+        case COLLADAFW::FileInfo::Unit::KILOMETER:
+            {
+                // Convert to meters
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_KILOMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::METER:
+            {
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::DECIMETER:
+            {
+                // Convert to meters
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_DECIMETER;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::CENTIMETER:
+            {
+                // Don't convert 
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::MILLIMETER:
+            {
+                // Convert to centimeters
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER_NAME;
+                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_MILLIMETER / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_CENTIMETER;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::FOOT:
+            {
+                // Don't convert 
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT_NAME;
+                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_FOOT;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::INCH:
+            {
+                // Don't convert 
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH_NAME;
+                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_INCH;
+                break;
+            }
+        case COLLADAFW::FileInfo::Unit::YARD:
+            {
+                // Don't convert 
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD_NAME;
+                linearUnitMeter =  COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD / COLLADAFW::FileInfo::Unit::LINEAR_UNIT_YARD;
+                break;
+            }
+        default:
+            {
+                // Set to meters
+                linearUnitName = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER_NAME;
+                linearUnitMeter = COLLADAFW::FileInfo::Unit::LINEAR_UNIT_METER;
+                break;
+            }
+        }
+
+        fprintf_s ( mFile, "currentUnit -l %s -a %s -t %s;\n", 
+            linearUnitName.c_str (), unit.getAngularUnitName ().c_str (), unit.getTimeUnitName ().c_str () );
+
+        mLinearUnitMeter = linearUnitMeter;
         mUpAxisType = asset->getUpAxisType ();
 
         //         String application ( MGlobal::executeCommandStringResult ( "about -application" ).asChar () );
@@ -325,12 +404,13 @@ namespace COLLADAMaya
 
         mAssetWritten = true;
 
-        if ( mSceneGraphRead || mGeometryRead || mCameraRead || mLightRead )
+        if ( mSceneGraphRead || mGeometryRead || mCameraRead || mLightRead || mImageRead )
         {
             mSceneGraphRead = false;
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
+            mImageRead = false;
             readColladaDocument ();
         }
 
@@ -355,11 +435,12 @@ namespace COLLADAMaya
         mVisualSceneImporter->importVisualScene ( visualScene );
         mSceneGraphWritten = true;
 
-        if ( mGeometryRead || mCameraRead || mLightRead )
+        if ( mGeometryRead || mCameraRead || mLightRead || mImageRead )
         {
             mGeometryRead = false;
             mCameraRead = false;
             mLightRead = false;
+            mImageRead = false;
             readColladaDocument ();
         }
 
@@ -436,7 +517,7 @@ namespace COLLADAMaya
     }
 
     //-----------------------------
-    bool DocumentImporter::writeLight ( const COLLADAFW::Light* camera )
+    bool DocumentImporter::writeLight ( const COLLADAFW::Light* light )
     {
         // Order: asset, scene graph, others
         if ( !mAssetWritten || !mSceneGraphWritten ) 
@@ -449,9 +530,27 @@ namespace COLLADAMaya
         if ( mFile == 0 ) start();
 
         // Import the data.
-        mLightImporter->importLight ( camera );
+        mLightImporter->importLight ( light );
 
         return true;
     }
 
+    //-----------------------------
+    bool DocumentImporter::writeImage ( const COLLADAFW::Image* image )
+    {
+        // Order: asset, scene graph, others
+        if ( !mAssetWritten || !mSceneGraphWritten ) 
+        {
+            mImageRead = true;
+            return true;
+        }
+
+        // Create the file, if not already done.
+        if ( mFile == 0 ) start();
+
+        // Import the data.
+        mImageImporter->importImage ( image );
+
+        return true;
+    }
 }

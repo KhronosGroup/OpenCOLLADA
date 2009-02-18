@@ -49,37 +49,9 @@ namespace COLLADAMaya
 
     private:
 
-        /**
-         * The list of the unique maya transform node names.
-         */
-        COLLADABU::IDList mTransformNodeIdList;
-
         /*
-         * The map holds for every unique id of a geometry a list of transform node unique ids.
-         * We need it for the creation of the geometry, to set the parent transform nodes.
-         */
-        UniqueIdUniqueIdsMap mGeometryTransformIdsMap;
-
-        /*
-        * The map holds for every unique id of a camera a list of transform node unique ids.
-        * We need it for the creation of the camera, to set the parent transform nodes.
+        *	Helper class, to handle the transformations.
         */
-        UniqueIdUniqueIdsMap mCameraTransformIdsMap;
-
-        /*
-        * The map holds for every unique id of a light a list of transform node unique ids.
-        * We need it for the creation of the light, to set the parent transform nodes.
-        */
-        UniqueIdUniqueIdsMap mLightTransformIdsMap;
-
-        /** 
-        * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
-        */
-        UniqueIdMayaNodesMap mMayaTransformNodesMap;
-
-        /*
-         *	Helper class, to handle the transformations.
-         */
         class MayaTransformation
         {
         public:
@@ -121,11 +93,47 @@ namespace COLLADAMaya
             MVector translate3; // = 0,0,0
             std::vector<MVector> translate3Vec;
             size_t numTranslate3;
-            
+
 
             // 5 phases
             size_t phase;
         };
+
+    private:
+
+        /**
+         * The list of the unique maya transform node names.
+         */
+        COLLADABU::IDList mTransformNodeIdList;
+
+        /** 
+        * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
+        */
+        UniqueIdMayaNodesMap mMayaTransformNodesMap;
+
+        /**
+         * The map holds for every transform node a list of all existing parent transform nodes
+         * (this are the nodes, which hold an instance of the current transform node).
+         */
+        UniqueIdUniqueIdsMap mTransformInstancesMap;
+
+        /*
+         * The map holds for every unique id of a geometry a list of transform node unique ids.
+         * We need it for the creation of the geometry, to set the parent transform nodes.
+         */
+        UniqueIdUniqueIdsMap mGeometryTransformIdsMap;
+
+        /*
+        * The map holds for every unique id of a camera a list of transform node unique ids.
+        * We need it for the creation of the camera, to set the parent transform nodes.
+        */
+        UniqueIdUniqueIdsMap mCameraTransformIdsMap;
+
+        /*
+        * The map holds for every unique id of a light a list of transform node unique ids.
+        * We need it for the creation of the light, to set the parent transform nodes.
+        */
+        UniqueIdUniqueIdsMap mLightTransformIdsMap;
 
     public:
 
@@ -149,6 +157,12 @@ namespace COLLADAMaya
         * The map holds the unique ids of the nodes to the full node pathes (contains the name). 
         */
         MayaNode* findMayaTransformNode ( const COLLADAFW::UniqueId& uniqueId );
+
+        /**
+         * The map holds for every transform node a list of all existing parent transform nodes
+         * (this are the nodes, which hold an instance of the current transform node).
+         */
+        const UniqueIdVec* findTransformInstances ( const COLLADAFW::UniqueId& transformId ) const;
 
         /*
         * The map holdes for every geometry (identified by it's unique id ) a list of all 
@@ -206,6 +220,11 @@ namespace COLLADAMaya
          * Handle the node instances. 
          */
         bool readNodeInstances ( const COLLADAFW::Node* node );
+
+        /**
+         * Write the parenting informations about node instances into the maya ascii file.
+         */
+        void writeNodeInstances ();
 
         /*
          *	Transform the input matrix and convert it in a double[4][4] matrix.

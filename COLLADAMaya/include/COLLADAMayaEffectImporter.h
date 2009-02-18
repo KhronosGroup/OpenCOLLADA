@@ -25,10 +25,6 @@ namespace COLLADAMaya
     /** TODO Documentation */
 	class EffectImporter : public BaseImporter
     {
-    public:
-
-        typedef std::map<COLLADAFW::UniqueId, MayaDM::DependNode*> UniqueIdDependNodeMap;
-
     private:
 	
         /** The standard name for a effect without name. */
@@ -47,7 +43,7 @@ namespace COLLADAMaya
         UniqueIdNamesMap mMayaEffectNamesMap;
 
         /**
-        * The map holds the maya effect objects.
+        * The map holds the maya effect objects for the connections.
         */
         UniqueIdDependNodeMap mMayaEffectMap;
 

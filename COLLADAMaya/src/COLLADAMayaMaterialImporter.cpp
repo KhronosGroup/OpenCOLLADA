@@ -34,8 +34,8 @@ namespace COLLADAMaya
     const String MaterialImporter::MATERIAL_NAME = "Material";
     const String MaterialImporter::SHADING_ENGINE_NAME = "ShadingEngine";
     const String MaterialImporter::MATERIAL_INFO_NAME = "MaterialInfo";
-    const String MaterialImporter::DEFAULT_SHADER_LIST = "defaultShaderList1";
-    const String MaterialImporter::DEFAULT_SHADING_ENGINE = "initialShadingGroup";
+    const String MaterialImporter::DEFAULT_SHADER_LIST = ":defaultShaderList1";
+    const String MaterialImporter::INITIAL_SHADING_ENGINE = ":initialShadingGroup";
     const String MaterialImporter::ATTR_SHADERS = "shaders";
     
 
@@ -201,18 +201,39 @@ namespace COLLADAMaya
          mShadingEngineBindingMap [shadingEngineId].insert ( shadingBinding );
      }
 
+     // --------------------------
+     size_t MaterialImporter::getGeometryInstanceIndex ( 
+         const COLLADAFW::UniqueId& geometryId, 
+         const COLLADAFW::UniqueId& transformNodeId )
+     {
+         size_t meshInstanceIndex = 0;
+
+         // Get all visual scene nodes, which use this geometry and make the parent connections.
+         VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
+         const UniqueIdVec* transformNodes = visualSceneImporter->findGeometryTransformIds ( geometryId );
+         size_t numNodeInstances = transformNodes->size ();
+
+         bool found = false;
+         for ( size_t index=0; index<numNodeInstances && !found; ++index )
+         {
+             const COLLADAFW::UniqueId& nodeId = (*transformNodes) [index];
+             if ( nodeId == transformNodeId ) 
+             {
+                 meshInstanceIndex = index;
+                 found = true;
+             }
+         }
+         return meshInstanceIndex;
+     }
+
     // --------------------------
     void MaterialImporter::writeConnections ()
     {
-        // TODO
         // select -noExpand :defaultShaderList1;
-        // setAttr -size 4 ".shaders";
         // select -noExpand :initialShadingGroup;
         FILE* file = getDocumentImporter ()->getFile ();
-        String defaultShaderName = ":" + DEFAULT_SHADER_LIST;
-        mayaSelect ( file, defaultShaderName, true );
-        String defaultShadingEngineName = ":" + DEFAULT_SHADING_ENGINE;
-        mayaSelect ( file, defaultShadingEngineName, true );
+        mayaSelect ( file, DEFAULT_SHADER_LIST, true );
+        mayaSelect ( file, INITIAL_SHADING_ENGINE, true );
 
         // If there are some object groups, we have to connect them with the geometries.
         connectGeometryGroups();
@@ -225,31 +246,6 @@ namespace COLLADAMaya
 
         // Connects the default shader list with the materials.
         connectDefaultShaderList();
-    }
-
-    // --------------------------
-    size_t MaterialImporter::getGeometryInstanceIndex ( 
-        const COLLADAFW::UniqueId& geometryId, 
-        const COLLADAFW::UniqueId& transformNodeId )
-    {
-        size_t meshInstanceIndex = 0;
-
-        // Get all visual scene nodes, which use this geometry and make the parent connections.
-        VisualSceneImporter* visualSceneImporter = getDocumentImporter ()->getVisualSceneImporter ();
-        const UniqueIdVec* transformNodes = visualSceneImporter->findGeometryTransformIds ( geometryId );
-        size_t numNodeInstances = transformNodes->size ();
-
-        bool found = false;
-        for ( size_t index=0; index<numNodeInstances && !found; ++index )
-        {
-            const COLLADAFW::UniqueId& nodeId = (*transformNodes) [index];
-            if ( nodeId == transformNodeId ) 
-            {
-                meshInstanceIndex = index;
-                found = true;
-            }
-        }
-        return meshInstanceIndex;
     }
 
     // --------------------------
@@ -401,15 +397,12 @@ namespace COLLADAMaya
         const EffectImporter::UniqueIdDependNodeMap& effectMap = effectImporter->getMayaEffectMap ();
         EffectImporter::UniqueIdDependNodeMap::const_iterator it = effectMap.begin ();
 
-        String defaultShaderName = ":" + DEFAULT_SHADER_LIST;
-        MayaDM::DefaultShaderList defaultShaderList ( file, defaultShaderName, "", false );
-        //MayaDM::ShadingEngine defaultShadingEngine ( file, defaultShadingEngineName, "", false );
+        MayaDM::DefaultShaderList defaultShaderList ( file, DEFAULT_SHADER_LIST, "", false );
 
         size_t shaderIndex = 0;
         while ( it != effectMap.end () )
         {
             MayaDM::DependNode* dependNode = it->second;
-            String destination = ":" + DEFAULT_SHADER_LIST + "." + ATTR_SHADERS;
             connectAttr ( file, dependNode->getMessage (), defaultShaderList.getShaders (shaderIndex) );
             ++shaderIndex;
             ++it;

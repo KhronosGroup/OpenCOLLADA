@@ -41,6 +41,7 @@ namespace COLLADAMaya
     class EffectImporter;
     class CameraImporter;
     class LightImporter;
+    class ImageImporter;
 
 
     /** The main importer class. This class imports all data of the scene. */
@@ -79,6 +80,7 @@ namespace COLLADAMaya
         bool mGeometryRead;
         bool mCameraRead;
         bool mLightRead;
+        bool mImageRead;
 
         /** Pointer to the visual scene importer. */
         VisualSceneImporter* mVisualSceneImporter;
@@ -97,6 +99,9 @@ namespace COLLADAMaya
 
         /** Pointer to the light importer. */
         LightImporter* mLightImporter;
+
+        /** Pointer to the image importer. */
+        ImageImporter* mImageImporter;
 
         /** The variable tells, how many times the document is read. */
         size_t mNumDocumentParses;
@@ -222,6 +227,10 @@ namespace COLLADAMaya
         /** When this method is called, the writer must write the light.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeLight( const COLLADAFW::Light* camera );
+
+        /** When this method is called, the writer must write the image.
+        @return The writer should return true, if writing succeeded, false otherwise.*/
+        virtual bool writeImage( const COLLADAFW::Image* image );
 
         /**
          * Replace offending characters by some that are supported within maya.
