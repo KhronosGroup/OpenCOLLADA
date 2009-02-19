@@ -44,23 +44,22 @@ namespace COLLADAFW
         {}
         virtual ~IndexList () {}
 
-        UIntValuesArray& getIndices () { return mIndices; }
+		UIntValuesArray& getIndices () { return mIndices; }
+		const UIntValuesArray& getIndices () const { return mIndices; }
         unsigned int getIndex ( size_t index ) const { return mIndices [index]; }
-        unsigned int getIndex ( size_t index ) { return mIndices [index]; }
         size_t getIndicesCount () const { return mIndices.getCount (); }
-        size_t getIndicesCount () { return mIndices.getCount (); }
-
+        
         void setSetIndex ( size_t inputSet ) { mSetIndex = inputSet; }
-        size_t getSetIndex () { return mSetIndex; }
+        size_t getSetIndex () const { return mSetIndex; }
         
         void setStride ( size_t stride ) { mStride = stride; }
-        size_t getStride () { return mStride; }
+        size_t getStride () const { return mStride; }
 
         const COLLADAFW::String& getName () const { return mName; }
         void setName ( const COLLADAFW::String& val ) { mName = val; }
 
-        const size_t getInitialIndex () const { return mInitialIndex; }
-        void setInitialIndex ( const size_t val ) { mInitialIndex = val; }
+        size_t getInitialIndex () const { return mInitialIndex; }
+        void setInitialIndex ( size_t val ) { mInitialIndex = val; }
 
     private:
 

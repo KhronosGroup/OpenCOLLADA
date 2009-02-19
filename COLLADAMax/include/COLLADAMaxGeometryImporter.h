@@ -39,6 +39,15 @@ namespace COLLADAMax
 	{
 	private:
 
+		/** Maps initial indices from index list of multiple texture or color inputs to the index of the source*/
+		typedef std::map<size_t /* initial index*/, size_t /* Source index*/> InitialIndexSourceIndexMap;
+
+		/** Maps index of the source to the initial indices from index list of multiple texture or color inputs*/
+		typedef std::map<size_t /* Source index*/, size_t /* initial index*/> SourceIndexInitialIndexMap;
+
+		typedef std::pair<long/*set index negative for color positive for uv*/,size_t /* initial index*/> SetSourcePair;
+		typedef std::map<SetSourcePair, int /* max map channel*/> SetSourcePairMapChannelMap;
+
 	private:
 		/** The geometry that should be imported.*/
 		const COLLADAFW::Geometry* mGeometry;
@@ -46,7 +55,25 @@ namespace COLLADAMax
 		/** The number of all triangles in all primitives that contain triangles (Triangles, 
 		Tristrips, Trisfans).*/
 		size_t mTotalTrianglesCount;
-	
+
+		/** Maps a set index, source ( data source in MeshVertexData) pair to the max map channel.*/
+		SetSourcePairMapChannelMap mSetSourcePairMapChannelMap;
+
+		/** Maps initial indices from index list of multiple texture inputs to the index of the source*/
+		InitialIndexSourceIndexMap mUVInitialIndexSourceIndexMap;
+
+		/** Maps index of the source to the initial indices from index list of multiple texture inputs*/
+		SourceIndexInitialIndexMap mUVSourceIndexInitialIndexMap;
+
+		/** Maps initial indices from index list of multiple color inputs to the index of the source*/
+		InitialIndexSourceIndexMap mColorInitialIndexSourceIndexMap;
+
+		/** Maps index of the source to the initial indices from index list of multiple color inputs*/
+		SourceIndexInitialIndexMap mColorSourceIndexInitialIndexMap;
+
+		/** The number of the largest map channel used.*/
+		int mMapChannelCount;
+
 	public:
 
         /** Constructor. */
@@ -110,6 +137,26 @@ namespace COLLADAMax
 
         /** Disable default assignment operator. */
 		const GeometryImporter& operator= ( const GeometryImporter& pre );
+
+		/** Creates the SetSourcePairMapChannelMap using the current geometry.*/
+		void createSetSourcePairMapChannelMap();
+
+		/** assigns map channel to inputs in the indexlist array add inserts them to mSetSourcePairMapChannelMap.
+		@return false if all map channel are used, true otherwise.*/
+		template<bool isColorChannel, bool isFirstTry>
+		bool assignMapChannels( const COLLADAFW::IndexListArray& indices, 
+			const InitialIndexSourceIndexMap& initialIndexSourceIndexMap,
+			bool usedMapChannels[MAX_MESHMAPS + NUM_HIDDENMAPS]);
+
+		/** Sets the uv vertices stored in uvArray into @a meshMap. 
+		@param uvArray The vertices source
+		@param meshMap The mesh map to be filled 
+		@param stride The size of the uv vertex tuples
+		@param startPosition The index of the first vertexs first component in the uvArray
+		@param vertsCount the number of vertices to copy. Must be equal to the number set with MeshMap::setNumFaces()*/
+		template<class NumberArray>
+		void setUVVertices(const NumberArray& uvArray, MeshMap& meshMap, size_t stride, size_t startPosition, size_t vertsCount);
+
 
 	};
 

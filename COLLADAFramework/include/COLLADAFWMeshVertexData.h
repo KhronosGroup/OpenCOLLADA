@@ -87,10 +87,10 @@ namespace COLLADAFW
         }
 
         /** The data type of the stored position values. */
-        const COLLADAFW::MeshVertexData::DataType getType () const { return mType; }
+        DataType getType () const { return mType; }
 
         /** The data type of the stored position values. */
-        void setType ( const COLLADAFW::MeshVertexData::DataType Type ) { mType = Type; }
+        void setType ( DataType Type ) { mType = Type; }
 
         /** Returns the count of stored elements in the array. */
         const size_t getValuesCount () const
@@ -104,6 +104,9 @@ namespace COLLADAFW
         * Returns the number of uv sets.
         */
         size_t getNumInputInfos () const { return mInputInfosArray.getCount (); }
+
+		/** Returns the InputInfosArray.*/
+		const InputInfosArray& getInputInfosArray() const { return mInputInfosArray; }
 
         /**
         * Appends the values in the array on the list of values and stores the information
