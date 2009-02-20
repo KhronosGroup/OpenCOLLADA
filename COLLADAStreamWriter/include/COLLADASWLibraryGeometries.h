@@ -28,7 +28,9 @@ namespace COLLADASW
         static const String GEOMETRY_ID_PRAEFIX ;
         static const String POSITIONS_SOURCE_ID_SUFFIX;
         static const String NORMALS_SOURCE_ID_SUFFIX;
-        static const String TEXTURE_CHANNEL_SOURCE_ID_SUFFIX;
+		static const String TEXTURE_CHANNEL_SOURCE_ID_SUFFIX;
+		static const String TEXTANGENT_SOURCE_ID_SUFFIX;
+		static const String TEXBINORMAL_SOURCE_ID_SUFFIX;
         static const String ARRAY_ID_SUFFIX;
         static const String VERTICES_ID_SUFFIX;
         static const String GEOTANGENT_ID_SUFFIX;

@@ -93,6 +93,9 @@ namespace COLLADAMax
 		if ( !importTriangleMeshNormals(triangleObject) )
 			return false;
 
+		if ( !importTriangleMeshUVCoords(triangleObject) )
+			return false;
+
 		triangleMesh.InvalidateGeomCache();
 		triangleMesh.InvalidateTopologyCache();
 

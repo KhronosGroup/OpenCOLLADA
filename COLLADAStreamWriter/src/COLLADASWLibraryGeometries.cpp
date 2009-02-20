@@ -19,7 +19,9 @@ namespace COLLADASW
     const String LibraryGeometries::GEOMETRY_ID_PRAEFIX = "geom-";
     const String LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX = "-positions";
     const String LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX = "-normals";
-    const String LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX = "-map-channel";
+	const String LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX = "-map-channel";
+	const String LibraryGeometries::TEXTANGENT_SOURCE_ID_SUFFIX = "-textangent";
+	const String LibraryGeometries::TEXBINORMAL_SOURCE_ID_SUFFIX = "-texbinormal";
     const String LibraryGeometries::ARRAY_ID_SUFFIX = "-array";
     const String LibraryGeometries::VERTICES_ID_SUFFIX = "-vertices";
     const String LibraryGeometries::GEOTANGENT_ID_SUFFIX = "-geotangent";

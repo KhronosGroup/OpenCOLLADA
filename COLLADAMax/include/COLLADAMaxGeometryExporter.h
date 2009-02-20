@@ -46,6 +46,13 @@ namespace COLLADAMax
         /** List of max materials.*/
         typedef std::vector<Mtl*> MaterialList;
 
+		/** List of floats.*/
+		typedef std::vector<Point3> Point3List;
+
+		/** List of indices.*/
+		typedef std::vector<int> IndicesList;
+
+
 
     public:
         /** Symbol used for simple color materials.*/
@@ -81,6 +88,9 @@ namespace COLLADAMax
         /** True if object must be deleted by us.*/
         bool mDeleteObject;
 
+		/** True, if TEXTANGENS and TEXNORMALS should be generated*/
+		bool mExportTextangentsAndNormals; 
+
         static const String SYMBOL_NAME_PREFIX;
 
     public:
@@ -105,6 +115,11 @@ namespace COLLADAMax
         /** Returns the suffix of a texture that corresponds to channel @a channel.*/
         static String getTextureSourceIdSuffix ( int channel );
 
+		/** Returns the suffix of a Textangent that corresponds to channel @a channel.*/
+		String getTextangentSourceIdSuffix ( int channel );
+
+		/** Returns the suffix of a Texbinormal that corresponds to channel @a channel.*/
+		String getTexbinormalSourceIdSuffix ( int channel );
 
     private:
         GeometryExporter ( const GeometryExporter & geometryExporter );
@@ -147,6 +162,9 @@ namespace COLLADAMax
         /** Exports the textures of @a mesh.*/
         void exportTextures ( const ChannelList & channelList, Mtl* material );
 
+		/** Exports TEXTANGENTS and TEXBINORMALS  of a triangle mesh.*/
+		void exportTriangleMeshTextangentsAndTexbinormals(const ChannelList & channelList);
+
         /** Exports the texture channel of @a mesh.*/
         void exportTextureChannel ( int channelIndex, Mtl* material );
 
@@ -161,6 +179,13 @@ namespace COLLADAMax
 
         /** Create list of materials used by this geometry.*/
         void flattenMaterials ( Mtl* material, MaterialList& mtlMap, int materialIndex = -1 );
+
+		/** Calculates the textangents and texbinormals of the current mesh and MeshMap @a meshMap and stores them in 
+		@a texTangents and @a texBinormals. The are not reduces, i.e. no indices are needed since the are always the same.*/
+		void calculateTriangleMeshTextangentsAndTexbinormals(int channelIndex,
+			Point3List& texTangents,
+			Point3List& texBinormals);
+
     };
 
 }

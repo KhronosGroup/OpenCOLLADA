@@ -1,18 +1,18 @@
 /*
-    Copyright (c) 2008 NetAllied Systems GmbH
+Copyright (c) 2008 NetAllied Systems GmbH
 
-	This file is part of COLLADAMax.
+This file is part of COLLADAMax.
 
-    Portions of the code are:
-    Copyright (c) 2005-2007 Feeling Software Inc.
-    Copyright (c) 2005-2007 Sony Computer Entertainment America
-    
-    Based on the 3dsMax COLLADASW Tools:
-    Copyright (c) 2005-2006 Autodesk Media Entertainment
-	
-    Licensed under the MIT Open Source License, 
-    for details please see LICENSE file or the website
-    http://www.opensource.org/licenses/mit-license.php
+Portions of the code are:
+Copyright (c) 2005-2007 Feeling Software Inc.
+Copyright (c) 2005-2007 Sony Computer Entertainment America
+
+Based on the 3dsMax COLLADASW Tools:
+Copyright (c) 2005-2006 Autodesk Media Entertainment
+
+Licensed under the MIT Open Source License, 
+for details please see LICENSE file or the website
+http://www.opensource.org/licenses/mit-license.php
 */
 
 
@@ -61,31 +61,32 @@ namespace COLLADAMax
 
 
 
-    inline bool isFinite ( const Point3& p )
-    {
-        return _finite ( p.x ) && _finite ( p.y ) && _finite ( p.z );
-    }
+	inline bool isFinite ( const Point3& p )
+	{
+		return _finite ( p.x ) && _finite ( p.y ) && _finite ( p.z );
+	}
 
 
-    const String GeometryExporter::COLOR_MATERIAL_SYMBOL = "ColorMaterial";
+	const String GeometryExporter::COLOR_MATERIAL_SYMBOL = "ColorMaterial";
 
 
-    const String GeometryExporter::SYMBOL_NAME_PREFIX = "channel";
+	const String GeometryExporter::SYMBOL_NAME_PREFIX = "channel";
 
 
 
-    //---------------------------------------------------------------
-    GeometryExporter::GeometryExporter ( ExportNode * exportNode, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter )
-            : mExportNode ( exportNode ),
-			mMorphControllerHelperGeometry(0),
-            mGeometriesExporter ( geometriesExporter ),
-            mDocumentExporter ( documentExporter ),
-			mMaterialChannelPairParamBlockMap(documentExporter->getEffectExporter()->getMaterialChannelPairParamBlockMap()),
-            mPolyObject ( 0 ),
-            mTriObject ( 0 ),
-            mGeomObject ( 0 ),
-            mDeleteObject ( false )
-    {}
+	//---------------------------------------------------------------
+	GeometryExporter::GeometryExporter ( ExportNode * exportNode, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter )
+		: mExportNode ( exportNode ),
+		mMorphControllerHelperGeometry(0),
+		mGeometriesExporter ( geometriesExporter ),
+		mDocumentExporter ( documentExporter ),
+		mMaterialChannelPairParamBlockMap(documentExporter->getEffectExporter()->getMaterialChannelPairParamBlockMap()),
+		mPolyObject ( 0 ),
+		mTriObject ( 0 ),
+		mGeomObject ( 0 ),
+		mDeleteObject ( false ), 
+		mExportTextangentsAndNormals(documentExporter->getOptions().getExportTangents())
+	{}
 
 	//---------------------------------------------------------------
 	GeometryExporter::GeometryExporter ( const MorphControllerHelperGeometry * helperGeometry, GeometriesExporter * geometriesExporter, DocumentExporter * documentExporter )
@@ -97,183 +98,194 @@ namespace COLLADAMax
 		mPolyObject ( 0 ),
 		mTriObject ( 0 ),
 		mGeomObject ( 0 ),
-		mDeleteObject ( false )
+		mDeleteObject ( false )	, 
+		mExportTextangentsAndNormals(documentExporter->getOptions().getExportTangents())
 	{}
 
 
 
-    //---------------------------------------------------------------
-    String GeometryExporter::getTextureSourceIdSuffix ( int channel )
-    {
-        std::ostringstream idSuffix;
-        idSuffix << COLLADASW::LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX << channel;
-        return idSuffix.str();
-    }
+	//---------------------------------------------------------------
+	String GeometryExporter::getTextureSourceIdSuffix ( int channel )
+	{
+		std::ostringstream idSuffix;
+		idSuffix << COLLADASW::LibraryGeometries::TEXTURE_CHANNEL_SOURCE_ID_SUFFIX << channel;
+		return idSuffix.str();
+	}
+
+	//---------------------------------------------------------------
+	String GeometryExporter::getTextangentSourceIdSuffix ( int channel )
+	{
+		return getTextureSourceIdSuffix( channel) + COLLADASW::LibraryGeometries::TEXTANGENT_SOURCE_ID_SUFFIX;
+	}
+
+	//---------------------------------------------------------------
+	String GeometryExporter::getTexbinormalSourceIdSuffix ( int channel )
+	{
+		return getTextureSourceIdSuffix( channel) + COLLADASW::LibraryGeometries::TEXBINORMAL_SOURCE_ID_SUFFIX;
+	}
+
+	//---------------------------------------------------------------
+	void GeometryExporter::getBaseObjectAndID ( Object*& object, SClass_ID& sid )
+	{
+		if ( object == NULL )
+			return ;
+
+		sid = object->SuperClassID();
+
+		if ( sid == WSM_DERIVOB_CLASS_ID || sid == DERIVOB_CLASS_ID || sid == GEN_DERIVOB_CLASS_ID )
+		{
+			IDerivedObject * derivedObject = ( IDerivedObject* ) object;
+
+			if ( derivedObject->NumModifiers() > 0 )
+			{
+				// Remember that 3dsMax has the mod stack reversed in its internal structures.
+				// So that evaluating the zero'th modifier implies evaluating the whole modifier stack.
+				ObjectState state = derivedObject->Eval ( 0, 0 );
+				object = state.obj;
+			}
+			else
+			{
+				object = derivedObject->GetObjRef();
+			}
+
+			sid = object->SuperClassID();
+		}
+	}
 
 
-    //---------------------------------------------------------------
-    void GeometryExporter::getBaseObjectAndID ( Object*& object, SClass_ID& sid )
-    {
-        if ( object == NULL )
-            return ;
 
-        sid = object->SuperClassID();
-
-        if ( sid == WSM_DERIVOB_CLASS_ID || sid == DERIVOB_CLASS_ID || sid == GEN_DERIVOB_CLASS_ID )
-        {
-            IDerivedObject * derivedObject = ( IDerivedObject* ) object;
-
-            if ( derivedObject->NumModifiers() > 0 )
-            {
-                // Remember that 3dsMax has the mod stack reversed in its internal structures.
-                // So that evaluating the zero'th modifier implies evaluating the whole modifier stack.
-                ObjectState state = derivedObject->Eval ( 0, 0 );
-                object = state.obj;
-            }
-
-            else
-            {
-                object = derivedObject->GetObjRef();
-            }
-
-            sid = object->SuperClassID();
-        }
-    }
-
-
-
-    //---------------------------------------------------------------
-    void GeometryExporter::classifyObject ( Object* object /*, bool affectsControllers*/ )
-    {
-        SClass_ID sid;
-        getBaseObjectAndID ( object, sid );
+	//---------------------------------------------------------------
+	void GeometryExporter::classifyObject ( Object* object /*, bool affectsControllers*/ )
+	{
+		SClass_ID sid;
+		getBaseObjectAndID ( object, sid );
 
 		TimeValue animationStart = mDocumentExporter->getOptions().getAnimationStart();
 
-        Class_ID id = object->ClassID();
+		Class_ID id = object->ClassID();
 
-        bool exportEPolyAsTriangles = mDocumentExporter->getOptions().getExportEPolyAsTriangles();
+		bool exportEPolyAsTriangles = mDocumentExporter->getOptions().getExportEPolyAsTriangles();
 
-        if ( !exportEPolyAsTriangles )
-        {
-            // Check for the possibility of an editable poly object.
+		if ( !exportEPolyAsTriangles )
+		{
+			// Check for the possibility of an editable poly object.
 
-            if ( sid == GEOMOBJECT_CLASS_ID && ( id == EPOLYOBJ_CLASS_ID || id.PartA() == POLYOBJ_CLASS_ID ) )
-            {
-                mPolyObject = ( PolyObject* ) object;
-            }
-        }
+			if ( sid == GEOMOBJECT_CLASS_ID && ( id == EPOLYOBJ_CLASS_ID || id.PartA() == POLYOBJ_CLASS_ID ) )
+			{
+				mPolyObject = ( PolyObject* ) object;
+			}
+		}
 
-        if ( !mPolyObject )
-        {
-            // Check for the possibility of an editable mesh object.
+		if ( !mPolyObject )
+		{
+			// Check for the possibility of an editable mesh object.
 
-            if ( sid == GEOMOBJECT_CLASS_ID && ( id.PartA() == EDITTRIOBJ_CLASS_ID || id.PartA() == TRIOBJ_CLASS_ID ) )
-            {
-                mTriObject = ( TriObject* ) object;
-            }
+			if ( sid == GEOMOBJECT_CLASS_ID && ( id.PartA() == EDITTRIOBJ_CLASS_ID || id.PartA() == TRIOBJ_CLASS_ID ) )
+			{
+				mTriObject = ( TriObject* ) object;
+			}
 
-            if ( !mTriObject )
-            {
+			if ( !mTriObject )
+			{
 #if 0
-                // Check for geometry primitives (Box, Cylinder, Torus, etc.) and convert them to TriObject
-                // since they don't export well as PolyObject (controllers are messed up)
+				// Check for geometry primitives (Box, Cylinder, Torus, etc.) and convert them to TriObject
+				// since they don't export well as PolyObject (controllers are messed up)
 
-                if ( affectsControllers &&
-                        ( id == Class_ID ( BOXOBJ_CLASS_ID, 0 ) ||
-                          id == Class_ID ( SPHERE_CLASS_ID, 0 ) ||
-                          id == Class_ID ( CYLINDER_CLASS_ID, 0 ) ||
+				if ( affectsControllers &&
+					( id == Class_ID ( BOXOBJ_CLASS_ID, 0 ) ||
+					id == Class_ID ( SPHERE_CLASS_ID, 0 ) ||
+					id == Class_ID ( CYLINDER_CLASS_ID, 0 ) ||
 #if (MAX_VERSION_MAJOR >= 8)
 #ifndef NO_OBJECT_STANDARD_PRIMITIVES
-                          id == PLANE_CLASS_ID ||
-                          id == PYRAMID_CLASS_ID ||
-                          id == GSPHERE_CLASS_ID ||
+					id == PLANE_CLASS_ID ||
+					id == PYRAMID_CLASS_ID ||
+					id == GSPHERE_CLASS_ID ||
 #endif // NO_OBJECT_STANDARD_PRIMITIVES
 #endif // USE_MAX_8
-                          id == Class_ID ( CONE_CLASS_ID, 0 ) ||
-                          id == Class_ID ( TORUS_CLASS_ID, 0 ) ||
-                          id == Class_ID ( TUBE_CLASS_ID, 0 ) ||
-                          id == Class_ID ( HEDRA_CLASS_ID, 0 ) ||
-                          id == Class_ID ( BOOLOBJ_CLASS_ID, 0 ) ) )
-                {
-                    if ( object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
-                    {
-                        mTriObject = ( TriObject* ) object->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
-                        mDeleteObject = true;
-                    }
-                }
+					id == Class_ID ( CONE_CLASS_ID, 0 ) ||
+					id == Class_ID ( TORUS_CLASS_ID, 0 ) ||
+					id == Class_ID ( TUBE_CLASS_ID, 0 ) ||
+					id == Class_ID ( HEDRA_CLASS_ID, 0 ) ||
+					id == Class_ID ( BOOLOBJ_CLASS_ID, 0 ) ) )
+				{
+					if ( object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
+					{
+						mTriObject = ( TriObject* ) object->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
+						mDeleteObject = true;
+					}
+				}
 
 #endif
 
-                if ( !mTriObject && !exportEPolyAsTriangles && object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
-                {
-                    mPolyObject = ( PolyObject* ) object->ConvertToType ( animationStart, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
-                    mDeleteObject = true;
-                }
+				if ( !mTriObject && !exportEPolyAsTriangles && object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
+				{
+					mPolyObject = ( PolyObject* ) object->ConvertToType ( animationStart, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
+					mDeleteObject = true;
+				}
 
-                if ( !mTriObject && !mPolyObject && object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
-                {
-                    mTriObject = ( TriObject* ) object->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
-                    // ST - Copy over animated vertices, this is not done by default
+				if ( !mTriObject && !mPolyObject && object->CanConvertToType ( Class_ID ( TRIOBJ_CLASS_ID, 0 ) ) )
+				{
+					mTriObject = ( TriObject* ) object->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
+					// ST - Copy over animated vertices, this is not done by default
 
-                    if ( id == EPOLYOBJ_CLASS_ID || id.PartA() == POLYOBJ_CLASS_ID )
-                    {
-                        // Copy over any animated vertices, because that is not done by default.
-                        int numVertControllers = object->NumRefs() - EPOLY_VERT_BASE_REF;
+					if ( id == EPOLYOBJ_CLASS_ID || id.PartA() == POLYOBJ_CLASS_ID )
+					{
+						// Copy over any animated vertices, because that is not done by default.
+						int numVertControllers = object->NumRefs() - EPOLY_VERT_BASE_REF;
 
-                        if ( numVertControllers > 0 )
-                        {
-                            // Initialize our triObj to recieve vert controllers.
-                            mTriObject->ReplaceReference ( ET_VERT_BASE_REF, NULL );
+						if ( numVertControllers > 0 )
+						{
+							// Initialize our triObj to recieve vert controllers.
+							mTriObject->ReplaceReference ( ET_VERT_BASE_REF, NULL );
 
-                            // Assert we now have the same count
+							// Assert we now have the same count
 #ifdef _DEBUG
 
-                            assert ( ( mTriObject->NumRefs() - ET_VERT_BASE_REF ) == numVertControllers );
+							assert ( ( mTriObject->NumRefs() - ET_VERT_BASE_REF ) == numVertControllers );
 #endif
 
-                            for ( int i = 0; i < numVertControllers; ++i )
-                            {
-                                mTriObject->AssignController ( object->GetReference ( EPOLY_VERT_BASE_REF + i ), ET_VERT_BASE_REF + i );
-                            }
-                        }
-                    }
+							for ( int i = 0; i < numVertControllers; ++i )
+							{
+								mTriObject->AssignController ( object->GetReference ( EPOLY_VERT_BASE_REF + i ), ET_VERT_BASE_REF + i );
+							}
+						}
+					}
 
-                    mDeleteObject = true;
-                }
+					mDeleteObject = true;
+				}
 
-                if ( !mTriObject && exportEPolyAsTriangles )
-                {
-                    // Last possibility: do check for an editable poly type that does not convert to a TriObject on its own.
-                    //[untested].
+				if ( !mTriObject && exportEPolyAsTriangles )
+				{
+					// Last possibility: do check for an editable poly type that does not convert to a TriObject on its own.
+					//[untested].
 
-                    if ( object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
-                    {
-                        PolyObject * tempPolyObject = ( PolyObject* ) object->ConvertToType ( animationStart, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
-                        mTriObject = ( TriObject* ) tempPolyObject->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
-                        tempPolyObject->DeleteMe();
-                        mDeleteObject = true;
-                    }
-                }
-            }
-        }
+					if ( object->CanConvertToType ( Class_ID ( POLYOBJ_CLASS_ID, 0 ) ) )
+					{
+						PolyObject * tempPolyObject = ( PolyObject* ) object->ConvertToType ( animationStart, Class_ID ( POLYOBJ_CLASS_ID, 0 ) );
+						mTriObject = ( TriObject* ) tempPolyObject->ConvertToType ( animationStart, Class_ID ( TRIOBJ_CLASS_ID, 0 ) );
+						tempPolyObject->DeleteMe();
+						mDeleteObject = true;
+					}
+				}
+			}
+		}
 
-        mGeomObject = ( mPolyObject ) ? ( GeomObject* ) mPolyObject : ( GeomObject* ) mTriObject;
-    }
-
-
+		mGeomObject = ( mPolyObject ) ? ( GeomObject* ) mPolyObject : ( GeomObject* ) mTriObject;
+	}
 
 
-    //---------------------------------------------------------------
-    void GeometryExporter::doExport()
-    {
+
+
+	//---------------------------------------------------------------
+	void GeometryExporter::doExport()
+	{
 		if ( mExportNode->getType() != ExportNode::MESH )
 			return;
 
 		if ( !mMorphControllerHelperGeometry && !(mExportNode->getIsInVisualScene() || mExportNode->getIsReferenced()) )
 			return;
 
-        INode * iNode = mExportNode->getINode();
+		INode * iNode = mExportNode->getINode();
 
 		Object * object;
 		// Max does not apply any controller to morph targets. Therefore we need the base geometry if we export helper geometries.
@@ -286,8 +298,8 @@ namespace COLLADAMax
 		if ( !object )
 			return;
 
-        if ( object )
-        {
+		if ( object )
+		{
 
 			// Retrieve the list of materials assigned to the different polygons of this mesh
 			Mtl* nodeMaterial = iNode->GetMtl();
@@ -310,13 +322,13 @@ namespace COLLADAMax
 				return;
 			}
 
-            // Retrieve the TriObject or PolyObject representation of this geometric object.
-            classifyObject ( object /*, affectsControllers*/ );
+			// Retrieve the TriObject or PolyObject representation of this geometric object.
+			classifyObject ( object /*, affectsControllers*/ );
 
-            if ( !mGeomObject || ( !mTriObject && !mPolyObject ) )
+			if ( !mGeomObject || ( !mTriObject && !mPolyObject ) )
 			{	
 				mExportNode->setTypeToUnknown();
-                return ;
+				return ;
 			}
 
 			if ( mMorphControllerHelperGeometry )
@@ -328,147 +340,146 @@ namespace COLLADAMax
 			if ( !mMorphControllerHelperGeometry )
 				mDocumentExporter->insertExportedObject(ObjectIdentifier( object ), mExportNode);
 
-            mGeometriesExporter->openMesh ( mId, COLLADASW::Utils::checkNCName ( NativeString(iNode->GetName()) ) );
+			mGeometriesExporter->openMesh ( mId, COLLADASW::Utils::checkNCName ( NativeString(iNode->GetName()) ) );
 
 			if ( mMorphControllerHelperGeometry )
 				exportMorphHelperPositions();
 			else
 				exportPositions();
 
-            exportNormals();
+			exportNormals();
 
-            ChannelList channelList;
+			ChannelList channelList;
 
-            if ( isEditablePoly() )
-            {
-                MNMesh & mnMesh = mPolyObject->GetMesh();
-                int chanNum = mnMesh.MNum();
+			if ( isEditablePoly() )
+			{
+				MNMesh & mnMesh = mPolyObject->GetMesh();
+				int chanNum = mnMesh.MNum();
 
-                for ( int i = -NUM_HIDDENMAPS; i < chanNum; ++i )
-                {
-                    MNMap *map = mnMesh.M ( i );
+				for ( int i = -NUM_HIDDENMAPS; i < chanNum; ++i )
+				{
+					MNMap *map = mnMesh.M ( i );
 
-                    if ( map == NULL )
-                        continue;
+					if ( map == NULL )
+						continue;
 
-                    if ( !map->GetFlag ( MN_DEAD ) )
-                        channelList.push_back ( i );
-                }
-            }
+					if ( !map->GetFlag ( MN_DEAD ) )
+						channelList.push_back ( i );
+				}
+			}
+			else
+			{
+				Mesh &triMesh = mTriObject->GetMesh();
+				// according to SPARKS... valid maps = 0 (color) to MAX_MESHMAPS
 
-            else
-            {
-                Mesh &triMesh = mTriObject->GetMesh();
-                // according to SPARKS... valid maps = 0 (color) to MAX_MESHMAPS
-
-                for ( int i = -NUM_HIDDENMAPS; i < MAX_MESHMAPS; ++i )
-                {
-                    if ( triMesh.mapSupport ( i ) )
-                        channelList.push_back ( i );
-                }
-            }
-
-
+				for ( int i = -NUM_HIDDENMAPS; i < MAX_MESHMAPS; ++i )
+				{
+					if ( triMesh.mapSupport ( i ) )
+						channelList.push_back ( i );
+				}
+			}
 
 			exportTextures ( channelList, nodeMaterial );
 
+			size_t numMaterials = materials.size();
 
-            size_t numMaterials = materials.size();
+			//map<Matid, number of faces>
+			std::map<size_t, size_t> facesPerMaterialIdMap;
+			//map<Matid, COLLADASW::Polylist>
+			typedef std::map<size_t, COLLADASW::Polylist> PolylistListPerMaterialIdMap;
+			PolylistListPerMaterialIdMap polylistListPerMaterialIdMap;
 
-            //map<Matid, number of faces>
-            std::map<size_t, size_t> facesPerMaterialIdMap;
-            //map<Matid, COLLADASW::Polylist>
-            typedef std::map<size_t, COLLADASW::Polylist> PolylistListPerMaterialIdMap;
-            PolylistListPerMaterialIdMap polylistListPerMaterialIdMap;
+			if ( isEditablePoly() )
+			{
+				if ( numMaterials > 1 )
+				{
+					MNMesh & mnMesh = mPolyObject->GetMesh();
+					int numberOfFaces = mnMesh.FNum();
 
-            if ( isEditablePoly() )
-            {
-                if ( numMaterials > 1 )
-                {
-                    MNMesh & mnMesh = mPolyObject->GetMesh();
-                    int numberOfFaces = mnMesh.FNum();
+					for ( int i = 0; i < numberOfFaces; ++i )
+					{
+						MNFace *face = mnMesh.F ( i );
+						size_t materialId = face->material % numMaterials;
+						PolylistListPerMaterialIdMap::iterator it = polylistListPerMaterialIdMap.find ( materialId );
 
-                    for ( int i = 0; i < numberOfFaces; ++i )
-                    {
-                        MNFace *face = mnMesh.F ( i );
-                        size_t materialId = face->material % numMaterials;
-                        PolylistListPerMaterialIdMap::iterator it = polylistListPerMaterialIdMap.find ( materialId );
+						if ( it == polylistListPerMaterialIdMap.end() )
+							it = ( polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADASW::Polylist> ( materialId, COLLADASW::Polylist ( mGeometriesExporter->mSW ) ) ) ).first;
 
-                        if ( it == polylistListPerMaterialIdMap.end() )
-                            it = ( polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADASW::Polylist> ( materialId, COLLADASW::Polylist ( mGeometriesExporter->mSW ) ) ) ).first;
+						it->second.getVCountList().push_back ( face->deg );
 
-                        it->second.getVCountList().push_back ( face->deg );
+						if ( find ( materialIDs.begin(), materialIDs.end(), materialId ) == materialIDs.end() )
+							materialIDs.push_back ( materialId );
+					}
+				}
+				else
+				{
+					polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADASW::Polylist> ( 0, COLLADASW::Polylist ( mGeometriesExporter->mSW ) ) );
+					MNMesh &mnMesh = mPolyObject->GetMesh();
+					int numberOfFaces = mnMesh.FNum();
 
-                        if ( find ( materialIDs.begin(), materialIDs.end(), materialId ) == materialIDs.end() )
-                            materialIDs.push_back ( materialId );
-                    }
-                }
+					for ( int i = 0; i < numberOfFaces; ++i )
+					{
+						MNFace *face = mnMesh.F ( i );
+						polylistListPerMaterialIdMap[ 0 ].getVCountList().push_back ( face->deg );
+					}
 
-                else
-                {
-                    polylistListPerMaterialIdMap.insert ( std::pair<size_t, COLLADASW::Polylist> ( 0, COLLADASW::Polylist ( mGeometriesExporter->mSW ) ) );
-                    MNMesh &mnMesh = mPolyObject->GetMesh();
-                    int numberOfFaces = mnMesh.FNum();
+					materialIDs.push_back ( 0 );
+				}
+			}
+			else
+			{
+				if ( mExportTextangentsAndNormals )
+				{
+					exportTriangleMeshTextangentsAndTexbinormals(channelList);
+				}
 
-                    for ( int i = 0; i < numberOfFaces; ++i )
-                    {
-                        MNFace *face = mnMesh.F ( i );
-                        polylistListPerMaterialIdMap[ 0 ].getVCountList().push_back ( face->deg );
-                    }
+				if ( numMaterials > 1 )
+				{
+					Mesh & mesh = mTriObject->GetMesh();
+					int numberOfFaces = mesh.getNumFaces();
 
-                    materialIDs.push_back ( 0 );
-                }
-            }
+					for ( int i = 0; i < numberOfFaces; ++i )
+					{
+						Face& face = mesh.faces[ i ];
+						size_t materialId = face.getMatID() % numMaterials;
+						facesPerMaterialIdMap[ materialId ] ++;
 
-            else
-            {
-                if ( numMaterials > 1 )
-                {
-                    Mesh & mesh = mTriObject->GetMesh();
-                    int numberOfFaces = mesh.getNumFaces();
+						if ( find ( materialIDs.begin(), materialIDs.end(), materialId ) == materialIDs.end() )
+							materialIDs.push_back ( materialId );
+					}
+				}
 
-                    for ( int i = 0; i < numberOfFaces; ++i )
-                    {
-                        Face& face = mesh.faces[ i ];
-                        size_t materialId = face.getMatID() % numMaterials;
-                        facesPerMaterialIdMap[ materialId ] ++;
+				else
+				{
+					facesPerMaterialIdMap[ 0 ] = mTriObject->GetMesh().getNumFaces();
+					materialIDs.push_back ( 0 );
+				}
 
-                        if ( find ( materialIDs.begin(), materialIDs.end(), materialId ) == materialIDs.end() )
-                            materialIDs.push_back ( materialId );
-                    }
-                }
+			}
 
-                else
-                {
-                    facesPerMaterialIdMap[ 0 ] = mTriObject->GetMesh().getNumFaces();
-                    materialIDs.push_back ( 0 );
-                }
+			exportVertices ( mId );
 
-            }
-
-            exportVertices ( mId );
-
-            // Create one COLLADASW polygon set for each material used in the mesh
-            //   FCDMaterial* blackMtl = NULL;
+			// Create one COLLADASW polygon set for each material used in the mesh
+			//   FCDMaterial* blackMtl = NULL;
 
 			for ( GeometriesExporter::MaterialIDList::iterator it = materialIDs.begin(); it != materialIDs.end(); ++it )
-            {
-                size_t matID = *it;
+			{
+				size_t matID = *it;
 
-                String symbol;
+				String symbol;
 
-                if ( !nodeMaterial )
-                {
-                    symbol = COLOR_MATERIAL_SYMBOL;
-                }
+				if ( !nodeMaterial )
+				{
+					symbol = COLOR_MATERIAL_SYMBOL;
+				}
 
-                else
-                {
-                    Mtl* subMaterial = materials[ matID % numMaterials ];
+				else
+				{
+					Mtl* subMaterial = materials[ matID % numMaterials ];
 
-                    if ( subMaterial )
-                    {
-                        // check for XRefs
+					if ( subMaterial )
+					{
+						// check for XRefs
 						if (XRefFunctions::isXRefMaterial(subMaterial))
 						{
 							if ( mDocumentExporter->getOptions().getIncludeXRefs() )
@@ -478,38 +489,38 @@ namespace COLLADAMax
 							}
 							// else do nothing, this is only a material instance
 						}
-                        symbol = mExportNode->getSymbolByMaterialAndSetAsUsed ( subMaterial );
-                    }
+						symbol = mExportNode->getSymbolByMaterialAndSetAsUsed ( subMaterial );
+					}
 
-                    else
-                    {
-                        assert ( false );
-                        /*if (blackMtl == NULL)*/
-                    }
-                }
+					else
+					{
+						assert ( false );
+						/*if (blackMtl == NULL)*/
+					}
+				}
 
-                // Add the polygons set input and its tessellation indices
+				// Add the polygons set input and its tessellation indices
 
-                if ( isEditablePoly() )
-                    exportPolylist ( symbol, polylistListPerMaterialIdMap[ matID ], numMaterials <= 1 ? -1 : ( int ) matID, numMaterials, channelList );
-                else
-                    exportTriangles ( symbol, ( unsigned long ) facesPerMaterialIdMap[ matID ], numMaterials <= 1 ? -1 : ( int ) matID, numMaterials, channelList );
-            }
-
-
-
-            mGeometriesExporter->closeMesh();
-
-            GeometryExtra geometryExtra ( mGeometriesExporter->mSW, mDocumentExporter, object, mId );
-
-            geometryExtra.doExport();
+				if ( isEditablePoly() )
+					exportPolylist( symbol, polylistListPerMaterialIdMap[ matID ], numMaterials <= 1 ? -1 : ( int ) matID, numMaterials, channelList );
+				else
+					exportTriangles( symbol, ( unsigned long ) facesPerMaterialIdMap[ matID ], numMaterials <= 1 ? -1 : ( int ) matID, numMaterials, channelList );
+			}
 
 
 
-            mGeometriesExporter->closeGeometry();
-        }
+			mGeometriesExporter->closeMesh();
 
-    }
+			GeometryExtra geometryExtra( mGeometriesExporter->mSW, mDocumentExporter, object, mId );
+
+			geometryExtra.doExport();
+
+
+
+			mGeometriesExporter->closeGeometry();
+		}
+
+	}
 
 
 
@@ -527,7 +538,7 @@ namespace COLLADAMax
 
 		if ( exportedObjectMaterial )
 		{
-			flattenMaterials ( exportedObjectMaterial, exportedObjectMaterials );
+			flattenMaterials( exportedObjectMaterial, exportedObjectMaterials );
 		}
 
 		size_t numExportedObjectMaterials = exportedObjectMaterials.size();
@@ -571,7 +582,7 @@ namespace COLLADAMax
 					symbol.used = true;
 
 
-//					mExportNode->getSymbolByMaterialAndSetAsUsed ( subMaterial );
+					//					mExportNode->getSymbolByMaterialAndSetAsUsed ( subMaterial );
 
 				}
 			}
@@ -582,48 +593,48 @@ namespace COLLADAMax
 
 
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportPositions()
-    {
-        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
-        source.setId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
-        source.setArrayId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
-        source.setAccessorStride ( 3 );
-        source.getParameterNameList().push_back ( "X" );
-        source.getParameterNameList().push_back ( "Y" );
-        source.getParameterNameList().push_back ( "Z" );
+	//---------------------------------------------------------------
+	void GeometryExporter::exportPositions()
+	{
+		COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+		source.setId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX );
+		source.setArrayId ( mId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+		source.setAccessorStride ( 3 );
+		source.getParameterNameList().push_back ( "X" );
+		source.getParameterNameList().push_back ( "Y" );
+		source.getParameterNameList().push_back ( "Z" );
 
-        if ( isEditablePoly() )
-        {
-            // editable poly. case
-            MNMesh & mnMesh = mPolyObject->GetMesh();
-            int vertexCount = mnMesh.VNum();
-            source.setAccessorCount ( vertexCount );
-            source.prepareToAppendValues();
+		if ( isEditablePoly() )
+		{
+			// editable poly. case
+			MNMesh & mnMesh = mPolyObject->GetMesh();
+			int vertexCount = mnMesh.VNum();
+			source.setAccessorCount ( vertexCount );
+			source.prepareToAppendValues();
 
-            for ( int i = 0; i < vertexCount; ++i )
-            {
-                Point3 &position = mnMesh.V ( i ) ->p;
-                source.appendValues ( position.x, position.y, position.z );
-            }
-        }
+			for ( int i = 0; i < vertexCount; ++i )
+			{
+				Point3 &position = mnMesh.V ( i ) ->p;
+				source.appendValues ( position.x, position.y, position.z );
+			}
+		}
 
-        else
-        {
-            Mesh & mesh = mTriObject->GetMesh();
-            int vertexCount = mesh.numVerts;
-            source.setAccessorCount ( vertexCount );
-            source.prepareToAppendValues();
+		else
+		{
+			Mesh & mesh = mTriObject->GetMesh();
+			int vertexCount = mesh.numVerts;
+			source.setAccessorCount ( vertexCount );
+			source.prepareToAppendValues();
 
-            for ( int i = 0; i < vertexCount; ++i )
-            {
-                Point3 & position = mesh.verts[ i ];
-                source.appendValues ( position.x, position.y, position.z );
-            }
-        }
+			for ( int i = 0; i < vertexCount; ++i )
+			{
+				Point3 & position = mesh.verts[ i ];
+				source.appendValues ( position.x, position.y, position.z );
+			}
+		}
 
-        source.finish();
-    }
+		source.finish();
+	}
 
 
 
@@ -642,7 +653,7 @@ namespace COLLADAMax
 
 		source.setAccessorCount ( channel.mNumPoints );
 		source.prepareToAppendValues();
-			
+
 		for (int i = 0; i < channel.mNumPoints; ++i)
 		{
 			const Point3& point = channel.mPoints[i];
@@ -653,166 +664,166 @@ namespace COLLADAMax
 
 
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportNormals()
-    {
-        if ( isEditablePoly() )
-            exportEditablePolyNormals();
-        else
-            exportTriangleMeshNormals();
-    }
+	//---------------------------------------------------------------
+	void GeometryExporter::exportNormals()
+	{
+		if ( isEditablePoly() )
+			exportEditablePolyNormals();
+		else
+			exportTriangleMeshNormals();
+	}
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportTriangleMeshNormals()
-    {
-        Mesh & mesh = mTriObject->GetMesh();
-        MeshNormalSpec *normalSpec = mesh.GetSpecifiedNormals();
+	//---------------------------------------------------------------
+	void GeometryExporter::exportTriangleMeshNormals()
+	{
+		Mesh & mesh = mTriObject->GetMesh();
+		MeshNormalSpec *normalSpec = mesh.GetSpecifiedNormals();
 
-        if ( normalSpec == NULL )
-        {
-            mesh.SpecifyNormals();
-            normalSpec = mesh.GetSpecifiedNormals();
-        }
+		if ( normalSpec == NULL )
+		{
+			mesh.SpecifyNormals();
+			normalSpec = mesh.GetSpecifiedNormals();
+		}
 
-        if ( normalSpec->GetNumNormals() == 0 )
-        {
-            normalSpec->SetParent ( &mesh );
-            normalSpec->CheckNormals();
-        }
+		if ( normalSpec->GetNumNormals() == 0 )
+		{
+			normalSpec->SetParent ( &mesh );
+			normalSpec->CheckNormals();
+		}
 
-        if ( normalSpec == NULL )
-            return ;
+		if ( normalSpec == NULL )
+			return ;
 
-        if ( normalSpec->GetNumNormals() == 0 )
-        {
-            normalSpec->SetParent ( &mesh );
-            normalSpec->CheckNormals();
-        }
+		if ( normalSpec->GetNumNormals() == 0 )
+		{
+			normalSpec->SetParent ( &mesh );
+			normalSpec->CheckNormals();
+		}
 
-        int normalCount = normalSpec->GetNumNormals();
+		int normalCount = normalSpec->GetNumNormals();
 
-        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
-        source.setId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
-        source.setArrayId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
-        source.setAccessorStride ( 3 );
-        source.setAccessorCount ( normalCount );
-        source.getParameterNameList().push_back ( "X" );
-        source.getParameterNameList().push_back ( "Y" );
-        source.getParameterNameList().push_back ( "Z" );
-        source.prepareToAppendValues();
+		COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+		source.setId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
+		source.setArrayId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+		source.setAccessorStride ( 3 );
+		source.setAccessorCount ( normalCount );
+		source.getParameterNameList().push_back ( "X" );
+		source.getParameterNameList().push_back ( "Y" );
+		source.getParameterNameList().push_back ( "Z" );
+		source.prepareToAppendValues();
 
-        for ( int i = 0; i < normalCount; ++i )
-        {
-            Point3 & normal = normalSpec->Normal ( i );
-            // TODO: find a better solution for the case of not existing normals
+		for ( int i = 0; i < normalCount; ++i )
+		{
+			Point3 & normal = normalSpec->Normal ( i );
+			// TODO: find a better solution for the case of not existing normals
 
-            if ( isFinite ( normal ) )
-                source.appendValues ( normal.x, normal.y, normal.z );
-            else
-                source.appendValues ( 0, 0, 1 );
-        }
+			if ( isFinite ( normal ) )
+				source.appendValues ( normal.x, normal.y, normal.z );
+			else
+				source.appendValues ( 0, 0, 1 );
+		}
 
-        source.finish();
-    }
-
-
-    //---------------------------------------------------------------
-    void GeometryExporter::exportEditablePolyNormals()
-    {
-        MNMesh & mnMesh = mPolyObject->GetMesh();
-        MNNormalSpec *mnNormalSpec = mnMesh.GetSpecifiedNormals();
-
-        if ( mnNormalSpec == NULL )
-        {
-            mnMesh.SpecifyNormals();
-            mnNormalSpec = mnMesh.GetSpecifiedNormals();
-        }
-
-        if ( mnNormalSpec == NULL )
-            return ;
-
-        // rebuild as needed
-        mnNormalSpec->CheckNormals();
-
-        int normalCount = mnNormalSpec->GetNumNormals();
-
-        if ( normalCount == 0 )
-            return ;
-
-        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
-
-        source.setId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
-
-        source.setArrayId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
-
-        source.setAccessorStride ( 3 );
-
-        source.setAccessorCount ( normalCount );
-
-        source.getParameterNameList().push_back ( "X" );
-
-        source.getParameterNameList().push_back ( "Y" );
-
-        source.getParameterNameList().push_back ( "Z" );
-
-        source.prepareToAppendValues();
-
-        for ( int i = 0; i < normalCount; ++i )
-        {
-            Point3 & normal = mnNormalSpec->Normal ( i );
-            // TODO: find a better solution for the case of not existing normals
-
-            if ( isFinite ( normal ) )
-                source.appendValues ( normal.x, normal.y, normal.z );
-            else
-                source.appendValues ( 0, 0, 1 );
-        }
-
-        source.finish();
-    }
+		source.finish();
+	}
 
 
+	//---------------------------------------------------------------
+	void GeometryExporter::exportEditablePolyNormals()
+	{
+		MNMesh & mnMesh = mPolyObject->GetMesh();
+		MNNormalSpec *mnNormalSpec = mnMesh.GetSpecifiedNormals();
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportTextures ( const ChannelList & channelList, Mtl* material )
-    {
-        // Export the map channel sources (valid indices are from -2 to 99)
-        // Offset the negative map channels indices by MAX_MESHMAPS, in order to bring
-        // the -2,-1 channels into non-negative range and not clash with the valid map channels.
+		if ( mnNormalSpec == NULL )
+		{
+			mnMesh.SpecifyNormals();
+			mnNormalSpec = mnMesh.GetSpecifiedNormals();
+		}
 
-        for ( size_t i = 0; i < channelList.size(); ++i )
-        {
-            exportTextureChannel ( channelList[ i ], material );
-        }
-    }
+		if ( mnNormalSpec == NULL )
+			return ;
+
+		// rebuild as needed
+		mnNormalSpec->CheckNormals();
+
+		int normalCount = mnNormalSpec->GetNumNormals();
+
+		if ( normalCount == 0 )
+			return ;
+
+		COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+
+		source.setId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX );
+
+		source.setArrayId ( mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+
+		source.setAccessorStride ( 3 );
+
+		source.setAccessorCount ( normalCount );
+
+		source.getParameterNameList().push_back ( "X" );
+
+		source.getParameterNameList().push_back ( "Y" );
+
+		source.getParameterNameList().push_back ( "Z" );
+
+		source.prepareToAppendValues();
+
+		for ( int i = 0; i < normalCount; ++i )
+		{
+			Point3 & normal = mnNormalSpec->Normal ( i );
+			// TODO: find a better solution for the case of not existing normals
+
+			if ( isFinite ( normal ) )
+				source.appendValues ( normal.x, normal.y, normal.z );
+			else
+				source.appendValues ( 0, 0, 1 );
+		}
+
+		source.finish();
+	}
 
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportTextureChannel ( int channelIndex, Mtl* material )
-    {
-        // return if channel index is invalid
-        /* if (channelIndex >= mesh.getNumMaps() || channelIndex < -NUM_HIDDENMAPS)
-          return;*/
 
-        COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
-        String sourceId = mId + getTextureSourceIdSuffix ( channelIndex );
-        source.setId ( sourceId );
-        source.setArrayId ( sourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
-        source.setAccessorStride ( 3 );
+	//---------------------------------------------------------------
+	void GeometryExporter::exportTextures ( const ChannelList & channelList, Mtl* material )
+	{
+		// Export the map channel sources (valid indices are from -2 to 99)
+		// Offset the negative map channels indices by MAX_MESHMAPS, in order to bring
+		// the -2,-1 channels into non-negative range and not clash with the valid map channels.
 
-        if ( channelIndex <= 0 )
-        {
-            source.getParameterNameList().push_back ( "R" );
-            source.getParameterNameList().push_back ( "G" );
-            source.getParameterNameList().push_back ( "B" );
-        }
+		for ( size_t i = 0; i < channelList.size(); ++i )
+		{
+			exportTextureChannel ( channelList[ i ], material );
+		}
+	}
 
-        else
-        {
-            source.getParameterNameList().push_back ( "S" );
-            source.getParameterNameList().push_back ( "T" );
-            source.getParameterNameList().push_back ( "P" );
-        }
+
+	//---------------------------------------------------------------
+	void GeometryExporter::exportTextureChannel ( int channelIndex, Mtl* material )
+	{
+		// return if channel index is invalid
+		/* if (channelIndex >= mesh.getNumMaps() || channelIndex < -NUM_HIDDENMAPS)
+		return;*/
+
+		COLLADASW::FloatSource source ( mGeometriesExporter->mSW );
+		String sourceId = mId + getTextureSourceIdSuffix ( channelIndex );
+		source.setId ( sourceId );
+		source.setArrayId ( sourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+		source.setAccessorStride ( 3 );
+
+		if ( channelIndex <= 0 )
+		{
+			source.getParameterNameList().push_back ( "R" );
+			source.getParameterNameList().push_back ( "G" );
+			source.getParameterNameList().push_back ( "B" );
+		}
+
+		else
+		{
+			source.getParameterNameList().push_back ( "S" );
+			source.getParameterNameList().push_back ( "T" );
+			source.getParameterNameList().push_back ( "P" );
+		}
 
 		/* start testing */
 
@@ -836,251 +847,374 @@ namespace COLLADAMax
 			}
 		}
 
-/*		EffectExporter::MaterialChannelPairParamBlockMap::const_iterator it = mMaterialChannelPairParamBlockMap.find(EffectExporter::MaterialChannelPair(material, channelIndex));
+		/*		EffectExporter::MaterialChannelPairParamBlockMap::const_iterator it = mMaterialChannelPairParamBlockMap.find(EffectExporter::MaterialChannelPair(material, channelIndex));
 
 		IParamBlock * uVGenParamBlock = 0;
 
 		if ( it != mMaterialChannelPairParamBlockMap.end() ) 
-			uVGenParamBlock = it->second;
+		uVGenParamBlock = it->second;
 
 		float wAngle = 0;
 		if ( uVGenParamBlock )
-			wAngle = uVGenParamBlock->GetFloat(StdUVGenEnums::w_angle, TIME_EXPORT_START);
+		wAngle = uVGenParamBlock->GetFloat(StdUVGenEnums::w_angle, TIME_EXPORT_START);
 
-			*/
+		*/
 		/* end testing*/
 
-        if ( isEditablePoly() )
-        {
-            MNMesh & mnMesh = mPolyObject->GetMesh();
-            MNMap *mnMap = mnMesh.M ( channelIndex );
+		if ( isEditablePoly() )
+		{
+			MNMesh & mnMesh = mPolyObject->GetMesh();
+			MNMap *mnMap = mnMesh.M ( channelIndex );
 
-            if ( !mnMap )
-                return ;
+			if ( !mnMap )
+				return ;
 
-            int mapVertexCount = mnMap->numv;
+			int mapVertexCount = mnMap->numv;
 
-            source.setAccessorCount ( mapVertexCount );
+			source.setAccessorCount ( mapVertexCount );
 
-            source.prepareToAppendValues();
+			source.prepareToAppendValues();
 
-            for ( int i = 0; i < mapVertexCount; ++i )
-            {
-                UVVert texCoord = mnMap->V ( i );
+			for ( int i = 0; i < mapVertexCount; ++i )
+			{
+				UVVert texCoord = mnMap->V ( i );
 
-                // TODO: find a better solution for the case of not existing texture coordinates
+				// TODO: find a better solution for the case of not existing texture coordinates
 
-                if ( isFinite ( texCoord ) )
+				if ( isFinite ( texCoord ) )
 				{
 					if ( applyUVTransformation )
 						texCoord = uvTransfomationMatrix * texCoord;
-                    source.appendValues ( texCoord.x, texCoord.y, texCoord.z );
+					source.appendValues ( texCoord.x, texCoord.y, texCoord.z );
 				}
-                else
+				else
 				{
-                    source.appendValues ( 0, 0, 1 );
+					source.appendValues ( 0, 0, 1 );
 				}
-            }
-        }
+			}
+		}
 
-        else
-        {
-            MeshMap& meshMap = mTriObject->GetMesh().Map ( channelIndex );
-            int mapVertexCount = meshMap.getNumVerts();
-            source.setAccessorCount ( mapVertexCount );
-            source.prepareToAppendValues();
+		else
+		{
+			MeshMap& meshMap = mTriObject->GetMesh().Map ( channelIndex );
+			int mapVertexCount = meshMap.getNumVerts();
+			source.setAccessorCount ( mapVertexCount );
+			source.prepareToAppendValues();
 
-            for ( int i = 0; i < mapVertexCount; ++i )
-            {
-                Point3& texCoord = meshMap.tv[ i ];
+			for ( int i = 0; i < mapVertexCount; ++i )
+			{
+				Point3& texCoord = meshMap.tv[ i ];
 
-                // TODO: find a better solution for the case of not existing texture coordinates
+				// TODO: find a better solution for the case of not existing texture coordinates
 
-                if ( isFinite ( texCoord ) )
+				if ( isFinite ( texCoord ) )
 				{
 					if ( applyUVTransformation )
 						texCoord = uvTransfomationMatrix * texCoord;
-                    source.appendValues ( texCoord.x, texCoord.y, texCoord.z );
+					source.appendValues ( texCoord.x, texCoord.y, texCoord.z );
 				}
-                else
+				else
 				{
-                    source.appendValues ( 0, 0, 1 );
+					source.appendValues ( 0, 0, 1 );
 				}
-            }
-        }
-        source.finish();
-    }
+			}
+		}
+		source.finish();
+	}
 
 
-    void GeometryExporter::exportVertices ( const String & meshId )
-    {
-        COLLADASW::VerticesElement vertices ( mGeometriesExporter->mSW );
-        vertices.setId ( meshId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX );
-        vertices.getInputList().push_back ( COLLADASW::Input ( COLLADASW::POSITION, "#" + meshId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
-        vertices.add();
-    }
+	//---------------------------------------------------------------
+	void GeometryExporter::exportTriangleMeshTextangentsAndTexbinormals(const ChannelList & channelList)
+	{
+		Point3List texTangents;
+		Point3List texBinormals;
+
+		for ( size_t i = 0; i < channelList.size(); ++i )
+		{
+			int channelIndex = channelList[i];
+			
+			// check that it is not a color channel
+			if ( channelIndex <= 0 )
+			{
+				continue;
+			}
+
+			calculateTriangleMeshTextangentsAndTexbinormals( channelIndex, texTangents, texBinormals);
+
+			// textangents
+			size_t texTangentsCount = texTangents.size();
+			COLLADASW::FloatSource texTangentSource ( mGeometriesExporter->mSW );
+			String texTangentSourceId = mId + getTextangentSourceIdSuffix( channelIndex );
+			texTangentSource.setId ( texTangentSourceId );
+			texTangentSource.setArrayId ( texTangentSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+			texTangentSource.setAccessorStride ( 3 );
+			texTangentSource.setAccessorCount( (unsigned long)texTangentsCount );
+
+			texTangentSource.getParameterNameList().push_back ( "X" );
+			texTangentSource.getParameterNameList().push_back ( "Y" );
+			texTangentSource.getParameterNameList().push_back ( "Z" );
+
+			texTangentSource.prepareToAppendValues();
+
+			for ( size_t j = 0; j < texTangentsCount; ++j)
+			{
+				Point3& texTangent = texTangents[j];
+				texTangentSource.appendValues ( texTangent.x, texTangent.y, texTangent.z );
+			}
+			texTangentSource.finish();
 
 
+			// texbinormals
+			size_t texBinormalsCount = texBinormals.size();
+			COLLADASW::FloatSource texBinormalSource ( mGeometriesExporter->mSW );
+			String texBinormalSourceId = mId + getTexbinormalSourceIdSuffix( channelIndex );
+			texBinormalSource.setId ( texBinormalSourceId );
+			texBinormalSource.setArrayId ( texBinormalSourceId + COLLADASW::LibraryGeometries::ARRAY_ID_SUFFIX );
+			texBinormalSource.setAccessorStride ( 3 );
+			texBinormalSource.setAccessorCount( (unsigned long)texBinormalsCount );
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportTriangles ( const String & symbol, unsigned long numberOfFaces, int matId, size_t numMaterials, const ChannelList & channelList )
-    {
+			texBinormalSource.getParameterNameList().push_back ( "X" );
+			texBinormalSource.getParameterNameList().push_back ( "Y" );
+			texBinormalSource.getParameterNameList().push_back ( "Z" );
 
-        Mesh & mesh = mTriObject->GetMesh();
+			texBinormalSource.prepareToAppendValues();
 
-        MeshNormalSpec *norms = mesh.GetSpecifiedNormals();
+			for ( size_t j = 0; j < texBinormalsCount; ++j)
+			{
+				Point3& texBinormal = texBinormals[j];
+				texBinormalSource.appendValues ( texBinormal.x, texBinormal.y, texBinormal.z );
+			}
 
-        int offset = 0;
-        COLLADASW::Triangles triangles ( mGeometriesExporter->mSW );
-        triangles.setCount ( numberOfFaces );
-        triangles.setMaterial ( symbol );
-        triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
-        triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+			texBinormalSource.finish();
+		}
 
-        for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
-        {
-            triangles.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
-        }
-
-        triangles.prepareToAppendValues();
-
-        for ( int faceIndex = 0; faceIndex < mesh.numFaces; ++faceIndex )
-        {
-            Face& face = mesh.faces[ faceIndex ];
-
-            if ( numMaterials <= 1 || face.getMatID() % numMaterials == matId )
-            {
-                for ( int vertexIndex = 0; vertexIndex < 3; ++vertexIndex )
-                {
-                    triangles.appendValues ( face.v[ vertexIndex ], norms->GetNormalIndex ( faceIndex, vertexIndex ) );
-
-                    for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
-                    {
-                        int channel = *it;
-
-                        if ( channel < mesh.getNumMaps() && channel >= -NUM_HIDDENMAPS )
-                        {
-                            MeshMap & tmap = mesh.Map ( channel );
-                            TVFace& tvFace = tmap.tf[ faceIndex ];
-                            triangles.appendValues ( tvFace.t[ vertexIndex ] );
-                        }
-                    }
-                }
-            }
-
-        }
-
-        triangles.finish();
-    }
+	}
 
 
-    //---------------------------------------------------------------
-    void GeometryExporter::exportPolylist ( const String & symbol, COLLADASW::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList )
-    {
-        MNMesh & mnMesh = mPolyObject->GetMesh();
+	//---------------------------------------------------------------
+	void GeometryExporter::exportVertices ( const String & meshId )
+	{
+		COLLADASW::VerticesElement vertices ( mGeometriesExporter->mSW );
+		vertices.setId ( meshId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX );
+		vertices.getInputList().push_back ( COLLADASW::Input ( COLLADASW::POSITION, "#" + meshId + COLLADASW::LibraryGeometries::POSITIONS_SOURCE_ID_SUFFIX ) );
+		vertices.add();
+	}
 
-        MNNormalSpec *normmalSpec = mnMesh.GetSpecifiedNormals();
 
-        int offset = 0;
-        polylist.setCount ( ( unsigned long ) polylist.getVCountList().size() );
-        polylist.setMaterial ( symbol );
-        polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
-        polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+	//---------------------------------------------------------------
+	void GeometryExporter::exportTriangles ( const String & symbol, unsigned long numberOfFaces, int matId, size_t numMaterials, const ChannelList & channelList )
+	{
 
-        for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
-        {
-            polylist.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
-        }
+		Mesh & mesh = mTriObject->GetMesh();
 
-        polylist.prepareToAppendValues();
+		MeshNormalSpec *norms = mesh.GetSpecifiedNormals();
 
-        int numberOfFaces = mnMesh.FNum();
+		int offset = 0;
+		COLLADASW::Triangles triangles ( mGeometriesExporter->mSW );
+		triangles.setCount ( numberOfFaces );
+		triangles.setMaterial ( symbol );
+		triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
+		triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
 
-        for ( int faceIndex = 0; faceIndex < numberOfFaces; ++faceIndex )
-        {
-            MNFace * mnFace = mnMesh.F ( faceIndex );
+		for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
+		{
+			triangles.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
+			if ( mExportTextangentsAndNormals && ( *it > 0 ) )
+			{
+				triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::TEXTANGENT, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
+			}
+		}
 
-            if ( numMaterials <= 1 || mnFace->material % numMaterials == matId )
-            {
-                int vertexCount = mnFace->deg;
+		triangles.prepareToAppendValues();
 
-                for ( int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex )
-                {
-                    polylist.appendValues ( mnFace->vtx[ vertexIndex ], normmalSpec->GetNormalIndex ( faceIndex, vertexIndex ) );
+		for ( int faceIndex = 0; faceIndex < mesh.numFaces; ++faceIndex )
+		{
+			Face& face = mesh.faces[ faceIndex ];
 
-                    for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
-                    {
-                        int channel = *it;
-                        MNMap * mnMap = mnMesh.M ( channel );
-                        assert ( mnMap != 0 );
-                        MNMapFace * mnMapFace = mnMap->F ( faceIndex );
-                        assert ( mnMapFace != 0 );
-                        polylist.appendValues ( mnMapFace->tv[ vertexIndex ] );
-                    }
-                }
-            }
-        }
-        polylist.finish();
-    }
+			if ( numMaterials <= 1 || face.getMatID() % numMaterials == matId )
+			{
+				for ( int vertexIndex = 0; vertexIndex < 3; ++vertexIndex )
+				{
+					triangles.appendValues ( face.v[ vertexIndex ], norms->GetNormalIndex ( faceIndex, vertexIndex ) );
 
-    //---------------------------------------------------------------
-    void GeometryExporter::flattenMaterials ( Mtl* material, MaterialList& materialMap, int materialIndex )
-    {
-        // check for XRefs
+					for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
+					{
+						int channel = *it;
+
+						if ( channel < mesh.getNumMaps() && channel >= -NUM_HIDDENMAPS )
+						{
+							MeshMap & tmap = mesh.Map ( channel );
+							TVFace& tvFace = tmap.tf[ faceIndex ];
+							triangles.appendValues ( tvFace.t[ vertexIndex ] );
+						}
+					}
+				}
+			}
+
+		}
+
+		triangles.finish();
+	}
+
+
+	//---------------------------------------------------------------
+	void GeometryExporter::exportPolylist ( const String & symbol, COLLADASW::Polylist & polylist, int matId, size_t numMaterials, const ChannelList & channelList )
+	{
+		MNMesh & mnMesh = mPolyObject->GetMesh();
+
+		MNNormalSpec *normmalSpec = mnMesh.GetSpecifiedNormals();
+
+		int offset = 0;
+		polylist.setCount ( ( unsigned long ) polylist.getVCountList().size() );
+		polylist.setMaterial ( symbol );
+		polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
+		polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+
+		for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
+		{
+			polylist.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
+		}
+
+		polylist.prepareToAppendValues();
+
+		int numberOfFaces = mnMesh.FNum();
+
+		for ( int faceIndex = 0; faceIndex < numberOfFaces; ++faceIndex )
+		{
+			MNFace * mnFace = mnMesh.F ( faceIndex );
+
+			if ( numMaterials <= 1 || mnFace->material % numMaterials == matId )
+			{
+				int vertexCount = mnFace->deg;
+
+				for ( int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex )
+				{
+					polylist.appendValues ( mnFace->vtx[ vertexIndex ], normmalSpec->GetNormalIndex ( faceIndex, vertexIndex ) );
+
+					for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
+					{
+						int channel = *it;
+						MNMap * mnMap = mnMesh.M ( channel );
+						assert ( mnMap != 0 );
+						MNMapFace * mnMapFace = mnMap->F ( faceIndex );
+						assert ( mnMapFace != 0 );
+						polylist.appendValues ( mnMapFace->tv[ vertexIndex ] );
+					}
+				}
+			}
+		}
+		polylist.finish();
+	}
+
+	//---------------------------------------------------------------
+	void GeometryExporter::flattenMaterials ( Mtl* material, MaterialList& materialMap, int materialIndex )
+	{
+		// check for XRefs
 		if ( material && XRefFunctions::isXRefMaterial(material))
 		{
 			material = XRefFunctions::getXRefMaterialSource(material);
 		}
 
 		// KEEP THE NULL POINTER! Null pointers are actually allowed in max, and we need to
-        // maintain the material list.
-        Class_ID matId =  !material ? Class_ID ( STANDIN_CLASS_ID, STANDIN_CLASS_ID ) : material->ClassID();
+		// maintain the material list.
+		Class_ID matId =  !material ? Class_ID ( STANDIN_CLASS_ID, STANDIN_CLASS_ID ) : material->ClassID();
 
-        if ( matId == Class_ID ( MULTI_CLASS_ID, 0 ) )
-        {
-            if ( materialIndex < 0 )
-            {
-                // Read in the sub-materials
-                int nbSubMtl = material->NumSubMtls();
+		if ( matId == Class_ID ( MULTI_CLASS_ID, 0 ) )
+		{
+			if ( materialIndex < 0 )
+			{
+				// Read in the sub-materials
+				int nbSubMtl = material->NumSubMtls();
 
-                for ( int i = 0; i < nbSubMtl; ++i )
-                {
-                    Mtl *subMtl = material->GetSubMtl ( i );
-                    flattenMaterials ( subMtl, materialMap, i );
-                }
-            }
+				for ( int i = 0; i < nbSubMtl; ++i )
+				{
+					Mtl *subMtl = material->GetSubMtl ( i );
+					flattenMaterials ( subMtl, materialMap, i );
+				}
+			}
 
-            else
-            {
-                // If we are in a recursive multi-material, read in the correctly indexed sub-material
-                Mtl* subMtl = MaterialExporter::GetSubMaterialById ( material, materialIndex );
+			else
+			{
+				// If we are in a recursive multi-material, read in the correctly indexed sub-material
+				Mtl* subMtl = MaterialExporter::GetSubMaterialById ( material, materialIndex );
 
-                if ( subMtl )
-                    flattenMaterials ( subMtl, materialMap );
-                else
-                    subMtl = material->GetSubMtl ( 0 );
-            }
-        }
+				if ( subMtl )
+					flattenMaterials ( subMtl, materialMap );
+				else
+					subMtl = material->GetSubMtl ( 0 );
+			}
+		}
 
-        else if ( matId == Class_ID ( BAKE_SHELL_CLASS_ID, 0 ) )
-        {
-            // Read in the first sub-material only
-            flattenMaterials ( material->GetSubMtl ( 1 ), materialMap );
-        }
+		else if ( matId == Class_ID ( BAKE_SHELL_CLASS_ID, 0 ) )
+		{
+			// Read in the first sub-material only
+			flattenMaterials ( material->GetSubMtl ( 1 ), materialMap );
+		}
 
-        /*else if (XRefFunctions::IsXRefMaterial(material))
-        {
-        // Add this material as a leaf
-        materialMap.push_back(material);
-        } */
+		/*else if (XRefFunctions::IsXRefMaterial(material))
+		{
+		// Add this material as a leaf
+		materialMap.push_back(material);
+		} */
 
-        else
-        {
-            // Add this material as a leaf
-            materialMap.push_back ( material );
-        }
-    }
+		else
+		{
+			// Add this material as a leaf
+			materialMap.push_back ( material );
+		}
+	}
 
+
+
+	//---------------------------------------------------------------
+	void GeometryExporter::calculateTriangleMeshTextangentsAndTexbinormals(int channelIndex, 
+																		   Point3List& texTangents,
+																		   Point3List& texBinormals)
+	{
+		Mesh mesh = mTriObject->GetMesh();
+		int numFaces = mesh.getNumFaces();
+		Point3 geometryVertex[3];
+		Point3 textureVertex[3];
+		Point3 basisVectors[2];
+
+		MeshMap& meshMap = mTriObject->GetMesh().Map ( channelIndex );
+
+		TVFace* mapFaces = meshMap.tf;
+		UVVert* mapVerts = meshMap.tv;
+
+		texTangents.clear();
+		texTangents.reserve( 3*numFaces );
+
+		texBinormals.clear();
+		texBinormals.reserve( 3*numFaces );
+
+		for ( int i = 0; i < numFaces; ++i)
+		{
+
+			Face& geomFace = mesh.faces[i];
+			geometryVertex[0] = mesh.verts[ geomFace.v[0] ];
+			geometryVertex[1] = mesh.verts[ geomFace.v[1] ];
+			geometryVertex[2] = mesh.verts[ geomFace.v[2] ];
+
+
+			TVFace& mapFace = mapFaces[i];
+			textureVertex[0] = mapVerts[ mapFace.t[0] ];
+			textureVertex[1] = mapVerts[ mapFace.t[1] ];
+			textureVertex[2] = mapVerts[ mapFace.t[2] ];
+
+			ComputeTangentAndBinormal( textureVertex, geometryVertex, basisVectors );
+
+			Point3 mapNormal = FNormalize( (textureVertex[1] - textureVertex[0]) ^ (textureVertex[2] - textureVertex[1]) );
+			if( mapNormal.z<0 ) 
+			{
+				basisVectors[1] = -basisVectors[1]; //is the UV face flipped? flip the binormal
+			}
+
+			texTangents.push_back(basisVectors[0]);
+			texBinormals.push_back(basisVectors[1]);
+		}
+
+	}
 
 
 

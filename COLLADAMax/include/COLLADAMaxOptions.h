@@ -91,74 +91,41 @@ namespace COLLADAMax
         }
 
         /** Returns, if the editable polygons are exported as triangles.*/
-        bool getExportEPolyAsTriangles() const
-        {
-            return mTriangulate;
-        }
+        bool getExportEPolyAsTriangles() const  { return mTriangulate; }
 
         /** Returns, if XRef are exported.*/
-        bool getIncludeXRefs() const
-        {
-            return mIncludeXrefs;
-        }
+        bool getIncludeXRefs() const { return mIncludeXrefs; }
 
         /** Returns, if tangents are exported.*/
-        bool getExportTangents() const
-        {
-            return mTangents;
-        }
+        bool getExportTangents() const { return mTangents; }
 
         /** Returns, if animations are exported.*/
-        bool getExportAnimations() const
-        {
-            return mAnimations;
-        }
+        bool getExportAnimations() const { return mAnimations; }
 
         /** Returns, if animations are sampled.*/
-        bool getSampleAnimation() const
-        {
-            return mSampleAnimation;
-        }
+        bool getSampleAnimation() const { return mSampleAnimation; }
 
         /** Returns, if an animation clip is exported.*/
-        bool getExportAnimClip() const
-        {
-            return mCreateClip;
-        }
+        bool getExportAnimClip() const { return mCreateClip; }
 
         /** Returns, if the transformations are exported as matrices.*/
-        bool getBakeMatrices() const
-        {
-            return mBakeMatrices;
-        }
+        bool getBakeMatrices() const { return mBakeMatrices; }
 
         /** Returns, if paths are exported as relative paths.*/
-        bool getExportRelativePaths() const
-        {
-            return mRelativePaths;
-        }
+        bool getExportRelativePaths() const { return mRelativePaths; }
 
 		/** Returns, if animations are checked if they are really animated*/
 		bool getCheckIfAnimationsIsAnimated() const { return mCheckIfAnimationIsAnimated;}
 
 
         /** Returns if only the selected parts are exported.*/
-        bool getExportSelected() const
-        {
-            return mSelectionOnly;
-        }
+        bool getExportSelected() const { return mSelectionOnly; }
 
         /** Returns the animation start time.*/
-        TimeValue getAnimationStart() const
-        {
-            return mAnimationStart;
-        }
+        TimeValue getAnimationStart() const { return mAnimationStart; }
 
         /** Returns the animation end time.*/
-        TimeValue getAnimationEnd() const
-        {
-            return mAnimationEnd;
-        }
+        TimeValue getAnimationEnd() const { return mAnimationEnd; }
 
 		/** Returns the directory where the XRef files should be exported to.*/
 		const String& getXRefOutputDir() const { return mXRefOutputDir; }
