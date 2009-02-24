@@ -91,6 +91,9 @@ namespace COLLADAMax
         /** True if object must be deleted by us.*/
         bool mDeleteObject;
 
+		/** True, if normals should be exported*/
+		bool mExportNormals; 
+
 		/** True, if TEXTANGENS and TEXNORMALS should be generated*/
 		bool mExportTextangentsAndNormals; 
 

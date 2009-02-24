@@ -88,7 +88,8 @@ namespace COLLADAMax
 		mTriObject ( 0 ),
 		mGeomObject ( 0 ),
 		mDeleteObject ( false ), 
-		mExportTextangentsAndNormals(documentExporter->getOptions().getExportTangents())
+		mExportNormals( documentExporter->getOptions().getExportNormals() ),
+		mExportTextangentsAndNormals( mExportNormals && documentExporter->getOptions().getExportTangents() )
 	{}
 
 	//---------------------------------------------------------------
@@ -102,7 +103,8 @@ namespace COLLADAMax
 		mTriObject ( 0 ),
 		mGeomObject ( 0 ),
 		mDeleteObject ( false )	, 
-		mExportTextangentsAndNormals(documentExporter->getOptions().getExportTangents())
+		mExportNormals( documentExporter->getOptions().getExportNormals() ),
+		mExportTextangentsAndNormals( mExportNormals && documentExporter->getOptions().getExportTangents() )
 	{}
 
 
@@ -167,7 +169,7 @@ namespace COLLADAMax
 
 		Class_ID id = object->ClassID();
 
-		bool exportEPolyAsTriangles = mDocumentExporter->getOptions().getExportEPolyAsTriangles();
+		bool exportEPolyAsTriangles = mDocumentExporter->getOptions().getExportEPolyAsTriangles() || mExportTextangentsAndNormals;
 
 		if ( !exportEPolyAsTriangles )
 		{
@@ -350,7 +352,10 @@ namespace COLLADAMax
 			else
 				exportPositions();
 
-			exportNormals();
+			if ( mExportNormals )
+			{
+				exportNormals();
+			}
 
 			ChannelList channelList;
 
@@ -1025,7 +1030,10 @@ namespace COLLADAMax
 		triangles.setCount ( numberOfFaces );
 		triangles.setMaterial ( symbol );
 		triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
-		triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+		if ( mExportNormals )
+		{
+			triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+		}
 
 		for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 		{
@@ -1048,7 +1056,10 @@ namespace COLLADAMax
 			{
 				for ( int vertexIndex = 0; vertexIndex < 3; ++vertexIndex )
 				{
-					triangles.appendValues ( face.v[ vertexIndex ], norms->GetNormalIndex ( faceIndex, vertexIndex ) );
+					if ( mExportNormals )
+					{
+						triangles.appendValues ( face.v[ vertexIndex ], norms->GetNormalIndex ( faceIndex, vertexIndex ) );
+					}
 
 					for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 					{
@@ -1088,7 +1099,10 @@ namespace COLLADAMax
 		polylist.setCount ( ( unsigned long ) polylist.getVCountList().size() );
 		polylist.setMaterial ( symbol );
 		polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::VERTEX, "#" + mId + COLLADASW::LibraryGeometries::VERTICES_ID_SUFFIX, offset++ ) );
-		polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+		if ( mExportNormals )
+		{
+			polylist.getInputList().push_back ( COLLADASW::Input ( COLLADASW::NORMAL, "#" + mId + COLLADASW::LibraryGeometries::NORMALS_SOURCE_ID_SUFFIX, offset++ ) );
+		}
 
 		for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 		{
@@ -1109,7 +1123,10 @@ namespace COLLADAMax
 
 				for ( int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex )
 				{
-					polylist.appendValues ( mnFace->vtx[ vertexIndex ], normmalSpec->GetNormalIndex ( faceIndex, vertexIndex ) );
+					if ( mExportNormals )
+					{
+						polylist.appendValues ( mnFace->vtx[ vertexIndex ], normmalSpec->GetNormalIndex ( faceIndex, vertexIndex ) );
+					}
 
 					for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 					{
