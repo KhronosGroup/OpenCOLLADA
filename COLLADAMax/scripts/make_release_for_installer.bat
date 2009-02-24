@@ -1,5 +1,8 @@
 @echo off & setlocal 
 
+REM set VS2005_PATH to your vs2005 installation path
+REM set MAXMAYA_INSTALLER_PATH to the location of the maxmaya installer
+
 SET VERSION=0.8.1.217_alpha
 
 SET DESTINATION=%MAXMAYA_INSTALLER_PATH%\ColladaMaxInstaller\bin
@@ -7,8 +10,7 @@ SET DESTINATION=%MAXMAYA_INSTALLER_PATH%\ColladaMaxInstaller\bin
 SET LOGFILE=release_log.txt
 SET WD=%CD%
 
-
-CALL "C:\netallied\software\vs2005\VC\vcvarsall.bat"
+CALL "%VS2005_PATH%\VC\vcvarsall.bat"
 
 del /Q  %WD%\%LOGFILE%
 
