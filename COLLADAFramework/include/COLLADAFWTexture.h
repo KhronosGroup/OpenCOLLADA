@@ -33,7 +33,11 @@ namespace COLLADAFW
         /** Destructor. */
 		virtual ~Texture();
 
-		/** Returns the id of the sampler.*/
+		/** 
+         * Returns the id of the sampler. 
+         * The sampler id is the array index position in the samplers array 
+         * (see COLLADAFW::EffectCommon::mSamplers from type COLLADAFW::SamplerPointerArray).
+         */
 		SamplerID getSamplerId() const { return mSamplerId; }
 
 		/** Sets the id of the sampler.*/
