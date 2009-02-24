@@ -20,7 +20,10 @@
 namespace COLLADAFW
 {
 
-	/** Declares the storage for the graphical representation of an object. */
+	/** 
+     * Declares the storage for the graphical representation of an object. 
+     * The samplerId is the array index position in the samplers array.
+     */
 	class Sampler 	
 	{
 	public:
@@ -85,6 +88,7 @@ namespace COLLADAFW
 		};
 	
 	private:
+
 		/** The type of the current sampler. */
 		SamplerType mSamplerType;
 
@@ -204,6 +208,9 @@ namespace COLLADAFW
 
 	};
 
+    /** 
+    * The samplerId is the array index position in the samplers array.
+    */
 	typedef PointerArray<Sampler> SamplerPointerArray;
 
 
