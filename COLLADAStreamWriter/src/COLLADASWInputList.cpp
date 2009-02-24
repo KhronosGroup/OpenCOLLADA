@@ -52,8 +52,14 @@ namespace COLLADASW
         case NORMAL:
             return CSWC::CSW_SEMANTIC_NORMAL;
 
-        case TEXCOORD:
-            return CSWC::CSW_SEMANTIC_TEXCOORD;
+		case TEXCOORD:
+			return CSWC::CSW_SEMANTIC_TEXCOORD;
+
+		case TEXTANGENT:
+			return CSWC::CSW_SEMANTIC_TEXTANGENT;
+
+		case TEXBINORMAL:
+			return CSWC::CSW_SEMANTIC_TEXBINORMAL;
 
         case COLOR:
             return CSWC::CSW_SEMANTIC_COLOR;

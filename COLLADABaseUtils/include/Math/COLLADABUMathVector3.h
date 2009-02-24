@@ -25,7 +25,7 @@ namespace COLLADABU
         /** Standard 3-dimensional vector.
             @remarks
                 A direction in 3D space represented as distances along the 3
-                orthoganal axes (x, y, z). Note that positions, directions and
+                orthogonal axes (x, y, z). Note that positions, directions and
                 scaling factors can be represented by a vector, depending on how
                 you interpret the values.
         */
@@ -72,6 +72,13 @@ namespace COLLADABU
             inline Vector3( const Vector3& rkVector )
                     : x( rkVector.x ), y( rkVector.y ), z( rkVector.z )
             {}
+
+			inline void set( Real fX, Real fY, Real fZ )
+			{
+				x = fX;
+				y = fY;
+				z = fZ;
+			}
 
             inline Real operator [] ( size_t i ) const
             {

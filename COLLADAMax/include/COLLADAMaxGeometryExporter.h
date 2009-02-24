@@ -30,6 +30,7 @@
 
 namespace COLLADAMax
 {
+	class TexTangentCalculator;
 
     class ExportNode;
 	struct MorphControllerHelperGeometry;
@@ -51,6 +52,8 @@ namespace COLLADAMax
 
 		/** List of indices.*/
 		typedef std::vector<int> IndicesList;
+
+		typedef std::map<int, TexTangentCalculator*> ChannelIndexTexTangentCalculatorMap;
 
 
 
@@ -92,6 +95,8 @@ namespace COLLADAMax
 		bool mExportTextangentsAndNormals; 
 
         static const String SYMBOL_NAME_PREFIX;
+
+		ChannelIndexTexTangentCalculatorMap mChannelIndexTexTangentCalculatorMap;
 
     public:
         /** Constructor
@@ -179,12 +184,6 @@ namespace COLLADAMax
 
         /** Create list of materials used by this geometry.*/
         void flattenMaterials ( Mtl* material, MaterialList& mtlMap, int materialIndex = -1 );
-
-		/** Calculates the textangents and texbinormals of the current mesh and MeshMap @a meshMap and stores them in 
-		@a texTangents and @a texBinormals. The are not reduces, i.e. no indices are needed since the are always the same.*/
-		void calculateTriangleMeshTextangentsAndTexbinormals(int channelIndex,
-			Point3List& texTangents,
-			Point3List& texBinormals);
 
     };
 

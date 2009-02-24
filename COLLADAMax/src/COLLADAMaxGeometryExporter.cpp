@@ -34,6 +34,9 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include "COLLADAMaxXRefFunctions.h"
 
+#include "COLLADAMaxMeshAccess.h"
+#include "COLLADAMaxTexTangentCalculator.h"
+
 #include <algorithm>
 
 #include <max.h>
@@ -938,9 +941,16 @@ namespace COLLADAMax
 			{
 				continue;
 			}
+			
+			MeshAccess mesh( mTriObject->GetMesh(), channelIndex);
+			TexTangentCalculator* texTangentCalculator = new TexTangentCalculator( &mesh ); 
+			mChannelIndexTexTangentCalculatorMap.insert(std::make_pair(channelIndex, texTangentCalculator));
 
-			calculateTriangleMeshTextangentsAndTexbinormals( channelIndex, texTangents, texBinormals);
+			texTangentCalculator->calculateTriangleMeshTextangents();
 
+	//		calculateTriangleMeshTextangents( channelIndex, texTangents, texBinormals);
+
+			const TexTangentCalculator::VertexTexTangentInfoList& texTangents =  texTangentCalculator->getTexTangents();
 			// textangents
 			size_t texTangentsCount = texTangents.size();
 			COLLADASW::FloatSource texTangentSource ( mGeometriesExporter->mSW );
@@ -958,14 +968,14 @@ namespace COLLADAMax
 
 			for ( size_t j = 0; j < texTangentsCount; ++j)
 			{
-				Point3& texTangent = texTangents[j];
+				COLLADABU::Math::Vector3& texTangent = texTangents[j]->tangent;
 				texTangentSource.appendValues ( texTangent.x, texTangent.y, texTangent.z );
 			}
 			texTangentSource.finish();
 
 
 			// texbinormals
-			size_t texBinormalsCount = texBinormals.size();
+			size_t texBinormalsCount = texTangentsCount;
 			COLLADASW::FloatSource texBinormalSource ( mGeometriesExporter->mSW );
 			String texBinormalSourceId = mId + getTexbinormalSourceIdSuffix( channelIndex );
 			texBinormalSource.setId ( texBinormalSourceId );
@@ -981,11 +991,12 @@ namespace COLLADAMax
 
 			for ( size_t j = 0; j < texBinormalsCount; ++j)
 			{
-				Point3& texBinormal = texBinormals[j];
+				COLLADABU::Math::Vector3& texBinormal = texTangents[j]->biTangent;
 				texBinormalSource.appendValues ( texBinormal.x, texBinormal.y, texBinormal.z );
 			}
 
 			texBinormalSource.finish();
+			texTangentCalculator->clearTexTangentData();
 		}
 
 	}
@@ -1018,10 +1029,12 @@ namespace COLLADAMax
 
 		for ( ChannelList::const_iterator it = channelList.begin(); it != channelList.end(); ++it )
 		{
-			triangles.getInputList().push_back ( COLLADASW::Input ( ( *it <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
-			if ( mExportTextangentsAndNormals && ( *it > 0 ) )
+			int channelIndex = *it;
+			triangles.getInputList().push_back ( COLLADASW::Input ( ( channelIndex <= 0 ) ? COLLADASW::COLOR : COLLADASW::TEXCOORD, "#" + mId + getTextureSourceIdSuffix ( channelIndex ), offset++, channelIndex ) );
+			if ( mExportTextangentsAndNormals && ( channelIndex > 0 ) )
 			{
-				triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::TEXTANGENT, "#" + mId + getTextureSourceIdSuffix ( *it ), offset++, *it ) );
+				triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::TEXTANGENT, "#" + mId + getTextangentSourceIdSuffix( channelIndex ), offset, channelIndex ) );
+				triangles.getInputList().push_back ( COLLADASW::Input ( COLLADASW::TEXBINORMAL, "#" + mId + getTexbinormalSourceIdSuffix( channelIndex ), offset++, channelIndex ) );
 			}
 		}
 
@@ -1046,6 +1059,13 @@ namespace COLLADAMax
 							MeshMap & tmap = mesh.Map ( channel );
 							TVFace& tvFace = tmap.tf[ faceIndex ];
 							triangles.appendValues ( tvFace.t[ vertexIndex ] );
+
+							if ( mExportTextangentsAndNormals && ( channel > 0 ) )
+							{
+								const TexTangentCalculator* texTangentCalculator = mChannelIndexTexTangentCalculatorMap[channel];
+								const TexTangentCalculator::IndicesList& indices = texTangentCalculator->getIndices();
+								triangles.appendValues ( indices[ 3*faceIndex + vertexIndex ] );
+							}
 						}
 					}
 				}
@@ -1166,55 +1186,9 @@ namespace COLLADAMax
 
 
 
-	//---------------------------------------------------------------
-	void GeometryExporter::calculateTriangleMeshTextangentsAndTexbinormals(int channelIndex, 
-																		   Point3List& texTangents,
-																		   Point3List& texBinormals)
-	{
-		Mesh mesh = mTriObject->GetMesh();
-		int numFaces = mesh.getNumFaces();
-		Point3 geometryVertex[3];
-		Point3 textureVertex[3];
-		Point3 basisVectors[2];
+	
 
-		MeshMap& meshMap = mTriObject->GetMesh().Map ( channelIndex );
-
-		TVFace* mapFaces = meshMap.tf;
-		UVVert* mapVerts = meshMap.tv;
-
-		texTangents.clear();
-		texTangents.reserve( 3*numFaces );
-
-		texBinormals.clear();
-		texBinormals.reserve( 3*numFaces );
-
-		for ( int i = 0; i < numFaces; ++i)
-		{
-
-			Face& geomFace = mesh.faces[i];
-			geometryVertex[0] = mesh.verts[ geomFace.v[0] ];
-			geometryVertex[1] = mesh.verts[ geomFace.v[1] ];
-			geometryVertex[2] = mesh.verts[ geomFace.v[2] ];
-
-
-			TVFace& mapFace = mapFaces[i];
-			textureVertex[0] = mapVerts[ mapFace.t[0] ];
-			textureVertex[1] = mapVerts[ mapFace.t[1] ];
-			textureVertex[2] = mapVerts[ mapFace.t[2] ];
-
-			ComputeTangentAndBinormal( textureVertex, geometryVertex, basisVectors );
-
-			Point3 mapNormal = FNormalize( (textureVertex[1] - textureVertex[0]) ^ (textureVertex[2] - textureVertex[1]) );
-			if( mapNormal.z<0 ) 
-			{
-				basisVectors[1] = -basisVectors[1]; //is the UV face flipped? flip the binormal
-			}
-
-			texTangents.push_back(basisVectors[0]);
-			texBinormals.push_back(basisVectors[1]);
-		}
-
-	}
+	
 
 
 
