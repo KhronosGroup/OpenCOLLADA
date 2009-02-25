@@ -134,7 +134,8 @@ namespace COLLADAMaya
         if ( std::ifstream ( mayaAsciiFileName.c_str () ) )
         {
             // TODO Open a dialog and ask the user to save the file under an other name.
-            MGlobal::displayError ( "File already exists!" );
+            //MGlobal::displayError ( "File already exists!\n" );
+            MGlobal::doErrorLogEntry ( "File already exists!\n" );
         }
 
         // Get the current locale value

@@ -218,7 +218,6 @@ namespace COLLADAMaya
         void importNode ( 
             const COLLADAFW::Node* rootNode, 
             MayaNode* parentMayaNode = NULL, 
-            const COLLADAFW::UniqueId* parentNodeId = NULL, 
             const bool createNode = true );
 
         /**

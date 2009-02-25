@@ -37,9 +37,9 @@ namespace COLLADAMaya
         case COLLADASaxFWL::IError::ERROR_SAXPARSER:
             {
                 COLLADASaxFWL::SaxParserError* parserError = ( COLLADASaxFWL::SaxParserError* ) error;
-                MGlobal::displayError ( "Error: " + MString ( parserError->getError ().getErrorMessage ().c_str () ) );
+                //MGlobal::displayError ( "Error: " + MString ( parserError->getError ().getErrorMessage ().c_str () ) );
                 MGlobal::doErrorLogEntry ( "Error: " + MString ( parserError->getError ().getErrorMessage ().c_str () ) );
-                std::cerr << "Error: " << parserError->getError ().getErrorMessage () << endl;
+                //std::cerr << "Error: " << parserError->getError ().getErrorMessage () << endl;
                 break;
             }
         default:

@@ -83,8 +83,8 @@ namespace COLLADAMaya
     // -----------------------------------
     void VisualSceneImporter::importLibraryNodes ( const COLLADAFW::LibraryNodes* libraryNodes )
     {
-        // TODO A library node is always instanciated from the visual scene!
-        // So we can't create the nodes on root!
+        // A library node is always instanciated from the visual scene.
+        // So we can't create the nodes on root.
         const COLLADAFW::NodePointerArray& nodes = libraryNodes->getNodes ();
         size_t numNodes = nodes.getCount ();
         for ( size_t i=0; i<numNodes; ++i )
@@ -98,7 +98,6 @@ namespace COLLADAMaya
     void VisualSceneImporter::importNode ( 
         const COLLADAFW::Node* node, 
         MayaNode* parentMayaNode /*= NULL*/, 
-        const COLLADAFW::UniqueId* parentTransformNodeId /*= NULL*/, 
         const bool createNode /*= true*/ )
     {
         // Check for a parent node name
@@ -139,7 +138,7 @@ namespace COLLADAMaya
         for ( size_t i=0; i<numChildNodes; ++i )
         {
             COLLADAFW::Node* childNode = childNodes [i];
-            importNode ( childNode, mayaNode, &transformNodeId, createNode );
+            importNode ( childNode, mayaNode, createNode );
         }
     }
 
@@ -864,6 +863,7 @@ namespace COLLADAMaya
                 std::cerr << "The referenced transform node doesn't exist!" << endl;
                 return;
             }
+            // The first node is always the reference node for the other instances.
             MayaNode* mayaChildNode = (*childTransformNodes) [0];
             const COLLADAFW::UniqueId& childTransformId = mayaChildNode->getUniqueId ();
             String childNodeName = mayaChildNode->getName ();
@@ -898,10 +898,7 @@ namespace COLLADAMaya
                     MayaDM::parent ( file, childNodePath, parentNodePath, false, false, true, true  );
                     mayaChildNode->setIsCorrectPositioned ( true );
                     mayaChildNode->setParent ( mayaParentNode );
-
-                    // TODO Remove this node from the instances list.
-                    const UniqueIdVec* instanceTransformIds = findTransformInstances ( childTransformId );
-                    size_t numInstances = instanceTransformIds->size ();
+                    childNodePath = mayaChildNode->getNodePath ();
                 }
                 else
                 {
